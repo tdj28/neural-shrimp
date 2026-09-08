@@ -1,0 +1,90 @@
+{
+  "atol": 1e-08,
+  "check_after": 200,
+  "check_every": 40,
+  "cost_readouts": [
+    "gradient_updates",
+    "wall_seconds",
+    "diagnostic_seconds"
+  ],
+  "d": 2,
+  "decay_factor": 0.5,
+  "divergence_threshold": 100000000.0,
+  "experiment_id": "EXP-003",
+  "failure_rule": "Retain every run; show divergent counts separately and make no utility claim from successful-only averages. No seed replacement.",
+  "inference_unit": "seed/task, aggregating the full learning-rate panel within seed",
+  "input_files": {
+    "201": {
+      "path": "experiments/inputs/EXP-003/seed-201.npz",
+      "sha256": "1c66d6c7adfcca18531c049a627cefaa0b1492c901269f044c3a55e050ebc7c3"
+    },
+    "202": {
+      "path": "experiments/inputs/EXP-003/seed-202.npz",
+      "sha256": "37811ae04d30b9e54e278873974e7237f87d344f6af6ceb1ab303fe16e68c48b"
+    },
+    "203": {
+      "path": "experiments/inputs/EXP-003/seed-203.npz",
+      "sha256": "ee12074b1b38f3f217ac99a83e48782f68b779806afdb220a2befbdbecc9929f"
+    },
+    "204": {
+      "path": "experiments/inputs/EXP-003/seed-204.npz",
+      "sha256": "a891bcb00f84aa52bc785486fb2d111f3cda8bf203d5b127e67324718a881590"
+    }
+  },
+  "kind": "utility",
+  "learning_rate_pairs": [
+    [
+      0.3,
+      0.3
+    ],
+    [
+      1.2,
+      1.2
+    ],
+    [
+      1.8,
+      1.8
+    ],
+    [
+      2.5,
+      0.3
+    ],
+    [
+      0.3,
+      2.5
+    ],
+    [
+      2.5,
+      2.5
+    ]
+  ],
+  "max_decays": 2,
+  "max_period": 16,
+  "n_test": 96,
+  "n_train": 24,
+  "n_validation": 48,
+  "policies": [
+    "fixed",
+    "scheduled_decay",
+    "stagnation_decay",
+    "recurrence_decay"
+  ],
+  "primary_readouts": [
+    "terminal_test_mse",
+    "divergence_fraction"
+  ],
+  "question": "Does online full-weight recurrence detection followed by learning-rate reduction improve terminal held-out loss over fixed rates, scheduled decay, or scalar stagnation at matched gradient-update budgets? This is not a test of shrimp-specific geometry.",
+  "ridge": 0.001,
+  "rtol": 1e-06,
+  "seeds": [
+    201,
+    202,
+    203,
+    204
+  ],
+  "stagnation_relative_improvement": 0.001,
+  "status": "exploratory_pilot",
+  "steps": 1200,
+  "tail": 512,
+  "width": 3
+}

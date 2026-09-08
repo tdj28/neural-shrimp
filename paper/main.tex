@@ -1,0 +1,129 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,booktabs,array}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{microtype}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\status}{Private exploratory working draft}
+\title{Do Periodic Windows Help Control Neural Networks?\\
+\large A Research Protocol for Testing the Utility of Shrimp Geometry}
+\author{Authorship to be finalized by the human researcher}
+\date{8 September 2026}
+
+\begin{document}
+\maketitle
+\noindent\textbf{\status.} This manuscript specifies questions and methods. It reports no confirmed neural-network shrimp and no demonstrated optimization or reasoning benefit. The code and any pilot artifacts are exploratory. This document is not a preregistration or publication-ready article.
+
+\medskip
+\noindent\textbf{AI assistance and editorial status.} Generative-AI tools assisted with the research design, code, source checking, and draft. The human selected the research question. Human shaping, artifact inspection, authorship, and final claim approval remain pending. The canonical publication disclosure will be applied at release only when its statements are true. No paid Pro review was requested or run.
+
+\begin{abstract}
+Shrimp-shaped periodic windows organize stable dynamics in some nonlinear systems, including small recurrent neural networks. Their presence alone does not imply useful computation. We propose a staged study separating existence of neural periodic orbits, verification of their parameter-space organization, and operational value. The central hypothesis is that measured window geometry improves intervention choices beyond equally funded diagnostics based on loss, recurrence, and local stability. An initial implementation studies deterministic full-batch training of a tiny tanh network in a plane of layer learning rates, with classical-map controls and a pilot comparison of learning-rate reduction triggers. That comparison can test recurrence as a diagnostic, but cannot establish shrimp-specific utility. A subsequent held-out experiment would compare map-informed interventions with matched baselines, charge mapping and diagnostic overhead, and measure task quality under a fixed total resource budget. A later latent-reasoning extension would distinguish useful transient sensitivity from attracting cycles that obstruct correct answers. All benefits remain hypotheses to be tested.
+\end{abstract}
+
+\section{Why a periodic window might matter}
+Repeated dynamics can be stable without being useful. A training run that reaches a nontrivial attracting cycle ceases to make asymptotic progress under its fixed update, yet its predictions may already be adequate. A recurrent solver can return the correct answer while its internal state keeps moving. Conversely, a stable but incorrect answer can waste an inference budget. The question is therefore operational: does knowledge of periodic-window organization improve quality, reliability, or resource use?
+
+A \emph{shrimp} denotes a characteristic organization of periodic windows in a control-parameter plane, rather than a region of the evolving state space. Gallas described such domains for the H\'enon map \citep{gallas1993}. Neural-network existence is already established in a specific precedent: da Silva and Rech report shrimp structures in a three-neuron continuous-time Hopfield-type system with tanh activations \citep{dasilva2022}. That precedent does not identify their utility for learning.
+
+Two recent motivations concern different spaces. Sohl-Dickstein's preprint and companion article examine training success across hyperparameters \citep{sohldickstein2024,sohldicksteinblog2024}. Lai and colleagues' preprint reports transient dynamics from slices of initial latent states in recurrent reasoning models \citep{lai2026}. Neither map, as presented, identifies the primitive periodic orbits and parameter bifurcations required by this study.
+
+\paragraph{Prior work, proposed contribution, and non-claims.}
+Oscillating optimization and a period-doubling route to chaos already appear in neural training research \citep{cohen2021,kalra2025}. Our proposed contribution is an incremental-value test of parameter-window geometry. We do not claim first neural shrimps, universal periodicity, a general need to suppress chaos, or any large-model speedup. No result in this draft supports those claims.
+
+\section{State, controls, and utility are separate objects}
+For a deterministic training problem $\mathcal{D}$, write
+\begin{equation}
+ \theta_{t+1}=F_\eta(\theta_t)
+ =\theta_t-D_\eta\nabla L_{\mathcal D}(\theta_t),\qquad
+ D_\eta=\operatorname{diag}(\eta_1 I,\eta_2 I).
+\end{equation}
+Weights $\theta$ are state variables; positive layer learning rates $\eta=(\eta_1,\eta_2)$ are controls. For latent inference, a fixed model and problem instead define $h_{t+1}=G_\alpha(h_t;x)$. The hidden state evolves while weights are controls. Every evolving cache, auxiliary latent, momentum variable, or schedule phase must be included when defining an autonomous map.
+
+Continuous gradient flow has a restrictive property:
+\begin{equation}
+ \dot\theta=-\nabla L(\theta)
+ \quad\Longrightarrow\quad
+ \frac{dL}{dt}=-\|\nabla L(\theta)\|^2.
+\end{equation}
+It cannot support a nonconstant periodic orbit, since integrating the right-hand side over a period forces the gradient to vanish throughout. Finite-step gradient descent need not retain monotonic loss. This distinction permits a periodic-orbit search but does not guarantee shrimp organization.
+
+The utility of a dynamical regime must be measured independently of its label. For training, candidate endpoints are validation error at a total computation budget and computation to a fixed quality threshold. For reasoning, they are correctness at a budget, incorrect termination, and latency. Attraction and periodicity are predictors, not utility definitions.
+
+\section{From recurrence to verified parameter structure}
+A periodic point of primitive period $p$ satisfies $F_\eta^p(\theta)=\theta$ without satisfying a smaller-period equation. Scalar loss recurrence is insufficient because many weight states can share a loss value. The pilot searches full-state tails over repeated cycles, checks a nonzero cycle amplitude relative to numerical tolerance, rejects smaller periods, and evaluates closure independently.
+
+For a verified orbit $\theta_0,\ldots,\theta_{p-1}$, define its period Jacobian product
+\begin{equation}
+ M_p=DF_\eta(\theta_{p-1})\cdots DF_\eta(\theta_0).
+\end{equation}
+A spectral radius $\rho(M_p)<1$, separated from the threshold by numerical error, establishes local attraction of an isolated orbit. It does not measure basin size. Flat or symmetry-related directions can produce neutral multipliers; near-unit values require an explicit nonhyperbolic or unresolved status. Discarding them to manufacture stability is impermissible.
+
+Verified periodic pixels are still insufficient to name a shrimp. A later stage must continue periodic branches and locate their saddle-node and period-doubling boundaries around connected isoperiodic regions. Longer horizons, changed precision, and multiple initial states assess transient misclassification and multistability. The initial H\'enon control tests the numerical instrument, not the validity of the neural conclusion.
+
+The chosen parameter coordinates matter for geometric predictors. A nonlinear axis transformation changes widths, normals, and visual shape. The study must therefore freeze meaningful coordinates, such as log learning rates, and distinguish coordinate-dependent distances from bifurcation organization.
+
+\section{Experiments and their permitted inferences}
+\subsection{Initial exploratory implementation}
+The initial target is deterministic full-batch training of a tiny tanh network over two layer learning rates. The network has two inputs, three hidden units, one scalar output, and biases in both layers. All thirteen parameters evolve. The objective is half mean squared error plus $0.001\|\theta\|^2/2$, including biases in the penalty. Predictive MSE excludes that penalty. Data come from a random tanh teacher with independent standard-normal input splits containing 24 training, 48 validation, and 96 test examples. Teacher metadata, all splits, and initial states are prepared before the freeze, bound by manifest hashes, and verified when loaded. This is inspired by the fractal-training construction rather than an exact replication.
+
+The result-free manifests specify a 65-cell H\'enon control with 3,000 updates per cell and a $9\times9$ learning-rate training scan for seeds 101 and 102 with 2,000 updates per cell. Each neural seed defines both a task and its one initialization, so task and initialization variation are not separately estimated. Scans retain up to 512 tail states and screen periods up to 16 in float64. All requested cases, including divergence, unresolved states, and failed orbit checks, must remain in the census. Bounded aperiodic-looking tails are not automatically classified as chaos.
+
+The first utility comparison uses four task/initialization seeds, 201 through 204, and six initial rate pairs, for 96 runs across four policies. The policies are fixed-rate training, predetermined scheduled decay, scalar stagnation-triggered decay, and recurrence-triggered decay. Each run has a maximum of 1,200 gradient updates. Every decay halves both rates, with at most two decays. The schedule acts at updates 400 and 800; adaptive rules inspect every 40 updates from update 200. Recurrence uses full-weight screening rather than online orbit certification. Each policy is executed separately, but paths are identical until the first differing intervention. Every generated state, pre-update regularized loss, realized learning rate, and trigger is retained.
+
+The pilot's primary readouts are terminal test MSE and divergence fraction. Test and validation outcomes do not trigger interventions. Its descriptive report presents a policy mean only when all corresponding runs are finite, together with failures, triggers, costs, and seed-level records. It provides no inferential p-values or confidence intervals. This differs from the proposed fixed-resource validation endpoint of the later held-out study.
+
+Both adaptive detectors wait at least two check intervals after a rate change. The recurrence detector uses only states from the current constant-rate segment, and stagnation uses two loss windows from that segment. The finite-history trigger is not an independent certificate of a periodic orbit.
+
+This comparison can test whether recurrence is a useful diagnostic. It contains no intervention that uses shrimp geometry, so it cannot support a geometry-specific benefit. Equal maximum update budgets also do not establish equal total cost or a speedup; divergent runs stop early. Reported wall time includes common pilot instrumentation, not just an optimized policy implementation. Diagnostic overhead and memory costs require separate accounting. Pilot execution follows the full code and plan commit and push; no target outcomes are required to validate this design.
+
+\subsection{Proposed held-out geometry experiment}
+The main hypothesis is that geometry provides predictive and control information beyond simpler observables. This stage is not yet implemented or prospectively frozen. Its machine plan must bind the exact sample, features, thresholds, interventions, budgets, and analysis before held-out outcomes exist.
+
+Use separate problems and seeds for discovery, controller development, and evaluation. A synthetic teacher or data-generating problem is the independent task unit. Nearby map pixels and repeated time points are not independent replications. Hold out whole windows or spatial blocks in addition to tasks to avoid reporting local interpolation as transfer.
+
+The predictive comparison uses identical fitted models and tuning budgets. Baseline features include recent loss, progress, gradient and update norms, recurrence residual, and a finite-time stability diagnostic. The augmented model adds measured period, boundary distance, local width, and boundary direction. Its label is future task utility after a specified intervention, not recurrence itself.
+
+The control comparison branches common checkpoints into a frozen action set. Required baselines include a predetermined schedule, stagnation, recurrence, local stability, and ordinary locally sampled performance maps with matched scan costs. Compare random intervention directions of equal norm with geometry-informed directions. Give comparators the same doses, opportunities, and tuning budgets. This distinguishes geometry from the effects of extra trials or a stronger action set.
+
+\subsection{Costs, uncertainty, and failure retention}
+The proposed primary endpoint is paired validation error at a fixed total resource budget. Its exact aggregation, divergence treatment, and practical-effect threshold must be frozen after the pilot and before held-out evaluation. A complementary target-attainment endpoint treats unsolved cases as budget-censored. Reasoning experiments instead require exact task correctness at equal total inference cost.
+
+Charge map construction, controller tuning, failed probes, Jacobian calculations, state storage, transfers, and extra validation calls. Report cold-start cost and explicitly amortized cost for a declared number of future runs. The experimentally reused prefix of several policies is charged to each hypothetical deployed policy. No transfer of an atlas across tasks is assumed free.
+
+Use paired task-level estimates with seed variation retained inside tasks. Freeze the cluster-bootstrap procedure, number of draws, primary contrast, multiplicity rule, and missingness handling before evaluation. Report intervention effects alongside the unselected prevalence of problematic cycles. Rescue rates in an enriched collection of traps do not establish population-level savings.
+
+\section{A mechanistic extension to latent reasoning}
+Stable repetition and transient delay require different interventions. The Lai et al. preprint uses decoded settling and reports transient structure; its appendices also describe excluded capped or inconsistent slices and distinguish slim fractals \citep{lai2026}. Our utility extension would retain failures and measure both decoded correctness and full-state recurrence.
+
+A clean starting intervention is positive relaxation,
+\begin{equation}
+ G_\alpha(h)=(1-\alpha)h+\alpha F(h),\qquad \alpha>0.
+\end{equation}
+It preserves the fixed-point equation: $G_\alpha(h)=h$ if and only if $F(h)=h$. At a fixed point, each eigenvalue $\lambda$ of $DF$ becomes
+\begin{equation}
+ \mu=1-\alpha+\alpha\lambda.
+\end{equation}
+Hence positive relaxation cannot stabilize a real $\lambda>1$ direction, though it can change oscillatory stability. This is a local algebraic fact, not a guarantee of global accuracy or faster convergence. Relaxation can change basins, transients, and nontrivial cycles.
+
+Two controls preserving the fixed-point equation could be relaxation and momentum, with the previous iterate included in the state. Feedback gain is another experimental control but generally changes the fixed-point equation, so it changes the solver and requires a different interpretation. Compare damping, restarts, and geometry-informed actions against residual and stagnation policies on untouched tasks, with matched total inference budgets.
+
+\section{Results status}
+No empirical result is asserted by this manuscript. Pilot artifacts, when generated, must be linked to their immutable configuration, code revision, raw outcomes, and verification report in the repository. They remain exploratory and are not substituted for the proposed held-out test. No plot or numerical placeholder is presented as evidence.
+
+\section{Discussion}
+This section develops hypotheses beyond the current evidence; the repository has not established that shrimp geometry improves neural computation. The plausible practical use is a decision aid: recognize a costly dynamical regime and choose an intervention with a favorable quality--cost tradeoff. The distinctive contribution, if one exists, would come from parameter organization predicting which direction to move and how robust the destination is.
+
+There are several informative failure outcomes. If ordinary recurrence matches the geometry method, the simpler diagnostic may be sufficient for the tested population. If mapping overhead erases per-run gains, there is no demonstrated net benefit at that deployment scale. If an intervention accelerates training loss reduction while harming validation quality, both effects must be reported. If no verified neural shrimp is found, the finite search constrains only its specified range and resolution.
+
+There is no blanket prescription to seek or avoid these regions. For a task requiring a single fixed answer, an incorrect attracting cycle is a candidate failure mode. A stable cycle with correct readout could instead be harmless or support a stopping rule. Transient sensitivity may be productive. Those possibilities are separated by measured task outcomes, not by the appearance of a parameter-space picture.
+
+\section*{Reproducibility and research status}
+The private repository contains the executable pilot, configuration files, a research plan, a claim ledger, and reference provenance. The initial program is exploratory and has no registry record. Private Git history supports internal chronology but is not public prospective verification. Any eventual confirmatory study requires a fresh frozen design, preserved failures and amendments, complete cost receipts, and outcome-linked claims. Human editorial review and release decisions remain pending; routine local audits do not require paid Pro review.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}
