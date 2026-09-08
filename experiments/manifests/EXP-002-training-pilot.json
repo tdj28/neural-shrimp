@@ -1,0 +1,55 @@
+{
+  "atol": 1e-08,
+  "d": 2,
+  "divergence_threshold": 100000000.0,
+  "experiment_id": "EXP-002",
+  "inference_unit": "seed/task; adjacent grid points are not independent replicates",
+  "input_files": {
+    "101": {
+      "path": "experiments/inputs/EXP-002/seed-101.npz",
+      "sha256": "ffed8055ae21e6162c265f09369572a11626ce737e5f99d7c3beb01db47a948d"
+    },
+    "102": {
+      "path": "experiments/inputs/EXP-002/seed-102.npz",
+      "sha256": "31617f9c34dda085c049212c297b7ae676b5512f783608f7f3eee25b44ecbfe7"
+    }
+  },
+  "kind": "training_scan",
+  "lr_hidden_values": [
+    0.03,
+    0.1,
+    0.3,
+    0.7,
+    1.2,
+    1.8,
+    2.5,
+    4.0,
+    7.0
+  ],
+  "lr_output_values": [
+    0.03,
+    0.1,
+    0.3,
+    0.7,
+    1.2,
+    1.8,
+    2.5,
+    4.0,
+    7.0
+  ],
+  "max_period": 16,
+  "n_test": 96,
+  "n_train": 24,
+  "n_validation": 48,
+  "question": "Are full-state periodic candidates detectable in a small deterministic tanh training map? No absence claim follows from an empty finite grid.",
+  "ridge": 0.001,
+  "rtol": 1e-06,
+  "seeds": [
+    101,
+    102
+  ],
+  "status": "exploratory_pilot",
+  "steps": 2000,
+  "tail": 512,
+  "width": 3
+}

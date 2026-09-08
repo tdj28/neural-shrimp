@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neural-shrimp"
+version = "0.1.0"
+description = "Reproducible exploratory studies of periodic neural dynamics and their utility"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0", "scipy>=1.14", "matplotlib>=3.9"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+neural-shrimp = "neural_shrimp.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
