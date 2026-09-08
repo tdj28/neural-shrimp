@@ -1,6 +1,14 @@
 # Do periodic-window geometries improve neural-network control?
 
-**Status:** private exploratory research program, 2026-09-08. This is a design and implementation roadmap, not a completed study or preregistration. Pilot outcomes remain exploratory permanently. The repository is private by human request. No public release, registry submission, paid Pro review, or GPU rental is authorized by this document.
+**Status:** private exploratory research program, 2026-09-08. The initial pilots are complete; the main geometry-utility study remains a design roadmap, not a completed study or preregistration. Pilot outcomes remain exploratory permanently. The repository is private by human request. No public release, registry submission, paid Pro review, or GPU rental is authorized by this document.
+
+## Initial outcome and the next decision
+
+The first pilots were executed from source `bd3d733b51e9f1ae9247ba712633aca023e7afac` after its private push. Their raw attempts, hashes, and descriptive summaries are retained under `evidence/`; see the manuscript's **Initial pilot results** section and the [dated claim-ledger update](claim-ledger.md#2026-09-08-initial-pilot-evidence-update). The prospective design below is retained as the record of what was planned. This opening update reports what the outcomes change.
+
+The Hénon control produced numerically verified attracting periodic orbits, while the tiny neural scan did not. The recurrence policy never triggered; independently compared fixed/recurrence pairs have identical saved trajectories and predictive outcomes. All utility policies have divergent runs, so the predeclared all-finite mean test-loss summaries remain undefined. There is no demonstrated neural shrimp, diagnostic intervention benefit, or geometry-specific advantage.
+
+The appropriate continuation has two stages. First, document a new bounded **local exploratory** search for a reproducible neural periodic regime, using a published small-model precedent as an additional positive control if useful, longer-horizon diagnostics, and targeted parameter refinement. Second, if a regime is verified, build controlled interventions that measure task benefits and harms, then graduate to the held-out incremental-geometry test described below. The present pilot must not be silently recycled as a confirmatory evaluation or turned into a global absence claim. Paid computation and paid Pro review were not used; a paid scale-up is not justified by these pilots alone.
 
 ## The question that would make this worth a paper
 

@@ -1,13 +1,22 @@
 # Neural shrimp: do periodic windows help us manage neural networks?
 
-Private exploratory research project. No new neural-network shrimp finding or
-practical advantage is established. The question is whether information about
+Private exploratory research project. The first three local pilots are complete;
+no new neural-network shrimp finding or practical advantage is established.
+The question is whether information about
 periodic windows improves a training or inference decision after paying for its
 measurement, compared with ordinary loss, recurrence, and stability diagnostics.
 
 We separate three claims: periodic orbit existence, utility of detecting cycles,
 and incremental utility of shrimp geometry. They require different evidence.
 The first implementation uses small deterministic CPU models in float64.
+
+The initial instrument verified cycles in the Hénon control, but found no
+verified cycles in the coarse neural scan. The recurrence policy never
+triggered in the separate utility pilot and matched the fixed-rate trajectories
+exactly. These finite pilot results are preserved in [the evidence](evidence/README.md)
+and do not establish absence of neural shrimps or general futility of dynamical
+control. [Next experiments](docs/next-steps.md) start with a neural periodic
+positive control before extending the search.
 
 ## What is implemented
 
@@ -66,7 +75,8 @@ decisions: policies inspect only training loss or full training state.
 
 ## Paper and resources
 
-The six-page [working manuscript](paper/main.tex) is a private research draft,
+The [working manuscript PDF](paper/neural-shrimp-working-draft.pdf)
+([LaTeX source](paper/main.tex)) is a private research draft,
 not a submission-ready paper. Build from `paper/` with `pdflatex main`,
 `bibtex main`, then `pdflatex main` twice. References resolve to primary sources.
 
