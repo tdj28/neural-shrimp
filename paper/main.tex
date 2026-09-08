@@ -8,20 +8,21 @@
 \usepackage{microtype}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\status}{Private exploratory working draft}
+\input{generated-pilot.tex}
 \title{Do Periodic Windows Help Control Neural Networks?\\
-\large A Research Protocol for Testing the Utility of Shrimp Geometry}
+\large An Exploratory Pilot and Protocol for Testing Shrimp Geometry}
 \author{Authorship to be finalized by the human researcher}
 \date{8 September 2026}
 
 \begin{document}
 \maketitle
-\noindent\textbf{\status.} This manuscript specifies questions and methods. It reports no confirmed neural-network shrimp and no demonstrated optimization or reasoning benefit. The code and any pilot artifacts are exploratory. This document is not a preregistration or publication-ready article.
+\noindent\textbf{\status.} This manuscript reports initial local pilots and specifies follow-up questions and methods. It reports no confirmed neural-network shrimp and no demonstrated optimization or reasoning benefit. All pilot artifacts are exploratory. This document is not a preregistration or publication-ready article.
 
 \medskip
-\noindent\textbf{AI assistance and editorial status.} Generative-AI tools assisted with the research design, code, source checking, and draft. The human selected the research question. Human shaping, artifact inspection, authorship, and final claim approval remain pending. The canonical publication disclosure will be applied at release only when its statements are true. No paid Pro review was requested or run.
+\noindent\textbf{AI assistance and editorial status.} Generative-AI tools assisted with the research design, code, execution, local audits, source checking, and draft. The human selected the research question. Human shaping, artifact inspection, authorship, and final claim approval remain pending. The canonical publication disclosure will be applied at release only when its statements are true. No paid Pro review was requested or run.
 
 \begin{abstract}
-Shrimp-shaped periodic windows organize stable dynamics in some nonlinear systems, including small recurrent neural networks. Their presence alone does not imply useful computation. We propose a staged study separating existence of neural periodic orbits, verification of their parameter-space organization, and operational value. The central hypothesis is that measured window geometry improves intervention choices beyond equally funded diagnostics based on loss, recurrence, and local stability. An initial implementation studies deterministic full-batch training of a tiny tanh network in a plane of layer learning rates, with classical-map controls and a pilot comparison of learning-rate reduction triggers. That comparison can test recurrence as a diagnostic, but cannot establish shrimp-specific utility. A subsequent held-out experiment would compare map-informed interventions with matched baselines, charge mapping and diagnostic overhead, and measure task quality under a fixed total resource budget. A later latent-reasoning extension would distinguish useful transient sensitivity from attracting cycles that obstruct correct answers. All benefits remain hypotheses to be tested.
+Shrimp-shaped periodic windows organize stable dynamics in some nonlinear systems, including small recurrent neural networks. Their presence alone does not imply useful computation. We separate existence of neural periodic orbits, verification of their parameter-space organization, and operational value. In initial local pilots, the numerical instrument identified attracting nontrivial cycles in \HenonCycles{} of \HenonTrials{} H\'enon grid cells. A tiny tanh training scan found \TrainingCycles{} such cycles among \TrainingTrials{} cells, with \TrainingUnresolved{} unresolved and \TrainingDivergent{} operationally divergent cases. The recurrence-triggered learning-rate policy never intervened in its \PolicyTrials{} runs and reproduced the fixed-rate trajectories exactly; all four policies had \PolicyDivergent{} divergent cases each. These results demonstrate neither neural shrimps nor a control advantage. They motivate a staged continuation: first identify and verify a neural periodic regime, then test whether its geometry improves intervention choices beyond equally funded loss, recurrence, and local-stability diagnostics on held-out tasks. Any claimed benefit must include mapping costs and retain failed cases. Latent reasoning remains a proposed extension.
 \end{abstract}
 
 \section{Why a periodic window might matter}
@@ -111,18 +112,40 @@ Hence positive relaxation cannot stabilize a real $\lambda>1$ direction, though 
 
 Two controls preserving the fixed-point equation could be relaxation and momentum, with the previous iterate included in the state. Feedback gain is another experimental control but generally changes the fixed-point equation, so it changes the solver and requires a different interpretation. Compare damping, restarts, and geometry-informed actions against residual and stagnation policies on untouched tasks, with matched total inference budgets.
 
-\section{Results status}
-No empirical result is asserted by this manuscript. Pilot artifacts, when generated, must be linked to their immutable configuration, code revision, raw outcomes, and verification report in the repository. They remain exploratory and are not substituted for the proposed held-out test. No plot or numerical placeholder is presented as evidence.
+\section{Initial pilot results}
+The initial runs used the complete code and input revision
+\href{https://github.com/tdj28/neural-shrimp/commit/bd3d733b51e9f1ae9247ba712633aca023e7afac}{\texttt{bd3d733b51e9}} after it was pushed to the private repository. All planned rows were retained. Local receipt verification checked file hashes and the exact trial census. Empirical counts in this manuscript are generated from evidence through \texttt{generated-pilot.tex}; the immutable raw attempts and descriptive reports are retained under \texttt{evidence/}. These are exploratory outcomes.
+
+\begin{center}
+\begin{tabular}{p{0.24\linewidth}p{0.65\linewidth}}
+\toprule
+Pilot & Observed outcome \\
+\midrule
+H\'enon control & \HenonCycles{} of \HenonTrials{} sampled cells had a numerically verified attracting nontrivial periodic orbit. These are cell counts, not counts of distinct windows. \\
+Neural training scan & \TrainingCycles{} verified attracting nontrivial cycles among \TrainingTrials{} cells; \TrainingUnresolved{} unresolved and \TrainingDivergent{} operationally divergent. \\
+Policy comparison & \UtilityTrials{} runs across four policies; each policy had \PolicyDivergent{} divergent cases out of \PolicyTrials{}. The recurrence policy triggered in \RecurrenceTriggers{} runs. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The classical control shows that the instrument can find and numerically verify periodic orbits in the tested H\'enon region. It does not certify shrimp topology or validate an unobserved neural orbit. The neural scan is unresolved with respect to existence outside the tested settings: a finite grid and horizon cannot establish global absence, and unresolved tails are not certified chaos.
+
+For every one of the \PolicyTrials{} task--rate pairs, an independent local comparison found that fixed-rate and recurrence-policy files contained exactly equal saved state, loss, and learning-rate arrays, with NaNs compared at matching positions. Their statuses, completed update counts, and terminal predictive MSE values also matched. The recurrence detector therefore added observation overhead without changing the dynamics in this sample. This is evidence of a non-intervening pilot, not an equivalence test of effective intervention methods.
+
+Every policy retained divergent cases, so the prespecified descriptive report withholds a successful-only mean test MSE. No inferential significance or net-compute advantage is claimed. The runs used local CPU resources with no paid cloud computation; recorded paid compute and paid review spend for these pilots was zero dollars. Local wall time is not a total economic-cost estimate.
+
+\paragraph{What these outcomes change.}
+The next scientific step is regime identification before benefit testing. A separately documented local successor should identify a reproducible nontrivial neural periodic regime, use longer horizons or targeted parameter refinement to distinguish drift and transients, and verify any candidate on the complete state. A published small-model precedent can serve as a second positive control without being described as a new discovery. Only after such a regime is verified should a controlled utility experiment measure when leaving, entering, or remaining in it helps task performance. Further search and controller development remain exploratory; neither the current empty scan nor the inactive trigger warrants paid scale-up.
 
 \section{Discussion}
-This section develops hypotheses beyond the current evidence; the repository has not established that shrimp geometry improves neural computation. The plausible practical use is a decision aid: recognize a costly dynamical regime and choose an intervention with a favorable quality--cost tradeoff. The distinctive contribution, if one exists, would come from parameter organization predicting which direction to move and how robust the destination is.
+This section develops hypotheses beyond the current evidence. The initial pilots did not establish a neural shrimp or a useful recurrence intervention: the neural scan found no verified attracting nontrivial cycle, and the recurrence policy never acted. The plausible practical use remains a decision aid: recognize a costly dynamical regime and choose an intervention with a favorable quality--cost tradeoff. The distinctive contribution, if one exists, would come from parameter organization predicting which direction to move and how robust the destination is.
 
-There are several informative failure outcomes. If ordinary recurrence matches the geometry method, the simpler diagnostic may be sufficient for the tested population. If mapping overhead erases per-run gains, there is no demonstrated net benefit at that deployment scale. If an intervention accelerates training loss reduction while harming validation quality, both effects must be reported. If no verified neural shrimp is found, the finite search constrains only its specified range and resolution.
+There are several informative future failure outcomes. If ordinary recurrence matches an active geometry method, the simpler diagnostic may be sufficient for the tested population. If mapping overhead erases per-run gains, there is no demonstrated net benefit at that deployment scale. If an intervention accelerates training loss reduction while harming validation quality, both effects must be reported. The current finite search constrains only its specified range, horizons, precision, and initialization choices.
 
 There is no blanket prescription to seek or avoid these regions. For a task requiring a single fixed answer, an incorrect attracting cycle is a candidate failure mode. A stable cycle with correct readout could instead be harmless or support a stopping rule. Transient sensitivity may be productive. Those possibilities are separated by measured task outcomes, not by the appearance of a parameter-space picture.
 
 \section*{Reproducibility and research status}
-The private repository contains the executable pilot, configuration files, a research plan, a claim ledger, and reference provenance. The initial program is exploratory and has no registry record. Private Git history supports internal chronology but is not public prospective verification. Any eventual confirmatory study requires a fresh frozen design, preserved failures and amendments, complete cost receipts, and outcome-linked claims. Human editorial review and release decisions remain pending; routine local audits do not require paid Pro review.
+The private repository contains executable pilots, frozen inputs and configurations, immutable raw attempts, descriptive reports, a research plan, a claim ledger, and reference provenance. The initial program is exploratory and has no registry record. Private Git history supports internal chronology but is not public prospective verification. Any eventual confirmatory study requires a fresh frozen design, preserved failures and amendments, complete cost receipts, and outcome-linked claims. Human editorial review and release decisions remain pending; routine local audits do not require paid Pro review.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

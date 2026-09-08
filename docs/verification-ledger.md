@@ -11,5 +11,8 @@
 | Paper | LaTeX/bibliography compile plus six-page PDF visual inspection | Working draft; human publication review pending |
 | GitHub | Private repository creation/push verified live via gh | Remains private |
 
-The final test count and pilot status are recorded in the results update after
-the source freeze. No “verified-live RunPod” or GPU speedup claim is implied.
+At the initial freeze and after evidence packaging, all 52 local tests passed.
+The implementation also passed both push and PR CI runs. The complete pilot
+trial census and receipt hashes passed `tools/summarize_pilots.py`; see the
+[results update](initial-results.md). No “verified-live RunPod” or GPU speedup
+claim is implied.
