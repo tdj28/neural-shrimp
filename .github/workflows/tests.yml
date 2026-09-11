@@ -26,3 +26,6 @@ jobs:
       - run: python tools/run_hopfield_drift.py validate
       - run: python tools/run_hopfield_drift.py verify --output evidence/EXP-006/attempt-001
       - run: python tools/plot_hopfield_drift.py evidence/EXP-006/attempt-001 --destination paper/figures --check
+      - run: python tools/run_hopfield_holdout.py validate
+      - run: python tools/run_hopfield_holdout.py verify --output evidence/EXP-007/attempt-001
+      - run: python tools/plot_hopfield_holdout.py evidence/EXP-007/attempt-001 --destination paper/figures --check

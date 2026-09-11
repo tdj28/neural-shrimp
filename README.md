@@ -98,12 +98,47 @@ Read the [EXP-006 protocol](docs/EXP-006-protocol.md),
 [utility audit](docs/EXP-006-utility-results-audit.md),
 [continuation audit](docs/EXP-006-continuation-results-audit.md), and
 [complete evidence](evidence/EXP-006/attempt-001/receipt.json).
-The next experiment should test a frozen hybrid of local sensitivity for small
-changes and geometric constraints for larger changes against stronger local and
-equally funded task-quality methods. A coupled controller must then succeed
-under held-out disturbance streams. Neither an optimization speedup nor
-trained-model transfer follows from the present fixed-network task. See the
-[concrete next steps](docs/next-steps.md).
+EXP-007 below executes the next one-step comparison. Neither an optimization
+speedup nor trained-model transfer follows from the fixed-network task. See
+the [concrete next steps](docs/next-steps.md).
+
+## Stronger controls at new starting weights: EXP-007
+
+**The proposed hybrid does not establish a resolved advantage.** A separate
+prospective freeze tests 12 new starts outside exclusion neighborhoods of the
+old anchors, with four new orbit phases. All **4,032 previews and 2,784 target
+evaluations** complete. Policy selection uses simulator time 0–75; primary
+waveform scoring uses 75.1–300. This is a new-intervention test on the known
+atlas, not an unseen network or independent future time sample.
+
+At the largest radius, hybrid RMSE is **0.115448 versus 0.260336** for signed
+local sensitivity, but the paired interval **[−0.045524, 0.353194] includes
+zero** and only 6/12 anchors favor hybrid. Augmented search has lower mean
+error, 0.076644. Every primary pooled comparison is unresolved. The frozen
+example again favors local over hybrid and remains in the paper.
+
+The tangent and coordinate policies select **exactly the same actions in
+192/192 conditions**: changing gamma while holding alpha fixed. Their 384
+coarse/fine target arrays are identical. Their performance here supplies no
+independent evidence that detailed shrimp geometry is needed. This is a useful
+explanation of the apparent tangent benefit, not a reason to deny the measured
+rhythms or claim gamma-only updates are universally best.
+
+![New-start waveform policy results](paper/figures/neuralshrimp-holdout-utility.png)
+
+The manuscript now has three additional empirical plates:
+[new starts and exclusion neighborhoods](paper/figures/neuralshrimp-holdout-anchors.png),
+[all policy comparisons](paper/figures/neuralshrimp-holdout-utility.png), and the
+[frozen waveform example](paper/figures/neuralshrimp-holdout-waveforms.png).
+Read the [protocol](docs/EXP-007-protocol.md),
+[independent results audit](docs/EXP-007-results-audit.md), and
+[complete receipt](evidence/EXP-007/attempt-001/receipt.json).
+
+The [new unreviewed dynamical-memory preprint](https://arxiv.org/abs/2609.07341v1)
+is documented in a [critical reading note](docs/literature/2026-09-11-aguilera-demartino.md).
+It motivates a separate crosstalk hypothesis. Its capacity results have not been
+replicated here; the note includes executable checks of printed inconsistencies
+and distinguishes encoding spectra from orbit stability.
 
 ## Implemented instruments
 

@@ -1,0 +1,2586 @@
+{
+  "anchor": "holdout-08",
+  "phase": 337,
+  "radius": 0.004,
+  "previews": [
+    {
+      "candidate": 0,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c00.npz",
+      "status": "complete",
+      "score": 0.36826994361062165,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.002517292293316986,
+        "synchronous_rms": {
+          "aggregate": 0.37199534519613064,
+          "per_component": [
+            0.2272775832662653,
+            0.2611353972696801,
+            0.5434103559743938
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.36826994361062165,
+          "per_component": [
+            0.21595346282715927,
+            0.2589472122753336,
+            0.5414597835931153
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.04244942982667027,
+              "per_component": [
+                0.05665467032926939,
+                0.04011117824097906,
+                0.024232292252909553
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.052727614012189374,
+              "per_component": [
+                0.048430494725476975,
+                0.03519166240578147,
+                0.06896838345226268
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.5120559164394737,
+              "per_component": [
+                0.31687788846679543,
+                0.35483302261444194,
+                0.7485223540717616
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.5056795880320478,
+              "per_component": [
+                0.30206784666818465,
+                0.3521696783066394,
+                0.742877561208729
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 1.3148612750923825,
+              "per_component": [
+                0.11342528856089358,
+                1.083391457040847,
+                1.9999945432271777
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 1.313603274298911,
+              "per_component": [
+                0.08309366483564617,
+                1.081562738199533,
+                1.9999945432297983
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.37199534519613064,
+          "refinement_success": true,
+          "refinement_evaluations": 23,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.044327166862785816
+    },
+    {
+      "candidate": 1,
+      "direction": [
+        0.9238795325112867,
+        0.3826834323650898
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c01.npz",
+      "status": "complete",
+      "score": 0.3297274478636609,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.0014116885822739178,
+        "synchronous_rms": {
+          "aggregate": 0.3312653853173667,
+          "per_component": [
+            0.1578442115468702,
+            0.20793261969475957,
+            0.5109398174701318
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.3297274478636609,
+          "per_component": [
+            0.14796059628220284,
+            0.20605775028453963,
+            0.5116721949837991
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.03808939490097878,
+              "per_component": [
+                0.05028617506685519,
+                0.03564653148228816,
+                0.023516619701733407
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.03457231884186701,
+              "per_component": [
+                0.038209822352423255,
+                0.027398886976419224,
+                0.037081614832161755
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.452966677130255,
+              "per_component": [
+                0.2125270648229788,
+                0.2806696129210385,
+                0.7011371098948891
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.45115670417852705,
+              "per_component": [
+                0.20151671364281262,
+                0.27882434178581705,
+                0.7016232006754048
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 1.308030106345814,
+              "per_component": [
+                0.5393013474307644,
+                0.918871186477365,
+                1.999414433438492
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 1.3008963390155182,
+              "per_component": [
+                0.4855748150358813,
+                0.9184513470758201,
+                1.9994144334403046
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.3312653853173667,
+          "refinement_success": true,
+          "refinement_evaluations": 14,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.044052207842469215
+    },
+    {
+      "candidate": 2,
+      "direction": [
+        0.7071067811865476,
+        0.7071067811865475
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c02.npz",
+      "status": "complete",
+      "score": 0.04133315896046952,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.0022234385649736454,
+        "synchronous_rms": {
+          "aggregate": 0.06475461570241071,
+          "per_component": [
+            0.0720783666762887,
+            0.049921109424033355,
+            0.06994335318994115
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.04133315896046952,
+          "per_component": [
+            0.04356377881687792,
+            0.030131618045993604,
+            0.04816194408533373
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.028725799233831974,
+              "per_component": [
+                0.03665648196209006,
+                0.026049648168993328,
+                0.021289264555214047
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.04070466250810279,
+              "per_component": [
+                0.03467084867078133,
+                0.02520105610136746,
+                0.05597720673201866
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.08625219458660667,
+              "per_component": [
+                0.0928693808391853,
+                0.06575292818917759,
+                0.09679955449335904
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.041344263752001335,
+              "per_component": [
+                0.049161437030124364,
+                0.03445131786569923,
+                0.03904233909533119
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.13916205685813723,
+              "per_component": [
+                0.2404680019026466,
+                0.016534033624950987,
+                5.084044647805446e-12
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.08956475181533188,
+              "per_component": [
+                0.1546779952680821,
+                0.011842807229418236,
+                1.945937432481078e-12
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.06475461570241071,
+          "refinement_success": true,
+          "refinement_evaluations": 14,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04296808410435915
+    },
+    {
+      "candidate": 3,
+      "direction": [
+        0.38268343236508984,
+        0.9238795325112867
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c03.npz",
+      "status": "complete",
+      "score": 0.02296960477924145,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.0013302693353958173,
+        "synchronous_rms": {
+          "aggregate": 0.038217337318636475,
+          "per_component": [
+            0.040462606505913004,
+            0.028311597091186923,
+            0.04407862928986419
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.02296960477924145,
+          "per_component": [
+            0.023246188446103967,
+            0.016214668285277907,
+            0.027919661285020603
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.016686062269519773,
+              "per_component": [
+                0.01993045913245593,
+                0.01426033851747167,
+                0.015319711691918083
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.022984751068030964,
+              "per_component": [
+                0.019441335667432506,
+                0.014027154342245664,
+                0.03178316777011199
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.05106405979432576,
+              "per_component": [
+                0.05244236790306141,
+                0.037492267716780145,
+                0.06055363340220528
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.022658858514138666,
+              "per_component": [
+                0.02557728909713372,
+                0.01819274407692105,
+                0.02356051682125333
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.07645064369799187,
+              "per_component": [
+                0.13218309199184672,
+                0.007857032326960845,
+                4.104093856217453e-12
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.04699428731873381,
+              "per_component": [
+                0.08124097426103224,
+                0.005029236811426856,
+                1.8601430614903577e-12
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.038217337318636475,
+          "refinement_success": true,
+          "refinement_evaluations": 12,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04342595860362053
+    },
+    {
+      "candidate": 4,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c04.npz",
+      "status": "complete",
+      "score": 0.0023335597516818997,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.00010917484232175756,
+        "synchronous_rms": {
+          "aggregate": 0.003445272733094874,
+          "per_component": [
+            0.002883255867525727,
+            0.002127347269898807,
+            0.0047718908004955015
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.0023335597516818997,
+          "per_component": [
+            0.002179755666570033,
+            0.0015629404141064703,
+            0.0030236378486878323
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.0019881467928913503,
+              "per_component": [
+                0.0016455151442613942,
+                0.0012453824689410838,
+                0.0027567164210910594
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.002429026506634789,
+              "per_component": [
+                0.0025542251350450895,
+                0.0017900855905183112,
+                0.0028234795639291983
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.004437234668611301,
+              "per_component": [
+                0.003662227240688172,
+                0.002744119775024664,
+                0.006174548794111049
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0022321216771486996,
+              "per_component": [
+                0.0016929401173197082,
+                0.0013019162131550567,
+                0.003222742539807501
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.00490824636135476,
+              "per_component": [
+                0.008454691427528402,
+                0.00088929179493261,
+                2.9225342001661486e-13
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.002549674308883632,
+              "per_component": [
+                0.004333990309477399,
+                0.0008479653539500749,
+                5.693113541785742e-14
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.003445272733094874,
+          "refinement_success": true,
+          "refinement_evaluations": 10,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.041813790798187256
+    },
+    {
+      "candidate": 5,
+      "direction": [
+        -0.3826834323650897,
+        0.9238795325112867
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c05.npz",
+      "status": "complete",
+      "score": 0.02495808046652186,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.0014579897327534619,
+        "synchronous_rms": {
+          "aggregate": 0.04193435628656561,
+          "per_component": [
+            0.044357677539619965,
+            0.03132135185285667,
+            0.04823733069839703
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.02495808046652186,
+          "per_component": [
+            0.02526854657429654,
+            0.017860039928796916,
+            0.030186700208610518
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.019275162770485472,
+              "per_component": [
+                0.022657208629654493,
+                0.01626593318673681,
+                0.018348460811824282
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.02473457846621279,
+              "per_component": [
+                0.020864346391442704,
+                0.015011348227058251,
+                0.03427443055351319
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.05578071853185256,
+              "per_component": [
+                0.05740327317185515,
+                0.041275310837512125,
+                0.06584587021380615
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.024937369410466745,
+              "per_component": [
+                0.02822064958573641,
+                0.02035105846009608,
+                0.02559387692115194
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.07740912126265573,
+              "per_component": [
+                0.13328781928999922,
+                0.014521480395818163,
+                2.9229377332365766e-11
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.046220490026533355,
+              "per_component": [
+                0.07926233852166142,
+                0.011246456640033545,
+                2.4435975714048517e-11
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.04193435628656561,
+          "refinement_success": true,
+          "refinement_evaluations": 14,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.042475041933357716
+    },
+    {
+      "candidate": 6,
+      "direction": [
+        -0.7071067811865475,
+        0.7071067811865476
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c06.npz",
+      "status": "complete",
+      "score": 0.053148021442115695,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.003207810013078849,
+        "synchronous_rms": {
+          "aggregate": 0.08794492997657644,
+          "per_component": [
+            0.09313186296021414,
+            0.0664378078059575,
+            0.10057537432817906
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.053148021442115695,
+          "per_component": [
+            0.05303751669071021,
+            0.03789774072356392,
+            0.06499938169680486
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.03978167888546173,
+              "per_component": [
+                0.04555249022950114,
+                0.033050578969933006,
+                0.039753940540296163
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.053420710454364376,
+              "per_component": [
+                0.046158400146563625,
+                0.03311227050398514,
+                0.07303626875962199
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.11729415956560835,
+              "per_component": [
+                0.12160479578221771,
+                0.0880593979860061,
+                0.1368633467138462
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.05250606410767097,
+              "per_component": [
+                0.05782973325925973,
+                0.042153882836737065,
+                0.05611980414422409
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.15396931816630322,
+              "per_component": [
+                0.262780534031719,
+                0.04545375390210928,
+                4.112925125922002e-10
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.08750686847799201,
+              "per_component": [
+                0.1471314653859911,
+                0.0363962633500293,
+                3.932773909208416e-10
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.08794492997657644,
+          "refinement_success": true,
+          "refinement_evaluations": 14,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04304504208266735
+    },
+    {
+      "candidate": 7,
+      "direction": [
+        -0.9238795325112867,
+        0.3826834323650899
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c07.npz",
+      "status": "complete",
+      "score": 0.07435693542151381,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.004566158626196248,
+        "synchronous_rms": {
+          "aggregate": 0.12082031220646734,
+          "per_component": [
+            0.12939328233653216,
+            0.09296500669947388,
+            0.13567435107841855
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.07435693542151381,
+          "per_component": [
+            0.07418426099351379,
+            0.05336996553735842,
+            0.09074802331304484
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.05484928001751179,
+              "per_component": [
+                0.062154822779564745,
+                0.045371727630813416,
+                0.05570919935122419
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.07492827687091017,
+              "per_component": [
+                0.06611822926818882,
+                0.04739013829551457,
+                0.10112019865141948
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.16116038399200633,
+              "per_component": [
+                0.1697563701298007,
+                0.12345681324531915,
+                0.18400869047144838
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.07340300418063113,
+              "per_component": [
+                0.08009229986063035,
+                0.058634937470252405,
+                0.07944287683058632
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.2031602072223296,
+              "per_component": [
+                0.3421605403766399,
+                0.08214848753948832,
+                3.5675832387449455e-09
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.11165974939919814,
+              "per_component": [
+                0.18153912226275146,
+                0.06668767499129769,
+                3.5257639430382743e-09
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.10043816555656912,
+          "refinement_success": true,
+          "refinement_evaluations": 10,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04229050036519766
+    },
+    {
+      "candidate": 8,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c08.npz",
+      "status": "complete",
+      "score": 0.08168177088735323,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.005090168512181581,
+        "synchronous_rms": {
+          "aggregate": 0.13202146446454402,
+          "per_component": [
+            0.1419288059082468,
+            0.10223538884333651,
+            0.1472859143285589
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.08168177088735323,
+          "per_component": [
+            0.08147969041687546,
+            0.0587451597227571,
+            0.09962831597793911
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.06016316331031996,
+              "per_component": [
+                0.06784648275458252,
+                0.049642618127772445,
+                0.06157340255146688
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.08300462251779377,
+              "per_component": [
+                0.07393620031982383,
+                0.05297646439824832,
+                0.1113383787383861
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.17605708728090114,
+              "per_component": [
+                0.18647310577985649,
+                0.135819985274668,
+                0.19942167978007794
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.07997280141458578,
+              "per_component": [
+                0.08705847349526985,
+                0.06381835358650954,
+                0.08680430194679845
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.21863714635646458,
+              "per_component": [
+                0.36587655465833313,
+                0.09767779712934808,
+                7.796230967839403e-09
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.11812419658906262,
+              "per_component": [
+                0.18862424764638697,
+                0.079251944198669,
+                7.738744697511763e-09
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.09933797167481971,
+          "refinement_success": true,
+          "refinement_evaluations": 18,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.03848383296281099
+    },
+    {
+      "candidate": 9,
+      "direction": [
+        -0.9238795325112868,
+        -0.38268343236508967
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c09.npz",
+      "status": "complete",
+      "score": 0.07419995107127096,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.004562165540309415,
+        "synchronous_rms": {
+          "aggregate": 0.12066688339281334,
+          "per_component": [
+            0.12888290928687623,
+            0.09265046160453884,
+            0.13596535551904806
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.07419995107127096,
+          "per_component": [
+            0.07386092178830218,
+            0.05314793404799178,
+            0.09075659510994023
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.054598989767251055,
+              "per_component": [
+                0.06154339273069232,
+                0.04498841891568036,
+                0.05596071859327912
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.07486099696203667,
+              "per_component": [
+                0.0662063990813407,
+                0.047429219998392974,
+                0.10089444191567977
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.161019952323461,
+              "per_component": [
+                0.16920861070545787,
+                0.12312952272496973,
+                0.1843633418969153
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.07315901925161858,
+              "per_component": [
+                0.0794256305315669,
+                0.05820991790063409,
+                0.07974898724272651
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.2026191078381935,
+              "per_component": [
+                0.341542825519003,
+                0.08069700688335568,
+                3.3720600603313718e-09
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.1111042849968057,
+              "per_component": [
+                0.18104300147554353,
+                0.06523739763878234,
+                3.3303343935589094e-09
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.10042330491440543,
+          "refinement_success": true,
+          "refinement_evaluations": 13,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04163445811718702
+    },
+    {
+      "candidate": 10,
+      "direction": [
+        -0.7071067811865477,
+        -0.7071067811865475
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c10.npz",
+      "status": "complete",
+      "score": 0.05417469065069688,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.0032640181042778993,
+        "synchronous_rms": {
+          "aggregate": 0.08961368905519905,
+          "per_component": [
+            0.09424160207311401,
+            0.06735464804446759,
+            0.10331365652102546
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.05417469065069688,
+          "per_component": [
+            0.05375888922106515,
+            0.038453035312631535,
+            0.06660358268335774
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.03986535409472977,
+              "per_component": [
+                0.045069338851570113,
+                0.03282979209615411,
+                0.04072712631281777
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.05434478780689448,
+              "per_component": [
+                0.04728493775973567,
+                0.03387626313903661,
+                0.07400406301090388
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.11975465949885016,
+              "per_component": [
+                0.1234247133230236,
+                0.08952950976477156,
+                0.14062127306160244
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.05364061917660692,
+              "per_component": [
+                0.058220734686126124,
+                0.042558639931913056,
+                0.05857521913491058
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.1560038882660639,
+              "per_component": [
+                0.26640609317011715,
+                0.04516008175619824,
+                4.2150555103449555e-10
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.08838628123893442,
+              "per_component": [
+                0.14883932364947075,
+                0.035822616728990224,
+                4.027943165909261e-10
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.08961368905519905,
+          "refinement_success": true,
+          "refinement_evaluations": 15,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.043394374661147594
+    },
+    {
+      "candidate": 11,
+      "direction": [
+        -0.38268343236509034,
+        -0.9238795325112865
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c11.npz",
+      "status": "complete",
+      "score": 0.02747949230385689,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.0016415402305195448,
+        "synchronous_rms": {
+          "aggregate": 0.046399089941189214,
+          "per_component": [
+            0.047889353734074304,
+            0.03398777889357695,
+            0.05486408048008937
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.02747949230385689,
+          "per_component": [
+            0.02718504229934655,
+            0.019283128403151696,
+            0.03397796235802689
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.020208243257474924,
+              "per_component": [
+                0.022855231057966142,
+                0.016585909415319854,
+                0.02068007032902998
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.027699340219624505,
+              "per_component": [
+                0.023793214152645237,
+                0.01705033330064301,
+                0.03801222751208971
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.062110086335246804,
+              "per_component": [
+                0.06255908530109942,
+                0.04519662653213271,
+                0.07494407428289519
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.02701129784865234,
+              "per_component": [
+                0.029334595597325347,
+                0.021330190185150782,
+                0.029552243945468994
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.08428543161683831,
+              "per_component": [
+                0.14522598950514043,
+                0.014883343735969315,
+                3.35480343401921e-11
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.04922731825919748,
+              "per_component": [
+                0.08455221012632488,
+                0.010995924323619172,
+                2.79036374954414e-11
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.046399089941189214,
+          "refinement_success": true,
+          "refinement_evaluations": 28,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.044497416354715824
+    },
+    {
+      "candidate": 12,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c12.npz",
+      "status": "complete",
+      "score": 0.0019908694292502813,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -8.147389577783937e-05,
+        "synchronous_rms": {
+          "aggregate": 0.0027433070526022485,
+          "per_component": [
+            0.002115737350377733,
+            0.0016041707559537612,
+            0.003940493929005732
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.0019908694292502813,
+          "per_component": [
+            0.001851181485492518,
+            0.0013390491622589148,
+            0.002582781001516279
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.0020438681737024495,
+              "per_component": [
+                0.0016165955089949195,
+                0.0012308340391523202,
+                0.0028989408173991397
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.00213985493579076,
+              "per_component": [
+                0.002220686630387581,
+                0.0015732606662876125,
+                0.002516016534964416
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.003296878248128646,
+              "per_component": [
+                0.0024875610718358104,
+                0.0019090781645726262,
+                0.004772387141084689
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0018354386230462919,
+              "per_component": [
+                0.0013873411066630122,
+                0.0010569316532690577,
+                0.002657947507192568
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.0028473080913172543,
+              "per_component": [
+                0.004831603092085098,
+                0.000988484527544991,
+                3.6784309839648265e-14
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.001176422042001741,
+              "per_component": [
+                0.0017678645582927623,
+                0.0010131936469673377,
+                1.7462624746323024e-13
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.0027433070526022485,
+          "refinement_success": true,
+          "refinement_evaluations": 10,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.03926033340394497
+    },
+    {
+      "candidate": 13,
+      "direction": [
+        0.38268343236509,
+        -0.9238795325112866
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c13.npz",
+      "status": "complete",
+      "score": 0.023164539293560205,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.0011981245589444134,
+        "synchronous_rms": {
+          "aggregate": 0.03615916037875767,
+          "per_component": [
+            0.04001534980762752,
+            0.027792906669315855,
+            0.039354551916316594
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.023164539293560205,
+          "per_component": [
+            0.02431172716255979,
+            0.016915185070682282,
+            0.02706665990562012
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.016218526919361036,
+              "per_component": [
+                0.020937108947330862,
+                0.014880753948660567,
+                0.011372004095546962
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.02271714347885815,
+              "per_component": [
+                0.019176220183036333,
+                0.013971652864599815,
+                0.03138903183024144
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.048133351206758886,
+              "per_component": [
+                0.051386771725233114,
+                0.03645813730660119,
+                0.05459544313375788
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.023286300462687266,
+              "per_component": [
+                0.027600734694784287,
+                0.019471555435240234,
+                0.022041173765390634
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.07539553872842687,
+              "per_component": [
+                0.13037163731634036,
+                0.007529805037699008,
+                4.281047253296631e-12
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.04889334612480641,
+              "per_component": [
+                0.08454319448035098,
+                0.004911838036612818,
+                2.210713039860984e-12
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.03615916037875767,
+          "refinement_success": true,
+          "refinement_evaluations": 14,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04125375021249056
+    },
+    {
+      "candidate": 14,
+      "direction": [
+        0.7071067811865474,
+        -0.7071067811865477
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c14.npz",
+      "status": "complete",
+      "score": 0.05194164947824058,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.0021308271795613676,
+        "synchronous_rms": {
+          "aggregate": 0.07124711543695754,
+          "per_component": [
+            0.0872814438181228,
+            0.059718128829952415,
+            0.06359362411700202
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.05194164947824058,
+          "per_component": [
+            0.06188833965151213,
+            0.042448294183063555,
+            0.04961633387996733
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.029821175145879376,
+              "per_component": [
+                0.039277214010268915,
+                0.027878932955740097,
+                0.018654034900914208
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.04189510503407236,
+              "per_component": [
+                0.03616119724642372,
+                0.026382653743253128,
+                0.05711324603466969
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.09516475013712139,
+              "per_component": [
+                0.11408736471947456,
+                0.07987676433528729,
+                0.08816328451613406
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.05941811128625005,
+              "per_component": [
+                0.07739966656759806,
+                0.05403186333850011,
+                0.04100469736347136
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.17561636102212486,
+              "per_component": [
+                0.30344116925967485,
+                0.02113706635938942,
+                5.869461051662744e-12
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.12818338962210574,
+              "per_component": [
+                0.2212658518767959,
+                0.018285702564394622,
+                2.8360615712421476e-12
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.07124711543695754,
+          "refinement_success": true,
+          "refinement_evaluations": 17,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04244833253324032
+    },
+    {
+      "candidate": 15,
+      "direction": [
+        0.9238795325112865,
+        -0.3826834323650904
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c15.npz",
+      "status": "complete",
+      "score": 0.45738865064472384,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.0027416291309164675,
+        "synchronous_rms": {
+          "aggregate": 0.46083134078760457,
+          "per_component": [
+            0.24923446973114657,
+            0.31057598754686744,
+            0.6917523465904734
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.45738865064472384,
+          "per_component": [
+            0.23760008555886322,
+            0.3083659280732285,
+            0.6899781061466812
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.039451033232116205,
+              "per_component": [
+                0.05258466356630131,
+                0.03725514613212278,
+                0.02271693891213541
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.05573282077919831,
+              "per_component": [
+                0.048975584506395414,
+                0.035728046571760194,
+                0.07512217213607289
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.6410085265177479,
+              "per_component": [
+                0.3488556719567617,
+                0.42742963686190383,
+                0.9634725833572327
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.6348783974682949,
+              "per_component": [
+                0.33298704433303344,
+                0.424384187137942,
+                0.9582428860833506
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 1.3204594111512553,
+              "per_component": [
+                0.1829516440492988,
+                1.094243935631144,
+                1.999999518691913
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 1.3168639295822886,
+              "per_component": [
+                0.10077356488860023,
+                1.0918967171603307,
+                1.9999995186946564
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.46083134078760457,
+          "refinement_success": true,
+          "refinement_evaluations": 17,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04155583307147026
+    },
+    {
+      "candidate": 16,
+      "direction": [
+        0.023633770011105313,
+        -0.9997206834486633
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c16.npz",
+      "status": "complete",
+      "score": 0.0019480599810461872,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 4.886064883358188e-06,
+        "synchronous_rms": {
+          "aggregate": 0.001951354470732906,
+          "per_component": [
+            0.0021293486999380486,
+            0.0015093682905042277,
+            0.002147331900065844
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.0019480599810461872,
+          "per_component": [
+            0.0020816084372900783,
+            0.0014815796466792683,
+            0.002203778830465868
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.002049271056784603,
+              "per_component": [
+                0.002111157544577839,
+                0.0015236951061261127,
+                0.0024124474373682517
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0020589771491002387,
+              "per_component": [
+                0.0020767578386608155,
+                0.0015041079262153546,
+                0.002478486822117044
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.0018459395896137248,
+              "per_component": [
+                0.002131509568792198,
+                0.0014966606220446928,
+                0.0018544953076451694
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.001829018782200016,
+              "per_component": [
+                0.002072216160207247,
+                0.0014603105656144926,
+                0.0018998269274467865
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.002208029263522372,
+              "per_component": [
+                0.0036059743064559484,
+                0.0012740207953141854,
+                5.16867998644077e-13
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0021072631778484697,
+              "per_component": [
+                0.0034221952321320088,
+                0.001268957877677993,
+                5.05844853125376e-13
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.001951354470732906,
+          "refinement_success": true,
+          "refinement_evaluations": 11,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04079733416438103
+    },
+    {
+      "candidate": 17,
+      "direction": [
+        -0.023633770011105313,
+        0.9997206834486633
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c17.npz",
+      "status": "complete",
+      "score": 0.0017625176551976823,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 2.4148273635837825e-05,
+        "synchronous_rms": {
+          "aggregate": 0.0018503109488070847,
+          "per_component": [
+            0.0017147173443543473,
+            0.0012520531533685556,
+            0.0024006372387214902
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.0017625176551976823,
+          "per_component": [
+            0.0018532440192424876,
+            0.001319247805246565,
+            0.002035798931167977
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.001827562252985935,
+              "per_component": [
+                0.0018790735826514913,
+                0.0013420692859415237,
+                0.0021651521582398718
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0018758645297929962,
+              "per_component": [
+                0.002106048530266391,
+                0.0014817512445622107,
+                0.001981306649614746
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.0018793215331122156,
+              "per_component": [
+                0.0015401672153868052,
+                0.0011571391620524417,
+                0.002623825867459572
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0016477789513897956,
+              "per_component": [
+                0.0015677060479792509,
+                0.0011363103266060453,
+                0.0020968125826376334
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.0006044237663017392,
+              "per_component": [
+                0.00036411938723248044,
+                0.0009815301012463047,
+                2.269978695225756e-13
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0006893651215145131,
+              "per_component": [
+                0.0006542687871773343,
+                0.000998801865440618,
+                2.8056465656597616e-13
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.0018503109488070847,
+          "refinement_success": true,
+          "refinement_evaluations": 9,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04115512501448393
+    },
+    {
+      "candidate": 18,
+      "direction": [
+        -0.0,
+        1.0
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c18.npz",
+      "status": "complete",
+      "score": 0.0023335597516818997,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": 0.00010917484232175756,
+        "synchronous_rms": {
+          "aggregate": 0.003445272733094874,
+          "per_component": [
+            0.002883255867525727,
+            0.002127347269898807,
+            0.0047718908004955015
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.0023335597516818997,
+          "per_component": [
+            0.002179755666570033,
+            0.0015629404141064703,
+            0.0030236378486878323
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.0019881467928913503,
+              "per_component": [
+                0.0016455151442613942,
+                0.0012453824689410838,
+                0.0027567164210910594
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.002429026506634789,
+              "per_component": [
+                0.0025542251350450895,
+                0.0017900855905183112,
+                0.0028234795639291983
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.004437234668611301,
+              "per_component": [
+                0.003662227240688172,
+                0.002744119775024664,
+                0.006174548794111049
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0022321216771486996,
+              "per_component": [
+                0.0016929401173197082,
+                0.0013019162131550567,
+                0.003222742539807501
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.00490824636135476,
+              "per_component": [
+                0.008454691427528402,
+                0.00088929179493261,
+                2.9225342001661486e-13
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.002549674308883632,
+              "per_component": [
+                0.004333990309477399,
+                0.0008479653539500749,
+                5.693113541785742e-14
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.003445272733094874,
+          "refinement_success": true,
+          "refinement_evaluations": 10,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04001041688024998
+    },
+    {
+      "candidate": 19,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c19.npz",
+      "status": "complete",
+      "score": 0.0019908694292502813,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -8.147389577783937e-05,
+        "synchronous_rms": {
+          "aggregate": 0.0027433070526022485,
+          "per_component": [
+            0.002115737350377733,
+            0.0016041707559537612,
+            0.003940493929005732
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.0019908694292502813,
+          "per_component": [
+            0.001851181485492518,
+            0.0013390491622589148,
+            0.002582781001516279
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.0020438681737024495,
+              "per_component": [
+                0.0016165955089949195,
+                0.0012308340391523202,
+                0.0028989408173991397
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.00213985493579076,
+              "per_component": [
+                0.002220686630387581,
+                0.0015732606662876125,
+                0.002516016534964416
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.003296878248128646,
+              "per_component": [
+                0.0024875610718358104,
+                0.0019090781645726262,
+                0.004772387141084689
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.0018354386230462919,
+              "per_component": [
+                0.0013873411066630122,
+                0.0010569316532690577,
+                0.002657947507192568
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.0028473080913172543,
+              "per_component": [
+                0.004831603092085098,
+                0.000988484527544991,
+                3.6784309839648265e-14
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.001176422042001741,
+              "per_component": [
+                0.0017678645582927623,
+                0.0010131936469673377,
+                1.7462624746323024e-13
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.0027433070526022485,
+          "refinement_success": true,
+          "refinement_evaluations": 10,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.04023974947631359
+    },
+    {
+      "candidate": 20,
+      "direction": [
+        -0.393992040061048,
+        0.9191138516900578
+      ],
+      "raw": "previews/holdout-08-p337-r0.004-c20.npz",
+      "status": "complete",
+      "score": 0.025851930337107008,
+      "metrics": {
+        "period": 37.37609146215466,
+        "phase_offset_cycles": -0.0015237084272649026,
+        "synchronous_rms": {
+          "aggregate": 0.04342409759113171,
+          "per_component": [
+            0.045911550719323464,
+            0.03243035383904334,
+            0.04997357717067918
+          ]
+        },
+        "aligned_rms": {
+          "aggregate": 0.025851930337107008,
+          "per_component": [
+            0.026094217442908386,
+            0.018454032284299943,
+            0.031360921781033974
+          ]
+        },
+        "windows": [
+          {
+            "index": 0,
+            "first_sample_time": 4.665089934350415,
+            "last_sample_time": 41.96508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.01993665589738702,
+              "per_component": [
+                0.02340181285916931,
+                0.01680784176110758,
+                0.019033190887248405
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.02585819805006793,
+              "per_component": [
+                0.0218103838811932,
+                0.015690166079733347,
+                0.03583385358198283
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "first_sample_time": 42.06508993435041,
+            "last_sample_time": 79.36508993435042,
+            "sample_count": 374,
+            "synchronous_rms": {
+              "aggregate": 0.05777196621305758,
+              "per_component": [
+                0.059437229407159224,
+                0.04274961097949655,
+                0.068209139870478
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.02559869259160539,
+              "per_component": [
+                0.028956844841304265,
+                0.02089357460432456,
+                0.026283813731813935
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "first_sample_time": 79.46508993435042,
+            "last_sample_time": 79.66508993435042,
+            "sample_count": 3,
+            "synchronous_rms": {
+              "aggregate": 0.08001778572738187,
+              "per_component": [
+                0.13775613707240672,
+                0.015224480189086547,
+                3.1790570850060803e-11
+              ]
+            },
+            "aligned_rms": {
+              "aggregate": 0.04745765687574351,
+              "per_component": [
+                0.08135180244338326,
+                0.011771653563546581,
+                2.669223126109743e-11
+              ]
+            }
+          }
+        ],
+        "window_cycles": 1.0,
+        "phase_search": {
+          "coarse_bins": 128,
+          "coarse_best_rms": 0.04342409759113171,
+          "refinement_success": true,
+          "refinement_evaluations": 13,
+          "method": "coarse global scan, bounded refinement around best bin"
+        },
+        "sampling": {
+          "reference_samples_per_cycle": 2700,
+          "candidate_minimum_samples_per_cycle": 373.76091462151476,
+          "candidate_gap_min": 0.09999999999999432,
+          "candidate_gap_max": 0.10000000000000853,
+          "unresolved_reference_power_fraction_per_component": [
+            3.0693609135105826e-09,
+            2.5734036518618208e-12,
+            2.87467143943352e-07
+          ],
+          "candidate_cadence_resolves_reference_spectrum": true,
+          "power_fraction_tolerance": 1e-06,
+          "limitation": "Checks sampled reference spectrum only; does not exclude reference aliasing"
+        }
+      },
+      "wall_seconds": 0.013375707902014256
+    }
+  ],
+  "policies": {
+    "atlas": {
+      "status": "complete",
+      "candidate": 20,
+      "preview_calls": 0
+    },
+    "local": {
+      "status": "complete",
+      "candidate": 17,
+      "preview_calls": 2
+    },
+    "tangent": {
+      "status": "complete",
+      "candidate": 19,
+      "preview_calls": 2
+    },
+    "axes": {
+      "status": "complete",
+      "candidate": 12,
+      "preview_calls": 4
+    },
+    "uniform": {
+      "status": "complete",
+      "candidate": 12,
+      "preview_calls": 16
+    },
+    "search": {
+      "status": "complete",
+      "candidate": 17,
+      "preview_calls": 21
+    },
+    "hybrid": {
+      "status": "complete",
+      "candidate": 17,
+      "preview_calls": 2,
+      "source_policy": "local"
+    }
+  }
+}

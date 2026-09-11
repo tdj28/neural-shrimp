@@ -107,3 +107,20 @@ analysis took 423.866 local seconds, excluding the final verification pass;
 140.54-second atlas cost is separate. Paid compute and paid review spend remain
 zero. A hybrid local/geometry policy and stronger baseline tests are proposed
 in [next-steps.md](next-steps.md), not reported as successes.
+
+## 2026-09-11 EXP-007 and preprint update
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| H1 | The hybrid transfers as a clearly superior policy | Not established: all five primary pooled intervals include zero. Largest-dose local-minus-hybrid benefit 0.144887 [−0.045524,0.353194], positive at 6/12 new starts. |
+| H2 | The tangent benefit independently requires detailed shrimp geometry | Not supported in this sample: tangent and axes choose exactly the same actions in 192/192 conditions, with identical 384 target state arrays across two steps. These are gamma-only actions; no global optimality claim. |
+| H3 | More short previews guarantee better later waveform quality | Rejected for the frozen example: augmented search tail RMSE 0.589753 versus local 0.037763 and hybrid 0.059668. This is an explicitly selected example, not an overall superiority claim for local. |
+| H4 | All individual target scores are numerically converged | Not established: coarse/fine absolute RMSE differences have median 1.303e-7 and maximum 0.234864. Aggregate unresolved comparisons persist. |
+| L1 | The new preprint establishes shrimp control or infinite finite-network capacity | No. The versioned unreviewed work motivates a separate multiple-memory interference hypothesis. Our exact independent-spin checks expose printed inconsistencies; implementation impact remains unknown and its numerical capacities are unreplicated. |
+
+EXP-007 source `ac098c3e3833daaf27c7dc2869d45e8b7085f948` was pushed before
+its only attempt. All 12 baseline attempts qualify; all 4,032 previews and
+2,784 target records complete. No failed attempt was reset or substituted.
+The new starts exclude neighborhoods of EXP006 origins but reuse its old
+atlas; this is not an unseen-network or unseen-map result. The independent
+audit and exact receipt are linked from the README.
