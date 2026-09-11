@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-08 after the initial pilots. The original meanings of claims below are preserved; outcome statuses now cite the retained evidence. No entry is evidence that a modern neural-network shrimp has been found in this repository.
+Status: private exploratory program, updated 2026-09-11 with visual analysis and an exact toy derivation. The original meanings of claims below are preserved; outcome statuses cite the retained evidence. No entry is evidence that a modern neural-network shrimp has been found in this repository.
 
 | ID | Claim | Current status | What would warrant it | What does not warrant it |
 |---|---|---|---|---|
@@ -14,6 +14,8 @@ Status: private exploratory program, updated 2026-09-08 after the initial pilots
 | U3 | The method provides net compute savings | Not established | Matched total budgets including scans, tuning, diagnostics, and failures; declared amortization | Equal optimizer-step counts, conditional rescue rates, or wall time excluding atlas cost |
 | U4 | A stable cycle is beneficial or harmful | Task dependent; not assigned by dynamics alone | Independently measured correctness, validation quality, latency, and robustness | Negative Lyapunov exponent or low orbit residual alone |
 | T1 | Positive relaxation preserves fixed points of a deterministic map | Algebraic fact under stated assumptions | `G_alpha(h)=h` iff `F(h)=h` for `alpha>0` | Preservation of cycles, basins, speed, or correctness |
+| T2 | An attracting neural training cycle can change predictions and averaging bias | Exact result for the tied scalar toy in [analytic-cycle.md](analytic-cycle.md) | Direct orbit equations, primitive separation, multiplier, and readout algebra | Transfer to the tanh pilot, shrimp geometry, or generalization |
+| T3 | Prediction averaging reduces average phase squared error | Exact variance decomposition; residual bias remains in the scalar toy | Compare squared error before and after averaging predictions on the same inputs | Superiority to a convergent optimizer or an equally funded generic averager; a guarantee for decoded accuracy |
 | X1 | The approach benefits modern latent reasoners | Future extension, no evidence here | Exact checkpoint/task specification, full-state diagnostics, complete paired inference trials | Tiny feedforward training results or analogy to a preprint |
 
 ## Allowed outcome language
@@ -30,7 +32,7 @@ No first discovery of neural shrimps; no universal requirement to avoid chaos; n
 
 ## 2026-09-08 initial pilot evidence update
 
-Source revision: `bd3d733b51e9f1ae9247ba712633aca023e7afac`, pushed before execution. Raw receipts: [EXP-001](../evidence/EXP-001/attempt-001/receipt.json), [EXP-002](../evidence/EXP-002/attempt-001/receipt.json), [EXP-003](../evidence/EXP-003/attempt-001/receipt.json). Full interpretation and generated empirical counts appear in the manuscript's **Initial pilot results** section. The descriptive report directories are `evidence/reports/EXP-001`, `EXP-002`, and `EXP-003`.
+Source revision: `bd3d733b51e9f1ae9247ba712633aca023e7afac`, pushed before execution. Raw receipts: [EXP-001](../evidence/EXP-001/attempt-001/receipt.json), [EXP-002](../evidence/EXP-002/attempt-001/receipt.json), [EXP-003](../evidence/EXP-003/attempt-001/receipt.json). Full interpretation and generated empirical counts appear in the manuscript's pilot-results discussion. The descriptive report directories are `evidence/reports/EXP-001`, `EXP-002`, and `EXP-003`.
 
 - The Hénon control supplies positive numerical-orbit evidence for the instrument. It supplies no new neural result and no shrimp topology certification.
 - The neural scan found no verified attracting nontrivial cycle. Unresolved finite tails and operational divergence remain reported; global nonexistence is not inferred.
@@ -39,3 +41,12 @@ Source revision: `bd3d733b51e9f1ae9247ba712633aca023e7afac`, pushed before execu
 - No net benefit, useful modern neural shrimp, or need for paid scale-up has been demonstrated. The next local exploratory stage should first identify and verify a neural periodic regime, then test task benefit under controlled interventions.
 
 No original failure, trial, or consumed attempt was discarded or reset. This update is an outcome-status update, not a retrospective change to the original pilot design.
+
+## 2026-09-11 visual and theoretical update
+
+Six empirical figure sets re-express existing evidence, including explicitly
+post-run saved-state diagnostics and finite-case illustrations. Three diagrams
+and one exact algebraic plate are separately labeled. None changes E1–E3 or
+U1–U3. T2–T3 add a constructed example and a mathematical identity, not a new
+empirical result or novelty claim. Figure receipts and the
+[visual guide](visual-revision.md) bind the intended interpretations.

@@ -80,6 +80,31 @@ The [working manuscript PDF](paper/neural-shrimp-working-draft.pdf)
 not a submission-ready paper. Build from `paper/` with `pdflatex main`,
 `bibtex main`, then `pdflatex main` twice. References resolve to primary sources.
 
+The visual revision contains ten figures: six evidence-derived plates, three
+explanatory diagrams, and one exact analytic neural-cycle example. Each figure
+has vector PDF/SVG, a 300-dpi PNG, and a machine-readable receipt recording its
+source, construction, scope, and hashes. The [figure guide](docs/visual-revision.md)
+connects each plate to the question it answers.
+
+An exact tied-weight toy makes a concrete output consequence visible:
+an attracting training cycle alternates predictions, and prediction averaging
+reduces phase-dependent error while retaining bias. The [derivation](docs/analytic-cycle.md)
+does not establish shrimp geometry or an advantage over a convergent solution.
+The [observable-consequences plan](docs/observable-consequences.md) and
+[next steps](docs/next-steps.md) specify how to test robustness, directional
+control, stopping, and averaging against simpler diagnostics at matched cost.
+
+Verify the released evidence and figures without running new experiments:
+
+```sh
+uv run --frozen python tools/summarize_pilots.py
+uv run --frozen python tools/build_evidence_figures.py --check
+uv run --frozen python tools/build_concept_figures.py --check
+```
+
+Omitting `--check` rebuilds figures from the immutable evidence or stated
+algebra. Conceptual plots are explicitly labeled; they are not pilot outcomes.
+
 See the [compute plan](docs/compute-plan.md) before considering a paid run.
 Paid compute and paid reviews are disabled by default. The archive watchdog
 limits the workload process; an external owner must still retrieve artifacts

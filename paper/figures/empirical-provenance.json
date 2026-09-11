@@ -1,0 +1,79 @@
+{
+  "analysis_status": "post-run descriptive visualization of immutable exploratory pilots",
+  "empirical_figures": 6,
+  "figures": [
+    {
+      "path": "paper/figures/empirical-henon-map.receipt.json",
+      "sha256": "60b8123afd6edc8d14ef05f0691386702a146e60c312433f8e8f66ebd84f3051"
+    },
+    {
+      "path": "paper/figures/empirical-henon-orbits.receipt.json",
+      "sha256": "16f1357a2f74ed18bbe099c3db1adac4ae1c68e342bc807ddadea0a7fd461e96"
+    },
+    {
+      "path": "paper/figures/empirical-neural-map.receipt.json",
+      "sha256": "306ea0b445ae7fd6088dac53502785dd53f3e381fc29ff3e6b1e8210889dd5e1"
+    },
+    {
+      "path": "paper/figures/empirical-neural-tail-diagnostics.receipt.json",
+      "sha256": "91b90a8445571ce9b32687fafbf4223950b79659781ea83883119f02da5d65ba"
+    },
+    {
+      "path": "paper/figures/empirical-utility-census.receipt.json",
+      "sha256": "c040c4d065535eecdc746f3583be9531bbcf6652f92e2a6673c1e34d04eab76a"
+    },
+    {
+      "path": "paper/figures/empirical-utility-trajectories.receipt.json",
+      "sha256": "7165ea1bcf942c2ea7e9fc34c98a68ccb838c0bc6ac6aa93e99699149d265248"
+    }
+  ],
+  "generator": {
+    "path": "tools/build_evidence_figures.py",
+    "sha256": "d55e10b36c9874ea4ae4966bb5a9c6507e1d55e4addec03b207a7b6b04a15ef9"
+  },
+  "new_target_runs": 0,
+  "notes": "Each receipt includes exact plotted arrays, trial IDs, transformations, source and output SHA-256. Regeneration uses original recorded states, never new target execution.",
+  "readout_gates": {
+    "EXP-002": {
+      "atol": 1e-14,
+      "checked_terminal_test_mse_rows": 107,
+      "description": "Recomputed released terminal test MSE from each finite saved full state and frozen test split before post-run analysis.",
+      "max_absolute_error": 0.0,
+      "rtol": 1e-12,
+      "status": "passed"
+    },
+    "EXP-003": {
+      "atol": 1e-14,
+      "checked_terminal_test_mse_rows": 60,
+      "description": "Recomputed released terminal test MSE from each finite saved full state and frozen test split before post-run analysis.",
+      "max_absolute_error": 0.0,
+      "rtol": 1e-12,
+      "status": "passed"
+    }
+  },
+  "schema_version": 1,
+  "source_receipts": [
+    {
+      "path": "evidence/EXP-001/attempt-001/receipt.json",
+      "sha256": "741e5ca6503a3ab7ed221027aa9663b800a40064d11df8a826317794043a1fad"
+    },
+    {
+      "path": "evidence/EXP-002/attempt-001/receipt.json",
+      "sha256": "c48c3c3cdac9217b3af6b3bedbf209fe74dc3fc67c405251540edf14ca73e5ba"
+    },
+    {
+      "path": "evidence/EXP-003/attempt-001/receipt.json",
+      "sha256": "04d7225b0d3386f043ab0fc00558a12b0a9c9311fac7226666c3d8afca556a79"
+    }
+  ],
+  "supporting_code": [
+    {
+      "path": "src/neural_shrimp/cli.py",
+      "sha256": "ecadde1935fcd52f9e817fb1d3121c1d8d00cae047fbe1b33712453f4da07470"
+    },
+    {
+      "path": "src/neural_shrimp/models.py",
+      "sha256": "48768aceb5ab9bb1f568c153209b0a40c11657ee0b86d0eac76c1f6098759897"
+    }
+  ]
+}

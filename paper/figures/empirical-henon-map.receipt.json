@@ -1,0 +1,1236 @@
+{
+  "accessibility_checks": [
+    "Numeric period labels supplement color.",
+    "Crosses identify unresolved controls.",
+    "Spectral radius has labeled numeric colorbar."
+  ],
+  "alt_text": "Two scatter maps of 65 sampled H\u00e9non controls. The top prints periods 2, 4, 7, 8 and 16 on colored circles; 26 unresolved controls are gray crosses. The bottom shows spectral radius between zero and one for the 39 verified attracting cycles, with the same unresolved crosses. No interpolation or chaos label appears.",
+  "claim_scope_exclusions": [
+    "No new target execution.",
+    "No verified neural cycle or shrimp geometry claim.",
+    "Unresolved does not mean chaotic.",
+    "No statistical generalization beyond these finite pilot tasks."
+  ],
+  "data_source": {
+    "aggregation_and_transformation": [
+      "All 65 trials; identity control coordinates, no interpolation.",
+      "Plot period and spectral radius only when verified and attracting are both true."
+    ],
+    "exclusions": "No trials excluded. Spectral radius unavailable for unresolved points is marked with a cross, never imputed.",
+    "schema_fields": [
+      "a",
+      "b",
+      "status",
+      "cycle_certificate.verified",
+      "cycle_certificate.attracting",
+      "cycle_certificate.primitive_period",
+      "cycle_certificate.spectral_radius"
+    ],
+    "studies": {
+      "EXP-001": {
+        "artifacts": [
+          {
+            "path": "evidence/EXP-001/attempt-001/receipt.json",
+            "sha256": "741e5ca6503a3ab7ed221027aa9663b800a40064d11df8a826317794043a1fad"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/manifest.json",
+            "sha256": "1c7006e34e1660f8f963292158b352bf6d154f23343dc10381c5c73fd24191b4"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-68c0b75a2f8f220e.json",
+            "sha256": "6a9836ec43545a347fba5357d2f69c8aee2bd852cf98ef1cae3e21f7256b3e2e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-68c0b75a2f8f220e.npz",
+            "sha256": "1b8dffbe5bda6beffdc7bedabe9fa18232a69c7f5520bfeaefd0adc8f8e75d34"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-117e82710ac89b88.json",
+            "sha256": "2936fa0111c82c147f94b34944dbcd6341d823cfcca5002e56a2936e878f6274"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-117e82710ac89b88.npz",
+            "sha256": "d5d960eac3048dd4e15d6dc7062085aea02375462b976560bed321ff4d1936db"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b6047369f99e6a87.json",
+            "sha256": "0303dc770f5323554dd268a68aac4c3f3a32f375a617fcd1f7a6cb1fd0749715"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b6047369f99e6a87.npz",
+            "sha256": "def4c5abc08f01c8dd5e5081bf4199da5d2bd046b5d58b0e48717361343cb0bf"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-992a2cb2ac59f56e.json",
+            "sha256": "a29289b0355bb45356a442ff2f1e7d22038534791b4f2bcbcc08abbb89ac0ea2"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-992a2cb2ac59f56e.npz",
+            "sha256": "2785d2f3fe23a7682926d883479b46b8409c922268362cc4c21ed17f4f936778"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e5f864c4d6ebb802.json",
+            "sha256": "3a24e5e410f64c11d80e0b3d54432bc0050306331e52fe84af4819b1803a48fc"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e5f864c4d6ebb802.npz",
+            "sha256": "fab638ff41fe52b0f3ceb9e381da94ce91ded0b549295752d37d3b30d1c7e668"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b934149bd0b54502.json",
+            "sha256": "d070f56cc6f6707244fcfb33ce1ee5c0e4ce45869abf2dd882d2070b81be8941"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b934149bd0b54502.npz",
+            "sha256": "44cf12f4fbaf9db3a46637a80d39bbd6e7624299e1718f1230c455282507c640"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-fbbbec4c55a5c6d6.json",
+            "sha256": "118925952f08a0d91bdd51cc13452345908ac97fad3fc0d0c4190cd9c8c22c05"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-fbbbec4c55a5c6d6.npz",
+            "sha256": "f53ef977ad4de4c023197cb4cff4ba7dbcf9d8ee681eedd6434700e5a5a0b69a"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-93aa06d11ff9c0ac.json",
+            "sha256": "be76e9dfd3a58547a339c40fb3dfc05697fd4dd0c4f5692851ee69e3907c6622"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-93aa06d11ff9c0ac.npz",
+            "sha256": "98367dc1167169168b8b0e7704a45227f608fa112c45188904d90c0a0192834f"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-1b3d47c21731f490.json",
+            "sha256": "642df49d8696b3049946b8b9cc636ff89e62c4ab1eb45f62cbb974c591faff59"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-1b3d47c21731f490.npz",
+            "sha256": "998e9aa21bc03fd53df186a64b3204376c4d794748e6a8383012c2fa779f82fc"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-86c21af3e919c380.json",
+            "sha256": "aff641259e95a5a52ec4ce8e6b631dbef63a639763177ab9041d0045ebccc108"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-86c21af3e919c380.npz",
+            "sha256": "f5bcbcced5b41e8e0080c4df9ba8a6d7b3d74d9546f8a859cfe88353b358a40e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-6cc903542f22f65e.json",
+            "sha256": "7c4b6255337248a9e3ccd4090bc094422afd904400d4b9fc8a82a6208e81df9f"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-6cc903542f22f65e.npz",
+            "sha256": "4d022136ed741b57afd13f6c2ed800042405ca1bdb7029276d14d1a65a4ba16e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-01be5e9bc43ba99f.json",
+            "sha256": "943df60796eb53e8aefcf1e6c71bf343cca7ffcdcd798d1f262a0343bb794e40"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-01be5e9bc43ba99f.npz",
+            "sha256": "448426147ff22d80d4cb7465a89c91abc421677cf1fdaf10196e498649b84944"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-c19d0b577bc84bdc.json",
+            "sha256": "874030c997ca34815b7c99aa9a98051ccb2ec8620d047021d088f2ae91fca097"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-c19d0b577bc84bdc.npz",
+            "sha256": "5f46eb60cf570766ee8dc9b650f3b42e50ce6519bda8b59e764bbaa3d292f99e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-8c01ca0cdc1ace00.json",
+            "sha256": "00deb321adc20fe9e74aa2f0eb25ce63c422be52edecebe18d6706831f917cde"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-8c01ca0cdc1ace00.npz",
+            "sha256": "71d4dadbcdd641bf0d47575208b4f55bb7deb2c58897eb3520e58ec8564e6167"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-f874db95c2322c7c.json",
+            "sha256": "52329597935de445ca735bab059238ffa59ed7c8aca22fd4cd2808cd9c105a0b"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-f874db95c2322c7c.npz",
+            "sha256": "936a2b1df8eb11b137fe29d2b46f69e5ce64d6f5145728b9bad71a5b4e700f7a"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-95324c545d7a2122.json",
+            "sha256": "946b74beb90f470928ae50563ce6f951f673531c701b040b03ec411f9e5f663e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-95324c545d7a2122.npz",
+            "sha256": "b78d98abc2cefb5541d8705e321da8d45a85b041ba7a5898c411e5516b244f77"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-62d74019d02558b1.json",
+            "sha256": "fc60a6c4de346f9247fdbfc5d799a53bd01e7c93a4728e9df8724e90aaa883d5"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-62d74019d02558b1.npz",
+            "sha256": "ae33253a70901ba84538b2886fe078c35f723dbfd0533d61933abd879be680d4"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-43f3553d509746ef.json",
+            "sha256": "16ba4156cef8f0e97304785905bf37a7e7a221b76ea4976e0fa92145c7dbfa92"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-43f3553d509746ef.npz",
+            "sha256": "b7e8c81e6163c818bd0fb6fa6253bf09cc02c74765eceee945a6ef864a861eea"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-8ad7d8e4ecb17527.json",
+            "sha256": "ab8f3d3316a927257a947e84f6de5a1634fda02af14c7c4028abfe67f628b485"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-8ad7d8e4ecb17527.npz",
+            "sha256": "c9b524e4772ca41e7da41f864c8267c6eb9c5930e043101c636b00bbe9f3b9d0"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-a1fd1cf5a9992129.json",
+            "sha256": "000f4c53f2885b87c16fd7d6766f945acce7ea8dfb5e8f0f11beb416393b6908"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-a1fd1cf5a9992129.npz",
+            "sha256": "3d84b09132ca558df8f30cfdbf7c69a936e0c2f694f22d7f7999c1816281fed9"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-83bdd4c69511bdfa.json",
+            "sha256": "cf680c6467f20e7359abbe3ba20be09821f393711c61a2585df1c713b9d31995"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-83bdd4c69511bdfa.npz",
+            "sha256": "40dce0e8d2e07eb99bc2cd48c070afd1cef364646135002ecbbbab0e9b71f696"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-75a04d10cb3404ae.json",
+            "sha256": "3937cb56829393eeeba7b6a7f595aa135379749d4603cdac88fc1e43540308f1"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-75a04d10cb3404ae.npz",
+            "sha256": "f6bd1f91abe594a698885cb07800098f8cd2ee081acd383657b8e41196f1a0c8"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-9b32ee2cffc5cb86.json",
+            "sha256": "1f95d8bc9b3c00db6792a4b2d62fa7b3a026f5e701ba6f64e808d26f41ea90e0"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-9b32ee2cffc5cb86.npz",
+            "sha256": "99252591b6865e272f67cefb172d51e4a79d337ba54bf64a58fcb5be43ac0c91"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-47eae3aa535c4003.json",
+            "sha256": "ed9800cdb89187d4359cc2258428bca3c9ba65f60c588dc9c400a36581ad8a14"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-47eae3aa535c4003.npz",
+            "sha256": "20e419eec59863ece1f75c95a81811dd521eafb59ddf860a6f161a6159934f84"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-218c930e0ad68f01.json",
+            "sha256": "8c2ffa70c6cdadf5c8b3e27c5a923c57064caac84f86d5494d77116642b231ca"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-218c930e0ad68f01.npz",
+            "sha256": "16b92b7335ae11939271d474accb78fc64b2109ec8d6ae94ee47b381c859a34e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-9c945d7255e498c1.json",
+            "sha256": "a5dc46cca69fce2b96b01e3f2d989369c8709ad8efce0e55829f380838884086"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-9c945d7255e498c1.npz",
+            "sha256": "b76c835c801dcdace8bc10ab1ecb8b9ddbf344d86507a6bf43503685ec2b09f7"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-d87d1d925abb799e.json",
+            "sha256": "11b97338391c8959e0b5296bfacac2f75d728e10d820e0868ace4d0ab8a784cb"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-d87d1d925abb799e.npz",
+            "sha256": "96334769d070535df9d6cdadafec4a4f9e5a7491043e990cccfa439b1d2acee9"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-d2e906e264144d8a.json",
+            "sha256": "d77c8caf9a3c198e5157a103122f39d7c08efd602fa8ba8396f74d44cea79174"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-d2e906e264144d8a.npz",
+            "sha256": "7e3659bd9bd35ff22ab72c9fd9615665cf2a4a36d9bcb8ef0ca795f227c12076"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b2cf90e07356c3de.json",
+            "sha256": "65193f2c0288d9abc005dd8824194b8654349b396f4de519d38deee9a0bfc35f"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b2cf90e07356c3de.npz",
+            "sha256": "37df9aed90b1f735418605db9538a9cefb36b6fe95015de6ce0a791db50cf1d4"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-1b84b10375500494.json",
+            "sha256": "adc4a969af6c1cdbeda2f72bc469df03c1919813183b5efa8a4135455a59876d"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-1b84b10375500494.npz",
+            "sha256": "0ad66fbf9dbc488f33f9e28bdc77da61b638a26fefe0641e0f3bb8e366415345"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-538360576acd1d6c.json",
+            "sha256": "9579a92e5c084244d7f029e1c611c50c51caaac9360acce0d30773fba28c543d"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-538360576acd1d6c.npz",
+            "sha256": "c13f087be2f40f7d319043cb2991151319e42bf2605eda7d276a851c6465173d"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-3488d39caee52784.json",
+            "sha256": "3bc158dbe8b28ee76416b148724ddc526956f31f5470f3f78de77fa96445d69e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-3488d39caee52784.npz",
+            "sha256": "6b01c6324760cd7f395041006235b1dcadb00b3595bb1aded0a0b477a43a282c"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-c10e93e4a0a09853.json",
+            "sha256": "71360ea63a68d756c4648b2cd30f06244b4fa9dc9a257671629705f8fae5dbae"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-c10e93e4a0a09853.npz",
+            "sha256": "3f41682a91760ebd9596ab3b32f7cce1b23713bd86e3ccf8cf3314c59c63e6aa"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-759f1e1faaa7bed9.json",
+            "sha256": "e626129d49b8251dfcc4cc6d51134e239d5d1a4707ffcca418fc55a02cb5a74d"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-759f1e1faaa7bed9.npz",
+            "sha256": "842461324ee89fe575ca6aa16c628e1bd7244e62b5c95f815ce381e1a3778014"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-dea24d9bb5a4730f.json",
+            "sha256": "db48904aacce196d9a8fe0c7943170392e31a5e68b1b1f03d0fe9e32abfb5633"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-dea24d9bb5a4730f.npz",
+            "sha256": "eb7387c15bfd428e09bef30f361465437b57e36db2f6f01046c746960bf429fb"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-be82e4c65296ae9f.json",
+            "sha256": "555155697206904476e30273dd96dcd113c8e43726c60e9d855fd16bcbdea548"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-be82e4c65296ae9f.npz",
+            "sha256": "ccd40dbaa7ca58f6a7c5e399571b58f0a4bbaf617b03125425e1c52ed2450822"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e404c82ee56f5fa7.json",
+            "sha256": "df9b215b6adce09b131422bce6e3e16cd6cf972f1abc0c590ccc31f5cb281374"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e404c82ee56f5fa7.npz",
+            "sha256": "676880d8c54d25a0a2eb352ceeb4728374bdd827321aa24e9572128b85d402cc"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-6f5def9bbdd0c77a.json",
+            "sha256": "cd58697770d9b059476cff6de0590878f349a4171a44df005b61ac66a668e0d3"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-6f5def9bbdd0c77a.npz",
+            "sha256": "770c817f9617a1c73e9f34d1f045c0af8738866a720fcf27ed91533c448145c0"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-806edadf972766f6.json",
+            "sha256": "f245e8956a06a4aa8d20d1d5b3dd8914cbc79ad85c6ee44fa7a6985fe5ce2230"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-806edadf972766f6.npz",
+            "sha256": "34db314486c5d8017710378b0e64ec5fffac6dbb8e6509d3398e032d3481bab3"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-69f389b389507094.json",
+            "sha256": "b0a00a4bad6fadf319360b58412cc9580603e17c0a8a237fbb1937ed98ee3b63"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-69f389b389507094.npz",
+            "sha256": "e3367da48abf41d7a447e1d2950d2d748c46608b560e943ec1b325b66fd2f872"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-a8653cedbb2e96e5.json",
+            "sha256": "c700c6726919c27e5ffd8101da654b1780c2ce90b9e901144366c0f24fcad979"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-a8653cedbb2e96e5.npz",
+            "sha256": "201e168e47abbbefccb601ea85badfc720e69b480ac9779dec1cab84b72fd0f9"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-a348f25c70f03a70.json",
+            "sha256": "3758452806268efbe5409ec34d6d2847529bec64de714427a557709c2114dcc3"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-a348f25c70f03a70.npz",
+            "sha256": "242aa333e6a5044caef05d64677e0d547a412903e0e3547cf5f2db3743515609"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-2ca3ca852b0c557e.json",
+            "sha256": "e878fb08e79031e7587b851c7c020c3a421769d3a7e10feea2efd9614208b613"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-2ca3ca852b0c557e.npz",
+            "sha256": "b9a10a9ca29e9d918a839d1cde1e34e31249a31410c8c7513484ea2c1ce2c2ea"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-53ccaf9bba63df34.json",
+            "sha256": "af20407245c5ba2f7d7bb35fa831e413e448c6636e77dc17e86f1e4c8daed5bb"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-53ccaf9bba63df34.npz",
+            "sha256": "b2721e8e6d6a3caaae44f308e05a673d9a3dde48bdc16ed49f97345081ef7665"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-527ffcb863cdd9d8.json",
+            "sha256": "6dfb5f8cf390951d92e85db88598e57715df3ef9d850086e3852450a40dc0821"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-527ffcb863cdd9d8.npz",
+            "sha256": "4be48e208332d470714ef3827e3f724580e0d6173c807b525be68598a01f21b2"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e8d708c683384a3e.json",
+            "sha256": "a9aec949596a96f27b0bf39d4da3190a5186e6977ad66e6858eb00b89a3db65c"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e8d708c683384a3e.npz",
+            "sha256": "69dd6d6a1b18a09ecaf5514efc7007fdc8b1070d1e72b5e2d168ddc8793d83b8"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-9ff925fdc544204c.json",
+            "sha256": "15699c5b4fabbb04d5c5c348178055a0ab2ee556442aa07b72ddf0e89488c656"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-9ff925fdc544204c.npz",
+            "sha256": "4e8c5446623eb7d11ed677ff3012f8a7d219c90b158bb5bea9f1a8dc00ca7380"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-bb501fd8d59137a2.json",
+            "sha256": "bbfa7ecb5ab59fd6630a47d3a7d215b9b0acefb94d6483f72c60e4a0ad2ca610"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-bb501fd8d59137a2.npz",
+            "sha256": "56b554489ee6903edcaa51dec937dad441fbb49267c66d24d45483a5ee5b31d6"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-207736adc7e87d78.json",
+            "sha256": "91ad04b9dec29761b5c6459ff6e2b2cbac69f2faebcce7db75149287ae93fab4"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-207736adc7e87d78.npz",
+            "sha256": "f4b9b196980c0f73f0c883c0c7f46d3dc413629878f058d8238921486b73552a"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-da637923b41c8697.json",
+            "sha256": "43582f825da4eaad2f33453a91197631d2dd8b4777a366e694534cf5d77cabd4"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-da637923b41c8697.npz",
+            "sha256": "97536ff1094ea5248ff4fbd87347b61b7b60890febbe31b33bc50625bcee2325"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-04d2b822b950eff3.json",
+            "sha256": "ff0b7b637fdb23f34ca6144a283128d6b34762839cf290bf6a7f45a88c56e2f0"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-04d2b822b950eff3.npz",
+            "sha256": "ec616d129a0bb65f8a24fa202acf6b889445f9fed388233d0324798032e48327"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-cc220ee40f04f88b.json",
+            "sha256": "fff8eec2f7508aecd40f68eb917e0a8e7353e7436efeea4e17e946ca51ef9851"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-cc220ee40f04f88b.npz",
+            "sha256": "e88561c7b83b6087e4bcaadace52d9947def2eab2d3271b162ded550cd90bc3e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-976ca8b6aec99388.json",
+            "sha256": "89cf407771e064047d05a08dd0e907045aa26823d4cba3a771d9e42b22c06658"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-976ca8b6aec99388.npz",
+            "sha256": "2eefee5c451cc17d23953e2abdfd47842660abcc1c256ed13ef66d29984235c6"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-cdc0be861e346e2e.json",
+            "sha256": "c9bac7b0595fb6ee7ca48c64e418a07955e58ad9a3a27c639e899cac8a18685e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-cdc0be861e346e2e.npz",
+            "sha256": "bd70e0a306bb65fc45727a94b81204438581bfbcfc34b7ab811d404becd39585"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-4791940a0e120b6b.json",
+            "sha256": "05acb43770542724cca681d4ee6cfc5f67c2d869590d97847e399885d13cc431"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-4791940a0e120b6b.npz",
+            "sha256": "6a12b8d044dad5a185a66b0df8907a995a82ecb5e33c600639e11eeb89152f19"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-034c6b81fea12858.json",
+            "sha256": "2fc387b4f47afe12f148cabf1a8a0adf432d0ce394ea2315cf7fe86b7fecfaed"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-034c6b81fea12858.npz",
+            "sha256": "725192eb407967bdc0f5c97bf2a29d6f80d7881d9c0d19c8fc51e2e2ae40eb6a"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-653f24fac7494210.json",
+            "sha256": "4957aa7cbe60e8d874f8d61561f0e5cfff2f12da32baa4228dce7af917ba808d"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-653f24fac7494210.npz",
+            "sha256": "3ed0d3d80bac4dc5bd203a7a5653e3518184c7ac96e0bdb1a4c1e054435d743b"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-47c8798ea79e4589.json",
+            "sha256": "d23085ec4f63b58aef018025776f9d9dfb41838dea3f802973c86c3ac5d49e44"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-47c8798ea79e4589.npz",
+            "sha256": "9542dd8fa67b22c1cf813b3201a9037e4ec1120418bda4f4a736afd771bebb1d"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b1e31193c9254d99.json",
+            "sha256": "240ac84ca9f79d37942cee8855126e85d9ba603e87ff51ac9d8b2a0c351b2eff"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b1e31193c9254d99.npz",
+            "sha256": "de42576126b90100261411442bc19ab5d02220377d24bc766dbfd0fb8423ca60"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-6b679ce0b1ac9aaa.json",
+            "sha256": "819b90064cc23945cffcb3c3ea5d0f4ffa0b52d0a0969059fb3b39c0fda2a6f3"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-6b679ce0b1ac9aaa.npz",
+            "sha256": "08656a18787e2a2500b0568276e79b1e30722a491f0070101f016aec755cbb21"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-d2e92b93e9dd9f47.json",
+            "sha256": "ea66049b6ac69b8b7bfbd108cd1d4add0f3f1ee2d7cd2e4fc9a89e8a72366ef9"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-d2e92b93e9dd9f47.npz",
+            "sha256": "7a9ec41a4efd6450860b75db7652f0d4e232a2134c35a08225b469e2f0eba3bd"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e87f40c85c12b255.json",
+            "sha256": "69886738b0b2418f24db61b1816ded44ffd725d7a29cd132de6568ea14c9a3ef"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-e87f40c85c12b255.npz",
+            "sha256": "24b450d148f38b878a4f826b0bc10766fcc769c5f8956ef7d5b011ce819da7e5"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-ff3430e77dee9906.json",
+            "sha256": "7d41b3db7faa0ecd0b09582d285cff2aa3908a21ff97e68b0207caee17939eae"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-ff3430e77dee9906.npz",
+            "sha256": "fad046ae397e4e5ec5b58188e8e0316ec3bba423fe1d0d81d7af3d8647aad1e4"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-78c02750312c6e69.json",
+            "sha256": "f090687f5c694e7456dc2169cf5d7dbe1ed7e653ae89ba58bdcbdaf6de99817e"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-78c02750312c6e69.npz",
+            "sha256": "c31383000d5129f81a7d0e9094c1444696c22bb4f6854d0f88f15a7f4adbb24c"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b3cb4184daea761c.json",
+            "sha256": "e9eb644ccde1f2b04e4bce538b93fa9d7ba48c6dd0bcdcc3baeb20bfa61cbfe2"
+          },
+          {
+            "path": "evidence/EXP-001/attempt-001/trials/EXP-001-b3cb4184daea761c.npz",
+            "sha256": "69ad21107cfc38d14e909b8ece6c31de11e01e06f073aedbd1119a913f4fc771"
+          }
+        ],
+        "root_receipt": {
+          "path": "evidence/EXP-001/attempt-001/receipt.json",
+          "sha256": "741e5ca6503a3ab7ed221027aa9663b800a40064d11df8a826317794043a1fad"
+        },
+        "source_commit": "bd3d733b51e9f1ae9247ba712633aca023e7afac",
+        "trial_selection": [
+          "EXP-001-68c0b75a2f8f220e",
+          "EXP-001-117e82710ac89b88",
+          "EXP-001-b6047369f99e6a87",
+          "EXP-001-992a2cb2ac59f56e",
+          "EXP-001-e5f864c4d6ebb802",
+          "EXP-001-b934149bd0b54502",
+          "EXP-001-fbbbec4c55a5c6d6",
+          "EXP-001-93aa06d11ff9c0ac",
+          "EXP-001-1b3d47c21731f490",
+          "EXP-001-86c21af3e919c380",
+          "EXP-001-6cc903542f22f65e",
+          "EXP-001-01be5e9bc43ba99f",
+          "EXP-001-c19d0b577bc84bdc",
+          "EXP-001-8c01ca0cdc1ace00",
+          "EXP-001-f874db95c2322c7c",
+          "EXP-001-95324c545d7a2122",
+          "EXP-001-62d74019d02558b1",
+          "EXP-001-43f3553d509746ef",
+          "EXP-001-8ad7d8e4ecb17527",
+          "EXP-001-a1fd1cf5a9992129",
+          "EXP-001-83bdd4c69511bdfa",
+          "EXP-001-75a04d10cb3404ae",
+          "EXP-001-9b32ee2cffc5cb86",
+          "EXP-001-47eae3aa535c4003",
+          "EXP-001-218c930e0ad68f01",
+          "EXP-001-9c945d7255e498c1",
+          "EXP-001-d87d1d925abb799e",
+          "EXP-001-d2e906e264144d8a",
+          "EXP-001-b2cf90e07356c3de",
+          "EXP-001-1b84b10375500494",
+          "EXP-001-538360576acd1d6c",
+          "EXP-001-3488d39caee52784",
+          "EXP-001-c10e93e4a0a09853",
+          "EXP-001-759f1e1faaa7bed9",
+          "EXP-001-dea24d9bb5a4730f",
+          "EXP-001-be82e4c65296ae9f",
+          "EXP-001-e404c82ee56f5fa7",
+          "EXP-001-6f5def9bbdd0c77a",
+          "EXP-001-806edadf972766f6",
+          "EXP-001-69f389b389507094",
+          "EXP-001-a8653cedbb2e96e5",
+          "EXP-001-a348f25c70f03a70",
+          "EXP-001-2ca3ca852b0c557e",
+          "EXP-001-53ccaf9bba63df34",
+          "EXP-001-527ffcb863cdd9d8",
+          "EXP-001-e8d708c683384a3e",
+          "EXP-001-9ff925fdc544204c",
+          "EXP-001-bb501fd8d59137a2",
+          "EXP-001-207736adc7e87d78",
+          "EXP-001-da637923b41c8697",
+          "EXP-001-04d2b822b950eff3",
+          "EXP-001-cc220ee40f04f88b",
+          "EXP-001-976ca8b6aec99388",
+          "EXP-001-cdc0be861e346e2e",
+          "EXP-001-4791940a0e120b6b",
+          "EXP-001-034c6b81fea12858",
+          "EXP-001-653f24fac7494210",
+          "EXP-001-47c8798ea79e4589",
+          "EXP-001-b1e31193c9254d99",
+          "EXP-001-6b679ce0b1ac9aaa",
+          "EXP-001-d2e92b93e9dd9f47",
+          "EXP-001-e87f40c85c12b255",
+          "EXP-001-ff3430e77dee9906",
+          "EXP-001-78c02750312c6e69",
+          "EXP-001-b3cb4184daea761c"
+        ]
+      }
+    }
+  },
+  "derived_value_check_tolerances": {
+    "atol": 1e-14,
+    "rtol": 1e-12
+  },
+  "description": "A complete sampled H\u00e9non parameter census separates numerically verified primitive periods from unresolved tails and displays local contraction only for certified roots.",
+  "figure_id": "empirical-henon-map",
+  "hard_guards": {
+    "expected_trial_counts": {
+      "EXP-001": 65,
+      "EXP-002": 162,
+      "EXP-003": 96
+    },
+    "new_target_runs": 0,
+    "source_hash_verification": "neural_shrimp.cli.verify passed for all 323 trials",
+    "study_identities_checked": true,
+    "test_readout_reconstruction": {
+      "EXP-002": {
+        "atol": 1e-14,
+        "checked_terminal_test_mse_rows": 107,
+        "description": "Recomputed released terminal test MSE from each finite saved full state and frozen test split before post-run analysis.",
+        "max_absolute_error": 0.0,
+        "rtol": 1e-12,
+        "status": "passed"
+      },
+      "EXP-003": {
+        "atol": 1e-14,
+        "checked_terminal_test_mse_rows": 60,
+        "description": "Recomputed released terminal test MSE from each finite saved full state and frozen test split before post-run analysis.",
+        "max_absolute_error": 0.0,
+        "rtol": 1e-12,
+        "status": "passed"
+      }
+    }
+  },
+  "interval_semantics": "None; deterministic census or descriptive trajectories, no inferential intervals.",
+  "plotted_data": {
+    "period_counts": {
+      "16": 1,
+      "2": 24,
+      "4": 10,
+      "7": 2,
+      "8": 2,
+      "None": 26
+    },
+    "rows": [
+      {
+        "a": 0.8,
+        "b": 0.1,
+        "primitive_period": 2,
+        "spectral_radius": 0.18633249580710842,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-68c0b75a2f8f220e"
+      },
+      {
+        "a": 0.8,
+        "b": 0.15,
+        "primitive_period": 2,
+        "spectral_radius": 0.15,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-117e82710ac89b88"
+      },
+      {
+        "a": 0.8,
+        "b": 0.2,
+        "primitive_period": 2,
+        "spectral_radius": 0.20000000000000007,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-b6047369f99e6a87"
+      },
+      {
+        "a": 0.8,
+        "b": 0.25,
+        "primitive_period": 2,
+        "spectral_radius": 0.25,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-992a2cb2ac59f56e"
+      },
+      {
+        "a": 0.8,
+        "b": 0.3,
+        "primitive_period": 2,
+        "spectral_radius": 0.43135528725660083,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-e5f864c4d6ebb802"
+      },
+      {
+        "a": 0.85,
+        "b": 0.1,
+        "primitive_period": 2,
+        "spectral_radius": 0.1,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-b934149bd0b54502"
+      },
+      {
+        "a": 0.85,
+        "b": 0.15,
+        "primitive_period": 2,
+        "spectral_radius": 0.14999999999999997,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-fbbbec4c55a5c6d6"
+      },
+      {
+        "a": 0.85,
+        "b": 0.2,
+        "primitive_period": 2,
+        "spectral_radius": 0.3116515138991172,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-93aa06d11ff9c0ac"
+      },
+      {
+        "a": 0.85,
+        "b": 0.25,
+        "primitive_period": 2,
+        "spectral_radius": 0.5326655965729512,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-1b3d47c21731f490"
+      },
+      {
+        "a": 0.85,
+        "b": 0.3,
+        "primitive_period": 2,
+        "spectral_radius": 0.7139387691339809,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-86c21af3e919c380"
+      },
+      {
+        "a": 0.9,
+        "b": 0.1,
+        "primitive_period": 2,
+        "spectral_radius": 0.09999999999999998,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-6cc903542f22f65e"
+      },
+      {
+        "a": 0.9,
+        "b": 0.15,
+        "primitive_period": 2,
+        "spectral_radius": 0.34473188612482064,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-01be5e9bc43ba99f"
+      },
+      {
+        "a": 0.9,
+        "b": 0.2,
+        "primitive_period": 2,
+        "spectral_radius": 0.5697999199359354,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-c19d0b577bc84bdc"
+      },
+      {
+        "a": 0.9,
+        "b": 0.25,
+        "primitive_period": 2,
+        "spectral_radius": 0.7686931771216883,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-8c01ca0cdc1ace00"
+      },
+      {
+        "a": 0.9,
+        "b": 0.3,
+        "primitive_period": 2,
+        "spectral_radius": 0.9447352116319065,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-f874db95c2322c7c"
+      },
+      {
+        "a": 0.95,
+        "b": 0.1,
+        "primitive_period": 2,
+        "spectral_radius": 0.32966629547095716,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-95324c545d7a2122"
+      },
+      {
+        "a": 0.95,
+        "b": 0.15,
+        "primitive_period": 2,
+        "spectral_radius": 0.5705654344977888,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-62d74019d02558b1"
+      },
+      {
+        "a": 0.95,
+        "b": 0.2,
+        "primitive_period": 2,
+        "spectral_radius": 0.7893237062523866,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-43f3553d509746ef"
+      },
+      {
+        "a": 0.95,
+        "b": 0.25,
+        "primitive_period": 2,
+        "spectral_radius": 0.9866546328154839,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-8ad7d8e4ecb17527"
+      },
+      {
+        "a": 0.95,
+        "b": 0.3,
+        "primitive_period": 4,
+        "spectral_radius": 0.3254934865599102,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-a1fd1cf5a9992129"
+      },
+      {
+        "a": 1.0,
+        "b": 0.1,
+        "primitive_period": 2,
+        "spectral_radius": 0.5415339366124393,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-83bdd4c69511bdfa"
+      },
+      {
+        "a": 1.0,
+        "b": 0.15,
+        "primitive_period": 2,
+        "spectral_radius": 0.7811980861195327,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-75a04d10cb3404ae"
+      },
+      {
+        "a": 1.0,
+        "b": 0.2,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-9b32ee2cffc5cb86"
+      },
+      {
+        "a": 1.0,
+        "b": 0.25,
+        "primitive_period": 4,
+        "spectral_radius": 0.17623897972501099,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-47eae3aa535c4003"
+      },
+      {
+        "a": 1.0,
+        "b": 0.3,
+        "primitive_period": 4,
+        "spectral_radius": 0.5248139637372976,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-218c930e0ad68f01"
+      },
+      {
+        "a": 1.05,
+        "b": 0.1,
+        "primitive_period": 2,
+        "spectral_radius": 0.7466060555964681,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-9c945d7255e498c1"
+      },
+      {
+        "a": 1.05,
+        "b": 0.15,
+        "primitive_period": 2,
+        "spectral_radius": 0.9872084611451774,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-d87d1d925abb799e"
+      },
+      {
+        "a": 1.05,
+        "b": 0.2,
+        "primitive_period": 4,
+        "spectral_radius": 0.14616199126524898,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-d2e906e264144d8a"
+      },
+      {
+        "a": 1.05,
+        "b": 0.25,
+        "primitive_period": 4,
+        "spectral_radius": 0.6762614892542628,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-b2cf90e07356c3de"
+      },
+      {
+        "a": 1.05,
+        "b": 0.3,
+        "primitive_period": 8,
+        "spectral_radius": 0.904438331341094,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-1b84b10375500494"
+      },
+      {
+        "a": 1.1,
+        "b": 0.1,
+        "primitive_period": 2,
+        "spectral_radius": 0.9494677837722202,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-538360576acd1d6c"
+      },
+      {
+        "a": 1.1,
+        "b": 0.15,
+        "primitive_period": 4,
+        "spectral_radius": 0.2183920194613565,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-3488d39caee52784"
+      },
+      {
+        "a": 1.1,
+        "b": 0.2,
+        "primitive_period": 4,
+        "spectral_radius": 0.7121360448091014,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-c10e93e4a0a09853"
+      },
+      {
+        "a": 1.1,
+        "b": 0.25,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-759f1e1faaa7bed9"
+      },
+      {
+        "a": 1.1,
+        "b": 0.3,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-dea24d9bb5a4730f"
+      },
+      {
+        "a": 1.15,
+        "b": 0.1,
+        "primitive_period": 4,
+        "spectral_radius": 0.3845506186104798,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-be82e4c65296ae9f"
+      },
+      {
+        "a": 1.15,
+        "b": 0.15,
+        "primitive_period": 4,
+        "spectral_radius": 0.6403680193972983,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-e404c82ee56f5fa7"
+      },
+      {
+        "a": 1.15,
+        "b": 0.2,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-6f5def9bbdd0c77a"
+      },
+      {
+        "a": 1.15,
+        "b": 0.25,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-806edadf972766f6"
+      },
+      {
+        "a": 1.15,
+        "b": 0.3,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-69f389b389507094"
+      },
+      {
+        "a": 1.2,
+        "b": 0.1,
+        "primitive_period": 4,
+        "spectral_radius": 0.4653625901286282,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-a8653cedbb2e96e5"
+      },
+      {
+        "a": 1.2,
+        "b": 0.15,
+        "primitive_period": 16,
+        "spectral_radius": 0.2896233947614702,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-a348f25c70f03a70"
+      },
+      {
+        "a": 1.2,
+        "b": 0.2,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-2ca3ca852b0c557e"
+      },
+      {
+        "a": 1.2,
+        "b": 0.25,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-53ccaf9bba63df34"
+      },
+      {
+        "a": 1.2,
+        "b": 0.3,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-527ffcb863cdd9d8"
+      },
+      {
+        "a": 1.25,
+        "b": 0.1,
+        "primitive_period": 8,
+        "spectral_radius": 0.476673355331505,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-e8d708c683384a3e"
+      },
+      {
+        "a": 1.25,
+        "b": 0.15,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-9ff925fdc544204c"
+      },
+      {
+        "a": 1.25,
+        "b": 0.2,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-bb501fd8d59137a2"
+      },
+      {
+        "a": 1.25,
+        "b": 0.25,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-207736adc7e87d78"
+      },
+      {
+        "a": 1.25,
+        "b": 0.3,
+        "primitive_period": 7,
+        "spectral_radius": 0.6678596884196688,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-da637923b41c8697"
+      },
+      {
+        "a": 1.3,
+        "b": 0.1,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-04d2b822b950eff3"
+      },
+      {
+        "a": 1.3,
+        "b": 0.15,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-cc220ee40f04f88b"
+      },
+      {
+        "a": 1.3,
+        "b": 0.2,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-976ca8b6aec99388"
+      },
+      {
+        "a": 1.3,
+        "b": 0.25,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-cdc0be861e346e2e"
+      },
+      {
+        "a": 1.3,
+        "b": 0.3,
+        "primitive_period": 7,
+        "spectral_radius": 0.18968085427569678,
+        "status": "verified attracting",
+        "trial_id": "EXP-001-4791940a0e120b6b"
+      },
+      {
+        "a": 1.35,
+        "b": 0.1,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-034c6b81fea12858"
+      },
+      {
+        "a": 1.35,
+        "b": 0.15,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-653f24fac7494210"
+      },
+      {
+        "a": 1.35,
+        "b": 0.2,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-47c8798ea79e4589"
+      },
+      {
+        "a": 1.35,
+        "b": 0.25,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-b1e31193c9254d99"
+      },
+      {
+        "a": 1.35,
+        "b": 0.3,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-6b679ce0b1ac9aaa"
+      },
+      {
+        "a": 1.4,
+        "b": 0.1,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-d2e92b93e9dd9f47"
+      },
+      {
+        "a": 1.4,
+        "b": 0.15,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-e87f40c85c12b255"
+      },
+      {
+        "a": 1.4,
+        "b": 0.2,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-ff3430e77dee9906"
+      },
+      {
+        "a": 1.4,
+        "b": 0.25,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-78c02750312c6e69"
+      },
+      {
+        "a": 1.4,
+        "b": 0.3,
+        "primitive_period": null,
+        "spectral_radius": null,
+        "status": "unresolved",
+        "trial_id": "EXP-001-b3cb4184daea761c"
+      }
+    ]
+  },
+  "provenance": {
+    "generator": {
+      "path": "tools/build_evidence_figures.py",
+      "sha256": "d55e10b36c9874ea4ae4966bb5a9c6507e1d55e4addec03b207a7b6b04a15ef9"
+    },
+    "matplotlib_version": "3.11.1",
+    "numpy_version": "2.5.3",
+    "outputs": [
+      {
+        "path": "paper/figures/empirical-henon-map.pdf",
+        "sha256": "4d6d1188ddb2d5ee6450efb9d8648b0a8d5735e2870cf083e546fefa83b28fa0"
+      },
+      {
+        "path": "paper/figures/empirical-henon-map.svg",
+        "sha256": "acfff561a246a5d5849a50bf271fb4a3853f4ae2bb85baac5df97c94f0eaa249"
+      },
+      {
+        "path": "paper/figures/empirical-henon-map.png",
+        "sha256": "0967dbd6823dd7fa15a8e2f56abff6e93169f7156f122d10ce434ea385edee5b"
+      }
+    ],
+    "supporting_code": [
+      {
+        "path": "src/neural_shrimp/cli.py",
+        "sha256": "ecadde1935fcd52f9e817fb1d3121c1d8d00cae047fbe1b33712453f4da07470"
+      },
+      {
+        "path": "src/neural_shrimp/models.py",
+        "sha256": "48768aceb5ab9bb1f568c153209b0a40c11657ee0b86d0eac76c1f6098759897"
+      }
+    ]
+  },
+  "title": "The control resolves periodic regimes"
+}

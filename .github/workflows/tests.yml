@@ -15,3 +15,5 @@ jobs:
       - run: pytest -q
       - run: python -m neural_shrimp.cli validate experiments/manifests/*.json
       - run: python tools/summarize_pilots.py
+      - run: python tools/build_evidence_figures.py --check
+      - run: python tools/build_concept_figures.py --check

@@ -1,9 +1,16 @@
 {
-  "scope": "working draft with receipt-backed exploratory results; PDF visually inspected on all seven pages",
+  "scope": "Private exploratory working draft: 17 pages, ten figures; all pages visually inspected. Six empirical plates re-express immutable pilots; three diagrams and one exact analytic plate are separately labeled. No new target experiment.",
+  "revision_date": "2026-09-11",
+  "pages": 17,
+  "figures": 10,
+  "empirical_figures": 6,
+  "conceptual_or_analytic_figures": 4,
+  "local_tests_passed": 59,
+  "original_pilot_source_commit": "bd3d733b51e9f1ae9247ba712633aca023e7afac",
   "files": [
     {
       "path": "paper/main.tex",
-      "sha256": "bd2cbf6c59a2199040fb05fcbad46f718b9381d0dbb50c76e3b81f50b7220d0c"
+      "sha256": "8036e295a11afd6cde97fdb04202db6c2e740002afac8d8447bcfca7d3cbc9e5"
     },
     {
       "path": "paper/references.bib",
@@ -15,11 +22,67 @@
     },
     {
       "path": "paper/neural-shrimp-working-draft.pdf",
-      "sha256": "3d599b400e08867bff4edac15eecdc0f623d90b555d2a0b7398eacc049361107"
+      "sha256": "35d5d55392ad1bbab2af686c6a88f8dd762b17dc49c0487b3edecaa909b3f699"
     },
     {
       "path": "evidence/pilot-summary.json",
       "sha256": "26fb3dc344a4fb7b7f58eeca1a5337ac3a5ce7d126873b8a5079bcb7247c8190"
+    },
+    {
+      "path": "paper/figures/empirical-provenance.json",
+      "sha256": "a0301b87cbb72a54c37c0492a5467a6167989ceea85caecd3a865b2df5cdfda8"
+    },
+    {
+      "path": "paper/figures/conceptual-provenance.json",
+      "sha256": "ae895c9e7e6f02984a761bafaad7cedc5606fa3ae49a82e672ecfe1c8208cb23"
+    },
+    {
+      "path": "tools/build_evidence_figures.py",
+      "sha256": "d55e10b36c9874ea4ae4966bb5a9c6507e1d55e4addec03b207a7b6b04a15ef9"
+    },
+    {
+      "path": "tools/build_concept_figures.py",
+      "sha256": "36ae55b64aedea822b59ed078c50bc996e7a36ed8c6a5074a89f26a38c4e32c5"
+    },
+    {
+      "path": "tests/test_analytic_cycle.py",
+      "sha256": "e51c624de7ca032dff3919f38fd6b7816df726d913ce7f057e92be908dab1b47"
+    },
+    {
+      "path": "docs/analytic-cycle.md",
+      "sha256": "431d8674aaca297de456dc9553681549b709c2bfb3ddcc9984ec127d406e5881"
+    },
+    {
+      "path": "docs/observable-consequences.md",
+      "sha256": "70f1d6eeed541b06ce36c9d7166a2a2cbb36c690b693435b52b8d1905df755fa"
+    },
+    {
+      "path": "docs/next-steps.md",
+      "sha256": "e7adf046a9efd816009e37fbaffe60ae5bae65560421ed5e6825aedb08959e66"
+    },
+    {
+      "path": "docs/visual-revision.md",
+      "sha256": "5400d8fc5157823576a6680ae697087b8c1292d01592328b2950e88f19613383"
+    },
+    {
+      "path": "docs/empirical-figure-notes.md",
+      "sha256": "77208b0dcc8a386adac3ebfba1c3c3fb1129023bae15b5e9f60a5ecfef5a095f"
+    },
+    {
+      "path": "docs/verification-ledger.md",
+      "sha256": "b68fdc4978e0fc80aea111b579ad8bc52e304efcd151f5fd73281b6692549958"
+    },
+    {
+      "path": "docs/claim-ledger.md",
+      "sha256": "18c90c440fc0278f9363c2c14cead8ea52e0150f1d1099daa87c4a0f366d537a"
+    },
+    {
+      "path": "README.md",
+      "sha256": "41c9e403198f395236242db8742a199557c9a6fe11578fac811613deb4ee2b3e"
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "sha256": "3f9bf35a87add76d9ddcdc0fdc3a67a7576b1fc7f41af0962eb3c6a20c55a474"
     }
   ]
 }
