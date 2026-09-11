@@ -1,0 +1,50 @@
+\subsection{The new comparison does not establish a general hybrid advantage}
+All 4,032 preview entries and 2,784 target records complete, with no replacement or missing outcome. Table~\ref{tab:holdout-means} reports the primary tail error. At radius $0.016$, hybrid mean error is $0.115448$, versus $0.260336$ for signed local sensitivity. The mean paired reduction is $0.144887$, but its descriptive 95\% interval spans $[-0.045524,0.353194]$ and only six of twelve anchors favor hybrid. The point estimate is 55.65\% lower, not a resolved advantage across these starts. Augmented search has a smaller largest-dose mean, $0.076644$; its paired comparison with hybrid is also unresolved.
+
+At the smallest two radii, local/hybrid beats the tangent and coordinate rules at every anchor. At radius $0.004$, however, its mean error is $0.132630$, versus $0.027130$ for tangent and coordinate policies. Thus the frozen switch fails to capture an intermediate-dose opportunity. This observation does not authorize moving the switch and claiming success on the same data. The pooled hybrid mean is $0.062373$, compared with $0.098595$ for local, $0.051095$ for tangent/axes, $0.074171$ for uniform search and $0.049246$ for augmented search. Every one of the five primary pooled intervals includes zero (Table~\ref{tab:holdout-contrasts}).
+
+\begin{table}[H]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrrrrr}
+\toprule
+Radius & Atlas & Local & Tangent & Axes & Uniform & Augmented & Hybrid\\
+\midrule
+0.00025 & 0.013149 & 0.000244 & 0.002412 & 0.002412 & 0.001440 & 0.000580 & 0.000244\\
+0.001 & 0.056555 & 0.001169 & 0.008732 & 0.008732 & 0.005639 & 0.002351 & 0.001169\\
+0.004 & 0.135219 & 0.132630 & 0.027130 & 0.027130 & 0.107517 & 0.117410 & 0.132630\\
+0.016 & 0.115448 & 0.260336 & 0.166105 & 0.166105 & 0.182088 & 0.076644 & 0.115448\\
+All doses & 0.080093 & 0.098595 & 0.051095 & 0.051095 & 0.074171 & 0.049246 & 0.062373\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{EXP-007: all seven frozen policies.} Mean all-neuron activation RMSE on $75<t\le300$, primary $\Delta t=0.005$. Uniform uses sixteen previews; augmented uses twenty-one entries including local and atlas information. All doses are equally weighted. The table retains unfavorable doses and identical-action controls.}
+\label{tab:holdout-means}
+\end{table}
+
+\begin{table}[H]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrr}
+\toprule
+Comparator & Largest-dose benefit [95\% interval] & Pooled benefit [95\% interval]\\
+\midrule
+Local & $0.144887\;[-0.045524,0.353194]$ & $0.036222\;[-0.011381,0.088298]$\\
+Tangent & $0.050656\;[-0.043143,0.153512]$ & $-0.011278\;[-0.050720,0.028091]$\\
+Axes & $0.050656\;[-0.043143,0.153512]$ & $-0.011278\;[-0.050720,0.028091]$\\
+Uniform 16 & $0.066640\;[-0.042759,0.201205]$ & $0.011798\;[-0.028640,0.052582]$\\
+Augmented 21 & $-0.038805\;[-0.097362,0.031163]$ & $-0.013127\;[-0.033383,0.008182]$\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{All declared comparator-minus-hybrid contrasts.} Positive values favor hybrid. Intervals resample twelve selected anchor clusters and are descriptive; phases and integration steps are not independent replications. All ten displayed intervals include zero. No resolved overall advantage or equal-total-cost benefit is established.}
+\label{tab:holdout-contrasts}
+\end{table}
+
+\subsection{A coordinate control explains the tangent result in this sample}
+The tangent and signed-axis policies choose exactly the same actions in all 192 nonzero conditions: $+\gamma$ in 168 and $-\gamma$ in 24, always holding $\alpha$ fixed. All 192 corresponding preview state arrays and all 384 target state arrays across both steps are identical. The old nearest-pixel normals happen to be horizontal at all twelve selected starts, so their tangents are coordinate directions. This equivalence is a result of the retained action records, not a renaming of a comparator after outcomes. Tangent performance here therefore supplies no independent evidence that detailed shrimp geometry is necessary; a simple signed coordinate test realizes the same actions. It does not establish that changing $\gamma$ is always best or that geometry has no value elsewhere.
+
+The preselected example also prevents an exclusively favorable illustration. At the first eligible start and phase, largest-dose hybrid error is $0.059668$, local error $0.037763$, and both uniform and augmented search error $0.589753$. The augmented selector minimizes its preview objective but does not minimize later waveform error. The example is retained in Figure~\ref{fig:holdout-waveforms}; its ranking differs from the aggregate largest-dose ranking. More previews are not automatically a better predictor when the selection and evaluation horizons differ.
+
+\subsection{Numerical and cost limits}
+All 48 fine-step zero-dose shams complete, with mean tail error $6.53\times10^{-5}$ and maximum $6.88\times10^{-5}$. Across 1,392 paired coarse/fine targets, the absolute RMS difference has median $1.30\times10^{-7}$, mean $0.00403$, 95th percentile $0.01456$ and maximum $0.23486$. The coarse results preserve the unresolved pooled-comparison conclusion, but these differences rule out a claim of uniform pointwise convergence.
+
+Collection and summary construction take 137.51 seconds with four local workers, excluding final verification. Forty-eight sensitivity solves consume 23.52 seconds within that total. Summing the overlapping preview-call wall times gives 161.85 seconds; that is neither elapsed duration nor CPU time. The old atlas costs a separate 140.54 seconds, and per-policy preview counts range from zero to twenty-one. Shared research execution does not make these information sources free. All 7,149 receipt-listed artifacts are retained. Independent interpolation reconstructs 504,320 saved RMS values across 9,600 metric blocks with maximum absolute discrepancy $4.44\times10^{-16}$. No paid resource is used.

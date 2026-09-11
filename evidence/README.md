@@ -1,3 +1,24 @@
+# EXP-007 new-start waveform policy test
+
+`EXP-007/attempt-001` retains 7,149 receipt-listed files plus its receipt:
+374,438,288 bytes of recorded artifacts. Source commit
+`ac098c3e3833daaf27c7dc2869d45e8b7085f948` was pushed before outcomes and is
+preserved as `archive/EXP-007-source-v1`. Manifest SHA256:
+`573d817836d6c3271e685a45988be660743c104b47d96a5036414db4e6893ac7`.
+Receipt SHA256:
+`5a944722af26b9406bf2ba881067305491a115c41fe44a282ad2e9cb72282d23`.
+
+All 12 baseline attempts qualified; 4,032 previews and 2,784 target records
+completed. The primary interval is 75.1–300; previews use 0–75. Collection
+and summary took 137.509 seconds, excluding verification. The complete attempt
+passed frozen replay and an independent raw-data audit. All five pooled
+primary contrasts remain unresolved. No paid compute or paid review.
+
+```sh
+python tools/run_hopfield_holdout.py verify --output evidence/EXP-007/attempt-001
+python tools/plot_hopfield_holdout.py evidence/EXP-007/attempt-001 --destination paper/figures --check
+```
+
 # Numerical evidence
 
 The primary current result is an actual neural shrimp-shaped parameter window,

@@ -1,6 +1,75 @@
-# Next steps after the waveform utility experiment
+# Next steps after the stronger-control test
 
-## Current agenda: 2026-09-11 after EXP-006
+## Current decision after EXP-007, 11 September 2026
+
+EXP-007 completed the proposed one-step hybrid test: 4,032 previews, 2,784
+scored targets and 12 new qualified starts. All primary pooled intervals span
+zero. Largest-dose hybrid error is lower than local in the mean, but its
+interval spans zero too. Augmented search has lower mean error. Tangent and
+coordinate policies make identical actions in every condition. The switch
+must not be retuned and scored on these same anchors as a new success.
+
+The shrimp's physical meaning is established in this network: repeating
+activation waveforms, cycle durations, transverse contraction and stability
+changes. The unresolved issue is incremental task value beyond ordinary
+sensitivity and cheap action tests. A visible shape alone cannot answer it.
+
+### 1. Test incremental predictive information before another controller
+
+Treat both EXP-006 and EXP-007 as development evidence. Freeze new spatial
+intervention blocks and phases, an identical candidate-action set for all
+methods, and total cost accounting before any trajectories. Compare prediction
+of later waveform/phase error using (a) local sensitivities, (b) short forecasts,
+and (c) the same inputs plus period, transverse stability and boundary distance.
+Primary target should be prediction and action regret on the same later task
+window, with all candidate outcomes retained to define regret prospectively.
+
+This directly asks whether geometry adds information. It avoids crediting a
+geometric method for a coordinate action already available to the baseline.
+Freeze the preview horizon and scoring horizon separately; the present example
+shows that an excellent short-preview choice can have poor later output.
+Report computation and map costs; no universal optimality claim.
+
+### 2. Resolve what the signal error consists of
+
+At prospectively fixed settings inside, near and outside the verified window,
+separate immediate transient error, late waveform error, period/frequency
+change and phase drift. Add fixed state-disturbance directions and phases.
+A separate longer-settling measurement is essential: eventual nine-peak
+retention in EXP-006 does not certify immediate fidelity. Independently refine
+large step-sensitive cases and the old failed continuation checkpoint without
+replacing or erasing the original evidence. Preserve unstable branches.
+
+### 3. Conditional applications
+
+Only if incremental prediction survives, freeze a sequential controller test:
+time within waveform/phase tolerance, recovery time, action effort and total
+cost under held-out disturbance streams. Test geometry as an admissibility
+constraint alongside direct task control. Training/reasoning transfer remains
+later work, with complete optimizer/latent state and an actual task endpoint.
+
+The [Aguilera–De Martino preprint note](literature/2026-09-11-aguilera-demartino.md)
+suggests a separate multiple-memory experiment: hold target, patterns, load and
+coupling scale fixed while varying background spectral dispersion. Measure
+crosstalk, waveform/frequency quality and retrieval from corrupted cues, not
+only overlap magnitude. First clarify the response operator and inconsistent
+printed update identities or obtain reproducible implementation details.
+No memory-capacity replication, multi-memory shrimp or trained-model benefit
+has been demonstrated here. This proposal is not an executable frozen plan.
+
+### Resources and release
+
+All work so far used local CPU and no paid reviews. EXP-007 collection and
+summary took 137.51 seconds; verification is additional. The next bounded
+protocol should again be validated locally. A RunPod job would require a
+measured cost plan and explicit paid-compute authorization; none is launched.
+Keep the repository private. Publication remains a human decision.
+
+---
+
+# Earlier waveform-utility agenda
+
+## Historical agenda after EXP-006; preserved below
 
 This section supersedes the historical EXP-004--005 agenda retained below. It is
 a prospective agenda chosen after exploratory outcomes, not a frozen successor

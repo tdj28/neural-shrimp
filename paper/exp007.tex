@@ -1,0 +1,49 @@
+\section{New starting weights test the proposed hybrid}
+EXP-007 freezes a follow-up after the full EXP-006 development results. Twelve new starting weights are selected from the same earlier atlas, excluding a closed radius-$0.04$ neighborhood of every development anchor in rectangle-normalized coordinates. The old atlas and its non-nine pixels remain unchanged. The remaining 3,758 eligible pixels are split into margin-rank thirds, with four starts per third; the smallest selected normalized distance from a development origin is $0.04006$. This is a test of new waveform interventions conditional on an observed atlas, not generalization to an unseen map or network. Cross-stratum neighbors and overlap with old intervention destinations remain possible.
+
+All twelve new starts qualify using independent common-initialization integrations at both numerical steps and unchanged primitive-orbit shooting gates. Four new phases use exact indices $337,1012,1687,2362$ of each 2,700-sample endpoint-excluded certified orbit. The corresponding epochs are $iT/2700$; they are approximately, rather than exactly, the odd eighths of a cycle.
+
+\subsection{A stronger comparison with explicit preview access}
+The seven policies are atlas margin, signed local sensitivity, signed tangent, signed coordinate axes, uniform 16-direction search, augmented 21-entry search, and a hybrid. The hybrid uses the local method for radii through $0.004$ and atlas margin at $0.016$. This switch is chosen from EXP-006 before any new outcomes. Local sensitivity is integrated from the fixed initial state over $0$--$300$, with its phase-projected Gram restricted to the scored interval below.
+
+Each nonzero condition saves 21 separate simulator previews: 16 uniform directions, both local signs, both tangent signs, and the atlas direction. Duplicates are retained. Each preview starts from the same original orbit state, runs for 75 units at $\Delta t=0.005$, and measures phase-aligned full-activation error. Local and tangent inspect two previews each, axes four, uniform search sixteen, and augmented search all twenty-one. The fixed atlas requires no preview. Augmented search therefore uses geometry and local derivatives; uniform search is the atlas-free search control. All policies use the same native weight-change norm. Their information and compute costs differ.
+
+Policy choices are fixed before independent 300-unit target trajectories at both integration steps. The primary metric scores only the 2,250 samples $75.1\le t\le300$, fitting one constant phase shift within that interval. The preview and scoring samples are disjoint but dynamically dependent. Clonable simulator access is an explicit assumption. Full $0$--$300$ error is secondary. Neither frequency refitting nor time warping is allowed. Equal phase, dose and anchor weighting, missingness rules, and 10,000 descriptive paired-anchor bootstrap draws are frozen in advance. The hybrid and local policy coincide at the three smaller doses, so their pooled contrast is exactly one quarter of the largest-dose contrast; these are not separate demonstrations.
+
+\input{generated-exp007-results}
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-holdout-anchors.pdf}
+\caption{\textbf{Where the new interventions start.} The measured EXP-004 period atlas underlies the new and development anchor locations. The second view expresses coordinates in units of the focus rectangle widths so the fixed radius-$0.04$ exclusion neighborhoods can be shown as circles. The exclusion applies to starting locations, not every previous destination or trajectory. All twelve attempted new starts are retained. The same previously observed atlas supplies margins and tangents; the design does not test a new network or an unseen parameter map.}
+\label{fig:holdout-anchors}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-holdout-utility.pdf}
+\caption{\textbf{New-start policy comparison with stronger controls.} Dose means at both integration steps score only $75<t\le300$. Fine-step preview choices are reused at both steps. Positive comparator-minus-hybrid contrasts favor the hybrid; all five declared comparator contrasts are retained, including the largest-dose per-anchor results. Intervals are descriptive paired-anchor bootstrap percentiles, not population confidence claims. The preview budget panel counts candidate calls, not equal total resources: atlas construction and local sensitivity are additional dependencies. Augmented 21-entry search includes atlas and local directions; uniform 16-direction search does not. The hybrid copies local at three doses, making those local contrasts identically zero.}
+\label{fig:holdout-utility}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-holdout-waveforms.pdf}
+\caption{\textbf{A prospectively selected new-start waveform example.} First eligible anchor, first phase, largest dose, and primary numerical step. Rows show actual activations and componentwise errors. Preview time is shaded; the primary endpoint excludes that interval. Candidate curves are shown against the original synchronous reference, while each error curve uses its own single phase shift fitted to the entire scored tail. No frequency correction or separate cycle alignment is used. This example follows the frozen selection rule even if it is unfavorable to the hybrid or unrepresentative of the aggregate.}
+\label{fig:holdout-waveforms}
+\end{figure}
+\end{landscape}
+\restoregeometry

@@ -151,3 +151,36 @@ and the EXP006 manifest; no EXP007 target outcomes exist at this entry.
 Runtime and scientific outcome verification follow in a separate dated entry.
 The literature note also has independent analytical checks of printed
 partial-refresh identities; these do not reproduce the preprint numerics.
+
+## 2026-09-11 EXP-007 completed evidence and release checks
+
+- The only attempt ran from the pushed source
+  `ac098c3e3833daaf27c7dc2869d45e8b7085f948`, preserved under
+  `archive/EXP-007-source-v1`. All 12 baseline attempts qualified; all 4,032
+  previews and 2,784 target records completed. Frozen verification exited 0.
+- The copied evidence passed exact checks for all 7,149 receipt-listed
+  artifacts. A separate auditor with no experiment imports reconstructed
+  504,320 RMS values in 9,600 metric blocks, with maximum discrepancy 4.44e-16,
+  and independently reproduced all selections and bootstrap contrasts.
+- A separate scientific release review reaggregated all 35 table means and
+  30 displayed contrast/interval numbers directly from records. All primary
+  pooled intervals span zero at both steps. Tangent and coordinate actions
+  match exactly in 192/192 conditions and 384/384 target arrays.
+- The new driver, selection and analytical preprint checks pass alongside the
+  previous tests. No paid review, RunPod resource or other paid compute ran.
+- Three new empirical figure families retain plotted arrays and exact source
+  and image hashes. The display-only amendment enlarges the utility plate;
+  its numerical arrays and sample selection do not change. Final PDF inventory,
+  test count, render inspection and file hashes are in paper/provenance.json.
+- GitHub's required tests check remains the final merge gate. The research
+  repository and its complete raw evidence remain private.
+
+- The initial source-freeze GitHub run (34657214248) failed because the existing
+  PDF provenance still bound the preceding workflow file. This was a stale
+  release-metadata hash, not a numerical assertion failure. Final provenance
+  was refreshed from the actual revised files; the checker and thresholds
+  remain unchanged. The original failed run remains in GitHub history.
+- Final visual QA inspected all 27 pages at 125 dpi. After the utility-plate
+  layout correction, page 23 was inspected again and exact PNG hashes confirmed
+  the other 26 pages unchanged. The final LaTeX log has no warnings or box
+  overflows. All 186 tests passed locally.
