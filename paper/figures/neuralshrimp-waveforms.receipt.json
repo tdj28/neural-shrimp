@@ -1,0 +1,380 @@
+{
+  "accessibility": "Axes label controls, time and quantities; categorical legend names every observed peak period; exact plotted values are in the accompanying archive; series use line styles and marker shapes; the complete alt text is embedded in PDF Subject and SVG/PNG Description metadata.",
+  "alt_text": "Two columns show the deterministically selected core and grid-selected comparison. The latter was named exterior by the original grid rule; its saved refinement peak counts are displayed explicitly. The first row plots all three neuron potentials, the second their tanh activations, and the third the logarithmic distance between base and perturbed trajectories. Failed or missing selections are stated rather than replaced. Raw separation can include a persistent phase shift of a stable cycle.",
+  "claim_scope": "Peak-event maps screen candidate periodicity. Missing and no-short-period cells are retained. FTLE is finite-horizon. No learned-task performance or gradient-training claim.",
+  "description": "Recorded core and grid-selected comparison trajectories show all three internal neuron states, their actual tanh activations, and nearby-state separation. The comparison's refinement peak count is shown, without assuming it remained outside the periodic window.",
+  "figure_id": "neuralshrimp-waveforms",
+  "generator": {
+    "path": "tools/plot_hopfield.py",
+    "sha256": "5426ad18dad69a0ebadc234ceeba41f33364ff86a83887eef5f623ebe69ef1e0"
+  },
+  "generator_repository": "https://github.com/tdj28/neural-shrimp",
+  "outputs": [
+    {
+      "path": "neuralshrimp-waveforms.pdf",
+      "sha256": "b97cd7faa5b11b61746ebbc48264305229afe80c9837fab9f8ecabdc5332890b"
+    },
+    {
+      "path": "neuralshrimp-waveforms.svg",
+      "sha256": "4d8be2a3804103700c825906da10f64c1cb3d1ec1f787d167d8c3ae33fed1c24"
+    },
+    {
+      "path": "neuralshrimp-waveforms.png",
+      "sha256": "2e209cf105c643e1265cce54a1b0b47ec6b91fbc09e558a523837be01bed53a4"
+    }
+  ],
+  "plan": {
+    "path": "experiments/hopfield/EXP-004-plan.json",
+    "sha256": "8c618745ce6bc8101990c81dcbb1cb8e4674e19f97bff8b0a026f9cc8bc410ec"
+  },
+  "plotted_arrays": {
+    "arrays": {
+      "core_activation_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "c589bbb593d464a153f00334e6cbd5d721f19933ec52b0ff5d77d760be6cb068"
+      },
+      "core_activations": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "bd444042690a513c7ef9a55e6e127e0e47407a94415bfa6d32c8bdb353b615f7"
+      },
+      "core_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "a91d486be4860fa7b6b07304705f17fc41adc2e6b44ace17c20160f5cb4da2fe"
+      },
+      "core_states": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "ed1197618cab063c5037c301556d24e28ada444b495fea60a440fa4afa87e87c"
+      },
+      "core_time": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "0a19d46b76087cdf29516a11a94b5c0ca871e4e3e50083cb402d849195e350d9"
+      },
+      "exterior_activation_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "839f597456fd477606b5eb78bdbf2dff7be06714356f6c1506abf54593f5d770"
+      },
+      "exterior_activations": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "27e793563be5c2ed1dbfe5456b49daa3bed19bb393d1114048f59d517c917e25"
+      },
+      "exterior_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "4699c3dce3f06fdf131aca5619861727f71985c232b9f6e635da9a18f19a7be4"
+      },
+      "exterior_states": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "763ae92b88c4c3ffe9843f7f22aa7f1418ac7226e093cc2dceae56741d310978"
+      },
+      "exterior_time": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "0a19d46b76087cdf29516a11a94b5c0ca871e4e3e50083cb402d849195e350d9"
+      }
+    },
+    "path": "neuralshrimp-waveforms.plot-data.npz",
+    "sha256": "cd65366a9815ad20690b4d908046a1dde77067e37339b68f7e239390062c083d"
+  },
+  "run_id": "attempt-001",
+  "schema_version": 1,
+  "selection": {
+    "core": {
+      "candidate_period": 9,
+      "certificate_attracting": true,
+      "certificate_verified": true,
+      "coordinates": [
+        1.064,
+        10.260722222222222
+      ],
+      "metrics": {
+        "activation_moments": {
+          "maximum": [
+            0.7633332440096349,
+            0.8274980712371431,
+            0.9999999999999829
+          ],
+          "mean": [
+            -0.0006395740786205547,
+            -0.0009525326569988192,
+            0.0033022412376517087
+          ],
+          "minimum": [
+            -0.7633399662668812,
+            -0.8275063157788276,
+            -0.9999999999999829
+          ],
+          "std": [
+            0.33696340860401186,
+            0.4310979310762496,
+            0.9876173038401254
+          ]
+        },
+        "alpha": 1.064,
+        "cycle_repetition": {
+          "per_neuron_state_rms": [
+            9.347083365234659e-11,
+            7.080190350125197e-11,
+            8.065866765736347e-10
+          ],
+          "period": 37.636375381794,
+          "sample_count": 2248,
+          "state_rms": 8.150655023427055e-10
+        },
+        "duration": 300.0,
+        "gamma": 10.260722222222222,
+        "initial_state": [
+          -0.0948638752768419,
+          0.23073863870339137,
+          -6.142391088913284
+        ],
+        "integration": {
+          "atol": 1e-12,
+          "max_step": 0.2,
+          "method": "DOP853",
+          "rtol": 1e-10
+        },
+        "perturbation": {
+          "direction": [
+            0.5773502691896258,
+            0.5773502691896258,
+            0.5773502691896258
+          ],
+          "epsilon": 1e-06,
+          "final_activation_separation": 1.3506951805161786e-06,
+          "final_separation": 1.4225516386731318e-05,
+          "finite_horizon_log_amplification_per_time": 0.008850124269548692,
+          "initial_separation": 9.999999998408475e-07,
+          "max_activation_separation": 5.139536024573594e-05,
+          "max_separation": 8.53380530384565e-05,
+          "rms_tail_separation": 3.261396191662378e-05
+        },
+        "sample_dt": 0.05,
+        "sampled_orbit_distance": {
+          "baseline_tail_rms": 0.023409596005336646,
+          "interpretation": "Nearest sampled-orbit point; includes discretization error, not exact phase projection.",
+          "orbit_sample_count": 2701,
+          "perturbed_tail_rms": 0.023410053988652185
+        },
+        "scope": "Neuron state and activation observables; no task-accuracy interpretation.",
+        "state_moments": {
+          "maximum": [
+            1.0041540633684072,
+            1.1801473592849634,
+            16.196483703473742
+          ],
+          "mean": [
+            -0.0006480074155505105,
+            -0.000981581795967971,
+            0.02580856158145575
+          ],
+          "minimum": [
+            -1.0041701716352307,
+            -1.1801735124969746,
+            -16.196561861534647
+          ],
+          "std": [
+            0.39293098663908826,
+            0.5051876309377291,
+            8.66362635821824
+          ]
+        },
+        "summary_window": [
+          150.0,
+          300.0
+        ]
+      }
+    },
+    "exterior": {
+      "candidate_period": 0,
+      "certificate_attracting": false,
+      "certificate_verified": false,
+      "coordinates": [
+        1.0661333333333334,
+        10.297166666666667
+      ],
+      "metrics": {
+        "activation_moments": {
+          "maximum": [
+            0.7618562058869736,
+            0.8266776262723284,
+            0.9999999999999841
+          ],
+          "mean": [
+            0.0011168691958025002,
+            -0.0007524108285469384,
+            0.002756566427582337
+          ],
+          "minimum": [
+            -0.7628258683878926,
+            -0.8275771447925383,
+            -0.9999999999999837
+          ],
+          "std": [
+            0.3325055878944803,
+            0.42942091402612237,
+            0.9891655446143294
+          ]
+        },
+        "alpha": 1.0661333333333334,
+        "duration": 300.0,
+        "gamma": 10.297166666666667,
+        "initial_state": [
+          -0.18740725598231703,
+          -0.2805767772432929,
+          7.617347598994772
+        ],
+        "integration": {
+          "atol": 1e-12,
+          "max_step": 0.2,
+          "method": "DOP853",
+          "rtol": 1e-10
+        },
+        "perturbation": {
+          "direction": [
+            0.5773502691896258,
+            0.5773502691896258,
+            0.5773502691896258
+          ],
+          "epsilon": 1e-06,
+          "final_activation_separation": 1.9543986315268834e-06,
+          "final_separation": 2.4374769356611175e-05,
+          "finite_horizon_log_amplification_per_time": 0.010645161848991362,
+          "initial_separation": 9.9999999984886e-07,
+          "max_activation_separation": 5.2440030801393736e-05,
+          "max_separation": 8.542002733815728e-05,
+          "rms_tail_separation": 3.196924131650536e-05
+        },
+        "sample_dt": 0.05,
+        "scope": "Neuron state and activation observables; no task-accuracy interpretation.",
+        "state_moments": {
+          "maximum": [
+            1.000624263263363,
+            1.1775503993129595,
+            16.232168087812607
+          ],
+          "mean": [
+            0.0011112599115865273,
+            -0.0010876055180930862,
+            0.018684026836700153
+          ],
+          "minimum": [
+            -1.0029394017850082,
+            -1.1803982418869732,
+            -16.21820985728027
+          ],
+          "std": [
+            0.38736206247622207,
+            0.5023367586003485,
+            8.65723974735473
+          ]
+        },
+        "summary_window": [
+          150.0,
+          300.0
+        ]
+      }
+    }
+  },
+  "source_fields": {
+    "row_arrays": [
+      "alpha",
+      "gamma",
+      "period",
+      "stats",
+      "present (derived row census)",
+      "events[:n_events,:]",
+      "residual",
+      "period_time"
+    ],
+    "selected_fields": [
+      "alpha",
+      "gamma",
+      "candidate_period",
+      "certificate",
+      "behavior.times",
+      "behavior.states",
+      "behavior.activations",
+      "behavior.separation",
+      "behavior.activation_separation",
+      "behavior.metrics"
+    ],
+    "stats_abi": [
+      "total_peaks",
+      "finite_time_lyapunov_exponent",
+      "ftle_measurement_time",
+      "sample_time",
+      "mean_x1",
+      "mean_x2",
+      "mean_x3",
+      "std_x1",
+      "std_x2",
+      "std_x3",
+      "mean_tanh_x1",
+      "mean_tanh_x2",
+      "mean_tanh_x3",
+      "std_tanh_x1",
+      "std_tanh_x2",
+      "std_tanh_x3",
+      "mean_squared_speed",
+      "final_speed",
+      "burn_steps",
+      "sample_steps"
+    ]
+  },
+  "source_root": ".",
+  "sources": [
+    {
+      "path": "manifest.json",
+      "sha256": "a300c6043f1084e12e7c701766d14aa537ffdeb14e22f5d4ef510a0ad4d61205"
+    },
+    {
+      "path": "selected.json",
+      "sha256": "0a92e4ce1446cee45038e19037131cfe653b28bce4666afb8dd1dbe51332d86f"
+    }
+  ],
+  "study_id": "EXP-004",
+  "title": "Core and grid-selected comparison activity",
+  "transformations": [
+    "Plot all stored behavior sample times, with no simulation, smoothing or temporal selection; common y limits within each measured quantity.",
+    "Independently replay tanh(states), and state/activation separation when perturbed states exist, at rtol1e-12,atol1e-14 before plotting.",
+    "Exact zero distances masked on log axes but retained in plotted-array archive.",
+    "Candidate labels upgraded to certified cycle only when certificate verified and attracting are both true."
+  ],
+  "uncertainty": "Descriptive numerical measurements; no sampling-confidence intervals. Step and transient checks are retained separately.",
+  "versions": {
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.3"
+  }
+}

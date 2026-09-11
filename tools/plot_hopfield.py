@@ -11,6 +11,7 @@ it is never relabeled chaos. Candidate maps and orbit certificates are distinct.
 from __future__ import annotations
 
 import argparse
+import colorsys
 import hashlib
 import io
 import json
@@ -147,9 +148,15 @@ def period_style(grids):
     periods = sorted({int(p) for g in grids.values() for p in g["period"].ravel() if p > 0})
     values = [-1, 0] + periods
     palette = ["#DDDDDD", "#FCF9F2"]
-    tab = plt.get_cmap("tab20")
-    palette += ["#0072B2" if p == 9 else "#D55E00" if p == 18 else tab((i + 4) % 20) for i, p in enumerate(periods)]
+    palette += ["#0072B2" if p == 9 else "#D55E00" if p == 18 else
+        colorsys.hsv_to_rgb((p * .6180339887498949) % 1, .55 if p % 2 else .85, .65 if p % 3 else .90)
+        for p in periods]
     return values, ListedColormap(palette), BoundaryNorm(np.arange(len(values) + 1) - .5, len(values))
+
+
+def legend_rows(grids):
+    count = len({int(p) for grid in grids.values() for p in grid["period"].ravel()})
+    return (count + 4) // 5
 
 
 def period_map(ax, grid, style):
@@ -176,15 +183,15 @@ def annotate_points(ax, selected):
             ax.scatter(*point, marker=marker, s=42, c="white", edgecolors="#151515", linewidths=1.0, zorder=5)
 
 
-def period_legend(fig, grids, style, selected=False, y=.06):
+def period_legend(fig, grids, style, selected=False, y=.06, role_y=None):
     values, cmap, _ = style
     present = {int(p) for g in grids.values() for p in g["period"].ravel()}
     handles = [Patch(facecolor=cmap(i), edgecolor="#888888", label=("Not measured" if p == -1 else "No short period" if p == 0 else f"{p} peaks"))
         for i, p in enumerate(values) if p in present]
     fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(.5, y), ncol=min(len(handles), 5), frameon=False)
     if selected:
-        handles = [Line2D([], [], marker=m, color="none", markerfacecolor="white", markeredgecolor="#151515", label=r.capitalize()) for r, m in ROLE_MARKERS.items()]
-        fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(.5, y-.05), ncol=4, frameon=False)
+        handles = [Line2D([], [], marker=m, color="none", markerfacecolor="white", markeredgecolor="#151515", label="Grid comparison" if r == "exterior" else r.capitalize()) for r, m in ROLE_MARKERS.items()]
+        fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(.5, role_y if role_y is not None else y-.05), ncol=4, frameon=False)
 
 
 def grid_arrays(name, grid):
@@ -231,14 +238,16 @@ def save_figure(fig, destination, stem, title, description, alt, runroot, source
 def maps(runroot, destination, selected, grids, common):
     overview, focus = grids["overview"], grids["focus"]
     style = period_style({"overview": overview, "focus": focus})
-    fig, axes = plt.subplots(1, 2, figsize=(9.0, 5.1))
-    fig.subplots_adjust(left=.08, right=.98, top=.84, bottom=.24, wspace=.28)
+    bottom_inches = .95 + .24 * legend_rows({"overview": overview, "focus": focus})
+    height = 4.2 + bottom_inches
+    fig, axes = plt.subplots(1, 2, figsize=(9.0, height))
+    fig.subplots_adjust(left=.08, right=.98, top=1-.75/height, bottom=bottom_inches/height, wspace=.28)
     for ax, grid, name in zip(axes, [overview, focus], ["A  Published zoom rectangle", "B  Focused shrimp rectangle"]):
         period_map(ax, grid, style); annotate_points(ax, selected)
         ax.set_title(name, loc="left")
     axes[0].add_patch(Rectangle((focus["alpha"][0], focus["gamma"][0]), np.ptp(focus["alpha"]), np.ptp(focus["gamma"]), fill=False, edgecolor="#252525", linewidth=.9, linestyle="--"))
-    period_legend(fig, {"overview": overview, "focus": focus}, style, selected=True, y=.083)
-    fig.text(.08, .015, "Colors count peaks in a repeating full-state event sequence; zero is unresolved, not a chaos label.", fontsize=8)
+    period_legend(fig, {"overview": overview, "focus": focus}, style, selected=True, y=.43/height, role_y=.15/height)
+    fig.text(.08, .035/height, "Colors count peaks in a repeating full-state event sequence; zero is unresolved, not a chaos label.", fontsize=8)
     return save_figure(fig, destination, "neuralshrimp-map", "A two-connection scan of recurrent neural dynamics",
         "Complete overview and focus grids show candidate peak-period organization at recorded connection weights.",
         "Two categorical maps show the declared control rectangles. Each cell uses its saved full-state peak-event period. A dashed rectangle locates the focus. Selected coordinates share markers between panels. Unmeasured cells are gray and no-short-period cells are pale.",
@@ -248,8 +257,11 @@ def maps(runroot, destination, selected, grids, common):
 
 def aligned(runroot, destination, selected, grids, common):
     grid = grids["focus"]; style = period_style({"focus": grid})
-    fig, axes = plt.subplots(1, 3, figsize=(11.0, 4.9))
-    fig.subplots_adjust(left=.068, right=.985, top=.83, bottom=.33, wspace=.38)
+    legend_inches = .35 + .24 * legend_rows({"focus": grid})
+    bottom_inches = legend_inches + 1.0
+    height = bottom_inches + 3.4
+    fig, axes = plt.subplots(1, 3, figsize=(11.0, height))
+    fig.subplots_adjust(left=.068, right=.985, top=1-.75/height, bottom=bottom_inches/height, wspace=.38)
     period_map(axes[0], grid, style); axes[0].set_title("A  Recurrent peak count", loc="left")
     for ax, index, title, cmap in [(axes[1], 1, "B  Finite-time instability", "coolwarm"), (axes[2], 15, "C  Activation variability", "viridis")]:
         data = np.ma.masked_invalid(grid["stats"][:, :, index])
@@ -259,14 +271,18 @@ def aligned(runroot, destination, selected, grids, common):
         p = ax.pcolormesh(grid["alpha"], grid["gamma"], data, shading="nearest", cmap=cmap, norm=norm, rasterized=True)
         format_map(ax, grid); ax.set_title(title, loc="left")
         box = ax.get_position()
-        cax = fig.add_axes([box.x0, .185, box.width, .024])
+        cax = fig.add_axes([box.x0, (legend_inches+.35)/height, box.width, .11/height])
         colorbar = fig.colorbar(p, cax=cax, orientation="horizontal",
             label="Finite-time Lyapunov exponent / time" if index == 1 else r"Standard deviation of $\tanh(x_3)$")
-        colorbar.locator = matplotlib.ticker.MaxNLocator(5)
-        colorbar.update_ticks()
+        if isinstance(norm, TwoSlopeNorm):
+            ticks = [norm.vmin, 0.0, norm.vmax / 2, norm.vmax]
+            colorbar.set_ticks(ticks, labels=[f"{value:.3g}" for value in ticks])
+        else:
+            colorbar.locator = matplotlib.ticker.MaxNLocator(5)
+            colorbar.update_ticks()
     for ax in axes: annotate_points(ax, selected)
-    period_legend(fig, {"focus": grid}, style, selected=False, y=.04)
-    fig.text(.068, .012, "The same saved controls underlie every panel; finite-time exponent is not an asymptotic chaos certificate.", fontsize=8)
+    period_legend(fig, {"focus": grid}, style, selected=False, y=.20/height)
+    fig.text(.068, .035/height, "The same saved controls underlie every panel; finite-time exponent is not an asymptotic chaos certificate.", fontsize=8)
     return save_figure(fig, destination, "neuralshrimp-aligned-map", "Geometry alongside instability and the neuron's actual output",
         "Aligned maps compare candidate peak recurrence, measured finite-time exponent, and variability of the third neuron's tanh activation.",
         "Three maps use identical alpha and gamma coordinates. The first is categorical peak period, the second is finite-time Lyapunov exponent, and the third is standard deviation of tanh(x3). Their alignment exposes whether periodic geometry coincides with changes in measured neural activity. Missing measurements are masked.",
@@ -347,7 +363,15 @@ def waveform(runroot, destination, selected, grids, common):
         axes[2, col].set_yscale("log")
         certificate = record.get("certificate") or {}
         label = "certified cycle" if certificate.get("verified") and certificate.get("attracting") else "selected trajectory"
-        axes[0, col].set_title(f"{role.capitalize()}: {label}\nalpha={point[0]:.6g}, gamma={point[1]:.6g}", loc="left")
+        display_role = role.capitalize()
+        if role == "exterior":
+            refined = sorted({int(item["period"]) for item in record.get("refinements", []) if item.get("period") is not None})
+            refinement_label = ("refined " + "/".join(map(str, refined)) + " peaks") if refined else "refinement unavailable"
+            display_role = f"Grid-selected comparison ({refinement_label})"
+            heading = display_role
+        else:
+            heading = f"{display_role}: {label}"
+        axes[0, col].set_title(f"{heading}\nalpha={point[0]:.6g}, gamma={point[1]:.6g}", loc="left", fontsize=9)
         axes[0, col].set_ylabel("Neuron potential $x_i$")
         axes[1, col].set_ylabel(r"Activation $\tanh(x_i)$")
         axes[2, col].set(ylabel="Nearby-state distance", xlabel="Elapsed time")
@@ -364,9 +388,9 @@ def waveform(runroot, destination, selected, grids, common):
             for ax in active_axes:
                 ax.set_ylim(min(pair[0] for pair in limits), max(pair[1] for pair in limits))
     fig.text(.095, .025, "A small state perturbation is applied at time zero. Raw separation includes neutral phase shifts;\nit is not a direct measure of transverse recovery or task correctness.", fontsize=8)
-    return save_figure(fig, destination, "neuralshrimp-waveforms", "What the same parent network does inside and outside the window",
-        "Recorded core and exterior trajectories compare all three internal neuron states, their actual tanh activations, and nearby-state separation.",
-        "Two columns show the deterministically selected core and exterior. The first row plots all three neuron potentials, the second their tanh activations, and the third the logarithmic distance between base and perturbed trajectories. Failed or missing selections are stated rather than replaced. Raw separation can include a persistent phase shift of a stable cycle.",
+    return save_figure(fig, destination, "neuralshrimp-waveforms", "Core and grid-selected comparison activity",
+        "Recorded core and grid-selected comparison trajectories show all three internal neuron states, their actual tanh activations, and nearby-state separation. The comparison's refinement peak count is shown, without assuming it remained outside the periodic window.",
+        "Two columns show the deterministically selected core and grid-selected comparison. The latter was named exterior by the original grid rule; its saved refinement peak counts are displayed explicitly. The first row plots all three neuron potentials, the second their tanh activations, and the third the logarithmic distance between base and perturbed trajectories. Failed or missing selections are stated rather than replaced. Raw separation can include a persistent phase shift of a stable cycle.",
         runroot, common, arrays,
         ["Plot all stored behavior sample times, with no simulation, smoothing or temporal selection; common y limits within each measured quantity.", "Independently replay tanh(states), and state/activation separation when perturbed states exist, at rtol1e-12,atol1e-14 before plotting.", "Exact zero distances masked on log axes but retained in plotted-array archive.", "Candidate labels upgraded to certified cycle only when certificate verified and attracting are both true."], included)
 
