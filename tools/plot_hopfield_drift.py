@@ -52,6 +52,17 @@ def close_identity(a, b, path="summary"):
         raise ValueError(f"Value drift at {path}")
 
 
+def replay_array(actual, expected, name):
+    """Portable arithmetic replay; file hashes still bind exact saved bytes."""
+    if actual.shape != expected.shape or actual.dtype != expected.dtype:
+        raise ValueError(f"Plotted array schema drift: {name}")
+    if actual.dtype.kind in "fc":
+        np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14,
+                                   equal_nan=True, err_msg=f"Plotted array drift: {name}")
+    elif not np.array_equal(actual, expected):
+        raise ValueError(f"Plotted array drift: {name}")
+
+
 def load(runroot):
     receipt = json.loads((runroot / "receipt.json").read_text())
     if receipt.get("status") != "complete": raise ValueError("Complete EXP-006 receipt required")
@@ -146,7 +157,7 @@ def anchor_figure(data):
                         marker="o", linewidths=1.6, zorder=3)
         if not eligible[i]: axes[0].plot(*coords[i], marker="x", color=color, ms=5, zorder=4)
         offset = (7, -11) if i == 9 else (4, 5)
-        axes[0].annotate(f"{i:02d}", coords[i], xytext=offset, textcoords="offset points", fontsize=8,
+        axes[0].annotate(f"{i:02d}", coords[i], xytext=offset, textcoords="offset points", fontsize=9,
                          bbox=dict(boxstyle="round,pad=.12", fc="white", ec="none", alpha=.8))
     axes[0].set(xlabel=r"Weight $\alpha$", ylabel=r"Weight $\gamma$", title="All 12 attempted anchors on the old numerical shrimp")
     bars = axes[1].barh(np.arange(12), margins, color=[GROUP_COLORS[g] for g in groups], alpha=.82)
@@ -159,10 +170,11 @@ def anchor_figure(data):
                for color, group in zip(GROUP_COLORS, GROUPS)]
     handles += [Line2D([], [], marker="o", ls="", color="black", label="Qualified baseline"),
                 Line2D([], [], marker="x", ls="", color="black", label="Ineligible; retained")]
-    fig.legend(handles=handles, loc="lower center", ncol=3, bbox_to_anchor=(.5, .065))
+    fig.legend(handles=handles, loc="lower center", ncol=3, bbox_to_anchor=(.5, .065), fontsize=9)
     fig.text(.5, .018, "Background: old nine-peak candidates (blue), eighteen-peak candidates (tan), other outcomes (gray).\n"
              "Pixel margins describe the saved atlas, not exact orbit or basin boundaries. Anchor qualification is a new independent check.",
-             ha="center", fontsize=8)
+             ha="center", fontsize=9)
+    for ax in axes: ax.tick_params(labelsize=9)
     fig.subplots_adjust(left=.07, right=.98, bottom=.23, top=.91, wspace=.32)
     return fig, arrays, {"anchor_order": [a["id"] for a in anchors], "groups": GROUPS,
                          "eligible": [a["id"] for i, a in enumerate(anchors) if eligible[i]]}
@@ -193,9 +205,14 @@ def utility_figure(data):
             zero[i] = np.mean([r["wave_metrics"]["aligned_rms"]["aggregate"] for r in zeros])
     arrays = dict(radii=radii, steps=steps, arm_mean_rmse=means, contrast_effect_ci=effects,
                   equal_radius_average=pooled, defined=complete, zero_mean_rmse=zero)
-    fig, axes = plt.subplots(3, 2, figsize=(11.8, 13.0), gridspec_kw={"height_ratios": [1, 1.5, 1.2]})
+    # 9-point labels remain above 7 points at a 9.8 by 7.2 inch landscape placement.
+    fig, axes = plt.subplots(3, 2, figsize=(11.8, 8.8), gridspec_kw={"height_ratios": [.92, 1.25, .92]})
     finite = means[np.isfinite(means)]
     vmax = max(.01, float(np.max(finite))) if finite.size else 1.
+    effect_finite = effects[np.isfinite(effects)]
+    effect_limits = ([min(0., float(effect_finite.min())), max(0., float(effect_finite.max()))]
+                     if effect_finite.size else [-1., 1.])
+    effect_padding = max((effect_limits[1] - effect_limits[0]) * .08, 1e-5)
     for i, dt in enumerate(steps):
         a = axes[0, i]
         curves = {"atlas_margin": means[i, ARMS.index("atlas_margin")],
@@ -208,11 +225,12 @@ def utility_figure(data):
                     linestyle="--" if name == "inward" else "-")
         if np.isfinite(zero[i]): a.axhline(zero[i], color="#999999", ls=":", lw=1)
         a.set(xscale="log", xlabel="Raw weight perturbation norm", ylabel="Aligned activation RMSE",
-              title=f"dt = {dt:g}" + (" (primary)" if dt == p["primary_dt"] else " (refinement check)"), ylim=(0, vmax * 1.08))
-        a.grid(alpha=.15); a.legend(fontsize=7, loc="upper left")
+              title=f"dt = {dt:g}" + (" (primary)" if dt == p["primary_dt"] else " (refinement check)"),
+              ylim=(0, vmax * 1.08), xlim=(radii[0] * .85, radii[-1] * 1.15))
+        a.grid(alpha=.15); a.legend(fontsize=9, loc="upper left", ncol=2, columnspacing=.7, handlelength=1.4)
         if not np.all(complete[i]):
             a.text(.98, .98, f"{(~complete[i]).sum()}/4 doses undefined", transform=a.transAxes,
-                   ha="right", va="top", color="#b00020", fontsize=8)
+                   ha="right", va="top", color="#b00020", fontsize=9)
         hm = axes[1, i]
         cmap = plt.get_cmap("viridis").copy(); cmap.set_bad("#dedede")
         im = hm.imshow(means[i], aspect="auto", vmin=0, vmax=vmax, cmap=cmap)
@@ -223,8 +241,9 @@ def utility_figure(data):
             for col in range(4):
                 value = means[i, row, col]
                 hm.text(col, row, f"{value:.3f}" if np.isfinite(value) else "NA", ha="center", va="center",
-                         fontsize=7, color="white" if np.isfinite(value) and value < .55 * vmax else "black")
-        fig.colorbar(im, ax=hm, fraction=.035, pad=.025, label="RMSE")
+                         fontsize=9, color="white" if np.isfinite(value) and value < .55 * vmax else "black")
+        colorbar = fig.colorbar(im, ax=hm, fraction=.035, pad=.025, label="RMSE")
+        colorbar.ax.tick_params(labelsize=9)
         benefit = axes[2, i]
         for k, name in enumerate(COMPARATORS):
             values = effects[i, k]
@@ -232,26 +251,29 @@ def utility_figure(data):
             benefit.fill_between(radii, values[:, 1], values[:, 2], alpha=.13, color=COLORS[name])
         benefit.axhline(0, color="black", lw=.8)
         benefit.set(xscale="log", xlabel="Raw weight perturbation norm",
-                    ylabel="Comparator RMSE − atlas RMSE", title="Paired benefit and descriptive 95% intervals")
+                    ylabel="Comparator RMSE − atlas RMSE", title="Paired benefit and descriptive 95% intervals",
+                    xlim=(radii[0] * .85, radii[-1] * 1.15),
+                    ylim=(effect_limits[0] - effect_padding, effect_limits[1] + effect_padding))
         benefit.grid(alpha=.15)
         text = []
         for k, name in enumerate(COMPARATORS):
             value = pooled[i, k]
             text.append(f"{LABELS[name]}: {value[0]:+.4f} [{value[1]:+.4f}, {value[2]:+.4f}]"
                         if np.isfinite(value).all() else f"{LABELS[name]}: undefined")
-        benefit.text(0, -.29, "Equal-radius averages:\n" + "\n".join(text), transform=benefit.transAxes,
-                      fontsize=7.5, va="top")
+        benefit.text(0, -.43, "Equal-radius averages:\n" + "\n".join(text), transform=benefit.transAxes,
+                      fontsize=9, va="top")
     fig.suptitle(f"Does the saved shrimp atlas preserve a neural waveform?  {summary['eligible_anchor_count']}/12 anchors qualified", y=.98)
     fig.text(.5, .015, f"Equal anchor and phase weights; 10,000 anchor-bootstrap draws. Refinement steps are not independent replicates.\n"
              f"Eligible trial statuses: {summary['status_counts']}; missing={len(summary['missing_trials'])}, invalid={len(summary['invalid_trials'])}. "
              "Undefined comparisons remain NA.\nPositive benefit favors the atlas policy. One global phase offset is allowed; frequency is not fitted. Dotted line: zero-dose floor.",
-             ha="center", fontsize=7.5)
-    fig.subplots_adjust(left=.12, right=.93, top=.93, bottom=.18, hspace=.39, wspace=.4)
+             ha="center", fontsize=9)
+    for ax in axes.ravel(): ax.tick_params(labelsize=9)
+    fig.subplots_adjust(left=.12, right=.93, top=.93, bottom=.22, hspace=.54, wspace=.4)
     return fig, arrays, {"arms": ARMS, "comparators": COMPARATORS, "summary": summary}
 
 
 def continuation_figure(data):
-    fig, axes = plt.subplots(2, 2, figsize=(11.8, 7.8), sharex="col")
+    fig, axes = plt.subplots(2, 2, figsize=(11.8, 8.1), sharex="col")
     arrays, conditions = {}, {}
     colors = {-1: "#0072B2", 1: "#D55E00"}
     for col, seed in enumerate(data["plan"]["continuation"]["seeds"]):
@@ -297,22 +319,33 @@ def continuation_figure(data):
                                   "node_brackets": [n.get("bracket_flags", []) for n in nodes],
                                   "checkpoint_failures": int(checkpoint_failed.sum())}
         axes[0, col].set(title="Core seed" if seed == "core" else "Retained near-edge seed", ylabel="Physical orbit period T")
-        axes[0, col].legend(fontsize=7)
+        axes[0, col].legend(fontsize=9)
         axes[1, col].axhline(1, color="black", ls="--", lw=.8)
         axes[1, col].axhline(-1, color="black", ls="--", lw=.8)
+        axes[1, col].set_yscale("symlog", linthresh=2, linscale=1)
+        transform = axes[1, col].yaxis.get_transform()
+        bounds = transform.transform(np.array([min(-1., axes[1, col].dataLim.y0),
+                                               max(1., axes[1, col].dataLim.y1)]))
+        padding = .08 * (bounds[1] - bounds[0])
+        axes[1, col].set_ylim(transform.inverted().transform(bounds + [-padding, padding]))
+        lower, upper = axes[1, col].get_ylim()
+        ticks = [value for value in [-100, -10, -1, 0, 1, 10, 100] if lower <= value <= upper]
+        axes[1, col].set_yticks(ticks, labels=[str(value) for value in ticks])
         axes[1, col].set(xlabel=r"Weight $\gamma$ (alpha fixed)", ylabel="Dominant transverse multiplier")
-        axes[1, col].text(0, -.27, "\n".join(notes), transform=axes[1, col].transAxes, fontsize=6.8, va="top")
+        axes[1, col].text(0, -.27, "\n".join(notes), transform=axes[1, col].transAxes, fontsize=9, va="top")
     handles = [Line2D([], [], marker="o", color="black", ls="", label="Attracting"),
                Line2D([], [], marker="o", color="black", mfc="white", ls="", label="Unstable"),
                Line2D([], [], marker="s", color="#777777", ls="", label="Near-unit / undecided"),
                Line2D([], [], marker="*", color="black", ls="", label="Parameter reversal"),
                Line2D([], [], marker="D", color="black", mfc="white", ls="", label="Crossing bracket"),
                Line2D([], [], marker="x", color="#b00020", ls="", label="Checkpoint disagreement")]
-    fig.legend(handles=handles, ncol=3, loc="lower center", bbox_to_anchor=(.5, .035))
+    fig.legend(handles=handles, ncol=3, loc="lower center", bbox_to_anchor=(.5, .065), fontsize=9)
     fig.suptitle("Continuation of the network’s nine-peak orbits", y=.985)
-    fig.text(.5, .006, "Every accepted node is shown. A failed corrector is unresolved, not proven orbit destruction. Brackets are numerical candidates.\n"
-             "Signed real dominant multipliers are shown; for a complex dominant pair the plotted value is its modulus.", ha="center", fontsize=7.5)
-    fig.subplots_adjust(left=.09, right=.98, bottom=.25, top=.92, hspace=.22, wspace=.28)
+    fig.text(.5, .009, "Every accepted node is shown. A failed corrector is unresolved; brackets are numerical candidates.\n"
+             "Multiplier axes: symmetric log, linear within ±2. Signed real multipliers are shown; complex dominant pairs use their modulus.",
+             ha="center", fontsize=9)
+    for ax in axes.ravel(): ax.tick_params(labelsize=9)
+    fig.subplots_adjust(left=.09, right=.98, bottom=.28, top=.92, hspace=.22, wspace=.28)
     return fig, arrays, conditions
 
 
@@ -352,11 +385,12 @@ def waveform_figure(data):
     axes[0, 1].set_title("Local signs and random-plus diagnostic")
     for ax in axes[0]:
         handles, labels = ax.get_legend_handles_labels()
-        if handles: ax.legend(fontsize=7, loc="upper right", ncol=2)
+        if handles: ax.legend(fontsize=9, loc="upper right", ncol=2)
     fig.suptitle(f"Fixed waveform example: {example['anchor'] or 'no eligible anchor'}, phase 0, norm 0.016, dt {example['dt']:g}", y=.985)
     fig.text(.5, .018, "First eligible upper-margin anchor in the frozen order; all three neuron outputs and the full 300-time-unit records.\n"
              "These traces use the original time origin. The utility statistic separately permits one constant phase offset, without frequency fitting.",
-             ha="center", fontsize=7.5)
+             ha="center", fontsize=9)
+    for ax in axes.ravel(): ax.tick_params(labelsize=9)
     fig.subplots_adjust(left=.08, right=.98, bottom=.12, top=.91, hspace=.2, wspace=.16)
     return fig, arrays, conditions
 
@@ -411,11 +445,11 @@ def check(runroot, destination, verify=False):
     with tempfile.TemporaryDirectory(prefix="hopfield-drift-figures-") as temporary:
         rebuilt = build(runroot, Path(temporary))
         for before, after in zip(previous, rebuilt):
-            if before["conditions"] != after["conditions"]: raise ValueError("Plot selection or result-condition drift")
+            close_identity(before["conditions"], after["conditions"], "plot_conditions")
             with np.load(destination / before["plotted_arrays"]["path"], allow_pickle=False) as a, np.load(Path(temporary) / after["plotted_arrays"]["path"], allow_pickle=False) as b:
                 if a.files != b.files: raise ValueError("Plotted array schema drift")
                 for key in a.files:
-                    if not np.array_equal(a[key], b[key], equal_nan=True): raise ValueError(f"Plotted array drift: {key}")
+                    replay_array(a[key], b[key], key)
             if verify:
                 for output in before["outputs"]:
                     if sha(Path(temporary) / output["path"]) != output["sha256"]:
