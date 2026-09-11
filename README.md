@@ -47,24 +47,63 @@ ODE outcomes, with lossless plotted-array archives and source/output receipts.
 This reproduces known small-network dynamics; it does not establish novelty,
 exact bifurcation boundaries, trained-task accuracy, or an optimization benefit.
 
-## What this can inform
+## Does the geometry help preserve a useful output?
 
-The first concrete utility hypothesis is **tolerance to connection-weight drift**.
-A broad body or narrow extension may predict how far the weights can move before
-the desired rhythm is lost. This differs from a Floquet multiplier, which measures
-small state disturbances while the weights remain fixed. The next experiment
-will test whether window width or boundary distance predicts drift-induced
-failure beyond the current period, amplitude, waveform quality, and multipliers.
+**EXP-006 gives a mixed, dose-dependent answer for a defined neural waveform task.**
+All 12 attempted anchors qualified and all 4,320 planned trial-step records are
+complete. The task measures error in all three activations during the first
+300 time units after a held connection-weight change, allowing one constant
+phase offset for the whole record. Competing directions have equal native
+weight norms. The declared local comparator uses actual local weight
+sensitivity; its two direction signs are averaged without selecting the better
+outcome. The atlas policy uses only the earlier parameter map.
 
-A subsequent controller must preserve a declared activation waveform and phase
-tolerance under held-out disturbance streams, and beat ordinary parameter search
-and equally funded local-diagnostic controllers. Mapping cost, failed probes,
-and all control actions count. See the [concrete next experiments](docs/next-steps.md).
+At the largest tested radius, **0.016**, atlas RMSE is **0.301672 versus 0.466653**
+for symmetric local sensitivity, about **35.4% lower**. The paired benefit is
+0.164981, with a descriptive anchor-bootstrap 95% interval [0.013853, 0.326023];
+8 of 12 anchors favor the atlas. **At both smallest radii, local sensitivity wins
+at every anchor.** The prespecified contrast averaged across all four radii is
+0.025738 [−0.027862, 0.083081], leaving the aggregate advantage over local
+sensitivity unresolved. These intervals describe the fixed selected anchors;
+they are not population or confirmatory claims.
 
-Phase and transverse recovery remain distinct: an attracting autonomous cycle
-can retain a same-time displacement because its phase direction is neutral.
-The current perturbation probes show finite-horizon repeatability, not a completed
-phase-aware control task.
+The atlas is **not the best observed arm**: the `tangent_plus` diagnostic has lower
+mean error at every dose, including 0.260795 versus 0.301672 at radius 0.016.
+That exploratory arm comparison must inform the next frozen baseline set; it
+does not replace the prespecified primary comparison after outcomes.
+
+Eventual nine-peak retention is 188/192 for the atlas and 308/384 across both
+local signs. This separate assay follows 10,000 settling and 2,000 measurement
+time units. **Eventual nine-peak retention does not guarantee immediate waveform
+preservation.** The frozen example, `anchor-08`, favors both local signs over the
+atlas, although every displayed arm eventually has nine peaks. It remains the
+illustration. Transients, phase, frequency, and shape can all affect the short
+waveform error; their contributions have not been isolated.
+
+The new figures retain favorable and unfavorable cases:
+
+- [All anchor attempts and atlas margins](paper/figures/neuralshrimp-drift-anchors.png).
+- [Waveform error, all arms, and paired benefits](paper/figures/neuralshrimp-drift-utility.png).
+- [Frozen waveform example that favors the local comparator](paper/figures/neuralshrimp-drift-waveforms.png).
+- [All four continued branches and transverse stability](paper/figures/neuralshrimp-drift-continuation.png).
+
+Independent pseudo-arclength continuation retains 196 node records, including
+122 unstable records and five failed corrections. These include overlapping
+branches and repeated seeds, not 196 distinct cycles. Geometric shooting checks
+agree at 27/28 checkpoints. One checkpoint fails the unchanged closure threshold
+(1.0591e-8 against 1e-8) and remains failed. Candidate multiplier crossings and
+parameter reversals are not exact bifurcation boundaries.
+
+Read the [EXP-006 protocol](docs/EXP-006-protocol.md),
+[utility audit](docs/EXP-006-utility-results-audit.md),
+[continuation audit](docs/EXP-006-continuation-results-audit.md), and
+[complete evidence](evidence/EXP-006/attempt-001/receipt.json).
+The next experiment should test a frozen hybrid of local sensitivity for small
+changes and geometric constraints for larger changes against stronger local and
+equally funded task-quality methods. A coupled controller must then succeed
+under held-out disturbance streams. Neither an optimization speedup nor
+trained-model transfer follows from the present fixed-network task. See the
+[concrete next steps](docs/next-steps.md).
 
 ## Implemented instruments
 
@@ -72,6 +111,10 @@ phase-aware control task.
   recurrence, tangent sensitivity, and all-neuron state/activation statistics.
 - Independent adaptive shooting with primitive-period, complete-state closure,
   neutral-flow, and transverse-Floquet checks.
+- Native-weight sensitivity, one-global-phase waveform comparison, a matched
+  eleven-direction utility design with shams, and failure-retaining analysis.
+- Pseudo-arclength continuation through stable and unstable orbit segments,
+  transverse Poincaré spectra, and independent shooting checkpoints.
 - Frozen row-wise evidence, independent-initialization transects, step and
   settling refinements, and paired perturbation traces.
 - Deterministic figure generation with exact plotted values and source hashes.
@@ -91,7 +134,7 @@ uv run --frozen pytest -q
 uv run --frozen python tools/run_hopfield.py validate
 ```
 
-Existing EXP-004--005 evidence and figures can be checked without advancing the ODE:
+Existing EXP-004--006 evidence and figures can be checked without advancing the ODE:
 
 ```sh
 uv run --frozen python tools/run_hopfield.py verify \
@@ -102,6 +145,10 @@ uv run --frozen python tools/run_hopfield_controls.py verify \
   --output evidence/EXP-005/attempt-001
 uv run --frozen python tools/plot_hopfield_controls.py evidence/EXP-005/attempt-001 \
   --destination paper/figures --check
+uv run --frozen python tools/run_hopfield_drift.py verify \
+  --output evidence/EXP-006/attempt-001
+uv run --frozen python tools/plot_hopfield_drift.py evidence/EXP-006/attempt-001 \
+  --destination paper/figures --check
 ```
 
 The plotting commands re-derive plots from saved measurements. `--verify` also
@@ -111,8 +158,14 @@ No source outcome is changed by rebuilding the figures.
 Fresh target execution requires clean source, a pushed source commit, a frozen
 plan, and a new attempt directory. Never overwrite a consumed plan or reset an
 attempt. The original EXP-004 used four CPU workers and 140.54 seconds of
-measured wall time; EXP-005 used one worker and 4.17 seconds. Paid compute and
-paid review spend were zero.
+measured wall time; EXP-005 used one worker and 4.17 seconds. EXP-006 was frozen
+at `ddb568e6cd67ef2cfbdb45e05710cd86025ef548` and used 423.866 seconds for collection
+and analysis, excluding its final verification pass. Its 48 local sensitivity
+solves took 26.627 seconds **within** that time. The old atlas's 140.54 seconds
+is a separate cost, not free information. Paid compute and paid review spend
+were zero. The source-freeze CI passed with 136 tests. Integrated evidence and manuscript
+revisions are checked by the repository workflow; current run status is retained
+in GitHub.
 
 To build the paper, run `pdflatex main`, `bibtex main`, then `pdflatex main`
 twice from `paper/`. The two main parameter maps and the four-control plate use
