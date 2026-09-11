@@ -3,282 +3,216 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb,booktabs,array}
-\usepackage{graphicx}
-\usepackage{float}
+\usepackage{graphicx,float,pdflscape}
 \usepackage[section]{placeins}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage{microtype}
-\hypersetup{pdftitle={What Would Neural Shrimp Structures Let Us Do?},pdfsubject={Private exploratory working draft, 11 September 2026}}
+\hypersetup{pdftitle={A Neural Shrimp and Its Activity: Numerical Reproduction in a Three-Neuron Recurrent Network},pdfsubject={Private exploratory numerical working draft, 11 September 2026}}
 \clubpenalty=10000
 \widowpenalty=10000
-\setlength{\textfloatsep}{15pt plus 2pt minus 2pt}
-\setlength{\floatsep}{13pt plus 2pt minus 2pt}
-\setlength{\intextsep}{13pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{13pt plus 2pt minus 2pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
 \renewcommand{\topfraction}{0.90}
-\renewcommand{\bottomfraction}{0.85}
 \renewcommand{\textfraction}{0.08}
 \renewcommand{\floatpagefraction}{0.70}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\status}{Private exploratory working draft}
-\newcommand{\figstatus}[1]{\textbf{#1.}}
 \graphicspath{{figures/}}
 \input{generated-pilot.tex}
-\title{What Would Neural Shrimp Structures Let Us Do?\\
-\large Dynamical Signatures, Operational Consequences, and a Testable Research Program}
+\title{A Neural Shrimp and Its Activity\\
+\large Numerical Reproduction in a Three-Neuron Recurrent Network}
 \author{Authorship to be finalized by the human researcher}
 \date{11 September 2026}
-
 \begin{document}
 \maketitle
-\noindent\textbf{\status.} Initial local pilots, evidence-linked figures, and proposed follow-up experiments. No neural-network shrimp or optimization benefit has yet been established by this project. This document is not a preregistration or publication-ready article.
+\noindent\textbf{Private exploratory working draft.} EXP-004--005 reproduce and probe a published small recurrent network. Connectivity is fixed during each trajectory; no training, reasoning benchmark, or task-accuracy benefit is claimed.
 
 \begin{abstract}
-A conspicuous structure in a neural network's dynamics should have a dynamical consequence. Which consequences reach predictions, task accuracy, or compute cost is a separate, measurable question. Shrimp-shaped parameter windows organize stable periodic behavior and have been reported in small recurrent neural networks. We develop a program to test whether their geometry supplies useful control information: which intervention direction helps, how large a change is required, and how robust the destination is. An exact tied-weight toy yields alternating predictions and lower squared error for averaged predictions than for random-phase readout, with residual bias. Initial exploratory pilots verify attracting nontrivial cycles in \HenonCycles{} of \HenonTrials{} H\'enon cells, but find \TrainingCycles{} such cycles in \TrainingTrials{} tiny-network training cells, with \TrainingUnresolved{} unresolved and \TrainingDivergent{} operationally divergent. A recurrence policy never intervenes in \PolicyTrials{} runs and reproduces fixed-rate trajectories exactly; each of four policies has \PolicyDivergent{} divergent cases. Ten figures distinguish pilot evidence, post-run diagnostics, exact algebra, and proposed mechanisms. The next experiments first verify a neural periodic regime, then measure its expression in outputs and task behavior, and finally test causal interventions against matched loss, recurrence, stability, and ordinary performance-map controls. Utility includes discovery costs and failed cases; it is not inferred from visual prominence.
+We numerically reproduce a shrimp-shaped periodic window in the connection-weight plane of the three-neuron tanh network studied by da Silva and Rech. A frozen experiment measures 39,322 grid settings and a separate 201-point transect. Independent shooting verifies two attracting nine-peak orbits and a nearby eighteen-peak orbit. At the core, the complete state and activation waveform repeat every $37.63637538$ time units; the dominant transverse Floquet multiplier is $0.06506$, alongside the required neutral flow mode. A separately frozen follow-up uses independent initialization and 10,000 units of settling at two integration steps. Its two distant controls retain absent short recurrence and positive finite-time exponents. After a $10^{-6}$ state perturbation and 300 time units, activation-vector separation is $1.53\times10^{-6}$ at the core versus $1.41$ and $2.13$ at those controls. Thus the geometry accompanies a large, directly measured difference in neural waveform repeatability. The original near-edge exterior fails its intended interpretation and is retained: refinement makes it periodic, and the follow-up independently verifies that orbit. These are finite-horizon numerical observations in a fixed-weight recurrent network. The next utility test is whether window geometry predicts tolerance to connection-weight drift beyond local cycle diagnostics; task benefit has not yet been measured.
 \end{abstract}
 
-\medskip
-\noindent\textbf{AI assistance and editorial status.} Generative-AI tools assisted with design, code, execution, local audits, source checking, and drafting. The human selected the question. Human shaping, artifact inspection, authorship, and final claim approval remain pending. The canonical publication disclosure will be applied at release only when true. No paid Pro review was requested or run.
+\section{The measured object}
+Figure~\ref{fig:shrimp} is a map of the neural network itself. Its controls are two connection weights, and its colors describe recurring sequences of the complete three-neuron state. The focused window has a broad nine-peak body and narrow extensions; selected nine- and eighteen-peak trajectories pass independent orbit checks. This is a numerical reproduction of the small-network precedent of \citet{dasilva2022}, not a first report of neural shrimps. The term refers to periodic-window organization in a control plane \citep{gallas1993}; the corresponding trajectories evolve in state space.
 
-\section{The useful question behind a striking pattern}
-A shrimp structure is evidence that changing controls changes the long-run dynamics in an organized way. Its period, attraction strength, and bifurcation boundaries describe real properties of the update rule. The practical opportunity is to turn that organization into a decision: stay in a region, leave it, move to a more robust interior, or stop a computation whose answer is already stable.
+Our question is what this geometry means for the parent network. We therefore place recurrence, sensitivity, neuron potentials, and actual tanh activations side by side. Modern training maps and latent-reasoning basin maps motivate the broader question \citep{sohldickstein2024,lai2026}, but the present result concerns the fixed-weight continuous-time system below.
 
-A \emph{shrimp} conventionally denotes a characteristic organization of periodic windows in a \emph{control-parameter plane}. The associated periodic orbit lives in the evolving state space (Figure~\ref{fig:spaces}). Gallas described such domains for the H\'enon map \citep{gallas1993}. Da Silva and Rech report them in a three-neuron continuous-time Hopfield-type system with tanh activations \citep{dasilva2022}. Neural existence therefore has a specific precedent; usefulness for learning or reasoning remains the question here.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{conceptual-spaces.pdf}
-\caption{\figstatus{Schematic} Three spaces that answer different questions. A control-parameter map describes how an update rule changes across settings; a state-space trajectory describes motion at one setting; a task readout measures what that motion accomplishes. The diagram defines relationships and contains no detected neural structure. Learning rates are controls during deterministic training, while weights evolve; during recurrent inference, hidden states evolve under a fixed trained model.}
-\label{fig:spaces}
-\end{figure}
-
-Sohl-Dickstein's preprint and companion article map training success across hyperparameters \citep{sohldickstein2024,sohldicksteinblog2024}. Lai and colleagues map transient dynamics over slices of initial latent states in recurrent reasoning models \citep{lai2026}. These observations motivate the search, but neither map as presented identifies the primitive periodic orbits and parameter bifurcations required here. Oscillatory optimization and period-doubling routes to chaos also have prior neural-training precedents \citep{cohen2021,kalra2025}. Our proposed contribution is a test of the \emph{incremental operational value} of parameter-window geometry.
-
-\section{What must manifest, and what a readout can hide}
-\subsection{A real internal signature need not change the answer}
-Let $z_{t+1}=F_\eta(z_t)$ be the complete autonomous state update, and let $q_t=R(z_t;x)$ be the output used by a task. A verified attracting period-$p$ orbit is an internal manifestation: nearby trajectories return to the orbit and repeat after $p$ steps. A shrimp organizes where that behavior exists as $\eta$ varies. Neither statement requires the task readout to separate its phases.
-
-If $R(z_0;x)=\cdots=R(z_{p-1};x)$, the entire internal cycle is invisible to that readout. Distinct network states may implement the same prediction through symmetries, inactive units, or directions to which the output is insensitive. A decoded answer is still coarser: changing logits can retain the same argmax. Figure~\ref{fig:readout} makes the distinction explicit. An internally strong signal can therefore be harmless for accuracy while still affecting computation, noise response, or sensitivity to perturbations. It can also have no measurable effect on a chosen endpoint at the tested resolution. The experiment must determine which case occurs.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{conceptual-readout.pdf}
-\caption{\figstatus{Algebraic illustration} (A) The constructed map $F(h)=-h$, initialized at $h_0=1$, alternates between $+1$ and $-1$. (B) The identity readout preserves that oscillation. (C) The squared readout hides it completely. This exact example makes no attraction, correctness, or shrimp claim: the two-step multiplier is $+1$. It demonstrates why a real internal signal need not survive a many-to-one readout.}
-\label{fig:readout}
-\end{figure}
-
-For a verified orbit, define state and output amplitudes
-\begin{equation}
- A_z^2=\frac{1}{p}\sum_{k=0}^{p-1}\|z_k-\bar z\|^2,
- \qquad
- A_q^2=\frac{1}{p}\sum_{k=0}^{p-1}\|R(z_k;x)-\bar q\|^2.
-\end{equation}
-The first detects state motion; the second measures its visibility through a specified readout. Their units differ, so neither their ratio nor a universal common threshold is assumed meaningful. Report phasewise gradients, task loss, answer disagreement, and predictive margins alongside them. These are proposed follow-up measurements, not measurements already made for a verified neural orbit.
-
-\subsection{Three mechanisms worth testing}
-\paragraph{Recovery and robustness.}
-Attraction suggests a local ability to recover from perturbations. It does not guarantee a large basin or a correct output. Measure the probability of returning to the same orbit or answer under a frozen perturbation distribution, recovery time, and the change in task quality. Across a window, ask whether interior locations remain useful under larger control perturbations than locations near its boundary.
-
-\paragraph{Intervention direction.}
-A measured boundary supplies a possible direction and scale for changing controls. If an incorrect cycle wastes a budget, crossing that boundary may release it; if a useful regime is fragile, moving inward may improve robustness. Compare either action with equal-size changes in random, tangential, reverse, and ordinary performance-informed directions. Leaving a stable cycle is an intervention, not an improvement until a task endpoint improves.
-
-\paragraph{Stopping and aggregation.}
-If predictions agree over a complete cycle and are correct, additional iterations may be unnecessary. If predictions differ across phases, phase averaging or phase selection may help or harm. Compare a cycle-aware rule with ordinary output agreement, residual, and stagnation rules, charging the cost of detecting a cycle. Test aggregation against matched numbers of evaluations and existing averaging controls. Stability alone provides no accuracy guarantee.
-
-\section{From recurrence to verified parameter structure}
-\subsection{State and controls}
-For deterministic training on $\mathcal D$, the pilot uses
-\begin{equation}
- \theta_{t+1}=F_\eta(\theta_t)
- =\theta_t-D_\eta\nabla L_{\mathcal D}(\theta_t),\qquad
- D_\eta=\operatorname{diag}(\eta_1 I,\eta_2 I).
-\end{equation}
-All weights and biases are state variables; positive layer learning rates are controls. For latent inference, a fixed model and problem instead define $h_{t+1}=G_\alpha(h_t;x)$. An autonomous description must include every evolving cache, auxiliary latent, momentum variable, and schedule phase.
-
-Continuous gradient flow obeys
-\begin{equation}
- \dot\theta=-\nabla L(\theta),\qquad
- \frac{dL}{dt}=-\|\nabla L(\theta)\|^2.
-\end{equation}
-It cannot support a nonconstant periodic orbit: integrating over a period forces the gradient to vanish throughout. Finite-step descent need not preserve monotonic loss, allowing the periodic-orbit search without guaranteeing a shrimp.
-
-\subsection{The verification ladder}
-A periodic point has $F_\eta^p(z)=z$ and no smaller positive period. Scalar loss recurrence is insufficient because different states can share the same loss. The pilot screens complete-state tails over repeated cycles, checks nonzero amplitude relative to numerical tolerance, rejects smaller periods, and independently checks orbit closure. For an orbit $z_0,\ldots,z_{p-1}$, its period Jacobian product is
-\begin{equation}
- M_p=DF_\eta(z_{p-1})\cdots DF_\eta(z_0).
-\end{equation}
-A spectral radius $\rho(M_p)<1$, with a margin exceeding numerical error, establishes local attraction of an isolated orbit. It does not estimate basin size. Flat or symmetry-related directions may produce neutral multipliers; near-unit values require nonhyperbolic or unresolved status rather than discarded directions.
-
-Periodic pixels alone do not establish shrimp geometry. A later stage must continue branches and locate saddle-node and period-doubling boundaries around connected isoperiodic regions. Longer horizons, changed precision, and multiple initial states assess long transients and multistability. Coordinate choices also matter: nonlinear axis transformations alter widths, normals, and apparent shape. Freeze meaningful coordinates such as log learning rates and distinguish coordinate-dependent distances from bifurcation organization.
-
-\section{The exploratory experiment and evidence record}
-The initial target is full-batch training of a tanh network with two inputs, three hidden units, one scalar output, and biases in both layers. All thirteen parameters evolve. The objective is half mean squared error plus $0.001\|\theta\|^2/2$, including biases in the penalty; predictive MSE excludes the penalty. A random tanh teacher defines independent standard-normal input splits with 24 training, 48 validation, and 96 test examples. Teacher metadata, splits, and initial states were prepared before the freeze, bound by manifest hashes, and verified on loading. This is inspired by the fractal-training construction, not an exact replication.
-
-Result-free manifests specify a 65-cell H\'enon control at 3,000 updates per cell and a $9\times9$ layer-learning-rate scan for seeds 101 and 102 at 2,000 updates per cell. Each seed defines both a task and its one initialization; these sources of variation are not separately estimated. Scans retain up to 512 tail states, screen periods through 16, and use float64. All requested cases remain in the census. A bounded, apparently aperiodic tail is not automatically chaos.
-
-The policy comparison uses four task/initialization seeds, 201--204, and six initial rate pairs: 96 runs across fixed rates, predetermined decay, scalar stagnation-triggered decay, and recurrence-triggered decay. Each has at most 1,200 gradient updates and two interventions, each halving both rates. Scheduled decay acts at updates 400 and 800; adaptive rules inspect every 40 updates from update 200. Recurrence screens full weights without online orbit certification. Both adaptive detectors wait at least two check intervals after a rate change and use history only from the current constant-rate segment. Stagnation compares two loss windows from that segment.
-
-Every generated state, pre-update regularized loss, realized learning rate, and trigger is retained. Test and validation outcomes do not trigger actions. The descriptive endpoints are terminal test MSE and divergence fraction; the report provides a policy mean only if all corresponding runs are finite. It provides no inferential p-values or confidence intervals. Equal maximum update counts do not imply equal total cost: divergent runs stop early, diagnostics consume resources, and wall time includes common instrumentation.
-
-The initial runs used revision
-\href{https://github.com/tdj28/neural-shrimp/commit/bd3d733b51e9f1ae9247ba712633aca023e7afac}{\texttt{bd3d733b51e9}}
-after the full code, plan, and input revision was pushed to the private repository. Receipt verification checks hashes and the exact trial census. Empirical counts below are generated through \texttt{generated-pilot.tex}. Immutable attempts and descriptive reports remain under \texttt{evidence/}. The present visual revision adds derived figures and diagnostics; it does not create a new experiment or change the original classifications.
-
-\section{What the pilots actually show}
-\subsection{The classical control finds periodic orbits}
-The H\'enon control verifies attracting nontrivial cycles in \HenonCycles{} of \HenonTrials{} sampled cells (Figure~\ref{fig:henon-map}). These are counts of cells, not distinct windows. Figure~\ref{fig:henon-orbits} connects a parameter-map classification to its state trajectory and local orbit check. This establishes that the instrument detects periodic orbits in the tested classical system. The sparse grid does not certify shrimp topology, and the positive control does not validate an unobserved neural orbit.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{empirical-henon-map.pdf}
-\caption{\figstatus{Observed} H\'enon control across all \HenonTrials{} planned cells. The two panels show sampled primitive periods and the spectral radius for certified orbits. \HenonCycles{} cells contain numerically verified attracting nontrivial cycles. Radii cover each complete primitive cycle; differing periods prevent direct per-update comparisons. Values derive from frozen pilot evidence. A coarse map of periodic cells is a numerical positive control, not a certified reconstruction of shrimp boundaries.}
-\label{fig:henon-map}
-\end{figure}
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{empirical-henon-orbits.pdf}
-\caption{\figstatus{Observed} Representative H\'enon trajectories connect the control map to motion in complete state space. Rows show period-two, period-seven, and unresolved cases; columns show phase-plane tails and coordinate time traces. Selection is post-run and descriptive, with the rule recorded alongside the figure. Connecting segments join discrete iterates. Only certified examples carry a periodic-orbit claim. These classical trajectories do not establish a neural result.}
-\label{fig:henon-orbits}
-\end{figure}
-
-\FloatBarrier
-\subsection{The neural scan separates divergence from unresolved dynamics}
-Among \TrainingTrials{} neural cells, the pilot finds \TrainingCycles{} verified attracting nontrivial cycles, \TrainingUnresolved{} unresolved cases, and \TrainingDivergent{} operationally divergent cases (Figure~\ref{fig:neural-map}). A finite grid and 2,000-update horizon do not establish global absence. They do show that this scan has not yet supplied the periodic regime required for a utility experiment.
-
-Figure~\ref{fig:neural-tail} examines the saved tails after the run. Small successive changes can reflect continuing drift. Comparing complete-weight updates, prediction changes, and loss changes helps decide where a successor search should spend effort. These post-run diagnostics preserve every original status and do not reclassify unresolved trajectories as chaos or as cycles.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{empirical-neural-map.pdf}
-\caption{\figstatus{Observed} Both complete $9\times9$ neural learning-rate scans: task/initialization seeds 101 and 102 occupy separate columns, with classification above and test MSE below. The census retains all \TrainingTrials{} cells: \TrainingCycles{} verified attracting nontrivial cycles, \TrainingUnresolved{} unresolved, and \TrainingDivergent{} operationally divergent. Maps display the actual sampled settings; visual boundaries are limited by grid resolution. Neither unresolved cells nor empty periodic classifications certify chaos or global absence of neural periodicity.}
-\label{fig:neural-map}
-\end{figure}
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{empirical-neural-tail-diagnostics.pdf}
-\caption{\figstatus{Post-run diagnostic} Relative successive changes in full weights, predictions, and loss, each using its own denominator, for seeds 101 and 102 at equal layer rates $(0.3,0.3)$ and $(1.8,1.8)$. These four displayed cases and the diagnostics were chosen after outcomes were available. They guide a separately specified successor rather than provide a prospective endpoint. Original statuses remain unchanged; slow motion and small successive changes do not certify a nontrivial cycle.}
-\label{fig:neural-tail}
-\end{figure}
-
-\FloatBarrier
 \clearpage
-\subsection{The first recurrence controller never changes a trajectory}
+\newgeometry{margin=0.55in}
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{empirical-utility-census.pdf}
-\caption{\figstatus{Observed} (A) Complete terminal-MSE matrix, (B) failure counts, and (C) counts of runs with an intervention for four policies across \PolicyTrials{} shared task--rate pairs each. Every policy retains \PolicyDivergent{} divergent cases. The recurrence detector never acts. Successful-case outcomes, where shown, are descriptive and conditional on completion; they do not replace the full failure census or the prespecified decision to withhold an all-case mean when divergence occurs.}
-\label{fig:utility-census}
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-map.pdf}
+\caption{\textbf{Measured neural parameter map.} (A) The published zoom rectangle sampled on an $81\times81$ grid. (B) The predetermined $181\times181$ focus resolves the nine-peak shrimp body and extensions, with other periodic candidates nearby. Every cell comes from the neural ODE; there is no drawn shrimp or interpolated reconstruction. Colors count peaks in a recurring \emph{full-state} event sequence, rather than time steps. Pale cells have no detected short period, not a chaos certificate. Markers locate the frozen core, outer-component, doubled, and grid-comparison representatives (the last was originally named exterior). The outer point lies on the focus boundary; its label does not certify a limb tip. The exterior label records coarse-grid selection and fails its intended interpretation under refinement (Table~\ref{tab:refinement}).}
+\label{fig:shrimp}
 \end{figure}
+\end{landscape}
+\restoregeometry
+
+\section{Network, scan, and orbit verification}
+\subsection{The parent network and its readout}
+The model is the asymmetric three-neuron system in \citet{dasilva2022}:
+\begin{equation}
+ \dot x=-x+W\tanh(x),\qquad
+ W=\begin{pmatrix}
+ 1.5 & 2.9 & \alpha\\
+ -1.5 & 1.18 & 0\\
+ \gamma & -22 & 0.47
+ \end{pmatrix},\qquad x\in\mathbb R^3.
+\label{eq:network}
+\end{equation}
+The coordinates $x_i$ are neuron potentials, and $u_i=\tanh(x_i)$ are their activation outputs. The weights $\alpha$ and $\gamma$ respectively couple neurons $3\to1$ and $1\to3$. They are constant during a run. Thus the experiment changes network connectivity between settings, not a learning rate while training.
+
+\subsection{A frozen exploratory reproduction}
+The overview spans $\alpha\in[1.055,1.110]$ and $\gamma\in[10.1,11.3]$ at $81^2$ settings. The focus spans $[1.056,1.080]\times[10.14,10.55]$ at $181^2$ settings. Classical fourth-order Runge--Kutta uses $\Delta t=0.02$, a settling time of 2,000, and a measurement time of 800. Each increasing-$\alpha$ row begins at $x=(0.1,0.1,0.1)$ and then continues from the previous setting's terminal state. Rows are independent. The focused rectangle was selected from the published figure before outcomes existed.
+
+A separate transect fixes $\alpha=1.064$ and samples 201 values of $\gamma\in[10.14,10.55]$. Each point independently starts from the same prescribed state, using $\Delta t=0.01$, settling time 4,000, and measurement time 1,000. It therefore checks whether the main observed structure survives a common initialization without inheriting grid continuation.
+
+A maximum of $x_3$ defines an event, localized by cubic Hermite interpolation of the numerical endpoints. The retained event includes time and all three state coordinates. The screen searches the last 128 events for four repetitions of a primitive sequence of at most 32 peaks, with absolute tolerance $2\times10^{-6}$ and relative tolerance $2\times10^{-5}$. A zero label means no short period passed this screen. Finite-time Lyapunov estimates evolve one tangent vector, discard 100 units of alignment, and normalize growth by the remaining measurement time. They are finite-horizon measurements; a stable autonomous cycle has a neutral tangent direction.
+
+\subsection{Verification of selected trajectories}
+The frozen rules select the period-nine candidate nearest $(1.064,10.26)$, the farthest member of its eight-connected period-nine component, the nearest period-eighteen candidate, and a nearby no-short-period cell with positive finite-time exponent. All four are re-integrated from their captured terminal states at $\Delta t=0.01$ and $0.005$, each with settling time 4,000 and measurement time 1,200. These refinements test the captured regime, not basin independence. Original labels and changed classifications are both retained.
+
+Independent adaptive DOP853 shooting solves $\phi_T(x_0)=x_0$ with an $x_3$-maximum phase condition, relative state closure at most $10^{-8}$, and the expected primitive peak count. Variational integration gives $M(T)=D\phi_T(x_0)$. One multiplier must be neutral and aligned with the flow; both transverse multipliers must have modulus below $1-10^{-5}$. Neutral error and flow residual must each be at most $10^{-6}$, with alignment at least $0.99$. Solver tolerances are $10^{-10}$ relative and $10^{-12}$ absolute. These are numerical orbit certificates, not interval-arithmetic proofs.
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-aligned-map.pdf}
+\caption{\textbf{The same geometry in measured network quantities.} The focused controls are identical in all three panels: (A) full-state peak recurrence, (B) finite-time Lyapunov estimate per unit time, and (C) standard deviation of neuron 3's actual activation $\tanh(x_3)$. The low-exponent window and activation-statistic structure align visibly with the periodic organization. Panel C uses its labeled narrow range: large color contrast does not imply an equally large absolute activation change. Its statistic summarizes variability and cannot represent the full temporal waveform. A near-zero finite-time exponent in a periodic autonomous flow is consistent with a neutral time direction; positive finite-horizon values alone do not certify asymptotic chaos. All sampled cells and original classifications are retained.}
+\label{fig:aligned}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\section{How the geometry appears in neural activity}
+\subsection{An independently initialized transect}
+Figure~\ref{fig:transect} follows the same connection $\gamma$ across measured potential maxima, complete-state recurrence, sensitivity, and all three activation variabilities. The recurring branches occupy settings with much smaller finite-time sensitivity than the surrounding irregular sequences. The activation standard deviations change more modestly: the strongest change is in temporal organization, which a single mean or variance cannot fully describe.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{empirical-utility-trajectories.pdf}
-\caption{\figstatus{Observed} Saved policy trajectories for seed 202 at equal layer rates $0.3$, $1.2$, and $1.8$ occupy separate columns; rows show regularized loss, update norm, and realized learning rate. These are the first three manifest-order pairs that remain finite under every policy, chosen after the run for descriptive comparison. Fixed-rate and recurrence-policy arrays agree exactly over all \PolicyTrials{} pairs, beyond the displayed examples. Different decay policies can change a trajectory, but these illustrative paths do not establish a held-out benefit, a speedup, or a causal effect of shrimp geometry.}
-\label{fig:utility-trajectories}
+\includegraphics[width=\linewidth,height=0.68\textheight,keepaspectratio]{neuralshrimp-transect.pdf}
+\caption{\textbf{Common-initialization neural transect.} At fixed $\alpha=1.064$, all 201 points independently begin at $(0.1,0.1,0.1)$. (A) Every retained local maximum of $x_3$; (B) candidate peak period from complete-state event recurrence; (C) finite-time Lyapunov estimate; (D) activation standard deviations for the three neurons. A zero period retains the unresolved category. Lines connect measured settings and do not locate exact bifurcation boundaries. This transect uses twice the grid settling time and a smaller step, with no continuation from neighboring controls.}
+\label{fig:transect}
 \end{figure}
 
-The policy comparison includes \UtilityTrials{} runs; each policy has \PolicyDivergent{} divergent cases among \PolicyTrials{} task--rate pairs (Figure~\ref{fig:utility-census}). The recurrence policy triggers in \RecurrenceTriggers{} runs. An independent comparison finds exactly equal saved state, loss, and learning-rate arrays for fixed-rate and recurrence policies on every pair, comparing NaNs at matching positions. Statuses, completed updates, and terminal predictive MSE also match.
+\clearpage
+\subsection{The full waveform and the effect of saturation}
+At the verified core, the complete state repeats every $37.63637538$ time units, with nine maxima of $x_3$ in that cycle. The separately integrated behavior probe reports one-period state repetition RMS $8.15\times10^{-10}$ from 2,248 dense-output pairs in its final half. Figure~\ref{fig:waveforms} displays every neuron and its output, so the parameter label is connected directly to network motion.
 
-Figure~\ref{fig:utility-trajectories} shows how those outcome counts arise along representative saved paths. Here the recurrence detector adds observation overhead without changing dynamics. This is a non-intervening pilot, not an equivalence test of effective control methods. It contains no geometry-based intervention and cannot estimate geometry-specific benefit.
-
-\FloatBarrier
-Every policy retains divergent cases, so the descriptive report withholds a successful-only mean test MSE. There is no significance or net-compute claim. Runs used local CPU resources, with zero recorded paid compute and paid review spend; local wall time is not a total economic-cost estimate. The immediate scientific need is a reproducible neural periodic regime, followed by a measurement of what it does to the task.
-
-\section{An exact neural toy: a cycle changes predictions}
-A scalar example makes the manifestation question concrete without a new numerical experiment. Consider a two-layer linear network with its two scalar weights tied, $\widehat y=\theta^2x$, trained on $(x,y)=(1,1)$ using $L(\theta)=\tfrac12(\theta^2-1)^2$. Gradient descent gives
-\begin{equation}
- F_\eta(\theta)=(1+2\eta)\theta-2\eta\theta^3.
-\end{equation}
-This is a deliberately simple neural parameterization. Its exact cycles are not a shrimp, a result for the tanh pilot, or evidence of generalization.
-
-Set $r=1/(2\eta)$. For $\eta>1/2$, a positive period-two orbit has
-\begin{equation}
- u,v=\frac{\sqrt{1+3r}\ \mp\ \sqrt{1-r}}{2},\qquad
- uv=r,\qquad (u+v)^2=1+3r.
-\end{equation}
-Substitution gives $F_\eta(u)=v$ and $F_\eta(v)=u$. Its two-step multiplier is
-\begin{equation}
- \mu=F_\eta'(u)F_\eta'(v)=9-2(1+2\eta)^2,
-\end{equation}
-so the nontrivial cycle attracts locally for
-$1/2<\eta<(\sqrt5-1)/2$. The endpoints have $\mu=1$ and $\mu=-1$, respectively, and are excluded from that attraction claim.
-
-\begin{figure}[!htbp]
+\begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{analytic-training-cycle.pdf}
-\caption{\figstatus{Exact analytic illustration} (A) Phase predictions, (B) three squared-error readouts, and (C) the local multiplier for the tied scalar network $\widehat y=\theta^2x$ on the single training sample $(1,1)$. Green shading marks local attraction; the continuation beyond its right boundary is unstable. Averaging predictions lowers error relative to uniformly selecting a phase, but retains bias. Zero-error fixed points remain available at other stable rates. Curves evaluate equations in the text, not a new pilot, a parameter sweep with fitted outcomes, or a verified shrimp.}
-\label{fig:analytic-cycle}
+\includegraphics[width=\linewidth,height=0.67\textheight,keepaspectratio]{neuralshrimp-waveforms.pdf}
+\caption{\textbf{Neuron potentials, activations, and paired perturbations.} The core is a numerically verified attracting cycle. The comparison was selected as an exterior by the original grid, but both refinements detect nine peaks; it is \emph{not} a validated chaotic exterior. Columns retain those original roles. Rows show all three potentials, their tanh activations, and same-time state/activation separation after a $10^{-6}(1,1,1)/\sqrt3$ perturbation. Every stored time over 300 units is plotted. Persistent or temporarily growing same-time separation can contain a neutral phase shift and transient amplification; it is not a direct measurement of transverse recovery. The failed exterior interpretation is retained rather than replaced by a more favorable example.}
+\label{fig:waveforms}
 \end{figure}
 
-The outputs $u^2$ and $v^2$ differ. Their mean is $(1+r)/2<1$, making the task consequence explicit. Three squared-error quantities on this one sample are
-\begin{align}
- \mathrm{MSE}_{\mathrm{random\ phase}}&=(1-r^2)/2,\\
- \mathrm{MSE}_{\mathrm{mean\ prediction}}&=(1-r)^2/4,\\
- \mathrm{MSE}_{\mathrm{mean\ weight}}&=9(1-r)^2/16.
-\end{align}
-The first averages squared errors over uniformly sampled cycle phases; the second squares the error after averaging predictions; the third evaluates the network at $(u+v)/2$. Thus the same internal cycle supplies both a visible output oscillation and distinct aggregation choices (Figure~\ref{fig:analytic-cycle}). Prediction averaging improves on random-phase evaluation here, as the squared-loss variance decomposition predicts. It does not eliminate bias and does not beat the zero-error solutions $\theta=\pm1$, which are locally attracting for $0<\eta<1/2$.
+The complete activation readout is componentwise injective for finite states:
+$\tanh(x(t+T))=\tanh(x(t))$ exactly when $x(t+T)=x(t)$. It therefore preserves the full waveform's primitive period. Saturation changes amplitude and numerical visibility, not this exact correspondence. At the core, neuron 3's potential spans approximately $-16.20$ to $16.20$ in the recorded behavior window, while its activation approaches $\pm1$. Over the final 150--300 time units of the 300-unit probe, its population potential and activation standard deviations are respectively $8.664$ and $0.9876$; these have different units and are reported separately.
 
-This calculation establishes a concrete consequence of neural periodicity and a conditional aggregation benefit. It establishes neither a net compute gain nor additional value from shrimp geometry. Its proper experimental role is a transparent control for measuring phasewise outputs and separating prediction averaging from weight averaging.
+\section{What survives numerical refinement}
+\subsection{Three independently verified periodic orbits}
+Table~\ref{tab:refinement} retains the coarse and refined peak counts at every selected coordinate. The core and outer-component point remain nine-peak candidates, and the doubled point remains an eighteen-peak candidate at both smaller steps. Their independently shot periods agree closely with the refined estimates. Full-state closure and the neutral-mode check distinguish these observations from repetition of a scalar loss or a projected trajectory.
 
-\section{A sequence of experiments with decisions at every stage}
-Figure~\ref{fig:roadmap} ties each stage to the decision its evidence supports. Follow-up discovery and controller development remain exploratory. A confirmatory evaluation requires a new frozen machine plan binding samples, thresholds, features, interventions, budgets, and analysis before held-out outcomes are available.
+\begin{table}[H]
+\centering\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Selected role & $\alpha$ & $\gamma$ & Peaks: $.02/.01/.005$ & Shot $T$ & Closure\\
+\midrule
+Core & 1.064000 & 10.260722 & $9/9/9$ & 37.636375 & $7.46\!\times\!10^{-10}$\\
+Outer & 1.080000 & 10.360944 & $9/9/9$ & 36.974021 & $1.46\!\times\!10^{-9}$\\
+Doubled & 1.067067 & 10.288056 & $18/18/18$ & 74.481699 & $9.69\!\times\!10^{-11}$\\
+Exterior & 1.066133 & 10.297167 & $0/9/9$ & --- & ---\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Refinement and complete-state closure.} Coordinates are rounded for display; exact grid coordinates are retained in the manifest and selected evidence. Closure is $\|\phi_T(x_0)-x_0\|/\max(1,\|x_0\|)$. Zero is no detected short period. The exterior failed the frozen requirement that the original and both refined peak counts agree, so no shooting certificate was issued for it. It remains part of the result.}
+\label{tab:refinement}
+\end{table}
 
-\begin{figure}[!htbp]
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lrrr}
+\toprule
+Orbit & Neutral flow multiplier & Transverse multiplier 1 & Transverse multiplier 2\\
+\midrule
+Core & 1.000000015 & $0.06506010$ & $6.15\times10^{-11}$\\
+Outer & 1.000000001 & $-0.46513914$ & $-7.81\times10^{-12}$\\
+Doubled & 1.000000080 & $0.65612133$ & $-3.45\times10^{-19}$\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{All three numerical Floquet multipliers.} The neutral direction is retained. Attraction refers to the two transverse directions. Values near zero are numerical approximations with ill-conditioned tiny magnitudes; their final digits and signs should not be interpreted as precisely resolved. Contraction factors are per complete cycle, whose duration differs across rows, not directly comparable rates per unit time.}
+\label{tab:floquet}
+\end{table}
+
+The core's dominant transverse multiplier is $0.06506$, while the outer point's is $-0.46514$. These describe different local perturbation responses even though both have nine peaks. They do not estimate basin volume, noise tolerance, or recovery from an arbitrary disturbance. The selected outer point reaches the right edge of the focus rectangle, so it cannot establish where that extension terminates. A nearby eighteen-peak orbit is consistent with doubled periodic organization, but this experiment does not continue an exact bifurcation branch connecting the two.
+
+\subsection{The exterior control exposes a finite-horizon error}
+The coarse-grid exterior has no detected short period and a finite-time exponent of $0.00558$. Both refinements instead detect a nine-peak sequence. Its captured behavior therefore cannot support an inside-versus-chaos claim. The change could reflect longer settling, numerical refinement, or their combination; the design changes both and does not isolate the cause. This failure is especially relevant near window boundaries, where a finite map can mistake a long transient for persistent irregular dynamics.
+
+The perturbation traces also require the flow interpretation. At the core, a $10^{-6}$ perturbation reaches maximum same-time state separation $8.53\times10^{-5}$ over 300 units, despite the attracting transverse multipliers. A neutral phase displacement and transient amplification can coexist with orbital attraction. The saved nearest-orbit distances include finite orbit-sampling error and are not exact phase projections. An inference of useful disturbance rejection requires a dedicated phase-aware measurement.
+
+\section{Independent controls show a large activity contrast}
+EXP-005 is a prospective follow-up chosen after the EXP-004 failure and frozen before its own outcomes. It fixes the earlier core, the two endpoints of the independent transect, and the failed near-edge comparison. Each point independently restarts at $(0.1,0.1,0.1)$ at both $\Delta t=0.01$ and $0.005$, settles for 10,000 time units, and is measured for 2,000. The finite-time exponent uses the final 1,900 units after tangent alignment. The two distant controls meet the frozen irregularity rule at both steps: no short recurrence and exponent above $0.005$. This supports persistent irregularity over the tested horizons, not an asymptotic-chaos proof.
+
+The core again has a verified nine-peak orbit: $T=37.63637538$, relative closure $8.55\times10^{-11}$, and transverse spectral radius $0.06506$. The failed near-edge point also receives an independent nine-peak certificate, with $T=37.33149959$, closure $6.46\times10^{-10}$, and transverse spectral radius $0.85603$. EXP-005 requires agreement between its two fresh runs; it does not require agreement with the original coarse grid. Its new certificate therefore does not erase the EXP-004 failure.
+
+From each finest-step terminal state, the same $10^{-6}$ state perturbation is applied in direction $(1,1,1)/\sqrt3$. Figure~\ref{fig:controls} and Table~\ref{tab:controls} show the resulting 300-unit probes. The core's final activation separation is $1.53\times10^{-6}$, versus $1.41$ and $2.13$ at the lower and upper controls; their maximum state separations reach $29.67$ and $31.87$. These are actual changes in the network's outputs, with a contrast of about six orders of magnitude at the final checkpoint. They measure same-time repeatability for one declared direction and phase per setting, not population robustness, exact phase-aligned recovery, or useful task performance.
+
+\begin{table}[H]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Control & $\gamma$ & Peaks: $.01/.005$ & FTLE: $.01/.005$ & $\|\Delta x(300)\|_2$ & $\|\Delta u(300)\|_2$\\
+\midrule
+Core & 10.260722 & $9/9$ & $-0.000410/-0.000411$ & $1.66\times10^{-5}$ & $1.53\times10^{-6}$\\
+Lower & 10.140000 & $0/0$ & $0.138663/0.132212$ & $9.850$ & $1.408$\\
+Upper & 10.550000 & $0/0$ & $0.122586/0.135211$ & $16.137$ & $2.129$\\
+Failed near-edge & 10.297167 & $9/9$ & $0.001239/0.001239$ & $3.24\times10^{-5}$ & $3.42\times10^{-6}$\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{All four EXP-005 controls.} $\alpha=1.064$ except the retained near-edge coordinate, $\alpha=1.0661333333$. FTLE is per time unit over 1,900 units; separation uses a distinct 300-unit paired probe. Zero means no detected short period.}
+\label{tab:controls}
+\end{table}
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth,height=0.79\textheight,keepaspectratio]{conceptual-roadmap.pdf}
-\caption{\figstatus{Proposed} (A) Establish a verified neural periodic regime; (B) measure what reaches the task readout; (C) test actions across verified parameter boundaries; (D) evaluate quality, robustness, and total cost. Each stage produces a measurement and a decision, with advancement depending on preceding evidence. No benefit, neural shrimp, or completed successor experiment is represented by this diagram.}
-\label{fig:roadmap}
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-controls.pdf}
+\caption{\textbf{Independent long-settling controls: the parent network behaves differently.} EXP-005 retains all four settings: core, lower and upper transect endpoints, and the failed near-edge comparison. Rows show the three neuron potentials, their actual tanh activations, and paired state/activation separations over 300 units. The two distant controls remain irregular by the prespecified finite-horizon rule at both integration steps. Both other settings have independent attracting-cycle certificates. The near-edge column records a new experiment at the failed coordinate; Figure~\ref{fig:waveforms} and Table~\ref{tab:refinement} preserve its earlier outcome. All columns use the same perturbation norm and direction; initial phase is the independently obtained terminal state.}
+\label{fig:controls}
 \end{figure}
 
-\subsection{Establish a regime before asking it to improve a model}
-First use the analytic scalar cycle to check orbit and output measurements, then reproduce a pinned published small-neural-system periodic regime with its equations and parameter conventions independently checked. Separately specify a targeted successor to the training scan: longer horizons, parameter refinement, and complete-state orbit verification. Preserve the empty scan and every failed candidate. A known neural positive control demonstrates instrument capability; it is not a new discovery or evidence that the current training system has a shrimp.
+\end{landscape}
+\restoregeometry
 
-Once a neural periodic orbit is verified, continue its branch and relevant bifurcations across two controls. Retain stable cycles that lack shrimp geometry as a comparison group. This separates value supplied by periodicity from any value supplied by the window's organization. Boundary uncertainty must be propagated into any proposed boundary direction or width; a coarse visual outline is insufficient.
+\section{What the neural shrimp tells us, and what to test next}
+The shrimp selects a repeating activation waveform and accompanies a strong difference in measured sensitivity. Whether to enter or avoid it depends on the desired computation: a rhythm generator could use a periodic operating region, while a solver intended to settle to one answer could be impeded by cycling. No task endpoint is built into this network.
 
-\subsection{Map consequences at the same parameter settings}
-For each verified regime, pair the dynamical map with a task-observable map: predictive loss or exact correctness, phasewise output disagreement, recovery probability and time under perturbations, and compute to a declared quality threshold. Include matched nearby nonperiodic settings, fixed points, and ordinary periodic windows. The primary question is whether the same boundaries organize changes in these observables, and whether those changes survive changes in task and initialization.
+The clearest untested use of the \emph{shape} is tolerance to changes in connection weights. A transverse Floquet multiplier describes a small change of \emph{state at fixed weights}; window width describes where periodic organization persists as \emph{weights change}. Moving a network state does not move its weights across the shrimp map. The next tests should therefore separate those two disturbances:
+\begin{enumerate}
+\item \textbf{Does the shape predict tolerance to weight drift?} Continue the verified branches and locate stability boundaries, retaining failures and unstable segments. At prospectively chosen body, extension, and boundary settings, perturb the two weights in matched directions and test multiple initial states and phases. Report doses both in raw units and a frozen dimensionless metric. Test whether boundary distance or window width predicts regime loss and waveform error beyond current period, amplitude, clean waveform quality, and Floquet multipliers on held-out settings.
+\item \textbf{Can this improve rhythm control?} Freeze a reference activation waveform, allowable phase error, and separate evaluation disturbance streams. Compare a controller using geometry with ordinary parameter search and controllers given the same local cycle diagnostics, actions, observations, and total resources. Include random directions, a shuffled-boundary control, and zero-dose numerical checks. Measure time within waveform/phase tolerance, recovery, effort, and total cost including the map. Separately perturb states at fixed weights and measure phase drift and phase-aligned orbital recovery.
+\item \textbf{Does the mechanism transfer?} Reproduce one small training or reasoning model before testing entry, exit, averaging, or stopping. Its full evolving state must include optimizer buffers or secondary latents as appropriate. Measure held-out predictions, correctness, settling time, and cost; recurrence alone does not establish useful computation.
+\end{enumerate}
 
-Measure complete-state motion and output motion separately. Include a readout-insensitive or symmetry-controlled case to test whether the analysis mistakenly converts internal structure into a claimed output effect. If a clear state-space signal has no task-visible effect under the tested interventions, report that as a mechanism result. It bounds the effect detected through that readout on the tested inputs, horizon, and precision. An exact invisibility claim requires a separate invariance argument, such as a demonstrated symmetry.
+The present map reproduces recognizable shrimp-shaped organization and verifies selected neural orbits; it does not certify every pixel or the exact boundary topology. Compared with the published $1000\times1000$ scans, $\Delta t=0.01$, and settling time 10,000, our scan has lower resolution and shorter settling. Source initial states and row-reset conventions were unspecified; ours are explicit. The printed source transect equation appeared inconsistent with its displayed range, so we used the independently frozen vertical transect. These differences delimit reproduction rather than being hidden numerical substitutions.
 
-\subsection{Branch checkpoints to test intervention effects}
-At common checkpoints, apply a frozen set of equal-size control changes. Compare boundary-informed directions with random, tangential, reverse, shuffled-map, and ordinary locally sampled performance-informed directions in prespecified log-learning-rate coordinates. Include a zero-dose sham with identical diagnostic overhead; it controls observation and timing, not intervention magnitude. Match intervention doses, opportunities, state access, and tuning budgets. Test both escape from harmful cycles and movement toward useful robust regimes. Measure post-intervention task utility, recovery, and failures, rather than treating boundary crossing as success.
+\section*{Evidence, cost, and research status}
+The code, protocol, and machine plan were pushed at revision
+\href{https://github.com/tdj28/neural-shrimp/commit/b670086775bbc07e115de730b8fcb30ca41cce6b}{\texttt{b670086775bb}}
+before EXP-004 outcomes. Its one completed attempt used four local CPU workers and 140.54 seconds of measured wall time. EXP-005 was frozen and pushed at revision \href{https://github.com/tdj28/neural-shrimp/commit/01209371d541aaa9d072a1addb3960aa3a74efd3}{\texttt{01209371d541}} before its eight fresh runs; its completed attempt used one worker and 4.17 seconds. Recorded paid compute and paid review costs are zero. Raw row states, peak events, statistics, selected probes, refinements, and certificates are retained with source hashes. Figures retain plotted arrays and source/output receipts. The plotting tools render saved data without advancing the ODE. Both protocols are in \path{docs/}, and exact plans are in \path{experiments/hopfield/}. Complete attempts are retained under \path{evidence/EXP-004/} and \path{evidence/EXP-005/}; \path{docs/next-steps.md} specifies the proposed utility tests. Private Git history supports internal chronology, not public preregistration.
 
-A predictive comparison uses identical fitted models and tuning budgets. Baseline features include recent loss, progress, gradient and update norms, recurrence residual, estimated period, cycle amplitude, and local stability, including available orbit multipliers. The augmented model adds boundary distance, local width, boundary direction, and measured window organization. Period information is shared so its value cannot be misattributed to geometry. Labels are future task utility after a specified action, not recurrence itself. Hold out whole windows or spatial blocks as well as tasks, so local interpolation does not masquerade as transfer.
+Generative-AI tools assisted with design, implementation, numerical execution, audits, plotting, and drafting. The human selected the question; authorship and final release approval remain pending. No paid Pro review was requested or run.
 
-\subsection{Demand a practical advantage over simpler controls}
-Required controller baselines are a predetermined schedule, stagnation, recurrence, local stability, and ordinary performance maps with matched scan costs. Include output agreement for stopping and matched averaging procedures for phase aggregation. An inactive detector, as in the current pilot, cannot answer the relative-effectiveness question.
-
-The proposed primary endpoint is paired error on untouched evaluation/test data at a fixed total resource budget. These data are separate from any training or development-validation data used for map selection, controller tuning, or online actions. A complementary endpoint is compute to a quality threshold, with unsolved cases budget-censored. Reasoning experiments require exact correctness at equal total inference cost. The exact aggregation, practical-effect threshold, divergence handling, cluster bootstrap, primary contrast, and multiplicity rule must be frozen before evaluation. A synthetic teacher or data-generating problem is the independent task unit; pixels and time points are not independent replications. Keep seed variation within tasks.
-
-Charge map construction, tuning, failed probes, Jacobians, state storage, transfers, and extra validation. Report cold-start and explicitly amortized costs for a declared number of future runs. Reused experimental prefixes are charged to every hypothetical deployed policy. Report the unselected prevalence of harmful regimes: a high rescue rate in a deliberately enriched set of traps does not establish population-level savings.
-
-\section{A controlled extension to latent reasoning}
-Stable repetition and transient delay call for different interventions. The Lai et al. preprint uses decoded settling, discusses transient structure, and describes capped or inconsistent slices and slim fractals in its appendices \citep{lai2026}. Our extension would retain failures and measure both decoded correctness and complete-state recurrence.
-
-Positive relaxation offers an interpretable intervention:
-\begin{equation}
- G_\alpha(h)=(1-\alpha)h+\alpha F(h),\qquad \alpha>0.
-\end{equation}
-It preserves the fixed-point equation: $G_\alpha(h)=h$ exactly when $F(h)=h$. At a fixed point, an eigenvalue $\lambda$ of $DF$ becomes
-\begin{equation}
- \mu=1-\alpha+\alpha\lambda.
-\end{equation}
-Thus positive relaxation cannot stabilize a real $\lambda>1$ direction, although it can change oscillatory stability. This local algebra does not guarantee global correctness or faster convergence; relaxation can change basins, transients, and nontrivial cycles.
-
-A two-control experiment could use relaxation and momentum, including the previous iterate in the full state. Feedback gain is another control, but generally changes the fixed-point equation and therefore the solver itself. Compare damping, restarts, and geometry-informed changes against residual, output-agreement, and stagnation policies on untouched tasks at matched total inference budgets. Distinguish removing internal motion from rescuing an incorrect answer.
-
-\section{Interpretation and limits}
-The most concrete potential contribution of shrimp geometry is an intervention map: where a desired dynamic persists, which direction changes it, and how much perturbation it tolerates. Three operational outcomes would justify pursuing it: lower error at a fixed total cost, more reliable recovery under disturbances, or earlier correct stopping. A beautiful atlas alone establishes none of them.
-
-The right action depends on the task. An incorrect attracting cycle is a candidate trap. A correct, output-stable cycle may admit earlier stopping. A useful but fragile regime may benefit from an inward move. A cycle invisible to the chosen readout may need no intervention. For every case, the relevant comparison is with a simpler diagnostic given the same information and resources.
-
-Several negative outcomes would still answer the question. If ordinary recurrence matches an active geometry method, a cheaper observable may suffice. If mapping costs erase the per-run gain, there is no net advantage at that deployment scale. If a change improves training loss but harms validation, both must be reported. If an internally strong pattern is removed by the readout, the study should identify that mechanism without claiming a hidden task benefit. The current pilot establishes neither a neural shrimp nor a control advantage, and limits its negative evidence to the tested settings, horizons, precision, and initialization choices.
-
-\section*{Reproducibility and research status}
-The private repository contains executable pilots, frozen inputs and configurations, immutable raw attempts, descriptive reports, figure-generation code and provenance, a research plan, a claim ledger, and reference records. Figures are rebuilt by \path{tools/build_evidence_figures.py} and \path{tools/build_concept_figures.py}. Each \path{paper/figures/*.receipt.json} records its sources, hashes, selection or construction, and plotted values where applicable. The gallery in \path{docs/visual-revision.md} maps figures to their evidence and claim scope. The initial program is exploratory and has no registry record. Private Git history supports internal chronology, not public prospective verification. Confirmatory work requires a fresh frozen design, retained failures and amendments, full cost receipts, and outcome-linked claims. Human editorial review and release decisions remain pending; routine local audits do not require paid Pro review.
+\appendix
+\section{Earlier pilot history}
+EXP-001--003 remain unchanged and are not evidence for the neural shrimp reproduced here. The H\'enon control verified nontrivial attracting cycles in \HenonCycles{} of \HenonTrials{} cells. The tiny tanh \emph{training} scan found \TrainingCycles{} verified cycles in \TrainingTrials{} cells, with \TrainingUnresolved{} unresolved and \TrainingDivergent{} divergent. In the \UtilityTrials{}-run policy pilot, the recurrence detector never intervened; each policy had \PolicyDivergent{} divergent cases among \PolicyTrials{} pairs. The old plots, exact scalar toy, and receipts remain in the repository as exploratory history. EXP-004 supplies a separate, measured recurrent-network periodic window; it does not retroactively validate those training hypotheses.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

@@ -17,3 +17,9 @@ jobs:
       - run: python tools/summarize_pilots.py
       - run: python tools/build_evidence_figures.py --check
       - run: python tools/build_concept_figures.py --check
+      - run: python tools/run_hopfield.py validate
+      - run: python tools/summarize_hopfield.py
+      - run: python tools/plot_hopfield.py evidence/EXP-004/attempt-001 --destination paper/figures --check
+      - run: python tools/run_hopfield_controls.py validate
+      - run: python tools/run_hopfield_controls.py verify --output evidence/EXP-005/attempt-001
+      - run: python tools/plot_hopfield_controls.py evidence/EXP-005/attempt-001 --destination paper/figures --check

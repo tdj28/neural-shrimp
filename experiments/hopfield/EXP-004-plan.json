@@ -1,0 +1,40 @@
+{
+  "experiment_id": "EXP-004",
+  "kind": "hopfield_reproduction",
+  "status": "prospective exploratory numerical reproduction",
+  "date": "2026-09-11",
+  "source_doi": "10.33434/cams.1064713",
+  "model": "dx/dt=-x+W*tanh(x); W=[[1.5,2.9,alpha],[-1.5,1.18,0],[gamma,-22,0.47]]",
+  "initial_state": [0.1, 0.1, 0.1],
+  "dt": 0.02,
+  "burn_time": 2000.0,
+  "sample_time": 800.0,
+  "event_capacity": 128,
+  "max_peak_period": 32,
+  "minimum_repeats": 4,
+  "recurrence_atol": 0.000002,
+  "recurrence_rtol": 0.00002,
+  "workers": 4,
+  "wall_clock_ceiling_seconds": 7200,
+  "grids": [
+    {"name": "overview", "alpha": [1.055, 1.11, 81], "gamma": [10.1, 11.3, 81]},
+    {"name": "focus", "alpha": [1.056, 1.080, 181], "gamma": [10.14, 10.55, 181]}
+  ],
+  "initialization": "Each gamma row starts from the declared initial_state; increasing-alpha continuation within that row uses the previous cell's final state. Rows are independent.",
+  "transect": {"alpha": 1.064, "gamma": [10.14, 10.55, 201], "dt": 0.01, "burn_time": 4000.0, "sample_time": 1000.0, "initialization": "Common fixed initial_state for every point; independent of grid continuation."},
+  "selection": {
+    "core": "Nearest period-9 candidate to source-figure visual estimate (1.064,10.26), using coordinates scaled by focus-rectangle widths. If absent record missing, never substitute another period.",
+    "outer": "Farthest period-9 candidate from core within its 8-connected period-9 component in the focus grid; classify as outer component point, not assumed limb/boundary.",
+    "doubled": "Nearest period-18 candidate to core if any; else missing.",
+    "exterior": "Nearest no-short-period focus cell to core with finite-time exponent greater than 0.005; else nearest no-short-period cell, explicitly without positive-exponent label."
+  },
+  "refinement": {"dt": [0.01, 0.005], "burn_time": 4000.0, "sample_time": 1200.0, "initialization": "Each selected grid cell's retained final state; assesses its captured regime, not basin independence."},
+  "orbit_certificate": "Independent DOP853 shooting, complete-state closure with phase condition, primitive x3-peak count, full variational monodromy; retain the neutral flow multiplier and check transverse multipliers. Failed certificates remain failures.",
+  "behavior": {"duration": 300.0, "sample_dt": 0.05, "perturbation_size": 0.000001, "direction": [0.5773502691896258, 0.5773502691896258, 0.5773502691896258], "initialization": "Each selected cell's finest-refinement terminal state; paired perturbations share it."},
+  "claim_boundary": "Numerical reproduction of shrimp-shaped periodic windows in this fixed-weight three-neuron recurrent network and measured correspondence to its state/activation behavior. No gradient-training, task-correctness, learned-reasoning, novelty, or optimization benefit claim.",
+  "figures": ["complete overview/focus peak-period maps with all unresolved cells retained", "aligned period/finite-time exponent/activation statistics maps", "common-initialization transect: x3 maxima, periods, exponent and activation variability", "selected full-state and activation trajectories with perturbation separation", "full-state closure, transverse Floquet multipliers and step-refinement table"],
+  "differences_from_source": ["Lower resolution and shorter transient than the published 1000-square grid with dt=0.01 and 10000 transient time", "Initial state and row-reset convention explicit here but unspecified in paper", "Full-state peak-event recurrence supplements source scalar-peak detector", "Focused ROI inferred visually before outcomes; overview rectangle exactly matches source Figure 2.3b", "Source printed oblique-transect formula appears inconsistent with its figure; not used"],
+  "failure_rules": ["No adaptive rerun or replacement of consumed attempt", "Retain incomplete rows, failed cells, missing selections and failed certificates", "Ceiling terminates this attempt; continuation requires dated amendment preserving completed evidence", "Reject model, source or manifest drift before execution"],
+  "paid_compute": false,
+  "paid_review": false
+}

@@ -1,3 +1,32 @@
+# Numerical evidence
+
+The primary current result is an actual neural shrimp-shaped parameter window,
+not the earlier exploratory training pilot. All raw attempts remain immutable.
+
+- `EXP-004/attempt-001`: 39,523 grid/transect settings of the published three-neuron
+  recurrent tanh network, selected step refinements, three independently verified
+  attracting cycles, and complete neuron/activation/perturbation traces.
+- `hopfield-summary.json`: derived counts and representative measurements,
+  checked by `python tools/summarize_hopfield.py`.
+- `EXP-005/attempt-001`: eight independent longer-horizon runs at four fixed
+  controls, with two steps each. Both distant controls remain finite-horizon
+  irregular; the core and failed near-edge comparison are certified nine-peak
+  cycles. All 21 receipt-bound artifacts and the receipt are retained exactly.
+  Source `01209371d541aaa9d072a1addb3960aa3a74efd3` was pushed before execution.
+  This separate follow-up does not replace the EXP-004 exterior failure.
+
+EXP-004 source `b670086775bbc07e115de730b8fcb30ca41cce6b` was pushed before
+execution. The archived attempt retains all 475 receipt-bound artifacts and
+its original receipt byte-for-byte. The untracked platform-specific compiled
+library is reproducible from the frozen source; its build metadata and hash
+are retained in `build.json`. The receipt's `manifest_sha256` binds the source
+plan file; `manifest.json` is the same plan reserialized and has its own artifact
+hash. No numerical values were changed while packaging evidence.
+
+The scan ran locally on four CPU workers. No paid compute or paid review was
+used. Parameter maps are finite-horizon candidate classifications; selected
+numerical orbit certificates do not certify every cell or exact boundaries.
+
 # Initial private exploratory pilots
 
 These raw receipts preserve every planned trial, including divergent runs. The

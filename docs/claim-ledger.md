@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-11 with visual analysis and an exact toy derivation. The original meanings of claims below are preserved; outcome statuses cite the retained evidence. No entry is evidence that a modern neural-network shrimp has been found in this repository.
+Status: private exploratory program, updated 2026-09-11 with actual EXP-004 recurrent-network evidence. Original training claims retain their meanings. A small fixed-weight recurrent neural shrimp-shaped window is now numerically reproduced; modern training/reasoning benefit is not established.
 
 | ID | Claim | Current status | What would warrant it | What does not warrant it |
 |---|---|---|---|---|
@@ -8,7 +8,7 @@ Status: private exploratory program, updated 2026-09-11 with visual analysis and
 | L2 | Training and latent inference require different state/control definitions | Mathematical setup | Explicit update equation and complete evolving state | Treating an initial-state slice as a learning-rate map |
 | E1 | This tiny training map has a nontrivial periodic orbit | Not demonstrated by EXP-002; all finite tails unresolved | Full-state primitive-period recurrence and independent closure | Repeated scalar loss or predictions |
 | E2 | That orbit is locally attracting | Not demonstrated by EXP-002; no neural candidate verified | Period Jacobian product with spectral radius separated below one | Finite-time near recurrence, a plot, or a large observed basin alone |
-| E3 | The parameter window has shrimp organization | Not established; continuation not yet implemented | Connected verified isoperiodic window and continued bifurcation boundaries, with convergence checks | E1 + E2 at one pixel, visual similarity, or a Hénon control |
+| E3 | The tiny training parameter window has shrimp organization | Not established; continuation not yet implemented | Connected verified isoperiodic window and continued bifurcation boundaries, with convergence checks | E1 + E2 at one pixel, visual similarity, or a Hénon control |
 | U1 | Recurrence improves intervention timing beyond scalar stagnation | Not demonstrated by EXP-003; recurrence never intervened | Paired complete trajectories, equal action opportunities and doses, held-out cases | Beating a fixed learning rate alone |
 | U2 | Shrimp geometry adds predictive/control information | Proposed main question; not implemented | Matched feature/policy comparison versus loss, recurrence, stability, and ordinary performance-map baselines | U1, attractive fractal images, or a better-tuned controller |
 | U3 | The method provides net compute savings | Not established | Matched total budgets including scans, tuning, diagnostics, and failures; declared amortization | Equal optimizer-step counts, conditional rescue rates, or wall time excluding atlas cost |
@@ -50,3 +50,27 @@ and one exact algebraic plate are separately labeled. None changes E1–E3 or
 U1–U3. T2–T3 add a constructed example and a mathematical identity, not a new
 empirical result or novelty claim. Figure receipts and the
 [visual guide](visual-revision.md) bind the intended interpretations.
+
+## 2026-09-11 actual recurrent-network reproduction
+
+| ID | Claim | Current evidence and limit |
+|---|---|---|
+| R1 | This three-neuron recurrent network has a shrimp-shaped periodic window | EXP-004: 39,322 grid cells and 201 independently initialized transect points reproduce the published shape. Selected orbits are verified; exact boundary topology and every pixel are not certified. |
+| R2 | The shape corresponds to repeating neural activity | Two nine-peak cycles and one eighteen-peak cycle pass full-state shooting, primitive peak counts, neutral-flow checks, and transverse stability. Actual tanh activations and state waveforms are stored and plotted. |
+| R3 | Locations within the window have different local stability | Dominant transverse multipliers 0.06506010, -0.46513914, and 0.65612133 at the three certified orbits. These are per-cycle local state responses, not basin size, weight-drift tolerance, or task performance. |
+| R4 | The originally selected exterior is a validated chaotic control | Rejected: coarse period 0 becomes 9 at both refinements. The failure remains in all result tables and evidence. EXP-005 is a distinct prospective longer-horizon comparison. |
+| R5 | Full activation readout preserves the exact state period | Componentwise tanh is injective for finite states; therefore the full activation vector has the same exact primitive period. Floating-point saturation affects numerical visibility. This does not apply automatically to a scalar, averaged, or decoded readout. |
+
+Evidence: [EXP-004 receipt](../evidence/EXP-004/attempt-001/receipt.json),
+[protocol](EXP-004-protocol.md), and [next steps](next-steps.md).
+R1–R5 do not change the original EXP-002 training or EXP-003 utility outcomes.
+
+EXP-005 update: the two fixed distant controls retain absent short recurrence
+and finite-time exponents 0.123–0.139 at both steps after a 10,000-unit settling
+horizon. The core and previously failed near-edge comparison independently
+certify as nine-peak cycles. Under the one frozen 1e-6 perturbation, activation
+separation at time 300 is 1.53e-6 at the core versus 1.41 and 2.13 at the two
+irregular controls. This supports a concrete finite-horizon state-to-output
+sensitivity contrast, not global chaos, basin robustness, causal task benefit,
+or a comparison averaged over perturbation phases and directions. Original
+EXP-004 classifications and failures remain unchanged.

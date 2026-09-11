@@ -1,0 +1,150 @@
+{
+  "experiment_id": "EXP-005",
+  "source_commit": "01209371d541aaa9d072a1addb3960aa3a74efd3",
+  "status": "complete",
+  "manifest_sha256": "a74b737df2b98e390ce25fc42868c46de9f9b60a1d07150e0b396c12195e6463",
+  "started_at": "2026-09-11T19:06:51.080564+00:00",
+  "source_files": {
+    "tools/run_hopfield_controls.py": "1378fd96ce462b47697b1be2b506a06e2b393c44221b047a5ba43e067591a6ab",
+    "tools/run_hopfield.py": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077",
+    "tools/hopfield_diagnostics.py": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07",
+    "native/hopfield.cpp": "d77afbf22b10abb829eecb41ff6ace262713a8b00e7544f2bfe4d389d661eba4",
+    "experiments/hopfield/EXP-005-plan.json": "a74b737df2b98e390ce25fc42868c46de9f9b60a1d07150e0b396c12195e6463"
+  },
+  "planned_cells": 8,
+  "stats_columns": [
+    "total_peaks",
+    "ftle",
+    "ftle_time",
+    "sample_time",
+    "mean_x1",
+    "mean_x2",
+    "mean_x3",
+    "std_x1",
+    "std_x2",
+    "std_x3",
+    "mean_tanh_x1",
+    "mean_tanh_x2",
+    "mean_tanh_x3",
+    "std_tanh_x1",
+    "std_tanh_x2",
+    "std_tanh_x3",
+    "mean_squared_speed",
+    "final_speed",
+    "burn_steps",
+    "sample_steps"
+  ],
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.11 (main, Dec 17 2025, 20:55:16) [Clang 21.1.4 ]",
+  "paid_compute": 0,
+  "paid_review": 0,
+  "ended_at": "2026-09-11T19:06:55.259415+00:00",
+  "wall_seconds": 4.166616667062044,
+  "artifacts": [
+    {
+      "path": "build.json",
+      "sha256": "8716e18e360bae1f01cc238abb39fa6f557b916490a26ef588c8eb61cb249ca4",
+      "bytes": 321
+    },
+    {
+      "path": "cells/core-dt-0.005.npz",
+      "sha256": "82873eaa74edd3b73e5466ad5ade3cdd3c768d2bed8ff9cff8596cfd1c88fb36",
+      "bytes": 5253
+    },
+    {
+      "path": "cells/core-dt-0.01.npz",
+      "sha256": "cf20d797b70234130a2f81e918e5f7bb185a4daca6c39778c67cc96a3b3ab634",
+      "bytes": 5413
+    },
+    {
+      "path": "cells/failed-near-edge-dt-0.005.npz",
+      "sha256": "884e1d484a3b18e453c3974ad8d3835d49d67334cc922ebc32bf0afff70a2544",
+      "bytes": 5200
+    },
+    {
+      "path": "cells/failed-near-edge-dt-0.01.npz",
+      "sha256": "65dfcdc30b72cf8f01517973138e0af3b65e719c5910924f1be15b14ae3f479f",
+      "bytes": 5384
+    },
+    {
+      "path": "cells/lower-dt-0.005.npz",
+      "sha256": "fccfe05bd5bb240b29e4f4076e143695e51557cc78958d2db855dc60b289ffc2",
+      "bytes": 6267
+    },
+    {
+      "path": "cells/lower-dt-0.01.npz",
+      "sha256": "a2549767642fdf5b37d74f09d4f9aa2bd2f12a5b5202b7a8840a7e43d03af783",
+      "bytes": 6260
+    },
+    {
+      "path": "cells/upper-dt-0.005.npz",
+      "sha256": "375281d7dbe5f21314f7604b2b3720f1e15467e95ab2d1153d11cfda4dbd1af0",
+      "bytes": 6271
+    },
+    {
+      "path": "cells/upper-dt-0.01.npz",
+      "sha256": "6e72f838505774b660838852fd6b1b9389978ad12890ac8b25181a033870808b",
+      "bytes": 6275
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "a74b737df2b98e390ce25fc42868c46de9f9b60a1d07150e0b396c12195e6463",
+      "bytes": 3019
+    },
+    {
+      "path": "points/core-behavior.npz",
+      "sha256": "5429686904eaccb3605ce616767178fae074a76497789673fd52bbdada7427ec",
+      "bytes": 731440
+    },
+    {
+      "path": "points/core.json",
+      "sha256": "c2fcd62b246835cc2a6e6a3e8849eb5a60981596d777200c8c7e0f7c5cef60dc",
+      "bytes": 628323
+    },
+    {
+      "path": "points/failed-near-edge-behavior.npz",
+      "sha256": "207a554c74719da941aebda86731cc43ffc244a9ab75b43fce9a663603241c27",
+      "bytes": 731374
+    },
+    {
+      "path": "points/failed-near-edge.json",
+      "sha256": "8a300186196f84ffb58dd82c734f6a063e89cba95a5319cb42081eeef428fe05",
+      "bytes": 628398
+    },
+    {
+      "path": "points/lower-behavior.npz",
+      "sha256": "fd5d2d72ba91845e81602dff9b16d45173c459911f4cac455ca2fd9c18388795",
+      "bytes": 641964
+    },
+    {
+      "path": "points/lower.json",
+      "sha256": "258c34b3d15b7143becffbfe7d8017f7443a632be0bd2281e3648fece01a7a59",
+      "bytes": 3625
+    },
+    {
+      "path": "points/upper-behavior.npz",
+      "sha256": "df468c25eca350d7dbf912ddd5a5fe21b731c83f77ff50b585798716968b0694",
+      "bytes": 640366
+    },
+    {
+      "path": "points/upper.json",
+      "sha256": "22c98b0816882a138c544145e66cc8cad4800f9d5303e048401739437cb22ee4",
+      "bytes": 3617
+    },
+    {
+      "path": "progress.json",
+      "sha256": "44fc812fd7d779709beb492bf69a33372be0b71241e0a8714f221a8ffa438c24",
+      "bytes": 26
+    },
+    {
+      "path": "started.json",
+      "sha256": "341e1a2286d0f439022cf1dca3e4c1ec874cd369dd686c0d1e7274b8da14cf24",
+      "bytes": 1365
+    },
+    {
+      "path": "summary.json",
+      "sha256": "d97784687bb4abd73b53554521923a7592f9d6a95d1affea17e0f5b2dbe3721f",
+      "bytes": 1384652
+    }
+  ]
+}

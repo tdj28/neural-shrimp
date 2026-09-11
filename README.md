@@ -1,113 +1,137 @@
-# Neural shrimp: do periodic windows help us manage neural networks?
+# A neural shrimp and what the network does inside it
 
-Private exploratory research project. The first three local pilots are complete;
-no new neural-network shrimp finding or practical advantage is established.
-The question is whether information about
-periodic windows improves a training or inference decision after paying for its
-measurement, compared with ordinary loss, recurrence, and stability diagnostics.
+Private exploratory research on periodic-window geometry, neural activity, and
+whether geometric information can improve model control.
 
-We separate three claims: periodic orbit existence, utility of detecting cycles,
-and incremental utility of shrimp geometry. They require different evidence.
-The first implementation uses small deterministic CPU models in float64.
+**EXP-004 numerically reproduces an actual shrimp-shaped window in a
+three-neuron recurrent neural network.** This is the fixed-weight tanh system
+reported by da Silva and Rech (2022), not a newly trained modern network. The
+network's three potentials evolve while two connection weights define the map.
 
-The initial instrument verified cycles in the Hénon control, but found no
-verified cycles in the coarse neural scan. The recurrence policy never
-triggered in the separate utility pilot and matched the fixed-rate trajectories
-exactly. These finite pilot results are preserved in [the evidence](evidence/README.md)
-and do not establish absence of neural shrimps or general futility of dynamical
-control. [Next experiments](docs/next-steps.md) start with a neural periodic
-positive control before extending the search.
+![Measured overview and focused neural shrimp maps](paper/figures/neuralshrimp-map.png)
 
-## What is implemented
+The frozen experiment measured **39,322 grid settings and 201 independently
+initialized transect points**. Smaller-step, longer-settling checks and
+independent DOP853 shooting verified two nine-peak cycles and a nearby
+eighteen-peak cycle. At the core, the full state repeats after
+**37.63637538 time units**, with relative closure **7.46e-10**. The flow has its
+required neutral multiplier; the dominant transverse multiplier is **0.06506**.
 
-- Exact full-batch tanh training maps, gradients, Hessians, and Jacobians.
-- Hénon/logistic controls; conservative full-state recurrence screening;
-  numerical primitive-orbit closure and Floquet stability checks.
-- Three frozen-input exploratory pilots: Hénon parameter scan, two-learning-rate
-  neural training scan, and paired learning-rate control policies.
-- Fixed-rate, scheduled-decay, scalar-stagnation and recurrence-triggered decay
-  controls. Equal update budgets do **not** imply equal total compute costs.
-- Immutable raw trials, exact source/input hashes, complete failure accounting,
-  receipt verification, and descriptive reports/parameter maps.
-- Offline RunPod archives and cost/watchdog preparation. This is a CPU
-  implementation; GPU acceleration and provider lifecycle automation are not
-  implemented or validated.
+The shape therefore corresponds to something the parent network actually does:
+a repeating three-neuron activation waveform with a definite period and local
+transverse stability. Aligned maps and an independent transect show its
+relationship to finite-time sensitivity and actual tanh-activation variability.
+The activation readout preserves the complete waveform's period; saturation
+compresses some amplitude differences.
 
-Shrimp boundary continuation, geometry-specific prediction/control, trained
-latent-reasoner experiments, and practical speedup claims remain future work.
-The [research plan](docs/research-plan.md) makes these gates explicit; the
-[claim ledger](docs/claim-ledger.md) distinguishes each level of evidence.
+A useful failure remains visible. The point selected as an exterior by the
+coarse grid becomes a nine-peak candidate at both refinement steps. EXP-004
+retains that failed interpretation. **EXP-005 independently certifies a
+nine-peak orbit at the same coordinate**; it does not overwrite the failure.
 
-## Reproduce locally
+The separately frozen [EXP-005 follow-up](docs/EXP-005-protocol.md) starts all
+four controls independently, settles for 10,000 time units, and measures for
+2,000 at both `dt=0.01` and `0.005`. The lower and upper transect endpoints
+remain irregular under its finite-horizon rule: no detected short period and
+positive finite-time exponents at both steps. After a **1e-6 state perturbation
+and 300 time units**, the actual activation-vector separation is **1.53e-6 at
+the core versus 1.41 and 2.13** at those two controls. This is a large measured
+difference in neural waveform repeatability, without an asymptotic-chaos or
+task-accuracy claim.
 
-Python 3.11+ is required. Dependencies are pinned by `uv.lock` and a hashed
-`requirements.lock` export. From a clean clone:
+Read the [numerical working paper](paper/neural-shrimp-working-draft.pdf)
+([LaTeX](paper/main.tex)), [EXP-004 protocol](docs/EXP-004-protocol.md),
+[exact manifest](experiments/hopfield/EXP-004-plan.json), and
+[display amendment](docs/EXP-004-display-amendment.md). Figures contain measured
+ODE outcomes, with lossless plotted-array archives and source/output receipts.
+This reproduces known small-network dynamics; it does not establish novelty,
+exact bifurcation boundaries, trained-task accuracy, or an optimization benefit.
+
+## What this can inform
+
+The first concrete utility hypothesis is **tolerance to connection-weight drift**.
+A broad body or narrow extension may predict how far the weights can move before
+the desired rhythm is lost. This differs from a Floquet multiplier, which measures
+small state disturbances while the weights remain fixed. The next experiment
+will test whether window width or boundary distance predicts drift-induced
+failure beyond the current period, amplitude, waveform quality, and multipliers.
+
+A subsequent controller must preserve a declared activation waveform and phase
+tolerance under held-out disturbance streams, and beat ordinary parameter search
+and equally funded local-diagnostic controllers. Mapping cost, failed probes,
+and all control actions count. See the [concrete next experiments](docs/next-steps.md).
+
+Phase and transverse recovery remain distinct: an attracting autonomous cycle
+can retain a same-time displacement because its phase direction is neutral.
+The current perturbation probes show finite-horizon repeatability, not a completed
+phase-aware control task.
+
+## Implemented instruments
+
+- Native continuous-time three-neuron tanh integration, complete-state peak
+  recurrence, tangent sensitivity, and all-neuron state/activation statistics.
+- Independent adaptive shooting with primitive-period, complete-state closure,
+  neutral-flow, and transverse-Floquet checks.
+- Frozen row-wise evidence, independent-initialization transects, step and
+  settling refinements, and paired perturbation traces.
+- Deterministic figure generation with exact plotted values and source hashes.
+- Earlier full-batch tanh training maps, gradients, Hessians, and Jacobians;
+  Hénon/logistic controls; fixed/scheduled/stagnation/recurrence policies.
+- Offline RunPod packaging and watchdog preparation. Current experiments use
+  local CPU resources; GPU and provider-lifecycle automation are not validated.
+
+## Reproduce and verify
+
+Dependencies are pinned by `uv.lock` and the hashed `requirements.lock` export.
+From a clean clone:
 
 ```sh
 uv sync --frozen --extra dev
 uv run --frozen pytest -q
-uv run --frozen python -m neural_shrimp.cli validate experiments/manifests/*.json
-uv run --frozen python -m neural_shrimp.cli plan experiments/manifests/EXP-002-training-pilot.json
+uv run --frozen python tools/run_hopfield.py validate
 ```
 
-The `.npz` input files already contain the exact training, validation and test
-arrays, teacher parameters, and initial weights. No training outcomes are used
-to prepare them. A changed design needs a new manifest/experiment ID; do not
-overwrite a consumed manifest or attempt directory.
-
-Execution requires clean source and a remote tracking reference containing the
-source commit. Run only after the full code and manifest are committed/pushed:
+Existing EXP-004--005 evidence and figures can be checked without advancing the ODE:
 
 ```sh
-OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
-  uv run --frozen python -m neural_shrimp.cli run \
-  --manifest experiments/manifests/EXP-002-training-pilot.json \
-  --output runs/EXP-002/attempt-001
-uv run --frozen python -m neural_shrimp.cli verify runs/EXP-002/attempt-001
-uv run --frozen python -m neural_shrimp.cli analyze runs/EXP-002/attempt-001 \
-  --destination artifacts/EXP-002/attempt-001
+uv run --frozen python tools/run_hopfield.py verify \
+  --output evidence/EXP-004/attempt-001
+uv run --frozen python tools/plot_hopfield.py evidence/EXP-004/attempt-001 \
+  --destination paper/figures --check
+uv run --frozen python tools/run_hopfield_controls.py verify \
+  --output evidence/EXP-005/attempt-001
+uv run --frozen python tools/plot_hopfield_controls.py evidence/EXP-005/attempt-001 \
+  --destination paper/figures --check
 ```
 
-Each output directory is exclusively created. Incomplete attempts remain
-inspectable and cannot be silently replaced. Resume is not implemented; spot
-compute is therefore not qualified. The utility pilot takes no test-feedback
-decisions: policies inspect only training loss or full training state.
+The plotting commands re-derive plots from saved measurements. `--verify` also
+requires byte-identical image regeneration in the same library/font environment.
+No source outcome is changed by rebuilding the figures.
 
-## Paper and resources
+Fresh target execution requires clean source, a pushed source commit, a frozen
+plan, and a new attempt directory. Never overwrite a consumed plan or reset an
+attempt. The original EXP-004 used four CPU workers and 140.54 seconds of
+measured wall time; EXP-005 used one worker and 4.17 seconds. Paid compute and
+paid review spend were zero.
 
-The [working manuscript PDF](paper/neural-shrimp-working-draft.pdf)
-([LaTeX source](paper/main.tex)) is a private research draft,
-not a submission-ready paper. Build from `paper/` with `pdflatex main`,
-`bibtex main`, then `pdflatex main` twice. References resolve to primary sources.
+To build the paper, run `pdflatex main`, `bibtex main`, then `pdflatex main`
+twice from `paper/`. The two main parameter maps and the four-control plate use
+landscape pages for readability; references resolve to primary sources.
 
-The visual revision contains ten figures: six evidence-derived plates, three
-explanatory diagrams, and one exact analytic neural-cycle example. Each figure
-has vector PDF/SVG, a 300-dpi PNG, and a machine-readable receipt recording its
-source, construction, scope, and hashes. The [figure guide](docs/visual-revision.md)
-connects each plate to the question it answers.
+## Earlier pilot history
 
-An exact tied-weight toy makes a concrete output consequence visible:
-an attracting training cycle alternates predictions, and prediction averaging
-reduces phase-dependent error while retaining bias. The [derivation](docs/analytic-cycle.md)
-does not establish shrimp geometry or an advantage over a convergent solution.
-The [observable-consequences plan](docs/observable-consequences.md) and
-[next steps](docs/next-steps.md) specify how to test robustness, directional
-control, stopping, and averaging against simpler diagnostics at matched cost.
+EXP-001–003 are preserved separately. The Hénon control verified periodic
+orbits, the coarse neural **training** scan found no verified cycles, and the
+recurrence-triggered policy never acted. Those results neither established a
+neural shrimp nor an optimization advantage. See the [retained evidence](evidence/README.md)
+and [initial results](docs/initial-results.md).
 
-Verify the released evidence and figures without running new experiments:
+The earlier [figure guide](docs/visual-revision.md),
+[exact scalar-cycle derivation](docs/analytic-cycle.md), and
+[observable-consequences plan](docs/observable-consequences.md) remain as research
+history and proposed methods. Their conceptual diagrams are not the numerical
+shrimp reproduced in EXP-004.
 
-```sh
-uv run --frozen python tools/summarize_pilots.py
-uv run --frozen python tools/build_evidence_figures.py --check
-uv run --frozen python tools/build_concept_figures.py --check
-```
-
-Omitting `--check` rebuilds figures from the immutable evidence or stated
-algebra. Conceptual plots are explicitly labeled; they are not pilot outcomes.
-
-See the [compute plan](docs/compute-plan.md) before considering a paid run.
-Paid compute and paid reviews are disabled by default. The archive watchdog
-limits the workload process; an external owner must still retrieve artifacts
-and verify provider termination to stop billing.
-
-This repository stays private until the owner explicitly authorizes publication.
+Paid research reviews require explicit approval for each request. See the
+[compute plan](docs/compute-plan.md) before considering paid resources. This
+repository remains private until its owner authorizes publication.

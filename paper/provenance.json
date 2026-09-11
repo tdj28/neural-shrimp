@@ -1,88 +1,214 @@
 {
-  "scope": "Private exploratory working draft: 17 pages, ten figures; all pages visually inspected. Six empirical plates re-express immutable pilots; three diagrams and one exact analytic plate are separately labeled. No new target experiment.",
+  "scope": "Private exploratory numerical reproduction of a published three-neuron recurrent neural shrimp, with measured state/activation behavior. All final PDF pages visually inspected. Earlier training/utility pilots remain unchanged; no task benefit or exact bifurcation topology claim.",
   "revision_date": "2026-09-11",
-  "pages": 17,
-  "figures": 10,
-  "empirical_figures": 6,
-  "conceptual_or_analytic_figures": 4,
-  "local_tests_passed": 59,
+  "pages": 11,
+  "figures": 5,
+  "empirical_figures": 5,
+  "empirical_panels": 27,
+  "numerical_tables": 3,
+  "conceptual_or_analytic_figures": 0,
+  "historical_figure_sets_retained": 10,
+  "local_tests_passed": 85,
   "original_pilot_source_commit": "bd3d733b51e9f1ae9247ba712633aca023e7afac",
+  "experiment_source_commits": {
+    "EXP-004": "b670086775bbc07e115de730b8fcb30ca41cce6b",
+    "EXP-005": "01209371d541aaa9d072a1addb3960aa3a74efd3"
+  },
+  "raw_artifacts_preserved": {
+    "EXP-004": 475,
+    "EXP-005": 21
+  },
+  "saved_result_verification_amendment": "docs/EXP-005-verification-portability.md",
+  "pdf_visual_qa": {
+    "pages_inspected": 11,
+    "render_dpi": 125,
+    "layout": "Large landscape empirical plates on pages 2, 4, 9; portrait prose, transect, original comparison and three tables; no clipping, overlaps or blank pages.",
+    "latex_warnings": 0
+  },
   "files": [
     {
-      "path": "paper/main.tex",
-      "sha256": "8036e295a11afd6cde97fdb04202db6c2e740002afac8d8447bcfca7d3cbc9e5"
+      "path": ".github/workflows/tests.yml",
+      "sha256": "1105df7d848ac3999868936d38d3b14461c73e5443184032e2db18f05ac44106"
     },
     {
-      "path": "paper/references.bib",
-      "sha256": "a9f2a2ae51f5f5cff477892a871983a0331853b2835e59acc76434c16227c49f"
+      "path": ".gitignore",
+      "sha256": "2f32278450c2f74a426ab988b11f43976599cbdb438332c9296bd9a85eb33bf7"
     },
     {
-      "path": "paper/generated-pilot.tex",
-      "sha256": "79ca534669ebc1d074274d818c316074abe1df6d90d6057a5d5a61f01c918760"
+      "path": "README.md",
+      "sha256": "4a90018093cecb359ad2a7fe968f84c0339d14ba09af2ac1e7bf632d30afffbc"
     },
     {
-      "path": "paper/neural-shrimp-working-draft.pdf",
-      "sha256": "35d5d55392ad1bbab2af686c6a88f8dd762b17dc49c0487b3edecaa909b3f699"
+      "path": "docs/EXP-004-display-amendment.md",
+      "sha256": "fc1c22493f065201a8bb7c7c251400681f5ff4caeedf3b7546bb4aa0bd3d2717"
     },
     {
-      "path": "evidence/pilot-summary.json",
-      "sha256": "26fb3dc344a4fb7b7f58eeca1a5337ac3a5ce7d126873b8a5079bcb7247c8190"
+      "path": "docs/EXP-004-engine-audit.md",
+      "sha256": "bed0257ef014e23756fc1ac651e88b8b892f64a79abc798d51e85a2f3f9a247d"
     },
     {
-      "path": "paper/figures/empirical-provenance.json",
-      "sha256": "a0301b87cbb72a54c37c0492a5467a6167989ceea85caecd3a865b2df5cdfda8"
+      "path": "docs/EXP-004-protocol.md",
+      "sha256": "418dfe52238359a9db39696afc705457138bed713e424b3e47f026255c464ef4"
     },
     {
-      "path": "paper/figures/conceptual-provenance.json",
-      "sha256": "ae895c9e7e6f02984a761bafaad7cedc5606fa3ae49a82e672ecfe1c8208cb23"
+      "path": "docs/EXP-004-results-audit.md",
+      "sha256": "85c37da847b6912e4aeb819524576a1b56c5201c46767ee0354eae1c754e9ff9"
     },
     {
-      "path": "tools/build_evidence_figures.py",
-      "sha256": "d55e10b36c9874ea4ae4966bb5a9c6507e1d55e4addec03b207a7b6b04a15ef9"
+      "path": "docs/EXP-005-protocol.md",
+      "sha256": "feb6101b16134f6148db89f71907d153d99ed9b17339003472fe15154d645019"
     },
     {
-      "path": "tools/build_concept_figures.py",
-      "sha256": "36ae55b64aedea822b59ed078c50bc996e7a36ed8c6a5074a89f26a38c4e32c5"
+      "path": "docs/EXP-005-results-audit.md",
+      "sha256": "cfcffa232f4c0a2c66894c74b345b46141269474b021ceba189a1a0bfda12663"
     },
     {
-      "path": "tests/test_analytic_cycle.py",
-      "sha256": "e51c624de7ca032dff3919f38fd6b7816df726d913ce7f057e92be908dab1b47"
+      "path": "docs/EXP-005-verification-portability.md",
+      "sha256": "cc5d972e57503e1143be7c9abf5279a69b70ac059bc1634f53bf389f8c7190bf"
     },
     {
       "path": "docs/analytic-cycle.md",
       "sha256": "431d8674aaca297de456dc9553681549b709c2bfb3ddcc9984ec127d406e5881"
     },
     {
-      "path": "docs/observable-consequences.md",
-      "sha256": "70f1d6eeed541b06ce36c9d7166a2a2cbb36c690b693435b52b8d1905df755fa"
-    },
-    {
-      "path": "docs/next-steps.md",
-      "sha256": "e7adf046a9efd816009e37fbaffe60ae5bae65560421ed5e6825aedb08959e66"
-    },
-    {
-      "path": "docs/visual-revision.md",
-      "sha256": "5400d8fc5157823576a6680ae697087b8c1292d01592328b2950e88f19613383"
+      "path": "docs/claim-ledger.md",
+      "sha256": "5ae0a86a1688c52e6cfb7cd4d34930760af7ef58127abe75f3450aabd21a4566"
     },
     {
       "path": "docs/empirical-figure-notes.md",
       "sha256": "77208b0dcc8a386adac3ebfba1c3c3fb1129023bae15b5e9f60a5ecfef5a095f"
     },
     {
+      "path": "docs/next-steps.md",
+      "sha256": "d8d3f93c3526b48ee35513e0d71c4af824139f00269e44a2b6a42c96a9c99458"
+    },
+    {
+      "path": "docs/observable-consequences.md",
+      "sha256": "70f1d6eeed541b06ce36c9d7166a2a2cbb36c690b693435b52b8d1905df755fa"
+    },
+    {
       "path": "docs/verification-ledger.md",
-      "sha256": "b68fdc4978e0fc80aea111b579ad8bc52e304efcd151f5fd73281b6692549958"
+      "sha256": "317f1e8cca891848200541a6ad352f4fab7c99b0d8227c6001b75201477f9238"
     },
     {
-      "path": "docs/claim-ledger.md",
-      "sha256": "18c90c440fc0278f9363c2c14cead8ea52e0150f1d1099daa87c4a0f366d537a"
+      "path": "docs/visual-revision.md",
+      "sha256": "5400d8fc5157823576a6680ae697087b8c1292d01592328b2950e88f19613383"
     },
     {
-      "path": "README.md",
-      "sha256": "41c9e403198f395236242db8742a199557c9a6fe11578fac811613deb4ee2b3e"
+      "path": "evidence/EXP-004/attempt-001/receipt.json",
+      "sha256": "3424b9eaa388e58cb4d8b91b2a4f0136d701fb6928e02d1a2a30ed2e52051c07"
     },
     {
-      "path": ".github/workflows/tests.yml",
-      "sha256": "3f9bf35a87add76d9ddcdc0fdc3a67a7576b1fc7f41af0962eb3c6a20c55a474"
+      "path": "evidence/EXP-005/attempt-001/receipt.json",
+      "sha256": "fb287eb68541e674c8dc095049c3e0a4e887e3b7297f8903dda39a9797ad3aee"
+    },
+    {
+      "path": "evidence/README.md",
+      "sha256": "5fd38ba3deb1c3b43fb24cd8095309b358693bb0d8b3bbb1e49561add94da745"
+    },
+    {
+      "path": "evidence/hopfield-summary.json",
+      "sha256": "f52800946b0d63cd52ea6b9be2d7e49ddef851224a27ab79f42769d047adcfea"
+    },
+    {
+      "path": "evidence/pilot-summary.json",
+      "sha256": "26fb3dc344a4fb7b7f58eeca1a5337ac3a5ce7d126873b8a5079bcb7247c8190"
+    },
+    {
+      "path": "experiments/hopfield/EXP-004-plan.json",
+      "sha256": "8c618745ce6bc8101990c81dcbb1cb8e4674e19f97bff8b0a026f9cc8bc410ec"
+    },
+    {
+      "path": "experiments/hopfield/EXP-005-plan.json",
+      "sha256": "a74b737df2b98e390ce25fc42868c46de9f9b60a1d07150e0b396c12195e6463"
+    },
+    {
+      "path": "native/hopfield.cpp",
+      "sha256": "d77afbf22b10abb829eecb41ff6ace262713a8b00e7544f2bfe4d389d661eba4"
+    },
+    {
+      "path": "paper/figures/conceptual-provenance.json",
+      "sha256": "ae895c9e7e6f02984a761bafaad7cedc5606fa3ae49a82e672ecfe1c8208cb23"
+    },
+    {
+      "path": "paper/figures/empirical-provenance.json",
+      "sha256": "a0301b87cbb72a54c37c0492a5467a6167989ceea85caecd3a865b2df5cdfda8"
+    },
+    {
+      "path": "paper/figures/hopfield-controls-figure-provenance.json",
+      "sha256": "e401786003af7cd4187f7c3ced01523a065c4dd440c3d3c254fd127b524737d0"
+    },
+    {
+      "path": "paper/figures/hopfield-figure-provenance.json",
+      "sha256": "aa39fbbbc65bfcbd989855ea1637e6901d0dcc6bc64bc47282ce8dda8b5d8e7d"
+    },
+    {
+      "path": "paper/generated-pilot.tex",
+      "sha256": "79ca534669ebc1d074274d818c316074abe1df6d90d6057a5d5a61f01c918760"
+    },
+    {
+      "path": "paper/main.tex",
+      "sha256": "d76ae5ee9924073fb6dd958a256c637a6db9ae6c6c915e9d9aec245fd3384a9e"
+    },
+    {
+      "path": "paper/neural-shrimp-working-draft.pdf",
+      "sha256": "e4be6c9898de57d1154c048851db11445c6eed3b21c6736ef1fd7083b7568e57"
+    },
+    {
+      "path": "paper/references.bib",
+      "sha256": "a9f2a2ae51f5f5cff477892a871983a0331853b2835e59acc76434c16227c49f"
+    },
+    {
+      "path": "tests/test_analytic_cycle.py",
+      "sha256": "e51c624de7ca032dff3919f38fd6b7816df726d913ce7f057e92be908dab1b47"
+    },
+    {
+      "path": "tests/test_hopfield_controls.py",
+      "sha256": "aec6ac59c3d24c82d309889783c50b6aee47524a79ef4c7feabeaad7c6924b31"
+    },
+    {
+      "path": "tests/test_hopfield_diagnostics.py",
+      "sha256": "85000657c5f4b16fadc24fe257310c1478200a5ecdfb12be6ed0cc801fea302b"
+    },
+    {
+      "path": "tests/test_hopfield_driver.py",
+      "sha256": "2430f57d4b2e779e6dd6addc142eadafaeaacf1f096c769f2adafa02d2183460"
+    },
+    {
+      "path": "tests/test_hopfield_engine.py",
+      "sha256": "a88041f9496c560450a0f19e9230b061e22e0394bb6b95cd2ad96b317d649f3a"
+    },
+    {
+      "path": "tools/build_concept_figures.py",
+      "sha256": "36ae55b64aedea822b59ed078c50bc996e7a36ed8c6a5074a89f26a38c4e32c5"
+    },
+    {
+      "path": "tools/build_evidence_figures.py",
+      "sha256": "d55e10b36c9874ea4ae4966bb5a9c6507e1d55e4addec03b207a7b6b04a15ef9"
+    },
+    {
+      "path": "tools/hopfield_diagnostics.py",
+      "sha256": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07"
+    },
+    {
+      "path": "tools/plot_hopfield.py",
+      "sha256": "5426ad18dad69a0ebadc234ceeba41f33364ff86a83887eef5f623ebe69ef1e0"
+    },
+    {
+      "path": "tools/plot_hopfield_controls.py",
+      "sha256": "877f62949d9ce28aa379307959cd1d59b7620053aa92cf1ac877799015f0dad7"
+    },
+    {
+      "path": "tools/run_hopfield.py",
+      "sha256": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077"
+    },
+    {
+      "path": "tools/run_hopfield_controls.py",
+      "sha256": "493600d7b36c199c4f30079adcbcdf14018394a9e606b9306353dd29137d1e15"
+    },
+    {
+      "path": "tools/summarize_hopfield.py",
+      "sha256": "350f8fc7c87d1770477a6b169a859b6877f83120b631c8ff14dc98fdde6b331a"
     }
   ]
 }
