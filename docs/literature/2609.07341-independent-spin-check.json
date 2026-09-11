@@ -1,0 +1,84 @@
+{
+  "scope": "synthetic independent-spin algebra; no neural target outcomes",
+  "source_version": "arXiv:2609.07341v1",
+  "delta": "1/10",
+  "beta": "1",
+  "rows": [
+    {
+      "lag": 1,
+      "exact": {
+        "q_update_law": "9/10",
+        "q_printed_S40": "0",
+        "chi_update_law": "1/10",
+        "chi_printed_S41": "1"
+      },
+      "numeric": {
+        "q_update_law": 0.9,
+        "q_printed_S40": 0.0,
+        "chi_update_law": 0.1,
+        "chi_printed_S41": 1.0
+      }
+    },
+    {
+      "lag": 2,
+      "exact": {
+        "q_update_law": "81/100",
+        "q_printed_S40": "0",
+        "chi_update_law": "9/100",
+        "chi_printed_S41": "9/10"
+      },
+      "numeric": {
+        "q_update_law": 0.81,
+        "q_printed_S40": 0.0,
+        "chi_update_law": 0.09,
+        "chi_printed_S41": 0.9
+      }
+    },
+    {
+      "lag": 3,
+      "exact": {
+        "q_update_law": "729/1000",
+        "q_printed_S40": "0",
+        "chi_update_law": "81/1000",
+        "chi_printed_S41": "81/100"
+      },
+      "numeric": {
+        "q_update_law": 0.729,
+        "q_printed_S40": 0.0,
+        "chi_update_law": 0.081,
+        "chi_printed_S41": 0.81
+      }
+    },
+    {
+      "lag": 4,
+      "exact": {
+        "q_update_law": "6561/10000",
+        "q_printed_S40": "0",
+        "chi_update_law": "729/10000",
+        "chi_printed_S41": "729/1000"
+      },
+      "numeric": {
+        "q_update_law": 0.6561,
+        "q_printed_S40": 0.0,
+        "chi_update_law": 0.0729,
+        "chi_printed_S41": 0.729
+      }
+    },
+    {
+      "lag": 5,
+      "exact": {
+        "q_update_law": "59049/100000",
+        "q_printed_S40": "0",
+        "chi_update_law": "6561/100000",
+        "chi_printed_S41": "6561/10000"
+      },
+      "numeric": {
+        "q_update_law": 0.59049,
+        "q_printed_S40": 0.0,
+        "chi_update_law": 0.06561,
+        "chi_printed_S41": 0.6561
+      }
+    }
+  ],
+  "interpretation": "Printed-identity comparison only; implementation impact unknown. A finite strictly causal response matrix is nilpotent, so its spectral radius is zero; infinite-time stability needs a separate operator definition."
+}

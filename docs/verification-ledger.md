@@ -141,3 +141,13 @@ See [EXP-006 utility results audit](EXP-006-utility-results-audit.md),
 and the [EXP-006 receipt](../evidence/EXP-006/attempt-001/receipt.json).
 The current final PDF inventory and artifact hashes belong in
 `paper/provenance.json` after its final render-and-verify pass.
+
+## 2026-09-11 EXP-007 prospective freeze
+
+The new-start selector, simulator-preview policy comparison, separate scored
+window, failure accounting and analysis are covered by local synthetic tests
+and two local audits. The complete plan is compiled from existing atlas data
+and the EXP006 manifest; no EXP007 target outcomes exist at this entry.
+Runtime and scientific outcome verification follow in a separate dated entry.
+The literature note also has independent analytical checks of printed
+partial-refresh identities; these do not reproduce the preprint numerics.
