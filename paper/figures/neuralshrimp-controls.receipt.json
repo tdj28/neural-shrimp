@@ -1,0 +1,484 @@
+{
+  "accessibility": "Neuron lines use distinct dashes and colors; headings name the classifications; quantitative axes use common scales; full alt text is embedded in PDF Subject and SVG/PNG Description; exact plotted values are in the archive.",
+  "alt_text": "Twelve panels show every EXP-005 control: core, lower transect endpoint, upper endpoint, and the retained near-edge comparison. Each column reports both step-size finite-time Lyapunov estimates and its certificate or finite-horizon classification. Rows plot all three neuron potentials, all three actual tanh activations, and state plus activation distances between baseline and perturbed trajectories. Axes use common scales across each row. The complete 300-unit records are shown, without smoothing or excluded controls. Irregular classification is limited to the measured horizons; raw perturbation distance includes possible phase displacement.",
+  "claim_scope": "Observable state/activation behavior and sensitivity in this fixed-weight recurrent network. No trained-task correctness or utility claim.",
+  "conditions": {
+    "core": {
+      "certificate_attracting": true,
+      "certificate_verified": true,
+      "classification": "Certified 9-peak cycle",
+      "final_activation_distance": 1.52824966763365e-06,
+      "final_state_distance": 1.6610532914092455e-05,
+      "finite_horizon_irregular_support": false,
+      "step_periods": [
+        9,
+        9
+      ]
+    },
+    "failed-near-edge": {
+      "certificate_attracting": true,
+      "certificate_verified": true,
+      "classification": "Certified 9-peak cycle",
+      "final_activation_distance": 3.418964795917809e-06,
+      "final_state_distance": 3.2431660894176e-05,
+      "finite_horizon_irregular_support": false,
+      "step_periods": [
+        9,
+        9
+      ]
+    },
+    "lower": {
+      "certificate_attracting": false,
+      "certificate_verified": false,
+      "classification": "Finite-horizon irregular",
+      "final_activation_distance": 1.4082131710424783,
+      "final_state_distance": 9.84951077890286,
+      "finite_horizon_irregular_support": true,
+      "step_periods": [
+        0,
+        0
+      ]
+    },
+    "upper": {
+      "certificate_attracting": false,
+      "certificate_verified": false,
+      "classification": "Finite-horizon irregular",
+      "final_activation_distance": 2.1292486234164367,
+      "final_state_distance": 16.13747516296218,
+      "finite_horizon_irregular_support": true,
+      "step_periods": [
+        0,
+        0
+      ]
+    }
+  },
+  "data_source": {
+    "artifacts": [
+      {
+        "bytes": 321,
+        "path": "build.json",
+        "sha256": "8716e18e360bae1f01cc238abb39fa6f557b916490a26ef588c8eb61cb249ca4"
+      },
+      {
+        "bytes": 5253,
+        "path": "cells/core-dt-0.005.npz",
+        "sha256": "82873eaa74edd3b73e5466ad5ade3cdd3c768d2bed8ff9cff8596cfd1c88fb36"
+      },
+      {
+        "bytes": 5413,
+        "path": "cells/core-dt-0.01.npz",
+        "sha256": "cf20d797b70234130a2f81e918e5f7bb185a4daca6c39778c67cc96a3b3ab634"
+      },
+      {
+        "bytes": 5200,
+        "path": "cells/failed-near-edge-dt-0.005.npz",
+        "sha256": "884e1d484a3b18e453c3974ad8d3835d49d67334cc922ebc32bf0afff70a2544"
+      },
+      {
+        "bytes": 5384,
+        "path": "cells/failed-near-edge-dt-0.01.npz",
+        "sha256": "65dfcdc30b72cf8f01517973138e0af3b65e719c5910924f1be15b14ae3f479f"
+      },
+      {
+        "bytes": 6267,
+        "path": "cells/lower-dt-0.005.npz",
+        "sha256": "fccfe05bd5bb240b29e4f4076e143695e51557cc78958d2db855dc60b289ffc2"
+      },
+      {
+        "bytes": 6260,
+        "path": "cells/lower-dt-0.01.npz",
+        "sha256": "a2549767642fdf5b37d74f09d4f9aa2bd2f12a5b5202b7a8840a7e43d03af783"
+      },
+      {
+        "bytes": 6271,
+        "path": "cells/upper-dt-0.005.npz",
+        "sha256": "375281d7dbe5f21314f7604b2b3720f1e15467e95ab2d1153d11cfda4dbd1af0"
+      },
+      {
+        "bytes": 6275,
+        "path": "cells/upper-dt-0.01.npz",
+        "sha256": "6e72f838505774b660838852fd6b1b9389978ad12890ac8b25181a033870808b"
+      },
+      {
+        "bytes": 3019,
+        "path": "manifest.json",
+        "sha256": "a74b737df2b98e390ce25fc42868c46de9f9b60a1d07150e0b396c12195e6463"
+      },
+      {
+        "bytes": 731440,
+        "path": "points/core-behavior.npz",
+        "sha256": "5429686904eaccb3605ce616767178fae074a76497789673fd52bbdada7427ec"
+      },
+      {
+        "bytes": 628323,
+        "path": "points/core.json",
+        "sha256": "c2fcd62b246835cc2a6e6a3e8849eb5a60981596d777200c8c7e0f7c5cef60dc"
+      },
+      {
+        "bytes": 731374,
+        "path": "points/failed-near-edge-behavior.npz",
+        "sha256": "207a554c74719da941aebda86731cc43ffc244a9ab75b43fce9a663603241c27"
+      },
+      {
+        "bytes": 628398,
+        "path": "points/failed-near-edge.json",
+        "sha256": "8a300186196f84ffb58dd82c734f6a063e89cba95a5319cb42081eeef428fe05"
+      },
+      {
+        "bytes": 641964,
+        "path": "points/lower-behavior.npz",
+        "sha256": "fd5d2d72ba91845e81602dff9b16d45173c459911f4cac455ca2fd9c18388795"
+      },
+      {
+        "bytes": 3625,
+        "path": "points/lower.json",
+        "sha256": "258c34b3d15b7143becffbfe7d8017f7443a632be0bd2281e3648fece01a7a59"
+      },
+      {
+        "bytes": 640366,
+        "path": "points/upper-behavior.npz",
+        "sha256": "df468c25eca350d7dbf912ddd5a5fe21b731c83f77ff50b585798716968b0694"
+      },
+      {
+        "bytes": 3617,
+        "path": "points/upper.json",
+        "sha256": "22c98b0816882a138c544145e66cc8cad4800f9d5303e048401739437cb22ee4"
+      },
+      {
+        "bytes": 26,
+        "path": "progress.json",
+        "sha256": "44fc812fd7d779709beb492bf69a33372be0b71241e0a8714f221a8ffa438c24"
+      },
+      {
+        "bytes": 1365,
+        "path": "started.json",
+        "sha256": "341e1a2286d0f439022cf1dca3e4c1ec874cd369dd686c0d1e7274b8da14cf24"
+      },
+      {
+        "bytes": 1384652,
+        "path": "summary.json",
+        "sha256": "d97784687bb4abd73b53554521923a7592f9d6a95d1affea17e0f5b2dbe3721f"
+      }
+    ],
+    "fields": [
+      "points/*-behavior.npz: times, states, activations, separation, activation_separation",
+      "summary.json: coordinates, step_results[*].dt/period/stats[1], certificate, finite_horizon_irregular_support"
+    ],
+    "receipt": {
+      "path": "receipt.json",
+      "sha256": "fb287eb68541e674c8dc095049c3e0a4e887e3b7297f8903dda39a9797ad3aee"
+    },
+    "source_commit": "01209371d541aaa9d072a1addb3960aa3a74efd3"
+  },
+  "description": "Every independently restarted EXP-005 control and its full recorded parent-network behavior, with both refined finite-time exponents.",
+  "figure_id": "neuralshrimp-controls",
+  "generator": {
+    "path": "tools/plot_hopfield_controls.py",
+    "sha256": "877f62949d9ce28aa379307959cd1d59b7620053aa92cf1ac877799015f0dad7"
+  },
+  "generator_repository": "https://github.com/tdj28/neural-shrimp",
+  "outputs": [
+    {
+      "path": "neuralshrimp-controls.pdf",
+      "sha256": "f54bda5cfec4320f5fc8a5f51dd3e884337a5f2f0cf84a60b658772de4227a0e"
+    },
+    {
+      "path": "neuralshrimp-controls.svg",
+      "sha256": "a9574cb3704e86ad9ea952de14d0afe2a0699833656d60cf4747dbe4aa20638a"
+    },
+    {
+      "path": "neuralshrimp-controls.png",
+      "sha256": "c45cf900de2e4ce0f13f4fd8d932ac443398cb9cbc9d3151532b28f3691b1943"
+    }
+  ],
+  "plan": {
+    "path": "experiments/hopfield/EXP-005-plan.json",
+    "sha256": "a74b737df2b98e390ce25fc42868c46de9f9b60a1d07150e0b396c12195e6463"
+  },
+  "plotted_arrays": {
+    "arrays": {
+      "core_activation_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "9c26ab19e1314b2fda7536c1649d2d99d65afc6402787a9a3db4980c962d471b"
+      },
+      "core_activations": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "e35d17f233fc9009e38153c905ecf2dee8d836608ffc2f31e295645be54865b5"
+      },
+      "core_coordinates": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "d961f9775fe6c7343a9e7dd2f59c61ecdb5934e1ded0dd2323d9a9c1b5e3775a"
+      },
+      "core_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "f9ad2b7b303edd16f28b2df167ed07145be833a97f4ca3decb7563583929d526"
+      },
+      "core_states": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "cbd2a672a5de64051a036fdc9d501b78f78852fea71bc57884002ecd2421903f"
+      },
+      "core_step_dt": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "8939a3d6bc917be79af2ab3a60c2d69f463bfb42f23c8d98085b29e97c43092c"
+      },
+      "core_step_ftle": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "e5d9cbb10004c99dd7edd03af4c14bb37843eeebd4694c86e997113e4ce8a5be"
+      },
+      "core_step_peak_period": {
+        "dtype": "int64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "ae4a25ab66bdbc983c96ad862d9b2c0a66b47e1973bc3aa931752bf358a1bcdf"
+      },
+      "core_times": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "0a19d46b76087cdf29516a11a94b5c0ca871e4e3e50083cb402d849195e350d9"
+      },
+      "failed-near-edge_activation_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "ece6ba3afb17ddd0c592fda9a8afafe13a33d5d49997f95c03179e27b2c5df94"
+      },
+      "failed-near-edge_activations": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "6efcce85630307f5c55f6e3ee2319a0be59e63d72f52c5ba4afcd1c2d7b3275b"
+      },
+      "failed-near-edge_coordinates": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "19586606412c85d4b3db7575cc3ed70e8898334e1e5ad814967858b5355195a7"
+      },
+      "failed-near-edge_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "75b118e2233bd69c528ab1cb7be87bf6713b9efa3564540870c9f44ff0845d5a"
+      },
+      "failed-near-edge_states": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "b5293bbd390be87acf853be355d68d2ffa86ef44d643063fe1d3299464324fea"
+      },
+      "failed-near-edge_step_dt": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "8939a3d6bc917be79af2ab3a60c2d69f463bfb42f23c8d98085b29e97c43092c"
+      },
+      "failed-near-edge_step_ftle": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "e0acb2872f604a345874911f5de55e526b31bd4cb522becd23479daa182ee572"
+      },
+      "failed-near-edge_step_peak_period": {
+        "dtype": "int64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "ae4a25ab66bdbc983c96ad862d9b2c0a66b47e1973bc3aa931752bf358a1bcdf"
+      },
+      "failed-near-edge_times": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "0a19d46b76087cdf29516a11a94b5c0ca871e4e3e50083cb402d849195e350d9"
+      },
+      "lower_activation_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "fcd134ebc46bbc33ddefccdca83ccf0b79fbfad184a5cea8cc30db028511ef48"
+      },
+      "lower_activations": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "d1aae4c2c837f4b050a2b9ba8a7822beef7b2557141463005402903fc8ce83de"
+      },
+      "lower_coordinates": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "8682a7d963fa98f433aecdd28b4298e5be5fc7da4b91ac15878a6d8cccd61840"
+      },
+      "lower_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "a9414909fddd38f0d06473ce617a74c60f8a446f1b29f8b882d681c668e33605"
+      },
+      "lower_states": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "4ef2b422e6ffd26df29faacd8e5d7031dba5ea981978a62c8fab40a06e921e96"
+      },
+      "lower_step_dt": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "8939a3d6bc917be79af2ab3a60c2d69f463bfb42f23c8d98085b29e97c43092c"
+      },
+      "lower_step_ftle": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "4f3e08b85d02999cd152b0bf4e455cfeb3270af111813479e67c05fa01840aa8"
+      },
+      "lower_step_peak_period": {
+        "dtype": "int64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+      },
+      "lower_times": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "0a19d46b76087cdf29516a11a94b5c0ca871e4e3e50083cb402d849195e350d9"
+      },
+      "upper_activation_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "ba6a8ef1415222bd569103e4b63a1bdf4c43b0db5e80cd30db2d62cb76694ba2"
+      },
+      "upper_activations": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "9031468538beaf57b801d3498df14a6f7c303ee0369be0977eec49dcecaeea50"
+      },
+      "upper_coordinates": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "e7541f20438e6c5d3a656667cd12f26c313a8564f8d374f853f885932d21e4cf"
+      },
+      "upper_separation": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "df3441a77f7e46951b19cc461cda59f71fe2dafe4ec833faa5daf3d27f8daaf6"
+      },
+      "upper_states": {
+        "dtype": "float64",
+        "shape": [
+          6001,
+          3
+        ],
+        "values_sha256": "5dce27d5a66e8e7ed4c19f05f5e658c9fdc3cc75adffbf38666490a9464ece3d"
+      },
+      "upper_step_dt": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "8939a3d6bc917be79af2ab3a60c2d69f463bfb42f23c8d98085b29e97c43092c"
+      },
+      "upper_step_ftle": {
+        "dtype": "float64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "08ceb81755fd31b885e5b0962c0d22474c3ad84f0d8a58d79e16fb2c0f2c70ab"
+      },
+      "upper_step_peak_period": {
+        "dtype": "int64",
+        "shape": [
+          2
+        ],
+        "values_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+      },
+      "upper_times": {
+        "dtype": "float64",
+        "shape": [
+          6001
+        ],
+        "values_sha256": "0a19d46b76087cdf29516a11a94b5c0ca871e4e3e50083cb402d849195e350d9"
+      }
+    },
+    "path": "neuralshrimp-controls.plot-data.npz",
+    "sha256": "3712ec6747b805a7efbdbfb8435c2742ab4f2f402906c3fc5cabd8fd3de2ef52"
+  },
+  "run_id": "attempt-001",
+  "schema_version": 1,
+  "study_id": "EXP-005",
+  "supporting_generator": {
+    "path": "tools/plot_hopfield.py",
+    "sha256": "5426ad18dad69a0ebadc234ceeba41f33364ff86a83887eef5f623ebe69ef1e0"
+  },
+  "title": "Independent controls link neural activity to perturbation sensitivity",
+  "transformations": [
+    "All four frozen points in plan order; no omitted control.",
+    "All recorded times, no smoothing, resampling or temporal selection.",
+    "Roundoff-tolerant activation and Euclidean-distance identity checks before plotting (rtol=1e-12, atol=1e-14); raw hashes and plotted-array equality remain exact.",
+    "Common y scales within each quantity; log distances mask exact zero only, which remains in the data archive.",
+    "Finite-horizon irregular label requires both step-size criteria from the frozen plan; certified-cycle label requires verified and attracting."
+  ],
+  "uncertainty": "Descriptive numerical trajectories and two-step finite-time estimates; no confidence intervals or asymptotic chaos proof.",
+  "versions": {
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.3"
+  }
+}

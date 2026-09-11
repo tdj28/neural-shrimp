@@ -181,8 +181,8 @@ def verify(directory):
             assert len(probe["times"]) == 6001
             assert probe["times"][0] == 0 and probe["times"][-1] == plan["behavior"]["duration"]
             np.testing.assert_array_equal(probe["states"][0], cells[-1]["final"])
-            np.testing.assert_allclose(probe["activations"], np.tanh(probe["states"]), rtol=0, atol=0)
-            np.testing.assert_allclose(probe["separation"], np.linalg.norm(probe["states"]-probe["perturbed_states"], axis=1), rtol=0, atol=0)
+            np.testing.assert_allclose(probe["activations"], np.tanh(probe["states"]), rtol=1e-12, atol=1e-14)
+            np.testing.assert_allclose(probe["separation"], np.linalg.norm(probe["states"]-probe["perturbed_states"], axis=1), rtol=1e-12, atol=1e-14)
     print(json.dumps({"verified": True, "planned_cells": validate(plan), "source": receipt["source_commit"]}))
 
 

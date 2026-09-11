@@ -43,3 +43,47 @@ claim is implied.
 This extends artifact verification and the prospective research plan. It does
 not establish neural shrimp geometry, effective recurrence control, net
 compute savings, a GPU result, or paid-review approval.
+
+
+## 2026-09-11 numerical correction: actual neural shrimp
+
+The historical entries above describe earlier revisions. The current manuscript
+is rebuilt around EXP-004 and EXP-005; its final page/figure inventory and file
+hashes are in `paper/provenance.json`.
+
+- All 85 local tests pass. The 26 Hopfield tests cover independent state and
+  Jacobian formulas, integration order and event timing, variational dynamics,
+  analytical Floquet controls, recurrence rejection, failure preservation,
+  and the eight independently initialized control calls.
+- EXP-004 retains all 475 receipt-bound artifacts, including 39,523 grid/transect
+  settings and every selected refinement. All artifacts, coordinates, event
+  sequences, recurrence classifications, and census were verified after copying.
+- Three EXP-004 selected orbits pass independent full-state shooting, primitive
+  peak counts, neutral-flow alignment, and transverse Floquet checks. The
+  originally selected exterior fails its intended interpretation: 0/9/9 peaks.
+  It is explicitly retained in the manuscript and original waveform plate.
+- EXP-005 retains all 21 receipt-bound artifacts. Eight fresh common-initialization
+  runs use two steps and a 10,000-unit settling horizon. Two controls certify
+  nine-peak cycles; both distant controls have no short recurrence and positive
+  finite-time exponents at both steps. Those are bounded irregularity checks,
+  not proofs excluding arbitrarily long transients or high periods.
+- Independent saved-data audits reconstruct neuron/activation moments and
+  perturbation separations and check the monodromy eigenvalues and neutral mode.
+  Very small transverse multiplier magnitudes/signs are numerically unresolved;
+  the reported dominant modes are separated from unity. The original dense-output
+  cycle-RMS scalar is receipt-bound, but its unsaved dense residuals cannot be
+  reconstructed at 1e-9 accuracy from the coarser saved sample grid alone.
+- Original EXP-001--003 raw data and all ten historical figure sets remain
+  unchanged. Their verification still passes. The training/policy pilot remains
+  null; it is not reinterpreted using the recurrent-network results.
+- Exact pre-execution source revisions are preserved under
+  `archive/EXP-004-source-v1` and `archive/EXP-005-source-v1`. Those tags were
+  created after execution to retain history; the original pushed commits are
+  the prospective records.
+- No RunPod resource, paid review, or other paid compute was used. The new
+  experiments' measured local wall times are 140.54 and 4.17 seconds.
+
+See [EXP-004 results audit](EXP-004-results-audit.md),
+[EXP-005 results audit](EXP-005-results-audit.md), and the explicitly limited
+[claim ledger](claim-ledger.md). Full boundary continuation, basin-volume
+estimation, phase-aware robustness, and task utility remain future experiments.
