@@ -87,3 +87,57 @@ See [EXP-004 results audit](EXP-004-results-audit.md),
 [EXP-005 results audit](EXP-005-results-audit.md), and the explicitly limited
 [claim ledger](claim-ledger.md). Full boundary continuation, basin-volume
 estimation, phase-aware robustness, and task utility remain future experiments.
+
+## 2026-09-11 EXP-006 utility and branch audit
+
+This entry updates the research state after the historical entries above.
+EXP-006 executes the initial waveform-utility and local branch-continuation
+experiments. It does not complete the full boundary or coupled-control agenda.
+
+- The complete source, design, and machine plan were pushed at
+  `ddb568e6cd67ef2cfbdb45e05710cd86025ef548` before outcomes. All 136 tests and
+  source-freeze CI passed. Integrated result/manuscript checks are defined in
+  `.github/workflows/tests.yml`; exact run status is retained in GitHub.
+  No public-release approval is asserted here.
+- All 4,472 receipt-listed artifact byte counts and SHA-256 values match.
+  The census contains exactly 4,320 complete trial-step records and 12/12
+  eligible attempted anchors. No condition or failed anchor was replaced.
+- The independent utility audit recomputed every saved activation waveform
+  RMS at its recorded single global phase; maximum discrepancy was zero.
+  It separately reconstructed the declared contrasts without importing the
+  experiment aggregation helper. Numerical-step sensitivity and zero-dose
+  floors remain reported rather than used to select preferred outcomes.
+- The primary result is dose dependent: the largest-dose atlas comparison
+  favors the atlas versus the declared symmetric local policy, both smallest
+  doses favor local at all anchors, and the pooled local comparison is
+  unresolved. The `tangent_plus` diagnostic has lower mean error than the atlas
+  at every dose and remains an explicitly exploratory comparison.
+- The immediate waveform window and eventual nine-peak assay have different
+  horizons. The frozen example remains `anchor-08`, which favors the local
+  comparator despite eventual nine-peak retention for all displayed arms.
+  No high-error immediate trace is thereby certified an asymptotic waveform.
+- A separate continuation audit reconstructed the two-dimensional Poincaré
+  spectrum from saved matrices using a cross-product orthonormal section basis,
+  independent of the implementation's SVD basis. It checked neutral-flow and
+  phase residuals, spectra, stability flags, crossing candidates, reversals,
+  and computational limits. No new target integration was performed.
+- Four branches retain 196 node records, 122 marked unstable, and five failed
+  correctors. These include overlapping branches and repeated seeds.
+  Independent geometric checkpoint agreement is 27/28. The near-edge initial
+  positive-gamma branch's node 40 fails the original closure gate:
+  1.0590609546e-8 exceeds 1e-8. Its matching state and period do not convert it
+  into a pass. No threshold was weakened.
+- Compact continuation nodes do not store integrated endpoints. Their closure
+  and primitive-event checks were audited against the recorded gates, not
+  independently reintegrated. Crossing brackets are arclength-neighbor
+  candidates, not exact gamma intervals at folds or a complete shrimp boundary.
+- The receipt records 423.866 seconds for collection and analysis before final
+  verification. Its 48 local-sensitivity solves total 26.627 seconds within that
+  clock; the prior atlas cost 140.54 seconds separately. No RunPod, other paid
+  compute, or paid Pro review was used.
+
+See [EXP-006 utility results audit](EXP-006-utility-results-audit.md),
+[EXP-006 continuation results audit](EXP-006-continuation-results-audit.md),
+and the [EXP-006 receipt](../evidence/EXP-006/attempt-001/receipt.json).
+The current final PDF inventory and artifact hashes belong in
+`paper/provenance.json` after its final render-and-verify pass.

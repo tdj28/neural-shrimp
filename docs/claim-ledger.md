@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-11 with actual EXP-004 recurrent-network evidence. Original training claims retain their meanings. A small fixed-weight recurrent neural shrimp-shaped window is now numerically reproduced; modern training/reasoning benefit is not established.
+Status: private exploratory program, updated 2026-09-11 with EXP-004--006 recurrent-network evidence. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Waveform utility is dose dependent; the aggregate advantage over the declared local comparator remains unresolved. Modern training/reasoning benefit is not established.
 
 | ID | Claim | Current status | What would warrant it | What does not warrant it |
 |---|---|---|---|---|
@@ -8,9 +8,9 @@ Status: private exploratory program, updated 2026-09-11 with actual EXP-004 recu
 | L2 | Training and latent inference require different state/control definitions | Mathematical setup | Explicit update equation and complete evolving state | Treating an initial-state slice as a learning-rate map |
 | E1 | This tiny training map has a nontrivial periodic orbit | Not demonstrated by EXP-002; all finite tails unresolved | Full-state primitive-period recurrence and independent closure | Repeated scalar loss or predictions |
 | E2 | That orbit is locally attracting | Not demonstrated by EXP-002; no neural candidate verified | Period Jacobian product with spectral radius separated below one | Finite-time near recurrence, a plot, or a large observed basin alone |
-| E3 | The tiny training parameter window has shrimp organization | Not established; continuation not yet implemented | Connected verified isoperiodic window and continued bifurcation boundaries, with convergence checks | E1 + E2 at one pixel, visual similarity, or a Hénon control |
+| E3 | The tiny training parameter window has shrimp organization | Not established; training-map continuation not implemented | Connected verified isoperiodic window and continued bifurcation boundaries, with convergence checks | E1 + E2 at one pixel, visual similarity, or a Hénon control |
 | U1 | Recurrence improves intervention timing beyond scalar stagnation | Not demonstrated by EXP-003; recurrence never intervened | Paired complete trajectories, equal action opportunities and doses, held-out cases | Beating a fixed learning rate alone |
-| U2 | Shrimp geometry adds predictive/control information | Proposed main question; not implemented | Matched feature/policy comparison versus loss, recurrence, stability, and ordinary performance-map baselines | U1, attractive fractal images, or a better-tuned controller |
+| U2 | Shrimp geometry adds predictive/control information | EXP-006 supplies dose-specific exploratory waveform evidence; pooled local advantage unresolved; see D1--D4 | Matched feature/policy comparison versus loss, recurrence, stability, and ordinary performance-map baselines | U1, attractive fractal images, or a better-tuned controller |
 | U3 | The method provides net compute savings | Not established | Matched total budgets including scans, tuning, diagnostics, and failures; declared amortization | Equal optimizer-step counts, conditional rescue rates, or wall time excluding atlas cost |
 | U4 | A stable cycle is beneficial or harmful | Task dependent; not assigned by dynamics alone | Independently measured correctness, validation quality, latency, and robustness | Negative Lyapunov exponent or low orbit residual alone |
 | T1 | Positive relaxation preserves fixed points of a deterministic map | Algebraic fact under stated assumptions | `G_alpha(h)=h` iff `F(h)=h` for `alpha>0` | Preservation of cycles, basins, speed, or correctness |
@@ -74,3 +74,36 @@ irregular controls. This supports a concrete finite-horizon state-to-output
 sensitivity contrast, not global chaos, basin robustness, causal task benefit,
 or a comparison averaged over perturbation phases and directions. Original
 EXP-004 classifications and failures remain unchanged.
+
+## 2026-09-11 waveform utility and continuation update
+
+EXP-006 source `ddb568e6cd67ef2cfbdb45e05710cd86025ef548` was pushed before its
+exclusive attempt. All 12 attempted anchors qualified and all 4,320 trial-step
+records are complete. See the [raw receipt](../evidence/EXP-006/attempt-001/receipt.json),
+[utility audit](EXP-006-utility-results-audit.md), and
+[continuation audit](EXP-006-continuation-results-audit.md).
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| D1 | Atlas margin improves immediate waveform preservation over the declared symmetric local comparator at the largest tested dose | At native radius 0.016, RMSE 0.301672 versus 0.466653, about 35.4% lower; paired benefit 0.164981, descriptive 95% interval [0.013853, 0.326023], positive at 8/12 anchors. This is a fixed-sample, dose-specific comparison, not a universal geometry advantage. |
+| D2 | Atlas margin is generally superior to local sensitivity | Not established: both smallest doses favor local sensitivity at every anchor. The prespecified across-radius benefit is 0.025738 [−0.027862, 0.083081], unresolved. |
+| D3 | Atlas margin is the best observed direction policy | Rejected: the `tangent_plus` diagnostic has lower mean waveform error at every dose, including 0.260795 versus 0.301672 at radius 0.016. This is an exploratory arm comparison, not a replacement primary endpoint. Tangent and signed coordinate-axis policies belong in a future frozen baseline set. |
+| D4 | Eventual nine-peak retention guarantees immediate waveform preservation | Rejected as a utility inference. Atlas retention is 188/192 versus 308/384 across both local signs after 10,000 settling plus 2,000 measurement units; waveform error instead measures the immediate 0--300 interval. The fixed `anchor-08` example favors both local signs although all shown arms eventually have nine peaks. Transients, phase, frequency, and shape are not isolated. |
+| C1 | Continuation retains periodic branches beyond attraction | The four branches retain 196 node records, including 122 unstable records and five failed correctors. Counts include overlapping branches and repeated seeds. They are not counts of distinct cycles. |
+| C2 | Every continuation checkpoint has an agreeing independent geometric check | Rejected: agreement is 27/28. Near-edge initial positive-gamma node 40 has independent closure 1.0591e-8 against the unchanged 1e-8 threshold; it remains failed despite state and period agreement. |
+| C3 | The complete shrimp boundary or exact bifurcations have been located | Not established. Local gamma sections provide crossing candidates and reversals. Adjacent arclength-node gamma values need not enclose the crossing gamma at a fold. A failed corrector does not prove disappearance. |
+
+The paired benefit sign is comparator RMSE minus atlas RMSE. Intervals use the
+frozen anchor-cluster bootstrap and describe variation among the fixed selected
+anchors, not a random population or confirmatory hypothesis test. No failed
+condition was dropped, replacement anchor selected, threshold relaxed, or
+consumed attempt reset. The frozen illustration is retained even though it
+favors the comparator.
+
+This establishes a bounded waveform-preservation experiment, not a completed
+coupled controller, net speedup, or trained-model transfer. Collection and
+analysis took 423.866 local seconds, excluding the final verification pass;
+26.627 seconds of local sensitivity are included in that time, and the earlier
+140.54-second atlas cost is separate. Paid compute and paid review spend remain
+zero. A hybrid local/geometry policy and stronger baseline tests are proposed
+in [next-steps.md](next-steps.md), not reported as successes.

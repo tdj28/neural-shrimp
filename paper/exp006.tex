@@ -1,0 +1,143 @@
+\section{Testing whether geometry preserves the neural signal}
+% Result-neutral insertion for EXP-006; source freeze ddb568e.
+% Prepared while the exclusive first attempt was running. No outcomes assumed.
+\subsection{From peak retention to waveform utility}
+EXP-004--005 document numerically verified periodic neural activity and motivate a more demanding question: does the measured parameter geometry help preserve a specified output? Retaining nine peaks partly repeats the criterion used to construct the atlas. EXP-006 instead treats the complete activation waveform $u(t)=\tanh x(t)$ as the signal to preserve after a connection-weight change. This is an explicitly defined task in the fixed-weight three-neuron network, not evidence of transfer to trained models, reasoning, or generalization.
+
+\subsection{A prospectively fixed waveform-preservation experiment}
+The exploratory design, chosen after EXP-004--005, fixes twelve anchor attempts from the original nine-peak component, four from each third of its ranked native-coordinate pixel margins. Crop-limited candidates are excluded prospectively; selection uses the fixed seed 20260911 and deterministic maximin coverage. Each anchor must pass fresh common-initialization integrations at steps $0.01$ and $0.005$, each with 10,000 settling and 2,000 measurement time units, and an independent attracting nine-peak shooting certificate. Failed anchors remain in the census without replacement.
+
+Eligible anchors supply four quarter-cycle initial states shared across arms. The perturbation is applied immediately and held constant. Its radius is one of $0.00025$, $0.001$, $0.004$, or $0.016$. Because only $W_{13}=\alpha$ and $W_{31}=\gamma$ change,
+\begin{equation}
+ \|\Delta W\|_F=\sqrt{(\Delta\alpha)^2+(\Delta\gamma)^2}=r.
+\end{equation}
+Thus competing directions have exactly matched native weight norms. The primary atlas policy maximizes the destination's observed component margin over 512 frozen angular candidates, using no new target outcomes. Pixel and crop limitations remain explicit; these margins are not exact bifurcation-boundary distances.
+
+The primary comparator uses local parameter sensitivity, without the atlas:
+\begin{equation}
+ \dot S=J(x)S+B(x),\qquad S(0)=0,
+ \qquad B_{11}=\tanh x_3,\quad B_{32}=\tanh x_1,
+\end{equation}
+with other entries zero. Activation sensitivity is $A=\operatorname{diag}(1-\tanh^2x)S$. After projecting its sampled columns off the single global activation time-shift vector, the minimum eigenvector of their $2\times2$ Gram matrix selects a native-unit direction. Errors from its two signs are averaged; the better sign is never selected from outcomes. Eleven direction arms also retain signed normals and tangents, signed random directions, and deranged-anchor normals, alongside a zero-change sham.
+
+The primary error numerically approximates
+\begin{equation}
+ E=\min_{\tau\in[0,T)}\left[
+ \frac{1}{3N}\sum_{k=0}^{N-1}
+ \|u_{\Delta W}(t_k)-u_0(t_k+t_{\rm phase}+\tau)\|_2^2
+ \right]^{1/2},
+\end{equation}
+over 300 physical time units sampled every $0.1$, including endpoints. The certified reference retains its original period $T$. One constant phase offset serves the entire record, found by 128 grid candidates and bounded refinement; frequency fitting, time warping, and per-cycle alignment are forbidden. The primary step is $0.005$; $0.01$ is a separate sensitivity check. Independently initialized long assays measure peak retention, period, recurrence, and finite-time expansion as secondary mechanisms.
+
+The complete census is $12\times4\times(4\times11+1)\times2=4320$ trial-step records, including ineligible-anchor records. Contrasts subtract atlas error from symmetric-local, symmetric-random, and shuffled-inward error. Equal averaging proceeds over phases, radii, and eligible anchors. The fixed 10,000 anchor-bootstrap draws, seed 20260911, give descriptive percentile 95\% intervals, not population inference. Missing required eligible conditions make affected contrasts undefined. Coverage always reports all twelve attempts.
+
+Separately, four pseudo-arclength branches continue two previously certified orbits in both initial $\gamma$ directions at fixed $\alpha$, retaining any unstable segments and failed corrections. Transverse Poincar\'e spectra supply numerical crossing candidates, not exact boundary proofs; continuation never selects utility anchors or actions. Atlas construction and local-sensitivity costs are reported separately, precluding a free-map or net-speedup interpretation.
+
+\subsection{The selected network settings all qualify}
+All twelve attempted anchors pass both new nine-peak screens and independent attracting-orbit certification. Thus none is replaced or omitted. Figure~\ref{fig:driftanchors} places every anchor on the original measured shrimp. The old map is selection evidence; the qualification checks and interventions are new measurements. Among the 48 frozen anchor--radius atlas choices, twelve selected pixel-margin scores are crop-censored and none uses the all-zero fallback. The experiment evaluates this finite-atlas policy, not an ideal policy given the unknown exact boundary.
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-drift-anchors.pdf}
+\caption{\textbf{Every attempted utility anchor on the actual neural shrimp.} The background is the unchanged EXP-004 numerical atlas. Colors of anchor markers and bars indicate thirds of ranked raw-coordinate pixel margins, not different neurons. All twelve anchors qualify in new independently initialized integrations at both smaller steps and in shooting checks. Margins use native connection-weight units and exclude crop-limited anchor candidates; selected destination scores can still be crop-censored. The complete fixed selection and all 512 angular scores per anchor--radius pair are retained.}
+\label{fig:driftanchors}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\subsection{The geometry marks actual changes of orbital stability}
+Continuation retains 196 node records across four branches, including repeated seeds and overlapping continuations, with 122 unstable node records. These are not 196 distinct attractors. All branches reach their prospectively fixed limit of 48 successors; five unsuccessful correctors among 197 attempts remain in the evidence. Twenty-seven of 28 independent shooting checkpoints pass their agreement checks (Table~\ref{tab:continuation}). A reconstruction of the Poincar\'e spectrum using a different orthonormal section basis agrees with the recorded multipliers to maximum absolute discrepancy $7.11\times10^{-14}$, without reintegrating the dynamics.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lcrrrr}
+\toprule
+Seed & Initial $\gamma$ direction & Nodes & Unstable & Failed correctors & Checks passed\\
+\midrule
+Core & $-$ & 49 & 31 & 2/50 & 7/7\\
+Core & $+$ & 49 & 31 & 0/48 & 7/7\\
+Near-edge & $-$ & 49 & 19 & 1/49 & 7/7\\
+Near-edge & $+$ & 49 & 41 & 2/50 & 6/7\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Complete continuation census.} The direction is the initial orientation; the parameter can reverse as arclength increases. The core and near-edge seeds are the previously certified EXP-005 coordinates. Counts include both copies of each seed and any overlapping orbit segments. The failed independent checkpoint is retained, as are failed corrector attempts.}
+\label{tab:continuation}
+\end{table}
+
+Along the core's initially increasing-$\gamma$ branch, a transverse multiplier changes from $0.89961$ to $1.26831$ between adjacent nodes at $\gamma=10.32555292$ and $10.32963648$. The nine-peak orbit continues beyond this loss of attraction. The initially decreasing branch reverses parameter direction near its sampled minimum $\gamma=10.20236515$, with a neighboring $+1$ crossing. The near-edge initially increasing branch reverses twice, crosses $+1$ in both directions, and later has a transverse multiplier change from $-0.343973$ to $-1.649692$ between adjacent nodes at $\gamma=10.29183569$ and $10.29404140$. This last pair supplies a numerical period-doubling candidate; the newborn branch is not continued here.
+
+These are brackets along continuation arclength. Near a turning point, adjacent nodes' $\gamma$ values need not bound the crossing's true $\gamma$ coordinate. Figure~\ref{fig:driftcontinuation} therefore reports the continued curves and sampled crossing candidates, not exact bifurcation locations or a complete two-dimensional boundary. A cycle can survive as an unstable orbit while forward trajectories stop approaching it. Orbital existence, orbital attraction, and which basin the initialized network reaches are distinct physical questions.
+
+The independent checkpoint at near-edge positive-branch node 40, $\gamma=10.38315183$, reports closure $1.05906\times10^{-8}$, exceeding the frozen $10^{-8}$ requirement. The continuation calculation reports $1.38\times10^{-12}$ there and both methods agree on state, period, and an unstable transverse radius about $62.635$. The failed check is not promoted to a certificate. Compact continuation nodes retain monodromy and gate diagnostics but omit integrated endpoints; the separate audit recomputes spectra, phase and neutral-flow residuals, while closure and primitive-event checks rely on the recorded gates and shooting checkpoints.
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-drift-continuation.pdf}
+\caption{\textbf{Neural periodic orbits continue through changes in stability.} Each column holds one fixed-$\alpha$ seed and both initial continuation orientations. Top panels show physical period versus the actual weight $\gamma$; lower panels show the dominant transverse multiplier, with both transverse multipliers retained in raw evidence. Stable and unstable segments, reversals, sampled crossing candidates, and the failed independent checkpoint remain visible. All four branches stop at their node budget. A corrector failure is not interpreted as orbit destruction, and these local sections do not certify the entire shrimp boundary.}
+\label{fig:driftcontinuation}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\subsection{Geometry helps larger changes, while local sensitivity wins nearby}
+All 4,320 planned trial-step records complete without a failed condition. At the primary step $0.005$, the result depends strongly on intervention size (Table~\ref{tab:utility}; Figure~\ref{fig:driftutility}). At $r=0.00025$ and $0.001$, the symmetric local method has lower mean error at every anchor. At $r=0.016$, atlas error is $0.301672$, versus $0.466653$ for the symmetric local method: a 35.35\% reduction in mean RMSE. The paired benefit is $0.164981$, with descriptive anchor-bootstrap interval $[0.013853,0.326023]$, and eight of twelve anchor effects favor the atlas. This does not justify claiming an advantage at every setting or dose.
+
+\begin{table}[H]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrl}
+\toprule
+Weight radius & Atlas RMSE & Local RMSE & Local minus atlas & Descriptive 95\% interval\\
+\midrule
+0.00025 & 0.010773 & 0.000422 & $-0.010351$ & $[-0.014902,-0.006086]$\\
+0.00100 & 0.036397 & 0.001725 & $-0.034672$ & $[-0.056315,-0.015611]$\\
+0.00400 & 0.072170 & 0.055165 & $-0.017005$ & $[-0.093829,\phantom{-}0.069591]$\\
+0.01600 & 0.301672 & 0.466653 & $\phantom{-}0.164981$ & $[\phantom{-}0.013853,\phantom{-}0.326023]$\\
+\midrule
+Equal-dose mean & 0.105253 & 0.130991 & $\phantom{-}0.025738$ & $[-0.027862,\phantom{-}0.083081]$\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{All declared doses, with the local sensitivity comparator.} RMSE is the immediate 300-unit, globally phase-aligned three-activation error. Local error averages the two signs of the minimum-sensitivity direction. Each dose averages four phases at each of twelve anchors; the final row weights doses equally. Positive differences favor the atlas. Intervals resample the twelve fixed anchors and are descriptive, not population confidence statements.}
+\label{tab:utility}
+\end{table}
+
+The across-dose comparison is unresolved: atlas and local mean errors are $0.105253$ and $0.130991$, but the interval for their paired difference includes zero. The atlas has lower pooled error than symmetric random directions ($0.303602$) and shuffled inward normals ($0.350651$), with positive descriptive benefit intervals $[0.148079,0.245104]$ and $[0.184833,0.304101]$. A favorable comparison with random directions therefore does not replace the stronger local comparison. The finite geometry contains useful information for some larger jumps, while a derivative calculated on the original orbit is substantially more accurate for small changes.
+
+The atlas policy is also not the best observed direction arm. The fixed tangent-plus diagnostic has lower mean error than atlas margin at every displayed dose, including $0.260795$ versus $0.301672$ at the largest dose. This does not promote a diagnostic chosen after inspection to the primary policy. It identifies a concrete competing geometric rule for a new held-out experiment, alongside simple coordinate directions and a stronger local predictor.
+
+The secondary long assay retains nine peaks in 188/192 atlas conditions, versus 308/384 signed local conditions, 224/384 signed random conditions, and 100/192 shuffled-inward conditions. These correspond to 97.92\%, 80.21\%, 58.33\%, and 52.08\%; the signed methods have twice as many conditions because both signs are retained. This is \emph{eventual} recurrence after settling, not a certificate of the immediate 300-unit signal. Atlas trials that eventually retain nine peaks still have immediate RMSE spanning $0.000491$ to $0.875090$. Preserving the regime and preserving its useful output are distinct requirements.
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-drift-utility.pdf}
+\caption{\textbf{Measured utility depends on the size of the weight change.} Columns retain both integration steps; $0.005$ is the declared primary step. Top: mean waveform error for the atlas policy and paired competitors. Middle: all eleven direction arms at every declared dose. Bottom: comparator-minus-atlas error with descriptive anchor-bootstrap intervals. Small changes favor local sensitivity; the largest declared dose favors the atlas on average, while the pooled local comparison includes zero. All twelve anchors and 4,320 complete records contribute. Zero-dose numerical floors and numerical-step sensitivity remain visible.}
+\label{fig:driftutility}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\subsection{The fixed example and numerical limits}
+The illustration was fixed before outcomes: the first qualifying upper-margin anchor, anchor 08, phase zero, radius $0.016$. It favors the local method, despite the atlas's lower mean error at that dose. Its errors are $0.094559$ for atlas, $0.011917$ and $0.013725$ for the two local signs, and $0.822093$ for random plus. All four eventually retain nine peaks. Figure~\ref{fig:driftwaveforms} retains this example rather than substituting a favorable atlas case. It shows why peak count alone cannot specify the signal delivered during a weight change. Transients, phase evolution, changed frequency and changed waveform can contribute; this assay does not isolate their individual causal contributions.
+
+At step $0.005$, zero-change shams have mean RMSE $6.5190\times10^{-5}$ and maximum $6.9757\times10^{-5}$; none of the cadence diagnostics is flagged. All 2,160 coarse/fine pairs agree on eventual nine-peak retention, and 2,158 agree on exact detected peak count. Individual waveform errors are not uniformly step-converged: their absolute step difference has median $3.57\times10^{-7}$, mean $0.01550$, 95th percentile $0.09142$, and maximum $0.34511$. The aggregate dose pattern survives: both steps favor local sensitivity at the smallest doses and the atlas at the largest dose, while both pooled local-comparison intervals include zero. This supports the reported finite numerical pattern, not precise step-independent outcomes for every trajectory.
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-drift-waveforms.pdf}
+\caption{\textbf{The actual three-neuron output after the same-sized weight change.} The frozen illustration uses anchor 08, phase zero, radius $0.016$, and step $0.005$. Traces come from the immediate 300-unit probes; the original certified waveform is the reference. The local signs outperform the atlas in this particular example, preserving heterogeneity rather than illustrating only the average winner. The random-plus signal has large error despite eventual nine-peak recurrence in its separate long assay. No frequency refit or per-cycle phase alignment is used in the reported task score.}
+\label{fig:driftwaveforms}
+\end{figure}
+\end{landscape}
+\restoregeometry

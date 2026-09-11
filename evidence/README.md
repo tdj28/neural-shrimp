@@ -3,6 +3,10 @@
 The primary current result is an actual neural shrimp-shaped parameter window,
 not the earlier exploratory training pilot. All raw attempts remain immutable.
 
+EXP-006 now adds a complete, explicitly defined waveform-preservation task and
+local periodic-orbit continuation. It supports a dose-specific comparison,
+not a general geometry advantage or trained-model result.
+
 - `EXP-004/attempt-001`: 39,523 grid/transect settings of the published three-neuron
   recurrent tanh network, selected step refinements, three independently verified
   attracting cycles, and complete neuron/activation/perturbation traces.
@@ -14,6 +18,42 @@ not the earlier exploratory training pilot. All raw attempts remain immutable.
   cycles. All 21 receipt-bound artifacts and the receipt are retained exactly.
   Source `01209371d541aaa9d072a1addb3960aa3a74efd3` was pushed before execution.
   This separate follow-up does not replace the EXP-004 exterior failure.
+- `EXP-006/attempt-001`: all 4,320 planned trial-step records at two numerical
+  steps, all 12 eligible attempted anchors, certified baselines, local
+  sensitivity arrays, short activation waveforms, independent long assays,
+  and four continuation branches. All 4,472 receipt-bound artifacts are retained.
+  Source `ddb568e6cd67ef2cfbdb45e05710cd86025ef548` was pushed before execution.
+  Receipt SHA-256 is
+  `cdcfc91b9ce8a444a5007e1eda35a1ed34d492810ca1a152598754df27467ac2`.
+
+At primary step 0.005 and radius 0.016, atlas RMSE is 0.301672 versus 0.466653
+for the declared symmetric local comparator; the descriptive paired-benefit
+interval is [0.013853, 0.326023]. Both smallest radii favor local sensitivity
+at every anchor, and the prespecified pooled comparison is unresolved:
+0.025738 [−0.027862, 0.083081]. The `tangent_plus` diagnostic has lower mean error
+than the atlas at every dose, including 0.260795 at the largest radius. These
+limits accompany the positive comparison rather than disappearing from summaries.
+
+The short error window is the first 300 time units after a weight change;
+nine-peak retention is measured independently after 10,000 settling plus 2,000
+measurement units. Eventual retention does not guarantee immediate waveform
+preservation. The frozen `anchor-08` illustration remains unchanged and favors
+both local signs, although every shown arm eventually retains nine peaks.
+
+Continuation retains 196 node records, including 122 unstable records and five
+failed correctors; repeated seeds and overlapping branches are included.
+Geometric checkpoint agreement is 27/28. One unchanged 1e-8 closure threshold
+fails at 1.0591e-8. The failed checkpoint, candidate crossings, reversals,
+and all stopping reasons remain in the raw branch files. They are not an exact
+two-dimensional boundary certificate.
+
+See [utility audit](../docs/EXP-006-utility-results-audit.md),
+[continuation audit](../docs/EXP-006-continuation-results-audit.md),
+[protocol](../docs/EXP-006-protocol.md), and
+[all four new figure receipts](../paper/figures/hopfield-drift-figure-provenance.json).
+The 423.866-second collection-and-analysis clock excludes final verification.
+Local sensitivity took 26.627 seconds within that total; the old atlas's
+140.54 seconds is separate. No paid resources or paid Pro review were used.
 
 EXP-004 source `b670086775bbc07e115de730b8fcb30ca41cce6b` was pushed before
 execution. The archived attempt retains all 475 receipt-bound artifacts and

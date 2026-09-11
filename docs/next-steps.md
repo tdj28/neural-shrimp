@@ -1,4 +1,135 @@
-# Next steps after the actual neural shrimp
+# Next steps after the waveform utility experiment
+
+## Current agenda: 2026-09-11 after EXP-006
+
+This section supersedes the historical EXP-004--005 agenda retained below. It is
+a prospective agenda chosen after exploratory outcomes, not a frozen successor
+experiment or spending authorization. Each new target packet must be complete,
+locally audited, and pushed before its outcomes.
+
+### What changed
+
+EXP-006 measured an explicit task: preserve all three activation waveforms in
+the immediate 0--300 interval after a connection-weight change, allowing one
+constant phase offset. All 12 attempted anchors were eligible and all 4,320
+trial-step records are complete. At radius 0.016, atlas RMSE is 0.301672 versus
+0.466653 for the declared symmetric local-sensitivity comparator, with paired
+benefit 0.164981 [0.013853, 0.326023] and 8/12 positive anchor effects. At both
+smallest radii, local sensitivity wins at every anchor. The prespecified
+across-radius local comparison is unresolved: 0.025738 [−0.027862, 0.083081].
+Intervals describe variation across fixed selected anchors, not a population.
+
+The atlas is not the best observed arm: `tangent_plus` has lower mean waveform
+error at every dose, including 0.260795 versus 0.301672 at radius 0.016. Keep it
+as an exploratory diagnostic now and include it prospectively as a competing
+policy next time. Do not silently replace the frozen primary comparator with
+an outcome-selected winner.
+
+Eventual nine-peak retention and short waveform quality are different outcomes.
+The former follows 10,000 settling and 2,000 measurement time units, whereas
+waveform error covers the first 300. The atlas retains nine peaks in 188/192
+long assays versus 308/384 across both local signs. Those counts do not replace
+the waveform endpoint. The frozen `anchor-08` example favors both local signs,
+although every shown arm eventually has nine peaks. Transients, phase, frequency,
+and waveform shape have not been isolated as causes of immediate error.
+
+See the [utility audit](EXP-006-utility-results-audit.md),
+[continuation audit](EXP-006-continuation-results-audit.md), and
+[raw receipt](../evidence/EXP-006/attempt-001/receipt.json). This fixed-network
+task does not establish training or reasoning benefit.
+
+### 1. Freeze a hybrid policy and stronger held-out comparisons
+
+Test whether local sensitivity handles fine changes while geometric constraints
+help larger changes. This hybrid is a new hypothesis prompted by EXP-006, not an
+already demonstrated benefit. Fix the switch rule, constraint, actions, and
+tolerances on development cases. Freeze untouched spatial blocks or anchor
+settings and fresh phases for evaluation; retain all EXP-006 anchors as
+development evidence rather than relabeling them as a new holdout population.
+
+Compare the hybrid with the original local method, local methods given the same
+sign/action-selection opportunities, a second-order or finite-probe sensitivity
+method, and a directly measured task-quality map/search with equal total cost.
+Add frozen `tangent_plus`, both tangent signs, and signed coordinate-axis controls.
+Retain atlas-only, random-direction, and shuffled-geometry arms as diagnostics.
+Select signs only from information permitted before the scored trajectory, never
+from the better observed test outcome. Match native weight norms, observations,
+decision times, action sets, tuning budgets, and all computational costs.
+
+The frozen aggregate waveform-quality endpoint must beat the strongest relevant
+baseline, with dose-specific effects and failures shown alongside it. Count atlas
+construction, local/second-order sensitivity, probes, and failed trials. Report
+cold-start and explicitly amortized costs, without free-map or unlimited-reuse
+assumptions. Freeze exact counts, coverage, missingness, and cluster analysis
+before generating new trajectories.
+
+### 2. Test a coupled controller under held-out drift
+
+Freeze a reference waveform, waveform/phase tolerances, and disturbance-stream
+generator on development cases. Apply successive weight drift and state
+disturbances so that each policy's actions change its subsequent observations.
+All policies begin from common checkpoints and receive matched sensors and
+action opportunities; evaluation streams and settings remain held out.
+
+The proposed primary endpoint is the fraction of the evaluation horizon meeting
+both frozen waveform and phase requirements, retaining all failures. Also report
+recovery, control effort, cumulative error, and total computation. Compare with
+equally funded tangent, coordinate-axis, local, second-order, and task-quality
+controllers. This is the test needed to connect independent weight jumps to
+sustained rhythm management. State changes at fixed weights and weight changes
+remain separate disturbances; attraction does not remove neutral phase drift.
+
+### 3. Resolve the failed checkpoint and refine crossing candidates
+
+The four continuation branches retain 196 node records, including 122 unstable
+records and five failed correctors. These are overlapping records with repeated
+seeds, not distinct cycles. Geometric shooting agreement is 27/28. Near-edge
+initial positive-gamma branch node 40 fails independent closure at 1.0591e-8
+against the unchanged 1e-8 threshold; state and period agreement do not erase it.
+
+Prepare a separately frozen local numerical successor using independently
+controlled tolerances, resolution, and integration methods, while preserving
+the original failed checkpoint. Refine saved crossing candidates and parameter
+reversals; retain unstable segments and failed correctors. Adjacent arclength
+nodes need not enclose a crossing's gamma at a fold. Do not claim exact boundary
+intervals, complete two-parameter topology, or disappearance after correction
+failure. Never relax the old threshold or reset the consumed attempt.
+
+### 4. Transfer to one learned model only after beating the baseline
+
+One concrete proposed transfer is a 16-state autonomous tanh network,
+`dh/dt = -h + W tanh(h)`, with learned recurrent weights W and a learned three-output readout
+`y = V tanh(h)`, trained on the target `(sin(t), sin(2t), sin(3t))`.
+This is a proposed learned waveform model, not an existing result or a frozen
+architecture. Pin its training samples, numerical solver, optimization protocol,
+checkpoint selection, readout, and two learned recurrent-weight entries before
+the transfer run. First verify its ordinary waveform quality and full-state
+periodicity; do not assume successful training yields a useful cycle or a shrimp.
+This supplies a direct bridge from handcrafted connectivity to learned weights.
+
+Only after the hybrid passes the stronger fixed-network comparisons, test it
+on that model's held-out disturbance streams. Measure full-state dynamics,
+waveform quality, failures, and cost. Negative transfer remains a result. A
+future fixed-answer reasoner requires another endpoint: a cycle desired for
+rhythm generation can obstruct a solver. The earlier training/policy pilots
+remain unchanged and supply no transfer benefit.
+
+### Resource decision
+
+EXP-006 used 423.866 seconds of local collection and analysis, excluding final
+verification. Its 48 local-sensitivity solves consumed 26.627 seconds within
+that total; the old atlas's 140.54 seconds is separate. No paid resources or
+paid Pro review were used. Begin successors with bounded local plans. A later
+GPU request requires profiling, numerical parity, and the specific cost and
+approval procedure in [compute-plan.md](compute-plan.md). This agenda starts no
+new experiment and supplies no spending authorization.
+
+## Historical EXP-004--005 agenda, preserved unchanged
+
+The remaining text records the earlier proposal. EXP-006 has now executed its
+initial weight-drift and continuation stages; the current agenda above governs
+the proposed successors. Statements below describing those stages as future
+refer to the earlier research state.
 
 Updated 2026-09-11 after EXP-004. The earlier plan is preserved in Git history.
 This is an experiment agenda, not an executed utility result or authorization
