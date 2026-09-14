@@ -1,4 +1,34 @@
-# Zeta: use the existing GitHub work identity
+# Zeta GitHub identities: neural-shrimp uses tdj28
+
+## Current correction, later on 14 September 2026
+
+The human corrected the earlier preference: **neural-shrimp stays with tdj28
+and uses the personal SSH identity**. Its zeta origin is now
+`git@github-personal:tdj28/neural-shrimp.git`. Repository ownership never
+changed, and no collaborator invitation or access grant was made. This
+correction applies to neural-shrimp; other projects retain their separately
+configured work identity unless directed otherwise.
+
+The work key was successfully unlocked and authenticated as `praxagent`, but
+that account could not read or push to the private tdj28/neural-shrimp repo.
+The personal alias selects the existing `~/.ssh/id_rsa` with
+`IdentitiesOnly yes`. GitHub recognizes its public key, but the encrypted
+private key is not yet unlocked in the existing OpenSSH agent. The repository
+retains `core.sshCommand = ssh -o IdentityAgent=/run/user/1000/openssh_agent`.
+
+Unlock the personal key from a Mac terminal:
+
+```sh
+ssh -t zeta 'SSH_AUTH_SOCK=/run/user/1000/openssh_agent ssh-add ~/.ssh/id_rsa'
+```
+
+Then verify that `github-personal` authenticates specifically as `tdj28`,
+followed by repository read access and a non-mutating push dry-run. These
+personal-account checks remain pending. No key or account credential was
+changed or copied. The section below records the earlier work-identity setup;
+its neural-shrimp origin and unlock instruction are superseded by this section.
+
+## Earlier work-identity setup
 
 14 September 2026. The human explicitly requested `github-work` rather than
 `github-personal` for Git operations on zeta. This amends the authentication
