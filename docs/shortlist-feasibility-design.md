@@ -7,6 +7,11 @@ The immediate prerequisite is the separately planned EXP-010 preview-label
 qualification. EXP-009's unresolved long-horizon labels must not become the
 training target for this feasibility question.
 
+The [feature-adapter appendix](shortlist-feature-adapter-appendix.md) records
+the exact named schema, physical-origin aliases and required access tests.
+It distinguishes mathematical feature provenance from the old mixed-feature
+API, which reads preview labels and cannot be used for pre-preview inference.
+
 ## Question and usable endpoint
 
 Can pre-preview shared features plus old-map geometry identify four candidate
