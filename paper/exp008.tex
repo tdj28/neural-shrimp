@@ -1,0 +1,63 @@
+\section{An exhaustive test of geometric features}
+EXP-008 isolates whether an old shrimp map improves a fixed learned action selector. The baseline already receives weights, destination coordinates, nonlinear coordinate/action terms, phase, period, transverse Floquet stability, reference activation statistics, local sensitivity and short simulator forecasts. A second model adds six features of the observed parameter map. A third receives geometry from a different origin as a feature-count control. Direct minimum-preview selection is a fourth policy. Every policy has the same 18 candidate actions. A gain would support the usefulness of this representation for this learner and task; geometry is itself a deterministic function of coordinates and the map, so this is not a claim of new information conditional on those inputs or a shrimp-specific topological mechanism.
+
+\subsection{Development, new starts and identical actions}
+All twelve EXP-007 origins are development locations. Twelve new test origins are selected from the old core component after excluding a closed radius-$0.04$ neighborhood of all 24 EXP-006/007 origins in normalized coordinates. The remaining 3,052 pixels are recursively divided along the widest normalized axis into twelve compact groups. Each group's representative is its centroid-nearest eligible pixel, with fixed coordinate tie breaks. These groups contain exclusion holes and are neither unseen rectangular maps nor independent population samples. The minimum distance to an earlier origin is $0.040445$; old destinations and trajectories are not excluded.
+
+At each origin the unchanged two-step baseline and independent attracting primitive-orbit gates apply. The two intervention phases use exact indices 675 and 1350 of the 2,700-sample endpoint-excluded orbit. A prospective review replaced an initial antipodal proposal because the odd vector field can produce nearly duplicate responses half a cycle apart. The final phases are a quarter cycle apart and are analyzed as paired contexts.
+
+For each of the four existing radii, all methods share sixteen uniform directions, including exact signed axes, followed by both signs of the minimum local-sensitivity direction. All eighteen entries are retained even when directions coincide. The local Gram comes from the unperturbed fixed-initial-state variational solve over $0$--$300$, phase-projected over $75<t\le300$. Every entry receives a separate 75-unit preview at $\Delta t=0.005$. Its target trace restarts from the same state and runs for 300 units at both steps. The primary tail metric is unchanged from EXP-007. All eighteen candidate outcomes are collected, including actions no policy selects. Zero-dose records are required at both phases and numerical steps.
+
+\subsection{Locked prediction and action regret}
+The three regressions use 51 shared columns, with six additional columns in the geometry and mismatched-geometry arms. Shared nonlinear inputs include squared coordinates and deltas, cross terms, coordinate--delta interactions, local predicted error, and preview error/trend terms. Crop membership and clearance are available to the baseline. Geometry adds observed pixel margin, signed destination margin, core-component membership, outward projection and crop/censor indicators. Unobserved destinations are explicitly masked; they are not assumed nonperiodic. The mismatched control takes geometry from origin $(i+5)\bmod12$, separately within development and test, at matched phase, radius and candidate index. It is a structured mismatch rather than a randomization test.
+
+Only development data fit the regressions. Each uses equal-origin weights, an unpenalized intercept and weighted standardization fitted within each training fold. Leave-one-origin-out prediction mean-square error selects among ridge penalties $10^{-6},10^{-4},10^{-2},1,100$; exact ties choose the smallest. The complete development fit is sealed before test previews. All test predictions and selected actions are then sealed before any test target is generated. Predictions are not clipped, and exact action-score ties choose the lowest index. Both integration steps evaluate these same choices. Missing required development data invalidate fitting; failures are not filtered out.
+
+For candidate errors $e_{bc}$ in condition $b$, define the finite-action oracle $e_b^*=\min_{c\in\{0,\ldots,17\}}e_{bc}$ and regret $R_{bm}=e_{b,c_m}-e_b^*$. The single primary contrast is
+\[
+\frac{1}{12}\sum_{j=1}^{12}\operatorname{mean}_{\text{phase,radius}}
+\bigl(R_{j,\mathrm{baseline}}-R_{j,\mathrm{geometry}}\bigr)
+=
+\operatorname{mean}\bigl(e_{\mathrm{baseline}}-e_{\mathrm{geometry}}\bigr).
+\]
+The shared hindsight oracle cancels; positive benefit means lower actual waveform error. The oracle is restricted to eighteen entries, not all possible weight changes. Absolute regret, oracle headroom, prediction error and the two controls are secondary. The 10,000 paired-block bootstrap intervals are descriptive. Any incomplete required target among all 7,008 candidate/sham records at either step makes the primary undefined; stepwise diagnostics remain separately labeled where defined.
+
+\input{generated-exp008-results}
+
+An independent weighted-SVD reconstruction exposes coefficient sensitivity in the baseline and mismatched regressions: eight coefficients in each exceed the unchanged comparison tolerance ($\mathrm{rtol}=10^{-7}$, $\mathrm{atol}=10^{-9}$), with maximum absolute difference $7.52\times10^{-8}$. These failures are retained. All selected penalties and all 288 learned test actions agree, and the largest test-score difference is $1.46\times10^{-9}$, below the smallest action-score gap of $3.70\times10^{-6}$. The largest regularized normal-matrix condition number across the validation grid is $1.58\times10^7$. The frozen same-algorithm replay passes; the independent coefficient comparison does not. These coefficients should not be interpreted as identified physical parameters or causal feature importance.
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-information-map.pdf}
+\caption{\textbf{Observed geometry and new intervention locations.} The same measured period map supplies the geometric features. Every attempted development and test location, the fixed test pixel groups and geometric coverage are retained. Origin exclusions concern normalized starting locations; feature margins use native weight coordinates. The crop and pixel classification are limitations of the available map, not exact bifurcation or state-space basin boundaries.}
+\label{fig:information-map}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-information-utility.pdf}
+\caption{\textbf{Does adding geometry improve the selected action?} All methods share the same eighteen actions, local diagnostics and short forecasts. The display retains both numerical steps, all doses and blocks, the pooled contrast, finite-action oracle headroom and development cross-validation. Positive baseline-minus-geometry benefit favors geometry. Model fitting uses development labels only; both test steps reuse the same sealed predictions. Intervals describe the selected blocks. Map construction, fitting and exhaustive oracle evaluation are additional costs.}
+\label{fig:information-utility}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\clearpage
+\newgeometry{margin=0.55in}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=0.78\textwidth,keepaspectratio]{neuralshrimp-information-waveforms.pdf}
+\caption{\textbf{The fixed first test example and every candidate alternative.} Test origin information-00, phase index 675, radius $0.016$, primary numerical step. The three activation traces and all-eighteen preview-versus-later errors use a prospectively fixed selection. Preview and scored-tail samples are separate but dynamically dependent. The reference waveform and each method's selected trace remain visible even when actions coincide or the example conflicts with the aggregate result.}
+\label{fig:information-waveforms}
+\end{figure}
+\end{landscape}
+\restoregeometry

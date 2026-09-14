@@ -134,6 +134,60 @@ Read the [protocol](docs/EXP-007-protocol.md),
 [independent results audit](docs/EXP-007-results-audit.md), and
 [complete receipt](evidence/EXP-007/attempt-001/receipt.json).
 
+## Prediction improves; action utility remains unresolved: EXP-008
+
+**Adding the old map lowers observed prediction MSE by 17.17%, but does not
+establish a better action selector.** A separately frozen experiment uses all
+12 EXP-007 origins for development and 12 new test origins, two quarter-cycle-
+separated phases, and the same 18 candidate actions and previews for every
+policy. All **3,456 previews and 7,008 target/sham records** complete. Model
+fitting uses development data only; all test choices are sealed before test
+target collection. The later waveform task remains `75<t<=300`.
+
+| Fine-step pooled outcome | Shared baseline | + Real geometry | + Mismatched geometry | Minimum preview |
+|---|---:|---:|---:|---:|
+| Selected activation RMSE | 0.017824 | 0.016966 | 0.016402 | **0.009959** |
+| Finite-18-action regret | 0.010591 | 0.009733 | 0.009169 | **0.002726** |
+| All-candidate prediction MSE | 0.022641 | **0.018753** | 0.024347 | Different endpoint |
+
+The primary paired benefit from geometry is **0.000858**, with descriptive
+95% interval **[-0.007701, 0.006545]**; eight test blocks favor geometry, three
+favor the baseline, and one ties. Prediction MSE is a secondary outcome and
+does not replace this unresolved action-utility result. The finite candidate
+oracle cancels from paired regret differences, so regret supplies no second
+independent confirmation. **Direct minimum-preview selection has 41.30% lower
+mean error than the geometry learner**, using the same 18 forecasts; its
+diagnostic contrast interval excludes zero in these selected blocks.
+
+The numerical limitations remain visible. Across all 3,504 coarse/fine pairs,
+the median RMSE change is 2.91e-7 but the maximum is **0.476851**: candidate
+outcomes and training labels are not uniformly converged. Selected-policy
+scores are steadier (maximum 0.001000), and the pooled conclusion agrees at
+both steps. Independent SVD reconstruction exceeds the unchanged coefficient
+tolerance for eight baseline and eight mismatched-model coefficients; all
+chosen penalties and actions nevertheless agree. This failed comparison is
+retained, alongside the successful frozen replay and independent raw/feature
+checks. Negative regression scores were not clipped or rescored.
+
+The three new plates show [all origins, blocks and feature coverage](paper/figures/neuralshrimp-information-map.png),
+[all policies, paired effects, regret and development tuning](paper/figures/neuralshrimp-information-utility.png),
+and the [frozen first test example](paper/figures/neuralshrimp-information-waveforms.png).
+Every policy chooses candidate 4 in that example, so its curves coincide; no
+more favorable illustration is substituted. Read the
+[protocol](docs/EXP-008-protocol.md), [raw-data audit](docs/EXP-008-results-audit.md),
+[independent model audit](docs/EXP-008-model-results-audit.md),
+[generated summary](evidence/information-paper-summary.json), and
+[receipt](evidence/EXP-008/attempt-001/receipt.json).
+
+The practical next question is **whether geometry can reduce the number of
+previews needed for an acceptable waveform**, rather than improve a learner
+after all 18 previews have already been paid for. The proposed next test uses
+a provisional budget of four previews, with shortlists chosen before those
+previews, equal-budget controls and the full-18 reference. Numerical-label
+auditing comes first. This is a proposal, not a frozen or executed experiment;
+see [next steps](docs/next-steps.md). No trained-model benefit, topology-specific
+mechanism, net speedup or paid-resource need follows from EXP-008.
+
 The [new unreviewed dynamical-memory preprint](https://arxiv.org/abs/2609.07341v1)
 is documented in a [critical reading note](docs/literature/2026-09-11-aguilera-demartino.md).
 It motivates a separate crosstalk hypothesis. Its capacity results have not been
@@ -153,6 +207,8 @@ and distinguishes encoding spectra from orbit stability.
 - Frozen row-wise evidence, independent-initialization transects, step and
   settling refinements, and paired perturbation traces.
 - Deterministic figure generation with exact plotted values and source hashes.
+- Development-only ridge fitting, grouped validation, sealed test decisions,
+  an exhaustive finite-action oracle, and independent raw/model audits.
 - Earlier full-batch tanh training maps, gradients, Hessians, and Jacobians;
   Hénon/logistic controls; fixed/scheduled/stagnation/recurrence policies.
 - Offline RunPod packaging and watchdog preparation. Current experiments use
@@ -190,6 +246,29 @@ The plotting commands re-derive plots from saved measurements. `--verify` also
 requires byte-identical image regeneration in the same library/font environment.
 No source outcome is changed by rebuilding the figures.
 
+EXP-007 and EXP-008 saved evidence can be checked with:
+
+```sh
+uv run --frozen python tools/run_hopfield_holdout.py verify \
+  --output evidence/EXP-007/attempt-001
+uv run --frozen python tools/plot_hopfield_holdout.py evidence/EXP-007/attempt-001 \
+  --destination paper/figures --check
+uv run --frozen python tools/run_hopfield_information.py verify \
+  --output evidence/EXP-008/attempt-001
+uv run --frozen python tools/audit_hopfield_information.py \
+  --out /tmp/EXP-008-independent-check.json
+uv run --frozen python tools/audit_information_models.py evidence/EXP-008/attempt-001 \
+  --out /tmp/EXP-008-model-independent.json
+uv run --frozen python tools/plot_hopfield_information.py evidence/EXP-008/attempt-001 \
+  --destination paper/figures --check
+```
+
+These EXP-007/008 figure checks verify existing output hashes and re-derived
+arrays; they do not require byte-identical rendering on a different platform.
+The independent model report deliberately retains its coefficient-tolerance
+failures while checking unchanged selections. No audit output belongs inside
+an immutable experiment attempt.
+
 Fresh target execution requires clean source, a pushed source commit, a frozen
 plan, and a new attempt directory. Never overwrite a consumed plan or reset an
 attempt. The original EXP-004 used four CPU workers and 140.54 seconds of
@@ -201,6 +280,14 @@ is a separate cost, not free information. Paid compute and paid review spend
 were zero. The source-freeze CI passed with 136 tests. Integrated evidence and manuscript
 revisions are checked by the repository workflow; current run status is retained
 in GitHub.
+
+EXP-008 ran from pushed source `3c5604497ec57b19d62fbb595da7b190102f4b33`,
+preserved as `archive/EXP-008-source-v1`. Collection and summary took **162.352
+seconds**, excluding final verification. Sensitivity used 23.770 seconds and
+fit/seal writing 0.079 seconds within that clock. The old map's 140.54 seconds
+is separate. The complete source-freeze suite passed 249 tests; current
+release/CI status belongs to the repository workflow. Paid compute and review
+spend remain zero.
 
 To build the paper, run `pdflatex main`, `bibtex main`, then `pdflatex main`
 twice from `paper/`. The two main parameter maps and the four-control plate use

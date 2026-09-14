@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-11 with EXP-004--006 recurrent-network evidence. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Waveform utility is dose dependent; the aggregate advantage over the declared local comparator remains unresolved. Modern training/reasoning benefit is not established.
+Status: private exploratory program, updated 2026-09-13 through EXP-008. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
 
 | ID | Claim | Current status | What would warrant it | What does not warrant it |
 |---|---|---|---|---|
@@ -10,7 +10,7 @@ Status: private exploratory program, updated 2026-09-11 with EXP-004--006 recurr
 | E2 | That orbit is locally attracting | Not demonstrated by EXP-002; no neural candidate verified | Period Jacobian product with spectral radius separated below one | Finite-time near recurrence, a plot, or a large observed basin alone |
 | E3 | The tiny training parameter window has shrimp organization | Not established; training-map continuation not implemented | Connected verified isoperiodic window and continued bifurcation boundaries, with convergence checks | E1 + E2 at one pixel, visual similarity, or a Hénon control |
 | U1 | Recurrence improves intervention timing beyond scalar stagnation | Not demonstrated by EXP-003; recurrence never intervened | Paired complete trajectories, equal action opportunities and doses, held-out cases | Beating a fixed learning rate alone |
-| U2 | Shrimp geometry adds predictive/control information | EXP-006 supplies dose-specific exploratory waveform evidence; pooled local advantage unresolved; see D1--D4 | Matched feature/policy comparison versus loss, recurrence, stability, and ordinary performance-map baselines | U1, attractive fractal images, or a better-tuned controller |
+| U2 | Shrimp geometry supplies a useful predictive/control representation | EXP-008 lowers observed all-candidate prediction MSE by 17.17%; primary selected-action benefit unresolved, and direct minimum preview has lower error; see I1--I6 | Matched feature/policy comparison with geometry's representation, ordinary features, task endpoints and costs distinguished | New information conditional on coordinates, a topology-specific mechanism, or control utility inferred from lower prediction MSE alone |
 | U3 | The method provides net compute savings | Not established | Matched total budgets including scans, tuning, diagnostics, and failures; declared amortization | Equal optimizer-step counts, conditional rescue rates, or wall time excluding atlas cost |
 | U4 | A stable cycle is beneficial or harmful | Task dependent; not assigned by dynamics alone | Independently measured correctness, validation quality, latency, and robustness | Negative Lyapunov exponent or low orbit residual alone |
 | T1 | Positive relaxation preserves fixed points of a deterministic map | Algebraic fact under stated assumptions | `G_alpha(h)=h` iff `F(h)=h` for `alpha>0` | Preservation of cycles, basins, speed, or correctness |
@@ -124,3 +124,37 @@ its only attempt. All 12 baseline attempts qualify; all 4,032 previews and
 The new starts exclude neighborhoods of EXP006 origins but reuse its old
 atlas; this is not an unseen-network or unseen-map result. The independent
 audit and exact receipt are linked from the README.
+
+## 2026-09-13 EXP-008 learned-representation update
+
+Source `3c5604497ec57b19d62fbb595da7b190102f4b33` was pushed before its only
+attempt and is retained as `archive/EXP-008-source-v1`. All 24 attempted origins
+qualify, 3,456 previews complete, and all 7,008 candidate/sham target records
+complete. Development fits and all test choices were sealed in the declared
+order. Read the [raw-data audit](EXP-008-results-audit.md),
+[independent model audit](EXP-008-model-results-audit.md), and
+[generated summary](../evidence/information-paper-summary.json).
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| I1 | Old-map features improve prediction for this frozen representation | Observed fine-step all-candidate MSE falls from 0.022640656 to 0.018753462, 17.17% lower; seven of twelve blocks improve. This is a secondary mean, not a resolved population prediction claim. |
+| I2 | Lower prediction MSE establishes better action selection | Not established: primary pooled benefit is 0.000857628, descriptive 95% interval [-0.007701467, 0.006545434], with eight positive blocks, three negative and one tie. Choosing the lowest-error action is different from predicting all candidate errors accurately. |
+| I3 | The geometry learner beats the direct forecast rule | Rejected in this sample: minimum-preview RMSE is 0.009958855 versus geometry 0.016966044, 41.30% lower. Preview-minus-geometry benefit is -0.007007189 [-0.014731835, -0.001611192]. All policies have the same eighteen actions and previews. This is a diagnostic fixed-sample comparison, not net speedup. |
+| I4 | Finite-action regret independently confirms task improvement | No: the common eighteen-action oracle cancels, so paired regret reduction equals paired selected-RMSE reduction. The oracle is neither a global optimum nor an independent endpoint. |
+| I5 | Every candidate label and coefficient is numerically converged | Not established: maximum coarse/fine candidate RMSE change is 0.476851 across 3,504 pairs. Independent SVD exceeds the unchanged coefficient tolerance for eight baseline and eight shuffled coefficients; geometry coefficients pass. All chosen penalties and actions agree, and selected-policy step differences are much smaller. The failures remain recorded. |
+| I6 | EXP-008 establishes shrimp-specific information, trained-model benefit or cheaper control | Not established. Geometry is a deterministic representation of coordinates and a previously observed atlas; the fixed ridge family, cloned states and simulator access limit the claim. No trained model or sequential controller was tested, and all eighteen previews were paid for. |
+
+The first declared example remains `information-00`, phase 675, radius 0.016,
+fine step. Every policy selects candidate 4 and has RMSE 0.0229066824; curves
+correctly coincide. The unfavorable `test-block-11` contribution (-0.040413692
+pooled) remains in all results. Negative predictions, crop masks, step-sensitive
+unselected targets and the independent coefficient mismatch are not repaired
+and rescored as prospective successes.
+
+Collection and summary used 162.352 local seconds before verification,
+including 23.770 sensitivity seconds and 0.079 fit/seal seconds; the prior map
+costs 140.54 seconds separately. Paid compute and review remain zero. The
+next provisional question is whether geometry can select a useful four-action
+shortlist **before** paying for previews, against equal-budget controls and the
+full-eighteen reference. It requires numerical-label review and a new freeze;
+it is not a successful result or an executed experiment.

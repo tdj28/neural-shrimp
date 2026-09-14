@@ -184,3 +184,75 @@ partial-refresh identities; these do not reproduce the preprint numerics.
   layout correction, page 23 was inspected again and exact PNG hashes confirmed
   the other 26 pages unchanged. The final LaTeX log has no warnings or box
   overflows. All 186 tests passed locally.
+
+## 2026-09-13 EXP-008 completed evidence and local audits
+
+- The complete source and plan were pushed at
+  `3c5604497ec57b19d62fbb595da7b190102f4b33`, retained under
+  `archive/EXP-008-source-v1`, before the exclusive attempt. The source-freeze
+  suite passed 249 tests. An isolated source-only CLI check used exactly the
+  45-file bound source list, without host-checkout imports; see
+  [preflight](EXP-008-preflight.md). Those are pre-execution checks, not a claim
+  that a subsequent final release or CI job already passed.
+- All 10,650 receipt-listed artifact sizes and hashes match, totaling
+  728,224,123 bytes. All 186 old-input artifacts and 45 frozen source files
+  match the manifest. All 24 baseline origins qualify, all 3,456 previews
+  complete, and the exact 7,008-target census includes all 96 required shams.
+  The frozen verifier completed successfully. No failed condition, origin or
+  consumed attempt was replaced, reset or deleted.
+- Independent raw auditing reconstructs all 10,464 preview/target traces'
+  inputs and 517,248 RMS values using a separate interpolation implementation.
+  Maximum RMS discrepancy is 4.44e-16 under unchanged 1e-12/1e-14 tolerances.
+  It independently checks all baseline and geometry feature rows, both shuffle
+  matrices, local Gram matrices, sealed input/decision chronology, all policy
+  choices, complete finite-action oracles and paired-block aggregation.
+- Independent weighted SVD verifies fold exclusion, training-only scaling,
+  all 180 validation-loss entries and all chosen penalties. **A separate
+  coefficient comparison fails and remains failed:** eight baseline and eight
+  shuffled coefficients exceed rtol=1e-7/atol=1e-9; geometry coefficients pass.
+  Maximum coefficient discrepancy is 7.52e-8. Ill-conditioned designs explain
+  the sensitivity, but do not authorize a relaxed threshold. Maximum test
+  prediction discrepancy is 1.46e-9, and none of the 288 learned action choices
+  changes. Frozen same-algorithm replay and independent coefficient agreement
+  are distinct checks; the former does not convert the latter into a pass.
+- The secondary prediction-MSE mean improves by 17.17%; the primary action
+  contrast is 0.000857628 [-0.007701467, 0.006545434], unresolved. Direct
+  minimum-preview selection has 41.30% lower mean error than the geometric
+  learner using the same eighteen forecasts. The finite oracle cancels from
+  paired regret differences and is not independent supporting evidence.
+- Across all 3,504 paired numerical-step outcomes, the median absolute RMSE
+  change is 2.91e-7 and the maximum is 0.476851. Selected-policy pairs are
+  steadier (maximum 0.001000), but this does not certify every candidate or
+  training label. Negative regression predictions, outside-crop masks, all
+  step-sensitive cases and the unfavorable final test block remain reported.
+- Three new empirical figure families provide fourteen panels, lossless plotted
+  arrays and complete input/output hash receipts. All three final figure PDFs
+  were rendered with Poppler and visually inspected. The six-panel utility
+  plate is landscape with standalone labels of at least 9.5 pt. Its full
+  hash/census/summary/array check passed; cross-platform image-byte equality is
+  not required. The frozen first example is retained: every policy selects
+  candidate 4, and the waveform plate explicitly labels the coincident curves.
+- Collection and summary took 162.352 seconds, excluding final verification;
+  23.770 sensitivity seconds and 0.079 fit/seal seconds are within that clock.
+  The older map cost 140.54 seconds separately. No paid compute, RunPod resource
+  or paid review was used. Final manuscript inventory and hashes belong in
+  `paper/provenance.json`; GitHub's required tests remain the final merge gate.
+
+Read the [raw/feature/outcome audit](EXP-008-results-audit.md),
+[independent model audit](EXP-008-model-results-audit.md),
+[receipt](../evidence/EXP-008/attempt-001/receipt.json), and
+[figure provenance](../paper/figures/hopfield-information-figure-provenance.json).
+Repeat saved-evidence checks without integrating a new trajectory:
+
+```sh
+python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001
+python tools/audit_hopfield_information.py --out /tmp/EXP-008-independent-check.json
+python tools/audit_information_models.py evidence/EXP-008/attempt-001 \
+  --out /tmp/EXP-008-model-independent.json
+python tools/plot_hopfield_information.py evidence/EXP-008/attempt-001 \
+  --destination paper/figures --check
+```
+
+Use the locked project environment and keep new audit reports outside the
+immutable attempt. Read the retained failed SVD coefficient comparisons in
+the model report even when the reporting command completes successfully.

@@ -1,3 +1,63 @@
+# EXP-008 learned-representation and action-selection test
+
+`EXP-008/attempt-001` retains **10,650 receipt-listed artifacts plus the
+receipt**, totaling 728,224,123 artifact bytes. Source
+`3c5604497ec57b19d62fbb595da7b190102f4b33` was pushed before outcomes and is
+preserved as `archive/EXP-008-source-v1`. Manifest SHA-256:
+`fb0e546947e0f36b77ff4978f60769db3541fc64330022bd664da22c20c321cd`.
+Receipt SHA-256:
+`ddb22c78a6b5f11a023088fd90f3403d25a2797e00624f01c316171ce35706fb`.
+The recorded start is 2026-09-14 at 02:57:26 UTC (13 September locally).
+
+All 24 origins qualify, all 3,456 previews complete, and all 7,008 target
+records complete: 6,912 nonzero candidate evaluations and 96 shams, including
+both numerical steps. The model packet uses development labels only. Its
+input seal, test-feature and decision seals, and target-start record preserve
+the execution order. Every test policy has the same eighteen candidate actions
+and previews; the task uses all activations over `75<t<=300` with one constant
+phase shift.
+
+The secondary observed prediction MSE is 17.17% lower with geometry
+(0.018753462 versus 0.022640656). The primary action benefit remains
+unresolved: 0.000857628 [-0.007701467, 0.006545434]. Minimum-preview RMSE is
+0.009958855 versus geometry 0.016966044, 41.30% lower in this sample. These
+results and all twelve blocks remain in
+[information-paper-summary.json](information-paper-summary.json).
+The first declared example selects candidate 4 under every policy; its
+coincident curves are retained.
+
+The frozen verifier and independent raw/feature/outcome checks pass. The
+independent SVD model audit retains a failed coefficient comparison: eight
+baseline and eight shuffled coefficients exceed the unchanged tolerance,
+although chosen penalties and all actions agree. All-candidate numerical-step
+differences are also not uniformly small (maximum RMSE change 0.476851).
+Neither issue is erased by the steadier selected actions or successful source
+replay. See the [raw audit](../docs/EXP-008-results-audit.md),
+[model audit](../docs/EXP-008-model-results-audit.md), and
+[figure receipts](../paper/figures/hopfield-information-figure-provenance.json).
+
+```sh
+python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001
+python tools/audit_hopfield_information.py --out /tmp/EXP-008-independent-check.json
+python tools/audit_information_models.py evidence/EXP-008/attempt-001 \
+  --out /tmp/EXP-008-model-independent.json
+python tools/plot_hopfield_information.py evidence/EXP-008/attempt-001 \
+  --destination paper/figures --check
+```
+
+Use the repository's locked environment for these commands. Audit outputs
+must stay outside the immutable attempt. Figure checks verify existing output
+hashes and re-derived arrays, not cross-platform render-byte identity. The
+model audit's retained coefficient failures must be read alongside its other
+passing checks; a completed report does not mean every comparison passed.
+
+Collection and summary took 162.352 seconds before final verification.
+Sensitivity used 23.770 seconds and fitting/seal writing 0.079 seconds within
+that clock; overlapping worker-call sums are separate measures. The original
+map's 140.54 seconds is an additional historical cost. No paid compute or
+review was used. Numerical refinements or new shortlist policies require new
+prospective packets and cannot overwrite this attempt.
+
 # EXP-007 new-start waveform policy test
 
 `EXP-007/attempt-001` retains 7,149 receipt-listed files plus its receipt:
