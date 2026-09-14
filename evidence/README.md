@@ -1,5 +1,17 @@
 # EXP-008 learned-representation and action-selection test
 
+**Release status: private working diagnostic draft; PR #7 is unmerged.**
+Release candidate `1d12ebeda0400c179e54dd36e647a835f7e0d91d` is not a fully
+reproduced release. Local frozen verification passed, but Linux PR run
+34803148459 fails coefficient `[1]` (absolute difference 3.68269315e-8 at
+combined `rtol=1e-7, atol=1e-9`), while push run 34803133930 stops earlier at
+shared feature `[34]` (1.39784018e-14 at `rtol=1e-12, atol=1e-14`). Exact
+[PR](../docs/EXP-008-linux-pr-failure.txt) and
+[push](../docs/EXP-008-linux-push-failure.txt) logs remain evidence. The PR
+reaches fitting after metric checks; the push does not complete the
+feature/waveform loop. Linux decision portability is unmeasured. A diagnostic
+that runs after failures does not replace or bypass the strict gate.
+
 `EXP-008/attempt-001` retains **10,650 receipt-listed artifacts plus the
 receipt**, totaling 728,224,123 artifact bytes. Source
 `3c5604497ec57b19d62fbb595da7b190102f4b33` was pushed before outcomes and is
@@ -26,13 +38,13 @@ results and all twelve blocks remain in
 The first declared example selects candidate 4 under every policy; its
 coincident curves are retained.
 
-The frozen verifier and independent raw/feature/outcome checks pass. The
-independent SVD model audit retains a failed coefficient comparison: eight
+The frozen verifier and independent raw/feature/outcome checks passed locally.
+The independent local SVD model audit retains a failed coefficient comparison: eight
 baseline and eight shuffled coefficients exceed the unchanged tolerance,
 although chosen penalties and all actions agree. All-candidate numerical-step
 differences are also not uniformly small (maximum RMSE change 0.476851).
 Neither issue is erased by the steadier selected actions or successful source
-replay. See the [raw audit](../docs/EXP-008-results-audit.md),
+local replay. See the [raw audit](../docs/EXP-008-results-audit.md),
 [model audit](../docs/EXP-008-model-results-audit.md), and
 [figure receipts](../paper/figures/hopfield-information-figure-provenance.json).
 

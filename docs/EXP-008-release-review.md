@@ -1,5 +1,15 @@
 # EXP-008 presentation and CI release review
 
+**Platform status update, 13 September 2026:** the results below were audited
+locally on macOS. Linux CI at release `1d12ebeda040` does not pass the frozen
+verifier. [PR-run log](EXP-008-linux-pr-failure.txt) records a baseline
+coefficient difference of 3.68269315e-8 at the unchanged 1e-7/1e-9 rule; the
+[push-run log](EXP-008-linux-push-failure.txt) records an earlier shared-feature
+difference of 1.39784018e-14 at the unchanged 1e-12/1e-14 rule. Each run stops
+at its first failure. Local replay and local SVD action agreement do not
+establish full Linux portability. The strict gate remains failed and private
+PR7 remains unmerged; a separate platform diagnostic does not replace it.
+
 Independent post-run review, 2026-09-13. Scope: the new paper-summary
 generator, the three new figure families and their provenance checks, and
 the EXP-008 additions to CI. This review performs no neural integration,

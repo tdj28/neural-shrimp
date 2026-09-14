@@ -3,6 +3,14 @@
 Private exploratory research on periodic-window geometry, neural activity, and
 whether geometric information can improve model control.
 
+**Current release status: private working diagnostic draft.** EXP-008
+[PR #7](https://github.com/tdj28/neural-shrimp/pull/7) remains **unmerged**.
+Release candidate `1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails strict
+Linux verification in both the push and PR workflows. Local replay passed;
+complete cross-platform reproduction and Linux decision portability are not
+established. The numerical-portability failures below take priority over a
+new preview-budget experiment.
+
 **EXP-004 numerically reproduces an actual shrimp-shaped window in a
 three-neuron recurrent neural network.** This is the fixed-weight tanh system
 reported by da Silva and Rech (2022), not a newly trained modern network. The
@@ -163,11 +171,23 @@ The numerical limitations remain visible. Across all 3,504 coarse/fine pairs,
 the median RMSE change is 2.91e-7 but the maximum is **0.476851**: candidate
 outcomes and training labels are not uniformly converged. Selected-policy
 scores are steadier (maximum 0.001000), and the pooled conclusion agrees at
-both steps. Independent SVD reconstruction exceeds the unchanged coefficient
+both steps. Independent local SVD reconstruction exceeds the unchanged coefficient
 tolerance for eight baseline and eight mismatched-model coefficients; all
 chosen penalties and actions nevertheless agree. This failed comparison is
-retained, alongside the successful frozen replay and independent raw/feature
-checks. Negative regression scores were not clipped or rescored.
+retained, alongside successful **local** frozen replay and independent local
+raw/feature checks. Negative regression scores were not clipped or rescored.
+
+Linux release checks reveal additional portability failures. PR run
+**34803148459** reaches the fit comparison and fails baseline coefficient `[1]`
+with absolute difference **3.68269315e-8**, beyond the combined
+`rtol=1e-7, atol=1e-9` check. Push run **34803133930** stops earlier at shared
+feature `[34]`, with absolute difference **1.39784018e-14**, beyond its combined
+`rtol=1e-12, atol=1e-14` check. The PR run reaches fitting after its waveform
+checks; the push run does not finish the feature/waveform loop. **Linux decision
+portability remains unmeasured**, rather than inferred from local agreement.
+Exact [PR failure](docs/EXP-008-linux-pr-failure.txt) and
+[push failure](docs/EXP-008-linux-push-failure.txt) logs are retained. A separate
+diagnostic that runs after failures will not replace or bypass the strict gate.
 
 The three new plates show [all origins, blocks and feature coverage](paper/figures/neuralshrimp-information-map.png),
 [all policies, paired effects, regret and development tuning](paper/figures/neuralshrimp-information-utility.png),
@@ -183,8 +203,8 @@ The practical next question is **whether geometry can reduce the number of
 previews needed for an acceptable waveform**, rather than improve a learner
 after all 18 previews have already been paid for. The proposed next test uses
 a provisional budget of four previews, with shortlists chosen before those
-previews, equal-budget controls and the full-18 reference. Numerical-label
-auditing comes first. This is a proposal, not a frozen or executed experiment;
+previews, equal-budget controls and the full-18 reference. Numerical portability
+and label auditing come first. This is a proposal, not a frozen or executed experiment;
 see [next steps](docs/next-steps.md). No trained-model benefit, topology-specific
 mechanism, net speedup or paid-resource need follows from EXP-008.
 
@@ -285,8 +305,8 @@ EXP-008 ran from pushed source `3c5604497ec57b19d62fbb595da7b190102f4b33`,
 preserved as `archive/EXP-008-source-v1`. Collection and summary took **162.352
 seconds**, excluding final verification. Sensitivity used 23.770 seconds and
 fit/seal writing 0.079 seconds within that clock. The old map's 140.54 seconds
-is separate. The complete source-freeze suite passed 249 tests; current
-release/CI status belongs to the repository workflow. Paid compute and review
+is separate. The complete local source-freeze suite passed 249 tests; the
+current Linux release checks fail and PR #7 remains unmerged. Paid compute and review
 spend remain zero.
 
 To build the paper, run `pdflatex main`, `bibtex main`, then `pdflatex main`

@@ -1,5 +1,5 @@
 {
-  "scope": "Private exploratory reproduction, continuation and waveform utility in one three-neuron recurrent network. EXP-008 lowers secondary observed prediction MSE but leaves primary action benefit unresolved; direct minimum-preview selection has lower error. Retained candidate step sensitivity and independent SVD coefficient mismatches prohibit uniform-convergence or identified-feature-importance claims. No superior geometry controller, trained-model transfer or net compute saving established. Separate unreviewed preprint documented and analytically checked; capacity numerics not replicated.",
+  "scope": "Private exploratory reproduction, continuation and waveform utility in one three-neuron recurrent network. EXP-008 lowers secondary observed prediction MSE but leaves primary action benefit unresolved; direct minimum-preview selection has lower error. Retained candidate step sensitivity and independent SVD coefficient mismatches prohibit uniform-convergence or identified-feature-importance claims. No superior geometry controller, trained-model transfer or net compute saving established. Separate unreviewed preprint documented and analytically checked; capacity numerics not replicated. The local producer replay passes but Linux feature/coefficient replay fails unchanged tolerances. This private diagnostic draft remains unmerged; separate platform diagnostics do not replace the frozen gate.",
   "revision_date": "2026-09-13",
   "pages": 34,
   "figures": 15,
@@ -8,7 +8,7 @@
   "numerical_tables": 10,
   "conceptual_or_analytic_figures": 0,
   "historical_figure_sets_retained": 10,
-  "local_tests_passed": 250,
+  "local_tests_passed": 261,
   "original_pilot_source_commit": "bd3d733b51e9f1ae9247ba712633aca023e7afac",
   "experiment_source_commits": {
     "EXP-004": "b670086775bbc07e115de730b8fcb30ca41cce6b",
@@ -28,14 +28,14 @@
   "pdf_visual_qa": {
     "pages_inspected": 34,
     "render_dpi": 125,
-    "layout": "Thirteen landscape empirical plates; portrait methods, ten numerical tables, prose and references. All 34 pages inspected. After scientific-notation and matching-neuron reference corrections, pages 27 and 31 reinspected; exact rendered PNG hashes confirm the other 32 pages unchanged. No clipping, overlap, broken glyphs or unintended blank pages. Landscape transitions intentionally leave preceding whitespace.",
+    "layout": "Thirteen landscape empirical plates; portrait methods, ten numerical tables, prose and references. All 34 pages inspected. After reference/notation corrections, pages 27 and 31 reinspected and other 32 confirmed unchanged. After Linux failure disclosure, pages 1, 27 and 28 reinspected and other 31 confirmed unchanged by rendered PNG hashes. No clipping, overlap, broken glyphs or unintended blank pages; no LaTeX warnings.",
     "latex_warnings": 0,
     "amendment": "docs/EXP-008-display-amendment.md"
   },
   "files": [
     {
       "path": ".github/workflows/tests.yml",
-      "sha256": "eea24ed3eed686065a7a0737af9e4fa48f6acc42e9bb113b6840256c3ca03d76"
+      "sha256": "318ee0ede91e5ff1d0ba9f5e205fcfbd38a44da54fc497388802b857e41d0619"
     },
     {
       "path": ".gitignore",
@@ -43,7 +43,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "2122c4483aab4a303b6f6c5083190141039899cc4730af45ff495bcd9e185237"
+      "sha256": "dcec55788e2aaca92a4ac55c54e676c7e18f2f5480aad7f76393d55ba2548a89"
     },
     {
       "path": "docs/EXP-004-display-amendment.md",
@@ -139,11 +139,19 @@
     },
     {
       "path": "docs/EXP-008-display-amendment.md",
-      "sha256": "f31a8aa7ce3f09f08abc4235f07d6e7ba14b8dc268ee2b14e605a3ce9b833661"
+      "sha256": "cdb6cf16ce404e233803cce0e596da8cfe2766a6e7fed198b9071184f2c9626e"
     },
     {
       "path": "docs/EXP-008-independent-check.json",
       "sha256": "4e7acd997a7ab795314fff4d63581c52995cbe7dd72b29011e2378fa2b1e7972"
+    },
+    {
+      "path": "docs/EXP-008-linux-pr-failure.txt",
+      "sha256": "9b16f956d025535c400866e2cdf0bae2e0b1551c4b3bc81ba5a0dd36c6d91855"
+    },
+    {
+      "path": "docs/EXP-008-linux-push-failure.txt",
+      "sha256": "7239a9a58e23dd011715148744cccbd5333ead90a5a264d35d1c4e280c150965"
     },
     {
       "path": "docs/EXP-008-model-independent-check.json",
@@ -155,7 +163,15 @@
     },
     {
       "path": "docs/EXP-008-model-results-audit.md",
-      "sha256": "239cf57dd327900dc134fea755e9d74f2c30eb4c113473b6f31423b061276607"
+      "sha256": "ed80b12bbf33bbc4d8d3dcc2c11ca10f103f336f82496ea6fbe71da4679ba6d3"
+    },
+    {
+      "path": "docs/EXP-008-platform-local.json",
+      "sha256": "096f347489a6111d38e0dfe6be90897eb0504b0b4f07c10b677fa8563e19e437"
+    },
+    {
+      "path": "docs/EXP-008-platform-status.md",
+      "sha256": "77d6dea34b58f28c7b03ed9c8ef6f99fc70801ddb31a7267c49b64fe843550b6"
     },
     {
       "path": "docs/EXP-008-preflight.md",
@@ -167,11 +183,11 @@
     },
     {
       "path": "docs/EXP-008-release-review.md",
-      "sha256": "3a51227ae5cd0c65a3f1568f333d1cda0087778a14a76545731606007bd00f45"
+      "sha256": "55a3ce996b5c0dd19addd3cc36ecacf34489b066dc76d365be27f7296a84a388"
     },
     {
       "path": "docs/EXP-008-results-audit.md",
-      "sha256": "10c8e7a363ab2cabf1abd06b5220886a6e96310b554d84c28a837e26dfec3d4e"
+      "sha256": "71896c487f381e589381682c00a7492ad352debefe29c67700e5db68a7d233ff"
     },
     {
       "path": "docs/EXP-008-runtime-audit.md",
@@ -183,7 +199,7 @@
     },
     {
       "path": "docs/claim-ledger.md",
-      "sha256": "eb558d2c90f00cf2edff7518061658b6c8a4fd65c04e168b027cffb8954b4e86"
+      "sha256": "365626798c1c6352308ce30b13cbca7183de229b33c4d453a2cfb9a9788bff53"
     },
     {
       "path": "docs/empirical-figure-notes.md",
@@ -199,7 +215,7 @@
     },
     {
       "path": "docs/next-steps.md",
-      "sha256": "38e28a43f0b4f40e9d84394fd58ab2eaf0858c5f961392df36ab8f59c4414288"
+      "sha256": "728faadaf705862d6691f44daa01ff79910bb67ff029938c977c8cb08c5fba24"
     },
     {
       "path": "docs/observable-consequences.md",
@@ -207,7 +223,7 @@
     },
     {
       "path": "docs/verification-ledger.md",
-      "sha256": "070321edd2f2d416629a0adac0b6bbdca1b0339174f7c8f1518b02c30060856a"
+      "sha256": "0ecf0dac8924b34063bcb909b86fec85c42ef4761a3705e28f084d21168f2164"
     },
     {
       "path": "docs/visual-revision.md",
@@ -235,7 +251,7 @@
     },
     {
       "path": "evidence/README.md",
-      "sha256": "204de2c89e2d044bc9a52c45b9e77961f71bf8608253401ff4e30b5ab4a6e412"
+      "sha256": "318fc7d2405cfee1fd4769c33257b04595f9a041eee481404b8ca8ae43ec3154"
     },
     {
       "path": "evidence/hopfield-summary.json",
@@ -287,7 +303,7 @@
     },
     {
       "path": "paper/exp008.tex",
-      "sha256": "92e5aff69a3ed20095718a98dd865806de93721d68033fd9d12c0858a97d0cdd"
+      "sha256": "da99a3ada4a2d3fb7f1767eb24919f4185ae6833e04f9936a15cf700a93ebf23"
     },
     {
       "path": "paper/figures/conceptual-provenance.json",
@@ -451,11 +467,11 @@
     },
     {
       "path": "paper/main.tex",
-      "sha256": "12a4bde521680a8b1b194c982616543d9997f951ff70be376903490af1491966"
+      "sha256": "50792f61385fd46b28a35180b05cd811c70683ab685c65e1e4f829016d8a6553"
     },
     {
       "path": "paper/neural-shrimp-working-draft.pdf",
-      "sha256": "325e1736880187eb996663aae4f17db32991ac208d717cad7f9355317f75c8cd"
+      "sha256": "76a6e687d90152e3b1b82b6670efcf7b922552ad99cc95baf4372260d7f3c249"
     },
     {
       "path": "paper/references.bib",
@@ -566,6 +582,10 @@
       "sha256": "f86b6996e4fde9f8f6afe55d23ae936f8e4cdf4c3fa150ea86d12b3f8053311d"
     },
     {
+      "path": "tests/test_information_platform.py",
+      "sha256": "3c570e4477f03dc1f671c559840c8adc57c48afc622b1966635e4e2c74ea429a"
+    },
+    {
       "path": "tests/test_information_presentation.py",
       "sha256": "210d827e5fbe8aa0edbfd1b4de286d66f8b9b21e1e0d747d18f13ffbd80a30c9"
     },
@@ -584,6 +604,10 @@
     {
       "path": "tools/audit_information_models.py",
       "sha256": "8b6bf64f6ea1702b9818bc6748ec1278c31d612d03531a8f3b4030aff0bdda06"
+    },
+    {
+      "path": "tools/audit_information_platform.py",
+      "sha256": "e2d7e054e7079d69a009212b3134e279f82527cc9da11b261f04fb3523c19383"
     },
     {
       "path": "tools/audit_preprint_identities.py",
@@ -714,5 +738,13 @@
     "EXP-005": "docs/EXP-005-verification-portability.md",
     "EXP-006": "docs/EXP-006-display-amendment.md",
     "EXP-007": "docs/EXP-007-display-amendment.md"
+  },
+  "platform_replay_status": {
+    "original_macos": "passed frozen verifier",
+    "linux_pr_run": 34803148459,
+    "linux_push_run": 34803133930,
+    "linux_frozen_gate": "failed; unchanged",
+    "linux_decision_portability": "not yet measured",
+    "status_document": "docs/EXP-008-platform-status.md"
   }
 }

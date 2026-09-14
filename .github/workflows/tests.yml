@@ -13,6 +13,15 @@ jobs:
       - run: pip install --require-hashes -r requirements.lock
       - run: pip install --no-deps -e .
       - run: pytest -q
+      - name: Diagnose EXP-008 platform replay without replacing its gate
+        if: always()
+        run: python tools/audit_information_platform.py evidence/EXP-008/attempt-001 --out /tmp/EXP-008-platform-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EXP-008-platform-audit
+          path: /tmp/EXP-008-platform-audit.json
+          if-no-files-found: error
       - run: python -m neural_shrimp.cli validate experiments/manifests/*.json
       - run: python tools/summarize_pilots.py
       - run: python tools/build_evidence_figures.py --check

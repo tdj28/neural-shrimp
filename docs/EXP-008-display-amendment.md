@@ -38,3 +38,10 @@ regression test. Frozen-source validation, source-only isolated CLI checks,
 all 7,008 target/3,456 preview replays, figure checks and manuscript-derived
 summary checks pass. GitHub CI at the final release commit is a separate merge
 gate. No paid review or compute was used.
+
+Subsequent Linux CI failed two unchanged replay checks; see
+[platform status](EXP-008-platform-status.md). The manuscript now records these
+failures and distinguishes local success from Linux failure. Pages 1, 27 and
+28 were rerendered and reinspected after that disclosure; exact PNG hashes
+confirmed the other 31 pages unchanged. The manuscript remains 34 pages with
+no LaTeX warnings. The original attempt and figure arrays are unchanged.

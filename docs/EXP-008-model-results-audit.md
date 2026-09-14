@@ -1,5 +1,15 @@
 # EXP008 independent model and outcome audit
 
+**Platform status update, 13 September 2026:** the results below were audited
+locally on macOS. Linux CI at release `1d12ebeda040` does not pass the frozen
+verifier. [PR-run log](EXP-008-linux-pr-failure.txt) records a baseline
+coefficient difference of 3.68269315e-8 at the unchanged 1e-7/1e-9 rule; the
+[push-run log](EXP-008-linux-push-failure.txt) records an earlier shared-feature
+difference of 1.39784018e-14 at the unchanged 1e-12/1e-14 rule. Each run stops
+at its first failure. Local replay and local SVD action agreement do not
+establish full Linux portability. The strict gate remains failed and private
+PR7 remains unmerged; a separate platform diagnostic does not replace it.
+
 Date: 2026-09-13 (local time). Source
 `3c5604497ec57b19d62fbb595da7b190102f4b33`; manifest SHA-256
 `fb0e546947e0f36b77ff4978f60769db3541fc64330022bd664da22c20c321cd`.

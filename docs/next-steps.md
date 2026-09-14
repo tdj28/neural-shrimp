@@ -2,6 +2,12 @@
 
 ## Current decision, 13 September 2026
 
+**Numerical portability is the immediate priority.** Release candidate
+`1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails both strict Linux release
+checks, so PR #7 remains unmerged and the work remains a private diagnostic
+draft. Local frozen replay passed; complete Linux reproduction and Linux
+decision portability have not been established.
+
 The map helps the frozen ridge model predict candidate error in the observed
 mean, but useful action control remains unestablished. EXP-008 lowers the
 secondary all-candidate prediction MSE by 17.17%, while its primary paired
@@ -18,7 +24,26 @@ those previews. This is a research proposal, not an executed or frozen experimen
 The [raw-data audit](EXP-008-results-audit.md) and
 [independent model audit](EXP-008-model-results-audit.md) explain why.
 
-### 1. Establish trustworthy labels and stable fitting first
+### 1. Resolve portability, then establish trustworthy labels and fitting
+
+Retain and diagnose both failed checks without changing frozen evidence or
+tolerances. Linux PR run 34803148459 fails baseline coefficient `[1]` at
+absolute difference 3.68269315e-8 under `rtol=1e-7, atol=1e-9`. Linux push run
+34803133930 stops earlier at shared feature `[34]`, difference 1.39784018e-14
+under `rtol=1e-12, atol=1e-14`. See the exact
+[PR log](EXP-008-linux-pr-failure.txt) and [push log](EXP-008-linux-push-failure.txt).
+The PR reaches fitting after its metric checks; the push does not finish the
+feature/waveform loop. Do not report all Linux checks complete or infer Linux
+action agreement from the local SVD audit.
+
+A separate diagnostic should continue collecting feature, coefficient,
+prediction and action discrepancies even when the strict verifier stops.
+Its report must distinguish measured agreement from unexecuted checks and keep
+every strict failure visible. Running that diagnostic after failures is not a
+replacement for the strict merge gate. Any portability amendment needs an
+explicit scientific justification and preserved original failures; retrying
+until a runner happens to pass is not evidence of stable reproduction. No
+four-preview target experiment should precede this portability assessment.
 
 All required EXP-008 records complete, but numerical completion is not uniform
 convergence. Across 3,504 coarse/fine pairs, the median absolute RMSE change is
@@ -31,7 +56,7 @@ Keep reference, phase and initial-state conventions explicit. Report this as
 a follow-up on known difficult cases, not an independent representative test,
 and preserve the original EXP-008 values and attempt unchanged.
 
-Independent weighted SVD also exceeds the unchanged coefficient tolerance
+Independent local weighted SVD also exceeds the unchanged coefficient tolerance
 for eight baseline and eight shuffled-model coefficients, despite matching
 all penalties and selected actions. Future fitting should use a prospectively
 specified stable QR/SVD implementation and a documented treatment of redundant

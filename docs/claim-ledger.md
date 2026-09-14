@@ -2,6 +2,18 @@
 
 Status: private exploratory program, updated 2026-09-13 through EXP-008. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
 
+**Current release qualification:** EXP-008 is a private working diagnostic
+draft, not a fully reproduced release. PR #7 remains unmerged. Local frozen
+verification passed, but release candidate
+`1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails Linux PR run 34803148459 at
+baseline coefficient `[1]` (absolute difference 3.68269315e-8; combined
+`rtol=1e-7, atol=1e-9`) and Linux push run 34803133930 earlier at shared feature
+`[34]` (1.39784018e-14; combined `rtol=1e-12, atol=1e-14`). See the
+[PR](EXP-008-linux-pr-failure.txt) and [push](EXP-008-linux-push-failure.txt)
+logs. The push does not complete feature/waveform replay; the PR reaches fit
+replay. Linux decision portability remains unmeasured. These statements do not
+erase the local measurements or convert partial Linux checks into a pass.
+
 | ID | Claim | Current status | What would warrant it | What does not warrant it |
 |---|---|---|---|---|
 | L1 | Neural systems can exhibit shrimp windows | Published precedent | da Silva and Rech (2022), cited in the literature file | Generalization to every neural architecture |
@@ -141,8 +153,9 @@ order. Read the [raw-data audit](EXP-008-results-audit.md),
 | I2 | Lower prediction MSE establishes better action selection | Not established: primary pooled benefit is 0.000857628, descriptive 95% interval [-0.007701467, 0.006545434], with eight positive blocks, three negative and one tie. Choosing the lowest-error action is different from predicting all candidate errors accurately. |
 | I3 | The geometry learner beats the direct forecast rule | Rejected in this sample: minimum-preview RMSE is 0.009958855 versus geometry 0.016966044, 41.30% lower. Preview-minus-geometry benefit is -0.007007189 [-0.014731835, -0.001611192]. All policies have the same eighteen actions and previews. This is a diagnostic fixed-sample comparison, not net speedup. |
 | I4 | Finite-action regret independently confirms task improvement | No: the common eighteen-action oracle cancels, so paired regret reduction equals paired selected-RMSE reduction. The oracle is neither a global optimum nor an independent endpoint. |
-| I5 | Every candidate label and coefficient is numerically converged | Not established: maximum coarse/fine candidate RMSE change is 0.476851 across 3,504 pairs. Independent SVD exceeds the unchanged coefficient tolerance for eight baseline and eight shuffled coefficients; geometry coefficients pass. All chosen penalties and actions agree, and selected-policy step differences are much smaller. The failures remain recorded. |
+| I5 | Every candidate label and coefficient is numerically converged | Not established: maximum coarse/fine candidate RMSE change is 0.476851 across 3,504 pairs. Independent local SVD exceeds the unchanged coefficient tolerance for eight baseline and eight shuffled coefficients; geometry coefficients pass. Chosen penalties and actions agree in that local audit, and selected-policy step differences are much smaller. The separate Linux failures remain unresolved. |
 | I6 | EXP-008 establishes shrimp-specific information, trained-model benefit or cheaper control | Not established. Geometry is a deterministic representation of coordinates and a previously observed atlas; the fixed ridge family, cloned states and simulator access limit the claim. No trained model or sequential controller was tested, and all eighteen previews were paid for. |
+| I7 | EXP-008 is fully reproduced on Linux and ready to merge | Not established: strict push and PR checks fail at different stages. PR #7 remains unmerged. Linux action portability is unmeasured; an always-run diagnostic will not substitute for or bypass the strict gate. |
 
 The first declared example remains `information-00`, phase 675, radius 0.016,
 fine step. Every policy selects candidate 4 and has RMSE 0.0229066824; curves
@@ -156,5 +169,6 @@ including 23.770 sensitivity seconds and 0.079 fit/seal seconds; the prior map
 costs 140.54 seconds separately. Paid compute and review remain zero. The
 next provisional question is whether geometry can select a useful four-action
 shortlist **before** paying for previews, against equal-budget controls and the
-full-eighteen reference. It requires numerical-label review and a new freeze;
+full-eighteen reference. It first requires Linux portability and numerical-label
+review, followed by a new freeze;
 it is not a successful result or an executed experiment.

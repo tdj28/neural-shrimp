@@ -1,5 +1,10 @@
 # Verification ledger
 
+**Current EXP-008 release status:** local verification passed, strict Linux
+push and PR verification failed, and PR #7 remains unmerged. This is a private
+working diagnostic draft, not a fully reproduced release. Historical checks
+below retain their original scope; see the dated Linux failure entry at the end.
+
 | Component | Verification at initial freeze | Limit |
 |---|---|---|
 | Neural gradient, Hessian, training map | Local analytic-control and independent finite-difference tests | Float64 CPU only |
@@ -190,7 +195,7 @@ partial-refresh identities; these do not reproduce the preprint numerics.
 - The complete source and plan were pushed at
   `3c5604497ec57b19d62fbb595da7b190102f4b33`, retained under
   `archive/EXP-008-source-v1`, before the exclusive attempt. The source-freeze
-  suite passed 249 tests. An isolated source-only CLI check used exactly the
+  local suite passed 249 tests. An isolated source-only CLI check used exactly the
   45-file bound source list, without host-checkout imports; see
   [preflight](EXP-008-preflight.md). Those are pre-execution checks, not a claim
   that a subsequent final release or CI job already passed.
@@ -198,22 +203,22 @@ partial-refresh identities; these do not reproduce the preprint numerics.
   728,224,123 bytes. All 186 old-input artifacts and 45 frozen source files
   match the manifest. All 24 baseline origins qualify, all 3,456 previews
   complete, and the exact 7,008-target census includes all 96 required shams.
-  The frozen verifier completed successfully. No failed condition, origin or
+  The frozen verifier completed successfully **locally**. No failed condition, origin or
   consumed attempt was replaced, reset or deleted.
-- Independent raw auditing reconstructs all 10,464 preview/target traces'
+- Independent local raw auditing reconstructs all 10,464 preview/target traces'
   inputs and 517,248 RMS values using a separate interpolation implementation.
   Maximum RMS discrepancy is 4.44e-16 under unchanged 1e-12/1e-14 tolerances.
   It independently checks all baseline and geometry feature rows, both shuffle
   matrices, local Gram matrices, sealed input/decision chronology, all policy
   choices, complete finite-action oracles and paired-block aggregation.
-- Independent weighted SVD verifies fold exclusion, training-only scaling,
+- Independent local weighted SVD verifies fold exclusion, training-only scaling,
   all 180 validation-loss entries and all chosen penalties. **A separate
   coefficient comparison fails and remains failed:** eight baseline and eight
   shuffled coefficients exceed rtol=1e-7/atol=1e-9; geometry coefficients pass.
   Maximum coefficient discrepancy is 7.52e-8. Ill-conditioned designs explain
   the sensitivity, but do not authorize a relaxed threshold. Maximum test
   prediction discrepancy is 1.46e-9, and none of the 288 learned action choices
-  changes. Frozen same-algorithm replay and independent coefficient agreement
+  changes in that local audit. Local frozen same-algorithm replay and independent coefficient agreement
   are distinct checks; the former does not convert the latter into a pass.
 - The secondary prediction-MSE mean improves by 17.17%; the primary action
   contrast is 0.000857628 [-0.007701467, 0.006545434], unresolved. Direct
@@ -229,7 +234,7 @@ partial-refresh identities; these do not reproduce the preprint numerics.
   arrays and complete input/output hash receipts. All three final figure PDFs
   were rendered with Poppler and visually inspected. The six-panel utility
   plate is landscape with standalone labels of at least 9.5 pt. Its full
-  hash/census/summary/array check passed; cross-platform image-byte equality is
+  local hash/census/summary/array check passed; cross-platform image-byte equality is
   not required. The frozen first example is retained: every policy selects
   candidate 4, and the waveform plate explicitly labels the coincident curves.
 - Collection and summary took 162.352 seconds, excluding final verification;
@@ -256,3 +261,29 @@ python tools/plot_hopfield_information.py evidence/EXP-008/attempt-001 \
 Use the locked project environment and keep new audit reports outside the
 immutable attempt. Read the retained failed SVD coefficient comparisons in
 the model report even when the reporting command completes successfully.
+
+## 2026-09-13 local / 14 September UTC: Linux release checks fail
+
+Release candidate `1d12ebeda0400c179e54dd36e647a835f7e0d91d` has two retained
+strict Linux failures. These are additional observations after the local
+checks above, not revisions to frozen experiment data or tolerances.
+
+| Linux run | Stopping point | Absolute discrepancy | Unchanged combined check |
+|---|---|---:|---|
+| PR 34803148459 | `development fit.models.baseline.coefficients[1]` | 3.68269315e-8 | rtol=1e-7, atol=1e-9 |
+| Push 34803133930 | Shared feature `[34]` | 1.39784018e-14 | rtol=1e-12, atol=1e-14 |
+
+The [PR log](EXP-008-linux-pr-failure.txt) reaches model-fit comparison after
+the raw metric loops. The [push log](EXP-008-linux-push-failure.txt) stops
+earlier in feature reconstruction and therefore does not establish completion
+of all its waveform/feature checks. Neither run reaches a complete Linux
+decision-portability result. The local SVD audit's unchanged actions are not
+a substitute for that unmeasured Linux comparison.
+
+PR #7 remains **unmerged**, and this remains a private working diagnostic
+draft. A separate diagnostic is being prepared to collect later discrepancies
+even when the strict verifier fails. Its eventual report must distinguish
+executed and unexecuted checks; it will not replace, relax or bypass the strict
+merge gate. Numerical portability takes priority over the proposed four-preview
+experiment. Original Linux logs, local results, thresholds and raw evidence
+remain preserved; no successful Linux reproduction is asserted here.
