@@ -1,0 +1,216 @@
+{
+  "scope": "Server migration and saved-evidence replay; no new target integrations",
+  "started_utc": "2026-09-14T06:10:54.363515+00:00",
+  "research_commit": "84db65338a055a855364098bb392d419e9053b19",
+  "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+  "machine": "x86_64",
+  "bootstrap_python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "project_root": "/data2/neural-shrimp",
+  "system_python_not_modified": true,
+  "thread_limits": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "commands": [
+    {
+      "name": "system-python",
+      "argv": [
+        "/usr/bin/python3",
+        "--version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0020785890010301955,
+      "stdout": "system-python.stdout.txt",
+      "stderr": "system-python.stderr.txt"
+    },
+    {
+      "name": "git-object-integrity",
+      "argv": [
+        "git",
+        "fsck",
+        "--full",
+        "--no-reflogs"
+      ],
+      "exit_code": 0,
+      "seconds": 8.887925142000313,
+      "stdout": "git-object-integrity.stdout.txt",
+      "stderr": "git-object-integrity.stderr.txt"
+    },
+    {
+      "name": "evidence-checksums",
+      "argv": [
+        "/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+        "-c",
+        "import hashlib, json\nfrom pathlib import Path\n\nroot = Path.cwd()\ndef check(path, expected):\n    actual = hashlib.sha256(path.read_bytes()).hexdigest()\n    if actual != expected:\n        raise SystemExit(f'SHA-256 mismatch: {path}')\n\nsnapshot = json.loads((root / 'docs/handoff/snapshot.json').read_text())\nfor entry in snapshot['critical_files']:\n    check(root / entry['path'], entry['sha256'])\nprovenance = json.loads((root / 'paper/provenance.json').read_text())\nfor entry in provenance['files']:\n    check(root / entry['path'], entry['sha256'])\nattempt = root / 'evidence/EXP-008/attempt-001'\nreceipt = json.loads((attempt / 'receipt.json').read_text())\nfor entry in receipt['artifacts']:\n    path = attempt / entry['path']\n    if path.stat().st_size != entry['bytes']:\n        raise SystemExit(f'Size mismatch: {path}')\n    check(path, entry['sha256'])\nskills = root.parent / 'agent-skill-documents'\nfor name, digest in snapshot['skills']['files'].items():\n    check(skills / name, digest)\nprint(f\"Verified {len(provenance['files'])} provenance entries, \"\n      f\"{len(receipt['artifacts'])} EXP-008 artifacts and canonical playbooks\")"
+      ],
+      "exit_code": 0,
+      "seconds": 1.2301390520005953,
+      "stdout": "evidence-checksums.stdout.txt",
+      "stderr": "evidence-checksums.stderr.txt"
+    },
+    {
+      "name": "create-venv",
+      "argv": [
+        "/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+        "-m",
+        "venv",
+        "/data2/neural-shrimp/.venv"
+      ],
+      "exit_code": 0,
+      "seconds": 1.8879574300008244,
+      "stdout": "create-venv.stdout.txt",
+      "stderr": "create-venv.stderr.txt"
+    },
+    {
+      "name": "locked-dependencies",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--require-hashes",
+        "-r",
+        "requirements.lock"
+      ],
+      "exit_code": 0,
+      "seconds": 10.32145909799874,
+      "stdout": "locked-dependencies.stdout.txt",
+      "stderr": "locked-dependencies.stderr.txt"
+    },
+    {
+      "name": "editable-project",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--no-deps",
+        "-e",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 2.825422689998959,
+      "stdout": "editable-project.stdout.txt",
+      "stderr": "editable-project.stderr.txt"
+    },
+    {
+      "name": "dependency-consistency",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.38247813999987557,
+      "stdout": "dependency-consistency.stdout.txt",
+      "stderr": "dependency-consistency.stderr.txt"
+    },
+    {
+      "name": "installed-packages",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "exit_code": 0,
+      "seconds": 0.372702199001651,
+      "stdout": "installed-packages.stdout.txt",
+      "stderr": "installed-packages.stderr.txt"
+    },
+    {
+      "name": "scientific-build-config",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-c",
+        "import sys,numpy,scipy; print(sys.version); print(\"numpy\",numpy.__version__); numpy.show_config(); print(\"scipy\",scipy.__version__); scipy.show_config()"
+      ],
+      "exit_code": 0,
+      "seconds": 0.14705788400169695,
+      "stdout": "scientific-build-config.stdout.txt",
+      "stderr": "scientific-build-config.stderr.txt"
+    },
+    {
+      "name": "unit-tests",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 16.709002122999664,
+      "stdout": "unit-tests.stdout.txt",
+      "stderr": "unit-tests.stderr.txt"
+    },
+    {
+      "name": "isolated-source-bundle",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "tools/check_information_bundle.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0726521220021823,
+      "stdout": "isolated-source-bundle.stdout.txt",
+      "stderr": "isolated-source-bundle.stderr.txt"
+    },
+    {
+      "name": "platform-diagnostic",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "tools/audit_information_platform.py",
+        "evidence/EXP-008/attempt-001",
+        "--out",
+        "/data2/neural-shrimp-migration-20260913/audit-001/platform.json"
+      ],
+      "exit_code": 0,
+      "seconds": 4.315216269002121,
+      "stdout": "platform-diagnostic.stdout.txt",
+      "stderr": "platform-diagnostic.stderr.txt"
+    },
+    {
+      "name": "frozen-verifier",
+      "argv": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "tools/run_hopfield_information.py",
+        "verify",
+        "--output",
+        "evidence/EXP-008/attempt-001"
+      ],
+      "exit_code": 1,
+      "seconds": 19.112744389,
+      "stdout": "frozen-verifier.stdout.txt",
+      "stderr": "frozen-verifier.stderr.txt"
+    },
+    {
+      "name": "evidence-checksums-after",
+      "argv": [
+        "/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+        "-c",
+        "import hashlib, json\nfrom pathlib import Path\n\nroot = Path.cwd()\ndef check(path, expected):\n    actual = hashlib.sha256(path.read_bytes()).hexdigest()\n    if actual != expected:\n        raise SystemExit(f'SHA-256 mismatch: {path}')\n\nsnapshot = json.loads((root / 'docs/handoff/snapshot.json').read_text())\nfor entry in snapshot['critical_files']:\n    check(root / entry['path'], entry['sha256'])\nprovenance = json.loads((root / 'paper/provenance.json').read_text())\nfor entry in provenance['files']:\n    check(root / entry['path'], entry['sha256'])\nattempt = root / 'evidence/EXP-008/attempt-001'\nreceipt = json.loads((attempt / 'receipt.json').read_text())\nfor entry in receipt['artifacts']:\n    path = attempt / entry['path']\n    if path.stat().st_size != entry['bytes']:\n        raise SystemExit(f'Size mismatch: {path}')\n    check(path, entry['sha256'])\nskills = root.parent / 'agent-skill-documents'\nfor name, digest in snapshot['skills']['files'].items():\n    check(skills / name, digest)\nprint(f\"Verified {len(provenance['files'])} provenance entries, \"\n      f\"{len(receipt['artifacts'])} EXP-008 artifacts and canonical playbooks\")"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6569207470020046,
+      "stdout": "evidence-checksums-after.stdout.txt",
+      "stderr": "evidence-checksums-after.stderr.txt"
+    },
+    {
+      "name": "tracked-status-after",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit_code": 0,
+      "seconds": 0.018148318002204178,
+      "stdout": "tracked-status-after.stdout.txt",
+      "stderr": "tracked-status-after.stderr.txt"
+    }
+  ],
+  "ended_utc": "2026-09-14T06:12:03.711213+00:00",
+  "complete": true,
+  "interpretation": "Completion of this migration audit is not a general numerical reproduction claim. Read each exit status and platform comparison, including retained failures."
+}
