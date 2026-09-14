@@ -5,8 +5,10 @@
 **Numerical portability is the immediate priority.** Release candidate
 `1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails both strict Linux release
 checks, so PR #7 remains unmerged and the work remains a private diagnostic
-draft. Local frozen replay passed; complete Linux reproduction and Linux
-decision portability have not been established.
+draft. Local frozen replay passed. Two later Linux diagnostics preserve all
+three penalties and 288 learned actions using saved-feature refits, but strict
+feature/coefficient failures persist. Complete Linux reproduction remains
+unresolved.
 
 The map helps the frozen ridge model predict candidate error in the observed
 mean, but useful action control remains unestablished. EXP-008 lowers the
@@ -33,17 +35,28 @@ absolute difference 3.68269315e-8 under `rtol=1e-7, atol=1e-9`. Linux push run
 under `rtol=1e-12, atol=1e-14`. See the exact
 [PR log](EXP-008-linux-pr-failure.txt) and [push log](EXP-008-linux-push-failure.txt).
 The PR reaches fitting after its metric checks; the push does not finish the
-feature/waveform loop. Do not report all Linux checks complete or infer Linux
-action agreement from the local SVD audit.
+feature/waveform loop. These original stopping points remain in the record.
 
-A separate diagnostic should continue collecting feature, coefficient,
-prediction and action discrepancies even when the strict verifier stops.
-Its report must distinguish measured agreement from unexecuted checks and keep
-every strict failure visible. Running that diagnostic after failures is not a
-replacement for the strict merge gate. Any portability amendment needs an
-explicit scientific justification and preserved original failures; retrying
-until a runner happens to pass is not evidence of stable reproduction. No
-four-preview target experiment should precede this portability assessment.
+The later [PR 34804593644](EXP-008-platform-linux-pr.json) and
+[push 34804589708](EXP-008-platform-linux-push.json) diagnostics at
+`bb4ecd25cf5c025064e7bd200b6acd898953d0e5` pass exact evidence bindings and
+preserve all three penalties and all 288 learned actions using **saved-feature
+refits**. Maximum prediction differences are 1.3874261184e-9 and
+1.9615957192e-9, versus minimum saved action-score gap 3.7010270022e-6;
+saved-model score replay passes `rtol=1e-12, atol=1e-14`. The PR retains two
+shared-feature failures and 8 baseline plus 9 shuffled coefficient failures;
+the push retains zero shared-feature failures and 10 plus 10 coefficient
+failures. Both geometry coefficient comparisons pass.
+
+Next diagnose the arithmetic differences and assess action consequences from
+completely regenerated inputs in an explicitly scoped numerical follow-up.
+The existing diagnostic uses saved features for its refits and saved preview
+metrics for feature reconstruction; it does not repeat waveform metric checks
+or integrate trajectories. Its bounded action agreement does not replace the
+strict merge gate. Any portability amendment needs scientific justification
+and preserved original failures; retrying until a worker happens to pass is
+not evidence of stable reproduction. Resolve this numerical scope before
+freezing any four-preview target experiment.
 
 All required EXP-008 records complete, but numerical completion is not uniform
 convergence. Across 3,504 coarse/fine pairs, the median absolute RMSE change is

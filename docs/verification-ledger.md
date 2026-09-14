@@ -3,7 +3,9 @@
 **Current EXP-008 release status:** local verification passed, strict Linux
 push and PR verification failed, and PR #7 remains unmerged. This is a private
 working diagnostic draft, not a fully reproduced release. Historical checks
-below retain their original scope; see the dated Linux failure entry at the end.
+below retain their original scope. Two later Linux saved-feature refits agree
+on all penalties and learned actions while retaining strict failures; see the
+dated failure and diagnostic entries at the end.
 
 | Component | Verification at initial freeze | Limit |
 |---|---|---|
@@ -276,14 +278,51 @@ checks above, not revisions to frozen experiment data or tolerances.
 The [PR log](EXP-008-linux-pr-failure.txt) reaches model-fit comparison after
 the raw metric loops. The [push log](EXP-008-linux-push-failure.txt) stops
 earlier in feature reconstruction and therefore does not establish completion
-of all its waveform/feature checks. Neither run reaches a complete Linux
-decision-portability result. The local SVD audit's unchanged actions are not
-a substitute for that unmeasured Linux comparison.
+of all its waveform/feature checks. At this first-failure stage neither run
+measured a complete Linux decision comparison; the later diagnostic below
+supplies a separate, bounded result. Original logs and stopping points remain
+preserved.
 
-PR #7 remains **unmerged**, and this remains a private working diagnostic
-draft. A separate diagnostic is being prepared to collect later discrepancies
-even when the strict verifier fails. Its eventual report must distinguish
-executed and unexecuted checks; it will not replace, relax or bypass the strict
-merge gate. Numerical portability takes priority over the proposed four-preview
-experiment. Original Linux logs, local results, thresholds and raw evidence
-remain preserved; no successful Linux reproduction is asserted here.
+## 2026-09-13 local / 14 September UTC: Linux saved-feature diagnostics complete
+
+At diagnostic commit `bb4ecd25cf5c025064e7bd200b6acd898953d0e5`,
+[PR run 34804593644](EXP-008-platform-linux-pr.json) and
+[push run 34804589708](EXP-008-platform-linux-push.json) both pass exact raw
+evidence bindings and enumerate 176,256 shared-feature values, 5,184 candidate
+predictions and 288 learned action decisions. Their
+[retrieval provenance](EXP-008-platform-linux-provenance.json) is retained.
+
+| Measured quantity | PR 34804593644 | Push 34804589708 |
+|---|---:|---:|
+| Shared-feature failures at unchanged tolerance | 2 | 0 |
+| Baseline coefficient failures | 8 | 10 |
+| Shuffled-geometry coefficient failures | 9 | 10 |
+| Geometry coefficient failures | 0 | 0 |
+| Changed selected penalties | 0 / 3 | 0 / 3 |
+| Changed learned actions in saved-feature refit | 0 / 288 | 0 / 288 |
+| Maximum prediction difference | 1.3874261184e-9 | 1.9615957192e-9 |
+| Saved-model score replay at rtol=1e-12, atol=1e-14 | Pass | Pass |
+
+The minimum saved best-to-second score gap is 3.7010270022e-6. Every
+condition's gap exceeds twice its observed maximum refitted-score discrepancy;
+action agreement is also checked exactly. No new score-difference tolerance
+is introduced. The PR shared-feature failures are `local_projected_rmse` for
+`development-10`, phase 675, radius 0.016, candidates 16 and 17.
+
+These refits use **saved feature rows**, including when independently
+reconstructed feature values fail tolerance. Feature reconstruction uses saved
+preview metrics and certificates; the diagnostic does not repeat waveform
+metric checks or integrations. It does not establish action agreement from
+a completely regenerated input pipeline. To reproduce this separate audit:
+
+```sh
+python tools/audit_information_platform.py evidence/EXP-008/attempt-001 \
+  --out /tmp/EXP-008-platform-audit.json
+```
+
+The strict frozen gate has **not passed**. This diagnostic runs after failures
+without replacing, relaxing or bypassing it. General portability remains
+unresolved, PR #7 remains **unmerged**, and the project remains a private
+working diagnostic draft. Numerical portability takes priority over the
+proposed four-preview experiment. Original Linux logs, local results,
+thresholds and raw evidence remain unchanged.

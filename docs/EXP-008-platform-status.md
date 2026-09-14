@@ -64,3 +64,43 @@ and no target trajectory is rerun. A later numerical-method change requires
 an explicit new prospective packet; reanalysis of these known cases is
 development evidence. The planned reduced-preview experiment must follow
 that numerical work. No paid review or RunPod resource is used.
+
+## Measured Linux decision consequences
+
+The later diagnostic at commit `bb4ecd25cf5c025064e7bd200b6acd898953d0e5`
+completed on two Linux workers. Full reports and retrieval bindings are in
+[the PR report](EXP-008-platform-linux-pr.json),
+[the push report](EXP-008-platform-linux-push.json), and
+[their provenance](EXP-008-platform-linux-provenance.json). Both report the
+expected diagnostic source hash and exact original evidence bindings.
+
+| Quantity | PR run 34804593644 | Push run 34804589708 |
+|---|---:|---:|
+| Shared-feature values compared | 176,256 | 176,256 |
+| Shared-feature tolerance failures | 2 | 0 |
+| Baseline coefficient tolerance failures | 8 | 10 |
+| Mismatched-geometry coefficient failures | 9 | 10 |
+| Geometry coefficient failures | 0 | 0 |
+| Changed selected penalties | 0 / 3 | 0 / 3 |
+| Changed learned actions, saved-feature refit | 0 / 288 | 0 / 288 |
+| Maximum refitted-score difference | 1.3874261184e-9 | 1.9615957192e-9 |
+| Saved-model score replay | Pass at unchanged rule | Pass at unchanged rule |
+
+Both enumerate all 5,184 candidate scores. The minimum best-to-second saved
+score gap is 3.7010270022e-6, and every condition's gap exceeds twice its
+largest observed refitted-score discrepancy. Thus the recorded action lookup
+and corresponding saved-trajectory outcome are unchanged in these two
+diagnostics. No new numeric pass threshold is assigned to the refitted-score
+differences; exact selected-action agreement is checked separately.
+
+The two feature failures occur at development-10, phase 675, radius 0.016,
+candidate entries 16 and 17, column `local_projected_rmse`. The other worker's
+feature arithmetic stays inside the original bound. Worker-dependent failure
+counts are retained rather than choosing whichever platform passes more checks.
+
+This is bounded agreement on saved inputs, not full Linux pipeline validation.
+Preview metrics and certificates are saved inputs; refitting uses saved feature
+rows, even when their independent reconstruction differs. The required frozen
+verifier remains unchanged and is not replaced by this diagnostic's exit code.
+General cross-platform reproducibility remains unresolved, and PR7 remains a
+private, unmerged diagnostic draft.

@@ -9,8 +9,22 @@ shared feature `[34]` (1.39784018e-14 at `rtol=1e-12, atol=1e-14`). Exact
 [PR](../docs/EXP-008-linux-pr-failure.txt) and
 [push](../docs/EXP-008-linux-push-failure.txt) logs remain evidence. The PR
 reaches fitting after metric checks; the push does not complete the
-feature/waveform loop. Linux decision portability is unmeasured. A diagnostic
-that runs after failures does not replace or bypass the strict gate.
+feature/waveform loop.
+
+Later [PR 34804593644](../docs/EXP-008-platform-linux-pr.json) and
+[push 34804589708](../docs/EXP-008-platform-linux-push.json) diagnostics at
+`bb4ecd25cf5c025064e7bd200b6acd898953d0e5` pass exact raw bindings and preserve
+all three penalties and all 288 learned actions using **saved-feature refits**.
+Maximum prediction differences are 1.3874261184e-9 and 1.9615957192e-9,
+versus minimum saved action-score gap 3.7010270022e-6. Saved-model score replay
+passes `rtol=1e-12, atol=1e-14`. The PR retains two shared-feature failures
+and 8 baseline plus 9 shuffled coefficient failures; the push retains zero
+shared-feature failures and 10 plus 10 coefficient failures. Geometry
+coefficients pass in both. See the [platform status](../docs/EXP-008-platform-status.md)
+for scope and retained report bindings. These diagnostics do not repeat
+waveform metric checks, refit on completely regenerated inputs or integrate
+trajectories. General portability remains unresolved; the strict gate has
+not passed and is not replaced or bypassed by diagnostic completion.
 
 `EXP-008/attempt-001` retains **10,650 receipt-listed artifacts plus the
 receipt**, totaling 728,224,123 artifact bytes. Source

@@ -45,3 +45,10 @@ failures and distinguishes local success from Linux failure. Pages 1, 27 and
 28 were rerendered and reinspected after that disclosure; exact PNG hashes
 confirmed the other 31 pages unchanged. The manuscript remains 34 pages with
 no LaTeX warnings. The original attempt and figure arrays are unchanged.
+
+After both Linux diagnostic reports were available, pages 1 and 28 were
+updated to report unchanged saved-feature intervention choices alongside
+the retained failures. Both pages were visually reinspected; exact rendered
+PNG hashes confirm the other 32 pages unchanged from the preceding version.
+The complete local suite now passes 261 tests, including eleven platform-audit
+tests. This local test count does not imply that the Linux frozen replay passes.

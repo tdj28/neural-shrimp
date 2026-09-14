@@ -11,8 +11,14 @@ baseline coefficient `[1]` (absolute difference 3.68269315e-8; combined
 `[34]` (1.39784018e-14; combined `rtol=1e-12, atol=1e-14`). See the
 [PR](EXP-008-linux-pr-failure.txt) and [push](EXP-008-linux-push-failure.txt)
 logs. The push does not complete feature/waveform replay; the PR reaches fit
-replay. Linux decision portability remains unmeasured. These statements do not
-erase the local measurements or convert partial Linux checks into a pass.
+replay. Later [PR](EXP-008-platform-linux-pr.json) and
+[push](EXP-008-platform-linux-push.json) diagnostics at
+`bb4ecd25cf5c025064e7bd200b6acd898953d0e5` pass exact evidence bindings and
+preserve all three penalties and all 288 learned actions in **saved-feature
+refits**. Shared-feature failures remain 2/0 and baseline-plus-shuffled
+coefficient failures 8+9/10+10 (PR/push); geometry coefficients pass in both.
+This is bounded agreement, not complete regenerated-input or integration
+reproduction. The strict gate has not passed; original failures remain evidence.
 
 | ID | Claim | Current status | What would warrant it | What does not warrant it |
 |---|---|---|---|---|
@@ -155,7 +161,8 @@ order. Read the [raw-data audit](EXP-008-results-audit.md),
 | I4 | Finite-action regret independently confirms task improvement | No: the common eighteen-action oracle cancels, so paired regret reduction equals paired selected-RMSE reduction. The oracle is neither a global optimum nor an independent endpoint. |
 | I5 | Every candidate label and coefficient is numerically converged | Not established: maximum coarse/fine candidate RMSE change is 0.476851 across 3,504 pairs. Independent local SVD exceeds the unchanged coefficient tolerance for eight baseline and eight shuffled coefficients; geometry coefficients pass. Chosen penalties and actions agree in that local audit, and selected-policy step differences are much smaller. The separate Linux failures remain unresolved. |
 | I6 | EXP-008 establishes shrimp-specific information, trained-model benefit or cheaper control | Not established. Geometry is a deterministic representation of coordinates and a previously observed atlas; the fixed ridge family, cloned states and simulator access limit the claim. No trained model or sequential controller was tested, and all eighteen previews were paid for. |
-| I7 | EXP-008 is fully reproduced on Linux and ready to merge | Not established: strict push and PR checks fail at different stages. PR #7 remains unmerged. Linux action portability is unmeasured; an always-run diagnostic will not substitute for or bypass the strict gate. |
+| I7 | EXP-008 is fully reproduced on Linux and ready to merge | Not established: strict checks fail and PR #7 remains unmerged. Two later Linux diagnostics preserve all three penalties and 288 learned actions using saved-feature refits, while retaining feature/coefficient failures. Their completion does not replace the strict gate or establish general portability. |
+| I8 | Learned action choices survive the two measured Linux saved-feature refits | Supported within this scope: PR 34804593644 and push 34804589708 have maximum prediction differences 1.3874261184e-9 and 1.9615957192e-9, against minimum saved action-score gap 3.7010270022e-6. Saved-model score replay passes rtol=1e-12, atol=1e-14. No completely regenerated-input fit, waveform-metric replay or integration is performed by this diagnostic. |
 
 The first declared example remains `information-00`, phase 675, radius 0.016,
 fine step. Every policy selects candidate 4 and has RMSE 0.0229066824; curves

@@ -7,9 +7,11 @@ whether geometric information can improve model control.
 [PR #7](https://github.com/tdj28/neural-shrimp/pull/7) remains **unmerged**.
 Release candidate `1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails strict
 Linux verification in both the push and PR workflows. Local replay passed;
-complete cross-platform reproduction and Linux decision portability are not
-established. The numerical-portability failures below take priority over a
-new preview-budget experiment.
+two later Linux diagnostics preserve all three penalties and all 288 learned
+actions when refitting on **saved features**. Complete cross-platform
+reproduction remains unresolved and the strict gate has not passed. The
+numerical-portability failures below take priority over a new preview-budget
+experiment.
 
 **EXP-004 numerically reproduces an actual shrimp-shaped window in a
 three-neuron recurrent neural network.** This is the fixed-weight tanh system
@@ -183,11 +185,24 @@ with absolute difference **3.68269315e-8**, beyond the combined
 `rtol=1e-7, atol=1e-9` check. Push run **34803133930** stops earlier at shared
 feature `[34]`, with absolute difference **1.39784018e-14**, beyond its combined
 `rtol=1e-12, atol=1e-14` check. The PR run reaches fitting after its waveform
-checks; the push run does not finish the feature/waveform loop. **Linux decision
-portability remains unmeasured**, rather than inferred from local agreement.
+checks; the push run does not finish the feature/waveform loop.
 Exact [PR failure](docs/EXP-008-linux-pr-failure.txt) and
-[push failure](docs/EXP-008-linux-push-failure.txt) logs are retained. A separate
-diagnostic that runs after failures will not replace or bypass the strict gate.
+[push failure](docs/EXP-008-linux-push-failure.txt) logs are retained.
+
+Later Linux diagnostics at `bb4ecd25cf5c025064e7bd200b6acd898953d0e5`
+([PR 34804593644](docs/EXP-008-platform-linux-pr.json),
+[push 34804589708](docs/EXP-008-platform-linux-push.json)) pass exact evidence
+bindings and preserve **all three penalties and all 288 learned actions using
+saved-feature refits**. Maximum prediction differences are 1.3874261184e-9
+and 1.9615957192e-9, below the minimum saved action-score gap of
+3.7010270022e-6. Saved-model score replay passes `rtol=1e-12, atol=1e-14`.
+The PR diagnostic retains two shared-feature failures and 8 baseline plus 9
+shuffled coefficient failures; the push retains zero shared-feature failures
+and 10 plus 10 coefficient failures. Geometry coefficients pass in both.
+This bounded agreement does not cover a refit from completely regenerated
+inputs or new integrations. The diagnostic does not repeat waveform metric
+checks, replace the strict gate or establish general portability; see the
+[platform status](docs/EXP-008-platform-status.md).
 
 The three new plates show [all origins, blocks and feature coverage](paper/figures/neuralshrimp-information-map.png),
 [all policies, paired effects, regret and development tuning](paper/figures/neuralshrimp-information-utility.png),

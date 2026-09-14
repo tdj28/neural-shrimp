@@ -10,6 +10,12 @@ at its first failure. Local replay and local SVD action agreement do not
 establish full Linux portability. The strict gate remains failed and private
 PR7 remains unmerged; a separate platform diagnostic does not replace it.
 
+A subsequent two-worker Linux diagnostic preserves all three penalties and all
+288 learned actions after refitting on saved features; maximum prediction
+differences are 1.39e-9 and 1.96e-9. Feature/coefficient failures persist. This
+is saved-input decision agreement, not a full regenerated-pipeline pass; see
+[the platform results and complete reports](EXP-008-platform-status.md).
+
 Independent post-run review, 2026-09-13. Scope: the new paper-summary
 generator, the three new figure families and their provenance checks, and
 the EXP-008 additions to CI. This review performs no neural integration,
