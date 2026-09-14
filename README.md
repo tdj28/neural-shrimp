@@ -13,6 +13,33 @@ reproduction remains unresolved and the strict gate has not passed. The
 numerical-portability failures below take priority over a new preview-budget
 experiment.
 
+**Server follow-up, 14 September 2026:** the new saved-trajectory regeneration
+audit rebuilds all 3,456 previews and 7,008 targets, then refits on regenerated
+inputs. All 288 learned actions, 96 minimum-preview actions and three selected
+penalties remain unchanged; all regenerated aggregate waveform scores are
+identical to their saved values. Nineteen eigenvalue/coefficient comparison
+failures remain. This closes the previous saved-feature-only scope gap without
+making the original strict gate pass.
+
+The separately frozen **EXP-009** completes all 2,776 finer/independent
+integrations and passes saved-array verification. All 220 distinct actions
+chosen by the original policies satisfy its numerical-stability rule; the
+baseline-minus-geometry mean becomes 0.000857638, essentially unchanged.
+However, 952 of the 1,012 deliberately selected sensitive candidates still
+change in RMSE by more than 1e-4 between the two finer native steps, and only
+13/19 independent-panel cases meet the declared RMSE-agreement rule; only
+12/19 also meet all independent waveform-agreement rules. The selected
+control results are robust in this follow-up; many unselected
+training labels remain numerically unresolved. This is an outcome-selected
+numerical study, not fresh utility confirmation.
+
+Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
+[regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
+[EXP-009 results](docs/EXP-009-results-audit.md), and
+[updated next steps](docs/next-steps.md). New bulky raw outputs live in
+`../neural-shrimp-data/`; code, protocols and compact hash-bound summaries
+remain in this private repository. See [Skills.md](Skills.md).
+
 **EXP-004 numerically reproduces an actual shrimp-shaped window in a
 three-neuron recurrent neural network.** This is the fixed-weight tanh system
 reported by da Silva and Rech (2022), not a newly trained modern network. The
@@ -214,14 +241,18 @@ more favorable illustration is substituted. Read the
 [generated summary](evidence/information-paper-summary.json), and
 [receipt](evidence/EXP-008/attempt-001/receipt.json).
 
-The practical next question is **whether geometry can reduce the number of
-previews needed for an acceptable waveform**, rather than improve a learner
-after all 18 previews have already been paid for. The proposed next test uses
-a provisional budget of four previews, with shortlists chosen before those
-previews, equal-budget controls and the full-18 reference. Numerical portability
-and label auditing come first. This is a proposal, not a frozen or executed experiment;
-see [next steps](docs/next-steps.md). No trained-model benefit, topology-specific
-mechanism, net speedup or paid-resource need follows from EXP-008.
+The practical next question is **whether geometry can reduce preview
+acquisition**. The immediate step qualifies all original 75-unit preview
+labels, including rankings and selection margins. If those labels qualify,
+the proposed development study tests a budget of four previews, with
+shortlists chosen before those previews, equal-budget controls and the full-18
+reference. Short-preview error and acceptable 300-unit waveform preservation
+remain separate endpoints; success at the first cannot establish the second.
+The shortlist study is a proposal, not a frozen or executed experiment; see
+[next steps](docs/next-steps.md) and the
+[feasibility design](docs/shortlist-feasibility-design.md). No trained-model
+benefit, topology-specific mechanism, net speedup or paid-resource need follows
+from EXP-008.
 
 The [new unreviewed dynamical-memory preprint](https://arxiv.org/abs/2609.07341v1)
 is documented in a [critical reading note](docs/literature/2026-09-11-aguilera-demartino.md).

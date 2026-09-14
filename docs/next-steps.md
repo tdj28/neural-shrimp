@@ -1,6 +1,68 @@
 # Next steps after EXP-008
 
-## Current decision, 13 September 2026
+## Current decision, 14 September 2026: qualify shortlist labels
+
+The server follow-up separates three issues that previously shared the label
+"numerical portability". The original strict gate remains failed and unchanged.
+
+1. **Arithmetic diagnosis is complete.** Direct residual-norm evaluation
+   greatly reduces cancellation error in the two known directional-feature
+   failures. QR/SVD comparisons isolate the conditioned ridge objective,
+   preserve all selected penalties, and still retain old coefficient-tolerance
+   failures. Future feature/fit arithmetic should be specified prospectively;
+   it must not be retrofitted into EXP-008 as a new success.
+2. **Complete saved-trajectory regeneration is complete.** All 48 contexts,
+   3,456 previews and 7,008 targets are rebuilt. Aggregate waveform scores,
+   three selected penalties, 288 learned actions and 96 minimum-preview
+   actions agree with the saved record. Nineteen eigenvalue/coefficient
+   comparisons fail and are retained. This is stronger than the old
+   saved-feature refits, but it does not integrate new sensitivities or
+   certify general platform invariance.
+3. **EXP-009 finer integration is complete.** All 2,776 planned traces and
+   their saved-array verification complete. All 220 original selected actions
+   meet the declared native RMSE-stability rule, and the primary fixed-action
+   contrast barely changes. Conversely, 952 known-sensitive candidates still
+   differ by more than 1e-4 at the two finer steps; 13/19 independent-panel
+   cases agree in RMSE, and 12/19 meet all waveform-agreement rules. The
+   original full-candidate labels cannot be treated as
+   uniformly precise learning targets.
+
+See the [arithmetic audit](EXP-008-arithmetic-results-audit.md),
+[regeneration audit](EXP-008-regeneration-results-audit.md), and
+[EXP-009 audit](EXP-009-results-audit.md) for exact scopes and receipts.
+
+The next bounded investigation is **short-preview label qualification**.
+Before a new held-out four-preview claim, check whether the 0--75 preview
+scores used to choose actions are stable under smaller integration steps and
+an independently selected solver panel. Unlike the long-horizon targets,
+these scores directly define the minimum-preview decision rule. All old
+preview cases should be retained; selection of an independent panel must use
+only old observations and be frozen before its new integrations.
+
+If those labels qualify, use old EXP-007/008 material only for development of
+a pre-preview shortlist. Compare identical shared pre-preview inputs with and
+without geometry; consider predicting short-preview quality rather than
+unstable 300-unit candidate labels. Select four candidates before evaluating
+any of their previews, then apply the same minimum-preview winner rule.
+Strong four-axis/local-coverage controls, the full-eighteen reference, explicit
+quality/cost criteria and fresh evaluation cases remain required. Any altered
+learning target or arithmetic is a dated new design, not the original
+EXP-008 method. Do not drop numerically difficult evaluation cases or choose
+the most favorable solver after observing their results.
+
+The [shortlist feasibility design](shortlist-feasibility-design.md) specifies
+the bounded retrospective development step if preview labels qualify. Treat
+the 24 EXP-008 physical origins as development evidence, group validation by
+origin, and audit feature access before fitting. EXP-007 reuses the twelve
+original development origins; it supplies no additional independent origins.
+
+The local server has ample capacity for the next bounded CPU qualification;
+GPU porting or paid compute is not required by the measured work. Preserve
+regular private code pushes and put new raw data outside Git as specified in
+[Skills.md](../Skills.md). The review PR remains an operational requirement;
+SSH pushes work, while GitHub API authentication is pending in this session.
+
+## Previous decision, 13 September 2026
 
 **Numerical portability is the immediate priority.** Release candidate
 `1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails both strict Linux release

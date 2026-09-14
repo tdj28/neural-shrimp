@@ -326,3 +326,18 @@ unresolved, PR #7 remains **unmerged**, and the project remains a private
 working diagnostic draft. Numerical portability takes priority over the
 proposed four-preview experiment. Original Linux logs, local results,
 thresholds and raw evidence remain unchanged.
+
+## 2026-09-14: executed server numerical follow-up
+
+| Capability | Verification and scope |
+|---|---|
+| Shared-server policy and private checkpoints | Hardware queried live; external data root created; private SSH pushes verified by remote SHA. GitHub API authentication for the review PR is still pending. |
+| Arithmetic diagnostic | Pushed source `b3cf51bb88df75eccec4b19e0f7a15976b3a9b21`; complete saved-input diagnostic, all 3,456 directions and 195 ridge objectives. Full output remains external. No original failure threshold changed. |
+| Saved-trajectory regeneration | Pushed source `d276782c229aa33e2819ec89f15df4e23c7f7834`; all 48 contexts/3,456 previews/7,008 targets completed, exact before/after evidence bindings passed. Exit 1 intentionally retains 19 comparison failures; all choices and aggregate scores agree. |
+| EXP-009 | Same pushed source; all 2,776 planned integrations complete; built-in saved-array/complete-score verification passed. Raw data and original inputs remain hash-bound. This verifies execution, not universal numerical convergence. |
+| Combined code | 325 tests passed in 21.97 seconds before the integrated freeze; independent local review findings were fixed before outcomes. |
+
+Reports: [arithmetic](EXP-008-arithmetic-results-audit.md),
+[regeneration](EXP-008-regeneration-results-audit.md),
+[EXP-009](EXP-009-results-audit.md). The original EXP-008 strict verifier
+remains unchanged and failed; these separate checks do not replace it.

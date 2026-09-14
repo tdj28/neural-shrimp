@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-13 through EXP-008. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
+Status: private exploratory program, updated 2026-09-14 through EXP-009 and the saved-input audits. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
 
 **Current release qualification:** EXP-008 is a private working diagnostic
 draft, not a fully reproduced release. PR #7 remains unmerged. Local frozen
@@ -179,3 +179,28 @@ shortlist **before** paying for previews, against equal-budget controls and the
 full-eighteen reference. It first requires Linux portability and numerical-label
 review, followed by a new freeze;
 it is not a successful result or an executed experiment.
+
+## 2026-09-14 server numerical follow-up
+
+Arithmetic method/source was pushed at
+`b3cf51bb88df75eccec4b19e0f7a15976b3a9b21`; the regeneration audit and
+EXP-009 executable plan were pushed at
+`d276782c229aa33e2819ec89f15df4e23c7f7834` before their outcomes. These are
+post-run numerical studies of previously observed cases. Original data,
+model choices, thresholds and failed comparisons remain unchanged.
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| N1 | Directional cancellation contributes to the two known feature failures | Supported on saved sensitivity tensors: direct residual-norm evaluation is much closer to wider-precision and Decimal checks at the failed cases. This diagnoses arithmetic on saved inputs, not integration error or universal superiority of one solver. |
+| N2 | Original choices survive a complete saved-trajectory input regeneration | Supported on this server: all 48 contexts, 3,456 previews and 7,008 targets regenerate; all aggregate waveform scores, three penalties, 288 learned actions and 96 preview actions remain unchanged. Nineteen eigenvalue/coefficient checks fail. New ODE/sensitivity integration and the original strict gate are separate. |
+| N3 | Selected-policy task results are stable under finer target integration | Supported for the original 220 unique selected actions in EXP-009: all meet its predeclared native RMSE-stability rule. Largest new-step difference is 3.822096e-6; largest old-fine-to-finest change is 6.521438e-5. The mean baseline-minus-geometry contrast is 0.000857638205. This is post-run numerical sensitivity, not new held-out utility evidence. |
+| N4 | Finer integration resolves all candidate labels | Rejected at the tested resolutions: 952/1,012 prior-selected sensitive cases still exceed 1e-4 native RMSE disagreement; one more fails the nonincreasing-difference criterion. Across the full selected cohort 416/1,369 pass both native RMSE criteria and 953 remain unresolved. Independent-panel RMSE agreement holds for 13/19 cases; 12/19 pass all waveform comparisons. This selected sample cannot estimate a population failure rate. |
+| N5 | The numerical follow-up establishes a practical geometry advantage | Not established. Original control choices and their small unresolved contrast persist. Prediction across all candidates requires explicit treatment of label uncertainty; net preview savings still need their own frozen comparison. |
+
+Full new raw reports and traces are under `/data2/neural-shrimp-data/`, with
+compact hash-bound summaries in the repository. See the
+[arithmetic](EXP-008-arithmetic-results-audit.md),
+[regeneration](EXP-008-regeneration-results-audit.md), and
+[refinement](EXP-009-results-audit.md) audits. All 2,776 EXP-009 traces complete;
+no failed attempt was overwritten, paid resource launched or public release
+made.
