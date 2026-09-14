@@ -9,6 +9,16 @@ available: `EXPERIMENT_INTEGRITY_SKILLS.md`, `GPU_COMPUTE_SKILLS.md`,
 `GIT_WORKFLOW_SKILLS.md`, and the applicable parts of `RESEARCH_NOTE_WRITEUP.md`.
 This repository records their hashes in `docs/skill-provenance.json`.
 
+Read [Skills.md](Skills.md) for the current server and shared-resource policy.
+The user authorizes local CPU, RAM and GPU use on `zeta`; prefer suitable
+local resources and check availability without disturbing other agents.
+RunPod remains an acceptable fallback when local capacity is insufficient or
+the GPU is busy, subject to the paid-run requirements below. This local
+amendment supersedes older weak-computer assumptions in the playbooks.
+Checkpoint and push code regularly as specified in Skills.md. Keep new bulky
+raw data under `../neural-shrimp-data/`, with compact hash-bound receipts in
+Git; preserve existing frozen evidence and history.
+
 - Initial experiments are exploratory pilots, never formal preregistrations.
 - Commit and push complete plans and executable code before target outcomes.
 - Preserve every failed or incomplete attempt, immutable raw evidence, exact
