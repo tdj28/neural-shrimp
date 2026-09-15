@@ -1,0 +1,1271 @@
+{
+  "experiment_id": "EXP-011",
+  "date_local": "2026-09-14",
+  "status": "Completed and numerically qualified retrospective feasibility; geometric utility remains unconfirmed",
+  "scope": "All origins are retrospective development. This is 75-unit shortlist feasibility; no held-out confirmation, 300-unit utility, verified geometry advantage or net speedup is established by this study.",
+  "source_commit": "64712453153ade24d2b22cf811f7a83811304de4",
+  "pushed_branch": "codex/server-numerical-followup",
+  "execution": {
+    "started_at": "2026-09-15T01:26:07.831223+00:00",
+    "ended_at": "2026-09-15T01:28:01.916002+00:00",
+    "remote_head_verified_at": "2026-09-15T01:26:07.807032+00:00",
+    "executable": "/data2/neural-shrimp/.venv/bin/python3",
+    "argv": [
+      "tools/run_preview_shortlist.py",
+      "run",
+      "--data-root",
+      "/data2/neural-shrimp-data/raw",
+      "--attempt",
+      "attempt-001"
+    ],
+    "workers": 4,
+    "numerical_threads": 1,
+    "paid_compute": false,
+    "paid_review": false
+  },
+  "raw_directory": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001",
+  "raw_artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/receipt.json",
+      "bytes": 63037,
+      "sha256": "cdfcdeaab031e708624aafcdb0cfa3191b84bed73b644ad7726870dde165da35"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/manifest.json",
+      "bytes": 4598731,
+      "sha256": "a32c5283a2674ddaec01ba4cb508cf473f0be95f5b1724fa4ef7468a3c9b3f08"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/summary.json",
+      "bytes": 5357482,
+      "sha256": "9e010f9561ddd737e74f5cf7f965cefe1f6041cb8ef0e54fad546b0e74bd8776"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/terminal-records.json",
+      "bytes": 57074,
+      "sha256": "26e0bc8c6c0c4da1acf0d8726d25e03f8ca072361cc94b7fe53c96e73ea244f7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/model-replay.json",
+      "bytes": 64,
+      "sha256": "22baadc1653b8e196db44c52dd91ce1be57872e8822770b6197b1ef87e62f5c1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/timings.json",
+      "bytes": 2012,
+      "sha256": "86e923de0133fdffe85b18a8a4e00e3028d41d81218980d47cb7a5bc520c5a51"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/feature-identity.json",
+      "bytes": 1218908,
+      "sha256": "3dcbbc58145bde0c156a0f4329620a55ee1467870c55d9bcf19c2346dfcef6d4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-011/attempt-001/feature-arrays.npz",
+      "bytes": 134889,
+      "sha256": "890638c8349de59e45121d38a73969a9e1e49c452a66bbc4746ea737f85dde5e"
+    }
+  ],
+  "receipt_inventory": {
+    "files_excluding_receipt": 346,
+    "bytes_excluding_receipt": 94844269,
+    "files_including_receipt": 347,
+    "bytes_including_receipt": 94907306
+  },
+  "input_bindings": {
+    "source_dependencies": 21,
+    "feature_input_files": 281,
+    "qualification_certificate_input_files": 1,
+    "external_qualification_artifact_and_audit_files": 6,
+    "qualified_label_records": 6944,
+    "qualified_label_source_commit": "98632899646f3eefa292b8a9f4c1b5123ae37ba0",
+    "qualification_certificate": {
+      "path": "docs/EXP-010-qualification.json",
+      "sha256": "6f414b0034b967a24682f8c3068f8c0c68c5d2dd52fcbb91a93814fab28e57b1",
+      "bytes": 2117
+    }
+  },
+  "denominators": {
+    "origins": 24,
+    "contexts": 192,
+    "rows": 3456,
+    "recipes": 96,
+    "independent_cases": 16,
+    "outer_folds": 24,
+    "inner_folds_per_outer": 23,
+    "inner_grids": 2208,
+    "final_grids": 96,
+    "contexts_per_origin": 8,
+    "entries_per_context": 18,
+    "roles": "All original roles are now development; EXP-007 aliases add zero physical origins"
+  },
+  "completion": {
+    "receipt_status": "complete",
+    "status_counts": {
+      "complete": 24
+    },
+    "all_required_fits_complete": true,
+    "all_required_numerical_agreement": true,
+    "builtin_model_replay": {
+      "replayed_recipes": 96,
+      "expected_complete_recipes": 96
+    },
+    "failed_folds": 0,
+    "omitted_folds": 0,
+    "failed_required_numerical_gates": 0
+  },
+  "audits": {
+    "this_compact_audit": {
+      "status": "passed",
+      "scope": "All 346 receipt artifact byte/hash bindings and fixed output census; extraction of saved scalar/model diagnostics. No new fit or integration."
+    },
+    "independent_raw_seal_and_replay_audit": {
+      "status": "passed",
+      "checks": 76598,
+      "failures": 0,
+      "elapsed_seconds": 5.9616122510051355,
+      "report": {
+        "filename": "EXP-011-independent-evidence-audit.json",
+        "sha256": "782326c1787535b333298f3b3171099eef60a57056cc93f4ee91c9eeedc91150",
+        "bytes": 16203,
+        "path": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit/EXP-011-independent-evidence-audit.json"
+      },
+      "script": {
+        "filename": "exp011_independent_evidence_audit.py",
+        "sha256": "5f1ae5f73684f5e112bad4143f5181aa67711659e0b1b07f240e3714ee6a95bc",
+        "bytes": 27656,
+        "external_path": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit/exp011_independent_evidence_audit.py",
+        "repository_path": "tools/postrun_audits/exp011_independent_evidence_audit.py"
+      },
+      "counts": {
+        "receipt_artifacts": 346,
+        "receipt_artifact_bytes": 94844269,
+        "source_files": 21,
+        "feature_input_files": 281,
+        "external_evidence_files": 6,
+        "label_records": 6944,
+        "label_case_rows": 3456,
+        "training_label_values": 158976,
+        "training_access_events": 48,
+        "inner_validation_mse_replay_values": 22080,
+        "inner_prediction_values": 3179520,
+        "inner_score_delta_replay_values": 2208,
+        "inner_folds": 2208,
+        "mean_validation_mse_replay_values": 960,
+        "held_prediction_replay_values": 27648,
+        "solver_context_rankings": 1536,
+        "model_packets": 96,
+        "policy_context_scores": 1920,
+        "reveal_access_events": 320,
+        "selected_label_reveal_events": 240,
+        "oracle_label_reveal_events": 48,
+        "independent_label_reveal_events": 32,
+        "folds": 24
+      },
+      "maxima": {
+        "inner_validation_mse_replay": 3.0878077872387166e-16,
+        "inner_score_delta_replay": 1.27675647831893e-14,
+        "mean_validation_mse_replay": 3.469446951953614e-17,
+        "held_prediction_replay": 8.992806499463768e-15
+      },
+      "all_prediction_seals_before_any_reveal": {
+        "passed": true,
+        "last_prediction_seal_ns": 86095766621491,
+        "first_reveal_ns": 86097131136088,
+        "gap_seconds": 1.364514597
+      },
+      "scope": [
+        "Independent NumPy elementwise sum prediction replay from saved coefficient packets; no producer module imports, refitting, target integration or raw artifact writes.",
+        "Inner validation MSE and penalty choices replayed from saved coefficients and permissible labels; coefficient fitting and original feature construction were not independently repeated.",
+        "Label isolation conclusions use complete persisted access logs, group and label hashes, packet identities, seals, and previously audited frozen source; they are not an OS-level proof of absence of unlogged file reads.",
+        "All 24 physical origins are retrospective development data. This audit establishes saved evidence consistency, not untouched confirmation, 300-unit target utility, geometry benefit or measured net speedup.",
+        "Equal-origin aggregates, bootstrap intervals, resolution contrasts, costs and PID cleanup independently audited by the operational agent."
+      ],
+      "durable_report_directory": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit",
+      "durable_script_directory": "tools/postrun_audits",
+      "preservation": "Root hash-verified byte-identical external script/report and repository script copies"
+    },
+    "independent_aggregate_audit": {
+      "status": "passed",
+      "checks": 17742,
+      "bootstrap_intervals_reconstructed": 380,
+      "exact_aggregate_match": true,
+      "producer_functions_imported": false,
+      "refitting": false,
+      "new_integration": false,
+      "report": {
+        "filename": "EXP-011-independent-statistics-audit.json",
+        "bytes": 691467,
+        "sha256": "109247ecb2510abbfb4f4fc118057ee36edebaa0d90f3bcd9bba58eca140be92",
+        "path": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit/EXP-011-independent-statistics-audit.json"
+      },
+      "script": {
+        "filename": "audit_exp011_statistics_operational.py",
+        "bytes": 20605,
+        "sha256": "2e416da9a911a5570919098955d979aa1821e0bbb72ae6c670aad3e181f8f98b",
+        "path": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit/audit_exp011_statistics_operational.py",
+        "repository_path": "tools/postrun_audits/audit_exp011_statistics_operational.py"
+      },
+      "scope": "Independent saved-label/packet-prediction reconstruction of all policy/context readouts, equal-origin/radius summaries, paired contrasts and frozen bootstrap intervals; no fitting or producer imports.",
+      "counts": {
+        "origins": 24,
+        "contexts": 192,
+        "rows": 3456,
+        "model_packets": 96,
+        "inner_folds": 2208,
+        "final_grid_fits": 96,
+        "all_complete": true,
+        "all_numerical_flags_pass": true,
+        "independent_cases": 16
+      },
+      "solver_comparisons": {
+        "rk4-0.00125--shared": {
+          "contexts": 192,
+          "penalty_disagreements": 0,
+          "ordered_shortlist_changes": 0,
+          "set_changes": 0,
+          "winner_changes": 0,
+          "full_ranking_changes": 0,
+          "maximum_prediction_difference": 8.526512829121202e-14,
+          "maximum_selected_error_difference": 0.0
+        },
+        "rk4-0.00125--geometry": {
+          "contexts": 192,
+          "penalty_disagreements": 0,
+          "ordered_shortlist_changes": 0,
+          "set_changes": 0,
+          "winner_changes": 0,
+          "full_ranking_changes": 0,
+          "maximum_prediction_difference": 4.085620730620576e-14,
+          "maximum_selected_error_difference": 0.0
+        },
+        "rk4-0.0025--shared": {
+          "contexts": 192,
+          "penalty_disagreements": 0,
+          "ordered_shortlist_changes": 0,
+          "set_changes": 0,
+          "winner_changes": 0,
+          "full_ranking_changes": 0,
+          "maximum_prediction_difference": 8.354428260304303e-14,
+          "maximum_selected_error_difference": 0.0
+        },
+        "rk4-0.0025--geometry": {
+          "contexts": 192,
+          "penalty_disagreements": 0,
+          "ordered_shortlist_changes": 0,
+          "set_changes": 0,
+          "winner_changes": 0,
+          "full_ranking_changes": 0,
+          "maximum_prediction_difference": 4.0967229608668276e-14,
+          "maximum_selected_error_difference": 0.0
+        }
+      },
+      "resolution_comparisons": {
+        "shared": {
+          "contexts": 192,
+          "penalty_changes": 0,
+          "ordered_shortlist_changes": 0,
+          "set_changes": 0,
+          "winner_changes": 0,
+          "full_predicted_ranking_changes": 0,
+          "fixed_primary_shortlist_winner_changes": 0,
+          "maximum_prediction_difference": 9.589703420243012e-08,
+          "maximum_selected_error_difference": 1.0383799520230497e-07,
+          "maximum_fixed_primary_selected_error_difference": 1.0383799520230497e-07
+        },
+        "geometry": {
+          "contexts": 192,
+          "penalty_changes": 0,
+          "ordered_shortlist_changes": 0,
+          "set_changes": 0,
+          "winner_changes": 0,
+          "full_predicted_ranking_changes": 0,
+          "fixed_primary_shortlist_winner_changes": 0,
+          "maximum_prediction_difference": 7.869929286030697e-08,
+          "maximum_selected_error_difference": 1.7822227027508575e-09,
+          "maximum_fixed_primary_selected_error_difference": 1.7822227027508575e-09
+        }
+      },
+      "post_run_metadata_amendment": {
+        "reason": "The initial audit used default-sandbox /proc and incorrectly labeled it host verification. Statistics were complete and unchanged. A separate host-permission check now establishes all24 workers plus producer absent.",
+        "initial_source_path": "/tmp/audit_exp011_statistics_operational.initial-sandbox.py",
+        "initial_source_sha256": "618361e6d8e6ccb3cb2353f464a5d1d460e7da2b5e2a9551e4f29948c0b43295",
+        "initial_report_path": "/tmp/EXP-011-independent-statistics-audit.initial-sandbox.json",
+        "initial_report_sha256": "715c3c351ad6063796cbe95bbf74bf92317446653faea8f9e295b9650e70fdd8",
+        "numerical_recipe_changed": false,
+        "preserved_initial_source_path": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit/audit_exp011_statistics_operational.initial-sandbox.py",
+        "preserved_initial_report_path": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit/EXP-011-independent-statistics-audit.initial-sandbox.json",
+        "root_old_new_comparison": "Only checks and worker_termination change, plus the amendment field; every numerical/statistical field is exactly identical."
+      },
+      "durable_report_directory": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit",
+      "durable_script_directory": "tools/postrun_audits",
+      "preservation": "Root verified byte-identical external final and initial script/report copies, final-run log, and corrected repository script; numerical fields unchanged by metadata correction"
+    },
+    "owner_cleanup": {
+      "status": "passed",
+      "checked_at_utc": "2026-09-15 01:44:26 UTC",
+      "method": "ps -ef executed with require_escalated host permissions; complete returned inventory filtered by exact owned PID",
+      "parent_pid": 1716452,
+      "workers": 24,
+      "present_owned_pids": 0,
+      "terminated_by_audit": false,
+      "scope": "Host process absence at the recorded check time, including the producer parent and every recorded fold worker. Other tasks were not changed.",
+      "report": {
+        "filename": "EXP-011-host-process-check.json",
+        "bytes": 906,
+        "sha256": "2d6d33c0cd4a7be567059b9c9f5aa7cb01f1c4be54f83275891c4c111efdf423",
+        "path": "/data2/neural-shrimp-data/audits/EXP-011/post-run-audit/EXP-011-host-process-check.json",
+        "preservation": "External copy byte/hash verified by root"
+      },
+      "scope_correction": "An earlier aggregate-audit process conclusion was based only on sandbox /proc visibility. That draft is preserved; the host inventory supplies the cleanup evidence. No experiment/raw/model change."
+    },
+    "root_standalone_frozen_verifier": {
+      "status": "passed",
+      "outer_folds": 24,
+      "replayed_recipes": 96,
+      "artifacts": 346,
+      "all_complete": true,
+      "command": "uv run --no-sync python tools/run_preview_shortlist.py verify --data-root /data2/neural-shrimp-data/raw --attempt attempt-001",
+      "separate_wall_seconds": null
+    }
+  },
+  "primary_resolution": "rk4-0.00125",
+  "comparison_resolution": "rk4-0.0025",
+  "primary": {
+    "all_origins": {
+      "origins": 24,
+      "contexts": 192,
+      "policies": {
+        "shared": {
+          "rmse": {
+            "mean": 0.016266063771673653,
+            "descriptive_percentile_interval": [
+              0.008777164443870436,
+              0.025624305722014105
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.01009102493568122,
+            "descriptive_percentile_interval": [
+              0.002677813714015744,
+              0.019411524658812348
+            ]
+          },
+          "winner_inclusion": 0.5,
+          "any_minimizer_inclusion": 0.5,
+          "best_selected_rank": 4.40625,
+          "mean_selected_rank": 7.744791666666667
+        },
+        "geometry": {
+          "rmse": {
+            "mean": 0.01078991105136209,
+            "descriptive_percentile_interval": [
+              0.007964787186653534,
+              0.014195452179865335
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.004614872215369661,
+            "descriptive_percentile_interval": [
+              0.0024064724586938405,
+              0.007356595693003914
+            ]
+          },
+          "winner_inclusion": 0.5,
+          "any_minimizer_inclusion": 0.5,
+          "best_selected_rank": 3.8854166666666665,
+          "mean_selected_rank": 7.216145833333333
+        },
+        "axes": {
+          "rmse": {
+            "mean": 0.008568988182260878,
+            "descriptive_percentile_interval": [
+              0.005701949450355783,
+              0.012110433893947949
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.0023939493462684473,
+            "descriptive_percentile_interval": [
+              0.0010283682858824913,
+              0.004330554788456632
+            ]
+          },
+          "winner_inclusion": 0.24479166666666666,
+          "any_minimizer_inclusion": 0.24479166666666666,
+          "best_selected_rank": 2.6197916666666665,
+          "mean_selected_rank": 9.25
+        },
+        "diagonal": {
+          "rmse": {
+            "mean": 0.11996819766597026,
+            "descriptive_percentile_interval": [
+              0.1057075486180995,
+              0.13295352510590677
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.11379315882997783,
+            "descriptive_percentile_interval": [
+              0.09957416556018797,
+              0.12683288279474883
+            ]
+          },
+          "winner_inclusion": 0.0,
+          "any_minimizer_inclusion": 0.0,
+          "best_selected_rank": 8.166666666666666,
+          "mean_selected_rank": 11.212239583333334
+        },
+        "local_coverage": {
+          "rmse": {
+            "mean": 0.012464098651789443,
+            "descriptive_percentile_interval": [
+              0.00582547005440544,
+              0.02128510488983477
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.006289059815797016,
+            "descriptive_percentile_interval": [
+              0.0014457849885257561,
+              0.013670316117585153
+            ]
+          },
+          "winner_inclusion": 0.7135416666666666,
+          "any_minimizer_inclusion": 0.7135416666666666,
+          "best_selected_rank": 1.4635416666666667,
+          "mean_selected_rank": 8.727864583333334
+        }
+      },
+      "full18_min_rmse": {
+        "mean": 0.00617503883599243,
+        "descriptive_percentile_interval": [
+          0.00408032989817015,
+          0.009179625375787313
+        ]
+      },
+      "paired_contrasts": {
+        "shared_minus_geometry": {
+          "mean": 0.005476152720311559,
+          "descriptive_percentile_interval": [
+            -0.0026527594377599535,
+            0.015618463336565722
+          ]
+        },
+        "axes_minus_shared": {
+          "mean": -0.007697075589412772,
+          "descriptive_percentile_interval": [
+            -0.017205425605332458,
+            -0.00021828260729804655
+          ]
+        },
+        "axes_minus_geometry": {
+          "mean": -0.0022209228691012135,
+          "descriptive_percentile_interval": [
+            -0.005486111416161221,
+            0.0008718347015126388
+          ]
+        },
+        "diagonal_minus_shared": {
+          "mean": 0.10370213389429661,
+          "descriptive_percentile_interval": [
+            0.0874185529821031,
+            0.11844666713980022
+          ]
+        },
+        "diagonal_minus_geometry": {
+          "mean": 0.10917828661460816,
+          "descriptive_percentile_interval": [
+            0.09481902094864177,
+            0.12261233049590546
+          ]
+        },
+        "local_coverage_minus_shared": {
+          "mean": -0.003801965119884204,
+          "descriptive_percentile_interval": [
+            -0.015031485915229598,
+            0.007155362866787941
+          ]
+        },
+        "local_coverage_minus_geometry": {
+          "mean": 0.001674187600427356,
+          "descriptive_percentile_interval": [
+            -0.004641721550281436,
+            0.009982417880754721
+          ]
+        }
+      }
+    },
+    "by_radius": {
+      "0.00025": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.004199279391704708,
+            "excess_rmse": 0.003944053811122222,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 10.166666666666666,
+            "mean_selected_rank": 14.036458333333334
+          },
+          "geometry": {
+            "rmse": 0.0023103370813560477,
+            "excess_rmse": 0.0020551115007735625,
+            "winner_inclusion": 0.16666666666666666,
+            "any_minimizer_inclusion": 0.16666666666666666,
+            "best_selected_rank": 6.708333333333333,
+            "mean_selected_rank": 11.604166666666666
+          },
+          "axes": {
+            "rmse": 0.00044202305907256226,
+            "excess_rmse": 0.00018679747849007717,
+            "winner_inclusion": 0.14583333333333334,
+            "any_minimizer_inclusion": 0.14583333333333334,
+            "best_selected_rank": 2.9791666666666665,
+            "mean_selected_rank": 10.171875
+          },
+          "diagonal": {
+            "rmse": 0.0038378392921826813,
+            "excess_rmse": 0.003582613711600196,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 8.645833333333334,
+            "mean_selected_rank": 10.588541666666666
+          },
+          "local_coverage": {
+            "rmse": 0.00027971682247590374,
+            "excess_rmse": 2.44912418934187e-05,
+            "winner_inclusion": 0.7916666666666666,
+            "any_minimizer_inclusion": 0.7916666666666666,
+            "best_selected_rank": 1.3541666666666667,
+            "mean_selected_rank": 9.359375
+          }
+        },
+        "full18_min_rmse": 0.00025522558058248507,
+        "shared_minus_geometry": {
+          "mean": 0.0018889423103486595,
+          "descriptive_percentile_interval": [
+            0.0010144947037652738,
+            0.0030109960938316544
+          ]
+        }
+      },
+      "0.001": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.0053063323706611,
+            "excess_rmse": 0.004349873342236055,
+            "winner_inclusion": 0.5,
+            "any_minimizer_inclusion": 0.5,
+            "best_selected_rank": 4.0,
+            "mean_selected_rank": 8.046875
+          },
+          "geometry": {
+            "rmse": 0.008527661703587904,
+            "excess_rmse": 0.00757120267516286,
+            "winner_inclusion": 0.3958333333333333,
+            "any_minimizer_inclusion": 0.3958333333333333,
+            "best_selected_rank": 4.875,
+            "mean_selected_rank": 8.359375
+          },
+          "axes": {
+            "rmse": 0.0017056420952309894,
+            "excess_rmse": 0.0007491830668059441,
+            "winner_inclusion": 0.14583333333333334,
+            "any_minimizer_inclusion": 0.14583333333333334,
+            "best_selected_rank": 2.9166666666666665,
+            "mean_selected_rank": 9.770833333333334
+          },
+          "diagonal": {
+            "rmse": 0.013695440032374861,
+            "excess_rmse": 0.012738981003949814,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 8.375,
+            "mean_selected_rank": 10.927083333333334
+          },
+          "local_coverage": {
+            "rmse": 0.0010456719595757912,
+            "excess_rmse": 8.921293115074607e-05,
+            "winner_inclusion": 0.8125,
+            "any_minimizer_inclusion": 0.8125,
+            "best_selected_rank": 1.3541666666666667,
+            "mean_selected_rank": 9.020833333333334
+          }
+        },
+        "full18_min_rmse": 0.0009564590284250451,
+        "shared_minus_geometry": {
+          "mean": -0.003221329332926804,
+          "descriptive_percentile_interval": [
+            -0.008004085233186305,
+            0.0013054109374891288
+          ]
+        }
+      },
+      "0.004": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.03379374883338053,
+            "excess_rmse": 0.03017713406425741,
+            "winner_inclusion": 0.5833333333333334,
+            "any_minimizer_inclusion": 0.5833333333333334,
+            "best_selected_rank": 2.3541666666666665,
+            "mean_selected_rank": 5.328125
+          },
+          "geometry": {
+            "rmse": 0.01205120983802988,
+            "excess_rmse": 0.00843459506890676,
+            "winner_inclusion": 0.5833333333333334,
+            "any_minimizer_inclusion": 0.5833333333333334,
+            "best_selected_rank": 2.8125,
+            "mean_selected_rank": 5.567708333333333
+          },
+          "axes": {
+            "rmse": 0.0061920770752527275,
+            "excess_rmse": 0.0025754623061296097,
+            "winner_inclusion": 0.16666666666666666,
+            "any_minimizer_inclusion": 0.16666666666666666,
+            "best_selected_rank": 2.7708333333333335,
+            "mean_selected_rank": 9.026041666666666
+          },
+          "diagonal": {
+            "rmse": 0.0684533804001312,
+            "excess_rmse": 0.06483676563100808,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 8.020833333333334,
+            "mean_selected_rank": 11.723958333333334
+          },
+          "local_coverage": {
+            "rmse": 0.0039849264310555165,
+            "excess_rmse": 0.00036831166193239704,
+            "winner_inclusion": 0.7708333333333334,
+            "any_minimizer_inclusion": 0.7708333333333334,
+            "best_selected_rank": 1.3125,
+            "mean_selected_rank": 8.385416666666666
+          }
+        },
+        "full18_min_rmse": 0.0036166147691231187,
+        "shared_minus_geometry": {
+          "mean": 0.02174253899535064,
+          "descriptive_percentile_interval": [
+            -0.008872134845625908,
+            0.06008161851897498
+          ]
+        }
+      },
+      "0.016": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.02176489449094827,
+            "excess_rmse": 0.0018930385251092,
+            "winner_inclusion": 0.9166666666666666,
+            "any_minimizer_inclusion": 0.9166666666666666,
+            "best_selected_rank": 1.1041666666666667,
+            "mean_selected_rank": 3.5677083333333335
+          },
+          "geometry": {
+            "rmse": 0.02027043558247453,
+            "excess_rmse": 0.0003985796166354596,
+            "winner_inclusion": 0.8541666666666666,
+            "any_minimizer_inclusion": 0.8541666666666666,
+            "best_selected_rank": 1.1458333333333333,
+            "mean_selected_rank": 3.3333333333333335
+          },
+          "axes": {
+            "rmse": 0.02593621049948723,
+            "excess_rmse": 0.006064354533648159,
+            "winner_inclusion": 0.5208333333333334,
+            "any_minimizer_inclusion": 0.5208333333333334,
+            "best_selected_rank": 1.8125,
+            "mean_selected_rank": 8.03125
+          },
+          "diagonal": {
+            "rmse": 0.3938861309391923,
+            "excess_rmse": 0.3740142749733532,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 7.625,
+            "mean_selected_rank": 11.609375
+          },
+          "local_coverage": {
+            "rmse": 0.044546079394050565,
+            "excess_rmse": 0.024674223428211503,
+            "winner_inclusion": 0.4791666666666667,
+            "any_minimizer_inclusion": 0.4791666666666667,
+            "best_selected_rank": 1.8333333333333333,
+            "mean_selected_rank": 8.145833333333334
+          }
+        },
+        "full18_min_rmse": 0.01987185596583907,
+        "shared_minus_geometry": {
+          "mean": 0.0014944589084737404,
+          "descriptive_percentile_interval": [
+            -0.00013161906750716718,
+            0.0042860863352164
+          ]
+        }
+      }
+    }
+  },
+  "comparison": {
+    "all_origins": {
+      "origins": 24,
+      "contexts": 192,
+      "policies": {
+        "shared": {
+          "rmse": {
+            "mean": 0.016266062972509085,
+            "descriptive_percentile_interval": [
+              0.008777164216124778,
+              0.02562430374114963
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.010091024217148461,
+            "descriptive_percentile_interval": [
+              0.002677813796301754,
+              0.019411522581836958
+            ]
+          },
+          "winner_inclusion": 0.5,
+          "any_minimizer_inclusion": 0.5,
+          "best_selected_rank": 4.40625,
+          "mean_selected_rank": 7.744791666666667
+        },
+        "geometry": {
+          "rmse": {
+            "mean": 0.010789911103668193,
+            "descriptive_percentile_interval": [
+              0.007964787217936512,
+              0.014195452161347965
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.004614872348307572,
+            "descriptive_percentile_interval": [
+              0.002406472563112957,
+              0.007356595801071401
+            ]
+          },
+          "winner_inclusion": 0.5,
+          "any_minimizer_inclusion": 0.5,
+          "best_selected_rank": 3.8854166666666665,
+          "mean_selected_rank": 7.216145833333333
+        },
+        "axes": {
+          "rmse": {
+            "mean": 0.008568988003306037,
+            "descriptive_percentile_interval": [
+              0.005701949269551043,
+              0.012110433662115746
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.0023939492479454158,
+            "descriptive_percentile_interval": [
+              0.0010283681664067343,
+              0.004330554599302238
+            ]
+          },
+          "winner_inclusion": 0.24479166666666666,
+          "any_minimizer_inclusion": 0.24479166666666666,
+          "best_selected_rank": 2.6197916666666665,
+          "mean_selected_rank": 9.25
+        },
+        "diagonal": {
+          "rmse": {
+            "mean": 0.11996821100882626,
+            "descriptive_percentile_interval": [
+              0.10570756218974302,
+              0.1329535605451738
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.11379317225346564,
+            "descriptive_percentile_interval": [
+              0.09957417308761123,
+              0.12683290381164825
+            ]
+          },
+          "winner_inclusion": 0.0,
+          "any_minimizer_inclusion": 0.0,
+          "best_selected_rank": 8.166666666666666,
+          "mean_selected_rank": 11.212239583333334
+        },
+        "local_coverage": {
+          "rmse": {
+            "mean": 0.012464098757595243,
+            "descriptive_percentile_interval": [
+              0.005825469981053446,
+              0.02128510571164981
+            ]
+          },
+          "excess_rmse": {
+            "mean": 0.006289060002234621,
+            "descriptive_percentile_interval": [
+              0.001445784970445836,
+              0.013670316708274285
+            ]
+          },
+          "winner_inclusion": 0.7135416666666666,
+          "any_minimizer_inclusion": 0.7135416666666666,
+          "best_selected_rank": 1.4635416666666667,
+          "mean_selected_rank": 8.727864583333334
+        }
+      },
+      "full18_min_rmse": {
+        "mean": 0.006175038755360622,
+        "descriptive_percentile_interval": [
+          0.004080329847794012,
+          0.009179625291762906
+        ]
+      },
+      "paired_contrasts": {
+        "shared_minus_geometry": {
+          "mean": 0.00547615186884089,
+          "descriptive_percentile_interval": [
+            -0.002652759702554461,
+            0.01561846085067446
+          ]
+        },
+        "axes_minus_shared": {
+          "mean": -0.007697074969203046,
+          "descriptive_percentile_interval": [
+            -0.017205424373236335,
+            -0.0002182828781576624
+          ]
+        },
+        "axes_minus_geometry": {
+          "mean": -0.0022209231003621557,
+          "descriptive_percentile_interval": [
+            -0.005486111687226146,
+            0.0008718345651400562
+          ]
+        },
+        "diagonal_minus_shared": {
+          "mean": 0.10370214803631717,
+          "descriptive_percentile_interval": [
+            0.08741855235901495,
+            0.11844669115432431
+          ]
+        },
+        "diagonal_minus_geometry": {
+          "mean": 0.10917829990515808,
+          "descriptive_percentile_interval": [
+            0.09481902870224462,
+            0.12261234063355858
+          ]
+        },
+        "local_coverage_minus_shared": {
+          "mean": -0.003801964214913841,
+          "descriptive_percentile_interval": [
+            -0.015031484148283536,
+            0.007155363180349038
+          ]
+        },
+        "local_coverage_minus_geometry": {
+          "mean": 0.0016741876539270492,
+          "descriptive_percentile_interval": [
+            -0.004641721720959986,
+            0.009982418391144842
+          ]
+        }
+      }
+    },
+    "by_radius": {
+      "0.00025": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.004199279616375586,
+            "excess_rmse": 0.003944054101633349,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 10.166666666666666,
+            "mean_selected_rank": 14.036458333333334
+          },
+          "geometry": {
+            "rmse": 0.0023103372681774494,
+            "excess_rmse": 0.0020551117534352123,
+            "winner_inclusion": 0.16666666666666666,
+            "any_minimizer_inclusion": 0.16666666666666666,
+            "best_selected_rank": 6.708333333333333,
+            "mean_selected_rank": 11.604166666666666
+          },
+          "axes": {
+            "rmse": 0.00044202284694867165,
+            "excess_rmse": 0.0001867973322064348,
+            "winner_inclusion": 0.14583333333333334,
+            "any_minimizer_inclusion": 0.14583333333333334,
+            "best_selected_rank": 2.9791666666666665,
+            "mean_selected_rank": 10.171875
+          },
+          "diagonal": {
+            "rmse": 0.0038378391169759303,
+            "excess_rmse": 0.0035826136022336936,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 8.645833333333334,
+            "mean_selected_rank": 10.588541666666666
+          },
+          "local_coverage": {
+            "rmse": 0.0002797167293501368,
+            "excess_rmse": 2.44912146078999e-05,
+            "winner_inclusion": 0.7916666666666666,
+            "any_minimizer_inclusion": 0.7916666666666666,
+            "best_selected_rank": 1.3541666666666667,
+            "mean_selected_rank": 9.359375
+          }
+        },
+        "full18_min_rmse": 0.00025522551474223694,
+        "shared_minus_geometry": {
+          "mean": 0.001888942348198137,
+          "descriptive_percentile_interval": [
+            0.0010144946895201336,
+            0.0030109961034272023
+          ]
+        }
+      },
+      "0.001": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.005306332392666598,
+            "excess_rmse": 0.004349873442877047,
+            "winner_inclusion": 0.5,
+            "any_minimizer_inclusion": 0.5,
+            "best_selected_rank": 4.0,
+            "mean_selected_rank": 8.046875
+          },
+          "geometry": {
+            "rmse": 0.008527661795596404,
+            "excess_rmse": 0.007571202845806852,
+            "winner_inclusion": 0.3958333333333333,
+            "any_minimizer_inclusion": 0.3958333333333333,
+            "best_selected_rank": 4.875,
+            "mean_selected_rank": 8.359375
+          },
+          "axes": {
+            "rmse": 0.001705641901810849,
+            "excess_rmse": 0.0007491829520212983,
+            "winner_inclusion": 0.14583333333333334,
+            "any_minimizer_inclusion": 0.14583333333333334,
+            "best_selected_rank": 2.9166666666666665,
+            "mean_selected_rank": 9.770833333333334
+          },
+          "diagonal": {
+            "rmse": 0.013695439844883639,
+            "excess_rmse": 0.012738980895094093,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 8.375,
+            "mean_selected_rank": 10.927083333333334
+          },
+          "local_coverage": {
+            "rmse": 0.0010456718603993542,
+            "excess_rmse": 8.921291060980345e-05,
+            "winner_inclusion": 0.8125,
+            "any_minimizer_inclusion": 0.8125,
+            "best_selected_rank": 1.3541666666666667,
+            "mean_selected_rank": 9.020833333333334
+          }
+        },
+        "full18_min_rmse": 0.0009564589497895508,
+        "shared_minus_geometry": {
+          "mean": -0.0032213294029298056,
+          "descriptive_percentile_interval": [
+            -0.008004085357906617,
+            0.0013054109142310736
+          ]
+        }
+      },
+      "0.004": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.033793745597117224,
+            "excess_rmse": 0.030177130870443936,
+            "winner_inclusion": 0.5833333333333334,
+            "any_minimizer_inclusion": 0.5833333333333334,
+            "best_selected_rank": 2.3541666666666665,
+            "mean_selected_rank": 5.328125
+          },
+          "geometry": {
+            "rmse": 0.012051209843526112,
+            "excess_rmse": 0.008434595116852836,
+            "winner_inclusion": 0.5833333333333334,
+            "any_minimizer_inclusion": 0.5833333333333334,
+            "best_selected_rank": 2.8125,
+            "mean_selected_rank": 5.567708333333333
+          },
+          "axes": {
+            "rmse": 0.006192076925459467,
+            "excess_rmse": 0.0025754621987861912,
+            "winner_inclusion": 0.16666666666666666,
+            "any_minimizer_inclusion": 0.16666666666666666,
+            "best_selected_rank": 2.7708333333333335,
+            "mean_selected_rank": 9.026041666666666
+          },
+          "diagonal": {
+            "rmse": 0.0684533784583153,
+            "excess_rmse": 0.06483676373164203,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 8.020833333333334,
+            "mean_selected_rank": 11.723958333333334
+          },
+          "local_coverage": {
+            "rmse": 0.003984926426770972,
+            "excess_rmse": 0.00036831170009769517,
+            "winner_inclusion": 0.7708333333333334,
+            "any_minimizer_inclusion": 0.7708333333333334,
+            "best_selected_rank": 1.3125,
+            "mean_selected_rank": 8.385416666666666
+          }
+        },
+        "full18_min_rmse": 0.003616614726673276,
+        "shared_minus_geometry": {
+          "mean": 0.02174253575359111,
+          "descriptive_percentile_interval": [
+            -0.008872134887072957,
+            0.0600816111988805
+          ]
+        }
+      },
+      "0.016": {
+        "origins": 24,
+        "contexts": 48,
+        "policies": {
+          "shared": {
+            "rmse": 0.02176489428387693,
+            "excess_rmse": 0.001893038453639507,
+            "winner_inclusion": 0.9166666666666666,
+            "any_minimizer_inclusion": 0.9166666666666666,
+            "best_selected_rank": 1.1041666666666667,
+            "mean_selected_rank": 3.5677083333333335
+          },
+          "geometry": {
+            "rmse": 0.02027043550737281,
+            "excess_rmse": 0.0003985796771353852,
+            "winner_inclusion": 0.8541666666666666,
+            "any_minimizer_inclusion": 0.8541666666666666,
+            "best_selected_rank": 1.1458333333333333,
+            "mean_selected_rank": 3.3333333333333335
+          },
+          "axes": {
+            "rmse": 0.025936210339005162,
+            "excess_rmse": 0.00606435450876774,
+            "winner_inclusion": 0.5208333333333334,
+            "any_minimizer_inclusion": 0.5208333333333334,
+            "best_selected_rank": 1.8125,
+            "mean_selected_rank": 8.03125
+          },
+          "diagonal": {
+            "rmse": 0.3938861866151302,
+            "excess_rmse": 0.3740143307848927,
+            "winner_inclusion": 0.0,
+            "any_minimizer_inclusion": 0.0,
+            "best_selected_rank": 7.625,
+            "mean_selected_rank": 11.609375
+          },
+          "local_coverage": {
+            "rmse": 0.04454608001386051,
+            "excess_rmse": 0.024674224183623087,
+            "winner_inclusion": 0.4791666666666667,
+            "any_minimizer_inclusion": 0.4791666666666667,
+            "best_selected_rank": 1.8333333333333333,
+            "mean_selected_rank": 8.145833333333334
+          }
+        },
+        "full18_min_rmse": 0.019871855830237425,
+        "shared_minus_geometry": {
+          "mean": 0.0014944587765041222,
+          "descriptive_percentile_interval": [
+            -0.00013161910630743023,
+            0.004286086084853868
+          ]
+        }
+      }
+    }
+  },
+  "primary_winner_inclusion_counts": {
+    "shared": 96,
+    "geometry": 96,
+    "axes": 47,
+    "diagonal": 0,
+    "local_coverage": 137
+  },
+  "origin_shared_minus_geometry_signs": {
+    "positive": 11,
+    "negative": 11,
+    "exact_tie": 2
+  },
+  "bootstrap": {
+    "resamples": 20000,
+    "seed": 20260914,
+    "percentiles": [
+      2.5,
+      97.5
+    ],
+    "unit": "whole physical origin; paired common resamples",
+    "interpretation": "Descriptive summaries of selected development origins with spatial dependence and overlapping training folds; not confirmatory coverage"
+  },
+  "numerical": {
+    "svd_qr": {
+      "complete_recipes": 96,
+      "all_declared_gates_pass": true,
+      "inner_maximum_prediction_difference": 1.741384814124558e-13,
+      "final_maximum_prediction_difference": 8.526512829121202e-14,
+      "maximum_coefficient_difference": 2.1945556483160544e-11,
+      "recipes_with_any_full_ranking_difference": 0,
+      "selected_penalty_counts": {
+        "rk4-0.00125--shared": {
+          "0.0001": 13,
+          "0.01": 1,
+          "1e-06": 10
+        },
+        "rk4-0.00125--geometry": {
+          "0.01": 17,
+          "0.0001": 5,
+          "1e-06": 2
+        },
+        "rk4-0.0025--shared": {
+          "0.0001": 13,
+          "0.01": 1,
+          "1e-06": 10
+        },
+        "rk4-0.0025--geometry": {
+          "0.01": 17,
+          "0.0001": 5,
+          "1e-06": 2
+        }
+      }
+    },
+    "label_resolution": {
+      "contexts": 192,
+      "all_label_rankings_unchanged": true,
+      "maximum_label_change": 5.81807222643782e-06,
+      "models": {
+        "shared": {
+          "ordered_shortlist_changes": 0,
+          "shortlist_set_changes": 0,
+          "action_changes": 0,
+          "maximum_selected_error_change": 1.0383799520230497e-07
+        },
+        "geometry": {
+          "ordered_shortlist_changes": 0,
+          "shortlist_set_changes": 0,
+          "action_changes": 0,
+          "maximum_selected_error_change": 1.7822227027508575e-09
+        }
+      }
+    },
+    "selected_penalty_resolution_changes": {
+      "shared": 0,
+      "geometry": 0
+    },
+    "independent": {
+      "cases": 16,
+      "scalar_values": 32,
+      "maximum_absolute_canonical_minus_independent": 4.416427223929986e-10,
+      "scope": "Partial preselected panel; no full independent 18-candidate oracle or independent retraining"
+    },
+    "empirical_envelopes_are_certified_error_bounds": false
+  },
+  "timings": {
+    "feature_load_and_construction_seconds": 2.5608386590029113,
+    "bounded_parallel_fit_prediction_selection_seconds": 16.242948011000408,
+    "label_reveal_evaluation_summary_seconds": 15.028073381006834,
+    "saved_model_and_score_replay_seconds": 78.81406552999397,
+    "producer_and_builtin_replay_seconds_before_receipt_seal": 113.99109154399775,
+    "receipt_wall_seconds": 114.06779448699672,
+    "receipt_inventory_seconds": 0.07606378999480512,
+    "summed_recipe_stage_wall_seconds": {
+      "grid_fit_seconds": 40.7472469687782,
+      "inner_validation_scoring_seconds": 0.8341468558792258,
+      "held_prediction_and_shortlist_seconds": 0.03746694794972427
+    },
+    "scope": "Stage wall times; summed worker stages are not elapsed attempt time. Saved-input construction includes both schemas; prior sensitivity/atlas acquisition and preview integrations are not newly measured."
+  },
+  "cost": {
+    "preview_calls_per_policy_context": 4,
+    "full_reference_calls_per_context": 18,
+    "reduction_calls": 14,
+    "reduction_fraction": 0.7777777777777778,
+    "new_preview_integrations": 0,
+    "measured_stage_timings": "timings.json and per-fold recipe seconds; replay timing is separate",
+    "prerequisite_dependencies": {
+      "shared": [
+        "reference orbit",
+        "saved 300-unit unperturbed sensitivity"
+      ],
+      "geometry": [
+        "shared prerequisites",
+        "historical EXP-004 atlas"
+      ],
+      "full18_reference": [
+        "reference orbit",
+        "saved 300-unit unperturbed sensitivity"
+      ],
+      "axes": [
+        "reference orbit"
+      ],
+      "diagonal": [
+        "reference orbit"
+      ],
+      "local_coverage": [
+        "reference orbit",
+        "saved 300-unit unperturbed sensitivity"
+      ]
+    },
+    "reused_prerequisites_are_free": false,
+    "acquisition_cost_newly_measured": false,
+    "net_speedup_claim": false
+  },
+  "interpretation": {
+    "shortlist_feasibility": "Numerically reproducible, but performance depends strongly on policy and radius.",
+    "incremental_geometry": "Mean improvement over shared ridge is positive but mixed across origins; descriptive interval spans zero. Axes has lower aggregate error.",
+    "long_target_qualification": "EXP-009 still has 953 unresolved cases in its selected 1369-case long-target cohort; not removed or resolved by EXP-010/011.",
+    "next_research": "Freeze a fresh-physical-origin 75-unit comparison led by axes and local-coverage controls, retaining the unchanged learned recipes and full18 reference. Set the acceptable error-versus-budget margin before new labels, qualify every candidate, preserve radius readouts and time complete prerequisite costs. Do not add richer geometry or choose a radius hybrid from these outcomes without a separately frozen design.",
+    "original_300_unit_action_utility_claim": "Not established: retrospective 75-unit shortlist evidence does not establish the original 300-unit action-utility claim.",
+    "original_exp008_strict_linux_replay_gate": "Failed and unchanged; the separately frozen EXP-011 numerical path does not retroactively pass EXP-008."
+  },
+  "exclusions": "No full per-context/prediction/model packets copied into Git; no new fit, integration, model selection, p-value or fresh confirmation in this audit.",
+  "post_result_concentration_diagnostic": {
+    "scope": "Post-result concentration diagnostic only; no origins excluded from the declared24-origin readout.",
+    "positive_origins": 11,
+    "negative_origins": 11,
+    "tied_origins": 2,
+    "median_origin_contrast": 0.0,
+    "net_sum": 0.13142766528747743,
+    "positive_sum": 0.2050889277066822,
+    "negative_sum": -0.07366126241920477,
+    "top3": [
+      {
+        "anchor": "development-06",
+        "shared_minus_geometry": 0.07817055445156597
+      },
+      {
+        "anchor": "development-01",
+        "shared_minus_geometry": 0.06817568994303567
+      },
+      {
+        "anchor": "information-11",
+        "shared_minus_geometry": 0.03837591790120918
+      }
+    ],
+    "top3_fraction_of_net": 1.4055044034432174,
+    "remaining21_mean": -0.0025378331908730185
+  }
+}

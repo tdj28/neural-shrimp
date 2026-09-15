@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-14 through EXP-010 and the saved-input audits. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
+Status: private exploratory program, updated 2026-09-14 through EXP-011 and the saved-input audits. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. The retrospective four-preview geometry learner improves the observed shared-feature mean but is worse than the signed-axis control in the pooled mean; its paired improvement remains uncertain. Modern training/reasoning benefit and net compute savings are not established.
 
 **Current release qualification:** EXP-008 is a private working diagnostic
 draft, not a fully reproduced release. PR #7 remains unmerged. Local frozen
@@ -205,3 +205,24 @@ compact hash-bound summaries in the repository. See the
 [refinement](EXP-009-results-audit.md) audits. All 2,776 EXP-009 traces complete;
 no failed attempt was overwritten, paid resource launched or public release
 made.
+
+## 2026-09-14 local / 2026-09-15 UTC: retrospective shortlist feasibility
+
+EXP-011 source `64712453153ade24d2b22cf811f7a83811304de4` was privately
+pushed before fitting. The 24 historical origins are all development evidence;
+each outer fold excludes its origin from fitting and inner tuning. Predictions
+and four-entry shortlists are sealed before their labels, and chosen winners
+are sealed before full-eighteen oracle evaluation.
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| S1 | The frozen four-preview recipe runs with qualified numerical behavior | Supported on this server: all 24 folds and 96 recipes complete; all SVD/QR prediction, selected-penalty and ordered-shortlist gates pass, as does complete built-in model replay. Both label resolutions retain the same shortlists and actions. This is not general cross-platform certification. |
+| S2 | Geometry improves the matched shared-feature shortlist | Observed pooled RMSE is 0.0107899 versus 0.0162661 (33.67% lower). The paired contrast is 0.00547615 with descriptive bootstrap bounds [-0.00265276, 0.01561846]. Its sign varies with radius; no fresh-origin confirmation or guaranteed increment follows. |
+| S3 | Learning or geometry beats strong simple four-preview controls | Not established. Signed axes have the lowest pooled four-preview RMSE, 0.00856899, versus geometry 0.0107899 and local coverage 0.0124641. Local coverage has the lowest mean at the three smaller radii, and geometry at the largest. Choosing a radius-dependent winner now would be a new, outcome-informed policy. |
+| S4 | Four previews preserve full-eighteen quality or save total runtime | Not established. Full-eighteen mean RMSE is 0.00617504; even the best pooled four-entry control adds 0.00239395. Four versus eighteen means fourteen fewer candidate calls by design, but this study reuses all labels and measures no new preview acquisition, sensitivity or atlas acquisition cost. No task-quality margin was specified. |
+| S5 | Shortlist results qualify long-target control, modern training or a shrimp-specific mechanism | Not established. The endpoint is 75-unit preview RMSE in the known fixed-weight system. EXP-009's unresolved 300-unit labels, spatial dependence, learned-model generalization and topology-specific alternatives remain separate questions. |
+
+See the [EXP-011 protocol](EXP-011-protocol.md),
+[results audit](EXP-011-results-audit.md) and
+[compact summary](EXP-011-summary.json). Preserve the original EXP-008 strict
+gate and every prior failed comparison.

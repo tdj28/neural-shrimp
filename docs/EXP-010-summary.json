@@ -1620,5 +1620,38 @@
       "bytes": 13188,
       "sha256": "db64140c9e5fddc9c6b23e38e93304bb90badbfd510b88124e9bbc611ede8642"
     }
-  ]
+  ],
+  "host_cleanup_amendment": {
+    "scope": "The original independent metric audit process check has no retained host-permission provenance. Preserve that report and interpret its PID absence within its execution namespace. This later explicit host inventory verifies all 6944 worker PIDs and producer 1649165 absent; numerical evidence is unchanged.",
+    "report": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-010/post-run-audit/EXP-010-host-process-check.json",
+      "bytes": 1257,
+      "sha256": "7dc46f5e4b53448428aa6097de534e8914a12330e97e5ef53adba08aaa07b0be"
+    },
+    "check": {
+      "experiment_id": "EXP-010",
+      "source_commit": "98632899646f3eefa292b8a9f4c1b5123ae37ba0",
+      "checked_at_utc": "2026-09-15 01:47:43 UTC",
+      "method": "Complete ps -ef inventory with require_escalated host permissions, filtered by exact worker PIDs from the hash-bound process ledger and parent PID from receipt",
+      "inputs": {
+        "receipt": {
+          "path": "/data2/neural-shrimp-data/raw/EXP-010/attempt-001/receipt.json",
+          "bytes": 2657369,
+          "sha256": "f07aa1cfbb1c4dd5fcaed57d5262ff67f4141fff55adad0a4e690b835d4b651f"
+        },
+        "process_ledger": {
+          "path": "/data2/neural-shrimp-data/raw/EXP-010/attempt-001/processes.jsonl",
+          "bytes": 871520,
+          "sha256": "bc5a513807ee1de7a33160ffac7f0f68215e5f34389112e7310f2735c13cbbd3"
+        }
+      },
+      "process_records": 6944,
+      "unique_worker_pids": 6944,
+      "parent_pid": 1649165,
+      "present_owned_process_lines": [],
+      "all_owned_pids_absent": true,
+      "terminated_by_audit": false,
+      "scope_amendment": "The original independent metric audit checked process absence in its execution namespace; host permissions were not established in retained provenance. This separate host check establishes cleanup at this later timestamp. Original audit and all numerical evidence remain unchanged."
+    }
+  }
 }

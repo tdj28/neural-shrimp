@@ -10,8 +10,8 @@ Linux verification in both the push and PR workflows. Local replay passed;
 two later Linux diagnostics preserve all three penalties and all 288 learned
 actions when refitting on **saved features**. Complete cross-platform
 reproduction remains unresolved and the strict gate has not passed. The
-numerical-portability failures below take priority over a new preview-budget
-experiment.
+separate numerical studies below qualify a new retrospective preview-budget
+recipe; they preserve the original failures and do not replace that gate.
 
 **Server follow-up, 14 September 2026:** the new saved-trajectory regeneration
 audit rebuilds all 3,456 previews and 7,008 targets, then refits on regenerated
@@ -33,13 +33,26 @@ control results are robust in this follow-up; many unselected
 training labels remain numerically unresolved. This is an outcome-selected
 numerical study, not fresh utility confirmation.
 
-The next qualification, **EXP-010**, completes all 6,944 short-preview traces.
+The short-preview qualification, **EXP-010**, completes all 6,944 traces.
 All 3,456 original 75-unit labels pass the declared native scalar and waveform
 checks, all sixteen independent sentinels agree, and all 192 complete candidate
-rankings remain unchanged. These shorter labels can support the planned
+rankings remain unchanged. These shorter labels support the separately frozen
 retrospective four-preview development experiment. They do not resolve the
 longer candidate outcomes or establish a geometry benefit. See the
 [preview qualification audit](docs/EXP-010-results-audit.md).
+
+**EXP-011 completes the four-preview study:** all 24 origin folds and 96 model
+recipes pass the frozen numerical gates and built-in replay. Geometry lowers
+observed mean preview RMSE from 0.0162661 for shared features to 0.0107899,
+but the simple signed-axis control is better at 0.00856899. The full-eighteen
+reference is 0.00617504. The shared-minus-geometry contrast is 0.00547615 with
+a descriptive origin-bootstrap range of [-0.00265276, 0.01561846]; these
+historical origins are development evidence. Both resolutions produce the
+same four-entry lists and actions. Geometry is best among the four-preview
+policies at the largest radius; local coverage is best at the three smaller
+radii. This motivates examination of the quality/cost tradeoff, not a claim
+of general geometry utility or net speedup. See the
+[shortlist results audit](docs/EXP-011-results-audit.md).
 
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
@@ -249,18 +262,16 @@ more favorable illustration is substituted. Read the
 [generated summary](evidence/information-paper-summary.json), and
 [receipt](evidence/EXP-008/attempt-001/receipt.json).
 
-The practical next question is **whether geometry can reduce preview
-acquisition**. EXP-010 qualifies all original 75-unit preview labels, with
-unchanged rankings and measured selection margins. The next development study
-tests a budget of four previews, with
-shortlists chosen before those previews, equal-budget controls and the full-18
-reference. Short-preview error and acceptable 300-unit waveform preservation
-remain separate endpoints; success at the first cannot establish the second.
-The shortlist study is a proposal, not a frozen or executed experiment; see
-[next steps](docs/next-steps.md) and the
-[feasibility design](docs/shortlist-feasibility-design.md). No trained-model
-benefit, topology-specific mechanism, net speedup or paid-resource need follows
-from EXP-008.
+The four-preview question has now been tested retrospectively in **EXP-011**.
+The simple controls are essential: signed axes have lower pooled error than
+either learner, while geometry's observed increment over shared features is
+uncertain and varies with radius. The next study must specify a useful quality
+margin and measure prerequisite costs before claiming that fourteen fewer
+preview calls save total work. Short-preview error and 300-unit waveform
+preservation remain separate endpoints. See [next steps](docs/next-steps.md),
+the [frozen protocol](docs/EXP-011-protocol.md) and
+[results](docs/EXP-011-results-audit.md). No trained-model benefit,
+topology-specific mechanism or net speedup is established.
 
 The [new unreviewed dynamical-memory preprint](https://arxiv.org/abs/2609.07341v1)
 is documented in a [critical reading note](docs/literature/2026-09-11-aguilera-demartino.md).

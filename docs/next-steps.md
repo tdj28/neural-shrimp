@@ -1,6 +1,72 @@
-# Next steps after EXP-008
+# Next steps after EXP-011
 
-## Current decision, 14 September 2026: test retrospective four-preview feasibility
+## Current decision, 14 September local / 15 September UTC: prioritize simple controls
+
+EXP-011 completed the planned retrospective four-preview comparison on all
+24 historical physical origins. All 96 recipes pass the frozen numerical
+checks and built-in replay; both qualified label resolutions retain exactly
+the same learned shortlists and actions. The numerical qualification was
+worth doing: this result can be interpreted without selecting a favorable
+solver or removing difficult origins.
+
+| Policy | Mean 75-unit preview RMSE | Excess over full eighteen |
+|---|---:|---:|
+| Full eighteen, evaluation reference | 0.00617504 | 0 |
+| Four signed axes | 0.00856899 | 0.00239395 |
+| Four selected with geometry | 0.0107899 | 0.00461487 |
+| Four local-coverage entries | 0.0124641 | 0.00628906 |
+| Four selected with shared features | 0.0162661 | 0.0100910 |
+| Four diagonal entries | 0.119968 | 0.113793 |
+
+Geometry's observed benefit over shared features is 0.00547615, with a
+descriptive whole-origin bootstrap range of [-0.00265276, 0.01561846]. These
+known origins are development data, and the range is not confirmation on
+fresh origins. The signed-axis control has lower pooled error than both
+learners while avoiding their sensitivity/atlas prerequisites. Local coverage
+has the lowest mean among four-preview policies at the first three radii;
+geometry has the lowest at radius 0.016. Do not silently turn these observed
+winners into a validated radius-dependent policy. The full-eighteen reference
+still has lower error and no task-derived acceptable loss margin was frozen.
+
+**Decision:** do not advance the current geometry learner as a confirmed
+control improvement. Keep simple coverage controls central and treat any
+learned-policy redesign as further development. The immediate next research
+packet should address the quality/cost tradeoff:
+
+1. Specify the actual waveform-quality requirement and endpoint before fresh
+   outcomes. A numerical convergence threshold is not an acceptable quality
+   loss. If only an exploratory tradeoff curve is intended, label it that way
+   and retain all declared budgets and radii without a pass/fail utility claim.
+2. Freeze a fresh-origin selection rule disjoint from all 24 known origins,
+   reference qualification, candidate recipe, simple control policies,
+   missingness rules, and the full-eighteen evaluation expense. Keep all
+   attempted origins and failures; do not replace difficult origins.
+3. Measure actual acquisition cost, including reference orbits, sensitivity,
+   atlas construction where needed, training and amortization. EXP-011's
+   fourteen omitted calls are nominal: it reuses labels and establishes no
+   net runtime saving. CPU measurements on the new server should precede
+   any GPU port or paid allocation.
+4. If geometry is retained, freeze its comparison against the strongest
+   applicable simple controls as well as shared features. Do not choose a
+   favorable radius or redesign the regression target using future test
+   outcomes. Rank/inclusion accuracy and selected waveform error must remain
+   separate readouts.
+
+Longer-term work remains conditional: investigate the unresolved 300-unit
+labels before later control claims; complete boundary organization if making
+topology claims; and find and verify cycles in trained networks before any
+modern training/reasoning claim. The existing fixed-weight three-neuron
+result does not establish those extensions. A separate numerically justified
+portability amendment is still needed for the original EXP-008 strict gate;
+its failures remain intact and PR #7 stays unmerged.
+
+See [EXP-011 results](EXP-011-results-audit.md) and the
+[project assessment](project-assessment-2026-09-14.md). Private branch pushes
+continue on the cadence in [Skills.md](../Skills.md), with large raw data in
+`../neural-shrimp-data/`. GitHub API authentication for opening the review PR
+remains unavailable; SSH backup pushes work.
+
+## Earlier decision, 14 September 2026: test retrospective four-preview feasibility
 
 The server follow-up separates four issues that previously shared the label
 "numerical portability". The original strict gate remains failed and unchanged.

@@ -55,9 +55,13 @@ substitutions or restarted attempts. Terminal records match the append-only
 journal and individual record files. The audit checked each record's planned
 task, method and distinct raw path, solver specification, exact original
 initial state, destination and control delta, all 751 prescribed sample times,
-and the complete finite state array. All 6,944 recorded worker PIDs were gone
-when independently checked after collection; no process was terminated by
-the audit.
+and the complete finite state array. The original independent PID absence
+check has no retained proof of host permissions, so its result is limited
+to the audit's execution namespace. A separate complete host `ps -ef`
+inventory at **2026-09-15 01:47:43 UTC** verifies all 6,944 exact recorded
+worker PIDs and producer 1649165 absent. No process was terminated by either
+audit. The compact summary binds this later host report and preserves the
+original audit report; no metric or experimental evidence was changed.
 
 For every trace, a separate NumPy linear-interpolation implementation rebuilt
 the endpoint-excluded reference at the saved single global phase. It
@@ -79,6 +83,10 @@ Verified durable copies of both independent scripts and reports are stored
 separately from the immutable raw attempt at
 `/data2/neural-shrimp-data/audits/EXP-010/post-run-audit/`; their exact names,
 byte sizes and SHA-256 hashes are retained in the compact summary.
+Byte-identical audit source is also backed up in private Git:
+[raw/metric audit](../tools/postrun_audits/exp010_independent_audit.py) and
+[ranking audit](../tools/postrun_audits/audit_exp010_ranking_operational.py).
+Their saved original report bindings remain unchanged.
 
 This independent audit did not optimize a new phase or integrate dynamics.
 It verifies the recorded objective at its saved phase. The producer's

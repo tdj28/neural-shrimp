@@ -354,3 +354,57 @@ audit passes 56,275 exact checks, with all 192 complete orders unchanged.
 All 3,456 scalar/waveform cases and sixteen independent sentinels pass their
 declared criteria. No raw evidence is added to Git and no paid resource is
 launched. See the [EXP-010 audit](EXP-010-results-audit.md).
+
+## 2026-09-14 local / 2026-09-15 UTC: complete shortlist feasibility
+
+EXP-011 source `64712453153ade24d2b22cf811f7a83811304de4` was privately
+pushed and its remote SHA verified before the first fit. All 385 repository
+tests passed before the freeze. The new feature adapter, nested model and
+runner passed separate independent pre-fit reviews; the full plan was
+reconstructed without fitting. Original EXP-009/010 source bindings remain
+intact.
+
+The exclusive external attempt completes all 24 origin folds, 96 model
+recipes and 192 contexts. Every SVD/QR score, selected-penalty and ordered-list
+gate passes. Both full label-resolution recipes preserve their chosen
+penalties, shortlists and actions. Built-in replay reproduces all 96 model
+packets; a separate invocation of the frozen verifier exits zero, verifies
+all 346 receipt-listed artifacts and repeats all 96 recipes, access/seal,
+label and aggregate checks. Its output is
+`verified_saved_shortlist_evidence`, with `all_complete: true`.
+
+The receipt lists 94,844,269 artifact bytes excluding itself and records
+114.067794487 seconds through execution, built-in replay and receipt sealing.
+Preflight and the separate verification are outside that elapsed time.
+Four bounded CPU workers and one numerical thread per worker were used;
+no new preview integration or paid resource was required. Full raw evidence
+is in `/data2/neural-shrimp-data/raw/EXP-011/attempt-001/`.
+
+Independent evidence reconstruction passes 76,598 checks with zero failures,
+including every raw/source/input binding, 2,208 inner-fold score recipes,
+27,648 held predictions, 1,536 complete rankings, 1,920 policy scores and
+all training/reveal events. It uses an independent elementwise prediction
+reduction from saved coefficients, without producer imports or refitting.
+Its largest held-prediction discrepancy is 8.9928065e-15. The last prediction
+seal precedes the first held-label reveal by 1.364514597 seconds; every
+four-label winner seal precedes full-eighteen oracle access. These conclusions
+combine persisted logs, hashes and the reviewed source; they are not an
+OS-level proof about unlogged file access.
+
+The independent statistical audit passes 17,742 checks, exactly reconstructing
+all 380 bootstrap intervals and the complete per-origin/aggregate trees.
+It also reproduces all solver/resolution rankings, choices and cost summaries.
+Its original sandbox-only process claim was preserved and explicitly corrected
+without changing any statistical value. Root's actual host inventory at
+01:44:26 UTC confirms every one of the 24 worker PIDs and producer 1716452
+absent. A separate host inventory at 01:47:43 UTC likewise confirms all 6,944
+EXP-010 workers and producer 1649165 absent, closing the previously uncertain
+namespace scope of that earlier audit. Both dated host reports are hash-bound
+in the corresponding compact summaries; no unrelated process was changed.
+
+See the [results audit](EXP-011-results-audit.md) and
+[compact summary](EXP-011-summary.json) for exact source, manifest, receipt
+and audit bindings. Numerical completion does not establish general geometry
+utility: signed axes have lower pooled preview error than either learner,
+and the observed shared-minus-geometry interval spans zero. The original
+EXP-008 strict Linux gate remains failed and unchanged.
