@@ -341,3 +341,16 @@ Reports: [arithmetic](EXP-008-arithmetic-results-audit.md),
 [regeneration](EXP-008-regeneration-results-audit.md),
 [EXP-009](EXP-009-results-audit.md). The original EXP-008 strict verifier
 remains unchanged and failed; these separate checks do not replace it.
+
+## 2026-09-14 local / 2026-09-15 UTC: complete preview qualification
+
+EXP-010 source `98632899646f3eefa292b8a9f4c1b5123ae37ba0` was privately
+pushed and verified before execution. All 348 project tests passed before
+the freeze. The attempt completes all 6,944 required traces and its complete
+saved-array verification; the producer exits zero. Independent checks cover
+all 13,896 receipt artifacts, 3,463 old inputs, fourteen source files, every
+trace/metric/window and 3,504 waveform comparisons. The separate ranking
+audit passes 56,275 exact checks, with all 192 complete orders unchanged.
+All 3,456 scalar/waveform cases and sixteen independent sentinels pass their
+declared criteria. No raw evidence is added to Git and no paid resource is
+launched. See the [EXP-010 audit](EXP-010-results-audit.md).

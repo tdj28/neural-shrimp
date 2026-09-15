@@ -1,8 +1,8 @@
 # Next steps after EXP-008
 
-## Current decision, 14 September 2026: qualify shortlist labels
+## Current decision, 14 September 2026: test retrospective four-preview feasibility
 
-The server follow-up separates three issues that previously shared the label
+The server follow-up separates four issues that previously shared the label
 "numerical portability". The original strict gate remains failed and unchanged.
 
 1. **Arithmetic diagnosis is complete.** Direct residual-norm evaluation
@@ -26,35 +26,46 @@ The server follow-up separates three issues that previously shared the label
    cases agree in RMSE, and 12/19 meet all waveform-agreement rules. The
    original full-candidate labels cannot be treated as
    uniformly precise learning targets.
+4. **EXP-010 short-preview qualification is complete.** All 6,944 mandatory
+   traces complete and pass saved-array verification. All 3,456 original
+   75-unit labels pass both native scalar gates and whole-preview waveform
+   checks; all sixteen independent sentinels agree. Every complete ranking,
+   minimum choice and top-four set is unchanged in all 192 contexts. The
+   largest finer-step RMSE difference is 5.818072e-6. This supports the
+   separately designed retrospective shortlist investigation, while leaving
+   EXP-009's longer outcomes unresolved.
 
 See the [arithmetic audit](EXP-008-arithmetic-results-audit.md),
 [regeneration audit](EXP-008-regeneration-results-audit.md), and
-[EXP-009 audit](EXP-009-results-audit.md) for exact scopes and receipts.
+[EXP-009 audit](EXP-009-results-audit.md), and
+[EXP-010 audit](EXP-010-results-audit.md) for exact scopes and receipts.
 
-The next bounded investigation is **short-preview label qualification**.
-Before a new held-out four-preview claim, check whether the 0--75 preview
-scores used to choose actions are stable under smaller integration steps and
-an independently selected solver panel. Unlike the long-horizon targets,
-these scores directly define the minimum-preview decision rule. All old
-preview cases should be retained; selection of an independent panel must use
-only old observations and be frozen before its new integrations.
-
-If those labels qualify, use old EXP-007/008 material only for development of
-a pre-preview shortlist. Compare identical shared pre-preview inputs with and
-without geometry; consider predicting short-preview quality rather than
-unstable 300-unit candidate labels. Select four candidates before evaluating
+The next bounded investigation is **retrospective four-preview feasibility**
+under a new EXP-011 freeze. Use the complete qualified EXP-008 preview table
+as development evidence. Compare identical shared pre-preview inputs with and
+without geometry, predicting short-preview quality. Select four candidates before evaluating
 any of their previews, then apply the same minimum-preview winner rule.
-Strong four-axis/local-coverage controls, the full-eighteen reference, explicit
-quality/cost criteria and fresh evaluation cases remain required. Any altered
+The retrospective run requires strong four-axis/local-coverage controls,
+the full-eighteen reference and explicit cost accounting. A later prospective
+utility claim also requires fresh evaluation cases and task-derived quality
+criteria. Any altered
 learning target or arithmetic is a dated new design, not the original
 EXP-008 method. Do not drop numerically difficult evaluation cases or choose
 the most favorable solver after observing their results.
 
 The [shortlist feasibility design](shortlist-feasibility-design.md) specifies
-the bounded retrospective development step if preview labels qualify. Treat
+the bounded retrospective development step. Treat
 the 24 EXP-008 physical origins as development evidence, group validation by
 origin, and audit feature access before fitting. EXP-007 reuses the twelve
 original development origins; it supplies no additional independent origins.
+The [feature-adapter audit](shortlist-feature-adapter-appendix.md) specifies
+the exact 37 shared and six geometry fields. The new builder reconstructs
+all 3,456 rows without reading perturbed previews, target records or old mixed
+feature packets. Its direction reconstruction matches every original direction
+exactly; direct response norms are an explicitly new arithmetic method.
+Freeze and push the complete nested origin-validation, feature-access,
+solver, label-resolution and cost rules before fitting. Implementation is in
+progress; no EXP-011 model result is established by this decision.
 
 The local server has ample capacity for the next bounded CPU qualification;
 GPU porting or paid compute is not required by the measured work. Preserve

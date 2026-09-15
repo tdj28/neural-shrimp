@@ -33,6 +33,14 @@ control results are robust in this follow-up; many unselected
 training labels remain numerically unresolved. This is an outcome-selected
 numerical study, not fresh utility confirmation.
 
+The next qualification, **EXP-010**, completes all 6,944 short-preview traces.
+All 3,456 original 75-unit labels pass the declared native scalar and waveform
+checks, all sixteen independent sentinels agree, and all 192 complete candidate
+rankings remain unchanged. These shorter labels can support the planned
+retrospective four-preview development experiment. They do not resolve the
+longer candidate outcomes or establish a geometry benefit. See the
+[preview qualification audit](docs/EXP-010-results-audit.md).
+
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
 [EXP-009 results](docs/EXP-009-results-audit.md), and
@@ -242,9 +250,9 @@ more favorable illustration is substituted. Read the
 [receipt](evidence/EXP-008/attempt-001/receipt.json).
 
 The practical next question is **whether geometry can reduce preview
-acquisition**. The immediate step qualifies all original 75-unit preview
-labels, including rankings and selection margins. If those labels qualify,
-the proposed development study tests a budget of four previews, with
+acquisition**. EXP-010 qualifies all original 75-unit preview labels, with
+unchanged rankings and measured selection margins. The next development study
+tests a budget of four previews, with
 shortlists chosen before those previews, equal-budget controls and the full-18
 reference. Short-preview error and acceptable 300-unit waveform preservation
 remain separate endpoints; success at the first cannot establish the second.

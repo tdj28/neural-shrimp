@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-14 through EXP-009 and the saved-input audits. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
+Status: private exploratory program, updated 2026-09-14 through EXP-010 and the saved-input audits. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
 
 **Current release qualification:** EXP-008 is a private working diagnostic
 draft, not a fully reproduced release. PR #7 remains unmerged. Local frozen
@@ -196,6 +196,7 @@ model choices, thresholds and failed comparisons remain unchanged.
 | N3 | Selected-policy task results are stable under finer target integration | Supported for the original 220 unique selected actions in EXP-009: all meet its predeclared native RMSE-stability rule. Largest new-step difference is 3.822096e-6; largest old-fine-to-finest change is 6.521438e-5. The mean baseline-minus-geometry contrast is 0.000857638205. This is post-run numerical sensitivity, not new held-out utility evidence. |
 | N4 | Finer integration resolves all candidate labels | Rejected at the tested resolutions: 952/1,012 prior-selected sensitive cases still exceed 1e-4 native RMSE disagreement; one more fails the nonincreasing-difference criterion. Across the full selected cohort 416/1,369 pass both native RMSE criteria and 953 remain unresolved. Independent-panel RMSE agreement holds for 13/19 cases; 12/19 pass all waveform comparisons. This selected sample cannot estimate a population failure rate. |
 | N5 | The numerical follow-up establishes a practical geometry advantage | Not established. Original control choices and their small unresolved contrast persist. Prediction across all candidates requires explicit treatment of label uncertainty; net preview savings still need their own frozen comparison. |
+| N6 | The complete 75-unit preview table is numerically qualified for retrospective development | Supported by EXP-010 at the tested resolutions: 3,456/3,456 native scalar and waveform checks pass, 16/16 independent sentinels agree, and all 192 complete candidate rankings remain unchanged. Maximum finer-step RMSE difference is 5.818072e-6. This is not a qualification of EXP-009's longer outcomes, a new shortlist result or a net compute-saving claim. |
 
 Full new raw reports and traces are under `/data2/neural-shrimp-data/`, with
 compact hash-bound summaries in the repository. See the
