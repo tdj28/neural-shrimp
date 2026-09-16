@@ -54,6 +54,18 @@ radii. This motivates examination of the quality/cost tradeoff, not a claim
 of general geometry utility or net speedup. See the
 [shortlist results audit](docs/EXP-011-results-audit.md).
 
+**EXP-012 completes the local GPU qualification:** all 54 batches and 64,188
+case integrations finish, but the CUDA path fails the frozen state/metric
+compatibility gates and is slower in all 24 warm timing pairs. At the intended
+full finer-step batch, median CPU time is 69.69 seconds versus 75.86 seconds
+with GPU integration. Tested rankings and repeat/layout bits are unchanged;
+those checks do not waive the failed gates. Keep CPU as the scientific default.
+Independent saved-evidence audits reproduce the result. The next fresh-origin
+study has a design and tested final-model component, but still needs its
+complete runner and executable freeze before new outcomes. See the
+[GPU results](docs/EXP-012-results-audit.md) and
+[current project assessment](docs/project-assessment-2026-09-15.md).
+
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
 [EXP-009 results](docs/EXP-009-results-audit.md), and

@@ -408,3 +408,51 @@ and audit bindings. Numerical completion does not establish general geometry
 utility: signed axes have lower pooled preview error than either learner,
 and the observed shared-minus-geometry interval spans zero. The original
 EXP-008 strict Linux gate remains failed and unchanged.
+
+## EXP-012 local GPU qualification, 15 September local / 16 September UTC
+
+The complete protocol, executable source and 13,824-member reference binding
+were frozen and privately pushed as
+`c3a88b9db0a3e82b65d5d55a58d155b9a3275d5f` before target outcomes. The exact
+plan hash is `74cef32c3eedf20cba0f3e9b05dc44f1a3f29f6b04c865cf60bee4712750360e`.
+Pre-freeze tests passed 508 with one optional CUDA skip; a separately recorded
+real-GPU synthetic smoke also passed. Independent pre-run reviews covered
+native arithmetic, plan census, numerical gates and worker ownership/failure
+paths. Synthetic smoke did not qualify the scientific workload.
+
+All 54 batches and 64,188 case integrations completed, with all raw outputs
+and complete score packets saved. All 25 CPU batches reproduce EXP-010;
+all ten GPU repeat/layout checks pass; all tested candidate rankings and
+fixed-control choices agree. Both complete GPU case sets fail the frozen
+waveform and metric/phase gates. GPU is slower in all 24 paired warm timings;
+the intended full finer-step median paired speedup is 0.9181768421, below 1.25.
+The correct result is complete evidence and **failed GPU qualification**.
+
+The raw receipt binds 175 files and 1,738,050,920 artifact bytes outside Git,
+with source, manifest and per-file hashes. Its SHA-256 is
+`8a3119d77d5e07be2039c08411303533b6b67aec800049a5cac500be1b40c020`.
+The frozen CLI audit exits zero and reproduces its complete original audit
+byte for byte, including the failed qualification. The independent numerical
+audit passes 194,275 evidence checks with no evidence/replay failures, replays
+13,824 canonical score packets and 34,560 windows exactly, compares 6,912
+CPU cases to EXP-010 and independently reconstructs all 384 complete rankings
+and fixed-control choices. It confirms both failed GPU parity results.
+
+The independently authored performance/ownership audit, executed by root on
+the unrestricted host, passes 4,178 checks with zero failures. It reconstructs
+all timings and cost fields, checks the complete planned schedule and resource
+limits, and verifies both worker identities absent. The producer PID is also
+absent; its original start ticks were not recorded. At 06:06:08 UTC no owned
+PID holds GPU memory. Other GPU owners remain present and were not modified.
+The audit report and exact script are bound in the compact summary.
+
+No post-run audit integrates fresh dynamics or fits research models. All
+22 frozen EXP-012 source bindings remain unchanged. The draft EXP-013 pure
+final-model module adds 34 synthetic/failure-path tests; the complete suite
+now passes 542 tests with one optional skip. That component is not a complete
+EXP-013 executable freeze, and no EXP-013 final fit or fresh outcome has run.
+
+See the [results audit](EXP-012-results-audit.md) and
+[compact summary](EXP-012-summary.json) for full gate scope, timing pairs and
+hash-bound audit provenance. Keep CPU as the scientific default, preserve all
+failures, and retain the original EXP-008 strict gate unchanged.

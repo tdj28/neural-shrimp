@@ -226,3 +226,22 @@ See the [EXP-011 protocol](EXP-011-protocol.md),
 [results audit](EXP-011-results-audit.md) and
 [compact summary](EXP-011-summary.json). Preserve the original EXP-008 strict
 gate and every prior failed comparison.
+
+## 2026-09-15 local / 2026-09-16 UTC: local CUDA qualification
+
+EXP-012 source `c3a88b9db0a3e82b65d5d55a58d155b9a3275d5f` was privately
+pushed before known-case integration. All 54 planned batches and 64,188 case
+integrations completed on the shared local server.
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| G1 | The tested CUDA backend reproduces the required scientific CPU output | Not qualified. CPU output matches the saved EXP-010 reference, but both full GPU case sets fail frozen state/activation and complete metric/phase tolerances. All 384 full-context orders and control decisions remain unchanged; this does not waive waveform requirements. |
+| G2 | The tested GPU layouts and repetitions are repeatable | Supported within this runtime and tested workload: all ten required full-output bit comparisons pass. This is not universal determinism or cross-device numerical equivalence. |
+| G3 | GPU integration reduces total preview pipeline time | Rejected for this implementation and measurement: GPU is slower in all 24 warm pairs, with median CPU/GPU ratio 0.918 at the intended 3,456-case finer-step batch. CPU scoring and saved-array replay dominate. No amortization break-even is observed. |
+| G4 | The result rules out GPU acceleration for this project generally | Not established. The measurement covers this float64 75-unit integration/score/storage/verification pipeline on this shared host. Other workloads or later implementations need their own qualification. |
+| G5 | EXP-012 supplies new geometry-utility or fresh-origin results | Not established. These are previously observed cases used for engineering qualification. EXP-013 remains a draft design and tested model component, without final fits or fresh dynamics. |
+
+The [results audit](EXP-012-results-audit.md) and
+[compact summary](EXP-012-summary.json) retain all failures and provenance.
+Keep CPU as the current scientific default and preserve the original failed
+EXP-008 strict gate.

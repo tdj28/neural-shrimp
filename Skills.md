@@ -20,7 +20,7 @@ Observed on `zeta` on 14 September 2026:
 | CPU | Intel Core i9-14900K; 24 cores, 32 logical CPUs |
 | System memory | 96,204,544 KiB reported by Linux, about 91.75 GiB usable RAM |
 | GPU 0 | NVIDIA RTX 2000 Ada Generation; 16,380 MiB reported VRAM |
-| NVIDIA driver | 580.178.04; `nvidia-smi` succeeds outside the sandbox |
+| NVIDIA driver | 580.178.04; `nvidia-smi` succeeds on the host |
 | Research checkout | `/data2/neural-shrimp` |
 | Project Python | `/data2/neural-shrimp/.venv/bin/python` |
 
@@ -34,9 +34,9 @@ code has a working or validated CUDA implementation.
 
 - Before a substantial run, inspect CPU load, available RAM, GPU utilization,
   free VRAM and active GPU processes. `uptime`, `free -h` and `nvidia-smi`
-  provide the basic inventory. A sandbox driver-access failure is not proof
-  that the host GPU is unavailable; use the normal permission mechanism for
-  a host query when needed.
+  provide the basic inventory. A restricted-environment driver-access failure
+  is not proof that the host GPU is unavailable; use an available authorized
+  host query, and otherwise record availability as unknown.
 - Choose explicit worker, thread, batch and memory limits from the current
   available capacity and a measured representative unit. Leave headroom for
   the operating system, desktop and other tasks. Start conservatively and
@@ -55,8 +55,15 @@ code has a working or validated CUDA implementation.
 ## Match compute to the scientific workload
 
 Current reference experiments use native CPU integration and NumPy/SciPy
-analysis. Continue to use the server CPU for those paths. GPU hardware alone
-does not accelerate them; no project GPU kernel or GPU speedup is verified.
+analysis. An optional float64 CUDA RK4 backend is now implemented and tested
+on this server. EXP-012 completed all 54 planned batches on 15 September 2026:
+the intended full-batch pipeline took median 69.69 seconds on CPU and 75.86
+seconds with GPU integration. It also failed the frozen cross-device state
+and metric tolerances, although tested candidate rankings were unchanged.
+Keep the existing scientific CPU path as the default; the CUDA path remains
+an engineering candidate, not a qualified replacement. See
+[EXP-012 results](docs/EXP-012-results-audit.md). This outcome does not prohibit
+GPU use for other suitable, separately validated workloads.
 
 For an accelerator implementation, first profile and time a representative
 unit, then validate against the CPU reference with the same scientific
@@ -66,10 +73,12 @@ driver, library versions, arithmetic settings, thread counts, timings and
 peak memory. Do not silently lower precision or relax numerical thresholds
 to obtain throughput or make the existing EXP-008 replay pass.
 
-Use local CPU and RAM immediately for the current numerical-portability audit
-and saved-evidence analysis. The server migration does not resolve the
-retained strict Linux replay failure; GPU porting is a separate engineering
-decision and is not a prerequisite for this audit.
+Use local CPU and RAM for the continuing fresh-origin research and saved
+evidence analysis. EXP-012 identifies CPU waveform scoring and verification
+as the dominant cost in the tested GPU preview pipeline; kernel timing alone
+is not a pipeline speedup. The server migration does not resolve the retained original strict
+Linux replay failure. Preserve that evidence and require a new reviewed
+freeze before changing numerical methods or execution defaults.
 
 ## RunPod remains an acceptable fallback
 

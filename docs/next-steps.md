@@ -1,6 +1,53 @@
-# Next steps after EXP-011
+# Next steps after EXP-012
 
-## Current decision, 14 September local / 15 September UTC: prioritize simple controls
+## Current decision, 15 September local / 16 September UTC: continue on CPU and finish EXP-013
+
+**EXP-012 is complete and the tested GPU backend does not qualify.** All
+54 planned batches and 64,188 repeated known-case integrations are preserved.
+CPU reference reproduction and all ten GPU repeat/layout comparisons pass;
+rankings remain unchanged. Full-census state and metric parity fail at both
+step sizes. GPU execution is slower in all 24 matched warm pairs: at the
+declared 3,456-case, `dt=0.00125` deployment setting, median pipeline time is
+69.6893 seconds on CPU and 75.8564 seconds on GPU, with median paired speedup
+0.918177. Retain the original gates and use the local CPU for the next study.
+No RunPod allocation is needed. The numerical audit and separate saved-array
+replay verify this outcome; they do not convert failed qualification into a pass.
+
+The next scientific question remains the **75-unit preview-loss versus budget
+tradeoff**, with simple controls central. The
+[EXP-013 design](fresh-origin-tradeoff-design.md) proposes 24 new physical
+starting settings, excluding all 36 distinct prior starts, and budgets
+2, 4, 8 and 18. Selection is conditional on the already observed atlas;
+its descriptive results will not establish population-wide utility or the
+original 300-unit task benefit. EXP-011's signed axes still have lower pooled
+development error than either learner, while geometry's increment over shared
+features remains uncertain.
+
+Implementation has advanced to a **draft final-model support module** with
+34 passing synthetic tests. It enforces physical-origin and feature/candidate
+identities, old-origin-only tuning, both stable solvers at all five penalties,
+and exact ordered top-2/4/8 agreement. It retains failed-fit evidence. **No
+EXP-013 final fit or fresh-origin dynamics have run.** The complete EXP-013
+runner, feature/label access integration, machine plan, lifecycle tests,
+independent review and prospective private commit/push are still required.
+
+Complete that package, bind CPU execution and costs, then fit/seal the four
+old-data models before fresh dynamics. Seal fresh features, predictions and
+shortlists before any fresh preview-label access. Execute every planned
+reference, sensitivity, candidate, sham and independent numerical check;
+retain failures and all 24 origins rather than replacing or omitting cases.
+The draft calls for 10,608 short traces plus the prerequisite work. Report
+the whole 2/4/8/18 loss curve and measured costs, with no invented acceptable
+loss or utility pass/fail criterion.
+
+The [15 September assessment](project-assessment-2026-09-15.md) separates
+completed achievements, numerical limits and remaining work. The
+[EXP-012 protocol](EXP-012-protocol.md) and immutable external attempt under
+`/data2/neural-shrimp-data/raw/EXP-012/attempt-001/` retain the GPU decision.
+The original EXP-008 strict gate and longer-target numerical limitations
+remain unresolved. Earlier decisions are preserved below as historical records.
+
+## Earlier decision, 14 September local / 15 September UTC: prioritize simple controls
 
 EXP-011 completed the planned retrospective four-preview comparison on all
 24 historical physical origins. All 96 recipes pass the frozen numerical
