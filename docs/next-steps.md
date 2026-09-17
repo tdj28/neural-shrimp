@@ -1,14 +1,14 @@
-# Next steps after EXP-019
+# Next steps after EXP-020
 
-**Human-friendly TLDR:** The complete regression shows phase-dependent memory
-near the selected edge and strong interference in the fixed linear readout.
-At four cycles, its near-edge accuracy averages 62.90% without a second input
-and 55.05% with one, versus 50.01% at the core, across sixteen reused phases.
-The next question is whether a nonlinear observer can recover an earlier bit
-that the linear observer misses. Unique value from shrimp geometry and trained
-network transfer remain unproven.
+**Human-friendly TLDR:** An earlier input can remain recoverable in the selected near-edge neural cycle even when interference defeats a linear observer. The audited phase-16 example improves from 50.3% to 99.7% with nonlinear readout under the declared noise model. The complete-study result is withheld because 25 core cases fail a numerical cross-check. Repair that arithmetic and repeat the complete census before drawing a whole-study conclusion; geometry's unique value and trained-network transfer remain open.
 
-## Current decision: distinguish linear-readout interference from recoverable information
+## Current decision: correct tiny-signal nominal arithmetic, preserve the failed study
+
+[EXP-020](EXP-020-results.md) retains all 4,704 mixture records and 1,728 auxiliary controls. Its Arb enclosures are available, but 304 nominal quadratures fail the original warning or agreement requirements. All 25 incomplete cells lie in the core at 4T or 8T; the complete-study primary remains withheld. Frozen replay and independent audits agree on that incomplete status.
+
+Prepare EXP-021 with high-precision point likelihood/CDF evaluation inside the nominal quadrature, synthetic tiny-signal and integration-hint controls, and the unchanged statistical definitions, full 144-cell census, certified bounds and numerical thresholds. Record the correction's timing and source separately, freeze and push before new scores, and never relabel EXP-020 successful. All results remain conditional on known phase, fixed Gaussian observation noise and two selected fixed-weight cycles.
+
+## Earlier decision: distinguish linear-readout interference from recoverable information
 
 [EXP-019](EXP-019-results.md) completes and qualifies all 48 contexts, 2,796 jobs
 and 1,404 comparisons. The refined references resolve the missing-phase problem

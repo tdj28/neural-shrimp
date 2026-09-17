@@ -1,16 +1,11 @@
 # A neural shrimp and what the network does inside it
 
-**Human-friendly TLDR:** In the tested three-neuron network, the near-edge cycle can retain an input for several cycles, while the core is near chance by four cycles under the fixed readout. Across sixteen reused phases, four-cycle accuracy is 62.90% without a second input and 55.05% with one near the edge, versus 50.01% at the core. Memory and interference depend strongly on starting phase. A nonlinear readout may recover information that the linear observer misses; a shrimp-specific advantage and transfer to trained networks remain unproven.
+**Human-friendly TLDR:** The selected near-edge neural cycle can retain an earlier input that a linear observer misses after interference. In one tested case, nonlinear readout raises calculated accuracy from 50.3% to 99.7% under the fixed Gaussian observation model. The full nonlinear study remains incomplete because 25 core cases fail a numerical cross-check; a separately frozen arithmetic correction is next. This is a three-neuron fixed-weight result, not evidence of a shrimp-specific advantage or transfer to trained networks.
 
 Private exploratory research on periodic-window geometry, neural activity, and
 whether geometric information can improve model control.
 
-**Latest completed study: [EXP-019](docs/EXP-019-results.md).** All 2,796 jobs,
-48 contexts and 1,404 numerical comparisons qualify. The saved-array verifier
-passes, as do all finite/statistical audit checks. The independent reference
-audit agrees on all scientific gates but retains 165 strict alternate-arithmetic
-failures, reported separately. A reference-defined nonlinear mixture readout
-is the next exploratory analysis; no result for it is claimed yet.
+**Latest analysis: [EXP-020](docs/EXP-020-results.md), incomplete with its primary withheld.** All 4,704 mixture calculation slots returned records; 304 fail the unchanged nominal cross-check in 25 core cells. Frozen replay and independent physical-binding/aggregation audits preserve that status. All near-edge cells qualify locally, providing the descriptive recovery example above. EXP-021 is preparing a correction with the same data, classifiers, cohort and numerical gates. The qualified [EXP-019](docs/EXP-019-results.md) remains the complete neural memory acquisition study.
 
 **Current release status: private working diagnostic draft.** EXP-008
 [PR #7](https://github.com/tdj28/neural-shrimp/pull/7) remains **unmerged**.

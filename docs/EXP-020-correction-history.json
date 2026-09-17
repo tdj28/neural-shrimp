@@ -1,0 +1,70 @@
+{
+  "experiment_id": "EXP-020",
+  "certificate_schema": "incomplete-nominal-correction-history-v1",
+  "created_utc": "2026-09-17T19:34:39.732313+00:00",
+  "source_commit": "69ccc6e2c43236950dec246cfd3d66874bc89278",
+  "plan_sha256": "bf5c6a13973d6449ef3be4f992b66b8d14e940b4db5c453c08f69007f04b5712",
+  "raw_receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-020/attempt-001/receipt.json",
+    "bytes": 207872,
+    "sha256": "f54d3e16c528867bdca88131b53a650e0d6efbeca03b7d761bddf6949006e2e5"
+  },
+  "raw_summary": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-020/attempt-001/summary.json",
+    "bytes": 34489209,
+    "sha256": "47c3caf226cc8df3634d9ce46a46025d871e2b7c33273ec999c06a54d9cf6b2e"
+  },
+  "qualification": {
+    "complete": false,
+    "qualified": false,
+    "primary_withheld": true,
+    "source_valid": true,
+    "cells_planned": 144,
+    "cells_attempted": 144,
+    "cells_complete": 119,
+    "cells_incomplete": 25,
+    "mixture_planned": 4704,
+    "mixture_returned": 4704,
+    "mixture_qualified": 4400,
+    "mixture_unavailable": 304,
+    "auxiliary_linear_returned": 1728,
+    "auxiliary_linear_qualified": 1728,
+    "global_definition_barrier_pass": true,
+    "owned_process_cleanup_verified": true,
+    "frozen_saved_replay_pass": true,
+    "independent_binding_audit_pass": true,
+    "independent_summary_audit_pass": true,
+    "original_thresholds_unchanged": true,
+    "original_study_requalified": false
+  },
+  "failure_class": "Nominal quadrature warnings or disagreement at tiny signal scales; retained ball enclosures, no observed root/subdivision/width failures",
+  "audit_bindings": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-020/producer-replay-001/receipt.json",
+      "bytes": 2288,
+      "sha256": "4a49097ccce87c89f4b59421279cafb363204f61e41834c7f706452072426efa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-020/saved-evidence-audit-001/report.json",
+      "bytes": 50512,
+      "sha256": "b56c60059740a3b9ed4f9d0d6f9642a243ccf9a1d5773674ec938fb68d1a4820"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-020/summary-audit-001/report.json",
+      "bytes": 871,
+      "sha256": "48657481ef8ec6ba9117d42f272acc32a40511bb97377616b966952c9f609895"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-020/summary-audit-001/audit.py",
+      "bytes": 9994,
+      "sha256": "d4c173d863c0c1ca292c030590a6a90bff6a79329e9044ee285158cc9f04d3ea"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-020/failure-diagnosis-001/diagnosis.json",
+      "bytes": 311114,
+      "sha256": "f67e7b19ddd886e622fc4f70722bb92cfcaaa5e4f029c2fe911cbf5695aee81e"
+    }
+  ],
+  "no_performance_outcomes": true,
+  "scope": "Metadata-only correction history. No accuracy, gain, finite vector or selectedphase outcome is included. EXP020 remains incomplete; EXP019 remains the qualified neural evidence. New correction requires its own freeze and completecohort execution."
+}

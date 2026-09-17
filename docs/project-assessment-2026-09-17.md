@@ -1,6 +1,6 @@
 # Project assessment, 17 September 2026
 
-**Human-friendly TLDR:** The selected near-edge cycle in this three-neuron network retains a readable first input for several cycles, while the core is near chance by four cycles under the tested readout. The complete regression gives 62.90% near-edge accuracy without a second input and 55.05% with one, versus 50.01% at the core, across sixteen reused phases. The effect is strongly phase-dependent and carried by transverse responses. A linear readout can fail despite a strong first-input trace, so nonlinear recovery is the next question. A shrimp-specific advantage and trained-network transfer remain unproven.
+**Human-friendly TLDR:** The selected near-edge cycle retains phase-dependent input traces, and a nonlinear observer can recover an earlier bit that the linear observer misses after a second input. The audited phase-16 example changes from 50.3% to 99.7% accuracy under the declared observation-noise model. The complete nonlinear study is still withheld because 25 core cases fail its numerical cross-check; the next correction preserves the same data and gates. A simple one-mode observer also explains the delayed recovery. Geometry-specific benefit and trained-network transfer remain unproven.
 
 The strongest result is dynamical: selected points in the known three-neuron
 tanh network have verified primitive periodic orbits with measured transverse
@@ -27,13 +27,15 @@ numerical trajectory disagreement. Geometry's additional utility remains unresol
 | EXP-018 | All 102 jobs and 48 phase contexts qualify after global shooting and adjoint reconstruction; largest event-normalization error is 1.34e-10 against 1e-7. Both cycles retain their primitive nine-peak structure and stability. | One-period regression qualification supplies no new memory performance or eight-period guarantee. EXP-019 separately supplies fresh eight-period and memory qualification. |
 | EXP-019 | All 2,796 jobs, 48 contexts and 1,404 comparisons qualify. Near-edge four-cycle fixed-observer accuracy is 62.90% without/55.05% with a second input versus 50.01% core across sixteen reused phases. | Phase-dependent readout benefit; nonlinear recoverability, geometry-specific increment and trained-network transfer remain open. Strict reference alternate-arithmetic failures remain separately recorded. |
 
+| EXP-020 | All 4,704 mixture records and 1,728 auxiliary controls returned; all near-edge cells qualify locally and an audited example recovers earlier-input readout from 50.3% to 99.7%. | 304 nominal-quadrature failures leave 25 core cells incomplete and the complete-study primary withheld. EXP-021 will correct arithmetic under the same cohort and gates. |
+
 The [complete memory regression](EXP-019-results.md) now provides the first
 qualified setting-wide two-write comparison. Its 5.0463-point primary contrast
 is descriptive for reused phases. Full-linear responses closely explain
 balanced scores, but one slow mode misses early 2T behavior and per-sign errors
 can be larger than balanced-score errors. The post-hoc phase 16 collapse from
 100% without a second write to 50.31% with one motivates a separately frozen
-nonlinear-readout analysis, not an information-erasure claim.
+nonlinear-readout analysis. EXP-020 now supplies locally qualified nonlinear recovery while preserving its incomplete whole-study status; see the [retained results](EXP-020-results.md).
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
