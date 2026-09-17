@@ -23,6 +23,7 @@ numerical trajectory disagreement. Geometry's additional utility remains unresol
 | EXP-014 refinement | All 425 tighter-solver traces complete; all five new methods agree in 77/85 selected cases, including ten originally failed signs. | Eight large-pulse cases remain unresolved; strict alternative-arithmetic replay also retains tiny discrepancies. Original settings remain unqualified. |
 | EXP-015 | All 192 local decomposition cells and 1,152 pulse compatibility rows complete; all 64 phase-null cells pass frozen checks and retain transverse readout. | One original strict algebraic failure, twelve ideal-neutral failures and additional independent arithmetic discrepancies remain; no independent transverse solver certification. |
 | EXP-016 | All 96 direct state/tangent references and 2,079 eligible finite-input traces complete; all 1,080 available trajectory comparisons pass. Checked cases show transverse memory and interference closely predicted by linear dynamics. | Eleven phase-normalization failures block 621 planned traces; both setting-wide means and primary contrast remain unqualified. |
+| EXP-017 | All 102 reference-only jobs and 48 phase contexts complete; both fine methods agree on remaining failures. Finer sampling reduces the largest reference defect. | Nine event-normalization failures persist with exact dense samples; inherited global orbit/adjoint consistency needs refinement. No new memory outcomes or old-study requalification. |
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
@@ -67,6 +68,9 @@ first-input accuracy after a second input. Ordinary linear response explains
 the completed cases closely. Eleven phase-reference normalization failures
 leave the overall study incomplete and both settings unqualified. Diagnose
 that reference limitation without relaxing its threshold or discarding phases.
+[EXP-017](EXP-017-results.md) has now completed the first diagnostic: exact dense
+samples reduce the largest defect, but nine phases still fail in both finer
+methods. Refine the global periodic reference before another full memory task.
 The previous not-run record
 and [local strategy review](research-strategy-2026-09-17.md) remain historical.
 

@@ -1,0 +1,3044 @@
+{
+  "experiment_id": "EXP-017",
+  "recorded_utc": "2026-09-17T17:21:32.538952+00:00",
+  "status": "complete diagnostic;9of48event-normalizationcontexts stillfail; prior studies unchanged",
+  "human_friendly_tldr": "This reference-only study does not measure new memory performance. Finer cycle sampling reduces the largest coordinate defect but leaves nine starting phases inconsistent under both solvers. The earlier local memory/interference evidence stands; full-phase behavior still needs a more consistent periodic reference.",
+  "source_commit": "8fbd8ddcff5758526817e0f800a07f08c903a7c9",
+  "plan_sha256": "38a8d2aeb9f543a15cc7c3d0d471073b2ec095a669c8031acc837bd962e392f2",
+  "raw_directory": "/data2/neural-shrimp-data/raw/EXP-017/attempt-001",
+  "raw_receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-017/attempt-001/receipt.json",
+    "bytes": 61089,
+    "sha256": "7d8daa8d4bfe816247c568149b040758785c82d4fd4bb94a97b9c71b625b40f7"
+  },
+  "artifact_count": 326,
+  "artifact_bytes": 210612285,
+  "producer": {
+    "experiment_id": "EXP-017",
+    "complete": true,
+    "error": null,
+    "postflight_error": null,
+    "source_valid": true,
+    "status_counts": {
+      "bases": {
+        "complete": 6
+      },
+      "events": {
+        "complete": 96
+      }
+    },
+    "stage_wall_seconds": {
+      "bases": 6.14929604298959,
+      "events": 41.029051980993245
+    },
+    "total_wall_seconds": 60.577569647997734,
+    "original_study_requalified": false
+  },
+  "counts": {
+    "bases_planned": 6,
+    "bases_complete": 6,
+    "events_planned": 96,
+    "events_complete": 96,
+    "base_pairs_planned": 6,
+    "base_pairs_complete": 6,
+    "contexts_planned": 48,
+    "contexts_complete": 48,
+    "dense_fine_pair_diagnostic_pass": 39
+  },
+  "all_dense_fine_pairs_pass": false,
+  "base_diagnostics": [
+    {
+      "id": "core--baseline-dop853",
+      "complete": true,
+      "all_grid_diagnostics_pass": true,
+      "grids": {
+        "4096": {
+          "relative_closure": 8.493910654961736e-11,
+          "relative_adjoint_periodicity": 3.7056032442198413e-09,
+          "normalization_max": 1.3960876898977403e-08
+        },
+        "8192": {
+          "relative_closure": 8.493910654961736e-11,
+          "relative_adjoint_periodicity": 3.7056032442198413e-09,
+          "normalization_max": 1.3963355804946787e-08
+        }
+      }
+    },
+    {
+      "id": "core--fine-dop853",
+      "complete": true,
+      "all_grid_diagnostics_pass": true,
+      "grids": {
+        "4096": {
+          "relative_closure": 8.493147076048786e-11,
+          "relative_adjoint_periodicity": 3.7045595711604726e-09,
+          "normalization_max": 1.3942661247767774e-08
+        },
+        "8192": {
+          "relative_closure": 8.493147076048786e-11,
+          "relative_adjoint_periodicity": 3.7045595711604726e-09,
+          "normalization_max": 1.3942663912303033e-08
+        }
+      }
+    },
+    {
+      "id": "core--fine-rk45",
+      "complete": true,
+      "all_grid_diagnostics_pass": true,
+      "grids": {
+        "4096": {
+          "relative_closure": 8.499530266523123e-11,
+          "relative_adjoint_periodicity": 3.7086815963271305e-09,
+          "normalization_max": 1.4103463730208432e-08
+        },
+        "8192": {
+          "relative_closure": 8.499530266523123e-11,
+          "relative_adjoint_periodicity": 3.7086815963271305e-09,
+          "normalization_max": 1.4103463730208432e-08
+        }
+      }
+    },
+    {
+      "id": "failed-near-edge--baseline-dop853",
+      "complete": true,
+      "all_grid_diagnostics_pass": true,
+      "grids": {
+        "4096": {
+          "relative_closure": 5.610153815286486e-10,
+          "relative_adjoint_periodicity": 2.4121092522282418e-09,
+          "normalization_max": 6.048338718755986e-08
+        },
+        "8192": {
+          "relative_closure": 5.610153815286486e-10,
+          "relative_adjoint_periodicity": 2.4121092522282418e-09,
+          "normalization_max": 6.052863454897306e-08
+        }
+      }
+    },
+    {
+      "id": "failed-near-edge--fine-dop853",
+      "complete": true,
+      "all_grid_diagnostics_pass": true,
+      "grids": {
+        "4096": {
+          "relative_closure": 5.611013460957281e-10,
+          "relative_adjoint_periodicity": 2.4112491812437368e-09,
+          "normalization_max": 6.00165890318749e-08
+        },
+        "8192": {
+          "relative_closure": 5.611013460957281e-10,
+          "relative_adjoint_periodicity": 2.4112491812437368e-09,
+          "normalization_max": 6.00165890318749e-08
+        }
+      }
+    },
+    {
+      "id": "failed-near-edge--fine-rk45",
+      "complete": true,
+      "all_grid_diagnostics_pass": true,
+      "grids": {
+        "4096": {
+          "relative_closure": 5.616657376233481e-10,
+          "relative_adjoint_periodicity": 2.4140004012045163e-09,
+          "normalization_max": 6.540449248859659e-08
+        },
+        "8192": {
+          "relative_closure": 5.616657376233481e-10,
+          "relative_adjoint_periodicity": 2.4140004012045163e-09,
+          "normalization_max": 6.540449248859659e-08
+        }
+      }
+    }
+  ],
+  "base_pairs": [
+    {
+      "id": "core--baseline-dop853--vs--fine-dop853",
+      "complete": true,
+      "agreement_pass": true
+    },
+    {
+      "id": "core--baseline-dop853--vs--fine-rk45",
+      "complete": true,
+      "agreement_pass": true
+    },
+    {
+      "id": "core--fine-dop853--vs--fine-rk45",
+      "complete": true,
+      "agreement_pass": true
+    },
+    {
+      "id": "failed-near-edge--baseline-dop853--vs--fine-dop853",
+      "complete": true,
+      "agreement_pass": true
+    },
+    {
+      "id": "failed-near-edge--baseline-dop853--vs--fine-rk45",
+      "complete": true,
+      "agreement_pass": true
+    },
+    {
+      "id": "failed-near-edge--fine-dop853--vs--fine-rk45",
+      "complete": true,
+      "agreement_pass": true
+    }
+  ],
+  "contexts": [
+    {
+      "context_id": "core--p00",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 1.5821638266189098e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.394460968917599e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.9879376750585607e-11,
+              "adjoint_error": 5.72732261616693e-09,
+              "interpolated_z_interpolated_state_physical_flow": 2.349910976917613e-08
+            },
+            "8192": {
+              "state_error": 2.9568569814841794e-12,
+              "adjoint_error": 5.525890856006299e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4873599241127522e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940251175625917e-08,
+          "event_normalization": 1.6690059068125151e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.9879321239434375e-11,
+              "adjoint_error": 5.72732261616693e-09,
+              "interpolated_z_interpolated_state_physical_flow": 2.3494761691722488e-08
+            },
+            "8192": {
+              "state_error": 2.9568569814841794e-12,
+              "adjoint_error": 5.525855328869511e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4869243836201917e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3956531708103626e-08,
+          "event_normalization": 1.6704706085057808e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.986305647212362e-11,
+              "adjoint_error": 5.727407881295221e-09,
+              "interpolated_z_interpolated_state_physical_flow": 2.351027905689307e-08
+            },
+            "8192": {
+              "state_error": 2.940592214173421e-12,
+              "adjoint_error": 5.526707980152423e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4884753873900536e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p01",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.9891258357395145e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3941994891908394e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2179945940715697e-10,
+              "adjoint_error": 5.959396531807215e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4237220069546197e-08
+            },
+            "8192": {
+              "state_error": 1.7763568394002505e-15,
+              "adjoint_error": 5.3290705182007514e-14,
+              "interpolated_z_interpolated_state_physical_flow": 1.3941995780086813e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.394065707316372e-08,
+          "event_normalization": 2.780410257585686e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2180301212083577e-10,
+              "adjoint_error": 5.959396531807215e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4235883805113758e-08
+            },
+            "8192": {
+              "state_error": 1.7763568394002505e-15,
+              "adjoint_error": 5.3290705182007514e-14,
+              "interpolated_z_interpolated_state_physical_flow": 1.3940659071565165e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.395340665233391e-08,
+          "event_normalization": 2.7828587212397338e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2179768305031757e-10,
+              "adjoint_error": 5.959396531807215e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4248633828373158e-08
+            },
+            "8192": {
+              "state_error": 1.7763568394002505e-15,
+              "adjoint_error": 4.618527782440651e-14,
+              "interpolated_z_interpolated_state_physical_flow": 1.3953410871181404e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p02",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 3.170340301394958e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942019316814935e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.8073365026793908e-10,
+              "adjoint_error": 6.887741932359859e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4386984048542217e-08
+            },
+            "8192": {
+              "state_error": 7.283063041541027e-14,
+              "adjoint_error": 2.8030910925735952e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3942200061123344e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940655074762276e-08,
+          "event_normalization": 2.889870609479317e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.8073453844635878e-10,
+              "adjoint_error": 6.88773837964618e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4385617586043509e-08
+            },
+            "8192": {
+              "state_error": 7.283063041541027e-14,
+              "adjoint_error": 2.8030910925735952e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.394083604111529e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953416200251922e-08,
+          "event_normalization": 2.8923056394347668e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.8073365026793908e-10,
+              "adjoint_error": 6.887749037787216e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4398374270641057e-08
+            },
+            "8192": {
+              "state_error": 7.283063041541027e-14,
+              "adjoint_error": 2.8137492336099967e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3953591393445208e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p03",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 1.2299294649409376e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3944663201925778e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.035349997546291e-11,
+              "adjoint_error": 7.02176095046525e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.2828278439513952e-08
+            },
+            "8192": {
+              "state_error": 1.27702293184484e-11,
+              "adjoint_error": 1.5003109865574515e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.370679347800774e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940367749043503e-08,
+          "event_normalization": 1.283040229616006e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.035172361862351e-11,
+              "adjoint_error": 7.02176095046525e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.2823980988230232e-08
+            },
+            "8192": {
+              "state_error": 1.2768452961609e-11,
+              "adjoint_error": 1.5003465136942395e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3702484036315354e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3956184208296918e-08,
+          "event_normalization": 1.2841375784944375e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.034639454810531e-11,
+              "adjoint_error": 7.023821524398954e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.283961181819393e-08
+            },
+            "8192": {
+              "state_error": 1.27613475342514e-11,
+              "adjoint_error": 1.5024426147647318e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3718112423788398e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p04",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.7395282264919274e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3941868548528191e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.3855583347321954e-13,
+              "adjoint_error": 1.0977885267493548e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3942063059602106e-08
+            },
+            "8192": {
+              "state_error": 3.552713678800501e-14,
+              "adjoint_error": 2.717825964282383e-13,
+              "interpolated_z_interpolated_state_physical_flow": 1.3941916954252065e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940658627475955e-08,
+          "event_normalization": 2.7392901058576058e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.3855583347321954e-13,
+              "adjoint_error": 1.0977885267493548e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3940852916505264e-08
+            },
+            "8192": {
+              "state_error": 3.552713678800501e-14,
+              "adjoint_error": 2.717825964282383e-13,
+              "interpolated_z_interpolated_state_physical_flow": 1.3940706811155223e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.395117221747455e-08,
+          "event_normalization": 2.7414718273277572e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.3855583347321954e-13,
+              "adjoint_error": 1.0977885267493548e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3951368948994514e-08
+            },
+            "8192": {
+              "state_error": 3.375077994860476e-14,
+              "adjoint_error": 2.717825964282383e-13,
+              "interpolated_z_interpolated_state_physical_flow": 1.3951222621599868e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p05",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 3.1708415226816555e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942020204993355e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.6278001996615785e-10,
+              "adjoint_error": 3.7755452098053865e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4404294645942173e-08
+            },
+            "8192": {
+              "state_error": 3.645084234449314e-12,
+              "adjoint_error": 5.235545330606328e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3948439292477133e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940653742494646e-08,
+          "event_normalization": 2.8833370580017004e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.6278001996615785e-10,
+              "adjoint_error": 3.775546097983806e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4402930181844908e-08
+            },
+            "8192": {
+              "state_error": 3.645084234449314e-12,
+              "adjoint_error": 5.235545330606328e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3947073718156844e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953396660326689e-08,
+          "event_normalization": 2.8858404554910067e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.6278179632299725e-10,
+              "adjoint_error": 3.775588730547952e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4415674653989186e-08
+            },
+            "8192": {
+              "state_error": 3.645972412869014e-12,
+              "adjoint_error": 5.239630951336949e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.395981907847954e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p06",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.6723141255402538e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942015542056652e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.680576175062015e-10,
+              "adjoint_error": 5.753693077537037e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4946629711687365e-08
+            },
+            "8192": {
+              "state_error": 1.8992807326867478e-11,
+              "adjoint_error": 1.4036327655730929e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3966626077888122e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940619769670093e-08,
+          "event_normalization": 2.461275716569844e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.680558411493621e-10,
+              "adjoint_error": 5.753697518429135e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4945234827479226e-08
+            },
+            "8192": {
+              "state_error": 1.8992807326867478e-11,
+              "adjoint_error": 1.4036771744940779e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3965230749590773e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953417532519552e-08,
+          "event_normalization": 2.463353765413956e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.680647229335591e-10,
+              "adjoint_error": 5.753313381262615e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4957993066389008e-08
+            },
+            "8192": {
+              "state_error": 1.899991275422508e-11,
+              "adjoint_error": 1.3998358028288749e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3977987878277531e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p07",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.7248336920138172e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3944536414456365e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.524647157997606e-10,
+              "adjoint_error": 4.44647874076054e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3654035013743737e-08
+            },
+            "8192": {
+              "state_error": 2.1243451442387595e-11,
+              "adjoint_error": 3.7768455030118275e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3919993380184792e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940609999707476e-08,
+          "event_normalization": 2.6651569173807843e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.524629394429212e-10,
+              "adjoint_error": 4.4464831816526385e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3650107044682613e-08
+            },
+            "8192": {
+              "state_error": 2.1243451442387595e-11,
+              "adjoint_error": 3.7768899119328125e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3916066521346693e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3955967270717906e-08,
+          "event_normalization": 2.6676613806841942e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.524380704471696e-10,
+              "adjoint_error": 4.44621228723463e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3665495401937733e-08
+            },
+            "8192": {
+              "state_error": 2.1218582446635992e-11,
+              "adjoint_error": 3.774092149910757e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3931454212467997e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p08",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.8968998311285077e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.394199244941774e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.192379611187789e-11,
+              "adjoint_error": 1.7448158473598596e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4005058668331571e-08
+            },
+            "8192": {
+              "state_error": 4.121147867408581e-12,
+              "adjoint_error": 3.262741188336804e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.395383941726891e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940635756881647e-08,
+          "event_normalization": 2.8523500672505975e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.192379611187789e-11,
+              "adjoint_error": 1.7448158473598596e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.400370108761706e-08
+            },
+            "8192": {
+              "state_error": 4.120259688988881e-12,
+              "adjoint_error": 3.262670134063228e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3952484501089657e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953473709804598e-08,
+          "event_normalization": 2.854762848336634e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.192468429029759e-11,
+              "adjoint_error": 1.7447803202230716e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4016517502213333e-08
+            },
+            "8192": {
+              "state_error": 4.121147867408581e-12,
+              "adjoint_error": 3.262385916968924e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.396529913932909e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p09",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 2.889486481194581e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3944609245086781e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.475513376040908e-10,
+              "adjoint_error": 1.0763573143890426e-08,
+              "interpolated_z_interpolated_state_physical_flow": 3.668133485845715e-08
+            },
+            "8192": {
+              "state_error": 3.916511559509672e-11,
+              "adjoint_error": 7.773550692036224e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.5583769608085163e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940269383283521e-08,
+          "event_normalization": 1.6879534081581937e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.475513376040908e-10,
+              "adjoint_error": 1.0763574920247265e-08,
+              "interpolated_z_interpolated_state_physical_flow": 3.6676981229888383e-08
+            },
+            "8192": {
+              "state_error": 3.916156288141792e-11,
+              "adjoint_error": 7.773550692036224e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.5579425749479014e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3955943511945179e-08,
+          "event_normalization": 1.6895760035495755e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.475015996125876e-10,
+              "adjoint_error": 1.0763734792362811e-08,
+              "interpolated_z_interpolated_state_physical_flow": 3.669262871319745e-08
+            },
+            "8192": {
+              "state_error": 3.9115377603593515e-11,
+              "adjoint_error": 7.775167176760078e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.5595070124163612e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p10",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 2.4404609777484154e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3944594368098251e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.2006397532313713e-10,
+              "adjoint_error": 5.718678863786408e-09,
+              "interpolated_z_interpolated_state_physical_flow": 2.6128035957029283e-08
+            },
+            "8192": {
+              "state_error": 4.6412651499849744e-11,
+              "adjoint_error": 8.220890634902389e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.5699053612650005e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940262055811559e-08,
+          "event_normalization": 1.6979852723864042e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.2006042260945833e-10,
+              "adjoint_error": 5.718677087429569e-09,
+              "interpolated_z_interpolated_state_physical_flow": 2.6123702978608776e-08
+            },
+            "8192": {
+              "state_error": 4.6409098786170944e-11,
+              "adjoint_error": 8.220890634902389e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.5694717747649634e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3956076294618924e-08,
+          "event_normalization": 1.699544431854605e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.200248954726703e-10,
+              "adjoint_error": 5.718765905271539e-09,
+              "interpolated_z_interpolated_state_physical_flow": 2.6139391096080544e-08
+            },
+            "8192": {
+              "state_error": 4.636646622202534e-11,
+              "adjoint_error": 8.221796576890483e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.5710404532853772e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p11",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.7120974577243828e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.394453841285781e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5565149996964465e-10,
+              "adjoint_error": 5.532934110874521e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4234962764092529e-08
+            },
+            "8192": {
+              "state_error": 2.5149660132228746e-11,
+              "adjoint_error": 5.4433790808161575e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.397282112236553e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940608445395242e-08,
+          "event_normalization": 2.631195794577934e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5565149996964465e-10,
+              "adjoint_error": 5.53293633132057e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4231033240719171e-08
+            },
+            "8192": {
+              "state_error": 2.5149660132228746e-11,
+              "adjoint_error": 5.44340128527665e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3968891376947568e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3955961497558178e-08,
+          "event_normalization": 2.6337656056085734e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5565505268332345e-10,
+              "adjoint_error": 5.532763136528729e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4246412050056279e-08
+            },
+            "8192": {
+              "state_error": 2.5151436489068146e-11,
+              "adjoint_error": 5.44171374627922e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3984270630373885e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p12",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.9487140507100662e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3941853893584266e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5642599155162316e-11,
+              "adjoint_error": 4.703380795945122e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4055313357630439e-08
+            },
+            "8192": {
+              "state_error": 4.072298054325074e-12,
+              "adjoint_error": 7.446701033586578e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3959825961862293e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940633536435598e-08,
+          "event_normalization": 2.8700475107612533e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5643487333582016e-11,
+              "adjoint_error": 4.703380795945122e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4054093222526376e-08
+            },
+            "8192": {
+              "state_error": 4.072298054325074e-12,
+              "adjoint_error": 7.446629979313002e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3958612266051773e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3951169108850081e-08,
+          "event_normalization": 2.8722165534844635e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5647040047260816e-11,
+              "adjoint_error": 4.7033594796630496e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4064578390815541e-08
+            },
+            "8192": {
+              "state_error": 4.077627124843275e-12,
+              "adjoint_error": 7.446416816492274e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3969087664378321e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p13",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.919491626229842e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942008436629294e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.243272317376977e-11,
+              "adjoint_error": 2.5128903402560354e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4098090028724641e-08
+            },
+            "8192": {
+              "state_error": 9.947598300641403e-14,
+              "adjoint_error": 8.01225752411483e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3942514476283918e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940651077959387e-08,
+          "event_normalization": 2.7374713162942044e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.243272317376977e-11,
+              "adjoint_error": 2.5128903402560354e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4096726008716587e-08
+            },
+            "8192": {
+              "state_error": 9.947598300641403e-14,
+              "adjoint_error": 8.01225752411483e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3941154675123357e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953425748169934e-08,
+          "event_normalization": 2.739871574064523e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.242917046009097e-11,
+              "adjoint_error": 2.5128805702934187e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4109511115023565e-08
+            },
+            "8192": {
+              "state_error": 9.592326932761353e-14,
+              "adjoint_error": 8.003375739917828e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3953938227118101e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p14",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 3.036087337093818e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3941863441502278e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.876099606894059e-11,
+              "adjoint_error": 5.465768282419958e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4278396909261915e-08
+            },
+            "8192": {
+              "state_error": 1.8758328224066645e-12,
+              "adjoint_error": 1.7507417737760989e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3952657251792289e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940655296806881e-08,
+          "event_normalization": 2.8227011839021543e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.876099606894059e-11,
+              "adjoint_error": 5.465768282419958e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4277188542521912e-08
+            },
+            "8192": {
+              "state_error": 1.8758328224066645e-12,
+              "adjoint_error": 1.7507062466393108e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3951442445758744e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.395117399383139e-08,
+          "event_normalization": 2.8248783534579047e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.876010789052089e-11,
+              "adjoint_error": 5.465700780860061e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4287717897687457e-08
+            },
+            "8192": {
+              "state_error": 1.8740564655672642e-12,
+              "adjoint_error": 1.7501378124507028e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3961958700292598e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p15",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 3.377334190091119e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3944541743526884e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.851630374171691e-10,
+              "adjoint_error": 2.2937034493963893e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4644262913421358e-08
+            },
+            "8192": {
+              "state_error": 1.361577517400292e-11,
+              "adjoint_error": 4.5709214191447245e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.395851567664863e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940610221752081e-08,
+          "event_normalization": 3.0130828720942304e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.851639255955888e-10,
+              "adjoint_error": 2.2937034493963893e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4640333612092604e-08
+            },
+            "8192": {
+              "state_error": 1.361666335242262e-11,
+              "adjoint_error": 4.5708770102237395e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3954586375319877e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3956037658857667e-08,
+          "event_normalization": 3.015891136826099e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.851639255955888e-10,
+              "adjoint_error": 2.293687018095625e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4655751945369389e-08
+            },
+            "8192": {
+              "state_error": 1.361666335242262e-11,
+              "adjoint_error": 4.569100653384339e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3970003598373637e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p16",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.9059970207967467e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3944533527876501e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.1223112156576462e-10,
+              "adjoint_error": 5.745781628263558e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4225584932248125e-08
+            },
+            "8192": {
+              "state_error": 2.987654568187281e-11,
+              "adjoint_error": 7.993428141617187e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3983588065258346e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940608667439847e-08,
+          "event_normalization": 2.770534912599487e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.1222934520892522e-10,
+              "adjoint_error": 5.745786069155656e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.422165962772226e-08
+            },
+            "8192": {
+              "state_error": 2.987565750345311e-11,
+              "adjoint_error": 7.993428141617187e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.39796636489109e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3955947952837278e-08,
+          "event_normalization": 2.773180085569038e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.1226753688097233e-10,
+              "adjoint_error": 5.746030318221074e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4237036438657924e-08
+            },
+            "8192": {
+              "state_error": 2.991296099708052e-11,
+              "adjoint_error": 7.995915041192347e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3995040237801959e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p17",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 3.094240974554907e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942015764101257e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0881341100675854e-10,
+              "adjoint_error": 2.9658515643404826e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4316551277815392e-08
+            },
+            "8192": {
+              "state_error": 1.4422241179090634e-11,
+              "adjoint_error": 2.049045377816583e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3967878187415295e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940654408628461e-08,
+          "event_normalization": 2.8666496065810065e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0881341100675854e-10,
+              "adjoint_error": 2.9658515643404826e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4315193253011671e-08
+            },
+            "8192": {
+              "state_error": 1.4423129357510334e-11,
+              "adjoint_error": 2.049045377816583e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.396651638785329e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953418864787182e-08,
+          "event_normalization": 2.86898651502554e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0881252282833884e-10,
+              "adjoint_error": 2.965894196904628e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4327937281066738e-08
+            },
+            "8192": {
+              "state_error": 1.4421353000670933e-11,
+              "adjoint_error": 2.049436176321251e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.397926374657743e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p18",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.9055260863941612e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3941990451016295e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.0106583892575145e-11,
+              "adjoint_error": 1.9691661634624325e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4034260864548287e-08
+            },
+            "8192": {
+              "state_error": 5.285549775635445e-12,
+              "adjoint_error": 3.454303509897727e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3958176836581515e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940631982123364e-08,
+          "event_normalization": 2.8446508260060455e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.0106583892575145e-11,
+              "adjoint_error": 1.9691626107487537e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4032911055394948e-08
+            },
+            "8192": {
+              "state_error": 5.285549775635445e-12,
+              "adjoint_error": 3.454267982760939e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.395682724947278e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953372679509357e-08,
+          "event_normalization": 2.8470273027991766e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.0107472070994845e-11,
+              "adjoint_error": 1.9692372177360085e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4045717033894789e-08
+            },
+            "8192": {
+              "state_error": 5.285549775635445e-12,
+              "adjoint_error": 3.455049579770275e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3969627010723684e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p19",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.8084112146942175e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3941862331279253e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.619568616526237e-14,
+              "adjoint_error": 2.2069457372708712e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.394273319021977e-08
+            },
+            "8192": {
+              "state_error": 1.1195905313954313e-14,
+              "adjoint_error": 5.361044941309956e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.394207771454603e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940649079557943e-08,
+          "event_normalization": 2.8074906621711193e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.619568616526237e-14,
+              "adjoint_error": 2.2069457372708712e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3941520604632274e-08
+            },
+            "8192": {
+              "state_error": 1.1195905313954313e-14,
+              "adjoint_error": 5.359268584470556e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.3940854248772894e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3951161337288909e-08,
+          "event_normalization": 2.809714461093904e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.6199155612214327e-14,
+              "adjoint_error": 2.2041035663278308e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3952027311248116e-08
+            },
+            "8192": {
+              "state_error": 1.119764003743029e-14,
+              "adjoint_error": 5.332623231879552e-12,
+              "interpolated_z_interpolated_state_physical_flow": 1.395136695059307e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 3.621510735740685e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942037302427934e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2353327250025359e-09,
+              "adjoint_error": 2.116222308501392e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.6045263340203064e-08
+            },
+            "8192": {
+              "state_error": 1.060569410071821e-10,
+              "adjoint_error": 1.8159296288899895e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4121990909998772e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940651522048597e-08,
+          "event_normalization": 3.095424627730381e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2353327250025359e-09,
+              "adjoint_error": 2.1162228636129043e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.6043878892091357e-08
+            },
+            "8192": {
+              "state_error": 1.0605738509639195e-10,
+              "adjoint_error": 1.8159274084439403e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.412060490757483e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.395349902288956e-08,
+          "event_normalization": 3.09814185417423e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2353695844069534e-09,
+              "adjoint_error": 2.116199770973992e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.6056589613455685e-08
+            },
+            "8192": {
+              "state_error": 1.0609380041159966e-10,
+              "adjoint_error": 1.815697592277843e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.4133315628939158e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p21",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.6048743828610554e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942012211387578e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 8.077449820120819e-11,
+              "adjoint_error": 3.4001512716486104e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3853491909188165e-08
+            },
+            "8192": {
+              "state_error": 1.4134471371107793e-11,
+              "adjoint_error": 5.919620349459365e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3926864106394987e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940631538034154e-08,
+          "event_normalization": 2.5952711979471133e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 8.077449820120819e-11,
+              "adjoint_error": 3.4001423898644134e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3852111901968556e-08
+            },
+            "8192": {
+              "state_error": 1.4132695014268393e-11,
+              "adjoint_error": 5.919442713775425e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3925484543264588e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953401545307997e-08,
+          "event_normalization": 2.597490489364418e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 8.076916913068999e-11,
+              "adjoint_error": 3.4001867987853984e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3864846826194821e-08
+            },
+            "8192": {
+              "state_error": 1.4127365943750192e-11,
+              "adjoint_error": 5.919975620827245e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3938219023401643e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p22",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.906687601722524e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3941875431910944e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.247624639854621e-11,
+              "adjoint_error": 3.0951810003898572e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4095167033545408e-08
+            },
+            "8192": {
+              "state_error": 7.510436716984259e-12,
+              "adjoint_error": 3.7111647088750033e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3960253397726774e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940660625877399e-08,
+          "event_normalization": 2.798801301828746e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.247624639854621e-11,
+              "adjoint_error": 3.0951810003898572e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.4093954447957913e-08
+            },
+            "8192": {
+              "state_error": 7.510436716984259e-12,
+              "adjoint_error": 3.7111291817382153e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.39590372594256e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3951224842045917e-08,
+          "event_normalization": 2.8009545349760856e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.247979911222501e-11,
+              "adjoint_error": 3.0954225849200157e-09,
+              "interpolated_z_interpolated_state_physical_flow": 1.410443428717656e-08
+            },
+            "8192": {
+              "state_error": 7.51398943066306e-12,
+              "adjoint_error": 3.7135805541765876e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3969515544332012e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "core--p23",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 2.838316515152428e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 1.3942015986145861e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.0529355165544985e-11,
+              "adjoint_error": 1.5127099572964653e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3968281420417838e-08
+            },
+            "8192": {
+              "state_error": 2.319922032256727e-12,
+              "adjoint_error": 3.3292479884039494e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3947791366319962e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 1.3940651966137807e-08,
+          "event_normalization": 2.8242238769848882e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.0530243343964685e-11,
+              "adjoint_error": 1.5127632480016473e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.3966917400409784e-08
+            },
+            "8192": {
+              "state_error": 2.319922032256727e-12,
+              "adjoint_error": 3.3296032597718295e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3946423349509018e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 1.3953407762556935e-08,
+          "event_normalization": 2.8266474272342634e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.0530243343964685e-11,
+              "adjoint_error": 1.5130474650959513e-10,
+              "interpolated_z_interpolated_state_physical_flow": 1.397966409300011e-08
+            },
+            "8192": {
+              "state_error": 2.319922032256727e-12,
+              "adjoint_error": 3.33280070208275e-11,
+              "interpolated_z_interpolated_state_physical_flow": 1.3959172484589999e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p00",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.287125026676165e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995164253924656e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.554312730917445e-11,
+              "adjoint_error": 1.6515542711204034e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.748505715885699e-08
+            },
+            "8192": {
+              "state_error": 7.192468842731614e-12,
+              "adjoint_error": 1.5730563518445706e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.971633743051541e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000544994222423e-08,
+          "event_normalization": 5.10575903778232e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.554490366601385e-11,
+              "adjoint_error": 1.6515542711204034e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.7538889652875014e-08
+            },
+            "8192": {
+              "state_error": 7.192468842731614e-12,
+              "adjoint_error": 1.5730563518445706e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.977014483349308e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998030161435963e-08,
+          "event_normalization": 5.1005647261348486e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.554312730917445e-11,
+              "adjoint_error": 1.651564218718704e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.751367537776275e-08
+            },
+            "8192": {
+              "state_error": 7.192468842731614e-12,
+              "adjoint_error": 1.5731416169728618e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.974492900406858e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p01",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.3762819085534375e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995168228523085e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.306697386548876e-10,
+              "adjoint_error": 1.4236718470783671e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.195353969256189e-08
+            },
+            "8192": {
+              "state_error": 4.440892098500626e-15,
+              "adjoint_error": 1.1723955140041653e-13,
+              "interpolated_z_interpolated_state_physical_flow": 5.995161744820621e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.00054079757939e-08,
+          "event_normalization": 4.9649815370145234e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.306697386548876e-10,
+              "adjoint_error": 1.4236718470783671e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.200726693743718e-08
+            },
+            "8192": {
+              "state_error": 4.440892098500626e-15,
+              "adjoint_error": 1.1723955140041653e-13,
+              "interpolated_z_interpolated_state_physical_flow": 6.000534313876926e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998019769748453e-08,
+          "event_normalization": 4.9602020490979726e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.306644095843694e-10,
+              "adjoint_error": 1.4236714918069993e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.198200780931472e-08
+            },
+            "8192": {
+              "state_error": 3.552713678800501e-15,
+              "adjoint_error": 1.1723955140041653e-13,
+              "interpolated_z_interpolated_state_physical_flow": 5.998012753138937e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p02",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.3209828321243435e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995168672612294e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.4519055109049077e-10,
+              "adjoint_error": 4.337645798102585e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.568937022637499e-08
+            },
+            "8192": {
+              "state_error": 1.829647544582258e-13,
+              "adjoint_error": 1.751487843648647e-12,
+              "interpolated_z_interpolated_state_physical_flow": 5.994995522229374e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000543262274505e-08,
+          "event_normalization": 5.100905542398948e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.4519055109049077e-10,
+              "adjoint_error": 4.337645798102585e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.5743117455264724e-08
+            },
+            "8192": {
+              "state_error": 1.794120407794253e-13,
+              "adjoint_error": 1.752376022068347e-12,
+              "interpolated_z_interpolated_state_physical_flow": 6.00037040054957e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998028407283584e-08,
+          "event_normalization": 5.095651123276923e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.4519055109049077e-10,
+              "adjoint_error": 4.337663561670979e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.571797112580157e-08
+            },
+            "8192": {
+              "state_error": 1.794120407794253e-13,
+              "adjoint_error": 1.7692514120426495e-12,
+              "interpolated_z_interpolated_state_physical_flow": 5.997855612172032e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p03",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.121182211631492e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995163476768539e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.2995828291859652e-12,
+              "adjoint_error": 2.9277771318447776e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.964242766332006e-08
+            },
+            "8192": {
+              "state_error": 6.945555242054979e-13,
+              "adjoint_error": 6.219380566108157e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.988606988083234e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000543173456663e-08,
+          "event_normalization": 5.1051746607910786e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.2995828291859652e-12,
+              "adjoint_error": 2.9277629209900624e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.969625394008915e-08
+            },
+            "8192": {
+              "state_error": 6.945555242054979e-13,
+              "adjoint_error": 6.219522674655309e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.993987040042725e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998030849774239e-08,
+          "event_normalization": 5.1004406476096165e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.297806472346565e-12,
+              "adjoint_error": 2.9275497581693344e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.967119220962047e-08
+            },
+            "8192": {
+              "state_error": 6.936673457857978e-13,
+              "adjoint_error": 6.217391046448029e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.99148324287313e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p04",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 1.0389803795085584e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.999539132162113e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 9.272582701669307e-13,
+              "adjoint_error": 8.988365607365267e-12,
+              "interpolated_z_interpolated_state_physical_flow": 6.000568930630834e-08
+            },
+            "8192": {
+              "state_error": 2.282618538629322e-13,
+              "adjoint_error": 2.2231105845094135e-12,
+              "interpolated_z_interpolated_state_physical_flow": 5.999794572275619e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.00049434584804e-08,
+          "event_normalization": 1.0388172633213344e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 9.272582701669307e-13,
+              "adjoint_error": 8.988365607365267e-12,
+              "interpolated_z_interpolated_state_physical_flow": 6.001523966681077e-08
+            },
+            "8192": {
+              "state_error": 2.282618538629322e-13,
+              "adjoint_error": 2.2231105845094135e-12,
+              "interpolated_z_interpolated_state_physical_flow": 6.000749608325862e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007101793770175e-08,
+          "event_normalization": 1.0399337502242645e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 9.299228054260311e-13,
+              "adjoint_error": 8.984812893686467e-12,
+              "interpolated_z_interpolated_state_physical_flow": 6.008128217160902e-08
+            },
+            "8192": {
+              "state_error": 2.3092638912203256e-13,
+              "adjoint_error": 2.220446049250313e-12,
+              "interpolated_z_interpolated_state_physical_flow": 6.007353769987844e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p05",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.2193910082820594e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995168361749847e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.715836527362626e-10,
+              "adjoint_error": 5.593264518211072e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.759518084680337e-08
+            },
+            "8192": {
+              "state_error": 5.167422045815329e-12,
+              "adjoint_error": 7.720402095401369e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.99185070448982e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000541574735507e-08,
+          "event_normalization": 5.085675014449009e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.715836527362626e-10,
+              "adjoint_error": 5.593268070924751e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.7648904094875775e-08
+            },
+            "8192": {
+              "state_error": 5.167422045815329e-12,
+              "adjoint_error": 7.720757366769249e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.997223206932745e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998012975183542e-08,
+          "event_normalization": 5.0809136009632994e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.715818763794232e-10,
+              "adjoint_error": 5.593353336053042e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.762376042994788e-08
+            },
+            "8192": {
+              "state_error": 5.165645688975928e-12,
+              "adjoint_error": 7.72999442233413e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.994707952261535e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p06",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 1.6443038930447074e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.99503096054832e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.913633695949102e-09,
+              "adjoint_error": 2.0838797354372218e-08,
+              "interpolated_z_interpolated_state_physical_flow": 2.9535897283494705e-08
+            },
+            "8192": {
+              "state_error": 4.7052139962033834e-11,
+              "adjoint_error": 5.183267148822779e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.9209298797213705e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000374241921236e-08,
+          "event_normalization": 4.76925379189197e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.9136354723059412e-09,
+              "adjoint_error": 2.083882577608165e-08,
+              "interpolated_z_interpolated_state_physical_flow": 2.9589216410386143e-08
+            },
+            "8192": {
+              "state_error": 4.7053916318873235e-11,
+              "adjoint_error": 5.182982931728475e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.9262674767524004e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.99810618950869e-08,
+          "event_normalization": 4.798607733391691e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.9136017215259926e-09,
+              "adjoint_error": 2.0839109993175953e-08,
+              "interpolated_z_interpolated_state_physical_flow": 2.9567388537543593e-08
+            },
+            "8192": {
+              "state_error": 4.702194189576403e-11,
+              "adjoint_error": 5.186109319765819e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.924079005126259e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p07",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 1.3333202142362666e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 6.002833075058334e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.247902225998132e-09,
+              "adjoint_error": 4.64886085183025e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.403267782673083e-08
+            },
+            "8192": {
+              "state_error": 1.0529443983386955e-10,
+              "adjoint_error": 3.836948536672935e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.036915811691301e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000498142810784e-08,
+          "event_normalization": 1.2907775426285184e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2479031141765518e-09,
+              "adjoint_error": 4.648862628187089e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.400931651384667e-08
+            },
+            "8192": {
+              "state_error": 1.0529532801228925e-10,
+              "adjoint_error": 3.836984063809723e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.034579680402885e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007398090090987e-08,
+          "event_normalization": 1.2921991077163852e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 1.2478622579692455e-09,
+              "adjoint_error": 4.649887586083423e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.407770802852042e-08
+            },
+            "8192": {
+              "state_error": 1.0525269544814364e-10,
+              "adjoint_error": 3.8472336427730625e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.041418565416734e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p08",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.1508181275750076e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995164009675591e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.3167247554265487e-11,
+              "adjoint_error": 1.7681784925116517e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.94046019042338e-08
+            },
+            "8192": {
+              "state_error": 8.110845328701544e-12,
+              "adjoint_error": 3.319868824291916e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.984923912016882e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.0005412416686e-08,
+          "event_normalization": 5.114342971346275e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.3165471197426086e-11,
+              "adjoint_error": 1.7681855979390093e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.9458373113940866e-08
+            },
+            "8192": {
+              "state_error": 8.107292615022743e-12,
+              "adjoint_error": 3.319939878565492e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.990299967173485e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.99802232326141e-08,
+          "event_normalization": 5.1082896135312694e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.3163694840586686e-11,
+              "adjoint_error": 1.7681145436654333e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.943309688838383e-08
+            },
+            "8192": {
+              "state_error": 8.107292615022743e-12,
+              "adjoint_error": 3.319300390103308e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.987773077364977e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p09",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.3203961458692106e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995162011274147e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.80033815317438e-11,
+              "adjoint_error": 1.9244680515839718e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.693801363726436e-08
+            },
+            "8192": {
+              "state_error": 5.652367462971597e-12,
+              "adjoint_error": 1.3888552530261222e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.973368399914136e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000542329687164e-08,
+          "event_normalization": 5.108421952115805e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.80051578885832e-11,
+              "adjoint_error": 1.9244652094130288e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.699183369678451e-08
+            },
+            "8192": {
+              "state_error": 5.654143819810997e-12,
+              "adjoint_error": 1.3888268313166918e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.978749695323415e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998013508090594e-08,
+          "event_normalization": 5.103421418795051e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 7.80051578885832e-11,
+              "adjoint_error": 1.9245078419771744e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.6966703576577515e-08
+            },
+            "8192": {
+              "state_error": 5.654143819810997e-12,
+              "adjoint_error": 1.3892815786675783e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.976236594484874e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p10",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.219527787758693e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995162810634724e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.0119019217854657e-11,
+              "adjoint_error": 1.03680690699548e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.836243799350882e-08
+            },
+            "8192": {
+              "state_error": 5.753619802817411e-12,
+              "adjoint_error": 1.4933334568922874e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.972316796665211e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000542307482704e-08,
+          "event_normalization": 5.108624812066864e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.0119019217854657e-11,
+              "adjoint_error": 1.03680690699548e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.8416250725557006e-08
+            },
+            "8192": {
+              "state_error": 5.753619802817411e-12,
+              "adjoint_error": 1.4933334568922874e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.97769718169161e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998014107611027e-08,
+          "event_normalization": 5.10341324755359e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.012079557469406e-11,
+              "adjoint_error": 1.0368438552177395e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.8391123936019085e-08
+            },
+            "8192": {
+              "state_error": 5.7553961596568115e-12,
+              "adjoint_error": 1.4936745174054522e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.97518547973408e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p11",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 5.930879909410436e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 6.002543662120274e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0495203312265176e-09,
+              "adjoint_error": 3.732100495312807e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.797640301175022e-08
+            },
+            "8192": {
+              "state_error": 1.989985953798623e-10,
+              "adjoint_error": 3.669892834068378e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.943822545262378e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000498609104454e-08,
+          "event_normalization": 1.5247650364536014e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0494996810782595e-09,
+              "adjoint_error": 3.73187702962241e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.795380020323648e-08
+            },
+            "8192": {
+              "state_error": 1.9899548675539336e-10,
+              "adjoint_error": 3.669196502187333e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.941707015288955e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.008713637761787e-08,
+          "event_normalization": 1.5266465669405704e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0497745722991567e-09,
+              "adjoint_error": 3.731750908286813e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.800989710813553e-08
+            },
+            "8192": {
+              "state_error": 1.9928436678640082e-10,
+              "adjoint_error": 3.667913972549286e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.947300563136082e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p12",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 9.605206852114634e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.999545882318102e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.45723474690385e-11,
+              "adjoint_error": 2.833544954228273e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.085067005834333e-08
+            },
+            "8192": {
+              "state_error": 1.0246026249660645e-11,
+              "adjoint_error": 4.4846615310234483e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.01310505832231e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000511576509382e-08,
+          "event_normalization": 9.321445015864072e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.45759001827173e-11,
+              "adjoint_error": 2.833544954228273e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.086032011687337e-08
+            },
+            "8192": {
+              "state_error": 1.0244249892821244e-11,
+              "adjoint_error": 4.4848036395706004e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.014070041970854e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007095465498935e-08,
+          "event_normalization": 9.331497907716368e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.45812292532355e-11,
+              "adjoint_error": 2.8338007496131468e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.092591275930204e-08
+            },
+            "8192": {
+              "state_error": 1.0253131677018246e-11,
+              "adjoint_error": 4.4872194848721847e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.020629217395879e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p13",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.061677788020802e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995158414151547e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.677156605405798e-10,
+              "adjoint_error": 1.0146163020863241e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.5468095450095234e-08
+            },
+            "8192": {
+              "state_error": 2.1298518504409003e-12,
+              "adjoint_error": 3.214140065210813e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.993733576126203e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000536467709594e-08,
+          "event_normalization": 4.756233762392981e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.677156605405798e-10,
+              "adjoint_error": 1.0146155915435884e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.55218757636311e-08
+            },
+            "8192": {
+              "state_error": 2.1307400288606004e-12,
+              "adjoint_error": 3.214495336578693e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.99911249565821e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998018659525428e-08,
+          "event_normalization": 4.751857685114658e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.677094432916419e-10,
+              "adjoint_error": 1.014604933402552e-08,
+              "interpolated_z_interpolated_state_physical_flow": 5.549670301085996e-08
+            },
+            "8192": {
+              "state_error": 2.1236346015029994e-12,
+              "adjoint_error": 3.203837195542292e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.996594865109728e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p14",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 1.0727831556422984e-07,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.999542440626726e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.071676163950542e-10,
+              "adjoint_error": 8.944503804286796e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.317371181729925e-08
+            },
+            "8192": {
+              "state_error": 6.633804616740235e-12,
+              "adjoint_error": 2.8747848546117893e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.009799236039726e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000507490888651e-08,
+          "event_normalization": 9.715431814605324e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.071667282166345e-10,
+              "adjoint_error": 8.944496698859439e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.318335565858035e-08
+            },
+            "8192": {
+              "state_error": 6.6346927951599355e-12,
+              "adjoint_error": 2.8747138003382133e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.010764175279348e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007112540729054e-08,
+          "event_normalization": 9.724745653194589e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.071507410050799e-10,
+              "adjoint_error": 8.944560647705657e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.324911150379364e-08
+            },
+            "8192": {
+              "state_error": 6.6204819404447335e-12,
+              "adjoint_error": 2.8753532888003974e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.017338871622258e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p15",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 1.1302750246855453e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 6.002833430329702e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.31823474148041e-10,
+              "adjoint_error": 5.164620731079594e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.78832661193951e-08
+            },
+            "8192": {
+              "state_error": 1.0647482895365101e-11,
+              "adjoint_error": 1.028430673954972e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.018521281347944e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.00049794297064e-08,
+          "event_normalization": 1.0178526177462288e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.318270268617198e-10,
+              "adjoint_error": 5.164619842901175e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.785990902535843e-08
+            },
+            "8192": {
+              "state_error": 1.0647482895365101e-11,
+              "adjoint_error": 1.028421792170775e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.016185150059528e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007345532133002e-08,
+          "event_normalization": 1.0189357224632545e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 5.318128160070046e-10,
+              "adjoint_error": 5.164592309370164e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.792828854962352e-08
+            },
+            "8192": {
+              "state_error": 1.06350483974893e-11,
+              "adjoint_error": 1.028146456860668e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.023024101686758e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p16",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 2.5758039523537946e-07,
+      "dense_fine_pair_diagnostic_pass": false,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 6.002848995656507e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.816538196588226e-10,
+              "adjoint_error": 8.033559595332918e-09,
+              "interpolated_z_interpolated_state_physical_flow": 7.705360305365616e-08
+            },
+            "8192": {
+              "state_error": 5.3372417596619925e-11,
+              "adjoint_error": 1.11486286868967e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.239550254250048e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000503915970512e-08,
+          "event_normalization": 1.699308551650347e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.81646714231465e-10,
+              "adjoint_error": 8.033559595332918e-09,
+              "interpolated_z_interpolated_state_physical_flow": 7.703016202675883e-08
+            },
+            "8192": {
+              "state_error": 5.3368864882941125e-11,
+              "adjoint_error": 1.11486286868967e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.237201133352244e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007273212205178e-08,
+          "event_normalization": 1.7014580833141224e-07,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.816893467956106e-10,
+              "adjoint_error": 8.033453013922554e-09,
+              "interpolated_z_interpolated_state_physical_flow": 7.709787519516453e-08
+            },
+            "8192": {
+              "state_error": 5.340794473340793e-11,
+              "adjoint_error": 1.114756287279306e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.243976069519874e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p17",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.439949979368919e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995167517980349e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5979929318964423e-10,
+              "adjoint_error": 6.315548972679608e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.106594896415629e-08
+            },
+            "8192": {
+              "state_error": 1.794120407794253e-11,
+              "adjoint_error": 4.348521542851813e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.002684749262244e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.00054126387306e-08,
+          "event_normalization": 5.031479410888551e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5979929318964423e-10,
+              "adjoint_error": 6.315548972679608e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.111967953970066e-08
+            },
+            "8192": {
+              "state_error": 1.793942772110313e-11,
+              "adjoint_error": 4.348557069988601e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.008058517359416e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998017238439957e-08,
+          "event_normalization": 5.026072891212152e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.5979751683280483e-10,
+              "adjoint_error": 6.315385547850383e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.10944927981194e-08
+            },
+            "8192": {
+              "state_error": 1.793942772110313e-11,
+              "adjoint_error": 4.346958348833141e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.005539132658555e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p18",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 5.173416695036792e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995165519578904e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.03037619839597e-11,
+              "adjoint_error": 2.1664234850504727e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.956551385466469e-08
+            },
+            "8192": {
+              "state_error": 1.0579981335467892e-11,
+              "adjoint_error": 3.8048142414481845e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.988376572396703e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000540597739246e-08,
+          "event_normalization": 5.08060931103671e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.03019856271203e-11,
+              "adjoint_error": 2.166416379623115e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.961927529440914e-08
+            },
+            "8192": {
+              "state_error": 1.0579981335467892e-11,
+              "adjoint_error": 3.8048852957217605e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.993754403910145e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998027563514086e-08,
+          "event_normalization": 5.0756460590051233e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 6.03019856271203e-11,
+              "adjoint_error": 2.1663026927853934e-09,
+              "interpolated_z_interpolated_state_physical_flow": 5.959399640431684e-08
+            },
+            "8192": {
+              "state_error": 1.0578204978628492e-11,
+              "adjoint_error": 3.8037484273445443e-10,
+              "interpolated_z_interpolated_state_physical_flow": 5.991223694934433e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p19",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 9.804402378854604e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.999541863310753e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0694557179012918e-13,
+              "adjoint_error": 6.291855925155687e-11,
+              "interpolated_z_interpolated_state_physical_flow": 6.000903618463838e-08
+            },
+            "8192": {
+              "state_error": 4.884981308350689e-14,
+              "adjoint_error": 1.5297985100914957e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.99987308724792e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000504493286485e-08,
+          "event_normalization": 9.800541667104312e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0694557179012918e-13,
+              "adjoint_error": 6.292566467891447e-11,
+              "interpolated_z_interpolated_state_physical_flow": 6.001866670324318e-08
+            },
+            "8192": {
+              "state_error": 4.884981308350689e-14,
+              "adjoint_error": 1.5305090528272558e-11,
+              "interpolated_z_interpolated_state_physical_flow": 6.000836161312861e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007077457681476e-08,
+          "event_normalization": 9.810393342135626e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0961010704922955e-13,
+              "adjoint_error": 6.294698096098728e-11,
+              "interpolated_z_interpolated_state_physical_flow": 6.008444075611408e-08
+            },
+            "8192": {
+              "state_error": 5.1514348342607263e-14,
+              "adjoint_error": 1.5333512237702962e-11,
+              "interpolated_z_interpolated_state_physical_flow": 6.007413277941964e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 3.9734374013278284e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.99510130427916e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.4726178316523146e-10,
+              "adjoint_error": 1.311708874851547e-08,
+              "interpolated_z_interpolated_state_physical_flow": 8.010694330096158e-08
+            },
+            "8192": {
+              "state_error": 3.8260949963841995e-11,
+              "adjoint_error": 1.128324100818645e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.168210120449658e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000502850156408e-08,
+          "event_normalization": 2.0881429918517824e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.4726178316523146e-10,
+              "adjoint_error": 1.311709052487231e-08,
+              "interpolated_z_interpolated_state_physical_flow": 8.016102270858028e-08
+            },
+            "8192": {
+              "state_error": 3.8264502677520795e-11,
+              "adjoint_error": 1.1283232126402254e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.173612376869642e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998179375410473e-08,
+          "event_normalization": 2.0764140629125905e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 4.4725823045155266e-10,
+              "adjoint_error": 1.3116695285475544e-08,
+              "interpolated_z_interpolated_state_physical_flow": 8.013707741838516e-08
+            },
+            "8192": {
+              "state_error": 3.8260949963841995e-11,
+              "adjoint_error": 1.1279253087081997e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.171221400563809e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p21",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 6.432666244116092e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995155971660893e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0119900190351814e-10,
+              "adjoint_error": 1.2233229540470347e-08,
+              "interpolated_z_interpolated_state_physical_flow": 8.918574678773439e-08
+            },
+            "8192": {
+              "state_error": 3.6516845103307105e-11,
+              "adjoint_error": 2.0601618189175497e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.505359828601343e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000504226832959e-08,
+          "event_normalization": 2.9521516564656736e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.011989463923669e-10,
+              "adjoint_error": 1.2232803214828891e-08,
+              "interpolated_z_interpolated_state_physical_flow": 8.923948113803704e-08
+            },
+            "8192": {
+              "state_error": 3.6516845103307105e-11,
+              "adjoint_error": 2.0599344452421064e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.510722250219203e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.998445340438252e-08,
+          "event_normalization": 2.9416039604157618e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0114704346596568e-10,
+              "adjoint_error": 1.2233059010213765e-08,
+              "interpolated_z_interpolated_state_physical_flow": 8.921742344902839e-08
+            },
+            "8192": {
+              "state_error": 3.646510871035957e-11,
+              "adjoint_error": 2.0599699723788945e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.508494676538135e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p22",
+      "complete": true,
+      "original_qualified": false,
+      "old_primary_event_normalization": 1.0733740918311696e-07,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.999542929124857e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.4708413920725434e-10,
+              "adjoint_error": 6.5937868498622265e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.327365631442206e-08
+            },
+            "8192": {
+              "state_error": 4.168310141494658e-11,
+              "adjoint_error": 7.892957398780709e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.038766442451049e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.000502694725185e-08,
+          "event_normalization": 9.823371560635508e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.4708325102883464e-10,
+              "adjoint_error": 6.593793955289584e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.328326018767427e-08
+            },
+            "8192": {
+              "state_error": 4.168398959336628e-11,
+              "adjoint_error": 7.893028453054285e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.039726296869219e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 6.007119313089504e-08,
+          "event_normalization": 9.834061232005809e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 3.4709479734829074e-10,
+              "adjoint_error": 6.593772639007511e-09,
+              "interpolated_z_interpolated_state_physical_flow": 6.334891944348442e-08
+            },
+            "8192": {
+              "state_error": 4.169464773440268e-11,
+              "adjoint_error": 7.892815290233557e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.046292577721601e-08
+            }
+          }
+        }
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p23",
+      "complete": true,
+      "original_qualified": true,
+      "old_primary_event_normalization": 4.9635991095087206e-08,
+      "dense_fine_pair_diagnostic_pass": true,
+      "fine_pair_agreement": true,
+      "methods": {
+        "baseline-dop853": {
+          "initial_normalization": 5.995165142103076e-08,
+          "event_normalization": null,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0097701280974434e-11,
+              "adjoint_error": 3.957705274615364e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.010309028248173e-08
+            },
+            "8192": {
+              "state_error": 4.39825953435502e-12,
+              "adjoint_error": 8.718359367776429e-11,
+              "interpolated_z_interpolated_state_physical_flow": 5.998505825388634e-08
+            }
+          }
+        },
+        "fine-dop853": {
+          "initial_normalization": 6.00053897681363e-08,
+          "event_normalization": 4.918872553716369e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0099477637813834e-11,
+              "adjoint_error": 3.957723038183758e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.015683307047937e-08
+            },
+            "8192": {
+              "state_error": 4.39825953435502e-12,
+              "adjoint_error": 8.718537003460369e-11,
+              "interpolated_z_interpolated_state_physical_flow": 6.003880104188397e-08
+            }
+          }
+        },
+        "fine-rk45": {
+          "initial_normalization": 5.9980110878044e-08,
+          "event_normalization": 4.914072260220337e-08,
+          "interpolation": {
+            "4096": {
+              "state_error": 2.0101253994653234e-11,
+              "adjoint_error": 3.958184890962002e-10,
+              "interpolated_z_interpolated_state_physical_flow": 6.013152731298987e-08
+            },
+            "8192": {
+              "state_error": 4.401812248033821e-12,
+              "adjoint_error": 8.72386607397857e-11,
+              "interpolated_z_interpolated_state_physical_flow": 6.001349439621606e-08
+            }
+          }
+        }
+      }
+    }
+  ],
+  "frozen_verification": {
+    "all_original_owned_identities_absent_now": true,
+    "complete": true,
+    "receipt_sha256": "7d8daa8d4bfe816247c568149b040758785c82d4fd4bb94a97b9c71b625b40f7",
+    "saved_array_replay": true,
+    "total_jobs": 102
+  },
+  "resources": {
+    "samples": 60,
+    "peak_owned_rss_bytes": 710725632,
+    "minimum_host_available_ram_bytes": 77591359488,
+    "workers": 4,
+    "threads": 1,
+    "paid_compute": false
+  },
+  "external_bindings": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/frozen-verifier-attempt-001.json",
+      "bytes": 202,
+      "sha256": "132e0dfeb04f26d5e96045cf868ce6d78d441275a6bf566a316c8a4f26d6aa25"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/preflight-001/scientific-exact-plan-addendum-001.json",
+      "bytes": 3617,
+      "sha256": "c6d23b607d10c17be9a6104757f743aa6eb89f84cdff18ebedc962c332a647e6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/independent-interpretation-001/receipt.json",
+      "bytes": 2544,
+      "sha256": "218551be908ab10cd2cd08fe4c916ab3fecbff79ea2b004e16eb5d6aaf405142"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/independent-interpretation-001/report.json",
+      "bytes": 438737,
+      "sha256": "332147a01dfb9606343f06223741f4570fd58207b59471f487539c418ccca2db"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/independent-interpretation-001/interpretation.md",
+      "bytes": 9357,
+      "sha256": "fd62caea51835ce55e9d1f2f63fab9e0fe50f93d106ccd8881dfdc137c9f757d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/independent-interpretation-001/evidence-checks.json",
+      "bytes": 4382848,
+      "sha256": "a1de4111b72561e69e6865224afe1355285efaf7cfe7c3a1738e5420f989bc4d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/independent-interpretation-001/arithmetic-checks.json",
+      "bytes": 474985,
+      "sha256": "845acd3304bdf688f2e2d608946843369766d01bf4a24980674b5ea7c0a52249"
+    }
+  ],
+  "scope": "102 reference-only work items;6 base jobs each include forward plus backward solve. Exact same two inherited section states/periods/terminalgradients. No new pulses, memory scores, per-phase normalization, method selection, original requalification or trained-network inference.",
+  "independent_audit": {
+    "scope": "Independent saved-reference identity/census/normalization/interpolation/method-pair diagnosis; no producer imports, ODE, or neural-memory scores. Whole-grid gates are distinct from phase-context flags. No retroactive EXP016 qualification.",
+    "evidence_checks": 28447,
+    "evidence_pass": true,
+    "strict_alternate_arithmetic_checks": 2004,
+    "strict_alternate_arithmetic_pass": false,
+    "counts": {
+      "base_all_grid_pass": 6,
+      "base_complete": 6,
+      "base_pair_agreement_pass": 6,
+      "contexts_complete": 48,
+      "declared_context_pass": 39,
+      "event_complete": 96,
+      "fine_initial_event_only_pass": 39,
+      "old_contexts_qualified": 37
+    },
+    "evidence_failures": 0,
+    "strict_alternate_arithmetic_failures": 309,
+    "maximum_strict_alternate_difference": 9.563905223330949e-12
+  }
+}

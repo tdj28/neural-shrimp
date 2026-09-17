@@ -1,4 +1,4 @@
-# Next steps after EXP-016
+# Next steps after EXP-017
 
 **Human-friendly TLDR:** In checked near-edge cases, the network retains a
 readable first input across several cycles, but a second input can interfere
@@ -7,7 +7,24 @@ closely explained by ordinary linear dynamics. The core forgets quickly in
 the available cases. Failed phase-reference checks still prevent an overall
 comparison; a shrimp-specific computational advantage remains unproven.
 
-## Current decision: diagnose the phase reference while preserving the behavioral result
+## Current decision: refine the global periodic reference before repeating the memory task
+
+[EXP-017](EXP-017-results.md) completes all 102 reference-only jobs. Direct dense
+samples reduce the largest coordinate defect, but nine of 48 phase contexts
+still fail the unchanged event-normalization threshold in both finer methods.
+All six base reconstructions and six base-method pairs pass their declared
+diagnostics. Interpolation contributes but cannot explain the full defect;
+inherited approximate orbit/adjoint consistency remains the next target.
+
+Prepare a bounded global shooting refinement at the same two parameter
+settings, retaining the original x3-maximum phase convention and independently
+verifying the refined candidates before deriving new phase gradients. Use
+fixed methods, limits and all 48 phase contexts; do not patch individual
+gradients or reinterpret the original missing histories as completed. A new
+full eight-period memory experiment needs its own later freeze and gates.
+See the [reference diagnostic](EXP-017-results.md) for the retained failures.
+
+## Earlier decision: diagnose the phase reference while preserving the behavioral result
 
 [EXP-016](EXP-016-results.md) has finished execution with an incomplete scientific
 census: all 96 references completed, but eleven phase-normalization failures

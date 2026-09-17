@@ -120,6 +120,13 @@ chance. The full linear model closely explains completed cases, and the slow-mod
 model explains much of the later response. This is a conditional behavioral
 finding, not a qualified cohort advantage or special geometry benefit.
 
+**EXP-017 completes all 102 reference diagnostic jobs.** Exact dense cycle
+samples reduce the largest phase-coordinate defect, but nine starting phases
+still fail the unchanged event check in both finer solvers. The remaining
+issue concerns inherited periodic-reference consistency; interpolation alone
+does not explain it. See [the reference diagnostic](docs/EXP-017-results.md).
+It supplies no new memory scores and does not requalify EXP-016.
+
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
 [EXP-009 results](docs/EXP-009-results-audit.md), and
