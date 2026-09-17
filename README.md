@@ -60,11 +60,18 @@ compatibility gates and is slower in all 24 warm timing pairs. At the intended
 full finer-step batch, median CPU time is 69.69 seconds versus 75.86 seconds
 with GPU integration. Tested rankings and repeat/layout bits are unchanged;
 those checks do not waive the failed gates. Keep CPU as the scientific default.
-Independent saved-evidence audits reproduce the result. The next fresh-origin
-study has a design and tested final-model component, but still needs its
-complete runner and executable freeze before new outcomes. See the
-[GPU results](docs/EXP-012-results-audit.md) and
-[current project assessment](docs/project-assessment-2026-09-15.md).
+Independent saved-evidence audits reproduce the result. See the
+[GPU results](docs/EXP-012-results-audit.md).
+
+**EXP-013 completes fresh-origin acquisition but fails cohort qualification.**
+All 24 references, 48 sensitivities and 10,608 previews finish. All 3,456 scalar
+checks pass, but one candidate fails the preset waveform agreement threshold;
+3,455 candidates, all 48 shams and all 48 independent-panel cases qualify.
+Independent audits reproduce this result. The frozen rule withholds full-cohort
+loss means and intervals. A separate numerical diagnostic and a direct test of
+phase-based timing memory are in preparation. See the
+[fresh-origin results](docs/EXP-013-results-audit.md) and
+[current project assessment](docs/project-assessment-2026-09-17.md).
 
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),

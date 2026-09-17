@@ -1,6 +1,33 @@
-# Next steps after EXP-012
+# Next steps after EXP-013
 
-## Current decision, 15 September local / 16 September UTC: continue on CPU and finish EXP-013
+## Current decision, 17 September: diagnose one numerical failure and test timing memory
+
+EXP-013 completes all 10,681 tasks but one of 3,456 candidates fails the
+unchanged waveform agreement rule. All scalar checks, shams and independent
+sentinels pass; no tested policy selects the failed candidate. Preserve the
+complete-but-unqualified outcome and withhold full-cohort utility averages.
+See [the audit](EXP-013-results-audit.md) and
+[updated assessment](project-assessment-2026-09-17.md).
+
+1. Freeze and run a small outcome-selected finer-resolution diagnostic of the
+   failed candidate and matching sham. Preserve all original comparisons and
+   prohibit retrospective gate changes or hidden exclusions.
+2. Complete the already drafted phase-memory experiment: two independently
+   recertified settings, phase-writing/null/neuron controls, signed pulses,
+   sealed phase-only and full-linear predictions, externally timed readout,
+   complete multi-solver qualification and explicit failure denominators.
+   Finish synthetic lifecycle tests and independent review, privately push
+   the executable freeze, then run on the qualified CPU path.
+3. Compare measured timing memory with the ordinary oscillator phase model.
+   A signal predicted by that model is a mechanistic consequence in this
+   network, not evidence of special shrimp topology or modern-network benefit.
+   Boundary organization and matched controls remain separate work.
+4. Keep source, plans and compact receipts privately pushed; retain bulky raw
+   evidence externally. No paid Pro call has run because the requested hard
+   $10 maximum could not be enforced. Local independent review is documented.
+
+
+## Earlier decision, 15 September local / 16 September UTC: continue on CPU and finish EXP-013
 
 **EXP-012 is complete and the tested GPU backend does not qualify.** All
 54 planned batches and 64,188 repeated known-case integrations are preserved.

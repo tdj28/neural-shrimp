@@ -1,0 +1,96 @@
+{
+  "experiment_id": "EXP-013",
+  "attempt": "attempt-002",
+  "source_commit": "e5864f93ec6e822ba4fc6670640149f4a7c07b7b",
+  "plan_sha256": "23fa73be0a2cbb7cc39247f32cbcf956a34c548a52c6e8efc6a8b79f8651793f",
+  "status": "complete_unqualified",
+  "complete": true,
+  "qualified": false,
+  "external_raw_directory": "/data2/neural-shrimp-data/raw/EXP-013/attempt-002",
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-013/attempt-002/receipt.json",
+    "sha256": "058aa80de824ecdfa00d8abc77d85ff231353a2af60e8db932f39eb07936552e",
+    "bytes": 4239820
+  },
+  "summary": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-013/attempt-002/summary.json",
+    "sha256": "0c585adeafcc1eefcbcf99c6d3644ce79046bf8807d1a4e8dce8b31310148644",
+    "bytes": 46779
+  },
+  "artifacts": 21495,
+  "artifact_bytes": 504145856,
+  "status_counts": {
+    "models": {
+      "complete": 1
+    },
+    "baselines": {
+      "complete": 24
+    },
+    "sensitivities": {
+      "complete": 48
+    },
+    "previews": {
+      "complete": 10608
+    }
+  },
+  "qualification": {
+    "references": true,
+    "sensitivities": true,
+    "models": true,
+    "native_candidates": false,
+    "native_shams": true,
+    "independent_panel": true,
+    "access_chronology": true
+  },
+  "native_scalar_qualified_candidates": 3456,
+  "native_waveform_qualified_candidates": 3455,
+  "qualified_shams": 48,
+  "qualified_independent_cases": 48,
+  "failed_candidate": [
+    {
+      "id": "fresh-11-p1350-r0.016-c07",
+      "sham": false,
+      "all_required_complete": true,
+      "native_scalar_pass": true,
+      "native_waveform_pass": false,
+      "independent_pass": true
+    }
+  ],
+  "cohort_statistics": null,
+  "producer_and_analysis_seconds": 313.57552758399834,
+  "audits": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013/replay-002/verification.json",
+      "sha256": "a1d18748f1ac8809515955556b5162dbcaf83d83aa41c4cf0520668fc15c0e19",
+      "bytes": 570
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013/independent-evidence-002/EXP-013-attempt002-evidence-audit.json",
+      "sha256": "41a3d91c6d8139ca3a2dae120bdcbc3eae0b5343ae40067db9f71c7a76334571",
+      "bytes": 15590
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013/independent-decisions-cost-002/report.json",
+      "sha256": "5a45328681211cb0d277ada4fabdc8291102a15f335e6a871c2bd9206e60305c",
+      "bytes": 536
+    }
+  ],
+  "reproduction_scripts": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013/independent-decisions-cost-002/audit.py",
+      "sha256": "16f387af43d60db0a047202702e11bba4b70a66d3582ae17d24c33fffa4953ca",
+      "bytes": 5093
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013/independent-decisions-cost-002/plot_failed_waveform.py",
+      "sha256": "83c60bb627638d628c45fa41cdf030228b75c4b53be512b42751a41a2283e4b3",
+      "bytes": 1874
+    }
+  ],
+  "figure": {
+    "path": "/data2/neural-shrimp/paper/figures/EXP-013-waveform-diagnostic.png",
+    "sha256": "61e2274accc430a456e41a2cfc3eae9a02a785b71961e764f5c3638db5ae37ca",
+    "bytes": 138223
+  },
+  "scope": "Complete saved evidence is verified; numerical qualification fails. No full-cohort loss means, intervals or geometry-utility conclusion. Raw sibling storage is not an independently verified backup."
+}
