@@ -1,6 +1,36 @@
 # Next steps after EXP-014
 
-## Current decision, 17 September: diagnose finite-pulse sensitivity
+## Current decision, 17 September: explain local memory while retaining numerical limits
+
+The [425-trace refinement](EXP-014-refinement-results.md) is complete. All
+five new methods agree in 77/85 selected cases; eight large pulses remain
+unresolved. All 52 smaller-dose cases and seven shams pass every method pair.
+The independent evidence/scientific-decision audit passes, while strict
+alternative-arithmetic replay retains 1,375 small discrepancies. No original
+qualification or numerical tolerance changes.
+
+The next bounded step is a separately frozen saved-reference phase/transverse
+gain decomposition: all 16 setting/phase contexts, three input directions and
+four clock windows, giving 192 cells. Use the existing full propagators and
+fixed readout to separate neutral timing response from transverse response,
+check the decomposition against direct propagation, and retain every cell.
+Keep requested and realized pulses, finite phase shifts and linear neutral
+response distinct. This analysis has not run and needs executable review and
+a private freeze before new target summaries.
+
+The pre-outcome decision note is retained at
+`/data2/neural-shrimp-data/audits/EXP-014-refinement/pre-outcome-decision-001/conditional-next-mechanism.md`;
+its hash is in the refinement summary. After sealing reference-only predictions,
+compare finite-pulse responses only under an explicit numerical eligibility
+rule, retaining unresolved cases visibly. Do not relax the long-horizon gate
+or launch another undirected sweep merely to obtain agreement.
+
+Full shrimp boundary organization and incremental geometry utility still need
+separate tests. A trained-network bridge is motivated by published work, but
+their external oscillatory input differs from our observation-only clock.
+See the [literature assessment](neural-memory-literature-bridge-2026-09-17.md).
+
+## Earlier decision, 17 September: diagnose finite-pulse sensitivity
 
 EXP-014 completes all 930 jobs, but 30 of 608 trajectory comparisons fail at
 the largest pulse, 0.01. All prerequisites, shams, smaller-dose and phase-null

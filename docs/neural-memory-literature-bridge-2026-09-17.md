@@ -14,7 +14,9 @@ They also map regions of bistable phase locking in forcing frequency and
 amplitude. This is direct prior evidence that periodic dynamics can support
 a trained neural task. Their parameter-space islands are not evidence that
 our autonomous three-neuron system has the same boundary organization or
-computational mechanism. Full primary article and methods inspected:
+computational mechanism. Their reference oscillation drives the network;
+our external clock only defines observation and leaves autonomous phase
+neutral. Full primary article and methods inspected:
 [PLOS Computational Biology / PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC10868787/).
 
 Ichikawa and Kaneko (2021) report trained recurrent networks whose short-term

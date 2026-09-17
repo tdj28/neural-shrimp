@@ -86,6 +86,14 @@ The separate [EXP-013 finer-step diagnostic](docs/EXP-013-refinement-results.md)
 supports its original finest-step trace, while preserving the original failed
 cohort qualification.
 
+**EXP-014 refinement completes all 425 tighter-solver traces.** All five new
+methods agree in 77/85 selected cases, including all smaller-pulse controls
+and shams. Eight large-pulse cases remain unresolved; nearly unchanged binary
+accuracy still hides large trajectory and signed-readout differences.
+Original settings remain unqualified. See
+[the refinement results](docs/EXP-014-refinement-results.md) for the full census,
+independent audit and retained strict arithmetic-replay failures.
+
 
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
@@ -94,8 +102,9 @@ Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 `../neural-shrimp-data/`; code, protocols and compact hash-bound summaries
 remain in this private repository. See [Skills.md](Skills.md).
 
-**EXP-004 numerically reproduces an actual shrimp-shaped window in a
-three-neuron recurrent neural network.** This is the fixed-weight tanh system
+**EXP-004 maps a shrimp-shaped periodic region and verifies selected full-state
+cycles in a three-neuron recurrent neural network.** Full boundary organization
+remains unfinished. This is the fixed-weight tanh system
 reported by da Silva and Rech (2022), not a newly trained modern network. The
 network's three potentials evolve while two connection weights define the map.
 

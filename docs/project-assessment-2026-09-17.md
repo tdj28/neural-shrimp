@@ -18,6 +18,7 @@ score can hide severe numerical trajectory disagreement.
 | EXP-013 | All 10,681 tasks complete, including 10,608 previews at 24 fresh origins. Independent saved-evidence and decision/cost audits pass. | One candidate fails waveform agreement; the frozen full-cohort comparison is unqualified. |
 | EXP-013 refinement | All ten new traces and thirty new method comparisons pass; original fine trace agrees with finer methods. | Outcome-selected diagnosis preserves original failed cohort qualification. |
 | EXP-014 | All 930 tasks complete; reference/propagator/sham checks pass. A selected phase-null case matches the full-linear response. | Thirty large-pulse trajectory comparisons fail; both setting means withheld. Saturated analytic accuracy hides these discrepancies. |
+| EXP-014 refinement | All 425 tighter-solver traces complete; all five new methods agree in 77/85 selected cases, including ten originally failed signs. | Eight large-pulse cases remain unresolved; strict alternative-arithmetic replay also retains tiny discrepancies. Original settings remain unqualified. |
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
@@ -29,9 +30,13 @@ failures and withhold setting averages. An individual numerically consistent
 near-edge case has analytic balanced accuracy 0.9929902 for a phase-null
 pulse, matching the sealed full-linear prediction while phase-only predicts
 0.5. This is consistent with a transverse linear contribution, not a special
-shrimp computational advantage. Its setting remains unqualified. A separate
-85-case,425-trace tighter-solver diagnostic is being prepared for all affected
-binary contexts, smaller-dose controls and shams. Full boundary organization,
+shrimp computational advantage. Its setting remains unqualified. The separate
+[85-case, 425-trace diagnostic](EXP-014-refinement-results.md) is now complete:
+all smaller-dose and sham comparisons pass, while eight large-pulse cases still
+disagree even with tighter methods. Accuracy saturation continues to hide
+these differences. The next proposed analysis decomposes local phase and
+transverse response in all 192 original direction/clock cells; it is not yet
+executed. Full boundary organization,
 matched geometry controls and trained-network evidence remain unfinished.
 
 The [literature bridge](neural-memory-literature-bridge-2026-09-17.md) identifies
