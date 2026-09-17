@@ -70,8 +70,8 @@ noiseless margins and the analytic Gaussian sign probabilities, not sampled
 noise-trial accuracies. Phase-conditioned observers and baselines all receive
 the same phase/clock information.
 
-Controls are the complete full-linear scheduled response, the existing
-derivative-based clock observer, a separately presealed arm-specific linear
+Controls are the complete full-linear scheduled response, a derivative-matched clock observer using
+the direct physical reference velocity, a separately presealed arm-specific linear
 observer, and a one-mode approximation with the same second-write response B
 and `A=rho*B`, where rho is the signed dominant real transverse multiplier.
 The one-mode approximation matches second-write observability at that window;

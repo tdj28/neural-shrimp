@@ -95,7 +95,8 @@ training, inferred hidden-bit baseline or phase optimization is introduced.
 
 For each delayed window, use the direct variational matrices and activation
 derivative at the primary unforced state to form first-write response A and
-second-write response B. The first response includes the T intervention
+second-write response B for the requested signed displacements; the realized
+floating-point additions are retained separately. The first response includes the T intervention
 before later propagation; the second is added afterward. For identity, seal
 unit h proportional to `(sigma^2 I+B B^T)^(-1) A`, oriented so h dot A is
 positive. The immediate observer has B=0. Zero/undefined primary A invalidates
@@ -112,12 +113,14 @@ is the standard normal CDF of first-sign times that margin. Average balanced
 bits analytically; retain the unsaturated signed values as well as probabilities.
 
 Preseal three comparator families: full-linear responses under the actual
-event schedule; an arm-specific covariance observer and the derivative-based
-clock observer; and the periodic one-mode approximation `A=rho*B`, matching
+event schedule; an arm-specific covariance observer and a derivative-matched
+clock observer using the saved direct physical reference velocity; and the periodic one-mode approximation `A=rho*B`, matching
 the identity arm's second-write response B at that window. Rho is the signed
 dominant real transverse multiplier of the saved cycle certificate. A missing
 or complex dominant multiplier makes that comparator unavailable, not a
-post-hoc substitute. The one-mode model is an observability-matched local
+post-hoc substitute. The clock observer has fixed positive-flow orientation and uses direct physical
+velocity rather than the older periodic-Hermite template derivative. This change
+is explicit; it is not an exact replay of the older clock. The one-mode model is an observability-matched local
 approximation, not a simulation of the whole nonlinear neural system. The
 immediate window is a calibration, not a one-mode forgetting prediction.
 
