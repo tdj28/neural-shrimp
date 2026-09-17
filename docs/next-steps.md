@@ -1,6 +1,29 @@
 # Next steps after EXP-015
 
-## Current decision, 17 September: independently qualify the transverse operator
+**Human-friendly TLDR:** The selected near-edge neural cycle retains a small
+disturbance longer than the core cycle, including a signal beyond a timing
+shift. The next test asks whether an earlier input remains readable after a
+second input interferes with it. Longer persistence alone has not established
+useful memory or a shrimp-specific computational advantage.
+
+## Current decision, 17 September: test two-write memory under interference
+
+The [authorized Astra Pro consultation](consults/2026-09-17-pro-adjudication.md)
+completed for USD 0.78126. Its main recommendation is accepted with local
+modifications in the [two-write design](two-write-memory-design.md). Implement
+the full controlled task, including all zero-write/reset histories, matched
+linear and one-mode controls, numerical qualification, and a fixed observer
+whose information access is explicit. Freeze code, tests, machine plan and
+local review privately before new neural outcomes. The design is currently
+under implementation; it is not yet an executed experiment.
+
+The previous independent-tangent question is incorporated into new reference
+qualification rather than run as the main standalone study. Keep its earlier
+design intact as a conditional diagnostic. Report linearly accessible memory
+without claiming total capacity, information erasure, geometry causality or
+trained-network transfer. No additional paid consultation is authorized.
+
+## Earlier decision, 17 September: independently qualify the transverse operator
 
 [EXP-015](EXP-015-results.md) is complete: all 192 cells and 1,152 realized-pulse
 rows are retained. Frozen decisions are 191 algebraically qualified and 179

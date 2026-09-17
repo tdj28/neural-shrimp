@@ -1,5 +1,7 @@
 # A neural shrimp and what the network does inside it
 
+**Human-friendly TLDR:** In the tested three-neuron network, shrimp regimes support repeating activity patterns with different responses to disturbances. A signal can persist in deviations away from the cycle, not just in its timing; the selected core attenuates it rapidly, while the selected edge can retain it longer. This connects the dynamics to potential memory and robustness. A special computational advantage from shrimp geometry, and transfer to trained networks, remain unproven.
+
 Private exploratory research on periodic-window geometry, neural activity, and
 whether geometric information can improve model control.
 
@@ -103,6 +105,14 @@ is retained. Independent alternate arithmetic retains additional strict
 discrepancies. This explains a local memory mechanism conditional on the saved
 propagators, without establishing shrimp-specific or trained-network benefit.
 See [the decomposition results](docs/EXP-015-results.md).
+
+**The authorized Astra Pro strategy consultation is complete**, with a
+conservative receipt-derived cost of **$0.78126**. Its
+[adjudicated recommendation](docs/consults/2026-09-17-pro-adjudication.md)
+is to test whether the earlier input remains readable after a second input
+interferes with it. The [two-write experiment](docs/two-write-memory-design.md)
+is under implementation, with full numerical and simple-model controls;
+no new two-write neural outcome is claimed.
 
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),

@@ -1,0 +1,137 @@
+{
+  "actual_response_model": "gpt-6-astra",
+  "adjudication_ref": "docs/consults/2026-09-17-pro-adjudication.md",
+  "approval_ref": "docs/consults/2026-09-17-authorization-correction.md",
+  "artifacts": [
+    {
+      "bytes": 5104,
+      "path": "attempt-001/review_manifest.json",
+      "sha256": "af60236244ab0bcf048c988bf152663bea25823c6ad2ad1c9cc737f0441298b8"
+    },
+    {
+      "bytes": 17795,
+      "path": "attempt-001/request_payload.json",
+      "sha256": "8828c22d8d09fada2338c5694f6a1732249ef92a944748d52d846b7c56bc66b6"
+    },
+    {
+      "bytes": 39066,
+      "path": "attempt-001/response.json",
+      "sha256": "7b24944d9a65d2d6995d148900d64b03457633e5cabb5ce2725e9a8fb9ef4123"
+    },
+    {
+      "bytes": 16572,
+      "path": "attempt-001/review_request.md",
+      "sha256": "232ffc4b07fb77df626e324f2f67a2276b5a545c1f2d6fa481daf9382bf5774b"
+    },
+    {
+      "bytes": 21039,
+      "path": "attempt-001/review.md",
+      "sha256": "ff81ca3e906f53711a549fadcf01fc9896a73d69920ecd89a6c5051d723f65e6"
+    },
+    {
+      "bytes": 775,
+      "path": "validation-001/completed-bundle-validation.json",
+      "sha256": "9dbbd1cee8206859c660d46dc1d707cacdcbcdfdaa18b009b57fdec95a51f03b"
+    },
+    {
+      "bytes": 10615,
+      "path": "two-write-independent-adjudication.md",
+      "sha256": "76e59a297abab78e561b351fb68d02f1a415d964deafa7a39fd000f6a2972921"
+    },
+    {
+      "bytes": 4499,
+      "path": "receipt-audit-001.json",
+      "sha256": "75693920daa78492ea3801ae5fe942cefab3bbe0d3097dc2b16032c344b0834d"
+    }
+  ],
+  "automatic_retries": 0,
+  "brief": {
+    "bytes": 10730,
+    "path": "docs/consults/2026-09-17-strategy-brief-v2.md",
+    "sha256": "88664d7517bab92667e89e52acf999e534f364d589bf8a946dc4d84f683cffc7"
+  },
+  "canonical_helper": {
+    "bytes": 81025,
+    "path": "scripts/review_experiment_plan.py",
+    "sha256": "f3596de522f39f61cbb981f72cfbed1d6f3916c0f78bc8e4ce36efcb6fa171ff"
+  },
+  "completed_at_utc": "2026-09-17T16:03:17.246823Z",
+  "completed_bundle_validation": "completed_review_bundle_valid",
+  "conservative_receipt_cost": {
+    "cache_write_usd_per_million": "12.5",
+    "formula": "22081 * 10 / 1000000 + 11209 * 50 / 1000000",
+    "input_usd_per_million": "10",
+    "output_usd_per_million": "50",
+    "pricing_source": "https://developers.openai.com/api/docs/pricing",
+    "reasoning_tokens_already_in_output": true,
+    "reported_output_exceeds_requested_max": true,
+    "usd": "0.78126"
+  },
+  "created_at_utc": "2026-09-17T15:59:51.496908Z",
+  "date": "2026-09-17",
+  "external_root": "/data2/neural-shrimp-data/consults/2026-09-17-strategy",
+  "generating_requests_in_this_attempt": 1,
+  "hash_note": "artifacts sha256 values hash exact file bytes. helper_semantic_hashes.response_sha256 hashes canonical semantic JSON and differs from response.json byte hash.",
+  "helper_semantic_hashes": {
+    "request_payload_sha256": "8828c22d8d09fada2338c5694f6a1732249ef92a944748d52d846b7c56bc66b6",
+    "response_sha256": "d416f8aa3718699e8623dd9380b8c99549cb49e3a818570bf30dae6b90d686b1",
+    "review_input_sha256": "3807fbd585cbe5e4bb1514de83694cfc6a847ad58730e0702219d84b053f8af0",
+    "review_request_sha256": "232ffc4b07fb77df626e324f2f67a2276b5a545c1f2d6fa481daf9382bf5774b",
+    "review_sha256": "ff81ca3e906f53711a549fadcf01fc9896a73d69920ecd89a6c5051d723f65e6"
+  },
+  "independent_receipt_audit": "receipt-audit-001.json; 28 checks passed, zero failed",
+  "model": "gpt-6-astra",
+  "next_design_ref": "docs/two-write-memory-design.md",
+  "preflight": {
+    "character_estimate_reserve_usd": "2.440875",
+    "client_guard_usd": "3.00",
+    "exact_count_reserve_usd": "1.95735",
+    "input_reserve_multiplier": 10,
+    "input_tokens_non_generating_counter": 3366,
+    "not_provider_billing_guarantee": true,
+    "output_reserve_multiplier": 4,
+    "requested_max_output_tokens": 6000
+  },
+  "project_review_spend": {
+    "account_wide_reconciliation_performed": false,
+    "known_cumulative_receipt_derived_usd": "0.78126",
+    "known_prior_receipt_derived_usd": "0"
+  },
+  "promoted_artifacts": [
+    {
+      "bytes": 21039,
+      "path": "docs/consults/2026-09-17-pro-response.md",
+      "sha256": "ff81ca3e906f53711a549fadcf01fc9896a73d69920ecd89a6c5051d723f65e6"
+    },
+    {
+      "bytes": 10615,
+      "path": "docs/consults/2026-09-17-two-write-independent-adjudication.md",
+      "sha256": "76e59a297abab78e561b351fb68d02f1a415d964deafa7a39fd000f6a2972921"
+    }
+  ],
+  "reasoning": {
+    "effort": "medium",
+    "mode": "pro"
+  },
+  "response_id": "resp_0cf91ef82be8a7c2016aac0e78baf487d09e0b50449f723d83",
+  "reviewed_packet_git_head_commit": "814b9689e7d141eff16855b53a4f3438b7d1e6cf",
+  "schema": "neural-shrimp-pro-consultation-receipt-v1",
+  "scope": "One advisory research-strategy consultation after EXP-013 through EXP-015, not scientific validation",
+  "service_tier": "default",
+  "status": "completed",
+  "store": false,
+  "tools": [],
+  "usage": {
+    "input_tokens": 22081,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 11209,
+    "output_tokens_details": {
+      "reasoning_tokens": 3334
+    },
+    "total_tokens": 33290
+  },
+  "user_authorized_maximum_usd": "10.00"
+}

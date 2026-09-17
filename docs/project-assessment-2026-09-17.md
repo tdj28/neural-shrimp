@@ -1,5 +1,7 @@
 # Project assessment, 17 September 2026
 
+**Human-friendly TLDR:** Selected shrimp regimes make this three-neuron network repeat a stable activity pattern. Disturbances affect those patterns differently: a measured small-pulse example and later linear analysis show a retained signal beyond a simple timing shift. The model predicts rapid fading at the selected core and longer persistence near the edge. We still need to establish numerical reliability more broadly, whether shrimp geometry adds useful performance, and whether this carries over to trained networks.
+
 The strongest result is dynamical: selected points in the known three-neuron
 tanh network have verified primitive periodic orbits with measured transverse
 stability. Small disturbances can decay very differently across parameter
@@ -50,11 +52,17 @@ memory. They support this research direction while making the novelty test
 more demanding: generic oscillator memory is established prior art, and
 shrimp geometry must earn additional predictive or task value.
 
-The authorized Astra Pro consultation has not run: a strict enforceable $10
-request cap was not available under the canonical paid-review requirements.
-Spent: $0. The [consultation receipt](consults/2026-09-17-status.md) and
-[local strategy review](research-strategy-2026-09-17.md) distinguish the local
-independent review from external Pro advice.
+The authorized Astra Pro consultation is now complete at a conservative
+receipt-derived cost of **$0.78126**. The earlier refusal added an unsupported
+requirement for an absolute billing guarantee; the user's correction led to
+the established, budgeted single-call route. Both saved-bundle and separate
+receipt validation pass. The [adjudication](consults/2026-09-17-pro-adjudication.md)
+accepts a two-write interference experiment with modifications: test whether
+an earlier input remains readable after a second input, while distinguishing
+fixed-observer failure from information erasure. The [new design](two-write-memory-design.md)
+is under implementation, with numerical qualification embedded in the task.
+No two-write neural outcomes have been generated. The previous not-run record
+and [local strategy review](research-strategy-2026-09-17.md) remain historical.
 
 Continue locally with bounded CPU workers and available RAM. Existing
 [Skills.md](../Skills.md) authorizes suitable CPU/GPU use, shared-resource
