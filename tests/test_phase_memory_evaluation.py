@@ -10,7 +10,6 @@ import numpy as np
 import pytest
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
-sys.path.insert(0,'/data2/neural-shrimp/tools')
 import phase_memory as pm
 import phase_memory_evaluation as ev
 from run_hopfield import safe

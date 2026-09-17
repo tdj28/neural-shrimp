@@ -1,9 +1,10 @@
-# Phase-memory implementation checkpoint, 17 September 2026
+# Phase-memory implementation status, 17 September 2026
 
-The pure mathematical/readout modules and their 81 synthetic tests are now
-checkpointed. The tests pass in 12.48 seconds on this checkout with numerical
-threads limited to one. No target dynamics, phase-memory reference fit or
-phase-memory pulse outcomes have run. Acquisition/controller integration,
-complete plan/protocol binding, final independent review and a separate
-execution freeze are still required. This development checkpoint is not a
-scientific execution authorization. See phase-memory-design.md.
+The full EXP-014 acquisition, analysis and controller package is implemented.
+Its four synthetic test suites pass 142 tests in 24.80 seconds, covering
+analytic dynamics, readout arithmetic, exact prediction seals, owned worker
+lifecycle, failure evidence and full planned denominators. Integrated test
+imports resolve this checkout only. The final protocol, source-bound plan and
+exact-plan review define execution; the historical development checkpoint
+alone did not authorize outcomes. No target phase-memory dynamics were used
+to develop this package. See [EXP-014-protocol.md](EXP-014-protocol.md).

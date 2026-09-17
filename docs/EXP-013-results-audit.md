@@ -19,7 +19,7 @@ candidate waveform comparisons, 48 shams and 48 independent-panel cases pass.
 ![Failed candidate waveform diagnostic](../paper/figures/EXP-013-waveform-diagnostic.png)
 
 The candidate ranks last of eighteen at both saved resolutions, appears only
-in the full-eighteen list, and is selected by no policy. The full-eighteen
+in the full-eighteen list, and no policy chooses it as the winning action. The full-eighteen
 winner is candidate 17. These are saved-case diagnostics, not grounds to waive
 the prospective full-census qualification rule. A separately frozen, explicitly
 outcome-selected finer-step diagnostic is being prepared for this candidate
