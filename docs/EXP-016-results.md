@@ -110,7 +110,9 @@ passes 247,693 identity, gate and arithmetic checks with no disagreements.
 This is an algorithmic cross-check, not independent scientific review; it
 takes the sealed observers and reference prerequisites as inputs. Its maximum
 strict arithmetic difference is approximately 1.066e-14. A separate diagnosis
-examines the failed phase references.
+examines the failed phase references; its [saved-evidence diagnosis](EXP-016-reference-diagnosis.md)
+passes 14,981 checks and localizes all eleven failures to the intervention time.
+The [EXP-017 protocol](EXP-017-protocol.md) fixes a reference-only follow-up.
 
 Raw evidence remains at
 `/data2/neural-shrimp-data/raw/EXP-016/attempt-001`. The receipt binds 6,649

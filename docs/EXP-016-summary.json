@@ -239,6 +239,36 @@
       "path": "/data2/neural-shrimp-data/audits/EXP-016/report-code-001/test_plot_two_write_saved.py",
       "bytes": 3904,
       "sha256": "5339590f3382ba0401a956764944a922308b5646fffca2502be2cafa9ec22121"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/receipt.json",
+      "bytes": 2023,
+      "sha256": "02fbe9338cfe4acb7994f8553bb5ef27c9bae1a6da1a71ffa1154ebaeac37a56"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/report.json",
+      "bytes": 1394002,
+      "sha256": "9b0c4bf0aa270e6bb3a21340730df08578c5c6a6eb487775d0c5f3d2355dbc9c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/interpretation.md",
+      "bytes": 7310,
+      "sha256": "cfddbaac422ba7e33e93a32b7ba92e10e87a4905d5d923fb243c2a2d75eb9428"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/next-diagnostic-plan.md",
+      "bytes": 7816,
+      "sha256": "043f5e439f68f0f4fdfeaa2d6c3a57d857405d875adc4f7b72671f34456867ff"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/interpretation-001/INTERPRETATION.md",
+      "bytes": 8953,
+      "sha256": "3436c3cd25603dcf060b5a1187613e04efc468b0d1c368cf4d6f7044ab1331bf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/interpretation-001/interpretation-addendum.json",
+      "bytes": 1082,
+      "sha256": "fac2856ff3f966e5723246772c6630c4ed454479d4783717472a2416770d411d"
     }
   ],
   "resources": {
@@ -2053,5 +2083,14 @@
       "bytes": 385960,
       "sha256": "29b3aba623c587f0c050886ce0c98a53e6dd0ef26dde0612bc9f9cc4104bd804"
     }
-  ]
+  ],
+  "reference_diagnosis": {
+    "checks": 14981,
+    "failures": 0,
+    "inputs_bound": 296,
+    "initial_normalization_passes": 48,
+    "event_normalization_failures": 11,
+    "interpretation": "Event-only phase/physical-flow mismatch; interpolation versus inherited approximate periodicity unresolved before EXP017"
+  },
+  "linear_discrepancy_scope": "Reported ranges concern balanced accuracy with second write present; they are not upper bounds on individual sign probabilities."
 }
