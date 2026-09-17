@@ -1,0 +1,66 @@
+{
+  "experiment_id": "EXP-013-refinement",
+  "attempt": "attempt-001",
+  "complete": true,
+  "error": null,
+  "postflight_error": null,
+  "source_commit": "406b89553b956bac1b97ef05413c799e383a9103",
+  "plan_sha256": "884e04f11efcf57e0607bbec97f87a8cfc8716ac1436c35bfd90ea3335b28800",
+  "raw_directory": "/data2/neural-shrimp-data/raw/EXP-013-refinement/attempt-001",
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-013-refinement/attempt-001/receipt.json",
+    "sha256": "6463eb18784d6024f1036a0f6e6ef27e0bebbce8cc801478da008927db3f8bce",
+    "bytes": 6470
+  },
+  "summary": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-013-refinement/attempt-001/summary.json",
+    "sha256": "d4870c6637c6da6346d92783d91d38f5da1cdbdcd795f2e075367ded116e6b0f",
+    "bytes": 49636
+  },
+  "artifacts": 33,
+  "artifact_bytes": 495511,
+  "status_counts": {
+    "complete": 10
+  },
+  "producer_and_analysis_seconds": 1.6850455919993692,
+  "comparison_counts": {
+    "all_new_method_pairs": 20,
+    "old_fine_against_new": 10,
+    "original_adjacent_native": 4,
+    "unique_pairs": 34,
+    "new_native_adjacent_subset": 6
+  },
+  "passing_pairs": 32,
+  "all30_new_comparisons_pass": true,
+  "cases": {
+    "fresh-11-p1350-r0.016-c07": {
+      "all_new_methods_agree": true,
+      "original_fine_agrees_with_all_new": true,
+      "original_fine_resolved_by_diagnostic": true
+    },
+    "fresh-11-p1350-sham": {
+      "all_new_methods_agree": true,
+      "original_fine_agrees_with_all_new": true,
+      "original_fine_resolved_by_diagnostic": true
+    }
+  },
+  "original_exp013_qualification": "unchanged: complete but unqualified",
+  "cohort_means": null,
+  "audits": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013-refinement/replay-001/verification.json",
+      "sha256": "819719fa748c255cbd6dd86116276d57403fa9102a2be1e8bf9c3d561a466e3c",
+      "bytes": 3574
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013-refinement/independent-001/report.json",
+      "sha256": "c9052315dd4971ba10639f1874a1c6480960b68cab6f4413b337333e5c6c72b4",
+      "bytes": 10898
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013-refinement/independent-001/audit.py",
+      "sha256": "6848891522bac59898654e787bf2ace85b983f1ce074ac021f69ebcc0b9bc1c9",
+      "bytes": 5164
+    }
+  ]
+}

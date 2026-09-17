@@ -1,6 +1,34 @@
-# Next steps after EXP-013
+# Next steps after EXP-014
 
-## Current decision, 17 September: diagnose one numerical failure and test timing memory
+## Current decision, 17 September: diagnose finite-pulse sensitivity
+
+EXP-014 completes all 930 jobs, but 30 of 608 trajectory comparisons fail at
+the largest pulse, 0.01. All prerequisites, shams, smaller-dose and phase-null
+comparisons, and all 3,456 analytic balanced-accuracy comparisons pass. Both
+setting means remain withheld. Bounded accuracy saturation hides large
+signed-readout and trajectory disagreements, reaching nearly the full
+activation range. See the [timing-memory audit](EXP-014-results-audit.md).
+
+A selected individually consistent phase-null case agrees with the full-linear
+prediction (analytic BA about 0.9929902) while phase-only predicts 0.5. This
+suggests transverse response can contribute to the readout; it does not establish
+shrimp-specific computation, network memory capacity or trained-model benefit.
+
+The next bounded follow-up diagnoses all thirteen affected binary contexts,
+both signs, all three original doses and seven matched shams: 85 cases and
+425 new traces. It will use three finer RK4 steps and two tighter DOP853
+settings, retaining all 2,380 old/new method pairs, unsaturated signed readouts
+and sampled threshold crossings. No horizon truncation, failed-case exclusion,
+decoder refit or original-cohort requalification is allowed. Complete the
+reviewed executable freeze and privately push before any new solve.
+
+The [EXP-013 numerical follow-up](EXP-013-refinement-results.md) is complete:
+all ten new traces and thirty new comparisons pass, supporting its original
+fine trace while preserving the original failed cohort gate. Code and compact
+receipts are backed up privately; bulky raw data remain in the sibling directory.
+No paid Pro request has been sent; incremental consultation spend remains zero.
+
+## Earlier decision, 17 September: diagnose one numerical failure and test timing memory
 
 EXP-013 completes all 10,681 tasks but one of 3,456 candidates fails the
 unchanged waveform agreement rule. All scalar checks, shams and independent

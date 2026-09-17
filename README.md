@@ -68,10 +68,24 @@ All 24 references, 48 sensitivities and 10,608 previews finish. All 3,456 scalar
 checks pass, but one candidate fails the preset waveform agreement threshold;
 3,455 candidates, all 48 shams and all 48 independent-panel cases qualify.
 Independent audits reproduce this result. The frozen rule withholds full-cohort
-loss means and intervals. A separate numerical diagnostic and a direct test of
-phase-based timing memory are in preparation. See the
+loss means and intervals. The separate numerical diagnostic and direct timing-memory acquisition
+are now complete; their distinct qualification limits are recorded below. See the
 [fresh-origin results](docs/EXP-013-results-audit.md) and
 [current project assessment](docs/project-assessment-2026-09-17.md).
+
+**EXP-014 completes acquisition; numerical qualification fails.**
+All 930 jobs finish. Thirty full-trace comparisons fail at the largest pulse
+size, although all bounded bit-readout accuracy comparisons agree. Both
+setting averages remain withheld: a saturated readout can hide large
+trajectory differences. One numerically consistent individual phase-null
+case agrees with the full-linear model and differs from the phase-only
+prediction, motivating study of transverse response and forgetting rates.
+The probabilities assume Gaussian measurement noise; they are not noisy-trial
+accuracies. See [the timing-memory audit](docs/EXP-014-results-audit.md).
+The separate [EXP-013 finer-step diagnostic](docs/EXP-013-refinement-results.md)
+supports its original finest-step trace, while preserving the original failed
+cohort qualification.
+
 
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
