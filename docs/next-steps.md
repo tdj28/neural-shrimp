@@ -1,8 +1,14 @@
-# Next steps after EXP-020
+# Next steps after EXP-021
 
-**Human-friendly TLDR:** An earlier input can remain recoverable in the selected near-edge neural cycle even when interference defeats a linear observer. The audited phase-16 example improves from 50.3% to 99.7% with nonlinear readout under the declared noise model. The complete-study result is withheld because 25 core cases fail a numerical cross-check. Repair that arithmetic and repeat the complete census before drawing a whole-study conclusion; geometry's unique value and trained-network transfer remain open.
+**Human-friendly TLDR:** Near the selected periodic-window edge, an earlier input can remain readable after a second input arrives. Across all 24 tested phases, nonlinear readout raises four-cycle first-bit accuracy from **55.05% to 58.98%**; one previously identified phase rises from **50.31% to 99.69%**. The core cycle is essentially at chance by then. A simpler one-mode reference gives an equally effective late observer on these same neural observations. This demonstrates recoverable, timing-dependent memory in two fixed-weight three-neuron settings; a unique shrimp-geometry advantage and transfer to trained networks remain unproven.
 
-## Current decision: correct tiny-signal nominal arithmetic, preserve the failed study
+## Current decision: compare contraction and observability before claiming a geometry increment
+
+[EXP-021](EXP-021-results.md) completes and qualifies the full nonlinear-readout comparison. Late one-mode and full-reference observers are equally effective on the same observations; this does not establish that the finite neural dynamics themselves are scalar. The next practical stage is a small reference-only continuation and matching-feasibility panel. It must fix candidate identities, common phase fractions, duplicate rules, failure slots and all numerical gates before new target calculations. No more finite-write histories should run until the new reference panel and its separately frozen task census are ready.
+
+Matching full A/B Gram data and observation noise fixes the Gaussian reference prediction. Any residual then measures finite-dynamics/model mismatch, not a direct proof of shrimp geometry. A geometry-increment claim needs an independently verified parameter-space descriptor and a distinct predictive or robustness endpoint. Full multidirectional boundary organization and trained-network transfer remain unfinished.
+
+## Earlier decision: correct tiny-signal nominal arithmetic, preserve the failed study
 
 [EXP-020](EXP-020-results.md) retains all 4,704 mixture records and 1,728 auxiliary controls. Its Arb enclosures are available, but 304 nominal quadratures fail the original warning or agreement requirements. All 25 incomplete cells lie in the core at 4T or 8T; the complete-study primary remains withheld. Frozen replay and independent audits agree on that incomplete status.
 
@@ -846,3 +852,5 @@ start locally. A GPU is justified only by profiling the exact later workload,
 checking numerical parity, and preparing a measured bounded cost plan under
 [compute-plan.md](compute-plan.md). Paid execution and paid Pro review each need
 their own explicit approval; none was used for the present numerical result.
+
+The next bounded research stage is documented in the [cycle-reference feasibility design](next-cycle-reference-design.md). It remains an advisory plan pending implementation and execution freeze.

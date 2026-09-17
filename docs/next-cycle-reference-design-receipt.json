@@ -1,0 +1,44 @@
+{
+  "status": "advisory_design_not_executed",
+  "created_utc": "2026-09-17T19:56:52.582062+00:00",
+  "new_neural_solves": 0,
+  "new_target_descriptors": 0,
+  "design_informed_by": [
+    "EXP-019",
+    "EXP-020",
+    "EXP-021"
+  ],
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-021/next-dynamics-design-001/DESIGN.md",
+      "bytes": 19133,
+      "sha256": "c2a2c57a032ac2bb86ed718ca52d72e3d4ee96a03f240ae03f89d104aa3fe76e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-021/next-dynamics-design-001/synthetic-benchmark.json",
+      "bytes": 65519,
+      "sha256": "5fdcc2dc85ae2045bc7e335dc4c8b9812e5c773d739906492d46f884f54f329b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-021/next-dynamics-design-001/synthetic_continuation_benchmark.py",
+      "bytes": 3633,
+      "sha256": "b25538e2a8e1696baf6774d219df4496fac958bb679b272547b337350233effb"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-021/next-question-critique-001/NOTE.md",
+      "bytes": 12002,
+      "sha256": "a9ce738562494b9f515f56de93506abf131d74b61551163cb304834cba58afdf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-021/next-question-critique-001/six-cycle-proposal-addendum-001.md",
+      "bytes": 2153,
+      "sha256": "cf59b874885fc6d985980b35668457a897b41b9fafdaa41db41aa820d0b3911a"
+    }
+  ],
+  "root_disposition": "Accept bounded reference-only feasibility direction. Candidate selection, adapters, exact thresholds and executable plan need validation and private freeze; no additional user approval required for the already authorized local scope.",
+  "limitations": [
+    "Synthetic continuation timing is not target throughput.",
+    "Dependent gamma paths do not independently establish shrimp geometry.",
+    "No candidate selection or target integration performed by this note."
+  ]
+}

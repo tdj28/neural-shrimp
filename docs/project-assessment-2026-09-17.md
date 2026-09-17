@@ -1,6 +1,6 @@
 # Project assessment, 17 September 2026
 
-**Human-friendly TLDR:** The selected near-edge cycle retains phase-dependent input traces, and a nonlinear observer can recover an earlier bit that the linear observer misses after a second input. The audited phase-16 example changes from 50.3% to 99.7% accuracy under the declared observation-noise model. The complete nonlinear study is still withheld because 25 core cases fail its numerical cross-check; the next correction preserves the same data and gates. A simple one-mode observer also explains the delayed recovery. Geometry-specific benefit and trained-network transfer remain unproven.
+**Human-friendly TLDR:** Near the selected periodic-window edge, an earlier input can remain readable after a second input arrives. Across all 24 tested phases, nonlinear readout raises four-cycle first-bit accuracy from **55.05% to 58.98%**; one previously identified phase rises from **50.31% to 99.69%**. The core cycle is essentially at chance by then. A simpler one-mode reference gives an equally effective late observer on these same neural observations. This demonstrates recoverable, timing-dependent memory in two fixed-weight three-neuron settings; a unique shrimp-geometry advantage and transfer to trained networks remain unproven.
 
 The strongest result is dynamical: selected points in the known three-neuron
 tanh network have verified primitive periodic orbits with measured transverse
@@ -26,8 +26,8 @@ numerical trajectory disagreement. Geometry's additional utility remains unresol
 | EXP-017 | All 102 reference-only jobs and 48 phase contexts complete; both fine methods agree on remaining failures. Finer sampling reduces the largest reference defect. | Nine event-normalization failures persist with exact dense samples; inherited global orbit/adjoint consistency needs refinement. No new memory outcomes or old-study requalification. |
 | EXP-018 | All 102 jobs and 48 phase contexts qualify after global shooting and adjoint reconstruction; largest event-normalization error is 1.34e-10 against 1e-7. Both cycles retain their primitive nine-peak structure and stability. | One-period regression qualification supplies no new memory performance or eight-period guarantee. EXP-019 separately supplies fresh eight-period and memory qualification. |
 | EXP-019 | All 2,796 jobs, 48 contexts and 1,404 comparisons qualify. Near-edge four-cycle fixed-observer accuracy is 62.90% without/55.05% with a second input versus 50.01% core across sixteen reused phases. | Phase-dependent readout benefit; nonlinear recoverability, geometry-specific increment and trained-network transfer remain open. Strict reference alternate-arithmetic failures remain separately recorded. |
-
-| EXP-020 | All 4,704 mixture records and 1,728 auxiliary controls returned; all near-edge cells qualify locally and an audited example recovers earlier-input readout from 50.3% to 99.7%. | 304 nominal-quadrature failures leave 25 core cells incomplete and the complete-study primary withheld. EXP-021 will correct arithmetic under the same cohort and gates. |
+| EXP-020 | All 4,704 mixture records and 1,728 auxiliary controls returned; all near-edge cells qualify locally and an audited example recovers earlier-input readout from 50.3% to 99.7%. | 304 nominal-quadrature failures leave 25 core cells incomplete and the complete-study primary withheld. EXP-021 separately corrects arithmetic under the same cohort and gates; EXP-020 remains incomplete. |
+| EXP-021 | All 144 cells, 4,704 mixture probabilities and 1,728 auxiliary linear controls qualify. Near-edge mean accuracy improves from 55.05% linear to 58.98% nonlinear at 4T; core remains essentially chance. | Both late nonlinear observers are equally effective on the same observations; scalar neural dynamics, geometry-specific increment and trained-network transfer are not established. |
 
 The [complete memory regression](EXP-019-results.md) now provides the first
 qualified setting-wide two-write comparison. Its 5.0463-point primary contrast
@@ -35,7 +35,7 @@ is descriptive for reused phases. Full-linear responses closely explain
 balanced scores, but one slow mode misses early 2T behavior and per-sign errors
 can be larger than balanced-score errors. The post-hoc phase 16 collapse from
 100% without a second write to 50.31% with one motivates a separately frozen
-nonlinear-readout analysis. EXP-020 now supplies locally qualified nonlinear recovery while preserving its incomplete whole-study status; see the [retained results](EXP-020-results.md).
+nonlinear-readout analysis. EXP-020 supplies locally qualified nonlinear recovery while preserving its incomplete whole-study status. [EXP-021](EXP-021-results.md) completes the same full-census comparison with corrected nominal arithmetic; its primary gain is 3.9268 points, numerical interval [3.9253, 3.9327]. The qualified result applies to all 24 reused phases per selected setting and does not requalify the earlier failed study.
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
@@ -97,3 +97,5 @@ checks, RunPod fallback with a costed approved launch, and private Git pushes
 roughly every 30 minutes. Bulky data remain outside Git. API authentication for
 opening the review PR and a verified independent raw-data backup remain open;
 private SSH code/receipt backups work. No main merge is implied.
+
+The next bounded research stage is documented in the [cycle-reference feasibility design](next-cycle-reference-design.md). It remains an advisory plan pending implementation and execution freeze.

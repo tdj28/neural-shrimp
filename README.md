@@ -1,11 +1,11 @@
 # A neural shrimp and what the network does inside it
 
-**Human-friendly TLDR:** The selected near-edge neural cycle can retain an earlier input that a linear observer misses after interference. In one tested case, nonlinear readout raises calculated accuracy from 50.3% to 99.7% under the fixed Gaussian observation model. The full nonlinear study remains incomplete because 25 core cases fail a numerical cross-check; a separately frozen arithmetic correction is next. This is a three-neuron fixed-weight result, not evidence of a shrimp-specific advantage or transfer to trained networks.
+**Human-friendly TLDR:** Near the selected periodic-window edge, an earlier input can remain readable after a second input arrives. Across all 24 tested phases, nonlinear readout raises four-cycle first-bit accuracy from **55.05% to 58.98%**; one previously identified phase rises from **50.31% to 99.69%**. The core cycle is essentially at chance by then. A simpler one-mode reference gives an equally effective late observer on these same neural observations. This demonstrates recoverable, timing-dependent memory in two fixed-weight three-neuron settings; a unique shrimp-geometry advantage and transfer to trained networks remain unproven.
 
 Private exploratory research on periodic-window geometry, neural activity, and
 whether geometric information can improve model control.
 
-**Latest analysis: [EXP-020](docs/EXP-020-results.md), incomplete with its primary withheld.** All 4,704 mixture calculation slots returned records; 304 fail the unchanged nominal cross-check in 25 core cells. Frozen replay and independent physical-binding/aggregation audits preserve that status. All near-edge cells qualify locally, providing the descriptive recovery example above. EXP-021 is preparing a correction with the same data, classifiers, cohort and numerical gates. The qualified [EXP-019](docs/EXP-019-results.md) remains the complete neural memory acquisition study.
+**Latest analysis: [EXP-021](docs/EXP-021-results.md), complete and numerically qualified.** The corrected nominal arithmetic completes all 144 cells, 4,704 mixture probabilities and 1,728 auxiliary controls under the original gates. Frozen numerical replay and separate saved-evidence/summary audits pass. The primary gain is 3.9268 percentage points at 4T, with a numerical enclosure [3.9253, 3.9327], not a population confidence interval. [EXP-020](docs/EXP-020-results.md) remains incomplete. [EXP-019](docs/EXP-019-results.md) supplies the unchanged neural observations. The next question is whether matched cycle references can separate contraction and observability from geometry's incremental value.
 
 **Current release status: private working diagnostic draft.** EXP-008
 [PR #7](https://github.com/tdj28/neural-shrimp/pull/7) remains **unmerged**.
@@ -481,3 +481,5 @@ shrimp reproduced in EXP-004.
 Paid research reviews require explicit approval for each request. See the
 [compute plan](docs/compute-plan.md) before considering paid resources. This
 repository remains private until its owner authorizes publication.
+
+The next bounded research stage is documented in the [cycle-reference feasibility design](docs/next-cycle-reference-design.md). It remains an advisory plan pending implementation and execution freeze.
