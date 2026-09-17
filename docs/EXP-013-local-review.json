@@ -1,0 +1,101 @@
+{
+  "experiment_id": "EXP-013",
+  "date": "2026-09-17",
+  "status": "ready_for_exploratory_execution",
+  "exploratory": true,
+  "plan_sha256": "370a98075eadd3c948b9cbcdc9ef5a6bd19e7864ac3321a630cbc62c7e34236c",
+  "review_scope": [
+    "Independent metadata-only historical census and source binding audit",
+    "Independent feature/model interface and evaluator/statistics review",
+    "Independent owned runtime, failure preservation, access chronology and verifier review"
+  ],
+  "tests": [
+    {
+      "scope": "Full repository collection before new runner suite",
+      "passed": 693,
+      "skipped": 1,
+      "seconds": 49.11
+    },
+    {
+      "scope": "Final new runner synthetic suite, including full failed-attempt receipt",
+      "passed": 65,
+      "seconds": 8.33
+    },
+    {
+      "scope": "Final runtime/features/legacy lifecycle subset",
+      "passed": 118,
+      "seconds": 8.99
+    }
+  ],
+  "independent_census": {
+    "checks": 533,
+    "failures": 0,
+    "origins": 24,
+    "exclusions": 36,
+    "aliases": 48,
+    "eligible_pixels": 1703,
+    "contexts": 192,
+    "candidates": 3456,
+    "sentinels": 48,
+    "short_traces": 10608,
+    "staged_rows": 10681,
+    "readouts": 6144,
+    "winners": 5760,
+    "intervals": 30,
+    "source_files": 37,
+    "historical_bindings": 187,
+    "artifacts": [
+      {
+        "path": "/data2/neural-shrimp-data/audits/EXP-013/preflight-001/exp013_final_census_audit.py",
+        "sha256": "0e57d99d095202836e4aa50fc7a9bc5c056d8e205cf83809ab465da31141f9ac",
+        "bytes": 15180
+      },
+      {
+        "path": "/data2/neural-shrimp-data/audits/EXP-013/preflight-001/EXP-013-final-census-audit.json",
+        "sha256": "72a29fa5020b4ef1cab51124f20baf205ae0b75b7c55f7009c867f7b8a183e9f",
+        "bytes": 52023
+      }
+    ]
+  },
+  "closed_findings": [
+    "Launch masking and exact worker identity",
+    "Certificate gate/input and float64 validation",
+    "Completed sensitivity replay even after later failure",
+    "Mandatory owned cleanup and task census",
+    "Selected-only winner census before full reveal",
+    "Feature/model/access artifact chronology",
+    "Strict historical hash pins and actual data-root resource reserve",
+    "Progress-output failure and signal interruption terminal idempotence",
+    "Prediction direction/candidate identity binding",
+    "Unknown timing components retained without invented apportionment"
+  ],
+  "scientific_boundary": "Fresh atlas-selected exploratory 75-unit preview-budget comparison. No trained-network, geometry-superiority, deployment-speedup, formal preregistration or complete shrimp-boundary claim.",
+  "execution": {
+    "backend": "native_cpu",
+    "workers": 4,
+    "numerical_threads": 1,
+    "whole_producer_seconds": 3600,
+    "prerequisite_task_seconds": 600,
+    "preview_task_seconds": 120,
+    "ram_reserve_bytes": 8589934592,
+    "disk_reserve_bytes": 2147483648
+  },
+  "consultation": {
+    "requested": "GPT-6 Astra Pro",
+    "authorized_max_usd": 10,
+    "status": "not_run_hard_cap_unavailable",
+    "incremental_spend_usd": 0,
+    "receipt": "docs/consults/2026-09-17-receipt.json"
+  },
+  "git": {
+    "branch": "codex/fresh-origin-study",
+    "required": "Exact complete source commit must be privately pushed and remotely verified before fitting/dynamics",
+    "pr_status": "Pending private-repository API authentication; locally reviewed branch only, no main merge"
+  },
+  "outcomes_before_review": false,
+  "remaining_before_execution": [
+    "Explicit staging and secret/size sweep",
+    "Private commit and verified push",
+    "Live clean-source/environment/resource guards"
+  ]
+}
