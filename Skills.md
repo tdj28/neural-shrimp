@@ -138,3 +138,14 @@ source and manifest bindings. A sibling data directory is durable local
 storage, not an independent backup: record any verified additional data
 copy separately. Git pushes protect the code and receipts, not external raw
 data. See [data-storage.md](docs/data-storage.md).
+
+## Human-friendly research summaries
+
+The user requested on 17 September 2026 that every research summary include a
+plain-language TLDR answering: **What did we learn about the behavior of neural
+networks in regimes of the shrimp?** Lead with the behavioral consequence
+(memory, forgetting, sensitivity, stability, readout or control), then distinguish
+what was measured, what is a conditional prediction and what remains unknown.
+State the tested network's scope and avoid implying trained-network or
+shrimp-specific benefit from generic oscillator behavior. Technical audit and
+experiment counts support the explanation; they do not replace this TLDR.
