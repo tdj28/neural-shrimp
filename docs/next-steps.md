@@ -1,14 +1,36 @@
-# Next steps after EXP-018
+# Next steps after EXP-019
 
-**Human-friendly TLDR:** In checked near-edge cases, the network retains a
-readable first input across several cycles, but a second input can interfere
-strongly. The signal is carried by deviations away from the cycle and is
-closely explained by ordinary linear dynamics. The core forgets quickly in
-the available cases. The globally refined reference now passes all 48 planned
-one-period checks, enabling a fresh complete memory study. Earlier setting-wide
-comparisons remain unqualified; a shrimp-specific advantage remains unproven.
+**Human-friendly TLDR:** The complete regression shows phase-dependent memory
+near the selected edge and strong interference in the fixed linear readout.
+At four cycles, its near-edge accuracy averages 62.90% without a second input
+and 55.05% with one, versus 50.01% at the core, across sixteen reused phases.
+The next question is whether a nonlinear observer can recover an earlier bit
+that the linear observer misses. Unique value from shrimp geometry and trained
+network transfer remain unproven.
 
-## Current decision: repeat the full memory task with the qualified new reference
+## Current decision: distinguish linear-readout interference from recoverable information
+
+[EXP-019](EXP-019-results.md) completes and qualifies all 48 contexts, 2,796 jobs
+and 1,404 comparisons. The refined references resolve the missing-phase problem
+for this new run; earlier incomplete studies remain unchanged. The primary
+near-edge-minus-core contrast is 5.0463 percentage points at 4T, with a descriptive
+reused-phase bootstrap interval [1.3677, 9.5264]. Timing-only retention is near
+chance, while transverse retention preserves the same-observer result.
+
+Prepare a separately frozen, reference-defined Gaussian-mixture readout with
+an unknown second-bit nuisance. Apply it across the entire reused phase census,
+not only the post-hoc phase 16 example whose fixed linear score drops from 100%
+to 50.31%. Classifier templates must come from the sealed reference-only linear
+responses; do not fit an oracle to finite class means. Preserve complete
+class/method denominators, stable near-collinear handling and independently
+checked probability integration before reporting any new decoder outcomes.
+This is first-bit recovery under a specified observation model, not a joint
+capacity estimate or proof of information destruction when decoding fails.
+
+Full shrimp boundary organization, matched controls for geometry's incremental
+value, and transfer to trained networks remain separate unfinished questions.
+
+## Earlier decision: repeat the full memory task with the qualified new reference
 
 [EXP-018](EXP-018-results.md) completes all 102 jobs and qualifies all 48 phase
 contexts. Both cycles retain nine primitive peaks and transverse attraction;

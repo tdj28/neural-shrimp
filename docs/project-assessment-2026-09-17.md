@@ -1,6 +1,6 @@
 # Project assessment, 17 September 2026
 
-**Human-friendly TLDR:** Selected shrimp regimes make this three-neuron network repeat a stable activity pattern. In individually checked near-edge cases, a first input stays readable for several cycles, but a second input can interfere substantially. The core forgets rapidly in the available cases. The retained signal is carried by deviations away from the cycle, and ordinary linear dynamics explain it closely. A refined reference now passes all 48 planned one-period checks, making a fresh complete memory study feasible. Earlier setting-wide comparisons remain unqualified; extra value from shrimp geometry and transfer to trained networks remain unproven.
+**Human-friendly TLDR:** The selected near-edge cycle in this three-neuron network retains a readable first input for several cycles, while the core is near chance by four cycles under the tested readout. The complete regression gives 62.90% near-edge accuracy without a second input and 55.05% with one, versus 50.01% at the core, across sixteen reused phases. The effect is strongly phase-dependent and carried by transverse responses. A linear readout can fail despite a strong first-input trace, so nonlinear recovery is the next question. A shrimp-specific advantage and trained-network transfer remain unproven.
 
 The strongest result is dynamical: selected points in the known three-neuron
 tanh network have verified primitive periodic orbits with measured transverse
@@ -24,7 +24,16 @@ numerical trajectory disagreement. Geometry's additional utility remains unresol
 | EXP-015 | All 192 local decomposition cells and 1,152 pulse compatibility rows complete; all 64 phase-null cells pass frozen checks and retain transverse readout. | One original strict algebraic failure, twelve ideal-neutral failures and additional independent arithmetic discrepancies remain; no independent transverse solver certification. |
 | EXP-016 | All 96 direct state/tangent references and 2,079 eligible finite-input traces complete; all 1,080 available trajectory comparisons pass. Checked cases show transverse memory and interference closely predicted by linear dynamics. | Eleven phase-normalization failures block 621 planned traces; both setting-wide means and primary contrast remain unqualified. |
 | EXP-017 | All 102 reference-only jobs and 48 phase contexts complete; both fine methods agree on remaining failures. Finer sampling reduces the largest reference defect. | Nine event-normalization failures persist with exact dense samples; inherited global orbit/adjoint consistency needs refinement. No new memory outcomes or old-study requalification. |
-| EXP-018 | All 102 jobs and 48 phase contexts qualify after global shooting and adjoint reconstruction; largest event-normalization error is 1.34e-10 against 1e-7. Both cycles retain their primitive nine-peak structure and stability. | One-period regression qualification supplies no new memory performance or eight-period guarantee. A fresh complete two-write study is next. |
+| EXP-018 | All 102 jobs and 48 phase contexts qualify after global shooting and adjoint reconstruction; largest event-normalization error is 1.34e-10 against 1e-7. Both cycles retain their primitive nine-peak structure and stability. | One-period regression qualification supplies no new memory performance or eight-period guarantee. EXP-019 separately supplies fresh eight-period and memory qualification. |
+| EXP-019 | All 2,796 jobs, 48 contexts and 1,404 comparisons qualify. Near-edge four-cycle fixed-observer accuracy is 62.90% without/55.05% with a second input versus 50.01% core across sixteen reused phases. | Phase-dependent readout benefit; nonlinear recoverability, geometry-specific increment and trained-network transfer remain open. Strict reference alternate-arithmetic failures remain separately recorded. |
+
+The [complete memory regression](EXP-019-results.md) now provides the first
+qualified setting-wide two-write comparison. Its 5.0463-point primary contrast
+is descriptive for reused phases. Full-linear responses closely explain
+balanced scores, but one slow mode misses early 2T behavior and per-sign errors
+can be larger than balanced-score errors. The post-hoc phase 16 collapse from
+100% without a second write to 50.31% with one motivates a separately frozen
+nonlinear-readout analysis, not an information-erasure claim.
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
@@ -73,9 +82,9 @@ that reference limitation without relaxing its threshold or discarding phases.
 samples reduce the largest defect, but nine phases still fail in both finer
 methods. [EXP-018](EXP-018-results.md) now completes global refinement: all 48
 contexts qualify with the same event threshold. The frozen verifier passes,
-including cleanup. Prepare a fresh complete memory experiment, requiring all
+including cleanup. The later EXP-019 run completed the fresh memory experiment, requiring all
 96 eight-period references and all 48 observer seals to qualify before any of
-the 2,700 finite-input traces runs. The reused phases are a regression study,
+the 2,700 finite-input traces ran. The reused phases are a regression study,
 not a newly held-out sample; old missing histories remain missing.
 The previous not-run record
 and [local strategy review](research-strategy-2026-09-17.md) remain historical.

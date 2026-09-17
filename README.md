@@ -1,9 +1,16 @@
 # A neural shrimp and what the network does inside it
 
-**Human-friendly TLDR:** In the tested three-neuron network, shrimp regimes support repeating activity patterns with different responses to disturbances. A signal can persist in deviations away from the cycle, not just in its timing; the selected core attenuates it rapidly, while the selected edge can retain it longer. This connects the dynamics to potential memory and robustness. A special computational advantage from shrimp geometry, and transfer to trained networks, remain unproven.
+**Human-friendly TLDR:** In the tested three-neuron network, the near-edge cycle can retain an input for several cycles, while the core is near chance by four cycles under the fixed readout. Across sixteen reused phases, four-cycle accuracy is 62.90% without a second input and 55.05% with one near the edge, versus 50.01% at the core. Memory and interference depend strongly on starting phase. A nonlinear readout may recover information that the linear observer misses; a shrimp-specific advantage and transfer to trained networks remain unproven.
 
 Private exploratory research on periodic-window geometry, neural activity, and
 whether geometric information can improve model control.
+
+**Latest completed study: [EXP-019](docs/EXP-019-results.md).** All 2,796 jobs,
+48 contexts and 1,404 numerical comparisons qualify. The saved-array verifier
+passes, as do all finite/statistical audit checks. The independent reference
+audit agrees on all scientific gates but retains 165 strict alternate-arithmetic
+failures, reported separately. A reference-defined nonlinear mixture readout
+is the next exploratory analysis; no result for it is claimed yet.
 
 **Current release status: private working diagnostic draft.** EXP-008
 [PR #7](https://github.com/tdj28/neural-shrimp/pull/7) remains **unmerged**.
@@ -133,9 +140,9 @@ retain the primitive nine-peak attracting cycle, and all 96 event continuations
 pass. The largest event-normalization error is 1.34e-10 against the unchanged
 1e-7 limit. The frozen saved-array verifier passes and confirms owned-process
 cleanup. This resolves the one-period reference problem for the declared phase
-set, without changing earlier failures or supplying new memory scores. A fresh
-eight-period two-write study is being prepared with a global reference gate
-before any finite inputs. See [the refinement results](docs/EXP-018-results.md).
+set, without changing earlier failures or supplying new memory scores. The subsequent
+[EXP-019 study](docs/EXP-019-results.md) completes the fresh eight-period
+reference and two-write census with its global gate before finite inputs. See [the refinement results](docs/EXP-018-results.md).
 
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
