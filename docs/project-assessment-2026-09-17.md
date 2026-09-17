@@ -34,6 +34,12 @@ shrimp computational advantage. Its setting remains unqualified. A separate
 binary contexts, smaller-dose controls and shams. Full boundary organization,
 matched geometry controls and trained-network evidence remain unfinished.
 
+The [literature bridge](neural-memory-literature-bridge-2026-09-17.md) identifies
+published trained-network examples of phase-coded and transient oscillatory
+memory. They support this research direction while making the novelty test
+more demanding: generic oscillator memory is established prior art, and
+shrimp geometry must earn additional predictive or task value.
+
 The authorized Astra Pro consultation has not run: a strict enforceable $10
 request cap was not available under the canonical paid-review requirements.
 Spent: $0. The [consultation receipt](consults/2026-09-17-status.md) and
