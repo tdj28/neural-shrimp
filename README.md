@@ -127,6 +127,16 @@ issue concerns inherited periodic-reference consistency; interpolation alone
 does not explain it. See [the reference diagnostic](docs/EXP-017-results.md).
 It supplies no new memory scores and does not requalify EXP-016.
 
+**EXP-018 completes global reference refinement and all 48 phase contexts qualify.**
+All 102 jobs finish: both independently refined candidates at each setting
+retain the primitive nine-peak attracting cycle, and all 96 event continuations
+pass. The largest event-normalization error is 1.34e-10 against the unchanged
+1e-7 limit. The frozen saved-array verifier passes and confirms owned-process
+cleanup. This resolves the one-period reference problem for the declared phase
+set, without changing earlier failures or supplying new memory scores. A fresh
+eight-period two-write study is being prepared with a global reference gate
+before any finite inputs. See [the refinement results](docs/EXP-018-results.md).
+
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
 [EXP-009 results](docs/EXP-009-results-audit.md), and

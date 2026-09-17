@@ -1,13 +1,33 @@
-# Next steps after EXP-017
+# Next steps after EXP-018
 
 **Human-friendly TLDR:** In checked near-edge cases, the network retains a
 readable first input across several cycles, but a second input can interfere
 strongly. The signal is carried by deviations away from the cycle and is
 closely explained by ordinary linear dynamics. The core forgets quickly in
-the available cases. Failed phase-reference checks still prevent an overall
-comparison; a shrimp-specific computational advantage remains unproven.
+the available cases. The globally refined reference now passes all 48 planned
+one-period checks, enabling a fresh complete memory study. Earlier setting-wide
+comparisons remain unqualified; a shrimp-specific advantage remains unproven.
 
-## Current decision: refine the global periodic reference before repeating the memory task
+## Current decision: repeat the full memory task with the qualified new reference
+
+[EXP-018](EXP-018-results.md) completes all 102 jobs and qualifies all 48 phase
+contexts. Both cycles retain nine primitive peaks and transverse attraction;
+the largest event-normalization error is 1.34e-10, below the unchanged 1e-7
+criterion. The frozen verifier reproduces the result and confirms cleanup.
+The earlier incomplete studies and their missing histories remain unchanged.
+
+Prepare EXP-019 as a fresh complete two-write experiment using the new canonical
+DOP853 exact dense phase states and gradients. Both eight-period reference
+methods start from that common state. Every one of 96 reference jobs and all
+48 observer/context seals must qualify before any finite-input worker starts.
+If this global gate fails, retain all 2,700 finite traces as blocked. Preserve
+the same pulse, intervention, noise, observer and numerical comparison rules.
+The 24 reused fractions are a regression census, not newly held-out phases.
+Freeze the complete 2,796-job plan, tests and local review privately before
+new memory outcomes. Full boundary organization, matched controls for geometry
+and trained-network transfer remain separate questions.
+
+## Earlier decision: refine the global periodic reference before repeating the memory task
 
 [EXP-017](EXP-017-results.md) completes all 102 reference-only jobs. Direct dense
 samples reduce the largest coordinate defect, but nine of 48 phase contexts

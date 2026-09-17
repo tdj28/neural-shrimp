@@ -1,6 +1,6 @@
 # Project assessment, 17 September 2026
 
-**Human-friendly TLDR:** Selected shrimp regimes make this three-neuron network repeat a stable activity pattern. In individually checked near-edge cases, a first input stays readable for several cycles, but a second input can interfere substantially. The core forgets rapidly in the available cases. The retained signal is carried by deviations away from the cycle, and ordinary linear dynamics explain it closely. Failed phase-reference checks prevent an overall comparison; extra value from shrimp geometry and transfer to trained networks remain unproven.
+**Human-friendly TLDR:** Selected shrimp regimes make this three-neuron network repeat a stable activity pattern. In individually checked near-edge cases, a first input stays readable for several cycles, but a second input can interfere substantially. The core forgets rapidly in the available cases. The retained signal is carried by deviations away from the cycle, and ordinary linear dynamics explain it closely. A refined reference now passes all 48 planned one-period checks, making a fresh complete memory study feasible. Earlier setting-wide comparisons remain unqualified; extra value from shrimp geometry and transfer to trained networks remain unproven.
 
 The strongest result is dynamical: selected points in the known three-neuron
 tanh network have verified primitive periodic orbits with measured transverse
@@ -24,6 +24,7 @@ numerical trajectory disagreement. Geometry's additional utility remains unresol
 | EXP-015 | All 192 local decomposition cells and 1,152 pulse compatibility rows complete; all 64 phase-null cells pass frozen checks and retain transverse readout. | One original strict algebraic failure, twelve ideal-neutral failures and additional independent arithmetic discrepancies remain; no independent transverse solver certification. |
 | EXP-016 | All 96 direct state/tangent references and 2,079 eligible finite-input traces complete; all 1,080 available trajectory comparisons pass. Checked cases show transverse memory and interference closely predicted by linear dynamics. | Eleven phase-normalization failures block 621 planned traces; both setting-wide means and primary contrast remain unqualified. |
 | EXP-017 | All 102 reference-only jobs and 48 phase contexts complete; both fine methods agree on remaining failures. Finer sampling reduces the largest reference defect. | Nine event-normalization failures persist with exact dense samples; inherited global orbit/adjoint consistency needs refinement. No new memory outcomes or old-study requalification. |
+| EXP-018 | All 102 jobs and 48 phase contexts qualify after global shooting and adjoint reconstruction; largest event-normalization error is 1.34e-10 against 1e-7. Both cycles retain their primitive nine-peak structure and stability. | One-period regression qualification supplies no new memory performance or eight-period guarantee. A fresh complete two-write study is next. |
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
@@ -70,7 +71,12 @@ leave the overall study incomplete and both settings unqualified. Diagnose
 that reference limitation without relaxing its threshold or discarding phases.
 [EXP-017](EXP-017-results.md) has now completed the first diagnostic: exact dense
 samples reduce the largest defect, but nine phases still fail in both finer
-methods. Refine the global periodic reference before another full memory task.
+methods. [EXP-018](EXP-018-results.md) now completes global refinement: all 48
+contexts qualify with the same event threshold. The frozen verifier passes,
+including cleanup. Prepare a fresh complete memory experiment, requiring all
+96 eight-period references and all 48 observer seals to qualify before any of
+the 2,700 finite-input traces runs. The reused phases are a regression study,
+not a newly held-out sample; old missing histories remain missing.
 The previous not-run record
 and [local strategy review](research-strategy-2026-09-17.md) remain historical.
 
