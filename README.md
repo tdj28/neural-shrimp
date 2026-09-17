@@ -110,9 +110,15 @@ See [the decomposition results](docs/EXP-015-results.md).
 conservative receipt-derived cost of **$0.78126**. Its
 [adjudicated recommendation](docs/consults/2026-09-17-pro-adjudication.md)
 is to test whether the earlier input remains readable after a second input
-interferes with it. The [two-write experiment](docs/two-write-memory-design.md)
-is under implementation, with full numerical and simple-model controls;
-no new two-write neural outcome is claimed.
+interferes with it. The [two-write experiment](docs/EXP-016-results.md) has now
+run: all 2,079 eligible traces pass their comparisons, but eleven failed
+phase-reference normalization checks block 621 planned traces and leave both
+setting means unqualified. Individual checked cases show persistent near-edge
+memory and interference from a second input. One illustrative four-period case
+falls from 93.5% to 70.0% first-input accuracy; its core counterpart is near
+chance. The full linear model closely explains completed cases, and the slow-mode
+model explains much of the later response. This is a conditional behavioral
+finding, not a qualified cohort advantage or special geometry benefit.
 
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),

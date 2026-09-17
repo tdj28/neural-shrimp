@@ -1,6 +1,6 @@
 # Project assessment, 17 September 2026
 
-**Human-friendly TLDR:** Selected shrimp regimes make this three-neuron network repeat a stable activity pattern. Disturbances affect those patterns differently: a measured small-pulse example and later linear analysis show a retained signal beyond a simple timing shift. The model predicts rapid fading at the selected core and longer persistence near the edge. We still need to establish numerical reliability more broadly, whether shrimp geometry adds useful performance, and whether this carries over to trained networks.
+**Human-friendly TLDR:** Selected shrimp regimes make this three-neuron network repeat a stable activity pattern. In individually checked near-edge cases, a first input stays readable for several cycles, but a second input can interfere substantially. The core forgets rapidly in the available cases. The retained signal is carried by deviations away from the cycle, and ordinary linear dynamics explain it closely. Failed phase-reference checks prevent an overall comparison; extra value from shrimp geometry and transfer to trained networks remain unproven.
 
 The strongest result is dynamical: selected points in the known three-neuron
 tanh network have verified primitive periodic orbits with measured transverse
@@ -22,6 +22,7 @@ numerical trajectory disagreement. Geometry's additional utility remains unresol
 | EXP-014 | All 930 tasks complete; reference/propagator/sham checks pass. A selected phase-null case matches the full-linear response. | Thirty large-pulse trajectory comparisons fail; both setting means withheld. Saturated analytic accuracy hides these discrepancies. |
 | EXP-014 refinement | All 425 tighter-solver traces complete; all five new methods agree in 77/85 selected cases, including ten originally failed signs. | Eight large-pulse cases remain unresolved; strict alternative-arithmetic replay also retains tiny discrepancies. Original settings remain unqualified. |
 | EXP-015 | All 192 local decomposition cells and 1,152 pulse compatibility rows complete; all 64 phase-null cells pass frozen checks and retain transverse readout. | One original strict algebraic failure, twelve ideal-neutral failures and additional independent arithmetic discrepancies remain; no independent transverse solver certification. |
+| EXP-016 | All 96 direct state/tangent references and 2,079 eligible finite-input traces complete; all 1,080 available trajectory comparisons pass. Checked cases show transverse memory and interference closely predicted by linear dynamics. | Eleven phase-normalization failures block 621 planned traces; both setting-wide means and primary contrast remain unqualified. |
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
@@ -59,9 +60,14 @@ the established, budgeted single-call route. Both saved-bundle and separate
 receipt validation pass. The [adjudication](consults/2026-09-17-pro-adjudication.md)
 accepts a two-write interference experiment with modifications: test whether
 an earlier input remains readable after a second input, while distinguishing
-fixed-observer failure from information erasure. The [new design](two-write-memory-design.md)
-is under implementation, with numerical qualification embedded in the task.
-No two-write neural outcomes have been generated. The previous not-run record
+fixed-observer failure from information erasure. The [two-write results](EXP-016-results.md)
+now show readable but interfering transverse memory in individually qualified
+cases: an illustrative held-out near-edge phase falls from 93.5% to 70.0%
+first-input accuracy after a second input. Ordinary linear response explains
+the completed cases closely. Eleven phase-reference normalization failures
+leave the overall study incomplete and both settings unqualified. Diagnose
+that reference limitation without relaxing its threshold or discarding phases.
+The previous not-run record
 and [local strategy review](research-strategy-2026-09-17.md) remain historical.
 
 Continue locally with bounded CPU workers and available RAM. Existing

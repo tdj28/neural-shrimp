@@ -1,12 +1,30 @@
-# Next steps after EXP-015
+# Next steps after EXP-016
 
-**Human-friendly TLDR:** The selected near-edge neural cycle retains a small
-disturbance longer than the core cycle, including a signal beyond a timing
-shift. The next test asks whether an earlier input remains readable after a
-second input interferes with it. Longer persistence alone has not established
-useful memory or a shrimp-specific computational advantage.
+**Human-friendly TLDR:** In checked near-edge cases, the network retains a
+readable first input across several cycles, but a second input can interfere
+strongly. The signal is carried by deviations away from the cycle and is
+closely explained by ordinary linear dynamics. The core forgets quickly in
+the available cases. Failed phase-reference checks still prevent an overall
+comparison; a shrimp-specific computational advantage remains unproven.
 
-## Current decision, 17 September: test two-write memory under interference
+## Current decision: diagnose the phase reference while preserving the behavioral result
+
+[EXP-016](EXP-016-results.md) has finished execution with an incomplete scientific
+census: all 96 references completed, but eleven phase-normalization failures
+blocked 621 of 2,700 planned input traces. All 2,079 eligible traces and 1,080
+available method comparisons qualify individually. Both setting means remain
+withheld; frozen missing-phase bounds span both signs of the primary effect.
+The frozen replay and separate algorithmic saved-evidence audit pass while
+preserving this incomplete status.
+
+The immediate next step is a bounded phase-reference diagnosis across all 48
+contexts. Separate interpolation error from the mismatch between a nominal
+periodic phase gradient and the actual integrated reference endpoint. Do not
+renormalize old evidence, lower thresholds or fill missing cells opportunistically.
+Any new reference calculation and repeated task requires a separately reviewed,
+privately pushed freeze. Preserve the original protocol, source and failures.
+
+## Earlier decision, 17 September: test two-write memory under interference
 
 The [authorized Astra Pro consultation](consults/2026-09-17-pro-adjudication.md)
 completed for USD 0.78126. Its main recommendation is accepted with local
