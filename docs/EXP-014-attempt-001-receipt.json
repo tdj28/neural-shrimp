@@ -1,0 +1,56 @@
+{
+  "experiment_id": "EXP-014",
+  "attempt": "attempt-001",
+  "status": "incomplete",
+  "complete": false,
+  "qualified": false,
+  "source_commit": "d1ca6043c2476f34b2314d88309ff732b34822a2",
+  "plan_sha256": "c6d82aa6efbef7da39f2fe6c3b1b38f7d11577589dd3d80561c3a582189a8062",
+  "raw_directory": "/data2/neural-shrimp-data/raw/EXP-014/attempt-001",
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-014/attempt-001/receipt.json",
+    "sha256": "565527cec80c64dd7584123cf04e576cddd52f330fae52c746f071837d561053",
+    "bytes": 20722
+  },
+  "summary": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-014/attempt-001/summary.json",
+    "sha256": "e2710b805495027dd9d2a0cea4197e8229f0055ac25a3309643ac7bfbb73c5b9",
+    "bytes": 4552237
+  },
+  "artifacts": 112,
+  "artifact_bytes": 316844371,
+  "status_counts": {
+    "references": {
+      "complete": 2
+    },
+    "propagators": {
+      "complete": 16
+    },
+    "traces": {
+      "complete": 7,
+      "interrupted": 3,
+      "not_started_interruption": 902
+    }
+  },
+  "error": "ProducerStop(\"Owned resource ceiling: RuntimeError('Owned memory or raw-output hard cap exceeded')\")",
+  "postflight_error": null,
+  "producer_and_analysis_seconds": 18.07359137799358,
+  "audits": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/attempt-001-replay/verification.json",
+      "sha256": "3c79d0d08d008ddb832a7002ebd25effaeb5a0e6485046404ff4deb16c7f5541",
+      "bytes": 117
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/attempt-001-replay/operational-audit.json",
+      "sha256": "b4b364db188b96e595f25f0cee3ec0283892229b2b3d1faccd715f4afc437147",
+      "bytes": 2102
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/attempt-001-replay/audit_operational_failure.py",
+      "sha256": "e2374aad02cd9d687b5937b783e76c8de8327408e02203ca6a3f87b0999c454f",
+      "bytes": 3311
+    }
+  ],
+  "scope": "Immutable failed memory-cap attempt; no qualified setting means, no substituted cases; separate resource-only recovery freeze required."
+}

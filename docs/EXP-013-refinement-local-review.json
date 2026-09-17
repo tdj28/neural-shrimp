@@ -1,0 +1,42 @@
+{
+  "experiment_id": "EXP-013-refinement",
+  "date": "2026-09-17",
+  "status": "ready_for_exploratory_execution",
+  "plan_sha256": "884e04f11efcf57e0607bbec97f87a8cfc8716ac1436c35bfd90ea3335b28800",
+  "outcome_selected": true,
+  "cases": 2,
+  "new_traces": 10,
+  "comparisons": 34,
+  "new_native_adjacent_subset": 6,
+  "validation": {
+    "integrated_synthetic_tests": {
+      "passed": 37,
+      "seconds": 4.89
+    },
+    "independent_synthetic_tests": {
+      "passed": 37,
+      "seconds": 4.88
+    },
+    "independent_metadata_checks": 122,
+    "original_full_score_packets_replayed": 6
+  },
+  "independent_review": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013-refinement/preflight-scientific-001/EXP-013-refinement-scientific-review.json",
+      "sha256": "3c0c818e7d02908482ebfcb662b3cc731946d6b58303b3ef7cafeb55cd217f34",
+      "bytes": 21227
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-013-refinement/preflight-scientific-001/review_refinement_plan.py",
+      "sha256": "0b94e3f4888cb2056a4c55c338cbeeaab5adf9936ef2cf1cec6904af3c397f29",
+      "bytes": 8430
+    }
+  ],
+  "root_review": "Reviewed protocol, strict source guard, immutable original input membership, exact ten-task/34-comparison census, same-score and same-clock metrics, ownership/failure ledgers and hardened saved-evidence verifier. Original forty source bindings are unchanged. No remaining blocker.",
+  "conditions": [
+    "Commit and privately push the exact code/plan/review before ten target traces.",
+    "Keep originalEXP013 qualification failed and all original labels/policies unchanged.",
+    "No cohort means, hidden exclusions, policy refit or geometry-utility claim.",
+    "External exclusive raw directory; no main merge or paid compute."
+  ]
+}
