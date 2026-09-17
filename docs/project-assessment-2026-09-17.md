@@ -3,10 +3,10 @@
 The strongest result is dynamical: selected points in the known three-neuron
 tanh network have verified primitive periodic orbits with measured transverse
 stability. Small disturbances can decay very differently across parameter
-settings. Geometry's additional value for controlling a useful output remains
-unresolved. The direct timing-memory study has now completed. It exposes two concrete
-issues: transverse response can affect the readout, and a saturated accuracy
-score can hide severe numerical trajectory disagreement.
+settings. The direct timing-memory and phase/transverse studies now connect those dynamics
+to a readout: phase-null disturbances can leave a transverse signal. Core
+signals strongly attenuate; near-edge signals persist and can grow across sampled windows. A saturated accuracy score can also hide severe
+numerical trajectory disagreement. Geometry's additional utility remains unresolved.
 
 | Work completed | Established result | Remaining question |
 |---|---|---|
@@ -19,6 +19,7 @@ score can hide severe numerical trajectory disagreement.
 | EXP-013 refinement | All ten new traces and thirty new method comparisons pass; original fine trace agrees with finer methods. | Outcome-selected diagnosis preserves original failed cohort qualification. |
 | EXP-014 | All 930 tasks complete; reference/propagator/sham checks pass. A selected phase-null case matches the full-linear response. | Thirty large-pulse trajectory comparisons fail; both setting means withheld. Saturated analytic accuracy hides these discrepancies. |
 | EXP-014 refinement | All 425 tighter-solver traces complete; all five new methods agree in 77/85 selected cases, including ten originally failed signs. | Eight large-pulse cases remain unresolved; strict alternative-arithmetic replay also retains tiny discrepancies. Original settings remain unqualified. |
+| EXP-015 | All 192 local decomposition cells and 1,152 pulse compatibility rows complete; all 64 phase-null cells pass frozen checks and retain transverse readout. | One original strict algebraic failure, twelve ideal-neutral failures and additional independent arithmetic discrepancies remain; no independent transverse solver certification. |
 
 The [EXP-013 results](EXP-013-results-audit.md) preserve the single failure,
 even though no tested policy chose that candidate as its winning action. The separate finer-step
@@ -34,9 +35,13 @@ shrimp computational advantage. Its setting remains unqualified. The separate
 [85-case, 425-trace diagnostic](EXP-014-refinement-results.md) is now complete:
 all smaller-dose and sham comparisons pass, while eight large-pulse cases still
 disagree even with tighter methods. Accuracy saturation continues to hide
-these differences. The next proposed analysis decomposes local phase and
-transverse response in all 192 original direction/clock cells; it is not yet
-executed. Full boundary organization,
+these differences. The [192-cell decomposition](EXP-015-results.md) is now complete: 191 cells
+pass algebraic consistency and 179 pass the additional ideal-neutral criteria.
+All 64 phase-null cells pass the frozen checks; their linear readout is carried by transverse
+response, with strong core attenuation and persistent or temporarily increasing
+near-edge responses. This gives a
+mechanistic explanation conditional on the inherited propagators; independent
+alternate arithmetic still fails some strict comparisons. Full boundary organization,
 matched geometry controls and trained-network evidence remain unfinished.
 
 The [literature bridge](neural-memory-literature-bridge-2026-09-17.md) identifies

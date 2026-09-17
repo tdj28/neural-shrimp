@@ -1,0 +1,705 @@
+{
+  "experiment_id": "EXP-015",
+  "recorded_utc": "2026-09-17T11:16:06.769465+00:00",
+  "status": "complete; frozen scientific failures and independent strict arithmetic failures retained",
+  "source_commit": "e62b1dac4291c8aca288b723c70aea85259800d1",
+  "plan_sha256": "6bc005d773af7aa60d3f8c2e7b85a97db6ddb70909815bbd787ea64fa54716e1",
+  "raw_directory": "/data2/neural-shrimp-data/raw/EXP-015/attempt-001",
+  "raw_receipt_sha256": "502a2613b7bac2704a7f93030d0450d7ae7a501c8c9dd8c8a47114dfac30c986",
+  "artifact_count": 395,
+  "artifact_bytes": 67014834,
+  "producer_summary": {
+    "required_cells": 192,
+    "status_counts": {
+      "complete": 192
+    },
+    "calculated_cells": 192,
+    "all_gates_pass_cells": 179,
+    "algebraically_qualified_cells": 191,
+    "ideal_neutral_qualified_cells": 179,
+    "realized_pulse_rows": {
+      "required": 1152,
+      "complete": 1152,
+      "failed": 0,
+      "unavailable": 0
+    },
+    "setting_means": null,
+    "original_study_requalified": false,
+    "complete": true,
+    "source_valid": true,
+    "error": null,
+    "postflight_error": null,
+    "experiment_id": "EXP-015",
+    "elapsed_seconds": 9.950082682000357,
+    "scope": "Exploratory saved-reference local phase/transverse decomposition, selected after EXP014. All192 cells retained; no ODE solve, decoder fit, best-direction selection, setting means, original-study requalification, finite-pulse chaos or geometry-utility claim."
+  },
+  "resources": {
+    "peak_sampled_owned_rss_bytes": 206123008,
+    "minimum_sampled_host_available_ram_bytes": 77833666560,
+    "resource_samples": 212
+  },
+  "frozen_verification": {
+    "complete": true,
+    "source_commit": "e62b1dac4291c8aca288b723c70aea85259800d1",
+    "receipt_sha256": "502a2613b7bac2704a7f93030d0450d7ae7a501c8c9dd8c8a47114dfac30c986",
+    "required_cells": 192,
+    "replayed_cells": 192,
+    "all_gates_pass_cells": 179,
+    "algebraically_qualified_cells": 191,
+    "ideal_neutral_qualified_cells": 179,
+    "producer_original_identity_absent": true,
+    "new_integrations": 0,
+    "input_seal_status": "validated",
+    "strict_saved_array_replay": true
+  },
+  "independent_audit": {
+    "evidence_and_recorded_decisions_passed": true,
+    "evidence_checks": 240153,
+    "evidence_failures": 0,
+    "strict_alternate_arithmetic_passed": false,
+    "strict_numeric_checks": 241536,
+    "strict_numeric_failures": 2917,
+    "strict_categorical_checks": 34944,
+    "strict_categorical_failures": 2174,
+    "additional_direct_gate_failures": [
+      {
+        "cell": "core--p2--phase_write--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "core--p2--phase_null--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "core--p2--neuron_one--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "core--p6--phase_write--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "core--p6--phase_null--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "core--p6--neuron_one--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "failed-near-edge--p1--phase_write--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "failed-near-edge--p5--phase_write--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      },
+      {
+        "cell": "failed-near-edge--p5--phase_null--k4",
+        "original_algebraic": true,
+        "independent_direct_arithmetic": false
+      }
+    ],
+    "independent_approximation_gate_tests": 3456,
+    "changed_approximation_classifications": [],
+    "original_failed_approximation_rows": 24,
+    "independent_failed_approximation_rows": 24,
+    "error_scale_maxima": {
+      "strict_failed_state_array": {
+        "maximum_absolute_difference": 3.112745616817847e-10,
+        "location": "failed-near-edge--p5--phase_write--k4/unit/state/transverse"
+      },
+      "strict_failed_diagnostic_tolerance_ratio": {
+        "maximum_absolute_difference": 15.839087208192703,
+        "location": "failed-near-edge--p5--neuron_one--k4/alternate_direct_unit/maximum_tolerance_ratio"
+      },
+      "strict_failed_alternate_direct_residual": {
+        "maximum_absolute_difference": 3.4361846701358445e-11,
+        "location": "core--p2--phase_write--k4/alternate_direct_unit/residual/value_at_maximum"
+      },
+      "strict_failed_activation_array": {
+        "maximum_absolute_difference": 2.8183677613924374e-11,
+        "location": "failed-near-edge--p5--phase_write--k4/unit/activation/transverse"
+      },
+      "strict_failed_observable_scalar": {
+        "maximum_absolute_difference": 5.525957800015838e-12,
+        "location": "failed-near-edge--p5--phase_write--k4/unit/observable/transport_defect"
+      },
+      "strict_failed_relative_flow_ratio": {
+        "maximum_absolute_difference": 6.77025411273709e-13,
+        "location": "failed-near-edge--p5--phase_write--k4/unit/reference_defects/maximum_relative_physical_flow_transport"
+      },
+      "strict_failed_reference_defect_diagnostic": {
+        "maximum_absolute_difference": 4.6203041392800515e-12,
+        "location": "failed-near-edge--p5--phase_write--k4/unit/reference_defects/flow_transport/value_at_maximum"
+      },
+      "unit_state": {
+        "maximum_absolute_difference": 3.112745616817847e-10,
+        "location": "failed-near-edge--p5--phase_write--k4/unit/transverse"
+      },
+      "unit_activation": {
+        "maximum_absolute_difference": 2.8183677613924374e-11,
+        "location": "failed-near-edge--p5--phase_write--k4/unit/transverse"
+      },
+      "unit_readout_q": {
+        "maximum_absolute_difference": 6.778577699151356e-12,
+        "location": "failed-near-edge--p1--phase_write--k4/unit/transverse"
+      },
+      "unit_primary_standardized_readout": {
+        "maximum_absolute_difference": 2.644791112293097e-07,
+        "location": "failed-near-edge--p1--phase_write--k4/unit/transverse"
+      },
+      "realized_state": {
+        "maximum_absolute_difference": 3.1512570330960443e-12,
+        "location": "failed-near-edge--p5--phase_write--k4/failed-near-edge--p5--d2--phase_write--s-1/transverse"
+      },
+      "realized_activation": {
+        "maximum_absolute_difference": 2.8343993818680246e-13,
+        "location": "failed-near-edge--p5--phase_write--k4/failed-near-edge--p5--d2--phase_write--s-1/transverse"
+      },
+      "realized_readout_q": {
+        "maximum_absolute_difference": 6.855627177060342e-14,
+        "location": "failed-near-edge--p1--phase_write--k4/failed-near-edge--p1--d2--phase_write--s-1/transverse"
+      },
+      "realized_primary_standardized_readout": {
+        "maximum_absolute_difference": 2.674853432653609e-09,
+        "location": "failed-near-edge--p1--phase_write--k4/failed-near-edge--p1--d2--phase_write--s-1/transverse"
+      }
+    },
+    "cleanup": {
+      "checked_at_utc": "2026-09-17T11:11:41Z",
+      "pid_namespace": "pid:[4026531836]",
+      "original": {
+        "pid": 658901,
+        "start_ticks": "5646939",
+        "boot_id": "049ff828-acc0-464f-b744-f5ce6b0b7337"
+      },
+      "current": null,
+      "original_identity_absent": true
+    }
+  },
+  "saved_interpretation": {
+    "checks": 11145,
+    "failures": 0,
+    "erratum_applies": true,
+    "phase_null": {
+      "required": 64,
+      "algebra_qualified": 64,
+      "ideal_qualified": 64,
+      "maximum_absolute_unit_phase_gain": 4.440892120015734e-16,
+      "scope": "Nonzero transverse readout with nearzero timing projection; null direction was constructed from the adjoint, so nearzero phase is by design."
+    },
+    "all_phase_null_ranges": [
+      {
+        "setting": "core",
+        "direction": "phase_null",
+        "delay_cycles": 1,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -0.0474440691370585,
+            0.04744406779977518
+          ],
+          "phase_algebraic": [
+            -1.3877787806548048e-17,
+            6.93889390697409e-18
+          ],
+          "transverse": [
+            -0.04744406913705848,
+            0.047444067799775176
+          ],
+          "initial_time_shift": [
+            -1.3877787807814457e-17,
+            6.938893903907228e-18
+          ]
+        }
+      },
+      {
+        "setting": "core",
+        "direction": "phase_null",
+        "delay_cycles": 2,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -0.0023536698173255966,
+            0.002353668847168687
+          ],
+          "phase_algebraic": [
+            -1.387778802020651e-17,
+            6.938894472248261e-18
+          ],
+          "transverse": [
+            -0.0023536698173256035,
+            0.002353668847168715
+          ],
+          "initial_time_shift": [
+            -1.3877787807814457e-17,
+            6.938893903907228e-18
+          ]
+        }
+      },
+      {
+        "setting": "core",
+        "direction": "phase_null",
+        "delay_cycles": 4,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -9.9653963704713e-06,
+            9.964600297114946e-06
+          ],
+          "phase_algebraic": [
+            -1.3877788507342852e-17,
+            6.938896087804166e-18
+          ],
+          "transverse": [
+            -9.96539637047928e-06,
+            9.964600297141017e-06
+          ],
+          "initial_time_shift": [
+            -1.3877787807814457e-17,
+            6.938893903907228e-18
+          ]
+        }
+      },
+      {
+        "setting": "core",
+        "direction": "phase_null",
+        "delay_cycles": 8,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -2.9333528106282366e-09,
+            2.138055878864576e-09
+          ],
+          "phase_algebraic": [
+            -1.387778948589814e-17,
+            6.938899315836603e-18
+          ],
+          "transverse": [
+            -2.9333528175639127e-09,
+            2.138055906060038e-09
+          ],
+          "initial_time_shift": [
+            -1.3877787807814457e-17,
+            6.938893903907228e-18
+          ]
+        }
+      },
+      {
+        "setting": "failed-near-edge",
+        "direction": "phase_null",
+        "delay_cycles": 1,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -0.4130745220685956,
+            0.781506761516656
+          ],
+          "phase_algebraic": [
+            -8.131516295017423e-20,
+            4.440892099189005e-16
+          ],
+          "transverse": [
+            -0.41307452206859446,
+            0.7815067615166553
+          ],
+          "initial_time_shift": [
+            -8.131516293641283e-20,
+            4.440892098500626e-16
+          ]
+        }
+      },
+      {
+        "setting": "failed-near-edge",
+        "direction": "phase_null",
+        "delay_cycles": 2,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -0.4249792852291581,
+            0.8592683759986901
+          ],
+          "phase_algebraic": [
+            -8.131516310835071e-20,
+            4.440892120015734e-16
+          ],
+          "transverse": [
+            -0.4249792852291595,
+            0.8592683759986881
+          ],
+          "initial_time_shift": [
+            -8.131516293641283e-20,
+            4.440892098500626e-16
+          ]
+        }
+      },
+      {
+        "setting": "failed-near-edge",
+        "direction": "phase_null",
+        "delay_cycles": 4,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -0.3114218462222129,
+            0.6296659426716869
+          ],
+          "phase_algebraic": [
+            -8.131516305762082e-20,
+            4.440892096931404e-16
+          ],
+          "transverse": [
+            -0.3114218462222183,
+            0.6296659426716814
+          ],
+          "initial_time_shift": [
+            -8.131516293641283e-20,
+            4.440892098500626e-16
+          ]
+        }
+      },
+      {
+        "setting": "failed-near-edge",
+        "direction": "phase_null",
+        "delay_cycles": 8,
+        "required_cells": 8,
+        "qualified_algebraic": 8,
+        "qualified_ideal_neutral": 8,
+        "signed_gain_ranges": {
+          "total": [
+            -0.1672290351958805,
+            0.33812173440192955
+          ],
+          "phase_algebraic": [
+            -8.131516192037488e-20,
+            4.4408918559266487e-16
+          ],
+          "transverse": [
+            -0.1672290351958909,
+            0.33812173440191984
+          ],
+          "initial_time_shift": [
+            -8.131516293641283e-20,
+            4.440892098500626e-16
+          ]
+        }
+      }
+    ]
+  },
+  "failed_frozen_cells": [
+    {
+      "cell": {
+        "id": "core--p2--phase_write--k4",
+        "setting": "core",
+        "phase_index": 2,
+        "direction": "phase_write",
+        "delay_cycles": 4
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "core--p2--phase_write--k8",
+        "setting": "core",
+        "phase_index": 2,
+        "direction": "phase_write",
+        "delay_cycles": 8
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "core--p2--neuron_one--k4",
+        "setting": "core",
+        "phase_index": 2,
+        "direction": "neuron_one",
+        "delay_cycles": 4
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "core--p2--neuron_one--k8",
+        "setting": "core",
+        "phase_index": 2,
+        "direction": "neuron_one",
+        "delay_cycles": 8
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "core--p6--phase_write--k4",
+        "setting": "core",
+        "phase_index": 6,
+        "direction": "phase_write",
+        "delay_cycles": 4
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "core--p6--phase_write--k8",
+        "setting": "core",
+        "phase_index": 6,
+        "direction": "phase_write",
+        "delay_cycles": 8
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "core--p6--neuron_one--k4",
+        "setting": "core",
+        "phase_index": 6,
+        "direction": "neuron_one",
+        "delay_cycles": 4
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "core--p6--neuron_one--k8",
+        "setting": "core",
+        "phase_index": 6,
+        "direction": "neuron_one",
+        "delay_cycles": 8
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "failed-near-edge--p1--phase_write--k4",
+        "setting": "failed-near-edge",
+        "phase_index": 1,
+        "direction": "phase_write",
+        "delay_cycles": 4
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "failed-near-edge--p1--phase_write--k8",
+        "setting": "failed-near-edge",
+        "phase_index": 1,
+        "direction": "phase_write",
+        "delay_cycles": 8
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "failed-near-edge--p5--neuron_one--k4",
+        "setting": "failed-near-edge",
+        "phase_index": 5,
+        "direction": "neuron_one",
+        "delay_cycles": 4
+      },
+      "qualified_algebraic": false,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "failed-near-edge--p6--phase_write--k8",
+        "setting": "failed-near-edge",
+        "phase_index": 6,
+        "direction": "phase_write",
+        "delay_cycles": 8
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    },
+    {
+      "cell": {
+        "id": "failed-near-edge--p6--neuron_one--k8",
+        "setting": "failed-near-edge",
+        "phase_index": 6,
+        "direction": "neuron_one",
+        "delay_cycles": 8
+      },
+      "qualified_algebraic": true,
+      "qualified_ideal_neutral": false
+    }
+  ],
+  "testing": {
+    "preflight_integrated_passed": 71,
+    "preflight_independent_metadata_checks": 413,
+    "postrun_reporting_and_independent_audit_synthetic_passed": 23,
+    "postrun_seconds": 3.37
+  },
+  "limitations": [
+    "Conditional on inherited references/propagators; no independent ODE or transverse operator certification.",
+    "No finite-pulse accuracy test, decoder fit, setting mean or original-study requalification.",
+    "Two selected parameter settings are not a causally matched geometry comparison or trained-network evidence.",
+    "Frozen producer qualification and independent alternate arithmetic are distinct; retained failures are never waived.",
+    "External raw data storage is not an independent backup."
+  ],
+  "bindings": [
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-015/attempt-001/receipt.json",
+      "bytes": 70555,
+      "sha256": "502a2613b7bac2704a7f93030d0450d7ae7a501c8c9dd8c8a47114dfac30c986"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-015/attempt-001/manifest.json",
+      "bytes": 57627,
+      "sha256": "d5febbd71dd9b291240f7dcfabedb4a0e52b89186c94248604304aacb57511d2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-015/attempt-001/summary.json",
+      "bytes": 821,
+      "sha256": "d45ef90f5645660e759d5d88847ee0485bcf0c65ed0dc1ca0e8ef0fbf45d3937"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/raw/EXP-015/attempt-001/terminal-records.json",
+      "bytes": 199577,
+      "sha256": "bf635e1a99fd37b4f1f23c15be2be83d57edf9d823dbe09259c6b27661a6d8f0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/root-execution-001/execution.json",
+      "bytes": 2720,
+      "sha256": "245f7f2342a6f359ba902bc4d43463b3a1a9e55c26f9f387d809328269b71240"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/launch-001/pre-dispatch-failure.json",
+      "bytes": 725,
+      "sha256": "2952e8a9bed7140290f5a539a6b8f0e25ee355e22880cdddd5f897a7a64d15ae"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/replay-001/verification.json",
+      "bytes": 478,
+      "sha256": "57ffb4d3c45aab8554a39db81747e8eddea3e1c6da2d6af13c5c0ef0d161ee4f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/independent-001/report.json",
+      "bytes": 1200333,
+      "sha256": "0196cdd659f50bf1fbd34a9a42aaf4461e94653ceaed46f242001d0d870b6eaf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/independent-001/alternate-gates-and-error-units.json",
+      "bytes": 7021,
+      "sha256": "fa798b36dc3112b7defd7d6820367181193afd720ebd0c70b9fe9bea3b001011"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/independent-001/audit_gain.py",
+      "bytes": 27376,
+      "sha256": "b2d36cc33fe3c7845a98d6e1965626b463cd550786ee75e63b9eefcbee8a6a72"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/independent-001/independent_codec.py",
+      "bytes": 4254,
+      "sha256": "77571fbd5cb33c38f52ffea249591b52e6d1bc023ed31017de7c96b5b8040b87"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/independent-001/audit_alternate_gates.py",
+      "bytes": 5784,
+      "sha256": "4755cfddc9ede83481632926f69357471977ec630693fb38d363f4744bbb9b6b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/independent-001/test_audit_gain.py",
+      "bytes": 3061,
+      "sha256": "1f9503f0be19332ef617818398eb058ac6c1c088143773c8a546f22675576e70"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/interpretation-001/EXP-015-scientific-interpretation.json",
+      "bytes": 185316,
+      "sha256": "9e269cd6670a75a3c96a4a810070f30b180b08fb117e13f239c4f236160a36a4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/interpretation-001/interpretation-erratum.json",
+      "bytes": 5963,
+      "sha256": "99ccc1a1175b2ddc6af60a54d8695ccaf3c301d7abacf9cc193fb362ff0b9692"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/interpretation-001/interpret_saved_gains.py",
+      "bytes": 13488,
+      "sha256": "23c362e2802e32b61b27da00a13cdb62d0ad88e6f73aebe97d9ca0877136da7d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/preflight-metadata-002/EXP-015-independent-metadata-preflight.json",
+      "bytes": 6993,
+      "sha256": "673b7ff0311c1901d80b5711db4772342be2ac247b6f49421908dc1268b22859"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/preflight-metadata-002/review_plan.py",
+      "bytes": 7419,
+      "sha256": "f0376f9e33e3b8a0d2b838b650a01591169924d6de9d4e533717ab6374c481d0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/report-001/receipt.json",
+      "bytes": 2786,
+      "sha256": "49b9935f6190ea9cf307dc09771509841f44b8e365cb265a92b7aafdbd5c7d2f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/report-001/report.json",
+      "bytes": 6058084,
+      "sha256": "e1ff594cb0d86196fcb2b9289ec74fc8cb52fb71b2de48b3fdec5492091ab00d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/report-001/phase-transverse-gains.png",
+      "bytes": 545702,
+      "sha256": "d02f0f1c1c0d5db78e45abcba3f49eac0ec967607ce3ab27c2bc0d78cf66e855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/report-development-001/plot_phase_transverse_gain.py",
+      "bytes": 19994,
+      "sha256": "7370ac7c03cd89e588596347165db47d21fd43b8e284378d4b5bf2e9b675a510"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/interpretation-001/post-interpretation-decision.md",
+      "bytes": 7647,
+      "sha256": "2ab8d7d7319b38d1cbdd828dd828f6b8881f453c769d67c3d5bdb9f5ebd3ffb4"
+    }
+  ],
+  "next_design": {
+    "status": "proposal only; no executable freeze or new integration",
+    "source": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/interpretation-001/post-interpretation-decision.md",
+      "bytes": 7647,
+      "sha256": "2ab8d7d7319b38d1cbdd828dd828f6b8881f453c769d67c3d5bdb9f5ebd3ffb4"
+    },
+    "repository_path": "docs/independent-tangent-qualification-next-design.md",
+    "contexts": 16,
+    "proposed_methods": 2,
+    "proposed_state_plus_tangent_jobs": 32
+  },
+  "closing_review": {
+    "external_bindings_checked_before_next_design_added": 22,
+    "operational_checks": 50,
+    "material_blockers": 0,
+    "wording_correction": "Pre-dispatch relative-path failure occurred after input hashing but before sealed-array decoding or any cell calculation.",
+    "scientific_and_figure_review": "No material remaining numerical/provenance/claim issue. All initial reviews and correction preserved."
+  }
+}

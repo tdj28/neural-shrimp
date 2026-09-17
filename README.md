@@ -95,6 +95,15 @@ Original settings remain unqualified. See
 independent audit and retained strict arithmetic-replay failures.
 
 
+**EXP-015 completes all 192 phase/transverse decomposition cells.** All 64
+phase-null cells pass the frozen checks: their predicted readout is transverse. Core signals
+strongly attenuate; near-edge signals persist and can grow across sampled windows. Overall, 191 cells pass algebraic
+consistency and 179 pass the ideal-neutral approximation; every failed gate
+is retained. Independent alternate arithmetic retains additional strict
+discrepancies. This explains a local memory mechanism conditional on the saved
+propagators, without establishing shrimp-specific or trained-network benefit.
+See [the decomposition results](docs/EXP-015-results.md).
+
 Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
 [regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
 [EXP-009 results](docs/EXP-009-results-audit.md), and

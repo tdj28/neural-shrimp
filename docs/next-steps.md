@@ -1,6 +1,34 @@
-# Next steps after EXP-014
+# Next steps after EXP-015
 
-## Current decision, 17 September: explain local memory while retaining numerical limits
+## Current decision, 17 September: independently qualify the transverse operator
+
+[EXP-015](EXP-015-results.md) is complete: all 192 cells and 1,152 realized-pulse
+rows are retained. Frozen decisions are 191 algebraically qualified and 179
+ideal-neutral-qualified cells. All 64 phase-null cells pass the frozen checks;
+core signals strongly attenuate while near-edge responses persist and can
+increase across sampled windows. Transverse opposition also reverses some
+early phase-writing readouts. These are conditional linear mechanisms.
+
+Independent evidence and recorded-decision checks pass, but strict alternate
+arithmetic retains discrepancies. The physical/noise-scale approximation
+classifications are unchanged. No original failed study is requalified.
+
+The [next bounded design](independent-tangent-qualification-next-design.md)
+prioritizes independent full-state and all-nine-entry tangent integration at
+all sixteen original contexts, through eight periods, with two fixed methods:
+32 jobs. Separately compare the methods, the inherited composed propagator,
+and each method's first-period composition. Retain fixed clocks/projectors,
+all three directions, every failure and both strict arithmetic and physically
+scaled operator criteria. No new solver or timing pilot has run; executable
+implementation, synthetic checks, local review and a private push precede it.
+
+Repackaging the existing phase-only/full-linear score comparison would not
+close the shared-propagator assumption. A later saved-pulse extension needs
+an explicit new nonlinear-remainder question, such as signed odd/even dose
+response. Full shrimp boundary organization, matched controls for geometry's
+incremental value and trained-network transfer still require separate work.
+
+## Earlier decision, 17 September: explain local memory while retaining numerical limits
 
 The [425-trace refinement](EXP-014-refinement-results.md) is complete. All
 five new methods agree in 77/85 selected cases; eight large pulses remain
