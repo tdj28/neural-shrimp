@@ -1,5 +1,11 @@
 # Next steps after EXP-021
 
+## 21 September 2026: historical matching check closed
+
+**Human-friendly TLDR:** Existing memory evidence still shows longer retention near the selected edge. EXP-022 adds a limitation: the saved core samples miss both comparison bins, so the proposed matched comparison cannot run as specified. Adjacent eligible nodes bracket both targets, suggesting a sampling gap rather than absence of suitable cycles.
+
+[EXP-022](EXP-022-results.md) is closed at historical preparation, with four of six seeds available and all proposed 114 jobs/528 IVP slots unlaunched. Prepare EXP-023 using two fixed interpolated gamma settings and a bounded seed bridge, followed by the unchanged tight reference checks. Freeze the complete executable plan, tests and local review privately before new integrations. Preserve the two original missing slots and every new failure; do not widen bins or select parameters using memory outcomes.
+
 **Human-friendly TLDR:** Near the selected periodic-window edge, an earlier input can remain readable after a second input arrives. Across all 24 tested phases, nonlinear readout raises four-cycle first-bit accuracy from **55.05% to 58.98%**; one previously identified phase rises from **50.31% to 99.69%**. The core cycle is essentially at chance by then. A simpler one-mode reference gives an equally effective late observer on these same neural observations. This demonstrates recoverable, timing-dependent memory in two fixed-weight three-neuron settings; a unique shrimp-geometry advantage and transfer to trained networks remain unproven.
 
 ## Current decision: compare contraction and observability before claiming a geometry increment

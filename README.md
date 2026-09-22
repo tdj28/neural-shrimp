@@ -7,6 +7,8 @@ whether geometric information can improve model control.
 
 **Latest analysis: [EXP-021](docs/EXP-021-results.md), complete and numerically qualified.** The corrected nominal arithmetic completes all 144 cells, 4,704 mixture probabilities and 1,728 auxiliary controls under the original gates. Frozen numerical replay and separate saved-evidence/summary audits pass. The primary gain is 3.9268 percentage points at 4T, with a numerical enclosure [3.9253, 3.9327], not a population confidence interval. [EXP-020](docs/EXP-020-results.md) remains incomplete. [EXP-019](docs/EXP-019-results.md) supplies the unchanged neural observations. The next question is whether matched cycle references can separate contraction and observability from geometry's incremental value.
 
+**Latest feasibility check: [EXP-022](docs/EXP-022-results.md).** The fixed historical panel supplies only four of six seeds: the sampled core path misses both contraction bins, although adjacent nodes bracket both targets. No new neural integrations were launched. A separately planned successor will test two fixed intermediate gamma values while preserving this missing-support result.
+
 **Current release status: private working diagnostic draft.** EXP-008
 [PR #7](https://github.com/tdj28/neural-shrimp/pull/7) remains **unmerged**.
 Release candidate `1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails strict
