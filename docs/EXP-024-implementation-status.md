@@ -1,5 +1,12 @@
 # EXP-024 implementation checkpoint
 
+**Continuation, 22 September 2026:** Sensitivity, scheduled-pulse acquisition,
+owned-worker lifecycle and saved-array replay are now implemented. The bounded
+[development protocol](EXP-024-development-protocol.md) supersedes the earlier
+remaining-work list for that stage only. Its executable machine plan and local
+review, once committed and pushed, authorize the development census; the
+held-out runner remains disabled. Historical component status below is retained.
+
 22 September 2026. **Synthetic component tested; neural execution not ready.**
 
 **Human-friendly TLDR:** No new neural behavior was measured here. The next
