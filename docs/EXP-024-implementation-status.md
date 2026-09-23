@@ -1,5 +1,12 @@
 # EXP-024 implementation checkpoint
 
+**Completed update, 22 September 2026:** Development and the original 32-phase
+held-out test have run. An explicit eight-job numerical amendment resolved one
+context/dose's solver discrepancy without changing scientific gates or readouts.
+The [qualified composite results](EXP-024-results.md) and
+[hash-bound summary](EXP-024-summary.json) supersede the readiness statements
+below; all historical checkpoints and the original unqualified attempt remain.
+
 **Continuation, 22 September 2026:** Sensitivity, scheduled-pulse acquisition,
 owned-worker lifecycle and saved-array replay are now implemented. The bounded
 [development protocol](EXP-024-development-protocol.md) supersedes the earlier
