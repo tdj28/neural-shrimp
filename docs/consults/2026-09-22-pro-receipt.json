@@ -1,0 +1,86 @@
+{
+  "account_wide_billing_reconciled": false,
+  "artifacts": [
+    {
+      "bytes": 19676,
+      "path": "request_payload.json",
+      "sha256": "abbab8438cb72090febcaf9387e70b0cf3e184597d0a75723cf0da1c96e5e121"
+    },
+    {
+      "bytes": 44532,
+      "path": "response.json",
+      "sha256": "e3d5317d50905476e870789bffab7adf94529f4317438b395efebf63613847ce"
+    },
+    {
+      "bytes": 21971,
+      "path": "review.md",
+      "sha256": "54e8ac99c52f8bdc4ef6c29360a88cfecb2b8cf08ba1f71edf5507956bb5084d"
+    },
+    {
+      "bytes": 5050,
+      "path": "review_manifest.json",
+      "sha256": "31f8669040c6f9016dd65c99804df0bfbc2825106503aec174b991b613ed2d02"
+    },
+    {
+      "bytes": 18533,
+      "path": "review_request.md",
+      "sha256": "c59576b42a06ec03a6e07b1ed708948be361d16ef9fa99df6569ad8c89cabf85"
+    }
+  ],
+  "attempt": 2,
+  "authorization": "docs/consults/2026-09-22-retry-authorization.md",
+  "canonical_validation": {
+    "completed_response_cost_usd_conservative": 0.78007,
+    "request_payload_sha256": "abbab8438cb72090febcaf9387e70b0cf3e184597d0a75723cf0da1c96e5e121",
+    "researcher_emphasis_present": false,
+    "researcher_emphasis_sha256": null,
+    "response_id": "resp_07c6e11998f97560016ab339de4edc87d08fe7b5e90fe45913",
+    "response_model": "gpt-6-astra",
+    "response_sha256": "9995f30d7b3032e7c6f4fccbce55bc87eec73c3e4496c1534e5b288e31ba2a04",
+    "review_input_sha256": "4ecaa31f1848cfa193e250b100dc51fab1f79f2498763822f454bfebb7294e5e",
+    "review_request_sha256": "c59576b42a06ec03a6e07b1ed708948be361d16ef9fa99df6569ad8c89cabf85",
+    "review_sha256": "54e8ac99c52f8bdc4ef6c29360a88cfecb2b8cf08ba1f71edf5507956bb5084d",
+    "schema_version": 1,
+    "status": "completed_review_bundle_valid"
+  },
+  "cumulative_authorization_usd": "10",
+  "external_root": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/attempt-002",
+  "failed_attempt_usage_returned": false,
+  "known_cumulative_completed_cost_usd": "1.56133",
+  "model": "gpt-6-astra",
+  "previous_attempt_preserved": "docs/consults/2026-09-22-receipt.json",
+  "prior_completed_cost_usd": "0.78126",
+  "rates_usd_per_million": {
+    "cache_write": "12.50",
+    "input": "10",
+    "output": "50"
+  },
+  "reasoning": {
+    "effort": "medium",
+    "mode": "pro"
+  },
+  "reported_output_exceeded_requested_max": true,
+  "request_source_commit": "9ffa7699a72a17931bd06c4df5be8ff39f7cd970",
+  "response_cost_usd": "0.78007",
+  "response_id": "resp_07c6e11998f97560016ab339de4edc87d08fe7b5e90fe45913",
+  "reviewed_packet_commit": "37a5176acba361a49e9254c51ded93827b4406e3",
+  "schema_version": 1,
+  "status": "completed_review_bundle_valid",
+  "usage": {
+    "input_tokens": 23192,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 10963,
+    "output_tokens_details": {
+      "reasoning_tokens": 2780
+    },
+    "total_tokens": 34155
+  },
+  "validation_receipt": {
+    "bytes": 775,
+    "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/validation-002/canonical-preflight.json",
+    "sha256": "7daf8aa9a7b61fd90041b1445e1718ab2c61338097c55f76956a90883e1571f7"
+  }
+}

@@ -1,5 +1,12 @@
 # EXP-023 implementation checkpoint
 
+**Dated amendment, 22 September 2026, after the Astra Pro consultation:**
+EXP-023 is deferred before any target execution. Prioritize the
+[EXP-024 interaction pilot](EXP-024-protocol.md), as explained in the
+[local adjudication](consults/2026-09-22-pro-adjudication.md). Preserve the
+unfinished controller and bridge for possible reuse. The historical checkpoint
+below describes remaining implementation work, not the current execution queue.
+
 22 September 2026. Development checkpoint only; **not an execution freeze**.
 
 **Human-friendly TLDR:** No new neural behavior was measured in this checkpoint. EXP-021 remains the completed memory result. EXP-022 showed that the saved core samples miss the two proposed matching bins; EXP-023 will test two fixed intermediate parameters to address that sampling gap.
