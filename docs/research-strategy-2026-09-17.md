@@ -1,5 +1,10 @@
 # Local strategy review: test selective timing memory next
 
+**Historical strategy.** The current behavioral priority and completed
+boundary comparison are recorded in [EXP-025 results](EXP-025-results.md).
+The dated consultation and planning account below is preserved as written;
+it is not a statement of current consultation status or the next executable run.
+
 17 September 2026. **Local adversarial analysis, not a Pro review.** The
 requested GPT-6 Astra Pro consultation was prepared but not sent: no enforceable
 USD 10 cap or available authenticated, included subscription route could be

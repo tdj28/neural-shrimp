@@ -1,5 +1,14 @@
 # Do periodic-window geometries improve neural-network control?
 
+**23 September 2026 priority update:** The user's primary question is what
+changes in neural behavior across shrimp-associated regimes. The historical
+control-utility roadmap below is retained, but it no longer defines the sole
+research objective. [EXP-025](EXP-025-results.md) completed a direct comparison
+across two transects: repeating regimes showed substantially greater
+repeatability after a tiny disturbance, while the frozen long-delay memory
+test found no consistent advantage for either regime. See its
+[prospective behavioral protocol](EXP-025-protocol.md) for the amended scope.
+
 **Status:** private exploratory research program, 2026-09-08. The initial pilots are complete; the main geometry-utility study remains a design roadmap, not a completed study or preregistration. Pilot outcomes remain exploratory permanently. The repository is private by human request. No public release, registry submission, paid Pro review, or GPU rental is authorized by this document.
 
 ## Initial outcome and the next decision
