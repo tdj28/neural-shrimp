@@ -139,6 +139,16 @@ storage, not an independent backup: record any verified additional data
 copy separately. Git pushes protect the code and receipts, not external raw
 data. See [data-storage.md](docs/data-storage.md).
 
+## Temporary hosted-CI pause
+
+On 22 September 2026 the user requested pausing or reducing GitHub Actions
+after billing failures. The research branch now schedules tests only through
+manual dispatch; preserve that setting until the user requests resumption.
+Continue appropriate local tests and scientific verification on this server.
+This scheduling change does not relax any numerical qualification gate or
+retroactively pass a failed historical check. The protected-main change is
+prepared separately; see [CI pause status](docs/ci-pause-2026-09-22.md).
+
 ## Human-friendly research summaries
 
 The user requested on 17 September 2026 that every research summary include a

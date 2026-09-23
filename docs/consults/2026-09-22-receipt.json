@@ -1,0 +1,78 @@
+{
+  "schema": "neural-shrimp-pro-consultation-attempt-v1",
+  "date": "2026-09-22",
+  "status": "provider_rejected_credit_balance_exhausted",
+  "review_received": false,
+  "adjudication": null,
+  "model": "gpt-6-astra",
+  "reasoning": {
+    "effort": "medium",
+    "mode": "pro"
+  },
+  "reviewed_packet_git_head_commit": "37a5176acba361a49e9254c51ded93827b4406e3",
+  "input_token_preflight": 3644,
+  "exact_reserved_estimate_usd": 2.4199,
+  "client_guard_usd": 4.0,
+  "generating_requests_attempted": 1,
+  "automatic_retries": 0,
+  "returned_usage": null,
+  "new_receipt_derived_cost_usd": null,
+  "known_prior_receipt_derived_usd": "0.78126",
+  "known_cumulative_receipt_derived_usd": "0.78126",
+  "account_wide_reconciliation": false,
+  "original_cumulative_user_ceiling_usd": "10.00",
+  "provider_failure": {
+    "error": "OpenAI API returned HTTP 429: {\n  \"error\": {\n    \"message\": \"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",\n    \"type\": \"insufficient_quota\",\n    \"param\": null,\n    \"code\": \"credit_balance_exhausted\"\n  }\n}",
+    "error_type": "RuntimeError",
+    "failed_at_utc": "2026-09-23T02:24:52.787699Z"
+  },
+  "canonical_helper": {
+    "path": "/data2/agent-skill-documents/scripts/review_experiment_plan.py",
+    "bytes": 81025,
+    "sha256": "f3596de522f39f61cbb981f72cfbed1d6f3916c0f78bc8e4ce36efcb6fa171ff"
+  },
+  "brief": {
+    "path": "docs/consults/2026-09-22-breakthrough-brief.md",
+    "bytes": 12689,
+    "sha256": "ed907e144046f72c9fa92d6d588960070e07136b2f256c638f86b0ff5b860a12"
+  },
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/dry-run-001/request_payload.json",
+      "bytes": 19593,
+      "sha256": "5bec1355609fe5e2342b0219829f975fc7ad3f71e8c4eef05c7a2104369e808b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/dry-run-001/review_manifest.json",
+      "bytes": 2625,
+      "sha256": "aad19cbe33a56bd29ba92384839b8ee052298692aad5fd8e10e64f57dad55676"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/dry-run-001/review_request.md",
+      "bytes": 18533,
+      "sha256": "c59576b42a06ec03a6e07b1ed708948be361d16ef9fa99df6569ad8c89cabf85"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/attempt-001/failure.json",
+      "bytes": 415,
+      "sha256": "fb49b6756d7818c917f30570248f2a44cb84a0503c7079180b8a5237fa47efc1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/attempt-001/request_payload.json",
+      "bytes": 19676,
+      "sha256": "abbab8438cb72090febcaf9387e70b0cf3e184597d0a75723cf0da1c96e5e121"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/attempt-001/review_manifest.json",
+      "bytes": 3428,
+      "sha256": "7ff92b53cb99205a520604fc7b8170fe97abc3fd4a363df8975a42ff442e0e5e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/consults/2026-09-22-breakthrough/attempt-001/review_request.md",
+      "bytes": 18533,
+      "sha256": "c59576b42a06ec03a6e07b1ed708948be361d16ef9fa99df6569ad8c89cabf85"
+    }
+  ],
+  "pricing_source": "https://developers.openai.com/api/docs/pricing",
+  "prior_completed_bundle_validation": "completed_review_bundle_valid; same unchanged canonical helper"
+}
