@@ -27,7 +27,10 @@ Git; preserve existing frozen evidence and history.
   full-state primitive periodic orbits, stability, and boundary organization.
 - Utility of cycle detection is distinct from incremental utility of geometry.
 - Before claiming a shrimp-specific behavioral effect, test comparable distant
-  regimes, including ordinary periodic controls. An effect that also appears
+  regimes, including both chaotic and ordinary periodic controls. Qualify
+  chaotic controls with explicit chaos diagnostics; retain unresolved or
+  finite-horizon irregular cases under their actual evidence labels.
+  An effect that also appears
   away from the shrimp remains generic unless the geometry adds demonstrated
   explanatory or predictive value. See docs/EXP-027-status.md for the paused
   control-design requirements requested by the user on 23 September 2026.

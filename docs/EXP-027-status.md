@@ -25,7 +25,11 @@ Before running the robustness draft, design and freeze a control set with:
    local comparisons.
 2. Ordinary periodic regimes well away from the candidate shrimp, qualified
    independently rather than called non-shrimp from appearance alone.
-3. Irregular regimes well away from the candidate shrimp. A second circuit
+3. Chaotic regimes well away from the candidate shrimp, with explicit chaos
+   diagnostics and numerical robustness checks. Finite-horizon irregularity
+   alone must not be silently relabeled verified chaos; unresolved candidates
+   retain their evidence labels. Both chaotic and ordinary periodic controls
+   are required by the user's clarification. A second circuit
    family can test transfer, but must be identified as an additional change
    of model rather than a clean geometry-only intervention.
 4. Comparable input amplitudes/channels, clocks, observation budgets and
@@ -33,7 +37,7 @@ Before running the robustness draft, design and freeze a control set with:
    response scales; choose matched comparisons before task outcomes. Include
    simple dynamics-based explanations as competitors to shrimp geometry.
 5. An explicit failure criterion for specificity: an effect reproduced by
-   ordinary periodic controls or explained by generic local dynamics remains
+   chaotic or ordinary periodic controls, or explained by generic local dynamics, remains
    a generic effect. A nearby periodic-versus-irregular contrast alone cannot
    establish that the shrimp's structure contributes anything extra.
 
