@@ -26,6 +26,11 @@ Git; preserve existing frozen evidence and history.
 - Do not label visual islands or loss oscillations as verified shrimps. Verify
   full-state primitive periodic orbits, stability, and boundary organization.
 - Utility of cycle detection is distinct from incremental utility of geometry.
+- Before claiming a shrimp-specific behavioral effect, test comparable distant
+  regimes, including ordinary periodic controls. An effect that also appears
+  away from the shrimp remains generic unless the geometry adds demonstrated
+  explanatory or predictive value. See docs/EXP-027-status.md for the paused
+  control-design requirements requested by the user on 23 September 2026.
 - Use local audits. Paid Pro reviews are optional at major milestones and
   require explicit approval for each call under canonical integrity section 7A.
 - Paid RunPod execution requires a measured, costed run plan, an approved hard
