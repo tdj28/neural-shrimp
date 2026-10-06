@@ -1,5 +1,12 @@
 # EXP-027: paused draft, no execution
 
+**Dated amendment, 6 October 2026:** superseded before execution by
+[Program C](program-c-2026-10-06.md). Its distant-control requirements below
+carry into Track B, which tests geometry against distant ordinary-periodic and
+chaotic regimes over spatial blocks of the parameter plane. The draft files
+remain preserved unchanged and were never run. The record below is retained as
+written.
+
 23 September 2026. The user requested a pause at a safe stopping point to
 preserve usage credits, and emphasized the need to reject apparent shrimp
 effects that also occur in distant, unrelated neural regimes.
