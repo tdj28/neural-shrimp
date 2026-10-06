@@ -1,6 +1,147 @@
-# Next steps after the stronger-control test
+# Next steps after EXP-008
 
-## Current decision after EXP-007, 11 September 2026
+## Current decision, 13 September 2026
+
+**Numerical portability is the immediate priority.** Release candidate
+`1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails both strict Linux release
+checks, so PR #7 remains unmerged and the work remains a private diagnostic
+draft. Local frozen replay passed. Two later Linux diagnostics preserve all
+three penalties and 288 learned actions using saved-feature refits, but strict
+feature/coefficient failures persist. Complete Linux reproduction remains
+unresolved.
+
+The map helps the frozen ridge model predict candidate error in the observed
+mean, but useful action control remains unestablished. EXP-008 lowers the
+secondary all-candidate prediction MSE by 17.17%, while its primary paired
+action benefit is 0.000857628 [-0.007701467, 0.006545434]. Direct
+minimum-preview selection has 41.30% lower mean task error than the geometry
+learner using the same eighteen forecasts. This is evidence against paying
+for all previews and then crediting geometry merely for improving a regression
+fit. It does not show that every use of the map is useless.
+
+The next practical question is **can the map save preview calls while preserving
+waveform quality?** A provisional next experiment would use **four previews
+from the same eighteen actions**, with its shortlist chosen before any of
+those previews. This is a research proposal, not an executed or frozen experiment. The numerical audit below must precede its target freeze.
+The [raw-data audit](EXP-008-results-audit.md) and
+[independent model audit](EXP-008-model-results-audit.md) explain why.
+
+### 1. Resolve portability, then establish trustworthy labels and fitting
+
+Retain and diagnose both failed checks without changing frozen evidence or
+tolerances. Linux PR run 34803148459 fails baseline coefficient `[1]` at
+absolute difference 3.68269315e-8 under `rtol=1e-7, atol=1e-9`. Linux push run
+34803133930 stops earlier at shared feature `[34]`, difference 1.39784018e-14
+under `rtol=1e-12, atol=1e-14`. See the exact
+[PR log](EXP-008-linux-pr-failure.txt) and [push log](EXP-008-linux-push-failure.txt).
+The PR reaches fitting after its metric checks; the push does not finish the
+feature/waveform loop. These original stopping points remain in the record.
+
+The later [PR 34804593644](EXP-008-platform-linux-pr.json) and
+[push 34804589708](EXP-008-platform-linux-push.json) diagnostics at
+`bb4ecd25cf5c025064e7bd200b6acd898953d0e5` pass exact evidence bindings and
+preserve all three penalties and all 288 learned actions using **saved-feature
+refits**. Maximum prediction differences are 1.3874261184e-9 and
+1.9615957192e-9, versus minimum saved action-score gap 3.7010270022e-6;
+saved-model score replay passes `rtol=1e-12, atol=1e-14`. The PR retains two
+shared-feature failures and 8 baseline plus 9 shuffled coefficient failures;
+the push retains zero shared-feature failures and 10 plus 10 coefficient
+failures. Both geometry coefficient comparisons pass.
+
+Next diagnose the arithmetic differences and assess action consequences from
+completely regenerated inputs in an explicitly scoped numerical follow-up.
+The existing diagnostic uses saved features for its refits and saved preview
+metrics for feature reconstruction; it does not repeat waveform metric checks
+or integrate trajectories. Its bounded action agreement does not replace the
+strict merge gate. Any portability amendment needs scientific justification
+and preserved original failures; retrying until a worker happens to pass is
+not evidence of stable reproduction. Resolve this numerical scope before
+freezing any four-preview target experiment.
+
+All required EXP-008 records complete, but numerical completion is not uniform
+convergence. Across 3,504 coarse/fine pairs, the median absolute RMSE change is
+2.91e-7 and the maximum is 0.476851. Selected actions are much steadier; that
+does not certify unselected training labels or the finite-candidate oracle.
+Freeze a separate refinement packet from the already observed discrepancies,
+with a declared inclusion threshold, a complete prior-selected case census,
+fixed comparison controls, tighter integration and unchanged waveform meaning.
+Keep reference, phase and initial-state conventions explicit. Report this as
+a follow-up on known difficult cases, not an independent representative test,
+and preserve the original EXP-008 values and attempt unchanged.
+
+Independent local weighted SVD also exceeds the unchanged coefficient tolerance
+for eight baseline and eight shuffled-model coefficients, despite matching
+all penalties and selected actions. Future fitting should use a prospectively
+specified stable QR/SVD implementation and a documented treatment of redundant
+columns. Existing coefficients are not causal feature-importance estimates.
+Use EXP-006--008 only as development evidence for any such changes; neither
+clipping negative scores nor refitting and rescoring the same test cases can
+be presented as a new prospective success.
+
+### 2. Test a four-preview shortlist against equal-budget controls
+
+Before new outcomes, freeze fresh origins/phases, the candidate set, shortlist
+rules, training procedure, one primary contrast, missingness rules and cost
+accounting. The provisional primary budget is four candidate previews of the
+same duration. Compare a shortlist based on pre-preview features plus old-map
+geometry with the same learner and pre-preview features without geometry.
+Both receive the same coordinates, orbit period/Floquet diagnostics and local
+sensitivity. Include strong simple four-action controls based on signed
+coordinate axes and local/action coverage. The exact baseline set must be
+chosen before outcomes, not selected from whichever control loses afterward.
+
+**No feature from any candidate's new preview may enter shortlist selection.**
+The existing EXP-008 learner cannot be reused unchanged because its inputs
+include preview errors. Seal shortlists first, then evaluate their four
+previews and apply the identical minimum-preview winner rule. Seal winners
+before scoring later task outcomes. Separately retain the full-eighteen
+minimum-preview reference and exhaustive outcomes for evaluation; their extra
+information cannot enter the four-preview selectors. Keep all candidates,
+failed conditions and duplicates in the evaluation record.
+
+The primary endpoint should be paired later waveform error for geometry-four
+versus the prospectively declared equal-budget baseline. A practical savings
+claim additionally needs a predeclared acceptable quality loss against the
+full-eighteen reference, set from a task requirement or development evidence
+before held-out data. A secondary budget curve can include two, eight and
+eighteen previews, if fully specified in advance. Do not choose a favorable
+budget, tolerance or task horizon after outcomes.
+
+Count actual preview calls, qualification, sensitivity, prediction, training,
+map construction and amortization over decisions. The exhaustive oracle is
+evaluation expense, not online information. Fewer previews alone do not prove
+lower total cost if map or local-diagnostic overhead dominates. If geometry
+fails to improve a same-budget shortlist or meet the declared quality/cost
+criterion, retain the simpler forecast rule for this application.
+
+### 3. Applications remain conditional on measured benefit
+
+Only after a shortlist benefit survives a new held-out test should a sequential
+disturbance experiment measure time within waveform tolerance, recovery time,
+action effort and total cost. Then select one concrete trained recurrent-model
+task with a frozen checkpoint, full evolving state and a genuine task endpoint.
+The present autonomous three-neuron system does not establish training speed,
+reasoning correctness, memory capacity or modern-model transfer.
+
+The earlier continuation-checkpoint failure and separation of transients,
+phase, frequency and waveform shape remain useful independent follow-ups.
+The unreviewed multiple-memory preprint motivates a separate interference
+hypothesis; it is not evidence that this shortlist mechanism works.
+
+### Resources and release
+
+EXP-008 collection and summary took 162.352 local seconds, including 23.770
+sensitivity seconds and 0.079 fit/seal seconds; verification is additional.
+The earlier map cost 140.54 seconds separately. Paid compute and review remain
+zero. This agenda launches no new target execution, paid review or RunPod resource.
+Any successor requires a complete local audit and prospective source/plan
+freeze; paid reviews still require separate explicit human approval. Keep the repository private until its owner decides otherwise.
+
+---
+
+# Historical agenda after EXP-007; preserved below
+
+## Decision after EXP-007, 11 September 2026
 
 EXP-007 completed the proposed one-step hybrid test: 4,032 previews, 2,784
 scored targets and 12 new qualified starts. All primary pooled intervals span

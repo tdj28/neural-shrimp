@@ -1,0 +1,129 @@
+{
+  "artifact_bytes": 728224123,
+  "artifacts": 10650,
+  "coarse_fine_all": {
+    "maximum": 0.47685138414318257,
+    "mean": 0.022592197942718575,
+    "median": 2.9145242278275085e-07,
+    "p95": 0.1305051211599043,
+    "pairs": 3504
+  },
+  "coarse_fine_selected": {
+    "maximum": 0.0009998078186881088,
+    "mean": 2.88751181172664e-06,
+    "median": 1.0521969089809582e-07,
+    "p95": 5.421021287807699e-07,
+    "policy_pairs": 384
+  },
+  "complete_previews": 3456,
+  "complete_targets": 7008,
+  "costs": {
+    "collection_and_summary_seconds": 162.3524913750589,
+    "fit_seconds": 0.07915050070732832,
+    "sensitivity_seconds": 23.77027404587716,
+    "summed_overlapping_preview_seconds": 141.92287685535848
+  },
+  "example": {
+    "actions": {
+      "baseline": 4,
+      "geometry": 4,
+      "min_preview": 4,
+      "shuffled_geometry": 4
+    },
+    "rmse": {
+      "baseline": 0.022906682398661567,
+      "geometry": 0.022906682398661567,
+      "min_preview": 0.022906682398661567,
+      "shuffled_geometry": 0.022906682398661567
+    }
+  },
+  "feature_coverage": {
+    "development": {
+      "censored": 411,
+      "outside_crop": 240,
+      "rows": 1728
+    },
+    "test": {
+      "censored": 250,
+      "outside_crop": 162,
+      "rows": 1728
+    }
+  },
+  "means": {
+    "baseline": {
+      "regret": 0.010590556208323111,
+      "selected_rmse": 0.01782367172118831
+    },
+    "geometry": {
+      "regret": 0.00973292856770435,
+      "selected_rmse": 0.016966044080569547
+    },
+    "min_preview": {
+      "regret": 0.0027257394546271346,
+      "selected_rmse": 0.00995885496749233
+    },
+    "shuffled_geometry": {
+      "regret": 0.009168922268837127,
+      "selected_rmse": 0.016402037781702322
+    }
+  },
+  "prediction": {
+    "baseline": {
+      "above_two_fraction": 0.0,
+      "below_zero_fraction": 0.22337962962962962,
+      "maximum": 1.3028220269396853,
+      "minimum": -0.2773203819550509,
+      "mse": 0.022640655944873855,
+      "out_of_range_fraction": 0.22337962962962962,
+      "range_status": "complete",
+      "status": "complete"
+    },
+    "geometry": {
+      "above_two_fraction": 0.0,
+      "below_zero_fraction": 0.14988425925925924,
+      "maximum": 1.001894414222918,
+      "minimum": -0.0772003013980031,
+      "mse": 0.018753461564027265,
+      "out_of_range_fraction": 0.14988425925925924,
+      "range_status": "complete",
+      "status": "complete"
+    },
+    "shuffled_geometry": {
+      "above_two_fraction": 0.0,
+      "below_zero_fraction": 0.19675925925925927,
+      "maximum": 1.3930557176138898,
+      "minimum": -0.2580407774947335,
+      "mse": 0.02434692396722712,
+      "out_of_range_fraction": 0.19675925925925927,
+      "range_status": "complete",
+      "status": "complete"
+    }
+  },
+  "prediction_gain_percent": 17.169089050737963,
+  "preview_error_reduction_percent": 41.301254905392106,
+  "primary": {
+    "ci95": [
+      -0.007701467321172137,
+      0.006545433784693783
+    ],
+    "mean_benefit": 0.0008576276406187631,
+    "per_block": [
+      0.0027719574927582797,
+      0.011565409493738889,
+      0.0030980888405371595,
+      0.004871117766437364,
+      0.009247928132552475,
+      0.0056767871641960135,
+      -0.0008395931666454332,
+      0.005976444292307474,
+      0.0,
+      -0.0029426470649584653,
+      0.011279730810441459,
+      -0.04041369207394006
+    ],
+    "positive_blocks": 8,
+    "status": "complete"
+  },
+  "receipt_sha256": "ddb22c78a6b5f11a023088fd90f3403d25a2797e00624f01c316171ce35706fb",
+  "source_commit": "3c5604497ec57b19d62fbb595da7b190102f4b33"
+}

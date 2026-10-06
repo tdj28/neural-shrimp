@@ -1,0 +1,41 @@
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	﻿2026-09-14T03:44:14.9517124Z ##[group]Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9517702Z ^[[36;1mpython tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001^[[0m
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9550466Z shell: /usr/bin/bash -e {0}
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9550674Z env:
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9550898Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9551248Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9551584Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9551883Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9552178Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9552484Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:44:14.9552741Z ##[endgroup]
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5604376Z Traceback (most recent call last):
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5668264Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 521, in <module>
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5669273Z     main()
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5690787Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 518, in main
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5700500Z     verify(args.output)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5730830Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 485, in verify
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5732424Z     compare_model_replay({k:v for k,v in packet.items() if k!='packet_sha256'},
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5751738Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 391, in compare_model_replay
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5770533Z     compare_model_replay(saved[key], replayed[key], path+'.'+key)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5790816Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 391, in compare_model_replay
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5791597Z     compare_model_replay(saved[key], replayed[key], path+'.'+key)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5810891Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 391, in compare_model_replay
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5830534Z     compare_model_replay(saved[key], replayed[key], path+'.'+key)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5850703Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 395, in compare_model_replay
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5851532Z     compare_model_replay(a, b, f'{path}[{index}]')
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5870815Z   File "/home/runner/work/neural-shrimp/neural-shrimp/tools/run_hopfield_information.py", line 398, in compare_model_replay
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5871619Z     np.testing.assert_allclose(saved, replayed, rtol=1e-7, atol=1e-9, err_msg=path)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5872584Z   File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 1780, in assert_allclose
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5873406Z     assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5874251Z   File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5874968Z     raise AssertionError(msg)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5875238Z AssertionError:
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5875498Z Not equal to tolerance rtol=1e-07, atol=1e-09
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5875873Z development fit.models.baseline.coefficients[1]
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5876220Z Mismatched elements: 1 / 1 (100%)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5876561Z Max absolute difference among violations: 3.68269315e-08
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5876967Z Max relative difference among violations: 2.31758449e-07
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5877313Z  ACTUAL: array(0.158902)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.5877557Z  DESIRED: array(0.158902)
+tests	Run python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001	2026-09-14T03:47:54.9103325Z ##[error]Process completed with exit code 1.

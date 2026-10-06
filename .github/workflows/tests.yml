@@ -13,6 +13,15 @@ jobs:
       - run: pip install --require-hashes -r requirements.lock
       - run: pip install --no-deps -e .
       - run: pytest -q
+      - name: Diagnose EXP-008 platform replay without replacing its gate
+        if: always()
+        run: python tools/audit_information_platform.py evidence/EXP-008/attempt-001 --out /tmp/EXP-008-platform-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EXP-008-platform-audit
+          path: /tmp/EXP-008-platform-audit.json
+          if-no-files-found: error
       - run: python -m neural_shrimp.cli validate experiments/manifests/*.json
       - run: python tools/summarize_pilots.py
       - run: python tools/build_evidence_figures.py --check
@@ -29,3 +38,8 @@ jobs:
       - run: python tools/run_hopfield_holdout.py validate
       - run: python tools/run_hopfield_holdout.py verify --output evidence/EXP-007/attempt-001
       - run: python tools/plot_hopfield_holdout.py evidence/EXP-007/attempt-001 --destination paper/figures --check
+      - run: python tools/run_hopfield_information.py validate
+      - run: python tools/check_information_bundle.py
+      - run: python tools/run_hopfield_information.py verify --output evidence/EXP-008/attempt-001
+      - run: python tools/plot_hopfield_information.py evidence/EXP-008/attempt-001 --destination paper/figures --check
+      - run: python tools/summarize_information_paper.py
