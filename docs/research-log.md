@@ -380,3 +380,29 @@ _commit `fc4a3584d247` (dirty worktree)_
 _commit `3c993e36d58b` (dirty worktree)_
 
 - run started 2026-10-07 21:25 UTC finished 21:44 UTC with exit status 0
+
+## 2026-10-07 21:46 UTC: run (exploratory)
+
+- **Question:** Real-data rotation numbers just beyond the Neimark-Sacker point: started from the certified period-2 state at the bifurcation, do cells settle on an invariant circle whose two-step rotation number tends to the predicted 0.00775 as eta approaches the bifurcation from above?
+- **Setup:** Seed 28101, 64-8-1, n=1024 halves, ridge 1e-3; every cell starts from the last attracting period-2 state of the continuation, at log10 eta -0.388546; 90 log10 eta in -0.3885 to -0.37; 40,000 updates with EXP-028 screening, then 32,768 recorded; 5 workers, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/scan-ns`
+- **Would surprise us:** Cells close to the bifurcation leaving for a distant attractor, which would suggest a subcritical bifurcation, or rotation numbers far from 0.00775 near onset
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py scan --ridge 1e-3 --init /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/continue-0.42/continue--0.42000-state.npy --range -0.3885 -0.37 --cells 90 --chunk 18 --steps 40000 --keep 32768 --workers 5 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/scan-ns`
+
+_commit `00c9ca177b55` (dirty worktree)_
+
+## 2026-10-07 21:46 UTC: run (exploratory)
+
+- **Question:** Real-data adiabatic sweep along the Neimark-Sacker branch: following one attractor from the bifurcation upward in eta, how does the rotation number evolve, are there plateaus at rationals with exactly periodic orbits of period 2q, and where does the circle break down?
+- **Setup:** Seed 28101, 64-8-1, n=1024 halves, ridge 1e-3; start from the certified period-2 state at log10 eta -0.388546; 60 log10 eta in -0.3885 to -0.33, each starting from the previous final state; 20,000 settling updates, 16,384 recorded, FTLE over the last 4,000; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/sweep-ns`
+- **Would surprise us:** Rotation number decreasing with eta, or chaos immediately after the bifurcation
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py sweep --ridge 1e-3 --init /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/continue-0.42/continue--0.42000-state.npy --range -0.3885 -0.33 --cells 60 --steps 20000 --keep 16384 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/sweep-ns`
+
+_commit `00c9ca177b55` (dirty worktree)_
+
+## 2026-10-07 21:46 UTC: Real-data fine scan from the initialization: slow invariant-circle candidates in patches, rotation 0.004-0.012
+
+120 log10 eta in -0.44..-0.24, 60,000 updates plus 16,384 recorded, weight decay 1e-3. Below the Neimark-Sacker point (-0.3885) cells relax onto the period-2 oscillation (one screened period-2 cell at -0.398, the rest still drifting slowly). Above it, 18 cells meet the quasi-periodic candidate criterion (unresolved, |FTLE| below 0.005, forward two-step angle steps on at least 99% of iterations, at least three turns): rotation numbers 0.0039-0.0124 turns per two-step iteration, in runs of adjacent cells with nearly equal values (-0.3963..-0.3929: 0.0039-0.0041; -0.3492..-0.3459: 0.0060; -0.2971..-0.2938: 0.0103-0.0121), rank correlation with eta +0.63. The patches suggest that gradient descent from the initialization lands on different period-2 branches at different rates (loss levels jump between patches), each with its own circle. The three cells at -0.396..-0.393 lie below the continued branch's bifurcation, so they belong to another branch or a coexisting circle. FTLE estimates near -3e-4 cannot separate quasi-periodic orbits from weakly attracting locked orbits with periods above 64; the branch-following sweep records recurrence up to lag 2,048.
+
+_commit `00c9ca177b55` (dirty worktree)_
