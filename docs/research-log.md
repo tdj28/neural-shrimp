@@ -769,3 +769,39 @@ _commit `19db8e3e345e` (dirty worktree)_
 Levels 0.0128/4^k at the right root (1.6990788, -0.1155545), all with two fold edges, primitive attracting period-10 orbits and jump-free tracking: centres 0.0365, 0.0111, 1.79e-3, 4.13e-4, 1.01e-4, 2.50e-5 decades from the root's foot; widths 0.0459, 0.0135, 1.02e-3, 1.15e-4, 1.39e-5, 1.70e-6 (successive ratios 3.41, 13.2, 8.89, 8.23, 8.17; q = 5 asymptote 8); amplitudes relative to the parent 2-cycle 0.312 to 0.0061 (ratio 51, >= 10 required). FROZEN classification: the linear fit of centre against delta across all six levels extrapolates to 1.53e-4 decades, above the 1e-4 tolerance, so the frozen outcome is alternative_ancestry (deepest centre within tolerance; widths shrink; amplitude criterion met). POST HOC (not replacing the frozen outcome): the top two levels lie outside the asymptotic regime (centre line curved); linear fits over the deepest 3 and 4 levels give -1.6e-6 and -1.6e-5; log-log exponents over the deepest three levels are 1.518 for width (theory 1.5) and 0.513 for amplitude (theory 0.5). Recommendation for any confirmatory version: estimate the root mismatch only from levels in the asymptotic regime (prespecified by width-ratio stability) or with more deep levels. Connection stage to the window starts now.
 
 _commit `e5ef352990e7` (dirty worktree)_
+
+## 2026-10-07 22:42 UTC: run (exploratory)
+
+- **Question:** Connection stage (frozen): does the 1/5 tongue rooted at the right root, tracked along its centre line from the top level, reach window S2-28011:139 and contain its certified orbit on the same branch?
+- **Setup:** Start: attempt-2 top level (delta 0.0128, centre 0.0365); steps of 0.01 decades along the tracked centre direction; perpendicular cross-sections with existence rays (s_max 0.2) to both edges; re-centre at each step; stop when the window's projection is within one step; same-cycle test 1e-7; 90-minute budget
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/connect-right/connect.json`
+- **Would surprise us:** Tracked tongue passing the window's level far from the window, or reaching it with a different period-10 orbit
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py connect --name connect-right --levels-name levels-right-attempt2 --root-name root-right`
+
+_commit `3643f44fe7cd` (dirty worktree)_
+
+## 2026-10-07 22:43 UTC: run (exploratory)
+
+- **Question:** POST HOC probe (does not replace the frozen left-root outcome no_qualifying_window): is there a fold-bounded 1/5 tongue at the left root in its weakly nonlinear range?
+- **Setup:** Left root, levels 0.0008/4^k (6), tracking strategy, scan +-0.03 with 601 cells at the top level, newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-left-posthoc/levels.json`
+- **Would surprise us:** No locked cell even at 0.0008
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-left-posthoc --root-name root-left --tracking --delta0 0.0008`
+
+_commit `3643f44fe7cd` (dirty worktree)_
+
+- run started 2026-10-07 22:42 UTC finished 22:44 UTC with exit status 0
+
+- run started 2026-10-07 22:43 UTC finished 22:44 UTC with exit status 0
+
+## 2026-10-07 22:45 UTC: run (exploratory)
+
+- **Question:** POST HOC branch connectivity: is the window S2-28011:139's certified period-10 orbit on the same branch as the tongue orbit tracked from the right 1/5 root?
+- **Setup:** Rebuild the tongue orbit along the 29 tracked centres of connect-right from the top level; continue the window orbit along straight segments to the 4 nearest tracked centres; same cycle within 1e-6
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/branch-right/branch.json`
+- **Would surprise us:** Not applicable (post hoc, not part of the frozen criteria)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry_branch.py --levels-name levels-right-attempt2 --connect-name connect-right --name branch-right`
+
+_commit `86b82e833c25` (dirty worktree)_
+
+- run started 2026-10-07 22:45 UTC finished 22:45 UTC with exit status 0
