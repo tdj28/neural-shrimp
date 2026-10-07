@@ -114,9 +114,10 @@ def cmd_wd(args):
 
 
 def sweep_one(task):
-    lam, eta, steps, tail, threads = task
+    lam, eta, steps, tail, threads, output_ratio = task
     torch.set_num_threads(threads)
     problem, model = subset_a_problem(lam)
+    rate = rates(model, eta, output_ratio)
     theta = torch.as_tensor(model.init(INIT_SEED))
     losses = np.empty(steps)
     states = []
@@ -124,7 +125,7 @@ def sweep_one(task):
     for t in range(steps):
         value, gradient = problem.loss_and_grad(theta)
         losses[t] = float(value)
-        theta = theta - eta * gradient
+        theta = theta - rate * gradient
         if not torch.isfinite(theta).all() or float(theta.norm()) > 1e8:
             return {"eta": eta, "status": "divergent", "diverged_at": t, "losses_tail": losses[max(0, t - 64):t + 1].tolist()}
         if t >= steps - tail:
@@ -145,7 +146,8 @@ def sweep_one(task):
            "d2_tail_first": float(d2_series[0]), "loss_last": float(losses[-1]),
            "loss_tail_std": float(losses[-tail:].std()), "theta_norm": norm, "seconds_per_step": seconds}
     if status in ("period2", "other"):
-        path = OUT / "sweep" / f"state-lam{lam:g}-eta{eta:.6g}.npy"
+        tag = "" if output_ratio == 1.0 else f"-ratio{output_ratio:g}"
+        path = OUT / "sweep" / f"state-lam{lam:g}{tag}-eta{eta:.6g}.npy"
         path.parent.mkdir(parents=True, exist_ok=True)
         np.save(path, s[-1])
         np.save(path.with_name(path.stem + "-losses.npy"), losses[-min(steps, 20000):])
@@ -155,15 +157,26 @@ def sweep_one(task):
 
 def cmd_sweep(args):
     etas = np.geomspace(args.eta[0], args.eta[1], args.count)
-    tasks = [(args.lam, float(e), args.steps, args.tail, args.threads) for e in etas]
+    tasks = [(args.lam, float(e), args.steps, args.tail, args.threads, args.output_ratio) for e in etas]
     with ProcessPoolExecutor(args.workers) as pool:
         rows = list(pool.map(sweep_one, tasks))
     (OUT / "sweep").mkdir(parents=True, exist_ok=True)
-    name = OUT / "sweep" / f"sweep-lam{args.lam:g}-{args.eta[0]:.4g}-{args.eta[1]:.4g}.json"
+    tag = "" if args.output_ratio == 1.0 else f"-ratio{args.output_ratio:g}"
+    name = OUT / "sweep" / f"sweep-lam{args.lam:g}{tag}-{args.eta[0]:.4g}-{args.eta[1]:.4g}.json"
     name.write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
     for r in rows:
         print(json.dumps({k: (round(v, 8) if isinstance(v, float) else v) for k, v in r.items()
                           if k not in ("state", "losses_tail")}), flush=True)
+
+
+def rates(model, eta, output_ratio=1.0):
+    """Scalar rate, or per-parameter rates with the output layer at output_ratio x eta."""
+    if output_ratio == 1.0:
+        return eta
+    hidden = model.sizes[0] + model.sizes[1]
+    vector = torch.full((model.n_parameters,), float(eta), dtype=torch.float64)
+    vector[hidden:] = float(eta) * float(output_ratio)
+    return vector
 
 
 def certify(problem, theta, eta, tol=1e-11):
@@ -192,7 +205,7 @@ def cmd_orbit(args):
     started = time.perf_counter()
     stable = None
     for _ in range(args.max_steps):
-        eta = 10.0 ** log_eta
+        eta = rates(model, 10.0 ** log_eta, args.output_ratio)
         if len(previous) == 2:  # secant predictor in log eta
             theta = previous[-1] + (previous[-1] - previous[-2])
         theta, history, separation = certify(problem, theta, eta)
@@ -223,8 +236,9 @@ def cmd_orbit(args):
         theta_lo = stable[1]
         while hi - lo > args.bisect_tol:
             mid = 0.5 * (lo + hi)
-            theta_mid, history, separation = certify(problem, theta_lo, 10.0 ** mid)
-            multipliers = cifar.two_step_multipliers(problem, theta_mid.numpy(), 10.0 ** mid, k=args.k)
+            eta_mid = rates(model, 10.0 ** mid, args.output_ratio)
+            theta_mid, history, separation = certify(problem, theta_lo, eta_mid)
+            multipliers = cifar.two_step_multipliers(problem, theta_mid.numpy(), eta_mid, k=args.k)
             top, kind = classify(multipliers)
             if abs(top) < 1.0:
                 lo, theta_lo, stable = mid, theta_mid, (mid, theta_mid, multipliers)
@@ -249,7 +263,7 @@ def cmd_circle(args):
     folder.mkdir(parents=True, exist_ok=True)
     base = torch.as_tensor(np.load(args.state))
     n = base.numel()
-    eta0 = 10.0 ** args.log10_eta_crossing
+    eta0 = rates(model, 10.0 ** args.log10_eta_crossing, args.output_ratio)
     t1 = problem.update(base, eta0)
 
     def matvec(v):
@@ -267,7 +281,7 @@ def cmd_circle(args):
     random_dirs = np.linalg.qr(rng.normal(size=(n, 64)))[0]
     rows = []
     for offset in args.offsets:
-        eta = 10.0 ** (args.log10_eta_crossing + offset)
+        eta = rates(model, 10.0 ** (args.log10_eta_crossing + offset), args.output_ratio)
         theta = base + args.kick * torch.as_tensor(plane[:, 0])
         losses = np.empty(args.steps)
         proj_plane, proj_random = [], []
@@ -339,7 +353,9 @@ def main():
     sweep.add_argument("--tail", type=int, default=64)
     sweep.add_argument("--workers", type=int, default=4)
     sweep.add_argument("--threads", type=int, default=4)
+    sweep.add_argument("--output-ratio", type=float, default=1.0, help="output-layer rate / hidden-layer rate")
     orbit = sub.add_parser("orbit")
+    orbit.add_argument("--output-ratio", type=float, default=1.0)
     orbit.add_argument("--lam", type=float, required=True)
     orbit.add_argument("--eta", type=float, required=True)
     orbit.add_argument("--state", required=True)
@@ -349,6 +365,7 @@ def main():
     orbit.add_argument("--k", type=int, default=6)
     orbit.add_argument("--threads", type=int, default=16)
     circle = sub.add_parser("circle")
+    circle.add_argument("--output-ratio", type=float, default=1.0)
     circle.add_argument("--lam", type=float, required=True)
     circle.add_argument("--state", required=True, help="orbit point at the crossing")
     circle.add_argument("--log10-eta-crossing", type=float, required=True)
