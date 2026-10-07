@@ -646,3 +646,39 @@ _commit `36814781fc5a` (dirty worktree)_
 Rotation number of the first quasi-periodic cell vs the period-2 orbit's two-step multiplier angle at the Neimark-Sacker point: S2 output -0.0856: 0.21807 vs 0.21816; S2 output -0.30: 0.16976 vs 0.17009 (angle interpolated from the traced curve); S1R output 0.9413: 0.13217 vs 0.13218. Stream summary written to docs/explore-consequence-2026-10-07.md.
 
 _commit `73e55461d873` (dirty worktree)_
+
+## 2026-10-07 22:26 UTC: run (exploratory)
+
+- **Question:** Controls for the minimal-model scan: does the pipeline type an engineered gradient-map Neimark-Sacker correctly and find a supercritical setting; does the two-parameter factorization model's 2-cycle ever have a complex dominant pair (D < 0)?
+- **Setup:** Engineered planar gradient map with prescribed 2-cycle and two-step derivative r R_phi (phi/2pi = 0.13), r from 0.95, criticality probes at r = 1.002 and 1.008 for kappa in {-1, -0.2, 0, 0.2, 1}; factorization model (uv, ridge 0.1) 2-cycle continued along the u-rate axis at 8 v-rates, D = (tr M)^2 - 4 det M along each branch
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/controls.json`
+- **Would surprise us:** Engineered crossing not typed Neimark-Sacker at r = 1 with theta/2pi = 0.13; any D < 0 on the factorization branches
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_model.py controls`
+
+_commit `93bb78c7a8e4`_
+
+- run started 2026-10-07 22:26 UTC finished 22:27 UTC with exit status 0
+
+## 2026-10-07 22:27 UTC: run (exploratory)
+
+- **Question:** Rerun the minimal-model controls with the largest complex-multiplier modulus recorded on the factorization branches
+- **Setup:** Same controls as the previous card, plus max |mu| while D < 0 on each factorization branch
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/controls.json`
+- **Would surprise us:** A factorization branch whose complex pair reaches the unit circle (would be a Neimark-Sacker missed by ray typing)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_model.py controls`
+
+_commit `0630f7d06fcf` (dirty worktree)_
+
+- run started 2026-10-07 22:27 UTC finished 22:29 UTC with exit status 0
+
+## 2026-10-07 22:29 UTC: run (exploratory)
+
+- **Question:** In the coupled four-weight model, how does the edge-of-stability 2-cycle lose stability across mode coupling c, ridge and rate ratio; does any case reach Neimark-Sacker?
+- **Setup:** L = 1/2 z^T C z - d^T z + lam/2 |theta|^2, z = (a1 b1, a2 b2), d = C z* + lam (z* = (1, 0.5)); c in {0, 0.3, 0.6, 0.9}, lam in {0.05, 0.2}, eta_b/eta_a = 2^(k/2), k = -3..4; start 0.2-10% past the fixed-point flip, follow the 2-cycle up to 10^1.5 x the start rate (h0 0.002 decades, bisection 1e-10)
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/grid.json`
+- **Would surprise us:** Any Neimark-Sacker at c = 0 (decoupled modes should reproduce the factorization model's flips)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_model.py grid --workers 4`
+
+_commit `0630f7d06fcf` (dirty worktree)_
+
+- run started 2026-10-07 22:29 UTC finished 22:29 UTC with exit status 0
