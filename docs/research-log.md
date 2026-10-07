@@ -805,3 +805,21 @@ _commit `3643f44fe7cd` (dirty worktree)_
 _commit `86b82e833c25` (dirty worktree)_
 
 - run started 2026-10-07 22:45 UTC finished 22:45 UTC with exit status 0
+
+## 2026-10-07 22:46 UTC: run (exploratory)
+
+- **Question:** POST HOC: where and how does window S2-28011:139's period-10 branch end along the directions towards the tracked tongue?
+- **Setup:** existence continuation from the window's certified orbit towards the 4 nearest tracked tongue points, bisection 1e-9
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/window-edges-right/window-edges.json`
+- **Would surprise us:** Not applicable (post hoc)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry_window_edges.py --branch-name branch-right --name window-edges-right`
+
+_commit `b84bf355a363` (dirty worktree)_
+
+- run started 2026-10-07 22:46 UTC finished 22:46 UTC with exit status 0
+
+## 2026-10-07 22:47 UTC: Ancestry 1/5 outcome for S2-28011:139: not established under frozen rules; tongue rooted at the predicted point post hoc; connection not achieved
+
+Frozen outcomes: controls valid (positive pass, displaced root and logistic window alternative_ancestry). Right root: onset criteria (1)-(3) pass; attempt 1 exhausted_budget; attempt 2 alternative_ancestry because the all-level linear extrapolation of the locked-interval centre is 1.53e-4 decades (tolerance 1e-4), while widths shrink (ratios to 8.17 vs asymptote 8), amplitude ratio 51 and the deepest centre is 2.5e-5 from the root. Left root: supercriticality criterion failed as frozen (exponent 0.83) and no locked cell at the top level (no_qualifying_window). Connection from the right-root tongue to the window: exhausted_budget (left edge lost near log10 hidden 1.85, heading turned, continuation failure at step 29). Post hoc: asymptotic-level fits put the tongue centre at the root within 1.6e-6 to 1.6e-5 decades with width and amplitude exponents 1.518 and 0.513; the window's own branch ends at folds 0.10-0.22 decades towards the tracked tongue; a left-root probe at delta 0.0008 found no locked cell. Interpretation: a 1/5 Arnold tongue is attached to the predicted resonance point (post hoc), but window 139 is not shown to belong to it. Separate exploratory 2/9 case to follow; it does not substitute for this result.
+
+_commit `f26a8868cc1c` (dirty worktree)_
