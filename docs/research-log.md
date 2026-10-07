@@ -354,3 +354,19 @@ _commit `f0e059e5a220` (dirty worktree)_
 _commit `f0e059e5a220` (dirty worktree)_
 
 - run started 2026-10-07 21:02 UTC finished 21:32 UTC with exit status 0
+
+## 2026-10-07 21:33 UTC: run (exploratory)
+
+- **Question:** Real-data continuation of the period-2 orbit that gradient descent reaches from its initialization, weight decay 1e-3: starting at log10 eta -0.42, how does it lose stability as eta grows, and does the boundary match the onset of slow loss modulations near -0.37?
+- **Setup:** Seed 28101, 64-8-1, n=1024 halves, ridge 1e-3; 60,000 settling updates from the initialization at log10 eta -0.42; period 2 certified by Newton even if the screen misses it; continuation up to +0.2 in log10 eta, h0 0.002, bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/continue-0.42`
+- **Would surprise us:** A fold or flip boundary instead of Neimark-Sacker, or a boundary far from -0.37
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py continue --ridge 1e-3 --start -0.42 --period 2 --steps 60000 --s-max 0.2 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/continue-0.42`
+
+_commit `fc4a3584d247` (dirty worktree)_
+
+## 2026-10-07 21:33 UTC: Real-data branch, weight decay 1e-3: the sharp L-BFGS minimum's period-2 orbit ends in a fold, not Neimark-Sacker
+
+Polished minimum: gradient norm 8e-16, loss 0.0412, lambda_max 23.64, lambda_min 3.9e-4, so the flip sits at eta 0.0846 (log10 -1.0727). The period-2 orbit seeded at 1.01 x eta_flip (Newton-certified despite a two-step gap of 6e-8 after 20,000 updates) stays attracting along 30 continuation points and loses stability at log10 eta -0.8952 with dominant multiplier +0.99999990 (real): a fold of the period-2 orbit. This minimum is much sharper than where gradient descent from the initialization settles at these rates, so the result speaks to this branch only.
+
+_commit `fc4a3584d247` (dirty worktree)_
