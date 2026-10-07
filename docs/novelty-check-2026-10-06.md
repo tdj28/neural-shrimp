@@ -69,3 +69,34 @@ and Yun (NeurIPS 2023); Altintas, Kwok, Raffel, Rolnick (ICML 2025); Summers
 and Dinneen (ICML 2021); Cohen, Damian et al., Central Flows (ICLR 2025,
 arXiv:2410.24206v2); van der Maas, Verschure, Molenaar, Neural Networks 3:119
 (1990), doi:10.1016/0893-6080(90)90050-U; Lai and Grebogi, PRL 83:2926 (1999).
+
+## Addendum, 7 October 2026: quasi-periodicity and phase locking in optimizer maps
+
+A second delegated check (generic queries only) asked whether quasi-periodic
+training, Neimark-Sacker bifurcations, Arnold tongues, devil's staircases or
+torus-breakdown routes had been reported for optimizers acting on losses.
+
+| Item | Verdict |
+|---|---|
+| Neimark-Sacker of the edge-of-stability 2-cycle | Partly anticipated: Hofmann (arXiv:2607.04993, Prop. 16, "rotational edge") derives complex unstable multipliers of an aligned 2-cycle in a two-mode depth-2 linear network and a persistently misaligned oscillatory state; no invariant-circle check or rotation number. Bock and Weiss (ICANN 2019) informally label an Adam "Hopf" bifurcation |
+| Quasi-periodic training (invariant circles, rotation numbers) | Novel for optimizer-on-loss maps; only loose uses of "quasiperiodic" in ML papers |
+| Phase locking / Arnold tongues in hyperparameter planes | Novel for gradient descent, heavy-ball and Adam; documented in learning-in-games maps (Metaxas and Sapsis, arXiv:2606.29967; Umezuki 2018; Goll, Barfuss and Heitzig 2026) |
+| Devil's staircase / Farey ordering | Novel. Goujaud, Taylor and Dieuleveut (Math. Program. 2025; open problem arXiv:2502.19916) find heavy-ball cycles rotating by 1/K and ask about fractional K, a natural rotation-number question |
+| Torus-breakdown routes in training | Novel; the ML literature reports period doubling, Li-Yorke or fractal chaos, and intermittency hints |
+
+Structural notes from the check (the agent's own algebra; to be verified
+before use): at a gradient-descent fixed point the Jacobian `I - eta H` is
+symmetric, so multipliers are real and Neimark-Sacker is impossible there; it
+needs an orbit of period at least 2 in dimension at least 2. One-dimensional
+heavy-ball has constant Jacobian determinant below one, which excludes
+invariant closed curves.
+
+Classical references to verify for the mechanism: Arnold 1961/1965 (circle
+maps); Aronson, Chory, Hall and McGehee, CMP 83:303 (1982); Jensen, Bak and
+Bohr, PRL 50:1637 (1983) and PRA 30:1960/1970 (1984); Kaneko, PTP 69:1427
+(1983) and 71:1112 (1984); Curry and Yorke, LNM 668:48 (1978); Afraimovich and
+Shilnikov (AMS Transl. 1991); Ruelle and Takens (1971); Newhouse, Ruelle and
+Takens (1978); Ostlund, Rand, Sethna and Siggia, Physica D 8:303 (1983);
+Gallas, Physica A 202:196 (1994); Schilder and Peckham, J. Comput. Phys.
+220:932 (2007); Freire, Poschel and Gallas, EPL 100:48002 (2012); Kuznetsov
+and Meijer, Numerical Bifurcation Analysis of Maps (2019).
