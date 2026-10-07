@@ -1,12 +1,13 @@
 # Human approvals for paid Pro consults
 
 Each paid request needs its own explicit human approval (canonical integrity
-skill, section 7A). Costs are recorded cumulatively below.
+skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
+(Skills.md, human directive of 7 October 2026).
 
-## 2026-10-07: two consults, total budget $15 (raised to $20)
+## 2026-10-07: two consults
 
-- **Approval (human, in session, 7 October 2026):** "you have go on the gpt pro
-  review, budget up to $15" and "please also consult gpt pro on your research
+- **Approval (human, in session, 7 October 2026):** go-ahead for the Pro
+  review with a human-set budget (amount in the private cost ledger), and "please also consult gpt pro on your research
   roadmap in including the runpod plan, and I'll approve runpod once we get
   that cleared."
 - **Scope:** (1) research-strategy consult on the three mechanism questions
@@ -14,40 +15,40 @@ skill, section 7A). Costs are recorded cumulatively below.
   review of the research roadmap including the RunPod plan. One generating
   request each; a retry or second pass needs new approval.
 - **Model and mode:** `gpt-6-astra`, Pro mode, rates verified against the
-  official pricing page on 2026-10-07 ($10 input, $12.50 cache write, $50 output
-  per million tokens). Client: `../agent-skill-documents/scripts/review_experiment_plan.py`
+  official pricing page on 2026-10-07 (rates in the private cost ledger). Client: `../agent-skill-documents/scripts/review_experiment_plan.py`
   at the commit recorded in `docs/skill-provenance.json`.
 - **Major milestone:** mechanism pivot of Program C (the quasi-periodic route
   to chaos replaces shrimps as the central claim) and the costed plan for
   paid compute.
-- **Ceiling:** $15 total across both requests, raised by the human to $20 on
-  7 October 2026 ("consult budget up to $20 if you need more let me know");
-  each request's preflight authorization at most $5 (client hard ceiling).
+- **Ceiling:** a human-set total for consults (raised once on 7 October 2026);
+  amounts in the private cost ledger; each request also passes the client's
+  preflight authorization guard.
 
-| Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
-|---|---|---|---|---|
-| (1) mechanism strategy | $3.25 | $3.02 | $1.55 (31,129 in / 24,797 out tokens) | $1.55 |
-| (2) roadmap and RunPod plan (Pro, xhigh effort, 40k output) | $4.75 | $4.50 | $1.58 (31,924 in / 25,276 out tokens) | $3.13 |
+| Request | Mode | Usage | Cost |
+|---|---|---|---|
+| (1) mechanism strategy | Pro, high effort, 25k output | 31,129 in / 24,797 out tokens | see private cost ledger |
+| (2) roadmap and RunPod plan | Pro, xhigh effort, 40k output | 31,924 in / 25,276 out tokens | see private cost ledger |
 
 ## 2026-10-07: third consult (references)
 
 - **Approval (human, in session, 7 October 2026):** "also ask pro if we are
   missing references, but that can be a third consult if needed i'm good for
-  the cost", within the $20 consult ceiling recorded above.
+  the cost", within the consult ceiling recorded above.
 - **Scope:** one `research-note-scientific` review of the working manuscript
   (`paper/gd-route/main.tex` with `references.bib` as context), emphasizing
   reference coverage. The model has no browsing: every suggested reference is
   verified at its primary source (arXiv or Crossref) before use.
 
-| Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
-|---|---|---|---|---|
-| (3) references (Pro, xhigh effort, 34k output) | $5.00 | $4.96 | $2.24 (64,080 in / 32,023 out tokens) | $5.37 |
+| Request | Mode | Usage | Cost |
+|---|---|---|---|
+| (3) references | Pro, xhigh effort, 34k output | 64,080 in / 32,023 out tokens | see private cost ledger |
 
 ## 2026-10-07: RunPod Phase 0 approved
 
 - **Approval (human, in session, 7 October 2026):** "you have go on runpods",
-  in reply to the request for Phase 0 at most $5 within the program frame
-  (hard ceiling $150, check-in $75) recommended by the roadmap review.
+  in reply to the request for a capped Phase 0 within the program frame
+  (hard ceiling and check-in amounts in the private cost ledger) recommended
+  by the roadmap review.
 - **Scope:** Phase 0 only (port the CUDA engine to sm_90, parity check against
   the CPU reference, timing of the real workloads); Phase 1 returns to the
   human with measured costs after the design freeze.

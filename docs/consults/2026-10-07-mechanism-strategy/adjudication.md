@@ -3,7 +3,7 @@
 - **Request:** `brief.md` in this folder, review kind `research-strategy`, model
   `gpt-6-astra` (Pro mode, high effort), response `resp_041696ed48f741a4016ac6c0af241487d09034ab2bfc3f198a`,
   status completed. Usage: 31,129 input and 24,797 output tokens (16,449
-  reasoning). Conservative cost $1.55. Raw request, response, extracted review
+  reasoning). Cost: see private ledger. Raw request, response, extracted review
   and hashed manifest: `../neural-shrimp-data/consults/2026-10-07-mechanism-strategy/execute-001/`.
 - **Standing:** advisory design input from one frontier model, not independent
   verification (integrity skill, section 7A). The human researcher remains the
