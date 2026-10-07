@@ -44,35 +44,40 @@ preprint. Verify numbers against the released receipts before relying on them.\\
 \begin{abstract}
 Full-batch gradient descent with a large learning rate can oscillate, cycle or behave chaotically instead of
 settling. Trainability maps over learning-rate planes record a binary convergent-or-divergent label, which
-conflates these dynamical regimes. We resolve the dynamics behind such maps in two small tanh networks trained
-with separate learning rates for their two layers, and we organize the results around one thesis: beyond the edge
-of stability, the period-2 oscillation gives way to quasi-periodic training and phase-locked periodic windows.
+conflates these dynamical regimes. We resolve the dynamics behind such maps and organize the results around one
+thesis: beyond the edge of stability, the period-2 oscillation gives way to quasi-periodic training and
+phase-locked periodic windows.
 
-(1) Confirmed in a prospectively designed and independently audited study: the learning-rate planes contain
-\nConfirmed{} numerically certified attracting periodic orbits of the full parameter-space update map, with
-periods from \nPeriodMin{} to \nPeriodMax{}, whose domains are surrounded mainly by rerun-confirmed chaos. In six
-coarse maps, \pNotFixedMin{} to \pNotFixedMax{} of the cells that a published binary convergence score labels
-convergent were not classified as fixed points after \nUpdates{} updates.
+(1) Confirmed in a prospectively designed, independently audited study of two small tanh networks with separate
+learning rates for their two layers: the learning-rate planes contain \nConfirmed{} numerically certified
+attracting periodic orbits (periods \nPeriodMin{} to \nPeriodMax{}) embedded in rerun-confirmed chaos, and
+\pNotFixedMin{} to \pNotFixedMax{} of the cells a published binary convergence score labels convergent were not
+classified as fixed points after \nUpdates{} updates.
 
-(2) Exploratory: on all \nNSCrossings{} traced slices that start on the edge-of-stability period-2 orbit, that
-orbit loses stability as a complex pair of two-step multipliers crosses the unit circle, a Neimark--Sacker
-candidate. On one slice the crossing angle is \xBirthAtSlice{} turns per two steps and the first quasi-periodic
-cell rotates at \xRhoOnset{}. Of \nWOConfRefinedOf{} eligible windows, \nWOConfRefined{} pass a Birkhoff ordering
-test of their projected orbits, against at most \xWOConfRefinedNull{} expected by chance. Only \nDraftShrimp{} of
-\nConfirmed{} windows meet draft criteria for classical shrimp anatomy.
+(2) Exploratory: the edge-of-stability period-2 orbit loses stability along a traced curve where a complex pair of
+two-step multipliers crosses the unit circle. The first Lyapunov coefficient is negative (supercritical) at
+\nCritSuper{} of \nCritPoints{} points, and in \nDynConsistent{} of \nDynChecks{} dynamical checks the behaviour
+matches its sign. Just beyond the curve the measured rotation number equals the crossing angle to a median
+$\xContMedianMain$ and $\xContMedianRight$ in two maps. The same crossing appears in a 529-parameter network trained
+on handwritten digits with one learning rate (predicted rotation \xRDPredicted{}, measured \xRDMeasured{}), and in
+the two-mode linear network whose rotational edge was derived by Hofmann, where it is supercritical with locked
+windows beyond it.
 
-Takeaway: the region that a binary map calls trainable holds certified periodic windows inside chaos, and
-exploratory evidence ties them to quasi-periodic training born where the period-2 orbit acquires complex
-multipliers. The claim we test next is local: a period-2 branch undergoes an attracting Neimark--Sacker
-bifurcation and a rule-selected window is connected to its resonance by continuation. Nothing here concerns
-stochastic or large-scale training or establishes a training benefit.
+(3) Not established: under frozen rules, the ancestry test of a rule-selected window returned
+``\tAncOutcome'' (post hoc, its locked region narrows with exponents \xAncWidthSlope{} and \xAncAmpSlope{}, against
+1.5 and 0.5 for a resonance tongue); locking was not resolved in the real-data network; and locking and rotation
+features added no robust predictive value beyond the Lyapunov exponent and sharpness.
+
+Takeaway: the local Neimark--Sacker prediction is supported in these models; that the periodic windows descend
+from its resonances is not yet established. Nothing here concerns stochastic or large-scale training or
+establishes a training benefit.
 \end{abstract}
 
 \noindent\textbf{Study status.} Results labeled \confirmedlabel{} come from the map study of
 Section~\ref{sec:confirmed}, whose design, thresholds and analysis were pushed before outcomes and repeated by an
-independent audit. Results labeled \exploratorylabel{} (Section~\ref{sec:route}) were found while exploring and
-have not been tested on held-out networks. Provenance for every figure and number is described in
-Section~\ref{sec:repro}.
+independent audit. Results labeled \exploratorylabel{} (Section~\ref{sec:route}) were found while exploring; some
+used acceptance rules frozen before the run, and we say so where they did. Provenance for every figure and number
+is described in Section~\ref{sec:repro}.
 
 \section{Introduction}
 \label{sec:intro}
@@ -88,58 +93,60 @@ record whether the loss falls and stays bounded, not what the parameters do.
 
 We ask what the dynamics inside such maps are. We treat full-batch gradient descent with separate learning rates
 for the hidden and output layers as a two-parameter family of maps on parameter space. For every cell of a
-learning-rate grid we screen the parameter state at the end of a long run (fixed point, periodic orbit with its
-period, chaos, drift, divergence), certify selected periodic orbits with Newton's method on the exact Jacobian,
-and follow orbits and their stability boundaries through the plane.
+learning-rate grid we screen the parameter state at the end of a long run, certify selected periodic orbits with
+Newton's method on the exact Jacobian, and follow orbits and their stability boundaries through the plane.
 
 \paragraph{Thesis and status.} We organize the results around one thesis: beyond the edge of stability, the
 period-2 oscillation gives way to quasi-periodic training on an invariant circle, rational rotation numbers lock
 into periodic windows, and the windows of the learning-rate plane are largely these locked orbits. Each result
 below says exactly what passed. The certified windows and the comparison with the binary score are confirmed.
-The complex-pair crossings, rotation numbers, ordering tests and staircases are exploratory; we call the crossings
-Neimark--Sacker candidates until transversality, nondegeneracy and an attracting invariant circle are documented.
-The claim we will test on held-out networks is local and existential: in specified finite tanh networks under
-deterministic full-batch gradient descent in float64, a period-2 branch undergoes an attracting Neimark--Sacker
-bifurcation and a rule-selected window is connected to the corresponding resonance by continuation.
+Exploratory analyses support the local part of the thesis: the period-2 orbit acquires complex multipliers along
+a curve, the crossing is supercritical on most of it with dynamics that match the normal form, quasi-periodic
+training starts with a rotation equal to the crossing angle, and the same crossing appears in a real-data network
+and in a linear network. The global part is not established: a frozen test did not confirm that a rule-selected
+window descends from its resonance, and no prespecified path into sustained chaos has been tested. We call the
+crossings Neimark--Sacker candidates except where the nondegeneracy coefficient and dynamical checks were computed.
 
 \paragraph{Prior work.} Periodic windows, period doubling, positive Lyapunov exponents and broadband power
 spectra in learning dynamics, with the learning rate as bifurcation parameter, date back at least to
 \citet{vandermaas1990}, who studied a three-unit autoassociator. Their delay-embedded chaotic attractors are thin
 folded curves, effectively one-dimensional chaos of the period-doubling kind, unlike the invariant circles of the
-two-step map studied here. Period-colored maps over optimizer
-hyperparameters have been drawn from a two-dimensional projection of the error, without full-state verification
-\citep{sveleba2026}. \citet{hofmann2026} studies finite-step gradient descent as a dynamical system in solvable
-models: the edge of stability as the first (flip) bifurcation of the training map, the period-doubling route with
-windows, and, in a two-mode depth-two linear network, a ``rotational edge'' beyond which the unstable multipliers
-of the aligned 2-cycle are complex and the system saturates in a persistently misaligned oscillatory state. Our
-analysis starts where that result stops: we ask whether such a crossing produces quasi-periodic training whose
-rotation is set by the crossing multiplier, and whether periodic windows are its resonances. Riddled basins and
-learning-rate-dependent reproducibility are documented by \citet{ly2025}. Invariant curves and phase-locking Arnold
-tongues appear in a multiplicative-weights learning rule for population games \citep{metaxas2026}, and chaos in
-learning a two-person game goes back to \citet{sato2002}; both concern games rather than descent on one loss.
-Heavy-ball momentum has cycles that rotate by $1/K$ \citep{goujaud2025}.
+two-step map studied here. Period-colored maps over optimizer hyperparameters have been drawn from a
+two-dimensional projection of the error, without full-state verification \citep{sveleba2026}. \citet{hofmann2026}
+studies finite-step gradient descent as a dynamical system in solvable models: the edge of stability as the first
+(flip) bifurcation of the training map, the period-doubling route with windows, and, in a two-mode depth-two linear
+network, a ``rotational edge'' beyond which the unstable multipliers of the aligned 2-cycle are complex and the
+system saturates in a persistently misaligned oscillatory state. The edge is Hofmann's result; we show, in that
+model and in nonlinear networks, what lies beyond it: a supercritical Neimark--Sacker bifurcation with an invariant
+circle whose rotation is set by the crossing angle, and locking. Riddled basins and learning-rate-dependent
+reproducibility are documented by \citet{ly2025}. Invariant curves and phase-locking Arnold tongues appear in a
+multiplicative-weights learning rule for population games \citep{metaxas2026}, and chaos in learning a two-person
+game goes back to \citet{sato2002}; both concern games rather than descent on one loss. Heavy-ball momentum has
+cycles that rotate by $1/K$ \citep{goujaud2025}.
 
 \paragraph{This paper's contribution.}
 \begin{itemize}
-\item Confirmed: a period-resolved description of the learning-rate plane of full-batch gradient descent in two
-small networks, with \nConfirmed{} certified attracting windows embedded in chaos, repeated by an independent audit.
-\item Confirmed: a cell-by-cell comparison with the published binary convergence score, which conflates
-fixed points, periodic orbits, chaos and drift.
-\item Exploratory: complex-pair crossings of the period-2 orbit along a traced curve, rotation numbers of the
-quasi-periodic training that follows, a Birkhoff ordering test of the windows against a null, and rotation-number
-staircases.
-\item Code, receipts and a verification script that re-derive every figure and number.
+\item Confirmed: \nConfirmed{} certified attracting windows embedded in chaos in the learning-rate planes of two
+small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
+score conflates fixed points, periodic orbits, chaos and drift.
+\item Exploratory, local mechanism: a traced curve of complex-pair crossings of the period-2 orbit; its first
+Lyapunov coefficient, generalized Neimark--Sacker points and dynamical checks; rotation-number maps in which
+quasi-periodic training begins at the crossing angle.
+\item Exploratory, generality: the same crossing with a quantitatively predicted rotation in a real-data network
+with one learning rate; a supercritical Neimark--Sacker bifurcation with locking beyond the rotational edge of a
+linear network; coexisting period-2 branches with their own crossings in a 72-parameter network.
+\item Reported negatives: a frozen ancestry test that did not pass; no locking resolved in the real-data network;
+no robust incremental value of rotation information for reproducibility or loss.
+\item Code, receipts and a verification script that re-derive every figure, table and number.
 \end{itemize}
 
 \paragraph{Not claimed.}
 \begin{itemize}
-\item No Neimark--Sacker bifurcation in the strict sense: transversality, nondegeneracy and an attracting
-invariant circle are not yet documented.
 \item No route to chaos: no prespecified connected path through sustained chaos has been tested.
-\item No proof that the windows are Arnold tongues: the Birkhoff test is a diagnostic of projected orbits, and
-resonance ancestry is pending.
-\item No claim about stochastic, minibatch or large-scale training, other architectures or real data, and no
-training benefit.
+\item No proof that the windows are Arnold tongues: the Birkhoff test is a diagnostic of projected orbits, and the
+frozen ancestry test did not pass.
+\item No claim about stochastic, minibatch or large-scale training, or other architectures and data beyond those
+shown, and no training benefit.
 \end{itemize}
 
 \section{Gradient descent as a family of maps}
@@ -156,8 +163,10 @@ a family of maps indexed by the two rates $(\eta_h,\eta_o)$. Its Jacobian is $DF
 with $H$ the Hessian of $L$. An orbit of period $p$ is stable when all eigenvalues (multipliers) of
 $DF(\theta_{p-1})\cdots DF(\theta_0)$ lie inside the unit circle. Generically it loses stability when a
 multiplier crosses the circle: at $+1$ (fold), at $-1$ (flip, which doubles the period) or as a complex pair
-$e^{\pm 2\pi i\omega}$ (Neimark--Sacker, which under transversality and nondegeneracy conditions creates an
-invariant closed curve) \citep{kuznetsov2019}.
+$e^{\pm 2\pi i\omega}$ (Neimark--Sacker). Under transversality and a nonzero first Lyapunov coefficient $d$, a
+Neimark--Sacker bifurcation creates an invariant closed curve: attracting with amplitude growing like the square
+root of the distance beyond the crossing when $d<0$ (supercritical), repelling and present before the crossing
+when $d>0$ (subcritical) \citep{kuznetsov2019}.
 
 \paragraph{Why the candidates start at period 2.} $DF(\theta)$ is similar to the symmetric matrix
 $I - P^{1/2} H P^{1/2}$, so at a fixed point all multipliers are real and a fixed point loses stability by fold or
@@ -170,9 +179,10 @@ multipliers of an edge-of-stability 2-cycle were derived for a two-mode linear n
 
 \paragraph{Circle maps and phase locking.} On an invariant circle the dynamics has a rotation number $\rho$, the
 mean fraction of a turn per iterate. When $\rho = m/q$ is rational the motion can lock onto a periodic orbit; the
-locked parameter sets are Arnold tongues, rotation numbers along a parameter path form a devil's staircase, and
-the widest plateau between two locked rationals is typically their Farey mediant
-\citep{arnold1965,jensen1983,jensen1984}. Breakdown of the circle leads to chaos
+locked parameter sets are Arnold tongues, rooted at the points of the Neimark--Sacker curve where the crossing
+angle is $m/q$, with widths that grow like the distance beyond the curve to the power $(q-2)/2$; rotation numbers
+along a parameter path form a devil's staircase, and the widest plateau between two locked rationals is typically
+their Farey mediant \citep{arnold1965,jensen1983,jensen1984}. Breakdown of the circle leads to chaos
 \citep{curry1978,aronson1982,ostlund1983}. Because the circle in question belongs to the two-step map, a locked
 orbit at rotation $m/q$ has period $2q$ for $F$; this relation is a consequence of the setting, not evidence.
 
@@ -185,10 +195,10 @@ anatomy explicitly rather than assume it.
 
 \input{generated-design-table.tex}
 
-\paragraph{Networks and data.} Table~\ref{tab:design} lists the design. S1 reproduces the published mean-field
-configuration of the fractal-trainability study \citep{sohldickstein2024}; S1R adds weight decay; S2 is a
-13-parameter tanh regressor fitted to points from a random tanh teacher. We refer to a network and seed together,
-for example S2-28011. Training is deterministic full-batch gradient descent in float64.
+\paragraph{Networks and data.} Table~\ref{tab:design} lists the design of the map study. S1 reproduces the
+published mean-field configuration of the fractal-trainability study \citep{sohldickstein2024}; S1R adds weight
+decay; S2 is a 13-parameter tanh regressor fitted to points from a random tanh teacher. We refer to a network and
+seed together, for example S2-28011. Training is deterministic full-batch gradient descent in float64.
 
 \paragraph{Three different quantities.} The published binary score measures loss reduction: a run counts as
 convergent when its loss, normalized by the initial loss and averaged over the last 20 of the first
@@ -224,25 +234,36 @@ primitivity, stability and seed checks; spectral radii agree within $\xAuditMaxR
 ring cells of every qualifying component, recomputed the gate on its own evidence, and found \nAuditMismatched{}
 mismatches among the \nAuditReceiptFiles{} receipt files.
 
-\paragraph{Continuation and boundary type.} From the center of a window, its certified orbit is continued along
-64 rays in the rate plane until it loses stability, located by bisection, and the boundary is typed by the
-crossing multiplier: fold ($+1$), flip ($-1$) or complex pair. We do not check transversality or nondegeneracy,
-so all three types are candidates; we write ``Neimark--Sacker candidate'' for the complex-pair case because the
-thesis rests on it. The same procedure traces where the period-2 orbit loses stability along slices of fixed
-output rate.
+\paragraph{Continuation, boundary type and criticality.} From the center of a window, its certified orbit is
+continued along 64 rays in the rate plane until it loses stability, located by bisection, and the boundary is
+typed by the crossing multiplier: fold ($+1$), flip ($-1$) or complex pair. The same procedure traces where the
+period-2 orbit loses stability along slices of fixed output rate; several traces are merged into one curve. At each
+point of that curve we compute the first Lyapunov coefficient $d$ of the Neimark--Sacker normal form with
+Kuznetsov's formula for $n$-dimensional maps, using the exact dense two-step Jacobian and Richardson-extrapolated
+differences of exact Jacobian-vector products for the higher derivatives; the implementation reproduces the
+explicit planar formula on random planar maps.
 
 \paragraph{Rotation numbers and the Birkhoff test.} For a non-periodic cell we take the two-step samples
 $z_k=\theta_{2k}$, project them on their first two principal axes, and define the rotation number as the mean
-unwrapped angle increment in turns per two steps. For a certified orbit of period $p$ we take its two-step points
-($q=p/2$ points for even $p$, $q=p$ for odd $p$), sort them by angle in their principal plane, and say the orbit
-passes when every step advances the angular rank by the same shift $m$ with $\gcd(m,q)=1$, the ordering of a
-Birkhoff orbit of rotation $m/q$. The number of points $q$, and therefore the relation $p=2q$, is fixed by the
-period; what the test measures is the ordering and the shift. Orbits with 2 or 3 points pass by construction. The
-null is the pass probability of the same test for uniformly random angles; for a group of orbits we report the
-expected number of chance passes. The refined test also orders points along the shortest closed tour through them
-and tests the points of $F^{2^{k+1}}$ ($k=1,2,3$), which can detect orbits born by period doubling inside a
-locked window; it counts only tests on at least 5 points, and its null for each orbit is the sum of the per-test
-pass probabilities (a union bound), so the summed null is an upper bound on the expected number of chance passes.
+unwrapped angle increment in turns per two steps. Rotation-number maps run this on every cell of a grid (float64
+on a GPU, \nUpdates{} screening updates followed by 6{,}000 two-step samples). For a certified orbit of period $p$
+we take its two-step points ($q=p/2$ points for even $p$, $q=p$ for odd $p$), sort them by angle in their principal
+plane, and say the orbit passes when every step advances the angular rank by the same shift $m$ with $\gcd(m,q)=1$,
+the ordering of a Birkhoff orbit of rotation $m/q$. The number of points $q$, and therefore the relation $p=2q$, is
+fixed by the period; what the test measures is the ordering and the shift. Orbits with 2 or 3 points pass by
+construction. The null is the pass probability of the same test for uniformly random angles; for a group of orbits
+we report the expected number of chance passes. The refined test also orders points along the shortest closed tour
+through them and tests the points of $F^{2^{k+1}}$ ($k=1,2,3$), which can detect orbits born by period doubling
+inside a locked window; it counts only tests on at least 5 points, and its null for each orbit is the sum of the
+per-test pass probabilities (a union bound), so the summed null is an upper bound on the expected number of chance
+passes.
+
+\paragraph{Resonance ancestry.} For a window selected by a fixed rule (the $1/5$ window of S2-28011), we locate the
+points of the crossing curve whose angle is $1/5$, check the onset there, and follow the locked period-10 interval
+on six cross-sections at distances $0.0128/4^k$ beyond the curve, finding both of its fold edges on each. Acceptance
+rules were frozen before the network run: controls must pass first; the interval must be fold-bounded on every
+level with shrinking width and amplitude; and a linear fit of its center over all levels must extrapolate to within
+$\xAncTolerance$ decades of the predicted point. A second stage tries to connect the tracked interval to the window.
 
 \section{Periodic windows inside chaotic training}
 \label{sec:confirmed}
@@ -274,52 +295,77 @@ Figure~\ref{fig:binary} compares these dynamics with the published binary score.
 \pNotFixedMin{} to \pNotFixedMax{} of the cells the score labels convergent were not classified as fixed points
 after \nUpdates{} updates; the score's success means the loss fell, not that the parameters settled. Task success
 and non-convergent learning dynamics can coexist: \citet{vandermaas1990} reported that their network performed
-its task across the whole learning-rate range they studied, including where learning was chaotic. The
-published configuration without weight decay (S1) has \nSOnePeriodic{} periodic cells in both seeds: its runs
-diverge, stay chaotic, or drift toward large weights while the loss slowly falls. Adding weight decay makes the
-windows appear.
+its task across the whole learning-rate range they studied, including where learning was chaotic. The published
+configuration without weight decay (S1) has \nSOnePeriodic{} periodic cells in both seeds: its runs diverge, stay
+chaotic, or drift toward large weights while the loss slowly falls. Adding weight decay makes the windows appear.
 
 \section{Exploratory evidence for the thesis}
 \label{sec:route}
 
 \noindent Status: \exploratorylabel{}. The analyses in this section were chosen while exploring and used data
-that shaped the thesis.
+that shaped the thesis, except where frozen acceptance rules are stated.
 
-\subsection{The period-2 orbit acquires complex multipliers: Neimark--Sacker candidates}
+\subsection{Quasi-periodic training begins where the period-2 orbit acquires complex multipliers}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth]{f2_ns_tongue_roots.pdf}
-\caption{\textbf{Along the whole traced curve, the edge-of-stability period-2 orbit loses stability as a complex
-pair of two-step multipliers crosses the unit circle (Neimark--Sacker candidates).} A: periodic cells of a
-$1{,}024\times1{,}024$ map (shade: period), the traced crossing curve (black) and the resonance points where the
-crossing angle equals a rational $m/q$ with $q\le 13$ (orange); tongues would be rooted there if the crossings are
-nondegenerate Neimark--Sacker bifurcations. B: crossing angle along the curve. On \nNSNotPeriodTwoStart{} of
-\nNSSlices{} slices the starting point was not on the period-2 orbit; those slices break the curve. Resonance
-points are interpolated between traced slices, and tongues near their roots are narrower than one map cell.
-\provenance{paper/gd-route/figures/f2\_ns\_tongue\_roots.py}{figures/f2\_ns\_tongue\_roots.provenance.json}}
-\label{fig:ns}
+\includegraphics[width=\linewidth]{f2_rotation_map.pdf}
+\caption{\textbf{Beyond the curve where the period-2 orbit acquires complex multipliers, the rotation number of
+training starts at the crossing angle and varies continuously, and periodic windows appear as plateaus.} A and B:
+rotation-number maps of S2-28011 ($\tMapSizeMain$ and $\tMapSizeRight$ cells) with the merged crossing curve
+(\nMergedPoints{} points, black) and the resonance points where the crossing angle is $m/q$ (filled when locked
+cells of the same rotation lie closer to the point than in 95\% of random placements, hollow otherwise; the 95\%
+level is a descriptive cut); chaotic cells gray, divergent white, period 2 light. C: rotation \xContOffsetMain{}
+decades beyond the curve against the crossing angle at the same output rate. Resonance points are interpolated
+between traced points.
+\provenance{paper/gd-route/figures/f2\_rotation\_map.py}{figures/f2\_rotation\_map.provenance.json}}
+\label{fig:rotmap}
 \end{figure}
 
-We continued the period-2 orbit of S2-28011 toward larger hidden-layer rates along \nNSSlices{} slices of fixed
-output rate. On all \nNSCrossings{} slices that started on it, the orbit loses stability as a complex pair of
-two-step multipliers crosses the unit circle (Figure~\ref{fig:ns}). The crossing curve is U-shaped, with its
-lowest point at $\log_{10}\eta_h = \xNSLowest{}$, and the crossing angle $\omega$ ranges from \xBirthMin{} to
-\xBirthMax{} turns per two steps, passing the resonances \tNSRoots{}.
+We continued the period-2 orbit of S2-28011 toward larger hidden-layer rates and merged several traces into one
+curve of \nMergedPoints{} points along which the orbit loses stability as a complex pair of two-step multipliers
+crosses the unit circle; the crossing angle runs from \xMergedBirthMin{} to \xMergedBirthMax{} turns per two steps.
+Two rotation-number maps cover the region beyond it (Figure~\ref{fig:rotmap}). At \xContOffsetMain{} decades beyond
+the curve, the measured rotation number equals the crossing angle at the same output rate with median absolute
+difference $\xContMedianMain$ over \nContPointsMain{} points in the main map (largest $\xContMaxMain$) and
+$\xContMedianRight$ over \nContPointsRight{} points in the right-wing map (largest $\xContMaxRight$). Of the
+resonance points inside each map, \nRootsNearMain{} of \nRootsInsideMain{} and \nRootsNearRight{} of
+\nRootsInsideRight{} have locked cells of the same rotation nearby; the others lie where the maps show no locked
+region of that rotation. In an independent staircase computation on the slice through the period-18 window, the
+curve places the crossing at $\log_{10}\eta_h = \xNSAtSlice{}$ with angle \xBirthAtSlice{}, and the first
+quasi-periodic cell lies at \xOnsetAtSlice{} with rotation \xRhoOnset{}.
 
-On the slice through the period-18 window, the curve interpolated to that slice places the crossing at
-$\log_{10}\eta_h = \xNSAtSlice{}$ with $\omega = \xBirthAtSlice{}$; in an independent staircase computation the
-first quasi-periodic cell lies at \xOnsetAtSlice{} and rotates at \xRhoOnset{}. Agreement of the rotation number
-with the crossing angle is what a Neimark--Sacker bifurcation predicts, but it does not establish one: the
-transversality of the crossing, the nondegeneracy (first Lyapunov) coefficient and an attracting invariant circle
-with converged residuals remain to be documented.
+\subsection{The crossing is mostly supercritical, and its dynamics match the normal form}
 
-\placeholder{Rotation-number map of the S2-28011 plane overlaid with the crossing curve, testing whether the
-rotation just beyond the curve equals the crossing angle everywhere along it (computation in progress).}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{f7_criticality.pdf}
+\caption{\textbf{The first Lyapunov coefficient is negative on most of the curve, changes sign three times, and
+predicts how the period-2 orbit loses stability.} A: $d$ at every point of the merged curve (symmetric-log axis);
+dashed lines mark sign changes, located to the trace spacing; the strip shows the label of the fixed-start rotation
+maps four cells beyond the curve. B: at supercritical points, the amplitude of the circle reached from near the
+2-cycle against the normal-form prediction, at three offsets beyond the curve. C: at subcritical points, the escape
+threshold before the curve against the offset, with the predicted repelling circle. A point counts as consistent
+when its amplitudes match within 6\% (supercritical), or when the state jumps to an offset-independent distant
+amplitude and the escape threshold grows like the square root of the offset (subcritical).
+\provenance{paper/gd-route/figures/f7\_criticality.py}{figures/f7\_criticality.provenance.json}}
+\label{fig:criticality}
+\end{figure}
 
-\placeholder{Resonance ancestry: continuation of a rule-selected window (the $1/5$ window) through both of its
-fold edges back to the $1/5$ resonance on the crossing curve, with the onset, circle and detuning acceptance rules
-frozen before any confirmation (in progress).}
+At \nCritSuper{} of the \nCritPoints{} curve points the first Lyapunov coefficient is negative, so the crossing is
+supercritical: quasi-periodic training is born continuously (Figure~\ref{fig:criticality}). At \nCritSub{} points,
+at both ends of the curve, it is positive. The sign changes \nChenciner{} times, near $\log_{10}\eta_o$ = \tChenciner{};
+these are generalized Neimark--Sacker (Chenciner) points. In \nDynConsistent{} of \nDynChecks{} dynamical checks the
+behaviour matches the sign: at supercritical points the circle amplitude follows the square-root prediction (median
+relative error \pDynMedianError{}, largest \pDynMaxError{} next to a sign change), and at subcritical points the state
+jumps away beyond the curve while escape thresholds before it grow like the square root of the offset, with
+hysteresis. In the 72-parameter S1R network, \nCritSOneRSuper{} of \nCritSOneR{} traced points are supercritical.
+
+The fixed-start maps show quasi-periodic training beyond the supercritical arc. Where they show divergence just
+beyond the curve, the cause is not the bifurcation: at \nBasinPoints{} curve points the fixed-start map is divergent
+even just below the curve, where the period-2 orbit is stable, and \nBasinSuper{} of those points are
+supercritical, with a small attracting circle reached when training starts near the 2-cycle. The divergent arc of
+the fixed-start maps is a basin effect of the shared initialization, not the bifurcation.
 
 \subsection{States along one slice}
 
@@ -401,6 +447,38 @@ excluded windows have periods \tConfRefinedExcluded{}); \nWOConfRefined{} of the
 under four steps with rotation $2/5$, twice $1/5$. Of the \nWOOddOf{} odd-period windows, \nWOOdd{} pass (null
 \xWOOddNull{}): they did not pass this diagnostic, and their organization is open.
 
+\subsection{Resonance ancestry of a rule-selected window: not established}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{f8_ancestry.pdf}
+\caption{\textbf{Near the predicted $1/5$ resonance point, a fold-bounded locked region narrows with the scaling of
+a resonance tongue, but the frozen estimator places its tip outside the tolerance.} A and B: width and amplitude of
+the locked period-10 interval on six cross-sections against the distance beyond the resonance point, with the
+resonant normal-form control and the theory slopes; the slopes printed are post hoc fits over the three deepest
+levels. C: the frozen estimator (linear fit of the interval's center over all six levels) and its intercept against
+the frozen tolerance, with a post-hoc fit over the deepest three levels; the axes show the deepest three levels.
+\provenance{paper/gd-route/figures/f8\_ancestry.py}{figures/f8\_ancestry.provenance.json}}
+\label{fig:ancestry}
+\end{figure}
+
+The test asks whether the rule-selected $1/5$ window of S2-28011 descends from the $1/5$ resonance of the crossing
+curve. The controls behaved as required: a resonant normal form's $1/5$ tongue \tAncPositive{}, the same branch
+scored against a displaced root \tAncSpecificity{}, and a logistic period-5 window born by a saddle-node
+\tAncNegative{}. At the right $1/5$ resonance point \nAncOnsetRight{} of \nAncOnsetRightOf{} onset criteria passed (complex pair,
+other multipliers inside, transverse crossing, attracting circle with radius exponent \xAncRadiusRight{}, converging
+invariance residual, rotation equal to the crossing angle); at the left point \nAncOnsetLeft{} of
+\nAncOnsetLeftOf{} passed, the radius exponent \xAncRadiusLeft{} lying outside the frozen band.
+
+From the right point, the locked interval has two fold edges on all \nAncLevels{} cross-sections, and its width and
+amplitude shrink toward the point (Figure~\ref{fig:ancestry}). The frozen estimator nevertheless extrapolates the
+center to $\xAncIntercept$ decades from the predicted point, \pAncMargin{} above the tolerance of $\xAncTolerance$,
+so the frozen outcome is \tAncOutcome{}. The connection from the tracked interval to the window ended in
+\tAncConnection{}, and the left point gave \tAncLeft{}. Under the frozen rules, the ancestry of this window is not
+established. Post hoc, and not replacing that outcome: the two shallowest levels lie outside the asymptotic regime,
+and over the three deepest levels the width scales with exponent \xAncWidthSlope{} and the amplitude with
+\xAncAmpSlope{}, against $(q-2)/2 = 1.5$ and $0.5$ for a Neimark--Sacker resonance tongue with $q=5$.
+
 \subsection{Classical shrimp anatomy is the exception}
 
 \begin{figure}[htbp]
@@ -423,9 +501,79 @@ flip and \nWNS{} complex-pair rays; ray and map edges agree within two cells on 
 rays, and \nWFlipTwoP{} of its flip rays open onto period 36. Complex-pair boundaries, absent from classical
 shrimps, are common: \nWindowsNS{} of \nConfirmed{} windows have at least 8 such rays.
 
-\placeholder{Minimal model bridge: the two-mode depth-two linear network of \citet{hofmann2026} beyond its
-rotational edge, testing whether the persistently misaligned oscillatory state is quasi-periodic, with a rotation
-number continuous from the crossing angle, and whether it has locking windows (in progress).}
+\subsection{Beyond these two networks}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{f9_generality.pdf}
+\caption{\textbf{The same crossing, with the rotation predicted by its angle, in a real-data network with one
+learning rate and in Hofmann's two-mode linear network, where it is supercritical with locking beyond the edge.}
+A: rotation number on the circle beyond the crossing of a 529-parameter tanh network on digit images (gray where the
+loop is not star-shaped about its centroid, so the angle estimate is invalid), and the crossing angle (star). B:
+rotation number against the distance beyond the rotational edge for three singular-value ratios, with weight
+decay; locked cells in orange. C: circle amplitude against the distance beyond the edge with and without weight
+decay; exponents are slopes between the two smallest offsets.
+\provenance{paper/gd-route/figures/f9\_generality.py}{figures/f9\_generality.provenance.json}}
+\label{fig:generality}
+\end{figure}
+
+\paragraph{Coexisting branches in S1R.} The 72-parameter S1R network has several coexisting period-2 orbits, each
+with its own loss of stability. Of \nSOneRTraceA{} output rates traced from one start, \nSOneRTraceANS{} end in a
+complex-pair crossing and \nSOneRTraceANotTwo{} starts were not on a period-2 orbit; from a lower start,
+\nSOneRTraceBNS{} of \nSOneRTraceB{} end in a complex-pair crossing, \nSOneRTraceBFold{} in folds, and
+\nSOneRTraceBNotTwo{} starts were not on a period-2 orbit. The two starts often reach different branches with
+different crossing angles.
+
+\paragraph{Real data, one learning rate.} A 64-8-1 tanh network (529 parameters) trained with one global learning
+rate and weight decay on 1{,}024 standardized UCI digit images (two-class task) has a certified period-2 orbit that
+loses stability at $\log_{10}\eta = \xRDCrossing$ with dominant two-step multiplier \tRDMultiplier{}, a complex pair on
+the unit circle. Its angle predicts the rotation of the circle beyond: \xRDPredicted{} turns per two updates,
+against \xRDMeasured{} measured just beyond the crossing on a smooth invariant circle (FTLE \xRDMeasuredFtle{};
+Figure~\ref{fig:generality}A). This is one branch among those examined: of \nRDCertifiedBranches{} certified period-2
+branches continued to their loss of stability, \nRDNSBranches{} ends in a complex-pair crossing and \nRDFoldBranches{}
+in folds, and on a second data subset Newton did not certify a period-2 orbit from \nRDUncertified{} starts. No
+locked window was resolved; at rotations near 0.008 the relevant tongues have very large denominators.
+
+\paragraph{Hofmann's rotational edge is a Neimark--Sacker bifurcation.} In the two-mode depth-two linear network of
+\citet{hofmann2026}, the aligned 2-cycle loses stability at his rotational edge $a(s_1+s_2)=2$, which we reproduce to
+$\xMMEdgeError$ for $s_2/s_1 = 0.7, 0.8, 0.9$, with crossing angles \tMMBirth{} and a transverse crossing
+($d|\mu|/da$ = \tMMTransversality{}). Beyond the edge, training settles on an attracting invariant circle of the
+two-step map. Without weight decay the second mode's minima form a neutral continuum and the circle amplitude grows
+with exponent \tMMSlopeNoWD{}, a degenerate bifurcation; with weight decay 0.01 the exponent is \tMMSlopeWD{}, the
+square-root growth of a supercritical Neimark--Sacker bifurcation, and the rotation number at an offset of
+$\xMMSmallestOffset$ is within $\xMMRotationGap$ of the crossing angle (Figure~\ref{fig:generality}B and C). Beyond
+the edge the rotation locks at \tMMLockedSeven{} for $s_2/s_1 = 0.7$, and at \tMMLockedEight{} in a fine scan at
+$0.8$. The same crossing occurs in the two-weight scalar factorization $\tfrac12(uv-d)^2 + \tfrac12\lambda(u^2+v^2)$
+with $\lambda = 0.2$ and unequal layer rates (crossing angle \xMMTwoWeightAngle{}; the circle amplitude grows by a
+factor \xMMTwoWeightAmpRatio{} for a fourfold offset, close to the square-root value 2), found as one of
+\nMMGridNS{} of \nMMGrid{} cases of a coupled four-weight family that ended in a complex-pair crossing; boundary types
+for two held-out couplings were predicted correctly in \nMMHeldoutCorrect{} of \nMMHeldout{} cases.
+
+\subsection{Consequences for training}
+
+\input{generated-consequence-table.tex}
+
+The regime matters for training, but what it predicts is largely generic (Table~\ref{tab:consequence}). On a slice
+of \nConsCells{} cells through the period-18 window, perturbations of the initial parameters die out on period-2 and
+most locked orbits, persist in proportion to their size on invariant circles, and saturate in chaos; locked windows
+reached through chaotic transients split into runs that reproduce exactly and runs that land on another phase of
+the same cycle. These differences follow the sign of the Lyapunov exponent, transient amplification, oscillation
+amplitude, sharpness and rate. Adding locking and rotation features to a model of those quantities gives an
+incremental $R^2$ whose interval lies above zero for \nConsAbove{} of \nConsOutcomes{} outcomes (the spread over
+anneal start times). In an analysis pooled over two slices with slice-specific slopes, changed after seeing an
+earlier fit and therefore adapted, two locking effects remain: the dose-response of disagreement on the
+perturbation size ($\Delta R^2 = \xDoseGain$, \tDoseGainCI{}) and the spread over anneal start times
+($\xStopGain$, \tStopGainCI{}); both are carried by the locked indicator rather than the rotation number.
+
+\paragraph{Reading the rotation from the loss.} The dominant peak of the even-step training-loss spectrum equals
+the two-step rotation number within $10^{-3}$ in \nPeakQPSTwo{} of \nPeakQPSTwoOf{} quasi-periodic and \nPeakLockSTwo{}
+of \nPeakLockSTwoOf{} locked cells of the S2 slice, and in \nPeakQPSOneR{} of \nPeakQPSOneROf{} and \nPeakLockSOneR{}
+of \nPeakLockSOneROf{} on the S1R slice. Before the crossing, with small noise added to every update, an
+autoregressive fit of the even-step loss recovers the angle of the period-2 orbit's complex multiplier with median
+error $\xARMedianSTwo$ over \nARSTwo{} period-2 cells of S2 (largest $\xARMaxSTwo$) and $\xARMedianSOneR$ over
+\nARSOneR{} cells of S1R; the estimator was chosen after a first pass (adapted). We treat this as local system
+identification, not early warning, until sampling, harmonic, abstention, autoregressive-baseline and specificity
+rules are fixed in advance.
 
 \placeholder{Prespecified route-to-chaos path: a connected path, fixed in advance, from the period-2 region
 through the quasi-periodic band and locked windows into sustained chaos with converged diagnostics (not yet run).}
@@ -433,54 +581,51 @@ through the quasi-periodic band and locked windows into sustained chaos with con
 \placeholder{Bounded transfer to real data: a small network on a CIFAR subset, developed on a first subset with
 everything frozen before a second subset is opened (not yet run).}
 
-\placeholder{Consequences for training: the exploratory consequence pilot (reproducibility, stopping-time
-sensitivity and loss against regime, with periodic and chaotic controls, and incremental value beyond the
-Lyapunov exponent and sharpness), to be added with numbers generated from its receipts.}
-
 \section{Discussion}
 \label{sec:discussion}
 
 Everything in this section is interpretation. The confirmed results in Section~\ref{sec:confirmed} stand on
 their own, and the hypotheses here need their own prespecified tests.
 
-The picture that fits the exploratory evidence is the quasi-periodic organization familiar from circle maps and
-forced oscillators \citep{curry1978,aronson1982,jensen1984}: the edge-of-stability oscillation is a period-2
-orbit; past a complex-pair crossing of the two-step map, training moves on an invariant circle with a rotation
-number set by the crossing angle; rational rotations lock into periodic windows; and the circle breaks, with
-period doubling inside locked windows along the way. Section~\ref{sec:background} explains why the crossing needs
-at least period 2 in gradient descent and why per-layer rates are not required for it in principle; the rotational
-edge of \citet{hofmann2026} is the same kind of crossing in a solvable model. Under this reading, most windows of
-Section~\ref{sec:confirmed} are locked orbits, and classical shrimps are a special case.
+The local part of the thesis now rests on several independent kinds of evidence: the crossing multipliers, the
+normal-form coefficient and its dynamical checks, the continuity of the rotation number with the crossing angle in
+two maps, and the same behaviour in a real-data network and in a solvable linear network. The picture that fits is
+the quasi-periodic organization familiar from circle maps and forced oscillators
+\citep{curry1978,aronson1982,jensen1984}: the edge-of-stability oscillation is a period-2 orbit; past a
+supercritical crossing, training moves on an invariant circle with a rotation number set by the crossing angle;
+rational rotations lock; and the circle breaks. The global part, that the periodic windows of the learning-rate
+plane are resonance tongues of this bifurcation, is supported by the Birkhoff test and by the post-hoc tongue
+scaling, but its frozen test did not pass. The frozen estimator mixed non-asymptotic and asymptotic levels; a
+confirmatory version should prespecify an asymptotic-regime estimator, and connecting a tongue to a distant window
+needs two-parameter fold-curve continuation.
 
-\paragraph{Reading the rotation from the loss.} In exploratory analyses of the consequence pilot, the dominant peak
-of the even-step training-loss spectrum tracked the two-step rotation number, and an autoregressive fit to noisy
-loss recovered the period-2 orbit's complex multiplier before the crossing. We treat this as local system
-identification, not early warning, until sampling, harmonic, abstention, autoregressive-baseline and specificity
-rules are fixed in advance. The earliest spectral diagnostic of learning dynamics we know of is that of
-\citet{vandermaas1990}, who used broadband spectra to recognize chaotic learning; here a spectral peak would carry
-the rotation number.
+The earliest spectral diagnostic of learning dynamics we know of is that of \citet{vandermaas1990}, who used
+broadband spectra to recognize chaotic learning; here a spectral peak carries the rotation number, and an
+autoregressive fit carries the complex multiplier before the crossing.
 
 \paragraph{Open questions.} The odd-period windows did not pass the Birkhoff diagnostic; whether they are organized
-as in periodicity hubs \citep{jones2012} is open. Windows also coexist with other attractors, so maps started from
-one initial point show which attractor that point reaches rather than the full existence region of a window. And
-the evidence comes from two small networks.
+as in periodicity hubs \citep{jones2012} is open. Fixed-start maps mix local criticality with basin accessibility
+from one shared initialization, as the divergent arc shows, so statements about trainability maps need both. In the
+real-data network only one of the examined period-2 branches crossed by complex multipliers, and how common such
+branches are in larger networks is unknown.
 
-\paragraph{The test that would settle the local claim.} An existence-and-replication test would fix in advance a
-single primary endpoint (a bounded set of mechanism criteria: a simple transverse complex-pair crossing with all
-other multipliers inside the circle, nondegeneracy, an attracting invariant circle with converged residuals,
-rotation compared with the crossing angle at prespecified detunings, and ancestry of a rule-selected window through
-both folds), and apply it to two prespecified independent losses across two architectures, one of them unused so
-far, with no substitution.
+\paragraph{The tests that would settle the local claims.} The criticality prediction is ready to freeze for fresh
+losses: the sign of $d$ at each crossing predicts a circle of normal-form amplitude beyond a supercritical edge, and
+a jump with square-root escape thresholds and hysteresis at a subcritical one. An existence-and-replication test
+would apply this, together with the onset and rotation criteria, to two prespecified independent losses across two
+architectures, one of them unused so far, with no substitution. The near-root ancestry test is close to ready once
+its estimator is restricted to the asymptotic levels.
 
 \section{Limitations}
 \label{sec:limits}
 
-The networks have 13 and 72 parameters and are trained on synthetic data with deterministic full-batch updates
-in float64. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and reruns.
-Certification is a floating-point verification. Rotation numbers and the Birkhoff test use two-dimensional
-projections of curves that live in 13 or 72 dimensions. The mechanism analyses were chosen after seeing related
-outcomes, and the staircase and crossing analyses cover two slices and one curve. No result addresses
-generalization, training speed or modern training practice.
+The map study uses networks of 13 and 72 parameters on synthetic data; the real-data result is one branch of one
+529-parameter network on one subset and task; the linear network is a solvable model. Training is deterministic,
+full batch and in float64. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
+reruns. Certification is a floating-point verification. The first Lyapunov coefficient is a local, third-order
+quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
+use two-dimensional projections of curves in many dimensions. Most mechanism analyses were chosen after seeing
+related outcomes. No result addresses generalization, training speed or modern training practice.
 
 \section{Related work}
 \label{sec:related}
@@ -490,8 +635,9 @@ self-stabilization of sharpness at the edge, whereas we follow what happens afte
 loses stability; \citet{agarwala2023} show progressive sharpening to the edge in second-order regression models,
 the approach to the regime we study beyond it; \citet{lewkowycz2020} describe a catapult phase at large rates, in
 which the loss first grows and then settles in flatter regions, while our maps resolve the long-run dynamics of
-rates where training does not settle. Further analyses include \citet{kalra2025}, \citet{chenbruna2023},
-\citet{song2023}, \citet{chen2024phases}, \citet{cohen2025central} and \citet{hofmann2026}.
+rates where training does not settle. \citet{hofmann2026} derives the rotational edge whose far side we study.
+Further analyses include \citet{kalra2025}, \citet{chenbruna2023}, \citet{song2023}, \citet{chen2024phases} and
+\citet{cohen2025central}.
 
 \paragraph{Chaos and fractals in training.} Chaos in deterministic training is discussed by \citet{kong2020} and
 \citet{jimenez2026}; fractal trainability boundaries by \citet{sohldickstein2024}, \citet{torkamandi2025},
@@ -501,9 +647,10 @@ one loss.
 
 \paragraph{Dynamical systems.} Shrimp-shaped windows are described by \citet{gallas1993,gallas1994}; circle maps,
 Arnold tongues, devil's staircases and the breakdown of invariant circles by
-\citet{arnold1965,jensen1983,jensen1984,curry1978,aronson1982,ostlund1983}; numerical bifurcation analysis of maps
-by \citet{kuznetsov2019}. A literature check using generic queries found no report of quasi-periodic training,
-Arnold tongues or rotation-number staircases for optimizers acting on one loss.
+\citet{arnold1965,jensen1983,jensen1984,curry1978,aronson1982,ostlund1983}; numerical bifurcation analysis of maps,
+including the normal-form coefficients used here, by \citet{kuznetsov2019}. A literature check using generic
+queries found no report of quasi-periodic training, Arnold tongues or rotation-number staircases for optimizers
+acting on one loss.
 
 \section{Reproducibility}
 \label{sec:repro}
@@ -511,12 +658,15 @@ Arnold tongues or rotation-number staircases for optimizers acting on one loss.
 Code, plans and compact receipts live in the project repository; bulky raw maps live in a separate data store
 referenced by SHA-256. Every figure is generated by a script in \path{paper/gd-route/figures/} that reads saved
 evidence and writes a receipt with input hashes, the generator's hash, output hashes, alt text and the values it
-displays. Every number in the text, and the design table, is generated by
+displays. Every number in the text, and both tables, are generated by
 \path{paper/gd-route/scripts/build_numbers.py}; \path{data/numbers.json} records each number's source file, hash
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
 regenerates every figure and number and fails on any difference. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
-its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}.
+its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}. The exploratory streams are summarized in
+\path{docs/explore-criticality-2026-10-07.md}, \path{docs/explore-ancestry-2026-10-07.md},
+\path{docs/explore-realdata-2026-10-07.md}, \path{docs/explore-minimal-model-2026-10-07.md} and
+\path{docs/explore-consequence-2026-10-07.md}.
 
 \placeholder{Author contributions, acknowledgments, license choice and public code and data links are human
 decisions to be made before release.}
