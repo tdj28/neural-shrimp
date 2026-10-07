@@ -31,53 +31,71 @@ bifurcations; binary trainability maps hide all of this.
   Neimark-Sacker 1,395, flip 1,012 rays; staircases with Farey-neighbour
   plateaus (weak evidence: 3 of 3 pairs in one network, uninformative null in
   the other).
+- **Exploratory consequence pilot (three slices, two networks):** regimes differ
+  in reproducibility as their Lyapunov exponents imply (period 2 decays,
+  quasi-periodic grows linearly with the perturbation, locked windows show phase
+  slips after chaotic transients, chaos saturates), but rotation number and
+  locking add no robust prediction of loss or reproducibility beyond Lyapunov
+  exponent and sharpness (Delta R^2 about 0). The rotation-specific consequence
+  is a diagnostic: the even-step peak of the training-loss spectrum equals the
+  rotation number within 1e-3 (125/125 quasi-periodic and 97/97 locked cells on
+  one slice; similar on the others), and with small update noise an AR(6) fit
+  of the loss recovers the period-2 orbit's complex multiplier before the
+  transition (median angle error 1.8e-4 and 3.6e-4 in the two networks).
 - **Open:** odd-period windows (5 confirmed) are not circle orbits; a minimal
-  two-parameter model shows only period doubling; no real-data result yet; no
-  training-relevant consequence yet; float32 sensitivity untested.
+  two-parameter model shows only period doubling; no real-data result yet;
+  float32 sensitivity untested. The Neimark-Sacker curve is W-shaped; the
+  birth rotation peaks just above 2/9 next to the widest (2/9) window.
+- A separate mechanism consult (same model family) recommended, and we
+  accepted: resonance-anchored ancestry by pseudo-arclength continuation of a
+  window's stable and saddle orbits and both fold edges toward its predicted
+  root, with a resonant normal-form positive control and an embedded unimodal
+  negative control; an effective one-dimensional return-map test for odd
+  windows; a coupled four-weight two-mode model as the minimal candidate;
+  invariant-circle solves; independently generated losses as replication
+  units; a bounded CIFAR pilot profiled locally before renting.
 - A 14-page manuscript draft with six reproducible figures exists; every
   number is generated from committed data and re-verified by a script.
 
 ## Roadmap
 
-**R1. Mechanism completion (local CPU and RTX 2000 Ada; days 1-4).**
-Orbit-following maps (initialized on continued orbits) for boundary figures;
-1024 x 1024 GPU rotation maps for both seeds of the 13-parameter network and
-512 x 512 for the 72-parameter network; Neimark-Sacker curves for all four
-network-seed pairs; a quantitative tongue-root test (locked regions converge
-to the predicted roots); odd-window analysis as advised by a separate
-mechanism consult; minimal model candidate: two-mode depth-2 linear network.
+**R1. Mechanism (local CPU and RTX 2000 Ada; days 1-6).** Resonance ancestry of
+the 1/5 window (selected by a fixed rule; fallback 2/9) with positive and
+negative controls; then one invariant-circle solve outside the locking
+interval; the coupled four-weight model scan (c in {0, 0.3, 0.6, 0.9}, two
+ridges, eight rate ratios); a one-window unimodal-quotient pilot for odd
+windows; 1024 x 1024 GPU rotation maps and Neimark-Sacker curves for all four
+network-seed pairs for figures.
 
 **R2. Generality on real data (days 2-9).** (a) Running now: a small tanh MLP on
 scikit-learn digits with full-batch gradient descent and a single learning
 rate, testing for Neimark-Sacker of the 2-cycle, rotation numbers, locking and
-staircases. (b) Canonical benchmark: full-batch gradient descent on a
-5,000-image CIFAR-10 subset (the Cohen et al. 2021 edge-of-stability setup),
-MSE loss with weight decay so that attractors are isolated, a two-hidden-layer
-MLP and possibly a small CNN; single learning rate and the per-layer plane.
-Diagnostics that scale: top two-step Floquet multipliers by Arnoldi on
-Jacobian-vector products; rotation numbers from principal-plane projections;
-loss power spectra. Explore in float32 locally to choose slices; final figures
-in float64 on rented H100s.
+staircases. (b) Bounded real-data pilot: full-batch gradient descent
+in float64 on two independently drawn CIFAR-10 subsets of 256-512 images (the
+second reserved), one 32-unit hidden layer, MSE with weight decay; track the
+fixed-point flip and the 2-cycle with matrix-free Arnoldi multipliers, replay a
+validated toy Neimark-Sacker through the same machinery, and compare the
+loss-spectrum readout with state-based rotation. Profile 1,000 updates locally
+first; scale up (larger subsets, a CNN) only if the bounded pilot succeeds.
 
-**R3. Consequence (running now as an exploratory pilot, days 1-8).** Does the
-regime or rotation number predict reproducibility (parameter and function-space
-disagreement across perturbation sizes, uncertainty exponents), loss behaviour
-(time-averaged, averaged-iterate and held-out loss) or a practitioner-visible
-signature (loss spectra), beyond what the largest Lyapunov exponent and
-sharpness already predict? Distant ordinary-periodic and qualified chaotic
-controls are mandatory; nested models test incremental value.
+**R3. Consequence (days 3-9).** Develop the loss-only diagnostic: rotation
+readout from the loss spectrum and the noise-driven AR precursor of the
+Neimark-Sacker transition; test it with minibatch noise instead of isotropic
+noise and on the real-data pilot. Reproducibility classes are reported as
+generic (explained by Lyapunov exponents), not rotation-specific.
 
 **R4. Confirmatory test (days 8-12).** Frozen and pushed before running, on
 reserved fresh seeds (29000-29999, never used in exploration) and at least one
-network not used in exploration, with an independent audit. Draft predictions:
-(a) a quasi-periodic band with near-zero Lyapunov exponent between the period-2
-region and chaos whose rotation number just beyond the Neimark-Sacker curve
-matches arg(mu)/2pi within a frozen tolerance; (b) at least 80% of even-period
-periodic cells in the band are m/q-locked with q = period/2 or period-doubled
-inside an m/q tongue; (c) rotation increases monotonically across plateaus
-along frozen slices; (d) the period-2 orbit's stability boundary at the band's
-onset is Neimark-Sacker. A consequence prediction is added only if R3
-supports one.
+network not used in exploration, with an independent audit. Replication units are independently generated losses
+(data, targets and initial weights from one reserved seed). Draft predictions:
+(a) the period-2 orbit's stability boundary at the band's onset is
+Neimark-Sacker and the first quasi-periodic rotation number equals
+arg(mu)/2pi within 2e-3; (b) at least 80% of even-period periodic cells in
+the band are m/q-locked (q = period/2) or period-doubled inside an m/q tongue;
+(c) the loss-spectrum readout equals the state-based rotation within 1e-3;
+(d) with small update noise, AR recovery of the 2-cycle multiplier within
+2.5e-3 in angle and 0.02 in modulus; (e) ancestry passes for the rule-selected
+window in at least half of the losses where one qualifies.
 
 **R5. Writing and release (days 10-14).** Manuscript built around whatever R1-R4
 support; citations verified at primary sources; reproducibility package and a
@@ -94,12 +112,12 @@ tensor cores) and 80 GB of memory.
 
 | Phase | Work | Estimate | Gate |
 |---|---|---|---|
-| 0 | Rebuild the CUDA engine for sm_90; parity check against the CPU reference on sampled cells; time one 72-parameter map unit and one float64 CIFAR batch | at most $5 | parity passes and timing measured |
-| 1 | High-resolution rotation maps; the frozen confirmatory maps on about 16 fresh networks | about $20 | design frozen and pushed |
-| 2 | Float64 CIFAR-10 benchmark: batched learning-rate sweeps (about 256 cells per batch) and one per-layer map, 2-3 seeds | about $70-95 | float32 exploration shows a candidate effect |
+| 0 | Rebuild the CUDA engine for sm_90; parity check against the CPU reference on sampled cells; time one 72-parameter map unit and one float64 bounded-CIFAR batch | at most $5 | parity passes and timing measured |
+| 1 | Confirmatory maps for the 72-parameter architecture on fresh losses (each 1024 x 1024 map is about 4.5 local GPU-hours); the 13-parameter maps stay local | about $10-20 | design frozen and pushed |
+| 2 | Real-data scale-up beyond local capacity (larger subsets, more learning-rate cells, a CNN), only if the bounded local pilot succeeds | about $20-60 | bounded pilot positive and profiled |
 
-Expected total about $100-120; proposed hard ceiling $200 with a check-in at
-$100. Controls: each phase priced from measured throughput and approved
+Expected total about $35-85 (Phase 2 is conditional); proposed hard ceiling
+$150 with a check-in at $75. Controls: each phase priced from measured throughput and approved
 before launch; maximum wall time and no-progress timeouts frozen; only
 task-created pod IDs touched (the account has unrelated running pods);
 credentials stay on the local controller; artifacts hash-verified before
