@@ -223,13 +223,15 @@ def cmd_staircase(args):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(len(RATIOS), 1, figsize=(10, 3.2 * len(RATIOS)), constrained_layout=True)
+    ratios = RATIOS if args.ratios is None else tuple(args.ratios)
+    fig, axes = plt.subplots(len(ratios), 1, figsize=(10, 3.2 * len(ratios)), constrained_layout=True, squeeze=False)
+    axes = axes[:, 0]
     report = []
-    for ax, ratio in zip(np.atleast_1d(axes), RATIOS):
+    for ax, ratio in zip(np.atleast_1d(axes), ratios):
         model = DeepLinear2x2(1.0, ratio, args.lam)
         edge = edge_rate(model)
         top = window(model)[1] - 1e-4
-        a = np.linspace(edge * 1.0005, top, args.cells)
+        a = np.linspace(edge * 1.0005, top, args.cells) if args.a_range is None else np.linspace(*args.a_range, args.cells)
         theta = np.stack([perturbed_aligned(model, min(ai, top), 1e-3) for ai in a])
         theta, feats, lyap, loss = run_attractor(model, a, theta, args.transient, args.samples)
         rho, share, period, amplitude = rotation_and_period(feats)
@@ -253,8 +255,8 @@ def cmd_staircase(args):
               f"{quasi.sum()} non-periodic without a second positive exponent, {chaotic.sum()} chaotic")
     np.atleast_1d(axes)[-1].set_xlabel("learning rate a (s1 = 1)", fontsize=9)
     OUT.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT / f"staircase-lam{args.lam}.png", dpi=160)
-    (OUT / f"staircase-lam{args.lam}.json").write_text(json.dumps(report, indent=1))
+    fig.savefig(OUT / f"staircase-lam{args.lam}-{args.tag}.png", dpi=160)
+    (OUT / f"staircase-lam{args.lam}-{args.tag}.json").write_text(json.dumps(report, indent=1))
 
 
 def main():
@@ -267,6 +269,8 @@ def main():
     parser.add_argument("--deltas", type=float, nargs="+", default=[1e-3, 2e-3, 4e-3, 8e-3, 1.6e-2])
     parser.add_argument("--sequential", action="store_true", help="follow the attractor through the deltas in order")
     parser.add_argument("--tag", default="default")
+    parser.add_argument("--ratios", type=float, nargs="+", default=None)
+    parser.add_argument("--a-range", type=float, nargs=2, default=None)
     args = parser.parse_args()
     {"edge": cmd_edge, "circle": cmd_circle, "staircase": cmd_staircase}[args.command](args)
 
