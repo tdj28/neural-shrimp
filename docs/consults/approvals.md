@@ -41,4 +41,4 @@ skill, section 7A). Costs are recorded cumulatively below.
 
 | Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
 |---|---|---|---|---|
-| (3) references (Pro, xhigh effort, 34k output) | $5.00 | $4.96 | pending | pending |
+| (3) references (Pro, xhigh effort, 34k output) | $5.00 | $4.96 | $2.24 (64,080 in / 32,023 out tokens) | $5.37 |
