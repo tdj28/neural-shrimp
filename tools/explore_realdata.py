@@ -272,7 +272,7 @@ def cmd_branch(config, args, out):
         attempt = {"factor": factor, "log10_eta": float(np.log10(eta)), "two_step_gap": two_cycle_gap,
                    "one_step_gap": one_cycle_gap,
                    "distance_from_minimum": float(np.linalg.norm(theta[0] - theta_star))}
-        if two_cycle_gap < 1e-8 and one_cycle_gap > 1e-6:
+        if two_cycle_gap < args.gap and one_cycle_gap > 100 * two_cycle_gap:
             result = continue_ray(family, theta[0], 2, (float(np.log10(eta)), 0.0), (1.0, 0.0), args.s_max,
                                   args.h0, bisection_tolerance=args.tolerance)
             mu = complex(*result["dominant"]) if result["dominant"] else None
@@ -299,6 +299,8 @@ def main():
     parser.add_argument("--factors", type=float, nargs="+", default=[1.002, 1.01, 1.03, 1.1],
                         help="eta / eta_flip values to seed the period-2 orbit (branch)")
     parser.add_argument("--kick", type=float, default=1e-3, help="initial offset along the top eigenvector (branch)")
+    parser.add_argument("--gap", type=float, default=1e-5,
+                        help="largest two-step gap accepted as a period-2 seed for Newton (branch)")
     parser.add_argument("--seed", type=int, default=28101)
     parser.add_argument("--width", type=int, default=8)
     parser.add_argument("--n", type=int, default=1024)
