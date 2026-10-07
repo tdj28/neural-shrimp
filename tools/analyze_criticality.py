@@ -149,14 +149,27 @@ def cmd_table(args):
     return text
 
 
+def cmd_sweep(args):
+    """Up-and-down sweep from the first dynamics run (amplitudes relative to the boundary orbit point)."""
+    data = json.loads((CRIT / "s2-28011-dynamics" / "dynamics.json").read_text())["rows"]
+    for r in data:
+        cells = []
+        for k, step in enumerate(r["sweep"]):
+            amp = step["amplitude"]
+            arrow = "up" if k < len(r["sweep"]) // 2 else "down"
+            cells.append(f"{arrow} {step['delta']:+.4f}: {'div' if amp is None else format(amp, '.3f')}")
+        print(f"{r['log10_output']:+.4f} d {r['d']:+.3f} | " + " | ".join(cells))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("boundary")
     sub.add_parser("figure")
     sub.add_parser("table")
+    sub.add_parser("sweep")
     args = parser.parse_args()
-    {"boundary": cmd_boundary, "figure": cmd_figure, "table": cmd_table}[args.command](args)
+    {"boundary": cmd_boundary, "figure": cmd_figure, "table": cmd_table, "sweep": cmd_sweep}[args.command](args)
 
 
 if __name__ == "__main__":
