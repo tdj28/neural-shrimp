@@ -34,7 +34,7 @@ from neural_shrimp.gdmaps import (  # noqa: E402
 from neural_shrimp.models import TanhRegressor, make_teacher_regression  # noqa: E402
 
 PRODUCTION = dict(tail_steps=384, ftle_steps=4000, ftle_align=1000, sd_horizons=(100, 500, 1000))
-SHORT = dict(tail_steps=384, ftle_steps=1000, ftle_align=200, sd_horizons=(100, 500))
+W16_OPTIONS = dict(tail_steps=128, ftle_steps=300, ftle_align=100, sd_horizons=(100,))
 
 
 def s1_like(seed=99990, activation="tanh"):
@@ -242,6 +242,13 @@ def compare(grid, cpu, gpu, horizons):
                           ftle_abs_diff=describe(np.abs(gpu["ftle"][both] - cpu["ftle"][both])),
                           ftle_rel_diff=describe(np.abs(gpu["ftle"][both] - cpu["ftle"][both])
                                                  / np.abs(cpu["ftle"][both])))
+    drift = cs == 5
+    growth_diff = np.abs(gpu["window_norm_growth"] - cpu["window_norm_growth"])
+    out["drift"] = dict(cpu_cells=int(drift.sum()), drift_on_both=int(np.sum(drift & (gs == 5))),
+                        gpu_only=int(np.sum((gs == 5) & ~drift)),
+                        window_norm_growth_abs_diff=describe(growth_diff[drift]))
+    out["window_norm_growth_abs_diff_by_cpu_status"] = {
+        STATUS_NAMES[s]: describe(growth_diff[cs == s]) for s in range(labels) if np.any(cs == s)}
     unresolved = (cs == 4) & (gs == 4)
     out["unresolved"] = dict(cpu_cells=int(np.sum(cs == 4)), unresolved_on_both=int(unresolved.sum()),
                              ftle_abs_diff=describe(np.abs(gpu["ftle"][unresolved] - cpu["ftle"][unresolved])),
@@ -273,6 +280,7 @@ def main(argv=None):
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--side", type=int, default=24)
     parser.add_argument("--steps", type=int, default=20000)
+    parser.add_argument("--w16-steps", type=int, default=600)
     args = parser.parse_args(argv)
     out = args.out.resolve()
     if out.is_relative_to(gc.ROOT):
@@ -317,7 +325,7 @@ def main(argv=None):
     # (name, fixture, hidden decades, output decades, side, steps, options, layout checks)
     plans = [("S1-like", s1_like, (-1.5, 1.0), (-1.5, 0.5), args.side, args.steps, PRODUCTION, False),
              ("S2-like", s2_like, (-4.5, -0.5), (-1.6, 0.4), args.side, args.steps, PRODUCTION, True),
-             ("W16", w16, (-1.5, 1.0), (-1.5, 0.5), 8, 2000, SHORT, False)]
+             ("W16", w16, (-1.5, 1.0), (-1.5, 0.5), 8, args.w16_steps, W16_OPTIONS, False)]
     record["grids"] = []
     for name, fixture, hidden_range, output_range, side, steps, opts, layout in plans:
         net, x, y, theta0 = fixture()
