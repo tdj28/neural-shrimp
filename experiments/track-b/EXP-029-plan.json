@@ -1,0 +1,204 @@
+{
+  "audit": {
+    "atol": 1e-12,
+    "audit_seed": 2907,
+    "cells_per_label_per_job": 8,
+    "multiplier_tolerance": 0.0001,
+    "rtol": 1e-10,
+    "solver": "scipy DOP853"
+  },
+  "claim_boundary": "Screened autonomous dynamical classes, periods, finite-time exponents and Floquet multipliers of the stated network on the stated grids, starts, horizons and tolerances. No capacity, computation, shrimp-organization or chaos-theorem claim.",
+  "date": "2026-10-06",
+  "experiment": "EXP-029",
+  "floquet": {
+    "dt": 0.01,
+    "duration": "screened cycle time",
+    "start": "last recorded x3-maximum event state",
+    "transverse": "largest modulus after removing the multiplier closest to 1"
+  },
+  "grid_convention": "rows index gamma (increasing), columns alpha (increasing); cell = row * columns + col; axes are inclusive linspace",
+  "integration": {
+    "atol": 2e-06,
+    "divergence_threshold": 1000000.0,
+    "dt": 0.01,
+    "equilibrium_tolerance": 1e-08,
+    "ftle_align": 100.0,
+    "max_events": 160,
+    "max_period": 32,
+    "measure": 1000.0,
+    "method": "classical RK4, float64, CPU",
+    "repeats": 4,
+    "rtol": 2e-05,
+    "settle": 2000.0,
+    "tangent_seed": 0
+  },
+  "label": "prospective exploratory descriptive survey; private Git freeze; not preregistered",
+  "labels": {
+    "chaos_threshold_per_time": 0.005,
+    "rule": "diverged; equilibrium (no x3 maxima, field norm < tolerance); periodic (screened period >= 1 peaks per cycle); chaotic candidate (no recurrence, not equilibrium, FTLE > threshold); unresolved"
+  },
+  "maps": [
+    {
+      "alpha": [
+        0.0,
+        1.5
+      ],
+      "gamma": [
+        5.0,
+        16.0
+      ],
+      "map_id": "global",
+      "resolution": [
+        256,
+        256
+      ],
+      "start_strides": {
+        "A": 1,
+        "B": 1
+      },
+      "starts": {
+        "A": [
+          0.1,
+          0.1,
+          0.1
+        ],
+        "B": [
+          0.2,
+          -0.1,
+          0.3
+        ]
+      }
+    },
+    {
+      "alpha": [
+        1.056,
+        1.08
+      ],
+      "gamma": [
+        10.14,
+        10.55
+      ],
+      "map_id": "focus",
+      "resolution": [
+        768,
+        768
+      ],
+      "start_strides": {
+        "A": 1,
+        "B": 4
+      },
+      "starts": {
+        "A": [
+          0.1,
+          0.1,
+          0.1
+        ],
+        "B": [
+          0.2,
+          -0.1,
+          0.3
+        ]
+      }
+    }
+  ],
+  "network": "dx/dt = -x + W tanh(x); W = [[1.5, 2.9, alpha], [-1.5, 1.18, 0], [gamma, -22, 0.47]]",
+  "output": {
+    "attempt": "attempt-001",
+    "raw_root": "../neural-shrimp-data/raw/EXP-029"
+  },
+  "program": "Program C, Track B, stage B1",
+  "resources": {
+    "blas_threads": 1,
+    "chunk_cells": 4096,
+    "gpu": "not used",
+    "max_load_average": 16.0,
+    "min_available_gib": 16.0,
+    "paid_compute": "none",
+    "wall_ceiling_seconds": 21600,
+    "workers": 14
+  },
+  "result_placeholders": [],
+  "source_files": [
+    {
+      "bytes": 6003,
+      "path": "docs/EXP-029-protocol.md",
+      "sha256": "e298c323f8cfe225fb74ba62556b7889ae22edfd0e19c952b0018acc3ab5d9ea"
+    },
+    {
+      "bytes": 555,
+      "path": "pyproject.toml",
+      "sha256": "78acf5fae0c94d1c2739e3632b47abef5d081c57c32eca5e3eba877c103c62da"
+    },
+    {
+      "bytes": 213926,
+      "path": "uv.lock",
+      "sha256": "601c1bccf7f0768d942083d59fb30ad2c29db5aaee50c42911c99e5a7bf49c9e"
+    },
+    {
+      "bytes": 423,
+      "path": "src/neural_shrimp/__init__.py",
+      "sha256": "e474d9c3fb973648a06562d0468780a3046adfeb14604ed7cc791817c3878c05"
+    },
+    {
+      "bytes": 1120,
+      "path": "src/neural_shrimp/controls.py",
+      "sha256": "919014aab26839471c47ff0d27545052015bc8e1f2b943f7eca6e785d1341087"
+    },
+    {
+      "bytes": 8383,
+      "path": "src/neural_shrimp/models.py",
+      "sha256": "48768aceb5ab9bb1f568c153209b0a40c11657ee0b86d0eac76c1f6098759897"
+    },
+    {
+      "bytes": 10222,
+      "path": "src/neural_shrimp/autonomous.py",
+      "sha256": "4feb8b17d5d192588a3d5f56c2e5550de6326afb7ae0453d7c6d5c02f8254810"
+    },
+    {
+      "bytes": 8209,
+      "path": "src/neural_shrimp/capacity.py",
+      "sha256": "fd0f7e174e59584045a637d0733fa1405296631e991ebc5cb3c87915929492ba"
+    },
+    {
+      "bytes": 7854,
+      "path": "tools/runner_common.py",
+      "sha256": "f86cb250ea968b0ef8e2794c39ff85a6fcb44f71921be510378570f802acc236"
+    },
+    {
+      "bytes": 4743,
+      "path": "tools/build_exp029_plan.py",
+      "sha256": "2c16659ca5be1b9c4f7c3f3fab147e9af869afef0b05a45d5c48ba1822afeb30"
+    },
+    {
+      "bytes": 3965,
+      "path": "tools/validate_exp029_plan.py",
+      "sha256": "c6b2bac97ab2f74534c18670b9458a3c83156356c7f765ae21fe78484701cfc7"
+    },
+    {
+      "bytes": 10013,
+      "path": "tools/run_exp029.py",
+      "sha256": "aa5d92eefd7364f18c61b3fdbe0b637cd1b8b9ebbd5f9b90a4e42ea87458d51c"
+    },
+    {
+      "bytes": 10149,
+      "path": "tools/analyze_exp029.py",
+      "sha256": "fb4354f821d3d99459b293d2df690304bbdd8b7bf28d0e2573ad64cb80acf343"
+    },
+    {
+      "bytes": 8449,
+      "path": "tools/audit_exp029.py",
+      "sha256": "403fe1ebdfab62e314555c539105e847abe10b72032253d9ec4676f961621296"
+    },
+    {
+      "bytes": 3138,
+      "path": "tests/test_autonomous.py",
+      "sha256": "bd56522bab655715694f64b91a3e19e0e1f88ed32043a9c675ff514041c31484"
+    },
+    {
+      "bytes": 4159,
+      "path": "tests/test_run_exp029.py",
+      "sha256": "d575c773ee00989d7f358a9bc8ca3859a57ae0c4bde6f6f634ca6b5b4110b7e2"
+    }
+  ],
+  "status": "frozen_outcome_masked_plan"
+}

@@ -45,3 +45,24 @@ def test_reproduces_published_core_cycle_and_irregular_endpoints():
     assert moduli[0] == pytest.approx(1.0, abs=2e-3)
     assert moduli[1] == pytest.approx(0.06506, abs=2e-3)
     np.testing.assert_allclose(end[0], start, atol=1e-2)
+
+
+def test_equilibrium_is_detected_for_a_contracting_network():
+    weights = np.zeros((2, 3, 3))
+    weights[1] = 0.3 * np.eye(3)
+    result = autonomous_map(weights, np.full((2, 3), 0.5), 0.01, settle=100.0, measure=50.0,
+                            ftle_align=5.0)
+    assert result["equilibrium"].all()
+    assert np.all(result["period"] == 0)
+    np.testing.assert_allclose(result["ftle"], [-1.0, -0.7], atol=1e-3)
+
+
+def test_soa_engine_matches_adaptive_reference_trajectory():
+    from scipy.integrate import solve_ivp
+    weights = hopfield_weights([1.07], [10.4])
+    x0 = np.array([[0.1, -0.2, 0.3]])
+    result = autonomous_map(weights, x0, 0.005, settle=20.0, measure=0.01, ftle_align=0.0)
+    w = weights[0]
+    sol = solve_ivp(lambda _t, x: -x + w @ np.tanh(x), (0.0, 20.01), x0[0], method="DOP853",
+                    rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(result["final_state"][0], sol.y[:, -1], atol=1e-8)
