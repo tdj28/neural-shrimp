@@ -1481,3 +1481,126 @@ _commit `2e5c4fd092aa` (dirty worktree)_
 Recorded as reported by the ancestry stream (docs/explore-ancestry-2026-10-07.md): controls valid (resonant normal form pass, displaced root and logistic period-5 window correctly rejected). Right 1/5 root passes the onset checks (radius exponent 0.503; rotation intercept equals the birth angle to 1e-6). Six fold-bounded levels: widths 0.0459 to 1.7e-6 decades, amplitudes 0.312 to 0.0061 (ratio 51), centres 0.0365 to 2.5e-5 decades from the root. Frozen outcome: ALTERNATIVE ANCESTRY, because the prespecified all-level linear extrapolation of the centre misses the root by 1.53e-4 against a 1e-4 tolerance. This outcome stands and will be reported as such. Post hoc (not evidence of the same weight): the deepest level is within tolerance, the deepest three levels extrapolate to -1.6e-6, and the width and amplitude exponents are 1.518 and 0.513 against the normal-form values 1.5 and 0.5 for q = 5. Left root: not supercritical (exponent 0.83), no qualifying window. The connection from the near-root tongue to window S2-28011:139 is unresolved (exhausted budget). Consequences for the confirmatory design: prespecify an asymptotic-level centre estimator and the width/amplitude exponent tests (1.5 and 0.5 within frozen tolerances), choose starting detunings from the measured circle radius, and add two-parameter fold-curve continuation before claiming window ancestry.
 
 _commit `681007142cbf` (dirty worktree)_
+## 2026-10-07 23:05 UTC: run (exploratory)
+
+- **Question:** Positive control for the criticality computation. Does the sign of d at r equal 1 for the engineered planar gradient map 2-cycle predict a soft or hard loss of stability just beyond r equal 1, with kappa tuning the cubic terms
+- **Setup:** EngineeredTwoCycle with phi 2 pi times 0.13 and kappa in -4 -2 -1 0 1 2 4 8. d from the Kuznetsov formula with finite difference forms of the exact two step JVP. Dynamics at r 1.001 and 1.004 from p0 plus 1e-3, 200000 two step iterations
+- **Output:** `../neural-shrimp-data/explore/criticality/control/control.json`
+- **Would surprise us:** Sign of d disagreeing with the dynamical outcome for any kappa
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py control`
+
+_commit `97d6ba4fea7a`_
+
+## 2026-10-07 23:08 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient d of the period-2 Neimark-Sacker bifurcation along the merged S2-28011 curve. Where is it negative and soft, where positive and hard, and does the sign change near log10 output -0.04 where fixed-start maps switch from quasi-periodic to divergent
+- **Setup:** S2-28011, all 69 Neimark-Sacker points of the merged trace. Period-2 orbit re-found 0.02 to 0.2 below the traced boundary, continued to the boundary with bisection 1e-10, d evaluated at the last attracting point from the exact dense two step Jacobian and Richardson finite difference forms, second step size as a check, 8 workers at nice 10
+- **Output:** `../neural-shrimp-data/explore/criticality/s2-28011-curve/curve.json`
+- **Would surprise us:** d negative on the hard arc or positive on the soft arc, or no sign change between them
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py curve --workers 8`
+
+_commit `63eddebb6acb` (dirty worktree)_
+
+- run started 2026-10-07 23:08 UTC finished 23:08 UTC with exit status 1
+
+## 2026-10-07 23:10 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient d of the period-2 Neimark-Sacker bifurcation along the merged S2-28011 curve, rerun after fixing the data path. Where is it negative and soft, where positive and hard, and does the sign change near log10 output -0.04
+- **Setup:** S2-28011, all 69 Neimark-Sacker points of the merged trace. Period-2 orbit re-found 0.02 to 0.2 below the traced boundary, continued to the boundary with bisection 1e-10, d at the last attracting point from the exact dense two step Jacobian and Richardson finite difference forms, second step size as a check, 8 workers at nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/s2-28011-curve/curve.json`
+- **Would surprise us:** d negative on the hard arc or positive on the soft arc, or no sign change between them
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py curve --workers 8`
+
+_commit `a7e3d90de700` (dirty worktree)_
+
+- run started 2026-10-07 23:10 UTC finished 23:11 UTC with exit status 0
+
+## 2026-10-07 23:12 UTC: Criticality exploratory: first Lyapunov coefficient along the S2-28011 Neimark-Sacker curve
+
+d computed at 66 of 69 merged curve points with Kuznetsov's formula (exact two step Jacobian, Richardson finite difference forms; a second step size agrees to all printed digits; eigen-gaps 0.88 to 1.01; no strong resonance). d is negative, supercritical, from log10 output -0.4121 to -0.0026, most negative near -0.062 at -5.08, and positive, subcritical, at -0.45 to -0.4215 and at +0.0132. Two sign changes, generalized Neimark-Sacker or Chenciner points: between -0.4215 and -0.4121 and between -0.0026 and +0.0132, near the bottom of the second dip. The three steep right-branch points found no period-2 start within 0.2 below the curve. Pre-stated surprise partly occurred: on -0.034 to -0.003, where fixed-start maps diverge just beyond the curve, d is clearly negative, -1.81, -1.33, -0.11, so subcriticality does not explain that part of the hard edge. Dynamical checks follow.
+
+_commit `f74ed0e39489` (dirty worktree)_
+
+## 2026-10-07 23:12 UTC: run (exploratory)
+
+- **Question:** Dynamical checks of criticality at eight points of the S2-28011 Neimark-Sacker curve. Beyond the curve, a small circle with amplitude growing like the square root of the offset, or escape. Before the curve, an escape threshold that shrinks toward the curve if subcritical. And an up and down sweep for hysteresis
+- **Setup:** Outputs -0.44, -0.30, -0.20, -0.08, -0.034, -0.018, -0.0026, +0.013 from the criticality curve run. Offsets 1e-4, 4e-4, 1.6e-3 in log10 hidden rate. Beyond, 40000 two step iterations from the boundary orbit point plus 1e-6 noise. Before, bisection on the perturbation amplitude along the critical eigenvector with 10000 two step iterations per trial. Sweep over 18 rates carrying the state
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/s2-28011-dynamics/dynamics.json`
+- **Would surprise us:** Supercritical points escaping beyond the curve while starting from the 2-cycle, or subcritical points showing a small circle beyond
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py dynamics --outputs -0.44 -0.30 -0.20 -0.08 -0.034 -0.018 -0.0026 0.013 --workers 8`
+
+_commit `52a2c4448e35`_
+
+## 2026-10-07 23:12 UTC: run (exploratory)
+
+- **Question:** Quantitative positive control. On the engineered gradient map 2-cycle, does the normal form amplitude of the circle at small offsets approach the square root of delta over minus d, for several kappa
+- **Setup:** EngineeredTwoCycle with phi 2 pi times 0.13, kappa -2, 0, 2. d at r 1. Dynamics at r 1.001 and 1.004 from p0 plus 1e-3, and normal form amplitude at r 1 plus 1e-5 and 1e-6 over 400000 two step iterations started on the predicted circle
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/control/control.json`
+- **Would surprise us:** Measured normal form amplitude differing from the prediction by more than 10 percent at the smallest offset
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py control --kappas -2 0 2`
+
+_commit `52a2c4448e35` (dirty worktree)_
+
+- run started 2026-10-07 23:12 UTC finished 23:12 UTC with exit status 0
+
+## 2026-10-07 23:14 UTC: Informative failure: first criticality dynamics run measured distances from the wrong reference point
+
+The first dynamics run at eight curve points measured amplitudes and escape thresholds relative to the boundary orbit point, but the 2-cycle shifts with the rate, so all before-curve thresholds came out below 1e-6 and the smallest beyond-curve offset was unconverged. Still informative: between offsets 4e-4 and 1.6e-3 beyond the curve the asymptotic amplitude doubles at every supercritical point (ratios 1.99 to 2.19, square-root scaling), including -0.034 and -0.018 where fixed-start maps diverge, while at the subcritical points -0.44 and +0.013 trajectories jump to distant attractors (distance about 0.64 and 0.20, nearly offset-independent) without diverging. Rerunning with the 2-cycle re-found by Newton at each offset and normal-form amplitudes compared with sqrt(log modulus over -d).
+
+_commit `1bd9aeb6ce66` (dirty worktree)_
+
+## 2026-10-07 23:14 UTC: run (exploratory)
+
+- **Question:** Corrected dynamical checks of criticality at eight S2-28011 curve points. Beyond the curve, normal form amplitude versus the predicted square root of log modulus over minus d. Before the curve, escape threshold relative to the stable 2-cycle, compared with the predicted unstable circle when d is positive
+- **Setup:** Outputs -0.44, -0.30, -0.20, -0.08, -0.034, -0.018, -0.0026, +0.013. Offsets 1e-4, 4e-4, 1.6e-3 in log10 hidden rate. 2-cycle re-found by Newton at each offset. Beyond, 120000 two step iterations started on the predicted circle. Before, bisection on perturbation amplitude along the critical direction with horizons set by the contraction rate
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/s2-28011-dynamics/dynamics2.json`
+- **Would surprise us:** Normal form amplitude off the prediction by more than 30 percent at the smallest offset at supercritical points, or small escape thresholds at supercritical points
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py dynamics2 --workers 8`
+
+_commit `c1efc891dc8b`_
+
+## 2026-10-07 23:14 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient at the three steep right-branch points of the S2-28011 curve that found no period-2 start within 0.2 below the boundary
+- **Setup:** Outputs +0.0289, +0.0447, +0.0605; starts at absolute log10 hidden 1.50 then 1.45, as in the trace that found these boundaries; otherwise as the curve run
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/s2-28011-steep/curve.json`
+- **Would surprise us:** Negative d on the steep branch beyond the second Chenciner point
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py curve --only 0.0289 0.0447 0.0605 --margins -1.50 -1.45 --workers 3 --name s2-28011-steep`
+
+_commit `918857ab44a7` (dirty worktree)_
+
+- run started 2026-10-07 23:14 UTC finished 23:15 UTC with exit status 0
+
+## 2026-10-07 23:15 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient of the period-2 Neimark-Sacker bifurcation along main's S1R-28002 trace. Do both soft and hard edges occur in the 72-parameter network
+- **Setup:** S1R-28002, the 16 Neimark-Sacker points of a3-ns-curve/s1r-28002 traced by main. Period-2 orbit re-found 0.02 to 0.2 below each boundary or from absolute start 1.0, continued to the boundary with bisection 1e-10, d from the exact two step Jacobian and Richardson finite difference forms, 8 workers at nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/s1r-28002-curve/curve.json`
+- **Would surprise us:** None expected either way
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py curve --system S1R --seed 28002 --ns /data2/neural-shrimp-data/explore/a3-ns-curve/s1r-28002/ns-curve.json --margins 0.02 0.05 0.1 -1.0 --workers 8 --name s1r-28002-curve`
+
+_commit `918857ab44a7` (dirty worktree)_
+
+## 2026-10-07 23:15 UTC: Criticality exploratory: a third Chenciner point on the steep right branch; fixed-start divergence near the curve is a basin effect
+
+Steep right branch of the S2-28011 curve, starts at log10 hidden 1.50: d = +0.2005 at output +0.0289, +0.0297 at +0.0447, and -0.6128 at +0.0605. With the main run, the sign of d alternates along the W-shaped curve: positive for output up to -0.4215, negative from -0.4121 to -0.0026, positive from +0.0132 to +0.0447, negative at +0.0605, giving three generalized Neimark-Sacker or Chenciner points near -0.417, +0.005 and +0.05. Map check (tools/analyze_criticality.py boundary): from -0.034 to +0.06 the fixed-start map is divergent on both sides of the curve, including just below it, where the period-2 orbit is stable, so on that arc the divergence of training from the shared initialization is a basin or transient effect, not the bifurcation. The hypothesis that the trainability boundary coincides with the Neimark-Sacker curve on the hard arc is not supported; from -0.10 to -0.046 divergence starts 98 to 737 cells above the curve.
+
+_commit `e1e1bbde85e0` (dirty worktree)_
+
+- run started 2026-10-07 23:15 UTC finished 23:15 UTC with exit status 0
+
+## 2026-10-07 23:16 UTC: Criticality exploratory: S1R-28002 Neimark-Sacker edges are mostly supercritical
+
+On main's S1R-28002 trace, 16 points from log10 output 0.5757 to 1.1414, d is negative at 15 points, -0.064 to -1.57, and positive at 1.1414, +0.0375, a point with birth rotation 0.043 unlike the 0.12 to 0.13 of the main arc. At 0.5757 the re-found boundary, hidden 1.1309 with rotation 0.074, differs from the trace's 1.1005 with 0.0175, so that trace point likely started near another crossing. Eigen-gaps 0.27 to 0.40; the step-size check agrees to all printed digits. Both edge types therefore occur in both networks, with the soft type dominant on the main arcs.
+
+_commit `2c452c5aeb13` (dirty worktree)_
+
+- run started 2026-10-07 23:14 UTC finished 23:17 UTC with exit status 0
+
+## 2026-10-07 23:18 UTC: Criticality exploratory: dynamical checks agree with the sign of d at all eight S2 points
+
+Corrected run, distances relative to the Newton-refined 2-cycle at each offset. Supercritical points, outputs -0.298, -0.184, -0.080, -0.034, -0.018, -0.0026: beyond the curve the normal form amplitude of the attracting circle equals the prediction sqrt(log modulus over -d) within 1 percent at offsets 1e-4, 4e-4, 1.6e-3, except 5.6 percent at the largest offset next to the Chenciner point near +0.005; before the curve perturbations up to 0.3 return. Subcritical points -0.4405 and +0.0132: beyond the curve trajectories jump to distant states independent of the offset; before it the escape threshold scales like the square root of the offset, 0.034, 0.064, 0.11 to 0.13, tracking the predicted repelling circle up to a constant factor of about 1.5 from the normalization; an up and down sweep shows hysteresis there, the state staying on the distant attractor below the curve, and reversible circle growth at the supercritical points. Control: on the engineered gradient map the normal form amplitude matches sqrt(log(1+delta) over -d) to 0.9 percent at delta 1e-5 and 0.05 percent at 1e-6. Conclusion: the local criticality of the edge is computed and verified; the divergence of fixed-start training near the right arc is a basin effect.
+
+_commit `2db19d3d7c7a` (dirty worktree)_
+
+- run started 2026-10-07 23:12 UTC finished 23:22 UTC with exit status 0
