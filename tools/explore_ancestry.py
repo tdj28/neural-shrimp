@@ -575,8 +575,8 @@ def scan_cross_section(net, x, y, parent_state, root, normal, tangent, delta, us
     tail = np.array(tail)
     scale = np.maximum(1.0, np.max(np.abs(tail[0]), axis=1))
     closes = np.max(np.abs(tail[period] - tail[0]), axis=1) / scale < 1e-5
-    for d in (1, 2, 5):
-        if period % d == 0 and d < period:
+    for d in range(1, period):
+        if period % d == 0:
             closes &= np.max(np.abs(tail[d] - tail[0]), axis=1) / scale > 1e-3
     return alive & closes, tail[0]
 
@@ -602,11 +602,14 @@ def cmd_levels(args):
         print(result["outcome"])
         return
     # choose the locked run nearest the root's foot
-    i = idx[np.argmin(np.abs(us[idx]))]
-    p = root + deltas[0] * normal + us[i] * tangent
-    map_fn, jacobian = family(p)
     options = {"newton_tolerance": args.newton_tolerance}
-    cert = certify_orbit(map_fn, jacobian, final[i], args.period, candidate_tolerance=0.05, **options)
+    cert = {"verified": False, "reason": "no candidate"}
+    for i in idx[np.argsort(np.abs(us[idx]))][:20]:
+        p = root + deltas[0] * normal + us[i] * tangent
+        map_fn, jacobian = family(p)
+        cert = certify_orbit(map_fn, jacobian, final[i], args.period, candidate_tolerance=0.05, **options)
+        if cert["verified"]:
+            break
     if not cert["verified"]:
         result.update({"outcome": "exhausted_budget", "reason": f"scan orbit not certified: {cert['reason']}"})
         dump(OUT / args.name / "levels.json", result)
