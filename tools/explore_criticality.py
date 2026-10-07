@@ -65,14 +65,36 @@ def engineered_dynamics(kappa, phi, delta, steps=200000):
             "amplitude_spread": float(np.std(amplitudes))}
 
 
+def engineered_amplitude(kappa, phi, delta, coef, steps):
+    """Normal-form amplitude |w| = |<p, x - p0>| of the circle at r = 1 + delta vs sqrt(delta / -d)."""
+    base = EngineeredTwoCycle(1.0, phi, kappa)
+    A = base.jacobian(base.p1) @ base.jacobian(base.p0)
+    from neural_shrimp.criticality import critical_pair
+    mu, q, p, _ = critical_pair(A)
+    f = EngineeredTwoCycle(1.0 + delta, phi, kappa)
+    predicted = np.sqrt(np.log1p(delta) / -coef["d"]) if coef["d"] < 0 else None
+    w0 = predicted if predicted else np.sqrt(delta)
+    x = f.p0 + 2 * (w0 * q).real
+    ws = []
+    for k in range(steps):
+        x = f.step(f.step(x))
+        if not np.all(np.isfinite(x)) or np.linalg.norm(x - f.p0) > 0.5:
+            return {"delta": delta, "escaped": True}
+        if k >= steps - 3000:
+            ws.append(abs(np.vdot(p, x - f.p0)))
+    return {"delta": delta, "escaped": False, "w_mean": float(np.mean(ws)), "w_spread": float(np.std(ws)),
+            "predicted_w": None if predicted is None else float(predicted)}
+
+
 def cmd_control(args):
     rows = []
     phi = 2 * np.pi * 0.13
     for kappa in args.kappas:
         coef = engineered_d(kappa, phi)
         dyn = [{"delta": dlt, **engineered_dynamics(kappa, phi, dlt)} for dlt in (1e-3, 4e-3)]
-        rows.append({"kappa": kappa, **coef, "dynamics": dyn})
-        print(json.dumps({"kappa": kappa, "d": round(coef["d"], 6), "dynamics": dyn}), flush=True)
+        amp = [engineered_amplitude(kappa, phi, dlt, coef, args.amplitude_steps) for dlt in args.amplitude_deltas]
+        rows.append({"kappa": kappa, **coef, "dynamics": dyn, "normal_form_amplitude": amp})
+        print(json.dumps({"kappa": kappa, "d": round(coef["d"], 6), "dynamics": dyn, "amplitude": amp}), flush=True)
     out = OUT / args.name
     out.mkdir(parents=True, exist_ok=True)
     (out / "control.json").write_text(json.dumps(rows, indent=1))
@@ -255,6 +277,8 @@ def main():
     control = sub.add_parser("control")
     control.add_argument("--kappas", type=float, nargs="+", default=[-4, -2, -1, 0, 1, 2, 4, 8])
     control.add_argument("--name", default="control")
+    control.add_argument("--amplitude-deltas", type=float, nargs="+", default=[1e-5, 1e-6])
+    control.add_argument("--amplitude-steps", type=int, default=400000)
     curve = sub.add_parser("curve")
     curve.add_argument("--system", default="S2")
     curve.add_argument("--seed", type=int, default=28011)
