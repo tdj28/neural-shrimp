@@ -1156,3 +1156,43 @@ _commit `a694db980dae` (dirty worktree)_
 Right-W GPU map (1024 x 400, 731 s; continuity: median |rho - arg(mu)/2pi| 0.00036 at 0.002 decades over 31 curve points; tongue roots: both 2/9 roots at the birth-rotation maximum 0.4 and 0.6 cells, p 0.001-0.002; steep-branch 3/13 3.0 cells, p 0.002; 1/4 20.6 cells, p 0.04). Classifying cells at 0.002-0.016 decades beyond each curve point (both maps): output -0.45 to -0.36 mostly chaotic at once (vanishing quasi-periodic band); -0.35 to -0.046 quasi-periodic or slow-drift at every offset (soft onset); -0.034 to +0.06 divergent at every offset (hard loss of stability straight to divergence). Hypothesis: the period-2 Neimark-Sacker is supercritical (safe boundary) on the middle arc and subcritical or immediately escaping (dangerous boundary) on the right arc, with a Chenciner point (first Lyapunov coefficient zero) near output -0.04; on the right arc the trainability (divergence) boundary would coincide with the Neimark-Sacker curve. Caveats: fixed-start labels; divergence could also reflect basin escape from the shared start; criticality not yet computed. Test planned: first Lyapunov coefficient along the curve, bistability and amplitude scaling on both arcs.
 
 _commit `a694db980dae` (dirty worktree)_
+
+## 2026-10-07 23:05 UTC: run (exploratory)
+
+- **Question:** Positive control for the criticality computation. Does the sign of d at r equal 1 for the engineered planar gradient map 2-cycle predict a soft or hard loss of stability just beyond r equal 1, with kappa tuning the cubic terms
+- **Setup:** EngineeredTwoCycle with phi 2 pi times 0.13 and kappa in -4 -2 -1 0 1 2 4 8. d from the Kuznetsov formula with finite difference forms of the exact two step JVP. Dynamics at r 1.001 and 1.004 from p0 plus 1e-3, 200000 two step iterations
+- **Output:** `../neural-shrimp-data/explore/criticality/control/control.json`
+- **Would surprise us:** Sign of d disagreeing with the dynamical outcome for any kappa
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py control`
+
+_commit `97d6ba4fea7a`_
+
+## 2026-10-07 23:08 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient d of the period-2 Neimark-Sacker bifurcation along the merged S2-28011 curve. Where is it negative and soft, where positive and hard, and does the sign change near log10 output -0.04 where fixed-start maps switch from quasi-periodic to divergent
+- **Setup:** S2-28011, all 69 Neimark-Sacker points of the merged trace. Period-2 orbit re-found 0.02 to 0.2 below the traced boundary, continued to the boundary with bisection 1e-10, d evaluated at the last attracting point from the exact dense two step Jacobian and Richardson finite difference forms, second step size as a check, 8 workers at nice 10
+- **Output:** `../neural-shrimp-data/explore/criticality/s2-28011-curve/curve.json`
+- **Would surprise us:** d negative on the hard arc or positive on the soft arc, or no sign change between them
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py curve --workers 8`
+
+_commit `63eddebb6acb` (dirty worktree)_
+
+- run started 2026-10-07 23:08 UTC finished 23:08 UTC with exit status 1
+
+## 2026-10-07 23:10 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient d of the period-2 Neimark-Sacker bifurcation along the merged S2-28011 curve, rerun after fixing the data path. Where is it negative and soft, where positive and hard, and does the sign change near log10 output -0.04
+- **Setup:** S2-28011, all 69 Neimark-Sacker points of the merged trace. Period-2 orbit re-found 0.02 to 0.2 below the traced boundary, continued to the boundary with bisection 1e-10, d at the last attracting point from the exact dense two step Jacobian and Richardson finite difference forms, second step size as a check, 8 workers at nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/s2-28011-curve/curve.json`
+- **Would surprise us:** d negative on the hard arc or positive on the soft arc, or no sign change between them
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py curve --workers 8`
+
+_commit `a7e3d90de700` (dirty worktree)_
+
+- run started 2026-10-07 23:10 UTC finished 23:11 UTC with exit status 0
+
+## 2026-10-07 23:12 UTC: Criticality exploratory: first Lyapunov coefficient along the S2-28011 Neimark-Sacker curve
+
+d computed at 66 of 69 merged curve points with Kuznetsov's formula (exact two step Jacobian, Richardson finite difference forms; a second step size agrees to all printed digits; eigen-gaps 0.88 to 1.01; no strong resonance). d is negative, supercritical, from log10 output -0.4121 to -0.0026, most negative near -0.062 at -5.08, and positive, subcritical, at -0.45 to -0.4215 and at +0.0132. Two sign changes, generalized Neimark-Sacker or Chenciner points: between -0.4215 and -0.4121 and between -0.0026 and +0.0132, near the bottom of the second dip. The three steep right-branch points found no period-2 start within 0.2 below the curve. Pre-stated surprise partly occurred: on -0.034 to -0.003, where fixed-start maps diverge just beyond the curve, d is clearly negative, -1.81, -1.33, -0.11, so subcriticality does not explain that part of the hard edge. Dynamical checks follow.
+
+_commit `f74ed0e39489` (dirty worktree)_
