@@ -23,8 +23,14 @@ LABELS = {0: "divergent", 1: "fixed", 2: "periodic", 3: "chaotic", 4: "unresolve
 
 
 def curve_rows():
-    rows = json.loads((CRIT / "s2-28011-curve" / "curve.json").read_text())["rows"]
-    return {round(r["log10_output"], 4): r for r in rows if r.get("type") == "neimark_sacker"}
+    out = {}
+    for name in ("s2-28011-curve", "s2-28011-steep"):
+        path = CRIT / name / "curve.json"
+        if path.exists():
+            for r in json.loads(path.read_text())["rows"]:
+                if r.get("type") == "neimark_sacker":
+                    out[round(r["log10_output"], 4)] = r
+    return out
 
 
 def merged_rows():
