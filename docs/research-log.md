@@ -278,3 +278,73 @@ _commit `2508f1913658` (dirty worktree)_
 Draft criteria (fold and flip each on at least 8 of 64 rays, at least half of flip rays opening onto period 2p in the local map, ray/map edge agreement at least 75%) pass S2-28011-zoom:587 (period 18) and S2-28011-zoom:985 (period 16). Edge agreement fails for most S1R windows because their local maps (from the shared initial parameters) are speckled inside the ray-continued stability region. First diagnostic (S1R-28001-zoom:931, period 8): of 20 speckled cells, 18 return period 8 when started from the certified orbit point but only 1 after 4x longer runs from the shared start: coexisting attractors, not long transients. Fixed-start maps therefore show basin selection layered on the window's existence region, and map-based edge criteria need orbit-start maps. The flip-to-2p criterion fails often even in clean S2 windows (subcritical flips or 2p bands thinner than a map cell are both possible); not yet diagnosed. Boundary census over all windows: S2 windows are mostly Neimark-Sacker and flip bounded (tongue-type); S1R windows mostly fold bounded. Full speckle survey running.
 
 _commit `2508f1913658` (dirty worktree)_
+
+## 2026-10-07 21:04 UTC: run (exploratory)
+
+- **Question:** A3b consequence pilot, S2-28011 slice: do reproducibility, loss and stopping-time sensitivity differ between ordinary period-2, quasi-periodic, locked and chaotic regimes, and does rotation/locking information predict them beyond FTLE, sharpness, rate and oscillation amplitude?
+- **Setup:** S2-28011, log10 output -0.08562528015073712, 750 hidden-rate cells log10 1.55-2.05; base run plus 30 copies perturbed at initialization (1e-12..1e-4, 6 directions, seeds 28700-28705); horizons 2k/10k/40k; step-decay anneal x0.1 3k + x0.01 1k; tail 8,192 steps with two tangents (seeds 28710-1), on-attractor 1e-10 copies (28720-1), sharpness at 16 states; anneal from 64 consecutive tail states. Regime rules fixed in neural_shrimp.regimes.classify before analysis. 6 workers, nice 10.
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/s2-28011-out-0.0856`
+- **Would surprise us:** Locked or quasi-periodic cells showing chaotic-level reproducibility loss at the attractor (not just from transients); rotation features adding substantial out-of-sample R2 beyond FTLE, sharpness, rate and amplitude
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_consequence.py simulate --name s2-28011-out-0.0856 --system S2 --seed 28011 --output -0.08562528015073712 --hidden 1.55 2.05 --cells 750 --chunks 15 --workers 6`
+
+_commit `1e705775726e`_
+
+- run started 2026-10-07 21:04 UTC finished 21:32 UTC with exit status 0
+
+## 2026-10-07 21:32 UTC: run (exploratory)
+
+- **Question:** A3b consequence pilot, S1R-28002 slice: same regime and incremental-value question as the S2 slice, in the 72-parameter network with coexisting attractors
+- **Setup:** S1R-28002, log10 output 0.9413, 160 hidden-rate cells log10 1.00-1.45 (Neimark-Sacker of the period-2 orbit at 1.121671); reduced profile: copies at 1e-12/1e-8/1e-4 x 4 directions (seeds 28700-28703), horizons 2k/10k/40k, anneal x0.1 2k + x0.01 500, tail 4,096 with two tangents and on-attractor copies, sharpness at 8 states, anneal from 32 consecutive tail states; probe inputs N(0,1) seed 28900 (random labels, so no held-out loss). 5 workers, nice 10.
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/s1r-28002-out-0.9413`
+- **Would surprise us:** Same as S2; also locked cells with O(1) disagreement from on-attractor perturbations
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_consequence.py simulate --name s1r-28002-out-0.9413 --system S1R --seed 28002 --output 0.9413 --hidden 1.00 1.45 --cells 160 --chunks 16 --workers 5 --profile reduced`
+
+_commit `b0416454a7fb` (dirty worktree)_
+
+## 2026-10-07 21:32 UTC: run (exploratory)
+
+- **Question:** Noisy precursor: with small additive noise on every update, does the even-step training-loss spectrum peak at arg(mu)/2pi of the period-2 orbit's two-step multiplier before the Neimark-Sacker point, growing as |mu| approaches 1, and at the rotation number beyond it?
+- **Setup:** S2-28011, log10 output -0.08562528015073712, 40 hidden-rate cells log10 1.70-1.80 (Neimark-Sacker at 1.738439); settle 40,000 noiseless steps; two-step multipliers from dense Jacobians for period-2 cells; record 16,384 steps with Gaussian update noise sigma 1e-7 and 1e-5 (seeds 28730-28731). 1 process, nice 10.
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/precursor-s2-28011`
+- **Would surprise us:** Peak frequency away from arg(mu)/2pi in period-2 cells with |mu| > 0.95, or no peak growth toward the bifurcation
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_consequence_precursor.py --name precursor-s2-28011 --system S2 --seed 28011 --output -0.08562528015073712 --hidden 1.70 1.80 --cells 40 --noise 1e-7 1e-5`
+
+_commit `b0416454a7fb` (dirty worktree)_
+
+- run started 2026-10-07 21:32 UTC finished 21:32 UTC with exit status 0
+
+## 2026-10-07 21:33 UTC: run (exploratory)
+
+- **Question:** Analysis of the S2-28011 consequence slice: per-regime outcomes against period-2 and chaotic controls; incremental value of rotation and locking features beyond FTLE classes, sharpness, rate and amplitude
+- **Setup:** tools/analyze_consequence.py with the pre-specified regime rules and models; 300 block-bootstrap draws; Neimark-Sacker point 1.738439 for the beyond-NS subset
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/analysis.json`
+- **Would surprise us:** Rotation features with delta R2 intervals clearly above zero for magnitude outcomes
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/analyze_consequence.py s2-28011-out-0.0856 --ns 1.738439 --draws 300`
+
+_commit `b0416454a7fb` (dirty worktree)_
+
+- run started 2026-10-07 21:33 UTC finished 21:34 UTC with exit status 0
+
+## 2026-10-07 21:35 UTC: run (exploratory)
+
+- **Question:** Noisy precursor, second pass (adapted after the first run showed peak picking is noisy far from the bifurcation): does a least-squares AR(6) fit of the noisy even-step loss recover the period-2 orbit's two-step multiplier (modulus and angle) from the loss alone, across the period-2 region up to the Neimark-Sacker point?
+- **Setup:** S2-28011, log10 output -0.08562528015073712, 60 hidden-rate cells log10 1.60-1.80; settle 40,000; record 16,384 with noise sigma 1e-7 and 1e-5 (seeds 28730-28731); AR(6) dominant complex root vs Jacobian multipliers. 1 process, nice 10.
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/precursor-s2-28011-ar`
+- **Would surprise us:** AR modulus or angle far from the Jacobian values for period-2 cells with |mu| > 0.9
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_consequence_precursor.py --name precursor-s2-28011-ar --system S2 --seed 28011 --output -0.08562528015073712 --hidden 1.60 1.80 --cells 60 --noise 1e-7 1e-5`
+
+_commit `0c73e956063a` (dirty worktree)_
+
+- run started 2026-10-07 21:35 UTC finished 21:36 UTC with exit status 0
+
+## 2026-10-07 21:36 UTC: A3b exploratory: S2-28011 consequence slice — regimes differ sharply, but rotation/locking adds no robust prediction beyond FTLE classes, sharpness, rate and amplitude
+
+750 cells, log10 hidden 1.55-2.05 at output -0.0856: period-2 282 (to 1.7376), quasi-periodic 125 (1.738-1.826 with interleaved small windows), locked 97 (rotations 1/5, 7/32, 5/23, 2/9 on 1.834-1.879, 1/4 on 1.911-1.919; 96/97 have period 2q x 2^k), chaotic 223, irregular 2, divergent 21. Medians (log10): function disagreement at 40k steps from 1e-8 initial perturbations: period-2 -15.9, quasi-periodic -6.1 (linear response: slope 1.00 vs perturbation size), locked -14.7 but bimodal (IQR -15.2 to -0.75: the upper half of the 2/9 window shows O(1) phase slips inherited from chaotic transients), chaotic -0.63 (slope 0). After the step-decay anneal: -15.8 / -8.7 / -9.4 (bimodal) / -2.3. Stopping-time spread of annealed models: -4.98 / -3.73 / -3.24 / -2.36, with a 10x dip inside the 1/4 window. Training and test losses rise smoothly with the rate; annealed test MSE is about 15% lower after chaotic training (-3.05 vs -2.98). Loss spectra: line fraction 1.0 / 0.99 / 0.96 / 0.10; the strongest peak of the even-step loss equals the rotation number within 1e-3 in 125/125 quasi-periodic and 97/97 locked cells. Nested blocked-CV models (n=729): rotation/locking features add delta R2 ~0 (intervals spanning 0) for every loss and reproducibility outcome; reproducibility is explained by FTLE classes plus a transient-amplification covariate (R2 0.92); the only interval above zero is stopping-time spread (delta R2 +0.045 [+0.001, +0.107]), sign-unstable in the beyond-NS subset and confounded with rate nonlinearity on a single slice. 8 quasi-periodic labels have clearly negative FTLE (possible slow locked orbits); excluding them changes nothing. Verdict for this slice: the consequences are regime-dependent but generic (Lyapunov sign, transient chaos, attractor size).
+
+_commit `0c73e956063a` (dirty worktree)_
+
+## 2026-10-07 21:36 UTC: A3b exploratory: noisy precursor — the training loss alone measures the edge-of-stability 2-cycle's Neimark-Sacker multiplier
+
+S2-28011, output -0.0856, 60 cells log10 hidden 1.60-1.80, Gaussian update noise 1e-7 or 1e-5. For the 41 period-2 cells (|mu| 0.954-0.9985), a least-squares AR(6) fit of the noisy even-step training loss recovers the two-step multiplier from Jacobians: angle/2pi within median 1.8e-4 (max 9.4e-4), modulus within median 0.0014 (max 0.0045); spectral peak height tracks -log(1-|mu|) (r = 0.94). Beyond the Neimark-Sacker point the fit gives modulus ~1 and frequency equal to the rotation number (0.2158-0.2182). So the distance to the quasi-periodic transition and the rotation number of the training that follows are readable from the loss curve before the transition; FTLE (ln|mu|/2) carries only the modulus. First pass used raw peak picking (median gap 3e-4, max 2.5e-3 far from the bifurcation); the AR estimator was added after seeing that (adapted). Caveat: isotropic additive noise stands in for minibatch noise.
+
+_commit `0c73e956063a` (dirty worktree)_
