@@ -120,13 +120,43 @@ def cmd_figure(args):
     print(out)
 
 
+def cmd_table(args):
+    """Markdown table of the corrected dynamical checks (dynamics2.json)."""
+    data = json.loads((CRIT / "s2-28011-dynamics" / "dynamics2.json").read_text())["rows"]
+    lines = ["| log10 output | d | beyond: status, measured w / predicted w (offset 1e-4, 4e-4, 1.6e-3) | "
+             "before: escape threshold (predicted unstable circle) |", "|---|---|---|---|"]
+    for r in data:
+        beyond = []
+        for b in r["beyond"]:
+            if "status" not in b:
+                beyond.append("cycle not found")
+                continue
+            if b["status"] != "settled":
+                beyond.append(b["status"])
+                continue
+            pred = "n/a" if b["predicted_w"] is None else f"{b['predicted_w']:.4f}"
+            far = b["max_distance"]
+            beyond.append(f"w {b['w_median']:.4f} / {pred} (max dist {far:.3f})")
+        before = []
+        for b in r["before"]:
+            thr = b.get("threshold")
+            pred = b.get("predicted_unstable_circle_w")
+            thr_s = thr if isinstance(thr, str) else (f"{thr:.4f}" if thr is not None else "n/a")
+            before.append(thr_s + ("" if pred is None else f" ({pred:.4f})"))
+        lines.append(f"| {r['log10_output']:+.4f} | {r['d']:+.3f} | " + "; ".join(beyond) + " | " + "; ".join(before) + " |")
+    text = "\n".join(lines)
+    print(text)
+    return text
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("boundary")
     sub.add_parser("figure")
+    sub.add_parser("table")
     args = parser.parse_args()
-    {"boundary": cmd_boundary, "figure": cmd_figure}[args.command](args)
+    {"boundary": cmd_boundary, "figure": cmd_figure, "table": cmd_table}[args.command](args)
 
 
 if __name__ == "__main__":
