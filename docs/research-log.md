@@ -458,3 +458,63 @@ _commit `330a449c8716` (dirty worktree)_
 Both runs ended start_not_attracting: Newton did not certify an attracting period-2 orbit from the state after 60,000 updates at -0.45. The edge-of-stability range was located only for seed 28101 halves, so -0.45 may sit outside the period-2 regime for these networks. Coarse scans of log10 eta -0.8..-0.2 follow to place the regime before continuing; the continuation now records the start certificate's reason.
 
 _commit `6c41af8bef16` (dirty worktree)_
+
+## 2026-10-07 22:10 UTC: run (exploratory)
+
+- **Question:** Real-data robustness scan, seed 28102 halves: where are the edge-of-stability period-2 regime and the onset of slow loss modulations?
+- **Setup:** Seed 28102, 64-8-1, n=1024 halves, ridge 1e-3; 120 log10 eta in -0.8 to -0.2 from the initialization; 20,000 updates with EXP-028 screening, then 4,096 recorded; 3 workers, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/scan-coarse`
+- **Would surprise us:** No line at 1/2 anywhere in the range
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py scan --seed 28102 --ridge 1e-3 --range -0.8 -0.2 --cells 120 --chunk 20 --workers 3 --out /data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/scan-coarse`
+
+_commit `aab87e578c3f` (dirty worktree)_
+
+## 2026-10-07 22:10 UTC: run (exploratory)
+
+- **Question:** Real-data robustness scan, seed 28101 parity: where are the edge-of-stability period-2 regime and the onset of slow loss modulations?
+- **Setup:** Seed 28101, 64-8-1, n=1024 parity, ridge 1e-3; 120 log10 eta in -0.8 to -0.2 from the initialization; 20,000 updates with EXP-028 screening, then 4,096 recorded; 3 workers, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/scan-coarse`
+- **Would surprise us:** No line at 1/2 anywhere in the range
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py scan --task parity --ridge 1e-3 --range -0.8 -0.2 --cells 120 --chunk 20 --workers 3 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/scan-coarse`
+
+_commit `aab87e578c3f` (dirty worktree)_
+
+- run started 2026-10-07 22:10 UTC finished 22:16 UTC with exit status 0
+
+- run started 2026-10-07 22:10 UTC finished 22:16 UTC with exit status 0
+
+## 2026-10-07 22:17 UTC: run (exploratory)
+
+- **Question:** Real-data robustness, seed 28102 halves: starting inside the period-2 regime located by the coarse scan, how does the period-2 orbit lose stability as eta grows?
+- **Setup:** Seed 28102, 64-8-1, n=1024 halves, ridge 1e-3; 60,000 updates from the initialization at log10 eta -0.7092, where the loss line at 1/2 carries 72% of the power; period 2 certified by Newton; continuation up to +0.3, bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/continue-0.7092`
+- **Would surprise us:** Fold or flip instead of Neimark-Sacker; boundary far from the first slow modulations near -0.634
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py continue --seed 28102 --ridge 1e-3 --start -0.7092 --period 2 --steps 60000 --s-max 0.3 --out /data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/continue-0.7092`
+
+_commit `41be47d81b68` (dirty worktree)_
+
+## 2026-10-07 22:17 UTC: run (exploratory)
+
+- **Question:** Real-data robustness, parity task: starting inside the period-2 regime, how does the period-2 orbit lose stability as eta grows?
+- **Setup:** Seed 28101, 64-8-1, n=1024 parity, ridge 1e-3; 60,000 updates from the initialization at log10 eta -0.4067, where the loss line at 1/2 carries 72% of the power; period 2 certified by Newton; continuation up to +0.3, bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4067`
+- **Would surprise us:** Fold or flip instead of Neimark-Sacker
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py continue --task parity --ridge 1e-3 --start -0.4067 --period 2 --steps 60000 --s-max 0.3 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4067`
+
+_commit `41be47d81b68` (dirty worktree)_
+
+## 2026-10-07 22:17 UTC: run (exploratory)
+
+- **Question:** Real-data robustness, parity task, second start: from log10 eta -0.4521, does the period-2 orbit reached there lose stability by Neimark-Sacker?
+- **Setup:** Seed 28101, 64-8-1, n=1024 parity, ridge 1e-3; 60,000 updates from the initialization at log10 eta -0.4521, line at 1/2 with 79% of the power; period 2 certified by Newton; continuation up to +0.3, bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4521`
+- **Would surprise us:** Fold or flip instead of Neimark-Sacker
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py continue --task parity --ridge 1e-3 --start -0.4521 --period 2 --steps 60000 --s-max 0.3 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4521`
+
+_commit `41be47d81b68` (dirty worktree)_
+
+## 2026-10-07 22:17 UTC: Real-data robustness scans: period-2 regime and slow loss modulations recur for seed 28102 halves and for the parity task
+
+Coarse scans (120 log10 eta in -0.8..-0.2, 20,000 updates, weight decay 1e-3) of the loss spectrum. Seed 28102 halves: the line at 1/2 carries 44-73% of the power from -0.78 to -0.68; slow harmonic modulations first at -0.634 (0.0037, 0.0044 cycles per update), then in most cells with harmonic sets such as 0.0024/0.0049/0.0073 interleaved with period-2 cells (-0.543, -0.422, -0.392, -0.377); positive FTLE up to 0.0037 near -0.21. Parity: period-2 cells scattered from -0.74 to -0.41 (line at 1/2 up to 79%), slow harmonic modulations from -0.42 (0.0044/0.0088/0.0176), positive FTLE (up to 0.0087, one chaotic cell) from -0.24. Continuations from -0.7092 (seed 28102) and from -0.4067 and -0.4521 (parity) follow.
+
+_commit `41be47d81b68` (dirty worktree)_
