@@ -18,16 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from neural_shrimp.gdmaps import (  # noqa: E402
-    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_FIXED, STATUS_NAMES, STATUS_PERIODIC,
+    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_DRIFT, STATUS_FIXED, STATUS_NAMES, STATUS_PERIODIC,
     STATUS_UNRESOLVED, connected_components,
 )
 
 # Validated categorical slots (all-pairs, light surface) plus neutrals.
 CLASS_COLORS = {STATUS_FIXED: "#2a78d6", STATUS_PERIODIC: "#eb6834", STATUS_CHAOTIC: "#1baf7a",
-                STATUS_DIVERGENT: "#52514e", STATUS_UNRESOLVED: "#e1e0d9"}
+                STATUS_DIVERGENT: "#52514e", STATUS_UNRESOLVED: "#e1e0d9", STATUS_DRIFT: "#a3a29b"}
 CLASS_LABELS = {STATUS_FIXED: "fixed-point candidate", STATUS_PERIODIC: "periodic candidate (p >= 2)",
                 STATUS_CHAOTIC: "chaotic candidate", STATUS_DIVERGENT: "divergent",
-                STATUS_UNRESOLVED: "unresolved"}
+                STATUS_UNRESOLVED: "unresolved", STATUS_DRIFT: "drift candidate (norm growth)"}
 PERIOD_RAMP = ["#86b6ef", "#6da7ec", "#5598e7", "#3987e5", "#2a78d6", "#256abf", "#1c5cab",
                "#184f95", "#104281", "#0d366b"]
 DIVERGING = ["#1c5cab", "#86b6ef", "#f0efec", "#ef9a99", "#c23434"]
@@ -85,19 +85,40 @@ def map_summary(saved, min_size):
             "sd_crosstab": sd}
 
 
-def gate(certificates, rule):
+def ring_confirmation_fraction(record, ring_results):
+    """Confirmed-chaotic fraction of a component's whole exterior ring.
+
+    Ring cells without a confirming rerun (beyond the cap, or with an error)
+    count as unconfirmed.
+    """
+    confirmed = {r["cell"] for r in ring_results
+                 if r["map_id"] == record["map_id"] and r["component"] == record["component"]
+                 and r["confirmed_chaotic"] and r["error"] is None}
+    ring = record["ring_cells"]
+    return (len(confirmed & set(record["ring_chaotic_cells"])) / len(ring)) if ring else 0.0
+
+
+def gate(certificates, ring_results, rule):
+    """Producer-side stage-A1 gate; final positive also needs audit confirmation."""
     qualifying = []
     for record in certificates:
-        cert = record["certificate"]
-        if (record["kind"] == "periodic" and cert.get("verified") and
-                (cert.get("attracting") or not rule["requires_attracting"]) and
-                (cert.get("primitive_period") or 0) >= rule["min_period"] and
-                (record["borders_chaos"] or not rule["requires_borders_chaos"])):
-            qualifying.append({"map_id": record["map_id"], "period": cert["primitive_period"],
-                               "component_size": record["size"],
-                               "spectral_radius": cert["spectral_radius"],
-                               "lr_hidden": record["lr_hidden"], "lr_output": record["lr_output"]})
-    return {"positive": bool(qualifying), "qualifying": qualifying}
+        cert = record["certificate"] or {}
+        if record["kind"] != "embedded" or not cert.get("verified"):
+            continue
+        if rule["requires_attracting"] and not cert.get("attracting"):
+            continue
+        if (cert.get("primitive_period") or 0) < rule["min_period"]:
+            continue
+        fraction = ring_confirmation_fraction(record, ring_results)
+        if fraction < rule["min_confirmed_ring_fraction"] or record["ring_divisor_cells"]:
+            continue
+        qualifying.append({"map_id": record["map_id"], "component": record["component"],
+                           "period": cert["primitive_period"], "component_size": record["size"],
+                           "spectral_radius": cert["spectral_radius"],
+                           "confirmed_ring_fraction": fraction,
+                           "lr_hidden": record["lr_hidden"], "lr_output": record["lr_output"]})
+    return {"producer_positive": bool(qualifying), "qualifying": qualifying,
+            "final_decision": "requires independent audit confirmation"}
 
 
 def draw_map(saved, title, path, sd_key):
@@ -112,7 +133,8 @@ def draw_map(saved, title, path, sd_key):
     extent = [lo[0], lo[-1], lh[0], lh[-1]]
     fig, axes = plt.subplots(1, 4, figsize=(17, 4.6), constrained_layout=True)
     fig.patch.set_facecolor(SURFACE)
-    order = [STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC, STATUS_CHAOTIC, STATUS_UNRESOLVED]
+    order = [STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC, STATUS_CHAOTIC, STATUS_DRIFT,
+             STATUS_UNRESOLVED]
     index = np.zeros_like(status)
     for i, code in enumerate(order):
         index[status == code] = i
@@ -133,7 +155,7 @@ def draw_map(saved, title, path, sd_key):
     bar = fig.colorbar(image, ax=ax, shrink=0.85)
     bar.set_ticks([1, 2, 3, 4, 5, 6])
     bar.set_ticklabels(["2", "4", "8", "16", "32", "64"])
-    bar.set_label("primitive period candidate", fontsize=8, color=INK)
+    bar.set_label("screened recurrence period", fontsize=8, color=INK)
     ax.set_title("B  Recurrence period (periodic cells only)", loc="left", fontsize=10, color=INK)
     if not periodic.any():
         ax.text(0.5, 0.5, "no periodic candidates", transform=ax.transAxes, ha="center",
@@ -183,9 +205,13 @@ def main():
     figures = Path(args.figures) if args.figures else (
         ROOT / "../neural-shrimp-data/figures/EXP-028" / plan["output"]["attempt"]).resolve()
     receipt = verify_receipt(raw)
+    if receipt["status"] != "complete":
+        raise SystemExit(f"attempt status is {receipt['status']!r}; analysis requires a complete attempt")
     if receipt["plan_sha256"] != hashlib.sha256(plan_bytes).hexdigest():
         raise SystemExit("receipt plan hash differs from the plan file")
-    figures.mkdir(parents=True, exist_ok=True)
+    if Path(args.summary).exists() or figures.exists():
+        raise SystemExit("summary or figure directory already exists; refusing to overwrite")
+    figures.mkdir(parents=True)
     maps = {}
     min_size = plan["certification"]["min_component_size"]
     sd_key = f"sd_convergent_{plan['iteration']['sd_horizons'][1]}"
@@ -203,31 +229,44 @@ def main():
             maps[map_id]["figure"] = {"path": str(figure), "sha256": sha256_file(figure)}
     zooms = {p.stem: json.loads(p.read_text()) for p in sorted((raw / "stage1").glob("*-zoom.json"))}
     certificates = json.loads((raw / "stage3" / "certificates.json").read_text())
+    ring_results = json.loads((raw / "stage3" / "ring-confirmation.json").read_text())
     diagnostics = json.loads((raw / "stage3" / "chaos-diagnostics.json").read_text())
-    cert_table = [{"map_id": r["map_id"], "kind": r["kind"], "component_period": r["period"],
-                   "size": r["size"], "borders_chaos": r["borders_chaos"],
-                   "lr_hidden": r["lr_hidden"], "lr_output": r["lr_output"],
-                   "verified": r["certificate"]["verified"], "attracting": r["certificate"]["attracting"],
-                   "primitive_period": r["certificate"]["primitive_period"],
-                   "spectral_radius": r["certificate"]["spectral_radius"],
-                   "stability": r["certificate"]["stability"], "reason": r["certificate"].get("reason")}
-                  for r in certificates]
+    cert_table = []
+    for r in certificates:
+        cert = r["certificate"] or {}
+        cert_table.append({
+            "map_id": r["map_id"], "kind": r["kind"], "component": r["component"],
+            "component_period": r["period"], "size": r["size"],
+            "ring_cells": len(r["ring_cells"]), "ring_divisor_cells": len(r["ring_divisor_cells"]),
+            "ring_chaotic_fraction_labels": r["ring_chaotic_fraction"],
+            "ring_confirmed_fraction": (ring_confirmation_fraction(r, ring_results)
+                                        if r["kind"] == "embedded" else None),
+            "lr_hidden": r["lr_hidden"], "lr_output": r["lr_output"],
+            "verified": cert.get("verified"), "attracting": cert.get("attracting"),
+            "primitive_period": cert.get("primitive_period"),
+            "spectral_radius": cert.get("spectral_radius"), "stability": cert.get("stability"),
+            "newton_converged": cert.get("newton_converged"),
+            "min_divisor_separation": cert.get("min_divisor_separation"),
+            "dominant_eigenvalue_condition": cert.get("dominant_eigenvalue_condition"),
+            "reason": cert.get("reason"), "error": None if r["error"] is None else r["error"]["type"]})
     chaos = {}
     for record in diagnostics:
-        entry = chaos.setdefault(record["map_id"], {"rerun": 0, "agree": 0})
+        entry = chaos.setdefault(record["map_id"], {"rerun": 0, "confirmed": 0, "errors": 0})
         entry["rerun"] += 1
-        entry["agree"] += int(record["agrees"])
+        entry["confirmed"] += int(bool(record["confirmed_chaotic"]))
+        entry["errors"] += int(record["error"] is not None)
     summary = {
         "experiment": "EXP-028", "label": plan["label"],
         "plan_sha256": receipt["plan_sha256"],
         "receipt_sha256": sha256_file(raw / "receipt.json"),
         "raw": str(raw), "git": receipt["git"], "status": receipt["status"],
         "maps": maps, "zoom_windows": {k: {"window": v["window"]} for k, v in zooms.items()},
-        "certificates": cert_table, "chaos_diagnostics": chaos,
-        "gate": gate(certificates, plan["gate"]),
+        "certificates": cert_table, "random_chaos_diagnostics": chaos,
+        "ring_reruns": len(ring_results),
+        "gate": gate(certificates, ring_results, plan["gate"]),
     }
     Path(args.summary).write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"gate": summary["gate"]["positive"], "maps": len(maps),
+    print(json.dumps({"producer_gate": summary["gate"]["producer_positive"], "maps": len(maps),
                       "certificates": len(cert_table)}, indent=2))
 
 

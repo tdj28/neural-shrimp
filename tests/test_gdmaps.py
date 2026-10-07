@@ -3,9 +3,9 @@ import pytest
 
 from neural_shrimp.diagnostics import certify_cycle
 from neural_shrimp.gdmaps import (
-    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC, GridMap,
-    HenonGrid, TwoLayerNet, connected_components, iterate_and_screen, run_grid,
-    screen_tails, sohl_dickstein_measure,
+    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_DRIFT, STATUS_FIXED, STATUS_PERIODIC,
+    STATUS_UNRESOLVED, GridMap, HenonGrid, TwoLayerNet, connected_components,
+    iterate_and_screen, run_grid, screen_tails, sohl_dickstein_measure,
 )
 from neural_shrimp.models import TanhRegressor
 
@@ -131,9 +131,10 @@ def test_henon_positive_control_reproduces_analytic_boundaries_and_exponent():
                   second_flip + 0.02, 1.4])
     grid = HenonGrid(a, np.full_like(a, b))
     initial = np.zeros((len(a), 2))
+    # Same screening settings as the EXP-028 plan, with a longer exponent window.
     result = iterate_and_screen(grid.step_subset, grid.jvp_subset, initial, 30000,
-                                tail_steps=512, ftle_steps=20000, ftle_align=1000,
-                                sd_horizons=(), atol=1e-10, rtol=1e-8)
+                                tail_steps=384, ftle_steps=20000, ftle_align=1000,
+                                sd_horizons=(), atol=1e-8, rtol=1e-6)
     np.testing.assert_array_equal(result["period"][:4], [1, 2, 2, 4])
     np.testing.assert_array_equal(result["status"][:4],
                                   [STATUS_FIXED, STATUS_PERIODIC, STATUS_PERIODIC, STATUS_PERIODIC])
@@ -162,7 +163,7 @@ def test_run_grid_classifies_small_and_divergent_rates_and_certifies_fixed_point
     certificate = certify_cycle(map_fn, result["final_state"][index], 1, jacobian=jacobian)
     assert certificate["verified"] and certificate["attracting"]
     assert result["sd_convergent_100"][index]
-    for key in ("status", "period", "ftle", "final_loss", "tail_mean_loss", "sd_score_100"):
+    for key in ("status", "period", "ftle", "last_evaluated_loss", "tail_mean_loss", "sd_score_100"):
         assert result[key].shape == (3,)
     assert result["final_state"].shape == (3, net.n_parameters)
 
@@ -179,3 +180,31 @@ def test_connected_components_uses_eight_connectivity_and_equal_labels():
     assert components[3, 3] != components[0, 0]
     assert np.all(components[~mask] == -1)
     assert len(np.unique(components[mask])) == 3
+
+
+def test_screen_requires_recurrence_across_the_whole_tail():
+    steps = 384
+    t = np.arange(steps)
+    pattern = np.array([[0.0], [1.0], [2.0]])
+    early_break = pattern[t % 3].astype(float)
+    early_break[10, 0] += 0.5  # violation far from the end of the tail
+    period, _ = screen_tails(early_break[None], max_period=8, min_repeats=6)
+    assert period[0] == 0
+
+
+def test_drift_label_distinguishes_slow_norm_growth_from_convergence():
+    def step_subset(states, idx):
+        growth = np.where(idx == 0, 1.0 + 1e-5, 1.0)[:, None]
+        contracted = np.where(idx[:, None] == 1, 0.999 * states + 0.001, states * growth)
+        return contracted, np.zeros(len(idx))
+
+    def jvp_subset(states, idx, vectors):
+        scale = np.where(idx == 0, 1.0 + 1e-5, 0.999)[:, None]
+        return scale * vectors
+
+    initial = np.array([[1.0, 2.0], [5.0, -3.0]])
+    result = iterate_and_screen(step_subset, jvp_subset, initial, 6000, tail_steps=384,
+                                ftle_steps=4000, ftle_align=100, sd_horizons=())
+    assert result["status"][0] == STATUS_DRIFT
+    assert result["window_norm_growth"][0] == pytest.approx((1 + 1e-5) ** 4000 - 1, rel=1e-6)
+    assert result["status"][1] in (STATUS_FIXED, STATUS_UNRESOLVED)

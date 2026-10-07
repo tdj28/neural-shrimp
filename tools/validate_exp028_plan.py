@@ -21,23 +21,32 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from neural_shrimp.models import TanhRegressor, make_teacher_regression  # noqa: E402
 
-EXPECTED_MAPS = [("S1", 28001), ("S1", 28002), ("S2", 28011), ("S2", 28012)]
+EXPECTED_MAPS = [("S1", 28001, "descriptive"), ("S1", 28002, "descriptive"),
+                 ("S1R", 28001, "full"), ("S1R", 28002, "full"),
+                 ("S2", 28011, "full"), ("S2", 28012, "full")]
 EXPECTED = {
     "iteration": {"steps": 20000, "tail_steps": 384, "max_period": 64, "min_repeats": 6,
                   "atol": 1e-8, "rtol": 1e-6, "ftle_steps": 4000, "ftle_align": 1000,
-                  "tangent_seed": 0, "chaos_threshold": 5e-3, "divergence_threshold": 1e8,
-                  "sd_horizons": [100, 500, 1000], "precision": "float64", "device": "cpu"},
-    "zoom": {"window": 32, "stride": 16, "resolution": 256, "map_index_offset": 4},
-    "certification": {"min_component_size": 4, "max_components": 16, "max_fixed_components": 4,
-                      "atol": 1e-9, "rtol": 1e-8, "root_tolerance": 1e-10,
-                      "stability_margin": 1e-7, "candidate_tolerance": 1e-3},
+                  "tangent_seed": 0, "chaos_threshold": 5e-3, "drift_threshold": 1e-2,
+                  "divergence_threshold": 1e8, "sd_horizons": [100, 500, 1000],
+                  "precision": "float64", "device": "cpu"},
+    "zoom": {"window": 32, "stride": 16, "resolution": 256},
+    "certification": {"min_component_size": 4, "max_embedded": 16, "max_other": 8, "max_fixed": 4,
+                      "min_chaotic_fraction": 0.5, "min_embedded_period": 3, "atol": 1e-9,
+                      "rtol": 1e-8, "newton_tolerance": 1e-10, "stability_margin": 1e-7,
+                      "candidate_tolerance": 1e-3, "divisor_separation": 1e-6,
+                      "max_iterations": 60},
+    "ring_confirmation": {"max_cells_per_component": 48, "order": "row-major", "steps": 30000,
+                          "ftle_steps": 10000, "ftle_align": 1000, "tangent_seed": 1,
+                          "tail_steps": 384, "chaos_threshold": 5e-3},
     "chaos_diagnostics": {"count": 16, "seed_base": 2810, "steps": 30000, "ftle_steps": 10000,
                           "ftle_align": 1000, "tangent_seed": 1, "tail_steps": 384,
                           "chaos_threshold": 5e-3},
-    "gate": {"min_period": 3, "requires_attracting": True, "requires_borders_chaos": True},
-    "audit": {"resimulated_cells_per_coarse_map": 32, "audit_seed": 2806},
-    "resources": {"workers": 12, "blas_threads": 1, "chunk_cells": 1024,
-                  "wall_ceiling_seconds": 21600, "max_load_average": 18.0,
+    "gate": {"min_period": 3, "requires_attracting": True, "min_confirmed_ring_fraction": 0.5,
+             "requires_audit_confirmation": True},
+    "audit": {"resimulated_cells_per_coarse_map": 36, "audit_seed": 2806},
+    "resources": {"workers": 14, "blas_threads": 1, "chunk_cells": 1024,
+                  "wall_ceiling_seconds": 28800, "max_load_average": 16.0,
                   "min_available_gib": 16.0},
     "output": {"raw_root": "../neural-shrimp-data/raw/EXP-028", "attempt": "attempt-001"},
 }
@@ -110,15 +119,21 @@ def validate(plan_path):
           "tail too short for the largest screened period", failures)
     check(it["steps"] >= it["ftle_steps"] + it["ftle_align"], "FTLE window exceeds steps", failures)
     maps = plan.get("maps", [])
-    check([(m["system"], m["seed"]) for m in maps] == EXPECTED_MAPS, "map list", failures)
+    check([(m["system"], m["seed"], m["pipeline"]) for m in maps] == EXPECTED_MAPS, "map list", failures)
+    zoom_indices = [m.get("zoom_map_index") for m in maps if m["pipeline"] == "full"]
+    check(zoom_indices == list(range(len(maps), len(maps) + len(zoom_indices))),
+          "zoom map indices", failures)
+    check(all("zoom_map_index" not in m for m in maps if m["pipeline"] != "full"),
+          "descriptive maps must not have zooms", failures)
     total_cells = 0
     for index, spec in enumerate(maps):
         check(spec["map_index"] == index, f"map_index {index}", failures)
-        if spec["system"] == "S1":
+        if spec["system"] in ("S1", "S1R"):
+            ridge = 0.0 if spec["system"] == "S1" else 1e-3
             x, y, theta = s1_recipe(spec["seed"])
-            gn = fd_gauss_newton_max(s1_predict, theta, x, 64, 1.0, 0.0)
+            gn = fd_gauss_newton_max(s1_predict, theta, x, 64, 1.0, ridge)
             expected_net = {"d": 8, "width": 8, "activation": "tanh", "bias": False,
-                            "loss_scale": 1.0, "ridge": 0.0}
+                            "loss_scale": 1.0, "ridge": ridge}
             check(abs(spec["network"]["in_scale"] - math.sqrt(0.25)) < 1e-15, "S1 in_scale", failures)
             check(abs(spec["network"]["out_scale"] - 0.125) < 1e-15, "S1 out_scale", failures)
         else:
@@ -143,14 +158,20 @@ def validate(plan_path):
             check(spec[f"log10_{name}"]["half_width"] == 1.5 and
                   spec[f"log10_{name}"]["resolution"] == 256, f"{spec['map_id']} axis {name}", failures)
         total_cells += spec["log10_hidden"]["resolution"] * spec["log10_output"]["resolution"]
-    check(total_cells == 4 * 256 * 256, "coarse cell count", failures)
+    check(total_cells == 6 * 256 * 256, "coarse cell count", failures)
+    for reference in plan.get("external_references", []):
+        local = (ROOT / reference["local_copy"]).resolve()
+        check(local.exists() and hashlib.sha256(local.read_bytes()).hexdigest() == reference["sha256"],
+              f"external reference {reference['name']}", failures)
     for record in plan.get("source_files", []):
         data = (ROOT / record["path"]).read_bytes()
         check(hashlib.sha256(data).hexdigest() == record["sha256"] and len(data) == record["bytes"],
               f"source hash {record['path']}", failures)
     required = {"src/neural_shrimp/gdmaps.py", "src/neural_shrimp/trainability.py",
-                "tools/run_exp028.py", "tools/analyze_exp028.py", "tools/audit_exp028.py",
-                "docs/EXP-028-protocol.md"}
+                "src/neural_shrimp/orbits.py", "src/neural_shrimp/__init__.py",
+                "src/neural_shrimp/controls.py", "src/neural_shrimp/models.py",
+                "pyproject.toml", "uv.lock", "tools/run_exp028.py", "tools/analyze_exp028.py",
+                "tools/audit_exp028.py", "docs/EXP-028-protocol.md"}
     check(required <= {r["path"] for r in plan.get("source_files", [])}, "bound sources", failures)
     return failures, total_cells
 

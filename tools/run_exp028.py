@@ -1,12 +1,15 @@
 """Execute the frozen EXP-028 plan.
 
-Stages: (1) coarse period-resolved maps, (2) frozen-rule zoom maps,
-(3) certification of mechanically selected components and chaos reruns.
-The production path refuses to start unless the worktree is clean, HEAD is
-contained in a remote-tracking branch, every bound source matches the plan,
-the plan hash is recorded, and live load and memory are within the plan's
-limits. Every chunk, assembled map, zoom specification, certificate, rerun,
-error and a SHA-256 inventory are kept; a failed attempt is never reused.
+Stages: (1) coarse period-resolved maps for every planned map, (2) frozen-rule
+zoom maps for full-pipeline maps, (3a) hardened certification of mechanically
+selected components, (3b) chaos reruns of every exterior-ring chaotic cell of
+each certified attracting embedded candidate (capped, row-major), and (3c)
+random chaos diagnostics. The production entry point refuses to start unless
+the worktree is clean, the tracked default plan is used, HEAD equals the
+live remote branch head, every bound source matches the plan and live load
+and memory are within limits. Every chunk, map, zoom specification,
+certificate, rerun, per-task error and a SHA-256 inventory are kept; an
+attempt directory is never reused.
 """
 
 import os
@@ -16,10 +19,12 @@ for _var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
     os.environ[_var] = "1"
 
 import argparse  # noqa: E402
+import concurrent.futures as cf  # noqa: E402
 import hashlib  # noqa: E402
 import json  # noqa: E402
 import multiprocessing as mp  # noqa: E402
 import platform  # noqa: E402
+import signal  # noqa: E402
 import subprocess  # noqa: E402
 import sys  # noqa: E402
 import time  # noqa: E402
@@ -28,20 +33,25 @@ from datetime import datetime, timezone  # noqa: E402
 from pathlib import Path  # noqa: E402
 
 import numpy as np  # noqa: E402
+import scipy  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from neural_shrimp.diagnostics import certify_cycle  # noqa: E402
 from neural_shrimp.gdmaps import STATUS_CHAOTIC, GridMap, run_grid  # noqa: E402
+from neural_shrimp.orbits import certify_orbit  # noqa: E402
 from neural_shrimp.trainability import (  # noqa: E402
-    SYSTEMS, array_sha256, chaos_sample, log_axis, periodic_components, zoom_axes, zoom_window,
+    SYSTEMS, array_sha256, chaos_sample, log_axis, select_components, zoom_axes, zoom_window,
 )
 
 DEFAULT_PLAN = ROOT / "experiments" / "trainability" / "EXP-028-plan.json"
 
 
 class RunFailure(RuntimeError):
+    pass
+
+
+class RunInterrupted(BaseException):
     pass
 
 
@@ -61,6 +71,20 @@ def sha256_file(path):
     return h.hexdigest()
 
 
+def _json_default(value):
+    if isinstance(value, np.integer):
+        return int(value)
+    if isinstance(value, np.floating):
+        return float(value)
+    if isinstance(value, np.bool_):
+        return bool(value)
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, Path):
+        return str(value)
+    raise TypeError(f"not serializable: {type(value)}")
+
+
 def write_json(path, payload):
     path = Path(path)
     tmp = path.with_suffix(path.suffix + ".tmp")
@@ -75,34 +99,29 @@ def save_npz(path, **arrays):
     os.replace(tmp, path)
 
 
-def _json_default(value):
-    if isinstance(value, np.integer):
-        return int(value)
-    if isinstance(value, np.floating):
-        return float(value)
-    if isinstance(value, np.bool_):
-        return bool(value)
-    if isinstance(value, np.ndarray):
-        return value.tolist()
-    raise TypeError(f"not serializable: {type(value)}")
-
-
 def git(*args):
     return subprocess.run(["git", *args], cwd=ROOT, check=True, capture_output=True,
-                          text=True).stdout.strip()
+                          text=True, timeout=60).stdout.strip()
 
 
-def git_guard():
-    """Clean worktree and a HEAD already contained in a remote-tracking ref."""
+def git_guard(plan_path):
+    """Clean worktree, tracked default plan and HEAD equal to the live remote head."""
+    if Path(plan_path).resolve() != DEFAULT_PLAN.resolve():
+        raise RunFailure("only the tracked default plan may be executed")
+    git("ls-files", "--error-unmatch", str(DEFAULT_PLAN.relative_to(ROOT)))
     dirty = git("status", "--porcelain", "--untracked-files=all")
     if dirty:
         raise RunFailure("worktree is not clean:\n" + dirty)
     head = git("rev-parse", "HEAD")
-    remote = [line.strip() for line in git("branch", "-r", "--contains", head).splitlines()
-              if line.strip()]
-    if not remote:
-        raise RunFailure(f"HEAD {head} is not contained in any remote-tracking branch")
-    return {"commit": head, "remote_refs_containing_head": remote, "clean": True}
+    branch = git("rev-parse", "--abbrev-ref", "HEAD")
+    try:
+        live = git("ls-remote", "origin", f"refs/heads/{branch}")
+    except subprocess.SubprocessError as error:
+        raise RunFailure(f"live remote check failed: {error}") from error
+    remote_head = live.split()[0] if live else None
+    if remote_head != head:
+        raise RunFailure(f"live remote head {remote_head} for {branch} differs from HEAD {head}")
+    return {"commit": head, "branch": branch, "live_remote_head": remote_head, "clean": True}
 
 
 def verify_sources(plan):
@@ -151,6 +170,8 @@ def system_inputs(spec):
     hashes = {"x": array_sha256(x), "y": array_sha256(y), "theta0": array_sha256(theta0)}
     if hashes != spec["data_sha256"]:
         raise RunFailure(f"{spec['map_id']}: regenerated inputs do not match plan hashes")
+    if abs(net.ridge - spec["network"]["ridge"]) > 0:
+        raise RunFailure(f"{spec['map_id']}: network ridge differs from plan")
     return net, x, y, theta0
 
 
@@ -167,7 +188,8 @@ def iteration_options(it, overrides=None):
                "min_repeats": it["min_repeats"], "atol": it["atol"], "rtol": it["rtol"],
                "chaos_threshold": it["chaos_threshold"],
                "divergence_threshold": it["divergence_threshold"],
-               "sd_horizons": tuple(it["sd_horizons"]), "tangent_seed": it["tangent_seed"]}
+               "sd_horizons": tuple(it["sd_horizons"]), "tangent_seed": it["tangent_seed"],
+               "drift_threshold": it["drift_threshold"]}
     options.update(overrides or {})
     return options
 
@@ -176,64 +198,79 @@ def iteration_options(it, overrides=None):
 def chunk_worker(task):
     start = time.perf_counter()
     net, x, y, theta0 = system_inputs(task["spec"])
-    grid = GridMap(net, x, y, 10.0 ** np.asarray(task["log_hidden"]),
-                   10.0 ** np.asarray(task["log_output"]))
+    lr_hidden = 10.0 ** np.asarray(task["log_hidden"], dtype=np.float64)
+    lr_output = 10.0 ** np.asarray(task["log_output"], dtype=np.float64)
+    grid = GridMap(net, x, y, lr_hidden, lr_output)
     result = run_grid(grid, theta0, task["steps"], **task["options"])
     result["cell_index"] = np.asarray(task["cells"], dtype=np.int64)
-    result["lr_hidden"] = 10.0 ** np.asarray(task["log_hidden"], dtype=np.float64)
-    result["lr_output"] = 10.0 ** np.asarray(task["log_output"], dtype=np.float64)
+    result["lr_hidden"] = lr_hidden
+    result["lr_output"] = lr_output
     save_npz(task["path"], **result)
-    return {"chunk": task["chunk"], "path": str(task["path"]), "seconds": time.perf_counter() - start,
-            "cells": len(task["cells"]), "pid": os.getpid()}
+    return {"map_id": task["map_id"], "chunk": task["chunk"], "path": str(task["path"]),
+            "seconds": time.perf_counter() - start, "cells": len(task["cells"]), "pid": os.getpid()}
 
 
 def certify_worker(task):
     start = time.perf_counter()
-    net, x, y, _ = system_inputs(task["spec"])
-    grid = GridMap(net, x, y, [task["lr_hidden"]], [task["lr_output"]])
-    map_fn, jacobian = grid.cell_map(0)
-    cert = task["certification"]
-    result = certify_cycle(map_fn, np.asarray(task["seed_state"]), task["period"], jacobian=jacobian,
-                           atol=cert["atol"], rtol=cert["rtol"],
-                           root_tolerance=cert["root_tolerance"],
-                           stability_margin=cert["stability_margin"],
-                           candidate_tolerance=cert["candidate_tolerance"],
-                           max_evaluations=cert["max_evaluations"])
+    try:
+        net, x, y, _ = system_inputs(task["spec"])
+        grid = GridMap(net, x, y, [task["lr_hidden"]], [task["lr_output"]])
+        map_fn, jacobian = grid.cell_map(0)
+        c = task["certification"]
+        certificate = certify_orbit(map_fn, jacobian, np.asarray(task["seed_state"]), task["period"],
+                                    atol=c["atol"], rtol=c["rtol"],
+                                    newton_tolerance=c["newton_tolerance"],
+                                    stability_margin=c["stability_margin"],
+                                    candidate_tolerance=c["candidate_tolerance"],
+                                    divisor_separation=c["divisor_separation"],
+                                    max_iterations=c["max_iterations"])
+        error = None
+    except Exception as exc:  # recorded per task; never discards other evidence
+        certificate, error = None, {"type": type(exc).__name__, "message": str(exc),
+                                    "traceback": traceback.format_exc()}
     return {**task["record"], "map_id": task["map_id"], "kind": task["kind"],
             "lr_hidden": task["lr_hidden"], "lr_output": task["lr_output"],
-            "seed_state_sha256": array_sha256(task["seed_state"]),
-            "certificate": result, "seconds": time.perf_counter() - start, "pid": os.getpid()}
+            "seed_state_sha256": array_sha256(task["seed_state"]), "certificate": certificate,
+            "error": error, "seconds": time.perf_counter() - start, "pid": os.getpid()}
 
 
 def chaos_worker(task):
     start = time.perf_counter()
-    net, x, y, theta0 = system_inputs(task["spec"])
-    grid = GridMap(net, x, y, [task["lr_hidden"]], [task["lr_output"]])
-    d = task["diagnostics"]
-    result = run_grid(grid, theta0, d["steps"], **task["options"])
-    return {"map_id": task["map_id"], "cell": task["cell"], "lr_hidden": task["lr_hidden"],
-            "lr_output": task["lr_output"], "original_ftle": task["original_ftle"],
-            "rerun_status": int(result["status"][0]), "rerun_period": int(result["period"][0]),
-            "rerun_ftle": float(result["ftle"][0]) if np.isfinite(result["ftle"][0]) else None,
-            "agrees": bool(int(result["status"][0]) == STATUS_CHAOTIC and task["original_ftle"] is not None
-                           and task["original_ftle"] > d["chaos_threshold"]),
-            "seconds": time.perf_counter() - start, "pid": os.getpid()}
+    try:
+        net, x, y, theta0 = system_inputs(task["spec"])
+        grid = GridMap(net, x, y, [task["lr_hidden"]], [task["lr_output"]])
+        result = run_grid(grid, theta0, task["steps"], **task["options"])
+        status, period = int(result["status"][0]), int(result["period"][0])
+        ftle = float(result["ftle"][0]) if np.isfinite(result["ftle"][0]) else None
+        error = None
+    except Exception as exc:
+        status = period = ftle = None
+        error = {"type": type(exc).__name__, "message": str(exc),
+                 "traceback": traceback.format_exc()}
+    return {"map_id": task["map_id"], "purpose": task["purpose"], "cell": task["cell"],
+            "component": task.get("component"), "lr_hidden": task["lr_hidden"],
+            "lr_output": task["lr_output"], "original_status": task["original_status"],
+            "original_ftle": task["original_ftle"], "rerun_status": status, "rerun_period": period,
+            "rerun_ftle": ftle, "confirmed_chaotic": status == STATUS_CHAOTIC,
+            "error": error, "seconds": time.perf_counter() - start, "pid": os.getpid()}
 
 
 # ----------------------------------------------------------------- execution
 class Executor:
-    """Owned process pool with a wall ceiling and RSS sampling."""
+    """Owned process pool: detects dead workers, enforces the wall ceiling."""
 
     def __init__(self, workers, ceiling, started):
-        self.pool = mp.get_context("spawn").Pool(processes=workers)
+        self.pool = cf.ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("spawn"))
         self.ceiling = ceiling
         self.started = started
-        self.pids = sorted(p.pid for p in self.pool._pool)
+        self.pids = set()
         self.peak_rss_kib = 0
 
-    def _sample_rss(self):
+    def _sample(self):
+        processes = getattr(self.pool, "_processes", None) or {}
         total = 0
-        for pid in [p.pid for p in self.pool._pool]:
+        for pid in list(processes):
+            self.pids.add(pid)
             try:
                 with open(f"/proc/{pid}/status") as handle:
                     for line in handle:
@@ -242,39 +279,43 @@ class Executor:
             except OSError:
                 continue
         self.peak_rss_kib = max(self.peak_rss_kib, total)
-        self.pids = sorted(set(self.pids) | {p.pid for p in self.pool._pool})
 
     def map(self, function, tasks):
-        pending = [self.pool.apply_async(function, (task,)) for task in tasks]
-        results = [None] * len(pending)
-        remaining = set(range(len(pending)))
-        while remaining:
-            if time.monotonic() - self.started > self.ceiling:
+        futures = {self.pool.submit(function, task): i for i, task in enumerate(tasks)}
+        results = [None] * len(tasks)
+        pending = set(futures)
+        while pending:
+            remaining = self.ceiling - (time.monotonic() - self.started)
+            if remaining <= 0:
                 raise RunFailure("wall ceiling exceeded")
-            for i in list(remaining):
-                if pending[i].ready():
-                    results[i] = pending[i].get()
-                    remaining.discard(i)
-            self._sample_rss()
-            if remaining:
-                time.sleep(0.5)
+            done, pending = cf.wait(pending, timeout=min(5.0, remaining),
+                                    return_when=cf.FIRST_COMPLETED)
+            for future in done:
+                results[futures[future]] = future.result()  # BrokenProcessPool raises here
+                self.pids.add(results[futures[future]].get("pid"))
+            self._sample()
         return results
 
     def close(self, terminate=False):
+        processes = dict(getattr(self.pool, "_processes", None) or {})
+        self.pids |= set(processes)
         if terminate:
-            self.pool.terminate()
-        else:
-            self.pool.close()
-        self.pool.join()
-        alive = [pid for pid in self.pids if Path(f"/proc/{pid}").exists()]
-        return {"worker_pids": self.pids, "alive_after_cleanup": alive,
+            for process in processes.values():
+                try:
+                    process.terminate()
+                except Exception:
+                    pass
+        self.pool.shutdown(wait=True, cancel_futures=True)
+        pids = sorted(p for p in self.pids if p)
+        alive = [pid for pid in pids if Path(f"/proc/{pid}").exists()]
+        return {"worker_pids": pids, "alive_after_cleanup": alive,
                 "peak_sampled_rss_kib": self.peak_rss_kib}
 
 
-def run_map(executor, spec, map_id, log_h, log_o, out_dir, plan, log):
+def chunk_tasks(spec, map_id, log_h, log_o, out_dir, plan):
     it = plan["iteration"]
-    rows, cols = len(log_h), len(log_o)
-    cells = np.arange(rows * cols)
+    cols = len(log_o)
+    cells = np.arange(len(log_h) * cols)
     chunk = plan["resources"]["chunk_cells"]
     map_dir = out_dir / map_id
     map_dir.mkdir(parents=True, exist_ok=False)
@@ -282,74 +323,86 @@ def run_map(executor, spec, map_id, log_h, log_o, out_dir, plan, log):
     for number, start in enumerate(range(0, len(cells), chunk)):
         members = cells[start:start + chunk]
         r, c = np.divmod(members, cols)
-        tasks.append({"spec": spec, "chunk": number, "cells": members.tolist(),
+        tasks.append({"spec": spec, "map_id": map_id, "chunk": number, "cells": members.tolist(),
                       "log_hidden": log_h[r].tolist(), "log_output": log_o[c].tolist(),
                       "steps": it["steps"], "options": iteration_options(it),
                       "path": map_dir / f"chunk-{number:04d}.npz"})
-    t0 = time.perf_counter()
-    chunk_records = executor.map(chunk_worker, tasks)
-    seconds = time.perf_counter() - t0
-    parts = [np.load(record["path"]) for record in chunk_records]
-    assembled = {}
-    for key in parts[0].files:
-        assembled[key] = np.concatenate([part[key] for part in parts], axis=0)
-    if not np.array_equal(assembled["cell_index"], cells):
+    return tasks
+
+
+def assemble(map_id, records, log_h, log_o, out_path):
+    rows, cols = len(log_h), len(log_o)
+    records = sorted(records, key=lambda r: r["chunk"])
+    parts = [np.load(r["path"]) for r in records]
+    merged = {key: np.concatenate([p[key] for p in parts], axis=0) for key in parts[0].files}
+    if not np.array_equal(merged["cell_index"], np.arange(rows * cols)):
         raise RunFailure(f"{map_id}: assembled cells out of order")
     shaped = {}
-    for key, value in assembled.items():
-        if key == "final_state":
-            shaped[key] = value.reshape(rows, cols, -1)
-        elif key == "cell_index":
+    for key, value in merged.items():
+        if key == "cell_index":
             continue
-        else:
-            shaped[key] = value.reshape(rows, cols)
-    save_npz(out_dir / f"{map_id}.npz", log10_hidden=log_h, log10_output=log_o, **shaped)
-    log({"event": "map_complete", "map_id": map_id, "seconds": seconds,
-         "chunks": len(chunk_records), "time": utc_now()})
-    return shaped, {"map_id": map_id, "seconds": seconds, "chunks": chunk_records}
+        shaped[key] = value.reshape(rows, cols, -1) if key == "final_state" else value.reshape(rows, cols)
+    save_npz(out_path, log10_hidden=log_h, log10_output=log_o, **shaped)
+    return shaped
 
 
-def certification_tasks(spec, map_id, shaped, log_h, log_o, plan):
-    cert = plan["certification"]
+def run_stage(executor, jobs, out_dir, plan, log):
+    """Run chunks of several maps together; returns {map_id: shaped arrays}."""
+    tasks = []
+    for spec, map_id, log_h, log_o in jobs:
+        tasks += chunk_tasks(spec, map_id, log_h, log_o, out_dir, plan)
+    t0 = time.perf_counter()
+    records = executor.map(chunk_worker, tasks)
+    shaped = {}
+    for spec, map_id, log_h, log_o in jobs:
+        mine = [r for r in records if r["map_id"] == map_id]
+        shaped[map_id] = assemble(map_id, mine, log_h, log_o, out_dir / f"{map_id}.npz")
+        log({"event": "map_complete", "map_id": map_id, "chunks": len(mine), "time": utc_now()})
+    log({"event": "stage_complete", "maps": [j[1] for j in jobs],
+         "seconds": time.perf_counter() - t0, "time": utc_now()})
+    return shaped, records
+
+
+
+def certification_tasks(spec, map_id, shaped, plan):
+    c = plan["certification"]
     status, period = shaped["status"], shaped["period"]
     cols = status.shape[1]
+    lists = select_components(status, period, c["min_component_size"], c["max_embedded"],
+                              c["max_other"], c["max_fixed"], c["min_chaotic_fraction"],
+                              c["min_embedded_period"])
     tasks = []
-    selections = [("periodic", periodic_components(status, period, cert["min_component_size"],
-                                                   cert["max_components"])),
-                  ("fixed", periodic_components(status, period, cert["min_component_size"],
-                                                cert["max_fixed_components"], fixed=True))]
-    for kind, records in selections:
-        for record in records:
-            r, c = divmod(record["representative"], cols)
+    for kind in ("embedded", "other", "fixed"):
+        for record in lists[kind]:
+            r, k = divmod(record["representative"], cols)
             tasks.append({"spec": spec, "map_id": map_id, "kind": kind, "record": record,
-                          "lr_hidden": float(10.0 ** log_h[r]), "lr_output": float(10.0 ** log_o[c]),
-                          "seed_state": shaped["final_state"][r, c].tolist(),
-                          "period": int(record["period"]), "certification": cert})
+                          "lr_hidden": float(shaped["lr_hidden"][r, k]),
+                          "lr_output": float(shaped["lr_output"][r, k]),
+                          "seed_state": shaped["final_state"][r, k].tolist(),
+                          "period": int(record["period"]), "certification": c})
     return tasks
 
 
-def chaos_tasks(spec, map_id, map_index, shaped, log_h, log_o, plan):
-    d = plan["chaos_diagnostics"]
-    status = shaped["status"]
-    cols = status.shape[1]
-    tasks = []
-    for cell in chaos_sample(status, d["count"], d["seed_base"] + map_index):
-        r, c = divmod(cell, cols)
-        original = shaped["ftle"][r, c]
-        options = iteration_options(plan["iteration"], {
-            "tail_steps": d["tail_steps"], "ftle_steps": d["ftle_steps"],
-            "ftle_align": d["ftle_align"], "tangent_seed": d["tangent_seed"],
-            "chaos_threshold": d["chaos_threshold"], "sd_horizons": ()})
-        tasks.append({"spec": spec, "map_id": map_id, "cell": int(cell),
-                      "lr_hidden": float(10.0 ** log_h[r]), "lr_output": float(10.0 ** log_o[c]),
-                      "original_ftle": float(original) if np.isfinite(original) else None,
-                      "diagnostics": d, "options": options})
-    return tasks
+def rerun_task(spec, map_id, shaped, cell, settings, plan, purpose, component=None):
+    cols = shaped["status"].shape[1]
+    r, k = divmod(int(cell), cols)
+    original = shaped["ftle"][r, k]
+    options = iteration_options(plan["iteration"], {
+        "tail_steps": settings["tail_steps"], "ftle_steps": settings["ftle_steps"],
+        "ftle_align": settings["ftle_align"], "tangent_seed": settings["tangent_seed"],
+        "chaos_threshold": settings["chaos_threshold"], "sd_horizons": ()})
+    return {"spec": spec, "map_id": map_id, "purpose": purpose, "cell": int(cell),
+            "component": component, "lr_hidden": float(shaped["lr_hidden"][r, k]),
+            "lr_output": float(shaped["lr_output"][r, k]),
+            "original_status": int(shaped["status"][r, k]),
+            "original_ftle": float(original) if np.isfinite(original) else None,
+            "steps": settings["steps"], "options": options}
 
 
 def environment_record():
-    return {"python": sys.version, "numpy": np.__version__, "platform": platform.platform(),
-            "processor": platform.processor(), "hostname": platform.node(),
+    return {"python": sys.version, "numpy": np.__version__, "scipy": scipy.__version__,
+            "platform": platform.platform(), "processor": platform.processor(),
+            "hostname": platform.node(),
             "blas_threads_env": {v: os.environ.get(v) for v in
                                  ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")}}
 
@@ -364,14 +417,16 @@ def inventory(out_dir):
     return records
 
 
+def _raise_interrupt(signum, _frame):
+    raise RunInterrupted(f"signal {signum}")
+
+
 def execute(plan, plan_sha, out_dir, guard_record=None, preflight_record=None, workers=None):
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=False)
     started = time.monotonic()
-    events = []
 
     def log(event):
-        events.append(event)
         with open(out_dir / "events.jsonl", "a") as handle:
             handle.write(json.dumps(event, default=_json_default) + "\n")
 
@@ -380,70 +435,86 @@ def execute(plan, plan_sha, out_dir, guard_record=None, preflight_record=None, w
         "experiment": plan["experiment"], "plan_sha256": plan_sha, "git": guard_record,
         "preflight": preflight_record, "environment": environment_record(),
         "workers": workers, "start_utc": utc_now()})
+    previous = signal.signal(signal.SIGTERM, _raise_interrupt)
     executor = Executor(workers, plan["resources"]["wall_ceiling_seconds"], started)
-    status = "failed"
-    error = None
-    stage_records = {"coarse": [], "zoom": [], "certification": None, "chaos": None}
+    status, error, interrupted = "failed", None, None
+    counts = {}
     try:
-        maps = []
+        maps = []  # (spec, map_index, map_id, shaped)
+        coarse_jobs = [(spec, spec["map_id"]) + coarse_axes(spec) for spec in plan["maps"]]
+        coarse, _ = run_stage(executor, coarse_jobs, out_dir / "stage1", plan, log)
+        zoom_jobs = []
+        z = plan["zoom"]
         for spec in plan["maps"]:
+            shaped = coarse[spec["map_id"]]
+            maps.append((spec, spec["map_index"], spec["map_id"], shaped))
+            if spec["pipeline"] != "full":
+                continue
             log_h, log_o = coarse_axes(spec)
-            shaped, record = run_map(executor, spec, spec["map_id"], log_h, log_o,
-                                     out_dir / "stage1", plan, log)
-            stage_records["coarse"].append(record)
-            maps.append((spec, spec["map_index"], spec["map_id"], shaped, log_h, log_o))
-            z = plan["zoom"]
             window = zoom_window(shaped["status"], shaped["period"], z["window"], z["stride"])
-            zoom_spec = {"map_id": spec["map_id"], "zoom_map_index": spec["map_index"] + z["map_index_offset"],
-                         "window": None if window is None else {"row0": window[0], "col0": window[1],
-                                                                "count": window[2]}}
+            zoom_spec = {"map_id": spec["map_id"], "zoom_map_index": spec["zoom_map_index"],
+                         "window": None if window is None else {
+                             "row0": window[0], "col0": window[1], "primary": window[2],
+                             "secondary": window[3]}}
             if window is not None:
                 zh, zo = zoom_axes(log_h, log_o, window[0], window[1], z["window"], z["resolution"])
-                zoom_spec["log10_hidden"] = zh.tolist()
-                zoom_spec["log10_output"] = zo.tolist()
+                zoom_spec["log10_hidden"], zoom_spec["log10_output"] = zh.tolist(), zo.tolist()
+                zoom_jobs.append((spec, f"{spec['map_id']}-zoom", zh, zo))
             write_json(out_dir / "stage1" / f"{spec['map_id']}-zoom.json", zoom_spec)
-            log({"event": "zoom_selected", **{k: v for k, v in zoom_spec.items()
-                                               if k not in ("log10_hidden", "log10_output")}})
-        for spec, map_index, map_id, shaped, log_h, log_o in list(maps):
-            zoom_spec = json.loads((out_dir / "stage1" / f"{map_id}-zoom.json").read_text())
-            if zoom_spec["window"] is None:
-                log({"event": "zoom_not_run", "map_id": map_id, "reason": "no eligible window"})
-                continue
-            zh, zo = np.asarray(zoom_spec["log10_hidden"]), np.asarray(zoom_spec["log10_output"])
-            zshaped, record = run_map(executor, spec, f"{map_id}-zoom", zh, zo,
-                                      out_dir / "stage2", plan, log)
-            stage_records["zoom"].append(record)
-            maps.append((spec, zoom_spec["zoom_map_index"], f"{map_id}-zoom", zshaped, zh, zo))
-        cert_tasks, diag_tasks = [], []
-        for spec, map_index, map_id, shaped, log_h, log_o in maps:
-            cert_tasks += certification_tasks(spec, map_id, shaped, log_h, log_o, plan)
-            diag_tasks += chaos_tasks(spec, map_id, map_index, shaped, log_h, log_o, plan)
+            log({"event": "zoom_selected", "map_id": spec["map_id"], "window": zoom_spec["window"]})
+        if zoom_jobs:
+            zoomed, _ = run_stage(executor, zoom_jobs, out_dir / "stage2", plan, log)
+            for spec, map_id, _, _ in zoom_jobs:
+                maps.append((spec, spec["zoom_map_index"], map_id, zoomed[map_id]))
         (out_dir / "stage3").mkdir()
-        t0 = time.perf_counter()
+        cert_tasks = []
+        for spec, _, map_id, shaped in maps:
+            if spec["pipeline"] == "full":
+                cert_tasks += certification_tasks(spec, map_id, shaped, plan)
         certificates = executor.map(certify_worker, cert_tasks)
         write_json(out_dir / "stage3" / "certificates.json", certificates)
+        ring = plan["ring_confirmation"]
+        shaped_by_id = {map_id: (spec, shaped) for spec, _, map_id, shaped in maps}
+        ring_tasks = []
+        for record in certificates:
+            cert = record["certificate"] or {}
+            if record["kind"] != "embedded" or not (cert.get("verified") and cert.get("attracting")):
+                continue
+            spec, shaped = shaped_by_id[record["map_id"]]
+            for cell in sorted(record["ring_chaotic_cells"])[:ring["max_cells_per_component"]]:
+                ring_tasks.append(rerun_task(spec, record["map_id"], shaped, cell, ring, plan,
+                                             "ring_confirmation", record["component"]))
+        ring_results = executor.map(chaos_worker, ring_tasks)
+        write_json(out_dir / "stage3" / "ring-confirmation.json", ring_results)
+        d = plan["chaos_diagnostics"]
+        diag_tasks = []
+        for spec, map_index, map_id, shaped in maps:
+            for cell in chaos_sample(shaped["status"], d["count"], d["seed_base"] + map_index):
+                diag_tasks.append(rerun_task(spec, map_id, shaped, cell, d, plan, "random_chaos"))
         diagnostics = executor.map(chaos_worker, diag_tasks)
         write_json(out_dir / "stage3" / "chaos-diagnostics.json", diagnostics)
-        stage_records["certification"] = {"count": len(certificates),
-                                          "seconds": time.perf_counter() - t0}
-        stage_records["chaos"] = {"count": len(diagnostics)}
+        counts = {"maps": len(maps), "certificates": len(certificates),
+                  "certificate_errors": sum(r["error"] is not None for r in certificates),
+                  "ring_reruns": len(ring_results),
+                  "rerun_errors": sum(r["error"] is not None for r in ring_results + diagnostics),
+                  "random_chaos_reruns": len(diagnostics)}
         status = "complete"
-    except Exception as exc:  # preserve every failure with its traceback
+    except BaseException as exc:  # record every failure, including interrupts
         error = {"type": type(exc).__name__, "message": str(exc),
                  "traceback": traceback.format_exc()}
         log({"event": "failure", **error, "time": utc_now()})
+        interrupted = exc if isinstance(exc, (KeyboardInterrupt, RunInterrupted)) else None
     finally:
         cleanup = executor.close(terminate=status != "complete")
-    write_json(out_dir / "runtime-end.json", {
-        "status": status, "error": error, "end_utc": utc_now(),
-        "wall_seconds": time.monotonic() - started, "cleanup": cleanup,
-        "stages": {"coarse": [{k: v for k, v in r.items() if k != "chunks"} for r in stage_records["coarse"]],
-                   "zoom": [{k: v for k, v in r.items() if k != "chunks"} for r in stage_records["zoom"]],
-                   "certification": stage_records["certification"],
-                   "chaos": stage_records["chaos"]}})
-    write_json(out_dir / "receipt.json", {
-        "experiment": plan["experiment"], "plan_sha256": plan_sha, "status": status,
-        "git": guard_record, "files": inventory(out_dir)})
+        signal.signal(signal.SIGTERM, previous)
+        write_json(out_dir / "runtime-end.json", {
+            "status": status, "error": error, "end_utc": utc_now(), "counts": counts,
+            "wall_seconds": time.monotonic() - started, "cleanup": cleanup})
+        write_json(out_dir / "receipt.json", {
+            "experiment": plan["experiment"], "plan_sha256": plan_sha, "status": status,
+            "git": guard_record, "files": inventory(out_dir)})
+    if interrupted is not None:
+        raise interrupted
     return status
 
 
@@ -452,10 +523,10 @@ def main():
     parser.add_argument("--plan", default=str(DEFAULT_PLAN))
     parser.add_argument("--preflight-only", action="store_true")
     args = parser.parse_args()
-    plan_bytes = Path(args.plan).read_bytes()
+    guard = git_guard(args.plan)
+    plan_bytes = DEFAULT_PLAN.read_bytes()
     plan = json.loads(plan_bytes)
     plan_sha = sha256_bytes(plan_bytes)
-    guard = git_guard()
     verify_sources(plan)
     snapshot = preflight(plan)
     out_dir = (ROOT / plan["output"]["raw_root"] / plan["output"]["attempt"]).resolve()

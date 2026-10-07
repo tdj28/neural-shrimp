@@ -24,12 +24,14 @@ STATUS_FIXED = 1
 STATUS_PERIODIC = 2
 STATUS_CHAOTIC = 3
 STATUS_UNRESOLVED = 4
+STATUS_DRIFT = 5
 STATUS_NAMES = {
     STATUS_DIVERGENT: "divergent",
     STATUS_FIXED: "fixed_point_candidate",
     STATUS_PERIODIC: "periodic_candidate",
     STATUS_CHAOTIC: "chaotic_candidate",
     STATUS_UNRESOLVED: "unresolved",
+    STATUS_DRIFT: "drift_candidate",
 }
 
 
@@ -325,14 +327,15 @@ def sohl_dickstein_measure(losses, max_val=1e6):
 
 
 def screen_tails(tail, max_period=64, min_repeats=6, atol=1e-8, rtol=1e-6):
-    """Smallest full-state recurrence period per cell in a retained tail.
+    """Smallest full-state recurrence period per cell over the whole tail.
 
-    ``tail`` has shape (cells, steps, parameters). For each candidate period
-    ``p``, every one of the last ``min_repeats`` blocks must agree with the
-    final block within ``atol + rtol * max(|a|, |b|)``. Returns
-    (period, normalized_residual): period 0 means no recurrence up to
-    ``max_period``; nonfinite tails return period -1. This screens candidates;
-    it does not verify an orbit.
+    ``tail`` has shape (cells, steps, parameters). Period ``p`` is accepted
+    only if the tail holds at least ``min_repeats * p`` states and every pair
+    ``tail[t]``, ``tail[t + p]`` across the entire tail agrees within
+    ``atol + rtol * max(|a|, |b|)``. Returns (period, normalized_residual):
+    period 0 means no recurrence up to ``max_period``; nonfinite tails return
+    -1. A screened period is a candidate, not a verified primitive orbit: a
+    slowly converging orbit can pass at a multiple of its true period.
     """
     tail = np.asarray(tail, dtype=np.float64)
     if tail.ndim != 3:
@@ -346,14 +349,12 @@ def screen_tails(tail, max_period=64, min_repeats=6, atol=1e-8, rtol=1e-6):
     period[~finite] = -1
     open_cells = finite.copy()
     for p in range(1, int(max_period) + 1):
-        count = p * int(min_repeats)
-        if count > steps or not np.any(open_cells):
+        if p * int(min_repeats) > steps or not np.any(open_cells):
             break
         idx = np.flatnonzero(open_cells)
-        blocks = tail[idx, steps - count:, :].reshape(len(idx), min_repeats, p, -1)
-        reference = blocks[:, -1:, :, :]
-        scale = atol + rtol * np.maximum(np.abs(blocks), np.abs(reference))
-        normalized = np.max(np.abs(blocks - reference) / scale, axis=(1, 2, 3))
+        later, earlier = tail[idx, p:, :], tail[idx, :-p, :]
+        scale = atol + rtol * np.maximum(np.abs(later), np.abs(earlier))
+        normalized = np.max(np.abs(later - earlier) / scale, axis=(1, 2))
         hit = normalized <= 1.0
         period[idx[hit]] = p
         residual[idx[hit]] = normalized[hit]
@@ -401,7 +402,7 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
                        ftle_steps=4000, ftle_align=1000, max_period=64, min_repeats=6,
                        atol=1e-8, rtol=1e-6, chaos_threshold=5e-3,
                        divergence_threshold=1e8, sd_horizons=(100, 500, 1000),
-                       tangent_seed=0, screen_batch=256):
+                       tangent_seed=0, screen_batch=256, drift_threshold=1e-2):
     """Iterate many independent maps and screen their final tails.
 
     ``step_subset(states, idx)`` returns (new_states, losses) for the cells in
@@ -410,7 +411,11 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
     the threshold) freezes a cell. The largest finite-time Lyapunov exponent
     uses one tangent per cell, aligned for ``ftle_align`` steps and averaged
     over the final ``ftle_steps``. A collapsed tangent invalidates only the
-    exponent. Classifications are candidates, not verified orbits or chaos.
+    exponent. A surviving cell without recurrence or a positive exponent is
+    a drift candidate when its state norm grows by more than
+    ``drift_threshold`` (relative) over the final ``ftle_steps`` updates, and
+    unresolved otherwise. Classifications are candidates, not verified orbits,
+    chaos or escape to infinity.
     """
     theta = np.array(initial, dtype=np.float64)
     if theta.ndim != 2:
@@ -431,6 +436,8 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
     log_growth = np.zeros(cells)
     ftle_valid = np.ones(cells, dtype=bool)
     ftle_start = steps - ftle_steps - ftle_align
+    norm_start = steps - ftle_steps
+    window_norm = np.full(cells, np.nan)
     tail_start = steps - tail_steps
     min_loss = np.full(cells, np.inf)
     tail_loss_sum = np.zeros(cells)
@@ -441,6 +448,8 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
         if len(idx) == 0:
             break
         current = theta[idx]
+        if step == norm_start:
+            window_norm[idx] = np.linalg.norm(current, axis=1)
         with np.errstate(over="ignore", invalid="ignore"):
             new, loss = step_subset(current, idx)
             if step >= ftle_start:
@@ -488,12 +497,17 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
     status[alive & (period == 1)] = STATUS_FIXED
     status[alive & (period >= 2)] = STATUS_PERIODIC
     status[alive & (period == 0) & (ftle > chaos_threshold)] = STATUS_CHAOTIC
+    with np.errstate(invalid="ignore", divide="ignore"):
+        growth = np.linalg.norm(theta, axis=1) / window_norm - 1.0
+    drift = alive & (status == STATUS_UNRESOLVED) & np.isfinite(growth) & (growth > drift_threshold)
+    status[drift] = STATUS_DRIFT
     result = {
         "status": status, "period": np.where(alive, period, -1),
         "recurrence_residual": residual, "ftle": ftle, "ftle_valid": alive & ftle_valid,
         "diverged_at": diverged_at, "final_state": theta,
+        "window_norm_growth": np.where(alive, growth, np.nan),
         "min_loss": np.where(np.isfinite(min_loss), min_loss, np.nan),
-        "final_loss": np.where(alive, last_loss, np.nan),
+        "last_evaluated_loss": np.where(alive, last_loss, np.nan),
         "tail_mean_loss": np.where(alive & (tail_loss_count == tail_steps),
                                    tail_loss_sum / np.maximum(tail_loss_count, 1), np.nan),
     }

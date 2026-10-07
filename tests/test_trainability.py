@@ -1,11 +1,13 @@
 import numpy as np
 import pytest
 
-from neural_shrimp.gdmaps import STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC
+from neural_shrimp.gdmaps import (
+    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC, STATUS_UNRESOLVED,
+)
 from neural_shrimp.models import TanhRegressor, make_teacher_regression
 from neural_shrimp.trainability import (
-    array_sha256, chaos_sample, edge_rates, log_axis, make_s1, make_s2,
-    periodic_components, zoom_axes, zoom_window,
+    SYSTEMS, array_sha256, chaos_sample, edge_rates, log_axis, make_s1, make_s1r, make_s2,
+    ring_statistics, select_components, zoom_axes, zoom_window,
 )
 
 
@@ -45,24 +47,50 @@ def test_log_axis_is_symmetric_with_requested_resolution():
     assert len(axis) == 256 and np.all(np.diff(axis) > 0)
 
 
-def test_zoom_window_counts_periodic_and_chaotic_cells_with_tie_breaking():
+def test_s1r_shares_s1_inputs_and_adds_ridge():
+    net, x, y, theta0 = make_s1r(31)
+    base, x0, y0, t0 = make_s1(31)
+    assert net.ridge == 1e-3 and base.ridge == 0.0
+    np.testing.assert_array_equal(x, x0)
+    np.testing.assert_array_equal(theta0, t0)
+    assert set(SYSTEMS) == {"S1", "S1R", "S2"}
+
+
+def test_zoom_window_prefers_period_three_or_more_bordering_chaos():
     status = np.full((64, 64), STATUS_FIXED)
     period = np.ones((64, 64), dtype=int)
     assert zoom_window(status, period) is None
-    status[40:44, 40:44] = STATUS_CHAOTIC
-    period[40:44, 40:44] = 0
-    status[5, 5] = STATUS_PERIODIC
-    period[5, 5] = 3
-    r0, c0, count = zoom_window(status, period)
-    assert count == 16 and r0 <= 40 and r0 + 32 >= 44 and c0 <= 40 and c0 + 32 >= 44
-    # A window containing both regions wins over either alone; ties go to smallest row/col.
-    tie_status = np.full((64, 64), STATUS_DIVERGENT)
-    tie_period = np.full((64, 64), -1)
-    tie_status[0, 40] = tie_status[40, 0] = STATUS_CHAOTIC
-    assert zoom_window(tie_status, tie_period)[:2] == (0, 16)
-    # Period-1 periodic labels are not counted.
-    lone = np.full((64, 64), STATUS_PERIODIC)
-    assert zoom_window(lone, np.ones((64, 64), dtype=int)) is None
+    # A plateau of period-2 cells next to chaos must not attract the zoom.
+    status[0:32, 0:32] = STATUS_PERIODIC
+    period[0:32, 0:32] = 2
+    status[0:32, 32:34] = STATUS_CHAOTIC
+    period[0:32, 32:34] = 0
+    no_primary = zoom_window(status, period)
+    assert no_primary is not None and no_primary[2] == 0 and no_primary[3] > 0
+    # A small period-5 island inside chaos wins.
+    status[44:52, 44:52] = STATUS_CHAOTIC
+    period[44:52, 44:52] = 0
+    status[47:49, 47:49] = STATUS_PERIODIC
+    period[47:49, 47:49] = 5
+    r0, c0, primary, secondary = zoom_window(status, period)
+    assert primary == 4 and r0 <= 47 and r0 + 32 >= 49 and c0 <= 47 and c0 + 32 >= 49
+
+
+def test_ring_statistics_flags_proper_divisor_neighbors():
+    status = np.full((7, 7), STATUS_CHAOTIC)
+    period = np.zeros((7, 7), dtype=int)
+    status[2:5, 2:5] = STATUS_PERIODIC
+    period[2:5, 2:5] = 6
+    status[1, 3] = STATUS_PERIODIC
+    period[1, 3] = 3     # proper divisor of 6
+    status[5, 3] = STATUS_PERIODIC
+    period[5, 3] = 12    # multiple: allowed
+    status[3, 1] = STATUS_FIXED
+    members = np.flatnonzero(((status == STATUS_PERIODIC) & (period == 6)).ravel())
+    ring, divisor, chaotic = ring_statistics(status, period, members, 6)
+    assert len(ring) == 16
+    assert sorted(divisor) == sorted([1 * 7 + 3, 3 * 7 + 1])
+    assert len(chaotic) == 13
 
 
 def test_zoom_axes_span_window_centers():
@@ -74,27 +102,30 @@ def test_zoom_axes_span_window_centers():
     assert len(zh) == len(zo) == 256
 
 
-def test_periodic_components_selection_order_representative_and_chaos_border():
-    status = np.full((12, 12), STATUS_FIXED)
-    period = np.ones((12, 12), dtype=int)
-    status[0:3, 0:3] = STATUS_PERIODIC   # period-4 block, 9 cells, touches chaos at (3, 1)
-    period[0:3, 0:3] = 4
-    status[3, 1] = STATUS_CHAOTIC
-    period[3, 1] = 0
-    status[8:10, 8:10] = STATUS_PERIODIC  # period-3 block, 4 cells, isolated
-    period[8:10, 8:10] = 3
-    status[6, 6] = STATUS_PERIODIC        # too small
-    period[6, 6] = 5
-    status[0:3, 3] = STATUS_PERIODIC      # adjacent but different period: separate component
-    period[0:3, 3] = 8
-    records = periodic_components(status, period, min_size=3)
-    assert [(r["period"], r["size"]) for r in records] == [(4, 9), (3, 4), (8, 3)]
-    assert records[0]["representative"] == 1 * 12 + 1
-    assert records[0]["borders_chaos"] and not records[1]["borders_chaos"]
-    assert records[2]["borders_chaos"] is False
-    assert records[1]["representative"] == 8 * 12 + 8
-    fixed = periodic_components(status, period, min_size=4, max_components=1, fixed=True)
-    assert len(fixed) == 1 and fixed[0]["period"] == 1
+def test_select_components_separates_embedded_cascade_and_fixed():
+    status = np.full((14, 14), STATUS_CHAOTIC)
+    period = np.zeros((14, 14), dtype=int)
+    # Cascade-adjacent: period 4 touching a period-2 domain.
+    status[0:3, 0:4] = STATUS_PERIODIC
+    period[0:3, 0:4] = 2
+    status[0:3, 4:6] = STATUS_PERIODIC
+    period[0:3, 4:6] = 4
+    # Embedded: period 5 surrounded by chaos.
+    status[8:10, 8:10] = STATUS_PERIODIC
+    period[8:10, 8:10] = 5
+    # Fixed component with unresolved surroundings.
+    status[11:14, 0:3] = STATUS_FIXED
+    period[11:14, 0:3] = 1
+    status[10, 0:4] = STATUS_UNRESOLVED
+    lists = select_components(status, period, min_size=4)
+    assert [(r["period"], r["size"]) for r in lists["embedded"]] == [(5, 4)]
+    assert lists["embedded"][0]["ring_chaotic_fraction"] == 1.0
+    others = sorted((r["period"], r["size"]) for r in lists["other"])
+    assert others == [(2, 12), (4, 6)]
+    cascade = [r for r in lists["other"] if r["period"] == 4][0]
+    assert cascade["ring_divisor_cells"]
+    assert [(r["period"], r["size"]) for r in lists["fixed"]] == [(1, 9)]
+    assert lists["embedded"][0]["representative"] in {8 * 14 + 8, 8 * 14 + 9, 9 * 14 + 8, 9 * 14 + 9}
 
 
 def test_chaos_sample_is_seeded_and_without_replacement():

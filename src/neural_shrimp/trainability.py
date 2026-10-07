@@ -9,7 +9,10 @@ import hashlib
 
 import numpy as np
 
-from .gdmaps import STATUS_CHAOTIC, STATUS_FIXED, STATUS_PERIODIC, TwoLayerNet, connected_components
+from .gdmaps import (
+    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC, TwoLayerNet,
+    connected_components,
+)
 from .models import TanhRegressor, make_teacher_regression
 
 
@@ -22,17 +25,18 @@ def array_sha256(array):
     return digest.hexdigest()
 
 
-def make_s1(seed, width=8):
+def make_s1(seed, width=8, ridge=0.0):
     """Mean-field tanh network with dataset size equal to parameter count.
 
-    Follows the Sohl-Dickstein (2024) notebook defaults: no biases, inputs of
-    dimension ``width``, pre-activation ``sqrt(2) * x W0 / sqrt(width)``,
-    output ``h w1 / width``, mean squared error, and standard-normal data,
-    targets and weights.
+    Configured after the published Sohl-Dickstein (2024) notebook settings:
+    no biases, inputs of dimension ``width``, pre-activation
+    ``sqrt(2) * x W0 / sqrt(width)``, output ``h w1 / width``, mean squared
+    error, and standard-normal data, targets and weights. ``ridge`` adds
+    ``ridge / 2 * ||theta||^2``; the published setting has none.
     """
     net = TwoLayerNet(d=width, width=width, activation="tanh",
                       in_scale=np.sqrt(2.0 / width), out_scale=1.0 / width,
-                      bias=False, loss_scale=1.0, ridge=0.0)
+                      bias=False, loss_scale=1.0, ridge=float(ridge))
     streams = np.random.SeedSequence(int(seed)).spawn(3)
     n = net.n_parameters
     x = np.random.default_rng(streams[0]).normal(size=(n, width))
@@ -50,7 +54,12 @@ def make_s2(seed):
     return net, data.train_x, data.train_y, theta0
 
 
-SYSTEMS = {"S1": make_s1, "S2": make_s2}
+def make_s1r(seed):
+    """S1 with the same data and initial parameters plus ridge 1e-3."""
+    return make_s1(seed, ridge=1e-3)
+
+
+SYSTEMS = {"S1": make_s1, "S1R": make_s1r, "S2": make_s2}
 
 
 def edge_rates(net, theta0, x, y):
@@ -65,27 +74,47 @@ def log_axis(center, half_width, resolution):
     return np.linspace(center - half_width, center + half_width, int(resolution))
 
 
-def zoom_window(status, period, window=32, stride=16):
-    """Frozen zoom rule: window with most periodic (p >= 2) or chaotic cells.
+def _neighbor_any(mask):
+    """True where any of the 8 neighbors (not the cell itself) is True."""
+    padded = np.pad(mask, 1)
+    rows, cols = mask.shape
+    out = np.zeros_like(mask)
+    for dr in (-1, 0, 1):
+        for dc in (-1, 0, 1):
+            if dr or dc:
+                out |= padded[1 + dr:1 + dr + rows, 1 + dc:1 + dc + cols]
+    return out
 
-    Returns ``None`` when every window count is zero, otherwise
-    ``(row0, col0, count)`` with ties broken by smallest row, then column.
+
+def zoom_window(status, period, window=32, stride=16):
+    """Frozen zoom rule targeting periodic windows embedded in chaos.
+
+    Primary score: periodic candidates with period >= 3 having at least one
+    chaotic 8-neighbor. Secondary score: chaotic candidates having at least
+    one 8-neighbor that is neither chaotic nor divergent. The window with the
+    lexicographically largest (primary, secondary) wins; ties go to the
+    smallest row, then column. Returns ``None`` when both scores are zero in
+    every window, otherwise ``(row0, col0, primary, secondary)``.
     """
     status = np.asarray(status)
     period = np.asarray(period)
     if status.shape != period.shape or status.ndim != 2:
         raise ValueError("status and period must be equal 2-D arrays")
-    interest = ((status == STATUS_PERIODIC) & (period >= 2)) | (status == STATUS_CHAOTIC)
-    rows, cols = interest.shape
+    chaotic = status == STATUS_CHAOTIC
+    primary = (status == STATUS_PERIODIC) & (period >= 3) & _neighbor_any(chaotic)
+    bounded_other = ~chaotic & (status != STATUS_DIVERGENT)
+    secondary = chaotic & _neighbor_any(bounded_other)
+    rows, cols = status.shape
     if rows < window or cols < window:
         raise ValueError("grid smaller than the zoom window")
     best = None
     for r0 in range(0, rows - window + 1, stride):
         for c0 in range(0, cols - window + 1, stride):
-            count = int(interest[r0:r0 + window, c0:c0 + window].sum())
-            if best is None or count > best[2]:
-                best = (r0, c0, count)
-    if best is None or best[2] == 0:
+            score = (int(primary[r0:r0 + window, c0:c0 + window].sum()),
+                     int(secondary[r0:r0 + window, c0:c0 + window].sum()))
+            if best is None or score > best[2:]:
+                best = (r0, c0) + score
+    if best is None or best[2:] == (0, 0):
         return None
     return best
 
@@ -106,49 +135,71 @@ def _representative(members, shape):
     return int(members[order[0]])
 
 
-def periodic_components(status, period, min_size=4, max_components=16, fixed=False):
-    """Frozen selection of equal-period components for certification.
+def ring_statistics(status, period, members, p):
+    """Exterior 8-neighbor ring of a component and its composition.
 
-    With ``fixed=False`` components contain periodic candidates of equal
-    period >= 2; with ``fixed=True`` they contain fixed-point candidates.
-    Components with at least ``min_size`` cells are ordered by size
-    (descending), then smallest row-major member, and the first
-    ``max_components`` are returned. Each record gives its period, size,
-    representative cell (nearest the index centroid, ties to smallest index),
-    and whether any member is 8-adjacent to a chaotic candidate.
+    Returns ring cells (row-major order), the ring cells whose label is a
+    fixed point or a periodic candidate with a proper divisor of ``p`` as its
+    period, and the ring cells labeled chaotic candidates.
+    """
+    shape = status.shape
+    inside = np.zeros(shape, dtype=bool)
+    inside.ravel()[members] = True
+    ring = _neighbor_any(inside) & ~inside
+    cells = np.flatnonzero(ring.ravel())
+    flat_status, flat_period = status.ravel(), period.ravel()
+    divisor = [int(c) for c in cells if flat_status[c] == STATUS_FIXED or (
+        flat_status[c] == STATUS_PERIODIC and flat_period[c] < p and p % flat_period[c] == 0)]
+    chaotic = [int(c) for c in cells if flat_status[c] == STATUS_CHAOTIC]
+    return [int(c) for c in cells], divisor, chaotic
+
+
+def select_components(status, period, min_size=4, max_embedded=16, max_other=8, max_fixed=4,
+                      min_chaotic_fraction=0.5, min_embedded_period=3):
+    """Frozen selection of components for certification.
+
+    Components are 8-connected sets of equal-label cells: periodic candidates
+    of equal period >= 2, or fixed-point candidates. Only components with at
+    least ``min_size`` cells are eligible. A periodic component is an
+    embedded candidate when its period is at least ``min_embedded_period``,
+    no exterior-ring cell is a fixed point or has a proper-divisor period,
+    and at least ``min_chaotic_fraction`` of its ring cells are chaotic
+    candidates. Each list is ordered by size (descending), then smallest
+    member, and truncated. Returns {"embedded": [...], "other": [...],
+    "fixed": [...]}; records include ring cells for confirmation reruns.
     """
     status = np.asarray(status)
     period = np.asarray(period)
     if status.shape != period.shape or status.ndim != 2:
         raise ValueError("status and period must be equal 2-D arrays")
-    if fixed:
-        mask = status == STATUS_FIXED
-    else:
-        mask = (status == STATUS_PERIODIC) & (period >= 2)
-    labels = connected_components(period, mask)
-    chaotic = status == STATUS_CHAOTIC
-    padded = np.pad(chaotic, 1)
-    near_chaos = np.zeros_like(chaotic)
-    rows, cols = chaotic.shape
-    for dr in (-1, 0, 1):
-        for dc in (-1, 0, 1):
-            near_chaos |= padded[1 + dr:1 + dr + rows, 1 + dc:1 + dc + cols]
-    flat_labels = labels.ravel()
-    records = []
-    for component in range(int(labels.max()) + 1):
-        members = np.flatnonzero(flat_labels == component)
-        if len(members) < min_size:
-            continue
-        records.append({
-            "component": component,
-            "period": int(period.ravel()[members[0]]),
-            "size": int(len(members)),
-            "first_cell": int(members[0]),
-            "representative": _representative(members, status.shape),
-            "borders_chaos": bool(near_chaos.ravel()[members].any()),
-        })
-    records.sort(key=lambda item: (-item["size"], item["first_cell"]))
-    return records[:max_components]
+    lists = {"embedded": [], "other": [], "fixed": []}
+    for kind, mask in (("periodic", (status == STATUS_PERIODIC) & (period >= 2)),
+                       ("fixed", status == STATUS_FIXED)):
+        labels = connected_components(period, mask).ravel()
+        for component in range(int(labels.max()) + 1):
+            members = np.flatnonzero(labels == component)
+            if len(members) < min_size:
+                continue
+            p = int(period.ravel()[members[0]]) if kind == "periodic" else 1
+            ring, divisor, chaotic = ring_statistics(status, period, members, p)
+            fraction = len(chaotic) / len(ring) if ring else 0.0
+            record = {"component": component, "period": p, "size": int(len(members)),
+                      "first_cell": int(members[0]),
+                      "representative": _representative(members, status.shape),
+                      "ring_cells": ring, "ring_divisor_cells": divisor,
+                      "ring_chaotic_cells": chaotic, "ring_chaotic_fraction": fraction}
+            if kind == "fixed":
+                lists["fixed"].append(record)
+            elif (p >= min_embedded_period and not divisor and
+                  fraction >= min_chaotic_fraction):
+                lists["embedded"].append(record)
+            else:
+                lists["other"].append(record)
+    limits = {"embedded": max_embedded, "other": max_other, "fixed": max_fixed}
+    for key in lists:
+        lists[key].sort(key=lambda item: (-item["size"], item["first_cell"]))
+        lists[key] = lists[key][:limits[key]]
+    return lists
 
 
 def chaos_sample(status, count, seed):
