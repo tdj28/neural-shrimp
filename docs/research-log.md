@@ -552,3 +552,11 @@ _commit `200ab0fadd8f` (dirty worktree)_
 Parity task (seed 28101): period-2 orbits certified after 60,000 updates from the initialization at log10 eta -0.4067 and -0.4521 lie on different branches and both end in folds: at -0.398313 (multiplier +0.99999985) and at -0.412628 (+0.99999987), not Neimark-Sacker. Seed 28102 halves: Newton did not certify a period-2 orbit at -0.7092 (newton_not_converged, last spectral radius 1.0005) or -0.7546 (line_search_stalled), so that subset's branch structure is unresolved. Slow harmonic loss modulations exist in all three configurations' scans, so the Neimark-Sacker branch of seed 28101 halves is one route into them. A fold of the period-2 orbit lying on an invariant circle of the two-step map (the edge of a rotation-0 locking region, a saddle-node on a circle) is a candidate second route; an adiabatic sweep just beyond the parity fold tests it.
 
 _commit `200ab0fadd8f` (dirty worktree)_
+
+- run started 2026-10-07 22:24 UTC finished 22:28 UTC with exit status 0
+
+## 2026-10-07 22:29 UTC: Real-data parity fold sweep: no slow rotation beyond the fold; gradient descent stays on a period-2 orbit
+
+Adiabatic sweep from the last attracting state at the parity fold (log10 eta -0.398313) over 20 rates in -0.39830..-0.39400: every rate is exactly period-2 by the recurrence check (projected states repeat at lag 2), rotation 6e-5 with half a turn in the record (no rotation), FTLE -0.00064, and loss values varying smoothly from 0.05861 to 0.06000. So the fold is not a saddle-node on an invariant circle here: past it, gradient descent settles on a nearby period-2 orbit, another branch or an imperfect-pitchfork partner, and the period-2 regime is a set of branches joined by folds. The parity scan's slow modulations from -0.42 onward must come from other branches; that task's Neimark-Sacker hypothesis is untested.
+
+_commit `f671ef42137f` (dirty worktree)_
