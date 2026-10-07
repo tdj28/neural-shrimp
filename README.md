@@ -5,6 +5,17 @@
 Private exploratory research on periodic-window geometry, neural activity, and
 whether geometric information can improve model control.
 
+**Current program, 6 October 2026: [Program C](docs/program-c-2026-10-06.md).**
+Track A asks whether the two-learning-rate plane of full-batch gradient-descent
+training contains verified periodic windows with shrimp organization, and
+whether that structure matters for training. Its first pilot is
+[EXP-028](docs/EXP-028-protocol.md), prepared but not yet run. Track B tests
+whether window geometry in this three-neuron network predicts memory and
+nonlinear capacity beyond local dynamics, against distant periodic and chaotic
+controls ([design draft](docs/track-b-design-2026-10-06.md)). The
+[6 October assessment](docs/project-assessment-2026-10-06.md) explains the
+choice. The summaries below describe earlier work.
+
 **Latest analysis: [EXP-021](docs/EXP-021-results.md), complete and numerically qualified.** The corrected nominal arithmetic completes all 144 cells, 4,704 mixture probabilities and 1,728 auxiliary controls under the original gates. Frozen numerical replay and separate saved-evidence/summary audits pass. The primary gain is 3.9268 percentage points at 4T, with a numerical enclosure [3.9253, 3.9327], not a population confidence interval. [EXP-020](docs/EXP-020-results.md) remains incomplete. [EXP-019](docs/EXP-019-results.md) supplies the unchanged neural observations. The next question is whether matched cycle references can separate contraction and observability from geometry's incremental value.
 
 **Latest feasibility check: [EXP-022](docs/EXP-022-results.md).** The fixed historical panel supplies only four of six seeds: the sampled core path misses both contraction bins, although adjacent nodes bracket both targets. No new neural integrations were launched. A separately planned successor will test two fixed intermediate gamma values while preserving this missing-support result.
