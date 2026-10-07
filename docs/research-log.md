@@ -226,3 +226,21 @@ _commit `e26c6f4f4108`_
 Continuing the period-2 orbit along hidden-rate slices: S2-28011 (output log10 -0.0856) loses stability by Neimark-Sacker at log10 hidden 1.738439 with two-step multiplier 0.1987+0.9801i, predicting rotation 0.21816; the staircase's quasi-periodic band starts at 1.737 with rotation about 0.2175. S1R-28002 (output log10 0.9413) loses stability by Neimark-Sacker at 1.121671 with multiplier 0.6745+0.7383i, predicting rotation 0.1322, matching the 0.12-0.135 staircase branches. Bisection to 1e-10; |mu| = 1 - 1e-7.
 
 _commit `23c41e3942da`_
+
+## 2026-10-07 12:59 UTC: run (exploratory)
+
+- **Question:** Where along the Neimark-Sacker curve of the period-2 orbit does the birth rotation number pass through 2/9, 1/4 and other rationals, and do confirmed windows emanate from those points?
+- **Setup:** S2-28011, start log10 hidden 1.65 inside period 2, 40 output rates log10 -0.45 to -0.08, continuation to stability loss, bisection 1e-10
+- **Output:** `../neural-shrimp-data/explore/a3-ns-curve/s2-28011`
+- **Would surprise us:** Stability lost by flip or fold instead of Neimark-Sacker; birth rotation numbers not spanning the window rotation numbers
+- **Command:** `.venv/bin/python tools/explore_a3_ns_curve.py --system S2 --seed 28011 --start 1.65 --output -0.45 -0.08 --out ../neural-shrimp-data/explore/a3-ns-curve/s2-28011`
+
+_commit `0e3e07e1723b`_
+
+- run started 2026-10-07 12:59 UTC finished 13:00 UTC with exit status 0
+
+## 2026-10-07 13:00 UTC: A3 exploratory: Neimark-Sacker curve of the period-2 orbit traced (S2-28011)
+
+Across 35 output-rate slices (log10 -0.45 to -0.08) where the start was period 2, the period-2 orbit always loses stability by Neimark-Sacker; the curve is U-shaped with minimum near log10 hidden 1.650, and the birth rotation number theta/2pi runs from 1/6 at the bottom to 0.240 (left branch) and 0.221 (right branch), passing 2/11, 1/5, 2/9 and 3/13. The curve bounds the period-2 region in the 1024x1024 map, with quasi-periodic cells and locked stripes beyond it. Tying individual stripes to predicted rational roots needs per-stripe rotation numbers (next). Figure: neural-shrimp-data/explore/a3-ns-curve/s2-28011/tongues.png.
+
+_commit `0e3e07e1723b` (dirty worktree)_
