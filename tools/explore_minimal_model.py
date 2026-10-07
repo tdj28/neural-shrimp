@@ -57,6 +57,12 @@ def history(path):
     return [{"complex_dominant_pair": bool(f), "s_from": float(a), "s_to": float(b)} for f, a, b in runs]
 
 
+def max_complex_modulus(path):
+    """Largest modulus reached by any complex multiplier along the path (None if all real)."""
+    values = [abs(m) for _, mus, _ in path for m in mus if abs(complex(m).imag) > 1e-9]
+    return float(max(values)) if values else None
+
+
 def transversality(path, s_boundary):
     tail = [(s, abs(dominant_pair(m)[0])) for s, m, _ in path if s_boundary - s < 0.05]
     if len(tail) < 3:
@@ -144,6 +150,7 @@ def run_case(task):
     if follow["path"]:
         result["history"] = history(follow["path"])
         result["path_points"] = len(follow["path"])
+        result["max_complex_modulus"] = max_complex_modulus(follow["path"])
     if follow["s_boundary"] is not None and follow["dominant"] is not None:
         mu = complex(*follow["dominant"])
         result["theta_over_2pi"] = theta_over_2pi(mu)
@@ -192,14 +199,18 @@ def cmd_controls(args):
             return GridMap(net, x, y, [10.0 ** (la[i] + s)], [10.0 ** lb[j]]).cell_map(0)
 
         follow = follow_orbit(uv_family, final[i, j], 2, s_max=0.8, h0=0.002)
-        ds = []
+        ds, complex_moduli = [], []
         for s, mus, state in follow["path"]:
             map_fn, jac = uv_family(s)
             m = jac(map_fn(state)) @ jac(state)
-            ds.append(float(np.trace(m) ** 2 - 4 * np.linalg.det(m)))
+            disc = float(np.trace(m) ** 2 - 4 * np.linalg.det(m))
+            ds.append(disc)
+            if disc < 0:
+                complex_moduli.append(float(np.sqrt(np.linalg.det(m))))
         branches.append({"log10_b": float(lb[j]), "type": follow["type"],
                          "min_D": float(min(ds)) if ds else None, "points": len(ds),
-                         "any_negative_D": bool(any(d < 0 for d in ds))})
+                         "any_negative_D": bool(any(d < 0 for d in ds)),
+                         "max_complex_modulus": max(complex_moduli) if complex_moduli else None})
     out["factorization_2param"] = branches
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "controls.json").write_text(json.dumps(out, indent=1, default=str))
@@ -210,7 +221,7 @@ def cmd_controls(args):
                                                     round(r.get("rotation", float("nan")), 4)) for r in probe["runs"]])
     for b in branches:
         print("factorization branch log10_b", round(b["log10_b"], 3), b["type"], "min D", b["min_D"],
-              "any D<0", b["any_negative_D"])
+              "any D<0", b["any_negative_D"], "max |mu| while complex", b["max_complex_modulus"])
 
 
 def run_grid(cs, name, workers):
@@ -224,6 +235,7 @@ def run_grid(cs, name, workers):
         print(f"c={r['c']:.2f} lam={r['lam']:.2f} ratio={r['ratio']:.3f}: {r['type']:<27} "
               f"theta/2pi={r.get('theta_over_2pi', float('nan')):.4f} |mu|={r.get('modulus', float('nan')):.6f} "
               f"slope={r.get('log_modulus_slope') or float('nan'):.3g} history={hist} "
+              f"maxC={r.get('max_complex_modulus') or float('nan'):.4f} "
               f"{(r.get('criticality') or {}).get('verdict', '')}")
     return rows
 
