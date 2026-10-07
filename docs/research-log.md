@@ -348,3 +348,21 @@ _commit `0c73e956063a` (dirty worktree)_
 S2-28011, output -0.0856, 60 cells log10 hidden 1.60-1.80, Gaussian update noise 1e-7 or 1e-5. For the 41 period-2 cells (|mu| 0.954-0.9985), a least-squares AR(6) fit of the noisy even-step training loss recovers the two-step multiplier from Jacobians: angle/2pi within median 1.8e-4 (max 9.4e-4), modulus within median 0.0014 (max 0.0045); spectral peak height tracks -log(1-|mu|) (r = 0.94). Beyond the Neimark-Sacker point the fit gives modulus ~1 and frequency equal to the rotation number (0.2158-0.2182). So the distance to the quasi-periodic transition and the rotation number of the training that follows are readable from the loss curve before the transition; FTLE (ln|mu|/2) carries only the modulus. First pass used raw peak picking (median gap 3e-4, max 2.5e-3 far from the bifurcation); the AR estimator was added after seeing that (adapted). Caveat: isotropic additive noise stands in for minibatch noise.
 
 _commit `0c73e956063a` (dirty worktree)_
+
+## 2026-10-07 21:37 UTC: run (exploratory)
+
+- **Question:** Noisy precursor in the 72-parameter network: does the AR(6) loss-only estimate recover the period-2 orbit's two-step multiplier in S1R-28002 as in S2?
+- **Setup:** S1R-28002, log10 output 0.9413, 40 hidden-rate cells log10 0.95-1.15 (Neimark-Sacker at 1.121671, birth angle 0.1322); settle 40,000; record 16,384 with update noise 1e-7 and 1e-5 (seeds 28730-28731). 1 process, nice 10.
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/precursor-s1r-28002-ar`
+- **Would surprise us:** AR estimates far from Jacobian multipliers in S1R (would limit the diagnostic to the 13-parameter network)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_consequence_precursor.py --name precursor-s1r-28002-ar --system S1R --seed 28002 --output 0.9413 --hidden 0.95 1.15 --cells 40 --noise 1e-7 1e-5`
+
+_commit `23d96b67b686`_
+
+- run started 2026-10-07 21:37 UTC finished 21:38 UTC with exit status 0
+
+## 2026-10-07 21:38 UTC: A3b exploratory: the loss-only multiplier readout also works in the 72-parameter network
+
+S1R-28002, output 0.9413, 40 cells log10 hidden 0.95-1.15, update noise 1e-7 or 1e-5. For 34 period-2 cells (|mu| 0.888-0.998), the AR(6) fit of the noisy even-step loss recovers the two-step multiplier angle within median 3.6e-4 (max 2.2e-3) and modulus within median 0.0023 (max 0.018, largest far from the bifurcation); peak height tracks -log(1-|mu|) (r = 0.93-0.96). Beyond the Neimark-Sacker point (1.1217) the fit gives modulus 1.0 and frequencies 0.11-0.14, the S1R rotation numbers.
+
+_commit `23d96b67b686` (dirty worktree)_
