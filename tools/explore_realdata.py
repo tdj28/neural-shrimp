@@ -221,6 +221,10 @@ def cmd_continue(config, args, out):
                               (float(np.sign(args.direction)), 0.0), args.s_max, args.h0,
                               bisection_tolerance=args.tolerance)
         mu = complex(*result["dominant"]) if result["dominant"] else None
+        if result.get("start") is not None:
+            cert = result["start"]
+            report["start_certificate"] = {k: cert.get(k) for k in ("reason", "verified", "attracting",
+                                                                    "spectral_radius", "candidate_distance")}
         report.update({
             "type": result["type"],
             "log10_eta_boundary": None if result["s_boundary"] is None
