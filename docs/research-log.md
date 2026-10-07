@@ -366,3 +366,33 @@ _commit `23d96b67b686`_
 S1R-28002, output 0.9413, 40 cells log10 hidden 0.95-1.15, update noise 1e-7 or 1e-5. For 34 period-2 cells (|mu| 0.888-0.998), the AR(6) fit of the noisy even-step loss recovers the two-step multiplier angle within median 3.6e-4 (max 2.2e-3) and modulus within median 0.0023 (max 0.018, largest far from the bifurcation); peak height tracks -log(1-|mu|) (r = 0.93-0.96). Beyond the Neimark-Sacker point (1.1217) the fit gives modulus 1.0 and frequencies 0.11-0.14, the S1R rotation numbers.
 
 _commit `23d96b67b686` (dirty worktree)_
+
+- run started 2026-10-07 21:32 UTC finished 21:43 UTC with exit status 0
+
+## 2026-10-07 21:44 UTC: run (exploratory)
+
+- **Question:** A3b consequence pilot, second S2-28011 slice at a different output rate, to decouple rotation number from hidden rate in the nested models
+- **Setup:** S2-28011, log10 output -0.30 (Neimark-Sacker near log10 hidden 1.686 with birth angle about 0.170 from the traced curve), 600 hidden-rate cells log10 1.58-2.05; full profile as the first S2 slice; 5 workers, nice 10.
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/s2-28011-out-0.30`
+- **Would surprise us:** Rotation features adding robust predictive value once two slices with different rotation-rate relations are pooled
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_consequence.py simulate --name s2-28011-out-0.30 --system S2 --seed 28011 --output -0.30 --hidden 1.58 2.05 --cells 600 --chunks 15 --workers 5`
+
+_commit `814224e3eed8` (dirty worktree)_
+
+## 2026-10-07 21:47 UTC: run (exploratory)
+
+- **Question:** Analysis of both consequence slices (S2-28011 at -0.0856 and S1R-28002 at 0.9413) with the same pre-specified rules and models
+- **Setup:** tools/analyze_consequence.py, 300 block-bootstrap draws, Neimark-Sacker points 1.738439 and 1.121671
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/analysis.json`
+- **Would surprise us:** Rotation features with delta R2 intervals clearly above zero in S1R
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/analyze_consequence.py s2-28011-out-0.0856 s1r-28002-out-0.9413 --ns 1.738439 1.121671 --draws 300`
+
+_commit `814224e3eed8` (dirty worktree)_
+
+- run started 2026-10-07 21:47 UTC finished 21:48 UTC with exit status 0
+
+## 2026-10-07 21:50 UTC: A3b exploratory: S1R-28002 consequence slice repeats the S2 pattern; nested comparisons underpowered
+
+160 cells, log10 hidden 1.00-1.45 at output 0.9413 (reduced profile): period-2 49 (to 1.119, plus a coexisting period-2 branch at 1.187-1.200), quasi-periodic 31, locked 19 (1/9, 2/17, 1/8, 3/23, 2/15; 19/19 with period 2q x 2^k), chaotic 59 (from 1.255), irregular 2. Medians (log10) of function disagreement at 40k steps from 1e-8 initial perturbations: period-2 -15.4, quasi-periodic -6.25 (slope 0.98), locked -14.0 bimodal (9/19 cells with phase slips; their transient amplification is 10^11.9 in 2k steps vs 10^1.0 without slips), chaotic -0.45. Stopping-time spread -5.04 / -3.17 / -3.09 / -2.36; loss line fraction 1.0 / 0.98 / 0.96 / 0.39; loss peak equals rotation number in 31/31 quasi-periodic and 19/19 locked cells. Rule flaw found: the quasi-periodic rule bounds FTLE only from above, so 12 cells with clearly negative FTLE (down to -0.009; rotation near 0.115, likely locked orbits with period above the 64-step screen) carry the quasi-periodic label; the pre-specified exclusion check was run. Nested models: n = 160 (6 CV blocks) gives degenerate bootstrap intervals; point estimates of delta R2 range -0.08 to +0.07 for reproducibility, stopping-time and loss outcomes, i.e. no evidence that rotation/locking adds value beyond FTLE classes, sharpness, rate and amplitude.
+
+_commit `b3fc42abda51` (dirty worktree)_
