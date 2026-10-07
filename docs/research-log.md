@@ -1270,3 +1270,11 @@ _commit `e1e1bbde85e0` (dirty worktree)_
 On main's S1R-28002 trace, 16 points from log10 output 0.5757 to 1.1414, d is negative at 15 points, -0.064 to -1.57, and positive at 1.1414, +0.0375, a point with birth rotation 0.043 unlike the 0.12 to 0.13 of the main arc. At 0.5757 the re-found boundary, hidden 1.1309 with rotation 0.074, differs from the trace's 1.1005 with 0.0175, so that trace point likely started near another crossing. Eigen-gaps 0.27 to 0.40; the step-size check agrees to all printed digits. Both edge types therefore occur in both networks, with the soft type dominant on the main arcs.
 
 _commit `2c452c5aeb13` (dirty worktree)_
+
+- run started 2026-10-07 23:14 UTC finished 23:17 UTC with exit status 0
+
+## 2026-10-07 23:18 UTC: Criticality exploratory: dynamical checks agree with the sign of d at all eight S2 points
+
+Corrected run, distances relative to the Newton-refined 2-cycle at each offset. Supercritical points, outputs -0.298, -0.184, -0.080, -0.034, -0.018, -0.0026: beyond the curve the normal form amplitude of the attracting circle equals the prediction sqrt(log modulus over -d) within 1 percent at offsets 1e-4, 4e-4, 1.6e-3, except 5.6 percent at the largest offset next to the Chenciner point near +0.005; before the curve perturbations up to 0.3 return. Subcritical points -0.4405 and +0.0132: beyond the curve trajectories jump to distant states independent of the offset; before it the escape threshold scales like the square root of the offset, 0.034, 0.064, 0.11 to 0.13, tracking the predicted repelling circle up to a constant factor of about 1.5 from the normalization; an up and down sweep shows hysteresis there, the state staying on the distant attractor below the curve, and reversible circle growth at the supercritical points. Control: on the engineered gradient map the normal form amplitude matches sqrt(log(1+delta) over -d) to 0.9 percent at delta 1e-5 and 0.05 percent at 1e-6. Conclusion: the local criticality of the edge is computed and verified; the divergence of fixed-start training near the right arc is a basin effect.
+
+_commit `2db19d3d7c7a` (dirty worktree)_
