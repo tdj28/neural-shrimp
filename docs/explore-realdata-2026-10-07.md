@@ -81,8 +81,24 @@ with standard parameterization and one global learning rate?
    q > 100 and would be extremely thin; the recurrence check (lag up to 2,048,
    relative tolerance 1e-7) found none.
 
-Robustness on a second data subset (seed 28102) and the parity task is in
-progress (section below).
+## Robustness (second subset, second task)
+
+9. **Coarse scans** (120 rates, log10 eta -0.8..-0.2, weight decay 1e-3): for
+   both seed 28102 (halves) and the parity task, a period-2 regime (line at 1/2
+   up to 73-79% of loss power) is followed by slow harmonic loss modulations
+   (from -0.634 and from -0.42 respectively) and positive FTLE near -0.2.
+10. **Continuations:** parity period-2 orbits certified at -0.4067 and -0.4521
+    sit on different branches and both end in **folds** (-0.398313 and
+    -0.412628; multipliers +0.99999985 and +0.99999987). For seed 28102, Newton
+    did not certify a period-2 orbit from -0.7092 or -0.7546 (not converged;
+    line search stalled), so that subset's branches are unresolved.
+11. **Fold or saddle-node on a circle?** No. An adiabatic sweep from the
+    parity fold's last attracting state over 20 rates past it (-0.39830 to
+    -0.39400) stays on an exactly period-2 orbit (recurrence at lag 2,
+    rotation 6e-5, FTLE -0.00064, loss varying smoothly). So the period-2
+    regime is a set of branches joined by folds. The parity scan's slow
+    modulations (from -0.42) come from other branches, and the Neimark-Sacker
+    hypothesis for that task is still untested.
 
 ## Interpretation (exploratory)
 
@@ -95,8 +111,20 @@ the period-2 oscillation, a few hundred updates per cycle. The small angle
 (0.0078 turns per two updates) puts the circle close to a 1:1 resonance, which
 fits the slow sharpness-oscillation cycles described in edge-of-stability work.
 That link is a hypothesis to check, not a finding. Phase locking and a Farey
-staircase were not resolved here. The sharp L-BFGS minimum's own period-2
-branch ends in a fold instead, so which branch gradient descent selects matters.
+staircase were not resolved here. The route is not universal across branches.
+The sharp L-BFGS minimum's period-2 branch and both certified parity branches
+end in folds, and the second subset's branches were not certified. So the
+evidence is one Neimark-Sacker branch, with a quantitatively confirmed
+rotation number, among five period-2 branches examined; the other four are
+three folds and two uncertified starts. Slow harmonic loss modulations
+nevertheless appear in all three configurations' scans.
+
+Recommended next step: trace the parity and seed-28102 period-2 branches more
+completely (more start rates, longer settling) to find their Neimark-Sacker
+points if they exist. Measure rotation numbers with a curve-ordering
+(arc-length) method that stays valid for wrinkled loops. Repeat on MNIST or a
+wider network with Krylov eigenvalues of the two-step map instead of dense
+Jacobians.
 
 ## Figures
 
@@ -108,8 +136,8 @@ branch ends in a fold instead, so which branch gradient descent selects matters.
 
 ## Caveats
 
-- One architecture (64-8-1), one dataset, a 1,024-image subset, weight decay
-  1e-3; robustness runs are pending.
+- One architecture (64-8-1), one dataset, 1,024-image subsets, weight decay
+  1e-3. The Neimark-Sacker branch was found for one subset and task only.
 - FTLE over 4,000 updates cannot separate quasi-periodic orbits from weakly
   attracting locked orbits with very long periods; the recurrence check covers
   periods up to 2,048 updates only.
