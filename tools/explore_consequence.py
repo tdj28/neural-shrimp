@@ -289,6 +289,10 @@ def cmd_simulate(args):
     if args.quick:
         cfg.update(horizons=[200, 1000, 2000], tail=1024, lobe_steps=512, sharpness_states=2,
                    anneal_starts=8, anneal_stages=[[0.1, 300], [0.01, 100]])
+    elif args.profile == "reduced":
+        # cheaper settings for the 72-parameter network on a shared, oversubscribed CPU
+        cfg.update(deltas=[1e-12, 1e-8, 1e-4], directions=4, tail=4096, lobe_steps=2048,
+                   sharpness_states=8, anneal_starts=32, anneal_stages=[[0.1, 2000], [0.01, 500]])
     hidden = np.linspace(args.hidden[0], args.hidden[1], args.cells)
     chunks = np.array_split(hidden, args.chunks)
     tasks = [(args.system, args.seed, c, args.output, cfg) for c in chunks if len(c)]
@@ -319,6 +323,7 @@ def main():
     sim.add_argument("--chunks", type=int, default=16)
     sim.add_argument("--workers", type=int, default=8)
     sim.add_argument("--quick", action="store_true")
+    sim.add_argument("--profile", choices=["full", "reduced"], default="full")
     parser.add_argument("--nice", type=int, default=10, help="niceness increment for this process and workers")
     args = parser.parse_args()
     os.nice(args.nice)
