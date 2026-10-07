@@ -126,11 +126,31 @@ def derive(d, cfg):
 
 
 def base_features(f):
-    """FTLE (continuous parts plus sign classes at the classify thresholds), sharpness, rate, amplitude."""
+    """FTLE (continuous parts plus sign classes at the classify thresholds), sharpness, rate, amplitude.
+
+    Pooled slices add one indicator per extra slice (slice-specific intercepts).
+    """
     lam = np.clip(f["ftle"], -0.05, 0.1)
-    return [np.maximum(lam, 0), np.minimum(lam, 0), (lam < -1e-3).astype(float),
-            (np.abs(lam) <= 1e-3).astype(float), ((lam > 1e-3) & (lam <= 5e-3)).astype(float),
-            f["sharpness"], f["log10_hidden"], f["amplitude"]]
+    out = [np.maximum(lam, 0), np.minimum(lam, 0), (lam < -1e-3).astype(float),
+           (np.abs(lam) <= 1e-3).astype(float), ((lam > 1e-3) & (lam <= 5e-3)).astype(float),
+           f["sharpness"], f["log10_hidden"], f["amplitude"]]
+    for k in range(1, int(f.get("slice", np.zeros(1)).max()) + 1):
+        out.append((f["slice"] == k).astype(float))
+    return out
+
+
+def pool(fs):
+    """Concatenate derived slices; ``order`` sorts by slice, then rate, so CV blocks stay within slices."""
+    keys = ("log10_hidden", "regime", "rho", "locked_q", "ftle", "sharpness", "amplitude", "transient",
+            "loss_rotation_gap", "qp_attracting")
+    out = {k: np.concatenate([f[k] for f in fs]) for k in keys}
+    out["slice"] = np.concatenate([np.full(len(f["ftle"]), k) for k, f in enumerate(fs)])
+    out["order"] = out["slice"] * 10.0 + out["log10_hidden"]
+    common = set.intersection(*[set(f["outcomes"]) for f in fs])
+    out["outcomes"] = {k: np.concatenate([f["outcomes"][k] for f in fs]) for k in fs[0]["outcomes"] if k in common}
+    out["features_rotation"] = {k: np.concatenate([f["features_rotation"][k] for f in fs])
+                                for k in fs[0]["features_rotation"]}
+    return out
 
 
 def nested(f, rows, outcome, with_transient=False, draws=300):
@@ -141,7 +161,7 @@ def nested(f, rows, outcome, with_transient=False, draws=300):
     y = f["outcomes"][outcome]
     ok = rows & np.isfinite(y) & np.all(np.isfinite(np.stack(base + rot)), axis=0)
     idx = np.flatnonzero(ok)
-    idx = idx[np.argsort(f["log10_hidden"][idx])]
+    idx = idx[np.argsort(f.get("order", f["log10_hidden"])[idx])]
     if len(idx) < 4 * BLOCK:
         return None
     B = [b[idx] for b in base]
@@ -267,13 +287,17 @@ def main():
     parser.add_argument("slices", nargs="+", help="slice names under explore/consequence")
     parser.add_argument("--ns", type=float, nargs="+", help="log10 hidden Neimark-Sacker point per slice")
     parser.add_argument("--draws", type=int, default=300)
+    parser.add_argument("--pool", action="store_true", help="also fit pooled nested models across the slices")
+    parser.add_argument("--report", default="analysis.json")
     args = parser.parse_args()
     report = {}
+    derived = []
     for k, name in enumerate(args.slices):
         folder = OUT / name
         meta = json.loads((folder / "metadata.json").read_text())
         d = np.load(folder / "slice.npz")
         f = derive(d, meta["config"])
+        derived.append(f)
         labels, counts = np.unique(f["regime"], return_counts=True)
         entry = {"metadata": {k_: meta[k_] for k_ in ("system", "seed", "log10_output", "hidden", "cells", "commit")},
                  "regime_counts": dict(zip(labels.tolist(), counts.tolist())), "per_regime": summarize(f)}
@@ -313,7 +337,15 @@ def main():
                  "consequences (exploratory)")
         slice_figure(f, title, folder / "slice.png")
         regime_figure(f, title, folder / "regimes.png")
-    target = OUT / "analysis.json"
+    if args.pool and len(derived) > 1:
+        pooled = pool(derived)
+        rows = np.isin(pooled["regime"], BEYOND)
+        report["pooled"] = {"slices": args.slices, "nested_models": {
+            outcome: {"beyond_eos": nested(pooled, rows, outcome, draws=args.draws),
+                      "beyond_eos_without_attracting_qp": nested(pooled, rows & ~pooled["qp_attracting"], outcome,
+                                                                 draws=args.draws)}
+            for outcome in pooled["outcomes"]}}
+    target = OUT / args.report
     target.write_text(json.dumps(report, indent=1, default=float))
     print(json.dumps({k: {"regime_counts": v["regime_counts"], "locked_rotations": v["locked_rotations"]}
                       for k, v in report.items()}, indent=1))
