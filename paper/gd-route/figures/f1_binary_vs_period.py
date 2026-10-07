@@ -85,10 +85,10 @@ def main():
         extent = panel_binary(a, saved, f"{next(letters)}  Published score")
         share = float(saved[f"sd_convergent_{HORIZON}"].mean())
         derived["score_convergent_share"][name] = share
-        a.text(0.04, 0.04, f"{pct(share)} scored\nconvergent", transform=a.transAxes, fontsize=6.5,
+        a.text(0.04, 0.04, f"{pct(share)} of all cells\nscored convergent", transform=a.transAxes, fontsize=6.5,
                color=c.INK, va="bottom")
         b = fig.add_subplot(grid[row, 1])
-        panel_class(b, saved, extent, f"{next(letters)}  Dynamical class")
+        panel_class(b, saved, extent, f"{next(letters)}  Screening class")
         d = fig.add_subplot(grid[row, 2])
         image = panel_period(fig, d, saved, extent, f"{next(letters)}  Period of periodic cells", bar=False)
         period_axes.append(d)
@@ -116,29 +116,29 @@ def main():
         values = np.array(values)
         ax.barh(np.arange(len(COARSE)), values, left=left, height=0.62, color=c.CLASS_COLORS[code],
                 edgecolor=c.SURFACE, linewidth=1.0,
-                label="late divergence" if code == 0 else c.CLASS_LABELS[code])
+                label="divergent after the score horizon" if code == 0 else c.CLASS_LABELS[code])
         left += values
     for i, m in enumerate(COARSE):
         conv = summary["maps"][m]["sd_crosstab"][HORIZON]["sd_convergent"]
         total = sum(conv.values())
         share = 1 - conv["fixed_point_candidate"] / total
         derived["coarse_maps"][m] = {"score_convergent": total, "by_class": conv, "share_not_fixed": share}
-        ax.text(1.005, i, f"{total:,} cells; {pct(share)} not fixed points",
+        ax.text(1.005, i, f"{pct(share)} not classified as fixed points",
                 va="center", fontsize=6.5, color=c.SECONDARY)
-    ax.set_yticks(np.arange(len(COARSE)), COARSE)
+    ax.set_yticks(np.arange(len(COARSE)), [f"{m} (n = {derived['coarse_maps'][m]['score_convergent']:,})" for m in COARSE])
     ax.invert_yaxis()
     ax.set_xlim(0, 1)
-    ax.set_xlabel("fraction of cells the published score calls convergent (1,000 updates)")
-    ax.set_title("G  What the score-convergent cells of every coarse map are after 20,000 updates")
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.32), ncol=6, frameon=False, fontsize=6.5)
+    ax.set_xlabel("share of the score-positive cells (score after 1,000 updates; conditional shares)")
+    ax.set_title("G  Screening class after 20,000 updates of the cells the score labels convergent")
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.3), ncol=3, frameon=False, fontsize=6.5)
     fig.legend(handles=handles[:2], loc="outside upper center", ncol=2, frameon=False, fontsize=6.5)
     shares = [v["share_not_fixed"] for v in derived["coarse_maps"].values()]
     alt = (f"Maps of the per-layer learning-rate plane of the 13-parameter network S2-28011. The published binary "
            f"convergence score marks {pct(derived['score_convergent_share']['S2-28011'])} of the coarse plane and "
            f"{pct(derived['score_convergent_share']['S2-28011-zoom'])} of the zoom region convergent, while the same "
-           f"cells after 20,000 updates are fixed points, periodic orbits of many periods, chaos, drift or unresolved. "
+           f"cells after 20,000 updates carry screening labels of fixed point, periodic orbit of many periods, chaos, drift or unresolved. "
            f"Stacked bars for six coarse maps of three networks: {pct(min(shares))} to {pct(max(shares))} of the "
-           f"cells the score calls convergent are not fixed points.")
+           f"cells the score labels convergent were not classified as fixed points.")
     c.save(fig, "f1_binary_vs_period", [MAPS[0][1], MAPS[1][1], c.ROOT / "docs/EXP-028-summary.json"], __file__,
            "prospectively frozen (EXP-028), independently audited", alt, derived,
            "S1 rows are the published ridge-free setting; S1R and S2 add ridge 1e-3.")

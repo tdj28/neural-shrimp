@@ -1,8 +1,9 @@
 """Derive every number quoted in the gd-route manuscript from saved evidence.
 
-Writes three files next to the manuscript:
+Writes four files next to the manuscript:
 
   generated-numbers.tex   one \\newcommand per quoted number (the text uses only these)
+  generated-design-table.tex  the design table, built from the frozen plan and summary
   data/numbers.json       the manifest: each macro's value, evidence label, source
                           file(s) with SHA-256 and the computation that yields it
   provenance.json         index of the manifest and every figure receipt, by hash
@@ -25,6 +26,7 @@ sys.path.insert(0, str(PAPER / "figures"))
 import common as c  # noqa: E402
 
 TEX = PAPER / "generated-numbers.tex"
+TABLE = PAPER / "generated-design-table.tex"
 MANIFEST = PAPER / "data/numbers.json"
 INDEX = PAPER / "provenance.json"
 VERIFY = "--verify" in sys.argv
@@ -63,6 +65,19 @@ def percent(fraction, digits=1, widen=True):
 
 def fixed(x, digits):
     return f"{x:.{digits}f}"
+
+
+def power(x):
+    """Exact power of ten as TeX math, for tolerances such as 1e-10."""
+    exponent = int(round(np.log10(x)))
+    assert abs(x - 10.0 ** exponent) <= 1e-12 * 10.0 ** exponent, x
+    return f"10^{{{exponent}}}"
+
+
+def sci(x, digits=1):
+    """Scientific notation as TeX math, for example 4.2\\times10^{-9}."""
+    exponent = int(np.floor(np.log10(abs(x))))
+    return f"{x / 10.0 ** exponent:.{digits}f}\\times10^{{{exponent}}}"
 
 
 def portable(path):
@@ -296,6 +311,98 @@ def build():
     n.add("nDoubledTongue", doubled, str(doubled), EXPLORATORY, [ORDER],
           "confirmed windows passing first at a period-doubled level")
 
+    cert = plan["certification"]
+    for macro, key in (("xCertNewton", "newton_tolerance"), ("xCertAtol", "atol"), ("xCertRtol", "rtol"),
+                       ("xCertCandidate", "candidate_tolerance"), ("xCertDivisor", "divisor_separation"),
+                       ("xCertMargin", "stability_margin")):
+        n.add(macro, cert[key], power(cert[key]), FROZEN, [PLAN], f"certification.{key}")
+    n.add("nCertIterations", cert["max_iterations"], str(cert["max_iterations"]), FROZEN, [PLAN],
+          "certification.max_iterations")
+    n.add("nMinComponent", cert["min_component_size"], str(cert["min_component_size"]), FROZEN, [PLAN],
+          "certification.min_component_size")
+    n.add("nGateMinPeriod", plan["gate"]["min_period"], str(plan["gate"]["min_period"]), FROZEN, [PLAN],
+          "gate.min_period")
+    n.add("pRingFraction", plan["gate"]["min_confirmed_ring_fraction"],
+          percent(plan["gate"]["min_confirmed_ring_fraction"], 0, widen=False), FROZEN, [PLAN],
+          "gate.min_confirmed_ring_fraction")
+    n.add("xScreenAtol", it["atol"], power(it["atol"]), FROZEN, [PLAN], "iteration.atol")
+    n.add("xScreenRtol", it["rtol"], power(it["rtol"]), FROZEN, [PLAN], "iteration.rtol")
+    n.add("nMinRepeats", it["min_repeats"], str(it["min_repeats"]), FROZEN, [PLAN], "iteration.min_repeats")
+    n.add("nFtleSteps", it["ftle_steps"], integer(it["ftle_steps"]), FROZEN, [PLAN], "iteration.ftle_steps")
+    n.add("nFtleAlign", it["ftle_align"], integer(it["ftle_align"]), FROZEN, [PLAN], "iteration.ftle_align")
+    n.add("pDrift", it["drift_threshold"], percent(it["drift_threshold"], 0, widen=False), FROZEN, [PLAN],
+          "iteration.drift_threshold")
+    n.add("xDivergence", it["divergence_threshold"], power(it["divergence_threshold"]), FROZEN, [PLAN],
+          "iteration.divergence_threshold")
+    n.add("nScoreHorizon", max(it["sd_horizons"]), integer(max(it["sd_horizons"])), FROZEN, [PLAN],
+          "max(iteration.sd_horizons), the horizon used for the score comparison")
+    ring = plan["ring_confirmation"]
+    n.add("nRingSteps", ring["steps"], integer(ring["steps"]), FROZEN, [PLAN], "ring_confirmation.steps")
+    n.add("nRingFtle", ring["ftle_steps"], integer(ring["ftle_steps"]), FROZEN, [PLAN],
+          "ring_confirmation.ftle_steps")
+    n.add("nRingCap", ring["max_cells_per_component"], str(ring["max_cells_per_component"]), FROZEN, [PLAN],
+          "ring_confirmation.max_cells_per_component")
+    n.add("nChaosPerMap", plan["chaos_diagnostics"]["count"], str(plan["chaos_diagnostics"]["count"]), FROZEN,
+          [PLAN], "chaos_diagnostics.count")
+    components = [k for m in audit["checks"]["maps"].values() for k in m.get("components", [])]
+    checks = ("closure_ok", "radius_ok", "primitive_ok", "attracting_consistent", "seed_ok", "rates_from_axes_ok")
+    checked = sum(bool(k["checked"]) for k in components)
+    n.add("nAuditChecked", checked, str(checked), FROZEN, [AUDIT], "audit components with checked = true")
+    passing = sum(all(k[x] for x in checks) for k in components)
+    n.add("nAuditAllOk", passing, str(passing), FROZEN, [AUDIT], f"audit components with all of {list(checks)}")
+    worst = max(k["radius_difference"] for k in components)
+    n.add("xAuditMaxRadiusDiff", worst, sci(worst), FROZEN, [AUDIT],
+          "max |finite-difference minus exact-Jacobian spectral radius| over audited certificates")
+    receipt = audit["checks"]["receipt"]
+    n.add("nAuditReceiptFiles", receipt["files"], str(receipt["files"]), FROZEN, [AUDIT], "checks.receipt.files")
+    n.add("nAuditMismatched", len(receipt["mismatched"]), str(len(receipt["mismatched"])), FROZEN, [AUDIT],
+          "len(checks.receipt.mismatched)")
+
+    n.add("nCertPThree", len(order), str(len(order)), EXPLORATORY, [ORDER],
+          "verified certified orbits with period >= 3 (rows of the well-ordering receipt)")
+    trivial = [r for r in order if r["confirmed"] and r["points"] <= 3]
+    n.add("nConfTrivial", len(trivial), str(len(trivial)), EXPLORATORY, [ORDER],
+          "confirmed windows with at most 3 test points (pass the plane test by construction)")
+    trivial_pass = sum(r["well_ordered"] for r in trivial)
+    n.add("nConfTrivialPass", trivial_pass, str(trivial_pass), EXPLORATORY, [ORDER], "of those, passing the plane test")
+    excluded = sorted(r["period"] for r in order if r["confirmed"]
+                      and not any(t_["q"] >= 5 for t_ in r["refined"]["tests"]))
+    n.add("nConfRefinedExcluded", len(excluded), str(len(excluded)), EXPLORATORY, [ORDER],
+          "confirmed windows with no refined test on at least 5 points")
+    n.add("tConfRefinedExcluded", excluded, ", ".join(map(str, excluded[:-1])) + f" and {excluded[-1]}",
+          EXPLORATORY, [ORDER], "their periods")
+    level0 = [r for r in passed if r["refined"]["base"]["level"] == 0]
+    n.add("nLevelZeroPass", len(level0), str(len(level0)), EXPLORATORY, [ORDER],
+          "passing confirmed windows whose first passing level is the two-step map")
+    shifts = {}
+    for r in level0:
+        m_ = int(r["refined"]["base"]["rotation"].split("/")[0])
+        shifts[m_] = shifts.get(m_, 0) + 1
+    words = [f"$m={m_}$ for {k}" for m_, k in sorted(shifts.items())]
+    n.add("tShiftCounts", {str(k): v for k, v in sorted(shifts.items())},
+          (", ".join(words[:-1]) + f" and {words[-1]}") if len(words) > 1 else words[0], EXPLORATORY, [ORDER],
+          "measured angular shift m (folded to m <= q/2) among windows passing at the two-step level")
+
+    rows_s2 = load(STAIR_S2)["rows"]
+    merged = c.merged_plateaus(rows_s2)
+    two9 = max((p for p in merged if (p["m"], p["q"]) == (2, 9)), key=lambda p: p["cells"])
+    quarter = max((p for p in merged if (p["m"], p["q"]) == (1, 4)), key=lambda p: p["cells"])
+    band = [r for r in rows_s2 if c.quasi_periodic(r) and r["log10_varied"] < two9["start"]]
+    low = min(band, key=lambda r: r["rho"])
+    n.add("xRhoMinSlice", low["rho"], fixed(low["rho"], 4), EXPLORATORY, [STAIR_S2],
+          "minimum rotation number of quasi-periodic cells before the 2/9 plateau")
+    n.add("xRhoMinAt", low["log10_varied"], fixed(low["log10_varied"], 3), EXPLORATORY, [STAIR_S2],
+          "its log10 hidden rate")
+    between = [r for r in rows_s2 if two9["end"] < r["log10_varied"] < quarter["start"]]
+    chaotic = [r for r in between if r["status"] == 3]
+    n.add("nBetweenCells", len(between), str(len(between)), EXPLORATORY, [STAIR_S2],
+          "cells strictly between the 2/9 and 1/4 plateaus")
+    n.add("nBetweenChaotic", len(chaotic), str(len(chaotic)), EXPLORATORY, [STAIR_S2], "of those, chaotic")
+    n.add("xQuarterStart", quarter["start"], fixed(quarter["start"], 3), EXPLORATORY, [STAIR_S2],
+          "start of the longest merged 1/4 plateau")
+    n.add("xQuarterEnd", quarter["end"], fixed(quarter["end"], 3), EXPLORATORY, [STAIR_S2],
+          "end of the longest merged 1/4 plateau")
+
     fig6 = load(FIG6)["derived"]
     for key, name in (("B", "QP"), ("C", "Lock"), ("D", "Chaos")):
         n.add(f"xFigSix{name}Rho", fig6[key]["rho"], fixed(fig6[key]["rho"], 4), EXPLORATORY, [FIG6, STAIR_S2],
@@ -303,6 +410,43 @@ def build():
         n.add(f"xFigSix{name}Ftle", fig6[key]["ftle"], fixed(fig6[key]["ftle"], 4), EXPLORATORY, [FIG6, STAIR_S2],
               f"figure 6 panel {key} FTLE (staircase receipt)")
     return n
+
+
+def design_table():
+    """Design table TeX from the frozen plan and the frozen analysis summary."""
+    plan, summary = load(PLAN), load(SUMMARY)
+    systems = {}
+    for m in plan["maps"]:
+        systems.setdefault(m["system"], []).append(m)
+    zooms = {k.split("-")[0] for k in summary["maps"] if k.endswith("-zoom")}
+    spans = {round(v["log10_hidden_range"][1] - v["log10_hidden_range"][0], 4) for v in summary["maps"].values()}
+    data = {"S1": "standard-normal", "S1R": "standard-normal", "S2": "from a tanh teacher"}
+    rows = []
+    for system, maps in systems.items():
+        net = maps[0]["network"]
+        seeds = ", ".join(str(m["seed"]) for m in maps)
+        decay = "0" if net["ridge"] == 0 else f"${power(net['ridge'])}$"
+        arch = (f"{net['d']} inputs, {net['width']} tanh units, " + ("biases" if net["bias"] else "no biases")
+                + (", mean-field" if net["in_scale"] != 1.0 else ""))
+        maps_text = f"{len(maps)} coarse" + (f", {len(maps)} zoom" if system in zooms else "")
+        rows.append(f"{system} & {maps[0]['n_parameters']} & {maps[0]['n_examples']} {data[system]} & {arch} & "
+                    f"{decay} & {seeds} & {maps_text} \\\\")
+    it = plan["iteration"]
+    resolution = plan["maps"][0]["log10_hidden"]["resolution"]
+    lines = [
+        "% Generated by paper/gd-route/scripts/build_numbers.py from the frozen plan and summary; do not edit.",
+        "\\begin{table}[htbp]", "\\centering\\small", "\\setlength{\\tabcolsep}{3.5pt}",
+        "\\begin{tabular}{@{}l r >{\\raggedright\\arraybackslash}p{2.6cm} >{\\raggedright\\arraybackslash}p{3.6cm} l "
+        ">{\\raggedright\\arraybackslash}p{1.4cm} >{\\raggedright\\arraybackslash}p{1.7cm}@{}}", "\\toprule",
+        "Network & Parameters & Training points & Architecture & Weight decay & Seeds & Maps \\\\", "\\midrule",
+        *rows, "\\bottomrule", "\\end{tabular}",
+        f"\\caption{{\\textbf{{Design of the map study.}} Every map has ${resolution}\\times{resolution}$ "
+        f"logarithmically spaced pairs of hidden- and output-layer rates; coarse maps span {max(spans):g} decades in "
+        f"each rate and zoom maps {min(spans):.2f} decades. Every cell runs {integer(it['steps'])} full-batch updates in "
+        f"{it['precision']} from its seed's initial parameters. S1 is the published configuration of the "
+        f"fractal-trainability study and is reported descriptively.}}",
+        "\\label{tab:design}", "\\end{table}"]
+    return "\n".join(lines) + "\n"
 
 
 def render(n):
@@ -331,7 +475,7 @@ def index():
 
 def main():
     n = build()
-    tex, data = render(n), manifest(n)
+    tex, data, table = render(n), manifest(n), design_table()
     if VERIFY:
         problems = []
         recorded = load(MANIFEST)
@@ -343,6 +487,8 @@ def main():
             problems.append("generator changed since data/numbers.json was written")
         if TEX.read_text() != tex:
             problems.append("generated-numbers.tex differs from the recomputed macros")
+        if TABLE.read_text() != table:
+            problems.append("generated-design-table.tex differs from the recomputed table")
         if load(INDEX) != index():
             problems.append("provenance.json index is stale")
         if problems:
@@ -351,6 +497,7 @@ def main():
         return
     MANIFEST.parent.mkdir(exist_ok=True)
     TEX.write_text(tex)
+    TABLE.write_text(table)
     MANIFEST.write_text(json.dumps(data, indent=1) + "\n")
     INDEX.write_text(json.dumps(index(), indent=1) + "\n")
     print(json.dumps({"numbers": len(n.entries), "tex": str(TEX)}))

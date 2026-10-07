@@ -33,7 +33,7 @@ FOLD, FLIP, NS = "#2a78d6", "#eb6834", "#1baf7a"
 SURFACE, INK, MUTED, NEUTRAL, SECONDARY = "#fcfcfb", "#0b0b0b", "#898781", "#f0efec", "#52514e"
 TYPE_COLORS = {"fold": FOLD, "flip": FLIP, "neimark_sacker": NS}
 TYPE_MARKERS = {"fold": "o", "flip": "^", "neimark_sacker": "s"}
-TYPE_LABELS = {"fold": "fold (+1)", "flip": "flip (-1)", "neimark_sacker": "Neimark-Sacker (complex pair)"}
+TYPE_LABELS = {"fold": "fold (+1)", "flip": "flip (-1)", "neimark_sacker": "complex pair (Neimark-Sacker candidate)"}
 # Period ramp (sequential, one hue light to dark), as in tools/plot_a3_ns_tongues.py.
 PERIOD_RAMP = ["#b7d3f6", "#86b6ef", "#6da7ec", "#5598e7", "#3987e5", "#2a78d6", "#256abf", "#1c5cab",
                "#184f95", "#104281", "#0d366b"]

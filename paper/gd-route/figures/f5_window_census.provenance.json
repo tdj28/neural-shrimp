@@ -1,13 +1,13 @@
 {
  "figure": "f5_window_census",
  "evidence_label": "exploratory",
- "alt_text": "Top: for each of the 61 confirmed windows, the share of 64 continuation rays ending at a fold, flip or Neimark-Sacker crossing. Fold dominates many S1R windows; Neimark-Sacker and flip dominate most S2 windows. Bottom left: share of orbits that are well-ordered circle orbits, against the summed random-angle null (orange): certified orbits, >= 5 points 65/115 versus 1.57 expected; confirmed windows 31/61 versus 4.92 expected; confirmed, refined 35/56 versus 3.58 expected; confirmed, odd period 0/5 versus 0.17 expected. Bottom right: for the 35 windows passing the refined test, certified period against the tongue denominator q: every point lies on period = 2q or period = 4q.",
+ "alt_text": "Top: for each of the 61 confirmed windows, the share of 64 continuation rays ending at a fold, a flip or a complex-pair crossing (Neimark-Sacker candidate). Fold dominates many S1R windows; complex-pair and flip crossings dominate most S2 windows. Bottom left: share of orbits passing the Birkhoff ordering test, against the null (orange; expected count for the plane test, union bound for the refined test): certified orbits with >= 5 points (plane test) 65/115 versus 1.57; all confirmed (4 pass by construction) 31/61 versus 4.92; confirmed with a test on >= 5 points (refined test) 35/56 versus 3.58; confirmed, odd period (plane test) 0/5 versus 0.17. Bottom right: measured rotation numbers m/q of the 35 passing windows; q is fixed by the period and level by construction, the shift m is measured, and most passing windows have m = 1.",
  "notes": "Only tests on at least 5 points count toward the refined share; orbits with 2 or 3 points pass trivially.",
  "script": "paper/gd-route/figures/f5_window_census.py",
- "script_sha256": "1ca9d69cd9457b70732b7f7c8426a02584bd02aa8f813a370214db5f6ab707a9",
- "git_commit_at_generation": "6a57c86185adac0bcd7c0326d3ca49c543d9ebe6",
+ "script_sha256": "8b169dc5fc55c17226fc5a10bf356ba40bffb39e6edaa0ccc995fea0b7176096",
+ "git_commit_at_generation": "efeec7a87477c0d757e21ae19254ba4106b0fe11",
  "worktree_dirty_at_generation": true,
- "generated_utc": "2026-10-07T22:15:02Z",
+ "generated_utc": "2026-10-07T22:46:08Z",
  "python": "3.12.14",
  "numpy": "2.5.3",
  "matplotlib": "3.11.1",
@@ -38,203 +38,203 @@
   "windows_fold_and_flip_at_least_8": 15,
   "windows_neimark_sacker_at_least_8": 41,
   "well_ordering": {
-   "certified orbits, >= 5 points": {
+   "certified orbits with >= 5 points (plane test)": {
     "observed": 65,
     "n": 115,
     "expected": 1.5717
    },
-   "confirmed windows": {
+   "all confirmed (4 pass by construction)": {
     "observed": 31,
     "n": 61,
     "expected": 4.9241
    },
-   "confirmed, refined": {
+   "confirmed with a test on >= 5 points (refined test)": {
     "observed": 35,
     "n": 56,
     "expected": 3.5808
    },
-   "confirmed, odd period": {
+   "confirmed, odd period (plane test)": {
     "observed": 0,
     "n": 5,
     "expected": 0.1675
    }
   },
   "refined_passing_windows": 35,
-  "period_vs_q": [
+  "passing_rotations": [
    [
-    5,
-    10,
-    0
-   ],
-   [
-    5,
-    20,
-    1
-   ],
-   [
-    5,
-    20,
-    1
-   ],
-   [
-    5,
-    20,
-    1
-   ],
-   [
-    5,
-    20,
-    1
-   ],
-   [
-    5,
-    20,
-    1
-   ],
-   [
-    5,
-    20,
-    1
-   ],
-   [
-    6,
-    12,
-    0
-   ],
-   [
-    6,
-    12,
-    0
-   ],
-   [
-    7,
-    14,
-    0
-   ],
-   [
-    7,
-    14,
-    0
-   ],
-   [
-    7,
-    14,
-    0
-   ],
-   [
-    7,
-    14,
-    0
-   ],
-   [
-    7,
-    14,
-    0
-   ],
-   [
-    8,
-    16,
-    0
-   ],
-   [
-    8,
-    16,
-    0
-   ],
-   [
-    8,
-    16,
-    0
-   ],
-   [
-    9,
-    18,
-    0
-   ],
-   [
-    10,
+    "1/10",
     20,
     0
    ],
    [
-    11,
+    "1/11",
     22,
     0
    ],
    [
-    11,
+    "1/11",
     22,
     0
    ],
    [
-    11,
-    22,
-    0
-   ],
-   [
-    11,
-    22,
-    0
-   ],
-   [
-    11,
-    44,
-    1
-   ],
-   [
-    12,
+    "1/12",
     24,
     0
    ],
    [
-    13,
+    "1/13",
     26,
     0
    ],
    [
-    13,
+    "1/13",
     26,
     0
    ],
    [
-    13,
+    "1/13",
     26,
     0
    ],
    [
-    13,
+    "1/13",
     26,
     0
    ],
    [
-    15,
+    "1/5",
+    10,
+    0
+   ],
+   [
+    "1/6",
+    12,
+    0
+   ],
+   [
+    "1/6",
+    12,
+    0
+   ],
+   [
+    "1/7",
+    14,
+    0
+   ],
+   [
+    "1/7",
+    14,
+    0
+   ],
+   [
+    "1/7",
+    14,
+    0
+   ],
+   [
+    "1/7",
+    14,
+    0
+   ],
+   [
+    "1/7",
+    14,
+    0
+   ],
+   [
+    "1/8",
+    16,
+    0
+   ],
+   [
+    "1/8",
+    16,
+    0
+   ],
+   [
+    "1/8",
+    16,
+    0
+   ],
+   [
+    "2/11",
+    22,
+    0
+   ],
+   [
+    "2/11",
+    22,
+    0
+   ],
+   [
+    "2/15",
     30,
     0
    ],
    [
-    15,
+    "2/15",
     30,
     0
    ],
    [
-    15,
+    "2/15",
     30,
     0
    ],
    [
-    15,
+    "2/15",
     30,
     0
    ],
    [
-    23,
+    "2/29",
+    58,
+    0
+   ],
+   [
+    "2/5",
+    20,
+    1
+   ],
+   [
+    "2/5",
+    20,
+    1
+   ],
+   [
+    "2/5",
+    20,
+    1
+   ],
+   [
+    "2/5",
+    20,
+    1
+   ],
+   [
+    "2/5",
+    20,
+    1
+   ],
+   [
+    "2/5",
+    20,
+    1
+   ],
+   [
+    "2/9",
+    18,
+    0
+   ],
+   [
+    "3/23",
     46,
     0
    ],
    [
-    29,
-    58,
-    0
+    "4/11",
+    44,
+    1
    ]
   ]
  },
@@ -244,8 +244,8 @@
  },
  "outputs": {
   "pdf": "f5_window_census.pdf",
-  "pdf_sha256": "cb65e01bf6761e777bbfdca25bf5be0d9f814ed4468d866a298f86c09135ac36",
+  "pdf_sha256": "8bebdb4f7c1f4b05f1179a73620898c6aa493513249c34a380bd38ef1a678144",
   "png": "f5_window_census.png",
-  "png_sha256": "f66653befe42dd14e6255c5537a38535c4b2dd419252fe13b02f47bc9a436a0a"
+  "png_sha256": "5935de61d926427583adb04c62fffa5c96bfe1f846becc865c44475c81fe00c8"
  }
 }

@@ -1,12 +1,15 @@
 """Figure 5: census over the 61 audit-confirmed EXP-028 windows.
 
 Evidence: exploratory analyses of frozen certificates. Panel A: boundary type
-along 64 rays per window (tools/explore_a2_survey.py rays). Panel B: share of
-orbits that are well-ordered (Birkhoff) circle orbits, against the summed
-random-angle null expectation (tools/explore_a3_well_ordering.py, with and
-without the tour-order and period-doubled refinements). Panel C: window period
-against the denominator q of its tongue rotation m/q for windows passing the
-refined test on at least 5 points.
+along 64 rays per window (tools/explore_a2_survey.py rays); a complex-pair
+crossing is a Neimark-Sacker candidate. Panel B: share of orbits passing the
+Birkhoff (well-ordering) test of their projected orbits, against the null
+expectation (tools/explore_a3_well_ordering.py): for the plane test the
+expected count under random angles; for the refined test a union bound over
+the tests applied to each orbit. Panel C: the measured rotation m/q of passing
+windows at their first passing level. The test assigns q from the period and
+level by construction (q = p / 2^(k+1) for even p), so period-denominator
+agreement is definitional; the angular shift m and the ordering are measured.
 """
 
 import json
@@ -41,7 +44,7 @@ def main():
     x = np.arange(len(windows))
     bottom = np.zeros(len(windows))
     colors = {"fold": c.FOLD, "flip": c.FLIP, "neimark_sacker": c.NS, "other": OTHER}
-    labels = {"fold": "fold", "flip": "flip", "neimark_sacker": "Neimark-Sacker",
+    labels = {"fold": "fold", "flip": "flip", "neimark_sacker": "complex pair (Neimark-Sacker candidate)",
               "other": "no loss within range / unresolved"}
     for t in TYPES:
         values = np.array([w[4][t] / w[5] for w in windows])
@@ -60,12 +63,13 @@ def main():
     ax.set_title("A  How each window's periodic orbit loses stability (64 rays per window)")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.2), ncol=4, frameon=False)
     bx = fig.add_subplot(grid[1, 0])
+    trivial = sum(1 for r in rows if r["confirmed"] and r["points"] <= 3)
     groups = [
-        ("certified orbits,\n>= 5 points", [r for r in rows if r["points"] >= 5], "plane"),
-        ("confirmed\nwindows", [r for r in rows if r["confirmed"]], "plane"),
-        ("confirmed,\nrefined", [r for r in rows if r["confirmed"]
+        ("certified orbits\nwith >= 5 points\n(plane test)", [r for r in rows if r["points"] >= 5], "plane"),
+        (f"all confirmed\n({trivial} pass by\nconstruction)", [r for r in rows if r["confirmed"]], "plane"),
+        ("confirmed with a\ntest on >= 5 points\n(refined test)", [r for r in rows if r["confirmed"]
                                  and any(t["q"] >= 5 for t in r["refined"]["tests"])], "refined"),
-        ("confirmed,\nodd period", [r for r in rows if r["confirmed"] and r["period"] % 2], "plane"),
+        ("confirmed,\nodd period\n(plane test)", [r for r in rows if r["confirmed"] and r["period"] % 2], "plane"),
     ]
     group_values = []
     for i, (label, sub, kind) in enumerate(groups):
@@ -79,38 +83,40 @@ def main():
         bx.bar(i, observed / len(sub), width=0.62, color=c.SECONDARY)
         bx.plot([i - 0.31, i + 0.31], [expected / len(sub)] * 2, color=c.FLIP, linewidth=2.0)
         bx.text(i, observed / len(sub) + 0.03, f"{observed}/{len(sub)}", ha="center", fontsize=6.5, color=c.INK)
-    bx.set_xticks(range(len(groups)), [g[0] for g in groups], fontsize=6.3)
+    bx.set_xticks(range(len(groups)), [g[0] for g in groups], fontsize=5.8)
     bx.set_ylim(0, 1)
-    bx.set_ylabel("share well-ordered (Birkhoff circle orbit)")
-    bx.set_title("B  Well-ordering versus random-angle null")
+    bx.set_ylabel("share passing the Birkhoff test")
+    bx.set_title("B  Birkhoff test versus random-angle null")
     bx.legend(handles=[Patch(color=c.SECONDARY, label="observed"),
-                       Line2D([], [], color=c.FLIP, linewidth=2, label="null expectation")],
-              loc="upper right", frameon=False)
+                       Line2D([], [], color=c.FLIP, linewidth=2,
+                              label="null: expected count (plane);\nunion bound (refined)")],
+              loc="upper right", frameon=False, fontsize=6.3)
     cx = fig.add_subplot(grid[1, 1])
     confirmed = [r for r in rows if r["confirmed"]]
     passed = [r for r in confirmed if r.get("refined", {}).get("passed_q5")]
-    for level, marker in ((0, "o"), (1, "D"), (2, "s"), (3, "^")):
-        sub = Counter((r["refined"]["base"]["q"], r["period"]) for r in passed
+    markers = {0: ("o", "two-step map (level 0)"), 1: ("D", "four-step map (level 1)"),
+               2: ("s", "eight-step map (level 2)"), 3: ("^", "16-step map (level 3)")}
+    for level, (marker, label) in markers.items():
+        sub = Counter(tuple(map(int, r["refined"]["base"]["rotation"].split("/"))) for r in passed
                       if r["refined"]["base"]["level"] == level)
         if not sub:
             continue
-        cx.plot([q for q, _ in sub], [p for _, p in sub], marker, color=c.FOLD, markersize=4.5,
-                markeredgecolor=c.SURFACE, markeredgewidth=0.5, linestyle="",
-                label=f"period = 2q x {2 ** level}" if level else "period = 2q")
-        for (q, p), n in sub.items():
+        cx.plot([q for _, q in sub], [m / q for m, q in sub], marker, color=c.FOLD, markersize=4.5,
+                markeredgecolor=c.SURFACE, markeredgewidth=0.5, linestyle="", label=label)
+        for (m, q), n in sub.items():
             if n > 1:
-                cx.annotate(f"x{n}", (q, p), textcoords="offset points", xytext=(4, -2), fontsize=6,
+                cx.annotate(f"x{n}", (q, m / q), textcoords="offset points", xytext=(3, 3), fontsize=5.8,
                             color=c.SECONDARY)
-    qs = np.arange(2, 31)
-    for k in range(3):
-        cx.plot(qs, 2 * qs * 2 ** k, color="#e1e0d9", linewidth=0.8, zorder=0)
-        cx.text(qs[-1] / 2 ** k + 0.3, 2 * qs[-1], f"2q x {2 ** k}" if k else "2q", fontsize=6, color=c.MUTED)
-    cx.set_xlim(0, 31)
-    cx.set_ylim(0, 64)
-    cx.set_xlabel("tongue denominator q (rotation m/q of the two-step map)")
-    cx.set_ylabel("certified window period")
-    cx.set_title(f"C  Period versus tongue denominator ({len(passed)} windows)")
-    cx.legend(loc="lower right", frameon=False)
+    qs = np.linspace(2.2, 31, 200)
+    for m in (1, 2, 3, 4):
+        cx.plot(qs, m / qs, color="#e1e0d9", linewidth=0.8, zorder=0)
+        cx.text(31.2, m / 31, f"m = {m}", fontsize=6, color=c.MUTED, va="center")
+    cx.set_xlim(0, 34)
+    cx.set_ylim(0, 0.5)
+    cx.set_xlabel("points q at the passing level (fixed by the period)")
+    cx.set_ylabel("measured rotation m/q")
+    cx.set_title(f"C  Measured rotation, {len(passed)} passing windows")
+    cx.legend(loc="upper right", frameon=False, fontsize=6.3)
     census = {t: sum(w[4][t] for w in windows) for t in TYPES}
     derived = {
         "windows": len(windows), "rays_per_window": sorted({w[5] for w in windows}), "ray_type_totals": census,
@@ -118,15 +124,17 @@ def main():
         "windows_neimark_sacker_at_least_8": sum(w[4]["neimark_sacker"] >= 8 for w in windows),
         "well_ordering": {label.replace(chr(10), " "): value for label, value in group_values},
         "refined_passing_windows": len(passed),
-        "period_vs_q": sorted([r["refined"]["base"]["q"], r["period"], r["refined"]["base"]["level"]] for r in passed),
+        "passing_rotations": sorted([r["refined"]["base"]["rotation"], r["period"], r["refined"]["base"]["level"]]
+                                    for r in passed),
     }
     alt = (f"Top: for each of the {len(windows)} confirmed windows, the share of 64 continuation rays ending at a "
-           f"fold, flip or Neimark-Sacker crossing. Fold dominates many S1R windows; Neimark-Sacker and flip dominate "
-           f"most S2 windows. Bottom left: share of orbits that are well-ordered circle orbits, against the summed "
-           f"random-angle null (orange): " + "; ".join(f"{k} {v['observed']}/{v['n']} versus {v['expected']:.2f} "
-                                                       f"expected" for k, v in derived["well_ordering"].items())
-           + f". Bottom right: for the {len(passed)} windows passing the refined test, certified period against the "
-           f"tongue denominator q: every point lies on period = 2q or period = 4q.")
+           f"fold, a flip or a complex-pair crossing (Neimark-Sacker candidate). Fold dominates many S1R windows; "
+           f"complex-pair and flip crossings dominate most S2 windows. Bottom left: share of orbits passing the "
+           f"Birkhoff ordering test, against the null (orange; expected count for the plane test, union bound for "
+           f"the refined test): " + "; ".join(f"{k} {v['observed']}/{v['n']} versus {v['expected']:.2f}"
+                                               for k, v in derived["well_ordering"].items())
+           + f". Bottom right: measured rotation numbers m/q of the {len(passed)} passing windows; q is fixed by the "
+           f"period and level by construction, the shift m is measured, and most passing windows have m = 1.")
     c.save(fig, "f5_window_census", [RAYS, ORDER], __file__, "exploratory", alt, derived,
            "Only tests on at least 5 points count toward the refined share; orbits with 2 or 3 points pass trivially.")
 
