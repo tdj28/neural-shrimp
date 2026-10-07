@@ -8,7 +8,8 @@ learning rate (the equal-rates diagonal of the per-layer rate plane).
 Subcommands (all write under --out):
   calibrate  sharpness at initialization and at an L-BFGS minimum (flip
              threshold 2 / lambda_max), and the cost of one batched step.
-  scan       fixed-initialization sweep over log10 learning rate: EXP-028
+  scan       fixed-start sweep over log10 learning rate (the network's
+             initialization, or a saved state with --init): EXP-028
              screening (status, period, FTLE), then ``keep`` further steps
              recording the loss and a fixed 32-dimensional random projection of
              the state; per cell, the rotation number of the two-step map
@@ -93,8 +94,10 @@ def spectrum_peaks(loss, count=6):
 
 
 def scan_chunk(task):
-    config, log_eta, steps, keep = task
+    config, log_eta, steps, keep, init = task
     net, x, y, theta0 = network(config)
+    if init is not None:
+        theta0 = np.load(init)
     eta = 10.0 ** np.asarray(log_eta)
     grid = GridMap(net, x, y, eta, eta)
 
@@ -171,7 +174,7 @@ def cmd_calibrate(config, args, out):
 def cmd_scan(config, args, out):
     log_eta = np.linspace(args.range[0], args.range[1], args.cells)
     chunks = np.array_split(log_eta, max(1, int(np.ceil(args.cells / args.chunk))))
-    tasks = [(config, c, args.steps, args.keep) for c in chunks]
+    tasks = [(config, c, args.steps, args.keep, args.init) for c in chunks]
     with ProcessPoolExecutor(args.workers) as pool:
         results = list(pool.map(scan_chunk, tasks, chunksize=1))
     rows = [r for chunk_rows, _ in results for r in chunk_rows]
@@ -312,6 +315,8 @@ def main():
     parser.add_argument("--chunk", type=int, default=25)
     parser.add_argument("--steps", type=int, default=20000)
     parser.add_argument("--keep", type=int, default=4096)
+    parser.add_argument("--init", default=None,
+                        help="optional .npy state to start every scan cell from instead of the initialization")
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--start", type=float, help="log10 learning rate inside the orbit's region (continue)")
     parser.add_argument("--direction", type=float, default=1.0)
