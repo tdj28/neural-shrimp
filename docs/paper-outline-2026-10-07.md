@@ -106,7 +106,7 @@ seed or held-out architecture has been opened.
    of the 1/5 window (running); (b) acceptance rules frozen (onset, circle,
    rotation at prespecified detunings, ancestry through both folds, outcome
    categories); (c) bounded CIFAR profiling on the first subset; (d) RunPod
-   Phase 0 only (at most $5: port, parity, timing); (e) freeze: claims,
+   Phase 0 only (capped: port, parity, timing); (e) freeze: claims,
    held-out configurations, gates, single primary endpoint, costed workload;
    (f) held-out existence-and-replication test: two prespecified independent
    losses across two architectures, one unused, no substitution; (g) real-data

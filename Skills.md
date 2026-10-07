@@ -101,6 +101,20 @@ Prepare the concrete costed packet before requesting any missing approval.
 Paid review calls and public release remain separately controlled by
 AGENTS.md and the canonical research-integrity playbook.
 
+## Record spend only in the private cost ledger
+
+Human directive, 7 October 2026: dollar amounts actually spent (paid
+consults, rented compute, balances, rates paid) are recorded **only** in the
+gitignored `cost-ledger.md` at the repository root, never in committed files
+(docs, research log, approvals, receipts, commit messages). Committed records
+keep the non-monetary facts: approval references, scope, model or GPU, times,
+token or hour counts, and hashes, with "cost: see private ledger". Budget
+requests and ceilings are discussed with the human in conversation and noted
+in the private ledger. The pod ledger in the data store (`runpod/pods.jsonl`)
+is outside Git and may hold rates. Each rented GPU run is still listed in the
+committed `docs/hardware-ledger.md` with its exact GPU model, driver, CUDA
+build and library hash, so results can be reproduced on similar hardware.
+
 ## Checkpoint code regularly; keep bulky data outside Git
 
 The user requested regular Git backups on 14 September 2026. Commit and push

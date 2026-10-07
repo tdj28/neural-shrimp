@@ -3,8 +3,8 @@
 - **Request:** `brief.md` in this folder, review kind `experiment-plan`, model
   `gpt-6-astra` (Pro mode, xhigh effort, 40,000 output tokens), response
   `resp_01bffeb00fffbd1b016ac6c369737c87d0826c3adef7dbb79c`, completed. Usage:
-  31,924 input and 25,276 output tokens (18,110 reasoning). Conservative cost
-  $1.58. Artifacts: `../neural-shrimp-data/consults/2026-10-07-roadmap/execute-001/`.
+  31,924 input and 25,276 output tokens (18,110 reasoning). Cost: see
+  private ledger. Artifacts: `../neural-shrimp-data/consults/2026-10-07-roadmap/execute-001/`.
 - **Verdict:** "NOT READY TO FREEZE". Advisory input from one frontier model, not
   independent verification; the human researcher is the independent channel.
 
@@ -21,7 +21,7 @@
 
 | # | Finding | Decision |
 |---|---|---|
-| I01 | Keep the $150 ceiling and $75 check-in but authorize only Phase 0 (at most $5) now; benchmark the actual end-to-end units (maps, multipliers, bounded CIFAR) and price Phase 1 from measurements after the freeze | Accepted; Phase 0 is the only paid request put to the human now |
+| I01 | Keep the program's hard ceiling and check-in (amounts in the private ledger) but authorize only a capped Phase 0 now; benchmark the actual end-to-end units (maps, multipliers, bounded CIFAR) and price Phase 1 from measurements after the freeze | Accepted; Phase 0 is the only paid request put to the human now |
 | I02 | Real-data pilot tests transfer: develop on the first CIFAR subset, freeze everything before opening the second; no CNN scale-up for this paper | Accepted |
 | I03 | Small matched float32/float64 check at four points (stable cycle, quasi-periodic interior, locked interior, chaos) | Accepted; cheap, local |
 | I04 | Breadth before resolving the central uncertainty: defer the four-weight model, odd windows, nested bifurcations and production figures; use dependency gates, not calendar overlap | Partly accepted. Odd-window work and production figures are deferred. The four-weight model stream had already started before this review; it is CPU-only, runs in a separate agent and does not touch the confirmatory design, so it is allowed to finish as an exploratory side result, off the critical path |

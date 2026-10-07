@@ -4,8 +4,8 @@
   review kind `research-note-scientific`, model `gpt-6-astra` (Pro mode, xhigh
   effort, 34,000 output tokens), response
   `resp_0269efe86b1a75e4016ac6c522911c87d0bcb73ff596414c0b`, completed. Usage:
-  64,080 input and 32,023 output tokens (25,395 reasoning). Conservative cost
-  $2.24. Artifacts: `../neural-shrimp-data/consults/2026-10-07-references/execute-001/`.
+  64,080 input and 32,023 output tokens (25,395 reasoning). Cost: see
+  private ledger. Artifacts: `../neural-shrimp-data/consults/2026-10-07-references/execute-001/`.
 - **Verdict:** "NOT READY FOR READER REVIEW" (four blocking findings).
 - **Framing authority:** the human delegated framing decisions to the executing
   agent on 7 October ("you decide for me, but don't let pro turn us into timid

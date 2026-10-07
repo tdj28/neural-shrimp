@@ -1610,3 +1610,33 @@ _commit `2db19d3d7c7a` (dirty worktree)_
 The criticality stream (docs/explore-criticality-2026-10-07.md; Kuznetsov first Lyapunov coefficient d, validated against the planar formula to 1e-10 and against measured circle amplitudes within 1%) finds d < 0 (supercritical, soft) from log10 output -0.412 to -0.003 and at +0.061, d > 0 (subcritical, hard) for output <= -0.42 and +0.013 to +0.045, with three sign changes (Chenciner points) near -0.417, +0.005 and +0.05 (to trace spacing). Dynamical checks agree with sign(d) at all 8 points: d < 0 gives small attracting circles with amplitude sqrt(ln|mu| / -d) within 1%; d > 0 gives a jump to a distant state, escape thresholds shrinking like sqrt(offset) (repelling circle) and hysteresis. CORRECTION to the earlier note 'soft and hard edges': the divergent arc of the fixed-start maps (output >= -0.034) is not the bifurcation. There d is negative at -0.034 and -0.018, and the shared start diverges on both sides of the curve, so it never reaches the 2-cycle; the hypothesis that the trainability boundary coincides with the Neimark-Sacker curve on that arc is refuted. S1R: d < 0 at 15 of 16 points (exception on the slow branch). Ready to freeze as a local prediction on fresh losses (sign of d predicts circle amplitude or jump with sqrt-offset escape thresholds and hysteresis), not as a claim about fixed-start trainability maps.
 
 _commit `17dfe745305a` (dirty worktree)_
+
+## 2026-10-07 23:35 UTC: run (exploratory)
+
+- **Question:** Record the cross-GPU parity reference on the qualified RTX 2000 Ada (sm_89) for the RunPod Phase 0 comparison
+- **Setup:** tools/crossgpu_parity.py record with the qualified mirror library (062c5084); workloads: s1_like_24, s2_like_24, S2-28011_64, S1R-28002_32 (bitwise reference) and S1R-28002_256_timing (timing only; local GPU shared with a running map, so timings are indicative)
+- **Output:** `../neural-shrimp-data/runpod/phase0/reference-sm89`
+- **Would surprise us:** Any workload failing on the qualified device
+- **Command:** `.venv/bin/python tools/crossgpu_parity.py record --library ../neural-shrimp-data/builds/gdmap-cuda-64af0462/gdmap_cuda.so --out ../neural-shrimp-data/runpod/phase0/reference-sm89`
+
+_commit `8de07b8cee9c`_
+
+- run started 2026-10-07 23:35 UTC finished 23:40 UTC with exit status 0
+
+## 2026-10-07 23:47 UTC: run (exploratory)
+
+- **Question:** RunPod Phase 0: does the float64 mirror engine built for sm_90 reproduce the RTX 2000 Ada outputs bit for bit on an H100, and what are the measured throughputs for pricing Phase 1?
+- **Setup:** One community H100 PCIe pod (neural-shrimp-phase0, $1.99/h listed), image runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04, exact commit f7e832cf via git archive, sm_89 reference (reference-sm89); runner: build sm_90 (nvcc 12.4, mirror flags), crossgpu_parity compare, CUDA tests, torch float64 benchmark; limits 15 min to SSH, 60 min run; approval docs/consults/approvals.md (Phase 0, at most $5)
+- **Output:** `../neural-shrimp-data/runpod/phase0`
+- **Would surprise us:** Any array not bitwise equal on the H100 (would mean architecture-dependent arithmetic in the mirror build)
+- **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type NVIDIA H100 PCIe --commit HEAD`
+
+_commit `f7e832cf8596` (dirty worktree)_
+
+- run started 2026-10-07 23:47 UTC finished 23:47 UTC with exit status 1
+
+## 2026-10-07 23:48 UTC: RunPod Phase 0 attempt 1: no H100 PCIe capacity; no pod created
+
+podFindAndDeployOnDemand for NVIDIA H100 PCIe (community) returned 'no longer any instances available'; the ledger records only the pre-create inventory (4 pods of other projects), no pod was created and nothing was billed. Falling back to H100 SXM (community, $2.69/h listed) within the Phase 0 cap.
+
+_commit `f7e832cf8596` (dirty worktree)_
