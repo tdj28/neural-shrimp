@@ -708,3 +708,33 @@ _commit `992a7850320b` (dirty worktree)_
 - **Claim impact:** None; verification stays Newton-based with exact Jacobians
 
 _commit `437ff5a255b3` (dirty worktree)_
+
+- run started 2026-10-07 22:32 UTC finished 22:34 UTC with exit status 0
+
+- run started 2026-10-07 22:32 UTC finished 22:34 UTC with exit status 0
+
+## 2026-10-07 22:35 UTC: run (exploratory)
+
+- **Question:** Approach levels at the right-branch 1/5 root (frozen run card)
+- **Setup:** levels 0.0128/4^k (6), scan +-0.03 decades with 601 cells and 100,000 updates at the top level, s_max 0.05, newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-right/levels.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-right --root-name root-right`
+
+_commit `4fe96c9b6adc` (dirty worktree)_
+
+## 2026-10-07 22:35 UTC: run (exploratory)
+
+- **Question:** Approach levels at the left-branch 1/5 root (frozen run card; onset supercriticality criterion already failed as specified)
+- **Setup:** levels 0.0128/4^k (6), scan +-0.03 decades with 601 cells and 100,000 updates at the top level, s_max 0.05, newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-left/levels.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-left --root-name root-left`
+
+_commit `4fe96c9b6adc` (dirty worktree)_
+
+## 2026-10-07 22:35 UTC: Ancestry: 1/5 roots refined; right root passes all onset checks, left root fails the frozen supercriticality rule
+
+Right root log10 (hidden, output) = (1.6990788, -0.1155545), birth rotation 0.19999997, bracket 7.2e-8: complex pair, third modulus 0.972, transverse (0.99993859 -> 1.00006118 across +-1e-4), circle radius 0.0197, 0.0394, 0.0793 at detunings 2e-4, 8e-4, 3.2e-3 (exponent 0.503); comparison point (output -0.1056, birth 0.20572): Fourier invariance residual K=16 at 2.6e-6 to 8.8e-7 (residual/radius about 5e-5), rotation intercept minus birth angle 1.0e-6 with finite-detuning slope -0.73. Left root (1.8035245, -0.3921629), birth 0.2000000059: complex pair, third modulus 0.979, transverse, but circle radii 0.0688, 0.1405, 0.6839 give exponent 0.83, outside the frozen (0.3, 0.7) band, so criterion (1) fails as specified there (post hoc: the two smallest detunings alone give 0.51; the circle grows quickly on this branch); invariance residual converges (K=16 residual/radius 9e-3 to 3e-3); rotation intercept minus birth -1.9e-5 against a strong finite-detuning slope -5.25. Levels now running at both roots as frozen.
+
+_commit `4fe96c9b6adc` (dirty worktree)_
