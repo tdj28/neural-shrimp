@@ -201,9 +201,10 @@ def cmd_continue(config, args, out):
         return vectors - grid.rates[idx] * grid.net.hvp(states, grid.x, grid.y, vectors)
 
     labels = iterate_and_screen(step_subset, jvp_subset, theta0[None], args.steps, **screening_options())
-    period = int(labels["period"][0])
+    screened = int(labels["period"][0])
+    period = args.period if args.period is not None else screened
     report = {"config": config, "start_log10_eta": start, "start_status": int(labels["status"][0]),
-              "start_period": period}
+              "start_period": screened, "certified_period": period}
     if period < 1:
         report["type"] = "start_not_periodic"
     else:
@@ -319,6 +320,8 @@ def main():
                         help="optional .npy state to start every scan cell from instead of the initialization")
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--start", type=float, help="log10 learning rate inside the orbit's region (continue)")
+    parser.add_argument("--period", type=int, default=None,
+                        help="period to certify when the screen misses it, e.g. slow drift (continue)")
     parser.add_argument("--direction", type=float, default=1.0)
     parser.add_argument("--s-max", type=float, default=0.3)
     parser.add_argument("--h0", type=float, default=0.002)
