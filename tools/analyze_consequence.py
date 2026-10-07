@@ -125,17 +125,22 @@ def derive(d, cfg):
     return f
 
 
-def base_features(f):
+def base_features(f, interactions=False):
     """FTLE (continuous parts plus sign classes at the classify thresholds), sharpness, rate, amplitude.
 
-    Pooled slices add one indicator per extra slice (slice-specific intercepts).
+    Pooled slices add one indicator per extra slice (slice-specific intercepts)
+    and, with ``interactions``, slice-specific slopes for rate, amplitude and
+    sharpness (a robustness check added after the first pooled fit).
     """
     lam = np.clip(f["ftle"], -0.05, 0.1)
     out = [np.maximum(lam, 0), np.minimum(lam, 0), (lam < -1e-3).astype(float),
            (np.abs(lam) <= 1e-3).astype(float), ((lam > 1e-3) & (lam <= 5e-3)).astype(float),
            f["sharpness"], f["log10_hidden"], f["amplitude"]]
     for k in range(1, int(f.get("slice", np.zeros(1)).max()) + 1):
-        out.append((f["slice"] == k).astype(float))
+        indicator = (f["slice"] == k).astype(float)
+        out.append(indicator)
+        if interactions:
+            out += [indicator * f["log10_hidden"], indicator * f["amplitude"], indicator * f["sharpness"]]
     return out
 
 
@@ -153,8 +158,8 @@ def pool(fs):
     return out
 
 
-def nested(f, rows, outcome, with_transient=False, draws=300):
-    base = base_features(f)
+def nested(f, rows, outcome, with_transient=False, draws=300, interactions=False):
+    base = base_features(f, interactions)
     if with_transient:
         base.append(f["transient"])
     rot = list(f["features_rotation"].values())
@@ -340,11 +345,17 @@ def main():
     if args.pool and len(derived) > 1:
         pooled = pool(derived)
         rows = np.isin(pooled["regime"], BEYOND)
-        report["pooled"] = {"slices": args.slices, "nested_models": {
-            outcome: {"beyond_eos": nested(pooled, rows, outcome, draws=args.draws),
-                      "beyond_eos_without_attracting_qp": nested(pooled, rows & ~pooled["qp_attracting"], outcome,
-                                                                 draws=args.draws)}
-            for outcome in pooled["outcomes"]}}
+        models = {}
+        for outcome in pooled["outcomes"]:
+            models[outcome] = {
+                "beyond_eos": nested(pooled, rows, outcome, draws=args.draws),
+                "beyond_eos_without_attracting_qp": nested(pooled, rows & ~pooled["qp_attracting"], outcome,
+                                                           draws=args.draws),
+                "beyond_eos_slice_slopes": nested(pooled, rows, outcome, draws=args.draws, interactions=True)}
+            if outcome.startswith("repro"):
+                models[outcome]["beyond_eos_slice_slopes_transient"] = nested(
+                    pooled, rows, outcome, True, draws=args.draws, interactions=True)
+        report["pooled"] = {"slices": args.slices, "nested_models": models}
     target = OUT / args.report
     target.write_text(json.dumps(report, indent=1, default=float))
     print(json.dumps({k: {"regime_counts": v["regime_counts"], "locked_rotations": v["locked_rotations"]}
