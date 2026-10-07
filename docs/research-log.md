@@ -1196,3 +1196,31 @@ _commit `a7e3d90de700` (dirty worktree)_
 d computed at 66 of 69 merged curve points with Kuznetsov's formula (exact two step Jacobian, Richardson finite difference forms; a second step size agrees to all printed digits; eigen-gaps 0.88 to 1.01; no strong resonance). d is negative, supercritical, from log10 output -0.4121 to -0.0026, most negative near -0.062 at -5.08, and positive, subcritical, at -0.45 to -0.4215 and at +0.0132. Two sign changes, generalized Neimark-Sacker or Chenciner points: between -0.4215 and -0.4121 and between -0.0026 and +0.0132, near the bottom of the second dip. The three steep right-branch points found no period-2 start within 0.2 below the curve. Pre-stated surprise partly occurred: on -0.034 to -0.003, where fixed-start maps diverge just beyond the curve, d is clearly negative, -1.81, -1.33, -0.11, so subcriticality does not explain that part of the hard edge. Dynamical checks follow.
 
 _commit `f74ed0e39489` (dirty worktree)_
+
+## 2026-10-07 23:12 UTC: run (exploratory)
+
+- **Question:** Dynamical checks of criticality at eight points of the S2-28011 Neimark-Sacker curve. Beyond the curve, a small circle with amplitude growing like the square root of the offset, or escape. Before the curve, an escape threshold that shrinks toward the curve if subcritical. And an up and down sweep for hysteresis
+- **Setup:** Outputs -0.44, -0.30, -0.20, -0.08, -0.034, -0.018, -0.0026, +0.013 from the criticality curve run. Offsets 1e-4, 4e-4, 1.6e-3 in log10 hidden rate. Beyond, 40000 two step iterations from the boundary orbit point plus 1e-6 noise. Before, bisection on the perturbation amplitude along the critical eigenvector with 10000 two step iterations per trial. Sweep over 18 rates carrying the state
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/s2-28011-dynamics/dynamics.json`
+- **Would surprise us:** Supercritical points escaping beyond the curve while starting from the 2-cycle, or subcritical points showing a small circle beyond
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py dynamics --outputs -0.44 -0.30 -0.20 -0.08 -0.034 -0.018 -0.0026 0.013 --workers 8`
+
+_commit `52a2c4448e35`_
+
+## 2026-10-07 23:12 UTC: run (exploratory)
+
+- **Question:** Quantitative positive control. On the engineered gradient map 2-cycle, does the normal form amplitude of the circle at small offsets approach the square root of delta over minus d, for several kappa
+- **Setup:** EngineeredTwoCycle with phi 2 pi times 0.13, kappa -2, 0, 2. d at r 1. Dynamics at r 1.001 and 1.004 from p0 plus 1e-3, and normal form amplitude at r 1 plus 1e-5 and 1e-6 over 400000 two step iterations started on the predicted circle
+- **Output:** `/data2/neural-shrimp-data/explore/criticality/control/control.json`
+- **Would surprise us:** Measured normal form amplitude differing from the prediction by more than 10 percent at the smallest offset
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_criticality.py control --kappas -2 0 2`
+
+_commit `52a2c4448e35` (dirty worktree)_
+
+- run started 2026-10-07 23:12 UTC finished 23:12 UTC with exit status 0
+
+## 2026-10-07 23:14 UTC: Informative failure: first criticality dynamics run measured distances from the wrong reference point
+
+The first dynamics run at eight curve points measured amplitudes and escape thresholds relative to the boundary orbit point, but the 2-cycle shifts with the rate, so all before-curve thresholds came out below 1e-6 and the smallest beyond-curve offset was unconverged. Still informative: between offsets 4e-4 and 1.6e-3 beyond the curve the asymptotic amplitude doubles at every supercritical point (ratios 1.99 to 2.19, square-root scaling), including -0.034 and -0.018 where fixed-start maps diverge, while at the subcritical points -0.44 and +0.013 trajectories jump to distant attractors (distance about 0.64 and 0.20, nearly offset-independent) without diverging. Rerunning with the 2-cycle re-found by Newton at each offset and normal-form amplitudes compared with sqrt(log modulus over -d).
+
+_commit `1bd9aeb6ce66` (dirty worktree)_
