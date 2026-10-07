@@ -766,3 +766,21 @@ _commit `8e9054adc89c` (dirty worktree)_
 2x2 depth-two linear network, l = 0.5 ||W2 W1 - diag(1, s2)||^2, single rate a. (1) Exact multipliers of the closed-form aligned 2-cycle: for s2/s1 = 0.7, 0.8, 0.9 the misalignment complex pair crosses the unit circle at a(s1 + s2) = 2 to machine precision, transversally (d|mu|/da = 1.85, 1.90, 1.95, empirically (3 + s2/s1)/2), with birth angles theta/2pi = 0.1380, 0.1082, 0.0737 (far from 1/4, 1/3, 1/2); the other multipliers are two exact 1s (hidden-rotation symmetry; neutral continuum of second-mode minima uv = s2 without weight decay) and the rest below 0.9. (2) Past the edge (no weight decay) training settles on a bounded, non-periodic state with nonzero loss and two near-zero Lyapunov exponents (symmetry plus circle) and a negative third: an attracting invariant circle of the two-step map in rotation-invariant coordinates; its rotation tends to the birth angle (0.13744, 0.10753, 0.07287 at delta = 3e-4 vs 0.13800, 0.10817, 0.07368); the onset is soft (following the state back below the edge returns the aligned 2-cycle, no bistability) but the amplitude scales like delta^0.24, a degenerate (quartic-amplitude) onset. With weight decay lam = 0.01 (edge shifts to a = 1.1908, 1.1239, 1.0641; only the symmetry multiplier stays at 1) the amplitude scales like delta^0.49 (ratios 1.71-1.78 per tripling, sqrt(3) = 1.73), the rotation at delta = 1e-4 is within 3e-5 of the birth angle, and the onset is soft: a generic supercritical Neimark-Sacker modulo the rotation symmetry. At lam = 0, s2/s1 = 0.7 and delta = 1.6e-2 the state already has a positive exponent (0.017).
 
 _commit `8e9054adc89c` (dirty worktree)_
+
+## 2026-10-07 22:44 UTC: run (exploratory)
+
+- **Question:** Hofmann model: is there a resolvable 1/10 tongue (period 20) at s2/s1 = 0.8, where the coarse scan passed rotation 0.1 without a visible plateau?
+- **Setup:** lam = 0.01, s2/s1 = 0.8, 400 rates in a = 1.136..1.148 (spacing 3e-5), same settings as the coarse staircase
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/hofmann/staircase-lam0.01-fine08.json`
+- **Would surprise us:** Rotation crossing 0.1 with no locked cells even at this resolution
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_hofmann.py staircase --lam 0.01 --ratios 0.8 --a-range 1.136 1.148 --tag fine08`
+
+_commit `02ddf7ffc57a`_
+
+- run started 2026-10-07 22:44 UTC finished 22:45 UTC with exit status 0
+
+## 2026-10-07 22:45 UTC: Hofmann rotational edge (exploratory), task 3: phase locking beyond the edge
+
+lam = 0.01, 400 rates from 1.0005 x edge to the end of the 2-cycle window per spectral ratio, each from the aligned cycle plus 1e-3 noise. s2/s1 = 0.7: rotation falls monotonically from the birth angle 0.1388 to 0.1154 with a plateau at exactly 1/8 (27 cells of period 16, a = 1.2146-1.2183) and isolated locked cells at 2/17 (period 34, 2 cells) and 5/42 (period 84, 1 cell); all 30 periodic cells have rotation m/q with q = period/2, and 5/42 is the Farey mediant of 2/17 and 3/25, between the Farey neighbours 2/17 and 1/8. No chaotic cells. s2/s1 = 0.8 and 0.9: rotation falls smoothly from the birth angles (0.1086 to 0.079; 0.0737 to 0.044) with no plateau resolved at 400 cells; a fine scan at 0.8 (spacing 3e-5) resolves a 1/10 tongue (6 cells of period 20, a = 1.14093-1.14108, about 25 times narrower than the 1/8 tongue at 0.7). From a = 1.197 (0.8) and 1.108 (0.9) blocks of starts diverge, interleaved with bounded circle states (coexistence with escape; not analysed further). Interpretation: Hofmann's rotational edge is the Neimark-Sacker onset of the same quasi-periodic route seen in the trained networks, with Arnold tongues beyond it, in an eight-weight linear model.
+
+_commit `02ddf7ffc57a` (dirty worktree)_
