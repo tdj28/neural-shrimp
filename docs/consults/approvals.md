@@ -41,4 +41,4 @@ skill, section 7A). Costs are recorded cumulatively below.
 
 | Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
 |---|---|---|---|---|
-| (3) references | pending | pending | pending | pending |
+| (3) references (Pro, xhigh effort, 34k output) | $5.00 | $4.96 | pending | pending |
