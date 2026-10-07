@@ -832,3 +832,51 @@ _commit `f26a8868cc1c` (dirty worktree)_
 - **Would surprise us:** Locked 2/9 regions not narrowing onto either root; window not reached from the tongue
 
 _commit `158c5fa23a6c` (dirty worktree)_
+
+## 2026-10-07 22:47 UTC: run (exploratory)
+
+- **Question:** 2/9 case: root A
+- **Setup:** bracket -0.07739..-0.07543, m/q 2/9, comparison offset -0.02
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-root-a/root.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name 2-9-root-a --m 2 --q 9 --bracket -0.07739 -0.07543 --comparison-offset -0.02`
+
+_commit `e8888e959c7b` (dirty worktree)_
+
+## 2026-10-07 22:47 UTC: run (exploratory)
+
+- **Question:** 2/9 case: root B
+- **Setup:** bracket -0.06957..-0.06761, m/q 2/9, comparison offset -0.03
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-root-b/root.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name 2-9-root-b --m 2 --q 9 --bracket -0.06957 -0.06761 --comparison-offset -0.03`
+
+_commit `e8888e959c7b` (dirty worktree)_
+
+- run started 2026-10-07 22:47 UTC finished 22:49 UTC with exit status 0
+
+- run started 2026-10-07 22:47 UTC finished 22:49 UTC with exit status 0
+
+## 2026-10-07 22:50 UTC: run (exploratory)
+
+- **Question:** 2/9 case: levels at root A
+- **Setup:** period 18, levels 0.0128/4^k k=0..3, tracking, scan +-0.03 with 601 cells, 100,000 updates
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-levels-a/levels.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name 2-9-levels-a --root-name 2-9-root-a --period 18 --count 4 --tracking`
+
+_commit `a33c0cf589b4` (dirty worktree)_
+
+## 2026-10-07 22:50 UTC: run (exploratory)
+
+- **Question:** 2/9 case: levels at root B
+- **Setup:** period 18, levels 0.0128/4^k k=0..3, tracking, scan +-0.03 with 601 cells, 100,000 updates
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-levels-b/levels.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name 2-9-levels-b --root-name 2-9-root-b --period 18 --count 4 --tracking`
+
+_commit `a33c0cf589b4` (dirty worktree)_
+
+- run started 2026-10-07 22:50 UTC finished 22:51 UTC with exit status 0
+
+- run started 2026-10-07 22:50 UTC finished 22:51 UTC with exit status 0

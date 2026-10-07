@@ -14,6 +14,9 @@ Subcommands (each writes JSON under DATA/explore/ancestry/<name>/):
   connect    S2: follow the tongue's centre line from the top level towards the
              target window and test whether the window's certified orbit lies on
              the tracked branch
+  descend    S2, POST HOC: track a window's own locked interval (both fold edges,
+             re-centred every step) from the window down towards the curve and
+             report the curve's birth rotation at the foot of the tracked line
 
 Criteria and outcome categories are those of the run card in docs/research-log.md
 and src/neural_shrimp/ancestry.py (pass, alternative_ancestry, exhausted_budget,
@@ -719,6 +722,79 @@ def cmd_connect(args):
     print("connection outcome:", outcome)
 
 
+def curve_height(curve, p):
+    """Height of parameters p above the merged Neimark-Sacker curve and the curve's birth rotation at the foot."""
+    lo = np.array([r["log10_output"] for r in curve])
+    lh = np.array([r["log10_hidden_boundary"] for r in curve])
+    th = np.array([r["theta_over_2pi"] for r in curve])
+    order = np.argsort(lo)
+    lo, lh, th = lo[order], lh[order], th[order]
+    if not (lo[0] <= p[1] <= lo[-1]):
+        return None, None
+    return float(p[0] - np.interp(p[1], lo, lh)), float(np.interp(p[1], lo, th))
+
+
+def cmd_descend(args):
+    """POST HOC: track a window's own locked interval from the window down towards the curve."""
+    net, x, y, theta0, family = s2_family(args.system, args.seed)
+    curve = json.loads(Path(args.curve).read_text())["rows"]
+    certs = json.loads((DATA / "raw/EXP-028/attempt-002/stage3/certificates.json").read_text())
+    rec = next(r for r in certs if r["map_id"] == args.map_id and r["component"] == args.component)
+    p = np.log10([rec["lr_hidden"], rec["lr_output"]])
+    orbit = np.array(rec["certificate"]["orbit"])
+    options = {"newton_tolerance": args.newton_tolerance}
+    direction = np.array([-1.0, 0.0])
+    track, h, width = [], args.step, args.s_max * 0.2
+    started = time.time()
+    outcome = "exhausted_budget"
+    for step in range(args.max_steps):
+        if time.time() - started > args.budget_seconds:
+            break
+        target = p + h * direction
+        seg = continue_segment(family, orbit[0], args.period, p, target, h0=0.1, cert_options=options)
+        if not seg["ok"]:
+            h *= 0.5
+            if h < args.h_min:
+                track.append({"step": step, "reason": f"continuation failed: {seg['reason']}", "params": p.tolist()})
+                break
+            continue
+        orbit = np.asarray(seg["orbit"])
+        perp = np.array([-direction[1], direction[0]])
+        sides = measure_section(family, args.period, orbit, target, perp, args.s_max, max(width / 40.0, 1e-9),
+                                max(1e-13, width * 1e-7), options)
+        entry = {"step": step, "params": target.tolist(), "left": sides["left"]["type"],
+                 "right": sides["right"]["type"], "stability": seg["certificate"]["stability"]}
+        new_p = target
+        if sides["left"]["type"] == "fold" and sides["right"]["type"] == "fold":
+            width = sides["left"]["s"] + sides["right"]["s"]
+            centre = target + 0.5 * (sides["right"]["s"] - sides["left"]["s"]) * perp
+            seg2 = continue_segment(family, orbit[0], args.period, target, centre, h0=0.1, cert_options=options)
+            if seg2["ok"]:
+                orbit, new_p = np.asarray(seg2["orbit"]), centre
+                move = centre - p
+                if np.linalg.norm(move) > 0:
+                    direction = direction + move / np.linalg.norm(move)
+                    direction /= np.linalg.norm(direction)
+            entry["width"] = width
+        p = new_p
+        height, foot_theta = curve_height(curve, p)
+        entry.update({"center": p.tolist(), "height": height, "foot_birth_rotation": foot_theta,
+                      "radius": seg["certificate"]["spectral_radius"]})
+        track.append(entry)
+        print(json.dumps({k: entry.get(k) for k in ("step", "center", "width", "height", "foot_birth_rotation",
+                                                      "stability", "left", "right")}, default=float), flush=True)
+        if height is None:
+            outcome = "left_curve_range"
+            break
+        if height < args.height_stop:
+            outcome = "reached_curve_neighbourhood"
+            break
+        h = min(args.step, 0.5 * max(height, 1e-6))
+    dump(OUT / args.name / "descend.json", {"track": track, "outcome": outcome, "window": rec["map_id"],
+                                            "component": rec["component"], "seconds": time.time() - started})
+    print("POST HOC descent outcome:", outcome)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -776,8 +852,24 @@ def main():
     cn.add_argument("--newton-tolerance", type=float, default=1e-8)
     cn.add_argument("--max-cross-sections", type=int, default=200)
     cn.add_argument("--budget-seconds", type=float, default=5400)
+    ds = sub.add_parser("descend")
+    ds.add_argument("--name", required=True)
+    ds.add_argument("--system", default="S2")
+    ds.add_argument("--seed", type=int, default=28011)
+    ds.add_argument("--map-id", required=True)
+    ds.add_argument("--component", type=int, required=True)
+    ds.add_argument("--period", type=int, required=True)
+    ds.add_argument("--curve", default=str(DATA / "explore/a3-ns-curve/s2-28011-merged/ns-curve.json"))
+    ds.add_argument("--step", type=float, default=0.01)
+    ds.add_argument("--h-min", type=float, default=1e-7)
+    ds.add_argument("--s-max", type=float, default=0.1)
+    ds.add_argument("--height-stop", type=float, default=1e-4)
+    ds.add_argument("--max-steps", type=int, default=400)
+    ds.add_argument("--budget-seconds", type=float, default=3600)
+    ds.add_argument("--newton-tolerance", type=float, default=1e-8)
     args = parser.parse_args()
-    {"controls": cmd_controls, "root": cmd_root, "levels": cmd_levels, "connect": cmd_connect}[args.command](args)
+    {"controls": cmd_controls, "root": cmd_root, "levels": cmd_levels, "connect": cmd_connect,
+     "descend": cmd_descend}[args.command](args)
 
 
 if __name__ == "__main__":
