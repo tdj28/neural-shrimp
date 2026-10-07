@@ -240,10 +240,12 @@ Figures: `/data2/neural-shrimp-data/explore/consequence/precursor.png`,
 - The pooled robustness variants and the AR estimator were introduced after
   seeing earlier outputs and are labeled adapted. Isotropic additive noise
   stands in for minibatch noise.
-- In `tests/test_phase_transverse_gain_run.py`,
-  `test_signal_during_journal_commit_preserves_completed_cell` fails in the
-  full suite under the current CPU load ("Cell journal differs", SIGTERM timing)
-  and passes when its file runs alone. It is unrelated to this stream's files.
+- Full suite: 2214 passed, 2 skipped (third run, 7 October 15:06 PDT). In two
+  earlier `-x` runs under heavy CPU load,
+  `tests/test_phase_transverse_gain_run.py::test_signal_during_journal_commit_preserves_completed_cell`
+  failed ("Cell journal differs", SIGTERM timing). It passes alone and in the
+  third full run, so it is a load-sensitive timing test unrelated to this
+  stream's files.
 
 ## Recommended next step
 
