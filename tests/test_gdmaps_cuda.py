@@ -140,6 +140,39 @@ def test_build_refuses_overwrite_and_records_flags(monkeypatch, tmp_path):
     assert "--fmad=true" in other["command"] and other["free_contraction"] is True
 
 
+def test_build_arch_is_explicit_and_recorded(monkeypatch, tmp_path):
+    monkeypatch.setattr(gc.shutil, "which", lambda value: "/usr/bin/" + value)
+    monkeypatch.setattr(gc.subprocess, "check_output", lambda *a, **k: "release 12.4, V12.4\n")
+
+    class Compiler:
+        returncode = 0
+
+        def __init__(self, command, **kwargs):
+            Path(command[-1]).write_bytes(b"synthetic library, not executable")
+
+        def communicate(self, timeout=None):
+            return "", ""
+
+    monkeypatch.setattr(gc.subprocess, "Popen", Compiler)
+    receipt = gc.build(tmp_path / "h100", arch="sm_90")
+    assert "-arch=sm_90" in receipt["command"] and "-arch=sm_89" not in receipt["command"]
+    assert receipt["architecture"] == "sm_90" and "--fmad=false" in receipt["command"]
+    with pytest.raises(ValueError):
+        gc.build(tmp_path / "bad", arch="compute_90")
+
+
+def test_qualified_capabilities_default_and_explicit_extension(monkeypatch):
+    monkeypatch.delenv(gc.QUALIFYING_ENV, raising=False)
+    assert gc.qualified_capabilities() == ((8, 9),)
+    monkeypatch.setenv(gc.QUALIFYING_ENV, "9.0")
+    assert gc.qualified_capabilities() == ((8, 9), (9, 0))
+    monkeypatch.setenv(gc.QUALIFYING_ENV, "9.0, 8.9")
+    assert gc.qualified_capabilities() == ((8, 9), (9, 0))
+    monkeypatch.setenv(gc.QUALIFYING_ENV, "sm_90")
+    with pytest.raises(ValueError):
+        gc.qualified_capabilities()
+
+
 def test_load_requires_an_explicit_library(monkeypatch):
     monkeypatch.delenv(gc.LIBRARY_ENV, raising=False)
     with pytest.raises(FileNotFoundError):
@@ -168,8 +201,8 @@ def cuda(tmp_path_factory):
         info = backend.device_info()
     except gc.GdmapCudaError as error:
         pytest.skip(f"CUDA device unavailable: {error}")
-    if (info["major"], info["minor"]) != (8, 9):
-        pytest.skip("backend qualified for sm_89 only")
+    if (info["major"], info["minor"]) not in gc.qualified_capabilities():
+        pytest.skip("device is not a qualified (or qualifying) compute capability")
     return backend
 
 
