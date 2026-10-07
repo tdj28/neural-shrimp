@@ -652,3 +652,23 @@ _commit `73e55461d873` (dirty worktree)_
 The 256x256 rotation-map analysis reported that 91% of even-period periodic cells are m/q-locked (74% with q = period/2, 17% period-doubled inside a tongue). As the references consult (and the roadmap consult's anticipated referee attack) points out, this is largely true by construction: any period-2q orbit sampled by the two-step map visits q points, so its accumulated principal-plane angle over full cycles is an integer number m of turns and the estimate equals m/q within 1/S automatically. The only non-trivial content is that m is non-zero and coprime to q (the orbit winds primitively about its centroid), and for the doubled class that the base level does. The statistic is withdrawn as evidence of locking. Meaningful locking evidence remains: the Birkhoff well-ordering test against its random-angle null (35 of 56 testable confirmed windows vs 3.58), continuity of rotation between quasi-periodic cells and plateaus along slices, and the resonance-ancestry test now running. The value was quoted to the human on 7 October as evidence; this note corrects it.
 
 _commit `547f6ab16875`_
+
+- run started 2026-10-07 21:22 UTC finished 22:37 UTC with exit status 0
+
+## 2026-10-07 22:37 UTC: run (exploratory)
+
+- **Question:** 1024x1024 GPU rotation map: continuity with the birth angle along the merged Neimark-Sacker curve, and tongue roots at higher resolution
+- **Setup:** analyze_a3_rotation_map.py and analyze_a3_tongue_roots.py on a3-gpu-rotation/s2-28011-1024 with the merged curve (69 points, log10 output -0.45 to 0.06); the locking count is definitional except for primitive winding and is not used as evidence
+- **Output:** `../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-1024`
+- **Would surprise us:** Median |rho - birth angle| above 0.005 at the smallest offset; no rational with locked cells within a few cells of its root
+- **Command:** `bash -c .venv/bin/python tools/analyze_a3_rotation_map.py --map ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-1024/rotation.npz --ns ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-merged/ns-curve.json --offsets 0.002 0.004 0.008 0.016 --out ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-1024 && .venv/bin/python tools/analyze_a3_tongue_roots.py --map ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-1024/rotation.npz --ns ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-merged/ns-curve.json --out ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-1024`
+
+_commit `2e15406746b9` (dirty worktree)_
+
+- run started 2026-10-07 22:37 UTC finished 22:37 UTC with exit status 0
+
+## 2026-10-07 22:38 UTC: A3 exploratory: 1024x1024 GPU rotation map; continuity to 6e-4 and roots near the birth-rotation maximum supported
+
+S2-28011, log10 hidden 1.60-2.06 x output -0.46 to -0.07 (4,503 s on the RTX 2000 Ada; the rotation stage was host-bound). Continuity with the merged Neimark-Sacker curve: at 0.002 decades beyond it, median |rho - arg(mu)/2pi| = 0.00058 over 39 curve points (0.0008 at 0.004, 0.0018 at 0.008, 0.0035 at 0.016: smooth finite-detuning drift). Tongue-root test (locked = period 2q with rho within 1/S of m/q; the count itself is definitional except primitivity and is not used as evidence): both 1/5 roots have locked cells within 0.4 and 3.0 cells (one-sided null p 0.001 and 0.004 against random curve points); the two 2/9 roots at the birth-rotation maximum 0.7 and 24.5 cells (p 0.001, 0.029); one 3/13 root 0.7 cells (p 0.001); one 2/11 root 8.1 cells (p 0.007). Left-branch roots of 2/9, 2/11 and 3/13 have no locked cells nearby (p 0.63-0.95); two roots (1/4 and the far-right 2/9) lie outside the mapped output range, a bounds check the tool lacks. The map shows a smooth rotation field rising from 0.16 to 0.22 above the right half of the U, a thin band on the left branch, and long low-rotation stripes (about 0.15-0.17, colormap clipped below 0.15) running into the chaotic region. Figure: a3-gpu-rotation/s2-28011-1024/rotation-map.png. Map-based evidence remains secondary to the continuation-based ancestry test.
+
+_commit `2e15406746b9` (dirty worktree)_
