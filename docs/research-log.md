@@ -658,3 +658,24 @@ _commit `73e55461d873` (dirty worktree)_
 _commit `47ac2cce50f4` (dirty worktree)_
 
 - run started 2026-10-07 22:31 UTC finished 22:31 UTC with exit status 0
+
+## 2026-10-07 22:31 UTC: run (exploratory)
+
+- **Question:** Rerun of the ancestry controls after the classifier amendment (non-collapsing orbits without two fold edges are alternative ancestry)
+- **Setup:** Identical to the first control run; output directory controls-002
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/controls-002/controls.json`
+- **Would surprise us:** Positive control not passing, or either negative control passing
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py controls --name controls-002`
+
+_commit `163ac39635d8` (dirty worktree)_
+
+- run started 2026-10-07 22:31 UTC finished 22:31 UTC with exit status 0
+
+## 2026-10-07 22:32 UTC: run (exploratory)
+
+- **Question:** Network ancestry run card (frozen before any network computation): does S2-28011:139 (period 10, rotation 1/5, rule-selected) descend from the 1/5 resonance of the parent period-2 Neimark-Sacker curve?
+- **Setup:** Roots: curve points with birth rotation 1/5 (left branch near log10 output -0.392, right near -0.116), bisection to 1e-7 in log10 output, NS points to 1e-11 in log10 hidden. CRITERIA. (1) Onset at each root: complex-conjugate dominant two-step pair, third modulus < 1 - 1e-3, transverse crossing (dominant modulus < 1 at -1e-4 and > 1 at +1e-4 along the normal), supercritical small attracting circle (radius exponent in (0.3, 0.7) over detunings 2e-4, 8e-4, 3.2e-3; bounded). (2) Invariance residual of Fourier-fitted circles (K = 4, 8, 16) at the prespecified comparison point (root output + 0.01) and detunings 1e-3, 5e-4, 2.5e-4: K = 16 residual not above K = 4 and residual/radius < 1e-2. (3) Rotation at those detunings: linear fit; consistent if |intercept - birth angle| <= 3/N + 3 sigma (N = 20,000); slope reported as finite-detuning bias. (4) Ancestry: six levels 0.0128/4^k along the normal; each with a verified primitive period-10 orbit reached by jump-free continuation and two fold edges (multiplier within 0.05 of +1) on the tangential cross-section; pass needs monotone shrinking widths, extrapolated centre within 1e-4 decades of the root, deepest centre within max(1e-4, width), amplitude ratio >= 10; then the tongue centre line tracked to the window must reach the window's certified orbit on the same branch (same cycle within 1e-7). (5) Outcomes: pass; alternative_ancestry; exhausted_budget; no_qualifying_window; invalid (controls-002 passed, so not invalid). The 1/5 outcome is reported as is; 2/9 only as a separate exploratory case.
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/`
+- **Would surprise us:** Onset not Neimark-Sacker or subcritical at a root; fold-bounded levels converging elsewhere; window orbit on a different branch
+
+_commit `163ac39635d8` (dirty worktree)_
