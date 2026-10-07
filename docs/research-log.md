@@ -214,3 +214,9 @@ _commit `22dab26f7bd9` (dirty worktree)_
 S1R-28002 slice: periodic cells on rotation plateaus have periods 2q (or doubled): 1/9 -> 18 (36), 2/17 -> 34, 1/8 -> 16 (64), 3/23 -> 46, 2/15 -> 30 (60), 2/19 -> 38, 1/10 -> 40. Plateaus follow Farey mediants: 2/17 = mediant(1/9, 1/8), 3/23 = mediant(1/8, 2/15), 2/15 = mediant(1/8, 1/7). The phase-locking mechanism (Arnold tongues of the two-step map's invariant circle, with period doubling inside tongues) holds in both S2 and S1R.
 
 _commit `ee873a1305fd`_
+
+## 2026-10-07 12:57 UTC: A2 exploratory: boundary types across all 61 confirmed windows
+
+3,904 rays (64 per window): fold 1,316, Neimark-Sacker 1,395, flip 1,012, still attracting at range edge 168, unresolved 13. 15/61 windows have at least 8 fold and 8 flip rays (shrimp-type counts); 41/61 have at least 8 Neimark-Sacker rays; 9 are fold-dominated; some are bounded entirely by Neimark-Sacker (S2-28012:46, 64/64). Consistent with tongue organization: fold edges, with flip and secondary Neimark-Sacker inside tongues. Draft A2 criteria await the GPU local maps (6/61 done).
+
+_commit `e26c6f4f4108`_
