@@ -25,6 +25,18 @@ def test_rotation_of_points_on_an_embedded_circle():
     assert forward == 1.0 and share > 0.999
 
 
+def test_polished_minimum_reaches_a_critical_point():
+    tool = _tool("explore_realdata")
+    from neural_shrimp.gdmaps import TwoLayerNet
+
+    rng = np.random.default_rng(4)
+    net = TwoLayerNet(d=3, width=2, activation="tanh", loss_scale=1.0, ridge=1e-2)
+    x, y = rng.normal(size=(20, 3)), rng.normal(size=20)
+    theta, grad_norm = tool.polished_minimum(net, x, y, 0.3 * rng.normal(size=net.n_parameters))
+    assert grad_norm < 1e-10
+    assert np.linalg.eigvalsh(net.hessian(theta, x, y))[0] > 0
+
+
 def test_spectrum_peaks_find_sideband_frequencies():
     tool = _tool("explore_realdata")
     t = np.arange(4096)
