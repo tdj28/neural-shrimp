@@ -378,3 +378,5 @@ _commit `fc4a3584d247` (dirty worktree)_
 64-8-1 tanh MLP on 1,024 UCI digits, standard parameterization, weight decay 1e-3, seed 28101. After 60,000 updates from the initialization at log10 eta -0.42 the screen reports unresolved because of slow drift, but Newton certifies an attracting period-2 orbit; continued in log10 eta it stays attracting until -0.3885464, where the dominant two-step multiplier is 0.998814 + 0.048693i with modulus 1 - 1.0e-7 (bracket 9e-10): a Neimark-Sacker bifurcation. Predicted rotation of the newborn circle arg(mu)/2pi = 0.00775 turns per two-step iteration, i.e. a loss modulation near 0.0039 cycles per update, about 258 updates per cycle. The coarse scan shows slow harmonic loss modulations from about -0.37 (0.0027-0.0029 cycles per update at -0.372 and -0.347, from the initialization, possibly a different branch). The finer, longer scan now running will test the predicted rotation just beyond the bifurcation. Exploratory.
 
 _commit `3c993e36d58b` (dirty worktree)_
+
+- run started 2026-10-07 21:25 UTC finished 21:44 UTC with exit status 0

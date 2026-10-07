@@ -45,3 +45,12 @@ def test_spectrum_peaks_find_sideband_frequencies():
     freqs = sorted(round(f, 2) for f, _ in peaks)
     assert freqs == [0.11, 0.39, 0.5]
     assert tool.spectrum_peaks(np.ones(64)) == []
+
+
+def test_recurrence_period_detects_exact_repeats():
+    tool = _tool("explore_realdata")
+    rng = np.random.default_rng(3)
+    cycle = rng.normal(size=(7, 32))
+    projected = np.tile(cycle, (700, 1))
+    assert tool.recurrence_period(projected, window=256, max_lag=64) == 7
+    assert tool.recurrence_period(rng.normal(size=(600, 32)), window=256, max_lag=64) == 0

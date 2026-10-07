@@ -24,6 +24,11 @@ Subcommands (all write under --out):
              top Hessian eigenvector, and continue that orbit in log10
              learning rate to its stability boundary (independent of the
              fixed-initialization scan).
+  sweep      adiabatic sweep in log10 learning rate from a saved state (or the
+             initialization): each rate starts from the previous rate's final
+             state, so one attractor branch is followed; per rate, rotation
+             number, recurrence period of the projected state, FTLE and loss
+             spectrum.
 
 Exploratory under the adaptive research protocol. Seeds 29000-29999 are
 refused (reserved for confirmatory tests).
@@ -297,9 +302,68 @@ def cmd_branch(config, args, out):
     print(json.dumps({k: v for k, v in report.items() if k != "attempts"}, indent=1, default=float))
 
 
+def recurrence_period(projected, window=2048, max_lag=2048, rtol=1e-7):
+    """Smallest lag at which the final ``window`` projected states repeat, or 0."""
+    tail = projected[-(window + max_lag):]
+    scale = max(float(np.max(np.abs(tail))), 1e-300)
+    for lag in range(1, max_lag + 1):
+        if np.max(np.abs(tail[lag:lag + window] - tail[:window])) < rtol * scale:
+            return lag
+    return 0
+
+
+def cmd_sweep(config, args, out):
+    """Adiabatic sweep: each learning rate starts from the previous rate's final state."""
+    net, x, y, theta0 = network(config)
+    theta = np.load(args.init) if args.init else theta0
+    log_eta = np.linspace(args.range[0], args.range[1], args.cells)
+    projection = np.random.default_rng(PROJECTION_SEED).normal(size=(net.n_parameters, 32))
+    tangent = np.random.default_rng(0).normal(size=net.n_parameters)
+    rows, traces = [], []
+    for le in log_eta:
+        eta = 10.0 ** le
+        grid = GridMap(net, x, y, [eta], [eta])
+        state = theta[None].copy()
+        ok = True
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _ in range(args.steps):
+                state = grid.step(state)
+            losses, projected = np.empty(args.keep), np.empty((args.keep, 32))
+            log_growth, ftle_steps = 0.0, min(args.ftle_steps, args.keep)
+            vector = tangent / np.linalg.norm(tangent)
+            for k in range(args.keep):
+                grad, loss = net.gradient(state, x, y, return_loss=True)
+                losses[k], projected[k] = loss[0], state[0] @ projection
+                if k >= args.keep - ftle_steps:
+                    vector = grid.jvp(state, vector[None])[0]
+                    norm = np.linalg.norm(vector)
+                    log_growth += np.log(norm)
+                    vector /= norm
+                state = state - grid.rates * grad
+            ok = bool(np.all(np.isfinite(state)) and np.all(np.isfinite(losses)))
+        row = {"log10_eta": float(le), "finite": ok}
+        if ok:
+            theta = state[0]
+            row["ftle"] = log_growth / ftle_steps
+            row["period"] = recurrence_period(projected)
+            row["loss_min"], row["loss_max"] = float(losses.min()), float(losses.max())
+            row["rho2"], row["rho2_forward"], row["rho2_share"] = rotation(projected[0::2])
+            row["turns"] = row["rho2"] * len(projected[0::2])
+            row["peaks"] = spectrum_peaks(losses)
+            traces.append(losses.astype(np.float32))
+        rows.append(row)
+        print(json.dumps({k: (round(v, 6) if isinstance(v, float) else v) for k, v in row.items() if k != "peaks"}),
+              flush=True)
+        if not ok:
+            break
+    np.savez_compressed(out / "sweep-losses.npz", log10_eta=log_eta[:len(traces)], losses=np.array(traces))
+    (out / "sweep.json").write_text(json.dumps({"config": config, "args": vars(args), "rows": rows}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["calibrate", "scan", "continue", "branch"])
+    parser.add_argument("command", choices=["calibrate", "scan", "continue", "branch", "sweep"])
+    parser.add_argument("--ftle-steps", type=int, default=4000, help="tangent steps at the end of each record (sweep)")
     parser.add_argument("--factors", type=float, nargs="+", default=[1.002, 1.01, 1.03, 1.1],
                         help="eta / eta_flip values to seed the period-2 orbit (branch)")
     parser.add_argument("--kick", type=float, default=1e-3, help="initial offset along the top eigenvector (branch)")
@@ -331,7 +395,7 @@ def main():
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     {"calibrate": cmd_calibrate, "scan": cmd_scan, "continue": cmd_continue,
-     "branch": cmd_branch}[args.command](config, args, out)
+     "branch": cmd_branch, "sweep": cmd_sweep}[args.command](config, args, out)
 
 
 if __name__ == "__main__":
