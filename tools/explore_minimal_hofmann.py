@@ -54,15 +54,43 @@ def misalignment_pair(model, a):
     return max(complex_values, key=abs), values
 
 
+def window(model):
+    s_eff = model.s1 - model.lam
+    return 1.0 / s_eff, (np.sqrt(5) - 1.0) / s_eff
+
+
+def find_edge_bracket(model, points=400):
+    """First rate in the 2-cycle window where the complex pair leaves the unit circle."""
+    lo_w, hi_w = window(model)
+    grid = np.linspace(lo_w + 1e-6, hi_w - 1e-6, points)
+    previous = None
+    for a in grid:
+        mu, _ = misalignment_pair(model, a)
+        outside = mu is not None and abs(mu) > 1
+        if outside and previous is not None:
+            return previous, a
+        previous = None if outside else a
+    raise ValueError("no complex-pair crossing inside the 2-cycle window")
+
+
+def edge_rate(model):
+    lo, hi = find_edge_bracket(model)
+    for _ in range(80):
+        mid = 0.5 * (lo + hi)
+        mu, _ = misalignment_pair(model, mid)
+        if mu is not None and abs(mu) < 1:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
+
+
 def cmd_edge(args):
     rows = []
     for ratio in RATIOS:
-        model = DeepLinear2x2(1.0, ratio)
+        model = DeepLinear2x2(1.0, ratio, args.lam)
         predicted = 2.0 / (1.0 + ratio)
-        lo, hi = predicted - 0.02, predicted + 0.02
-        mu_lo, _ = misalignment_pair(model, lo)
-        mu_hi, _ = misalignment_pair(model, hi)
-        assert mu_lo is not None and mu_hi is not None and abs(mu_lo) < 1 < abs(mu_hi), (ratio, mu_lo, mu_hi)
+        lo, hi = find_edge_bracket(model)
         for _ in range(80):
             mid = 0.5 * (lo + hi)
             mu, _ = misalignment_pair(model, mid)
@@ -77,7 +105,7 @@ def cmd_edge(args):
         others = sorted((complex(v) for v in values if abs(v - mu) > 1e-9 and abs(v - np.conj(mu)) > 1e-9),
                         key=abs, reverse=True)
         sweep = []
-        for a in np.linspace(predicted - 0.05, min(predicted + 0.05, (np.sqrt(5) - 1) - 1e-3), 21):
+        for a in np.linspace(max(a_star - 0.05, window(model)[0] + 1e-4), min(a_star + 0.05, window(model)[1] - 1e-4), 21):
             pair, _ = misalignment_pair(model, a)
             sweep.append({"a": float(a), "modulus": None if pair is None else float(abs(pair)),
                           "theta_over_2pi": None if pair is None else float(abs(np.angle(pair)) / (2 * np.pi))})
@@ -89,7 +117,7 @@ def cmd_edge(args):
               f"theta/2pi = {rows[-1]['theta_over_2pi']:.6f}; d|mu|/da = {slope:.4f}; "
               f"other |mu|: {[round(abs(v), 6) for v in others]}")
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "edge.json").write_text(json.dumps(rows, indent=1))
+    (OUT / f"edge-lam{args.lam}.json").write_text(json.dumps(rows, indent=1))
 
 
 def batched_step(model, theta, a):
@@ -156,25 +184,39 @@ def perturbed_aligned(model, a, size, seed=1):
 
 def cmd_circle(args):
     rows = []
+    deltas = np.array(args.deltas)
     for ratio in RATIOS:
         model = DeepLinear2x2(1.0, ratio, args.lam)
-        edge = 2.0 / (1.0 + ratio)
-        deltas = np.array([1e-3, 2e-3, 4e-3, 8e-3, 1.6e-2])
+        edge = edge_rate(model)
         a = edge * (1.0 + deltas)
-        theta = np.stack([perturbed_aligned(DeepLinear2x2(1.0, ratio), ai, 1e-3) for ai in a])
-        theta, feats, lyap, loss = run_attractor(model, a, theta, args.transient, args.samples)
+        if args.sequential:
+            # attractor following in the listed order, starting from the aligned cycle at the first rate
+            theta_k = perturbed_aligned(model, a[0], 1e-3)
+            outs = []
+            for ak in a:
+                res = run_attractor(model, np.array([ak]), theta_k[None, :], args.transient, args.samples)
+                theta_k = res[0][0]
+                outs.append(res)
+            theta = np.concatenate([o[0] for o in outs])
+            feats = np.concatenate([o[1] for o in outs], axis=1)
+            lyap = np.concatenate([o[2] for o in outs])
+            loss = np.concatenate([o[3] for o in outs])
+        else:
+            theta = np.stack([perturbed_aligned(model, ai, 1e-3) for ai in a])
+            theta, feats, lyap, loss = run_attractor(model, a, theta, args.transient, args.samples)
         rho, share, period, amplitude = rotation_and_period(feats)
-        mu = misalignment_pair(DeepLinear2x2(1.0, ratio), edge)[0]
+        mu = misalignment_pair(model, edge)[0]
         birth = float(abs(np.angle(mu)) / (2 * np.pi))
         for k in range(len(a)):
-            rows.append({"s2_over_s1": ratio, "delta": float(deltas[k]), "a": float(a[k]), "birth_theta_over_2pi": birth,
+            rows.append({"s2_over_s1": ratio, "lam": args.lam, "edge": edge, "delta": float(deltas[k]), "a": float(a[k]),
+                         "birth_theta_over_2pi": birth,
                          "rotation": float(rho[k]), "planar_share": float(share[k]), "period": int(period[k]),
                          "amplitude": float(amplitude[k]), "lyapunov": lyap[k].tolist(), "mean_loss": float(loss[k])})
             print(f"s2/s1 {ratio} delta {deltas[k]:.0e}: rotation {rho[k]:.5f} (birth {birth:.5f}) period {period[k]} "
                   f"amplitude {amplitude[k]:.3e} planar {share[k]:.3f} lyapunov {np.round(lyap[k], 5).tolist()} "
                   f"loss {loss[k]:.4e}")
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / f"circle-lam{args.lam}.json").write_text(json.dumps(rows, indent=1))
+    (OUT / f"circle-lam{args.lam}-{args.tag}.json").write_text(json.dumps(rows, indent=1))
 
 
 def cmd_staircase(args):
@@ -185,10 +227,10 @@ def cmd_staircase(args):
     report = []
     for ax, ratio in zip(np.atleast_1d(axes), RATIOS):
         model = DeepLinear2x2(1.0, ratio, args.lam)
-        edge = 2.0 / (1.0 + ratio)
-        top = (np.sqrt(5) - 1.0) - 1e-4
+        edge = edge_rate(model)
+        top = window(model)[1] - 1e-4
         a = np.linspace(edge * 1.0005, top, args.cells)
-        theta = np.stack([perturbed_aligned(DeepLinear2x2(1.0, ratio), min(ai, top), 1e-3) for ai in a])
+        theta = np.stack([perturbed_aligned(model, min(ai, top), 1e-3) for ai in a])
         theta, feats, lyap, loss = run_attractor(model, a, theta, args.transient, args.samples)
         rho, share, period, amplitude = rotation_and_period(feats)
         rows = [{"a": float(a[i]), "rotation": float(rho[i]), "period": int(period[i]), "planar_share": float(share[i]),
@@ -222,6 +264,9 @@ def main():
     parser.add_argument("--transient", type=int, default=200000)
     parser.add_argument("--samples", type=int, default=4000)
     parser.add_argument("--cells", type=int, default=400)
+    parser.add_argument("--deltas", type=float, nargs="+", default=[1e-3, 2e-3, 4e-3, 8e-3, 1.6e-2])
+    parser.add_argument("--sequential", action="store_true", help="follow the attractor through the deltas in order")
+    parser.add_argument("--tag", default="default")
     args = parser.parse_args()
     {"edge": cmd_edge, "circle": cmd_circle, "staircase": cmd_staircase}[args.command](args)
 

@@ -334,11 +334,12 @@ class DeepLinear2x2:
         return np.concatenate([np.reshape(p, np.shape(p)[:-2] + (4,)) for p in parts], axis=-1)
 
     def aligned_cycle(self, a):
-        """Balanced diagonal 2-cycle (lam = 0, equal rates): top mode on the cubic-map
-        2-cycle, second mode at its fixed point. Returns the two cycle points."""
-        if self.lam != 0.0:
-            raise ValueError("the closed-form aligned cycle assumes lam = 0")
-        s = self.s1
+        """Balanced diagonal 2-cycle (equal rates): top mode on the cubic-map 2-cycle,
+        second mode at its fixed point. Weight decay acts on the balanced diagonal
+        manifold as s -> s - lam. Returns the two cycle points."""
+        s = self.s1 - self.lam
+        if self.s2 - self.lam <= 0:
+            raise ValueError("weight decay removes the second mode")
 
         def f(w):
             return w - a * w * (w * w - s)
@@ -357,7 +358,7 @@ class DeepLinear2x2:
         w_b = f(w)
         if abs(w_b - w) < 1e-9:
             raise ValueError("no 2-cycle at this rate (cubic map at its fixed point)")
-        w2 = np.sqrt(self.s2)
+        w2 = np.sqrt(self.s2 - self.lam)
         p = self.pack(np.diag([w, w2]), np.diag([w, w2]))
         q = self.pack(np.diag([w_b, w2]), np.diag([w_b, w2]))
         return p, q
