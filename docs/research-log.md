@@ -738,3 +738,7 @@ _commit `4fe96c9b6adc` (dirty worktree)_
 Right root log10 (hidden, output) = (1.6990788, -0.1155545), birth rotation 0.19999997, bracket 7.2e-8: complex pair, third modulus 0.972, transverse (0.99993859 -> 1.00006118 across +-1e-4), circle radius 0.0197, 0.0394, 0.0793 at detunings 2e-4, 8e-4, 3.2e-3 (exponent 0.503); comparison point (output -0.1056, birth 0.20572): Fourier invariance residual K=16 at 2.6e-6 to 8.8e-7 (residual/radius about 5e-5), rotation intercept minus birth angle 1.0e-6 with finite-detuning slope -0.73. Left root (1.8035245, -0.3921629), birth 0.2000000059: complex pair, third modulus 0.979, transverse, but circle radii 0.0688, 0.1405, 0.6839 give exponent 0.83, outside the frozen (0.3, 0.7) band, so criterion (1) fails as specified there (post hoc: the two smallest detunings alone give 0.51; the circle grows quickly on this branch); invariance residual converges (K=16 residual/radius 9e-3 to 3e-3); rotation intercept minus birth -1.9e-5 against a strong finite-detuning slope -5.25. Levels now running at both roots as frozen.
 
 _commit `4fe96c9b6adc` (dirty worktree)_
+
+- run started 2026-10-07 22:35 UTC finished 22:36 UTC with exit status 0
+
+- run started 2026-10-07 22:35 UTC finished 22:36 UTC with exit status 0

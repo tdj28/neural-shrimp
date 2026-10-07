@@ -189,6 +189,142 @@ def run_levels(family, period, parent_period, parent_seed, root, normal, tangent
     return levels, outcome, details
 
 
+def measure_section(family, period, orbit, base, tangent, s_max, h0, bisection, cert_options):
+    """Both fold edges of the existence interval through ``base`` along +-tangent (u relative to base)."""
+    sides = {}
+    for name, sign in (("left", -1.0), ("right", 1.0)):
+        ray = existence_ray(family, orbit[0], period, base, sign * tangent, s_max, h0,
+                            bisection_tolerance=bisection, cert_options=cert_options)
+        sides[name] = {"type": ray["type"], "s": ray["s_boundary"], "distance_to_one": ray.get("distance_to_one"),
+                       "steps": ray.get("steps")}
+    return sides
+
+
+def run_levels_tracking(family, period, parent_period, parent_seed, root, normal, tangent, deltas, first_orbit,
+                        first_u, s_max, root_tolerance, log, cert_options=None, substeps=2, max_refine=4,
+                        budget_seconds=5400):
+    """Attempt-2 strategy: track the locked interval's centre between measurement levels.
+
+    Between measurement levels (factor 4 in delta) the orbit moves in ``substeps``
+    geometric sub-steps; at every sub-step the fold edges are re-measured and the
+    orbit re-centred, with the next centre predicted by linear extrapolation in
+    delta from the last two measured centres. A failed sub-step is refined by
+    halving the sub-step ratio (up to ``max_refine`` times). Only the frozen
+    measurement levels enter the classification.
+    """
+    root, normal, tangent = (np.asarray(v, dtype=np.float64) for v in (root, normal, tangent))
+    started = time.time()
+    options = cert_options or {}
+    orbit = np.asarray(first_orbit)
+    track = []  # (delta, centre, width) of every measured section, measurement levels and sub-steps
+
+    def section(delta, u, orbit):
+        base = root + delta * normal + u * tangent
+        width_hint = track[-1][2] if track else s_max * 0.2
+        sides = measure_section(family, period, orbit, base, tangent, s_max, max(width_hint / 40.0, 1e-9),
+                                max(1e-13, width_hint * 1e-7), options)
+        out = {"sides": sides, "u_base": u}
+        if sides["left"]["type"] == "fold" and sides["right"]["type"] == "fold":
+            left_u, right_u = u - sides["left"]["s"], u + sides["right"]["s"]
+            centre = 0.5 * (left_u + right_u)
+            seg = continue_segment(family, orbit[0], period, base, root + delta * normal + centre * tangent,
+                                   h0=0.1, cert_options=options)
+            out.update({"left_u": left_u, "right_u": right_u, "center": centre, "width": right_u - left_u,
+                        "recentred": bool(seg["ok"])})
+            if seg["ok"]:
+                out["orbit"] = np.asarray(seg["orbit"])
+        return out
+
+    levels = []
+    delta_now, u_now = float(deltas[0]), float(first_u)
+    for k, delta in enumerate(deltas):
+        record = {"delta": float(delta), "continuity": True, "primitive": True, "substeps": []}
+        if time.time() - started > budget_seconds:
+            record.update({"continuity": False, "reason": "time budget exhausted"})
+            levels.append(record)
+            log(record)
+            break
+        if k > 0:
+            ratio = (delta / delta_now) ** (1.0 / substeps)
+            targets = [delta_now * ratio ** (j + 1) for j in range(substeps)]
+            j = 0
+            refine = 0
+            while j < len(targets):
+                d_next = targets[j]
+                if len(track) >= 2:
+                    (d1, c1, _), (d2, c2, _) = track[-2], track[-1]
+                    u_pred = c2 + (c2 - c1) * (d_next - d2) / (d2 - d1) if d2 != d1 else c2
+                else:
+                    u_pred = u_now
+                start = root + delta_now * normal + u_now * tangent
+                seg = None
+                for u_try in (u_pred, u_now):
+                    seg = continue_segment(family, orbit[0], period, start, root + d_next * normal + u_try * tangent,
+                                           h0=0.05, cert_options=options)
+                    if seg["ok"]:
+                        break
+                if not seg["ok"]:
+                    if refine >= max_refine:
+                        record.update({"continuity": False,
+                                       "reason": f"sub-step to delta {d_next:.3g} failed after {refine} refinements: "
+                                                 f"{seg['reason']} at t={seg['t_reached']:.4f}"})
+                        break
+                    refine += 1
+                    # insert an intermediate target halfway (geometric) and retry
+                    targets.insert(j, (delta_now * d_next) ** 0.5)
+                    continue
+                orbit, delta_now, u_now = np.asarray(seg["orbit"]), d_next, u_try
+                sec = section(delta_now, u_now, orbit)
+                record["substeps"].append({"delta": delta_now, "center": sec.get("center"), "width": sec.get("width"),
+                                           "left": sec["sides"]["left"]["type"], "right": sec["sides"]["right"]["type"]})
+                if "center" in sec and sec.get("recentred"):
+                    orbit, u_now = sec["orbit"], sec["center"]
+                    track.append((delta_now, sec["center"], sec["width"]))
+                j += 1
+            if not record["continuity"]:
+                levels.append(record)
+                log(record)
+                break
+            sec_final = record["substeps"][-1] if record["substeps"] else {}
+        else:
+            sec = section(delta_now, u_now, orbit)
+            if "center" in sec and sec.get("recentred"):
+                orbit, u_now = sec["orbit"], sec["center"]
+                track.append((delta_now, sec["center"], sec["width"]))
+            sec_final = {"center": sec.get("center"), "width": sec.get("width"),
+                         "left": sec["sides"]["left"]["type"], "right": sec["sides"]["right"]["type"]}
+        # measurement record at this level
+        if sec_final.get("center") is not None:
+            record["left"] = {"type": sec_final["left"], "u": sec_final["center"] - 0.5 * sec_final["width"]}
+            record["right"] = {"type": sec_final["right"], "u": sec_final["center"] + 0.5 * sec_final["width"]}
+            record["center"], record["width"] = sec_final["center"], sec_final["width"]
+        else:
+            record["left"] = {"type": sec_final.get("left"), "u": None}
+            record["right"] = {"type": sec_final.get("right"), "u": None}
+        base = root + delta_now * normal + u_now * tangent
+        map_fn, jacobian = family(base)
+        cert = certify_orbit(map_fn, jacobian, orbit[0], period, candidate_tolerance=0.05, **options)
+        record["primitive"] = bool(cert["verified"])
+        record["min_divisor_separation"] = cert.get("min_divisor_separation")
+        record["stability"] = cert.get("stability")
+        record["spectral_radius"] = cert.get("spectral_radius")
+        record["orbit"] = cert["orbit"] if cert["verified"] else orbit.tolist()
+        record["params"] = base.tolist()
+        parent = certify_orbit(map_fn, jacobian, parent_seed, parent_period, candidate_tolerance=0.5)
+        if parent["verified"]:
+            parent_seed = np.asarray(parent["orbit"][0])
+            record["parent_orbit"] = parent["orbit"]
+            record["amplitude"] = cycle_amplitude(record["orbit"], parent["orbit"])
+        else:
+            record["amplitude"] = None
+            record["primitive"] = False
+            record["reason"] = f"parent orbit not verified: {parent['reason']}"
+        levels.append(record)
+        log(record)
+    outcome, details = classify_ancestry(levels, root_tolerance)
+    return levels, outcome, details
+
+
 def cmd_controls(args):
     out = OUT / args.name
     results = {}
@@ -483,9 +619,15 @@ def cmd_levels(args):
                          | {"left": r.get("left", {}).get("type"), "right": r.get("right", {}).get("type")},
                          default=float), flush=True)
 
-    levels, outcome, details = run_levels(family, args.period, 2, parent_state, root, normal, tangent, deltas,
-                                          cert["orbit"], us[i], args.s_max, 0.01, args.root_tolerance, log,
-                                          cert_options=options)
+    if args.tracking:
+        levels, outcome, details = run_levels_tracking(family, args.period, 2, parent_state, root, normal, tangent,
+                                                       deltas, cert["orbit"], us[i], args.s_max, args.root_tolerance,
+                                                       log, cert_options=options, substeps=args.substeps,
+                                                       budget_seconds=args.budget_seconds)
+    else:
+        levels, outcome, details = run_levels(family, args.period, 2, parent_state, root, normal, tangent, deltas,
+                                              cert["orbit"], us[i], args.s_max, 0.01, args.root_tolerance, log,
+                                              cert_options=options)
     result.update({"levels": levels, "outcome": outcome, "details": details, "seconds": time.time() - started})
     dump(OUT / args.name / "levels.json", result)
     print("outcome:", outcome, json.dumps({k: details.get(k) for k in ("extrapolated_center", "center_mismatch",
@@ -611,6 +753,9 @@ def main():
     lv.add_argument("--scan-steps", type=int, default=100000)
     lv.add_argument("--s-max", type=float, default=0.05)
     lv.add_argument("--root-tolerance", type=float, default=1e-4)
+    lv.add_argument("--tracking", action="store_true", help="attempt-2 centre-line tracking between levels")
+    lv.add_argument("--substeps", type=int, default=2)
+    lv.add_argument("--budget-seconds", type=float, default=5400)
     lv.add_argument("--newton-tolerance", type=float, default=1e-8,
                     help="relative Newton-correction tolerance for period-10 certification near the root")
     cn = sub.add_parser("connect")
