@@ -456,3 +456,21 @@ See the [results audit](EXP-012-results-audit.md) and
 [compact summary](EXP-012-summary.json) for full gate scope, timing pairs and
 hash-bound audit provenance. Keep CPU as the scientific default, preserve all
 failures, and retain the original EXP-008 strict gate unchanged.
+
+## gdmap CUDA backend engineering qualification, 6-7 October 2026
+
+An optional float64 CUDA backend for `gdmaps.run_grid` on TwoLayerNet grids
+(`src/neural_shrimp/gdmaps_cuda.py`, `native/gdmap_cuda.cu`) was built and
+qualified on artificial fixtures only (seeds 99990-99999); no study system or
+seed ran. Verification level: **locally tested and engineering-qualified, not
+qualified for any study.** It mirrors the CPU arithmetic operation by
+operation except CUDA tanh and log: identity networks with even input
+dimension match the CPU loss, gradient and HVP bitwise; tanh networks agree to
+about 3e-16 per step. On 12 x 12 grids over 6,000 updates with the EXP-028
+windows, statuses agree for 143/144 cells on each of two fixtures and 64/64 on
+a width-16 grid; repeats, re-chunked runs and host screening are bit-identical.
+The formal throughput benchmark and the FMA throughput comparison are deferred
+while the GPU is reserved. The CPU engine remains the scientific default. See
+[the qualification](gdmap-cuda-qualification.md); receipts are under
+`../neural-shrimp-data/audits/gdmap-cuda-qualification/` (attempt-001
+incomplete and preserved, attempt-002 complete).
