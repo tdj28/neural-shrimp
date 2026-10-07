@@ -54,6 +54,25 @@ def style():
     })
 
 
+def portable(path):
+    """Checkout-independent input label: repo:<relative> or data:<relative>."""
+    resolved = Path(path).resolve()
+    for prefix, base in (("repo:", ROOT), ("data:", DATA)):
+        try:
+            return prefix + str(resolved.relative_to(Path(base).resolve()))
+        except ValueError:
+            continue
+    return str(resolved)
+
+
+def located(label):
+    """Filesystem path for a portable input label (absolute labels pass through)."""
+    for prefix, base in (("repo:", ROOT), ("data:", DATA)):
+        if str(label).startswith(prefix):
+            return Path(base) / str(label)[len(prefix):]
+    return Path(label)
+
+
 def sha256(path):
     digest = hashlib.sha256()
     with open(path, "rb") as handle:
@@ -99,7 +118,7 @@ def save(fig, name, inputs, script, evidence, alt, derived=None, notes=""):
         recorded = json.loads(receipt_path.read_text())
         problems = []
         for entry in recorded["inputs"]:
-            if sha256(entry["path"]) != entry["sha256"]:
+            if sha256(located(entry["path"])) != entry["sha256"]:
                 problems.append(f"input changed: {entry['path']}")
         if sha256(script) != recorded["script_sha256"]:
             problems.append("generator changed since the receipt was written")
@@ -126,7 +145,7 @@ def save(fig, name, inputs, script, evidence, alt, derived=None, notes=""):
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "python": sys.version.split()[0], "numpy": np.__version__, "matplotlib": matplotlib.__version__,
         "platform": platform.platform(),
-        "inputs": [{"path": str(p), "sha256": sha256(p), "bytes": p.stat().st_size} for p in inputs],
+        "inputs": [{"path": portable(p), "sha256": sha256(p), "bytes": Path(p).stat().st_size} for p in inputs],
         "derived": derived,
         "accessibility": {"color_only_channel": False,
                           "note": "boundary types also differ by marker shape; classes and series are labeled"},

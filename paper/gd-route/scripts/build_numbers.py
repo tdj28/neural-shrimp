@@ -65,6 +65,25 @@ def fixed(x, digits):
     return f"{x:.{digits}f}"
 
 
+def portable(path):
+    """Checkout-independent source label: repo:<relative> or data:<relative>."""
+    resolved = Path(path).resolve()
+    for prefix, base in (("repo:", c.ROOT), ("data:", c.DATA)):
+        try:
+            return prefix + str(resolved.relative_to(Path(base).resolve()))
+        except ValueError:
+            continue
+    return str(resolved)
+
+
+def located(label):
+    """Filesystem path for a portable source label."""
+    for prefix, base in (("repo:", c.ROOT), ("data:", c.DATA)):
+        if label.startswith(prefix):
+            return Path(base) / label[len(prefix):]
+    return Path(label)
+
+
 class Numbers:
     def __init__(self):
         self.entries = []
@@ -73,7 +92,7 @@ class Numbers:
         assert macro.isalpha(), macro
         assert macro not in {e["macro"] for e in self.entries}, macro
         self.entries.append({"macro": macro, "value": json.loads(json.dumps(value, default=float)), "tex": tex,
-                             "evidence": evidence, "sources": [str(Path(s)) for s in sources],
+                             "evidence": evidence, "sources": [portable(s) for s in sources],
                              "computation": computation})
 
 
@@ -297,7 +316,7 @@ def manifest(n):
     sources = sorted({s for e in n.entries for s in e["sources"]})
     return {"generator": str(Path(__file__).resolve().relative_to(c.ROOT)),
             "generator_sha256": c.sha256(__file__),
-            "sources": {s: c.sha256(s) for s in sources},
+            "sources": {s: c.sha256(located(s)) for s in sources},
             "numbers": n.entries}
 
 
