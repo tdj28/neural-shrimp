@@ -249,3 +249,115 @@ def iterate(step, x0, steps):
             if not np.all(np.isfinite(x)) or np.max(np.abs(x)) > 1e6:
                 return None
     return x
+
+
+@dataclass(frozen=True)
+class DeepLinear2x2:
+    """Depth-two linear network l = 1/2 ||W2 W1 - diag(s1, s2)||_F^2 + (lam/2)(|W1|^2 + |W2|^2).
+
+    Parameters are ordered (W1 row-major, W2 row-major). By orthogonal
+    invariance a general target U S V^T reduces to S = diag(s1, s2). Gradient
+    descent may use separate rates for W1 and W2. Hidden-layer rotations
+    W1 -> Q W1, W2 -> W2 Q^T are an exact symmetry of the map, so every orbit
+    has a neutral direction (multiplier 1 for periodic orbits) that is removed
+    with :meth:`symmetry_generator`.
+    """
+
+    s1: float
+    s2: float
+    lam: float = 0.0
+
+    @property
+    def target(self):
+        return np.diag([self.s1, self.s2])
+
+    @staticmethod
+    def unpack(theta):
+        theta = np.asarray(theta, dtype=np.float64)
+        return theta[..., :4].reshape(theta.shape[:-1] + (2, 2)), theta[..., 4:].reshape(theta.shape[:-1] + (2, 2))
+
+    @staticmethod
+    def pack(w1, w2):
+        return np.concatenate([np.reshape(w1, np.shape(w1)[:-2] + (4,)), np.reshape(w2, np.shape(w2)[:-2] + (4,))],
+                              axis=-1)
+
+    def loss(self, theta):
+        w1, w2 = self.unpack(theta)
+        r = w2 @ w1 - self.target
+        return 0.5 * np.sum(r * r, axis=(-2, -1)) + 0.5 * self.lam * np.sum(np.asarray(theta) ** 2, axis=-1)
+
+    def gradient(self, theta):
+        w1, w2 = self.unpack(theta)
+        r = w2 @ w1 - self.target
+        g1 = np.swapaxes(w2, -1, -2) @ r
+        g2 = r @ np.swapaxes(w1, -1, -2)
+        return self.pack(g1, g2) + self.lam * np.asarray(theta, dtype=np.float64)
+
+    def hvp(self, theta, vector):
+        w1, w2 = self.unpack(theta)
+        v1, v2 = self.unpack(vector)
+        r = w2 @ w1 - self.target
+        dr = v2 @ w1 + w2 @ v1
+        d1 = np.swapaxes(v2, -1, -2) @ r + np.swapaxes(w2, -1, -2) @ dr
+        d2 = dr @ np.swapaxes(w1, -1, -2) + r @ np.swapaxes(v1, -1, -2)
+        return self.pack(d1, d2) + self.lam * np.asarray(vector, dtype=np.float64)
+
+    def hessian(self, theta):
+        return np.array([self.hvp(theta, e) for e in np.eye(8)]).T
+
+    @staticmethod
+    def rate_vector(a1, a2=None):
+        a2 = a1 if a2 is None else a2
+        return np.array([a1] * 4 + [a2] * 4, dtype=np.float64)
+
+    def step(self, theta, a1, a2=None):
+        return np.asarray(theta, dtype=np.float64) - self.rate_vector(a1, a2) * self.gradient(theta)
+
+    def jacobian(self, theta, a1, a2=None):
+        return np.eye(8) - self.rate_vector(a1, a2)[:, None] * self.hessian(theta)
+
+    def map_pair(self, a1, a2=None):
+        return (lambda x: self.step(x, a1, a2)), (lambda x: self.jacobian(x, a1, a2))
+
+    @staticmethod
+    def symmetry_generator(theta):
+        """Tangent of the hidden-rotation orbit: (A W1, -W2 A), A = [[0, -1], [1, 0]]."""
+        w1, w2 = DeepLinear2x2.unpack(theta)
+        generator = np.array([[0.0, -1.0], [1.0, 0.0]])
+        return DeepLinear2x2.pack(generator @ w1, -w2 @ generator)
+
+    @staticmethod
+    def invariants(theta):
+        """Rotation-invariant observables: W2 W1, W1^T W1 and W2 W2^T (flattened, 12 numbers)."""
+        w1, w2 = DeepLinear2x2.unpack(theta)
+        parts = [w2 @ w1, np.swapaxes(w1, -1, -2) @ w1, w2 @ np.swapaxes(w2, -1, -2)]
+        return np.concatenate([np.reshape(p, np.shape(p)[:-2] + (4,)) for p in parts], axis=-1)
+
+    def aligned_cycle(self, a):
+        """Balanced diagonal 2-cycle (lam = 0, equal rates): top mode on the cubic-map
+        2-cycle, second mode at its fixed point. Returns the two cycle points."""
+        if self.lam != 0.0:
+            raise ValueError("the closed-form aligned cycle assumes lam = 0")
+        s = self.s1
+
+        def f(w):
+            return w - a * w * (w * w - s)
+
+        # 2-cycle of the cubic map: f(f(w)) = w with f(w) != w; Newton from the
+        # symmetric-difference seed around sqrt(s)
+        w = np.sqrt(s) * (1.0 + 0.5 * np.sqrt(max(a * s - 1.0, 1e-12)))
+        for _ in range(200):
+            g = f(f(w)) - w
+            fw = f(w)
+            dg = (1 - a * (3 * fw * fw - s)) * (1 - a * (3 * w * w - s)) - 1.0
+            step = g / dg
+            w -= step
+            if abs(step) < 1e-15 * max(1.0, abs(w)):
+                break
+        w_b = f(w)
+        if abs(w_b - w) < 1e-9:
+            raise ValueError("no 2-cycle at this rate (cubic map at its fixed point)")
+        w2 = np.sqrt(self.s2)
+        p = self.pack(np.diag([w, w2]), np.diag([w, w2]))
+        q = self.pack(np.diag([w_b, w2]), np.diag([w_b, w2]))
+        return p, q
