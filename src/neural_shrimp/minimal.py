@@ -11,10 +11,12 @@ is a quartic Hermite interpolant fixing the 2-cycle p0 = (1, 0) <-> p1 = (-1, 0)
 with symmetric step derivatives S0 = diag(1, -1) and S1 = r R_phi S0, so that
 the two-step derivative at p0 is r R_phi (multipliers r exp(+-i phi)). A term
 kappa A^2 B^2, with A and B the squared distances to p0 and p1, leaves the
-2-cycle and its first and second derivatives unchanged and tunes the cubic
-terms of the two-step map, hence the criticality of the Neimark-Sacker
-bifurcation at r = 1. It is a positive control showing that two coordinates
-suffice for a gradient-map 2-cycle to have complex multipliers.
+2-cycle and its first and second derivatives unchanged and adds cubic terms to
+the two-step map; these are non-resonant, so the first Lyapunov coefficient of
+the Neimark-Sacker bifurcation at r = 1 does not depend on kappa (d = -8.061
+for every kappa tested, docs/explore-criticality-2026-10-07.md): the onset is
+supercritical throughout. It is a positive control showing that two
+coordinates suffice for a gradient-map 2-cycle to have complex multipliers.
 
 ``follow_orbit``: scalar-parameter predictor-corrector continuation of an
 attracting periodic orbit (exact Newton corrector from
