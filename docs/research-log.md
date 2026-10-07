@@ -74,3 +74,47 @@ _commit `f2cc6a9ff968` (dirty worktree)_
 Audit validation-001: receipt (276 files), plan hash, inputs, zoom rule and axes reproduce; all 154 certificates recheck (closure, finite-difference spectral radius within 1e-6, stability, primitivity, rings, seeds, rates). Audit-qualifying 63; producer 62; confirmed by both 61 (one producer-only and two audit-only components sit at the 0.5 ring-fraction threshold). Independent single-cell re-simulation: S1R and S2 regular cells 71/72 agree; S1 (no ridge) fixed-point labels are fragile (8/13 and 12/15). Results: docs/EXP-028-results.md.
 
 _commit `f2cc6a9ff968` (dirty worktree)_
+
+## 2026-10-07 11:21 UTC: run (exploratory)
+
+- **Question:** Are confirmed EXP-028 windows bounded by both fold and flip boundaries, as shrimps are?
+- **Setup:** 32 rays per window in log-rate coordinates scaled to 3x component extent; continuation with exact-Jacobian Newton; pilot target S2-28011:189 (period 4)
+- **Output:** `../neural-shrimp-data/explore/a2-rays-pilot`
+- **Would surprise us:** A window bounded only by flips or only by folds, or rays that never lose stability within 3x the component extent
+- **Command:** `.venv/bin/python tools/explore_a2_rays.py --targets S2-28011:189 --workers 8 --out ../neural-shrimp-data/explore/a2-rays-pilot`
+
+_commit `2b62ff902b1c` (dirty worktree)_
+
+- run started 2026-10-07 11:21 UTC finished 11:21 UTC with exit status 0
+
+## 2026-10-07 11:22 UTC: run (exploratory)
+
+- **Question:** Same pilot with bisection tolerance 1e-9: do the unresolved rays resolve as folds or flips?
+- **Setup:** S2-28011:189 (period 4), 32 rays, bisection 1e-9
+- **Output:** `../neural-shrimp-data/explore/a2-rays-pilot-2`
+- **Would surprise us:** Unresolved rays persisting with multipliers well inside the unit circle
+- **Command:** `.venv/bin/python tools/explore_a2_rays.py --targets S2-28011:189 --workers 8 --out ../neural-shrimp-data/explore/a2-rays-pilot-2`
+
+_commit `a6c98e4c27c0` (dirty worktree)_
+
+- run started 2026-10-07 11:22 UTC finished 11:22 UTC with exit status 0
+
+## 2026-10-07 11:22 UTC: run (exploratory)
+
+- **Question:** Across six confirmed windows (S2 and S1R, periods 4-18), what bifurcation types bound them?
+- **Setup:** 64 rays each, bisection 1e-9; targets S2-28011:189 (p4), S2-28011:168 (p5), S2-28011:132 (p11), S2-28011-zoom:587 (p18), S1R-28002:113 (p12), S1R-28001-zoom:13 (p4)
+- **Output:** `../neural-shrimp-data/explore/a2-rays-six`
+- **Would surprise us:** Flip boundaries absent in every window
+- **Command:** `.venv/bin/python tools/explore_a2_rays.py --rays 64 --workers 12 --targets S2-28011:189 S2-28011:168 S2-28011:132 S2-28011-zoom:587 S1R-28002:113 S1R-28001-zoom:13 --out ../neural-shrimp-data/explore/a2-rays-six`
+
+_commit `a6c98e4c27c0` (dirty worktree)_
+
+- run started 2026-10-07 11:22 UTC finished 11:24 UTC with exit status 0
+
+- run started 2026-10-07 11:18 UTC finished 11:39 UTC with exit status 0
+
+## 2026-10-07 11:52 UTC: EXP-029 complete and audited
+
+757,760 cell runs; global map: periodic 62%, chaotic 38%, no equilibria; spiral organization visible; start agreement 98%. Audit: 92/96 labels, 32/32 periodic labels and periods, transverse multipliers within 1e-4 for 30/32 (two at 1.9e-4 and 3.3e-4). Results: docs/EXP-029-results.md.
+
+_commit `a6c98e4c27c0` (dirty worktree)_
