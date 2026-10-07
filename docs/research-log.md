@@ -244,3 +244,37 @@ _commit `0e3e07e1723b`_
 Across 35 output-rate slices (log10 -0.45 to -0.08) where the start was period 2, the period-2 orbit always loses stability by Neimark-Sacker; the curve is U-shaped with minimum near log10 hidden 1.650, and the birth rotation number theta/2pi runs from 1/6 at the bottom to 0.240 (left branch) and 0.221 (right branch), passing 2/11, 1/5, 2/9 and 3/13. The curve bounds the period-2 region in the 1024x1024 map, with quasi-periodic cells and locked stripes beyond it. Tying individual stripes to predicted rational roots needs per-stripe rotation numbers (next). Figure: neural-shrimp-data/explore/a3-ns-curve/s2-28011/tongues.png.
 
 _commit `0e3e07e1723b` (dirty worktree)_
+
+## 2026-10-07 20:45 UTC: run (exploratory)
+
+- **Question:** Which confirmed EXP-028 windows meet the draft A2 shrimp-consistency criteria (fold and flip each on at least 8 of 64 rays, at least half of flip rays opening onto period 2p, ray/map edge agreement on at least 75% of compared rays)?
+- **Setup:** rays.json (64 rays per window) plus 61 local 256x256 maps from the CUDA float64 backend; analysis code tools/explore_a2_survey.py analyze
+- **Output:** `../neural-shrimp-data/explore/a2-survey/survey.json`
+- **Would surprise us:** Edge agreement below 75% for most windows (would mean ray continuation and maps disagree, a method problem)
+- **Command:** `.venv/bin/python tools/explore_a2_survey.py analyze`
+
+_commit `5416c8d4f191`_
+
+- run started 2026-10-07 20:45 UTC finished 20:45 UTC with exit status 0
+
+## 2026-10-07 20:48 UTC: run (exploratory)
+
+- **Question:** Inside each confirmed window's ray-continued stability region, are map cells without the window's period long transients or coexisting attractors?
+- **Setup:** All 61 windows; up to 120 sampled non-period-p cells inside 0.9x the interpolated ray boundary; rerun 80,000 updates from the shared initial parameters, and 20,000 from the certified orbit point; EXP-028 screening options
+- **Output:** `../neural-shrimp-data/explore/a2-survey/speckle.json`
+- **Would surprise us:** Orbit-start runs failing to return period p inside the ray-continued region (would contradict the ray continuation)
+- **Command:** `.venv/bin/python tools/explore_a2_speckle.py --workers 10`
+
+_commit `2508f1913658` (dirty worktree)_
+
+## 2026-10-07 20:49 UTC: Reserved for confirmatory tests: seeds 29000-29999 in every system
+
+To keep the eventual confirmatory test on fresh data, exploratory work from now on must not run any network, dataset or initialization drawn from seeds 29000-29999 (any system, including new real-data networks). Exploration uses the EXP-028/029 seeds (28001, 28002, 28011, 28012 and earlier) or seeds below 29000. Any accidental use is to be disclosed here and the affected seeds removed from the reserved pool.
+
+_commit `2508f1913658` (dirty worktree)_
+
+## 2026-10-07 20:49 UTC: A2 survey: draft shrimp criteria pass 2/61; map edges unreliable where windows coexist with other attractors
+
+Draft criteria (fold and flip each on at least 8 of 64 rays, at least half of flip rays opening onto period 2p in the local map, ray/map edge agreement at least 75%) pass S2-28011-zoom:587 (period 18) and S2-28011-zoom:985 (period 16). Edge agreement fails for most S1R windows because their local maps (from the shared initial parameters) are speckled inside the ray-continued stability region. First diagnostic (S1R-28001-zoom:931, period 8): of 20 speckled cells, 18 return period 8 when started from the certified orbit point but only 1 after 4x longer runs from the shared start: coexisting attractors, not long transients. Fixed-start maps therefore show basin selection layered on the window's existence region, and map-based edge criteria need orbit-start maps. The flip-to-2p criterion fails often even in clean S2 windows (subcritical flips or 2p bands thinner than a map cell are both possible); not yet diagnosed. Boundary census over all windows: S2 windows are mostly Neimark-Sacker and flip bounded (tongue-type); S1R windows mostly fold bounded. Full speckle survey running.
+
+_commit `2508f1913658` (dirty worktree)_
