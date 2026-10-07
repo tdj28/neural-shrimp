@@ -551,6 +551,12 @@ __global__ void screen_kernel(const double* tail, size_t tail_stride, int cells,
     residual_out[c] = residual;
 }
 
+// The transcendental functions used above, exposed for qualification.
+__global__ void math_kernel(int which, int n, const double* in, double* out) {
+    const int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < n) out[i] = which == 0 ? tanh(in[i]) : log(in[i]);
+}
+
 __global__ void init_kernel(Buffers B, int cells) {
     const int c = blockIdx.x * blockDim.x + threadIdx.x;
     if (c >= cells) return;
@@ -1018,6 +1024,29 @@ int gdmap_cuda_fetch(void* handle, double* theta, int* alive, long long* diverge
     }
     if (code != cudaSuccess) {
         set_error(error, capacity, "fetch", code);
+        return int(code);
+    }
+    return 0;
+}
+
+// Elementwise device tanh (which = 0) or log (which = 1), for qualification.
+int gdmap_cuda_math(int which, int64_t n, const double* in, double* out, char* error,
+                    size_t capacity) {
+    if (!in || !out || n < 1 || n > (int64_t(1) << 28) || (which != 0 && which != 1)) return -1;
+    double *din = nullptr, *dout = nullptr;
+    const size_t bytes = size_t(n) * sizeof(double);
+    cudaError_t code = cudaMalloc((void**)&din, bytes);
+    if (code == cudaSuccess) code = cudaMalloc((void**)&dout, bytes);
+    if (code == cudaSuccess) code = cudaMemcpy(din, in, bytes, cudaMemcpyHostToDevice);
+    if (code == cudaSuccess) {
+        math_kernel<<<int((n + BLOCK - 1) / BLOCK), BLOCK>>>(which, int(n), din, dout);
+        code = cudaGetLastError();
+    }
+    if (code == cudaSuccess) code = cudaMemcpy(out, dout, bytes, cudaMemcpyDeviceToHost);
+    if (din) cudaFree(din);
+    if (dout) cudaFree(dout);
+    if (code != cudaSuccess) {
+        set_error(error, capacity, "math", code);
         return int(code);
     }
     return 0;

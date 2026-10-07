@@ -242,6 +242,20 @@ def test_one_step_map_and_tangent_match_cpu(cuda):
     np.testing.assert_allclose(gpu["final_loss"], cpu["final_loss"], rtol=1e-14, atol=0)
 
 
+def test_device_iteration_equals_evaluate_plus_host_update(cuda):
+    # The advance kernel's update is exactly theta - rates * grad, as NumPy does it.
+    net, x, y, theta0 = s2_like()
+    grid = rate_grid(net, x, y, theta0, (-4.5, -0.5), (-1.6, 0.4), 5)
+    device = cuda.run_grid(grid, theta0, 30, tail_steps=1, ftle_steps=1, ftle_align=0, sd_horizons=())
+    hosted = np.repeat(theta0[None], grid.cells, axis=0)
+    with np.errstate(all="ignore"):
+        for _ in range(30):
+            hosted = hosted - grid.rates * cuda.evaluate(net, x, y, hosted)["grad"]
+    alive = device["status"] != STATUS_DIVERGENT
+    assert alive.sum() >= 10
+    np.testing.assert_array_equal(device["final_state"][alive], hosted[alive])
+
+
 def test_result_keys_dtypes_and_shapes_match_cpu(s2_runs):
     _, _, cpu, gpu = s2_runs
     assert list(gpu) == list(cpu)

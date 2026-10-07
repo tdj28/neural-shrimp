@@ -287,6 +287,7 @@ class GdmapCuda:
             "gdmap_cuda_fetch": ([vp, dp, ip, lp, ip, dp, dp, dp, dp, lp, dp] + err, ctypes.c_int),
             "gdmap_cuda_evaluate": ([ctypes.POINTER(_Config), dp, dp, ctypes.c_int64, dp, dp, dp,
                                      dp, dp] + err, ctypes.c_int),
+            "gdmap_cuda_math": ([ctypes.c_int, ctypes.c_int64, dp, dp] + err, ctypes.c_int),
         }
         for name, (argtypes, restype) in signatures.items():
             function = getattr(lib, name)
@@ -319,6 +320,16 @@ class GdmapCuda:
             nvcc_version=next((line for line in version.splitlines() if "release" in line), None),
             host_compiler_version=(receipt.get("host_compiler_version") or "").split("\n")[0] or None,
             nvidia_driver=nvidia_driver_version(), device=self.device_info(device))
+
+    def math(self, function, values, *, device=0):
+        """The device tanh or log used by the kernels, applied elementwise."""
+        which = {"tanh": 0, "log": 1}[function]
+        values = np.ascontiguousarray(values, dtype=np.float64).ravel()
+        out = np.empty_like(values)
+        self.device_info(device)
+        self._call("gdmap_cuda_math", which, len(values), _pointer(values, ctypes.c_double),
+                   _pointer(out, ctypes.c_double))
+        return out
 
     def evaluate(self, net, x, y, theta, vectors=None, *, device=0,
                  max_device_bytes=DEFAULT_MAX_DEVICE_BYTES):
