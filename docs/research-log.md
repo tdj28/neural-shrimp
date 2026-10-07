@@ -763,3 +763,9 @@ _commit `7692e715201a` (dirty worktree)_
 _commit `19db8e3e345e` (dirty worktree)_
 
 - run started 2026-10-07 22:39 UTC finished 22:41 UTC with exit status 0
+
+## 2026-10-07 22:42 UTC: Ancestry attempt 2, right 1/5 root: six fold-bounded levels; frozen outcome alternative_ancestry by a 53% estimator margin; post hoc the tongue converges onto the predicted root with textbook scaling
+
+Levels 0.0128/4^k at the right root (1.6990788, -0.1155545), all with two fold edges, primitive attracting period-10 orbits and jump-free tracking: centres 0.0365, 0.0111, 1.79e-3, 4.13e-4, 1.01e-4, 2.50e-5 decades from the root's foot; widths 0.0459, 0.0135, 1.02e-3, 1.15e-4, 1.39e-5, 1.70e-6 (successive ratios 3.41, 13.2, 8.89, 8.23, 8.17; q = 5 asymptote 8); amplitudes relative to the parent 2-cycle 0.312 to 0.0061 (ratio 51, >= 10 required). FROZEN classification: the linear fit of centre against delta across all six levels extrapolates to 1.53e-4 decades, above the 1e-4 tolerance, so the frozen outcome is alternative_ancestry (deepest centre within tolerance; widths shrink; amplitude criterion met). POST HOC (not replacing the frozen outcome): the top two levels lie outside the asymptotic regime (centre line curved); linear fits over the deepest 3 and 4 levels give -1.6e-6 and -1.6e-5; log-log exponents over the deepest three levels are 1.518 for width (theory 1.5) and 0.513 for amplitude (theory 0.5). Recommendation for any confirmatory version: estimate the root mismatch only from levels in the asymptotic regime (prespecified by width-ratio stability) or with more deep levels. Connection stage to the window starts now.
+
+_commit `e5ef352990e7` (dirty worktree)_
