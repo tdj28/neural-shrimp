@@ -20,7 +20,11 @@ raw data under `../neural-shrimp-data/`, with compact hash-bound receipts in
 Git; preserve existing frozen evidence and history.
 
 - Initial experiments are exploratory pilots, never formal preregistrations.
-- Commit and push complete plans and executable code before target outcomes.
+- Follow [the adaptive research protocol](docs/adaptive-research-protocol.md)
+  (user directive, 6 October 2026): explore freely with code committed and a
+  run card in the research log before each run; adapt any plan when findings
+  warrant it through dated, disclosed amendments; push a frozen test design
+  before outcomes only for confirmatory tests of headline claims on fresh data.
 - Preserve every failed or incomplete attempt, immutable raw evidence, exact
   source commit, manifest hashes, and changes of plan in a dated amendment.
 - Do not label visual islands or loss oscillations as verified shrimps. Verify

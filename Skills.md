@@ -11,7 +11,10 @@ Historical experiment receipts and playbook hashes remain unchanged.
 The user authorizes this project to use the server's CPU, RAM and GPU for
 local research, development, validation and analysis. Use whichever local
 resource fits the workload; an available local GPU is an ordinary option,
-not a paid-cloud escalation. Research freezes still precede target outcomes.
+not a paid-cloud escalation. Since 6 October 2026, runs follow the
+[adaptive research protocol](docs/adaptive-research-protocol.md): exploratory
+runs need committed code and a research-log run card; frozen designs precede
+outcomes only for confirmatory tests of headline claims.
 
 Observed on `zeta` on 14 September 2026:
 
@@ -111,9 +114,10 @@ fixing access; do not report a remote backup until it is verified.
 Use a dedicated branch, stage files explicitly, inspect the staged diff,
 sweep for secrets and inspect staged file sizes before committing. A partial
 implementation may be checkpointed on its private working branch with its
-unfinished/test status clearly recorded. A research execution freeze still
+unfinished/test status clearly recorded. A confirmatory freeze still
 requires the complete plan and executable code, local review and applicable
-tests before the pre-outcome push. Use a reviewed PR for behavior changes;
+tests before the pre-outcome push; exploratory runs follow the adaptive
+research protocol. Use a reviewed PR for behavior changes;
 never force-push main or add assistant coauthor trailers.
 
 Store new bulky raw arrays, trajectories, checkpoints and verbose run outputs
