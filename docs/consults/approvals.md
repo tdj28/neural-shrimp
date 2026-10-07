@@ -3,7 +3,7 @@
 Each paid request needs its own explicit human approval (canonical integrity
 skill, section 7A). Costs are recorded cumulatively below.
 
-## 2026-10-07: two consults, total budget $15
+## 2026-10-07: two consults, total budget $15 (raised to $20)
 
 - **Approval (human, in session, 7 October 2026):** "you have go on the gpt pro
   review, budget up to $15" and "please also consult gpt pro on your research
@@ -20,10 +20,11 @@ skill, section 7A). Costs are recorded cumulatively below.
 - **Major milestone:** mechanism pivot of Program C (the quasi-periodic route
   to chaos replaces shrimps as the central claim) and the costed plan for
   paid compute.
-- **Ceiling:** $15 total across both requests; each request's preflight
-  authorization at most $5 (client hard ceiling).
+- **Ceiling:** $15 total across both requests, raised by the human to $20 on
+  7 October 2026 ("consult budget up to $20 if you need more let me know");
+  each request's preflight authorization at most $5 (client hard ceiling).
 
 | Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
 |---|---|---|---|---|
 | (1) mechanism strategy | $3.25 | $3.02 | $1.55 (31,129 in / 24,797 out tokens) | $1.55 |
-| (2) roadmap and RunPod plan | pending | pending | pending | pending |
+| (2) roadmap and RunPod plan | $3.25 | $3.00 | pending | pending |
