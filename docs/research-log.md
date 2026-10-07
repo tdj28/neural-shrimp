@@ -751,3 +751,15 @@ _commit `4fe96c9b6adc` (dirty worktree)_
 - **Claim impact:** Attempt 1 outcomes stand as recorded (right: exhausted_budget; left: no_qualifying_window); attempt 2 is reported separately and never replaces them
 
 _commit `7692e715201a` (dirty worktree)_
+
+## 2026-10-07 22:39 UTC: run (exploratory)
+
+- **Question:** Attempt 2: approach levels at the right-branch 1/5 root with centre-line tracking
+- **Setup:** Same frozen levels 0.0128/4^k and criteria; tracking with 2 sub-steps per level, up to 4 refinements, 90-minute budget; newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-right-attempt2/levels.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-right-attempt2 --root-name root-right --tracking`
+
+_commit `19db8e3e345e` (dirty worktree)_
+
+- run started 2026-10-07 22:39 UTC finished 22:41 UTC with exit status 0
