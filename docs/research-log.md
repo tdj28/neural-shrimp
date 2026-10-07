@@ -646,3 +646,9 @@ _commit `36814781fc5a` (dirty worktree)_
 Rotation number of the first quasi-periodic cell vs the period-2 orbit's two-step multiplier angle at the Neimark-Sacker point: S2 output -0.0856: 0.21807 vs 0.21816; S2 output -0.30: 0.16976 vs 0.17009 (angle interpolated from the traced curve); S1R output 0.9413: 0.13217 vs 0.13218. Stream summary written to docs/explore-consequence-2026-10-07.md.
 
 _commit `73e55461d873` (dirty worktree)_
+
+## 2026-10-07 22:28 UTC: Correction: the 91% m/q-locking statistic of the rotation map is largely definitional
+
+The 256x256 rotation-map analysis reported that 91% of even-period periodic cells are m/q-locked (74% with q = period/2, 17% period-doubled inside a tongue). As the references consult (and the roadmap consult's anticipated referee attack) points out, this is largely true by construction: any period-2q orbit sampled by the two-step map visits q points, so its accumulated principal-plane angle over full cycles is an integer number m of turns and the estimate equals m/q within 1/S automatically. The only non-trivial content is that m is non-zero and coprime to q (the orbit winds primitively about its centroid), and for the doubled class that the base level does. The statistic is withdrawn as evidence of locking. Meaningful locking evidence remains: the Birkhoff well-ordering test against its random-angle null (35 of 56 testable confirmed windows vs 3.58), continuity of rotation between quasi-periodic cells and plateaus along slices, and the resonance-ancestry test now running. The value was quoted to the human on 7 October as evidence; this note corrects it.
+
+_commit `547f6ab16875`_
