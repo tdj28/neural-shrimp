@@ -408,3 +408,43 @@ _commit `00c9ca177b55` (dirty worktree)_
 _commit `00c9ca177b55` (dirty worktree)_
 
 - run started 2026-10-07 21:46 UTC finished 21:56 UTC with exit status 0
+
+## 2026-10-07 21:59 UTC: run (exploratory)
+
+- **Question:** Real-data phase portraits: is the attractor after the change near log10 eta -0.380 a deformed or period-doubled invariant circle, or something else?
+- **Setup:** Seed 28101, ridge 1e-3; from the period-2 state at the Neimark-Sacker point; log10 eta -0.3880, -0.3820, -0.3790, -0.3700, -0.3450; 40,000 settling updates, 8,192 recorded; two-step points on their principal plane colored by two-step parity; rotation numbers of the two- and four-step maps; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/portraits.png`
+- **Would surprise us:** A single smooth loop at -0.379 with a non-monotone angle, which would mean the rotation estimate failed rather than the dynamics changing
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/plot_realdata_portrait.py --init /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/continue-0.42/continue--0.42000-state.npy --rates -0.3880 -0.3820 -0.3790 -0.3700 -0.3450 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/portraits.png`
+
+_commit `330a449c8716` (dirty worktree)_
+
+- run started 2026-10-07 21:46 UTC finished 22:00 UTC with exit status 0
+
+- run started 2026-10-07 21:59 UTC finished 22:00 UTC with exit status 0
+
+## 2026-10-07 22:01 UTC: run (exploratory)
+
+- **Question:** Real-data robustness, second data subset and initialization: does the edge-of-stability period-2 orbit reached from the initialization again lose stability by Neimark-Sacker as one global learning rate grows?
+- **Setup:** Seed 28102, 64-8-1 tanh MLP, n=1024 halves task, ridge 1e-3; 60,000 updates from the initialization at log10 eta -0.45, period 2 certified by Newton; continuation up to +0.3 in log10 eta, bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/continue-0.45`
+- **Would surprise us:** A fold or flip ending instead of Neimark-Sacker
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py continue --seed 28102 --ridge 1e-3 --start -0.45 --period 2 --steps 60000 --s-max 0.3 --out /data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/continue-0.45`
+
+_commit `330a449c8716` (dirty worktree)_
+
+## 2026-10-07 22:01 UTC: run (exploratory)
+
+- **Question:** Real-data robustness, second task: for digit parity instead of halves, does the edge-of-stability period-2 orbit reached from the initialization lose stability by Neimark-Sacker?
+- **Setup:** Seed 28101, 64-8-1 tanh MLP, n=1024 parity task, ridge 1e-3; 60,000 updates from the initialization at log10 eta -0.45, period 2 certified by Newton; continuation up to +0.3 in log10 eta, bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/continue-0.45`
+- **Would surprise us:** A fold or flip ending instead of Neimark-Sacker
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py continue --task parity --ridge 1e-3 --start -0.45 --period 2 --steps 60000 --s-max 0.3 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/continue-0.45`
+
+_commit `330a449c8716` (dirty worktree)_
+
+## 2026-10-07 22:01 UTC: Real-data: rotation number of the newborn circle matches the Neimark-Sacker multiplier angle; circle grows, wrinkles, and a second smooth circle segment follows
+
+From the certified period-2 state at the bifurcation (log10 eta -0.388546), independent cells (40,000 updates, 32,768 recorded) and an adiabatic sweep (each rate from the previous final state) agree. At log10 eta -0.3885 the attractor is a smooth invariant circle of the two-step map: rotation 0.007751 (scan 127 turns, sweep 63 turns), forward angle steps 100%, planar share 0.993-1.000, no recurrence up to lag 2,048, FTLE -0.0003 to -0.0006 (zero within the finite-time error), versus the predicted arg(mu)/2pi = 0.0077528. The rotation number then decreases smoothly (0.006886 at -0.3816 in the scan, 0.006705 at -0.3806 in the sweep) while the loss modulation grows from 1e-4 to 3e-3. Near -0.380 the loop becomes wrinkled and non-star-shaped (phase portraits at -0.379 and -0.370), so the centroid-angle rotation estimate fails there (forward 0.45-0.9); FTLE stays within +-0.0015. From -0.347 to -0.330 the sweep again follows a smooth monotone circle with rotation rising 0.00584 to 0.00753 and a regular slow loss oscillation with two spikes per cycle (about 267 updates per cycle at -0.330). No exactly periodic orbits up to lag 2,048, so no locked windows were resolved: at these small rotation numbers the relevant tongues have q above 100 and would be very thin. Figures: sweep-ns/sweep.png, portraits.png under explore/realdata/w8-n1024-halves-wd1e-3.
+
+_commit `330a449c8716` (dirty worktree)_
