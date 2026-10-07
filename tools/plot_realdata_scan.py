@@ -3,8 +3,10 @@
 Three panels sharing the learning-rate axis:
   A  loss values visited on the attractor (last ``--tail`` recorded updates),
      colored by regime: fixed point, periodic, quasi-periodic candidate
-     (unresolved by the screen, |FTLE| below the chaos threshold and forward
-     angle steps on at least 99% of two-step iterations), chaotic candidate;
+     (unresolved by the screen, |FTLE| below the chaos threshold, forward
+     angle steps on at least 99% of two-step iterations and at least three
+     turns within the record), chaotic candidate, drift (state norm still
+     growing), unresolved;
   B  rotation number of the two-step map for non-fixed, non-period-2 cells;
   C  loss power spectrum per learning rate (log10 relative power).
 Also prints the learning-rate extent of each regime.
@@ -23,11 +25,12 @@ from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 
 SURFACE, INK, MUTED, GRID = "#fcfcfb", "#0b0b0b", "#898781", "#e1e0d9"
 REGIMES = {"fixed": "#a3a29b", "periodic": "#2a78d6", "quasi-periodic": "#1baf7a", "chaotic": "#eb6834",
-           "unresolved": "#d4d3cc"}
+           "unresolved": "#d4d3cc", "drift": "#52514e"}
 BLUES = LinearSegmentedColormap.from_list("blues", ["#fcfcfb", "#b7d3f6", "#5598e7", "#256abf", "#0d366b"])
 
 
-def regime(row, chaos_threshold=5e-3):
+def regime(row, keep, chaos_threshold=5e-3, min_turns=3.0):
+    """Plot regime; quasi-periodic needs >= ``min_turns`` monotone turns of the two-step map in the record."""
     status = row["status"]
     if status == 1:
         return "fixed"
@@ -35,10 +38,12 @@ def regime(row, chaos_threshold=5e-3):
         return "periodic"
     if status == 3:
         return "chaotic"
-    if status in (4, 5) and row.get("ftle") is not None and abs(row["ftle"]) < chaos_threshold \
-            and row.get("rho2_forward", 0) >= 0.99:
+    if status == 4 and row.get("ftle") is not None and abs(row["ftle"]) < chaos_threshold \
+            and row.get("rho2_forward", 0) >= 0.99 and row.get("rho2", 0) * keep / 2 >= min_turns:
         return "quasi-periodic"
-    return "unresolved" if status in (4, 5) else None
+    if status == 5:
+        return "drift"
+    return "unresolved" if status == 4 else None
 
 
 def main():
@@ -51,7 +56,7 @@ def main():
     rows = json.loads((scan / "scan.json").read_text())["rows"]
     saved = np.load(scan / "scan-losses.npz")
     log_eta, losses = saved["log10_eta"], saved["losses"].astype(np.float64)
-    labels = [regime(r) for r in rows]
+    labels = [regime(r, losses.shape[1]) for r in rows]
     fig, axes = plt.subplots(3, 1, figsize=(10, 10), sharex=True, constrained_layout=True,
                              gridspec_kw={"height_ratios": [1.2, 1.0, 1.0]})
     fig.patch.set_facecolor(SURFACE)
@@ -70,7 +75,7 @@ def main():
     ax.set_title(args.title or f"{scan.parent.name}: one global learning rate, fixed initialization (exploratory)",
                  loc="left", fontsize=10, color=INK)
     ax = axes[1]
-    for name in ("periodic", "quasi-periodic", "chaotic", "unresolved"):
+    for name in ("periodic", "quasi-periodic", "chaotic", "unresolved", "drift"):
         pts = [(r["log10_eta"], r["rho2"]) for r, label in zip(rows, labels)
                if label == name and r.get("rho2") is not None]
         if pts:

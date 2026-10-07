@@ -322,3 +322,17 @@ _commit `6228425e9cd9` (dirty worktree)_
 _commit `767251c96bcd` (dirty worktree)_
 
 - run started 2026-10-07 21:00 UTC finished 21:01 UTC with exit status 0
+
+## 2026-10-07 21:02 UTC: run (exploratory)
+
+- **Question:** Real-data branch rerun, weight decay 1e-3: with the period-2 seed gate relaxed so Newton certifies, how does the period-2 orbit born at the flip lose stability as the global learning rate grows?
+- **Setup:** As the first branch run but seed gate two-step gap below 1e-5, factors 1.01, 1.03, 1.1; minimum polished again from the same initialization; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/branch-2`
+- **Would surprise us:** Newton failing to certify a period-2 orbit at gaps near 1e-7, which would mean the slow drift is not convergence to an orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py branch --ridge 1e-3 --factors 1.01 1.03 1.1 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/branch-2`
+
+_commit `8f46ca07a35d` (dirty worktree)_
+
+- run started 2026-10-07 20:57 UTC finished 21:21 UTC with exit status 0
+
+- run started 2026-10-07 20:57 UTC finished 21:22 UTC with exit status 0
