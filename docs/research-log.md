@@ -452,3 +452,9 @@ _commit `330a449c8716` (dirty worktree)_
 - run started 2026-10-07 22:01 UTC finished 22:02 UTC with exit status 0
 
 - run started 2026-10-07 22:01 UTC finished 22:02 UTC with exit status 0
+
+## 2026-10-07 22:10 UTC: Real-data robustness: continuation could not start at log10 eta -0.45 for seed 28102 halves or seed 28101 parity
+
+Both runs ended start_not_attracting: Newton did not certify an attracting period-2 orbit from the state after 60,000 updates at -0.45. The edge-of-stability range was located only for seed 28101 halves, so -0.45 may sit outside the period-2 regime for these networks. Coarse scans of log10 eta -0.8..-0.2 follow to place the regime before continuing; the continuation now records the start certificate's reason.
+
+_commit `6c41af8bef16` (dirty worktree)_
