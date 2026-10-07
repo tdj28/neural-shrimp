@@ -672,3 +672,21 @@ _commit `2e15406746b9` (dirty worktree)_
 S2-28011, log10 hidden 1.60-2.06 x output -0.46 to -0.07 (4,503 s on the RTX 2000 Ada; the rotation stage was host-bound). Continuity with the merged Neimark-Sacker curve: at 0.002 decades beyond it, median |rho - arg(mu)/2pi| = 0.00058 over 39 curve points (0.0008 at 0.004, 0.0018 at 0.008, 0.0035 at 0.016: smooth finite-detuning drift). Tongue-root test (locked = period 2q with rho within 1/S of m/q; the count itself is definitional except primitivity and is not used as evidence): both 1/5 roots have locked cells within 0.4 and 3.0 cells (one-sided null p 0.001 and 0.004 against random curve points); the two 2/9 roots at the birth-rotation maximum 0.7 and 24.5 cells (p 0.001, 0.029); one 3/13 root 0.7 cells (p 0.001); one 2/11 root 8.1 cells (p 0.007). Left-branch roots of 2/9, 2/11 and 3/13 have no locked cells nearby (p 0.63-0.95); two roots (1/4 and the far-right 2/9) lie outside the mapped output range, a bounds check the tool lacks. The map shows a smooth rotation field rising from 0.16 to 0.22 above the right half of the U, a thin band on the left branch, and long low-rotation stripes (about 0.15-0.17, colormap clipped below 0.15) running into the chaotic region. Figure: a3-gpu-rotation/s2-28011-1024/rotation-map.png. Map-based evidence remains secondary to the continuation-based ancestry test.
 
 _commit `2e15406746b9` (dirty worktree)_
+
+## 2026-10-07 22:39 UTC: run (exploratory)
+
+- **Question:** Complete the W: rotation-number map over the right half of the Neimark-Sacker curve (2/9 roots at the birth-rotation maximum, the second dip, and the steep right branch with 1/4, 3/11, 2/7 roots)
+- **Setup:** GPU, S2-28011, log10 hidden 1.60-2.06 x output -0.10..0.08, 1024 x 400, EXP-028 screening then 256 + 6,000 two-step samples (torch bookkeeping)
+- **Output:** `../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-right`
+- **Would surprise us:** No locked regions touching the curve at the right-branch roots; rotation just beyond the curve not continuous with arg(mu)/2pi
+- **Command:** `.venv/bin/python tools/explore_gpu_rotation_map.py --name a3-gpu-rotation/s2-28011-right --system S2 --seed 28011 --hidden 1.60 2.06 --output -0.10 0.08 --resolution 1024 400 --library ../neural-shrimp-data/builds/gdmap-cuda-64af0462/gdmap_cuda.so`
+
+_commit `b30a116919c5`_
+
+- run started 2026-10-07 22:39 UTC finished 22:45 UTC with exit status 1
+
+## 2026-10-07 22:45 UTC: Informative failure: right-W rotation map died in torch batched eigh
+
+The 1024 x 400 GPU rotation map (run card above) finished screening (300 s) and then failed: torch.linalg.eigh on 409,600 13x13 covariance blocks requested a 232 GB cuSOLVER workspace. The decomposition now runs on the host (numpy), with planes returned to the GPU; the 40-cell test slice still reproduces the CPU rotation numbers. Rerunning.
+
+_commit `b3845d3b98dd` (dirty worktree)_
