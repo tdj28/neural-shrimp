@@ -438,10 +438,10 @@ def scan_cross_section(net, x, y, parent_state, root, normal, tangent, delta, us
             tail.append(state.copy())
     tail = np.array(tail)
     scale = np.maximum(1.0, np.max(np.abs(tail[0]), axis=1))
-    closes = np.max(np.abs(tail[period] - tail[0]), axis=1) / scale < 1e-7
+    closes = np.max(np.abs(tail[period] - tail[0]), axis=1) / scale < 1e-5
     for d in (1, 2, 5):
         if period % d == 0 and d < period:
-            closes &= np.max(np.abs(tail[d] - tail[0]), axis=1) / scale > 1e-5
+            closes &= np.max(np.abs(tail[d] - tail[0]), axis=1) / scale > 1e-3
     return alive & closes, tail[0]
 
 
@@ -469,7 +469,8 @@ def cmd_levels(args):
     i = idx[np.argmin(np.abs(us[idx]))]
     p = root + deltas[0] * normal + us[i] * tangent
     map_fn, jacobian = family(p)
-    cert = certify_orbit(map_fn, jacobian, final[i], args.period, candidate_tolerance=0.05)
+    options = {"newton_tolerance": args.newton_tolerance}
+    cert = certify_orbit(map_fn, jacobian, final[i], args.period, candidate_tolerance=0.05, **options)
     if not cert["verified"]:
         result.update({"outcome": "exhausted_budget", "reason": f"scan orbit not certified: {cert['reason']}"})
         dump(OUT / args.name / "levels.json", result)
@@ -483,7 +484,8 @@ def cmd_levels(args):
                          default=float), flush=True)
 
     levels, outcome, details = run_levels(family, args.period, 2, parent_state, root, normal, tangent, deltas,
-                                          cert["orbit"], us[i], args.s_max, 0.01, args.root_tolerance, log)
+                                          cert["orbit"], us[i], args.s_max, 0.01, args.root_tolerance, log,
+                                          cert_options=options)
     result.update({"levels": levels, "outcome": outcome, "details": details, "seconds": time.time() - started})
     dump(OUT / args.name / "levels.json", result)
     print("outcome:", outcome, json.dumps({k: details.get(k) for k in ("extrapolated_center", "center_mismatch",
@@ -495,19 +497,14 @@ def cmd_connect(args):
     net, x, y, theta0, family = s2_family(args.system, args.seed)
     levels = json.loads((OUT / args.levels_name / "levels.json").read_text())
     root_info = json.loads((OUT / args.root_name / "root.json").read_text())
-    root = np.array(root_info["root"]["lh"]), np.array(root_info["root"]["lo"])
     root = np.array([root_info["root"]["lh"], root_info["root"]["lo"]])
+    options = {"newton_tolerance": args.newton_tolerance}
     normal, tangent = np.array(root_info["normal"]), np.array(root_info["tangent"])
     certs = json.loads((DATA / "raw/EXP-028/attempt-002/stage3/certificates.json").read_text())
     rec = next(r for r in certs if r["map_id"] == args.map_id and r["component"] == args.component)
     window = np.log10([rec["lr_hidden"], rec["lr_output"]])
     window_orbit = np.array(rec["certificate"]["orbit"])
     top = next(lv for lv in levels["levels"] if "center" in lv)
-    # start from the top-level centre orbit: recompute by continuing the window-independent scan orbit
-    p = root + top["delta"] * normal + top["center"] * tangent
-    seed_orbit = None
-    for lv in levels["levels"]:
-        pass
     # re-find the top-level orbit by a short scan around its centre
     us = np.linspace(top["center"] - 0.25 * top["width"], top["center"] + 0.25 * top["width"], 9)
     locked, final = scan_cross_section(net, x, y, np.array(root_info["root_state"]), root, normal, tangent,
@@ -517,7 +514,7 @@ def cmd_connect(args):
         raise SystemExit("could not re-find the top-level orbit")
     i = idx[len(idx) // 2]
     p = root + top["delta"] * normal + us[i] * tangent
-    cert = certify_orbit(*family(p), final[i], args.period, candidate_tolerance=0.05)
+    cert = certify_orbit(*family(p), final[i], args.period, candidate_tolerance=0.05, **options)
     orbit = np.asarray(cert["orbit"])
     direction = normal.copy()
     track = []
@@ -527,7 +524,7 @@ def cmd_connect(args):
         if time.time() - started > args.budget_seconds:
             break
         target = p + args.step * direction
-        seg = continue_segment(family, orbit[0], args.period, p, target, h0=0.1)
+        seg = continue_segment(family, orbit[0], args.period, p, target, h0=0.1, cert_options=options)
         if not seg["ok"]:
             track.append({"step": step, "params": target.tolist(), "reason": f"segment failed: {seg['reason']}"})
             break
@@ -536,7 +533,7 @@ def cmd_connect(args):
         sides = {}
         for name, sign in (("left", -1.0), ("right", 1.0)):
             ray = existence_ray(family, orbit[0], args.period, target, sign * perp, args.s_max, args.step / 20,
-                                bisection_tolerance=1e-8)
+                                bisection_tolerance=1e-8, cert_options=options)
             sides[name] = {"type": ray["type"], "s": ray["s_boundary"]}
         entry = {"step": step, "params": target.tolist(), "left": sides["left"], "right": sides["right"],
                  "stability": seg["certificate"]["stability"], "radius": seg["certificate"]["spectral_radius"]}
@@ -544,7 +541,7 @@ def cmd_connect(args):
             shift = 0.5 * (sides["right"]["s"] - sides["left"]["s"])
             centre = target + shift * perp
             entry["width"] = sides["right"]["s"] + sides["left"]["s"]
-            seg2 = continue_segment(family, orbit[0], args.period, target, centre, h0=0.1)
+            seg2 = continue_segment(family, orbit[0], args.period, target, centre, h0=0.1, cert_options=options)
             if seg2["ok"]:
                 orbit = np.asarray(seg2["orbit"])
                 new_dir = centre - p
@@ -564,7 +561,7 @@ def cmd_connect(args):
                          | {"left": sides["left"]["type"], "right": sides["right"]["type"]}, default=float),
               flush=True)
         if abs(along) <= args.step:
-            seg3 = continue_segment(family, orbit[0], args.period, p, window, h0=0.05)
+            seg3 = continue_segment(family, orbit[0], args.period, p, window, h0=0.05, cert_options=options)
             entry["window_reached"] = bool(seg3["ok"])
             if seg3["ok"]:
                 entry["same_orbit_as_window"] = bool(same_cycle(np.asarray(seg3["orbit"]), window_orbit, 1e-7))
@@ -611,9 +608,11 @@ def main():
     lv.add_argument("--count", type=int, default=6)
     lv.add_argument("--scan-half-width", type=float, default=0.03)
     lv.add_argument("--scan-cells", type=int, default=601)
-    lv.add_argument("--scan-steps", type=int, default=60000)
+    lv.add_argument("--scan-steps", type=int, default=100000)
     lv.add_argument("--s-max", type=float, default=0.05)
     lv.add_argument("--root-tolerance", type=float, default=1e-4)
+    lv.add_argument("--newton-tolerance", type=float, default=1e-8,
+                    help="relative Newton-correction tolerance for period-10 certification near the root")
     cn = sub.add_parser("connect")
     cn.add_argument("--name", required=True)
     cn.add_argument("--levels-name", required=True)
@@ -625,7 +624,8 @@ def main():
     cn.add_argument("--period", type=int, default=10)
     cn.add_argument("--step", type=float, default=0.01)
     cn.add_argument("--s-max", type=float, default=0.2)
-    cn.add_argument("--scan-steps", type=int, default=60000)
+    cn.add_argument("--scan-steps", type=int, default=100000)
+    cn.add_argument("--newton-tolerance", type=float, default=1e-8)
     cn.add_argument("--max-cross-sections", type=int, default=200)
     cn.add_argument("--budget-seconds", type=float, default=5400)
     args = parser.parse_args()
