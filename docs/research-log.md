@@ -682,3 +682,9 @@ _commit `0630f7d06fcf` (dirty worktree)_
 _commit `0630f7d06fcf` (dirty worktree)_
 
 - run started 2026-10-07 22:29 UTC finished 22:29 UTC with exit status 0
+
+## 2026-10-07 22:32 UTC: Minimal model (exploratory): EOS-connected Neimark-Sacker already in the scalar factorization with stronger weight decay and unequal layer rates
+
+Coupled four-weight model (d = C z* + lam, z* = (1, 0.5)), 64 cases from the minimum through the fixed-point flip and along the 2-cycle: 58 end in flip; 6 end in Neimark-Sacker, all at lam = 0.2 with rate ratios 0.354, 2.828 or 4: (c, ratio, theta/2pi) = (0, 0.354, 0.4288), (0, 2.828, 0.4288; the a-b mirror case, identical), (0, 4, 0.3401; 0.007 from the strong 1/3 resonance), (0.3, 4, 0.3834), (0.6, 4, 0.3759), (0.9, 4, 0.4075); crossings transversal (slope of log|mu| per decade of rate 4.3-7.2). Criticality probes 1e-3 and 4e-3 decades past the crossing: bounded attractors near the old orbit with amplitude ratio 2.08 (c = 0) and 2.18 (c = 0.3), close to the sqrt(delta) value 2, rotation 0.425 and 0.381 near the birth angles (supercritical-like); c = 0.6 and 0.9 leave the neighbourhood at the larger offset. The pre-stated surprise occurred: Neimark-Sacker at c = 0, where the modes decouple into two independent scalar factorizations, so the two-weight model 0.5 (uv - d)^2 + 0.5 lam (u^2 + v^2) with lam = 0.2 and a rate ratio about 2.8 already has an EOS-born 2-cycle with a supercritical Neimark-Sacker; at lam = 0.05 (the earlier uv control's effective ridge) all cases flip. Controls: engineered planar gradient 2-cycle typed Neimark-Sacker at r = 1 with theta/2pi = 0.13 and supercritical for all kappa tested (amplitude ratio 1.6-2.0); the earlier factorization model (ridge 0.1) has complex 2-cycle multipliers on 5 of 8 branches but with modulus at most 0.65, ending in flips. Coupling c is not needed; weight decay strength and rate asymmetry are.
+
+_commit `0a46892663b4`_
