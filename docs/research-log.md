@@ -688,3 +688,81 @@ _commit `0630f7d06fcf` (dirty worktree)_
 Coupled four-weight model (d = C z* + lam, z* = (1, 0.5)), 64 cases from the minimum through the fixed-point flip and along the 2-cycle: 58 end in flip; 6 end in Neimark-Sacker, all at lam = 0.2 with rate ratios 0.354, 2.828 or 4: (c, ratio, theta/2pi) = (0, 0.354, 0.4288), (0, 2.828, 0.4288; the a-b mirror case, identical), (0, 4, 0.3401; 0.007 from the strong 1/3 resonance), (0.3, 4, 0.3834), (0.6, 4, 0.3759), (0.9, 4, 0.4075); crossings transversal (slope of log|mu| per decade of rate 4.3-7.2). Criticality probes 1e-3 and 4e-3 decades past the crossing: bounded attractors near the old orbit with amplitude ratio 2.08 (c = 0) and 2.18 (c = 0.3), close to the sqrt(delta) value 2, rotation 0.425 and 0.381 near the birth angles (supercritical-like); c = 0.6 and 0.9 leave the neighbourhood at the larger offset. The pre-stated surprise occurred: Neimark-Sacker at c = 0, where the modes decouple into two independent scalar factorizations, so the two-weight model 0.5 (uv - d)^2 + 0.5 lam (u^2 + v^2) with lam = 0.2 and a rate ratio about 2.8 already has an EOS-born 2-cycle with a supercritical Neimark-Sacker; at lam = 0.05 (the earlier uv control's effective ridge) all cases flip. Controls: engineered planar gradient 2-cycle typed Neimark-Sacker at r = 1 with theta/2pi = 0.13 and supercritical for all kappa tested (amplitude ratio 1.6-2.0); the earlier factorization model (ridge 0.1) has complex 2-cycle multipliers on 5 of 8 branches but with modulus at most 0.65, ending in flips. Coupling c is not needed; weight decay strength and rate asymmetry are.
 
 _commit `0a46892663b4`_
+
+## 2026-10-07 22:34 UTC: run (exploratory)
+
+- **Question:** Hofmann rotational edge, task 1: does the aligned 2-cycle of the 2x2 depth-two linear network lose stability at a(s1+s2) = 2 through a transversal complex-pair crossing, and what are the other multipliers?
+- **Setup:** l = 0.5 ||W2 W1 - diag(1, s2)||^2, no weight decay, single rate; exact two-step derivative at the closed-form aligned cycle; bisection on the complex pair modulus for s2/s1 in 0.7, 0.8, 0.9
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/hofmann/edge.json`
+- **Would surprise us:** Crossing away from a(s1+s2) = 2, a real crossing, or another multiplier above 1 before the edge
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_hofmann.py edge`
+
+_commit `4958e6b9b3ed`_
+
+- run started 2026-10-07 22:34 UTC finished 22:34 UTC with exit status 0
+
+## 2026-10-07 22:34 UTC: run (exploratory)
+
+- **Question:** Hofmann rotational edge, task 2: is the post-edge misaligned oscillatory state an attracting invariant circle of the two-step map with rotation continuous from the birth angle, and amplitude growing like sqrt(delta)?
+- **Setup:** No weight decay; a = edge (1 + delta), delta in 1e-3..1.6e-2; start at the aligned cycle plus 1e-3 noise; 200,000-update transient, 4,000 two-step samples of rotation-invariant observables (W2 W1, W1^T W1, W2 W2^T); top 3 Lyapunov exponents (one is the exact zero of the hidden-rotation symmetry)
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/hofmann/circle-lam0.0.json`
+- **Would surprise us:** Chaotic or divergent state just past the edge; rotation not approaching the birth angle; amplitude not scaling like sqrt(delta)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_hofmann.py circle`
+
+_commit `4958e6b9b3ed` (dirty worktree)_
+
+- run started 2026-10-07 22:34 UTC finished 22:34 UTC with exit status 0
+
+## 2026-10-07 22:36 UTC: run (exploratory)
+
+- **Question:** Hofmann edge: is the onset hard (bistable, subcritical) or soft? Follow the misaligned state from just past the edge to just before it, and measure small-delta amplitude scaling
+- **Setup:** No weight decay; sequential attractor following through delta = +2e-3, +1e-3, +3e-4, -3e-4, -1e-3, -2e-3, -4e-3 (relative to the edge rate), 400,000-update transient per rate, 4,000 two-step samples
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/hofmann/circle-lam0.0-hysteresis.json`
+- **Would surprise us:** None either way; a misaligned state persisting before the edge means a hard onset
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_hofmann.py circle --sequential --deltas 2e-3 1e-3 3e-4 -3e-4 -1e-3 -2e-3 -4e-3 --transient 400000 --tag hysteresis`
+
+_commit `8e9054adc89c` (dirty worktree)_
+
+- run started 2026-10-07 22:36 UTC finished 22:36 UTC with exit status 2
+
+## 2026-10-07 22:36 UTC: run (exploratory)
+
+- **Question:** Hofmann edge: is the onset hard (bistable, subcritical) or soft? Follow the misaligned state from just past the edge to just before it (rerun with decimal deltas after an argument-parsing failure)
+- **Setup:** No weight decay; sequential attractor following through delta = +0.002, +0.001, +0.0003, -0.0003, -0.001, -0.002, -0.004 (relative to the edge rate), 400,000-update transient per rate, 4,000 two-step samples
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/hofmann/circle-lam0.0-hysteresis.json`
+- **Would surprise us:** None either way; a misaligned state persisting before the edge means a hard onset
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_hofmann.py circle --sequential --deltas 0.002 0.001 0.0003 -0.0003 -0.001 -0.002 -0.004 --transient 400000 --tag hysteresis`
+
+_commit `8e9054adc89c` (dirty worktree)_
+
+- run started 2026-10-07 22:36 UTC finished 22:38 UTC with exit status 0
+
+## 2026-10-07 22:38 UTC: run (exploratory)
+
+- **Question:** With weight decay (lam = 0.01, removing the neutral mode-2 continuum), does the post-edge circle amplitude scale like sqrt(delta) (generic Neimark-Sacker) instead of the delta^(1/4) seen at lam = 0, and is the onset still soft?
+- **Setup:** lam = 0.01, edge located by bisection on the exact aligned-cycle multipliers; sequential following through delta = +0.003, +0.001, +0.0003, +0.0001, -0.0003, -0.001; 400,000-update transient, 4,000 two-step samples
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/hofmann/circle-lam0.01-hysteresis.json`
+- **Would surprise us:** Amplitude still scaling like delta^(1/4), or a hard onset
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_hofmann.py circle --lam 0.01 --sequential --deltas 0.003 0.001 0.0003 0.0001 -0.0003 -0.001 --transient 400000 --tag hysteresis`
+
+_commit `8e9054adc89c` (dirty worktree)_
+
+- run started 2026-10-07 22:38 UTC finished 22:40 UTC with exit status 0
+
+## 2026-10-07 22:40 UTC: run (exploratory)
+
+- **Question:** Hofmann model, task 3: beyond the rotational edge, does the rotation number form a staircase with locked windows of period 2q at rotation m/q (lam = 0.01)?
+- **Setup:** lam = 0.01; 400 rates from 1.0005 x edge to the end of the 2-cycle window, each from the aligned cycle plus 1e-3 noise; 200,000-update transient, 4,000 two-step samples of rotation-invariant observables; period from two-step recurrence (tolerance 1e-7); top 3 Lyapunov exponents; s2/s1 in 0.7, 0.8, 0.9
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/hofmann/staircase-lam0.01.json`
+- **Would surprise us:** No periodic windows at all, or periodic windows whose rotation is not m/q with q = period/2
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_hofmann.py staircase --lam 0.01`
+
+_commit `8e9054adc89c` (dirty worktree)_
+
+- run started 2026-10-07 22:40 UTC finished 22:42 UTC with exit status 0
+
+## 2026-10-07 22:43 UTC: Hofmann rotational edge (exploratory): a supercritical Neimark-Sacker of the edge-of-stability 2-cycle once weight decay removes a neutral continuum
+
+2x2 depth-two linear network, l = 0.5 ||W2 W1 - diag(1, s2)||^2, single rate a. (1) Exact multipliers of the closed-form aligned 2-cycle: for s2/s1 = 0.7, 0.8, 0.9 the misalignment complex pair crosses the unit circle at a(s1 + s2) = 2 to machine precision, transversally (d|mu|/da = 1.85, 1.90, 1.95, empirically (3 + s2/s1)/2), with birth angles theta/2pi = 0.1380, 0.1082, 0.0737 (far from 1/4, 1/3, 1/2); the other multipliers are two exact 1s (hidden-rotation symmetry; neutral continuum of second-mode minima uv = s2 without weight decay) and the rest below 0.9. (2) Past the edge (no weight decay) training settles on a bounded, non-periodic state with nonzero loss and two near-zero Lyapunov exponents (symmetry plus circle) and a negative third: an attracting invariant circle of the two-step map in rotation-invariant coordinates; its rotation tends to the birth angle (0.13744, 0.10753, 0.07287 at delta = 3e-4 vs 0.13800, 0.10817, 0.07368); the onset is soft (following the state back below the edge returns the aligned 2-cycle, no bistability) but the amplitude scales like delta^0.24, a degenerate (quartic-amplitude) onset. With weight decay lam = 0.01 (edge shifts to a = 1.1908, 1.1239, 1.0641; only the symmetry multiplier stays at 1) the amplitude scales like delta^0.49 (ratios 1.71-1.78 per tripling, sqrt(3) = 1.73), the rotation at delta = 1e-4 is within 3e-5 of the birth angle, and the onset is soft: a generic supercritical Neimark-Sacker modulo the rotation symmetry. At lam = 0, s2/s1 = 0.7 and delta = 1.6e-2 the state already has a positive exponent (0.017).
+
+_commit `8e9054adc89c` (dirty worktree)_
