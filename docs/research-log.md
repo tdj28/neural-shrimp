@@ -784,3 +784,15 @@ _commit `02ddf7ffc57a`_
 lam = 0.01, 400 rates from 1.0005 x edge to the end of the 2-cycle window per spectral ratio, each from the aligned cycle plus 1e-3 noise. s2/s1 = 0.7: rotation falls monotonically from the birth angle 0.1388 to 0.1154 with a plateau at exactly 1/8 (27 cells of period 16, a = 1.2146-1.2183) and isolated locked cells at 2/17 (period 34, 2 cells) and 5/42 (period 84, 1 cell); all 30 periodic cells have rotation m/q with q = period/2, and 5/42 is the Farey mediant of 2/17 and 3/25, between the Farey neighbours 2/17 and 1/8. No chaotic cells. s2/s1 = 0.8 and 0.9: rotation falls smoothly from the birth angles (0.1086 to 0.079; 0.0737 to 0.044) with no plateau resolved at 400 cells; a fine scan at 0.8 (spacing 3e-5) resolves a 1/10 tongue (6 cells of period 20, a = 1.14093-1.14108, about 25 times narrower than the 1/8 tongue at 0.7). From a = 1.197 (0.8) and 1.108 (0.9) blocks of starts diverge, interleaved with bounded circle states (coexistence with escape; not analysed further). Interpretation: Hofmann's rotational edge is the Neimark-Sacker onset of the same quasi-periodic route seen in the trained networks, with Arnold tongues beyond it, in an eight-weight linear model.
 
 _commit `02ddf7ffc57a` (dirty worktree)_
+
+## 2026-10-07 22:45 UTC: run (exploratory)
+
+- **Question:** Do the frozen predictions (30 flip, 2 Neimark-Sacker) hold for the held-out couplings c = 0.45 and 0.75?
+- **Setup:** Same pipeline as the grid; 32 held-out cases; predictions committed before this run (docs/explore-minimal-model-heldout-predictions.json)
+- **Output:** `/data2/neural-shrimp-data/explore/minimal-model/heldout.json`
+- **Would surprise us:** Fewer than 28 of 32 types predicted correctly
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_minimal_model.py heldout --workers 4`
+
+_commit `44bc54b0d5d3`_
+
+- run started 2026-10-07 22:45 UTC finished 22:45 UTC with exit status 0
