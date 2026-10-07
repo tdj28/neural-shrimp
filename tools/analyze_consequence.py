@@ -211,6 +211,8 @@ def slice_figure(f, title, path):
     band.set_title(title, loc="left", fontsize=10, color="#0b0b0b")
     for ax, (name, y, _) in zip(axes[1:], panels):
         for label, (color, marker) in STYLE.items():
+            if label == "divergent":
+                continue
             sel = (f["regime"] == label) & np.isfinite(y)
             if sel.any():
                 ax.plot(x[sel], y[sel], marker, color=color, markersize=2.6, linestyle="", label=label.replace("_", " "))
