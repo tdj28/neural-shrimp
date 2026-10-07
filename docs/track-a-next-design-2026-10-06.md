@@ -95,6 +95,16 @@ directly.
 
 ## A3: consequence for training (A3b)
 
+**Amendment, 6 October 2026 (before EXP-028 outcomes):** the
+[novelty check](novelty-check-2026-10-06.md) found orbit averaging largely
+anticipated (Chen et al. 2024; central flows 2025), so it is dropped as a
+headline candidate. Reproducible islands remain only with quantification
+against Ly and Gong (2025): uncertainty exponents and function-space
+disagreement inside versus outside windows. The fractal-boundary mechanism
+needs crisis-curve analysis and a window-masking test of the boundary's
+fractal dimension. The strongest novel axis is C1 plus the mechanism tests
+(MSS order, symbolic words, doubly superstable centers, Feigenbaum ratios).
+
 Two candidates, chosen before A3b's freeze:
 
 * **Reproducible islands.** Inside confirmed windows, final predictions are
