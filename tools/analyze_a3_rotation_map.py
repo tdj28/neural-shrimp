@@ -56,24 +56,38 @@ def main():
                                      "median_abs_diff": float(np.median(np.abs(d))) if len(d) else None,
                                      "max_abs_diff": float(np.max(np.abs(d))) if len(d) else None,
                                      "pairs": diffs})
+    # A period-2q orbit sampled over S two-step samples gives m/q only up to the
+    # partial last cycle, so the tolerance is 1/S (not a fixed tiny number), and
+    # the denominator is tested against the known period: q = p/2 (locked on the
+    # circle) or q = p/2^(k+1), k >= 1 (period-doubled inside an m/q tongue).
+    samples = int(json.load(open(Path(args.map).with_name("metadata.json")))["args"]["samples"])
+    tol = 1.0 / samples + 1e-12
     periodic = (status == 2) & (period >= 3)
-    consistent, total, odd, by_q = 0, 0, 0, {}
+    consistent, doubled, total, odd, by_q = 0, 0, 0, 0, {}
     for i, j in np.argwhere(periodic):
         p = int(period[i, j])
         if p % 2:
             odd += 1
             continue
-        q = p // 2
         if not np.isfinite(rho[i, j]):
             continue
         total += 1
-        f, err = best_fraction(float(rho[i, j]), 64)
-        ok = f.denominator == q and err < 1e-6
-        consistent += ok
-        key = f"{f.numerator}/{f.denominator}" if ok else "inconsistent"
+        key = "inconsistent"
+        q, level = p // 2, 0
+        while q >= 2:
+            m = int(round(float(rho[i, j]) * q))
+            if m > 0 and np.gcd(m, q) == 1 and abs(float(rho[i, j]) - m / q) <= tol:
+                key = f"{m}/{q}" + ("" if level == 0 else f" (doubled x{2 ** level})")
+                break
+            if q % 2:
+                break
+            q, level = q // 2, level + 1
+        consistent += key != "inconsistent" and "doubled" not in key
+        doubled += "doubled" in key
         by_q.setdefault(p, {}).setdefault(key, 0)
         by_q[p][key] += 1
-    report["locking"] = {"even_period_cells": total, "rotation_m_over_q": consistent, "odd_period_cells": odd,
+    report["locking"] = {"even_period_cells": total, "rotation_m_over_q": consistent,
+                         "rotation_m_over_q_doubled": doubled, "tolerance": tol, "odd_period_cells": odd,
                          "by_period": {str(k): v for k, v in sorted(by_q.items())}}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -81,8 +95,8 @@ def main():
     for c in report["continuity"]:
         print("offset", c["offset_log10_hidden"], "points", c["points"], "median |rho - birth|",
               c["median_abs_diff"], "max", c["max_abs_diff"])
-    print("even-period periodic cells:", total, "with rotation m/q of denominator period/2:", consistent,
-          "| odd-period cells:", odd)
+    print("even-period periodic cells:", total, "| locked m/q with q = period/2:", consistent,
+          "| period-doubled inside an m/q tongue:", doubled, "| odd-period cells:", odd, "| tolerance", tol)
     fig, ax = plt.subplots(figsize=(9.5, 7.5), constrained_layout=True)
     extent = [lo[0], lo[-1], lh[0], lh[-1]]
     chaotic = (status == 3) | ((status != 0) & (ftle >= args.chaos))
