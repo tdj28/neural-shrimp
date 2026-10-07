@@ -58,7 +58,7 @@ training.
 - The independent audit rechecked all 154: closure, finite-difference spectral
   radius within 1e-6 of the exact-Jacobian value, stability consistent with the
   `1 - 1e-7` margin, primitivity, ring membership, seeds and rates all pass.
-- 2,801 ring-confirmation reruns; 155 of 160 random chaotic candidates stayed
+- 2,801 ring-confirmation reruns; 157 of 160 random chaotic candidates stayed
   chaotic on rerun with a different tangent seed and a longer window.
 - Receipt inventory (276 files), plan hash, inputs, zoom rule and zoom axes all
   reproduce in the audit.
@@ -124,3 +124,11 @@ roughly 112 CPU-hours.
   ceiling) and `attempt-002` (continuation, complete)
 - Audit: `../neural-shrimp-data/audits/EXP-028/validation-001/audit.json`
 - Figures: `../neural-shrimp-data/figures/EXP-028/attempt-002/`
+
+## Correction, 7 October 2026
+
+The random-chaos rerun count above originally read "155 of 160". The frozen
+summary (`docs/EXP-028-summary.json`, `random_chaos_diagnostics`: 157 confirmed of
+160 reruns across 10 maps) and the raw diagnostics give 157; the text was a
+transcription error found while building the manuscript's number macros. No
+analysis, gate or conclusion depended on the miscounted figure.
