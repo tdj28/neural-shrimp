@@ -109,6 +109,17 @@ def main():
             periods.setdefault(r["period"], []).append(r["log10_eta"])
     for p in sorted(periods):
         print(f"period {p:3d}: n={len(periods[p]):3d} log10 eta {min(periods[p]):+.4f} .. {max(periods[p]):+.4f}")
+    for r, label in zip(rows, labels):
+        if label == "periodic" and r["period"] > 2 and r.get("rho2") is not None:
+            q = r["period"] // 2 if r["period"] % 2 == 0 else r["period"]
+            m = round(r["rho2"] * q)
+            print(f"  window log10 eta {r['log10_eta']:+.4f} period {r['period']:3d} rho2 {r['rho2']:.5f} "
+                  f"~ {m}/{q} (residual {abs(r['rho2'] - m / q):.1e}, forward {r['rho2_forward']:.2f})")
+    qp = [(r["log10_eta"], r["rho2"]) for r, label in zip(rows, labels) if label == "quasi-periodic"]
+    if qp:
+        a = np.array(qp)
+        print(f"quasi-periodic rho2 range {a[:, 1].min():.4f} .. {a[:, 1].max():.4f}; "
+              f"Spearman-like monotonicity {np.corrcoef(np.argsort(np.argsort(a[:, 0])), np.argsort(np.argsort(a[:, 1])))[0, 1]:+.3f}")
     diverged = [r["log10_eta"] for r in rows if r["status"] == 0]
     if diverged:
         print(f"divergent       n={len(diverged):4d} from log10 eta {min(diverged):+.4f}")
