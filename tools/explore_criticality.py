@@ -131,7 +131,10 @@ def boundary_point(task):
     def family(p):
         return GridMap(net, x, y, [10.0 ** p[0]], [10.0 ** p[1]]).cell_map(0)
 
+    # margins below the traced boundary; negative entries are absolute start rates (-1.5 -> 1.5)
     for margin in margins:
+        if margin < 0:
+            margin = h_guess - (-margin)
         h0 = h_guess - margin
         status, period, state = period2_start(net, x, y, theta0, h0, o)
         if period != 2:
@@ -159,7 +162,9 @@ def boundary_point(task):
 def cmd_curve(args):
     rows = [r for r in json.loads(Path(args.ns).read_text())["rows"] if r.get("type") == "neimark_sacker"]
     rows = sorted(rows, key=lambda r: r["log10_output"])[::args.stride]
-    tasks = [(args.system, args.seed, r["log10_output"], r["log10_hidden_boundary"], (0.02, 0.05, 0.1, 0.2))
+    if args.only:
+        rows = [min(rows, key=lambda r: abs(r["log10_output"] - t)) for t in args.only]
+    tasks = [(args.system, args.seed, r["log10_output"], r["log10_hidden_boundary"], tuple(args.margins))
              for r in rows]
     with ProcessPoolExecutor(args.workers) as pool:
         out_rows = list(pool.map(boundary_point, tasks, chunksize=1))
@@ -393,6 +398,9 @@ def main():
     curve.add_argument("--stride", type=int, default=1)
     curve.add_argument("--workers", type=int, default=8)
     curve.add_argument("--name", default="s2-28011-curve")
+    curve.add_argument("--only", type=float, nargs="*", default=None, help="restrict to these output rates")
+    curve.add_argument("--margins", type=float, nargs="+", default=[0.02, 0.05, 0.1, 0.2],
+                       help="start margins below the boundary; negative values are absolute start rates")
     dyn = sub.add_parser("dynamics")
     dyn.add_argument("--system", default="S2")
     dyn.add_argument("--seed", type=int, default=28011)
