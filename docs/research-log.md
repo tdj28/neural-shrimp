@@ -690,3 +690,13 @@ _commit `b30a116919c5`_
 The 1024 x 400 GPU rotation map (run card above) finished screening (300 s) and then failed: torch.linalg.eigh on 409,600 13x13 covariance blocks requested a 232 GB cuSOLVER workspace. The decomposition now runs on the host (numpy), with planes returned to the GPU; the 40-cell test slice still reproduces the CPU rotation numbers. Rerunning.
 
 _commit `b3845d3b98dd` (dirty worktree)_
+
+## 2026-10-07 22:45 UTC: run (exploratory)
+
+- **Question:** Complete the W (rerun after the eigh fix): rotation-number map over the right half of the Neimark-Sacker curve
+- **Setup:** GPU, S2-28011, log10 hidden 1.60-2.06 x output -0.10..0.08, 1024 x 400, EXP-028 screening then 256 + 6,000 two-step samples (torch bookkeeping, host eigh)
+- **Output:** `../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-right`
+- **Would surprise us:** No locked regions touching the curve at the right-branch roots; rotation just beyond the curve not continuous with arg(mu)/2pi
+- **Command:** `.venv/bin/python tools/explore_gpu_rotation_map.py --name a3-gpu-rotation/s2-28011-right --system S2 --seed 28011 --hidden 1.60 2.06 --output -0.10 0.08 --resolution 1024 400 --library ../neural-shrimp-data/builds/gdmap-cuda-64af0462/gdmap_cuda.so`
+
+_commit `9bfb18c079ec`_
