@@ -59,6 +59,10 @@ def main():
                     continue
                 t = (target - a) / (b - a)
                 root = np.array([cy[k] + t * (cy[k + 1] - cy[k]), cx[k] + t * (cx[k + 1] - cx[k])])
+                if not (lh[0] <= root[0] <= lh[-1] and lo[0] <= root[1] <= lo[-1]):
+                    report.append({"rotation": f"{p_}/{q}", "period": 2 * q, "outside_map": True,
+                                   "root_log10_hidden": float(root[0]), "root_log10_output": float(root[1])})
+                    continue
 
                 def distance(point):
                     return float(np.min(np.hypot((cells[:, 0] - point[0]) / dh, (cells[:, 1] - point[1]) / do)))
@@ -77,6 +81,9 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     (out / "tongue-roots.json").write_text(json.dumps(report, indent=1))
     for r in report:
+        if r.get("outside_map"):
+            print(f"{r['rotation']:>5} (period {r['period']:>2}): root outside the mapped range, skipped")
+            continue
         print(f"{r['rotation']:>5} (period {r['period']:>2}): {r['locked_cells']:6d} locked cells; root distance "
               f"{r['root_distance_cells']:7.1f} cells vs random-point median {r['null_median_cells']:7.1f}; "
               f"null p = {r['null_fraction_at_least_as_close']:.3f}")
