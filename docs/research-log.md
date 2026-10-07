@@ -419,3 +419,21 @@ _commit `208f8bd1829e` (dirty worktree)_
 New working draft (branch claude/paper-gd-route): 14 pages, six figures generated from saved evidence with per-figure receipts and byte-identical --verify, 80 generated number macros with sources and hashes in paper/gd-route/data/numbers.json, and scripts/verify.py passing. Section 4 carries the prospectively frozen, audited map study; Section 5 the exploratory route, with placeholders for the rotation-number map, real-data network, minimal two-parameter model and consequence streams. Building the numbers surfaced a discrepancy: the raw random-chaos diagnostics and docs/EXP-028-summary.json record 157 of 160 reruns confirmed, while docs/EXP-028-results.md says 155 of 160 (the draft quotes 157 from the receipt). The Farey-neighbour pattern of staircase plateaus is weak evidence in S2 (3 of 3 pairs against 49% per pair for random fractions) and uninformative in S1R (null 100%, every small-denominator fraction in range appears). All citations remain unverified at primary sources.
 
 _commit `57264965e3b5`_
+
+## 2026-10-07 22:01 UTC: run (exploratory)
+
+- **Question:** Do locked m/q regions approach their predicted roots on the Neimark-Sacker curve (256x256 map)?
+- **Setup:** tools/analyze_a3_tongue_roots.py on a3-rotation-map/s2-28011 with a3-ns-curve/s2-28011; q <= 13; locked = period 2q and |rho - m/q| <= 1/samples; null = 2,000 random points along the traced curve
+- **Output:** `../neural-shrimp-data/explore/a3-rotation-map/s2-28011/tongue-roots.json`
+- **Would surprise us:** No rational with locked cells near its root
+- **Command:** `.venv/bin/python tools/analyze_a3_tongue_roots.py --map ../neural-shrimp-data/explore/a3-rotation-map/s2-28011/rotation.npz --ns ../neural-shrimp-data/explore/a3-ns-curve/s2-28011/ns-curve.json --out ../neural-shrimp-data/explore/a3-rotation-map/s2-28011`
+
+_commit `012bc873cc8e`_
+
+- run started 2026-10-07 22:01 UTC finished 22:01 UTC with exit status 0
+
+## 2026-10-07 22:01 UTC: A3 exploratory: tongue-root test at 256x256 is mixed; tips unresolved and the curve trace is incomplete
+
+1/5 (period 10): locked cells 3.2 map cells from both predicted roots (random curve points: median 31-33 cells, one-sided p about 0.045 each); 2/11 (period 22): 2.1 cells from the right-branch root (p = 0.007) but 131.5 cells from the left-branch root (p = 0.64); 2/9 (period 18; only the left-branch root lies in the traced range) 217 cells (p = 0.90); 3/13 (2 locked cells) 224 cells (p = 0.94). Two limitations explain the misses without testing the hypothesis: tongues narrow like distance^((q-2)/2) toward their roots, so 256x256 cannot resolve tips of q >= 9 tongues; and the traced curve ends at log10 output -0.08, before the right-branch 2/9 root (birth rotation 0.2211 at the trace end), where the known 2/9 window's tongue should start. Next: extend the curve trace and map high-resolution zooms around each predicted root on the GPU.
+
+_commit `012bc873cc8e` (dirty worktree)_
