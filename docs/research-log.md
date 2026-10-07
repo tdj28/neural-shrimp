@@ -518,3 +518,37 @@ _commit `41be47d81b68` (dirty worktree)_
 Coarse scans (120 log10 eta in -0.8..-0.2, 20,000 updates, weight decay 1e-3) of the loss spectrum. Seed 28102 halves: the line at 1/2 carries 44-73% of the power from -0.78 to -0.68; slow harmonic modulations first at -0.634 (0.0037, 0.0044 cycles per update), then in most cells with harmonic sets such as 0.0024/0.0049/0.0073 interleaved with period-2 cells (-0.543, -0.422, -0.392, -0.377); positive FTLE up to 0.0037 near -0.21. Parity: period-2 cells scattered from -0.74 to -0.41 (line at 1/2 up to 79%), slow harmonic modulations from -0.42 (0.0044/0.0088/0.0176), positive FTLE (up to 0.0087, one chaotic cell) from -0.24. Continuations from -0.7092 (seed 28102) and from -0.4067 and -0.4521 (parity) follow.
 
 _commit `41be47d81b68` (dirty worktree)_
+
+- run started 2026-10-07 22:17 UTC finished 22:18 UTC with exit status 0
+
+## 2026-10-07 22:18 UTC: run (exploratory)
+
+- **Question:** Real-data robustness, seed 28102 halves, second start: Newton did not converge at -0.7092 (last spectral radius 1.0005); from -0.7546, deeper in the period-2 regime, how does the orbit lose stability?
+- **Setup:** Seed 28102, 64-8-1, n=1024 halves, ridge 1e-3; 60,000 updates from the initialization at log10 eta -0.7546, line at 1/2 with 67% of the power; continuation up to +0.3, bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/continue-0.7546`
+- **Would surprise us:** Fold or flip instead of Neimark-Sacker
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py continue --seed 28102 --ridge 1e-3 --start -0.7546 --period 2 --steps 60000 --s-max 0.3 --out /data2/neural-shrimp-data/explore/realdata/s28102-w8-n1024-halves-wd1e-3/continue-0.7546`
+
+_commit `200ab0fadd8f` (dirty worktree)_
+
+- run started 2026-10-07 22:18 UTC finished 22:19 UTC with exit status 0
+
+- run started 2026-10-07 22:17 UTC finished 22:23 UTC with exit status 0
+
+- run started 2026-10-07 22:17 UTC finished 22:23 UTC with exit status 0
+
+## 2026-10-07 22:24 UTC: run (exploratory)
+
+- **Question:** Real-data parity: the period-2 orbit ends in a fold at log10 eta -0.39831. Is the fold a saddle-node on an invariant circle, so that just beyond it training rotates slowly with rotation number growing from zero like the square root of the distance, or does training jump to a distant attractor?
+- **Setup:** Seed 28101, 64-8-1, n=1024 parity, ridge 1e-3; adiabatic sweep from the last attracting period-2 state of the continuation from -0.4067; 20 log10 eta in -0.39830 to -0.39400; 20,000 settling updates, 16,384 recorded; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/sweep-fold`
+- **Would surprise us:** Small rotation numbers that do not vanish toward the fold, or immediate jumps to large-amplitude dynamics
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py sweep --task parity --ridge 1e-3 --init /data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4067/continue--0.40670-state.npy --range -0.39830 -0.39400 --cells 20 --steps 20000 --keep 16384 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-parity-wd1e-3/sweep-fold`
+
+_commit `200ab0fadd8f` (dirty worktree)_
+
+## 2026-10-07 22:24 UTC: Real-data robustness continuations: parity branches end in folds; seed 28102 starts not certified
+
+Parity task (seed 28101): period-2 orbits certified after 60,000 updates from the initialization at log10 eta -0.4067 and -0.4521 lie on different branches and both end in folds: at -0.398313 (multiplier +0.99999985) and at -0.412628 (+0.99999987), not Neimark-Sacker. Seed 28102 halves: Newton did not certify a period-2 orbit at -0.7092 (newton_not_converged, last spectral radius 1.0005) or -0.7546 (line_search_stalled), so that subset's branch structure is unresolved. Slow harmonic loss modulations exist in all three configurations' scans, so the Neimark-Sacker branch of seed 28101 halves is one route into them. A fold of the period-2 orbit lying on an invariant circle of the two-step map (the edge of a rotation-0 locking region, a saddle-node on a circle) is a candidate second route; an adiabatic sweep just beyond the parity fold tests it.
+
+_commit `200ab0fadd8f` (dirty worktree)_
