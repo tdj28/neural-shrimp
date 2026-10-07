@@ -1208,3 +1208,270 @@ _commit `959beee68b3a` (dirty worktree)_
 Second trace from start hidden 0.95 (36 output rates, log10 0.55-1.45): 25 Neimark-Sacker, 4 fold, 7 starts not on a period-2 orbit. The two starts land on different period-2 orbits at many outputs, each with its own boundary: at 0.81-0.91 one branch ends at hidden 1.10-1.12 with birth rotation about 0.123 and another at 1.13-1.15 with about 0.133; at 0.94-0.99 both starts reach the same branch (1.110-1.123, birth 0.131-0.132); a slow branch with birth rotation about 0.043 appears from 1.01 to 1.14; folds at 1.19-1.24 and 1.37. Across both traces, 25 of 29 resolved boundaries (this trace) and 16 of 16 (first trace) are Neimark-Sacker: the onset generalizes to S1R, organized across coexisting branches consistent with its coexisting attractors. A curve figure for S1R must show branches separately.
 
 _commit `e63283bfd97e` (dirty worktree)_
+## 2026-10-07 22:31 UTC: run (exploratory)
+
+- **Question:** Ancestry pipeline controls: does the classifier pass a resonant Neimark-Sacker normal form's 1/5 tongue, and refuse a displaced root and an embedded logistic period-5 window born by a saddle-node?
+- **Setup:** Normal form z' = e^{2 pi i theta}[(1+mu) z - |z|^2 z] + 0.5 conj(z)^4, root (mu, theta) = (0, 1/5), six levels mu = 0.04/4^k; specificity: same levels scored against a root displaced by 0.01; negative: (x, y) -> (r x(1-x) + c y, 0.1 y + 0.05 x(1-x)), period-5 window, levels 0.004/4^k beyond its own fold, tangent c. Pass rule: fold-bounded locked intervals at all levels, widths shrinking, amplitude ratio >= 10, extrapolated centre within 1e-4 of the root
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/controls/controls.json`
+- **Would surprise us:** Positive control not passing, or either negative control passing (pipeline invalid)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py controls`
+
+_commit `47ac2cce50f4` (dirty worktree)_
+
+- run started 2026-10-07 22:31 UTC finished 22:31 UTC with exit status 0
+
+## 2026-10-07 22:31 UTC: run (exploratory)
+
+- **Question:** Rerun of the ancestry controls after the classifier amendment (non-collapsing orbits without two fold edges are alternative ancestry)
+- **Setup:** Identical to the first control run; output directory controls-002
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/controls-002/controls.json`
+- **Would surprise us:** Positive control not passing, or either negative control passing
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py controls --name controls-002`
+
+_commit `163ac39635d8` (dirty worktree)_
+
+- run started 2026-10-07 22:31 UTC finished 22:31 UTC with exit status 0
+
+## 2026-10-07 22:32 UTC: run (exploratory)
+
+- **Question:** Network ancestry run card (frozen before any network computation): does S2-28011:139 (period 10, rotation 1/5, rule-selected) descend from the 1/5 resonance of the parent period-2 Neimark-Sacker curve?
+- **Setup:** Roots: curve points with birth rotation 1/5 (left branch near log10 output -0.392, right near -0.116), bisection to 1e-7 in log10 output, NS points to 1e-11 in log10 hidden. CRITERIA. (1) Onset at each root: complex-conjugate dominant two-step pair, third modulus < 1 - 1e-3, transverse crossing (dominant modulus < 1 at -1e-4 and > 1 at +1e-4 along the normal), supercritical small attracting circle (radius exponent in (0.3, 0.7) over detunings 2e-4, 8e-4, 3.2e-3; bounded). (2) Invariance residual of Fourier-fitted circles (K = 4, 8, 16) at the prespecified comparison point (root output + 0.01) and detunings 1e-3, 5e-4, 2.5e-4: K = 16 residual not above K = 4 and residual/radius < 1e-2. (3) Rotation at those detunings: linear fit; consistent if |intercept - birth angle| <= 3/N + 3 sigma (N = 20,000); slope reported as finite-detuning bias. (4) Ancestry: six levels 0.0128/4^k along the normal; each with a verified primitive period-10 orbit reached by jump-free continuation and two fold edges (multiplier within 0.05 of +1) on the tangential cross-section; pass needs monotone shrinking widths, extrapolated centre within 1e-4 decades of the root, deepest centre within max(1e-4, width), amplitude ratio >= 10; then the tongue centre line tracked to the window must reach the window's certified orbit on the same branch (same cycle within 1e-7). (5) Outcomes: pass; alternative_ancestry; exhausted_budget; no_qualifying_window; invalid (controls-002 passed, so not invalid). The 1/5 outcome is reported as is; 2/9 only as a separate exploratory case.
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/`
+- **Would surprise us:** Onset not Neimark-Sacker or subcritical at a root; fold-bounded levels converging elsewhere; window orbit on a different branch
+
+_commit `163ac39635d8` (dirty worktree)_
+
+## 2026-10-07 22:32 UTC: run (exploratory)
+
+- **Question:** Refine the left-branch 1/5 root with onset, invariance and rotation checks
+- **Setup:** S2-28011, bracket log10 output -0.3931 to -0.3836, start hidden 1.65
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/root-left/root.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name root-left --bracket -0.3931 -0.3836`
+
+_commit `992a7850320b` (dirty worktree)_
+
+## 2026-10-07 22:32 UTC: run (exploratory)
+
+- **Question:** Refine the right-branch 1/5 root with onset, invariance and rotation checks
+- **Setup:** S2-28011, bracket log10 output -0.1179 to -0.1085, start hidden 1.65
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/root-right/root.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name root-right --bracket -0.1179 -0.1085`
+
+_commit `992a7850320b` (dirty worktree)_
+
+## 2026-10-07 22:34 UTC: amendment to `network ancestry run card (this log, 992a7850)`
+
+- **Change:** Period-10 certification in levels/connect uses newton_tolerance 1e-8 (default 1e-10); scan detection nominates candidates with closure 1e-5 and divisor separation 1e-3 before Newton certification
+- **Why:** Near the root the period-10 orbit's M - I is ill-conditioned (singular values about 1e-6 to 1e-8), so a 1e-10 relative correction is unreachable under float64 rounding; a strict scan closure could miss slowly converging locked cells
+- **Outcomes seen:** Only the controls and (in progress) root refinements; no network level or connection output
+- **Claim impact:** None; verification stays Newton-based with exact Jacobians
+
+_commit `437ff5a255b3` (dirty worktree)_
+
+- run started 2026-10-07 22:32 UTC finished 22:34 UTC with exit status 0
+
+- run started 2026-10-07 22:32 UTC finished 22:34 UTC with exit status 0
+
+## 2026-10-07 22:35 UTC: run (exploratory)
+
+- **Question:** Approach levels at the right-branch 1/5 root (frozen run card)
+- **Setup:** levels 0.0128/4^k (6), scan +-0.03 decades with 601 cells and 100,000 updates at the top level, s_max 0.05, newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-right/levels.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-right --root-name root-right`
+
+_commit `4fe96c9b6adc` (dirty worktree)_
+
+## 2026-10-07 22:35 UTC: run (exploratory)
+
+- **Question:** Approach levels at the left-branch 1/5 root (frozen run card; onset supercriticality criterion already failed as specified)
+- **Setup:** levels 0.0128/4^k (6), scan +-0.03 decades with 601 cells and 100,000 updates at the top level, s_max 0.05, newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-left/levels.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-left --root-name root-left`
+
+_commit `4fe96c9b6adc` (dirty worktree)_
+
+## 2026-10-07 22:35 UTC: Ancestry: 1/5 roots refined; right root passes all onset checks, left root fails the frozen supercriticality rule
+
+Right root log10 (hidden, output) = (1.6990788, -0.1155545), birth rotation 0.19999997, bracket 7.2e-8: complex pair, third modulus 0.972, transverse (0.99993859 -> 1.00006118 across +-1e-4), circle radius 0.0197, 0.0394, 0.0793 at detunings 2e-4, 8e-4, 3.2e-3 (exponent 0.503); comparison point (output -0.1056, birth 0.20572): Fourier invariance residual K=16 at 2.6e-6 to 8.8e-7 (residual/radius about 5e-5), rotation intercept minus birth angle 1.0e-6 with finite-detuning slope -0.73. Left root (1.8035245, -0.3921629), birth 0.2000000059: complex pair, third modulus 0.979, transverse, but circle radii 0.0688, 0.1405, 0.6839 give exponent 0.83, outside the frozen (0.3, 0.7) band, so criterion (1) fails as specified there (post hoc: the two smallest detunings alone give 0.51; the circle grows quickly on this branch); invariance residual converges (K=16 residual/radius 9e-3 to 3e-3); rotation intercept minus birth -1.9e-5 against a strong finite-detuning slope -5.25. Levels now running at both roots as frozen.
+
+_commit `4fe96c9b6adc` (dirty worktree)_
+
+- run started 2026-10-07 22:35 UTC finished 22:36 UTC with exit status 0
+
+- run started 2026-10-07 22:35 UTC finished 22:36 UTC with exit status 0
+
+## 2026-10-07 22:38 UTC: amendment to `network ancestry run card (992a7850)`
+
+- **Change:** Attempt 2 for the right 1/5 root: same target, frozen measurement levels and criteria; continuation between levels by centre-line tracking (factor-2 sub-steps, edges re-measured and orbit re-centred at each, up to 4 geometric refinements per level, 90-minute budget)
+- **Why:** Attempt 1's straight-line continuation from delta 0.0032 to 0.0008 stalled at t = 0.32 (exhausted_budget) although interpolated fold edges place the failure point inside the locked interval
+- **Outcomes seen:** Attempt 1 right root: levels 0.0128 (centre 0.0365, width 0.0459, amplitude 0.199) and 0.0032 (0.0111, 0.0135, 0.129) fold-bounded, then continuation failure; left root: no locked cell on the top cross-section (no_qualifying_window); left root also failed the frozen supercriticality rule
+- **Claim impact:** Attempt 1 outcomes stand as recorded (right: exhausted_budget; left: no_qualifying_window); attempt 2 is reported separately and never replaces them
+
+_commit `7692e715201a` (dirty worktree)_
+
+## 2026-10-07 22:39 UTC: run (exploratory)
+
+- **Question:** Attempt 2: approach levels at the right-branch 1/5 root with centre-line tracking
+- **Setup:** Same frozen levels 0.0128/4^k and criteria; tracking with 2 sub-steps per level, up to 4 refinements, 90-minute budget; newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-right-attempt2/levels.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-right-attempt2 --root-name root-right --tracking`
+
+_commit `19db8e3e345e` (dirty worktree)_
+
+- run started 2026-10-07 22:39 UTC finished 22:41 UTC with exit status 0
+
+## 2026-10-07 22:42 UTC: Ancestry attempt 2, right 1/5 root: six fold-bounded levels; frozen outcome alternative_ancestry by a 53% estimator margin; post hoc the tongue converges onto the predicted root with textbook scaling
+
+Levels 0.0128/4^k at the right root (1.6990788, -0.1155545), all with two fold edges, primitive attracting period-10 orbits and jump-free tracking: centres 0.0365, 0.0111, 1.79e-3, 4.13e-4, 1.01e-4, 2.50e-5 decades from the root's foot; widths 0.0459, 0.0135, 1.02e-3, 1.15e-4, 1.39e-5, 1.70e-6 (successive ratios 3.41, 13.2, 8.89, 8.23, 8.17; q = 5 asymptote 8); amplitudes relative to the parent 2-cycle 0.312 to 0.0061 (ratio 51, >= 10 required). FROZEN classification: the linear fit of centre against delta across all six levels extrapolates to 1.53e-4 decades, above the 1e-4 tolerance, so the frozen outcome is alternative_ancestry (deepest centre within tolerance; widths shrink; amplitude criterion met). POST HOC (not replacing the frozen outcome): the top two levels lie outside the asymptotic regime (centre line curved); linear fits over the deepest 3 and 4 levels give -1.6e-6 and -1.6e-5; log-log exponents over the deepest three levels are 1.518 for width (theory 1.5) and 0.513 for amplitude (theory 0.5). Recommendation for any confirmatory version: estimate the root mismatch only from levels in the asymptotic regime (prespecified by width-ratio stability) or with more deep levels. Connection stage to the window starts now.
+
+_commit `e5ef352990e7` (dirty worktree)_
+
+## 2026-10-07 22:42 UTC: run (exploratory)
+
+- **Question:** Connection stage (frozen): does the 1/5 tongue rooted at the right root, tracked along its centre line from the top level, reach window S2-28011:139 and contain its certified orbit on the same branch?
+- **Setup:** Start: attempt-2 top level (delta 0.0128, centre 0.0365); steps of 0.01 decades along the tracked centre direction; perpendicular cross-sections with existence rays (s_max 0.2) to both edges; re-centre at each step; stop when the window's projection is within one step; same-cycle test 1e-7; 90-minute budget
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/connect-right/connect.json`
+- **Would surprise us:** Tracked tongue passing the window's level far from the window, or reaching it with a different period-10 orbit
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py connect --name connect-right --levels-name levels-right-attempt2 --root-name root-right`
+
+_commit `3643f44fe7cd` (dirty worktree)_
+
+## 2026-10-07 22:43 UTC: run (exploratory)
+
+- **Question:** POST HOC probe (does not replace the frozen left-root outcome no_qualifying_window): is there a fold-bounded 1/5 tongue at the left root in its weakly nonlinear range?
+- **Setup:** Left root, levels 0.0008/4^k (6), tracking strategy, scan +-0.03 with 601 cells at the top level, newton tolerance 1e-8
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/levels-left-posthoc/levels.json`
+- **Would surprise us:** No locked cell even at 0.0008
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name levels-left-posthoc --root-name root-left --tracking --delta0 0.0008`
+
+_commit `3643f44fe7cd` (dirty worktree)_
+
+- run started 2026-10-07 22:42 UTC finished 22:44 UTC with exit status 0
+
+- run started 2026-10-07 22:43 UTC finished 22:44 UTC with exit status 0
+
+## 2026-10-07 22:45 UTC: run (exploratory)
+
+- **Question:** POST HOC branch connectivity: is the window S2-28011:139's certified period-10 orbit on the same branch as the tongue orbit tracked from the right 1/5 root?
+- **Setup:** Rebuild the tongue orbit along the 29 tracked centres of connect-right from the top level; continue the window orbit along straight segments to the 4 nearest tracked centres; same cycle within 1e-6
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/branch-right/branch.json`
+- **Would surprise us:** Not applicable (post hoc, not part of the frozen criteria)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry_branch.py --levels-name levels-right-attempt2 --connect-name connect-right --name branch-right`
+
+_commit `86b82e833c25` (dirty worktree)_
+
+- run started 2026-10-07 22:45 UTC finished 22:45 UTC with exit status 0
+
+## 2026-10-07 22:46 UTC: run (exploratory)
+
+- **Question:** POST HOC: where and how does window S2-28011:139's period-10 branch end along the directions towards the tracked tongue?
+- **Setup:** existence continuation from the window's certified orbit towards the 4 nearest tracked tongue points, bisection 1e-9
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/window-edges-right/window-edges.json`
+- **Would surprise us:** Not applicable (post hoc)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry_window_edges.py --branch-name branch-right --name window-edges-right`
+
+_commit `b84bf355a363` (dirty worktree)_
+
+- run started 2026-10-07 22:46 UTC finished 22:46 UTC with exit status 0
+
+## 2026-10-07 22:47 UTC: Ancestry 1/5 outcome for S2-28011:139: not established under frozen rules; tongue rooted at the predicted point post hoc; connection not achieved
+
+Frozen outcomes: controls valid (positive pass, displaced root and logistic window alternative_ancestry). Right root: onset criteria (1)-(3) pass; attempt 1 exhausted_budget; attempt 2 alternative_ancestry because the all-level linear extrapolation of the locked-interval centre is 1.53e-4 decades (tolerance 1e-4), while widths shrink (ratios to 8.17 vs asymptote 8), amplitude ratio 51 and the deepest centre is 2.5e-5 from the root. Left root: supercriticality criterion failed as frozen (exponent 0.83) and no locked cell at the top level (no_qualifying_window). Connection from the right-root tongue to the window: exhausted_budget (left edge lost near log10 hidden 1.85, heading turned, continuation failure at step 29). Post hoc: asymptotic-level fits put the tongue centre at the root within 1.6e-6 to 1.6e-5 decades with width and amplitude exponents 1.518 and 0.513; the window's own branch ends at folds 0.10-0.22 decades towards the tracked tongue; a left-root probe at delta 0.0008 found no locked cell. Interpretation: a 1/5 Arnold tongue is attached to the predicted resonance point (post hoc), but window 139 is not shown to belong to it. Separate exploratory 2/9 case to follow; it does not substitute for this result.
+
+_commit `f26a8868cc1c` (dirty worktree)_
+
+## 2026-10-07 22:47 UTC: run (exploratory)
+
+- **Question:** SEPARATE exploratory case (not a substitute for the 1/5 result): does window S2-28011-zoom:587 (period 18, rotation 2/9) descend from the 2/9 resonance at the birth-rotation maximum of the Neimark-Sacker curve?
+- **Setup:** Roots A (log10 output bracket -0.07739..-0.07543) and B (-0.06957..-0.06761) with m/q = 2/9; onset checks as in the 1/5 card with comparison points at output offsets -0.02 (A) and -0.03 (B); levels 0.0128/4^k, k = 0..3 only (q = 9 tongues narrow like delta^3.5, deeper levels are numerically infeasible), tracking strategy, period 18; same classifier and 1e-4 tolerance; connection to zoom:587 as in the 1/5 card
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-*`
+- **Would surprise us:** Locked 2/9 regions not narrowing onto either root; window not reached from the tongue
+
+_commit `158c5fa23a6c` (dirty worktree)_
+
+## 2026-10-07 22:47 UTC: run (exploratory)
+
+- **Question:** 2/9 case: root A
+- **Setup:** bracket -0.07739..-0.07543, m/q 2/9, comparison offset -0.02
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-root-a/root.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name 2-9-root-a --m 2 --q 9 --bracket -0.07739 -0.07543 --comparison-offset -0.02`
+
+_commit `e8888e959c7b` (dirty worktree)_
+
+## 2026-10-07 22:47 UTC: run (exploratory)
+
+- **Question:** 2/9 case: root B
+- **Setup:** bracket -0.06957..-0.06761, m/q 2/9, comparison offset -0.03
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-root-b/root.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name 2-9-root-b --m 2 --q 9 --bracket -0.06957 -0.06761 --comparison-offset -0.03`
+
+_commit `e8888e959c7b` (dirty worktree)_
+
+- run started 2026-10-07 22:47 UTC finished 22:49 UTC with exit status 0
+
+- run started 2026-10-07 22:47 UTC finished 22:49 UTC with exit status 0
+
+## 2026-10-07 22:50 UTC: run (exploratory)
+
+- **Question:** 2/9 case: levels at root A
+- **Setup:** period 18, levels 0.0128/4^k k=0..3, tracking, scan +-0.03 with 601 cells, 100,000 updates
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-levels-a/levels.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name 2-9-levels-a --root-name 2-9-root-a --period 18 --count 4 --tracking`
+
+_commit `a33c0cf589b4` (dirty worktree)_
+
+## 2026-10-07 22:50 UTC: run (exploratory)
+
+- **Question:** 2/9 case: levels at root B
+- **Setup:** period 18, levels 0.0128/4^k k=0..3, tracking, scan +-0.03 with 601 cells, 100,000 updates
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-levels-b/levels.json`
+- **Would surprise us:** see 2/9 run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py levels --name 2-9-levels-b --root-name 2-9-root-b --period 18 --count 4 --tracking`
+
+_commit `a33c0cf589b4` (dirty worktree)_
+
+- run started 2026-10-07 22:50 UTC finished 22:51 UTC with exit status 0
+
+- run started 2026-10-07 22:50 UTC finished 22:51 UTC with exit status 0
+
+## 2026-10-07 22:53 UTC: run (exploratory)
+
+- **Question:** POST HOC descent for the 2/9 case: where does window S2-28011-zoom:587's own locked interval meet the Neimark-Sacker curve, and what is the birth rotation there?
+- **Setup:** Start at the window's certified period-18 orbit; steps up to 0.01 decades towards the curve (initially -log10 hidden), both fold edges re-measured (s_max 0.1) and re-centred each step; stop 1e-4 above the merged curve; 60-minute budget
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/descend-2-9/descend.json`
+- **Would surprise us:** Foot of the tracked line far from the 2/9 roots (birth rotation not near 2/9)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py descend --name descend-2-9 --map-id S2-28011-zoom --component 587 --period 18`
+
+_commit `7e1486eaaef9` (dirty worktree)_
+
+## 2026-10-07 22:53 UTC: run (exploratory)
+
+- **Question:** POST HOC descent for the 1/5 window: where does S2-28011:139's own locked interval meet the Neimark-Sacker curve, and what is the birth rotation there? (does not change the frozen 1/5 outcome)
+- **Setup:** Start at the window's certified period-10 orbit; steps up to 0.01 decades towards the curve, both fold edges re-measured (s_max 0.1) and re-centred each step; stop 1e-4 above the merged curve; 60-minute budget
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/descend-1-5/descend.json`
+- **Would surprise us:** Foot of the tracked line far from both 1/5 roots
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py descend --name descend-1-5 --map-id S2-28011 --component 139 --period 10`
+
+_commit `7e1486eaaef9` (dirty worktree)_
+
+## 2026-10-07 22:53 UTC: 2/9 separate case: roots pass onset; no locked period-18 cell at the top level (no_qualifying_window for both roots); post-hoc descents started
+
+Root A (1.7447484, -0.0769309), birth 0.22222222: complex pair, others inside, transverse, radius exponent 0.506, invariance converges, intercept minus birth 5.4e-6 (slope -0.19). Root B (1.7369136, -0.0680920), birth 0.22222221: complex pair, others inside, transverse, exponent 0.640; criteria (2)-(3) failed as specified, but the check was invalid: at its prespecified comparison point (output -0.0981, across the curve's maximum) the root's normal points into the stable period-2 region (measured circle radius 0, rotation meaningless); comparison checks should use the comparison point's own normal. Levels (period 18, 0.0128/4^k): 0 of 601 cells locked on the top cross-section at either root (no_qualifying_window), consistent with q = 9 tongues narrowing like delta^3.5 below the scan spacing. Full test suite on this branch: 2,217 passed, 2 skipped, 2 failed (signal-timing tests in test_two_write_runtime.py, which pass alone; machine busy with concurrent suites from other sessions). Post hoc: descents from windows zoom:587 (2/9) and 139 (1/5) along their own fold-bounded intervals towards the curve are running.
+
+_commit `7e1486eaaef9` (dirty worktree)_
+
+- run started 2026-10-07 22:53 UTC finished 22:56 UTC with exit status 0
+
+## 2026-10-07 23:04 UTC: Post-hoc descents from windows 139 (1/5) and zoom:587 (2/9): both inconclusive
+
+Window 139: unstable orbit below the window, mostly one fold edge within 0.1 decades, tracker stalled 0.38 decades above the curve near (2.130, -0.360) (foot birth rotation 0.185). Window zoom:587: locked interval narrows from 0.012 to about 1.3e-4 between 0.102 and 0.076 decades above the curve near output -0.0797 (foot birth 0.2212; 2/9 root A at -0.0769), much faster than delta^3.5, then the tracker stalled and reversed: suggestive of a pinched resonance zone or an unfollowable thin tongue. Neither changes a frozen outcome.
+
+_commit `2e5c4fd092aa` (dirty worktree)_
