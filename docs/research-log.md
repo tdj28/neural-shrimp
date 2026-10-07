@@ -1162,3 +1162,41 @@ _commit `a694db980dae` (dirty worktree)_
 Merged head after claude/explore-realdata, claude/explore-minimal-model and claude/paper-gd-route: 2,240 passed, 2 skipped, 1 failed (tests/test_two_write_runtime.py::test_signal_during_journal_commit_does_not_duplicate_completed_task[2], a signal-timing test from an earlier program, last changed in 54027e11). It passes in 9 of 9 isolated runs; the same test failed once under load in the minimal-model stream. Recorded as a known load-sensitive test, not a regression; paper/gd-route/scripts/verify.py passes on the merged head.
 
 _commit `22144cfddeb5` (dirty worktree)_
+
+## 2026-10-07 23:04 UTC: run (exploratory)
+
+- **Question:** Rotation-number map of the 72-parameter S1R-28002 network around its period-2 Neimark-Sacker curve: continuity, tongue roots, and soft vs hard edges
+- **Setup:** GPU, S1R-28002, log10 hidden 0.95-1.65 x output 0.55-1.45, 512 x 512, EXP-028 screening then 256 + 6,000 two-step samples (torch bookkeeping, host eigh)
+- **Output:** `../neural-shrimp-data/explore/a3-gpu-rotation/s1r-28002-512`
+- **Would surprise us:** No quasi-periodic band beyond the curve anywhere; rotation beyond the curve not continuous with the birth angle
+- **Command:** `.venv/bin/python tools/explore_gpu_rotation_map.py --name a3-gpu-rotation/s1r-28002-512 --system S1R --seed 28002 --hidden 0.95 1.65 --output 0.55 1.45 --resolution 512 512 --library ../neural-shrimp-data/builds/gdmap-cuda-64af0462/gdmap_cuda.so`
+
+_commit `959beee68b3a` (dirty worktree)_
+
+## 2026-10-07 23:04 UTC: run (exploratory)
+
+- **Question:** Trace the period-2 Neimark-Sacker curve of S1R-28002 across output rates (for the rotation map, tongue roots and criticality)
+- **Setup:** start log10 hidden 1.10, 36 output rates log10 0.55-1.45, continuation to stability loss, bisection 1e-10, 8 workers
+- **Output:** `../neural-shrimp-data/explore/a3-ns-curve/s1r-28002`
+- **Would surprise us:** Stability lost by flip or fold instead of Neimark-Sacker on most of the range
+- **Command:** `.venv/bin/python tools/explore_a3_ns_curve.py --system S1R --seed 28002 --start 1.10 --output 0.55 1.45 --count 36 --workers 8 --s-max 0.6 --out ../neural-shrimp-data/explore/a3-ns-curve/s1r-28002`
+
+_commit `959beee68b3a` (dirty worktree)_
+
+- run started 2026-10-07 23:04 UTC finished 23:04 UTC with exit status 0
+
+## 2026-10-07 23:05 UTC: run (exploratory)
+
+- **Question:** Fill the S1R-28002 Neimark-Sacker curve from a lower start (hidden 0.95) and identify coexisting period-2 branches
+- **Setup:** start log10 hidden 0.95, 36 output rates log10 0.55-1.45, continuation to stability loss (s_max 0.8), bisection 1e-10, 8 workers
+- **Output:** `../neural-shrimp-data/explore/a3-ns-curve/s1r-28002-start0.95`
+- **Would surprise us:** Lower start reaching the same boundary values everywhere (would rule out coexisting branches)
+- **Command:** `.venv/bin/python tools/explore_a3_ns_curve.py --system S1R --seed 28002 --start 0.95 --output 0.55 1.45 --count 36 --workers 8 --s-max 0.8 --out ../neural-shrimp-data/explore/a3-ns-curve/s1r-28002-start0.95`
+
+_commit `959beee68b3a` (dirty worktree)_
+
+## 2026-10-07 23:05 UTC: A3 exploratory: S1R-28002 period-2 Neimark-Sacker curve, first trace (start hidden 1.10)
+
+16 of 36 output rates (log10 0.55-1.45) give a Neimark-Sacker crossing; 20 starts were not on a period-2 orbit at hidden 1.10. Boundaries lie at log10 hidden 1.10-1.15 with birth rotations 0.121-0.125 (output 0.60-0.88) and 0.131-0.132 (0.94-1.01), consistent with the staircase plateaus 1/9..2/15, but with jumps between neighbours (e.g. 1.118 -> 1.149 -> 1.123 at 0.68-0.76) and two outliers (birth 0.0175 at 0.576, 0.0435 at 1.141), pointing to coexisting period-2 branches (S1R windows coexist with other attractors). Retrace from hidden 0.95 running.
+
+_commit `959beee68b3a` (dirty worktree)_
