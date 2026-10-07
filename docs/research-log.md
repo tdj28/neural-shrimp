@@ -278,3 +278,53 @@ _commit `2508f1913658` (dirty worktree)_
 Draft criteria (fold and flip each on at least 8 of 64 rays, at least half of flip rays opening onto period 2p in the local map, ray/map edge agreement at least 75%) pass S2-28011-zoom:587 (period 18) and S2-28011-zoom:985 (period 16). Edge agreement fails for most S1R windows because their local maps (from the shared initial parameters) are speckled inside the ray-continued stability region. First diagnostic (S1R-28001-zoom:931, period 8): of 20 speckled cells, 18 return period 8 when started from the certified orbit point but only 1 after 4x longer runs from the shared start: coexisting attractors, not long transients. Fixed-start maps therefore show basin selection layered on the window's existence region, and map-based edge criteria need orbit-start maps. The flip-to-2p criterion fails often even in clean S2 windows (subcritical flips or 2p bands thinner than a map cell are both possible); not yet diagnosed. Boundary census over all windows: S2 windows are mostly Neimark-Sacker and flip bounded (tongue-type); S1R windows mostly fold bounded. Full speckle survey running.
 
 _commit `2508f1913658` (dirty worktree)_
+
+## 2026-10-07 20:52 UTC: run (exploratory)
+
+- **Question:** Do locked windows (period 2q, rotation m/q) emanate from the points of the Neimark-Sacker curve of the period-2 orbit where the birth rotation arg(mu)/2pi equals m/q (Arnold tongue roots), and is the rotation number continuous across the quasi-periodic band?
+- **Setup:** S2-28011, log10 hidden 1.60-2.06 x log10 output -0.46 to -0.07, 256x256 cells, EXP-028 screening (20,000 updates) then 256 two-step samples for the plane and 6,000 for the rotation number; compare with the traced Neimark-Sacker curve (a3-ns-curve/s2-28011)
+- **Output:** `../neural-shrimp-data/explore/a3-rotation-map/s2-28011`
+- **Would surprise us:** Rotation just beyond the Neimark-Sacker curve differing from arg(mu)/2pi; locked regions with rotation m/q not approaching the predicted root; period not 2q on rational plateaus
+- **Command:** `.venv/bin/python tools/explore_a3_rotation_map.py --system S2 --seed 28011 --hidden 1.60 2.06 --output -0.46 -0.07 --resolution 256 256 --workers 6 --out a3-rotation-map/s2-28011`
+
+_commit `b80365216008`_
+
+## 2026-10-07 20:53 UTC: run (exploratory)
+
+- **Question:** Does the minimal two-parameter factorization model with weight decay and separate rates show a Neimark-Sacker bifurcation of the edge-of-stability 2-cycle (invariant circles drawable in the (u, v) plane)?
+- **Setup:** L = (uv-1)^2 + 0.05(u^2+v^2); log10 rates -0.6..0.2 for both, 400x400 map with EXP-028-style screening; period-2 continuation along the u-rate axis at 24 values of the v rate, bisection 1e-11
+- **Output:** `../neural-shrimp-data/explore/a3-uv-model`
+- **Would surprise us:** Not expected either way: a 2-D gradient map can lose the 2-cycle by flip, fold or Neimark-Sacker
+- **Command:** `.venv/bin/python tools/explore_a3_uv_model.py`
+
+_commit `64cc016cf75c` (dirty worktree)_
+
+## 2026-10-07 20:57 UTC: run (exploratory)
+
+- **Question:** Reproduce the well-ordering result with committed code, and classify the 61 confirmed windows: which are Birkhoff circle orbits with rotation m/q?
+- **Setup:** All verified EXP-028 certificates with period >= 3; two-step points for even periods; principal-plane angles; rigid-shift test with gcd(m, q) = 1; null from 10,000 uniform random angle sets per point count (seed 20261007)
+- **Output:** `../neural-shrimp-data/explore/a3-well-ordering/well-ordering.json`
+- **Would surprise us:** Committed code not reproducing 65 of 115; confirmed windows not more often well-ordered than other certified orbits
+- **Command:** `.venv/bin/python tools/explore_a3_well_ordering.py`
+
+_commit `7c7dabcbeb29` (dirty worktree)_
+
+- run started 2026-10-07 20:57 UTC finished 20:57 UTC with exit status 0
+
+## 2026-10-07 20:58 UTC: run (exploratory)
+
+- **Question:** With curve (tour) ordering and period-doubled levels, how many confirmed windows are Birkhoff orbits of an m/q tongue, against a multiplicity-corrected null?
+- **Setup:** Same certificates; tests on the plane and tour orders at levels k = 0..3 (points of F^(2^(k+1))); only tests on at least 5 points count; null = sum of per-test random-angle pass rates, capped at 1 per orbit
+- **Output:** `../neural-shrimp-data/explore/a3-well-ordering/well-ordering.json`
+- **Would surprise us:** Refinements raising the pass count no more than the null expectation rises
+- **Command:** `.venv/bin/python tools/explore_a3_well_ordering.py --refined`
+
+_commit `9a48cc25e8ee` (dirty worktree)_
+
+- run started 2026-10-07 20:58 UTC finished 20:58 UTC with exit status 0
+
+## 2026-10-07 20:59 UTC: A3 exploratory: 35 of 56 testable confirmed windows are Birkhoff orbits of m/q tongues (null 3.6)
+
+Committed code (tools/explore_a3_well_ordering.py) reproduces the earlier inline result: 65/115 certified orbits with at least 5 points well-ordered in the principal plane (random-angle null expectation 1.56); confirmed windows 31/61 (null 4.92; orbits of 2 or 3 points pass trivially and are not counted as evidence). With curve (tour) ordering and period-doubled levels (points of F^(2^(k+1))), 35 of the 56 confirmed windows having a test on at least 5 points pass, against a multiplicity-corrected null expectation of 3.58 (all certified: 78/115 vs 7.43). Period doubling inside tongues is directly visible: six period-20 S1R-28001-zoom windows are well-ordered at the four-step level with rotation 2/5 (= 2 x 1/5), and a period-44 window gives 4/11 (= 2 x 2/11). Unexplained: all 5 odd-period windows (S2: periods 5, 11, 13, 17, 29) and about 16 even windows (S1R periods 34-58, S2 periods 16-50). Caveat: the base rotation of a doubled orbit should also be checked against an adjacent locked window of base period; principal-plane and tour orders are both projections of a curve in 13 or 72 dimensions.
+
+_commit `9a48cc25e8ee` (dirty worktree)_
