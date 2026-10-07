@@ -880,3 +880,29 @@ _commit `a33c0cf589b4` (dirty worktree)_
 - run started 2026-10-07 22:50 UTC finished 22:51 UTC with exit status 0
 
 - run started 2026-10-07 22:50 UTC finished 22:51 UTC with exit status 0
+
+## 2026-10-07 22:53 UTC: run (exploratory)
+
+- **Question:** POST HOC descent for the 2/9 case: where does window S2-28011-zoom:587's own locked interval meet the Neimark-Sacker curve, and what is the birth rotation there?
+- **Setup:** Start at the window's certified period-18 orbit; steps up to 0.01 decades towards the curve (initially -log10 hidden), both fold edges re-measured (s_max 0.1) and re-centred each step; stop 1e-4 above the merged curve; 60-minute budget
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/descend-2-9/descend.json`
+- **Would surprise us:** Foot of the tracked line far from the 2/9 roots (birth rotation not near 2/9)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py descend --name descend-2-9 --map-id S2-28011-zoom --component 587 --period 18`
+
+_commit `7e1486eaaef9` (dirty worktree)_
+
+## 2026-10-07 22:53 UTC: run (exploratory)
+
+- **Question:** POST HOC descent for the 1/5 window: where does S2-28011:139's own locked interval meet the Neimark-Sacker curve, and what is the birth rotation there? (does not change the frozen 1/5 outcome)
+- **Setup:** Start at the window's certified period-10 orbit; steps up to 0.01 decades towards the curve, both fold edges re-measured (s_max 0.1) and re-centred each step; stop 1e-4 above the merged curve; 60-minute budget
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/descend-1-5/descend.json`
+- **Would surprise us:** Foot of the tracked line far from both 1/5 roots
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py descend --name descend-1-5 --map-id S2-28011 --component 139 --period 10`
+
+_commit `7e1486eaaef9` (dirty worktree)_
+
+## 2026-10-07 22:53 UTC: 2/9 separate case: roots pass onset; no locked period-18 cell at the top level (no_qualifying_window for both roots); post-hoc descents started
+
+Root A (1.7447484, -0.0769309), birth 0.22222222: complex pair, others inside, transverse, radius exponent 0.506, invariance converges, intercept minus birth 5.4e-6 (slope -0.19). Root B (1.7369136, -0.0680920), birth 0.22222221: complex pair, others inside, transverse, exponent 0.640; criteria (2)-(3) failed as specified, but the check was invalid: at its prespecified comparison point (output -0.0981, across the curve's maximum) the root's normal points into the stable period-2 region (measured circle radius 0, rotation meaningless); comparison checks should use the comparison point's own normal. Levels (period 18, 0.0128/4^k): 0 of 601 cells locked on the top cross-section at either root (no_qualifying_window), consistent with q = 9 tongues narrowing like delta^3.5 below the scan spacing. Full test suite on this branch: 2,217 passed, 2 skipped, 2 failed (signal-timing tests in test_two_write_runtime.py, which pass alone; machine busy with concurrent suites from other sessions). Post hoc: descents from windows zoom:587 (2/9) and 139 (1/5) along their own fold-bounded intervals towards the curve are running.
+
+_commit `7e1486eaaef9` (dirty worktree)_
