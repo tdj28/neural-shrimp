@@ -396,3 +396,35 @@ _commit `814224e3eed8` (dirty worktree)_
 160 cells, log10 hidden 1.00-1.45 at output 0.9413 (reduced profile): period-2 49 (to 1.119, plus a coexisting period-2 branch at 1.187-1.200), quasi-periodic 31, locked 19 (1/9, 2/17, 1/8, 3/23, 2/15; 19/19 with period 2q x 2^k), chaotic 59 (from 1.255), irregular 2. Medians (log10) of function disagreement at 40k steps from 1e-8 initial perturbations: period-2 -15.4, quasi-periodic -6.25 (slope 0.98), locked -14.0 bimodal (9/19 cells with phase slips; their transient amplification is 10^11.9 in 2k steps vs 10^1.0 without slips), chaotic -0.45. Stopping-time spread -5.04 / -3.17 / -3.09 / -2.36; loss line fraction 1.0 / 0.98 / 0.96 / 0.39; loss peak equals rotation number in 31/31 quasi-periodic and 19/19 locked cells. Rule flaw found: the quasi-periodic rule bounds FTLE only from above, so 12 cells with clearly negative FTLE (down to -0.009; rotation near 0.115, likely locked orbits with period above the 64-step screen) carry the quasi-periodic label; the pre-specified exclusion check was run. Nested models: n = 160 (6 CV blocks) gives degenerate bootstrap intervals; point estimates of delta R2 range -0.08 to +0.07 for reproducibility, stopping-time and loss outcomes, i.e. no evidence that rotation/locking adds value beyond FTLE classes, sharpness, rate and amplitude.
 
 _commit `b3fc42abda51` (dirty worktree)_
+
+- run started 2026-10-07 21:44 UTC finished 21:52 UTC with exit status 0
+
+## 2026-10-07 21:53 UTC: run (exploratory)
+
+- **Question:** Pooled S2 analysis: with two slices whose rotation-rate relations differ (output -0.0856 and -0.30), do rotation and locking features add predictive value beyond FTLE classes, sharpness, rate, amplitude and slice intercepts?
+- **Setup:** tools/analyze_consequence.py --pool on s2-28011-out-0.0856 and s2-28011-out-0.30 (Neimark-Sacker points 1.738439 and 1.6854 interpolated from the traced curve); 300 block-bootstrap draws; CV blocks within slices
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/analysis-s2-pooled.json`
+- **Would surprise us:** Pooled delta R2 intervals clearly above zero for any magnitude outcome
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/analyze_consequence.py s2-28011-out-0.0856 s2-28011-out-0.30 --ns 1.738439 1.6854 --pool --report analysis-s2-pooled.json --draws 300`
+
+_commit `e9cb2cffe905` (dirty worktree)_
+
+- run started 2026-10-07 21:53 UTC finished 21:55 UTC with exit status 0
+
+## 2026-10-07 21:56 UTC: run (exploratory)
+
+- **Question:** Pooled S2 robustness (adapted after seeing the first pooled fit, where rotation features gained delta R2 0.03-0.15 with intervals above zero): do the gains survive slice-specific slopes for rate, amplitude and sharpness, and a transient-amplification covariate for reproducibility?
+- **Setup:** tools/analyze_consequence.py --pool on the two S2 slices, variants beyond_eos_slice_slopes and beyond_eos_slice_slopes_transient; 300 draws
+- **Output:** `/data2/neural-shrimp-data/explore/consequence/analysis-s2-pooled-robust.json`
+- **Would surprise us:** Gains surviving both checks with intervals above zero
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/analyze_consequence.py s2-28011-out-0.0856 s2-28011-out-0.30 --ns 1.738439 1.6854 --pool --report analysis-s2-pooled-robust.json --draws 300`
+
+_commit `36814781fc5a` (dirty worktree)_
+
+- run started 2026-10-07 21:56 UTC finished 21:58 UTC with exit status 0
+
+## 2026-10-07 21:59 UTC: A3b exploratory: second S2 slice and pooled models — rotation/locking adds little beyond generic features; two locking effects survive robustness checks
+
+S2-28011 at output -0.30 (600 cells, 1.58-2.05): period-2 132 (to 1.6828; traced Neimark-Sacker 1.6854), quasi-periodic 33 (narrow band from 1.684, rotation from about 0.170), locked 75 (1/5, 1/6, 2/13, 1/7, 3/20, 1/10, 1/11, 1/12, 1/18, 1/20; 75/75 with period 2q x 2^k; loss peak equals rotation in 69/75 locked and 33/33 quasi-periodic cells), other periodic 19, chaotic 338. Here most locked windows sit inside chaos and slip phases (median disagreement -1.0). Pooling both S2 slices (n = 1,329) with slice intercepts gave delta R2 +0.03 to +0.15 with intervals above zero for several outcomes; after adding slice-specific slopes for rate, amplitude and sharpness (robustness check added after seeing that fit) and transient amplification for reproducibility, the gains vanish or become negligible for disagreement at 40k (+0.008 [-0.002, +0.024]), disagreement after anneal (+0.002 [-0.004, +0.018]), training and held-out losses (<= +0.008, R2 already 0.97-0.996) and annealed losses (+0.012 to +0.034, intervals spanning zero). Two gains survive: the shape of the reproducibility dose-response (slope of final disagreement vs perturbation size, +0.18 [+0.07, +0.36]; locked partial r +0.44), reflecting perturbation-size thresholds for phase slips in windows embedded in chaos, and stopping-time spread (+0.047 [+0.011, +0.099]; locked partial r +0.48), reflecting finite phase sets of locked attractors. Both are locking/discreteness effects, partly confounded with distance to chaos, not rotation-number effects; exploratory.
+
+_commit `36814781fc5a` (dirty worktree)_
