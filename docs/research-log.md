@@ -388,3 +388,29 @@ _commit `63cfde7454b8` (dirty worktree)_
 Same 2,224 sampled S2 cells, orbit-point starts with 80,000 updates: period p recovered in 1,289 (58.0%), against 987 (44.4%) with 20,000 updates and 1,214 (54.6%) for 80,000 updates from the shared start. So the earlier S2 orbit-start deficit was mostly the shorter horizon: S2 speckle is dominated by long chaotic transients (about 42% of sampled cells are still not period p after 80,000 updates from either start). Window-specific exceptions remain where the window-center orbit point rarely returns period p but the shared start does (zoom:230 1/120 vs 83/120; zoom:363 14 vs 88; zoom:455 18 vs 98; zoom:587 5/32; zoom:411 4/95), consistent with the center orbit point lying outside the basin of the continued orbit at distant cells. The pre-stated surprise (orbit starts under half) did not occur overall but did for these windows. Conclusion for figures and criteria: fixed-start 20,000-update maps understate S2 windows (transients) and S1R windows (coexistence); orbit-following maps from continued orbits are needed for boundary figures.
 
 _commit `797b62a677ec`_
+
+- run started 2026-10-07 20:52 UTC finished 21:43 UTC with exit status 0
+
+## 2026-10-07 21:43 UTC: run (exploratory)
+
+- **Question:** Analyze the 256x256 S2-28011 rotation map: continuity with the Neimark-Sacker birth angle and m/q locking of even-period cells
+- **Setup:** tools/analyze_a3_rotation_map.py on a3-rotation-map/s2-28011 with the traced curve a3-ns-curve/s2-28011; offsets 0.004, 0.008, 0.016 in log10 hidden beyond the curve; FTLE threshold 5e-3
+- **Output:** `../neural-shrimp-data/explore/a3-rotation-map/s2-28011/analysis.json`
+- **Would surprise us:** Median |rho - birth angle| above 0.01 at the smallest offset; fewer than 80% of even-period cells locked at m/q with q = period/2
+- **Command:** `.venv/bin/python tools/analyze_a3_rotation_map.py --map ../neural-shrimp-data/explore/a3-rotation-map/s2-28011/rotation.npz --ns ../neural-shrimp-data/explore/a3-ns-curve/s2-28011/ns-curve.json --out ../neural-shrimp-data/explore/a3-rotation-map/s2-28011`
+
+_commit `753a7e6ce578` (dirty worktree)_
+
+- run started 2026-10-07 21:43 UTC finished 21:43 UTC with exit status 0
+
+## 2026-10-07 21:44 UTC: run (exploratory)
+
+- **Question:** Rerun the locking test with the corrected tolerance and known-period denominators
+- **Setup:** Same 256x256 map and curve; tolerance 1/samples; q = p/2 or p/2^(k+1)
+- **Output:** `../neural-shrimp-data/explore/a3-rotation-map/s2-28011/analysis.json`
+- **Would surprise us:** Fewer than 80% of even-period cells locked at m/q (directly or period-doubled)
+- **Command:** `.venv/bin/python tools/analyze_a3_rotation_map.py --map ../neural-shrimp-data/explore/a3-rotation-map/s2-28011/rotation.npz --ns ../neural-shrimp-data/explore/a3-ns-curve/s2-28011/ns-curve.json --out ../neural-shrimp-data/explore/a3-rotation-map/s2-28011`
+
+_commit `208f8bd1829e` (dirty worktree)_
+
+- run started 2026-10-07 21:44 UTC finished 21:44 UTC with exit status 0
