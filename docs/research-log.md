@@ -1262,3 +1262,11 @@ _commit `918857ab44a7` (dirty worktree)_
 Steep right branch of the S2-28011 curve, starts at log10 hidden 1.50: d = +0.2005 at output +0.0289, +0.0297 at +0.0447, and -0.6128 at +0.0605. With the main run, the sign of d alternates along the W-shaped curve: positive for output up to -0.4215, negative from -0.4121 to -0.0026, positive from +0.0132 to +0.0447, negative at +0.0605, giving three generalized Neimark-Sacker or Chenciner points near -0.417, +0.005 and +0.05. Map check (tools/analyze_criticality.py boundary): from -0.034 to +0.06 the fixed-start map is divergent on both sides of the curve, including just below it, where the period-2 orbit is stable, so on that arc the divergence of training from the shared initialization is a basin or transient effect, not the bifurcation. The hypothesis that the trainability boundary coincides with the Neimark-Sacker curve on the hard arc is not supported; from -0.10 to -0.046 divergence starts 98 to 737 cells above the curve.
 
 _commit `e1e1bbde85e0` (dirty worktree)_
+
+- run started 2026-10-07 23:15 UTC finished 23:15 UTC with exit status 0
+
+## 2026-10-07 23:16 UTC: Criticality exploratory: S1R-28002 Neimark-Sacker edges are mostly supercritical
+
+On main's S1R-28002 trace, 16 points from log10 output 0.5757 to 1.1414, d is negative at 15 points, -0.064 to -1.57, and positive at 1.1414, +0.0375, a point with birth rotation 0.043 unlike the 0.12 to 0.13 of the main arc. At 0.5757 the re-found boundary, hidden 1.1309 with rotation 0.074, differs from the trace's 1.1005 with 0.0175, so that trace point likely started near another crossing. Eigen-gaps 0.27 to 0.40; the step-size check agrees to all printed digits. Both edge types therefore occur in both networks, with the soft type dominant on the main arcs.
+
+_commit `2c452c5aeb13` (dirty worktree)_
