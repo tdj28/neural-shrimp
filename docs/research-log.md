@@ -1604,3 +1604,9 @@ Corrected run, distances relative to the Newton-refined 2-cycle at each offset. 
 _commit `2db19d3d7c7a` (dirty worktree)_
 
 - run started 2026-10-07 23:12 UTC finished 23:22 UTC with exit status 0
+
+## 2026-10-07 23:26 UTC: Correction and adjudication: criticality of the S2 Neimark-Sacker curve; the 'hard arc' of the maps was a basin effect
+
+The criticality stream (docs/explore-criticality-2026-10-07.md; Kuznetsov first Lyapunov coefficient d, validated against the planar formula to 1e-10 and against measured circle amplitudes within 1%) finds d < 0 (supercritical, soft) from log10 output -0.412 to -0.003 and at +0.061, d > 0 (subcritical, hard) for output <= -0.42 and +0.013 to +0.045, with three sign changes (Chenciner points) near -0.417, +0.005 and +0.05 (to trace spacing). Dynamical checks agree with sign(d) at all 8 points: d < 0 gives small attracting circles with amplitude sqrt(ln|mu| / -d) within 1%; d > 0 gives a jump to a distant state, escape thresholds shrinking like sqrt(offset) (repelling circle) and hysteresis. CORRECTION to the earlier note 'soft and hard edges': the divergent arc of the fixed-start maps (output >= -0.034) is not the bifurcation. There d is negative at -0.034 and -0.018, and the shared start diverges on both sides of the curve, so it never reaches the 2-cycle; the hypothesis that the trainability boundary coincides with the Neimark-Sacker curve on that arc is refuted. S1R: d < 0 at 15 of 16 points (exception on the slow branch). Ready to freeze as a local prediction on fresh losses (sign of d predicts circle amplitude or jump with sqrt-offset escape thresholds and hysteresis), not as a claim about fixed-start trainability maps.
+
+_commit `17dfe745305a` (dirty worktree)_
