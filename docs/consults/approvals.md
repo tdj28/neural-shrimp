@@ -42,3 +42,15 @@ skill, section 7A). Costs are recorded cumulatively below.
 | Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
 |---|---|---|---|---|
 | (3) references (Pro, xhigh effort, 34k output) | $5.00 | $4.96 | $2.24 (64,080 in / 32,023 out tokens) | $5.37 |
+
+## 2026-10-07: RunPod Phase 0 approved
+
+- **Approval (human, in session, 7 October 2026):** "you have go on runpods",
+  in reply to the request for Phase 0 at most $5 within the program frame
+  (hard ceiling $150, check-in $75) recommended by the roadmap review.
+- **Scope:** Phase 0 only (port the CUDA engine to sm_90, parity check against
+  the CPU reference, timing of the real workloads); Phase 1 returns to the
+  human with measured costs after the design freeze.
+- **Pre-existing account resources (read-only inventory, not task-owned):**
+  pods 767stlaueznwa1, hka0rcggikum2v, kacmfssaowcoyl, y4hlqwlhb1nq31 at
+  launch-time check; never touched.
