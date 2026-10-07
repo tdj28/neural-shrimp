@@ -1,0 +1,89 @@
+{
+ "figure": "f6_route_portraits",
+ "evidence_label": "exploratory",
+ "alt_text": "Four phase portraits of full-batch training of the 13-parameter network along one learning-rate slice, each showing every second parameter vector projected on its own two principal axes. A: period 2 near onset (rotation of the decaying spiral 0.2178); B: a closed invariant curve (quasi-periodic, rotation 0.2159, FTLE 0.0001); C: nine points on the circle (locked at 2/9, period 18); D: a thickened, broken circle (chaotic, FTLE 0.0504).",
+ "notes": "Panel A uses updates 2,000 to 20,000 (the transient spiral); B to D use the last 8,000 updates.",
+ "script": "paper/gd-route/figures/f6_route_portraits.py",
+ "script_sha256": "bfac3ef8062959d6df221af30f559e8267bd2c82e4dccab8ff16f0d538f0ac85",
+ "git_commit_at_generation": "f0ae8272b59d802cefda8fc981e23b7ace050f2e",
+ "worktree_dirty_at_generation": true,
+ "generated_utc": "2026-10-07T21:33:38Z",
+ "python": "3.12.14",
+ "numpy": "2.5.3",
+ "matplotlib": "3.11.1",
+ "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+ "inputs": [
+  {
+   "path": "/data2/neural-shrimp-data/explore/a3-staircase/s2-28011-out-0.0856/staircase.json",
+   "sha256": "5ab8f07cb2b29dfec444b6f922e0fa84241960a0be6be492dce73f177ad3d400",
+   "bytes": 358638
+  },
+  {
+   "path": "/data2/neural-shrimp/.claude/worktrees/agent-afa4e49158d6d67ae/src/neural_shrimp/gdmaps.py",
+   "sha256": "18547b976224ad20f7a811245a4398c94e63f8a8bc6d0eada74217c98c9ff777",
+   "bytes": 24961
+  },
+  {
+   "path": "/data2/neural-shrimp/.claude/worktrees/agent-afa4e49158d6d67ae/src/neural_shrimp/trainability.py",
+   "sha256": "719c2fe95563416f778169d0d621f19cf39e6ff446a4a329a0cb6e2f7cdf179f",
+   "bytes": 9642
+  },
+  {
+   "path": "/data2/neural-shrimp/.claude/worktrees/agent-afa4e49158d6d67ae/src/neural_shrimp/models.py",
+   "sha256": "48768aceb5ab9bb1f568c153209b0a40c11657ee0b86d0eac76c1f6098759897",
+   "bytes": 8383
+  }
+ ],
+ "derived": {
+  "A": {
+   "log10_hidden": 1.7374687343671835,
+   "log10_output": -0.08562528015073712,
+   "status": 2,
+   "period": 2,
+   "rho": 0.2178424063548629,
+   "ftle": -0.000248301962639858,
+   "planar_variance_share": 0.9999996278939793,
+   "samples": 9000
+  },
+  "B": {
+   "log10_hidden": 1.7810655327663831,
+   "log10_output": -0.08562528015073712,
+   "status": 5,
+   "period": 0,
+   "rho": 0.21586047522053695,
+   "ftle": 8.033275306019504e-05,
+   "planar_variance_share": 0.9915955249882563,
+   "samples": 4000
+  },
+  "C": {
+   "log10_hidden": 1.8563531765882941,
+   "log10_output": -0.08562528015073712,
+   "status": 2,
+   "period": 18,
+   "rho": 0.22218908943337531,
+   "ftle": -0.007249886225589391,
+   "planar_variance_share": 0.9706364938571523,
+   "samples": 4000
+  },
+  "D": {
+   "log10_hidden": 1.8941720860430213,
+   "log10_output": -0.08562528015073712,
+   "status": 3,
+   "period": 0,
+   "rho": 0.2297817512807663,
+   "ftle": 0.05036818905226751,
+   "planar_variance_share": 0.9600840318062962,
+   "samples": 4000
+  }
+ },
+ "accessibility": {
+  "color_only_channel": false,
+  "note": "boundary types also differ by marker shape; classes and series are labeled"
+ },
+ "outputs": {
+  "pdf": "f6_route_portraits.pdf",
+  "pdf_sha256": "3f9f2b64f75e99137b4ce1c922e4420dfe1475b5a94bb47ef6d7e6eec58781e4",
+  "png": "f6_route_portraits.png",
+  "png_sha256": "ac98354f73b1131a8693a7b82f18fe096539e8d293e309e8c543f3e3c6da351d"
+ }
+}
