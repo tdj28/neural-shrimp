@@ -437,3 +437,57 @@ _commit `012bc873cc8e`_
 1/5 (period 10): locked cells 3.2 map cells from both predicted roots (random curve points: median 31-33 cells, one-sided p about 0.045 each); 2/11 (period 22): 2.1 cells from the right-branch root (p = 0.007) but 131.5 cells from the left-branch root (p = 0.64); 2/9 (period 18; only the left-branch root lies in the traced range) 217 cells (p = 0.90); 3/13 (2 locked cells) 224 cells (p = 0.94). Two limitations explain the misses without testing the hypothesis: tongues narrow like distance^((q-2)/2) toward their roots, so 256x256 cannot resolve tips of q >= 9 tongues; and the traced curve ends at log10 output -0.08, before the right-branch 2/9 root (birth rotation 0.2211 at the trace end), where the known 2/9 window's tongue should start. Next: extend the curve trace and map high-resolution zooms around each predicted root on the GPU.
 
 _commit `012bc873cc8e` (dirty worktree)_
+
+## 2026-10-07 22:01 UTC: run (exploratory)
+
+- **Question:** Extend the Neimark-Sacker curve of the period-2 orbit along the right branch (S2-28011) to locate the 2/9 and 1/4 roots
+- **Setup:** start log10 hidden 1.65, 30 output rates log10 -0.08..0.25, continuation to stability loss, bisection 1e-10, 6 workers
+- **Output:** `../neural-shrimp-data/explore/a3-ns-curve/s2-28011-right`
+- **Would surprise us:** The right branch turning back or ending in a flip/fold before the birth rotation reaches 2/9
+- **Command:** `.venv/bin/python tools/explore_a3_ns_curve.py --system S2 --seed 28011 --start 1.65 --output -0.08 0.25 --count 30 --workers 6 --out ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-right`
+
+_commit `b7b4a941f91c`_
+
+- run started 2026-10-07 22:01 UTC finished 22:01 UTC with exit status 0
+
+## 2026-10-07 22:01 UTC: run (exploratory)
+
+- **Question:** Continue the right branch of the Neimark-Sacker curve beyond log10 output -0.035 from a lower start (hidden 1.58)
+- **Setup:** S2-28011, start log10 hidden 1.58, 20 output rates log10 -0.05..0.25, bisection 1e-10, 6 workers
+- **Output:** `../neural-shrimp-data/explore/a3-ns-curve/s2-28011-right-1.58`
+- **Would surprise us:** No period-2 start found at this hidden rate
+- **Command:** `.venv/bin/python tools/explore_a3_ns_curve.py --system S2 --seed 28011 --start 1.58 --output -0.05 0.25 --count 20 --workers 6 --out ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-right-1.58`
+
+_commit `b7b4a941f91c` (dirty worktree)_
+
+- run started 2026-10-07 22:01 UTC finished 22:01 UTC with exit status 0
+
+## 2026-10-07 22:01 UTC: run (exploratory)
+
+- **Question:** Continue the right branch of the Neimark-Sacker curve beyond log10 output -0.035 from a lower start (hidden 1.50)
+- **Setup:** S2-28011, start log10 hidden 1.50, 20 output rates log10 -0.05..0.25, bisection 1e-10, 6 workers
+- **Output:** `../neural-shrimp-data/explore/a3-ns-curve/s2-28011-right-1.50`
+- **Would surprise us:** No period-2 start found at this hidden rate
+- **Command:** `.venv/bin/python tools/explore_a3_ns_curve.py --system S2 --seed 28011 --start 1.50 --output -0.05 0.25 --count 20 --workers 6 --out ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-right-1.50`
+
+_commit `b7b4a941f91c` (dirty worktree)_
+
+- run started 2026-10-07 22:01 UTC finished 22:01 UTC with exit status 0
+
+## 2026-10-07 22:02 UTC: run (exploratory)
+
+- **Question:** Densify the Neimark-Sacker curve around its local maximum of birth rotation (log10 output about -0.07) to locate the 2/9 roots relative to the known 2/9 window
+- **Setup:** S2-28011, start hidden 1.65, 24 output rates log10 -0.095..-0.050, bisection 1e-10
+- **Output:** `../neural-shrimp-data/explore/a3-ns-curve/s2-28011-max`
+- **Would surprise us:** Birth rotation never reaching 2/9 near the maximum
+- **Command:** `.venv/bin/python tools/explore_a3_ns_curve.py --system S2 --seed 28011 --start 1.65 --output -0.095 -0.050 --count 24 --workers 6 --out ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-max`
+
+_commit `b7b4a941f91c` (dirty worktree)_
+
+- run started 2026-10-07 22:02 UTC finished 22:02 UTC with exit status 0
+
+## 2026-10-07 22:02 UTC: A3 exploratory: the Neimark-Sacker curve is W-shaped; birth-rotation extrema sit just beyond 2/9 and 1/6, next to the largest windows
+
+Extending the S2-28011 trace (start hidden 1.65, 1.58 and 1.50): after the left U (minimum hidden 1.650 near log10 output -0.18; birth rotation minimum 0.16699 near -0.25), the curve rises to a local maximum of birth rotation 0.22281 near output -0.0726 (hidden 1.744), dips to hidden 1.652 and birth 0.2104 near -0.003, then climbs steeply (output 0.06: hidden 1.881, birth 0.2987); for output above 0.076 the start diverges. All boundaries are Neimark-Sacker. Birth rotation exceeds 2/9 only for output -0.0772 to -0.0679, giving two 2/9 roots 0.009 apart just right of the wide 2/9 window (center column -0.0856, hidden 1.833-1.879); its minimum on the left U (0.16699) lies just above 1/6, near which period-12 (1/6) cells are abundant (1,151 in the 256x256 map) and window S2-28011:209 is 1/6. Speculative mechanism for the prominence of these windows: a near-tangency of the birth rotation with a low-order rational (pairs of nearby roots, possibly merging tongues). Test planned: GPU rotation zoom from the 2/9 roots up to the window.
+
+_commit `b7b4a941f91c` (dirty worktree)_
