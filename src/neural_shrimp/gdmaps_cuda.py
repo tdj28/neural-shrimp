@@ -32,8 +32,8 @@ import time
 import numpy as np
 
 from .gdmaps import (
-    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC, STATUS_UNRESOLVED,
-    GridMap, TwoLayerNet, iterate_and_screen, screen_tails, sohl_dickstein_measure,
+    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_DRIFT, STATUS_FIXED, STATUS_PERIODIC,
+    STATUS_UNRESOLVED, GridMap, TwoLayerNet, iterate_and_screen, screen_tails, sohl_dickstein_measure,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -86,7 +86,7 @@ class _Config(ctypes.Structure):
 
 class _Schedule(ctypes.Structure):
     _fields_ = ([(name, ctypes.c_int64) for name in (
-        "ftle_start", "ftle_log_start", "tail_start", "sd_max")]
+        "ftle_start", "ftle_log_start", "tail_start", "sd_max", "norm_start")]
         + [("divergence_threshold", ctypes.c_double)])
 
 
@@ -198,7 +198,7 @@ def _resolve_options(steps, options):
                  "screen_batch"):
         opts[name] = operator.index(opts[name])
     opts["sd_horizons"] = tuple(operator.index(h) for h in opts["sd_horizons"])
-    for name in ("atol", "rtol", "chaos_threshold", "divergence_threshold"):
+    for name in ("atol", "rtol", "chaos_threshold", "divergence_threshold", "drift_threshold"):
         opts[name] = float(opts[name])
     # The same checks as iterate_and_screen, in the same order ...
     if min(opts["tail_steps"], opts["ftle_steps"]) < 1 or opts["ftle_align"] < 0:
@@ -285,10 +285,14 @@ class GdmapCuda:
             "gdmap_cuda_screen": ([vp, ctypes.c_int64, ctypes.c_int64, ctypes.c_int64,
                                    ctypes.c_double, ctypes.c_double, lp, dp, dp] + err,
                                   ctypes.c_int),
-            "gdmap_cuda_fetch": ([vp, dp, ip, lp, ip, dp, dp, dp, dp, lp, dp] + err, ctypes.c_int),
+            "gdmap_cuda_fetch": ([vp, dp, ip, lp, ip, dp, dp, dp, dp, lp, dp, dp] + err,
+                                 ctypes.c_int),
             "gdmap_cuda_evaluate": ([ctypes.POINTER(_Config), dp, dp, ctypes.c_int64, dp, dp, dp,
                                      dp, dp] + err, ctypes.c_int),
             "gdmap_cuda_math": ([ctypes.c_int, ctypes.c_int64, dp, dp] + err, ctypes.c_int),
+            "gdmap_cuda_screen_array": ([ctypes.c_int64, ctypes.c_int64, ctypes.c_int64, dp,
+                                         ctypes.c_int64, ctypes.c_int64, ctypes.c_double,
+                                         ctypes.c_double, lp, dp] + err, ctypes.c_int),
         }
         for name, (argtypes, restype) in signatures.items():
             function = getattr(lib, name)
@@ -331,6 +335,23 @@ class GdmapCuda:
         self._call("gdmap_cuda_math", which, len(values), _pointer(values, ctypes.c_double),
                    _pointer(out, ctypes.c_double))
         return out
+
+    def screen_tails(self, tail, max_period=64, min_repeats=6, atol=1e-8, rtol=1e-6, *, device=0):
+        """Device counterpart of :func:`neural_shrimp.gdmaps.screen_tails`."""
+        tail = np.asarray(tail, dtype=np.float64)
+        if tail.ndim != 3:
+            raise ValueError("tail must have shape (cells, steps, parameters)")
+        if max_period < 1 or min_repeats < 2 or atol <= 0 or rtol < 0:
+            raise ValueError("invalid recurrence settings")
+        cells, steps, p = tail.shape
+        soa = np.ascontiguousarray(tail.transpose(1, 2, 0))
+        period = np.empty(cells, dtype=np.longlong)
+        residual = np.empty(cells)
+        self.device_info(device)
+        self._call("gdmap_cuda_screen_array", cells, steps, p, _pointer(soa, ctypes.c_double),
+                   int(max_period), int(min_repeats), float(atol), float(rtol),
+                   _pointer(period, ctypes.c_longlong), _pointer(residual, ctypes.c_double))
+        return period.astype(np.int64), residual
 
     def evaluate(self, net, x, y, theta, vectors=None, *, device=0,
                  max_device_bytes=DEFAULT_MAX_DEVICE_BYTES):
@@ -393,7 +414,7 @@ class GdmapCuda:
         ftle_start = steps - ftle_steps - ftle_align
         tail_start = steps - tail_steps
         schedule = _Schedule(ftle_start=ftle_start, ftle_log_start=ftle_start + ftle_align,
-                             tail_start=tail_start, sd_max=sd_max,
+                             tail_start=tail_start, sd_max=sd_max, norm_start=steps - ftle_steps,
                              divergence_threshold=opts["divergence_threshold"])
         info = self.device_info(device)
         if (info["major"], info["minor"]) != (8, 9):
@@ -430,6 +451,7 @@ class GdmapCuda:
         last_loss = np.zeros(cells)
         tail_loss_sum = np.zeros(cells)
         tail_loss_count = np.zeros(cells, dtype=np.int64)
+        window_norm = np.zeros(cells)
         theta = np.empty((cells, p))
         period = np.empty(cells, dtype=np.int64)
         residual = np.empty(cells)
@@ -537,13 +559,14 @@ class GdmapCuda:
                 out_last = np.empty(capacity)
                 out_tsum = np.empty(capacity)
                 out_tcount = np.empty(capacity, dtype=np.longlong)
+                out_wnorm = np.empty(capacity)
                 out_early = np.empty((max(sd_max, 1), capacity))
                 self._call("gdmap_cuda_fetch", handle, _pointer(out_theta, ctypes.c_double),
                            _pointer(out_alive, ctypes.c_int), _pointer(out_diverged, ctypes.c_longlong),
                            _pointer(out_ftle_ok, ctypes.c_int), _pointer(out_log, ctypes.c_double),
                            _pointer(out_min, ctypes.c_double), _pointer(out_last, ctypes.c_double),
                            _pointer(out_tsum, ctypes.c_double), _pointer(out_tcount, ctypes.c_longlong),
-                           _pointer(out_early, ctypes.c_double))
+                           _pointer(out_wnorm, ctypes.c_double), _pointer(out_early, ctypes.c_double))
                 transfer_seconds += time.monotonic() - started
                 theta[lo:hi] = out_theta[:, :m].T
                 alive[lo:hi] = out_alive[:m] != 0
@@ -554,6 +577,7 @@ class GdmapCuda:
                 last_loss[lo:hi] = out_last[:m]
                 tail_loss_sum[lo:hi] = out_tsum[:m]
                 tail_loss_count[lo:hi] = out_tcount[:m]
+                window_norm[lo:hi] = out_wnorm[:m]
                 if sd_max:
                     for horizon, (convergent, score) in chunk_sd_measures(
                             out_early[:sd_max, :m], cells, sd_horizons).items():
@@ -568,12 +592,18 @@ class GdmapCuda:
         status[alive & (period == 1)] = STATUS_FIXED
         status[alive & (period >= 2)] = STATUS_PERIODIC
         status[alive & (period == 0) & (ftle > opts["chaos_threshold"])] = STATUS_CHAOTIC
+        with np.errstate(invalid="ignore", divide="ignore"):
+            growth = np.linalg.norm(theta, axis=1) / window_norm - 1.0
+        drift = (alive & (status == STATUS_UNRESOLVED) & np.isfinite(growth)
+                 & (growth > opts["drift_threshold"]))
+        status[drift] = STATUS_DRIFT
         result = {
             "status": status, "period": np.where(alive, period, -1),
             "recurrence_residual": residual, "ftle": ftle, "ftle_valid": alive & ftle_valid,
             "diverged_at": diverged_at, "final_state": theta,
+            "window_norm_growth": np.where(alive, growth, np.nan),
             "min_loss": np.where(np.isfinite(min_loss), min_loss, np.nan),
-            "final_loss": np.where(alive, last_loss, np.nan),
+            "last_evaluated_loss": np.where(alive, last_loss, np.nan),
             "tail_mean_loss": np.where(alive & (tail_loss_count == tail_steps),
                                        tail_loss_sum / np.maximum(tail_loss_count, 1), np.nan),
         }

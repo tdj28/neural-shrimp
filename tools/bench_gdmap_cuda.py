@@ -29,7 +29,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from neural_shrimp import gdmaps_cuda as gc  # noqa: E402
-from neural_shrimp.gdmaps import GridMap, TwoLayerNet, run_grid  # noqa: E402
+from neural_shrimp.gdmaps import STATUS_NAMES, GridMap, TwoLayerNet, run_grid  # noqa: E402
 
 NETS = {"s1": (8, 8, 99996), "w16": (16, 16, 99997)}
 PLAIN = dict(tail_steps=2, ftle_steps=1, ftle_align=0, sd_horizons=())
@@ -148,7 +148,8 @@ def main(argv=None):
         kernel_seconds=meta["kernel_seconds"], screen_seconds=meta["screen_seconds"],
         transfer_seconds=meta["transfer_seconds"], wall_seconds=meta["wall_seconds"],
         wall_us_per_cell_step=1e6 * meta["wall_seconds"] / (grid.cells * args.pipeline_steps),
-        tail_cells=meta["tail_cells"], status_counts=np.bincount(result["status"], minlength=5).tolist(),
+        tail_cells=meta["tail_cells"],
+        status_counts=np.bincount(result["status"], minlength=len(STATUS_NAMES)).tolist(),
         gpu_before=before, gpu_after=after))
     print(f"pipeline s1 {grid.cells} cells x {args.pipeline_steps} steps: wall {meta['wall_seconds']:.2f} s, "
           f"kernel {meta['kernel_seconds']:.2f} s, screen {meta['screen_seconds']:.2f} s")

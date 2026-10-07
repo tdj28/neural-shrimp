@@ -17,8 +17,9 @@ import pytest
 
 from neural_shrimp import gdmaps_cuda as gc
 from neural_shrimp.gdmaps import (
-    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_FIXED, STATUS_PERIODIC, GridMap, TwoLayerNet,
-    iterate_and_screen, run_grid, sohl_dickstein_measure,
+    STATUS_CHAOTIC, STATUS_DIVERGENT, STATUS_DRIFT, STATUS_FIXED, STATUS_PERIODIC,
+    STATUS_UNRESOLVED, GridMap, TwoLayerNet, iterate_and_screen, run_grid, screen_tails,
+    sohl_dickstein_measure,
 )
 from neural_shrimp.models import TanhRegressor, make_teacher_regression
 
@@ -241,7 +242,7 @@ def test_one_step_map_and_tangent_match_cpu(cuda):
     gpu = cuda.run_grid(grid, theta0, 1, **opts)
     assert _relative(gpu["final_state"], cpu["final_state"]) < 1e-14
     np.testing.assert_allclose(gpu["ftle"], cpu["ftle"], rtol=1e-12, atol=1e-15)
-    np.testing.assert_allclose(gpu["final_loss"], cpu["final_loss"], rtol=1e-14, atol=0)
+    np.testing.assert_allclose(gpu["last_evaluated_loss"], cpu["last_evaluated_loss"], rtol=1e-14, atol=0)
 
 
 def test_device_iteration_equals_evaluate_plus_host_update(cuda):
@@ -333,10 +334,49 @@ def test_sohl_dickstein_measures_agree(s1_runs, s2_runs, capsys):
                 print(f"\n{name}: sd_score_{horizon} relative difference median "
                       f"{np.median(relative):.1e}, max {np.max(relative):.1e}")
         # Cells without chaotic transients have matching loss histories.
-        calm = (cpu["status"] == 4) | ((cpu["status"] == STATUS_DIVERGENT) & (cpu["diverged_at"] < 16))
+        calm = (np.isin(cpu["status"], (STATUS_UNRESOLVED, STATUS_DRIFT))
+                | ((cpu["status"] == STATUS_DIVERGENT) & (cpu["diverged_at"] < 16)))
         assert calm.any()
         np.testing.assert_allclose(gpu["sd_score_100"][calm], cpu["sd_score_100"][calm], rtol=1e-9,
                                    atol=0)
+
+
+def test_drift_labels_and_window_norm_growth_agree(s1_runs, s2_runs):
+    total = 0
+    for _, _, cpu, gpu in (s1_runs, s2_runs):
+        drift = cpu["status"] == STATUS_DRIFT
+        total += drift.sum()
+        np.testing.assert_array_equal(gpu["status"] == STATUS_DRIFT, drift)
+        np.testing.assert_array_equal(np.isnan(gpu["window_norm_growth"]),
+                                      np.isnan(cpu["window_norm_growth"]))
+        difference = np.abs(gpu["window_norm_growth"] - cpu["window_norm_growth"])
+        assert np.all(difference[drift] <= 1e-3)
+        fixed = cpu["status"] == STATUS_FIXED
+        assert np.all(difference[fixed] <= 1e-12)
+    assert total >= 3
+
+
+def test_device_screen_matches_cpu_screen_on_synthetic_tails(cuda):
+    steps = 384
+    t = np.arange(steps)
+    fixed = np.ones((steps, 3))
+    period3 = np.array([[0.0, 1, 2], [3, 4, 5], [6, 7, 8]])[t % 3]
+    period64 = np.random.default_rng(99990).normal(size=(64, 3))[t % 64]
+    drift = np.column_stack([1e-3 * t, np.zeros(steps), np.zeros(steps)])
+    nan = fixed.copy()
+    nan[-1, 0] = np.nan
+    last_pair = drift.copy()
+    last_pair[-2:] = 5.0
+    early_break = period3.copy()
+    early_break[10, 0] += 0.5  # violation far from the end of the tail
+    noisy = period3 + 1e-9 * np.random.default_rng(99991).normal(size=period3.shape)
+    tails = np.stack([fixed, period3, period64, drift, nan, last_pair, early_break, noisy])
+    for options in ({}, {"max_period": 8}, {"atol": 1e-10, "rtol": 1e-8}):
+        cpu_period, cpu_residual = screen_tails(tails, **options)
+        gpu_period, gpu_residual = cuda.screen_tails(tails, **options)
+        np.testing.assert_array_equal(gpu_period, cpu_period)
+        np.testing.assert_array_equal(gpu_residual, cpu_residual)
+    np.testing.assert_array_equal(cuda.screen_tails(tails)[0], [1, 3, 64, 0, -1, 0, 0, 3])
 
 
 def test_repeated_and_rechunked_gpu_runs_are_bit_identical(cuda, s2_runs):

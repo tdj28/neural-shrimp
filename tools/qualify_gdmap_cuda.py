@@ -207,11 +207,12 @@ def describe(values):
 
 def compare(grid, cpu, gpu, horizons):
     cs, gs = cpu["status"], gpu["status"]
-    confusion = np.zeros((5, 5), dtype=int)
+    labels = len(STATUS_NAMES)
+    confusion = np.zeros((labels, labels), dtype=int)
     np.add.at(confusion, (cs, gs), 1)
     out = dict(cells=int(len(cs)), status_agreement=float(np.mean(cs == gs)),
                confusion=confusion.tolist(),
-               cpu_status_counts={STATUS_NAMES[s]: int(np.sum(cs == s)) for s in range(5)})
+               cpu_status_counts={STATUS_NAMES[s]: int(np.sum(cs == s)) for s in range(labels)})
     orbit = np.flatnonzero(np.isin(cs, (1, 2)))
     same = [i for i in orbit if gs[i] == cs[i] and gpu["period"][i] == cpu["period"][i]]
     aligned = [aligned_distance(grid, i, cpu["final_state"][i], gpu["final_state"][i], cpu["period"][i])
@@ -252,12 +253,12 @@ def compare(grid, cpu, gpu, horizons):
         rel = np.abs(gpu[f"sd_score_{h}"] - cpu[f"sd_score_{h}"]) / np.abs(cpu[f"sd_score_{h}"])
         out["sd"][str(h)] = dict(
             convergent_flag_agreement=float(np.mean(gpu[f"sd_convergent_{h}"] == cpu[f"sd_convergent_{h}"])),
-            score_rel_diff_by_cpu_status={STATUS_NAMES[s]: describe(rel[cs == s]) for s in range(5)
+            score_rel_diff_by_cpu_status={STATUS_NAMES[s]: describe(rel[cs == s]) for s in range(labels)
                                           if np.any(cs == s)})
     out["losses_rel_diff_by_cpu_status"] = {
         key: {STATUS_NAMES[s]: describe(np.abs(gpu[key][cs == s] - cpu[key][cs == s])
-                                        / np.abs(cpu[key][cs == s])) for s in range(5) if np.any(cs == s)}
-        for key in ("min_loss", "final_loss", "tail_mean_loss")}
+                                        / np.abs(cpu[key][cs == s])) for s in range(labels) if np.any(cs == s)}
+        for key in ("min_loss", "last_evaluated_loss", "tail_mean_loss")}
     return out
 
 

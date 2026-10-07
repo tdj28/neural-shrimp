@@ -80,7 +80,7 @@ struct GdmapConfig {
 };
 
 struct GdmapSchedule {
-    int64_t ftle_start, ftle_log_start, tail_start, sd_max;
+    int64_t ftle_start, ftle_log_start, tail_start, sd_max, norm_start;
     double divergence_threshold;
 };
 
@@ -103,7 +103,7 @@ struct Net {
 };
 
 struct Schedule {
-    int ftle_start, ftle_log_start, tail_start, sd_max;
+    int ftle_start, ftle_log_start, tail_start, sd_max, norm_start;
     double threshold;
 };
 
@@ -115,6 +115,7 @@ struct Buffers {
     int *alive, *ftle_ok;
     long long *diverged_at, *tail_count;
     double *log_growth, *min_loss, *last_loss, *tail_sum, *early;
+    double *window_norm;   // state norm at step norm_start (drift label)
     double *hbuf, *rbuf, *gbuf, *rgbuf, *kbuf;
     double *tail;          // [tail_steps][p][tail_capacity]
     size_t tail_stride;    // tail_capacity
@@ -446,6 +447,8 @@ __global__ void __launch_bounds__(BLOCK) advance_kernel(Net P, Buffers B, const 
     double* th = B.theta + c;
     double* tg = B.tangent + c;
     for (int step = step_begin; step < step_end; ++step) {
+        // np.linalg.norm(current, axis=1) at the first update of the FTLE window.
+        if (step == Q.norm_start) B.window_norm[c] = SQRT(pairwise_squares<0>(th, S, P.p));
         const bool hvp = step >= Q.ftle_start && ftle_ok;
         double* tail = nullptr;
         if (write_tail && step >= Q.tail_start)
@@ -508,7 +511,9 @@ __global__ void __launch_bounds__(BLOCK) eval_kernel(Net P, Buffers B, const dou
 }
 
 // Full-state recurrence screen, a bitwise mirror of gdmaps.screen_tails for one
-// cell per thread on the [steps][p][cells] tail buffer.
+// cell per thread on the [steps][p][cells] tail buffer: period pp is accepted
+// when steps >= min_repeats * pp and every pair tail[t], tail[t + pp] across the
+// whole tail agrees within atol + rtol * max(|a|, |b|).
 __global__ void screen_kernel(const double* tail, size_t tail_stride, int cells, int steps, int p,
                               int max_period, int min_repeats, double atol, double rtol,
                               long long* period_out, double* residual_out) {
@@ -523,20 +528,17 @@ __global__ void screen_kernel(const double* tail, size_t tail_stride, int cells,
         period = -1;
     } else {
         for (int pp = 1; pp <= max_period; ++pp) {
-            const int count = pp * min_repeats;
-            if (count > steps) break;
+            if (pp * min_repeats > steps) break;
             double worst = 0.0;
-            for (int b = 0; b < min_repeats; ++b) {
-                for (int r = 0; r < pp; ++r) {
-                    const double* blk = T + (size_t)(steps - count + b * pp + r) * p * tail_stride;
-                    const double* ref = T + (size_t)(steps - pp + r) * p * tail_stride;
-                    for (int e = 0; e < p; ++e) {
-                        const double av = blk[(size_t)e * tail_stride];
-                        const double rv = ref[(size_t)e * tail_stride];
-                        const double scale = ADD(atol, MUL(rtol, fmax(fabs(av), fabs(rv))));
-                        const double ratio = DIV(fabs(SUB(av, rv)), scale);
-                        worst = ratio > worst ? ratio : worst;
-                    }
+            for (int t = 0; t + pp < steps; ++t) {
+                const double* earlier = T + (size_t)t * p * tail_stride;
+                const double* later = T + (size_t)(t + pp) * p * tail_stride;
+                for (int e = 0; e < p; ++e) {
+                    const double lv = later[(size_t)e * tail_stride];
+                    const double ev = earlier[(size_t)e * tail_stride];
+                    const double scale = ADD(atol, MUL(rtol, fmax(fabs(lv), fabs(ev))));
+                    const double ratio = DIV(fabs(SUB(lv, ev)), scale);
+                    worst = ratio > worst ? ratio : worst;
                 }
             }
             if (worst <= 1.0) {
@@ -564,6 +566,7 @@ __global__ void init_kernel(Buffers B, int cells) {
     B.log_growth[c] = 0.0;
     B.min_loss[c] = INFINITY;
     B.last_loss[c] = __longlong_as_double(CANONICAL_NAN_BITS);
+    B.window_norm[c] = __longlong_as_double(CANONICAL_NAN_BITS);
     B.tail_sum[c] = 0.0;
     B.tail_count[c] = 0;
 }
@@ -707,7 +710,7 @@ uint64_t planned_bytes(const GdmapConfig& cfg) {
     const uint64_t d = cfg.d, w = cfg.width, n = cfg.n;
     const uint64_t p = d * w + w + (cfg.bias ? w + 1 : 0);
     const uint64_t cap = cfg.capacity, tcap = cfg.tail_capacity;
-    uint64_t doubles = 2 * p * cap + 6 * cap + cfg.sd_max * cap + (2 * n * w + 2 * n) * cap +
+    uint64_t doubles = 2 * p * cap + 7 * cap + cfg.sd_max * cap + (2 * n * w + 2 * n) * cap +
                        (cfg.kchunks > 1 ? 2 * D_MAX * cap : 0) + cfg.tail_steps * p * tcap + tcap +
                        n * d + n;
     uint64_t others = 2 * sizeof(int) * cap + 2 * sizeof(long long) * cap + sizeof(long long) * tcap;
@@ -823,6 +826,7 @@ int gdmap_cuda_create(const GdmapConfig* cfg, const double* x, const double* y, 
               allocate(*ctx, B.min_loss, cap, error, capacity) &&
               allocate(*ctx, B.last_loss, cap, error, capacity) &&
               allocate(*ctx, B.tail_sum, cap, error, capacity) &&
+              allocate(*ctx, B.window_norm, cap, error, capacity) &&
               allocate(*ctx, B.early, size_t(cfg->sd_max) * cap, error, capacity) &&
               allocate(*ctx, B.hbuf, n * w * cap, error, capacity) &&
               allocate(*ctx, B.rbuf, n * w * cap, error, capacity) &&
@@ -925,7 +929,7 @@ int gdmap_cuda_advance(void* handle, int64_t cell_begin, int64_t cell_count, int
         return -1;
     }
     Schedule Q{int(schedule->ftle_start), int(schedule->ftle_log_start), int(schedule->tail_start),
-               int(schedule->sd_max), schedule->divergence_threshold};
+               int(schedule->sd_max), int(schedule->norm_start), schedule->divergence_threshold};
     if (Q.sd_max > ctx->cfg.sd_max) {
         set_message(error, capacity, "Score window exceeds the early-loss buffer");
         return -1;
@@ -995,10 +999,11 @@ int gdmap_cuda_screen(void* handle, int64_t cells, int64_t max_period, int64_t m
 // and early losses (sd_max x capacity).
 int gdmap_cuda_fetch(void* handle, double* theta, int* alive, long long* diverged_at, int* ftle_ok,
                      double* log_growth, double* min_loss, double* last_loss, double* tail_sum,
-                     long long* tail_count, double* early, char* error, size_t capacity) {
+                     long long* tail_count, double* window_norm, double* early, char* error,
+                     size_t capacity) {
     Context* ctx = static_cast<Context*>(handle);
     if (!ctx || !theta || !alive || !diverged_at || !ftle_ok || !log_growth || !min_loss ||
-        !last_loss || !tail_sum || !tail_count || (ctx->cfg.sd_max > 0 && !early))
+        !last_loss || !tail_sum || !tail_count || !window_norm || (ctx->cfg.sd_max > 0 && !early))
         return -1;
     const size_t cap = size_t(ctx->cfg.capacity), p = size_t(ctx->P.p);
     const Buffers& B = ctx->B;
@@ -1016,6 +1021,7 @@ int gdmap_cuda_fetch(void* handle, double* theta, int* alive, long long* diverge
         {last_loss, B.last_loss, cap * sizeof(double)},
         {tail_sum, B.tail_sum, cap * sizeof(double)},
         {tail_count, B.tail_count, cap * sizeof(long long)},
+        {window_norm, B.window_norm, cap * sizeof(double)},
         {early, B.early, size_t(ctx->cfg.sd_max) * cap * sizeof(double)},
     };
     for (const Item& item : items) {
@@ -1024,6 +1030,42 @@ int gdmap_cuda_fetch(void* handle, double* theta, int* alive, long long* diverge
     }
     if (code != cudaSuccess) {
         set_error(error, capacity, "fetch", code);
+        return int(code);
+    }
+    return 0;
+}
+
+// Standalone device screen of tails given as [steps][p][cells] (SoA), so the
+// kernel can be compared with gdmaps.screen_tails on arbitrary inputs.
+int gdmap_cuda_screen_array(int64_t cells, int64_t steps, int64_t p, const double* tail,
+                            int64_t max_period, int64_t min_repeats, double atol, double rtol,
+                            long long* period, double* residual, char* error, size_t capacity) {
+    if (!tail || !period || !residual || cells < 1 || steps < 1 || p < 1 || max_period < 1 ||
+        min_repeats < 2 || !(atol > 0) || !(rtol >= 0) || cells * steps * p > (int64_t(1) << 31))
+        return -1;
+    double* dtail = nullptr;
+    long long* dperiod = nullptr;
+    double* dresidual = nullptr;
+    const size_t count = size_t(cells) * size_t(steps) * size_t(p);
+    cudaError_t code = cudaMalloc((void**)&dtail, count * sizeof(double));
+    if (code == cudaSuccess) code = cudaMalloc((void**)&dperiod, size_t(cells) * sizeof(long long));
+    if (code == cudaSuccess) code = cudaMalloc((void**)&dresidual, size_t(cells) * sizeof(double));
+    if (code == cudaSuccess) code = cudaMemcpy(dtail, tail, count * sizeof(double), cudaMemcpyHostToDevice);
+    if (code == cudaSuccess) {
+        screen_kernel<<<int((cells + BLOCK - 1) / BLOCK), BLOCK>>>(
+            dtail, size_t(cells), int(cells), int(steps), int(p), int(max_period), int(min_repeats),
+            atol, rtol, dperiod, dresidual);
+        code = cudaGetLastError();
+    }
+    if (code == cudaSuccess)
+        code = cudaMemcpy(period, dperiod, size_t(cells) * sizeof(long long), cudaMemcpyDeviceToHost);
+    if (code == cudaSuccess)
+        code = cudaMemcpy(residual, dresidual, size_t(cells) * sizeof(double), cudaMemcpyDeviceToHost);
+    if (dtail) cudaFree(dtail);
+    if (dperiod) cudaFree(dperiod);
+    if (dresidual) cudaFree(dresidual);
+    if (code != cudaSuccess) {
+        set_error(error, capacity, "screen array", code);
         return int(code);
     }
     return 0;
