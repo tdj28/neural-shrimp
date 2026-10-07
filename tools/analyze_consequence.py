@@ -119,6 +119,9 @@ def derive(d, cfg):
             gaps = [min(abs(p - r), abs(p - (1 - r))) for p in peaks[i] if np.isfinite(p)]
             match[i] = min(gaps)
     f["loss_rotation_gap"] = match
+    # sensitivity flag (pre-specified): quasi-periodic labels whose two FTLE estimates are both
+    # clearly negative may be slowly converging locked orbits missed by the recurrence screen
+    f["qp_attracting"] = (regime == "quasiperiodic") & (np.max(d["ftle"], axis=1) < -2e-4)
     return f
 
 
@@ -285,6 +288,7 @@ def main():
             g = gap[(f["regime"] == label) & np.isfinite(gap)]
             entry[f"loss_peak_matches_rotation_{label}"] = [int((g < 1e-3).sum()), int(len(g))]
         rows_all = np.isin(f["regime"], BEYOND)
+        entry["qp_with_negative_ftle"] = int(f["qp_attracting"].sum())
         rows_ns = rows_all & (f["log10_hidden"] > args.ns[k]) if args.ns else None
         models = {}
         for outcome in f["outcomes"]:
@@ -293,6 +297,9 @@ def main():
                 models[outcome]["beyond_ns"] = nested(f, rows_ns, outcome, draws=args.draws)
             if outcome.startswith("repro"):
                 models[outcome]["beyond_eos_with_transient"] = nested(f, rows_all, outcome, True, draws=args.draws)
+            if f["qp_attracting"].any():
+                models[outcome]["beyond_eos_without_attracting_qp"] = nested(
+                    f, rows_all & ~f["qp_attracting"], outcome, draws=args.draws)
         entry["nested_models"] = models
         p2 = np.flatnonzero(f["regime"] == "period2")
         lk = np.flatnonzero(locked)
