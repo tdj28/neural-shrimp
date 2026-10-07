@@ -47,7 +47,10 @@ def wait_for_ssh(pod_id, deadline):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--gpu-type", required=True)
+    parser.add_argument("--gpu-type", required=True, nargs="+",
+                        help="ordered fallbacks, CLOUD:TYPE (e.g. COMMUNITY:'NVIDIA H100 PCIe'); "
+                             "only creation is retried, never anything after a pod exists")
+    parser.add_argument("--max-rate", type=float, default=3.5, help="refuse pods listed above this $/h")
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-phase0")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
@@ -65,13 +68,31 @@ def main():
                             text=True).stdout.strip()
     if not pushed:
         raise SystemExit(f"commit {head} is not on any remote branch; push it first")
-    create = argparse.Namespace(gpu_type=args.gpu_type, cloud="COMMUNITY", image=args.image, name=args.name,
-                                pubkey_file=str(KEY) + ".pub", disk_gb=40, min_vcpu=8, min_memory_gb=32,
-                                commit=head, approval=args.approval)
+    pod_id, chosen = None, None
+    for entry in args.gpu_type:
+        cloud, _, gpu = entry.partition(":")
+        create = argparse.Namespace(gpu_type=gpu, cloud=cloud, image=args.image, name=args.name,
+                                    pubkey_file=str(KEY) + ".pub", disk_gb=40, min_vcpu=4, min_memory_gb=16,
+                                    commit=head, approval=args.approval)
+        try:
+            rp.cmd_create(create)
+        except SystemExit as error:
+            if "instances available" in str(error):
+                rp.record({"event": "no_capacity", "gpu_type": gpu, "cloud": cloud})
+                print(f"no capacity: {cloud} {gpu}", flush=True)
+                continue
+            raise
+        last = [json.loads(l) for l in rp.LEDGER.read_text().splitlines()][-1]
+        pod_id, chosen = last["pod_id"], entry
+        break
+    if pod_id is None:
+        raise SystemExit("no capacity for any listed GPU type; no pod was created")
     started = time.time()
-    rp.cmd_create(create)
-    pod_id = [json.loads(l) for l in rp.LEDGER.read_text().splitlines()][-1]["pod_id"]
-    result = {"pod_id": pod_id, "gpu_type": args.gpu_type, "commit": head, "started": started}
+    result = {"pod_id": pod_id, "gpu_type": chosen, "commit": head, "started": started}
+    rate = [json.loads(l) for l in rp.LEDGER.read_text().splitlines()][-1].get("cost_per_hr") or 0
+    if rate > args.max_rate:
+        rp.cmd_terminate(argparse.Namespace(pod=pod_id))
+        raise SystemExit(f"pod rate ${rate}/h above --max-rate; terminated")
     try:
         ip, port = wait_for_ssh(pod_id, started + 60 * args.ready_minutes)
         rp.record({"event": "ssh_ready", "pod_id": pod_id, "seconds_after_create": round(time.time() - started)})
