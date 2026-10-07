@@ -196,12 +196,17 @@ def threshold(net, x, y, x0, h_b, o, delta, q_dir, steps):
     grid = GridMap(net, x, y, [10.0 ** (h_b - delta)], [10.0 ** o])
 
     def returns(amplitude):
+        # Near the curve the 2-cycle contracts slowly, so "returns" means: never escaped
+        # (no divergence, never farther than 10x the start or 0.5) and ends closer than it began.
         theta = (x0 + amplitude * q_dir)[None]
         for _ in range(steps):
             theta = grid.step(grid.step(theta))
             if not np.all(np.isfinite(theta)) or np.max(np.abs(theta)) > 1e6:
                 return False
-        return float(np.linalg.norm(theta[0] - x0)) < 1e-3 * max(amplitude, 1e-6) + 1e-8
+            dist = float(np.linalg.norm(theta[0] - x0))
+            if dist > max(10 * amplitude, 0.5):
+                return False
+        return dist < amplitude
 
     lo, hi = 1e-6, 1.0
     if not returns(lo):
