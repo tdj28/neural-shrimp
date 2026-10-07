@@ -140,3 +140,41 @@ root's circle grew too fast for the fixed 0.0128 start; (3) keep the
 centre-line tracking between levels. The connection-to-window stage is not
 ready: it needs two-parameter fold-curve continuation, and its outcome should
 be reported separately from tongue attachment.
+
+## Post-hoc descents from the windows (not part of any frozen criterion)
+
+`explore_ancestry.py descend` tracks a window's own locked interval (both
+fold edges, re-centred each step) from the window towards the curve.
+
+- **S2-28011:139 (1/5):** below the window the orbit is unstable and most
+  cross-sections lack a second fold edge within 0.1 decades (a broad,
+  irregular existence region); occasional fold-bounded sections (widths
+  0.06-0.18); the tracker stalled 0.38 decades above the curve near
+  (2.130, -0.360), where the curve's birth rotation is 0.185.
+  Inconclusive.
+- **S2-28011-zoom:587 (2/9, separate case):** the locked interval narrows
+  from 0.012 at the window (0.102 decades above the curve) to about 1.3e-4 at
+  0.076 decades above the curve near log10 output -0.0797 (foot birth rotation
+  0.2212; root A of 2/9 lies at -0.0769), far faster than delta^3.5 would
+  give, then the tracker stalled and reversed upwards. This is suggestive of a
+  pinched (sausage-like) resonance zone or a tongue too thin to follow there;
+  inconclusive.
+
+## Separate 2/9 case (frozen card e8888e95)
+
+Both 2/9 roots straddle the birth-rotation maximum: A (1.7447484, -0.0769309)
+passes all onset checks (radius exponent 0.506; invariance converges;
+intercept minus birth 5.4e-6); B (1.7369136, -0.0680920) passes criterion (1)
+(exponent 0.640) but criteria (2)-(3) failed as specified because the check
+was invalid at its comparison point (the root's normal points into the stable
+period-2 region there; radius 0). Levels (period 18, 0.0128/4^k, four
+levels): 0 of 601 locked cells at the top level for both roots:
+**no_qualifying_window**. This does not substitute for the 1/5 result.
+
+## Test suite
+
+Full suite on this branch: 2,217 passed, 2 skipped, 2 failed
+(`tests/test_two_write_runtime.py::test_signal_during_journal_commit_does_not_duplicate_completed_task[2]`
+and `[15]`, signal-timing tests that pass when run alone; the machine was running
+concurrent suites from other sessions). New tests: `tests/test_ancestry.py`
+(5 passed).

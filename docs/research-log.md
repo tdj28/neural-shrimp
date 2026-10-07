@@ -906,3 +906,11 @@ _commit `7e1486eaaef9` (dirty worktree)_
 Root A (1.7447484, -0.0769309), birth 0.22222222: complex pair, others inside, transverse, radius exponent 0.506, invariance converges, intercept minus birth 5.4e-6 (slope -0.19). Root B (1.7369136, -0.0680920), birth 0.22222221: complex pair, others inside, transverse, exponent 0.640; criteria (2)-(3) failed as specified, but the check was invalid: at its prespecified comparison point (output -0.0981, across the curve's maximum) the root's normal points into the stable period-2 region (measured circle radius 0, rotation meaningless); comparison checks should use the comparison point's own normal. Levels (period 18, 0.0128/4^k): 0 of 601 cells locked on the top cross-section at either root (no_qualifying_window), consistent with q = 9 tongues narrowing like delta^3.5 below the scan spacing. Full test suite on this branch: 2,217 passed, 2 skipped, 2 failed (signal-timing tests in test_two_write_runtime.py, which pass alone; machine busy with concurrent suites from other sessions). Post hoc: descents from windows zoom:587 (2/9) and 139 (1/5) along their own fold-bounded intervals towards the curve are running.
 
 _commit `7e1486eaaef9` (dirty worktree)_
+
+- run started 2026-10-07 22:53 UTC finished 22:56 UTC with exit status 0
+
+## 2026-10-07 23:04 UTC: Post-hoc descents from windows 139 (1/5) and zoom:587 (2/9): both inconclusive
+
+Window 139: unstable orbit below the window, mostly one fold edge within 0.1 decades, tracker stalled 0.38 decades above the curve near (2.130, -0.360) (foot birth rotation 0.185). Window zoom:587: locked interval narrows from 0.012 to about 1.3e-4 between 0.102 and 0.076 decades above the curve near output -0.0797 (foot birth 0.2212; 2/9 root A at -0.0769), much faster than delta^3.5, then the tracker stalled and reversed: suggestive of a pinched resonance zone or an unfollowable thin tongue. Neither changes a frozen outcome.
+
+_commit `2e5c4fd092aa` (dirty worktree)_
