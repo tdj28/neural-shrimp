@@ -1,9 +1,10 @@
 """Derive every number quoted in the gd-route manuscript from saved evidence.
 
-Writes four files next to the manuscript:
+Writes five files next to the manuscript:
 
   generated-numbers.tex   one \\newcommand per quoted number (the text uses only these)
   generated-design-table.tex  the design table, built from the frozen plan and summary
+  generated-consequence-table.tex  the consequence table, built from the pilot's receipts
   data/numbers.json       the manifest: each macro's value, evidence label, source
                           file(s) with SHA-256 and the computation that yields it
   provenance.json         index of the manifest and every figure receipt, by hash
@@ -41,6 +42,48 @@ RAYS = c.EXPLORE / "a2-survey/rays.json"
 SURVEY = c.EXPLORE / "a2-survey/survey.json"
 ORDER = c.EXPLORE / "a3-well-ordering/well-ordering.json"
 FIG6 = PAPER / "figures/f6_route_portraits.provenance.json"
+FIG2 = PAPER / "figures/f2_rotation_map.provenance.json"
+FIG7 = PAPER / "figures/f7_criticality.provenance.json"
+FIG8 = PAPER / "figures/f8_ancestry.provenance.json"
+FIG9 = PAPER / "figures/f9_generality.provenance.json"
+GPU = {"main": c.EXPLORE / "a3-gpu-rotation/s2-28011-1024", "right": c.EXPLORE / "a3-gpu-rotation/s2-28011-right"}
+MERGED = c.EXPLORE / "a3-ns-curve/s2-28011-merged/ns-curve.json"
+CRIT = c.EXPLORE / "criticality"
+CRIT_CURVES = [CRIT / "s2-28011-curve/curve.json", CRIT / "s2-28011-steep/curve.json"]
+CRIT_BOUNDARY = CRIT / "boundary.json"
+CRIT_S1R = CRIT / "s1r-28002-curve/curve.json"
+ANC = c.EXPLORE / "ancestry"
+ANC_LEVELS, ANC_LEFT = ANC / "levels-right-attempt2/levels.json", ANC / "levels-left/levels.json"
+ANC_CONTROLS, ANC_CONNECT = ANC / "controls-002/controls.json", ANC / "connect-right/connect.json"
+RD = c.EXPLORE / "realdata"
+RD_NS = RD / "w8-n1024-halves-wd1e-3/continue-0.42/continue--0.42000.json"
+RD_SWEEP = RD / "w8-n1024-halves-wd1e-3/sweep-ns/sweep.json"
+RD_SHARP = RD / "w8-n1024-halves-wd1e-3/branch-2/branch.json"
+RD_PARITY = [RD / "w8-n1024-parity-wd1e-3/continue-0.4067/continue--0.40670.json",
+             RD / "w8-n1024-parity-wd1e-3/continue-0.4521/continue--0.45210.json"]
+RD_OTHER_SUBSET = [RD / "s28102-w8-n1024-halves-wd1e-3/continue-0.7092/continue--0.70920.json",
+                   RD / "s28102-w8-n1024-halves-wd1e-3/continue-0.7546/continue--0.75460.json"]
+MM = c.EXPLORE / "minimal-model"
+MM_EDGE, MM_EDGE_WD = MM / "hofmann/edge.json", MM / "hofmann/edge-lam0.01.json"
+MM_CIRCLE_WD, MM_CIRCLE = MM / "hofmann/circle-lam0.01-hysteresis.json", MM / "hofmann/circle-lam0.0.json"
+MM_STAIR, MM_FINE = MM / "hofmann/staircase-lam0.01.json", MM / "hofmann/staircase-lam0.01-fine08.json"
+MM_GRID, MM_HELDOUT, MM_PRED = MM / "grid.json", MM / "heldout.json", MM / "predictions.json"
+CONS = c.EXPLORE / "consequence/analysis.json"
+CONS_POOLED = c.EXPLORE / "consequence/analysis-s2-pooled-robust.json"
+PRE = {"STwo": c.EXPLORE / "consequence/precursor-s2-28011-ar/precursor.json",
+       "SOneR": c.EXPLORE / "consequence/precursor-s1r-28002-ar/precursor.json"}
+S1R_TRACES = [c.EXPLORE / "a3-ns-curve/s1r-28002/ns-curve.json",
+              c.EXPLORE / "a3-ns-curve/s1r-28002-start0.95/ns-curve.json"]
+CONS_TABLE = PAPER / "generated-consequence-table.tex"
+CONS_OUTCOMES = [("repro_func_T40k_d1e-8", "function disagreement, 40k updates, start $10^{-8}$ apart (log$_{10}$)"),
+                 ("repro_after_anneal_d1e-8", "function disagreement after the step-decay anneal (log$_{10}$)"),
+                 ("stopping_time_spread", "spread over 64 anneal start times (log$_{10}$)"),
+                 ("tail_train_loss", "training loss, last 8{,}192 updates (log$_{10}$)"),
+                 ("tail_test_mse", "held-out loss, last 8{,}192 updates (log$_{10}$)"),
+                 ("annealed_test_mse", "held-out loss after the anneal (log$_{10}$)"),
+                 ("loss_line_fraction", "loss power in spectral lines")]
+CONS_REGIMES = [("period2", "period 2"), ("quasiperiodic", "quasi-periodic"), ("locked", "locked"),
+                ("chaotic", "chaotic")]
 
 FROZEN = "prospectively frozen (EXP-028), independently audited"
 EXPLORATORY = "exploratory"
@@ -65,6 +108,12 @@ def percent(fraction, digits=1, widen=True):
 
 def fixed(x, digits):
     return f"{x:.{digits}f}"
+
+
+def signed(x, digits=3):
+    """Signed fixed-point text without a negative zero."""
+    x = 0.0 if abs(x) < 0.5 * 10.0 ** -digits else x
+    return f"{x:+.{digits}f}"
 
 
 def power(x):
@@ -403,6 +452,227 @@ def build():
     n.add("xQuarterEnd", quarter["end"], fixed(quarter["end"], 3), EXPLORATORY, [STAIR_S2],
           "end of the longest merged 1/4 plateau")
 
+    # Rotation maps with the merged curve (figure 2)
+    merged_rows = [r for r in load(MERGED)["rows"] if r.get("type") == "neimark_sacker"]
+    n.add("nMergedPoints", len(merged_rows), str(len(merged_rows)), EXPLORATORY, [MERGED],
+          "points of the merged complex-pair crossing trace")
+    theta_m = [r["theta_over_2pi"] for r in merged_rows]
+    n.add("xMergedBirthMin", min(theta_m), fixed(min(theta_m), 4), EXPLORATORY, [MERGED], "min crossing angle, merged")
+    n.add("xMergedBirthMax", max(theta_m), fixed(max(theta_m), 4), EXPLORATORY, [MERGED], "max crossing angle, merged")
+    fig2 = load(FIG2)["derived"]
+    for tag, folder in GPU.items():
+        first = load(folder / "analysis.json")["continuity"][0]
+        name = {"main": "Main", "right": "Right"}[tag]
+        meta = load(folder / "metadata.json")["args"]["resolution"]
+        n.add(f"tMapSize{name}", meta, f"{meta[0]:,}".replace(",", "{,}") + "\\times" + f"{meta[1]:,}".replace(",", "{,}"),
+              EXPLORATORY, [folder / "metadata.json"], "map resolution (hidden x output cells), math mode")
+        n.add(f"xContOffset{name}", first["offset_log10_hidden"], f"{first['offset_log10_hidden']:g}", EXPLORATORY,
+              [folder / "analysis.json"], "continuity offset beyond the curve (decades)")
+        n.add(f"nContPoints{name}", first["points"], str(first["points"]), EXPLORATORY, [folder / "analysis.json"],
+              "curve points compared at that offset")
+        n.add(f"xContMedian{name}", first["median_abs_diff"], sci(first["median_abs_diff"]), EXPLORATORY,
+              [folder / "analysis.json"], "median |rotation - crossing angle|")
+        n.add(f"xContMax{name}", first["max_abs_diff"], sci(first["max_abs_diff"]), EXPLORATORY,
+              [folder / "analysis.json"], "max |rotation - crossing angle|")
+        label = {"main": "main region", "right": "right wing"}[tag]
+        n.add(f"nRootsInside{name}", fig2[label]["roots_inside"], str(fig2[label]["roots_inside"]), EXPLORATORY,
+              [FIG2, folder / "tongue-roots.json"], "resonance points inside the map")
+        n.add(f"nRootsNear{name}", fig2[label]["roots_near"], str(fig2[label]["roots_near"]), EXPLORATORY,
+              [FIG2, folder / "tongue-roots.json"], "of those, null fraction at least as close <= 0.05")
+
+    # Criticality (figure 7)
+    crit = load(FIG7)["derived"]
+    n.add("nCritPoints", crit["points"], str(crit["points"]), EXPLORATORY, [FIG7, *CRIT_CURVES], "curve points with d")
+    n.add("nCritSuper", crit["supercritical"], str(crit["supercritical"]), EXPLORATORY, [FIG7, *CRIT_CURVES], "d < 0")
+    n.add("nCritSub", crit["subcritical"], str(crit["subcritical"]), EXPLORATORY, [FIG7, *CRIT_CURVES], "d > 0")
+    changes = crit["sign_changes"]
+    n.add("nChenciner", len(changes), str(len(changes)) if len(changes) != 3 else "three", EXPLORATORY,
+          [FIG7, *CRIT_CURVES], "sign changes of d along the curve (generalized Neimark-Sacker points)")
+    n.add("tChenciner", changes, ", ".join(f"${z:+.3f}$" for z in changes[:-1]) + f" and ${changes[-1]:+.3f}$",
+          EXPLORATORY, [FIG7, *CRIT_CURVES], "midpoints between sign changes (log10 output)")
+    n.add("xCritMostNegative", crit["most_negative_d"], fixed(crit["most_negative_d"], 2), EXPLORATORY,
+          [FIG7, *CRIT_CURVES], "most negative d")
+    checks_ = crit["dynamical_checks"]
+    n.add("nDynChecks", len(checks_), str(len(checks_)), EXPLORATORY, [FIG7], "dynamical check points")
+    n.add("nDynConsistent", sum(r["consistent"] for r in checks_), str(sum(r["consistent"] for r in checks_)),
+          EXPLORATORY, [FIG7], "points whose behaviour matches the sign of d (rule in f7_criticality.py)")
+    errs = [r["max_amplitude_error"] for r in checks_ if r["max_amplitude_error"] is not None]
+    n.add("pDynMaxError", max(errs), percent(max(errs), 1, widen=False), EXPLORATORY, [FIG7],
+          "largest relative amplitude error at supercritical points")
+    n.add("pDynMedianError", float(np.median(errs)), percent(float(np.median(errs)), 1, widen=False), EXPLORATORY,
+          [FIG7], "median over supercritical points of the per-point largest relative error")
+    boundary = load(CRIT_BOUNDARY)
+    divergent_below = [b for b in boundary if b["labels_just_below"]
+                       and all(x == "divergent" for x in b["labels_just_below"])]
+    n.add("nBasinPoints", len(divergent_below), str(len(divergent_below)), EXPLORATORY, [CRIT_BOUNDARY],
+          "curve points whose fixed-start map is divergent just below the curve (where the 2-cycle is stable)")
+    supercrit = sum(b["d"] is not None and b["d"] < 0 for b in divergent_below)
+    n.add("nBasinSuper", supercrit, str(supercrit), EXPLORATORY, [CRIT_BOUNDARY], "of those, supercritical")
+    s1r_rows = [r for r in load(CRIT_S1R)["rows"] if r.get("d") is not None]
+    n.add("nCritSOneR", len(s1r_rows), str(len(s1r_rows)), EXPLORATORY, [CRIT_S1R], "S1R points with d")
+    n.add("nCritSOneRSuper", sum(r["d"] < 0 for r in s1r_rows), str(sum(r["d"] < 0 for r in s1r_rows)),
+          EXPLORATORY, [CRIT_S1R], "S1R points with d < 0")
+
+    # Resonance ancestry (figure 8)
+    anc = load(FIG8)["derived"]
+    n.add("nAncLevels", len(anc["deltas"]), str(len(anc["deltas"])), EXPLORATORY, [FIG8, ANC_LEVELS],
+          "cross-sections with two fold edges")
+    n.add("tAncOutcome", anc["frozen_outcome"], anc["frozen_outcome"].replace("_", " "), EXPLORATORY,
+          [FIG8, ANC_LEVELS], "frozen near-root outcome")
+    n.add("xAncIntercept", anc["extrapolated_center"], sci(anc["extrapolated_center"]), EXPLORATORY,
+          [FIG8, ANC_LEVELS], "frozen estimator intercept (decades)")
+    n.add("xAncTolerance", anc["root_tolerance"], power(anc["root_tolerance"]), EXPLORATORY, [FIG8, ANC_LEVELS],
+          "frozen root tolerance (decades), math mode")
+    n.add("xAncWidthSlope", anc["posthoc_width_slope"], fixed(anc["posthoc_width_slope"], 3), "post hoc",
+          [FIG8, ANC_LEVELS], "log-log slope of width over the deepest three levels")
+    n.add("xAncAmpSlope", anc["posthoc_amplitude_slope"], fixed(anc["posthoc_amplitude_slope"], 3), "post hoc",
+          [FIG8, ANC_LEVELS], "log-log slope of amplitude over the deepest three levels")
+    words = {"pass": "passed", "alternative_ancestry": "was refused (alternative ancestry)"}
+    for key, macro in (("positive", "tAncPositive"), ("specificity", "tAncSpecificity"), ("negative", "tAncNegative")):
+        n.add(macro, anc["controls"][key], words.get(anc["controls"][key], anc["controls"][key].replace("_", " ")),
+              EXPLORATORY, [FIG8, ANC_CONTROLS], f"{key} control outcome")
+    n.add("tAncConnection", anc["connection_outcome"], anc["connection_outcome"].replace("_", " "), EXPLORATORY,
+          [FIG8, ANC_CONNECT], "connection-to-window outcome")
+    left = load(ANC_LEFT)["outcome"]
+    n.add("tAncLeft", left, left.replace("_", " "), EXPLORATORY, [ANC_LEFT], "left-root outcome")
+    for side, word in (("right", "Right"), ("left", "Left")):
+        path = ANC / f"root-{side}/root.json"
+        crit_ = load(path)["criteria"]
+        flags = [v for k, v in crit_.items() if isinstance(v, bool)]
+        n.add(f"nAncOnset{word}", sum(flags), str(sum(flags)), EXPLORATORY, [path], f"{side} root onset criteria passed")
+        n.add(f"nAncOnset{word}Of", len(flags), str(len(flags)), EXPLORATORY, [path], f"{side} root onset criteria")
+        n.add(f"xAncRadius{word}", crit_["radius_scaling_exponent"], fixed(crit_["radius_scaling_exponent"], 3),
+              EXPLORATORY, [path], f"{side} root circle-radius scaling exponent (frozen band 0.3-0.7)")
+    margin = anc["extrapolated_center"] / anc["root_tolerance"] - 1
+    n.add("pAncMargin", margin, percent(margin, 0, widen=False), EXPLORATORY, [FIG8, ANC_LEVELS],
+          "intercept above tolerance, relative")
+
+    # Real data and minimal models (figure 9)
+    rd = load(RD_NS)
+    n.add("xRDCrossing", rd["log10_eta_boundary"], fixed(rd["log10_eta_boundary"], 4), EXPLORATORY, [RD_NS],
+          "log10 learning rate of the complex-pair crossing")
+    n.add("xRDPredicted", rd["theta_over_2pi"], fixed(rd["theta_over_2pi"], 7), EXPLORATORY, [RD_NS],
+          "crossing angle (predicted rotation)")
+    n.add("tRDMultiplier", rd["dominant"], f"{rd['dominant'][0]:.6f} + {rd['dominant'][1]:.6f}i", EXPLORATORY,
+          [RD_NS], "dominant two-step multiplier at the crossing")
+    sweep = load(RD_SWEEP)["rows"]
+    near = min((r for r in sweep if r["finite"] and r["rho2"] is not None),
+               key=lambda r: abs(r["log10_eta"] - rd["log10_eta_boundary"]))
+    n.add("xRDMeasured", near["rho2"], fixed(near["rho2"], 6), EXPLORATORY, [RD_SWEEP],
+          "measured rotation at the sweep point nearest the crossing")
+    n.add("xRDMeasuredFtle", near["ftle"], fixed(near["ftle"], 4), EXPLORATORY, [RD_SWEEP], "its FTLE")
+    sharp = [a for a in load(RD_SHARP)["attempts"] if a.get("type")]
+    types = [rd["type"]] + [a["type"] for a in sharp] + [load(p)["type"] for p in RD_PARITY]
+    n.add("nRDCertifiedBranches", len(types), str(len(types)), EXPLORATORY, [RD_NS, RD_SHARP, *RD_PARITY],
+          "certified period-2 branches continued to their loss of stability")
+    n.add("nRDNSBranches", types.count("neimark_sacker"), str(types.count("neimark_sacker")), EXPLORATORY,
+          [RD_NS, RD_SHARP, *RD_PARITY], "of those, complex-pair crossing")
+    n.add("nRDFoldBranches", types.count("fold"), str(types.count("fold")), EXPLORATORY,
+          [RD_NS, RD_SHARP, *RD_PARITY], "of those, fold")
+    other = [load(p)["type"] for p in RD_OTHER_SUBSET]
+    n.add("nRDUncertified", sum(t == "start_not_attracting" for t in other),
+          str(sum(t == "start_not_attracting" for t in other)), EXPLORATORY, RD_OTHER_SUBSET,
+          "starts on the second subset where Newton did not certify a period-2 orbit")
+    edge = load(MM_EDGE)
+    n.add("xMMEdgeError", max(abs(e["crossing_minus_predicted"]) for e in edge),
+          sci(max(abs(e["crossing_minus_predicted"]) for e in edge)), EXPLORATORY, [MM_EDGE],
+          "max |numerical crossing - a(s1+s2)=2| over ratios, no weight decay")
+    n.add("tMMBirth", [e["theta_over_2pi"] for e in edge], ", ".join(f"{e['theta_over_2pi']:.4f}" for e in edge[:-1])
+          + f" and {edge[-1]['theta_over_2pi']:.4f}", EXPLORATORY, [MM_EDGE], "crossing angles for s2/s1 = 0.7, 0.8, 0.9")
+    dm = [e["dmodulus_da"] for e in edge]
+    n.add("tMMTransversality", dm, f"{min(dm):.2f}--{max(dm):.2f}", EXPLORATORY, [MM_EDGE],
+          "range of d|mu|/da at the crossing")
+    fig9 = load(FIG9)["derived"]
+    wd = [v for k, v in fig9["amplitude_slopes"].items() if k.startswith("weight")]
+    nowd = [v for k, v in fig9["amplitude_slopes"].items() if k.startswith("no")]
+    n.add("tMMSlopeWD", wd, f"{min(wd):.2f}" if f"{min(wd):.2f}" == f"{max(wd):.2f}" else f"{min(wd):.2f}--{max(wd):.2f}",
+          EXPLORATORY, [FIG9, MM_CIRCLE_WD], "amplitude exponent with weight decay 0.01")
+    n.add("tMMSlopeNoWD", nowd, f"{min(nowd):.2f}--{max(nowd):.2f}", EXPLORATORY, [FIG9, MM_CIRCLE],
+          "amplitude exponent without weight decay")
+    circ = load(MM_CIRCLE_WD)
+    closest = {}
+    for r in circ:
+        if r["delta"] > 0 and (r["s2_over_s1"] not in closest or r["delta"] < closest[r["s2_over_s1"]]["delta"]):
+            closest[r["s2_over_s1"]] = r
+    gap = max(abs(r["rotation"] - r["birth_theta_over_2pi"]) for r in closest.values())
+    n.add("xMMRotationGap", gap, sci(gap), EXPLORATORY, [MM_CIRCLE_WD],
+          "max |rotation - crossing angle| at the smallest offset, weight decay 0.01")
+    n.add("xMMSmallestOffset", min(r["delta"] for r in closest.values()),
+          power(min(r["delta"] for r in closest.values())), EXPLORATORY, [MM_CIRCLE_WD], "that offset, math mode")
+    locked = fig9["hofmann_locked"]
+    seven = ", ".join(f"{m}/{p // 2} (period {p})" for p, m in sorted(locked.get("0.7", [])))
+    eight = ", ".join(f"{m}/{p // 2} (period {p})" for p, m in sorted(locked.get("0.8", [])))
+    n.add("tMMLockedSeven", locked.get("0.7"), seven, EXPLORATORY, [FIG9, MM_STAIR], "locked cells at s2/s1 = 0.7")
+    n.add("tMMLockedEight", locked.get("0.8"), eight, EXPLORATORY, [FIG9, MM_FINE], "locked cells at s2/s1 = 0.8")
+    grid = load(MM_GRID)
+    ns_grid = [g for g in grid if g.get("type") == "neimark_sacker"]
+    n.add("nMMGridNS", len(ns_grid), str(len(ns_grid)), EXPLORATORY, [MM_GRID], "four-weight grid cases ending in NS")
+    n.add("nMMGrid", len(grid), str(len(grid)), EXPLORATORY, [MM_GRID], "four-weight grid cases")
+    two = next(g for g in ns_grid if g["c"] == 0.0)
+    runs = two["criticality"]["runs"]
+    n.add("xMMTwoWeightAngle", two["theta_over_2pi"], fixed(two["theta_over_2pi"], 4), EXPLORATORY, [MM_GRID],
+          "crossing angle of the two-weight factorization case (c = 0, weight decay 0.2)")
+    ratio = runs[1]["amplitude"] / runs[0]["amplitude"]
+    n.add("xMMTwoWeightAmpRatio", ratio, fixed(ratio, 2), EXPLORATORY, [MM_GRID],
+          "circle amplitude ratio for a fourfold offset (square-root scaling gives 2)")
+    held, pred = load(MM_HELDOUT), load(MM_PRED)
+    key = lambda r: (r["c"], r["lam"], round(r["ratio"], 6))
+    pred_types = {key(p): p["predicted_type"] for p in pred}
+    correct = sum(pred_types.get(key(h)) == h["type"] for h in held)
+    n.add("nMMHeldoutCorrect", correct, str(correct), EXPLORATORY, [MM_HELDOUT, MM_PRED], "held-out types predicted")
+    n.add("nMMHeldout", len(held), str(len(held)), EXPLORATORY, [MM_HELDOUT], "held-out cases")
+
+    # S1R coexisting period-2 branches
+    for i, path in enumerate(S1R_TRACES):
+        rows_ = load(path)["rows"]
+        tag = "A" if i == 0 else "B"
+        for kind, word in (("neimark_sacker", "NS"), ("fold", "Fold"), ("start_not_period_2", "NotTwo")):
+            k = sum(r.get("type") == kind for r in rows_)
+            n.add(f"nSOneRTrace{tag}{word}", k, str(k), EXPLORATORY, [path], f"S1R trace {tag}: {kind}")
+        n.add(f"nSOneRTrace{tag}", len(rows_), str(len(rows_)), EXPLORATORY, [path], f"S1R trace {tag}: output rates")
+
+    # Consequence pilot
+    cons = load(CONS)
+    s2 = cons["s2-28011-out-0.0856"]
+    s1r = cons["s1r-28002-out-0.9413"]
+    for label, data in (("STwo", s2), ("SOneR", s1r)):
+        qp_hit, qp_n = data["loss_peak_matches_rotation_quasiperiodic"]
+        lk_hit, lk_n = data["loss_peak_matches_rotation_locked"]
+        n.add(f"nPeakQP{label}", qp_hit, str(qp_hit), EXPLORATORY, [CONS], "QP cells whose loss peak equals rotation")
+        n.add(f"nPeakQP{label}Of", qp_n, str(qp_n), EXPLORATORY, [CONS], "QP cells")
+        n.add(f"nPeakLock{label}", lk_hit, str(lk_hit), EXPLORATORY, [CONS], "locked cells whose loss peak equals rotation")
+        n.add(f"nPeakLock{label}Of", lk_n, str(lk_n), EXPLORATORY, [CONS], "locked cells")
+    n.add("nConsCells", s2["metadata"]["cells"], str(s2["metadata"]["cells"]), EXPLORATORY, [CONS], "S2 slice cells")
+    beyond = s2["nested_models"]["repro_func_T40k_d1e-8"]["beyond_eos"]["rows"]
+    n.add("nConsRows", beyond, str(beyond), EXPLORATORY, [CONS], "S2 cells beyond the edge used in nested models")
+    gains = []
+    for outcome, _ in CONS_OUTCOMES:
+        m = s2["nested_models"][outcome]["beyond_eos"]
+        gains.append((outcome, m["delta_r2"], m["delta_r2_ci"]))
+    above = [g for g in gains if g[2][0] > 0]
+    n.add("nConsAbove", len(above), str(len(above)), EXPLORATORY, [CONS],
+          "outcomes whose block-bootstrap interval for the incremental R2 lies above zero (S2 slice)")
+    n.add("nConsOutcomes", len(gains), str(len(gains)), EXPLORATORY, [CONS], "outcomes tested")
+    pooled = load(CONS_POOLED)["pooled"]["nested_models"]
+    slope_ = pooled["repro_slope_vs_delta"]["beyond_eos_slice_slopes_transient"]
+    stop_ = pooled["stopping_time_spread"]["beyond_eos_slice_slopes"]
+    for macro, m in (("DoseGain", slope_), ("StopGain", stop_)):
+        n.add(f"x{macro}", m["delta_r2"], f"{m['delta_r2']:+.3f}", "adapted", [CONS_POOLED], f"pooled incremental R2 ({macro})")
+        n.add(f"t{macro}CI", m["delta_r2_ci"], f"[{m['delta_r2_ci'][0]:+.3f}, {m['delta_r2_ci'][1]:+.3f}]", "adapted",
+              [CONS_POOLED], f"its block-bootstrap interval ({macro})")
+    for label, path in PRE.items():
+        rows_ = [r for r in load(path)["rows"] if r.get("period2")]
+        errs = []
+        for r in rows_:
+            for noise in ("noise_1e-07", "noise_1e-05"):
+                if r.get(noise) and r[noise].get("ar_frequency") is not None:
+                    errs.append(abs(r[noise]["ar_frequency"] - r["predicted_frequency"]))
+        n.add(f"nAR{label}", len(rows_), str(len(rows_)), "adapted", [path], "period-2 cells in the AR precursor test")
+        n.add(f"xARMedian{label}", float(np.median(errs)), sci(float(np.median(errs))), "adapted", [path],
+              "median |AR angle - multiplier angle| over cells and noise levels")
+        n.add(f"xARMax{label}", float(np.max(errs)), sci(float(np.max(errs))), "adapted", [path],
+              "max |AR angle - multiplier angle|")
+
     fig6 = load(FIG6)["derived"]
     for key, name in (("B", "QP"), ("C", "Lock"), ("D", "Chaos")):
         n.add(f"xFigSix{name}Rho", fig6[key]["rho"], fixed(fig6[key]["rho"], 4), EXPLORATORY, [FIG6, STAIR_S2],
@@ -449,6 +719,38 @@ def design_table():
     return "\n".join(lines) + "\n"
 
 
+def consequence_table():
+    """Consequence table TeX: per-regime medians and incremental R2 on the S2 slice (exploratory)."""
+    s2 = load(CONS)["s2-28011-out-0.0856"]
+    counts = s2["regime_counts"]
+    head = " & ".join(label for _, label in CONS_REGIMES)
+    sizes = " & ".join(f"({counts[key]} cells)" for key, _ in CONS_REGIMES)
+    lines = [
+        "% Generated by paper/gd-route/scripts/build_numbers.py from the consequence receipts; do not edit.",
+        "\\begin{table}[htbp]", "\\centering\\footnotesize", "\\setlength{\\tabcolsep}{3pt}",
+        "\\begin{tabular}{@{}>{\\raggedright\\arraybackslash}p{4.3cm} rrrr r@{}}", "\\toprule",
+        f"Outcome (median per regime) & {head} & $\\Delta R^2$ [95\\%] \\\\",
+        f" & {sizes} & \\\\", "\\midrule"]
+    for outcome, label in CONS_OUTCOMES:
+        per = s2["per_regime"][outcome]
+        cells = " & ".join(f"${per[key]['median']:.2f}$" if key in per else "--" for key, _ in CONS_REGIMES)
+        m = s2["nested_models"][outcome]["beyond_eos"]
+        gain = "$" + signed(m["delta_r2"]) + "$ [$" + signed(m["delta_r2_ci"][0]) + "$, $" + signed(m["delta_r2_ci"][1]) + "$]"
+        lines.append(f"{label} & {cells} & {gain} \\\\")
+    rows = s2["nested_models"][CONS_OUTCOMES[0][0]]["beyond_eos"]["rows"]
+    lines += [
+        "\\bottomrule", "\\end{tabular}",
+        f"\\caption{{\\textbf{{Consequences per regime (exploratory, S2-28011, one slice of "
+        f"{s2['metadata']['cells']} cells).}} Columns give medians per regime (cell counts in parentheses). "
+        f"$\\Delta R^2$ is the cross-validated gain from adding locking and rotation features (locked and "
+        f"quasi-periodic indicators, rotation number, distance to the nearest rational, $1/q$) to a base model of "
+        f"FTLE, sharpness, rate and oscillation amplitude, over the {rows} cells beyond the edge of stability, with "
+        f"moving-block bootstrap intervals. Regime differences are large; the incremental value of rotation "
+        f"information is not.}}",
+        "\\label{tab:consequence}", "\\end{table}"]
+    return "\n".join(lines) + "\n"
+
+
 def render(n):
     lines = ["% Generated by paper/gd-route/scripts/build_numbers.py from saved evidence; do not edit by hand.",
              "% Each macro's source, SHA-256 and computation are listed in data/numbers.json."]
@@ -475,7 +777,7 @@ def index():
 
 def main():
     n = build()
-    tex, data, table = render(n), manifest(n), design_table()
+    tex, data, table, consequences = render(n), manifest(n), design_table(), consequence_table()
     if VERIFY:
         problems = []
         recorded = load(MANIFEST)
@@ -489,6 +791,8 @@ def main():
             problems.append("generated-numbers.tex differs from the recomputed macros")
         if TABLE.read_text() != table:
             problems.append("generated-design-table.tex differs from the recomputed table")
+        if CONS_TABLE.read_text() != consequences:
+            problems.append("generated-consequence-table.tex differs from the recomputed table")
         if load(INDEX) != index():
             problems.append("provenance.json index is stale")
         if problems:
@@ -498,6 +802,7 @@ def main():
     MANIFEST.parent.mkdir(exist_ok=True)
     TEX.write_text(tex)
     TABLE.write_text(table)
+    CONS_TABLE.write_text(consequences)
     MANIFEST.write_text(json.dumps(data, indent=1) + "\n")
     INDEX.write_text(json.dumps(index(), indent=1) + "\n")
     print(json.dumps({"numbers": len(n.entries), "tex": str(TEX)}))
