@@ -8,8 +8,10 @@ Reads slices written by ``tools/explore_consequence.py simulate`` and
      qualified chaotic cells as the controls required by AGENTS.md;
   3. compares nested least-squares models with leave-one-block-out
      cross-validation (blocks of contiguous cells along the slice):
-     base = FTLE (positive and negative parts), preconditioned sharpness,
-     log10 rate and log10 oscillation amplitude; full = base + rotation and
+     base = FTLE (positive and negative parts plus indicator classes
+     negative / |FTLE| <= 1e-3 / weakly positive, the classify thresholds),
+     preconditioned sharpness, log10 rate and log10 oscillation amplitude;
+     full = base + rotation and
      locking features (locked and quasi-periodic indicators, rotation number,
      log10 distance to the nearest rational with denominator <= 12, 1/q of the
      locked cycle). Reproducibility outcomes are also compared with a
@@ -120,8 +122,16 @@ def derive(d, cfg):
     return f
 
 
+def base_features(f):
+    """FTLE (continuous parts plus sign classes at the classify thresholds), sharpness, rate, amplitude."""
+    lam = np.clip(f["ftle"], -0.05, 0.1)
+    return [np.maximum(lam, 0), np.minimum(lam, 0), (lam < -1e-3).astype(float),
+            (np.abs(lam) <= 1e-3).astype(float), ((lam > 1e-3) & (lam <= 5e-3)).astype(float),
+            f["sharpness"], f["log10_hidden"], f["amplitude"]]
+
+
 def nested(f, rows, outcome, with_transient=False, draws=300):
-    base = [np.maximum(f["ftle"], 0), np.minimum(f["ftle"], 0), f["sharpness"], f["log10_hidden"], f["amplitude"]]
+    base = base_features(f)
     if with_transient:
         base.append(f["transient"])
     rot = list(f["features_rotation"].values())
