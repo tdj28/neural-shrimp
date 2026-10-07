@@ -336,3 +336,31 @@ _commit `9a48cc25e8ee` (dirty worktree)_
 Inside 0.9x the ray-continued stability region of each confirmed window: S1R (33 windows) shows the window period in 26.5% of map cells from the shared start; of 3,864 sampled other cells, 4x longer runs from the shared start recover period p in 10.3% but runs from the certified orbit point recover 86.5%: coexisting attractors, so fixed-start maps hide most of each S1R window. S2 (28 windows) shows the window period in 55.6% of cells; of 2,224 sampled other cells, 4x longer runs recover 54.6% (long chaotic transients) and orbit-point starts only 44.4%, failing mostly as chaotic labels (e.g. zoom:230 long 83/120 vs orbit 1/120). The pre-stated surprise (orbit starts failing inside the ray-continued region) therefore occurred for S2, but the comparison is confounded: orbit-start runs had 20,000 updates against 80,000 for the long runs, and the window-center orbit point may lie outside the basin of the continued orbit at distant cells; the angular interpolation of ray boundaries can also include cells outside thin curved regions. Follow-up queued: orbit-point starts with 80,000 updates for S2, and starts from the continued orbit along each ray. Implication either way: map-based shrimp criteria must use orbit-following (continuation) maps, and paper figures from fixed starts must say they show basin selection.
 
 _commit `f0ae8272b59d` (dirty worktree)_
+
+## 2026-10-07 21:18 UTC: run (exploratory)
+
+- **Question:** Is the S2 orbit-start failure an artifact of the shorter horizon? Rerun the same sampled cells from the certified orbit point with 80,000 updates (equal to the long runs).
+- **Setup:** S2 windows only (28), same sampled cells (seeds tied to rays.json order), orbit-point starts with 4 map horizons (80,000 updates), EXP-028 screening
+- **Output:** `../neural-shrimp-data/explore/a2-survey/speckle-s2-orbit80k.json`
+- **Would surprise us:** Orbit-point starts still recovering period p in under half the sampled cells (would point to basin limits of the window-center orbit point or to region-mask errors)
+- **Command:** `.venv/bin/python tools/explore_a2_speckle.py --systems S2 --orbit-factor 4 --skip-long --workers 4 --name speckle-s2-orbit80k.json`
+
+_commit `fdb2aea8c409`_
+
+## 2026-10-07 21:22 UTC: run (exploratory)
+
+- **Question:** High-resolution rotation-number map of the S2-28011 plane: is the rotation number continuous across the quasi-periodic band, equal to arg(mu)/2pi just beyond the Neimark-Sacker curve, and do m/q plateaus (period 2q) emanate from the predicted roots?
+- **Setup:** GPU (RTX 2000 Ada, qualified float64 backend), S2-28011, log10 hidden 1.60-2.06 x log10 output -0.46 to -0.07, 1024x1024, EXP-028 screening (20,000 updates) then 256 two-step samples (plane) and 6,000 (rotation)
+- **Output:** `../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-1024`
+- **Would surprise us:** Same as the 256x256 CPU run: rotation beyond the curve differing from arg(mu)/2pi; m/q regions not approaching their roots; periods not 2q on plateaus
+- **Command:** `.venv/bin/python tools/explore_gpu_rotation_map.py --name a3-gpu-rotation/s2-28011-1024 --system S2 --seed 28011 --hidden 1.60 2.06 --output -0.46 -0.07 --resolution 1024 1024 --library ../neural-shrimp-data/builds/gdmap-cuda-64af0462/gdmap_cuda.so`
+
+_commit `92ae8586eebd` (dirty worktree)_
+
+- run started 2026-10-07 21:18 UTC finished 21:23 UTC with exit status 0
+
+## 2026-10-07 21:27 UTC: Informative failure: two-parameter model scan killed by its 30-minute timeout
+
+The 400x400 scan of the factorization model (run card above, commit before 92ae8586) was killed by timeout 1800 (exit 143) while the CPU was oversubscribed (load above 30, processes at nice 10); no output was written and research_log could not append its finish line. Rerunning at 160x160 with the same settings.
+
+_commit `92ae8586eebd` (dirty worktree)_
