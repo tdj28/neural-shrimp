@@ -28,3 +28,17 @@ skill, section 7A). Costs are recorded cumulatively below.
 |---|---|---|---|---|
 | (1) mechanism strategy | $3.25 | $3.02 | $1.55 (31,129 in / 24,797 out tokens) | $1.55 |
 | (2) roadmap and RunPod plan (Pro, xhigh effort, 40k output) | $4.75 | $4.50 | pending | pending |
+
+## 2026-10-07: third consult (references)
+
+- **Approval (human, in session, 7 October 2026):** "also ask pro if we are
+  missing references, but that can be a third consult if needed i'm good for
+  the cost", within the $20 consult ceiling recorded above.
+- **Scope:** one `research-note-scientific` review of the working manuscript
+  (`paper/gd-route/main.tex` with `references.bib` as context), emphasizing
+  reference coverage. The model has no browsing: every suggested reference is
+  verified at its primary source (arXiv or Crossref) before use.
+
+| Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
+|---|---|---|---|---|
+| (3) references | pending | pending | pending | pending |
