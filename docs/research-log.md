@@ -823,3 +823,12 @@ _commit `b84bf355a363` (dirty worktree)_
 Frozen outcomes: controls valid (positive pass, displaced root and logistic window alternative_ancestry). Right root: onset criteria (1)-(3) pass; attempt 1 exhausted_budget; attempt 2 alternative_ancestry because the all-level linear extrapolation of the locked-interval centre is 1.53e-4 decades (tolerance 1e-4), while widths shrink (ratios to 8.17 vs asymptote 8), amplitude ratio 51 and the deepest centre is 2.5e-5 from the root. Left root: supercriticality criterion failed as frozen (exponent 0.83) and no locked cell at the top level (no_qualifying_window). Connection from the right-root tongue to the window: exhausted_budget (left edge lost near log10 hidden 1.85, heading turned, continuation failure at step 29). Post hoc: asymptotic-level fits put the tongue centre at the root within 1.6e-6 to 1.6e-5 decades with width and amplitude exponents 1.518 and 0.513; the window's own branch ends at folds 0.10-0.22 decades towards the tracked tongue; a left-root probe at delta 0.0008 found no locked cell. Interpretation: a 1/5 Arnold tongue is attached to the predicted resonance point (post hoc), but window 139 is not shown to belong to it. Separate exploratory 2/9 case to follow; it does not substitute for this result.
 
 _commit `f26a8868cc1c` (dirty worktree)_
+
+## 2026-10-07 22:47 UTC: run (exploratory)
+
+- **Question:** SEPARATE exploratory case (not a substitute for the 1/5 result): does window S2-28011-zoom:587 (period 18, rotation 2/9) descend from the 2/9 resonance at the birth-rotation maximum of the Neimark-Sacker curve?
+- **Setup:** Roots A (log10 output bracket -0.07739..-0.07543) and B (-0.06957..-0.06761) with m/q = 2/9; onset checks as in the 1/5 card with comparison points at output offsets -0.02 (A) and -0.03 (B); levels 0.0128/4^k, k = 0..3 only (q = 9 tongues narrow like delta^3.5, deeper levels are numerically infeasible), tracking strategy, period 18; same classifier and 1e-4 tolerance; connection to zoom:587 as in the 1/5 card
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/2-9-*`
+- **Would surprise us:** Locked 2/9 regions not narrowing onto either root; window not reached from the tongue
+
+_commit `158c5fa23a6c` (dirty worktree)_
