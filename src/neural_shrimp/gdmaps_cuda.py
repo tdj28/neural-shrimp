@@ -24,6 +24,7 @@ import json
 import operator
 import os
 from pathlib import Path
+import re
 import shutil
 import signal
 import subprocess
@@ -55,6 +56,23 @@ OPENBLAS_UNROLL_M = 4
 
 COMMON_FLAGS = ("-O3", "-std=c++17", "--shared", "-Xcompiler=-fPIC", "--ftz=false",
                 "--prec-div=true", "--prec-sqrt=true", "-arch=sm_89", "-Xptxas=-v")
+DEFAULT_ARCH = "sm_89"
+# Compute capabilities on which the mirror build has passed qualification.
+QUALIFIED_CAPABILITIES = ((8, 9),)
+# Qualification runs on new hardware may name extra capabilities explicitly,
+# e.g. NEURAL_SHRIMP_CUDA_QUALIFYING=9.0; such runs are labelled in metadata.
+QUALIFYING_ENV = "NEURAL_SHRIMP_CUDA_QUALIFYING"
+
+
+def qualified_capabilities():
+    """Qualified compute capabilities plus any explicitly named for qualification."""
+    extra = []
+    for token in filter(None, (t.strip() for t in os.environ.get(QUALIFYING_ENV, "").split(","))):
+        parts = token.split(".")
+        if len(parts) != 2 or not all(part.isdigit() for part in parts):
+            raise ValueError(f"{QUALIFYING_ENV} entries must look like 9.0, got {token!r}")
+        extra.append((int(parts[0]), int(parts[1])))
+    return tuple(dict.fromkeys(QUALIFIED_CAPABILITIES + tuple(extra)))
 VARIANTS = {
     # Qualified default: explicit intrinsics, no compiler contraction.
     "mirror": COMMON_FLAGS + ("--fmad=false",),
@@ -130,7 +148,8 @@ def nvidia_driver_version():
     return None
 
 
-def build(directory, *, variant="mirror", compiler="nvcc", host_compiler="g++-12", timeout=900):
+def build(directory, *, variant="mirror", compiler="nvcc", host_compiler="g++-12", timeout=900,
+          arch=DEFAULT_ARCH):
     """Compile the shared library into ``directory`` and write a build receipt.
 
     Refuses to overwrite an existing library or receipt. Compilation only: no
@@ -138,6 +157,8 @@ def build(directory, *, variant="mirror", compiler="nvcc", host_compiler="g++-12
     """
     if variant not in VARIANTS:
         raise ValueError(f"variant must be one of {sorted(VARIANTS)}")
+    if not re.fullmatch(r"sm_\d{2,3}", arch):
+        raise ValueError(f"arch must look like sm_89, got {arch!r}")
     directory = Path(directory).resolve()
     directory.mkdir(parents=True, exist_ok=True)
     library = directory / LIBRARY_NAME
@@ -150,7 +171,8 @@ def build(directory, *, variant="mirror", compiler="nvcc", host_compiler="g++-12
     host = shutil.which(host_compiler)
     if not host:
         raise FileNotFoundError(f"Supported host compiler unavailable: {host_compiler}")
-    command = [nvcc, *VARIANTS[variant], "-ccbin", host, str(SOURCE), "-o", str(library)]
+    flags = [f"-arch={arch}" if flag == f"-arch={DEFAULT_ARCH}" else flag for flag in VARIANTS[variant]]
+    command = [nvcc, *flags, "-ccbin", host, str(SOURCE), "-o", str(library)]
     compiler_version = subprocess.check_output([nvcc, "--version"], text=True, timeout=30)
     host_version = subprocess.check_output([host, "--version"], text=True, timeout=30)
     started = time.monotonic()
@@ -172,7 +194,7 @@ def build(directory, *, variant="mirror", compiler="nvcc", host_compiler="g++-12
         compiler=nvcc, compiler_version=compiler_version, host_compiler=host,
         host_compiler_version=host_version, returncode=process.returncode, stdout=stdout,
         stderr=stderr, interruption=type(interrupted).__name__ if interrupted else None,
-        wall_seconds=time.monotonic() - started, architecture="sm_89", dtype="float64",
+        wall_seconds=time.monotonic() - started, architecture=arch, dtype="float64",
         fmad="--fmad=true" in command, free_contraction=variant == "contract",
         fast_math=False, ftz=False, cudart="static", gpu_initialized=False,
         library=str(library), library_sha256=_sha256(library) if library.exists() else None)
@@ -417,8 +439,11 @@ class GdmapCuda:
                              tail_start=tail_start, sd_max=sd_max, norm_start=steps - ftle_steps,
                              divergence_threshold=opts["divergence_threshold"])
         info = self.device_info(device)
-        if (info["major"], info["minor"]) != (8, 9):
-            raise ValueError("this backend was qualified for sm_89 only")
+        capability = (info["major"], info["minor"])
+        if capability not in qualified_capabilities():
+            raise ValueError(f"this backend is qualified only for compute capabilities "
+                             f"{QUALIFIED_CAPABILITIES}; set {QUALIFYING_ENV} for a qualification run")
+        qualifying_run = capability not in QUALIFIED_CAPABILITIES
         budget = min(int(max_device_bytes), int(info["free_bytes"]) // 2)
 
         def planned(capacity, tail_capacity):
@@ -614,6 +639,7 @@ class GdmapCuda:
             return result
         metadata = self.metadata(device)
         metadata.update(
+            qualifying_run=qualifying_run,
             cells=cells, steps=steps, parameters=p, samples=n, options=_jsonable(opts),
             screen=screen, chunk_cells=capacity, tail_cells=tail_capacity, chunks=n_chunks,
             launches=launches, planned_device_bytes=required, allocated_device_bytes=allocated,

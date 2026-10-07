@@ -26,6 +26,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from neural_shrimp import gdmaps_cuda as gc  # noqa: E402
+
+try:  # optional: GPU-side bookkeeping for the rotation stage
+    import torch
+    if not torch.cuda.is_available():
+        torch = None
+except ImportError:
+    torch = None
 from neural_shrimp.gdmaps import GridMap  # noqa: E402
 from neural_shrimp.trainability import SYSTEMS  # noqa: E402
 
@@ -86,32 +93,51 @@ def rotation_stage(backend, grid, final_state, alive, pca, samples, chunk, devic
                               gc._pointer(out["wnorm"], dp), gc._pointer(out["early"], dp))
                 return out["theta"][:, :m].T
 
-            mean = np.zeros((m, p))
-            second = np.zeros((m, p, p))
-            t = final_state[lo:hi].copy()
+            # Moments, principal planes and angle bookkeeping run in torch on the
+            # GPU when available (the numpy path is host-bound for 10^6 cells).
+            xp = torch if torch is not None else None
+            dev = "cuda" if torch is not None else None
+
+            def as_array(a):
+                return torch.as_tensor(np.nan_to_num(a), device=dev) if xp is not None else np.nan_to_num(a)
+
+            t = as_array(final_state[lo:hi])
+            mean = t * 0.0
+            second = (t[:, :, None] * t[:, None, :]) * 0.0
             for _ in range(pca):
-                t = np.nan_to_num(t)
                 mean += t
                 second += t[:, :, None] * t[:, None, :]
-                t = advance_two()
+                t = as_array(advance_two())
             mean /= pca
             cov = second / pca - mean[:, :, None] * mean[:, None, :]
-            vals, vecs = np.linalg.eigh(cov)
+            del second
+            # Batched eigh of many small matrices: cuSOLVER's batched workspace grows
+            # far beyond device memory (232 GB requested for 409,600 13x13 blocks),
+            # so the decomposition runs on the host and the planes return to the GPU.
+            vals, vecs = np.linalg.eigh(cov.cpu().numpy() if xp is not None else cov)
+            del cov
+            if xp is not None:
+                vals, vecs = torch.as_tensor(vals, device=dev), torch.as_tensor(vecs, device=dev)
             plane = vecs[:, :, -2:]
-            share[lo:hi] = vals[:, -2:].sum(1) / np.maximum(vals.sum(1), 1e-300)
+            ratio = vals[:, -2:].sum(1) / vals.sum(1).clamp(min=1e-300) if xp is not None else \
+                vals[:, -2:].sum(1) / np.maximum(vals.sum(1), 1e-300)
+            share[lo:hi] = ratio.cpu().numpy() if xp is not None else ratio
+            two_pi = 2 * np.pi
 
             def angle(state):
-                z = np.einsum("cp,cpj->cj", state - mean, plane)
-                return np.arctan2(z[:, 1], z[:, 0])
+                z = ((state - mean)[:, :, None] * plane).sum(1)
+                return torch.atan2(z[:, 1], z[:, 0]) if xp is not None else np.arctan2(z[:, 1], z[:, 0])
 
-            previous = angle(np.nan_to_num(t))
-            total = np.zeros(m)
+            previous = angle(t)
+            total = previous * 0.0
+            last = None
             for _ in range(samples):
-                t = advance_two()
-                current = angle(np.nan_to_num(t))
-                total += (current - previous + np.pi) % (2 * np.pi) - np.pi
+                last = advance_two()
+                current = angle(as_array(last))
+                total += (current - previous + np.pi) % two_pi - np.pi
                 previous = current
-            ok = (out["alive"][:m] != 0) & alive[lo:hi] & np.all(np.isfinite(t), axis=1)
+            total = total.cpu().numpy() if xp is not None else total
+            ok = (out["alive"][:m] != 0) & alive[lo:hi] & np.all(np.isfinite(last), axis=1)
             rho[lo:hi] = np.where(ok, np.abs(total) / (2 * np.pi * samples), np.nan)
             share[lo:hi] = np.where(ok, share[lo:hi], np.nan)
             print(json.dumps({"chunk": [lo, hi], "of": cells}), flush=True)
