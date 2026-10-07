@@ -14,7 +14,10 @@ compute the two-step multipliers from dense Jacobians; then record the loss
 for ``--record`` steps with Gaussian noise of standard deviation ``--noise``
 added to every parameter after each update (seed 28730), and report the
 strongest peak of the even-step loss spectrum and its height relative to the
-median spectral power.
+median spectral power. A least-squares AR(6) fit of the same series gives a
+loss-only estimate of the dominant complex multiplier (modulus and angle),
+compared with the Jacobian value (estimator added after a first run showed
+that raw peak picking is noisy far from the bifurcation).
 """
 
 import argparse
@@ -29,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from neural_shrimp.gdmaps import GridMap  # noqa: E402
-from neural_shrimp.regimes import peak_frequencies  # noqa: E402
+from neural_shrimp.regimes import dominant_ar_root, peak_frequencies  # noqa: E402
 from neural_shrimp.trainability import SYSTEMS  # noqa: E402
 
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", "/data2/neural-shrimp-data"))
@@ -86,6 +89,7 @@ def main():
                 row["predicted_frequency"] = float(abs(np.angle(top)) / (2 * np.pi))
         rows.append(row)
     settled = theta.copy()
+    saved = {"log10_hidden": lh}
     for k, sigma in enumerate(args.noise):
         rng = np.random.default_rng(NOISE_SEED + k)
         theta = settled.copy()
@@ -94,17 +98,20 @@ def main():
             theta, loss = grid.step(theta, return_loss=True)
             theta = theta + sigma * rng.normal(size=theta.shape)
             losses[t] = loss
+        saved[f"even_loss_noise_{sigma:g}"] = losses[::2]
         for i, row in enumerate(rows):
             series = losses[::2, i]
             if not np.all(np.isfinite(series)):
                 continue
             peaks = peak_frequencies(series, count=3)
-            entry = {"peaks": peaks}
+            modulus, frequency = dominant_ar_root(series, order=6)
+            entry = {"peaks": peaks, "ar_modulus": modulus, "ar_frequency": frequency}
             if "predicted_frequency" in row:
                 entry["height_at_prediction"] = peak_height(series, row["predicted_frequency"])
                 entry["gap_to_prediction"] = (min(abs(p - row["predicted_frequency"]) for p in peaks)
                                               if peaks else None)
             row[f"noise_{sigma:g}"] = entry
+    np.savez(out / "series.npz", **saved)
     (out / "precursor.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
     for row in rows:
         print(json.dumps(row))

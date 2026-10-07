@@ -128,6 +128,28 @@ def peak_frequencies(series, count=3, low=0.005):
     return found
 
 
+def dominant_ar_root(series, order=6):
+    """Complex root of largest modulus of a least-squares AR(order) fit.
+
+    For a noise-driven weakly damped oscillation (for example the training
+    loss sampled every two steps near a Neimark-Sacker point) this estimates
+    the two-step multiplier: returns (modulus, frequency = angle / 2 pi in
+    [0, 1/2]). Returns (nan, nan) when the fit has no complex root.
+    """
+    z = np.asarray(series, dtype=np.float64)
+    if z.ndim != 1 or len(z) < 10 * order or not np.all(np.isfinite(z)):
+        raise ValueError("series must be finite, one-dimensional and at least 10 * order long")
+    z = z - z.mean()
+    lagged = np.column_stack([z[order - k - 1:len(z) - k - 1] for k in range(order)])
+    coef, *_ = np.linalg.lstsq(lagged, z[order:], rcond=None)
+    roots = np.roots(np.r_[1.0, -coef])
+    roots = roots[np.abs(roots.imag) > 1e-9]
+    if len(roots) == 0:
+        return float("nan"), float("nan")
+    top = roots[np.argmax(np.abs(roots))]
+    return float(abs(top)), float(abs(np.angle(top)) / (2 * np.pi))
+
+
 def classify(status, period, ftle, rho_halves, rho, separation, cycle_m,
              qp_ftle=1e-3, qp_rho_tol=5e-4, chaos_ftle=5e-3, separation_floor=1e-6):
     """Regime label from screening, Lyapunov and rotation features.

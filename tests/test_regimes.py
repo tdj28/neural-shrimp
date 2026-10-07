@@ -2,8 +2,8 @@ import numpy as np
 import pytest
 
 from neural_shrimp.regimes import (
-    block_bootstrap, blocked_cv_r2, classify, cycle_rotation, partial_correlation, peak_frequencies,
-    rotation_number, spectrum_features,
+    block_bootstrap, blocked_cv_r2, classify, cycle_rotation, dominant_ar_root, partial_correlation,
+    peak_frequencies, rotation_number, spectrum_features,
 )
 
 
@@ -94,3 +94,17 @@ def test_block_bootstrap_interval_of_constant_statistic():
     values = np.arange(100.0)
     low, high = block_bootstrap(lambda index: values[index].mean(), 100, 10, draws=200)
     assert low < 49.5 < high
+
+
+def test_dominant_ar_root_recovers_damped_oscillation():
+    rng = np.random.default_rng(5)
+    n, r, f = 8192, 0.99, 0.2125
+    a1, a2 = 2 * r * np.cos(2 * np.pi * f), -r * r
+    osc = np.zeros(n)
+    slow = np.zeros(n)
+    for k in range(2, n):
+        osc[k] = a1 * osc[k - 1] + a2 * osc[k - 2] + rng.normal()
+        slow[k] = 0.5 * slow[k - 1] + rng.normal()
+    modulus, frequency = dominant_ar_root(osc + 0.5 * slow + 0.1 * rng.normal(size=n))
+    assert abs(modulus - r) < 0.01 and abs(frequency - f) < 2e-3
+    assert np.isnan(dominant_ar_root(rng.normal(size=n), order=1)[0])
