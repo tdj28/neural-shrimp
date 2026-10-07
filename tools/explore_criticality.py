@@ -1,0 +1,277 @@
+"""Exploratory: criticality of the period-2 Neimark-Sacker curve (safe vs dangerous edges).
+
+Subcommands (outputs under DATA/explore/criticality/<name>/):
+  control   engineered planar gradient map with a prescribed 2-cycle
+            (neural_shrimp.minimal.EngineeredTwoCycle): first Lyapunov coefficient d
+            at r = 1 versus kappa, and a dynamical check just beyond (r = 1 + delta)
+  curve     for each output rate of a traced Neimark-Sacker curve: re-find the
+            period-2 orbit near the boundary, continue it to the boundary
+            (bisection 1e-10) and evaluate d of the two-step map there
+  dynamics  at selected output rates: (a) asymptotic amplitude beyond the curve
+            for several offsets (circle with amplitude ~ sqrt(delta) or escape),
+            (b) escape threshold of perturbations before the curve, (c) a slow
+            up-and-down sweep of the hidden rate carrying the state (hysteresis)
+
+The sign of d decides the edge type: d < 0 supercritical (soft: quasi-periodic
+training is born continuously), d > 0 subcritical (hard: the period-2 orbit is
+surrounded by a repelling circle that shrinks onto it; trajectories leave).
+"""
+
+import argparse
+import json
+import os
+import sys
+from concurrent.futures import ProcessPoolExecutor
+from pathlib import Path
+
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from neural_shrimp.continuation import continue_ray  # noqa: E402
+from neural_shrimp.criticality import finite_difference_forms, ns_coefficient  # noqa: E402
+from neural_shrimp.gdmaps import GridMap, run_grid  # noqa: E402
+from neural_shrimp.minimal import EngineeredTwoCycle  # noqa: E402
+from neural_shrimp.trainability import SYSTEMS  # noqa: E402
+
+DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
+OUT = DATA / "explore" / "criticality"
+
+
+# ---------------------------------------------------------------- control
+def engineered_d(kappa, phi):
+    f = EngineeredTwoCycle(1.0, phi, kappa)
+
+    def jvp(X, V):
+        return np.stack([f.jacobian(f.step(x)) @ (f.jacobian(x) @ v) for x, v in zip(X, V)])
+
+    A = f.jacobian(f.p1) @ f.jacobian(f.p0)
+    B, C = finite_difference_forms(jvp, f.p0)
+    return ns_coefficient(A, B, C)
+
+
+def engineered_dynamics(kappa, phi, delta, steps=200000):
+    f = EngineeredTwoCycle(1.0 + delta, phi, kappa)
+    x = f.p0 + np.array([1e-3, 0.0])
+    amplitudes = []
+    for k in range(steps):
+        x = f.step(f.step(x))
+        if not np.all(np.isfinite(x)) or np.linalg.norm(x - f.p0) > 0.5:
+            return {"escaped": True, "at": k}
+        if k >= steps - 2000:
+            amplitudes.append(np.linalg.norm(x - f.p0))
+    return {"escaped": False, "amplitude_mean": float(np.mean(amplitudes)),
+            "amplitude_spread": float(np.std(amplitudes))}
+
+
+def cmd_control(args):
+    rows = []
+    phi = 2 * np.pi * 0.13
+    for kappa in args.kappas:
+        coef = engineered_d(kappa, phi)
+        dyn = [{"delta": dlt, **engineered_dynamics(kappa, phi, dlt)} for dlt in (1e-3, 4e-3)]
+        rows.append({"kappa": kappa, **coef, "dynamics": dyn})
+        print(json.dumps({"kappa": kappa, "d": round(coef["d"], 6), "dynamics": dyn}), flush=True)
+    out = OUT / args.name
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "control.json").write_text(json.dumps(rows, indent=1))
+
+
+# ---------------------------------------------------------------- network helpers
+def network(system, seed):
+    return SYSTEMS[system](seed)
+
+
+def two_step_jvp(grid):
+    def jvp(X, V):
+        X1 = grid.step(X)
+        return grid.jvp(X1, grid.jvp(X, V))
+    return jvp
+
+
+def dense_two_step(grid, x0):
+    _, jacobian = grid.cell_map(0)
+    x1 = grid.step(x0[None])[0]
+    return jacobian(x1) @ jacobian(x0)
+
+
+def period2_start(net, x, y, theta0, h, o, steps=40000):
+    grid = GridMap(net, x, y, [10.0 ** h], [10.0 ** o])
+    res = run_grid(grid, theta0, steps, tail_steps=384, ftle_steps=1000, ftle_align=200, sd_horizons=())
+    return int(res["status"][0]), int(res["period"][0]), res["final_state"][0]
+
+
+def boundary_point(task):
+    system, seed, o, h_guess, margins = task
+    net, x, y, theta0 = network(system, seed)
+
+    def family(p):
+        return GridMap(net, x, y, [10.0 ** p[0]], [10.0 ** p[1]]).cell_map(0)
+
+    for margin in margins:
+        h0 = h_guess - margin
+        status, period, state = period2_start(net, x, y, theta0, h0, o)
+        if period != 2:
+            continue
+        ray = continue_ray(family, state, 2, (h0, o), (1.0, 0.0), margin + 0.05, min(0.002, margin / 4),
+                           bisection_tolerance=1e-10)
+        if ray["type"] != "neimark_sacker":
+            return {"log10_output": o, "start": h0, "type": ray["type"],
+                    "log10_hidden_boundary": None if ray["s_boundary"] is None else h0 + ray["s_boundary"]}
+        h_low = h0 + ray["bracket"][0]
+        x0 = np.asarray(ray["last_attracting_state"])
+        grid = GridMap(net, x, y, [10.0 ** h_low], [10.0 ** o])
+        A = dense_two_step(grid, x0)
+        B, C = finite_difference_forms(two_step_jvp(grid), x0)
+        coef = ns_coefficient(A, B, C)
+        scale = float(np.linalg.norm(x0))
+        B2, C2 = finite_difference_forms(two_step_jvp(grid), x0, step_b=2e-4, step_c=2e-3)
+        coef2 = ns_coefficient(A, B2, C2)
+        return {"log10_output": o, "start": h0, "type": "neimark_sacker", "log10_hidden_boundary": h0 + ray["s_boundary"],
+                "log10_hidden_last_attracting": h_low, "orbit_point": x0.tolist(), "state_norm": scale, **coef,
+                "d_step_check": coef2["d"]}
+    return {"log10_output": o, "type": "no_period_2_start"}
+
+
+def cmd_curve(args):
+    rows = [r for r in json.loads(Path(args.ns).read_text())["rows"] if r.get("type") == "neimark_sacker"]
+    rows = sorted(rows, key=lambda r: r["log10_output"])[::args.stride]
+    tasks = [(args.system, args.seed, r["log10_output"], r["log10_hidden_boundary"], (0.02, 0.05, 0.1, 0.2))
+             for r in rows]
+    with ProcessPoolExecutor(args.workers) as pool:
+        out_rows = list(pool.map(boundary_point, tasks, chunksize=1))
+    out = OUT / args.name
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "curve.json").write_text(json.dumps({"args": vars(args), "rows": out_rows}, indent=1))
+    for r in out_rows:
+        if r.get("type") == "neimark_sacker":
+            print(f"out {r['log10_output']:+.4f} h_b {r['log10_hidden_boundary']:.6f} theta/2pi {r['theta_over_2pi']:.5f} "
+                  f"d {r['d']:+.4e} (step check {r['d_step_check']:+.4e}) gap {r['eigen_gap']:.3f}")
+        else:
+            print(f"out {r['log10_output']:+.4f} {r['type']}")
+
+
+# ---------------------------------------------------------------- dynamics
+def beyond(net, x, y, x0, h_b, o, delta, steps):
+    """Iterate the two-step map at h_b + delta from x0 plus a tiny push; amplitude or escape."""
+    grid = GridMap(net, x, y, [10.0 ** (h_b + delta)], [10.0 ** o])
+    xs = x0 + 1e-6 * np.random.default_rng(1).normal(size=x0.shape)
+    theta = xs[None]
+    amps = []
+    for k in range(steps):
+        theta = grid.step(grid.step(theta))
+        if not np.all(np.isfinite(theta)) or np.max(np.abs(theta)) > 1e6:
+            return {"delta": delta, "escaped": "diverged", "at": k}
+        if k >= steps - 4000:
+            amps.append(float(np.linalg.norm(theta[0] - x0)))
+    return {"delta": delta, "escaped": False, "amplitude_median": float(np.median(amps)),
+            "amplitude_min": float(np.min(amps)), "amplitude_max": float(np.max(amps))}
+
+
+def threshold(net, x, y, x0, h_b, o, delta, q_dir, steps):
+    """Smallest perturbation amplitude (along the critical plane) that does not return to the 2-cycle."""
+    grid = GridMap(net, x, y, [10.0 ** (h_b - delta)], [10.0 ** o])
+
+    def returns(amplitude):
+        theta = (x0 + amplitude * q_dir)[None]
+        for _ in range(steps):
+            theta = grid.step(grid.step(theta))
+            if not np.all(np.isfinite(theta)) or np.max(np.abs(theta)) > 1e6:
+                return False
+        return float(np.linalg.norm(theta[0] - x0)) < 1e-3 * max(amplitude, 1e-6) + 1e-8
+
+    lo, hi = 1e-6, 1.0
+    if not returns(lo):
+        return {"delta": -delta, "threshold": "<1e-6"}
+    if returns(hi):
+        return {"delta": -delta, "threshold": ">1"}
+    for _ in range(30):
+        mid = np.sqrt(lo * hi)
+        if returns(mid):
+            lo = mid
+        else:
+            hi = mid
+        if hi / lo < 1.05:
+            break
+    return {"delta": -delta, "threshold": float(np.sqrt(lo * hi))}
+
+
+def dynamics_point(task):
+    system, seed, row, deltas, steps = task
+    net, x, y, theta0 = network(system, seed)
+    o, h_b = row["log10_output"], row["log10_hidden_boundary"]
+    x0 = np.asarray(row["orbit_point"])
+    grid = GridMap(net, x, y, [10.0 ** row["log10_hidden_last_attracting"]], [10.0 ** o])
+    A = dense_two_step(grid, x0)
+    vals, vecs = np.linalg.eig(A)
+    k = int(np.argmax(np.where(vals.imag > 1e-12, np.abs(vals), -1)))
+    q_dir = vecs[:, k].real / np.linalg.norm(vecs[:, k].real)
+    out = {"log10_output": o, "log10_hidden_boundary": h_b, "d": row["d"],
+           "beyond": [beyond(net, x, y, x0, h_b, o, d, steps) for d in deltas],
+           "before": [threshold(net, x, y, x0, h_b, o, d, q_dir, steps // 4) for d in deltas]}
+    # hysteresis: sweep up through the boundary and back, carrying the state
+    path = np.r_[np.linspace(-max(deltas), max(deltas), 9), np.linspace(max(deltas), -max(deltas), 9)]
+    theta = x0[None].copy()
+    sweep = []
+    for dlt in path:
+        g = GridMap(net, x, y, [10.0 ** (h_b + dlt)], [10.0 ** o])
+        ok = True
+        for _ in range(steps // 8):
+            theta = g.step(g.step(theta))
+            if not np.all(np.isfinite(theta)) or np.max(np.abs(theta)) > 1e6:
+                ok = False
+                break
+        sweep.append({"delta": float(dlt), "amplitude": float(np.linalg.norm(theta[0] - x0)) if ok else None})
+        if not ok:
+            theta = x0[None].copy()
+    out["sweep"] = sweep
+    return out
+
+
+def cmd_dynamics(args):
+    curve = json.loads(Path(args.curve).read_text())["rows"]
+    chosen = []
+    for target in args.outputs:
+        cands = [r for r in curve if r.get("type") == "neimark_sacker"]
+        chosen.append(min(cands, key=lambda r: abs(r["log10_output"] - target)))
+    tasks = [(args.system, args.seed, r, args.deltas, args.steps) for r in chosen]
+    with ProcessPoolExecutor(args.workers) as pool:
+        rows = list(pool.map(dynamics_point, tasks, chunksize=1))
+    out = OUT / args.name
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "dynamics.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
+    for r in rows:
+        print(json.dumps({"out": r["log10_output"], "d": r["d"],
+                          "beyond": [(b["delta"], b.get("escaped"), b.get("amplitude_median")) for b in r["beyond"]],
+                          "before": [(b["delta"], b["threshold"]) for b in r["before"]]}))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = parser.add_subparsers(dest="command", required=True)
+    control = sub.add_parser("control")
+    control.add_argument("--kappas", type=float, nargs="+", default=[-4, -2, -1, 0, 1, 2, 4, 8])
+    control.add_argument("--name", default="control")
+    curve = sub.add_parser("curve")
+    curve.add_argument("--system", default="S2")
+    curve.add_argument("--seed", type=int, default=28011)
+    curve.add_argument("--ns", default=str(DATA / "explore/a3-ns-curve/s2-28011-merged/ns-curve.json"))
+    curve.add_argument("--stride", type=int, default=1)
+    curve.add_argument("--workers", type=int, default=8)
+    curve.add_argument("--name", default="s2-28011-curve")
+    dyn = sub.add_parser("dynamics")
+    dyn.add_argument("--system", default="S2")
+    dyn.add_argument("--seed", type=int, default=28011)
+    dyn.add_argument("--curve", default=str(OUT / "s2-28011-curve/curve.json"))
+    dyn.add_argument("--outputs", type=float, nargs="+", default=[-0.42, -0.30, -0.20, -0.08, -0.034, -0.018, 0.013, 0.045])
+    dyn.add_argument("--deltas", type=float, nargs="+", default=[1e-4, 4e-4, 1.6e-3])
+    dyn.add_argument("--steps", type=int, default=40000)
+    dyn.add_argument("--workers", type=int, default=8)
+    dyn.add_argument("--name", default="s2-28011-dynamics")
+    args = parser.parse_args()
+    {"control": cmd_control, "curve": cmd_curve, "dynamics": cmd_dynamics}[args.command](args)
+
+
+if __name__ == "__main__":
+    main()
