@@ -85,3 +85,38 @@ hubs (Gallas 1993, 1994; Stoop et al. 2010; Jones 2012), circle maps, tongues
 and torus breakdown (Arnold; Aronson et al. 1982; Jensen, Bak and Bohr 1983-84;
 Kaneko 1983-86; Curry and Yorke 1978), learning-in-games tongues (Metaxas and
 Sapsis 2026), heavy-ball cycles (Goujaud et al. 2025).
+
+## Amendment, 7 October 2026 (after the roadmap review)
+
+Per the human-approved Pro roadmap review (`docs/consults/2026-10-07-roadmap/adjudication.md`,
+verdict "not ready to freeze"), the plan changes as follows. Outcomes seen
+before this amendment: everything in the evidence table above plus the
+consequence pilot (`docs/explore-consequence-2026-10-07.md`); no reserved
+seed or held-out architecture has been opened.
+
+1. **Primary claim (bounded, existential):** in specified finite tanh networks
+   under deterministic full-batch gradient descent in float64, a period-2
+   branch undergoes an attracting Neimark-Sacker bifurcation, and a
+   rule-selected periodic window is connected to the corresponding resonance
+   by continuation. Window fractions stay descriptive; the staircase is
+   exploratory; "route to chaos" only with a prespecified connected path
+   through converged chaos. The binary-score point is phrased as "conflates
+   dynamical regimes", not "misclassifies its target".
+2. **Order of work (dependency gates):** (a) controls and exploratory ancestry
+   of the 1/5 window (running); (b) acceptance rules frozen (onset, circle,
+   rotation at prespecified detunings, ancestry through both folds, outcome
+   categories); (c) bounded CIFAR profiling on the first subset; (d) RunPod
+   Phase 0 only (at most $5: port, parity, timing); (e) freeze: claims,
+   held-out configurations, gates, single primary endpoint, costed workload;
+   (f) held-out existence-and-replication test: two prespecified independent
+   losses across two architectures, one unused, no substitution; (g) real-data
+   confirmation on the frozen second subset; (h) Phase 2 as a separate decision
+   (no CNN for this paper).
+3. **Diagnostic:** loss-spectrum readout and AR precursor remain exploratory and
+   secondary until sampling, harmonic, abstention, AR(2)-baseline and
+   specificity rules are frozen; described as local system identification
+   unless prospective warning is shown.
+4. **Deferred:** odd-window mechanism (kept as disclosed exceptions),
+   nested-bifurcation expansion, production-resolution figures. The four-weight
+   model stream already running finishes as exploratory side evidence.
+5. **Added:** a small matched float32/float64 check at four regime points.
