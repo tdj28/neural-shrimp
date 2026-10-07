@@ -27,4 +27,4 @@ skill, section 7A). Costs are recorded cumulatively below.
 | Request | Authorization | Reserved estimate | Billed estimate (from usage) | Cumulative |
 |---|---|---|---|---|
 | (1) mechanism strategy | $3.25 | $3.02 | $1.55 (31,129 in / 24,797 out tokens) | $1.55 |
-| (2) roadmap and RunPod plan | $3.25 | $3.00 | pending | pending |
+| (2) roadmap and RunPod plan (Pro, xhigh effort, 40k output) | $4.75 | $4.50 | pending | pending |
