@@ -4,7 +4,8 @@ Engineering benchmark on artificial fixtures only (seeds 99996 and 99997); no
 study system is run. Usage:
 
     taskset -c 0 env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \\
-        python tools/bench_gdmap_cuda.py --library BUILD/gdmap_cuda.so --out OUT.json
+        python tools/bench_gdmap_cuda.py --library BUILD/gdmap_cuda.so --out OUT.json \\
+        [--ab-library OTHER_BUILD/gdmap_cuda.so]
 
 GPU numbers are kernel time per cell-step from CUDA events. They are taken on
 a shared GPU: nvidia-smi utilization, memory and compute processes are
@@ -81,6 +82,8 @@ def main(argv=None):
     parser.add_argument("--cpu-cells", type=int, default=1024)
     parser.add_argument("--cpu-steps", type=json.loads, default={"s1": 40, "w16": 4})
     parser.add_argument("--pipeline-steps", type=int, default=2000)
+    parser.add_argument("--ab-library", help="second build, timed interleaved with --library")
+    parser.add_argument("--ab-repeats", type=int, default=3)
     args = parser.parse_args(argv)
     out = args.out.resolve()
     if out.is_relative_to(gc.ROOT):
@@ -149,6 +152,25 @@ def main(argv=None):
         gpu_before=before, gpu_after=after))
     print(f"pipeline s1 {grid.cells} cells x {args.pipeline_steps} steps: wall {meta['wall_seconds']:.2f} s, "
           f"kernel {meta['kernel_seconds']:.2f} s, screen {meta['screen_seconds']:.2f} s")
+    if args.ab_library:
+        # Interleaved repeats, so drifting contention affects both builds alike.
+        other = gc.load(args.ab_library)
+        record["ab"] = dict(library_b=other.metadata(), rows=[])
+        for name in args.nets:
+            steps = int(args.gpu_steps[name])
+            grid, theta0 = fixture(name, min(args.cells))  # enough cells to fill the GPU
+            for mode in ("plain", "ftle"):
+                opts = dict(PLAIN) if mode == "plain" else dict(PLAIN, ftle_steps=steps)
+                for repeat in range(args.ab_repeats):
+                    for label, build in (("a", backend), ("b", other)):
+                        before = gpu_snapshot()
+                        _, meta = build.run_grid(grid, theta0, steps, return_metadata=True, **opts)
+                        record["ab"]["rows"].append(dict(
+                            net=name, cells=grid.cells, mode=mode, repeat=repeat, build=label,
+                            variant=meta["variant"], us_per_cell_step=meta["microseconds_per_cell_step"],
+                            gpu_before=before))
+                        print(f"A/B {name} {mode} repeat {repeat} {meta['variant']}: "
+                              f"{meta['microseconds_per_cell_step']:.3f} us/cell-step")
     record["finished_utc"] = datetime.now(timezone.utc).isoformat()
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("x") as stream:

@@ -68,6 +68,8 @@ def test_option_defaults_and_validation_match_cpu_engine():
     assert gc.OPTION_DEFAULTS["tail_steps"] == 512 and gc.OPTION_DEFAULTS["tangent_seed"] == 0
     steps, opts = gc._resolve_options(20000, {})
     assert steps == 20000 and opts["max_period"] == 64 and opts["atol"] == 1e-8
+    seed = np.random.SeedSequence(99998)
+    assert gc._resolve_options(20000, {"tangent_seed": seed})[1]["tangent_seed"] is seed
     with pytest.raises(TypeError):
         gc._resolve_options(5000, {"no_such_option": 1})
     for bad, message in (({"tail_steps": 0}, "tail and FTLE"), ({"ftle_align": -1}, "tail and FTLE"),

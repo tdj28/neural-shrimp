@@ -193,8 +193,9 @@ def _resolve_options(steps, options):
     opts = dict(OPTION_DEFAULTS)
     opts.update(options)
     steps = operator.index(steps)
+    # tangent_seed goes to numpy.random.default_rng unchanged, as on the CPU.
     for name in ("tail_steps", "ftle_steps", "ftle_align", "max_period", "min_repeats",
-                 "tangent_seed", "screen_batch"):
+                 "screen_batch"):
         opts[name] = operator.index(opts[name])
     opts["sd_horizons"] = tuple(operator.index(h) for h in opts["sd_horizons"])
     for name in ("atol", "rtol", "chaos_threshold", "divergence_threshold"):
@@ -611,7 +612,14 @@ def chunk_sd_measures(early, total_cells, horizons):
 
 
 def _jsonable(opts):
-    return {key: list(value) if isinstance(value, tuple) else value for key, value in opts.items()}
+    out = {}
+    for key, value in opts.items():
+        if isinstance(value, tuple):
+            value = list(value)
+        elif not isinstance(value, (int, float, str, type(None))):
+            value = repr(value)  # e.g. a SeedSequence passed as tangent_seed
+        out[key] = value
+    return out
 
 
 def load(library=None):
