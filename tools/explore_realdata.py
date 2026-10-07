@@ -18,6 +18,11 @@ Subcommands (all write under --out):
              continue it in log10 learning rate until it stops attracting;
              type the boundary from the dominant multiplier (fold, flip,
              Neimark-Sacker) and report arg(mu) / 2 pi.
+  branch     polish a minimum (L-BFGS, then Newton), place the flip at
+             2 / lambda_max, seed the period-2 orbit just beyond it along the
+             top Hessian eigenvector, and continue that orbit in log10
+             learning rate to its stability boundary (independent of the
+             fixed-initialization scan).
 
 Exploratory under the adaptive research protocol. Seeds 29000-29999 are
 refused (reserved for confirmatory tests).
@@ -221,9 +226,79 @@ def cmd_continue(config, args, out):
     print(json.dumps({k: v for k, v in report.items() if k != "path"}, indent=1, default=float))
 
 
+def polished_minimum(net, x, y, theta0, newton_steps=30):
+    """L-BFGS from ``theta0`` followed by Newton polishing with the dense Hessian."""
+    from scipy.optimize import minimize
+
+    fun = lambda t: float(net.loss(t[None], x, y)[0])  # noqa: E731
+    jac = lambda t: net.gradient(t[None], x, y)[0]  # noqa: E731
+    theta = minimize(fun, theta0, jac=jac, method="L-BFGS-B",
+                     options={"maxiter": 50000, "maxfun": 100000, "gtol": 1e-12, "ftol": 1e-16}).x
+    for _ in range(newton_steps):
+        g = jac(theta)
+        if np.linalg.norm(g) < 1e-13:
+            break
+        theta = theta - np.linalg.lstsq(net.hessian(theta, x, y), g, rcond=1e-14)[0]
+    return theta, float(np.linalg.norm(jac(theta)))
+
+
+def cmd_branch(config, args, out):
+    """Follow the minimum's own branch: flip at 2 / lambda_max, then the period-2 orbit it spawns."""
+    net, x, y, theta0 = network(config)
+    theta_star, grad_norm = polished_minimum(net, x, y, theta0)
+    eig, vec = np.linalg.eigh(net.hessian(theta_star, x, y))
+    lam, v = float(eig[-1]), vec[:, -1]
+    eta_c = 2.0 / lam
+    report = {"config": config, "grad_norm_at_minimum": grad_norm, "loss_at_minimum":
+              float(net.loss(theta_star[None], x, y)[0]), "lambda_max": lam, "lambda_min": float(eig[0]),
+              "eta_flip": eta_c, "log10_eta_flip": float(np.log10(eta_c)), "attempts": []}
+    np.save(out / "branch-minimum.npy", theta_star)
+
+    def family(p):
+        eta = 10.0 ** p[0]
+        return GridMap(net, x, y, [eta], [eta]).cell_map(0)
+
+    for factor in args.factors:
+        eta = eta_c * factor
+        grid = GridMap(net, x, y, [eta], [eta])
+        theta = (theta_star + args.kick * v)[None]
+        for _ in range(args.steps):
+            theta = grid.step(theta)
+        orbit_check = [theta[0]]
+        for _ in range(4):
+            orbit_check.append(grid.step(orbit_check[-1][None])[0])
+        two_cycle_gap = float(np.max(np.abs(orbit_check[2] - orbit_check[0])))
+        one_cycle_gap = float(np.max(np.abs(orbit_check[1] - orbit_check[0])))
+        attempt = {"factor": factor, "log10_eta": float(np.log10(eta)), "two_step_gap": two_cycle_gap,
+                   "one_step_gap": one_cycle_gap,
+                   "distance_from_minimum": float(np.linalg.norm(theta[0] - theta_star))}
+        if two_cycle_gap < 1e-8 and one_cycle_gap > 1e-6:
+            result = continue_ray(family, theta[0], 2, (float(np.log10(eta)), 0.0), (1.0, 0.0), args.s_max,
+                                  args.h0, bisection_tolerance=args.tolerance)
+            mu = complex(*result["dominant"]) if result["dominant"] else None
+            attempt.update({
+                "type": result["type"],
+                "log10_eta_boundary": None if result["s_boundary"] is None
+                else float(np.log10(eta)) + result["s_boundary"],
+                "dominant": result["dominant"], "dominant_modulus": None if mu is None else abs(mu),
+                "theta_over_2pi": None if mu is None else abs(np.angle(mu)) / (2 * np.pi),
+                "path_points": len(result["path"])})
+            if result.get("last_attracting_state") is not None:
+                np.save(out / f"branch-{factor:.4f}-last-state.npy", np.array(result["last_attracting_state"]))
+        report["attempts"].append(attempt)
+        print(json.dumps(attempt, default=float), flush=True)
+        if "type" in attempt:
+            break
+    (out / "branch.json").write_text(json.dumps(report, indent=1, default=float))
+    print(json.dumps({k: v for k, v in report.items() if k != "attempts"}, indent=1, default=float))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["calibrate", "scan", "continue"])
+    parser.add_argument("command", choices=["calibrate", "scan", "continue", "branch"])
+    parser.add_argument("--factors", type=float, nargs="+", default=[1.002, 1.01, 1.03, 1.1],
+                        help="eta / eta_flip values to seed the period-2 orbit (branch)")
+    parser.add_argument("--kick", type=float, default=1e-3, help="initial offset along the top eigenvector (branch)")
     parser.add_argument("--seed", type=int, default=28101)
     parser.add_argument("--width", type=int, default=8)
     parser.add_argument("--n", type=int, default=1024)
@@ -245,7 +320,8 @@ def main():
     config = {"seed": args.seed, "width": args.width, "n": args.n, "task": args.task, "ridge": args.ridge}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    {"calibrate": cmd_calibrate, "scan": cmd_scan, "continue": cmd_continue}[args.command](config, args, out)
+    {"calibrate": cmd_calibrate, "scan": cmd_scan, "continue": cmd_continue,
+     "branch": cmd_branch}[args.command](config, args, out)
 
 
 if __name__ == "__main__":
