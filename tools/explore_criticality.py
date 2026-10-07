@@ -248,6 +248,8 @@ def cmd_dynamics(args):
 
 
 def main():
+    os.nice(10)  # shared machine: run below normal priority (inherited by worker processes)
+    os.environ.setdefault("OMP_NUM_THREADS", "1")
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     control = sub.add_parser("control")
