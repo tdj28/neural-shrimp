@@ -126,3 +126,17 @@ enclosed by fold edges in the direction of the tracked tongue.
   edge beyond 0.2 decades) and the orbit is unstable; two-parameter fold-curve
   continuation would be the right tool for the connection stage.
 - One window, one network, one seed: a case study, not a prevalence estimate.
+
+## Readiness for a frozen confirmatory test on fresh losses
+
+The near-root tongue test is close to ready: it separates the controls, and at
+the right root it resolved six fold-bounded levels with the textbook
+exponents. Before freezing it for fresh losses (reserved seeds, one loss per
+seed): (1) prespecify an asymptotic-regime estimator for the root mismatch
+(levels whose successive width ratios lie within 20% of 4^((q-2)/2), at least
+three of them); (2) choose each root's starting detuning from its measured
+circle radius (for example where the radius falls below 0.05), since the left
+root's circle grew too fast for the fixed 0.0128 start; (3) keep the
+centre-line tracking between levels. The connection-to-window stage is not
+ready: it needs two-parameter fold-curve continuation, and its outcome should
+be reported separately from tongue attachment.
