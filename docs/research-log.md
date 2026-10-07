@@ -1610,3 +1610,45 @@ _commit `2db19d3d7c7a` (dirty worktree)_
 The criticality stream (docs/explore-criticality-2026-10-07.md; Kuznetsov first Lyapunov coefficient d, validated against the planar formula to 1e-10 and against measured circle amplitudes within 1%) finds d < 0 (supercritical, soft) from log10 output -0.412 to -0.003 and at +0.061, d > 0 (subcritical, hard) for output <= -0.42 and +0.013 to +0.045, with three sign changes (Chenciner points) near -0.417, +0.005 and +0.05 (to trace spacing). Dynamical checks agree with sign(d) at all 8 points: d < 0 gives small attracting circles with amplitude sqrt(ln|mu| / -d) within 1%; d > 0 gives a jump to a distant state, escape thresholds shrinking like sqrt(offset) (repelling circle) and hysteresis. CORRECTION to the earlier note 'soft and hard edges': the divergent arc of the fixed-start maps (output >= -0.034) is not the bifurcation. There d is negative at -0.034 and -0.018, and the shared start diverges on both sides of the curve, so it never reaches the 2-cycle; the hypothesis that the trainability boundary coincides with the Neimark-Sacker curve on that arc is refuted. S1R: d < 0 at 15 of 16 points (exception on the slow branch). Ready to freeze as a local prediction on fresh losses (sign of d predicts circle amplitude or jump with sqrt-offset escape thresholds and hysteresis), not as a claim about fixed-start trainability maps.
 
 _commit `17dfe745305a` (dirty worktree)_
+
+## 2026-10-07 23:37 UTC: run (exploratory)
+
+- **Question:** Do the matrix-free CIFAR tools reproduce the dense reference on a known Neimark-Sacker point: torch Arnoldi two-step multipliers and Newton-GMRES period-2 corrector?
+- **Setup:** S2-28011 at log10 output -0.0856, log10 hidden 1.7370, 1.7380, 1.7384, traced NS at 1.738439; dense NumPy certification and eigenvalues vs neural_shrimp.cifar on the same orbit point; per-parameter rate vector
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/validation/s2-replay.json`
+- **Would surprise us:** Dominant complex multiplier differing from the dense value by more than 1e-8; Newton-GMRES not converging to the certified orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/validate_cifar_multipliers.py`
+
+_commit `985930519bc0`_
+
+- run started 2026-10-07 23:37 UTC finished 23:37 UTC with exit status 0
+
+## 2026-10-07 23:38 UTC: run (exploratory)
+
+- **Question:** Download CIFAR-10, draw disjoint class-balanced subsets A and B of 512 training images with seed 28201, and seal B
+- **Setup:** torchvision CIFAR10 train archive into /data2/neural-shrimp-data/datasets/cifar10; neural_shrimp.cifar.balanced_subsets; B written as indices and hash only
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/subsets/manifest.json`
+- **Would surprise us:** Archive hash not matching torchvision's MD5 check
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py data`
+
+_commit `0781d5d24c57` (dirty worktree)_
+
+- run started 2026-10-07 23:38 UTC finished 23:46 UTC with exit status 0
+
+## 2026-10-07 23:47 UTC: run (exploratory)
+
+- **Question:** Which weight decay gives isolated converging minima on CIFAR subset A, and what is the edge-of-stability learning rate?
+- **Setup:** tanh MLP 3072-32-10, MSE on one-hot, float64 full batch on subset A, init seed 28202; lambda in 0, 1e-4, 1e-3, 1e-2; 20,000 steps at eta = 0.5 x 2 / sharpness at init; sharpness by power iteration
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/wd/wd-check.json`
+- **Would surprise us:** No weight decay converging within 20,000 steps
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py wd --threads 16`
+
+_commit `a33a45b14126` (dirty worktree)_
+
+- run started 2026-10-07 23:47 UTC finished 23:49 UTC with exit status 0
+
+## 2026-10-07 23:50 UTC: CIFAR pilot: weight decay 1e-2 chosen on subset A because relaxation is too slow below it
+
+Subset A, tanh MLP 3072-32-10, init seed 28202, 20,000 sub-edge steps at eta = 0.5 x 2 / sharpness at init = 0.00327 (initial sharpness about 305): lambda 0 loss 5.4e-4, gradient norm 5.6e-3, final sharpness 401 (edge eta 0.0050); lambda 1e-4 loss 1.7e-3, 5.6e-3, 401; lambda 1e-3 loss 1.1e-2, 6.3e-3, 391 (edge 0.0051); lambda 1e-2 loss 0.069, 1.8e-2, 309 (edge 0.0065). None converged in 20,000 steps; the slowest relaxation time 1/(eta lambda) at the edge exceeds 2e5 steps for lambda <= 1e-3 but is about 2e4 for 1e-2, so lambda = 1e-2 is used for the sweep, with Newton-GMRES polishing of partially converged orbits. 1.8 ms per float64 full-batch step with 16 threads.
+
+_commit `a33a45b14126` (dirty worktree)_
