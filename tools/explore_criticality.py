@@ -256,6 +256,108 @@ def dynamics_point(task):
     return out
 
 
+def cycle_at(net, x, y, h, o, seed_state):
+    """Newton-refined period-2 orbit point and multipliers of the two-step map at (h, o)."""
+    from neural_shrimp.orbits import certify_orbit
+    grid = GridMap(net, x, y, [10.0 ** h], [10.0 ** o])
+    map_fn, jacobian = grid.cell_map(0)
+    cert = certify_orbit(map_fn, jacobian, seed_state, 2, candidate_tolerance=0.05)
+    if not cert["verified"]:
+        return None, None, grid
+    xc = np.asarray(cert["orbit"][0])
+    return xc, dense_two_step(grid, xc), grid
+
+
+def dynamics2_point(task):
+    """Corrected checks: distances and normal-form amplitudes relative to the 2-cycle at each offset."""
+    from neural_shrimp.criticality import critical_pair
+    system, seed, row, deltas, steps = task
+    net, x, y, theta0 = network(system, seed)
+    o, h_b, d = row["log10_output"], row["log10_hidden_boundary"], row["d"]
+    x0 = np.asarray(row["orbit_point"])
+    out = {"log10_output": o, "log10_hidden_boundary": h_b, "d": d, "beyond": [], "before": []}
+    for delta in deltas:
+        xc, A, grid = cycle_at(net, x, y, h_b + delta, o, x0)
+        if xc is None:
+            out["beyond"].append({"delta": delta, "cycle": "not found"})
+            continue
+        mu, q, p, _ = critical_pair(A)
+        growth = float(np.log(abs(mu)))
+        predicted = float(np.sqrt(growth / -d)) if d < 0 and growth > 0 else None
+        w0 = predicted if predicted else 1e-3
+        theta = (xc + 2 * (w0 * q).real)[None]
+        ws, far = [], 0.0
+        status = "settled"
+        for k in range(steps):
+            theta = grid.step(grid.step(theta))
+            if not np.all(np.isfinite(theta)) or np.max(np.abs(theta)) > 1e6:
+                status = "diverged"
+                break
+            dist = float(np.linalg.norm(theta[0] - xc))
+            far = max(far, dist)
+            if k >= steps - 4000:
+                ws.append(abs(np.vdot(p, theta[0] - xc)))
+        out["beyond"].append({"delta": delta, "status": status, "log_modulus": growth,
+                              "predicted_w": predicted, "w_median": float(np.median(ws)) if ws else None,
+                              "w_min": float(np.min(ws)) if ws else None, "w_max": float(np.max(ws)) if ws else None,
+                              "max_distance": far})
+    for delta in deltas:
+        xc, A, grid = cycle_at(net, x, y, h_b - delta, o, x0)
+        if xc is None:
+            out["before"].append({"delta": -delta, "cycle": "not found"})
+            continue
+        vals, vecs = np.linalg.eig(A)
+        k = int(np.argmax(np.where(vals.imag > 1e-12, np.abs(vals), -1)))
+        direction = vecs[:, k].real / np.linalg.norm(vecs[:, k].real)
+        decay = float(-np.log(abs(vals[k])))
+        horizon = int(min(steps, max(2000, 6.0 / max(decay, 1e-9))))
+
+        def returns(amplitude):
+            th = (xc + amplitude * direction)[None]
+            for _ in range(horizon):
+                th = grid.step(grid.step(th))
+                if not np.all(np.isfinite(th)) or np.max(np.abs(th)) > 1e6:
+                    return False
+                if float(np.linalg.norm(th[0] - xc)) > max(10 * amplitude, 0.5):
+                    return False
+            return float(np.linalg.norm(th[0] - xc)) < 0.5 * amplitude
+
+        lo, hi = 1e-6, 0.3
+        if not returns(lo):
+            thr = "<1e-6"
+        elif returns(hi):
+            thr = ">0.3"
+        else:
+            for _ in range(24):
+                mid = np.sqrt(lo * hi)
+                lo, hi = (mid, hi) if returns(mid) else (lo, mid)
+                if hi / lo < 1.1:
+                    break
+            thr = float(np.sqrt(lo * hi))
+        predicted_thr = float(np.sqrt(decay / d)) if d > 0 else None
+        out["before"].append({"delta": -delta, "decay": decay, "horizon": horizon, "threshold": thr,
+                              "predicted_unstable_circle_w": predicted_thr})
+    return out
+
+
+def cmd_dynamics2(args):
+    curve = json.loads(Path(args.curve).read_text())["rows"]
+    cands = [r for r in curve if r.get("type") == "neimark_sacker"]
+    chosen = [min(cands, key=lambda r: abs(r["log10_output"] - t)) for t in args.outputs]
+    tasks = [(args.system, args.seed, r, args.deltas, args.steps) for r in chosen]
+    with ProcessPoolExecutor(args.workers) as pool:
+        rows = list(pool.map(dynamics2_point, tasks, chunksize=1))
+    out = OUT / args.name
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "dynamics2.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
+    for r in rows:
+        print(json.dumps({"out": round(r["log10_output"], 4), "d": round(r["d"], 4),
+                          "beyond": [(b["delta"], b.get("status"), b.get("predicted_w") and round(b["predicted_w"], 5),
+                                      b.get("w_median") and round(b["w_median"], 5), b.get("max_distance") and round(b["max_distance"], 4))
+                                     for b in r["beyond"]],
+                          "before": [(b["delta"], b.get("threshold"), b.get("predicted_unstable_circle_w")) for b in r["before"]]}))
+
+
 def cmd_dynamics(args):
     curve = json.loads(Path(args.curve).read_text())["rows"]
     chosen = []
@@ -300,8 +402,17 @@ def main():
     dyn.add_argument("--steps", type=int, default=40000)
     dyn.add_argument("--workers", type=int, default=8)
     dyn.add_argument("--name", default="s2-28011-dynamics")
+    dyn2 = sub.add_parser("dynamics2")
+    dyn2.add_argument("--system", default="S2")
+    dyn2.add_argument("--seed", type=int, default=28011)
+    dyn2.add_argument("--curve", default=str(OUT / "s2-28011-curve/curve.json"))
+    dyn2.add_argument("--outputs", type=float, nargs="+", default=[-0.44, -0.30, -0.20, -0.08, -0.034, -0.018, -0.0026, 0.013])
+    dyn2.add_argument("--deltas", type=float, nargs="+", default=[1e-4, 4e-4, 1.6e-3])
+    dyn2.add_argument("--steps", type=int, default=120000)
+    dyn2.add_argument("--workers", type=int, default=8)
+    dyn2.add_argument("--name", default="s2-28011-dynamics")
     args = parser.parse_args()
-    {"control": cmd_control, "curve": cmd_curve, "dynamics": cmd_dynamics}[args.command](args)
+    {"control": cmd_control, "curve": cmd_curve, "dynamics": cmd_dynamics, "dynamics2": cmd_dynamics2}[args.command](args)
 
 
 if __name__ == "__main__":
