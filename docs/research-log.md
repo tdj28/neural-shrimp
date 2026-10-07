@@ -742,3 +742,12 @@ _commit `4fe96c9b6adc` (dirty worktree)_
 - run started 2026-10-07 22:35 UTC finished 22:36 UTC with exit status 0
 
 - run started 2026-10-07 22:35 UTC finished 22:36 UTC with exit status 0
+
+## 2026-10-07 22:38 UTC: amendment to `network ancestry run card (992a7850)`
+
+- **Change:** Attempt 2 for the right 1/5 root: same target, frozen measurement levels and criteria; continuation between levels by centre-line tracking (factor-2 sub-steps, edges re-measured and orbit re-centred at each, up to 4 geometric refinements per level, 90-minute budget)
+- **Why:** Attempt 1's straight-line continuation from delta 0.0032 to 0.0008 stalled at t = 0.32 (exhausted_budget) although interpolated fold edges place the failure point inside the locked interval
+- **Outcomes seen:** Attempt 1 right root: levels 0.0128 (centre 0.0365, width 0.0459, amplitude 0.199) and 0.0032 (0.0111, 0.0135, 0.129) fold-bounded, then continuation failure; left root: no locked cell on the top cross-section (no_qualifying_window); left root also failed the frozen supercriticality rule
+- **Claim impact:** Attempt 1 outcomes stand as recorded (right: exhausted_budget; left: no_qualifying_window); attempt 2 is reported separately and never replaces them
+
+_commit `7692e715201a` (dirty worktree)_
