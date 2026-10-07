@@ -48,7 +48,7 @@ def inside_mask(window, lh, lo):
 
 
 def one(task):
-    key, window, per_window, seed = task
+    key, window, per_window, seed, orbit_factor, skip_long = task
     it = json.loads(PLAN.read_text())["iteration"]
     options = {k: it[k] for k in ("tail_steps", "ftle_steps", "ftle_align", "max_period", "min_repeats",
                                   "atol", "rtol", "chaos_threshold", "drift_threshold",
@@ -83,7 +83,9 @@ def one(task):
     orbit0 = np.array(next(r for r in certs if r["map_id"] == map_id and r["component"] == int(comp))
                       ["certificate"]["orbit"][0])
     starts = {"long": (np.repeat(theta0[None], len(pick), 0), 4 * it["steps"]),
-              "orbit": (np.repeat(orbit0[None], len(pick), 0), it["steps"])}
+              "orbit": (np.repeat(orbit0[None], len(pick), 0), orbit_factor * it["steps"])}
+    if skip_long:
+        del starts["long"]
     for name, (initial, steps) in starts.items():
         res = iterate_and_screen(step_subset, jvp_subset, initial, steps, **options)
         is_p = (res["status"] == 2) & (res["period"] == p)
@@ -101,13 +103,19 @@ def main():
     parser.add_argument("--per-window", type=int, default=120)
     parser.add_argument("--workers", type=int, default=10)
     parser.add_argument("--only", nargs="*", default=None)
+    parser.add_argument("--systems", nargs="*", default=None, help="restrict to these system prefixes")
+    parser.add_argument("--orbit-factor", type=int, default=1, help="orbit-start updates in map horizons")
+    parser.add_argument("--skip-long", action="store_true")
+    parser.add_argument("--name", default="speckle.json")
     args = parser.parse_args()
     rays = json.loads((DATA / "rays.json").read_text())
-    keys = args.only or list(rays)
-    tasks = [(k, rays[k], args.per_window, 1000 + i) for i, k in enumerate(keys)]
+    keys = args.only or [k for k in rays if not args.systems or k.split("-")[0] in args.systems]
+    # sample seeds are tied to the window's position in rays.json so reruns draw the same cells
+    order = {k: i for i, k in enumerate(rays)}
+    tasks = [(k, rays[k], args.per_window, 1000 + order[k], args.orbit_factor, args.skip_long) for k in keys]
     with ProcessPoolExecutor(args.workers) as pool:
         rows = list(pool.map(one, tasks, chunksize=1))
-    (DATA / "speckle.json").write_text(json.dumps(rows, indent=1))
+    (DATA / args.name).write_text(json.dumps(rows, indent=1))
     for r in rows:
         print(r["key"], "p", r["period"], "inside", r["inside_cells"], "map p", r["inside_period_p"],
               "| long p", r.get("long", {}).get("period_p"), "/", r.get("long", {}).get("sampled"),
