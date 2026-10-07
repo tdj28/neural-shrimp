@@ -679,3 +679,32 @@ _commit `163ac39635d8` (dirty worktree)_
 - **Would surprise us:** Onset not Neimark-Sacker or subcritical at a root; fold-bounded levels converging elsewhere; window orbit on a different branch
 
 _commit `163ac39635d8` (dirty worktree)_
+
+## 2026-10-07 22:32 UTC: run (exploratory)
+
+- **Question:** Refine the left-branch 1/5 root with onset, invariance and rotation checks
+- **Setup:** S2-28011, bracket log10 output -0.3931 to -0.3836, start hidden 1.65
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/root-left/root.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name root-left --bracket -0.3931 -0.3836`
+
+_commit `992a7850320b` (dirty worktree)_
+
+## 2026-10-07 22:32 UTC: run (exploratory)
+
+- **Question:** Refine the right-branch 1/5 root with onset, invariance and rotation checks
+- **Setup:** S2-28011, bracket log10 output -0.1179 to -0.1085, start hidden 1.65
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/root-right/root.json`
+- **Would surprise us:** See frozen run card
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py root --name root-right --bracket -0.1179 -0.1085`
+
+_commit `992a7850320b` (dirty worktree)_
+
+## 2026-10-07 22:34 UTC: amendment to `network ancestry run card (this log, 992a7850)`
+
+- **Change:** Period-10 certification in levels/connect uses newton_tolerance 1e-8 (default 1e-10); scan detection nominates candidates with closure 1e-5 and divisor separation 1e-3 before Newton certification
+- **Why:** Near the root the period-10 orbit's M - I is ill-conditioned (singular values about 1e-6 to 1e-8), so a 1e-10 relative correction is unreachable under float64 rounding; a strict scan closure could miss slowly converging locked cells
+- **Outcomes seen:** Only the controls and (in progress) root refinements; no network level or connection output
+- **Claim impact:** None; verification stays Newton-based with exact Jacobians
+
+_commit `437ff5a255b3` (dirty worktree)_
