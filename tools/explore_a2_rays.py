@@ -55,7 +55,7 @@ def one_ray(args):
         return grid.cell_map(0)
 
     result = continue_ray(family, np.asarray(orbit0), period, center, direction * scale, 1.0, 1.0 / 64,
-                          bisection_tolerance=1.0 / 4096)
+                          bisection_tolerance=1e-9)
     result.pop("last_attracting_state", None)
     return result
 
