@@ -336,3 +336,19 @@ _commit `8f46ca07a35d` (dirty worktree)_
 - run started 2026-10-07 20:57 UTC finished 21:21 UTC with exit status 0
 
 - run started 2026-10-07 20:57 UTC finished 21:22 UTC with exit status 0
+
+## 2026-10-07 21:25 UTC: run (exploratory)
+
+- **Question:** Real-data fine scan of the transition, weight decay 1e-3: between the edge-of-stability period-2 oscillation near log10 eta -0.40 and broadband dynamics near -0.25, is there a slow invariant-circle regime with a well-defined rotation number that grows with eta, and locked windows?
+- **Setup:** Seed 28101, 64-8-1, n=1024 halves, ridge 1e-3, fixed initialization; 120 log10 eta in -0.44 to -0.24; 60,000 updates with EXP-028 screening, then 16,384 recorded updates for rotation numbers and loss spectra; 6 workers, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/scan-fine`
+- **Would surprise us:** Slow loss modulations without a monotone two-step rotation, or rotation numbers that jump irregularly with eta
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py scan --ridge 1e-3 --range -0.44 -0.24 --cells 120 --chunk 20 --steps 60000 --keep 16384 --workers 6 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/scan-fine`
+
+_commit `f0e059e5a220` (dirty worktree)_
+
+## 2026-10-07 21:25 UTC: Real-data coarse scans: no exactly periodic cells; edge-of-stability period-2 oscillation with slow drift, then slow loss modulations, broadband dynamics, divergence
+
+64-8-1 digits MLP, one global learning rate, fixed initialization, 160 log10 eta in -0.9..0.1, 20,000 updates. Without weight decay: 132 drift, 4 chaotic, 24 divergent cells; with weight decay 1e-3: 92 unresolved, 22 drift, 20 chaotic, 25 divergent, and no fixed or periodic labels in either. Loss spectra with weight decay: for log10 eta -0.9..-0.40 a line at 1/2 carries up to 80% of the power on top of slow convergence (an edge-of-stability period-2 oscillation not resolved by the screen because slow weight-decay directions, curvature near 4e-4, are still relaxing); from about -0.37 slow modulations appear with harmonic peaks, e.g. 0.0029, 0.0059, 0.0088 cycles per update at -0.347 with FTLE -0.00025; from about -0.27 several incommensurate low-frequency peaks and broadband power; positive FTLE from -0.20; divergence from -0.05. The plot's first quasi-periodic labels came from sub-turn angle drifts and were withdrawn (criterion now needs three monotone turns). Interpretation pending a finer, longer scan of -0.44..-0.24 and continuation of the period-2 orbit.
+
+_commit `f0e059e5a220` (dirty worktree)_
