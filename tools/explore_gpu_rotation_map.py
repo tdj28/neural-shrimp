@@ -111,11 +111,13 @@ def rotation_stage(backend, grid, final_state, alive, pca, samples, chunk, devic
             mean /= pca
             cov = second / pca - mean[:, :, None] * mean[:, None, :]
             del second
-            if xp is not None:
-                vals, vecs = torch.linalg.eigh(cov)
-            else:
-                vals, vecs = np.linalg.eigh(cov)
+            # Batched eigh of many small matrices: cuSOLVER's batched workspace grows
+            # far beyond device memory (232 GB requested for 409,600 13x13 blocks),
+            # so the decomposition runs on the host and the planes return to the GPU.
+            vals, vecs = np.linalg.eigh(cov.cpu().numpy() if xp is not None else cov)
             del cov
+            if xp is not None:
+                vals, vecs = torch.as_tensor(vals, device=dev), torch.as_tensor(vecs, device=dev)
             plane = vecs[:, :, -2:]
             ratio = vals[:, -2:].sum(1) / vals.sum(1).clamp(min=1e-300) if xp is not None else \
                 vals[:, -2:].sum(1) / np.maximum(vals.sum(1), 1e-300)
