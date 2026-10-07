@@ -646,3 +646,15 @@ _commit `36814781fc5a` (dirty worktree)_
 Rotation number of the first quasi-periodic cell vs the period-2 orbit's two-step multiplier angle at the Neimark-Sacker point: S2 output -0.0856: 0.21807 vs 0.21816; S2 output -0.30: 0.16976 vs 0.17009 (angle interpolated from the traced curve); S1R output 0.9413: 0.13217 vs 0.13218. Stream summary written to docs/explore-consequence-2026-10-07.md.
 
 _commit `73e55461d873` (dirty worktree)_
+
+## 2026-10-07 22:31 UTC: run (exploratory)
+
+- **Question:** Ancestry pipeline controls: does the classifier pass a resonant Neimark-Sacker normal form's 1/5 tongue, and refuse a displaced root and an embedded logistic period-5 window born by a saddle-node?
+- **Setup:** Normal form z' = e^{2 pi i theta}[(1+mu) z - |z|^2 z] + 0.5 conj(z)^4, root (mu, theta) = (0, 1/5), six levels mu = 0.04/4^k; specificity: same levels scored against a root displaced by 0.01; negative: (x, y) -> (r x(1-x) + c y, 0.1 y + 0.05 x(1-x)), period-5 window, levels 0.004/4^k beyond its own fold, tangent c. Pass rule: fold-bounded locked intervals at all levels, widths shrinking, amplitude ratio >= 10, extrapolated centre within 1e-4 of the root
+- **Output:** `/data2/neural-shrimp-data/explore/ancestry/controls/controls.json`
+- **Would surprise us:** Positive control not passing, or either negative control passing (pipeline invalid)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_ancestry.py controls`
+
+_commit `47ac2cce50f4` (dirty worktree)_
+
+- run started 2026-10-07 22:31 UTC finished 22:31 UTC with exit status 0

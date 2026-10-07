@@ -64,4 +64,9 @@ def test_classify_ancestry_outcomes():
     assert classify_ancestry(elsewhere, 1e-4)[0] == "alternative_ancestry"
     missing = passing[:3] + [{**passing[3], "right": {"type": "lost", "u": 0.0}}] + passing[4:]
     assert classify_ancestry(missing, 1e-4)[0] == "exhausted_budget"
+    finite_amplitude = [{**lv, "right": {"type": "none_within_range", "u": None}, "amplitude": 0.5}
+                        for lv in passing]
+    assert classify_ancestry(finite_amplitude, 1e-4)[0] == "alternative_ancestry"
+    no_parent = passing[:2] + [{**passing[2], "amplitude": None}] + passing[3:]
+    assert classify_ancestry(no_parent, 1e-4)[0] == "exhausted_budget"
     assert classify_ancestry(passing, 1e-4, controls_passed=False)[0] == "invalid"

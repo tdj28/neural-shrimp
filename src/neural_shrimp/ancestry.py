@@ -200,8 +200,18 @@ def classify_ancestry(levels, root_tolerance, amplitude_factor=10.0, controls_pa
     complete = [lv for lv in levels if lv.get("left", {}).get("type") == "fold"
                 and lv.get("right", {}).get("type") == "fold"]
     details = {"levels_attempted": len(levels), "levels_fold_bounded": len(complete)}
-    if len(complete) < len(levels) or not all(lv.get("continuity") and lv.get("primitive") for lv in levels):
-        details["reason"] = "a level lacked two folds, primitivity or continuity"
+    if not all(lv.get("continuity") and lv.get("primitive") and lv.get("amplitude") is not None for lv in levels):
+        details["reason"] = "a level lacked continuity, primitivity or a verified parent orbit"
+        return "exhausted_budget", details
+    all_amps = [lv["amplitude"] for lv in levels]
+    details["amplitude_ratio_all_levels"] = float(all_amps[0] / max(all_amps[-1], 1e-300))
+    if len(complete) < len(levels):
+        if all_amps[0] / max(all_amps[-1], 1e-300) < 2.0 and len(levels) >= 3:
+            # resolved numerics, but the orbit keeps a finite distance from the parent orbit: it is not
+            # born from the parent resonance (for example a saddle-node window)
+            details["reason"] = "orbit does not collapse onto the parent orbit and its existence region does not narrow onto the root"
+            return "alternative_ancestry", details
+        details["reason"] = "a level lacked two fold edges"
         return "exhausted_budget", details
     centers = np.array([0.5 * (lv["left"]["u"] + lv["right"]["u"]) for lv in complete])
     widths = np.array([lv["right"]["u"] - lv["left"]["u"] for lv in complete])
