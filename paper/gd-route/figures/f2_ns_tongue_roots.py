@@ -1,12 +1,12 @@
-"""Figure 2: the Neimark-Sacker curve of the period-2 orbit and its predicted tongue roots.
+"""Figure 2: the complex-pair crossing (Neimark-Sacker candidate) curve of the period-2 orbit and its resonance points.
 
 Evidence: exploratory. Background: the 1,024 x 1,024 period map of the S2-28011
 zoom region (CUDA float64 backend, EXP-028 screening options). Curve: the
 period-2 orbit continued along hidden-rate slices to its loss of stability
 (tools/explore_a3_ns_curve.py, bisection 1e-10); on every traced slice whose
 start was period 2 it is a complex pair crossing the unit circle. Orange points: where the crossing angle
-theta / 2 pi equals a rational m / q with q <= 13 (the predicted root of the
-period-2q Arnold tongue). Panel B: theta / 2 pi along the curve.
+theta / 2 pi equals a rational m / q with q <= 13 (where a period-2q tongue would be
+rooted if the crossing is a nondegenerate bifurcation). Panel B: theta / 2 pi along the curve.
 """
 
 import json
@@ -46,7 +46,7 @@ def main():
         ax.text(lo[0] + 0.01, bottom + 0.004, "not mapped", fontsize=6.5, color=c.MUTED)
     for i, run in enumerate(runs):
         ax.plot([r["log10_output"] for r in run], [r["log10_hidden_boundary"] for r in run], "-", color=c.INK,
-                linewidth=1.1, label="Neimark-Sacker curve of the period-2 orbit" if i == 0 else None)
+                linewidth=1.1, label="complex-pair crossing of the period-2 orbit (Neimark-Sacker candidate)" if i == 0 else None)
         ax.plot([r["log10_output"] for r in run], [r["log10_hidden_boundary"] for r in run], ".", color=c.INK,
                 markersize=2.5)
     found = c.ns_roots(runs, max_den=MAX_DEN)
@@ -60,7 +60,7 @@ def main():
     ax.set_ylim(bottom, lh[-1])
     ax.set_xlabel("log10 output-layer learning rate")
     ax.set_ylabel("log10 hidden-layer learning rate")
-    ax.set_title("A  Periodic cells, Neimark-Sacker curve, predicted roots")
+    ax.set_title("A  Periodic cells and the complex-pair crossing curve")
     ax.legend(loc="upper right", frameon=False, fontsize=6.5)
     cb = fig.colorbar(image, cax=fig.add_subplot(grid[0, 1]))
     cb.set_ticks([1, 2, 3, 4, 5, 6])
@@ -97,12 +97,12 @@ def main():
     names = ", ".join(sorted({d["fraction"] for d in derived["roots"]}, key=Fraction))
     alt = (f"Left: period map of the S2-28011 zoom region with periodic cells shaded by period. A black curve marks "
            f"where the period-2 orbit loses stability; on all {len(rows)} traced slices the crossing multipliers are "
-           f"a complex pair (Neimark-Sacker). The curve is U-shaped with its lowest point at log10 hidden rate "
+           f"a complex pair (a Neimark-Sacker candidate). The curve is U-shaped with its lowest point at log10 hidden rate "
            f"{derived['lowest_boundary_log10_hidden']:.3f}. Orange points mark where the crossing angle equals a "
-           f"rational m/q (predicted tongue roots): {names}. Right: the crossing angle theta/2pi along the curve "
+           f"rational m/q (resonance points, where tongues would be rooted if the crossing is a nondegenerate Neimark-Sacker bifurcation): {names}. Right: the crossing angle theta/2pi along the curve "
            f"ranges from {min(theta):.4f} to {max(theta):.4f} turns per two steps.")
     c.save(fig, "f2_ns_tongue_roots", [MAP, CURVE], __file__, "exploratory", alt, derived,
-           f"{len(rows)} traced Neimark-Sacker points; roots for denominators up to {MAX_DEN}; slices whose start "
+           f"{len(rows)} traced complex-pair crossings; roots for denominators up to {MAX_DEN}; slices whose start "
            "was not period 2 break the curve.")
 
 
