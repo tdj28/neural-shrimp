@@ -132,9 +132,42 @@ indicators, rotation number, log10 distance to the nearest rational (q <= 12),
 Only stopping-time spread has an interval above zero, and its partial
 correlations change sign between the full slice and the beyond-Neimark-Sacker
 subset (locked +0.42 versus -0.36), so on one slice it is not separable from a
-nonlinear rate effect. S1R (n = 160, six CV blocks) is underpowered: point
-estimates of delta R2 lie between -0.08 and +0.07 and the bootstrap intervals
-are degenerate.
+nonlinear rate effect. S1R (n = 160, six CV blocks) is underpowered: point estimates of delta R2 lie
+between -0.08 and +0.07 and the bootstrap intervals are degenerate.
+
+A second S2 slice at output -0.30 (600 cells; period 2 to 1.6828, traced
+Neimark-Sacker point 1.6854, a narrow quasi-periodic band from rotation 0.170,
+75 locked cells with ten rotations, 75/75 with period 2q x 2^k, mostly embedded
+in chaos and phase-slipping) was pooled with the first (n = 1,329). With slice
+intercepts only, rotation features gained delta R2 +0.03 to +0.15 with
+intervals above zero for several outcomes. After adding slice-specific slopes
+for rate, amplitude and sharpness, and transient amplification for the
+reproducibility outcomes (both checks added after seeing that fit, so
+"adapted"):
+
+| Outcome (pooled S2, slice-specific slopes) | CV R2 base -> full | delta R2 [95%] |
+|---|---|---|
+| disagreement at 40k (+ transient) | 0.938 -> 0.946 | +0.008 [-0.002, +0.024] |
+| disagreement after anneal (+ transient) | 0.947 -> 0.949 | +0.002 [-0.004, +0.018] |
+| slope of disagreement vs perturbation size (+ transient) | 0.378 -> 0.557 | +0.179 [+0.070, +0.357] |
+| stopping-time spread | 0.882 -> 0.929 | +0.047 [+0.011, +0.099] |
+| tail training loss | 0.995 -> 0.995 | +0.001 [0.000, +0.002] |
+| tail held-out MSE | 0.996 -> 0.996 | 0.000 [0.000, 0.000] |
+| averaged-iterate held-out MSE | 0.970 -> 0.978 | +0.008 [+0.003, +0.016] |
+| held-out MSE after anneal | 0.589 -> 0.623 | +0.034 [-0.010, +0.089] |
+
+Two gains survive. The dose-response shape (+0.18) reflects perturbation-size
+thresholds for phase slips in windows embedded in chaos: below the threshold
+runs reproduce exactly, above it they land on another phase. Stopping-time
+spread (+0.05) reflects the finite phase set of a locked attractor. Both are
+locking and discreteness effects, partly confounded with distance to chaos. In
+both, the locked indicator carries the signal (partial r +0.44 and +0.48); the
+rotation number itself does not. Local matched contrasts (locked cells against
+chaotic cells within 0.015 in log10 rate) are mixed. Stopping-time spread is
+lower in locked cells (-0.04 to -0.12 decades in all three slices). Held-out
+loss is higher in locked windows at output -0.30 (+0.06 decades, 82% of cells)
+but not at -0.0856 (+0.001). Such a penalty is captured by the FTLE sign class
+in the models: periodic versus chaotic attractor, a generic distinction.
 
 ### The loss curve carries the rotation number and the distance to the transition
 
@@ -163,3 +196,66 @@ are degenerate.
 Figures: `/data2/neural-shrimp-data/explore/consequence/precursor.png`,
 `.../s2-28011-out-0.0856/{slice,regimes}.png`,
 `.../s1r-28002-out-0.9413/{slice,regimes}.png`.
+
+## Verdict
+
+1. **Regime matters, but the predictive content is generic.** Reproducibility
+   splits into four classes: decay on period-2 and locked orbits, linear
+   response on invariant circles, saturation in chaos, and phase slips in
+   locked windows reached through chaotic transients. Stopping-time
+   sensitivity and losses follow oscillation amplitude and rate. Almost all of
+   this is accounted for by FTLE sign classes, transient amplification,
+   amplitude, sharpness and rate. In the sense of AGENTS.md these effects are
+   generic.
+2. **Rotation-number information adds no robust prediction of magnitudes.**
+   Two modest locking effects remain: dose-response thresholds and the finite
+   phase sets of locked attractors. Both are exploratory, rest on features
+   partly chosen after seeing data, and are confounded with distance to chaos.
+3. **The training-relevant use of the rotation structure is diagnostic.** The
+   loss spectrum reads out the rotation number exactly, beyond the transition
+   (all quasi-periodic and locked cells in three slices except 6/75 locked
+   cells at output -0.30). Before the transition, with small update noise, an
+   AR fit of the loss estimates the period-2 orbit's complex multiplier. That
+   gives both the distance to the quasi-periodic transition and the rotation
+   number of the training that follows. The FTLE cannot supply the second.
+
+## Caveats
+
+- Three slices in two small networks, one seed each, synthetic (S2) or random
+  (S1R) data; S1R used a reduced profile and only 160 cells.
+- The quasi-periodic rule bounds FTLE only from above. Orbits locked with
+  periods above the 64-step screen, or converging slowly, carry the
+  quasi-periodic label when their FTLE is clearly negative: 8, 12 and 4 cells
+  in the three slices. The pre-specified exclusion check left conclusions
+  unchanged, but a two-sided rule (|FTLE| < 1e-3) should be used next time.
+- The anneal is a fixed-budget step decay that leaves slow directions
+  unconverged (final gradient norm about 6e-4 in S2, 2e-4 in S1R). Distinct-
+  outcome counts are therefore inflated, and the spread metric is preferred.
+- The pooled robustness variants and the AR estimator were introduced after
+  seeing earlier outputs and are labeled adapted. Isotropic additive noise
+  stands in for minibatch noise.
+- In `tests/test_phase_transverse_gain_run.py`,
+  `test_signal_during_journal_commit_preserves_completed_cell` fails in the
+  full suite under the current CPU load ("Cell journal differs", SIGTERM timing)
+  and passes when its file runs alone. It is unrelated to this stream's files.
+
+## Recommended next step
+
+The precursor and readout diagnostic is the strongest candidate for a frozen
+confirmatory prediction on fresh seeds and networks (29000-29999 pool), pushed
+before running:
+
+- (a) In quasi-periodic and locked regimes, the strongest non-DC peak of the
+  even-step training-loss spectrum equals the two-step rotation number within
+  1e-3.
+- (b) In the period-2 region within 0.1 decades of the Neimark-Sacker point,
+  with update noise 1e-7 to 1e-5, an AR(6) fit of the even-step loss recovers
+  the two-step multiplier angle within 2.5e-3 and modulus within 0.02.
+- (c) The angle at the Neimark-Sacker point predicts the first quasi-periodic
+  rotation number within 2e-3.
+
+Before freezing, test minibatch (data-subsampling) noise instead of isotropic
+noise, and a larger or real-data network. The reproducibility classes (decay,
+linear response, saturation, phase slips) are worth reporting as descriptive
+consequences, but they are generic and should not be headlined as
+shrimp-specific or rotation-specific.
