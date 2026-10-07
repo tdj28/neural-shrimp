@@ -1130,3 +1130,9 @@ _commit `02ddf7ffc57a` (dirty worktree)_
 _commit `44bc54b0d5d3`_
 
 - run started 2026-10-07 22:45 UTC finished 22:45 UTC with exit status 0
+
+## 2026-10-07 22:56 UTC: Synthesis: the Neimark-Sacker onset of quasi-periodic training is not specific to the two toy networks
+
+Three independent exploratory streams (merged 7 October): (1) real data, single global learning rate (claude/explore-realdata): 64-8-1 tanh MLP, standard parameterization, 1,024 UCI digit images, weight decay 1e-3, float64 full-batch GD; the Newton-certified edge-of-stability 2-cycle loses stability at log10 eta = -0.3885464 with multiplier 0.998814 + 0.048693i; predicted rotation 0.0077528 turns per two updates, measured 0.007751 on a smooth invariant circle (FTLE about 0); one of five period-2 branches examined (others end in folds); no locking resolved (q > 100 at this rotation). (2) Hofmann's two-mode depth-two linear network (claude/explore-minimal-model): the rotational edge a(s1 + s2) = 2 is a transversal complex-pair crossing; beyond it an attracting invariant circle with rotation tending to the birth angle; with weight decay 0.01 the amplitude grows like delta^0.49 (supercritical, soft onset); locked windows 1/8 (period 16), 2/17 (34) and 5/42 (84, the Farey mediant of 2/17 and 3/25) at s2/s1 = 0.7 and a 1/10 tongue at 0.8. (3) Coupled four-weight model: 6 of 64 cases end in Neimark-Sacker (ridge 0.2), including c = 0, i.e. the plain two-weight factorization 1/2 (uv - d)^2 + 0.1 (u^2 + v^2) with rate ratio about 2.8; held-out couplings 32/32 types predicted. Together with S2 and S1R this places the route in nonlinear and linear networks, per-layer and single learning rates, synthetic and real data. All exploratory; ancestry test still running.
+
+_commit `77299eb1e52f` (dirty worktree)_
