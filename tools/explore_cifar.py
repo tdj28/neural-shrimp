@@ -166,6 +166,161 @@ def cmd_sweep(args):
                           if k not in ("state", "losses_tail")}), flush=True)
 
 
+def certify(problem, theta, eta, tol=1e-11):
+    theta, history = cifar.newton_period2(problem, theta, eta, tol=tol)
+    t1 = problem.update(theta, eta)
+    separation = float((t1 - theta).norm() / theta.norm())
+    return theta, history, separation
+
+
+def classify(multipliers):
+    """Dominant multiplier over both Arnoldi searches and its kind."""
+    candidates = [complex(*v) for mode in multipliers["modes"].values() for v in mode]
+    top = max(candidates, key=abs)
+    kind = "complex" if abs(top.imag) > 1e-9 else ("plus" if top.real > 0 else "minus")
+    return top, kind
+
+
+def cmd_orbit(args):
+    torch.set_num_threads(args.threads)
+    problem, model = subset_a_problem(args.lam)
+    folder = OUT / "orbit"
+    folder.mkdir(parents=True, exist_ok=True)
+    theta = torch.as_tensor(np.load(args.state))
+    log_eta = np.log10(args.eta)
+    rows, previous = [], []
+    started = time.perf_counter()
+    stable = None
+    for _ in range(args.max_steps):
+        eta = 10.0 ** log_eta
+        if len(previous) == 2:  # secant predictor in log eta
+            theta = previous[-1] + (previous[-1] - previous[-2])
+        theta, history, separation = certify(problem, theta, eta)
+        residual = history[-1]["relative_residual"]
+        multipliers = cifar.two_step_multipliers(problem, theta.numpy(), eta, k=args.k)
+        top, kind = classify(multipliers)
+        row = {"log10_eta": log_eta, "relative_residual": residual, "newton_iterations": len(history),
+               "separation": separation, "top": [top.real, top.imag], "top_modulus": abs(top),
+               "top_kind": kind, "dominant_complex": multipliers["dominant_complex"],
+               "dominant_complex_modulus": multipliers["dominant_complex_modulus"],
+               "theta_over_2pi": multipliers["dominant_complex_theta_over_2pi"],
+               "seconds": time.perf_counter() - started}
+        rows.append(row)
+        print(json.dumps(row), flush=True)
+        if residual > 1e-8 or separation < 1e-7:
+            row["stop"] = "corrector failed or orbit collapsed to a fixed point"
+            break
+        if abs(top) >= 1.0:
+            row["stop"] = "multiplier outside the unit circle"
+            break
+        stable = (log_eta, theta.clone(), multipliers)
+        np.save(folder / f"orbit-lam{args.lam:g}-last-stable.npy", theta.numpy())
+        previous = (previous + [theta.clone()])[-2:]
+        log_eta += args.step
+    crossing = None
+    if stable is not None and rows and rows[-1].get("stop") == "multiplier outside the unit circle":
+        lo, hi = stable[0], rows[-1]["log10_eta"]
+        theta_lo = stable[1]
+        while hi - lo > args.bisect_tol:
+            mid = 0.5 * (lo + hi)
+            theta_mid, history, separation = certify(problem, theta_lo, 10.0 ** mid)
+            multipliers = cifar.two_step_multipliers(problem, theta_mid.numpy(), 10.0 ** mid, k=args.k)
+            top, kind = classify(multipliers)
+            if abs(top) < 1.0:
+                lo, theta_lo, stable = mid, theta_mid, (mid, theta_mid, multipliers)
+            else:
+                hi = mid
+        top, kind = classify(stable[2])
+        crossing = {"log10_eta_last_stable": lo, "log10_eta_first_unstable": hi, "multiplier": [top.real, top.imag],
+                    "modulus": abs(top), "type": {"complex": "neimark_sacker", "minus": "flip", "plus": "fold"}[kind],
+                    "theta_over_2pi": abs(np.angle(top)) / (2 * np.pi)}
+        np.save(folder / f"orbit-lam{args.lam:g}-at-crossing.npy", theta_lo.numpy())
+        print(json.dumps({"crossing": crossing}), flush=True)
+    (folder / f"orbit-lam{args.lam:g}-from{args.eta:.6g}.json").write_text(
+        json.dumps({"args": vars(args), "rows": rows, "crossing": crossing}, indent=1))
+
+
+def cmd_circle(args):
+    """Long runs just past a crossing: rotation, loss spectrum and largest exponent."""
+    from scipy.sparse.linalg import LinearOperator, eigs
+    torch.set_num_threads(args.threads)
+    problem, model = subset_a_problem(args.lam)
+    folder = OUT / "circle"
+    folder.mkdir(parents=True, exist_ok=True)
+    base = torch.as_tensor(np.load(args.state))
+    n = base.numel()
+    eta0 = 10.0 ** args.log10_eta_crossing
+    t1 = problem.update(base, eta0)
+
+    def matvec(v):
+        out = problem.jvp_two_step(base, cifar.as_tensor(np.real(v)), eta0, theta_next=t1).numpy()
+        if np.iscomplexobj(v):
+            out = out + 1j * problem.jvp_two_step(base, cifar.as_tensor(np.imag(v)), eta0, theta_next=t1).numpy()
+        return out
+
+    operator = LinearOperator((n, n), dtype=np.float64, matvec=matvec)
+    values, vectors = eigs(operator, k=4, which="LI", tol=1e-10)
+    index = int(np.argmax(np.abs(values) * (values.imag > 0)))
+    q = vectors[:, index]
+    plane = np.linalg.qr(np.stack([q.real, q.imag], 1))[0]
+    rng = np.random.default_rng(28203)
+    random_dirs = np.linalg.qr(rng.normal(size=(n, 64)))[0]
+    rows = []
+    for offset in args.offsets:
+        eta = 10.0 ** (args.log10_eta_crossing + offset)
+        theta = base + args.kick * torch.as_tensor(plane[:, 0])
+        losses = np.empty(args.steps)
+        proj_plane, proj_random = [], []
+        tangent = torch.as_tensor(rng.normal(size=n))
+        tangent /= tangent.norm()
+        log_growth, growth_steps = 0.0, 0
+        started = time.perf_counter()
+        finite = True
+        for t in range(args.steps):
+            value, gradient = problem.loss_and_grad(theta)
+            losses[t] = float(value)
+            if t >= args.steps - args.ftle_steps:
+                tangent = problem.jvp_update(theta, tangent, eta)
+                norm = float(tangent.norm())
+                log_growth += np.log(norm)
+                growth_steps += 1
+                tangent /= norm
+            theta = theta - eta * gradient
+            if not torch.isfinite(theta).all():
+                finite = False
+                break
+            if t >= args.transient and (t - args.transient) % 2 == 0:
+                x = theta.numpy()
+                proj_plane.append(plane.T @ x)
+                proj_random.append(random_dirs.T @ x)
+        seconds = (time.perf_counter() - started) / args.steps
+        row = {"offset_log10": offset, "log10_eta": args.log10_eta_crossing + offset,
+               "seconds_per_step": seconds, "finite": finite}
+        if finite and len(proj_plane) > 16:
+            pp, pr = np.asarray(proj_plane), np.asarray(proj_random)
+            rho_plane, share_plane = cifar.rotation_from_samples(pp)
+            rho_random, share_random = cifar.rotation_from_samples(pr)
+            centred = pp - pp.mean(0)
+            even = losses[args.transient::2]
+            spectrum = np.abs(np.fft.rfft(even - even.mean())) ** 2
+            freqs = np.fft.rfftfreq(len(even))
+            row.update({"rotation_plane": rho_plane, "plane_share": share_plane,
+                        "rotation_random64": rho_random, "random_share": share_random,
+                        "amplitude_in_plane": float(np.sqrt((centred ** 2).sum(1)).mean()),
+                        "loss_spectrum_peak": float(freqs[1 + int(np.argmax(spectrum[1:]))]),
+                        "loss_tail_std": float(losses[args.transient:].std()),
+                        "ftle": log_growth / max(growth_steps, 1)})
+            np.save(folder / f"proj-offset{offset:g}.npy", pp)
+            np.save(folder / f"losses-offset{offset:g}.npy", losses)
+        rows.append(row)
+        print(json.dumps(row), flush=True)
+    birth = abs(np.angle(values[index])) / (2 * np.pi)
+    (folder / "circle.json").write_text(json.dumps({"args": vars(args), "birth_multiplier":
+                                                    [values[index].real, values[index].imag],
+                                                    "birth_theta_over_2pi": birth, "rows": rows}, indent=1))
+    print(json.dumps({"birth_theta_over_2pi": birth}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -184,9 +339,28 @@ def main():
     sweep.add_argument("--tail", type=int, default=64)
     sweep.add_argument("--workers", type=int, default=4)
     sweep.add_argument("--threads", type=int, default=4)
+    orbit = sub.add_parser("orbit")
+    orbit.add_argument("--lam", type=float, required=True)
+    orbit.add_argument("--eta", type=float, required=True)
+    orbit.add_argument("--state", required=True)
+    orbit.add_argument("--step", type=float, default=0.01, help="continuation step in log10 eta")
+    orbit.add_argument("--max-steps", type=int, default=60)
+    orbit.add_argument("--bisect-tol", type=float, default=1e-5)
+    orbit.add_argument("--k", type=int, default=6)
+    orbit.add_argument("--threads", type=int, default=16)
+    circle = sub.add_parser("circle")
+    circle.add_argument("--lam", type=float, required=True)
+    circle.add_argument("--state", required=True, help="orbit point at the crossing")
+    circle.add_argument("--log10-eta-crossing", type=float, required=True)
+    circle.add_argument("--offsets", type=float, nargs="+", default=[1e-4, 3e-4, 1e-3])
+    circle.add_argument("--kick", type=float, default=1e-4)
+    circle.add_argument("--steps", type=int, default=60000)
+    circle.add_argument("--transient", type=int, default=30000)
+    circle.add_argument("--ftle-steps", type=int, default=4000)
+    circle.add_argument("--threads", type=int, default=16)
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    {"data": cmd_data, "wd": cmd_wd, "sweep": cmd_sweep}[args.command](args)
+    {"data": cmd_data, "wd": cmd_wd, "sweep": cmd_sweep, "orbit": cmd_orbit, "circle": cmd_circle}[args.command](args)
 
 
 if __name__ == "__main__":
