@@ -364,3 +364,21 @@ _commit `92ae8586eebd` (dirty worktree)_
 The 400x400 scan of the factorization model (run card above, commit before 92ae8586) was killed by timeout 1800 (exit 143) while the CPU was oversubscribed (load above 30, processes at nice 10); no output was written and research_log could not append its finish line. Rerunning at 160x160 with the same settings.
 
 _commit `92ae8586eebd` (dirty worktree)_
+
+## 2026-10-07 21:27 UTC: run (exploratory)
+
+- **Question:** Does the minimal two-parameter factorization model show a Neimark-Sacker bifurcation of the edge-of-stability 2-cycle? (rerun of the timed-out scan at lower resolution)
+- **Setup:** L = (uv-1)^2 + 0.05(u^2+v^2); log10 rates -0.6..0.2 for both, 160x160 map, 20,000 updates, EXP-028-style screening; period-2 continuation along the u-rate axis at 24 v-rate values, bisection 1e-11
+- **Output:** `../neural-shrimp-data/explore/a3-uv-model`
+- **Would surprise us:** Not expected either way: a 2-D gradient map can lose the 2-cycle by flip, fold or Neimark-Sacker
+- **Command:** `.venv/bin/python tools/explore_a3_uv_model.py --resolution 160`
+
+_commit `0d8f714583ba` (dirty worktree)_
+
+- run started 2026-10-07 21:27 UTC finished 21:30 UTC with exit status 0
+
+## 2026-10-07 21:30 UTC: A3 exploratory: the two-parameter factorization model follows the period-doubling route, not the quasi-periodic one
+
+L = (uv-1)^2 + 0.05(u^2+v^2) with separate rates, 160x160 log-rate map (20,000 updates): fixed 6,836 cells, period 2 6,875, period 4 1,190, period 8 195, period 16 86, odd windows (3: 159, 5: 5, 7: 8) and chaos 5,983; no unresolved or drift cells, i.e. no quasi-periodic training anywhere in the plane. Continuing the period-2 orbit along the u-rate axis at 24 v-rate values, it loses stability by flip every time (multiplier -1 to 1e-7). Interpretation (exploratory): with two parameters the dynamics near the balanced minimum reduce to an effectively one-dimensional cubic map (Feigenbaum route, odd windows, as in one-dimensional reductions of edge-of-stability dynamics), whereas the 13- and 72-parameter networks show the Neimark-Sacker route. Next candidate minimal model for the quasi-periodic route: a two-mode depth-2 linear network (the setting where Hofmann 2026 reports complex multipliers), to test for invariant circles and tongues.
+
+_commit `63cfde7454b8` (dirty worktree)_
