@@ -51,6 +51,9 @@ def main():
     parser.add_argument("--scan", required=True, help="scan directory")
     parser.add_argument("--tail", type=int, default=512)
     parser.add_argument("--title", default="")
+    parser.add_argument("--ns", default=None, help="continuation JSON with a Neimark-Sacker boundary to mark")
+    parser.add_argument("--rho-max", type=float, default=None, help="upper limit of the rotation panel")
+    parser.add_argument("--out", default=None, help="figure path (default: scan.png in the scan directory)")
     args = parser.parse_args()
     scan = Path(args.scan)
     rows = json.loads((scan / "scan.json").read_text())["rows"]
@@ -81,8 +84,27 @@ def main():
         if pts:
             a = np.array(pts)
             ax.plot(a[:, 0], a[:, 1], "o", markersize=3, color=REGIMES[name], markeredgewidth=0)
-    for frac in (1 / 6, 1 / 5, 2 / 9, 1 / 4, 2 / 7, 1 / 3, 2 / 5, 1 / 2):
-        ax.axhline(frac, color=GRID, linewidth=0.6, zorder=0)
+    spectral = []
+    for r, label in zip(rows, labels):
+        low = [f for f, power in (r.get("peaks") or []) if 1e-3 < f < 0.25 and power > 0.01]
+        if label in ("quasi-periodic", "unresolved", "drift", "chaotic") and low:
+            spectral.append((r["log10_eta"], 2 * min(low)))
+    if spectral:
+        a = np.array(spectral)
+        ax.plot(a[:, 0], a[:, 1], "o", markersize=4, markerfacecolor="none", markeredgecolor=MUTED,
+                markeredgewidth=0.6, label="2 x lowest loss-spectrum peak")
+    if args.rho_max is None or args.rho_max >= 0.1:
+        for frac in (1 / 6, 1 / 5, 2 / 9, 1 / 4, 2 / 7, 1 / 3, 2 / 5, 1 / 2):
+            ax.axhline(frac, color=GRID, linewidth=0.6, zorder=0)
+    if args.rho_max is not None:
+        ax.set_ylim(0, args.rho_max)
+    ns = json.loads(Path(args.ns).read_text()) if args.ns else None
+    if ns and ns.get("type") == "neimark_sacker":
+        ax.plot([ns["log10_eta_boundary"]], [ns["theta_over_2pi"]], "*", markersize=11, color=INK,
+                label="arg(mu)/2 pi at the Neimark-Sacker point")
+        for a in axes:
+            a.axvline(ns["log10_eta_boundary"], color=MUTED, linewidth=0.8, linestyle="--", zorder=0)
+    ax.legend(fontsize=8, frameon=False, loc="upper left")
     ax.set_ylabel("rotation number of the two-step map", fontsize=9, color=MUTED)
     ax = axes[2]
     power = []
@@ -103,7 +125,7 @@ def main():
     for a in axes:
         a.tick_params(labelsize=8, colors=MUTED)
         a.set_facecolor(SURFACE)
-    fig.savefig(scan / "scan.png", dpi=160, facecolor=SURFACE)
+    fig.savefig(args.out or scan / "scan.png", dpi=160, facecolor=SURFACE)
     for name in REGIMES:
         xs = [r["log10_eta"] for r, label in zip(rows, labels) if label == name]
         if xs:
