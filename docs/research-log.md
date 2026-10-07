@@ -1200,3 +1200,11 @@ _commit `959beee68b3a` (dirty worktree)_
 16 of 36 output rates (log10 0.55-1.45) give a Neimark-Sacker crossing; 20 starts were not on a period-2 orbit at hidden 1.10. Boundaries lie at log10 hidden 1.10-1.15 with birth rotations 0.121-0.125 (output 0.60-0.88) and 0.131-0.132 (0.94-1.01), consistent with the staircase plateaus 1/9..2/15, but with jumps between neighbours (e.g. 1.118 -> 1.149 -> 1.123 at 0.68-0.76) and two outliers (birth 0.0175 at 0.576, 0.0435 at 1.141), pointing to coexisting period-2 branches (S1R windows coexist with other attractors). Retrace from hidden 0.95 running.
 
 _commit `959beee68b3a` (dirty worktree)_
+
+- run started 2026-10-07 23:05 UTC finished 23:05 UTC with exit status 0
+
+## 2026-10-07 23:05 UTC: A3 exploratory: S1R-28002 has several coexisting period-2 branches, almost all ending in Neimark-Sacker
+
+Second trace from start hidden 0.95 (36 output rates, log10 0.55-1.45): 25 Neimark-Sacker, 4 fold, 7 starts not on a period-2 orbit. The two starts land on different period-2 orbits at many outputs, each with its own boundary: at 0.81-0.91 one branch ends at hidden 1.10-1.12 with birth rotation about 0.123 and another at 1.13-1.15 with about 0.133; at 0.94-0.99 both starts reach the same branch (1.110-1.123, birth 0.131-0.132); a slow branch with birth rotation about 0.043 appears from 1.01 to 1.14; folds at 1.19-1.24 and 1.37. Across both traces, 25 of 29 resolved boundaries (this trace) and 16 of 16 (first trace) are Neimark-Sacker: the onset generalizes to S1R, organized across coexisting branches consistent with its coexisting attractors. A curve figure for S1R must show branches separately.
+
+_commit `e63283bfd97e` (dirty worktree)_
