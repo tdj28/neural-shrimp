@@ -1136,3 +1136,23 @@ _commit `44bc54b0d5d3`_
 Three independent exploratory streams (merged 7 October): (1) real data, single global learning rate (claude/explore-realdata): 64-8-1 tanh MLP, standard parameterization, 1,024 UCI digit images, weight decay 1e-3, float64 full-batch GD; the Newton-certified edge-of-stability 2-cycle loses stability at log10 eta = -0.3885464 with multiplier 0.998814 + 0.048693i; predicted rotation 0.0077528 turns per two updates, measured 0.007751 on a smooth invariant circle (FTLE about 0); one of five period-2 branches examined (others end in folds); no locking resolved (q > 100 at this rotation). (2) Hofmann's two-mode depth-two linear network (claude/explore-minimal-model): the rotational edge a(s1 + s2) = 2 is a transversal complex-pair crossing; beyond it an attracting invariant circle with rotation tending to the birth angle; with weight decay 0.01 the amplitude grows like delta^0.49 (supercritical, soft onset); locked windows 1/8 (period 16), 2/17 (34) and 5/42 (84, the Farey mediant of 2/17 and 3/25) at s2/s1 = 0.7 and a 1/10 tongue at 0.8. (3) Coupled four-weight model: 6 of 64 cases end in Neimark-Sacker (ridge 0.2), including c = 0, i.e. the plain two-weight factorization 1/2 (uv - d)^2 + 0.1 (u^2 + v^2) with rate ratio about 2.8; held-out couplings 32/32 types predicted. Together with S2 and S1R this places the route in nonlinear and linear networks, per-layer and single learning rates, synthetic and real data. All exploratory; ancestry test still running.
 
 _commit `77299eb1e52f` (dirty worktree)_
+
+- run started 2026-10-07 22:45 UTC finished 22:58 UTC with exit status 0
+
+## 2026-10-07 22:58 UTC: run (exploratory)
+
+- **Question:** Right half of the W: continuity with the birth angle and tongue roots (2/9 pair at the maximum, 3/13, 1/4, 3/11, 2/7 on the steep branch)
+- **Setup:** analyze_a3_rotation_map.py and analyze_a3_tongue_roots.py (with bounds check) on a3-gpu-rotation/s2-28011-right and the merged curve
+- **Output:** `../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-right`
+- **Would surprise us:** Median |rho - birth| above 0.005 at the smallest offset; no locked cells near in-range right-branch roots
+- **Command:** `bash -c .venv/bin/python tools/analyze_a3_rotation_map.py --map ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-right/rotation.npz --ns ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-merged/ns-curve.json --offsets 0.002 0.004 0.008 0.016 --out ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-right && .venv/bin/python tools/analyze_a3_tongue_roots.py --map ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-right/rotation.npz --ns ../neural-shrimp-data/explore/a3-ns-curve/s2-28011-merged/ns-curve.json --out ../neural-shrimp-data/explore/a3-gpu-rotation/s2-28011-right`
+
+_commit `a694db980dae` (dirty worktree)_
+
+- run started 2026-10-07 22:58 UTC finished 22:58 UTC with exit status 0
+
+## 2026-10-07 22:59 UTC: A3 exploratory: soft and hard edges - along the Neimark-Sacker curve, crossing gives quasi-periodic training in the middle and divergence on the right
+
+Right-W GPU map (1024 x 400, 731 s; continuity: median |rho - arg(mu)/2pi| 0.00036 at 0.002 decades over 31 curve points; tongue roots: both 2/9 roots at the birth-rotation maximum 0.4 and 0.6 cells, p 0.001-0.002; steep-branch 3/13 3.0 cells, p 0.002; 1/4 20.6 cells, p 0.04). Classifying cells at 0.002-0.016 decades beyond each curve point (both maps): output -0.45 to -0.36 mostly chaotic at once (vanishing quasi-periodic band); -0.35 to -0.046 quasi-periodic or slow-drift at every offset (soft onset); -0.034 to +0.06 divergent at every offset (hard loss of stability straight to divergence). Hypothesis: the period-2 Neimark-Sacker is supercritical (safe boundary) on the middle arc and subcritical or immediately escaping (dangerous boundary) on the right arc, with a Chenciner point (first Lyapunov coefficient zero) near output -0.04; on the right arc the trainability (divergence) boundary would coincide with the Neimark-Sacker curve. Caveats: fixed-start labels; divergence could also reflect basin escape from the shared start; criticality not yet computed. Test planned: first Lyapunov coefficient along the curve, bistability and amplitude scaling on both arcs.
+
+_commit `a694db980dae` (dirty worktree)_
