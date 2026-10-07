@@ -414,3 +414,8 @@ _commit `753a7e6ce578` (dirty worktree)_
 _commit `208f8bd1829e` (dirty worktree)_
 
 - run started 2026-10-07 21:44 UTC finished 21:44 UTC with exit status 0
+## 2026-10-07 21:47 UTC: Manuscript draft paper/gd-route first compiles (exploratory and frozen results labeled)
+
+New working draft (branch claude/paper-gd-route): 14 pages, six figures generated from saved evidence with per-figure receipts and byte-identical --verify, 80 generated number macros with sources and hashes in paper/gd-route/data/numbers.json, and scripts/verify.py passing. Section 4 carries the prospectively frozen, audited map study; Section 5 the exploratory route, with placeholders for the rotation-number map, real-data network, minimal two-parameter model and consequence streams. Building the numbers surfaced a discrepancy: the raw random-chaos diagnostics and docs/EXP-028-summary.json record 157 of 160 reruns confirmed, while docs/EXP-028-results.md says 155 of 160 (the draft quotes 157 from the receipt). The Farey-neighbour pattern of staircase plateaus is weak evidence in S2 (3 of 3 pairs against 49% per pair for random fractions) and uninformative in S1R (null 100%, every small-denominator fraction in range appears). All citations remain unverified at primary sources.
+
+_commit `57264965e3b5`_

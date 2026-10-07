@@ -1,0 +1,80 @@
+{
+ "figure": "f2_ns_tongue_roots",
+ "evidence_label": "exploratory",
+ "alt_text": "Left: period map of the S2-28011 zoom region with periodic cells shaded by period. A black curve marks where the period-2 orbit loses stability; on all 35 traced slices the crossing multipliers are a complex pair (Neimark-Sacker). The curve is U-shaped with its lowest point at log10 hidden rate 1.650. Orange points mark where the crossing angle equals a rational m/q (predicted tongue roots): 2/11, 1/5, 2/9, 3/13. Right: the crossing angle theta/2pi along the curve ranges from 0.1670 to 0.2401 turns per two steps.",
+ "notes": "35 traced Neimark-Sacker points; roots for denominators up to 13; slices whose start was not period 2 break the curve.",
+ "script": "paper/gd-route/figures/f2_ns_tongue_roots.py",
+ "script_sha256": "05922e340d863bb8b2a9ba967e419ec026d99e89cd58c86915fdd32640f4c091",
+ "git_commit_at_generation": "f0ae8272b59d802cefda8fc981e23b7ace050f2e",
+ "worktree_dirty_at_generation": true,
+ "generated_utc": "2026-10-07T21:31:49Z",
+ "python": "3.12.14",
+ "numpy": "2.5.3",
+ "matplotlib": "3.11.1",
+ "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+ "inputs": [
+  {
+   "path": "/data2/neural-shrimp-data/explore/s2-28011-zoom-1024/map.npz",
+   "sha256": "e284ab3fccb8560659b46000592751ec0bff149dd368f8cf4344b2b8861681e0",
+   "bytes": 213930796
+  },
+  {
+   "path": "/data2/neural-shrimp-data/explore/a3-ns-curve/s2-28011/ns-curve.json",
+   "sha256": "757f7b0024c449bccec5636131f0666f7a88b6726b4213026c7688124b7ceb59",
+   "bytes": 9097
+  }
+ ],
+ "derived": {
+  "slices_traced": 40,
+  "slices_neimark_sacker": 35,
+  "slices_other": {
+   "neimark_sacker": 35,
+   "start_not_period_2": 5
+  },
+  "theta_over_2pi_min": 0.16698515034218636,
+  "theta_over_2pi_max": 0.2400679894151308,
+  "lowest_boundary_log10_hidden": 1.6502152169956825,
+  "roots": [
+   {
+    "fraction": "3/13",
+    "log10_output": -0.4381391911390058,
+    "log10_hidden": 1.894972919189488
+   },
+   {
+    "fraction": "2/9",
+    "log10_output": -0.42668629963596066,
+    "log10_hidden": 1.8708663222509094
+   },
+   {
+    "fraction": "1/5",
+    "log10_output": -0.39212213917053595,
+    "log10_hidden": 1.803495638722511
+   },
+   {
+    "fraction": "2/11",
+    "log10_output": -0.3507480798064995,
+    "log10_hidden": 1.7391978434839828
+   },
+   {
+    "fraction": "2/11",
+    "log10_output": -0.15711008954876388,
+    "log10_hidden": 1.6620268484954583
+   },
+   {
+    "fraction": "1/5",
+    "log10_output": -0.11563665255679288,
+    "log10_hidden": 1.6990970684460807
+   }
+  ]
+ },
+ "accessibility": {
+  "color_only_channel": false,
+  "note": "boundary types also differ by marker shape; classes and series are labeled"
+ },
+ "outputs": {
+  "pdf": "f2_ns_tongue_roots.pdf",
+  "pdf_sha256": "8ed13423996b735d3ad2c237d3c04825228e1240e01d16fc626fe3f9e6f474a2",
+  "png": "f2_ns_tongue_roots.png",
+  "png_sha256": "72e46e7afc6fa5932a562d387d76e08373260fcaf32c7c8b129d996d23c544c7"
+ }
+}
