@@ -348,7 +348,7 @@ def main():
     target = OUT / args.report
     target.write_text(json.dumps(report, indent=1, default=float))
     print(json.dumps({k: {"regime_counts": v["regime_counts"], "locked_rotations": v["locked_rotations"]}
-                      for k, v in report.items()}, indent=1))
+                      for k, v in report.items() if k != "pooled"}, indent=1))
 
 
 if __name__ == "__main__":
