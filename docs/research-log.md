@@ -278,3 +278,47 @@ _commit `2508f1913658` (dirty worktree)_
 Draft criteria (fold and flip each on at least 8 of 64 rays, at least half of flip rays opening onto period 2p in the local map, ray/map edge agreement at least 75%) pass S2-28011-zoom:587 (period 18) and S2-28011-zoom:985 (period 16). Edge agreement fails for most S1R windows because their local maps (from the shared initial parameters) are speckled inside the ray-continued stability region. First diagnostic (S1R-28001-zoom:931, period 8): of 20 speckled cells, 18 return period 8 when started from the certified orbit point but only 1 after 4x longer runs from the shared start: coexisting attractors, not long transients. Fixed-start maps therefore show basin selection layered on the window's existence region, and map-based edge criteria need orbit-start maps. The flip-to-2p criterion fails often even in clean S2 windows (subcritical flips or 2p bands thinner than a map cell are both possible); not yet diagnosed. Boundary census over all windows: S2 windows are mostly Neimark-Sacker and flip bounded (tongue-type); S1R windows mostly fold bounded. Full speckle survey running.
 
 _commit `2508f1913658` (dirty worktree)_
+
+## 2026-10-07 20:56 UTC: run (exploratory)
+
+- **Question:** Real-data calibration: sharpness at initialization and at an L-BFGS minimum (flip threshold 2/lambda_max) for a 64-8-1 tanh MLP on 1,024 UCI digits (halves task, no weight decay), and the cost of one batched step
+- **Setup:** Seed 28101; standard parameterization, PyTorch-default init; MSE; float64
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves/calibrate.json`
+- **Would surprise us:** lambda_max at the minimum far from lambda_max at init (would make a fixed-init sweep hard to anchor)
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py calibrate --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves`
+
+_commit `6228425e9cd9`_
+
+- run started 2026-10-07 20:56 UTC finished 20:56 UTC with exit status 0
+
+## 2026-10-07 20:57 UTC: run (exploratory)
+
+- **Question:** Real-data coarse scan, no weight decay: with one global learning rate from a fixed initialization, which attractors (fixed, period 2, higher periods, quasi-periodic, chaotic) occur for the 64-8-1 digits MLP?
+- **Setup:** Seed 28101, n=1024 halves task, ridge 0; 160 log10 eta in [-0.9, 0.1]; 20,000 updates with EXP-028 screening, then 4,096 recorded updates (loss, 32-d random projection); rotation numbers and loss-spectrum peaks; 4 workers
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves/scan-coarse`
+- **Would surprise us:** Only fixed points and divergence (no oscillatory regime at all), or a direct jump from period 2 to divergence
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py scan --range -0.9 0.1 --cells 160 --chunk 20 --workers 4 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves/scan-coarse`
+
+_commit `6228425e9cd9` (dirty worktree)_
+
+## 2026-10-07 20:57 UTC: run (exploratory)
+
+- **Question:** Real-data coarse scan, weight decay 1e-3: same question as the no-decay scan, with minima made isolated and slow directions damped
+- **Setup:** Seed 28101, n=1024 halves task, ridge 1e-3; 160 log10 eta in [-0.9, 0.1]; 20,000 updates with EXP-028 screening, then 4,096 recorded updates; 4 workers
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/scan-coarse`
+- **Would surprise us:** Weight decay removing the oscillatory regime entirely
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py scan --ridge 1e-3 --range -0.9 0.1 --cells 160 --chunk 20 --workers 4 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/scan-coarse`
+
+_commit `6228425e9cd9` (dirty worktree)_
+
+## 2026-10-07 21:00 UTC: run (exploratory)
+
+- **Question:** Real-data branch, weight decay 1e-3: where does the polished minimum flip, at 2/lambda_max, and how does the period-2 orbit born there lose stability as one global learning rate grows: fold, flip or Neimark-Sacker, with what multiplier angle?
+- **Setup:** Seed 28101, 64-8-1 tanh MLP, n=1024 halves task, ridge 1e-3; L-BFGS then Newton polish; period-2 seeds at eta/eta_flip in 1.002, 1.01, 1.03, 1.1 with a 1e-3 kick along the top Hessian eigenvector, 20,000 settling updates; continuation in log10 eta up to +0.3 with bisection 1e-9; single process, nice 10
+- **Output:** `/data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/branch`
+- **Would surprise us:** Subcritical flip with no attracting period-2 orbit near the flip, or immediate loss of the orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_realdata.py branch --ridge 1e-3 --out /data2/neural-shrimp-data/explore/realdata/w8-n1024-halves-wd1e-3/branch`
+
+_commit `767251c96bcd` (dirty worktree)_
+
+- run started 2026-10-07 21:00 UTC finished 21:01 UTC with exit status 0
