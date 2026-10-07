@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import runpod_pod as rp  # noqa: E402
 
 KEY = Path.home() / ".ssh" / "neural_shrimp_runpod_ed25519"
+UPLOAD_PATHS = ("src", "tools", "tests", "native", "experiments/trainability", "pyproject.toml", "uv.lock")
 
 
 def ssh_base(ip, port):
@@ -97,8 +98,10 @@ def main():
         ip, port = wait_for_ssh(pod_id, started + 60 * args.ready_minutes)
         rp.record({"event": "ssh_ready", "pod_id": pod_id, "seconds_after_create": round(time.time() - started)})
         base = ssh_base(ip, port)
-        archive = subprocess.run(["git", "archive", "--format=tar", head], cwd=ROOT, capture_output=True,
-                                 check=True).stdout
+        # Only what the runner needs (about 5 MB); the full tree carries ~1.8 GB of
+        # committed evidence that would take ~15 minutes on a 2 MB/s uplink.
+        archive = subprocess.run(["git", "archive", "--format=tar", head, *UPLOAD_PATHS], cwd=ROOT,
+                                 capture_output=True, check=True).stdout
         subprocess.run(base + ["mkdir -p /root/neural-shrimp && tar -x -C /root/neural-shrimp"], input=archive,
                        check=True, timeout=600)
         reference = subprocess.run(["tar", "-c", "-C", str(Path(args.reference).parent), Path(args.reference).name],
