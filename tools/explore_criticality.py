@@ -35,7 +35,7 @@ from neural_shrimp.gdmaps import GridMap, run_grid  # noqa: E402
 from neural_shrimp.minimal import EngineeredTwoCycle  # noqa: E402
 from neural_shrimp.trainability import SYSTEMS  # noqa: E402
 
-DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
+DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", "/data2/neural-shrimp-data"))
 OUT = DATA / "explore" / "criticality"
 
 
