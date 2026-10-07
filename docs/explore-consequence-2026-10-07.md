@@ -193,9 +193,15 @@ in the models: periodic versus chaotic attractor, a generic distinction.
   peak picking was noisy far from the bifurcation (median 3e-4, max 2.5e-3);
   that change is "adapted".
 
+- **Continuity across the transition.** In every slice the rotation number of
+  the first quasi-periodic cell equals the Neimark-Sacker birth angle of the
+  period-2 orbit: 0.21807 vs 0.21816 (S2, -0.0856), 0.16976 vs 0.17009 (S2,
+  -0.30, birth angle interpolated from the traced curve), 0.13217 vs 0.13218
+  (S1R).
+
 Figures: `/data2/neural-shrimp-data/explore/consequence/precursor.png`,
 `.../s2-28011-out-0.0856/{slice,regimes}.png`,
-`.../s1r-28002-out-0.9413/{slice,regimes}.png`.
+`.../s1r-28002-out-0.9413/{slice,regimes}.png`, `.../s2-28011-out-0.30/{slice,regimes}.png`.
 
 ## Verdict
 
