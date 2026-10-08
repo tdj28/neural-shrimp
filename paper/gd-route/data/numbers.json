@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "37ced4242984618684da2aecf94352b271c856cbe6a7e38ade70d01c46e4f46f",
+ "generator_sha256": "788ff48bf68f661a4cea4dc7cbda95f14fb6c2a9607f999eb68bf502c5ff2000",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:explore/a2-survey/rays.json": "a184d3f4fbdeed82f9933515fc61f4a74809936f2693728bbcb80323340c1db4",
@@ -52,6 +52,7 @@
   "repo:certificates/c1-row35-receipt.json": "07f51a37e8c2304934f0ef60e6e985117cf0e76bf3cf994457374e87bdf6e1f0",
   "repo:docs/EXP-028-summary.json": "6b8803f25f5690f52f7842bb78adcfd05054c5fbd4b515803939fd54a941d7ec",
   "repo:docs/explore-minimal-model-scalar-receipt.json": "79cb579b0c6f0f07da16ede15bbae8546b5b537de19e04495e89d3ed6f9f8381",
+  "repo:docs/explore-tiny-lm-receipt.json": "2769666d2a28c658ee2b3fb2ed20c755979c5a68d23fe226cb7e3ca4301d3f1f",
   "repo:docs/warmup-intervention-receipt.json": "34c1f091bea9e85a97268ddab9c62a5b93e051b5d44664fc6aab7c58c985f86e",
   "repo:experiments/trainability/EXP-028-plan.json": "fbb6203c01d427024bac762ff60371f64aaa77971f72fc81171f154c39a6d19a",
   "repo:paper/gd-route/figures/f2_rotation_map.provenance.json": "2288412b931f4ef78406ddac7dc63a13b142a3372added00d0394f6534531841",
@@ -2611,6 +2612,66 @@
     "repo:certificates/c1-row121-receipt.json"
    ],
    "computation": "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places"
+  },
+  {
+   "macro": "nLMParameters",
+   "value": 15776,
+   "tex": "15{,}776",
+   "evidence": "exploratory; rung 0",
+   "sources": [
+    "repo:docs/explore-tiny-lm-receipt.json"
+   ],
+   "computation": "parameters"
+  },
+  {
+   "macro": "nLMTokens",
+   "value": 256,
+   "tex": "256",
+   "evidence": "exploratory; rung 0",
+   "sources": [
+    "repo:docs/explore-tiny-lm-receipt.json"
+   ],
+   "computation": "tokens_per_update"
+  },
+  {
+   "macro": "nLMCases",
+   "value": 10,
+   "tex": "10",
+   "evidence": "exploratory; rung 0",
+   "sources": [
+    "repo:docs/explore-tiny-lm-receipt.json"
+   ],
+   "computation": "sum(main_case_counts)"
+  },
+  {
+   "macro": "nLMCompleted",
+   "value": 7,
+   "tex": "7",
+   "evidence": "exploratory; rung 0",
+   "sources": [
+    "repo:docs/explore-tiny-lm-receipt.json"
+   ],
+   "computation": "main_case_counts.completed"
+  },
+  {
+   "macro": "nLMGuard",
+   "value": 3,
+   "tex": "3",
+   "evidence": "exploratory; rung 0",
+   "sources": [
+    "repo:docs/explore-tiny-lm-receipt.json"
+   ],
+   "computation": "main_case_counts.numerical_guard_stop"
+  },
+  {
+   "macro": "nLMUpdates",
+   "value": 1000,
+   "tex": "1{,}000",
+   "evidence": "exploratory; rung 0",
+   "sources": [
+    "repo:docs/explore-tiny-lm-receipt.json"
+   ],
+   "computation": "max completed_steps"
   }
  ]
 }

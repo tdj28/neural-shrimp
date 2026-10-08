@@ -2008,3 +2008,24 @@ pilot and CIFAR/S1R obstacles now form that milestone. The compact packet is
 request only, exact committed packet head, external immutable raw bundle and
 private cost ledger. Run a non-generating dry run before dispatch. Results and
 adjudication are pending; no reviewer endorsement is implied by this card.
+
+## 2026-10-08: reviewed transformer result and manuscript refresh
+
+Integrated tiny-LM producer021e96b6 and separate reviewer79041020. The paper now
+reports the actual-text architectural pilot: seven completed main trajectories
+without accepted recurrence and three guards before the requested tail. No
+Floquet, chaos, generalization or speedup claim is made. Generated numbers now
+include this source-bound receipt;245 macros, nine figure replays, scalar/ramp/LM
+receipts and both exact-real orbit proofs pass the manuscript verifier. The
+25-page draft was compiled and all pages visually inspected, with particular
+attention to the new text on page20. Nearby references were checked at primary
+full-text sections: Cohen adaptive EoS Section5/Figure7; Regis/Chewi Sections6-8;
+Fong/Yang Section4 and relevant GPT-2/minibatch appendices. This is a scoped
+content check, not an audit of every theorem; ledger limits remain explicit.
+
+The authorized Astra strategy packet passed its non-generating preflight.
+Automatic approval review then rejected dispatch because the packet contains
+nonpublic findings and requires payload-specific permission to send them to
+OpenAI. The process did not start and no generating request ran. A concise user
+approval question is pending; no retry or workaround will be attempted. Local
+research and paper work continue independently. Costs remain in the private ledger.

@@ -87,7 +87,7 @@ ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR sweep completed, orbit analysis
-unresolved after its continuation time limit; no language-model training benefit established. \\
+unresolved after its continuation time limit; fixed-batch text-transformer pilot shows drift, without an accepted periodic orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two attracting primitive period-10 orbits of the exact-real
 map, independently reviewed; surrounding chaos and the full census remain numerical. \\
 \bottomrule
@@ -690,10 +690,25 @@ through the quasi-periodic band and locked windows into sustained chaos with con
 
 \paragraph{CIFAR development pilot (unresolved).} The development-subset learning-rate sweep has completed
 and shows a slowly drifting period-2 candidate followed by loss modulation. The initial full-state Newton--GMRES
-continuation ended at its configured time limit without a saved orbit result. A revised runner needs incremental
-checkpoints, convergence checks at every returned state and residual-qualified matrix-free multiplier estimates.
+continuation was no longer running after its configured time limit and left no saved orbit result. A reviewed
+revision adds incremental checkpoints, convergence checks at every returned state and residual-qualified
+matrix-free multiplier estimates; it has not yet yielded a new accepted orbit.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
+
+\paragraph{Actual-text transformer pilot (architectural feasibility).} A one-layer causal transformer with
+\nLMParameters{} parameters, tied token/output embeddings and LayerNorm was trained on
+\nLMTokens{} fixed next-character targets per update from tiny-Shakespeare. Full-batch GD with ridge regularization
+makes the update autonomous. Of \nLMCases{} exploratory rates from one shared initialization,
+\nLMCompleted{} completed \nLMUpdates{} updates and \nLMGuard{} stopped at numerical guards. None of the
+completed trajectories met the full-state fixed-point or period-2 recurrence screen; the stopped runs did not
+reach its final-tail window. Moderate rates memorized the small batch while parameters drifted. This is neither
+a prevalence estimate nor a test of generalization: validation-corpus outcomes remain unconsumed.
+Reduced dense-derivative controls and matched-state CPU/GPU comparisons support the matrix-free implementation,
+without establishing agreement of entire finite-precision trajectories. Loss AR(2) fits can improve one-step
+prediction by modeling drift, and weak complex fitted roots also appear during ordinary descent. These roots
+therefore do not establish Floquet multipliers or an NS crossing. The complete evidence and failure labels are in
+\path{docs/explore-tiny-lm-receipt.json}; methods and corpus attribution are in \path{docs/explore-tiny-lm.md}.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -705,9 +720,9 @@ The local part of the thesis now rests on several independent kinds of evidence:
 normal-form coefficient and its dynamical checks, the continuity of the rotation number with the crossing angle in
 two maps, and the same behaviour in a real-data network and in a solvable linear network. The picture that fits is
 the quasi-periodic organization familiar from circle maps and forced oscillators
-\citep{curry1978,aronson1982,jensen1984}: the edge-of-stability oscillation is a period-2 orbit; past a
-supercritical crossing, training moves on an invariant circle with a rotation number set by the crossing angle;
-rational rotations lock; and the circle may eventually break; this last step remains untested here. The global part, that the periodic windows of the learning-rate
+\citep{curry1978,aronson1982,jensen1984}: a closed period-2 orbit can lose stability at a
+supercritical NS crossing; under the local nondegeneracy assumptions, an attracting invariant circle is born,
+with rotation approaching the crossing angle. Rational rotations can lock; and the circle may eventually break; this last step remains untested here. The global part, that the periodic windows of the learning-rate
 plane are resonance tongues of this bifurcation, is supported by the Birkhoff test and by the post-hoc tongue
 scaling, but its frozen test did not pass. The frozen estimator mixed non-asymptotic and asymptotic levels; a
 confirmatory version should prespecify an asymptotic-regime estimator, and connecting a tongue to a distant window
@@ -729,8 +744,8 @@ Jacobian--vector products through the complete optimizer update can estimate tho
 dense Jacobian. This hypothesis needs tests of numerical residuals, mode coverage, checkpoint-to-checkpoint drift
 and predictive accuracy. Along nonperiodic or scheduled training, finite-horizon tangent growth is the appropriate
 initial quantity; Floquet language is reserved for a sufficiently closed periodic reference orbit.
-A fixed-batch language model provides an architectural test, followed by separate minibatch, schedule and precision
-perturbations. Relevant endpoints are prospective transition predictions and improved interventions at comparable
+The fixed-batch transformer pilot establishes an architectural test path, but has not yielded a periodic reference
+orbit. Separate minibatch, optimizer-state, schedule and precision perturbations remain necessary. Relevant endpoints are prospective transition predictions and improved interventions at comparable
 compute cost. Similar-looking loss oscillations would not establish either endpoint. A linear loss-based
 multiplier estimate alone also does not identify nonlinear criticality or basin accessibility.
 
@@ -772,7 +787,11 @@ Further analyses include \citet{kalra2025}, \citet{chenbruna2023}, \citet{song20
 adaptive methods at a preconditioned stability threshold. \citet{regischewi2026} model Adam in the joint
 parameter--first-moment state, with the second moment as an auxiliary variable, and compare rod-flow
 approximations across architectures and optimizers. \citet{fongyang2026} connect second-moment feedback to
-active curvature and report gradient reversal, including in GPT-2 medium. These studies establish relevant
+active curvature and report gradient reversal, including in GPT-2 medium. The latter uses a fixed text batch
+and describes approximate alternating motion around a drifting center; that description is distinct from
+full-state periodic-orbit closure. Its minibatch experiments also show that noise and momentum can weaken
+the reversal. Cohen et al. already examine transformer warmup, while the rod-flow study explicitly limits
+its model to full-batch steady-state behavior. These studies establish relevant
 prior work on oscillatory training in larger models. Our proposed extension must identify an additional
 mechanism or predictive consequence; detecting oscillation in a transformer alone would not supply that contribution.
 

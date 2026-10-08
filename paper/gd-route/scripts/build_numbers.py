@@ -726,6 +726,16 @@ def build():
         assert exact < rounded < 1
         n.add("xCOne" + label + "Bound", str(rounded), f"{float(rounded):.3f}", proof, [path],
               "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places")
+    lm_path = c.ROOT / "docs/explore-tiny-lm-receipt.json"
+    lm = load(lm_path)
+    for macro, value, calc in [
+        ("nLMParameters", lm["parameters"], "parameters"),
+        ("nLMTokens", lm["tokens_per_update"], "tokens_per_update"),
+        ("nLMCases", sum(lm["main_case_counts"].values()), "sum(main_case_counts)"),
+        ("nLMCompleted", lm["main_case_counts"]["completed"], "main_case_counts.completed"),
+        ("nLMGuard", lm["main_case_counts"]["numerical_guard_stop"], "main_case_counts.numerical_guard_stop"),
+        ("nLMUpdates", max(r["completed_steps"] for r in lm["rows"]), "max completed_steps")]:
+        n.add(macro, value, integer(value), "exploratory; rung 0", [lm_path], calc)
     return n
 
 

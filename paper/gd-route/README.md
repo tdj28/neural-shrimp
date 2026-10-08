@@ -18,8 +18,7 @@ author's decisions.
 Section 4 reports the prospectively designed, independently audited map study.
 Section 5 gives narrowly scoped exact-real orbit proofs from exploratory selection.
 Section 6 is exploratory: its analyses were chosen while exploring and have not
-been tested on fresh networks or seeds. The evidence-and-scope table distinguishes mathematical rigor from design timing. Two orbit certificates and controlled scalar/ramp pilots are integrated; CIFAR continuation,
-branch-aware S1R analysis, language-model transfer and broader certificate coverage remain in progress. Orange boxes identify
+been tested on fresh networks or seeds. The evidence-and-scope table distinguishes mathematical rigor from design timing. Two orbit certificates, controlled scalar/ramp pilots and an actual-text transformer feasibility pilot are integrated. The transformer runs show drift without an accepted periodic orbit; language-model utility, CIFAR continuation, branch-aware S1R analysis and broader certificate coverage remain in progress. Orange boxes identify
 remaining research or human-authorship decisions. Every citation must be checked at its
 primary source before release; entries marked `[title to verify]` carry only
 identifiers.
@@ -37,7 +36,7 @@ python scripts/verify.py
 ```
 
 `verify.py` re-derives every number, regenerates every figure byte for byte
-against its receipt, replays the scalar/warmup receipts and both rigorous orbit certificates,
+against its receipt, replays the scalar, warmup and transformer receipts and both rigorous orbit certificates,
 checks that each macro used in the text is generated, and
 that every repository path the text cites exists in the committed tree.
 
