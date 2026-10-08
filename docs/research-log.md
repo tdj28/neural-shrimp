@@ -4312,3 +4312,17 @@ Producer8143a886 completed once:12 map/Jacobian pairs24 SVDs,1.1480s science1.64
 ## 2026-10-08 13:06 UTC — preserve gap and primary-reference artifacts
 
 Copied complete gap producer/launcher, independent saved audit/launcher and Aronson partial-primary archive to `/archive/neural-shrimp-backups/20261008T130606Z-gap-increment`:297 files7067996 bytes. Exact inventory, full SHA256 copy verification, second source hash pass and size/mtime stability checks pass. Separate physicalsda versusdatanvme1n1; same-machine point-in-time protection, not offsite. Receipt `docs/backups/2026-10-08-gap-increment.json`. All failed retrievals and partial reference scope retained.
+
+### 2026-10-08 13:03 UTC — one authorized lower-gap saved-outcome audit
+
+Under authorization c7be8b65445bd6de0091ec7107210556907cd514 and source review
+0e24ae8cc1f3ec4bb94e4d81e0a60716067b3e7b, clean frozen auditor80972cb9 ran once
+against the pinned producer8143a886 and manifests. Saved arithmetic/provenance
+passed: six roles,24 retained SVDs,161 records, exact12/12/24 producer counters.
+Elapsed0.721185s internally/0.958419s wrapper; exit0; CPU1nice10;1,858,251bytes.
+All13 output files were fully hashed and read-only; all three owned PIDs absent.
+The saved Newton equation passes forcing/backward gates, while all13 historical
+trials fail decrease; the failed-state tangent orientation changes sign across
+raw/scaled secant metrics. No fold or branch conclusion. Compact independent
+companions: docs/reviews/s1r-lower-gap-independent-outcome.md and -receipt.json.
+No target/model/derivative/decomposition/solve rerun, no correction or retry.
