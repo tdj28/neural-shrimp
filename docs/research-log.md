@@ -4224,3 +4224,7 @@ no edit; the corrected command then changed exactly this phrase. Recompiled
 successfully to31 pages without final warnings, rechecked all pagination and
 page20 detail; pages23/24 renders remain byte-identical. Updated PDF/QA hashes;
 parent independent manuscript review remains the integration gate.
+
+## 2026-10-08 12:37UTC — current manuscript restart update independently reviewed
+
+Root reviewed final author sourcef0778bf8 after integration5e5909cd. All287 generated numerical entries verify; six new macros match the independently audited restart controls/outcome. Exact31-page PDF/source/number hashes match author QA. Root visually inspected pages20,23,24; author inspected all31contact pages. No blocking finding, no unchanged scientific rerun. Independent companion `docs/reviews/paper-cifar-restart-independent-review.json`. Current PDF SHA2565d09c768244dffa82e99713cd48907bf6b7c9503dbf14fc1b8f5c3542c8e8c8c,776787bytes.
