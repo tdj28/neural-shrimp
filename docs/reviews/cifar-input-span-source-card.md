@@ -19,6 +19,5 @@ changed in the separate branch.
 Amended-source testing reads the exact six files at17453ecc from root's frozen
 integration worktree via `CIFAR_SPAN_REVIEW_SOURCE_ROOT` and that tree's
 `PYTHONPATH`; it does not edit that tree. The reviewer source branch retains
-its original producer snapshot plus independent controls. Before and after
-review, all six tested files match the amended Git bytes.41 controls pass;
+its original producer snapshot plus independent controls. After testing, all six tested files match the amended Git bytes.41 controls pass;
 originale6485c67 produced the six expected binding/bitwise failures.
