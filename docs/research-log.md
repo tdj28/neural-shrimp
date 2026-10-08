@@ -1754,3 +1754,33 @@ _commit `d9e56b5ba78f`_
 Completed unit attempt-001 and 17-case attempt-002 under explore/scalar-mechanism. At fixed target 1.2, the grid produced 12 flips and 5 NS crossings; all equal-rate balanced cases match the explicit longitudinal flip eta=(sqrt(5)-1)/(target-ridge). Unequal-rate NS cases have noncommuting indefinite symmetric step factors and negative first Lyapunov coefficients. Representative ridge .2, ratio sqrt(8): NS eta .733508895817, birth rotation .428819216165, coefficient -3.836452456, amplitude exponent .49790 from three detunings. Analytic and finite-difference coefficients differ at most 2.9e-9 across NS cases. All findings exploratory, numerical rung 0, no interval proof or training-utility claim. Closed-form controls and derivative tests passed (27 tests). Updated the existing minimal-model summary and generated docs/explore-minimal-model-scalar-receipt.json with hash-bound raw manifests and a no-network checker. Ancestry improvement assessed only: bordered pseudo-arclength continuation of both folds, not another center-line scan. No paid compute, held-out data or frozen code paths used.
 
 _commit `d9e56b5ba78f` (dirty worktree)_
+
+## 2026-10-08 04:48 UTC: run (exploratory)
+
+- **Question:** Acquire and hash a modest public character-language-model corpus for the architectural pilot.
+- **Setup:** Download only public tiny-Shakespeare text and upstream README license statement from karpathy/char-rnn; source URLs and SHA256 retained. No private data transmitted. Dataset acquisition only, 90-second cap.
+- **Output:** `/data2/neural-shrimp-data/datasets/tinyshakespeare/attempt-001`
+- **Would surprise us:** Source download or content-bound receipt cannot be completed.
+- **Command:** `nice -n 10 timeout 90 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py prepare --output /data2/neural-shrimp-data/datasets/tinyshakespeare/attempt-001`
+
+_commit `85950bf6cf3b`_
+
+- run started 2026-10-08 04:48 UTC finished 04:48 UTC with exit status 0
+
+## 2026-10-08 04:48 UTC: run (exploratory)
+
+- **Question:** Does a small real-text causal transformer train with reproducible matrix-free GD diagnostics, and what is the measured local cost?
+- **Setup:** One-layer width32 context32 tied-embedding causal transformer, fixed 8-sequence batch (256 next-character targets), seed28141, ridge .001. GPU reserved by root; 7MiB idle before task, load15.6 RAM43GiB available. One CPU thread, GPU float32 TF32 off deterministic algorithms; reduced dense float64 and full same-state CPU64 derivative comparisons. Initial-sharpness scaled rate factor .2, 100 updates, 180-second cap, no validation outcomes.
+- **Output:** `/data2/neural-shrimp-data/explore/tiny-lm/attempt-001-unit`
+- **Would surprise us:** Failed causal/JVP controls, full-architecture precision discrepancy, or local runtime exceeding feasibility budget.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py run --profile unit --output /data2/neural-shrimp-data/explore/tiny-lm/attempt-001-unit`
+
+_commit `85950bf6cf3b` (dirty worktree)_
+
+- run started 2026-10-08 04:48 UTC finished 04:48 UTC with exit status 0
+
+## 2026-10-08 04:50 UTC: Tiny transformer profile passes; scale to bounded rate pilot
+
+Source 85950bf6 completed the 15,776-parameter, 256-token full-batch profile on the local RTX2000Ada. 100 updates took .511s; CE 4.18145 to 2.67550. Full matched-state CPU64/GPU32 gradient/HVP differences were 9.60e-8/1.35e-7; reduced dense JVP discrepancies below 5e-16. These checks do not establish long-trajectory precision equivalence. Initial sharpness estimate7.60 (Ritz relative residual .00287), final max50.94 (residual1.76e-7); final minimum Ritz residual .501 is unresolved. Scalar AR2 complex roots occur on this descending nonstationary loss curve, so they cannot establish NS or a full-state orbit. Proceed to six factors .1,.4,.8,1,1.2,1.6 of 2/initial sharpness, 1000 updates each, expected under45s and 180s ceiling. Add GPU identity/runtime fields before this pilot; original unit artifacts unchanged. Validation outcomes remain unconsumed.
+
+_commit `85950bf6cf3b` (dirty worktree)_

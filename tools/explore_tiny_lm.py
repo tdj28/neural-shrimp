@@ -195,6 +195,8 @@ def run(args):
         plan={'model':model.__dict__,'parameters':model.n_parameters,'optimizer':'full-batch GD',
               'optimizer_state':'theta only; no momentum, schedule or bias correction state',
               'dtype':'float32','device':args.device,'ridge':args.ridge,'seed':28141,
+              'cuda_runtime':torch.version.cuda,'gpu_name':torch.cuda.get_device_name() if theta.is_cuda else None,
+              'gpu_capability':list(torch.cuda.get_device_capability()) if theta.is_cuda else None,
               'deterministic_algorithms':True,'tf32':False,'dropout':False,
               'initial_hessian_ritz':hessian,'initial_hessian_seconds':seconds,
               'rate_rule':'eta=factor*2/initial_largest_Hessian_Ritz_value; initial point is not stationary',
