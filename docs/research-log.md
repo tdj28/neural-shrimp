@@ -4375,3 +4375,15 @@ check the pre-engine boundary. No target output has been opened.
 A second independent partial-boundary control found that an allowed single
 stage increment before durable start also needs to force partial scope. The
 qualification predicate now includes that discrepancy; no gate changed.
+
+### 2026-10-08 14:04 UTC — One saved-only PAL audit passed
+
+Root authorization `e2f72a33` pinned execution `cc3976e3` and both producer
+manifests. The reviewed clean auditor `3134d730` ran once: pass over 930
+events, two witnessed edges, no failed gates/partial lags; no model,
+derivative, decomposition, solve or trajectory call. Internal 1.504867s,
+launcher 1.855653s, exit 0. Complete 12-file immutable evidence is 558,011 bytes;
+owned PIDs 344932/345018/345019 are absent. The exact inventories and
+limitations are in `docs/reviews/s1r-pseudoarclength-independent-outcome-receipt.json`;
+its prose companion records the numerical raw-tangent sign change without
+a fold, lower-family connection or utility claim. No retry or extension.
