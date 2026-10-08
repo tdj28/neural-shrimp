@@ -2866,3 +2866,21 @@ Producer hash/inventory verification passed; independent saved-outcome audit
 pending. Source, original failed corrector, raw direction and all trials remain
 unchanged. This diagnostic does not reject orbit existence or identify a
 condition number. No new training, GPU, paid call or held-out data access.
+
+### 2026-10-08 — prospective saved-array CIFAR diagnostic audit
+
+Root requested an independent outcome audit of source a9830e71's single
+linear diagnostic at /data2/neural-shrimp-data/explore/cifar/linear-diagnostic/attempt-001.
+Commit this audit code/card before numerical replay. No model, HVP, GMRES,
+trial generation or continuation will be evaluated. Read saved arrays, bind
+source bytes to the exact Git tree and both pinned input manifests, and
+independently recompute norms/dots using math.fsum, forcing/descent, absolute
+Armijo, closure/separation screens and every candidate decision. Check actual
+operator/inner-event counts and source/data/runtime mirrors. Stored map images
+and A*p remain trusted hash-bound inputs, not independently regenerated here.
+
+One CPU thread, nice10, external60s plus5s kill grace; no GPU/paid resources.
+Output is exclusive /data2/neural-shrimp-data/audits/cifar-linear-diagnostic/attempt-001.
+Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 60s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/audit_cifar_linear_outcome.py /data2/neural-shrimp-data/explore/cifar/linear-diagnostic/attempt-001 --out /data2/neural-shrimp-data/audits/cifar-linear-diagnostic/attempt-001`.
+Preserve any failed audit attempt. No new solver allowance or candidate/orbit
+acceptance is implied by this arithmetic replay.
