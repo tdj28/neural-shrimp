@@ -898,6 +898,86 @@ def build():
         ("xCifarClosureGate", cifar["settings"]["closure_tolerance"], power(cifar["settings"]["closure_tolerance"]), "settings.closure_tolerance")]:
         n.add(macro, value, tex, "exploratory; failed correction diagnostic; independently audited saved arrays",
               [cifar_path, cifar_audit_path, cifar_manifest], calc)
+    # A later matched restart diagnostic is distinct from the original50x4 attempt.
+    restart_receipt_path = c.ROOT / "docs/reviews/cifar-restart-outcome-receipt.json"
+    restart_audit_receipt_path = c.ROOT / "docs/reviews/cifar-restart-independent-outcome-receipt.json"
+    restart_receipt, restart_audit_receipt = load(restart_receipt_path), load(restart_audit_receipt_path)
+    assert restart_audit_receipt["status"] == "passed_saved_arithmetic_and_provenance"
+    restart_sources = [restart_receipt_path, restart_audit_receipt_path]
+    restart_roots = {}
+    for label in ("producer", "producer_launcher", "audit", "audit_launcher"):
+        artifact = restart_audit_receipt["artifacts"][label]
+        root = Path(artifact["path"])
+        mf = root / "manifest.json"
+        assert c.sha256(mf) == artifact["manifest_sha256"]
+        entries = load(mf)
+        entries = entries.get("files", entries)
+        assert set(entries) == {p.name for p in root.iterdir()} - {"manifest.json"}
+        assert all((root / name).is_file() and not (root / name).is_symlink()
+                   and (root / name).stat().st_size == row["bytes"]
+                   and c.sha256(root / name) == row["sha256"] for name, row in entries.items())
+        assert len(entries)+1 == artifact["file_count"]
+        assert sum(row["bytes"] for row in entries.values())+mf.stat().st_size == artifact["bytes"]
+        restart_sources.append(mf)
+        restart_roots[label] = root
+    restart_root, restart_audit_root = restart_roots["producer"], restart_roots["audit"]
+    restart_raw_path = restart_root / "result.json"
+    restart_audit_path = restart_audit_root / "result.json"
+    restart_linear_path = restart_root / "linear.json"
+    restart_checks_path = restart_audit_root / "arithmetic-audit.json"
+    restart_events_path = restart_audit_root / "events-audit.json"
+    restart_launcher_path = restart_roots["producer_launcher"] / "receipt.json"
+    restart_audit_launcher_path = restart_roots["audit_launcher"] / "receipt.json"
+    restart_sources.extend([restart_raw_path, restart_audit_path, restart_linear_path, restart_checks_path,
+                           restart_events_path, restart_launcher_path, restart_audit_launcher_path])
+    restart, restart_audit = load(restart_raw_path), load(restart_audit_path)
+    restart_linear, restart_checks = load(restart_linear_path), load(restart_checks_path)
+    restart_events = load(restart_events_path)
+    restart_launcher, restart_audit_launcher = load(restart_launcher_path), load(restart_audit_launcher_path)
+    assert restart_receipt["execution_commit"] == restart["source_commit"] == restart_audit["pins"]["execution_commit"] == "6fea29cda810ebb72c234dbd0fc1533bbca4e5cb"
+    assert restart["review_commit"] == restart_audit["pins"]["source_review_commit"] == "1f4f2abe8b4d4d4b8ad6e50cf1c9416d568d65f9"
+    assert restart_audit["audit_source"] == restart_audit_receipt["source_and_execution_commit"] == "4de644d379884ba85ce71bf39611c7be6ab90d10"
+    assert restart_audit_receipt["audit_source_review"] == "fa4fafffa394f82701233fd4d7e2a4371eac3c17"
+    assert c.sha256(restart_root / "manifest.json") == restart_receipt["raw"]["attempt-001"]["manifest"]["sha256"] == restart_audit["pins"]["raw_manifest_sha256"]
+    assert c.sha256(restart_roots["producer_launcher"] / "manifest.json") == restart_audit["pins"]["launcher_manifest_sha256"]
+    assert c.sha256(restart_raw_path) == restart_receipt["result_identity"]["sha256"]
+    assert restart["status"] == "diagnostic_complete" and restart["comparison_qualified"]
+    assert restart_audit["status"] == "finished" and restart_audit["verdict"] == "saved_outcome_audit_pass"
+    assert restart_audit["checks"] == restart_checks and restart_checks["control_failures"] == []
+    assert restart_launcher["successful"] and restart_launcher["process_exit"] == 0 and not restart_launcher["owned_live_pids_remaining"]
+    assert restart_audit_launcher["exit_code"] == 0 and restart_audit_launcher["error"] is None and not restart_audit_launcher["owned_live_pids_remaining"]
+    assert restart["linear"] == restart_linear
+    assert restart_linear["inner_iterations"] == cifar["linear"]["inner_iterations"] == len(restart_events["callbacks"]) == 200
+    assert (cifar["linear"]["restart"], cifar["linear"]["cycles"]) == (50, 4)
+    assert (restart_linear["restart"], restart_linear["cycles"]) == (200, 1)
+    assert restart_events["attempted"] == restart_events["returned"] == restart["operation_attempted"] == restart["operation_returned"]
+    assert restart_events["matvecs"] == restart_linear["matvec_calls"] == 202 and not restart_events["pending_operations"]
+    assert restart_checks["prefix"] == restart_events["prefix"] and restart_checks["prefix"]["passed"] and restart_checks["prefix"]["compared"] == 50
+    assert all(v["passed"] and v["max_absolute_error"] == 0 for v in restart_checks["reference_parity"].values())
+    assert np.isclose(restart_checks["comparison"]["baseline_forcing_ratio"], cifar["linear"]["true_forcing_ratio"], rtol=1e-12, atol=1e-20)
+    assert np.isclose(restart_checks["linear"]["true_forcing_ratio"], restart_linear["true_forcing_ratio"], rtol=1e-12, atol=1e-20)
+    assert restart_linear["forcing_limit"] == cifar["settings"]["forcing_limit"] == .5
+    assert .5 < restart_checks["linear"]["true_forcing_ratio"] < restart_checks["comparison"]["baseline_forcing_ratio"]
+    assert restart_linear["gmres_info"] == 1 and not restart_linear["requested_tolerance_met"] and not restart_checks["linear"]["forcing_test_pass"]
+    assert not restart["candidate_trial_indices"] and not restart["accepted_orbit"] and not restart["applied_to_continuation"] and not restart["spectrum_requested"]
+    assert [t["alpha"] for t in restart["trials"]] == restart["settings"]["alphas"] == [1., .5, .25, .125]
+    assert len(restart["trials"]) == len(restart_checks["trials"]) == 4
+    for trial, independent in zip(restart["trials"], restart_checks["trials"]):
+        assert trial["finite"] and independent["finite"] and trial["merit_ratio"] > 1 and independent["merit_ratio"] > 1
+        assert np.isclose(trial["merit_ratio"], independent["merit_ratio"], rtol=1e-12, atol=1e-20)
+        assert not trial["merit_decreased"] and not trial["armijo_pass"] and not trial["closure_screen"]
+        assert not trial["inexact_step_candidate"] and not independent["inexact_step_candidate"]
+        assert not trial["accepted_orbit"] and not trial["applied_to_continuation"]
+    for macro, value, display, calc in [
+        ("nCifarBaselineRestart", cifar["linear"]["restart"], integer(cifar["linear"]["restart"]), "original GMRES restart length"),
+        ("nCifarBaselineCycles", cifar["linear"]["cycles"], integer(cifar["linear"]["cycles"]), "original GMRES cycle budget"),
+        ("nCifarRestartInner", restart_linear["inner_iterations"], integer(restart_linear["inner_iterations"]), "matched200 inner iterations, original and restart diagnostic"),
+        ("nCifarRestartPrefix", restart_checks["prefix"]["compared"], integer(restart_checks["prefix"]["compared"]), "independently audited matching saved prefix length"),
+        ("xCifarRestartForcing", restart_checks["linear"]["true_forcing_ratio"], fixed(restart_checks["linear"]["true_forcing_ratio"], 4), "independent saved-vector true forcing ratio"),
+        ("nCifarRestartTrials", len(restart_checks["trials"]), integer(len(restart_checks["trials"])), "all fixed trials: finite, merit increased, no accepted candidate")]:
+        n.add(macro, value, display, "exploratory matched restart diagnostic; independently audited saved arrays; correction gates failed",
+              restart_sources + [cifar_path, cifar_audit_path, cifar_manifest], calc)
+
     # Later diagnostic outcomes are kept distinct from the failed correction.
     span_receipt_path = c.ROOT / "docs/reviews/cifar-input-span-outcome-receipt.json"
     span_receipt = load(span_receipt_path)

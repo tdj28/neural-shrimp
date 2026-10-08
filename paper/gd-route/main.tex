@@ -844,6 +844,17 @@ saved-array audit reproduces these decisions; it does not independently reevalua
 images or Jacobian products. This diagnoses a failed correction attempt, not absence of a period-two orbit.
 See \path{docs/cifar-linear-diagnostic-receipt.json} and
 \path{docs/reviews/cifar-linear-diagnostic-outcome-review.md}.
+
+A later matched comparison replaces \nCifarBaselineCycles{} restart-\nCifarBaselineRestart{} cycles
+with one restart-\nCifarRestartInner{} cycle, retaining \nCifarRestartInner{} inner iterations at the
+same saved state. Its first \nCifarRestartPrefix{} callback residuals reproduce the saved baseline.
+The true linear forcing improves from $\xCifarForcing$ to $\xCifarRestartForcing$, but remains above
+$\xCifarForcingLimit$. All \nCifarRestartTrials{} fixed trials now increase the absolute residual
+merit; none passes Armijo, closure or the candidate-step gates, and no update is applied.
+An independent saved-data audit reproduces these decisions without regenerating map images or
+Jacobian products. This single-state comparison does not establish absence of a periodic orbit
+or a general solver advantage. See \path{docs/reviews/cifar-restart-outcome.md} and
+\path{docs/reviews/cifar-restart-independent-outcome.md}.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
 
