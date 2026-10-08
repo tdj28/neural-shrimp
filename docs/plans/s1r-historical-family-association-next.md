@@ -135,3 +135,77 @@ association remains unresolved**. The contribution bullet, S1R heading and
 claim of rotation branches coexisting over the same rates need separate
 common-parameter state evidence before using coexistence language. Do not
 infer a general absence of coexistence from this evidence gap.
+
+## Implementation amendment — 2026-10-08 09:00 UTC, before new outcomes
+
+The source implementation is prepared from integration
+`960ab535e1954e6f46dce21999338ddcf1bd23ee` on
+`codex/s1r-bootstrap-association`. No new S1R profile or target has run. The
+historical summary and reviewed local-branch outcomes above were already known;
+this remains exploratory. `gdmaps.py`, `trainability.py`, `models.py` and the
+historical tracer have identical committed bytes between the old named
+`959beee68b3a` revision and that integration baseline; unknown old dirty changes
+are not recovered by this check.
+
+`tools/explore_s1r_bootstrap_association.py` has separate `profile` and `collect`
+modes. Both bind the complete immutable 720-file local-pilot inventory, exact
+model/data/theta0 identities, saved node0004, current source files/HEAD, and an
+explicit independent source-review commit. The review SHA records provenance;
+it does not by itself establish approval. Root must authorize each launch.
+Output creation is exclusive. All raw states, checkpoint records, failures,
+source identities and process/resource settings are retained in a final
+hash-bound manifest when ordinary finalization completes.
+
+The optional `iterate_and_screen` observer gets lazy copied snapshots only.
+The historical gradient-with-loss, pre-update JVP, tangent normalization and
+post-update tail arithmetic are unchanged. Synthetic tests compare result
+arrays byte-for-byte with the frozen baseline, including an observer that
+mutates every returned copy. A surviving 40,000-step cell makes 1,200 JVP calls
+at pre-update states theta38800 through theta39999; only the last 1,000 growth
+terms enter FTLE. Snapshots distinguish attempted map updates, accepted finite
+updates, attempted JVP calls and successful JVP returns. A call interrupted
+inside the operator counts as attempted, not returned. Divergence retains the
+last finite accepted state separately from the historical NaN-frozen state.
+Incomplete horizons receive no fabricated complete-tail classification.
+
+Checkpoint cadence is every 1,000 completed iterations plus start and terminal.
+Deadline checks occur before and after each loop, without copying the full tail
+every time. SIGTERM sets a stop flag rather than raising asynchronously inside
+an update; the next hook stops and preserves consistent update/state counters.
+The terminal snapshot is written using the existing finalization reserve,
+including when a nonterminal record exhausts its ordinary byte allowance.
+SIGKILL, an uninterruptible numerical call, filesystem failure or exhausted
+absolute capacity can prevent finalization; earlier fsynced records remain.
+The external timeout and launcher must retain exit status/logs even if no final
+manifest exists. This is cooperative durability, not a promise against power
+loss or arbitrary process death.
+
+Root clarified the profile cap to **8 seconds internal / 9 seconds external
+plus 1 second kill grace**, preserving the proposed 10-second overall cap.
+The profile times precisely the single-cell `gradient(..., return_loss=True)`
+update and HVP-based JVP paths, with a fixed saved state and e0 direction.
+Its 2,000 map calls and 128 JVP calls do not advance a trajectory. Projection
+remains `2*(80000*map_seconds/2000 + 2400*jvp_seconds/128) + 30` seconds and must
+be finite and at most 100. The factor accounts only heuristically for warm-loop,
+screening and checkpoint overhead; corrector variability can still cause a
+preserved collection timeout. A failed/incomplete/over-budget profile does not
+permit a target run or a shortened warmup. A disclosed split requires a new
+card and review. Collection retains the original 100 / 115 + 5 second limits.
+
+The hidden-coordinate helper uses axis zero for widths and secants, exact final
+binary64 controls, unchanged direct/two-half/reverse qualification, explicit
+native and carried cyclic phases and a cap checked before creating link 20.
+Twelve nominal macro links plus three two-phase qualifications cost 102 phase
+calls; at most 19 attempted links plus those qualifications cost 158, below the
+hard 160-call cap. The nominal macro width divided by sixteen falls below the
+minimum 0.000125, so that minimum can stop after three attempted halvings; four
+is a ceiling, not a promise to attempt all four. Failed edges and any remaining
+gap are retained and cannot authorize an endpoint jump. Both rate bytes and
+log-control bytes must agree before the common-parameter comparison.
+
+No fresh seeds, hidden-start selection, horizon extension, lower-family bridge,
+GPU, paid service, broad map or stability-boundary search is included. A matching
+new upper bootstrap supports this finite witnessed numerical connection only;
+it does not recover missing historical states or prove continuous interval
+continuation. The lower bootstrap is a separately retained basin outcome until
+a future common-control bridge is designed and reviewed.

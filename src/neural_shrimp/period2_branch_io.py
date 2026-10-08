@@ -50,7 +50,7 @@ class Store:
 
     def json(self,name,obj,**kwargs):self._write(name,canonical(obj),**kwargs)
 
-    def emit(self,kind,payload):
+    def emit(self,kind,payload,*,final=False):
         number=self.count;self.count+=1
         base=f'{number:05d}-{kind}'
         arrays={}
@@ -71,12 +71,13 @@ class Store:
         parts.append((base+'.json',canonical(obj)))
         line=canonical(dict(sequence=number,kind=kind,file=base+'.json')).replace(b'\n',b'')+b'\n'
         checkpoint=canonical(dict(sequence=number,kind=kind,file=base+'.json',status='in_progress'))
-        if self.used+sum(len(v) for _,v in parts)+len(line)+len(checkpoint)>self.limit-self.reserve:
+        ceiling=self.limit if final else self.limit-self.reserve
+        if self.used+sum(len(v) for _,v in parts)+len(line)+len(checkpoint)>ceiling:
             raise PilotStop('raw_byte_limit')
-        for name,data in parts:self._write(name,data)
+        for name,data in parts:self._write(name,data,final=final)
         with (self.root/'journal.jsonl').open('ab') as h:h.write(line);h.flush();os.fsync(h.fileno())
         self.used+=len(line)
-        self._write('checkpoint.json',checkpoint,replace=True)
+        self._write('checkpoint.json',checkpoint,replace=True,final=final)
         self.latest=dict(sequence=number,kind=kind,file=base+'.json')
 
     def finish(self,result):
