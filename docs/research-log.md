@@ -2838,3 +2838,14 @@ Pre-target validation:56 focused diagnostic/CIFAR CPU/device tests passed in
 12.88s, including16 new diagnostic controls; one pre-existing Torch jit.script
 deprecation warning. No target derivative, linear solve or trial was evaluated
 by these tests. Target execution remains pending independent source review.
+
+### 2026-10-08 — independent CIFAR linear-diagnostic source review
+
+Reviewed source a9830e714d259597a53cee6ef7be41a9f07bb205 on an isolated
+`codex/review-cifar-linear-diagnostic` branch. No mathematical or launch-scope
+blocker for the declared one-state CPU diagnostic. Eighteen synthetic controls
+pass in1.02s, including a separately constructed full50x4/205-call control and
+forcing/descent-versus-Armijo control. Read-only hashing confirms both pinned
+input manifests and all eight saved files; no CIFAR target evaluation was run.
+Review and exact limitations: docs/reviews/cifar-linear-diagnostic-source-review.md.
+Target execution remains root-owned and requires actual source-review signoff.
