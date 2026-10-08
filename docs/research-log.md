@@ -4505,3 +4505,15 @@ a fold, lower-family connection or utility claim. No retry or extension.
 ## 2026-10-08 14:17 UTC — reviewed next-fold mathematics, no target work
 
 Integrated source-only notece21947f and independently checked source hashes and fold conditions. At R=F_h²−Id=0, require one-dimensional kernel/cokernel, nonzero left/right overlap for algebraic simplicity, nonzero a=w^T R_h and c=w^T R_theta_theta[v,v]; differentiating the branch equation gives h_second=−c/a in the specified normalization. Directional third loss derivatives and interval full-box validation need separate source/cost/review. Only qualifiednode0006/node0005 may seed a future measured design; no localization/certificate/profile/target work or launch authorized. Receipt `docs/reviews/s1r-unstable-fold-next-independent-review.json`.
+
+### 2026-10-08 UTC — bounded curvature helper source-only preparation
+
+Implemented a pure supplied-array helper from corrected design403aff7e, with
+explicit2eigh/1eig/1SVD caps, full modeled/control multiplicities, residual-aware
+floating spectral diagnostics and supplied-native formation mismatch. Final13
+deterministic synthetic controls pass0.13s under CPU/BLAS1 and nice10. No target
+arrays, empirical files, model/profile/acquisition/trajectory or selected-panel
+evaluation was opened or run. Source/card hashes are in
+`docs/plans/curvature-mechanism-helper-source-receipt.json`. Independent review,
+empirical acquisition and six-slot aggregate gates remain pending. This unit
+stops at the prepared helper; no empirical claim or launch is authorized.
