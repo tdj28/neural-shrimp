@@ -4116,3 +4116,36 @@ Independent review and separate root launch authorization are still pending.
 ## 2026-10-08 12:15 UTC — authorize one fixed CIFAR restart diagnostic
 
 Root source-reviewed the one-shot implementation8aa146fd and independent review1f4f2abe; all12 source/card files match. Root focused synthetic controls pass47 (overlapping the reviewer count, not additional target evidence). Prospective outcome auditor4de644d3 was frozen before target execution and remains outcome-blind. Fresh host inventory12:14UTC reports load0.78,41.23GiB available RAM, no active GPU compute process and absent attempt paths. Authorize exactly the existing restart200/maxiter1 card, unchanged inputs/operator/gates and202A/203J2VP/407HVP/11 direct-gradient caps, one CPU nice10,45s cooperative60+5s external,32MiB aggregate and monitored2GiB child-group RSS. Actual clean execution HEAD will be this authorization commit. No accepted update, spectrum, retry, GPU, paid resource or protected outcome. Every result stops for independent saved-data audit and a new decision. Full identities/limitations in `docs/reviews/cifar-restart-launch-authorization.json`.
+## 2026-10-08 UTC — lower-gap six-state diagnostic source; launch pending
+
+Implemented root-authorized source-only design0f28cc5a: six pinned saved roles,
+independent analytic gradient/Hessian adapter,12 map/12 Jacobian/24 full SVD
+caps, raw and fixed scaled coordinates with correct73D tangent conversion,
+carried phase/secant orientation and explicit ambiguous-rank/nearzero abstention.
+The failed states yield only local residual-level-set tangents. No correction,
+trajectory, new orbit acceptance or fold verdict is possible. Existing bound
+producer/model sources remain unchanged; all work uses a separate codex branch.
+
+Synthetic controls exercise a quadratic map parameter chain, simple fold,
+ill-conditioned nonsingular example, competing soft directions, rank ambiguity,
+phase exchange, zero residual, corrupt step/Jacobian, nonfinite and interrupted
+return retention, bounded launcher failure, and a complete six-slot synthetic
+pipeline with full73-column right bases and exact12/12/24 counts. No saved
+scientific target/model/profile was evaluated. The prospective card is
+docs/plans/s1r-lower-gap-implementation.md: CPU1nice10, internal15s/external20+5,
+7+1MiB raw, no retry. Independent source review and separate root authorization
+remain required before the one prospective launch; no target directory exists.
+
+
+Source-only controls initially caught duplicate matrix storage reaching the
+ordinary allowance and a collision between historical encoded array tags and
+the new record decoder. Retained each gradient/Hessian/Jacobian once and saved
+the pinned plan as separate hash-bound JSON; no scientific threshold, output
+cap or role changed. The full-rank synthetic pipeline retained approximately
+5MiB within7MiB science budget, including complete73D right bases. Source and
+scope review follows the final synthetic suite; all real target calls remain
+unauthorized at this checkpoint.
+
+Final focused suite:14 synthetic controls passed in0.65s (timing approximate);
+no real target/model evaluation. Assembled nonfinite M/A records survive
+post-return rejection. All source-only failures above remain disclosed.
