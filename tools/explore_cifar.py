@@ -339,7 +339,7 @@ def cmd_orbit(args):
                                                'plus': 'fold_candidate'}[kind],
                     'log10_eta_last_estimated_stable': lo, 'log10_eta_first_estimated_unstable': hi,
                     'multiplier': stable[2]['top'], 'modulus': stable[2]['top_modulus'],
-                    'theta_over_2pi': stable[2]['theta_over_2pi'],
+                    'theta_over_2pi': abs(np.angle(complex(*stable[2]['top']))) / (2 * np.pi),
                     'scope': 'qualified partial-spectrum bracket; no completeness or nonlinear bifurcation proof'}
                 result['status'] = 'candidate_bracket'
             elif not failed:

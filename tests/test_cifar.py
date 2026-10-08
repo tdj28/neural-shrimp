@@ -205,3 +205,27 @@ def test_failed_bisection_keeps_unresolved_bracket_and_incremental_evidence(monk
     assert any(json.loads(line)['kind'] == 'bisection' for line in (output / 'events.jsonl').read_text().splitlines())
     with pytest.raises(FileExistsError):
         driver.cmd_orbit(args)
+
+
+def test_crossing_angle_refers_to_top_ritz_value_not_an_unrelated_complex_mode(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+    import json
+    driver = load_driver()
+    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (None, None))
+    count = []
+    def evaluate(problem, theta, eta, k, **kwargs):
+        stable = not count
+        count.append(1)
+        return theta, {'stop_reason': None, 'estimated_stability': 'stable' if stable else 'unstable',
+                       'top': [.9 if stable else 1.1, 0.], 'top_modulus': .9 if stable else 1.1,
+                       'top_kind': 'plus', 'theta_over_2pi': .123}
+    monkeypatch.setattr(driver, 'evaluate_orbit', evaluate)
+    state = tmp_path / 'state.npy'
+    np.save(state, np.ones(6))
+    output = tmp_path / 'attempt'
+    args = SimpleNamespace(threads=1, lam=.01, state=str(state), eta=.1, output_ratio=1.,
+                           k=2, step=.1, max_steps=2, bisect_tol=1., output=str(output))
+    driver.cmd_orbit(args)
+    result = json.loads((output / 'orbit.json').read_text())
+    assert result['crossing']['type'] == 'fold_candidate'
+    assert result['crossing']['theta_over_2pi'] == 0.
