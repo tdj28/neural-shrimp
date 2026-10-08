@@ -2524,7 +2524,7 @@ TLDR: one exact two-weight unequal-rate model now has a computer-assisted
 local supercritical NS proof, beyond the earlier floating-point crossing
 evidence. It gives a qualitative nearby attracting-curve consequence, not
 a finite-detuning enclosure, global shrimp ancestry or training benefit.
-Producer source0652d495 and independent review47fd3bd9/b00049e7 are integrated;
+Producer source 0652d495 and independent review 47fd3bd9/b00049e7 are integrated;
 original pending-review fields and all raw evidence remain unchanged. The
 review separately verifies original seed binding and discloses the frozen
 checker's acceptance of consistently rewritten provenance metadata.
@@ -2537,11 +2537,11 @@ accuracy correction distinguishes float64 map experiments from the float32
 transformer development pilot. The reviewed complex-adjoint diagnostic fix
 is disclosed with its unchanged saved orbit/criticality outcomes.
 
-Validation: all249 generated values, nine byte-identical figures, pilot
+Validation: all 249 generated values, nine byte-identical figures, pilot
 receipts, both C1 orbit proofs and the scalar NS replay pass. A separate
 read-only mathematical manuscript review checked all four rounded intervals
 against exact dyadic endpoints. Final LaTeX compilation has no unresolved
-references or box warnings. All26 pages were rendered and visually inspected,
+references or box warnings. All 26 pages were rendered and visually inspected,
 including the new proof page at full size. The current working PDF remains
 private and retains human-authorship/release and open-research placeholders.
 
@@ -2621,3 +2621,21 @@ that seed's three rates; its Brier is worse in both summaries. Preserve the
 sparse-event limitation. Full report and hash-bound receipt are under
 docs/reviews/tiny-lm-calibration-outcome-*. No training, gradients, optimization
 refit, assessment, validation outcomes, policies, GPU or paid work in this audit.
+
+
+## 2026-10-08 UTC: integrate reviewed negative LM calibration
+
+TLDR: the nonlinear update-plane features did not pass their development
+prediction gate in six tiny-transformer trajectories. The challenge had sparse
+late events. B3 worsened seed-pooled Brier/AP versus matched Gram history;
+it slightly improved AP within the eventful trajectory while worsening Brier.
+Ordinary loss/AR features were stronger there. No training-utility or broad
+impossibility claim follows. Assessment, validation and controller outcomes
+remain unopened; no adaptive extension of this unit was launched.
+
+Source review 39ba1721 and outcome audit 6985c1c7 are integrated with their
+receipts and preserved failed audit/amendment. The actual collection source
+remains b9e5b8c3. The paper includes the narrow negative finding, contrasts it
+with the exact scalar theorem's scope, and points to both results and audit.
+No new numerical macros or figures were introduced. The prospective S1R
+full-state plan and CIFAR linear-solve diagnosis remain future work.

@@ -766,6 +766,17 @@ prediction by modeling drift, and weak complex fitted roots also appear during o
 therefore do not establish Floquet multipliers or an NS crossing. The complete evidence and failure labels are in
 \path{docs/explore-tiny-lm-receipt.json}; methods and corpus attribution are in \path{docs/explore-tiny-lm.md}.
 
+\paragraph{Drift-aware prediction pilot (negative calibration).} A subsequent development pilot compared
+causal loss/AR and gradient-history predictors with nonlinear update-plane coherence. The matched-history
+baseline received all Gram histories needed to reconstruct the coherence features, so these features could
+only add a nonlinear representation of the same information. The declared development gate failed:
+late-event coverage was insufficient, and adding coherence worsened seed-pooled Brier and average precision
+on the eventful seed. A loss-history baseline was stronger on its eventful trajectory. This sparse challenge
+establishes no predictive or controller advantage; it does not exclude useful diagnostics on other workloads.
+Assessment outcomes and controller stages remained unopened. Source-bound results and their independent
+saved-data audit are documented in \path{docs/explore-tiny-lm-calibration.md} and
+\path{docs/reviews/tiny-lm-calibration-outcome-review.md}.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -774,7 +785,8 @@ their own, and the hypotheses here need their own prespecified tests.
 
 The local part of the thesis now rests on several independent kinds of evidence: the crossing multipliers, the
 normal-form coefficient and its dynamical checks, the continuity of the rotation number with the crossing angle in
-two maps, and the same behaviour in a real-data network and in a solvable linear network. The picture that fits is
+two maps, and the same behaviour in a real-data network and in a solvable linear network. The selected scalar
+case also has a local computer-assisted proof. The picture that fits is
 the quasi-periodic organization familiar from circle maps and forced oscillators
 \citep{curry1978,aronson1982,jensen1984}: a closed period-2 orbit can lose stability at a
 supercritical NS crossing; under the local nondegeneracy assumptions, an attracting invariant circle is born,
@@ -786,7 +798,7 @@ needs two-parameter fold-curve continuation.
 
 An early spectral diagnostic of learning dynamics is that of \citet{vandermaas1990}, who used
 broadband spectra to recognize chaotic learning; here a spectral peak carries the rotation number, and an
-autoregressive fit carries the complex multiplier before the crossing.
+autoregressive fit estimates the complex multiplier before the crossing in the tested closed-orbit references.
 
 \paragraph{Open questions.} The odd-period windows did not pass the Birkhoff diagnostic; whether they are organized
 as in periodicity hubs \citep{jones2012} is open. Fixed-start maps mix local criticality with basin accessibility
@@ -801,7 +813,8 @@ dense Jacobian. This hypothesis needs tests of numerical residuals, mode coverag
 and predictive accuracy. Along nonperiodic or scheduled training, finite-horizon tangent growth is the appropriate
 initial quantity; Floquet language is reserved for a sufficiently closed periodic reference orbit.
 The fixed-batch transformer pilot establishes an architectural test path, but has not yielded a periodic reference
-orbit. Separate minibatch, optimizer-state, schedule and precision perturbations remain necessary. Relevant endpoints are prospective transition predictions and improved interventions at comparable
+orbit, and the drift-aware development calibration has not shown incremental predictive utility. Separate
+minibatch, optimizer-state, schedule and precision perturbations remain necessary. Relevant endpoints are prospective transition predictions and improved interventions at comparable
 compute cost. Similar-looking loss oscillations would not establish either endpoint. A linear loss-based
 multiplier estimate alone also does not identify nonlinear criticality or basin accessibility.
 

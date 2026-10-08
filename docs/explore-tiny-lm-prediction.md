@@ -1,6 +1,6 @@
 # Tiny-LM drift/prediction machinery: engineering profile
 
-Exploratory, 2026-10-08 UTC. Source `5c477cca9445d507f1e1c58f8c93154ef35097e3`; compact evidence is in [the receipt](explore-tiny-lm-prediction-receipt.json). The committed [plan](plans/explore-tiny-lm-drift-controls.md) separates this completed engineering profile from the unrun calibration, assessment and policy stages. Prior tiny-LM evidence is unchanged.
+Exploratory, 2026-10-08 UTC. Source `5c477cca9445d507f1e1c58f8c93154ef35097e3`; compact evidence is in [the receipt](explore-tiny-lm-prediction-receipt.json). The committed [plan](plans/explore-tiny-lm-drift-controls.md) separates this engineering profile from the later completed calibration and the still-unrun assessment and policy stages. Prior tiny-LM evidence is unchanged.
 
 The collector now records causal CE/AR forecasts, gradient norm/cosine, secant curvature, norm drift, the complete eight-step history of four-direction Gram matrices, and adjacent-plane coherence. B0–B3 share missingness masks. B2 has all raw information needed to reconstruct B3; success would mean useful nonlinear featurization of this information. This is neither new information nor an NS diagnostic. The offline analyzer uses training-only imputation/scaling, equal four-value penalty searches, 16-step label embargoes, tied-score average precision, temporal and leave-one-seed-out checks. It validates the exact input file inventory and binds committed analyzer/imported module bytes plus NumPy/SciPy versions. It has no assessment or policy execution path.
 
