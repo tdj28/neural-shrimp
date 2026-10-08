@@ -101,9 +101,9 @@ assistant. Source receipts are indexed in Section~\ref{sec:repro}.}
 \section{Introduction}
 \label{sec:intro}
 
-Training with a learning rate beyond the classical stability limit is common practice. At the edge of stability,
-the sharpness of the loss hovers near $2/\eta$ while the loss still decreases over long horizons
-\citep{cohen2021}; self-stabilization explains how sharpness is held there \citep{damian2023}, progressive
+Full-batch gradient descent can continue reducing neural-network training loss beyond the local quadratic
+stability threshold. In the edge-of-stability regime observed by \citet{cohen2021}, sharpness stays near
+$2/\eta$ while short-term loss fluctuations coexist with longer-term decrease; self-stabilization explains how sharpness is held there \citep{damian2023}, progressive
 sharpening how it gets there \citep{agarwala2023}, and the catapult phase what happens to the loss at somewhat
 larger rates \citep{lewkowycz2020}. Simplified models show period doubling and chaos as the step size grows
 \citep{kalra2025,chen2024phases,hofmann2026}. Over two-dimensional hyperparameter planes, the boundary between
@@ -594,7 +594,12 @@ with its own loss of stability. Of \nSOneRTraceA{} output rates traced from one 
 complex-pair crossing and \nSOneRTraceANotTwo{} starts were not on a period-2 orbit; from a lower start,
 \nSOneRTraceBNS{} of \nSOneRTraceB{} end in a complex-pair crossing, \nSOneRTraceBFold{} in folds, and
 \nSOneRTraceBNotTwo{} starts were not on a period-2 orbit. The two starts often reach different branches with
-different crossing angles.
+different crossing angles. A subsequent saved-map audit keeps these starting families separate: each
+output-rate slice was initialized independently, and adjacent rows need not represent one continuous orbit
+branch. The retained near-curve map cells remain unresolved under the original status classifier. Provisional
+rational-angle intersections do not establish association with distant same-period windows; saved full-state
+continuation is still required. See \path{docs/explore-s1r-rotation-audit-receipt.json} and its separate replay
+review, \path{docs/reviews/s1r-rotation-map.md}.
 
 \paragraph{Real data, one learning rate.} A 64-8-1 tanh network (529 parameters) trained with one global learning
 rate and weight decay on 1{,}024 standardized UCI digit images (two-class task) has a numerically validated period-2 orbit that
@@ -780,8 +785,11 @@ loses stability; \citet{agarwala2023} show progressive sharpening to the edge in
 the approach to the regime we study beyond it; \citet{lewkowycz2020} describe a catapult phase at large rates, in
 which the loss first grows and then settles in flatter regions, while our maps resolve the long-run dynamics of
 rates where training does not settle. \citet{hofmann2026} derives the rotational edge whose far side we study.
-Further analyses include \citet{kalra2025}, \citet{chenbruna2023}, \citet{song2023}, \citet{chen2024phases} and
-\citet{cohen2025central}.
+\citet{chenbruna2023} analyze two-step GD, proving period-2 convergence in specified scalar and single-neuron
+settings and testing related conditions in larger models. \citet{song2023} study alignment with a reduced
+bifurcation diagram, with proofs for specified single-example models and neural-network experiments. Our orbit
+tests concern closure and stability of the full parameter state. Further analyses include \citet{kalra2025},
+\citet{chen2024phases} and \citet{cohen2025central}.
 
 \paragraph{Adaptive optimizers and larger models.} \citet{cohenadaptive2022} study full-batch and large-batch
 adaptive methods at a preconditioned stability threshold. \citet{regischewi2026} model Adam in the joint
