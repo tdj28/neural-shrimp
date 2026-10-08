@@ -4126,3 +4126,18 @@ No producer bytes, scientific thresholds or resource limits changed. Review
 and separate root authorization remain required before the saved-only audit.
 
 Final repaired focused suite:57 synthetic controls passed in0.66seconds under CPU/BLAS1 and nice10.
+
+
+### 2026-10-08 13:03 UTC — one authorized lower-gap saved-outcome audit
+
+Under authorization c7be8b65445bd6de0091ec7107210556907cd514 and source review
+0e24ae8cc1f3ec4bb94e4d81e0a60716067b3e7b, clean frozen auditor80972cb9 ran once
+against the pinned producer8143a886 and manifests. Saved arithmetic/provenance
+passed: six roles,24 retained SVDs,161 records, exact12/12/24 producer counters.
+Elapsed0.721185s internally/0.958419s wrapper; exit0; CPU1nice10;1,858,251bytes.
+All13 output files were fully hashed and read-only; all three owned PIDs absent.
+The saved Newton equation passes forcing/backward gates, while all13 historical
+trials fail decrease; the failed-state tangent orientation changes sign across
+raw/scaled secant metrics. No fold or branch conclusion. Compact independent
+companions: docs/reviews/s1r-lower-gap-independent-outcome.md and -receipt.json.
+No target/model/derivative/decomposition/solve rerun, no correction or retry.
