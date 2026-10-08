@@ -29,3 +29,43 @@ The initiating numerical follow-up uses a branch derived from the existing
 EXP-008 branch because its frozen source and evidence are required inputs.
 Its review must retain that dependency; it must not overwrite or bypass the
 unresolved original replay gate.
+
+## Verified separate-disk copy, 8 October 2026
+
+The user reiterated regular private Git pushes as protection against disk
+failure. The existing cadence in `Skills.md` remains: each coherent work unit,
+approximately every 30 minutes of sustained work, and before long runs or
+handoff, with the remote commit verified after pushing.
+
+A private local snapshot is now verified at
+`/archive/neural-shrimp-backups/20261008T065521Z`. Its `raw-data/` directory contains
+75,831 regular files / 18,011,529,623 bytes from
+`/data2/neural-shrimp-data`. Its `private-handoff/` directory also preserves the
+three Git-ignored handoff/cost/checkpoint files as they existed during the copy.
+Every regular file passed a source/copy SHA-256 comparison, and the source
+file size/mtime inventory remained unchanged during copying and verification.
+No symlink targets needed separate handling. The complete manifest lives with
+the copy; its hash and a compact receipt are in
+`docs/backups/2026-10-08-local-archive.json`.
+
+The destination has a private parent directory (mode 0700). Host block-device
+inspection identifies source `/data2` on `nvme1n1p1` and destination `/archive`
+on `sda1`: distinct physical disks. This is a verified local snapshot, not an
+offsite copy or a continuously updated mirror. Later raw outputs and later edits
+to ignored files need a new verified snapshot; a Git push alone does not update
+this archive. No cloud service, paid storage or data publication was used.
+
+The first copy was interrupted to remove a slow per-file filesystem flush.
+The second resumed retained files. Its first inventory check found one extra
+temporary file left by the interrupted copy: no source files were missing and
+no common file had a size/mtime mismatch. The fragment was retained separately
+under `copy-interrupted-fragments/`; the complete inventory/hash verification
+was then repeated and the destination filesystem flushed at completion. Both
+attempt statuses are retained with the snapshot. Original evidence and
+unrelated processes were untouched.
+
+A subsequent four-file private snapshot at `/archive/neural-shrimp-backups/20261008T070802Z-handoff` preserves the
+updated handoff and the original checkout's pre-existing uncommitted
+`docs/research-log.md` as well as its cost ledger and older checkpoint. Its
+checksums also passed; see `docs/backups/2026-10-08-private-handoff.json`.
+The original working files were not changed by this backup.

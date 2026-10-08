@@ -1,0 +1,29 @@
+{
+  "status": "verified",
+  "started_utc": "20261008T065521Z",
+  "completed_utc": "2026-10-08T07:06:20.123261+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261008T065521Z",
+  "raw_file_count": 75831,
+  "raw_bytes": 18011529623,
+  "symlink_count": 0,
+  "private_handoff_count": 3,
+  "manifest_sha256": "d6bb382b38e86a0ff22febbe6ab5efe5897bfc196884ffb698c7b47533f04739",
+  "elapsed_seconds": 51.43501664604992,
+  "copy_attempts": 2,
+  "verification_attempts": 2,
+  "retained_fragment": "copy-interrupted-fragments/map.npz.I6Vgy1",
+  "first_copy_status": "Interrupted task-owned rsync to remove per-file fsync bottleneck; resumed retained files; final filesystem flush after verification.",
+  "verification": "Exact inventory and SHA-256 source/copy comparison; source size/mtime inventory unchanged during copy and verification.",
+  "limitations": "Same-machine separate-filesystem copy; not an offsite backup. Symlinks, if any, preserve links without following their targets.",
+  "elapsed_seconds_scope": "Final verification attempt only; excludes the two copy attempts.",
+  "physical_storage": {
+    "source_mount": "/data2",
+    "source_block_device": "/dev/dm-3",
+    "source_partition": "nvme1n1p1",
+    "backup_mount": "/archive",
+    "backup_block_device": "/dev/dm-5",
+    "backup_partition": "sda1",
+    "evidence": "Host mapper resolution and /sys/class/block/dm-{3,5}/slaves show distinct physical disks."
+  }
+}

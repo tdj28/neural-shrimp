@@ -2639,3 +2639,29 @@ remains b9e5b8c3. The paper includes the narrow negative finding, contrasts it
 with the exact scalar theorem's scope, and points to both results and audit.
 No new numerical macros or figures were introduced. The prospective S1R
 full-state plan and CIFAR linear-solve diagnosis remain future work.
+
+
+### 2026-10-08 — inference scope and verified disk backup
+
+The human asked whether training-dynamics signals affect inference and
+reiterated regular private Git pushes. `docs/inference-implications.md` records
+an independently reviewed interpretation and proposed diagnostic, with two
+review corrections for discrete-token inputs and finite-test scope. Frozen
+weights, continuous-input sensitivity and autoregressive/recurrent feedback
+require different operators. No inference experiment, validation outcome,
+protected data, new training or paid resource was used. The failed training
+calibration gate remains closed; the inference idea is not a run card.
+
+The reviewed inference note was pushed and remote verified at `fd2cd61d`.
+The separate-disk raw-evidence and private-handoff snapshot subsequently passed
+exact file inventory and SHA-256 comparisons, with source metadata unchanged.
+See `docs/data-storage.md` and `docs/backups/2026-10-08-local-archive.json` for
+scope, destination, manifest binding and the retained interrupted first copy.
+This protects the copied state against source-disk failure; it is neither an
+offsite copy nor an automatic backup of future data. Original raw evidence,
+the original Claude checkout's dirty research log and main remain unchanged.
+
+A supplemental four-file snapshot also preserves the latest ignored handoff
+and the original checkout's uncommitted research log, without staging that
+other agent's changes. Its manifest is bound in the separate private-handoff
+backup receipt.
