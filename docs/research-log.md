@@ -4421,3 +4421,15 @@ input/source identities and numerical thresholds remain unchanged. See
 `docs/reviews/curvature-empirical-design-review.md` and its receipt. The revised
 design is acceptable for future implementation/source review, not execution;
 no profile, acquisition or larger-model unit is authorized.
+
+### 2026-10-08 UTC — bounded curvature helper source-only preparation
+
+Implemented a pure supplied-array helper from corrected design403aff7e, with
+explicit2eigh/1eig/1SVD caps, full modeled/control multiplicities, residual-aware
+floating spectral diagnostics and supplied-native formation mismatch. Final13
+deterministic synthetic controls pass0.13s under CPU/BLAS1 and nice10. No target
+arrays, empirical files, model/profile/acquisition/trajectory or selected-panel
+evaluation was opened or run. Source/card hashes are in
+`docs/plans/curvature-mechanism-helper-source-receipt.json`. Independent review,
+empirical acquisition and six-slot aggregate gates remain pending. This unit
+stops at the prepared helper; no empirical claim or launch is authorized.
