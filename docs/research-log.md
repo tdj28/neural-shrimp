@@ -2516,3 +2516,31 @@ at /data2/neural-shrimp-data/audits/scalar-ns-independent/attempt-001.
 The theorem supplies local attracting two-phase invariant curves for
 sufficiently small positive detuning, with no numerical detuning interval,
 explicit curve enclosure, irrationality, global ancestry or network claim.
+
+
+## 2026-10-08 UTC: reviewed scalar NS proof in the working manuscript
+
+TLDR: one exact two-weight unequal-rate model now has a computer-assisted
+local supercritical NS proof, beyond the earlier floating-point crossing
+evidence. It gives a qualitative nearby attracting-curve consequence, not
+a finite-detuning enclosure, global shrimp ancestry or training benefit.
+Producer source0652d495 and independent review47fd3bd9/b00049e7 are integrated;
+original pending-review fields and all raw evidence remain unchanged. The
+review separately verifies original seed binding and discloses the frozen
+checker's acceptance of consistently rewritten provenance metadata.
+
+The manuscript adds this separate selected case, exact constants, outward-
+rounded intervals and scope in the abstract, evidence table, contribution list
+and limitations. The inspected Kuznetsov-Sacker Scholarpedia theorem source
+is cited and logged; other unfinished reference checks remain open. A further
+accuracy correction distinguishes float64 map experiments from the float32
+transformer development pilot. The reviewed complex-adjoint diagnostic fix
+is disclosed with its unchanged saved orbit/criticality outcomes.
+
+Validation: all249 generated values, nine byte-identical figures, pilot
+receipts, both C1 orbit proofs and the scalar NS replay pass. A separate
+read-only mathematical manuscript review checked all four rounded intervals
+against exact dyadic endpoints. Final LaTeX compilation has no unresolved
+references or box warnings. All26 pages were rendered and visually inspected,
+including the new proof page at full size. The current working PDF remains
+private and retains human-authorship/release and open-research placeholders.

@@ -16,6 +16,7 @@ fails if a value, a source hash, the generated TeX or the index differs.
 import json
 import sys
 from fractions import Fraction
+from decimal import Decimal
 from math import gcd
 from pathlib import Path
 
@@ -726,6 +727,27 @@ def build():
         assert exact < rounded < 1
         n.add("xCOne" + label + "Bound", str(rounded), f"{float(rounded):.3f}", proof, [path],
               "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places")
+    ns_path = c.ROOT / "certificates/scalar-ns-receipt.json"
+    ns = load(ns_path)
+    assert ns["summary"]["passed"] and all(ns["summary"]["gates"].values())
+    ns_raw = Path(ns["external_root"]) / "certificate.json"
+    assert c.sha256(ns_raw) == ns["files"]["certificate.json"]["sha256"]
+    ns_result = load(ns_raw)["result"]
+    for macro, ball, digits, calc in [
+        ("tNSProofEta", ns["summary"]["eta_box"], 14, "enclosed crossing rate"),
+        ("tNSProofTrace", ns_result["local"]["trace"], 8, "complete planar trace"),
+        ("tNSProofSlope", ns["summary"]["modulus_slope_at_root"], 7, "modulus derivative along orbit branch"),
+        ("tNSProofCoeff", ns["summary"]["coefficient"]["ell"], 6, "normalized resolvent criticality coefficient")]:
+        mid = Fraction(ball["mid"][0]) * Fraction(2) ** ball["mid"][1]
+        rad = Fraction(ball["rad"][0]) * Fraction(2) ** ball["rad"][1]
+        scale = 10 ** digits
+        low, high = (mid-rad)*scale, (mid+rad)*scale
+        lower = low.numerator // low.denominator
+        upper = -((-high.numerator) // high.denominator)
+        assert Fraction(lower, scale) <= mid-rad <= mid+rad <= Fraction(upper, scale)
+        display = "[" + format(Decimal(lower)/Decimal(scale), f".{digits}f") + ", " + format(Decimal(upper)/Decimal(scale), f".{digits}f") + "]"
+        n.add(macro, {"ball": ball, "lower": str(Fraction(lower,scale)), "upper": str(Fraction(upper,scale))},
+              display, proof, [ns_path, ns_raw], calc + "; exact dyadic endpoints rounded outward")
     lm_path = c.ROOT / "docs/explore-tiny-lm-receipt.json"
     lm = load(lm_path)
     for macro, value, calc in [

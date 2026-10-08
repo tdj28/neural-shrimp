@@ -47,6 +47,7 @@ def main():
         ["tools/analyze_scalar_mechanism.py", "--receipt", "docs/explore-minimal-model-scalar-receipt.json"],
         ["tools/check_warmup_intervention.py", str(Path(os.environ.get("NEURAL_SHRIMP_DATA", "/data2/neural-shrimp-data")) / "explore/warmup-intervention/attempt-002")],
         ["tools/verify_certificates.py", "certificates/c1-row35-receipt.json", "certificates/c1-row121-receipt.json"],
+        ["tools/certify_scalar_ns.py", "verify", "certificates/scalar-ns-receipt.json"],
     ]
     for args in checks:
         code, out = run([PYTHON, *args], ROOT)

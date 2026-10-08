@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "788ff48bf68f661a4cea4dc7cbda95f14fb6c2a9607f999eb68bf502c5ff2000",
+ "generator_sha256": "adcfe9d7871cb6d78744a3db9ac8b931c7dbc26379a4d3a6b54b9b5f5fa3159b",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:explore/a2-survey/rays.json": "a184d3f4fbdeed82f9933515fc61f4a74809936f2693728bbcb80323340c1db4",
@@ -24,6 +24,7 @@
   "data:explore/ancestry/levels-right-attempt2/levels.json": "4c0f05565c9e79974228bc9260e8e8d673c48ea249f7dd54fba694388158aec2",
   "data:explore/ancestry/root-left/root.json": "eeca1b3e56bfe547f745ae65d90c77cc26ab8b71512f82290302a06b100cab40",
   "data:explore/ancestry/root-right/root.json": "62da4ed79a3edc763f6ce6571ca70ce12ebb7ce8b17d1a0c1a6cd0080a2c6bff",
+  "data:explore/certificates/scalar-ns-2026-10-07/attempt-001/certificate.json": "7e1897addaa9648a597c1cdd2b674504740d2becb942fe4428caf27ffac72e05",
   "data:explore/consequence/analysis-s2-pooled-robust.json": "281f7dec8bb17fc88ecc0935719d779237c748584312efe6710c0daad870a669",
   "data:explore/consequence/analysis.json": "52c5eae658ed3ff02f373103014c5dc53e21a9a68d250d36d4d4808487379909",
   "data:explore/consequence/precursor-s1r-28002-ar/precursor.json": "ae2ddde637a6b644613ce42eb8a6e9cf1c9b824c54d453e7ce7ca87e04b66cbb",
@@ -50,6 +51,7 @@
   "data:explore/warmup-intervention/attempt-002/summary.json": "8edf1be6794bf5d8b9b48d74211ba4976990faec946a1dad4e346ee3ac24e953",
   "repo:certificates/c1-row121-receipt.json": "aa486998404d8d79d3a92b43fdcf1299513d3c996e4106b92bf7f40eba7a6384",
   "repo:certificates/c1-row35-receipt.json": "07f51a37e8c2304934f0ef60e6e985117cf0e76bf3cf994457374e87bdf6e1f0",
+  "repo:certificates/scalar-ns-receipt.json": "62208f46ccf05e92dea8519322fd61eda180cab8f352937fd896f9dab593ee1a",
   "repo:docs/EXP-028-summary.json": "6b8803f25f5690f52f7842bb78adcfd05054c5fbd4b515803939fd54a941d7ec",
   "repo:docs/explore-minimal-model-scalar-receipt.json": "79cb579b0c6f0f07da16ede15bbae8546b5b537de19e04495e89d3ed6f9f8381",
   "repo:docs/explore-tiny-lm-receipt.json": "2769666d2a28c658ee2b3fb2ed20c755979c5a68d23fe226cb7e3ca4301d3f1f",
@@ -2612,6 +2614,106 @@
     "repo:certificates/c1-row121-receipt.json"
    ],
    "computation": "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places"
+  },
+  {
+   "macro": "tNSProofEta",
+   "value": {
+    "ball": {
+     "display": "[0.54834687233 +/- 9.94e-13]",
+     "mid": [
+      63494229973848339256844513796926116069469096436775413280300460976013066680955,
+      -256
+     ],
+     "rad": [
+      536870913,
+      -69
+     ]
+    },
+    "lower": "54834687232917/100000000000000",
+    "upper": "548346872331/1000000000000"
+   },
+   "tex": "[0.54834687232917, 0.54834687233100]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/scalar-ns-receipt.json",
+    "data:explore/certificates/scalar-ns-2026-10-07/attempt-001/certificate.json"
+   ],
+   "computation": "enclosed crossing rate; exact dyadic endpoints rounded outward"
+  },
+  {
+   "macro": "tNSProofTrace",
+   "value": {
+    "ball": {
+     "display": "[-0.7958762525 +/- 7.57e-11]",
+     "mid": [
+      -23039043513283028017960189943519940125090981628109649814120788556545839887659,
+      -254
+     ],
+     "rad": [
+      277653121,
+      -62
+     ]
+    },
+    "lower": "-39793813/50000000",
+    "upper": "-636701/800000"
+   },
+   "tex": "[-0.79587626, -0.79587625]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/scalar-ns-receipt.json",
+    "data:explore/certificates/scalar-ns-2026-10-07/attempt-001/certificate.json"
+   ],
+   "computation": "complete planar trace; exact dyadic endpoints rounded outward"
+  },
+  {
+   "macro": "tNSProofSlope",
+   "value": {
+    "ball": {
+     "display": "[3.35298636 +/- 5.55e-9]",
+     "mid": [
+      48531161929422021110366309578187890176936161259322528836166776804930974319043,
+      -253
+     ],
+     "rad": [
+      335056579,
+      -57
+     ]
+    },
+    "lower": "33529863/10000000",
+    "upper": "4191233/1250000"
+   },
+   "tex": "[3.3529863, 3.3529864]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/scalar-ns-receipt.json",
+    "data:explore/certificates/scalar-ns-2026-10-07/attempt-001/certificate.json"
+   ],
+   "computation": "modulus derivative along orbit branch; exact dyadic endpoints rounded outward"
+  },
+  {
+   "macro": "tNSProofCoeff",
+   "value": {
+    "ball": {
+     "display": "[-1.700202 +/- 3.69e-7]",
+     "mid": [
+      -98434968833288340686078144671872365888475009078973814211910028695128673859779,
+      -255
+     ],
+     "rad": [
+      751127701,
+      -51
+     ]
+    },
+    "lower": "-1700203/1000000",
+    "upper": "-1700201/1000000"
+   },
+   "tex": "[-1.700203, -1.700201]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/scalar-ns-receipt.json",
+    "data:explore/certificates/scalar-ns-2026-10-07/attempt-001/certificate.json"
+   ],
+   "computation": "normalized resolvent criticality coefficient; exact dyadic endpoints rounded outward"
   },
   {
    "macro": "nLMParameters",

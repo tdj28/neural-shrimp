@@ -61,7 +61,7 @@ Rotation features provide no robust additional prediction of loss or disagreemen
 pilots; adapted analyses retain locking effects on perturbation response and learning-rate-decay timing.
 Loss-based estimation of the local complex multiplier is a candidate diagnostic whose prospective utility
 remains untested. Separately, ball-arithmetic certificates prove local existence, primitive period and attraction for
-\nCOneOrbits{} selected period-\nCOnePeriod{} orbits of the exact-real map. The results do not establish
+\nCOneOrbits{} selected period-\nCOnePeriod{} orbits of the exact-real map, and establish a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model. The results do not establish
 a general route to chaos, a language-model benefit, or computer-assisted proofs of the reported window census.
 \end{abstract}
 
@@ -90,6 +90,7 @@ CIFAR and language-model transfer & 0: exploratory development & CIFAR sweep com
 unresolved after its continuation time limit; fixed-batch text-transformer pilot shows drift, without an accepted periodic orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two attracting primitive period-10 orbits of the exact-real
 map, independently reviewed; surrounding chaos and the full census remain numerical. \\
+Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
 \caption{Evidence and scope. Design timing and mathematical rigor are separate: a prospective numerical study
@@ -154,6 +155,7 @@ quasi-periodic training begins at the crossing angle.
 \item Exploratory, generality: the same crossing with a quantitatively predicted rotation in a real-data network
 with one learning rate; soft onset and locking in symmetry-reduced observables beyond the rotational edge of a
 linear network; coexisting period-2 branches with their own crossings in a 72-parameter network.
+\item Computer-assisted proofs from exploratory selection: two primitive attracting period-10 orbits and one local supercritical NS of a scalar period-2 orbit, independently reviewed with ball arithmetic.
 \item Reported negatives: a frozen ancestry test that did not pass; no locking resolved in the real-data network;
 no robust incremental value of rotation information for reproducibility or loss.
 \item Code, receipts and a verification script that re-derive every figure, table and number.
@@ -187,7 +189,7 @@ For a simple transverse complex crossing with all other multipliers strictly ins
 no strong resonance $e^{2\pi i k\omega}=1$ for $k=1,2,3,4$, and nonzero first Lyapunov coefficient $d$, a
 Neimark--Sacker bifurcation creates an invariant closed curve: attracting with amplitude growing like the square
 root of the distance beyond the crossing when $d<0$ (supercritical), repelling and present before the crossing
-when $d>0$ (subcritical) \citep{kuznetsov2019}.
+when $d>0$ (subcritical) \citep{kuznetsovsacker2008}.
 
 \paragraph{Why the candidates start at period 2.} $DF(\theta)$ is similar to the symmetric matrix
 $I - P^{1/2} H P^{1/2}$, so at a fixed point all multipliers are real and local stability can be lost only through a real
@@ -259,6 +261,9 @@ $\xCertAtol + \xCertRtol\,|\theta|$ in every component; it lies within $\xCertCa
 screened candidate; every proper-divisor iterate is separated from it by at least $\xCertDivisor$ (relative), so
 the period is primitive; and it is attracting when the spectral radius of the monodromy matrix is below
 $1-\xCertMargin$. These checks use floating-point arithmetic and stated tolerances; they do not enclose rounding error.
+A reviewed correction to complex left-eigenvector pairing affects a separate sensitivity diagnostic. The
+audit found no affected saved orbit decision or criticality coefficient; original records and the precise
+exception-handling limitation are preserved in \path{docs/complex-left-condition-impact.md}.
 
 \paragraph{Embedded windows and audit.} A connected component of equal-period cells qualifies as an embedded
 window when its period is at least \nGateMinPeriod{}, it has at least \nMinComponent{} cells, no cell of its
@@ -337,10 +342,12 @@ its task across the whole learning-rate range they studied, including where lear
 configuration without weight decay (S1) has \nSOnePeriodic{} periodic cells in both seeds: its runs diverge, stay
 chaotic, or drift toward large weights while the loss slowly falls. Adding weight decay makes the windows appear.
 
-\section{Computer-assisted proofs for selected periodic orbits}
+\section{Computer-assisted proofs of selected orbits and a local bifurcation}
 \label{sec:certificates}
 
 \noindent Status: exploratory target selection, evidence rung 3 for the statements below.
+\subsection{Attracting periodic orbits}
+
 The floating-point census motivates a separate proof task. For \nCOneOrbits{} selected S2 settings, Arb ball
 arithmetic encloses a unique zero of $H(x)=F^{\nCOnePeriod}(x)-x$ in a specified initial box, excludes all proper
 divisors of \nCOnePeriod{}, and proves attraction. One target, S2-28011 component 140, belongs to the
@@ -368,6 +375,48 @@ repeated the proofs with higher precision on smaller nested boxes. The proof tru
 contraction argument, implementation and Arb/FLINT enclosure library; it is not formalized in a proof assistant.
 It establishes neither surrounding chaos nor window geometry, invariant circles or training utility.
 The authoritative artifacts and offline replay are documented in \path{certificates/README.md}.
+
+\subsection{A supercritical NS in the scalar unequal-rate model}
+\label{sec:scalar-proof}
+
+Consider $L(u,v)=\tfrac12(uv-d)^2+\tfrac\lambda2(u^2+v^2)$, with
+\begin{equation}
+d=\frac{5404319552844595}{2^{52}},\qquad
+\lambda=\frac{5404319552844595}{2^{54}},\qquad
+(\eta_u,\eta_v)=(\eta,4\eta).
+\end{equation}
+These are the exact dyadic interpretations of the pilot's nominal target 1.2 and ridge 0.3.
+This selected case is separate from the illustrative amplitude-scaling example in Section~\ref{sec:generality}.
+Let $G_\eta=F_\eta^2$. A three-variable Krawczyk inclusion encloses a unique root of
+$(G_\eta(x)-x,\det DG_\eta(x)-1)=0$ in the recorded box, whose coordinate radius is
+$2^{-40}+2^{-69}$. Disjoint enclosures of $F_\eta(x)$ and $x$ prove primitive period two.
+The crossing rate obeys $\eta_*\in\tNSProofEta$.
+
+At that root the complete planar monodromy has determinant exactly one and trace in
+$\tNSProofTrace$; the trace enclosure excludes $-2,-1,0,2$, hence resonances of orders one through four.
+Invertibility of $DG_\eta-I$ gives an implicit local orbit branch. Along it,
+\begin{equation}
+\begin{aligned}
+\frac{d|\mu|}{d\eta}\bigg|_{\eta_*}&\in\tNSProofSlope\subset(0,\infty),\\
+\ell=\operatorname{Re}(\overline\mu c_1)&\in\tNSProofCoeff\subset(-\infty,0).
+\end{aligned}
+\end{equation}
+The right eigenvector has Euclidean norm one and its left row is normalized to pair to one with it
+and to zero with its conjugate. Tensor/resolvent and planar scalar-coefficient formulas both enclose a
+negative $\ell$. Together these bounds meet the generic supercritical NS theorem hypotheses
+\citep{kuznetsovsacker2008} for this polynomial map.
+
+For $\eta>\eta_*$ sufficiently close to the crossing, the theorem supplies a qualitative local attracting
+invariant-curve consequence for $G_\eta$; under $F_\eta$ the two local components are exchanged.
+It supplies no specified finite detuning, irrational rotation, global ancestry, basin size or training benefit.
+The certificate concerns exact-real dynamics and trusts Arb/FLINT and the stated theorems.
+Independent review uses rational polynomial differentiation, higher-precision nested enclosures and a separate
+cubic normal-form calculation. The source-bound receipt and scope are in
+\path{certificates/scalar-ns-receipt.json} and \path{certificates/scalar-ns-design.md}.
+The review separately checked the original seed binding; the frozen replay alone does not authenticate
+arbitrarily rewritten provenance metadata. This limitation and the independent checks are recorded in
+\path{docs/reviews/scalar-ns-independent.md}.
+
 
 \section{Exploratory evidence for the thesis}
 \label{sec:route}
@@ -574,6 +623,7 @@ flip and \nWNS{} complex-pair rays; ray and map edges agree within two cells on 
 rays, and \nWFlipTwoP{} of its flip rays open onto period 36. Complex-pair boundaries, outside the fold--flip anatomy used by our draft criteria, are common: \nWindowsNS{} of \nConfirmed{} windows have at least 8 such rays.
 
 \subsection{Beyond these two networks}
+\label{sec:generality}
 
 \begin{figure}[htbp]
 \centering
@@ -647,7 +697,7 @@ All complex crossings have negative computed criticality. In the representative 
 $\xScalarEta$, birth rotation $\xScalarRotation$ and coefficient $\xScalarCoeff$; three decreasing detunings give
 an amplitude exponent of $\xScalarAmp$. Analytic composed-map derivatives agree with an independent
 finite-difference calculation. These are numerical checks of local onset, not a complete phase diagram or a
-rigorous invariant-circle theorem. The compact receipt is \path{docs/explore-minimal-model-scalar-receipt.json}.
+rigorous invariant-circle theorem for that numerical representative. Section~\ref{sec:scalar-proof} gives a separate local proof for another selected scalar case. The compact receipt is \path{docs/explore-minimal-model-scalar-receipt.json}.
 
 \subsection{Consequences for training}
 
@@ -767,10 +817,11 @@ both fold edges, and rules for unresolved or disconnected branches before protec
 \label{sec:limits}
 
 The map study uses networks of 13 and 72 parameters on synthetic data; the real-data result is one branch of one
-529-parameter network on one subset and task; the linear network is a solvable model. Training is deterministic,
-full batch and in float64. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
-reruns. The orbit census uses floating-point validation; only the two selected exact-real orbits in
-Section~\ref{sec:certificates} have rigorous enclosures. The first Lyapunov coefficient is a local, third-order
+529-parameter network on one subset and task; the linear network is a solvable model. These map and bifurcation
+experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
+with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
+reruns. The orbit census uses floating-point validation; the two selected exact-real attracting orbits and
+the scalar local NS in Section~\ref{sec:certificates} have rigorous enclosures. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Most mechanism analyses were chosen after seeing
 related outcomes. The consequence pilot measures held-out loss and perturbation response in small models, but establishes no
@@ -825,7 +876,7 @@ evidence and writes a receipt with input hashes, the generator's hash, output ha
 displays. Quoted empirical numbers and the design and consequence tables are generated by
 \path{paper/gd-route/scripts/build_numbers.py}; \path{data/numbers.json} records each number's source file, hash
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
-regenerates every figure and quoted number, replays the new pilot receipts and orbit certificates, and fails on any difference. The verification status of every reference is
+regenerates every figure and quoted number, replays the new pilot receipts, orbit certificates and scalar NS gates, and fails on any difference. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
 its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}. The exploratory streams are summarized in
 \path{docs/explore-criticality-2026-10-07.md}, \path{docs/explore-ancestry-2026-10-07.md},
