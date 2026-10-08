@@ -3948,3 +3948,23 @@ discussion and alt-text follow-through are listed in the review. Lower-family
 gap insertion and remaining scientific gaps are specified. No target run,
 figure regeneration, protected-outcome evaluation or external consultation.
 Separate review/report receipt: docs/reviews/manuscript-accuracy-2026-10-08.
+## 2026-10-08 UTC — design-only CIFAR restart sensitivity decision
+
+Prepared docs/plans/cifar-restart-sensitivity-decision.md/.json from saved
+full-state solver/history/operation receipts and current reviewed source.
+No model/JVP/HVP/profile/solver call or implementation change. Input-span
+reduction-priority gate failed (independent outcome audit pending); projection
+is not proposed as a convergence repair. Recommend only one zero-start
+restart200/maxiter1 direction against the retained50x4 baseline: same200 inner
+steps, at most202 A products versus205 previously, unchanged true forcing0.5,
+rtol1e-10 and trial/closure/separation gates. The first50 history values must
+reproduce the saved prefix under fixed tolerance before interpretation.
+
+Saved timing arithmetic suggests12.71s, not a new profile or guaranteed upper
+bound; proposeCPU1nice10 internal45/external60+5,2GiB RSS planning allowance,
+32MiB total raw (31MiB outputs+1MiB launcher). Basis rises40.26MB to158.65MB,
+well below reported41GiB availability; fresh resource check remains required.
+Complete histories/returned direction/true residual/four fixed trial outputs
+and failures are retained; internal Krylov basis is explicitly not archived.
+Every outcome stops at this diagnostic. Source/tests/card must be committed,
+independently reviewed and separately launch-authorized before execution.
