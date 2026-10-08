@@ -2665,3 +2665,23 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+
+### 2026-10-08 — further reference accuracy and inference scope
+
+Checked six additional current citation contexts against primary full text,
+with five archived/hash-verified PDFs and one retained APS direct-download403
+(browser PDF text inspected). Identity of the Kuznetsov--Meijer book is now
+checked, while detailed chapter content remains open. See
+`docs/reviews/further-reference-content.md` and its source-bound receipt.
+Clarified the introduction's catapult wording, the central-flow comparison,
+multiscale-GD scope and existing transient-sensitivity utility evidence. Added
+an explicitly hypothetical inference discussion; no inference benefit is claimed.
+No new numerical result or protected outcome was evaluated.
+
+The working manuscript compiles cleanly to27 pages. All249 generated numbers
+verify unchanged; nine figure files are unchanged. Rendered and visually
+inspected all27 pages. The reading PDF matches the current compiled output.
+The new broader-data LM design2a3f074a separately passed coordinator design
+review for implementation, with explicit fixed-pool scope and failed-baseline
+handling required; source review and profile remain pending.

@@ -104,9 +104,10 @@ assistant. Source receipts are indexed in Section~\ref{sec:repro}.}
 
 Full-batch gradient descent can continue reducing neural-network training loss beyond the local quadratic
 stability threshold. In the edge-of-stability regime observed by \citet{cohen2021}, sharpness stays near
-$2/\eta$ while short-term loss fluctuations coexist with longer-term decrease; self-stabilization explains how sharpness is held there \citep{damian2023}, progressive
-sharpening how it gets there \citep{agarwala2023}, and the catapult phase what happens to the loss at somewhat
-larger rates \citep{lewkowycz2020}. Simplified models show period doubling and chaos as the step size grows
+$2/\eta$ while short-term loss fluctuations coexist with longer-term decrease. Related analyses address
+self-stabilization under local regularity and spectral assumptions \citep{damian2023}, progressive sharpening
+in second-order regression models \citep{agarwala2023}, and initial loss growth followed by convergence in the
+catapult regime \citep{lewkowycz2020}. These descriptions do not define a universal sequence of training phases. Simplified models show period doubling and chaos as the step size grows
 \citep{kalra2025,chen2024phases,hofmann2026}. Over two-dimensional hyperparameter planes, the boundary between
 trainable and divergent settings is fractal \citep{sohldickstein2024,torkamandi2025,liu2024,liang2026}. These maps
 record whether the loss falls and stays bounded, not what the parameters do.
@@ -818,6 +819,15 @@ minibatch, optimizer-state, schedule and precision perturbations remain necessar
 compute cost. Similar-looking loss oscillations would not establish either endpoint. A linear loss-based
 multiplier estimate alone also does not identify nonlinear criticality or basin accessibility.
 
+\paragraph{Inference is a separate question.} The bifurcations studied here concern optimizer updates in parameter
+space. Freezing weights stops that map; sensitivity of fixed-weight predictions and feedback during generation
+require separate measurements. Parameter symmetries can even leave predictions unchanged along weight motion.
+A future inference test could ask whether training diagnostics predict sensitivity to arithmetic or weight
+perturbations beyond loss and token-score margins. For a unique greedy choice with logit gap $m$, a uniform
+logit-error bound $\epsilon<m/2$ preserves that choice at the given prefix. Empirical precision comparisons
+are not rigorous error bounds, and divergent generated text alone does not establish chaos. No inference
+experiment or benefit is reported here.
+
 \paragraph{The tests that would settle the local claims.} The criticality prediction is a candidate for confirmation on fresh
 losses: the sign of $d$ at each crossing predicts a circle of normal-form amplitude beyond a supercritical edge, and
 a local unstable-circle scale before a subcritical crossing. The distant state, loss spike, recovery and
@@ -854,7 +864,9 @@ rates where training does not settle. \citet{hofmann2026} derives the rotational
 settings and testing related conditions in larger models. \citet{song2023} study alignment with a reduced
 bifurcation diagram, with proofs for specified single-example models and neural-network experiments. Our orbit
 tests concern closure and stability of the full parameter state. Further analyses include \citet{kalra2025},
-\citet{chen2024phases} and \citet{cohen2025central}.
+\citet{chen2024phases}. \citet{cohen2025central} model time-averaged deterministic GD and RMSProp
+trajectories with central flows, with explicit limitations on rigor, stochastic training, momentum and
+computational feasibility. Our full-state orbit and boundary tests complement this averaged description.
 
 \paragraph{Adaptive optimizers and larger models.} \citet{cohenadaptive2022} study full-batch and large-batch
 adaptive methods at a preconditioned stability threshold. \citet{regischewi2026} model Adam in the joint
@@ -868,8 +880,10 @@ its model to full-batch steady-state behavior. These studies establish relevant
 prior work on oscillatory training in larger models. Our proposed extension must identify an additional
 mechanism or predictive consequence; detecting oscillation in a transformer alone would not supply that contribution.
 
-\paragraph{Chaos and fractals in training.} Chaos in deterministic training is discussed by \citet{kong2020} and
-\citet{jimenez2026}; fractal trainability boundaries by \citet{sohldickstein2024}, \citet{torkamandi2025},
+\paragraph{Chaos and fractals in training.} \citet{kong2020} analyze deterministic GD on multiscale objectives.
+\citet{jimenez2026} relate finite-time perturbation expansion to epochs needed to reach task-specific accuracy
+thresholds in full-batch MLP/CNN experiments. This is relevant prior utility evidence; our proposed geometry-specific
+benefit needs an additional comparison. Fractal trainability boundaries are studied by \citet{sohldickstein2024}, \citet{torkamandi2025},
 \citet{liu2024} and \citet{liang2026}; riddled basins and reproducibility by \citet{ly2025}. Learning dynamics in
 games show chaos \citep{sato2002} and phase locking \citep{metaxas2026}, for adaptive rules rather than descent on
 one loss.
@@ -877,7 +891,8 @@ one loss.
 \paragraph{Dynamical systems.} Shrimp-shaped windows are described by \citet{gallas1993,gallas1994}; circle maps,
 Arnold tongues, devil's staircases and the breakdown of invariant circles by
 \citet{arnold1965,jensen1983,jensen1984,curry1978,aronson1982,ostlund1983}; numerical bifurcation analysis of maps,
-including the normal-form coefficients used here, by \citet{kuznetsov2019}. Our contribution is the numerical characterization and testing of these mechanisms in the specified
+by \citet{kuznetsov2019}, with the local NS theorem and coefficient stated by
+\citet{kuznetsovsacker2008}. Our contribution is the numerical characterization and testing of these mechanisms in the specified
 training maps. A literature search cannot establish their absence from all earlier optimizer studies.
 
 \section{Reproducibility}
