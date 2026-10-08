@@ -54,13 +54,14 @@ Exploratory calculations identify a local organizing mechanism: a complex pair o
 period-2 orbit crosses the unit circle, with a rotation angle that predicts the ensuing oscillation frequency.
 The first Lyapunov coefficient predicts soft versus hard onset in \nDynConsistent{} of \nDynChecks{} tested
 cases. Related crossings occur in a network trained on digit images and in low-dimensional factorization
-models. Near one predicted resonance, a locked region narrows with the expected asymptotic scaling, but its
+models. An explicit scalar control isolates how unequal rates permit complex two-step dynamics. Near one predicted resonance, a locked region narrows with the expected asymptotic scaling, but its
 connection to a selected distant window remains unresolved and the prespecified ancestry test did not pass.
 
 Rotation features provide no robust additional prediction of loss or disagreement magnitude in the tested
 pilots; adapted analyses retain locking effects on perturbation response and learning-rate-decay timing.
 Loss-based estimation of the local complex multiplier is a candidate diagnostic whose prospective utility
-remains untested. The results establish numerical structure in deterministic training; they do not establish
+remains untested. Separately, ball-arithmetic certificates prove local existence, primitive period and attraction for
+\nCOneOrbits{} selected period-\nCOnePeriod{} orbits of the exact-real map. The results do not establish
 a general route to chaos, a language-model benefit, or computer-assisted proofs of the reported window census.
 \end{abstract}
 
@@ -83,12 +84,12 @@ Local crossing and criticality & 1: numerically validated & Tolerance and deriva
 systems; confirmation on fresh losses remains pending. \\
 Global resonance ancestry & 0: exploratory/adapted & Near-root scaling is suggestive; the prespecified
 ancestry test did not pass and the distant-window connection is unresolved. \\
-Training consequences & 0: exploratory/adapted & Three small-model slices; broad gains disappear under
-controls, while two locking effects merit targeted follow-up. \\
+Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
+geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR sweep completed, orbit analysis
-pending; no language-model mechanism or training benefit established. \\
-Rigorous certificates & In development & Interval/ball arithmetic is required for rung 3; the numerical
-window census is not a computer-assisted proof. \\
+unresolved after its continuation time limit; no language-model training benefit established. \\
+Selected orbit certificates & 3: computer-assisted proof & Two attracting primitive period-10 orbits of the exact-real
+map, independently reviewed; surrounding chaos and the full census remain numerical. \\
 \bottomrule
 \end{tabular}
 \caption{Evidence and scope. Design timing and mathematical rigor are separate: a prospective numerical study
@@ -336,6 +337,38 @@ its task across the whole learning-rate range they studied, including where lear
 configuration without weight decay (S1) has \nSOnePeriodic{} periodic cells in both seeds: its runs diverge, stay
 chaotic, or drift toward large weights while the loss slowly falls. Adding weight decay makes the windows appear.
 
+\section{Computer-assisted proofs for selected periodic orbits}
+\label{sec:certificates}
+
+\noindent Status: exploratory target selection, evidence rung 3 for the statements below.
+The floating-point census motivates a separate proof task. For \nCOneOrbits{} selected S2 settings, Arb ball
+arithmetic encloses a unique zero of $H(x)=F^{\nCOnePeriod}(x)-x$ in a specified initial box, excludes all proper
+divisors of \nCOnePeriod{}, and proves attraction. One target, S2-28011 component 140, belongs to the
+historically qualifying window set. The other, S2-28011-zoom component 936, was the initial feasibility choice;
+it does not qualify for that historical window claim. Its valid orbit proof is retained with that distinction.
+
+The theorem concerns real arithmetic with the supplied dataset, rates, ridge and loss scale interpreted as
+exact dyadic constants. It does not assert a periodic orbit of the binary64 implementation. An analytic ball
+Jacobian encloses the derivative throughout the initial box and its iterated images. With an exact dyadic
+approximate inverse $R$, strict Krawczyk inclusion and
+$\|I-RH'(X)\|_\infty<1$ establish contraction of $x\mapsto x-RH(x)$ on $X$ and the nonsingularity of $R$.
+Disjoint coordinate enclosures of $F^d(X)$ and $X$ exclude each proper divisor $d$. An interval monodromy $M$
+and repeated squaring give
+\begin{equation}
+\|M_{\mathrm{window}}^{\nCOnePower}\|_\infty < \xCOneWindowBound{}\quad\text{and}\quad
+\|M_{\mathrm{feas}}^{\nCOnePower}\|_\infty < \xCOneFeasibilityBound{},
+\end{equation}
+respectively, implying spectral radius below one at each enclosed orbit. The initial sequential-power attempt
+failed to enclose attraction because of interval wrapping; that inconclusive attempt and the disclosed
+repeated-squaring amendment remain available.
+
+An independent review reproduced the certificates, checked historical input bindings and stored witnesses,
+compared the analytic derivatives with separate second-order automatic differentiation of the objective, and
+repeated the proofs with higher precision on smaller nested boxes. The proof trusts the mathematical
+contraction argument, implementation and Arb/FLINT enclosure library; it is not formalized in a proof assistant.
+It establishes neither surrounding chaos nor window geometry, invariant circles or training utility.
+The authoritative artifacts and offline replay are documented in \path{certificates/README.md}.
+
 \section{Exploratory evidence for the thesis}
 \label{sec:route}
 
@@ -390,7 +423,8 @@ amplitude and the escape threshold grows like the square root of the offset (sub
 \end{figure}
 
 At \nCritSuper{} of the \nCritPoints{} curve points the first Lyapunov coefficient is negative, so the crossing is
-supercritical: quasi-periodic training is born continuously (Figure~\ref{fig:criticality}). At \nCritSub{} points,
+supercritical under the generic hypotheses; tested onset trajectories are consistent with the attracting-circle prediction
+(Figure~\ref{fig:criticality}). Negative criticality alone does not exclude phase locking on that circle. At \nCritSub{} points,
 at both ends of the curve, it is positive. The sign changes \nChenciner{} times, near $\log_{10}\eta_o$ = \tChenciner{};
 these brackets are candidates for generalized Neimark--Sacker (Chenciner) points; their additional
 nondegeneracy conditions have not been established. In \nDynConsistent{} of \nDynChecks{} dynamical checks the
@@ -654,10 +688,11 @@ rules are fixed in advance.
 \placeholder{Prespecified route-to-chaos path: a connected path, fixed in advance, from the period-2 region
 through the quasi-periodic band and locked windows into sustained chaos with converged diagnostics (not yet run).}
 
-\paragraph{CIFAR development pilot (in progress).} The development-subset learning-rate sweep has completed
-and shows a slowly drifting period-2 candidate followed by loss modulation. Full-state Newton--GMRES orbit
-continuation with matrix-free multiplier estimation is still running. Modulated loss alone does not establish an
-invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
+\paragraph{CIFAR development pilot (unresolved).} The development-subset learning-rate sweep has completed
+and shows a slowly drifting period-2 candidate followed by loss modulation. The initial full-state Newton--GMRES
+continuation ended at its configured time limit without a saved orbit result. A revised runner needs incremental
+checkpoints, convergence checks at every returned state and residual-qualified matrix-free multiplier estimates.
+Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
 
 \section{Discussion}
@@ -713,7 +748,8 @@ both fold edges, and rules for unresolved or disconnected branches before protec
 The map study uses networks of 13 and 72 parameters on synthetic data; the real-data result is one branch of one
 529-parameter network on one subset and task; the linear network is a solvable model. Training is deterministic,
 full batch and in float64. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
-reruns. The orbit census uses floating-point validation rather than rigorous enclosures. The first Lyapunov coefficient is a local, third-order
+reruns. The orbit census uses floating-point validation; only the two selected exact-real orbits in
+Section~\ref{sec:certificates} have rigorous enclosures. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Most mechanism analyses were chosen after seeing
 related outcomes. The consequence pilot measures held-out loss and perturbation response in small models, but establishes no
@@ -761,7 +797,7 @@ evidence and writes a receipt with input hashes, the generator's hash, output ha
 displays. Quoted empirical numbers and the design and consequence tables are generated by
 \path{paper/gd-route/scripts/build_numbers.py}; \path{data/numbers.json} records each number's source file, hash
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
-regenerates every figure and number and fails on any difference. The verification status of every reference is
+regenerates every figure and quoted number, replays the new pilot receipts and orbit certificates, and fails on any difference. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
 its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}. The exploratory streams are summarized in
 \path{docs/explore-criticality-2026-10-07.md}, \path{docs/explore-ancestry-2026-10-07.md},

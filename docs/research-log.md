@@ -1909,3 +1909,13 @@ _commit `96ab02bfe13a`_
 Source-bound review of producer32528cbb: both authoritative replays and eight producer tests pass. Banach/Krawczyk domain, full interval chain rule, exact dyadic parameters, proper-divisor exclusion and M^64 attraction logic inspected. Reviewer96ab02bf independently binds raw inputs to frozen EXP-028 orbit/data/plan, differentiates the scalar objective with second-order Arb jets, reconstructs stored witnesses, and passes both proofs at384bits in nested radius2^-90 boxes. Same Arb library remains trusted. Exact-map existence/local uniqueness, primitive period10 and attraction only; no finite-precision dynamics, surrounding chaos, geometry or utility claim. Review record certificates/c1-independent-review.json; immutable original envelopes retain their historical pending-review labels.
 
 _commit `96ab02bfe13a` (dirty worktree)_
+
+
+## 2026-10-08 04:52 UTC inherited CIFAR continuation ended without a checkpoint
+
+Read-only host observations found PID 3814389 alive at elapsed 03:19:50 at 04:51:11 UTC and absent in the subsequent check after its inherited 12,000-second timeout. The original orbit output directory remained empty. The outer timeout covered the research-log wrapper too, so no final exit-status record was found; termination at the configured deadline is inferred from those observations, not a recovered exit code. Source 3c2e3fc5a9b76e26fae1047699e6fab739047cb3 and the original run card remain in the untouched claude/explore-cifar worktree. No orbit or crossing claim follows. A separate revised branch is adding intermediate output and fail-closed corrector/spectrum checks before any successor run. The completed sweep and held-out subset reservation remain intact.
+
+
+## 2026-10-08 UTC integrated manuscript review copy
+
+The gd-route draft incorporates the independently reviewed scalar mechanism, controlled interventions and two exact-real period-10 orbit proofs; generated empirical numbers now total 239. The verifier passes all nine figure regenerations, numerical sources, cited paths, scalar and warmup receipts and both certificate replays. The multi-file LaTeX build passes without unresolved references or box warnings. All 24 pages were rendered for layout review; a crowded census label was repaired and regenerated. Scope corrections include real fixed-point crossings, heavy-ball limits, odd-period ordering, candidate generalized-NS points, Hofmann symmetry and prior formulas, and the absence of an established circle-breakdown path. The original CIFAR continuation is reported unresolved after its inherited deadline. The PDF remains a private working draft; reference-content audit, new scientific results and human authorship/release decisions remain open.

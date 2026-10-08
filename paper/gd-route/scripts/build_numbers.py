@@ -707,6 +707,25 @@ def build():
         assert len({f"{v:.3f}" for v in halve}) == 1
         n.add("xWarm" + label + "Halve", halve, f"{halve[0]:.3f}", "exploratory; rung 1",
               [warm_receipt, warm_path], "near-orbit halving final-loss ratios over dwell speeds; common three-decimal display")
+    certificate_paths = [c.ROOT / "certificates" / ("c1-" + row + "-receipt.json") for row in ("row35", "row121")]
+    certificates = [load(path) for path in certificate_paths]
+    assert all(r["passed"] and r["evidence_rung"] == 3 for r in certificates)
+    assert len({r["statement"]["primitive_period"] for r in certificates}) == 1
+    assert len({r["attraction_witness_power"] for r in certificates}) == 1
+    proof = "computer-assisted proof, rung 3; exploratory selection; exact-real map"
+    for macro, value, calc in [("nCOneOrbits", len(certificates), "number of distinct authoritative orbit receipts"),
+                               ("nCOnePeriod", certificates[0]["statement"]["primitive_period"], "shared primitive_period"),
+                               ("nCOnePower", certificates[0]["attraction_witness_power"], "shared attraction_witness_power")]:
+        n.add(macro, value, str(value), proof, certificate_paths, calc)
+    for path, cert, label in zip(certificate_paths, certificates, ["Window", "Feasibility"]):
+        bound = cert["attraction_norm_upper"]
+        assert bound["rad"] == [0, 0]
+        mantissa, exponent = bound["mid"]
+        exact = Fraction(mantissa) * Fraction(2) ** exponent
+        rounded = Fraction((exact.numerator * 1000 + exact.denominator - 1) // exact.denominator, 1000)
+        assert exact < rounded < 1
+        n.add("xCOne" + label + "Bound", str(rounded), f"{float(rounded):.3f}", proof, [path],
+              "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places")
     return n
 
 

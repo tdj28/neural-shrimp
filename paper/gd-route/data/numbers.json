@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "d9871b8ffb4ca259882f9a0a99bccd7e0812e3fdf4711eba9f8d43a6995b280b",
+ "generator_sha256": "37ced4242984618684da2aecf94352b271c856cbe6a7e38ade70d01c46e4f46f",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:explore/a2-survey/rays.json": "a184d3f4fbdeed82f9933515fc61f4a74809936f2693728bbcb80323340c1db4",
@@ -48,6 +48,8 @@
   "data:explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4067/continue--0.40670.json": "31a7f5f7c878f1af0251f5ca59985b5f72bd11096854a2f1a7dc3ed9dad3d9bd",
   "data:explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4521/continue--0.45210.json": "f803ad784a8cb0b53073091f0e0744cbc94221089e672cd00ce8027d136067a9",
   "data:explore/warmup-intervention/attempt-002/summary.json": "8edf1be6794bf5d8b9b48d74211ba4976990faec946a1dad4e346ee3ac24e953",
+  "repo:certificates/c1-row121-receipt.json": "aa486998404d8d79d3a92b43fdcf1299513d3c996e4106b92bf7f40eba7a6384",
+  "repo:certificates/c1-row35-receipt.json": "07f51a37e8c2304934f0ef60e6e985117cf0e76bf3cf994457374e87bdf6e1f0",
   "repo:docs/EXP-028-summary.json": "6b8803f25f5690f52f7842bb78adcfd05054c5fbd4b515803939fd54a941d7ec",
   "repo:docs/explore-minimal-model-scalar-receipt.json": "79cb579b0c6f0f07da16ede15bbae8546b5b537de19e04495e89d3ed6f9f8381",
   "repo:docs/warmup-intervention-receipt.json": "34c1f091bea9e85a97268ddab9c62a5b93e051b5d44664fc6aab7c58c985f86e",
@@ -2556,6 +2558,59 @@
     "data:explore/warmup-intervention/attempt-002/summary.json"
    ],
    "computation": "near-orbit halving final-loss ratios over dwell speeds; common three-decimal display"
+  },
+  {
+   "macro": "nCOneOrbits",
+   "value": 2,
+   "tex": "2",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/c1-row35-receipt.json",
+    "repo:certificates/c1-row121-receipt.json"
+   ],
+   "computation": "number of distinct authoritative orbit receipts"
+  },
+  {
+   "macro": "nCOnePeriod",
+   "value": 10,
+   "tex": "10",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/c1-row35-receipt.json",
+    "repo:certificates/c1-row121-receipt.json"
+   ],
+   "computation": "shared primitive_period"
+  },
+  {
+   "macro": "nCOnePower",
+   "value": 64,
+   "tex": "64",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/c1-row35-receipt.json",
+    "repo:certificates/c1-row121-receipt.json"
+   ],
+   "computation": "shared attraction_witness_power"
+  },
+  {
+   "macro": "xCOneWindowBound",
+   "value": "7/125",
+   "tex": "0.056",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/c1-row35-receipt.json"
+   ],
+   "computation": "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places"
+  },
+  {
+   "macro": "xCOneFeasibilityBound",
+   "value": "27/250",
+   "tex": "0.108",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/c1-row121-receipt.json"
+   ],
+   "computation": "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places"
   }
  ]
 }
