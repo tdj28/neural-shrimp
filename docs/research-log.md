@@ -3770,3 +3770,29 @@ root launchcard docs/plans/s1r-lower-launch-2026-10-08.md fixes the existing
 Fresh host capacity is adequate; no matching ownedjob, holdout or paid use.
 Independent utility inventory passes with its disclosed nonblocking tie-rule
 discrepancy; its unchanged1200-byte review output now has a permanent raw copy.
+
+## 2026-10-08 UTC — prospective lower-comparison saved-data evaluator
+
+Before opening new numerical collection outcomes, implement the independently
+parsed lower-unit audit in tools/audit_s1r_lower_outcome.py and freeze its exact
+input/source/run command in docs/reviews/s1r-lower-outcome-audit-card.md. Parent
+provided metadata-only collection72f88bd7 and launcher14c3c286 manifest hashes;
+executionb5271a4b is separately bound to reviewed source3346fcaf and review
+bb71b904. Original prior inputs and timing receipts are already audited public
+team evidence. The new target outcomes remain unopened at source freeze.
+
+The permitted later audit is one exclusive attempt, CPU/BLAS1 nice10,
+internal45/external60+5 seconds and32MiB total (31MiB evaluator plus1MiB
+launcher). No new profile, bootstrap, Newton solve, continuation or paid/GPU
+work. Every completed native pair and witness record is checked; at most five
+role-selected pairs get independently derived full72D gradients/Hessians and
+fresh spectra. Saved intermediate correction arithmetic is checked without
+recomputing every residual equation/linear solve. Finite pair association does
+not imply historical identity, uniqueness, global disconnection or utility.
+
+All92 synthetic controls passed in1.25s, including57 new lower-audit controls
+and35 prior-audit controls; no target model was evaluated. Code/card must be
+committed and privately pushed, independently reviewed and separately launch
+authorized before any target audit. Retain all failures and partial evidence,
+without retry or threshold relaxation. The source change to the old history
+helper only adds optional limits/status arguments and preserves old defaults.
