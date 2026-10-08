@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import signal
 import sys
 import time
 
@@ -19,6 +20,14 @@ from explore_tiny_lm import batch, direction, metadata, manifest, relative, writ
 
 CALIBRATION_SEEDS = (28151, 28152)
 FACTORS = (.8, 1.6, 2.5)
+
+
+class CollectionInterrupted(BaseException):
+    """Raised by SIGTERM so existing failure/manifest cleanup can run."""
+
+
+def handle_sigterm(signum, frame):
+    raise CollectionInterrupted('SIGTERM received; retaining latest state')
 
 
 def safe(value):
@@ -54,6 +63,16 @@ def validate_request(mode, max_seconds):
     if not np.isfinite(max_seconds) or not 0 < max_seconds <= 285:
         raise ValueError('max_seconds must lie in (0,285]')
     return ((28151,), (.8,), 100, min(max_seconds,60)) if mode == 'profile' else (CALIBRATION_SEEDS,FACTORS,800,max_seconds)
+
+
+
+def validated_rate_scale(hessian):
+    scale = hessian['maximum']['value']
+    residual = hessian['maximum']['relative_residual']
+    if (not np.isfinite(scale) or scale <= 0 or not np.isfinite(residual)
+            or residual < 0 or residual > .02):
+        raise RuntimeError('initial rate-scale Ritz estimate unresolved; no rate substitution')
+    return scale
 
 
 def profile_precision(problem, theta, eta):
@@ -113,15 +132,16 @@ def collect_case(problem, initial, eta, seed, factor, steps, folder, deadline, r
                 save_json(folder/f'progress-{t+1:06d}.json',{'completed_updates':t+1,'saved_preupdate_states':chunk_start})
         else:
             outcome = 'completed'
-        # The final state is post-last-update for a completed/budget stop and already
-        # present as the guard state for a numerical stop.
-        if outcome != 'numerical_guard_stop':
-            chunk.append(theta.detach().cpu().numpy().copy())
     except BaseException as error:
         outcome = 'failed_or_interrupted'
         save_json(folder/'failure.json',{'error':repr(error),'completed_updates':completed})
         raise
     finally:
+        # At completed updates k, theta_k must be present exactly once. Normal
+        # completion, wall stops and checkpoint exceptions can leave it unsaved;
+        # a guard or gradient failure already appended the current theta_k.
+        if chunk_start+len(chunk) <= completed:
+            chunk.append(theta.detach().cpu().numpy().copy())
         save_states()
         loss = np.asarray([row['ce'] for row in rows])
         X = np.asarray(features)
@@ -178,9 +198,7 @@ def run(args):
             hessian=lanczos_extremes(bounded_hvp,direction(initial,28155),steps=32)
             hessian['elapsed_seconds']=time.monotonic()-start
             save_json(args.output/f'initial-ritz-{seed}.json',hessian)
-            scale=hessian['maximum']['value']
-            if scale <= 0 or hessian['maximum']['relative_residual'] > .02:
-                raise RuntimeError('initial rate-scale Ritz estimate unresolved; no rate substitution')
+            scale=validated_rate_scale(hessian)
             if args.mode == 'profile':
                 save_json(args.output/'matched-precision.json',profile_precision(problem,initial,factors[0]*2/scale))
             for factor in factors:
@@ -203,6 +221,7 @@ def run(args):
 
 
 def main():
+    signal.signal(signal.SIGTERM, handle_sigterm)
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('mode',choices=['profile','calibration'])
     parser.add_argument('--output',type=Path,required=True)

@@ -117,3 +117,47 @@ def test_analysis_manifest_rejects_unhashed_consumed_files_and_unsafe_paths(tmp_
         module.verify_inventory(tmp_path,{'files':[]})
     with pytest.raises(ValueError,match='duplicate'):
         module.verify_inventory(tmp_path,{'files':[{'path':'features.npz'},{'path':'features.npz'}]})
+
+
+def test_rate_scale_rejects_nonfinite_nonpositive_and_invalid_residual():
+    import sys
+    path=Path(__file__).resolve().parents[1]/'tools/explore_tiny_lm_prediction.py'
+    sys.path.insert(0,str(path.parent))
+    spec=importlib.util.spec_from_file_location('prediction_ritz_test',path)
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    def check(scale,residual):
+        return module.validated_rate_scale({'maximum':{'value':scale,'relative_residual':residual}})
+    assert check(8.,0.)==8.
+    assert check(8.,.02)==8.
+    for scale in (float('nan'),float('inf'),-float('inf'),0.,-1.):
+        with pytest.raises(RuntimeError,match='unresolved'):check(scale,.01)
+    for residual in (float('nan'),float('inf'),-float('inf'),-.001,.020000001):
+        with pytest.raises(RuntimeError,match='unresolved'):check(8.,residual)
+
+
+def test_checkpoint_exception_retains_latest_accepted_state(tmp_path,monkeypatch):
+    import sys,time,json,torch
+    path=Path(__file__).resolve().parents[1]/'tools/explore_tiny_lm_prediction.py'
+    sys.path.insert(0,str(path.parent))
+    spec=importlib.util.spec_from_file_location('prediction_durability_test',path)
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    original=module.save_json
+    def fail_checkpoint(path,data):
+        if path.name=='progress-000050.json':
+            raise module.CollectionInterrupted('synthetic termination at checkpoint')
+        original(path,data)
+    monkeypatch.setattr(module,'save_json',fail_checkpoint)
+    class Quadratic:
+        ridge=0.
+        def loss(self,x):return .5*(x*x).sum()
+    folder=tmp_path/'case'
+    with pytest.raises(module.CollectionInterrupted):
+        module.collect_case(Quadratic(),torch.tensor([1.],dtype=torch.float64),.1,
+                            28151,.8,100,folder,time.monotonic()+10,'synthetic-test')
+    result=json.loads((folder/'result.json').read_text())
+    states=np.concatenate([np.load(p) for p in sorted(folder.glob('states-*.npy'))])
+    assert result['completed_updates']==50 and result['state_rows']==51
+    assert len(states)==51 and states[-1,0]==pytest.approx(.9**50,rel=1e-13)
+    assert result['outcome']=='failed_or_interrupted'
+    with pytest.raises(module.CollectionInterrupted,match='SIGTERM'):
+        module.handle_sigterm(15,None)
