@@ -3633,7 +3633,7 @@ and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
 
-## 2026-10-08 10:29 UTC: CIFAR input-span diagnostic proposal
+## 2026-10-08 10:19 UTC: CIFAR input-span diagnostic proposal
 
 TLDR: a direct-product decomposition of plain GD may isolate slow,
 training-invisible first-layer weight decay. The algebra and a saved-data
