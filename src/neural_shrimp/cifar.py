@@ -217,7 +217,7 @@ def arnoldi_spectrum(operator, k=6, tol=1e-9, ncv=None, modes=("LM", "LI"), maxi
         values, vectors = values[order], vectors[:, order]
         residuals = []
         for value, vector in zip(values, vectors.T):
-            av = operator.matvec(vector)
+            av = bounded.matvec(vector)
             denominator = max(float(np.linalg.norm(av) + abs(value) * np.linalg.norm(vector)), 1e-300)
             residuals.append(float(np.linalg.norm(av - value * vector) / denominator))
         qualified = bool(converged and len(values) == k and all(np.isfinite(r) and r <= residual_tolerance for r in residuals))

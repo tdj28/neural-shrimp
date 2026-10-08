@@ -1680,3 +1680,21 @@ _commit `32d694f75a47` (dirty worktree)_
 Subset A, lambda 1e-2, 150,000 steps from init: for eta 0.005-0.0073 the state drifts slowly toward a fixed point, relative step change about 2e-6; at eta 0.00828 consecutive states differ by 3.5e-4 while two-step changes are 5e-6, a period-2 candidate with slow drift. From eta 0.0094 the even-step loss oscillates with a dominant period of 588, 323, 200, 95, 64, 67 and 50 two-steps at eta 0.0094, 0.0107, 0.0121, 0.0137, 0.0155, 0.0176, 0.020, i.e. a modulation frequency rising from 0.0017 to 0.020 turns per two-step. The envelope still decays slowly at 0.0094 (1.6e-4 to 1.2e-4 over the last 20,000 steps) but is steady from 0.0107, suggesting a stable 2-cycle with complex multipliers below about 0.01 and a sustained modulation above. Orbit continuation with Arnoldi multipliers is running to type the transition. Sweep steps took 8-15 ms with 4 workers x 4 threads versus 1.8 ms single-process.
 
 _commit `32d694f75a47` (dirty worktree)_
+
+## 2026-10-08 04:57 UTC: run (exploratory)
+
+- **Question:** What are actual CIFAR subset-A gradient, HVP, two-step JVP and tiny GMRES costs before designing an H100 continuation pilot?
+- **Setup:** Operation benchmark only: existing owned state at eta0.00827753, lambda0.01, subsetA512, 3072-32-10 MLP, float64. Three evaluations each of gradient/HVP/J2VP; one GMRES cycle with restart5/maxiter1. One CPU thread, nice10, external60s timeout. No held-out subset indices, no optimizer continuation, no spectral or stability claim. Source ed1293e3; 15 focused tests passed.
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/operation-benchmark/attempt-001`
+- **Would surprise us:** Large Hessian-vector overhead or GMRES stagnation relative to forward steps would invalidate a blanket throughput extrapolation.
+- **Command:** `timeout --signal=TERM --kill-after=5s 60s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/benchmark_cifar_orbit.py --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --output /data2/neural-shrimp-data/explore/cifar/operation-benchmark/attempt-001`
+
+_commit `ed1293e35f5c`_
+
+- run started 2026-10-08 04:57 UTC finished 04:57 UTC with exit status 0
+
+## 2026-10-08 05:00 UTC: CIFAR numerical gates repaired; operation benchmark replaces forward-only compute extrapolation
+
+Isolated codex/cifar-orbit-safety; active legacy checkout untouched. Fifteen focused tests pass. Newton final history now describes returned state and rejects failed/nonfinite GMRES steps; seeded Arnoldi stores Ritz residuals and refuses partial/bad pairs; no spectral analysis before closure/separation, including bisection; estimated partial-spectrum crossing candidates only. Exclusive attempts preserve fsynced Newton/continuation events, accepted states, atomic checkpoints and final hash manifests; explicit iteration/matvec/wall budgets. Benchmark ed1293e3 on existing subset-A state: gradient5.268ms, HVP17.842ms (first84.705ms), J2VP33.473ms medians; single GMRES cycle6matvecs215.782ms with info1 and residual .8994 to .8968. Timing does not establish orbit/stability. Receipt docs/cifar-operation-timing-receipt.json; bounded H100 plan docs/cifar-orbit-compute-plan.md requires an actually device-capable runner, numerical parity, operation-specific GPU timing and one bounded corrector before continuation. Root coordinates paid authorization/ownership/ledger; no paid compute launched, no subsetB index access, no new scientific trajectory.
+
+_commit `ed1293e35f5c` (dirty worktree)_

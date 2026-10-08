@@ -258,7 +258,13 @@ def cmd_orbit(args):
     folder.mkdir(parents=True, exist_ok=False)
     result = {'args': vars(args), 'rows': [], 'bisection_rows': [], 'crossing': None, 'status': 'running',
               'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-              'spectrum_scope': 'estimated partial spectrum; no guarantee uncomputed modes are stable'}
+              'spectrum_scope': 'estimated partial spectrum; no guarantee uncomputed modes are stable',
+              'started_utc': datetime.now(timezone.utc).isoformat(),
+              'state_sha256': cifar.sha256_file(args.state),
+              'source_sha256': {name: cifar.sha256_file(ROOT / name) for name in
+                  ('src/neural_shrimp/cifar.py', 'tools/explore_cifar.py')},
+              'runtime': {'torch': torch.__version__, 'numpy': np.__version__, 'pid': os.getpid(),
+                          'threads': torch.get_num_threads(), 'nice': os.getpriority(os.PRIO_PROCESS, 0)}}
     started = time.perf_counter()
     deadline = time.monotonic() + getattr(args, 'max_seconds', 600)
     options = {'newton_options': {'max_newton': getattr(args, 'newton_steps', 8),
@@ -347,6 +353,9 @@ def cmd_orbit(args):
         raise
     finally:
         save('final', {'status': result['status']})
+        manifest = {p.name: {'bytes': p.stat().st_size, 'sha256': cifar.sha256_file(p)}
+                    for p in sorted(folder.iterdir()) if p.is_file() and p.name != 'manifest.json'}
+        (folder / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     print(json.dumps({'output': str(folder), 'status': result['status']}), flush=True)
 
 
