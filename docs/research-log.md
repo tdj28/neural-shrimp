@@ -4308,3 +4308,7 @@ Independent source review0e24ae8c passes prospective auditor80972cb9 with68 synt
 ## 2026-10-08 13:03 UTC — six-state gap diagnostic complete
 
 Producer8143a886 completed once:12 map/Jacobian pairs24 SVDs,1.1480s science1.6431s wrapper,5053087 aggregate bytes. Full inventories/immutable modes and three PID exits verify. Saved Newton equation passes with forcing3.1382e-9/backward error1.6312e-16; all13 historical infinity-merit trials fail. Endpoint derivatives remain numerically regular; nonclosed terminal state has raw A condition1.4598e7 but a better-conditioned augmented derivative. Its raw/scaled orientation signs differ, so no signed fold/branch-turn interpretation. No update/orbit/fold/connection accepted. Independent audit under source80972cb9 is separately authorized, pending at producer-note creation. See `docs/reviews/s1r-lower-gap-outcome.md` and receipt.
+
+## 2026-10-08 13:06 UTC — preserve gap and primary-reference artifacts
+
+Copied complete gap producer/launcher, independent saved audit/launcher and Aronson partial-primary archive to `/archive/neural-shrimp-backups/20261008T130606Z-gap-increment`:297 files7067996 bytes. Exact inventory, full SHA256 copy verification, second source hash pass and size/mtime stability checks pass. Separate physicalsda versusdatanvme1n1; same-machine point-in-time protection, not offsite. Receipt `docs/backups/2026-10-08-gap-increment.json`. All failed retrievals and partial reference scope retained.
