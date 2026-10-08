@@ -276,3 +276,33 @@ SHA-256 source bindings:
 `tests/test_cifar.py` = `7da5990f6d905a2cc929162b6e19574dbe1632726ffbf66731432edc2d3854d6`;
 operation receipt = `cfb09091b99ee8b209004c1fc2a14ac8a9b485ad4c85789d438e26164c8e53d8`;
 compute plan = `b30d37cf1622596121365d9e5a7088679542250b63ba3aa486e2e153a693601a`.
+
+### CIFAR follow-up: blockers resolved in bb87e6cd
+
+Independently reviewed producer fix commit
+`bb87e6cd81a704eff9f46f0c36fd3bb56e85caa0` against the snapshot above. All
+**33 tests passed** in a separately archived source tree with one CPU thread,
+nice 10, and read-only Git metadata access for checkpoint provenance tests.
+No full corrector, GPU or paid execution was performed.
+
+All three orbit findings are addressed: `data_identity` binds the subset-A
+record/index digest, exact contiguous normalized x/y bytes with dtype/shape/
+order and model dimensions; every corrected state is written exclusively,
+fsynced and hash-bound before Arnoldi; positive finite rate/forward-step/
+tolerance/cap controls, integer operation budgets and nonnegative finite
+margin are validated before output creation. The timeout regression confirms
+a converged correction survives with `spectrum_status=pending`, no stability
+claim and an intact state digest. Negative/NaN steps and other invalid inputs
+fail before creating an attempt. No bisection/crossing label appears on the
+controlled spectral failure.
+
+The circle command immediately raises an explicit unsupported/disabled error,
+and the H100 plan excludes it. This satisfies the bounded pilot scope without
+silently leaving an unbounded execution route. The inherited subset-A wording
+now correctly distinguishes selecting/evaluating A from reading whole source
+batches. Core closure/separation, Ritz, bisection and angle tests remain green.
+
+**Updated verdict:** no remaining blocker for the bounded CPU orbit-safety
+unit at this fix commit. This approval does not establish a CIFAR orbit or
+crossing, does not qualify a GPU/device port, and does not authorize a paid
+launch. Future H100 implementation/numerical/resource checks remain separate.
