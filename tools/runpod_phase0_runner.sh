@@ -22,6 +22,11 @@ ARCH=${ARCH:-sm_90}
 CAP=${CAP-9.0}
 mkdir -p "$OUT"
 exec > >(tee -a "$OUT/runner.log") 2>&1
+# Non-interactive SSH sessions on CUDA images do not source the profile that
+# puts the toolkit on PATH.
+export PATH="/usr/local/cuda/bin:$HOME/.local/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH:-}"
+command -v nvcc > /dev/null || { echo "nvcc not found"; exit 3; }
 echo "phase0 runner start $(date -u +%FT%TZ) arch=$ARCH cap=$CAP"
 nvidia-smi
 nvidia-smi -q > "$OUT/nvidia-smi-q.txt"
