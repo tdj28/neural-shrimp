@@ -4501,3 +4501,7 @@ owned PIDs 344932/345018/345019 are absent. The exact inventories and
 limitations are in `docs/reviews/s1r-pseudoarclength-independent-outcome-receipt.json`;
 its prose companion records the numerical raw-tangent sign change without
 a fold, lower-family connection or utility claim. No retry or extension.
+
+## 2026-10-08 14:17 UTC — reviewed next-fold mathematics, no target work
+
+Integrated source-only notece21947f and independently checked source hashes and fold conditions. At R=F_h²−Id=0, require one-dimensional kernel/cokernel, nonzero left/right overlap for algebraic simplicity, nonzero a=w^T R_h and c=w^T R_theta_theta[v,v]; differentiating the branch equation gives h_second=−c/a in the specified normalization. Directional third loss derivatives and interval full-box validation need separate source/cost/review. Only qualifiednode0006/node0005 may seed a future measured design; no localization/certificate/profile/target work or launch authorized. Receipt `docs/reviews/s1r-unstable-fold-next-independent-review.json`.
