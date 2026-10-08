@@ -4012,3 +4012,23 @@ producer bundle replay and four independent gradients. The comparison tolerances
 strict feasibility decisions, four-call limit, source/data/launcher cross-bindings,
 5s/10+5s ceilings and combined1MiB retention are fixed before target inspection.
 No pulse, new control, trajectory, HVP/Hessian, protected data or paid use.
+
+
+## 2026-10-08 11:29 UTC: one independent utility-dose outcome audit completed
+
+At unchanged sourcefba1c46c, after independent root reviewdeb32628 and explicit
+one-attempt authorization, the externally pinned audit passed once: four
+independent scalar-loop gradients, zero state advances/pulses/controls/HVPs.
+All four dose candidates are infeasible because output reduction fractions
+1.4121341785,1.4441287810,.7661165213,.7660691731 exceed.25. The original design
+is rejected; there is no automatic retuning or claim of no utility generally.
+Maximum gradient-entry disagreement1.38778e-17; saved-gradient dose replay
+exactly agrees and independent-gradient derived disagreement<=4.44089e-16.
+
+The audit exited0 in.1792s internally/.6086s externally, peak75,800KiB,
+combined111,502 retained bytes. All file hashes/read-only modes checked and
+all three owned PIDs absent after exit. No retry or source amendment.
+Raw manifest4589dc9afeaa098537341adf27ae230a64110a8fdaf048baf7f8fef22c6d19be;
+launcher3c1e3b873ca649164acdb62abf8337f5df30e0800c8ff374fd2a8e8a3e9065d4.
+Independent companions are docs/reviews/utility-dose-independent-outcome.md
+and its -receipt.json. Original producer reports/evidence stay unchanged.
