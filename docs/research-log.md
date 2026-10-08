@@ -1706,3 +1706,53 @@ _commit `10bd10efc1f6`_
 Attempt 5, pod v7jkobowrc6n4t (NVIDIA H100 NVL, cc 9.0, driver 570.133.20; image runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04): runner exit 0, results hash-verified (sha256 889734fc...), pod terminated and verified 131 s after creation. Engine rebuilt for sm_90 (nvcc 12.4.131, g++-12 12.3.0, mirror flags) under NEURAL_SHRIMP_CUDA_QUALIFYING=9.0. Cross-GPU parity against the RTX 2000 Ada reference: NOT bitwise identical on any workload; differences are confined to chaotic and sensitive cells (status labels differ in 11/576 s1-like cells, 0/576 s2-like (1 period), 4/4,096 S2-28011 cells, 1/1,024 S1R-28002 cells; FTLE and final states differ where trajectories are chaotic). The CUDA backend tests on the pod: 27 passed, 2 failed (the metadata test hard-coded compute capability 8, now generalized; an identity-network test comparing pod GPU with the pod CPU, whose BLAS blocking differs from the reference host's). Interpretation: cross-architecture reproducibility holds at the level of dynamical labels, not bits; the source of the last-bit difference (device math or sm_90 code generation) is not yet localized (next: single-step evaluate() and device tanh/log comparison). Throughput: CUDA engine 0.0527 us per cell-step on the 72-parameter 256x256 timing grid (local RTX 2000 Ada 0.476 uncontended: about 9x); float64 torch MLP 3072-32-10 on 512 samples: 81,568 cell-steps/s at 128 cells (local GPU about 410, local CPU about 1,200 at 8 cells). Implication for Phase 1: real-data sweeps become cheap on an H100; large toy-network maps gain only about 9x. Cost: see private ledger.
 
 _commit `10bd10efc1f6` (dirty worktree)_
+
+## 2026-10-08 04:55 UTC — S1R saved rotation-map audit, exploratory run card
+
+Question: what can the completed S1R seed-28002 rotation map support when its
+independently initialized NS samples are kept as separate start families?
+This is an outcome-informed exploratory analysis, not a confirmatory test.
+The saved input shapes, metadata and trace coordinates were inspected before
+this card; map/trace comparison statistics and root distances were not.
+
+Inputs: `/data2/neural-shrimp-data/explore/a3-gpu-rotation/s1r-28002-512/rotation.npz`
+and adjacent metadata, plus `a3-ns-curve/s1r-28002/ns-curve.json` (start 1.10)
+and `a3-ns-curve/s1r-28002-start0.95/ns-curve.json` under the same explore root.
+The trace files omit orbit states and restart each output-rate slice; even
+within a start family branch identity is unestablished. Never merge families
+or select the closer birth angle. Map producer provenance is historically
+`959beee68b3a` with a dirty tree, with only native source/library hashes in
+metadata. New receipts bind the saved inputs and analysis, not a recovered
+complete producer source tree.
+
+Plan: compare every NS row at hidden-log-rate offsets .002/.004/.008/.016,
+with nearest grid-cell coordinates and explicit exclusive exclusions. Accept
+only periodic candidates above period 2 or unresolved cells, finite projected
+rotation/FTLE/planarity, |FTLE|<.005 and PCA share>=.95. Report all exclusions
+and retained status labels. Period/status/FTLE precede rotation sampling and
+cannot certify the later trajectory. Figures use the full unsigned rotation
+range [0,.5] and unjoined NS samples, separately for each start family.
+
+For provisional rational roots use only adjacent NS rows, reject missing
+output slices and jumps above .02 hidden log-rate or .01 birth rotation.
+These are declared conservative geometry screens, not full-state branch
+identity checks. Search reduced m/q, 5<=q<=32, on those geometric segments;
+retain all roots, including no matching candidate cells. Report distance to
+any map cell screened period 2q with projected rotation within 1/6000, and
+geometric distance envelopes if a root were anywhere on its whole segment.
+No beyond-boundary claim, locking-fraction evidence, null p-value or tongue
+ancestry claim. Compare both families regardless of result. A mismatch or
+branch ambiguity is informative; no post-hoc family selection or threshold
+change in this attempt.
+
+Resource check: zeta load 8.13, ~43.5 GB available. One CPU thread, nice 10,
+local only, no GPU/paid compute. Expected <1 minute and <1 GB RAM; stop if
+unexpected growth. Six synthetic tests pass (gap/jump exclusion, family
+retention, cell exclusions, retained empty roots, distance envelope, invalid
+axis/input and verifier fail-closed controls). Output is exclusive attempt-001:
+`/data2/neural-shrimp-data/explore/s1r-rotation-audit/attempt-001`.
+
+Command (after committing this code/card):
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/analyze_s1r_rotation_map.py --map /data2/neural-shrimp-data/explore/a3-gpu-rotation/s1r-28002-512/rotation.npz --main-trace /data2/neural-shrimp-data/explore/a3-ns-curve/s1r-28002/ns-curve.json --lower-trace /data2/neural-shrimp-data/explore/a3-ns-curve/s1r-28002-start0.95/ns-curve.json --out /data2/neural-shrimp-data/explore/s1r-rotation-audit/attempt-001`
+Execution SHA and hashes are recorded by the driver. Offline replay and a
+local review precede interpretation/integration.
