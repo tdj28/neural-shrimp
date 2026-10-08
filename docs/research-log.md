@@ -4326,3 +4326,22 @@ trials fail decrease; the failed-state tangent orientation changes sign across
 raw/scaled secant metrics. No fold or branch conclusion. Compact independent
 companions: docs/reviews/s1r-lower-gap-independent-outcome.md and -receipt.json.
 No target/model/derivative/decomposition/solve rerun, no correction or retry.
+
+
+### 2026-10-08 — manuscript: accurate local equation, failed finite steps at lower S1R gap
+
+From root `2dbd648e`, imported independent saved-outcome companion `7b29add8`
+(local cherry-pick `321214f7`) before final value binding. Added one concise
+paragraph and README sentence, with five generated values and all earlier287
+number entries unchanged. Builder verifies all four new artifact inventories,
+reviewed source bytes, selected historical input files and numerical decisions.
+The paragraph keeps shared derivative inputs, nonclosed-state conditioning,
+coordinate-dependent orientation and unresolved association explicit; no fold,
+branch turn or new continuation is inferred.
+
+The multi-file LaTeX draft compiles to31pages without warnings. All31pages were
+checked in contact sheets and pages21/26 at detail size; no clipping, broken
+symbols or figure/caption defects found. No unchanged figure/proof or scientific
+process was rerun. `docs/reviews/paper-s1r-gap-authoring-qa.json` binds final
+source/PDF and records the harmless wrong-cwd authoring attempt. Parent content
+review remains pending before integration.

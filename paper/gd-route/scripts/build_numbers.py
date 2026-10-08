@@ -837,6 +837,97 @@ def build():
         ("xSOneRLowerTarget", lower["bridge"][-1]["target"][0], fixed(lower["bridge"][-1]["target"][0], 3), "failed next macro target log hidden rate")]:
         n.add(macro, value, display, "exploratory finite witnessed path ending at a gap; independent saved-data audit", lower_sources, calc)
 
+    # Fixed-state gap diagnosis: bind saved outcomes, not new model/SVD evaluations.
+    gap_receipt_path = c.ROOT / "docs/reviews/s1r-lower-gap-outcome-receipt.json"
+    gap_audit_receipt_path = c.ROOT / "docs/reviews/s1r-lower-gap-independent-outcome-receipt.json"
+    gap_receipt, gap_audit_receipt = load(gap_receipt_path), load(gap_audit_receipt_path)
+    assert gap_audit_receipt["status"] == "pass_saved_arithmetic_and_provenance"
+    gap_sources = [gap_receipt_path, gap_audit_receipt_path]
+    gap_root = Path(gap_receipt["raw"]["attempt-001"]["root"])
+    gap_launcher_root = Path(gap_receipt["raw"]["attempt-001-launcher"]["root"])
+    gap_audit_root = Path(gap_audit_receipt["audit_root"])
+    gap_audit_launcher_root = Path(gap_audit_receipt["launcher_root"])
+    for root, pinned in [
+        (gap_root, gap_audit_receipt["producer_pins"]["raw_manifest_sha256"]),
+        (gap_launcher_root, gap_audit_receipt["producer_pins"]["launcher_manifest_sha256"]),
+        (gap_audit_root, gap_audit_receipt["raw_manifest_sha256"]),
+        (gap_audit_launcher_root, gap_audit_receipt["launcher_manifest_sha256"])]:
+        mf = root / "manifest.json"
+        assert c.sha256(mf) == pinned
+        entries = load(mf)
+        entries = entries.get("files", entries)
+        assert set(entries) == {p.name for p in root.iterdir()} - {"manifest.json"}
+        assert all((root / name).is_file() and not (root / name).is_symlink()
+                   and (root / name).stat().st_size == row["bytes"]
+                   and c.sha256(root / name) == row["sha256"] for name, row in entries.items())
+        gap_sources.append(mf)
+    gap_path, gap_audit_path = gap_root / "result.json", gap_audit_root / "result.json"
+    gap_checks_path, gap_provenance_path = gap_audit_root / "arithmetic-audit.json", gap_audit_root / "provenance.json"
+    gap, gap_audit = load(gap_path), load(gap_audit_path)
+    gap_checks = load(gap_checks_path)
+    gap_sources.extend([gap_path, gap_audit_path, gap_checks_path, gap_provenance_path,
+                        gap_audit_root / "historical-inventory.json", gap_audit_root / "record-audit.json",
+                        gap_launcher_root / "receipt.json", gap_audit_launcher_root / "receipt.json"])
+    assert c.sha256(gap_path) == gap_receipt["result_identity"]["sha256"]
+    assert gap["source_commit"] == gap_receipt["execution_commit"] == gap_audit["pins"]["execution_commit"] == "8143a886534a6f3671f8893406bd66737e973922"
+    assert gap["review_commit"] == gap_audit["pins"]["source_review_commit"] == "38d7141a08c07b2e3b9006492dd739f99a2fea43"
+    assert gap_audit["audit_source_commit"] == gap_audit_receipt["audit_source_commit"] == "80972cb9e0311ddd07d54cdd95d3cd0dfced38d1"
+    assert gap_audit_receipt["source_review_commit"] == "0e24ae8cc1f3ec4bb94e4d81e0a60716067b3e7b"
+    assert gap["status"] == gap_audit["producer_status"] == "diagnostic_complete"
+    assert gap_audit["status"] == "finished" and gap_audit["verdict"] == "saved_outcome_audit_pass"
+    assert gap_audit["arithmetic_qualified"] and gap_audit["checks"] == gap_checks
+    assert not gap_checks["unvalidated_partial_roles"] and len(gap_checks["validated_roles"]) == 6
+    assert not gap["accepted_orbit"] and not gap["applied_correction"] and not gap["fold_verified"]
+    for root, exit_key in [(gap_launcher_root, "process_exit"), (gap_audit_launcher_root, "exit_code")]:
+        launcher = load(root / "receipt.json")
+        assert launcher[exit_key] == 0 and not launcher["owned_live_pids_remaining"]
+    for name, row in (gap["sources"] | gap_audit["audit_source_inventory"]).items():
+        path = c.ROOT / name
+        assert path.stat().st_size == row["bytes"] and c.sha256(path) == row["sha256"]
+        gap_sources.append(path)
+    gap_input_path = c.ROOT / "docs/plans/s1r-lower-gap-inputs.json"
+    gap_inputs = load(gap_input_path)
+    historical_root = Path(gap_inputs["collection_root"])
+    historical_manifest = historical_root / "manifest.json"
+    assert c.sha256(historical_manifest) == gap_inputs["collection_manifest"]["sha256"] == gap_audit_receipt["historical_inputs"]["manifest_sha256"]
+    gap_sources.extend([gap_input_path, historical_manifest])
+    historical_files = dict(gap_inputs["collection_metadata"])
+    for name, row in gap_inputs["selected_records"].items():
+        historical_files[name] = row["json"]
+        historical_files[row["arrays_file"]] = row["arrays"]
+    for name, row in historical_files.items():
+        path = historical_root / name
+        assert path.stat().st_size == row["bytes"] and c.sha256(path) == row["sha256"]
+        gap_sources.append(path)
+    gap_roles = gap_checks["roles"]
+    assert set(gap_roles) == set(gap["completed_roles"])
+    assert all(row["assembly_checked"] and len(row["checked_decompositions"]) == 4 for row in gap_roles.values())
+    for role in ("predecessor_native_phase_0", "predecessor_native_phase_1", "last_native_phase_0", "last_native_phase_1"):
+        assert gap_roles[role]["agreement"]["qualified_endpoint"]
+        assert all(g["rank"]["status"] == "full_row_rank_resolved" for g in gap_roles[role]["geometry"].values())
+    failed = gap_roles["nearest_failure_state"]
+    assert not failed["agreement"]["qualified_endpoint"]
+    equation = failed["linear_equation"]
+    assert equation["verdict"] == gap["saved_linear_equation"]["verdict"] == "linear_equation_resolved"
+    for key, value in gap["saved_linear_equation"].items():
+        if isinstance(value, (float, int)):
+            assert np.isclose(value, equation[key], rtol=1e-12, atol=0)
+    trials = gap_checks["saved_trials"]
+    assert trials == gap["saved_line_search"] == gap_audit_receipt["saved_trials"]
+    assert [row["halving"] for row in trials] == list(range(13))
+    assert all(not row["accepted"] and row["ratio"] > 1 and row["alpha"] == 2.**-row["halving"] for row in trials)
+    raw_h = failed["geometry"]["raw_B"]["null_tangent"]["h_component"]
+    scaled_h = failed["geometry"]["scaled_B"]["null_tangent"]["h_component"]
+    assert raw_h > 0 > scaled_h
+    gap_sources = list(dict.fromkeys(gap_sources))
+    for macro, value, display, calc in [
+        ("xSOneRGapForcing", equation["true_relative_forcing"], sci(equation["true_relative_forcing"], 3), "saved true Euclidean linear residual divided by nonlinear residual norm"),
+        ("xSOneRGapBackward", equation["normwise_backward_error_frobenius"], sci(equation["normwise_backward_error_frobenius"], 2), "saved Frobenius normwise backward error of the local Newton equation"),
+        ("nSOneRGapTrials", len(trials), integer(len(trials)), "all retained historical trial decisions; no new trial"),
+        ("xSOneRGapMinRatio", min(row["ratio"] for row in trials), fixed(min(row["ratio"] for row in trials), 5), "minimum original infinity-norm residual ratio among all retained trials"),
+        ("xSOneRGapCondition", failed["geometry"]["raw_A"]["rank"]["condition"], sci(failed["geometry"]["raw_A"]["rank"]["condition"], 2), "raw-coordinate condition estimate at the nonclosed failed state; not a fold gate")]:
+        n.add(macro, value, display, "exploratory fixed-state diagnostic; independent saved-arithmetic audit using shared derivative inputs; no fold or continuation proof", gap_sources, calc)
+
     ns_path = c.ROOT / "certificates/scalar-ns-receipt.json"
     ns = load(ns_path)
     assert ns["summary"]["passed"] and all(ns["summary"]["gates"].values())
