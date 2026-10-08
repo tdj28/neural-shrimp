@@ -2361,3 +2361,15 @@ that saved state to recompute closure/separation. No Newton solve, trajectory
 extension, Arnoldi, held-out subset selection, reserved seed or paid call.
 CPU one thread, nice10, external 60s; source committed before replay. Retain
 review output and launcher stderr under audits/cifar-corrector-only/attempt-001.
+### S1R local branch association planning — 8 October 2026 UTC
+
+Read integrated Program C, independent S1R review, ray/Newton/criticality code
+and existing saved JSON only. No trajectories, orbit corrections or eigenvalues
+computed. New plan docs/s1r-branch-association-plan.md and bound JSON choose a
+saved 72-D criticality anchor at output .6271428571428572, independent lineage,
+five nearby output rates, full two-phase links with half-step/reverse controls.
+Historical start1.10/start.95 families remain separate and unassociated. First
+pilot requires no training burn-in; later one-time family bootstraps need their
+own disclosed card. Proposed implementation only, not executed. CPU1/nice10,
+120s internal/150s external,160 phase-corrector calls,64MiB raw cap. No paid or
+protected-data use; local continuity cannot prove distant ancestry.
