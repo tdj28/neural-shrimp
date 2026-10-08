@@ -3218,3 +3218,22 @@ fixes exact-Fraction whole-box proximity<=1e-7 to the selected phase0; failure
 blocks state association, not an otherwise valid exact-map certificate. Even
 a pass proves proximity, not branch identity. Collection/audit need later root
 authorization and measured resources. No paid call, GPU or protected data.
+
+
+### Prospective S1R72 saved-certificate audit implementation — 2026-10-08 UTC
+
+Implemented tools/audit_s1r72_certificate.py under the prior426ce4fe audit card.
+No collection artifact or proof outcome was opened. Root supplied fixed source
+and manifest identities; only the profile launcher schema was inspected. The
+single future verifier replay, independent exact-data/rate binding and Fraction
+whole-box proximity<=1e-7 remain as specified. Wrapper/profile/nested-C1 sources,
+commands, review, PIDs, hashes, runtime, inventories and scope are cross-bound;
+all staged outputs are retained under the declared100s/32MiB audit limits.
+
+Synthetic audit controls cover rehashed semantic contradictions, exact dyadic
+versus decimal data, complete source/array inventories, one replay, and distinct
+proof/proximity outcomes. One initial fixture represented an exact integer as
+"1" instead of the producer's canonical "1/1"; the fixture was corrected before
+audit outcomes, with no scientific threshold changed. The run remains pending
+source review and root authorization; no profile, target proof or new trajectory
+was executed by this auditor during implementation.
