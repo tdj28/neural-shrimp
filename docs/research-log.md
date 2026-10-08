@@ -3840,3 +3840,15 @@ will be audited using saved Q; no QR/model/derivative/solver evaluation.
 34 synthetic controls pass in0.09s, including fail-closed mutation and retained
 failure cases. Root must authorize the exact frozen source/pins before the one
 15s-internal/20+5-external CPU1nice10,4MiB audit; no launch yet.
+
+## 2026-10-08 11:28 UTC — independent saved-CIFAR input-span audit completed
+
+Root authorization deb326284d13c6ee8766e9c718e62addbbcc14c2 launched the one frozen
+b8f074b8 audit with the predeclared pins/caps. Pass in1.030577s, launcher1.211392s,
+exit0; no retry, failure, source/tolerance change or new model/QR/solver work.
+All13 decompositions, five period2 identities and original p/Ap/e checks agree.
+Original complementary squared residual fraction1.748939766885527e-08 keeps
+the fixed>=.5 reduced-solver prioritization gate false. This is not a causal
+explanation of the GMRES stall. Immutable audit+launcher37,170bytes; manifests
+and exact limitations are in the independent outcome companion JSON/Markdown.
+Producer pending-at-creation labels remain unchanged.
