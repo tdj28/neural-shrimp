@@ -2490,3 +2490,29 @@ tools/review_scalar_ns.py --receipt /data2/neural-shrimp-data/explore/certificat
 --output /data2/neural-shrimp-data/audits/scalar-ns-independent/attempt-001.
 No claim of formalization, finite-detuning circle enclosure, irrationality,
 finite parameter tube, branch ancestry, or large-network result is planned.
+
+## Independent scalar NS review — outcome, 8 October 2026 UTC
+
+Execution source 47fd3bd97e8c35272e2eb8b92ce0c41003c82162, original proof
+source 0652d49529265565078b63360ec76bd9dd5f21a8. All ten independent review
+gates pass at 512 bits in a nested box; official replay is byte-identical.
+The independently expanded rational polynomial and direct cubic-conjugacy
+coefficient reproduce the local supercritical NS signs. Modulus slope is
+3.352986357, determinant slope twice that; actual original radius is
+2^-40+2^-69, nested radius 2^-48+2^-77. Twelve synthetic tests pass.
+Owned PID 4086622 exited after 0.230019 seconds, one CPU thread/nice 10,
+49,320 KiB maximum RSS; no GPU, paid compute or new target search.
+
+Disclosed artifact finding: a provenance-only seed digest rewrite with a fully
+rehashed relocated bundle passes the frozen proof verifier. Mathematical
+mutations fail. Original receipt, selected seed and exact exported inputs
+were independently checked; original source/evidence remain unchanged.
+This does not block the narrow reviewed exact-model theorem, but arbitrary
+rewritten provenance must not be described as authenticated.
+
+Scope and derivation: docs/reviews/scalar-ns-independent.md; compact bound
+receipt certificates/scalar-ns-independent-review.json; immutable raw review
+at /data2/neural-shrimp-data/audits/scalar-ns-independent/attempt-001.
+The theorem supplies local attracting two-phase invariant curves for
+sufficiently small positive detuning, with no numerical detuning interval,
+explicit curve enclosure, irrationality, global ancestry or network claim.
