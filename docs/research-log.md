@@ -4433,3 +4433,14 @@ evaluation was opened or run. Source/card hashes are in
 `docs/plans/curvature-mechanism-helper-source-receipt.json`. Independent review,
 empirical acquisition and six-slot aggregate gates remain pending. This unit
 stops at the prepared helper; no empirical claim or launch is authorized.
+
+### 2026-10-08 14:17 UTC — Independent curvature-helper source review
+
+Source `5ae73c76` passes static mathematical and independent synthetic review.
+All 31 controls (13 author, 18 independent) pass in 0.17s under CPU/BLAS 1 and
+nice 10. The helper preserves full multiplicities, fixed leading-pair selection,
+explicit 2-eigh/1-eig/1-SVD accounting and the nonrigorous residual-aware radius,
+including supplied-native formation mismatch. No producer files changed; no
+empirical arrays, target outputs, model or numerical profile were opened.
+Review/receipt: `docs/reviews/curvature-mechanism-helper-independent-review.md`
+and its `-receipt.json` companion. Empirical preparation remains separate.
