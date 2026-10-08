@@ -1919,3 +1919,81 @@ Read-only host observations found PID 3814389 alive at elapsed 03:19:50 at 04:51
 ## 2026-10-08 UTC integrated manuscript review copy
 
 The gd-route draft incorporates the independently reviewed scalar mechanism, controlled interventions and two exact-real period-10 orbit proofs; generated empirical numbers now total 239. The verifier passes all nine figure regenerations, numerical sources, cited paths, scalar and warmup receipts and both certificate replays. The multi-file LaTeX build passes without unresolved references or box warnings. All 24 pages were rendered for layout review; a crowded census label was repaired and regenerated. Scope corrections include real fixed-point crossings, heavy-ball limits, odd-period ordering, candidate generalized-NS points, Hofmann symmetry and prior formulas, and the absence of an established circle-breakdown path. The original CIFAR continuation is reported unresolved after its inherited deadline. The PDF remains a private working draft; reference-content audit, new scientific results and human authorship/release decisions remain open.
+
+## 2026-10-08 04:48 UTC: run (exploratory)
+
+- **Question:** Acquire and hash a modest public character-language-model corpus for the architectural pilot.
+- **Setup:** Download only public tiny-Shakespeare text and upstream README license statement from karpathy/char-rnn; source URLs and SHA256 retained. No private data transmitted. Dataset acquisition only, 90-second cap.
+- **Output:** `/data2/neural-shrimp-data/datasets/tinyshakespeare/attempt-001`
+- **Would surprise us:** Source download or content-bound receipt cannot be completed.
+- **Command:** `nice -n 10 timeout 90 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py prepare --output /data2/neural-shrimp-data/datasets/tinyshakespeare/attempt-001`
+
+_commit `85950bf6cf3b`_
+
+- run started 2026-10-08 04:48 UTC finished 04:48 UTC with exit status 0
+
+## 2026-10-08 04:48 UTC: run (exploratory)
+
+- **Question:** Does a small real-text causal transformer train with reproducible matrix-free GD diagnostics, and what is the measured local cost?
+- **Setup:** One-layer width32 context32 tied-embedding causal transformer, fixed 8-sequence batch (256 next-character targets), seed28141, ridge .001. GPU reserved by root; 7MiB idle before task, load15.6 RAM43GiB available. One CPU thread, GPU float32 TF32 off deterministic algorithms; reduced dense float64 and full same-state CPU64 derivative comparisons. Initial-sharpness scaled rate factor .2, 100 updates, 180-second cap, no validation outcomes.
+- **Output:** `/data2/neural-shrimp-data/explore/tiny-lm/attempt-001-unit`
+- **Would surprise us:** Failed causal/JVP controls, full-architecture precision discrepancy, or local runtime exceeding feasibility budget.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py run --profile unit --output /data2/neural-shrimp-data/explore/tiny-lm/attempt-001-unit`
+
+_commit `85950bf6cf3b` (dirty worktree)_
+
+- run started 2026-10-08 04:48 UTC finished 04:48 UTC with exit status 0
+
+## 2026-10-08 04:50 UTC: Tiny transformer profile passes; scale to bounded rate pilot
+
+Source 85950bf6 completed the 15,776-parameter, 256-token full-batch profile on the local RTX2000Ada. 100 updates took .511s; CE 4.18145 to 2.67550. Full matched-state CPU64/GPU32 gradient/HVP differences were 9.60e-8/1.35e-7; reduced dense JVP discrepancies below 5e-16. These checks do not establish long-trajectory precision equivalence. Initial sharpness estimate7.60 (Ritz relative residual .00287), final max50.94 (residual1.76e-7); final minimum Ritz residual .501 is unresolved. Scalar AR2 complex roots occur on this descending nonstationary loss curve, so they cannot establish NS or a full-state orbit. Proceed to six factors .1,.4,.8,1,1.2,1.6 of 2/initial sharpness, 1000 updates each, expected under45s and 180s ceiling. Add GPU identity/runtime fields before this pilot; original unit artifacts unchanged. Validation outcomes remain unconsumed.
+
+_commit `85950bf6cf3b` (dirty worktree)_
+
+## 2026-10-08 04:50 UTC: run (exploratory)
+
+- **Question:** Across a controlled constant-rate sweep, does real-text transformer GD show bounded oscillation or full-state recurrence?
+- **Setup:** Same one-layer 15,776-parameter transformer, seed28141 and fixed 256-target batch as unit profile, ridge .001, local RTX2000Ada float32 TF32 off, one CPU thread. Six rates eta=factor*2/initial positive Hessian Ritz value, factors .1,.4,.8,1,1.2,1.6; 1000 updates each. Expected35-45s from unit profile, 180s timeout. All rates share initialization. Scalar AR roots remain descriptive; no Floquet claim without an orbit; final minimum Ritz values unresolved when residuals are large.
+- **Output:** `/data2/neural-shrimp-data/explore/tiny-lm/attempt-002-rates`
+- **Would surprise us:** A bounded full-state periodic candidate, robust oscillations beyond the nominal initial rate scale, or all six rates showing the same transient regime.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py run --profile pilot --output /data2/neural-shrimp-data/explore/tiny-lm/attempt-002-rates`
+
+_commit `47c79bed898d`_
+
+- run started 2026-10-08 04:50 UTC finished 04:50 UTC with exit status 0
+
+## 2026-10-08 04:51 UTC: Adapt transformer rate exploration after six completed finite-horizon runs
+
+Outcomes seen: all six original factors completed 1000 updates and learned their fixed batch; none met the full-state p1/p2 recurrence criteria. The lowest rate shows a drifting alternating tail, while higher original rates mainly show slow parameter drift. AR2 can improve time-held prediction by fitting smooth drift and does not establish a multiplier. Adaptation: add four higher factors2.5,4,6,8 with the same initial state, 1000 updates each, same diagnostics, 180-second cap (measured ~5ms/update). Purpose is to bound high-rate bounded/guard-stop behavior, not to search until a desired NS outcome. All original cases retained; all results remain exploratory.
+
+_commit `47c79bed898d` (dirty worktree)_
+
+## 2026-10-08 04:51 UTC: run (exploratory)
+
+- **Question:** What happens at higher rates after the first grid produced learning with full-state drift rather than recurrence?
+- **Setup:** Adapted after observing the six-rate pilot: same model/data/init, GPU float32, one CPU thread; factors2.5,4,6,8 of2/initial maxHessian, 1000 updates each, expected20-30s, 180-second timeout. Numerical guard stops retained without equating them to mathematical divergence. No corpus validation outcomes or paid compute.
+- **Output:** `/data2/neural-shrimp-data/explore/tiny-lm/attempt-003-high-rates`
+- **Would surprise us:** A full-state periodic candidate, or all high rates retaining similarly smooth transients.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py run --profile pilot --factors 2.5 4 6 8 --output /data2/neural-shrimp-data/explore/tiny-lm/attempt-003-high-rates`
+
+_commit `47c79bed898d` (dirty worktree)_
+
+- run started 2026-10-08 04:51 UTC finished 04:51 UTC with exit status 0
+
+## 2026-10-08 04:54 UTC: run (exploratory)
+
+- **Question:** How do time-held AR prediction, parameter recurrence and drift compare across all retained transformer pilot cases?
+- **Setup:** Offline analysis of the unit, six original rates and four disclosed adaptive rates. Verify every manifest file hash; report numerical guard stops explicitly. No new training and no validation-corpus outcomes.
+- **Output:** `docs/explore-tiny-lm-receipt.json`
+- **Would surprise us:** Any raw hash mismatch or a full-state periodic candidate missed by the run summaries.
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/analyze_tiny_lm.py --receipt docs/explore-tiny-lm-receipt.json --write`
+
+_commit `279425150df7`_
+
+- run started 2026-10-08 04:54 UTC finished 04:54 UTC with exit status 0
+
+## 2026-10-08 04:57 UTC: Transformer architectural pilot complete: training and derivatives, no periodic claim
+
+Completed the unit profile, six original rates and four disclosed adaptive high rates with the public tiny-Shakespeare corpus. Model15776 parameters, fixed256 next-character targets, seed28141, local RTX2000Ada float32 deterministic TF32off, one CPU thread. Seven main cases completed1000 updates with full-state drift; three high rates hit the retained numerical guard after551/10/7 updates. No fixed-point or period2 candidate met the recurrence screen; no Floquet, NS, chaos or invariant-circle claim is warranted. Moderate rates memorized the training batch, whose disjoint corpus validation losses remain unconsumed. Full matched-state CPU64/GPU32 gradient/HVP errors ~1e-7; reduced dense one/two-step JVP errors <5e-16. AR2 can fit drift and weak complex roots arose on a descending transient, supporting its role as a necessary baseline rather than evidence of a dynamical mode. Four substantive transformer tests pass. Canonical stream summary docs/explore-tiny-lm.md and hash-bound docs/explore-tiny-lm-receipt.json include source/license/target convention, every outcome, AR time-held prediction, state recurrence and norm drift. GPU released: no compute process, 4MiB used,0% utilization. No paid compute or reserved seeds; local feasibility does not currently require H100.
+
+_commit `279425150df7` (dirty worktree)_
