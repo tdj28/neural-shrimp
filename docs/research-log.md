@@ -1756,3 +1756,22 @@ Command (after committing this code/card):
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/analyze_s1r_rotation_map.py --map /data2/neural-shrimp-data/explore/a3-gpu-rotation/s1r-28002-512/rotation.npz --main-trace /data2/neural-shrimp-data/explore/a3-ns-curve/s1r-28002/ns-curve.json --lower-trace /data2/neural-shrimp-data/explore/a3-ns-curve/s1r-28002-start0.95/ns-curve.json --out /data2/neural-shrimp-data/explore/s1r-rotation-audit/attempt-001`
 Execution SHA and hashes are recorded by the driver. Offline replay and a
 local review precede interpretation/integration.
+
+## 2026-10-08 04:57 UTC — S1R saved-map audit attempt-001 result
+
+Execution source `bf7a811ca1948a036578de45bce90b37a75560f8`; one CPU thread,
+nice 10, no GPU or paid activity. Successful analysis and visual inspection;
+input/output/source inventories and full numerical replay pass. Receipt:
+`docs/explore-s1r-rotation-audit-receipt.json`. Six controls pass. Output and
+input source files were not overwritten; new raw attempt is made read-only.
+
+Start-family dependence is material: at offset .002, start 1.10 retains 14/16
+NS comparisons, median absolute rotation difference .0006450; start .95
+retains 12/25, median .0100761. Every retained cell is unresolved. Conservative
+geometric adjacency retains 9 versus 13 edges, which still do not establish
+branch identity. Provisional roots are 1/8 (nearest matching candidate75.82
+cells), 2/15 (123.64 cells), and 1/23 (no candidate cell); full exclusion and
+distance-envelope records are saved. No locking fraction, null significance,
+merged branch or tongue-ancestry claim is reported. Program C's existing
+stream document records all four offsets, exclusions, provenance/timing
+limitations and the required next full-state continuation experiment.
