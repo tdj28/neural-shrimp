@@ -3683,3 +3683,24 @@ profiles or holdouts allowed. Code/synthetic controls will be committed before
 one CPU1nice10 readonly audit (30s internal/40+5 external;2MiB new raw) at
 audits/utility-inputs/attempt-001 under the data root.
 A missing-control result is a useful no-go decision, not a reason to loosen gates.
+
+
+### Utility saved-input inventory completed — 2026-10-08 UTC
+
+Sourcea921b776953b5fc57d4a51469899022aec56d12f,12synthetic controls passing before one read-only
+audit. Four local row4100 forks (8202updates) and exact recovery rates/state bits
+are pinned.522 distance-eligible summary candidates yield four deterministic
+nominees but zero fully qualified controls. The old consequence exporter omitted
+full states/loss histories; EXP028 alternatives retain full periodic phases or
+coarse states but lack required branch/support/chaos/refinement/recovery evidence.
+No-go for pulse collection; do not weaken gates. The equal-R formula is clarified
+as treatment-minus-sham pulse displacement, not total GD step norm.
+
+No model evaluations, trajectories, corrections, HVPs, profile, pulse outcome or
+holdout. Audit PID168231, timeoutPID168230, exit0;
+0.194226s internal/0.303524s external,
+74520KiB peak, CPU1nice10. Raw audits/utility-inputs/attempt-001,
+manifest2f962ced4b6f32aca588f1012985591acc670437ff944e8e15375acf4fd2e03f,read-only. Compact inventory and
+exact acquisition gaps: docs/reviews/utility-input-qualification.md and-receipt.json.
+Proposed next gate is four gradients without updates, requiring separate review
+and authorization; no such computation or control acquisition was launched.
