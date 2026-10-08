@@ -4044,3 +4044,13 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+## 2026-10-08 UTC — independent review of final lower/span paper additions
+
+Read-only review binds14fe18fd5957b857d81ddb50e5c6cc60d3d194a0 and exact text,
+builder, generated-number, evidence and PDF hashes. No material accuracy issue
+remains in the scoped additions: product-map hypotheses/primitive period/
+monodromy/attraction are explicit; lower association remains unresolved at a
+retained gap; dose and input-span findings remain narrowly negative. Fifteen
+new macros agree with audited receipts. No target experiment or manuscript
+edit; root PDF QA is attributed rather than independently repeated. Details:
+`docs/reviews/paper-lower-span-independent-review.md` and companion JSON.
