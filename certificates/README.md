@@ -29,7 +29,7 @@ Direct interval iteration can fail through wrapping. A failed enclosure is
 inconclusive and is retained. Multiple shooting is a possible later amendment,
 not part of this initial checker. Passing artifacts carry evidence rung 3 for
 the narrow mathematical statement; the research status remains an exploratory
-certificate pilot with review pending. The checker and upstream Arb library
+certificate pilot with independent review complete. The checker and upstream Arb library
 are not formalized in a proof assistant.
 
 ## Execution and replay
@@ -47,7 +47,7 @@ best-conditioned period-5/10 candidate in the intersection of the unchanged
 EXP-028 summary and independent audit qualifying lists. Both selections and
 the amendment are disclosed in the research log; neither is confirmatory.
 
-A compact receipt will bind inputs, all raw files, source commit and source
+The compact receipts bind inputs, all raw files, source commit and source
 hashes. Then one offline command regenerates all enclosures and compares them
 with the saved result, refusing missing/corrupt inputs, modified checker code,
 changed verdicts or any failed proof gate:
@@ -64,9 +64,9 @@ source and the receipt; it does not independently back up the external raw files
 | Component | Evidence | Artifact / assumption |
 |---|---|---|
 | Map/Jacobian implementation | Test cross-check, not a theorem by itself | `tests/test_rigorous_orbits.py`; independent frozen NumPy implementation and enclosed interior samples |
-| Existence/local uniqueness | Rung 3 gates pass; exploratory, review pending | Both current receipts; Banach contraction, analytic map implementation and Arb/FLINT trusted |
-| Primitive period | Rung 3 gates pass; exploratory, review pending | Both receipts exclude divisors 1, 2 and 5 by disjoint coordinates |
-| Attraction | Rung 3 gates pass; exploratory, review pending | Both receipts enclose the monodromy and its 64th power below unit infinity norm |
+| Existence/local uniqueness | Rung 3 gates pass; exploratory, independently reviewed | Both current receipts; Banach contraction, analytic map implementation and Arb/FLINT trusted |
+| Primitive period | Rung 3 gates pass; exploratory, independently reviewed | Both receipts exclude divisors 1, 2 and 5 by disjoint coordinates |
+| Attraction | Rung 3 gates pass; exploratory, independently reviewed | Both receipts enclose the monodromy and its 64th power below unit infinity norm |
 | Chaos, window geometry, invariant circles, utility | Not established by this track | Existing evidence retains its own scope and labels |
 
 ## Pilot outcome (7 October 2026, user time zone)
@@ -78,8 +78,8 @@ those mathematical cycles decay while the full parameter state keeps cycling.
 One orbit is in a historically qualifying EXP-028 window. This result does
 not yet establish a shrimp-specific behavioral effect, a useful readout,
 surrounding chaos rigorously, or robustness to finite-precision arithmetic.
-The computation passes proof gates, but independent mathematical/code review
-remains pending and this is an exploratory pilot.
+The computation passes proof gates and independent mathematical/code review; target selection
+remains exploratory. The review record is `c1-independent-review.json`.
 
 | Attempt | Target and purpose | Outcome | Compact receipt |
 |---|---|---|---|
@@ -106,3 +106,14 @@ code prevents reusing an output directory. The tests include independent
 NumPy map/Jacobian comparisons, interior enclosure samples, exact linear
 positive controls, false primitive-period and unstable controls, and corrupt
 input/source-inventory/summary rejection. None replaces independent review.
+
+## Independent review (8 October 2026 UTC)
+
+The source-bound review in `c1-independent-review.json` reports no blocking
+findings for producer tip `32528cbbb4a3313bf82f63a9a812584ad754a82e`. Both
+authoritative receipts replayed; input bindings, stored Krawczyk/divisor/power
+witnesses and an independent second-order Arb differentiation of the objective
+were checked. Both proofs also passed at 384 bits in smaller nested boxes.
+This shares the Arb library and is not proof-assistant formalization. Immutable
+receipts retain their original creation-time review-pending labels; this
+companion record supplies the subsequent review status.

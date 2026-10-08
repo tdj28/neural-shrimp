@@ -1891,3 +1891,21 @@ _commit `d1e4326ae7c0` (dirty worktree)_
 Attempt-003 proves the exact-dyadic-input map has a unique local primitive period-10 attracting orbit at row35, S2-28011 component140, an existing historical qualifying-window location. Attempt-004 reproduces the row121 orbit-only feasibility proof. Both exclude proper divisors1,2,5 and enclose ||M^64||inf below1 (0.0559916712 and 0.1076608594 upper bounds, respectively). Research status remains exploratory; independent review pending; no rigorous chaos, geometry, float implementation, or utility claim. Raw attempts001-004 and the initial wrapping failure are preserved; certificates/README.md and compact hash receipts describe scope and one-command offline replay. Source d1e4326ae7c0c8d454929661408acc7d9d54bad4; no paid compute.
 
 _commit `d1e4326ae7c0` (dirty worktree)_
+
+## 2026-10-08 04:06 UTC: run (exploratory)
+
+- **Question:** Do the two C1 certificates survive independent mathematical, provenance, derivative, stored-witness and higher-precision review?
+- **Setup:** Review producer 32528cbbb4a3313bf82f63a9a812584ad754a82e without editing it. Existing authoritative replay and all 8 producer tests already passed. Independently differentiate scalar objective with second-order Arb jets at center/interior samples; compare whole-box enclosures, bind exact dyadic inputs to EXP-028 saved data, re-evaluate stored inclusion/divisors/M64, and rerun at 384 bits with nested 2^-90 boxes. One thread, nice10, 120 second timeout.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/review-001.json`
+- **Would surprise us:** Any proof-domain flaw, derivative inconsistency, input mismatch, or failure of replay will be reported as a blocker.
+- **Command:** `timeout --signal=TERM --kill-after=5s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/review_c1_evidence.py --producer-root /home/d7082791602/.codex/worktrees/rigorous-c1-orbit/neural-shrimp --producer-commit 32528cbbb4a3313bf82f63a9a812584ad754a82e --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/review-001.json`
+
+_commit `96ab02bfe13a`_
+
+- run started 2026-10-08 04:06 UTC finished 04:06 UTC with exit status 0
+
+## 2026-10-08 04:47 UTC: Independent C1 proof review completed without blocking findings
+
+Source-bound review of producer32528cbb: both authoritative replays and eight producer tests pass. Banach/Krawczyk domain, full interval chain rule, exact dyadic parameters, proper-divisor exclusion and M^64 attraction logic inspected. Reviewer96ab02bf independently binds raw inputs to frozen EXP-028 orbit/data/plan, differentiates the scalar objective with second-order Arb jets, reconstructs stored witnesses, and passes both proofs at384bits in nested radius2^-90 boxes. Same Arb library remains trusted. Exact-map existence/local uniqueness, primitive period10 and attraction only; no finite-precision dynamics, surrounding chaos, geometry or utility claim. Review record certificates/c1-independent-review.json; immutable original envelopes retain their historical pending-review labels.
+
+_commit `96ab02bfe13a` (dirty worktree)_
