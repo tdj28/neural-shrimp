@@ -3801,3 +3801,20 @@ trajectory, saved-target derivative or protected data evaluation has run.
 The independent source review is pending. Only after that review may root
 explicitly authorize one resource profile; target collection requires a further
 profile receipt review. No paid use, automatic retry or paper claim.
+## 2026-10-08 UTC — prepare four-gradient utility dose feasibility only
+
+After independent inventory review42d901c0, prepare the fixed four-fork gate in
+`docs/plans/utility-dose-feasibility.md`, with new algebra module/runner/tests
+and fixed10+5 launcher. No target gradients, updates, HVPs, corrections,
+profiles, control acquisition or pulses have run. Fixed input identities and
+historical timing screen are bound before the proposed four gradients;5s
+internal/CPU1nice10/1MiB total. Root and independent source review plus separate
+launch authorization remain necessary. The broader pulse comparison is still
+no-go regardless of feasibility until its missing controls/support are qualified.
+
+Preparation validation:32 feasibility/inventory controls pass in0.40s. They
+cover a synthetic finite-difference gradient oracle including all biases,
+training-only reconstruction against existing hashes, exact dose algebra and
+25%/nextafter gates, invalid/zero/nonfinite blocks and rates, all-four retention,
+deadline after a returned gradient, input-bit corruption and productionnice10
+rejection. The target four gradients remain unexecuted.
