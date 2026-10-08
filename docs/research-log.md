@@ -3796,3 +3796,10 @@ committed and privately pushed, independently reviewed and separately launch
 authorized before any target audit. Retain all failures and partial evidence,
 without retry or threshold relaxation. The source change to the old history
 helper only adds optional limits/status arguments and preserves old defaults.
+
+Pre-launch root review requested controls.py import provenance and a clean
+checkout guard. Both are added as audit-only safeguards; the original twelve
+producer source files remain unchanged. Independent outcome companions use
+s1r-lower-independent-outcome names to preserve the separate producer report.
+All96 focused synthetic controls pass in1.24s after the amendment. Target
+outcomes remain unopened; one audit still awaits source-bound authorization.

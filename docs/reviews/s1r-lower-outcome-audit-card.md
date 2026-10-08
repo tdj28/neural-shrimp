@@ -167,8 +167,19 @@ new Newton solve, continuation step or free trajectory is part of the audit;
 saved-state transition evaluations are required for closure checks.
 
 On completion, write separate outcome companions
-`docs/reviews/s1r-lower-outcome.md` and
-`docs/reviews/s1r-lower-outcome-receipt.json`, binding audit source, producer
+`docs/reviews/s1r-lower-independent-outcome.md` and
+`docs/reviews/s1r-lower-independent-outcome-receipt.json`, binding audit source, producer
 source/review, exact inputs, result and all raw/launcher manifests. The
 original producer receipt remains unchanged. This implementation freeze is
 not permission to launch; wait for root's explicit source-bound approval.
+
+Root source-review amendment before launch: bind the indirectly imported
+`src/neural_shrimp/controls.py` as an audit dependency while leaving the original
+twelve producer SOURCES untouched. Require a completely clean Git checkout
+(including untracked files) before creating output. Separate independent
+outcome filenames above avoid replacing the producer report. No new numerical
+outcome was read for these changes.
+
+Final amendment validation:96 focused synthetic controls pass in1.24s,
+including staged, unstaged and untracked dirty-checkout rejection and the
+indirect-import binding. No target outcome read or audit launch occurred.

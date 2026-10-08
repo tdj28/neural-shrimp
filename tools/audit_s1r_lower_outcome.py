@@ -36,7 +36,7 @@ SOURCE_FILES=('docs/plans/s1r-lower-association-implementation.md','docs/plans/s
  'src/neural_shrimp/__init__.py','src/neural_shrimp/gdmaps.py','src/neural_shrimp/trainability.py','src/neural_shrimp/models.py',
  'src/neural_shrimp/period2_branch.py','src/neural_shrimp/period2_branch_io.py','src/neural_shrimp/s1r_bootstrap.py',
  'src/neural_shrimp/s1r_lower_association.py','tools/explore_s1r_lower_association.py','tools/launch_s1r_lower_association.py')
-AUDIT_FILES=('tools/audit_s1r_lower_outcome.py','tools/audit_s1r_bootstrap_outcome.py','tools/audit_s1r_branch_outcome.py',
+AUDIT_FILES=('src/neural_shrimp/controls.py','tools/audit_s1r_lower_outcome.py','tools/audit_s1r_bootstrap_outcome.py','tools/audit_s1r_branch_outcome.py',
  'tests/test_s1r_lower_outcome_audit.py','docs/reviews/s1r-lower-outcome-audit-card.md')
 ROLE_SPECS={
  'upper':('00964-node.json','node-0047',1.1,'cb049836108a7a1e1b1f364d3f90dde158b258b6111f281f07578404b1580a3b','b93240d3f0c837c82ea900ae48bb18e2a4e34c84e97ec9d59b2837a6b9d9da1f'),
@@ -318,11 +318,15 @@ def audit(args,emit):
        'No new bootstrap, profile, free trajectory or Newton correction was run by this audit.'])
 
 
+def clean_checkout():
+    require(not subprocess.check_output(['git','status','--porcelain','--untracked-files=all'],cwd=ROOT,text=True).strip(),'clean audit checkout required before output creation')
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ('collection','launcher','original','timing','out'):p.add_argument('--'+key,type=Path,required=True)
     for key in ('producer-commit','manifest-sha256','launcher-manifest-sha256'):p.add_argument('--'+key,required=True)
-    args=p.parse_args();require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10 required')
+    args=p.parse_args();require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10 required');clean_checkout()
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();bindings={}
     for name in (*SOURCE_FILES,*AUDIT_FILES):
         data=(ROOT/name).read_bytes();require(data==subprocess.check_output(['git','show','HEAD:'+name],cwd=ROOT),'uncommitted audit dependency '+name)
