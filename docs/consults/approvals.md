@@ -66,3 +66,23 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   as Phase 0: pods named `neural-shrimp-...`, ledger-recorded IDs only,
   terminate and verify after each run, spend only in `cost-ledger.md`, exact GPU
   details in `docs/hardware-ledger.md`.
+
+## 2026-10-08: post-edge strategy milestone
+
+- **Human approval (7 October evening PDT, this session):** "if you get stuck
+  or need inspiration, i authorize you to do a consult with gpt astra 6 pro,
+  but let's move further along in our findings before you do that"; the
+  explicit ceiling is retained in the private cost ledger.
+- **Milestone:** two exact-real orbit proofs, a reviewed minimal unequal-rate
+  mechanism, controlled warmup with a strong generic baseline, an actual-text
+  transformer pilot without periodic recurrence, and CIFAR/S1R obstacles now
+  support a concrete choice of the next mechanism-to-utility experiment.
+- **Scope:** one `research-strategy` generating request using the compact
+  `2026-10-08-post-edge-strategy/brief.md`; no retry or follow-on request.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most40,000
+  output tokens. Canonical client input/output reserve multipliers and
+  authorization guard apply; costs/rates/cumulative spend are private only.
+- **Sources checked before dispatch:** official latest-model guide, Astra
+  model page and pricing page, 8 October2026. The standard-context row applies
+  to this small packet. This is advisory strategy review, not independent
+  scientific validation. Material advice will be locally adjudicated.

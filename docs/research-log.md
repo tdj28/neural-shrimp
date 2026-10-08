@@ -1997,3 +1997,14 @@ _commit `279425150df7`_
 Completed the unit profile, six original rates and four disclosed adaptive high rates with the public tiny-Shakespeare corpus. Model15776 parameters, fixed256 next-character targets, seed28141, local RTX2000Ada float32 deterministic TF32off, one CPU thread. Seven main cases completed1000 updates with full-state drift; three high rates hit the retained numerical guard after551/10/7 updates. No fixed-point or period2 candidate met the recurrence screen; no Floquet, NS, chaos or invariant-circle claim is warranted. Moderate rates memorized the training batch, whose disjoint corpus validation losses remain unconsumed. Full matched-state CPU64/GPU32 gradient/HVP errors ~1e-7; reduced dense one/two-step JVP errors <5e-16. AR2 can fit drift and weak complex roots arose on a descending transient, supporting its role as a necessary baseline rather than evidence of a dynamical mode. Four substantive transformer tests pass. Canonical stream summary docs/explore-tiny-lm.md and hash-bound docs/explore-tiny-lm-receipt.json include source/license/target convention, every outcome, AR time-held prediction, state recurrence and norm drift. GPU released: no compute process, 4MiB used,0% utilization. No paid compute or reserved seeds; local feasibility does not currently require H100.
 
 _commit `279425150df7` (dirty worktree)_
+
+## 2026-10-08: post-edge strategy milestone review packet
+
+The human authorized one later Astra Pro consultation after substantial new
+findings. The two orbit proofs, minimal mechanism, controlled ramps, actual-text
+pilot and CIFAR/S1R obstacles now form that milestone. The compact packet is
+`docs/consults/2026-10-08-post-edge-strategy/brief.md`; approval is recorded in
+`docs/consults/approvals.md`. Use the canonical research-strategy client, one
+request only, exact committed packet head, external immutable raw bundle and
+private cost ledger. Run a non-generating dry run before dispatch. Results and
+adjudication are pending; no reviewer endorsement is implied by this card.
