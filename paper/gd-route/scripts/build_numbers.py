@@ -483,14 +483,14 @@ def build():
 
     # Criticality (figure 7)
     crit = load(FIG7)["derived"]
-    n.add("nCritPoints", crit["points"], str(crit["points"]), EXPLORATORY, [FIG7, *CRIT_CURVES], "curve points with d")
+    n.add("nCritPoints", crit["points"], str(crit["points"]), EXPLORATORY, [FIG7, *CRIT_CURVES], "slice-wise crossings with d; cross-output full-state branch identity unverified")
     n.add("nCritSuper", crit["supercritical"], str(crit["supercritical"]), EXPLORATORY, [FIG7, *CRIT_CURVES], "d < 0")
     n.add("nCritSub", crit["subcritical"], str(crit["subcritical"]), EXPLORATORY, [FIG7, *CRIT_CURVES], "d > 0")
     changes = crit["sign_changes"]
     n.add("nChenciner", len(changes), str(len(changes)) if len(changes) != 3 else "three", EXPLORATORY,
-          [FIG7, *CRIT_CURVES], "sign changes of d along the curve (generalized Neimark-Sacker points)")
+          [FIG7, *CRIT_CURVES], "sign transitions between adjacent output-ordered rows; branch identity and generalized-NS nondegeneracy unverified")
     n.add("tChenciner", changes, ", ".join(f"${z:+.3f}$" for z in changes[:-1]) + f" and ${changes[-1]:+.3f}$",
-          EXPLORATORY, [FIG7, *CRIT_CURVES], "midpoints between sign changes (log10 output)")
+          EXPLORATORY, [FIG7, *CRIT_CURVES], "midpoints between opposite-sign adjacent rows (log10 output); not established branchwise roots")
     n.add("xCritMostNegative", crit["most_negative_d"], fixed(crit["most_negative_d"], 2), EXPLORATORY,
           [FIG7, *CRIT_CURVES], "most negative d")
     checks_ = crit["dynamical_checks"]

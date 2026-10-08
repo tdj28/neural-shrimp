@@ -122,8 +122,8 @@ Newton's method using an analytic Jacobian evaluated in floating-point arithmeti
 period-2 oscillation gives way to quasi-periodic training on an invariant circle, rational rotation numbers lock
 into periodic windows, and the windows of the learning-rate plane are largely these locked orbits. Each result
 below says exactly what passed. The cross-checked windows and the comparison with the binary score are confirmed.
-Exploratory analyses support the local part of the thesis: the period-2 orbit's complex pair crosses the unit circle along
-a curve, the sampled crossings are mostly supercritical with dynamics that match the normal form, quasi-periodic
+Exploratory analyses support the local part of the thesis: complex-pair crossings occur in independently
+initialized slices, the sampled crossings are mostly supercritical with dynamics that match the normal form, quasi-periodic
 training starts with a rotation equal to the crossing angle, and the same crossing appears in a real-data network
 and in a linear network. The global part is not established: a frozen test did not confirm that a rule-selected
 window descends from its resonance, and no prespecified path into sustained chaos has been tested. We call the
@@ -152,7 +152,7 @@ cycles on smooth strongly convex two-dimensional objectives that advance by $1/K
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
 score conflates fixed points, periodic orbits, chaos and drift.
-\item Exploratory, local mechanism: a traced curve of complex-pair crossings of the period-2 orbit; its first
+\item Exploratory, local mechanism: a merged locus of slice-wise period-two complex-pair crossings; pointwise first
 Lyapunov coefficient, candidate generalized Neimark--Sacker points and dynamical checks; rotation-number maps in which
 quasi-periodic training begins at the crossing angle.
 \item Exploratory, generality: the same crossing with a quantitatively predicted rotation in a real-data network
@@ -284,8 +284,9 @@ mismatches among the \nAuditReceiptFiles{} receipt files.
 \paragraph{Continuation, boundary type and criticality.} From the center of a window, its numerically validated orbit is
 continued along 64 rays in the rate plane until it loses stability, located by bisection, and the boundary is
 typed by the crossing multiplier: fold ($+1$), flip ($-1$) or complex pair. The same procedure traces where the
-period-2 orbit loses stability along slices of fixed output rate; several traces are merged into one curve. At each
-point of that curve we compute the first Lyapunov coefficient $d$ of the Neimark--Sacker normal form with
+period-2 orbit loses stability along slices of fixed output rate. Each slice is initialized separately; sorting
+and deduplicating their crossings gives a merged locus, without establishing full-state branch identity across
+output rates. At each selected slice-wise crossing we compute the first Lyapunov coefficient $d$ of the Neimark--Sacker normal form with
 Kuznetsov's formula for $n$-dimensional maps, using the analytic dense two-step Jacobian evaluated in float64 and Richardson-extrapolated
 differences of analytic Jacobian-vector products for the higher derivatives; the implementation reproduces the
 explicit planar formula on random planar maps.
@@ -464,21 +465,21 @@ that shaped the thesis, except where frozen acceptance rules are stated.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{f2_rotation_map.pdf}
-\caption{\textbf{Beyond the curve where the period-2 orbit's complex pair crosses the unit circle, the rotation number of
-training starts at the crossing angle and varies continuously, and periodic windows appear as plateaus.} A and B:
-rotation-number maps of S2-28011 ($\tMapSizeMain$ and $\tMapSizeRight$ cells) with the merged crossing curve
+\caption{\textbf{Beyond slice-wise period-two crossings, measured rotation tracks the crossing angle and
+locked windows appear as plateaus.} A and B:
+rotation-number maps of S2-28011 ($\tMapSizeMain$ and $\tMapSizeRight$ cells) with the merged crossing locus
 (\nMergedPoints{} points, black) and the resonance points where the crossing angle is $m/q$ (filled when locked
 cells of the same rotation lie closer to the point than in 95\% of random placements, hollow otherwise; the 95\%
 level is a descriptive cut); chaotic cells gray, divergent white, period 2 light. C: rotation \xContOffsetMain{}
 decades beyond the curve against the crossing angle at the same output rate. Resonance points are interpolated
-between traced points.
+between output-ordered slice results; their full-state branch association is unverified.
 \provenance{paper/gd-route/figures/f2\_rotation\_map.py}{figures/f2\_rotation\_map.provenance.json}}
 \label{fig:rotmap}
 \end{figure}
 
-We continued the period-2 orbit of S2-28011 toward larger hidden-layer rates and merged several traces into one
-curve of \nMergedPoints{} points along which the orbit loses stability as a complex pair of two-step multipliers
-crosses the unit circle; the crossing angle runs from \xMergedBirthMin{} to \xMergedBirthMax{} turns per two steps.
+Within each fixed-output slice, we continued an independently initialized period-two orbit of S2-28011 toward
+larger hidden-layer rates. The merged locus contains \nMergedPoints{} slice-wise complex-pair crossings;
+continuous full-state branch identity between slices remains unverified. The crossing angle runs from \xMergedBirthMin{} to \xMergedBirthMax{} turns per two steps.
 Two rotation-number maps cover the region beyond it (Figure~\ref{fig:rotmap}). At \xContOffsetMain{} decades beyond
 the curve, the measured rotation number equals the crossing angle at the same output rate with median absolute
 difference $\xContMedianMain$ over \nContPointsMain{} points in the main map (largest $\xContMaxMain$) and
@@ -494,9 +495,10 @@ quasi-periodic cell lies at \xOnsetAtSlice{} with rotation \xRhoOnset{}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{f7_criticality.pdf}
-\caption{\textbf{The first Lyapunov coefficient is negative on most of the curve, changes sign three times, and
-predicts how the period-2 orbit loses stability.} A: $d$ at every point of the merged curve (symmetric-log axis);
-dashed lines mark sign changes, located to the trace spacing; the strip shows the label of the fixed-start rotation
+\caption{\textbf{The first Lyapunov coefficient is negative at most sampled crossings and predicts local onset
+at the tested points.} A: $d$ at the merged slice-wise crossings (symmetric-log axis); dashed lines mark sign
+transitions between adjacent output-ordered rows. Branch identity across these rows is unverified, so these
+transitions do not locate sign changes along one established orbit branch. The strip shows the label of the fixed-start rotation
 maps four cells beyond the curve. B: at supercritical points, the amplitude of the circle reached from near the
 2-cycle against the normal-form prediction, at three offsets beyond the curve. C: at subcritical points, the escape
 threshold before the curve against the offset, with the predicted repelling circle. A point counts as consistent
@@ -506,15 +508,16 @@ amplitude and the escape threshold grows like the square root of the offset (sub
 \label{fig:criticality}
 \end{figure}
 
-At \nCritSuper{} of the \nCritPoints{} curve points the first Lyapunov coefficient is negative, so the crossing is
+At \nCritSuper{} of the \nCritPoints{} sampled crossings the first Lyapunov coefficient is negative, so the crossing is
 supercritical under the generic hypotheses; tested onset trajectories are consistent with the attracting-circle prediction
 (Figure~\ref{fig:criticality}). Negative criticality alone does not exclude phase locking on that circle. At \nCritSub{} points,
-at both ends of the curve, it is positive. The sign changes \nChenciner{} times, near $\log_{10}\eta_o$ = \tChenciner{};
-these brackets are candidates for generalized Neimark--Sacker (Chenciner) points; their additional
-nondegeneracy conditions have not been established. In \nDynConsistent{} of \nDynChecks{} dynamical checks the
+at both ends of the sampled output range, it is positive. Adjacent output-ordered rows have opposite signs
+in \nChenciner{} places, near $\log_{10}\eta_o$ = \tChenciner{}. These nominate locations to investigate for
+generalized Neimark--Sacker (Chenciner) points. Full-state association across each bracket and the additional
+nondegeneracy conditions remain unverified. In \nDynConsistent{} of \nDynChecks{} dynamical checks the
 behaviour matches the sign: at supercritical points the circle amplitude follows the square-root prediction (median
-relative error \pDynMedianError{}, largest \pDynMaxError{} next to a sign change), and at subcritical points the state
-jumps away beyond the curve while escape thresholds before it grow like the square root of the offset, with
+relative error \pDynMedianError{}, largest \pDynMaxError{} next to an adjacent-row sign transition), and at subcritical points the state
+jumps away beyond the corresponding slice crossing while escape thresholds before it grow like the square root of the offset, with
 hysteresis. In the 72-parameter S1R network, \nCritSOneRSuper{} of \nCritSOneR{} traced points are supercritical.
 
 The fixed-start maps show quasi-periodic training beyond the supercritical arc. Where they show divergence just
@@ -873,8 +876,8 @@ Everything in this section is interpretation. The confirmed results in Section~\
 their own, and the hypotheses here need their own prespecified tests.
 
 The local part of the thesis now rests on several independent kinds of evidence: the crossing multipliers, the
-normal-form coefficient and its dynamical checks, the continuity of the rotation number with the crossing angle in
-two maps, and the same behaviour in a real-data network and in a solvable linear network. The selected scalar
+normal-form coefficient and its dynamical checks, agreement of sampled rotation numbers with corresponding
+crossing angles in two maps, and the same behaviour in a real-data network and in a solvable linear network. The selected scalar
 case also has a local computer-assisted proof. The picture that fits is
 the quasi-periodic organization familiar from circle maps and forced oscillators
 \citep{curry1978,aronson1982,jensen1984}: a closed period-2 orbit can lose stability at a
@@ -935,7 +938,9 @@ with matched-state float64 checks and has no accepted periodic orbit. Screening 
 reruns. The orbit census uses floating-point validation; the three selected exact-real attracting orbits and
 the scalar local NS in Section~\ref{sec:certificates} have rigorous enclosures. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
-use two-dimensional projections of curves in many dimensions. Most mechanism analyses were chosen after seeing
+use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
+initialized output slices and do not establish branch identity between them or generalized-NS points.
+Most mechanism analyses were chosen after seeing
 related outcomes. The consequence pilot measures held-out loss and perturbation response in small models, but establishes no
 robust training advantage. Transfer to stochastic training, modern language models and useful interventions
 remains open.

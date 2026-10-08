@@ -1,10 +1,10 @@
 """Figure 7: criticality of the complex-pair crossing of the period-2 orbit (S2-28011).
 
 Evidence: exploratory (docs/explore-criticality-2026-10-07.md). Panel A: first
-Lyapunov coefficient d of the normal form at every point of the merged curve
+Lyapunov coefficient d of the normal form at independently initialized slice-wise crossings
 (Kuznetsov's formula for n-dimensional maps; d < 0 supercritical, d > 0
-subcritical), on a symmetric-log axis, with the sign changes (candidate generalized
-Neimark-Sacker points) marked; the strip below shows the label of the fixed-start
+subcritical), on a symmetric-log axis, with adjacent-row sign transitions marked.
+Cross-output full-state branch identity and generalized-NS points remain unverified; the strip below shows the label of the fixed-start
 rotation maps four cells beyond the curve. Panel B: supercritical points: the
 measured amplitude of the circle reached from near the 2-cycle against the
 normal-form prediction sqrt(log|mu| / -d) at three offsets beyond the curve.
@@ -80,8 +80,8 @@ def main():
         ax.axvline(z, color=c.SECONDARY, linewidth=0.7, linestyle="--")
     ax.set_yscale("symlog", linthresh=0.05)
     ax.set_ylabel("first Lyapunov coefficient d")
-    ax.set_xlabel("log10 output-layer rate (point on the curve)")
-    ax.set_title("A  Criticality along the curve; dashed: sign changes (generalized NS candidates)",
+    ax.set_xlabel("log10 output-layer rate (independent slice crossing)")
+    ax.set_title("A  Slice-wise criticality; dashed: adjacent-row sign transitions",
                  fontsize=8)
     strip_y = d.min() * 1.6
     for p in points:
@@ -90,7 +90,7 @@ def main():
             continue
         label = b["labels_beyond_cells"].get("4")
         ax.plot(p["log10_output"], strip_y, "s", markersize=3.2, color=LABEL_COLORS.get(label, c.MUTED))
-    ax.text(0.01, 0.13, "strip: fixed-start map label 4 cells beyond the curve", transform=ax.transAxes,
+    ax.text(0.01, 0.13, "strip: fixed-start map label 4 cells beyond each crossing", transform=ax.transAxes,
             fontsize=6.3, color=c.SECONDARY)
     handles = ax.get_legend_handles_labels()[0]
     handles += [Line2D([], [], marker="s", linestyle="", color=col, label=f"map: {lab}")
@@ -123,7 +123,7 @@ def main():
                     markersize=3.5, linewidth=0.6)
     cx.set_xscale("log")
     cx.set_yscale("log")
-    cx.set_xlabel("offset before the curve (decades)")
+    cx.set_xlabel("offset before the slice crossing (decades)")
     cx.set_ylabel("escape threshold")
     cx.set_title("C  Subcritical points: hard onset", fontsize=8)
     cx.legend(handles=[Line2D([], [], marker="^", color=c.FLIP, label="measured escape threshold"),
@@ -133,15 +133,15 @@ def main():
                "sign_changes": changes, "most_negative_d": float(d.min()),
                "most_negative_at": float(x[int(np.argmin(d))]), "dynamical_checks": results}
     n_ok = sum(r["consistent"] for r in results)
-    alt = (f"First Lyapunov coefficient d at {len(points)} points of the curve where the period-2 orbit of S2-28011 "
-           f"acquires complex multipliers: {derived['supercritical']} supercritical (d < 0) and "
-           f"{derived['subcritical']} subcritical (d > 0), with {len(changes)} sign changes. The fixed-start maps "
+    alt = (f"First Lyapunov coefficient d at {len(points)} independently initialized slice crossings where a period-2 orbit of S2-28011 "
+           f"has a complex pair crossing the unit circle: {derived['supercritical']} supercritical (d < 0) and "
+           f"{derived['subcritical']} subcritical (d > 0), with {len(changes)} adjacent-row sign transitions; branch identity between rows remains unverified. The fixed-start maps "
            f"show quasi-periodic training beyond the supercritical arc. In {n_ok} of {len(results)} dynamical checks "
            f"the behaviour matches the sign: circle amplitudes follow the square-root prediction at supercritical "
            f"points, and escape thresholds before the curve grow like the square root of the offset at "
            f"subcritical points.")
     c.save(fig, "f7_criticality", [*CURVES, BOUNDARY, DYNAMICS], __file__, "exploratory", alt, derived,
-           "Sign changes located to the trace spacing only.")
+           "Adjacent-row sign transitions only; neither continuous branch association nor generalized-NS nondegeneracy is established.")
 
 
 if __name__ == "__main__":

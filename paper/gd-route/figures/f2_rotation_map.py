@@ -1,4 +1,4 @@
-"""Figure 2: rotation-number maps of S2-28011 with the merged complex-pair crossing curve.
+"""Figure 2: rotation-number maps of S2-28011 with the merged locus of slice-wise complex-pair crossings.
 
 Evidence: exploratory. Two GPU float64 maps (tools/explore_gpu_rotation_map.py):
 1,024 x 1,024 cells over the main region and 1,024 x 400 cells over the right
@@ -105,7 +105,7 @@ def main():
     cx.set_ylim(lims)
     cx.set_xlabel("crossing angle of the period-2 multipliers (turns per two steps)")
     cx.set_ylabel("rotation 0.002 decades beyond")
-    cx.set_title("C  Rotation just beyond the curve against the crossing angle", fontsize=8)
+    cx.set_title("C  Rotation beyond each slice crossing against its angle", fontsize=8)
     cx.legend(loc="upper left", frameon=False, fontsize=6.5)
     handles = [Line2D([], [], color=c.INK, linewidth=1.0, label="complex-pair crossing (Neimark-Sacker candidate)"),
                Line2D([], [], marker="o", linestyle="", markerfacecolor=c.FLIP, markeredgecolor=c.FLIP,
@@ -114,9 +114,9 @@ def main():
                       label="resonance point, none nearby")]
     fig.legend(handles=handles, loc="outside lower center", ncol=1, frameon=False, fontsize=6.5)
     main, right = derived["main region"], derived["right wing"]
-    alt = (f"Two rotation-number maps of the 13-parameter network S2-28011 with the traced curve where its period-2 "
-           f"orbit acquires complex multipliers ({len(rows)} points). Beyond the curve the rotation number varies "
-           f"continuously and periodic windows appear as constant-color regions; chaotic cells are gray. At 0.002 "
+    alt = (f"Two rotation-number maps of the 13-parameter network S2-28011 with a merged locus where independently initialized period-2 "
+           f"orbits have a complex pair crossing the unit circle ({len(rows)} points). Across-output full-state branch identity is unverified. The rotation varies "
+           f"across sampled controls and periodic windows appear as constant-color regions; chaotic cells are gray. At 0.002 "
            f"decades beyond the curve the rotation number matches the crossing angle with median absolute difference "
            f"{main['continuity_median_abs_diff']:.1e} ({main['continuity_points']} points, main map) and "
            f"{right['continuity_median_abs_diff']:.1e} ({right['continuity_points']} points, right wing). Of the "

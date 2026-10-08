@@ -3920,3 +3920,15 @@ output-group fraction cap at all four pinned forks; no pulse is run. Complete
 immutable inventories pass. Separate outcome auditors are being frozen before
 reading numerical target results. See the two producer outcome reports and
 receipts under `docs/reviews/`. No retry or new paid/GPU/protected-data use.
+
+
+## 2026-10-08 — manuscript correction: independently initialized crossing slices
+
+Independent source review found that S2 merged NS/criticality rows are sorted
+slice results, without full-state association across output controls. Root
+qualified the methods, introduction, contribution, discussion, captions,
+Figure2/7 labels/alt text and number-manifest descriptions. The three adjacent-
+row sign transitions nominate further checks, not established branchwise
+Chenciner points. All coefficients, plotted coordinates and computations are
+unchanged. Figure/number regeneration, complete new-outcome integration and
+PDF compile/visual review follow this source checkpoint.
