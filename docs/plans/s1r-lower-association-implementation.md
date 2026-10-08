@@ -87,3 +87,14 @@ runner. Preserve its source, command, PID, exit/log and manifest even if the
 child fails. Independent saved-outcome review must precede paper integration.
 Send that reviewer only availability, execution source, paths and immutable
 hashes initially so the audit can be fixed before numerical outcomes are read.
+
+## Independent-source-review corrections, before any target outcome
+
+8 October 2026 UTC. Track edge start/completion only after successful durable
+emission. A core edge's in-memory `accepted` flag can precede a failed write;
+that edge remains journal-pending and cannot advance the last witnessed pair.
+Attempts whose first pending event was not written are separately identified.
+The launcher's fixed120s supervisor also closes inherited stdout and kills its
+owned process group when the leader has already exited, preventing an orphan
+pipe from extending the115+5 resource envelope. Synthetic injected failures
+cover both cases. Neither correction changes a scientific gate or target.

@@ -3704,3 +3704,12 @@ manifest2f962ced4b6f32aca588f1012985591acc670437ff944e8e15375acf4fd2e03f,read-on
 exact acquisition gaps: docs/reviews/utility-input-qualification.md and-receipt.json.
 Proposed next gate is four gradients without updates, requiring separate review
 and authorization; no such computation or control acquisition was launched.
+Independent lower-source review requested pre-outcome durability corrections:
+pending edge metadata now follows successful journal emission, with unwritten
+attempts separate; the120s owned-group supervisor also bounds an inherited pipe
+after leader exit. Synthetic edge-write failures and forked-pipe controls were
+added. No target/profile attempt preceded these corrections.
+
+Validation after those corrections:62 synthetic/reused-core controls pass in
+4.35s, including injected accepted-edge/start-write failures and a child whose
+exited leader leaves an inherited stdout pipe. No target/profile launch.
