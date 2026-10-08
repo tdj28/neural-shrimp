@@ -2368,3 +2368,23 @@ Collect with `timeout --signal=TERM --kill-after=5s 260s nice -n 10 /data2/neura
 
 
 Independent review also reproduced terminal-state loss if checkpoint metadata raises just after an accepted update, and identified that default SIGTERM bypasses Python cleanup. Before calibration, move unique terminal-state retention into `finally` and install a SIGTERM handler raising `CollectionInterrupted`; retain failure/result/manifest within the external five-second grace. An injected termination after update50 now requires51 states including theta50. SIGKILL, device/OS failure and storage failure can still prevent cleanup; per50-state durable chunks bound the unflushed history and launcher evidence remains. No such interruption occurred in the immutable profile.
+
+### 2026-10-08 — independent six-case tiny-LM saved-evidence audit
+
+Producer outcome9f98bb6d reports a failed calibration gate; this is disclosed
+before verification and is not a blinded/confirmatory test. Freeze this audit
+script before independently checking the existing immutable collection and
+analysis. Source b9e5b8c3 and source-review39ba1721 must match the durable
+launchers. Verify exact file inventory/hashes, all six case identities,
+contiguous full-state storage, feature/CE/label lengths and censoring, geometry
+history reconstruction, training-only statistics/split counts, selected tuning
+score, saved predictions and independent Brier/tied-score AP/gate arithmetic.
+Do not refit logistic models, recompute gradients, run training, evaluate
+assessment/validation or launch policies. Report eventful-trajectory metrics
+separately from the seed-pooled gate and retain sparse-event limitations.
+
+CPU1/nice10, external30s cap, no GPU/paid call. Exclusive audit output:
+`/data2/neural-shrimp-data/audits/tiny-lm-calibration-outcome/attempt-001.json`.
+Inputs are the attempt-002-calibration collection, adjacent analysis.json and
+its two launcher receipts. Save any audit error and explain it; no outcome
+artifact may be changed. Commit audit source/card before replay.
