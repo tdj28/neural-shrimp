@@ -33,6 +33,8 @@ def clean(value):
         return clean(value.tolist())
     if isinstance(value, (float, np.floating)):
         return float(value) if np.isfinite(value) else None
+    if isinstance(value, (bool, np.bool_)):
+        return bool(value)
     if isinstance(value, (int, np.integer)):
         return int(value)
     return value
@@ -90,6 +92,12 @@ def run_case(model, ratio, out, start_steps, probe_steps, tail_steps):
         return result
     A, B, C = model.two_step_forms(p, eta, ratio)
     result['ns_root'].update(planar_stability(A))
+    result['ns_root'].pop('attracting')  # Roundoff at the crossing does not decide stability.
+    scale = np.sqrt(eta*np.array([1.0, ratio]))
+    S0, S1 = [np.eye(2)-scale[:, None]*model.hessian(z)*scale
+              for z in (p, model.step(p, eta, ratio))]
+    result['ns_root']['symmetric_step_eigenvalues'] = [np.linalg.eigvalsh(S).tolist() for S in (S0, S1)]
+    result['ns_root']['symmetric_step_commutator_norm'] = float(np.linalg.norm(S0@S1-S1@S0))
     second = model.step(p, eta, ratio)
     result['ns_root']['cycle_separation'] = float(np.linalg.norm(second-p))
     result['ns_root']['mean_difference_residual'] = float(np.max(np.abs(model.cycle_equations((p+second)/2, (p-second)/2, eta, ratio))))
