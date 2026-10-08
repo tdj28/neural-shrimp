@@ -105,9 +105,65 @@ signoff. Raw arrays are under32 MiB (264x15776 float32 gradients are16,659,456
 bytes); fixed JSON/prediction overhead has more than14 MiB headroom, and writes
 check the cap. Parent owns separate-disk backup including failed attempts.
 
-Verification status: all20 synthetic controls passed in4.86s on CPU1/nice10,
-including full32-candidate reconstruction, semantic prediction/model/gate tamper
+Verification status: all 20 synthetic controls passed in 4.86 s on CPU 1/nice 10,
+including full 32-candidate reconstruction, semantic prediction/model/gate tamper
 rejection, rehashed token substitution against the original synthetic corpus,
 33-state causal-history sufficiency and retained deadline failure. Root source
 review and saved-data execution remain pending. No numerical target result is
 asserted here.
+
+## Saved-outcome audit result — 8 October 2026 UTC
+
+**Pass, with arithmetic and sampled-feature scope distinguished below.** The
+broader training pool improved the saved fixed development-probe comparisons,
+while the plane features again failed the incremental forecast criterion.
+This unit supplies no evidence of shrimp-specific learning or control benefit.
+
+Root source review and launch authorization
+`2693a506618d763ee41a1237454a38d1a0b90dbd` bound the one execution to audit source
+`f773b70e053612f2e91d88cb4d506c7d29b50753`. Execution source/card of the producer
+was `44ed5ef60bdb300087c04d5a7b7d3fd7faf75dee`; its reviewed executable source
+remained `ca9e96b3`. Exactly one audit ran; no retries or threshold changes.
+The compact hash-bound receipt is `tiny-lm-broader-outcome-audit.json` alongside
+this record; original raw, source and producer evidence remain unchanged.
+
+The complete arithmetic audit passed: exact corpus/token/source identities,
+all four full saved-state sequences and paired initializations/rates, all
+continuous labels and embargoed splits, all 32 independent candidate refits,
+selected penalties/comparators, every eligible prediction/status/metric and both
+seed gates. All comparator rows were valid and both comparisons exceeded the
+predeclared error floor. The negative forecast interpretation is reproduced.
+
+| Initialization | B2 normalized test MSE | B3 normalized test MSE | Selected ordinary comparator | Ordinary normalized test MSE |
+|---|---:|---:|---|---:|
+| 28161 | 0.305050069 | 0.299925825 | B1 | 0.102667803 |
+| 28162 | 0.515333478 | 0.502607655 | AR1 | 0.094886198 |
+
+B3 improves slightly on B2 but misses the required 5% gain and performs worse
+than each tuning-selected ordinary baseline. Its MAEs are 0.02916275 and
+0.03903172, versus 0.01706586 and 0.01710549 for those ordinary baselines.
+No failed comparator was dropped to obtain these results.
+
+The eight fixed sampled feature checks separately passed: all 264 CPU float32
+gradients at saved states completed, all finite masks matched, maximum feature
+absolute error was 1.729e-7, and maximum CPU/stored CE absolute error was 4.921e-7.
+The largest feature error as a fraction of its predeclared allowed error was
+0.003743. This is sampled implementation parity with shared reviewed primitives,
+not exhaustive independent gradient verification or trajectory equivalence.
+
+Descriptive probe arithmetic also agrees. The 256-window minus 8-window probe CE
+at 800 updates is −4.762907 and −4.755124 nats for the two seeds. At equal processed
+training-token count (256-window step 25 versus8-window step 800), it is −4.239311
+and −4.260609. These values concern the same fixed probe, not a new corpus, and
+probe forward evaluations were not independently replayed. At equal updates,
+training-token counts differ 32-fold; the equal-token comparison has different
+update counts. Neither comparison alone identifies the mechanism of the gain.
+
+Resource check before launch: load 1.07/1.35/1.89, about 45 GiB available RAM, GPU
+idle with no compute processes; no GPU allocation was made. CPU/BLAS 1/nice 10,
+8.441 s internal audit and 9.131 s launcher elapsed, 981,416 KiB peak child RSS.
+Audit PID 57241 and timeout PID 57240 exited; launcher PID 57208 also verified
+absent. The 24-file audit directory including its manifest totals 18,627,772 bytes,
+below 32 MiB. Raw files and the three launch/log records are now read-only; hashes
+were verified before freezing. No failure or partial attempt occurred. Stop
+here; root owns integration and the separate-disk backup.

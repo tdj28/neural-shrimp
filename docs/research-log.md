@@ -2756,3 +2756,24 @@ before launch, no GPU/paid services/protected data. Preserve every stage, sample
 failed/incomplete attempt and exact source/inputs; output directory is exclusive,
 all writes checked against the cap. Parent backs up the whole audit unit on the
 separate disk. No target audit or follow-on experiment is authorized by this card.
+
+### Independent broader-data LM saved-outcome audit — completed, 2026-10-08 UTC
+
+Root authorized exactly one run after source review2693a506. Audit source
+f773b70e executed on CPU1/nice10 with the pinned producer44ed5ef6, manifest
+2ec1948521fe50a05a81b0ddec2e3e741cb25745c58f887868e3c5db43e2413d and analysis
+a84558767147a0d9521e4d9f597982075145d96e36c4dffabe1039b7536179c3. Complete
+independent candidate/scoring arithmetic passed, reproducing the negative B3
+forecast gate for both seeds. Eight fixed feature checkpoints (264 CPU gradients)
+separately passed the previously fixed cross-device tolerances and exact masks.
+No retry, threshold change, HVP, GPU allocation, trajectory update or probe
+forward evaluation occurred. The saved probe arithmetic supports the stated
+fixed-pool broader-training comparison, with no shrimp-specific utility claim.
+
+Raw `/data2/neural-shrimp-data/audits/tiny-lm-broader-data/attempt-001` and
+`/data2/neural-shrimp-data/logs/tiny-lm-broader-data-audit-attempt-001` records
+were hash-verified and frozen read-only. 8.441s audit,9.131s launcher,
+18,627,772bytes raw,981,416KiB peak child RSS. Owned PIDs57241/57240/57208 all
+exited. Detailed scope, numerical results, all raw/launcher hashes and limitations
+are in `docs/reviews/tiny-lm-broader-outcome-audit.md` and its compact JSON receipt.
+No incomplete attempt occurred. Stop; parent integrates and backs up this unit.
