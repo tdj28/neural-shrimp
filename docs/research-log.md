@@ -1724,3 +1724,11 @@ _commit `cd080e889870` (dirty worktree)_
 Continuation rerun with LI and SR searches: at eta 0.00828 the capped Newton-GMRES corrector (8 Newton steps, GMRES(100) x 8 restarts) left the relative two-step residual at 1.2e-5 (start about 5e-6), so continuation stopped by its corrector rule after one point (132 s). The multiplier at that unconverged point was 0.996036 - 0.009417i (modulus 0.99608, theta/2pi 0.0015), not to be used. Likely cause: the near-singular flat-direction cluster of J^2 - I (eigenvalues about -2 eta lambda = -1.7e-4) with a wide stiff spectrum stalls restarted GMRES. Fallback for this stream: converge to the attracting 2-cycle by gradient descent below the transition and compare the Arnoldi multiplier with the loss spiral (running).
 
 _commit `cd080e889870` (dirty worktree)_
+
+- run started 2026-10-08 04:57 UTC finished 05:02 UTC with exit status 0
+
+## 2026-10-08 05:11 UTC: CIFAR pilot: onset of sustained slow modulation of the 2-cycle between eta 0.0083 and 0.0094; crossing not certified
+
+After 60,000 further steps: at eta 0.00828 the state is still 3.9e-6 from a period-2 orbit (two-step relative residual) and the even-step loss shows only slow real relaxation (AR(2) root 1.000035 + 0.00045i); the matrix-free critical pair at the earlier sweep state was 0.998575 +- 0.006340i (modulus 0.998595, theta/2pi 0.00101). At eta 0.00939 the loss oscillation no longer decays (envelope 1.12e-4 to 1.13e-4), so training is on a small closed modulation of the 2-cycle with frequency 0.0018 (spectral peak) to 0.0028 (AR(2) on the second half, modulus 0.99993) turns per two-step; Arnoldi at that point (on the loop, not at the 2-cycle) gives 0.99013 + 0.02154i (theta/2pi 0.0035). The pre-stated surprise (Arnoldi and loss angles disagreeing by more than 20 percent) occurred, but the comparison is not like-for-like because the 2-cycle itself could not be certified (Newton-GMRES failure). Above, the modulation frequency rises smoothly to 0.020 at eta 0.020 with steady envelopes. Status: consistent with a Neimark-Sacker of the edge-of-stability 2-cycle with small birth angle between 0.0083 and 0.0094 (as in the digits network), but neither the crossing nor its type is certified; no invariant-circle or Lyapunov test was completed.
+
+_commit `bfeeb7b1f915` (dirty worktree)_
