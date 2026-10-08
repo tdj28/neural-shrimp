@@ -32,12 +32,14 @@ so ||v||=tau||s||. The two arms' block fractions are kappa±tau*O/H and kappa∓
 
     0 <= tau <= min(kappa,c−kappa)*min(H/O,O/H).
 
-Strong group imbalance therefore limits the admissible angular contrast. Any later choice of kappa/tau must be disclosed before pulse outcomes, retain every fork, and pass its own exact arithmetic/finite-value checks. No values are chosen here.
+A nonzero paired contrast needs0<kappa<c and tau>0. Strong group imbalance therefore limits the admissible angular contrast. Any later choice of kappa/tau must be disclosed before pulse outcomes, retain every fork, and pass its own exact arithmetic/finite-value checks. No values are chosen here.
 
 A uniform comparator with the same total update length would use kappa_match=1−sqrt((1−kappa)²+tau²), when this lies within the allowed nonnegative fraction cap. It has a different pulse norm unless tau=0. That comparator can test practical loss reduction at equal initial update length, while the paired ± contrast isolates two directions with both norms matched. Sham remains useful. These are different estimands and should not be conflated.
 
 ## Decision before spending on tails
 
-Do not launch the old candidate with a smaller dose solely to obtain feasible arms. First choose whether the target is practical rate-control performance or a conditional directional-response mechanism, and specify the appropriate comparator. For a paired contrast, generic predictors include the gradient, block imbalance, curvature, phase and local transient gain; unequal response alone is not evidence for shrimp geometry. A sensitivity asymmetry can occur in ordinary periodic or chaotic dynamics too.
+Do not launch the old candidate with a smaller dose solely to obtain feasible arms. First choose whether the target is practical rate-control performance or a conditional directional-response mechanism, and specify the appropriate comparator. For a paired contrast, generic predictors include the gradient, block imbalance, curvature, phase and local transient gain; unequal response alone is not evidence for shrimp geometry. In particular, v perpendicular to Pg need not be perpendicular to g for unequal block rates: even the paired immediate loss difference can have an ordinary first-order gradient explanation. A sensitivity asymmetry can occur in ordinary periodic or chaotic dynamics too.
 
 The independent ordinary-periodic/chaotic controls, initial-state support, recovery-map qualification and all historical accessibility failures remain required for a geometry-specific claim. The existing zero-qualified-control result is unchanged. No parameter scan, alternative-control search, training pulse, protected evaluation, or LM controller is justified by this note. The next useful preparation is a concrete comparator and common-support design, not a larger training run.
+
+Independent algebra review: `docs/reviews/utility-dose-geometry-review.md`, source10423fab, motivated the two clarifications above. No empirical or novelty claim is added.
