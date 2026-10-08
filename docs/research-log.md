@@ -4050,3 +4050,15 @@ retained gap; dose and input-span findings remain narrowly negative. Fifteen
 new macros agree with audited receipts. No target experiment or manuscript
 edit; root PDF QA is attributed rather than independently repeated. Details:
 `docs/reviews/paper-lower-span-independent-review.md` and companion JSON.
+
+## 2026-10-08 UTC — design-only next lower S1R gap decision
+
+Read saved final continuation, spectral metadata, first-phase failure records
+and reviewed source; no new model/derivative/norm/SVD/correction calculation.
+The failure is a fixed13-trial infinity-norm line-search stall, with conditioning
+pressure but no established fold. `docs/plans/s1r-lower-gap-next.md` selects a
+six-fixed-state residual/Jacobian/parameter-tangent diagnostic before any
+pseudo-arclength proposal. The companion input JSON pins exact records/arrays,
+including the closest failed target and final stored Newton equation. Proposed
+15s internal/20+5 external CPU1nice10/8MiB; source, synthetic controls, independent
+review and separate authorization remain required. No implementation or launch.
