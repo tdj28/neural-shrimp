@@ -2438,3 +2438,28 @@ runtime. The offline verifier will recompute them and fail closed.
 Command after committing/pushing this card and code:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_scalar_ns.py run --out /data2/neural-shrimp-data/explore/certificates/scalar-ns-2026-10-07/attempt-001`.
 This card authorizes no further attempt or endpoint/continuation scan.
+
+### 2026-10-08 06:01 UTC — scalar NS first certificate outcome
+
+The one declared selected-target attempt at source
+`0652d49529265565078b63360ec76bd9dd5f21a8` passed all seven rigorous gates:
+augmented inclusion, positive rate, primitive period two, complete complex
+unit pair, orders 1–4 nonresonance, positive analytic crossing slope, and
+negative criticality by both coefficient formulas. Exactly five proposal
+updates at 256 bits preceded the one fixed `2^-40` box; no search or second
+attempt occurred. Source, input and complete enclosures are bound by
+`certificates/scalar-ns-receipt.json`; certificate SHA256
+`7e1897addaa9648a597c1cdd2b674504740d2becb942fe4428caf27ffac72e05`.
+Raw evidence is under
+`/data2/neural-shrimp-data/explore/certificates/scalar-ns-2026-10-07/attempt-001`.
+
+Measured runtime 0.0783 seconds, maximum RSS 47,012 KiB, CPU1/nice10; no GPU,
+paid compute or review. Offline replay reproduced all enclosures; four
+artifact tampering controls failed closed and an untouched relocated copy
+passed. The ten pre-run synthetic tests also passed. The result supports a
+local exact-real supercritical NS under the standard theorem, pending
+independent mathematical/code review. It supplies no finite parameter tube,
+explicit invariant-curve enclosure, global branch ancestry, quasiperiodicity,
+chaos, utility effect or finite-precision dynamics claim. Exact coefficient
+semantics, proof bounds and verification details are appended to
+`certificates/scalar-ns-design.md`. Paper integration awaits independent review.
