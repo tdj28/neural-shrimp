@@ -315,3 +315,48 @@ def test_launcher_rejects_wrong_execution_source_before_output(tmp_path):
     with pytest.raises(ValueError, match='HEAD mismatch'):
         launcher.launch(tmp_path/'raw',tmp_path/'launcher','0'*40,'0'*40)
     assert not (tmp_path/'raw').exists() and not (tmp_path/'launcher').exists()
+
+
+def test_failed_accepted_edge_emit_keeps_pending_journal_edge():
+    engine, progress, result, store = setup()
+    original=store.emit
+    def fail_edge(kind,payload,final=False):
+        if kind=='edge' and payload['status']=='accepted': raise PilotStop('raw_byte_limit')
+        original(kind,payload,final)
+    store.emit=fail_edge
+    with pytest.raises(PilotStop,match='raw_byte_limit'):
+        a.compare_along_bridge(engine,endpoint(1.1),endpoint(.95),result,progress)
+    terminal=progress.terminal()
+    assert engine.edges[0]['status']=='accepted'  # mutated before failed emit
+    assert terminal['pending_edges']==['edge-0000'] and terminal['durably_finished_edges']==[]
+    assert terminal['accepted_edges']==[] and terminal['last_witnessed']['params'][0]==1.1
+    assert result['association'] is None
+
+
+def test_failed_edge_start_is_an_unpersisted_attempt():
+    engine, progress, result, store = setup()
+    original=store.emit
+    def fail_start(kind,payload,final=False):
+        if kind=='edge_pending': raise PilotStop('raw_byte_limit')
+        original(kind,payload,final)
+    store.emit=fail_start
+    with pytest.raises(PilotStop,match='raw_byte_limit'):
+        a.compare_along_bridge(engine,endpoint(1.1),endpoint(.95),result,progress)
+    terminal=progress.terminal()
+    assert terminal['pending_edges']==[] and terminal['unpersisted_edge_attempts']==['edge-0000']
+    assert len(engine.edges)==1 and result['association'] is None
+
+
+def test_launcher_exited_leader_with_inherited_pipe_is_bounded(tmp_path,monkeypatch):
+    import subprocess
+    import sys
+    launcher=module('launch_s1r_lower_association')
+    monkeypatch.setattr(launcher,'committed_sources',lambda:{'synthetic':{}})
+    monkeypatch.setattr(launcher,'SUPERVISOR_SECONDS',.3)
+    code="import os,time; pid=os.fork(); time.sleep(20) if pid==0 else os._exit(0)"
+    monkeypatch.setattr(launcher,'command',lambda out,review:[sys.executable,'-c',code])
+    head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=launcher.ROOT,text=True).strip()
+    receipt=launcher.launch(tmp_path/'raw',tmp_path/'launcher',head,head)
+    assert receipt['failure']=='supervisor_timeout_or_inherited_pipe'
+    assert receipt['elapsed_seconds']<3 and receipt['process_exit']==0
+    assert receipt['raw_file_count']==0 and (tmp_path/'launcher'/'manifest.json').exists()

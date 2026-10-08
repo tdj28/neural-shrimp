@@ -3655,3 +3655,13 @@ overflow. Saved receipt arithmetic gives87.00285024289042s and181459833.33333334
 bytes; both pass the prospective gates. This reads existing timing metadata
 only and is not a new model profile or target experiment. The original core,
 old source bindings and previous plans are unchanged.
+
+Independent lower-source review requested pre-outcome durability corrections:
+pending edge metadata now follows successful journal emission, with unwritten
+attempts separate; the120s owned-group supervisor also bounds an inherited pipe
+after leader exit. Synthetic edge-write failures and forked-pipe controls were
+added. No target/profile attempt preceded these corrections.
+
+Validation after those corrections:62 synthetic/reused-core controls pass in
+4.35s, including injected accepted-edge/start-write failures and a child whose
+exited leader leaves an inherited stdout pipe. No target/profile launch.

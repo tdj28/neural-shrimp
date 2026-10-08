@@ -22,6 +22,7 @@ from neural_shrimp.s1r_lower_association import LAUNCHER_BYTES, STORE_BYTES, TOT
 PYTHON = '/data2/neural-shrimp/.venv/bin/python'
 THREADS = ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS')
 LOG_LIMIT = 128 * 1024
+SUPERVISOR_SECONDS = 120
 
 
 def command(out, review_commit):
@@ -99,10 +100,17 @@ def launch(out, launcher, source_commit, review_commit):
                     if len(chunk) != len(data) and not receipt['log_truncated']:
                         receipt['log_truncated'] = True
                         os.killpg(proc.pid, signal.SIGTERM)
-                # Backup only for a broken timeout/pipe supervisor, after its hard cap.
-                if time.monotonic()-started > 123 and proc.poll() is None:
-                    os.killpg(proc.pid, signal.SIGKILL)
-                    receipt['failure'] = 'supervisor_backup_kill'
+                # An exited leader may leave a descendant holding this pipe open.
+                # The owned process group and pipe must still be bounded.
+                if time.monotonic()-started >= SUPERVISOR_SECONDS:
+                    try:
+                        os.killpg(proc.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+                    receipt['failure'] = 'supervisor_timeout_or_inherited_pipe'
+                    for key in list(selector.get_map().values()):
+                        selector.unregister(key.fileobj)
+                    proc.stdout.close()
             selector.close()
         receipt.update(process_exit=proc.wait(), status='process_finished')
     except BaseException as error:
@@ -141,7 +149,7 @@ def main():
     args = parser.parse_args()
     receipt = launch(args.out, args.launcher, args.source_commit, args.review_commit)
     print(json.dumps(receipt, sort_keys=True))
-    return 0 if receipt['process_exit'] == 0 and not receipt['log_truncated'] and receipt['within_store_cap'] else 2
+    return 0 if receipt['process_exit'] == 0 and not receipt['log_truncated'] and receipt['within_store_cap'] and receipt['failure'] is None else 2
 
 if __name__ == '__main__':
     raise SystemExit(main())
