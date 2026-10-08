@@ -4341,3 +4341,16 @@ symbols or figure/caption defects found. No unchanged figure/proof or scientific
 process was rerun. `docs/reviews/paper-s1r-gap-authoring-qa.json` binds final
 source/PDF and records the harmless wrong-cwd authoring attempt. Parent content
 review remains pending before integration.
+
+
+### 2026-10-08 — lower-gap manuscript precision follow-up
+
+Parent read the complete new builder block and paragraph, accepted the binding
+and interpretation, and requested two wording refinements to `19665ada`: the
+stored direction solves its local Newton equation accurately; opposite null
+orientations are selected by the raw/scaled secant metrics. Positive coordinate
+scaling is not described as physically changing a tangent sign. Recompiled
+cleanly to31pages and inspected page21 in detail; all other30rendered pages are
+pixel-identical. All292numbers, generator and provenance remain unchanged; no
+builder or scientific replay. The authoring QA receipt binds final PDF/source
+and separately labels the preceding contact sheets. Final parent review pending.

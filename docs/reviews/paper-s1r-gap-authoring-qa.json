@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-08T13:14:11.798348+00:00",
+  "created_utc": "2026-10-08T13:16:32.797200+00:00",
   "status": "passed_preintegration_authoring_QA",
   "base_commit": "2dbd648e32a506ec92b6041c1d5a743003c9a87b",
   "independent_outcome_commit": "7b29add8f34dfd7fd8694a55b92a704a54147b40",
@@ -81,12 +81,12 @@
   },
   "files": {
     "main.tex": {
-      "bytes": 90421,
-      "sha256": "4a017a7c00e236dc2400f17398813d30ccf60e65cb220f034bcc02c9ada973ce"
+      "bytes": 90438,
+      "sha256": "7a2cccefe700c9b5e446e4055f034b3a384883947d6352fc9c8da29127f24a22"
     },
     "README.md": {
-      "bytes": 4403,
-      "sha256": "903e6635e3c94e9ea10e5387bd51e8f46681a3ed654b629ba07aa5054ac205b2"
+      "bytes": 4445,
+      "sha256": "6319e3a7995da09fdd11a41ec5a62ed9ee9888caa2c52fe269fb7c0fd6552414"
     },
     "scripts/build_numbers.py": {
       "bytes": 93018,
@@ -105,8 +105,8 @@
       "sha256": "1f7406e451dec5976b7e3c59b9da1c03e8d87975cb3065309231ce6aec1550ff"
     },
     "gd-route-working-draft.pdf": {
-      "bytes": 778469,
-      "sha256": "082eb036fe15b4f93cd8acd8afeff3ae3009ac95d7a0c47b54c208b13ff544d0"
+      "bytes": 778470,
+      "sha256": "6829a8f5d97d831d230ee95be6c9c233058b67c3421e9fb8f959c69a0d9c998a"
     }
   },
   "rendered_QA": {
@@ -147,6 +147,10 @@
     "/tmp/neural-shrimp-s1r-gap-latexmk-final.log": {
       "bytes": 7966,
       "sha256": "d49d57d7dcfc88a26ea53c2fde4f6715edacf4ea0c9b4f2d5a8f41a62c775fa2"
+    },
+    "/tmp/neural-shrimp-paper-qa/s1r-gap-diagnosis-precision/latexmk.log": {
+      "bytes": 7966,
+      "sha256": "919b7e0565a32251e969e7a84190633641cdf313e29085a45b31dca7ef67cda0"
     }
   },
   "limitations": [
@@ -155,5 +159,32 @@
     "Numerical regular endpoints and ill-conditioned nonclosed terminal state do not establish a fold, signed turn, disconnection or ancestry.",
     "No correction or new continuation performed; separate next-method design is not a launch.",
     "Working draft retains human/research placeholders and separately recorded reference checks."
-  ]
+  ],
+  "precision_followup": {
+    "parent_reviewed_commit": "19665ada2032a46128275d235350ec9d296f2750",
+    "edits": [
+      "Opener states the stored direction solves its local Newton equation accurately.",
+      "Opposite null orientations are chosen by raw/scaled secant metrics, not caused by a sign change under positive coordinate scaling.",
+      "README summary uses the same accurate-solution wording."
+    ],
+    "all292numbers_and_builder_and_provenance_unchanged": true,
+    "number_builder_rerun": false,
+    "prior_pdf": {
+      "bytes": 778469,
+      "sha256": "082eb036fe15b4f93cd8acd8afeff3ae3009ac95d7a0c47b54c208b13ff544d0"
+    },
+    "prior_QA_record": {
+      "bytes": 6068,
+      "sha256": "9bf5f53157687bc0d20ef99a9bcdcf7b17d2c6277c9eb5f70d1c23f241d9318b"
+    },
+    "only_changed_rendered_page": 21,
+    "other30pages_pixel_identical": true,
+    "final_page21_visual_QA": "passed: no clipping, broken symbols, overlap or layout defect",
+    "final_page21": {
+      "bytes": 430213,
+      "sha256": "0476e7691210a1f784aabffec822edeb22f19dcddc4a5e9c004406a9844ce1a6"
+    },
+    "scientific_reruns": 0
+  },
+  "rendered_QA_scope": "Contact sheets and previous detail images below belong to19665ada; final non21pages are pixel-identical. Final page21 is separately bound in precision_followup."
 }

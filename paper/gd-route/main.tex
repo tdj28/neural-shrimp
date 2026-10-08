@@ -725,7 +725,7 @@ fixed representative pairs. This leaves the lower-family association unresolved;
 a fold, global disconnection, coexistence nor absence of a connecting branch. See
 \path{docs/reviews/s1r-lower-outcome.md} and \path{docs/reviews/s1r-lower-independent-outcome.md}.
 
-A fixed-state follow-up finds an accurate local Newton equation at the last stalled state.
+A fixed-state follow-up finds that the stored direction solves its local Newton equation accurately.
 With $R=F^2(\theta)-\theta$ and $A=D_\theta R$ at fixed rates,
 the stored direction has $\|Ap+R\|_2/\|R\|_2=\xSOneRGapForcing$ and Frobenius-normwise
 backward error $\xSOneRGapBackward$. Nevertheless, all \nSOneRGapTrials{} retained line-search trials
@@ -733,9 +733,8 @@ increase the original unscaled infinity-norm residual; the smallest ratio is $\x
 Independent saved-data checks reproduce the equation and trial reductions using retained derivatives. The qualified predecessor
 and last accepted pairs remain numerically regular under the declared rank test.
 The terminal failed state is not a closed orbit: its raw residual Jacobian has condition estimate
-$\xSOneRGapCondition$, which does not establish a fold. At that state, the secant-oriented null
-direction's hidden-rate component has opposite signs in raw and scaled coordinates, so it does not
-establish a signed branch turn. No correction or further continuation is performed. See
+$\xSOneRGapCondition$, which does not establish a fold. At that nonclosed state, raw- and scaled-metric secant conventions choose opposite
+orientations of the local null direction; its sign therefore does not establish a branch turn. No correction or further continuation is performed. See
 \path{docs/reviews/s1r-lower-gap-outcome.md} and
 \path{docs/reviews/s1r-lower-gap-independent-outcome.md}.
 
