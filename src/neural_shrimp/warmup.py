@@ -141,3 +141,19 @@ def summarize(trace, cell, stable_reference, mask=None, tail=1000):
             "loss_recovered_within_10_percent": None if mean_tail is None else mean_tail <= 1.1 * stable_reference["loss_mean"],
             "terminal_median_distance_to_initial_orbit": distance_tail,
             "returned_to_initial_orbit_within_0_01": None if distance_tail is None else distance_tail < 0.01}
+
+
+def branch_access(trace, cell):
+    """Descriptive accessibility checks; finite horizon cannot prove basin exclusion."""
+    pre = np.flatnonzero(trace["phase"] == 0)
+    crossing = np.flatnonzero(trace["alpha"][:, cell] >= 0)
+    if not len(pre) or not len(crossing):
+        raise ValueError("prehold and nonnegative multiplier stages are required")
+    k = int(crossing[0])
+    departure = np.flatnonzero(trace["distance"][k:, cell] > 0.5)
+    pre_distance = float(trace["distance"][pre[-1], cell])
+    crossing_distance = float(trace["distance"][k, cell])
+    return {"distance_after_prehold": pre_distance,
+            "distance_at_first_nonnegative_log_multiplier": crossing_distance,
+            "near_reference_at_crossing_within_0_01": bool(np.isfinite(crossing_distance) and crossing_distance < 0.01),
+            "first_departure_after_crossing_pairs": int(departure[0]) if len(departure) else None}

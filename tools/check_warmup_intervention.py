@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 import numpy as np
 from neural_shrimp.trainability import SYSTEMS
+from neural_shrimp.warmup import branch_access
 
 
 def digest(path):
@@ -33,8 +34,13 @@ def check(output):
             raise ValueError(f'input mismatch: {path}')
     net, x, y, _ = SYSTEMS['S2'](28011)
     errors, loss_errors, checked = [], [], 0
+    access = []
     for path in sorted(output.glob('*.npz')):
-        with np.load(path) as trace:
+        with np.load(path) as archive:
+            trace = {key: archive[key] for key in archive.files}
+            if path.stem.endswith("-common"):
+                access.extend({"file": path.name, "start": start, **branch_access(trace, j)}
+                              for j, start in enumerate(("near_orbit", "ordinary_initialization")))
             indices = np.unique(np.r_[0, np.arange(1, len(trace['state']), 997), len(trace['state']) - 1])
             for index in indices:
                 previous = trace['initial_state'] if index == 0 else trace['state'][index - 1]
@@ -69,7 +75,8 @@ def check(output):
             'manifest_sha256': digest(output / 'manifest.json'), 'hash_checked_files': len(manifest['files']),
             'sampled_transition_cells': checked, 'max_state_replay_error': max(errors),
             'max_loss_replay_error': max(loss_errors), 'max_reference_closure': max(closures),
-            'max_log_multiplier_matching_error': max(alpha_errors), 'status': 'passed_float64_consistency_audit'}
+            'max_log_multiplier_matching_error': max(alpha_errors), 'branch_accessibility_post_run_annotation': access,
+            'status': 'passed_float64_consistency_audit'}
 
 
 def main():

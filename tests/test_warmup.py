@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from neural_shrimp.gdmaps import TwoLayerNet
-from neural_shrimp.warmup import orbit_distance, reduced_reference, rollout, summarize
+from neural_shrimp.warmup import branch_access, orbit_distance, reduced_reference, rollout, summarize
 
 
 def reference(orbit, h=-1.0, o=-1.0):
@@ -61,3 +61,16 @@ def test_loss_spike_and_local_departure_are_separate_and_invalid_reference_is_ex
     assert not summarize(trace, 0, stable)['local_departure_above_0_5']
     trace['reference_applies'][:] = False
     assert summarize(trace, 0, stable)['local_departure_above_0_5'] is None
+
+
+def test_accessibility_exposes_preexisting_distance_instead_of_calling_it_a_crossing():
+    trace = {"phase": np.array([0, 0, 1, 1]), "alpha": np.array([[-.1], [-.1], [0.], [.1]]),
+             "distance": np.array([[1.], [.6], [.7], [.8]])}
+    got = branch_access(trace, 0)
+    assert got['distance_after_prehold'] == .6
+    assert not got['near_reference_at_crossing_within_0_01']
+    assert got['first_departure_after_crossing_pairs'] == 0
+    trace['distance'] = np.array([[.1], [.001], [.002], [.7]])
+    got = branch_access(trace, 0)
+    assert got['near_reference_at_crossing_within_0_01']
+    assert got['first_departure_after_crossing_pairs'] == 1

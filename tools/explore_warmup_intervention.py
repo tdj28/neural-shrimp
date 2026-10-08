@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import numpy as np
 import scipy
 from neural_shrimp.trainability import SYSTEMS
-from neural_shrimp.warmup import matched_references, reduced_reference, rollout, summarize
+from neural_shrimp.warmup import branch_access, matched_references, reduced_reference, rollout, summarize
 
 
 def digest(path):
@@ -88,7 +88,7 @@ def main():
                     for k, policy in enumerate(("keep_top_rates", "reverse_hidden_ramp", "halve_both_rates")):
                         result = {"point": point_index, "log10_output": row["log10_output"], "d": row["d"],
                                   "alpha_endpoint": args.alpha, "dwell_pairs": dwell, "start": start,
-                                  "policy": policy, "common_after_crossing": pre,
+                                  "policy": policy, "branch_access": branch_access(common, j), "common_after_crossing": pre,
                                   "after_intervention": summarize(forks, 2 * k + j, refs[0])}
                         summaries.append(result)
                         print(json.dumps(result), flush=True)
