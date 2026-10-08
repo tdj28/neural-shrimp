@@ -3531,3 +3531,15 @@ Original creation-time receipts and pending labels are unchanged; new outcome
 companions record the review. Replay requires this historical source inventory,
 not later integration gdmaps changes. No GPU, paid resource, protected data,
 new training trajectory, geometry claim or utility result.
+
+### S1R next-unit decision memo — 2026-10-08 UTC, no launch
+
+Prepared `docs/plans/s1r-next-association-decision.md` on a new branch from the
+clean classical-reference review. The memo compares a lower-family common-control
+bridge with resonance development, binds exact saved endpoint hashes, states
+same/distinct/gap conclusions and proposes explicit resource limits based on
+existing receipts. It discloses the larger link/data budget required to reach
+the second endpoint. Only saved development records and existing timing fields
+were read; no implementation, profile, correction, trajectory, holdout access or
+scientific experiment occurred. A new reviewed card and launch authorization
+would still be required. Existing source/plan bindings and paper are untouched.
