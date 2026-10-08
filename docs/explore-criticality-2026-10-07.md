@@ -116,3 +116,105 @@ shared initialization, which mix criticality with basin accessibility.
   (`s2-28011-curve/curve.json`, `s2-28011-steep/curve.json`,
   `s1r-28002-curve/curve.json`, `boundary.json`, `criticality.png`,
   `s2-28011-dynamics/`, `control/`).
+
+## Optimizer scope correction and controlled warmup pilot (8 October 2026 UTC)
+
+A nonsymmetric update Jacobian does not by itself permit a Neimark-Sacker
+crossing at an optimizer fixed point. For standard heavy ball on a smooth
+scalar objective,
+
+`theta_next = theta - eta grad L(theta) + beta (theta - theta_previous)`,
+
+each real Hessian eigenvalue lambda at a stationary point gives the multiplier
+polynomial `mu^2 - (1 + beta - eta lambda) mu + beta = 0`. With constant
+`eta > 0` and fixed `0 < beta < 1`, a complex conjugate pair has modulus
+`sqrt(beta) < 1`. It cannot cross the unit circle as eta varies. At a
+nondegenerate minimum the first local loss of stability is a flip at
+`eta lambda_max = 2 (1 + beta)`. Fixed positive per-layer preconditioning
+preserves the argument because `P H` is similar to the symmetric matrix
+`P^(1/2) H P^(1/2)`. This corrects hypothesis H4 of the private handoff.
+
+Periodic branches in multidimensional parameter space require their full
+monodromy product and can behave differently. Adam and AdamW require separate
+analysis of their complete parameter and moment states, with epsilon placement,
+weight decay and bias correction specified. Schedules and stochastic batches
+also require separating the frozen autonomous map from the time-dependent or
+random trajectory. No claim that Adam has fixed-point Neimark-Sacker crossings
+is established here. An AR fit estimates linear modes, not the sign of the
+nonlinear first Lyapunov coefficient.
+
+The pilot below compares the existing S2-28011 hard point near output
+-0.44 and soft point near -0.30 at matched endpoints `log|mu| = +/-0.0015`.
+The branch is numerically refined at 41 instantaneous rate levels. Each level
+lasts 100 or 400 two-update pairs; starts are either 1e-4 from the stable
+2-cycle or the original network initialization. After an equal top hold, the
+same terminal state forks into unchanged rates, a reversed hidden-rate ramp,
+and a plain 50% reduction of both rates. These are mechanistic interventions
+with known boundaries, not a loss-only controller.
+
+All full parameter states at pair ends and both per-update losses are saved.
+Local departure (>0.5 Euclidean distance from the instantaneous frozen orbit),
+loss spike (>25% above its maximum loss), return to the initial orbit (<0.01),
+and loss recovery (terminal mean within 10% of the initial orbit mean) are
+separate operational endpoints, accompanied by continuous values. The global
+reduction arm has no continued local reference: its distance is only to the
+initial orbit, while its loss recovery uses the same initial-loss benchmark.
+This is exploration on previously inspected points; no fresh or protected
+seeds, paid compute, or claim of general optimizer utility is involved.
+
+### Pilot results: matched offsets and shared-state interventions
+
+**TLDR:** In this 13-parameter tanh network, the hard local transition led to
+a distant state that survived a reversal of the small rate increase. The soft
+transition remained nearby and reversed. Plain halving of both rates gave
+lower final training loss than the branch reversal in both cases. The local
+geometry explains departure and hysteresis here; it has not earned an
+improvement over an ordinary loss-recovery intervention.
+
+Attempt-002 completed in 63.65 seconds on one CPU thread. The table
+uses only near-orbit starts and gives the range across the two ramp speeds.
+Peaks are relative to the maximum loss of the instantaneous frozen 2-cycle.
+Terminal means are relative to the initial stable 2-cycle mean.
+
+| Previously inspected point | Postcrossing peak loss ratio | Maximum local state distance | Terminal loss: keep top rates | Terminal loss: reverse hidden ramp | Terminal loss: halve both rates |
+|---|---:|---:|---:|---:|---:|
+| Hard, d = +0.0814 | 9.589-11.233 | 3.309-3.683 | 1.258-1.266 | 1.236-1.273 | 0.570 |
+| Soft, d = -0.2431 | 1.602-1.622 | 0.159-0.163 | 1.019 | 1.000 | 0.494 |
+
+The soft point also crossed the operational 25% loss-spike threshold, despite
+remaining local and recovering when the ramp reversed. Its instantaneous peaks
+were about 60% above the cycle maximum while its terminal mean stayed about 2%
+above the initial orbit. A scalar peak alone therefore does not identify a hard
+bifurcation. The abrupt global reduction itself produced transient peaks
+5.55-5.83 times the initial orbit maximum at the soft point, even though its
+terminal mean loss was lower. Peak avoidance and final-loss recovery are
+different objectives.
+
+Both near-orbit hard starts stayed close at the crossing, then crossed the
+0.5 departure threshold after 5,532 or 6,450 two-update pairs. Reversing the
+small rate ramp left them about 0.61 from the initial orbit and did not meet
+the loss-recovery threshold. Both near-orbit soft starts returned within
+1.2e-7 of the initial orbit after the reversal. These are finite-horizon local
+observations, not a proof of chaos or a universal connection to training spikes.
+
+**Basin qualification, added after inspecting retained states:** ordinary
+initialization at the hard point was already 0.581 from the reference after
+the prehold and 0.61-1.32 away at crossing. Those runs do not identify a local
+crossing; they are finite-horizon accessibility controls. At the soft point,
+ordinary initialization reached distance 0.000615 after the prehold and then
+gave the same qualitative reversible behavior. Initial transients are excluded
+from the reported postcrossing peaks.
+
+Evidence is exploratory float64, rung 1. The audit hashes all 12 raw files
+and replays 704 sampled cell transitions and both recorded losses exactly.
+Maximum frozen-orbit closure is below 6.01e-16; maximum matched log-multiplier error
+is 6.73e-14. This uses the same analytic map implementation, not an independent
+implementation or an interval proof. Eleven focused tests pass.
+
+Reproduction: `python tools/check_warmup_intervention.py
+/data2/neural-shrimp-data/explore/warmup-intervention/attempt-002` (one command;
+join the wrapped line). Inputs, exact source commit, plan hash, full artifact
+manifest, retained rehearsal, and the separately saved post-run accessibility
+audit are in [the compact receipt](warmup-intervention-receipt.json).
+The controlled runner is `tools/explore_warmup_intervention.py`; no protected
+seeds, paid compute, momentum, stochastic batches, or transformer were used.
