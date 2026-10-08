@@ -4111,3 +4111,18 @@ scales/native phases/secants, saved forcing and13 original trials. Card:
 root authorization are still required before any artifact read. Thirty-five
 synthetic controls pass0.50s, including the full fabricated72D record graph.
 No new target model/derivative/SVD/solve or saved-outcome read was performed.
+
+
+### 2026-10-08 UTC — lower-gap auditor partial-boundary source repair
+
+Before producer launch or target reads, independent review found that the
+initial prospective auditor c0091097 rejected an attempted increment before a
+failed start emission, could downgrade a corrupt completed role when the whole
+attempt was incomplete, and allowed paired null phase losses. Repaired all
+three with narrow failure-order checks, finite numeric loss guards, and
+synthetic reproductions. A one-event terminal checkpoint lag is recorded under
+the exact Store ordering; completed-role lag is limited to the terminal event.
+No producer bytes, scientific thresholds or resource limits changed. Review
+and separate root authorization remain required before the saved-only audit.
+
+Final repaired focused suite:57 synthetic controls passed in0.66seconds under CPU/BLAS1 and nice10.

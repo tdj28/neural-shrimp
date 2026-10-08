@@ -295,3 +295,116 @@ def test_partial_unvalidated_return_never_gets_complete_arithmetic_verdict():
     checked=A.validate_arithmetic(prefix,original,False,result,plan)
     assert checked['validated_roles']==[] and checked['unvalidated_partial_roles'][0]['role']==A.ROLES[0]
     with pytest.raises(ValueError):A.validate_arithmetic(prefix,original,True,result,plan)
+
+
+def synthetic_prefix(folder, stop):
+    """Persist a prefix of the complete fabricated graph, including causal counters."""
+    values,original,result,plan=six_role_fixture();sequence=A.expected_sequence();journal=[]
+    attempted=dict(maps=0,jacobians=0,svds=0);returned=attempted.copy()
+    for index,kind in enumerate(sequence[:stop]):
+        if kind=='operation_started':
+            kinds=['svds'] if sequence[index+1].endswith('_svd') else ['maps','jacobians']
+            for key in kinds:attempted[key]+=1
+            payload=dict(kinds=kinds,attempted=attempted.copy())
+        else:
+            payload=values[kind]
+            if kind.endswith('_phase') or kind.endswith('_svd'):
+                for key in (['svds'] if kind.endswith('_svd') else ['maps','jacobians']):returned[key]+=1
+        journal.append(write_record(folder,index,kind,payload))
+    (folder/'journal.jsonl').write_text(''.join(json.dumps(row)+'\n' for row in journal))
+    result.update(status='failed_or_interrupted',operation_attempted=attempted.copy(),operation_returned=returned.copy(),completed_roles=[r for r in A.ROLES if r+'_complete' in sequence[:stop]])
+    prefix={k:values[k] for k in sequence[:stop] if k!='operation_started'}
+    return prefix,original,result,plan,journal
+
+
+@pytest.mark.parametrize('kind',['phase','svd'])
+def test_one_unjournaled_next_attempt_is_retained_without_return(tmp_path,kind):
+    sequence=A.expected_sequence()
+    stop=2 if kind=='phase' else sequence.index(A.ROLES[0]+'_raw_A_svd')-1
+    _,_,result,_,_=synthetic_prefix(tmp_path,stop)
+    keys=['maps','jacobians'] if kind=='phase' else ['svds']
+    for key in keys:result['operation_attempted'][key]+=1
+    _,counts=A.records(tmp_path,A.directory(tmp_path),False,result)
+    assert counts['unjournaled_start_operation']==keys
+    assert counts['durably_attempted']==counts['durably_returned']
+    for key in keys:result['operation_returned'][key]+=1
+    with pytest.raises(ValueError,match='returned caps'):A.records(tmp_path,A.directory(tmp_path),False,result)
+
+
+@pytest.mark.parametrize('mutation',['half_pair','wrong_kind','two_starts','not_next_start','pending_start','complete','boolean'])
+def test_unjournaled_attempt_rejects_impossible_boundaries(tmp_path,mutation):
+    stop=1 if mutation=='not_next_start' else 3 if mutation=='pending_start' else 2
+    _,_,result,_,_=synthetic_prefix(tmp_path,stop)
+    result['operation_attempted']['maps']+=1;result['operation_attempted']['jacobians']+=1
+    if mutation=='half_pair':result['operation_attempted']['jacobians']-=1
+    elif mutation=='wrong_kind':result['operation_attempted']=dict(maps=0,jacobians=0,svds=1)
+    elif mutation=='two_starts':result['operation_attempted']['maps']+=1;result['operation_attempted']['jacobians']+=1
+    elif mutation=='boolean':result['operation_attempted']['maps']=True
+    with pytest.raises(ValueError):A.records(tmp_path,A.directory(tmp_path),mutation=='complete',result)
+
+
+@pytest.mark.parametrize('checkpoint_lag',[0,1,2])
+def test_checkpoint_can_lag_exactly_one_failed_emit(tmp_path,checkpoint_lag):
+    _,_,result,_,journal=synthetic_prefix(tmp_path,4)
+    (tmp_path/'checkpoint.json').write_bytes(A.canonical(dict(status=result['status'],latest=journal[-1-checkpoint_lag])))
+    if checkpoint_lag==2:
+        with pytest.raises(ValueError,match='checkpoint'):A.records(tmp_path,A.directory(tmp_path),False,result)
+    else:
+        _,counts=A.records(tmp_path,A.directory(tmp_path),False,result)
+        assert counts['terminal_checkpoint_lag']==bool(checkpoint_lag)
+        if checkpoint_lag:
+            result['operation_returned']=dict(maps=1,jacobians=1,svds=0)
+            with pytest.raises(ValueError,match='checkpoint'):A.records(tmp_path,A.directory(tmp_path),False,result)
+
+
+def test_completed_role_corruption_cannot_hide_behind_later_failure(tmp_path):
+    stop=A.expected_sequence().index(A.ROLES[1]+'_first_phase')+1
+    values,original,result,plan,_=synthetic_prefix(tmp_path,stop)
+    values[A.ROLES[0]+'_assembly']['b'][0]+=.001
+    with pytest.raises(ValueError):A.validate_arithmetic(values,original,False,result,plan)
+
+
+def test_durable_terminal_complete_remains_strict_even_before_result_append(tmp_path):
+    stop=A.expected_sequence().index(A.ROLES[0]+'_complete')+1
+    values,original,result,plan,_=synthetic_prefix(tmp_path,stop);result['completed_roles']=[]
+    assert A.validate_arithmetic(values,original,False,result,plan)['validated_roles']==[A.ROLES[0]]
+    values[A.ROLES[0]+'_assembly']['b'][0]+=.001
+    with pytest.raises(ValueError):A.validate_arithmetic(values,original,False,result,plan)
+
+
+def test_completed_role_result_lag_disallowed_after_later_records(tmp_path):
+    stop=A.expected_sequence().index(A.ROLES[1]+'_first_phase_analytic_return')+1
+    values,original,result,plan,_=synthetic_prefix(tmp_path,stop);result['completed_roles']=[]
+    with pytest.raises(ValueError,match='completed-role'):A.validate_arithmetic(values,original,False,result,plan)
+
+
+def test_only_unfinished_terminal_role_may_be_numeric_unvalidated(tmp_path):
+    stop=A.expected_sequence().index(A.ROLES[1]+'_first_phase')+1
+    values,original,result,plan,_=synthetic_prefix(tmp_path,stop)
+    values[A.ROLES[1]+'_first_phase']['jacobian'][0,0]=np.nan
+    checked=A.validate_arithmetic(values,original,False,result,plan)
+    assert checked['validated_roles']==[A.ROLES[0]]
+    assert [r['role'] for r in checked['unvalidated_partial_roles']]==[A.ROLES[1]]
+
+
+@pytest.mark.parametrize('bad',[None,True,float('nan'),float('inf')])
+def test_completed_phase_losses_cannot_use_abstention_or_nonfinite(bad):
+    values,original,result,plan=six_role_fixture()
+    for suffix in ('_first_phase_analytic_return','_first_phase'):values[A.ROLES[0]+suffix]['loss']=bad
+    with pytest.raises(ValueError,match='finite numeric phase losses'):A.validate_arithmetic(values,original,True,result,plan)
+
+
+def test_nonfinite_loss_retained_only_as_unvalidated_terminal_role(tmp_path):
+    stop=A.expected_sequence().index(A.ROLES[0]+'_first_phase')+1
+    values,original,result,plan,_=synthetic_prefix(tmp_path,stop)
+    for suffix in ('_first_phase_analytic_return','_first_phase'):values[A.ROLES[0]+suffix]['loss']=None
+    checked=A.validate_arithmetic(values,original,False,result,plan)
+    assert checked['validated_roles']==[]
+    assert checked['unvalidated_partial_roles'][0]['role']==A.ROLES[0]
+
+
+
+def test_completed_result_lag_rejected_after_next_operation_start(tmp_path):
+    stop=A.expected_sequence().index(A.ROLES[1]+'_first_phase_analytic_return')
+    _,_,result,_,_=synthetic_prefix(tmp_path,stop);result['completed_roles']=[]
+    with pytest.raises(ValueError,match='completed-role'):A.records(tmp_path,A.directory(tmp_path),False,result)

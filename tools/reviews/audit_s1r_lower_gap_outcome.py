@@ -125,7 +125,15 @@ def records(folder,files,complete,result):
             for key in pending:returned[key]+=1
             pending=None
         if kind!='operation_started':values[kind]=payload
-    require(result['operation_attempted']==attempted,'attempted mirror')
+    # begin() increments before emitting operation_started. A failed emit may
+    # leave exactly the next causal operation unjournaled; it cannot have run.
+    claimed_attempted=result['operation_attempted']
+    require(set(claimed_attempted)==set(attempted) and all(type(claimed_attempted[k]) is int and 0<=claimed_attempted[k]<=LIMITS[k] for k in attempted),'attempted keys/caps')
+    unjournaled_start=None
+    if claimed_attempted!=attempted:
+        require(not complete and pending is None and len(journal)<len(expected) and expected[len(journal)]=='operation_started','attempted discrepancy boundary')
+        upcoming=expected[len(journal)+1];unjournaled_start=['svds'] if upcoming.endswith('_svd') else ['maps','jacobians']
+        require(claimed_attempted=={k:attempted[k]+int(k in unjournaled_start) for k in attempted},'one next unjournaled attempt')
     # Returned counters increment immediately before durable emit; an interrupted emit
     # may leave one return not journaled, but never more than the pending operation.
     claimed=result['operation_returned'];require(set(claimed)==set(returned),'return counter keys')
@@ -137,14 +145,25 @@ def records(folder,files,complete,result):
     require(all(re.fullmatch(r'\d{5}-[a-zA-Z0-9_]+\.(json|npz)(\.tmp)?',name) or name=='checkpoint.json.tmp' for name in extras),'only declared interrupted record artifacts')
     if complete:
         require(len(journal)==len(expected) and not extras and pending is None and attempted==returned==dict(maps=12,jacobians=12,svds=24),'complete record/counter inventory')
+    if 'completed_roles' in result:
+        completed_roles=[role for role in ROLES if role+'_complete' in values]
+        terminal_complete=not complete and bool(completed_roles) and bool(journal) and journal[-1]['kind']==completed_roles[-1]+'_complete'
+        require(result['completed_roles']==completed_roles or (terminal_complete and result['completed_roles']==completed_roles[:-1]),'journal completed-role append boundary')
+    checkpoint_lag=False
     if 'checkpoint.json' in files:
         check=read(folder/'checkpoint.json');last=None if not journal else journal[-1]
-        require(check==dict(status=result['status'],latest=last),'terminal checkpoint')
-    return values,dict(attempted=attempted,durably_returned=returned,claimed_returned=claimed,pending_operation=pending,uncommitted_record_files=sorted(extras),journal_records=len(journal))
+        if check!=dict(status=result['status'],latest=last):
+            # emit() journals before checkpoint replacement and self.latest.
+            # A failed replacement can leave exactly that terminal event ahead.
+            previous=journal[-2] if len(journal)>1 else None
+            require(not complete and bool(journal) and check==dict(status=result['status'],latest=previous) and claimed_attempted==attempted and claimed==returned,'terminal checkpoint one-event boundary')
+            checkpoint_lag=True
+    return values,dict(attempted=claimed_attempted,durably_attempted=attempted,unjournaled_start_operation=unjournaled_start,durably_returned=returned,claimed_returned=claimed,pending_operation=pending,terminal_checkpoint_lag=checkpoint_lag,uncommitted_record_files=sorted(extras),journal_records=len(journal))
 
 
 def phase_check(theta,rates,analytic,phase,hidden=64):
     theta=array(theta);n=len(theta);rates=array(rates,(n,));g=array(analytic['gradient'],(n,));H=array(analytic['hessian'],(n,n))
+    require(all(type(v) in (float,int) and math.isfinite(v) for v in (phase['loss'],analytic['loss'])),'finite numeric phase losses')
     scalar(phase['loss'],analytic['loss'],'phase loss')
     require(exact(phase['theta'],theta),'phase input bytes')
     image=theta-rates*g;J=np.eye(n)-rates[:,None]*H
@@ -314,6 +333,8 @@ def validate_arithmetic(values,original,complete,result,plan_identity):
     exact_tree(bound['slots'],expected_slots,'six original slots');exact_tree(bound['saved_iteration'],original['iteration'],'saved iteration');exact_tree(bound['saved_trials'],original['trials'],'saved trials')
     trial_values=trial_check(original['iteration'],original['trials'])
     if 'saved_line_search_reduction' in values:compare(values['saved_line_search_reduction'],trial_values,'thirteen trial reduction');compare(result['saved_line_search'],trial_values,'result trial reduction')
+    touched=[role for role in ROLES if any(key.startswith(role+'_') for key in values)]
+    terminal_role=touched[-1] if touched else None
     for slot in original['slots']:
         role=slot['role'];n=len(slot['state']);rates=np.r_[np.full(64,slot['rates'][0]),np.full(8,slot['rates'][1])]
         needed=[role+'_first_phase_analytic_return',role+'_first_phase',role+'_second_phase_analytic_return',role+'_second_phase',role+'_assembly']
@@ -349,10 +370,13 @@ def validate_arithmetic(values,original,complete,result,plan_identity):
                 compare(values[role+'_complete'],expected,'role completion')
             summaries[role]=row
         except (ValueError,ArithmeticError,KeyError) as error:
-            if complete:raise
+            # A later failure never excuses inconsistent earlier evidence. Only
+            # the unfinished terminal role may contain a rejected numeric return.
+            if complete or role!=terminal_role or role+'_complete' in values or 'phase_tangent_transport' in values:raise
             failures.append(dict(role=role,error=type(error).__name__+': '+str(error),scope='partial record unvalidated; no arithmetic consistency claim for this role'));break
     actual_completed=[role for role in ROLES if role+'_complete' in values]
-    require(result['completed_roles']==actual_completed or (not complete and result['completed_roles']==actual_completed[:-1]),'completed-role result mirror/durable boundary')
+    completed_lag=not complete and bool(actual_completed) and next(reversed(values))==actual_completed[-1]+'_complete'
+    require(result['completed_roles']==actual_completed or (completed_lag and result['completed_roles']==actual_completed[:-1]),'completed-role result mirror/durable boundary')
     transport=[]
     if 'phase_tangent_transport' in values:
         for prefix in ('predecessor','last'):
