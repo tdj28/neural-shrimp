@@ -4187,3 +4187,7 @@ scope. No model/derivative/QR/SVD/solver/trajectory work or paid/GPU use occurre
 ## 2026-10-08 12:26UTC — archive completed restart/reference evidence
 
 Copied and fully hash-checked60 immutable raw files/21,993,233bytes to the separate physical archive disk. Complete producer/audit launchers and Arnold009/Jensen010 primary-reference archives included. Receipt `docs/backups/2026-10-08-restart-increment.json`; no scientific rerun.
+
+## 2026-10-08 12:31UTC — clarify the matched-pulse estimand before another dose
+
+Data-free Cauchy–Schwarz argument shows that a distinct pulse direction cannot simultaneously match uniform backoff in treatment-minus-sham norm and total update length. A symmetric orthogonal pair can match both to each other, with a separate update-length-matched uniform comparator, subject to block-fraction feasibility. Saved target arrays were not evaluated and no new kappa/tau or run is selected. `docs/plans/utility-dose-geometry-decision.md` preserves the failed fixed dose and zero-qualified-control result; independent review requested before using its algebra in future design.
