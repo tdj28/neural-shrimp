@@ -3238,3 +3238,21 @@ path is `/data2/neural-shrimp-data/explore/s1r-bootstrap-association/attempt-001
 Both failures and successful witnesses remain immutable; a partial path gives
 no association verdict. No second-family continuation or historical ancestry
 claim is authorized. Stop new work at15:00 UTC as directed.
+
+### S1R bootstrap resource-only profile — completed, 2026-10-08 09:16 UTC
+
+Root separately authorized the committed profile on sourcee0fccd73 after
+independent source reviewff2ec8dc (52 controls passed). One exclusive attempt
+completed on CPU1/nice10 within internal8 / external9+1 seconds, exit0.
+Exactly2,000 reset gradient-with-loss updates and128 reset JVPs took0.0881711980
+and0.00685544894 seconds. The unchanged projection is37.3107751779 seconds,
+below the100-second collection gate. This is a feasibility estimate, not a
+network-behavior or association result. No bootstrap, corrector, spectrum,
+bridge, evolving trajectory, GPU or paid resource was run.
+
+Raw9 files/15,942 bytes and complete launcher evidence are immutable and fully
+hash-verified. Profile0.185547s, launcher0.737091s, child peakRSS77,904KiB; owned
+PIDs exited. Source, review, input, command and complete manifest bindings are
+in `docs/s1r-bootstrap-profile-receipt.json`; scope and timing limitations are
+in `docs/s1r-bootstrap-profile.md`. Stop after this profile. Collection remains
+unrun and requires a separate root authorization under its unchanged limits.
