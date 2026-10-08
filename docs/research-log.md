@@ -4233,3 +4233,17 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+### 2026-10-08 UTC — prospective independent lower-gap saved-data auditor
+
+Root authorized preparation only, after the CIFAR auditor source review was
+privately checkpointed at fa4fafffa394f82701233fd4d7e2a4371eac3c17. Producer
+5cecd5f0785f119a2631ae13ac375f9d044b2f26 remains unchanged. The separate
+`codex/audit-s1r-lower-gap` branch implements a standard-library/NumPy saved-only
+auditor with no producer numerical imports. It checks source/manifests, six
+fixed R/A/b assemblies from saved gradients/Hessians,24 full retained bases,
+scales/native phases/secants, saved forcing and13 original trials. Card:
+`docs/reviews/s1r-lower-gap-outcome-audit-card.md`. CPU1/nice10,15s internal,
+20+5 external,8MiB aggregate, one exclusive attempt; source review and separate
+root authorization are still required before any artifact read. Thirty-five
+synthetic controls pass0.50s, including the full fabricated72D record graph.
+No new target model/derivative/SVD/solve or saved-outcome read was performed.
