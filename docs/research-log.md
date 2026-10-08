@@ -1753,3 +1753,35 @@ Would change the next plan: parity failure stops device scientific use;
 transfer/launch overhead or poor GMRES residual reduction defeats inference
 from forward-only GPU speedups. Local RTX timing does not predict H100 timing.
 H100 remains root-owned and requires a separately reviewed measured launch.
+
+
+## Matched local device pilot, 8 October 2026 UTC
+
+TLDR: device derivatives agree at the tested state and are faster locally;
+this does not resolve the poor Krylov convergence or establish an orbit.
+Source a3debab72195d5ac58bee5562cb59afd8b6466e8, subset A and same owned state,
+float64, one CPU thread/nice10; source committed before all three attempts.
+Two tiny dense Hessian/J2VP/complex-bridge oracle tests passed in1.89s.
+CPU bit-identical to saved reference. CUDA maximum absolute gradient/HVP/J2VP
+errors6.81e-17/5.90e-17/1.73e-18 pass atol1e-11+rtol1e-9*abs(reference).
+CPU median gradient/HVP/J2VP5.14/16.34/31.75ms; RTX2000Ada2.09/5.81/11.09ms.
+Bridge total averages32.11msCPU/11.44msCUDA, includingCUDA H2D.166ms and
+D2H.251ms. SciPy remains on CPU. Six-matvec GMRES cycle197.19msCPU/74.42msGPU;
+both info1, residual .899405 to .896782, no correction applied. PeakCUDA54.3MB.
+Preparation1.327s, CPUprobe1.455s, CUDAprobe1.367s after imports; owned
+PIDs4045355/4045636/4045871 exited, GPU empty afterward. All raw manifest
+hashes and sizes checked. Exact records: docs/cifar-device-timing-receipt.json.
+GPU output arrays were not retained in this timing-only pilot; CPU references
+and parity metrics are retained, so independent GPU replay needs a fresh
+explicit run. Three directions at one state are not general error bounds.
+
+Immediate recommendation: root-owned CPU corrector-only, one existing state,
+internal180s/external200s+5s grace, maxNewton8, GMRESrestart50/maxiter4,
+unchanged GMRESrtol1e-10 and Newtontol1e-11; closure gate1e-8 and primitive-2
+separation1e-7 unchanged. Zero Arnoldi. About1632 J2VP calls cost roughly52s
+plus orthogonalization; failed GMRES stops unchanged. Preserve full returned
+state/history even on failure. Root must commit mode/run card before launch.
+Failure motivates solver inspection/preconditioning; H100 does not guarantee
+convergence. Existing CPU path remains default; device benchmark is not a
+complete device corrector. No paid hardware needed for this immediate check.
+The H100 plan above is now a conditional fallback requiring separate review.
