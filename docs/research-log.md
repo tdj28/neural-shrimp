@@ -3879,3 +3879,19 @@ resource profile only and one four-gradient utility feasibility check. All69
 combined synthetic controls pass; exact reviewed source bytes match. Target
 CIFAR projection requires a separate pinned-profile decision. No paid/GPU
 use, protected outcomes or pulse collection.
+
+## 2026-10-08 UTC — independent manuscript scope review
+
+Read-only manuscript/numbers pass at977514e4, with lower saved-outcome dependency
+175c6f78. No proof or rigorous-display blocker: exact-real72D versus numerical
+continuity, scalar local NS conventions, heavy-ball correction and negative
+practical scope are correct. Four scalar display intervals were checked against
+the saved exact dyadic balls, without a proof rerun. Material scope finding:
+S2 output slices are independently bootstrapped and merged by coordinate; a
+continuous full-state branch and three branchwise criticality zeroes are not
+established. Root applied the main locus/adjacent-row wording, and the reviewer
+inspected the working four-file diff; abstract/introduction/contribution/
+discussion and alt-text follow-through are listed in the review. Lower-family
+gap insertion and remaining scientific gaps are specified. No target run,
+figure regeneration, protected-outcome evaluation or external consultation.
+Separate review/report receipt: docs/reviews/manuscript-accuracy-2026-10-08.
