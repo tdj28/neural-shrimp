@@ -99,3 +99,11 @@ updated handoff and the original checkout's pre-existing uncommitted
 `docs/research-log.md` as well as its cost ledger and older checkpoint. Its
 checksums also passed; see `docs/backups/2026-10-08-private-handoff-s1r.json`.
 The original working files were not changed by this backup.
+
+Additional lower-branch, utility and CIFAR diagnostic evidence, audits and the Curry preview archive are verified at `/archive/neural-shrimp-backups/20261008T113630Z-lower-span-increment` (10,746 files/163,313,975 bytes). Full inventory/hash checks plus a second source pass agree; receipt `docs/backups/2026-10-08-lower-span-increment.json`. The destination is the previously verified separate physical disk, not offsite storage.
+
+A subsequent four-file private snapshot at `/archive/neural-shrimp-backups/20261008T113919Z-handoff-lower-span` preserves the
+updated handoff and the original checkout's pre-existing uncommitted
+`docs/research-log.md` as well as its cost ledger and older checkpoint. Its
+checksums also passed; see `docs/backups/2026-10-08-private-handoff-lower-span.json`.
+The original working files were not changed by this backup.

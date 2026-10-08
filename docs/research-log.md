@@ -4039,3 +4039,8 @@ and its -receipt.json. Original producer reports/evidence stay unchanged.
 Integrated independent lower S1R, utility-dose and CIFAR input-span outcome audits. The manuscript now records the lower54/75-step gap, rejection of the fixed matched-dose design at all four states, and the negligible complementary residual share. No headline benefit or branch-disconnection claim was added. An independent paper review corrected merged S2 crossing loci and adjacent-row criticality signs: full-state cross-slice association is unverified. Figure2/7 labels and provenance were regenerated with all derived numerical values unchanged. Secondary edits qualify multiplier boundary labels, basin causation and the digit projected-loop interpretation. The exact CIFAR decomposition specifies scalar plain GD and separates reduced attraction from the complementary factor.
 
 The31-page PDF compiles without LaTeX warnings/box violations;281 source-derived macros verify,52 cited paths exist at committed sources, all9 figure receipts are indexed. All31 pages were inspected in a contact sheet and affected result pages20,21,23,24 in detail. Receipt: docs/reviews/paper-2026-10-08-lower-span-review.json. Unchanged proof kernels and trajectory figures were not rerun. Reference verification and research placeholders remain explicit.
+
+A supplemental four-file snapshot also preserves the latest ignored handoff
+and the original checkout's uncommitted research log, without staging that
+other agent's changes. Its manifest is bound in the separate private-handoff
+backup receipt.
