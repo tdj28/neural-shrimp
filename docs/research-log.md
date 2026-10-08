@@ -2703,3 +2703,17 @@ classification. Either outcome leaves historical start-family association,
 uniqueness, distant resonance/fold ancestry and utility unresolved. A surprising
 result would be direct/half/reverse disagreement despite small residuals; every
 witness is retained to make that distinction inspectable.
+
+### 2026-10-08 07:55 UTC — independent S1R saved-outcome audit card
+
+Root requested an independent audit of completed source db10bd1e's existing
+attempt-001, before its local branch claims enter the manuscript. No new
+corrector or trajectory. Exact input/source bindings and six representative
+nodes are declared in `docs/reviews/s1r-branch-outcome-card.md`. The audit reruns
+the unchanged saved-state checker and independently reconstructs full-pair
+phase/predictor links and analytic prediction-Jacobian/residual-curvature
+monodromies. Four synthetic controls pass in0.23s, including derivative finite
+differences and corrupted-manifest rejection. Commit/push audit source and card
+before replay. One CPU1/nice10 attempt, internal45s, external55s+5s, exclusive
+output under `/data2/neural-shrimp-data/audits/s1r-branch-outcome/attempt-001`.
+Retain any failure before adaptation. No GPU, paid call or protected data.
