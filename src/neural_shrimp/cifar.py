@@ -25,6 +25,7 @@ import hashlib
 import json
 import os
 import pickle
+import time
 from pathlib import Path
 
 import numpy as np
@@ -174,14 +175,75 @@ def as_tensor(a):
     return torch.as_tensor(np.asarray(a, dtype=np.float64))
 
 
-def two_step_multipliers(problem, theta, eta, k=6, tol=1e-9, ncv=None, modes=("LM", "LI"), maxiter=None):
-    """Two-step Floquet multipliers at an orbit point theta (matrix-free Arnoldi).
+def arnoldi_spectrum(operator, k=6, tol=1e-9, ncv=None, modes=("LM", "LI"), maxiter=300,
+                     seed=28204, residual_tolerance=1e-7, return_vectors=False, max_matvec=2000, deadline=None):
+    """Seeded partial spectrum with checked Ritz residuals, not spectral coverage.
 
-    Returns a dict with the eigenvalues found by each search mode (sorted by
-    modulus, descending) and the dominant complex multiplier (largest modulus
-    with Im > 1e-9 across modes), or None when no complex pair is found.
+    Small residuals are necessary numerical checks, not a proof that all
+    leading modes were found or that eigenvalue errors equal residuals.
     """
-    from scipy.sparse.linalg import LinearOperator, eigs
+    from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, eigs
+
+    check_seed(seed)
+    n = operator.shape[0]
+    if not 1 <= k < n - 1 or not modes or residual_tolerance <= 0:
+        raise ValueError("invalid bounded Arnoldi request")
+    found, diagnostics, vectors_by_mode = {}, {}, {}
+    complex_candidates = []
+    for index, mode in enumerate(modes):
+        calls = 0
+
+        def bounded_matvec(v):
+            nonlocal calls
+            if deadline is not None and time.monotonic() >= deadline:
+                raise TimeoutError('Arnoldi wall-time budget exhausted')
+            if calls >= max_matvec:
+                raise RuntimeError('Arnoldi matvec budget exhausted')
+            calls += 1
+            return operator.matvec(v)
+
+        bounded = LinearOperator(operator.shape, matvec=bounded_matvec, dtype=operator.dtype)
+        v0 = np.random.default_rng(np.random.SeedSequence([seed, index])).normal(size=n)
+        converged = True
+        try:
+            values, vectors = eigs(bounded, k=k, which=mode, tol=tol, ncv=ncv,
+                                   maxiter=maxiter, v0=v0, return_eigenvectors=True)
+        except ArpackNoConvergence as error:
+            values, vectors = error.eigenvalues, error.eigenvectors
+            converged = False
+        values = np.asarray(values if values is not None else [], dtype=complex)
+        vectors = np.asarray(vectors) if vectors is not None else np.empty((n, 0), dtype=complex)
+        order = np.argsort(-np.abs(values))
+        values, vectors = values[order], vectors[:, order]
+        residuals = []
+        for value, vector in zip(values, vectors.T):
+            av = operator.matvec(vector)
+            denominator = max(float(np.linalg.norm(av) + abs(value) * np.linalg.norm(vector)), 1e-300)
+            residuals.append(float(np.linalg.norm(av - value * vector) / denominator))
+        qualified = bool(converged and len(values) == k and all(np.isfinite(r) and r <= residual_tolerance for r in residuals))
+        found[mode] = [[float(v.real), float(v.imag)] for v in values]
+        diagnostics[mode] = {"arpack_converged": converged, "requested_modes": k, "returned_modes": len(values),
+                             "relative_ritz_residuals": residuals, "residual_tolerance": residual_tolerance,
+                             "qualified": qualified, "matvec_calls": calls, "max_matvec": max_matvec, "start_vector_sha256": hashlib.sha256(v0.tobytes()).hexdigest()}
+        if return_vectors:
+            vectors_by_mode[mode] = vectors
+        complex_candidates.extend(v for v in values if qualified and v.imag > 1e-9)
+    qualified = all(d['qualified'] for d in diagnostics.values())
+    dominant = max(complex_candidates, key=abs) if qualified and complex_candidates else None
+    result = {"modes": found, "diagnostics": diagnostics, "qualified": qualified, "arnoldi_seed": seed,
+              "spectrum_scope": "estimated partial spectrum; unchecked modes may change stability",
+              "dominant_complex": None if dominant is None else [float(dominant.real), float(dominant.imag)],
+              "dominant_complex_modulus": None if dominant is None else float(abs(dominant)),
+              "dominant_complex_theta_over_2pi": None if dominant is None else float(abs(np.angle(dominant)) / (2 * np.pi))}
+    if return_vectors:
+        result['vectors'] = vectors_by_mode
+    return result
+
+
+def two_step_multipliers(problem, theta, eta, k=6, tol=1e-9, ncv=None, modes=("LM", "LI"), maxiter=300,
+                         seed=28204, residual_tolerance=1e-7, return_vectors=False, max_matvec=2000, deadline=None):
+    """Estimated two-step spectrum; caller must first validate orbit closure."""
+    from scipy.sparse.linalg import LinearOperator
 
     theta = as_tensor(theta)
     t1 = problem.update(theta, eta)
@@ -194,52 +256,58 @@ def two_step_multipliers(problem, theta, eta, k=6, tol=1e-9, ncv=None, modes=("L
         return out
 
     operator = LinearOperator((n, n), matvec=matvec, dtype=np.float64)
-    found = {}
-    complex_candidates = []
-    for mode in modes:
-        values = eigs(operator, k=k, which=mode, tol=tol, ncv=ncv, maxiter=maxiter, return_eigenvectors=False)
-        values = values[np.argsort(-np.abs(values))]
-        found[mode] = [[float(v.real), float(v.imag)] for v in values]
-        complex_candidates.extend(v for v in values if v.imag > 1e-9)
-    dominant = max(complex_candidates, key=abs) if complex_candidates else None
-    return {"modes": found, "dominant_complex": None if dominant is None else [float(dominant.real),
-                                                                               float(dominant.imag)],
-            "dominant_complex_modulus": None if dominant is None else float(abs(dominant)),
-            "dominant_complex_theta_over_2pi": None if dominant is None else
-            float(abs(np.angle(dominant)) / (2 * np.pi))}
+    return arnoldi_spectrum(operator, k, tol, ncv, modes, maxiter, seed, residual_tolerance, return_vectors, max_matvec, deadline)
 
 
 def newton_period2(problem, theta, eta, tol=1e-11, max_newton=12, gmres_tol=1e-10, gmres_restart=200,
-                   gmres_maxiter=20, callback=None):
-    """Newton-GMRES corrector for a period-2 orbit point: solve F^2(theta) = theta.
+                   gmres_maxiter=20, callback=None, deadline=None):
+    """Correct F^2(theta)=theta and return diagnostics for the returned state.
 
-    Returns (theta, history) with the relative residual |F^2(theta) - theta| / |theta|
-    and the GMRES info code per iteration.
+    Residual is ||F^2(theta)-theta|| / max(1,||theta||). The final history row
+    always describes the returned state, including exhaustion and failures.
+    No failed or nonfinite GMRES correction is applied.
     """
     from scipy.sparse.linalg import LinearOperator, gmres
 
+    if max_newton < 0 or tol <= 0:
+        raise ValueError("invalid Newton settings")
     theta = as_tensor(theta).clone()
     n = theta.numel()
     history = []
-    for _ in range(max_newton):
+    for iteration in range(max_newton + 1):
+        if deadline is not None and time.monotonic() >= deadline:
+            raise TimeoutError("Newton wall-time budget exhausted")
         t1 = problem.update(theta, eta)
         t2 = problem.update(t1, eta)
         residual = t2 - theta
-        rel = float(residual.norm() / theta.norm())
-        history.append({"relative_residual": rel})
+        rel = float(residual.norm()) / max(1.0, float(theta.norm()))
+        finite = bool(torch.isfinite(theta).all() and torch.isfinite(residual).all() and np.isfinite(rel))
+        converged = bool(finite and rel < tol)
+        status = ("nonfinite_residual" if not finite else "converged" if converged else
+                  "max_iterations" if iteration == max_newton else "iterate")
+        history.append({"iteration": iteration, "relative_residual": rel, "converged": converged, "status": status})
         if callback:
             callback(history[-1])
-        if rel < tol:
+        if not finite or converged or iteration == max_newton:
             break
 
         def matvec(v, theta=theta, t1=t1):
+            if deadline is not None and time.monotonic() >= deadline:
+                raise TimeoutError("GMRES wall-time budget exhausted")
             return problem.jvp_two_step(theta, as_tensor(v), eta, theta_next=t1).numpy() - v
 
         operator = LinearOperator((n, n), matvec=matvec, dtype=np.float64)
         step, info = gmres(operator, -residual.numpy(), rtol=gmres_tol, restart=gmres_restart,
                            maxiter=gmres_maxiter)
         history[-1]["gmres_info"] = int(info)
-        theta = theta + as_tensor(step)
+        if info != 0 or not np.all(np.isfinite(step)):
+            history[-1]['status'] = 'linear_solver_failed' if info != 0 else 'nonfinite_correction'
+            break
+        candidate = theta + as_tensor(step)
+        if not torch.isfinite(candidate).all():
+            history[-1]['status'] = 'nonfinite_correction'
+            break
+        theta = candidate
     return theta, history
 
 

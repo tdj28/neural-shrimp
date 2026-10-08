@@ -86,3 +86,122 @@ def test_rotation_from_samples_recovers_a_planted_rotation():
     curve = np.stack([np.cos(angle) + 0.1 * np.cos(2 * angle), np.sin(angle)], 1) @ basis.T
     rho, share = cifar.rotation_from_samples(curve + 3.0)
     assert abs(rho - 0.1234) < 1e-4 and share > 0.99
+
+
+def load_driver():
+    import importlib.util
+    from pathlib import Path
+    path = Path(__file__).resolve().parents[1] / 'tools/explore_cifar.py'
+    spec = importlib.util.spec_from_file_location('explore_cifar_test', path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class LinearProblem:
+    def update(self, theta, eta):
+        return 0.5 * theta
+
+    def jvp_two_step(self, theta, vector, eta, theta_next=None):
+        return 0.25 * vector
+
+
+def test_newton_final_diagnostic_matches_returned_state_after_last_update():
+    initial = torch.ones(4, dtype=torch.float64)
+    solved, history = cifar.newton_period2(LinearProblem(), initial, 0.1, max_newton=1)
+    actual = float((0.25 * solved - solved).norm()) / max(1., float(solved.norm()))
+    assert history[-1]['relative_residual'] == pytest.approx(actual, abs=1e-30)
+    assert history[-1]['converged']
+    assert solved.norm() < 1e-12
+    zero, history = cifar.newton_period2(LinearProblem(), torch.zeros(4), .1)
+    assert history[-1]['converged'] and history[-1]['relative_residual'] == 0
+
+
+def test_failed_gmres_does_not_apply_an_unqualified_step(monkeypatch):
+    import scipy.sparse.linalg
+    monkeypatch.setattr(scipy.sparse.linalg, 'gmres', lambda *a, **k: (np.ones(4), 1))
+    initial = torch.ones(4, dtype=torch.float64)
+    solved, history = cifar.newton_period2(LinearProblem(), initial, .1)
+    assert torch.equal(solved, initial)
+    assert history[-1]['status'] == 'linear_solver_failed'
+    assert not history[-1]['converged']
+
+
+def test_arnoldi_seed_is_reproducible_and_bad_ritz_pairs_fail(monkeypatch):
+    import scipy.sparse.linalg
+    starts = []
+    def fake(operator, **kwargs):
+        starts.append(kwargs['v0'].copy())
+        return np.array([2., 3.]), np.eye(6)[:, :2]
+    monkeypatch.setattr(scipy.sparse.linalg, 'eigs', fake)
+    operator = scipy.sparse.linalg.aslinearoperator(np.diag([2., 3., 4., 5., 6., 7.]))
+    first = cifar.arnoldi_spectrum(operator, k=2)
+    second = cifar.arnoldi_spectrum(operator, k=2)
+    assert first['qualified'] and second['qualified']
+    np.testing.assert_array_equal(starts[0], starts[2])
+    assert not np.array_equal(starts[0], starts[1])
+    bad = scipy.sparse.linalg.aslinearoperator(np.eye(6))
+    result = cifar.arnoldi_spectrum(bad, k=2)
+    assert not result['qualified'] and result['dominant_complex'] is None
+
+
+def test_partial_arnoldi_convergence_is_not_qualified(monkeypatch):
+    import scipy.sparse.linalg
+    def failure(*args, **kwargs):
+        raise scipy.sparse.linalg.ArpackNoConvergence('bounded failure', np.array([1.]), np.eye(6)[:, :1])
+    monkeypatch.setattr(scipy.sparse.linalg, 'eigs', failure)
+    result = cifar.arnoldi_spectrum(scipy.sparse.linalg.aslinearoperator(np.eye(6)), k=2)
+    assert not result['qualified']
+    assert not result['diagnostics']['LM']['arpack_converged']
+
+
+def test_arnoldi_matvec_budget_and_newton_deadline_are_enforced():
+    from scipy.sparse.linalg import aslinearoperator
+    import time
+    with pytest.raises(RuntimeError, match='matvec budget'):
+        cifar.arnoldi_spectrum(aslinearoperator(np.diag(np.arange(1., 7.))), k=2, max_matvec=0)
+    with pytest.raises(TimeoutError, match='wall-time'):
+        cifar.newton_period2(LinearProblem(), torch.ones(4), .1, deadline=time.monotonic() - 1)
+
+
+@pytest.mark.parametrize('residual,separation,converged', [(np.nan, 1., False), (1e-3, 1., False), (0., 0., True)])
+def test_driver_rejects_failed_or_collapsed_orbits_before_arnoldi(monkeypatch, residual, separation, converged):
+    driver = load_driver()
+    monkeypatch.setattr(driver, 'certify', lambda *a, **k: (torch.ones(6),
+        [{'relative_residual': residual, 'converged': converged}], separation))
+    def forbidden(*a, **k):
+        raise AssertionError('Arnoldi must not run')
+    monkeypatch.setattr(cifar, 'two_step_multipliers', forbidden)
+    _, row = driver.evaluate_orbit(None, torch.ones(6), .1, 2)
+    assert row['stop_reason'] and 'top_kind' not in row
+
+
+def test_failed_bisection_keeps_unresolved_bracket_and_incremental_evidence(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+    import json
+    driver = load_driver()
+    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (None, None))
+    calls = []
+    def evaluate(problem, theta, eta, k, **kwargs):
+        i = len(calls)
+        calls.append(i)
+        if i == 2:
+            return theta, {'stop_reason': 'corrector_not_converged', 'relative_residual': .2}
+        return theta, {'stop_reason': None, 'estimated_stability': 'stable' if i == 0 else 'unstable',
+                       'top': [.9 if i == 0 else 1.1, .01], 'top_modulus': .9 if i == 0 else 1.1,
+                       'top_kind': 'complex', 'theta_over_2pi': .1}
+    monkeypatch.setattr(driver, 'evaluate_orbit', evaluate)
+    state = tmp_path / 'state.npy'
+    np.save(state, np.ones(6))
+    output = tmp_path / 'attempt'
+    args = SimpleNamespace(threads=1, lam=.01, state=str(state), eta=.1, output_ratio=1.,
+                           k=2, step=.1, max_steps=2, bisect_tol=1e-6, output=str(output))
+    driver.cmd_orbit(args)
+    saved = json.loads((output / 'orbit.json').read_text())
+    assert saved['status'] == 'unresolved' and saved['crossing'] is None
+    assert len(saved['rows']) == 2 and len(saved['bisection_rows']) == 1
+    assert saved['bracket']['log10_eta_upper'] > saved['bracket']['log10_eta_lower']
+    assert len(list(output.glob('state-*.npy'))) == 2
+    assert any(json.loads(line)['kind'] == 'bisection' for line in (output / 'events.jsonl').read_text().splitlines())
+    with pytest.raises(FileExistsError):
+        driver.cmd_orbit(args)

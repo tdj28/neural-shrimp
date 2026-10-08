@@ -8,7 +8,7 @@ Subcommands:
           default initialization, gradient norm, parameter drift and sharpness
   sweep   single learning rate sweep from the initialization on subset A:
           classify each run's tail (fixed point, period 2, other, divergent)
-  orbit   certify a period-2 orbit (Newton-GMRES), compute two-step multipliers
+  orbit   numerically refine a period-2 orbit, estimate two-step multipliers
           (Arnoldi), and continue it in the learning rate until a multiplier
           leaves the unit circle; type the crossing
   circle  just past a Neimark-Sacker crossing: long run from the orbit plus a
@@ -22,6 +22,9 @@ import json
 import os
 import sys
 import time
+import subprocess
+from datetime import datetime, timezone
+import uuid
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
@@ -179,103 +182,196 @@ def rates(model, eta, output_ratio=1.0):
     return vector
 
 
-def certify(problem, theta, eta, tol=1e-11):
-    theta, history = cifar.newton_period2(problem, theta, eta, tol=tol)
+def certify(problem, theta, eta, tol=1e-11, **kwargs):
+    """Numerical correction only; the historical function name implies no proof."""
+    theta, history = cifar.newton_period2(problem, theta, eta, tol=tol, **kwargs)
     t1 = problem.update(theta, eta)
-    separation = float((t1 - theta).norm() / theta.norm())
+    separation = float((t1 - theta).norm()) / max(1.0, float(theta.norm()))
     return theta, history, separation
 
 
 def classify(multipliers):
-    """Dominant multiplier over both Arnoldi searches and its kind."""
+    """Largest returned qualified Ritz value; uncomputed modes remain unchecked."""
+    if not multipliers.get('qualified', False):
+        raise ValueError('unqualified estimated spectrum cannot be classified')
     candidates = [complex(*v) for mode in multipliers["modes"].values() for v in mode]
+    if not candidates or not all(np.isfinite(v) for v in candidates):
+        raise ValueError('no finite qualified Ritz values')
     top = max(candidates, key=abs)
     kind = "complex" if abs(top.imag) > 1e-9 else ("plus" if top.real > 0 else "minus")
     return top, kind
 
 
+def evaluate_orbit(problem, theta, eta, k, seed=28204, margin=1e-7, checkpoint=None,
+                   newton_options=None, spectral_options=None, deadline=None):
+    """Apply returned-state and spectral quality gates before classification."""
+    options = dict(newton_options or {})
+    if checkpoint:
+        options['callback'] = lambda entry: checkpoint('newton_iteration', {'diagnostic': entry})
+    theta, history, separation = certify(problem, theta, eta, deadline=deadline, **options)
+    final = history[-1]
+    residual = final['relative_residual']
+    row = {'relative_residual': residual, 'newton_iterations': len(history) - 1,
+           'newton_history': history, 'separation': separation, 'stop_reason': None,
+           'spectrum_scope': 'estimated partial spectrum; uncomputed modes may change stability'}
+    if (not final.get('converged', False) or not np.isfinite(residual) or residual > 1e-8
+            or not torch.isfinite(theta).all()):
+        row['stop_reason'] = 'corrector_not_converged'
+    elif not np.isfinite(separation) or separation < 1e-7:
+        row['stop_reason'] = 'not_a_separated_period_2_orbit'
+    if checkpoint:
+        checkpoint('corrector', row)
+    if row['stop_reason']:
+        return theta, row
+    multipliers = cifar.two_step_multipliers(problem, theta.numpy(), eta, k=k, seed=seed,
+                                             deadline=deadline, **(spectral_options or {}))
+    row['spectrum'] = multipliers
+    if not multipliers.get('qualified', False):
+        row['stop_reason'] = 'arnoldi_unqualified'
+        return theta, row
+    top, kind = classify(multipliers)
+    row.update(top=[top.real, top.imag], top_modulus=abs(top), top_kind=kind,
+               dominant_complex=multipliers['dominant_complex'],
+               dominant_complex_modulus=multipliers['dominant_complex_modulus'],
+               theta_over_2pi=multipliers['dominant_complex_theta_over_2pi'])
+    row['estimated_stability'] = ('stable' if abs(top) < 1 - margin else
+                                  'unstable' if abs(top) > 1 + margin else 'unresolved')
+    if row['estimated_stability'] == 'unresolved':
+        row['stop_reason'] = 'within_numerical_stability_margin'
+    return theta, row
+
+
+def safe_json(value):
+    if isinstance(value, dict):
+        return {k: safe_json(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [safe_json(v) for v in value]
+    if isinstance(value, float) and not np.isfinite(value):
+        return None
+    return value
+
+
 def cmd_orbit(args):
     torch.set_num_threads(args.threads)
-    problem, model = subset_a_problem(args.lam)
-    folder = OUT / "orbit"
-    folder.mkdir(parents=True, exist_ok=True)
-    theta = torch.as_tensor(np.load(args.state))
-    log_eta = np.log10(args.eta)
-    rows, previous = [], []
+    default = OUT / 'orbit' / (datetime.now(timezone.utc).strftime('attempt-%Y%m%dT%H%M%S-') + uuid.uuid4().hex[:8])
+    folder = Path(args.output) if getattr(args, 'output', None) else default
+    folder.mkdir(parents=True, exist_ok=False)
+    result = {'args': vars(args), 'rows': [], 'bisection_rows': [], 'crossing': None, 'status': 'running',
+              'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+              'spectrum_scope': 'estimated partial spectrum; no guarantee uncomputed modes are stable'}
     started = time.perf_counter()
-    stable = None
-    for _ in range(args.max_steps):
-        eta = rates(model, 10.0 ** log_eta, args.output_ratio)
-        if len(previous) == 2:  # secant predictor in log eta
-            theta = previous[-1] + (previous[-1] - previous[-2])
-        theta, history, separation = certify(problem, theta, eta)
-        residual = history[-1]["relative_residual"]
-        multipliers = cifar.two_step_multipliers(problem, theta.numpy(), eta, k=args.k)
-        top, kind = classify(multipliers)
-        row = {"log10_eta": log_eta, "relative_residual": residual, "newton_iterations": len(history),
-               "separation": separation, "top": [top.real, top.imag], "top_modulus": abs(top),
-               "top_kind": kind, "dominant_complex": multipliers["dominant_complex"],
-               "dominant_complex_modulus": multipliers["dominant_complex_modulus"],
-               "theta_over_2pi": multipliers["dominant_complex_theta_over_2pi"],
-               "seconds": time.perf_counter() - started}
-        rows.append(row)
-        print(json.dumps(row), flush=True)
-        if residual > 1e-8 or separation < 1e-7:
-            row["stop"] = "corrector failed or orbit collapsed to a fixed point"
-            break
-        if abs(top) >= 1.0:
-            row["stop"] = "multiplier outside the unit circle"
-            break
-        stable = (log_eta, theta.clone(), multipliers)
-        np.save(folder / f"orbit-lam{args.lam:g}-last-stable.npy", theta.numpy())
-        previous = (previous + [theta.clone()])[-2:]
-        log_eta += args.step
-    crossing = None
-    if stable is not None and rows and rows[-1].get("stop") == "multiplier outside the unit circle":
-        lo, hi = stable[0], rows[-1]["log10_eta"]
-        theta_lo = stable[1]
-        while hi - lo > args.bisect_tol:
-            mid = 0.5 * (lo + hi)
-            eta_mid = rates(model, 10.0 ** mid, args.output_ratio)
-            theta_mid, history, separation = certify(problem, theta_lo, eta_mid)
-            multipliers = cifar.two_step_multipliers(problem, theta_mid.numpy(), eta_mid, k=args.k)
-            top, kind = classify(multipliers)
-            if abs(top) < 1.0:
-                lo, theta_lo, stable = mid, theta_mid, (mid, theta_mid, multipliers)
-            else:
-                hi = mid
-        top, kind = classify(stable[2])
-        crossing = {"log10_eta_last_stable": lo, "log10_eta_first_unstable": hi, "multiplier": [top.real, top.imag],
-                    "modulus": abs(top), "type": {"complex": "neimark_sacker", "minus": "flip", "plus": "fold"}[kind],
-                    "theta_over_2pi": abs(np.angle(top)) / (2 * np.pi)}
-        np.save(folder / f"orbit-lam{args.lam:g}-at-crossing.npy", theta_lo.numpy())
-        print(json.dumps({"crossing": crossing}), flush=True)
-    (folder / f"orbit-lam{args.lam:g}-from{args.eta:.6g}.json").write_text(
-        json.dumps({"args": vars(args), "rows": rows, "crossing": crossing}, indent=1))
+    deadline = time.monotonic() + getattr(args, 'max_seconds', 600)
+    options = {'newton_options': {'max_newton': getattr(args, 'newton_steps', 8),
+                                  'gmres_restart': getattr(args, 'gmres_restart', 50),
+                                  'gmres_maxiter': getattr(args, 'gmres_maxiter', 4)},
+               'spectral_options': {'maxiter': getattr(args, 'arnoldi_maxiter', 100),
+                                    'max_matvec': getattr(args, 'arnoldi_max_matvec', 2000)},
+               'deadline': deadline}
+
+    def save(kind, data, theta=None):
+        event = safe_json({'kind': kind, 'seconds': time.perf_counter() - started, **data})
+        with (folder / 'events.jsonl').open('a') as handle:
+            handle.write(json.dumps(event, allow_nan=False) + '\n')
+            handle.flush()
+            os.fsync(handle.fileno())
+        if theta is not None:
+            np.save(folder / f"state-{len(result['rows']):04d}-{len(result['bisection_rows']):04d}.npy", theta.numpy())
+        temporary = folder / 'checkpoint.tmp'
+        temporary.write_text(json.dumps(safe_json(result), indent=2, allow_nan=False) + '\n')
+        temporary.replace(folder / 'orbit.json')
+
+    save('start', {'folder': str(folder)})
+    try:
+        problem, model = subset_a_problem(args.lam)
+        theta = torch.as_tensor(np.load(args.state))
+        log_eta, previous, stable, unstable = np.log10(args.eta), [], None, None
+        for _ in range(args.max_steps):
+            eta = rates(model, 10.0 ** log_eta, args.output_ratio)
+            if len(previous) == 2:
+                theta = previous[-1] + (previous[-1] - previous[-2])
+            theta, row = evaluate_orbit(problem, theta, eta, args.k,
+                seed=getattr(args, 'arnoldi_seed', 28204), margin=getattr(args, 'stability_margin', 1e-7),
+                checkpoint=lambda kind, row: save(kind, {'log10_eta': log_eta, **row}), **options)
+            row['log10_eta'] = log_eta
+            result['rows'].append(row)
+            save('continuation', row, theta if not row['stop_reason'] else None)
+            print(json.dumps(safe_json(row)), flush=True)
+            if row['stop_reason']:
+                result['status'] = 'unresolved'
+                break
+            if row['estimated_stability'] == 'unstable':
+                unstable = (log_eta, theta.clone(), row)
+                break
+            stable = (log_eta, theta.clone(), row)
+            previous = (previous + [theta.clone()])[-2:]
+            log_eta += args.step
+        if stable is not None and unstable is not None:
+            lo, hi = stable[0], unstable[0]
+            failed = False
+            while hi - lo > args.bisect_tol:
+                mid = 0.5 * (lo + hi)
+                eta_mid = rates(model, 10.0 ** mid, args.output_ratio)
+                theta_mid, row = evaluate_orbit(problem, stable[1], eta_mid, args.k,
+                    seed=getattr(args, 'arnoldi_seed', 28204), margin=getattr(args, 'stability_margin', 1e-7),
+                    checkpoint=lambda kind, row: save('bisection_' + kind, {'log10_eta': mid, **row}), **options)
+                row['log10_eta'] = mid
+                result['bisection_rows'].append(row)
+                save('bisection', row, theta_mid if not row['stop_reason'] else None)
+                if row['stop_reason']:
+                    failed = True
+                    result['status'] = 'unresolved'
+                    break
+                if row['estimated_stability'] == 'stable':
+                    lo, stable = mid, (mid, theta_mid, row)
+                else:
+                    hi, unstable = mid, (mid, theta_mid, row)
+            result['bracket'] = {'log10_eta_lower': lo, 'log10_eta_upper': hi,
+                                 'lower': stable[2], 'upper': unstable[2]}
+            if not failed and stable[2]['top_kind'] == unstable[2]['top_kind']:
+                kind = stable[2]['top_kind']
+                result['crossing'] = {'type': {'complex': 'neimark_sacker_candidate', 'minus': 'flip_candidate',
+                                               'plus': 'fold_candidate'}[kind],
+                    'log10_eta_last_estimated_stable': lo, 'log10_eta_first_estimated_unstable': hi,
+                    'multiplier': stable[2]['top'], 'modulus': stable[2]['top_modulus'],
+                    'theta_over_2pi': stable[2]['theta_over_2pi'],
+                    'scope': 'qualified partial-spectrum bracket; no completeness or nonlinear bifurcation proof'}
+                result['status'] = 'candidate_bracket'
+            elif not failed:
+                result['status'] = 'unresolved_dominant_mode_change'
+        if result['status'] == 'running':
+            result['status'] = 'bounded_continuation_complete_without_crossing_bracket'
+    except BaseException as error:
+        result['status'] = 'failed_or_interrupted'
+        result['error'] = f'{type(error).__name__}: {error}'
+        save('failure', {'error': result['error']})
+        raise
+    finally:
+        save('final', {'status': result['status']})
+    print(json.dumps({'output': str(folder), 'status': result['status']}), flush=True)
 
 
 def cmd_circle(args):
     """Long runs just past a crossing: rotation, loss spectrum and largest exponent."""
-    from scipy.sparse.linalg import LinearOperator, eigs
     torch.set_num_threads(args.threads)
     problem, model = subset_a_problem(args.lam)
-    folder = OUT / "circle"
-    folder.mkdir(parents=True, exist_ok=True)
+    folder = OUT / 'circle' / (datetime.now(timezone.utc).strftime('attempt-%Y%m%dT%H%M%S-') + uuid.uuid4().hex[:8])
+    folder.mkdir(parents=True, exist_ok=False)
     base = torch.as_tensor(np.load(args.state))
     n = base.numel()
     eta0 = rates(model, 10.0 ** args.log10_eta_crossing, args.output_ratio)
-    t1 = problem.update(base, eta0)
-
-    def matvec(v):
-        out = problem.jvp_two_step(base, cifar.as_tensor(np.real(v)), eta0, theta_next=t1).numpy()
-        if np.iscomplexobj(v):
-            out = out + 1j * problem.jvp_two_step(base, cifar.as_tensor(np.imag(v)), eta0, theta_next=t1).numpy()
-        return out
-
-    operator = LinearOperator((n, n), dtype=np.float64, matvec=matvec)
-    values, vectors = eigs(operator, k=4, which="LI", tol=1e-10)
-    index = int(np.argmax(np.abs(values) * (values.imag > 0)))
-    q = vectors[:, index]
+    base, history, separation = certify(problem, base, eta0)
+    if not history[-1].get('converged', False) or not np.isfinite(separation) or separation < 1e-7:
+        raise ValueError('circle initialization requires a corrected separated period-2 orbit')
+    spectrum = cifar.two_step_multipliers(problem, base.numpy(), eta0, k=4, modes=('LI',), tol=1e-10,
+                                         seed=getattr(args, 'arnoldi_seed', 28204), return_vectors=True)
+    if not spectrum['qualified']:
+        raise ValueError('circle initialization has unqualified Ritz vectors')
+    values = np.asarray([complex(*v) for v in spectrum['modes']['LI']])
+    candidates = np.flatnonzero(values.imag > 1e-9)
+    if not len(candidates):
+        raise ValueError('circle initialization found no qualified complex mode')
+    index = max(candidates, key=lambda j: abs(values[j]))
+    q = spectrum['vectors']['LI'][:, index]
     plane = np.linalg.qr(np.stack([q.real, q.imag], 1))[0]
     rng = np.random.default_rng(28203)
     random_dirs = np.linalg.qr(rng.normal(size=(n, 64)))[0]
@@ -363,7 +459,16 @@ def main():
     orbit.add_argument("--max-steps", type=int, default=60)
     orbit.add_argument("--bisect-tol", type=float, default=1e-5)
     orbit.add_argument("--k", type=int, default=6)
-    orbit.add_argument("--threads", type=int, default=16)
+    orbit.add_argument("--threads", type=int, default=1)
+    orbit.add_argument("--output", help="exclusive new attempt directory; default is a unique directory")
+    orbit.add_argument("--arnoldi-seed", type=int, default=28204)
+    orbit.add_argument("--stability-margin", type=float, default=1e-7)
+    orbit.add_argument("--max-seconds", type=float, default=600)
+    orbit.add_argument("--newton-steps", type=int, default=8)
+    orbit.add_argument("--gmres-restart", type=int, default=50)
+    orbit.add_argument("--gmres-maxiter", type=int, default=4)
+    orbit.add_argument("--arnoldi-maxiter", type=int, default=100)
+    orbit.add_argument("--arnoldi-max-matvec", type=int, default=2000)
     circle = sub.add_parser("circle")
     circle.add_argument("--output-ratio", type=float, default=1.0)
     circle.add_argument("--lam", type=float, required=True)
@@ -374,7 +479,8 @@ def main():
     circle.add_argument("--steps", type=int, default=60000)
     circle.add_argument("--transient", type=int, default=30000)
     circle.add_argument("--ftle-steps", type=int, default=4000)
-    circle.add_argument("--threads", type=int, default=16)
+    circle.add_argument("--threads", type=int, default=1)
+    circle.add_argument("--arnoldi-seed", type=int, default=28204)
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     {"data": cmd_data, "wd": cmd_wd, "sweep": cmd_sweep, "orbit": cmd_orbit, "circle": cmd_circle}[args.command](args)
