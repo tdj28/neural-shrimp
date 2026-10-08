@@ -77,3 +77,9 @@ and literature attempts002--004:1,037 files/361,396,978 bytes, complete inventor
 and SHA-256 checks. It complements the full snapshot and is neither offsite nor
 continuous. Exact roots and manifest are in
 `docs/backups/2026-10-08-research-increment.json`.
+
+A subsequent four-file private snapshot at `/archive/neural-shrimp-backups/20261008T083741Z-handoff-current` preserves the
+updated handoff and the original checkout's pre-existing uncommitted
+`docs/research-log.md` as well as its cost ledger and older checkpoint. Its
+checksums also passed; see `docs/backups/2026-10-08-private-handoff-current.json`.
+The original working files were not changed by this backup.

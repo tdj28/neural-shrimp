@@ -3181,3 +3181,8 @@ and selected literature are additionally preserved on the separate archive
 disk, with complete hashes and inventory verified. No new paid resource,
 protected outcome, public release or external message was used. Two next-step
 designs are preserved without new target launches. Cutoff remains15:00 UTC.
+
+A supplemental four-file snapshot also preserves the latest ignored handoff
+and the original checkout's uncommitted research log, without staging that
+other agent's changes. Its manifest is bound in the separate private-handoff
+backup receipt.
