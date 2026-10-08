@@ -69,3 +69,10 @@ algebra, exact cap/nextafter rejection, bias packing, nonfinite/zero blocks,
 raw durability, all-four retention and deadline-after-gradient behavior.
 A tiny synthetic gradient finite-difference control uses unrelated toy data;
 no target gradient or outcome is evaluated during preparation.
+
+### Pre-execution source review amendment
+
+Independent review found that package initialization also imports controls.py
+and models.py. Root added those files to the source inventory and a clean Git
+checkout guard before any target gradient was evaluated. The four-fork design
+and numerical gates are unchanged.

@@ -103,9 +103,10 @@ def validate_profile_records(r,p,start,current_sources,current_environment,revie
     require(r['profile']==p,'profile/result mirror')
     return projection
 
-def profile_gate(folder,current_sources,current_environment,review):
+def profile_gate(folder,current_sources,current_environment,review,approved_manifest_sha256):
     require(folder==OUTROOT/'profile-001','fixed profile path')
-    rows=inventory(folder,entry(folder/'manifest.json')['sha256'],{'runtime-start.json','profile.json','result.json'})
+    require(isinstance(approved_manifest_sha256,str) and len(approved_manifest_sha256)==64 and all(c in '0123456789abcdef' for c in approved_manifest_sha256),'external profile manifest pin')
+    rows=inventory(folder,approved_manifest_sha256,{'runtime-start.json','profile.json','result.json'})
     r=read(folder/'result.json');p=read(folder/'profile.json');start=read(folder/'runtime-start.json')
     projection=validate_profile_records(r,p,start,current_sources,current_environment,review)
     for name,expected in r['source']['sha256'].items():
@@ -145,13 +146,14 @@ def inputs():
       array_identities={n:array_info(v) for n,v in vectors.items()},x=array_info(x),y=array_info(y),ridge_normalization='lambda/2 sum(theta**2), gradient lambda*theta; data loss0.5 sum(error**2)/n, not averaged over outputs',state_order=list(STATE_NAMES))
 
 
-def run(mode,out,review):
+def run(mode,out,review,profile_manifest_sha256=None):
     require(mode in ('profile','collect'),'fixed modes');require(out.resolve()==OUTROOT/('profile-001' if mode=='profile' else 'attempt-001'),'fixed exclusive output')
     require(len(review)==40 and all(c in '0123456789abcdef' for c in review),'exact review commit')
     subprocess.run(['git','cat-file','-e',review+'^{commit}'],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
     require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
+    require((mode=='profile' and profile_manifest_sha256 is None) or (mode=='collect' and isinstance(profile_manifest_sha256,str) and len(profile_manifest_sha256)==64 and all(c in '0123456789abcdef' for c in profile_manifest_sha256)),'collect requires approved profile manifest SHA256; profile does not accept one')
     source=source_identity();env=environment();store=Store(out);t0=time.monotonic()
-    record=dict(schema='cifar-input-span-v1',mode=mode,status='running',source=source,review_commit=review,environment=env,settings=SETTINGS,
+    record=dict(schema='cifar-input-span-v1',mode=mode,status='running',source=source,review_commit=review,approved_profile_manifest_sha256=profile_manifest_sha256,environment=env,settings=SETTINGS,
       started_utc=datetime.now(timezone.utc).isoformat(),pid=os.getpid(),cpu_threads=1,nice=os.getpriority(os.PRIO_PROCESS,0),gpu=False,paid=False,
       dynamics_evaluations=0,scope='Saved-array numerical diagnostic; no orbit, convergence, solver-stall explanation or utility claim.')
     store.json('runtime-start.json',record)
@@ -165,7 +167,7 @@ def run(mode,out,review):
           x=array_info(x),q=array_info(q),r=array_info(r),qr_seconds=elapsed,basis_checks=checks,retained_columns=512,projected_target_seconds=projected)
         store.json('profile.json',profile);record.update(profile=profile,status=profile['status'])
       else:
-        profile=profile_gate(OUTROOT/'profile-001',source,env,review)
+        profile=profile_gate(OUTROOT/'profile-001',source,env,review,profile_manifest_sha256)
         store.cap-=profile['retained_bytes']  # Shared64MiB unit cap includes the completed profile.
         store.json('profile-binding.json',profile)
         x,vectors,bound=inputs();store.json('input-binding.json',bound)
@@ -202,5 +204,5 @@ def run(mode,out,review):
     return 0 if record['status'] in ('profile_passed','diagnostic_passed') else 2
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('mode',choices=['profile','collect']);parser.add_argument('--out',type=Path,required=True);parser.add_argument('--review-commit',required=True);args=parser.parse_args()
-    raise SystemExit(run(args.mode,args.out,args.review_commit))
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('mode',choices=['profile','collect']);parser.add_argument('--out',type=Path,required=True);parser.add_argument('--review-commit',required=True);parser.add_argument('--profile-manifest-sha256');args=parser.parse_args()
+    raise SystemExit(run(args.mode,args.out,args.review_commit,args.profile_manifest_sha256))

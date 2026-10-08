@@ -58,7 +58,7 @@ no retry, alternative rank, thread count, seed or favorable-outcome gate.
 Command, only after separate root authorization:
 
 ```
-env PYTHONPATH="$PWD/src" OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 timeout --signal=TERM --kill-after=5s 45s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/diagnose_cifar_input_span.py collect --out /data2/neural-shrimp-data/explore/cifar/input-span/attempt-001 --review-commit REVIEW_SHA
+env PYTHONPATH="$PWD/src" OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 timeout --signal=TERM --kill-after=5s 45s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/diagnose_cifar_input_span.py collect --out /data2/neural-shrimp-data/explore/cifar/input-span/attempt-001 --review-commit REVIEW_SHA --profile-manifest-sha256 APPROVED_PROFILE_SHA256
 ```
 
 Internal30s, external45s plus5s cleanup. Recheck host ownership/load before each
@@ -112,3 +112,11 @@ corruption/symlinks; rehashed inconsistent profile metrics/source/settings;
 reserved-byte finalization and partial-array/interruption retention. None runs
 the full-size QR or opens saved target arrays. Independent source review and
 later independent saved-output audit remain required before scientific claims.
+
+### Pre-execution review amendment
+
+Root hardened the source after independent review, before any profile or target
+run: collection now requires the exact external profile-manifest SHA256 from
+the post-profile approval, and all named exact saved-array relationships compare
+binary64 bytes, including signed zeros. These tighten provenance and do not
+change the numerical identities or scientific thresholds.

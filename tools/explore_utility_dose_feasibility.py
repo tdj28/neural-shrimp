@@ -15,11 +15,12 @@ from neural_shrimp.period2_branch_io import Store,file_entry,identity
 from neural_shrimp.utility_dose import (TOTAL_BYTES,STORE_BYTES,LAUNCHER_BYTES,INPUT_MANIFEST,INPUT_REVIEW,STATE_HASHES,
     require,training_data,plan_array_hash,dose_prediction)
 INPUT=Path('/data2/neural-shrimp-data/audits/utility-inputs/attempt-001')
-SOURCES=('src/neural_shrimp/__init__.py','src/neural_shrimp/gdmaps.py','src/neural_shrimp/period2_branch.py',
+SOURCES=('src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py','src/neural_shrimp/gdmaps.py','src/neural_shrimp/period2_branch.py',
  'src/neural_shrimp/period2_branch_io.py','src/neural_shrimp/utility_dose.py','tools/explore_utility_dose_feasibility.py',
  'tools/launch_utility_dose_feasibility.py','docs/plans/utility-dose-feasibility.md')
 
 def sources():
+    require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip(),'clean source checkout required')
     result={}
     for name in SOURCES:
         require((ROOT/name).read_bytes()==subprocess.check_output(['git','show','HEAD:'+name],cwd=ROOT),'uncommitted source '+name)

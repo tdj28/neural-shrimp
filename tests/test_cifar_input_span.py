@@ -172,7 +172,8 @@ def test_profile_inventory_source_and_retained_bytes(tmp_path,monkeypatch):
         (folder/name).write_bytes(driver.canonical(obj))
     rows={p.name:driver.entry(p) for p in folder.iterdir()};(folder/'manifest.json').write_bytes(driver.canonical(rows))
     monkeypatch.setattr(driver,'OUTROOT',tmp_path);monkeypatch.setattr(driver.subprocess,'check_output',lambda *a,**kw:b'committed')
-    result=driver.profile_gate(folder,source,env,review)
+    pin=driver.entry(folder/'manifest.json')['sha256']
+    result=driver.profile_gate(folder,source,env,review,pin)
     assert result['retained_bytes']==sum(p.stat().st_size for p in folder.iterdir())
     monkeypatch.setattr(driver.subprocess,'check_output',lambda *a,**kw:b'changed')
-    with pytest.raises(ValueError):driver.profile_gate(folder,source,env,review)
+    with pytest.raises(ValueError):driver.profile_gate(folder,source,env,review,pin)

@@ -99,7 +99,7 @@ def linear_identities(vectors,parts,factor):
             'e_equals_ap_plus_r':error_check(e,ap+r,norm(e)),
             'e_active_equals_ap_active_plus_r_active':error_check(active['e'],active['ap']+active['original-residual'],norm(e)),
             'e_complement_equals_ap_complement_plus_r_complement':error_check(ep,ap_perp+rp,norm(e))}
-    checks['saved_sum_bitwise_equal']=bool(np.array_equal(e,ap+r))
+    checks['saved_sum_bitwise_equal']=bool(e.tobytes()==(ap+r).tobytes())
     return ap_prediction,e_prediction,dict(checks=checks,passed=bool(checks['saved_sum_bitwise_equal'] and all(v['passed'] for v in checks.values() if isinstance(v,dict))))
 
 
@@ -111,11 +111,11 @@ def saved_relations(theta,vectors,map2,trials):
     theta=finite(theta);require(theta.ndim==1,'flat state')
     for label in labels:
         state=finite(vectors[label+'-state'],theta.shape);r=finite(vectors[label+'-residual'],theta.shape)
-        require(np.array_equal(r,finite(map2[label],theta.shape)-state),'saved residual ordering '+label)
+        require(r.tobytes()==(finite(map2[label],theta.shape)-state).tobytes(),'saved residual ordering '+label)
     for name in ('p','ap','e'):finite(vectors[name],theta.shape)
-    require(np.array_equal(theta,vectors['original-state']),'saved original theta')
+    require(theta.tobytes()==vectors['original-state'].tobytes(),'saved original theta')
     require(len(trials)==4,'exactly four trial records')
     for i,alpha in enumerate((1.,.5,.25,.125)):
         require(trials[i]['index']==i and trials[i]['alpha']==alpha,'saved trial order')
-        require(np.array_equal(vectors[f'trial-{i}-state'],theta+alpha*vectors['p']),'saved trial/base/direction relation')
-    require(np.array_equal(vectors['e'],vectors['ap']+vectors['original-residual']),'saved e=Ap+R identity')
+        require(vectors[f'trial-{i}-state'].tobytes()==(theta+alpha*vectors['p']).tobytes(),'saved trial/base/direction relation')
+    require(vectors['e'].tobytes()==(vectors['ap']+vectors['original-residual']).tobytes(),'saved e=Ap+R identity')

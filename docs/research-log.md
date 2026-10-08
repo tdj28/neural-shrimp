@@ -3818,3 +3818,13 @@ training-only reconstruction against existing hashes, exact dose algebra and
 25%/nextafter gates, invalid/zero/nonfinite blocks and rates, all-four retention,
 deadline after a returned gradient, input-bit corruption and productionnice10
 rejection. The target four gradients remain unexecuted.
+
+
+## 2026-10-08 11:04 UTC — source provenance hardening before execution
+
+Independent reviewers identified a missing utility package-import inventory
+and the need for an externally pinned CIFAR profile manifest. Root amended
+both, added a utility clean-checkout guard, and made CIFAR exact saved-array
+relations compare bytes. No target utility gradients, CIFAR profile or target
+projection had run. Original source freezes remain preserved; final source
+review and launch authorization are pending.
