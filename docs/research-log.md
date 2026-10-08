@@ -3988,6 +3988,11 @@ exit0; no retry, failure, source/tolerance change or new model/QR/solver work.
 All13 decompositions, five period2 identities and original p/Ap/e checks agree.
 Original complementary squared residual fraction1.748939766885527e-08 keeps
 the fixed>=.5 reduced-solver prioritization gate false. This is not a causal
-explanation of the GMRES stall. Immutable audit+launcher37,170bytes; manifests
+explanation of the GMRES stall. Immutable audit+launcher35,170bytes; manifests
 and exact limitations are in the independent outcome companion JSON/Markdown.
 Producer pending-at-creation labels remain unchanged.
+
+A post-run receipt consistency assertion caught the compact report
+aggregate-byte typo:23,756+11,414=35,170, not37,170. Corrected only the report;
+raw evidence, individual byte counts, source and scientific results remain
+unchanged. The failed report assertion is retained; no numerical rerun.

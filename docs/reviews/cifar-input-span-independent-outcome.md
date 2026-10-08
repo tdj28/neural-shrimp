@@ -11,7 +11,7 @@ followed target access.
 The audit passed in1.030577s; the owned launcher finished in1.211392s with exit0,
 no error and no log truncation. CPU/BLAS1 and nice10 were recorded; no GPU or paid
 call occurred. Both owned timeout/Python PIDs had exited. The12 audit/launcher
-files total37,170bytes, below4MiB. Every raw hash and the exact inventory were
+files total35,170bytes, below4MiB. Every raw hash and the exact inventory were
 rechecked after the run; files and directories are read-only.
 
 Complete pinned profile, collection, launcher and original-input inventories,
@@ -50,3 +50,8 @@ Raw directories:
 
 The companion JSON binds exact source/input/pins, all audit output hashes,
 resource/process receipts and supported scope.
+
+Reporting correction: a compact-receipt consistency check caught an aggregate
+byte-count transcription (37,170 instead of23,756+11,414=35,170). The original raw
+counts, hashes and scientific results were correct and unchanged. The failed
+report check is retained in the tool transcript; no audit was rerun.
