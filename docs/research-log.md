@@ -3632,3 +3632,12 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+## 2026-10-08 10:29 UTC: CIFAR input-span diagnostic proposal
+
+TLDR: a direct-product decomposition of plain GD may isolate slow,
+training-invisible first-layer weight decay. The algebra and a saved-data
+triage design are in docs/plans/cifar-input-span-diagnostic.md. No new model
+evaluation, trajectory, solve, target projection or profile has run. Source,
+synthetic controls and independent review precede the proposed bounded
+analysis; the original stalled solve remains unresolved. No paid use.
