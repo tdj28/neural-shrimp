@@ -1,6 +1,7 @@
 # Overnight research report — 8 October 2026
 
-Interim update at 14:12 UTC / 07:12 PDT. New work stops at 08:00 PDT / 15:00 UTC.
+Morning checkpoint at 14:25 UTC / 07:25 PDT. The current numerical units and
+paper update are complete. New work stops at 08:00 PDT / 15:00 UTC.
 Private human reading draft; no submission or public release.
 
 **The strongest advance is a proof that a 72-parameter neural network can settle
@@ -56,34 +57,38 @@ a useful intervention or a benefit for LLM training, inference or nanoGPT speed.
 ## Current paper
 
 [Read the current 31-page paper](../paper/gd-route/gd-route-working-draft.pdf).
-It has 292 checked source-derived values and nine figures. Compilation and
+It has 303 checked source-derived values and nine figures; all earlier 292
+entries are unchanged. Compilation and
 visual checks pass. The current paper is privately pushed and independently
-reviewed at `2868e790`; its PDF SHA-256 is
-`c9f9e2081f8ab95e152ce7cd1254e71a029b9f8e2e570990031cab46ac0e2e07`.
+reviewed at `e28bbb08`; its PDF SHA-256 is
+`785fed6699a50d2adaf81ec21db29b93c60f9ddfd05d3179318d3658eaf8efce`.
+Page 21 contains the new audited local turning candidate and its limitations.
 
 The accuracy pass distinguishes independently initialized S2 slices from an
 established continuous branch, coefficient-sign candidates from proved
 generalized bifurcations, and near-+1 digit-network boundaries from confirmed
 folds. It includes the gap diagnosis and negative utility/CIFAR/LM evidence.
-The new local-turn result is being added and compiled now; the linked PDF above
-still names the preceding reviewed checkpoint until that pass completes.
 The shared-input limits of numerical audits remain explicit. Jensen1983 was
 read in full; Arnold and Aronson checks remain partial. Research, bibliography
 and human-authorship items remain open: this is a reading draft, not a release.
 
-## Work in preparation
+## Prepared next decisions
 
 1. **Qualify the turning candidate:** prepare a separate fold-test design for
    a simple unit multiplier, parameter transversality and quadratic
-   nondegeneracy, then consider an interval certificate. The completed
+   nondegeneracy, then consider an interval certificate. The short
+   [reviewed fold-test note](plans/s1r-unstable-fold-next.md) states the required
+   equations and derivative work. The completed
    two-edge experiment is closed; no further continuation or target search
    is running. The method changed chart, predictor and globalization together,
    so its success does not isolate one cause of the earlier stall.
 2. **A possible bridge to larger models:** the fixed six-reference curvature
    design now has corrected closure-work accounting and a residual-aware
    floating spectral diagnostic. A pure supplied-array helper and synthetic
-   controls are prepared and under independent review. No panel acquisition,
-   empirical fit or new LM run has occurred. Success against full matrices
+   controls passed independent review (31 synthetic cases). No panel acquisition,
+   empirical fit or new LM run has occurred. The
+   [helper review](reviews/curvature-mechanism-helper-independent-review.md)
+   preserves that boundary. Success against full matrices
    and strong controls is still required before proposing a larger-model test.
 3. **Practical value:** choose a meaningful intervention comparison and qualify
    its controls. Frozen-weight inference stops the optimizer map; prediction
