@@ -3607,3 +3607,23 @@ two lines above the axes and increases title padding. Regenerate Figure9 from
 the identical saved seven inputs; require unchanged derived values, then
 rebuild number provenance and inspect all changed PDF pages. No model run or
 scientific value changes in the Figure9 adjustment.
+
+
+## 8 October 2026 UTC - final S1R reading copy and preservation
+
+The updated PDF has29 pages,266 source-bound numerical macros and nine figures;
+all45 cited repository paths exist in the committed tree. Aggregate verification
+passed all figures, numbers, scalar/warmup/initial-LM receipts, three exact-real
+orbit certificates and the scalar NS certificate after the Figure6 source-binding
+refresh. Following a final Figure9 heading alignment, that figure and all macro
+checks passed again; all scientific Figure9 inputs/derived values stayed identical.
+Root visually checked pages1-14 and independent reviewer pages15-29; the only
+changed final page19 was re-inspected, with the other28 page image hashes equal.
+No LaTeX warnings/overfull/underfull messages remain. The initial verification
+failure and passing records are retained in docs/reviews/paper-2026-10-08-s1r-review.json.
+Current PDF SHA256:7b8dd00ccaefce77828e901eff241d53610b85364825ed47233f0a667af195d7.
+The morning report now covers the72D proof, upper bootstrap association,
+negative LM/CIFAR outcomes, matched-pulse design and lower-family next decision.
+All scientific units have exited; no paid compute or consultation, no protected
+holdout use, and no submission/public release. The existing heartbeat may resume
+nonduplicate bounded work before15:00UTC; the next association memo is design only.
