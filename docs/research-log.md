@@ -1775,3 +1775,21 @@ distance-envelope records are saved. No locking fraction, null significance,
 merged branch or tongue-ancestry claim is reported. Program C's existing
 stream document records all four offsets, exclusions, provenance/timing
 limitations and the required next full-state continuation experiment.
+
+## 2026-10-08 05:15 UTC: run (exploratory)
+
+- **Question:** Independently recompute the source-bound S1R audit.
+- **Setup:** Producer tip3c66e666; saved-data review only, source/input/output hashes, no producer analysis imports; separate rational enumeration and geometry. Producer outcomes previously read. One CPU thread, nice10, no GPU/paid activity,60s cap.
+- **Output:** `/data2/neural-shrimp-data/audits/s1r-rotation-independent/attempt-001/review.json`
+- **Would surprise us:** Any numerical or scientific-scope mismatch.
+- **Command:** `nice -n 10 timeout 60 /data2/neural-shrimp/.venv/bin/python tools/review_s1r_rotation_map.py --output /data2/neural-shrimp-data/audits/s1r-rotation-independent/attempt-001/review.json`
+
+_commit `fef363950baa`_
+
+- run started 2026-10-08 05:15 UTC finished 05:15 UTC with exit status 0
+
+## 2026-10-08 05:17 UTC: Independent S1R saved-map review passes with one prose correction
+
+Reviewed producer tip3c66e666 and execution sourcebf7a811c from a separate reviewer branch/worktree. Independent checker fef36395 imports no producer analysis, verifies hashes and recomputes all offset medians/maxima/exclusions/status counts,9/13 geometric edges,1/8+2/15+1/23 roots,candidate counts1433/1410/0,distances75.81678/123.63970 and both conditional segment envelopes. All match. Every retained comparison is status4 unresolved. Producer replay passes; six synthetic tests pass. Source/figure inspection supports the disclosed independent slice starts, absent branch identity, stage mismatch and dirty historical producer provenance limits. No numerical/scientific blockers. Nonblocking correction: qualifying_run=false marks an already-qualified capability in gdmaps_cuda.py, not backend unqualification. Compact review docs/reviews/s1r-rotation-map.md and receipt; raw result under audits/s1r-rotation-independent/attempt-001. Local saved-data analysis only, no GPU/new trajectories/paid activity.
+
+_commit `fef363950baa` (dirty worktree)_
