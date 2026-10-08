@@ -3270,3 +3270,22 @@ and load1.31/2.42/3.23; launchprofile load2.04/2.15/2.52. No GPU or paid resourc
 Retain failure; no automatic changed-settings retry. The pre-outcome independent
 audit card requires exact whole-box proximity<=1e-7 before association wording;
 even a pass establishes proximity, not branch ancestry or parameter enclosure.
+
+
+## 2026-10-08 09:17 UTC — S1R72 fixed proof gates pass, outcome review pending
+
+The single fixed-settings attempt at sourcedc2732da completed with all Arb
+existence/local-uniqueness, primitive-period2 and attraction gates passing in
+72 dimensions. The full interval monodromy's2048th power has infinity-norm
+upper bound below0.556; Krawczyk contraction upper bound below2.148e-19.
+Exact dyadic bounds remain in generated certificate/receipt; no float eigenvalue
+decides a gate. Core elapsed3.297632659s, wrapper3.348263039s, launcher3.709215282s,
+peakRSS152,792KiB. No setting change, retry, GPU, paid resource or holdout use.
+
+Immutable external manifest7a5f43508b4a24dc22b809eec8b22834dfa40a603a3f7b28af20d0d1988ad21e
+is bound by docs/s1r-period2-certificate-receipt.json. The copied unchanged
+C1 receipt is certificates/s1r-period2-receipt.json. Source mathematics/code
+review passed; independent outcome replay and exact whole-box proximity remain
+pending under the pre-outcome audit card. The theorem concerns the supplied
+exact-real map only; no local-branch identity, surrounding geometry or utility
+claim is established by this calculation.
