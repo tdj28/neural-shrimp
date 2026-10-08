@@ -41,7 +41,11 @@ SHA256 `cbef5ea46ee1a0253dccbe93fbc4e36523a47f9363533861c8bce09e4381215e`.
 For `A=D_x G_eta(x)`, `T=tr(A)`, `D=det(A)`, solve three real equations
 `H(x,eta)=(G_eta(x)-x,D-1)=0` in `(u,v,eta)`.
 
-1. Use Arb at 256 bits, initial coordinate radii `2^-40`, exact-dyadic
+1. Prepare the center using exactly five 256-bit Newton proposal updates,
+   taking exact dyadic midpoints after each solve and retaining every residual,
+   correction and center. A failed solve stops the attempt; proposal convergence
+   is never a proof gate and does not trigger a box/precision search. Then use
+   Arb at 256 bits, fixed coordinate radii `2^-40`, exact-dyadic
    approximate inverse R, strict Krawczyk inclusion and
    `||I-R DH(Z)||_inf<1` on the 3D box Z. This establishes a locally unique
    augmented root; floating-point Newton residuals are proposals only.
@@ -124,9 +128,9 @@ No operation timing for the proposed evaluator has been measured. Expected
 cost is seconds: 20-coefficient jets, 3x3 real and 2x2 complex solves, no
 trajectory/eigensolver/GPU. This is an estimate, not evidence or a guarantee.
 First commit code, controls and a run card. An optional synthetic non-outcome
-unit can time 128/256/512-bit polynomial boxes, CPU1/nice10, external30-second
+unit can time 128/256/512-bit polynomial boxes, one CPU thread, nice 10, external 30-second
 cap, without evaluating the selected target. Bound the first target attempt
-by a120-second process cap. No automatic box/precision search or paid fallback;
+by a 120-second process cap. No automatic box/precision search or paid fallback;
 record each failure and amend before further attempts.
 
 Controls: exact polynomial derivative/factorial identities; normal forms with
@@ -138,5 +142,5 @@ reporting its sign. Save exact inputs, all boxes/intermediate enclosures,
 per-gate verdicts, immutable attempts, source/library/precision/runtime and a
 compact hash-bound receipt. One offline verifier recomputes all quoted bounds
 and gates. Partial endpoint success cannot mask an inconclusive sign/root.
-Existing seed evidence remains rung0; only actual passing rigorous gates earn
-rung3. Review status, theorem dependence and failed attempts remain explicit.
+Existing seed evidence remains rung 0; only actual passing rigorous gates earn
+rung 3. Review status, theorem dependence and failed attempts remain explicit.
