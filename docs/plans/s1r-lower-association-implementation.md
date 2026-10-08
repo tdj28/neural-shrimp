@@ -98,3 +98,6 @@ The launcher's fixed120s supervisor also closes inherited stdout and kills its
 owned process group when the leader has already exited, preventing an orphan
 pipe from extending the115+5 resource envelope. Synthetic injected failures
 cover both cases. Neither correction changes a scientific gate or target.
+The same durable-event accounting applies to node starts/completions, including
+separate unpersisted node attempts; in-memory qualification flags do not erase
+an unfinished journal node.

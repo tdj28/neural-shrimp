@@ -110,12 +110,18 @@ class Progress:
         self.accepted_edges = []
         self.started_edges = set()
         self.finished_edges = set()
+        self.started_nodes = set()
+        self.finished_nodes = set()
 
     def emit(self, kind, payload):
         terminal = kind == 'corrector_end' and payload.get('reason') == 'interrupted'
         self.store.emit(kind, payload, final=terminal)
         if kind in ('corrector_start', 'corrector_iteration', 'corrector_end'):
             self.latest_corrector = deepcopy(payload)
+        if kind == 'node_pending':
+            self.started_nodes.add(payload['id'])
+        if kind == 'node':
+            self.finished_nodes.add(payload['id'])
         if kind == 'edge_pending':
             self.started_edges.add(payload['id'])
         if kind == 'edge':
@@ -133,7 +139,9 @@ class Progress:
         engine = self.engine
         return dict(last_witnessed=snapshot(self.last_accepted), accepted_edges=self.accepted_edges.copy(),
             latest_corrector=deepcopy(self.latest_corrector),
-            pending_nodes=[] if engine is None else [n['id'] for n in engine.nodes.values() if n['reason'] == 'pending'],
+            pending_nodes=sorted(self.started_nodes - self.finished_nodes),
+            unpersisted_node_attempts=[] if engine is None else [n['id'] for n in engine.nodes.values() if n['id'] not in self.started_nodes],
+            durably_finished_nodes=sorted(self.finished_nodes),
             pending_edges=sorted(self.started_edges - self.finished_edges),
             unpersisted_edge_attempts=[] if engine is None else [e['id'] for e in engine.edges if e['id'] not in self.started_edges],
             durably_finished_edges=sorted(self.finished_edges),
