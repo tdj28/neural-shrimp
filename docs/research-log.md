@@ -2318,3 +2318,16 @@ partial-spectrum probe. Failure calls for solver diagnostics/preconditioning,
 not a claim that paid hardware improves convergence. Focused source tests:
 40 passed in10.75s, including tests that forbid any multiplier call and preserve
 latest full state/history under an injected timeout. No paid resource used.
+
+### Root launch amendment: bounded CIFAR correction, 2026-10-08 05:45 UTC
+
+The independently reviewed corrector-only implementation38ffd10d is now
+integrated with review6a6e5d26 (root predecessor edbe1f3c). Execute the exact
+prospective card above on subset A and the original saved state, with no
+Arnoldi or rate continuation. Shared zeta inventory: load2.69/3.60/3.43,
+44GiB RAM available; RTX2000Ada empty at2MiB/0percent, but this run uses CPU1
+and nice10 only. Internal180s, external200s with5s grace. Unique scientific
+output remains `explore/cifar/corrector-only/attempt-001`; exclusive launcher
+log/receipt live under `logs/cifar-corrector-only-attempt-001*` in the data
+store. Code and this card are committed before outcome. Failed convergence
+is informative and will not trigger an automatic paid rerun or relaxed gate.
