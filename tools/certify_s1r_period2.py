@@ -6,6 +6,7 @@ import argparse
 from dataclasses import asdict
 from datetime import datetime, timezone
 import json
+import math
 from pathlib import Path
 import resource
 import signal
@@ -95,10 +96,22 @@ def profile_gate(profile,sources,inputs):
     for name,e in m['files'].items():
         path=Path(name);require(not path.is_absolute() and '..' not in path.parts,'profile path')
         require(not (profile/path).is_symlink() and entry(profile/path)==e,'profile hash '+name)
-    start=json.loads((profile/'runtime-start.json').read_bytes());result=json.loads((profile/'result.json').read_bytes())
-    require(start['source_sha256']==sources and start['settings']==SETTINGS,'profile source/settings')
+    require(m['total_bytes']==sum(v['bytes'] for v in m['files'].values())<=MAX_BYTES,'profile byte cap')
+    start=json.loads((profile/'runtime-start.json').read_bytes());end=json.loads((profile/'runtime-end.json').read_bytes())
+    result=json.loads((profile/'result.json').read_bytes())
+    for meta in (start,end):
+        require(meta['source_sha256']==sources and meta['settings']==SETTINGS,'profile source/settings')
+        require(meta['action']=='profile' and meta['cpu_threads']==1 and meta['nice']>=10 and meta['gpu'] is False and meta['paid'] is False,'profile runtime scope')
+    require(end['status']=='profile_passed' and end['source_commit']==start['source_commit'] and end['pid']==start['pid'],'completed profile runtime')
     require((profile/'inputs.json').read_bytes()==canonical_bytes(inputs),'profile input identity')
-    require(result['passed'] is True and result['projected_seconds']<=90 and result['max_rss_kib']<=1024*1024,'profile gate')
+    def finite_number(value):return type(value) in (int,float) and math.isfinite(value)
+    seconds=result['map_seconds'];elapsed=end['elapsed_seconds']
+    rss=result['max_rss_kib'];end_rss=end['max_rss_kib']
+    require(all(finite_number(v) for v in (seconds,elapsed,rss,end_rss,result['projected_seconds'])),'finite profile measurements')
+    require(0<seconds<=elapsed<=20 and 0<rss<=end_rss<=1024*1024,'profile runtime limits')
+    require(result['map_calls_in_checker']==14 and result['safety_factor']==2 and result['overhead_allowance_seconds']==10,'profile projection constants')
+    projected=2*14*seconds+10
+    require(result['passed'] is True and result['projected_seconds']==projected<=90,'profile gate')
     return dict(root=str(profile.resolve()),manifest=entry(profile/'manifest.json'),result=entry(profile/'result.json'))
 
 
