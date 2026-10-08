@@ -3186,3 +3186,20 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+
+### Utility/scaling design decision — 2026-10-08 UTC
+
+On authoritative960ab535, read the retained warmup states/references, controller
+implementation, EXP-027 requirements and reviewed LM negatives. The prior hidden
+reversals were1.792%/2.293%, unlike50% two-rate backoff; ordinary hard starts
+already missed the local branch. This motivates a design-only candidate at
+docs/plans/utility-matched-pulse-candidate.md: equal actual first-step state
+displacement, then identical recovery maps, with sham/uniform/hidden/output arms
+and independently qualified distant periodic/chaotic controls before specificity.
+No target launches until controls, source and measured resource plan are pinned.
+
+Explicitly defer the older LM frozen-curvature candidate: either result would
+mostly validate expected time variation/calculus and would not change a current
+larger-model method or resource choice. Both old negative units remain stopped.
+This is a design memo only; no code, experiment, paid call or resource reservation.
