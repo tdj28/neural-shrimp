@@ -4,7 +4,7 @@ Data: the CIFAR-10 python archive (downloaded once through torchvision into
 DATA/datasets/cifar10; its SHA-256 is recorded). Two disjoint, class-balanced
 training subsets are drawn with one documented seed: A (development) and B
 (held out). Only B's index list and its hash are written; nothing in this
-module loads B's pixels.
+module selects B's pixels for evaluation; the archive loader reads whole batches.
 
 Model: tanh MLP 3072-h-10 in standard parameterization with PyTorch-default
 initialization (weights and biases uniform on +-1/sqrt(fan_in)), a flat float64

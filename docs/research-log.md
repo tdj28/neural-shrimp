@@ -1698,3 +1698,15 @@ _commit `ed1293e35f5c`_
 Isolated codex/cifar-orbit-safety; active legacy checkout untouched. Fifteen focused tests pass. Newton final history now describes returned state and rejects failed/nonfinite GMRES steps; seeded Arnoldi stores Ritz residuals and refuses partial/bad pairs; no spectral analysis before closure/separation, including bisection; estimated partial-spectrum crossing candidates only. Exclusive attempts preserve fsynced Newton/continuation events, accepted states, atomic checkpoints and final hash manifests; explicit iteration/matvec/wall budgets. Benchmark ed1293e3 on existing subset-A state: gradient5.268ms, HVP17.842ms (first84.705ms), J2VP33.473ms medians; single GMRES cycle6matvecs215.782ms with info1 and residual .8994 to .8968. Timing does not establish orbit/stability. Receipt docs/cifar-operation-timing-receipt.json; bounded H100 plan docs/cifar-orbit-compute-plan.md requires an actually device-capable runner, numerical parity, operation-specific GPU timing and one bounded corrector before continuation. Root coordinates paid authorization/ownership/ledger; no paid compute launched, no subsetB index access, no new scientific trajectory.
 
 _commit `ed1293e35f5c` (dirty worktree)_
+
+
+### CIFAR independent-review correction — 8 October 2026 UTC
+
+Source basis `3dca7f03`; independent review identified missing mathematical
+data identity, loss of a corrected state on spectral timeout, and invalid
+continuation-control acceptance. Bind subset-A indices and exact normalized
+x/y bytes; save/fsync/hash correction before Arnoldi with pending status;
+reject invalid inputs before output creation. Circle is disabled until its
+whole pipeline is bounded. No new scientific run. Focused 32-case suite passed
+in 10.95 s; added explicit NaN-step rejection case shares the tested validator.
+Original legacy attempt and frozen evidence remain untouched.

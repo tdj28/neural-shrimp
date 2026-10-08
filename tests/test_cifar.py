@@ -180,7 +180,7 @@ def test_failed_bisection_keeps_unresolved_bracket_and_incremental_evidence(monk
     from types import SimpleNamespace
     import json
     driver = load_driver()
-    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (None, None))
+    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (SimpleNamespace(data_identity={'mock': True}), None))
     calls = []
     def evaluate(problem, theta, eta, k, **kwargs):
         i = len(calls)
@@ -211,7 +211,7 @@ def test_crossing_angle_refers_to_top_ritz_value_not_an_unrelated_complex_mode(m
     from types import SimpleNamespace
     import json
     driver = load_driver()
-    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (None, None))
+    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (SimpleNamespace(data_identity={'mock': True}), None))
     count = []
     def evaluate(problem, theta, eta, k, **kwargs):
         stable = not count
@@ -229,3 +229,52 @@ def test_crossing_angle_refers_to_top_ritz_value_not_an_unrelated_complex_mode(m
     result = json.loads((output / 'orbit.json').read_text())
     assert result['crossing']['type'] == 'fold_candidate'
     assert result['crossing']['theta_over_2pi'] == 0.
+
+
+@pytest.mark.parametrize('field,value', [('eta', 0.), ('eta', np.nan), ('output_ratio', -1.),
+    ('step', -.1), ('step', np.nan), ('step', np.inf), ('bisect_tol', 0.), ('max_seconds', -1.),
+    ('max_steps', 0), ('newton_steps', -1), ('gmres_restart', 0), ('arnoldi_maxiter', 0),
+    ('arnoldi_max_matvec', 0), ('stability_margin', np.nan), ('stability_margin', -.1)])
+def test_invalid_orbit_controls_rejected_before_output_creation(tmp_path, field, value):
+    from types import SimpleNamespace
+    driver = load_driver()
+    args = SimpleNamespace(eta=.1, output_ratio=1., step=.1, bisect_tol=1e-6,
+                           max_steps=2, lam=.01, output=str(tmp_path/'unused'))
+    setattr(args, field, value)
+    with pytest.raises(ValueError, match=field):
+        driver.cmd_orbit(args)
+    assert not (tmp_path/'unused').exists()
+
+
+def test_corrected_state_survives_spectral_timeout(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+    import json
+    driver = load_driver()
+    x = np.arange(12., dtype=np.float64).reshape(4, 3)
+    identity = {'x': driver.array_identity(x), 'y': driver.array_identity(x[:, :1]),
+                'subset_a_record_sha256': 'mock-only'}
+    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (SimpleNamespace(data_identity=identity), None))
+    corrected = torch.arange(6., dtype=torch.float64)
+    monkeypatch.setattr(driver, 'certify', lambda *a, **k: (corrected,
+        [{'relative_residual': 0., 'converged': True}], .1))
+    def timeout(*a, **k):
+        raise TimeoutError('controlled spectral timeout')
+    monkeypatch.setattr(cifar, 'two_step_multipliers', timeout)
+    state = tmp_path/'initial.npy'; np.save(state, np.ones(6))
+    output = tmp_path/'attempt'
+    args = SimpleNamespace(threads=1, lam=.01, eta=.1, output_ratio=1., step=.1,
+        max_steps=2, bisect_tol=1e-6, k=2, state=str(state), output=str(output))
+    with pytest.raises(TimeoutError):
+        driver.cmd_orbit(args)
+    result = json.loads((output/'orbit.json').read_text())
+    assert result['data_identity'] == identity
+    assert result['status'] == 'failed_or_interrupted' and result['crossing'] is None
+    saved = result['last_corrector']
+    assert saved['spectrum_status'] == 'pending' and 'estimated_stability' not in saved
+    assert cifar.sha256_file(output/saved['state_file']) == saved['state_sha256']
+    np.testing.assert_array_equal(np.load(output/saved['state_file']), corrected.numpy())
+
+
+def test_circle_is_excluded_from_bounded_pilot():
+    with pytest.raises(NotImplementedError, match='disabled'):
+        load_driver().cmd_circle(None)

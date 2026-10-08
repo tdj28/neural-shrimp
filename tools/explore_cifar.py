@@ -14,7 +14,7 @@ Subcommands:
   circle  just past a Neimark-Sacker crossing: long run from the orbit plus a
           small kick, rotation from principal-plane projections, loss spectrum
 
-Only subset A is ever loaded as pixels. Outputs under DATA/explore/cifar/.
+Only subset A is selected and evaluated; the loader reads whole training batches. Outputs under DATA/explore/cifar/.
 """
 
 import argparse
@@ -75,7 +75,21 @@ def subset_a_problem(lam, width=32):
     x = cifar.standardized(pixels[indices])
     y = cifar.one_hot(labels[indices])
     model = cifar.MLP(width=width)
-    return cifar.Problem(model, x, y, lam), model
+    problem = cifar.Problem(model, x, y, lam)
+    problem.data_identity = {
+        'subset_a_record': str(path_a), 'subset_a_record_sha256': cifar.sha256_file(path_a),
+        'subset_a_indices_sha256_int64': cifar.index_hash(indices),
+        'x': array_identity(x), 'y': array_identity(y),
+        'selection': 'subset A only; normalization fitted to these selected rows',
+        'model': {'d': model.d, 'width': model.width, 'k': model.k}}
+    return problem, model
+
+
+def array_identity(array):
+    import hashlib
+    array = np.ascontiguousarray(array)
+    return {'sha256': hashlib.sha256(array.tobytes(order='C')).hexdigest(),
+            'dtype': array.dtype.str, 'shape': list(array.shape), 'order': 'C'}
 
 
 def sharpness(problem, theta, iterations=60, seed=0):
@@ -174,6 +188,10 @@ def cmd_sweep(args):
 
 def rates(model, eta, output_ratio=1.0):
     """Scalar rate, or per-parameter rates with the output layer at output_ratio x eta."""
+    if not np.isfinite(eta) or eta <= 0 or not np.isfinite(output_ratio) or output_ratio <= 0:
+        raise ValueError('learning rate and output ratio must be finite and positive')
+    if not np.isfinite(eta * output_ratio):
+        raise ValueError('output learning rate overflow')
     if output_ratio == 1.0:
         return eta
     hidden = model.sizes[0] + model.sizes[1]
@@ -220,12 +238,14 @@ def evaluate_orbit(problem, theta, eta, k, seed=28204, margin=1e-7, checkpoint=N
     elif not np.isfinite(separation) or separation < 1e-7:
         row['stop_reason'] = 'not_a_separated_period_2_orbit'
     if checkpoint:
-        checkpoint('corrector', row)
+        row['spectrum_status'] = 'pending' if row['stop_reason'] is None else 'not_attempted'
+        checkpoint('corrector', row, theta)
     if row['stop_reason']:
         return theta, row
     multipliers = cifar.two_step_multipliers(problem, theta.numpy(), eta, k=k, seed=seed,
                                              deadline=deadline, **(spectral_options or {}))
     row['spectrum'] = multipliers
+    row['spectrum_status'] = 'qualified' if multipliers.get('qualified', False) else 'unqualified'
     if not multipliers.get('qualified', False):
         row['stop_reason'] = 'arnoldi_unqualified'
         return theta, row
@@ -251,7 +271,32 @@ def safe_json(value):
     return value
 
 
+def validate_orbit_args(args):
+    positive = {'eta': None, 'output_ratio': 1., 'step': None, 'bisect_tol': None,
+                'max_seconds': 600}
+    integers = {'threads': 1, 'k': 6, 'max_steps': None, 'newton_steps': 8,
+                'gmres_restart': 50, 'gmres_maxiter': 4, 'arnoldi_maxiter': 100,
+                'arnoldi_max_matvec': 2000}
+    for name, default in positive.items():
+        value = getattr(args, name, default)
+        if value is None or not np.isfinite(value) or value <= 0:
+            raise ValueError(f'{name} must be finite and positive')
+    for name, default in integers.items():
+        value = getattr(args, name, default)
+        if value is None or not np.isfinite(value) or value <= 0 or int(value) != value:
+            raise ValueError(f'{name} must be a positive integer')
+    for name, default in {'lam': None, 'stability_margin': 1e-7}.items():
+        value = getattr(args, name, default)
+        if value is None or not np.isfinite(value) or value < 0:
+            raise ValueError(f'{name} must be finite and nonnegative')
+    seed = getattr(args, 'arnoldi_seed', 28204)
+    if not np.isfinite(seed) or seed < 0 or int(seed) != seed:
+        raise ValueError('arnoldi_seed must be a nonnegative integer')
+    cifar.check_seed(seed)
+
+
 def cmd_orbit(args):
+    validate_orbit_args(args)
     torch.set_num_threads(args.threads)
     default = OUT / 'orbit' / (datetime.now(timezone.utc).strftime('attempt-%Y%m%dT%H%M%S-') + uuid.uuid4().hex[:8])
     folder = Path(args.output) if getattr(args, 'output', None) else default
@@ -274,14 +319,26 @@ def cmd_orbit(args):
                                     'max_matvec': getattr(args, 'arnoldi_max_matvec', 2000)},
                'deadline': deadline}
 
+    event_count = 0
+
     def save(kind, data, theta=None):
+        nonlocal event_count
+        event_count += 1
         event = safe_json({'kind': kind, 'seconds': time.perf_counter() - started, **data})
+        if theta is not None:
+            state_path = folder / f'state-{event_count:06d}.npy'
+            with state_path.open('xb') as handle:
+                np.save(handle, theta.detach().cpu().numpy())
+                handle.flush()
+                os.fsync(handle.fileno())
+            event['state_file'] = state_path.name
+            event['state_sha256'] = cifar.sha256_file(state_path)
+        if kind.endswith('corrector'):
+            result['last_corrector'] = event
         with (folder / 'events.jsonl').open('a') as handle:
             handle.write(json.dumps(event, allow_nan=False) + '\n')
             handle.flush()
             os.fsync(handle.fileno())
-        if theta is not None:
-            np.save(folder / f"state-{len(result['rows']):04d}-{len(result['bisection_rows']):04d}.npy", theta.numpy())
         temporary = folder / 'checkpoint.tmp'
         temporary.write_text(json.dumps(safe_json(result), indent=2, allow_nan=False) + '\n')
         temporary.replace(folder / 'orbit.json')
@@ -289,6 +346,8 @@ def cmd_orbit(args):
     save('start', {'folder': str(folder)})
     try:
         problem, model = subset_a_problem(args.lam)
+        result['data_identity'] = problem.data_identity
+        save('data_identity', result['data_identity'])
         theta = torch.as_tensor(np.load(args.state))
         log_eta, previous, stable, unstable = np.log10(args.eta), [], None, None
         for _ in range(args.max_steps):
@@ -297,7 +356,7 @@ def cmd_orbit(args):
                 theta = previous[-1] + (previous[-1] - previous[-2])
             theta, row = evaluate_orbit(problem, theta, eta, args.k,
                 seed=getattr(args, 'arnoldi_seed', 28204), margin=getattr(args, 'stability_margin', 1e-7),
-                checkpoint=lambda kind, row: save(kind, {'log10_eta': log_eta, **row}), **options)
+                checkpoint=lambda kind, row, state=None: save(kind, {'log10_eta': log_eta, **row}, state), **options)
             row['log10_eta'] = log_eta
             result['rows'].append(row)
             save('continuation', row, theta if not row['stop_reason'] else None)
@@ -319,7 +378,7 @@ def cmd_orbit(args):
                 eta_mid = rates(model, 10.0 ** mid, args.output_ratio)
                 theta_mid, row = evaluate_orbit(problem, stable[1], eta_mid, args.k,
                     seed=getattr(args, 'arnoldi_seed', 28204), margin=getattr(args, 'stability_margin', 1e-7),
-                    checkpoint=lambda kind, row: save('bisection_' + kind, {'log10_eta': mid, **row}), **options)
+                    checkpoint=lambda kind, row, state=None: save('bisection_' + kind, {'log10_eta': mid, **row}, state), **options)
                 row['log10_eta'] = mid
                 result['bisection_rows'].append(row)
                 save('bisection', row, theta_mid if not row['stop_reason'] else None)
@@ -360,7 +419,8 @@ def cmd_orbit(args):
 
 
 def cmd_circle(args):
-    """Long runs just past a crossing: rotation, loss spectrum and largest exponent."""
+    """Legacy circle runner is excluded until its full pipeline is bounded."""
+    raise NotImplementedError('circle is disabled for this bounded pilot; requires separate hardening')
     torch.set_num_threads(args.threads)
     problem, model = subset_a_problem(args.lam)
     folder = OUT / 'circle' / (datetime.now(timezone.utc).strftime('attempt-%Y%m%dT%H%M%S-') + uuid.uuid4().hex[:8])

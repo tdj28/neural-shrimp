@@ -71,6 +71,14 @@ Fifteen focused tests cover analytic derivatives, dense-spectrum comparison,
 seeded starts, false Ritz pairs, partial convergence, final-state residuals,
 failed solver gates, budgets, bisection failure and incremental checkpointing.
 
+The circle subcommand is explicitly disabled for this pilot. It requires a
+separate review of end-to-end resource budgets before any fresh use. Orbit
+inputs now bind the subset-A record, selected index hash and exact contiguous
+normalized float64 x/y arrays (dtype, shape and byte hash). Corrected states
+are fsynced and hash-bound before the first Arnoldi call, retaining a
+spectrum-pending record after interruption. Invalid rate, step, tolerance,
+margin or resource controls are rejected before creating an attempt.
+
 ## First H100 pilot, after local runner rehearsal
 
 The earlier Phase 0 H100 measurement timed batched forward GD steps. It does
