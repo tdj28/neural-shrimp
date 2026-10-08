@@ -4161,3 +4161,7 @@ Execution6fea29cd finished the single authorized restart200/maxiter1 diagnostic;
 ## 2026-10-08 12:22 UTC — authorize one independent saved restart audit
 
 Independent source reviewfa4fafff passes prospective auditor4de644d3 with64 synthetic controls,14 independently written. Authorize exactly one clean4de644d3 execution on the externally pinned metadata in `docs/reviews/cifar-restart-audit-authorization.json`, retaining the frozen15s/20+5s CPU1/nice10/4MiB limits. No producer numerical imports, model/derivative/solver/SVD/QR calls or retry. Original source was frozen before target outcomes; independent reviewer remained outcome-blind. Producer already exited and owned PIDs are absent. Complete retained inventories and audit termination must verify.
+
+## 2026-10-08 12:26 UTC — Jensen1983 primary full-text check
+
+Read all three pages of the openly author-hosted primary PDF, with archive/manifest bound in `docs/reviews/jensen1983-reference-receipt.json`. Closed this reference's full-text ledger item; preserved numerical/conjectural scope. Existing manuscript attribution needs no text change; other reference gaps remain open. No experiment, paid access or numerical replay.
