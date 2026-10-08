@@ -4191,3 +4191,24 @@ Copied and fully hash-checked60 immutable raw files/21,993,233bytes to the separ
 ## 2026-10-08 12:31UTC — clarify the matched-pulse estimand before another dose
 
 Data-free Cauchy–Schwarz argument shows that a distinct pulse direction cannot simultaneously match uniform backoff in treatment-minus-sham norm and total update length. A symmetric orthogonal pair can match both to each other, with a separate update-length-matched uniform comparator, subject to block-fraction feasibility. Saved target arrays were not evaluated and no new kappa/tau or run is selected. `docs/plans/utility-dose-geometry-decision.md` preserves the failed fixed dose and zero-qualified-control result; independent review requested before using its algebra in future design.
+
+## 2026-10-08 UTC — design-only CIFAR decision after audited restart result
+
+Prepared docs/plans/cifar-after-restart-decision.md from integratione9ecb9ba and
+exact saved span/restart receipts and event timings. Recommendation: stop this
+fixed-state correction escalation now, retaining the negative acceptance result.
+The longer cycle still improves linearly, so neither stagnation nor inconsistent
+Newton equations are inferred. Reduced coordinates have a clear storage-count
+benefit but no demonstrated derivative-time/conditioning gain; the failed span
+priority gate is not a proof that reduction could never help. No smaller damping
+trial is proposed to confirm the already expected local-descent prediction.
+
+If correction becomes an explicit renewed priority, the note ranks one declared
+larger-space diagnostic ahead of an unmeasured reduced implementation or new
+trust-region algorithm, while separating possible linear/nonlinear outcomes.
+The hypothetical400-space cost arithmetic (~29.68s,316.52MB basis) is planning
+context, not a profile or launch proposal. The current decision allocates zero
+new model/solver work and preserves forcing0.5,closure1e-8 and primitive1e-7.
+Only saved JSON/hash/timing summaries and elementary storage/cost arithmetic
+were read; no arrays, norms, matrix products, gradients, JVPs, profiles, SVDs,
+solves or trajectories were evaluated. No source/old plan/evidence was changed.
