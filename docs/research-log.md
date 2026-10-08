@@ -2115,3 +2115,102 @@ _commit `fef363950baa`_
 Reviewed producer tip3c66e666 and execution sourcebf7a811c from a separate reviewer branch/worktree. Independent checker fef36395 imports no producer analysis, verifies hashes and recomputes all offset medians/maxima/exclusions/status counts,9/13 geometric edges,1/8+2/15+1/23 roots,candidate counts1433/1410/0,distances75.81678/123.63970 and both conditional segment envelopes. All match. Every retained comparison is status4 unresolved. Producer replay passes; six synthetic tests pass. Source/figure inspection supports the disclosed independent slice starts, absent branch identity, stage mismatch and dirty historical producer provenance limits. No numerical/scientific blockers. Nonblocking correction: qualifying_run=false marks an already-qualified capability in gdmaps_cuda.py, not backend unqualification. Compact review docs/reviews/s1r-rotation-map.md and receipt; raw result under audits/s1r-rotation-independent/attempt-001. Local saved-data analysis only, no GPU/new trajectories/paid activity.
 
 _commit `fef363950baa` (dirty worktree)_
+## 2026-10-07 23:37 UTC: run (exploratory)
+
+- **Question:** Do the matrix-free CIFAR tools reproduce the dense reference on a known Neimark-Sacker point: torch Arnoldi two-step multipliers and Newton-GMRES period-2 corrector?
+- **Setup:** S2-28011 at log10 output -0.0856, log10 hidden 1.7370, 1.7380, 1.7384, traced NS at 1.738439; dense NumPy certification and eigenvalues vs neural_shrimp.cifar on the same orbit point; per-parameter rate vector
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/validation/s2-replay.json`
+- **Would surprise us:** Dominant complex multiplier differing from the dense value by more than 1e-8; Newton-GMRES not converging to the certified orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/validate_cifar_multipliers.py`
+
+_commit `985930519bc0`_
+
+- run started 2026-10-07 23:37 UTC finished 23:37 UTC with exit status 0
+
+## 2026-10-07 23:38 UTC: run (exploratory)
+
+- **Question:** Download CIFAR-10, draw disjoint class-balanced subsets A and B of 512 training images with seed 28201, and seal B
+- **Setup:** torchvision CIFAR10 train archive into /data2/neural-shrimp-data/datasets/cifar10; neural_shrimp.cifar.balanced_subsets; B written as indices and hash only
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/subsets/manifest.json`
+- **Would surprise us:** Archive hash not matching torchvision's MD5 check
+- **Command:** `/data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py data`
+
+_commit `0781d5d24c57` (dirty worktree)_
+
+- run started 2026-10-07 23:38 UTC finished 23:46 UTC with exit status 0
+
+## 2026-10-07 23:47 UTC: run (exploratory)
+
+- **Question:** Which weight decay gives isolated converging minima on CIFAR subset A, and what is the edge-of-stability learning rate?
+- **Setup:** tanh MLP 3072-32-10, MSE on one-hot, float64 full batch on subset A, init seed 28202; lambda in 0, 1e-4, 1e-3, 1e-2; 20,000 steps at eta = 0.5 x 2 / sharpness at init; sharpness by power iteration
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/wd/wd-check.json`
+- **Would surprise us:** No weight decay converging within 20,000 steps
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py wd --threads 16`
+
+_commit `a33a45b14126` (dirty worktree)_
+
+- run started 2026-10-07 23:47 UTC finished 23:49 UTC with exit status 0
+
+## 2026-10-07 23:50 UTC: CIFAR pilot: weight decay 1e-2 chosen on subset A because relaxation is too slow below it
+
+Subset A, tanh MLP 3072-32-10, init seed 28202, 20,000 sub-edge steps at eta = 0.5 x 2 / sharpness at init = 0.00327 (initial sharpness about 305): lambda 0 loss 5.4e-4, gradient norm 5.6e-3, final sharpness 401 (edge eta 0.0050); lambda 1e-4 loss 1.7e-3, 5.6e-3, 401; lambda 1e-3 loss 1.1e-2, 6.3e-3, 391 (edge 0.0051); lambda 1e-2 loss 0.069, 1.8e-2, 309 (edge 0.0065). None converged in 20,000 steps; the slowest relaxation time 1/(eta lambda) at the edge exceeds 2e5 steps for lambda <= 1e-3 but is about 2e4 for 1e-2, so lambda = 1e-2 is used for the sweep, with Newton-GMRES polishing of partially converged orbits. 1.8 ms per float64 full-batch step with 16 threads.
+
+_commit `a33a45b14126` (dirty worktree)_
+
+## 2026-10-07 23:50 UTC: run (exploratory)
+
+- **Question:** Single learning-rate sweep on CIFAR subset A: where does GD from the default initialization settle on fixed points, period-2 orbits or other attractors?
+- **Setup:** lambda 1e-2, 12 eta values geometric 0.005 to 0.02, 150,000 steps each from init seed 28202, last 64 states kept, 4 workers x 4 torch threads
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/sweep`
+- **Would surprise us:** No period-2 candidates anywhere in the range
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py sweep --lam 1e-2 --eta 0.005 0.02 --count 12 --steps 150000 --workers 4 --threads 4`
+
+_commit `acfa6ab86fbb`_
+
+- run started 2026-10-07 23:50 UTC finished 01:24 UTC with exit status 0
+
+## 2026-10-08 01:30 UTC: run (exploratory)
+
+- **Question:** CIFAR subset A, single learning rate: how does the period-2 orbit lose stability as eta grows past 0.0083?
+- **Setup:** lambda 1e-2; start from the sweep state at eta 0.00827753; Newton-GMRES period-2 corrector; two-step multipliers by Arnoldi, LM and LI searches, k 6; natural continuation with secant predictor, step 0.01 in log10 eta, up to 25 steps; bisection of the crossing to 1e-5
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/orbit`
+- **Would surprise us:** Loss of stability by flip or fold rather than a complex pair; Newton-GMRES failing to certify a period-2 orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --lam 1e-2 --eta 0.00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --step 0.01 --max-steps 25 --threads 16`
+
+_commit `32d694f75a47` (dirty worktree)_
+
+## 2026-10-08 01:30 UTC: CIFAR pilot sweep: monotone relaxation below eta 0.0083, slow loss oscillation above 0.0094
+
+Subset A, lambda 1e-2, 150,000 steps from init: for eta 0.005-0.0073 the state drifts slowly toward a fixed point, relative step change about 2e-6; at eta 0.00828 consecutive states differ by 3.5e-4 while two-step changes are 5e-6, a period-2 candidate with slow drift. From eta 0.0094 the even-step loss oscillates with a dominant period of 588, 323, 200, 95, 64, 67 and 50 two-steps at eta 0.0094, 0.0107, 0.0121, 0.0137, 0.0155, 0.0176, 0.020, i.e. a modulation frequency rising from 0.0017 to 0.020 turns per two-step. The envelope still decays slowly at 0.0094 (1.6e-4 to 1.2e-4 over the last 20,000 steps) but is steady from 0.0107, suggesting a stable 2-cycle with complex multipliers below about 0.01 and a sustained modulation above. Orbit continuation with Arnoldi multipliers is running to type the transition. Sweep steps took 8-15 ms with 4 workers x 4 threads versus 1.8 ms single-process.
+
+_commit `32d694f75a47` (dirty worktree)_
+
+## 2026-10-08 04:57 UTC: run (exploratory)
+
+- **Question:** What are actual CIFAR subset-A gradient, HVP, two-step JVP and tiny GMRES costs before designing an H100 continuation pilot?
+- **Setup:** Operation benchmark only: existing owned state at eta0.00827753, lambda0.01, subsetA512, 3072-32-10 MLP, float64. Three evaluations each of gradient/HVP/J2VP; one GMRES cycle with restart5/maxiter1. One CPU thread, nice10, external60s timeout. No held-out subset indices, no optimizer continuation, no spectral or stability claim. Source ed1293e3; 15 focused tests passed.
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/operation-benchmark/attempt-001`
+- **Would surprise us:** Large Hessian-vector overhead or GMRES stagnation relative to forward steps would invalidate a blanket throughput extrapolation.
+- **Command:** `timeout --signal=TERM --kill-after=5s 60s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/benchmark_cifar_orbit.py --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --output /data2/neural-shrimp-data/explore/cifar/operation-benchmark/attempt-001`
+
+_commit `ed1293e35f5c`_
+
+- run started 2026-10-08 04:57 UTC finished 04:57 UTC with exit status 0
+
+## 2026-10-08 05:00 UTC: CIFAR numerical gates repaired; operation benchmark replaces forward-only compute extrapolation
+
+Isolated codex/cifar-orbit-safety; active legacy checkout untouched. Fifteen focused tests pass. Newton final history now describes returned state and rejects failed/nonfinite GMRES steps; seeded Arnoldi stores Ritz residuals and refuses partial/bad pairs; no spectral analysis before closure/separation, including bisection; estimated partial-spectrum crossing candidates only. Exclusive attempts preserve fsynced Newton/continuation events, accepted states, atomic checkpoints and final hash manifests; explicit iteration/matvec/wall budgets. Benchmark ed1293e3 on existing subset-A state: gradient5.268ms, HVP17.842ms (first84.705ms), J2VP33.473ms medians; single GMRES cycle6matvecs215.782ms with info1 and residual .8994 to .8968. Timing does not establish orbit/stability. Receipt docs/cifar-operation-timing-receipt.json; bounded H100 plan docs/cifar-orbit-compute-plan.md requires an actually device-capable runner, numerical parity, operation-specific GPU timing and one bounded corrector before continuation. Root coordinates paid authorization/ownership/ledger; no paid compute launched, no subsetB index access, no new scientific trajectory.
+
+_commit `ed1293e35f5c` (dirty worktree)_
+
+
+### CIFAR independent-review correction — 8 October 2026 UTC
+
+Source basis `3dca7f03`; independent review identified missing mathematical
+data identity, loss of a corrected state on spectral timeout, and invalid
+continuation-control acceptance. Bind subset-A indices and exact normalized
+x/y bytes; save/fsync/hash correction before Arnoldi with pending status;
+reject invalid inputs before output creation. Circle is disabled until its
+whole pipeline is bounded. No new scientific run. Focused 32-case suite passed
+in 10.95 s; added explicit NaN-step rejection case shares the tested validator.
+Original legacy attempt and frozen evidence remain untouched.
