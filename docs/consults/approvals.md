@@ -55,3 +55,14 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Pre-existing account resources (read-only inventory, not task-owned):**
   pods 767stlaueznwa1, hka0rcggikum2v, kacmfssaowcoyl, y4hlqwlhb1nq31 at
   launch-time check; never touched.
+
+## 2026-10-08: RunPod Phase 1 approved
+
+- **Approval (human, in session, 8 October 2026):** "yes i approve" in reply to
+  the Phase 1 request (hard cap in the private cost ledger).
+- **Scope:** (1) bounded real-data (CIFAR-10) runs on a rented H100, developed on
+  subset A, with subset B opened only by a frozen confirmatory test; (2) large
+  rotation maps for S1R and for the fresh confirmatory networks. Same safeguards
+  as Phase 0: pods named `neural-shrimp-...`, ledger-recorded IDs only,
+  terminate and verify after each run, spend only in `cost-ledger.md`, exact GPU
+  details in `docs/hardware-ledger.md`.
