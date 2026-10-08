@@ -4296,3 +4296,7 @@ The reference ledger now separates this partial OCR check from the still-open
 PDF/figure/proof checks; see `docs/reviews/aronson1982-reference-content.md` and
 its receipt. No paper/bibliography change or scientific/LaTeX/figure run was
 needed. Prior review records and other ledger entries are unchanged.
+
+## 2026-10-08 12:58 UTC — prospective gap audit repaired before target
+
+Before any target run, auditor80972cb9 replacesc0091097: independent review found partial-attempt accounting, completed-role fail-closed behavior and finite phase-loss holes. All are repaired with narrow checkpoint/role-append interruption handling;68 combined synthetic controls pass. Reviewer authored the producer, explicitly disclosed; root independently reviewed producer and read auditor. Authorizationc949063a was never executed. Its amended receipt now pins the repaired auditor/review and fresh12:57 host capacity; all12 producer sources, states, gates and caps remain unchanged. Execute only the clean HEAD of this amendment once; target paths still absent.
