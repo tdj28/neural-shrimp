@@ -3510,3 +3510,24 @@ threshold relaxation. Source/tests/card must be committed and privately pushed,
 then independently reviewed by root before target replay. Preserve every failed
 or partial attempt and stop after the single authorized audit. Synthetic source
 controls are the only computation authorized in this preparation unit.
+
+
+### S1R72 single saved-certificate audit completed — 2026-10-08 UTC
+
+Executed once from pre-pushed authorization commit be4d36cae1c74760f3c5ed5ee75ce4d2de014686.
+Root-reviewed auditor b773e64b and all bound sources/card remain unchanged.
+The audit passed exact-real72D primitive period-two existence/local uniqueness
+and attraction, with interval monodromy power2048 norm upper bound
+0.55545265800661285858... <1. Independent exact-Fraction whole-box proximity
+D=9.114121281338416e-16 (display) passed the fixed1e-7 gate. Exact values are in
+docs/reviews/s1r72-certificate-outcome-receipt.json; proof and proximity scopes
+remain separate. Shared Arb C1 checker replayed exactly once, no retry or search.
+
+Audit PID128103, timeoutPID128102, exit0; internal3.798106s,
+external4.208545s, peakRSS201688KiB, CPU/BLAS1nice10.
+All 73985bytes of audit/launcher evidence are retained read-only at the
+committed paths. Audit manifest SHA81c708ca8fab815483136d72b13438fa7b6846ae34335e6808a334bad4f67281.
+Original creation-time receipts and pending labels are unchanged; new outcome
+companions record the review. Replay requires this historical source inventory,
+not later integration gdmaps changes. No GPU, paid resource, protected data,
+new training trajectory, geometry claim or utility result.
