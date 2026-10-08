@@ -116,3 +116,48 @@ shared initialization, which mix criticality with basin accessibility.
   (`s2-28011-curve/curve.json`, `s2-28011-steep/curve.json`,
   `s1r-28002-curve/curve.json`, `boundary.json`, `criticality.png`,
   `s2-28011-dynamics/`, `control/`).
+
+## Optimizer scope correction and controlled warmup pilot (8 October 2026 UTC)
+
+A nonsymmetric update Jacobian does not by itself permit a Neimark-Sacker
+crossing at an optimizer fixed point. For standard heavy ball on a smooth
+scalar objective,
+
+`theta_next = theta - eta grad L(theta) + beta (theta - theta_previous)`,
+
+each real Hessian eigenvalue lambda at a stationary point gives the multiplier
+polynomial `mu^2 - (1 + beta - eta lambda) mu + beta = 0`. With constant
+`eta > 0` and fixed `0 < beta < 1`, a complex conjugate pair has modulus
+`sqrt(beta) < 1`. It cannot cross the unit circle as eta varies. At a
+nondegenerate minimum the first local loss of stability is a flip at
+`eta lambda_max = 2 (1 + beta)`. Fixed positive per-layer preconditioning
+preserves the argument because `P H` is similar to the symmetric matrix
+`P^(1/2) H P^(1/2)`. This corrects hypothesis H4 of the private handoff.
+
+Periodic branches in multidimensional parameter space require their full
+monodromy product and can behave differently. Adam and AdamW require separate
+analysis of their complete parameter and moment states, with epsilon placement,
+weight decay and bias correction specified. Schedules and stochastic batches
+also require separating the frozen autonomous map from the time-dependent or
+random trajectory. No claim that Adam has fixed-point Neimark-Sacker crossings
+is established here. An AR fit estimates linear modes, not the sign of the
+nonlinear first Lyapunov coefficient.
+
+The next local pilot compares the existing S2-28011 hard point near output
+-0.44 and soft point near -0.30 at matched endpoints `log|mu| = +/-0.0015`.
+The branch is numerically refined at 41 instantaneous rate levels. Each level
+lasts 100 or 400 two-update pairs; starts are either 1e-4 from the stable
+2-cycle or the original network initialization. After an equal top hold, the
+same terminal state forks into unchanged rates, a reversed hidden-rate ramp,
+and a plain 50% reduction of both rates. These are mechanistic interventions
+with known boundaries, not a loss-only controller.
+
+All full parameter states at pair ends and both per-update losses are saved.
+Local departure (>0.5 Euclidean distance from the instantaneous frozen orbit),
+loss spike (>25% above its maximum loss), return to the initial orbit (<0.01),
+and loss recovery (terminal mean within 10% of the initial orbit mean) are
+separate operational endpoints, accompanied by continuous values. The global
+reduction arm has no continued local reference: its distance is only to the
+initial orbit, while its loss recovery uses the same initial-loss benchmark.
+This is exploration on previously inspected points; no fresh or protected
+seeds, paid compute, or claim of general optimizer utility is involved.
