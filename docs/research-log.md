@@ -1784,3 +1784,33 @@ _commit `85950bf6cf3b` (dirty worktree)_
 Source 85950bf6 completed the 15,776-parameter, 256-token full-batch profile on the local RTX2000Ada. 100 updates took .511s; CE 4.18145 to 2.67550. Full matched-state CPU64/GPU32 gradient/HVP differences were 9.60e-8/1.35e-7; reduced dense JVP discrepancies below 5e-16. These checks do not establish long-trajectory precision equivalence. Initial sharpness estimate7.60 (Ritz relative residual .00287), final max50.94 (residual1.76e-7); final minimum Ritz residual .501 is unresolved. Scalar AR2 complex roots occur on this descending nonstationary loss curve, so they cannot establish NS or a full-state orbit. Proceed to six factors .1,.4,.8,1,1.2,1.6 of 2/initial sharpness, 1000 updates each, expected under45s and 180s ceiling. Add GPU identity/runtime fields before this pilot; original unit artifacts unchanged. Validation outcomes remain unconsumed.
 
 _commit `85950bf6cf3b` (dirty worktree)_
+
+## 2026-10-08 04:50 UTC: run (exploratory)
+
+- **Question:** Across a controlled constant-rate sweep, does real-text transformer GD show bounded oscillation or full-state recurrence?
+- **Setup:** Same one-layer 15,776-parameter transformer, seed28141 and fixed 256-target batch as unit profile, ridge .001, local RTX2000Ada float32 TF32 off, one CPU thread. Six rates eta=factor*2/initial positive Hessian Ritz value, factors .1,.4,.8,1,1.2,1.6; 1000 updates each. Expected35-45s from unit profile, 180s timeout. All rates share initialization. Scalar AR roots remain descriptive; no Floquet claim without an orbit; final minimum Ritz values unresolved when residuals are large.
+- **Output:** `/data2/neural-shrimp-data/explore/tiny-lm/attempt-002-rates`
+- **Would surprise us:** A bounded full-state periodic candidate, robust oscillations beyond the nominal initial rate scale, or all six rates showing the same transient regime.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py run --profile pilot --output /data2/neural-shrimp-data/explore/tiny-lm/attempt-002-rates`
+
+_commit `47c79bed898d`_
+
+- run started 2026-10-08 04:50 UTC finished 04:50 UTC with exit status 0
+
+## 2026-10-08 04:51 UTC: Adapt transformer rate exploration after six completed finite-horizon runs
+
+Outcomes seen: all six original factors completed 1000 updates and learned their fixed batch; none met the full-state p1/p2 recurrence criteria. The lowest rate shows a drifting alternating tail, while higher original rates mainly show slow parameter drift. AR2 can improve time-held prediction by fitting smooth drift and does not establish a multiplier. Adaptation: add four higher factors2.5,4,6,8 with the same initial state, 1000 updates each, same diagnostics, 180-second cap (measured ~5ms/update). Purpose is to bound high-rate bounded/guard-stop behavior, not to search until a desired NS outcome. All original cases retained; all results remain exploratory.
+
+_commit `47c79bed898d` (dirty worktree)_
+
+## 2026-10-08 04:51 UTC: run (exploratory)
+
+- **Question:** What happens at higher rates after the first grid produced learning with full-state drift rather than recurrence?
+- **Setup:** Adapted after observing the six-rate pilot: same model/data/init, GPU float32, one CPU thread; factors2.5,4,6,8 of2/initial maxHessian, 1000 updates each, expected20-30s, 180-second timeout. Numerical guard stops retained without equating them to mathematical divergence. No corpus validation outcomes or paid compute.
+- **Output:** `/data2/neural-shrimp-data/explore/tiny-lm/attempt-003-high-rates`
+- **Would surprise us:** A full-state periodic candidate, or all high rates retaining similarly smooth transients.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm.py run --profile pilot --factors 2.5 4 6 8 --output /data2/neural-shrimp-data/explore/tiny-lm/attempt-003-high-rates`
+
+_commit `47c79bed898d` (dirty worktree)_
+
+- run started 2026-10-08 04:51 UTC finished 04:51 UTC with exit status 0
