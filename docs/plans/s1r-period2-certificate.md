@@ -36,6 +36,8 @@ CPU/BLAS1, nice10, noGPU, internal90seconds, external110seconds plus5seconds
 kill grace,32MiB cumulative raw cap,32MiB per-file OS cap. The cap check fails
 closed after writing; an interrupted attempt may lack a complete manifest.
 The resource-only profile must have identical bound source, settings and inputs.
+Reuse recomputes its projection and requires completed consistent runtime metadata,
+finite positive timing and memory measurements, and the original caps.
 
 External root `/data2/neural-shrimp-data/certificates/s1r-period2/`, exclusive
 `profile-001` and `attempt-001` plus immutable launcher logs. Wrapper receipt
