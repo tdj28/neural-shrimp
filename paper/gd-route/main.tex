@@ -734,9 +734,26 @@ Independent saved-data checks reproduce the equation and trial reductions using 
 and last accepted pairs remain numerically regular under the declared rank test.
 The terminal failed state is not a closed orbit: its raw residual Jacobian has condition estimate
 $\xSOneRGapCondition$, which does not establish a fold. At that nonclosed state, raw- and scaled-metric secant conventions choose opposite
-orientations of the local null direction; its sign therefore does not establish a branch turn. No correction or further continuation is performed. See
+orientations of the local null direction; its sign therefore does not establish a branch turn. That diagnostic performs no correction or continuation. See
 \path{docs/reviews/s1r-lower-gap-outcome.md} and
 \path{docs/reviews/s1r-lower-gap-independent-outcome.md}.
+
+A subsequent pseudo-arclength pilot completes \nSOneRPALLinks{} locally witnessed links from the last qualified pair.
+All \nSOneRPALPairs{} qualified period-two pairs, including \nSOneRPALAux{} auxiliary witnesses,
+remain numerically unstable. Each link passes direct, two-half-step and reverse checks, including
+both native phases and state comparisons at identical controls. With $h=\log_{10}\eta_h$, a fixed raw Euclidean
+metric on $(\theta,h)$ and consistent carried-phase orientation, the second link runs from
+$(h,t_h)=(\xSOneRPALFirstH,\xSOneRPALFirstT)$ to
+$(\xSOneRPALLastH,\xSOneRPALLastT)$, where $t_h$ is the hidden-rate component of the unit tangent.
+Its qualified midpoint witness has $(h,t_h)=(\xSOneRPALMidH,\xSOneRPALMidT)$.
+This supports a local numerical turning candidate on the unstable cycle segment, not an attracting-window boundary.
+No singular point, simple $+1$ multiplier, parameter transversality or quadratic nondegeneracy is established, so it is not a fold proof.
+The one-thread producer and independent saved-data audit take \xSOneRPALSeconds{} and
+\xSOneRPALAuditSeconds{} seconds, respectively; the audit reuses saved derivatives and decompositions.
+The combined change of chart, predictor and globalization does not isolate which change helped, and the
+lower-family connection and any training utility remain unresolved. See
+\path{docs/reviews/s1r-pseudoarclength-outcome.md} and
+\path{docs/reviews/s1r-pseudoarclength-independent-outcome.md}.
 
 \paragraph{Real data, one learning rate.} A 64-8-1 tanh network (529 parameters) trained with one global learning
 rate and weight decay on 1{,}024 standardized UCI digit images (two-class task) has a numerically validated period-2 orbit that

@@ -928,6 +928,119 @@ def build():
         ("xSOneRGapCondition", failed["geometry"]["raw_A"]["rank"]["condition"], sci(failed["geometry"]["raw_A"]["rank"]["condition"], 2), "raw-coordinate condition estimate at the nonclosed failed state; not a fold gate")]:
         n.add(macro, value, display, "exploratory fixed-state diagnostic; independent saved-arithmetic audit using shared derivative inputs; no fold or continuation proof", gap_sources, calc)
 
+    # Local pseudo-arclength: bind audited saved records; no new continuation or decomposition.
+    pal_receipt_path = c.ROOT / "docs/reviews/s1r-pseudoarclength-outcome-receipt.json"
+    pal_audit_receipt_path = c.ROOT / "docs/reviews/s1r-pseudoarclength-independent-outcome-receipt.json"
+    pal_receipt, pal_ar = load(pal_receipt_path), load(pal_audit_receipt_path)
+    assert pal_ar["status"] == "passed_saved_outcome_audit" and pal_ar["arithmetic_qualified"]
+    pal_sources = [pal_receipt_path, pal_audit_receipt_path]
+    pal_root = Path(pal_receipt["raw"]["attempt-001"]["root"])
+    pal_launch = Path(pal_receipt["raw"]["attempt-001-launcher"]["root"])
+    pal_audit_root = Path(pal_ar["inventories"]["attempt-001"]["root"])
+    pal_audit_launch = Path(pal_ar["inventories"]["attempt-001-launcher"]["root"])
+    for root, pin in [
+        (pal_root, pal_ar["producer_pins"]["raw_manifest_sha256"]),
+        (pal_launch, pal_ar["producer_pins"]["launcher_manifest_sha256"]),
+        (pal_audit_root, pal_ar["inventories"]["attempt-001"]["files"]["manifest.json"]["sha256"]),
+        (pal_audit_launch, pal_ar["inventories"]["attempt-001-launcher"]["files"]["manifest.json"]["sha256"])]:
+        mf = root / "manifest.json"
+        assert c.sha256(mf) == pin
+        members = load(mf); members = members.get("files", members)
+        assert set(members) == {p.name for p in root.iterdir()} - {"manifest.json"}
+        assert all((root / name).is_file() and not (root / name).is_symlink()
+                   and (root / name).stat().st_size == row["bytes"] and c.sha256(root / name) == row["sha256"]
+                   for name, row in members.items())
+        pal_sources.append(mf)
+    pal, pal_audit = load(pal_root / "result.json"), load(pal_audit_root / "result.json")
+    pal_checks = load(pal_audit_root / "arithmetic-audit.json")
+    assert pal["source_commit"] == pal_receipt["execution_commit"] == pal_audit["pins"]["execution_commit"] == "cc3976e349cae1b9e050dd20ef32e5187657db50"
+    assert pal["review_commit"] == pal_ar["producer_pins"]["source_review_commit"] == "9df5e138fbba1b283c18a8d47f49ebe9a69b15ae"
+    assert pal_receipt["reviewed_source"] == pal_ar["producer_reviewed_source"] == "482cf9c7720936503658206f98c960f074aed847"
+    assert pal_audit["audit_source_commit"] == pal_ar["audit_source_commit"] == "3134d730af88bf4591554946eeb715fb7419318e"
+    assert pal_ar["audit_source_review"] == "f6a27d8b75165b64fda5b26e833659c553eb6e88"
+    assert pal["status"] == pal_audit["producer_status"] == "two_edges_complete"
+    assert pal_audit["status"] == "finished" and pal_audit["verdict"] == "saved_outcome_audit_pass"
+    assert pal_audit["arithmetic_qualified"] and pal_checks == pal_audit["checks"] == pal_ar["checks"]
+    assert pal_checks["arithmetic_complete"] and pal_checks["events"] == 930
+    assert not any(pal_checks[k] for k in ("failed_gates", "interrupted_record_files", "unvalidated_terminal_return", "terminal_checkpoint_lag", "terminal_edge_advancement_lag"))
+    assert pal_checks["pending_operation"] is None
+    assert pal["operation_attempted"] == pal["operation_returned"] == pal_checks["attempted"] == pal_checks["returned"]
+    assert pal["accepted_edges"] == pal_checks["accepted_edges"] == [0, 1] and pal["last_witnessed"] == "node-0005"
+    assert pal["stage_counts"] == dict(assemblies=66, common=4, correctors=8, edges=2, qualifiers=9)
+    assert not pal["fold_verified"] and not pal["lower_association"]
+    for root, key in ((pal_launch, "process_exit"), (pal_audit_launch, "exit_code")):
+        launcher = load(root / "receipt.json")
+        assert launcher[key] == 0 and not launcher["owned_live_pids_remaining"]
+        pal_sources.append(root / "receipt.json")
+    for name, row in (pal["sources"] | pal_audit["audit_source_inventory"]).items():
+        path = c.ROOT / name
+        assert path.stat().st_size == row["bytes"] and c.sha256(path) == row["sha256"]
+        pal_sources.append(path)
+    pal_sources += [pal_root / "result.json", pal_root / "runtime-start.json", pal_root / "input-plan.json", pal_root / "journal.jsonl",
+                    pal_audit_root / "result.json", pal_audit_root / "arithmetic-audit.json",
+                    pal_audit_root / "provenance.json", pal_audit_root / "historical-input-inventory.json"]
+    def pal_payload(name):
+        path = pal_root / name
+        record = load(path); pal_sources.append(path)
+        arrays = {}
+        if "arrays_file" in record:
+            archive = pal_root / record["arrays_file"]
+            assert c.sha256(archive) == record["arrays_sha256"]
+            pal_sources.append(archive)
+            with np.load(archive, allow_pickle=False) as z:
+                arrays = {k: z[k] for k in z.files}
+        used = set()
+        def decode(v):
+            if isinstance(v, dict) and "array" in v:
+                a = arrays[v["array"]]; used.add(v["array"])
+                assert a.dtype.str == v["dtype"] and list(a.shape) == v["shape"] and v["order"] == "C"
+                import hashlib
+                assert hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest() == v["sha256"]
+                return a
+            if isinstance(v, dict): return {k: decode(x) for k, x in v.items()}
+            if isinstance(v, list): return [decode(x) for x in v]
+            return v
+        value = decode(record["payload"])
+        assert used == set(arrays)
+        return value
+    pal_nodes = {}
+    for row in pal_receipt["nodes"]:
+        assert c.sha256(pal_root / row["source_file"]) == row["source_identity"]["sha256"]
+        node = pal_payload(row["source_file"])
+        assert node["accepted"] and node["carried_phase"] == row["carried_phase"] == 0
+        assert node["h"] == row["h"] and float(node["tangent"][-1]) == row["tangent_h"]
+        assert node["state_checks"]["passed"] and max(node["state_checks"]["closure"] + node["state_checks"]["transitions"]) <= 1
+        assert node["state_checks"]["separation"] >= 1e-6 and node["spectrum_error"] <= 1e-7
+        assert all(s["stability"] == "unstable" and s["radius"] > 1+1e-7 for s in node["spectra"])
+        pal_nodes[node["id"]] = node
+    assert list(pal_nodes) == pal_checks["qualified_nodes"]
+    for row, audited in zip(pal_receipt["edges"], pal_ar["edges"], strict=True):
+        edge = pal_payload(row["source_file"])
+        assert edge == audited["payload"] and edge["accepted"] and len(edge["nodes"]) == 4
+    for row in pal_receipt["common"]:
+        common = pal_payload(row["source_file"])
+        assert common["passed"] and common["match"]["passed"] and common["state_checks"]["passed"]
+        assert common["h_difference"] <= 1e-10
+    first, last, midpoint = (pal_nodes[k] for k in ("node-0001", "node-0005", "node-0006"))
+    assert first["tangent"][-1] < 0 < last["tangent"][-1] and midpoint["tangent"][-1] < 0
+    assert midpoint["h"] < min(first["h"], last["h"])
+    assert midpoint["id"] in pal_checks["qualified_unwitnessed_nodes"]
+    pal_sources = list(dict.fromkeys(pal_sources))
+    pal_label = "exploratory local numerical turning candidate on an unstable cycle segment; independent saved-arithmetic audit; no fold proof"
+    for macro, value, display, calc in [
+        ("nSOneRPALLinks", len(pal["accepted_edges"]), str(len(pal["accepted_edges"])), "durably witnessed direct/half/reverse links"),
+        ("nSOneRPALPairs", len(pal_nodes), str(len(pal_nodes)), "all qualified native pairs, including auxiliary witnesses"),
+        ("nSOneRPALAux", len(pal_checks["qualified_unwitnessed_nodes"]), str(len(pal_checks["qualified_unwitnessed_nodes"])), "qualified auxiliary pairs distinct from primary witnessed nodes"),
+        ("xSOneRPALFirstH", first["h"], fixed(first["h"], 8), "second-edge parent log hidden rate"),
+        ("xSOneRPALLastH", last["h"], fixed(last["h"], 8), "second-edge direct endpoint log hidden rate"),
+        ("xSOneRPALMidH", midpoint["h"], fixed(midpoint["h"], 8), "second-edge qualified midpoint witness log hidden rate"),
+        ("xSOneRPALFirstT", float(first["tangent"][-1]), signed(first["tangent"][-1], 6), "carried unit tangent hidden component in fixed raw Euclidean metric at edge parent"),
+        ("xSOneRPALLastT", float(last["tangent"][-1]), signed(last["tangent"][-1], 6), "consistently oriented carried unit tangent hidden component at direct endpoint"),
+        ("xSOneRPALMidT", float(midpoint["tangent"][-1]), signed(midpoint["tangent"][-1], 6), "same-metric carried tangent at qualified midpoint witness"),
+        ("xSOneRPALSeconds", pal["elapsed_seconds"], fixed(pal["elapsed_seconds"], 2), "one-thread producer worker elapsed seconds; includes this fixed pilot only"),
+        ("xSOneRPALAuditSeconds", pal_audit["elapsed_seconds"], fixed(pal_audit["elapsed_seconds"], 2), "one-thread independent saved-arithmetic audit worker elapsed seconds")]:
+        n.add(macro, value, display, pal_label, pal_sources, calc)
+
     ns_path = c.ROOT / "certificates/scalar-ns-receipt.json"
     ns = load(ns_path)
     assert ns["summary"]["passed"] and all(ns["summary"]["gates"].values())
