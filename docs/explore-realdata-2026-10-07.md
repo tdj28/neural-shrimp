@@ -4,6 +4,11 @@ Status: exploratory under the [adaptive research protocol](adaptive-research-pro
 Nothing here is confirmatory. Seeds 29000-29999 were not used (the code refuses them).
 Every run has a card in [the research log](research-log.md).
 
+**2026-10-08 classification amendment.** The historical `fold` labels below
+mean real near-`+1` boundary candidates; fold nondegeneracy was not checked.
+The original outputs and counts are retained. See
+[the source-bound wording review](reviews/realdata-fold-label-accuracy.md).
+
 ## Question
 
 Does the quasi-periodic route seen in the S2 and S1R toy systems (edge-of-stability

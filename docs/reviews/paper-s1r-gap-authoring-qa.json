@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-08T13:16:32.797200+00:00",
+  "created_utc": "2026-10-08T13:23:00.629436+00:00",
   "status": "passed_preintegration_authoring_QA",
   "base_commit": "2dbd648e32a506ec92b6041c1d5a743003c9a87b",
   "independent_outcome_commit": "7b29add8f34dfd7fd8694a55b92a704a54147b40",
@@ -81,8 +81,8 @@
   },
   "files": {
     "main.tex": {
-      "bytes": 90438,
-      "sha256": "7a2cccefe700c9b5e446e4055f034b3a384883947d6352fc9c8da29127f24a22"
+      "bytes": 90507,
+      "sha256": "c7210e3037f00d46e6a829d20996fd5b37ddd754aff2cdf636aac814703934d6"
     },
     "README.md": {
       "bytes": 4445,
@@ -105,8 +105,8 @@
       "sha256": "1f7406e451dec5976b7e3c59b9da1c03e8d87975cb3065309231ce6aec1550ff"
     },
     "gd-route-working-draft.pdf": {
-      "bytes": 778470,
-      "sha256": "6829a8f5d97d831d230ee95be6c9c233058b67c3421e9fb8f959c69a0d9c998a"
+      "bytes": 778522,
+      "sha256": "c9f9e2081f8ab95e152ce7cd1254e71a029b9f8e2e570990031cab46ac0e2e07"
     }
   },
   "rendered_QA": {
@@ -151,6 +151,10 @@
     "/tmp/neural-shrimp-paper-qa/s1r-gap-diagnosis-precision/latexmk.log": {
       "bytes": 7966,
       "sha256": "919b7e0565a32251e969e7a84190633641cdf313e29085a45b31dca7ef67cda0"
+    },
+    "/tmp/neural-shrimp-paper-qa/realdata-fold-label/latexmk-final.log": {
+      "bytes": 7966,
+      "sha256": "05f8be2a192872673988dd715d6d6d1464fb99e3b8b5654a0b5dd40ddf9a0e7d"
     }
   },
   "limitations": [
@@ -186,5 +190,27 @@
     },
     "scientific_reruns": 0
   },
-  "rendered_QA_scope": "Contact sheets and previous detail images below belong to19665ada; final non21pages are pixel-identical. Final page21 is separately bound in precision_followup."
+  "rendered_QA_scope": "Historical contact sheets remain the19665ada version. Precision follow-up records c9fa055b. Realdata accuracy follow-up records the current page21; all other30pages are pixel-identical through both text revisions.",
+  "realdata_accuracy_followup": {
+    "base_commit": "c9fa055b84189c4c37136d5caa84a57bd74e7310",
+    "finding": "Independent source-reading precision issue in529-parameter real-data paragraph; not a gap-result correction.",
+    "companion": "docs/reviews/realdata-fold-label-accuracy-receipt.json",
+    "all292numbers_builder_and_provenance_unchanged": true,
+    "builder_rerun": false,
+    "scientific_reruns": 0,
+    "pages": 31,
+    "latex_warnings": false,
+    "only_changed_rendered_page": 21,
+    "other30pages_pixel_identical_to_c9fa055b": true,
+    "detail21_visual_QA": "passed",
+    "detail21_path": "/tmp/neural-shrimp-paper-qa/realdata-fold-label/detail-21.png",
+    "detail21_identity": {
+      "bytes": 438780,
+      "sha256": "5487c693412b103da5c4a19274709487cc5fdbafbdfabb8cfe050ac964ef5f03"
+    },
+    "previous_QA": {
+      "bytes": 7567,
+      "sha256": "9f815673f1e4a1945500f41a01a7e67aa11ec43518d5baba5fb8606562b5e876"
+    }
+  }
 }
