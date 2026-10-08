@@ -3667,3 +3667,11 @@ manifest2f962ced4b6f32aca588f1012985591acc670437ff944e8e15375acf4fd2e03f,read-on
 exact acquisition gaps: docs/reviews/utility-input-qualification.md and-receipt.json.
 Proposed next gate is four gradients without updates, requiring separate review
 and authorization; no such computation or control acquisition was launched.
+
+## 2026-10-08 UTC — independent utility input review, prospective saved-file check
+
+On a separate reviewer branch fromc417d4c9, the source-only audit is complete.
+Prepare one bounded independent saved-file reconstruction using
+`tools/reviews/check_utility_input_inventory.py`; card
+`docs/reviews/utility-input-independent-card.md`. No model or gradient executes.
+The lower-association producer worktree remains separately frozen for review.
