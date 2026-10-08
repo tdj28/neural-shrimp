@@ -4474,3 +4474,7 @@ was opened/run. Exact source/test hashes and both successful test logs are in
 `docs/reviews/s1r-pseudoarclength-auditor-independent-review-receipt.json`.
 Scope and limitations are in the companion review; source review passes,
 but producer and saved-outcome execution remain separately root-authorized.
+
+## 2026-10-08 14:00 UTC — one bounded local pseudo-arclength attempt
+
+Root authorizes producer482cf9c7 reviewed9df5e138 once, with frozen prospective auditor3134d730af88bf4591554946eeb715fb7419318e independently reviewedf6a27d8b75165b64fda5b26e833659c553eb6e88. All17 producer sources and8 auditor dependencies match their frozen commits. Fresh host/resources and absent exclusive paths are recorded in `docs/reviews/s1r-pseudoarclength-launch-authorization.json`. CPU1 nice10,60s internal75+5s external,128MiB aggregate, monitored2GiB RSS; at most2 witnessed edges/4 attempts with full retention. Start only from qualifiednode0230. No lower-family/fold/utility claim, paid/GPU/holdout work or automatic rescue. Every outcome stops for the separately authorized saved-data audit. This clean authorization commit is the producer execution identity.
