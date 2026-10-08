@@ -2570,3 +2570,10 @@ Collect with `timeout --signal=TERM --kill-after=5s 260s nice -n 10 /data2/neura
 
 
 Independent review also reproduced terminal-state loss if checkpoint metadata raises just after an accepted update, and identified that default SIGTERM bypasses Python cleanup. Before calibration, move unique terminal-state retention into `finally` and install a SIGTERM handler raising `CollectionInterrupted`; retain failure/result/manifest within the external five-second grace. An injected termination after update50 now requires51 states including theta50. SIGKILL, device/OS failure and storage failure can still prevent cleanup; per50-state durable chunks bound the unflushed history and launcher evidence remains. No such interruption occurred in the immutable profile.
+
+
+### Tiny-LM calibration outcome — 2026-10-08 06:27 UTC
+
+Exact source b9e5b8c3, independent source review39ba1721: all six fixed800-update cases and the one offline analysis completed without guards, with4806 finite states retained. Collection process19.931s and analysis0.711s; including profile3.610s, total launched time24.252s. Verified221-file exact inventory and all raw hashes. No adaptive rate, threshold, case or retry followed.
+
+The fixed gate FAILED on both seeds. Seed28151 has zero late episodes; seed28152 has three (required five), with B3 mean Brier0.063782 versus B2 0.063011 and pooled AP0.647679 versus0.685126. Ordinary CE/AR baseline B0 also outperforms B2/B3 on the sole late eventful trajectory. Interpretation: sparse negative development calibration, no evidence of incremental nonlinear-feature utility here, no general impossibility or dynamical claim. Stop before assessment, validation outcomes and policies. Full source-bound receipt and limitations: docs/explore-tiny-lm-calibration.md and companion JSON. Protected final10% outcomes and reserved seeds remain untouched.
