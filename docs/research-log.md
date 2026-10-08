@@ -2342,3 +2342,12 @@ that saved state to recompute closure/separation. No Newton solve, trajectory
 extension, Arnoldi, held-out subset selection, reserved seed or paid call.
 CPU one thread, nice10, external 60s; source committed before replay. Retain
 review output and launcher stderr under audits/cifar-corrector-only/attempt-001.
+
+
+### Tiny-LM prediction engineering profile — 2026-10-08 06:12 UTC
+
+Prospective exploratory run card; commit this card and implementation before any numerical outcome. Profile only: original 15,776-parameter causal transformer, float32/TF32-off, full-batch eight fixed 32-target training windows, corpus SHA 86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed, seed 28151, factor 0.8 times 2/initial maximum Ritz value, 100 updates. Initial 32-step Lanczos supplies only a rate scale. Measure end-to-end/feature timing and one matched initial CPU float64/GPU float32 gradient/HVP/update check. Save every preupdate state and terminal state, all causal feature/CE rows and failures. No loss prediction fit or claimed utility from this engineering profile.
+
+Resources: recheck owned local RTX2000Ada availability; CPU 1, nice 10, internal 60s/external 75s plus 5s grace, no paid compute. New exclusive output `/data2/neural-shrimp-data/explore/tiny-lm-prediction/attempt-001-profile`; launcher log/receipt `/data2/neural-shrimp-data/logs/tiny-lm-prediction-attempt-001-profile.*`. Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 75s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm_prediction.py profile --device cuda --max-seconds 60 --output /data2/neural-shrimp-data/explore/tiny-lm-prediction/attempt-001-profile`.
+
+The six development calibration cases are implemented but **not launched**; await independent source review. Assessment text/seeds 28153–28154, all validation outcomes, final 10% text outcomes, reserved seeds 29000–29999 and policies remain untouched. Any later failed calibration or null effect is retained without changing rates, thresholds or stage gates in place. B3 is only nonlinear featurization of matched B2 Gram history. Revised work requires a dated amendment and fresh output attempt.
