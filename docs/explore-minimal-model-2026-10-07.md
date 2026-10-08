@@ -84,3 +84,179 @@ C = [[1, c], [c, 1]] and d = C z* + lam, z* = (1, 0.5).
   (coarse staircases for s2/s1 = 0.7, 0.8 and 0.9)
 - `/data2/neural-shrimp-data/explore/minimal-model/hofmann/staircase-lam0.01-fine08.png`
 - `/data2/neural-shrimp-data/explore/minimal-model/grid.png` (four-weight boundary types)
+
+## Scalar mechanism follow-up (exploratory)
+
+**TLDR.** A two-weight model can already change from alternating training to
+small bounded rotational oscillations. In this pilot, sufficiently unequal
+layer rates together with the stronger tested ridge values permit that
+change. Equal-rate training on the balanced branch instead has a real
+period-doubling instability. This gives an explicit mechanism to investigate
+in larger networks; it does not show a shrimp-specific benefit or an LLM
+training effect.
+
+The follow-up holds the regression target fixed at `d = 1.2` while varying
+ridge, unlike the earlier four-weight grid whose target changed with ridge.
+Code is in `src/neural_shrimp/scalar_mechanism.py` and
+`tools/explore_scalar_mechanism.py`. The
+[generated receipt](explore-minimal-model-scalar-receipt.json) binds both
+retained attempts, their source commits, plans, raw manifests and the numbers
+below. All computed results remain exploratory (evidence rung 0); derivative
+and control checks are listed explicitly, without promoting the whole study
+to a proof.
+
+### Exact map and stability conditions
+
+For
+
+\[
+L(u,v)=\tfrac12(uv-d)^2+\tfrac\lambda2(u^2+v^2),\qquad
+P=\operatorname{diag}(\eta,r\eta),
+\]
+
+one update is `F(x) = x - P grad L(x)` and
+
+\[
+H(u,v)=\begin{pmatrix}v^2+\lambda&2uv-d\\2uv-d&u^2+\lambda\end{pmatrix}.
+\]
+
+When `0 < lambda < d`, the positive balanced minimum is
+`u = v = sqrt(d-lambda)`. Its first flip rate is
+
+\[
+\eta_{\rm flip}=
+\frac{4}{d(1+r)+\sqrt{d^2(1-r)^2+4r(d-2\lambda)^2}}.
+\]
+
+A primitive 2-cycle can be written `x0 = (a,b)+(p,q)` and
+`x1 = (a,b)-(p,q)`, with `(p,q) != 0`. Adding and subtracting its two update
+equations gives the exact cubic system
+
+\[
+\begin{aligned}
+a(b^2+q^2+\lambda)+2pbq-db&=0,\\
+b(a^2+p^2+\lambda)+2qap-da&=0,\\
+p(b^2+q^2+\lambda)+(2ab-d)q-2p/\eta&=0,\\
+q(a^2+p^2+\lambda)+(2ab-d)p-2q/(r\eta)&=0.
+\end{aligned}
+\]
+
+Its two-step derivative is `M = (I-P H(x1))(I-P H(x0))`. With trace `T` and
+determinant `D`, attraction requires the three Jury inequalities
+`1-T+D > 0`, `1+T+D > 0`, and `1-D > 0`. A candidate NS crossing has
+`D = 1` and `|T| < 2`; transversality, exclusion of strong resonances, and a
+nonzero first Lyapunov coefficient are additional requirements. These are
+algebraic conditions, not a claim that every solution of the cubic system
+has a generic NS bifurcation.
+
+### Why unequal rates matter for this branch
+
+At equal rates, `u = v = x` is invariant and the restricted map is
+`x -> c*x - eta*x^3`, where `c = 1 + eta*(d-lambda)`. For `c > 2`, its
+positive 2-cycle is explicit:
+
+\[
+x_\pm=\frac{\sqrt{c+2}\pm\sqrt{c-2}}{2\sqrt\eta},\qquad
+x_+x_-=1/\eta.
+\]
+
+The longitudinal and transverse two-step multipliers are, respectively,
+
+\[
+m_\parallel=9-2c^2,\qquad
+m_\perp=1+e^2+ec,\quad e=1-\eta(d+\lambda).
+\]
+
+Both are real. Thus this balanced branch cannot have an NS crossing; its
+longitudinal flip is at `eta = (sqrt(5)-1)/(d-lambda)` when the transverse
+mode remains attracting. All four equal-rate pilot cases encounter that
+flip, with absolute rate discrepancies below `1.3e-8` from the formula.
+This is a branch-specific conclusion, not a global exclusion of other
+attractors at equal rates.
+
+Each individual gradient step has real eigenvalues because its derivative
+is similar to the symmetric matrix `S_i = I - sqrt(P) H(x_i) sqrt(P)`.
+The two-step derivative is similar to `S_1 S_0`. On the balanced equal-rate
+branch the two matrices share eigendirections. Unequal rates can break that
+alignment: noncommuting, indefinite symmetric factors can have a product
+with complex eigenvalues. At the representative NS point below, their
+eigenvalues are approximately `(-0.522, 0.801)` and `(-2.713, 0.882)`, and
+the commutator norm is `2.551`. Noncommutation is necessary here, not a
+sufficient condition for an NS crossing.
+
+### Bounded fixed-target pilot
+
+The grid follows the first attracting 2-cycle from one deterministic
+perturbation of the positive minimum. It uses float64, one CPU thread,
+`nice -n 10`, no stochastic seeds and no held-out data. A one-case timing
+run took 2.48 seconds; the grid took 5.29 seconds. All attempts and raw
+continuation paths remain in
+`/data2/neural-shrimp-data/explore/scalar-mechanism/`.
+
+| Ridge | ratio 1 | ratio 2 | ratio sqrt(8) | ratio 4 |
+|---|---|---|---|---|
+| 0.05 | flip | flip | flip | flip |
+| 0.10 | flip | flip | flip | flip |
+| 0.20 | flip | flip | NS | NS |
+| 0.30 | flip | flip | NS | NS |
+
+The additional reciprocal case, ridge `0.2` and ratio `1/sqrt(8)`, also
+has NS. Swapping the two weights maps its rates and rotation onto the
+ratio `sqrt(8)` case to floating-point precision. Its coefficient has the
+same negative sign; coefficient magnitudes need not agree when the chosen
+orbit phase and eigenvector normalization differ.
+
+Across the five NS cases, the first Lyapunov coefficient is negative and
+both symmetric finite-difference estimates of the modulus crossing slope
+are positive. The largest augmented root residual is `8.9e-16`; analytic
+second/third derivatives of the composed map and Richardson finite
+differences give coefficients differing by at most `2.9e-9`. These small
+residuals are numerical checks, not interval bounds.
+
+For the previously discovered ridge `0.2`, ratio `sqrt(8)` case:
+
+- NS rate `eta = 0.733508895817`; birth rotation `0.428819216165`.
+- First Lyapunov coefficient `-3.836452456`; modulus slope about `4.44725`
+  per unit eta, agreeing under step halving.
+- At relative rate detunings `0.0001`, `0.0004`, `0.0016`, RMS amplitudes are
+  `0.01303`, `0.02604`, `0.05184`, giving a three-point exponent `0.49790`.
+- Corresponding measured rotations are `0.428665`, `0.428227`, `0.426503`,
+  approaching the predicted birth rotation as detuning decreases.
+
+This supports a soft onset in that case and negative local criticality in
+all five tested NS cases. Three short amplitude probes do not prove an
+invariant circle. The scan does not locate a complete ridge/asymmetry phase
+diagram, exclude other branches, establish necessity of ridge globally, or
+show resonance ancestry. At zero ridge the balanced minimum ceases to be
+isolated; that degenerate setting was not included.
+
+| Component | Evidence | Scope and unresolved work |
+|---|---|---|
+| Balanced cycle and stability formulas | Algebraic derivation; float64 identity tests | Not formally mechanized or interval certified |
+| Fixed-target grid and NS coefficients | Rung 0, exploratory; residual and derivative checks retained | One branch per case; no prevalence claim |
+| Amplitude/rotation probes | Rung 0, exploratory | One known case; no rigorous circle or chaos result |
+| Raw-evidence receipt | SHA-256 file/manifest checks | Local data store; not an independent backup |
+
+Recheck every raw hash and regenerate the receipt values without new
+trajectories:
+
+```sh
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+  /data2/neural-shrimp/.venv/bin/python tools/analyze_scalar_mechanism.py \
+  --receipt docs/explore-minimal-model-scalar-receipt.json
+```
+
+### Next ancestry improvement (assessed, not implemented)
+
+The existing ancestry code follows parameter rays and straight segments;
+it already accepts unstable periodic orbits. The useful next change is a
+bordered pseudo-arclength continuation of the fold itself. Solve
+`F_alpha^p(x)-x = 0`, `(D F_alpha^p(x)-I) v = 0`, `v^T v-1 = 0`, and a
+predictor hyperplane condition in `(x, alpha1, alpha2, v)`. Start from a saved
+fold bracket and its multiplier-near-one eigenvector, retain both fold
+branches, and compare full orbits modulo phase. This avoids the current
+finite-width cross-section failure and permits folds that turn in parameter
+space. It needs fold-normal-form controls, derivative checks, simple-nullspace
+checks and step halving before being applied to the unresolved original
+window connection. A converged fold trace by itself would not establish
+that the distant window lies on the same orbit branch.

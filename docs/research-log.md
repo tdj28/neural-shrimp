@@ -1711,3 +1711,50 @@ _commit `10bd10efc1f6` (dirty worktree)_
 ## 2026-10-08 UTC manuscript accuracy amendment
 
 The private gd-route draft now distinguishes prospective numerical cross-checking from interval proof, states local NS nondegeneracy and weak-resonance assumptions, qualifies generalized-NS sign-change candidates and the Hofmann symmetry reduction, and corrects the heavy-ball fixed-point argument. The original frozen ancestry failure and negative utility results remain explicit. Adaptive-optimizer prior work is added from checked primary abstracts. Nine figure regenerations and 223 numerical macros pass the manuscript verifier. This is an editorial checkpoint; new scalar, intervention and rigorous-orbit results await independent review and integration. Reference-content review and the public submission package remain unfinished.
+## 2026-10-08 03:51 UTC: run (exploratory)
+
+- **Question:** At fixed target 1.2, does the previously observed scalar NS survive direct two-weight reduction and analytic derivative checks?
+- **Setup:** Unit timing run: ridge .2, rate ratio sqrt(8), float64 CPU, one BLAS/OpenMP thread, nice 10, 180-second ceiling. Analytic cubic map and two-step derivatives; no reserved seeds or paid services.
+- **Output:** `/data2/neural-shrimp-data/explore/scalar-mechanism/attempt-001-unit`
+- **Would surprise us:** Failure to reproduce an NS crossing, or analytic and finite-difference criticality signs disagreeing.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_scalar_mechanism.py --profile unit --output /data2/neural-shrimp-data/explore/scalar-mechanism/attempt-001-unit`
+
+_commit `52865fd238fc`_
+
+- run started 2026-10-08 03:51 UTC finished 03:51 UTC with exit status 0
+
+## 2026-10-08 03:52 UTC: Scalar mechanism unit run: proceed to fixed-target grid
+
+The local one-case timing run completed in 2.48 seconds. At target 1.2, ridge .2 and rate ratio sqrt(8), an NS crossing occurs at eta 0.7335088958 with analytic first Lyapunov coefficient -3.836452456; finite-difference forms agree within 2e-9. The three amplitude probes grow approximately by factors of two for fourfold detuning. All are exploratory floating-point observations. Proceed with the already specified 17-case fixed-target grid, 180-second ceiling, one thread. Reporting repair before that grid: retain JSON booleans as booleans and omit an attracting flag evaluated exactly at a roundoff-level crossing; add symmetric step eigenvalues/commutator as a mechanistic diagnostic. Earlier artifacts remain unchanged.
+
+_commit `52865fd238fc` (dirty worktree)_
+
+## 2026-10-08 03:52 UTC: run (exploratory)
+
+- **Question:** With target fixed, which tested ridge and rate-asymmetry combinations yield an NS versus flip boundary of the first attracting 2-cycle?
+- **Setup:** 17 cases: target 1.2; ridge .05,.1,.2,.3; ratio 1,2,sqrt(8),4 plus ridge .2 reciprocal ratio. Unit timing 2.48s including 3 trajectories; expected grid under 30s. Float64 CPU, one thread, nice 10, 180-second ceiling. Analytic negative control: equal-rate balanced branch has commuting Hessians and real multipliers.
+- **Output:** `/data2/neural-shrimp-data/explore/scalar-mechanism/attempt-002-pilot`
+- **Would surprise us:** NS on the balanced equal-rate branch, reciprocal asymmetry mismatch, or a changed criticality sign as ridge varies.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_scalar_mechanism.py --profile pilot --output /data2/neural-shrimp-data/explore/scalar-mechanism/attempt-002-pilot`
+
+_commit `31cf2ab7b350`_
+
+- run started 2026-10-08 03:52 UTC finished 03:52 UTC with exit status 0
+
+## 2026-10-08 03:55 UTC: run (exploratory)
+
+- **Question:** Do saved scalar results reproduce the closed-form equal-rate control and agree across derivative methods?
+- **Setup:** Offline analysis of retained unit and 17-case grid outputs; all raw manifest hashes checked. Closed-form control and analyzer committed before this analysis. No new trajectories.
+- **Output:** `docs/explore-minimal-model-scalar-receipt.json`
+- **Would surprise us:** A raw hash mismatch, unequal reciprocal crossing predictions, or a balanced-branch flip discrepancy larger than numerical boundary tolerance.
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/analyze_scalar_mechanism.py --receipt docs/explore-minimal-model-scalar-receipt.json --write`
+
+_commit `d9e56b5ba78f`_
+
+- run started 2026-10-08 03:55 UTC finished 03:55 UTC with exit status 0
+
+## 2026-10-08 03:57 UTC: Scalar mechanism: exact balanced control and fixed-target pilot
+
+Completed unit attempt-001 and 17-case attempt-002 under explore/scalar-mechanism. At fixed target 1.2, the grid produced 12 flips and 5 NS crossings; all equal-rate balanced cases match the explicit longitudinal flip eta=(sqrt(5)-1)/(target-ridge). Unequal-rate NS cases have noncommuting indefinite symmetric step factors and negative first Lyapunov coefficients. Representative ridge .2, ratio sqrt(8): NS eta .733508895817, birth rotation .428819216165, coefficient -3.836452456, amplitude exponent .49790 from three detunings. Analytic and finite-difference coefficients differ at most 2.9e-9 across NS cases. All findings exploratory, numerical rung 0, no interval proof or training-utility claim. Closed-form controls and derivative tests passed (27 tests). Updated the existing minimal-model summary and generated docs/explore-minimal-model-scalar-receipt.json with hash-bound raw manifests and a no-network checker. Ancestry improvement assessed only: bordered pseudo-arclength continuation of both folds, not another center-line scan. No paid compute, held-out data or frozen code paths used.
+
+_commit `d9e56b5ba78f` (dirty worktree)_
