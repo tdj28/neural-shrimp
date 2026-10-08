@@ -2779,3 +2779,29 @@ candidate/prediction and hash-bound source/data identity is retained. No retries
 new rate/seed, assessment, protected-final10% outcome, policy, inference experiment
 or paid call. Stop after reporting paired learning endpoints and all fixed
 forecast comparisons, regardless of outcome.
+
+
+### Broader-data LM four-case outcome — 2026-10-08 08:10 UTC
+
+Root authorized the exact card at44ed5ef6 after private remote verification and
+independent profile/source replay. Executable/plan bytes stayed unchanged. Fresh
+launch inventory recorded foreign PID27512 occupying7,414MiB/GPU100%, with8,493MiB
+free; it was left untouched. Owned PID35872 exited0 after31.034s; all fixed
+28161/28162 x8/256 cases completed800 updates. Owned analysis PID38169 exited0
+after2.407s. No retry or follow-on; GPU reservation released.
+
+Saved-output result, pending independent audit: larger fixed-data arms greatly
+reduced small-pool memorization and had lower disjoint development-probe CE,
+including the predeclared equal-training-token comparison. This is one nested
+pool and initialization replication only. Every eligible comparator row was
+valid; B3's1.68%/2.47% nMSE gains over B2 missed5% and it lost to the strongest
+tune-selected ordinary comparators. The declared forecast interpretation gate
+failed for both seeds. No shrimp/NS/inference/control utility is established.
+
+Retained191 manifest files,3,204 states and all model/row/probe outcomes, under
+512MiB and600s aggregate caps. Collection manifest SHA256
+2ec1948521fe50a05a81b0ddec2e3e741cb25745c58f887868e3c5db43e2413d;
+analysis SHA256 a84558767147a0d9521e4d9f597982075145d96e36c4dffabe1039b7536179c3.
+See docs/explore-tiny-lm-broader-outcome.md and its receipt. Protected outcomes
+and reserved seeds remain unopened. Send frozen saved evidence to independent
+auditor; stop as the card requires. Earlier negative calibration remains stopped.
