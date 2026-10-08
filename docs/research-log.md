@@ -2697,3 +2697,21 @@ Pre-target validation:56 focused diagnostic/CIFAR CPU/device tests passed in
 12.88s, including16 new diagnostic controls; one pre-existing Torch jit.script
 deprecation warning. No target derivative, linear solve or trial was evaluated
 by these tests. Target execution remains pending independent source review.
+
+### 2026-10-08 07:43 UTC — fixed-budget CIFAR diagnostic outcome
+
+After source a9830e714d259597a53cee6ef7be41a9f07bb205 and independent review
+dc7b4fea57c26c0a9e6db1b255c0e1d44efc1799 were pushed, root authorized the
+exact one-state CPU1/nice10 attempt. Resource check found load1.66 and45GiB
+available RAM. Exit0;10.635s external,9.189s internal;32 raw files18,218,537
+bytes. No failure was dropped and no budget was extended. GMRES info4 after
+200 inner/205 operator calls; true forcing0.8843136325 exceeds frozen0.5.
+Quarter/eighth steps lower merit but qualify neither as candidate steps nor
+orbits. All four fail closure1e-8; best closure4.857684429e-6. No spectrum or
+continuation. Full report/receipt: `docs/cifar-linear-diagnostic.md` and
+`docs/cifar-linear-diagnostic-receipt.json`; immutable manifest SHA256
+`d47983793f58b033389fca5fc4aedc9ad78798b38cef06b2f3a4cf0f731534a3`.
+Producer hash/inventory verification passed; independent saved-outcome audit
+pending. Source, original failed corrector, raw direction and all trials remain
+unchanged. This diagnostic does not reject orbit existence or identify a
+condition number. No new training, GPU, paid call or held-out data access.
