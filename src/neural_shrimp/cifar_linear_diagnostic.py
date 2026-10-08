@@ -28,7 +28,7 @@ def check_deadline(deadline):
 
 
 def solve_direction(action,residual,*,restart=50,cycles=4,rtol=1e-10,forcing_limit=.5,
-                    max_matvec=205,deadline=None,event=None,save_direction=None):
+                    max_matvec=205,deadline=None,event=None,save_direction=None,explicit_zero_start=False):
     """Save estimated inner history and independently evaluate A*p+R.
 
     SciPy callback_type='pr_norm' keeps maxiter counting restart cycles. The
@@ -38,6 +38,7 @@ def solve_direction(action,residual,*,restart=50,cycles=4,rtol=1e-10,forcing_lim
     for name,value in [('restart',restart),('cycles',cycles),('max_matvec',max_matvec)]:positive_integer(value,name)
     if not np.isfinite(rtol) or not 0<rtol<1 or not np.isfinite(forcing_limit) or not 0<forcing_limit<1:
         raise ValueError('relative tolerances must be finite and lie in (0,1)')
+    if type(explicit_zero_start) is not bool:raise ValueError('explicit_zero_start must be bool')
     residual=finite_vector(residual);denominator=float(np.linalg.norm(residual))
     if not np.isfinite(denominator) or denominator<=0:raise ValueError('finite nonzero residual required')
     calls=0;history=[];started=time.monotonic()
@@ -58,7 +59,8 @@ def solve_direction(action,residual,*,restart=50,cycles=4,rtol=1e-10,forcing_lim
         history.append(value);emit(row)
     operator=LinearOperator((len(residual),len(residual)),matvec=bounded,dtype=np.float64)
     check_deadline(deadline)
-    step,info=gmres(operator,-residual,rtol=rtol,atol=0.,restart=restart,maxiter=cycles,
+    initial = {'x0': np.zeros_like(residual)} if explicit_zero_start else {}
+    step,info=gmres(operator,-residual,**initial,rtol=rtol,atol=0.,restart=restart,maxiter=cycles,
                     callback=callback,callback_type='pr_norm')
     if save_direction is not None:save_direction(np.asarray(step).copy(),int(info))
     step=finite_vector(step,residual.shape)

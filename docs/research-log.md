@@ -4070,3 +4070,25 @@ pseudo-arclength proposal. The companion input JSON pins exact records/arrays,
 including the closest failed target and final stored Newton equation. Proposed
 15s internal/20+5 external CPU1nice10/8MiB; source, synthetic controls, independent
 review and separate authorization remain required. No implementation or launch.
+
+## 2026-10-08 UTC — fixed CIFAR restart implementation; launch pending
+
+Root authorized implementation under design c891a74c only. Added a dedicated
+restart200/one-cycle driver, explicit-zero opt-in to the reviewed direction
+core, operation counters (202A/203J2VP/407HVP/11direct-grad), byte-exact baseline
+replay, saved first50 prefix control and durable p/Ap/e/trial returns. Scientific
+gates are unchanged; no orbit, spectrum or continuation acceptance is possible.
+Added an owned-process launcher with45s internal/60+5 external limits,
+monitored child-group RSS2GiB (not kernel-hard),31+1MiB raw split and128KiB log.
+See docs/plans/cifar-restart-sensitivity-implementation.md for exact prospective
+command, failure retention, source inventory and audit boundary.
+
+The final focused synthetic suite passed37 tests in1.95s under CPU/BLAS1,
+nice10 and external60+5s. Synthetic controls exercised fixed solver arguments/caps, nested
+counter bookkeeping, mismatch/early-return failure, durable nonfinite final
+Ap/e, all four trial records, unchanged old defaults, source/input fail-closed,
+storage reserve, sticky TERM/deadline/RSS checks, log overflow and an actual
+synthetic inherited-pipe descendant. No CIFAR/model/HVP/JVP/profile or target
+solve was executed. Commit/push this source/tests/card for independent review;
+root's separate launch authorization remains required. No raw target directory
+was created, no paid/GPU resources or protected outcomes were used.
