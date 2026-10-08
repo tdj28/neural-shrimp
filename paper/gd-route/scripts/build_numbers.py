@@ -679,6 +679,34 @@ def build():
               f"figure 6 panel {key} rotation number (staircase receipt)")
         n.add(f"xFigSix{name}Ftle", fig6[key]["ftle"], fixed(fig6[key]["ftle"], 4), EXPLORATORY, [FIG6, STAIR_S2],
               f"figure 6 panel {key} FTLE (staircase receipt)")
+    # Independently reviewed exploratory pilots, with raw/source bindings in receipts.
+    scalar_path = c.ROOT / "docs/explore-minimal-model-scalar-receipt.json"
+    scalar = load(scalar_path)
+    for macro, value, computation in [
+        ("nScalarNS", scalar["counts"]["neimark_sacker"], "counts.neimark_sacker"),
+        ("nScalarCases", len(scalar["table"]), "len(table)"),
+        ("nScalarFlips", scalar["counts"]["flip"], "counts.flip")]:
+        n.add(macro, value, str(value), "exploratory; rung 0", [scalar_path], computation)
+    for macro, key, digits in [("xScalarEta", "eta", 9), ("xScalarRotation", "rotation", 6),
+                               ("xScalarCoeff", "coefficient", 6), ("xScalarAmp", "amplitude_exponent", 5)]:
+        value = scalar["representative"][key]
+        n.add(macro, value, fixed(value, digits), "exploratory; rung 0", [scalar_path], "representative." + key)
+    warm_receipt = c.ROOT / "docs/warmup-intervention-receipt.json"
+    warm_path = c.EXPLORE / "warmup-intervention/attempt-002/summary.json"
+    expected = next(r["sha256"] for r in load(warm_receipt)["raw_files"] if r["path"] == "summary.json")
+    assert c.sha256(warm_path) == expected
+    warm = load(warm_path)
+    for point, label in [(0, "Hard"), (1, "Soft")]:
+        rows = [r for r in warm if r["point"] == point and r["start"] == "near_orbit"]
+        common = [r for r in rows if r["policy"] == "keep_top_rates"]
+        peaks = [r["common_after_crossing"]["peak_loss_ratio_to_frozen_orbit"] for r in common]
+        n.add("tWarm" + label + "Peak", [min(peaks), max(peaks)], f"{min(peaks):.2f}--{max(peaks):.2f}",
+              "exploratory; rung 1", [warm_receipt, warm_path], "near-orbit common postcrossing peak range over dwell speeds")
+        halve = [r["after_intervention"]["terminal_loss_ratio_to_initial_orbit_mean"]
+                 for r in rows if r["policy"] == "halve_both_rates"]
+        assert len({f"{v:.3f}" for v in halve}) == 1
+        n.add("xWarm" + label + "Halve", halve, f"{halve[0]:.3f}", "exploratory; rung 1",
+              [warm_receipt, warm_path], "near-orbit halving final-loss ratios over dwell speeds; common three-decimal display")
     return n
 
 

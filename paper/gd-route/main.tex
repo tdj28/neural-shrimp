@@ -118,7 +118,7 @@ Newton's method using an analytic Jacobian evaluated in floating-point arithmeti
 period-2 oscillation gives way to quasi-periodic training on an invariant circle, rational rotation numbers lock
 into periodic windows, and the windows of the learning-rate plane are largely these locked orbits. Each result
 below says exactly what passed. The cross-checked windows and the comparison with the binary score are confirmed.
-Exploratory analyses support the local part of the thesis: the period-2 orbit acquires complex multipliers along
+Exploratory analyses support the local part of the thesis: the period-2 orbit's complex pair crosses the unit circle along
 a curve, the sampled crossings are mostly supercritical with dynamics that match the normal form, quasi-periodic
 training starts with a rotation equal to the crossing angle, and the same crossing appears in a real-data network
 and in a linear network. The global part is not established: a frozen test did not confirm that a rule-selected
@@ -189,8 +189,10 @@ root of the distance beyond the crossing when $d<0$ (supercritical), repelling a
 when $d>0$ (subcritical) \citep{kuznetsov2019}.
 
 \paragraph{Why the candidates start at period 2.} $DF(\theta)$ is similar to the symmetric matrix
-$I - P^{1/2} H P^{1/2}$, so at a fixed point all multipliers are real and a fixed point loses stability by fold or
-flip only. The edge-of-stability oscillation is the period-2 orbit born at that flip. For a period-2 orbit
+$I - P^{1/2} H P^{1/2}$, so at a fixed point all multipliers are real and local stability can be lost only through a real
+unit-circle crossing at $+1$ or $-1$. The $+1$ case need not be a fold; symmetry and other degeneracies
+can produce different bifurcations. At a nondegenerate minimum under a common positive scaling of $P$,
+the first instability is a $-1$ crossing. The edge-of-stability period-2 branch is associated with that flip. For a period-2 orbit
 $\{\theta_a,\theta_b\}$, the two-step Jacobian is similar to $S_b S_a$ with
 $S_j = I - P^{1/2} H(\theta_j) P^{1/2}$. A product of two symmetric matrices has real eigenvalues when one factor
 is positive definite (also when one is negative definite). Along post-edge cycles the factors can instead be
@@ -274,18 +276,18 @@ continued along 64 rays in the rate plane until it loses stability, located by b
 typed by the crossing multiplier: fold ($+1$), flip ($-1$) or complex pair. The same procedure traces where the
 period-2 orbit loses stability along slices of fixed output rate; several traces are merged into one curve. At each
 point of that curve we compute the first Lyapunov coefficient $d$ of the Neimark--Sacker normal form with
-Kuznetsov's formula for $n$-dimensional maps, using the exact dense two-step Jacobian and Richardson-extrapolated
-differences of exact Jacobian-vector products for the higher derivatives; the implementation reproduces the
+Kuznetsov's formula for $n$-dimensional maps, using the analytic dense two-step Jacobian evaluated in float64 and Richardson-extrapolated
+differences of analytic Jacobian-vector products for the higher derivatives; the implementation reproduces the
 explicit planar formula on random planar maps.
 
 \paragraph{Rotation numbers and the Birkhoff test.} For a non-periodic cell we take the two-step samples
 $z_k=\theta_{2k}$, project them on their first two principal axes, and define the rotation number as the mean
 unwrapped angle increment in turns per two steps. Rotation-number maps run this on every cell of a grid (float64
 on a GPU, \nUpdates{} screening updates followed by 6{,}000 two-step samples). For a numerically validated orbit of period $p$
-we take its two-step points ($q=p/2$ points for even $p$, $q=p$ for odd $p$), sort them by angle in their principal
+we use $F^2$ for even $p$ ($q=p/2$ points) and $F$ for odd $p$ ($q=p$ points), sort them by angle in their principal
 plane, and say the orbit passes when every step advances the angular rank by the same shift $m$ with $\gcd(m,q)=1$,
-the ordering of a Birkhoff orbit of rotation $m/q$. The number of points $q$, and therefore the relation $p=2q$, is
-fixed by the period; what the test measures is the ordering and the shift. Orbits with 2 or 3 points pass by
+the ordering of a Birkhoff orbit of rotation $m/q$. The number of points $q$ is fixed by the period and the chosen iterate; the relation $p=2q$
+applies only to the even-period case; what the test measures is the ordering and the shift. Orbits with 2 or 3 points pass by
 construction. The null is the pass probability of the same test for uniformly random angles; for a group of orbits
 we report the expected number of chance passes. The refined test also orders points along the shortest closed tour
 through them and tests the points of $F^{2^{k+1}}$ ($k=1,2,3$), which can detect orbits born by period doubling
@@ -340,12 +342,12 @@ chaotic, or drift toward large weights while the loss slowly falls. Adding weigh
 \noindent Status: \exploratorylabel{}. The analyses in this section were chosen while exploring and used data
 that shaped the thesis, except where frozen acceptance rules are stated.
 
-\subsection{Quasi-periodic training begins where the period-2 orbit acquires complex multipliers}
+\subsection{Quasi-periodic training begins where the period-2 orbit's complex pair crosses the unit circle}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{f2_rotation_map.pdf}
-\caption{\textbf{Beyond the curve where the period-2 orbit acquires complex multipliers, the rotation number of
+\caption{\textbf{Beyond the curve where the period-2 orbit's complex pair crosses the unit circle, the rotation number of
 training starts at the crossing angle and varies continuously, and periodic windows appear as plateaus.} A and B:
 rotation-number maps of S2-28011 ($\tMapSizeMain$ and $\tMapSizeRight$ cells) with the merged crossing curve
 (\nMergedPoints{} points, black) and the resonance points where the crossing angle is $m/q$ (filled when locked
@@ -409,7 +411,7 @@ the fixed-start maps is a basin effect of the shared initialization, not the bif
 \centering
 \includegraphics[width=\linewidth]{f6_route_portraits.pdf}
 \caption{\textbf{Four states along one slice, in order of increasing hidden-layer rate: an inward spiral to the
-2-cycle, a closed invariant curve, nine locked points and a broken curve.} Each panel shows every second parameter
+2-cycle, a closed projected curve, nine locked points and an irregular projected state.} Each panel shows every second parameter
 vector of one run projected on its own two principal axes. The rates are chosen by a fixed rule from the staircase
 receipt (the period-2 cell closest to the onset, the median quasi-periodic cell, the middle of the longest $2/9$
 plateau, the median chaotic cell between the $2/9$ and $1/4$ plateaus), not by eye. The states are not a monotone
@@ -423,7 +425,8 @@ dimensions.
 Figure~\ref{fig:portraits} shows what training looks like along that slice. Beyond the crossing, the two-step
 samples lie on a closed curve (rotation \xFigSixQPRho{}, FTLE \xFigSixQPFtle{}); inside the period-18 window they
 are nine points (rotation \xFigSixLockRho{}, FTLE \xFigSixLockFtle{}); between the $2/9$ and $1/4$ plateaus the
-curve thickens and breaks (FTLE \xFigSixChaosFtle{}).
+projected state is irregular and has positive finite-time growth (FTLE \xFigSixChaosFtle{}).
+These separate sampled trajectories do not establish a connected invariant-circle breakdown.
 
 \subsection{Rotation numbers form staircases}
 
@@ -585,6 +588,28 @@ factor \xMMTwoWeightAmpRatio{} for a fourfold offset, close to the square-root v
 \nMMGridNS{} of \nMMGrid{} cases of a coupled four-weight family that ended in a complex-pair crossing; boundary types
 for two held-out couplings were predicted correctly in \nMMHeldoutCorrect{} of \nMMHeldout{} cases.
 
+\paragraph{A scalar mechanism with an explicit equal-rate control.} For
+$L(u,v)=\tfrac12(uv-d)^2+\tfrac\lambda2(u^2+v^2)$, $0<\lambda<d$, equal rates preserve $u=v=x$.
+Set $c=1+\eta(d-\lambda)$ and $e=1-\eta(d+\lambda)$. The positive balanced 2-cycle for $c>2$ is
+\begin{equation}
+x_\pm=\frac{\sqrt{c+2}\pm\sqrt{c-2}}{2\sqrt\eta},\qquad
+m_\parallel=9-2c^2,\qquad m_\perp=1+e^2+ec.
+\end{equation}
+The rescaled cubic cycle and longitudinal multiplier recover the balanced scalar formulas in
+\citet[Propositions 2--3]{hofmann2026}; the transverse multiplier tests the full two-weight state.
+Both multipliers are real, so this branch cannot have an NS crossing; its longitudinal flip is at
+$\eta=(\sqrt5-1)/(d-\lambda)$ when the transverse direction remains attracting. Unequal rates can break the
+common eigendirections of the symmetric step factors, allowing complex two-step multipliers. This explains a
+branch-specific mechanism and does not exclude other equal-rate attractors.
+
+A fixed-target exploratory scan over ridge and rate ratio gives \nScalarFlips{} flips and \nScalarNS{}
+complex-pair crossings in \nScalarCases{} followed branches; all sampled equal-rate cases flip.
+All complex crossings have negative computed criticality. In the representative case the crossing rate is
+$\xScalarEta$, birth rotation $\xScalarRotation$ and coefficient $\xScalarCoeff$; three decreasing detunings give
+an amplitude exponent of $\xScalarAmp$. Analytic composed-map derivatives agree with an independent
+finite-difference calculation. These are numerical checks of local onset, not a complete phase diagram or a
+rigorous invariant-circle theorem. The compact receipt is \path{docs/explore-minimal-model-scalar-receipt.json}.
+
 \subsection{Consequences for training}
 
 \input{generated-consequence-table.tex}
@@ -600,6 +625,21 @@ anneal start times). In an analysis pooled over two slices with slice-specific s
 earlier fit and therefore adapted, two locking effects remain: the dose-response of disagreement on the
 perturbation size ($\Delta R^2 = \xDoseGain$, \tDoseGainCI{}) and the spread over anneal start times
 ($\xStopGain$, \tStopGainCI{}); both are carried by the locked indicator rather than the rotation number.
+
+\paragraph{Controlled rate ramps separate criticality from loss spikes.} At two previously inspected S2
+points, one with positive and one with negative criticality, we match stable and unstable endpoints in
+$\log|\mu|$, use two ramp speeds, and fork identical terminal states into unchanged rates, reversing the hidden-rate
+ramp, or halving both rates. For near-orbit starts, the hard point leaves the local branch and does not return
+under the small reverse ramp; the soft point stays nearby and returns. Nevertheless, both spike: postcrossing
+peak loss relative to the instantaneous frozen-cycle maximum is \tWarmHardPeak{} at the hard point and
+\tWarmSoftPeak{} at the soft point. A loss spike alone therefore does not identify hard criticality.
+Halving both rates gives terminal mean losses of \xWarmHardHalve{} and \xWarmSoftHalve{} times the original
+cycle means. That generic baseline performs better on this endpoint, although its abrupt change can itself
+produce a transient peak. The interventions have different sizes; this is not evidence of a superior
+geometry-based controller. Ordinary initialization at the hard point misses the local branch before crossing,
+so those runs are basin-accessibility controls. Selection and thresholds are exploratory, and the result covers
+only these two points in one network. Full-state replay and the post-run basin annotation are bound by
+\path{docs/warmup-intervention-receipt.json}.
 
 \paragraph{Reading the rotation from the loss.} The dominant peak of the even-step training-loss spectrum equals
 the two-step rotation number within $10^{-3}$ in \nPeakQPSTwo{} of \nPeakQPSTwoOf{} quasi-periodic and \nPeakLockSTwo{}

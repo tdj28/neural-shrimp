@@ -59,7 +59,7 @@ def main():
             late.append(theta.copy())
     early, late = np.array(early), np.array(late)
     titles = {"A": "A  Period 2: inward spiral", "B": "B  Quasi-periodic circle",
-              "C": "C  Locked 2/9, period 18", "D": "D  Chaotic: broken circle"}
+              "C": "C  Locked 2/9, period 18", "D": "D  Finite-time chaotic state"}
     fig, axes = c.plt.subplots(1, 4, figsize=(7.1, 2.25), layout="constrained")
     derived = {}
     for i, (ax, key) in enumerate(zip(axes, "ABCD")):
@@ -93,7 +93,7 @@ def main():
            f"A: period 2 near onset (rotation of the decaying spiral {derived['A']['rho']:.4f}); "
            f"B: a closed invariant curve (quasi-periodic, rotation {derived['B']['rho']:.4f}, FTLE "
            f"{derived['B']['ftle']:.4f}); C: nine points on the circle (locked at 2/9, period 18); "
-           f"D: a thickened, broken circle (chaotic, FTLE {derived['D']['ftle']:.4f}).")
+           f"D: an irregular projected state (finite-time chaotic label, FTLE {derived['D']['ftle']:.4f}).")
     c.save(fig, "f6_route_portraits", [STAIRCASE, *SOURCES], __file__, "exploratory", alt, derived,
            "Panel A uses updates 2,000 to 20,000 (the transient spiral); B to D use the last 8,000 updates.")
 
