@@ -3803,3 +3803,26 @@ producer source files remain unchanged. Independent outcome companions use
 s1r-lower-independent-outcome names to preserve the separate producer report.
 All96 focused synthetic controls pass in1.24s after the amendment. Target
 outcomes remain unopened; one audit still awaits source-bound authorization.
+
+## 2026-10-08 11:03 UTC — independent lower-comparison audit outcome
+
+The one root-authorized saved-data audit from clean ddb6c439 completed once:
+exit0,3.512960s internal/4.015504s launcher,CPU1nice10. All manifests/source/data/
+launcher bindings and recorded mathematical gates pass. The actual outcome is
+bridge_gap:239 nodes/234 qualified native pairs,63 link attempts/56 accepted,
+54 complete macros and unresolved macro55 toward hidden log-rate0.990. Last
+witnessed controls are0.992/0.6271428571428572; no lower-endpoint comparison or
+association verdict. All473 phase starts/ends,1858 iterations and1570 saved
+line-search trials agree. All native qualifiers and five role-selected
+independent analytic gradient/Hessian pairs pass; no new solve/trajectory.
+
+Raw audits/s1r-lower-association/attempt-001 (22files,644121bytes), manifest
+a6ada69a8d3cb66d0b1c046f62d8482554ed8a2962dad473c0b85c93655b2fd0; sibling
+attempt-001-launcher (5files,11533bytes), manifest
+0dcbe00e310f6c60cdfcc4cdce9719024f417bf07d95a04550664090867fb3cc. Inventories
+and read-only status verified; owned194369/194460/194462 exited, no remaining
+group. No retry, threshold relaxation, protected data, GPU or paid computation.
+Separate independent report/receipt: docs/reviews/s1r-lower-independent-outcome
+(.md and -receipt.json). Original producer receipts/reports remain unchanged.
+A passing saved-data audit does not turn this gap into a branch association,
+nonexistence or global disconnection claim. Root owns backup and integration.
