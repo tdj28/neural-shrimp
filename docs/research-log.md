@@ -3761,3 +3761,12 @@ forks mean8202 updates; all522 candidate records and nominees reproduce. No
 model or protected-array/pulse outcome evaluation occurred. Nonblocking rule
 mismatch: producer lexical-ID tie ordering versus plan source-path/numeric-row;
 all current minima are strict and identical. No-go for pulse collection stands.
+
+## 2026-10-08 10:39 UTC: root authorizes one lower comparison
+
+Source reviewbb71b904 passes, all12 reviewedSOURCES hash-identical. The
+root launchcard docs/plans/s1r-lower-launch-2026-10-08.md fixes the existing
+75/80/644,100s/115+5s,256MiB,CPU1nice10 one-attempt scope before outcomes.
+Fresh host capacity is adequate; no matching ownedjob, holdout or paid use.
+Independent utility inventory passes with its disclosed nonblocking tie-rule
+discrepancy; its unchanged1200-byte review output now has a permanent raw copy.
