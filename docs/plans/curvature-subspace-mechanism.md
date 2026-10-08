@@ -48,7 +48,10 @@ pair occurs exactly when T^2 < 4D; its modulus is sqrt(D) and its angle in
 (0,pi) is atan2(sqrt(4D − T^2),T). The degenerate cases c=+1 or−1 have a
 one-dimensional selected span and must be handled separately, not called a
 rotational pair. In the real symmetric aligned case the product is diagonal
-in a common basis.
+in a common basis. More generally, a product of two real symmetric factors
+can have a complex pair only if both factors are indefinite; a positive or
+negative semidefinite factor forces a real spectrum. Indefiniteness is necessary,
+not sufficient.
 
 For the simpler a=b=1 case, alpha=beta=2 makes each selected factor a reflection.
 Their product rotates the u,v plane, with T=4c^2−2 and D=1. Parallel directions
@@ -61,7 +64,11 @@ attraction nor an NS bifurcation in a gradient-descent training map.
 For the two-dimensional approximation a unit-circle crossing needs D=1 and
 |T|<2; attraction of the other modeled directions additionally needs |ab|<1.
 Transversality would involve the total derivative of D along the orbit branch,
-not merely a frozen-Hessian rate derivative. Nonresonance, nonzero cubic
+not merely a frozen-Hessian rate derivative: at D=1 the modulus slope is D'/2.
+At fixed a,b,alpha,beta, orientation c changes T but leaves D unchanged. It can
+change real-versus-complex character and angle, but cannot by itself change the
+complex modulus or create a transverse unit-circle crossing while that pair
+remains complex. Nonresonance, nonzero cubic
 coefficient and all actual transverse modes remain separate requirements.
 
 If S_j = S_j^0 + E_j, submultiplicativity gives
@@ -69,7 +76,10 @@ If S_j = S_j^0 + E_j, submultiplicativity gives
     ||S_b S_a − S_b^0 S_a^0||
       <= ||S_b^0|| ||E_a|| + ||E_b|| ||S_a^0|| + ||E_b|| ||E_a||.
 
-This is an operator-error bound. It is not an eigenvalue-error bound for a
+This bound uses the whitened coordinates. Returning to the original Euclidean
+coordinates can multiply it by the condition number of P^(1/2); eigenvalues
+are similarity-invariant but norm and eigenvector-conditioning claims are not.
+It is an operator-error bound, not an eigenvalue-error bound for a
 nonnormal product. Spectral residuals, separation and the correctly paired
 left/right eigenvector conditioning (or a suitable pseudospectral bound) must
 be checked before drawing spectral conclusions. A small angle between vectors
@@ -87,7 +97,9 @@ Before inspecting approximation errors, freeze the bulk-factor convention,
 subspace fitting rule and comparison set. Compare the two-phase model with a
 commuting/frozen-direction counterfactual retaining the same phase strengths.
 Report operator errors, target-pair residuals/conditioning, angle and modulus
-errors and failures. A bound covering the claimed prediction matters more than
+errors and failures. Separate orientation's incremental prediction of pair
+character/angle from a phase-strength-only prediction of complex modulus. Do
+not credit orientation for a quantity that the model already fixes through D. A bound covering the claimed prediction matters more than
 a visually matching projection. It must be clear whether a fit uses information
 from the target multiplier, in which case it is descriptive rather than predictive.
 
@@ -102,3 +114,7 @@ LM training is authorized by this note.
 Prior-work comparison must include Hofmann's two-mode complex multiplier
 calculation and existing edge-of-stability/curvature analyses before claiming
 an explanatory contribution. The product-of-reflections algebra itself is not new.
+
+Independent static review: `docs/reviews/curvature-subspace-mechanism-review.md`
+binds the initial note and motivates the qualifications added here. No empirical
+fit or full prior-work novelty comparison has been performed.
