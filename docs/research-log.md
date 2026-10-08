@@ -4191,3 +4191,25 @@ Copied and fully hash-checked60 immutable raw files/21,993,233bytes to the separ
 ## 2026-10-08 12:31UTC — clarify the matched-pulse estimand before another dose
 
 Data-free Cauchy–Schwarz argument shows that a distinct pulse direction cannot simultaneously match uniform backoff in treatment-minus-sham norm and total update length. A symmetric orthogonal pair can match both to each other, with a separate update-length-matched uniform comparator, subject to block-fraction feasibility. Saved target arrays were not evaluated and no new kappa/tau or run is selected. `docs/plans/utility-dose-geometry-decision.md` preserves the failed fixed dose and zero-qualified-control result; independent review requested before using its algebra in future design.
+## 2026-10-08 UTC — manuscript integrates audited CIFAR restart comparison
+
+On a separate branch from ac85b9f6, added one paragraph distinguishing the
+original50x4 diagnostic (two merit reductions) from the matched200x1 diagnostic
+(all four absolute merits increase). Both use200 inner iterations; the first50
+callback residuals match. True forcing improves0.8843 ->0.6620 but remains above
+0.5, so no correction, orbit or continuation is accepted. The paragraph retains
+the single-state and saved-array audit limits; no orbit-absence, general solver
+advantage or LM-benefit claim is added. README matches this narrower outcome;
+the evidence table already labels CIFAR correction unresolved and is unchanged.
+
+Six new source-derived macros bring the total to287; all281 prior entries are
+unchanged. The builder checks all new producer/audit manifests, used saved JSONs,
+source/execution identities and negative decisions. build_numbers.py --verify
+passes;54 cited paths, nine unchanged figure receipts, macro coverage and house
+style pass. latexmk rebuilt the multi-file project to31 pages with no final
+warnings or over/underfull boxes. Full-pagination contact sheets and pages23/24
+at detail were visually inspected with no defects. PDF and exact file/render
+hashes are bound in docs/reviews/paper-cifar-restart-authoring-qa.json. No unchanged
+figure trajectory, model/solver or proof kernel was rerun. No global artifact
+marker repeated; the parent had already recorded it. Parent independent
+manuscript review remains pending; no submission/public release is authorized.
