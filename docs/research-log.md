@@ -3086,3 +3086,20 @@ claims. Independent read-only review, addressed wording findings and scope are
 in `docs/reviews/paper-local-outcomes-2026-10-08.md`. Seven new generated macros
 bind the producer/audit receipts and raw manifests. No new experiment, altered
 gate or protected-data use accompanied this update.
+
+### Design-only candidate after two negative LM forecast gates — 2026-10-08 UTC
+
+Root requested a short scientific next-step memo; no implementation or run.
+The candidate docs/plans/explore-tiny-lm-frozen-curvature-candidate.md changes
+the question explicitly: whether curvature drift defeats a frozen local
+perturbation model. Four saved development checkpoints, two fixed directions
+and simple persistence/one-step gain/frozen-Hessian controls would be compared
+with transported derivatives and actual central perturbations. Float64 local
+replays would be counterfactuals from rounded states, not claims about exact
+old float32 trajectories. Retrospective JVP agreement supplies no forecasting,
+NS, inference or training-control claim. All original evidence stays immutable.
+
+The memo is for human/next-heartbeat design review. It requests no launch, GPU
+reservation or paid call and may be declined if the approximation check cannot
+change the larger-model plan. No code, test or numerical experiment was run for
+this design. Earlier negative units remain stopped.
