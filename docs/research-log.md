@@ -3213,3 +3213,13 @@ Explicitly defer the older LM frozen-curvature candidate: either result would
 mostly validate expected time variation/calculus and would not change a current
 larger-model method or resource choice. Both old negative units remain stopped.
 This is a design memo only; no code, experiment, paid call or resource reservation.
+
+
+## 2026-10-08 — Game-learning and heavy-ball primary-reference check
+
+Closed the Sato2002 cited-content gap and checked Goujaud2025's roots-of-unity
+construction and fixed-point multiplier statement against primary full texts.
+The introduction now identifies the latter as constructed two-dimensional
+strongly convex examples and specifies turns per update. Retain the publisher
+versus preprint comparison as open. See docs/reviews/game-momentum-references.md
+and its hash-bound external-PDF receipt. No new numerical experiment.
