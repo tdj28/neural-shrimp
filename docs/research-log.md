@@ -4548,3 +4548,7 @@ to name parameter transversality is included. The compact author QA receipt is
 `docs/reviews/paper-s1r-pseudoarclength-authoring-qa.json`; root independently reviews
 this source/PDF before integration. One initial static QA assertion mistook a
 directory citation for a file; corrected repository-verifier semantics pass.
+
+## 2026-10-08 14:21 UTC — independent PAL manuscript integration review
+
+Root reviewed author178010e4 and source-bound builder addition, reran the read-only303-number verifier after integration, checked all292old entries unchanged,58committed citedpaths and9unchangedfigures/tables. Exactsource/PDF/QAimage hashes match; all31pagecontacts and detailedpages21–22 were visually checked with no defects. Fold limits include simple+1, parametertransversality and quadraticnondegeneracy; all9newpairsunstable,6auxiliarynodes distinct. PDF780286B SHA785fed6699a50d2adaf81ec21db29b93c60f9ddfd05d3179318d3658eaf8efce. No model/proof/figure reruns or submission. Review `docs/reviews/paper-s1r-pseudoarclength-independent-review.json`.
