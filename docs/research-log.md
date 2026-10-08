@@ -2694,3 +2694,37 @@ first local-branch pilot is authorized to execute; no S1R target was evaluated
 by this review. See `docs/reviews/s1r-pilot-source-review.md` for gates, limits
 and shared-primitives/finite-precision limitations. Historical families remain
 unassociated and protected data remain untouched.
+
+
+### 2026-10-08 UTC — exact similarity corollary and boundary-reference audit
+
+An independent mathematical review passes the exact scalar state/rate conjugacy:
+the selected NS certificate transfers along lambda=d/4, r=4 with inverse-d
+critical rate and sqrt-d orbit scale. The manuscript explicitly labels this as
+one dimensionless case, not independent replication or architectural scaling;
+total modulus slope and normalized cubic-coefficient scaling are derived.
+No numerical experiment was needed. See `docs/scalar-similarity-corollary.md`.
+
+Five further current citation contexts were inspected in archived primary
+preprints; the bibliography now gives Chen et al.'s confirmed TMLR2024 venue.
+Two inaccessible publisher requests are preserved and final-text equivalence
+remains open. The manuscript separates initialization-space factorization
+geometry, learning-rate boundary maps, empirical functional reproducibility
+(including BERT) and frozen inference. Source hashes and scope are recorded in
+`docs/reviews/boundary-reference-content-receipt.json`. This does not complete
+the full bibliography audit.
+
+### 2026-10-08 UTC — broader-data LM source review and manuscript checkpoint
+
+Root independently reviewed ca9e96b3 and passed all32 focused controls in3.21s.
+The exact seed28160 local engineering profile is authorized after a fresh shared
+resource check, within internal60s/external80s+5s. Collection remains contingent
+on the declared resource-only feasibility result and its separate run card.
+See `docs/reviews/tiny-lm-broader-source-review.md`.
+
+The updated27-page paper compiles without warnings or box/reference errors;
+all249 generated numbers verify unchanged. All27 pages were rendered and
+visually checked, with the revised scalar-proof page inspected separately.
+The current reading PDF includes the independently reviewed similarity
+corollary and scoped boundary/reproducibility references. New S1R/CIFAR target
+outcomes await independent audits before manuscript integration.

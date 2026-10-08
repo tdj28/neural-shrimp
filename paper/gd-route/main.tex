@@ -419,6 +419,22 @@ arbitrarily rewritten provenance metadata. This limitation and the independent c
 \path{docs/reviews/scalar-ns-independent.md}.
 
 
+\paragraph{Exact rescaling of the same case.}
+Let $d_0$ denote the certified target above. For $d>0$, $\lambda=qd$, fixed rate ratio $r$,
+and $S_k(x)=kx$ with $k=\sqrt{d/d_0}$, substitution in the cubic GD map gives
+\begin{equation}
+F_{d,qd;\eta,r}\circ S_k=S_k\circ F_{d_0,qd_0;k^2\eta,r}.
+\end{equation}
+Thus the certificate at $q=1/4$, $r=4$ transfers to every $d>0$ on that ray, with
+$\eta_*(d)=\eta_*(d_0)d_0/d$ and orbit coordinates scaled by $k$.
+At corresponding phases the monodromy is unchanged. The total modulus slope along the orbit branch
+scales by $k^2$, and the cubic coefficient under the same unit-eigenvector convention scales by $k^{-2}$:
+second and third state derivatives of $F^2$ scale by $k^{-1}$ and $k^{-2}$, respectively.
+This is one dimensionless case in $(\lambda/d,\eta d,r)$, not an independent replication or
+robustness to varying $q$ or $r$. The algebra and independent review are in
+\path{docs/scalar-similarity-corollary.md}.
+
+
 \section{Exploratory evidence for the thesis}
 \label{sec:route}
 
@@ -863,8 +879,9 @@ rates where training does not settle. \citet{hofmann2026} derives the rotational
 \citet{chenbruna2023} analyze two-step GD, proving period-2 convergence in specified scalar and single-neuron
 settings and testing related conditions in larger models. \citet{song2023} study alignment with a reduced
 bifurcation diagram, with proofs for specified single-example models and neural-network experiments. Our orbit
-tests concern closure and stability of the full parameter state. Further analyses include \citet{kalra2025},
-\citet{chen2024phases}. \citet{cohen2025central} model time-averaged deterministic GD and RMSProp
+tests concern closure and stability of the full parameter state. Further analyses include \citet{kalra2025}.
+\citet{chen2024phases} reduce specified quadratic regression settings to a cubic map; their Li--Yorke
+chaotic regime can also contain attracting periodic orbits. \citet{cohen2025central} model time-averaged deterministic GD and RMSProp
 trajectories with central flows, with explicit limitations on rigor, stochastic training, momentum and
 computational feasibility. Our full-state orbit and boundary tests complement this averaged description.
 
@@ -883,8 +900,13 @@ mechanism or predictive consequence; detecting oscillation in a transformer alon
 \paragraph{Chaos and fractals in training.} \citet{kong2020} analyze deterministic GD on multiscale objectives.
 \citet{jimenez2026} relate finite-time perturbation expansion to epochs needed to reach task-specific accuracy
 thresholds in full-batch MLP/CNN experiments. This is relevant prior utility evidence; our proposed geometry-specific
-benefit needs an additional comparison. Fractal trainability boundaries are studied by \citet{sohldickstein2024}, \citet{torkamandi2025},
-\citet{liu2024} and \citet{liang2026}; riddled basins and reproducibility by \citet{ly2025}. Learning dynamics in
+benefit needs an additional comparison. \citet{sohldickstein2024} study fractal trainability boundaries;
+\citet{torkamandi2025} map loss-based convergence boundaries in a small character transformer trained with Adam;
+\citet{liu2024} study learning-rate boundaries for cosine-perturbed quadratic objectives.
+\citet{liang2026} analyze initialization-space convergence regions in regularized factorization, with
+orthogonality restrictions for their matrix extension. \citet{ly2025} report empirical riddling-like and
+functional sensitivity across training runs, including BERT fine-tuning; this concerns outcomes after
+retraining from nearby initializations, not chaos during frozen inference. Learning dynamics in
 games show chaos \citep{sato2002} and phase locking \citep{metaxas2026}, for adaptive rules rather than descent on
 one loss.
 
