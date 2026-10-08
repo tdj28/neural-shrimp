@@ -2,12 +2,13 @@
 import copy
 import importlib.util
 import inspect
+import os
 import json
 from pathlib import Path
 import numpy as np
 import pytest
 from neural_shrimp import cifar_input_span as span
-ROOT=Path(__file__).resolve().parents[2]
+ROOT=Path(os.environ.get('CIFAR_SPAN_REVIEW_SOURCE_ROOT',str(Path(__file__).resolve().parents[2])))
 spec=importlib.util.spec_from_file_location('span_independent_driver',ROOT/'tools/diagnose_cifar_input_span.py')
 driver=importlib.util.module_from_spec(spec);spec.loader.exec_module(driver)
 
