@@ -4326,3 +4326,18 @@ trials fail decrease; the failed-state tangent orientation changes sign across
 raw/scaled secant metrics. No fold or branch conclusion. Compact independent
 companions: docs/reviews/s1r-lower-gap-independent-outcome.md and -receipt.json.
 No target/model/derivative/decomposition/solve rerun, no correction or retry.
+
+### 2026-10-08 UTC — curvature mechanism metadata inventory and bounded design
+
+On root instruction, inspected only existing development metadata, schemas,
+source and byte identities. Updated docs/plans/curvature-subspace-mechanism.md
+and added curvature-subspace-input-inventory.json. A fixed six-slot S2/S1R
+panel uses earliest historical verified stable real/complex period-two rows
+plus one existing crossing-neighborhood reference per loss; all choices and
+historical knowledge are disclosed. Selected phase Hessians/Jacobians are not
+retained, and S2's crossing candidate lacks its opposite phase. Defined12
+future fixed-phase acquisitions, rank-one/bulk fit, matched-strength commuting
+controls, error-envelope/accuracy gates and resource-profile requirements.
+No norms, eig/SVD, derivatives, map/trajectory, fit errors or protected data
+were evaluated. No implementation, profile or target launch is authorized by
+this design; missing/failed slots cannot be replaced after observing errors.
