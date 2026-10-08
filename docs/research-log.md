@@ -3828,3 +3828,13 @@ both, added a utility clean-checkout guard, and made CIFAR exact saved-array
 relations compare bytes. No target utility gradients, CIFAR profile or target
 projection had run. Original source freezes remain preserved; final source
 review and launch authorization are pending.
+
+## 2026-10-08 UTC — independent CIFAR input-span source review
+
+Source review passes exact17453ecc after external profile-pin and bitwise-byte
+corrections.41 producer/independent synthetic controls pass1.82s; original
+source reproduced six expected failures, retained in the review record. External
+wrapper SHA3c6c82bf15c55bb078981c62546bd796a19d9884d2f82a73e8960da5e12a8cc5
+was reviewed read-only. No actual profile, target QR/projection/gradient or new
+outcome was opened. Report/JSON:docs/reviews/cifar-input-span-source-review.
+Root retains separate profile and target authorization decisions.
