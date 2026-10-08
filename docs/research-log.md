@@ -2685,3 +2685,12 @@ inspected all27 pages. The reading PDF matches the current compiled output.
 The new broader-data LM design2a3f074a separately passed coordinator design
 review for implementation, with explicit fixed-pool scope and failed-baseline
 handling required; source review and profile remain pending.
+
+### 2026-10-08 UTC — independent S1R pilot source review
+
+Root reviewed source `db10bd1e1b25b0e24b1f0f8f97cb84035742c776` and independently
+passed all sixteen synthetic controls (0.81 s, CPU1/nice10). The exact bounded
+first local-branch pilot is authorized to execute; no S1R target was evaluated
+by this review. See `docs/reviews/s1r-pilot-source-review.md` for gates, limits
+and shared-primitives/finite-precision limitations. Historical families remain
+unassociated and protected data remain untouched.
