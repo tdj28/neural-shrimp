@@ -4486,3 +4486,7 @@ Producercc3976e3 completed the two-edge unit in5.2022s (wrapper5.7668s), with al
 ## 2026-10-08 14:06 UTC — two local PAL edges, numerical unstable-turn candidate
 
 Producercc3976e3 completed2/2 edges without retry:9qualifiednodes including6auxiliary,8correctors4common-controlchecks,68analytic76map66assembly24solve54SVD18eig;5.2022s science5.7668s wrapper. Allraw files/hash inventories/3ownedPIDexitsverify. Same raw metric and nativecarry show t_h−.02934→−.01412→+.00917; secondmidpoint h.9918853 below endpoint.9918908. This supports a numerical local turn on an unstablecycle segment, not a provedfold, attracting boundary, lowerfamily connection or utility. Frozen independent auditor3134d730 reportedpass930events; separate outcome receipt follows. See `docs/reviews/s1r-pseudoarclength-outcome.md` and receipt.
+
+## 2026-10-08 14:08 UTC — separate-disk continuation evidence backup
+
+Copied all1805 files/26304428B of the completed PAL producer, independent saved audit and both launchers to `/archive/neural-shrimp-backups/20261008T140823Z-pal-increment`. Exact inventories, full SHA-256 comparisons and a second source hash pass agree; archive manifest6e9d0aff9e023d6a5362954b62adb0efff07b56e529ef7e8a54dd4e43cb9e994. SourceNVMe and archiveSATA are separate physicaldisks; localpoint-in-time protection, notoffsite. Receipt `docs/backups/2026-10-08-pal-increment.json`.
