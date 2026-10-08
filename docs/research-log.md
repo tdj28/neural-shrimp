@@ -3300,3 +3300,29 @@ before opening numerical outcomes. Initially send that reviewer only execution
 source, immutable artifact paths/hashes and availability. Commit the compact
 producer receipt after this single run, then STOP. No further continuation,
 selection, additional start, GPU, paid call, holdout or broader map is authorized.
+
+### S1R historical-bootstrap association — single collection completed, 2026-10-08 09:20 UTC
+
+TLDR: the new upper bootstrap and the reviewed saved lineage match at identical
+controls after the planned finite witnessed bridge. The lower bootstrap remains
+at different controls and unassociated; there is no new coexistence or historical
+ancestry claim. This is exploratory numerical evidence pending independent
+saved-data review, not an interval-continuation proof.
+
+Root authorized one collection after profile receipt e6def898. Execution
+586e74927215ff7ab5ebc81fbc29720c9322f291 retained unchanged e0fccd73 source/plan
+bytes and reviewff2ec8dc. Both fixed40,000-update bootstraps finished, retained
+1,200 successful/attempted JVP counts each and complete correctly indexed tails,
+and qualified numerical attracting period-two pairs at their respective rates.
+All12 bridge links passed with102 phase calls, no subdivision or gap. The
+same-control endpoint/upper-bootstrap cyclic match distance was2.64968813e-15
+under the unchanged1e-7 replay gate. Lower-family association was not attempted.
+
+Exit0, internal13.61045s/launcher14.18409s, CPU1/nice10, peak child RSS100,684KiB;
+all owned PIDs exited. Raw2,046files/27,218,975bytes and complete launcher evidence
+are read-only and fully hash-verified. Manifest391092f55c06b7289b852ca58603dd680f7718fa91f747bfc2d749704d5d5974.
+See `docs/s1r-bootstrap-association.md` and its compact JSON receipt for exact
+source/profile/input/process bindings. Reviewer received paths/hashes/source
+without numerical outcomes before its prospective saved-data audit. No retry,
+paid resource, GPU, threshold change or additional target computation occurred.
+STOP after the compact receipt; root owns review, backup and integration.
