@@ -12,6 +12,14 @@ from neural_shrimp.period2_branch_io import Store, file_entry, identity, load_re
 from neural_shrimp.s1r_bootstrap import HiddenBridge, InterruptibleBudget
 
 
+@pytest.fixture(autouse=True)
+def simulated_permitted_priority(monkeypatch):
+    # Synthetic drivers do not require the parent pytest process to be niced.
+    # Production keeps its real guard; the explicit rejection test overrides this.
+    import os
+    monkeypatch.setattr(os, 'getpriority', lambda *_: 10)
+
+
 def module(name):
     path = Path(__file__).parents[1] / 'tools' / (name + '.py')
     spec = importlib.util.spec_from_file_location(name, path)
@@ -360,3 +368,36 @@ def test_launcher_exited_leader_with_inherited_pipe_is_bounded(tmp_path,monkeypa
     assert receipt['failure']=='supervisor_timeout_or_inherited_pipe'
     assert receipt['elapsed_seconds']<3 and receipt['process_exit']==0
     assert receipt['raw_file_count']==0 and (tmp_path/'launcher'/'manifest.json').exists()
+
+
+@pytest.mark.parametrize('failed_event', ['node_pending', 'node'])
+def test_node_pending_metadata_follows_durable_events(failed_event):
+    engine, progress, result, store = setup()
+    original=store.emit
+    def fail(kind,payload,final=False):
+        if kind==failed_event: raise PilotStop('raw_byte_limit')
+        original(kind,payload,final)
+    store.emit=fail
+    with pytest.raises(PilotStop,match='raw_byte_limit'):
+        a.compare_along_bridge(engine,endpoint(1.1),endpoint(.95),result,progress)
+    terminal=progress.terminal()
+    assert terminal['durably_finished_nodes']==[]
+    assert terminal['pending_nodes']==(['node-0000'] if failed_event=='node' else [])
+    assert terminal['unpersisted_node_attempts']==(['node-0000'] if failed_event=='node_pending' else [])
+    assert terminal['last_witnessed'] is None and result['association'] is None
+
+
+def test_driver_and_launcher_reject_ordinary_priority_before_output(tmp_path,monkeypatch):
+    import os
+    import subprocess
+    monkeypatch.setattr(os,'getpriority',lambda *_:0)
+    runner=module('explore_s1r_lower_association')
+    monkeypatch.setattr(runner,'sources',lambda:{'synthetic':{}})
+    head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=runner.ROOT,text=True).strip()
+    with pytest.raises(ValueError,match='nice10'):
+        runner.run(tmp_path/'raw',head)
+    launcher=module('launch_s1r_lower_association')
+    monkeypatch.setattr(launcher,'committed_sources',lambda:{'synthetic':{}})
+    with pytest.raises(ValueError,match='nice10'):
+        launcher.launch(tmp_path/'raw',tmp_path/'launcher',head,head)
+    assert not (tmp_path/'raw').exists() and not (tmp_path/'launcher').exists()

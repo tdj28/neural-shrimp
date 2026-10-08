@@ -3665,3 +3665,16 @@ added. No target/profile attempt preceded these corrections.
 Validation after those corrections:62 synthetic/reused-core controls pass in
 4.35s, including injected accepted-edge/start-write failures and a child whose
 exited leader leaves an inherited stdout pipe. No target/profile launch.
+
+The independent reviewer identified the analogous node-finalization path:
+node pending/completed metadata now also derives from durable start/completion
+events, with pre-start write failures separately marked. Synthetic controls
+inject both node-start and node-completion failure before any target work.
+
+Root's ordinary-priority integration pytest exposed a test-harness dependency:
+the new synthetic driver/launcher tests now simulate permitted nice10 and
+explicitly test rejection at nice0, leaving production guards unchanged. The
+initial integration failures were resource-guard fixture failures, not target
+outcomes. This also keeps future ordinary-priority test invocations portable.
+
+Final pre-outcome validation:65 synthetic and reused-core controls pass in4.35s.
