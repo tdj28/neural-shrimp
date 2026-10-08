@@ -1826,3 +1826,31 @@ runtime. The offline verifier will recompute them and fail closed.
 Command after committing/pushing this card and code:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_scalar_ns.py run --out /data2/neural-shrimp-data/explore/certificates/scalar-ns-2026-10-07/attempt-001`.
 This card authorizes no further attempt or endpoint/continuation scan.
+
+
+## Independent scalar NS review — prospective run card, 8 October 2026 UTC
+
+Source under review0652d49529265565078b63360ec76bd9dd5f21a8; producer result
+edc79ac2. Commit this independent reviewer before any fresh target computation.
+Question: can independent complete rational polynomial derivatives, a nested
+512-bit Krawczyk box and a separately derived cubic conjugacy coefficient
+reproduce the selected exact-real scalar NS gates? Original dyadic center,
+requested radius2^-48 nested in original2^-40 box; no search or fresh target.
+Independent path does not call producer jets/inclusion/coefficient code. Exact
+polynomial expansion and differentiation use Fraction; Arb/Acb arithmetic is
+shared trust. Direct transpose adjoint replaces producer inverse eigenframe;
+quadratic elimination h_jk followed by cubic composition replaces both producer
+normal-form evaluations. Official replay and rehashed mutation controls are
+reported separately. Check exact selected seed/coefficients/proposal bindings.
+
+One CPU thread, nice10, no GPU/paid compute. Inventory: host load.92/1.07/1.87,
+availableRAM44GiB. External120s limit with5s kill grace. Preserve all attempts
+and mutated copies in exclusive review directory; originals read-only. If a
+mutation passes, report the weakness without changing producer evidence.
+Output /data2/neural-shrimp-data/audits/scalar-ns-independent/attempt-001.
+Command: OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src
+timeout --signal=TERM --kill-after=5s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python
+tools/review_scalar_ns.py --receipt /data2/neural-shrimp-data/explore/certificates/scalar-ns-2026-10-07/attempt-001/receipt.json
+--output /data2/neural-shrimp-data/audits/scalar-ns-independent/attempt-001.
+No claim of formalization, finite-detuning circle enclosure, irrationality,
+finite parameter tube, branch ancestry, or large-network result is planned.
