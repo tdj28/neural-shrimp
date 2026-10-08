@@ -2029,3 +2029,89 @@ nonpublic findings and requires payload-specific permission to send them to
 OpenAI. The process did not start and no generating request ran. A concise user
 approval question is pending; no retry or workaround will be attempted. Local
 research and paper work continue independently. Costs remain in the private ledger.
+## 2026-10-08 04:55 UTC — S1R saved rotation-map audit, exploratory run card
+
+Question: what can the completed S1R seed-28002 rotation map support when its
+independently initialized NS samples are kept as separate start families?
+This is an outcome-informed exploratory analysis, not a confirmatory test.
+The saved input shapes, metadata and trace coordinates were inspected before
+this card; map/trace comparison statistics and root distances were not.
+
+Inputs: `/data2/neural-shrimp-data/explore/a3-gpu-rotation/s1r-28002-512/rotation.npz`
+and adjacent metadata, plus `a3-ns-curve/s1r-28002/ns-curve.json` (start 1.10)
+and `a3-ns-curve/s1r-28002-start0.95/ns-curve.json` under the same explore root.
+The trace files omit orbit states and restart each output-rate slice; even
+within a start family branch identity is unestablished. Never merge families
+or select the closer birth angle. Map producer provenance is historically
+`959beee68b3a` with a dirty tree, with only native source/library hashes in
+metadata. New receipts bind the saved inputs and analysis, not a recovered
+complete producer source tree.
+
+Plan: compare every NS row at hidden-log-rate offsets .002/.004/.008/.016,
+with nearest grid-cell coordinates and explicit exclusive exclusions. Accept
+only periodic candidates above period 2 or unresolved cells, finite projected
+rotation/FTLE/planarity, |FTLE|<.005 and PCA share>=.95. Report all exclusions
+and retained status labels. Period/status/FTLE precede rotation sampling and
+cannot certify the later trajectory. Figures use the full unsigned rotation
+range [0,.5] and unjoined NS samples, separately for each start family.
+
+For provisional rational roots use only adjacent NS rows, reject missing
+output slices and jumps above .02 hidden log-rate or .01 birth rotation.
+These are declared conservative geometry screens, not full-state branch
+identity checks. Search reduced m/q, 5<=q<=32, on those geometric segments;
+retain all roots, including no matching candidate cells. Report distance to
+any map cell screened period 2q with projected rotation within 1/6000, and
+geometric distance envelopes if a root were anywhere on its whole segment.
+No beyond-boundary claim, locking-fraction evidence, null p-value or tongue
+ancestry claim. Compare both families regardless of result. A mismatch or
+branch ambiguity is informative; no post-hoc family selection or threshold
+change in this attempt.
+
+Resource check: zeta load 8.13, ~43.5 GB available. One CPU thread, nice 10,
+local only, no GPU/paid compute. Expected <1 minute and <1 GB RAM; stop if
+unexpected growth. Six synthetic tests pass (gap/jump exclusion, family
+retention, cell exclusions, retained empty roots, distance envelope, invalid
+axis/input and verifier fail-closed controls). Output is exclusive attempt-001:
+`/data2/neural-shrimp-data/explore/s1r-rotation-audit/attempt-001`.
+
+Command (after committing this code/card):
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/analyze_s1r_rotation_map.py --map /data2/neural-shrimp-data/explore/a3-gpu-rotation/s1r-28002-512/rotation.npz --main-trace /data2/neural-shrimp-data/explore/a3-ns-curve/s1r-28002/ns-curve.json --lower-trace /data2/neural-shrimp-data/explore/a3-ns-curve/s1r-28002-start0.95/ns-curve.json --out /data2/neural-shrimp-data/explore/s1r-rotation-audit/attempt-001`
+Execution SHA and hashes are recorded by the driver. Offline replay and a
+local review precede interpretation/integration.
+
+## 2026-10-08 04:57 UTC — S1R saved-map audit attempt-001 result
+
+Execution source `bf7a811ca1948a036578de45bce90b37a75560f8`; one CPU thread,
+nice 10, no GPU or paid activity. Successful analysis and visual inspection;
+input/output/source inventories and full numerical replay pass. Receipt:
+`docs/explore-s1r-rotation-audit-receipt.json`. Six controls pass. Output and
+input source files were not overwritten; new raw attempt is made read-only.
+
+Start-family dependence is material: at offset .002, start 1.10 retains 14/16
+NS comparisons, median absolute rotation difference .0006450; start .95
+retains 12/25, median .0100761. Every retained cell is unresolved. Conservative
+geometric adjacency retains 9 versus 13 edges, which still do not establish
+branch identity. Provisional roots are 1/8 (nearest matching candidate75.82
+cells), 2/15 (123.64 cells), and 1/23 (no candidate cell); full exclusion and
+distance-envelope records are saved. No locking fraction, null significance,
+merged branch or tongue-ancestry claim is reported. Program C's existing
+stream document records all four offsets, exclusions, provenance/timing
+limitations and the required next full-state continuation experiment.
+
+## 2026-10-08 05:15 UTC: run (exploratory)
+
+- **Question:** Independently recompute the source-bound S1R audit.
+- **Setup:** Producer tip3c66e666; saved-data review only, source/input/output hashes, no producer analysis imports; separate rational enumeration and geometry. Producer outcomes previously read. One CPU thread, nice10, no GPU/paid activity,60s cap.
+- **Output:** `/data2/neural-shrimp-data/audits/s1r-rotation-independent/attempt-001/review.json`
+- **Would surprise us:** Any numerical or scientific-scope mismatch.
+- **Command:** `nice -n 10 timeout 60 /data2/neural-shrimp/.venv/bin/python tools/review_s1r_rotation_map.py --output /data2/neural-shrimp-data/audits/s1r-rotation-independent/attempt-001/review.json`
+
+_commit `fef363950baa`_
+
+- run started 2026-10-08 05:15 UTC finished 05:15 UTC with exit status 0
+
+## 2026-10-08 05:17 UTC: Independent S1R saved-map review passes with one prose correction
+
+Reviewed producer tip3c66e666 and execution sourcebf7a811c from a separate reviewer branch/worktree. Independent checker fef36395 imports no producer analysis, verifies hashes and recomputes all offset medians/maxima/exclusions/status counts,9/13 geometric edges,1/8+2/15+1/23 roots,candidate counts1433/1410/0,distances75.81678/123.63970 and both conditional segment envelopes. All match. Every retained comparison is status4 unresolved. Producer replay passes; six synthetic tests pass. Source/figure inspection supports the disclosed independent slice starts, absent branch identity, stage mismatch and dirty historical producer provenance limits. No numerical/scientific blockers. Nonblocking correction: qualifying_run=false marks an already-qualified capability in gdmaps_cuda.py, not backend unqualification. Compact review docs/reviews/s1r-rotation-map.md and receipt; raw result under audits/s1r-rotation-independent/attempt-001. Local saved-data analysis only, no GPU/new trajectories/paid activity.
+
+_commit `fef363950baa` (dirty worktree)_
