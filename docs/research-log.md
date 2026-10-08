@@ -4157,3 +4157,7 @@ Root independently reviewed source5cecd5f0 and all12 transitive source/card bind
 ## 2026-10-08 12:21 UTC — CIFAR restart comparison complete, gates still fail
 
 Execution6fea29cd finished the single authorized restart200/maxiter1 diagnostic; both manifests/immutable inventories and all observed PID exits verify. Producer reports exact initial/parity/prefix controls pass, true forcing0.6619885 versus saved0.8843136, still above0.5; all four Armijo and closure gates fail, no orbit/update/spectrum. Counts202A/203J2VP/407HVP/11directgradients,12.6868s scientific14.1609s wrapper,932532224B observed child-group RSS. Frozen independent auditor4de644d3 has not run yet; this producer record explicitly retains pending-at-creation status. See `docs/reviews/cifar-restart-outcome.md` and receipt. No retry or new solve is authorized.
+
+## 2026-10-08 12:22 UTC — authorize one independent saved restart audit
+
+Independent source reviewfa4fafff passes prospective auditor4de644d3 with64 synthetic controls,14 independently written. Authorize exactly one clean4de644d3 execution on the externally pinned metadata in `docs/reviews/cifar-restart-audit-authorization.json`, retaining the frozen15s/20+5s CPU1/nice10/4MiB limits. No producer numerical imports, model/derivative/solver/SVD/QR calls or retry. Original source was frozen before target outcomes; independent reviewer remained outcome-blind. Producer already exited and owned PIDs are absent. Complete retained inventories and audit termination must verify.
