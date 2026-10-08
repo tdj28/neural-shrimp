@@ -2577,3 +2577,22 @@ Independent review also reproduced terminal-state loss if checkpoint metadata ra
 Exact source b9e5b8c3, independent source review39ba1721: all six fixed800-update cases and the one offline analysis completed without guards, with4806 finite states retained. Collection process19.931s and analysis0.711s; including profile3.610s, total launched time24.252s. Verified221-file exact inventory and all raw hashes. No adaptive rate, threshold, case or retry followed.
 
 The fixed gate FAILED on both seeds. Seed28151 has zero late episodes; seed28152 has three (required five), with B3 mean Brier0.063782 versus B2 0.063011 and pooled AP0.647679 versus0.685126. Ordinary CE/AR baseline B0 also outperforms B2/B3 on the sole late eventful trajectory. Interpretation: sparse negative development calibration, no evidence of incremental nonlinear-feature utility here, no general impossibility or dynamical claim. Stop before assessment, validation outcomes and policies. Full source-bound receipt and limitations: docs/explore-tiny-lm-calibration.md and companion JSON. Protected final10% outcomes and reserved seeds remain untouched.
+### 2026-10-08 — independent six-case tiny-LM saved-evidence audit
+
+Producer outcome9f98bb6d reports a failed calibration gate; this is disclosed
+before verification and is not a blinded/confirmatory test. Freeze this audit
+script before independently checking the existing immutable collection and
+analysis. Source b9e5b8c3 and source-review39ba1721 must match the durable
+launchers. Verify exact file inventory/hashes, all six case identities,
+contiguous full-state storage, feature/CE/label lengths and censoring, geometry
+history reconstruction, training-only statistics/split counts, selected tuning
+score, saved predictions and independent Brier/tied-score AP/gate arithmetic.
+Do not refit logistic models, recompute gradients, run training, evaluate
+assessment/validation or launch policies. Report eventful-trajectory metrics
+separately from the seed-pooled gate and retain sparse-event limitations.
+
+CPU1/nice10, external30s cap, no GPU/paid call. Exclusive audit output:
+`/data2/neural-shrimp-data/audits/tiny-lm-calibration-outcome/attempt-001.json`.
+Inputs are the attempt-002-calibration collection, adjacent analysis.json and
+its two launcher receipts. Save any audit error and explain it; no outcome
+artifact may be changed. Commit audit source/card before replay.
