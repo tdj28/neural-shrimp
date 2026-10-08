@@ -145,8 +145,8 @@ the crossing angle, and for locking; the linear model requires explicit care wit
 Empirical riddling-like sensitivity and learning-rate-dependent reproducibility under nearby-initialization
 retraining are reported by \citet{ly2025}. Invariant curves and phase-locking Arnold tongues appear in a
 multiplicative-weights learning rule for population games \citep{metaxas2026}, and chaos in learning a two-person
-game goes back to \citet{sato2002}; both concern games rather than descent on one loss. Heavy-ball momentum has
-cycles that rotate by $1/K$ \citep{goujaud2025}.
+game goes back to \citet{sato2002}; both concern games rather than descent on one loss. For heavy-ball momentum, \citet{goujaud2025} construct
+cycles on smooth strongly convex two-dimensional objectives that advance by $1/K$ of a turn per update.
 
 \paragraph{This paper's contribution.}
 \begin{itemize}
@@ -231,7 +231,8 @@ including moment variables and decay. Bias correction, schedules and minibatches
 randomness; an instantaneous Jacobian along such a trajectory is not automatically a Floquet matrix.
 
 \paragraph{Shrimps.} In two-parameter families of dissipative maps, periodic windows inside chaos often take a
-characteristic ``shrimp'' shape bounded by fold and flip curves \citep{gallas1993,gallas1994}. We test for this
+characteristic ``shrimp'' shape, with a primary periodic body bounded by fold and flip curves and adjoining
+period-doubling regions \citep{gallas1993,gallas1994}. We test for this
 anatomy explicitly rather than assume it.
 
 \section{Methods}

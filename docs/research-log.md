@@ -3223,3 +3223,12 @@ The introduction now identifies the latter as constructed two-dimensional
 strongly convex examples and specifies turns per update. Retain the publisher
 versus preprint comparison as open. See docs/reviews/game-momentum-references.md
 and its hash-bound external-PDF receipt. No new numerical experiment.
+
+
+## 2026-10-08 — Original shrimp anatomy references checked
+
+Inspected the primary Gallas1993 article and the relevant Gallas1994 sections
+and Figure7, with archived hashes. Clarified the paper's fold/flip statement
+to refer to the primary periodic body, alongside adjoining doubling regions.
+This closes two cited-content gaps without adding a network geometry claim.
+See docs/reviews/shrimp-primary-references.md and its receipt.
