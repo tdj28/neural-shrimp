@@ -134,3 +134,9 @@ def test_exact_frozen_source_inventory_rejects_omission():
     freeze=A.G.read(ROOT/A.FROZEN);A.source_check(freeze['files'],freeze['commit'])
     files=copy.deepcopy(freeze['files']);files.pop(next(iter(files)))
     with pytest.raises(ValueError):A.source_check(files,freeze['commit'])
+
+
+def test_stage_increment_before_emit_stays_partial(tmp_path):
+    f=fixture();files=write_records(tmp_path/'store',headers({}))
+    result=dict(status='failed_or_interrupted',operation_attempted=dict.fromkeys(A.CAPS,0),operation_returned=dict.fromkeys(A.CAPS,0),stage_counts=dict(correctors=0,qualifiers=1,common=0,edges=0,assemblies=0),accepted_edges=[],last_witnessed=None)
+    d=A.records(tmp_path/'store',files,result,f['initial'],{},hidden=1);assert not d['arithmetic_complete']and d['qualifiers']==0

@@ -4457,3 +4457,7 @@ missing mandatory header join. The auditor now requires exactly one original
 input binding and one cost gate before science, with pre-engine failures
 retaining inventory-only scope. New tests remove/reindex each header and
 check the pre-engine boundary. No target output has been opened.
+
+A second independent partial-boundary control found that an allowed single
+stage increment before durable start also needs to force partial scope. The
+qualification predicate now includes that discrepancy; no gate changed.
