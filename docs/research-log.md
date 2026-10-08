@@ -4054,3 +4054,8 @@ retained gap; dose and input-span findings remain narrowly negative. Fifteen
 new macros agree with audited receipts. No target experiment or manuscript
 edit; root PDF QA is attributed rather than independently repeated. Details:
 `docs/reviews/paper-lower-span-independent-review.md` and companion JSON.
+
+
+### 8 October 2026 UTC — Arnold translation identity and bounded content check
+
+The publisher reprint preview resolves the remaining Arnold1965 identity entry and supports a scoped near-rotation conjugacy sentence. Staircase attribution is separated and stays with previously checked Jensen sources. Full article/erratum content remains open. HTTP200 challenge HTML and unsuccessful metadata/screenshot retrievals are preserved as failures, not counted as content. Preview PDF downloaded/rendered/read successfully; raw archive and compact receipt: docs/reviews/arnold1965-reference-receipt.json. No numerical research run occurred.
