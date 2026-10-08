@@ -117,3 +117,9 @@ updated handoff and the original checkout's pre-existing uncommitted
 `docs/research-log.md` as well as its cost ledger and older checkpoint. Its
 checksums also passed; see `docs/backups/2026-10-08-private-handoff-restart.json`.
 The original working files were not changed by this backup.
+
+A subsequent four-file private snapshot at `/archive/neural-shrimp-backups/20261008T132925Z-handoff-gap` preserves the
+updated handoff and the original checkout's pre-existing uncommitted
+`docs/research-log.md` as well as its cost ledger and older checkpoint. Its
+checksums also passed; see `docs/backups/2026-10-08-private-handoff-gap.json`.
+The original working files were not changed by this backup.
