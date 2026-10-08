@@ -4112,3 +4112,7 @@ unchanged; elapsed-record bookkeeping excess is reported separately rather
 than silently imposing a new hard deadline. The prospective audit is CPU1,
 internal15/external20+5 seconds,4MiB including launcher, one exclusive attempt.
 Independent review and separate root launch authorization are still pending.
+
+## 2026-10-08 12:15 UTC — authorize one fixed CIFAR restart diagnostic
+
+Root source-reviewed the one-shot implementation8aa146fd and independent review1f4f2abe; all12 source/card files match. Root focused synthetic controls pass47 (overlapping the reviewer count, not additional target evidence). Prospective outcome auditor4de644d3 was frozen before target execution and remains outcome-blind. Fresh host inventory12:14UTC reports load0.78,41.23GiB available RAM, no active GPU compute process and absent attempt paths. Authorize exactly the existing restart200/maxiter1 card, unchanged inputs/operator/gates and202A/203J2VP/407HVP/11 direct-gradient caps, one CPU nice10,45s cooperative60+5s external,32MiB aggregate and monitored2GiB child-group RSS. Actual clean execution HEAD will be this authorization commit. No accepted update, spectrum, retry, GPU, paid resource or protected outcome. Every result stops for independent saved-data audit and a new decision. Full identities/limitations in `docs/reviews/cifar-restart-launch-authorization.json`.
