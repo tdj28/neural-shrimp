@@ -4399,3 +4399,7 @@ common-control state checks, native phase/full-spectrum gates, explicit hidden
 SVD counts and bounded failure retention. No new norm, model, derivative, SVD,
 solve, trajectory, profile or target evaluation ran. Root design acceptance,
 implementation/source review and separate launch authorization remain pending.
+
+## 2026-10-08 13:27 UTC — independent paper accuracy review and next-source decision
+
+Root reviewed final gap paragraph/91 source-binding lines, verified292 macros/56 committed paths, unchanged287 old values/9 figures and final page21. Review8f6f2ff4 passes; its initial review-only list-schema assertion failed before writes and was corrected without scientific impact. An additional source reading found529D positive-real near-unit labels lacked fold nondegeneracy tests; authorf6832386 narrows them to candidates. Root checked classifier/call sites and four raw metadata hashes, unchanged292 numerical values and final page21; companion `docs/reviews/paper-realdata-fold-independent-review.json` passes. Current31-page PDF is privately backed source, no new scientific replay. Root accepts pseudo-arclength design9f472f17 for source/synthetic preparation only, with per-leg positive predictor-length locality and actual-native spectral adapter; no target authorization. Curvature design51200a4a remains under static review for operation accounting and floating-bound scope before any acquisition.
