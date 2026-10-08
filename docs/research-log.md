@@ -2725,3 +2725,57 @@ four target cases' predictor fitting/scoring. Collection and one analysis need
 a later explicit run authorization/card after this engineering result; no retry,
 rate search, assessment, old protected text, policy, inference experiment or paid
 call is implicit. Original failed LM unit remains stopped.
+
+
+### Broader-data LM profile outcome — 2026-10-08 07:55 UTC
+
+Reviewed source ca9e96b3, source review e0c09a21, root-owned sole GPU slot:
+seed28160 completed both100-update arms; process4.409s. Data/token identities,
+common initial state/rate,202 finite states,100x82 features perarm and the exact
+29-file manifest pass. Matched expanded-objective gradient/HVP/update precision
+errors7.10e-8/8.95e-8/1.93e-8 support implementation parity at one rounded state,
+not trajectory equivalence. Slot released; no target trajectory run.
+
+The predeclared resource-only gate PASSes: projected collection48.689s<=420s,
+peak allocated125,251,584B<=6GiB and projected unit249,025,879B<=512MiB. Learning
+and probe observations are retained but excluded from this gate and target
+fitting/scoring. No data/rate/endpoint adaptation. See
+`docs/explore-tiny-lm-broader-profile.md` and its hash-bound receipt. The larger
+fixed-data profile succeeds as an engineering unit, not a scientific utility
+claim. Prior failed calibration remains stopped.
+
+### Proposed four-case collection and analysis — 2026-10-08 07:55 UTC
+
+Prospective card only; **requires root authorization and a fresh GPU ownership
+check before launch**. Code/plan hashes remain exactly those reviewed at
+ca9e96b3; this checkpoint adds results/card only. Record actual execution HEAD
+and reviewed source/profile hashes in the launcher. Seeds28161/28162, both8/256
+fixed nested arms,800 updates, ordinary initialization, one eta perseed from
+expanded initial Ritz and factor1.6. Use the unchanged development probe schedule
+and continuous-progress endpoints; no profile learning outcome chooses settings.
+
+Exclusive collection output:
+`/data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-002-collection`.
+Profile prerequisite: `.../tiny-lm-broader-data/attempt-001-profile`, manifest
+SHA256 ce56de837203182187912654b9ac0200096366a15d850ed7e917fb903837d2cd.
+Exclusive analysis output:
+`/data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-002-analysis.json`.
+Launcher log/receipt prefixes:
+`/data2/neural-shrimp-data/logs/tiny-lm-broader-data-attempt-002-collection`
+and `.../tiny-lm-broader-data-attempt-002-analysis`.
+
+Collection command after authorization:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 480s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm_broader_data.py collect --device cuda --max-seconds 450 --profile /data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-001-profile --output /data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-002-collection`.
+One offline analysis, only if all four case result files exist, under CPU/BLAS1,
+nice10, external30s: `tools/analyze_tiny_lm_broader_data.py` on the collection
+with `--output` set to the exact adjacent analysis path above. Retain an analysis
+failure, invalid comparator or missing/censored case; none can support a positive
+forecast interpretation. Do not refit after seeing late/probe outcomes.
+
+Measured profile process4.409s plus these collection/analysis external ceilings
+sum to at most519.409s, below the original600s aggregate ceiling. Retained unit
+storage remains capped512MiB. Every state/probe/feature/loss/failure/model/tuning
+candidate/prediction and hash-bound source/data identity is retained. No retries,
+new rate/seed, assessment, protected-final10% outcome, policy, inference experiment
+or paid call. Stop after reporting paired learning endpoints and all fixed
+forecast comparisons, regardless of outcome.
