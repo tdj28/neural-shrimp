@@ -3781,3 +3781,23 @@ unresolved. Source review bb71b904 preceded collection; separate blinded
 outcome evaluator preparation is in progress. Full immutable inventories
 verified; no retry, new protected data, GPU or paid run. See
 `docs/reviews/s1r-lower-outcome.md` and its hash-bound receipt.
+
+## 2026-10-08 10:47 UTC: CIFAR input-span source and prospective execution card
+
+Implemented pure NumPy saved-array algebra and a fail-closed driver for the
+c530287c plan. The exact pending commands, caps, source/data bindings and output
+inventory are in docs/plans/cifar-input-span-execution.md. Five state/R pairs
+are separate; p/Ap/e remain bound only to their saved original basepoint. Added
+implicit projector checks and retained all512 thin-QR columns without rank
+selection. The six executable/plan inputs are frozen together; follow-up
+receipts must preserve their bytes for profile reuse.
+
+Synthetic-only validation: initial29 tests passed in2.24s; after adding shared
+profile/target byte accounting and a profile-source inventory control, final30
+tests passed in1.71s (one upstream Torch deprecation warning), including actual small nonlinear both-layer/ridge controls, exceptions
+at q²=1, rank-deficient completion, binding corruption and interruption/cap
+retention. No target QR/projection, full-size synthetic timing profile, model
+trajectory, saved-target derivative or protected data evaluation has run.
+The independent source review is pending. Only after that review may root
+explicitly authorize one resource profile; target collection requires a further
+profile receipt review. No paid use, automatic retry or paper claim.
