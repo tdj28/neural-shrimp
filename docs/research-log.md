@@ -2228,3 +2228,21 @@ pilot requires no training burn-in; later one-time family bootstraps need their
 own disclosed card. Proposed implementation only, not executed. CPU1/nice10,
 120s internal/150s external,160 phase-corrector calls,64MiB raw cap. No paid or
 protected-data use; local continuity cannot prove distant ancestry.
+
+
+### Complex-left condition diagnostic correction — 8 October 2026 UTC
+
+Static impact audit and saved-field inventory found an incorrect transpose
+eigenvalue pairing before Hermitian vdot in orbits.certify_orbit. Minimal
+fix matches conjugate(lambda). criticality.critical_pair already uses the
+correct pairing and is unchanged. No explicit acceptance gate reads the
+field; its only production reader copies to EXP-028 summary.70of154 saved
+EXP-028 dominant pairs are complex and their old condition values are invalid;
+all154 records passed without numeric exceptions. Preserve every original
+file; no target recomputation. An extreme reciprocal exception could have
+indirectly rejected other runs, so no universal no-impact assertion is made.
+Nonnormal real2x2 control has analytic condition2.6 and independently agrees
+with scipy eig(left=True); criticality adjoint/normalization control also
+passes. Orbit+criticality tests13/13 in3.82s, CPU1/nice10. Impact inventory
+and source hashes: docs/complex-left-condition-impact.json. S1R plan remains
+prospective pending independent fix review.

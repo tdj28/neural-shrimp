@@ -97,3 +97,36 @@ def test_unequal_rate_flip_curve_is_reproduced():
                       ftle_steps=1000, ftle_align=100, sd_horizons=())
     assert result["status"][0] == STATUS_FIXED
     assert result["status"][1] != STATUS_FIXED
+
+
+def test_complex_dominant_condition_uses_adjoint_pairing_for_nonnormal_real_matrix():
+    from scipy.linalg import eig
+    # Similarity by diag(s,1) of a contraction/rotation. For either simple
+    # eigenvalue, analytic condition = (s + 1/s)/2 = 2.6, not ~1/epsilon.
+    s = 5.
+    matrix = .8 * np.array([[.6, -s*.8], [.8/s, .6]])
+    result = certify_orbit(lambda x: matrix @ x, lambda x: matrix, np.zeros(2), 1)
+    assert result['verified'] and result['attracting'] and result['primitive_period'] == 1
+    assert result['spectral_radius'] == pytest.approx(.8, abs=1e-14)
+    assert result['dominant_eigenvalue_condition'] == pytest.approx((s+1/s)/2, rel=1e-13)
+    values, left, right = eig(matrix, left=True, right=True)
+    dominant = complex(result['multipliers'][0]['real'], result['multipliers'][0]['imag'])
+    index = int(np.argmin(np.abs(values-dominant)))
+    l, r = left[:, index], right[:, index]
+    np.testing.assert_allclose(matrix.T @ l, np.conj(values[index])*l, rtol=1e-13, atol=1e-14)
+    independent = np.linalg.norm(l)*np.linalg.norm(r)/abs(np.vdot(l, r))
+    assert result['dominant_eigenvalue_condition'] == pytest.approx(independent, rel=1e-13)
+
+
+def test_criticality_adjoint_pairing_is_already_correct_on_nonnormal_control():
+    from neural_shrimp.criticality import critical_pair
+    from scipy.linalg import eig
+    matrix = .8 * np.array([[.6, -4.], [.16, .6]])
+    mu, q, p, gap = critical_pair(matrix)
+    np.testing.assert_allclose(matrix @ q, mu*q, rtol=1e-13, atol=1e-14)
+    np.testing.assert_allclose(matrix.T @ p, np.conj(mu)*p, rtol=1e-13, atol=1e-14)
+    assert np.vdot(p, q) == pytest.approx(1., abs=1e-14)
+    values, left, right = eig(matrix, left=True, right=True)
+    j = int(np.argmin(np.abs(values-mu)))
+    independent = np.linalg.norm(left[:, j])*np.linalg.norm(right[:, j])/abs(np.vdot(left[:, j], right[:, j]))
+    assert np.linalg.norm(p)*np.linalg.norm(q) == pytest.approx(independent, rel=1e-13)

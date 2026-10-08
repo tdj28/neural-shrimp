@@ -108,7 +108,9 @@ def certify_orbit(map_fn, jacobian, x0, period, atol=1e-9, rtol=1e-8, newton_tol
             eigenvalues, right = eigenvalues[order], right[:, order]
             radius = float(np.abs(eigenvalues[0]))
             left_values, left = np.linalg.eig(m.T)
-            match = int(np.argmin(np.abs(left_values - eigenvalues[0])))
+            # vdot uses the Hermitian convention: M.T y = conj(lambda) y
+            # for a real M, so y.H M = lambda y.H.
+            match = int(np.argmin(np.abs(left_values - np.conj(eigenvalues[0]))))
             y, v = left[:, match], right[:, 0]
             overlap = abs(np.vdot(y, v)) / (np.linalg.norm(y) * np.linalg.norm(v))
             result["multipliers"] = [{"real": float(z.real), "imag": float(z.imag),
