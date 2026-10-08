@@ -144,3 +144,70 @@ compact hash-bound receipt. One offline verifier recomputes all quoted bounds
 and gates. Partial endpoint success cannot mask an inconclusive sign/root.
 Existing seed evidence remains rung 0; only actual passing rigorous gates earn
 rung 3. Review status, theorem dependence and failed attempts remain explicit.
+
+## First selected-target result (2026-10-08 UTC)
+
+Status: every rigorous gate passed on the first declared attempt; independent
+mathematical/code review is pending. This is exploratory target selection, not
+a fresh confirmatory test. The implementation applies trusted ball arithmetic
+and standard theorems; it is not proof-assistant formalized.
+
+Execution source: `0652d49529265565078b63360ec76bd9dd5f21a8`.
+Receipt: `certificates/scalar-ns-receipt.json`.
+Immutable raw directory:
+`/data2/neural-shrimp-data/explore/certificates/scalar-ns-2026-10-07/attempt-001`.
+Certificate SHA256:
+`7e1897addaa9648a597c1cdd2b674504740d2becb942fe4428caf27ffac72e05`.
+Input SHA256:
+`fe92de4a2866756024aab649ddea13e6af0bc528ffde79863f64e7d8e6b93662`.
+The receipt binds the full exact enclosures, all five proposal iterations,
+source hashes, exact dyadic coefficients, runtime and library versions.
+
+The unique augmented root in the fixed three-coordinate box has unknown
+exact-real rate enclosed by `[0.54834687233 +/- 9.94e-13]`. The final exact
+center is recorded in the certificate; its eta coordinate is
+`63494229973848339256844513796926116069469096436775413280300460976013066680955 / 2^256`.
+The requested radius was `2^-40`; Arb's outward-rounded stored radius is
+`536870913 * 2^-69`, slightly larger. No alternative target, radius, precision,
+iteration count or proof attempt was used.
+
+| Rigorous gate | Enclosure or conclusion |
+|---|---|
+| Augmented root | Strict inclusion in all three coordinates; contraction bound below `6.063e-10` |
+| Primitive period two | Both coordinates of `F(x)-x` exclude zero; first is `[0.12522884204 +/- 6.47e-12]` |
+| Complete planar spectrum | At the proved root `det DG=1`; trace is `[-0.7958762525 +/- 7.57e-11]`, and `4 det DG - trace^2` is positive |
+| Nonresonance | Trace enclosures exclude `-2,-1,0,2`, ruling out roots of unity of orders one through four |
+| Branch and crossing | `DG-I` invertible; analytic modulus slope at the root is `[3.35298636 +/- 5.55e-9]` |
+| Criticality | Resolvent formula `[-1.700202 +/- 3.69e-7]`; independent planar scalar-coefficient formula `[-1.7002020 +/- 9.28e-8]`; both strictly negative and their difference enclosure contains zero |
+
+Subject to independent review of the implementation and theorem application,
+these conditions prove a generic local supercritical NS bifurcation of the
+exact-real primitive period-two orbit for the stated exact dyadic scalar
+model. The exact crossing rate is enclosed, rather than treated as a dyadic
+input. The implicit-function theorem supplies a local orbit branch through
+that root and the positive slope gives the stability-change direction.
+The standard NS theorem supplies a qualitative local invariant-curve
+consequence. No explicit curve at a prescribed finite parameter, finite
+continuation tube, connection to the original equilibrium/flip branch,
+irrational rotation, chaos, basin statement, utility effect, or claim about
+finite-precision training follows from this certificate.
+
+The target run took 0.0783 seconds with maximum RSS 47,012 KiB, one CPU thread,
+nice 10, python-flint 0.9.0 and FLINT 3.6.0. No GPU or paid resource was used.
+Ten synthetic controls passed before target execution. After execution the
+offline verifier reproduced the full result byte-for-byte. An untouched copy
+with a relocated receipt passed. Copies with altered input bytes, omitted
+inventory, changed quoted summary, or a modified certificate with an updated
+digest each failed closed; the original evidence was never modified.
+
+Replay from this source (the later documentation commit leaves these source
+hashes unchanged):
+
+```sh
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_scalar_ns.py verify certificates/scalar-ns-receipt.json
+```
+
+The preceding design's unmeasured-cost paragraph describes the pre-run plan;
+the measured cost above supersedes that estimate for this single attempt.
+No endpoint or continuation scan was run. Paper inclusion remains pending
+independent mathematical review.
