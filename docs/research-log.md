@@ -4490,3 +4490,14 @@ Producercc3976e3 completed2/2 edges without retry:9qualifiednodes including6auxi
 ## 2026-10-08 14:08 UTC — separate-disk continuation evidence backup
 
 Copied all1805 files/26304428B of the completed PAL producer, independent saved audit and both launchers to `/archive/neural-shrimp-backups/20261008T140823Z-pal-increment`. Exact inventories, full SHA-256 comparisons and a second source hash pass agree; archive manifest6e9d0aff9e023d6a5362954b62adb0efff07b56e529ef7e8a54dd4e43cb9e994. SourceNVMe and archiveSATA are separate physicaldisks; localpoint-in-time protection, notoffsite. Receipt `docs/backups/2026-10-08-pal-increment.json`.
+### 2026-10-08 14:04 UTC — One saved-only PAL audit passed
+
+Root authorization `e2f72a33` pinned execution `cc3976e3` and both producer
+manifests. The reviewed clean auditor `3134d730` ran once: pass over 930
+events, two witnessed edges, no failed gates/partial lags; no model,
+derivative, decomposition, solve or trajectory call. Internal 1.504867s,
+launcher 1.855653s, exit 0. Complete 12-file immutable evidence is 558,011 bytes;
+owned PIDs 344932/345018/345019 are absent. The exact inventories and
+limitations are in `docs/reviews/s1r-pseudoarclength-independent-outcome-receipt.json`;
+its prose companion records the numerical raw-tangent sign change without
+a fold, lower-family connection or utility claim. No retry or extension.
