@@ -114,3 +114,55 @@ A successor continuation budget must use the measured H100 J2VP cost and the
 observed Krylov convergence, not forward throughput or an assumed iteration
 count. If Krylov convergence is the bottleneck, investigate preconditioning or
 an alternate corrector before paying for more of the same work.
+
+
+## Matched local device pilot, 8 October 2026 UTC
+
+TLDR: device derivatives agree at the tested state and are faster locally;
+this does not resolve the poor Krylov convergence or establish an orbit.
+Source a3debab72195d5ac58bee5562cb59afd8b6466e8, subset A and same owned state,
+float64, one CPU thread/nice10; source committed before all three attempts.
+Two tiny dense Hessian/J2VP/complex-bridge oracle tests passed in1.89s.
+CPU bit-identical to saved reference. CUDA maximum absolute gradient/HVP/J2VP
+errors6.81e-17/5.90e-17/1.73e-18 pass atol1e-11+rtol1e-9*abs(reference).
+CPU median gradient/HVP/J2VP5.14/16.34/31.75ms; RTX2000Ada2.09/5.81/11.09ms.
+Bridge total averages32.11msCPU/11.44msCUDA, includingCUDA H2D.166ms and
+D2H.251ms. SciPy remains on CPU. Six-matvec GMRES cycle197.19msCPU/74.42msGPU;
+both info1, residual .899405 to .896782, no correction applied. PeakCUDA54.3MB.
+Preparation1.327s, CPUprobe1.455s, CUDAprobe1.367s after imports; owned
+PIDs4045355/4045636/4045871 exited, GPU empty afterward. All raw manifest
+hashes and sizes checked. Exact records: docs/cifar-device-timing-receipt.json.
+GPU output arrays were not retained in this timing-only pilot; CPU references
+and parity metrics are retained, so independent GPU replay needs a fresh
+explicit run. Three directions at one state are not general error bounds.
+
+Immediate recommendation: root-owned CPU corrector-only, one existing state,
+internal180s/external200s+5s grace, maxNewton8, GMRESrestart50/maxiter4,
+unchanged GMRESrtol1e-10 and Newtontol1e-11; closure gate1e-8 and primitive-2
+separation1e-7 unchanged. Zero Arnoldi. About1632 J2VP calls cost roughly52s
+plus orthogonalization; failed GMRES stops unchanged. Preserve full returned
+state/history even on failure. Root must commit mode/run card before launch.
+Failure motivates solver inspection/preconditioning; H100 does not guarantee
+convergence. Existing CPU path remains default; device benchmark is not a
+complete device corrector. No paid hardware needed for this immediate check.
+The H100 plan above is now a conditional fallback requiring separate review.
+
+
+## Corrector-only CLI gate
+
+`orbit --corrector-only` runs exactly one correction at the supplied binary64
+rate, then exits. It cannot invoke multipliers, continuation or bisection.
+Convergence and period-2 separation use the unchanged tolerances above;
+success says `corrector_converged_separated`, never stable. Failure says
+`corrector_not_accepted`; an internal timeout says `corrector_deadline` and
+returns a nonzero process exit. Every accepted iterate and every freshly
+computed residual has a full-state/hash/history checkpoint. If a deadline
+occurs after a Newton update but before its residual evaluation, the latest
+state survives with `residual_describes_saved_state=false` and a null current
+residual. The older residual remains correctly scoped inside the history.
+
+Forty focused tests passed, including successful/failed/collapsed correction
+without multiplier calls, deadline-state preservation, and checkpoints before
+residual evaluation. Root owns the following proposed run and resource check;
+it has not been launched by this subagent. It requires independent mode review
+before execution. Its output directory must be new and exclusive.

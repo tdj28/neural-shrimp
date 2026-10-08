@@ -2214,3 +2214,107 @@ reject invalid inputs before output creation. Circle is disabled until its
 whole pipeline is bounded. No new scientific run. Focused 32-case suite passed
 in 10.95 s; added explicit NaN-step rejection case shares the tested validator.
 Original legacy attempt and frozen evidence remain untouched.
+
+
+### CIFAR device operation pilot run card — 8 October 2026 UTC
+
+Engineering exploratory pilot, source committed with this card before any
+actual subset-A benchmark. CPU reference remains the default. New opt-in
+DeviceProblem inherits the identical loss and derivatives; a measured bridge
+moves NumPy vectors to device and J2VP results back while SciPy GMRES stays on
+CPU. Tiny float64 dense Hessian/full two-step Jacobian oracle tests pass,
+including complex tangent splitting and failed parity controls (2 tests,
+1.89 s). Existing CPU safety source bb87e6cd separately passes independent
+33-case re-review. No continuation, no paid launch, no held-out evaluation.
+
+Inputs: existing subset A (512 rows), 3072-32-10 model, lambda .01,
+eta .00827753, owned sweep state state-lam0.01-eta0.00827753.npy;
+three normalized seeded directions (28206). Prepare exact CPU gradient,
+HVP and J2VP arrays plus input/source manifest in an exclusive bundle. Then
+probe the same bundle on CPU and, only if host GPU remains unoccupied, CUDA.
+Each probe measures three synchronized calls per derivative, three explicit
+CPU/device bridge calls, and one GMRES cycle (restart5, maxiter1). Reject
+coordinatewise parity outside atol1e-11 + rtol1e-9*abs(reference); record
+absolute and relative errors, transfers, cold/warm costs and peak memory.
+No correction is applied and convergence is not presumed.
+
+Resource inventory just before commit: host load 1.02/1.73/5.26, available
+RAM41GiB, RTX2000Ada GPU0 2MiB/16380MiB used,0% utilization,no compute
+processes, driver580.178.04. All runs nice10, OMP/OpenBLAS/MKL/Torch1 thread,
+Torch interop1, float64,TF32off; internal60s and external90s caps with5s
+kill grace. Task-owned PIDs/exit status will be in receipts. Recheck GPU
+before CUDA; preserve failures/incomplete outputs. Raw root:
+/data2/neural-shrimp-data/explore/cifar/device-benchmark/.
+
+Commands (prefix each with the thread limits and
+`timeout --signal=TERM --kill-after=5s 90s nice -n 10
+/data2/neural-shrimp/.venv/bin/python tools/benchmark_cifar_device.py`):
+- `prepare --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --output /data2/neural-shrimp-data/explore/cifar/device-benchmark/reference-001`
+- `probe --bundle /data2/neural-shrimp-data/explore/cifar/device-benchmark/reference-001 --device cpu --output /data2/neural-shrimp-data/explore/cifar/device-benchmark/cpu-001`
+- `probe --bundle /data2/neural-shrimp-data/explore/cifar/device-benchmark/reference-001 --device cuda --output /data2/neural-shrimp-data/explore/cifar/device-benchmark/cuda-001`
+
+Would change the next plan: parity failure stops device scientific use;
+transfer/launch overhead or poor GMRES residual reduction defeats inference
+from forward-only GPU speedups. Local RTX timing does not predict H100 timing.
+H100 remains root-owned and requires a separately reviewed measured launch.
+
+
+## Matched local device pilot, 8 October 2026 UTC
+
+TLDR: device derivatives agree at the tested state and are faster locally;
+this does not resolve the poor Krylov convergence or establish an orbit.
+Source a3debab72195d5ac58bee5562cb59afd8b6466e8, subset A and same owned state,
+float64, one CPU thread/nice10; source committed before all three attempts.
+Two tiny dense Hessian/J2VP/complex-bridge oracle tests passed in1.89s.
+CPU bit-identical to saved reference. CUDA maximum absolute gradient/HVP/J2VP
+errors6.81e-17/5.90e-17/1.73e-18 pass atol1e-11+rtol1e-9*abs(reference).
+CPU median gradient/HVP/J2VP5.14/16.34/31.75ms; RTX2000Ada2.09/5.81/11.09ms.
+Bridge total averages32.11msCPU/11.44msCUDA, includingCUDA H2D.166ms and
+D2H.251ms. SciPy remains on CPU. Six-matvec GMRES cycle197.19msCPU/74.42msGPU;
+both info1, residual .899405 to .896782, no correction applied. PeakCUDA54.3MB.
+Preparation1.327s, CPUprobe1.455s, CUDAprobe1.367s after imports; owned
+PIDs4045355/4045636/4045871 exited, GPU empty afterward. All raw manifest
+hashes and sizes checked. Exact records: docs/cifar-device-timing-receipt.json.
+GPU output arrays were not retained in this timing-only pilot; CPU references
+and parity metrics are retained, so independent GPU replay needs a fresh
+explicit run. Three directions at one state are not general error bounds.
+
+Immediate recommendation: root-owned CPU corrector-only, one existing state,
+internal180s/external200s+5s grace, maxNewton8, GMRESrestart50/maxiter4,
+unchanged GMRESrtol1e-10 and Newtontol1e-11; closure gate1e-8 and primitive-2
+separation1e-7 unchanged. Zero Arnoldi. About1632 J2VP calls cost roughly52s
+plus orthogonalization; failed GMRES stops unchanged. Preserve full returned
+state/history even on failure. Root must commit mode/run card before launch.
+Failure motivates solver inspection/preconditioning; H100 does not guarantee
+convergence. Existing CPU path remains default; device benchmark is not a
+complete device corrector. No paid hardware needed for this immediate check.
+The H100 plan above is now a conditional fallback requiring separate review.
+
+
+### CIFAR corrector-only prospective pilot card — 8 October 2026 UTC
+
+This card and the new mode are committed before the proposed scientific run.
+Root owns launch after independent source review and fresh resource inventory;
+this subagent has not launched it. Exploratory existing subset A/state only,
+no held-out indices or reserved seeds. Question: does bounded Newton-GMRES
+attain closure at the existing candidate, or is solver convergence the immediate
+bottleneck? No multiplier or stability inference. The original long legacy
+attempt remains separate and unchanged.
+
+Run one correction at lambda .01, eta .00827753, output-ratio1, float64,
+OMP/OpenBLAS/MKL/Torch1 thread, nice10; maxNewton8, GMRESrestart50/maxiter4,
+GMRESrtol1e-10, Newtontol1e-11, closuregate1e-8, separationgate1e-7 unchanged.
+Internal180s/external200s with5s kill grace. Record PID, exact source commit,
+full selected-data/input identities, true returned-state history, all durable
+state checkpoints, exit status and final manifest. The mode preserves latest
+accepted state even if its residual is not yet evaluated; that residual is
+explicitly null and cannot satisfy a gate. Failed GMRES never applies a step.
+
+Command (root may amend the exclusive attempt suffix before launch):
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 200s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --corrector-only --lam .01 --eta .00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --threads 1 --newton-steps 8 --gmres-restart 50 --gmres-maxiter 4 --max-seconds 180 --output /data2/neural-shrimp-data/explore/cifar/corrector-only/attempt-001`
+
+Would change the plan: closure/separation success permits a separately budgeted
+partial-spectrum probe. Failure calls for solver diagnostics/preconditioning,
+not a claim that paid hardware improves convergence. Focused source tests:
+40 passed in10.75s, including tests that forbid any multiplier call and preserve
+latest full state/history under an injected timeout. No paid resource used.
