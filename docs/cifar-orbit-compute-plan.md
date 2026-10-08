@@ -166,3 +166,102 @@ without multiplier calls, deadline-state preservation, and checkpoints before
 residual evaluation. Root owns the following proposed run and resource check;
 it has not been launched by this subagent. It requires independent mode review
 before execution. Its output directory must be new and exclusive.
+
+## 2026-10-08 07:30 UTC amendment: diagnose the unresolved CPU linear solve
+
+Status: source/controls prepared for independent review; **no target diagnostic
+has run**. This is an exploratory local CPU amendment, not a paid launch or a
+change to the orbit/spectrum criteria. Base integration is
+`5e716f6a191e58022e17052277d4de90c44091c7`. The owned clean managed review
+worktree is reused on branch `codex/cifar-linear-diagnostic`; other streams and
+all historical evidence remain unchanged.
+
+The corrector-only attempt in `docs/cifar-corrector-only-receipt.json`, source
+`7de5dcfb`, stopped at its first GMRES solve with info4: restart50, four cycles,
+rtol1e-10, and no accepted Newton update. Its closure4.9730550594621696e-6 fails
+1e-8, while separation3.543241439719903e-4 passes1e-7. The saved receipt omits
+inner residual history and the returned GMRES direction. Hence it does not
+show whether a useful approximate direction was discarded, nor establish bad
+conditioning or orbit nonexistence. The separate five-vector engineering
+probe's0.8994-to0.8968 residual history cannot answer the200-vector question.
+
+### Fixed diagnostic and merit rule
+
+Let `R(x)=F_eta^2(x)-x`, `A=D(F_eta^2)(x)-I`. At the identical stored state,
+repeat **one** unpreconditioned GMRES solve with the existing restart50,
+maxiter4 and rtol1e-10; use explicit `callback_type='pr_norm'` so four means
+restart cycles. Save every reported inner residual, operation count/timing and
+returned direction p, even when the solver reports unsuccessful convergence.
+Persist p before the independently evaluated true residual `e=A p+R`, so a
+later deadline cannot discard it. Permit at most205 operator calls: the prior
+200 inner products/four restart checks plus one independent final product.
+No additional Krylov solve or budget increase is authorized.
+
+Compute the true unpreconditioned forcing ratio `q=||e||/||R||`, and merit
+`phi=||R||^2/2`, with directional derivative `d=R^T A p`. The declared inexact
+forcing test is q<=0.5 with d<0. For an exact Jacobian the elementary bound
+`R^T A p <= -(1-q)||R||^2` explains the descent test; floating output remains
+numerical evidence, not a theorem about this target. Independently evaluate
+all four fixed states `x+alpha p`, alpha=(1,1/2,1/4,1/8), each from the same
+original x. A trial is an **inexact step candidate** only if finite, the true
+forcing/descent tests pass, and
+`phi(x+alpha p) <= phi(x) + 1e-4 alpha d`.
+The absolute merit prevents a growing normalization denominator from masquerading
+as improvement. Report relative step norm, absolute and normalized closure,
+one-step separation, merit ratio, every failed trial and all full trial states.
+Do not chain trials or automatically continue from a successful one.
+
+Keep the closure screen1e-8 and primitive-separation screen1e-7 unchanged.
+The existing corrector's stricter internal Newton stopping tolerance1e-11 is
+also unchanged. **Every trial remains accepted_orbit=false**, even if those
+screens pass. No stability, spectrum, Floquet Arnoldi, global continuation or
+orbit-nonexistence claim follows. GMRES's internal Krylov iteration is the
+existing linear solve, not a new Floquet eigenvalue computation.
+
+This is standard inexact-Newton diagnostic logic, not a novel solver claim.
+References: [SciPy GMRES callback/tolerance semantics](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.gmres.html)
+and [Dembo, Eisenstat and Steihaug, Inexact Newton Methods (1982)](https://doi.org/10.1137/0719025).
+No general convergence guarantee is asserted: the local theorem hypotheses
+have not been established for this CIFAR target.
+
+### Exact inputs, failure controls and resources
+
+Consume only the previously prepared normalized subset-A reference bundle,
+`/data2/neural-shrimp-data/explore/cifar/device-benchmark/reference-001`, and the
+saved corrector-only attempt. Their manifest SHA256 values are fixed in code:
+`414e8f2b1491a7f28cd1e1522376f7b008d7d3ac57bd29f69f0d5f4b953add38` and
+`d02393831f0d0b207b06eec11f114fb798e459bfac6679f19dc5cd68ddf50dc8`.
+State SHA256 is
+`36066b4b1d657924bd6efdce83dc3fd2d06a7ab135ef78afb03fb87649dd9674`.
+Eta0.00827753 and ridge0.01 retain their binary64 values; model/data shapes
+and normalized x/y byte hashes must match. No archive loading, subsetB,
+reserved seed or new dataset is needed. Before GMRES, replay initial closure/
+separation and one existing gradient/HVP/J2VP reference-direction parity check.
+Failure blocks the solve; the old and current source identities stay distinct.
+
+The driver binds all executable source plus this plan/log to clean committed
+HEAD, records the supplied exact independent-review commit, libraries and
+SciPy GMRES implementation hash, and creates one exclusive output directory.
+Retain direction, applied direction, true linear residual, baseline/trial
+states and map images/residuals, fsynced history/events, all failures, runtime
+and an exact output manifest. New files are capped at32MiB. No invalid/nonfinite
+value can qualify a candidate. SIGTERM triggers best-effort manifest cleanup;
+SIGKILL/storage/device failures can still truncate an attempt and must remain
+visible. A review commit identifier records provenance; launch still requires
+root's actual independent-review signoff.
+
+CPU1, nice10; no GPU reservation, Astra, paid compute or paid review. At07:28UTC
+load was3.54/3.84/3.04 and available RAM44GiB; recheck before execution. Earlier
+CPU operation timing was about32ms per two-step JVP, and the comparable failed
+corrector took10.115s total/8.770s correction. Estimate10–20s for this diagnostic,
+not a new measurement. Bound internal time100s; external SIGTERM at115s plus5s
+kill grace gives a120s hard ceiling. Transient GMRES basis is about40MB; historical
+Torch process RSS was under1GiB, so budget2GiB RAM. No fallback/automatic retry.
+
+Synthetic controls cover finite/invalid limits, explicit budget/deadline stops,
+a failed GMRES solve with a useful partial direction, dishonest solver-success
+and residual callbacks, nonlinear damping, absolute-merit versus normalized-
+residual confounding, fixed-point/nonfinite rejection, immutable input and
+source binding, retained-byte cap and direction persistence before true-residual
+failure. Existing CIFAR CPU/device controls are rerun. Source commit, test
+verdict and review must be reported before the target command is permitted.

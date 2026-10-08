@@ -2665,3 +2665,35 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+### 2026-10-08 07:30 UTC — CIFAR unresolved linear-direction diagnostic card
+
+Prospective exploratory amendment, awaiting independent source review before
+any target computation. Full rule and exact bindings are in the dated amendment
+to `docs/cifar-orbit-compute-plan.md`. Preserve source7de5dcfb's failed solve;
+repeat only its existing50x4 GMRES budget/rtol1e-10, retain inner history and
+returned direction, recompute true unpreconditioned forcing, then evaluate four
+fixed dampings1,1/2,1/4,1/8 from the identical input. Candidate rule: finite,
+forcing<=0.5, negative merit derivative, absolute-residual Armijo1e-4. Save all
+trial states and unsuccessful results. No orbit acceptance, new eigenvalue
+computation, continuation or relaxation of closure1e-8/primitive1e-7.
+
+Sources: `src/neural_shrimp/cifar_linear_diagnostic.py` and
+`tools/diagnose_cifar_linear_solve.py`, with unchanged CPU CIFAR map. Inputs are
+only the previously hashed subset-A bundle and corrector-only saved state.
+Before solve, verify all hashes and replay initial closure/separation and
+one stored derivative direction. No subsetB, reserved seeds or raw archive read.
+No paid resource, Astra or GPU. CPU/BLAS1, nice10, internal100s, external115s
+SIGTERM+5s kill grace; new output<=32MiB. Earlier comparable CPU corrector
+measured10.115s; estimate10–20s here. No automatic budget/radius/rate/seed search.
+
+After code/card are committed/pushed and independent review passes, substitute
+that exact review commit in this command; no placeholder run is authorized:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 115s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/diagnose_cifar_linear_solve.py --review-commit REVIEW_COMMIT --out /data2/neural-shrimp-data/explore/cifar/linear-diagnostic/attempt-001`.
+Retain launcher/log/PIDs and exact output manifest, including failures. Check
+CPU/RAM availability again immediately before any launch. Root owns integration.
+
+Pre-target validation:56 focused diagnostic/CIFAR CPU/device tests passed in
+12.88s, including16 new diagnostic controls; one pre-existing Torch jit.script
+deprecation warning. No target derivative, linear solve or trial was evaluated
+by these tests. Target execution remains pending independent source review.
