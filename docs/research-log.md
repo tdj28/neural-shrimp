@@ -4039,3 +4039,14 @@ and its -receipt.json. Original producer reports/evidence stay unchanged.
 Integrated independent lower S1R, utility-dose and CIFAR input-span outcome audits. The manuscript now records the lower54/75-step gap, rejection of the fixed matched-dose design at all four states, and the negligible complementary residual share. No headline benefit or branch-disconnection claim was added. An independent paper review corrected merged S2 crossing loci and adjacent-row criticality signs: full-state cross-slice association is unverified. Figure2/7 labels and provenance were regenerated with all derived numerical values unchanged. Secondary edits qualify multiplier boundary labels, basin causation and the digit projected-loop interpretation. The exact CIFAR decomposition specifies scalar plain GD and separates reduced attraction from the complementary factor.
 
 The31-page PDF compiles without LaTeX warnings/box violations;281 source-derived macros verify,52 cited paths exist at committed sources, all9 figure receipts are indexed. All31 pages were inspected in a contact sheet and affected result pages20,21,23,24 in detail. Receipt: docs/reviews/paper-2026-10-08-lower-span-review.json. Unchanged proof kernels and trajectory figures were not rerun. Reference verification and research placeholders remain explicit.
+
+## 2026-10-08 UTC — independent review of final lower/span paper additions
+
+Read-only review binds14fe18fd5957b857d81ddb50e5c6cc60d3d194a0 and exact text,
+builder, generated-number, evidence and PDF hashes. No material accuracy issue
+remains in the scoped additions: product-map hypotheses/primitive period/
+monodromy/attraction are explicit; lower association remains unresolved at a
+retained gap; dose and input-span findings remain narrowly negative. Fifteen
+new macros agree with audited receipts. No target experiment or manuscript
+edit; root PDF QA is attributed rather than independently repeated. Details:
+`docs/reviews/paper-lower-span-independent-review.md` and companion JSON.
