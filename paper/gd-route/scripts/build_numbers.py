@@ -802,6 +802,41 @@ def build():
         ("nSOneRBootstrapLinks", links, integer(links), "accepted witnessed hidden-rate bridge links"),
         ("xSOneRBootstrapMatch", mismatch, sci(mismatch, 2), "minimum normalized common-control full-pair discrepancy over cyclic phases")]:
         n.add(macro, value, display, label, bootstrap_sources, calc)
+    lower_receipt_path = c.ROOT / "docs/reviews/s1r-lower-independent-outcome-receipt.json"
+    lower_receipt = load(lower_receipt_path)
+    lower_root = Path(lower_receipt["inputs"]["collection"])
+    lower_manifest = lower_root / "manifest.json"
+    assert c.sha256(lower_manifest) == lower_receipt["inputs"]["manifest_sha256"]
+    lower_raw_path = lower_root / "result.json"
+    assert c.sha256(lower_raw_path) == load(lower_manifest)["files"]["result.json"]["sha256"]
+    lower = load(lower_raw_path)
+    lower_audit_root = Path(lower_receipt["audit"]["path"])
+    lower_audit_manifest = lower_audit_root / "manifest.json"
+    lower_audit_path = lower_audit_root / "result.json"
+    assert c.sha256(lower_audit_manifest) == lower_receipt["audit"]["manifest"]["sha256"]
+    assert c.sha256(lower_audit_path) == lower_receipt["audit"]["result"]["sha256"]
+    lower_audit = load(lower_audit_path)
+    assert lower_audit["status"] == "passed_saved_data_consistency"
+    assert lower_audit["collection_manifest_sha256"] == c.sha256(lower_manifest)
+    assert lower["status"] == lower_audit["producer_status"] == "bridge_gap"
+    assert lower["association"] is lower_audit["witness_graph"]["association"] is None
+    completed = sum(row["status"] == "connected" for row in lower["bridge"])
+    assert completed == lower["completed_macro_links"] == lower_receipt["outcome"]["completed_macro_segments"]
+    assert len(lower["witnessed_edge_ids"]) == lower_audit["witness_graph"]["accepted_links"]
+    assert lower["bridge"][-2]["endpoint"] == lower["last_witnessed_node"]
+    assert lower["bridge"][-2]["target"] == lower_receipt["outcome"]["last_witnessed_controls"]
+    assert lower["bridge"][-1]["target"] == lower_receipt["outcome"]["failed_macro_target"]
+    assert lower["bridge"][-1]["halvings"] == lower_receipt["outcome"]["first_phase_corrector_failures"]
+    lower_sources = [lower_receipt_path, lower_manifest, lower_raw_path, lower_audit_manifest, lower_audit_path]
+    for macro, value, display, calc in [
+        ("nSOneRLowerCompleted", completed, str(completed), "completed connected macro steps"),
+        ("nSOneRLowerPlanned", len(lower["macro_targets"]), str(len(lower["macro_targets"])), "planned macro targets"),
+        ("nSOneRLowerLinks", len(lower["witnessed_edge_ids"]), str(len(lower["witnessed_edge_ids"])), "accepted witnessed links including subdivisions"),
+        ("nSOneRLowerHalvings", lower["bridge"][-1]["halvings"]-1, str(lower["bridge"][-1]["halvings"]-1), "actual halvings after initial failed level; historical field counts failed levels"),
+        ("xSOneRLowerLast", lower["bridge"][-2]["target"][0], fixed(lower["bridge"][-2]["target"][0], 3), "last connected log hidden rate"),
+        ("xSOneRLowerTarget", lower["bridge"][-1]["target"][0], fixed(lower["bridge"][-1]["target"][0], 3), "failed next macro target log hidden rate")]:
+        n.add(macro, value, display, "exploratory finite witnessed path ending at a gap; independent saved-data audit", lower_sources, calc)
+
     ns_path = c.ROOT / "certificates/scalar-ns-receipt.json"
     ns = load(ns_path)
     assert ns["summary"]["passed"] and all(ns["summary"]["gates"].values())
@@ -863,6 +898,83 @@ def build():
         ("xCifarClosureGate", cifar["settings"]["closure_tolerance"], power(cifar["settings"]["closure_tolerance"]), "settings.closure_tolerance")]:
         n.add(macro, value, tex, "exploratory; failed correction diagnostic; independently audited saved arrays",
               [cifar_path, cifar_audit_path, cifar_manifest], calc)
+    # Later diagnostic outcomes are kept distinct from the failed correction.
+    span_receipt_path = c.ROOT / "docs/reviews/cifar-input-span-outcome-receipt.json"
+    span_receipt = load(span_receipt_path)
+    span_root = Path(span_receipt["inventories"]["attempt-001"]["root"])
+    span_manifest = span_root / "manifest.json"
+    span_raw_path = span_root / "result.json"
+    assert c.sha256(span_manifest) == span_receipt["inventories"]["attempt-001"]["manifest"]["sha256"]
+    assert c.sha256(span_raw_path) == span_receipt["result"]["sha256"] == load(span_manifest)["result.json"]["sha256"]
+    span = load(span_raw_path)
+    span_audit_root = c.DATA / "audits/cifar-input-span-independent/attempt-001"
+    span_audit_manifest = span_audit_root / "manifest.json"
+    span_audit_path = span_audit_root / "result.json"
+    assert c.sha256(span_audit_manifest) == "0221596b14e01b6630f0d4014d5f34d29d23aa6011e9397ab7b9ee1d1097d82d"
+    assert c.sha256(span_audit_path) == load(span_audit_manifest)["result.json"]["sha256"]
+    span_audit = load(span_audit_path)
+    assert span_audit["verdict"] == "saved_outcome_audit_pass"
+    assert span_audit["pins"]["target_manifest_sha256"] == c.sha256(span_manifest)
+    assert span["all_numerical_gates_passed"] and span_audit["all_numerical_gates_passed"]
+    assert span["prioritize_reduced_solver"] is span_audit["prioritize_reduced_solver"] is False
+    span_fraction = span["original_complementary_squared_residual_fraction"]
+    assert abs(span_fraction-span_audit["original_complementary_squared_residual_fraction"]) <= 2e-14
+    assert span_fraction < span["settings"]["triage_fraction"]
+    span_sources = [span_receipt_path, span_manifest, span_raw_path, span_audit_manifest, span_audit_path,
+                    c.ROOT / "docs/reviews/cifar-input-span-independent-outcome-receipt.json"]
+    for macro, value, display, calc in [
+        ("nCifarSpanColumns", span["settings"]["retained_columns"], integer(span["settings"]["retained_columns"]), "retained thin-QR columns, no rank claim"),
+        ("nCifarFullDimension", span["dimensions"]["full"], integer(span["dimensions"]["full"]), "original full-state dimension"),
+        ("nCifarActiveDimension", span["dimensions"]["active"], integer(span["dimensions"]["active"]), "coordinates after input-orthogonal decomposition"),
+        ("xCifarComplementFraction", span_fraction, sci(span_fraction, 2), "original residual complementary squared-norm fraction"),
+        ("xCifarSpanPriority", span["settings"]["triage_fraction"], fixed(span["settings"]["triage_fraction"], 1), "unchanged inclusive prioritization criterion")]:
+        n.add(macro, value, display, "exploratory saved-state decomposition; independently audited; negative prioritization result", span_sources, calc)
+
+    dose_receipt_path = c.ROOT / "docs/reviews/utility-dose-outcome-receipt.json"
+    dose_receipt = load(dose_receipt_path)
+    dose_root = Path(dose_receipt["raw"]["root"])
+    dose_manifest = dose_root / "manifest.json"
+    dose_raw_path = dose_root / "result.json"
+    assert c.sha256(dose_manifest) == dose_receipt["raw"]["manifest"]["sha256"]
+    dose_entries = load(dose_manifest)["files"]
+    assert c.sha256(dose_raw_path) == dose_entries["result.json"]["sha256"] == dose_receipt["result"]["sha256"]
+    dose = load(dose_raw_path)
+    dose_audit_root = c.DATA / "audits/utility-dose-feasibility/attempt-001"
+    dose_audit_manifest = dose_audit_root / "manifest.json"
+    dose_audit_path = dose_audit_root / "result.json"
+    assert c.sha256(dose_audit_manifest) == "4589dc9afeaa098537341adf27ae230a64110a8fdaf048baf7f8fef22c6d19be"
+    assert c.sha256(dose_audit_path) == load(dose_audit_manifest)["files"]["result.json"]["sha256"]
+    dose_audit = load(dose_audit_path)
+    assert dose_audit["status"] == "audit_passed"
+    assert dose_audit["raw_manifest_sha256"] == c.sha256(dose_manifest)
+    assert dose["candidate_feasible"] is dose_audit["fixed_candidate_feasible"] is False
+    assert dose["gradient_returns"] == dose_audit["reference_gradient_returns"] == len(dose["forks"]) == 4
+    dose_prediction_paths = [dose_root/name for name in sorted(dose_entries) if name.endswith("-dose_prediction.json")]
+    assert len(dose_prediction_paths) == 4
+    dose_predictions = []
+    for index, path in enumerate(dose_prediction_paths):
+        assert c.sha256(path) == dose_entries[path.name]["sha256"]
+        row = load(path)["payload"]
+        assert row["index"] == index
+        pred = row["prediction"]
+        assert pred["status"] == dose_audit["forks"][index]["status"] == "infeasible"
+        assert pred["reason"] == dose_audit["forks"][index]["reason"] == "fraction_cap"
+        assert pred["fractions"]["output"] > pred["maximum_group_fraction"]
+        dose_predictions.append(pred)
+    uniform = {v["uniform_fraction"] for v in dose_predictions}
+    cap = {v["maximum_group_fraction"] for v in dose_predictions}
+    assert len(uniform) == len(cap) == 1
+    uniform, cap = uniform.pop(), cap.pop()
+    fractions = [v["fractions"]["output"] for v in dose_predictions]
+    dose_sources = [dose_receipt_path, dose_manifest, dose_raw_path, dose_audit_manifest, dose_audit_path,
+                    c.ROOT / "docs/reviews/utility-dose-independent-outcome-receipt.json"] + dose_prediction_paths
+    for macro, value, display, calc in [
+        ("nDoseForks", len(dose["forks"]), str(len(dose["forks"])), "saved states with exactly one gradient and no update"),
+        ("xDoseUniform", uniform, fixed(uniform, 2), "declared uniform fractional rate reduction"),
+        ("xDoseCap", cap, fixed(cap, 2), "declared maximum block fraction"),
+        ("tDoseOutputFractions", fractions, ", ".join(fixed(v, 3) for v in fractions), "required output-only rate reductions for matched sham-relative dose, fixed fork order")]:
+        n.add(macro, value, display, "exploratory algebraic feasibility; four independent analytic gradients; no intervention outcome", dose_sources, calc)
+
     broader_path = c.ROOT / "docs/explore-tiny-lm-broader-outcome-receipt.json"
     broader_audit_path = c.ROOT / "docs/reviews/tiny-lm-broader-outcome-audit.json"
     broader, broader_audit = load(broader_path), load(broader_audit_path)

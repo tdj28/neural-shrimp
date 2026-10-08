@@ -51,8 +51,8 @@ Their surrounding cells pass finite-horizon chaos diagnostics. Among cells label
 loss-reduction score, \pNotFixedMin{} to \pNotFixedMax{} are not classified as fixed points after
 \nUpdates{} updates. The score therefore combines several dynamical regimes.
 
-Exploratory calculations identify a local organizing mechanism: a complex pair of multipliers of the
-period-2 orbit crosses the unit circle, with a rotation angle that predicts the ensuing oscillation frequency.
+Exploratory calculations identify a local organizing mechanism at selected period-two orbits: a complex pair of multipliers
+crosses the unit circle, with a rotation angle that predicts the ensuing oscillation frequency.
 The first Lyapunov coefficient predicts soft versus hard onset in \nDynConsistent{} of \nDynChecks{} tested
 cases. Related crossings occur in a network trained on digit images and in low-dimensional factorization
 models. An explicit scalar control isolates how unequal rates permit complex two-step dynamics. Near one predicted resonance, a locked region narrows with the expected asymptotic scaling, but its
@@ -87,8 +87,7 @@ Global resonance ancestry & 0: exploratory/adapted & Near-root scaling is sugges
 ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
-CIFAR and language-model transfer & 0: exploratory development & CIFAR sweep completed, orbit analysis
-unresolved after its continuation time limit; fixed-batch text-transformer pilot shows drift, without an accepted periodic orbit or training benefit. \\
+CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits in 13 dimensions and one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
@@ -283,7 +282,8 @@ mismatches among the \nAuditReceiptFiles{} receipt files.
 
 \paragraph{Continuation, boundary type and criticality.} From the center of a window, its numerically validated orbit is
 continued along 64 rays in the rate plane until it loses stability, located by bisection, and the boundary is
-typed by the crossing multiplier: fold ($+1$), flip ($-1$) or complex pair. The same procedure traces where the
+typed by the crossing multiplier: fold candidate ($+1$), flip candidate ($-1$) or complex-pair candidate.
+These multiplier labels alone do not establish the corresponding nondegeneracy conditions. The same procedure traces where the
 period-2 orbit loses stability along slices of fixed output rate. Each slice is initialized separately; sorting
 and deduplicating their crossings gives a merged locus, without establishing full-state branch identity across
 output rates. At each selected slice-wise crossing we compute the first Lyapunov coefficient $d$ of the Neimark--Sacker normal form with
@@ -468,7 +468,7 @@ that shaped the thesis, except where frozen acceptance rules are stated.
 \caption{\textbf{Beyond slice-wise period-two crossings, measured rotation tracks the crossing angle and
 locked windows appear as plateaus.} A and B:
 rotation-number maps of S2-28011 ($\tMapSizeMain$ and $\tMapSizeRight$ cells) with the merged crossing locus
-(\nMergedPoints{} points, black) and the resonance points where the crossing angle is $m/q$ (filled when locked
+(\nMergedPoints{} points, black guide between samples) and provisional resonance locations where the interpolated crossing angle is $m/q$ (filled when locked
 cells of the same rotation lie closer to the point than in 95\% of random placements, hollow otherwise; the 95\%
 level is a descriptive cut); chaotic cells gray, divergent white, period 2 light. C: rotation \xContOffsetMain{}
 decades beyond the curve against the crossing angle at the same output rate. Resonance points are interpolated
@@ -518,13 +518,14 @@ nondegeneracy conditions remain unverified. In \nDynConsistent{} of \nDynChecks{
 behaviour matches the sign: at supercritical points the circle amplitude follows the square-root prediction (median
 relative error \pDynMedianError{}, largest \pDynMaxError{} next to an adjacent-row sign transition), and at subcritical points the state
 jumps away beyond the corresponding slice crossing while escape thresholds before it grow like the square root of the offset, with
-hysteresis. In the 72-parameter S1R network, \nCritSOneRSuper{} of \nCritSOneR{} traced points are supercritical.
+hysteresis. In the 72-parameter S1R network, the coefficient is negative at \nCritSOneRSuper{} of \nCritSOneR{} sampled crossings,
+consistent with supercriticality under the same generic hypotheses.
 
-The fixed-start maps show quasi-periodic training beyond the supercritical arc. Where they show divergence just
-beyond the curve, the cause is not the bifurcation: at \nBasinPoints{} curve points the fixed-start map is divergent
-even just below the curve, where the period-2 orbit is stable, and \nBasinSuper{} of those points are
-supercritical, with a small attracting circle reached when training starts near the 2-cycle. The divergent arc of
-the fixed-start maps is a basin effect of the shared initialization, not the bifurcation.
+The fixed-start maps show quasi-periodic training beyond sampled supercritical crossings. Their divergent arc
+cannot be identified with local subcriticality alone: at \nBasinPoints{} sampled crossings the fixed-start map is divergent
+even just below the crossing, where the period-2 orbit is stable, and \nBasinSuper{} of those points are
+supercritical, with a small attracting circle reached when training starts near the 2-cycle. These comparisons
+show that basin accessibility from the shared initialization matters in interpreting the divergent arc.
 
 \subsection{States along one slice}
 
@@ -713,11 +714,21 @@ reproduction at the tested controls. It does not recover the missing historical 
 lower-start family at common controls, prove coexistence, or connect a distant window. See
 \path{docs/s1r-bootstrap-association-receipt.json} and \path{docs/reviews/s1r-bootstrap-outcome.md}.
 
+A separate attempt to reach the lower-start controls completes \nSOneRLowerCompleted{} of
+\nSOneRLowerPlanned{} planned macro steps, comprising \nSOneRLowerLinks{} accepted witnessed links.
+The last connected pair is at $\log_{10}\eta_h=\xSOneRLowerLast$ and is numerically unstable.
+The next macro target is $\xSOneRLowerTarget$; its first phase corrector stalls at the initial trial
+and all \nSOneRLowerHalvings{} permitted step halvings. The run retains this gap and makes no lower-endpoint comparison.
+An independent audit checks the saved path and failure history, including separate analytic derivatives at
+fixed representative pairs. This leaves the lower-family association unresolved; it establishes neither
+a fold, global disconnection, coexistence nor absence of a connecting branch. See
+\path{docs/reviews/s1r-lower-outcome.md} and \path{docs/reviews/s1r-lower-independent-outcome.md}.
+
 \paragraph{Real data, one learning rate.} A 64-8-1 tanh network (529 parameters) trained with one global learning
 rate and weight decay on 1{,}024 standardized UCI digit images (two-class task) has a numerically validated period-2 orbit that
 loses stability at $\log_{10}\eta = \xRDCrossing$ with dominant two-step multiplier \tRDMultiplier{}, a complex pair on
 the unit circle. Its angle predicts the rotation of the circle beyond: \xRDPredicted{} turns per two updates,
-against \xRDMeasured{} measured just beyond the crossing on a smooth invariant circle (FTLE \xRDMeasuredFtle{};
+against \xRDMeasured{} measured just beyond the crossing on a smooth projected loop consistent with an invariant circle (FTLE \xRDMeasuredFtle{};
 Figure~\ref{fig:generality}A). This is one branch among those examined: of \nRDCertifiedBranches{} numerically validated period-2
 branches continued to their loss of stability, \nRDNSBranches{} ends in a complex-pair crossing and \nRDFoldBranches{}
 in folds, and on a second data subset Newton did not resolve a period-2 orbit to the stated tolerance from \nRDUncertified{} starts. No
@@ -792,6 +803,19 @@ so those runs are basin-accessibility controls. Selection and thresholds are exp
 only these two points in one network. Full-state replay and the post-run basin annotation are bound by
 \path{docs/warmup-intervention-receipt.json}.
 
+\paragraph{Intervention-dose feasibility (negative).} Before collecting further intervention outcomes,
+we checked a candidate comparison at \nDoseForks{} saved ramp-terminal states. Let $g$ be the gradient and
+$P$ the baseline block learning-rate matrix. A uniform fractional reduction
+$\delta=\xDoseUniform$ changes the update by $R=\delta\|Pg\|$ relative to the unchanged-rate sham.
+Matching that displacement using only block $b$ requires fractional reduction
+$r_b=R/\|(Pg)_b\|$. At the four states, the required output-block fractions are
+\tDoseOutputFractions{}, all above the declared cap $\xDoseCap$. This fixed candidate design is
+infeasible; the first two fractions would even reverse the output update. No pulse or training update was applied. An independent analytic-gradient implementation
+reproduces the decision. Equal sham-relative displacement would still leave total step lengths unequal,
+and comparable distant periodic and chaos-qualified controls remain necessary for a geometry-specific claim.
+The result rejects this dose definition at these states, not geometry-based intervention in general. See
+\path{docs/reviews/utility-dose-outcome.md} and \path{docs/reviews/utility-dose-independent-outcome.md}.
+
 \paragraph{Reading the rotation from the loss.} The dominant peak of the even-step training-loss spectrum equals
 the two-step rotation number within $10^{-3}$ in \nPeakQPSTwo{} of \nPeakQPSTwoOf{} quasi-periodic and \nPeakLockSTwo{}
 of \nPeakLockSTwoOf{} locked cells of the S2 slice, and in \nPeakQPSOneR{} of \nPeakQPSOneROf{} and \nPeakLockSOneR{}
@@ -821,6 +845,29 @@ See \path{docs/cifar-linear-diagnostic-receipt.json} and
 \path{docs/reviews/cifar-linear-diagnostic-outcome-review.md}.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
+
+\paragraph{An exact structural reduction, with a negative solver diagnostic.}
+For the same fixed-input full-batch model with ridge term $\lambda\|\theta\|^2/2$, write the first-layer weights
+as $W=QB+N$, where $Q$ has orthonormal columns spanning a space containing $\operatorname{range}(X^\top)$,
+$Q^\top N=0$, and $X$ contains the fixed training inputs as rows. The data loss is independent of $N$,
+so plain GD with common scalar learning rate $\eta$ separates as $(z,N)\mapsto(G(z),qN)$,
+with $q=1-\eta\lambda$ and $z$ containing
+$B$ and the other parameters. If $q^p\ne1$, every period-$p$ orbit has $N=0$; its primitive period is
+preserved in the reduced map and its monodromy is the reduced monodromy direct-summed with $q^pI$.
+With a nonzero complementary subspace, an attracting reduced orbit attracts in the full map exactly when
+$|q^p|<1$. These statements do not apply unchanged to adaptive updates,
+changing input spaces or nonisotropic regularization.
+
+Keeping all \nCifarSpanColumns{} columns of the thin QR factor, without rank truncation, reduces the
+nontrivial coordinates from \nCifarFullDimension{} to \nCifarActiveDimension{} in this development case.
+However, the complementary directions contain only $\xCifarComplementFraction$ of the original
+squared period-two residual, below the fixed $\xCifarSpanPriority$ priority criterion. A saved-data audit
+independently reproduces the projections and decay identities; it does not regenerate the original map
+images or Jacobian products. Thus this decomposition does not explain most of the observed residual or
+establish a convergence or speed advantage. Removing $N$ can also change predictions on inputs outside
+the training span. See \path{docs/plans/cifar-input-span-diagnostic.md},
+\path{docs/reviews/cifar-input-span-outcome.md} and
+\path{docs/reviews/cifar-input-span-independent-outcome.md}.
 
 \paragraph{Actual-text transformer pilot (architectural feasibility).} A one-layer causal transformer with
 \nLMParameters{} parameters, tied token/output embeddings and LayerNorm was trained on
