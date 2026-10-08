@@ -184,3 +184,95 @@ The additional source-independent corpus/indexing, holdout-perturbation,
 recurrence and guard-state checks described above ran locally against all
 retained attempts without new trajectories. Later implementation changes are
 outside this review.
+
+## CIFAR orbit-safety review, 2026-10-07 local date
+
+Reviewed `ed1293e35f5c821e7f4a10121f7e030df9930b88`,
+`10af5128526975060547844d694a92c3336d68e1` and final
+`3dca7f03ba3861a20516c378e8abaca877271478` on `codex/cifar-orbit-safety`.
+No producer worktree edits, real-data corrector, GPU or paid run. Tests used
+an independent archive at `/tmp/neural-shrimp-review-cifar-3dca7f03`.
+
+Verdict: core numerical gates pass review; three gaps should be fixed before
+new continuation. The separate circle command must be explicitly excluded
+from this bounded H100 unit unless separately hardened. Findings were sent
+to the producer and coordinator; later fixes are not covered by this snapshot.
+
+1. **Bind all mathematical inputs (`tools/explore_cifar.py:259–267,291`).**
+   Orbit results hash source and initial state but omit subset-A identity and
+   the standardized x/y arrays used. Self-consistency of the subset-A index
+   record does not bind results to this run's data. Save the index-record and
+   normalized-array digests, with shape/dtype/order, and upstream source identity.
+2. **Retain a converged correction before Arnoldi (`:223–227,303`).**
+   Corrector callbacks save diagnostics without theta; states are saved only
+   after a qualified spectral solve. A controlled spectral timeout produced
+   a zero-residual corrector event, empty result rows and no state file. Save
+   the corrected state with hash, rate, closure/separation and spectrum-pending
+   status before invoking Arnoldi. Failure must not upgrade its evidence label.
+3. **Validate continuation settings (`:293–317,334–344,465–480`).**
+   Negative `--step` is accepted. A synthetic stable-to-unstable control at
+   log-rates -1 and -1.1 produced `candidate_bracket` with reversed lower/upper
+   endpoints; negative `hi-lo` skipped bisection. Require finite positive eta,
+   output ratio, forward step, bisection tolerance and budgets, plus a finite
+   nonnegative margin, or deliberately implement reverse continuation with
+   ordered endpoints. Positive defaults are not affected by this control.
+4. **Circle is outside the bounded runner (`:371–375,388–434`).**
+   It uses larger default Newton/GMRES limits, no deadline, and a long loop
+   without incremental checkpoints/manifest. Explicitly excluding circle from
+   the planned H100 feasibility unit is sufficient; no broad repair is needed
+   for this unit. Harden it before any later use.
+
+Reproductions are synthetic mocks, not new CIFAR outcomes. The script at
+`/tmp/neural-shrimp-review-cifar-3dca7f03/failure_controls.py` demonstrates the
+lost correction and reversed bracket without a full corrector. Producer was
+sent the exact paths and reproduction details.
+
+Passing checks: returned-state Newton residual is recomputed after the final
+allowed update, uses `max(1,||theta||)`, and rejects failed/nonfinite GMRES
+steps. Full two-step closure and one-step separation precede spectral work.
+Ritz residuals are recomputed; incomplete ARPACK convergence is unqualified;
+seeded starts and partial-spectrum/nonnormal caveats are correct. Small
+residuals imply neither spectral coverage nor an eigenvalue-error bound.
+Every positive-step bisection midpoint repeats these gates, and failed
+midpoints retain unresolved brackets without crossing labels. Matching
+endpoint kinds is only a candidate rule, not branch identity, transversality
+or nonlinear criticality. A +1 crossing alone also does not distinguish a
+fold from other +1 bifurcations. The angle fix correctly derives the reported
+angle from the same top Ritz value: positive-real candidates have angle zero.
+
+Orbit deadlines are checked at operation boundaries, Arnoldi has per-mode
+matvec limits, and GMRES has finite restart/cycle caps. A separate process
+timeout is still needed to bound a currently executing library operation or
+overhead, as the plan specifies. Events are fsynced and JSON checkpoints
+atomically replaced; correction-state retention is the gap above.
+
+All **16** tests pass: fourteen passed directly in the archive; two checkpoint
+tests initially failed because `git rev-parse` has no Git metadata in an
+archive, then passed unchanged with `GIT_DIR` pointing read-only to the source
+worktree metadata. This setup limitation was not a numerical failure.
+
+Timing receipt checks passed: raw-file length/SHA, complete timing object,
+initial-state/subset-A digests and all medians match. Gradient/HVP/J2VP medians
+are 5.268/17.842/33.473 ms; the six-matvec GMRES cycle took 215.782 ms and did
+not converge. Rough estimates of 67 s for 2000 real J2VPs and 54 s for 8x4x50
+J2VPs are consistent operation-only arithmetic, not complete convergence/time
+bounds. Complex residual evaluations can require two real J2VPs; library,
+transfer and startup overhead are additional. H100 planning correctly avoids
+using forward-GD speedups for Krylov work, requires a device-capable runner
+and gradient/HVP/J2VP parity first, and delegates exact costing, ownership,
+retrieval and verified termination. It authorizes no launch; current orbit
+code remains CPU-only.
+
+Inherited wording caveat: `load_cifar_train` deserializes all training-batch
+pixels before slicing A. Thus “only A loaded as pixels” is literally false;
+only A is selected/evaluated, and this path does not inspect the sealed B
+index file. Correct that wording, or use pre-extracted A inputs if literal
+non-loading of other pixels is required.
+
+SHA-256 source bindings:
+`src/neural_shrimp/cifar.py` = `79fcb672725f6d2e91d4f0850052cded6b09718e7e86732ee8a8c2f3811b35cb`;
+`tools/explore_cifar.py` = `e4f9e0d2d9ab3e0b72231428fc474dd24e53ca9865372d4a90d3c44e3df062be`;
+`tools/benchmark_cifar_orbit.py` = `209297e4f26910e18b6aa7e175807cbaf07616e09975f92a5690d96f0c644e84`;
+`tests/test_cifar.py` = `7da5990f6d905a2cc929162b6e19574dbe1632726ffbf66731432edc2d3854d6`;
+operation receipt = `cfb09091b99ee8b209004c1fc2a14ac8a9b485ad4c85789d438e26164c8e53d8`;
+compute plan = `b30d37cf1622596121365d9e5a7088679542250b63ba3aa486e2e153a693601a`.
