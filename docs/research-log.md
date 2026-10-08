@@ -2693,3 +2693,35 @@ review; no GPU reservation yet. A later committed engineering profile may gate
 collection on runtime/memory/storage only. No assessment, old protected text,
 reserved seeds, new inference experiment, paid call or paper edit is authorized
 by this design. Send the pushed checkpoint to root before implementation/launch.
+
+
+### Broader-data LM source and prospective engineering profile — 2026-10-08 UTC
+
+Source implementation follows design2a3f074a and root review1fc74a3a. Before any
+numerical profile, commit/push source, synthetic controls and this card; request
+independent source review and the root agent's exact short GPU reservation.
+No target run is authorized by this entry alone. No new corpus outcome has yet
+been inspected. Fixed nested pool and initialization-only replication, strict
+AR rank/recursion failure retention and no silently omitted comparators are
+clarified in docs/plans/explore-tiny-lm-broader-data.md.
+
+The proposed first profile uses seed28160 only, direction28165, both matched
+8/256-window arms,100 updates each, common eta=1.6*2/expanded initial32-step Ritz
+scale, existing model/GD/float32 settings and the fixed development-probe schedule.
+Use CPU/BLAS1, nice10 and the root-reserved local GPU, with internal60s/external80s
+plus5s cleanup. Exclusive output:
+`/data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-001-profile`;
+exclusive launcher log/receipt prefix:
+`/data2/neural-shrimp-data/logs/tiny-lm-broader-data-attempt-001-profile`.
+Retain every state, label/feature/loss/probe/guard/failure and source/data manifest.
+Include one matched rounded CPUfloat64/GPUfloat32 expanded-objective derivative
+check; it supplies no trajectory-equivalence claim.
+
+Intended command after review/reservation:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 80s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_tiny_lm_broader_data.py profile --device cuda --max-seconds 60 --output /data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-001-profile`.
+Feasibility uses only the declared projected runtime/memory/storage bounds,
+not favorable loss/probe/burst behavior. Profile outcomes are excluded from the
+four target cases' predictor fitting/scoring. Collection and one analysis need
+a later explicit run authorization/card after this engineering result; no retry,
+rate search, assessment, old protected text, policy, inference experiment or paid
+call is implicit. Original failed LM unit remains stopped.

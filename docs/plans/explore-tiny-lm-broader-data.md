@@ -188,3 +188,33 @@ executable source and exact-inventory/hash mismatches. Stop after the four-case
 learning/prediction report whether favorable, negative, quiet or inconclusive.
 No controller, old assessment, inference side experiment or paper edit follows
 automatically. Source review and a concrete run card must precede launch.
+
+
+## Implementation clarification — 8 October 2026, before any profile
+
+Root design review `1fc74a3a` passed the bounded design. There is **one fixed
+nested text pool**; seeds replicate initialization only, not corpus draws.
+Neither two seed differences nor overlapping temporal windows establish
+population/data-pool generalization. No new data outcomes have been inspected.
+
+The direct AR baselines require full column rank (order+1) from NumPy
+`lstsq(..., rcond=None)` on each causal 32-value window. Rank deficiency,
+nonfinite history/coefficient/recursive value, overflow, or linear-algebra
+failure yields an explicit failed forecast and retained missing numeric value,
+with no persistence fallback, order reduction, clipping or row removal. Record
+all eligible fit/tune/test rows and failure reasons. Any such baseline failure,
+failed fitted candidate, nonfinite fitted prediction/score or incomplete
+eligible split invalidates the positive forecast interpretation; valid metrics
+may still be described alongside these failures. Ordinary-comparator selection
+requires every declared ordinary candidate's tuning scores to be valid, and
+uses no late/probe outcomes. Geometric NaN abstentions are handled by the shared
+masks and fitting-only imputation; infinite features are numerical failures.
+
+The new code leaves earlier executables/evidence unchanged. Collection binds
+the shared corpus/window/token identity and exact initial-state/rate pairing;
+profile reuse requires the same executable/plan hashes, data identity and
+device, and a recomputed resource gate. Terminal/latest accepted state is saved
+through the reviewed finally/SIGTERM cleanup pattern; probe failures are retained
+and do not change training, rates or predictors. Synthetic tests cover alignment,
+embargoes, train-only normalization/selection, AR failures, common-rate identity,
+nonadaptive probes, resource-only feasibility and interrupted-state retention.
