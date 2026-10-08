@@ -98,3 +98,89 @@ Load-bearing primary-source spot-check:
 explicit cycle and multiplier in section 2.3 and rotational-edge analysis in
 appendix E.2. Version v1 was current when accessed. No claim that every other
 reference's full text has been checked; the ledger's pending items remain open.
+
+## Tiny causal language-model pilot: independent review, 2026-10-07 local date
+
+Reviewed final source snapshot `021e96b6d5d4b1e9c3f550c2dce8bcfed5b30432`
+from `codex/minimal-mechanism`, archived read-only source into an independent
+`/tmp/neural-shrimp-review-lm-021e96b6` checkout for checks. No agent worktree
+was edited, and no full training run, GPU or paid action was needed.
+
+**Verdict:** no blocker to including the result with its current exploratory
+architectural-feasibility scope. This is one fixed text batch and seed, not
+language-model validation, recurrent full-state dynamics, an NS crossing,
+chaos, invariant-circle evidence, or training utility.
+
+Source bindings (SHA-256):
+
+- `src/neural_shrimp/tiny_lm.py`:
+  `27508573066c416322fe697471ada13ebd1c99618a82ae0e1115672a3c94f7e8`
+- `tools/explore_tiny_lm.py`:
+  `43867f85cc025ca92c5c298d41a466430c1efe2534ac1b3de57ef5bbccb8a73e`
+- `tools/analyze_tiny_lm.py`:
+  `cac91033c352a9cf6eca319fbb28132b31130c5116a9e51fde7c2e219c081601`
+- `tests/test_tiny_lm.py`:
+  `cc3a963f58ea4a25945e278a3bfdb696132f9138f5be788042f5384a0731f325`
+- `docs/explore-tiny-lm-receipt.json`:
+  `2769666d2a28c658ee2b3fb2ed20c755979c5a68d23fe226cb7e3ca4301d3f1f`
+
+Four committed tests pass. The supplied offline analyzer checks every
+manifest-listed raw file and regenerates the receipt exactly (15,776
+parameters; ten main cases: seven completed, three numerical-guard stops).
+This checks saved evidence consistency, not training replay or every numerical
+quantity independently. Additional independent checks covered the latter
+quantities where feasible:
+
+- Reconstructed every batch token and target from retained corpus offsets:
+  X is `[start:start+32]`, Y is `[start+1:start+33]`. All 256 targets are
+  next characters; the unused final 10% is disjoint. Future keys are masked,
+  and changing all tokens after each possible cutoff leaves earlier logits
+  exactly unchanged in a float64 control. The final projection reuses the
+  same embedding view, so it receives both gradients while occurring once
+  in the flat state. No hidden optimizer/cache/random state is present.
+- The GD derivative is `I-eta H(theta)`; the two-step JVP evaluates the
+  second factor at `F(theta)` and composes in the correct order. Reduced
+  dense/finite-difference checks and the symmetric Lanczos control pass.
+  Returned Ritz residuals assess approximate eigenpairs, not spectral
+  completeness. The initial nonstationary sharpness sets a rate scale,
+  not an attractor stability threshold.
+- The precision comparison casts the same rounded initial float32 state
+  and direction to CPU float64. It is a valid same-state check of combined
+  dtype/device differences, not a clean separation of device from dtype and
+  not trajectory precision equivalence. The document's limitation is correct.
+- All eleven cases, including the timing unit, have bitwise identical
+  saved initial states. Recomputed AR statistics match saved results.
+  Predictive detrending uses only the first 75%, and regression rows end
+  before the holdout. Altering only the holdout leaves AR(1)/AR(2) fitted
+  coefficients and roots unchanged while changing test errors. The separately
+  reported full-window trend is descriptive. Test predictions use observed
+  preceding losses, not recursive multi-step predictions or held-out text.
+- Independently recomputed every available lag-1/2/4 maximum recurrence
+  and label, with float64 norm reductions differing from saved float32
+  reductions by at most `9.02e-8` relatively. Checked loss/ridge decomposition
+  against saved pre-update tail states. The stored tail ends at `theta_999`
+  in completed 1000-update cases; `final` is `theta_1000`. Final recorded CE
+  is consequently the last pre-update CE, as labeled.
+- No completed main trajectory meets the stated fixed-point or period-2
+  thresholds. Early stops at 551, 10 and 7 updates have no requested final
+  128-step tail and are correctly marked `stopped_before_tail`, not failed
+  recurrence tests. CPU float64 evaluation at their saved offending states
+  gives objectives `13014.3296`, `71896.5457` and `24342.6801`, respectively,
+  corroborating the `1e4` guard. Their reported final CE is the preceding
+  retained value. A guard is not a divergence theorem; no chaos label follows.
+
+Supported concise statement: matrix-free derivatives and bounded autonomous
+full-batch GD are feasible on this real-text causal transformer. Moderate-rate
+training loss can become small while parameter state drifts; higher rates
+can fluctuate or trigger a numerical guard. Seven completed main trajectories
+were screened and nonconverged; three stopped before tail screening. Keep
+that distinction when abbreviating “none qualified.” Parameter symmetries
+were not removed, and apparent AR structure is not a multiplier or orbit.
+
+Commands used on the source snapshot, with one CPU thread and nice 10:
+`python -m pytest -q tests/test_tiny_lm.py` and
+`python tools/analyze_tiny_lm.py --receipt docs/explore-tiny-lm-receipt.json`.
+The additional source-independent corpus/indexing, holdout-perturbation,
+recurrence and guard-state checks described above ran locally against all
+retained attempts without new trajectories. Later implementation changes are
+outside this review.
