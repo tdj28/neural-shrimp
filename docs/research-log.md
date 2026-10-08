@@ -3909,3 +3909,14 @@ Source/review and complete immutable profile/wrapper inventories pass. Synthetic
 QR0.167355s gives fixed cost projection5.334710s<30s. See profile receipt and
 `docs/plans/cifar-input-span-collection-launch.md` for exact external manifest
 pin, resource caps and one-collection scope. No scientific target run yet.
+
+
+## 2026-10-08T11:11:58.791216+00:00 — two fixed diagnostic outcomes retained, audits pending
+
+CIFAR span decomposition passes all identities but removable squared-residual
+share1.74894e-8 fails the preset>=0.5 priority criterion; it does not explain
+most of the saved residual. Utility matched-dose candidate fails the0.25
+output-group fraction cap at all four pinned forks; no pulse is run. Complete
+immutable inventories pass. Separate outcome auditors are being frozen before
+reading numerical target results. See the two producer outcome reports and
+receipts under `docs/reviews/`. No retry or new paid/GPU/protected-data use.
