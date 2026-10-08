@@ -4363,3 +4363,11 @@ model/decomposition/solve calls. An initial fixture export accidentally
 included replay-added metadata; it was detected, replaced prospectively,
 and Replay now copies metadata. Eighteen saved-only synthetic controls pass;
 independent review and final source freeze follow before target launch.
+
+### 2026-10-08 — Prospective PAL auditor source amendment
+
+Independent review passed47 initial saved-only controls and identified a
+missing mandatory header join. The auditor now requires exactly one original
+input binding and one cost gate before science, with pre-engine failures
+retaining inventory-only scope. New tests remove/reindex each header and
+check the pre-engine boundary. No target output has been opened.

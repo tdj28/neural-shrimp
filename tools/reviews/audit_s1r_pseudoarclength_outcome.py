@@ -207,6 +207,16 @@ def records(folder,files,result,initial,bound,hidden=64):
         kind=row['kind'];name=f'{index:05d}-{kind}.json';require(re.fullmatch('[A-Za-z0-9_]+',kind)and row==dict(sequence=index,kind=kind,file=name),'causal journal names');record,p=G.decode_record(folder,name);require(record['kind']==kind and record['sequence']==index,'record metadata mirror');used.add(name)
         if'arrays_file'in record:used.add(record['arrays_file'])
         payloads.append((kind,p))
+    # The target stream must bind historical inputs and pass its predeclared
+    # cost screen before any numerical/scientific event. A pre-engine write
+    # failure may retain no header or only the bound-input header, never science.
+    if payloads:
+        require(payloads[0][0]=='bound_inputs','mandatory first bound-input record')
+        require(sum(k=='bound_inputs'for k,_ in payloads)==1,'single bound-input header')
+    if len(payloads)>1:
+        require(payloads[1][0]=='cost_gate'and sum(k=='cost_gate'for k,_ in payloads)==1,'single pre-science cost gate')
+    if result['status']in('two_edges_complete','unresolved_gap'):
+        require(len(payloads)>2,'complete target requires both headers and science')
     # Numerical invalid returns can be durably retained at a failed terminal
     # operation. They never qualify any dependent state. No earlier corruption
     # may be excused by a later failure.

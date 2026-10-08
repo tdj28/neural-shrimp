@@ -87,6 +87,10 @@ def test_failed_svd_gate_is_recomputed_then_only_unwinds():
         r.consume(kind,p)
     assert False
 
+def headers(bound):
+    screen=2*(1.1480005020275712*max(256/12,102/24)+38.103352084057406*(16/473))+5
+    return [['bound_inputs',bound],['cost_gate',dict(projected_seconds=screen,limit_seconds=60.,passed=True,scope='historical heuristic only')]]
+
 def write_records(folder,events):
     folder.mkdir();journal=[]
     for index,(kind,payload)in enumerate(events):
@@ -105,11 +109,28 @@ def write_records(folder,events):
     (folder/'journal.jsonl').write_text(''.join(json.dumps(v)+'\n'for v in journal));return A.G.directory(folder)
 
 def test_full_store_schema_join_and_counter_reconstruction(tmp_path):
-    f=fixture();bound={'synthetic':True};events=[['bound_inputs',bound]]+f['events'];files=write_records(tmp_path/'store',events)
+    f=fixture();bound={'synthetic':True};events=headers(bound)+f['events'];files=write_records(tmp_path/'store',events)
     result=dict(**f['result'],operation_attempted=f['attempted'],operation_returned=f['returned'],stage_counts=f['counts'])
     d=A.records(tmp_path/'store',files,result,f['initial'],bound,hidden=1);assert d['arithmetic_complete']and d['accepted_edges']==[0,1]
 
 def test_complete_claim_rejects_orphan_arrays(tmp_path):
-    f=fixture();files=write_records(tmp_path/'store',[['bound_inputs',{}]]+f['events']);files['99999-unused.npz']=dict(bytes=0,sha256='0'*64)
+    f=fixture();files=write_records(tmp_path/'store',headers({})+f['events']);files['99999-unused.npz']=dict(bytes=0,sha256='0'*64)
     result=dict(**f['result'],operation_attempted=f['attempted'],operation_returned=f['returned'],stage_counts=f['counts'])
     with pytest.raises(ValueError):A.records(tmp_path/'store',files,result,f['initial'],{},hidden=1)
+
+
+@pytest.mark.parametrize('header_index',[0,1])
+def test_mandatory_headers_cannot_be_removed_and_reindexed(tmp_path,header_index):
+    f=fixture();events=headers({})+f['events'];events.pop(header_index);files=write_records(tmp_path/'store',events)
+    result=dict(**f['result'],operation_attempted=f['attempted'],operation_returned=f['returned'],stage_counts=f['counts'])
+    with pytest.raises(ValueError):A.records(tmp_path/'store',files,result,f['initial'],{},hidden=1)
+
+def test_pre_engine_failure_remains_inventory_only(tmp_path):
+    f=fixture();files=write_records(tmp_path/'store',[['bound_inputs',{}]])
+    result=dict(status='failed_or_interrupted',operation_attempted={},operation_returned={},stage_counts={})
+    d=A.records(tmp_path/'store',files,result,f['initial'],{},hidden=1);assert d['uninitialized_engine']and not d['arithmetic_complete']
+
+def test_exact_frozen_source_inventory_rejects_omission():
+    freeze=A.G.read(ROOT/A.FROZEN);A.source_check(freeze['files'],freeze['commit'])
+    files=copy.deepcopy(freeze['files']);files.pop(next(iter(files)))
+    with pytest.raises(ValueError):A.source_check(files,freeze['commit'])
