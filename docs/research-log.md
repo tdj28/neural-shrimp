@@ -3996,3 +3996,19 @@ A post-run receipt consistency assertion caught the compact report
 aggregate-byte typo:23,756+11,414=35,170, not37,170. Corrected only the report;
 raw evidence, individual byte counts, source and scientific results remain
 unchanged. The failed report assertion is retained; no numerical rerun.
+
+## 2026-10-08 11:19 UTC: prospective independent utility-dose outcome audit
+
+Prepared the independent scalar-loop gradient/dose auditor and card at
+`docs/plans/utility-dose-outcome-audit.md` before opening any numerical target
+output. Root supplied execution977514e4 and external raw/launcher manifest
+identities only; they are written into the fixed prospective command. Target
+execution has completed, but its gradient/dose decisions remain unseen by this
+reviewer. This audit is conditional on independent source review and separate
+root launch authorization; no saved target gradient replay has run.
+
+Initial30 prospective synthetic tests pass in0.43s, including a complete toy
+producer bundle replay and four independent gradients. The comparison tolerances,
+strict feasibility decisions, four-call limit, source/data/launcher cross-bindings,
+5s/10+5s ceilings and combined1MiB retention are fixed before target inspection.
+No pulse, new control, trajectory, HVP/Hessian, protected data or paid use.
