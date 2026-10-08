@@ -3,7 +3,7 @@
 Evidence: exploratory (docs/explore-criticality-2026-10-07.md). Panel A: first
 Lyapunov coefficient d of the normal form at every point of the merged curve
 (Kuznetsov's formula for n-dimensional maps; d < 0 supercritical, d > 0
-subcritical), on a symmetric-log axis, with the sign changes (generalized
+subcritical), on a symmetric-log axis, with the sign changes (candidate generalized
 Neimark-Sacker points) marked; the strip below shows the label of the fixed-start
 rotation maps four cells beyond the curve. Panel B: supercritical points: the
 measured amplitude of the circle reached from near the 2-cycle against the
@@ -81,7 +81,7 @@ def main():
     ax.set_yscale("symlog", linthresh=0.05)
     ax.set_ylabel("first Lyapunov coefficient d")
     ax.set_xlabel("log10 output-layer rate (point on the curve)")
-    ax.set_title("A  Criticality along the curve; dashed: sign changes (generalized Neimark-Sacker points)",
+    ax.set_title("A  Criticality along the curve; dashed: sign changes (generalized NS candidates)",
                  fontsize=8)
     strip_y = d.min() * 1.6
     for p in points:

@@ -2,7 +2,7 @@
 
 Evidence: exploratory (A2 survey). Panel A: 512 x 512 local period map from the
 shared initial parameters (CUDA float64 backend, EXP-028 screening options),
-with the window's certified orbit continued along 64 rays from its center
+with the window's numerically validated orbit continued along 64 rays from its center
 (tools/explore_a2_survey.py rays; bisection to 1e-9) and each ray's loss of
 stability typed by the crossing multiplier. Panel B: the dominant multiplier
 at the last attracting point of every ray, on the unit circle.
@@ -96,7 +96,7 @@ def main():
                "edge_agreement": [a, compared], "flip_to_2p": [f2, ft],
                "boundary_points": [{"direction": r["direction"], "type": r["type"], "s_boundary": r["s_boundary"]}
                                    for r in window["rays"]]}
-    alt = (f"Local period map around the certified period-{p} window {KEY}. The window's region (dark) has a "
+    alt = (f"Local period map around the numerically validated period-{p} window {KEY}. The window's region (dark) has a "
            f"fold-bounded body: {counts.get('fold', 0)} of {len(window['rays'])} rays end where a multiplier "
            f"crosses +1. Along its upper edge {counts.get('flip', 0)} rays end at a flip (-1), opening onto "
            f"period-{2 * p} bands (medium gray), and {counts.get('neimark_sacker', 0)} at a complex pair. Ray and "

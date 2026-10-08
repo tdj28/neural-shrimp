@@ -2,9 +2,9 @@
 
 Evidence: exploratory. Panel A (docs/explore-realdata-2026-10-07.md): 64-8-1 tanh
 network on 1,024 UCI digit images, one global learning rate, weight decay 1e-3.
-The certified period-2 orbit loses stability at a complex-pair crossing whose
+The numerically validated period-2 orbit loses stability at a complex-pair crossing whose
 angle predicts the rotation of the newborn circle (star); the adiabatic sweep
-from the certified state measures the rotation beyond it (circles; gray where not
+from the numerically validated state measures the rotation beyond it (circles; gray where not
 every angle step is forward, i.e. the loop is not star-shaped about its centroid
 and the angle estimate is invalid).
 Panels B and C (docs/explore-minimal-model-2026-10-07.md): the two-mode depth-two

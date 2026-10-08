@@ -65,7 +65,7 @@ def main():
     bx = fig.add_subplot(grid[1, 0])
     trivial = sum(1 for r in rows if r["confirmed"] and r["points"] <= 3)
     groups = [
-        ("certified orbits\nwith >= 5 points\n(plane test)", [r for r in rows if r["points"] >= 5], "plane"),
+        ("numerically validated orbits\nwith >= 5 points\n(plane test)", [r for r in rows if r["points"] >= 5], "plane"),
         (f"all confirmed\n({trivial} pass by\nconstruction)", [r for r in rows if r["confirmed"]], "plane"),
         ("confirmed with a\ntest on >= 5 points\n(refined test)", [r for r in rows if r["confirmed"]
                                  and any(t["q"] >= 5 for t in r["refined"]["tests"])], "refined"),

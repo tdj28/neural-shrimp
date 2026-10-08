@@ -1,7 +1,7 @@
 # Gradient-descent route manuscript (working draft)
 
 This directory holds the manuscript on the dynamics inside learning-rate planes
-of full-batch gradient descent: certified periodic windows inside chaotic
+of full-batch gradient descent: numerically validated periodic windows inside chaotic
 training, and an exploratory quasi-periodic route (Neimark-Sacker bifurcation of
 the edge-of-stability 2-cycle, invariant circles, phase-locked windows). The
 draft is private; framing, authorship, license and release are the human
@@ -17,8 +17,9 @@ author's decisions.
 
 Section 4 reports the prospectively designed, independently audited map study.
 Section 5 is exploratory: its analyses were chosen while exploring and have not
-been tested on fresh networks or seeds. Orange boxes in the PDF mark results
-other work streams are still producing. Every citation must be checked at its
+been tested on fresh networks or seeds. The evidence-and-scope table distinguishes mathematical rigor from design timing. CIFAR orbit continuation,
+rigorous certificates and language-model transfer are tracked as unfinished work. Orange boxes identify
+remaining research or human-authorship decisions. Every citation must be checked at its
 primary source before release; entries marked `[title to verify]` carry only
 identifiers.
 
@@ -37,3 +38,17 @@ python scripts/verify.py
 `verify.py` re-derives every number, regenerates every figure byte for byte
 against its receipt, checks that each macro used in the text is generated, and
 that every repository path the text cites exists in the committed tree.
+
+## Preparation for eventual submission
+
+The draft is maintained for human review as experiments finish. Its current
+claims concern optimization and nonlinear dynamics. A language-model contribution
+would support the intended cs.CL audience; final primary/cross-list choices
+(including nlin.CD, and alternatives cs.LG/cs.AI where appropriate) follow the
+actual contribution and remain the human author's decision. No upload, submission,
+public repository release or license selection is authorized by this preparation.
+
+Before release, complete the outstanding science, author review, reference-content
+checks, a self-contained source archive and a clean compilation of that archive.
+Rigor labels follow the certified-computation playbook; historical filenames
+containing `certificate` do not by themselves denote interval proofs.

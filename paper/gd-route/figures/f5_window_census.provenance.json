@@ -1,13 +1,13 @@
 {
  "figure": "f5_window_census",
  "evidence_label": "exploratory",
- "alt_text": "Top: for each of the 61 confirmed windows, the share of 64 continuation rays ending at a fold, a flip or a complex-pair crossing (Neimark-Sacker candidate). Fold dominates many S1R windows; complex-pair and flip crossings dominate most S2 windows. Bottom left: share of orbits passing the Birkhoff ordering test, against the null (orange; expected count for the plane test, union bound for the refined test): certified orbits with >= 5 points (plane test) 65/115 versus 1.57; all confirmed (4 pass by construction) 31/61 versus 4.92; confirmed with a test on >= 5 points (refined test) 35/56 versus 3.58; confirmed, odd period (plane test) 0/5 versus 0.17. Bottom right: measured rotation numbers m/q of the 35 passing windows; q is fixed by the period and level by construction, the shift m is measured, and most passing windows have m = 1.",
+ "alt_text": "Top: for each of the 61 confirmed windows, the share of 64 continuation rays ending at a fold, a flip or a complex-pair crossing (Neimark-Sacker candidate). Fold dominates many S1R windows; complex-pair and flip crossings dominate most S2 windows. Bottom left: share of orbits passing the Birkhoff ordering test, against the null (orange; expected count for the plane test, union bound for the refined test): numerically validated orbits with >= 5 points (plane test) 65/115 versus 1.57; all confirmed (4 pass by construction) 31/61 versus 4.92; confirmed with a test on >= 5 points (refined test) 35/56 versus 3.58; confirmed, odd period (plane test) 0/5 versus 0.17. Bottom right: measured rotation numbers m/q of the 35 passing windows; q is fixed by the period and level by construction, the shift m is measured, and most passing windows have m = 1.",
  "notes": "Only tests on at least 5 points count toward the refined share; orbits with 2 or 3 points pass trivially.",
  "script": "paper/gd-route/figures/f5_window_census.py",
- "script_sha256": "8b169dc5fc55c17226fc5a10bf356ba40bffb39e6edaa0ccc995fea0b7176096",
- "git_commit_at_generation": "efeec7a87477c0d757e21ae19254ba4106b0fe11",
+ "script_sha256": "f956c68c6e2fec445a38bf7a4cb638ef1ef8f854e79405c98ba69c71728fa002",
+ "git_commit_at_generation": "bc9c52678148996d2a04597604f5812a3ae4ab15",
  "worktree_dirty_at_generation": true,
- "generated_utc": "2026-10-07T22:46:08Z",
+ "generated_utc": "2026-10-08T04:02:50Z",
  "python": "3.12.14",
  "numpy": "2.5.3",
  "matplotlib": "3.11.1",
@@ -38,7 +38,7 @@
   "windows_fold_and_flip_at_least_8": 15,
   "windows_neimark_sacker_at_least_8": 41,
   "well_ordering": {
-   "certified orbits with >= 5 points (plane test)": {
+   "numerically validated orbits with >= 5 points (plane test)": {
     "observed": 65,
     "n": 115,
     "expected": 1.5717
@@ -244,8 +244,8 @@
  },
  "outputs": {
   "pdf": "f5_window_census.pdf",
-  "pdf_sha256": "8bebdb4f7c1f4b05f1179a73620898c6aa493513249c34a380bd38ef1a678144",
+  "pdf_sha256": "e960a1671d4158cd4e945a963b42b4ee09d9e69bf74623406748705c73bf1bab",
   "png": "f5_window_census.png",
-  "png_sha256": "5935de61d926427583adb04c62fffa5c96bfe1f846becc865c44475c81fe00c8"
+  "png_sha256": "ce8c351f8b78fd46c331c34473fff0627457ef115fbaff038b5b82a4caab38ac"
  }
 }

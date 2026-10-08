@@ -1,45 +1,262 @@
 {
- "purpose": "Verification status of every entry in paper/gd-route/references.bib. Internal notes live here, not in the bibliography. Every entry needs identity and content checks at its primary source before release.",
- "sources": {
-  "identity_pass_2026-10-07": "coordinator check of titles and authors against the arXiv API and Crossref (commit 72e94289)",
-  "content_checks": "docs/consults/2026-10-07-references/adjudication.md (B04, R01); docs/novelty-hofmann-2026-10-07.md"
- },
- "entries": {
-  "sohldickstein2024": {"identity": "arXiv v1, 2026-10-07", "content": "configuration reproduced as network S1 in the map study", "open": []},
-  "cohen2021": {"identity": "carried over from paper/references.bib; not rechecked", "content": "not rechecked", "open": ["identity", "content"]},
-  "kalra2025": {"identity": "carried over; camera-ready text inspected as arXiv:2311.02076v2 on 2026-09-08", "content": "inspected 2026-09-08", "open": []},
-  "cohen2025central": {"identity": "arXiv v2, 2026-10-07", "content": "not checked", "open": ["venue", "content"]},
-  "damian2023": {"identity": "arXiv:2209.15594; title and authors verified at arXiv by the coordinating session, 2026-10-07 (R01)", "content": "not checked", "open": ["venue", "content"]},
-  "agarwala2023": {"identity": "arXiv:2210.04860; title and authors verified at arXiv by the coordinating session, 2026-10-07 (R01)", "content": "not checked", "open": ["venue", "content"]},
-  "lewkowycz2020": {"identity": "arXiv:2003.02218; title and authors verified at arXiv by the coordinating session, 2026-10-07 (R01)", "content": "not checked", "open": ["content"]},
-  "chenbruna2023": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]},
-  "song2023": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]},
-  "hofmann2026": {"identity": "arXiv v1, 2026-10-07", "content": "read at the source, 2026-10-07 (docs/novelty-hofmann-2026-10-07.md)", "open": []},
-  "chen2024phases": {"identity": "arXiv v1, 2026-10-07", "content": "not checked", "open": ["journal version (TMLR 2024)", "content"]},
-  "liu2024": {"identity": "arXiv v1, 2026-10-07", "content": "not checked", "open": ["content"]},
-  "liang2026": {"identity": "arXiv v3, 2026-10-07", "content": "not checked", "open": ["venue", "content"]},
-  "torkamandi2025": {"identity": "arXiv v2, 2026-10-07", "content": "not checked", "open": ["content"]},
-  "ly2025": {"identity": "arXiv v2, 2026-10-07", "content": "not checked", "open": ["content"]},
-  "jimenez2026": {"identity": "Crossref, 2026-10-07", "content": "not checked", "open": ["content"]},
-  "sveleba2026": {"identity": "Crossref, 2026-10-07", "content": "abstract confirms maps from a two-dimensional error projection (B04)", "open": []},
-  "vandermaas1990": {"identity": "Crossref, 2026-10-07", "content": "verified from the authors' repository copy and the published version (received 4 April 1989, accepted 2 June 1989): Figs. 1-2 learning-rate bifurcation diagrams of summed absolute weights (Hebbian, backpropagation), Figs. 3-4 thin folded delay-embedded attractors (effectively one-dimensional chaos), Figs. 5-6 power spectra (broadband with a dominant band), Table 1 Lyapunov exponents; the representation task is performed across the whole range, including chaotic learning", "open": []},
-  "kong2020": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]},
-  "metaxas2026": {"identity": "arXiv v2, 2026-10-07", "content": "abstract confirms invariant curves and phase-locking Arnold tongues in a multiplicative-weights learning rule for population games (B04)", "open": []},
-  "sato2002": {"identity": "Crossref doi 10.1073/pnas.032086299; title and authors verified at Crossref by the coordinating session, 2026-10-07 (R01)", "content": "not checked", "open": ["content"]},
-  "goujaud2025": {"identity": "Crossref, 2026-10-07; related open problem arXiv:2502.19916", "content": "not checked", "open": ["content"]},
-  "gallas1993": {"identity": "Crossref, 2026-10-07", "content": "not checked", "open": ["content"]},
-  "gallas1994": {"identity": "Crossref, 2026-10-07", "content": "not checked", "open": ["content"]},
-  "jones2012": {"identity": "arXiv v1, 2026-10-07", "content": "cited only for periodicity-hub organization in an open question", "open": []},
-  "arnold1965": {"identity": "not checked (translation of the 1961 Izvestiya article)", "content": "not checked", "open": ["identity", "content"]},
-  "aronson1982": {"identity": "Crossref, 2026-10-07", "content": "not checked", "open": ["content"]},
-  "jensen1983": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]},
-  "jensen1984": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]},
-  "curry1978": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]},
-  "ostlund1983": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]},
-  "kuznetsov2019": {"identity": "not checked", "content": "not checked", "open": ["identity", "content"]}
- },
- "removed": {
-  "stoop2010": "dropped per the references review (spiral organization untested here)",
-  "ruelle1971": "dropped from the circle-breakdown claim per the references review"
- }
+  "purpose": "Verification status of every entry in paper/gd-route/references.bib. Internal notes live here, not in the bibliography. Every entry needs identity and content checks at its primary source before release.",
+  "sources": {
+    "identity_pass_2026-10-07": "coordinator check of titles and authors against the arXiv API and Crossref (commit 72e94289)",
+    "content_checks": "docs/consults/2026-10-07-references/adjudication.md (B04, R01); docs/novelty-hofmann-2026-10-07.md"
+  },
+  "entries": {
+    "sohldickstein2024": {
+      "identity": "arXiv v1, 2026-10-07",
+      "content": "configuration reproduced as network S1 in the map study",
+      "open": []
+    },
+    "cohen2021": {
+      "identity": "carried over from paper/references.bib; not rechecked",
+      "content": "not rechecked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "kalra2025": {
+      "identity": "carried over; camera-ready text inspected as arXiv:2311.02076v2 on 2026-09-08",
+      "content": "inspected 2026-09-08",
+      "open": []
+    },
+    "cohen2025central": {
+      "identity": "arXiv v2, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "venue",
+        "content"
+      ]
+    },
+    "damian2023": {
+      "identity": "arXiv:2209.15594; title and authors verified at arXiv by the coordinating session, 2026-10-07 (R01)",
+      "content": "not checked",
+      "open": [
+        "venue",
+        "content"
+      ]
+    },
+    "agarwala2023": {
+      "identity": "arXiv:2210.04860; title and authors verified at arXiv by the coordinating session, 2026-10-07 (R01)",
+      "content": "not checked",
+      "open": [
+        "venue",
+        "content"
+      ]
+    },
+    "lewkowycz2020": {
+      "identity": "arXiv:2003.02218; title and authors verified at arXiv by the coordinating session, 2026-10-07 (R01)",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "chenbruna2023": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "song2023": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "hofmann2026": {
+      "identity": "arXiv v1, 2026-10-07",
+      "content": "read at the source, 2026-10-07 (docs/novelty-hofmann-2026-10-07.md)",
+      "open": []
+    },
+    "chen2024phases": {
+      "identity": "arXiv v1, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "journal version (TMLR 2024)",
+        "content"
+      ]
+    },
+    "liu2024": {
+      "identity": "arXiv v1, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "liang2026": {
+      "identity": "arXiv v3, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "venue",
+        "content"
+      ]
+    },
+    "torkamandi2025": {
+      "identity": "arXiv v2, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "ly2025": {
+      "identity": "arXiv v2, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "jimenez2026": {
+      "identity": "Crossref, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "sveleba2026": {
+      "identity": "Crossref, 2026-10-07",
+      "content": "abstract confirms maps from a two-dimensional error projection (B04)",
+      "open": []
+    },
+    "vandermaas1990": {
+      "identity": "Crossref, 2026-10-07",
+      "content": "verified from the authors' repository copy and the published version (received 4 April 1989, accepted 2 June 1989): Figs. 1-2 learning-rate bifurcation diagrams of summed absolute weights (Hebbian, backpropagation), Figs. 3-4 thin folded delay-embedded attractors (effectively one-dimensional chaos), Figs. 5-6 power spectra (broadband with a dominant band), Table 1 Lyapunov exponents; the representation task is performed across the whole range, including chaotic learning",
+      "open": []
+    },
+    "kong2020": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "metaxas2026": {
+      "identity": "arXiv v2, 2026-10-07",
+      "content": "abstract confirms invariant curves and phase-locking Arnold tongues in a multiplicative-weights learning rule for population games (B04)",
+      "open": []
+    },
+    "sato2002": {
+      "identity": "Crossref doi 10.1073/pnas.032086299; title and authors verified at Crossref by the coordinating session, 2026-10-07 (R01)",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "goujaud2025": {
+      "identity": "Crossref, 2026-10-07; related open problem arXiv:2502.19916",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "gallas1993": {
+      "identity": "Crossref, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "gallas1994": {
+      "identity": "Crossref, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "jones2012": {
+      "identity": "arXiv v1, 2026-10-07",
+      "content": "cited only for periodicity-hub organization in an open question",
+      "open": []
+    },
+    "arnold1965": {
+      "identity": "not checked (translation of the 1961 Izvestiya article)",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "aronson1982": {
+      "identity": "Crossref, 2026-10-07",
+      "content": "not checked",
+      "open": [
+        "content"
+      ]
+    },
+    "jensen1983": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "jensen1984": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "curry1978": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "ostlund1983": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "kuznetsov2019": {
+      "identity": "not checked",
+      "content": "not checked",
+      "open": [
+        "identity",
+        "content"
+      ]
+    },
+    "cohenadaptive2022": {
+      "identity": "arXiv:2207.14484v2, title/authors/version checked 2026-10-08 UTC",
+      "content": "Abstract supports full-batch and sufficiently large-batch adaptive edge of stability; no additional theorem claim used.",
+      "source_url": "https://arxiv.org/abs/2207.14484v2",
+      "open": [
+        "full-text comparison before extending novelty claims"
+      ]
+    },
+    "regischewi2026": {
+      "identity": "arXiv:2605.06821v1, title/authors/version checked 2026-10-08 UTC",
+      "content": "Abstract supports joint parameter/first-moment rod-flow model with auxiliary second moment and empirical optimizer/architecture comparisons.",
+      "source_url": "https://arxiv.org/abs/2605.06821v1",
+      "open": [
+        "full-text comparison before extending novelty claims"
+      ]
+    },
+    "fongyang2026": {
+      "identity": "arXiv:2608.20638v2, title/authors/version checked 2026-10-08 UTC",
+      "content": "Abstract supports second-moment negative feedback, active curvature and observed gradient reversal including GPT-2 medium; not evidence for our proposed post-period-2 mechanism.",
+      "source_url": "https://arxiv.org/abs/2608.20638v2",
+      "open": [
+        "full-text comparison before extending novelty claims"
+      ]
+    }
+  },
+  "removed": {
+    "stoop2010": "dropped per the references review (spiral organization untested here)",
+    "ruelle1971": "dropped from the circle-breakdown claim per the references review"
+  }
 }
