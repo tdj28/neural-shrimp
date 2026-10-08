@@ -2665,3 +2665,31 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+
+### New LM development design after sparse negative calibration — 2026-10-08 07:20 UTC
+
+Design only; no new profile, training or probe outcome run. The prior six-case
+unit and failed gate remain stopped and immutable. On reviewed integration
+5e716f6a, propose one controlled training change: a 256-window fixed full batch
+against its nested 8-window control, matched initialization/rate/update count,
+with fresh development seeds 28161/28162. Explicitly change the predictive
+endpoint from rare bursts to continuous 16-update training-CE progress, compared
+with persistence, direct AR1/AR2, strongest ordinary loss/gradient features and
+full-history B2/B3. This is adapted after observing rapid memorization, 0/3 late
+episodes and no incremental B3 utility, not a confirmatory rescue of that gate.
+
+Exact new training starts are 65536+256*j (j=0..255); a development-only probe
+uses 196608+256*j (j=0..31). Their 33-character windows are disjoint from old
+training/assessment/validation and final-10% intervals; arithmetic checks passed.
+No outcomes or token content were inspected for this design. Planned probe CE
+cannot select a rate, checkpoint, policy or model penalty. Keep architecture,
+plain GD, precision and fixed rate factor 1.6 unchanged; derive one common eta
+per seed from the expanded objective's bounded initial Ritz estimate.
+
+Full specification and proposed profile/collection ceilings are in
+`docs/plans/explore-tiny-lm-broader-data.md`. First seek independent design/source
+review; no GPU reservation yet. A later committed engineering profile may gate
+collection on runtime/memory/storage only. No assessment, old protected text,
+reserved seeds, new inference experiment, paid call or paper edit is authorized
+by this design. Send the pushed checkpoint to root before implementation/launch.
