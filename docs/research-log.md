@@ -2730,3 +2730,17 @@ No new corrector or trajectory. Report and exact audit receipt are in
 `docs/reviews/s1r-branch-outcome.md` and its companion receipt. Historical
 families remain unassociated; local numerical consistency is not uniqueness
 or interval continuation. No GPU, paid work or held-out data.
+
+### 2026-10-08 08:05 UTC — S1R historical-family next design only
+
+Read the original tracer, its screening defaults and both historical JSON
+records. Saved summaries and dirty-worktree historical provenance cannot
+establish full-state ancestry or coexistence at common controls. Proposed
+smallest unit: reproduce the two recorded40,000-step bootstraps once each at
+output0.6271428571428572, qualify separately, and compare the1.10 bootstrap
+with a witnessed backward continuation of the reviewed local lineage. The0.95
+association remains pending its own connected common-parameter comparison.
+`docs/plans/s1r-historical-family-association-next.md` records exact semantics,
+indexing, inherited gates, bounded160-call proposal, separate timing-profile
+requirement and narrow manuscript wording. No implementation, timing profile,
+target computation or launch performed. This is a design, not a run card.
