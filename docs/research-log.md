@@ -4358,3 +4358,20 @@ cleanly to31pages and inspected page21 in detail; all other30rendered pages are
 pixel-identical. All292numbers, generator and provenance remain unchanged; no
 builder or scientific replay. The authoring QA receipt binds final PDF/source
 and separately labels the preceding contact sheets. Final parent review pending.
+
+
+### 2026-10-08 — real-data +1 labels are fold candidates
+
+A new parent finding on page21 prompted a source-reading check of the529-parameter
+example, separate from the S1R gap diagnosis. The historical classifier assigns
+`fold` from a near-unit positive real multiplier, without fold nondegeneracy
+checks. Main text now says boundary candidates with a real multiplier near+1,
+consistent with folds; the historical stream note gains a dated interpretation
+amendment. Original raw labels/counts, all292numbers and builder/provenance are
+unchanged. The source-bound companion is
+`docs/reviews/realdata-fold-label-accuracy.md` with its receipt.
+
+No model, derivative, figure, proof or builder rerun. Recompiled31pages without
+warnings; page21 visual QA passes and all other30pages are pixel-identical to
+`c9fa055b`. Updated author QA binds source/PDF and retains earlier inspection
+records with their scopes. Parent independent final review remains pending.
