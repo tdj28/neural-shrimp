@@ -4272,3 +4272,14 @@ solves or trajectories were evaluated. No source/old plan/evidence was changed.
 ## 2026-10-08 12:48 UTC — one fixed six-state lower-gap diagnostic
 
 Root authorizes exactly the reviewed producer5cecd5f0 under independent source review38d7141a, 22 synthetic controls including8 independent. All12 source/card files are unchanged. Prospective outcome auditorc0091097 was frozen/private-pushed before target and is under separate source review. Fresh host12:47UTC has load0.64, about41.22GiB available RAM, no matching task/GPU jobs and absent exclusive paths. Run the existing six-state card once:12 analytic pairs/maps/Jacobians,24 full SVDs, CPU/BLAS1 nice10,15s internal20+5s external,8MiB aggregate, monitored2GiB child-group RSS. Source identity is this clean authorization HEAD. No new trial evaluation, corrective solve, continuation, accepted orbit or fold claim. Every outcome stops; no retry or paid/protected work. Full limitations and bindings in `docs/reviews/s1r-lower-gap-launch-authorization.json`.
+
+
+### 2026-10-08 — bounded Aronson1982 reference-content pass
+
+Parent-authorized read-only reference pass from `c949063a`, within a 15-minute
+effort cap. Selected indexed primary body passages and all retrieval failures
+are preserved in the immutable `aronson-primary-content/attempt-001` archive.
+The reference ledger now separates this partial OCR check from the still-open
+PDF/figure/proof checks; see `docs/reviews/aronson1982-reference-content.md` and
+its receipt. No paper/bibliography change or scientific/LaTeX/figure run was
+needed. Prior review records and other ledger entries are unchanged.
