@@ -3648,3 +3648,25 @@ Publisher metadata and the free preview pages48–49 support the existing
 scoped numerical circle-breakdown citation; DOI added. Full chapter remains
 unread. Archive and inspected-page boundaries are in
 docs/reviews/curry1978-reference-receipt.json. No scientific computation.
+## 2026-10-08 UTC — prospective lower-bootstrap common-control association
+
+Preparation authorized from integration8c26537e; **no target/profile launch**.
+The new adapter/runner/launcher and synthetic controls implement the existing
+`docs/plans/s1r-next-association-decision.md` with unchanged reviewed core.
+The concrete card is `docs/plans/s1r-lower-association-implementation.md`:
+fixed native node0047 at1.10 to lower node0001 at0.95, output fixed;75 nominal
+links/80 attempts/644 phases; CPU1,nice10,internal100s/external115+5;256MiB
+combined raw, now explicitly allocated255MiB Store and1MiB launcher. Existing
+hash-bound timing/storage gates replace any new profile. The scientific gates
+are unchanged. Every failure ends the unit and retains evidence. Independent
+source review, frozen source/review SHAs and a separate root launch decision
+are required before the one prospective attempt. No paid/GPU/holdout work.
+
+Preparation validation:59 synthetic and reused-core controls passed in3.91s
+(CPU/BLAS1,nice10), including both stable/unstable75-link bridges,604 nominal
+phase calls, exact endpoints, carried secants, gap/cap stops, deadline state
+retention, corrupt inputs, storage reserve, synthetic child failures and log
+overflow. Saved receipt arithmetic gives87.00285024289042s and181459833.33333334
+bytes; both pass the prospective gates. This reads existing timing metadata
+only and is not a new model profile or target experiment. The original core,
+old source bindings and previous plans are unchanged.
