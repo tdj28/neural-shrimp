@@ -4497,3 +4497,24 @@ owned PIDs 344932/345018/345019 are absent. The exact inventories and
 limitations are in `docs/reviews/s1r-pseudoarclength-independent-outcome-receipt.json`;
 its prose companion records the numerical raw-tangent sign change without
 a fold, lower-family connection or utility claim. No retry or extension.
+
+### 8 October 2026 UTC — manuscript integration of local PAL turning candidate
+
+From producer-outcome4a32819d, imported independent outcome126182de (local
+cdf9feb9) and added the bounded two-edge numerical result to the S1R section.
+The paper explicitly keeps all9 qualified pairs unstable, separates6 auxiliary
+witnesses, uses the same raw metric and carried orientation for the tangent
+sign change, and states missing singularity, simple+1, parameter-transversality
+and quadratic checks. It claims neither a fold proof, attracting-window boundary,
+lower-family connection nor utility; the combined method changes are not isolated.
+
+The number builder binds four complete inventories, exact source/review identities,
+and retained node/edge/common-control decisions. All292 prior entries are identical;
+11 new entries give303 total. Saved cost is5.20s producer and1.50s independent audit,
+not a general runtime claim. No model/decomposition/solve/figure/proof work reran.
+A clean31-page latexmk build, all-page contacts and pages21–22 detail inspection
+pass, as do58 committed paths and unchanged figure/table hashes. Root's request
+to name parameter transversality is included. The compact author QA receipt is
+`docs/reviews/paper-s1r-pseudoarclength-authoring-qa.json`; root independently reviews
+this source/PDF before integration. One initial static QA assertion mistook a
+directory citation for a file; corrected repository-verifier semantics pass.
