@@ -4349,3 +4349,17 @@ failed-trial durability.19 producer controls and20 root-owned controls pass
 against99,876,864B ordinary storage. No target evaluation or profile was run.
 Independent producer review, prospective auditor freeze/review and separate root
 launch authorization remain required before the one attempted collection.
+
+### 2026-10-08 13:53 UTC — Prospective saved-only two-edge PAL auditor
+
+Source-only preparation on `codex/audit-s1r-pseudoarclength`, binding producer
+`482cf9c7` and root source review `9df5e138`. No pseudoarclength target output
+has been read. The card is `docs/reviews/s1r-pseudoarclength-audit-card.md`.
+One proposed CPU1/nice10 audit is bounded30s internal/40+5s external,16MiB
+aggregate; launch still requires root's manifest-pinned authorization.
+Independent scalar/matrix arithmetic imports no producer numerical routine.
+A retained2D polynomial fixture permits full765-event replay without fresh
+model/decomposition/solve calls. An initial fixture export accidentally
+included replay-added metadata; it was detected, replaced prospectively,
+and Replay now copies metadata. Eighteen saved-only synthetic controls pass;
+independent review and final source freeze follow before target launch.
