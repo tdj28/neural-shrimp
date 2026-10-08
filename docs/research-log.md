@@ -4432,3 +4432,7 @@ failed-trial durability.19 producer controls and20 root-owned controls pass
 against99,876,864B ordinary storage. No target evaluation or profile was run.
 Independent producer review, prospective auditor freeze/review and separate root
 launch authorization remain required before the one attempted collection.
+
+## 2026-10-08 13:49 UTC — independent local PAL producer review
+
+Root reviewed frozen482cf9c7 and all17 declared runtime dependencies;39 synthetic controls pass0.55s (19 author20 independent). Pre-freeze corrections separate seed orientation from plane normal, use actual second images, add a256 assembly cap and retain out-of-box attempted trials. Full-size serialization fits the ordinary budget. No target or profile ran; directories remain absent. Prospective saved-data auditor review and a separate source-bound launch authorization remain required. See `docs/reviews/s1r-pseudoarclength-source-review.md` and JSON.
