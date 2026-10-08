@@ -3265,3 +3265,26 @@ threshold relaxation. Source/tests/card must be committed and privately pushed,
 then independently reviewed by root before target replay. Preserve every failed
 or partial attempt and stop after the single authorized audit. Synthetic source
 controls are the only computation authorized in this preparation unit.
+
+## 2026-10-08 — S1R bootstrap independent saved-data audit passed
+
+The single authorized audit passed from source1444746ea3bd033102aae0bf1c18b7165812a068.
+At identical controls the1.1 bootstrap matches the saved-lineage endpoint after
+phase1, normalized mismatch2.649688126532599e-15. All51 native pair qualifiers,
+12 complete bridge witnesses and six predeclared independent analytic full72D
+pair checks passed. Both starts record40,000 accepted updates and1,200 JVP
+returns; only383 saved-tail transitions per start were independently reevaluated.
+Unsaved intervals, historical ancestry and lower-family association retain
+unresolved/unattempted scope.
+
+Audit exit0, internal1.624s / launcher2.274s, CPU/BLAS1 nice10, peak child
+RSS116,020KiB, all owned PIDs exited. No target retry, threshold change, new
+trajectory, correction, GPU or paid work. Raw
+`/data2/neural-shrimp-data/audits/s1r-bootstrap-association/attempt-001` contains
+12 read-only files /67,888bytes; manifest
+12891e617dd05cdb7bb9d00b4dd8a25878fcd9cd08935433e8204831623f2f35.
+See [outcome](reviews/s1r-bootstrap-outcome.md) and
+[receipt](reviews/s1r-bootstrap-outcome-receipt.json). The original producer
+receipt stays unchanged. Parent owns separate-disk backup. Permission-review
+timeouts affected documentation commands only; permitted retries did not
+rerun the audit.
