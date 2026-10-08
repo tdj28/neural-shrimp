@@ -3428,3 +3428,13 @@ source/profile/input/process bindings. Reviewer received paths/hashes/source
 without numerical outcomes before its prospective saved-data audit. No retry,
 paid resource, GPU, threshold change or additional target computation occurred.
 STOP after the compact receipt; root owns review, backup and integration.
+
+### Classical circle-reference content check — 2026-10-08 UTC
+
+Continued the root's bounded attempt007 literature audit from integrationab06b511
+on a separate branch. The two archived PDFs were visually inspected in the
+specified scope; hashes/sizes were rechecked and the original archive marked
+read-only without changing its bytes. Review/receipt, four scoped ledger entries
+and three missing DOIs are updated. Bibliographic-only versus full-text checks
+remain explicit. See `docs/reviews/circle-classics-reference-review.md` and its
+receipt. No scientific experiment, main-text edit, report change or PDF rebuild.
