@@ -260,7 +260,7 @@ def two_step_multipliers(problem, theta, eta, k=6, tol=1e-9, ncv=None, modes=("L
 
 
 def newton_period2(problem, theta, eta, tol=1e-11, max_newton=12, gmres_tol=1e-10, gmres_restart=200,
-                   gmres_maxiter=20, callback=None, deadline=None):
+                   gmres_maxiter=20, callback=None, deadline=None, state_callback=None):
     """Correct F^2(theta)=theta and return diagnostics for the returned state.
 
     Residual is ||F^2(theta)-theta|| / max(1,||theta||). The final history row
@@ -288,6 +288,8 @@ def newton_period2(problem, theta, eta, tol=1e-11, max_newton=12, gmres_tol=1e-1
         history.append({"iteration": iteration, "relative_residual": rel, "converged": converged, "status": status})
         if callback:
             callback(history[-1])
+        if state_callback:
+            state_callback(theta, history, True)
         if not finite or converged or iteration == max_newton:
             break
 
@@ -308,6 +310,10 @@ def newton_period2(problem, theta, eta, tol=1e-11, max_newton=12, gmres_tol=1e-1
             history[-1]['status'] = 'nonfinite_correction'
             break
         theta = candidate
+        if state_callback:
+            # The accepted iterate is durable even if the next residual check
+            # hits the deadline. Its residual has not yet been evaluated.
+            state_callback(theta, history, False)
     return theta, history
 
 

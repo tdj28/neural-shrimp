@@ -278,3 +278,75 @@ def test_corrected_state_survives_spectral_timeout(monkeypatch, tmp_path):
 def test_circle_is_excluded_from_bounded_pilot():
     with pytest.raises(NotImplementedError, match='disabled'):
         load_driver().cmd_circle(None)
+
+
+@pytest.mark.parametrize('converged,residual,separation,status', [
+    (True, 0., .1, 'corrector_converged_separated'),
+    (False, .2, .1, 'corrector_not_accepted'),
+    (True, 0., 0., 'corrector_not_accepted')])
+def test_corrector_only_never_calls_multipliers_and_saves_returned_state(
+        monkeypatch, tmp_path, converged, residual, separation, status):
+    from types import SimpleNamespace
+    import json
+    driver = load_driver()
+    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (SimpleNamespace(data_identity={'mock': True}), None))
+    corrected = torch.arange(6., dtype=torch.float64)
+    history = [{'relative_residual': residual, 'converged': converged, 'status': 'test'}]
+    monkeypatch.setattr(driver, 'certify', lambda *a, **k: (corrected, history, separation))
+    def forbidden(*a, **k):
+        raise AssertionError('corrector-only must never compute multipliers')
+    monkeypatch.setattr(cifar, 'two_step_multipliers', forbidden)
+    state = tmp_path/'initial.npy'; np.save(state, np.ones(6))
+    output = tmp_path/'attempt'
+    args = SimpleNamespace(threads=1, lam=.01, eta=.1, output_ratio=1., step=.1,
+        max_steps=100, bisect_tol=1e-6, k=2, state=str(state), output=str(output), corrector_only=True)
+    driver.cmd_orbit(args)
+    result = json.loads((output/'orbit.json').read_text())
+    assert result['status'] == status and result['crossing'] is None and len(result['rows']) == 1
+    row = result['rows'][0]
+    assert row['newton_history'] == history and row['spectrum_status'] == 'not_requested'
+    assert 'estimated_stability' not in row and 'spectrum' not in row
+    last = result['last_corrector']
+    np.testing.assert_array_equal(np.load(output/last['state_file']), corrected.numpy())
+    assert cifar.sha256_file(output/last['state_file']) == last['state_sha256']
+
+
+def test_corrector_only_deadline_preserves_latest_accepted_iterate_with_residual_scope(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+    import json
+    driver = load_driver()
+    monkeypatch.setattr(driver, 'subset_a_problem', lambda *a: (SimpleNamespace(data_identity={'mock': True}), None))
+    latest = torch.arange(6., dtype=torch.float64)
+    history = [{'relative_residual': .2, 'converged': False, 'status': 'iterate'}]
+    def interrupted(*a, **options):
+        options['state_callback'](latest, history, False)
+        raise TimeoutError('before the next residual evaluation')
+    monkeypatch.setattr(driver, 'certify', interrupted)
+    def forbidden(*a, **k):
+        raise AssertionError('corrector-only must never compute multipliers')
+    monkeypatch.setattr(cifar, 'two_step_multipliers', forbidden)
+    state = tmp_path/'initial.npy'; np.save(state, np.ones(6))
+    output = tmp_path/'attempt'
+    args = SimpleNamespace(threads=1, lam=.01, eta=.1, output_ratio=1., step=.1,
+        max_steps=100, bisect_tol=1e-6, k=2, state=str(state), output=str(output), corrector_only=True)
+    with pytest.raises(TimeoutError):
+        driver.cmd_orbit(args)
+    result = json.loads((output/'orbit.json').read_text())
+    assert result['status'] == 'corrector_deadline' and result['crossing'] is None
+    last = result['last_corrector']
+    assert last['newton_history'] == history and last['relative_residual'] is None
+    assert not last['residual_describes_saved_state'] and last['acceptance_status'] == 'not_yet_accepted'
+    assert last['spectrum_status'] == 'not_requested'
+    np.testing.assert_array_equal(np.load(output/last['state_file']), latest.numpy())
+    assert cifar.sha256_file(output/last['state_file']) == last['state_sha256']
+
+
+def test_newton_checkpoints_accepted_iterates_before_next_residual_evaluation():
+    states = []
+    def checkpoint(state, history, residual_current):
+        states.append((state.clone(), len(history), residual_current))
+    solved, history = cifar.newton_period2(LinearProblem(), torch.ones(4, dtype=torch.float64), .1,
+                                         max_newton=1, state_callback=checkpoint)
+    assert [s[2] for s in states] == [True, False, True]
+    torch.testing.assert_close(states[1][0], solved, rtol=0, atol=0)
+    assert states[1][1] == 1 and states[2][1] == 2 and history[-1]['converged']

@@ -221,25 +221,39 @@ def classify(multipliers):
 
 
 def evaluate_orbit(problem, theta, eta, k, seed=28204, margin=1e-7, checkpoint=None,
-                   newton_options=None, spectral_options=None, deadline=None):
+                   newton_options=None, spectral_options=None, deadline=None, corrector_only=False):
     """Apply returned-state and spectral quality gates before classification."""
     options = dict(newton_options or {})
     if checkpoint:
-        options['callback'] = lambda entry: checkpoint('newton_iteration', {'diagnostic': entry})
+        if corrector_only:
+            options['state_callback'] = lambda state, history, current: checkpoint('corrector_progress', {
+                'newton_history': history, 'residual_describes_saved_state': current,
+                'relative_residual': history[-1]['relative_residual'] if current else None,
+                'spectrum_status': 'not_requested', 'acceptance_status': 'not_yet_accepted'}, state)
+        else:
+            options['callback'] = lambda entry: checkpoint('newton_iteration', {'diagnostic': entry})
     theta, history, separation = certify(problem, theta, eta, deadline=deadline, **options)
     final = history[-1]
     residual = final['relative_residual']
     row = {'relative_residual': residual, 'newton_iterations': len(history) - 1,
            'newton_history': history, 'separation': separation, 'stop_reason': None,
-           'spectrum_scope': 'estimated partial spectrum; uncomputed modes may change stability'}
+           'residual_describes_saved_state': True,
+           'spectrum_scope': ('not_requested; no stability inference' if corrector_only else
+                              'estimated partial spectrum; uncomputed modes may change stability')}
     if (not final.get('converged', False) or not np.isfinite(residual) or residual > 1e-8
             or not torch.isfinite(theta).all()):
         row['stop_reason'] = 'corrector_not_converged'
     elif not np.isfinite(separation) or separation < 1e-7:
         row['stop_reason'] = 'not_a_separated_period_2_orbit'
     if checkpoint:
-        row['spectrum_status'] = 'pending' if row['stop_reason'] is None else 'not_attempted'
+        row['spectrum_status'] = ('not_requested' if corrector_only else
+                                  'pending' if row['stop_reason'] is None else 'not_attempted')
         checkpoint('corrector', row, theta)
+    if corrector_only:
+        row['spectrum_scope'] = 'not_requested; no stability inference'
+        row['spectrum_status'] = 'not_requested'
+        row['residual_describes_saved_state'] = True
+        return theta, row
     if row['stop_reason']:
         return theta, row
     multipliers = cifar.two_step_multipliers(problem, theta.numpy(), eta, k=k, seed=seed,
@@ -298,12 +312,14 @@ def validate_orbit_args(args):
 def cmd_orbit(args):
     validate_orbit_args(args)
     torch.set_num_threads(args.threads)
+    corrector_only = getattr(args, 'corrector_only', False)
     default = OUT / 'orbit' / (datetime.now(timezone.utc).strftime('attempt-%Y%m%dT%H%M%S-') + uuid.uuid4().hex[:8])
     folder = Path(args.output) if getattr(args, 'output', None) else default
     folder.mkdir(parents=True, exist_ok=False)
-    result = {'args': vars(args), 'rows': [], 'bisection_rows': [], 'crossing': None, 'status': 'running',
+    result = {'args': vars(args), 'mode': 'corrector_only' if corrector_only else 'continuation', 'rows': [], 'bisection_rows': [], 'crossing': None, 'status': 'running',
               'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-              'spectrum_scope': 'estimated partial spectrum; no guarantee uncomputed modes are stable',
+              'spectrum_scope': ('not_requested; no stability inference' if corrector_only else
+                                 'estimated partial spectrum; no guarantee uncomputed modes are stable'),
               'started_utc': datetime.now(timezone.utc).isoformat(),
               'state_sha256': cifar.sha256_file(args.state),
               'source_sha256': {name: cifar.sha256_file(ROOT / name) for name in
@@ -333,7 +349,7 @@ def cmd_orbit(args):
                 os.fsync(handle.fileno())
             event['state_file'] = state_path.name
             event['state_sha256'] = cifar.sha256_file(state_path)
-        if kind.endswith('corrector'):
+        if kind.endswith(('corrector', 'corrector_progress')):
             result['last_corrector'] = event
         with (folder / 'events.jsonl').open('a') as handle:
             handle.write(json.dumps(event, allow_nan=False) + '\n')
@@ -350,15 +366,26 @@ def cmd_orbit(args):
         save('data_identity', result['data_identity'])
         theta = torch.as_tensor(np.load(args.state))
         log_eta, previous, stable, unstable = np.log10(args.eta), [], None, None
-        for _ in range(args.max_steps):
-            eta = rates(model, 10.0 ** log_eta, args.output_ratio)
+        if corrector_only:
+            save('corrector_progress', {'log10_eta': log_eta, 'newton_history': [],
+                 'relative_residual': None, 'residual_describes_saved_state': False,
+                 'acceptance_status': 'not_yet_accepted', 'spectrum_status': 'not_requested'}, theta)
+        for _ in range(1 if corrector_only else args.max_steps):
+            eta = rates(model, args.eta if corrector_only else 10.0 ** log_eta, args.output_ratio)
             if len(previous) == 2:
                 theta = previous[-1] + (previous[-1] - previous[-2])
             theta, row = evaluate_orbit(problem, theta, eta, args.k,
                 seed=getattr(args, 'arnoldi_seed', 28204), margin=getattr(args, 'stability_margin', 1e-7),
-                checkpoint=lambda kind, row, state=None: save(kind, {'log10_eta': log_eta, **row}, state), **options)
+                checkpoint=lambda kind, row, state=None: save(kind, {'log10_eta': log_eta, **row}, state),
+                corrector_only=corrector_only, **options)
             row['log10_eta'] = log_eta
             result['rows'].append(row)
+            if corrector_only:
+                result['status'] = ('corrector_converged_separated' if row['stop_reason'] is None
+                                    else 'corrector_not_accepted')
+                result['corrector_outcome'] = row['stop_reason'] or 'closure_and_separation_passed'
+                save('corrector_only_result', row, theta)
+                break
             save('continuation', row, theta if not row['stop_reason'] else None)
             print(json.dumps(safe_json(row)), flush=True)
             if row['stop_reason']:
@@ -406,7 +433,8 @@ def cmd_orbit(args):
         if result['status'] == 'running':
             result['status'] = 'bounded_continuation_complete_without_crossing_bracket'
     except BaseException as error:
-        result['status'] = 'failed_or_interrupted'
+        result['status'] = ('corrector_deadline' if corrector_only and isinstance(error, TimeoutError)
+                            else 'failed_or_interrupted')
         result['error'] = f'{type(error).__name__}: {error}'
         save('failure', {'error': result['error']})
         raise
@@ -527,6 +555,8 @@ def main():
     orbit.add_argument("--step", type=float, default=0.01, help="continuation step in log10 eta")
     orbit.add_argument("--max-steps", type=int, default=60)
     orbit.add_argument("--bisect-tol", type=float, default=1e-5)
+    orbit.add_argument("--corrector-only", action="store_true",
+                       help="one state correction only; no continuation or Arnoldi; save all returned states")
     orbit.add_argument("--k", type=int, default=6)
     orbit.add_argument("--threads", type=int, default=1)
     orbit.add_argument("--output", help="exclusive new attempt directory; default is a unique directory")

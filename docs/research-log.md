@@ -1785,3 +1785,32 @@ Failure motivates solver inspection/preconditioning; H100 does not guarantee
 convergence. Existing CPU path remains default; device benchmark is not a
 complete device corrector. No paid hardware needed for this immediate check.
 The H100 plan above is now a conditional fallback requiring separate review.
+
+
+### CIFAR corrector-only prospective pilot card — 8 October 2026 UTC
+
+This card and the new mode are committed before the proposed scientific run.
+Root owns launch after independent source review and fresh resource inventory;
+this subagent has not launched it. Exploratory existing subset A/state only,
+no held-out indices or reserved seeds. Question: does bounded Newton-GMRES
+attain closure at the existing candidate, or is solver convergence the immediate
+bottleneck? No multiplier or stability inference. The original long legacy
+attempt remains separate and unchanged.
+
+Run one correction at lambda .01, eta .00827753, output-ratio1, float64,
+OMP/OpenBLAS/MKL/Torch1 thread, nice10; maxNewton8, GMRESrestart50/maxiter4,
+GMRESrtol1e-10, Newtontol1e-11, closuregate1e-8, separationgate1e-7 unchanged.
+Internal180s/external200s with5s kill grace. Record PID, exact source commit,
+full selected-data/input identities, true returned-state history, all durable
+state checkpoints, exit status and final manifest. The mode preserves latest
+accepted state even if its residual is not yet evaluated; that residual is
+explicitly null and cannot satisfy a gate. Failed GMRES never applies a step.
+
+Command (root may amend the exclusive attempt suffix before launch):
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 200s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --corrector-only --lam .01 --eta .00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --threads 1 --newton-steps 8 --gmres-restart 50 --gmres-maxiter 4 --max-seconds 180 --output /data2/neural-shrimp-data/explore/cifar/corrector-only/attempt-001`
+
+Would change the plan: closure/separation success permits a separately budgeted
+partial-spectrum probe. Failure calls for solver diagnostics/preconditioning,
+not a claim that paid hardware improves convergence. Focused source tests:
+40 passed in10.75s, including tests that forbid any multiplier call and preserve
+latest full state/history under an injected timeout. No paid resource used.

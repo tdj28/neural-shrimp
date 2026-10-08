@@ -146,3 +146,23 @@ Failure motivates solver inspection/preconditioning; H100 does not guarantee
 convergence. Existing CPU path remains default; device benchmark is not a
 complete device corrector. No paid hardware needed for this immediate check.
 The H100 plan above is now a conditional fallback requiring separate review.
+
+
+## Corrector-only CLI gate
+
+`orbit --corrector-only` runs exactly one correction at the supplied binary64
+rate, then exits. It cannot invoke multipliers, continuation or bisection.
+Convergence and period-2 separation use the unchanged tolerances above;
+success says `corrector_converged_separated`, never stable. Failure says
+`corrector_not_accepted`; an internal timeout says `corrector_deadline` and
+returns a nonzero process exit. Every accepted iterate and every freshly
+computed residual has a full-state/hash/history checkpoint. If a deadline
+occurs after a Newton update but before its residual evaluation, the latest
+state survives with `residual_describes_saved_state=false` and a null current
+residual. The older residual remains correctly scoped inside the history.
+
+Forty focused tests passed, including successful/failed/collapsed correction
+without multiplier calls, deadline-state preservation, and checkpoints before
+residual evaluation. Root owns the following proposed run and resource check;
+it has not been launched by this subagent. It requires independent mode review
+before execution. Its output directory must be new and exclusive.
