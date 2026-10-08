@@ -1,6 +1,6 @@
 # Overnight research report — 8 October 2026
 
-Interim update at 13:28 UTC / 06:28 PDT. New work stops at 08:00 PDT / 15:00 UTC.
+Interim update at 14:12 UTC / 07:12 PDT. New work stops at 08:00 PDT / 15:00 UTC.
 Private human reading draft; no submission or public release.
 
 **The strongest advance is a proof that a 72-parameter neural network can settle
@@ -27,6 +27,14 @@ a useful intervention or a benefit for LLM training, inference or nanoGPT speed.
   continuation method. A nearly singular derivative at the failed, nonclosed
   state is not a fold or disconnection result. Its tangent orientation also
   depends on the declared metric. No new correction was applied.
+- **New local continuation:** two predeclared pseudo-arclength edges now pass,
+  with direct, midpoint, half-endpoint, reverse and common-control witnesses.
+  Independent audit checks all 930 events. In one fixed metric the oriented
+  hidden-rate tangent changes from negative to positive, and the second
+  midpoint lies below its endpoint in hidden rate. This is a numerical turning
+  candidate on an **unstable** period-two segment, not a proved fold or an
+  attracting-window boundary. The lower-family connection remains unresolved.
+  The small pilot took 5.20 seconds; its audit took 1.50 seconds.
 - **CIFAR:** the 98,666-parameter periodic-orbit candidate remains unresolved.
   Keeping 200 GMRES iterations in one cycle improves true linear forcing from
   0.8843 to 0.6620, but misses the 0.5 gate and all four nonlinear trials fail.
@@ -57,27 +65,26 @@ The accuracy pass distinguishes independently initialized S2 slices from an
 established continuous branch, coefficient-sign candidates from proved
 generalized bifurcations, and near-+1 digit-network boundaries from confirmed
 folds. It includes the gap diagnosis and negative utility/CIFAR/LM evidence.
+The new local-turn result is being added and compiled now; the linked PDF above
+still names the preceding reviewed checkpoint until that pass completes.
 The shared-input limits of numerical audits remain explicit. Jensen1983 was
 read in full; Arnold and Aronson checks remain partial. Research, bibliography
 and human-authorship items remain open: this is a reading draft, not a release.
 
 ## Work in preparation
 
-1. **Local continuation:** implement and independently review a two-edge
-   pseudo-arclength pilot starting only from the last qualified S1R orbit.
-   Direct, half-step and reverse witnesses must agree at common controls.
-   The fixed metric, failure history and operation/time/storage caps are
-   declared in `docs/plans/s1r-pseudoarclength-next.md`. Source and synthetic
-   preparation is authorized; **no target is launched yet**. A prospective
-   independent auditor is being prepared. If not ready by 14:30 UTC, leave it
-   prepared rather than start it near the overnight cutoff.
-2. **A possible bridge to larger models:** a fixed six-reference panel will
-   test whether two changing sharp-curvature directions approximate the full
-   complex dynamics better than matched-strength commuting controls. The
-   selected phase derivatives are not retained, so acquisition needs its own
-   reviewed source and measured budget. The design is under static review;
-   no acquisition or fit has run. Elementary product algebra is not a novelty
-   claim, and success would still not establish LLM utility.
+1. **Qualify the turning candidate:** prepare a separate fold-test design for
+   a simple unit multiplier, parameter transversality and quadratic
+   nondegeneracy, then consider an interval certificate. The completed
+   two-edge experiment is closed; no further continuation or target search
+   is running. The method changed chart, predictor and globalization together,
+   so its success does not isolate one cause of the earlier stall.
+2. **A possible bridge to larger models:** the fixed six-reference curvature
+   design now has corrected closure-work accounting and a residual-aware
+   floating spectral diagnostic. A pure supplied-array helper and synthetic
+   controls are prepared and under independent review. No panel acquisition,
+   empirical fit or new LM run has occurred. Success against full matrices
+   and strong controls is still required before proposing a larger-model test.
 3. **Practical value:** choose a meaningful intervention comparison and qualify
    its controls. Frozen-weight inference stops the optimizer map; prediction
    sensitivity and generation feedback require separate evidence.
@@ -92,10 +99,11 @@ PR authentication is unavailable; no merge or external message occurred.
 
 Raw evidence has additional verified copies on the separate physical archive
 disk, supplementing the earlier 18GB snapshot. The latest increment contains
-297 files / 7,067,996 bytes of gap, audit and reference evidence at
-`/archive/neural-shrimp-backups/20261008T130606Z-gap-increment`.
+1,805 files / 26,304,428 bytes of continuation and independent audit evidence at
+`/archive/neural-shrimp-backups/20261008T140823Z-pal-increment`.
+It supplements the earlier gap and reference increment.
 Complete inventories, every file hash and a second source hash pass agree.
-See [backup receipt](backups/2026-10-08-gap-increment.json). This is local
+See [backup receipt](backups/2026-10-08-pal-increment.json). This is local
 point-in-time protection, not offsite or continuous backup.
 
 All completed experiment/audit processes exited. This unit used local CPU only;
