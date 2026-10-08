@@ -1706,3 +1706,66 @@ _commit `10bd10efc1f6`_
 Attempt 5, pod v7jkobowrc6n4t (NVIDIA H100 NVL, cc 9.0, driver 570.133.20; image runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04): runner exit 0, results hash-verified (sha256 889734fc...), pod terminated and verified 131 s after creation. Engine rebuilt for sm_90 (nvcc 12.4.131, g++-12 12.3.0, mirror flags) under NEURAL_SHRIMP_CUDA_QUALIFYING=9.0. Cross-GPU parity against the RTX 2000 Ada reference: NOT bitwise identical on any workload; differences are confined to chaotic and sensitive cells (status labels differ in 11/576 s1-like cells, 0/576 s2-like (1 period), 4/4,096 S2-28011 cells, 1/1,024 S1R-28002 cells; FTLE and final states differ where trajectories are chaotic). The CUDA backend tests on the pod: 27 passed, 2 failed (the metadata test hard-coded compute capability 8, now generalized; an identity-network test comparing pod GPU with the pod CPU, whose BLAS blocking differs from the reference host's). Interpretation: cross-architecture reproducibility holds at the level of dynamical labels, not bits; the source of the last-bit difference (device math or sm_90 code generation) is not yet localized (next: single-step evaluate() and device tanh/log comparison). Throughput: CUDA engine 0.0527 us per cell-step on the 72-parameter 256x256 timing grid (local RTX 2000 Ada 0.476 uncontended: about 9x); float64 torch MLP 3072-32-10 on 512 samples: 81,568 cell-steps/s at 128 cells (local GPU about 410, local CPU about 1,200 at 8 cells). Implication for Phase 1: real-data sweeps become cheap on an H100; large toy-network maps gain only about 9x. Cost: see private ledger.
 
 _commit `10bd10efc1f6` (dirty worktree)_
+
+## 2026-10-08 03:52 UTC: run (exploratory)
+
+- **Question:** Does the bounded warmup runner preserve matched references and full-state evidence in a short engineering rehearsal?
+- **Setup:** S2-28011 existing soft/hard points; five levels, two very short dwells; no scientific onset conclusion from this rehearsal. CPU one thread, nice 10, 120 second timeout.
+- **Output:** `/data2/neural-shrimp-data/explore/warmup-intervention/attempt-001-rehearsal`
+- **Would surprise us:** Any reference refinement failure or loss/state mismatch would block the pilot.
+- **Command:** `timeout --signal=TERM --kill-after=10s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_warmup_intervention.py --output /data2/neural-shrimp-data/explore/warmup-intervention/attempt-001-rehearsal --levels 5 --dwell-pairs 2 4 --pre-pairs 10 --top-pairs 10 --recovery-pairs 10`
+
+_commit `d8cc7d76d87e`_
+
+- run started 2026-10-08 03:52 UTC finished 03:52 UTC with exit status 0
+
+## 2026-10-08 03:52 UTC: run (exploratory)
+
+- **Question:** Does nonlinear criticality distinguish local departure from loss spikes under matched warmup, and does reversing the ramp improve recovery beyond a global rate reduction?
+- **Setup:** Exploratory S2-28011, existing d=+0.0814 and d=-0.2431 points, endpoints log|mu| +/-0.0015, 41 levels held 100 or 400 two-update pairs; 2000 pre, 10000 top, 8000 recovery pairs. Near-orbit and original starts; same terminal states fork to keep rates, reverse hidden ramp, halve both rates. One CPU thread, nice 10, 600 second timeout. Rehearsal passed in 0.616 seconds; shared load 20.16, 43 GiB previously available; no GPU used.
+- **Output:** `/data2/neural-shrimp-data/explore/warmup-intervention/attempt-002`
+- **Would surprise us:** Soft local departure despite tracked branch, or reversed-rate recovery outperforming the generic global reduction on loss, would be informative.
+- **Command:** `timeout --signal=TERM --kill-after=10s 600s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_warmup_intervention.py --output /data2/neural-shrimp-data/explore/warmup-intervention/attempt-002`
+
+_commit `d8cc7d76d87e` (dirty worktree)_
+
+- run started 2026-10-08 03:52 UTC finished 03:53 UTC with exit status 0
+
+## 2026-10-08 03:54 UTC: run (exploratory)
+
+- **Question:** Are all warmup artifacts hash-consistent and retained two-step states replayable?
+- **Setup:** Post-run floating-point consistency audit; hash every artifact and input; replay retained transitions every 997 pairs and endpoints; check branch closure and matched log-multiplier offsets. No new experimental trajectories.
+- **Output:** `/data2/neural-shrimp-data/explore/warmup-intervention/attempt-002`
+- **Would surprise us:** Replay error above 1e-12 or any hash mismatch invalidates the affected summary.
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/check_warmup_intervention.py /data2/neural-shrimp-data/explore/warmup-intervention/attempt-002`
+
+_commit `229556d46044` (dirty worktree)_
+
+- run started 2026-10-08 03:54 UTC finished 03:54 UTC with exit status 0
+
+## 2026-10-08 03:56 UTC: amendment to `docs/explore-criticality-2026-10-07.md`
+
+- **Change:** Add explicit prehold and crossing branch-accessibility annotations to distinguish local departure from failure to reach the reference branch; cache NPZ arrays once in the audit.
+- **Why:** Attempt-002 hard-point ordinary starts were already far from the reference at crossing (0.61 to 1.32), while near-orbit starts tracked it. The soft ordinary starts approached the reference.
+- **Outcomes seen:** All attempt-002 warmup outcomes and retained full-state distances were inspected; existing raw files remain immutable.
+- **Claim impact:** Accessibility annotations are post-run exploratory. Only near-orbit hard starts identify the local hard transition; ordinary hard starts are finite-horizon accessibility controls.
+
+_commit `229556d46044` (dirty worktree)_
+
+## 2026-10-08 03:56 UTC: run (exploratory)
+
+- **Question:** Can the completed pilot be reproduced and annotated for branch accessibility without rerunning its outcomes?
+- **Setup:** Post-run float64 audit at b5197923; every artifact hash; 704 sampled cell transitions, reference closure and log-multiplier checks; branch accessibility explicitly adapted after seeing attempt-002. One CPU thread, nice 10, 120 second limit.
+- **Output:** `/data2/neural-shrimp-data/explore/warmup-intervention/attempt-002-audit-b5197923.json`
+- **Would surprise us:** A hash or replay mismatch would block reporting.
+- **Command:** `timeout --signal=TERM --kill-after=10s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/check_warmup_intervention.py /data2/neural-shrimp-data/explore/warmup-intervention/attempt-002`
+
+_commit `b51979237f87` (dirty worktree)_
+
+- run started 2026-10-08 03:56 UTC finished 03:56 UTC with exit status 0
+
+## 2026-10-08 03:57 UTC: Warmup pilot: local criticality distinguishes departure, generic rate reduction wins final loss
+
+Attempt-002 completed in 63.65 s, source d8cc7d76d87e7e6ed8cf8b6632988d76c900d207; all owned experiment PIDs exited. Two existing S2-28011 points, matched log|mu| +/-0.0015, two ramp speeds, two starts, shared-state intervention forks. Near-orbit hard runs depart 3.31-3.68 in state norm and retain distant behavior after small ramp reversal; soft runs remain within .159-.164 and reverse back. Soft loss peaks nevertheless exceed 1.60x orbit maximum, so scalar spikes do not identify hard crossings. Plain halving of both rates ends at .570x initial loss on hard and .494x on soft, outperforming small branch reversal for this endpoint, while creating transient peaks. Ordinary hard initialization never becomes near the reference in this tested horizon; accessibility annotation was added post-outcome by dated amendment. All raw files and rehearsal retained. Hash and 704-transition replay audit passed (exact states/losses); reference closure 6.01e-16; log-multiplier matching error 6.73e-14. Eleven focused tests pass. No fresh protected data, paid compute, or LLM claim. Evidence and reproduction paths in docs/warmup-intervention-receipt.json; mathematical heavy-ball H4 correction in existing criticality summary.
+
+_commit `b51979237f87` (dirty worktree)_
