@@ -4092,3 +4092,23 @@ synthetic inherited-pipe descendant. No CIFAR/model/HVP/JVP/profile or target
 solve was executed. Commit/push this source/tests/card for independent review;
 root's separate launch authorization remains required. No raw target directory
 was created, no paid/GPU resources or protected outcomes were used.
+
+## 2026-10-08 UTC — prospective independent saved CIFAR restart auditor
+
+Prepared tools/reviews/audit_cifar_restart_outcome.py and its owned launcher,
+with docs/reviews/cifar-restart-outcome-audit-card.md. This freezes checks before
+new restart outcomes exist or are opened: twelve producer-source bytes at
+8aa146fd, independent source review1f4f2abe, later externally SHA-pinned execution
+and manifest identities, complete original/raw/launcher inventories, exact
+state relations, causal operation/prefix counters, independent saved-vector
+math.fsum reductions, unchanged four-trial screens and explicit incomplete
+classifications. No model/gradient/JVP/QR/solver/profile/target audit has run.
+
+Fifty synthetic controls passed in0.29s (CPU/BLAS1, nice10). Reviewer suggestions
+added clean-checkout and optimization-safe guards, event nesting/callback
+placement, malformed-manifest retention, launcher nice10 and final owned-group
+cleanup after leader/pipes exit. The producer's cooperative deadline remains
+unchanged; elapsed-record bookkeeping excess is reported separately rather
+than silently imposing a new hard deadline. The prospective audit is CPU1,
+internal15/external20+5 seconds,4MiB including launcher, one exclusive attempt.
+Independent review and separate root launch authorization are still pending.
