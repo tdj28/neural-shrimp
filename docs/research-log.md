@@ -3252,3 +3252,21 @@ fixes exact-Fraction whole-box proximity<=1e-7 to the selected phase0; failure
 blocks state association, not an otherwise valid exact-map certificate. Even
 a pass proves proximity, not branch identity. Collection/audit need later root
 authorization and measured resources. No paid call, GPU or protected data.
+
+
+## 2026-10-08 09:16 UTC — S1R72 profile passes; one fixed proof attempt
+
+Independent source review426ce4fe and all32 focused controls pass. The one-map
+profile at source750233fc finished once:0.197297065s per Arb map/Hessian,
+15.524317821s declared projection,87,504KiB peakRSS,0.227533435s internal and
+0.604810445s launcher elapsed. Raw manifest850a055d40541e1ebbaa118e773b41f036d8ae3b5f6a4691044ec19312ea073e,
+receipt docs/s1r-period2-profile-receipt.json. This is only a resource result.
+
+Root authorizes one unchanged fixed-settings collection at exclusive
+certificates/s1r-period2/attempt-001 in the external data store: CPU/BLAS1,
+nice10, internal90s/external110s+5,32MiB,256bits,radius exponent-80,Newton5,
+max power4096,selectednode0004phase0. Shared host09:05UTC had44GiBavailableRAM
+and load1.31/2.42/3.23; launchprofile load2.04/2.15/2.52. No GPU or paid resource.
+Retain failure; no automatic changed-settings retry. The pre-outcome independent
+audit card requires exact whole-box proximity<=1e-7 before association wording;
+even a pass establishes proximity, not branch ancestry or parameter enclosure.
