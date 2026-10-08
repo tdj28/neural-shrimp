@@ -2401,3 +2401,15 @@ unavailability-mask checks. All file hashes, labels, metric/gate rules and
 producer evidence remain unchanged. This is a floating numerical check, not
 a proof of bit-identical features. Use exclusive attempt002.json/stdout/stderr
 under the same30s CPU1/nice10 cap; no training or outcome-search adaptation.
+
+Independent calibration audit attempt002 passed in0.618s, sourcea6503e1d,
+CPU1/nice10. All221 artifacts, six cases,4806 states, labels, split counts,
+training-only transforms, selected-model predictions and saved Brier/AP/episode
+gate calculations replay. Maximum nonlinear-history reconstruction difference
+1.8051338201985345e-11, within the disclosed1e-9 audit tolerance; masks exact.
+Both seed gates are false (zero/three episodes against requiredfive). B3 AP is
+slightly better on the sole eventful trajectory but worse when pooled across
+that seed's three rates; its Brier is worse in both summaries. Preserve the
+sparse-event limitation. Full report and hash-bound receipt are under
+docs/reviews/tiny-lm-calibration-outcome-*. No training, gradients, optimization
+refit, assessment, validation outcomes, policies, GPU or paid work in this audit.
