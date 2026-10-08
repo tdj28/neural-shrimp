@@ -1736,3 +1736,21 @@ _commit `52865fd238fc` (dirty worktree)_
 _commit `31cf2ab7b350`_
 
 - run started 2026-10-08 03:52 UTC finished 03:52 UTC with exit status 0
+
+## 2026-10-08 03:55 UTC: run (exploratory)
+
+- **Question:** Do saved scalar results reproduce the closed-form equal-rate control and agree across derivative methods?
+- **Setup:** Offline analysis of retained unit and 17-case grid outputs; all raw manifest hashes checked. Closed-form control and analyzer committed before this analysis. No new trajectories.
+- **Output:** `docs/explore-minimal-model-scalar-receipt.json`
+- **Would surprise us:** A raw hash mismatch, unequal reciprocal crossing predictions, or a balanced-branch flip discrepancy larger than numerical boundary tolerance.
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/analyze_scalar_mechanism.py --receipt docs/explore-minimal-model-scalar-receipt.json --write`
+
+_commit `d9e56b5ba78f`_
+
+- run started 2026-10-08 03:55 UTC finished 03:55 UTC with exit status 0
+
+## 2026-10-08 03:57 UTC: Scalar mechanism: exact balanced control and fixed-target pilot
+
+Completed unit attempt-001 and 17-case attempt-002 under explore/scalar-mechanism. At fixed target 1.2, the grid produced 12 flips and 5 NS crossings; all equal-rate balanced cases match the explicit longitudinal flip eta=(sqrt(5)-1)/(target-ridge). Unequal-rate NS cases have noncommuting indefinite symmetric step factors and negative first Lyapunov coefficients. Representative ridge .2, ratio sqrt(8): NS eta .733508895817, birth rotation .428819216165, coefficient -3.836452456, amplitude exponent .49790 from three detunings. Analytic and finite-difference coefficients differ at most 2.9e-9 across NS cases. All findings exploratory, numerical rung 0, no interval proof or training-utility claim. Closed-form controls and derivative tests passed (27 tests). Updated the existing minimal-model summary and generated docs/explore-minimal-model-scalar-receipt.json with hash-bound raw manifests and a no-network checker. Ancestry improvement assessed only: bordered pseudo-arclength continuation of both folds, not another center-line scan. No paid compute, held-out data or frozen code paths used.
+
+_commit `d9e56b5ba78f` (dirty worktree)_
