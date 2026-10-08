@@ -1706,3 +1706,21 @@ _commit `adf063bcd739` (dirty worktree)_
 - **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --lam 1e-2 --eta 0.00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --step 0.01 --max-steps 16 --threads 14`
 
 _commit `adf063bcd739` (dirty worktree)_
+
+- run started 2026-10-08 04:54 UTC finished 04:56 UTC with exit status 0
+
+## 2026-10-08 04:57 UTC: run (exploratory)
+
+- **Question:** Below the onset of sustained loss modulation, does the matrix-free critical multiplier of the CIFAR 2-cycle match the multiplier read from the decaying loss spiral, and how close is it to the unit circle?
+- **Setup:** lambda 1e-2; eta 0.00827753 and 0.00938931 from the sweep states; 60,000 further GD steps; Arnoldi LI k 2 at the final state; AR(2) root of the detrended even-step loss over the second half
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/spiral/spiral.json`
+- **Would surprise us:** Arnoldi angle and loss-spiral angle disagreeing by more than 20 percent
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar_spiral.py --etas 0.00827753 0.00938931 --steps 60000`
+
+_commit `cd080e889870` (dirty worktree)_
+
+## 2026-10-08 04:58 UTC: Informative failure: capped Newton-GMRES did not certify the CIFAR period-2 orbit
+
+Continuation rerun with LI and SR searches: at eta 0.00828 the capped Newton-GMRES corrector (8 Newton steps, GMRES(100) x 8 restarts) left the relative two-step residual at 1.2e-5 (start about 5e-6), so continuation stopped by its corrector rule after one point (132 s). The multiplier at that unconverged point was 0.996036 - 0.009417i (modulus 0.99608, theta/2pi 0.0015), not to be used. Likely cause: the near-singular flat-direction cluster of J^2 - I (eigenvalues about -2 eta lambda = -1.7e-4) with a wide stiff spectrum stalls restarted GMRES. Fallback for this stream: converge to the attracting 2-cycle by gradient descent below the transition and compare the Arnoldi multiplier with the loss spiral (running).
+
+_commit `cd080e889870` (dirty worktree)_
