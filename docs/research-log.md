@@ -1814,3 +1814,21 @@ _commit `47c79bed898d` (dirty worktree)_
 _commit `47c79bed898d` (dirty worktree)_
 
 - run started 2026-10-08 04:51 UTC finished 04:51 UTC with exit status 0
+
+## 2026-10-08 04:54 UTC: run (exploratory)
+
+- **Question:** How do time-held AR prediction, parameter recurrence and drift compare across all retained transformer pilot cases?
+- **Setup:** Offline analysis of the unit, six original rates and four disclosed adaptive rates. Verify every manifest file hash; report numerical guard stops explicitly. No new training and no validation-corpus outcomes.
+- **Output:** `docs/explore-tiny-lm-receipt.json`
+- **Would surprise us:** Any raw hash mismatch or a full-state periodic candidate missed by the run summaries.
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/analyze_tiny_lm.py --receipt docs/explore-tiny-lm-receipt.json --write`
+
+_commit `279425150df7`_
+
+- run started 2026-10-08 04:54 UTC finished 04:54 UTC with exit status 0
+
+## 2026-10-08 04:57 UTC: Transformer architectural pilot complete: training and derivatives, no periodic claim
+
+Completed the unit profile, six original rates and four disclosed adaptive high rates with the public tiny-Shakespeare corpus. Model15776 parameters, fixed256 next-character targets, seed28141, local RTX2000Ada float32 deterministic TF32off, one CPU thread. Seven main cases completed1000 updates with full-state drift; three high rates hit the retained numerical guard after551/10/7 updates. No fixed-point or period2 candidate met the recurrence screen; no Floquet, NS, chaos or invariant-circle claim is warranted. Moderate rates memorized the training batch, whose disjoint corpus validation losses remain unconsumed. Full matched-state CPU64/GPU32 gradient/HVP errors ~1e-7; reduced dense one/two-step JVP errors <5e-16. AR2 can fit drift and weak complex roots arose on a descending transient, supporting its role as a necessary baseline rather than evidence of a dynamical mode. Four substantive transformer tests pass. Canonical stream summary docs/explore-tiny-lm.md and hash-bound docs/explore-tiny-lm-receipt.json include source/license/target convention, every outcome, AR time-held prediction, state recurrence and norm drift. GPU released: no compute process, 4MiB used,0% utilization. No paid compute or reserved seeds; local feasibility does not currently require H100.
+
+_commit `279425150df7` (dirty worktree)_
