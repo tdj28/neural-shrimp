@@ -4486,3 +4486,14 @@ Producercc3976e3 completed the two-edge unit in5.2022s (wrapper5.7668s), with al
 ## 2026-10-08 14:06 UTC — two local PAL edges, numerical unstable-turn candidate
 
 Producercc3976e3 completed2/2 edges without retry:9qualifiednodes including6auxiliary,8correctors4common-controlchecks,68analytic76map66assembly24solve54SVD18eig;5.2022s science5.7668s wrapper. Allraw files/hash inventories/3ownedPIDexitsverify. Same raw metric and nativecarry show t_h−.02934→−.01412→+.00917; secondmidpoint h.9918853 below endpoint.9918908. This supports a numerical local turn on an unstablecycle segment, not a provedfold, attracting boundary, lowerfamily connection or utility. Frozen independent auditor3134d730 reportedpass930events; separate outcome receipt follows. See `docs/reviews/s1r-pseudoarclength-outcome.md` and receipt.
+### 2026-10-08 14:04 UTC — One saved-only PAL audit passed
+
+Root authorization `e2f72a33` pinned execution `cc3976e3` and both producer
+manifests. The reviewed clean auditor `3134d730` ran once: pass over 930
+events, two witnessed edges, no failed gates/partial lags; no model,
+derivative, decomposition, solve or trajectory call. Internal 1.504867s,
+launcher 1.855653s, exit 0. Complete 12-file immutable evidence is 558,011 bytes;
+owned PIDs 344932/345018/345019 are absent. The exact inventories and
+limitations are in `docs/reviews/s1r-pseudoarclength-independent-outcome-receipt.json`;
+its prose companion records the numerical raw-tangent sign change without
+a fold, lower-family connection or utility claim. No retry or extension.
