@@ -4300,3 +4300,7 @@ needed. Prior review records and other ledger entries are unchanged.
 ## 2026-10-08 12:58 UTC — prospective gap audit repaired before target
 
 Before any target run, auditor80972cb9 replacesc0091097: independent review found partial-attempt accounting, completed-role fail-closed behavior and finite phase-loss holes. All are repaired with narrow checkpoint/role-append interruption handling;68 combined synthetic controls pass. Reviewer authored the producer, explicitly disclosed; root independently reviewed producer and read auditor. Authorizationc949063a was never executed. Its amended receipt now pins the repaired auditor/review and fresh12:57 host capacity; all12 producer sources, states, gates and caps remain unchanged. Execute only the clean HEAD of this amendment once; target paths still absent.
+
+## 2026-10-08 13:02 UTC — authorize one independent saved lower-gap audit
+
+Independent source review0e24ae8c passes prospective auditor80972cb9 with68 synthetic controls,11 independently written. Authorize exactly one clean80972cb9 execution on the externally pinned metadata in `docs/reviews/lower-gap-audit-authorization.json`, retaining the frozen15s/20+5s CPU1/nice10/8MiB limits. No producer numerical imports, model/derivative/solver/SVD/QR calls or retry. Original source was frozen before target outcomes; independent reviewer remained outcome-blind. Producer already exited and owned PIDs are absent. Complete retained inventories and audit termination must verify.
