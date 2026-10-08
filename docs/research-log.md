@@ -3256,3 +3256,47 @@ PIDs exited. Source, review, input, command and complete manifest bindings are
 in `docs/s1r-bootstrap-profile-receipt.json`; scope and timing limitations are
 in `docs/s1r-bootstrap-profile.md`. Stop after this profile. Collection remains
 unrun and requires a separate root authorization under its unchanged limits.
+
+### S1R bootstrap association — root-authorized collection card, 2026-10-08 09:19 UTC
+
+After the passing fixed-state resource profile, root explicitly authorizes ONE
+collection with the unchanged reviewed source files frome0fccd73. Independent
+source review isff2ec8dc133d4fabf766ec5d776e19af1143f2f7; the profile receipt was
+pushed ate6def898d44054e352aa7d052b1d9e3dfa8e0392. This card is committed/pushed
+before collection. Its execution HEAD will include documentation-only updates;
+all ten profile-bound source/plan file bytes must remain identical toe0fccd73.
+The driver validates this inventory against the saved profile and current HEAD.
+No new scientific outcome has yet been read or produced for this unit.
+
+Run exactly40,000 historical single-cell updates from the same deterministic
+S1R seed28002 theta0 at hidden log1.10 and0.95, with common output log
+0.6271428571428572. Preserve start/every1000/terminal full states, attempted and
+accepted update counts, successful/attempted JVP counts and exact tail indexing.
+Only complete historical period-two screens proceed to both-phase qualification.
+Requalify saved node0004, then attempt its declared12 nominal hidden macro links
+to exactly1.10 with native/carried phase identity, full-pair direct/two-half/reverse
+witnesses and no gap crossing. Compare only identical binary64 controls; leave
+the0.95 family unassociated. This reproduces recorded procedures, not missing
+historical full states or proven continuous interval continuation.
+
+Exact approved command from the clean owned producer worktree:
+
+```sh
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 115s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_s1r_bootstrap_association.py collect --review-commit ff2ec8dc133d4fabf766ec5d776e19af1143f2f7 --profile /data2/neural-shrimp-data/explore/s1r-bootstrap-association/attempt-001-profile --out /data2/neural-shrimp-data/explore/s1r-bootstrap-association/attempt-001-collection
+```
+
+Profile manifest is9a9fe3ff9db30bf7a37cae8848e51c5ff1b7cb49e5761072e622bf6440c88599;
+its fixed projection37.3107751779s passed the100s gate. Enforce CPU/BLAS1,nice10,
+internal100s/external115+5s,160 phase correctors,19 attempted links,64MiB raw.
+Fresh host resource checks precede launch; leave foreign processes untouched.
+An exclusive launcher directory at
+`/data2/neural-shrimp-data/logs/s1r-bootstrap-association-attempt-001-collection`
+retains exact launch source/command/resource snapshot/PIDs/exit/log and any
+failure. Preserve every incomplete attempt, deadline, finite-value failure and
+last durable state; no retry, resizing, horizon extension or weakened gate.
+
+The independent reviewer is preparing a separate prospective saved-data audit
+before opening numerical outcomes. Initially send that reviewer only execution
+source, immutable artifact paths/hashes and availability. Commit the compact
+producer receipt after this single run, then STOP. No further continuation,
+selection, additional start, GPU, paid call, holdout or broader map is authorized.
