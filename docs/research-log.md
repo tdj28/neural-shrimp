@@ -3683,3 +3683,21 @@ forks mean8202 updates; all522 candidate records and nominees reproduce. No
 model or protected-array/pulse outcome evaluation occurred. Nonblocking rule
 mismatch: producer lexical-ID tie ordering versus plan source-path/numeric-row;
 all current minima are strict and identical. No-go for pulse collection stands.
+
+## 2026-10-08 UTC — prepare four-gradient utility dose feasibility only
+
+After independent inventory review42d901c0, prepare the fixed four-fork gate in
+`docs/plans/utility-dose-feasibility.md`, with new algebra module/runner/tests
+and fixed10+5 launcher. No target gradients, updates, HVPs, corrections,
+profiles, control acquisition or pulses have run. Fixed input identities and
+historical timing screen are bound before the proposed four gradients;5s
+internal/CPU1nice10/1MiB total. Root and independent source review plus separate
+launch authorization remain necessary. The broader pulse comparison is still
+no-go regardless of feasibility until its missing controls/support are qualified.
+
+Preparation validation:32 feasibility/inventory controls pass in0.40s. They
+cover a synthetic finite-difference gradient oracle including all biases,
+training-only reconstruction against existing hashes, exact dose algebra and
+25%/nextafter gates, invalid/zero/nonfinite blocks and rates, all-four retention,
+deadline after a returned gradient, input-bit corruption and productionnice10
+rejection. The target four gradients remain unexecuted.
