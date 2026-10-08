@@ -3670,3 +3670,16 @@ overflow. Saved receipt arithmetic gives87.00285024289042s and181459833.33333334
 bytes; both pass the prospective gates. This reads existing timing metadata
 only and is not a new model profile or target experiment. The original core,
 old source bindings and previous plans are unchanged.
+
+### Utility saved-input qualification card — 2026-10-08 UTC
+
+Root authorized only saved consumed-development input inspection. New branch
+codex/utility-input-qualification starts at8c26537e. Prospective support gates,
+fixed four local forks and candidate nomination rules are recorded in
+docs/plans/utility-input-qualification.md before computed candidate inventory.
+Schema inspection disclosed missing consequence states and intermediate warmup
+states; no pulse outcomes, new model evaluation, corrections, HVPs, trajectories,
+profiles or holdouts allowed. Code/synthetic controls will be committed before
+one CPU1nice10 readonly audit (30s internal/40+5 external;2MiB new raw) at
+audits/utility-inputs/attempt-001 under the data root.
+A missing-control result is a useful no-go decision, not a reason to loosen gates.
