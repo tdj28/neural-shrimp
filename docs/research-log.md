@@ -1748,3 +1748,33 @@ _commit `68d8f7533886`_
 - **Claim impact:** Row121 supports only the exact-map orbit claim. A new row35 attempt will address a previously qualifying window orbit; neither certificate proves geometry or surrounding chaos.
 
 _commit `68d8f7533886` (dirty worktree)_
+
+## 2026-10-08 03:57 UTC: run (exploratory)
+
+- **Question:** Does the confirmed-window S2 period-10 orbit pass all rigorous gates?
+- **Setup:** Row35 S2-28011 component140; exact dyadic inputs; Arb256 bits; radius2^-80; five midpoint proposal Newton steps; power squaring through512. Same one-thread nice10 resource limits, eight tests passing. Existing qualifying membership checked against both summary and audit lists.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-003`
+- **Would surprise us:** Its larger condition(M-I) could defeat interval inclusion or power stability despite the earlier candidate success.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row35.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-003`
+
+_commit `d1e4326ae7c0`_
+
+- run started 2026-10-08 03:57 UTC finished 03:57 UTC with exit status 0
+
+## 2026-10-08 03:57 UTC: run (exploratory)
+
+- **Question:** Does the original row121 orbit proof regenerate under the hardened receipt verifier version?
+- **Setup:** Exact same row121 inputs and settings as attempt-002; code unchanged mathematically. This duplicate is a disclosed engineering replay with updated source bindings, not independent evidence or another orbit.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-004`
+- **Would surprise us:** Any mathematical enclosure or verdict difference from attempt-002.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row121.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-004`
+
+_commit `d1e4326ae7c0` (dirty worktree)_
+
+- run started 2026-10-08 03:57 UTC finished 03:57 UTC with exit status 0
+
+## 2026-10-08 03:58 UTC: C1 exploratory proof gates pass for two S2 period-10 orbits
+
+Attempt-003 proves the exact-dyadic-input map has a unique local primitive period-10 attracting orbit at row35, S2-28011 component140, an existing historical qualifying-window location. Attempt-004 reproduces the row121 orbit-only feasibility proof. Both exclude proper divisors1,2,5 and enclose ||M^64||inf below1 (0.0559916712 and 0.1076608594 upper bounds, respectively). Research status remains exploratory; independent review pending; no rigorous chaos, geometry, float implementation, or utility claim. Raw attempts001-004 and the initial wrapping failure are preserved; certificates/README.md and compact hash receipts describe scope and one-command offline replay. Source d1e4326ae7c0c8d454929661408acc7d9d54bad4; no paid compute.
+
+_commit `d1e4326ae7c0` (dirty worktree)_
