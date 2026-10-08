@@ -1,9 +1,16 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "b5090cd89e74c65369e53b61176d4475b6dfb018837520f28c6e8030d555e334",
+ "generator_sha256": "21b8a0ee307050668bdb982c274fa692376fcfe20a536d916734b86f16186d2c",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
+  "data:audits/s1r-bootstrap-association/attempt-001/manifest.json": "12891e617dd05cdb7bb9d00b4dd8a25878fcd9cd08935433e8204831623f2f35",
+  "data:audits/s1r-bootstrap-association/attempt-001/result.json": "92bebf36bd758afbdbc37c37abaa47df773a002f2f500f3b2f61b1011a4cdfd2",
+  "data:audits/s1r-period2/attempt-001/audit.json": "1a8b93a50ebeed50ac17a80e17c056d15fa7a0a711f3597ffb7a4276c6fc27bf",
+  "data:audits/s1r-period2/attempt-001/manifest.json": "81c708ca8fab815483136d72b13438fa7b6846ae34335e6808a334bad4f67281",
+  "data:audits/s1r-period2/attempt-001/stage-01-bindings.json": "04baa1b4031aa0ae9ebc05389fa8d8bce2b095a02068e2b5f27d7c32032dde31",
+  "data:audits/s1r-period2/attempt-001/stage-02-verifier.json": "8f827a23cd48b80d977f5c002cee84a066a214d55aa7da53395d4f131ed32248",
   "data:audits/tiny-lm-broader-data/attempt-001/recomputed-analysis.json": "bb042da148e9545becadaf3f2e9d86e866fbda6123c4677661d02c71ff6ce43b",
+  "data:certificates/s1r-period2/attempt-001/certificate/certificate.json": "f01fb87f3516dec265f3e29ec5e3a5b0a9d71dd716eddf0ec036aa3ae5f5c329",
   "data:explore/a2-survey/rays.json": "a184d3f4fbdeed82f9933515fc61f4a74809936f2693728bbcb80323340c1db4",
   "data:explore/a2-survey/survey.json": "49aee09a7ec81c6df953267d035c8185a93502b5585b83904f09b9666d46a38b",
   "data:explore/a3-gpu-rotation/s2-28011-1024/analysis.json": "e964c18359fe27505e8d1cf20c140a5250e30e811129d9e62d9971177538fea9",
@@ -50,11 +57,13 @@
   "data:explore/realdata/w8-n1024-halves-wd1e-3/sweep-ns/sweep.json": "5f061673925c6afa52b0e22747a7b5f28c677ea03e2783dfb8335af039d65781",
   "data:explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4067/continue--0.40670.json": "31a7f5f7c878f1af0251f5ca59985b5f72bd11096854a2f1a7dc3ed9dad3d9bd",
   "data:explore/realdata/w8-n1024-parity-wd1e-3/continue-0.4521/continue--0.45210.json": "f803ad784a8cb0b53073091f0e0744cbc94221089e672cd00ce8027d136067a9",
+  "data:explore/s1r-bootstrap-association/attempt-001-collection/result.json": "2930875cc9fd8e18f32ed351bb9596b21e0b0480e4da1893c4bd30dbcc2b11b0",
   "data:explore/s1r-branch-association/attempt-001/manifest.json": "45c35991b7ec56f7d9888b6dcf28434396ff94f65de7bf90ba9822408c5f3c8b",
   "data:explore/tiny-lm-broader-data/attempt-002-analysis.json": "a84558767147a0d9521e4d9f597982075145d96e36c4dffabe1039b7536179c3",
   "data:explore/warmup-intervention/attempt-002/summary.json": "8edf1be6794bf5d8b9b48d74211ba4976990faec946a1dad4e346ee3ac24e953",
   "repo:certificates/c1-row121-receipt.json": "aa486998404d8d79d3a92b43fdcf1299513d3c996e4106b92bf7f40eba7a6384",
   "repo:certificates/c1-row35-receipt.json": "07f51a37e8c2304934f0ef60e6e985117cf0e76bf3cf994457374e87bdf6e1f0",
+  "repo:certificates/s1r-period2-receipt.json": "1a32acd03b939bbdb8185931371e2f90a2b28e0508ec6f126d3ca5d0f7308d72",
   "repo:certificates/scalar-ns-receipt.json": "62208f46ccf05e92dea8519322fd61eda180cab8f352937fd896f9dab593ee1a",
   "repo:docs/EXP-028-summary.json": "6b8803f25f5690f52f7842bb78adcfd05054c5fbd4b515803939fd54a941d7ec",
   "repo:docs/cifar-linear-diagnostic-receipt.json": "b815a91028b7caa02a566fd24dbce78d69b755462832646d42fac6d7a0403a5a",
@@ -62,8 +71,11 @@
   "repo:docs/explore-tiny-lm-broader-outcome-receipt.json": "65a33bb0d527f74ff2df703133950153cce0c7c52cfcc29f91347e90f2994170",
   "repo:docs/explore-tiny-lm-receipt.json": "2769666d2a28c658ee2b3fb2ed20c755979c5a68d23fe226cb7e3ca4301d3f1f",
   "repo:docs/reviews/cifar-linear-diagnostic-outcome-review.json": "15f5c0dd8b53076d09d0ddda1263e88fa0df270227d330dbaf7a53b29f3f61c5",
+  "repo:docs/reviews/s1r-bootstrap-outcome-receipt.json": "b441622f5722a2f6bda202281d1e7f64f10d0d0ec95f6ab8ca49717f94edb51b",
   "repo:docs/reviews/s1r-branch-outcome-receipt.json": "4adbc9518c142c5db52b2ede8e037922e7f81b3cac6bc0248a5744521e413a3c",
+  "repo:docs/reviews/s1r72-certificate-outcome-receipt.json": "3f778aa0a5b757b9e4cdbd082018733c0a33daaa1d94fac605ccda5c7702638f",
   "repo:docs/reviews/tiny-lm-broader-outcome-audit.json": "18b01eb24656f039041800dce2cb3ba959f97ea67f8b40928d9a96ccf6f6cb87",
+  "repo:docs/s1r-bootstrap-association-receipt.json": "16dd49cf73ec65a5f7f16ad45762964dbcfca8d1189a975f218398a9e88659ac",
   "repo:docs/s1r-branch-association-receipt.json": "8a9b333228cd94c187f7dfea0d23a2255f1bd6c3e6a50a1caa45d7e5d5d6a671",
   "repo:docs/warmup-intervention-receipt.json": "34c1f091bea9e85a97268ddab9c62a5b93e051b5d44664fc6aab7c58c985f86e",
   "repo:experiments/trainability/EXP-028-plan.json": "fbb6203c01d427024bac762ff60371f64aaa77971f72fc81171f154c39a6d19a",
@@ -2624,6 +2636,112 @@
     "repo:certificates/c1-row121-receipt.json"
    ],
    "computation": "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places"
+  },
+  {
+   "macro": "nSOneRCertDimension",
+   "value": 72,
+   "tex": "72",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/s1r-period2-receipt.json",
+    "data:certificates/s1r-period2/attempt-001/certificate/certificate.json",
+    "data:audits/s1r-period2/attempt-001/manifest.json",
+    "data:audits/s1r-period2/attempt-001/audit.json",
+    "data:audits/s1r-period2/attempt-001/stage-01-bindings.json",
+    "data:audits/s1r-period2/attempt-001/stage-02-verifier.json",
+    "repo:docs/reviews/s1r72-certificate-outcome-receipt.json"
+   ],
+   "computation": "full-state dimension"
+  },
+  {
+   "macro": "nSOneRCertPeriod",
+   "value": 2,
+   "tex": "2",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/s1r-period2-receipt.json",
+    "data:certificates/s1r-period2/attempt-001/certificate/certificate.json",
+    "data:audits/s1r-period2/attempt-001/manifest.json",
+    "data:audits/s1r-period2/attempt-001/audit.json",
+    "data:audits/s1r-period2/attempt-001/stage-01-bindings.json",
+    "data:audits/s1r-period2/attempt-001/stage-02-verifier.json",
+    "repo:docs/reviews/s1r72-certificate-outcome-receipt.json"
+   ],
+   "computation": "primitive period"
+  },
+  {
+   "macro": "nSOneRCertPower",
+   "value": 2048,
+   "tex": "2048",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/s1r-period2-receipt.json",
+    "data:certificates/s1r-period2/attempt-001/certificate/certificate.json",
+    "data:audits/s1r-period2/attempt-001/manifest.json",
+    "data:audits/s1r-period2/attempt-001/audit.json",
+    "data:audits/s1r-period2/attempt-001/stage-01-bindings.json",
+    "data:audits/s1r-period2/attempt-001/stage-02-verifier.json",
+    "repo:docs/reviews/s1r72-certificate-outcome-receipt.json"
+   ],
+   "computation": "monodromy-power witness"
+  },
+  {
+   "macro": "xSOneRCertBound",
+   "value": "139/250",
+   "tex": "0.556",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:certificates/s1r-period2-receipt.json",
+    "data:certificates/s1r-period2/attempt-001/certificate/certificate.json",
+    "data:audits/s1r-period2/attempt-001/manifest.json",
+    "data:audits/s1r-period2/attempt-001/audit.json",
+    "data:audits/s1r-period2/attempt-001/stage-01-bindings.json",
+    "data:audits/s1r-period2/attempt-001/stage-02-verifier.json",
+    "repo:docs/reviews/s1r72-certificate-outcome-receipt.json"
+   ],
+   "computation": "exact-dyadic monodromy-power norm upper bound rounded upward to three decimals"
+  },
+  {
+   "macro": "nSOneRBootstrapUpdates",
+   "value": 40000,
+   "tex": "40{,}000",
+   "evidence": "exploratory numerical association; saved-data audit; no historical full-state ancestry",
+   "sources": [
+    "repo:docs/s1r-bootstrap-association-receipt.json",
+    "data:explore/s1r-bootstrap-association/attempt-001-collection/result.json",
+    "data:audits/s1r-bootstrap-association/attempt-001/manifest.json",
+    "data:audits/s1r-bootstrap-association/attempt-001/result.json",
+    "repo:docs/reviews/s1r-bootstrap-outcome-receipt.json"
+   ],
+   "computation": "recorded accepted updates per bootstrap, counters checked; unsaved updates not replayed"
+  },
+  {
+   "macro": "nSOneRBootstrapLinks",
+   "value": 12,
+   "tex": "12",
+   "evidence": "exploratory numerical association; saved-data audit; no historical full-state ancestry",
+   "sources": [
+    "repo:docs/s1r-bootstrap-association-receipt.json",
+    "data:explore/s1r-bootstrap-association/attempt-001-collection/result.json",
+    "data:audits/s1r-bootstrap-association/attempt-001/manifest.json",
+    "data:audits/s1r-bootstrap-association/attempt-001/result.json",
+    "repo:docs/reviews/s1r-bootstrap-outcome-receipt.json"
+   ],
+   "computation": "accepted witnessed hidden-rate bridge links"
+  },
+  {
+   "macro": "xSOneRBootstrapMatch",
+   "value": 2.649688126532599e-15,
+   "tex": "2.65\\times10^{-15}",
+   "evidence": "exploratory numerical association; saved-data audit; no historical full-state ancestry",
+   "sources": [
+    "repo:docs/s1r-bootstrap-association-receipt.json",
+    "data:explore/s1r-bootstrap-association/attempt-001-collection/result.json",
+    "data:audits/s1r-bootstrap-association/attempt-001/manifest.json",
+    "data:audits/s1r-bootstrap-association/attempt-001/result.json",
+    "repo:docs/reviews/s1r-bootstrap-outcome-receipt.json"
+   ],
+   "computation": "minimum normalized common-control full-pair discrepancy over cyclic phases"
   },
   {
    "macro": "tNSProofEta",

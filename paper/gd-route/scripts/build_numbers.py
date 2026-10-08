@@ -727,6 +727,81 @@ def build():
         assert exact < rounded < 1
         n.add("xCOne" + label + "Bound", str(rounded), f"{float(rounded):.3f}", proof, [path],
               "rigorous exact-dyadic monodromy-power upper bound rounded upward to three decimal places")
+    # Full 72D exact-real orbit: bind both the proof and its separate saved-outcome audit.
+    s1r_cert_path = c.ROOT / "certificates/s1r-period2-receipt.json"
+    s1r_cert = load(s1r_cert_path)
+    assert s1r_cert["passed"] and s1r_cert["evidence_rung"] == 3
+    s1r_cert_raw = Path(s1r_cert["external_root"]) / "certificate.json"
+    assert c.sha256(s1r_cert_raw) == s1r_cert["files"]["certificate.json"]["sha256"]
+    assert load(s1r_cert_raw)["result"]["exact_statement"] == s1r_cert["statement"]
+    proof_audit_root = c.DATA / "audits/s1r-period2/attempt-001"
+    proof_audit_manifest = proof_audit_root / "manifest.json"
+    assert c.sha256(proof_audit_manifest) == "81c708ca8fab815483136d72b13438fa7b6846ae34335e6808a334bad4f67281"
+    proof_audit_path = proof_audit_root / "audit.json"
+    assert c.sha256(proof_audit_path) == load(proof_audit_manifest)["files"]["audit.json"]["sha256"]
+    proof_audit = load(proof_audit_path)
+    assert proof_audit["status"] == "passed" and proof_audit["mathematical_certificate_passed"]
+    assert proof_audit["selected_state_proximity_passed"] and Fraction(proof_audit["normalized_max_distance"]) <= Fraction(1, 10_000_000)
+    proof_bindings_path = proof_audit_root / "stage-01-bindings.json"
+    assert c.sha256(proof_bindings_path) == load(proof_audit_manifest)["files"]["stage-01-bindings.json"]["sha256"]
+    assert c.sha256(s1r_cert_path) == load(proof_bindings_path)["nested_receipt"]["sha256"]
+    proof_replay_path = proof_audit_root / "stage-02-verifier.json"
+    assert c.sha256(proof_replay_path) == load(proof_audit_manifest)["files"]["stage-02-verifier.json"]["sha256"]
+    proof_replay = load(proof_replay_path)
+    assert proof_replay["passed"] and proof_replay["evidence_rung"] == 3
+    assert proof_replay["certificate_sha256"] == c.sha256(s1r_cert_raw)
+    assert proof_replay["statement"] == s1r_cert["statement"]
+    proof_sources = [s1r_cert_path, s1r_cert_raw, proof_audit_manifest, proof_audit_path,
+                     proof_bindings_path, proof_replay_path,
+                     c.ROOT / "docs/reviews/s1r72-certificate-outcome-receipt.json"]
+    for macro, value, calc in [
+        ("nSOneRCertDimension", s1r_cert["statement"]["dimension"], "full-state dimension"),
+        ("nSOneRCertPeriod", s1r_cert["statement"]["primitive_period"], "primitive period"),
+        ("nSOneRCertPower", s1r_cert["attraction_witness_power"], "monodromy-power witness")]:
+        n.add(macro, value, str(value), proof, proof_sources, calc)
+    bound = s1r_cert["attraction_norm_upper"]
+    assert bound["rad"] == [0, 0]
+    exact = Fraction(bound["mid"][0]) * Fraction(2) ** bound["mid"][1]
+    rounded = Fraction((exact.numerator * 1000 + exact.denominator - 1) // exact.denominator, 1000)
+    assert exact < rounded < 1
+    n.add("xSOneRCertBound", str(rounded), f"{float(rounded):.3f}", proof, proof_sources,
+          "exact-dyadic monodromy-power norm upper bound rounded upward to three decimals")
+
+    # Numerical association remains distinct from the exact-real orbit proof.
+    bootstrap_path = c.ROOT / "docs/s1r-bootstrap-association-receipt.json"
+    bootstrap = load(bootstrap_path)
+    bootstrap_root = Path(bootstrap["raw_root"])
+    bootstrap_raw = bootstrap_root / "result.json"
+    assert c.sha256(bootstrap_root / "manifest.json") == bootstrap["raw_manifest"]["sha256"]
+    assert c.sha256(bootstrap_raw) == bootstrap["raw_result"]["sha256"]
+    br = load(bootstrap_raw)
+    assert br == bootstrap["result"] and br["status"] == "completed_common_control_comparison"
+    bootstrap_audit_root = c.DATA / "audits/s1r-bootstrap-association/attempt-001"
+    bootstrap_audit_manifest = bootstrap_audit_root / "manifest.json"
+    assert c.sha256(bootstrap_audit_manifest) == "12891e617dd05cdb7bb9d00b4dd8a25878fcd9cd08935433e8204831623f2f35"
+    bootstrap_audit_path = bootstrap_audit_root / "result.json"
+    assert c.sha256(bootstrap_audit_path) == load(bootstrap_audit_manifest)["files"]["result.json"]["sha256"]
+    ba = load(bootstrap_audit_path)
+    assert ba["status"] == "passed_saved_data_consistency"
+    assert ba["collection_manifest_sha256"] == bootstrap["raw_manifest"]["sha256"]
+    assert ba["witness_graph"]["association"] == br["association"]
+    counts = {w["accepted"] for w in ba["warmups"]}
+    assert len(counts) == 1 and len(ba["warmups"]) == 2
+    assert all(w["attempted"] == w["accepted"] == w["completed"] for w in ba["warmups"])
+    updates = counts.pop()
+    links = ba["witness_graph"]["accepted_links"]
+    assert links == ba["witness_graph"]["links"] == len(br["bridge"])
+    association = br["association"]
+    assert association["status"] == "same_pair_within_tolerance" and association["match"]["passed"]
+    mismatch = min(association["match"]["costs"])
+    bootstrap_sources = [bootstrap_path, bootstrap_raw, bootstrap_audit_manifest, bootstrap_audit_path,
+                         c.ROOT / "docs/reviews/s1r-bootstrap-outcome-receipt.json"]
+    label = "exploratory numerical association; saved-data audit; no historical full-state ancestry"
+    for macro, value, display, calc in [
+        ("nSOneRBootstrapUpdates", updates, integer(updates), "recorded accepted updates per bootstrap, counters checked; unsaved updates not replayed"),
+        ("nSOneRBootstrapLinks", links, integer(links), "accepted witnessed hidden-rate bridge links"),
+        ("xSOneRBootstrapMatch", mismatch, sci(mismatch, 2), "minimum normalized common-control full-pair discrepancy over cyclic phases")]:
+        n.add(macro, value, display, label, bootstrap_sources, calc)
     ns_path = c.ROOT / "certificates/scalar-ns-receipt.json"
     ns = load(ns_path)
     assert ns["summary"]["passed"] and all(ns["summary"]["gates"].values())

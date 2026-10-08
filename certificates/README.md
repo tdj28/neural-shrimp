@@ -3,7 +3,7 @@
 This C1 pilot asks whether full-state neural-network training cycles already
 observed numerically exist and attract nearby states in the exact mathematical
 map. It does not test a training benefit or shrimp geometry. The pilot is
-exploratory and has not yet received independent mathematical/code review.
+exploratory. The independent reviews and their different scopes are recorded below.
 
 The checker uses Arb real balls through python-flint. Every stored binary64
 constant (dataset, scale, ridge and learning rate) is interpreted as its exact
@@ -55,7 +55,8 @@ changed verdicts or any failed proof gate:
 ```sh
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 nice -n 10 \
   /data2/neural-shrimp/.venv/bin/python tools/verify_certificates.py \
-  certificates/c1-row35-receipt.json certificates/c1-row121-receipt.json
+  certificates/c1-row35-receipt.json certificates/c1-row121-receipt.json \
+  certificates/s1r-period2-receipt.json
 ```
 
 The receipt's external root locates raw artifacts on zeta. A Git push backs up
@@ -64,9 +65,9 @@ source and the receipt; it does not independently back up the external raw files
 | Component | Evidence | Artifact / assumption |
 |---|---|---|
 | Map/Jacobian implementation | Test cross-check, not a theorem by itself | `tests/test_rigorous_orbits.py`; independent frozen NumPy implementation and enclosed interior samples |
-| Existence/local uniqueness | Rung 3 gates pass; exploratory, independently reviewed | Both current receipts; Banach contraction, analytic map implementation and Arb/FLINT trusted |
-| Primitive period | Rung 3 gates pass; exploratory, independently reviewed | Both receipts exclude divisors 1, 2 and 5 by disjoint coordinates |
-| Attraction | Rung 3 gates pass; exploratory, independently reviewed | Both receipts enclose the monodromy and its 64th power below unit infinity norm |
+| Existence/local uniqueness | Rung 3 gates pass; exploratory, independently reviewed | All three current receipts; Banach contraction, analytic map implementation and Arb/FLINT trusted |
+| Primitive period | Rung 3 gates pass; exploratory, independently reviewed | S2 receipts exclude divisors 1, 2 and 5; S1R excludes divisor 1, by disjoint coordinates |
+| Attraction | Rung 3 gates pass; exploratory, independently reviewed | S2 monodromy powers 64 and S1R power 2048 have infinity norms below one |
 | Chaos, window geometry, invariant circles, utility | Not established by this track | Existing evidence retains its own scope and labels |
 
 ## Pilot outcome (7 October 2026, user time zone)
@@ -100,7 +101,7 @@ CPU thread and less than one second; no paid compute was used.
 The initial failed attraction enclosure is an implementation limitation, not
 evidence of instability. Its raw output and exact original code commit remain
 available. Historical receipts must be replayed with their bound source commit;
-the offline command above checks the two authoritative current certificates.
+the offline command above checks the three authoritative current certificates.
 All raw attempts are retained under the external root in each receipt, and the
 code prevents reusing an output directory. The tests include independent
 NumPy map/Jacobian comparisons, interior enclosure samples, exact linear
@@ -110,10 +111,40 @@ input/source-inventory/summary rejection. None replaces independent review.
 ## Independent review (8 October 2026 UTC)
 
 The source-bound review in `c1-independent-review.json` reports no blocking
-findings for producer tip `32528cbbb4a3313bf82f63a9a812584ad754a82e`. Both
+findings for producer tip `32528cbbb4a3313bf82f63a9a812584ad754a82e`. Both S2
 authoritative receipts replayed; input bindings, stored Krawczyk/divisor/power
 witnesses and an independent second-order Arb differentiation of the objective
 were checked. Both proofs also passed at 384 bits in smaller nested boxes.
 This shares the Arb library and is not proof-assistant formalization. Immutable
 receipts retain their original creation-time review-pending labels; this
 companion record supplies the subsequent review status.
+
+
+## Full 72D S1R certificate (8 October 2026 UTC)
+
+`s1r-period2-receipt.json` proves local existence, uniqueness, primitive period
+two and attraction in the 72-parameter S1R-28002 map in a certified box near selected saved node 0004.
+The exact learning rates are `1870594557782953/140737488355328` (hidden) and
+`2385682499131913/562949953421312` (output); the input file binds all dataset
+values, scales and the exact dyadic interpretation of ridge 0.001.
+The fixed settings were 256-bit precision, radius `2^-80`, five proposal Newton
+steps and maximum monodromy power 4096. The successful witness uses power 2048
+with an exact upper bound below 0.556. The unchanged C1 kernel took 3.30s on one
+CPU thread; no paid compute or GPU was used. Selection remains exploratory.
+
+The companion `../docs/reviews/s1r72-certificate-outcome-receipt.json` binds the
+original selected arrays and exact-real inputs, checks the source/resource
+records, replays the proof once and independently computes an exact-Fraction
+whole-box proximity bound. The declared normalized threshold 1e-7 passes. This
+does not assert that the original floating-point state lies inside the proof
+box, prove historical branch ancestry, enclose a parameter interval, or prove
+the bifurcation/window geometry. Proximity is separate from proof validity.
+
+This review reuses the already reviewed Arb checker and theorem arguments.
+The separate second-order Arb differentiation and 384-bit nested-box review
+described above apply to the two S2 proofs, not this new outcome audit.
+Reproduce the outcome auditor from its recorded historical checkout: later
+observer additions to `gdmaps.py` changed auxiliary source hashes without
+changing the three C1 proof-kernel files. The ordinary offline proof command
+above still uses those unchanged kernel files. Original receipts retain their
+creation-time pending labels; the companion review supplies subsequent status.

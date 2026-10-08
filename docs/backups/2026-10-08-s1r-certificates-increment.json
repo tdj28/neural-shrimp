@@ -1,0 +1,36 @@
+{
+  "status": "verified",
+  "started_utc": "20261008T095251Z",
+  "completed_utc": "2026-10-08T09:52:51.818428+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261008T095251Z-s1r-certificates-increment",
+  "selected_roots": [
+    "certificates/s1r-period2",
+    "explore/s1r-bootstrap-association",
+    "logs/s1r-bootstrap-association-attempt-001-profile",
+    "logs/s1r-bootstrap-association-attempt-001-collection",
+    "audits/s1r-period2",
+    "audits/s1r-bootstrap-association",
+    "audits/core-reference-content/attempt-005",
+    "audits/core-reference-content/attempt-006",
+    "audits/core-reference-content/attempt-007",
+    "logs/s1r-period2-audit-attempt-001.launch-start.json",
+    "logs/s1r-period2-audit-attempt-001.launcher.json",
+    "logs/s1r-period2-audit-attempt-001.launcher.py",
+    "logs/s1r-period2-audit-attempt-001.log",
+    "logs/s1r-bootstrap-association-audit-attempt-001"
+  ],
+  "file_count": 2122,
+  "bytes": 52354182,
+  "symlink_count": 0,
+  "manifest_sha256": "3499dd6b172c097ecae96b03fe1f603611fffc1c414593d1e7726d4e1fbeb6ce",
+  "elapsed_seconds": 0.3540265050251037,
+  "source_commit_at_copy": "de898e85de6fbffe978f5243e7960b55e2c8e512",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

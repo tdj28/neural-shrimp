@@ -3565,3 +3565,35 @@ See [outcome](reviews/s1r-bootstrap-outcome.md) and
 receipt stays unchanged. Parent owns separate-disk backup. Permission-review
 timeouts affected documentation commands only; permitted retries did not
 rerun the audit.
+
+
+## 8 October 2026 UTC - integrate audited 72D proof and bootstrap association
+
+Both independent saved-outcome audits pass and their immutable companion records
+are integrated. Root source review ran 60 focused certificate-adapter/audit
+controls and 52 focused bootstrap source/audit controls before their single
+authorized replays. Reviewer paper review checked proof versus proximity versus
+numerical association, corrected the contribution list, and added full binding
+from generated proof macros through manifest-hashed replay and nested receipt.
+The seven new macros derive from saved evidence; 266 total macros verify. The
+draft compiles to 29 pages with no LaTeX warnings. PDF visual review is in progress.
+
+Aggregate verification passed eight figures, all numbers and all five numerical/
+proof receipt groups, including all three C1 certificates and scalar NS. Figure6
+correctly rejected its old gdmaps input hash after the already reviewed observer
+addition. This is a source-binding mismatch, not a scientific mismatch verdict.
+Before the following regeneration, freeze this disclosed artifact amendment:
+rebuild only unchanged Figure6 code's fixed four 40,000-step development portraits
+from the same S2 staircase selections, CPU/BLAS1 nice10, external60s +5s grace.
+Compare PDF/PNG hashes and every derived value against the prior receipt. Keep
+the old receipt in Git history; no target/selection, threshold or hypothesis
+changes. If outputs differ, preserve and inspect before accepting a new figure.
+The prior aggregate completed this same calculation within its180s verification
+cap. This is deterministic artifact regeneration, not new confirmatory evidence.
+
+The new S1R proof/bootstraps/audits, their complete launcher evidence and primary
+reference archives005-007 now have a verified separate-disk copy:2,122 files,
+52,354,182 bytes, manifest3499dd6b172c097ecae96b03fe1f603611fffc1c414593d1e7726d4e1fbeb6ce.
+See docs/backups/2026-10-08-s1r-certificates-increment.json. The first manuscript/
+backup command was rejected before process creation because automatic permission
+review timed out; the permitted single retry succeeded and no experiment reran.

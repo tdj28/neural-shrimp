@@ -83,3 +83,13 @@ updated handoff and the original checkout's pre-existing uncommitted
 `docs/research-log.md` as well as its cost ledger and older checkpoint. Its
 checksums also passed; see `docs/backups/2026-10-08-private-handoff-current.json`.
 The original working files were not changed by this backup.
+
+
+The 8 October S1R proof/association increment is preserved at
+`/archive/neural-shrimp-backups/20261008T095251Z-s1r-certificates-increment`:
+2,122 files / 52,354,182 bytes. The complete selected source/copy inventory and
+SHA-256 values agree, including a second source hash pass. This includes all
+new S1R certificate, bootstrap and independent-audit artifacts/logs and primary
+reference archives005-007. Receipt:
+`docs/backups/2026-10-08-s1r-certificates-increment.json`. This is a local
+separate-physical-disk snapshot, not offsite or continuous protection.

@@ -62,7 +62,7 @@ Rotation features provide no robust additional prediction of loss or disagreemen
 pilots; adapted analyses retain locking effects on perturbation response and learning-rate-decay timing.
 Loss-based estimation of the local complex multiplier is a candidate diagnostic whose prospective utility
 remains untested. Separately, ball-arithmetic certificates prove local existence, primitive period and attraction for
-\nCOneOrbits{} selected period-\nCOnePeriod{} orbits of the exact-real map, and establish a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model. The results do not establish
+\nCOneOrbits{} selected period-\nCOnePeriod{} orbits in a 13-parameter network and a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter network, all for the exact-real maps. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model. The results do not establish
 a general route to chaos, a language-model benefit, or computer-assisted proofs of the reported window census.
 \end{abstract}
 
@@ -89,8 +89,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR sweep completed, orbit analysis
 unresolved after its continuation time limit; fixed-batch text-transformer pilot shows drift, without an accepted periodic orbit or training benefit. \\
-Selected orbit certificates & 3: computer-assisted proof & Two attracting primitive period-10 orbits of the exact-real
-map, independently reviewed; surrounding chaos and the full census remain numerical. \\
+Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits in 13 dimensions and one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -159,7 +158,7 @@ quasi-periodic training begins at the crossing angle.
 \item Exploratory, generality: the same crossing with a quantitatively predicted rotation in a real-data network
 with one learning rate; soft onset and locking in symmetry-reduced observables beyond the rotational edge of a
 linear network; distinct continuation outcomes from two bootstrap procedures and a numerically consistent local period-2 segment in a 72-parameter network.
-\item Computer-assisted proofs from exploratory selection: two primitive attracting period-10 orbits and one local supercritical NS of a scalar period-2 orbit, independently reviewed with ball arithmetic.
+\item Computer-assisted proofs from exploratory selection: two primitive attracting period-10 orbits in 13 dimensions, one primitive attracting period-2 orbit in 72 dimensions, and one local supercritical NS of a scalar period-2 orbit, independently reviewed with ball arithmetic.
 \item Reported negatives: a frozen ancestry test that did not pass; no locking resolved in the real-data network;
 no robust incremental value of rotation information for reproducibility or loss.
 \item Code, receipts and a verification script that re-derive every figure, table and number.
@@ -211,7 +210,7 @@ the mean fraction of a turn per iterate. Rational rotation $m/q$ can produce a p
 Near a nondegenerate weak resonance ($q\geq5$), an appropriate resonant normal form predicts a tongue whose
 width in angular detuning scales with radial detuning to the power $(q-2)/2$, when the leading resonant
 coefficient is nonzero. This local scaling does not fix the width along arbitrary distant parameter slices.
-Classical circle-map families exhibit devil's staircases and Farey organization
+Classical circle-map families exhibit devil's staircases
 \citep{arnold1965,jensen1983,jensen1984}; these are hypotheses to test in a learning-rate plane, not automatic
 consequences of a complex-pair crossing. Breakdown of an invariant circle is one possible route to chaos
 \citep{curry1978,aronson1982,ostlund1983}. Locally near the period-2 bifurcation, $F$ exchanges two disjoint
@@ -380,6 +379,21 @@ repeated the proofs with higher precision on smaller nested boxes. The proof tru
 contraction argument, implementation and Arb/FLINT enclosure library; it is not formalized in a proof assistant.
 It establishes neither surrounding chaos nor window geometry, invariant circles or training utility.
 The authoritative artifacts and offline replay are documented in \path{certificates/README.md}.
+
+The same unchanged checker also proves a primitive period-\nSOneRCertPeriod{} orbit in the full
+\nSOneRCertDimension{}-dimensional S1R-28002 map, selected from the saved attracting segment described below.
+For its enclosed two-step monodromy,
+\begin{equation}
+\|M_{\mathrm{S1R}}^{\nSOneRCertPower}\|_\infty < \xSOneRCertBound < 1.
+\end{equation}
+The independent outcome audit binds the original data, rates and selected phase to their exact dyadic
+interpretations, replays every proof enclosure, and passes a separately declared whole-box proximity test
+to that saved phase. Proximity does not assert that the saved floating-point state lies inside the proof box,
+nor does it prove branch identity or continuous parameter continuation. This audit shares the previously
+reviewed Arb checker; the separate differentiation and higher-precision nested-box checks above concern the
+two S2 proofs. The new certificate extends the demonstrated proof dimension, without establishing a general
+scaling law or a proof of the S1R bifurcation. See \path{certificates/s1r-period2-receipt.json} and
+\path{docs/reviews/s1r72-certificate-outcome.md}.
 
 \subsection{A supercritical NS in the scalar unequal-rate model}
 \label{sec:scalar-proof}
@@ -679,9 +693,22 @@ phases independently corrected and primitive period two verified numerically. Al
 numerically attracting; their two-step spectral radii range from $\xSOneRLocalMinRadius$ to
 $\xSOneRLocalMaxRadius$. An independent audit replays the saved graph and reconstructs full analytic
 gradient/Hessian monodromies at the anchor and all primary points. This establishes local numerical consistency
-at the tested steps, not branch uniqueness or a continuous parameter enclosure. It does not associate either
-historical bootstrap family, establish coexistence at common controls, or connect a distant window. See
+at the tested steps, not branch uniqueness or a continuous parameter enclosure. That local pilot alone does not
+associate a bootstrap family, establish coexistence at common controls, or connect a distant window. See
 \path{docs/s1r-branch-association-receipt.json} and \path{docs/reviews/s1r-branch-outcome.md}.
+
+A subsequent bounded run reproduces both bootstrap procedures with complete saved provenance, using
+\nSOneRBootstrapUpdates{} updates per start at log hidden rates 1.10 and 0.95 and the same output rate.
+Refinement of both tails yields numerically attracting primitive period-two pairs at their respective controls.
+Following the saved lineage through \nSOneRBootstrapLinks{} hidden-rate links reaches exactly the upper
+bootstrap's controls. Every direct, two-half-step and reverse witness passes; after cyclic phase exchange,
+the normalized full-pair discrepancy is $\xSOneRBootstrapMatch$. An independent audit checks all recorded
+qualifications and link decisions, with separate analytic derivatives at fixed representative pairs and
+direct reevaluation of saved tail transitions. It checks counters and checkpoints for the full warmups,
+without replaying unsaved intermediate updates. This associates the saved lineage with the new upper-start
+reproduction at the tested controls. It does not recover the missing historical states, identify the
+lower-start family at common controls, prove coexistence, or connect a distant window. See
+\path{docs/s1r-bootstrap-association-receipt.json} and \path{docs/reviews/s1r-bootstrap-outcome.md}.
 
 \paragraph{Real data, one learning rate.} A 64-8-1 tanh network (529 parameters) trained with one global learning
 rate and weight decay on 1{,}024 standardized UCI digit images (two-class task) has a numerically validated period-2 orbit that
@@ -905,7 +932,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 529-parameter network on one subset and task; the linear network is a solvable model. These map and bifurcation
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
-reruns. The orbit census uses floating-point validation; the two selected exact-real attracting orbits and
+reruns. The orbit census uses floating-point validation; the three selected exact-real attracting orbits and
 the scalar local NS in Section~\ref{sec:certificates} have rigorous enclosures. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Most mechanism analyses were chosen after seeing
