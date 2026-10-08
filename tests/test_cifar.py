@@ -47,7 +47,7 @@ def test_arnoldi_multipliers_match_dense_eigenvalues():
 
     dense = torch.func.jacfwd(f2)(theta).numpy()
     values = np.linalg.eigvals(dense)
-    out = cifar.two_step_multipliers(problem, theta.numpy(), eta, k=4, tol=1e-12)
+    out = cifar.two_step_multipliers(problem, theta.numpy(), eta, k=4, tol=1e-12, modes=("LM", "LI"), maxiter=None)
     lm = np.array([complex(*v) for v in out["modes"]["LM"]])
     np.testing.assert_allclose(np.sort(np.abs(lm))[::-1], np.sort(np.abs(values))[::-1][:4], rtol=1e-8)
     li = np.array([complex(*v) for v in out["modes"]["LI"]])

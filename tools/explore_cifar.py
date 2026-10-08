@@ -362,7 +362,7 @@ def main():
     orbit.add_argument("--step", type=float, default=0.01, help="continuation step in log10 eta")
     orbit.add_argument("--max-steps", type=int, default=60)
     orbit.add_argument("--bisect-tol", type=float, default=1e-5)
-    orbit.add_argument("--k", type=int, default=6)
+    orbit.add_argument("--k", type=int, default=2)
     orbit.add_argument("--threads", type=int, default=16)
     circle = sub.add_parser("circle")
     circle.add_argument("--output-ratio", type=float, default=1.0)

@@ -174,14 +174,21 @@ def as_tensor(a):
     return torch.as_tensor(np.asarray(a, dtype=np.float64))
 
 
-def two_step_multipliers(problem, theta, eta, k=6, tol=1e-9, ncv=None, modes=("LM", "LI"), maxiter=None):
+def two_step_multipliers(problem, theta, eta, k=2, tol=1e-9, ncv=30, modes=("LI", "SR"), maxiter=150):
     """Two-step Floquet multipliers at an orbit point theta (matrix-free Arnoldi).
+
+    Default searches: largest imaginary part ("LI", the critical complex pair;
+    the real flat-direction cluster at (1 - eta lambda)^2 is invisible to it)
+    and smallest real part ("SR", a multiplier approaching -1). A
+    largest-magnitude search ("LM") is available but converges very slowly
+    against the nearly degenerate flat cluster on large networks. Iterations
+    are capped; partially converged eigenvalues are kept and flagged.
 
     Returns a dict with the eigenvalues found by each search mode (sorted by
     modulus, descending) and the dominant complex multiplier (largest modulus
     with Im > 1e-9 across modes), or None when no complex pair is found.
     """
-    from scipy.sparse.linalg import LinearOperator, eigs
+    from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, eigs
 
     theta = as_tensor(theta)
     t1 = problem.update(theta, eta)
@@ -195,22 +202,30 @@ def two_step_multipliers(problem, theta, eta, k=6, tol=1e-9, ncv=None, modes=("L
 
     operator = LinearOperator((n, n), matvec=matvec, dtype=np.float64)
     found = {}
+    partial = {}
     complex_candidates = []
     for mode in modes:
-        values = eigs(operator, k=k, which=mode, tol=tol, ncv=ncv, maxiter=maxiter, return_eigenvectors=False)
+        try:
+            values = eigs(operator, k=k, which=mode, tol=tol, ncv=min(ncv, n - 1) if ncv else None,
+                          maxiter=maxiter, return_eigenvectors=False)
+            partial[mode] = False
+        except ArpackNoConvergence as error:
+            values = np.asarray(error.eigenvalues)
+            partial[mode] = True
         values = values[np.argsort(-np.abs(values))]
         found[mode] = [[float(v.real), float(v.imag)] for v in values]
         complex_candidates.extend(v for v in values if v.imag > 1e-9)
     dominant = max(complex_candidates, key=abs) if complex_candidates else None
-    return {"modes": found, "dominant_complex": None if dominant is None else [float(dominant.real),
+    return {"modes": found, "partial": partial,
+            "dominant_complex": None if dominant is None else [float(dominant.real),
                                                                                float(dominant.imag)],
             "dominant_complex_modulus": None if dominant is None else float(abs(dominant)),
             "dominant_complex_theta_over_2pi": None if dominant is None else
             float(abs(np.angle(dominant)) / (2 * np.pi))}
 
 
-def newton_period2(problem, theta, eta, tol=1e-11, max_newton=12, gmres_tol=1e-10, gmres_restart=200,
-                   gmres_maxiter=20, callback=None):
+def newton_period2(problem, theta, eta, tol=1e-11, max_newton=8, gmres_tol=1e-9, gmres_restart=100,
+                   gmres_maxiter=8, callback=None):
     """Newton-GMRES corrector for a period-2 orbit point: solve F^2(theta) = theta.
 
     Returns (theta, history) with the relative residual |F^2(theta) - theta| / |theta|
