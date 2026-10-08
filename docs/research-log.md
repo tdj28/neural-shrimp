@@ -3075,3 +3075,14 @@ analysis SHA256 a84558767147a0d9521e4d9f597982075145d96e36c4dffabe1039b7536179c3
 See docs/explore-tiny-lm-broader-outcome.md and its receipt. Protected outcomes
 and reserved seeds remain unopened. Send frozen saved evidence to independent
 auditor; stop as the card requires. Earlier negative calibration remains stopped.
+
+### 2026-10-08 — independently reviewed paper scope corrections
+
+TLDR: the 72-parameter network has a numerically consistent local attracting
+period-two segment, while the saved CIFAR correction still fails qualification.
+The paper now reports those audited results and removes unsupported common-rate
+coexistence language. Historical tail-screen failures are not nonexistence
+claims. Independent read-only review, addressed wording findings and scope are
+in `docs/reviews/paper-local-outcomes-2026-10-08.md`. Seven new generated macros
+bind the producer/audit receipts and raw manifests. No new experiment, altered
+gate or protected-data use accompanied this update.

@@ -758,6 +758,36 @@ def build():
         ("nLMGuard", lm["main_case_counts"]["numerical_guard_stop"], "main_case_counts.numerical_guard_stop"),
         ("nLMUpdates", max(r["completed_steps"] for r in lm["rows"]), "max completed_steps")]:
         n.add(macro, value, integer(value), "exploratory; rung 0", [lm_path], calc)
+    s1r_path = c.ROOT / "docs/s1r-branch-association-receipt.json"
+    s1r_audit_path = c.ROOT / "docs/reviews/s1r-branch-outcome-receipt.json"
+    s1r, s1r_audit = load(s1r_path), load(s1r_audit_path)
+    assert s1r["status"] == "completed_local_segment" and s1r_audit["status"] == "passed"
+    s1r_manifest = Path(s1r["external_root"]) / "manifest.json"
+    assert c.sha256(s1r_manifest) == s1r["raw_files"]["manifest.json"]["sha256"] == s1r_audit["raw_manifest_sha256"]
+    assert all(p["stability"] == ["attracting", "attracting"] for p in s1r["main_points"])
+    radii = [v for p in s1r["main_points"] for v in p["spectral_radii"]]
+    for macro, value, tex, calc in [
+        ("nSOneRLocalPoints", len(s1r["main_points"]), integer(len(s1r["main_points"])), "len(main_points)"),
+        ("xSOneRLocalMinRadius", min(radii), fixed(min(radii), 6), "minimum primary-phase spectral radius"),
+        ("xSOneRLocalMaxRadius", max(radii), fixed(max(radii), 6), "maximum primary-phase spectral radius")]:
+        n.add(macro, value, tex, "exploratory; local numerical continuation; independently audited",
+              [s1r_path, s1r_audit_path, s1r_manifest], calc)
+    cifar_path = c.ROOT / "docs/cifar-linear-diagnostic-receipt.json"
+    cifar_audit_path = c.ROOT / "docs/reviews/cifar-linear-diagnostic-outcome-review.json"
+    cifar, cifar_audit = load(cifar_path), load(cifar_audit_path)
+    cifar_manifest = Path(cifar["artifacts"]["directory"]) / "manifest.json"
+    assert c.sha256(cifar_manifest) == cifar["artifacts"]["manifest_sha256"] == cifar_audit["manifest"]["sha256"]
+    assert cifar_audit["status"] == "passed_saved_array_audit"
+    assert not cifar["accepted_orbit"] and not cifar["candidate_trial_indices"]
+    assert not cifar_audit["accepted_orbit"] and not cifar_audit["candidates"]
+    assert abs(cifar["linear"]["true_forcing_ratio"] - cifar_audit["recomputed_linear"]["true_forcing_ratio"]) < 1e-12
+    for macro, value, tex, calc in [
+        ("xCifarForcing", cifar["linear"]["true_forcing_ratio"], fixed(cifar["linear"]["true_forcing_ratio"], 4), "linear.true_forcing_ratio"),
+        ("xCifarForcingLimit", cifar["settings"]["forcing_limit"], fixed(cifar["settings"]["forcing_limit"], 1), "settings.forcing_limit"),
+        ("xCifarBestClosure", min(t["relative_residual"] for t in cifar["trials"]), sci(min(t["relative_residual"] for t in cifar["trials"]), 2), "minimum trial relative_residual"),
+        ("xCifarClosureGate", cifar["settings"]["closure_tolerance"], power(cifar["settings"]["closure_tolerance"]), "settings.closure_tolerance")]:
+        n.add(macro, value, tex, "exploratory; failed correction diagnostic; independently audited saved arrays",
+              [cifar_path, cifar_audit_path, cifar_manifest], calc)
     return n
 
 

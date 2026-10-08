@@ -155,7 +155,7 @@ Lyapunov coefficient, candidate generalized Neimark--Sacker points and dynamical
 quasi-periodic training begins at the crossing angle.
 \item Exploratory, generality: the same crossing with a quantitatively predicted rotation in a real-data network
 with one learning rate; soft onset and locking in symmetry-reduced observables beyond the rotational edge of a
-linear network; coexisting period-2 branches with their own crossings in a 72-parameter network.
+linear network; distinct continuation outcomes from two bootstrap procedures and a numerically consistent local period-2 segment in a 72-parameter network.
 \item Computer-assisted proofs from exploratory selection: two primitive attracting period-10 orbits and one local supercritical NS of a scalar period-2 orbit, independently reviewed with ball arithmetic.
 \item Reported negatives: a frozen ancestry test that did not pass; no locking resolved in the real-data network;
 no robust incremental value of rotation information for reproducibility or loss.
@@ -537,8 +537,8 @@ These separate sampled trajectories do not establish a connected invariant-circl
 rational plateaus.} Plateaus are detected automatically (locked cells with period $2q$ or a doubling of it,
 rotation within $6\times10^{-4}$ of $m/q$) and labeled when they hold at least 8 cells. In S2 the rotation number
 first falls after the onset, then rises; the cells between the $2/9$ and $1/4$ plateaus are almost all chaotic
-candidates. In S1R two rotation branches coexist over the same rates, a sign of coexisting attractors. Chaotic
-cells outside the plotted range are not shown.
+candidates. In S1R, rotation bands occupy overlapping rate ranges; this projected scan alone does not establish
+coexisting full-state attractors at common parameters. Chaotic cells outside the plotted range are not shown.
 \provenance{paper/gd-route/figures/f3\_staircases.py}{figures/f3\_staircases.provenance.json}}
 \label{fig:staircase}
 \end{figure}
@@ -656,17 +656,28 @@ decay; exponents are slopes between the two smallest offsets.
 \label{fig:generality}
 \end{figure}
 
-\paragraph{Coexisting branches in S1R.} The 72-parameter S1R network has several coexisting period-2 orbits, each
-with its own loss of stability. Of \nSOneRTraceA{} output rates traced from one start, \nSOneRTraceANS{} end in a
-complex-pair crossing and \nSOneRTraceANotTwo{} starts were not on a period-2 orbit; from a lower start,
+\paragraph{Distinct continuation outcomes in S1R.} In the 72-parameter S1R network, two bootstrap procedures
+give different continuation outcomes. Of \nSOneRTraceA{} output rates traced from one start, \nSOneRTraceANS{} end in a
+complex-pair crossing and \nSOneRTraceANotTwo{} starts did not pass the finite-horizon period-two tail screen; from a lower start,
 \nSOneRTraceBNS{} of \nSOneRTraceB{} end in a complex-pair crossing, \nSOneRTraceBFold{} in folds, and
-\nSOneRTraceBNotTwo{} starts were not on a period-2 orbit. The two starts often reach different branches with
-different crossing angles. A subsequent saved-map audit keeps these starting families separate: each
+\nSOneRTraceBNotTwo{} starts did not pass that screen. The procedures can reach different crossing locations and angles, but
+their historical summaries do not retain states for a common-parameter full-state comparison. A subsequent
+saved-map audit keeps these starting families separate: each
 output-rate slice was initialized independently, and adjacent rows need not represent one continuous orbit
 branch. The retained near-curve map cells remain unresolved under the original status classifier. Provisional
 rational-angle intersections do not establish association with distant same-period windows; saved full-state
 continuation is still required. See \path{docs/explore-s1r-rotation-audit-receipt.json} and its separate replay
 review, \path{docs/reviews/s1r-rotation-map.md}.
+
+After a small hidden-rate backoff, a new full-state pilot follows one saved criticality lineage to \nSOneRLocalPoints{} nearby output rates at a
+fixed hidden rate. Each neighboring link passes direct, two-half-step and reverse consistency checks, with both
+phases independently corrected and primitive period two verified numerically. All primary points are
+numerically attracting; their two-step spectral radii range from $\xSOneRLocalMinRadius$ to
+$\xSOneRLocalMaxRadius$. An independent audit replays the saved graph and reconstructs full analytic
+gradient/Hessian monodromies at the anchor and all primary points. This establishes local numerical consistency
+at the tested steps, not branch uniqueness or a continuous parameter enclosure. It does not associate either
+historical bootstrap family, establish coexistence at common controls, or connect a distant window. See
+\path{docs/s1r-branch-association-receipt.json} and \path{docs/reviews/s1r-branch-outcome.md}.
 
 \paragraph{Real data, one learning rate.} A 64-8-1 tanh network (529 parameters) trained with one global learning
 rate and weight decay on 1{,}024 standardized UCI digit images (two-class task) has a numerically validated period-2 orbit that
@@ -766,6 +777,14 @@ continuation was no longer running after its configured time limit and left no s
 revision adds incremental checkpoints, convergence checks at every returned state and residual-qualified
 matrix-free multiplier estimates. A bounded correction then failed its linear-solver tolerance before any
 Newton update; the saved state remains outside the closure gate and no spectrum was computed.
+A diagnostic at the same saved state and Krylov budget gives a true linear forcing ratio
+$\xCifarForcing$, above the declared $\xCifarForcingLimit$ limit. Two of four fixed damping trials
+reduce the residual merit, but none passes the forcing or full-state closure gate; the smallest relative
+closure residual is $\xCifarBestClosure$, against $\xCifarClosureGate$ required. An independent
+saved-array audit reproduces these decisions; it does not independently reevaluate the model's saved map
+images or Jacobian products. This diagnoses a failed correction attempt, not absence of a period-two orbit.
+See \path{docs/cifar-linear-diagnostic-receipt.json} and
+\path{docs/reviews/cifar-linear-diagnostic-outcome-review.md}.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
 
