@@ -3828,3 +3828,20 @@ both, added a utility clean-checkout guard, and made CIFAR exact saved-array
 relations compare bytes. No target utility gradients, CIFAR profile or target
 projection had run. Original source freezes remain preserved; final source
 review and launch authorization are pending.
+
+
+## 2026-10-08 11:19 UTC: prospective independent utility-dose outcome audit
+
+Prepared the independent scalar-loop gradient/dose auditor and card at
+`docs/plans/utility-dose-outcome-audit.md` before opening any numerical target
+output. Root supplied execution977514e4 and external raw/launcher manifest
+identities only; they are written into the fixed prospective command. Target
+execution has completed, but its gradient/dose decisions remain unseen by this
+reviewer. This audit is conditional on independent source review and separate
+root launch authorization; no saved target gradient replay has run.
+
+Initial30 prospective synthetic tests pass in0.43s, including a complete toy
+producer bundle replay and four independent gradients. The comparison tolerances,
+strict feasibility decisions, four-call limit, source/data/launcher cross-bindings,
+5s/10+5s ceilings and combined1MiB retention are fixed before target inspection.
+No pulse, new control, trajectory, HVP/Hessian, protected data or paid use.
