@@ -4149,3 +4149,7 @@ unauthorized at this checkpoint.
 Final focused suite:14 synthetic controls passed in0.65s (timing approximate);
 no real target/model evaluation. Assembled nonfinite M/A records survive
 post-return rejection. All source-only failures above remain disclosed.
+
+## 2026-10-08 12:19 UTC — independent lower-gap source review
+
+Root independently reviewed source5cecd5f0 and all12 transitive source/card bindings. Twenty-two synthetic controls pass0.74s:14 producer plus8 independently written nonlinear derivative, nonnormal residual, augmented scaling, phase, rank/nearzero and interruption controls. No target arithmetic/profile or launch. No blocker; source-only pass and caveats in `docs/reviews/s1r-lower-gap-source-review.md` and JSON. Prospective saved-data audit is being prepared independently before target execution.
