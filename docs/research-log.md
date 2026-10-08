@@ -3870,3 +3870,12 @@ producer source files remain unchanged. Independent outcome companions use
 s1r-lower-independent-outcome names to preserve the separate producer report.
 All96 focused synthetic controls pass in1.24s after the amendment. Target
 outcomes remain unopened; one audit still awaits source-bound authorization.
+
+
+## 2026-10-08T11:04:48.354124+00:00 — root authorizes two reviewed local gates
+
+See `docs/plans/local-gates-launch-2026-10-08.md`: one synthetic CIFAR QR
+resource profile only and one four-gradient utility feasibility check. All69
+combined synthetic controls pass; exact reviewed source bytes match. Target
+CIFAR projection requires a separate pinned-profile decision. No paid/GPU
+use, protected outcomes or pulse collection.
