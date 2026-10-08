@@ -1680,3 +1680,29 @@ _commit `32d694f75a47` (dirty worktree)_
 Subset A, lambda 1e-2, 150,000 steps from init: for eta 0.005-0.0073 the state drifts slowly toward a fixed point, relative step change about 2e-6; at eta 0.00828 consecutive states differ by 3.5e-4 while two-step changes are 5e-6, a period-2 candidate with slow drift. From eta 0.0094 the even-step loss oscillates with a dominant period of 588, 323, 200, 95, 64, 67 and 50 two-steps at eta 0.0094, 0.0107, 0.0121, 0.0137, 0.0155, 0.0176, 0.020, i.e. a modulation frequency rising from 0.0017 to 0.020 turns per two-step. The envelope still decays slowly at 0.0094 (1.6e-4 to 1.2e-4 over the last 20,000 steps) but is steady from 0.0107, suggesting a stable 2-cycle with complex multipliers below about 0.01 and a sustained modulation above. Orbit continuation with Arnoldi multipliers is running to type the transition. Sweep steps took 8-15 ms with 4 workers x 4 threads versus 1.8 ms single-process.
 
 _commit `32d694f75a47` (dirty worktree)_
+
+## 2026-10-08 01:31 UTC: run (exploratory)
+
+- **Question:** CIFAR subset A, single learning rate: how does the period-2 orbit lose stability as eta grows past 0.0083? Rerun with BLAS threads capped
+- **Setup:** lambda 1e-2; start from the sweep state at eta 0.00827753; Newton-GMRES period-2 corrector; two-step multipliers by Arnoldi, LM and LI searches, k 6; secant continuation, step 0.01 in log10 eta, up to 25 steps; bisection to 1e-5; torch 14 threads, OpenBLAS 2
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/orbit`
+- **Would surprise us:** Loss of stability by flip or fold rather than a complex pair; Newton-GMRES failing to certify a period-2 orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --lam 1e-2 --eta 0.00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --step 0.01 --max-steps 25 --threads 14`
+
+_commit `3c2e3fc5a9b7`_
+
+## 2026-10-08 04:54 UTC: Informative failure: first CIFAR orbit continuation timed out (3.3 h, no point completed)
+
+The orbit run with Arnoldi searches LM and LI (k 6, uncapped iterations) did not finish its first point within the 12,000 s timeout. Timing afterwards: two-step Jacobian-vector product 12 ms; LI search with k 4 converged 2 of 4 eigenvalues in 1,127 products; LI with k 2 converged in about 250 products (3.7 s). The LM search cannot get past the nearly degenerate real cluster of flat-direction multipliers at (1 - eta lambda)^2. Fix (committed): LI and SR searches, k 2, capped iterations, partial results flagged; capped Newton-GMRES. First matrix-free multiplier at the eta 0.00828 sweep state (not Newton-polished): dominant complex pair 0.998575 +- 0.006340i, modulus 0.998595, theta/2pi 0.00101.
+
+_commit `adf063bcd739` (dirty worktree)_
+
+## 2026-10-08 04:54 UTC: run (exploratory)
+
+- **Question:** CIFAR subset A, single learning rate: how does the period-2 orbit lose stability as eta grows past 0.0083? Rerun with LI and SR Arnoldi searches
+- **Setup:** lambda 1e-2; sweep state at eta 0.00827753; capped Newton-GMRES; two-step multipliers LI and SR, k 2; secant continuation, step 0.01 in log10 eta, up to 16 steps; bisection to 1e-5; 1 h timeout
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/orbit`
+- **Would surprise us:** Loss of stability by flip rather than a complex pair; Newton-GMRES failing to certify a period-2 orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --lam 1e-2 --eta 0.00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --step 0.01 --max-steps 16 --threads 14`
+
+_commit `adf063bcd739` (dirty worktree)_
