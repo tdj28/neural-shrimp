@@ -3641,3 +3641,10 @@ triage design are in docs/plans/cifar-input-span-diagnostic.md. No new model
 evaluation, trajectory, solve, target projection or profile has run. Source,
 synthetic controls and independent review precede the proposed bounded
 analysis; the original stalled solve remains unresolved. No paid use.
+
+## 2026-10-08 10:23 UTC: Curry–Yorke primary-reference scope check
+
+Publisher metadata and the free preview pages48–49 support the existing
+scoped numerical circle-breakdown citation; DOI added. Full chapter remains
+unread. Archive and inspected-page boundaries are in
+docs/reviews/curry1978-reference-receipt.json. No scientific computation.
