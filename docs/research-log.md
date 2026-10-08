@@ -2351,3 +2351,13 @@ PIDs4066798/4066799 exited. Compact evidence:
 residual and separation with a separate NumPy chain-rule gradient, without
 importing producer or Torch code, agreeing within6e-19; source-bound review
 record follows separately. SubsetB and protected seeds remain unused.
+### Independent saved-state CIFAR corrector audit — 2026-10-08 UTC
+
+Prospective read-only numerical replay of root corrector-only attempt-001,
+source 7de5dcfb5eb50ed7829bc3b69b43c6e2c4f889cd. Verify exact source blobs,
+manifest/log/input identities and unchanged returned state, then independently
+implement the tanh-MLP gradient in NumPy and evaluate F and F-squared only at
+that saved state to recompute closure/separation. No Newton solve, trajectory
+extension, Arnoldi, held-out subset selection, reserved seed or paid call.
+CPU one thread, nice10, external 60s; source committed before replay. Retain
+review output and launcher stderr under audits/cifar-corrector-only/attempt-001.
