@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-08T12:31:51.151024+00:00",
+  "created_utc": "2026-10-08T12:33:54.625016+00:00",
   "status": "passed_preintegration_authoring_QA",
   "base_commit": "ac85b9f6c027deed4ef15933243a3773da962ad7",
   "scope": "Text-only integration of an independently audited saved CIFAR restart diagnostic. No model, derivative, solve, trajectory, proof or unchanged figure generator rerun.",
@@ -64,6 +64,7 @@
       31
     ],
     "visual_detail_pages": [
+      20,
       23,
       24
     ],
@@ -71,12 +72,14 @@
     "negative_decisions_verified": "Matching200 inner iterations and first50 prefix; independent forcing.6619885191 remains>.5; all four absolute merit ratios>1; no Armijo/closure/candidate/orbit/continuation acceptance.",
     "hashes": "All four new producer/audit artifact inventories and all used saved JSONs verified by the number builder; hashes included in data/numbers.json.",
     "full_verify_py_run": false,
-    "full_verify_exclusion": "Intentionally skipped unchanged trajectory-generating figures and proof kernels. Ran build_numbers.py --verify plus macro/path/figure-inventory/house-style checks."
+    "full_verify_exclusion": "Intentionally skipped unchanged trajectory-generating figures and proof kernels. Ran build_numbers.py --verify plus macro/path/figure-inventory/house-style checks.",
+    "terminology_amendment": "At parent request, primitive period two verified numerically changed to primitive period two numerically validated; no numerical evidence changed.",
+    "post_terminology_pages23_24_pixel_identical": true
   },
   "files": {
     "main.tex": {
-      "bytes": 89280,
-      "sha256": "029be27bd04e06c56aba05375c666958ebfd48983ee506e494429dcb6f957915"
+      "bytes": 89281,
+      "sha256": "f1b71707e834f0bbb536c5c8df835407000392f75750b4a85571d41fb5c6a3c1"
     },
     "README.md": {
       "bytes": 4183,
@@ -99,26 +102,30 @@
       "sha256": "3e1cd34071b2f1a93d05b89726fe882c8b4d27ca5275448dbafa8d7f4b56e52b"
     },
     "gd-route-working-draft.pdf": {
-      "bytes": 776793,
-      "sha256": "a354ee1675d72e2deea8573db8fb86e1eedabb37e9bbd48b8bbde8a82cb3340d"
+      "bytes": 776787,
+      "sha256": "5d09c768244dffa82e99713cd48907bf6b7c9503dbf14fc1b8f5c3542c8e8c8c"
     }
   },
   "rendered_QA": {
     "/tmp/neural-shrimp-paper-qa/cifar-restart/contact-1.png": {
-      "bytes": 444905,
-      "sha256": "115eca3431afb029dc903a4535ad66bb71f1257549083786a282484a5de8cf4b"
+      "bytes": 444901,
+      "sha256": "f71db60748c5716510635889b6a90fdd7f4256c228b9e67f3c317e51058f751d"
     },
     "/tmp/neural-shrimp-paper-qa/cifar-restart/contact-2.png": {
-      "bytes": 471247,
-      "sha256": "26503b98e070cbbaaea3f5ece41f54f74c65f8f1121d398f40c2e97fc7b240da"
+      "bytes": 471241,
+      "sha256": "3fbfa8a63609f366bc9e0e150da995c960b235e6f584f828ed7fe1641f68050f"
     },
     "/tmp/neural-shrimp-paper-qa/cifar-restart/contact-3.png": {
-      "bytes": 486658,
-      "sha256": "d7aa3442a8db4160195f1bfd57844c9e3eaf6097f5ba2c9cf49b1110b310256d"
+      "bytes": 486657,
+      "sha256": "be8a8164f2234c4c0ff156424cb9f38324033b17c2a84f566e65cd4d0bf59bee"
     },
     "/tmp/neural-shrimp-paper-qa/cifar-restart/contact-4.png": {
-      "bytes": 419464,
-      "sha256": "3671e11c253678353a29429c4fff4653cc3444ad2e33c7c51814fe2d9c5e1ca2"
+      "bytes": 419460,
+      "sha256": "d251f825e15083243276f12ea06939ddeaa3421bd107c5bb59f2d50ec7fcdf9e"
+    },
+    "/tmp/neural-shrimp-paper-qa/cifar-restart/detail-20.png": {
+      "bytes": 318328,
+      "sha256": "1b714490db5ff39de90346a70fff6e617ce3b0d47a884dcf6b15671ee855d414"
     },
     "/tmp/neural-shrimp-paper-qa/cifar-restart/detail-23.png": {
       "bytes": 354910,

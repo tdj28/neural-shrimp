@@ -4206,3 +4206,14 @@ hashes are bound in docs/reviews/paper-cifar-restart-authoring-qa.json. No uncha
 figure trajectory, model/solver or proof kernel was rerun. No global artifact
 marker repeated; the parent had already recorded it. Parent independent
 manuscript review remains pending; no submission/public release is authorized.
+
+## 2026-10-08 UTC — manuscript evidence-rung terminology amendment
+
+At root's request, changed one S1R phrase from "primitive period two verified
+numerically" to "primitive period two numerically validated". No numerical
+claim, source-derived macro or other verified/proof usage changed. An initial
+path-targeting command used the wrong working-directory-relative path and made
+no edit; the corrected command then changed exactly this phrase. Recompiled
+successfully to31 pages without final warnings, rechecked all pagination and
+page20 detail; pages23/24 renders remain byte-identical. Updated PDF/QA hashes;
+parent independent manuscript review remains the integration gate.
