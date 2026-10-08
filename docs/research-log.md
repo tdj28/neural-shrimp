@@ -3632,3 +3632,17 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+
+### Utility saved-input qualification card — 2026-10-08 UTC
+
+Root authorized only saved consumed-development input inspection. New branch
+codex/utility-input-qualification starts at8c26537e. Prospective support gates,
+fixed four local forks and candidate nomination rules are recorded in
+docs/plans/utility-input-qualification.md before computed candidate inventory.
+Schema inspection disclosed missing consequence states and intermediate warmup
+states; no pulse outcomes, new model evaluation, corrections, HVPs, trajectories,
+profiles or holdouts allowed. Code/synthetic controls will be committed before
+one CPU1nice10 readonly audit (30s internal/40+5 external;2MiB new raw) at
+audits/utility-inputs/attempt-001 under the data root.
+A missing-control result is a useful no-go decision, not a reason to loosen gates.
