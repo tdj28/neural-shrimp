@@ -4375,3 +4375,16 @@ check the pre-engine boundary. No target output has been opened.
 A second independent partial-boundary control found that an allowed single
 stage increment before durable start also needs to force partial scope. The
 qualification predicate now includes that discrepancy; no gate changed.
+
+### 8 October 2026 UTC — independent prospective PAL auditor review
+
+Reviewed frozen saved-only auditor `3134d730af88bf4591554946eeb715fb7419318e`
+against design9f472f17 and producer482cf9c7/source-review9df5e138. All65 controls
+pass in2.14s:23 author cases plus42 independent cases, including the saved
+synthetic full event graph, corruption controls, partial-counter/header joins,
+source identity and launcher-provenance contradictions. Independent controls
+forbid fresh NumPy decomposition/solve APIs; no target outcome or model work
+was opened/run. Exact source/test hashes and both successful test logs are in
+`docs/reviews/s1r-pseudoarclength-auditor-independent-review-receipt.json`.
+Scope and limitations are in the companion review; source review passes,
+but producer and saved-outcome execution remain separately root-authorized.
