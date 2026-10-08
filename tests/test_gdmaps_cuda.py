@@ -446,7 +446,8 @@ def test_metadata_records_versions_and_resources(cuda):
     grid = GridMap(net, x, y, [0.5, 1.0], [0.5, 1.0])
     _, meta = cuda.run_grid(grid, theta0, 200, return_metadata=True, tail_steps=20, ftle_steps=20,
                             ftle_align=0, sd_horizons=())
-    assert meta["device"]["major"] == 8 and meta["device"]["driver_version"] > 0
+    assert (meta["device"]["major"], meta["device"]["minor"]) in gc.qualified_capabilities()
+    assert meta["device"]["driver_version"] > 0
     assert meta["device"]["runtime_version"] >= 12000
     assert meta["library_sha256"] and meta["planned_device_bytes"] <= meta["device_byte_budget"]
     if meta["build_command"] is not None:

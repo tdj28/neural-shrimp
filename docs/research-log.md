@@ -1688,3 +1688,21 @@ _commit `385349524cad`_
 Pod cmgia2kmoeakvh (NVIDIA H100 NVL, community): SSH after 34 s, 5.2 MB upload in 6 s, then the runner stopped at its first nvcc call (the CUDA image puts /usr/local/cuda/bin on PATH only for interactive shells). Terminated and verified 50 s after creation. Fixed in the runner (export PATH and an explicit nvcc check). Cost: see private ledger.
 
 _commit `d52917539f98` (dirty worktree)_
+
+## 2026-10-08 00:02 UTC: run (exploratory)
+
+- **Question:** RunPod Phase 0 (attempt 5): bitwise parity of the sm_90 build with the RTX 2000 Ada reference, and measured throughputs
+- **Setup:** As attempt 4 with the CUDA toolkit on PATH in the runner; approval: capped Phase 0 (see private ledger)
+- **Output:** `../neural-shrimp-data/runpod/phase0`
+- **Would surprise us:** Any array not bitwise equal on the H100
+- **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type COMMUNITY:NVIDIA H100 PCIe COMMUNITY:NVIDIA H100 80GB HBM3 COMMUNITY:NVIDIA H100 NVL SECURE:NVIDIA H100 PCIe --commit HEAD`
+
+_commit `10bd10efc1f6`_
+
+- run started 2026-10-08 00:02 UTC finished 00:04 UTC with exit status 0
+
+## 2026-10-08 00:06 UTC: RunPod Phase 0 result: H100 NVL reproduces dynamics and labels, not bits; engine 4-9x faster, float64 torch about 70x the local CPU
+
+Attempt 5, pod v7jkobowrc6n4t (NVIDIA H100 NVL, cc 9.0, driver 570.133.20; image runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04): runner exit 0, results hash-verified (sha256 889734fc...), pod terminated and verified 131 s after creation. Engine rebuilt for sm_90 (nvcc 12.4.131, g++-12 12.3.0, mirror flags) under NEURAL_SHRIMP_CUDA_QUALIFYING=9.0. Cross-GPU parity against the RTX 2000 Ada reference: NOT bitwise identical on any workload; differences are confined to chaotic and sensitive cells (status labels differ in 11/576 s1-like cells, 0/576 s2-like (1 period), 4/4,096 S2-28011 cells, 1/1,024 S1R-28002 cells; FTLE and final states differ where trajectories are chaotic). The CUDA backend tests on the pod: 27 passed, 2 failed (the metadata test hard-coded compute capability 8, now generalized; an identity-network test comparing pod GPU with the pod CPU, whose BLAS blocking differs from the reference host's). Interpretation: cross-architecture reproducibility holds at the level of dynamical labels, not bits; the source of the last-bit difference (device math or sm_90 code generation) is not yet localized (next: single-step evaluate() and device tanh/log comparison). Throughput: CUDA engine 0.0527 us per cell-step on the 72-parameter 256x256 timing grid (local RTX 2000 Ada 0.476 uncontended: about 9x); float64 torch MLP 3072-32-10 on 512 samples: 81,568 cell-steps/s at 128 cells (local GPU about 410, local CPU about 1,200 at 8 cells). Implication for Phase 1: real-data sweeps become cheap on an H100; large toy-network maps gain only about 9x. Cost: see private ledger.
+
+_commit `10bd10efc1f6` (dirty worktree)_
