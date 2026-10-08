@@ -225,3 +225,17 @@ def test_reviewed_execution_and_local_source_must_agree(tmp_path,monkeypatch,whe
         return b'bad' if (where=='basis' and reference.startswith(a.BASIS)) or (where=='execution' and reference.startswith(a.EXECUTION)) else b'good'
     monkeypatch.setattr(a.subprocess,'check_output',show)
     with pytest.raises(ValueError):a.source_inventory()
+
+
+@pytest.mark.parametrize('status',[' M tools/audit_s1r_lower_outcome.py\n','?? untracked.py\n','M  src/neural_shrimp/controls.py\n'])
+def test_clean_checkout_guard_rejects_before_any_output(monkeypatch,status):
+    monkeypatch.setattr(a.subprocess,'check_output',lambda *args,**kwargs:status)
+    with pytest.raises(ValueError,match='clean audit checkout'):a.clean_checkout()
+
+
+def test_clean_checkout_guard_and_indirect_import_binding(monkeypatch):
+    monkeypatch.setattr(a.subprocess,'check_output',lambda *args,**kwargs:'')
+    a.clean_checkout()
+    assert 'src/neural_shrimp/controls.py' in a.AUDIT_FILES
+    assert 'src/neural_shrimp/controls.py' not in a.SOURCE_FILES
+    assert len(a.SOURCE_FILES)==12
