@@ -118,3 +118,173 @@ an explanatory contribution. The product-of-reflections algebra itself is not ne
 Independent static review: `docs/reviews/curvature-subspace-mechanism-review.md`
 binds the initial note and motivates the qualifications added here. No empirical
 fit or full prior-work novelty comparison has been performed.
+
+## 8 October 2026 UTC — concrete metadata inventory and first empirical decision
+
+**Decision: prepare one small fixed-state acquisition/fit unit; do not launch
+it yet.** The [input inventory](curvature-subspace-input-inventory.json) binds
+13 input/receipt files and nine inspected source files at the stated base
+commit. This amendment inspects schemas, saved scalar labels and identities
+only. No new norm, eigendecomposition, SVD, derivative, map or approximation
+error has been evaluated. The panel is exploratory and adapted after seeing
+historical development metadata, not confirmatory. No protected split or
+seed29000–29999 is used.
+
+### Fixed six-reference panel
+
+Use two losses already studied, S2-28011 (13D) and S1R-28002 (72D), with one
+reference in each of three strata. For stable strata, the rule is the first
+serialized verified attracting primitive-period-two certificate in that
+family's **original base and zoom pool**, classified by its already saved
+leading multiplier's imaginary part. Do not search other seeds or replace a
+failed slot. This gives the following exact zero-based rows of
+`raw/EXP-028/attempt-002/stage3/certificates.json`:
+
+| Family | Stable real-dominant | Stable complex-dominant | Crossing-neighborhood reference |
+|---|---:|---:|---|
+| S2-28011 | row36, component0 | row125, component23, zoom | criticality curve row0 |
+| S1R-28002 | row17, component0 | row98, component0, zoom | audited original anchor node-0000 |
+
+“Real-dominant” describes the leading spectral pair, not every mode. The
+crossing rule first reuses the already independently audited original anchor
+where one exists (S1R); otherwise it uses the first serialized NS-candidate
+row of that family's original criticality curve (S2). These are one-sided
+near-boundary references, not a two-sided crossing test or a common connected
+branch. S1R node-0000 inherits criticality row2 and has both phases plus saved
+monodromies/eigenvectors. S2 row0 has only one orbit point and scalar NS
+metadata. Neither stable-certificate file retains phase derivatives. The
+exact row pointers, rate literals, state JSON/array identities, qualification
+labels, alternatives admitted by the rule and all missing fields are recorded
+in the inventory before any curvature-fit errors.
+
+Source inspection confirms three important gaps. `period2_branch.spectral_checks`
+saves the two monodromies, not the phase Jacobians. `dense_two_step` in the old
+criticality producer computes phase Jacobians transiently; its output retains
+neither them nor the opposite phase. The new lower-gap six-role collection
+retains phase derivatives, but represents the near-real lower-endpoint question
+and cannot substitute for this NS reference panel. Historical complex
+`dominant_eigenvalue_condition` fields are invalid and must not be reused.
+The current source inventory documents inspected implementation semantics; it
+does not establish a missing historical execution binding for the criticality
+JSON. The new acquisition must bind its own complete transitive source and
+verify input identities, without upgrading the old provenance.
+
+### What the next unit must acquire
+
+Load only consumed training x/y from the existing S2 exact-dyadic C1 input
+file and S1R branch input archive, whose source, model and hashes are bound in
+the inventory. Verify the original EXP-028 shape-plus-bytes hashes as well as
+current raw-byte identities. Do not call `make_s2`, which also creates the
+protected validation/test arrays. Preserve both bias groups, ridge and loss
+normalization. At each of the six fixed references, retain the two gradients,
+Hessians, phase Jacobians and map images: **12 phase derivative evaluations
+and12 images total**, no trajectory or correction. For S2's single-phase
+crossing candidate, the first image defines its missing partner and the second
+image checks closure; this is a fixed-state consistency check, not orbit search.
+
+Recheck transitions/closure with the original componentwise
+`1e-9 + 1e-8 max(|state|,|image|)` scale and primitive separation1e-6. Require
+finite positive fixed rates and finite arrays; preserve every rejected return.
+Where saved monodromies or multipliers exist, require consistency within
+absolute1e-10 plus relative1e-10. Stable slots must keep their historical
+real/complex leading-pair class and attraction margin1e-7; crossing slots need
+closed-orbit qualification but are not required to pass an attraction label at
+that margin. A failed identity, state or label gate stops the positive panel
+interpretation. Retain the slot and reason; do not correct, substitute or widen
+tolerances. The six references are the units; two phases are not replicates.
+
+### Frozen fit, counterfactual and estimand
+
+For each phase set K=P^(1/2) H_sym P^(1/2), S=I-K. First retain the unsymmetrized
+H and require relative Frobenius asymmetry <=1e-12; only then use
+H_sym=(H+H^T)/2. Choose u as the eigenvector of the **largest algebraic**
+eigenvalue lambda1 of K. Define bulk curvature kbar=(tr(K)-lambda1)/(n-1),
+a=1-kbar and alpha=lambda1-kbar. Do this independently at the second phase to
+obtain b,beta,v. This is one fixed top-curvature-plus-isotropic-bulk fit, not an
+optimization against the target monodromy or an adaptive rank search. Require
+top-eigenvalue gap >1e-6 max(1,||K||_2); otherwise record an ambiguous-direction
+failure. Treat 1-(u^Tv)^2<=1e-10 as the one-dimensional aligned case, not a
+spurious rotational plane. Zero strength, ties and borderline discriminants
+are retained abstentions. For discriminant sign use the fixed unresolved band
+1e-10 max(1,T^2,4|D|).
+
+Compute the rank-one product's **full modeled spectrum**, including all n-2
+bulk multipliers ab, before taking its leading pair. The measured target is
+the two largest-modulus eigenvalues of the full whitened product S_b S_a,
+with deterministic real/imaginary tie order and explicit conjugate-pair checks.
+A modeled plane that does not actually dominate cannot be matched to a favorable
+non-leading full-system pair. Compare pairs by the smaller of their two possible
+assignments; this is the fixed unordered-pair metric, not point/mode selection.
+
+The primary error is maximum complex eigenvalue error in that pair, normalized
+by max(1,full spectral radius). Also report real/complex character, angular
+error for complex pairs, modulus error and the relative full-product Frobenius
+error. The matched-strength commuting baseline holds a,b,alpha,beta fixed and
+sets v=u. An explicitly declared orthogonal commuting baseline (u^Tv=0) is a
+second control; conservatively compare to the better of these two fixed errors
+at each reference, labeling this an oracle comparator, not a deployable
+predictor. Both retain phase strengths. A separate strength-only report uses
+sqrt(D) **conditional on a complex modeled pair**. Orientation may improve
+character/angle; it gets no credit for complex-modulus prediction, which D
+already fixes. No orientation-only NS-crossing claim is possible.
+
+Success needs more than recovering the known fact that noncommuting symmetric
+factors can have complex eigenvalues. Freeze the exploratory engineering gate:
+all six slots qualified without replacements; no false complex prediction at
+either real-dominant control; all four complex/crossing slots keep complex
+leading pairs; pair error<=.02 at every slot; angular error<=.05radians at each
+complex slot; and mean pair error at least25% and .001 absolutely below the
+stronger commuting comparator. These tolerances are chosen before fit outcomes
+as useful approximation targets, not claims of statistical significance.
+
+Also require an error envelope: retain phase residuals E_a,E_b and the stated
+product bound using exact rank-one factor operator norms
+max(|a|,|a-alpha|), max(|b|,|b-beta|), and Frobenius upper bounds on the
+residual operator norms. Recompute correctly
+paired left/right residuals and target separation. If the full product has a
+validated complete eigenbasis V, use kappa_2(V) times the product-error bound
+as a conservative Bauer–Fike enclosure. To credit a particular complex pair,
+the enclosure radius must be<=.02 and less than half its distance to every
+other eigenvalue and to the real axis, and each predicted root must lie in
+the corresponding target disk; otherwise mark spectral attribution
+unresolved even if direct numerical agreement looks good. Ill-conditioned or
+defective eigensystems, large bulk residuals or a failed bound are legitimate
+negative results. No rank2 rescue, alternate bulk formula, parameter scan or
+new reference follows within this unit.
+
+### Cost, stopping and what a pass would change
+
+Before acquisition, implement and independently review the exact adapter and
+synthetic symmetric-product/commuting/degenerate controls. A single prospective
+resource profile at the **first S1R panel phase** may acquire one of the12
+required derivative returns and be reused only under exact source/input/device
+identity; its eligibility depends on time/memory only, never fit quality.
+It must also time one fixed synthetic72D symmetric eigensystem, general
+eigensystem and condition SVD, so analysis cost is measured rather than
+inferred from derivative time. Freeze those synthetic matrices in the source
+card; they are engineering controls, not additional network references.
+Proposed ceiling: CPU/BLAS1 nice10, profile5s internal/10+5s external, total
+acquisition+analysis60s internal/75+5s external,16MiB immutable outputs and
+2GiB monitored RSS. Profile must project the remaining fixed work within60s
+using a2x margin on measured remaining derivative and decomposition costs,
+plus5seconds overhead. Expected analysis inventory is12 symmetric phase eigensystems,
+six full monodromy eigensystems and at most six eigenbasis-condition SVDs;
+no new Newton solve. These are proposed limits, not measured feasibility or
+launch authorization. The reviewed lower-gap unit's12 phase derivative pairs
+and24 SVDs took1.148s on this host, a cost precedent only; it is not a substitute
+for this source-bound profile. Any cap, missing slot or accuracy-gate failure
+ends the unit with all evidence retained; no automatic retry or rank expansion.
+
+A pass would justify a separately costed matrix-free estimator comparison on
+these same references before a larger-model experiment: can a small number
+of curvature actions recover the declared accuracy and its uncertainty more
+cheaply than the full product? It would not establish training, inference or
+LLM utility. A fail rejects this particular rank-one/bulk explanation as the
+next bridge and avoids another weak LM feature sweep.
+
+[Hofmann, §6.2 Proposition16 and AppendixE.2](https://arxiv.org/html/2607.04993v1#S6.SS2)
+already derive physical off-diagonal misalignment through symmetric two-phase
+products in a two-mode depth-two linear network, including complex rotational
+instability. Our possible addition is a validated approximation with measured
+error/control gain in the specified nonlinear networks, not a new
+product-of-reflections result or discovery that rotations can occur.

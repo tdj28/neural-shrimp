@@ -4375,3 +4375,17 @@ No model, derivative, figure, proof or builder rerun. Recompiled31pages without
 warnings; page21 visual QA passes and all other30pages are pixel-identical to
 `c9fa055b`. Updated author QA binds source/PDF and retains earlier inspection
 records with their scopes. Parent independent final review remains pending.
+### 2026-10-08 UTC — curvature mechanism metadata inventory and bounded design
+
+On root instruction, inspected only existing development metadata, schemas,
+source and byte identities. Updated docs/plans/curvature-subspace-mechanism.md
+and added curvature-subspace-input-inventory.json. A fixed six-slot S2/S1R
+panel uses earliest historical verified stable real/complex period-two rows
+plus one existing crossing-neighborhood reference per loss; all choices and
+historical knowledge are disclosed. Selected phase Hessians/Jacobians are not
+retained, and S2's crossing candidate lacks its opposite phase. Defined12
+future fixed-phase acquisitions, rank-one/bulk fit, matched-strength commuting
+controls, error-envelope/accuracy gates and resource-profile requirements.
+No norms, eig/SVD, derivatives, map/trajectory, fit errors or protected data
+were evaluated. No implementation, profile or target launch is authorized by
+this design; missing/failed slots cannot be replaced after observing errors.
