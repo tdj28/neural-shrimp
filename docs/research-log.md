@@ -3163,3 +3163,21 @@ were hash-verified and frozen read-only. 8.441s audit,9.131s launcher,
 exited. Detailed scope, numerical results, all raw/launcher hashes and limitations
 are in `docs/reviews/tiny-lm-broader-outcome-audit.md` and its compact JSON receipt.
 No incomplete attempt occurred. Stop; parent integrates and backs up this unit.
+
+### 2026-10-08 — reviewed LM paper update and interim morning report
+
+TLDR: broader text reduces memorization in the fixed tiny-LM development pool,
+but nonlinear update-plane features remain worse than simple progress forecasts
+on both seeds. Independent source-bound arithmetic and eight sampled feature
+checks pass with no retries or threshold changes. The paper includes this
+negative result, the local S1R consistency result and failed CIFAR correction,
+with appropriately narrowed coexistence and citation claims. See
+`docs/reviews/paper-broader-lm-2026-10-08.md` and
+`docs/morning-report-2026-10-08.md`. Numerical macros259 verify; nine figures
+are unchanged; the current PDF compiles and its28 pages were visually checked.
+
+All current target/audit processes have exited. The new361,396,978 raw bytes
+and selected literature are additionally preserved on the separate archive
+disk, with complete hashes and inventory verified. No new paid resource,
+protected outcome, public release or external message was used. Two next-step
+designs are preserved without new target launches. Cutoff remains15:00 UTC.

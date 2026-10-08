@@ -69,3 +69,11 @@ updated handoff and the original checkout's pre-existing uncommitted
 `docs/research-log.md` as well as its cost ledger and older checkpoint. Its
 checksums also passed; see `docs/backups/2026-10-08-private-handoff.json`.
 The original working files were not changed by this backup.
+
+The next completed research unit has a separately verified incremental snapshot
+at `/archive/neural-shrimp-backups/20261008T082704Z-research-increment`.
+It covers all newly selected S1R/CIFAR/LM producer and audit evidence, their logs,
+and literature attempts002--004:1,037 files/361,396,978 bytes, complete inventory
+and SHA-256 checks. It complements the full snapshot and is neither offsite nor
+continuous. Exact roots and manifest are in
+`docs/backups/2026-10-08-research-increment.json`.

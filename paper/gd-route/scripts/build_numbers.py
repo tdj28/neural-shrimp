@@ -788,6 +788,30 @@ def build():
         ("xCifarClosureGate", cifar["settings"]["closure_tolerance"], power(cifar["settings"]["closure_tolerance"]), "settings.closure_tolerance")]:
         n.add(macro, value, tex, "exploratory; failed correction diagnostic; independently audited saved arrays",
               [cifar_path, cifar_audit_path, cifar_manifest], calc)
+    broader_path = c.ROOT / "docs/explore-tiny-lm-broader-outcome-receipt.json"
+    broader_audit_path = c.ROOT / "docs/reviews/tiny-lm-broader-outcome-audit.json"
+    broader, broader_audit = load(broader_path), load(broader_audit_path)
+    assert broader_audit["status"] == "passed" and broader_audit["arithmetic_passed"] and broader_audit["sampled_features_passed"]
+    assert not broader["positive_forecast_interpretation"] and not broader_audit["positive_forecast_interpretation"]
+    broader_analysis = Path(broader["analysis"]["path"])
+    broader_recomputed = Path(broader_audit["raw_root"]) / "recomputed-analysis.json"
+    assert c.sha256(broader_analysis) == broader["analysis"]["sha256"] == broader_audit["analysis_sha256"]
+    assert c.sha256(broader_recomputed) == next(row["sha256"] for row in broader_audit["files"] if row["path"] == broader_recomputed.name)
+    assert c.sha256(Path(broader["manifest"]["path"])) == broader["manifest"]["sha256"] == broader_audit["collection_manifest_sha256"]
+    original, replay = load(broader_analysis), load(broader_recomputed)
+    for macro, family in [("tLMBroaderBThree", "B3"), ("tLMBroaderBTwo", "B2"), ("tLMBroaderOrdinary", None)]:
+        values = []
+        for seed in ("28161", "28162"):
+            selected = family or original["seeds"][seed]["selected_ordinary"]
+            assert original["seeds"][seed]["selected_ordinary"] == replay["seeds"][seed]["selected_ordinary"]
+            value = original["seeds"][seed]["scores"][selected]["256"]["test"]["normalized_mse"]
+            audited = replay["seeds"][seed]["scores"][selected]["256"]["test"]["normalized_mse"]
+            assert abs(value-audited) < 1e-10
+            values.append(value)
+        n.add(macro, values, ",\\; ".join(fixed(v, 4) for v in values),
+              "exploratory; one fixed text pool, two initializations; independently audited saved-data comparison",
+              [broader_path, broader_audit_path, broader_analysis, broader_recomputed],
+              "late expanded-arm normalized MSE in seed order28161/28162; " + (family or "tune-selected ordinary comparator"))
     return n
 
 

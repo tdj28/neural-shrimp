@@ -9,6 +9,7 @@
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{xurl}
 \usepackage{microtype}
 \graphicspath{{figures/}}
 \input{generated-numbers.tex}
@@ -108,9 +109,10 @@ $2/\eta$ while short-term loss fluctuations coexist with longer-term decrease. R
 self-stabilization under local regularity and spectral assumptions \citep{damian2023}, progressive sharpening
 in second-order regression models \citep{agarwala2023}, and initial loss growth followed by convergence in the
 catapult regime \citep{lewkowycz2020}. These descriptions do not define a universal sequence of training phases. Simplified models show period doubling and chaos as the step size grows
-\citep{kalra2025,chen2024phases,hofmann2026}. Over two-dimensional hyperparameter planes, the boundary between
-trainable and divergent settings is fractal \citep{sohldickstein2024,torkamandi2025,liu2024,liang2026}. These maps
-record whether the loss falls and stays bounded, not what the parameters do.
+\citep{kalra2025,chen2024phases,hofmann2026}. Numerical studies report fractal trainability or loss-convergence
+boundaries in selected learning-rate planes \citep{sohldickstein2024,torkamandi2025,liu2024}.
+Related factorization results concern convergence regions in initialization space \citep{liang2026}.
+Such success criteria do not by themselves distinguish full-state dynamical regimes.
 
 We ask what the dynamics inside such maps are. We treat full-batch gradient descent with separate learning rates
 for the hidden and output layers as a two-parameter family of maps on parameter space. For every cell of a
@@ -139,8 +141,9 @@ studies finite-step gradient descent as a dynamical system in solvable models: t
 network, a ``rotational edge'' beyond which the unstable multipliers of the aligned 2-cycle are complex and the
 system saturates in a persistently misaligned oscillatory state. The edge is Hofmann's result; we show, in that
 model and in nonlinear networks, numerical evidence for post-edge closed curves whose rotation approaches
-the crossing angle, and for locking; the linear model requires explicit care with its continuous symmetry. Riddled basins and learning-rate-dependent
-reproducibility are documented by \citet{ly2025}. Invariant curves and phase-locking Arnold tongues appear in a
+the crossing angle, and for locking; the linear model requires explicit care with its continuous symmetry.
+Empirical riddling-like sensitivity and learning-rate-dependent reproducibility under nearby-initialization
+retraining are reported by \citet{ly2025}. Invariant curves and phase-locking Arnold tongues appear in a
 multiplicative-weights learning rule for population games \citep{metaxas2026}, and chaos in learning a two-person
 game goes back to \citet{sato2002}; both concern games rather than descent on one loss. Heavy-ball momentum has
 cycles that rotate by $1/K$ \citep{goujaud2025}.
@@ -813,6 +816,28 @@ Assessment outcomes and controller stages remained unopened. Source-bound result
 saved-data audit are documented in \path{docs/explore-tiny-lm-calibration.md} and
 \path{docs/reviews/tiny-lm-calibration-outcome-review.md}.
 
+\paragraph{Broader-data progress forecast (negative).} A separate exploratory unit compares nested batches
+of 8 and 256 text windows using two new initializations and 800 updates per case. Each initialization shares
+one initial expanded-objective rate scale across its arms. Broader data reduces memorization and lowers loss on
+a new disjoint development probe, both at equal updates and at equal processed training targets. These are
+descriptive contrasts on one fixed text pool; the arms are not independently optimized, and equal token counts
+do not establish equal wall-clock cost.
+
+Predictors fit earlier trajectory segments and tune on subsequent segments, with a horizon embargo before
+the late evaluation block. The continuous target is training-CE change over the next 16 updates; the probe
+does not enter fitting or selection. For the expanded arms in seed order, nonlinear update-plane features
+(B3) give late normalized MSE $\tLMBroaderBThree$, versus $\tLMBroaderBTwo$ for the complete matched
+Gram-history baseline (B2) and $\tLMBroaderOrdinary$ for the tuning-selected ordinary comparators
+(loss/gradient history and AR1 respectively). Normalization uses each arm's fit-only target RMS.
+B3's small improvement over B2 misses the declared improvement threshold and is substantially worse than
+the ordinary controls; the forecast gate fails for both seeds. An independent saved-data audit reconstructs
+all candidate fits, selections, forecasts and gates, directly checks corpus/token identities, and replays
+fixed sampled features. Probe observations are hash-bound and summarized without independent probe
+reevaluation. No assessment, policy or inference stage follows. This supplies no geometry-specific
+language-model advantage and does not exclude other useful diagnostics. See
+\path{docs/explore-tiny-lm-broader-outcome.md} and
+\path{docs/reviews/tiny-lm-broader-outcome-audit.md}.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -849,7 +874,8 @@ dense Jacobian. This hypothesis needs tests of numerical residuals, mode coverag
 and predictive accuracy. Along nonperiodic or scheduled training, finite-horizon tangent growth is the appropriate
 initial quantity; Floquet language is reserved for a sufficiently closed periodic reference orbit.
 The fixed-batch transformer pilot establishes an architectural test path, but has not yielded a periodic reference
-orbit, and the drift-aware development calibration has not shown incremental predictive utility. Separate
+orbit. Neither the drift-aware event calibration nor the separate broader-data continuous-progress pilot has
+shown incremental predictive utility. Separate
 minibatch, optimizer-state, schedule and precision perturbations remain necessary. Relevant endpoints are prospective transition predictions and improved interventions at comparable
 compute cost. Similar-looking loss oscillations would not establish either endpoint. A linear loss-based
 multiplier estimate alone also does not identify nonlinear criticality or basin accessibility.
@@ -945,7 +971,9 @@ evidence and writes a receipt with input hashes, the generator's hash, output ha
 displays. Quoted empirical numbers and the design and consequence tables are generated by
 \path{paper/gd-route/scripts/build_numbers.py}; \path{data/numbers.json} records each number's source file, hash
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
-regenerates every figure and quoted number, replays the new pilot receipts, orbit certificates and scalar NS gates, and fails on any difference. The verification status of every reference is
+regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
+feasibility receipts, orbit certificates and scalar NS gates, and fails on any difference. Later S1R, CIFAR and
+LM pilots have separate source-bound saved-data audits cited with their results. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
 its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}. The exploratory streams are summarized in
 \path{docs/explore-criticality-2026-10-07.md}, \path{docs/explore-ancestry-2026-10-07.md},

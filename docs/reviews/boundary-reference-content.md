@@ -52,3 +52,14 @@ The minimal-model visualization is explicitly a long transient in Methods.
 Current wording distinguishes empirical signatures from a rigorous global-basin
 proof. The functional comparison is relevant prior work for any proposed
 training-to-deployment robustness contribution.
+
+## Whole-manuscript wording follow-through
+
+An additional introduction pass found two older, broader citation contexts that
+the related-work update had not yet narrowed. The introduction now separates
+Liang's initialization-space convergence regions from learning-rate maps and
+describes selected numerical boundary examples instead of a universal fractal
+boundary assertion. Ly's introductory citation now says empirical riddling-like
+sensitivity under nearby-initialization retraining, matching the restricted
+related-work description. These changes use the same archived primary sources;
+no new literature or target-data claim is introduced.
