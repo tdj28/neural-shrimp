@@ -3828,3 +3828,15 @@ both, added a utility clean-checkout guard, and made CIFAR exact saved-array
 relations compare bytes. No target utility gradients, CIFAR profile or target
 projection had run. Original source freezes remain preserved; final source
 review and launch authorization are pending.
+
+## 2026-10-08 UTC — prospective independent CIFAR input-span outcome audit
+
+Prepare a separate saved-data evaluator, bounded launcher, immutable metadata pins
+and prospective card in docs/reviews/cifar-input-span-outcome-audit-card.md.
+The root supplied only artifact/execution identities; no numerical profile or
+target outcome has been read. All13 saved-vector decompositions, five period2
+residual identities, original p/Ap/e, complete provenance and unchanged triage
+will be audited using saved Q; no QR/model/derivative/solver evaluation.
+34 synthetic controls pass in0.09s, including fail-closed mutation and retained
+failure cases. Root must authorize the exact frozen source/pins before the one
+15s-internal/20+5-external CPU1nice10,4MiB audit; no launch yet.
