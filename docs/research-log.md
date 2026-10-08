@@ -2665,3 +2665,41 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+## S1R full-pair continuation pilot — prospective card, 8 October 2026 UTC
+
+Question: does one outcome-selected saved S1R/28002 primitive period-two anchor
+support a locally consistent full-state branch across the five declared output
+rates? This is exploratory, not a frozen headline test or historical-family
+association. Basis is integrated 5e716f6a191e58022e17052277d4de90c44091c7.
+The exact saved input, model, phase gates and scope are specified in
+`docs/s1r-branch-association-plan.json` and its dated implementation amendment.
+The adjoint fix and independent review are already integrated.
+
+Commit and privately push this code/card; root source review/signoff is required
+before target execution. **No target computation has run in this implementation
+unit.** Synthetic controls use known polynomial cycles only; the 72D CLI test
+replaces both model construction and seed loading. No protected seeds, held-out
+subset or historical initial-condition family is sampled.
+
+One CPU thread, nice 10; 120 seconds internal, 150 seconds external plus 5 seconds
+kill grace; 160 individual phase correctors and 64 MiB total artifacts. Recheck
+host load and RAM immediately before launch; no GPU or paid service. The runner
+records actual availability, process ID, thread environment and source/data
+hashes. A hard native-operation stall is bounded by the external timeout. No
+automatic budget increase or rerun is authorized by this card.
+
+After root signoff, the exact command from the committed worktree is:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 150s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_s1r_branch.py --out /data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001`.
+The directory is created exclusively; failure or interruption is retained with
+its last full-state records, pending edges and actual completion label.
+Offline replay (after the run, within a bounded audit) is
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 150s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/check_s1r_branch.py /data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001`.
+
+All five connected outputs would support local numerical branch consistency at
+the tested step sizes. A corrected but unstable point would still be retained;
+a correction, phase, or spectral failure is an unresolved gap, not a boundary
+classification. Either outcome leaves historical start-family association,
+uniqueness, distant resonance/fold ancestry and utility unresolved. A surprising
+result would be direct/half/reverse disagreement despite small residuals; every
+witness is retained to make that distinction inspectable.

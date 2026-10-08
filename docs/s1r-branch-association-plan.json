@@ -68,12 +68,24 @@
   },
   "new_trajectory_steps_first_pilot": 0,
   "scientific_computation_performed": false,
-  "next_action": "implement and test the proposed generic continuation/checker, then commit code and run card before execution",
+  "next_action": "root source review and signoff before any target execution",
   "claims_excluded": [
     "rigorous uniqueness or continuation",
     "historical start-family association",
     "distant fold/resonance ancestry",
     "verified quasiperiodic map state",
     "shrimp-specific utility"
-  ]
+  ],
+  "implementation_amendment": {
+    "date_utc": "2026-10-08",
+    "basis_commit": "5e716f6a191e58022e17052277d4de90c44091c7",
+    "status": "implementation_prepared_target_not_run",
+    "execution_requires": "root source review and signoff",
+    "min_step_scope": "retained output links; diagnostic half steps may be smaller",
+    "halving_scope": "at most four cumulative reductions per requested output segment",
+    "hidden_backoff": "four fixed full-pair steps with state, spectral and phase-link gates; stop on failure",
+    "line_search": "full trial plus at most twelve halvings",
+    "spectral_matching": "absolute 1e-7 same-parameter phase multiset agreement; no tracked cross-parameter eigenmode",
+    "storage_reserve_fraction": 0.25
+  }
 }

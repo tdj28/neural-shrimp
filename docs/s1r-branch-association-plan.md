@@ -191,3 +191,67 @@ unresolved. Such a result would be a local numerical crossing candidate,
 not a rigorous NS theorem. Following it to distant fold curves or 1/8, 2/15
 or 1/23 resonances, and linking map trajectories to a newborn circle, require
 additional connected evidence and post-sampling state/period/FTLE checks.
+
+## Pre-execution implementation amendment — 8 October 2026 UTC
+
+The prerequisite complex-adjoint correction and independent impact review are
+integrated in authoritative source `5e716f6a191e58022e17052277d4de90c44091c7`.
+Implementation is prepared on `codex/s1r-branch-pilot`; **no S1R target
+correction, spectrum, trajectory or continuation has been run**. Only synthetic
+controls were evaluated. The initial planning-status paragraphs above describe
+the earlier state and are superseded by this dated implementation status.
+Root must review and sign off the committed source before target execution.
+
+Implementation clarifications, made before target outcomes:
+
+- The minimum output step limits retained main continuation links. Diagnostic
+  half-step witnesses may use half that minimum. A rejected full step is
+  preserved as rejected; subsequent accepted smaller links can connect only
+  the part they actually traverse. Four cumulative step reductions per requested
+  output segment are allowed; an unresolved minimum-step trial ends that
+  direction. Reduced step size persists until that requested endpoint.
+- Hidden backoff uses four fixed steps, two independently corrected phases,
+  primitive closure, spectra and parent phase matching. Its first failure
+  stops the pilot. The direct/half-step/reverse and adaptive subdivision tests
+  apply to output links, as specified in the original sequence. No hidden-rate
+  search or additional crossing search is added.
+- The two phase-corrector seeds retain their coordinate labels; a corrected
+  phase must be within 0.02 of its own seed in the same normalized infinity
+  norm. A small undamped correction terminates Newton only after the full
+  correction is applied and all independent state gates pass. The line search
+  permits the full trial plus at most twelve halvings, and never treats damping
+  itself as convergence. There is no initialization from theta0.
+- Every accepted pair keeps complete native-phase spectra and a recorded cyclic
+  phase bit on each graph edge. Secants use carried, consistently aligned pairs;
+  they are predictors, never acceptance evidence. Eigenvalue multiset matching
+  uses absolute distance at the planned 1e-7 tolerance, only between the two
+  phases at the same parameters. No parameter-to-parameter eigenmode or angle
+  assignment is used. Mode identity remains explicitly untracked; gaps and
+  conditions are diagnostics, not forward eigenvalue error bounds.
+- `src/neural_shrimp/period2_branch_io.py` is a small additional support module
+  for exclusive, atomic, fsynced arrays/records. The 64 MiB total cap includes
+  journals, final status and the manifest; a quarter is reserved for finalizing
+  evidence. Budget checks occur between NumPy/SciPy calls; the external timeout
+  remains the backstop for a stalled native operation. Corrector states and
+  corrected pairs are persisted before spectral work. A hard kill can leave
+  a pending journal/checkpoint without a completed manifest, which is retained
+  as incomplete rather than declared replayable or complete.
+- The offline checker never repeats Newton or a trajectory. It verifies exact
+  source/data identities, accepted saved-state closure and undamped correction,
+  complete stored eigenpair residuals and the direct/half/reverse graph. It
+  rejects an accepted path through an unqualified node or rejected edge. It
+  preserves incomplete status and does not assign either historical family.
+
+Synthetic qualification: sixteen tests currently pass, including a deliberately
+synthetic 72-dimensional polynomial map substituted for all target construction
+and seed loading in the actual CLI/checker. That complete fixture uses 42 phase
+corrections (2 anchor, 8 hidden backoff, 32 output witnesses). It is a plumbing
+and mathematical-control result, not a measured S1R runtime forecast. Failures
+encountered while writing tests were confined to the test harness and are not
+research attempts. The runner records each corrector duration and screens the nominal remaining
+20 pair qualifications using the first anchor-pair duration. If that linear
+estimate exceeds the remaining internal time it stops as timing-infeasible;
+passing the screen supplies no runtime guarantee. The target budget remains
+120 seconds internal, 150 seconds
+external plus 5 seconds kill grace, 160 phase corrections, one CPU thread and
+nice 10. If completion is infeasible, the saved status and graph remain partial.
