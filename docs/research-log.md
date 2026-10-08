@@ -3238,3 +3238,30 @@ path is `/data2/neural-shrimp-data/explore/s1r-bootstrap-association/attempt-001
 Both failures and successful witnesses remain immutable; a partial path gives
 no association verdict. No second-family continuation or historical ancestry
 claim is authorized. Stop new work at15:00 UTC as directed.
+
+## 2026-10-08 — Prospective S1R bootstrap saved-data audit (unlaunched)
+
+This separate audit will test whether the retained bootstrap phases and local
+continuation witnesses support a numerical common-control comparison. It cannot
+prove historical-family ancestry or shrimp-specific utility. The collection is
+already available, but the independent reviewer has received only paths,
+hashes, execution source and availability, and has not opened its numerical
+outcomes, profile outcomes or producer outcome receipt. The outcome-masked
+source/card is [the prospective audit card](reviews/s1r-bootstrap-outcome-card.md).
+
+Source basis e0fccd73df025f81130d07dfbe60dfe170ef4840; collection execution
+586e74927215ff7ab5ebc81fbc29720c9322f291. Bind both bootstrap counters, saved tail
+transitions, both native phase gates, all direct/half/reverse/secant witnesses,
+explicit phases and gaps, exact controls before pair matching, and independently
+reconstruct selected full72D gradient/Hessian matrices. Recorded80,000-update
+consistency is distinct from numerical replay of unsaved intervals. No new
+trajectory, Newton solve, GPU/paid run or historical-state claim.
+
+The one prospective output is
+`/data2/neural-shrimp-data/audits/s1r-bootstrap-association/attempt-001`,
+with adjacent task-owned log prefix specified in the card. CPU/BLAS1, nice10,
+internal45 / external60 +5 seconds, raw16MiB, exclusive output, no retry or
+threshold relaxation. Source/tests/card must be committed and privately pushed,
+then independently reviewed by root before target replay. Preserve every failed
+or partial attempt and stop after the single authorized audit. Synthetic source
+controls are the only computation authorized in this preparation unit.
