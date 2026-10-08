@@ -1670,3 +1670,21 @@ _commit `c3c2de656b14` (dirty worktree)_
 Pod 6546w0vsz8m0jo (NVIDIA H100 NVL, community) was created at 23:49:18 UTC and reachable by SSH after 17 s, but the orchestrator uploaded the full git archive (1.8 GB of committed evidence and figures) over a ~2 MB/s uplink and hit its 10-minute upload timeout; the finally block terminated the pod (23:59:42) and verified it gone by direct lookup and inventory (23:59:48). No results. Cause: an avoidable packaging mistake; fixed in 7246188c (upload only src, tools, tests, native, experiments/trainability, pyproject.toml, uv.lock: 5.2 MB). Cost: see private ledger.
 
 _commit `93288b4b8ef0` (dirty worktree)_
+
+## 2026-10-08 00:00 UTC: run (exploratory)
+
+- **Question:** RunPod Phase 0 (attempt 4, 5 MB upload): bitwise parity of the sm_90 build with the RTX 2000 Ada reference, and measured throughputs
+- **Setup:** Fallbacks at creation only: COMMUNITY H100 PCIe, SXM, NVL, then SECURE H100 PCIe; upload only the runner's paths; same image, reference, runner and limits; approval: capped Phase 0 (see private ledger)
+- **Output:** `../neural-shrimp-data/runpod/phase0`
+- **Would surprise us:** Any array not bitwise equal on the H100
+- **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type COMMUNITY:NVIDIA H100 PCIe COMMUNITY:NVIDIA H100 80GB HBM3 COMMUNITY:NVIDIA H100 NVL SECURE:NVIDIA H100 PCIe --commit HEAD`
+
+_commit `385349524cad`_
+
+- run started 2026-10-08 00:00 UTC finished 00:01 UTC with exit status 1
+
+## 2026-10-08 00:02 UTC: RunPod Phase 0 attempt 4 failed fast (nvcc not on PATH); pod terminated and verified
+
+Pod cmgia2kmoeakvh (NVIDIA H100 NVL, community): SSH after 34 s, 5.2 MB upload in 6 s, then the runner stopped at its first nvcc call (the CUDA image puts /usr/local/cuda/bin on PATH only for interactive shells). Terminated and verified 50 s after creation. Fixed in the runner (export PATH and an explicit nvcc check). Cost: see private ledger.
+
+_commit `d52917539f98` (dirty worktree)_
