@@ -3627,3 +3627,8 @@ negative LM/CIFAR outcomes, matched-pulse design and lower-family next decision.
 All scientific units have exited; no paid compute or consultation, no protected
 holdout use, and no submission/public release. The existing heartbeat may resume
 nonduplicate bounded work before15:00UTC; the next association memo is design only.
+
+A supplemental four-file snapshot also preserves the latest ignored handoff
+and the original checkout's uncommitted research log, without staging that
+other agent's changes. Its manifest is bound in the separate private-handoff
+backup receipt.
