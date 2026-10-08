@@ -1,104 +1,105 @@
-# Overnight research report - 8 October 2026
+# Overnight research report — 8 October 2026
 
-Interim update at12:39 UTC /05:39 PDT. New work stops at08:00 PDT /15:00 UTC.
+Interim update at 13:28 UTC / 06:28 PDT. New work stops at 08:00 PDT / 15:00 UTC.
 Private human reading draft; no submission or public release.
 
-**The strongest advance is the rigorous attracting cycle in all72 S1R parameters.**
-The exact-real proof and separate audit pass. The numerical lineage also connects
-to a newly reproduced upper bootstrap. The attempted lower connection now ends at
-a retained gap. The latest utility and CIFAR diagnostics are informative negative
-results. No LLM training, inference or nanoGPT speed benefit has been demonstrated.
+**The strongest advance is a proof that a 72-parameter neural network can settle
+into an attracting two-update cycle.** Nearby weights converge locally toward
+that repeating pattern under the exact-real training map. This extends the
+rigorous examples beyond our 13-parameter network. It does not yet demonstrate
+a useful intervention or a benefit for LLM training, inference or nanoGPT speed.
 
-## What the evidence now supports
+## What we learned
 
-- **Proofs:** two13D period-ten orbits and one72D period-two orbit have exact-real
-  existence, primitive-period and attraction certificates. For the72D orbit,
-  the full monodromy power2048 has infinity-norm bound below0.556. An independent
-  audit replays the enclosures and checks whole-box numerical-state proximity.
-  Separately, the scalar unequal-rate model has a local supercritical NS proof.
-  These are local claims, not a proved window census or global route to chaos.
-- **Branch association:**12 witnessed links connect the saved S1R lineage to
-  the newly reproduced upper bootstrap at identical controls; cyclic-phase
-  discrepancy is2.65e-15. Toward the lower bootstrap,54 of75 macro steps complete,
-  with56 accepted links. The last pair at hidden log rate0.992 is unstable;
-  the next target0.990 stalls at the initial trial and four halvings. Independent
-  audit passes. There is no endpoint comparison, fold or disconnection proof.
-- **Utility dose:** all four saved-state gradients independently reproduce
-  output-only reduction fractions1.412,1.444,0.766,0.766 to match a5% uniform
-  reduction's displacement from sham. All exceed the fixed25% cap. No pulse was
-  applied; that candidate design is rejected. A smaller dose would need a
-  disclosed new design, and distant periodic/chaos-qualified controls are still
-  missing. Equal sham-relative displacement would not equalize total step length. A reviewed algebra note shows that a distinct direction cannot match both quantities to uniform backoff; a symmetric pair offers a different possible comparison, with no new dose or pulse selected.
-- **CIFAR:** an exact input-span decomposition reduces the nontrivial coordinates
-  from98,666 to16,746 for the stated fixed-input scalar-GD/ridge model. But its
-  complement contains only1.75e-8 of the original squared residual. Independent
-  saved-data audit passes; the fixed>=0.5 prioritization gate fails. This does
-  not explain most of the stalled residual or demonstrate a solver advantage.
-  A subsequent matched restart test improves the true linear residual ratio
-  from0.8843 to0.6620, still above0.5. All four nonlinear trial merits increase;
-  none passes closure or acceptance. Independent saved-data audit passes. There
-  is still no accepted CIFAR periodic orbit or running CIFAR process.
-- **LLM:** both completed forecast designs remain negative. In the broader-data
-  pilot, nonlinear features give late normalized MSE0.2999/0.5026 versus
-  0.1027/0.0949 for ordinary comparators. Development-probe loss improves with
-  broader training data, but this is not a geometry-specific benefit. The next
-  LM experiment needs a result that would change a concrete decision against
-  strong simple baselines; repeating the same design is unwarranted.
+- **Proofs:** two 13D period-ten orbits and one 72D period-two orbit have
+  existence, primitive-period and attraction certificates. The 72D proof and
+  its independent audit pass; a full monodromy power has norm below 0.556.
+  A separate scalar example has a local supercritical Neimark–Sacker proof.
+  These are local results, not proofs of the entire window census or chaos.
+- **Branch association:** twelve witnessed links connect the S1R lineage to
+  a newly reproduced upper bootstrap at identical controls. The attempted
+  lower connection still has a gap after 54 of 75 macro steps. Instability
+  of the last accepted orbit does not itself terminate its branch.
+- **New gap diagnosis:** the stored Newton direction solves its local equation
+  accurately: relative residual about 3.14e-9. Nevertheless, all thirteen saved
+  finite steps increase the original residual; even the smallest raises it
+  about 34%. Independent audit passes. This points toward testing a different
+  continuation method. A nearly singular derivative at the failed, nonclosed
+  state is not a fold or disconnection result. Its tangent orientation also
+  depends on the declared metric. No new correction was applied.
+- **CIFAR:** the 98,666-parameter periodic-orbit candidate remains unresolved.
+  Keeping 200 GMRES iterations in one cycle improves true linear forcing from
+  0.8843 to 0.6620, but misses the 0.5 gate and all four nonlinear trials fail.
+  The input-span reduction leaves 16,746 nontrivial coordinates, yet eliminated
+  directions explain only 1.75e-8 of the original squared residual. Both
+  diagnostics are independently audited. We stopped this correction sequence;
+  no CIFAR job is running and no orbit or solver speedup is claimed.
+- **Utility:** the proposed output-only pulse cannot match the chosen uniform
+  pulse within the fixed cap in any of four saved cases. No pulse was applied.
+  A reviewed algebra note also shows that matching both displacement from sham
+  and total step length to a uniform backoff forces the same direction. A fair
+  alternative comparison and distant periodic/chaos-qualified controls are
+  needed before testing a geometry-specific benefit.
+- **LLM:** both completed forecasting designs remain negative. In the broader
+  data pilot, nonlinear features underperform ordinary comparators. Better
+  development loss from broader data is not evidence for our geometry. The
+  next proposal tests an explanatory mechanism first, without another LM sweep.
 
 ## Current paper
 
-[Read the current31-page paper](../paper/gd-route/gd-route-working-draft.pdf).
-It has287 verified source-derived numerical macros and nine figures; compilation
-is clean. All pages were visually checked in an overview and changed result
-pages in detail. Source/PDF checkpoint5e5909cd is privately pushed and independently reviewed at424c0455.
+[Read the current 31-page paper](../paper/gd-route/gd-route-working-draft.pdf).
+It has 292 checked source-derived values and nine figures. Compilation and
+visual checks pass. The current paper is privately pushed and independently
+reviewed at `2868e790`; its PDF SHA-256 is
+`c9f9e2081f8ab95e152ce7cd1254e71a029b9f8e2e570990031cab46ac0e2e07`.
 
-An accuracy review found that the merged S2 crossing locus joins independently
-initialized slices. It does **not** establish one continuous full-state branch.
-The text and figures now say this; adjacent-row coefficient sign transitions
-nominate generalized-NS candidates rather than prove three such bifurcations.
-The new gap and negative diagnostics are included. Heavy-ball, basin-accessibility,
-projection and proof-scope wording has also been tightened. The full Jensen1983 primary paper and the Arnold reprint preview are now read; other bibliographic checks
-remain partial, and research/human release placeholders remain explicit.
+The accuracy pass distinguishes independently initialized S2 slices from an
+established continuous branch, coefficient-sign candidates from proved
+generalized bifurcations, and near-+1 digit-network boundaries from confirmed
+folds. It includes the gap diagnosis and negative utility/CIFAR/LM evidence.
+The shared-input limits of numerical audits remain explicit. Jensen1983 was
+read in full; Arnold and Aronson checks remain partial. Research, bibliography
+and human-authorship items remain open: this is a reading draft, not a release.
 
-## Work in preparation and next decisions
+## Work in preparation
 
-1. Diagnose the retained S1R gap at exactly six fixed states. The implemented
-   source and22 synthetic controls pass independent review. Its prospective
-   independent saved-data auditor is being written before the target run.
-   Limits are12 map values/12 Jacobians/24 SVDs,15s internal20+5s external,
-   CPU1,8MiB. **Not yet launched.** No correction or branch jump is part of it.
-2. Decide the smallest useful next CIFAR method after the audited failed gates.
-   A larger Krylov budget, smaller damping or coordinate reduction each needs
-   a concrete decision and cost justification; none is automatically launched.
-3. For scaling, a reviewed curvature-subspace note explains how changing sharp
-   directions can create a complex two-step pair in arbitrary dimension. This
-   is elementary algebra, not a fitted model or novelty/LLM result. Orientation
-   changes pair character/angle; at fixed strengths it does not change complex
-   modulus. Test incremental predictions before another LM feature sweep.
-4. Keep practical value separate from geometry description. Select a fair
-   comparator and qualified controls before another utility pulse. Freezing
-   weights stops the optimizer map; inference requires separate tests.
+1. **Local continuation:** implement and independently review a two-edge
+   pseudo-arclength pilot starting only from the last qualified S1R orbit.
+   Direct, half-step and reverse witnesses must agree at common controls.
+   The fixed metric, failure history and operation/time/storage caps are
+   declared in `docs/plans/s1r-pseudoarclength-next.md`. Source and synthetic
+   preparation is authorized; **no target is launched yet**. A prospective
+   independent auditor is being prepared. If not ready by 14:30 UTC, leave it
+   prepared rather than start it near the overnight cutoff.
+2. **A possible bridge to larger models:** a fixed six-reference panel will
+   test whether two changing sharp-curvature directions approximate the full
+   complex dynamics better than matched-strength commuting controls. The
+   selected phase derivatives are not retained, so acquisition needs its own
+   reviewed source and measured budget. The design is under static review;
+   no acquisition or fit has run. Elementary product algebra is not a novelty
+   claim, and success would still not establish LLM utility.
+3. **Practical value:** choose a meaningful intervention comparison and qualify
+   its controls. Frozen-weight inference stops the optimizer map; prediction
+   sensitivity and generation feedback require separate evidence.
 
 ## Preservation and resources
 
 Authoritative worktree:
 `/home/d7082791602/.codex/worktrees/post-edge-next-steps/neural-shrimp`, branch
-`codex/post-edge-next-steps`. Reviewed commits are pushed privately and remote
-hashes checked. Main and Claude's pre-existing dirty original research log remain
-untouched. PR authentication is unavailable; no merge or external message occurred.
+`codex/post-edge-next-steps`. Coherent units are committed, privately pushed and
+remote hashes checked. Main and Claude's pre-existing dirty log are untouched.
+PR authentication is unavailable; no merge or external message occurred.
 
-The earlier lower/span evidence and complete attempt/launcher logs are copied to the separate
-physical disk at `/archive/neural-shrimp-backups/20261008T113630Z-lower-span-increment`:
-10,746 files / 163,313,975 bytes. Complete inventory and
-SHA-256 checks, plus a second source hash pass, agree. This supplements earlier
-snapshots including the18GB full copy. It is local point-in-time protection,
-not offsite or continuous. See [lower/span receipt](backups/2026-10-08-lower-span-increment.json).
-The latest restart/audit and Arnold/Jensen archives add60 files/21,993,233bytes
-at `/archive/neural-shrimp-backups/20261008T122628Z-restart-increment`, with full
-source/copy hashes and second source pass checked. See [restart receipt](backups/2026-10-08-restart-increment.json).
+Raw evidence has additional verified copies on the separate physical archive
+disk, supplementing the earlier 18GB snapshot. The latest increment contains
+297 files / 7,067,996 bytes of gap, audit and reference evidence at
+`/archive/neural-shrimp-backups/20261008T130606Z-gap-increment`.
+Complete inventories, every file hash and a second source hash pass agree.
+See [backup receipt](backups/2026-10-08-gap-increment.json). This is local
+point-in-time protection, not offsite or continuous backup.
 
-All completed experiment/audit processes exited. CIFAR diagnostic work is
-complete; the next S1R diagnostic is source preparation. This unit used local CPU only,
+All completed experiment/audit processes exited. This unit used local CPU only;
 no paid compute or consultation. Foreign workloads were left untouched and
-protected holdouts remain sealed. Automatic approval review previously rejected the private Astra payload transmission
-pending payload-specific human approval; it has not been retried.
+protected holdouts remain sealed. Automatic approval review previously rejected
+the private Astra payload transmission pending payload-specific human approval;
+it has not been retried.
