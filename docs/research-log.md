@@ -4062,3 +4062,37 @@ pseudo-arclength proposal. The companion input JSON pins exact records/arrays,
 including the closest failed target and final stored Newton equation. Proposed
 15s internal/20+5 external CPU1nice10/8MiB; source, synthetic controls, independent
 review and separate authorization remain required. No implementation or launch.
+
+## 2026-10-08 UTC — lower-gap six-state diagnostic source; launch pending
+
+Implemented root-authorized source-only design0f28cc5a: six pinned saved roles,
+independent analytic gradient/Hessian adapter,12 map/12 Jacobian/24 full SVD
+caps, raw and fixed scaled coordinates with correct73D tangent conversion,
+carried phase/secant orientation and explicit ambiguous-rank/nearzero abstention.
+The failed states yield only local residual-level-set tangents. No correction,
+trajectory, new orbit acceptance or fold verdict is possible. Existing bound
+producer/model sources remain unchanged; all work uses a separate codex branch.
+
+Synthetic controls exercise a quadratic map parameter chain, simple fold,
+ill-conditioned nonsingular example, competing soft directions, rank ambiguity,
+phase exchange, zero residual, corrupt step/Jacobian, nonfinite and interrupted
+return retention, bounded launcher failure, and a complete six-slot synthetic
+pipeline with full73-column right bases and exact12/12/24 counts. No saved
+scientific target/model/profile was evaluated. The prospective card is
+docs/plans/s1r-lower-gap-implementation.md: CPU1nice10, internal15s/external20+5,
+7+1MiB raw, no retry. Independent source review and separate root authorization
+remain required before the one prospective launch; no target directory exists.
+
+
+Source-only controls initially caught duplicate matrix storage reaching the
+ordinary allowance and a collision between historical encoded array tags and
+the new record decoder. Retained each gradient/Hessian/Jacobian once and saved
+the pinned plan as separate hash-bound JSON; no scientific threshold, output
+cap or role changed. The full-rank synthetic pipeline retained approximately
+5MiB within7MiB science budget, including complete73D right bases. Source and
+scope review follows the final synthetic suite; all real target calls remain
+unauthorized at this checkpoint.
+
+Final focused suite:14 synthetic controls passed in0.65s (timing approximate);
+no real target/model evaluation. Assembled nonfinite M/A records survive
+post-return rejection. All source-only failures above remain disclosed.
