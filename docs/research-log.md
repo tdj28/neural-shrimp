@@ -3753,3 +3753,11 @@ Prepare one bounded independent saved-file reconstruction using
 `tools/reviews/check_utility_input_inventory.py`; card
 `docs/reviews/utility-input-independent-card.md`. No model or gradient executes.
 The lower-association producer worktree remains separately frozen for review.
+
+Independent utility saved-file check completed once frombd98b84f,0.228s,exit0;
+all12 producer synthetic controls pass. Review/receipt:
+`docs/reviews/utility-input-independent.md` and matching JSON. Four row4100
+forks mean8202 updates; all522 candidate records and nominees reproduce. No
+model or protected-array/pulse outcome evaluation occurred. Nonblocking rule
+mismatch: producer lexical-ID tie ordering versus plan source-path/numeric-row;
+all current minima are strict and identical. No-go for pulse collection stands.
