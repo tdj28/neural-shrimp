@@ -4183,3 +4183,7 @@ These negative scientific results are preserved with no extra damping trial,
 continuation or spectrum. See docs/reviews/cifar-restart-independent-outcome.md
 and its companion receipt for full source/manifests, counters, resources and
 scope. No model/derivative/QR/SVD/solver/trajectory work or paid/GPU use occurred.
+
+## 2026-10-08 12:26UTC — archive completed restart/reference evidence
+
+Copied and fully hash-checked60 immutable raw files/21,993,233bytes to the separate physical archive disk. Complete producer/audit launchers and Arnold009/Jensen010 primary-reference archives included. Receipt `docs/backups/2026-10-08-restart-increment.json`; no scientific rerun.

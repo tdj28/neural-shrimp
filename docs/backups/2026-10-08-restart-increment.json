@@ -1,0 +1,26 @@
+{
+  "status": "verified",
+  "started_utc": "20261008T122628Z",
+  "completed_utc": "2026-10-08T12:26:28.359039+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261008T122628Z-restart-increment",
+  "selected_roots": [
+    "references/arnold1965-identity-009",
+    "references/jensen1983-identity-010",
+    "explore/cifar/restart-sensitivity",
+    "audits/cifar-restart-independent"
+  ],
+  "file_count": 60,
+  "bytes": 21993233,
+  "symlink_count": 0,
+  "manifest_sha256": "214c7c4a8b7a9bd709cab00d72d62e37e76fdb160b19749cf784e7d49783044b",
+  "elapsed_seconds": 0.05475740600377321,
+  "source_commit_at_copy": "ac85b9f6c027deed4ef15933243a3773da962ad7",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

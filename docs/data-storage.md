@@ -107,3 +107,7 @@ updated handoff and the original checkout's pre-existing uncommitted
 `docs/research-log.md` as well as its cost ledger and older checkpoint. Its
 checksums also passed; see `docs/backups/2026-10-08-private-handoff-lower-span.json`.
 The original working files were not changed by this backup.
+
+### 8 October 2026,12:26UTC — restart and reference increment
+
+Verified60 files/21,993,233bytes at `/archive/neural-shrimp-backups/20261008T122628Z-restart-increment`, manifest214c7c4a8b7a9bd709cab00d72d62e37e76fdb160b19749cf784e7d49783044b. Includes complete CIFAR restart producer/audit and launchers, Arnold preview009 and Jensen full-text010. Exact source/copy inventory and all hashes, second source hash pass, and stable metadata agree. Receipt `docs/backups/2026-10-08-restart-increment.json`. Separate physical disk on the same machine; complements prior snapshots, not offsite or continuous.
