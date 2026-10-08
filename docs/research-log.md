@@ -3770,3 +3770,14 @@ root launchcard docs/plans/s1r-lower-launch-2026-10-08.md fixes the existing
 Fresh host capacity is adequate; no matching ownedjob, holdout or paid use.
 Independent utility inventory passes with its disclosed nonblocking tie-rule
 discrepancy; its unchanged1200-byte review output now has a permanent raw copy.
+
+
+## 2026-10-08 10:55 UTC — lower comparison outcome, audit pending
+
+One authorized collection completed at execution b5271a4b: 54/75 macro links,
+63 attempts, 473 phase correctors; retained numerical gap at the next nominal
+hidden log-rate 0.990 after the last witnessed 0.992. Association remains
+unresolved. Source review bb71b904 preceded collection; separate blinded
+outcome evaluator preparation is in progress. Full immutable inventories
+verified; no retry, new protected data, GPU or paid run. See
+`docs/reviews/s1r-lower-outcome.md` and its hash-bound receipt.
