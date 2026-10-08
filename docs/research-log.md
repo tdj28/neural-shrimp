@@ -2911,3 +2911,16 @@ differences and corrupted-manifest rejection. Commit/push audit source and card
 before replay. One CPU1/nice10 attempt, internal45s, external55s+5s, exclusive
 output under `/data2/neural-shrimp-data/audits/s1r-branch-outcome/attempt-001`.
 Retain any failure before adaptation. No GPU, paid call or protected data.
+
+### 2026-10-08 07:56 UTC — independent S1R saved-outcome audit passed
+
+Audit source/card a27febb1be377c112946b93d5670041ccc8d65e7 was pushed before
+one saved-data replay. Exit0 in0.919s external/0.540s internal, CPU1/nice10.
+All720 raw files10,429,301 bytes/source/input/auxiliary bindings pass; unchanged
+checker passes21 pairs42 corrections/four edges. Independent24 phase decisions
+and inherited/secant seeds agree. Six representative full-Hessian checks give
+maximum monodromy discrepancy5.55e-16 and spectrum discrepancy7.49e-15.
+No new corrector or trajectory. Report and exact audit receipt are in
+`docs/reviews/s1r-branch-outcome.md` and its companion receipt. Historical
+families remain unassociated; local numerical consistency is not uniqueness
+or interval continuation. No GPU, paid work or held-out data.
