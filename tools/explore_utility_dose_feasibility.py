@@ -92,6 +92,7 @@ def run(out,review_commit):
             prediction=dose_prediction(gradient,f['native_rates'],net.hidden_parameter_count)
             store.emit('dose_prediction',dict(index=i,point=f['point'],origin=f['origin'],prediction=prediction))
             result['forks'].append(dict(index=i,status=prediction['status'],reason=prediction['reason']))
+        check()  # Final retained prediction may itself cross the cooperative deadline.
         result['candidate_feasible']=all(f['status']=='feasible' for f in result['forks'])
         result['status']='feasible_for_further_design' if result['candidate_feasible'] else 'fixed_candidate_infeasible'
         return result
