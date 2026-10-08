@@ -3198,3 +3198,23 @@ input/source binding, synthetic controls and explicit resource gates. Code and
 card will be pushed and independently reviewed before a20s internal one-map
 profile; collection needs the passing profile and a separate root decision.
 No target calculation, GPU, protected data or paid launch authorized here.
+
+
+### Independent S1R72 certificate adapter review — 2026-10-08 UTC
+
+Reviewed frozen7b7dea94 on a separate branch. Eleven independent controls exposed
+profile-reuse semantic gaps;14 other focused controls passed. Producer repair
+2c00544c closes those gaps. Final32 synthetic/source controls pass in0.58s,
+including72D exact-linear existence/false-period/unstable controls and profile
+projection/completion/source/size corruption tests. Three C1 proof sources are
+unchanged; all11 bound adapter files match the repaired producer snapshot.
+
+Read-only raw/model/data/selected-phase/rate binding yields prepared input SHA
+b05c7456ef9db17aec5bd1f72e76b0f5b3be3f5d6050e8bd950c1067888ff443. No target
+map, correction, proof or resource profile was run. Source review passes for
+the stated resource-only profile, not for feasibility or certificate outcome.
+See docs/reviews/s1r72-certificate-source-review.md. Prospective outcome card
+fixes exact-Fraction whole-box proximity<=1e-7 to the selected phase0; failure
+blocks state association, not an otherwise valid exact-map certificate. Even
+a pass proves proximity, not branch identity. Collection/audit need later root
+authorization and measured resources. No paid call, GPU or protected data.
