@@ -156,3 +156,35 @@ bindings are reused. It cannot establish derivative correctness from first
 principles, branch ancestry, a turning-point theorem, absence of a branch,
 training utility or inference utility. Any next target work needs a distinct
 reviewed design and authorization; this unit stops after the one audit.
+
+
+## 2026-10-08 UTC — outcome-blind source review amendment
+
+Independent review of initial audit source c009109741b49e02519b64c249f7b2e9dbaaead4
+found two incomplete-attempt defects and one completed-phase validation gap.
+The producer remains unlaunched; no target evidence has been inspected.
+
+The auditor now retains an attempted-counter increment only for the one next
+expected operation when its start emission failed before journaling. Such an
+operation cannot have returned. A returned-counter increment remains limited
+to an already durably started, pending operation. Both reported and durable
+counts, and any unjournaled start, remain explicit in the audit receipt.
+A terminal checkpoint may lag the journal by exactly one event only on an
+incomplete attempt with otherwise exact durable counters, reflecting the
+source's append-before-checkpoint/latest ordering. Wider or contradictory
+lags fail. Completed-role append lag likewise requires that the role-complete
+event is the journal's final event.
+
+A failed numeric check can be retained as unvalidated partial evidence only
+for the actual terminal unfinished role. A durable complete role, any earlier
+role followed by later evidence, or a complete attempt remains strict.
+Completed phases require finite numeric, non-boolean losses; paired null
+losses cannot masquerade as a valid abstention. Rejected terminal raw returns
+remain retained with no arithmetic consistency claim for that role.
+
+The repaired suite includes synthetic reproductions of these boundaries,
+impossible attempted/returned deltas, checkpoint lags, completed-role
+corruption followed by failure, and null/boolean/nonfinite phase losses.
+No producer source, scientific gate, input selection or resource cap changed.
+
+Final repaired focused suite:57 synthetic controls passed in0.66seconds under CPU/BLAS1 and nice10.

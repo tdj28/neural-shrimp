@@ -4272,3 +4272,17 @@ solves or trajectories were evaluated. No source/old plan/evidence was changed.
 ## 2026-10-08 12:48 UTC — one fixed six-state lower-gap diagnostic
 
 Root authorizes exactly the reviewed producer5cecd5f0 under independent source review38d7141a, 22 synthetic controls including8 independent. All12 source/card files are unchanged. Prospective outcome auditorc0091097 was frozen/private-pushed before target and is under separate source review. Fresh host12:47UTC has load0.64, about41.22GiB available RAM, no matching task/GPU jobs and absent exclusive paths. Run the existing six-state card once:12 analytic pairs/maps/Jacobians,24 full SVDs, CPU/BLAS1 nice10,15s internal20+5s external,8MiB aggregate, monitored2GiB child-group RSS. Source identity is this clean authorization HEAD. No new trial evaluation, corrective solve, continuation, accepted orbit or fold claim. Every outcome stops; no retry or paid/protected work. Full limitations and bindings in `docs/reviews/s1r-lower-gap-launch-authorization.json`.
+
+### 2026-10-08 UTC — lower-gap auditor partial-boundary source repair
+
+Before producer launch or target reads, independent review found that the
+initial prospective auditor c0091097 rejected an attempted increment before a
+failed start emission, could downgrade a corrupt completed role when the whole
+attempt was incomplete, and allowed paired null phase losses. Repaired all
+three with narrow failure-order checks, finite numeric loss guards, and
+synthetic reproductions. A one-event terminal checkpoint lag is recorded under
+the exact Store ordering; completed-role lag is limited to the terminal event.
+No producer bytes, scientific thresholds or resource limits changed. Review
+and separate root authorization remain required before the saved-only audit.
+
+Final repaired focused suite:57 synthetic controls passed in0.66seconds under CPU/BLAS1 and nice10.
