@@ -123,3 +123,10 @@ updated handoff and the original checkout's pre-existing uncommitted
 `docs/research-log.md` as well as its cost ledger and older checkpoint. Its
 checksums also passed; see `docs/backups/2026-10-08-private-handoff-gap.json`.
 The original working files were not changed by this backup.
+
+The final morning checkpoint at `/archive/neural-shrimp-backups/20261008T142721Z-morning-checkpoint` preserves the current tracked
+paper tree/PDF, human report and selected evidence/review companions, together
+with the original checkout's four private handoff/ledger/checkpoint/log files.
+Complete inventories and two source/copy hash passes agree. See
+`docs/backups/2026-10-08-morning-checkpoint.json`. Private contents were not
+staged in Git and the foreign log was not edited.

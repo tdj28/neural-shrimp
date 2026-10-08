@@ -4552,3 +4552,7 @@ directory citation for a file; corrected repository-verifier semantics pass.
 ## 2026-10-08 14:21 UTC — independent PAL manuscript integration review
 
 Root reviewed author178010e4 and source-bound builder addition, reran the read-only303-number verifier after integration, checked all292old entries unchanged,58committed citedpaths and9unchangedfigures/tables. Exactsource/PDF/QAimage hashes match; all31pagecontacts and detailedpages21–22 were visually checked with no defects. Fold limits include simple+1, parametertransversality and quadraticnondegeneracy; all9newpairsunstable,6auxiliarynodes distinct. PDF780286B SHA785fed6699a50d2adaf81ec21db29b93c60f9ddfd05d3179318d3658eaf8efce. No model/proof/figure reruns or submission. Review `docs/reviews/paper-s1r-pseudoarclength-independent-review.json`.
+
+## 2026-10-08 14:27 UTC — final morning artifact/private-state snapshot
+
+Verified 71files/3821494B at `/archive/neural-shrimp-backups/20261008T142721Z-morning-checkpoint`: current303-number31-pagepaper/PDF, report and new evidence/design/review companions plus4privateoriginalhandoff/ledger/checkpoint/log files. Exactinventory, SHA256 andsecondsourcehashpass agree; manifest005fe6fd45830aeedf87671f4b6f9ca24040b8f9ba7bfefd3f90b4f1974ce63f. Filesystemsynccomplete. Separatephysicaldisk localpoint-in-timecopy, notoffsite. Source/foreignfilesunaltered, privatecontentsnotstaged.
