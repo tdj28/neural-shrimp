@@ -41,3 +41,46 @@ runtime guarantee. Use an exclusive new audit directory under
 `/data2/neural-shrimp-data/audits/s1r-period2/`, retain source/input/log hashes,
 all exact proximity fractions and failure/termination records. Commit any audit
 implementation and focused synthetic controls before its one target replay.
+
+## Bound audit implementation and exact run card — 8 October2026 UTC
+
+Implementation prepared without opening any collection target artifact. Only
+the resource-only profile's launcher schema/receipt was read for its metadata
+contract; root supplied the collection source/path/manifest identity and elapsed
+time. This is disclosure of timing, not an inspected proof or proximity outcome.
+
+`tools/audit_s1r72_certificate.py` now binds the following immutable identities:
+profile execution750233fc03b0a24dbdba32a2e49435931495fdab, manifest
+850a055d40541e1ebbaa118e773b41f036d8ae3b5f6a4691044ec19312ea073e;
+collection executiondc2732da3b76dcf85c4c86051d4e096f5a3c903e, manifest
+7a5f43508b4a24dc22b809eec8b22834dfa40a603a3f7b28af20d0d1988ad21e.
+Both source snapshots must match all11 files reviewed at2c00544c; both launcher
+receipts must identify source review426ce4fe. The profile/collection directories
+are respectively `profile-001` and `attempt-001` below
+`/data2/neural-shrimp-data/certificates/s1r-period2`; sibling suffixes are
+`.launch-start.json`, `.launcher.json`, `.launcher.log`. No future document HEAD
+supplies numerical inputs. Original saved-node/data decoding is independent;
+the frozen dataset generator and the existing mathematical checker are shared
+primitives, explicitly recorded. All exact proof enclosures are replayed once.
+
+The paired resource gate is recomputed, every nested C1/outer input and receipt
+cross-bound, and all actual source bytes checked against recorded Git commits.
+The exact whole-box1e-7 proximity gate remains unchanged. Invalid/failed proof
+replay halts; proximity failure retains a valid map proof while blocking the
+selected-state proximity claim. SIGTERM/SIGALRM exceptions retain completed
+fsynced stages, failure metadata and a manifest when the filesystem remains
+writable; SIGKILL or filesystem failure cannot promise finalization.
+
+Exclusive audit output after code review and root authorization:
+`/data2/neural-shrimp-data/audits/s1r-period2/attempt-001`.
+Launcher prefix:
+`/data2/neural-shrimp-data/logs/s1r-period2-audit-attempt-001`.
+Intended command, no authorization implied:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 120s
+nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/audit_s1r72_certificate.py
+--out /data2/neural-shrimp-data/audits/s1r-period2/attempt-001`.
+Record exact audit execution commit, review, owned PID and exit status, and hash
+all logs. Internal100s,32MiB cap; no retry, extra proof setting, continuation,
+trajectory or paid resource. The quoted producer process elapsed3.7092s leaves
+headroom within this proposed audit cap; authorization still follows source review.
