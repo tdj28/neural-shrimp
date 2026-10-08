@@ -4482,3 +4482,7 @@ Root authorizes producer482cf9c7 reviewed9df5e138 once, with frozen prospective 
 ## 2026-10-08 14:02 UTC — one pinned saved-data PAL audit
 
 Producercc3976e3 completed the two-edge unit in5.2022s (wrapper5.7668s), with all1788 science files/5 launcher files hash verified and all3 owned PIDs absent. This remains a producer outcome pending independent arithmetic audit. Root authorizes frozen3134d730, reviewedf6a27d8b before target, once under30s internal40+5s external and16MiB aggregate. Four external metadata pins and all8 auditor sources are bound in `docs/reviews/s1r-pseudoarclength-audit-authorization.json`. Saved arithmetic only, no new model or decomposition; every outcome stops without repair or retry.
+
+## 2026-10-08 14:06 UTC — two local PAL edges, numerical unstable-turn candidate
+
+Producercc3976e3 completed2/2 edges without retry:9qualifiednodes including6auxiliary,8correctors4common-controlchecks,68analytic76map66assembly24solve54SVD18eig;5.2022s science5.7668s wrapper. Allraw files/hash inventories/3ownedPIDexitsverify. Same raw metric and nativecarry show t_h−.02934→−.01412→+.00917; secondmidpoint h.9918853 below endpoint.9918908. This supports a numerical local turn on an unstablecycle segment, not a provedfold, attracting boundary, lowerfamily connection or utility. Frozen independent auditor3134d730 reportedpass930events; separate outcome receipt follows. See `docs/reviews/s1r-pseudoarclength-outcome.md` and receipt.
