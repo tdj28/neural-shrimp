@@ -1640,3 +1640,33 @@ _commit `f7e832cf8596` (dirty worktree)_
 podFindAndDeployOnDemand for NVIDIA H100 PCIe (community) returned 'no longer any instances available'; the ledger records only the pre-create inventory (4 pods of other projects), no pod was created and nothing was billed. Falling back to H100 SXM (community, $2.69/h listed) within the Phase 0 cap.
 
 _commit `f7e832cf8596` (dirty worktree)_
+
+## 2026-10-07 23:48 UTC: run (exploratory)
+
+- **Question:** RunPod Phase 0 (attempt 2, H100 SXM): bitwise parity of the sm_90 build with the RTX 2000 Ada reference, and measured throughputs
+- **Setup:** One community H100 SXM pod (NVIDIA H100 80GB HBM3, neural-shrimp-phase0, $2.69/h listed), same image, commit, reference, runner and limits as attempt 1; approval: Phase 0 at most $5
+- **Output:** `../neural-shrimp-data/runpod/phase0`
+- **Would surprise us:** Any array not bitwise equal on the H100
+- **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type NVIDIA H100 80GB HBM3 --commit HEAD`
+
+_commit `0f425f366f0f`_
+
+- run started 2026-10-07 23:48 UTC finished 23:48 UTC with exit status 1
+
+## 2026-10-07 23:49 UTC: run (exploratory)
+
+- **Question:** RunPod Phase 0 (attempt 3, ordered H100 fallbacks): bitwise parity of the sm_90 build with the RTX 2000 Ada reference, and measured throughputs
+- **Setup:** Fallbacks at creation only: COMMUNITY H100 PCIe, COMMUNITY H100 SXM, COMMUNITY H100 NVL, SECURE H100 PCIe; host minimums 4 vCPU / 16 GB; rate guard $3.50/h; same image, commit, reference, runner and limits (15 min to SSH, 60 min run); approval: Phase 0 at most $5
+- **Output:** `../neural-shrimp-data/runpod/phase0`
+- **Would surprise us:** Any array not bitwise equal on the H100
+- **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type COMMUNITY:NVIDIA H100 PCIe COMMUNITY:NVIDIA H100 80GB HBM3 COMMUNITY:NVIDIA H100 NVL SECURE:NVIDIA H100 PCIe --commit HEAD`
+
+_commit `c3c2de656b14` (dirty worktree)_
+
+- run started 2026-10-07 23:49 UTC finished 23:59 UTC with exit status 1
+
+## 2026-10-08 00:00 UTC: RunPod Phase 0 attempt 3 failed on upload; pod terminated and verified
+
+Pod 6546w0vsz8m0jo (NVIDIA H100 NVL, community) was created at 23:49:18 UTC and reachable by SSH after 17 s, but the orchestrator uploaded the full git archive (1.8 GB of committed evidence and figures) over a ~2 MB/s uplink and hit its 10-minute upload timeout; the finally block terminated the pod (23:59:42) and verified it gone by direct lookup and inventory (23:59:48). No results. Cause: an avoidable packaging mistake; fixed in 7246188c (upload only src, tools, tests, native, experiments/trainability, pyproject.toml, uv.lock: 5.2 MB). Cost: see private ledger.
+
+_commit `93288b4b8ef0` (dirty worktree)_
