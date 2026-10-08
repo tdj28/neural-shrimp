@@ -3186,3 +3186,15 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+
+## 2026-10-08 — S1R72D exact-real orbit pilot, before profile
+
+The already cross-checked local-segment base node0004 is selected for one
+unchanged-C1 Arb certificate attempt. The aim is exact-real primitive period2
+existence/local uniqueness/attraction in72 dimensions, not a bifurcation, window
+or utility claim. See docs/plans/s1r-period2-certificate.md for fixed settings,
+input/source binding, synthetic controls and explicit resource gates. Code and
+card will be pushed and independently reviewed before a20s internal one-map
+profile; collection needs the passing profile and a separate root decision.
+No target calculation, GPU, protected data or paid launch authorized here.
