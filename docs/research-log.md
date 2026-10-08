@@ -4153,3 +4153,7 @@ post-return rejection. All source-only failures above remain disclosed.
 ## 2026-10-08 12:19 UTC — independent lower-gap source review
 
 Root independently reviewed source5cecd5f0 and all12 transitive source/card bindings. Twenty-two synthetic controls pass0.74s:14 producer plus8 independently written nonlinear derivative, nonnormal residual, augmented scaling, phase, rank/nearzero and interruption controls. No target arithmetic/profile or launch. No blocker; source-only pass and caveats in `docs/reviews/s1r-lower-gap-source-review.md` and JSON. Prospective saved-data audit is being prepared independently before target execution.
+
+## 2026-10-08 12:21 UTC — CIFAR restart comparison complete, gates still fail
+
+Execution6fea29cd finished the single authorized restart200/maxiter1 diagnostic; both manifests/immutable inventories and all observed PID exits verify. Producer reports exact initial/parity/prefix controls pass, true forcing0.6619885 versus saved0.8843136, still above0.5; all four Armijo and closure gates fail, no orbit/update/spectrum. Counts202A/203J2VP/407HVP/11directgradients,12.6868s scientific14.1609s wrapper,932532224B observed child-group RSS. Frozen independent auditor4de644d3 has not run yet; this producer record explicitly retains pending-at-creation status. See `docs/reviews/cifar-restart-outcome.md` and receipt. No retry or new solve is authorized.
