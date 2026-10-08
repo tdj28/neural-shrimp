@@ -4389,3 +4389,13 @@ controls, error-envelope/accuracy gates and resource-profile requirements.
 No norms, eig/SVD, derivatives, map/trajectory, fit errors or protected data
 were evaluated. No implementation, profile or target launch is authorized by
 this design; missing/failed slots cannot be replaced after observing errors.
+## 2026-10-08 UTC — design-only local pseudo-arclength decision
+
+Prepared `docs/plans/s1r-pseudoarclength-next.md` and exact input companion after
+reading the independently audited lower-gap summaries. Recommend at most two
+witnessed local edges from qualified node0230 in one fixed raw metric; failed
+states are excluded as seeds. The proposal retains direct/half/reverse witnesses,
+common-control state checks, native phase/full-spectrum gates, explicit hidden
+SVD counts and bounded failure retention. No new norm, model, derivative, SVD,
+solve, trajectory, profile or target evaluation ran. Root design acceptance,
+implementation/source review and separate launch authorization remain pending.
