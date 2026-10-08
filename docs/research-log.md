@@ -4286,3 +4286,13 @@ No producer bytes, scientific thresholds or resource limits changed. Review
 and separate root authorization remain required before the saved-only audit.
 
 Final repaired focused suite:57 synthetic controls passed in0.66seconds under CPU/BLAS1 and nice10.
+
+### 2026-10-08 — bounded Aronson1982 reference-content pass
+
+Parent-authorized read-only reference pass from `c949063a`, within a 15-minute
+effort cap. Selected indexed primary body passages and all retrieval failures
+are preserved in the immutable `aronson-primary-content/attempt-001` archive.
+The reference ledger now separates this partial OCR check from the still-open
+PDF/figure/proof checks; see `docs/reviews/aronson1982-reference-content.md` and
+its receipt. No paper/bibliography change or scientific/LaTeX/figure run was
+needed. Prior review records and other ledger entries are unchanged.
