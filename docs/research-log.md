@@ -3455,3 +3455,32 @@ proof/proximity outcomes. One initial fixture represented an exact integer as
 audit outcomes, with no scientific threshold changed. The run remains pending
 source review and root authorization; no profile, target proof or new trajectory
 was executed by this auditor during implementation.
+
+
+### Authorized single S1R72 saved-certificate audit — 2026-10-08 UTC
+
+Root independently reviewed auditor/source/card b773e64b06d66f9c65dfcaf871221a0637b42b48
+and reported 60 focused tests passing in 0.66s across three files. Root then
+explicitly authorized one saved-certificate audit under the unchanged committed
+card: CPU/BLAS 1, nice 10, internal 100s, external 120s plus 5s kill grace,
+32MiB new raw audit cap; no alternate setting, retry, trajectory or paid resource.
+This authorization is a direct parent-agent message in the ongoing human-approved
+research task, not an additional mathematical review of an outcome. No separate
+root review commit was supplied. All bound executable and card bytes remain
+unchanged. Record this docs-only execution commit in the launcher and output.
+
+Use exactly audits/s1r-period2/attempt-001 under the external data root and the
+committed launcher prefix. Retain the exact command, owned timeout and child PIDs,
+UTC times, exit, resource inventory, source/review identities and complete log.
+Fresh host check: load about 1.6, about 9.4GiB RAM available; foreign GPU PID119232
+uses about 4.6GiB at 100 percent GPU utilization. It is unrelated and untouched;
+this bounded audit is CPU-only. Any audit failure ends this unit without a retry.
+
+Replay uses this historical review checkout. Later integration ab06b511 changes
+gdmaps with an observer after the proof run, so replay from that future checkout
+is not asserted byte-identical. Future readers must use the exact audit execution
+commit, whose full bound model/proof source inventory is checked. Final outcome
+companions will be docs/reviews/s1r72-certificate-outcome.md and
+s1r72-certificate-outcome-receipt.json; original creation-time receipts and all
+pending labels remain immutable. Proof, selected-state whole-box proximity and
+scope will be reported separately only after this single audit.
