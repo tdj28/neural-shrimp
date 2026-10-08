@@ -2785,3 +2785,25 @@ external cap, exclusive output
 Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 30s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/summarize_s1r_branch.py /data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001 --out /data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001-analysis`.
 The final receipt must retain numerical-only scope and unresolved historical
 families. Runtime PID8311 exited; no process remains from the pilot.
+
+
+### 2026-10-08 — S1R local branch pilot outcome checkpoint
+
+The exact reviewed pilot passed its declared local numerical checks in2.511s,
+42 phase corrections,21 qualified paired states and four accepted output links,
+with no retries or gaps. All five primary output points are numerically
+attracting (spectral radii0.998660867–0.998991268). Maximum direct/half pair
+difference4.975e-15, reverse difference3.607e-15, full eigenpair backward
+residual2.533e-15. Both historical start families remain not sampled/unresolved.
+This is evidence rung1 local numerical consistency, not a uniqueness tube,
+ancestry result, invariant-circle statement or utility result.
+
+Saved-state replay passed. Immutable raw:
+/data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001,
+10,429,301 bytes. Analysis-only receipt directory: attempt-001-analysis;
+summary source77467a1d, with no model evaluation. The compact receipt is
+`docs/s1r-branch-association-receipt.json`; source/model/data/runtime and all
+launcher/checker artifacts are hash-bound there. The separate launcher-only
+failure before Python remains preserved. PID8311 exited; no GPU or paid use.
+Updated existing Program C summary; no additional target unit was launched.
+Independent saved-outcome audit is pending root/certificate_context review.
