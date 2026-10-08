@@ -2805,3 +2805,21 @@ analysis SHA256 a84558767147a0d9521e4d9f597982075145d96e36c4dffabe1039b7536179c3
 See docs/explore-tiny-lm-broader-outcome.md and its receipt. Protected outcomes
 and reserved seeds remain unopened. Send frozen saved evidence to independent
 auditor; stop as the card requires. Earlier negative calibration remains stopped.
+
+
+### Design-only candidate after two negative LM forecast gates — 2026-10-08 UTC
+
+Root requested a short scientific next-step memo; no implementation or run.
+The candidate docs/plans/explore-tiny-lm-frozen-curvature-candidate.md changes
+the question explicitly: whether curvature drift defeats a frozen local
+perturbation model. Four saved development checkpoints, two fixed directions
+and simple persistence/one-step gain/frozen-Hessian controls would be compared
+with transported derivatives and actual central perturbations. Float64 local
+replays would be counterfactuals from rounded states, not claims about exact
+old float32 trajectories. Retrospective JVP agreement supplies no forecasting,
+NS, inference or training-control claim. All original evidence stays immutable.
+
+The memo is for human/next-heartbeat design review. It requests no launch, GPU
+reservation or paid call and may be declined if the approximation check cannot
+change the larger-model plan. No code, test or numerical experiment was run for
+this design. Earlier negative units remain stopped.
