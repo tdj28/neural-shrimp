@@ -306,3 +306,49 @@ batches. Core closure/separation, Ritz, bisection and angle tests remain green.
 unit at this fix commit. This approval does not establish a CIFAR orbit or
 crossing, does not qualify a GPU/device port, and does not authorize a paid
 launch. Future H100 implementation/numerical/resource checks remain separate.
+
+### CIFAR device bridge and corrector-only follow-up
+
+Independently reviewed device source
+`a3debab72195d5ac58bee5562cb59afd8b6466e8`, measured receipt/docs
+`a7156c4795046b96068192b9def71794c416b302`, and corrector-only source
+`38ffd10d000f77699419b4e359165e27e1a4d701`. No producer edits, new real-data
+corrector, GPU replay or paid activity were performed in this review.
+
+All **40 CPU/device tests passed** in an isolated archive of the final commit,
+CPU1/nice10. They include dense tiny Hessian/J2VP comparisons, complex bridge
+linearity, Newton identity subtraction, residual/period gates, no multipliers
+on corrector-only success/failure/collapse, and durable state/history across
+timeout. The supplied binary64 rate is used directly in corrector-only mode,
+without a log/exp roundtrip. Exactly one correction runs; it returns before
+Arnoldi and cannot enter continuation/bisection. Initial, evaluated and newly
+accepted iterates are saved. A state awaiting its next residual has null
+current residual and an explicit mismatch flag, while old residuals remain
+scoped in history. No success/failure status makes a stability claim.
+
+The device unit keeps data and both base states resident, explicitly times
+synchronized host-to-device/J2VP/device-to-host phases, and leaves SciPy and
+orthogonalization on CPU. Complex products split into two real products.
+All seven receipt files, nested manifests, reference x/y identities, raw
+record equality and timing medians were checked. CPU bridge average is
+32.107772 ms; local CUDA bridge average11.438757 ms. Stored CUDA maximum
+absolute gradient/HVP/J2VP errors are6.8088e-17/5.8981e-17/1.7347e-18; both
+one-cycle GMRES attempts report info1 and similar poor residual progress.
+These are one-state/three-direction engineering results, not uniform error,
+trajectory precision, Krylov convergence, orbit or spectral guarantees.
+GPU output vectors were not retained, so this review checks the bound raw
+parity records and source, not independent GPU-output recomputation. That
+limitation is disclosed in the producer report.
+
+Additional independent synthetic controls passed: a hash-valid bundle with
+incorrect reference derivatives triggers parity failure before GMRES; a
+corrupted bundle fails its hash gate before device operations. Source hashes
+must match the reference bundle, so later driver edits require a new matching
+bundle or the bound historical checkout. No source mismatch is silently waived.
+
+Verdict: no blocker for the root-owned one-state **CPU** corrector-only pilot
+with180-second internal and200-second external caps at38ffd10d. The device
+benchmark is not a complete device corrector, and this review authorizes no
+paid launch. H100 qualification/costing and any new scientific results remain
+separate. Review scripts/snapshots are under `/tmp/neural-shrimp-review-cifar-*`;
+the authoritative evidence is the cited source commits and producer receipts.
