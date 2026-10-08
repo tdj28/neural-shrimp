@@ -1820,3 +1820,74 @@ _commit `b51979237f87` (dirty worktree)_
 Attempt-002 completed in 63.65 s, source d8cc7d76d87e7e6ed8cf8b6632988d76c900d207; all owned experiment PIDs exited. Two existing S2-28011 points, matched log|mu| +/-0.0015, two ramp speeds, two starts, shared-state intervention forks. Near-orbit hard runs depart 3.31-3.68 in state norm and retain distant behavior after small ramp reversal; soft runs remain within .159-.164 and reverse back. Soft loss peaks nevertheless exceed 1.60x orbit maximum, so scalar spikes do not identify hard crossings. Plain halving of both rates ends at .570x initial loss on hard and .494x on soft, outperforming small branch reversal for this endpoint, while creating transient peaks. Ordinary hard initialization never becomes near the reference in this tested horizon; accessibility annotation was added post-outcome by dated amendment. All raw files and rehearsal retained. Hash and 704-transition replay audit passed (exact states/losses); reference closure 6.01e-16; log-multiplier matching error 6.73e-14. Eleven focused tests pass. No fresh protected data, paid compute, or LLM claim. Evidence and reproduction paths in docs/warmup-intervention-receipt.json; mathematical heavy-ball H4 correction in existing criticality summary.
 
 _commit `b51979237f87` (dirty worktree)_
+## 2026-10-08 03:54 UTC: run (exploratory)
+
+- **Question:** Can the best-conditioned existing embedded S2 period-10 orbit pass rigorous existence, primitive-period and attraction gates?
+- **Setup:** Exploratory C1, row 121 component 936. Arb 256 bits; radius 2^-80; five midpoint Newton proposal steps; matrix-power limit 512. Exact dyadic dataset/rates; one CPU thread, nice 10. Current CPU load 17.9 across 32 threads, 43 GiB available; GPU query restricted and GPU unused. Source and seven controls committed before run.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-001`
+- **Would surprise us:** Failure even after high-precision refinement, or interval wrapping so severe the short period cannot be enclosed.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row121.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-001`
+
+_commit `3771747e3111`_
+
+- run started 2026-10-08 03:54 UTC finished 03:54 UTC with exit status 2
+
+## 2026-10-08 03:55 UTC: amendment to `certificates/README.md`
+
+- **Change:** Replace sequential monodromy powers with powers computed by repeated squaring, checking exponents 1,2,4,... up to 512.
+- **Why:** Attempt-001 passed contraction inclusion and proper-divisor separation but sequential power intervals wrapped to an inconclusive huge bound.
+- **Outcomes seen:** Complete attempt-001: existence and primitive period passed; attraction did not. All raw artifacts retained.
+- **Claim impact:** Exploratory implementation adaptation. No negative stability conclusion follows from the failed norm bound; no claim of attraction yet.
+
+_commit `3771747e3111` (dirty worktree)_
+
+## 2026-10-08 03:55 UTC: run (exploratory)
+
+- **Question:** Does repeated-squaring enclosure establish attraction of the existing enclosed S2 period-10 orbit?
+- **Setup:** Exploratory amendment after attempt-001. Same exact input, 256 bits, radius 2^-80, five midpoint Newton steps; powers 1,2,4,...,512 via squaring. One CPU thread nice 10; seven controls pass.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-002`
+- **Would surprise us:** Squaring still cannot bound a power below one despite point contraction.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row121.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-002`
+
+_commit `68d8f7533886`_
+
+- run started 2026-10-08 03:55 UTC finished 03:55 UTC with exit status 0
+
+## 2026-10-08 03:57 UTC: amendment to `certificates/README.md`
+
+- **Change:** Retain row121 as an orbit-only feasibility success; add row35 (S2-28011 component140) from the intersection of historical summary/audit window qualifying lists. Export an explicit selection description and make replay validate all quoted receipt bounds.
+- **Why:** Scope audit found the row121 embedded candidate did not pass the historical final window gate. Rows33/34/35 do; row35 has the smallest condition(M-I) among their period5/10 candidates.
+- **Outcomes seen:** Attempt-002 proved existence, primitive period10 and attraction of row121; no historical chaos/window gate was established for that row. No rigorous outcome from row35 has been inspected.
+- **Claim impact:** Row121 supports only the exact-map orbit claim. A new row35 attempt will address a previously qualifying window orbit; neither certificate proves geometry or surrounding chaos.
+
+_commit `68d8f7533886` (dirty worktree)_
+
+## 2026-10-08 03:57 UTC: run (exploratory)
+
+- **Question:** Does the confirmed-window S2 period-10 orbit pass all rigorous gates?
+- **Setup:** Row35 S2-28011 component140; exact dyadic inputs; Arb256 bits; radius2^-80; five midpoint proposal Newton steps; power squaring through512. Same one-thread nice10 resource limits, eight tests passing. Existing qualifying membership checked against both summary and audit lists.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-003`
+- **Would surprise us:** Its larger condition(M-I) could defeat interval inclusion or power stability despite the earlier candidate success.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row35.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-003`
+
+_commit `d1e4326ae7c0`_
+
+- run started 2026-10-08 03:57 UTC finished 03:57 UTC with exit status 0
+
+## 2026-10-08 03:57 UTC: run (exploratory)
+
+- **Question:** Does the original row121 orbit proof regenerate under the hardened receipt verifier version?
+- **Setup:** Exact same row121 inputs and settings as attempt-002; code unchanged mathematically. This duplicate is a disclosed engineering replay with updated source bindings, not independent evidence or another orbit.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-004`
+- **Would surprise us:** Any mathematical enclosure or verdict difference from attempt-002.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row121.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-004`
+
+_commit `d1e4326ae7c0` (dirty worktree)_
+
+- run started 2026-10-08 03:57 UTC finished 03:57 UTC with exit status 0
+
+## 2026-10-08 03:58 UTC: C1 exploratory proof gates pass for two S2 period-10 orbits
+
+Attempt-003 proves the exact-dyadic-input map has a unique local primitive period-10 attracting orbit at row35, S2-28011 component140, an existing historical qualifying-window location. Attempt-004 reproduces the row121 orbit-only feasibility proof. Both exclude proper divisors1,2,5 and enclose ||M^64||inf below1 (0.0559916712 and 0.1076608594 upper bounds, respectively). Research status remains exploratory; independent review pending; no rigorous chaos, geometry, float implementation, or utility claim. Raw attempts001-004 and the initial wrapping failure are preserved; certificates/README.md and compact hash receipts describe scope and one-command offline replay. Source d1e4326ae7c0c8d454929661408acc7d9d54bad4; no paid compute.
+
+_commit `d1e4326ae7c0` (dirty worktree)_
