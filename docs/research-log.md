@@ -2726,3 +2726,17 @@ Output is exclusive /data2/neural-shrimp-data/audits/cifar-linear-diagnostic/att
 Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 60s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/audit_cifar_linear_outcome.py /data2/neural-shrimp-data/explore/cifar/linear-diagnostic/attempt-001 --out /data2/neural-shrimp-data/audits/cifar-linear-diagnostic/attempt-001`.
 Preserve any failed audit attempt. No new solver allowance or candidate/orbit
 acceptance is implied by this arithmetic replay.
+
+### 2026-10-08 — CIFAR saved linear-diagnostic outcome audit passed
+
+Audit source3471ab00: all31 raw files/23 arrays, exact producer sourcea9830e71,
+input/reference/review bindings and200 inner/205 operator events pass. Independent
+math.fsum reductions reproduce forcing0.8843136325>0.5, negative merit derivative,
+merit ratios21.39256/2.13726/0.981689/0.953932 and every decision. The last two
+Armijo tests pass, but all forcing-qualified candidates and closure screens fail;
+zero orbits/candidates remain correct. Two semantic-tamper controls pass.
+No model/HVP/GMRES/continuation evaluation; saved operator/map images remain
+hash-bound inputs. Audit0.428s, PID15796 exited, CPU1/nice10. Immutable audit:
+/data2/neural-shrimp-data/audits/cifar-linear-diagnostic/attempt-001.
+Review and compact receipt: docs/reviews/cifar-linear-diagnostic-outcome-review.md
+and its JSON companion. No additional target solve was launched or authorized.
