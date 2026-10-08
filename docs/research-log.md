@@ -1727,3 +1727,24 @@ _commit `3771747e3111`_
 - **Claim impact:** Exploratory implementation adaptation. No negative stability conclusion follows from the failed norm bound; no claim of attraction yet.
 
 _commit `3771747e3111` (dirty worktree)_
+
+## 2026-10-08 03:55 UTC: run (exploratory)
+
+- **Question:** Does repeated-squaring enclosure establish attraction of the existing enclosed S2 period-10 orbit?
+- **Setup:** Exploratory amendment after attempt-001. Same exact input, 256 bits, radius 2^-80, five midpoint Newton steps; powers 1,2,4,...,512 via squaring. One CPU thread nice 10; seven controls pass.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-002`
+- **Would surprise us:** Squaring still cannot bound a power below one despite point contraction.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row121.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-002`
+
+_commit `68d8f7533886`_
+
+- run started 2026-10-08 03:55 UTC finished 03:55 UTC with exit status 0
+
+## 2026-10-08 03:57 UTC: amendment to `certificates/README.md`
+
+- **Change:** Retain row121 as an orbit-only feasibility success; add row35 (S2-28011 component140) from the intersection of historical summary/audit window qualifying lists. Export an explicit selection description and make replay validate all quoted receipt bounds.
+- **Why:** Scope audit found the row121 embedded candidate did not pass the historical final window gate. Rows33/34/35 do; row35 has the smallest condition(M-I) among their period5/10 candidates.
+- **Outcomes seen:** Attempt-002 proved existence, primitive period10 and attraction of row121; no historical chaos/window gate was established for that row. No rigorous outcome from row35 has been inspected.
+- **Claim impact:** Row121 supports only the exact-map orbit claim. A new row35 attempt will address a previously qualifying window orbit; neither certificate proves geometry or surrounding chaos.
+
+_commit `68d8f7533886` (dirty worktree)_

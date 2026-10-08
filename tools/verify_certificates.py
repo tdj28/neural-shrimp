@@ -45,6 +45,16 @@ def verify(receipt_path):
     recomputed = check_orbit(inputs, **certificate["result"]["settings"])
     if canonical_bytes(recomputed) != canonical_bytes(certificate["result"]):
         raise ValueError("regenerated enclosures or verdict differ")
+    summary_fields = {
+        "evidence_rung": recomputed["evidence_rung"],
+        "research_status": recomputed["research_status"],
+        "contraction_norm_upper": recomputed["contraction_norm_upper"],
+        "attraction_witness_power": recomputed["attraction_witness_power"],
+        "attraction_norm_upper": recomputed["power_bounds"][-1]["norm_inf_upper"],
+        "source_commit": certificate["runtime"]["source_commit"],
+    }
+    if any(receipt.get(k) != v for k, v in summary_fields.items()):
+        raise ValueError("receipt summary differs from regenerated result")
     if not recomputed["passed"] or not receipt["passed"] or receipt["statement"] != recomputed["exact_statement"]:
         raise ValueError("certificate does not pass every required gate")
     return {"passed": True, "evidence_rung": 3, "statement": recomputed["exact_statement"],
@@ -53,10 +63,10 @@ def verify(receipt_path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("receipt", type=Path)
+    parser.add_argument("receipt", type=Path, nargs="+")
     args = parser.parse_args()
     try:
-        print(json.dumps(verify(args.receipt), indent=2))
+        print(json.dumps([verify(path) for path in args.receipt], indent=2))
     except Exception as error:
         print(json.dumps({"passed": False, "error": type(error).__name__ + ": " + str(error)}), file=sys.stderr)
         return 1

@@ -123,3 +123,16 @@ def test_verifier_rejects_incomplete_source_inventory(tmp_path):
     receipt_path.write_bytes(canonical_bytes(receipt))
     with pytest.raises(ValueError, match="incomplete checker"):
         verifier.verify(receipt_path)
+
+
+def test_verifier_rejects_false_summary_number(tmp_path):
+    runner, verifier = load_tool("certify_c1"), load_tool("verify_certificates")
+    raw = tmp_path / "attempt"
+    runner.run(fixture_inputs(), raw, {"precision": 192, "radius_exponent": -50,
+                                     "newton_steps": 1, "max_power": 8})
+    receipt_path = raw / "receipt.json"
+    receipt = json.loads(receipt_path.read_bytes())
+    receipt["attraction_witness_power"] = 99
+    receipt_path.write_bytes(canonical_bytes(receipt))
+    with pytest.raises(ValueError, match="receipt summary"):
+        verifier.verify(receipt_path)

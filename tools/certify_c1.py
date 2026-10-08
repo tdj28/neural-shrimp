@@ -27,7 +27,7 @@ def sources():
     return {p: sha256((ROOT / p).read_bytes()) for p in SOURCES}
 
 
-def prepare(certificate_path, plan_path, index):
+def prepare(certificate_path, plan_path, index, selection):
     from neural_shrimp.trainability import SYSTEMS, array_sha256
     original = json.loads(certificate_path.read_bytes())
     row = original[index]
@@ -51,7 +51,7 @@ def prepare(certificate_path, plan_path, index):
                 "plan_file": str(plan_path), "plan_sha256": sha256(plan_path.read_bytes()),
                 "map_id": row["map_id"], "component": row["component"],
                 "data_sha256": realized,
-                "selection": "best conditioned embedded S2 period-5/10 candidate by existing float condition(M-I); exploratory",
+                "selection": selection,
                 "semantics": "all binary64 saved inputs converted to exact dyadic rationals; tanh and all GD arithmetic then exact real"}}
 
 
@@ -103,6 +103,7 @@ def main():
     p.add_argument("--plan", type=Path, default=ROOT / "experiments/trainability/EXP-028-plan.json")
     p.add_argument("--index", type=int, default=121)
     p.add_argument("--out", type=Path, required=True)
+    p.add_argument("--selection", required=True)
     p = sub.add_parser("run")
     p.add_argument("--input", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
@@ -112,7 +113,7 @@ def main():
     p.add_argument("--max-power", type=int, default=512)
     args = parser.parse_args()
     if args.action == "prepare":
-        payload = prepare(args.certificates, args.plan, args.index)
+        payload = prepare(args.certificates, args.plan, args.index, args.selection)
         with args.out.open("xb") as handle:
             handle.write(canonical_bytes(payload))
         print(json.dumps({"path": str(args.out), "sha256": sha256(args.out.read_bytes())}))
