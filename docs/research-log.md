@@ -3597,3 +3597,13 @@ reference archives005-007 now have a verified separate-disk copy:2,122 files,
 See docs/backups/2026-10-08-s1r-certificates-increment.json. The first manuscript/
 backup command was rejected before process creation because automatic permission
 review timed out; the permitted single retry succeeded and no experiment reran.
+
+
+Figure6 regeneration at5c9426ef preserves every derived value and both PDF/PNG
+hashes exactly; all actual input/output hashes checked. Only its source/generation
+receipt changed. Independent visual review of manuscript pages15-29 found a
+Figure9C annotation crossing the upper curves. A layout-only change moves those
+two lines above the axes and increases title padding. Regenerate Figure9 from
+the identical saved seven inputs; require unchanged derived values, then
+rebuild number provenance and inspect all changed PDF pages. No model run or
+scientific value changes in the Figure9 adjustment.

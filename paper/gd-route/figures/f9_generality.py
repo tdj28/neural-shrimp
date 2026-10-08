@@ -104,13 +104,13 @@ def main():
     cx.set_ylabel("circle amplitude")
     wd_s = [v for k, v in slopes.items() if k.startswith("weight")]
     nw_s = [v for k, v in slopes.items() if k.startswith("no")]
-    cx.set_title("C  Circle amplitude", fontsize=8)
+    cx.set_title("C  Circle amplitude", fontsize=8, pad=28)
     def span(values):
         lo, hi = f"{min(values):.2f}", f"{max(values):.2f}"
         return lo if lo == hi else f"{lo}-{hi}"
 
-    cx.text(0.03, 0.97, f"filled: weight decay 0.01, slope {span(wd_s)}\nopen: no weight decay, slope {span(nw_s)}",
-            transform=cx.transAxes, va="top", fontsize=6, color=c.INK)
+    cx.text(0.03, 1.03, f"filled: weight decay 0.01, slope {span(wd_s)}\nopen: no weight decay, slope {span(nw_s)}",
+            transform=cx.transAxes, va="bottom", fontsize=6, color=c.INK)
     derived = {"realdata_crossing_log10_eta": cont["log10_eta_boundary"], "realdata_predicted": cont["theta_over_2pi"],
                "realdata_multiplier": cont["dominant"], "realdata_nearest_measured": nearest["rho2"],
                "realdata_nearest_log10_eta": nearest["log10_eta"], "sweep_valid_points": len(good),
