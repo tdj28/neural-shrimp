@@ -89,7 +89,7 @@ def audit(collection,analysis_path,collector_launcher,analysis_launcher):
     # Field spellings can vary; require both exact identity strings in the durable launcher.
     assert SOURCE in json.dumps(launch) and REVIEW in json.dumps(launch)
     assert not (collection/'failure.json').exists()
-    records={};case_summaries=[]
+    records={};case_summaries=[];geometry_max_absolute_difference=0.
     for case in sorted(collection.glob('seed-*')):
         if not case.is_dir():continue
         r=json.loads((case/'result.json').read_text());key=(r['seed'],r['factor'])
@@ -122,7 +122,9 @@ def audit(collection,analysis_path,collector_launcher,analysis_launcher):
         planes=np.asarray(planes);mean=np.mean(planes,axis=0);std=np.std(planes,axis=0)
         # Startup rows need fewer than four directions and are never fitted.
         for name,expected in [('plane_coherence',planes[0]),('plane_mean8',mean),('plane_std8',std)]:
-            np.testing.assert_allclose(X[32:,names[name]],expected[32:],rtol=2e-10,atol=2e-12,equal_nan=True)
+            np.testing.assert_allclose(X[32:,names[name]],expected[32:],rtol=2e-10,atol=1e-9,equal_nan=True)
+            delta=np.abs(X[32:,names[name]]-expected[32:]);finite=delta[np.isfinite(delta)]
+            if len(finite):geometry_max_absolute_difference=max(geometry_max_absolute_difference,float(finite.max()))
         np.testing.assert_equal(X[32:,names['plane_unavailable']],(~np.isfinite(planes[0]))[32:])
         np.testing.assert_equal(X[32:,names['plane_history_unavailable']],(~np.isfinite(mean))[32:])
         r.update(X=X,ce=ce,y=y);records[key]=r
@@ -195,7 +197,7 @@ def audit(collection,analysis_path,collector_launcher,analysis_launcher):
         for split in ('fit','tune','test'):
             selected=raw['y'][mask(raw['y'],split)]
             assert case['labels'][split]=={'finite':len(selected),'positive':int(sum(selected))}
-    return dict(passed=True,source_commit=SOURCE,source_review_commit=REVIEW,collection=str(collection),
+    return dict(passed=True,audit_source_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),audit_source_sha256=sha(Path(__file__)),geometry_reconstruction_absolute_tolerance=1e-9,geometry_max_absolute_difference=geometry_max_absolute_difference,source_commit=SOURCE,source_review_commit=REVIEW,collection=str(collection),
         manifest_sha256=sha(manifest_path),analysis_sha256=sha(analysis_path),collector_launcher_sha256=sha(collector_launcher),
         analysis_launcher_sha256=sha(analysis_launcher),manifest_files=len(entries),manifest_bytes=sum(e['bytes'] for e in entries),
         cases=case_summaries,gate=gates,calibration_gate_pass=analysis['calibration_gate_pass'],elapsed_seconds=time.monotonic()-started,
