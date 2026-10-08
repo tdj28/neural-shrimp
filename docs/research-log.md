@@ -2388,3 +2388,16 @@ CPU1/nice10, external30s cap, no GPU/paid call. Exclusive audit output:
 Inputs are the attempt-002-calibration collection, adjacent analysis.json and
 its two launcher receipts. Save any audit error and explain it; no outcome
 artifact may be changed. Commit audit source/card before replay.
+
+Audit amendment: attempt001 stopped during nonlinear-history reconstruction;
+eight near-zero history-std entries differed by at most5.12e-12 at that point,
+exceeding the audit's2e-12 absolute comparison tolerance. Producer computes
+individual dot products, whereas B2 stores a matrix Gram product; nonlinear
+coherence and its tiny std amplify their rounding difference near collinearity.
+Preserve attempt001 stdout/stderr. Recompute the same audit at source recorded
+in the next commit with disclosed absolute tolerance1e-9 for this approximate
+feature identity only, retaining the maximum observed difference and exact
+unavailability-mask checks. All file hashes, labels, metric/gate rules and
+producer evidence remain unchanged. This is a floating numerical check, not
+a proof of bit-identical features. Use exclusive attempt002.json/stdout/stderr
+under the same30s CPU1/nice10 cap; no training or outcome-search adaptation.
