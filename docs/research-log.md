@@ -3772,7 +3772,7 @@ Independent utility inventory passes with its disclosed nonblocking tie-rule
 discrepancy; its unchanged1200-byte review output now has a permanent raw copy.
 
 
-## 2026-10-08 10:55 UTC — lower comparison outcome, audit pending
+## 2026-10-08 — lower comparison outcome, audit pending
 
 One authorized collection completed at execution b5271a4b: 54/75 macro links,
 63 attempts, 473 phase correctors; retained numerical gap at the next nominal
@@ -3820,7 +3820,7 @@ deadline after a returned gradient, input-bit corruption and productionnice10
 rejection. The target four gradients remain unexecuted.
 
 
-## 2026-10-08 11:04 UTC — source provenance hardening before execution
+## 2026-10-08 — source provenance hardening before execution
 
 Independent reviewers identified a missing utility package-import inventory
 and the need for an externally pinned CIFAR profile manifest. Root amended
