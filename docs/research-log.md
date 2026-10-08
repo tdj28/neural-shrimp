@@ -2331,3 +2331,23 @@ output remains `explore/cifar/corrector-only/attempt-001`; exclusive launcher
 log/receipt live under `logs/cifar-corrector-only-attempt-001*` in the data
 store. Code and this card are committed before outcome. Failed convergence
 is informative and will not trigger an automatic paid rerun or relaxed gate.
+
+### Bounded CIFAR correction outcome, 2026-10-08 05:46 UTC
+
+Source7de5dcfb5eb50ed7829bc3b69b43c6e2c4f889cd; the exact committed card ran
+on one CPU thread/nice10, with no GPU or paid resources. The process exited
+normally in10.1154s; scientific outcome is `corrector_not_accepted`.
+First GMRES solve returned info4 after its four restart cycles, so no Newton
+update was accepted. True returned-state relative closure4.97305505946217e-6
+fails the unchanged1e-8 gate; separation3.54324143972e-4 passes its1e-7 gate.
+All four saved states have exactly the original input hash. No Arnoldi,
+continuation, bisection, or multiplier/stability claim. This does not show
+nonexistence of an orbit and does not justify a paid retry with identical
+solver settings. Inspect convergence/preconditioning next.
+
+Manifest and launcher hashes checked; raw attempt sealed read-only. Owned
+PIDs4066798/4066799 exited. Compact evidence:
+`docs/cifar-corrector-only-receipt.json`. Independent reviewer recomputed the
+residual and separation with a separate NumPy chain-rule gradient, without
+importing producer or Torch code, agreeing within6e-19; source-bound review
+record follows separately. SubsetB and protected seeds remain unused.

@@ -697,7 +697,8 @@ through the quasi-periodic band and locked windows into sustained chaos with con
 and shows a slowly drifting period-2 candidate followed by loss modulation. The initial full-state Newton--GMRES
 continuation was no longer running after its configured time limit and left no saved orbit result. A reviewed
 revision adds incremental checkpoints, convergence checks at every returned state and residual-qualified
-matrix-free multiplier estimates; it has not yet yielded a new accepted orbit.
+matrix-free multiplier estimates. A bounded correction then failed its linear-solver tolerance before any
+Newton update; the saved state remains outside the closure gate and no spectrum was computed.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
 
