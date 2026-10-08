@@ -4165,3 +4165,21 @@ Independent source reviewfa4fafff passes prospective auditor4de644d3 with64 synt
 ## 2026-10-08 12:26 UTC — Jensen1983 primary full-text check
 
 Read all three pages of the openly author-hosted primary PDF, with archive/manifest bound in `docs/reviews/jensen1983-reference-receipt.json`. Closed this reference's full-text ledger item; preserved numerical/conjectural scope. Existing manuscript attribution needs no text change; other reference gaps remain open. No experiment, paid access or numerical replay.
+## 2026-10-08 UTC — independent saved CIFAR restart outcome audit completed
+
+Root authorization4057d1d7 permitted exactly one audit from frozen4de644d3,
+independently source-reviewed atfa4fafff (64 synthetic controls). External
+metadata JSON SHA d22ef61a4948b18ced62701b129930358704d16b7d1d1b0705fe9db0143dd985
+pinned producer6fea29cd and both producer manifests before the audit. It passed
+in0.668624s (launcher0.840708s), exit0, without source changes or retry.
+All6+6 audit files (46,553 bytes) are hash-verified/read-only; all observed
+owned audit/producer processes and the audit launcher are absent.
+
+Independent saved-array reductions reproduce forcing0.8843136325 ->0.6619885191,
+exact parity, matched first50 callbacks and200/202 complete inner/action counts.
+The direction still fails forcing<=0.5 and requested true tolerance1e-10;
+all four trial merits increase, Armijo/closure fail, no candidate is accepted.
+These negative scientific results are preserved with no extra damping trial,
+continuation or spectrum. See docs/reviews/cifar-restart-independent-outcome.md
+and its companion receipt for full source/manifests, counters, resources and
+scope. No model/derivative/QR/SVD/solver/trajectory work or paid/GPU use occurred.
