@@ -1769,3 +1769,21 @@ _commit `b51979237f87` (dirty worktree)_
 Attempt-002 completed in 63.65 s, source d8cc7d76d87e7e6ed8cf8b6632988d76c900d207; all owned experiment PIDs exited. Two existing S2-28011 points, matched log|mu| +/-0.0015, two ramp speeds, two starts, shared-state intervention forks. Near-orbit hard runs depart 3.31-3.68 in state norm and retain distant behavior after small ramp reversal; soft runs remain within .159-.164 and reverse back. Soft loss peaks nevertheless exceed 1.60x orbit maximum, so scalar spikes do not identify hard crossings. Plain halving of both rates ends at .570x initial loss on hard and .494x on soft, outperforming small branch reversal for this endpoint, while creating transient peaks. Ordinary hard initialization never becomes near the reference in this tested horizon; accessibility annotation was added post-outcome by dated amendment. All raw files and rehearsal retained. Hash and 704-transition replay audit passed (exact states/losses); reference closure 6.01e-16; log-multiplier matching error 6.73e-14. Eleven focused tests pass. No fresh protected data, paid compute, or LLM claim. Evidence and reproduction paths in docs/warmup-intervention-receipt.json; mathematical heavy-ball H4 correction in existing criticality summary.
 
 _commit `b51979237f87` (dirty worktree)_
+
+## 2026-10-08 04:06 UTC: run (exploratory)
+
+- **Question:** Do the two C1 certificates survive independent mathematical, provenance, derivative, stored-witness and higher-precision review?
+- **Setup:** Review producer 32528cbbb4a3313bf82f63a9a812584ad754a82e without editing it. Existing authoritative replay and all 8 producer tests already passed. Independently differentiate scalar objective with second-order Arb jets at center/interior samples; compare whole-box enclosures, bind exact dyadic inputs to EXP-028 saved data, re-evaluate stored inclusion/divisors/M64, and rerun at 384 bits with nested 2^-90 boxes. One thread, nice10, 120 second timeout.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/review-001.json`
+- **Would surprise us:** Any proof-domain flaw, derivative inconsistency, input mismatch, or failure of replay will be reported as a blocker.
+- **Command:** `timeout --signal=TERM --kill-after=5s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/review_c1_evidence.py --producer-root /home/d7082791602/.codex/worktrees/rigorous-c1-orbit/neural-shrimp --producer-commit 32528cbbb4a3313bf82f63a9a812584ad754a82e --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/review-001.json`
+
+_commit `96ab02bfe13a`_
+
+- run started 2026-10-08 04:06 UTC finished 04:06 UTC with exit status 0
+
+## 2026-10-08 04:47 UTC: Independent C1 proof review completed without blocking findings
+
+Source-bound review of producer32528cbb: both authoritative replays and eight producer tests pass. Banach/Krawczyk domain, full interval chain rule, exact dyadic parameters, proper-divisor exclusion and M^64 attraction logic inspected. Reviewer96ab02bf independently binds raw inputs to frozen EXP-028 orbit/data/plan, differentiates the scalar objective with second-order Arb jets, reconstructs stored witnesses, and passes both proofs at384bits in nested radius2^-90 boxes. Same Arb library remains trusted. Exact-map existence/local uniqueness, primitive period10 and attraction only; no finite-precision dynamics, surrounding chaos, geometry or utility claim. Review record certificates/c1-independent-review.json; immutable original envelopes retain their historical pending-review labels.
+
+_commit `96ab02bfe13a` (dirty worktree)_
