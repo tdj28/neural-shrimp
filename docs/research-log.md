@@ -1710,3 +1710,46 @@ reject invalid inputs before output creation. Circle is disabled until its
 whole pipeline is bounded. No new scientific run. Focused 32-case suite passed
 in 10.95 s; added explicit NaN-step rejection case shares the tested validator.
 Original legacy attempt and frozen evidence remain untouched.
+
+
+### CIFAR device operation pilot run card — 8 October 2026 UTC
+
+Engineering exploratory pilot, source committed with this card before any
+actual subset-A benchmark. CPU reference remains the default. New opt-in
+DeviceProblem inherits the identical loss and derivatives; a measured bridge
+moves NumPy vectors to device and J2VP results back while SciPy GMRES stays on
+CPU. Tiny float64 dense Hessian/full two-step Jacobian oracle tests pass,
+including complex tangent splitting and failed parity controls (2 tests,
+1.89 s). Existing CPU safety source bb87e6cd separately passes independent
+33-case re-review. No continuation, no paid launch, no held-out evaluation.
+
+Inputs: existing subset A (512 rows), 3072-32-10 model, lambda .01,
+eta .00827753, owned sweep state state-lam0.01-eta0.00827753.npy;
+three normalized seeded directions (28206). Prepare exact CPU gradient,
+HVP and J2VP arrays plus input/source manifest in an exclusive bundle. Then
+probe the same bundle on CPU and, only if host GPU remains unoccupied, CUDA.
+Each probe measures three synchronized calls per derivative, three explicit
+CPU/device bridge calls, and one GMRES cycle (restart5, maxiter1). Reject
+coordinatewise parity outside atol1e-11 + rtol1e-9*abs(reference); record
+absolute and relative errors, transfers, cold/warm costs and peak memory.
+No correction is applied and convergence is not presumed.
+
+Resource inventory just before commit: host load 1.02/1.73/5.26, available
+RAM41GiB, RTX2000Ada GPU0 2MiB/16380MiB used,0% utilization,no compute
+processes, driver580.178.04. All runs nice10, OMP/OpenBLAS/MKL/Torch1 thread,
+Torch interop1, float64,TF32off; internal60s and external90s caps with5s
+kill grace. Task-owned PIDs/exit status will be in receipts. Recheck GPU
+before CUDA; preserve failures/incomplete outputs. Raw root:
+/data2/neural-shrimp-data/explore/cifar/device-benchmark/.
+
+Commands (prefix each with the thread limits and
+`timeout --signal=TERM --kill-after=5s 90s nice -n 10
+/data2/neural-shrimp/.venv/bin/python tools/benchmark_cifar_device.py`):
+- `prepare --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --output /data2/neural-shrimp-data/explore/cifar/device-benchmark/reference-001`
+- `probe --bundle /data2/neural-shrimp-data/explore/cifar/device-benchmark/reference-001 --device cpu --output /data2/neural-shrimp-data/explore/cifar/device-benchmark/cpu-001`
+- `probe --bundle /data2/neural-shrimp-data/explore/cifar/device-benchmark/reference-001 --device cuda --output /data2/neural-shrimp-data/explore/cifar/device-benchmark/cuda-001`
+
+Would change the next plan: parity failure stops device scientific use;
+transfer/launch overhead or poor GMRES residual reduction defeats inference
+from forward-only GPU speedups. Local RTX timing does not predict H100 timing.
+H100 remains root-owned and requires a separately reviewed measured launch.
