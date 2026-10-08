@@ -3726,3 +3726,22 @@ initial integration failures were resource-guard fixture failures, not target
 outcomes. This also keeps future ordinary-priority test invocations portable.
 
 Final pre-outcome validation:65 synthetic and reused-core controls pass in4.35s.
+## 2026-10-08 — Lower-bootstrap independent source review and audit card
+
+Source review passes producer3346fcaf684fd74b24f58ce4da558358938edcee for one
+fixed numerical common-control comparison, pending root launch authorization.
+Review found and producer corrected durable node/edge pending metadata after
+failed writes, plus an exited-leader/inherited-stdout supervisor hole. The
+scientific gates and reviewed continuation core remain unchanged. All50
+focused producer+independent synthetic controls passed in3.88s, including18
+independent controls; no target/profile/target correction ran. The task-owned
+synthetic descendant was terminated; foreign processes were untouched.
+
+The [source review](reviews/s1r-lower-source-review.md), machine-readable source
+binding and [prospective saved-data card](reviews/s1r-lower-outcome-audit-card.md)
+separate numerical local association from historical identity, global
+connection and utility. Producer limits remain75 nominal links/80 attempts/644
+phases, CPU1 nice10 internal100/external115+5 and256MiB combined artifacts.
+Proposed later audit bounds are CPU1 nice10 internal45/external60+5,32MiB.
+New target outcomes remain unopened; exact outcome manifests and a separately
+committed/tested audit implementation are required before any authorized replay.
