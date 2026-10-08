@@ -4337,3 +4337,15 @@ common-control state checks, native phase/full-spectrum gates, explicit hidden
 SVD counts and bounded failure retention. No new norm, model, derivative, SVD,
 solve, trajectory, profile or target evaluation ran. Root design acceptance,
 implementation/source review and separate launch authorization remain pending.
+
+## 2026-10-08 UTC — pseudo-arclength source/synthetic preparation
+
+Implemented the accepted9f472f17 local two-edge design in new core/driver/launcher
+files, preserving all old bound sources. The implementation card discloses the
+additional256-assembly cap, complete102 SVD triplets, separate seed-tangent
+orientation and parent plane, actual second-image/native derivative checks and
+failed-trial durability.19 producer controls and20 root-owned controls pass
+(39 combined,0.53s). Synthetic maximum-shape serialization projects77,725,156B
+against99,876,864B ordinary storage. No target evaluation or profile was run.
+Independent producer review, prospective auditor freeze/review and separate root
+launch authorization remain required before the one attempted collection.
