@@ -3745,3 +3745,11 @@ phases, CPU1 nice10 internal100/external115+5 and256MiB combined artifacts.
 Proposed later audit bounds are CPU1 nice10 internal45/external60+5,32MiB.
 New target outcomes remain unopened; exact outcome manifests and a separately
 committed/tested audit implementation are required before any authorized replay.
+
+## 2026-10-08 UTC — independent utility input review, prospective saved-file check
+
+On a separate reviewer branch fromc417d4c9, the source-only audit is complete.
+Prepare one bounded independent saved-file reconstruction using
+`tools/reviews/check_utility_input_inventory.py`; card
+`docs/reviews/utility-input-independent-card.md`. No model or gradient executes.
+The lower-association producer worktree remains separately frozen for review.
