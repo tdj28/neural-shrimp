@@ -3133,3 +3133,13 @@ before launch, no GPU/paid services/protected data. Preserve every stage, sample
 failed/incomplete attempt and exact source/inputs; output directory is exclusive,
 all writes checked against the cap. Parent backs up the whole audit unit on the
 separate disk. No target audit or follow-on experiment is authorized by this card.
+
+### 2026-10-08 — root review and one saved-data LM audit authorization
+
+Root reviewed independent audit source/card f773b70e and passed 29 integrated
+synthetic audit/progress controls in 6.81s. The source review and exact input
+hashes are in `docs/reviews/tiny-lm-broader-audit-source-review.md`. This permits
+one CPU-only60s internal/90+5s external saved-data audit, not a new experiment.
+It retains complete arithmetic versus sampled-feature scope, failed attempts
+and the unchanged protected-data boundaries. Producer outcomes are provisional
+until the independent execution reports. No paid resource is needed.
