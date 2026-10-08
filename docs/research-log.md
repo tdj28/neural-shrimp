@@ -4304,3 +4304,7 @@ Before any target run, auditor80972cb9 replacesc0091097: independent review foun
 ## 2026-10-08 13:02 UTC — authorize one independent saved lower-gap audit
 
 Independent source review0e24ae8c passes prospective auditor80972cb9 with68 synthetic controls,11 independently written. Authorize exactly one clean80972cb9 execution on the externally pinned metadata in `docs/reviews/lower-gap-audit-authorization.json`, retaining the frozen15s/20+5s CPU1/nice10/8MiB limits. No producer numerical imports, model/derivative/solver/SVD/QR calls or retry. Original source was frozen before target outcomes; independent reviewer remained outcome-blind. Producer already exited and owned PIDs are absent. Complete retained inventories and audit termination must verify.
+
+## 2026-10-08 13:03 UTC — six-state gap diagnostic complete
+
+Producer8143a886 completed once:12 map/Jacobian pairs24 SVDs,1.1480s science1.6431s wrapper,5053087 aggregate bytes. Full inventories/immutable modes and three PID exits verify. Saved Newton equation passes with forcing3.1382e-9/backward error1.6312e-16; all13 historical infinity-merit trials fail. Endpoint derivatives remain numerically regular; nonclosed terminal state has raw A condition1.4598e7 but a better-conditioned augmented derivative. Its raw/scaled orientation signs differ, so no signed fold/branch-turn interpretation. No update/orbit/fold/connection accepted. Independent audit under source80972cb9 is separately authorized, pending at producer-note creation. See `docs/reviews/s1r-lower-gap-outcome.md` and receipt.
