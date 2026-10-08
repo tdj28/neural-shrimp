@@ -2391,3 +2391,50 @@ with scipy eig(left=True); criticality adjoint/normalization control also
 passes. Orbit+criticality tests13/13 in3.82s, CPU1/nice10. Impact inventory
 and source hashes: docs/complex-left-condition-impact.json. S1R plan remains
 prospective pending independent fix review.
+## 2026-10-08 05:56 UTC — selected scalar NS proof attempt, exploratory run card
+
+Question: can the existing scalar case-15 period-2 NS proposal be promoted to
+an exact-real local crossing and negative criticality sign? This is a selected,
+outcome-informed certificate pilot, not a confirmatory statistical test.
+No new target calculation has been run before this code/card commit.
+
+Model: scalar factorization loss with exact dyadics d=binary64(1.2),
+lambda=binary64(.3), r=4. The rate eta is an unknown exact real in the
+augmented system, not fixed at its float seed. The immutable historical seed
+is `explore/scalar-mechanism/attempt-002-pilot/case-15/result.json`, SHA256
+`cbef5ea46ee1a0253dccbe93fbc4e36523a47f9363533861c8bce09e4381215e`.
+The input exporter checks that digest and records exact rational proposals.
+Full design and scope: `certificates/scalar-ns-design.md`.
+
+Fixed recipe: exactly five high-precision Newton proposal updates at256 bits,
+with exact dyadic midpoint centers and all iterations retained; then one
+3D box with coordinate radius2^-40. Proposal convergence is not acceptance.
+No alternative box, precision, seed or solver will be tried automatically.
+Any failure is retained and requires a disclosed amendment before more work.
+Proof gates: strict Krawczyk inclusion and contraction for `(G(x)-x,det DG-1)`,
+positive eta, full-state primitive-2 separation, complete planar simple complex
+unit pair, orders1–4 nonresonance, positive analytic modulus crossing slope,
+and a strictly negative normal-form coefficient in both the resolvent and
+independent planar scalar-coefficient formulas. All arithmetic is Arb/Acb;
+no float result passes a gate. No global branch connection, finite-interval
+tube, explicit invariant-curve enclosure or floating-implementation statement.
+
+Ten synthetic controls passed before target execution: exact Taylor factorials
+and independent scalar Jacobian/parameter derivative, analytic normal-form
+coefficient signs/scales, equivalent formulas with nonzero quadratic terms,
+augmented inclusion, tangent/resonance rejection, collapsed fixed point,
+wide-box inclusion failure, sign-straddling balls, and bad seed/source inventory.
+The local test suite took .11s; this is not a measured target-run estimate.
+The NS theorem/formula application and implementation remain pending independent
+mathematical/code review even if all proof gates pass.
+
+Resources: zeta load.64/1.63/2.60, about45.5GB RAM available. One CPU thread,
+nice10, no GPU/paid activity. One target attempt, external120-second process
+limit plus5-second termination grace. Every newly written artifact is exclusive;
+raw output `/data2/neural-shrimp-data/explore/certificates/scalar-ns-2026-10-07/attempt-001`.
+The receipt binds executable sources, commit, inputs, full enclosures and
+runtime. The offline verifier will recompute them and fail closed.
+
+Command after committing/pushing this card and code:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 120s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_scalar_ns.py run --out /data2/neural-shrimp-data/explore/certificates/scalar-ns-2026-10-07/attempt-001`.
+This card authorizes no further attempt or endpoint/continuation scan.
