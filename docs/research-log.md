@@ -4247,3 +4247,24 @@ scales/native phases/secants, saved forcing and13 original trials. Card:
 root authorization are still required before any artifact read. Thirty-five
 synthetic controls pass0.50s, including the full fabricated72D record graph.
 No new target model/derivative/SVD/solve or saved-outcome read was performed.
+
+## 2026-10-08 UTC — design-only CIFAR decision after audited restart result
+
+Prepared docs/plans/cifar-after-restart-decision.md from integratione9ecb9ba and
+exact saved span/restart receipts and event timings. Recommendation: stop this
+fixed-state correction escalation now, retaining the negative acceptance result.
+The longer cycle still improves linearly, so neither stagnation nor inconsistent
+Newton equations are inferred. Reduced coordinates have a clear storage-count
+benefit but no demonstrated derivative-time/conditioning gain; the failed span
+priority gate is not a proof that reduction could never help. No smaller damping
+trial is proposed to confirm the already expected local-descent prediction.
+
+If correction becomes an explicit renewed priority, the note ranks one declared
+larger-space diagnostic ahead of an unmeasured reduced implementation or new
+trust-region algorithm, while separating possible linear/nonlinear outcomes.
+The hypothetical400-space cost arithmetic (~29.68s,316.52MB basis) is planning
+context, not a profile or launch proposal. The current decision allocates zero
+new model/solver work and preserves forcing0.5,closure1e-8 and primitive1e-7.
+Only saved JSON/hash/timing summaries and elementary storage/cost arithmetic
+were read; no arrays, norms, matrix products, gradients, JVPs, profiles, SVDs,
+solves or trajectories were evaluated. No source/old plan/evidence was changed.
