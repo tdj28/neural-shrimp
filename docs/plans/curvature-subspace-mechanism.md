@@ -145,7 +145,8 @@ failed slot. This gives the following exact zero-based rows of
 | S2-28011 | row36, component0 | row125, component23, zoom | criticality curve row0 |
 | S1R-28002 | row17, component0 | row98, component0, zoom | audited original anchor node-0000 |
 
-“Real-dominant” describes the leading spectral pair, not every mode. The
+“Real-dominant” labels the historical leading mode, not the whole spectrum
+or an already-qualified two-mode pair. The
 crossing rule first reuses the already independently audited original anchor
 where one exists (S1R); otherwise it uses the first serialized NS-candidate
 row of that family's original criticality curve (S2). These are one-sided
@@ -177,10 +178,19 @@ the inventory. Verify the original EXP-028 shape-plus-bytes hashes as well as
 current raw-byte identities. Do not call `make_s2`, which also creates the
 protected validation/test arrays. Preserve both bias groups, ridge and loss
 normalization. At each of the six fixed references, retain the two gradients,
-Hessians, phase Jacobians and map images: **12 phase derivative evaluations
-and12 images total**, no trajectory or correction. For S2's single-phase
-crossing candidate, the first image defines its missing partner and the second
-image checks closure; this is a fixed-state consistency check, not orbit search.
+Hessians, phase Jacobians and map images: **12 primary phase Hessian/gradient
+acquisitions and at most24 map values in total**, no trajectory or correction.
+The12 primary images check stored-pair transitions. To check actual two-step
+closure separately at both native phases, also acquire F(F(theta_j)) for each
+j; reuse a primary image only when the intermediate input is byte-identical to
+its recorded input, with an explicit cache record. For S2's single-phase
+crossing candidate, F(theta_0) defines theta_1 and F(theta_1) checks phase0
+closure, but phase1 still needs F(F(theta_1)); proximity to theta_0 is not a
+cache identity. Unused map capacity does not authorize another reference.
+Extra closure images use a map-only adapter. If the implementation always
+returns a Hessian with a map, count every such analytic call as a Hessian
+acquisition (up to24), and disclose this implementation choice and its cost
+before source review; never report only12 while silently doing more.
 
 Recheck transitions/closure with the original componentwise
 `1e-9 + 1e-8 max(|state|,|image|)` scale and primitive separation1e-6. Require
@@ -203,7 +213,8 @@ a=1-kbar and alpha=lambda1-kbar. Do this independently at the second phase to
 obtain b,beta,v. This is one fixed top-curvature-plus-isotropic-bulk fit, not an
 optimization against the target monodromy or an adaptive rank search. Require
 top-eigenvalue gap >1e-6 max(1,||K||_2); otherwise record an ambiguous-direction
-failure. Treat 1-(u^Tv)^2<=1e-10 as the one-dimensional aligned case, not a
+failure. Obtain ||K||_2=max_i|lambda_i(K)| from the same retained Hermitian
+eigensystem, not an additional norm SVD. Treat 1-(u^Tv)^2<=1e-10 as the one-dimensional aligned case, not a
 spurious rotational plane. Zero strength, ties and borderline discriminants
 are retained abstentions. For discriminant sign use the fixed unresolved band
 1e-10 max(1,T^2,4|D|).
@@ -212,6 +223,9 @@ Compute the rank-one product's **full modeled spectrum**, including all n-2
 bulk multipliers ab, before taking its leading pair. The measured target is
 the two largest-modulus eigenvalues of the full whitened product S_b S_a,
 with deterministic real/imaginary tie order and explicit conjugate-pair checks.
+The selected two modes must be two real eigenvalues or a conjugate pair; a
+mixed/nonconjugate selection fails that pair check and remains unresolved,
+without replacing the reference or matching a more favorable pair.
 A modeled plane that does not actually dominate cannot be matched to a favorable
 non-leading full-system pair. Compare pairs by the smaller of their two possible
 assignments; this is the fixed unordered-pair metric, not point/mode selection.
@@ -223,7 +237,11 @@ error. The matched-strength commuting baseline holds a,b,alpha,beta fixed and
 sets v=u. An explicitly declared orthogonal commuting baseline (u^Tv=0) is a
 second control; conservatively compare to the better of these two fixed errors
 at each reference, labeling this an oracle comparator, not a deployable
-predictor. Both retain phase strengths. A separate strength-only report uses
+predictor. Apply the same full-spectrum leading-pair selection to both controls:
+the aligned case has (a-alpha)(b-beta) and n-1 copies of ab; the orthogonal case
+has b(a-alpha), a(b-beta) and n-2 copies of ab. Keep multiplicities and repeated
+or tied leading modes explicit; neither baseline may discard a dominant bulk
+mode to improve the comparison. Both retain phase strengths. A separate strength-only report uses
 sqrt(D) **conditional on a complex modeled pair**. Orientation may improve
 character/angle; it gets no credit for complex-modulus prediction, which D
 already fixes. No orientation-only NS-crossing claim is possible.
@@ -237,17 +255,40 @@ complex slot; and mean pair error at least25% and .001 absolutely below the
 stronger commuting comparator. These tolerances are chosen before fit outcomes
 as useful approximation targets, not claims of statistical significance.
 
-Also require an error envelope: retain phase residuals E_a,E_b and the stated
-product bound using exact rank-one factor operator norms
-max(|a|,|a-alpha|), max(|b|,|b-beta|), and Frobenius upper bounds on the
-residual operator norms. Recompute correctly
-paired left/right residuals and target separation. If the full product has a
-validated complete eigenbasis V, use kappa_2(V) times the product-error bound
-as a conservative Bauer–Fike enclosure. To credit a particular complex pair,
-the enclosure radius must be<=.02 and less than half its distance to every
-other eigenvalue and to the real axis, and each predicted root must lie in
-the corresponding target disk; otherwise mark spectral attribution
-unresolved even if direct numerical agreement looks good. Ill-conditioned or
+Also require a floating-point error diagnostic: retain phase residuals E_a,E_b
+and compute delta_op from the stated product bound using the rank-one factor
+operator-norm formulas max(|a|,|a-alpha|), max(|b|,|b-beta|) and Frobenius
+residual norms. These formulas are exact in real arithmetic; their floating
+values do not enclose matrix-formation or rounding error. Retain the actual
+product difference as a consistency diagnostic. Obtain correctly paired
+left/right vectors from the single declared general eigensystem call per
+reference, and retain their residuals and target separation.
+
+For the computed complete right-vector matrix V and diagonal eigenvalue matrix
+Lambda, retain R_V=M V-V Lambda. Use the one declared eigenbasis SVD to obtain
+sigma_min(V), sigma_max(V), and kappa_2(V); reject a zero/nonfinite minimum or
+failed residual/conditioning checks. The residual-aware diagnostic radius is
+
+    delta_diag = ||R_V||_F / sigma_min(V),
+    rho_num = delta_diag + kappa_2(V) * delta_op.
+
+For exactly invertible V, the exact identity
+V^(-1) M_0 V-Lambda = V^(-1)(M_0-M)V + V^(-1)R_V explains this expression;
+the diagonal reference Lambda gives the usual eigenvalue-distance inequality.
+Numerically estimated singular values, products and norms do not turn this
+into a rigorous Bauer-Fike enclosure. Report rho_num as a **floating-point
+spectral diagnostic**, never a certified enclosure or validated exact eigenbasis.
+Any strict mathematical enclosure or theorem claim remains pending outward-
+rounded interval validation, including matrix formation and invertibility.
+No interval work is included in this unit.
+
+Keep the existing numerical attribution thresholds unchanged: for a particular
+complex pair rho_num must be<=.02 and less than half the relevant separations
+to other computed eigenvalues and the real axis, and each modeled root must
+lie in its assigned target disk under the fixed two-way matching rule.
+Otherwise mark spectral attribution unresolved even if direct numerical
+agreement looks good. A passing numerical screen is only a numerical diagnostic;
+it does not establish disk eigenvalue counts or a rigorous pair enclosure. Ill-conditioned or
 defective eigensystems, large bulk residuals or a failed bound are legitimate
 negative results. No rank2 rescue, alternate bulk formula, parameter scan or
 new reference follows within this unit.
@@ -266,10 +307,18 @@ card; they are engineering controls, not additional network references.
 Proposed ceiling: CPU/BLAS1 nice10, profile5s internal/10+5s external, total
 acquisition+analysis60s internal/75+5s external,16MiB immutable outputs and
 2GiB monitored RSS. Profile must project the remaining fixed work within60s
-using a2x margin on measured remaining derivative and decomposition costs,
-plus5seconds overhead. Expected analysis inventory is12 symmetric phase eigensystems,
-six full monodromy eigensystems and at most six eigenbasis-condition SVDs;
-no new Newton solve. These are proposed limits, not measured feasibility or
+using a2x margin on measured remaining derivative, closure-image and decomposition
+costs, plus5seconds overhead. Charge the reused first phase against both the12
+primary acquisitions and24-map cap. Time a separable map-only constituent of
+that same phase acquisition if available; otherwise conservatively charge
+all additional closure images at the measured full-phase acquisition cost,
+without a second target timing call. If a fused helper necessarily acquires
+extra Hessians, the projection must include up to24 full acquisitions.
+Expected analysis inventory is12 symmetric phase eigensystems, six full general
+eigensystem calls returning both left and right vectors, and at most six
+complete right-eigenbasis SVDs. Reuse those singular values for all V norm,
+inverse-norm and conditioning diagnostics; no hidden cond/norm SVD and no
+new Newton solve. These are proposed limits, not measured feasibility or
 launch authorization. The reviewed lower-gap unit's12 phase derivative pairs
 and24 SVDs took1.148s on this host, a cost precedent only; it is not a substitute
 for this source-bound profile. Any cap, missing slot or accuracy-gate failure
@@ -285,6 +334,18 @@ next bridge and avoids another weak LM feature sweep.
 [Hofmann, §6.2 Proposition16 and AppendixE.2](https://arxiv.org/html/2607.04993v1#S6.SS2)
 already derive physical off-diagonal misalignment through symmetric two-phase
 products in a two-mode depth-two linear network, including complex rotational
-instability. Our possible addition is a validated approximation with measured
+instability. Our possible addition is a numerically assessed approximation with measured
 error/control gain in the specified nonlinear networks, not a new
 product-of-reflections result or discovery that rotations can occur.
+
+
+### 8 October 2026 UTC — independent static-review amendment
+
+The source-only review at `docs/reviews/curvature-empirical-design-review.md`
+corrects closure-operation accounting and replaces an overstrong floating
+Bauer-Fike enclosure claim with the residual-aware numerical diagnostic above.
+It also makes complete-spectrum baseline multiplicities and decomposition
+reuse explicit. The six selected references, fitting rule, comparison units,
+all accuracy/qualification thresholds and proposed wall/raw caps are unchanged.
+No fit outcomes were read or generated, and no numerical target operation ran.
+Profile and acquisition remain unimplemented and unauthorized.

@@ -4,7 +4,7 @@
   "date_utc": "2026-10-08T13:16:33.758571+00:00",
   "gaps": [
     "No selected reference presently retains both phase Jacobians/Hessians.",
-    "S2 crossing reference additionally lacks its opposite phase and saved closure/primitive residuals; derive only F(theta0), check F(theta1), no orbit correction/search.",
+    "S2 crossing reference additionally lacks its opposite phase and saved closure/primitive residuals; derive F(theta0), check F(theta1) and F(F(theta1)) for both native two-step closures; no orbit correction/search.",
     "Old NS trace files omit orbit states entirely and independent slices do not establish a branch.",
     "New lower-gap six-role evidence retains phase derivatives but samples the lower near-real +1 problem; it cannot fill the selected NS panel.",
     "Historical complex dominant eigenvalue condition field from orbits.py is invalid; do not use it as a gate or uncertainty estimate."
@@ -84,13 +84,19 @@
   ],
   "next_acquisition": {
     "fixed_orbit_slots": 6,
-    "map_images": 12,
+    "map_images": 24,
     "new_correctors": 0,
     "new_trajectories": 0,
     "phase_derivative_evaluations": 12,
     "protected_data": "no assessment/final10percent/holdout access",
     "reserved_seeds": "29000-29999 excluded",
-    "status": "design only; new source, review, resource profile and root authorization required"
+    "status": "design only; new source, review, resource profile and root authorization required",
+    "map_images_scope": "Maximum total including primary phase images and separately evaluated two-step closure images at both native phases; exact-byte cache only.",
+    "primary_phase_hessian_acquisitions": 12,
+    "extra_closure_map_values_max": 12,
+    "fused_helper_accounting": "If map-only work necessarily acquires Hessians, reserve and report up to24 full analytic acquisitions before source review/profile; no hidden evaluations.",
+    "phase_derivative_evaluations_scope": "The12 primary phase acquisitions; total Hessian acquisitions must additionally count any fused closure-image calls.",
+    "total_hessian_acquisitions_max_if_fused": 24
   },
   "panel": [
     {
@@ -585,5 +591,6 @@
       },
       "note": "archive contains consumed development training data and initial/anchor states; no holdout arrays"
     }
-  ]
+  ],
+  "static_review_amendment": "2026-10-08: closure-map accounting clarified; selected six panel entries and original input/source identities unchanged. See docs/reviews/curvature-empirical-design-review.md."
 }

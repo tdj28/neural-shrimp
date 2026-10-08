@@ -4341,3 +4341,16 @@ controls, error-envelope/accuracy gates and resource-profile requirements.
 No norms, eig/SVD, derivatives, map/trajectory, fit errors or protected data
 were evaluated. No implementation, profile or target launch is authorized by
 this design; missing/failed slots cannot be replaced after observing errors.
+
+
+### 2026-10-08 — independent static curvature-design correction
+
+Reviewed frozen `51200a4a` without target operations or fit outcomes. Corrected
+closure-map accounting and the floating spectral diagnostic's missing
+diagonalization-residual term and overstrong enclosure wording. Clarified
+full-spectrum baseline multiplicities, leading-mode versus pair qualification,
+existing decomposition reuse and profile charging. All six selected references,
+input/source identities and numerical thresholds remain unchanged. See
+`docs/reviews/curvature-empirical-design-review.md` and its receipt. The revised
+design is acceptable for future implementation/source review, not execution;
+no profile, acquisition or larger-model unit is authorized.
