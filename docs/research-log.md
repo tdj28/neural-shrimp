@@ -2765,3 +2765,23 @@ classification. Either outcome leaves historical start-family association,
 uniqueness, distant resonance/fold ancestry and utility unresolved. A surprising
 result would be direct/half/reverse disagreement despite small residuals; every
 witness is retained to make that distinction inspectable.
+
+### 2026-10-08 — S1R pilot completed; saved-record summary card
+
+Root source review cdf2ad51034db515fab99846fbd88e61a4528a46 authorized the
+exact pilot. Source db10bd1e completed in2.511s with42 phase corrections;
+all requested segments report connected, and the declared saved-state checker
+passes21 qualified pairs/four accepted output links with no pending work.
+No extra continuation is planned. A shell redirection initially failed before
+Python because the output parent was absent; its separate immutable record
+states that no target process started. Creating the parent and issuing the
+same approved command produced the one target attempt.
+
+Before computing aggregate saved-record summaries, commit this summary tool.
+It only hashes/reads existing events and computes maxima over stored diagnostics;
+no map, Jacobian, Newton or trajectory is evaluated. Run CPU1/nice10 with30s
+external cap, exclusive output
+/data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001-analysis.
+Command: `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 30s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/summarize_s1r_branch.py /data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001 --out /data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001-analysis`.
+The final receipt must retain numerical-only scope and unresolved historical
+families. Runtime PID8311 exited; no process remains from the pilot.
