@@ -1706,3 +1706,24 @@ _commit `10bd10efc1f6`_
 Attempt 5, pod v7jkobowrc6n4t (NVIDIA H100 NVL, cc 9.0, driver 570.133.20; image runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04): runner exit 0, results hash-verified (sha256 889734fc...), pod terminated and verified 131 s after creation. Engine rebuilt for sm_90 (nvcc 12.4.131, g++-12 12.3.0, mirror flags) under NEURAL_SHRIMP_CUDA_QUALIFYING=9.0. Cross-GPU parity against the RTX 2000 Ada reference: NOT bitwise identical on any workload; differences are confined to chaotic and sensitive cells (status labels differ in 11/576 s1-like cells, 0/576 s2-like (1 period), 4/4,096 S2-28011 cells, 1/1,024 S1R-28002 cells; FTLE and final states differ where trajectories are chaotic). The CUDA backend tests on the pod: 27 passed, 2 failed (the metadata test hard-coded compute capability 8, now generalized; an identity-network test comparing pod GPU with the pod CPU, whose BLAS blocking differs from the reference host's). Interpretation: cross-architecture reproducibility holds at the level of dynamical labels, not bits; the source of the last-bit difference (device math or sm_90 code generation) is not yet localized (next: single-step evaluate() and device tanh/log comparison). Throughput: CUDA engine 0.0527 us per cell-step on the 72-parameter 256x256 timing grid (local RTX 2000 Ada 0.476 uncontended: about 9x); float64 torch MLP 3072-32-10 on 512 samples: 81,568 cell-steps/s at 128 cells (local GPU about 410, local CPU about 1,200 at 8 cells). Implication for Phase 1: real-data sweeps become cheap on an H100; large toy-network maps gain only about 9x. Cost: see private ledger.
 
 _commit `10bd10efc1f6` (dirty worktree)_
+
+## 2026-10-08 03:54 UTC: run (exploratory)
+
+- **Question:** Can the best-conditioned existing embedded S2 period-10 orbit pass rigorous existence, primitive-period and attraction gates?
+- **Setup:** Exploratory C1, row 121 component 936. Arb 256 bits; radius 2^-80; five midpoint Newton proposal steps; matrix-power limit 512. Exact dyadic dataset/rates; one CPU thread, nice 10. Current CPU load 17.9 across 32 threads, 43 GiB available; GPU query restricted and GPU unused. Source and seven controls committed before run.
+- **Output:** `/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-001`
+- **Would surprise us:** Failure even after high-precision refinement, or interval wrapping so severe the short period cannot be enclosed.
+- **Command:** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_c1.py run --input /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/inputs-row121.json --out /data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-001`
+
+_commit `3771747e3111`_
+
+- run started 2026-10-08 03:54 UTC finished 03:54 UTC with exit status 2
+
+## 2026-10-08 03:55 UTC: amendment to `certificates/README.md`
+
+- **Change:** Replace sequential monodromy powers with powers computed by repeated squaring, checking exponents 1,2,4,... up to 512.
+- **Why:** Attempt-001 passed contraction inclusion and proper-divisor separation but sequential power intervals wrapped to an inconclusive huge bound.
+- **Outcomes seen:** Complete attempt-001: existence and primitive period passed; attraction did not. All raw artifacts retained.
+- **Claim impact:** Exploratory implementation adaptation. No negative stability conclusion follows from the failed norm bound; no claim of attraction yet.
+
+_commit `3771747e3111` (dirty worktree)_

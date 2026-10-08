@@ -205,10 +205,11 @@ def check_orbit(inputs, *, precision=256, radius_exponent=-80, newton_steps=5, m
             divisor_checks.append({"divisor": d, "excluded": bool(excludes),
                                    "separating_coordinates": excludes,
                                    "differences": vector_json(differences)})
-        powers, power = [], eye(model.n)
-        attracting, witness = False, None
-        for k in range(1, max_power + 1):
-            power = power * monodromy
+        # Squaring reuses small enclosures of M^(2^j), avoiding the
+        # catastrophic wrapping from 512 sequential multiplications by M.
+        powers, power = [], monodromy
+        attracting, witness, k = False, None, 1
+        while k <= max_power:
             bound = norm_inf_upper(power)
             powers.append({"power": k, "norm_inf_upper": ball_json(bound)})
             if bound.is_finite() and bound < 1:
@@ -216,6 +217,8 @@ def check_orbit(inputs, *, precision=256, radius_exponent=-80, newton_steps=5, m
                 break
             if not bound.is_finite():
                 break
+            power = power * power
+            k *= 2
         primitive = all(d["excluded"] for d in divisor_checks)
         passed = bool(existence and primitive and attracting)
         return {"schema": "neural-shrimp-c1-result-v1", "passed": passed,
