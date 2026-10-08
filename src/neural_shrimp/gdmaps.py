@@ -402,7 +402,7 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
                        ftle_steps=4000, ftle_align=1000, max_period=64, min_repeats=6,
                        atol=1e-8, rtol=1e-6, chaos_threshold=5e-3,
                        divergence_threshold=1e8, sd_horizons=(100, 500, 1000),
-                       tangent_seed=0, screen_batch=256, drift_threshold=1e-2):
+                       tangent_seed=0, screen_batch=256, drift_threshold=1e-2, observer=None):
     """Iterate many independent maps and screen their final tails.
 
     ``step_subset(states, idx)`` returns (new_states, losses) for the cells in
@@ -416,6 +416,12 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
     ``drift_threshold`` (relative) over the final ``ftle_steps`` updates, and
     unresolved otherwise. Classifications are candidates, not verified orbits,
     chaos or escape to infinity.
+
+    Optional ``observer(kind, snapshot)`` is bookkeeping only. ``snapshot``
+    is a callable returning copies, with pre-update loss and post-update tail
+    indices explicit. It is called at start, before/after each attempted loop,
+    and in finally on interruption. No snapshots are copied unless requested.
+    The observer-free numerical path and result schema remain unchanged.
     """
     theta = np.array(initial, dtype=np.float64)
     if theta.ndim != 2:
@@ -443,47 +449,91 @@ def iterate_and_screen(step_subset, jvp_subset, initial, steps, tail_steps=512,
     tail_loss_sum = np.zeros(cells)
     tail_loss_count = np.zeros(cells, dtype=np.int64)
     last_loss = np.full(cells, np.nan)
-    for step in range(steps):
-        idx = np.flatnonzero(alive)
-        if len(idx) == 0:
-            break
-        current = theta[idx]
-        if step == norm_start:
-            window_norm[idx] = np.linalg.norm(current, axis=1)
-        with np.errstate(over="ignore", invalid="ignore"):
-            new, loss = step_subset(current, idx)
-            if step >= ftle_start:
-                jv = jvp_subset(current, idx, tangent[idx])
-        loss = np.asarray(loss, dtype=np.float64)
-        with np.errstate(invalid="ignore"):
-            bad = (~np.all(np.isfinite(new), axis=1)
-                   | (np.max(np.abs(new), axis=1) > divergence_threshold)
-                   | ~np.isfinite(loss))
-        if step < sd_max:
-            early_losses[step, idx] = loss
-        finite_loss = np.isfinite(loss)
-        min_loss[idx[finite_loss]] = np.minimum(min_loss[idx[finite_loss]], loss[finite_loss])
-        last_loss[idx] = loss
-        if step >= tail_start:
-            tail_loss_sum[idx] += np.where(finite_loss, loss, 0.0)
-            tail_loss_count[idx] += finite_loss
-        if step >= ftle_start:
+    completed_loops = 0
+    if observer is not None:
+        attempted_updates = np.zeros(cells, dtype=np.int64)
+        accepted_updates = np.zeros(cells, dtype=np.int64)
+        jvp_calls = np.zeros(cells, dtype=np.int64)
+        jvp_attempts = np.zeros(cells, dtype=np.int64)
+        last_valid_state = theta.copy()
+        retained_tail_losses = np.full((cells, tail_steps), np.nan)
+
+    def snapshot():
+        if observer is None:
+            raise RuntimeError("snapshots require an observer")
+        filled = max(0, min(tail_steps, completed_loops-tail_start))
+        return dict(completed_loops=completed_loops, planned_steps=steps,
+                    attempted_updates=attempted_updates.copy(), accepted_updates=accepted_updates.copy(),
+                    jvp_successful_returns=jvp_calls.copy(), jvp_attempts=jvp_attempts.copy(),
+                    state=theta.copy(), last_valid_state=last_valid_state.copy(),
+                    alive=alive.copy(), diverged_at=diverged_at.copy(), tangent=tangent.copy(),
+                    tail=tail[:, :filled].copy(), tail_losses=retained_tail_losses[:, :filled].copy(),
+                    tail_state_updates=np.arange(tail_start+1, tail_start+1+filled, dtype=np.int64),
+                    tail_loss_updates=np.arange(tail_start, tail_start+filled, dtype=np.int64),
+                    last_evaluated_loss=last_loss.copy())
+
+    try:
+        if observer is not None:
+            observer("start", snapshot)
+        for step in range(steps):
+            if observer is not None:
+                observer("before_step", snapshot)
+            idx = np.flatnonzero(alive)
+            if len(idx) == 0:
+                break
+            if observer is not None:
+                attempted_updates[idx] += 1
+            current = theta[idx]
+            if step == norm_start:
+                window_norm[idx] = np.linalg.norm(current, axis=1)
             with np.errstate(over="ignore", invalid="ignore"):
-                norms = np.linalg.norm(jv, axis=1)
-            ok = np.isfinite(norms) & (norms > 0)
-            ftle_valid[idx[~ok & ~bad]] = False
-            if step >= ftle_start + ftle_align:
-                log_growth[idx[ok]] += np.log(norms[ok])
-            safe = np.where(ok, norms, 1.0)
-            tangent[idx] = np.where(ok[:, None], jv / safe[:, None], tangent[idx])
-        good = ~bad
-        theta[idx[good]] = new[good]
-        dead = idx[bad]
-        alive[dead] = False
-        diverged_at[dead] = step
-        theta[dead] = np.nan
-        if step >= tail_start:
-            tail[idx[good], step - tail_start, :] = new[good]
+                new, loss = step_subset(current, idx)
+                if step >= ftle_start:
+                    if observer is not None:
+                        jvp_attempts[idx] += 1
+                    jv = jvp_subset(current, idx, tangent[idx])
+                    if observer is not None:
+                        jvp_calls[idx] += 1
+            loss = np.asarray(loss, dtype=np.float64)
+            with np.errstate(invalid="ignore"):
+                bad = (~np.all(np.isfinite(new), axis=1)
+                       | (np.max(np.abs(new), axis=1) > divergence_threshold)
+                       | ~np.isfinite(loss))
+            if step < sd_max:
+                early_losses[step, idx] = loss
+            finite_loss = np.isfinite(loss)
+            min_loss[idx[finite_loss]] = np.minimum(min_loss[idx[finite_loss]], loss[finite_loss])
+            last_loss[idx] = loss
+            if step >= tail_start:
+                tail_loss_sum[idx] += np.where(finite_loss, loss, 0.0)
+                tail_loss_count[idx] += finite_loss
+            if step >= ftle_start:
+                with np.errstate(over="ignore", invalid="ignore"):
+                    norms = np.linalg.norm(jv, axis=1)
+                ok = np.isfinite(norms) & (norms > 0)
+                ftle_valid[idx[~ok & ~bad]] = False
+                if step >= ftle_start + ftle_align:
+                    log_growth[idx[ok]] += np.log(norms[ok])
+                safe = np.where(ok, norms, 1.0)
+                tangent[idx] = np.where(ok[:, None], jv / safe[:, None], tangent[idx])
+            good = ~bad
+            theta[idx[good]] = new[good]
+            dead = idx[bad]
+            alive[dead] = False
+            diverged_at[dead] = step
+            theta[dead] = np.nan
+            if step >= tail_start:
+                tail[idx[good], step - tail_start, :] = new[good]
+            if observer is not None:
+                accepted_updates[idx[good]] += 1
+                last_valid_state[idx[good]] = new[good]
+                completed_loops = step + 1
+                if step >= tail_start:
+                    retained_tail_losses[idx, step-tail_start] = loss
+                observer("after_step", snapshot)
+    finally:
+        if observer is not None:
+            observer("terminal", snapshot)
     period = np.empty(cells, dtype=np.int64)
     residual = np.empty(cells)
     for start in range(0, cells, screen_batch):

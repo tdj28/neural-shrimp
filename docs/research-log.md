@@ -3186,3 +3186,55 @@ A supplemental four-file snapshot also preserves the latest ignored handoff
 and the original checkout's uncommitted research log, without staging that
 other agent's changes. Its manifest is bound in the separate private-handoff
 backup receipt.
+
+### S1R historical-bootstrap association — source and prospective profile card, 2026-10-08 09:00 UTC
+
+TLDR: no new network behavior has been measured. This unit prepares an exact
+reproduction of two old finite-horizon training procedures and a witnessed
+common-control comparison for one of them. It can resolve a local numerical
+association; missing historical full states and the distant second-family
+connection remain separate questions.
+
+Source branch `codex/s1r-bootstrap-association` starts at authoritative
+`960ab535e1954e6f46dce21999338ddcf1bd23ee`. The complete design and dated
+implementation amendment are in
+`docs/plans/s1r-historical-family-association-next.md`. Source, controls and this
+card must be committed and pushed before any new profile. Independent reviewer
+`optimizer_claim_check` reviews the frozen commit. Root authorizes profile and
+collection separately; this entry does not launch either. No new profile,
+warmup, correction or target-state evaluation has occurred during preparation.
+
+Question for the first, non-outcome profile: does timing the exact historical
+single-cell gradient-with-loss/JVP path support the unchanged two-bootstrap
+and witnessed-bridge collection within its 100-second internal cap? At saved
+S1R node0004, reset to its fixed phase-zero state for 2,000 independent map
+calls and 128 independent e0 JVP calls. Record every stage/count, manifest,
+source/input identity, elapsed time, peak RSS and process exit. No evolving
+trajectory, fit or outcome-based choice. An estimate above 100 seconds or any
+failure requires a disclosed split, not a retry or shorter historical horizon.
+
+Before an authorized launch, record `uptime`, `free -h`, `nvidia-smi` and active
+process information without disturbing another job; use CPU/BLAS1 and nice10.
+The profile has internal8 / external9 +1 seconds, raw64MiB, no GPU or paid work.
+The exact source is the frozen commit containing this card (or a reviewed
+correction); replace `REVIEW_SHA` below with the independently reviewed full
+commit SHA after root signoff. The launcher additionally records the resolved
+execution HEAD and owned PIDs, writes its log exclusively, retains any launch
+failure and verifies termination. Parent handles separate-disk backup.
+
+```sh
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=1s 9s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_s1r_bootstrap_association.py profile --review-commit REVIEW_SHA --out /data2/neural-shrimp-data/explore/s1r-bootstrap-association/attempt-001-profile
+```
+
+The later collection is explicitly unlaunched. Its prospective fixed unit is
+one 40,000-step single-cell bootstrap at each hidden log rate1.10 and0.95,
+output log0.6271428571428572, unchanged historical screening, both terminal
+phases qualified when the full-horizon screen is period two, and at most12
+nominal hidden macro links from requalified saved node0004 back to exactly1.10.
+It must bind the completed matching-source profile manifest and a separate root
+launch authorization. Limits stay internal100 / external115 +5 seconds,
+160 phase calls,19 attempted witnessed links,64MiB,CPU1/nice10. Raw collection
+path is `/data2/neural-shrimp-data/explore/s1r-bootstrap-association/attempt-001-collection`.
+Both failures and successful witnesses remain immutable; a partial path gives
+no association verdict. No second-family continuation or historical ancestry
+claim is authorized. Stop new work at15:00 UTC as directed.
