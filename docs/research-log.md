@@ -2725,3 +2725,34 @@ four target cases' predictor fitting/scoring. Collection and one analysis need
 a later explicit run authorization/card after this engineering result; no retry,
 rate search, assessment, old protected text, policy, inference experiment or paid
 call is implicit. Original failed LM unit remains stopped.
+
+### Independent broader-data LM saved-outcome audit — prospective, 2026-10-08 UTC
+
+Prepare on `codex/review-tiny-lm-broader`, based on reviewed producer source
+ca9e96b3. Root source review e0c09a21 and design2a3f074a read before coding.
+Target collection/analysis completion and hashes were communicated during
+preparation; no numerical learning/forecast outcomes were opened. Source,
+synthetic controls and the exact scope/card in
+`docs/reviews/tiny-lm-broader-outcome-audit.md` must be committed/pushed before
+those numerical inputs are read. Root still must review/authorize launch.
+
+Independently bind original corpus/window/token bytes, full source/file/state
+inventories, paired initialization/rate, all labels/splits/scales, all32 candidate
+fits via augmented least squares, selections, forecasts, metrics and gates.
+Probe results remain descriptive. Full eligible-row loss/state/Gram-to-B3 checks
+precede a fixed sampled CPU feature replay at t32/t600 for every case, each from
+33 saved states:264 gradients, no HVP, trajectory updates or probe evaluation.
+Shared reviewed model and feature helpers are explicitly disclosed. Distinguish
+complete arithmetic verification from sampled cross-device feature diagnostics;
+all masks and gate decisions match exactly. Numerical tolerances are frozen
+in the card before outcomes; failure/timeout permits no relaxed threshold.
+
+Intended bounded command after root signoff, with exact input hashes filled by
+root (the script will reject an incorrect digest):
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src timeout --signal=TERM --kill-after=5s 90s nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/audit_tiny_lm_broader_data.py --collection /data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-002-collection --analysis /data2/neural-shrimp-data/explore/tiny-lm-broader-data/attempt-002-analysis.json --corpus /data2/neural-shrimp-data/datasets/tinyshakespeare/attempt-001 --producer-commit PRODUCER_COMMIT --manifest-sha256 COLLECTION_MANIFEST_SHA256 --analysis-sha256 ANALYSIS_SHA256 --max-seconds 60 --output /data2/neural-shrimp-data/audits/tiny-lm-broader-data/attempt-001`.
+
+CPU1/nice10, internal60/external90+5 seconds,32 MiB output. Fresh resource check
+before launch, no GPU/paid services/protected data. Preserve every stage, sample,
+failed/incomplete attempt and exact source/inputs; output directory is exclusive,
+all writes checked against the cap. Parent backs up the whole audit unit on the
+separate disk. No target audit or follow-on experiment is authorized by this card.
