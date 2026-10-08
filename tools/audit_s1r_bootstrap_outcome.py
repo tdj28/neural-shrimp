@@ -325,7 +325,7 @@ class Structure:
          links=len(self.edges),accepted_links=sum(e['status']=='accepted' for e in self.edges),segments=len(self.segments),association=self.association)
 
 
-def corrector_history(ev,result):
+def corrector_history(ev,result,*,max_calls=160,complete_statuses=COMPLETE):
     calls={};active=None;iterations={};line_last={};current_node=None;node_calls={};spectrum_pending={}
     for kind,p in ev:
         if kind=='node_pending':current_node=p['id'];node_calls[current_node]=[]
@@ -376,10 +376,10 @@ def corrector_history(ev,result):
                 require(c['call'] in node_calls[p['id']] and calls[c['call']]['end'] is not None,'node correction ownership')
                 exact(c,calls[c['call']]['end'],'node corrected-state record')
             current_node=None
-    count=result['phase_corrector_calls'];require(type(count) is int and len(calls)<=count<=160,'phase call budget')
+    count=result['phase_corrector_calls'];require(type(count) is int and len(calls)<=count<=max_calls,'phase call budget')
     # A quota failure can happen after incrementing the counter, before the start event.
     require(count-len(calls)<=1 and (count==len(calls) or result['status']=='resource_stop'),'unrecorded phase attempt')
-    if result['status'] in COMPLETE:require(active is None and count==len(calls),'completed corrector lifecycle')
+    if result['status'] in complete_statuses:require(active is None and count==len(calls),'completed corrector lifecycle')
     return dict(recorded_starts=len(calls),recorded_ends=sum(c['end'] is not None for c in calls.values()),
       reported_attempts=count,stored_iterations=len(iterations),stored_line_search_trials=sum(k=='line_search' for k,p in ev),
       limitation='Saved-step arithmetic and descent replayed; intermediate residuals and Newton linear systems not recomputed.')

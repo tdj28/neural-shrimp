@@ -94,3 +94,81 @@ hash-valid incomplete producer attempt can support incomplete-record
 consistency only. Missing manifests cannot support a completed verdict.
 Final artifacts are read-only and receipts bind source, input, result and raw
 manifests. Parent owns separate-disk backup and manuscript integration.
+
+## 8 October 2026 — implementation freeze before numerical outcome reads
+
+Implemented by `tools/audit_s1r_lower_outcome.py`, with a separate lower-unit
+schedule and durability parser. Only generic record decoding, mathematical
+qualification, pair-witness arithmetic and the independent analytic derivative
+formula are reused from the previously reviewed auditors. The old bootstrap
+history helper receives optional `max_calls` and `complete_statuses` arguments;
+its historical defaults remain unchanged. No original producer artifact or
+receipt is modified.
+
+Metadata supplied by root, without numerical outcome inspection, pins execution
+b5271a4bfeb74c9024eb2c9a40369924c6aa1304, reviewed source basis
+3346fcaf684fd74b24f58ce4da558358938edcee, source review
+bb71b9045a6e6850031ebdd6ba0c6770d0f6cb9a, collection manifest
+72f88bd7b05570f89a98da90b6af591cac94a4986bb10f89e749bcb03e2c181d and
+launcher manifest14c3c2866a1550b46a763c7221fc58ef3803b59353d20a50058672f6112d1d4d.
+The evaluator independently requires all twelve reviewed producer files to
+match execution and local bytes. The runtime and launcher record exact source,
+review, command, cwd, process identities, thread controls, elapsed/wall time,
+status, output inventory and stdout identities. Metadata does not itself grant
+launch authorization or authenticate arbitrary replacement manifests.
+
+The 32 MiB audit allowance is partitioned into 31 MiB for the evaluator Store
+and 1 MiB for its external launcher/log evidence. The external launcher must
+retain its source, resource snapshot, command, source/review authorization,
+owned PIDs, bounded log, elapsed/exit evidence and final complete hashes; its
+log is capped at 128 KiB. It must never signal foreign processes. GNU timeout
+bounds the owned child at 60 seconds plus 5 seconds KILL grace. Any wrapper
+supervisor must also bound an inherited output pipe, including after leader
+exit. Final files are made read-only; failures and partial outputs are kept.
+The evaluator requires nice10, forces the four numerical thread variables to1,
+checks committed dependencies, uses an exclusive output directory, and saves
+partial audit events plus a failure result on an internal45-second deadline.
+No retry or changed thresholds are authorized by this card.
+
+Frozen invocation, from the audit worktree at the eventual source commit, after
+separate root source review and launch authorization:
+
+```sh
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+timeout --signal=TERM --kill-after=5s 60s nice -n 10 \
+/data2/neural-shrimp/.venv/bin/python tools/audit_s1r_lower_outcome.py \
+  --collection /data2/neural-shrimp-data/explore/s1r-lower-association/attempt-001 \
+  --launcher /data2/neural-shrimp-data/explore/s1r-lower-association/attempt-001-launcher \
+  --original /data2/neural-shrimp-data/explore/s1r-bootstrap-association/attempt-001-collection \
+  --timing /data2/neural-shrimp-data/explore/s1r-branch-association/attempt-001 \
+  --out /data2/neural-shrimp-data/audits/s1r-lower-association/attempt-001 \
+  --producer-commit b5271a4bfeb74c9024eb2c9a40369924c6aa1304 \
+  --manifest-sha256 72f88bd7b05570f89a98da90b6af591cac94a4986bb10f89e749bcb03e2c181d \
+  --launcher-manifest-sha256 14c3c2866a1550b46a763c7221fc58ef3803b59353d20a50058672f6112d1d4d
+```
+
+Validation before target reads:92 synthetic controls pass in1.25s, CPU1 nice10,
+covering57 new lower-audit controls and35 previous bootstrap-audit controls.
+The new tests include a synthetic75-link/604-phase complete path, same/distinct/
+unresolved and unstable endpoints, all witness rejection stages, exact-control
+checks before distance, phase/secant/seed/target tampering, native pending and
+unpersisted write failures, incomplete pre-schedule retention,644-phase cap
+compatibility, fixed source parity and twenty hash-valid launcher mutations.
+These controls do not evaluate the real target model, bootstrap or corrector.
+
+Missing or corrupt artifacts fail closed. A clean, hash-valid incomplete
+producer can be checked only for incomplete-record consistency; a launcher
+failure makes this auditor fail with retained evidence rather than promoting
+it to a completed result. The independent analytic sample is selected by role
+and order, never numerical effect. Full gradients and Hessians of both native
+phases in that sample are retained alongside monodromy/spectrum checks. No
+new Newton solve, continuation step or free trajectory is part of the audit;
+saved-state transition evaluations are required for closure checks.
+
+On completion, write separate outcome companions
+`docs/reviews/s1r-lower-outcome.md` and
+`docs/reviews/s1r-lower-outcome-receipt.json`, binding audit source, producer
+source/review, exact inputs, result and all raw/launcher manifests. The
+original producer receipt remains unchanged. This implementation freeze is
+not permission to launch; wait for root's explicit source-bound approval.
