@@ -60,7 +60,7 @@ def main():
             markeredgecolor=c.INK, markeredgewidth=0.4, label="crossing angle (prediction)")
     ax.set_xlabel("log10 learning rate")
     ax.set_ylabel("rotation number (turns per two updates)")
-    ax.set_title("A  Real data, one learning rate", fontsize=8)
+    ax.set_title("A  Real data, one learning rate", fontsize=8, pad=28)
     ax.legend(loc="upper center", bbox_to_anchor=(0.52, 0.86), frameon=False, fontsize=5.8)
     nearest = min(good, key=lambda r: abs(r["log10_eta"] - cont["log10_eta_boundary"]))
     bx = axes[1]
@@ -84,7 +84,7 @@ def main():
                 markeredgewidth=0.4, label=f"s2/s1 = {ratio:g}" if f"s2/s1 = {ratio:g}" not in seen else None)
     bx.set_xlabel("distance beyond the edge (learning rate)")
     bx.set_ylabel("rotation number")
-    bx.set_title("B  Two-mode linear network", fontsize=8)
+    bx.set_title("B  Two-mode linear network", fontsize=8, pad=28)
     bx.legend(loc="upper right", frameon=False, fontsize=6)
     cx = axes[2]
     wd = json.loads(CIRCLE_WD.read_text())
