@@ -1724,3 +1724,15 @@ _commit `52865fd238fc`_
 The local one-case timing run completed in 2.48 seconds. At target 1.2, ridge .2 and rate ratio sqrt(8), an NS crossing occurs at eta 0.7335088958 with analytic first Lyapunov coefficient -3.836452456; finite-difference forms agree within 2e-9. The three amplitude probes grow approximately by factors of two for fourfold detuning. All are exploratory floating-point observations. Proceed with the already specified 17-case fixed-target grid, 180-second ceiling, one thread. Reporting repair before that grid: retain JSON booleans as booleans and omit an attracting flag evaluated exactly at a roundoff-level crossing; add symmetric step eigenvalues/commutator as a mechanistic diagnostic. Earlier artifacts remain unchanged.
 
 _commit `52865fd238fc` (dirty worktree)_
+
+## 2026-10-08 03:52 UTC: run (exploratory)
+
+- **Question:** With target fixed, which tested ridge and rate-asymmetry combinations yield an NS versus flip boundary of the first attracting 2-cycle?
+- **Setup:** 17 cases: target 1.2; ridge .05,.1,.2,.3; ratio 1,2,sqrt(8),4 plus ridge .2 reciprocal ratio. Unit timing 2.48s including 3 trajectories; expected grid under 30s. Float64 CPU, one thread, nice 10, 180-second ceiling. Analytic negative control: equal-rate balanced branch has commuting Hessians and real multipliers.
+- **Output:** `/data2/neural-shrimp-data/explore/scalar-mechanism/attempt-002-pilot`
+- **Would surprise us:** NS on the balanced equal-rate branch, reciprocal asymmetry mismatch, or a changed criticality sign as ridge varies.
+- **Command:** `nice -n 10 timeout 180 /data2/neural-shrimp/.venv/bin/python tools/explore_scalar_mechanism.py --profile pilot --output /data2/neural-shrimp-data/explore/scalar-mechanism/attempt-002-pilot`
+
+_commit `31cf2ab7b350`_
+
+- run started 2026-10-08 03:52 UTC finished 03:52 UTC with exit status 0

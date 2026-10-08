@@ -87,3 +87,18 @@ def planar_stability(matrix):
     return {"trace": trace, "determinant": determinant,
             "discriminant": trace*trace-4*determinant,
             "jury_margins": margins, "attracting": bool(min(margins) > 0)}
+
+
+def balanced_cycle(target, ridge, eta):
+    """Explicit positive 2-cycle on u=v with equal rates (c > 2).
+
+    Returns its two full states and the longitudinal/transverse multipliers.
+    This is an algebraic identity, evaluated here in ordinary float64.
+    """
+    c = 1 + eta*(target-ridge)
+    if eta <= 0 or c <= 2:
+        raise ValueError('the positive primitive balanced 2-cycle requires c > 2')
+    phase0 = (np.sqrt(c+2)+np.sqrt(c-2))/(2*np.sqrt(eta))
+    phase1 = (np.sqrt(c+2)-np.sqrt(c-2))/(2*np.sqrt(eta))
+    e = 1-eta*(target+ridge)
+    return np.array([[phase0, phase0], [phase1, phase1]]), np.array([9-2*c*c, 1+e*e+e*c])

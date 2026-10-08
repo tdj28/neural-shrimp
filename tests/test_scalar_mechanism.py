@@ -50,3 +50,25 @@ def test_jury_margins_distinguish_planar_boundaries():
     assert not planar_stability(1.1*np.array([[0, -1], [1, 0]]))["attracting"]
     assert not planar_stability(np.diag([-1.1, 0.5]))["attracting"]
     assert not planar_stability(np.diag([1.1, 0.5]))["attracting"]
+
+
+def test_explicit_balanced_cycle_and_both_multipliers():
+    from neural_shrimp.scalar_mechanism import balanced_cycle
+    for ridge in (0.05, 0.1, 0.2, 0.3):
+        model = ScalarFactorization(ridge=ridge)
+        for factor in (1.02, 1.15, np.sqrt(5)-1):
+            eta = factor/(model.target-ridge)
+            orbit, multipliers = balanced_cycle(model.target, ridge, eta)
+            assert_allclose(model.step(orbit[0], eta, 1), orbit[1], atol=2e-15)
+            assert_allclose(model.step(orbit[1], eta, 1), orbit[0], atol=2e-15)
+            numeric = np.linalg.eigvals(model.two_step_forms(orbit[0], eta, 1)[0])
+            assert_allclose(np.sort(numeric), np.sort(multipliers), atol=4e-14)
+
+
+def test_closed_form_minimum_flip_with_unequal_rates():
+    for ridge in (0.05, 0.1, 0.2, 0.3):
+        model = ScalarFactorization(ridge=ridge)
+        for ratio in (1, 2, np.sqrt(8), 4):
+            d = model.target
+            expected = 4/(d*(1+ratio) + np.sqrt(d*d*(1-ratio)**2+4*ratio*(d-2*ridge)**2))
+            assert_allclose(model.flip_rate(ratio), expected, atol=1e-15)
