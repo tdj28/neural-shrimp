@@ -3901,3 +3901,11 @@ Separate independent report/receipt: docs/reviews/s1r-lower-independent-outcome
 (.md and -receipt.json). Original producer receipts/reports remain unchanged.
 A passing saved-data audit does not turn this gap into a branch association,
 nonexistence or global disconnection claim. Root owns backup and integration.
+
+
+## 2026-10-08T11:08:01.572518+00:00 — CIFAR profile passes, fixed saved collection authorized
+
+Source/review and complete immutable profile/wrapper inventories pass. Synthetic
+QR0.167355s gives fixed cost projection5.334710s<30s. See profile receipt and
+`docs/plans/cifar-input-span-collection-launch.md` for exact external manifest
+pin, resource caps and one-collection scope. No scientific target run yet.
