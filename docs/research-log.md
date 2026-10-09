@@ -5316,3 +5316,8 @@ Pre-run validation: all15 focused synthetic controls passed in9.84seconds (CPU/B
 ### 2026-10-09 — joined primitive18 branch review outcome
 
 The one authorized audit from9bdeafd338e987c072168d96c41c9180c8e29f19 passed: exact original two-chart replay; independent384-bit root, primitive,234-coordinate original anchor/shared endpoint; all32 closed stability slices with576 reacquired native Jacobians and saved exact cyclic metric positivity. Internal32.615s/external33.008s,804184KiB peak,59files22,396,225bytes; all read-only/inventories verified/PIDs absent. Raw `audits/s2-period18-joined-branch/attempt-001`, outer manifestcdf337071775e7e212b1cf6b15f7634571590b591a750075a929bca29788beea. Companion `docs/reviews/s2-period18-joined-branch-independent-review.json` binds exact scope and sources. Same attracting primitive18 branch across width1/1024; no connection to fold/flip or full shrimp claim. No further target attempt.
+
+
+### 2026-10-09 — mean-value gradient adapter static source review
+
+Reviewed frozen15a2ba1f7b390dc3d23168c4a3e77de832a0689a: complete adapter/driver/card/inherited shooting semantics and source inventory. No mathematical blocker; finite resource and same-library/settings profile checks repaired before acquisition. Coupled affine-gradient/interval-rate control inspected. No new model/profile/decomposition calls by reviewer. Companions `docs/reviews/meanvalue-gradient-source-review.md` and `.json` bind exact scope/source; target outcome remains separate.
