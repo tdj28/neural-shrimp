@@ -4971,3 +4971,14 @@ docs/reviews/s2-period18-flip-profile.json. The root-reviewed one target now use
 the already pinned numerical attempt002 and this profile's outer manifest
 236171502e32a08d173544034e16b32620a6c053d5f8f2fb7a213b65a7a30046.
 Bound executable and card bytes remain unchanged; no target has yet run.
+
+## 2026-10-09 — local primitive18 subcritical flip proof passed
+
+One target from e840d935 passed all eight gates and the separate whole-box
+association gate. alpha≈−51.2346290 and b≈−78.084775 are strictly negative,
+and Q^64 norm<0.046042. This is a local subcritical flip on the exact both-rate
+log-ray, with qualitatively unstable nearby36 cycles on lower s; no finite-
+detuning36 certificate or validated center connection is claimed. Complete
+immutable source/raw/resource/PID evidence and pending-at-creation review status
+are in certificates/s2-period18-flip-receipt.json and
+docs/reviews/s2-period18-flip-producer-outcome.md. No target retry occurred.
