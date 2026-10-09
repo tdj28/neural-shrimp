@@ -5056,3 +5056,21 @@ worker disk cap and3x projection remain. Source/card/tests are committed before
 one new synthetic profile at `attempt-002-profile`;20s/25s+5s and all earlier
 resource limits remain. Target remains unrun until this new measured gate passes.
 No scientific width search or target adaptation has occurred.
+
+### 2026-10-09 — Compressed profile passes; one anchored target
+
+Profile002 on source fe2e83bf completed in2.130s internally/2.352s externally,
+324736KiB peakRSS,79ticks,1,114,539 worker bytes. Engineering projection10.520s
+and3x storage3,343,617 bytes pass unchanged caps. Decompressed identity/checksum
+and all complete inventories, read-only modes and owned PID exits pass. The
+profile remains synthetic, with no primitive18 or anchor claim. Exact run
+manifest207f2556f6927826431d35d1b0119d46ff7ba0a39ea46f4b655ff27094588b8d;
+outer5ec98d8bb4d1158104dd9de802152eac3151ba66efc7c109e818217112717621.
+See `docs/reviews/s2-period18-connection-profile002.json`.
+
+Execute the previously root-authorized first target now, unchanged bound code:
+`nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_connection.py --mode target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-connection-2026-10-09/attempt-002-profile/run --profile-manifest 207f2556f6927826431d35d1b0119d46ff7ba0a39ea46f4b655ff27094588b8d --out /data2/neural-shrimp-data/explore/certificates/s2-period18-connection-2026-10-09/attempt-001-target`.
+All mathematical/resource settings in the amended card remain: one exact center
+interval h0±2^-20, correction2^-28,256bits,2 proposals; CPU1/nice10,120s/135s+5s,
+64MiB worker plus1MiB launcher,2GiB RSS. No automatic search, endpoint substitution,
+new data or full-boundary claim. Preserve every gate/result on success or failure.
