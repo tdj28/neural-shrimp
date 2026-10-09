@@ -4610,3 +4610,30 @@ time, RSS, storage and failure-retention limits in
 `docs/plans/curvature-six-reference-pilot.md`. Only synthetic preparation ran;
 no empirical input was opened and no target/profile launch occurred. Root
 review, fresh resource check and explicit launch remain separate.
+
+
+## 2026-10-09T02:07:37.550340+00:00 — curvature profile execution card
+
+Question: does the fixed six-reference rank-one/bulk curvature approximation
+pass its stated accuracy and control comparison? Source 36d97ec65a937547d4981a857f1900d047f2255e is integrated
+unchanged; local source review is in this commit. Its29 focused synthetic cases
+pass (16 new acquisition cases plus13 existing helper cases), and full synthetic
+output storage is below the declared limits. Independent static review corrected
+scalar rate reconstruction before any profile/outcome.
+
+First execute the resource-only profile from the current clean HEAD with
+`tools/launch_curvature_pilot.py --mode profile`, exact source/review commits,
+output `/data2/neural-shrimp-data/explore/curvature-mechanism/attempt-001-profile`
+and sibling `attempt-001-profile-launcher`. The launcher records the exact argv.
+CPU/BLAS1, nice10; internal5s/external10+5s/supervisor15s, monitored2GiB RSS,
+16MiB science plus1MiB launcher. Reuse only the one exact first-S1R phase return
+if the source/host/data/rate/state bindings and measured projection pass.
+Do not read or use fit quality to decide profile eligibility. A subsequent
+fixed panel card will bind the retained profile manifest and measured budget.
+
+Host observation: {"gpu": {"error": "", "exit": 0, "output": "NVIDIA RTX 2000 Ada Generation, 0 %, 15947 MiB, 16380 MiB"}, "gpu_processes": {"error": "", "exit": 0, "output": ""}, "load": [0.529296875, 0.71533203125, 0.80322265625], "matching_jobs": [], "memory_available": "43236040 kB", "time_utc": "2026-10-09T02:03:38.600750+00:00"}
+
+All prospective output roots are absent. No paid/GPU/holdout operation. All
+failed or interrupted evidence will be retained. A pass would be surprising
+because the model discards all non-leading curvature anisotropy; a fail would
+reject this specific approximation, not all curvature explanations.
