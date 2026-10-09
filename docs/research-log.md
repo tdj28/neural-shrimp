@@ -4947,3 +4947,16 @@ synthetic controls pass (0.11s). Existing C1/fold kernels are unchanged. This
 checkpoint has no target run; adapter, measured profile and source review are
 pending. Mathematical scope and proposed limits are in
 `docs/plans/s2-period18-flip-certificate.md`.
+### 2026-10-09 — Resumed numerical period18 flip/period36 exploration
+
+The human challenged stopping at a checkpoint. Prepare the local ray13 pilot
+in `docs/plans/s2-period18-flip-pilot.md`: full-state18 continuation with reverse
+witnesses, augmented−1 refinement, total BOTH-rate crossing, and constrained
+primitive36 branch switching. Exact family is coordinated with the separate
+interval-flip worker. No target computation has yet occurred. Eight synthetic
+controls pass0.25s, including a moving parent branch, actual2D supercritical
+period doubling, subcritical unstable cycles, collapse rejection, and aggregate
+storage-failure retention. The source/card must be committed before the tiny
+synthetic profile and actual target. Root brief source review precedes launch.
+Use localCPU1/nice10;100s/115+5s;40k joint products;32+1MiB;monitored2GiB.
+Keep every result and amend disclosed failures when scientifically warranted.
