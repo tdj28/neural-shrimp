@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'src'))
 from flint import arb,arb_mat,ctx
 from neural_shrimp.rigorous_orbits import canonical_bytes,eye,ball_json,norm_inf_upper
-from neural_shrimp.rigorous_connection import HiddenRateMap,tube,restore_ball,balanced_product
+from neural_shrimp.rigorous_connection import HiddenRateMap,tube,restore_ball
 BUNDLE=Path('/data2/neural-shrimp-data/explore/certificates/s2-period18-connection-2026-10-09/attempt-002-target')
 PIN='0c2f6f597d84ac2e5009b99bb5ffacd79026e47d57b206874d1b904de770e107'
 CORE='2caf7c5bae6785fc6d9470f082ff782c88410bba918cb7c6f6575ee7d666633a'
@@ -58,8 +58,19 @@ def saved_math(r,inp):
         for block in r['phase_jacobians']:M=matrix(block)*M
         power=1;Q=M
         while power<r['attraction_power']:Q=Q*Q;power*=2
-        bound=norm_inf_upper(Q);require(bound<1,'independent sequential monodromy power bound')
-        return {'strict_uniform_inclusion':True,'anchor_coordinates':count,'contraction':ball_json(norm_inf_upper(D)),'attraction_power':power,'sequential_power_bound':ball_json(bound),'scope':'Independent reduction of saved enclosures; objective AD and Arb remain shared.'}
+        sequential_bound=norm_inf_upper(Q)
+        # A weaker interval parenthesization is only a diagnostic, not a reason
+        # to reject a valid bound obtained with the recorded balanced tree.
+        nodes=[matrix(block) for block in r['phase_jacobians']]
+        while len(nodes)>1:
+            nxt=[]
+            for index in range(0,len(nodes),2):
+                nxt.append(nodes[index] if index+1==len(nodes) else nodes[index+1]*nodes[index])
+            nodes=nxt
+        Q=nodes[0];power=1
+        while power<r['attraction_power']:Q=Q*Q;power*=2
+        bound=norm_inf_upper(Q);require(bound<1,'reconstructed balanced monodromy power bound')
+        return {'strict_uniform_inclusion':True,'anchor_coordinates':count,'contraction':ball_json(norm_inf_upper(D)),'attraction_power':power,'balanced_power_bound':ball_json(bound),'sequential_power_bound':ball_json(sequential_bound),'sequential_diagnostic_passed':bool(sequential_bound<1),'scope':'Independent reduction of saved enclosures with recorded balanced parenthesization; weaker sequential product retained as diagnostic. Objective AD and Arb remain shared.'}
 
 def run(out):
     require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip(),'clean committed source')

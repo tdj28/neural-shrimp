@@ -26,3 +26,15 @@ Command: timeout --signal=TERM --kill-after=5s 120s nice -n10
 This is a post-outcome review of the initial tiny tube, not the newer framed
 continuation extension. Passing establishes neither boundary connection nor
 full shrimp geometry.
+
+## Disclosed amendment after retained attempt001
+
+The saved-ball audit stopped in1.893s because a sequential interval monodromy
+product did not contract at the producer's power. Different parenthesizations
+have different wrapping; this does not refute the saved balanced proof. The
+first attempt remains immutable. Attempt002 retains that sequential bound as
+a diagnostic and independently reconstructs the recorded balanced tree for the
+actual stability check. No producer mathematics, interval, numerical threshold,
+proof setting or resource cap changes. Exact replay and the same nested check
+then proceed. Both bounds will be retained rather than turning the weaker
+method's failure into a claim of physical instability.

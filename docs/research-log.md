@@ -5124,3 +5124,11 @@ Root will execute the committed saved-ball/replay/nested audit described in
 [the initial connection review card](plans/s2-period18-connection-review.md).
 CPU1/nice10,100s internal/120+5s external,64MiB; only target002 and its original
 consumed anchor. Exact mathematical gates and interval width remain fixed.
+
+
+### Initial connection review amendment — 9 October 2026
+
+Review attempt001 stopped at the alternate sequential interval product, before
+proof replay. Preserve it. Attempt002 records that weaker bound and checks
+the original balanced parenthesization; all mathematical gates, interval and
+review caps remain unchanged. See the updated review card.
