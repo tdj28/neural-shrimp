@@ -122,3 +122,11 @@ def test_lossless_deterministic_compressed_evidence(tmp_path):
     m=driver();obj={'exact':{'mid':[123,-400],'rad':[789,-800]},'false_gate':False}
     a=tmp_path/'a.json.gz';b=tmp_path/'b.json.gz';m.save(a,obj);m.save(b,obj)
     assert a.read_bytes()==b.read_bytes() and m.read(a)==obj
+
+
+def test_compressed_payload_checksum_is_required(tmp_path):
+    m=driver();p=tmp_path/'certificate.json.gz';meta=m.save(p,{'exact':'1/3'})
+    with pytest.raises(FileNotFoundError):m.read(p)
+    m.save(tmp_path/'certificate-payload.json',meta);assert m.read(p)=={'exact':'1/3'}
+    meta['uncompressed_sha256']='0'*64;m.save(tmp_path/'certificate-payload.json',meta)
+    with pytest.raises(ValueError,match='payload identity'):m.read(p)
