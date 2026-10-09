@@ -4727,3 +4727,15 @@ commit, PID, exit and log. The output root is absent. This is explicitly adapted
 after the failed fixed panel; no new model/decomposition/rank search, no
 retroactive pass or predictive interpretation. The question is which target
 directions or coefficient information the failed model discarded.
+
+
+## 2026-10-09T02:22:02.732287+00:00 — saved-plane failure explanation completed
+
+All six fixed saved-array diagnostics complete with no new model/decomposition.
+The two real controls capture less than0.021% of each leading right vector
+energy in the retained sharp-direction plane; complex cases vary29.7–95.4%.
+Actual-map compression still has material error and plane leakage; it is
+target-informed descriptive evidence, not a rescue of the failed predictor.
+Exact residual-action components are preserved. See saved-plane outcome and
+receipt. All source/raw hashes, immutable modes and recorded process exits
+verify; independent saved arithmetic review is pending at creation.
