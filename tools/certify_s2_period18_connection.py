@@ -26,12 +26,16 @@ def read(path):
     if path.suffix=='.gz':
         with gzip.open(path,'rb') as f: data=f.read(256*1024**2+1)
         require(len(data)<=256*1024**2,'decompressed artifact cap')
+        if path.name=='certificate.json.gz':
+            meta=json.loads(path.with_name('certificate-payload.json').read_bytes())
+            require(len(data)==meta['uncompressed_bytes'] and sha256(data)==meta['uncompressed_sha256'],'decompressed payload identity')
         return json.loads(data)
     return json.loads(path.read_bytes())
 def now():return datetime.now(timezone.utc).isoformat()
 def total(out):return sum(p.stat().st_size for p in out.rglob('*') if p.is_file())
 def save(path,obj):
     data=canonical_bytes(obj);root=path.parent
+    payload={'uncompressed_bytes':len(data),'uncompressed_sha256':sha256(data)}
     require(len(data)<256*1024**2,'uncompressed artifact cap')
     if path.suffix=='.gz':data=gzip.compress(data,compresslevel=6,mtime=0)
     require(len(data)<60*1024**2,'single stored artifact cap')
@@ -39,6 +43,7 @@ def save(path,obj):
     temp=path.with_name(path.name+'.tmp')
     with temp.open('xb') as f:f.write(data);f.flush();os.fsync(f.fileno())
     os.replace(temp,path)
+    return payload
 def inventory(out):return {str(p.relative_to(out)):entry(p) for p in sorted(out.rglob('*')) if p.is_file() and p!=out/'manifest.json'}
 def verify_inventory(out,members):
     require(isinstance(members,dict) and bool(members),'inventory required')
@@ -139,8 +144,9 @@ def execute(out,mode,profile=None,profile_pin=None,bundle=None,bundle_pin=None):
         save(out/'inputs.json',inp)
         with ctx.workprec(SETTINGS['precision']):
             result=tube(HiddenRateMap(inp['model_inputs']),inp['initial'],inp['rate'],anchor=inp['anchor'],**SETTINGS,tick=tick,observe=observe)
-        save(out/'certificate.json.gz',{'schema':'neural-shrimp-connection-certificate-v1','inputs_sha256':entry(out/'inputs.json')['sha256'],
+        payload=save(out/'certificate.json.gz',{'schema':'neural-shrimp-connection-certificate-v1','inputs_sha256':entry(out/'inputs.json')['sha256'],
             'runtime':runtime,'result':result})
+        save(out/'certificate-payload.json',payload)
         if mode=='replay':require(canonical_bytes(result)==canonical_bytes(old['result']),'byte-identical tube replay')
         profile_complete=mode=='profile'
         outcome.update(passed=bool(result['passed']) and not profile_complete,

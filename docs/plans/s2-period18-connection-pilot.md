@@ -97,7 +97,7 @@ The original synthetic profile took1.992s but saved31,055,672 worker bytes of
 verbose matrix JSON, failing the declared3x disk projection. It remains retained;
 no target ran. The full certificate is now `certificate.json.gz`, deterministic
 gzip level6/mtime0; parsing preserves the exact JSON payload and byte-identical
-mathematical replay. Maximum decompressed content256MiB; the64MiB worker disk
+mathematical replay. A separately hash-bound payload record also gives exact decompressed SHA256 and byte count, checked on every certificate read. Maximum decompressed content256MiB; the64MiB worker disk
 cap and60MiB ordinary allowance remain. All model/proof/settings are unchanged.
 One amended profile uses `attempt-002-profile`; if the unchanged timing/storage
 gates pass, the first target remains `attempt-001-target`, binding profile002.
