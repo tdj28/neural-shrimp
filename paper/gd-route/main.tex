@@ -702,7 +702,7 @@ and over the three deepest levels the width scales with exponent \xAncWidthSlope
 \includegraphics[width=\linewidth]{f4_window_anatomy.pdf}
 \caption{\textbf{The period-18 window has numerical fold and flip boundary candidates, with neighboring
 period-36 bands.} A: local map from the shared initial parameters with the window's orbit continued along 64
-rays; markers show where and how it loses stability. B: crossing multipliers on the unit circle. This window was
+rays; markers show the transitions located by the historical coarse continuation. A finer follow-up on one ray finds an earlier instability pocket, so these markers need not be the first loss of attraction. B: crossing multipliers on the unit circle. This window was
 selected as the clearest example and is one of only \nDraftShrimp{} meeting the draft shrimp criteria; it is not
 representative (Figure~\ref{fig:census}).
 \provenance{paper/gd-route/figures/f4\_window\_anatomy.py}{figures/f4\_window\_anatomy.provenance.json}}
@@ -712,9 +712,11 @@ representative (Figure~\ref{fig:census}).
 Draft criteria for classical shrimp anatomy require numerical fold and flip candidates each on at least 8 of 64 rays, at
 least half of the flip rays opening onto period $2p$ in a local map, and agreement between ray and map edges on at
 least three quarters of rays. \nWindowsFoldFlip{} windows meet the boundary-count part and \nDraftShrimp{} meet all
-of it. These are anatomy candidates, not proofs of complete shrimp geometry. The clearest, the period-18 window of S2-28011 (Figure~\ref{fig:anatomy}), has \nWFold{} fold-candidate, \nWFlip{}
+of it under the historical coarse classification. These are anatomy candidates, not proofs of complete shrimp geometry or a census of first stability boundaries. The selected period-18 window of S2-28011 (Figure~\ref{fig:anatomy}) has \nWFold{} fold-candidate, \nWFlip{}
 flip-candidate and \nWNS{} complex-pair rays; ray and map edges agree within two cells on \nWEdgeAgree{} of \nWEdgeCompared{}
-rays, and \nWFlipTwoP{} of its flip-candidate rays open onto period 36. Complex-pair boundaries, outside the fold--flip anatomy used by our draft criteria, are common: \nWindowsNS{} of \nConfirmed{} windows have at least 8 such rays.
+rays, and \nWFlipTwoP{} of its flip-candidate rays have neighboring coarse-map cells labeled period 36. These labels do not associate a local doubled branch with the continued parent orbit. Complex-pair candidates, outside the fold--flip anatomy used by our draft criteria, are common: \nWindowsNS{} of \nConfirmed{} windows have at least 8 such rays.
+
+A finer exploratory continuation on the lowest-index historical flip ray finds a more complicated sequence: the same numerically carried primitive orbit loses attraction through a complex pair, regains attraction, and only then reaches the later simple $-1$ crossing. The historical sampling skipped the intervening unstable interval. Amplitude-constrained solves find nearby primitive doubled cycles on the parent-stable side; these doubled cycles are unstable. Full-state closure, proper-divisor separation, reverse corrections and an adjacent starting-phase check support this numerical association, but do not prove a continuous connecting branch. Thus this ray does not establish a stable period-doubling route or complete shrimp anatomy. We retain the original census as historical evidence and do not treat its transition labels as exhaustive. See \path{docs/reviews/s2-period18-flip-numerical-outcome.md} and its hash-bound numerical receipt.
 
 \begin{samepage}
 For this same period-\nPEighteenPeriod{} anatomy candidate, the center-orbit proof in
