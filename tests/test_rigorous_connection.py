@@ -116,3 +116,9 @@ def test_fixed_anchor_receipt_corruption(tmp_path,monkeypatch):
     m=driver();monkeypatch.setattr(m,'ROOT',tmp_path)
     p=tmp_path/m.RECEIPT;p.parent.mkdir();p.write_text('{}')
     with pytest.raises(ValueError,match='canonical anchor'):m.prepare()
+
+
+def test_lossless_deterministic_compressed_evidence(tmp_path):
+    m=driver();obj={'exact':{'mid':[123,-400],'rad':[789,-800]},'false_gate':False}
+    a=tmp_path/'a.json.gz';b=tmp_path/'b.json.gz';m.save(a,obj);m.save(b,obj)
+    assert a.read_bytes()==b.read_bytes() and m.read(a)==obj
