@@ -5036,3 +5036,9 @@ primitive/root/anchor gates. A numerical Schur/QR basis is only a proposal. No
 floating eigenvalue decides a proof. Commit source/card before any wider run;
 choose a substantive interval increase plus an exact shared-parameter join,
 not a blind sequence of halvings. No new scientific run is included in this note.
+
+### 2026-10-09 — Framed two-chart connection prototype, before acquisition
+
+The initial anchored interval passed but its width would require millions of charts to reach the known fold. This adaptive amendment keeps the historical core/driver/plan byte-identical and adds `rigorous_connection_frames.py`, its separate driver and `docs/plans/s2-period18-connection-framed-pilot.md`. Exact dyadic phasewise frames are verified and applied before monodromy multiplication. The proposed target uses two joined charts at halfwidth2^-10/radius2^-15,256bits,two Newton proposals; exact endpoint-root containment establishes each join. Root/primitive/anchor and attraction remain distinct gates. Twenty-six synthetic controls passed, including native product ordering, overlap-without-containment rejection, singular/inexact frames, failed frame proposals and complete first-chart retention before a second-chart interruption. No target derivatives acquired during development.
+
+Run card: one synthetic resource profile at the new framed stream's `attempt-001-profile`, CPU/BLAS1,nice10,internal20s/external25+5,2GiB RSS,256ticks,64MiB worker+1MiB launcher. Both full234D charts run, with expected synthetic primitive/anchor failures. Require completedprofile<20s,4*t+2<100s and3*profilebytes<60MiB with identical bound source before a separately recorded target launch. Full deterministic gzip payloads and decompressed identity retained; every complete chart is fsynced before continuing. Root reviews the frozen source before profile. No paid/GPU, heldout inputs, fold/flip connection or wider-window claim.
