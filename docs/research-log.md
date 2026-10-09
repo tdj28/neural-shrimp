@@ -5380,3 +5380,29 @@ Root reviewed db6bc031's telescoping Lyapunov construction, exact dyadic proposa
 After accurate midpoint metrics but wide interval decreases, root proposes16 fixed closed parameter slices perproved chart. New adapter restricts only the affine predictor; the saved Krawczyk correction image is unchanged. Original roots/primitive/join are reused, exact coverage recorded, native model inputs and phase order pinned. Controls/models implicit imports are now explicitly bound without altering earlier evidence. Source architecture uses a separate resource profile, then two-center irreducible-error floor pilot, then32 fixed slices only if both floor witnesses pass. No floor/subdivision acquisition has run. Thirty-seven synthetic controls pass (including exact coverage, irreducible floor retention, rejected outside/unproved domains and rejected wrong/failed floor pins).
 
 Prospective card `docs/plans/s2-period18-sliced-metric-pilot.md`: profile10/15+5s18calls; floor20/30+5s36calls; target120/135+5s576calls, CPU/BLAS1nice10,2GiB,256+1MiB. Measured aggregate gates use the pinned prior3.30082595s two-chart metric run plus one prospective identical-routine synthetic slice. Full34-unit time allowance117.228s from prior run, strict profile/storage checks still required. Archive every domain, derivative, metric, failed gate and partial event. Root source review before profile; commit measured receipts/cards before floor and target. No arbitrary refinement or radius change.
+Flip target manifest1376a56cea2d023ed059d43116ec393a0e22dbaf30f77cec1612048b6ddc9adf;
+2.149s internal,25files/4,376,600B. Period36 target manifest473b9c7962a9a002242c570f0c93670345527d1eec8f1f619182aff0c350c59d;
+1.215s internal,18files/5,054,012B. Four complete profile/target inventories and
+read-only/owned-PID cleanup checked. Canonical certificates/s2-ray51-flip-receipt.json
+and s2-period36-receipt.json retain exact inputs, bounds, source/profile hashes
+and replay commands. Outcome independent review is pending at receipt creation;
+strategy received all four immutable pins for its separately frozen review.
+
+
+### 2026-10-09: ray-51 paper refresh and saved six-point comparison
+
+Design-only publication run card, following independent ray-51 outcome review
+7ce52148 and canonical producer results6d93fd09. Update the local supercritical
+flip theorem, separate fixed-dyadic primitive36 certificate and total countfive;
+retain all older evidence and no wider unreviewed chart claim. Add one compact
+figure from all three saved doubled proposals on ray13 and all three on ray51:
+signed detuning versus the controlled left-eigenvector amplitude, open/filled
+markers for numerical instability/attraction, no line fits or implied branch
+certificate. Pin both immutable numerical manifests and all consumed files.
+Only saved arithmetic/plotting, number generation/verification and clean PDF
+compilation/rendering are authorized in this unit; no full scientific verifier,
+model, derivative, proof, target selection or old figure regeneration. CPU/BLAS1,
+nice10; figure and numbers each60s, build120s, rendering120s; raw QA<=150MiB.
+Retain any failed build. Check all pages, changed-page detail and unchanged old
+nine figure hashes; push source before generating the new artwork, then push
+reviewed source/PDF/QA companions. Costs: local CPU only.

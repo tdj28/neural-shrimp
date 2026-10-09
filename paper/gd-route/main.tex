@@ -46,8 +46,8 @@ We study how these dynamics are organized in learning-rate planes of small neura
 full-state orbit refinement, stability calculations and exploratory bifurcation analysis.
 
 Ball-arithmetic certificates prove local existence, primitive period and full-state attraction for
-\nCOneOrbits{} selected period-\nCOnePeriod{} orbits and one period-\nPEighteenPeriod{} orbit in a 13-parameter tanh network, plus a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter tanh network, at fixed layer-specific learning rates for the exact-real maps.
-Further certificates establish a local saddle-node and a local subcritical flip of primitive period-18 cycles in the 13-parameter map, each with one neutral multiplier and an attracting complement. The flip gives nearby unstable doubled cycles; it does not establish a stable period-doubling route. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
+\nCOneOrbits{} selected period-\nCOnePeriod{} orbits and one orbit each of periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in a 13-parameter tanh network, plus a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter tanh network, at fixed layer-specific learning rates for the exact-real maps.
+Further certificates establish a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles in the 13-parameter map, each with one neutral multiplier and an attracting complement. The supercritical flip supplies a local attracting doubled branch; the subcritical flip supplies an unstable one. Neither establishes the global organization of the window. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
 
 A prospectively designed map study, independently cross-checked in a separate numerical implementation,
 identifies \nConfirmed{} attracting periodic windows in two tanh networks with separate layer learning rates.
@@ -91,8 +91,8 @@ ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
-Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one primitive period-\nPEighteenPeriod{} orbit in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and a subcritical flip of primitive period-18 cycles; neutral at each point, other multipliers attracting. No certified connection to the interior orbit or whole boundary. \\
+Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types of primitive period-18 cycles; neutral at each point, other multipliers attracting. No certified connection to the interior orbit or whole boundary. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -152,7 +152,7 @@ cycles on smooth strongly convex two-dimensional objectives that advance by $1/K
 
 \paragraph{This paper's contribution.}
 \begin{itemize}
-\item Computer-assisted proofs from exploratory selection: our \nCOneOrbits{} primitive period-\nCOnePeriod{} orbits and one primitive period-\nPEighteenPeriod{} orbit in 13 dimensions, plus one primitive period-\nSOneRCertPeriod{} orbit in \nSOneRCertDimension{} dimensions are locally attracting in the full parameter state, at fixed layer-specific rates for the exact-real tanh maps. We also prove a local saddle-node and a local subcritical flip of primitive period-18 cycles, and one local supercritical NS of a scalar period-2 orbit. The certificates have independent ball-arithmetic reviews, with shared implementation dependencies disclosed.
+\item Computer-assisted proofs from exploratory selection: our \nCOneOrbits{} primitive period-\nCOnePeriod{} orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-\nSOneRCertPeriod{} orbit in \nSOneRCertDimension{} dimensions are locally attracting in the full parameter state, at fixed layer-specific rates for the exact-real tanh maps. We also prove a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles, and one local supercritical NS of a scalar period-2 orbit. The certificates have independent ball-arithmetic reviews, with shared implementation dependencies disclosed.
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
 score conflates fixed points, periodic orbits, chaos and drift.
@@ -518,6 +518,66 @@ establishes a validated connection to the earlier center certificate or complete
 See \path{certificates/s2-period18-flip-receipt.json},
 \path{docs/reviews/s2-period18-flip-producer-outcome.md} and
 \path{docs/reviews/s2-period18-flip-independent-review.json}.
+
+\subsection{A supercritical flip and a separate attracting period-36 orbit}
+\label{sec:super-flip-proof}
+
+Another selected historical ray through the same window center has the same $\ell_h,\ell_o$ but
+\begin{equation}
+d_h=\tSuperFlipDirHidden,\qquad d_o=\tSuperFlipDirOutput.
+\end{equation}
+For this exact exponential family, the same normalized augmented system and coefficient convention give
+$s_*\in\tSuperFlipS$ and outward enclosures
+\begin{equation}
+\begin{aligned}
+\alpha&\in\tSuperFlipAlpha,& b&\in\tSuperFlipCubic,\\
+\|Q^{\nSuperFlipPower}\|_\infty&<\xSuperFlipBound<1.
+\end{aligned}
+\end{equation}
+The root, primitive period, algebraic simplicity, regular parent branch and nondegeneracy gates all pass.
+Thus the flip is supercritical: sufficiently nearby attracting primitive period-36 cycles exist for
+$s>s_*$. This is a local qualitative consequence, with no stated finite detuning or continuous connection
+to the earlier center certificate.
+
+A separate certificate encloses one selected finite-amplitude primitive period-\nPThirtySixPeriod{} orbit at
+fixed rates
+\begin{equation}
+\eta_h=\tPThirtySixHidden,\qquad\eta_o=\tPThirtySixOutput,
+\qquad \|M^{\nPThirtySixPower}\|_\infty<\xPThirtySixBound<1.
+\end{equation}
+These are the exact dyadic interpretations of the numerical evaluation's binary64 rates, not the rates
+defined by the exact exponential family. Strict Krawczyk inclusion and contraction prove a unique
+local fixed point of $F^{36}$ in the recorded 13-dimensional box; coordinate separation excludes all
+proper divisors $1,2,3,4,6,9,12,18$. This is the fifth individually certified attracting orbit. The numerical
+full-state continuation associates it with the doubled branch, but the two certificates alone do not
+prove that connection between the distinct exact maps.
+
+Independent input reconstruction, byte-identical replay and saved-ball arithmetic pass for both cases.
+Fixed stronger proofs at 384 bits for the flip and 512 bits for the finite orbit pass in strictly nested
+boxes. The analytic implementation and Arb/FLINT remain shared trusted dependencies; the companion
+review records the source-review scope and contributor overlap. See \path{certificates/s2-ray51-flip-receipt.json},
+\path{certificates/s2-period36-receipt.json} and
+\path{docs/reviews/s2-ray51-certificates-independent-review.json}.
+
+Figure~\ref{fig:flip-comparison} makes the different nearby behavior visible in the retained numerical
+proposals. It compares all three doubled-cycle points from each selected ray, without fitting a branch.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{f10_flip_comparison.pdf}
+\caption{\textbf{Opposite stability of nearby doubled cycles.} All three retained primitive period-36
+numerical proposals on each ray are shown. Open markers denote unstable doubled cycles on ray 13;
+filled markers denote attracting doubled cycles on ray 51, each checked at two native phases.
+The ordinate is the controlled left-eigenvector projection
+$a=p_*^T(\theta-F^{18}(\theta))/2$, with $p_*^Tq_*=1$, not a state-space norm.
+The horizontal axes use different scales and show signed detuning from each numerical flip estimate.
+Diamonds mark the local flip origins; interval proofs separately establish their subcritical and
+supercritical types. The six markers are numerical evidence, not six certified orbits or a proved
+connecting branch. The separate fixed-rate certificate in Section~\ref{sec:super-flip-proof} is associated
+with the largest ray-51 proposal. No interpolated curve is asserted.
+\provenance{figures/f10_flip_comparison.py}{figures/f10_flip_comparison.provenance.json}}
+\label{fig:flip-comparison}
+\end{figure}
 
 \subsection{A supercritical NS in the scalar unequal-rate model}
 \label{sec:scalar-proof}
@@ -1186,7 +1246,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. The orbit census uses floating-point validation; the \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold and flip and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The flip proves a local subcritical transition, not a stable doubled branch or whole-window geometry. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold and both flips and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.
@@ -1263,7 +1323,7 @@ displays. Quoted empirical numbers and the design and consequence tables are gen
 \path{paper/gd-route/scripts/build_numbers.py}; \path{data/numbers.json} records each number's source file, hash
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
-feasibility receipts, orbit certificates, local fold and flip and scalar NS gates, and fails on any difference. Later S1R, CIFAR and
+feasibility receipts, orbit certificates, local fold and both flip and scalar NS gates, and fails on any difference. Later S1R, CIFAR and
 LM pilots have separate source-bound saved-data audits cited with their results. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
 its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}. The exploratory streams are summarized in

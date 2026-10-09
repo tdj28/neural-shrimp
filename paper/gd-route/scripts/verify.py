@@ -37,7 +37,7 @@ def main():
     print(out.splitlines()[-1] if out else "numbers: no output")
     if code:
         failures.append("numbers")
-    scripts = sorted((PAPER / "figures").glob("f[0-9]_*.py"))
+    scripts = sorted((PAPER / "figures").glob("f[0-9]*_*.py"))
     for script in scripts:
         code, out = run([PYTHON, script.name, "--verify"], PAPER / "figures")
         print(out.splitlines()[-1] if out else f"{script.name}: no output")
@@ -93,6 +93,25 @@ def main():
     print(f"local flip replay: {'passed' if flip_code == 0 else 'FAILED'}; retained {flip_scratch}")
     if flip_code:
         failures.append("local flip replay")
+    # Distinct exact exponential-family flip and fixed-dyadic primitive36 map.
+    for kind, receipt_name in (("flip", "s2-ray51-flip-receipt.json"),
+                               ("period36", "s2-period36-receipt.json")):
+        receipt = json.loads((ROOT / "certificates" / receipt_name).read_text())
+        scratch = Path(tempfile.mkdtemp(prefix=f"neural-shrimp-ray51-{kind}-replay-"))
+        args = ["timeout", "--signal=TERM", "--kill-after=5s", "75s", "nice", "-n", "10",
+                PYTHON, "tools/certify_s2_ray51.py", "--execute", "--kind", kind, "--mode", "replay",
+                "--bundle", str(Path(receipt["target"]["root"]) / "run"),
+                "--manifest-sha256", receipt["target"]["run_manifest"]["sha256"],
+                "--out", str(scratch / "run")]
+        (scratch / "command.json").write_text(json.dumps(args, indent=2) + "\n")
+        print(f"ray51 {kind} replay artifacts retained at: {scratch}", flush=True)
+        with (scratch / "process.log").open("w") as log:
+            code = subprocess.run(args, cwd=ROOT, env=fold_env, stdout=log,
+                                  stderr=subprocess.STDOUT).returncode
+        (scratch / "exit-code.txt").write_text(str(code) + "\n")
+        print(f"ray51 {kind} replay: {'passed' if code == 0 else 'FAILED'}; retained {scratch}")
+        if code:
+            failures.append(f"ray51 {kind} replay")
     index = json.loads((PAPER / "provenance.json").read_text())
     listed = {Path(r["path"]).name for r in index["figure_receipts"]}
     for script in scripts:

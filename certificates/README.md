@@ -65,7 +65,7 @@ source and the receipt; it does not independently back up the external raw files
 | Component | Evidence | Artifact / assumption |
 |---|---|---|
 | Map/Jacobian implementation | Test cross-check, not a theorem by itself | `tests/test_rigorous_orbits.py`; independent frozen NumPy implementation and enclosed interior samples |
-| Existence/local uniqueness | Rung 3 gates pass; exploratory, independently reviewed | All four current receipts; Banach contraction, analytic map implementation and Arb/FLINT trusted |
+| Existence/local uniqueness | Rung 3 gates pass; exploratory, independently reviewed | The four original C1 receipts and the separate period36 wrapper below; Banach contraction, analytic map implementation and Arb/FLINT trusted |
 | Primitive period | Rung 3 gates pass; exploratory, independently reviewed | The period-10 receipts exclude divisors 1, 2 and 5; period18 excludes 1, 2, 3, 6 and 9; S1R excludes divisor 1, by disjoint coordinates |
 | Attraction | Rung 3 gates pass; exploratory, independently reviewed | Period-10 monodromy powers 64, period18 power16 and S1R power 2048 have infinity norms below one |
 | Chaos, window geometry, invariant circles, utility | Not established by this track | Existing evidence retains its own scope and labels |
@@ -151,7 +151,7 @@ creation-time pending labels; the companion review supplies subsequent status.
 
 ## Period18 in the selected anatomy candidate (9 October 2026 UTC)
 
-The four independently reviewed individual orbit proofs now comprise two
+Before the later ray-51 addition below, the four independently reviewed individual orbit proofs comprised two
 period-10/13D, one period-18/13D and one period-2/72D orbit. The new canonical
 receipt is `s2-period18-receipt.json`, selected from S2-28011-zoom component587,
 EXP-028 row111. It proves local existence/uniqueness, primitive period18 and
@@ -185,7 +185,7 @@ proper-divisor exclusion, a uniformly invertible transpose border, nonzero
 hypotheses. With `v^T v=w^T v=1`, the scalar quadratic coefficient is `c/2`.
 The deflated monodromy `Q=M-vw^T` satisfies `||Q^32||inf<0.036`, so the other
 12 multipliers lie strictly inside the unit circle. The fold has a neutral +1
-multiplier and is **not a fifth attracting-orbit certificate**.
+multiplier and is **not an additional attracting-orbit certificate**.
 
 The radius-`2^-80` first attempt passed all gates except the complementary
 power bound. It remains in `../docs/reviews/s2-period18-fold-attempt001-receipt.json`.
@@ -244,7 +244,7 @@ All proper divisors 1, 2, 3, 6 and 9 are excluded.
 
 Thus the flip is subcritical: sufficiently nearby primitive36 cycles on the
 lower-s side are unstable, while the parent18 branch is locally attracting
-there. The flip itself is neutral, not a fifth attracting-orbit certificate.
+there. The flip itself is neutral, not an additional attracting-orbit certificate.
 This is not a finite-detuning36 enclosure, proof of first loss of attraction,
 validated center connection or whole-window geometry. The numerical precursor
 retains an earlier complex instability and re-entry on the same carried ray.
@@ -271,3 +271,31 @@ flip_replay_exit=$?
 printf '%s\n' "$flip_replay_exit" >"$flip_replay_root/exit-code.txt"
 printf 'Retained replay: %s (exit %s)\n' "$flip_replay_root" "$flip_replay_exit"
 ```
+
+## Ray-51 supercritical flip and separate attracting period36 (9 October 2026 UTC)
+
+The two new canonical receipts are `s2-ray51-flip-receipt.json` and
+`s2-period36-receipt.json`. The exact exponential-family local flip has alpha<0,
+b>0 and an attracting complement (`||Q^16||inf < 0.429488`); it gives a local
+attracting primitive36 branch on the increasing-s side, with no finite detuning
+specified. A separate fixed-dyadic map has an attracting primitive36 orbit with
+`||M^512||inf < 0.117942`; all proper divisors 1,2,3,4,6,9,12,18 are excluded.
+This raises the individually certified attracting-orbit count to five. The
+exact family and rounded-rate map are distinct definitions; their connection
+has not been validated. Neither neutral flip increases that count.
+
+`../docs/reviews/s2-ray51-certificates-independent-review.json` records exact
+input reconstruction, byte-identical original replay, independent saved-ball
+arithmetic and strictly nested fixed proofs (flip384bits/radius2^-110;
+period36 512bits/radius2^-170, five Newton proposals each). The reviewer authored
+the shared flip kernel; independent adapter review and separately reviewed
+kernel mathematics are distinguished from shared AD/Arb trust. Original
+pending-at-creation labels are preserved in the producer receipts.
+
+The new receipts have a wrapper schema distinct from the original C1 receipts.
+Replay each with `tools/certify_s2_ray51.py --kind flip|period36 --mode replay`,
+the corresponding receipt's `target.root/run` and externally pinned
+`target.run_manifest.sha256`, and a new exclusive `--out` directory. The
+receipt records its concrete command. `paper/gd-route/scripts/verify.py` now
+retains a separate persistent command/log/exit bundle for each replay; it does
+not pass these wrapper receipts to the older C1 receipt reader.
