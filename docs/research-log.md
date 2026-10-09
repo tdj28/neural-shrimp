@@ -4592,3 +4592,21 @@ a training/LLM utility or novelty claim; a failure rejects this chosen
 approximation for that next step. No protected data, paid call or cloud launch
 is needed. Exact executable source, command and output roots will be recorded
 before the pilot.
+### 2026-10-09 UTC — exploratory curvature six-reference pilot prepared
+
+On root instruction after the human requested renewed exploration, prepared the
+fixed six-reference curvature acquisition/analysis runner and bounded owned-group
+launcher, from0fd62d2d with reviewed helper unchanged. Question: does the fixed
+rank-one/trace-bulk approximation meet its predeclared pair/angle/control-gain
+and floating-attribution screen? Setup: unchanged six development references,
+at most24 fused analytic acquisitions with both native intermediate states,
+then12/6/6 decompositions. Profile first S1R phase plus fixed synthetic72D
+engineering matrices before the panel; source/input/host-bound reuse. Proposed
+exclusive outputs are `explore/curvature-mechanism/attempt-001-{profile,panel}`
+under the separate data disk. A surprise would be a full six-slot pass with
+useful conservative attribution; a fit miss or unresolved slot remains useful
+negative evidence about this approximation. CPU1/nice>=10; fixed profile/panel
+time, RSS, storage and failure-retention limits in
+`docs/plans/curvature-six-reference-pilot.md`. Only synthetic preparation ran;
+no empirical input was opened and no target/profile launch occurred. Root
+review, fresh resource check and explicit launch remain separate.
