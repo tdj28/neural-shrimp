@@ -5212,3 +5212,23 @@ renders carried over by pixel-file hashes from the first inspection. The earlier
 successful build is retained alongside the final wording build. Source, output,
 checks and immutable QA inventories are bound by
 `docs/reviews/paper-subcritical-flip-qa.json`.
+
+## 2026-10-09 — two remaining historical flip rays, before run
+
+Root accepted the fixed follow-up scope after the ray13 subcritical proof and
+independent review. Select the first two non13 flip rays with adjacent coarse36
+labels using the original saved-map4000-sample nearest-cell rule, retaining the
+complete census. No such label is treated as qualified36. Carry65 full-state18
+nodes per ray and reverse witnesses without an attracting-prefix assumption;
+then reuse unchanged flip/crossing/amplitude-constrained36 routines. Preserve
+all failures/transitions, and require both native36 phases for attraction counts.
+
+New driver tools/explore_s2_period18_other_flips.py and card
+s2-period18-other-flips.md bind all sources and original data/map hashes. Twelve
+focused synthetic controls passed in0.31s. No target selection or model call has
+occurred before this code/card commit. One exclusive
+explore/s2-period18-other-flips/attempt-001, CPU1 nice10,60s internal/75+5s external,
+80,000 shared joint calls,64MiB inclusive output,2GiB monitored RSS. The earlier
+2.44s/6301-call pilot supplies the cost basis; no new profile. Root explicitly
+authorized this run without another permission pause.65 samples can still miss
+narrow pockets, and numerical links are not validated continuation tubes.
