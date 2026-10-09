@@ -4937,3 +4937,13 @@ no proof, figure, trajectory or model was rerun. Saved-number verification,
 and detail pages 1, 2, 11, 20, 28, 30 passed. Root and independent mathematical reviewer
 found no remaining source blocker. Exact files, hashes and retained authoring
 failures are in `docs/reviews/paper-local-fold-authoring-qa.json`.
+
+## 2026-10-09 — exact-ray flip kernel development
+
+Implement a separate mixed/third-directional Arb kernel for the selected
+period18 ray13 flip. Both exact-real log-ray rates vary; their s=0 values are
+not silently identified with the earlier dyadic center certificate. Eighteen
+synthetic controls pass (0.11s). Existing C1/fold kernels are unchanged. This
+checkpoint has no target run; adapter, measured profile and source review are
+pending. Mathematical scope and proposed limits are in
+`docs/plans/s2-period18-flip-certificate.md`.
