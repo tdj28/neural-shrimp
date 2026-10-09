@@ -4708,3 +4708,22 @@ synthetic controls pass0.24s; no empirical arrays/evaluation/model/decomposition
 were opened or run. Exact card/command and pinned input manifest are in
 `docs/plans/curvature-saved-plane-diagnostic.md`; root owns any one saved-data
 launch. Output is a new exclusive `attempt-001-plane-explanation` directory.
+
+
+## 2026-10-09T02:19:17.755252+00:00 — paper integration review and saved-plane launch card
+
+The updated32-page PDF passes root source/provenance/integration review;
+310-number verifier passes, all303prior entries are identical, all60cited paths
+are committed and nine figures/tables are unchanged. Author inspected all32pages;
+root checked the affected25–32 contact pages and details25–26. No defects.
+See `docs/reviews/paper-curvature-pilot-independent-review.json`.
+
+Separately, root read all saved-plane source and nine synthetic controls at
+bb8067b1, verified exact integrated hashes and reviewed Gram–Schmidt, quadratic
+compression roots and four-term residual-action identity. Launch the unchanged
+source once with the exact command in its committed card: CPU/BLAS1 nice10,
+internal10s/external15+5s,1MiB Store. The wrapper will retain argv, execution
+commit, PID, exit and log. The output root is absent. This is explicitly adapted
+after the failed fixed panel; no new model/decomposition/rank search, no
+retroactive pass or predictive interpretation. The question is which target
+directions or coefficient information the failed model discarded.
