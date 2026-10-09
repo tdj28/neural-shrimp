@@ -5483,3 +5483,6 @@ Full source/raw/decompressed inventories, original model/rate semantics, source/
 Root approved one saved-only384-bit reduction of frozen target916c76d3, outer manifest0e514532fed9d2a486e57c0341c5355c152e8c550cdd19aa180b1b2e6a2663e7. Exact card `docs/plans/meanvalue-outcome-review.md`. No model/gradient/trajectory/stability search; same original inputs/native anchor; fixed−10/−18 settings. CPU1/nice10,30s internal45+5external,8+1MiB,2GiB monitored. Preserve failure/partial. Source/card freeze precedes saved target arithmetic.
 
 Pre-run control: one synthetic234D passing/failing-bound test passed in2.03seconds; both evaluator and supervisor syntax checked. No target matrices used.
+Pre-run validation: all15 focused synthetic controls passed in9.84seconds (CPU/BLAS1,nice10). No target witness evaluation preceded this freeze.
+
+One-command verification completeness amendment: imported the exact unchanged9bdeafd3 joined-branch reviewer, source/card/test dependencies and added its fixed-pin invocation to `verify.py`. The retained launcher covers one wider replay and32 independently checked stability slices under its existing120s/135+5s,CPU1/nice10,64+1MiB limits. Only AST, source-hash and argument/static checks are run in this manuscript unit; the already-passed scientific audit is not repeated for the PDF.

@@ -13,6 +13,7 @@ Checks, in order, and exits non-zero on the first category with a failure:
 Run from anywhere: python paper/gd-route/scripts/verify.py
 """
 
+import hashlib
 import json
 import os
 import re
@@ -112,6 +113,32 @@ def main():
         print(f"ray51 {kind} replay: {'passed' if code == 0 else 'FAILED'}; retained {scratch}")
         if code:
             failures.append(f"ray51 {kind} replay")
+    # Replay the reviewed joined-root theorem and its complete closed stability
+    # cover once. The unchanged reviewer owns its135s+5s child timeout/cleanup.
+    joined_review = json.loads((ROOT / "docs/reviews/s2-period18-joined-branch-independent-review.json").read_text())
+    if joined_review["reviewer_execution_commit"] != "9bdeafd338e987c072168d96c41c9180c8e29f19":
+        raise ValueError("unexpected joined-branch reviewer source")
+    for name, expected in joined_review["reviewer_source_sha256"].items():
+        if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
+            raise ValueError(f"joined-branch frozen source changed: {name}")
+    slices = joined_review["sliced_stability"]
+    if (slices["execution_commit"] != "71bcfa97a565d40ca209a68a90128f329ba96966"
+            or slices["run_manifest"] != "62dc7bb7eb51510645042cd3eb7ed00907cd37b276374dc5750020508d6a36cb"):
+        raise ValueError("unexpected joined-branch slice pins")
+    joined_scratch = Path(tempfile.mkdtemp(prefix="neural-shrimp-joined-branch-replay-"))
+    joined_args = ["nice", "-n", "10", PYTHON, "tools/reviews/review_joined_period18_branch.py",
+                   "--out", str(joined_scratch / "attempt"), "--sliced", slices["raw"],
+                   "--sliced-manifest", slices["run_manifest"],
+                   "--sliced-commit", slices["execution_commit"]]
+    (joined_scratch / "command.json").write_text(json.dumps(joined_args, indent=2) + "\n")
+    print(f"joined-branch replay artifacts retained at: {joined_scratch}", flush=True)
+    with (joined_scratch / "process.log").open("w") as log:
+        joined_code = subprocess.run(joined_args, cwd=ROOT, env=fold_env,
+                                     stdout=log, stderr=subprocess.STDOUT).returncode
+    (joined_scratch / "exit-code.txt").write_text(str(joined_code) + "\n")
+    print(f"joined-branch replay: {'passed' if joined_code == 0 else 'FAILED'}; retained {joined_scratch}")
+    if joined_code:
+        failures.append("joined-branch replay")
     index = json.loads((PAPER / "provenance.json").read_text())
     listed = {Path(r["path"]).name for r in index["figure_receipts"]}
     for script in scripts:
