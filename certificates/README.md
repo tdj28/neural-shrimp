@@ -56,7 +56,7 @@ changed verdicts or any failed proof gate:
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 nice -n 10 \
   /data2/neural-shrimp/.venv/bin/python tools/verify_certificates.py \
   certificates/c1-row35-receipt.json certificates/c1-row121-receipt.json \
-  certificates/s1r-period2-receipt.json
+  certificates/s1r-period2-receipt.json certificates/s2-period18-receipt.json
 ```
 
 The receipt's external root locates raw artifacts on zeta. A Git push backs up
@@ -65,9 +65,9 @@ source and the receipt; it does not independently back up the external raw files
 | Component | Evidence | Artifact / assumption |
 |---|---|---|
 | Map/Jacobian implementation | Test cross-check, not a theorem by itself | `tests/test_rigorous_orbits.py`; independent frozen NumPy implementation and enclosed interior samples |
-| Existence/local uniqueness | Rung 3 gates pass; exploratory, independently reviewed | All three current receipts; Banach contraction, analytic map implementation and Arb/FLINT trusted |
-| Primitive period | Rung 3 gates pass; exploratory, independently reviewed | S2 receipts exclude divisors 1, 2 and 5; S1R excludes divisor 1, by disjoint coordinates |
-| Attraction | Rung 3 gates pass; exploratory, independently reviewed | S2 monodromy powers 64 and S1R power 2048 have infinity norms below one |
+| Existence/local uniqueness | Rung 3 gates pass; exploratory, independently reviewed | All four current receipts; Banach contraction, analytic map implementation and Arb/FLINT trusted |
+| Primitive period | Rung 3 gates pass; exploratory, independently reviewed | The period-10 receipts exclude divisors 1, 2 and 5; period18 excludes 1, 2, 3, 6 and 9; S1R excludes divisor 1, by disjoint coordinates |
+| Attraction | Rung 3 gates pass; exploratory, independently reviewed | Period-10 monodromy powers 64, period18 power16 and S1R power 2048 have infinity norms below one |
 | Chaos, window geometry, invariant circles, utility | Not established by this track | Existing evidence retains its own scope and labels |
 
 ## Pilot outcome (7 October 2026, user time zone)
@@ -101,7 +101,7 @@ CPU thread and less than one second; no paid compute was used.
 The initial failed attraction enclosure is an implementation limitation, not
 evidence of instability. Its raw output and exact original code commit remain
 available. Historical receipts must be replayed with their bound source commit;
-the offline command above checks the three authoritative current certificates.
+the offline command above checks the four authoritative current certificates.
 All raw attempts are retained under the external root in each receipt, and the
 code prevents reusing an output directory. The tests include independent
 NumPy map/Jacobian comparisons, interior enclosure samples, exact linear
@@ -142,9 +142,32 @@ the bifurcation/window geometry. Proximity is separate from proof validity.
 
 This review reuses the already reviewed Arb checker and theorem arguments.
 The separate second-order Arb differentiation and 384-bit nested-box review
-described above apply to the two S2 proofs, not this new outcome audit.
+described above apply to the two period-10 S2 proofs, not this 72D outcome audit.
 Reproduce the outcome auditor from its recorded historical checkout: later
 observer additions to `gdmaps.py` changed auxiliary source hashes without
 changing the three C1 proof-kernel files. The ordinary offline proof command
 above still uses those unchanged kernel files. Original receipts retain their
 creation-time pending labels; the companion review supplies subsequent status.
+
+## Period18 in the selected anatomy candidate (9 October 2026 UTC)
+
+The four independently reviewed individual orbit proofs now comprise two
+period-10/13D, one period-18/13D and one period-2/72D orbit. The new canonical
+receipt is `s2-period18-receipt.json`, selected from S2-28011-zoom component587,
+EXP-028 row111. It proves local existence/uniqueness, primitive period18 and
+full-state attraction at the supplied exact dyadic data and fixed layer rates.
+The unchanged C1 checker encloses `||M^16||inf < 0.726`. Historical ray/map anatomy
+remains numerical; the orbit proof does not certify complete shrimp geometry.
+
+Raw evidence lives at
+`/data2/neural-shrimp-data/explore/certificates/s2-period18-2026-10-09/attempt-001`.
+The producer companion is `../docs/reviews/s2-period18-producer-receipt.json`;
+the completed review is `../docs/reviews/s2-period18-independent-review.json`
+with raw review `/data2/neural-shrimp-data/audits/shrimp-period18/attempt-001`.
+It replays the unchanged checker, checks stored witnesses and exact whole-box
+proximity, compares two samples with independent objective differentiation,
+and passes a 384-bit proof in a smaller nested box. These checks share Arb/FLINT;
+no proof-assistant formalization, binary64 orbit theorem, parameter continuation,
+boundary theorem, surrounding-chaos theorem or utility is implied. The original
+receipt retains its creation-time pending label. The command above now includes
+the new receipt without changing the proof-kernel source files.

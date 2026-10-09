@@ -767,6 +767,89 @@ def build():
     n.add("xSOneRCertBound", str(rounded), f"{float(rounded):.3f}", proof, proof_sources,
           "exact-dyadic monodromy-power norm upper bound rounded upward to three decimals")
 
+    # Selected period-18 center: saved proof/review bindings only; no enclosure rerun.
+    p18_path = c.ROOT / "certificates/s2-period18-receipt.json"
+    p18_prod_path = c.ROOT / "docs/reviews/s2-period18-producer-receipt.json"
+    p18_review_path = c.ROOT / "docs/reviews/s2-period18-independent-review.json"
+    p18, p18_prod, p18_review = load(p18_path), load(p18_prod_path), load(p18_review_path)
+    assert p18["passed"] and p18["evidence_rung"] == 3
+    assert p18_review["verdict"] == "passed_for_stated_exact_real_orbit_claim"
+    assert p18_review["result"]["status"] == "passed" and not p18_review["blocking_findings"]
+    assert p18["statement"] == p18_prod["mathematical_statement"] == p18_review["result"]["statement"]
+    assert p18["statement"]["primitive_period"] == 18 and p18["statement"]["dimension"] == 13
+    assert all(p18["statement"][k] for k in ("attraction", "existence_and_local_uniqueness", "primitive_period_excluded_divisors"))
+    assert c.sha256(p18_path) == p18_prod["canonical_receipt"]["sha256"] == p18_review["producer_c1_receipt"]["sha256"]
+    assert p18["source_commit"] == p18_prod["execution_source_commit"] == p18_review["producer_source_commit"] == "15125d2b6b01a9fe94ce89f5aa10ec723ddc27c8"
+    assert p18_review["review_execution_commit"] == "880a757a05025363829d24fefa08dff211b4fbd2"
+    p18_sources = [p18_path, p18_prod_path, p18_review_path]
+    def bound_inventory(mf, pin):
+        assert c.sha256(mf) == pin
+        members = load(mf); members = members.get("files", members)
+        assert set(members) == {str(q.relative_to(mf.parent)) for q in mf.parent.rglob("*") if q.is_file() and q != mf}
+        for name, ident in members.items():
+            q = mf.parent / name
+            assert q.is_file() and not q.is_symlink() and q.stat().st_size == ident["bytes"] and c.sha256(q) == ident["sha256"]
+        return [mf] + [mf.parent / name for name in members]
+    for field in ("producer_manifest", "review_manifest", "launcher_manifest"):
+        ident = p18_review[field]
+        p18_sources += bound_inventory(Path(ident["path"]), ident["sha256"])
+    for inventory in (p18_prod["source_hashes"], p18_review["review_source_and_runtime"]["sources"]):
+        for name, pin in inventory.items():
+            q = c.ROOT / name
+            assert c.sha256(q) == pin
+            p18_sources.append(q)
+    p18_raw = Path(p18["external_root"]) / "certificate.json"
+    assert c.sha256(p18_raw) == p18["files"]["certificate.json"]["sha256"]
+    assert load(p18_raw)["result"]["exact_statement"] == p18["statement"]
+    assert p18_review["nested_proof"]["passed"] and p18_review["nested_proof"]["strictly_inside_original_box"]
+    assert all(row["map_enclosed"] and row["jacobian_enclosed"] for row in p18_review["independent_AD"]["samples"])
+    assert Fraction(p18_review["whole_box_proximity"]["exact"]) <= Fraction(p18_review["whole_box_proximity"]["threshold"])
+    assert p18_prod["geometry_binding"]["summary"]["key"] == "S2-28011-zoom:587"
+    assert p18_prod["proper_divisors"] == p18_review["stored_witness_checks"]["divisors"] == [1, 2, 3, 6, 9]
+    assert p18["attraction_witness_power"] == p18_review["stored_witness_checks"]["attraction_witness_power"]
+    bounds = [p18["attraction_norm_upper"], p18_review["stored_witness_checks"]["attraction_norm_upper"]]
+    assert all(b["rad"] == [0, 0] for b in bounds)
+    exact = max(Fraction(b["mid"][0]) * Fraction(2) ** b["mid"][1] for b in bounds)
+    rounded = Fraction((exact.numerator * 1000 + exact.denominator - 1) // exact.denominator, 1000)
+    assert exact < rounded < 1
+    for macro, value, display, calc in [
+        ("nPEighteenPeriod", p18["statement"]["primitive_period"], str(p18["statement"]["primitive_period"]), "selected anatomy-center primitive period"),
+        ("nPEighteenPower", p18["attraction_witness_power"], str(p18["attraction_witness_power"]), "attraction monodromy-power witness"),
+        ("xPEighteenBound", str(rounded), f"{float(rounded):.3f}", "maximum producer/review exact-dyadic power bound rounded upward to three decimals"),
+        ("nCertifiedOrbits", len(certificates) + 2, str(len(certificates) + 2), "two distinct period-10 receipts plus one 72D period-2 and one period-18 receipt")]:
+        n.add(macro, value, display, proof, p18_sources + certificate_paths + [s1r_cert_path], calc)
+
+    # Local selected-ray fold: floating scalar diagnostics, not interval bifurcation proof.
+    fold_path = c.ROOT / "docs/reviews/s2-period18-fold-outcome.json"
+    fold = load(fold_path); fold_root = Path(fold["raw_root"])
+    fold_sources = [fold_path]
+    for root, pin in ((fold_root, fold["raw_manifest_sha256"]), (Path(fold["launcher_root"]), fold["launcher_manifest_sha256"])):
+        fold_sources += bound_inventory(root / "manifest.json", pin)
+    for name, pin in fold["source_sha256"].items():
+        q = c.ROOT / name; assert c.sha256(q) == pin; fold_sources.append(q)
+    fold_raw = load(fold_root / "outcome.json")
+    assert c.sha256(fold_root / "outcome.json") == fold["outcome_sha256"]
+    assert fold_raw["accepted"] == fold["accepted"] is True
+    assert fold_raw["target"] == fold["target"] == "S2-28011-zoom:587" and fold["ray_index"] == 0
+    assert fold_raw["period"] == fold["period"] == p18["statement"]["primitive_period"]
+    assert fold_raw["solver"] == fold["solver"] and fold["solver"]["success"]
+    for phase, raw_key in (("phase0", "diagnostics"), ("phase1", "next_phase_diagnostics")):
+        q = fold[phase]; full = fold_raw[raw_key]
+        assert all(full[k] == v for k, v in q.items())
+        assert all(q["gates"].values()) and full["nondegenerate_fold_numerically_supported"]
+        rows = q["finite_difference_series"]
+        assert [row["exponent"] for row in rows] == [14, 16, 18, 20, 22]
+        for key in ("a", "c"):
+            left, right = rows[-2][key], rows[-1][key]
+            assert left * right > 0 and abs(right) > 1e-7 and abs(left-right) / max(abs(left), abs(right)) < 1e-3
+    assert fold_raw["proper_divisor_separations"] == fold["proper_divisor_separations"]
+    assert set(fold["proper_divisor_separations"]) == {"1", "2", "3", "6", "9"} and min(fold["proper_divisor_separations"].values()) > 1e-6
+    for macro, value, display, calc in [
+        ("xPEighteenFoldA", fold["phase0"]["finite_difference_series"][-1]["a"], fixed(fold["phase0"]["finite_difference_series"][-1]["a"], 6), "phase0 w^T R_s; smallest saved finite-difference step; normalized historical-ray coordinate"),
+        ("xPEighteenFoldC", fold["phase0"]["finite_difference_series"][-1]["c"], fixed(fold["phase0"]["finite_difference_series"][-1]["c"], 6), "phase0 w^T D^2R[v,v], without factor 1/2; unit v and w^T v=1"),
+        ("xPEighteenFoldOther", max(fold[q]["other_radius"] for q in ("phase0", "phase1")), fixed(max(fold[q]["other_radius"] for q in ("phase0", "phase1")), 4), "maximum remaining Floquet radius across two adjacent checked phases; floating diagnostic")]:
+        n.add(macro, value, display, "exploratory numerical local fold diagnostics; no interval proof", fold_sources, calc)
+
     # Numerical association remains distinct from the exact-real orbit proof.
     bootstrap_path = c.ROOT / "docs/s1r-bootstrap-association-receipt.json"
     bootstrap = load(bootstrap_path)
