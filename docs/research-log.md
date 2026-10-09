@@ -4637,3 +4637,37 @@ All prospective output roots are absent. No paid/GPU/holdout operation. All
 failed or interrupted evidence will be retained. A pass would be surprising
 because the model discards all non-leading curvature anisotropy; a fail would
 reject this specific approximation, not all curvature explanations.
+
+
+## 2026-10-09T02:08:38.111383+00:00 — fixed curvature panel execution card
+
+The source-bound representative profile passes its resource gate. Its manifest,
+all files and owned-process exit are verified. No target fit outcome was used
+for this decision. The same13 runtime source files remain unchanged. Reuse the
+one exact first-S1R phase return, counted against the panel total. Execute the
+fixed six slots once; preserve all failed/incomplete outcomes.
+
+```json
+{
+  "date_utc": "2026-10-09T02:08:38.111383+00:00",
+  "source_review_commit": "fbd0bce0efcbf975f1361994c94b864f12e83333",
+  "profile_manifest_sha256": "98c32449b3c75c6aa7fea676cee5b4a60471e4cc3ddd7ad0953df3565a661249",
+  "profile_projection_seconds": 5.313106367830187,
+  "profile_seconds": 0.2669628041330725,
+  "profile_wrapper_seconds": 0.7421719511039555,
+  "profile_peak_group_rss": 110706688,
+  "profile_attempted_and_returned": {
+    "analytic": 1,
+    "eig": 1,
+    "eigh": 2,
+    "svd": 1
+  },
+  "profile_manifest_and_files_verified": true,
+  "profile_owned_pids_absent": true,
+  "panel_cap": "60s internal/75s+5s external/80s supervisor; CPU BLAS1 nice10;2GiB monitoredRSS;16MiB raw+1MiB launcher",
+  "panel_output": "/data2/neural-shrimp-data/explore/curvature-mechanism/attempt-001-panel",
+  "panel_launcher": "/data2/neural-shrimp-data/explore/curvature-mechanism/attempt-001-panel-launcher",
+  "question": "Fixed six-reference accuracy, class and stronger commuting-control gain; exploratory, no scan/replacement",
+  "surprise": "All fixed accuracy/attribution gates pass despite isotropic approximation of remaining curvature."
+}
+```
