@@ -4763,3 +4763,7 @@ The sharp-direction plane almost excludes the actual leading real modes, and the
 ## 2026-10-09T02:27:07.413532+00:00 — resumption paper and private handoff snapshot
 
 Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T022654Z-resumption-checkpoint`, including the32-page PDF, current report/reviews and four private original-checkout files. Exact inventories, complete SHA256, second source hash pass and stable source metadata agree. Private ledger and foreign log stay outside Git. See `docs/backups/2026-10-09-resumption-checkpoint.json`. Sources were not altered; same-machine separate-disk snapshot supplements private Git.
+
+## 2026-10-09: one independent period-18 certificate review prepared
+
+Root selected EXP-028 row111 (S2-28011-zoom:587) for an unchanged-C1 proof attempt and authorized one independent review after producer readiness. The narrow wrapper reuses the existing exact verifier and independent biased-S2 Arb-jet AD; it adds exact input/history bindings, proper-divisor checks1,2,3,6,9, attraction-witness reduction, exact whole-box proximity and one fixed384-bit nested proof. Card: `docs/plans/shrimp-period18-independent-review.md`. CPU/BLAS1/nice10,60s internal/75+5s external,8MiB, no retries. No proof or new target computation has run during this preparation; saved historical labels/identities were inspected. Whole-window geometry retains its floating exploratory scope.
