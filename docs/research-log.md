@@ -5310,3 +5310,21 @@ Target002 execution5b4ce6d1eed6cc30e000ec4860e8efab61855eef completed once:10.39
 Root and producer independently converged on a periodic Lyapunov metric to avoid multiplying18 wide interval Jacobians. Implemented separately in `rigorous_periodic_lyapunov.py`; frozen input is the two proved root-image Jacobian families from framed target002, with unchanged native phases/rate intervals/model. Floating169D Lyapunov solves and midpoint Cholesky only propose exact dyadic matrices. Arb verifies all metric/congruence inverses and Gershgorin positivity after congruence; interval decreases use expansion around exact midpoint Jacobians. Point conditioning/defect guards are recorded before interval checks. Thirty-three synthetic controls pass across old core/frame/new metric tests, including nonnormal stable products, unstable points, large uncertainty and interrupted-stage durability. Historical proof sources remain unchanged.
 
 One saved-matrix pilot card: `docs/plans/s2-period18-periodic-metric-pilot.md`, output `.../certificates/s2-period18-periodic-metric-2026-10-09/attempt-001`,CPU/BLAS1,nice10,internal20s/external30+5,2GiB,200ticks,16+1MiB. Source/input hashes, decompressed identity, exact branch prerequisites and every failure retained. No new model/gradient/Hessian/corrector/trajectory; no chart subdivision or box adjustment. Root brief source/math review before acquisition. Uniform attraction is claimed only if both full periodic witnesses pass, and independent outcome review remains separate.
+## 2026-10-09 — ray51 flip and separate fixed-dyadic36 source checkpoint
+
+Root requests two bounded certificates after the numerical stable36 finding.
+New adapter tools/certify_s2_ray51.py binds ray51's exact exponential family and
+27D flip proposal, and separately slot2's fixed exact-dyadic rates/full13D36
+phase. Both existing mathematical kernels are unchanged and hash-guarded. Flip
+settings256bits/radius2^-100;36 settings384bits/radius2^-160; five Newton and
+maxpower4096 each. Exact full-box proximity is separate from proof and implies
+no center/germ/finite-point branch connection.
+
+Before each target, one same-kind two-evaluation synthetic profile must project
+7*max(time)+10<=45s. CPU1 nice10,60s internal75+5s external,16+1MiB output,2GiB
+monitored RSS. Explicit unchanged-C1 limitation: no per-return observer during
+that proof; interruption may retain only wrapper/input evidence. Every attempt
+has exclusive immutable inventories/PIDs/source. Independent reviewer requested
+and got strict nonnegative/finite profile metadata and commit/kind/mode joins.
+Fifty focused synthetic tests passed; no profile/target proof launched yet.
+Source/card freeze precedes root and independent source review/launch coordination.
