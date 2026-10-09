@@ -4769,3 +4769,15 @@ Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T02
 Focused manuscript revision from `416ba472`: lead with the internal primitive-period-10/13D and period-2/72D full-state certificates, scope the verified MacDonald--Vidal v2 reference, and state the next longer-cycle origin/boundary question. Numerical boundary classifications are explicitly candidates; counts and all 310 existing number entries stay unchanged. No largest/first claim. Any new period-18 evidence is pending and excluded at this source checkpoint.
 
 Regenerate only `paper/gd-route/figures/f4_window_anatomy.py` from the same three saved inputs to wrap the clipped title and label numerical fold/flip candidates. Compare every derived field and input hash with the original receipt. CPU/BLAS1, nice10; no model, derivative, trajectory or proof work. Then compile the existing multi-file LaTeX project and render affected pages. The PDF artifact marker was already executed by root; it is not repeated. Archive the primary reference content in the immutable data reference directory recorded in its receipt.
+## 2026-10-09 03:58 UTC: run (exploratory)
+
+- **Question:** Does the lowest-index +1 boundary ray of the period-18 shrimp-anatomy candidate resolve to a simple nondegenerate full-state fold?
+- **Setup:** Exploratory, adapted after the numerical A2 anatomy survey. Fixed S2-28011-zoom:587 row111 and ray0; consumed C1 data only, no holdouts. 24 fixed corrector steps from center; one augmented root R=0,(M-I)v=0,unit v; full primitive18 checks, both native phases, left-right simplicity, and five finite-difference resolutions for transversality and quadratic coefficient. Four synthetic controls passed. CPU/BLAS1 nice10, internal100s/external120+5s, 40000 map/Jacobian pairs. No interval fold, continuous-branch, ancestry or utility claim.
+- **Output:** `/data2/neural-shrimp-data/explore/s2-period18-fold/attempt-001`
+- **Would surprise us:** A non-fold degeneracy, an additional unstable mode, or failure of the saved ray to connect through the fixed corrector path would weaken the fold interpretation.
+
+_commit `416ba4722c8c` (dirty worktree)_
+
+## 2026-10-09 04:02 UTC: selected period-18 fold outcome
+
+One authorized exploratory ray0 localization completed at source ca439beb. All25fixed correctorpoints passed; one augmentedsolve supports a simple nondegenerate fold numerically in both consecutive phases, with all other multipliers below.806. Raw manifest3a44977630bd3d9f329bad8e6369c4d024fc4a379ee6ebe593c85d9b913cb620. Elapsed.7301s; all owned processes absent. No interval bifurcation, continuous branch, full shrimp, ancestry or utility proof. Compact outcome `docs/reviews/s2-period18-fold-outcome.json`; independent review pending.
