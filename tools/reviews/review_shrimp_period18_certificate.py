@@ -6,7 +6,6 @@ This is not a new proof kernel or a proof of the surrounding shrimp geometry.
 import os
 for key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):os.environ[key]='1'
 import argparse
-from dataclasses import asdict
 from datetime import datetime,timezone
 from fractions import Fraction
 import hashlib,json,pathlib,resource,signal,subprocess,sys,time
@@ -14,7 +13,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[2]
 sys.path[:0]=[str(ROOT/'src'),str(ROOT/'tools')]
 from flint import arb,ctx
 from neural_shrimp.rigorous_orbits import BallTanhMap,ball_json,canonical_bytes,check_orbit
-from neural_shrimp.trainability import SYSTEMS,array_sha256
+import numpy as np
 from review_c1_evidence import objective_ad,stored,matrix
 from verify_certificates import verify
 OLD=pathlib.Path('/data2/neural-shrimp-data/raw/EXP-028/attempt-002/stage3/certificates.json')
@@ -50,10 +49,11 @@ def run(receipt_path,out):
         require(proof['settings']==dict(precision=256,radius_exponent=-80,newton_steps=5,max_power=4096),'fixed producer proof settings')
         require([Fraction(x) for x in inputs['approximation']]==[Fraction(x) for x in historical['certificate']['orbit'][0]],'exact historical phase0')
         for key in ('lr_hidden','lr_output'):require(Fraction(inputs[key])==Fraction(historical[key]),'exact rate '+key)
-        plan_path=ROOT/'experiments/trainability/EXP-028-plan.json';plan=json.loads(plan_path.read_text());spec=next(s for s in plan['maps'] if s['map_id']=='S2-28011');net,x,y,initial=SYSTEMS['S2'](28011)
-        require(asdict(net)==spec['network'],'frozen model');require({'x':array_sha256(x),'y':array_sha256(y),'theta0':array_sha256(initial)}==spec['data_sha256'],'frozen data')
-        require([[Fraction(z) for z in row] for row in inputs['x']]==[[Fraction(float(z)) for z in row] for row in x],'exact x');require([Fraction(z) for z in inputs['y']]==[Fraction(float(z)) for z in y],'exact y')
-        for key,value in asdict(net).items():require(Fraction(inputs['network'][key])==Fraction(value) if isinstance(value,float) else inputs['network'][key]==value,'exact model '+key)
+        plan_path=ROOT/'experiments/trainability/EXP-028-plan.json';plan=json.loads(plan_path.read_text());spec=next(s for s in plan['maps'] if s['map_id']=='S2-28011');require(spec['seed']==28011 and spec['system']=='S2','consumed development seed')
+        parent_path=pathlib.Path('/data2/neural-shrimp-data/explore/certificates/c1-2026-10-07/attempt-003/inputs.json');require(sha(parent_path)=='a0916d9bb32f58fb3f426bd584b92686af7515b007ec6fb3f71ac4554fb5eb81','previously certified consumed data');parent=json.loads(parent_path.read_text())
+        for key,shape in [('x',(24,2)),('y',(24,))]:
+            require(inputs[key]==parent[key],'same consumed exact '+key);q=np.asarray(inputs[key],dtype=object);fs=[Fraction(z) for z in q.flat];a=np.array([float(z) for z in fs],dtype=np.float64).reshape(q.shape);require(a.shape==shape and all(Fraction(float(z))==f for z,f in zip(a.flat,fs)),'exact binary64 data '+key);h=hashlib.sha256(repr(a.shape).encode()+a.tobytes()).hexdigest();require(h==spec['data_sha256'][key],'frozen train hash '+key)
+        for key,value in spec['network'].items():require(Fraction(inputs['network'][key])==Fraction(value) if isinstance(value,float) else inputs['network'][key]==value,'exact model '+key)
         historical_bindings={'file_sha256':OLD_HASH,'row':111,'map_id':'S2-28011-zoom','component':587,'plan_sha256':sha(plan_path),'input_sha256':sha(raw/'inputs.json'),'data_sha256':spec['data_sha256'],'exact_rates':{k:inputs[k] for k in ('lr_hidden','lr_output')}}
         for path,key in [(ROOT/'docs/EXP-028-summary.json','gate'),(pathlib.Path('/data2/neural-shrimp-data/audits/EXP-028/validation-001/audit.json'),'audit_gate')]:
             qs=json.loads(path.read_text())[key]['qualifying'];matches=[q for q in qs if (q['map_id'],q['component'])==('S2-28011-zoom',587)];require(len(matches)==1 and matches[0]['period']==18,'historical qualifying membership');historical_bindings[str(path)]={'sha256':sha(path),'row':matches[0]}
