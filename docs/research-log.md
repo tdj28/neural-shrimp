@@ -4695,3 +4695,16 @@ Multifile latexmk produces32 pages with no final warnings/boxes; all32 contact p
 Root requested an independent read-only interpretation after the fixed six-reference pilot completed. One inline checker decoded the six saved analysis archives, verified their hashes/array identities, and independently reconstructed the phase fits/products, analytic model/control spectra, pair comparisons, means and radius arithmetic. It exited 0 in approximately 0.175 seconds with CPU/BLAS one and nice 10. No model/derivative/trajectory/decomposition/solve or new target was run. This was a post-outcome review, not a prospective source freeze; root then authorized preserving the exact checker and compact review/receipt without another replay. The later file was syntax-parsed only. The raw manifest is `898880f0bc1755896251f39e5abf806cc89f32a1558ed102fc0c954bd6d9ff4b`.
 
 All six direct pair-accuracy gates fail and three character predictions are wrong, despite a 28.5841% relative mean improvement against the commuting oracle. This rejects the fixed top-mode/isotropic-bulk approximation on the declared panel. Loose attribution radii do not account for these direct prediction errors. See `docs/reviews/curvature-panel-saved-arithmetic-review.md` and its companion receipt for exact source/input identities and limits. Any fixed-span follow-up is an explicitly adapted descriptive analysis of saved arrays, not a retry of the failed panel or a claim of larger-model utility.
+### 2026-10-09 UTC — adapted saved-plane explanation prepared, not run
+
+After the fixed six-reference rank-one/bulk pilot failed its engineering screen,
+prepared one saved-array explanation using the unchanged six slots and actual
+stored leading vectors: fixed top-vector Gram–Schmidt span, whitened-Euclidean
+energy capture, full-product leakage, actual2D compression and explicit roots.
+Root's pre-replay addition retains the exact four residual-action terms and
+cancellation. This is target-informed description after seeing a negative
+pilot, never a predictor, attribution theorem or retroactive rescue. Nine
+synthetic controls pass0.24s; no empirical arrays/evaluation/model/decomposition
+were opened or run. Exact card/command and pinned input manifest are in
+`docs/plans/curvature-saved-plane-diagnostic.md`; root owns any one saved-data
+launch. Output is a new exclusive `attempt-001-plane-explanation` directory.
