@@ -63,13 +63,42 @@ def anchored_at_parameter(result,anchor):
     return bool(all(checks)),checks
 
 
+
+def root_image_stability(model,result,frames,inverse_records,max_power,tick):
+    """Reacquire J only on a proved root enclosure, retaining the original proof."""
+    require(result['gates']['uniform_root'],'narrowing requires a uniform root proof')
+    period=result['statement']['period'];n=model.n
+    base=[restore_ball(v) for row in result['center'] for v in row]
+    slope=restore_matrix(result['predictor_slope']);image=restore_matrix(result['image_correction'])
+    delta=arb((1,result['settings']['halfwidth_exponent']));d=arb(0,delta)
+    boxes=[base[i]+slope[i,0]*d+image[i,0] for i in range(period*n)]
+    rate=restore_ball(result['parameter_interval']);blocks=[]
+    for j in range(period):
+        tick();_,jac,_=model.step(boxes[j*n:(j+1)*n],rate);blocks.append(jac)
+    native=balanced_product(blocks);tick();ok,power,powers=power_gate(native,max_power)
+    out={'root_enclosure_basis':'affine predictor plus proved uniform Krawczyk image',
+         'phase_boxes':[[ball_json(v) for v in boxes[j*n:(j+1)*n]] for j in range(period)],
+         'phase_jacobians':[matrix_json(m) for m in blocks],
+         'native':{'monodromy':matrix_json(native),'attracting':ok,'attraction_power':power,'power_bounds':powers}}
+    if frames is not None:
+        inverse=[restore_matrix(r['inverse']) for r in inverse_records]
+        changed=[inverse[(j+1)%period]*block*frames[j] for j,block in enumerate(blocks)]
+        candidates={'phasewise_frames':balanced_product(changed),'final_similarity':inverse[0]*native*frames[0]}
+        out['framed_phase_jacobians']=[matrix_json(m) for m in changed]
+        for key,matrix in candidates.items():
+            tick();passed,p,rows=power_gate(matrix,max_power)
+            out[key]={'monodromy':matrix_json(matrix),'attracting':passed,'attraction_power':p,'power_bounds':rows}
+    out['attracting']=any(row.get('attracting',False) for row in out.values() if isinstance(row,dict))
+    return out
+
+
 def framed_tube(model,initial,rate,*,anchor=None,tick=lambda:None,observe=lambda kind,row:None,**settings):
     result=tube(model,initial,rate,anchor=None,tick=tick,observe=observe,**settings)
     with ctx.workprec(settings.get('precision',256)):
         result['baseline_gates']=dict(result['gates'])
         blocks=[restore_matrix(m) for m in result['phase_jacobians']]
         native_attracting=bool(result['baseline_gates']['uniform_attraction'])
-        final_attracting=False
+        final_attracting=False;frames=None;inverses=None
         result['framing']={'method':'real Schur of midpoint native product; phasewise QR; fixed dyadic frames; last frame equals first',
                            'proposal_only':True,'cyclic_final_frame_index':0}
         try:
@@ -86,7 +115,12 @@ def framed_tube(model,initial,rate,*,anchor=None,tick=lambda:None,observe=lambda
         except (ValueError,ZeroDivisionError,RuntimeError) as exc:
             phase_attracting=False
             result['framing'].update(passed=False,error={'type':type(exc).__name__,'message':str(exc)})
-        attracting=native_attracting or phase_attracting or final_attracting
+        narrow={'attempted':False,'attracting':False}
+        if result['gates']['uniform_root']:
+            narrow=root_image_stability(model,result,frames if result['framing']['passed'] else None,inverses,settings.get('max_power',4096),tick)
+            narrow['attempted']=True
+        result['root_image_stability']=narrow
+        attracting=native_attracting or phase_attracting or final_attracting or narrow['attracting']
         result['stability_alternatives']={'native':native_attracting,'phasewise_frames':phase_attracting,'final_similarity':final_attracting}
         joined,checks=anchored_at_parameter(result,anchor)
         result['anchor_inclusions']=checks
