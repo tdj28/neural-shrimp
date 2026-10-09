@@ -19,7 +19,7 @@ not yet certify the entire shrimp or establish a training benefit.
 | Supercritical flip on ray 51 | Computer-assisted proof, independently reviewed | Nearby attracting primitive 36-cycles after the parent 18-cycle loses stability |
 | Attracting finite primitive 36-cycle | Computer-assisted proof, independently reviewed | One explicitly specified fixed-rate full-state orbit; all eight proper divisors excluded |
 | Initial continuous attracting 18-cycle interval | Computer-assisted proof, independently reviewed | Width 2^-19 in actual hidden rate, anchored to the original center |
-| Wider connected primitive 18-cycle interval | Producer root/join proof; independent review in progress | Width 1/1024; uniform attraction still unresolved at this checkpoint |
+| Wider connected attracting primitive 18-cycle interval | Computer-assisted proof, independently reviewed | Width 1/1024, with the original center and the shared chart endpoint identified exactly |
 
 The supercritical flip occurs near ray parameter 0.14049631414519. Its total
 multiplier crossing is negative and cubic normal-form coefficient positive;
@@ -68,11 +68,21 @@ The main gap is a validated connection from the certified center to the proved
 boundaries. Two joined multiple-shooting charts prove a continuous primitive
 18-cycle on an interval 512 times wider than the first interval. Root-image
 narrowing and six matrix-product bounds did not establish uniform attraction.
-A periodic quadratic metric also remained inconclusive: midpoint metrics were
-well resolved, but interval uncertainty prevented positivity in some phases.
-These are limitations of sufficient proof bounds, not evidence that the orbit
-is unstable. Fixed parameter subdivision now targets this diagnosed uncertainty
-without changing the parent existence proof or discarding failed attempts.
+A periodic quadratic metric also remained inconclusive on each entire chart:
+midpoint metrics were well resolved, but interval uncertainty prevented
+positivity in some phases. Fixed parameter subdivision resolved this obstacle.
+All 32 closed slices passed their periodic quadratic stability inequalities
+without changing the parent existence proof. Independent review replayed both
+charts, checked exact root joins, and reevaluated all 576 native Jacobians at
+higher precision; every slice passed again. See the [combined connection
+receipt](../certificates/s2-period18-connection-receipt.json). Earlier failed
+bounds remain retained and do not imply actual instability.
+
+The next bounded pilot addresses a different source of interval overestimation:
+forming the gradient by subtracting two expressions that contain the same
+uncertain state. A mean-value gradient enclosure may permit larger continuation
+steps. It preserves the objective and historical checker, and must pass its
+own root, primitive-period and join gates before any larger interval is claimed.
 
 After a useful connection method is established, continue toward the boundary
 and its organizing curves. Opposite criticality at two isolated flips alone
@@ -89,10 +99,11 @@ is identifying actual multi-step dynamical directions through matrix-vector
 actions, with an explicit cost/accuracy comparison. Protected holdouts remain
 untouched.
 
-The [current reading draft](../paper/gd-route/gd-route-working-draft.pdf) is being
-updated with the new supercritical flip and 36-cycle result. The preceding
-35-page version already includes the subcritical flip, corrected coarse-boundary
-interpretation and initial connected interval. Local CPU suffices for this work;
+The [current reading draft](../paper/gd-route/gd-route-working-draft.pdf) has
+36 pages, 344 source-derived entries and ten figures. It includes both flip
+types, the finite 36-cycle, a six-point numerical comparison and the corrected
+coarse-boundary interpretation. The newly reviewed connected interval is now
+being added to this reading copy. Local CPU suffices for this work;
 no new paid run, GPU experiment, external message or submission occurred.
 Regular private Git pushes preserve source and compact evidence. Raw proofs,
 failed attempts and reviews have additional hash-verified copies on a separate
