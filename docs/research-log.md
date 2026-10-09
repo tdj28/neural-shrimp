@@ -5321,3 +5321,10 @@ The one authorized audit from9bdeafd338e987c072168d96c41c9180c8e29f19 passed: ex
 ### 2026-10-09 — mean-value gradient adapter static source review
 
 Reviewed frozen15a2ba1f7b390dc3d23168c4a3e77de832a0689a: complete adapter/driver/card/inherited shooting semantics and source inventory. No mathematical blocker; finite resource and same-library/settings profile checks repaired before acquisition. Coupled affine-gradient/interval-rate control inspected. No new model/profile/decomposition calls by reviewer. Companions `docs/reviews/meanvalue-gradient-source-review.md` and `.json` bind exact scope/source; target outcome remains separate.
+
+
+### 2026-10-09 — mean-value target saved-arithmetic review, before reduction
+
+Root approved one saved-only384-bit reduction of frozen target916c76d3, outer manifest0e514532fed9d2a486e57c0341c5355c152e8c550cdd19aa180b1b2e6a2663e7. Exact card `docs/plans/meanvalue-outcome-review.md`. No model/gradient/trajectory/stability search; same original inputs/native anchor; fixed−10/−18 settings. CPU1/nice10,30s internal45+5external,8+1MiB,2GiB monitored. Preserve failure/partial. Source/card freeze precedes saved target arithmetic.
+
+Pre-run control: one synthetic234D passing/failing-bound test passed in2.03seconds; both evaluator and supervisor syntax checked. No target matrices used.
