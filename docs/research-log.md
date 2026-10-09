@@ -4763,3 +4763,12 @@ The sharp-direction plane almost excludes the actual leading real modes, and the
 ## 2026-10-09T02:27:07.413532+00:00 — resumption paper and private handoff snapshot
 
 Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T022654Z-resumption-checkpoint`, including the32-page PDF, current report/reviews and four private original-checkout files. Exact inventories, complete SHA256, second source hash pass and stable source metadata agree. Private ledger and foreign log stay outside Git. See `docs/backups/2026-10-09-resumption-checkpoint.json`. Sources were not altered; same-machine separate-disk snapshot supplements private Git.
+
+## 2026-10-09 03:58 UTC: run (exploratory)
+
+- **Question:** Does the lowest-index +1 boundary ray of the period-18 shrimp-anatomy candidate resolve to a simple nondegenerate full-state fold?
+- **Setup:** Exploratory, adapted after the numerical A2 anatomy survey. Fixed S2-28011-zoom:587 row111 and ray0; consumed C1 data only, no holdouts. 24 fixed corrector steps from center; one augmented root R=0,(M-I)v=0,unit v; full primitive18 checks, both native phases, left-right simplicity, and five finite-difference resolutions for transversality and quadratic coefficient. Four synthetic controls passed. CPU/BLAS1 nice10, internal100s/external120+5s, 40000 map/Jacobian pairs. No interval fold, continuous-branch, ancestry or utility claim.
+- **Output:** `/data2/neural-shrimp-data/explore/s2-period18-fold/attempt-001`
+- **Would surprise us:** A non-fold degeneracy, an additional unstable mode, or failure of the saved ray to connect through the fixed corrector path would weaken the fold interpretation.
+
+_commit `416ba4722c8c` (dirty worktree)_
