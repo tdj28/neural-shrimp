@@ -4867,3 +4867,14 @@ profile and, only if its measured projection comfortably fits the existing
 card, one target attempt with unchanged settings and caps. Both root and
 independent mathematical source reviews found no other blocker. The command
 and execution HEAD are captured by the launcher. No radius/precision retry.
+
+2026-10-09 04:23 UTC, retained outcome: the single profile and target executed
+at `6df3dbfd`. Profile0.511s; target1.721s internally. Six gates passed but the
+deflated-complement power bound failed (minimum12.1135 at power8), so the full
+certificate failed closed. Preserve `attempt-001-target` and its manifest
+`1f85c1e195c727c0c3916f8eaa6227087b615d6e237c2691a47c183b6776b5e6`.
+Compact immutable bindings and partial scope are recorded in
+`docs/reviews/s2-period18-fold-attempt001-receipt.json` and companion prose.
+The prior preparation paragraph's04:22 timestamp was a transcription error:
+the actual committed authorization and execution timestamps in Git/runtime
+records precede the profile start04:20:44UTC. No target preceded authorization.
