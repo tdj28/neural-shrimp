@@ -5097,3 +5097,22 @@ no scientific outcome shaped the correction. Root informed; no paid/GPU/data cha
 Profile003 on ff7f3a22d664d925ba716959543bb4bb97603bb0 passed in 2.129s, with 1115838 worker bytes; timing projection 10.516s. Exact run manifest `60abbadfc3b2c26ee7eda4c6e9261768a26f8a91c9cc0bfa1378b3a6b5e2ae9a`. Complete inventories/read-only/PID exits pass. Target001 remains the retained zero-evaluation failure.
 
 Execute once, unchanged scientific source/settings: `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_connection.py --mode target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-connection-2026-10-09/attempt-003-profile/run --profile-manifest 60abbadfc3b2c26ee7eda4c6e9261768a26f8a91c9cc0bfa1378b3a6b5e2ae9a --out /data2/neural-shrimp-data/explore/certificates/s2-period18-connection-2026-10-09/attempt-002-target`. The previous fixed120s/135s+5s,CPU1,nice10,64MiB+1MiB,2GiB and mathematical gates remain. No automatic retry or continuation.
+
+### 2026-10-09 — First actual center tube passes; diagnose scale before expanding
+
+Target002 on e5e8c6c6 passed all4 mathematical gates in3.168s,79ticks: uniform
+root contraction0.000275162, primitive18, ||M^16||inf<0.786495,234/234 anchor
+inclusions. Outer manifest0c2f6f597d84ac2e5009b99bb5ffacd79026e47d57b206874d1b904de770e107.
+Exact interval h0±2^-20; image correction3.794e-12 below2^-28. Source-bound
+receipt `docs/reviews/s2-period18-connection-outcome.json`; all immutable files
+and owned PID exits checked. New tube outcome has not yet had independent replay.
+This proves only a short anchored local branch. Current width would need millions
+of charts to reach the known fold; do not call this a boundary connection.
+
+Root authorizes a disclosed wider/join prototype next. Preserve this exact
+attempt. Address stability wrapping with fixed dyadic phasewise frames before
+forming the monodromy, verify each frame inverse in Arb, and keep all physical
+primitive/root/anchor gates. A numerical Schur/QR basis is only a proposal. No
+floating eigenvalue decides a proof. Commit source/card before any wider run;
+choose a substantive interval increase plus an exact shared-parameter join,
+not a blind sequence of halvings. No new scientific run is included in this note.
