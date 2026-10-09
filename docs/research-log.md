@@ -5116,3 +5116,11 @@ primitive/root/anchor gates. A numerical Schur/QR basis is only a proposal. No
 floating eigenvalue decides a proof. Commit source/card before any wider run;
 choose a substantive interval increase plus an exact shared-parameter join,
 not a blind sequence of halvings. No new scientific run is included in this note.
+
+
+## 2026-10-09 — Independent initial connection review run card
+
+Root will execute the committed saved-ball/replay/nested audit described in
+[the initial connection review card](plans/s2-period18-connection-review.md).
+CPU1/nice10,100s internal/120+5s external,64MiB; only target002 and its original
+consumed anchor. Exact mathematical gates and interval width remain fixed.
