@@ -911,6 +911,20 @@ the training span. See \path{docs/plans/cifar-input-span-diagnostic.md},
 \path{docs/reviews/cifar-input-span-outcome.md} and
 \path{docs/reviews/cifar-input-span-independent-outcome.md}.
 
+\paragraph{Fixed curvature approximation (negative exploratory pilot).} All \nCurvatureSlots{} selected
+period-two references in S2-28011 and S1R-28002 pass the unchanged full-state and historical-spectrum checks.
+Nevertheless, approximating each whitened phase Jacobian by its top-curvature direction plus an isotropic
+bulk fails to predict the leading pair of the native derivative $DF(F(\theta))DF(\theta)$.
+Unordered pair errors, normalized by $\max(1,\rho(M))$, range from $\xCurvatureMinError$ to
+$\xCurvatureMaxError$; every reference exceeds the $\xCurvatureErrorGate$ gate.
+The \nCurvatureFalseComplex{} real controls are falsely predicted complex, while the stable-complex S1R
+reference is predicted real. The mean error $\xCurvatureMeanError$ is below the $\xCurvatureComparator$
+mean of the better aligned or orthogonal commuting control at each reference, but this relative gain
+does not rescue the absolute errors or class mistakes. This rejects the chosen rank-one/bulk approximation
+on this fixed panel, not richer curvature mechanisms; it establishes no larger-model or language-model
+utility. See \path{docs/plans/curvature-subspace-mechanism.md} and
+\path{docs/reviews/curvature-six-reference-outcome.md}.
+
 \paragraph{Actual-text transformer pilot (architectural feasibility).} A one-layer causal transformer with
 \nLMParameters{} parameters, tied token/output embeddings and LayerNorm was trained on
 \nLMTokens{} fixed next-character targets per update from tiny-Shakespeare. Full-batch GD with ridge regularization

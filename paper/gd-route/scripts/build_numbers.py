@@ -928,6 +928,74 @@ def build():
         ("xSOneRGapCondition", failed["geometry"]["raw_A"]["rank"]["condition"], sci(failed["geometry"]["raw_A"]["rank"]["condition"], 2), "raw-coordinate condition estimate at the nonclosed failed state; not a fold gate")]:
         n.add(macro, value, display, "exploratory fixed-state diagnostic; independent saved-arithmetic audit using shared derivative inputs; no fold or continuation proof", gap_sources, calc)
 
+    # Fixed curvature pilot: saved scalar decisions only, no model or decomposition rerun.
+    curvature_receipt_path = c.ROOT / "docs/reviews/curvature-six-reference-outcome-receipt.json"
+    curvature_receipt = load(curvature_receipt_path)
+    curvature_sources = [curvature_receipt_path]
+    for item in curvature_receipt["inventory"].values():
+        root = Path(item["path"])
+        assert c.sha256(root / "manifest.json") == item["manifest"]["sha256"]
+        assert set(item["files"]) == {p.name for p in root.iterdir()}
+        for name, pin in item["files"].items():
+            path = root / name
+            assert path.is_file() and not path.is_symlink()
+            assert path.stat().st_size == pin["bytes"] and c.sha256(path) == pin["sha256"]
+        members = load(root / "manifest.json")["files"]
+        assert members == {k: v for k, v in item["files"].items() if k != "manifest.json"}
+        curvature_sources.append(root / "manifest.json")
+    curvature_root = Path(curvature_receipt["inventory"]["attempt-001-panel"]["path"])
+    curvature = load(curvature_root / "result.json")
+    assert curvature["source_commit"] == curvature_receipt["source_commit"] == "f0d556d475b1416809ff654e3e00dc28ab8deaf2"
+    assert curvature["review_commit"] == curvature_receipt["review_commit"] == "fbd0bce0efcbf975f1361994c94b864f12e83333"
+    assert curvature["status"] == "panel_complete"
+    assert curvature["sources"] == curvature_receipt["sources"]
+    for name, pin in curvature["sources"].items():
+        path = c.ROOT / name
+        assert path.stat().st_size == pin["bytes"] and c.sha256(path) == pin["sha256"]
+        curvature_sources.append(path)
+    rows, decision = curvature["slots"], curvature["aggregate"]
+    assert rows == curvature_receipt["slots"] and decision == curvature_receipt["aggregate"]
+    expected_slots = [r["slot"] for r in load(c.ROOT / "docs/plans/curvature-subspace-input-inventory.json")["panel"]]
+    assert [r["slot"] for r in rows] == expected_slots and len(rows) == 6
+    assert all(r["qualified"] and r["qualification"]["physical_passed"] and r["historical_spectrum"]["passed"] for r in rows)
+    errors = [r["pair_error"] for r in rows]
+    threshold = .02  # Fixed pair_accuracy threshold in the bound curvature_pilot source/card.
+    assert all(np.isfinite(x) and x > threshold for x in errors)
+    real_rows = [r for r in rows if r["stratum"] == "stable-real"]
+    false_complex = sum(r["target_kind"] == "real_pair" and r["modeled_kind"] == "complex_conjugate_pair" for r in real_rows)
+    assert len(real_rows) == false_complex == 2
+    s1complex = next(r for r in rows if r["slot"] == "S1R-28002-stable-complex")
+    assert s1complex["target_kind"] == "complex_conjugate_pair" and s1complex["modeled_kind"] == "real_pair"
+    assert abs(sum(errors)/len(rows)-decision["mean_pair_error"]) < 1e-14
+    assert abs(sum(r["commuting_error"] for r in rows)/len(rows)-decision["mean_oracle_commuting_error"]) < 1e-14
+    assert decision["gates"] == dict(all_six_slots_qualified=True, angles=False, character=False, complex_attribution=False, mean_gain=True, pair_accuracy=False)
+    assert not decision["passed"]
+    for kind in ("attempt-001-profile-launcher", "attempt-001-panel-launcher"):
+        root = Path(curvature_receipt["inventory"][kind]["path"])
+        launcher = load(root / "receipt.json")
+        assert launcher["successful"] and launcher["process_exit"] == 0 and not launcher["owned_live_pids_remaining"]
+        curvature_sources.append(root / "receipt.json")
+    curvature_sources += [curvature_root / "result.json", curvature_root / "runtime-start.json", curvature_root / "journal.jsonl"]
+    slot_records = [r for r in (json.loads(line) for line in (curvature_root / "journal.jsonl").read_text().splitlines()) if r["kind"] == "slot_complete"]
+    for record, row in zip(slot_records, rows, strict=True):
+        path = curvature_root / record["file"]; saved = load(path)
+        # Historical matching arrays use NPZ descriptors in the journal, lists in result.json.
+        for key in ("slot", "qualified", "reasons", "qualification", "target_kind", "modeled_kind", "pair_error", "angle_error", "commuting_error", "attribution", "stratum"):
+            assert saved["payload"][key] == row[key]
+        assert saved["payload"]["historical_spectrum"]["passed"] == row["historical_spectrum"]["passed"]
+        curvature_sources.append(path)
+        if "arrays_file" in saved:
+            curvature_sources.append(curvature_root / saved["arrays_file"])
+    for macro, value, display, calculation in [
+        ("nCurvatureSlots", len(rows), integer(len(rows)), "all fixed qualified references; phases are not replicates"),
+        ("nCurvatureFalseComplex", false_complex, integer(false_complex), "real-control slots falsely predicted to have a complex leading pair"),
+        ("xCurvatureMinError", min(errors), fixed(min(errors), 4), "minimum normalized unordered leading-pair error across all six slots"),
+        ("xCurvatureMaxError", max(errors), fixed(max(errors), 4), "maximum normalized unordered leading-pair error across all six slots"),
+        ("xCurvatureErrorGate", threshold, fixed(threshold, 2), "unchanged exploratory normalized pair-error threshold"),
+        ("xCurvatureMeanError", decision["mean_pair_error"], fixed(decision["mean_pair_error"], 4), "equal-weight mean normalized leading-pair error across all slots"),
+        ("xCurvatureComparator", decision["mean_oracle_commuting_error"], fixed(decision["mean_oracle_commuting_error"], 4), "mean of the better aligned/orthogonal commuting error at each fixed reference")]:
+        n.add(macro, value, display, "exploratory fixed-panel approximation failure; producer outcome and saved scalar decision checks; no utility claim", curvature_sources, calculation)
+
     # Local pseudo-arclength: bind audited saved records; no new continuation or decomposition.
     pal_receipt_path = c.ROOT / "docs/reviews/s1r-pseudoarclength-outcome-receipt.json"
     pal_audit_receipt_path = c.ROOT / "docs/reviews/s1r-pseudoarclength-independent-outcome-receipt.json"

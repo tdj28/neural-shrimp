@@ -4683,3 +4683,10 @@ changed after observing outcomes. See `docs/reviews/curvature-six-reference-outc
 and its complete receipt. Raw manifests/source identities/modes and all recorded
 owned-process exits verify. The first exploratory panel is now closed; no rank
 expansion or replacement occurred. Independent saved interpretation is pending.
+
+
+## 2026-10-09T02:15:20.077592+00:00 — first curvature-pilot manuscript upkeep
+
+Added one exploratory paragraph from outcome `f78f420f`, with seven source-derived macros for the fixed six-reference failure. All 303 previous number entries are identical;310 total. Full raw/profile/launcher inventories, source bytes and scalar slot/aggregate decisions are hash-bound. No richer-mechanism or larger-model utility inference is made, and the text makes no independent-outcome-audit claim. Producer pending-at-creation evidence labels remain unchanged.
+
+Multifile latexmk produces32 pages with no final warnings/boxes; all32 contact pages and details25–26 visually pass. Figures/tables/proofs were not rerun. One initial NPZ-descriptor versus JSON-list join assertion and one cosmetic-edit path error were retained and corrected without changing scientific evidence. Exact source/PDF hashes and scope: `docs/reviews/paper-curvature-pilot-authoring-qa.json`. Root owns independent integration review.
