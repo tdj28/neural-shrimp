@@ -5304,3 +5304,10 @@ Run exactly one unchanged-source `attempt-002-target` in `/data2/neural-shrimp-d
 ### 2026-10-09 — Two wider charts joined; stability unresolved
 
 Target002 execution5b4ce6d1eed6cc30e000ec4860e8efab61855eef completed once:10.39067s internally/10.90464s externally,242ticks,808160KiB RSS,exit2. Both uniform roots, primitive18 exclusions and all234 exact common-parameter inclusions passed. Exact connected interval width1/1024 is512 times the original interval width; endpoints and all subclaims are in `docs/reviews/s2-period18-connection-framed-outcome.json` and `.md`. Contractions<.071, image norms<2.49e-7. All six original/narrowed stability alternatives are inconclusive, so all-gates result staysfalse; no instability follows. Complete source/raw hashes, payload, immutability and process exits checked; outer manifest8d21dd9921a218d0eb98172a653c83d06bd234e3c760f6d5698d39aec84bce48. No further target launched. Independent review pending for this wider primitive-branch subclaim; original attracting tube remains unchanged.
+
+
+### 2026-10-09 — joined primitive18 branch independent review, pre-run card
+
+Root authorized one wider two-chart replay plus independent384-bit root/primitive/anchor/shared-endpoint reductions and all32 sliced stability witnesses. Fixed inputs, exact source sets, scope and command are in `docs/plans/joined-period18-independent-review.md`. CPU1/nice10, internal120/external135+5seconds,64+1MiB, monitored2GiB. No old narrow tube replay or new branch search. Source/tests/card committed and privately pushed before target evaluation; all outcomes/partial failures retained under `audits/s2-period18-joined-branch/attempt-001`. Focused synthetic test outcome will be appended before launch.
+
+Pre-run validation: all15 focused synthetic controls passed in9.84seconds (CPU/BLAS1,nice10). No target witness evaluation preceded this freeze.
