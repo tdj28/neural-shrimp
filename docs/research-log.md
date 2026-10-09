@@ -5345,3 +5345,16 @@ read-only/owned-PID cleanup checked. Canonical certificates/s2-ray51-flip-receip
 and s2-period36-receipt.json retain exact inputs, bounds, source/profile hashes
 and replay commands. Outcome independent review is pending at receipt creation;
 strategy received all four immutable pins for its separately frozen review.
+### 2026-10-09 UTC: independent ray51 adapter review and outcome-review card
+
+Reviewed producer04048350 before reading/running its proof outputs. All78
+synthetic controls pass0.29s, including21 new independent cases. Exact ray51
+family reconstruction and largest-amplitude fixed-dyadic36 inputs are separate;
+all original kernels are unchanged. Reviewer authored the common flip kernel,
+while root separately reviewed its mathematics. Source verdict is in
+`docs/reviews/ray51-adapter-source-review.json`.
+
+Prepared one bounded replay/saved-arithmetic/stronger-box review in
+`docs/plans/ray51-independent-review.md`. No target proof outcome has been read
+or evaluated by this reviewer. Root will read the frozen runner/card and supply
+external producer manifest/execution pins before its one local execution.
