@@ -4556,3 +4556,22 @@ Root reviewed author178010e4 and source-bound builder addition, reran the read-o
 ## 2026-10-08 14:27 UTC — final morning artifact/private-state snapshot
 
 Verified 71files/3821494B at `/archive/neural-shrimp-backups/20261008T142721Z-morning-checkpoint`: current303-number31-pagepaper/PDF, report and new evidence/design/review companions plus4privateoriginalhandoff/ledger/checkpoint/log files. Exactinventory, SHA256 andsecondsourcehashpass agree; manifest005fe6fd45830aeedf87671f4b6f9ca24040b8f9ba7bfefd3f90b4f1974ce63f. Filesystemsynccomplete. Separatephysicaldisk localpoint-in-timecopy, notoffsite. Source/foreignfilesunaltered, privatecontentsnotstaged.
+
+### 2026-10-09 UTC — exploratory curvature six-reference pilot prepared
+
+On root instruction after the human requested renewed exploration, prepared the
+fixed six-reference curvature acquisition/analysis runner and bounded owned-group
+launcher, from0fd62d2d with reviewed helper unchanged. Question: does the fixed
+rank-one/trace-bulk approximation meet its predeclared pair/angle/control-gain
+and floating-attribution screen? Setup: unchanged six development references,
+at most24 fused analytic acquisitions with both native intermediate states,
+then12/6/6 decompositions. Profile first S1R phase plus fixed synthetic72D
+engineering matrices before the panel; source/input/host-bound reuse. Proposed
+exclusive outputs are `explore/curvature-mechanism/attempt-001-{profile,panel}`
+under the separate data disk. A surprise would be a full six-slot pass with
+useful conservative attribution; a fit miss or unresolved slot remains useful
+negative evidence about this approximation. CPU1/nice>=10; fixed profile/panel
+time, RSS, storage and failure-retention limits in
+`docs/plans/curvature-six-reference-pilot.md`. Only synthetic preparation ran;
+no empirical input was opened and no target/profile launch occurred. Root
+review, fresh resource check and explicit launch remain separate.
