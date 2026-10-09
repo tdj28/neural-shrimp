@@ -1,5 +1,35 @@
 # Completing evidence for S2-28011-zoom:587 — 9 October 2026
 
+## Current amendment: after both criticalities and a finite 36-cycle proof
+
+The original targets below have advanced. Ray 13 is rigorously subcritical,
+with a numerically detected earlier complex instability pocket and re-entry.
+Ray 51 is rigorously supercritical, and a separate fixed-dyadic primitive
+36-cycle is rigorously attracting; both passed independent replay and stronger
+nested proofs. Ray 16 has numerical unstable doubled cycles. The exact ray
+family and finite fixed-rate map remain distinct; no germ-to-finite-point
+connection has been proved.
+
+The center now anchors an independently reviewed attracting interval of width
+2^-19 in actual hidden rate. A producer has proved two joined primitive charts
+of total width 1/1024; independent outcome review is in progress. Their uniform
+stability remains unresolved. Native, framed and root-image-narrowed product
+bounds failed, and cyclic quadratic metric bounds failed on some interval
+phases despite well-resolved midpoint metrics. Fixed parameter subdivision
+will reduce the diagnosed uncertainty while retaining the parent root,
+primitive-period and exact common-parameter join proofs.
+
+Continue from these artifacts; do not rerun the completed flip/36-cycle units.
+The next scientific result is a useful validated continuous branch, then
+boundary connection and organization. Subcritical and supercritical signs at
+isolated points do not establish a generalized flip or a shared flip curve.
+Read `docs/research-resumption-2026-10-08.md` and the new source-bound receipts
+for the current evidence. The earlier note below is retained as dated design
+history; its statements that no flip or connecting run had started are obsolete.
+
+## Original design note
+
+
 The next useful result would explain how this particular period-18 training
 pattern loses stability to period36, while proving that our interior orbit and
 boundary points belong to the same cycle family. We now have an attracting
