@@ -4772,3 +4772,7 @@ Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T02
 - **Would surprise us:** A non-fold degeneracy, an additional unstable mode, or failure of the saved ray to connect through the fixed corrector path would weaken the fold interpretation.
 
 _commit `416ba4722c8c` (dirty worktree)_
+
+## 2026-10-09 04:02 UTC: selected period-18 fold outcome
+
+One authorized exploratory ray0 localization completed at source ca439beb. All25fixed correctorpoints passed; one augmentedsolve supports a simple nondegenerate fold numerically in both consecutive phases, with all other multipliers below.806. Raw manifest3a44977630bd3d9f329bad8e6369c4d024fc4a379ee6ebe593c85d9b913cb620. Elapsed.7301s; all owned processes absent. No interval bifurcation, continuous branch, full shrimp, ancestry or utility proof. Compact outcome `docs/reviews/s2-period18-fold-outcome.json`; independent review pending.
