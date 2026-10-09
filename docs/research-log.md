@@ -5311,3 +5311,8 @@ Target002 execution5b4ce6d1eed6cc30e000ec4860e8efab61855eef completed once:10.39
 Root authorized one wider two-chart replay plus independent384-bit root/primitive/anchor/shared-endpoint reductions and all32 sliced stability witnesses. Fixed inputs, exact source sets, scope and command are in `docs/plans/joined-period18-independent-review.md`. CPU1/nice10, internal120/external135+5seconds,64+1MiB, monitored2GiB. No old narrow tube replay or new branch search. Source/tests/card committed and privately pushed before target evaluation; all outcomes/partial failures retained under `audits/s2-period18-joined-branch/attempt-001`. Focused synthetic test outcome will be appended before launch.
 
 Pre-run validation: all15 focused synthetic controls passed in9.84seconds (CPU/BLAS1,nice10). No target witness evaluation preceded this freeze.
+
+
+### 2026-10-09 — joined primitive18 branch review outcome
+
+The one authorized audit from9bdeafd338e987c072168d96c41c9180c8e29f19 passed: exact original two-chart replay; independent384-bit root, primitive,234-coordinate original anchor/shared endpoint; all32 closed stability slices with576 reacquired native Jacobians and saved exact cyclic metric positivity. Internal32.615s/external33.008s,804184KiB peak,59files22,396,225bytes; all read-only/inventories verified/PIDs absent. Raw `audits/s2-period18-joined-branch/attempt-001`, outer manifestcdf337071775e7e212b1cf6b15f7634571590b591a750075a929bca29788beea. Companion `docs/reviews/s2-period18-joined-branch-independent-review.json` binds exact scope and sources. Same attracting primitive18 branch across width1/1024; no connection to fold/flip or full shrimp claim. No further target attempt.
