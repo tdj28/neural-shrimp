@@ -25,7 +25,7 @@ of each leading right eigenvector's squared norm in both real controls, versus
 29.7–95.4% in the complex cases. These are whitened-coordinate measurements.
 Projection of the actual full map into that plane still has material error;
 leakage and residual-action terms show that omitted directions/couplings matter.
-Independent saved-arithmetic checks pass. This is target-informed explanation,
+[Independent saved-arithmetic checks](reviews/curvature-plane-saved-arithmetic-review.json) pass. This is target-informed explanation,
 not a replacement predictor or a rescue of the first failed test.
 
 The next concrete scaling question is whether directions selected by the
