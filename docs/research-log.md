@@ -4683,3 +4683,17 @@ changed after observing outcomes. See `docs/reviews/curvature-six-reference-outc
 and its complete receipt. Raw manifests/source identities/modes and all recorded
 owned-process exits verify. The first exploratory panel is now closed; no rank
 expansion or replacement occurred. Independent saved interpretation is pending.
+
+### 2026-10-09 UTC — adapted saved-plane explanation prepared, not run
+
+After the fixed six-reference rank-one/bulk pilot failed its engineering screen,
+prepared one saved-array explanation using the unchanged six slots and actual
+stored leading vectors: fixed top-vector Gram–Schmidt span, whitened-Euclidean
+energy capture, full-product leakage, actual2D compression and explicit roots.
+Root's pre-replay addition retains the exact four residual-action terms and
+cancellation. This is target-informed description after seeing a negative
+pilot, never a predictor, attribution theorem or retroactive rescue. Nine
+synthetic controls pass0.24s; no empirical arrays/evaluation/model/decomposition
+were opened or run. Exact card/command and pinned input manifest are in
+`docs/plans/curvature-saved-plane-diagnostic.md`; root owns any one saved-data
+launch. Output is a new exclusive `attempt-001-plane-explanation` directory.
