@@ -70,3 +70,22 @@ from committed code/card in exclusive
 If a retained failure warrants a smaller continuation step or changed branch
 switching method, disclose the finding and commit an amendment before a new
 attempt; do not erase failures or quietly loosen qualification gates.
+
+## Adaptive amendment after attempt001 — 9 October 2026
+
+The first run stopped at s=0.16655650124682642 because the correctly carried
+primitive18 orbit became unstable through a complex pair. The preceding point
+s=0.15862523928269184 had radius0.975036; the next had radius1.014817. Both
+full-state reverse links passed, so this was not a correction failure. The
+historical coarse ray skipped this interval. Retain the entire unsuccessful
+attempt and the exact outward bracket; the later flip may not mark the first
+boundary of the connected attracting body.
+
+Root authorizes one continuation attempt from the last qualified saved orbit,
+with the first22 nodes hash-bound to attempt001. Continue the original remaining
+11 parameters, keeping closure/primitive/native-phase/reverse gates unchanged,
+but report stability instead of requiring the entire prefix to be attracting.
+Retain any re-entry bracket. This changes the earlier attracting-prefix claim,
+not the criterion for calling an orbit attracting. Then carry out the existing
+flip/crossing/period36 tests. Use `attempt-002-target`, the same budget and exact
+family, and the measured synthetic profile; no new profile or prefix replay.

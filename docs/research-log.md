@@ -4977,3 +4977,14 @@ The target follows only the declared measured cost gate and brief source review;
 its exact profile manifest will be recorded before launch. No target/profile has
 run at this card. No paid/GPU/new data/holdout work. A failed interval will motivate
 a disclosed adaptation, not a silent radius or width search.
+
+2026-10-09 18:05 UTC, adapted after numerical attempt001: primitive18/full-phase
+and reverse-link checks passed through22 nodes, but a complex pair left the
+unit disk between s=.15862523928269184 and.16655650124682642. The historical
+ray13 sampling skipped that narrow interval. Preserve raw manifest
+`7bfeb8fcacdef4a12dc4c0b3fda500361a0a4b66dbb41812c1d9c4d2d0d6ad34` and compact
+`docs/reviews/s2-period18-flip-attempt001.json`. Root authorizes continuing from
+the last qualified state through unstable segments, keeping all primitive,
+closure and phase gates, recording stability and re-entry. The later flip
+cannot be assumed to be the first boundary of the center's attracting body.
+No data/family change, no repeated prefix/profile, same resource limits.
