@@ -5019,3 +5019,13 @@ computation occurred before this code/card checkpoint. Reviewer authored the
 older fold primitive and numerical seed, but not this new flip kernel; shared
 AD/Arb and the limited theorem scope are explicit. All failed/partial review
 outputs will be retained; no silent retry.
+
+### 2026-10-09,18:18UTC — retained audit-format failure and amendment
+
+The independent flip audit attempt001 stopped in0.210s with zero proof/model
+evaluations. My reviewer assumed a newer manifest flag and duplicate launcher
+source inventory in the older numerical schema. This is a wrapper defect, not
+a certificate failure. Preserve manifest c359e2f314d99c09fab4e80b4b6e898a6505583ebc5f1f01cb116398d38048e2.
+The committed amendment distinguishes the historical format while still checking
+all files/totals, original cap and all committed/runtime/retained source hashes.
+Only exclusive attempt002 is planned next; mathematical gates/settings unchanged.

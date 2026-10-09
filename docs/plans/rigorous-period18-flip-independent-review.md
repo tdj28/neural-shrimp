@@ -46,3 +46,19 @@ Root explicitly requested and authorized this bounded independent review after
 the producer outcome. Code/card are committed and privately pushed before the
 single execution. Any failure remains a retained review failure, not a negation
 of the original certificate or authorization to retry.
+
+## Dated audit-format repair,18:18UTC
+
+Attempt001 stopped before any model/proof evaluation after the producer bundle
+bindings: the older numerical run manifest has `files,total_bytes`, without
+`within_limit`; its launcher binds the source commit but does not duplicate the
+runtime source inventory. Correct these two reviewer assumptions explicitly:
+only that historical run schema omits the flag, with exact inventory/totals and
+32MiB cap still checked; all eight runtime/retained/committed numerical source
+hashes remain required. New producer manifests retain their stricter checks.
+One new synthetic legacy-schema control guards the distinction. The immutable
+failed audit is retained at the original attempt001, outer manifest
+`c359e2f314d99c09fab4e80b4b6e898a6505583ebc5f1f01cb116398d38048e2`.
+No scientific gate, proof source, target, setting, budget or threshold changes.
+Under root's adaptive exploratory authorization, the corrected single audit
+uses exclusive `audits/s2-period18-flip/attempt-002`; no automatic retries.

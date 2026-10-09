@@ -56,3 +56,13 @@ def test_complete_inventory_and_external_hash_reject_mutations(tmp_path):
 def test_exact_infinity_norm_does_not_ignore_radius():
     values=[[{'mid':[1,0],'rad':[1,-2]},{'mid':[-2,0],'rad':[1,-3]}]]
     assert review.exact_norm(values)==Fraction(27,8)
+
+
+def test_legacy_numeric_manifest_requires_explicit_schema(tmp_path):
+    (tmp_path/'x').write_text('one')
+    manifest={'files':review.inventory(tmp_path),'total_bytes':3}
+    (tmp_path/'manifest.json').write_text(json.dumps(manifest));pin=review.sha(tmp_path/'manifest.json')
+    with pytest.raises(KeyError):review.verify(tmp_path,pin,True)
+    review.verify(tmp_path,pin,True,limit_flag=False)
+    manifest['total_bytes']=2;(tmp_path/'manifest.json').write_text(json.dumps(manifest))
+    with pytest.raises(ValueError):review.verify(tmp_path,review.sha(tmp_path/'manifest.json'),True,limit_flag=False)
