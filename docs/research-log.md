@@ -4776,3 +4776,18 @@ _commit `416ba4722c8c` (dirty worktree)_
 ## 2026-10-09 04:02 UTC: selected period-18 fold outcome
 
 One authorized exploratory ray0 localization completed at source ca439beb. All25fixed correctorpoints passed; one augmentedsolve supports a simple nondegenerate fold numerically in both consecutive phases, with all other multipliers below.806. Raw manifest3a44977630bd3d9f329bad8e6369c4d024fc4a379ee6ebe593c85d9b913cb620. Elapsed.7301s; all owned processes absent. No interval bifurcation, continuous branch, full shrimp, ancestry or utility proof. Compact outcome `docs/reviews/s2-period18-fold-outcome.json`; independent review pending.
+### 2026-10-09 UTC — one exploratory primitive18 proof run card
+
+Root authorizes one C1 attempt for row111/S2-28011-zoom:587, the existing strong
+numerical fold/flip window candidate, using unchanged checker256bits/radius2^-80/
+5Newton/maxpower4096. Adapter copies only exact consumed C1 x/y/model and checks
+historical data/rate/phase identities; no heldout regeneration. Exact whole-box
+proximity to saved phase0 is separate from proof and ancestry. Four synthetic
+controls pass0.08s. CPU1/nice>=10,60s internal/75+5s external,8MiB checked output,
+exclusive `explore/certificates/s2-period18-2026-10-09/attempt-001`. A passing
+primitive18 attractor would put rung3 orbit evidence at a strong numerical
+geometry candidate; it would not certify its boundaries, ancestry or utility.
+A wrapping/nondegeneracy failure is preserved, not evidence the orbit is absent.
+Detailed exact command and retention rules: `docs/plans/s2-period18-certificate.md`.
+No retry or other target is authorized in this unit. Code/card committed before
+execution; a separate agent will review the result afterward.
