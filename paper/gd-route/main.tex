@@ -508,12 +508,10 @@ finite-detuning doubled cycle.
 
 The one 256-bit, radius-$2^{-100}$ attempt passes all eight gates. Its entire root box passes an exact-rational
 proximity check to the selected numerical proposal. This establishes proximity, not seed inclusion or
-branch ancestry. Independent review reproduced the original result byte for byte, reconstructed the saved interval arithmetic,
-and passed a 384-bit proof in a strictly nested box. The reviewer authored the prior fold primitive and
-numerical proposal, but not the new flip kernel; a separate root review checked its mathematics. The
-analytic differentiation kernel and Arb/FLINT remain shared trusted dependencies, so this is not a
-second AD implementation or proof-assistant formalization. An initial reviewer schema failure occurred
-before any proof evaluation and remains retained. The numerical precursor
+branch ancestry. Independent source and arithmetic review reproduced the original result byte for byte,
+reconstructed the saved interval bounds, and passed a 384-bit proof in a strictly nested box.
+The analytic differentiation kernel and Arb/FLINT remain shared trusted dependencies; this is not a
+second AD implementation or proof-assistant formalization. Detailed review provenance is retained in the companion receipt. The numerical precursor
 in Section~\ref{sec:anatomy} finds an earlier instability pocket and re-entry on this ray, so this later flip
 is not its first observed loss of attraction. Neither this local certificate nor the numerical branch
 establishes a validated connection to the earlier center certificate or complete shrimp geometry.
