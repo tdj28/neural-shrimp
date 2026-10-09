@@ -4772,3 +4772,7 @@ Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T02
 - **Would surprise us:** A non-fold degeneracy, an additional unstable mode, or failure of the saved ray to connect through the fixed corrector path would weaken the fold interpretation.
 
 _commit `416ba4722c8c` (dirty worktree)_
+
+## 2026-10-09: point-only fold cross-check prepared
+
+After the root's single numerical period18 fold candidate passed, root authorized a bounded independent point-only review with existing Arb-jet objective AD. No root/continuation/decomposition is repeated. Fixed native phases0/1 and FD exponents18/20,324 one-step AD calls,128bits,CPU/BLAS1,nice>=10,60s/75+5s,8MiB,no retries. Full residual/Jacobian/action arrays will be retained; original outcomes were already read. Source `tools/reviews/review_s2_period18_fold.py`, card `docs/plans/s2-period18-fold-independent-review.md`. The claim remains numerical fold support, never interval or whole-geometry proof.
