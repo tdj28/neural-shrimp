@@ -76,6 +76,23 @@ def main():
     print(f"local fold replay: {'passed' if fold_code == 0 else 'FAILED'}; retained {fold_scratch}")
     if fold_code:
         failures.append("local fold replay")
+    # The flip has a distinct exact two-rate family and retains its own replay.
+    flip_receipt = json.loads((ROOT / "certificates/s2-period18-flip-receipt.json").read_text())
+    flip_scratch = Path(tempfile.mkdtemp(prefix="neural-shrimp-flip-replay-"))
+    print(f"flip replay artifacts retained at: {flip_scratch}", flush=True)
+    flip_args = ["timeout", "--signal=TERM", "--kill-after=5s", "135s", "nice", "-n", "10",
+                 PYTHON, "tools/certify_s2_period18_flip.py", "--execute", "--mode", "replay",
+                 "--bundle", str(Path(flip_receipt["external_root"]) / "run"),
+                 "--manifest-sha256", flip_receipt["run_manifest_sha256"],
+                 "--out", str(flip_scratch / "run")]
+    (flip_scratch / "command.json").write_text(json.dumps(flip_args, indent=2) + "\n")
+    with (flip_scratch / "process.log").open("w") as log:
+        flip_code = subprocess.run(flip_args, cwd=ROOT, env=fold_env, stdout=log,
+                                   stderr=subprocess.STDOUT).returncode
+    (flip_scratch / "exit-code.txt").write_text(str(flip_code) + "\n")
+    print(f"local flip replay: {'passed' if flip_code == 0 else 'FAILED'}; retained {flip_scratch}")
+    if flip_code:
+        failures.append("local flip replay")
     index = json.loads((PAPER / "provenance.json").read_text())
     listed = {Path(r["path"]).name for r in index["figure_receipts"]}
     for script in scripts:

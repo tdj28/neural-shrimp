@@ -961,6 +961,100 @@ def build():
     n.add("nFoldProofPower", fold_power, str(fold_power), label, local_sources, "deflated-monodromy repeated-squaring witness power")
     n.add("xFoldProofBound", str(Fraction(upper, 1000)), exact_decimal(upper, 3), label, local_sources, "exact dyadic deflated-power norm bound rounded upward to three decimals")
 
+    # Exact log-ray period-18 flip: source-bound saved enclosures, no proof rerun.
+    flip_path = c.ROOT / "certificates/s2-period18-flip-receipt.json"
+    flip = load(flip_path)
+    flip_root = Path(flip["external_root"])
+    flip_sources = [flip_path] + bound_inventory(flip_root / "manifest.json", flip["manifest"]["sha256"])
+    assert load(flip_root / "manifest.json")["files"] == flip["files"]
+    assert flip["passed"] and flip["evidence_rung"] == 3 and all(flip["gates"].values())
+    assert flip["execution_commit"] == "e840d9357de9de30648f44084920cbdfa45d3f10"
+    assert flip["criticality"] == "subcritical" and flip["attempt_count"] == 1
+    for name, pin in flip["source_sha256"].items():
+        q = c.ROOT / name; assert c.sha256(q) == pin; flip_sources.append(q)
+    flip_run = flip_root / "run"
+    flip_raw = load(flip_run / "certificate.json")
+    fr = flip_raw["result"]
+    assert c.sha256(flip_run / "certificate.json") == flip["certificate_sha256"]
+    assert c.sha256(flip_run / "manifest.json") == flip["run_manifest_sha256"]
+    assert c.sha256(flip_run / "inputs.json") == flip_raw["inputs_sha256"] == flip["inputs_sha256"]
+    assert fr["passed"] and fr["gates"] == flip["gates"] and not fr["failures"]
+    assert fr["settings"] == flip["settings"] == dict(max_power=4096, newton_steps=5, precision=256, radius_exponent=-100)
+    assert fr["exact_statement"] == flip["exact_statement"]
+    assert fr["criticality"] == flip["criticality"] and fr["doubled_side_in_s"] == flip["doubled_side_in_s"]
+    assert flip_raw["runtime"]["source_commit"] == flip["execution_commit"]
+    assert [d["divisor"] for d in fr["divisors"]] == flip["excluded_proper_divisors"] == [1, 2, 3, 6, 9]
+    assert all(d["excluded"] for d in fr["divisors"])
+    flip_input = load(flip_run / "inputs.json")
+    assert flip_input["rate_family"] == flip["rate_family"]
+    assert flip_input["map_inputs"]["network"] == inp["map_inputs"]["network"]
+    assert all(flip_input["map_inputs"][k] == inp["map_inputs"][k] for k in ("x", "y"))
+    flip_review_path = c.ROOT / "docs/reviews/s2-period18-flip-independent-review.json"
+    flip_review = load(flip_review_path); flip_sources.append(flip_review_path)
+    assert flip_review["status"] == "passed"
+    assert flip_review["producer_execution_commit"] == flip["execution_commit"]
+    assert flip_review["producer_source_commit"] == flip["reviewed_source_commit"]
+    assert flip_review["review_source_commit"] == "2c20281c439a1d233cee3344cc85484106009010"
+    for name, pin in flip_review["source_hashes"].items():
+        q = c.ROOT / name; assert c.sha256(q) == pin; flip_sources.append(q)
+    for name, pin in flip_review["producer_pins"].items():
+        path = flip_root.parent / name
+        flip_sources += bound_inventory(path / "manifest.json", pin["manifest_sha256"])
+        assert c.sha256(path / "run/manifest.json") == pin["run_manifest_sha256"]
+    for attempt in flip_review["attempts"]:
+        flip_sources += bound_inventory(Path(attempt["manifest"]["path"]), attempt["manifest"]["sha256"])
+        assert load(Path(attempt["path"]) / "run/result.json") == attempt["result"]
+    first_review, final_review = flip_review["attempts"]
+    assert first_review["exit_code"] == 2 and first_review["result"]["evaluations_retained"] == 0
+    assert first_review["result"]["status"] == "failed_or_incomplete"
+    assert final_review["exit_code"] == 0 and final_review["result"]["status"] == "passed"
+    flip_audit = Path(final_review["path"]) / "run"
+    assert load(flip_audit / "04-replay-result.json") == fr
+    assert flip_review["checks"]["byte_identical_original_replay"]
+    assert flip_review["checks"]["full_exact_source_and_input_binding"]
+    assert load(flip_audit / "06-saved-arithmetic.json") == flip_review["checks"]["saved_ball_arithmetic"]
+    assert Fraction(flip_review["checks"]["exact_whole_box_proximity"]["normalized_distance"]) == Fraction(flip["whole_box_proximity"]["normalized_max_distance"])
+    flip_nested = load(flip_audit / "08-nested-result.json")
+    flip_nested_summary = load(flip_audit / "09-nested-summary.json")
+    assert flip_nested["passed"] and all(flip_nested["gates"].values())
+    assert flip_nested_summary["passed"] and flip_nested_summary["strictly_nested"]
+    assert c.sha256(flip_audit / "08-nested-result.json") == flip_review["checks"]["nested_proof"]["result_sha256"]
+    assert flip_nested["settings"] == flip_nested_summary["settings"] == dict(max_power=4096, newton_steps=5, precision=384, radius_exponent=-110)
+    assert len(fr["box"]) == len(flip_nested["box"]) == 27
+    for outer, inner in zip(fr["box"], flip_nested["box"]):
+        olo, ohi = ball_endpoints(outer); ilo, ihi = ball_endpoints(inner)
+        assert olo < ilo <= ihi < ohi
+    flip_label = "rung 3 local exact-real subcritical primitive18 flip; exploratory selection; independently reviewed shared Arb kernel"
+    for macro, name, ball, digits in (
+            ("tFlipProofS", "ray_parameter", fr["box"][13], 16),
+            ("tFlipProofAlpha", "alpha", fr["alpha"], 7),
+            ("tFlipProofCubic", "cubic_b", fr["cubic_b"], 6)):
+        assert flip["bounds"][name]["ball"] == ball
+        lo, hi = ball_endpoints(ball)
+        assert [lo, hi] == [Fraction(flip["bounds"][name]["exact_lower"]), Fraction(flip["bounds"][name]["exact_upper"])]
+        scale = 10**digits
+        flo, cei = lo.numerator * scale // lo.denominator, -((-hi.numerator * scale) // hi.denominator)
+        assert Fraction(flo, scale) <= lo <= hi <= Fraction(cei, scale)
+        text = "[" + exact_decimal(flo, digits) + ", " + exact_decimal(cei, digits) + "]"
+        n.add(macro, [str(lo), str(hi)], text, flip_label, flip_sources, "serialized dyadic ball endpoints rounded outward by exact Fraction floor/ceiling")
+    assert ball_endpoints(fr["alpha"])[1] < 0 and ball_endpoints(fr["cubic_b"])[1] < 0
+    for macro, field, index_ in (("tFlipEllHidden", "ell", 0), ("tFlipEllOutput", "ell", 1),
+                                ("tFlipDirHidden", "direction", 0), ("tFlipDirOutput", "direction", 1)):
+        value = Fraction(flip["rate_family"][field][index_])
+        den = value.denominator
+        assert den > 0 and den & (den - 1) == 0
+        tex = rf"\frac{{{value.numerator}}}{{2^{{{den.bit_length()-1}}}}}"
+        n.add(macro, str(value), tex, flip_label, flip_sources, "exact dyadic historical log-ray coefficient; direction is the recorded rounded binary64 product")
+    flip_power = fr["complement_witness_power"]
+    assert flip_power == flip["complement_witness_power"] == fr["power_bounds"][-1]["power"]
+    flip_bound_ball = fr["power_bounds"][-1]["norm_inf_upper"]
+    assert flip["bounds"]["complement_power_norm"]["ball"] == flip_bound_ball
+    _, flip_exact_bound = ball_endpoints(flip_bound_ball)
+    flip_upper = -((-flip_exact_bound.numerator * 1000000) // flip_exact_bound.denominator)
+    assert flip_exact_bound < Fraction(flip_upper, 1000000) < 1
+    n.add("nFlipProofPower", flip_power, str(flip_power), flip_label, flip_sources, "deflated-monodromy repeated-squaring witness power")
+    n.add("xFlipProofBound", str(Fraction(flip_upper, 1000000)), exact_decimal(flip_upper, 6), flip_label, flip_sources, "exact dyadic deflated-power norm bound rounded upward to six decimals")
+
     # Numerical association remains distinct from the exact-real orbit proof.
     bootstrap_path = c.ROOT / "docs/s1r-bootstrap-association-receipt.json"
     bootstrap = load(bootstrap_path)
