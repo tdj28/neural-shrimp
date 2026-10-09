@@ -5232,3 +5232,21 @@ explore/s2-period18-other-flips/attempt-001, CPU1 nice10,60s internal/75+5s exte
 2.44s/6301-call pilot supplies the cost basis; no new profile. Root explicitly
 authorized this run without another permission pause.65 samples can still miss
 narrow pockets, and numerical links are not validated continuation tubes.
+
+### 2026-10-09 — retained two-ray attempt001
+
+Fixed coarse selection chose rays16 and51. Ray16 completed65 primitive18 nodes
+and reverse witnesses, no observed instability transition, a qualified simple
+flip at s=.25397352981699156, total crossing, and three primitive36 cycles.
+All three36 are unstable on the parent-stable side.65 samples cannot rule out
+narrower instability pockets. Ray51 stopped before any map call: the reused
+evaluator sent the signed negative rate derivative through a nonnegative-rate
+validator. This is an implementation limitation, not scientific negative evidence.
+
+Preserved attempt001 manifest949636d923030117bc714f43f528e9ac5c8ebb87ba1d552c6eb6a0fe84d3c828;
+16.747s internal,17.145s outer,18,450 joint calls,99,528KiB RSS. Immutable hashes
+and absence of owned PIDs verified. Compact retained outcome/selection in
+s2-period18-other-flips-attempt001.json. Next amendment will fix only signed
+parameter-derivative construction, keep actual positive-rate validation and all
+scientific gates, and run the already fixed/unexecuted ray51 once. Ray16 will
+not be repeated; no replacement target or attraction claim is made.
