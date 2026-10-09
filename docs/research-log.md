@@ -4683,3 +4683,9 @@ changed after observing outcomes. See `docs/reviews/curvature-six-reference-outc
 and its complete receipt. Raw manifests/source identities/modes and all recorded
 owned-process exits verify. The first exploratory panel is now closed; no rank
 expansion or replacement occurred. Independent saved interpretation is pending.
+
+## 2026-10-09: post-outcome curvature-panel saved-arithmetic review
+
+Root requested an independent read-only interpretation after the fixed six-reference pilot completed. One inline checker decoded the six saved analysis archives, verified their hashes/array identities, and independently reconstructed the phase fits/products, analytic model/control spectra, pair comparisons, means and radius arithmetic. It exited 0 in approximately 0.175 seconds with CPU/BLAS one and nice 10. No model/derivative/trajectory/decomposition/solve or new target was run. This was a post-outcome review, not a prospective source freeze; root then authorized preserving the exact checker and compact review/receipt without another replay. The later file was syntax-parsed only. The raw manifest is `898880f0bc1755896251f39e5abf806cc89f32a1558ed102fc0c954bd6d9ff4b`.
+
+All six direct pair-accuracy gates fail and three character predictions are wrong, despite a 28.5841% relative mean improvement against the commuting oracle. This rejects the fixed top-mode/isotropic-bulk approximation on the declared panel. Loose attribution radii do not account for these direct prediction errors. See `docs/reviews/curvature-panel-saved-arithmetic-review.md` and its companion receipt for exact source/input identities and limits. Any fixed-span follow-up is an explicitly adapted descriptive analysis of saved arrays, not a retry of the failed panel or a claim of larger-model utility.
