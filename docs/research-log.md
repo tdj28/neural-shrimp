@@ -4855,3 +4855,15 @@ explicit launch decision. No new seed, holdout, GPU or paid computation.
 Preserve every exclusive attempt and all failed gates. A full success is one
 local fold certificate with a neutral unit multiplier, not an attracting-orbit
 certificate or a whole-window theorem. Independent mathematical review pending.
+
+Preparation amendment, 2026-10-09 04:22 UTC: independent source review found
+that the adapter reported, but did not require, exact equality of the realized
+output rate to historical row111. Commit `f45444e5` now fails closed on any
+scalar-power/library conversion discrepancy; two synthetic adapter controls
+exercise matching and changed constants without target reads. All16 focused
+controls pass in0.10s. The original kernel/card freeze is `8dd896d3`; no target
+or profile was evaluated before this correction. Root authorizes one synthetic
+profile and, only if its measured projection comfortably fits the existing
+card, one target attempt with unchanged settings and caps. Both root and
+independent mathematical source reviews found no other blocker. The command
+and execution HEAD are captured by the launcher. No radius/precision retry.
