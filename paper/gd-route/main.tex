@@ -45,6 +45,10 @@ Large-step gradient descent can sustain oscillatory training after fixed-point c
 We study how these dynamics are organized in learning-rate planes of small neural networks, combining
 full-state orbit refinement, stability calculations and exploratory bifurcation analysis.
 
+Ball-arithmetic certificates prove local existence, primitive period and full-state attraction for
+\nCOneOrbits{} selected period-\nCOnePeriod{} orbits in a 13-parameter tanh network and a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter tanh network, at fixed layer-specific learning rates for the exact-real maps.
+A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
+
 A prospectively designed map study, independently cross-checked in a separate numerical implementation,
 identifies \nConfirmed{} attracting periodic windows in two tanh networks with separate layer learning rates.
 Their surrounding cells pass finite-horizon chaos diagnostics. Among cells labeled convergent by a published
@@ -61,8 +65,7 @@ connection to a selected distant window remains unresolved and the prespecified 
 Rotation features provide no robust additional prediction of loss or disagreement magnitude in the tested
 pilots; adapted analyses retain locking effects on perturbation response and learning-rate-decay timing.
 Loss-based estimation of the local complex multiplier is a candidate diagnostic whose prospective utility
-remains untested. Separately, ball-arithmetic certificates prove local existence, primitive period and attraction for
-\nCOneOrbits{} selected period-\nCOnePeriod{} orbits in a 13-parameter network and a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter network, all for the exact-real maps. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model. The results do not establish
+remains untested. The results do not establish
 a general route to chaos, a language-model benefit, or computer-assisted proofs of the reported window census.
 \end{abstract}
 
@@ -148,6 +151,7 @@ cycles on smooth strongly convex two-dimensional objectives that advance by $1/K
 
 \paragraph{This paper's contribution.}
 \begin{itemize}
+\item Computer-assisted proofs from exploratory selection: our \nCOneOrbits{} primitive period-\nCOnePeriod{} orbits in 13 dimensions and one primitive period-\nSOneRCertPeriod{} orbit in \nSOneRCertDimension{} dimensions are locally attracting in the full parameter state, at fixed layer-specific rates for the exact-real tanh maps. We also prove one local supercritical NS of a scalar period-2 orbit. The certificates have independent ball-arithmetic reviews.
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
 score conflates fixed points, periodic orbits, chaos and drift.
@@ -157,7 +161,6 @@ quasi-periodic training begins at the crossing angle.
 \item Exploratory, generality: the same crossing with a quantitatively predicted rotation in a real-data network
 with one learning rate; soft onset and locking in symmetry-reduced observables beyond the rotational edge of a
 linear network; distinct continuation outcomes from two bootstrap procedures and a numerically consistent local period-2 segment in a 72-parameter network.
-\item Computer-assisted proofs from exploratory selection: two primitive attracting period-10 orbits in 13 dimensions, one primitive attracting period-2 orbit in 72 dimensions, and one local supercritical NS of a scalar period-2 orbit, independently reviewed with ball arithmetic.
 \item Reported negatives: a frozen ancestry test that did not pass; no locking resolved in the real-data network;
 no robust incremental value of rotation information for reproducibility or loss.
 \item Code, receipts and a verification script that re-derive every figure, table and number.
@@ -309,8 +312,8 @@ passes.
 
 \paragraph{Resonance ancestry.} For a window selected by a fixed rule (the $1/5$ window of S2-28011), we locate the
 points of the crossing curve whose angle is $1/5$, check the onset there, and follow the locked period-10 interval
-on six cross-sections at distances $0.0128/4^k$ beyond the curve, finding both of its fold edges on each. Acceptance
-rules were frozen before the network run: controls must pass first; the interval must be fold-bounded on every
+on six cross-sections at distances $0.0128/4^k$ beyond the curve, finding both of its numerical fold-candidate edges on each. Acceptance
+rules were frozen before the network run: controls must pass first; the interval must be bounded by numerical fold candidates on every
 level with shrinking width and amplitude; and a linear fit of its center over all levels must extrapolate to within
 $\xAncTolerance$ decades of the predicted point. A second stage tries to connect the tracked interval to the window.
 
@@ -354,7 +357,7 @@ chaotic, or drift toward large weights while the loss slowly falls. Adding weigh
 \noindent Status: exploratory target selection, evidence rung 3 for the statements below.
 \subsection{Attracting periodic orbits}
 
-The floating-point census motivates a separate proof task. For \nCOneOrbits{} selected S2 settings, Arb ball
+The floating-point census motivates a separate proof task. For \nCOneOrbits{} selected S2 settings with fixed layer-specific learning rates, Arb ball
 arithmetic encloses a unique zero of $H(x)=F^{\nCOnePeriod}(x)-x$ in a specified initial box, excludes all proper
 divisors of \nCOnePeriod{}, and proves attraction. One target, S2-28011 component 140, belongs to the
 historically qualifying window set. The other, S2-28011-zoom component 936, was the initial feasibility choice;
@@ -582,7 +585,7 @@ uninformative in S1R.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{f5_window_census.pdf}
-\caption{\textbf{Across all \nConfirmed{} windows, stability boundaries mix fold, flip and complex-pair crossings,
+\caption{\textbf{Across all \nConfirmed{} windows, stability boundaries mix numerical fold, flip and complex-pair candidates,
 and most eligible windows pass a Birkhoff ordering test far above its null.} A: boundary type along 64 rays per
 window. B: share of orbits passing the test (gray) against the null (orange): the expected share of chance passes
 for the plane test, and the union bound for the refined test; eligibility is printed under each bar. C: rotation
@@ -592,9 +595,9 @@ construction, so only the shift $m$ and the ordering are measured.
 \label{fig:census}
 \end{figure}
 
-Across the \nConfirmed{} windows, the \nRaysTotal{} rays end at \nRaysFold{} folds, \nRaysFlip{} flips and
+Across the \nConfirmed{} windows, the \nRaysTotal{} rays end at \nRaysFold{} numerical fold candidates, \nRaysFlip{} flip candidates and
 \nRaysNS{} complex-pair crossings (\nRaysOther{} rays reached the end of their range or stayed unresolved;
-Figure~\ref{fig:census}A). Fold edges are what the edges of a locked window on a circle look like, while flips and
+Figure~\ref{fig:census}A). These multiplier-based labels do not establish bifurcation nondegeneracy. Fold edges are what the edges of a locked window on a circle look like, while flips and
 secondary complex-pair crossings are expected where a locked orbit loses stability off the circle.
 
 The Birkhoff test results depend on which orbits are eligible, so we give each denominator. Of the \nCertPThree{}
@@ -614,7 +617,7 @@ under four steps with rotation $2/5$, twice $1/5$. Of the \nWOOddOf{} odd-period
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{f8_ancestry.pdf}
-\caption{\textbf{Near the predicted $1/5$ resonance point, a fold-bounded locked region narrows with the scaling of
+\caption{\textbf{Near the predicted $1/5$ resonance point, a locked region bounded by numerical fold candidates narrows with the scaling of
 a resonance tongue, but the frozen estimator places its tip outside the tolerance.} A and B: width and amplitude of
 the locked period-10 interval on six cross-sections against the distance beyond the resonance point, with the
 resonant normal-form control and the theory slopes; the slopes printed are post hoc fits over the three deepest
@@ -632,7 +635,7 @@ other multipliers inside, transverse crossing, attracting circle with radius exp
 invariance residual, rotation equal to the crossing angle); at the left point \nAncOnsetLeft{} of
 \nAncOnsetLeftOf{} passed, the radius exponent \xAncRadiusLeft{} lying outside the frozen band.
 
-From the right point, the locked interval has two fold edges on all \nAncLevels{} cross-sections, and its width and
+From the right point, the locked interval has two numerical fold-candidate edges on all \nAncLevels{} cross-sections, and its width and
 amplitude shrink toward the point (Figure~\ref{fig:ancestry}). The frozen estimator nevertheless extrapolates the
 center to $\xAncIntercept$ decades from the predicted point, \pAncMargin{} above the tolerance of $\xAncTolerance$,
 so the frozen outcome is \tAncOutcome{}. The connection from the tracked interval to the window ended in
@@ -641,12 +644,12 @@ established. Post hoc, and not replacing that outcome: the two shallowest levels
 and over the three deepest levels the width scales with exponent \xAncWidthSlope{} and the amplitude with
 \xAncAmpSlope{}, against $(q-2)/2 = 1.5$ and $0.5$ for a Neimark--Sacker resonance tongue with $q=5$.
 
-\subsection{Classical shrimp anatomy is the exception}
+\subsection{Candidates for classical shrimp anatomy}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{f4_window_anatomy.pdf}
-\caption{\textbf{The period-18 window of S2-28011 has a fold-bounded body with flip edges opening onto
+\caption{\textbf{The period-18 window of S2-28011 has a body bounded by numerical fold candidates, with flip candidates opening onto
 period-36 bands.} A: local map from the shared initial parameters with the window's orbit continued along 64
 rays; markers show where and how it loses stability. B: crossing multipliers on the unit circle. This window was
 selected as the clearest example and is one of only \nDraftShrimp{} meeting the draft shrimp criteria; it is not
@@ -655,12 +658,12 @@ representative (Figure~\ref{fig:census}).
 \label{fig:anatomy}
 \end{figure}
 
-Draft criteria for classical shrimp anatomy require fold and flip boundaries each on at least 8 of 64 rays, at
+Draft criteria for classical shrimp anatomy require numerical fold and flip candidates each on at least 8 of 64 rays, at
 least half of the flip rays opening onto period $2p$ in a local map, and agreement between ray and map edges on at
 least three quarters of rays. \nWindowsFoldFlip{} windows meet the boundary-count part and \nDraftShrimp{} meet all
-of it. The clearest, the period-18 window of S2-28011 (Figure~\ref{fig:anatomy}), has \nWFold{} fold, \nWFlip{}
-flip and \nWNS{} complex-pair rays; ray and map edges agree within two cells on \nWEdgeAgree{} of \nWEdgeCompared{}
-rays, and \nWFlipTwoP{} of its flip rays open onto period 36. Complex-pair boundaries, outside the fold--flip anatomy used by our draft criteria, are common: \nWindowsNS{} of \nConfirmed{} windows have at least 8 such rays.
+of it. These are anatomy candidates, not proofs of complete shrimp geometry. The clearest, the period-18 window of S2-28011 (Figure~\ref{fig:anatomy}), has \nWFold{} fold-candidate, \nWFlip{}
+flip-candidate and \nWNS{} complex-pair rays; ray and map edges agree within two cells on \nWEdgeAgree{} of \nWEdgeCompared{}
+rays, and \nWFlipTwoP{} of its flip-candidate rays open onto period 36. Complex-pair boundaries, outside the fold--flip anatomy used by our draft criteria, are common: \nWindowsNS{} of \nConfirmed{} windows have at least 8 such rays.
 
 \subsection{Beyond these two networks}
 \label{sec:generality}
@@ -682,7 +685,7 @@ decay; exponents are slopes between the two smallest offsets.
 \paragraph{Distinct continuation outcomes in S1R.} In the 72-parameter S1R network, two bootstrap procedures
 give different continuation outcomes. Of \nSOneRTraceA{} output rates traced from one start, \nSOneRTraceANS{} end in a
 complex-pair crossing and \nSOneRTraceANotTwo{} starts did not pass the finite-horizon period-two tail screen; from a lower start,
-\nSOneRTraceBNS{} of \nSOneRTraceB{} end in a complex-pair crossing, \nSOneRTraceBFold{} in folds, and
+\nSOneRTraceBNS{} of \nSOneRTraceB{} end in a complex-pair crossing, \nSOneRTraceBFold{} at real $+1$ boundary candidates consistent with folds, and
 \nSOneRTraceBNotTwo{} starts did not pass that screen. The procedures can reach different crossing locations and angles, but
 their historical summaries do not retain states for a common-parameter full-state comparison. A subsequent
 saved-map audit keeps these starting families separate: each
@@ -1029,7 +1032,12 @@ a local unstable-circle scale before a subcritical crossing. The distant state, 
 hysteresis also depend on global basins, ramp speed and noise and must be tested separately. An existence-and-replication test
 would apply this, together with the onset and rotation criteria, to two prespecified independent losses across two
 architectures, one of them unused so far, with no substitution. The ancestry test additionally needs a prespecified asymptotic-regime estimator, reliable continuation of
-both fold edges, and rules for unresolved or disconnected branches before protected holdouts are opened.
+both numerical fold-candidate edges, and rules for unresolved or disconnected branches before protected holdouts are opened.
+
+The immediate research goal is to determine how the longer primitive cycles arise and where their periodic
+windows end, using connected continuation and qualified boundary tests. Selected orbit proofs do not establish
+complete shrimp geometry or resonance ancestry. Any extension to larger models must demonstrate predictive
+value beyond ordinary loss and curvature baselines.
 
 \section{Limitations}
 \label{sec:limits}
@@ -1065,6 +1073,14 @@ tests concern closure and stability of the full parameter state. Further analyse
 chaotic regime can also contain attracting periodic orbits. \citet{cohen2025central} model time-averaged deterministic GD and RMSProp
 trajectories with central flows, with explicit limitations on rigor, stochastic training, momentum and
 computational feasibility. Our full-state orbit and boundary tests complement this averaged description.
+
+\paragraph{Periodic-orbit guarantees.} \citet{macdonaldvidal2026} give a higher-codimension flip normal form
+(Theorem~4.1) and local period-two convergence under geometric hypotheses (Theorems~5.3 and~D.8), including
+deep matrix factorization (Section~3.3). Theorem~D.8 constructs a cycle for each point of the manifold of sharpness-minimizing
+minima. When that family is positive-dimensional, an individual cycle is not an isolated attractor in every
+parameter direction; convergence to a member of the family remains meaningful. Our selected tanh certificates
+instead enclose isolated, full-state attracting orbits at fixed layer-specific rates. We make no claim of priority
+or a largest certified network.
 
 \paragraph{Adaptive optimizers and larger models.} \citet{cohenadaptive2022} study full-batch and large-batch
 adaptive methods at a preconditioned stability threshold. \citet{regischewi2026} model Adam in the joint

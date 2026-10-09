@@ -4763,3 +4763,9 @@ The sharp-direction plane almost excludes the actual leading real modes, and the
 ## 2026-10-09T02:27:07.413532+00:00 — resumption paper and private handoff snapshot
 
 Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T022654Z-resumption-checkpoint`, including the32-page PDF, current report/reviews and four private original-checkout files. Exact inventories, complete SHA256, second source hash pass and stable source metadata agree. Private ledger and foreign log stay outside Git. See `docs/backups/2026-10-09-resumption-checkpoint.json`. Sources were not altered; same-machine separate-disk snapshot supplements private Git.
+
+## 2026-10-09 UTC — proof positioning and anatomy-figure cleanup card
+
+Focused manuscript revision from `416ba472`: lead with the internal primitive-period-10/13D and period-2/72D full-state certificates, scope the verified MacDonald--Vidal v2 reference, and state the next longer-cycle origin/boundary question. Numerical boundary classifications are explicitly candidates; counts and all 310 existing number entries stay unchanged. No largest/first claim. Any new period-18 evidence is pending and excluded at this source checkpoint.
+
+Regenerate only `paper/gd-route/figures/f4_window_anatomy.py` from the same three saved inputs to wrap the clipped title and label numerical fold/flip candidates. Compare every derived field and input hash with the original receipt. CPU/BLAS1, nice10; no model, derivative, trajectory or proof work. Then compile the existing multi-file LaTeX project and render affected pages. The PDF artifact marker was already executed by root; it is not repeated. Archive the primary reference content in the immutable data reference directory recorded in its receipt.
