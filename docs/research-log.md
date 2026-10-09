@@ -4841,3 +4841,14 @@ profile and, only if its measured projection comfortably fits the existing
 card, one target attempt with unchanged settings and caps. Both root and
 independent mathematical source reviews found no other blocker. The command
 and execution HEAD are captured by the launcher. No radius/precision retry.
+
+## 2026-10-09 — independent rigorous period18 fold review preparation
+
+Source review e21fe517 passes the mixed-jet kernel and fixed-output guard. Prepare
+one source-bound post-outcome replay/saved-arithmetic review plus one384-bit,
+radius2^-110/five-Newton nested proof. Preserve failed radius2^-80 attempt001
+and disclosed radius2^-100 attempt002, exact input/source manifests and all
+failures. The reviewer has learned outcome summaries but has not opened target
+artifacts while writing this source/card. Exact limits and prospective operations
+are in docs/plans/rigorous-period18-fold-independent-review.md. Only synthetic
+controls are run before commit. No additional target selection or paid work.
