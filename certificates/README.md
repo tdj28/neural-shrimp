@@ -221,3 +221,53 @@ printf 'Retained replay: %s (exit %s)\n' "$fold_replay_root" "$fold_replay_exit"
 
 The original producer receipt retains its creation-time review-pending label;
 the independent companion supplies the completed review status.
+
+
+## Local primitive period-18 subcritical flip (9 October 2026 UTC)
+
+`s2-period18-flip-receipt.json` proves a local nondegenerate flip of primitive
+period-18 cycles on the exact historical ray `eta_i(s)=exp(log(10)*(ell_i+d_i*s))`,
+with both layer rates varying. The receipt records all four exact dyadic ray
+constants. The direction constants are the rounded binary64 scale-direction
+products, then interpreted exactly. The resulting exponential rates, including
+at s=0, are not asserted equal to the earlier dyadic center-certificate rates.
+
+The 27-dimensional augmented system encloses `R=0`, `(M+I)q=0`, and unit q.
+A validated left border gives an algebraically simple -1 multiplier and
+`p^T q=1`. A validated inverse of `A=M-I` gives the moving branch derivative.
+The total multiplier derivative is strictly negative, approximately -51.234629;
+the cubic coefficient `b=p^T C(q,q,q)/6-p^T B(q,A^-1 B(q,q))/2` is strictly
+negative, approximately -78.084775. Directional third-order AD differentiates
+the explicit gradient update; no finite-difference derivative enters the proof.
+The deflated monodromy `Q=M+qp^T` satisfies `||Q^64||inf < 0.046042`.
+All proper divisors 1, 2, 3, 6 and 9 are excluded.
+
+Thus the flip is subcritical: sufficiently nearby primitive36 cycles on the
+lower-s side are unstable, while the parent18 branch is locally attracting
+there. The flip itself is neutral, not a fifth attracting-orbit certificate.
+This is not a finite-detuning36 enclosure, proof of first loss of attraction,
+validated center connection or whole-window geometry. The numerical precursor
+retains an earlier complex instability and re-entry on the same carried ray.
+
+The single target at 256 bits, radius2^-100 and five Newton proposals passed
+all eight gates. Raw evidence is retained at
+`/data2/neural-shrimp-data/explore/certificates/s2-period18-flip-2026-10-09/attempt-001-target`.
+The producer receipt retains its creation-time pending independent-review status;
+the passed companion `../docs/reviews/s2-period18-flip-independent-review.json` records byte-identical replay, independent saved-ball reductions, and a strictly nested 384-bit/radius2^-110/five-Newton proof. Its first pre-proof schema failure is preserved. The reviewer authored the earlier fold primitive and numerical proposal, but not the new flip kernel; shared analytic differentiation and Arb remain trusted. The proof trusts the analytic gradient,
+directional-jet implementation, the smooth-map theorem and Arb/FLINT.
+
+Offline replay, retaining both success and failure output:
+
+```bash
+flip_replay_root=$(mktemp -d /tmp/neural-shrimp-flip-replay.XXXXXX)
+env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
+  timeout --signal=TERM --kill-after=5s 135s nice -n 10 \
+  /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_flip.py \
+  --execute --mode replay \
+  --bundle /data2/neural-shrimp-data/explore/certificates/s2-period18-flip-2026-10-09/attempt-001-target/run \
+  --manifest-sha256 7fdd17d546a3514b49fdb21178fad6caf29ab93d7061af883ea55428d5df3e59 \
+  --out "$flip_replay_root/run" >"$flip_replay_root/process.log" 2>&1
+flip_replay_exit=$?
+printf '%s\n' "$flip_replay_exit" >"$flip_replay_root/exit-code.txt"
+printf 'Retained replay: %s (exit %s)\n' "$flip_replay_root" "$flip_replay_exit"
+```
