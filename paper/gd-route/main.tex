@@ -675,6 +675,7 @@ of it. These are anatomy candidates, not proofs of complete shrimp geometry. The
 flip-candidate and \nWNS{} complex-pair rays; ray and map edges agree within two cells on \nWEdgeAgree{} of \nWEdgeCompared{}
 rays, and \nWFlipTwoP{} of its flip-candidate rays open onto period 36. Complex-pair boundaries, outside the fold--flip anatomy used by our draft criteria, are common: \nWindowsNS{} of \nConfirmed{} windows have at least 8 such rays.
 
+\begin{samepage}
 For this same period-\nPEighteenPeriod{} anatomy candidate, the center-orbit proof in
 Section~\ref{sec:certificates} is complemented by an exploratory numerical test of one selected boundary ray.
 A fixed-step corrected path and an augmented solve for $R=F^{\nPEighteenPeriod}(x)-x=0$, $(M-I)v=0$ and $\|v\|_2=1$
@@ -682,10 +683,14 @@ locate a simple $+1$ candidate. Two adjacent orbit phases pass closure, primitiv
 checks, with remaining multiplier modulus approximately $\xPEighteenFoldOther$.
 With $s$ the normalized historical-ray coordinate and $w^Tv=1$, converging finite differences give
 $a=w^TR_s\approx\xPEighteenFoldA$ and $c=w^TD_x^2R[v,v]\approx\xPEighteenFoldC$ at the first phase.
+An independent point-only objective-differentiation check reproduces the local residual, derivative actions and
+finite-difference coefficients at those two phases; spectral isolation remains the producer calculation.
 This strengthens the local numerical fold interpretation of one edge; it is not an interval bifurcation proof
 or an enclosure of a connecting branch. Other boundary rays, flip nondegeneracy, cusps, resonance ancestry
 and training utility remain unestablished. Source and retained outcomes are
-\path{tools/explore_window_fold.py} and \path{docs/reviews/s2-period18-fold-outcome.json}.
+\path{tools/explore_window_fold.py}, \path{docs/reviews/s2-period18-fold-outcome.json} and
+\path{docs/reviews/s2-period18-fold-independent-review.json}.
+\par\end{samepage}
 
 \subsection{Beyond these two networks}
 \label{sec:generality}
