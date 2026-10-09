@@ -5036,3 +5036,21 @@ detuning36 certificate or validated center connection is claimed. Complete
 immutable source/raw/resource/PID evidence and pending-at-creation review status
 are in certificates/s2-period18-flip-receipt.json and
 docs/reviews/s2-period18-flip-producer-outcome.md. No target retry occurred.
+
+## 2026-10-09 — independent period18 ray13 flip review (before replay)
+
+Root requested the source review, unchanged replay and one384-bit/radius2^-110
+nested proof of producer331d6b617275d45eb7854194f7d645c450fd6a30. Execution and
+input pins are in docs/reviews/s2-period18-flip-review-pins.json; source/card in
+docs/plans/rigorous-period18-flip-independent-review.md. One saved-input review
+at audits/s2-period18-flip/attempt-001, CPU/BLAS1 nice10,60s internal/75+5s external,
+320 ticks,16+1MiB and monitored2GiB RSS. No new target or continuation.
+
+Source math review has no blocker. 41 focused synthetic cases passed in0.19s,
+including14 independent coupling/coordinate/sign/serialization controls. The
+initial independent fixture used unsupported jet division in four cases; it was
+corrected to scalar multiplication, with no kernel change. No real review
+computation occurred before this code/card checkpoint. Reviewer authored the
+older fold primitive and numerical seed, but not this new flip kernel; shared
+AD/Arb and the limited theorem scope are explicit. All failed/partial review
+outputs will be retained; no silent retry.
