@@ -4840,3 +4840,18 @@ The point-only fold companion subsequently passed at `0a742484`: bind its indepe
 ## 2026-10-09 UTC — proof-positioning manuscript checkpoint
 
 Final32-page PDF compiles without warnings. All310 old number entries are unchanged; seven source-derived additions bind the reviewed period18 center and separately point-reviewed fold diagnostics. The fourth canonical receipt joins the existing paper replay command; proof-kernel files are byte-identical. Onlyf4 was regenerated to fix clipping and candidate labels; every input and derived value is unchanged and byte-replay passes. All32pages received contact-sheet inspection, with detailed checks of updated evidence/geometry/reference pages. Final author QA: `docs/reviews/paper-cycle-proof-positioning-authoring-qa.json`. Retained authoring join/path failures and their corrections are disclosed there. No new scientific run; no future interval-fold result included.
+
+### 2026-10-09 — New period-18 interval fold kernel; source and synthetic profile card
+
+Prepare one local augmented-fold proof for the already qualified numerical
+ray0 boundary of S2-28011-zoom:587. The new mixed-jet kernel is distinct from
+the unchanged, previously reviewed C1 checker. Exact consumed inputs, settings,
+proof gates and caps are in `docs/plans/s2-period18-fold-certificate.md`.
+Code and this card must be committed before the synthetic resource profile.
+Profile only: two synthetic 13D/24-sample/18-step evaluations, CPU1/nice10,
+120s internal/135+5 external,16MiB plus1MiB launcher, monitored2GiB RSS.
+Target proof remains unlaunched pending root review of the new kernel and its
+explicit launch decision. No new seed, holdout, GPU or paid computation.
+Preserve every exclusive attempt and all failed gates. A full success is one
+local fold certificate with a neutral unit multiplier, not an attracting-orbit
+certificate or a whole-window theorem. Independent mathematical review pending.
