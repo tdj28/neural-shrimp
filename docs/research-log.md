@@ -5108,3 +5108,22 @@ ray16 unstable36 result are retained. Source-bound companion prose/receipt in
 docs/reviews/s2-period18-other-flips-outcome{.md,-receipt.json}. Root requests
 next an unchanged-kernel ray51 flip proof and separate fixed-dyadic36 certificate,
 with their exact-map distinction explicit; no new proof run yet.
+
+## 2026-10-09 — ray51 flip and separate fixed-dyadic36 source checkpoint
+
+Root requests two bounded certificates after the numerical stable36 finding.
+New adapter tools/certify_s2_ray51.py binds ray51's exact exponential family and
+27D flip proposal, and separately slot2's fixed exact-dyadic rates/full13D36
+phase. Both existing mathematical kernels are unchanged and hash-guarded. Flip
+settings256bits/radius2^-100;36 settings384bits/radius2^-160; five Newton and
+maxpower4096 each. Exact full-box proximity is separate from proof and implies
+no center/germ/finite-point branch connection.
+
+Before each target, one same-kind two-evaluation synthetic profile must project
+7*max(time)+10<=45s. CPU1 nice10,60s internal75+5s external,16+1MiB output,2GiB
+monitored RSS. Explicit unchanged-C1 limitation: no per-return observer during
+that proof; interruption may retain only wrapper/input evidence. Every attempt
+has exclusive immutable inventories/PIDs/source. Independent reviewer requested
+and got strict nonnegative/finite profile metadata and commit/kind/mode joins.
+Fifty focused synthetic tests passed; no profile/target proof launched yet.
+Source/card freeze precedes root and independent source review/launch coordination.
