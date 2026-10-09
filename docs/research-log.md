@@ -5453,3 +5453,15 @@ Pre-acquisition reviewer amendment: add explicit finite nonnegative profile elap
 ### 2026-10-09 — mean-value gradient adapter static source review
 
 Reviewed frozen15a2ba1f7b390dc3d23168c4a3e77de832a0689a: complete adapter/driver/card/inherited shooting semantics and source inventory. No mathematical blocker; finite resource and same-library/settings profile checks repaired before acquisition. Coupled affine-gradient/interval-rate control inspected. No new model/profile/decomposition calls by reviewer. Companions `docs/reviews/meanvalue-gradient-source-review.md` and `.json` bind exact scope/source; target outcome remains separate.
+
+
+### 2026-10-09: reviewed joined-interval manuscript amendment
+
+After producer6bab533b and independent review7e5a5323 passed, replace the older
+tiny-tube paragraph with the exact joined interval of width1/1024 and32 closed
+stability slices. Add three saved-data macros with exact endpoint/coverage and
+review/source/raw-manifest joins. Preserve all344 older number entries, ten
+figures and five-attracting-instance count. No new target, derivative, proof,
+old figure regeneration or full verifier. Repeat clean bounded compilation and
+all-page/changed-page PDF QA under the preceding localCPU1/nice10 limits, using
+another exclusive external directory; retain the completed36-page checkpoint.

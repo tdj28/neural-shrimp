@@ -1126,6 +1126,57 @@ def build():
     n.add("nPThirtySixPeriod", op36["exact_statement"]["primitive_period"], "36", label51, r51_sources, "primitive period after excluding all eight proper divisors")
     n.add("nCertifiedOrbits", len(certificates) + 3, str(len(certificates) + 3), "five individually certified attracting orbits; neutral bifurcations and same-orbit tube excluded", p18_sources + certificate_paths + [s1r_cert_path] + r51_sources, "two period10 plus13D period18 and36 plus72D period2; local bifurcations/tube add no instance")
 
+    # Saved-only binding of the joined interior branch and its separate stability cover.
+    joined_path = c.ROOT / "certificates/s2-period18-connection-receipt.json"
+    joined_review_path = c.ROOT / "docs/reviews/s2-period18-joined-branch-independent-review.json"
+    joined, jr = load(joined_path), load(joined_review_path)
+    assert joined["producer_passed"] and jr["passed"] and jr["review_status"] == "passed"
+    js, rs = joined["statement"], jr["exact_statement"]
+    assert js["period"] == rs["period"] == 18 and js["phase_dimension"] == rs["phase_dimension"] == 13
+    assert js["shooting_dimension"] == rs["shooting_dimension"] == 234
+    assert js["continuous_branch"] and js["primitive_period_throughout"] and js["full_state_attraction_throughout"]
+    assert rs["uniform_attraction"] and rs["uniform_primitive_period"] and rs["same_original_center_orbit"]
+    assert not rs["boundary_connection_proved"] and not rs["full_shrimp_geometry_proved"]
+    assert js["new_individual_orbit_certificates"] == 0 and rs["proper_divisors_excluded"] == [1,2,3,6,9]
+    assert js["fixed_output_rate"] == rs["fixed_output_rate"] == fold["fixed_output_rate"]
+    ends = [Fraction(v) for v in js["exact_hidden_rate_interval"]]
+    assert js["exact_hidden_rate_interval"] == rs["hidden_rate_interval"] and ends[0] < ends[1]
+    width = ends[1] - ends[0]
+    assert width == Fraction(js["exact_interval_width"]) == Fraction(rs["hidden_rate_interval_width"]) == Fraction(1,1024)
+    assert ends[0] < Fraction(js["original_anchor_rate"]) < ends[1]
+    assert rs["original_anchor_coordinates_checked"] == rs["shared_endpoint_coordinates_checked"] == 234
+    joined_sources = [joined_path, joined_review_path]
+    for component in ("existence_primitive_join", "stability"):
+        item = joined[component]; path = c.ROOT / item["receipt"]
+        assert c.sha256(path) == item["receipt_identity"]["sha256"]
+        joined_sources.append(path)
+    assert c.sha256(c.ROOT / joined["anchor"]["canonical_receipt"]) == joined["anchor"]["sha256"] == jr["producer_original_receipt"]["sha256"]
+    for root, pin in [(Path(joined["existence_primitive_join"]["external_root"]), jr["wider_charts"]["run_manifest"]),
+                      (Path(joined["stability"]["external_root"]), jr["sliced_stability"]["run_manifest"]),
+                      (Path(jr["audit"]["root"]), jr["audit"]["manifest"]["sha256"]),
+                      (Path(jr["audit"]["root"]) / "run", jr["audit"]["run_manifest"]["sha256"])]:
+        manifest = root / "manifest.json"; assert c.sha256(manifest) == pin
+        joined_sources.append(manifest)
+    jout_path = Path(jr["audit"]["root"]) / "run/outcome.json"; assert c.sha256(jout_path) == jr["audit"]["outcome"]["sha256"]
+    jout = load(jout_path); assert jout["passed"] and jout["exact_interval"] == js["exact_hidden_rate_interval"]
+    sliced_path = Path(joined["stability"]["external_root"]) / "result.json"
+    assert c.sha256(sliced_path) == joined["stability"]["result"]["sha256"]
+    sliced = load(sliced_path); assert sliced["passed"] and sliced["parent_certificate_sha256"] == joined["existence_primitive_join"]["certificate_sha256"]
+    assert sliced["connected_parameter_endpoints"] == js["exact_hidden_rate_interval"]
+    units = sliced["units"]; assert len(units) == joined["stability"]["periodic_metric_witnesses"] == jr["sliced_stability"]["complete_slice_count"] == 32
+    assert all(u["passed"] and u["kind"] == "slice" for u in units)
+    intervals = [[Fraction(x) for x in unit["exact_endpoints"]] for unit in units]
+    assert intervals[0][0] == ends[0] and intervals[-1][1] == ends[1]
+    assert all(a < b for a,b in intervals) and all(a[1] == b[0] for a,b in zip(intervals, intervals[1:]))
+    assert jout["slice_model_steps"] == jr["sliced_stability"]["independent_native_derivative_calls"] == len(units)*18
+    joined_sources.extend([jout_path, sliced_path])
+    joined_label = "rung 3 uniformly attracting primitive18 interior branch; independently reviewed shared analytic map/Arb"
+    def fraction_tex(v):
+        return rf"\frac{{{v.numerator}}}{{{v.denominator}}}"
+    n.add("tConnectedInterval", [str(v) for v in ends], "[" + ", ".join(fraction_tex(v) for v in ends) + "]", joined_label, joined_sources, "exact common-parameter joined shooting domains, original anchor and independent review agree")
+    n.add("tConnectedWidth", str(width), fraction_tex(width), joined_label, joined_sources, "exact Fraction upper-minus-lower endpoint")
+    n.add("nConnectedSlices", len(units), str(len(units)), joined_label, joined_sources, "all passed closed stability slices, exact adjacent endpoint coverage and independent derivative review")
+
     # Numerical association remains distinct from the exact-real orbit proof.
     bootstrap_path = c.ROOT / "docs/s1r-bootstrap-association-receipt.json"
     bootstrap = load(bootstrap_path)

@@ -299,3 +299,22 @@ the corresponding receipt's `target.root/run` and externally pinned
 receipt records its concrete command. `paper/gd-route/scripts/verify.py` now
 retains a separate persistent command/log/exit bundle for each replay; it does
 not pass these wrapper receipts to the older C1 receipt reader.
+
+
+## Joined attracting primitive18 interior segment (9 October 2026 UTC)
+
+`s2-period18-connection-receipt.json` combines two exact joined root charts with
+32 closed cyclic-metric stability slices. The continuous, uniformly attracting
+primitive18 branch covers the exact hidden-rate interval
+`[1254980807321271/17592186044416,1254997987190455/17592186044416]`,
+width1/1024, at the original fixed output rate. Full phase-enclosure containment
+identifies the original center orbit and the shared-endpoint join. The companion
+`../docs/reviews/s2-period18-joined-branch-independent-review.json` passes byte
+replay, independent384-bit root/divisor/join arithmetic and576 native interval
+Jacobian reevaluations for the32 stability slices. Earlier insufficient wide-box
+attraction bounds remain inconclusive evidence, not instability. The analytic
+map and Arb are shared; pending-at-creation labels remain unchanged. This adds
+no new individually certified attracting orbit, boundary connection or whole
+shrimp geometry. Source-bound original commands and raw inventories are retained
+in the producer/reviewer companions; the manuscript-only refresh does not replay
+their scientific calculations.
