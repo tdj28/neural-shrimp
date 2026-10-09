@@ -4805,3 +4805,6 @@ Original canonical receipt copied to `certificates/s2-period18-receipt.json`;
 `docs/reviews/s2-period18-producer-outcome.md` and companion receipt bind source,
 raw proof, exact proximity and numerical geometry. Independent review pending;
 no second attempt, no certified fold/flip/ancestry or utility claim.
+## 2026-10-09: one independent period-18 certificate review prepared
+
+Root selected EXP-028 row111 (S2-28011-zoom:587) for an unchanged-C1 proof attempt and authorized one independent review after producer readiness. The narrow wrapper reuses the existing exact verifier and independent biased-S2 Arb-jet AD; it adds exact input/history bindings, proper-divisor checks1,2,3,6,9, attraction-witness reduction, exact whole-box proximity and one fixed384-bit nested proof. Card: `docs/plans/shrimp-period18-independent-review.md`. CPU/BLAS1/nice10,60s internal/75+5s external,8MiB, no retries. No proof or new target computation has run during this preparation; saved historical labels/identities were inspected. Whole-window geometry retains its floating exploratory scope.
