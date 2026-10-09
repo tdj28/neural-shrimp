@@ -4960,3 +4960,14 @@ whole-box association are separate fields. One synthetic assertion initially
 used Arb's mathematical equality on non-point balls; corrected the test to
 compare serialized enclosures, without changing implementation or targets.
 Source review and measured profile precede the first target proof.
+
+## 2026-10-09 — exact-ray flip resource profile passed
+
+One synthetic profile from331d6b61 completed two finite18-step third-jet
+evaluations in0.562s internal/0.852s external, CPU1/nice10,49,412KiB RSS.
+The fixed conservative projection is11.966s, below60s. All474,879 bytes are
+hash-verified/read-only and all owned PIDs exited. Compact receipt:
+docs/reviews/s2-period18-flip-profile.json. The root-reviewed one target now uses
+the already pinned numerical attempt002 and this profile's outer manifest
+236171502e32a08d173544034e16b32620a6c053d5f8f2fb7a213b65a7a30046.
+Bound executable and card bytes remain unchanged; no target has yet run.
