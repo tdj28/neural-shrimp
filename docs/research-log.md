@@ -5328,3 +5328,20 @@ has exclusive immutable inventories/PIDs/source. Independent reviewer requested
 and got strict nonnegative/finite profile metadata and commit/kind/mode joins.
 Fifty focused synthetic tests passed; no profile/target proof launched yet.
 Source/card freeze precedes root and independent source review/launch coordination.
+
+### 2026-10-09 — both ray51 certificates pass first attempts
+
+Root and independent source reviews cleared04048350; sequential synthetic
+profiles passed projected11.91/11.01s gates. Both subsequent target attempts
+passed without source/card changes or retries. Flip all8 gates: alpha<0,b>0,
+s*≈.14049631414518893257,Q^16 norm<.429488. Finite fixed-dyadic36 all C1 gates,
+M^512 norm<.117942 at384bits/radius2^-160. The two exact-map conventions remain
+separate, with no claimed germ-to-finite-orbit or center connection.
+
+Flip target manifest1376a56cea2d023ed059d43116ec393a0e22dbaf30f77cec1612048b6ddc9adf;
+2.149s internal,25files/4,376,600B. Period36 target manifest473b9c7962a9a002242c570f0c93670345527d1eec8f1f619182aff0c350c59d;
+1.215s internal,18files/5,054,012B. Four complete profile/target inventories and
+read-only/owned-PID cleanup checked. Canonical certificates/s2-ray51-flip-receipt.json
+and s2-period36-receipt.json retain exact inputs, bounds, source/profile hashes
+and replay commands. Outcome independent review is pending at receipt creation;
+strategy received all four immutable pins for its separately frozen review.
