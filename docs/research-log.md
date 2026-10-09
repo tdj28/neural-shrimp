@@ -4852,3 +4852,12 @@ Compact immutable bindings and partial scope are recorded in
 The prior preparation paragraph's04:22 timestamp was a transcription error:
 the actual committed authorization and execution timestamps in Git/runtime
 records precede the profile start04:20:44UTC. No target preceded authorization.
+
+Dated adaptive amendment, 2026-10-09: after retaining/committing the partial
+attempt001, root authorizes one same-target radius2^-100 attempt002. Only the
+box radius changes; all256-bit/five-Newton/power4096 settings and proof gates
+remain fixed. The narrower interval tests whole-box/bordered-solve inflation,
+not a new scientific target. Use the existing measured cost screen and the
+same120s/135+5s CPU1/nice10/16+1MiB/monitored2GiB caps. Retain even a failed
+Krawczyk inclusion. No additional attempt is authorized. Exact pre-run source
+HEAD and command will be retained by the launcher.

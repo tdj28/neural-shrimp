@@ -113,3 +113,20 @@ blocks, bias/scaling/ridge conventions against the independent existing analytic
 map Jacobian, high-precision directional differences of that Jacobian (tests
 only), a nonnormal left-vector normalization, fold/degenerate/defective cases,
 other unstable modes, period-divisor rejection, and interruption/settings gates.
+
+## Dated adaptive amendment — 9 October 2026, after attempt001
+
+Attempt001 at radius2^-80 proved the augmented root, primitive18, simple+1,
+and nonzero a,c, but its conservative interval deflated-power bound failed.
+The complete unsuccessful attempt is preserved with its original source,
+inputs, every power bound and receipt. Root authorizes exactly one same-target
+attempt002 with **only the requested radius changed to2^-100**. Precision256,
+five Newton proposals, maximum power4096, all scientific gates, input selection
+and resource caps remain unchanged. No new numerical seed or parameter search.
+The purpose is to test interval overestimation from the whole-box/bordered
+solve. Narrowing can also invalidate root inclusion; every gate must pass
+again. The kernel and synthetic profile remain unchanged. Use the exclusive
+`attempt-002-target` sibling; do not overwrite attempt001 or rerun the profile.
+The driver default reflects this disclosed second attempt. Replaying attempt001
+requires its archived source snapshot because source identity includes defaults
+and this card; mathematical kernel bytes have not changed.
