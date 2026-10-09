@@ -874,6 +874,93 @@ def build():
         ("xPEighteenFoldOther", max(fold[q]["other_radius"] for q in ("phase0", "phase1")), fixed(max(fold[q]["other_radius"] for q in ("phase0", "phase1")), 4), "maximum remaining Floquet radius across two adjacent checked phases; floating diagnostic")]:
         n.add(macro, value, display, "exploratory numerical local fold diagnostics; no interval proof", fold_sources, calc)
 
+    # Exact local period-18 fold: saved proof/review only, no kernel execution.
+    local_path = c.ROOT / "certificates/s2-period18-fold-receipt.json"
+    local_review_path = c.ROOT / "docs/reviews/s2-period18-fold-certificate-independent-review.json"
+    local, local_review = load(local_path), load(local_review_path)
+    local_root, local_audit = Path(local["external_root"]), Path(local_review["raw_root"])
+    local_sources = [local_path, local_review_path]
+    assert local["passed"] and local["evidence_rung"] == 3 and all(local["gates"].values())
+    assert local_review["status"] == "passed"
+    assert local["execution_commit"] == local_review["producer_adaptive_execution_commit"] == "c37dcb4e56a64fa7567cc2e03fe5917195a9f0fc"
+    assert local_review["review_execution_commit"] == "f2284ebb5d5aa8cfa816da65ad15d04a2ec38224"
+    local_sources += bound_inventory(local_root / "manifest.json", local["manifest"]["sha256"])
+    local_sources += bound_inventory(local_audit / "manifest.json", local_review["raw_manifest_sha256"])
+    assert load(local_root / "manifest.json")["files"] == local["files"]
+    assert load(local_audit / "manifest.json")["files"] == local_review["file_inventory"]
+    for inventory in (local["source_sha256"], local_review["review_source_sha256"]):
+        for name, pin in inventory.items():
+            q = c.ROOT / name; assert c.sha256(q) == pin; local_sources.append(q)
+    run = local_root / "run"
+    local_raw = load(run / "certificate.json")
+    lr = local_raw["result"]
+    assert lr["passed"] and lr["gates"] == local["gates"] and not lr["failures"]
+    assert lr["settings"] == local["settings"] == dict(max_power=4096, newton_steps=5, precision=256, radius_exponent=-100)
+    assert lr["exact_statement"] == local["exact_statement"] and lr["exact_statement"]["period"] == 18 and lr["exact_statement"]["dimension"] == 13
+    assert local_raw["runtime"]["source_commit"] == local["execution_commit"]
+    inp = load(run / "inputs.json")
+    assert c.sha256(run / "inputs.json") == local_raw["inputs_sha256"]
+    assert inp["map_inputs"]["lr_output"] == local["fixed_output_rate"] == "1848862009810323/2251799813685248"
+    assert inp["map_inputs"]["network"] == dict(activation="tanh", bias=True, d=2, in_scale="1/1", out_scale="1/1", loss_scale="1/2", ridge="1152921504606847/1152921504606846976", width=3)
+    assert [d["divisor"] for d in lr["divisors"]] == local["excluded_proper_divisors"] == [1, 2, 3, 6, 9]
+    assert all(d["excluded"] for d in lr["divisors"])
+    # Bind the preserved first attempt and the subsequent review's exact replay.
+    prior_path = c.ROOT / local["prior_attempt_receipt"]["path"]
+    assert c.sha256(prior_path) == local["prior_attempt_receipt"]["sha256"]
+    local_sources.append(prior_path)
+    prior_root = local_root.parent / "attempt-001-target"
+    pin = local_review["bound_producer_attempts"]["attempt-001-target"]
+    local_sources += bound_inventory(prior_root / "manifest.json", pin["manifest_sha256"])
+    prior = load(prior_root / "run/certificate.json")["result"]
+    assert prior["gates"] == local_review["preserved_failed_attempt"]["gates"]
+    assert not prior["gates"]["other_modes_attracting"] and sum(prior["gates"].values()) == 6
+    assert prior["settings"] == dict(max_power=4096, newton_steps=5, precision=256, radius_exponent=-80)
+    reviewed = local_review["review"]
+    assert reviewed["byte_identical_replay"] and reviewed["source_and_exact_input_binding"]
+    assert load(local_audit / "run/result.json")["status"] == "passed"
+    assert load(local_audit / "run/04-replay-result.json") == lr
+    assert load(local_audit / "run/05-replay-summary.json")["byte_identical"]
+    nested = load(local_audit / "run/08-nested-result.json")
+    ns = load(local_audit / "run/09-nested-summary.json")
+    assert nested["passed"] and all(nested["gates"].values()) and ns["passed"] and ns["strictly_nested"]
+    assert nested["settings"] == ns["settings"] == reviewed["nested_proof"]["settings"] == dict(max_power=4096, newton_steps=5, precision=384, radius_exponent=-110)
+    assert reviewed["nested_proof"]["strictly_inside_original_27d_box"]
+    for name, raw_ball in (("hidden_rate", lr["box"][13]), ("a", lr["a"]),
+                           ("quadratic_normal_form_coefficient_c_over_2", lr["quadratic_normal_form_coefficient_c_over_2"]),
+                           ("complement_power_norm", lr["power_bounds"][-1]["norm_inf_upper"])):
+        assert local["bounds"][name]["ball"] == raw_ball
+    def ball_endpoints(ball):
+        mid = Fraction(ball["mid"][0]) * Fraction(2) ** ball["mid"][1]
+        rad = Fraction(ball["rad"][0]) * Fraction(2) ** ball["rad"][1]
+        assert rad >= 0
+        return mid - rad, mid + rad
+    def exact_decimal(value, digits):
+        # value is an integer number of decimal ticks: no float formatting.
+        sign = "-" if value < 0 else ""
+        value = abs(value)
+        return f"{sign}{value // 10**digits}.{value % 10**digits:0{digits}d}"
+    label = "rung 3 local exact-real primitive18 fold; adaptive radius amendment; independently reviewed shared Arb kernel"
+    for macro, name, digits in (("tFoldProofEta", "hidden_rate", 14), ("tFoldProofA", "a", 12),
+                                ("tFoldProofQuadratic", "quadratic_normal_form_coefficient_c_over_2", 9)):
+        lo, hi = ball_endpoints(local["bounds"][name]["ball"])
+        assert [lo, hi] == [Fraction(local["bounds"][name]["exact_lower"]), Fraction(local["bounds"][name]["exact_upper"])]
+        scale = 10**digits
+        flo = lo.numerator * scale // lo.denominator
+        cei = -((-hi.numerator * scale) // hi.denominator)
+        assert Fraction(flo, scale) <= lo <= hi <= Fraction(cei, scale)
+        text = "[" + exact_decimal(flo, digits) + ", " + exact_decimal(cei, digits) + "]"
+        n.add(macro, [str(lo), str(hi)], text, label, local_sources, "serialized dyadic ball endpoints rounded outward by exact Fraction floor/ceiling")
+    output = Fraction(local["fixed_output_rate"])
+    n.add("tFoldProofOutput", str(output), rf"\frac{{{output.numerator}}}{{2^{{51}}}}", label, local_sources, "fixed exact output-rate dyadic; denominator verified as 2^51")
+    assert output.denominator == 2**51
+    fold_power = lr["complement_witness_power"]
+    assert fold_power == local["complement_witness_power"] == lr["power_bounds"][-1]["power"]
+    _, exact = ball_endpoints(local["bounds"]["complement_power_norm"]["ball"])
+    upper = -((-exact.numerator * 1000) // exact.denominator)
+    assert exact < Fraction(upper, 1000) < 1
+    n.add("nFoldProofPower", fold_power, str(fold_power), label, local_sources, "deflated-monodromy repeated-squaring witness power")
+    n.add("xFoldProofBound", str(Fraction(upper, 1000)), exact_decimal(upper, 3), label, local_sources, "exact dyadic deflated-power norm bound rounded upward to three decimals")
+
     # Numerical association remains distinct from the exact-real orbit proof.
     bootstrap_path = c.ROOT / "docs/s1r-bootstrap-association-receipt.json"
     bootstrap = load(bootstrap_path)

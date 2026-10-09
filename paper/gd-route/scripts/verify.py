@@ -18,6 +18,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 PAPER = Path(__file__).resolve().parents[1]
@@ -55,6 +56,26 @@ def main():
         if code:
             print(out)
             failures.append(args[0])
+    # The unchanged fold driver writes only to an exclusive, persistent scratch
+    # bundle. Keep failed as well as successful evidence, including process output.
+    fold_receipt = json.loads((ROOT / "certificates/s2-period18-fold-receipt.json").read_text())
+    fold_scratch = Path(tempfile.mkdtemp(prefix="neural-shrimp-fold-replay-"))
+    print(f"fold replay artifacts retained at: {fold_scratch}", flush=True)
+    fold_args = ["timeout", "--signal=TERM", "--kill-after=5s", "135s", "nice", "-n", "10",
+                 PYTHON, "tools/certify_s2_period18_fold.py", "--execute", "--mode", "replay",
+                 "--bundle", str(Path(fold_receipt["external_root"]) / "run"),
+                 "--manifest-sha256", fold_receipt["files"]["run/manifest.json"]["sha256"],
+                 "--out", str(fold_scratch / "run")]
+    fold_env = dict(os.environ, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1",
+                    MKL_NUM_THREADS="1", NUMEXPR_NUM_THREADS="1")
+    (fold_scratch / "command.json").write_text(json.dumps(fold_args, indent=2) + "\n")
+    with (fold_scratch / "process.log").open("w") as log:
+        fold_code = subprocess.run(fold_args, cwd=ROOT, env=fold_env, stdout=log,
+                                   stderr=subprocess.STDOUT).returncode
+    (fold_scratch / "exit-code.txt").write_text(str(fold_code) + "\n")
+    print(f"local fold replay: {'passed' if fold_code == 0 else 'FAILED'}; retained {fold_scratch}")
+    if fold_code:
+        failures.append("local fold replay")
     index = json.loads((PAPER / "provenance.json").read_text())
     listed = {Path(r["path"]).name for r in index["figure_receipts"]}
     for script in scripts:

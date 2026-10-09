@@ -4920,3 +4920,20 @@ Q^32 norm below0.035627. Original failed radius2^-80 attempt001 is retained.
 Full hashes, exact bounds, resources/process exit and scope are recorded in
 docs/reviews/s2-period18-fold-certificate-independent-review.json. No further
 target proof, search, paid call or holdout use followed this unit.
+
+### 2026-10-09 — Reviewed local period-18 fold in current manuscript
+
+Integrated the canonical local-fold outcome 0ccfc22c and independent review d060dfd1
+into the existing paper. The exact-real theorem has a simple neutral +1 mode,
+nonzero actual-rate transversality and quadratic coefficient, and an attracting
+complement. The four attracting-orbit certificates remain four. The radius-2^-80
+complement failure and disclosed 2^-100 adaptation remain visible; no whole
+boundary, interior-orbit connection or utility is claimed. Six exact-Fraction
+outward-rounded entries were added; all 317 previous entries and all 9 figure
+assets/receipts are identical. The paper verifier now retains exclusive fold
+replay artifacts on either process exit. Two synthetic wrapper controls passed;
+no proof, figure, trajectory or model was rerun. Saved-number verification,
+33-page multi-file compilation without warnings, all-page contact inspection
+and detail pages 1, 2, 11, 20, 28, 30 passed. Root and independent mathematical reviewer
+found no remaining source blocker. Exact files, hashes and retained authoring
+failures are in `docs/reviews/paper-local-fold-authoring-qa.json`.
