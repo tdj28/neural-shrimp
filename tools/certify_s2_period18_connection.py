@@ -2,7 +2,7 @@
 import os
 THREADS=('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 for name in THREADS:os.environ[name]='1'
-import argparse,json,platform,resource,signal,subprocess,sys,time
+import argparse,gzip,json,platform,resource,signal,subprocess,sys,time
 from datetime import datetime,timezone
 from fractions import Fraction
 from pathlib import Path
@@ -22,12 +22,19 @@ CAP=64*1024**2
 
 def entry(path):
     b=path.read_bytes();return {'sha256':sha256(b),'bytes':len(b)}
-def read(path):return json.loads(path.read_bytes())
+def read(path):
+    if path.suffix=='.gz':
+        with gzip.open(path,'rb') as f: data=f.read(256*1024**2+1)
+        require(len(data)<=256*1024**2,'decompressed artifact cap')
+        return json.loads(data)
+    return json.loads(path.read_bytes())
 def now():return datetime.now(timezone.utc).isoformat()
 def total(out):return sum(p.stat().st_size for p in out.rglob('*') if p.is_file())
 def save(path,obj):
     data=canonical_bytes(obj);root=path.parent
-    require(len(data)<60*1024**2,'single artifact cap')
+    require(len(data)<256*1024**2,'uncompressed artifact cap')
+    if path.suffix=='.gz':data=gzip.compress(data,compresslevel=6,mtime=0)
+    require(len(data)<60*1024**2,'single stored artifact cap')
     require(total(root)+len(data)<CAP,'aggregate raw cap')
     temp=path.with_name(path.name+'.tmp')
     with temp.open('xb') as f:f.write(data);f.flush();os.fsync(f.fileno())
@@ -122,7 +129,7 @@ def execute(out,mode,profile=None,profile_pin=None,bundle=None,bundle_pin=None):
         if mode=='replay':
             require(entry(bundle/'manifest.json')['sha256']==bundle_pin,'fixed replay manifest')
             verify_inventory(bundle,read(bundle/'manifest.json')['files'])
-            old=read(bundle/'certificate.json')
+            old=read(bundle/'certificate.json.gz')
             require(old['runtime']['source_sha256']==bound,'replay source equality')
             require(old['runtime']['python_flint']==flint.__version__ and old['runtime']['flint']==flint.__FLINT_VERSION__,'same arithmetic libraries')
             require(canonical_bytes(inp)==canonical_bytes(read(bundle/'inputs.json')),'original anchor input reconstruction')
@@ -132,7 +139,7 @@ def execute(out,mode,profile=None,profile_pin=None,bundle=None,bundle_pin=None):
         save(out/'inputs.json',inp)
         with ctx.workprec(SETTINGS['precision']):
             result=tube(HiddenRateMap(inp['model_inputs']),inp['initial'],inp['rate'],anchor=inp['anchor'],**SETTINGS,tick=tick,observe=observe)
-        save(out/'certificate.json',{'schema':'neural-shrimp-connection-certificate-v1','inputs_sha256':entry(out/'inputs.json')['sha256'],
+        save(out/'certificate.json.gz',{'schema':'neural-shrimp-connection-certificate-v1','inputs_sha256':entry(out/'inputs.json')['sha256'],
             'runtime':runtime,'result':result})
         if mode=='replay':require(canonical_bytes(result)==canonical_bytes(old['result']),'byte-identical tube replay')
         profile_complete=mode=='profile'

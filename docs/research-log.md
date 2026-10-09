@@ -5036,3 +5036,23 @@ detuning36 certificate or validated center connection is claimed. Complete
 immutable source/raw/resource/PID evidence and pending-at-creation review status
 are in certificates/s2-period18-flip-receipt.json and
 docs/reviews/s2-period18-flip-producer-outcome.md. No target retry occurred.
+### 2026-10-09 — Connection profile retained; storage-only adaptation
+
+Source25dbee6b synthetic profile completed in1.992s internally/2.272s externally,
+325596KiB peakRSS,79ticks, with expected false primitive/anchor gates. No target
+claim. The exact run manifest is
+`b0ea6fae0d31908ccb99dc5baff9043137f729968c1c36140a265ffdef51b01d`;
+outer `a137ffb8c7619ecc3cc4cb2ab233a063d51dc58945cecceae7108507a5809fa5`.
+The time gate passes, but the3x storage gate fails on31,055,672 worker bytes.
+Preflight raised before any target output or model call. An uncommitted draft
+sentence anticipated a pass; it was corrected before any commit or target launch.
+The original profile remains immutable. See the compact profile receipt.
+
+Disclosed engineering amendment: store the full large certificate as deterministic
+gzip (level6,mtime0), with exact JSON bytes preserved after decompression and a
+256MiB decompressed bound. Mathematics,234D system, halfwidth/radius, precision,
+Newton proposals, power cap and all proof gates are unchanged. The same64MiB
+worker disk cap and3x projection remain. Source/card/tests are committed before
+one new synthetic profile at `attempt-002-profile`;20s/25s+5s and all earlier
+resource limits remain. Target remains unrun until this new measured gate passes.
+No scientific width search or target adaptation has occurred.
