@@ -4779,3 +4779,17 @@ A wrapping/nondegeneracy failure is preserved, not evidence the orbit is absent.
 Detailed exact command and retention rules: `docs/plans/s2-period18-certificate.md`.
 No retry or other target is authorized in this unit. Code/card committed before
 execution; a separate agent will review the result afterward.
+
+### 2026-10-09 UTC — single primitive18 proof attempt passes
+
+Executed committed15125d2b once at row111/S2-28011-zoom:587. All C1 gates pass:
+exact-real13D existence/local uniqueness, primitive18 with divisors1,2,3,6,9
+excluded, attraction via rigorous ||M^16||inf upper<.725274. Exact whole-box
+proximity to historical phase0 is separately<1e-15 (threshold1e-7), not seed
+membership or branch identity. Proof0.4073s; launcher0.7612s;64,000KiB peak RSS.
+All15 immutable files1,264,915B and full hashes verified; owned561396/561491/
+561492 absent. Manifest785f03d91cfe5095b36abf76d5d070afc5bdc93009f55118bdaae87296148a2d.
+Original canonical receipt copied to `certificates/s2-period18-receipt.json`;
+`docs/reviews/s2-period18-producer-outcome.md` and companion receipt bind source,
+raw proof, exact proximity and numerical geometry. Independent review pending;
+no second attempt, no certified fold/flip/ancestry or utility claim.
