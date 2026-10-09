@@ -5278,3 +5278,7 @@ ray16 unstable36 result are retained. Source-bound companion prose/receipt in
 docs/reviews/s2-period18-other-flips-outcome{.md,-receipt.json}. Root requests
 next an unchanged-kernel ray51 flip proof and separate fixed-dyadic36 certificate,
 with their exact-map distinction explicit; no new proof run yet.
+
+### 2026-10-09 — Wider framed attempt001 inconclusive, retained
+
+Executionc8ac870fa33cb93bc0ec26cf4aecdcafcb8e0c56 completed in4.85414s internally/5.25996s externally,99ticks,437740KiB RSS,exit2. The first halfwidth2^-10/radius2^-15 chart passed primitive and original-anchor separation but failed root inclusion: contraction1.59899 and maximum correction image6.09683e-5 versus radius3.05176e-5. All fixed frame inverses were verified, but the phasewise conjugations enlarged interval wrapping: native M infinity bound38.1535 versus framed1807.7101; neither power test passed. The conditional second chart did not run. Complete source/raw inventories, decompressed identity, immutability and owned process exit checked. Compact receipt `docs/reviews/s2-period18-connection-framed-attempt001.json`; outer manifest3825084f9ff5893a934f64120cd82cab42f4ba41bc4443a4d0e89222e3c18794. This is an enclosure-method failure, not evidence of a branch endpoint or dynamical instability. No new mathematical claim follows; the original small certified tube is unchanged.
