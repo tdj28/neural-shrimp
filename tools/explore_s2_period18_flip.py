@@ -18,6 +18,8 @@ CERTS=RAW/'raw/EXP-028/attempt-002/stage3/certificates.json'
 RAYS=RAW/'explore/a2-survey/rays.json'
 PINS={str(PARENT):'a0916d9bb32f58fb3f426bd584b92686af7515b007ec6fb3f71ac4554fb5eb81',str(CERTS):'414bf427491b5f2ec76d35af49e718811054986078c9638b276d07593b24a7e8',str(RAYS):'a184d3f4fbdeed82f9933515fc61f4a74809936f2693728bbcb80323340c1db4'}
 CARD='docs/plans/s2-period18-flip-pilot.md'
+RESUME=RAW/'explore/s2-period18-flip/attempt-001-target'
+RESUME_MANIFEST='7bfeb8fcacdef4a12dc4c0b3fda500361a0a4b66dbb41812c1d9c4d2d0d6ad34'
 SOURCES=['src/neural_shrimp/__init__.py','src/neural_shrimp/models.py','src/neural_shrimp/controls.py','src/neural_shrimp/gdmaps.py','src/neural_shrimp/numerical_flip.py','tools/explore_s2_period18_flip.py','tests/test_numerical_flip.py',CARD]
 CAP=32*1024**2
 ARTIFACT_ROOT=None
@@ -141,8 +143,15 @@ def run(out,profile=False):
             result.update(qualified=True,status='synthetic_profile_complete',scientific_claim=False,seconds_per18_evaluation=times,
                           projected40000_joint_step_seconds=max(times)*40000/18)
             return 0
-        x=np.array(inputs['historical_orbit'][0]);nodes=[];previous=None
-        for s in np.linspace(0.,.999*inputs['ray']['s_boundary'],33):
+        require(digest(RESUME/'manifest.json')==RESUME_MANIFEST,'retained prefix manifest')
+        for name,e in read(RESUME/'manifest.json')['files'].items():require(entry(RESUME/name)==e,'retained prefix artifact '+name)
+        require(read(RESUME/'run/inputs.json')==inputs,'unchanged exact input/family')
+        nodes=read(RESUME/'run/path.json');require(len(nodes)==22 and all(n['qualified'] for n in nodes),'qualified retained prefix')
+        previous=nodes[-1];x=np.array(previous['state']);targets=np.linspace(0.,.999*inputs['ray']['s_boundary'],33)
+        require(previous['s']==float(targets[len(nodes)-1]),'exact common-parameter resume')
+        save(out/'resume.json',{'path':str(RESUME),'manifest_sha256':RESUME_MANIFEST,'prefix_nodes':len(nodes),'common_s':previous['s']})
+        save(out/'path.json',nodes)
+        for s in targets[len(nodes):]:
             node=correct(exp.evaluate,x,float(s),18);node['s']=float(s);nodes.append(node);save(out/'path.json',nodes);exp.emit('path_node',node)
             require(node['qualified'],'forward path correction/qualification')
             new=np.array(node['state'])
@@ -153,8 +162,10 @@ def run(out,profile=False):
                 edge={'from_s':previous['s'],'to_s':float(s),'reverse':reverse,'reverse_error':error,'full_native_phase_step':pair_error,
                       'qualified':bool(reverse['qualified'] and error<1e-7 and pair_error<.1)}
                 exp.emit('path_edge',edge);require(edge['qualified'],'native phase/reverse link unresolved')
-            require(node['qualification']['stability']=='attracting','path is not still attracting')
+            # Adaptation: continue qualified primitive orbits through instability; retain every stability label.
             x=new;previous=node
+        transitions=[{'from_s':a['s'],'to_s':b['s'],'from_stability':a['qualification']['stability'],'to_stability':b['qualification']['stability'],'from_multipliers':a['qualification']['multipliers'],'to_multipliers':b['qualification']['multipliers']} for a,b in zip(nodes,nodes[1:]) if a['qualification']['stability']!=b['qualification']['stability']]
+        save(out/'stability-transitions.json',transitions)
         point=refine_flip(exp.evaluate,x,float(nodes[-1]['s']),18,exp.emit);save(out/'flip.json',point)
         result['flip_qualified']=point['qualified'];require(point['qualified'],'flip point unqualified')
         seed={'schema':'neural-shrimp-flip-proof-seed-v1','period':18,'consumed_map':inputs['consumed_map'],'family':inputs['family'],
