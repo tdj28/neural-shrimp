@@ -4814,3 +4814,18 @@ Root selected EXP-028 row111 (S2-28011-zoom:587) for an unchanged-C1 proof attem
 The single root-authorized review at880a757a completed successfully for producer15125d2b, row111/S2-28011-zoom:587. Unchanged256-bit enclosure replay, stored contraction/divisors1,2,3,6,9/attraction power16, exact whole-box proximity, two independent Arb-jet AD samples and one fixed384-bit nested proof all passed. Internal1.117s/external1.316s,68,248KiB peak, CPU/BLAS1/nice10. All1,296,134bytes of review/launcher evidence are hash-checked and immutable; owned PIDs563735,563711,563734 are absent. No retry or protected-data use. Raw manifest `18bfaaba53f9aa105cfc40a5410e206801e746b740e291358f80bd3bc9c2a933`; launcher manifest `b6957cce383b796841ea4cdca87a38556635a770dea606c369257af5edfbdc13`.
 
 The precise result is an attracting exact-real primitive18 orbit near the historically selected numerical shrimp candidate, with `||M^16||inf<.725274`. Geometry, chaos, bifurcation nondegeneracy and utility are not proved. The companion `docs/reviews/s2-period18-independent-review.json` and prose preserve this scope, the exact rational proximity and all source/input/stage bindings. Existing creation-time receipts are unchanged.
+
+### 2026-10-09 — New period-18 interval fold kernel; source and synthetic profile card
+
+Prepare one local augmented-fold proof for the already qualified numerical
+ray0 boundary of S2-28011-zoom:587. The new mixed-jet kernel is distinct from
+the unchanged, previously reviewed C1 checker. Exact consumed inputs, settings,
+proof gates and caps are in `docs/plans/s2-period18-fold-certificate.md`.
+Code and this card must be committed before the synthetic resource profile.
+Profile only: two synthetic 13D/24-sample/18-step evaluations, CPU1/nice10,
+120s internal/135+5 external,16MiB plus1MiB launcher, monitored2GiB RSS.
+Target proof remains unlaunched pending root review of the new kernel and its
+explicit launch decision. No new seed, holdout, GPU or paid computation.
+Preserve every exclusive attempt and all failed gates. A full success is one
+local fold certificate with a neutral unit multiplier, not an attracting-orbit
+certificate or a whole-window theorem. Independent mathematical review pending.
