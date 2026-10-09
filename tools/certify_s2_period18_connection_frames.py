@@ -19,7 +19,7 @@ SOURCES=['src/neural_shrimp/__init__.py','src/neural_shrimp/rigorous_orbits.py',
  'src/neural_shrimp/rigorous_connection.py','src/neural_shrimp/rigorous_connection_frames.py',
  'tools/certify_s2_period18_connection_frames.py','tests/test_rigorous_connection.py',
  'tests/test_rigorous_connection_frames.py',CARD,RECEIPT]
-SETTINGS=dict(precision=256,halfwidth_exponent=-10,radius_exponent=-15,newton_steps=2,max_power=4096)
+SETTINGS=dict(precision=256,halfwidth_exponent=-12,radius_exponent=-20,newton_steps=2,max_power=4096)
 CAP=64*1024**2
 
 def entry(path):

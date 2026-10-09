@@ -67,13 +67,14 @@ def test_completed_first_chart_is_emitted_before_second_failure(monkeypatch):
     assert len(completed)==1 and completed[0]['chart']==0 and completed[0]['result']['passed']
 
 
-def test_frame_proposal_failure_cannot_pass_attraction(monkeypatch):
+def test_frame_proposal_failure_retains_only_independent_native_proof(monkeypatch):
     import neural_shrimp.rigorous_connection_frames as module
     def bad(_):raise ValueError('synthetic invalid frame')
     monkeypatch.setattr(module,'propose_frames',bad)
     r=module.two_charts(Quadratic(),inputs(),**SETTINGS)
     assert len(r['charts'])==2 and r['gates']['connected_primitive_branch']
-    assert not r['gates']['uniform_attraction'] and not r['passed']
+    assert r['gates']['uniform_attraction'] and r['passed']
+    assert all(c['stability_alternatives']=={'native':True,'phasewise_frames':False,'final_similarity':False} for c in r['charts'])
 
 
 def test_compressed_chart_payload_identity_rejects_corruption(tmp_path):
@@ -87,3 +88,12 @@ def test_compressed_chart_payload_identity_rejects_corruption(tmp_path):
     assert m.read(path)['result']['complete']
     payload['uncompressed_sha256']='0'*64;meta.write_text(json.dumps(payload))
     with pytest.raises(ValueError):m.read(path)
+
+
+def test_final_similarity_can_recover_non_normal_contraction():
+    from neural_shrimp.rigorous_connection import power_gate
+    with ctx.workprec(256):
+        native=arb_mat([['4/5',4],[0,'3/10']]);basis=arb_mat([[1,-8],[0,1]])
+        transformed,_,_=framed_product([native],[basis])
+        assert not power_gate(native,1)[0]
+        assert power_gate(transformed,1)[0]

@@ -68,18 +68,26 @@ def framed_tube(model,initial,rate,*,anchor=None,tick=lambda:None,observe=lambda
     with ctx.workprec(settings.get('precision',256)):
         result['baseline_gates']=dict(result['gates'])
         blocks=[restore_matrix(m) for m in result['phase_jacobians']]
+        native_attracting=bool(result['baseline_gates']['uniform_attraction'])
+        final_attracting=False
         result['framing']={'method':'real Schur of midpoint native product; phasewise QR; fixed dyadic frames; last frame equals first',
                            'proposal_only':True,'cyclic_final_frame_index':0}
         try:
             frames=propose_frames(blocks)
             monodromy,changed,inverses=framed_product(blocks,frames,tick)
-            tick();attracting,power,powers=power_gate(monodromy,settings.get('max_power',4096))
+            tick();phase_attracting,power,powers=power_gate(monodromy,settings.get('max_power',4096))
+            final_monodromy=restore_matrix(inverses[0]['inverse'])*restore_matrix(result['monodromy'])*frames[0]
+            tick();final_attracting,final_power,final_powers=power_gate(final_monodromy,settings.get('max_power',4096))
             result['framing'].update(passed=True,frames=[matrix_json(m) for m in frames],
                 inverses=inverses,phase_jacobians=[matrix_json(m) for m in changed],
-                monodromy=matrix_json(monodromy),power_bounds=powers,attraction_power=power)
+                monodromy=matrix_json(monodromy),power_bounds=powers,attraction_power=power,
+                phasewise_attracting=phase_attracting,final_similarity={'monodromy':matrix_json(final_monodromy),
+                'power_bounds':final_powers,'attraction_power':final_power,'attracting':final_attracting})
         except (ValueError,ZeroDivisionError,RuntimeError) as exc:
-            attracting=False
+            phase_attracting=False
             result['framing'].update(passed=False,error={'type':type(exc).__name__,'message':str(exc)})
+        attracting=native_attracting or phase_attracting or final_attracting
+        result['stability_alternatives']={'native':native_attracting,'phasewise_frames':phase_attracting,'final_similarity':final_attracting}
         joined,checks=anchored_at_parameter(result,anchor)
         result['anchor_inclusions']=checks
         result['anchor_parameter']=None if anchor is None else anchor['rate']
@@ -87,7 +95,7 @@ def framed_tube(model,initial,rate,*,anchor=None,tick=lambda:None,observe=lambda
         result['passed']=bool(all(result['gates'].values()))
         result['evidence_rung']=3 if result['passed'] else 0
         result['schema']='neural-shrimp-framed-shooting-tube-v1'
-        result['statement']['stability']='cyclic exact-frame conjugation before native derivative product; infinity-norm power bound'
+        result['statement']['stability']='independent sufficient infinity-norm power bounds: native, cyclic exact-frame product, or exact final Schur similarity'
         return result
 
 
