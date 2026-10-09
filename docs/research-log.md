@@ -5193,3 +5193,22 @@ Run card: one synthetic resource profile at the new framed stream's `attempt-001
 Root reviewed the fixed frames/native order/inverse witnesses and exact shared-parameter joins, then authorized the committed profile and one target if its resource gate passed. Profile execution1e4bdad140ee6620e3307665ef944dfe150e87f7 completed both synthetic234D charts in6.42849s internally/6.90439s externally,198ticks,693540KiB peakRSS,4,637,360 worker bytes. Projection27.71398s and three-times storage13,912,080bytes pass. All hash inventories, decompressed payload, read-only bits and owned PID exits checked; expected synthetic primitive/anchor failure is not a target finding. Receipt: `docs/reviews/s2-period18-connection-framed-profile.json`.
 
 Exact target card: unchanged framed code/plan/settings, one `attempt-001-target` at `/data2/neural-shrimp-data/explore/certificates/s2-period18-connection-framed-2026-10-09`, `--mode target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-connection-framed-2026-10-09/attempt-001-profile/run --profile-manifest 2fcb945b2f13493eb45921b8603b50148972e19603a8c271f163454db786d4ef`. CPU/BLAS1,nice10,internal120s/external135+5,2GiB RSS,256ticks,64MiBworker+1MiBlauncher. Halfwidth2^-10,radius2^-15,256bits,two proposals perchart; only conditional secondchart afterfirstroot/primitive/anchor pass. Retain every gate and complete firstchart before proceeding. No automatic retry/search or fold/flip connection claim. All bound source files are unchanged from the measured profile.
+### 2026-10-09 UTC: reviewed subcritical-flip manuscript checkpoint
+
+Integrated the exact historical both-rate local subcritical flip, its completed
+independent replay/saved-arithmetic/nested review, and the small independently
+reviewed center interval. The four individually certified attracting orbits stay
+four; the neutral bifurcations and same-orbit tube add no instances. The earlier
+missed complex-instability pocket and unstable doubled cycles remain explicit.
+New ray51 results and wider running connection charts are outside this checkpoint.
+
+Saved-data number generation and verification pass with332 entries, preserving
+all323 original entries exactly. All nine figure receipts and18 PDF/PNG output
+hashes are unchanged; no figure regeneration or full scientific verify.py run
+was performed. A clean latexmk build from source6ab88f1b gives35 pages without
+warnings or over/underfull boxes. All pages were visually inspected in contact
+sheets and13 changed/reflowed pages in detail, with eight identical detailed
+renders carried over by pixel-file hashes from the first inspection. The earlier
+successful build is retained alongside the final wording build. Source, output,
+checks and immutable QA inventories are bound by
+`docs/reviews/paper-subcritical-flip-qa.json`.
