@@ -5406,3 +5406,5 @@ nice10; figure and numbers each60s, build120s, rendering120s; raw QA<=150MiB.
 Retain any failed build. Check all pages, changed-page detail and unchanged old
 nine figure hashes; push source before generating the new artwork, then push
 reviewed source/PDF/QA companions. Costs: local CPU only.
+
+Manuscript build amendment: the first clean build stopped on unescaped underscores in the new figure provenance caption. Its full source-bound logs remain immutable at `paper/gd-route/ray51-supercritical-2026-10-09` in the external store. Escape the caption paths and rebuild in a second exclusive directory; no numerical source, figure, gate or proof changed.
