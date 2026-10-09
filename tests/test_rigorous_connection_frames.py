@@ -97,3 +97,14 @@ def test_final_similarity_can_recover_non_normal_contraction():
         transformed,_,_=framed_product([native],[basis])
         assert not power_gate(native,1)[0]
         assert power_gate(transformed,1)[0]
+
+
+def test_root_image_narrowing_requires_proof_and_retains_old_box():
+    from neural_shrimp.rigorous_connection_frames import root_image_stability
+    r=two_charts(Quadratic(),inputs(),**SETTINGS)
+    for chart in r['charts']:
+        assert chart['root_image_stability']['attempted']
+        assert chart['root_image_stability']['attracting']
+        assert 'image_correction' in chart and 'correction_radius' in chart
+    bad=deepcopy(r['charts'][0]);bad['gates']['uniform_root']=False
+    with pytest.raises(ValueError):root_image_stability(Quadratic(),bad,None,None,64,lambda:None)
