@@ -71,3 +71,28 @@ def test_coupled_affine_gradient_interval_hidden_rate_distinct_output_rate():
                 assert all(jac[i,j].contains(int(i==j)-rates[i]*hessian[i,j]) for i in range(4) for j in range(4))
                 assert all(partial[i].contains(-gradient[i]) for i in range(2))
                 assert all(partial[i].is_zero() for i in range(2,4))
+
+
+@pytest.mark.parametrize('field,bad',[('elapsed_seconds',-1),('elapsed_seconds',float('nan')),('elapsed_seconds',float('inf')),('max_rss_kib',-1),('max_rss_kib',float('inf')),('max_rss_kib',2*1024**2)])
+def test_profile_resource_rejections(field,bad):
+    m,runtime,result=profile_fixture();result[field]=bad
+    with pytest.raises(ValueError):m.profile_environment(runtime,result)
+
+
+def profile_fixture():
+    import importlib.util
+    from pathlib import Path
+    spec=importlib.util.spec_from_file_location('meanvalue_driver',Path(__file__).resolve().parents[1]/'tools/certify_s2_period18_connection_meanvalue.py')
+    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+    runtime={'python':m.platform.python_version(),'python_flint':m.flint.__version__,'flint':m.flint.__FLINT_VERSION__,
+        'numpy':m.numpy.__version__,'scipy':m.scipy.__version__,'internal_seconds':20,'tick_cap':256,'map_cap':180,'unit_derivative_cap':360,
+        'mode':'profile','threads':dict.fromkeys(m.THREADS,'1'),'nice':10}
+    return m,runtime,{'elapsed_seconds':1.0,'max_rss_kib':1000,'exit_code':0}
+
+
+def test_profile_library_and_thread_binding():
+    m,runtime,result=profile_fixture();m.profile_environment(runtime,result)
+    runtime['numpy']='different'
+    with pytest.raises(ValueError):m.profile_environment(runtime,result)
+    m,runtime,result=profile_fixture();runtime['threads']['OPENBLAS_NUM_THREADS']='2'
+    with pytest.raises(ValueError):m.profile_environment(runtime,result)
