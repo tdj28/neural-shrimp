@@ -5358,3 +5358,15 @@ Prepared one bounded replay/saved-arithmetic/stronger-box review in
 `docs/plans/ray51-independent-review.md`. No target proof outcome has been read
 or evaluated by this reviewer. Root will read the frozen runner/card and supply
 external producer manifest/execution pins before its one local execution.
+
+### 2026-10-09 UTC: ray51 independent outcome review passed
+
+Root read888d2531 and authorized one source-bound review after all four external
+producer pins froze. Fresh load1.00 and41GiB available; no matching jobs. CPU-only;
+restricted GPU query unavailable, no GPU used. Audit888d2531 passed in6.419s,
+289ticks/86,020KiB on CPU/BLAS1 nice10. Exact original replay, independent saved
+interval arithmetic and stronger strictly nested boxes pass for both cases.
+Ray51 is a supercritical local18 flip; the separately fixed dyadic36 map has a
+primitive attracting orbit. These are distinct exact maps, not a proved connection.
+All49 files are immutable/hash-verified; PIDs815153/815266/815267 exited. No retry.
+Companions: `docs/reviews/s2-ray51-certificates-independent-review.md` and `.json`.
