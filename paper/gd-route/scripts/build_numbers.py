@@ -815,8 +815,7 @@ def build():
     for macro, value, display, calc in [
         ("nPEighteenPeriod", p18["statement"]["primitive_period"], str(p18["statement"]["primitive_period"]), "selected anatomy-center primitive period"),
         ("nPEighteenPower", p18["attraction_witness_power"], str(p18["attraction_witness_power"]), "attraction monodromy-power witness"),
-        ("xPEighteenBound", str(rounded), f"{float(rounded):.3f}", "maximum producer/review exact-dyadic power bound rounded upward to three decimals"),
-        ("nCertifiedOrbits", len(certificates) + 2, str(len(certificates) + 2), "two distinct period-10 receipts plus one 72D period-2 and one period-18 receipt")]:
+        ("xPEighteenBound", str(rounded), f"{float(rounded):.3f}", "maximum producer/review exact-dyadic power bound rounded upward to three decimals")]:
         n.add(macro, value, display, proof, p18_sources + certificate_paths + [s1r_cert_path], calc)
 
     # Local selected-ray fold: floating scalar diagnostics, not interval bifurcation proof.
@@ -1054,6 +1053,78 @@ def build():
     assert flip_exact_bound < Fraction(flip_upper, 1000000) < 1
     n.add("nFlipProofPower", flip_power, str(flip_power), flip_label, flip_sources, "deflated-monodromy repeated-squaring witness power")
     n.add("xFlipProofBound", str(Fraction(flip_upper, 1000000)), exact_decimal(flip_upper, 6), flip_label, flip_sources, "exact dyadic deflated-power norm bound rounded upward to six decimals")
+
+    # Ray51: distinguish local exponential-family flip from fixed-dyadic36 map.
+    r51_paths = {"flip": c.ROOT / "certificates/s2-ray51-flip-receipt.json", "period36": c.ROOT / "certificates/s2-period36-receipt.json"}
+    r51_review_path = c.ROOT / "docs/reviews/s2-ray51-certificates-independent-review.json"
+    r51_review = load(r51_review_path); r51_audit = Path(r51_review["raw_root"])
+    r51_sources = [r51_review_path] + list(r51_paths.values())
+    assert r51_review["status"] == "passed" and r51_review["review_source_commit"] == "888d2531fd1360700d5e1e8627769a4c6db79e4c"
+    assert r51_review["producer_source_commit"] == "04048350fdaff3bba5a5d9e82b059f10761a0dab"
+    r51_sources += bound_inventory(r51_audit / "manifest.json", r51_review["manifest_sha256"])
+    assert load(r51_audit / "manifest.json")["files"] == r51_review["file_inventory"]
+    assert load(r51_audit / "run/result.json") == r51_review["runtime"]
+    for name, pin in r51_review["source_sha256"].items():
+        q = c.ROOT / name; assert c.sha256(q) == pin; r51_sources.append(q)
+    r51_proofs, r51_inputs, r51_receipts = {}, {}, {}
+    for kind, path in r51_paths.items():
+        receipt = load(path); r51_receipts[kind] = receipt
+        assert receipt["kind"] == kind and receipt["evidence_rung"] == 3
+        assert receipt["source_commit"] == receipt["execution_commit"] == r51_review["producer_source_commit"]
+        for name, pin in receipt["source_hashes"].items():
+            q = c.ROOT / name; assert c.sha256(q) == pin; r51_sources.append(q)
+        for item, review_key in (("profile", "profiles"), ("target", "targets")):
+            bundle = receipt[item]; br = Path(bundle["root"])
+            assert bundle["manifest"]["sha256"] == r51_review["pins"][review_key][kind]["manifest_sha256"]
+            assert str(br) == r51_review["pins"][review_key][kind]["root"]
+            r51_sources += bound_inventory(br / "manifest.json", bundle["manifest"]["sha256"])
+            assert c.sha256(br / "run/manifest.json") == bundle["run_manifest"]["sha256"] == r51_review["pins"][review_key][kind]["run_manifest_sha256"]
+            assert load(br / "run/outcome.json") == bundle["outcome"] and bundle["outcome"]["passed"]
+        target = Path(receipt["target"]["root"]) / "run"
+        env = load(target / "certificate.json"); proof51 = env["result"]; input51 = load(target / "inputs.json")
+        assert c.sha256(target / "certificate.json") == receipt["target"]["certificate"]["sha256"]
+        assert c.sha256(target / "inputs.json") == env["inputs_sha256"] == receipt["target"]["inputs"]["sha256"]
+        assert env["kind"] == kind and env["runtime"]["source_commit"] == receipt["execution_commit"]
+        assert proof51["passed"] and proof51["settings"] == receipt["settings"]
+        assert env["whole_box_proximity"] == receipt["whole_box_proximity"]
+        assert load(r51_audit / f"run/{kind}-03-replay.json") == proof51
+        stronger51 = load(r51_audit / f"run/{kind}-06-nested.json")
+        summary51 = load(r51_audit / f"run/{kind}-07-summary.json")
+        assert summary51 == r51_review["results"][kind]["summary"]
+        assert summary51["passed"] and summary51["byte_identical_replay"] and summary51["strictly_nested"]
+        assert stronger51["passed"] and stronger51["settings"] == summary51["nested_settings"]
+        assert c.sha256(r51_audit / f"run/{kind}-06-nested.json") == summary51["nested_sha256"]
+        for outer, inner in zip(proof51["box"], stronger51["box"]):
+            olo, ohi = ball_endpoints(outer); ilo, ihi = ball_endpoints(inner); assert olo < ilo <= ihi < ohi
+        assert input51["provenance"] == receipt["input_provenance"]
+        r51_proofs[kind], r51_inputs[kind] = proof51, input51
+    sf, sp = r51_receipts["flip"], r51_proofs["flip"]
+    p36, op36 = r51_receipts["period36"], r51_proofs["period36"]
+    assert all(sp["gates"].values()) and sp["gates"] == sf["gates"] and sp["criticality"] == sf["criticality"] == "supercritical"
+    assert sp["doubled_side_in_s"] == sf["doubled_side_in_s"] == "greater"
+    assert sf["exact_family"] == r51_inputs["flip"]["rate_family"] and sf["exact_family"]["ell"] == flip["rate_family"]["ell"]
+    assert [d["divisor"] for d in sp["divisors"]] == [1, 2, 3, 6, 9] and all(d["excluded"] for d in sp["divisors"])
+    assert [d["divisor"] for d in op36["divisors"]] == p36["proper_divisors"] == [1, 2, 3, 4, 6, 9, 12, 18]
+    assert all(d["excluded"] for d in op36["divisors"]) and op36["exact_statement"] == p36["exact_statement"]
+    label51 = "rung 3 local supercritical18 flip and separate fixed-dyadic attracting36; independently reviewed shared kernels"
+    for macro, name, ball, digits in (("tSuperFlipS", "parameter_s", sp["box"][13], 16), ("tSuperFlipAlpha", "alpha", sp["alpha"], 8), ("tSuperFlipCubic", "cubic_b", sp["cubic_b"], 6)):
+        assert sf[name]["ball"] == ball
+        lo, hi = ball_endpoints(ball); assert (lo, hi) == (Fraction(sf[name]["lower"]), Fraction(sf[name]["upper"]))
+        scale = 10**digits; flo = lo.numerator * scale // lo.denominator; cei = -((-hi.numerator * scale) // hi.denominator)
+        n.add(macro, [str(lo), str(hi)], "[" + exact_decimal(flo, digits) + ", " + exact_decimal(cei, digits) + "]", label51, r51_sources, "exact dyadic endpoints rounded outward by Fraction floor/ceiling")
+    assert ball_endpoints(sp["alpha"])[1] < 0 and ball_endpoints(sp["cubic_b"])[0] > 0
+    for macro, value in (("tSuperFlipDirHidden", sf["exact_family"]["direction"][0]), ("tSuperFlipDirOutput", sf["exact_family"]["direction"][1]), ("tPThirtySixHidden", p36["exact_fixed_rates"]["hidden"]), ("tPThirtySixOutput", p36["exact_fixed_rates"]["output"])):
+        v = Fraction(value); assert v.denominator & (v.denominator - 1) == 0
+        n.add(macro, str(v), rf"\frac{{{v.numerator}}}{{2^{{{v.denominator.bit_length()-1}}}}}", label51, r51_sources, "exact dyadic family direction or fixed actual rate; conventions distinguished in text")
+    assert r51_inputs["period36"]["lr_hidden"] == p36["exact_fixed_rates"]["hidden"] and r51_inputs["period36"]["lr_output"] == p36["exact_fixed_rates"]["output"]
+    for prefix, proof51, witness in (("SuperFlip", sp, sf["complement"]), ("PThirtySix", op36, p36["attraction"])):
+        last = proof51["power_bounds"][-1]; assert last["power"] == witness["power"] and last["norm_inf_upper"] == witness["norm_upper"]
+        _, upper51 = ball_endpoints(witness["norm_upper"]); ticks51 = -((-upper51.numerator * 1000000) // upper51.denominator)
+        assert upper51 < Fraction(ticks51, 1000000) < 1
+        n.add("n" + prefix + "Power", witness["power"], str(witness["power"]), label51, r51_sources, "bounded repeated-squaring monodromy/complement power witness")
+        n.add("x" + prefix + "Bound", str(Fraction(ticks51, 1000000)), exact_decimal(ticks51, 6), label51, r51_sources, "exact dyadic power bound rounded upward to six decimals")
+    n.add("nPThirtySixPeriod", op36["exact_statement"]["primitive_period"], "36", label51, r51_sources, "primitive period after excluding all eight proper divisors")
+    n.add("nCertifiedOrbits", len(certificates) + 3, str(len(certificates) + 3), "five individually certified attracting orbits; neutral bifurcations and same-orbit tube excluded", p18_sources + certificate_paths + [s1r_cert_path] + r51_sources, "two period10 plus13D period18 and36 plus72D period2; local bifurcations/tube add no instance")
 
     # Numerical association remains distinct from the exact-real orbit proof.
     bootstrap_path = c.ROOT / "docs/s1r-bootstrap-association-receipt.json"

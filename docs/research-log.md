@@ -5210,3 +5210,22 @@ read-only/owned-PID cleanup checked. Canonical certificates/s2-ray51-flip-receip
 and s2-period36-receipt.json retain exact inputs, bounds, source/profile hashes
 and replay commands. Outcome independent review is pending at receipt creation;
 strategy received all four immutable pins for its separately frozen review.
+
+
+### 2026-10-09: ray-51 paper refresh and saved six-point comparison
+
+Design-only publication run card, following independent ray-51 outcome review
+7ce52148 and canonical producer results6d93fd09. Update the local supercritical
+flip theorem, separate fixed-dyadic primitive36 certificate and total countfive;
+retain all older evidence and no wider unreviewed chart claim. Add one compact
+figure from all three saved doubled proposals on ray13 and all three on ray51:
+signed detuning versus the controlled left-eigenvector amplitude, open/filled
+markers for numerical instability/attraction, no line fits or implied branch
+certificate. Pin both immutable numerical manifests and all consumed files.
+Only saved arithmetic/plotting, number generation/verification and clean PDF
+compilation/rendering are authorized in this unit; no full scientific verifier,
+model, derivative, proof, target selection or old figure regeneration. CPU/BLAS1,
+nice10; figure and numbers each60s, build120s, rendering120s; raw QA<=150MiB.
+Retain any failed build. Check all pages, changed-page detail and unchanged old
+nine figure hashes; push source before generating the new artwork, then push
+reviewed source/PDF/QA companions. Costs: local CPU only.
