@@ -27,7 +27,7 @@ CARD='docs/plans/s2-period18-fold-certificate.md'
 SOURCES=['src/neural_shrimp/rigorous_folds.py','src/neural_shrimp/rigorous_orbits.py',
          'src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py',
          'tools/certify_s2_period18_fold.py','tests/test_rigorous_folds.py',CARD]
-SETTINGS=dict(precision=256,radius_exponent=-80,newton_steps=5,max_power=4096)
+SETTINGS=dict(precision=256,radius_exponent=-100,newton_steps=5,max_power=4096)
 CAP=16*1024**2
 INTERNAL_SECONDS=120
 EXTERNAL_SECONDS=135
