@@ -4727,3 +4727,9 @@ commit, PID, exit and log. The output root is absent. This is explicitly adapted
 after the failed fixed panel; no new model/decomposition/rank search, no
 retroactive pass or predictive interpretation. The question is which target
 directions or coefficient information the failed model discarded.
+
+## 2026-10-09: post-outcome saved-plane arithmetic review
+
+After the fixed saved-plane explanation completed, one independent inline saved-array checker reconstructed all six Gram-Schmidt bases, target projections and energy partitions, product leakage/compression, explicit quadratic comparisons, and four-term residual actions. It passed in approximately0.106s, CPU/BLAS1/nice10; maximum orthogonality, energy-partition and action-identity residuals were respectively7.93e-16,4.44e-16,7.47e-16. No model/derivative/decomposition/solve or new target was run. The check was post-outcome; its exact body was archived afterward with no replay and only a syntax/hash check. The compact record is `docs/reviews/curvature-plane-saved-arithmetic-review.json`, pinned to raw manifest `40fbafb50e234977a9b64a81fc0f97f791bc7d0ae381b5ffe4ec288a4b71d3d9`.
+
+The sharp-direction plane almost excludes the actual leading real modes, and the S1R complex modes also have substantial energy outside it. Even actual plane compression misses the original.02 benchmark in all six rows. This diagnoses failure of plane selection as well as fitted coefficients; it does not rescue the failed predictive approximation or authorize a rank search. All quantities are descriptive and target-informed in whitened coordinates. Root separately owns source/launcher/process checks.
