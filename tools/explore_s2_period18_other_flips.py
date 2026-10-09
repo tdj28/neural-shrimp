@@ -14,6 +14,8 @@ CARD='docs/plans/s2-period18-other-flips.md'
 SOURCES=old.SOURCES+['tools/explore_s2_period18_other_flips.py','tests/test_s2_period18_other_flips.py',CARD]
 CAP=64*1024**2;ORDINARY=56*1024**2;INTERNAL=60;EXTERNAL=75;CALLS=80000
 ROOT_OUT=None
+RESUME=old.RAW/'explore/s2-period18-other-flips/attempt-001'
+RESUME_SHA='949636d923030117bc714f43f528e9ac5c8ebb87ba1d552c6eb6a0fe84d3c828'
 
 def size():return sum(p.stat().st_size for p in ROOT_OUT.rglob('*') if p.is_file())
 def save(p,obj,final=False):
@@ -62,6 +64,30 @@ class Experiment(old.Experiment):
         if size()+len(b)>ORDINARY:
             save(self.out/'overflow-return.json',{'journal':handle.name,'returned_record':obj,'reason':'ordinary aggregate cap'},final=True);raise OSError('ordinary journal cap')
         handle.write(b.decode());handle.flush();os.fsync(handle.fileno());self.bytes+=len(b)
+
+    def evaluate(self,theta,s,period):
+        self.check();theta=np.asarray(theta,dtype=float);z=theta.copy();n=len(z);m=np.eye(n);b=np.zeros(n);orbit=[z.tolist()];checkpoints={};self.returns+=1
+        record={'id':self.returns,'theta':theta.tolist(),'s':float(s),'period':period}
+        try:
+            rates=np.array([10.0**float(a+float(s)*d) for a,d in zip(self.ell,self.direction)])
+            rv=self.net.rate_vector([rates[0]],[rates[1]])[0]
+            # Rates are positive; their derivative along a ray is signed.
+            direction=np.r_[np.full(self.net.hidden_parameter_count,self.direction[0]),np.full(n-self.net.hidden_parameter_count,self.direction[1])]
+            dv=rv*np.log(10.)*direction
+            old.require(np.isfinite(dv).all(),'finite signed parameter-rate derivative')
+            record.update(rates=rates.tolist(),rates_exact=[old.exact(t) for t in rates],rate_derivative=dv.tolist())
+            with np.errstate(over='raise',invalid='raise',divide='raise'):
+                for k in range(period):
+                    self.check();self.points+=1
+                    grad=self.net.gradient(z[None,:],self.x,self.y)[0];h=self.net.hessian(z,self.x,self.y)
+                    j=np.eye(n)-rv[:,None]*h;b=j@b-dv*grad;m=j@m;z=z-rv*grad;orbit.append(z.tolist())
+                    if k+1 in (period//2,period):checkpoints[str(k+1)]={'state':z.tolist(),'monodromy':m.tolist(),'parameter_derivative':b.tolist()}
+                    old.require(np.isfinite(z).all() and np.isfinite(m).all() and np.isfinite(b).all(),'finite joint return')
+            record.update(orbit=orbit,monodromy=m.tolist(),parameter_derivative=b.tolist(),residual=(z-theta).tolist(),checkpoints=checkpoints,completed=True)
+        except BaseException as exc:
+            record.update(orbit=orbit,monodromy=m.tolist(),parameter_derivative=b.tolist(),checkpoints=checkpoints,completed=False,error=type(exc).__name__+': '+str(exc));self.append(self.log,record);raise
+        self.append(self.log,record);return record
+
 
 def one_ray(inp,out,budget,source):
     out.mkdir();save(out/'inputs.json',inp);exp=Experiment(inp,out,budget);result={'ray_index':inp['ray_index'],'status':'started','flip_qualified':False,'doubled_qualified_count':0,'doubled_attracting_count':0,'continuous_branch_proof':False};nodes=[];transitions=[]
@@ -116,14 +142,19 @@ def execute(out):
         old.require(old.digest(MAP)==MAP_SHA,'fixed original grid identity');window=old.read(old.RAYS)['S2-28011-zoom:587']
         with np.load(MAP,allow_pickle=False) as saved:selection=select_rays(window,saved)
         save(out/'selection.json',dict(selection,map=old.entry(MAP),rays=old.entry(old.RAYS)))
-        for index in selection['selected']:
+        old.require(old.digest(RESUME/'manifest.json')==RESUME_SHA,'retained first attempt manifest')
+        manifest=old.read(RESUME/'manifest.json');old.require(old.inventory(RESUME)==manifest['files'],'complete retained first attempt inventory')
+        previous=old.read(RESUME/'run/outcome.json');old.require(selection['selected']==[16,51] and [r['ray_index'] for r in previous['rays']]==[16,51],'same fixed selected rays')
+        old.require(previous['rays'][0]['status']=='numerical_pilot_complete' and previous['rays'][1]['joint_calls']==0,'ray16 retained and ray51 unexecuted')
+        save(out/'resume.json',{'path':str(RESUME),'manifest_sha256':RESUME_SHA,'retained_ray16':previous['rays'][0],'only_rerun_ray':51})
+        for index in [51]:
             if budget['stopped'] or time.monotonic()-budget['start']>INTERNAL:raise TimeoutError('shared deadline before next ray')
             result['rays'].append(one_ray(prepare(index,window),out/f'ray-{index:02d}',budget,source));save(out/'progress.json',result,final=True)
-        result['status']='two_fixed_rays_recorded'
+        result['status']='fixed_ray51_recorded'
     except BaseException as exc:result.update(status='failed_or_interrupted',error=type(exc).__name__+': '+str(exc))
     finally:
         signal.setitimer(signal.ITIMER_REAL,0);result.update(elapsed_seconds=time.monotonic()-budget['start'],joint_calls=budget['completed_points'],max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,finished_utc=old.now());save(out/'outcome.json',result,final=True);files=old.inventory(out);save(out/'manifest.json',{'files':files,'total_bytes':sum(x['bytes'] for x in files.values())},final=True)
-    print(json.dumps(old.clean(result)),flush=True);return 0 if result['status']=='two_fixed_rays_recorded' else 2
+    print(json.dumps(old.clean(result)),flush=True);return 0 if result['status']=='fixed_ray51_recorded' else 2
 
 def launch(out):
     global ROOT_OUT

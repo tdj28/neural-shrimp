@@ -5250,3 +5250,13 @@ s2-period18-other-flips-attempt001.json. Next amendment will fix only signed
 parameter-derivative construction, keep actual positive-rate validation and all
 scientific gates, and run the already fixed/unexecuted ray51 once. Ray16 will
 not be repeated; no replacement target or attraction claim is made.
+
+### 2026-10-09 — signed derivative repair, before ray51 retry
+
+Root approved the repair and rerun of only unexecuted ray51. New runner explicitly
+constructs signed eta'(s)=eta(s)*log(10)*direction, while actual eta still uses the
+unchanged positive-rate validation. Synthetic mixed-sign full-return derivative
+control added; old driver/core/proof bytes unchanged. Bind the complete first
+attempt and preserve ray16 without re-evaluation. New exclusive attempt002;
+all mesh/gates/shared60s/80,000calls/64MiB/CPU1 budgets unchanged. No alternative
+ray or attraction-driven replacement is selected.
