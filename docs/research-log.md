@@ -4817,3 +4817,5 @@ The precise result is an attracting exact-real primitive18 orbit near the histor
 ## 2026-10-09: point-only fold cross-check prepared
 
 After the root's single numerical period18 fold candidate passed, root authorized a bounded independent point-only review with existing Arb-jet objective AD. No root/continuation/decomposition is repeated. Fixed native phases0/1 and FD exponents18/20,324 one-step AD calls,128bits,CPU/BLAS1,nice>=10,60s/75+5s,8MiB,no retries. Full residual/Jacobian/action arrays will be retained; original outcomes were already read. Source `tools/reviews/review_s2_period18_fold.py`, card `docs/plans/s2-period18-fold-independent-review.md`. The claim remains numerical fold support, never interval or whole-geometry proof.
+
+Pre-execution source repair: initial syntax parsing found one unmatched closing parenthesis in the final report construction. The draft commit was preserved; the parenthesis was corrected and syntax/import checks passed before any target diagnostic. No target attempt or outcome was produced by the syntax failure.
