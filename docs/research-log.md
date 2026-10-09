@@ -5258,3 +5258,15 @@ Pre-run validation: all15 focused synthetic controls passed in9.84seconds (CPU/B
 ### 2026-10-09 — joined primitive18 branch review outcome
 
 The one authorized audit from9bdeafd338e987c072168d96c41c9180c8e29f19 passed: exact original two-chart replay; independent384-bit root, primitive,234-coordinate original anchor/shared endpoint; all32 closed stability slices with576 reacquired native Jacobians and saved exact cyclic metric positivity. Internal32.615s/external33.008s,804184KiB peak,59files22,396,225bytes; all read-only/inventories verified/PIDs absent. Raw `audits/s2-period18-joined-branch/attempt-001`, outer manifestcdf337071775e7e212b1cf6b15f7634571590b591a750075a929bca29788beea. Companion `docs/reviews/s2-period18-joined-branch-independent-review.json` binds exact scope and sources. Same attracting primitive18 branch across width1/1024; no connection to fold/flip or full shrimp claim. No further target attempt.
+
+
+### 2026-10-09: reviewed joined-interval manuscript amendment
+
+After producer6bab533b and independent review7e5a5323 passed, replace the older
+tiny-tube paragraph with the exact joined interval of width1/1024 and32 closed
+stability slices. Add three saved-data macros with exact endpoint/coverage and
+review/source/raw-manifest joins. Preserve all344 older number entries, ten
+figures and five-attracting-instance count. No new target, derivative, proof,
+old figure regeneration or full verifier. Repeat clean bounded compilation and
+all-page/changed-page PDF QA under the preceding localCPU1/nice10 limits, using
+another exclusive external directory; retain the completed36-page checkpoint.
