@@ -4960,3 +4960,20 @@ storage-failure retention. The source/card must be committed before the tiny
 synthetic profile and actual target. Root brief source review precedes launch.
 Use localCPU1/nice10;100s/115+5s;40k joint products;32+1MiB;monitored2GiB.
 Keep every result and amend disclosed failures when scientifically warranted.
+### 2026-10-09 — Period-18 connection prototype and synthetic profile card
+
+Question: obtain a uniform continuous attracting primitive18 branch through the
+certified center, with an exact common-rate uniqueness anchor. Implemented234D
+multiple shooting with affine parameter predictor and uniform Arb contraction,
+phase divisor exclusions and balanced monodromy power bounds. The first target
+interval is h0±2^-20 at fixed original output rate, correction radius2^-28;
+no boundary connection is presumed. Before any target, run the synthetic same-size
+resource profile described in `docs/plans/s2-period18-connection-pilot.md`, output
+`explore/certificates/s2-period18-connection-2026-10-09/attempt-001-profile`.
+CPU/BLAS1 nice10,20s internal/25s+5s external,64MiB worker/1MiB launcher,2GiB RSS.
+The profile is not a scientific target; false primitive/anchor gates are expected.
+Exact source commit/runtime and all outcomes, including failure, are retained.
+The target follows only the declared measured cost gate and brief source review;
+its exact profile manifest will be recorded before launch. No target/profile has
+run at this card. No paid/GPU/new data/holdout work. A failed interval will motivate
+a disclosed adaptation, not a silent radius or width search.
