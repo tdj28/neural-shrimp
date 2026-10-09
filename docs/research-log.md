@@ -5270,3 +5270,5 @@ figures and five-attracting-instance count. No new target, derivative, proof,
 old figure regeneration or full verifier. Repeat clean bounded compilation and
 all-page/changed-page PDF QA under the preceding localCPU1/nice10 limits, using
 another exclusive external directory; retain the completed36-page checkpoint.
+
+Saved-number binding correction: the initial new interval block referenced the earlier numerical fold summary instead of the exact local-fold receipt for the fixed output rate, producing a KeyError before any generated output. Corrected the object name (`local`), retaining the original exact-rate equality gate and no scientific changes.

@@ -1138,7 +1138,7 @@ def build():
     assert rs["uniform_attraction"] and rs["uniform_primitive_period"] and rs["same_original_center_orbit"]
     assert not rs["boundary_connection_proved"] and not rs["full_shrimp_geometry_proved"]
     assert js["new_individual_orbit_certificates"] == 0 and rs["proper_divisors_excluded"] == [1,2,3,6,9]
-    assert js["fixed_output_rate"] == rs["fixed_output_rate"] == fold["fixed_output_rate"]
+    assert js["fixed_output_rate"] == rs["fixed_output_rate"] == local["fixed_output_rate"]
     ends = [Fraction(v) for v in js["exact_hidden_rate_interval"]]
     assert js["exact_hidden_rate_interval"] == rs["hidden_rate_interval"] and ends[0] < ends[1]
     width = ends[1] - ends[0]
