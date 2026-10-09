@@ -84,7 +84,7 @@ def prepare():
 
 def synthetic():
     inp={'schema':'neural-shrimp-c1-input-v1','network':{'activation':'tanh','d':2,'width':3,'bias':True,
-         'in_scale':'1','out_scale':'1','loss_scale':'1/2','ridge':'1/1000'},
+         'in_scale':'1','out_scale':'1','loss_scale':'1/2','ridge':'1'},
          'x':[[str(Fraction(i-12,48)),str(Fraction((i*7)%23-11,48))] for i in range(24)],
          'y':['0']*24,'lr_hidden':'1/128','lr_output':'1/128'}
     return {'model_inputs':inp,'initial':[['0']*13 for _ in range(18)],'rate':'1/128','anchor':None,
@@ -94,6 +94,8 @@ def profile_gate(path,pin):
     require(entry(path/'manifest.json')['sha256']==pin,'approved profile manifest')
     verify_inventory(path,read(path/'manifest.json')['files'])
     result=read(path/'outcome.json');runtime=read(path/'runtime-start.json')
+    charts=read(path/'certificate.json.gz')['result']['charts']
+    require(len(charts)==2 and all(c['gates']['uniform_root'] and c['root_image_stability']['attempted'] for c in charts),'profile covers both proved-image derivative stages')
     require(result['status']=='synthetic_profile_completed' and result['elapsed_seconds']<20,'completed profile timing')
     require(runtime['source_sha256']==sources(),'same profiled source bytes')
     require(4*result['elapsed_seconds']+2<100,'conservative profile projection below100 seconds')
