@@ -4671,3 +4671,15 @@ fixed six slots once; preserve all failed/incomplete outcomes.
   "surprise": "All fixed accuracy/attribution gates pass despite isotropic approximation of remaining curvature."
 }
 ```
+
+
+## 2026-10-09T02:10:45.002834+00:00 — fixed curvature pilot completed, negative
+
+All six physical/historical references qualify; all six approximation pair errors
+miss the unchanged0.02 gate. Both real controls falsely become complex; the S1R
+stable-complex slot falsely becomes real. Mean gain over the poor commuting
+control passes but cannot rescue the aggregate. No source or threshold was
+changed after observing outcomes. See `docs/reviews/curvature-six-reference-outcome.md`
+and its complete receipt. Raw manifests/source identities/modes and all recorded
+owned-process exits verify. The first exploratory panel is now closed; no rank
+expansion or replacement occurred. Independent saved interpretation is pending.
