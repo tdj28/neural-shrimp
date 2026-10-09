@@ -2,7 +2,7 @@
 import os
 THREADS=('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 for name in THREADS:os.environ[name]='1'
-import argparse,gzip,json,platform,resource,signal,subprocess,sys,time
+import argparse,gzip,json,math,platform,resource,signal,subprocess,sys,time
 from datetime import datetime,timezone
 from fractions import Fraction
 from pathlib import Path
@@ -93,10 +93,22 @@ def synthetic():
     return {'model_inputs':inp,'initial':[['0']*13 for _ in range(18)],'rate':'1/128','anchor':None,
             'provenance':{'synthetic':True,'scientific_claim':False,'purpose':'same18x13 dense shooting algebra and24-sample tanh derivatives; no target inputs'}}
 
+def profile_environment(runtime,result):
+    elapsed=result['elapsed_seconds'];rss=result['max_rss_kib']
+    require(type(elapsed) in (int,float) and math.isfinite(elapsed) and 0<=elapsed<20,'finite nonnegative bounded profile time')
+    require(type(rss) in (int,float) and math.isfinite(rss) and 0<=rss<2*1024**2,'finite nonnegative bounded profile RSS')
+    require(result['exit_code']==0 and runtime['mode']=='profile','successful profile worker')
+    expected={'python':platform.python_version(),'python_flint':flint.__version__,'flint':flint.__FLINT_VERSION__,
+        'numpy':numpy.__version__,'scipy':scipy.__version__,'internal_seconds':20,'tick_cap':256,'map_cap':180,'unit_derivative_cap':360}
+    require(all(runtime.get(k)==v for k,v in expected.items()),'profile library/settings equality')
+    require(runtime['threads']==dict.fromkeys(THREADS,'1') and runtime['nice']>=10,'profile threads/nice')
+
+
 def profile_gate(path,pin):
     require(entry(path/'manifest.json')['sha256']==pin,'approved profile manifest')
     verify_inventory(path,read(path/'manifest.json')['files'])
     result=read(path/'outcome.json');runtime=read(path/'runtime-start.json')
+    profile_environment(runtime,result)
     charts=read(path/'certificate.json.gz')['result']['charts']
     require(len(charts)==2 and all(c['gates']['uniform_root'] and c['root_image_stability']['attempted'] for c in charts),'profile covers both proved-image derivative stages')
     require(result['adapter_counts']=={'map_attempted':180,'map_returned':180,'unit_attempted':360,'unit_returned':360,'map_cap':180,'unit_cap':360},'complete mean-value adapter profile')
