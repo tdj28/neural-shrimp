@@ -72,7 +72,9 @@ A synthetic13D/24-example/18-step center-plus-box profile measures cost first.
 CPU/BLAS1, nice>=10,120s internal and135s external TERM plus5s KILL,160 map and
 observer ticks,16MiB raw plus1MiB launcher, monitored2GiB peak RSS. One target
 only after reviewed source and the measured resource gate; preserve all failures.
-A later change requires a dated disclosed amendment and separate authorization.
+A later change requires a dated disclosed amendment, source checkpoint and updated
+cost bound, with root coordination for target changes; existing user authorization
+for bounded local exploration does not require another human approval.
 No GPU, paid run, protected seed or holdout is used.
 
 Synthetic controls cover exact third mixed products and tanh/exp rules; old
@@ -83,3 +85,74 @@ left vectors; quadratic correction reversing the raw cubic sign; known
 super/subcritical, zero cubic, zero crossing, defective and unstable-complement
 cases; divisor exclusion; and linear phase-frame covariance alpha'=alpha,
 b'=b/k². These are controls of code and conventions, not additional neural data.
+
+## Adapter and executable card — source freeze before proof outcomes
+
+The adapter `tools/certify_s2_period18_flip.py` is now implemented. It has a
+pure independently testable historical family/seed reconstruction and binds
+all consumed file hashes above. It also verifies the externally pinned complete
+numerical outer and run manifests, all eight committed/retained numerical
+runtime sources, the source/input hash carried by the seed, the selected full
+state/eigenvector and original scale/unit-direction factors. Proof inputs
+contain exact rational ell,d and theta,s,q; only real Arb log/exp enters the
+mathematical map. Neither a floating eigenvalue nor numerical success passes
+a proof gate. Source inventories include the new kernel, inherited exact-map
+helpers and transitive imports, adapter, tests and this card.
+
+The selected numerical proposal is now available from
+`/data2/neural-shrimp-data/explore/s2-period18-flip/attempt-002-target`, execution
+`9cc21b7f52b7b2edadb02cd1098d4843c4f1a3aa`, outer manifest
+`bd34d93e8430ed17b0705725ef27c384c7e8ae4853e20f8363042cfcc493123c`.
+Its `run/flip-proof-seed.json` hash is
+`370bfc601a991f2e9186894287e7e9a141e2c5164dbc0424f1be474b7b9a7185`.
+These are metadata supplied by the numerical producer before the proof run.
+The numerical author reports an earlier complex-pair instability and re-entry
+along the33-node carried branch, followed by this qualified flip and three
+unstable primitive36 cycles. The first attempt stopped on the earlier loss of
+attraction and remains retained. Thus the proposed flip is not asserted to be
+the first stability boundary, nor is supercriticality presumed. These related
+outcome summaries were known before this executable card; all proof gates and
+the one selected target remain unchanged.
+
+The resource-only profile makes exactly two finite synthetic18-step evaluations
+(center and box) using13 parameters/24 examples and both variable rates. Its
+externally SHA-pinned complete bundle must match the current eight bound source
+files, libraries and CPU1/nice contract. The conservative gate is
+7*max(measured evaluation seconds)+10 <=60s, within the120s internal ceiling.
+Recorded elapsed/RSS/exit/inventory constraints must also pass. Reuse that exact
+profile only while bound executable/card bytes are unchanged; adding an outcome
+receipt or research-log entry does not alter those bytes. No favorable learning
+or proof result controls this resource gate.
+
+The target then makes one256-bit/radius2^-100/five-Newton/maxpower4096 attempt.
+Retain each returned Newton and whole-box evaluation before the deadline check,
+and the root gate before later border/coefficient/power failures. The raw bundle
+contains the whole orbit, augmented Jacobian, M, mixed B(q,.) columns, B(q,q),
+C(q,q,q), validated solves, full action vectors, power matrices, source/runtime,
+exact inputs, and complete failure or certificate output. The launcher retains
+its command, owned group PID, log, exit and verified final cleanup; it does not
+interfere with other jobs. All outputs become read-only.
+
+Separately record exact-Fraction proximity of the entire27D proof box to the
+selected dyadic proposal, normalized by max(1,proposal infinity norm), with
+cap1e-7. A mathematical proof and selected-proposal association are distinct
+fields; a failed association does not erase the proof, but prevents a combined
+selected-candidate pass. This is proximity, not inclusion or branch ancestry.
+Replay requires an externally pinned proof manifest, reconstruction from the
+same pinned numerical/historical inputs, matching source/libraries, byte-identical
+mathematical result and exact association arithmetic.
+
+Exclusive planned roots are
+`/data2/neural-shrimp-data/explore/certificates/s2-period18-flip-2026-10-09/attempt-001-profile`
+and `attempt-001-target`. After root source review, run the profile with the
+project Python and `--mode profile --out <profile-root>`. The target command is:
+
+```
+/data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_flip.py --mode target --numerical-root /data2/neural-shrimp-data/explore/s2-period18-flip/attempt-002-target --numerical-manifest-sha256 bd34d93e8430ed17b0705725ef27c384c7e8ae4853e20f8363042cfcc493123c --profile-root <same-profile-root> --profile-manifest-sha256 <reviewed-profile-pin> --out <exclusive-target-root>
+```
+
+Replay uses `--mode replay --bundle <target-root>/run --manifest-sha256 <run-pin>
+--out <new-exclusive-root>`. This card coordinates one measured target; routine
+bounded adaptations remain permitted under the user's exploratory mandate,
+with a dated amendment, source checkpoint and updated cost bound. No protected
+holdout, broad parameter search, paid call or GPU run is included.
