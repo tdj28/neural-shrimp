@@ -4763,3 +4763,19 @@ The sharp-direction plane almost excludes the actual leading real modes, and the
 ## 2026-10-09T02:27:07.413532+00:00 — resumption paper and private handoff snapshot
 
 Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T022654Z-resumption-checkpoint`, including the32-page PDF, current report/reviews and four private original-checkout files. Exact inventories, complete SHA256, second source hash pass and stable source metadata agree. Private ledger and foreign log stay outside Git. See `docs/backups/2026-10-09-resumption-checkpoint.json`. Sources were not altered; same-machine separate-disk snapshot supplements private Git.
+
+### 2026-10-09 UTC — one exploratory primitive18 proof run card
+
+Root authorizes one C1 attempt for row111/S2-28011-zoom:587, the existing strong
+numerical fold/flip window candidate, using unchanged checker256bits/radius2^-80/
+5Newton/maxpower4096. Adapter copies only exact consumed C1 x/y/model and checks
+historical data/rate/phase identities; no heldout regeneration. Exact whole-box
+proximity to saved phase0 is separate from proof and ancestry. Four synthetic
+controls pass0.08s. CPU1/nice>=10,60s internal/75+5s external,8MiB checked output,
+exclusive `explore/certificates/s2-period18-2026-10-09/attempt-001`. A passing
+primitive18 attractor would put rung3 orbit evidence at a strong numerical
+geometry candidate; it would not certify its boundaries, ancestry or utility.
+A wrapping/nondegeneracy failure is preserved, not evidence the orbit is absent.
+Detailed exact command and retention rules: `docs/plans/s2-period18-certificate.md`.
+No retry or other target is authorized in this unit. Code/card committed before
+execution; a separate agent will review the result afterward.
