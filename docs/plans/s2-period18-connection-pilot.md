@@ -101,3 +101,15 @@ mathematical replay. A separately hash-bound payload record also gives exact dec
 cap and60MiB ordinary allowance remain. All model/proof/settings are unchanged.
 One amended profile uses `attempt-002-profile`; if the unchanged timing/storage
 gates pass, the first target remains `attempt-001-target`, binding profile002.
+
+
+## Disclosed input-adapter correction before any target evaluation
+
+Target001 stopped at0 ticks/0 stages because the historical C1 bundle contains
+its own `receipt.json` in addition to the four payload entries. Its SHA equals
+the pinned canonical receipt. Include that self receipt explicitly in the exact
+inventory; no file is ignored and all original hashes remain required. Preserve
+target001 as a failed input attempt. Because source identity changes, repeat the
+same approximately2s synthetic profile once as `attempt-003-profile`, then run
+one `attempt-002-target` if its unchanged gates pass. No model call or target
+mathematical outcome preceded this correction; all proof settings are unchanged.

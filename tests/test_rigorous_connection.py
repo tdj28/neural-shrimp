@@ -130,3 +130,12 @@ def test_compressed_payload_checksum_is_required(tmp_path):
     m.save(tmp_path/'certificate-payload.json',meta);assert m.read(p)=={'exact':'1/3'}
     meta['uncompressed_sha256']='0'*64;m.save(tmp_path/'certificate-payload.json',meta)
     with pytest.raises(ValueError,match='payload identity'):m.read(p)
+
+
+def test_anchor_self_receipt_is_an_explicit_member(tmp_path):
+    m=driver();(tmp_path/'inputs.json').write_text('{}');(tmp_path/'receipt.json').write_text('{"pinned":true}')
+    payload={'inputs.json':m.entry(tmp_path/'inputs.json')}
+    with pytest.raises(ValueError):m.verify_inventory(tmp_path,payload)
+    complete={**payload,'receipt.json':m.entry(tmp_path/'receipt.json')};m.verify_inventory(tmp_path,complete)
+    (tmp_path/'receipt.json').write_text('{"pinned":false}')
+    with pytest.raises(ValueError):m.verify_inventory(tmp_path,complete)
