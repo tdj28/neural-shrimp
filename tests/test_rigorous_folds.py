@@ -1,3 +1,4 @@
+from fractions import Fraction
 from flint import arb, arb_mat, ctx
 import pytest
 from neural_shrimp.rigorous_folds import MixedJet, FoldTanhMap, augmented, _proof, check_fold
@@ -144,3 +145,32 @@ def test_independent_high_precision_differences_check_mixed_columns():
                 values.append([sum(((m[i,k]-int(i==k))*v[k] for k in range(n)),arb(0)) for i in range(n)])
             for i in range(n):
                 assert abs((values[1][i]-values[0][i])/(2*eps)-j[n+i,col]) < tol
+
+
+@pytest.mark.parametrize('mismatch',[False,True])
+def test_adapter_exact_output_constant_gate_without_target_reads(monkeypatch,mismatch):
+    import importlib.util
+    from pathlib import Path
+    path=Path(__file__).resolve().parents[1]/'tools/certify_s2_period18_fold.py'
+    spec=importlib.util.spec_from_file_location('fold_adapter_control',path)
+    mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+    old=synthetic_inputs(True)
+    numeric={'accepted':True,'period':18,'target':'S2-28011-zoom:587','ray_index':0,
+        'parameter_log10':[1.0,0.0 if mismatch else -.08562528015073712],
+        'diagnostics':{'state':[0.0]*13,'right_null':[1.0]+[0.0]*12}}
+    def read(p):
+        if p==mod.PARENT:return old
+        if p.name=='outcome.json':return numeric
+        if p.name=='inputs.json':return {'network':old['network'],'row_index':111,'ray_index':0}
+        if p.name=='runtime-start.json':return {'source_commit':'synthetic'}
+        if p.name=='manifest.json':return {}
+        raise AssertionError('unexpected input read')
+    monkeypatch.setattr(mod,'PINS',{})
+    monkeypatch.setattr(mod,'read',read)
+    monkeypatch.setattr(mod,'verify_inventory',lambda *_:None)
+    if mismatch:
+        with pytest.raises(ValueError,match='historical output-rate identity'):mod.prepare()
+    else:
+        got=mod.prepare()
+        assert got['provenance']['output_rate_matches_row111']
+        assert float(Fraction(got['map_inputs']['lr_output'])).hex()=='0x1.a461eed55764cp-1'
