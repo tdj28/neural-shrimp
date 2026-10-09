@@ -4947,3 +4947,16 @@ synthetic controls pass (0.11s). Existing C1/fold kernels are unchanged. This
 checkpoint has no target run; adapter, measured profile and source review are
 pending. Mathematical scope and proposed limits are in
 `docs/plans/s2-period18-flip-certificate.md`.
+
+## 2026-10-09 — exact-ray flip adapter and bounded executable preparation
+
+Prepare the full numerical/historical source-bound adapter, synthetic cost
+profile gate, durable one-attempt launcher and exact byte replay. The numerical
+ray13 author reported an earlier complex instability/re-entry and three
+unstable36 cycles before this proof freeze; these findings are disclosed in the
+card and do not change the flip gates or selected proposal. Both log-ray rates
+remain exact-real variables of the same s. Full mathematical pass and exact
+whole-box association are separate fields. One synthetic assertion initially
+used Arb's mathematical equality on non-point balls; corrected the test to
+compare serialized enclosures, without changing implementation or targets.
+Source review and measured profile precede the first target proof.

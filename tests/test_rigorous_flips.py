@@ -3,7 +3,7 @@ from fractions import Fraction
 import pytest
 from flint import arb,arb_mat,ctx
 from neural_shrimp.rigorous_flips import FlipJet,FlipTanhMap,augmented,_proof,check_flip
-from neural_shrimp.rigorous_orbits import BallTanhMap,exact
+from neural_shrimp.rigorous_orbits import BallTanhMap,exact,vector_json,matrix_json
 
 
 def restore(b):return arb(arb(tuple(b['mid'])),arb(tuple(b['rad'])))
@@ -201,3 +201,77 @@ def test_unproved_coefficient_sign_is_not_labeled_criticality():
         r=proof(PolynomialFlip(unstable=True))
         assert r['cubic_sign']=='positive'
         assert r['criticality']=='unproved' and r['doubled_side_in_s']=='unproved'
+
+
+def adapter():
+    import importlib.util
+    from pathlib import Path
+    spec=importlib.util.spec_from_file_location('flip_adapter_control',Path(__file__).resolve().parents[1]/'tools/certify_s2_period18_flip.py')
+    mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod);return mod
+
+
+def adapter_fixture():
+    import copy
+    mod=adapter();consumed={k:v for k,v in inputs().items() if k not in ('lr_hidden','lr_output')};consumed['network']['width']=3
+    orbit=[[0.0]*13 for _ in range(18)]
+    row={'map_id':'S2-28011-zoom','component':587,'period':18,'certificate':{'orbit':orbit}}
+    window={'center':[-1.0,-1.5],'scale':[.3,.4],'rays':[{'type':'fold'} for _ in range(13)]+[{'type':'flip','direction':[.5,.75]}]}
+    direction=[float(a)*float(b) for a,b in zip(window['scale'],window['rays'][13]['direction'])]
+    fam={'schema':'neural-shrimp-exact-log-ray-v1','ell':[mod.dyadic(x) for x in window['center']],'direction':[mod.dyadic(x) for x in direction],
+         'ell_float':window['center'],'direction_float':direction,'historical_scale':window['scale'],'historical_unit_direction':window['rays'][13]['direction']}
+    num={'row_index':111,'ray_index':13,'period':18,'ray':window['rays'][13],'historical_orbit':orbit,'consumed_map':consumed,'family':fam}
+    point={'qualified':True,'state':[0.0]*13,'q':[1.0]+[0.0]*12,'s':.25}
+    seed={'schema':'neural-shrimp-flip-proof-seed-v1','period':18,'consumed_map':consumed,'family':copy.deepcopy(fam),'theta':['0']*13,'right_vector':['1']+['0']*12,'parameter':'1/4'}
+    return mod,consumed,row,window,num,point,seed
+
+
+def test_adapter_reconstructs_exact_both_rate_family_and_selected_state():
+    mod,*args=adapter_fixture();got=mod.assemble(*args)
+    assert got['period']==18 and len(got['approximation'])==27
+    assert [Fraction(x) for x in got['rate_family']['direction']]==[Fraction(.3*.5),Fraction(.4*.75)]
+    assert got['map_inputs']['lr_hidden']==got['map_inputs']['lr_output']=='1/1'
+
+
+@pytest.mark.parametrize('change',['direction','state','ray','scale','qualified'])
+def test_adapter_rejects_changed_family_or_selection(change):
+    mod,consumed,row,window,num,point,seed=adapter_fixture()
+    if change=='direction':seed['family']['direction'][1]='1'
+    elif change=='state':point['state'][0]=.5
+    elif change=='ray':num['ray_index']=14
+    elif change=='scale':seed['family']['historical_scale']=[1,1]
+    elif change=='qualified':point['qualified']=False
+    with pytest.raises(ValueError):mod.assemble(consumed,row,window,num,point,seed)
+
+
+def test_profile_resource_gate_requires_finite_unmodified_measured_projection():
+    mod=adapter();runtime={'threads':{k:'1' for k in mod.THREADS},'nice':10}
+    outcome={'timings':[{'evaluation':'center','seconds':1.0},{'evaluation':'box','seconds':2.0}],
+             'projected_seven_evaluation_seconds_plus10':24.0,'elapsed_seconds':3.5,'max_rss_kib':60000}
+    launcher={'elapsed_seconds':4.0}
+    assert mod.profile_resource_gates(runtime,outcome,launcher,'synthetic','hash')['passed']
+    for value in (float('nan'),float('inf'),-1.0,0.0,True):
+        bad={**outcome,'timings':[{'evaluation':'center','seconds':value},{'evaluation':'box','seconds':2.0}]}
+        with pytest.raises(ValueError):mod.profile_resource_gates(runtime,bad,launcher,'synthetic','hash')
+    with pytest.raises(ValueError):mod.profile_resource_gates(runtime,{**outcome,'projected_seven_evaluation_seconds_plus10':1.0},launcher,'synthetic','hash')
+    with pytest.raises(ValueError):mod.profile_resource_gates(runtime,{**outcome,'elapsed_seconds':float('nan')},launcher,'synthetic','hash')
+
+
+def test_whole_box_association_is_separate_from_mathematical_root():
+    mod=adapter();seed=['0']*13+['1/4','1']+['0']*12
+    with ctx.workprec(256):
+        box=[{'mid':[int(v) for v in exact(x).mid().man_exp()],'rad':[1,-100]} for x in seed]
+    r={'box':box,'gates':{'augmented_root_unique':True}}
+    assert mod.whole_box_proximity(r,{'approximation':seed})['passed']
+    r['gates']['augmented_root_unique']=False
+    assert not mod.whole_box_proximity(r,{'approximation':seed})['passed']
+    r['gates']['augmented_root_unique']=True;r['box'][0]['mid']=[1,0]
+    assert not mod.whole_box_proximity(r,{'approximation':seed})['passed']
+
+
+def test_placeholder_base_rates_cannot_change_exact_ray_update():
+    with ctx.workprec(200):
+        one=inputs();two=inputs();two.update(lr_hidden='7',lr_output='9')
+        a=FlipTanhMap(one,family());b=FlipTanhMap(two,family());n=a.n
+        z=[arb(i+1)/17 for i in range(n)]+[arb(1)/5]+[arb(i+2)/23 for i in range(n)]
+        ha,ja,_=augmented(a,z,2);hb,jb,_=augmented(b,z,2)
+        assert vector_json(ha)==vector_json(hb) and matrix_json(ja)==matrix_json(jb)
