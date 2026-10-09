@@ -72,6 +72,7 @@ def prepare():
     hlog,olog=numerical['parameter_log10']
     # Match the scalar Python power convention used by the numerical producer.
     rh,ro=10.0**float(hlog),10.0**float(olog)
+    require(ro.hex()=='0x1.a461eed55764cp-1','exact historical output-rate identity')
     theta=numerical['diagnostics']['state'];v=numerical['diagnostics']['right_null']
     require(len(theta)==len(v)==13,'full augmented seed')
     model={k:old[k] for k in ('schema','network','x','y')}
