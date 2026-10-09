@@ -1,8 +1,10 @@
 # Gradient-descent route manuscript (working draft)
 
 This directory holds the manuscript on the dynamics inside learning-rate planes
-of full-batch gradient descent: numerically validated periodic windows inside chaotic
-training, and an exploratory quasi-periodic route (Neimark-Sacker bifurcation of
+of full-batch gradient descent. Its selected exact-real certificates prove primitive
+period 10 in 13 parameters and period 2 in 72 parameters, with full-state local
+attraction at fixed layer-specific rates. These are internal project results. The
+numerical study also reports periodic windows inside chaotic training and an exploratory quasi-periodic route (Neimark-Sacker bifurcation of
 the edge-of-stability 2-cycle, invariant circles, phase-locked windows). The
 draft is private; framing, authorship, license and release are the human
 author's decisions.
