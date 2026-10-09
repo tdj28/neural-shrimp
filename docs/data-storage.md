@@ -135,3 +135,8 @@ staged in Git and the foreign log was not edited.
 ## 2026-10-09 UTC — resumed curvature evidence backup
 
 Verified separate-disk copy at `/archive/neural-shrimp-backups/20261009T022241Z-curvature-resumption`: 343 files / 14543690 bytes, including the resource profile, fixed negative panel, adapted saved-plane explanation and all launcher evidence. Full source/copy inventories, every SHA256 and a second source hash pass agree. Manifest `a24bc32efa37cc73e1eadda087af112d4aeab627a79bc27ed17d63b8e5f9546c`. Receipt: `docs/backups/2026-10-09-curvature-resumption.json`. This supplements private Git backups; it is a point-in-time copy on the same machine, not offsite storage.
+
+
+## 2026-10-09T02:27:07.413532+00:00 — resumption paper and private handoff snapshot
+
+Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T022654Z-resumption-checkpoint`, including the32-page PDF, current report/reviews and four private original-checkout files. Exact inventories, complete SHA256, second source hash pass and stable source metadata agree. Private ledger and foreign log stay outside Git. See `docs/backups/2026-10-09-resumption-checkpoint.json`. Sources were not altered; same-machine separate-disk snapshot supplements private Git.
