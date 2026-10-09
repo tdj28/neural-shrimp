@@ -35,7 +35,7 @@ def main():
     layer[(status == 2) & (period != p)] = 1
     layer[(status == 2) & (period == 2 * p)] = 2
     layer[(status == 2) & (period == p)] = 3
-    fig = c.plt.figure(figsize=(7.1, 3.9), layout="constrained")
+    fig = c.plt.figure(figsize=(7.1, 4.2), layout="constrained")
     grid = fig.add_gridspec(1, 2, width_ratios=[1.45, 1])
     ax = fig.add_subplot(grid[0, 0])
     ax.imshow(layer, origin="lower", extent=[lo[0], lo[-1], lh[0], lh[-1]], aspect="auto", interpolation="nearest",
@@ -61,17 +61,19 @@ def main():
     ax.set_ylim(max(lh[0], low[0]), min(lh[-1], high[0]))
     ax.set_xlabel("log10 output-layer learning rate")
     ax.set_ylabel("log10 hidden-layer learning rate")
-    ax.set_title(f"A  Window {KEY} (period {p}): typed stability boundaries")
+    ax.set_title(f"A  Window {KEY} (period {p})\nNumerical boundary candidates")
+    labels = {"fold": "fold candidate (+1)", "flip": "flip candidate (-1)",
+              "neimark_sacker": "complex-pair candidate"}
     handles = [Line2D([], [], marker=c.TYPE_MARKERS[k], linestyle="", color=c.TYPE_COLORS[k],
-                      label=f"{c.TYPE_LABELS[k]}: {counts.get(k, 0)} rays") for k in c.TYPE_COLORS]
+                      label=f"{labels[k]}: {counts.get(k, 0)}") for k in c.TYPE_COLORS]
     handles += [Patch(color=c.SECONDARY, label=f"period {p}"), Patch(color="#a3a29b", label=f"period {2 * p}"),
                 Patch(color="#e1e0d9", label="other periodic")]
-    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=3, frameon=False, fontsize=6.5)
+    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=2, frameon=False, fontsize=6.5)
     metrics = survey["metrics"]
     a, compared = metrics["edge_agreement"]
     f2, ft = metrics["flip_to_2p"]
     ax.text(0.02, 0.98, f"ray and map edges within 2 cells: {a}/{compared} rays\n"
-            f"flip rays opening onto period {2 * p}: {f2}/{ft}\n(local map at 256 x 256)",
+            f"flip-candidate rays opening onto period {2 * p}: {f2}/{ft}\n(local map at 256 x 256)",
             transform=ax.transAxes, va="top", fontsize=6.3, color=c.INK,
             bbox={"facecolor": c.SURFACE, "edgecolor": "none", "alpha": 0.85, "pad": 1.5})
     bx = fig.add_subplot(grid[0, 1])
@@ -91,21 +93,21 @@ def main():
     bx.set_ylim(-1.25, 1.25)
     bx.set_xlabel("Re of dominant multiplier")
     bx.set_ylabel("Im of dominant multiplier")
-    bx.set_title("B  Crossing multipliers (unit circle)")
+    bx.set_title("B  Boundary multipliers\nUnit-circle reference")
     derived = {"window": KEY, "period": p, "rays": len(window["rays"]), "ray_types": counts,
                "edge_agreement": [a, compared], "flip_to_2p": [f2, ft],
                "boundary_points": [{"direction": r["direction"], "type": r["type"], "s_boundary": r["s_boundary"]}
                                    for r in window["rays"]]}
     alt = (f"Local period map around the numerically validated period-{p} window {KEY}. The window's region (dark) has a "
-           f"fold-bounded body: {counts.get('fold', 0)} of {len(window['rays'])} rays end where a multiplier "
-           f"crosses +1. Along its upper edge {counts.get('flip', 0)} rays end at a flip (-1), opening onto "
+           f"body bounded by numerical fold candidates: {counts.get('fold', 0)} of {len(window['rays'])} rays end where a multiplier "
+           f"crosses +1. Along its upper edge {counts.get('flip', 0)} rays end at a numerical flip candidate (-1), opening onto "
            f"period-{2 * p} bands (medium gray), and {counts.get('neimark_sacker', 0)} at a complex pair. Ray and "
            f"map edges agree within two cells on {a} of {compared} rays. Right: the crossing multipliers on the "
            f"unit circle cluster at +1 and -1.")
     c.save(fig, "f4_window_anatomy", [MAP, RAYS, SURVEY], __file__, "exploratory", alt, derived,
            "Rays from tools/explore_a2_survey.py; edge metrics from its analyze stage on the 256 x 256 local map. "
            "Window selected as the clearest shrimp-like example (one of two passing the draft criteria); not "
-           "representative of all windows (see Figure 5).")
+           "representative of all windows (see Figure 5). Fold/flip labels classify multipliers and do not establish nondegeneracy.")
 
 
 if __name__ == "__main__":
