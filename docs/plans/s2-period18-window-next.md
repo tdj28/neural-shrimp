@@ -3,8 +3,8 @@
 The next useful result would explain how this particular period-18 training
 pattern loses stability to period36, while proving that our interior orbit and
 boundary points belong to the same cycle family. We now have an attracting
-interior18-cycle certificate and a local18-cycle fold certificate (independent
-fold outcome review pending). Neither proximity nor these two isolated proofs
+interior18-cycle certificate and a local18-cycle fold certificate (both independently reviewed; see
+`docs/reviews/s2-period18-fold-certificate-independent-review.json`). Neither proximity nor these two isolated proofs
 establishes their branch connection. This is a scientific note, not an
 executable freeze, resource allocation, or launch authorization; no new target
 calculations were performed.
