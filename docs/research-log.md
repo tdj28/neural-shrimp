@@ -4861,3 +4861,16 @@ not a new scientific target. Use the existing measured cost screen and the
 same120s/135+5s CPU1/nice10/16+1MiB/monitored2GiB caps. Retain even a failed
 Krawczyk inclusion. No additional attempt is authorized. Exact pre-run source
 HEAD and command will be retained by the launcher.
+
+2026-10-09 — Radius-only attempt002 completed with all seven proof gates passed
+at execution `c37dcb4e56a64fa7567cc2e03fe5917195a9f0fc`. Internal1.722s,
+external1.939s,140 ticks,54,024KiB peakRSS. A primitive18 local saddle-node with
+simple neutral+1 and strictly attracting complement is certified. The
+Krawczyk contraction is below7.502e-12, a and c exclude zero, and the
+32nd-power complement norm is below0.035629. The original partial attempt is
+unchanged and preserved. All23 target files are read-only/hash-verified, and
+owned PIDs583291/583388/583389 are absent. Canonical receipt:
+`certificates/s2-period18-fold-receipt.json`; interpretation and exact scope:
+`docs/reviews/s2-period18-fold-producer-outcome.md`. Independent replay and
+stronger-precision review are delegated separately. No further producer
+attempt, target evaluation, or change of gate is authorized or planned.
