@@ -5328,3 +5328,8 @@ Reviewed frozen15a2ba1f7b390dc3d23168c4a3e77de832a0689a: complete adapter/driver
 Root approved one saved-only384-bit reduction of frozen target916c76d3, outer manifest0e514532fed9d2a486e57c0341c5355c152e8c550cdd19aa180b1b2e6a2663e7. Exact card `docs/plans/meanvalue-outcome-review.md`. No model/gradient/trajectory/stability search; same original inputs/native anchor; fixed−10/−18 settings. CPU1/nice10,30s internal45+5external,8+1MiB,2GiB monitored. Preserve failure/partial. Source/card freeze precedes saved target arithmetic.
 
 Pre-run control: one synthetic234D passing/failing-bound test passed in2.03seconds; both evaluator and supervisor syntax checked. No target matrices used.
+
+
+### 2026-10-09 — mean-value wider-root independent outcome
+
+One saved-only review from00e7d79ba9ae10934b338564dc98ba9dd10dab5a passed in5.038s internal/5.376s external,465808KiB. Both384-bit root bounds, all divisors,234-coordinate original anchor and shared endpoint pass. Exact connected primitive18 width1/256, larger-interval attraction still unproved; prior stable1/1024 untouched. Raw21 immutable files644389bytes/PIDs absent, manifest60e5cf634f1d08f253f56df2af3499a8a499b454f1d913c506215f76f2d5aab3. Companions `docs/reviews/s2-period18-meanvalue-independent-review.md` and `.json`. No new model/derivative/proposal/stability calls or repeat attempt.
