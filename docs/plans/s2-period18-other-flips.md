@@ -45,3 +45,20 @@ This is an adaptive exploratory pilot authorized by root's instruction to advanc
 remaining historical flips, not a headline confirmatory test. Code and this card
 are committed before selection or target execution. Disclose any subsequent
 adaptation, preserve all failures, and keep original evidence unchanged.
+
+## Dated signed-derivative repair after attempt001
+
+The fixed selection was rays16 and51. Ray16 completed its65 nodes and three
+qualified but unstable36 cycles. Ray51 stopped before any map call because the
+old shared driver constructed d(eta)/ds through the nonnegative learning-rate
+validator. Preserve attempt001 and its exact manifest949636d923030117bc714f43f528e9ac5c8ebb87ba1d552c6eb6a0fe84d3c828.
+The new runner now constructs the signed derivative explicitly as
+eta_i*log(10)*direction_i in the corresponding parameter block; actual rates
+still pass the unchanged nonnegative-rate validator. An independent synthetic
+mixed-sign ray checks the full return-map parameter derivative against centered
+differences. The old driver and every old proof source remain unchanged.
+
+Run only already selected/unexecuted ray51 at exclusive attempt002, binding the
+complete first attempt and retaining ray16's result without repeating it. No
+selection, scientific gate, mesh, correction rule or budget changes. Root
+explicitly approved this local repair and bounded continuation.

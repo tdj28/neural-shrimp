@@ -27,3 +27,18 @@ def test_finalization_reserve_survives_ordinary_limit(tmp_path,monkeypatch):
     with pytest.raises(OSError):m.save(tmp_path/'too-big.json',{'data':2})
     m.save(tmp_path/'failure.json',{'retained':True},final=True)
     assert (tmp_path/'failure.json').exists()
+
+
+def test_signed_rate_derivative_agrees_with_finite_difference(tmp_path):
+    from fractions import Fraction
+    m.ROOT_OUT=tmp_path
+    inp={'consumed_map':{'network':{'d':1,'width':1,'activation':'tanh','bias':True,'in_scale':'3/2','out_scale':'2/3','loss_scale':'1/2','ridge':'1/1000'},'x':[['1/3'],['-1/2']],'y':['1/4','-1/5']},'family':{'ell_float':[-1.,-1.3],'direction_float':[-.2,.3]}}
+    exp=m.Experiment(inp,tmp_path,{'start':m.time.monotonic(),'completed_points':0,'stopped':False})
+    try:
+        x=np.array([.1,.2,-.1,.05]);s=.2;eps=1e-5
+        actual=exp.evaluate(x,s,3);plus=exp.evaluate(x,s+eps,3);minus=exp.evaluate(x,s-eps,3)
+        fd=(np.array(plus['orbit'][-1])-np.array(minus['orbit'][-1]))/(2*eps)
+        assert actual['rate_derivative'][0]<0<actual['rate_derivative'][-1]
+        np.testing.assert_allclose(actual['parameter_derivative'],fd,rtol=2e-7,atol=1e-10)
+        with pytest.raises(ValueError):exp.net.rate_vector([-.1],[.2])
+    finally:exp.close()
