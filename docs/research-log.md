@@ -5091,3 +5091,9 @@ then one `attempt-002-target` if source-bound timing/storage gates pass. This
 repeats the cheap profile to maintain exact driver-source binding. Fixed interval,
 correction radius, model, precision and all scientific gates remain unchanged;
 no scientific outcome shaped the correction. Root informed; no paid/GPU/data change.
+
+### 2026-10-09 — Corrected adapter profile and target002 launch card
+
+Profile003 on ff7f3a22d664d925ba716959543bb4bb97603bb0 passed in 2.129s, with 1115838 worker bytes; timing projection 10.516s. Exact run manifest `60abbadfc3b2c26ee7eda4c6e9261768a26f8a91c9cc0bfa1378b3a6b5e2ae9a`. Complete inventories/read-only/PID exits pass. Target001 remains the retained zero-evaluation failure.
+
+Execute once, unchanged scientific source/settings: `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_connection.py --mode target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-connection-2026-10-09/attempt-003-profile/run --profile-manifest 60abbadfc3b2c26ee7eda4c6e9261768a26f8a91c9cc0bfa1378b3a6b5e2ae9a --out /data2/neural-shrimp-data/explore/certificates/s2-period18-connection-2026-10-09/attempt-002-target`. The previous fixed120s/135s+5s,CPU1,nice10,64MiB+1MiB,2GiB and mathematical gates remain. No automatic retry or continuation.
