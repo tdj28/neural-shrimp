@@ -5132,3 +5132,12 @@ Review attempt001 stopped at the alternate sequential interval product, before
 proof replay. Preserve it. Attempt002 records that weaker bound and checks
 the original balanced parenthesization; all mathematical gates, interval and
 review caps remain unchanged. See the updated review card.
+
+
+### Initial connection independently reviewed — 9 October 2026
+
+Saved balanced arithmetic, exact replay and the fixed384-bit nested check
+passed for the unchanged short parameter interval. Preserve the alternate
+sequential-product failure as interval wrapping. See
+[the independent review](reviews/s2-period18-connection-independent-review.md).
+The newer framed continuation remains a separate exploratory unit.
