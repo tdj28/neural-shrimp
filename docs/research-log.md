@@ -4900,3 +4900,13 @@ owned PIDs583291/583388/583389 are absent. Canonical receipt:
 `docs/reviews/s2-period18-fold-producer-outcome.md`. Independent replay and
 stronger-precision review are delegated separately. No further producer
 attempt, target evaluation, or change of gate is authorized or planned.
+## 2026-10-09 — independent rigorous period18 fold review preparation
+
+Source review e21fe517 passes the mixed-jet kernel and fixed-output guard. Prepare
+one source-bound post-outcome replay/saved-arithmetic review plus one384-bit,
+radius2^-110/five-Newton nested proof. Preserve failed radius2^-80 attempt001
+and disclosed radius2^-100 attempt002, exact input/source manifests and all
+failures. The reviewer has learned outcome summaries but has not opened target
+artifacts while writing this source/card. Exact limits and prospective operations
+are in docs/plans/rigorous-period18-fold-independent-review.md. Only synthetic
+controls are run before commit. No additional target selection or paid work.
