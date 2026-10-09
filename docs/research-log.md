@@ -5001,3 +5001,16 @@ whole-box association are separate fields. One synthetic assertion initially
 used Arb's mathematical equality on non-point balls; corrected the test to
 compare serialized enclosures, without changing implementation or targets.
 Source review and measured profile precede the first target proof.
+2026-10-09 — Amended ray13 pilot completed at `9cc21b7f`: full33-node
+numerical continuation, qualified simple−1 flip at s=.25405443918025816,
+convergent BOTH-rate crossing≈−51.23463 in two adjacent phases, and three
+primitive36 cycles. All36 cycles are unstable on the attracting18-parent side;
+delta_s/amplitude²≈−1.5241, consistent with a subcritical flip. No stable36
+claim. Earlier complex exit/re-entry brackets are retained and invalidate the
+assumption that the final historical flip is the first loss along this ray.
+Actual attempt002 time2.441s/6301 joint calls; raw9,785,019B. Exact flip seed
+SHA370bfc601a991f2e9186894287e7e9a141e2c5164dbc0424f1be474b7b9a7185 was sent
+to the separate interval-flip author. Canonical numerical receipt/prose are
+`docs/reviews/s2-period18-flip-numerical-{receipt.json,outcome.md}`. No interval
+or whole-window claim; all original/failed artifacts retained. Continue with
+independent rigorous-flip review and scientifically motivated local follow-up.
