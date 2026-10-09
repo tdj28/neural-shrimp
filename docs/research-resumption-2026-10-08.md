@@ -20,6 +20,7 @@ not yet certify the entire shrimp or establish a training benefit.
 | Attracting finite primitive 36-cycle | Computer-assisted proof, independently reviewed | One explicitly specified fixed-rate full-state orbit; all eight proper divisors excluded |
 | Initial continuous attracting 18-cycle interval | Computer-assisted proof, independently reviewed | Width 2^-19 in actual hidden rate, anchored to the original center |
 | Wider connected attracting primitive 18-cycle interval | Computer-assisted proof, independently reviewed | Width 1/1024, with the original center and the shared chart endpoint identified exactly |
+| Further connected primitive 18-cycle interval | Computer-assisted proof with independent saved-arithmetic review | Width 1/256; existence and connection proved, uniform attraction unresolved |
 
 The supercritical flip occurs near ray parameter 0.14049631414519. Its total
 multiplier crossing is negative and cubic normal-form coefficient positive;
@@ -78,11 +79,21 @@ higher precision; every slice passed again. See the [combined connection
 receipt](../certificates/s2-period18-connection-receipt.json). Earlier failed
 bounds remain retained and do not imply actual instability.
 
-The next bounded pilot addresses a different source of interval overestimation:
-forming the gradient by subtracting two expressions that contain the same
-uncertain state. A mean-value gradient enclosure may permit larger continuation
-steps. It preserves the objective and historical checker, and must pass its
-own root, primitive-period and join gates before any larger interval is claimed.
+The mean-value gradient enclosure then extended the connected primitive branch
+to width **1/256**, four times wider again. Both root and all primitive-period,
+original-anchor and shared-endpoint gates passed. An independent reviewer
+rebuilt the 234-dimensional shooting matrices and repeated the saved Krawczyk
+and join arithmetic at 384 bits. This review shares the source-reviewed
+derivative enclosures; it did not reacquire them. Attraction on this larger
+interval remains unresolved. See the [wider-branch review](reviews/s2-period18-meanvalue-independent-review.md).
+
+The next numerical obstacle is reducing the uncertainty in those wider root
+enclosures before spending on another full stability cover. The current root
+image is about 1.7e-6, roughly seven times the preceding image; its effect on
+stability floors has not yet been measured. Localize or refine the root
+enclosures on parameter slices, measure the resulting stability floor, and
+only then size a covering run. All completed attempts are preserved; no
+larger slice run has been launched.
 
 After a useful connection method is established, continue toward the boundary
 and its organizing curves. Opposite criticality at two isolated flips alone
@@ -100,13 +111,19 @@ actions, with an explicit cost/accuracy comparison. Protected holdouts remain
 untouched.
 
 The [current reading draft](../paper/gd-route/gd-route-working-draft.pdf) has
-36 pages, 344 source-derived entries and ten figures. It includes both flip
+36 pages, 347 verified source-derived entries and ten figures. It includes both flip
 types, the finite 36-cycle, a six-point numerical comparison and the corrected
-coarse-boundary interpretation. The newly reviewed connected interval is now
-being added to this reading copy. Local CPU suffices for this work;
+coarse-boundary interpretation. The independently reviewed attracting interval
+is included on page 11. Clean compilation and visual inspection passed; root
+rechecked all source, proof, figure and PDF hashes and all 347 number entries.
+The latest wider primitive-only extension is documented above and in its
+review; the paper makes no additional attraction claim for it. Local CPU
+suffices for this work;
 no new paid run, GPU experiment, external message or submission occurred.
 Regular private Git pushes preserve source and compact evidence. Raw proofs,
 failed attempts and reviews have additional hash-verified copies on a separate
 physical disk on this machine; see [backup receipts](backups/).
 
-This is an active research checkpoint. It does not close the continuing task.
+The completed research units and manuscript refresh are preserved. No owned
+scientific process remains running. The broader shrimp and scaling research
+is unfinished; the next concrete step is the enclosure refinement above.

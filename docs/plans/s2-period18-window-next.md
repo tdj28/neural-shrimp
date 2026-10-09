@@ -11,17 +11,23 @@ family and finite fixed-rate map remain distinct; no germ-to-finite-point
 connection has been proved.
 
 The center now anchors an independently reviewed attracting interval of width
-2^-19 in actual hidden rate. A producer has proved two joined primitive charts
-of total width 1/1024; independent outcome review is in progress. Their uniform
-stability remains unresolved. Native, framed and root-image-narrowed product
-bounds failed, and cyclic quadratic metric bounds failed on some interval
-phases despite well-resolved midpoint metrics. Fixed parameter subdivision
-will reduce the diagnosed uncertainty while retaining the parent root,
-primitive-period and exact common-parameter join proofs.
+1/1024 in actual hidden rate. Fixed 16-way parameter subdivision per chart
+resolved the earlier interval stability obstacle: all 32 cyclic quadratic
+metric slices passed, and independent review repeated both root/join proofs
+and all 576 native interval Jacobians at higher precision. This is the same
+original orbit, not another isolated instance.
+
+A separate mean-value gradient enclosure then proved a connected primitive
+branch of width 1/256. Independent saved-arithmetic review passed at 384 bits.
+Uniform attraction on this larger interval is unresolved. Localize or refine
+the root enclosures on parameter slices before another stability coverage run;
+the current image of about 1.7e-6 may dominate the stability floor, but that
+diagnosis has not been measured. Commit an adapted bounded run card and source
+before the next exploratory attempt. No new run has been launched.
 
 Continue from these artifacts; do not rerun the completed flip/36-cycle units.
-The next scientific result is a useful validated continuous branch, then
-boundary connection and organization. Subcritical and supercritical signs at
+The next scientific result should extend the validated continuous branch
+toward a proved boundary, then address boundary connection and organization. Subcritical and supercritical signs at
 isolated points do not establish a generalized flip or a shared flip curve.
 Read `docs/research-resumption-2026-10-08.md` and the new source-bound receipts
 for the current evidence. The earlier note below is retained as dated design
