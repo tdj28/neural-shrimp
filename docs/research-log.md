@@ -5090,3 +5090,21 @@ control added; old driver/core/proof bytes unchanged. Bind the complete first
 attempt and preserve ray16 without re-evaluation. New exclusive attempt002;
 all mesh/gates/shared60s/80,000calls/64MiB/CPU1 budgets unchanged. No alternative
 ray or attraction-driven replacement is selected.
+
+### 2026-10-09 — ray51 stable doubled branch located
+
+Committed signed-derivative repair24ef0d36 completed only fixed ray51 at attempt002:
+65 carried primitive18 nodes/reverse witnesses, qualified flip
+s=.14049631414511546, total crossing≈−4.85683995, and three primitive36 cycles
+attracting in both native phases with radii.9994677083/.9978690070/.9914464701.
+Their18 parents are unstable. This is numerical evidence consistent with a
+supercritical flip, not yet a cubic/interval proof. No prior transition was
+observed on65 nodes; narrower pockets remain possible.
+
+Attempt002 manifest9a199a50d93954a836ac5b642eb4f035afefcf3628c59a8429702e9e089306db;
+14.686s internal/15.212s outer,16,056 calls,108,788KiB RSS,158 files/22,609,505B.
+All hashes/read-only status/owned PID cleanup verified. Both attempts and the
+ray16 unstable36 result are retained. Source-bound companion prose/receipt in
+docs/reviews/s2-period18-other-flips-outcome{.md,-receipt.json}. Root requests
+next an unchanged-kernel ray51 flip proof and separate fixed-dyadic36 certificate,
+with their exact-map distinction explicit; no new proof run yet.
