@@ -5486,3 +5486,12 @@ Pre-run control: one synthetic234D passing/failing-bound test passed in2.03secon
 Pre-run validation: all15 focused synthetic controls passed in9.84seconds (CPU/BLAS1,nice10). No target witness evaluation preceded this freeze.
 
 One-command verification completeness amendment: imported the exact unchanged9bdeafd3 joined-branch reviewer, source/card/test dependencies and added its fixed-pin invocation to `verify.py`. The retained launcher covers one wider replay and32 independently checked stability slices under its existing120s/135+5s,CPU1/nice10,64+1MiB limits. Only AST, source-hash and argument/static checks are run in this manuscript unit; the already-passed scientific audit is not repeated for the PDF.
+
+
+### 2026-10-09: reviewed connected-interval PDF checkpoint
+
+The source-bound interior-branch paragraph and its three new exact macros passed saved-data verification: 347 entries, all 344 preceding entries unchanged. All ten figure receipts and 20 figure output hashes are unchanged. Source and fixed-pin checks confirm all 12 dependencies of the reviewed joined-branch replay invocation; this manuscript unit performed AST/static checks only, without rerunning that audit or any scientific target.
+
+A fresh build from source `854695f18240eb77944969b8853b2ce9026abc0a` produced 36 pages with zero LaTeX warnings or overfull/underfull boxes. All 36 page contacts and all 23 changed detail pages were visually inspected; the other 13 renders are unchanged from the preceding reviewed PDF. Fresh PDF SHA256 `bce1768ea8ed54e8e4e5675df21bd53c8d1d30669f6fce3ba28f515a6e605921`. All 77 retained QA files (21,699,226 bytes) were hash-verified and frozen read-only under `paper/gd-route/joined-interval-2026-10-09`; manifest `13b2f064e5e3f6c159d60b87d875e7051aef89000ea19cb814abde9d0c4bcef7`. Companion `docs/reviews/paper-joined-interval-qa.json` binds source, proof/review companions, figures, and layout verification. The prior completed PDF/QA checkpoint is retained.
+
+The manuscript states a connected attracting primitive-period18 interior interval of exact width 1/1024, with 32 reviewed metric slices. This is the same orbit, so the attracting-orbit instance count remains five; it does not establish a connection to the distant fold/flip boundaries or the whole shrimp geometry.
