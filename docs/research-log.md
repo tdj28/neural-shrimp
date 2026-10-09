@@ -5370,3 +5370,7 @@ Ray51 is a supercritical local18 flip; the separately fixed dyadic36 map has a
 primitive attracting orbit. These are distinct exact maps, not a proved connection.
 All49 files are immutable/hash-verified; PIDs815153/815266/815267 exited. No retry.
 Companions: `docs/reviews/s2-ray51-certificates-independent-review.md` and `.json`.
+
+### 2026-10-09 — Periodic metric pilot001 inconclusive; proposal accuracy isolated
+
+Root reviewed db6bc031's telescoping Lyapunov construction, exact dyadic proposals, cyclic theorem, expanded interval differences and congruence/Gershgorin proof, then authorized one saved-matrix pilot. It completed3.30083s/3.76521s,150ticks,486280KiB,exit2. All36 metrics and36 midpoint decreases are positive; maxcondition<123569 and midpoint equationdefect<1.88e-11. Interval decreases pass8/18 perchart; phases7–16 fail to certify, worstlower margin≈−3.1556. No model calls, no new attraction theorem or instability claim. Raw/source hashes, payload, immutability and PID exits checked; outer manifest e7fb9fa926ab86cdc79dc39aa329b50a38bee084b50c39fff4badd7f5eb6df65. Outcome companions `docs/reviews/s2-period18-periodic-metric-outcome.{md,json}` preserve the diagnosis. Root proposes a separately source-bound fixed16-slice derivative enclosure perchart, reusing the proved Krawczyk error and checking the irreducible-error floor first; no such acquisition has run yet.
