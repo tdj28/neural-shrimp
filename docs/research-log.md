@@ -4937,3 +4937,17 @@ no proof, figure, trajectory or model was rerun. Saved-number verification,
 and detail pages 1, 2, 11, 20, 28, 30 passed. Root and independent mathematical reviewer
 found no remaining source blocker. Exact files, hashes and retained authoring
 failures are in `docs/reviews/paper-local-fold-authoring-qa.json`.
+
+### 2026-10-09 — Resumed numerical period18 flip/period36 exploration
+
+The human challenged stopping at a checkpoint. Prepare the local ray13 pilot
+in `docs/plans/s2-period18-flip-pilot.md`: full-state18 continuation with reverse
+witnesses, augmented−1 refinement, total BOTH-rate crossing, and constrained
+primitive36 branch switching. Exact family is coordinated with the separate
+interval-flip worker. No target computation has yet occurred. Eight synthetic
+controls pass0.25s, including a moving parent branch, actual2D supercritical
+period doubling, subcritical unstable cycles, collapse rejection, and aggregate
+storage-failure retention. The source/card must be committed before the tiny
+synthetic profile and actual target. Root brief source review precedes launch.
+Use localCPU1/nice10;100s/115+5s;40k joint products;32+1MiB;monitored2GiB.
+Keep every result and amend disclosed failures when scientifically warranted.
