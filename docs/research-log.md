@@ -5064,3 +5064,16 @@ a certificate failure. Preserve manifest c359e2f314d99c09fab4e80b4b6e898a6505583
 The committed amendment distinguishes the historical format while still checking
 all files/totals, original cap and all committed/runtime/retained source hashes.
 Only exclusive attempt002 is planned next; mathematical gates/settings unchanged.
+
+### 2026-10-09 — period18 flip review complete
+
+Amended independent audit attempt002 passed in4.290s internally/4.685s externally,
+CPU1 nice10,285 ticks,70,888KiB RSS; all43 files/6,580,478 bytes are immutable and
+owned PIDs absent. Outer manifest37f67cafed08f3b2625f4ba18a4834715b7c767450696c0f8d8d87a9b1023a37;
+run manifest27e0f49ec962d0423d4e3f782f37d696f22d08d1ad13fc7b6d23e2f1551d65eb.
+Exact source/input joins, original byte replay, independent saved-ball reductions,
+whole-box proximity and strictly nested384-bit/radius2^-110 proof pass. The earlier
+pre-proof audit schema failure remains retained and disclosed. Local subcritical
+flip only: qualitative unstable36, no finite36 certificate, first-boundary claim,
+validated center connection or whole-window claim. Companion
+s2-period18-flip-independent-review.md/.json contains all exact pins and limitations.
