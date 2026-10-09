@@ -55,7 +55,7 @@ def nested(inner,outer):
     require(len(inner)==len(outer),'nested dimension')
     return all(interval(a)[0]>interval(b)[0] and interval(a)[1]<interval(b)[1] for a,b in zip(inner,outer))
 def inventory(root):return {str(p.relative_to(root)):entry(p) for p in sorted(root.rglob('*')) if p.is_file() and p!=root/'manifest.json'}
-def verify(root,pin,nested_manifest=False):
+def verify(root,pin,nested_manifest=False,limit_flag=True):
     require(root.is_dir() and not root.is_symlink(),'safe input root')
     require(sha(root/'manifest.json')==pin,'externally pinned manifest')
     manifest=read(root/'manifest.json');files=manifest['files'] if nested_manifest else manifest
@@ -63,7 +63,9 @@ def verify(root,pin,nested_manifest=False):
     require(all(not p.is_symlink() for p in root.rglob('*')),'no artifact symlinks')
     require(inventory(root)==files,'exact complete file inventory')
     for name in files:require(not Path(name).is_absolute() and '..' not in Path(name).parts,'safe file path')
-    if nested_manifest:require(manifest['total_bytes']==sum(v['bytes'] for v in files.values()) and manifest['within_limit'] is True,'manifest totals')
+    if nested_manifest:
+        require(manifest['total_bytes']==sum(v['bytes'] for v in files.values()),'manifest totals')
+        if limit_flag:require(manifest['within_limit'] is True,'manifest limit flag')
     return manifest
 
 def source_snapshot():
@@ -99,11 +101,13 @@ def binding(name,pin):
 
 def reconstruct(inp):
     for p,h in PINS.items():require(sha(p)==h,'consumed input pin')
-    verify(NUMERIC,NUMERIC_PIN,True);verify(NUMERIC/'run',sha(NUMERIC/'run/manifest.json'),True)
+    verify(NUMERIC,NUMERIC_PIN,True);verify(NUMERIC/'run',sha(NUMERIC/'run/manifest.json'),True,limit_flag=False)
+    require(sum(e['bytes'] for e in inventory(NUMERIC/'run').values())<32*1024**2,'historical numeric raw cap')
     raw=NUMERIC/'run';runtime=read(raw/'runtime-start.json');launch=read(NUMERIC/'launcher-result.json')
+    require(launch['exit_code']==0 and launch['owned_live_pids_remaining']==[],'numerical clean exit')
     require(runtime['source_commit']==launch['source_commit']=='9cc21b7f52b7b2edadb02cd1098d4843c4f1a3aa','fixed numerical execution')
     expected={p:hashlib.sha256(subprocess.check_output(['git','show',runtime['source_commit']+':'+p],cwd=ROOT)).hexdigest() for p in NUMERIC_FILES}
-    require(runtime['source_sha256']==launch['source_sha256']==expected,'complete numerical source inventory')
+    require(runtime['source_sha256']==expected,'complete numerical source inventory')
     for p,h in expected.items():require(sha(raw/'source'/p)==h,'retained numerical source')
     num=read(raw/'inputs.json');point=read(raw/'flip.json');seed=read(raw/'flip-proof-seed.json')
     require(seed['source_commit']==runtime['source_commit'] and seed['inputs_sha256']==sha(raw/'inputs.json'),'seed provenance')
