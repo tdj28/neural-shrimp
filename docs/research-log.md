@@ -4781,3 +4781,32 @@ _commit `416ba4722c8c` (dirty worktree)_
 ## 2026-10-09 04:02 UTC: selected period-18 fold outcome
 
 One authorized exploratory ray0 localization completed at source ca439beb. All25fixed correctorpoints passed; one augmentedsolve supports a simple nondegenerate fold numerically in both consecutive phases, with all other multipliers below.806. Raw manifest3a44977630bd3d9f329bad8e6369c4d024fc4a379ee6ebe593c85d9b913cb620. Elapsed.7301s; all owned processes absent. No interval bifurcation, continuous branch, full shrimp, ancestry or utility proof. Compact outcome `docs/reviews/s2-period18-fold-outcome.json`; independent review pending.
+### 2026-10-09 UTC — one exploratory primitive18 proof run card
+
+Root authorizes one C1 attempt for row111/S2-28011-zoom:587, the existing strong
+numerical fold/flip window candidate, using unchanged checker256bits/radius2^-80/
+5Newton/maxpower4096. Adapter copies only exact consumed C1 x/y/model and checks
+historical data/rate/phase identities; no heldout regeneration. Exact whole-box
+proximity to saved phase0 is separate from proof and ancestry. Four synthetic
+controls pass0.08s. CPU1/nice>=10,60s internal/75+5s external,8MiB checked output,
+exclusive `explore/certificates/s2-period18-2026-10-09/attempt-001`. A passing
+primitive18 attractor would put rung3 orbit evidence at a strong numerical
+geometry candidate; it would not certify its boundaries, ancestry or utility.
+A wrapping/nondegeneracy failure is preserved, not evidence the orbit is absent.
+Detailed exact command and retention rules: `docs/plans/s2-period18-certificate.md`.
+No retry or other target is authorized in this unit. Code/card committed before
+execution; a separate agent will review the result afterward.
+
+### 2026-10-09 UTC — single primitive18 proof attempt passes
+
+Executed committed15125d2b once at row111/S2-28011-zoom:587. All C1 gates pass:
+exact-real13D existence/local uniqueness, primitive18 with divisors1,2,3,6,9
+excluded, attraction via rigorous ||M^16||inf upper<.725274. Exact whole-box
+proximity to historical phase0 is separately<1e-15 (threshold1e-7), not seed
+membership or branch identity. Proof0.4073s; launcher0.7612s;64,000KiB peak RSS.
+All15 immutable files1,264,915B and full hashes verified; owned561396/561491/
+561492 absent. Manifest785f03d91cfe5095b36abf76d5d070afc5bdc93009f55118bdaae87296148a2d.
+Original canonical receipt copied to `certificates/s2-period18-receipt.json`;
+`docs/reviews/s2-period18-producer-outcome.md` and companion receipt bind source,
+raw proof, exact proximity and numerical geometry. Independent review pending;
+no second attempt, no certified fold/flip/ancestry or utility claim.
