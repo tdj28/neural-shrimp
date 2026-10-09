@@ -64,7 +64,7 @@ def sources():
 def prepare():
     receipt_path=ROOT/RECEIPT;require(entry(receipt_path)['sha256']==RECEIPT_SHA,'fixed canonical anchor')
     receipt=read(receipt_path);base=Path(receipt['external_root'])
-    verify_inventory(base,receipt['files'])
+    verify_inventory(base,{**receipt['files'],'receipt.json':entry(receipt_path)})
     envelope=read(base/'certificate.json');anchor=envelope['result'];inp=read(base/'inputs.json')
     require(receipt['passed'] and anchor['passed'] and receipt['statement']==anchor['exact_statement'],'certified anchor statement')
     require(inp['period']==18 and anchor['exact_statement']['dimension']==13,'fixed 18x13 state order')

@@ -5074,3 +5074,20 @@ All mathematical/resource settings in the amended card remain: one exact center
 interval h0±2^-20, correction2^-28,256bits,2 proposals; CPU1/nice10,120s/135s+5s,
 64MiB worker plus1MiB launcher,2GiB RSS. No automatic search, endpoint substitution,
 new data or full-boundary claim. Preserve every gate/result on success or failure.
+
+### 2026-10-09 — Retained input-only target failure and adapter repair
+
+Target001 on b5ebaef1 exited2 after0.072s,0ticks/0stages: historical C1 directory
+contains an additional self receipt. Its exact SHA is canonical f5b8ed6b, so
+explicitly add `receipt.json` to the expected five-file inventory rather than
+ignoring anything. Original data/model/source checks remain unchanged. No target
+map, Newton or proof computation ran. Immutable outer manifest
+cdca8fd29a3b01cb50c7b0730b8e3466f3b2b1f495550b64e982911bd49c9c89;
+compact failure `docs/reviews/s2-period18-connection-attempt001.json`.
+
+Commit the narrow adapter repair and synthetic self-receipt corruption control.
+Run one unchanged synthetic profile at `attempt-003-profile` (same20/25+5s),
+then one `attempt-002-target` if source-bound timing/storage gates pass. This
+repeats the cheap profile to maintain exact driver-source binding. Fixed interval,
+correction radius, model, precision and all scientific gates remain unchanged;
+no scientific outcome shaped the correction. Root informed; no paid/GPU/data change.
