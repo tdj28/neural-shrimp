@@ -5448,3 +5448,8 @@ One target setting is proposed in `docs/plans/s2-period18-connection-meanvalue-p
 Pre-freeze independent adapter inspection found no mathematical blocker; reviewer suggested a coupled off-diagonal quadratic with affine gradient, interval hidden rate and distinct output rate. Added that synthetic control, checking all corner maps/Jacobians/hidden partials and zero output partials. Forty-two total focused synthetic controls pass. No empirical model acquisition during development; the wider target remains unrun.
 
 Pre-acquisition reviewer amendment: add explicit finite nonnegative profile elapsed/RSS bounds and exact library/Python/cap/thread/nice equality before cost projection. Root and independent reviewer passed the mathematical adapter/card. Seven added negative/control cases reject negative/NaN/Inf/oversized resources and mismatched library/threads;49 focused controls pass. Scientific settings unchanged and no new profile/target launched. Root authorizes profile then one target after these committed fixes and qualified measured gates, without another permission wait.
+
+
+### 2026-10-09 — mean-value gradient adapter static source review
+
+Reviewed frozen15a2ba1f7b390dc3d23168c4a3e77de832a0689a: complete adapter/driver/card/inherited shooting semantics and source inventory. No mathematical blocker; finite resource and same-library/settings profile checks repaired before acquisition. Coupled affine-gradient/interval-rate control inspected. No new model/profile/decomposition calls by reviewer. Companions `docs/reviews/meanvalue-gradient-source-review.md` and `.json` bind exact scope/source; target outcome remains separate.
