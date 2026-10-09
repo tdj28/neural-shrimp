@@ -4910,3 +4910,13 @@ failures. The reviewer has learned outcome summaries but has not opened target
 artifacts while writing this source/card. Exact limits and prospective operations
 are in docs/plans/rigorous-period18-fold-independent-review.md. Only synthetic
 controls are run before commit. No additional target selection or paid work.
+
+## 2026-10-09 — independent rigorous period18 fold review outcome
+
+The single root-authorized review from f2284ebb passed exact byte replay, saved
+interval arithmetic and the fixed384-bit/radius2^-110/five-Newton nested proof.
+The nested box is strictly inside attempt002; all seven gates pass, with
+Q^32 norm below0.035627. Original failed radius2^-80 attempt001 is retained.
+Full hashes, exact bounds, resources/process exit and scope are recorded in
+docs/reviews/s2-period18-fold-certificate-independent-review.json. No further
+target proof, search, paid call or holdout use followed this unit.
