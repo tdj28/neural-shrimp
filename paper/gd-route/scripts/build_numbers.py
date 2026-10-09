@@ -844,6 +844,30 @@ def build():
             assert left * right > 0 and abs(right) > 1e-7 and abs(left-right) / max(abs(left), abs(right)) < 1e-3
     assert fold_raw["proper_divisor_separations"] == fold["proper_divisor_separations"]
     assert set(fold["proper_divisor_separations"]) == {"1", "2", "3", "6", "9"} and min(fold["proper_divisor_separations"].values()) > 1e-6
+    fold_review_path = c.ROOT / "docs/reviews/s2-period18-fold-independent-review.json"
+    fold_review = load(fold_review_path)
+    assert fold_review["verdict"] == "numerical_point_derivative_checks_passed"
+    assert fold_review["producer_commit"] == fold["source_commit"]
+    assert fold_review["producer_manifest"]["sha256"] == fold["raw_manifest_sha256"]
+    assert fold_review["review_execution_commit"] == "3c723630e13b9c707a445f96180ac1d6640cf426"
+    fold_sources.append(fold_review_path)
+    for field in ("review_manifest", "launcher_manifest"):
+        ident = fold_review[field]
+        fold_sources += bound_inventory(Path(ident["path"]), ident["sha256"])
+    ident = fold_review["result_identity"]
+    assert c.sha256(Path(ident["path"])) == ident["sha256"]
+    reviewed = load(ident["path"])
+    assert {k: v for k, v in reviewed.items() if k != "retained_evaluations"} == fold_review["results"] and reviewed["passed"]
+    assert reviewed["retained_evaluations"] == fold_review["retained_evaluations"]
+    assert reviewed["new_eigen_SVD_solve_continuation_calls"] == 0
+    for row in reviewed["phases"]:
+        assert [d["exponent"] for d in row["fd"]] == [18, 20]
+        original = fold["phase" + str(row["phase"])]["finite_difference_series"]
+        for d in row["fd"]:
+            match = next(q for q in original if q["exponent"] == d["exponent"])
+            assert all(abs(d[k]-match[k]) < 1e-6 for k in ("a", "c"))
+    for name, pin in fold_review["source_and_runtime"]["sources"].items():
+        q = c.ROOT / name; assert c.sha256(q) == pin; fold_sources.append(q)
     for macro, value, display, calc in [
         ("xPEighteenFoldA", fold["phase0"]["finite_difference_series"][-1]["a"], fixed(fold["phase0"]["finite_difference_series"][-1]["a"], 6), "phase0 w^T R_s; smallest saved finite-difference step; normalized historical-ray coordinate"),
         ("xPEighteenFoldC", fold["phase0"]["finite_difference_series"][-1]["c"], fixed(fold["phase0"]["finite_difference_series"][-1]["c"], 6), "phase0 w^T D^2R[v,v], without factor 1/2; unit v and w^T v=1"),
