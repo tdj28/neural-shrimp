@@ -5122,3 +5122,23 @@ passed for the unchanged short parameter interval. Preserve the alternate
 sequential-product failure as interval wrapping. See
 [the independent review](reviews/s2-period18-connection-independent-review.md).
 The newer framed continuation remains a separate exploratory unit.
+
+### 2026-10-09 UTC: reviewed subcritical-flip manuscript checkpoint
+
+Integrated the exact historical both-rate local subcritical flip, its completed
+independent replay/saved-arithmetic/nested review, and the small independently
+reviewed center interval. The four individually certified attracting orbits stay
+four; the neutral bifurcations and same-orbit tube add no instances. The earlier
+missed complex-instability pocket and unstable doubled cycles remain explicit.
+New ray51 results and wider running connection charts are outside this checkpoint.
+
+Saved-data number generation and verification pass with332 entries, preserving
+all323 original entries exactly. All nine figure receipts and18 PDF/PNG output
+hashes are unchanged; no figure regeneration or full scientific verify.py run
+was performed. A clean latexmk build from source6ab88f1b gives35 pages without
+warnings or over/underfull boxes. All pages were visually inspected in contact
+sheets and13 changed/reflowed pages in detail, with eight identical detailed
+renders carried over by pixel-file hashes from the first inspection. The earlier
+successful build is retained alongside the final wording build. Source, output,
+checks and immutable QA inventories are bound by
+`docs/reviews/paper-subcritical-flip-qa.json`.
