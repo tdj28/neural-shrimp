@@ -171,3 +171,53 @@ no proof-assistant formalization, binary64 orbit theorem, parameter continuation
 boundary theorem, surrounding-chaos theorem or utility is implied. The original
 receipt retains its creation-time pending label. The command above now includes
 the new receipt without changing the proof-kernel source files.
+
+
+## Local primitive period-18 fold (9 October 2026 UTC)
+
+`s2-period18-fold-receipt.json` proves a local nondegenerate saddle-node of
+primitive period-18 cycles in the same exact-real 13D S2 map, with fixed output
+rate `1848862009810323/2^51` and actual hidden rate in the outward interval
+`[75.76429203111452,75.76429203111453]`. The normalized 27D system is
+`(R, R_theta v, (v^T v-1)/2)=0`, where `R=F_eta^18-I`. Interval inclusion,
+proper-divisor exclusion, a uniformly invertible transpose border, nonzero
+`a_eta=w^T R_eta` and `c=w^T R_theta_theta[v,v]` establish the local fold
+hypotheses. With `v^T v=w^T v=1`, the scalar quadratic coefficient is `c/2`.
+The deflated monodromy `Q=M-vw^T` satisfies `||Q^32||inf<0.036`, so the other
+12 multipliers lie strictly inside the unit circle. The fold has a neutral +1
+multiplier and is **not a fifth attracting-orbit certificate**.
+
+The radius-`2^-80` first attempt passed all gates except the complementary
+power bound. It remains in `../docs/reviews/s2-period18-fold-attempt001-receipt.json`.
+The disclosed same-target radius-`2^-100` amendment passed at unchanged 256-bit
+precision. The producer bundle is
+`/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-2026-10-09/attempt-002-target`.
+The independent companion is
+`../docs/reviews/s2-period18-fold-certificate-independent-review.json`, with
+review bundle `/data2/neural-shrimp-data/audits/s2-period18-rigorous-fold/attempt-001`.
+It checks exact replay and saved interval arithmetic and passes a 384-bit proof
+in a strictly nested box. These checks share the mixed-jet kernel and Arb/FLINT;
+they are neither separate automatic differentiation nor a proof-assistant proof.
+No finite-detuning enclosure, connection to the earlier interior orbit, complete
+window boundary, resonance ancestry or utility is established.
+
+The manuscript's `scripts/verify.py` now includes this replay, preserves an
+exclusive scratch directory on success or failure, and prints its location.
+To replay it separately from a clean checkout with unchanged bound source:
+
+```sh
+fold_replay_root=$(mktemp -d /tmp/neural-shrimp-fold-replay.XXXXXX)
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
+  timeout --signal=TERM --kill-after=5s 135s nice -n 10 \
+  /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold.py \
+  --execute --mode replay \
+  --bundle /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-2026-10-09/attempt-002-target/run \
+  --manifest-sha256 9677cd6817d3e3cdfb45dcc10656a5660b79fec2b98aa7365ab268c705c36e5b \
+  --out "$fold_replay_root/run" >"$fold_replay_root/process.log" 2>&1
+fold_replay_exit=$?
+printf '%s\n' "$fold_replay_exit" >"$fold_replay_root/exit-code.txt"
+printf 'Retained replay: %s (exit %s)\n' "$fold_replay_root" "$fold_replay_exit"
+```
+
+The original producer receipt retains its creation-time review-pending label;
+the independent companion supplies the completed review status.

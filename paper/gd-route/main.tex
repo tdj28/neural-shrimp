@@ -47,7 +47,7 @@ full-state orbit refinement, stability calculations and exploratory bifurcation 
 
 Ball-arithmetic certificates prove local existence, primitive period and full-state attraction for
 \nCOneOrbits{} selected period-\nCOnePeriod{} orbits and one period-\nPEighteenPeriod{} orbit in a 13-parameter tanh network, plus a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter tanh network, at fixed layer-specific learning rates for the exact-real maps.
-A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
+A further certificate establishes a local saddle-node of primitive period-18 cycles in the 13-parameter map, with one neutral multiplier and an attracting complement. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
 
 A prospectively designed map study, independently cross-checked in a separate numerical implementation,
 identifies \nConfirmed{} attracting periodic windows in two tanh networks with separate layer learning rates.
@@ -92,6 +92,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one primitive period-\nPEighteenPeriod{} orbit in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
+Local cycle-fold certificate & 3: computer-assisted proof & One nondegenerate saddle-node of primitive period-18 cycles; neutral at the fold, other multipliers attracting. No certified connection to the interior orbit or whole boundary. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -151,7 +152,7 @@ cycles on smooth strongly convex two-dimensional objectives that advance by $1/K
 
 \paragraph{This paper's contribution.}
 \begin{itemize}
-\item Computer-assisted proofs from exploratory selection: our \nCOneOrbits{} primitive period-\nCOnePeriod{} orbits and one primitive period-\nPEighteenPeriod{} orbit in 13 dimensions, plus one primitive period-\nSOneRCertPeriod{} orbit in \nSOneRCertDimension{} dimensions are locally attracting in the full parameter state, at fixed layer-specific rates for the exact-real tanh maps. We also prove one local supercritical NS of a scalar period-2 orbit. The certificates have independent ball-arithmetic reviews.
+\item Computer-assisted proofs from exploratory selection: our \nCOneOrbits{} primitive period-\nCOnePeriod{} orbits and one primitive period-\nPEighteenPeriod{} orbit in 13 dimensions, plus one primitive period-\nSOneRCertPeriod{} orbit in \nSOneRCertDimension{} dimensions are locally attracting in the full parameter state, at fixed layer-specific rates for the exact-real tanh maps. We also prove a local saddle-node of primitive period-18 cycles and one local supercritical NS of a scalar period-2 orbit. The certificates have independent ball-arithmetic reviews.
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
 score conflates fixed points, periodic orbits, chaos and drift.
@@ -351,7 +352,7 @@ its task across the whole learning-rate range they studied, including where lear
 configuration without weight decay (S1) has \nSOnePeriodic{} periodic cells in both seeds: its runs diverge, stay
 chaotic, or drift toward large weights while the loss slowly falls. Adding weight decay makes the windows appear.
 
-\section{Computer-assisted proofs of selected orbits and a local bifurcation}
+\section{Computer-assisted proofs of selected orbits and local bifurcations}
 \label{sec:certificates}
 
 \noindent Status: exploratory target selection, evidence rung 3 for the statements below.
@@ -409,6 +410,45 @@ compares two samples with separate Arb differentiation of the objective, and pas
 in a smaller nested box. These checks retain the same library trust and exact-real scope. They certify the
 selected orbit, not the surrounding boundary or complete shrimp geometry. See
 \path{certificates/s2-period18-receipt.json} and \path{docs/reviews/s2-period18-independent-review.json}.
+
+\subsection{A local fold of primitive period-18 cycles}
+\label{sec:fold-proof}
+
+For the same biased S2 tanh model and exact dataset, hold the output learning rate at
+$\eta_o=\tFoldProofOutput$ and vary the actual hidden learning rate $\eta$.
+Write $R(\theta,\eta)=F_\eta^{\nPEighteenPeriod}(\theta)-\theta$ and $A=D_\theta R$.
+A strict Krawczyk inclusion and whole-box contraction enclose a unique normalized augmented root of
+\begin{equation}
+R=0,\qquad Av=0,\qquad (v^Tv-1)/2=0,
+\end{equation}
+in the recorded 27-dimensional box, with $\eta_*\in\tFoldProofEta$. Coordinate separation excludes every proper divisor
+of \nPEighteenPeriod{}. At that root, the uniformly invertible transpose border
+$\left[\begin{smallmatrix}A^T&v\\v^T&0\end{smallmatrix}\right]$
+produces $A^Tw=0$ and $w^Tv=1$, establishing an algebraically simple multiplier $+1$ of $M=A+I$.
+The exact-ball bounds, displayed with outward rounding, give
+\begin{equation}
+\begin{aligned}
+a_\eta=w^T R_\eta&\in\tFoldProofA,\\
+\frac{c}{2}=\frac12w^T D_\theta^2R[v,v]&\in\tFoldProofQuadratic,\\
+\|Q^{\nFoldProofPower}\|_\infty&<\xFoldProofBound<1,\qquad Q=M-vw^T.
+\end{aligned}
+\end{equation}
+Thus parameter transversality and quadratic nondegeneracy hold, and all other multipliers lie strictly
+inside the unit circle. The smooth-map saddle-node theorem gives a local fold of primitive period-18
+cycles: a locally attracting and a saddle cycle meet at this point. The fold itself is neutral and is
+not an additional attracting-orbit certificate. Here $a_\eta$ differentiates the actual learning rate,
+not the historical ray coordinate used by the numerical precursor in Section~\ref{sec:anatomy}.
+
+The first radius-$2^{-80}$ attempt passed the root, period, simplicity and coefficient gates but did not
+enclose contraction of $Q$. A disclosed same-target amendment used radius $2^{-100}$ at unchanged
+256-bit precision and passed all gates. Independent review reproduced the exact result, checked saved
+interval arithmetic and passed a 384-bit proof in a strictly nested box. These checks share the analytic
+mixed-jet kernel and Arb/FLINT; they are not separate automatic differentiation or proof-assistant
+formalization. This is a local theorem with no certified finite-detuning neighborhood or connection to
+the earlier attracting interior orbit, and no whole-window geometry, resonance ancestry or utility claim.
+See \path{certificates/s2-period18-fold-receipt.json},
+\path{docs/reviews/s2-period18-fold-certificate-independent-review.json} and the replay in
+\path{certificates/README.md}.
 
 \subsection{A supercritical NS in the scalar unequal-rate model}
 \label{sec:scalar-proof}
@@ -655,6 +695,7 @@ and over the three deepest levels the width scales with exponent \xAncWidthSlope
 \xAncAmpSlope{}, against $(q-2)/2 = 1.5$ and $0.5$ for a Neimark--Sacker resonance tongue with $q=5$.
 
 \subsection{Candidates for classical shrimp anatomy}
+\label{sec:anatomy}
 
 \begin{figure}[htbp]
 \centering
@@ -682,11 +723,11 @@ A fixed-step corrected path and an augmented solve for $R=F^{\nPEighteenPeriod}(
 locate a simple $+1$ candidate. Two adjacent orbit phases pass closure, primitive-period and nondegeneracy
 checks, with remaining multiplier modulus approximately $\xPEighteenFoldOther$.
 With $s$ the normalized historical-ray coordinate and $w^Tv=1$, converging finite differences give
-$a=w^TR_s\approx\xPEighteenFoldA$ and $c=w^TD_x^2R[v,v]\approx\xPEighteenFoldC$ at the first phase.
+$a_s=w^TR_s\approx\xPEighteenFoldA$ and $c=w^TD_x^2R[v,v]\approx\xPEighteenFoldC$ at the first phase.
 An independent point-only objective-differentiation check reproduces the local residual, derivative actions and
 finite-difference coefficients at those two phases; spectral isolation remains the producer calculation.
-This strengthens the local numerical fold interpretation of one edge; it is not an interval bifurcation proof
-or an enclosure of a connecting branch. Other boundary rays, flip nondegeneracy, cusps, resonance ancestry
+This strengthens the local numerical fold interpretation of one edge. The subsequent certificate in
+Section~\ref{sec:fold-proof} proves a local fold with fixed output rate, but does not enclose a connecting branch. Other boundary rays, flip nondegeneracy, cusps, resonance ancestry
 and training utility remain unestablished. Source and retained outcomes are
 \path{tools/explore_window_fold.py}, \path{docs/reviews/s2-period18-fold-outcome.json} and
 \path{docs/reviews/s2-period18-fold-independent-review.json}.
@@ -1074,7 +1115,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. The orbit census uses floating-point validation; the \nCertifiedOrbits{} selected exact-real attracting orbits and
-the scalar local NS in Section~\ref{sec:certificates} have rigorous enclosures. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.
@@ -1151,7 +1192,7 @@ displays. Quoted empirical numbers and the design and consequence tables are gen
 \path{paper/gd-route/scripts/build_numbers.py}; \path{data/numbers.json} records each number's source file, hash
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
-feasibility receipts, orbit certificates and scalar NS gates, and fails on any difference. Later S1R, CIFAR and
+feasibility receipts, orbit certificates, local-fold and scalar NS gates, and fails on any difference. Later S1R, CIFAR and
 LM pilots have separate source-bound saved-data audits cited with their results. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
 its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}. The exploratory streams are summarized in
