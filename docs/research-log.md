@@ -8086,3 +8086,8 @@ All31reverse charts passed independent exact256 and fresh384 saved reductions in
 ## 2026-10-10 — manuscript update for independently connected fold
 
 Update abstract, evidence table, proof narrative, numerical-anatomy and limitation passages to reflect the now independently certified central-branch/fold connection and near-fold endpoint attraction. Preserve distinction from full-path attraction and whole shrimp. Add source-bound same-state CIFAR correction/conditioning results and their negative scope. Append new generated numbers without changing historical entries; compile and visually inspect before refreshing the readable PDF. No scientific acquisition in this manuscript task.
+
+
+## 2026-10-10 — independently connected fold manuscript checkpoint
+
+Source ffa3119e;385 provenance-bound numbers verified (377 prior entries unchanged),20 figures unchanged. Local multi-file latexmk completed40pages with no final warnings/box errors; all40 pages visually inspected at contact scale and pages1,2,12,30,31 at detail. Updated tracked reading PDF and immutable render inventory bound in docs/reviews/paper-fold-connection-qa.json. The manuscript states the independently certified full-state central-to-fold connection and endpoint attraction, while whole-branch attraction/full shrimp anatomy remain open. CIFAR damping and curvature-surrogate failures retained with correct saved-audit scope. No fresh scientific experiment or full verify.py rerun in this editorial checkpoint.
