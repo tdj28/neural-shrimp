@@ -11397,3 +11397,18 @@ Kernel controls initially caught an accounting defect: SciPy MINRES evaluates
 the explicitly supplied zero initial state before its iterations. The action
 cap now includes that call and the final true-residual call (iterations+2).
 No native target was attempted.
+
+
+Symmetric shooting native run card: last consumed LSMR state, same98666
+parameters/subsetA/eta/regularization. Two deterministic symmetry pairings
+and three central-difference steps precede one400iteration MINRES direction.
+Maximum816HVP40directgrad,300sworker320+5sexternal327ssupervisor,
+2GiBgroupRSS255+1MiBraw. Forecast uses maximum saved native per-operation
+times with factor2plus20s. True eliminated forcing<=.5 and actual closure
+merit/Armijo/rho/primitive screen before any local acceptance. One thread
+nice10, CPUonly; no spectrum, no orbit acceptor, no holdout. Needs independent
+wrapper review and current host availability before launch.
+
+Driver controls caught a wrong helper-module alias for finite_vector and a
+test command-index error before native execution. Corrected the direct import
+and test path position; mathematical kernel and scientific gates unchanged.
