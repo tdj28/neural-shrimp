@@ -11272,3 +11272,14 @@ run the committed generator, inspect both panels and regenerate byte-identically
 Figure first render stopped before creating outputs because the fold receipt root
 is the attempt directory, unlike the orbit receipt root. Corrected only the
 explicit run/certificate.json path; no acquired evidence or values changed.
+
+### 2026-10-10 — native unit-pair kernel independently cleared; target packet
+
+Clark independently source-reviewed ae51c87d/36aa6c45 and reproduced15controls
+in0.30s. Entire-series derivatives/tails, exact Jordan equivalence, non-diagonal
+closure, all native derivative columns, full matrix proof and C1 parameter
+residual passed. Prepared the separate bounded target adapter: authenticated
+independent41D root and same107-chart membership, fresh full704 root lift,
+strict same-profile source/library/arithmetic gate, fixed217ticks and one chart.
+All32combined kernel/profile/target controls pass0.46s. Actual profile still
+awaits root wrapper skim; target waits successful measured profile and exact card.
