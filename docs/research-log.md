@@ -6595,3 +6595,18 @@ Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
 plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
 final failure or strict fold membership, no automatic alternate search.
 No attraction or full shrimp geometry is implied.
+
+### 10 October 2026 UTC — fold-directed unit001 outcome
+
+Execution e987c8669efb5fb9275046f401cd4cfa172cfa9b, scientific source229269dd. Status failed_or_interrupted,
+10 qualified charts; 4 retained initial failures/reboxes.
+Last qualified hidden-rate endpoint [75.68867 +/- 8.80e-6]; fold membership rows [].
+Worker 50.5066s/466552KiB; launcher
+51.3440s, exit2. All inventories,
+decompressed payloads, initial/final predictor identities, native joins,
+immutable files and owned exits checked. 108555467 retained bytes.
+Worker manifest a5399a6b1888006dc6ca2b32e8ae0f7beb367b4281c66d55ab20f33b7f8ec3d2; outer
+6e46898411bdcbb6af977fafe7b6048a825f71b50c7565d624167d38e69c0b85. Companion `docs/reviews/s2-period18-fold-small-march-unit001.json`.
+Independent review pending; no attraction or complete geometry claim.
+
+The qualified prefix adds ten charts to the previous146, giving156 producer-qualified joined charts. The last exact gauge is45/128. Four initial failures were successfully reboxed; the fifth initial failure at index010 remains unqualified (weighted bound1.02129620456), and its positive-radii proposal was rejected before any final-domain acquisition. No batch completion record was manufactured. The next adaptation will diagnose a fold-oriented gauge and localize the last qualified endpoint; it will not repeat the completed prefix or use the failed tail as an anchor.
