@@ -6206,3 +6206,25 @@ Card `docs/plans/s2-period18-arclength-connection-pilot.md` fixes profile20s/
 25+5 and gated target120s/135+5,CPU1,nice10,2GiB,128+1MiB,144/288 C1/unit
 calls+108 jets. Frozen code/tests precede profile and a measured receipt precedes
 target; no automatic retries. Independent reviewer is checking the parent.
+
+### 10 October 2026 UTC — arclength profile passes; fixed target card
+
+Root source/math/driver review passed0105a1f2;51 controls pass0.33s. The full
+235D synthetic profile completed6.8084s/7.1540s,702700KiB,266ticks with all
+144/288 C1/unit and108 jets. Both uniform-root stages pass; repeated fixed
+point intentionally fails primitive18 and yields no scientific claim.
+All source/library/thread/inventory/immutable/PID checks pass. Projection
+29.2336s/94,025,634bytes is below fixed limits. Profile worker manifest
+ d66d1156ac00d9bea389e855089e3dac72d29b4adc27bc104caba0bed59c2e26;
+outer8e2a1af52aa4a284b8264cbcd3b74f4f48d53f19f9b6a4f2b54c161f7f3c3872.
+Receipt `docs/reviews/s2-period18-arclength-profile.json`.
+
+Run one unchanged-source target after fresh shared-memory check, using
+`tools/certify_s2_period18_arclength_connection.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-connection-2026-10-10/attempt-001-target
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-connection-2026-10-10/attempt-001-profile/run
+--profile-manifest d66d1156ac00d9bea389e855089e3dac72d29b4adc27bc104caba0bed59c2e26`.
+CPU1,nice10,2GiB,128+1MiB,120s/135+5,300ticks and same complete call caps.
+Same original model and last weighted endpoint anchor; two fixed235D charts,
+delta2^-6,r2^-22,256bits,two proposals. Preserve every failure; no automatic
+retry, attraction or fold identity claim. Independent review is pending.
