@@ -5884,3 +5884,5 @@ Optimizer independently cleareddf6546d3 by static differential review. Execute o
 ## 2026-10-10: p7 original-envelope completion retained
 
 349 additional accepted edges,613 total without repeated prefix. All old residual stops resolve with stricter correction, unchanged gates. Domain/nodecaps remain; lower flip turns, folds monotone. Save-only combined native geometry figure next: exact two rawmanifest pins, all accepted points, failed/capped endpoints retained; no interpolation theorem or new model work. CPU1nice10/10s/2MiB figure budget, exclusive n6-p7-geometry-001.
+
+2026-10-10: Retain completed N6/28183 p7 geometry6650a040 (613 native numerical edges): two monotone folds plus one internal U-shaped flip, no proved/crossing shrimp skeleton. Disclosed next untouched-matrix candidate N6/28184component67,p24,count7,margin2,halo5,largest eligible retained component. Fixed source/card/profile-bound51x51 both-start refinement, max96 native24/48 cases, all proper divisors, no symmetry quotient. Ten differential controls pass0.11s; peer skim before one bounded target.
