@@ -7234,3 +7234,7 @@ c700c7b393e1565e2a8577a19336dd14b819eb649a915e1f4ddd76433fcbb795. Companions
 `docs/reviews/eigenpair-wider-march-unit008.md/.json`. Numerical normal-form
 and complementary-mode columns remain diagnostics; independent outcome review
 pending. Next unit requires a newly committed exact complete-parent card.
+
+### 2026-10-10 — saved shooting-adjoint qualification preparation
+
+After completed unit008 (53 connected producer charts; recent outcomes pending independent review), prepare one conditional whole-chart simple+1 and fold-coefficient test on the fixed last segment[147/128,151/128]. Certificate_context independently checked the adjoint recurrence, last-phase normalization and coefficient formula. This is a new saved-only analysis, not a new model acquisition or a retroactive strengthening of old receipts. The new kernel/driver/card are in docs/plans/eigenpair-shooting-fold.md;23 synthetic controls pass0.12s, including nonnormal, two-phase composition, defective/repeated critical, interval containment, zero coefficient/transversality, nonfinite, and observer-failure controls. No target arrays were reduced while preparing this source. Source peer skim pending before the one profile; profile and target each get an exclusive raw root, fixed CPU1/nice10/caps and immutable failures. A passing conditional fold does not exclude other unit-circle modes or prove attraction/classical anatomy.
