@@ -5792,3 +5792,5 @@ Combined p12 geometry rendered e3659ded1.914s, visuallyinspected. No cusp establ
 Root pretarget source/card skim6c5c0ac5 passes: exactp14comparisonfixedpatch/qualifierandmeasuredsourceprofile. Executeoneboundedunit; retainp12anatomylimits.
 
 P14refinement e86b4354 completes12.830s/13.094s,235608KiB.70/70selected native14/56 cases qualify,18startdisagreements,281consensuscomponents. Largest14component489cells touchesedge;parallel12/16/18components alsoedge. Allrawhashes/modes and1400386/1400408 exits verified. Savedwholemapfigure follows30sCPU1/8MiB, no newmodel/decomposition. No compactbody/shrimpclaim.
+
+P14wholemap64d8bf43 rendered.859s/153968KiB,hashfe1b662e andPID1405085exit; visualbandstructure undermines coarsecompactbody. NextdisclosedfinitearchitectureunitN6/fourseeds28181..28184 withnewN6profile28179; unchangedfullnative/growthlabels. Source/card/tests beforetarget; noN4globalabsence.
