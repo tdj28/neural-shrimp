@@ -11024,3 +11024,8 @@ Stability peer ac8b8653 saved-CIFAR audit source skim PASS;2controls reproduced0
 ## 2026-10-10: independent saved CIFAR merit audit passes
 
 Execution83bdb992 saved-only audit1.15197s/43468KiB/zero native calls independently recomputes all six full-step merit acceptances, exact state chain/damping/trust norms and operation counts4836HVP/14grad. True forcing=.9673129 then.99935–.99964; zero original Newtonforcing passes. Relative closure4.897454780673e-6→4.726511018165e-6, only3.49046% decrease; native separation.000341024 passes screen but closure1e-8 does not. Every step's actual/predicted ratio≈1 and Armijo are valid from saved data; audit does not rerun native maps/adjoints/LSMR or certify an orbit. Full immutable audit/producer inventories and owned1812203/1812205/group absence checked. Receipt docs/reviews/cifar-merit-saved-independent.json; all15ownedrawroots now in integration inventory.
+
+
+### 2026-10-10 — Keep larger-model and native activity results current
+
+Added all six independently checked CIFAR residual-merit corrections (3.49percent relativeclosure improvement, stillfailsorbitgate) and the native-associated N12 signedflip cubic-sign bracket. Explained why a flip ofG=-F³ neednotdouble native6period. Four new number bindings keep all409 earlier entries unchanged. The first generation rejected a digit-bearing LaTeX macro before writing; corrected alphabetic name regenerates413entries. No new targetrun/holdout. Primary SIAM/authorpreprint content check added to reference ledger.

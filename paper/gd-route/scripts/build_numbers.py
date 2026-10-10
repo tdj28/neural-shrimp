@@ -1975,6 +1975,22 @@ def build():
     label="exploratory fixed-weight N12 activity panel; source/inventory checked, floating native qualifications; no interval/whole-window proof"
     for macro,value in [("nClarkPanelMatrices",len(nr["result"]["networks"])),("nClarkPanelDimension",12),("nClarkPanelTrajectories",nt["trajectories"]),("nClarkPanelComponents",nt["consensus_components"]),("nClarkPanelQualified",nt["qualified_seed_cases"])]:
         n.add(macro,value,integer(value),label,ns,"all fixed development matrices and both starts; selected qualifications only")
+    # Different large-model residual-merit solver; independently checked saved arithmetic.
+    cmp=c.ROOT/"docs/reviews/cifar-merit-saved-independent.json";cm=load(cmp);cr=cm["result"]
+    cms=[cmp]+bound_inventory(Path(cm["raw_root"])/"manifest.json",cm["outer"]["sha256"])
+    assert cr==load(Path(cm["raw_root"])/"run/result.json") and cr["passed"] and not cr["closure_screen"] and cr["old_forcing_passes"]==0
+    assert len(cr["steps"])==6 and all(z["accepted_local_step"] for z in cr["steps"])
+    label="exploratory native CIFAR correction, independent saved-arithmetic audit; no accepted orbit"
+    n.add("nCifarMeritSteps",6,"6",label,cms,"all fixed full-step acceptance gates independently checked")
+    n.add("xCifarMeritClosure",cr["final_relative_residual"],sci(cr["final_relative_residual"],3),label,cms,"relative norm of final retained two-step return residual")
+    n.add("pCifarMeritImprovement",cr["relative_residual_fractional_reduction"],fixed(cr["relative_residual_fractional_reduction"]*100,2)+r"\%",label,cms,"relative closure reduction from the same development state")
+    cp=c.ROOT/"docs/reviews/clark-rnn-n12-flip-cubic-outcome.json";cc=load(cp)
+    cs=[cp]+bound_inventory(Path(cc["raw_root"])/"manifest.json",cc["outer"]["manifest_sha256"])
+    assert cc["status"]=="completed_numerical_cubic_bracket" and cc["midpoint_count"]==24 and cc["separate_endpoint_join_count"]==48
+    br=cc["bracket"];assert len(br)==2 and all(v["passed"] and all(v["gates"].values())for v in br) and br[0]["cubic"]>0>br[1]["cubic"]
+    lo,hi=[Fraction.from_float(v["gain"])for v in br];assert lo<hi
+    digits=10;scale=10**digits;flo=lo.numerator*scale//lo.denominator;cei=-((-hi.numerator*scale)//hi.denominator)
+    n.add("tNTwelveCubicGain",[float(lo),float(hi)],"["+exact_decimal(flo,digits)+", "+exact_decimal(cei,digits)+"]",EXPLORATORY,cs,"outward decimal display of numerical same-branch cubic-sign bracket; no interval proof")
     return n
 
 

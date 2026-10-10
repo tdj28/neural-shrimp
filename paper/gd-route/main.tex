@@ -885,7 +885,7 @@ robustness to varying $q$ or $r$. The algebra and independent review are in
 \path{docs/scalar-similarity-corollary.md}.
 
 
-\section{Exploratory evidence for the thesis}
+\section{Exploratory context: crossings, locking and transfer}
 \label{sec:route}
 
 \noindent Status: \exploratorylabel{}. The analyses in this section were chosen while exploring and used data
@@ -1369,6 +1369,13 @@ packing and operation counts; they do not independently reevaluate derivatives.
 See \path{docs/reviews/cifar400-saved-outcome-review.json},
 \path{docs/reviews/cifar-damped-outcome.json} and
 \path{docs/reviews/cifar-gram-outcome.json}.
+A different residual-merit method uses damped LSMR after qualifying the native
+transpose action. All \nCifarMeritSteps{} full corrections pass actual decrease,
+Armijo, reduction-ratio and phase-separation checks. Relative closure improves
+by \pCifarMeritImprovement{} to $\xCifarMeritClosure$, still above
+$\xCifarClosureGate$. An independent compensated-sum audit reproduces every
+acceptance and operation count. This is modest progress on correction, with
+no accepted CIFAR orbit. See \path{docs/reviews/cifar-merit-saved-independent.json}.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
 
@@ -1563,6 +1570,18 @@ These are selected numerical activity cycles, not rigorously certified
 windows or a population success rate. Full maps and failures are retained;
 boundary refinement remains in progress. See
 \path{docs/reviews/clark-rnn-n12-panel.json}.
+For one refined native period-6 component, the odd map $F$ satisfies the
+half-wave relation $F^3(x)=-x$. The signed return map $G=-F^3$ therefore fixes
+$x$, and $G^2=F^6$. Along a continued simple flip of $G$, native phase and
+reverse-continuation checks retain the same period-6 orbit family. Its cubic
+coefficient changes sign within the numerical gain bracket
+$\tNTwelveCubicGain$. This identifies a candidate degenerate flip of the signed
+return map, with a native $+1$ multiplier. It is not a native period-doubling
+claim: a period-2 daughter of $G$ can remain a period-6 orbit of $F$.
+The candidate needs a quintic and unfolding analysis plus interval enclosures.
+The retained failed global phase-label join and the separate successful local
+bracket are recorded in \path{docs/reviews/clark-rnn-n12-flip-cubic-outcome.json}.
+
 
 \paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter
 space. Freezing weights stops that map; sensitivity of fixed-weight predictions and feedback during generation
@@ -1689,8 +1708,7 @@ and bifurcation tests; they do not replace them.
 Arnold tongues, devil's staircases and the breakdown of invariant circles by
 \citet{arnold1965,jensen1983,jensen1984,curry1978,aronson1982,ostlund1983}; numerical bifurcation analysis of maps,
 by \citet{kuznetsov2019}, with the local NS theorem and coefficient stated by
-\citet{kuznetsovsacker2008}. Our contribution is the numerical characterization and testing of these mechanisms in the specified
-training maps. A literature search cannot establish their absence from all earlier optimizer studies.
+\citet{kuznetsovsacker2008}. Our contribution combines computer-assisted proofs of full-state training cycles and connected bifurcation structure with numerical tests of these mechanisms in the specified training maps. A literature search cannot establish their absence from all earlier optimizer studies.
 
 \section{Reproducibility}
 \label{sec:repro}
