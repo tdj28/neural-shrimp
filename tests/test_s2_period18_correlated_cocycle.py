@@ -98,3 +98,12 @@ def test_launcher_failure_or_identity_never_admits(tmp_path,monkeypatch,change):
 def test_outer_manifest_pin_is_required(tmp_path,monkeypatch):
     m=driver();profile_fixture(monkeypatch,m)
     with pytest.raises(ValueError,match='launcher manifest'):m.profile_gate(tmp_path,'pin','changed')
+
+
+def test_real_serialization_plain_and_gzip(tmp_path):
+    m=driver();value={'arithmetic':'no target','integer':1}
+    plain=m.save(tmp_path/'start.json',value);packed=m.save(tmp_path/'stage.json.gz',value)
+    m.save(tmp_path/'stage-payload.json',packed)
+    assert m.read(tmp_path/'start.json')==m.read(tmp_path/'stage.json.gz')==value
+    assert plain==packed and plain['uncompressed_bytes']>0
+    assert m.entry(tmp_path/'start.json')['sha256']==plain['uncompressed_sha256']

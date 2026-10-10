@@ -18,7 +18,7 @@ from neural_shrimp.rigorous_connection import restore_ball
 from neural_shrimp.rigorous_arclength_batch import compact_chart
 from neural_shrimp.rigorous_reboxing_gradient import ReboxingMeanValueHiddenRateMap
 from neural_shrimp.rigorous_connection import require
-from neural_shrimp.rigorous_orbits import exact,vector_json,matrix_json,midpoint_matrix
+from neural_shrimp.rigorous_orbits import exact,vector_json,matrix_json,midpoint_matrix,canonical_bytes
 from flint import arb,arb_mat
 for name in ('entry','read','now','total','inventory','verify_inventory','sha256'):
     globals()[name]=getattr(io,name)
@@ -84,7 +84,7 @@ def target_input():
 
 
 def save(path,obj):
-    data=io.canonical_bytes(obj);root=path.parent
+    data=canonical_bytes(obj);root=path.parent
     payload={'uncompressed_bytes':len(data),'uncompressed_sha256':sha256(data)}
     require(len(data)<256*1024**2,'uncompressed artifact cap')
     if path.suffix=='.gz':data=gzip.compress(data,compresslevel=6,mtime=0)
