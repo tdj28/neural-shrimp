@@ -7720,3 +7720,13 @@ Worker manifest a5399a6b1888006dc6ca2b32e8ae0f7beb367b4281c66d55ab20f33b7f8ec3d2
 Independent review pending; no attraction or complete geometry claim.
 
 The qualified prefix adds ten charts to the previous146, giving156 producer-qualified joined charts. The last exact gauge is45/128. Four initial failures were successfully reboxed; the fifth initial failure at index010 remains unqualified (weighted bound1.02129620456), and its positive-radii proposal was rejected before any final-domain acquisition. No batch completion record was manufactured. The next adaptation will diagnose a fold-oriented gauge and localize the last qualified endpoint; it will not repeat the completed prefix or use the failed tail as an anchor.
+
+### 10 October 2026 UTC — prospective saved near-fold gauge comparison
+
+Root authorized diagnosis after ten smaller charts passed and initial010
+failed. After committed source/tests/card, run exactly once:
+`tools/launch_s2_period18_near_fold_gauge.py --out /data2/neural-shrimp-data/explore/certificates/s2-period18-near-fold-gauge-2026-10-10/attempt-001`.
+The card docs/plans/s2-period18-near-fold-gauge.md fixes all three normals,
+full input prefix, matrix operations,30s/40+5 cap and4MiB total raw. No new
+model acquisition or proof claim. A fold-informed reverse bridge is an
+explicit future option; whole-box uniqueness containment remains mandatory.
