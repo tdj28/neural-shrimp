@@ -7040,3 +7040,13 @@ method adaptation; next work must identify the saved remainder bottleneck.
 ### 2026-10-10 — prospective saved cocycle error decomposition
 
 One new saved-only source/card in docs/plans/s2-period18-cocycle-budget.md compares already acquired common-variable polynomial variation against the retained remainder using the saved point congruence. No new model or decomposition calls,15s/1GiB/8MiB total. Keep the failed full-slice witness unchanged and identify its limiting term before any further acquisition. Producer outcome companion compacted to gate/row margins; full matrices remain in the immutable hash-bound raw artifact and prior Git history.
+
+2026-10-10 saved cocycle diagnostic completed once at7288ccc6b349aa614988d315766cfd2b217259f7:
+0.649294s/73608KiB, exit0. Worker
+65fe44d2b9a7bdc75fcca4e168ca92cc55b9cec9e0078120d0b3e0c2c2855174; outer0e8d4c5b7b439b81ffbd94b9339ef1e3e3eecaeb02fcc51af8e0d139534af4c5.
+Full hashes/read-only/owned-exit checks pass. Saved product remainder upper
+~718.24, versus counterfactual truncation~1.03e-7 with phase errors removed.
+Whitened linear degree1 norm~2.588 also fails the polynomial-only fixed-metric
+Gershgorin bound. These are enclosure diagnostics, not dynamical instability.
+Next method should control native product remainder propagation and metric
+variation, rather than repeating a blind shrinking slice campaign.
