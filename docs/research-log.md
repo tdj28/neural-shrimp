@@ -6084,3 +6084,7 @@ Root integrated weighted/quadratic producer and independent review through ecddc
 ### 2026-10-09 PDT: RNN two-parameter boundary continuation, pre-run
 
 Five local numerical boundary roots motivate actual short curves. New source/card `docs/plans/clark-rnn-boundary-continuation.md`: exactly g10.02 fold/flip seeds, two directions each,48 fixed.015 scaled-arclength steps, analytic9×10 Jacobian/SVD tangent, forward and reverse corrections. All derivatives/eigensystems/linear/SVD returns retained; no halving or retry. Complement stability retained without filtering. Measured ten-return synthetic profile before target loading; CPU1nice10/120sinternal135+5external/512MiB/64+1MiB/4000familycalls. Exclusive `p5-boundary-curves-001`. Numerical curve organization only; no interval, closed-loop or whole-shrimp assertion. Old raw and failed lower-edge localization remain immutable.
+
+### 2026-10-09 PDT: short numerical RNN curves completed
+
+Execution8a2ce1b0 completed all four48-step traces after a33.663s measured synthetic cost projection. Actual1.2946s internal1.6219s external,38836KiB,1164 family calls. All192 new nodes pass primitive/simple and reverse gates, all complements attract, all stops are node caps. Largest reverse error2.62e-12. No closed-loop/cusp/whole geometry or interval claim. Full immutable raw and owned launcher993722/worker993726/group exit verified; companion `docs/reviews/clark-rnn-boundary-curves-outcome.json`. Added primary Hopfield-neural-activity shrimp prior art, explicitly excluding a novelty claim on activity shrimps generally.
