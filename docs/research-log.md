@@ -8222,3 +8222,20 @@ It will not emit until all107 charts and final independent membership pass.
 The original fold lift, three-intersection chart10→11 regauge, all ordinary
 full470 endpoint joins and final root membership remain separately identified;
 no interpolated proof between numerical points is introduced.
+
+2026-10-10 independent locus unit021 PASS at 1b432b073f6165ee5b9e69de379ed837675c2374,
+48.383206s/830276KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+97charts,right275/128.
+Outer72e0abb761354584d59fad6564892cc3159d45be58be8e9163a59deb8c1cdd21;
+worker8d6f78bd3f1213e56e16b0fde503218eb4975c5484dd2ee18fc2dadf55bcf505. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit022: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit022.json; literal complete independent predecessor above.
+Selected accepted globals98–101,
+exact gauge275/128→283/128.
+Exclusive audits/eigenpair-remaining-locus/unit022-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
