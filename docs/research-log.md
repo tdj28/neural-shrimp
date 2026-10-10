@@ -11964,3 +11964,18 @@ Boundary394c8500 differential skim PASS,12controls0.19s. Fresh52GiB/load1.42 adm
 ### 2026-10-10 — Quarter141 first-piece bound insufficient; prioritize finite704 complement
 
 The fixed first quarter[53/256,27/128] completed161stages/162map/324unit/36mixed in28.792215s and stopped as prescribed. Whole/center localization, U″ refinement and point decrease pass; complete uniform decrease fails. Refinement reduced the remainder from the wider whole141 bound227.305 to0.055920422, but its penalty1.499620715 still exceeds the unit-center decrease budget. This is insufficient enclosure precision, not physical instability. The other three quarters were not acquired. Exact sourcefd397e68, outer26b4e9a457423c1f5dfb75f187b3ce9be77c97f4c8f2b79e576c274238bed308, worker84ff9bb4aa09a48a043fffd9616534db7a3913b43ea38c84dbfe84e516201851; full inventories/source/immutability/owned termination checked. Receipt docs/reviews/s2-period18-earlier-quarter-stability-outcome.json. Independent cover remains112pieces[27/128,45/128]; original eight-piece width1/512 is the established reliable budget. Parent assigns the finite704 complementary-frame repair next, while boundary owns the705D global connection; no automatic further chart141 subdivision launched.
+
+### 2026-10-10 — Fixed finite704 Floquet-complement repair card
+
+Following the retained whole141 and first quarter141 sufficient-bound failures,
+root assigned finite704 complementary attraction as the next priority. Boundary
+owns the separate705D global connection; no duplicate target exists. Implemented
+one saved-only phase-scaled complement trial in tools/probe_floquet_complement.py
+with the exact source/input pins in docs/plans/floquet-complement-inputs.json.
+No research arrays have yet been evaluated by this source. The previous
+coordinate-quotient wrapping failure remains immutable and explicitly bound.
+Plan docs/plans/floquet-complement.md records full mathematical assumptions,
+independent-root prerequisite, fresh unrelated measured profile, all operator
+error terms and CPU1/120s/4GiB/32MiB owned caps. Source-only peer review and a
+current host-resource check precede the sole attempt002-spectrum. No automatic
+retry or claim of whole-window completion is admitted.
