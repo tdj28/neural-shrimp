@@ -5876,3 +5876,7 @@ Worker completed2.2815s/1533 calls; final outer manifest exceeded1MiB allowance,
 Disclosed adaptation from b9c7026a: only four left-mode residual stops, saved last accepted states/tangents; tighten augmented correction1e-10→1e-12 while native qualification/domain/step/remaining128 budgets remain unchanged. Profile/card in docs/plans/clark-rnn-n6-p7-completion.md; no extension of the other two capped traces. Future metadata allowance4MiB from measured prior manifest burden; no old evidence mutation or full scientific rerun. Independent differential skim before target.
 
 The first combined edit/test shell inherited a process-peak RSS above the unchanged448MiB test guard and three old controls stopped before numerical work. A fresh test-only process passed the same13 controls in.11s; no scientific cap or source threshold was changed.
+
+## 2026-10-10: fixed p7 endpoint source skim passed
+
+Optimizer independently cleareddf6546d3 by static differential review. Execute one profile-gated completion001 with original remaining budgets and all native gates unchanged. Also retained independent source clearance85aa258f for root-conditioned saved adjoint intersections;33 synthetic controls, no target evaluation.
