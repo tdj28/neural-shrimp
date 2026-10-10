@@ -6938,3 +6938,16 @@ Run ONE target with unchanged source bytes after this card is committed:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_endpoint.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-endpoint-localization-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-endpoint-localization-2026-10-10/attempt-001-profile/run --profile-manifest e9a80d525a7366fc6f99104cf049e6d7a17bb0076f6ca250b942579efe7a3b71`.
 Same parent manifestdd0bae85 and old endpoint253/64;30s internal/45+5 external,
 CPU1,2GiB,72/144 calls,3 intersections,128+1MiB raw. No retry/newcoverageclaim.
+
+## 2026-10-10 — known old-endpoint localization completed
+
+TLDR: the same already-proved neural-network cycle now has a much tighter
+full-state enclosure, allowing a new continuation coordinate to be tested
+without carrying a wide anchor box. No new parameter coverage or attraction.
+One attempt at executionf2df07b026117e66e6ad726394fdbca7893e1ef5 passed three inherited-root
+intersections; maximum235D radius3.6911e-15, h near75.345276253671744.
+Worker13.0713s/473116KiB,72/144 native calls;
+launcher13.5756s/exit0. Full inventories, all stage payloads,
+source identities, immutable permissions and owned exits checked. Receipt
+`docs/reviews/s2-period18-endpoint-localization-outcome.json` binds exact files;
+independent outcome review pending. Existing127-chart branch is unchanged.
