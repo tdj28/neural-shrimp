@@ -7526,3 +7526,28 @@ Precommit synthetic suite initially caught a test-edit typo (expected chart
 cap26 instead of16 after textual fixture adaptation). Fixed the test literal;
 production count cap remained16 throughout. Final34 controls pass, including
 whole-fold interval count, native joins, corrupt repairs and fresh rebox gates.
+
+### 10 October 2026 UTC — fold-directed forced-reboxing profile and unit001 card
+
+Source 229269ddcdf9a955b11e0202f9fa9f4c0819bbf7; profile worker 8.0049s,
+393968KiB; launcher 8.4731s, exit0.
+Both forced rebox root paths and180/360 derivatives+108jets completed.
+Inventories, source/libraries/threads, immutable bytes and owned exits checked.
+Profile manifest fc722caee69a30e92374414bfde30799a045b90d6a5a90beeb413b9173338804; projection 133.0777s,
+335544320B passes. Companion
+`docs/reviews/s2-period18-fold-small-march-profile.json`.
+
+Root independently reviewed scientific source 229269ddcdf9a955b11e0202f9fa9f4c0819bbf7: same-gauge repaired input and actual-runner admission were checked; full fold projection selects workload only, native joins and whole-box membership remain strict. Root authorizes this unit and distinct successor units from complete qualified endpoints under the unchanged design, stopping at first failed tail, fold identity, or neighborhood covered without identity.
+
+After this card is committed, run ONE unit:
+`tools/certify_s2_period18_fold_small_march.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-small-march-2026-10-10/unit-001
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-small-march-2026-10-10/attempt-001-profile/run
+--profile-manifest fc722caee69a30e92374414bfde30799a045b90d6a5a90beeb413b9173338804
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-saved-rebox-2026-10-10/attempt-001-target/run
+--parent-manifest 68abff9e1ccdb5c4b8170acd174c4e5e8f27e585698ea1c5436281d89bc56d2d
+--parent-execution bf688606f5afb5daf6bdfb20a02fd458c1ee7d94`.
+Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
+plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
+final failure or strict fold membership, no automatic alternate search.
+No attraction or full shrimp geometry is implied.
