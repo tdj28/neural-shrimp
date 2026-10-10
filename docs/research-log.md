@@ -7173,3 +7173,14 @@ and exact source/native joins checked. Receipt
 `docs/reviews/s2-period18-weighted-reanchor-outcome.json`; independent review
 pending. Next bounded units target the saved full-fold gauge projection and
 stop at strict membership or first failed final gate; no completed-prefix rerun.
+
+## 2026-10-10 — prospective fold-directed new-gauge continuation
+
+Both weighted correlated charts passed; prepare distinct continuation from
+new exact endpoint3/128. Card `docs/plans/s2-period18-fold-directed-march.md`
+sets count from full native0 fold projection+halfwidth, capped16; every chart
+still tests all18 full fold alignments and stops on strict identity. Same
+passed weights/gauge/halfwidth and unchanged one-shot fresh-domain reboxing
+kernel. Forced two-rebox profile then exact pinned unit card;180s/195+5s,
+CPU1,2GiB,384+1MiB. No old prefix rerun, failed anchor, attraction or whole
+geometry claim. Source/run inventories and all failed witnesses preserved.
