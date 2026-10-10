@@ -5803,3 +5803,14 @@ Hash-check all five preserved attempts, summarize every fixed count comparison a
 the two stored callback probes, no new solve/eigen/QR/model call. Source committed
 before this saved arithmetic; final compact outcome follows. Root requests interval
 localization review next, so no new response target expansion in this unit.
+
+Clark saved summary35533ed4: all216 direct residual screens pass (max1.832e−12),
+Floquet/QR counts agree at every chosen threshold. Finite-window count bias persists:
+longest-window free/periodic maximum errors0.071916/0.083277 (p10) and
+0.088262/0.089916 (p18). Both unpreconditioned callback probes hit300 iterations,
+column errors0.07675/0.09644 and96,480/173,664 phase callbacks. No large-LM
+acquisition justified by this prototype. Complete report/receipt in
+`docs/reviews/clark-response-outcome{.md,-receipt.json}`; all five attempts retained,
+summary manifest2abe32ab6ad013fb7d52cb388e15985bd134a1690cf7d3f6222c3386256ef9e7.
+No further target run in this unit; next assigned task is independent interval
+localization review, not stopping the wider research goal.
