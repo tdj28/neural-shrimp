@@ -6228,3 +6228,18 @@ CPU1,nice10,2GiB,128+1MiB,120s/135+5,300ticks and same complete call caps.
 Same original model and last weighted endpoint anchor; two fixed235D charts,
 delta2^-6,r2^-22,256bits,two proposals. Preserve every failure; no automatic
 retry, attraction or fold identity claim. Independent review is pending.
+
+### 10 October 2026 UTC — first augmented branch charts pass
+
+The fixed235D pilot at11eb9a2d passes both charts, including correlated first
+anchor and exact same-gauge shared endpoint, all235 coordinate gates and
+proper-period exclusions. Norms<.426056/.423582; exact gauge coverage
+[-1/64,3/64], last hidden-rate ball near71.4313949. This is a connected native
+primitive18 extension, not a fixed hidden-rate-width, attraction or fold claim.
+Worker11.1780s/767376KiB,launcher11.5734s,exit0; all144/288 C1/unit and108 jets
+retained. Immutable29,637,466-byte outer manifest
+bdf1b2e61b6577d86bb16c4c5c9e11f2f92ce9e72119e4aa83e3a2e14fc39301;
+worker0460fd73c44e52b479538908e55df12c61a082e2f3541c3c54186bfd7750f71c.
+Companions `docs/reviews/s2-period18-arclength-outcome.md/.json` retain all
+source/provenance and exact scope. Independent review pending; next design
+streams a bounded fixed-width batch rather than acquiring a larger blind grid.
