@@ -10660,3 +10660,18 @@ exact e199bb9e originals. Native assembly/256replay/384full470 Krawczyk,
 proper divisors,fresh endpoint join,event-attempt separation and source/domain
 bindings checked. No target arithmetic by reviewer. Root authorized this
 peer gate; execute only unit000 under the already committed first-chart card.
+
+2026-10-10 remaining-locus first attempt at 27136c8787ddf76bbdadd9a03acfa820a949af65 stopped
+before chart arithmetic in0.368395s/50396KiB. Error: exact original physical
+training map. Original orbit receipt included approximation/provenance and
+a different initial hidden rate; it is not the eigenpair-path map record.
+All source/inventory/immutability/owned-exit checks pass. Outer
+19f2f59c1a82c536b48013d6ecf8aa6276a05fd8173df0cf3378011208740487; worker86cb8aa211c8979da9cf9e80ddab316afeab5a5b9fda2b5ac71034177d04b7fc.
+Preserved failure; no proof gate executed or evidence scope changed.
+
+Amendment pins the exact original independently audited eigenpair-path map
+file SHA25616fc4b1c5ea4e7cb30fe321ca48147c209ecba91fca60872c1583de1a3a81f0a,
+requires full six-field equality including both initial rates. New negative
+controls reject old orbit envelope,changed rate/data/network.17controls pass.
+Unchanged math/caps/card,target only chart21,saved-only,newexclusive
+audits/eigenpair-remaining-locus/unit000-attempt002 after peer repair skim.

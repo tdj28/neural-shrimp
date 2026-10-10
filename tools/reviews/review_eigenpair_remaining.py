@@ -13,6 +13,8 @@ from neural_shrimp.rigorous_orbits import canonical_bytes
 need=E.need
 THREADS=('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 BASE=Path('/data2/neural-shrimp-data/audits/eigenpair-remaining-locus')
+MAP_INPUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-003-quadratic-target/run/exact-map-inputs.json')
+MAP_SHA='16fc4b1c5ea4e7cb30fe321ca48147c209ecba91fca60872c1583de1a3a81f0a'
 KEYS=('center','curvature','dimension','endpoint_root_boxes','gates','normal','origin','parameter_center','parameter_endpoints','passed','period','schema','settings','shooting_dimension','sigma','slope','weights')
 def compact(c):return {k:c[k]for k in KEYS}
 def entry(p):
@@ -49,6 +51,8 @@ def event_group(run,selected):
    events=[]
   elif kind in ('phase_return','path_phase_return','path_assembly_return'):events.append((kind,read(p)))
  raise ValueError('missing exact full chart return')
+def same_map(actual,known):
+ need(set(known)=={'schema','network','x','y','lr_hidden','lr_output'}and actual==known,'exact independently audited two-rate map input')
 def joined(previous,chart):
  need(chart['normal']==previous['normal'] and chart['origin']==previous['origin'],'identical native gauge')
  need(chart['parameter_endpoints'][0]==previous['parameter_endpoints'][1],'exact shared endpoint')
@@ -57,7 +61,7 @@ def joined(previous,chart):
 def worker(out,specfile):
  need(specfile.parent==ROOT/'docs/plans'and specfile.name=='eigenpair-remaining-unit000.json','first fixed saved review unit only')
  spec=read(specfile);need(spec['index']==0 and len(spec['selected'])==1,'one previously unaudited repaired chart')
- need(out==BASE/'unit000-attempt001/run','exclusive first audit output')
+ need(out==BASE/'unit000-attempt002/run','exclusive first audit output')
  need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
  need(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1'for k in THREADS),'CPU1nice10')
  files=sorted(set([str(Path(m.__file__).resolve().relative_to(ROOT)) for m in list(sys.modules.values()) if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]+[str(specfile.relative_to(ROOT)),'tools/reviews/launch_eigenpair_remaining.py','tests/reviews/test_eigenpair_remaining.py','tests/reviews/test_eigenpair_path_review.py','docs/plans/eigenpair-remaining-independent.md','docs/reviews/eigenpair-remaining-helper-provenance.json']))
@@ -75,7 +79,7 @@ def worker(out,specfile):
   root=Path(spec['root']);run=root/'run';verify(root,spec['outer']);verify(run,spec['worker']);rt=source_bind(run,spec['execution']);la=read(root/'launcher-result.json');done=read(run/'outcome.json');inp=read(run/'inputs.json')
   need(la['commit']==spec['execution']and la['exit_code']==0 and la['owned_live_pids']==[]and la['stop_reason']is None and done['passed']is spec['outcome_passed'],'exact complete producer unit')
   need(inp['parent']==previous,'complete original native predecessor')
-  original=ROOT/'certificates/s2-period18-receipt.json';native=read(Path(read(original)['external_root'])/'inputs.json');need(inp['map_inputs']==native,'exact original physical training map')
+  need(entry(MAP_INPUT)['sha256']==MAP_SHA,'exact independently audited eigenpair map file');same_map(inp['map_inputs'],read(MAP_INPUT))
   need(not Path('/proc',str(rt['pid'])).exists(),'producer absent');gc.collect();tick()
   for index,row in enumerate(spec['selected']):
    p=run/row['path'];need(entry(p)==row['identity'],'exact saved full witness');c=read(p);need(c['parameter_endpoints']==row['expected_endpoints']and c['settings']==row['settings'],'fixed chart and settings')

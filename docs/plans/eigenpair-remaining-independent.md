@@ -30,3 +30,17 @@ Source/tests/card and independent source skim precede launch. Preserve every
 failed attempt and exact bounds. Subsequent units require explicit fixed
 input/predecessor cards and source review of any binding adapter changes.
 No paid/GPU/holdout work, independent producer reacquisition or public release.
+
+
+## Map binding repair before first chart arithmetic
+
+First saved attempt001 stopped with no chart arithmetic because its driver
+compared the original orbit receipt (with approximation/provenance metadata
+and a different initial hidden rate) to the two-rate eigenpair map record.
+Preserve that failure. The full map record exactly equals the fixed original
+eigenpair-path input previously independently authenticated by the original
+root reviewer. Pin that complete file's SHA256 and require exact equality of
+all six schema/network/data/initial-rate fields; never filter fields or relax
+rate equality. Add an envelope/rate/data/network mismatch regression. No
+mathematical helper changes. Fresh exclusive unit000-attempt002, same180s/
+3GiB/24MiB card; source skim before execution.
