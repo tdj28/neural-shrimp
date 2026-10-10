@@ -7344,3 +7344,6 @@ launcher13.4925s/exit0. Full inventories, all stage payloads,
 source identities, immutable permissions and owned exits checked. Receipt
 `docs/reviews/s2-period18-fold-endpoint-outcome.json` binds exact files;
 independent outcome review pending. Existing144-chart branch is unchanged; parent independently reviewed that chain at256/384. No gauge rotation is proposed.
+## 10 October2026 — fixed32x quadratic eigenpair target card
+
+Root independently cleared7aa2398b and authorizes one target at halfwidth2^-15, unchanged470exact radii/base2^-18/wholefoldanchor/twoNewton/256bits and strictgates. New adapter preserves both prior profile/actual-cost bindings and the new278-tick syntheticprofile; forecast106.214s/1100624KiB/265402554B. Prospectively enlarge storage to384MiBworker(376ordinary+8finalreserve)+1MiBlauncher because forecast exceeds old248MiBordinary cap; no scientific gate changed.272expectedticks/cap288,120/135+5s,CPU1nice10,2GiBsampledRSS/4GiBAS. Exclusiveattempt-003-quadratic-target.66focused controls pass0.39s; one initial test-only projection-key typo caused1failure/65passes, repaired before acquisition. New source/card frozen before any target call. Success remains local normalized primitive18eigenpair locus only, independentoutcomereviewpending; all earlier attempts preserved. Full command in docs/plans/eigenpair-quadratic-target.md.
