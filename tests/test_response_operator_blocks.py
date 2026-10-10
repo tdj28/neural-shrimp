@@ -52,3 +52,23 @@ def test_launcher_accounts_final_manifest_and_log(tmp_path):
  spec=importlib.util.spec_from_file_location('launcher',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
  (tmp_path/'process.log').write_bytes(b'x'*(1024**2))
  assert not m.final_byte_gate(tmp_path,{'exit_code':0})['passed']
+
+
+def test_profile_normalizes_early_convergence_to_full_target_cost():
+ import importlib.util
+ from pathlib import Path
+ p=Path(__file__).resolve().parents[1]/'tools/explore_response_operator_blocks.py'
+ spec=importlib.util.spec_from_file_location('driver',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+ r=m.profile_projection(1.,1000,{'JVP':500,'VJP':500})
+ assert r['multiplier']==1+(96480+173664)/1000 and r['projected_seconds']>270
+ r=m.profile_projection(1.,1000,{'JVP':86832,'VJP':86832});assert r['multiplier']==3
+
+
+def test_interrupted_atomic_action_has_durable_start():
+ events=[]
+ def emit(k,v):
+  events.append((k,v))
+  if k=='operator_started':raise OSError('injected after start')
+ op=Operator(np.ones((1,1,1))*.8,16,1000,emit)
+ with pytest.raises(OSError):op.apply(np.ones(17))
+ assert events[0][0]=='operator_started' and events[0][1]['phase_actions_upper']==32 and sum(op.counts.values())==0

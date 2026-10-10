@@ -9,6 +9,12 @@ from neural_shrimp.response_operator_blocks import probe
 SOURCES=B.SOURCES+['src/neural_shrimp/response_operator_blocks.py','tools/explore_response_operator_blocks.py','tools/launch_response_operator_blocks.py','tests/test_response_operator_blocks.py','docs/plans/response-operator-blocks.md']
 CEILINGS={'p10-row35':96480,'p18-row111':173664}
 
+def profile_projection(seconds,stored_bytes,counts):
+ actions=counts['JVP']+counts['VJP']
+ B.require(type(actions)is int and 0<actions<=173664 and np.isfinite(seconds)and seconds>0,'positive complete profile cost')
+ multiplier=max(3.,1.+sum(CEILINGS.values())/actions)
+ return {'projected_seconds':multiplier*seconds+5,'projected_bytes':int(np.ceil(multiplier*stored_bytes))+16*1024**2,'profile_seconds':seconds,'profile_bytes':stored_bytes,'profile_actions':actions,'multiplier':multiplier,'target_action_ceiling_sum':sum(CEILINGS.values()),'scope':'actual profile callback-count normalized full ceilings plus profile; minimum3factor and explicit fixed overhead; resource gate only'}
+
 def main():
  p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);args=p.parse_args();B.require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean source');B.require(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1'for k in B.THREADS),'CPU1nice10');store=B.Store(args.out,limit=255*1024**2);started=time.monotonic();stopped=[False];signal.signal(signal.SIGTERM,lambda *_:stopped.__setitem__(0,True));seq=[0]
  def tick():
@@ -19,7 +25,7 @@ def main():
  result={'status':'incomplete','rows':[],'scope':'two saved13Dmidpoint maps and selected e0response column; all inner/outer callback costs; no model, derivative, geometryutility or measured LLMspeedup'}
  try:
   n=13;p=18;m=np.diag(np.exp(np.linspace(-.6,.3,n)))+.01*np.triu(np.ones((n,n)),1)+.003*np.tril(np.ones((n,n)),-1);maps=np.array([m+((t%3)-1)*.0001*np.triu(np.ones((n,n)),1)for t in range(p)]);store.array('synthetic-maps',maps);start=time.monotonic();profile=probe(maps,173664,emitter('profile'),tick);elapsed=time.monotonic()-start;store.json('profile-result.json',profile)
-  projection=3*elapsed+5;raw=3*store.used+16*1024**2;gate={'projected_seconds':projection,'projected_bytes':raw,'profile_seconds':elapsed,'profile_bytes':store.used,'gate':bool(np.isfinite(projection)and projection<45 and raw<255*1024**2),'scope':'resources only; profile accuracy/iteration behavior does not select target'};store.json('profile-gate.json',gate);result['profile']=gate;B.require(gate['gate'],'fixed profile resource gate')
+  gate=profile_projection(elapsed,store.used,profile['counts']);gate['gate']=bool(gate['projected_seconds']<45 and gate['projected_bytes']<255*1024**2);store.json('profile-gate.json',gate);result['profile']=gate;B.require(gate['gate'],'fixed profile resource gate')
   B.verify_inputs();baselines=B.verify_baselines();store.json('input-binding.json',{'root':str(B.RAW),'manifest':B.PIN,'execution':B.EXEC,'baseline_root':str(B.BASE),'baseline_manifest':B.BASEPIN,'baseline_execution':B.BASEEXEC});store.json('retained-baselines.json',baselines)
   for label,p in [('p10-row35',10),('p18-row111',18)]:
    old=next(v for v in baselines if v['label']==label and not v['preconditioned']);B.require(old['counts']['JVP']+old['counts']['VJP']==CEILINGS[label],'exact saved CG300 callback ceiling')
