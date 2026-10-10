@@ -7530,3 +7530,17 @@ Outer346a8c03213f4819c73f02feefdb3a38cfd578e1ef211b427281c2def263dc47.
 Receipt docs/reviews/eigenpair-partial-repair-outcome.md/.json; mathematical
 independent outcome review pending. This is71 accepted normalized-locus charts
 in the complete multigauge chain, not71 generic folds or a shrimp conclusion.
+
+### 2026-10-10 — halved-width native proof pilot card
+
+After successful partial repair at223/128, propose two fresh halfwidth2^-7
+charts[223/128,225/128],[225/128,227/128], exact gauge/normalized+1 mode and
+inherited radius floor. This reduces repeated wider-domain first-call failures;
+all full quadratic native root/primitive/anchor gates stay unchanged. No old
+Jacobian is reused as a new-domain bound. Plan docs/plans/eigenpair-halved-width.md,
+CPU1nice10,150s/170+5,260ticks,2GiB sampledRSS/4GiBAS,256+1MiB.
+Measured previous call supports104.614s forecast for two calls.27 focused controls
+passed0.52s, including both native signs, exact anchors, full/compact corruption,
+primitive/anchor failures, source inventory and resource admission. Commit and
+independent source skim before the one target; no empirical arrays evaluated
+in preparation.
