@@ -11283,3 +11283,13 @@ independent41D root and same107-chart membership, fresh full704 root lift,
 strict same-profile source/library/arithmetic gate, fixed217ticks and one chart.
 All32combined kernel/profile/target controls pass0.46s. Actual profile still
 awaits root wrapper skim; target waits successful measured profile and exact card.
+
+### 2026-10-10 — finite-tube complementary quotient source preparation
+
+Prepared source-only periodic-frame quotient qualification: validated[q_i,r_i,E_i]
+frames remove the exact critical plane at every native phase before multiplying
+all11D complementary blocks. Six controls pass0.16s, including unstable modes,
+wrong local domains/phase identity and nonorthogonal moving frames. No target
+or saved research array evaluated. This conditional helper awaits independent
+source skim and a later exact passed-tube binding packet. Root cleared the
+synthetic704 profile wrapper; Clark cleared the actual target wrapper separately.
