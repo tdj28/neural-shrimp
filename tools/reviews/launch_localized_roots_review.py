@@ -2,7 +2,7 @@
 import hashlib,json,os,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-OUT=Path('/data2/neural-shrimp-data/audits/s2-period18-localization/attempt-001')
+OUT=Path('/data2/neural-shrimp-data/audits/s2-period18-localization/attempt-002')
 def entry(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
 def main():
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()

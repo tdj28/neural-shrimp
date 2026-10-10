@@ -46,3 +46,22 @@ NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10
 Source/card committed before execution. The final companion is
 `docs/reviews/s2-period18-localization-independent-review.{md,json}`; preserve all
 producer creation-time pending labels.
+
+
+## Dated reviewer amendment — 10 October 2026
+
+Attempt001 (execution a1640d41) stopped after 0.770 s at the parent shooting
+assembly identity, before any new localization or metric verdict. Its outer
+manifest is ca9686a9e07065be1ca8fed3f90ecdb0768883b1baec5243cd58214f56da0b37.
+A synthetic reproduction showed python-flint's public `arb(mid, radius)`
+constructor rounds some already representable serialized radii upward by one
+magnitude ulp. The original reviewer therefore changed the input enclosures.
+The revised saved-only decoder supplies a quarter magnitude ulp lower radius
+proposal but accepts it ONLY after exact equality of reconstructed midpoint and
+radius with both original serialized dyadics. Unrepresentable/changed values
+fail closed; no tolerance, overlap test, or narrower accepted box is used.
+Original-operation arithmetic then starts from exactly the saved enclosures.
+
+A single attempt002 repeats the same fixed source/input checks and all original
+scientific gates/caps. Attempt001 remains immutable. This is a reviewer decoding
+repair, not a producer change, new acquisition, or relaxed proof criterion.

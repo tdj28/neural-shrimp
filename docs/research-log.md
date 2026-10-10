@@ -5607,3 +5607,16 @@ producer releases its larger-memory profile/target window.
 Localization reviewer source/card5c47235d is frozen; producer has released the
 quadratic target memory window. Proceed with the one saved-only audit under the
 recorded limits after fresh host availability check. No new model acquisition.
+
+
+### 2026-10-10 — Localization independent review decoder amendment
+
+The saved-only attempt001 at execution a1640d41 failed in 0.770 s on original
+shooting ball identity, peak453032 KiB; launcher/group PIDs987878/987963 exited.
+Outer manifest ca9686a9e07065be1ca8fed3f90ecdb0768883b1baec5243cd58214f56da0b37
+and all failure artifacts remain immutable. Synthetic diagnosis isolates radius
+inflation in the generic python-flint ball constructor. Add a fail-closed exact
+serialized-ball decoder and edge controls, preserving every proof gate and the
+original producer bytes. One saved-only attempt002 uses unchanged90/105+5s,
+CPU1/nice10,1.5GiB monitoredRSS/9MiB output; no model or derivative acquisition.
+Source/card and passing controls are committed before the new invocation.
