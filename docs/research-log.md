@@ -9992,3 +9992,8 @@ Prepared docs/plans/s2-refined-stability-independent.md for chart146 only, immut
 ### 2026-10-10 — Short abstract reading PDF
 
 Source5df2bf77 compiled40pages with no warnings or box errors. All397 bound numbers and20figure outputs unchanged. All40pages contact-reviewed and pages1/2 inspected in detail; short abstract fits page1. Immutable QA and current reading PDF in docs/reviews/paper-concise-abstract-qa.json. No new scientific claims were added.
+
+
+### 2026-10-10 — Independent implicit-curvature stability proof passed
+
+Four closed slices of native13D primitive18 chart146 independently pass source6de22823:40.869s/709612KiB, no model acquisitions. Exact affine gauge[17/64,35/128], all previously failed base norm bounds retained. Independent256 implicit second derivative with both rate cross terms and384 final native Lyapunov reduction. Complete immutable inventories and owned exit verified; compact receipt docs/reviews/s2-refined-stability-independent.json. This proves attraction on a second segment; next independent audit covers intervening147–151 to connect it to prior24slices. Full-window organization remains active.
