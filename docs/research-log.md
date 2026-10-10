@@ -6243,3 +6243,15 @@ launcher13.5756s/exit0. Full inventories, all stage payloads,
 source identities, immutable permissions and owned exits checked. Receipt
 `docs/reviews/s2-period18-endpoint-localization-outcome.json` binds exact files;
 independent outcome review pending. Existing127-chart branch is unchanged.
+
+## 2026-10-10 — prospective correlated-anchor half-width pilot
+
+The same127-chart endpoint is now localized, addressing the accumulated
+anchor-box obstruction. New driver/card
+`docs/plans/s2-period18-correlated-reanchor.md` binds exact localized/gauge
+manifests and reuses the unchanged quadratic chart theorem. First anchor keeps
+its full correlated gauge; the second uses exact shared endpoint. One profile
+then one pinned two-chart target,256bits,halfwidth2^-7/radius2^-22,original
+positive weights,144/288 C1+108 jets,40s target and128+1MiB raw. All18 fullfold
+alignments are checked but no nearby-fold/attraction claim assumed. No rerun
+of existing prefixes and no search; every failed gate remains retained.
