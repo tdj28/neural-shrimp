@@ -125,3 +125,9 @@ def test_launcher_cleanup_empty_and_owned_group():
     spec=importlib.util.spec_from_file_location('clark_launch',Path(__file__).resolve().parents[1]/'tools/launch_clark_rnn.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
     child=subprocess.Popen([sys.executable,'-c','pass'],start_new_session=True);child.wait()
     assert m.cleanup_group(child.pid) and not m.group_alive(child.pid)
+
+
+def test_components_keep_period_and_boundary_distinct():
+    spec=importlib.util.spec_from_file_location('clark_summary',Path(__file__).resolve().parents[1]/'tools/summarize_clark_rnn.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+    p=np.array([[0,0,0,0],[0,3,3,0],[0,0,4,0],[0,0,0,0]]);positive=np.zeros_like(p,dtype=bool);positive[0,1]=True
+    c=m.components(p,positive);assert [x['period'] for x in c]==[3,4];assert c[0]['size']==2 and not c[0]['touches_grid_edge'];assert c[0]['neighbor_positive_cells']==[(0,1)]
