@@ -10524,3 +10524,20 @@ Unchanged reviewed source,maps,gates,caps:CPU1nice10,360s/390+5external,2GiB,
 stopfirstfailure. After142,root directs priority to independent saved-arithmetic
 review of the +1boundary locus through the new isolated double-multiplier
 point. No further stability producer march is planned now.
+
+2026-10-10 root redirected the next research priority from more isolated
+attraction coverage to independently closing the full +1boundary proof path
+through the isolated double-multiplier point. After frozen142 completes,
+first review the existing repaired wider chart21(19/128→23/128),with exact
+manifest/source/full-native predecessor card in
+ docs/plans/eigenpair-remaining-unit000.json. The known root predecessor is
+root's complete independent20-chart audit3ce722c1. New driver binds original
+map/source/immutable inventories and exact selected full return,then root's
+independently developed native assembly/path coefficients and256/384 Krawczyk,
+primitive and all470coordinate join. Exact helper copies match e199bb9e hashes.
+Sixteen synthetic/binding controls pass; source skim pending. CPU1nice10,
+180s/195+5owned timeout,3GiB RSS/4GiBAS,24/25MiBraw; no new derivatives.
+Existing same-kernel8-chart audit measured93.715s/.84GiB. Firstexclusive
+saved review root audits/eigenpair-remaining-locus/unit000-attempt001.
+Later fixed units require explicit source-bound cards and complete audited
+predecessors. Shared analytic derivatives/Arb remain disclosed.
