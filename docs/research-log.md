@@ -7836,3 +7836,7 @@ Independent native residual/J assembly, three whole-root localization intersecti
 ## 2026-10-10 — full-width near-fold metric limits; independent endpoint refinement
 
 All12 saved point-metric proposals pass, but no full interval periodic-metric gate passes on their existing broad native-J boxes. Complete19.76s/426220KiB, manifestf9916ca4c327ccaa842f12585cca09821efa97217d5d1c401e5a1c99d5ae3f65. This is inconclusive attraction, not instability; no midpoint promotion. Preserve all12 witnesses, receipt docs/reviews/s2-saved-branch-attraction.json. Next, independently replay the completed known-root localization at exact156th endpoint45/128 using unchanged reducer and frozen new pins; plan docs/plans/s2-near-fold-endpoint-independent-review.md.
+
+## 2026-10-10 — refined156th endpoint independently passed; attraction target
+
+Original256 known-root arithmetic audit passes all three intersections at exact45/128; manifest220b77b44a053a598bdbdbc264458f33a77887d27517256e60ab3c65f6789cb9. Same primitive full235D state, no derivative independence or384 localization claim. Now freeze one18-native-J acquisition and unchanged cyclic interval metric on this tight whole-root box, plan docs/plans/s2-near-fold-endpoint-attraction.md. Also verified22 completed raw roots,706385126bytes, across all hashes on separate physical disk; docs/backups/20261010T163825Z-verified-native-connections.json.
