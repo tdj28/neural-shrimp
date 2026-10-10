@@ -9509,3 +9509,4 @@ Execution35d5d9c1 saved all4centergradients/8losses, result and manifest before 
 
 ## 2026-10-10 — common-center acquisition complete; console failure retained
 Execution 35d5d9c1 saved all four gradients/eight losses and final manifest before console NumPy-bool serialization exited 1. No target rerun. Future console fix and independent saved reductions at db6a96fb; retained evidence passed arithmetic check. Center prediction explains contrast to relative remainders 8.09e-8–1.96e-6, without geometry-utility claim. Receipt docs/reviews/utility-common-center-outcome.json.
+P14wholemap64d8bf43 rendered.859s/153968KiB,hashfe1b662e andPID1405085exit; visualbandstructure undermines coarsecompactbody. NextdisclosedfinitearchitectureunitN6/fourseeds28181..28184 withnewN6profile28179; unchangedfullnative/growthlabels. Source/card/tests beforetarget; noN4globalabsence.
