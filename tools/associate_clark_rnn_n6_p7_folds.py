@@ -26,6 +26,13 @@ def associated(point,parent):
     match=B.phase_match(parent,point['cycle'])
     return {'passed':bool(np.isfinite(error) and error<=1e-7 and match['passed']),'error':error,'native_match':match}
 
+def original_identity(meta,identity):
+    for match in (meta.get('native_identity',{}),identity):
+        if match.get('passed') is not True or match.get('best_sign')!=1 or match.get('best_shift')!=0 or not np.isfinite(match.get('native_error',np.nan)) or match['native_error']>=.05:
+            raise ValueError('original native phase/sign gate must already pass')
+    keys=('passed','best_error','best_sign','best_shift','native_error')
+    if any(meta['native_identity'][k]!=identity[k] for k in keys):raise ValueError('original identity record join')
+
 class Worker(B.Worker):
     def check(self):
         if self.interrupted:raise InterruptedError('SIGTERM')
@@ -81,6 +88,7 @@ def main():
         for tag in TAGS:
             p,meta,data=records[tag];ip,im,ia=identity_records[tag]
             if meta['kind']!='boundary_result' or meta['status']!='boundary_identity_unresolved' or meta['reverse_status']!='step_guard':raise ValueError('fixed failed association provenance')
+            original_identity(meta,im)
             g=meta['gain'];delta=float(meta['delta']);target=float(directions[tag]['last_closed_delta']);parent=ia['parent_cycle'];theta=data['theta'];q=data['right_vector']
             if parent.shape!=(7,6)or not np.array_equal(ia['child_cycle'],data['cycle'])or abs(target-delta)>.0011:raise ValueError('native input identity')
             w.check();w.calls+=1

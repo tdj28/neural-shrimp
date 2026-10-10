@@ -30,3 +30,10 @@ def test_association_needs_original_full_native_cycle():
 def test_boundaries_are_exactly_three_and_resource_cap_fixed():
  m=module();assert m.TAGS==['g16-dir-1-fold','g16-dir1-fold','g25-dir1-fold']
  assert '120*max(dur)+5' in Path(m.__file__).read_text()
+
+@pytest.mark.parametrize('field,value',[('passed',False),('best_sign',-1),('best_shift',2),('native_error',np.nan),('native_error',.06)])
+def test_original_native_identity_cannot_be_repaired(field,value):
+ m=module();good={'passed':True,'best_error':.01,'best_sign':1,'best_shift':0,'native_error':.01};bad=dict(good);bad[field]=value
+ with pytest.raises(ValueError):m.original_identity({'native_identity':bad},good)
+ with pytest.raises(ValueError):m.original_identity({'native_identity':good},bad)
+ m.original_identity({'native_identity':good},good)
