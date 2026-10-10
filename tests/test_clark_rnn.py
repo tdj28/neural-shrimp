@@ -131,3 +131,25 @@ def test_components_keep_period_and_boundary_distinct():
     spec=importlib.util.spec_from_file_location('clark_summary',Path(__file__).resolve().parents[1]/'tools/summarize_clark_rnn.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
     p=np.array([[0,0,0,0],[0,3,3,0],[0,0,4,0],[0,0,0,0]]);positive=np.zeros_like(p,dtype=bool);positive[0,1]=True
     c=m.components(p,positive);assert [x['period'] for x in c]==[3,4];assert c[0]['size']==2 and not c[0]['touches_grid_edge'];assert c[0]['neighbor_positive_cells']==[(0,1)]
+
+
+def refinement():
+    spec=importlib.util.spec_from_file_location('clark_refine',Path(__file__).resolve().parents[1]/'tools/refine_clark_rnn.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+
+def test_refinement_selection_preserves_both_starts_and_caps():
+    m=refinement();p=np.repeat(np.array([5]*45+[10]*30+[7]*20+[5]),2);p[-1]=0
+    i=m.selection(p,'p5');assert len(i)==96 and len(set(i))==96
+    assert np.all(i[::2]%2==0) and np.all(i[1::2]==i[::2]+1)
+    assert np.sum(p[i]==5)==64 and np.sum(p[i]==10)==32 and not np.any(i>=190)
+    assert len(m.selection(p,'p7'))==32
+    assert m.selection(np.zeros(10,dtype=int),'p5').size==0
+
+def test_refinement_resource_gates_and_exact_projection():
+    m=refinement();p={'batch_seconds':1.101992930052802,'period64_unit_seconds':.002617463888600469,'peak_rss_kib':61020}
+    q=m.resource_projection(p);assert abs(q['projected_seconds']-243.11115970981498)<1e-10
+    assert q['conservative_peak_bytes']==385781440
+    for k in p:
+        for bad in [float('nan'),float('inf'),-1,0]:
+            with pytest.raises(ValueError):m.resource_projection(dict(p,**{k:bad}))
+    with pytest.raises(ValueError):m.resource_projection(dict(p,batch_seconds=20))
+    with pytest.raises(ValueError):m.resource_projection(dict(p,peak_rss_kib=512*1024))
