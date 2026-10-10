@@ -7489,3 +7489,18 @@ Run ONE target with unchanged source bytes after this card is committed:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_saved_rebox.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-saved-rebox-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-saved-rebox-2026-10-10/attempt-001-profile/run --profile-manifest 8eae93f739b7cc65d840fb74b8377f266b77db7d15e4f8a9ec23bfb27df34498`.
 Same saved-pair manifest2b900f6b and qualified predecessor17/64;30s internal/45+5 external,
 CPU1,2GiB,18/36 calls,one saved rebox,128+1MiB raw. No retry/newcoverageclaim. Target uses one numerical proposal and fresh-domain Jacobian; the synthetic profile uses a fixed expansion. No new predictor/path-jet calls. Root source skim passeda3d499bb before profile.
+
+## 2026-10-10 — one saved-chart fresh-domain rebox outcome
+
+Executionbf688606f5afb5daf6bdfb20a02fd458c1ee7d94, statussaved_chart_reboxed; allgates{'anchor_identified': True, 'primitive_period': True, 'uniform_root': True}.
+Saved predictor/Taylor/preconditioner/anchor remain identical; only the
+proposed error box and its freshly acquired derivative/proof witnesses change.
+Weighted norm[0.56556126333067704450 +/- 2.11e-21], radius2^-20;
+235/235 root inclusions and
+235/235 anchor inclusions.
+Exact gauge['17/64', '35/128'], hidden endpoint
+[75.613319 +/- 3.53e-7]; identified fold shifts[].
+Worker4.8778s/465300KiB,18/36C1,nojets;
+launcher5.3761s/exit0. All inventories,
+payloads/source/readonly/PIDs and immutable native dependencies checked.
+Companion `docs/reviews/s2-period18-fold-saved-rebox-outcome.json`. Independentreviewpending; nofullpathattraction or geometryclaim.
