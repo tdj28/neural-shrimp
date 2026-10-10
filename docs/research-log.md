@@ -10267,3 +10267,6 @@ All five intervening147–151 independent audits passed. Before derived-interval
 ### 2026-10-10 — Projection resource-accounting amendment
 
 The first saved68-slice aggregation passed mathematically, producing inner hidden-rate interval[75.605732,75.673697], but its1GiB planned memory ceiling lacked an implemented resource limit. Preserve attempt001 and its source6420d941; do not represent its peak as measured. Add RLIMIT_AS1GiB and measured process peak, then repeat only this cheap saved reduction at fresh attempt002 under the same30s external deadline. No prior proof acquisition or target simulation repeated.
+## 2026-10-10: N12 native boundary clearance and launch card
+
+Boundary peer rechecked cf39fe72 and passed24 adapter controls in0.24s; source-only leading-mode repair clears the blocker. Root authorizes continuation after this clearance. Fresh zeta load2.27,52GiB available RAM, no GPU needed; exclusive n12-p6-boundaries-001 is absent. Execute once: `nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_clark_rnn_n12_p6_boundaries.py --out /data2/neural-shrimp-data/explore/clark-rnn/n12-p6-boundaries-001`. Unrelated measured N12/p6 timing/bytes/peak gate precedes any target arrays, under the unchanged120s/CPU1/448MiBRSS1GiBAS/384MiBscience16MiBmetadata card. All failures retained; no retry or route claim.
