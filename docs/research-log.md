@@ -8033,3 +8033,17 @@ full704 proofs and exact original-root anchor, not reuse failed-domain bounds.
 Root independently cleared947632a0; four controls reproduced0.09s. Run only
 native-unit-pair-diagnosis001.json against the immutable completed first target,
 zero native calls. Owned local caps and numerical-only labels stay unchanged.
+
+### 2026-10-10 — saved704 conditioning outcome and one new-domain proposal
+
+Diagnostic8ee0c5bb completed3.430s/1,212,972KiB, zero native calls. Numerical
+positive scaling gives Collatz min/max0.589156406958 despite the unweighted
+193.38 bound. The hidden-rate row dominates; all704positive-resolvent radii
+are nonnegative. This is a floating proposal only. Complete source/inventories
+and owned termination verified; receipt native-unit-pair-diagnosis.json.
+
+Prepared one quarter-width fresh weighted tube at t[0,1/32768], with exact
+dyadic radii equal to the saved resolvent proposal divided by8. New whole-domain
+704 proof and all704 original-root-anchor gates remain mandatory. Kernel,
+operation count, measured local resource ceilings and independent root bindings
+are unchanged. Thirty-three combined controls pass0.37s; no second target yet.
