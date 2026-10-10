@@ -10199,3 +10199,8 @@ chart and localized-endpoint joins are retained; no separate orbit count.
 Root independent audit remains24 slices on152–154 at this checkpoint.
 The newest144 eight-piece pass depends on the refined U'' method; all
 base attempts are retained false. No complete-shrimp classification follows.
+## 2026-10-10: fixed first-ranked N12 period-six refinement card
+
+Root retrieved/inspected completed four-matrix N12 panel; its fixed ordering selects28192/component9/p6,48cells. Prepare51² both-start longer-transient crop at original indices11..25/18..30, including leak1 edge explicitly. Fresh9² N12 profile at identical34192 horizon before target, same native gates and exact original input replay. N12 full-tail memory forecast requires explicit1GiB worker+128MiB headroom;512MiB scientific storage/CPU1/360s target, not reduced precision or outcomes. Source/tests/privatepush/shortskim before profile; original panel not repeated.
+
+Root preprofile resource amendment: retain full forecast near0.9GiB but allocate2GiB worker RSS/4GiB address space rather than squeeze under1GiB. No scientific/input/grid/gate change, no acquisition yet. Explicitly recheck allfour original native6 qualification records at component endpoints before refinement.
