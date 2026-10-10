@@ -8176,3 +8176,7 @@ Preprofile source correction: the output-path renaming briefly also renamed the 
 ### 2026-10-10 exact narrower-domain synthetic profile002 card
 
 Stability fc2df708 narrow recheck PASS,8controls reproduced.17s. Execute only rigorous/attempt002-profile at384bits/radius2^-80, same two unrelated full55 interval+inverse returns/108native phases and original60s/1GiB/32MiB/75+5owned caps. Exact numerical candidate remains original001; no target access during profile. Fresh source/library measurement and separate pinned target card remain mandatory.
+
+### 2026-10-10 measured narrower-domain NS–flip target002 card
+
+Profile41e74dd0 passed2.151s/58272KiB,108native phases; complete source/archive/history/inventory/owned termination verified. Outerc8a326d5bfa3cb0b26dc5560a05ea66a3ccb189361f8818f88e8a967ca2fc8f9; worker39dea3558c12493c637f281b3eb2919caafcfb92babe00a84a4820abaaae25f0. Six-return324phase forecast23.955s/262144KiB/26493140bytes fits original60s/1GiB/32MiB caps. Execute only rigorous/attempt002-target with those exact pins, same original numerical candidate/source,384bits/2^-80/fourNewton+freshcenter+wholebox. Conditional complement/crossing only after all strict same-root/bracket/period gates. Original001 remains immutable; no further automatic refinement and no new global connection inferred.
