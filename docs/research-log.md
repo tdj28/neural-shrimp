@@ -6334,3 +6334,17 @@ all16 artifact identities and the prior non-scientific constructor failure.
 Independent review is in preparation. This is same-orbit branch extension,
 with attraction/fold identity still unresolved; next bounded batches use the
 proved endpoint, never an unqualified restart or repeated prefix.
+
+### 10 October 2026 UTC — endpoint-pinned continuation orchestration
+
+Prepare unchanged fixed16-chart units from the completed branch endpoint,
+without repeating prefixes. New march runner accepts separately committed
+parent path/manifest/execution pins and validates all16 saved native joins,
+source/model/fixed-gauge identity and proof gates. Mathematical cores/settings
+unchanged. Card `docs/plans/s2-period18-arclength-march.md` preserves original
+180s/195+5,2GiB,384+1MiB and1152/2304 C1/unit+864jets,2200ticks per unit.
+One source-frozen synthetic profile precedes any march target; each distinct
+parent and output are committed before its unit. Stop first failed proof or
+fold-neighborhood issue, no automatic retries. First parent is completed batch
+attempt002,7baaf7af manifest/executioned708aa3. This is branch connection work,
+not an assertion of attraction, fold identity or completed shrimp verification.
