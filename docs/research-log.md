@@ -8433,3 +8433,16 @@ orthogonal frame conditions and whole-box inversion feasibility under30s/
 2GiB/16MiB caps. No complementary-stability target trial is included. A periodic
 Lyapunov-balanced orthogonal helper is prepared and synthetically tested only;
 any target use awaits diagnosis and a separately reviewed fixed selection.
+
+### 2026-10-10 — Measured orthogonal-frame repair selection
+
+Source26b5e7fd diagnosis completed4.627s/1,431,292KiB, all18 whole orthogonal
+frames invert. First numerical condition fell551.264→1.040725; maximum over
+all18 orthogonal frames2.862891. Complete receipt and immutable pins are in
+docs/reviews/floquet-frame-diagnosis-outcome.json. This is a saved conditioning
+result, not a complementary spectrum proof. It selects one new fixedmethod:
+orthogonal full frames plus separate exact periodic-Lyapunov quotient scaling.
+The all18 diagnosis is now a hard source/data-bound prerequisite. Source-only
+peer review precedes freshattempt005-spectrum and its unrelated full profile;
+all original operator/remainder/strict-decrease gates and caps remain. No
+other target trial has run since root requested the conditioning diagnosis.

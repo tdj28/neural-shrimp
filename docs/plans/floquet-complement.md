@@ -61,3 +61,23 @@ A focused regression retains the rounding distinction and rejects changed
 centers/radii. The complete2.191-second/zero-native failure is retained; the
 new exclusive attempt003-spectrum repeats the unrelated profile and unchanged
 mathematics/caps after peer differential review.
+
+Measured amendment after attempt004-diagnosis: all18 original whole q/r boxes
+permit validated inversion with an orthogonal midpoint critical complement.
+The first failed eigenvector frame has numerical condition551.264, versus
+1.040725 for its orthogonal replacement; orthogonal phase conditions span
+1.040725–2.862891. These measured observations select the next single method.
+Keep the orthogonal E_j columns in full variable[q_j,r_j,E_j] frames. At
+midpoints form all11 quotient Q_j. A floating periodic Lyapunov solve gives
+P_j=I+Q_j^T P_(j+1)Q_j with cyclicP_p=P_0; Cholesky factors B_j^T B_j=P_j
+propose exact dyadic fixed quotient metrics. Apply B_(j+1) Q_j B_j^-1 only
+after full-frame inversion, retaining the well-conditioned full frames.
+Validate each exact metric inverse; cyclicB_p=B_0 preserves all quotient
+multipliers. All floating SVD/metrics remain proposals, and the unchanged
+rigorous operator-error recurrence/final decrease supplies the actual proof.
+
+Exact completed diagnosis and its all18 input/source/rank conditions become
+a hard prerequisite. Sole newattempt005-spectrum, unchanged120s/4GiB/32MiB
+bounds and fresh full-size unrelated profile before research arrays. Retain
+all first attempts, no automatic basis/subdivision retries. Peer-review the
+new balanced helper and this fixed diagnosis-bound packet before launch.

@@ -36,3 +36,14 @@ def test_source_rounded_parameter_domain_covers_exact_interval():
   assert m.U.M.interval(original)!=(m.U.F(0),m.U.F(1,32768))
   for changed in [{'mid':[1,-17],'rad':[536870913,-45]},{'mid':[1,-16],'rad':[1,-16]},{'mid':[1,-16],'rad':[536870913,-44]}]:
    with pytest.raises(ValueError):m.check_parameter(changed)
+
+def test_measured_diagnosis_is_a_hard_exact_parent_gate(monkeypatch,tmp_path):
+ m=module();prior={'root':str(tmp_path),'outer':'o','worker':'w','source':'s'};card={'diagnosis':prior,'failed_basis':{'root':'old'},'producer':{'root':'tube'},'independent':{'root':'audit'}}
+ rows=[{'phase':i,'orthogonal_whole_frame_inversion_succeeded':True,'orthogonal_basis_condition_float':2.}for i in range(18)]
+ values={'outcome.json':{'passed':True,'status':'saved_frame_diagnosis_completed','phase_count':18,'orthogonal_inversion_count':18,'native_calls':0,'complementary_stability_evaluated':False},'launcher-result.json':{'source_commit':'s','exit_code':0,'owned_live_pids':[]},'bindings.json':{'card':card},'diagnosis.json':{'prior':card['failed_basis'],'rows':rows}}
+ monkeypatch.setattr(m,'read',lambda p:values[p.name]);monkeypatch.setattr(m.O,'verify',lambda *a:None);monkeypatch.setattr(m.O,'entry',lambda p:{'sha256':'bound','bytes':1});monkeypatch.setattr(m.B,'archived',lambda *a:None)
+ assert m.admit_diagnosis(card,lambda:None)['prior']==prior
+ rows[5]['orthogonal_whole_frame_inversion_succeeded']=False
+ with pytest.raises(ValueError):m.admit_diagnosis(card,lambda:None)
+ rows[5]['orthogonal_whole_frame_inversion_succeeded']=True;values['diagnosis.json']['prior']={'root':'wrong'}
+ with pytest.raises(ValueError):m.admit_diagnosis(card,lambda:None)
