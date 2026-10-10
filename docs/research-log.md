@@ -6771,3 +6771,18 @@ Run ONE target with unchanged source bytes after this card is committed:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_restricted_chart.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-restricted-chart-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-restricted-chart-2026-10-10/attempt-001-profile/run --profile-manifest ae286b27a4594cf6b2db4b872f2a740b922c285f9f0cd67ece30d4b0d5550581`.
 Same failed reverse manifest9aee1856 and full correlated fold anchor;30s internal/45+5 external,
 CPU1,2GiB,18/36 calls,one saved restriction,128+1MiB raw. No retry. Target uses the pinned saved width/radius and fresh-domain Jacobian; the synthetic profile executes the same restriction. No new predictor/path-jet calls. Root source skim passed672fc68b before profile.
+
+### 10 October 2026 UTC — reverse restricted chart passed
+
+Source672fc68b, executionc5f9c0690e4364199e5a70b39c577854ef305c4f: all235 root inclusions,
+primitive divisors1,2,3,6,9 and whole correlated fold anchor pass; weighted
+contraction[0.30415387006341981663 +/- 3.58e-21]. Exact gauge[-1/1024,1/1024].
+All235 path/velocity H3-domain inclusions and unchanged predictor/coefficients
+checked. This proves a local native primitive18 branch through the known
+fold; it does NOT yet identify the156-chart center branch, whose gauge is≈.05867.
+Worker5.0315s/467972KiB,18/36freshcalls/nojets;
+launcher5.8864s/exit0. All immutable inventories,payloads,
+source hashes and owned exits verified. Workera1f641992973e0a3b1eee34cca5c5ca0a97a7efadcd1ae75e1322e3c48e332c6,
+outer0e2a811737574802c0ed27af57bf45941c4f65932698092b720fff53f9cd4f95. Independent review pending.
+Continue distinct bounded charts from this qualified right endpoint, using
+full target-box projection to bound workload and strict all18 membership tests.
