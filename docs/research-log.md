@@ -10591,3 +10591,11 @@ Root independently cleared ba50e269 binding/resource wrapper and reproduced
 20controls0.17s; Clark mathematical helper clearance stands. Run only the
 zero-native, two-evaluation unrelated profile in
 docs/plans/eigenpair-chain-unfolding-profile001.json before exact target card.
+
+### 2026-10-10 — measured saved unfolding profile and exact target card
+
+Two synthetic13D/41D coefficient/rank operations completed0.043812s/
+46952KiB, zero native calls. Forecast15.016536s<30s.
+Complete raw/source inventories and owned exit verified. Run only the exact
+saved384-bit audited-root calculation in docs/plans/eigenpair-chain-unfolding-target001.json.
+Retain all coefficient enclosures; zero-containing cases remain unresolved.
