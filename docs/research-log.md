@@ -6991,3 +6991,7 @@ signed interval produced NaN. Fixed integer multiplication with explicit even-
 power range enclosure is now used and tested. No scientific input evaluated.
 This core checkpoint does not authorize an acquisition; driver/card/profile
 and root mathematical review follow before the same single-slice benchmark.
+
+### 2026-10-10 — fixed common-gauge cocycle source and prospective card
+
+Preserve the failed independent-phase slice witness and its successful exact-gauge floor. The new pilot keeps exactly [719/2048,45/128] and tests shared-variable native cocycle products, with true uniform implicit branch derivative rather than predictor slope. Research_strategy's independent static math skim found no algebra blocker and required explicit uniform same-gauge tangent binding; the new driver pins and reproduces that saved derivative reduction. Synthetic source controls precede the full resource-only profile and one gated target under docs/plans/s2-period18-correlated-cocycle.md. No new target acquisition has occurred at this source checkpoint. Root's standing direction is to continue stability method development; root currently has a stream error, so final source review is coordinated with a peer without expanding scope.
