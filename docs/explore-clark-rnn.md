@@ -69,3 +69,23 @@ The four-panel saved-only figure is `refine-p5-001-spatial/refinement.png`, with
 manifest `d84e85fe655d0ea26902aac099198ada6c68adf0e741054de49d19a76f7ffe24`.
 Independent outcome review remains pending. Both old panels and all failures
 remain unchanged.
+
+## Native boundary localization
+
+The fixed three-slice follow-up completed in5.955s after a17.453s conservative
+resource projection. It retained415 native/augmented evaluations and all
+correction failures. Two simple transverse period5 flips were numerically
+localized at(g,delta)=(8.26,.943706215730659) and(10.02,.946488207316313), with
+total along-orbit multiplier derivatives approximately599.172 and1096.501.
+Three nondegenerate period5 folds were localized at(8.26,.958773271348985),
+(10.02,.963273875594964), and(14.2,.953548491950262). The augmented residuals
+are below3.2e-13 and complements contract strongly. These are native full-state
+numerical boundary candidates, not interval bifurcation theorems.
+
+The g14.2 lower-edge step crossed instability too far for its fixed multiplier
+localization gate; this remains unresolved, with the failed branch visible.
+Nothing here proves the connecting curves, flip criticality, branch ancestry
+or a whole shrimp. The fold/flip pair is enough to motivate numerical2D
+continuation followed by independent checking and a small-dimensional interval
+certificate. Source, every saved return and failure are bound by
+`docs/reviews/clark-rnn-boundary-slices-outcome.json`.
