@@ -7512,3 +7512,9 @@ synthetic test failures were fixture aliasing and Arb comparison semantics;
 deep-copy fixtures and exact serialized comparisons repair those tests without
 changing mathematical implementation. No target outcome yet. Current host16GiB
 available/load5.77; occupiedGPU remains untouched, CPU1/2GiB lane fits.
+
+Root independent differential source skim of b547f56e passed: same target
+interval, exact failed radii verified above qualified-parent floor, qualified
+endpoint alone anchors, and fresh unchanged whole470D proof. One measured
+partial-repair target admitted. After outcome only, a disclosed narrower-width
+continuation may improve proof efficiency while preserving strict gates.
