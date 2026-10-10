@@ -6560,3 +6560,7 @@ Source3c15c44b completed10.290s/630,452KiB/zero native calls. Outer6d191f18f89e4
 ## 10 October2026 — disclosed saved diagnosis positive-floor repair
 
 After retained001, change only floating proposal admission e>0 to e>=0 before the already declared positive floor, and retain the raw solve before validation. Exact output-gauge coordinates can have zero forcing/solution; negative/nonfinite solve entries still reject without clipping. One fresh saved-only attempt002 under unchanged45s/1.5GiB/32MiB caps and originalinputpins; no new target/derivative/proof gate. Added zero-gauge/negative-solve/empty-array controls. Original001 stays immutable and its incomplete proposal is not relabeled.
+
+## 10 October2026 — saved eigenpair diagnosis002 completed
+
+Executionca7cdeef completed10.446s/631212KiB with zero native calls. Outerdd5d8db9415931e319e70033c8843b295d1aaaa8bcf5ed2d4fc6a6c50d267206, run0bc09fa9f98650659daf387d1b61d9d63b765ee83c2eb005f4d472d0029ea22c;20files929062B immutable, owned1091441/1091533/1091534 absent. Resolvent proposal exists after retaining its one zero gauge component before positive floor. Maximum radius2.59898618e-6 at actual hidden rate,198coordinates expand from2^-24, old-domain predicted inclusion ratio.942208645. Floating |D|rho.0143959 suggests weighting, not a proof or Floquet statement. Fresh full-domain Jacobian mandatory on changed radii; no target rerun performed. Companions docs/reviews/eigenpair-locus-diagnosis002.md/.json; failed target and earlier diagnosis retained.
