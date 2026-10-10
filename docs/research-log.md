@@ -7300,3 +7300,7 @@ Final independent static differential skim of58ddeeef passed before launch. Exec
 Executionabdda35e spent the full173664syntheticcallback ceiling in11.736s. Runtimeprojection40.209s passed, but rawprojection278218630B exceeded255MiB; file-per-array manifest also exceeded1MiBnonworker allowance. Exit2/allraw preserved, targetbindingabsent, allhashes/modes/PIDsexitverified. This is storageengineering failure, not a targetscientific endpoint. See `docs/reviews/response-operator-profile-failure.json`.
 
 Storage-only response amendment: preserve9cb647c6 engineeringfailure, replace file-per-array events with lossless per-eventNPZ plus complete fsynced journal; no scientific kernel or action ceilings changed. Increase only final nonworker allowance1→4MiB from measuredmanifest burden; science256MiBunchanged. Fresh source/profile/peer skim before exactsameunopenedtargets.
+
+## 2026-10-10: operator response storage-only differential clearance
+
+Certificate_context cleared635a4c74 by read-only source skim: scientific core unchanged, complete lossless NPZ events/fsynced journal and fail-closed capacity accounting; no target evaluation in review. Run exactly one new fixed profile and, only if its normalized runtime/storage screen passes, the two frozen p10/p18 cases at operator-blocks-002. Prior rejectedprofile001 remains immutable. CPU1/nice10; fresh RAM39GiB; no GPU.
