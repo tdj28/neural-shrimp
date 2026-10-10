@@ -6738,3 +6738,22 @@ split to assess one doubled-halfwidth fresh-domain pilot if justified. This
 adaptation is motivated by slow actual boundary reach, not a desired verdict.
 No automatic unit003. Any wider target must re-evaluate whole widened native
 C1/path coefficients and all original gates; no extrapolated derivative proof.
+
+### 2026-10-10 — saved-only width-budget diagnosis pre-run card
+
+Root authorized this after unit002, to improve actual boundary reach instead of
+mechanically accumulating small charts. One fixed saved last chart at19/128;
+restore conservative balls, reduce center defect and four Taylor forcing actions,
+then report separate degree/variation contributions and explicitly heuristic
+2x-width proxy. No new model, derivative, eigensolve, SVD or trajectory. A proxy
+cannot pass a proof gate. Source/tests and detailed limitations in
+`docs/plans/eigenpair-width-diagnostic.md`; initial synthetic upper-bound versus
+Arb-enclosure assertion failure retained in that dated note and fixed by exact
+rational comparison, without target-driven changes.
+
+Run committed `tools/launch_eigenpair_width_diagnostic.py` once, CPU/BLAS1nice10,
+45s/internal60+5external,1.5GiB sampledRSS,64+1MiB raw, exclusive
+`explore/eigenpair-locus-prototype/attempt-001-width-diagnosis`. Full manifest,
+source, completed-parent and process checks required. Preserve failure. Any
+subsequent widened-domain pilot requires separate committed code/card and all
+fresh proof gates; this diagnostic never launches it.
