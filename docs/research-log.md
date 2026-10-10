@@ -6017,3 +6017,14 @@ After fresh resource check run `tools/certify_s2_period18_arclength_march.py
 --parent-execution bd51dcc79474482d2044cd140ed20df77d732fa9`.
 Stop first failed gate; no automatic rerun or change of design. This card is
 committed before that distinct endpoint unit.
+
+### 10 October 2026 UTC — arclength march unit005 outcome
+
+Execution0c978692eff507dc1ea06ec044c2855e2176367f, unchanged source de1a6f12. Statusinconclusive,
+passed=False;13 durable chart witnesses checked. New exact gauge
+coverage['163/64', '187/64'], last hidden-rate displayunresolved. Worker50.8801s/
+420412KiB, launcher51.3068s,exit2;
+94075652 immutable bytes, hashes/decompressed payloads/native joins/owned-PIDs
+checked. Worker manifestb09b179266c7880fd2480e213e2ce1d489e847fd689bafb0e2b1d5f4b21e1ffa;
+outer222d190d2994d0c9eeff5655dd72c8452dbee383888203f9b3865364ac3c83a1. Companion `docs/reviews/s2-period18-arclength-march-unit005.json`.
+No prefix rerun, attraction or fold identity claim; independent review pending.
