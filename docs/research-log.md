@@ -11301,3 +11301,14 @@ Host51GiB available/load3.88, GPUidle unused; no duplicate owned process.
 Run only docs/plans/native-unit-pair-profile001.json, CPU1nice10 with the fixed
 240s/4GiB/512MiB caps. This acquires no target. Preserve any incomplete result;
 require its strict measured admission before the separately reviewed target card.
+
+### 2026-10-10 — measured704 profile passes; exact first target card
+
+Synthetic profile ad395468 completed25.131s/1,978,836KiB with all422ticks;
+both full704 root/anchor proofs pass and both repeated2 controls correctly
+reject primitive18. Full archives/immutable inventories and absent owned PIDs
+verified. Measured target forecast49.184s,4,088,744KiB RSS,37,291,922bytes
+passes every fixed admission ceiling. Clark independently cleared1bd0ad21
+target wrapper (24controls0.34s). Proceed exactly one target from
+native-unit-pair-target001.json after current host ownership/capacity check.
+No automatic repair/retry; finite-interval complementary spectrum remains separate.
