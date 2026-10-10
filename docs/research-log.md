@@ -9512,3 +9512,5 @@ Execution 35d5d9c1 saved all four gradients/eight losses and final manifest befo
 P14wholemap64d8bf43 rendered.859s/153968KiB,hashfe1b662e andPID1405085exit; visualbandstructure undermines coarsecompactbody. NextdisclosedfinitearchitectureunitN6/fourseeds28181..28184 withnewN6profile28179; unchangedfullnative/growthlabels. Source/card/tests beforetarget; noN4globalabsence.
 
 Root pretarget skimo85c812fc passes; proceedactualN6profile andexactsource/pinnedpanelonlyifresourcegatepasses,allfailuresretained.
+
+ActualN6profile ed77b4b7 completes1.342s/1.472s,47104KiB. Gate133.297s/257325344Bpeak/255708544Braw passes240s/512MiB/256MiB; fullinventories/modes/PIDs1413860/1413862 verified. Runmanifest8f1032de externallypinned foroneexactsource fourmatrixpanel; source/card/testbytesunchanged, no behavioraladmission.
