@@ -9446,3 +9446,5 @@ in preparation.
 Root source/card skima132e7a8 passes before empirical arithmetic; run one measured fixedpair time-block comparison from clean private-pushed checkpoint.
 
 Response47b60228 completed4.612s: blockPCG improvedreadouts butfixedcallback/strictsolver screenfails. Postoutcome source-bound savedK/KT/factor/scalar/callback audit prepared,one10sCPU1/15+5external/no newfactor/model/solve. Preserveallrawandinfo300.
+
+Response47b60228 retained/audited:4.612s,3400rawfiles,allPIDsabsent. Fixedoverallmethodscreenfails despite readoutimprovement; producer-agent savedcheck793fe442 passes.287s. Rootauthorizes fixed2/4periodblockcomparison/sourcecost,allmethodsreported.
