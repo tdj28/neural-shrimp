@@ -5816,3 +5816,7 @@ Independent certificate_context source-only skim passes90d644c6, preserving exac
 Clean2c39cf5d completed the fixed 51x51 two-start patch in17.59s,96/96 selected p6/p12/p24 seed cases qualify numerically. All99components and1231startdisagreements retained; largest p6component406cells touchespatch edge. Complete1085files/141475858B and owned PID exits verified. Freeze tools/summarize_clark_rnn_n6_p6.py for one saved-only complete-map view, CPU1nice10/external30s/512MiB/8MiBraw; no new model/trajectory/decomposition. Image will determine the next disclosed anatomy decision; no shrimp claim.
 
 Peer cocycle source review d42606fe plus serializer amendment fff2638a recorded in docs/reviews/s2-correlated-cocycle-peer-source-review.json.31independent synthetic controls passed before target, no target acquisition by reviewer.
+
+## 2026-10-10 — N6 p6 band retained; fixed odd-period alternative
+
+Saved-only complete patch a507d905 rendered in0.916s/195448KiB; image d30290b8 and immutable manifest bound in spatial receipt. Broad p6 band and strong basin disagreement weaken compact-body hypothesis; no certificates added. Disclose next selection as largest qualified odd-period interior component across all four fixed matrices:28183/component9/p7. Freeze source/tests/card for one51²two-start refinement with unchanged native qualifier and exactN6profile scaling. No new target until short peer skim.
