@@ -101,12 +101,16 @@ def slice_stability(model, chart, left, right, *, iterations=3, precision=256,
         box = [restore_ball(v) for v in local['final_state_box']]
         p, n = chart['statement']['period'], model.n
         require(box[-1].is_finite() and box[-1] > 0, 'positive final physical-rate interval')
+        actual_inputs = vector_json(box)
+        observe('slice_physical_input', {'localized_state_box': local['final_state_box'],
+                                         'actual_derivative_input_box': actual_inputs,
+                                         'scope': 'actual post-decoding Arb inputs; any radius widening is retained'})
         blocks = []
         for j in range(p):
             tick()
             _, jac, _ = model.step(box[j * n:(j + 1) * n], box[-1])
             blocks.append(jac)
-        observe('slice_physical_jacobians', {'state_box': local['final_state_box'],
+        observe('slice_physical_jacobians', {'actual_derivative_input_box': actual_inputs,
                                             'phase_jacobians': [matrix_json(m) for m in blocks]})
         witness = periodic_witness(blocks, precision=precision, tick=tick, observe=observe)
         return {'localization': local, 'stability': witness, 'passed': witness['passed'],

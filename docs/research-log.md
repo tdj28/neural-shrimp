@@ -6888,3 +6888,9 @@ nice10. Profile20s/25+5,2GiB,400ticks,90/180calls,256+1MiB; no target values.
 Commit measured profile receipt/pin and check source/runtime/ownership gates
 before the one fixed floor+slice target. No broad subdivision run authorized
 by this card; preserve failures, do not infer instability from failed bounds.
+
+Before profile, root's source skim requested that actual post-decoding physical
+Jacobian inputs be retained explicitly. The added pre-acquisition event records
+both the localized enclosure and the actual Arb input box, including any public
+constructor radius widening. A synthetic capture control checks exact serialized
+identity with the model call. No model acquisition preceded this amendment.
