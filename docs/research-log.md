@@ -5547,3 +5547,11 @@ attempt002 profile/panel only; panel remains gated by passing measured profile.
 Root approved virtual-only1GiB ceiling for attempt002 after observed address-space
 failure; physical groupRSS480MiB/total512MiB unchanged. Code+dated card records both
 limits separately. All31 unchanged synthetic controls pass0.23s after vectorization.
+
+Clark synthetic attempt002: completed3.008s,124280KiB RSS, VmPeak622120KiB.
+The218×worst maximum-window extrapolation86.304s fails45s, so no empirical rerun.
+Outer f632e71bb41904be3961fac77464fd7fd517cc45eac5f3175b3cce1aaf00f73f;
+run d8fcca4da2cf9fb0098487d74a0399325386c8bf243cdcd7641779fe6d52648c.
+Root authorizes disclosed full108-row synthetic window-mix profile003 with2slot×2
+safety wall-time projection plus probes/5s, unchanged45s gate/60s panel/scientific
+choices. Full rerun only if passing. Every earlier attempt retained immutable.

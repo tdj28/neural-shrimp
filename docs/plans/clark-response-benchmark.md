@@ -118,3 +118,19 @@ to1GiB for attempt002. The480MiB monitored worker/groupRSS and512MiB total physi
 allocation remain unchanged. This explicitly supersedes the initial480MiB address
 limit; it is not a claim that1GiB physical RAM is allocated. A complete rerun is
 exploratory continuation after a retained implementation failure, not confirmation.
+
+## Dated cost amendment — after synthetic attempt002
+
+Dense repeated profile002 completed in3.008s at124280KiB RSS; VmPeak622120KiB
+confirmed the virtual-address issue. Its218×worst-largest-window extrapolation was
+86.304s, failing the45s launch gate; no panel was run. Preserve this failed cost gate.
+Root authorizes one more realistic fixed synthetic profile in `attempt-003-profile`:
+all108 combinations of the unchanged grid at the longer18-phase period, rather
+than treating every solve as the slowest cold largest window. Projection is
+4×whole synthetic grid wall time +2×matrix-free probe time +5s: two fixed slots
+and an additional factor-two safety allowance, including grid I/O. The45s gate,
+15s profile,60s panel,512MiB physical allocation,1GiB virtual limit and scientific
+choices remain unchanged. If passing, complete rerun in `attempt-002-panel`.
+No old rows are erased or treated as independent confirmation. If the measured
+plan still fails, split the two unchanged slots into separately budgeted units;
+no outcome-selected threshold or grid reduction.
