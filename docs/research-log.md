@@ -7876,3 +7876,5 @@ Root source skim f58a94c4 passed analyticdiagonal/rightscaling/physicalgates;21c
 
 
 2026-10-10: Diagonal-preconditioner target bd458b25 completed once; unchanged physical forcing gate fails at .7071773, so no line search/step. Post-outcome saved-only checker tools/reviews/audit_cifar_diagonal_saved.py will verify immutable input/source inventories, exact right scaling and physical direction, saved diagonal tail blocks, fsum forcing/descent and all counters once under CPU1/nice10/15s internal20+5external. No new model/action/solve, no prospective-independent claim.
+
+Diagonal bd458b25 completed once29.0475s/30.6882s; forcing.7071773 rejects beforetrials (unscaled.505981 atsamebase). No step/orbit. Saved checker39ebc6d9 passes.1877s; all36worker+5launcher+2auditfiles immutable/hashverified and ownedPIDs absent. Scalarphase-diagonal hypothesis fails here; correlatedinput basis remains a different untested proposal.
