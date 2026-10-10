@@ -126,3 +126,15 @@ ill-conditioned near the intervening resonance. The subsequent nonattracting
 branches remain in the record. This is a numerical codimension-two lead, not a
 validated resonance or a complete shrimp anatomy. The exact source and all
 outputs are bound in `docs/reviews/clark-rnn-lowgain-outcome.json`.
+
+## Exact activity-cycle certificate (independent review pending)
+
+The single native4D Arb target at exact dyadic gain10.02/delta.956 and the same
+fixed dyadic J0 passed: a locally unique primitive5 orbit, proper divisor1
+excluded, and `||M||∞<.008462`. Krawczyk contraction is below2.762e-25. All
+five antipodal phase separations also pass, so exact odd symmetry implies a
+distinct attracting companion. Count one directly enclosed activity cycle and
+its derived companion separately; the trained-network orbit count is unchanged.
+This does not resolve full shrimp morphology or validate a connection to its
+numerical boundaries. Canonical receipt `certificates/clark-rnn-p5-receipt.json`
+retains independent-review-pending status at creation.
