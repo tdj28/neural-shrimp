@@ -5506,3 +5506,21 @@ One saved-only review from00e7d79ba9ae10934b338564dc98ba9dd10dab5a passed in5.03
 Integrated source/card916c76d3, producer71a4a56d and independent saved-arithmetic review00e7d79b/e3cfd534. The mean-value adapter proves the same primitive18 branch across exact width1/256; attraction remains independently proved only on width1/1024. Larger sufficient stability bounds are inconclusive. No new orbit count or boundary connection. Retained every failed attempt. Next obstacle: localize/refine root boxes before measuring a stability floor, not an unmeasured larger coverage run.
 
 Integrated final manuscript8bd8bef6 with joined verification hook854695f1. Root verified all source/proof/figure/PDF hashes and347 saved entries,36pages; freshly rendered/read page11, following earlier root flip-figure review. Companion paper-joined-interval-root-review.json. Latest PDF SHA bce1768ea8ed54e8e4e5675df21bd53c8d1d30669f6fce3ba28f515a6e605921. No scientific rerun for manuscript QA. New mean-value/paper raw backup171files58172073B on separate physical disk, manifest066c4916d830a2a2cd1a9e653c84d193238adcd1de5fd66e5516d1fd0e66be54. No paid/GPU/holdout use or foreign-job interference. All unit-owned processes exited; the broader research remains open.
+
+### 2026-10-09 — prospective local-root refinement and stability floors
+
+User directs continued work toward verified S2-28011-zoom:587 shrimp geometry.
+The next bounded adaptation localizes already proved width1/256 roots before
+testing stability. New module preserves all old kernels. Exactly three centered
+mean-value/Krawczyk containment intersections retain the same parent root, with
+explicit rounding displacements and predictor+conv(0,E) derivative domains.
+Card `docs/plans/s2-period18-localized-roots-pilot.md` fixes one synthetic profile,
+two center floors (old and refined bounds), then two width2^-15 outer probes only
+if both refined floors pass. No broad partition or boundary claim. Source and
+card frozen before acquisition, parent brief review first.43 focused synthetic
+controls passed0.26s. CPU/BLAS1,nice10,2GiB;20/60/60s internal,25/75/75+5s
+external;128+1MiB, source/input hashes and immutable full/partial retention.
+Profile command: `PYTHONPATH=src nice -n10 /data2/neural-shrimp/.venv/bin/python
+tools/certify_s2_period18_localized_roots.py --mode profile --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-profile`.
+Only synthetic source tests have run at this freeze; no new target or profile.
