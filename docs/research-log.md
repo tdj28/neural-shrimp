@@ -5549,3 +5549,23 @@ Profile command: `PYTHONPATH=src nice -n10 /data2/neural-shrimp/.venv/bin/python
 tools/certify_s2_period18_localized_roots.py --mode profile --out
 /data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-profile`.
 Only synthetic source tests have run at this freeze; no new target or profile.
+
+### 2026-10-09 local / 10 October UTC — localization profile passed; two floors
+
+Source6295b658 passed root and optimizer's static mathematical review. The one
+synthetic profile finished7.9184s internal/8.2580s external,933100KiB,282ticks,
+126/126 wrapped and252/252 unit calls,exit0. Full hashes, read-only files, absent
+owned PIDs, library/thread/source equality and finite resource limits checked.
+Projection28.7551s and48,135,582bytes pass the fixed gate. Profile receipt:
+`docs/reviews/s2-period18-localized-roots-profile.json`; worker manifest
+ea3714349c5f406edac7005ddaf877dfc74ef53181aa62f432f33ea31d26102f,
+outer9b0ede50c4991806659ab7364b71197cbb12dfca3c2cd030457165f511fe9115.
+
+Under root's existing gated authorization, run one unchanged-source floor stage:
+`tools/certify_s2_period18_localized_roots.py --mode floor --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-floor
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-profile/run
+--profile-manifest ea3714349c5f406edac7005ddaf877dfc74ef53181aa62f432f33ea31d26102f`.
+CPU/BLAS1,nice10;two exact chart-center floors, three refinements each,216/432
+wrapped/unit calls,560ticks,60s internal/75+5external,2GiB,128+1MiB. Recheck
+shared RAM and retain both outcomes; no finite probes unless both floors pass.
