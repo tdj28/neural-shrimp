@@ -7422,3 +7422,17 @@ After source review run only the synthetic profile:
 `tools/certify_s2_period18_fold_rechart.py --mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-rechart-2026-10-10/attempt-001-profile`.
 CPU1/nice10,20s/25+5,2GiB,144/288C1+108jets,400ticks,128+1MiB. Measured source
 and exact target card must be committed before the one target. No target yet.
+
+## 2026-10-10 — measured smaller same-gauge profile and exact target card
+
+Reviewed source3ee14c83 completed the one synthetic profile: worker
+6.7524s/663032KiB, all144/288 native calls
+and108 path jets, both root stages; launcher7.3741s/exit0, no owned PIDs.
+All immutable inventories/payloads/source/library settings checked. Receipt
+`docs/reviews/s2-period18-fold-rechart-profile.json` records the
+passing projection25.2572s<40 and80MiB<112MiB.
+
+Run ONE target with unchanged source bytes after this card is committed:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_rechart.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-rechart-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-rechart-2026-10-10/attempt-001-profile/run --profile-manifest 1a1f3ebae56e9b6c781ba7c5dbcd8a02e325e167489992bdad109935b8aae98a`.
+Same localized parent9973cd33 and unchanged gauge33/128;40s internal/60+5 external,
+CPU1,2GiB,144/288 calls,108 jets,two charts,128+1MiB raw. No retry or assumed fold membership.
