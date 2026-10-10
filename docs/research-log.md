@@ -10300,3 +10300,8 @@ N12 boundary002 actual resource admission113.2253s passed, target completed0.792
 The exact rational projection audit passes for68 independently checked closed slices/nine charts, gauge[17/64,43/128], with an attracting primitive18 cycle for every hidden rate[75.605732,75.673697] at the fixed exact original output rate. Both projection attempts are retained:001 missed its resource-cap implementation despite passing arithmetic;002 enforces the1GiB cap and completes0.0382s/43228KiB with zero model calls. The independent41D chain root also passes fresh384-bit native arithmetic and strictly attracting11D quotient; exact+1 multiplicity is two. This update adds both reviewed results to the manuscript, without assuming generic unfolding or unreviewed boundary membership.
 
 Saved-evidence authoring card: regenerate/verify bound numbers, preserve old397 entries and20figure output hashes, compile local multifile latexmk120s CPU1nice10, render all pages650px and affected pages1550px. Fresh immutable QA root paper/gd-route/attraction-and-double-one-2026-10-10. No target experiments or figure regeneration.
+
+
+### 2026-10-10 — Current rigorous-results reading PDF
+
+Sourcebae58a62 compiles41pages with no warnings/boxerrors.404 bound numbers verify, all397 earlier entries and20figure outputs unchanged. All41pages visually inspected, affected pages1/2/12/14/36 atdetail. The158-word abstract leads with results. New independent interval and double+1 proof described precisely; later unfolding/membership results await their separate reviews. Immutable QA and current reading PDF bound in docs/reviews/paper-attraction-double-one-qa.json.
