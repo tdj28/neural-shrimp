@@ -24,10 +24,11 @@ def worker(out):
  for n in FILES:p=out/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes())
  try:
   O.verify(PRIOR,PIN);review=O.read(PRIOR/'run/outcome.json');known=O.read(PRIOR/'run/reduction-256.json');need(review['passed'] and known['passed'] and known['exact_gauge']=='45/128','independent known primitive endpoint')
-  O.verify(B.RAW,B.OUTER);O.verify(B.RAW/'run',B.WORKER);inp=O.read(B.RAW/'run/inputs.json');model=ReboxingMeanValueHiddenRateMap(inp['model_inputs'],max_calls=18)
+  O.verify(B.RAW,B.OUTER);O.verify(B.RAW/'run',B.WORKER);inp=O.read(B.RAW/'run/inputs.json')
   for name,digest in O.read(B.RAW/'run/runtime-start.json')['source_sha256'].items():need(O.entry(ROOT/name)['sha256']==digest,'unchanged source '+name)
   need(len(known['final_state_box'])==235,'full native known state/rate');save('inputs.json',{'model_inputs':inp['model_inputs'],'root_box':known['final_state_box'],'exact_gauge':'45/128','independent_parent':PIN})
   with ctx.workprec(256):
+   model=ReboxingMeanValueHiddenRateMap(inp['model_inputs'],max_calls=18)
    box=[restore_ball(v) for v in known['final_state_box']];need(box[-1]>0,'positive enclosed actual hidden rate');blocks=[]
    for j in range(18):
     tick();state=box[j*13:(j+1)*13];image,jac,partial=model.step(state,box[-1]);save(f'phase-{j:02d}.json',{'phase':j,'state':vector_json(state),'rate':vector_json([box[-1]]),'image':vector_json(image),'jacobian':matrix_json(jac),'partial':matrix_json(partial)});blocks.append(jac)

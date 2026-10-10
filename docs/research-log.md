@@ -7840,3 +7840,7 @@ All12 saved point-metric proposals pass, but no full interval periodic-metric ga
 ## 2026-10-10 — refined156th endpoint independently passed; attraction target
 
 Original256 known-root arithmetic audit passes all three intersections at exact45/128; manifest220b77b44a053a598bdbdbc264458f33a77887d27517256e60ab3c65f6789cb9. Same primitive full235D state, no derivative independence or384 localization claim. Now freeze one18-native-J acquisition and unchanged cyclic interval metric on this tight whole-root box, plan docs/plans/s2-near-fold-endpoint-attraction.md. Also verified22 completed raw roots,706385126bytes, across all hashes on separate physical disk; docs/backups/20261010T163825Z-verified-native-connections.json.
+
+## 2026-10-10 — endpoint attraction wrapper precision repair
+
+Attempt001 failed before any model call because the strict derivative model constructor was placed before the256bit context. Preserve rawmanifestf357c63b02a2fd40709f5d1880acda781c882265c8ba19daa5e693665ba4539c. Move construction inside the declared precision context; no mathematical kernel, input or bound change. Repeat once in immutable attempt002 under identical caps.
