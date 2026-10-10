@@ -9644,3 +9644,8 @@ N12 savedall-fourperiod/growth maps rendered1.975s and visuallyinspected; source
 ## 2026-10-10: preserve full-time line negative and saved arithmetic audit card
 
 Line unit e2b2991c completes10.10s with both fixed budgets exhausted after299 iterations. Readout errors.01541/.01703 and true residuals5.39e-4/3.65e-4 remain above original gates; full-time scalar coupling alone is insufficient here. Prepare post-outcome source-bound saved-only audit of these terminal states, previous operator-only terminals and four common-center utility contrasts. Componentwise math.fsum free-boundary residuals, scalar contrasts, exact source/inventory/operation joins; no models/derivatives/solver.30s worker35+5external,CPU1nice10/512MiB/64KiB, exclusive audits/response-utility-independent/attempt-001. Operator/utility producers were separate agents; line producer and checker share agent and this limitation is explicit. Legacy utility scalar-array shape[1] metadata is admitted only for actual0D size-one bytes; no general shape relaxation.
+
+
+### 2026-10-10 — Extend independent attraction arithmetic to two adjacent units
+
+Run card: after the independent eight-slice PASS, freeze fixed receipt-derived bindings for completed stability units002 and003. Audit sequentially, unchanged256/384 math, no model calls,240s/2GiB per unit, fresh exclusive immutable roots; stop on first failure. Exact prospective union [5/16,43/128],24 closed slices; no whole branch or shrimp claim. See docs/plans/s2-stability-cover-independent.md.

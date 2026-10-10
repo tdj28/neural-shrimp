@@ -29,7 +29,15 @@ def read(p):
         return json.loads(data)
     return O.read(p)
 
-def worker(out):
+SPECS={
+ 1: ('564734eaa30a3d8cdd647b8d3619f46970515983', '72c9fde4132b29f918aadcaf274fa4326f88d04ff748334b8c719b0d44fe6c4c', '6842aea9f88dfb07b9c78f793e8b7a4c14701ef77c644ea19d118dbaab85e49a', ['21/64', '43/128']),
+ 2: ('636d0df868707aa78fdc02fee7c8a7e8e62a4dd2', '1180509c0f3d59ca253267446e2125585a2866d56705b057e02b3286a07b1b73', 'a736b79f79b0ad00cc2f4bead28654b9e0656b17c208b15873dd99748e6092bf', ['41/128', '21/64']),
+ 3: ('770418547513ff59b892ef8ea8abdf169f12b5a9', '3d8dc132d07a73e5a393a770c285312a35da7affd0cfade21e7efaca3e0ec08c', 'a4afd73e8598ef5ebe1cba817b5e9bcb3a268d74c593eb3d6d792098b2859e07', ['5/16', '41/128'])}
+
+def worker(out,unit=1):
+    global TARGET,PIN,WORKER,EXEC
+    need(type(unit)is int and unit in SPECS,'fixed audited unit choice')
+    EXEC,PIN,WORKER,expected=SPECS[unit];TARGET=BASE/f'explore/certificates/s2-period18-stability-march-2026-10-10/unit{unit:03d}'
     need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
     need(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1' for k in O.THREADS),'CPU1nice10')
     out.mkdir(parents=True,exist_ok=False);started=time.monotonic();stop=[False];result={'passed':False,'slices':[]};resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,)*2)
@@ -50,12 +58,12 @@ def worker(out):
         for n,h in rt['source_sha256'].items():need(hashlib.sha256(subprocess.check_output(['git','show',EXEC+':'+n],cwd=ROOT)).hexdigest()==h,'all historical source bytes '+n)
         need(done['passed'] and done['completed_slices']==8 and done['stages']==1288 and len(done['rows'])==8,'complete original inventory')
         need(done['counts']=={'map_attempted':1296,'map_returned':1296,'unit_attempted':2592,'unit_returned':2592,'mixed_attempted':288,'mixed_returned':288},'complete native derivative calls')
-        selected=inp['selected_artifact'];need(selected['index']==7 and selected['source_commit']=='e987c8669efb5fb9275046f401cd4cfa172cfa9b','exact certified branch chart')
-        parent=Path(selected['root']);need(parent==BASE/'explore/certificates/s2-period18-fold-small-march-2026-10-10/unit-001/run' and selected['manifest']=='a5399a6b1888006dc6ca2b32e8ae0f7beb367b4281c66d55ab20f33b7f8ec3d2','same independently audited raw parent');O.verify(parent,selected['manifest']);pp=parent/'chart-007.json.gz';need(O.entry(pp)==selected['identity'],'exact original chart bytes')
+        selected=inp['selected_artifact'];need(selected['index']==8-unit and selected['source_commit']=='e987c8669efb5fb9275046f401cd4cfa172cfa9b','exact certified branch chart')
+        parent=Path(selected['root']);need(parent==BASE/'explore/certificates/s2-period18-fold-small-march-2026-10-10/unit-001/run' and selected['manifest']=='a5399a6b1888006dc6ca2b32e8ae0f7beb367b4281c66d55ab20f33b7f8ec3d2','same independently audited raw parent');O.verify(parent,selected['manifest']);pp=parent/f'chart-{8-unit:03d}.json.gz';need(O.entry(pp)==selected['identity'],'exact original chart bytes')
         need(read(pp)==inp['chart'],'same full235D primitive chart');c=inp['chart'];need(c['statement']['period']==18 and c['statement']['phase_dimension']==13,'native model dimensions')
         orig=read(ROOT/'certificates/s2-period18-receipt.json');need(inp['model_inputs']==read(Path(orig['external_root'])/'inputs.json'),'original exact central training map')
-        need(c['exact_parameter_endpoints']==inp['coverage_endpoints']==done['complete_coverage']==['21/64','43/128'],'fixed covered interval')
-        ends=sorted([list(map(Fraction,v)) for v in inp['slices']]);need(len(ends)==8 and ends[0][0]==Fraction(21,64) and ends[-1][1]==Fraction(43,128) and all(b-a==Fraction(1,1024) for a,b in ends) and all(ends[i][1]==ends[i+1][0] for i in range(7)),'closed exact gapless partition')
+        need(c['exact_parameter_endpoints']==inp['coverage_endpoints']==done['complete_coverage']==expected,'fixed covered interval')
+        ends=sorted([list(map(Fraction,v)) for v in inp['slices']]);need(len(ends)==8 and ends[0][0]==Fraction(expected[0]) and ends[-1][1]==Fraction(expected[1]) and all(b-a==Fraction(1,1024) for a,b in ends) and all(ends[i][1]==ends[i+1][0] for i in range(7)),'closed exact gapless partition')
         del pp;gc.collect();tick()
         for index,interval in enumerate(inp['slices']):
             def stages(kind):return [read(p) for p in sorted(run.glob(f'slice-{index:02d}-stage-*-{kind}.json.gz'))]
@@ -89,4 +97,4 @@ def worker(out):
     print(json.dumps(result));return 0 if result['passed'] else 2
 if __name__=='__main__':
     import argparse
-    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);a=p.parse_args();raise SystemExit(worker(a.out))
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--unit',type=int,choices=[1,2,3],default=1);a=p.parse_args();raise SystemExit(worker(a.out,a.unit))

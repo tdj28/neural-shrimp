@@ -2,16 +2,18 @@
 import hashlib,json,os,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-OUT=Path('/data2/neural-shrimp-data/audits/s2-correlated-stability/attempt-002')
+BASE=Path('/data2/neural-shrimp-data/audits/s2-correlated-stability')
 def entry(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
-def main():
+def main(unit):
+    assert unit in (2,3)
+    OUT=BASE/f'unit{unit:03d}-attempt001'
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     assert int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')))>3*1024**2
     OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
     def save(n,v):
         with(OUT/n).open('xb')as f:f.write((json.dumps(v,indent=2,sort_keys=True)+'\n').encode());f.flush();os.fsync(f.fileno())
-    command=['timeout','--signal=TERM','--kill-after=5s','260s',sys.executable,str(ROOT/'tools/reviews/review_s2_stability_cover.py'),'--out',str(OUT/'run')]
+    command=['timeout','--signal=TERM','--kill-after=5s','260s',sys.executable,str(ROOT/'tools/reviews/review_s2_stability_cover.py'),'--out',str(OUT/'run'),'--unit',str(unit)]
     meta={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'launcher_pid':os.getpid(),'argv':command,'load':os.getloadavg(),'meminfo':Path('/proc/meminfo').read_text(),'started_unix':time.time(),'internal_seconds':240,'external_seconds':260,'kill_grace_seconds':5}
     save('launcher-start.json',meta);(OUT/'launcher.py').write_bytes(Path(__file__).read_bytes())
     with(OUT/'process.log').open('xb')as log:
@@ -35,4 +37,6 @@ def main():
     inv={str(p.relative_to(OUT)):entry(p)for p in sorted(OUT.rglob('*'))if p.is_file()};save('manifest.json',{'files':inv,'total_bytes':sum(e['bytes']for e in inv.values())})
     for p in sorted(OUT.rglob('*'),reverse=True):p.chmod(0o555 if p.is_dir()else 0o444)
     OUT.chmod(0o555);print(json.dumps({'root':str(OUT),'exit_code':code,'manifest':entry(OUT/'manifest.json')}),flush=True);return code
-if __name__=='__main__':raise SystemExit(main())
+if __name__=='__main__':
+    import argparse
+    p=argparse.ArgumentParser();p.add_argument('--unit',type=int,choices=[2,3],required=True);a=p.parse_args();raise SystemExit(main(a.unit))
