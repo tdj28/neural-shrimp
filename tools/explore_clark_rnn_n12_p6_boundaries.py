@@ -41,8 +41,8 @@ def resource_projection(native,augmented_times,eigen,solve,sizes,peak_kib):
     timings=native+augmented_times+eigen+solve
     if not timings or not all(np.isfinite(t)and t>0 for t in timings)or not np.isfinite(peak_kib)or peak_kib<=0:raise ValueError('finite positive profile')
     if set(sizes)!={'native','augmented','eigen','solve'}or any(not vals or any(v<=0 for v in vals)for vals in sizes.values()):raise ValueError('positive profile bytes')
-    seconds=2*(14000*(max(native)+max(eigen)+max(solve))+96*(max(augmented_times)+4*max(eigen)+max(solve)))+20
-    raw=14000*(max(sizes['native'])+max(sizes['eigen'])+max(sizes['solve'])+1024)+96*(max(sizes['augmented'])+4*max(sizes['eigen'])+max(sizes['solve'])+4096)+16*1024**2
+    seconds=2*(12000*(max(native)+max(eigen)+max(solve))+96*(max(augmented_times)+4*max(eigen)+max(solve)))+20
+    raw=12000*(max(sizes['native'])+max(sizes['eigen'])+max(sizes['solve'])+1024)+96*(max(sizes['augmented'])+4*max(sizes['eigen'])+max(sizes['solve'])+4096)+16*1024**2
     peak=peak_kib*1024+288*1024**2+64*1024**2
     return {'projected_seconds':seconds,'projected_raw_bytes':raw,'projected_peak_bytes':peak,'safety_factor':2,'gate':bool(seconds<=120 and raw<=384*1024**2 and peak<=448*1024**2)}
 
@@ -52,7 +52,7 @@ class Worker:
         if self.interrupted:raise InterruptedError('SIGTERM')
         if time.monotonic()-self.start>120:raise TimeoutError('120s internal')
         if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>448*1024:raise MemoryError('worker448MiB')
-        if self.calls>=15000:raise RuntimeError('15000 native return cap')
+        if self.calls>=13000:raise RuntimeError('13000 native return cap')
     def emit(self,kind,value):
         self.seq+=1;name=f'{self.seq:05d}-{kind}'
         arrays={k:v for k,v in value.items() if isinstance(v,np.ndarray)};meta={k:v for k,v in value.items() if not isinstance(v,np.ndarray)}
@@ -60,7 +60,7 @@ class Worker:
         return (self.out/(name+'.npz')).stat().st_size+(self.out/(name+'.json')).stat().st_size
     def it(self,x,j,g,d,tag):
         self.check()
-        if self.native_calls>=14000:raise RuntimeError('14000 native cap')
+        if self.native_calls>=12000:raise RuntimeError('12000 native cap')
         self.calls+=1;self.native_calls+=1;t=time.monotonic();end,m,c,p=iterate(x,j,g,d,6);self.emit('native',{'tag':tag,'theta':np.array(x),'gain':g,'delta':d,'end':end,'monodromy':m,'cycle':c,'phase_jacobians':p});return end,m,c,p,time.monotonic()-t
     def aug(self,z,j,g,sign,tag):
         self.check()
