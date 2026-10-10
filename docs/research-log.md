@@ -7893,3 +7893,5 @@ Root authorizes fixed p12 follow-up: known associatedflip bothPALdirections and 
 Root source/card skim b049d12d passed fixed p12 continuation/finer-association unit;19controls pass. Record/privatepush beforeprofile+target; no source or gate change.
 
 Fixed p12followup4216d1fa completed3.505s/4.081s,44992KiB/2188returns. g16fold association passes8levels+rootreverse9.73e-10; g34root stillreverseguard, no promotion. Flip125+193rows(317unique), oneguardafterstronglynonattractingrho590, oppositecapstillattracting. Allrawhashes/modes/owned1370870/1370872 exits verified; no globalanatomyclaim. Next saved-locusplot allowed30sCPU1/8MiB before choosing exact endpoint/fold continuation source.
+
+Savedp12locusplotf8f6e28a completed1.213s and visuallychecked; knownflipturns, outwardarmnonattracting, oppositecapstillattracting. Fixednextcard: newlyassociatedg16fold± each256newnodes plus capflip:1:192 onward384nodes, same.01/domain/native/reversegates. Bind8levelfinerassociation andoldroot; unassociatedg34excluded.10000calls120s135+5CPU1/512MiB/256+1MiB, profile/source/tests beforeunit. No broadrootsearch or duplicateprefix.
