@@ -6708,3 +6708,19 @@ At most4 accepted charts/5 whole-kernel calls/1root-only fresh-domain rebox;
 all primitive and whole-root joins retained. Separate saved predictor projection
 and floating complementary+1 diagnostics remain noncertified. Preserve any
 failed tail and do not consume it as a parent without an explicit amendment.
+
+### 2026-10-10 — tangent unit001 passed; exact unit002 pre-run card
+
+Unit001 atba63b794 passed4 charts/no rebox,74.31s/508ticks/1138120KiB;625 immutable
+files170140165B. Fullsource/inventories/exit/PIDs verified; receipt
+`docs/reviews/eigenpair-tangent-unit001.json`. Final raw gauge11/128, actual rates
+near75.431702/.82182620, contractions<.440051→.449907. Descriptive complement
++1 distances.18790→.18666 and saved rate-projection ratios≈.936 remain separate
+from certified root/primitive/join gates. No cusp, attraction or shrimp claim.
+
+Proceed under unchanged44f1eed8 source and root's standing bounded-unit
+permission with the exact command in `docs/plans/eigenpair-tangent-unit002.json`,
+after fresh resource check. Its parent/source/outer/run pins identify only the
+completed unit001 endpoint11/128; expected final19/128. CPU/BLAS1nice10,
+300s/315+5external,650ticks,4accepted/5calls/one root-only rebox,2GiB monitoredRSS,
+768+1MiB output. Preserve any failed tail and stop ordinary advancement there.
