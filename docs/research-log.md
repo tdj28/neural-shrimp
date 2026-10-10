@@ -8214,3 +8214,11 @@ exact gauge267/128→275/128.
 Exclusive audits/eigenpair-remaining-locus/unit021-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+
+2026-10-10 prepare compact authoritative107-chart proof lookup index for
+root's scientific learning-rate projection figure. Generator reads pinned
+completed producer/audit metadata and selected proof files, not model calls.
+It will not emit until all107 charts and final independent membership pass.
+The original fold lift, three-intersection chart10→11 regauge, all ordinary
+full470 endpoint joins and final root membership remain separately identified;
+no interpolated proof between numerical points is introduced.
