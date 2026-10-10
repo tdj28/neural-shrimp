@@ -47,7 +47,7 @@ full-state orbit refinement, stability calculations and exploratory bifurcation 
 
 Ball-arithmetic certificates prove local existence, primitive period and full-state attraction for
 \nCOneOrbits{} selected period-\nCOnePeriod{} orbits and one orbit each of periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in a 13-parameter tanh network, plus a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter tanh network, at fixed layer-specific learning rates for the exact-real maps.
-Further certificates establish a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles in the 13-parameter map, each with one neutral multiplier and an attracting complement. The supercritical flip supplies a local attracting doubled branch; the subcritical flip supplies an unstable one. Neither establishes the global organization of the window. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
+Further certificates establish a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles in the 13-parameter map, each with one neutral multiplier and an attracting complement. The supercritical flip supplies a local attracting doubled branch; the subcritical flip supplies an unstable one. Neither establishes the global organization of the window. Two further certificates establish local cusps in the actual two-rate plane, each with an unstable complementary multiplier; their boundary connections remain open. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
 
 A prospectively designed map study, independently cross-checked in a separate numerical implementation,
 identifies \nConfirmed{} attracting periodic windows in two tanh networks with separate layer learning rates.
@@ -92,7 +92,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types of primitive period-18 cycles; neutral at each point, other multipliers attracting. No certified connection to the interior orbit or whole boundary. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps each have an unstable complementary mode. No certified connection between these points, the interior orbit and the whole boundary. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -494,6 +494,83 @@ the earlier attracting interior orbit, and no whole-window geometry, resonance a
 See \path{certificates/s2-period18-fold-receipt.json},
 \path{docs/reviews/s2-period18-fold-certificate-independent-review.json} and the replay in
 \path{certificates/README.md}.
+
+\subsection{Two local cusps in the actual learning-rate plane}
+\label{sec:cusp-proof}
+
+Two-parameter continuation supplies proposals for \nLocalCusps{} distinct
+cusps of primitive period-18 solutions. For the exact-real training map write
+$R(\theta,\lambda)=F_\lambda^{18}(\theta)-\theta$,
+$\lambda=(\eta_h,\eta_o)$, $A=R_\theta$,
+$B=R_{\theta\theta}$ and $C=R_{\theta\theta\theta}$.
+The augmented equations are
+\begin{equation}
+ R=0,\quad Aq=0,\quad Ah+B(q,q)=0,\quad
+ (q^Tq-1)/2=0,\quad q^Th=0.
+\end{equation}
+A strict whole-box Krawczyk inclusion encloses a locally unique normalized root
+in each augmented box. The native state still has 13 coordinates; the augmented
+system has 41 unknowns, including both rates and the two auxiliary vectors.
+The inverse transpose of the invertible border
+$\left[\begin{smallmatrix}A&q\\q^T&0\end{smallmatrix}\right]$, applied to $(0,1)$,
+supplies $A^Tw=0$, $w^Tq=1$. Border invertibility also proves algebraic
+simplicity of the neutral multiplier $+1$. Proper-divisor exclusions establish primitive period 18.
+
+The cubic coefficient and unfolding matrix are
+\begin{align}
+ \kappa&=\frac16w^T\{C(q,q,q)+3B(q,h)\},\\
+ U_{1j}&=w^TR_{\lambda_j},\qquad
+ U_{2j}=w^T\{R_{\theta\lambda_j}q+B(q,y_j)\},
+\end{align}
+where $(y_j,\beta_j)$ solves the bordered equation with right-hand side
+$(-R_{\lambda_j},0)$. Thus parameter dependence through the complementary
+state is included. Both $\kappa$ and $\det U$ exclude zero, giving local
+generic cusp unfoldings; the discrete-map normal form is described in
+\citet[Section~5.1]{meijer2017matcontm}. Table~\ref{tab:cusps} gives outward-rounded bounds
+from the stronger nested proofs. These are local results; the certificates
+do not enclose a specified finite wedge between the emerging fold arcs.
+
+\begin{table}[htbp]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l r r l l@{}}
+\toprule
+Point & $\eta_h$ (approx.) & $\eta_o$ (approx.) & $\kappa$ & $\det U$ \\
+\midrule
+A & $\xCuspAHidden$ & $\xCuspAOutput$ & $\tCuspACubic$ & $\tCuspAUnfolding$ \\
+B & $\xCuspBHidden$ & $\xCuspBOutput$ & $\tCuspBCubic$ & $\tCuspBUnfolding$ \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Two certified local cusps.} Rate entries locate the exact
+boxes approximately; coefficient intervals are rounded outward. Each cusp has
+one unstable complementary multiplier and a simple neutral multiplier, so
+these points are not additional attracting-orbit certificates.}
+\label{tab:cusps}
+\end{table}
+
+For $Q=DF^{18}-qw^T$, a validated complex similarity and separated Gershgorin
+disks exclude the entire unit circle. One disk is strictly outside, separated
+from the inside group, proving one unstable complementary multiplier.
+Consequently these cusps alone do not establish an attracting window.
+Independent review reproduced both original proofs, obtained strictly nested
+higher-precision proofs, and separately reconstructed the coefficient,
+unfolding, spectrum and primitive-period inequalities from saved derivative
+enclosures. An initially inconclusive transpose-border inversion is retained;
+an equivalent primal-inverse-transpose enclosure resolved its excess interval
+width without weakening any exclusion gate. Acquisition and nested proofs
+share the analytic mixed-jet kernel and Arb/FLINT.
+
+Validated augmented systems and spectral exclusion have precedent in
+computer-assisted cusp analysis, including the differential-equation setting
+of \citet{lessardpugliese2026}. Our spectral test concerns the unit circle of
+a discrete return map. The independently checked formulas above use this map
+and both actual layer rates. Neither numerical continuation from the earlier
+fold nor proximity of parameter locations proves that these local certificates
+belong to one rigorously connected boundary component. That connection and
+the complete shrimp anatomy remain open. See
+\path{certificates/s2-period18-cusp-a-receipt.json},
+\path{certificates/s2-period18-cusp-b-receipt.json} and
+\path{docs/reviews/s2-cusps-independent-review.json}.
 
 \subsection{A local subcritical flip on the historical two-rate ray}
 \label{sec:flip-proof}
@@ -1327,7 +1404,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. The orbit census uses floating-point validation; the \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold and both flips and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The proved attracting period-18 interior segment does not reach either bifurcation boundary. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold, both flips, two cusps and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The proved attracting period-18 interior segment does not reach either bifurcation boundary. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.
@@ -1421,7 +1498,7 @@ displays. Quoted empirical numbers and the design and consequence tables are gen
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
 feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
-LM pilots, wider primitive-branch continuation, and the fixed-weight activity proof
+LM pilots, wider primitive-branch continuation, the local cusps and the fixed-weight activity proof
 have separate source-bound audits cited with their results; the full verifier
 does not automatically rerun these later audits. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;

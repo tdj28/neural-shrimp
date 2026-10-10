@@ -6532,3 +6532,9 @@ Diagnostic002 outer67849a3d027482700b9669ca940ba7d94d5b87ee0902319cc2221f12a00b4
 ## 10 October2026 — independent two-cusp review completed
 
 Attempt003 passed both original replays (cusp-a resumed from001), independent saved arithmetic and384-bit/-100 nested proofs.30.006s/78,740KiB/548ticks;98 files23,236,732B immutable, all owned PIDs absent. Outer78e62b008394c33df0537a3ac11234ab7a2738fe82da32173832610ccd2bc08f, run cfd4068ce380359599386e027884ed119825424d4cd760e5765708ac17d32510. Failed001 and diagnostic002 retained; equivalent validated primal inverse-transpose corrected an enclosure-width obstruction without changing gates. Companions docs/reviews/s2-cusps-independent-review.md/.json give exact source/proof pins and scope. Two local primitive18 cusps with unstable complement, not a body/branch connection or complete shrimp.
+
+## 2026-10-10 UTC: two reviewed local cusps added to working manuscript
+
+Both independent cusp audits now pass with retained001failure/002diagnostic/003resume. Add explicit augmented equations, cubic/unfolding convention, outward-rounded nested bounds and unstable complement, with no attracting-window or global-boundary claim. Lessard/Pugliese2026 primarymetadata corrects earlier source-cardcitation; discrete-map spectral scope remains distinct. Quoted numbers bind all three audit attempts and both canonical producerreceipts. New manuscript compile/layoutcheck follows; no freshscientific acquisition.
+
+Independent manuscript formula/scope skim passed for the cusp equations, coefficients, unstable complement, weighted/arclength distinctions and native activity companion. Clarified inverse-transpose extraction of the left mode. Saved-evidence build card: fresh cusps-and-native-activity-2026-10-10 output, latexmk120s CPU1nice10, all-page650px contact review and changed-section1500px details,368 number entries with prior353 unchanged and20 figure hashes unchanged. No scientific reruns.

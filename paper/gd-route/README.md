@@ -64,3 +64,11 @@ A separate4D fixed-weight RNN activity proof establishes one attracting
 primitive5 cycle and its distinct odd-symmetry companion; these are not training
 cycles. Their cited independent audits are separate from the legacy full
 verifier. Further producer-only work remains in the research log until reviewed.
+
+The working draft now also records two independently reviewed local primitive18
+cusps in the actual two-rate plane. Each has an unstable complementary mode;
+these local proofs do not establish the full shrimp or global boundary identity.
+Their shared-kernel trust, stronger nested proofs and retained inconclusive
+interval-inversion review are explicit. The cusp audits are separate from the
+legacy full verifier. Clark's arXiv2610.12426 remains cited with fixed-weight
+activity versus training distinctions.

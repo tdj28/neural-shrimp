@@ -1817,6 +1817,30 @@ def build():
     n.add("nArcReviewedCharts",count,str(count),proof,arcsources,"independently reviewed initial arclength charts, distinct from later producer-only extensions")
     endpoints=arc["result"]["exact_gauge_endpoints"]
     n.add("tArcGaugeInterval",endpoints,"["+", ".join(endpoints)+"]",proof,arcsources,"exact affine gauge interval; not a hidden-rate interval")
+    cusp_review_path=c.ROOT/"docs/reviews/s2-cusps-independent-review.json";cusp_review=load(cusp_review_path)
+    assert cusp_review["status"]=="passed_with_preserved_review_failures"
+    cusp_sources=[cusp_review_path]
+    for attempt in cusp_review["attempts"].values():
+        mf=attempt["manifest"];cusp_sources+=bound_inventory(Path(mf["path"]),mf["sha256"])
+    for name,pin in cusp_review["producer_canonical_receipts"].items():
+        path=c.ROOT/name;assert c.sha256(path)==pin["sha256"];receipt=load(path)
+        cusp_sources+=[path]+bound_inventory(Path(receipt["external_root"])/"manifest.json",receipt["manifest_sha256"])
+    assert set(cusp_review["panels"])=={"cusp-a","cusp-b"}
+    n.add("nLocalCusps",2,"2",proof,cusp_sources,"separate primitive18 local cusp roots, independent review; no attraction or whole-window claim")
+    for panel,prefix in [("cusp-a","CuspA"),("cusp-b","CuspB")]:
+        row=cusp_review["panels"][panel];assert row["summary"]["passed"] and row["summary"]["replay_identical"] and row["nested"]["strictly_contained_in_original_full41D_box"]
+        ident=row["artifacts"]["nested-proof.json"];assert c.sha256(ident["path"])==ident["sha256"];nested=load(ident["path"])
+        assert nested["passed"] and all(nested["gates"].values())
+        assert row["independent_spectral_discs"]["outside"]==1 and row["independent_spectral_discs"]["inside"]==12
+        for suffix,index_,digits in [("Hidden",13,6),("Output",14,9)]:
+            lo,hi=ball_endpoints(nested["box"][index_]);mid=(lo+hi)/2
+            n.add("x"+prefix+suffix,str(mid),fixed(float(mid),digits),proof,cusp_sources,"approximate decimal locator of nested exact rate box; not a replacement for enclosure")
+        for suffix,field in [("Cubic","cubic_coefficient"),("Unfolding","unfolding_determinant")]:
+            assert nested[field]==row["nested"][field]
+            lo,hi=ball_endpoints(nested[field]);assert hi<0 or lo>0
+            digits=6;scale=10**digits;flo=lo.numerator*scale//lo.denominator;cei=-((-hi.numerator*scale)//hi.denominator)
+            value="["+exact_decimal(flo,digits)+", "+exact_decimal(cei,digits)+"]"
+            n.add("t"+prefix+suffix,[str(lo),str(hi)],value,proof,cusp_sources,"exact nested dyadic endpoints rounded outward by rational floor/ceiling")
     return n
 
 
