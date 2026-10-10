@@ -11820,3 +11820,8 @@ Root248e2365 differential source skim PASS admitted repaired attempt002 after fr
 ### 2026-10-10T23:36:25.825703+00:00 — Promote independently proved primitive58 training cycle
 
 The full72D primitive58 producer and independent768-bit replay both pass, with all72 exact old-to-fresh root-box containments and proper divisors1/2/29 excluded. Update the short abstract, proof section, evidence table, contribution list and authoritative certificate index. Add seven bound values; update the count of individual attracting training orbits from five to six. The connected-window proof and all other research continue. No largest-in-literature claim or whole-census proof is inferred.
+
+
+### 2026-10-10T23:38:27.976332+00:00 — Fixed LM curvature-response comparison completed
+
+All four fixed checkpoints completed in41.346s, all580 gradients/256HVP/96CE retained; no protected/probe evaluations or GPU use. The predeclared narrow gate passes in both256-window gradient directions at16updates: frozen-vector errors85118.93 and5270.37, while transported errors are9.322e-5 and2.353e-4 and amplitude disagreement below7.06e-4. All24 response rows and CE slope controls resolve. Eight-window controls have frozen-gradient errors0.001313/0.001363. This diagnoses a failure of static initial curvature on these consumed trajectories, not a training benefit or chaos. Independent saved arithmetic audit is assigned before manuscript promotion.
