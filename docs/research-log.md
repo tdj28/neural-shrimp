@@ -7855,3 +7855,5 @@ After two preserved wrapper failures, source d0922dc6 completed all18 native C1 
 ### 2026-10-10 PDT: two-new-direction damped CIFAR corrector source card
 
 Root authorizes implementation from saved largest-passing1/32state after independent parent forcing/Armijo/primitive/byte admission and fresh exact two-map replay. At most2new400space solves, no oldstateprefixclaim, forcing<=.5, 13fixed descendingalphasfirstpassing withstrictmerit+primitive. Durableacceptance/rollback, fullp/Ap/e/nativeoutputs, caps804actions804J2VP1608HVP54gradients. Measuredpinnedcostgate<150s,165+5external/2GiB/127+1MiB. Source/synthetic/rootreviewbeforetarget; no newsolve yet. Clark p12source remains independently frozen in its own worktree.
+
+Pretarget root independent source skim of7d927336 passed the exact parent admission, new-state solves, fixed backtracking, durable accepted state and scope. Record/push before the one bounded damped unit; no executable or gate change.
