@@ -8014,3 +8014,28 @@ Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
 plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
 final failure or strict center-branch membership, no automatic alternate search.
 No attraction or full shrimp geometry is implied.
+
+### 10 October 2026 UTC — fold-directed unit001 outcome
+
+Execution 366bb15f5bf27218f569fffa1d0232c44a4670fe, scientific sourceb97bbf0a. Status joined_intervals_certified,
+16 qualified charts; 0 retained initial failures/reboxes.
+Last qualified hidden-rate endpoint [75.74211 +/- 4.16e-6]; center-to-fold membership rows [].
+Worker 62.6271s/436724KiB; launcher
+63.4773s, exit0. All inventories,
+decompressed payloads, initial/final predictor identities, native joins,
+immutable files and owned exits checked. 116473970 retained bytes.
+Worker manifest e1a4d1514a068c2791e24fb834a07c09f4729e120f4b3287dad8395898e574d1; outer
+22c396c0eafbdd4a93d9cc8749dbe29f529b98ee80850cf228e3172e25139a47. Companion `docs/reviews/s2-period18-fold-reverse-march-unit001.json`.
+Independent review pending; no attraction or complete geometry claim.
+
+Next authorized identical unit002, same source/caps:
+`tools/certify_s2_period18_fold_reverse_march.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-march-2026-10-10/unit-002
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-march-2026-10-10/attempt-001-profile/run
+--profile-manifest 77297c28542b108ef19b3eb39a8b263245515f5a3d8d2bc23dbb25ad2c2ca0b0
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-march-2026-10-10/unit-001/run
+--parent-manifest e1a4d1514a068c2791e24fb834a07c09f4729e120f4b3287dad8395898e574d1
+--parent-execution 366bb15f5bf27218f569fffa1d0232c44a4670fe`.
+Refresh host resources. CPU1 nice10,180s/195+5,2GiB,384+1MiB,3200ticks,
+1440/2880C1/unit+864jets; stop first final failure or strict center-to-fold identity.
+No repeated prefix, alternate radius search, attraction or geometry claim.
