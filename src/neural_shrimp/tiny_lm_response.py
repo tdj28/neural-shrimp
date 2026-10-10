@@ -119,6 +119,7 @@ def run_case(theta, eta, gradient, hvp, ce, ridge, random_direction, save, check
                                 raise ValueError('nonfinite training CE')
                 finally:
                     save(f'direction-{i}-epsilon-{k}-{label}', np.asarray(states))
+                    save(f'direction-{i}-epsilon-{k}-{label}-ce', np.asarray(sorted(values.items()), dtype=np.float64).reshape(-1, 2))
                 row[label] = states
                 row['ce_' + label] = values
             branches[i, k] = row

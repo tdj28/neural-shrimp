@@ -66,3 +66,12 @@ def test_forecast_prices_both_arms_and_rejects_missing_or_bad_measurements():
     bad[0]['times']['ce'] = [0.1]
     with pytest.raises(ValueError):
         profile_forecast(bad)
+
+
+def test_interrupted_branch_retains_completed_training_ce():
+    saved, calls, result = exercise(lambda x: x, lambda x, v: v, lambda x: float(x @ x) / 2, break_at=51)
+    assert result is None and calls == dict(gradient=18, hvp=64, ce=1)
+    acquired = saved['direction-0-epsilon-0-plus-ce']
+    assert acquired.shape == (1, 2) and acquired[0, 0] == 1
+    state = saved['direction-0-epsilon-0-plus'][-1]
+    assert acquired[0, 1] == pytest.approx(float(state @ state) / 2)
