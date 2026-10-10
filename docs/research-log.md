@@ -10057,3 +10057,17 @@ owned caps and immutable failure retention checked.28 controls reproduced
 in0.22s; no target arrays evaluated. Proceed with the already frozen synthetic
 profile, then separately inspect the saved-only proposal. The target remains
 gated by its own measured frozen card.
+
+## 2026-10-10 — generalized-chain synthetic profile passed
+
+Execution eb9f4cf9 completed both synthetic41D evaluations and all72 native
+steps in0.980659s,47,888KiB self RSS. Individual calls0.485625/0.462454s give
+fixed10-evaluation2x+20s forecast29.712509s, below100s. Outer ce3e6145,
+worker2aa58083; full inventory/source/archive/historical equality and owned
+termination checked in the adjacent receipt. No target input was opened.
+
+Proceed with the separately frozen saved-only proposal, unchanged source,
+zero native steps, fixed30s/40+5 cap and2GiB/4GiB AS. Host has ample memory
+and no duplicate owned bridge/probe process. Parent explicitly accepts the
+peer source skim and authorizes the later isolated attempt only after exact
+measured precursor gates and a frozen target card.
