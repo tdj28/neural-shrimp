@@ -6142,3 +6142,9 @@ training-count/window claim.18 controls pass.12s. One target review0.113s,
 Outer37ea45b4a1491cdcb109714d04b759e870f5b3f9f6fb61e6fec7b2f33b33775d;
 worker96819f52f8272f71e49db80901f7a885132ea1c7d1717c5a9ef55f3db7cc8de1.
 Companions docs/reviews/clark-rnn-p5-independent-review.md/.json.
+
+## 2026-10-10 UTC: extended complementary boundaries and saved diagnostic card
+
+Target008 ray32-plus completed64 new nodes325calls59.74s/49,452KiB; all sampled fold complements below1, nearest real negative mode reaches-0.996672 then retreats. Target009 ray13-plus completed64 nodes341calls62.73s; complement radii0.947–1.033, including a complex pair crossing. Exact outer manifests are bound in the new saved-summary source; all attempts retained and owned groups exited. Neither projected approach nor extra-mode crossing is a proof of common boundary orbit.
+
+Saved-only run card: combined-summary003 binds allseven completed panels (448 nodes), verifies complete immutable inventories and PIDs, extends the map overlay, and reduces saved returned analytic Jacobians to the fold coefficient c and parameter tangent. Retain coefficient poles as unresolved and do not infer a cusp from sign change. Select the five fold nodes whose saved other multiplier is closest to-1; compare each to the nearest sampled flip node in scaled parameter distance and report the minimum full18-phase cyclic state discrepancy. Different parameters prevent an identity inference. No new model/derivative calls, no network-symmetry quotient, no interval proof. CPU1nice10,45s/512MiB RSS/1GiB address/10MiB output; old summaries remain immutable.
