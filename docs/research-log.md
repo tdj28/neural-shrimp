@@ -5866,3 +5866,7 @@ After all three fixed fold associations passed, trace two separatedg16fold roots
 ## 2026-10-10: N6 p7 continuation source clearance and fixed launch
 
 Optimizer independently skimmed source45c5fd0c and found no blocker in the native/reverse/primitive, left-right mode, pinned fold association or resource gates. Scope is static source only; no target audit. Launch exactly the six frozen traces/profile under docs/plans/clark-rnn-n6-p7-continuation.md, exclusive n6-p7-continuation-001, CPU1/nice10. Fresh available RAM38GiB/load0.98; sandbox GPU query unavailable, no GPU requested. Also recorded peer refined-tangent driverdb293948 static clearance with26 synthetic controls, no target evaluation.
+
+## 2026-10-10: first N6 p7 native continuation retained
+
+Worker completed2.2815s/1533 calls; final outer manifest exceeded1MiB allowance, exit2 preserved. Full inventory/modes/processes verified; scientific summaries retained separately from launcher failure. Four left-mode stops follow mismatched1e-10 corrector/qualification thresholds; no physical event inferred. Next disclosed unit may finish only these four traces under tighter correction, unchanged acceptance and original remaining budgets. Also independently cleared saved shooting-adjoint8a3029f3 with23 synthetic controls; no target acquisition.
