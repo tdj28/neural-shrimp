@@ -7848,3 +7848,7 @@ Attempt001 failed before any model call because the strict derivative model cons
 ## 2026-10-10 — native derivative serialization repair
 
 Attempt002 completed one native C1 call but failed while serializing its vector-valued rate partial with a matrix serializer. The returned first derivative was not persisted; this incomplete attempt cannot support any claim. Counters/exception/source retained under outer0cd3c06cacedba0a2cfde7eca4eafb0add704a6528023d8b9c546d72070705bc. Correct the wrapper to use vector_json for the documented list return; same input/kernel/caps, fresh immutable attempt003.
+
+## 2026-10-10 — tight endpoint attraction passes; independent direct reduction
+
+After two preserved wrapper failures, source d0922dc6 completed all18 native C1 calls/36 unit derivatives and all18 interval periodic Lyapunov phases pass.1.418s/154516KiB; rawouterdc4b966c5179cf928bfff941f9e5b805b6cde7bd1716dcc917bfd9492b3adcdc. This proves local attraction at the inherited exact45/128 gauge endpoint, actual hidden-rate enclosure75.6886687506533±2.33e-14, conditional on shared derivative code. Freeze independent384 direct D=P−JᵀPnextJ positive-definiteness reduction, distinct from producer's centered identity, plan docs/plans/s2-endpoint-attraction-independent.md.
