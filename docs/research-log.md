@@ -12048,3 +12048,7 @@ Synthetic profile d3ae20526d1baf47bdf80596ab5284b81272bc34 completed30.512s/1989
 ### 2026-10-10 — fix705 launcher parser before any target
 
 Clark's target differential review found the copied launcher calls C.parser(), but the new worker initially exposed argparse only inside __main__. No target had launched. Exposed the same three-argument parser and added an actual --help subprocess entrypoint regression;5driver controls pass. No scientific code, profile source, domains, operation counts or caps changed. Narrow recheck requested before the target card.
+
+### 2026-10-10 — measured first705 target run card
+
+Clark independently passed d3ae2052+a59481ff binding/caps and23kernel/profile/driver controls0.66s, including actual launcher entrypoint. Execute exactly one source-bound native705 attempt001-target with profile outerfa27b1e43c10cbe66040fa7bd80f58e4effdd44b72f31101ae04f92e5db7135f and worker11819b8985345f34fb68e2ed8c9da5384f33804dd3343671ae2cd0c6fd38cbcc. Fixed native-unit-pair-pal-target.md domain/weights/independent endpoint and settings; forecast55.247s/4110064KiB/41,836,097bytes. Hard240s worker/255+5owned,6GiB/10GiBAS/768MiB,CPU1nice10,exact253ticks. Host51GiB available/load1.66 and no matching own worker at16:55local; GPUunused. Complete proof/failure retained, no automatic second chart or retry. Connection to the later55 junction is not yet implied.
