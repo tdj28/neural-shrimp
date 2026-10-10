@@ -58,7 +58,9 @@ class Work(B.Work):
         r={'tag':tag,'gain':float(y[4]*10),'delta':float(y[5]*.1),'sign':sign,'critical_error':float(abs(e[index]-sign)),'other_distance':float(np.min(np.abs(other-sign))),'complement_radius':float(np.max(np.abs(other))),'proper_divisor_separations':sep,'fold_c':coefficient,'fold_parameter_coupling':(left@a['first'][:,4:6]).tolist() if sign==1 else None,'flip_total_parameter_crossing':alpha.tolist() if alpha is not None else None,'gain_tangent':float(tangent[4]),'delta_tangent':float(tangent[5]),'antipodal_defect':float(np.max(np.abs(a['cycle']+np.roll(a['cycle'],5,axis=0)))/scale),'half_mode_plus_residual':float(np.max(np.abs(h@q-q))), 'half_mode_minus_residual':float(np.max(np.abs(h@q+q))),'eigen_residual':eigen_res}
         good=r['critical_error']<1e-7 and r['other_distance']>1e-4 and all(x>1e-6 for x in sep.values()) and eigen_res<1e-10
         r['qualified_primitive_simple_boundary']=bool(good);r['attracting_complement']=r['complement_radius']<1-1e-5
-        r['numerically_generic_boundary']=bool(abs(coefficient)>1e-6 and np.max(np.abs(r['fold_parameter_coupling']))>1e-6) if sign==1 else bool(np.max(np.abs(alpha))>1e-6)
+        r['numerically_generic_fold']=bool(abs(coefficient)>1e-6 and np.max(np.abs(r['fold_parameter_coupling']))>1e-6) if sign==1 else None
+        r['transverse_multiplier_crossing']=bool(np.max(np.abs(alpha))>1e-6) if sign==-1 else None
+        r['flip_cubic_criticality']='not_evaluated' if sign==-1 else 'not_applicable'
         self.emit('node',dict(r,y=y.copy(),physical=y*COL,tangent=tangent.copy(),left_vector=left,monodromy=m,bqq=bqq,half_return=h))
         if not good:raise ValueError('primitive/simple boundary qualification')
         return r
