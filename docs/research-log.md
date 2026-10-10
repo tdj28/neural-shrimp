@@ -6119,3 +6119,5 @@ Independent saved-array arithmetic recomputed augmented equations, branch/cubic 
 ### 2026-10-10 — source-only saved period58 failure diagnosis packet
 
 Root's exact72D period58 target3488be38 failed finite enclosure after101s; preserve outerc0f7488e and source. `docs/plans/census-long-period-diagnosis.md` prepares a saved-only30s/2GiB/3GiBAS/4MiB worker under owned40+5s launcher. Exact dyadic radius growth and first nonfinite state/Jacobian identify whether tighter radius/precision is plausible before a separately reviewed native rerun. No Newton history exists in the old kernel; report final refined residual only. No target arrays opened by this packet yet; two direct controls and peer source skim precede run.
+
+Synthetic diagnosis control initially used `contraction` instead of the real certificate field `contraction_norm_upper`;1PASS/1fixture failure. Corrected only the fixture before review; no data run.
