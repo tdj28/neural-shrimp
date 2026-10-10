@@ -6568,3 +6568,7 @@ Executionca7cdeef completed10.446s/631212KiB with zero native calls. Outerdd5d8d
 ## 10 October2026 — weighted470D fresh-domain pilot card
 
 Following saved diagnosis002 and root standing authorization, prepare one exclusiveattempt-002-weighted-target with all470hash-pinned positive radii decoded exactly, base2^-18, unchanged width2^-20/two proposals/256bits/anchor/gauge/kernel. Complete new Jacobian on changed domain mandatory; old-domain ratio is only a proposal.26synthetic controls pass0.26s. Reuse byte-identical original profile source and separately require actual first-target cost gate106.325s/208625774B; same120/135+5s,CPU1nice10,216ticks,2GiBmonitoredRSS/4GiBAS,256+1MiB. No launch before frozen source skim and fresh host check. Failed001and bothdiagnoses retained; no claim tiny affine charts scale to cusp. See docs/plans/eigenpair-locus-weighted.md.
+
+## 10 October2026 — weighted eigenpair fresh-domain target passed
+
+Executionfcf6abb8 passed both470D charts:all470strict inclusions, primitive divisors and full-root/native joins; contractions<.016852/.016850. Exact gaugecoverage[-1/1048576,3/1048576], tiny localscope only, independentoutcomereviewpending.48.107s/1114116KiB/200ticks;outer48.639sexit0. Outer e7b6091d44219df2406ec7e3f39b89cb5f50ffee0ff71c7db8a1a00f8228e641/run2ea69bd17840b28331272abeb3890b3954c0b19885ab8ad6eb1afb34812a30b5;242files132743251Bimmutable, owned1302691/1302776/1302777absent. No old evidence overwritten. Next root-authorizedsource-only quadratic path-jet unit addresses width scaling, not a new target yet.
