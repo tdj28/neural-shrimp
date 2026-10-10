@@ -9633,3 +9633,10 @@ Independent attraction audit attempt001 retained: sourcebb103d02, outera35d2d308
 ## 2026-10-10 — N12 activity panel retrieved; saved view card
 
 All four fixed N12 matrices completed in86.244s/243184KiB, {'trajectories': 7688, 'consensus_components': 309, 'qualification_attempts': 116, 'qualified_seed_cases': 116}. Full immutable inventory/historical source and absent owned PIDs verified; outer44edb885b2ba884fdcb229eeabf4d3ae133e8cffc7a6fe289af5a530138f87d3. These are finite-horizon candidates/selected numerical native qualifications, not shrimp proof. Prepare unchanged all-four spatial summary with exact new root/pin/seeds and no selected highlight; no scientific acquisitions. CPU1nice10,30s timeout,512MiB expectedmemory,4MiB saved output; existing N6 render has same31x31grid and selected native orbit inventory. Exclusive n12-matrices-spatial-001, source/card committed before rendering.
+
+
+## 2026-10-10 — continuous full-state attraction independently passed
+
+Attempt002 executionca0f4489, outer00b9d18ecb197cdbb2f684edef385d8c1b59a9fa27248122a3a032bb7a111245;62.112s/692080KiB. All eight adjacent closed slices on chart154 exactgauge[21/64,43/128] pass independent256known-root localization/uniform implicit tangent and384framed common-variable polynomial/error/Lyapunov positivity. This proves local perturbation decay at every parameter along that continuous primitive18segment of the same13Dtraining branch. It does not yet cover the whole branch or establish full shrimp boundary organization. All underlying physical state/rate/tangent domains, source manifests and nativephase ordering bound; analytic derivative acquisition/Arbshared. See docs/reviews/s2-correlated-stability-independent.json.
+
+N12 savedall-fourperiod/growth maps rendered1.975s and visuallyinspected; source0df4aedd. Leading fixedrankedcandidate28192p6 has48consensuscells andmargin2with35positive-contextcells; all116selectednativequalifications across4matricespassnumerically. Broadstructures require targetedanatomy and no shrimpinference made. Receipt docs/reviews/clark-rnn-n12-spatial.json.
