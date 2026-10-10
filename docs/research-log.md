@@ -5600,7 +5600,10 @@ metrics. No new map/derivative/proposal. Fixed original256-bit saved reductions 
 8+1MiB raw. Exact inputs and three source/manifest tuples hardcoded; original
 reviewed parent/primitive/anchor joins inherited. Shared analytic/Arb trust and
 reviewer overlap explicit. Source/card/tests precede the single bounded audit.
-Review pre-run controls:11 synthetic tests pass in0.17s, including a strict-inside
+Review pre-run controls:11 synthetic tests pass in0.16s, including a strict-inside
 but false parent image that must be rejected (radius inclusion alone is insufficient).
 Target witness arithmetic remains unexecuted; coordinate launch after quadratic
 producer releases its larger-memory profile/target window.
+Localization reviewer source/card5c47235d is frozen; producer has released the
+quadratic target memory window. Proceed with the one saved-only audit under the
+recorded limits after fresh host availability check. No new model acquisition.
