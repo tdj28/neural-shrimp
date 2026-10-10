@@ -7472,3 +7472,14 @@ Outere8483b59300401f36bfd71d33942f652d2e2c94480bebe84c1965e50875421c0; run9b6ae0
 Companions `docs/reviews/eigenpair-wider-march-unit013.md/.json`. Do not consume
 failed tail or invoke complete-parent unit014. Next is a disclosed saved-only
 forcing/radius diagnosis and exact qualified-prefix amendment if justified.
+
+### 2026-10-10 — explicit partial-prefix saved-radius diagnostic card
+
+After preserved unit013 root-only stop, one fixed saved diagnosis of repaired
+call3 on[219/128,223/128]. Sole future anchor remains accepted call1 endpoint219/128.
+Source/card `docs/plans/eigenpair-partial-diagnosis.md`: unchanged fixed positive
+inflation rule, no model/derivative/inverse;45s/60+5,CPU1nice10,1.5GiB,64+1MiB.
+Commit/synthetic controls and peer binder skim precede numerical diagnosis.
+All previous failures remain immutable; no automatic unit014 or failed-tail use.
+
+Partial-diagnosis verification:35 focused controls passed0.37s, including12 malformed prefix/tail cases, real gzip decoding, complete transitive inventory and unchanged positive-radius/fresh-repair controls. Source only; no target diagnosis yet.
