@@ -56,12 +56,16 @@ def test_singular_critical_frame_is_rejected_and_caps_precede_native_call():
   with pytest.raises(TimeoutError):augmented(model,y,18,stop)
 
 
-def test_rounding_edge_uses_actual_arb_box_radius_not_requested_radius():
+def test_actual_domain_and_requested_scalar_radius_are_distinguished():
  from neural_shrimp.rigorous_unit_pair_flip import actual_box_delta
  with ctx.workprec(384):
   requested=arb((1,-60));box=arb(0,requested);actual=box.rad();assert actual>requested
+  # The former implementation constructed its delta too: this already had
+  # the same rounded radius, so it was not the raw scalar underestimate.
+  old_constructed_delta=arb(0,requested)
+  assert old_constructed_delta.rad()==actual
+  delta=actual_box_delta([arb(0)],[box])[0,0];assert delta.rad()>=actual
   epsilon=actual-requested;forcing=requested/2+epsilon*3/4
-  old_image=forcing+arb(0,requested)/2
-  new_image=forcing+actual_box_delta([arb(0)],[box])[0,0]/2
-  assert box.contains_interior(old_image)
-  assert not box.contains_interior(new_image)
+  assert forcing+requested/2<actual
+  assert forcing+actual/2>actual
+  with pytest.raises(ValueError):actual_box_delta([arb(1)],[box])
