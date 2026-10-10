@@ -5562,3 +5562,14 @@ Clark profile003 passes: source d54446ff,108 synthetic grid solves,3.832s total,
 outer0adc6365139f36de7a2d33d33f19ba6d542bae4a86f7b7356501a4b962e27309.
 Proceed root-authorized complete unchanged scientific panel in attempt002 with
 this exact pin, preserving earlier partial/cost failures and source bytes.
+
+Clark complete panel002 completed216/216 rows with no row failures in6.193s,
+124908KiB RSS. Execution1b08ac46, unchanged scientific sourced54446ff. Outer
+177b909a2274272197dfca42a13ee785924ea31e71cc14ed54f13133081dd364;
+run e7b00d1957ba3447c2e20a3f78ff21e17bfc41b2958d380839e3557087e68858.
+Next saved-only summary: `tools/summarize_response_spectrum.py`, one exclusive
+attempt002-summary under same raw root, CPU1/nice10 external10s, output≤1MiB.
+Hash-check all five preserved attempts, summarize every fixed count comparison and
+the two stored callback probes, no new solve/eigen/QR/model call. Source committed
+before this saved arithmetic; final compact outcome follows. Root requests interval
+localization review next, so no new response target expansion in this unit.
