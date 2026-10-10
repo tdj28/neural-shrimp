@@ -7584,3 +7584,16 @@ selection, numerical+1 exclusion residual gates, ambiguity-labelled assignment,
 fixed4/8/16 proposals not brackets. Proceed one bounded saved diagnostic; later
 native bridges must retain exact root/mode/rate/source identity independently
 of Hungarian labels.
+
+### 2026-10-10 — saved modes target a second neutral direction
+
+Fixed52-center analysis(sourcec491ce6d/execution75ccce51) completes8.525186s/
+675888KiB/zero native calls. All12 nontrivial midpoint multipliers numerically
+insideunitcircle; leading real.816689→.916310, final+1gap.0836905, nearest−1gap~.999;
+cproxy remainsnegative reaching−21.8452. Last4/8/16 linear proposals give
+2.49831/2.54158/2.64033, not a bracket. Small-mode assignment haszero margin;
+retain ambiguity and do not claim spectral certification. Output200files/
+4,633,234B/source/inventory/PIDs verified. Outer8c48adcd8cb9650ff04d6e8537041410863c3030d93252097887d36c85225007.
+Receipt docs/reviews/eigenpair-boundary-trend-outcome.md/.json. Next objective:
+full native bridge toward295/128, stopping for a near-neutral or competing
+unit-circle event, then a dedicated codimension-two qualification design.
