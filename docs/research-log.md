@@ -11587,3 +11587,9 @@ Clark's preliminary math review found the mixed-jet/native41 equations coherent 
 ### 2026-10-10 exact numerical scout synthetic-profile card
 
 Clark source/math review through9b97e361 PASS,13 controls reproduced0.17s. Run only exclusive unit-pair/scout/attempt001-profile:12 complete unrelated13D/24sample/18step two-direction returns,432 native phases, same binary64 source/libs/settings. Target remains unopened. Record timing/output bytes;2*360*max(return time)+20<240s and2*360*max(return bytes)+8MiB<64MiB, forecast peak<2GiB. CPU1nice10,240s/2GiB sampled RSS/4GiB AS/64MiB output,255+5 owned timeout. Latest host54882656KiB available/load1.87; no duplicate scout. No paid resources. Separate measured exact card required before target.
+
+### 2026-10-10 synthetic numerical profile passes; exact survey card
+
+Sourced5477beb synthetic profile completed2.650s/47888KiB, all432 native calls. Complete inventories/source archives/owned process absence verified. Outer67ff367dfdfbcd234d426051deb7890339d9f9aeb852331320033a146cd46787, worker08362311bcc2194a54dd9ff5f7acc7b31ecd61d08b1cf40c3f5712f93aee0ba1. Conservative360-return forecast121.361s/1,400,000KiB/40,665,488bytes passes all240s/2GiB/64MiB gates. Exact source and libs unchanged from reviewed9b97e361.
+
+Authorize one exclusive unit-pair/scout/attempt001-target using only these pinned profile manifests and successful finite704 right endpoint at t=1/32768. Require all704 corrected native endpoint coordinates strictly inside the saved enclosure, with every full residual/J/Ht/native return and failed correction retained. Fixed64 accepted points/360returns/12960native steps, all13 spectrum/primitive/phase/rate gates, nextmode threshold.03, t ceilingπ²/4; same owned caps and CPU1nice10. Every resulting extension remains numerical, pending native interval proof. No paid resources or protected data.
