@@ -12,7 +12,7 @@ from neural_shrimp.rigorous_floquet_complement import uniform_complement
 from neural_shrimp.rigorous_orbits import canonical_bytes,ball_json
 from neural_shrimp.rigorous_periodic_lyapunov import exact_float_matrix
 O=B.O;need=U.need;read=B.read
-OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/attempt003-spectrum/run')
+OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/attempt005-spectrum/run')
 CARD='docs/plans/floquet-complement-inputs.json'
 FILES=[CARD,'docs/plans/floquet-complement.md','tools/probe_floquet_complement.py','tools/launch_floquet_complement.py','src/neural_shrimp/rigorous_floquet_complement.py','tests/test_floquet_complement_driver.py','tests/test_rigorous_floquet_complement.py']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
@@ -71,6 +71,15 @@ def bind(card,tick):
     del proof;gc.collect();tick()
     return flat,blocks,{'card':card,'old_inputs':O.entry(fr/'run/inputs.json'),'certificate':O.entry(cert),'whole_direction_files':{str(p.relative_to(pr/'run')):O.entry(p)for p in files[-36:]},'independent_outcome':O.entry(ir/'run/outcome.json'),'shared_native_acquisitions':36,'new_native_calls':0}
 
+def admit_diagnosis(card,tick):
+    prior=card['diagnosis'];root=Path(prior['root']);O.verify(root,prior['outer']);O.verify(root/'run',prior['worker']);B.archived(root/'run',prior['source'],'runtime.json','source')
+    done=read(root/'run/outcome.json');launch=read(root/'launcher-result.json');bind=read(root/'run/bindings.json');data=read(root/'run/diagnosis.json')
+    need(done['passed']and done['status']=='saved_frame_diagnosis_completed'and done['phase_count']==done['orthogonal_inversion_count']==18 and done['native_calls']==0 and not done['complementary_stability_evaluated'],'completed all18 conditioning diagnosis only')
+    need(launch['source_commit']==prior['source']and launch['exit_code']==0 and not launch['owned_live_pids']and data['prior']==card['failed_basis'],'same exact completed failed-basis diagnosis')
+    need(bind['card']['producer']==card['producer']and bind['card']['independent']==card['independent'],'same original finite704 independently proved tube')
+    need([r['phase']for r in data['rows']]==list(range(18))and all(r['orthogonal_whole_frame_inversion_succeeded']and 1<=r['orthogonal_basis_condition_float']<3 for r in data['rows']),'measured well-conditioned full orthogonal frames')
+    tick();return {'prior':prior,'diagnosis_identity':O.entry(root/'run/diagnosis.json'),'selection':'orthogonal critical complements, separate exact periodic Lyapunov quotient scaling','source_scope':'Measured conditioning selection only; all actual derivative/frame/norm inequalities recomputed.'}
+
 def main():
     resource.setrlimit(resource.RLIMIT_AS,(6*1024**3,)*2)
     need(not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
@@ -87,7 +96,7 @@ def main():
     try:
         with ctx.workprec(384):
             timing=profile(tick);timing['forecast_seconds']=4*timing['seconds']+4*15.713+10;save('profile.json',timing);need(timing['forecast_seconds']<120,'measured full-size/source before any target arrays')
-            flat,blocks,binding=bind(card,tick);save('bindings.json',binding)
+            flat,blocks,binding=bind(card,tick);save('bindings.json',binding);save('conditioning-diagnosis-binding.json',admit_diagnosis(card,tick))
             box=[U.R.original_ball(v)for v in flat];A=[U.R.matrix(v)for v in blocks];t=arb('1/65536',arb('1/65536'));S=U.terminal(2,t);terminal=arb_mat([[S[2,2],S[4,2]],[S[2,4],S[4,4]]])
             save('inputs.json',{'whole_box':flat,'native_blocks':blocks,'parameter_interval':ball_json(t),'terminal_critical_block':[[ball_json(terminal[i,j])for j in range(2)]for i in range(2)]})
             seq=[0]
