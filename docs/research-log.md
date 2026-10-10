@@ -5532,3 +5532,20 @@ Boundary extended-coordinate test pass initially13/14: generic cusp fixture prop
 Extended-coordinate serialization audit adds exact-dyadic companions for every evaluated input and accepted boundary point, alongside unique round-trip decimal displays. No map, solver or threshold changes. Source-bound synthetic profile005 precedes target002; profile004 is retained as a successful earlier source/resource check.
 
 Boundary target002 execution card: final source039137de,14controls pass, profile005 projection159.294s<170s/RSS46912KiB, full inventories/PIDs checked. Native extended coordinates reach128-bit derivatives via exact dyadics and journals preserve those dyadics. Same fixed panel and gates; start target002 from known rigorous fold midpoint. No additional scientific selection.
+### 2026-10-09 — prospective local-root refinement and stability floors
+
+User directs continued work toward verified S2-28011-zoom:587 shrimp geometry.
+The next bounded adaptation localizes already proved width1/256 roots before
+testing stability. New module preserves all old kernels. Exactly three centered
+mean-value/Krawczyk containment intersections retain the same parent root, with
+explicit rounding displacements and predictor+conv(0,E) derivative domains.
+Card `docs/plans/s2-period18-localized-roots-pilot.md` fixes one synthetic profile,
+two center floors (old and refined bounds), then two width2^-15 outer probes only
+if both refined floors pass. No broad partition or boundary claim. Source and
+card frozen before acquisition, parent brief review first.43 focused synthetic
+controls passed0.26s. CPU/BLAS1,nice10,2GiB;20/60/60s internal,25/75/75+5s
+external;128+1MiB, source/input hashes and immutable full/partial retention.
+Profile command: `PYTHONPATH=src nice -n10 /data2/neural-shrimp/.venv/bin/python
+tools/certify_s2_period18_localized_roots.py --mode profile --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-profile`.
+Only synthetic source tests have run at this freeze; no new target or profile.
