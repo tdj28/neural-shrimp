@@ -48,3 +48,14 @@ def test_paired_return_cap_before_model(tmp_path):
     m=runner();w=m.Work(tmp_path);w.augmented_calls=2560
     with pytest.raises(RuntimeError,match='1280 paired'):w.pair(np.zeros(25),np.eye(12),2.,.1,np.eye(12)[0],'synthetic')
     assert w.calls==0
+
+
+def test_complete_four_context_qualification_accepts_native_cycle_lists(tmp_path,monkeypatch):
+    m=runner();w=m.Work(tmp_path);x=np.arange(72,dtype=float).reshape(6,12)/30
+    y=-np.roll(x,3,axis=0);cycles=iter([x,np.roll(x,-1,axis=0),y,np.roll(y,-1,axis=0)])
+    def native(*args):
+        return dict(cycle=next(cycles),radius=.5,eigenvalues=np.arange(1,13)/24,passed=True)
+    monkeypatch.setattr(w,'native',native);monkeypatch.setattr(w,'emit',lambda *args:None)
+    row,saved=w.qualify(np.r_[x[0],y[0],.8],np.zeros(25),np.eye(12),2.,.1,np.eye(12)[0],'synthetic')
+    assert row['passed'] and row['native_stability']=='attracting'
+    assert row['cross_identity_error']==0 and len(saved)==2

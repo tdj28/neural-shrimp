@@ -60,7 +60,7 @@ class Work(B.Work):
             all_native.extend([root,adjacent]);cycles.append(root['cycle'])
             context={'eigenvalues':root['eigenvalues'],'eigenvalues_adjacent':adjacent['eigenvalues']};mode=M.leading_boundary_mode(context)
             spectra.append({'partner':partner,'phase0_radius':root['radius'],'phase1_radius':adjacent['radius'],'leading_real_mode':mode})
-        scale=max(1.,float(np.max(abs(cycles))));cross=float(np.max(abs(cycles[0]+np.roll(cycles[1],3,axis=0)))/scale)
+        scale=max(1.,float(np.max(np.abs(cycles))));cross=float(np.max(abs(cycles[0]+np.roll(cycles[1],3,axis=0)))/scale)
         separation=float(max(abs(z[:12]-z[12:24]))/scale);radius=max(v['radius']for v in all_native)
         gates={'four_native_primitive6':all(v['passed']for v in all_native),'paired_return':bool(max(abs(h))<1e-13),'G_primitive2':separation>1e-6,'literal_native_partner_identity':cross<1e-8}
         row={'tag':tag,'gain':g,'amplitude':amp,'delta':float(z[-1]),'gates':gates,'passed':all(gates.values()),'residual':float(max(abs(h))),'G_pair_separation':separation,'cross_identity_error':cross,'spectra':spectra,'maximum_native_radius':radius,'native_stability':'attracting'if radius<1-1e-6 else'unstable'if radius>1+1e-6 else'near_neutral'}
