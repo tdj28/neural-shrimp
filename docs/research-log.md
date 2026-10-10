@@ -8588,3 +8588,14 @@ outer c51687eac1257b57bd2d0142734707098217fadd26cd8486aff3447c0e70a478.
 CPU/BLAS1 nice10, 360s/390+5s, 2 GiB, 512 MiB worker/514 aggregate;
 1,296 C1 / 2,592 unit / 288 mixed maxima. Fresh resource check; stop fixed
 sequence on the first failed gate. No completed slice repeated.
+
+2026-10-10 resume amendment: existing unit004 worker was complete at18:56:50UTC
+(all8slice gates,1288stages,230.662167s/694052KiB), but original launcher final
+receipt/outer manifest were absent. All original owned PIDs/group now absent;
+exclusive-path guard prevented duplicate acquisition. Preserve original bytes
+and this operational gap via a separate source-bound recovery inventory. Never
+reconstruct a parent exit or historical sampled group RSS. Binding-only resume
+adapter admits this exact recovery for index3 and requires normal complete
+receipts plus exact resumed runner thereafter. Scientific arithmetic unchanged.
+Plan docs/plans/s2-period18-stability-recovery.md; synthetic controls and peer
+review precede saved-only sealing and a fresh measured full synthetic profile.
