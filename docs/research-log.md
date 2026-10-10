@@ -9440,3 +9440,5 @@ passed0.52s, including both native signs, exact anchors, full/compact corruption
 primitive/anchor failures, source inventory and resource admission. Commit and
 independent source skim before the one target; no empirical arrays evaluated
 in preparation.
+
+2026-10-10: Root authorizes saved response time-conditioning prototype after original LSMR failures. Fixed one-period normal block-Jacobi versus matched normalCG at same two saved slots; actual residual/readout/callback screen and small-block oracle limitation disclosed. Source/synthetic tests/card beforeoneprofile-gatedunit; no new scientific derivative/trajectory/proof. Tests cover both free endpoints, noncommuting transpose blocks, positive preconditioner, dense direct parity and durable interruption.
