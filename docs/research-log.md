@@ -10384,3 +10384,24 @@ Event gauge lies in the second of the two final proposed charts. All source,
 raw inventory and owned-exit checks pass. Run only unit003 from291/128 to
 295/128 under unchanged caps; exact predecessor/card recorded. Native branch
 membership must pass all470 coordinates, otherwise final outcome is unresolved.
+
+### 2026-10-10 — exact organizing root identified on the native boundary
+
+**The actual full470D branch-membership test passed.** Two final charts bring
+the native primitive18+1 locus to295/128,107accepted charts in total. The
+source-authenticated Jordan-chain root's entire gauge interval lies strictly
+inside the final[293/128,295/128] chart, and all470 state/mode/physical-rate
+coordinates lie strictly in its uniqueness domain. Uniform uniqueness thus
+identifies that same root with the connected native boundary, conditional on
+the authenticated predecessor proof chain. The separate independent384-bit
+root/quotient audit proves exact+1algebraic multiplicity2, one Jordan block,
+and attracting11D complement. The remaining-prefix independent arithmetic
+replay is ongoing; it currently covers the first20 native locus charts.
+
+Unit003 execution1bf9dfd3 completed40.388s/1,124,992KiB,254native steps,2full
+calls/no failed attempt/no repair. Successful membership was persisted and
+stopped before another chart. All raw manifests, source archive/history,
+full/compact proofs and owned termination were verified. No next bridge unit.
+This is a connected organizing point, not yet a generic1:1unfolding, complete
+boundary geometry, full shrimp, or LLM-utility claim. The unfolding source
+helper has seven synthetic controls and awaits independent mathematical review.
