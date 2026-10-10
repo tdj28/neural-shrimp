@@ -8263,3 +8263,7 @@ passed. P and point decrease pass, but full interval decrease FAILS. No
 slice-attraction or instability claim follows. No width search or new
 trajectory/proof-prefix rerun occurred. Preserve this diagnosis before any
 method adaptation; next work must identify the saved remainder bottleneck.
+
+### 2026-10-10 — prospective saved cocycle error decomposition
+
+One new saved-only source/card in docs/plans/s2-period18-cocycle-budget.md compares already acquired common-variable polynomial variation against the retained remainder using the saved point congruence. No new model or decomposition calls,15s/1GiB/8MiB total. Keep the failed full-slice witness unchanged and identify its limiting term before any further acquisition. Producer outcome companion compacted to gate/row margins; full matrices remain in the immutable hash-bound raw artifact and prior Git history.
