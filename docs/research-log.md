@@ -6971,3 +6971,6 @@ overall audit pass claimed. This does not contradict the completed256 proof.
 No gate or source was relaxed and no automatic retry ran. Preserve attempt001,
 outerbe793088b7a6e2fed389e54da2c107be70e203cc13dd55c5a8a9e1a63516b408, runtime6.433s/
 301436KiB; full immutable inventory/owned exits verified.
+### 2026-10-09 PDT: root source review clears the exact symmetry-tie endpoint unit
+
+Root independently read e41d6edaa7a8df5ccb7f7d38e78caedec96e2df9 rule/source/card and reran all six tie controls. Native arrays, primitive divisors and reverse gates remain unchanged; numerical near-tie scope accepted. Root authorizes the single five-endpoint measured-profile-gated unit, preserving actual reverse mismatch, complex loss and symmetry-breaking outcomes. Bound executable/card bytes unchanged; this entry records coordination before execution. No generic-fold label is substituted when nondegeneracy fails.
