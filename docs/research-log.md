@@ -8012,3 +8012,18 @@ passes every fixed admission ceiling. Clark independently cleared1bd0ad21
 target wrapper (24controls0.34s). Proceed exactly one target from
 native-unit-pair-target001.json after current host ownership/capacity check.
 No automatic repair/retry; finite-interval complementary spectrum remains separate.
+
+### 2026-10-10 — first finite704 target completes; uniform bound fails
+
+Exact sourcea223df01 completed40.108s/1,804,388KiB,217ticks. All704 original
+Jordan-root anchor coordinates, primitive18 and independent realified-frame
+gates pass. Only235of704root inclusions pass; unweighted contraction193.3787.
+This is a failed chosen whole-domain bound, not branch disconnection. Immutable
+outer232e3c9f…, worker24021ba1… and all full704 acquisitions were verified,
+with completed ownership and historical/current source equality. No automatic
+second attempt. The exact local analytic-IFT branch remains established.
+
+Prepared a zero-native saved diagnosis of absolute-defect conditioning and
+state/q/r/rate error scales, with a numerical positive scaling/resolvent proposal
+only. Four controls pass0.14s. New width/radius proposals will require fresh
+full704 proofs and exact original-root anchor, not reuse failed-domain bounds.
