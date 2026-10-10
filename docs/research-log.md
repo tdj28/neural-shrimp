@@ -7814,3 +7814,12 @@ negative envelope/data/network controls checked;17tests0.10s. Unchanged
 mathematics and consistent freshattempt002 paths. Proceed the one saved
 chart21 audit with the original fixed caps. Source-skim acquired no target
 arithmetic. Host51GiBavailable; CPU1 proof audit only.
+
+2026-10-10 independent remaining-locus chart21 audit PASS at a507012ea620201b630fd5f1defd5eb75c070493:
+12.548188s/696780KiB. Original256 native
+assembly/replay and fresh384 all470strict root/anchor,primitive exclusions
+passed. Connected independently audited locus now21charts,right23/128.
+Outera9a3e11b0ef451e6e6f390fe7a7d59d7d7e211521f6ad6f4677784469fc0cce7;
+worker4afeac6a5a230317763ac8f0506676f0d04ee08f5deeef5c3a724aaa14f395bd. Full inventory/source/read-only/owned
+exit checks pass. Original zero-arithmetic binding failure remains retained.
+Shared analytic phase/path inputs and Arb remain explicit.
