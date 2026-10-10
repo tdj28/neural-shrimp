@@ -19,6 +19,11 @@ FLIP=Path('/data2/neural-shrimp-data/explore/certificates/s2-ray51-2026-10-09/fl
 FLIP_PINS={'inputs.json':'39714ef6da8689a2f96337ab753b4d75ee129b7fae888ac6e3977cb00c76fa40','certificate.json':'3328669c3e1d3da79c4136e22cf18a96eaab284a7c8b51559e1e8b05353dcd08'}
 
 
+ENDPOINT_PANELS={
+ 'ray32-plus':('attempt-006-ray32-fold','cff307557ed5533fe9801783a658e989dd4270ad6dff0fa62aaad30a479efb0a','1302764a424bdc2411b070c5a2b9d262986b769fdbf29ddeaf8456406898ebf5',1),
+ 'ray13-plus':('attempt-007-ray13-flip','2326c70fcb301ffb4b64132275efd8df4283d9556c2cd295ea82b529b87cd3e5','676091e29cb3d230f549038aad6b6b1fc3392714ab3866535c862898489bd157',-1)}
+
+
 def exact_coordinate(q):
     value=Fraction(q)
     if value.denominator & (value.denominator-1):raise ValueError('dyadic coordinate required')
@@ -31,6 +36,16 @@ def midpoint(b):return np.ldexp(np.longdouble(str(b['mid'][0])),b['mid'][1])
 
 
 def seeded_panel(kind):
+    if kind in ENDPOINT_PANELS:
+        name,inputs_pin,node_pin,sigma=ENDPOINT_PANELS[kind]
+        parent=Path('/data2/neural-shrimp-data/explore/s2-period18-boundary-curves')/name/'run'
+        pins={'inputs.json':inputs_pin,'node-+1-031.json':node_pin}
+        for filename,pin in pins.items():
+            if sha(parent/filename)!=pin:raise ValueError('endpoint input identity')
+        row=json.loads((parent/'node-+1-031.json').read_text());inp=json.loads((parent/'inputs.json').read_text())
+        if not row['qualification']['qualified'] or inp['sigma']!=sigma:raise ValueError('qualified correct-sign parent node required')
+        seed=np.array([exact_coordinate(v) for v in row['point_exact_dyadics']])
+        return inp['map_inputs'],seed,sigma,np.asarray(row['tangent']),[(1,64)],{'parent':str(parent),'pins':pins,'selection':'Continue exact saved plus endpoint and carried tangent without repeating prefix.'}
     if kind=='ray32-fold':
         for name,pin in CENTER_PINS.items():
             if sha(CENTER/name)!=pin:raise ValueError('center input identity')
@@ -209,4 +224,4 @@ def launch(args):
  args.out.chmod(0o555);print(json.dumps(record));return code if not remaining else 2
 
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--panel',choices=['fold-origin','fold-plus','ray51-flip','ray13-flip','ray32-fold'],default='fold-origin');p.add_argument('--out',type=Path,required=True);p.add_argument('--profile',type=Path);p.add_argument('--profile-manifest');p.add_argument('--execute',action='store_true');a=p.parse_args();raise SystemExit((execute if a.execute else launch)(a))
+ p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--panel',choices=['fold-origin','fold-plus','ray51-flip','ray13-flip','ray32-fold','ray32-plus','ray13-plus'],default='fold-origin');p.add_argument('--out',type=Path,required=True);p.add_argument('--profile',type=Path);p.add_argument('--profile-manifest');p.add_argument('--execute',action='store_true');a=p.parse_args();raise SystemExit((execute if a.execute else launch)(a))

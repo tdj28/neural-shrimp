@@ -128,3 +128,21 @@ CPU1/nice10,512MiB/128MiB,external200+5s. Fixed-rate corrector controls verify
 parameter/vector immutability and singular-Jacobian failure. Exact prior ray13
 and center input/certificate hashes are in the driver. Existing folds, flips,
 historical labels and failed attempts remain untouched.
+
+## 10 October UTC: opposite fold and second flip endpoint continuation
+
+The320-node saved overlay (combined-summary002; manifest
+a6c1b693d9b5333d0419cea1088ca8301d5ccd01bef73e04361d4bfbdc75df98)
+shows that the opposite fold has turned in hidden rate and its plus endpoint
+continues toward the unexplored right side of the period18 body. The ray13
+plus flip approaches a second neutral mode while turning in the same area.
+Continue64 nodes from each exact plus endpoint031 with its saved tangent,
+without repeating either prefix. Bind exact input/node bytes in ENDPOINT_PANELS.
+This probes curve connections and extra-multiplier events; a projected crossing
+or coefficient pole will not be called a cusp or shared full-state orbit.
+
+Use unchanged equations, tolerances, step0.025 with at most4halvings,64nodes,
+800evaluation/180s/512MiB/128MiB caps,CPU1/nice10,external200+5. Preserve every
+failed trial and stop on unresolved gates. The source-bound synthetic5-call
+profile009 must pass before either target008(ray32-plus) or009(ray13-plus).
+No GPU, new random starts, paid resources or protected holdout.

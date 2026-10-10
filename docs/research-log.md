@@ -5935,3 +5935,23 @@ Clark transfer PDF checkpoint: clean fresh-directory compile;37 pages,353 saved-
 Source3e911682 produced ray32-fold and ray13-flip panels,64 accepted carried nodes each. Ray32 seed was numerically carried from the certified interior through eight fixed-rate corrections; no rigorous branch join is inferred. Its corrected native fold is near hidden68.096713701156/output0.821059669058465. Maximum saved closure1.136e-12, complement radii0.697–0.873. Ray13 maximum closure3.00e-13, complements0.862–0.999781. All primitive18/simple-critical gates passed. Fold410 evaluations74.49s/50.4MiB; flip347 evaluations63.04s/50.5MiB. Immutable complete manifests5a407527b29bf0a94540e581b23967c5e956b175e2f6ecf1d7b51806e7688f7d andc889339446be01c3110303e311b06266e5a10b1bdacb1dd45f4ee06abd2e49a7; launch exit0, owned groups absent. The qualified nodes do not prove inter-node connectivity, full attraction between nodes or shrimp anatomy.
 
 Saved-only run card: extend the existing exact hash-bound overlay to these two panels, for320 total nodes. Preserve combined-summary001 and write fresh combined-summary002. Same historical map hash, no model/derivative/eigensystem evaluation, CPU1/nice10, external30s, address1GiB/RSS512MiB/output10MiB. Review the four curves to select the next explicit endpoint exploration; the old192-node interpretation remains disclosed.
+
+## 10 October UTC: opposite fold and second flip endpoint continuation
+
+The320-node saved overlay (combined-summary002; manifest
+a6c1b693d9b5333d0419cea1088ca8301d5ccd01bef73e04361d4bfbdc75df98)
+shows that the opposite fold has turned in hidden rate and its plus endpoint
+continues toward the unexplored right side of the period18 body. The ray13
+plus flip approaches a second neutral mode while turning in the same area.
+Continue64 nodes from each exact plus endpoint031 with its saved tangent,
+without repeating either prefix. Bind exact input/node bytes in ENDPOINT_PANELS.
+This probes curve connections and extra-multiplier events; a projected crossing
+or coefficient pole will not be called a cusp or shared full-state orbit.
+
+Use unchanged equations, tolerances, step0.025 with at most4halvings,64nodes,
+800evaluation/180s/512MiB/128MiB caps,CPU1/nice10,external200+5. Preserve every
+failed trial and stop on unresolved gates. The source-bound synthetic5-call
+profile009 must pass before either target008(ray32-plus) or009(ray13-plus).
+No GPU, new random starts, paid resources or protected holdout.
+
+Root visually checked the320-node overlay. It reveals numerical local anatomy only, with unstable fold-complement points marked. The already certified center and local folds/flips remain distinct from the unresolved rigorous boundary joins.
