@@ -25,3 +25,14 @@ def test_durable_factor_return_precedes_failed_residual(monkeypatch):
  events=[];monkeypatch.setattr(m,'cholesky',lambda h,lower:np.eye(len(h)))
  with pytest.raises(ValueError,match='factor residual'):m.block_jacobi(np.array([[[.8]]]),16,-.05,.01,2,lambda k,v:events.append(k))
  assert events[-2:]==['factor','factor_check']
+
+
+def test_storage_valueerror_is_not_a_continuable_numerical_failure():
+ import importlib.util
+ from pathlib import Path
+ s=importlib.util.spec_from_file_location('multi_driver',Path(__file__).parents[1]/'tools/explore_response_multiperiod_blocks.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+ class BrokenStore:
+  def array(self,*args):raise ValueError('scientific storage cap')
+ with pytest.raises(m.DurabilityError,match='storage cap'):
+  probe(np.array([[[.8]]]),2,m.durable_emitter(BrokenStore(),[0],'synthetic'))
+ assert not issubclass(m.DurabilityError,ValueError)

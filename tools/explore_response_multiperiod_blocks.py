@@ -34,19 +34,26 @@ def verify_baselines():
  result=json.loads((BASE/'run/result.json').read_text());require(result['status']=='completed'and len(result['rows'])==4,'complete baseline unit')
  return result['rows']
 
-def main():
- ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);args=ap.parse_args();require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean source');require(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1'for k in THREADS),'CPU1 nice10');store=Store(args.out,limit=383*1024**2);start=time.monotonic();stopped=[False];signal.signal(signal.SIGTERM,lambda *_:stopped.__setitem__(0,True));seq=[0]
- def tick():
-  if stopped[0]or time.monotonic()-start>60:raise TimeoutError('60s/termination')
-  if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>448*1024:raise MemoryError('448MiB cooperative worker')
- def emitter(slot):
-  def emit(kind,value):
+class DurabilityError(RuntimeError):
+ pass
+
+def durable_emitter(store,seq,slot):
+ def emit(kind,value):
+  try:
    seq[0]+=1;tag=f'{seq[0]:05d}-{slot}-{kind}';record=dict(kind=kind,slot=slot,sequence=seq[0],arrays={})
    for name,v in value.items():
     if isinstance(v,np.ndarray):record['arrays'][name]=dict(file=tag+'-'+name+'.npy',**store.array(tag+'-'+name,v))
     else:record[name]=v
    store.json(tag+'.json',record)
-  return emit
+  except Exception as exc:raise DurabilityError('durable observer failure: '+str(exc))from exc
+ return emit
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);args=ap.parse_args();require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean source');require(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1'for k in THREADS),'CPU1 nice10');store=Store(args.out,limit=383*1024**2);start=time.monotonic();stopped=[False];signal.signal(signal.SIGTERM,lambda *_:stopped.__setitem__(0,True));seq=[0]
+ def tick():
+  if stopped[0]or time.monotonic()-start>60:raise TimeoutError('60s/termination')
+  if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>448*1024:raise MemoryError('448MiB cooperative worker')
+ def emitter(slot):return durable_emitter(store,seq,slot)
  result=dict(status='incomplete',rows=[],scope='saved13D midpoint periodic operators, e0column only; no new derivative, cycle, count, training utility or large-model speedup')
  rt=dict(source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),sources={n:dict(sha256=sha(ROOT/n),bytes=(ROOT/n).stat().st_size)for n in SOURCES},pid=os.getpid(),python=platform.python_version(),numpy=np.__version__,scipy=scipy.__version__,nice=os.getpriority(os.PRIO_PROCESS,0),threads={k:os.environ[k]for k in THREADS},started_unix=time.time());store.json('runtime-start.json',rt)
  try:
