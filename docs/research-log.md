@@ -9799,3 +9799,25 @@ fresh smaller domains, unchanged root/tangent/cocycle mathematics, exactly
 four descending width1/512 slices and first-failure stop. Full prior failure
 preserved. Card docs/plans/s2-period18-quarter-chart-stability.md; controls,
 peer skim and a fresh full synthetic profile precede target admission.
+
+2026-10-10 quarter-chart146 profile at cf50d281a0d0b6d531f8ec8e12105b715a7510e7
+completed once: 12.502239659 s / 533856 KiB, all 161 stages and
+162 C1 / 324 unit / 36 mixed returns. Inventories, historical source,
+read-only outputs and owned PID absence checked. Worker
+9c78eaebe1c8e9f2636bd26c727b1d462b9bc77eed040facfa34d2398c6d6a7c; outer
+5e21440def3d333c99f0fe8fdf5a7e7c6e516126eccdbf71f493bc6a9bc98e57.
+Conservative admission 315.053752 s < 360 and 402653184 B < 448 MiB.
+Boundary peer independently skimmed partition/binding adapter: PASS;
+four focused adapter controls reproduced, no target arithmetic evaluated.
+
+Exact next target card: one four-piece chart146 attempt, in descending order
+[139/512,35/128], [69/256,139/512], [137/512,69/256], [17/64,137/512].
+Exclusive raw s2-period18-quarter-chart-stability-2026-10-10/attempt001-target.
+Profile /data2/neural-shrimp-data/explore/certificates/s2-period18-quarter-chart-stability-2026-10-10/attempt001-profile/run
+with above worker/outer pins. Unchanged mathematical map and proof gates;
+full native chart146-to147 join and completed adjacent receipt mandatory.
+CPU1, nice10, 360 s internal / 390+5 s external, 2 GiB RSS,
+512 MiB worker / 514 MiB aggregate, at most 648 C1 / 1296 unit / 144 mixed
+and 644 stages. Fresh host resource check before acquisition. Stop at first
+failed final slice or prerequisite; retain every result. No retries, omitted
+slices or automatic onward march. Independent outcome audit still required.
