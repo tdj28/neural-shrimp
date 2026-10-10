@@ -7218,3 +7218,7 @@ returned-forward retention and transitive imported-source hashes. Both adopted
 before any target/model acquisition. CIFAR manifest regression fixture first
 failed from an undefined test-module alias; corrected fixture explicitly imports
 its module before either schema assertion, then rerun; no scientific acquisition.
+
+### 2026-10-10 PDT: CIFAR400 saved arithmetic audit card
+
+Parent temporarily assigns CIFAR follow-up while Clark compactp5 anatomy is preserved at cde6d0b4. Prepare one independent saved-only audit of exact400-space attempt002, sourcebcba5eea, manifest814d5ebb, launcher2abe1f4d. Scalar fsum norms/dots, exact difference identities, prefix200/counters, forcing/Armijo decisions; no model/JVP/GMRES.15s20+5CPU1nice10/1MiB exclusiveaudit. If passed, prepare fixed nine smalleralpha2^-4..2^-12 with unchangedforcing/merit/closure/primitive gates and stored direction, no solve repeat.
