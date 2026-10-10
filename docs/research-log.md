@@ -6123,3 +6123,19 @@ coverage['219/64', '221/64'], last hidden-rate displayunresolved. Worker12.4002s
 checked. Worker manifest26cf51439d0d409dbe8b9d03c5b774805d5c93f836d3a3045681f3c065dc3135;
 outer513a8ee87bd80165c815ba1443b8f06c30cd5f0955bc7575b488cd144c07ce06. Companion `docs/reviews/s2-period18-arclength-radii-unit002.json`.
 No prefix rerun, attraction or fold identity claim; independent review pending.
+
+### 10 October 2026 UTC — one-shot per-chart reboxing amendment
+
+Fixed global radii proved17 new charts, then another inclusion failed while
+contraction, native primitive exclusions and anchor checks still passed.
+The new dated card `docs/plans/s2-period18-arclength-reboxing.md` permits
+exactly one deterministic proposal per such failed chart, with the complete
+initial failure persisted before any adaptation and all18 final-domain
+Jacobians reacquired. Unchanged predictor/Taylor bounds remain source-bound.
+All18 correlated native fold alignments will be recorded for each qualified
+chart; no proximity inference. New profile explicitly forces both adaptation
+paths. No target run precedes source/controls/review and measured cost gate.
+Two early synthetic control failures were fixture assumptions: a derivative
+perturbation was too small relative to the anisotropic weights to force a
+failure, and a mocked rebox result omitted its required metadata. Fixtures
+were corrected; production mathematical gates were not weakened.
