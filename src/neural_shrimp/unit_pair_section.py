@@ -66,6 +66,7 @@ def survey(model,points,*,max_points=48,max_evaluations=360,hidden_step=.25,tick
         common={'points':accepted,'reverse_prefix':reverse,'evaluations':calls}
         if t<1e-5:return dict(common,status='near_double_plus_proposal')
         if abs(ellipse)<.05:return dict(common,status='near_gauge_degeneracy_proposal')
+        if len(accepted)>1 and (accepted[-2]['diagnostics']['complement_max_modulus']-1)*(diag['complement_max_modulus']-1)<=0:return dict(common,status='competing_unit_crossing_proposal')
         if diag['complement_unit_gap']<.03:return dict(common,status='competing_unit_mode_proposal')
         if index==max_points-1:return dict(common,status='point_cap')
         matrix=J.copy();matrix[:,n]=ht;tangent=np.linalg.solve(matrix,-J[:,n]);step=hidden_step
