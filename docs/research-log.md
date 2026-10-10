@@ -5642,3 +5642,7 @@ Sourcea48ce4e9 completed the exactlytwo14D localizations in.5018s/.6173s,44748Ki
 ### 2026-10-09 PDT: native p7 flip-family geometry before outcomes
 
 Two qualified14D roots are distinct inparameters andfullstate. New card `docs/plans/clark-rnn-p7-flips.md` fixes both savedroots,minus-one rightvectors,plus-one state tangentorientation, bothdirections128steps.003,domain1.6<g<2.2/.75<delta<.83. Same fullnative9x10PAL/phase-sign/reverse gates; all complementary stability retained. No singular branchformula atfoldflip, no proof or commonorbit fromprojection.90s105+5CPU1/512MiB/128+1MiB/9000calls;8000max+20 synthetic gatefirst.
+
+### 2026-10-09 PDT: p7 flip traces remain in a small overlapping envelope
+
+Frozen cd65c9fc completed the four traces: 512 new nodes in 3.926s internal/4.677s external, 39512KiB and 3080 family returns. All four hit the declared128-step cap; parameter ranges nearly coincide near gain1.80206--1.80214/leak.786648--.786676, with alternating complementary stability. Preserve the possibility of one repeated projected loop rather than assume distinct crossing arms. Complete16430-file/33000220B inventory, immutable modes and owned1045106/1045108/group exits verified; outer ca70240e31119dceddb3689d845a4ffd3576d97efb5fdf5da82e7c19ba940c54. No interval, physical-loop closure or common-orbit assertion. Next saved-only overlay will retain full-state phase/sign distances and avoid new target work.
