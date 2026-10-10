@@ -15,7 +15,7 @@ from neural_shrimp.rigorous_eigenpair_locus import require,exact_mid
 from neural_shrimp.rigorous_eigenpair_march import decode
 from neural_shrimp.rigorous_orbits import exact,dyadic,vector_json
 from neural_shrimp.rigorous_cusps import TwoRateCuspMap
-BASE=P.BASE;CAP=768*1024**2
+BASE=P.BASE;TARGET=BASE/'attempt002-target/run';CAP=768*1024**2
 SETTINGS={'period':18,'precision':256,'parameter':'63/4096','halfwidth_exponent':-6,'radius_exponent':-10,'newton_steps':2}
 SOURCES=list(dict.fromkeys(OLD.SOURCES+P.SOURCES+['tools/probe_native_unit_pair_pal.py','tools/launch_native_unit_pair_pal.py','tests/test_native_unit_pair_pal_driver.py','docs/plans/native-unit-pair-pal-target.md']))
 read=OLD.read;entry=P.entry;inventory=OLD.inventory
@@ -96,7 +96,7 @@ def chart_seed(anchor,proof):
 
 def main(args):
  identity=sources();require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
- require(args.out==BASE/'attempt002-target/run','exclusive target path');out=args.out;out.mkdir(parents=True,exist_ok=False)
+ require(args.out==TARGET,'exclusive target path');out=args.out;out.mkdir(parents=True,exist_ok=False)
  start=time.monotonic();stop=[False];ticks=[0];serial=[0];used=[0];counts={}
  signal.signal(signal.SIGTERM,lambda *_:stop.__setitem__(0,True));resource.setrlimit(resource.RLIMIT_AS,(10*1024**3,)*2)
  def check():
