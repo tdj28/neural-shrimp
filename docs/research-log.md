@@ -7085,3 +7085,7 @@ Pre-execution producer-author schema skim requested explicit final halfwidth/end
 ## 2026-10-10: preserve first refined saved-audit decode mismatch
 
 Attempt001 cdd23316 failed2.769s at exact product/remainder identity after all235D derivative reductions and joins. Live-to-serialized Jprime public decode widens intervals; peer schema confirmed. Separately freeze attempt002 with original/recomputed diagnostics and unchanged strict independent positivity gates. No producer byte/threshold change, no model acquisition.
+
+## 2026-10-10: independent refined tangent/norm saved review passed
+
+Attempt002/6a0597ed completed2.8443s; all235D Uprime/Udoubleprime and18phase strict norm/metric reductions pass. Exact inventories/historical source and actual decode/domain joins checked; original attempt001 byte-identity failure retained. Producer-author schema skim only; no model/derivative/decomposition or new root localization. Fixed doubled slice only, seven-slice coverage review still separate.
