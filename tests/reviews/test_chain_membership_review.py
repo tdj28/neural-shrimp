@@ -70,3 +70,11 @@ def test_full470_synthetic_lift_and_membership():
  phases=[{'index':k,'input':phase+[b(2),b(3)],'value':[[v]for v in phase]}for k in range(p)]
  assert R.check_phase_domains(root,l,phases)['passed']
  assert R.check_membership(l,c)['coordinate_inclusions']==[True]*470
+
+
+def test_endpoint_launcher_and_worker_own_same_exclusive_root():
+ import review_chain_membership_driver as D
+ import launch_chain_membership_review as L
+ assert D.BASE==L.BASE
+ assert str(D.BASE)=='/data2/neural-shrimp-data/audits/eigenpair-chain-membership-independent'
+ assert str(D.FINAL).endswith('/unit024-attempt001')

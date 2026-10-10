@@ -3,7 +3,7 @@ import hashlib,json,os,signal,subprocess,sys,time
 for k in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):os.environ[k]='1'
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-BASE=Path('/data2/neural-shrimp-data/audits/eigenpair-remaining-locus')
+BASE=Path('/data2/neural-shrimp-data/audits/eigenpair-chain-membership-independent')
 def entry(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
 def main():
     OUT=BASE/'attempt001'
