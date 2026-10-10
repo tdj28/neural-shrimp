@@ -11979,3 +11979,11 @@ independent-root prerequisite, fresh unrelated measured profile, all operator
 error terms and CPU1/120s/4GiB/32MiB owned caps. Source-only peer review and a
 current host-resource check precede the sole attempt002-spectrum. No automatic
 retry or claim of whole-window completion is admitted.
+
+Boundary independently skimmed 994516ce and reproduced six controls in0.41s:
+PASS on full variable-frame/quotient/error mathematics and original native
+bindings. Added the requested Python, NumPy, SciPy, python-flint and FLINT
+runtime-version fields before launch; this is metadata only. Host at16:46PDT
+had52GiB available and no active native scientific worker in the inspected
+process list. The sole fixed saved attempt002-spectrum is now admitted under
+the above committed card and exact unchanged scientific caps.
