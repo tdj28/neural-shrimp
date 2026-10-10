@@ -10573,3 +10573,8 @@ Prepare one actual-state derivative/adjoint pairing pilot at the unchanged alrea
 ### 2026-10-10 — Independent generic1:1 unfolding PASS
 
 Sourceb9f7f48c with reviewed18f97b2e checker completes0.0306s/50968KiB,512bits,zero native calls. All coefficient signs and physical-rate rank independently pass using primal inverse transpose: a<0,b−a<0,s>0,det<0. Same exact independently proved41D primitive18 root and stable11D quotient. Raw outer840b8bce; full receipt docs/reviews/chain-unfolding-independent.json. Remaining107-chart branch identity replay is separately owned; generic local structure is now rigorously established, not yet full-window topology.
+
+
+### 2026-10-10 — Pairing launcher schema correction before execution
+
+Peer review ofb9f7f48c found copied completion fields from the older Newton worker and stale90s metadata. Corrected the launcher to exact qualification status, all three passing pairings and complete20HVP/2gradient counts;45s metadata matches actual command. Added missing-field/failed-pair/changed-threshold controls. No target was run under the defective source and no scientific gate changed. Independent adjoint helper review6420d941 passes all8controls1.81s.

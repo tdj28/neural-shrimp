@@ -85,6 +85,17 @@ def kill_owned(group, sig):
         pass
 
 
+def scientific_complete(result):
+    caps=dict(action=5,adjoint=5,j2vp=5,hvp=20,direct_gradient=2)
+    rows=result.get('pairings',[])
+    return (result.get('status')=='qualification_complete' and
+        result.get('qualification_passed') is True and result.get('accepted_orbit') is False and
+        result.get('correction_attempted') is False and len(rows)==3 and
+        all(row.get('index')==i and row.get('passed') is True and row.get('threshold')==5e-11 and
+            0<=row.get('scaled_error',float('inf'))<=5e-11 for i,row in enumerate(rows)) and
+        result.get('operation_caps')==result.get('operation_attempted')==result.get('operation_returned')==caps)
+
+
 def launch(out, launcher, source_commit, review_commit):
     require(all(isinstance(s, str) and re.fullmatch('[0-9a-f]{40}', s) for s in (source_commit, review_commit)), 'full commit identities required')
     require(subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip() == source_commit, 'execution HEAD mismatch')
@@ -104,7 +115,7 @@ def launch(out, launcher, source_commit, review_commit):
         started_utc=datetime.now(timezone.utc).isoformat(), launcher_pid=os.getpid(), group_pid=None,
         thread_env={k: env[k] for k in THREADS}, nice=os.getpriority(os.PRIO_PROCESS, 0),
         load_average=os.getloadavg(), memory_info=Path('/proc/meminfo').read_text(),
-        gpu_used=False, external_seconds=90, kill_grace_seconds=5, supervisor_seconds=SUPERVISOR_SECONDS,
+        gpu_used=False, external_seconds=45, kill_grace_seconds=5, supervisor_seconds=SUPERVISOR_SECONDS,
         rss_cap_bytes=RSS_BYTES, rss_enforcement='monitored process-group RSS, not kernel-hard; polling 0.1 s',
         store_bytes=STORE_BYTES, launcher_bytes=LAUNCHER_BYTES, log_bytes=LOG_LIMIT)
     write(launcher / 'launcher-source.py', Path(__file__).read_bytes())
@@ -177,9 +188,7 @@ def launch(out, launcher, source_commit, review_commit):
                     expected == {k: v for k, v in files.items() if k != 'manifest.json'})
             if out.exists() and (out / 'result.json').is_file():
                 result = json.loads((out / 'result.json').read_text())
-                receipt['scientific_complete'] = (result['status'] == 'diagnostic_complete' and
-                    result['comparison_qualified'] is True and result['accepted_orbit'] is False and
-                    result['applied_to_continuation'] is False and result['spectrum_requested'] is False)
+                receipt['scientific_complete'] = scientific_complete(result)
         except (ValueError, KeyError, TypeError) as error:
             receipt['raw_validation_error'] = type(error).__name__ + ': ' + str(error)
         receipt['successful'] = bool(receipt['process_exit'] == 0 and receipt['failure'] is None and
