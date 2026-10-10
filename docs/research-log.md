@@ -7367,3 +7367,5 @@ precision comparison. New quantitative macros bind their saved audit/manifests.
 No producer-only470D locus or unaudited smaller-step outcome is promoted.
 Rebuild numbers, compile multi-file paper and inspect allpages without rerunning
 the legacy scientific verifier. Private human-review draft only.
+
+Continuation/inference PDF checkpoint: clean fresh-directory compile;40 pages,377 saved-data entries verified, including368 unchanged prior entries and9 new entries;20 figure-output hashes unchanged. All-page contact review and detailed pages11,30,34 pass. New wording checked against independent continuation, CIFAR saved-vector and inference saved-output audits; prior metadata unchanged. No scientific experiment repeated. QA receipt docs/reviews/paper-continuation-and-inference-qa.json. Goal remains active; this paper checkpoint is not a research stopping condition.
