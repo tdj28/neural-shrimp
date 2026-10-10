@@ -10107,3 +10107,15 @@ still require the separately reviewed interval quotient qualification; a
 generic unfolding and actual connected-boundary membership remain separate.
 Next priorities are those qualifications and a full470D native membership
 bridge, preserving the earlier near-neutral stop as its own completed result.
+
+2026-10-10 prospective immediate chart145 extension after chart146 passed all
+four fresh width1/512 intervals. Refined remainder penalties range0.290–0.328;
+base penalties1.329–1.434 failed and remain unchanged. Half prior slice count
+succeeded at82.458s. One next four-piece [33/128,17/64] unit is prepared, with
+full known native235D join, mandatory completed chart146 outcome, original
+partial-pair source validation and retained failed second chart. Binding-only
+adapter; no kernel changes. Nine focused source controls pass. Peer source
+skim requested before target. First exactly one full positive synthetic
+profile under docs/plans/s2-period18-preceding-quarter-stability.md, CPU1nice10,
+30s/40+5external,2GiB,512/514MiB,162C1/324unit/36mixed,161stages. Scientific
+acquisition waits for its separately committed measured card and pins.
