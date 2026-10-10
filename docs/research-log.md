@@ -7128,3 +7128,14 @@ implicit input/defect/RHS/tail/image/intersection and phase curvature forcing,
 with seven NaN/Inf controls. Save a returned refinement before the subsequent
 deadline check so late completion remains durable. Mathematics/settings and
 all existing evidence unchanged; revised source is re-reviewed before launch.
+
+2026-10-10 saved tangent variation completed once at db95fc152ce4253c598719b05a85480aa2bdd28a,
+peer source reviewd42d15298ec6fa70259a3e079f74e3108c941040.
+2.538703s/393112KiB,exit0; hashes/read-only/PIDs
+checked. Worker 00740edbfdbf33ccc47af79ecc3751d239176c9160e66b5ad888b4a4491a2e77;
+outer 2e14ae28f6d139164b4f0f9747cb319e7bb83742305e99653857f536851f942e. Both Neumann bounds pass
+(center<.139595,whole<.286027); all235 centered derivative intersections
+retain the true tangent. Floating radius ratios span 0.226826–0.253403.
+This is a conditional derivative improvement only, not attraction. It
+justifies preparing one18mixed-call reevaluation on the unchanged doubled
+state/rate slice; separate source/card/profile before acquisition.
