@@ -6855,3 +6855,16 @@ Next authorized identical unit002, same source/caps:
 Refresh host resources. CPU1 nice10,180s/195+5,2GiB,384+1MiB,3200ticks,
 1440/2880C1/unit+864jets; stop first final failure or strict center-to-fold identity.
 No repeated prefix, alternate radius search, attraction or geometry claim.
+
+### 10 October 2026 UTC — fold-directed unit002 outcome
+
+Execution 7f9346e9f1c92bdecd0c18f1e6ec71ce3e0af931, scientific sourceb97bbf0a. Status joined_intervals_certified,
+14 qualified charts; 0 retained initial failures/reboxes.
+Last qualified hidden-rate endpoint [75.68625 +/- 5.37e-6]; center-to-fold membership rows [{'index': 13, 'alignments': [0], 'artifact': {'bytes': 7077080, 'path': 'chart-013.json.gz', 'payload': {'uncompressed_bytes': 38614220, 'uncompressed_sha256': 'a381ac0e56840caec49205c7d80944eb046a8fb6cf88fc0031498878e5e7d43c'}, 'sha256': 'a84685aab29a5365073f3fa679ed32e76153a605b8a042e127811f3c7c0b5474'}}].
+Worker 60.1594s/436316KiB; launcher
+61.0689s, exit0. All inventories,
+decompressed payloads, initial/final predictor identities, native joins,
+immutable files and owned exits checked. 102087401 retained bytes.
+Worker manifest d66af8427a2eeb8da0f5eb8b1cf7065879d18a707e1956a26e8316df4d5bc11f; outer
+e9774d0f9a46b771533f12ae43d65d9b00fa98bc30cb47e5ade23c67a15dbc9e. Companion `docs/reviews/s2-period18-fold-reverse-march-unit002.json`.
+Independent review pending; no attraction or complete geometry claim.
