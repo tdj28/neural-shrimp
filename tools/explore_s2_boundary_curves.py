@@ -24,6 +24,8 @@ def clean(x):
  if isinstance(x,float) and not np.isfinite(x):return str(x)
  return x
 
+def coordinates(z):return [f'{n}/{d}' for n,d in (v.as_integer_ratio() for v in np.asarray(z).ravel())]
+
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def save(p,x):
  data=(json.dumps(clean(x),sort_keys=True,indent=2,allow_nan=False)+'\n').encode()
@@ -76,10 +78,10 @@ def execute(args):
    def midpoint(b):return np.ldexp(np.longdouble(str(b['mid'][0])),b['mid'][1])
    c=np.array([midpoint(v) for v in cert['center']]);seed=np.r_[c[:14],np.longdouble(str(Fraction(inputs['lr_output']).numerator))/np.longdouble(str(Fraction(inputs['lr_output']).denominator)),c[14:]]
    save(out/'input-provenance.json',{'parent':str(FOLD),'pins':PINS,'profile':str(args.profile),'profile_manifest':args.profile_manifest})
-  save(out/'inputs.json',{'map_inputs':inputs,'seed':seed,'period':18,'sigma':1});engine=TwoRateBoundary(inputs,18,1)
+  save(out/'inputs.json',{'map_inputs':inputs,'seed':seed,'seed_exact_dyadics':coordinates(seed),'period':18,'sigma':1});engine=TwoRateBoundary(inputs,18,1)
   def evaluate(z):
    nonlocal calls,last
-   check();ident=calls;calls+=1;emit('evaluation_start',{'id':ident,'z':z});now=time.monotonic()
+   check();ident=calls;calls+=1;emit('evaluation_start',{'id':ident,'z':z,'z_exact_dyadics':coordinates(z)});now=time.monotonic()
    try:data=engine(z)
    except BaseException as error:emit('evaluation_failure',{'id':ident,'error':type(error).__name__+': '+str(error)});raise
    emit('evaluation_return',{'id':ident,'z':z,'data':data,'seconds':time.monotonic()-now});last=data;return data
@@ -106,7 +108,7 @@ def execute(args):
        qual=qualify_boundary(node['data'],1,18);move=float(np.linalg.norm((node['state']-z)/scales))
        if qual['qualified'] and move<=.06:
         newt,sing=null_tangent(node['data']['jacobian']*scales,t)
-        row={'sign':sign,'index':i,'step':step,'half':half,'point':node['state'],'qualification':qual,'scaled_displacement':move,'tangent':newt,'singular_values':sing,'orbit':node['data']['orbit'],'monodromy':node['data']['monodromy']}
+        row={'sign':sign,'index':i,'step':step,'half':half,'point':node['state'],'point_exact_dyadics':coordinates(node['state']),'qualification':qual,'scaled_displacement':move,'tangent':newt,'singular_values':sing,'orbit':node['data']['orbit'],'monodromy':node['data']['monodromy']}
         save(out/f'node-{sign:+d}-{i:03d}.json',row);rows.append(row);z=node['state'];t=newt;found=True;break
       emit('rejected_node',{'sign':sign,'index':i,'half':half,'result':node})
      if not found:reason='unresolved_corrector_or_qualification';break
