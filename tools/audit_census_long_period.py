@@ -44,7 +44,8 @@ def saved_arithmetic(r,period=58,n=72):
  for b,c in zip(r['box'],r['center']):
   need(rat(c['rad'])==0 and rat(b['mid'])==rat(c['mid']),'exact centered correction box');radii.append(rat(b['rad']))
  requested=F(2)**r['settings']['radius_exponent'];need(len(set(radii))==1 and all(requested<=v<requested*(1+F(2)**-20)for v in radii),'fixed uniform outward-rounded radius')
- inverse=mat(r['preconditioner']);need(inverse.nrows()==inverse.ncols()==n,'complete square preconditioner')
+ need(all(rat(v['rad'])==0 for row in r['preconditioner']for v in row),'exact fixed preconditioner');inverse=mat(r['preconditioner']);need(inverse.nrows()==inverse.ncols()==n,'complete square preconditioner')
+ need(r['orbit_enclosures'][0]==r['box'],'identical initial full box')
  M=identity(n)
  for a in r['jacobians']:
   J=mat(a);need(J.nrows()==J.ncols()==n,'complete native phase Jacobian');M=J*M
