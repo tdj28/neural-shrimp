@@ -6055,3 +6055,14 @@ projects near s4.3688892, while the current endpoint is187/64; this suggests a
 finite remaining chart distance but establishes no connection. Full companion
 `docs/reviews/s2-period18-march-diagnosis-outcome.json` retains every row and
 alignment. No proof gate or earlier evidence was changed.
+
+### 10 October 2026 UTC — changed-radii source and profile card
+
+The saved failure diagnosis motivates one fixed new error-box shape,2^-21
+with its exact positive weights. New card
+`docs/plans/s2-period18-arclength-radii.md` keeps the old94-chart evidence
+unchanged, explicitly selects the qualified12-chart prefix of unit005, and
+requires fresh whole-domain derivatives and all original proof gates. The
+new adapter passes settings separately, preserving predecessor identities.
+Source/tests precede one synthetic two-chart profile; target pin/card follows
+only if the measured resource gate passes. No new geometry/attraction claim.
