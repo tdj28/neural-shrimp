@@ -6079,3 +6079,5 @@ All23 inventory files/hash checks pass and owned PIDs1013360/1013445/1013446
 are absent. Reviewer SyntaxError attempt001 remains immutable and explicitly
 reported. Companion docs/reviews/s2-period18-weighted-independent-review.md/.json
 records exact endpoints, all source/input pins, trust overlap and scope.
+
+Root integrated weighted/quadratic producer and independent review through ecddcedd. Forty integrated targeted controls pass; pytest cache write warning reflects read-only sandbox cache, not a test failure. Separate-disk completed-evidence backup verified46,983files/318,494,074bytes at /archive/neural-shrimp-backups/20261010T011027Z-validated-branches-and-four-boundaries, manifest19f17e2e7a43bbc2e214a956db5c18794949d122aa9a4c738a94eb485479187f. Fresh owned runs are intentionally outside this completed-only snapshot.
