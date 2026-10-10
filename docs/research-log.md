@@ -5764,3 +5764,5 @@ Completed fixed two-endpoint unit69c2834e once:1.829s/2.128s,57972KiB,600returns
 ### 2026-10-10 PDT: next Clark retained compact-matrix selection
 
 After completing the original p5 envelope and preserving nested-tongue anatomy, select unexaminedmatrix compactbody using count>=3,4qualifiedcases,margin>=2,bboxspan>=2bothaxes;countdesc/halodesc/periodasc/seedid. Retained28172component4p12 wins7cells/halo21 over28175component24p14same7/halo6. Exactcells/bbox andwholecensuspreserved. Nextfixed51²bothstartpatch usesgain12..18,delta21..27,24000+2000+8192 and32p12+16p24/48cellsbothstarts,≤96nativequalifications. Unchangedmeasuredcoresource/runtimeprofilegate includesbothbatch/horizonfactors;240s270+5CPU1/512MiB/256+1MiB. Source/cardtests/shortreviewbeforetarget; no newoutcomes yet.
+
+Pretarget root source skim of fbec81ec passed the fixed compact p12 adapter/card and resource projection. This dated producer-recorded review authorizes the single fixed refinement; no source bytes or scientific gates changed.
