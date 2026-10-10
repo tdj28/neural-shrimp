@@ -3,7 +3,7 @@
 import hashlib,json,os,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-001-diagnosis')
+OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-002-diagnosis')
 RSS_CAP_KIB=1536*1024
 
 def entry(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}

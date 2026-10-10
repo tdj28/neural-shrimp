@@ -21,3 +21,14 @@ def test_invalid_and_empty_arrays_reject():
  m=module()
  for b,a in ((np.array([[np.nan]]),np.ones(1)),(np.array([[-1.]]),np.ones(1)),(np.eye(2),np.ones(3))):
   with pytest.raises(ValueError):m.proposals(b,a)
+
+def test_zero_gauge_coordinate_gets_declared_positive_floor():
+ m=module();b=np.array([[.25,.5],[0.,0.]])
+ r=m.proposals(b,np.array([1e-8,0.]))
+ assert r['linear_solve_return'][1]==0
+ assert all(v>0 for v in r['linear_radii_proposal']['radii'])
+ assert r['linear_radii_proposal']['maximum_ratio']<1
+ # Negative solves are still rejected without clipping.
+ bad=m.proposals(2*np.eye(2),np.ones(2))
+ assert all(v<0 for v in bad['linear_solve_return']) and bad['linear_radii_proposal']is None
+ with pytest.raises(ValueError):m.proposals(np.empty((0,0)),np.empty(0))
