@@ -56,7 +56,8 @@ def worker(out):
     if kind not in ('localization_start','phase_return','localization_center_return','localization_image_return','localization_intersection','localization_return','reanchor_proposal','path_phase_return','path_assembly_return','chart_return'):continue
     v=read(path)
     if kind=='localization_start':
-     need(v['initial_box']==previous['endpoint_root_boxes'][1] and v['parent_right']==previous['parameter_endpoints'][1]=='19/32768' and v['normal']==previous['normal'] and v['origin']==previous['origin'],'entire independently audited endpoint')
+     need(v['parent_right']==previous['parameter_endpoints'][1]=='19/32768' and v['normal']==previous['normal'] and v['origin']==previous['origin'],'entire independently audited endpoint gauge')
+     need(len(v['initial_box'])==470 and all(E.M.interval(a)[0]<=E.M.interval(b)[0]<=E.M.interval(b)[1]<=E.M.interval(a)[1] for a,b in zip(v['initial_box'],previous['endpoint_root_boxes'][1],strict=True)),'decoded box covers complete audited endpoint')
      original_full=read(B.BASE/'attempt-002-march-target/run/events/0548-chart_return.json.gz')
      need(v['preconditioner']==original_full['preconditioner'],'fixed exact parent C');del original_full;gc.collect()
      center=E.vector(v['center']);box=E.vector(v['initial_box']);need(all(z.is_exact() for z in center),'fixed exact center');C=E.R.matrix(v['preconditioner']);need(all(C[i,j].is_exact() for i in range(470) for j in range(470)),'exact C');savedstart=v;tick()

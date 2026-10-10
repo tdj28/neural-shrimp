@@ -7591,3 +7591,7 @@ Independent exact256 replay and fresh384-bit saved reductions pass for the first
 ## 2026-10-10 — independent reanchor audit design
 
 Added saved-only native residual/J assembly and known-root localization audit, with explicit changed settings and entire correlated gauge projection for the first470D chart. Exact256 replay/fresh384 root reductions retain old defaults and primitive gates. Frozen bounded plan docs/plans/eigenpair-reanchor-independent-audit.md. No target launched before controls/source commit.
+
+## 2026-10-10 — disclose first reanchor audit decoder mismatch
+
+Audit attempt001 failed its initial exact-JSON box check before any math reduction (.68s), manifest9d79d0beb7fd62fbc62a94282b9d09a8a23a8abdead913de24efb0212ac66477. The producer explicitly conservatively restores saved balls; its initial radii enlarge by a magnitude ulp. Replace inappropriate byte equality with exact rational full-box containment, preserving exact gauge/native identity and all later operation replay. This is a checker expectation repair, not a producer proof repair. Same caps for immutable attempt002.
