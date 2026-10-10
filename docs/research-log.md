@@ -5622,3 +5622,7 @@ The p7 deadline failure remains immutable. New card `docs/plans/clark-rnn-p7-con
 ### 2026-10-09 PDT: alternative p7 fold geometry retained
 
 Source1f91d111 completed2.219s internal/2.677s external,42048KiB,1582familycalls. The constant-time conservative reservation avoided the prior storage cost. Four traces accepted258newnodes: lower-lowg36 then phase-distance gate, lower-highg48 then gain10 envelope, upper-lowg96cap, upper-highg78then gain10 envelope. All accepted complements attract, coefficients retained; no cusp/PD/whole-shrimp conclusion. Full inventories/modes and1032359/1032396owned/group exits verified; receipt `docs/reviews/clark-rnn-p7-curves-outcome.json`. Low-g coefficients shrink, motivating a fixed smaller-step endpoint-only resolution unit, with resonance tongue as a competing outcome rather than assumed shrimp.
+
+### 2026-10-09 PDT: fixed p7 low-g resolution amendment before outcomes
+
+Two-fold p7 curves stop at low-g identity resolution and node cap, without cusp/full anatomy. New card `docs/plans/clark-rnn-p7-extension.md` fixes two saved endpoints lower:-1:36/upper:-1:96,192 new.003steps each, no prefixrepeat/gateweakening. Same native derivatives/full spectra/reverse/phase-sign.90s105+5CPU1/512MiB/128+1MiB/6000calls,5500max+20synthetic gate. This tests further geometry versus resonance-tongue explanation, not automatic extra certificate or assumed shrimp.
