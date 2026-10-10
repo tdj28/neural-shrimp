@@ -122,8 +122,8 @@ def test_adjacent_native_closure_failure_is_retained(tmp_path):
 
 def test_separate_native_and_augmented_caps(tmp_path):
     m=module();w=m.Worker(tmp_path);w.emit=lambda *a:0
-    w.native_calls=14000
-    with pytest.raises(RuntimeError,match='14000 native'):w.it(np.zeros(12),np.eye(12),1.,.7,'synthetic')
+    w.native_calls=12000
+    with pytest.raises(RuntimeError,match='12000 native'):w.it(np.zeros(12),np.eye(12),1.,.7,'synthetic')
     w.native_calls=0;w.augmented_calls=96
     with pytest.raises(RuntimeError,match='96 augmented'):w.aug(np.r_[np.zeros(12),.7,np.eye(12)[0]],np.eye(12),1.,-1,'synthetic')
 

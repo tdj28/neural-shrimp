@@ -5948,3 +5948,8 @@ Boundary peer identified a valid source-only blocker in93b95c65: first unstable 
 ## 2026-10-10: N12 native boundary clearance and launch card
 
 Boundary peer rechecked cf39fe72 and passed24 adapter controls in0.24s; source-only leading-mode repair clears the blocker. Root authorizes continuation after this clearance. Fresh zeta load2.27,52GiB available RAM, no GPU needed; exclusive n12-p6-boundaries-001 is absent. Execute once: `nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_clark_rnn_n12_p6_boundaries.py --out /data2/neural-shrimp-data/explore/clark-rnn/n12-p6-boundaries-001`. Unrelated measured N12/p6 timing/bytes/peak gate precedes any target arrays, under the unchanged120s/CPU1/448MiBRSS1GiBAS/384MiBscience16MiBmetadata card. All failures retained; no retry or route claim.
+
+
+## 2026-10-10: preserve N12 resource rejection and reduce work quota
+
+Boundary attempt001 at eb9d9dc9 stopped before target arrays: forecast121.7771897s exceeds120s; raw284821968B and peak404819968B pass. Twenty synthetic calls only,0.0322s worker,34884KiB; full87-file outer inventory, immutable modes and owned1729923/1729940/group absence independently verified. Receipt docs/reviews/clark-rnn-n12-p6-boundary-profile-failure.json preserves all maxima and failure. Disclosed amendment reduces native14000→12000 and overall15000→13000, keeping augmented96 and every numerical/resource ceiling. Retained maxima forecast107.4036824s. After source skim, execute once into fresh n12-p6-boundaries-002, with new measured gate before target access; no retry loop or timing-sample exclusion.
