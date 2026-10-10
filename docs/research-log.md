@@ -5663,3 +5663,19 @@ Fixed delta2^-8,r2^-24,256bits,two proposals; second chart only after first
 root/primitive/anchor pass. CPU/BLAS1,nice10,120s/135+5external,2GiB,
 128+1MiB,300ticks,144 wrapped/288 unit/108 jets. Optimizer is holding its
 1.5GiB independent localization review until this owned worker exits.
+
+### 10 October 2026 UTC — quadratic pilot passes connected width1/64
+
+One unchanged-source target02ab12123a3a3f5bedba6284f3c984f3e3f85c90 completed
+10.0907s/10.4724s,760204KiB,266ticks,144/288 C1/unit and108 path jets,exit0.
+Both fixed charts pass uniform root, primitive18 and all234-coordinate
+anchor/shared-endpoint checks. Exact width1/64, four times the prior primitive
+branch; attraction not evaluated. Contractions<.413206/.412578, images<2.479e-8
+versus2^-24, predictor residuals<4.544e-12. Full provenance/immutability/PID
+checks pass. Worker60bddca8270784a7264bd0d9d6650e5efd46ce5eca18b9ff1f30f515c863fbc3,
+outere3987a5236d1652abcd49497d5a5d9297a49cf6538cf31fefcfde55ba7d26066,
+raw28,974,377bytes. Companions `docs/reviews/s2-period18-quadratic-outcome.{md,json}`;
+independent outcome review pending. Optimizer's audit window released after
+owned proof workers exited. Continued next research will diagnose weighted
+correction/contraction bounds from retained matrices before wider acquisition;
+the existing proof does not imply a distant boundary connection or whole shrimp.
