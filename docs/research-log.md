@@ -7791,3 +7791,15 @@ still require the separately reviewed interval quotient qualification; a
 generic unfolding and actual connected-boundary membership remain separate.
 Next priorities are those qualifications and a full470D native membership
 bridge, preserving the earlier near-neutral stop as its own completed result.
+
+### 2026-10-10 — source preparation for actual native chain membership
+
+The proved primitive18 generalized-chain point is a substantive organizing
+candidate, but it must be placed on the same connected470D boundary and its
+remaining spectrum classified before interpreting it as the stable window's
+organizing point. Prepared an authenticated18phase native lift, rigorous gauge
+projection, and strict full-coordinate uniqueness-domain membership helper.
+Twenty-five focused synthetic/corruption controls pass0.20s. No target was read
+by these controls. Independent source review precedes a separate measured
+profile and target card. The existing97-chart prefix and unit006 stop remain
+unchanged; no automatic continuation or complete-shrimp claim.
