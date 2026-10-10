@@ -16,7 +16,7 @@ def main(args):
  if os.getpriority(os.PRIO_PROCESS,0)<10:raise ValueError('nice10')
  mem=Path('/proc/meminfo').read_text()
  if int(next(v.split()[1]for v in mem.splitlines()if v.startswith('MemAvailable:')))<8*1024**2:raise MemoryError('8GiB current headroom')
- out=BASE/'scout'/f'attempt001-{args.mode}';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
+ out=BASE/'scout'/f'attempt002-{args.mode}';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
  def save(name,value):
   with(out/name).open('xb')as f:f.write((json.dumps(value,sort_keys=True,indent=2)+'\n').encode());f.flush();os.fsync(f.fileno())
  argv=['timeout','--signal=TERM','--kill-after=5s','255s',sys.executable,str(ROOT/'tools/scout_native_unit_pair.py'),'--mode',args.mode]

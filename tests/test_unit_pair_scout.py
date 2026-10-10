@@ -44,7 +44,9 @@ def test_exact_normal_form_branch_and_native_pack():
    x,y,w=z;return[c*x+e*y,-d*x+c*y,.2*w]
  z=np.array([0.,0.,0.,1.,1.,1.,0.,0.,0.,1.,0.]);v,J,ht,data=evaluate(Rotation(),z,1,t)
  assert max(abs(v))<1e-14
- assert qualify(z,t,v,data)['passed']
+ report=qualify(z,t,v,data);assert report['passed']
+ import json
+ assert json.loads(json.dumps(report,allow_nan=False))['gates']['actual_pair']is True
  flat=native_flat(z,data);np.testing.assert_array_equal(flat,np.r_[z[:3],z[5:8],z[8:],z[3:5]])
 
 def test_repeated_cycle_unstable_complement_and_wrong_pair_exposed():
