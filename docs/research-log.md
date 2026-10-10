@@ -10654,3 +10654,9 @@ worker240s/4GiB RSS/8GiB AS,512MiB compressed raw, owned255+5s external cap.
 The fresh measured projection must admit a later one-chart-plus-lift packet.
 Twenty-three combined kernel/profile controls pass0.44s. No full-size profile
 or target has run; source skim and exact profile card precede the first launch.
+2026-10-10 independent Clark skim of e6aac2a8 remaining-locus reviewer PASS.
+Sixteen controls reproduced0.11s; four helper/control hashes verified against
+exact e199bb9e originals. Native assembly/256replay/384full470 Krawczyk,
+proper divisors,fresh endpoint join,event-attempt separation and source/domain
+bindings checked. No target arithmetic by reviewer. Root authorized this
+peer gate; execute only unit000 under the already committed first-chart card.
