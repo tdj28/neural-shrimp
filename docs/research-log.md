@@ -7936,3 +7936,20 @@ check before one launch; no new derivatives,loop or advance after failure.
 Prelaunch endpoint source self-review fixes a copied launcher base path to
 match the driver's dedicated membership root;13controls now include exact
 launcher/worker root equality. No target/profile or raw attempt occurred.
+
+2026-10-10 independent locus unit005 PASS at bdff6c19f136e008c30feb0c92b3806ba28ec4cd,
+51.598772s/829912KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+41charts,right103/128.
+Outer8f3f71a45bed5ba86f6869a15ff008d49de850cef1a9340f621cbb95d13e3685;
+worker104619cc95d9daf562acc7a7540b67ee01de22fde2e98ce669a625d21f6154a1. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit006: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit006.json; literal complete independent predecessor above.
+Selected accepted globals42–45,
+exact gauge103/128→119/128.
+Exclusive audits/eigenpair-remaining-locus/unit006-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
