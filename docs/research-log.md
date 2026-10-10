@@ -7638,3 +7638,18 @@ known-root intersections carry the entire proved endpoint into a fresh full
 state/mode tangent gauge and two joined quadratic charts? Any failure remains
 retained and unresolved; no automatic rebox, changed tolerances or target retry.
 A passed result concerns only the connected primitive normalized eigenpair locus.
+
+### 2026-10-10 — whole-endpoint tangent reanchor passed once
+
+The exact target at execution `2cd9e2dc` passed three known-root intersections
+and both fresh470D primitive/root/whole-anchor chart gates. No retry or rebox.
+Max localized radii4.173e-8→1.440e-9→4.957e-11; contraction bounds<.433861/.436934.
+New raw-gauge halfwidth1/128, final gauge3/128, final actual rates near
+75.490188/.82169034. This is connected normalized eigenpair-locus evidence,
+not a generic fold, cusp association, attracting branch or classical shrimp.
+Worker64.80s/326ticks/1570596KiB; peak exceeded heuristic1414108KiB but stayed
+below unchanged2GiB monitor.413 immutable files/140219814B, all inventories,
+archived sources, exit0 and absent owned PIDs checked. Companions
+`docs/reviews/eigenpair-reanchor-outcome.md/.json`; independent outcome review
+pending at creation, parent ten-chart chain reviewed. Future cost estimates
+must use the larger measured peak. No previous evidence or receipt rewritten.
