@@ -7,6 +7,8 @@ ROOT=Path(__file__).resolve().parents[1]
 sp=importlib.util.spec_from_file_location('matrix_panel',ROOT/'tools/explore_clark_rnn_n6_panel.py');M=importlib.util.module_from_spec(sp);sp.loader.exec_module(M);S=M.S
 from neural_shrimp.clark_rnn import inputs,simulate_batch,qualify_cycle
 RAW=Path('/data2/neural-shrimp-data/explore/clark-rnn')
+SEED=28183
+def target_folder(raw):return raw/f'run/n6-s{SEED}'
 PIN='3bdecbe9620c5b28f8255687553cf6c742fea49f7ab50bb667fd47b40a39b01c';PROFILE='8f1032decaf0df44de53ce7237d297c1590f569c38d4fcd0d6d2586e2c2c6ff5'
 EXTRA=M.EXTRA+['tools/refine_clark_rnn_n6_p7.py','tools/launch_clark_rnn_n6_p7.py','docs/plans/clark-rnn-n6-p7-refinement.md','tests/test_clark_rnn_n6_p7.py']
 def selection(p):
@@ -53,11 +55,11 @@ def main():
         for n,d in inv.items():
             p=raw/n
             if Path(n).is_absolute() or '..' in Path(n).parts or p.is_symlink() or S.sha(p)!=d['sha256'] or p.stat().st_size!=d['bytes']:raise ValueError('panel bytes')
-        folder=raw/'run/n6-s28181';comp=next(c for c in json.loads((folder/'components.json').read_text())['components'] if c['id']==9)
+        folder=target_folder(raw);comp=next(c for c in json.loads((folder/'components.json').read_text())['components'] if c['id']==9)
         if comp['period']!=7 or comp['count']!=4 or comp['grid_edge_margin']!=8:raise ValueError('fixed component')
         if comp['cells']!=[637,667,668,698]:raise ValueError('fixed component membership')
         with np.load(folder/'inputs.npz') as f:old={k:f[k] for k in f.files}
-        j,x,v=inputs(6,28183)
+        j,x,v=inputs(6,SEED)
         for k,a in [('j',j),('initials',x),('tangents',v)]:
             if old[k].dtype!=a.dtype or old[k].shape!=a.shape or old[k].tobytes()!=a.tobytes():raise ValueError('input replay')
         # Fixed two-coarse-cell margin around all four selected component cells.
