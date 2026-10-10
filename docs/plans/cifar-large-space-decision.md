@@ -36,3 +36,14 @@ After source controls and independent skim, one root-authorized execution:
 nice10 environment. Exact SHA placeholders resolved before launch. Every attempt
 gets complete immutable inventories/ownership termination. Subsequent saved-only
 independent audit must recompute decisions; no repeat model calls implied.
+
+## Manifest adapter amendment, 10 October 2026
+
+Attempt001 stopped before any model/gradient/HVP/action call: the new200-result
+manifest has a schema/files envelope, but its loader reused the older flat
+manifest verifier. Preserve the complete rejection and zero operation counts.
+Use a new exact-schema verifier only for that comparison bundle, retaining the
+identical expected digest, exact member inventory, regular-file and hash/size
+checks. Old frozen loader/source untouched. After synthetic schema controls,
+independent skim and read-only complete input binding, one distinct attempt002
+with the same scientific settings/caps. No failed solve has been repeated.

@@ -41,11 +41,26 @@ class Prefix400(OriginalPrefix):
    if i<200:B.require(np.isclose(self.values[-1],self.baseline[i],rtol=1e-10,atol=1e-12),'first200 prefix mismatch')
  def complete(self):B.require(len(self.values)>=200,'fewer than200 matched callbacks; comparison unqualified')
 
+def entry(path):return {"sha256":hashlib.sha256(path.read_bytes()).hexdigest(),"bytes":path.stat().st_size}
+
+def verify_comparison(folder,pin):
+ B.require(folder.is_dir() and not folder.is_symlink(),'comparison directory')
+ B.require(entry(folder/'manifest.json')['sha256']==pin,'comparison manifest pin')
+ manifest=json.loads((folder/'manifest.json').read_text())
+ B.require(set(manifest)=={'schema','files'} and manifest['schema']=='cifar-restart-manifest-v1','comparison manifest schema')
+ entries=manifest['files']
+ B.require(isinstance(entries,dict) and bool(entries),'comparison entries')
+ B.require(all(p.is_file() and not p.is_symlink() for p in folder.iterdir()),'regular comparison members')
+ B.require(set(entries)=={p.name for p in folder.iterdir() if p.name!='manifest.json'},'exact comparison inventory')
+ for name,item in entries.items():
+  B.require(Path(name).name==name and entry(folder/name)==item,'comparison member identity '+name)
+ return entries
+
 def install():
  original_inputs=B.inputs
  B.SOURCES=tuple(B.SOURCES)+EXTRA;B.SETTINGS=SETTINGS;B.Budget=Budget400;B.Prefix=Prefix400
  def inputs():
-  arrays,basis,saved,old,identity=original_inputs();B.verify_frozen(BASE,PIN)
+  arrays,basis,saved,old,identity=original_inputs();verify_comparison(BASE,PIN)
   result=json.loads((BASE/'result.json').read_text());linear=json.loads((BASE/'linear.json').read_text());events=[json.loads(s) for s in(BASE/'events.jsonl').read_text().splitlines()]
   current_sources=B.sources()
   for name,digest in result['source_sha256'].items():

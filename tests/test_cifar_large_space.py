@@ -45,3 +45,23 @@ def test_cost_gate_is_finite_measured_and_bounded(bad):
  if bad=='none':assert m.measured_gate(r,events)['safety_projected_seconds']<90
  else:
   with pytest.raises(ValueError):m.measured_gate(r,events)
+
+
+def test_nested_comparison_manifest(tmp_path):
+ import hashlib,json
+ M=module()
+ # Use the actual restart-manifest schema; older linear evidence has a flat schema.
+ (tmp_path/'data').write_bytes(b'bound')
+ entry={'bytes':5,'sha256':hashlib.sha256(b'bound').hexdigest()}
+ payload=json.dumps({'schema':'cifar-restart-manifest-v1','files':{'data':entry}}).encode()
+ (tmp_path/'manifest.json').write_bytes(payload)
+ assert M.verify_comparison(tmp_path,hashlib.sha256(payload).hexdigest())=={'data':entry}
+ (tmp_path/'extra').write_bytes(b'x')
+ with pytest.raises(ValueError,match='inventory'):M.verify_comparison(tmp_path,hashlib.sha256(payload).hexdigest())
+
+def test_flat_comparison_manifest_rejected(tmp_path):
+ import hashlib,json
+ M=module()
+ payload=json.dumps({'data':{'bytes':0,'sha256':'bad'}}).encode()
+ (tmp_path/'manifest.json').write_bytes(payload)
+ with pytest.raises(ValueError,match='schema'):M.verify_comparison(tmp_path,hashlib.sha256(payload).hexdigest())

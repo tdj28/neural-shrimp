@@ -32,3 +32,10 @@ launcher, no GPU or paid calls. Owned process group cleanup; all raw sources,
 failed attempts and manifests retained read-only, SHA-bound receipt, independent
 saved-array result audit. Do not rerun a failed profile or alter precision/length
 without a dated amendment. No headline confirmation or heldout access authorized.
+
+Peer source skim required immediate durable storage of every returned forward
+(including nonfinite outputs) before qualification and per-call case/step/mode
+attempt tags. Adopted before target; profile timing includes retention. A partial
+case remains reconstructable from prefix and previously returned logits even
+if a repeat/nonfinite/deadline gate fails. Bind all transitive package imports
+(__init__, controls, models). Original source e80b1a9d acquired no target data.

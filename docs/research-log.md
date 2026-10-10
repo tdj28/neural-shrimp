@@ -7203,3 +7203,18 @@ and eight already consumed prefixes for the source-bound32-step arithmetic
 sensitivity unit in docs/plans/saved-lm-inference-precision.md. The failed B3
 forecast gate stays failed; no protected outcomes/controller opened. Source and
 synthetic controls precede peer review, full-shape timing and one bounded target.
+
+## 2026-10-10 — retain CIFAR400 input-schema rejection
+
+Attempt001 from564602d2 rejected the200-space comparison manifest because its
+new schema/files envelope was passed to the old flat reader. The complete
+immutable failure has zero model/gradient/HVP/action calls,1.438s launcher,
+owned group empty. New exact-schema verifier fixes the loader only; all pins
+and scientific gates stay fixed. Source tests/review and complete read-only
+binding precede one distinct attempt002. See the decision-card amendment.
+
+Inference source peer review found two prelaunch hardening needs: immediate
+returned-forward retention and transitive imported-source hashes. Both adopted
+before any target/model acquisition. CIFAR manifest regression fixture first
+failed from an undefined test-module alias; corrected fixture explicitly imports
+its module before either schema assertion, then rerun; no scientific acquisition.

@@ -11,7 +11,7 @@ BATCH=Path('/data2/neural-shrimp-data/explore/tiny-lm/attempt-001-unit')
 BATCH_PIN='ef17075eafaab531914245efadf43024aa51f135ed97bde6f3f4ecf7ac68d92c'
 MODEL_PIN='27508573066c416322fe697471ada13ebd1c99618a82ae0e1115672a3c94f7e8'
 PAIRS=[(s,f) for s in (28151,28152) for f in (.8,1.6,2.5)]
-FILES=['tools/explore_saved_lm_inference.py','tools/launch_saved_lm_inference.py','src/neural_shrimp/tiny_lm.py','tests/test_saved_lm_inference.py','docs/plans/saved-lm-inference-precision.md']
+FILES=['src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py','tools/explore_saved_lm_inference.py','tools/launch_saved_lm_inference.py','src/neural_shrimp/tiny_lm.py','tests/test_saved_lm_inference.py','docs/plans/saved-lm-inference-precision.md']
 THREADS=('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 CAP=16*1024**2
 
@@ -68,16 +68,22 @@ def inputs():
 def run(out):
     source=bound_sources();require(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(n)=='1' for n in THREADS),'CPU1 nice10')
     require(int(next(v.split()[1] for v in Path('/proc/meminfo').read_text().splitlines() if v.startswith('MemAvailable:')))>2*1024**2,'RAM headroom')
-    out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;result={'status':'incomplete','cases':[]}
+    out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;returned=0;result={'status':'incomplete','cases':[]}
     torch.set_num_threads(1);torch.use_deterministic_algorithms(True)
     def stop(*_):raise TimeoutError('signal deadline')
     signal.signal(signal.SIGTERM,stop);signal.signal(signal.SIGALRM,stop);signal.setitimer(signal.ITIMER_REAL,90)
     def check():
         require(time.monotonic()-start<90,'90s worker cap');require(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<2*1024**2,'2GiB RSS cap');require(total(out)<CAP-1024**2,'ordinary raw cap')
-    def forward(model,theta,tokens):
-        nonlocal calls
+    def forward(model,theta,tokens,tag):
+        nonlocal calls,returned
         check();calls+=1;require(calls<=780,'780 attempted forward cap')
+        save(out/f'forward-{calls:04d}-attempt.json',dict(tag=tag,dtype=str(theta.dtype),attempt=calls))
         with torch.inference_mode():z=model.forward(theta,tokens)[:,-1,:].clone()
+        returned+=1
+        # Persist each returned output before qualification, including NaN/Inf.
+        path=out/f'forward-{calls:04d}-return.npy';array=z.numpy()
+        require(total(out)+array.nbytes+256<CAP-1024**2,'return prewrite cap')
+        with path.open('xb') as f:np.save(f,array,allow_pickle=False);f.flush();os.fsync(f.fileno())
         require(bool(torch.isfinite(z).all()),'finite forward return');return z
     save(out/'runtime-start.json',dict(source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),source_sha256=source,pid=os.getpid(),started_unix=time.time(),python=sys.version,torch=torch.__version__,numpy=np.__version__,threads={n:os.environ[n] for n in THREADS},nice=os.getpriority(os.PRIO_PROCESS,0),cpu_only=True,training_calls=0))
     for n in FILES:
@@ -87,14 +93,15 @@ def run(out):
         model=TinyTransformer(66);theta=model.initialize(28155);x=torch.arange(256).reshape(8,32)%66;times=[]
         for dtype in (torch.float32,torch.float64):
             for _ in range(6):
-                t=time.monotonic();forward(model,theta.to(dtype),x);times.append(time.monotonic()-t)
+                t=time.monotonic();forward(model,theta.to(dtype),x,dict(mode='synthetic_profile',repeat=_));times.append(time.monotonic()-t)
         projected=2*max(times)*768+5;save(out/'profile.json',dict(forward_seconds=times,projected_seconds=projected,gate=projected<90,target_unopened=True));require(projected<90,'measured timing gate')
         data,prefix,cases=inputs();require(model.n_parameters==15776 and len(data['vocabulary'])==66,'same model dimensions')
         save(out/'input-binding.json',dict(calibration_manifest=PIN,batch_sha256=BATCH_PIN,prefix_offsets=data['training_character_offsets'],checkpoints=[c[3] for c in cases],scope='all six final calibration checkpoints and already consumed eight training prefixes; no source corpus opened'))
         for seed,factor,array,binding in cases:
             p32=torch.from_numpy(array);p64=p32.double();x32=torch.from_numpy(prefix.copy());x64=x32.clone();traces={k:[] for k in ('logits32','repeat32','logits64_matched','logits64_free','tokens32','tokens64','same_history')}
             for step in range(32):
-                a=forward(model,p32,x32);repeat=forward(model,p32,x32);matched=forward(model,p64,x32);free=forward(model,p64,x64)
+                tag=dict(seed=seed,factor=factor,step=step)
+                a=forward(model,p32,x32,dict(tag,mode='float32'));repeat=forward(model,p32,x32,dict(tag,mode='float32_repeat'));matched=forward(model,p64,x32,dict(tag,mode='float64_matched'));free=forward(model,p64,x64,dict(tag,mode='float64_free'))
                 require(torch.equal(a,repeat),'same arithmetic repeat differs')
                 ta=a.argmax(-1);tb=free.argmax(-1)
                 for key,val in [('logits32',a),('repeat32',repeat),('logits64_matched',matched),('logits64_free',free),('tokens32',ta),('tokens64',tb),('same_history',(x32==x64).all(-1))]:traces[key].append(val.numpy().copy())
@@ -108,7 +115,7 @@ def run(out):
         result['status']='completed'
     except BaseException as e:result.update(status='failed_or_interrupted',error=type(e).__name__+': '+str(e))
     finally:
-        signal.setitimer(signal.ITIMER_REAL,0);result.update(elapsed_seconds=time.monotonic()-start,attempted_forward_calls=calls,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,scope='exploratory CPU float32-versus-float64 arithmetic sensitivity at identical float32-rounded frozen weights. Finite greedy rollout, no inference chaos, training-causation, task-accuracy, generalization or shrimp-specific claim. No training/assessment/validation/controller.')
+        signal.setitimer(signal.ITIMER_REAL,0);result.update(elapsed_seconds=time.monotonic()-start,attempted_forward_calls=calls,returned_forward_calls=returned,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,scope='exploratory CPU float32-versus-float64 arithmetic sensitivity at identical float32-rounded frozen weights. Finite greedy rollout, no inference chaos, training-causation, task-accuracy, generalization or shrimp-specific claim. No training/assessment/validation/controller.')
         save(out/'result.json',result);save(out/'manifest.json',{'files':{str(p.relative_to(out)):entry(p) for p in sorted(out.rglob('*')) if p.is_file()}})
     print(json.dumps(result));return 0 if result['status']=='completed' else 2
 if __name__=='__main__':
