@@ -45,7 +45,14 @@ def verify_input():
     projection=old[0][0]['endpoints'][0]['projection'];need(np.array_equal(projection,signed[1][13:]),'literal original daughter projection')
     return j,z,[arrays['cycle_x'],arrays['cycle_y']],signed,projection,dict(parent_manifest=PIN,execution=EXECUTION,prior=binding,signed_parent=B.PIN,matrix_input_sha256=bb['matrix_input_sha256'],retained_failed_original_global_join=True)
 
+SOLVE_CAP=1024
+
 class Work(F.Work):
+    def __init__(self,out):super().__init__(out);self.solve_calls=0
+    def charge_solve(self):
+        self.check();need(self.solve_calls<SOLVE_CAP,'1024 linear solve ceiling');self.solve_calls+=1
+    def solve(self,matrix,rhs):
+        self.charge_solve();return np.linalg.solve(matrix,rhs)
     def charge(self,units):
         self.check();need(self.augmented_calls+units<=2560,'2560 total derivative half-units');self.augmented_calls+=units;self.calls+=units
     def aug(self,z,j,g,tag):
@@ -54,7 +61,9 @@ class Work(F.Work):
         need(sign==-1,'fixed signed flip only');self.charge(1);t=time.monotonic();h,b,a=B.C.critical_fixed_gain(z,j,g,-1,3);self.emit('signed_half',dict(a,h=h,dh=b,sign=-1,tag=tag));return h,b,a,time.monotonic()-t
     def third(self,x,q,j,g,d,tag):
         need(self.third_calls<60,'60 signed third returns');self.charge(1);self.third_calls+=1;t=time.monotonic();c,stages=B.C.third_directional(x,q,j,g,d,3);self.emit('signed_third',dict(tag=tag,theta=x,direction=q,gain=g,delta=d,third=-c,stages=stages));return -c,time.monotonic()-t
-    def predict_gain(self,z,b,a,dg,tag):return B.Work.predict(self,z,b,a,dg,tag)
+    def predict_gain(self,z,b,a,dg,tag):
+        rhs=-B.gain_derivative(a,z[13:]);tangent=self.solve(b,rhs);need(np.isfinite(tangent).all(),'finite critical tangent')
+        self.emit('critical_predictor',dict(tag=tag,matrix=b,rhs=rhs,tangent=tangent,gain_step=dg,physical=z));return z+dg*tangent
     def correct(self,guess,anchor,j,g,tag,fold):
         z=guess.copy()
         for k in range(12):
@@ -62,7 +71,7 @@ class Work(F.Work):
             h,b,a,_=(self.aug if fold else lambda z,j,g,tag:self.half(z,j,g,-1,tag))(z,j,g,tag)
             need(np.isfinite(h).all()and np.isfinite(b).all(),'finite critical equations')
             if max(abs(h))<1e-13:return z,h,b,a
-            need(k<11,'fixed critical iteration cap');direction=np.linalg.solve(b,-h);self.emit('critical_solve',dict(tag=tag,iteration=k,matrix=b,rhs=-h,direction=direction));z+=direction
+            need(k<11,'fixed critical iteration cap');direction=self.solve(b,-h);self.emit('critical_solve',dict(tag=tag,iteration=k,matrix=b,rhs=-h,direction=direction));z+=direction
         raise AssertionError('unreachable')
     def fold_point(self,z,h,a,j,g,projection,tag):
         # F6 derivative acquisition contains the literal F3 image at cycle[3].
@@ -82,7 +91,9 @@ class Work(F.Work):
         row=dict(row,critical_spectra=critical,coefficients=coefficients,augmented_residual=float(max(abs(h))))
         self.emit('fold_curve_point',dict(row,physical=z,paired_physical=physical,partner_mode=qy,cycle_x=cycles[0],cycle_y=cycles[1],projection=projection))
         return row,physical,cycles
-    def signed_point(self,z,h,b,a,j,g,tag):return B.Work.qualify(self,z,h,b,a,j,g,tag)
+    def signed_point(self,z,h,b,a,j,g,tag):
+        # The unchanged qualifier makes exactly one two-RHS criticality solve.
+        self.charge_solve();return B.Work.qualify(self,z,h,b,a,j,g,tag)
     def reverse_fold(self,z,a,j,g,tag):
         x,y=z[:12],-a['cycle'][3];native=[self.native(v,j,g,float(z[12]),tag+'-'+str(k))for k,v in enumerate([x,y])]
         return native
@@ -120,11 +131,11 @@ def profile(w,booked,out):
         for call,charge in [(lambda:w.pair(np.r_[x,-x,.8],j,2.,.02,q,'synthetic_profile'),2),(lambda:w.aug(z,j,2.,'synthetic_profile'),2),(lambda:w.half(z,j,2.,-1,'synthetic_profile'),1)]:
             ret=measure('derivative',call,charge)
             def solve():
-                b,rhs=ret[1],-ret[0];v=np.linalg.solve(b,rhs);w.emit('profile_solve',dict(matrix=b,rhs=rhs,solution=v))
+                b,rhs=ret[1],-ret[0];v=w.solve(b,rhs);w.emit('profile_solve',dict(matrix=b,rhs=rhs,solution=v))
             measure('solve',solve)
         measure('derivative',lambda:w.third(x,q,j,2.,.8,'synthetic_profile'))
-    t,b=({k:max(v)for k,v in a.items()}for a in[times,sizes]);seconds=2*(2560*(t['derivative']+3*t['solve']+4*t['eigen'])+512*(t['native']+4*t['eigen']))+20
-    raw=2560*(b['derivative']+3*b['solve']+4*b['eigen']+4096)+512*(2*b['native']+4*b['eigen']+4096)+16*1024**2;peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024+256*1024**2
+    t,b=({k:max(v)for k,v in a.items()}for a in[times,sizes]);seconds=2*(2560*t['derivative']+SOLVE_CAP*t['solve']+512*(t['native']+4*t['eigen']))+20
+    raw=2560*(b['derivative']+4096)+SOLVE_CAP*(b['solve']+4096)+512*(2*b['native']+4*b['eigen']+4096)+16*1024**2;peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024+256*1024**2
     gate=all(np.isfinite(v)and v>0 for a in times.values()for v in a)and seconds<=180 and raw<=256*1024**2 and peak<=768*1024**2
     S.save(out/'profile.json',dict(times=times,bytes=sizes,projected_seconds=seconds,projected_raw_bytes=raw,projected_peak_bytes=peak,gate=bool(gate),target_unopened=True,units='derivative times/bytes per charged half-return; profile calls consume total quotas'));need(gate,'measured joint resource admission')
 
@@ -141,7 +152,7 @@ def main(out):
         j,z,cycles,signed,projection,binding=verify_input();S.save(out/'input-binding.json',dict(binding,steps=STEPS,end_gain=END_GAIN));run_curves(w,j,z,cycles,signed,projection,result);w.check();result['status']='completed_fixed_joint_native_curves'
     except BaseException as e:result.update(status='failed_or_interrupted',error=type(e).__name__+': '+str(e))
     finally:
-        result.update(elapsed_seconds=time.monotonic()-w.start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,native_calls=w.native_calls,derivative_half_units=w.augmented_calls,native_augmented_calls=w.native_aug_calls,third_calls=w.third_calls,total_calls=w.calls,scope='Numerical full-native6 daughter-fold and same-gain signed-half flip curves. All native phases and reverse joins retained. Distances toward organizer are diagnostics, not endpoint identity, interval connection or full shrimp proof. Original failed global signed-branch join remains failed.');S.save(out/'result.json',result,final=True);S.manifest(out)
+        result.update(elapsed_seconds=time.monotonic()-w.start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,native_calls=w.native_calls,derivative_half_units=w.augmented_calls,native_augmented_calls=w.native_aug_calls,third_calls=w.third_calls,linear_solve_calls=w.solve_calls,total_calls=w.calls,scope='Numerical full-native6 daughter-fold and same-gain signed-half flip curves. All native phases and reverse joins retained. Distances toward organizer are diagnostics, not endpoint identity, interval connection or full shrimp proof. Original failed global signed-branch join remains failed.');S.save(out/'result.json',result,final=True);S.manifest(out)
     return 0 if result['status']=='completed_fixed_joint_native_curves'else 2
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);sys.exit(main(p.parse_args().out))

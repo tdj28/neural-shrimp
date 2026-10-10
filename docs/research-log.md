@@ -12080,3 +12080,7 @@ Source controls:11 new/fold controls PASS0.34s and10 existing signed-branch cont
 ### 2026-10-10 — fixed joint native6 curve execution
 
 Independent stability source/math review290f2c88 PASS,11controls0.35s; no target evaluated in review. Host16:57PDT load2.64/2.13/1.88,52GiB available, GPU0idle15947MiB free/no compute processes (unused); no owned duplicate or prior output. Execute once to /data2/neural-shrimp-data/explore/clark-rnn/n12-p6-fold-continuation-001 through owned launcher. Fresh unrelated measured profile must pass before target arrays. Caps/card unchanged; preserve failures, all acquisitions and exact ownership.
+
+### 2026-10-10 — retain joint-curve profile001 failure and cap linear solves
+
+Source290f2c88/execution559a6fa3 stopped before target arrays: measured storage forecast397586944>268435456B despite66.75s time and307154944B peak. Actual profile0.0737s/37812KiB,10native+60derivative half-units. Outer3d442e89a5ccf3d9ae353aa4fee0c8ef542b574636f62e4380e80566556c1f89, worker217a4cfae5d02ae3a5e715c1d99062e73700a97522f565bcbc0875e2f6e48fc9; complete immutable inventory verified. Owned1945791/1945859 ended with empty group. New separately enforced1024 linear-solve ceiling replaces an overcount of three solves and four extra eigensystems per derivative half-unit; paired/fullnative/scientific gates and hardcaps unchanged. Fresh002 profile and narrow peer skim precede any target.

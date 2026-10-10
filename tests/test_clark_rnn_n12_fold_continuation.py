@@ -36,3 +36,9 @@ def test_comparison_preserves_literal_phase_and_signed_amplitude():
  assert row['midpoint_to_signed_root']==0 and row['signed_amplitude']==.2
  assert abs(row['fold_minus_signed_leak']-.001)<1e-15
  shifted=flip.copy();shifted[:12]=-p;assert m.comparison(fold,shifted,q)['midpoint_to_signed_root']>1
+
+
+def test_solve_quota_checked_before_linear_algebra(tmp_path):
+ m=module();w=m.Work(tmp_path);w.solve_calls=1024
+ with pytest.raises(ValueError,match='1024 linear solve'):w.solve(np.zeros((2,2)),np.zeros(2))
+ assert w.solve_calls==1024
