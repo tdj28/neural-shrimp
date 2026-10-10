@@ -8291,3 +8291,17 @@ All107 native full470D +1-locus charts now independently pass the saved256/384-b
 Freeze the exact final source/outer/worker pins in docs/plans/eigenpair-chain-membership-independent.json for the already boundary-peer-reviewed baec9903 endpoint driver. One saved-only exact-Fraction audit, exclusive audits/eigenpair-chain-membership-independent/attempt001,60s internal/75+5owned,CPU/BLAS1nice10,512MiB RSS/1GiB AS,16MiB worker plus1MiB outer. Source-bound shared18 analytic phase acquisitions; no new model calls. Require the full independently enlarged41D root input coverage, all native domains, exact original map/gauge, and strict all470 membership inside final293/128→295/128 tube. Retain any failure and stop this attempt. No generic unfolding or complete shrimp morphology claim.
 
 The metadata-only authoritative index source now includes left/right two-rate enclosures taken directly from each completed384-bit proof, exact binary mid/rad serialization and proof SHA pointer, allowing a figure without manufacturing interpolation across the regauge.
+
+2026-10-10 independent native endpoint membership PASS. All107 charts now
+independently replayed with strict full470 normalized root/primitive/joins.
+The independently audited primitive18 double+1 normalized chain root at native
+gauge approximately2.29835122725 belongs to final[293/128,295/128] chart by
+exact Fraction projection and all470 strict coordinate inclusions. Actual18
+phase acquisition domains cover the independently enlarged41D box and each
+preceding propagated value; same physical model/gauge and source identities
+bound. Source 3e9efb9078671323de188db296f189df3f76300c; 0.598565s,
+34116KiB, zero new model calls. Immutable outer
+2ae97d7344dcc1c092a6cbd35fbada78ac5d633a9890eda0a46b3daed95e4c09; worker906da1153647830a0d245568ad22f8e09aa0c5dab874a0f96ed957d9e07bf384.
+This closes independent same-component membership, not generic unfolding or
+complete shrimp anatomy. Shared analytic acquisitions/Arb chart proof scope
+remains explicit; final containment uses independent exact rational arithmetic.
