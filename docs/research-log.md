@@ -7819,3 +7819,15 @@ immutable inventories, exact source archive/history, and owned process exit
 verified. Run exactly the18phase authenticated root lift in
 docs/plans/eigenpair-chain-lift-target001.json. Existing membership is tested
 with all470 coordinates; no continuation or boundary claim from a failed test.
+
+### 2026-10-10 — proved organizing root has a rigorous native gauge location
+
+The source-authenticated41D primitive18 generalized-chain root lifts through
+all18 physical state/mode phases to the470D native convention. Its interval
+gauge is [2.29835122725 +/-3.45e-12], computed at384bits in3.289s/605,040KiB.
+All18 returned local values/Jacobians retained. Existing last chart ends at
+275/128, so membership there correctly fails; this is not disconnection.
+Ten further halfwidth-7 charts, in bounded4+4+2 units, would cover the event
+strictly before295/128. Prepare that explicit bridge and require all470
+uniqueness-domain inclusions. Root/quotient independent audit proceeds in
+parallel; no stability-side, generic unfolding, or complete shrimp claim yet.
