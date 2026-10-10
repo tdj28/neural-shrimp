@@ -22,12 +22,14 @@ class Work(B.Worker):
         self.emit('family',dict(a,h=h,b=b,y=y.copy(),sign=sign,tag=tag));return ROW*h,ROW[:,None]*b*COL[None,:],a,time.monotonic()-t
     def tangent(self,b,ref,tag):
         self.check();t,r=oriented_null(b,ref);self.emit('null_svd',dict(r,tag=tag))
-        if r['s'][-1]<=1e-8 or r['null_residual']>1e-10:raise ValueError('tangent numerical rank/residual')
+        if not np.isfinite(t).all() or not np.isfinite(r['s']).all() or not np.isfinite(r['null_residual']) or r['s'][-1]<=1e-8 or r['null_residual']>1e-10:raise ValueError('tangent numerical rank/residual')
         return t
     def correct(self,start,plane,tan,j,sign,tag):
         y=start.copy()
         for k in range(8):
-            h,b,a,_=self.full(y,j,sign,tag);plane_res=float(tan@(y-plane));r=np.r_[h,plane_res]
+            h,b,a,_=self.full(y,j,sign,tag)
+            if not np.isfinite(h).all() or not np.isfinite(b).all() or not np.isfinite(a['endpoint']).all():raise ValueError('nonfinite corrector return')
+            plane_res=float(tan@(y-plane));r=np.r_[h,plane_res]
             if np.max(np.abs(r))<1e-10:
                 if np.max(np.abs(a['endpoint']-a['theta']))>1e-9:return None,'physical_closure'
                 return (y,b,a),'closed'
@@ -42,6 +44,7 @@ class Work(B.Worker):
         return None,'iteration_limit'
     def node(self,y,b,a,tangent,sign,tag):
         self.check();m=a['monodromy'];e,v=np.linalg.eig(m);self.emit('node_eigen',{'tag':tag,'matrix':m,'eigenvalues':e,'eigenvectors':v});le,lv=np.linalg.eig(m.T);self.emit('node_left_eigen',{'tag':tag,'matrix':m.T,'eigenvalues':le,'eigenvectors':lv})
+        if not all(np.isfinite(z).all() for z in (m,e,v,le,lv)):raise ValueError('nonfinite node eigensystem')
         index=int(np.argmin(np.abs(e-sign)));idx=int(np.argmin(np.abs(le-sign)));left=lv[:,idx];q=y[6:]
         sep=proper_separations(a['cycle'])
         if np.max(np.abs(left.imag))>1e-8 or abs(left.real@q)<1e-8:raise ValueError('node left/right normalization')
