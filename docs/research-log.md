@@ -9778,3 +9778,13 @@ CPU1nice10,360s/390+5s,2GiB,512MiBworker/514aggregate, exactly one input
 slice with at most162C1/324unit/36mixed. Stop first failed prerequisite or
 final gate; retain failed base bound. No subdivision/retry/automatic march.
 Fresh resources before acquisition; independent final review required.
+
+2026-10-10 one full-chart146 pilot atfe00c0470caeccefbbbaa6060985e6de3a274d5b completed once,
+25.080464s/674848KiB,all161stages and162C1/324unit/36mixed.
+Both base and refined sufficient attraction bounds failed. Refined scalar
+remainder~2.49937 and quadratic-form penalty~159.908 dominate; true tangent
+refinement passed but did not meaningfully narrow the final bound. Full raw
+worker8c0c31b0101819043cdaf563f219b7c0ecd59c4b7c0eb032cebf7ad2221080c5,outer5144416eea91dcd2d2e440232fa3256cea2a77cf69ca01b30f1e0fda9e79f787;
+all file/source/counter/read-only/ownership checks pass. No new coverage or
+instability conclusion. Retain full failed witness; diagnose enclosure scale
+before another explicitly amended coverage method/width.
