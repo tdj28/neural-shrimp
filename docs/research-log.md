@@ -7862,3 +7862,12 @@ Existing event membership correctly remains false because its gauge lies ahead.
 All raw inventories/source identities and owned exit verified. Run exactly
 unit002 from this completed predecessor to291/128 under unchanged caps;
 source/host/receipt pins in docs/plans/eigenpair-chain-bridge-unit002.json.
+
+### 2026-10-10 — membership bridge unit002 passed; final unit003 card
+
+Four additional full470 native root/anchor/primitive proofs pass through291/128,
+78.841s/1138476KiB,4calls/no repair. Total105 accepted charts.
+Event gauge lies in the second of the two final proposed charts. All source,
+raw inventory and owned-exit checks pass. Run only unit003 from291/128 to
+295/128 under unchanged caps; exact predecessor/card recorded. Native branch
+membership must pass all470 coordinates, otherwise final outcome is unresolved.
