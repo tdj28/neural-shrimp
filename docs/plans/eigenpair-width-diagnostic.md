@@ -2,7 +2,7 @@
 
 Adapted after tangent unit002 passed. Fixed input is that completed unit's last
 full chart at gauge19/128, execution5f32fccb, immutable manifests
-`60c2b2d52d6a19a9e68d11d62978d9e148e63866818a5f6d00ea1f827740f7ed` / 
+`60c2b2d52d6a19a9e68d11d62978d9e148e63866818a5f6d00ea1f827740f7ed` /
 `0eb0261857d5b2361c7907a4e66af7e2b25399203d80de461b6ab48823e6dd9d`.
 No new map, derivative, model, eigensolve, SVD or trajectory acquisition.
 
