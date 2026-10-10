@@ -8599,3 +8599,24 @@ adapter admits this exact recovery for index3 and requires normal complete
 receipts plus exact resumed runner thereafter. Scientific arithmetic unchanged.
 Plan docs/plans/s2-period18-stability-recovery.md; synthetic controls and peer
 review precede saved-only sealing and a fresh measured full synthetic profile.
+
+2026-10-10 recovery validator2e608b2e received two independent source skims
+(boundary_resume14 controls,research_resume22 controls). Original unit004
+complete worker manifest 09f91ccbd631ea350b0d8370907dcb0459e02449e168637e2242bdbbd3bcde04
+sealed under separate recovery manifest dde594830aa75329bc6661a01db05e3fb78efcb77d0a8c0265188ed26150296d.
+Original missing launcher receipt remains missing; parent exit/group RSS/time
+unknown. Worker bytes, full counts, source and process absence checked.
+
+Fresh resume synthetic profile at2e608b2e0d69ad8a431f336742baca3af5d51b45 completed
+12.246952s/525076KiB, all161stages and
+162C1/324unit/36mixed positive. Worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8;
+outer8fc0a156d9a39eaf02801a25dd8f14e98960486e58a0f38d3a59bff78307962f. Projection
+308.926854s<360 and402653184B<448MiB.
+Exact next card: resumed unit001, original chart003/global150, eight closed
+slices covering[19/64,39/128]. Profile root/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/attempt001-profile/run with above pins;
+predecessor original unit004/run, worker09f91ccbd631ea350b0d8370907dcb0459e02449e168637e2242bdbbd3bcde04,
+recovery pindde594830aa75329bc6661a01db05e3fb78efcb77d0a8c0265188ed26150296d.
+Exclusive output s2-period18-stability-resume-2026-10-10/unit001.
+CPU/BLAS1,nice10,360s/390+5s,2GiBself/group,512MiBworker/514aggregate,
+1296C1/2592unit/288mixed maxima. Stop first failed gate; fresh host check.
+No scientific interval repeated. Independent outcome review pending.
