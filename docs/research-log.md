@@ -7993,3 +7993,11 @@ wrong local domains/phase identity and nonorthogonal moving frames. No target
 or saved research array evaluated. This conditional helper awaits independent
 source skim and a later exact passed-tube binding packet. Root cleared the
 synthetic704 profile wrapper; Clark cleared the actual target wrapper separately.
+
+### 2026-10-10 — exact first704 synthetic profile card
+
+Root independently cleared9d643e24 profile wrapper; Clark cleared the kernel.
+Host51GiB available/load3.88, GPUidle unused; no duplicate owned process.
+Run only docs/plans/native-unit-pair-profile001.json, CPU1nice10 with the fixed
+240s/4GiB/512MiB caps. This acquires no target. Preserve any incomplete result;
+require its strict measured admission before the separately reviewed target card.
