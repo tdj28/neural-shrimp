@@ -44,3 +44,9 @@ def test_launcher_byte_allowance_fails_closed(tmp_path):
  assert m.projected_final_bytes(tmp_path,{})['within_bytes']
  (tmp_path/'process.log').write_bytes(b'x'*(1024**2))
  assert not m.projected_final_bytes(tmp_path,{})['within_bytes']
+
+
+def test_result_supports_console_json_without_numpy_scalars():
+ import json
+ r=reduce_contrast(.4,.3,np.array([.1]),np.array([.2]),np.array([.3]))
+ assert json.loads(json.dumps(r))==r

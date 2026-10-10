@@ -8090,3 +8090,7 @@ Freeze docs/plans/utility-common-center.md, implementation and synthetic control
 ## 2026-10-10: common-center source cleared before launch
 
 Independent optimizer_claim_check skim passesc5b968e4 after final launcher byte allowance repair;16 producer synthetics pass. Root standing fixedfour-case authorization applies; peer review supplies the short source skim while root stream is disconnected. One measured-profile-gated execution, no scope/cap change.
+
+## 2026-10-10: common-center acquisition complete; console failure retained
+
+Execution35d5d9c1 saved all4centergradients/8losses, result and manifest before a final json.dumps NumPy-bool failure; externalexit1 remains immutable. No target retry. New post-outcome saved-only checker binds full bundle739737a4 and recomputes arm/dot/fsum identities, CPU1nice10/5sworker10+5external/1MiBraw. Future helper reporting-scale cast and synthetic JSON control repair console formatting only; they do not modify or regenerate the evidence.
