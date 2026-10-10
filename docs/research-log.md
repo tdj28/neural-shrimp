@@ -11848,3 +11848,8 @@ Profile41e74dd0 passed2.151s/58272KiB,108native phases; complete source/archive/
 ### 2026-10-10 — full native55 NS/flip junction certificate passes
 
 The one disclosed fixed384-bit radius2^-80 retry completed once at714813fa28110cbeb5fac57833c833ea19a3ed0e:5.84636s/61376KiB/324native phases, all55 strict inclusions and contraction<.000144932. Same whole-root native divisors1/2/3/6/9 exclude smaller periods; both actual rates are positive and0<t<1/4. Exact critical equations and a validated3-plane frame qualify one simple unit conjugate pair, one simple−1 and allother10multipliers strictly attracting. The validated physical hidden-rate section and strictly negative total flip derivative establish local transverse crossing. Rates≈(84.40797618217076,.8331832347741395),t≈.0496879617258081. All inventories/source/owned termination checked; receipt native-unit-pair-flip-interval-success.json. Original−60 failure remains immutable. Parent owns independent arithmetic/fresh replay; this is not yet a certified connection from the704anchor or a generic NS–flip normal form. Next own work is705D native pseudo-arclength connection across the observed coordinate turns.
+
+
+### 2026-10-10T23:48:46.605413+00:00 — Independent local junction audit prepared
+
+Prepared dedicated new audit files for480-bit saved root/complement/crossing arithmetic and a fixed zero-Newton nested native proof. A synthetic measured profile gates162 native phases under60s/1GiB. The initial combined setup command was rejected by automatic review over inferred launcher scope; it executed no changes. The safer implementation creates separate audit files exclusively and leaves existing launchers unchanged. No target audit has run; independent source review precedes launch.
