@@ -11063,3 +11063,20 @@ exact gauge223/128→227/128.
 Exclusive audits/eigenpair-remaining-locus/unit015-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+
+2026-10-10 independent locus unit015 PASS at 875ca18a1d93ea7cf21fe7085331e56dd163384a,
+24.606507s/827804KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+73charts,right227/128.
+Outer5178d7c6d0509de0c7f0d7acc4a25dbb1852fdb51650b79491169a17fc4a05de;
+worker36363a0aaed046f6cfc9665406fe35f16279961f5707861e87da88f77bf966ad. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit016: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit016.json; literal complete independent predecessor above.
+Selected accepted globals74–77,
+exact gauge227/128→235/128.
+Exclusive audits/eigenpair-remaining-locus/unit016-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
