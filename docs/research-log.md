@@ -7170,3 +7170,51 @@ Host at 2026-10-10T17:54:36.436689+00:00: 4.55GiB available,
 load (2.16845703125, 2.78857421875, 2.447265625); GPU 84 %, 9075 MiB, apps 1456948, /dont_backup/QWEN-OUT/.venv/bin/python, 6832 MiB.
 CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
 complete-parent authorization applies; no failed tail consumed.
+
+### 2026-10-10 — wider unit007 retained and verified
+
+Four accepted primitive18 normalized+1 segments reach exact gauge
+135/128. Eight full calls/four repairs, all failed initial
+bounds retained; every accepted chart has470 strict inclusions/full native
+anchor/proper divisors. Execution 2ff0d27a1a364c9ba96b039e8c2edff34b71f677; unchanged
+repair-chain source4c191a65, peer reviewe02d9719 (18 controls0.20s).
+Worker163.628929s/1139272KiB/
+1016ticks; launcher exit0, PIDs absent. Complete immutable
+inventories and source/Git equality checked: 1243files/346556025B.
+Outer 1e5cb3a6f0c4bd6d2e7d7b85d1ffc68440823f206b55aff15d87751579b3099c; run
+2bdd4cf591b0b1e13a7cdd3d2196bf00e9601d7013942a0179e37a014f71a523. Companions
+`docs/reviews/eigenpair-wider-march-unit007.md/.json`. Numerical normal-form
+and complementary-mode columns remain diagnostics; independent outcome review
+pending. Next unit requires a newly committed exact complete-parent card.
+
+### 2026-10-10 — complete repair-chain unit008 pre-run card
+
+Continue only complete endpoint 135/128, execution 2ff0d27a1a364c9ba96b039e8c2edff34b71f677,
+outer 1e5cb3a6f0c4bd6d2e7d7b85d1ffc68440823f206b55aff15d87751579b3099c,
+run 2bdd4cf591b0b1e13a7cdd3d2196bf00e9601d7013942a0179e37a014f71a523. Exact card:
+`docs/plans/eigenpair-wider-unit008.json`; prospective endpoints
+139/128, 143/128, 147/128, 151/128. Unchanged adapter4c191a65,
+proof7aa2398b, marcherfe35003a and independently cleared source; no new
+scientific choice or profile. Preserve inherited qualified radius floor,
+four accepted/eight calls, sole root-only nonshrinking fresh repair and all
+native470D/primitive gates. Parent measured 163.629s,
+1139272KiB; original conservative cost admission remains.
+Host at 2026-10-10T18:00:45.377914+00:00: 38.24GiB available,
+load (0.9990234375, 1.8369140625, 2.15185546875); GPU 0 %, 15947 MiB, apps none.
+CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
+complete-parent authorization applies; no failed tail consumed.
+
+### 2026-10-10 — two narrow peer source reviews completed
+
+P7 fold association db8be328 now binds the already-passing original native
+phase/sign identity in both records; two signed quadratic proposals retain
+all original full-cycle association gates. No target arrays/model calls or
+author-suite rerun by reviewer. Source receipt:
+`docs/reviews/clark-rnn-n6-p7-fold-association-source-skim.json`.
+
+Saved tangent variation db95fc15 has sound same-gauge implicit second-
+derivative algebra. Independent NaN RHS control exposed passed/nonfinite
+output in8d761abc; explicit finite checks now reject it while an exact affine
+control passes. Returned bounds are saved before post-return deadline checks.
+Conditional source clearance only, no target computation; receipt
+`docs/reviews/s2-tangent-variation-peer-source-review.json`.
