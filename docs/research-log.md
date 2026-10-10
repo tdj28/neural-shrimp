@@ -10578,3 +10578,10 @@ Sourceb9f7f48c with reviewed18f97b2e checker completes0.0306s/50968KiB,512bits,z
 ### 2026-10-10 — Pairing launcher schema correction before execution
 
 Peer review ofb9f7f48c found copied completion fields from the older Newton worker and stale90s metadata. Corrected the launcher to exact qualification status, all three passing pairings and complete20HVP/2gradient counts;45s metadata matches actual command. Added missing-field/failed-pair/changed-threshold controls. No target was run under the defective source and no scientific gate changed. Independent adjoint helper review6420d941 passes all8controls1.81s.
+
+
+### 2026-10-10 — Distinct CIFAR correction after successful native adjoint gate
+
+Native transpose qualification ec1f5304 passed3pairings, maximum scaled discrepancy2.04943e-16; full phase replay and20HVP/2gradient accounting pass. Worker2.077s, launcher3.734s/781729792B, owned group empty. First invocation supplied a mistyped full commit and failed before directories/modelcalls; corrected invocation reads exact git rev-parse. The immutable completed worker manifest7a11499a and launcher701f2de5 preserve all native pairing arrays.
+
+Next source card docs/plans/cifar-merit-lsmr.md bounds a distinct6×200LSMR regularized residual-merit method, true action/actual-merit ratio+Armijo and unchanged native closure/primitivity. This explicitly differs from the old inexact-Newton acceptance; old forcing remains reported. Dense augmented least-squares/reference, trust clipping, merit-increase/fixed-point rejection and resource/schema controls precede run. No target correction yet.
