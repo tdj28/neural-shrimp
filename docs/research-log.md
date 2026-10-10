@@ -10247,3 +10247,8 @@ Boundary peer identified a valid source-only blocker in93b95c65: first unstable 
 ### 2026-10-10 — Bridge the independent attraction coverage with saved proofs
 
 Fixed40saved slices147–151 now specified before arithmetic in docs/plans/s2-refined-stability-gap.md. Same independent U'' mathematics as successful146; each8slice run240s/2GiB, atmost2 concurrentCPU1 workers. Complete exact parent/partition binding and256/384 arithmetic; no fresh derivatives. Missing original151 launcher metadata explicitly retained despite complete worker. Goal is connected independent attraction[17/64,43/128] if all intervening slices pass; full boundary remains a separate active task.
+
+
+### 2026-10-10 — First two intervening attraction audits pass
+
+Charts147 and148 independently pass all16closed slices from3861a5ff,82.868s/710320KiB and82.792s/709948KiB. Raw audits/s2-refined-stability/chart147-attempt001 outer7cfb9af04ccc5cc704237b3a20cd4d0e14b8aeb3dd213bfa0000415167df28d4 and chart148-attempt001 outer4da1c6eb1926d3deab532f67c877a92deaa6c59ac22a0db0fac34a71f87a99aa. Coverage now joins146 through148:[17/64,37/128];149–151 remain in the fixed audit plan. No producer simulations repeated. Completed separatephysicaldisk backup of14newroots/6305files/509343415bytes verified; receipt in docs/backups/20261010T215034Z-stronger-geometry-and-concise-draft.json.
