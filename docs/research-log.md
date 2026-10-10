@@ -7876,3 +7876,11 @@ exact gauge55/128→71/128.
 Exclusive audits/eigenpair-remaining-locus/unit003-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+
+2026-10-10 prepare same-math remaining-locus tail adapter through107charts.
+Fixed direct repaired/narrower outcomes and accepted neutral/bridge outcomes
+retain complete exact-prefix counts and explicit terminal statuses; normalized
+full470 kernels, source/map bindings and fresh384 joins unchanged.35synthetic
+controls passed0.17s. No new target audit in this amendment. Immediate next
+wider units still require their individually committed complete predecessor
+cards. Independent lift/membership arithmetic remains a separate endpoint task.
