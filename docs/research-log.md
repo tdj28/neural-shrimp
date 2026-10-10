@@ -10710,3 +10710,20 @@ whole accepted prefix/full+compact identities,and explicit partialunit13
 retention checked. Only committedunit001card clears launch now; subsequent
 fixed cards still require normal pre-run recording. Execute one saved-only
 unit001 (globals22–25) under unchanged180s/3GiB/24MiB cap.
+
+2026-10-10 independent wider unit001 PASS at 917b5cd82c654c0066f527ed591ef74426834ffa,
+51.549062s/829220KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+25charts,right39/128.
+Outer5d922cbf44a88263a4edd73f75a43dff0e60b7a5a1470eb5a9534884f114731e;
+workerfdb400762ad11042d53e4f384b53ad0e000f89d7d74edd932ec1fdc85d03354b. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit002: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit002.json; literal complete independent predecessor above.
+Selected accepted globals26–29,
+exact gauge39/128→55/128.
+Exclusive audits/eigenpair-remaining-locus/unit002-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
