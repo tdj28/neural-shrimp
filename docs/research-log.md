@@ -9691,3 +9691,21 @@ worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8,outer8fc0
 Exclusive s2-period18-stability-resume-2026-10-10/unit002.
 CPU1nice10,360s/390+5,2GiB,512MiBworker/514aggregate,1296C1/2592unit/288mixed.
 Fresh resources; stop first failed gate; no prior slice repeated.
+
+2026-10-10 stability march unit002, original chart002, execution
+a5d9b10d5f4d22a8ec056f66fb182bc02d18b4e2: passed=True, 169.275793s /
+696600 KiB; 8 returned slices, 1288 stages.
+Worker e4f0456986d88966b55ee7d5bd85df900c5f2d6b23f5a831e345c0284fdc9e6b; outer 35a18c82242be20fa63a94f7fccf2835a36783c09915fd52060cefb4e6180165.
+All raw/source hashes, read-only outputs and absent owned PIDs checked;
+301105819 B. First norm passes 8/8;
+every initial result remains unchanged. Exact requested coverage
+['37/128', '19/64']; independent saved outcome review pending.
+
+Exact next resumed unit003 card: original chart001/global148,
+eight closed slices['9/32', '37/128'], unchanged scientific method/caps. Predecessor
+/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/unit002/run, workere4f0456986d88966b55ee7d5bd85df900c5f2d6b23f5a831e345c0284fdc9e6b,
+outer35a18c82242be20fa63a94f7fccf2835a36783c09915fd52060cefb4e6180165. Profile/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/attempt001-profile/run,
+worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8,outer8fc0a156d9a39eaf02801a25dd8f14e98960486e58a0f38d3a59bff78307962f.
+Exclusive s2-period18-stability-resume-2026-10-10/unit003.
+CPU1nice10,360s/390+5,2GiB,512MiBworker/514aggregate,1296C1/2592unit/288mixed.
+Fresh resources; stop first failed gate; no prior slice repeated.
