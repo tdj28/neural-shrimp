@@ -16,7 +16,7 @@ def main(args):
  if os.getpriority(os.PRIO_PROCESS,0)<10:raise ValueError('nice10')
  mem=Path('/proc/meminfo').read_text()
  if int(next(v.split()[1]for v in mem.splitlines()if v.startswith('MemAvailable:')))<4*1024**2:raise MemoryError('4GiB current headroom')
- out=BASE/'flip'/'rigorous'/f'attempt001-{args.mode}';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
+ out=BASE/'flip'/'rigorous'/f'attempt002-{args.mode}';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
  def save(name,value):
   with(out/name).open('xb')as f:f.write((json.dumps(value,sort_keys=True,indent=2)+'\n').encode());f.flush();os.fsync(f.fileno())
  argv=['timeout','--signal=TERM','--kill-after=5s','75s',sys.executable,str(ROOT/'tools/certify_native_unit_pair_flip.py'),'--mode',args.mode]
