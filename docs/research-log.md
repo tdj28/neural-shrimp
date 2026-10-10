@@ -5877,3 +5877,14 @@ The local p5 refinement resolves a bent324-cell component touching gain17.5, not
 ### 2026-10-09 PDT: RNN slice boundaries localized numerically
 
 Sourcea623ef36 completed one bounded unit in5.955s internally/6.181s externally,121612KiB,415 attempted native calls. The synthetic resource screen projected17.4523s. Three primitive5 fold candidates and two transverse flip candidates pass all stated floating gates; the g14.2 lower-edge overshoot remains unresolved rather than being retried. All complete hashes/read-only modes and owned launcher988852/worker988856/group exits checked. Outer manifest20d1171d8ccfcc41743d85b8757c5c8affbd15b1c393d6f5209af971b363f77f. Companion `docs/reviews/clark-rnn-boundary-slices-outcome.json`; no interval, cubic flip or whole geometry claim. This is adapted exploratory evidence supporting a future2D boundary continuation unit.
+
+### 2026-10-10 — Independent RNN saved review card
+
+Root authorized panel/refinement/native boundary review through fda10a8b. Exact
+source/raw pins and math scope are in docs/plans/clark-rnn-independent-review.md
+and the independent checker. Recompute saved tails/growth/selection/cycle gates,
+all existing native phase identities and lifted mixed derivatives, five boundary
+candidate equations/nondegeneracy/crossing values. No trajectory, solve/eig/SVD,
+new acquisition or geometry/proof claim. CPU1nice10,60/75+5s,512MiB aggregateRSS,
+8MiB output; exclusive audits/clark-rnn/attempt-001. Source/card and independent
+synthetic controls committed before the one saved-evidence execution.
