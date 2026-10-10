@@ -10262,3 +10262,8 @@ Prepared a distinct corrector path after failed400-step and surrogate variants: 
 ### 2026-10-10 — Exact aggregation and physical learning-rate projection card
 
 All five intervening147–151 independent audits passed. Before derived-interval arithmetic, commit a saved-only68-slice aggregation checking all9complete audit inventories, exact gapless segment joins and parent endpoint proofs. For the continuous attracting branch, use the upper left hidden-rate bound and lower right hidden-rate bound, rounded inward to6decimal places; IVT proves an attracting primitive18cycle at every intervening hidden rate, without assuming monotonicity/global uniqueness. Source tools/reviews/review_attraction_coverage_projection.py; zero model calls, CPU1nice10, external30s/1GiB target cap, fresh immutable output. This is an interpretable interior result; boundary topology remains active. CIFARadjoint8synthetic controls pass3.12s.
+
+
+### 2026-10-10 — Projection resource-accounting amendment
+
+The first saved68-slice aggregation passed mathematically, producing inner hidden-rate interval[75.605732,75.673697], but its1GiB planned memory ceiling lacked an implemented resource limit. Preserve attempt001 and its source6420d941; do not represent its peak as measured. Add RLIMIT_AS1GiB and measured process peak, then repeat only this cheap saved reduction at fresh attempt002 under the same30s external deadline. No prior proof acquisition or target simulation repeated.
