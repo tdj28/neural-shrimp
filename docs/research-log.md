@@ -6960,3 +6960,14 @@ prepares the bounded saved-only original256/independent384 audit described in
 `docs/plans/s2-endpoint-independent-review.md`. The original source review,
 shared derivative acquisition and Arb are disclosed; no new scientific target
 or derivative call. Shifted-center and mutation controls cover the new reducer.
+
+## 2026-10-10T15:25:07.125618+00:00 — endpoint audit partial outcome retained
+
+All original256-bit native assembly, exact gauge/domain, recentering and three
+containment intersections passed the independent reducer. The supplementary
+384-bit propagation from the stronger prior-audit endpoint failed the original
+mean-value domain containment gate. It was rejected; no stronger384 result or
+overall audit pass claimed. This does not contradict the completed256 proof.
+No gate or source was relaxed and no automatic retry ran. Preserve attempt001,
+outerbe793088b7a6e2fed389e54da2c107be70e203cc13dd55c5a8a9e1a63516b408, runtime6.433s/
+301436KiB; full immutable inventory/owned exits verified.
