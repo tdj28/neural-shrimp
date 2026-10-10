@@ -47,7 +47,7 @@ full-state orbit refinement, stability calculations and exploratory bifurcation 
 
 Ball-arithmetic certificates prove local existence, primitive period and full-state attraction for
 \nCOneOrbits{} selected period-\nCOnePeriod{} orbits and one orbit each of periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in a 13-parameter tanh network, plus a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter tanh network, at fixed layer-specific learning rates for the exact-real maps.
-Further certificates establish a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles in the 13-parameter map, each with one neutral multiplier and an attracting complement. The supercritical flip supplies a local attracting doubled branch; the subcritical flip supplies an unstable one. Neither establishes the global organization of the window. Two further certificates establish local cusps in the actual two-rate plane, each with an unstable complementary multiplier; their boundary connections remain open. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
+Further certificates establish a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles in the 13-parameter map, each with one neutral multiplier and an attracting complement. A full-state, computer-assisted continuation connects the central primitive period-18 orbit to the certified saddle-node. Attraction is also certified at a near-fold endpoint, while continuous attraction over the entire connecting path remains open. The supercritical flip supplies a local attracting doubled branch; the subcritical flip supplies an unstable one. These results do not yet establish the global organization of the window. Two further certificates establish local cusps in the actual two-rate plane, each with an unstable complementary multiplier; their boundary connections remain open. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
 
 A prospectively designed map study, independently cross-checked in a separate numerical implementation,
 identifies \nConfirmed{} attracting periodic windows in two tanh networks with separate layer learning rates.
@@ -92,7 +92,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps each have an unstable complementary mode. No certified connection between these points, the interior orbit and the whole boundary. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps each have an unstable complementary mode. The central primitive branch is connected to the fold; connections to the flips, cusps and whole boundary remain open. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -449,8 +449,8 @@ $s=n^T(U-U_0)$, where $U$ contains every native phase and the hidden learning
 rate, with $s\in\tArcGaugeInterval$. Full enclosure containment identifies the
 initial anchor and each subsequent common endpoint. The gauge interval is not
 a hidden-rate interval, and these wider existence/primitive-period checks do
-not extend the attraction statement to the whole branch. In particular, they
-do not yet identify the previously certified fold. Saved arithmetic was
+not extend the attraction statement to the whole branch. This earlier segment alone
+does not identify the previously certified fold. Saved arithmetic was
 independently reconstructed at higher precision; the native derivative and
 path-jet acquisitions remain shared analytic inputs. See
 \path{docs/reviews/s2-period18-weighted-independent-review.json} and
@@ -463,8 +463,32 @@ same localized native root, and every later endpoint join is checked in all
 coordinates. Reboxing failures and an interrupted final proposal remain
 retained; only the durable qualified prefix enters this count. These are
 charts along one primitive branch, not additional attracting-cycle instances.
-The extended chain still does not identify the fold or prove attraction along
-its entire length. See \path{docs/reviews/s2-newgauge-chain-independent.json}.
+That intermediate chain alone does not identify the fold or prove attraction
+along its entire length. See \path{docs/reviews/s2-newgauge-chain-independent.json}.
+
+\paragraph{Certified connection to the canonical fold.}
+Further continuation extends the central branch to \nFoldConnectedForward{}
+charts. A complementary chain of \nFoldConnectedReverse{} charts starts at the
+previously certified saddle-node, retaining its entire native orbit and actual
+hidden-rate enclosure. Its last chart strictly contains the same localized
+endpoint of the central branch in all shooting coordinates; cyclic phase
+alignment is checked explicitly. Uniform root uniqueness and every full-state
+endpoint inclusion identify one continuous primitive period-18 branch from the
+central orbit to this fold. Independent saved-evidence reductions reproduce the
+original arithmetic and establish the root, proper-divisor and join inequalities
+at higher precision. The fold-side coordinate is state based, so the fold's
+hidden-rate turning point is not a singularity of the continuation gauge.
+
+At the matched near-fold endpoint, fresh physical Jacobian enclosures and
+\nNearFoldAttractionPhases{} cyclic Lyapunov inequalities prove local attraction.
+An independent direct evaluation of $P_j-J_j^T P_{j+1}J_j$ verifies strict
+positive definiteness on the entire localized state/rate box, with $P_{18}=P_0$.
+This endpoint result does not prove attraction at every intervening parameter.
+The original broad-box stability test was inconclusive and is retained. Thus
+branch identity is now established for the central orbit and this fold, while
+complete stability coverage and two-parameter boundary organization remain
+separate tasks. See \path{docs/reviews/s2-period18-fold-connection-independent.json}
+and \path{docs/reviews/s2-near-fold-endpoint-attraction.json}.
 
 \subsection{A local fold of primitive period-18 cycles}
 \label{sec:fold-proof}
@@ -499,8 +523,9 @@ enclose contraction of $Q$. A disclosed same-target amendment used radius $2^{-1
 256-bit precision and passed all gates. Independent review reproduced the exact result, checked saved
 interval arithmetic and passed a 384-bit proof in a strictly nested box. These checks share the analytic
 mixed-jet kernel and Arb/FLINT; they are not separate automatic differentiation or proof-assistant
-formalization. This is a local theorem with no certified finite-detuning neighborhood or connection to
-the earlier attracting interior orbit, and no whole-window geometry, resonance ancestry or utility claim.
+formalization. The later full-state continuation above identifies this fold with
+the central primitive branch. No quantitative attracting finite-detuning wedge,
+whole-window geometry, resonance ancestry or utility claim follows from the local theorem alone.
 See \path{certificates/s2-period18-fold-receipt.json},
 \path{docs/reviews/s2-period18-fold-certificate-independent-review.json} and the replay in
 \path{certificates/README.md}.
@@ -980,7 +1005,7 @@ $a_s=w^TR_s\approx\xPEighteenFoldA$ and $c=w^TD_x^2R[v,v]\approx\xPEighteenFoldC
 An independent point-only objective-differentiation check reproduces the local residual, derivative actions and
 finite-difference coefficients at those two phases; spectral isolation remains the producer calculation.
 This strengthens the local numerical fold interpretation of one edge. The subsequent certificate in
-Section~\ref{sec:fold-proof} proves a local fold with fixed output rate, but does not enclose a connecting branch. The flip certificate in Section~\ref{sec:flip-proof} separately establishes local nondegeneracy on the selected two-rate ray. Other boundary rays, cusps, resonance ancestry
+Section~\ref{sec:fold-proof} proves a local fold with fixed output rate, and the certified continuation above connects it to the central primitive orbit. The flip certificate in Section~\ref{sec:flip-proof} separately establishes local nondegeneracy on the selected two-rate ray. Other boundary rays, cusps, resonance ancestry
 and training utility remain unestablished. Source and retained outcomes are
 \path{tools/explore_window_fold.py}, \path{docs/reviews/s2-period18-fold-outcome.json} and
 \path{docs/reviews/s2-period18-fold-independent-review.json}.
@@ -1216,8 +1241,21 @@ $\xCifarLargerForcing$, passing the same linear forcing bound and strict
 merit-descent test. The original fixed damping trials still fail Armijo, so
 this direction alone is not an accepted correction. The saved-vector audit
 checks arithmetic and retained map identities without reevaluating derivatives;
-a smaller-step continuation study is separate. See
-\path{docs/reviews/cifar400-saved-outcome-review.json}.
+a subsequent fixed smaller-step study accepts a local correction at
+$\alpha=\tCifarAcceptedAlpha$ after the earlier forcing gate passes. The next
+unscaled solve has forcing $\xCifarNextForcing$, above the same limit, leaving
+relative closure $\xCifarAcceptedClosure$ and no accepted periodic orbit.
+At that exact saved state, coordinate-diagonal and common input-Gram right
+surrogates give forcing $\xCifarDiagonalForcing$ and $\xCifarGramForcing$,
+respectively, with the same inner-iteration budget. Both are worse than the
+unscaled direction and trigger no line search. The Gram approximation retains
+input correlations but averages sample-dependent hidden curvature and omits
+cross-layer blocks; this negative result concerns that approximation, not all
+preconditioning. Producer-agent saved-array checks verify physical residuals,
+packing and operation counts; they do not independently reevaluate derivatives.
+See \path{docs/reviews/cifar400-saved-outcome-review.json},
+\path{docs/reviews/cifar-damped-outcome.json} and
+\path{docs/reviews/cifar-gram-outcome.json}.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
 
@@ -1438,7 +1476,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. The orbit census uses floating-point validation; the \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold, both flips, two cusps and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The proved attracting period-18 interior segment does not reach either bifurcation boundary. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold, both flips, two cusps and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation now reaches the canonical fold, but the continuously covered attracting interior segment does not reach either bifurcation boundary. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.
@@ -1532,7 +1570,8 @@ displays. Quoted empirical numbers and the design and consequence tables are gen
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
 feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
-LM pilots, wider primitive-branch continuation, the local cusps and the fixed-weight activity proof
+LM pilots, wider primitive-branch continuation including the fold connection,
+the local cusps and the fixed-weight activity proof
 have separate source-bound audits cited with their results; the full verifier
 does not automatically rerun these later audits. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;

@@ -1872,6 +1872,33 @@ def build():
     linear400=load(raw400/"linear.json");assert linear400["inner_iterations"]==400 and linear400["forcing_test_pass"]
     n.add("nCifarLargerInner",400,"400",EXPLORATORY,c400sources,"single unrestarted Krylov solve with matched first200 callbacks")
     n.add("xCifarLargerForcing",cr["forcing"],fixed(cr["forcing"],4),EXPLORATORY,c400sources,"independently reduced true residual forcing; all original four trial merits still increase")
+    # Independently joined canonical fold and locally attracting near-fold endpoint.
+    fcpath=c.ROOT/"docs/reviews/s2-period18-fold-connection-independent.json";fc=load(fcpath);fo=fc["outcome"]
+    assert fo["passed"] and fo["fold_to_center_branch_identity"] and fo["matched_phase"]==0
+    fcsources=[fcpath]+bound_inventory(Path(fc["raw_root"])/"manifest.json",fc["manifest_sha256"])
+    assert fo["reverse_charts"]==len(fo["charts"])==31 and fo["forward_charts"]==156
+    for macro,key in [("nFoldConnectedForward","forward_charts"),("nFoldConnectedReverse","reverse_charts")]:
+        n.add(macro,fo[key],integer(fo[key]),proof,fcsources,"independently checked full-state primitive branch connection; not all-path attraction")
+    apath=c.ROOT/"docs/reviews/s2-near-fold-endpoint-attraction.json";at=load(apath)
+    assert at["local_attraction"] and at["independent_outcome"]["passed"] and at["interval_phases_passed"]==18
+    asources=[apath]+bound_inventory(Path(at["independent_root"])/"manifest.json",at["independent_manifest_sha256"])
+    n.add("nNearFoldAttractionPhases",at["interval_phases_passed"],integer(at["interval_phases_passed"]),proof,asources,"direct384-bit cyclic interval Lyapunov inequalities at the same localized near-fold endpoint")
+    dpath=c.ROOT/"docs/reviews/cifar-damped-outcome.json";dr=load(dpath);dc=dr["saved_check"]
+    assert dc["passed"] and dc["accepted_steps"]==1 and len(dc["steps"])==2
+    dsources=[dpath]
+    for raw,entry in dr["artifacts"].items():dsources+=bound_inventory(Path(raw)/"manifest.json",entry["manifest_sha256"])
+    first,second=dc["steps"];trial=first["trials"][first["accepted_index"]]
+    assert trial["accepted_local_step"] and trial["alpha"]==1/32 and first["forcing"]<=.5<second["forcing"]
+    n.add("tCifarAcceptedAlpha","1/32","1/32",EXPLORATORY,dsources,"first accepted fixed Armijo damping at the subsequent saved state; not an orbit")
+    for macro,value in [("xCifarAcceptedClosure",dc["final_relative_residual"]),("xCifarNextForcing",second["forcing"])]:
+        n.add(macro,value,sci(value,3) if value<.001 else fixed(value,4),EXPLORATORY,dsources,"saved-array outcome check of one accepted local step followed by failed forcing")
+    for method,macro in [("diagonal","xCifarDiagonalForcing"),("gram","xCifarGramForcing")]:
+        path=c.ROOT/("docs/reviews/cifar-"+method+"-outcome.json");rec=load(path);chk=rec["saved_check"]
+        assert chk["passed"] and rec["outcome"]["accepted_steps"]==rec["outcome"]["trials"]==0
+        value=chk["actual_forcing"];assert value>.5 and abs(value-rec["linear"]["true_forcing_ratio"])<1e-12
+        sources=[path]
+        for raw,entry in rec["artifacts"].items():sources+=bound_inventory(Path(raw)/"manifest.json",entry["manifest_sha256"])
+        n.add(macro,value,fixed(value,4),EXPLORATORY,sources,"same-state fixed400 true physical forcing; producer-agent saved arithmetic, not independent model reevaluation")
     return n
 
 

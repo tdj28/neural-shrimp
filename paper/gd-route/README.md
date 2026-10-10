@@ -81,3 +81,13 @@ inference pilot shows no token changes among1536fixed finite-horizon decisions
 when comparing float32 andfloat64 at the same rounded weights. It is a narrow
 precision comparison, not a training-utility or language-quality result. New
 audit receipts are linked in the manuscript; no protected text was evaluated.
+
+
+The later10October connection update supersedes the open fold-identity status
+above:156central-side charts and31fold-side charts have an independently
+verified full235D join. The matched near-fold primitive18 endpoint is also
+independently proved attracting. Whole-path attraction and complete two-rate
+shrimp boundary organization remain open. CIFAR now has a locally accepted
+small damped correction, followed by failed forcing; two same-state right
+conditioners also fail. No accepted CIFAR orbit or language-model utility is
+claimed. The separate audit receipts are cited in the manuscript.
