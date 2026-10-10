@@ -27,3 +27,24 @@ def test_known_supercritical_and_subcritical_flip_daughters(monkeypatch,c):
 def test_invalid_amplitude_or_projection_rejected():
     for amp,q in[(0.,np.eye(2)[0]),(.1,np.ones(2)),(.1,np.array([np.nan,0]))]:
         with pytest.raises(ValueError):S.pair_fixed_amplitude(np.zeros(5),np.eye(2),1.,amp,q)
+
+def runner():
+    import importlib.util
+    from pathlib import Path
+    p=Path(__file__).parents[1]/'tools/explore_clark_rnn_n12_daughters.py';s=importlib.util.spec_from_file_location('daughter_runner',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+
+def test_profile_complete_paired_solve():
+    j=np.eye(12)*.2+np.ones((12,12))*.025;x=np.arange(1,13)/20;q=np.eye(12)[0]
+    h,b,_=S.pair_fixed_amplitude(np.r_[x,-x,.8],j,2.,.02,q)
+    sol=np.linalg.solve(b,-h);assert np.isfinite(sol).all()and np.max(abs(b@sol+h))<1e-8
+
+def test_birth_requires_actual_parent_mode_and_quadratic_midpoint():
+    m=runner();x=np.arange(12)*.1;q=np.eye(12)[0];a=.001;z=np.r_[x+a*q,x-a*q,.8]
+    assert m.birth_check(z,x,q,a,.8)['passed']
+    bad=z.copy();bad[:24]+=1e-3;assert not m.birth_check(bad,x,q,a,.8)['passed']
+    assert not m.birth_check(z,x,-q,a,.8)['passed']
+
+def test_paired_return_cap_before_model(tmp_path):
+    m=runner();w=m.Work(tmp_path);w.augmented_calls=2560
+    with pytest.raises(RuntimeError,match='1280 paired'):w.pair(np.zeros(25),np.eye(12),2.,.1,np.eye(12)[0],'synthetic')
+    assert w.calls==0
