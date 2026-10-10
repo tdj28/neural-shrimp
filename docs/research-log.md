@@ -9848,3 +9848,18 @@ passed. Outer32cd52e51ea65398e450621d78749688372cb24e2e64a2d2f7836de211ba288a.
 Companion docs/reviews/eigenpair-narrower-outcome.md/.json, mathematical outcome
 review pending. Next target is the narrowing nontrivial+1 spectral gap, with
 saved-only all-mode tracking before a new certified bridge design.
+
+### 2026-10-10 — saved native boundary-event targeting card
+
+Prepare one fixed52-chart saved diagnostic: all49 accepted wider-march roots
+plus partial repair and two narrower roots, exact increasing gauge through227/128.
+Reuse49 retained spectra and acquire only3 saved-array13D eig/14D solves;
+zero model/trajectory/derivative calls. Follow all12 nontrivial modes by a full
+complex-eigenvalue/projective-vector assignment, retain ambiguity and both±1
+and unit-circle distances, then fixed last4/8/16 linear+1 proposals if the final
+nearest track remains real. No fit is a confidence interval or certified bracket.
+Plan docs/plans/eigenpair-boundary-trend.md and exact selected-file input card;
+CPU1nice10,90s/110+5,1.5GiBRSS/4GiBAS,32+1MiB.6 source/synthetic controls pass0.29s,
+covering phase/permutation matching, known crossing proposals, stale/tampered
+selected files, complete mode retention and rational gauge values. Source/card
+committed and independently skimmed before saved target reduction.
