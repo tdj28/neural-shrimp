@@ -6898,3 +6898,7 @@ not the floating proposal heuristic. Both native chart gates and the256/384
 independent reductions pass with these prescribed radii. Production proposal
 and proof kernels, strict gates, and immutable scientific evidence are unchanged.
 Subsequent validation/commit commands stop on errors.
+
+## 2026-10-10T15:16:46.743974+00:00 — reboxed branch independent audit passed
+
+All16 new charts passed exact256 identities and384 independent strict root, primitive and full predecessor-join gates. Six initial failed bounds reproduced and excluded from anchoring. Total127 connected charts at original gauge253/64. Runtime64.512s/369920KiB; complete immutable inventory and owned exits verified. Outerc1bae707c0912e6a1ef3243aebc641f6dc367d6e305dafb3599f34d77d677d72. Independent saved reductions share analytic acquisitions/Arb; no whole-path attraction or fold inclusion follows.
