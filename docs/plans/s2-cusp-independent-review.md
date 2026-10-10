@@ -48,3 +48,17 @@ Execute after this source/card commit using all four thread envvars=1 and
 All failures/partials, exact source, returned witnesses, manifests, PIDs and
 exits are retained and made read-only. Source-only synthetic preparation did
 not open target proof arrays or evaluate either mathematical target.
+
+## Dated diagnostic amendment after retained audit001
+
+Audit001(f75bf98a) completed cusp-a's byte-identical original replay but stopped
+at the independent cubic/versal enclosure gate before nested or cusp-b work.
+All evidence is frozen; outermanifest ea2b4066222edc2e2fc1b671b22ea8b64b8003a5a1f9503ad1c2f333805e4e58.
+Root directs diagnosis before any retry or verdict. One saved-only diagnostic
+now retains the coefficient intermediates before the gate and compares the
+mathematically equivalent inverse-of-left-border with transpose-of-right-border
+inverse at384bits. Different interval inversion paths can yield different
+valid widths; no tolerance-based identity is substituted. No model/jet replay,
+Newton proposal, eigendecomposition or parameter change.15s internal20+5external,
+CPU1nice10,8MiB worker+1MiB launcher; exclusive attempt-002-diagnostic. This
+amendment authorizes only diagnosis, not another full two-target audit.
