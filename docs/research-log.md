@@ -11683,3 +11683,8 @@ Exact endpoint projection from the already independently proved native235D endpo
 ### 2026-10-10T23:21 UTC — manuscript wider proved attraction
 
 Add112 independently audited closed native slices and exact hidden-rate interval[75.552453,75.688661] at fixed output rate. Number generator rechecks all joined coverage summaries, hash-bound inventories and exact endpoint dyadic inequalities; IVT does not assume monotonicity. Update only new connected-boundary figure green interval. Prior figure outputs and old numerical entries remain preserved; no target acquisition.
+
+
+### 2026-10-10T23:18:46.228688+00:00 — timestamp clarification and saved-output checks
+
+Some immediately preceding human-readable headings were manually approximated ahead of the host clock (23:13/23:16/23:18/23:21). They are labels, not execution times. Exact immutable launcher timestamps and Git commit times remain authoritative; CIFAR saved-merit finished23:12:08.916309UTC. No run ordering or source provenance is inferred from those approximate headings.422numbers verify with419prior entries unchanged; new boundary figure byte-identical on repeat generation.18new completed raw roots backed up to separatephysicaldisk:5255files/226165079bytes, manifest8966a76cb714309e82e9bd3f9a171a971ce9293f6b8a9e2d440f926d91481e10.
