@@ -10468,3 +10468,24 @@ and all caps unchanged; no relaxation of scientific gates. One positive-path
 161-stage synthetic profile is now the next card,CPU1nice10,30s/40+5external,
 2GiB,162C1/324unit/36mixed,512/514MiB. Host14:46PDT load1.51 and50GiB
 available; GPUidle and unused. Boundary source skim requested before target.
+
+2026-10-10 corrected native-join profile at af97afd192f978192c56a777c3870f18f0f9f667
+completed12.362960s/534620KiB,full161stages162C1/324unit/36mixed. Inventory,
+source,read-only and owned-exit checks pass. Newworker
+45260317d2426c8cfc51e7b17b77fd5da416ff1c1ac7117f89864ad615ef2ef3;
+newouter6e8494b6a0bf960ef9f7b37748f7ba0de5b3b7f2f9759ba04a133982038841ef.
+Projection311.711030s<360,402653184B<448MiB. Original profile and failed
+zero-call unit remain independently immutable and receipted.
+
+Exact corrected target card: unit001,index13/global143,[29/128,31/128],
+eight descending closed1/512 pieces,exclusive rawbase
+s2-period18-two-predecessor-stability-native-join-2026-10-10/unit001.
+Same complete144predecessor at localized-predecessor-stability-2026-10-10/
+attempt001-target/run,worker900fa3a928a738a7c540cbb075baa6e2709017a86af378d24f15390d0edf8b1b,
+outer19d7e1b60f4e02588fa998006678ec6a266cf0d097d874ce3e2e43aafae11824.
+New profile samebase/attempt001-profile/run with above pins. Correct original
+-7halfwidth nativejoin is mandatory. Boundary peer skim required; unchanged
+CPU1nice10,360s/390+5external,2GiB,512/514MiB,1296C1/2592unit/288mixed and
+1288stages. Stopfirstfailure; fresh hostcheck before launch. Unit002 has no
+card yet. Root independently audited146 fourpieces (6de22823), leaving28
+independent pieces vs96producer at this checkpoint.
