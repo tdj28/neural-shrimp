@@ -5955,3 +5955,5 @@ profile009 must pass before either target008(ray32-plus) or009(ray13-plus).
 No GPU, new random starts, paid resources or protected holdout.
 
 Root visually checked the320-node overlay. It reveals numerical local anatomy only, with unstable fold-complement points marked. The already certified center and local folds/flips remain distinct from the unresolved rigorous boundary joins.
+
+Boundary continuation profile009 at754fa89c passed: five synthetic evaluations; projection 148.95157042890787s<170s, peakRSS 46472KiB. Worker manifest 24f2a33c4882e7ce0bd9cc7911a2e4b2506958acc8a5eacc72c30482fe5a1dae. Source-bound target008ray32-plus and009ray13-plus admitted with unchanged gates and own exclusive roots.
