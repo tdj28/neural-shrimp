@@ -7907,3 +7907,11 @@ Fixed tail indices/counts/statuses, direct full-result identity, immediate
 independent predecessor and unchanged256/384 kernel checked. Source clearance
 applies to individually committed cards only; now execute fixed unit004
 (globals34–37) whose actual completed predecessor is unit003 above.
+
+2026-10-10 endpoint audit preparation while unit004 saved replay runs:
+independent exact-Fraction phase-domain, gauge and all470quadratic-predictor
+membership helper/driver written; no target applied. Fixed independent41D
+root/lift priors and required future107-chart audit are explicit. Final card
+will only be written after107passes.12synthetic controls pass (including full470 dimensions); same underlying
+analytic phase acquisitions are disclosed. Source skim before target; details
+in docs/plans/eigenpair-chain-membership-independent.md.
