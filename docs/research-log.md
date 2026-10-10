@@ -6269,3 +6269,16 @@ Run ONE target with unchanged source bytes after this card is committed:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_reanchor.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-reanchor-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-reanchor-2026-10-10/attempt-001-profile/run --profile-manifest 1743127e1abf98ddef7371ba27424f714b360c7f24d16f1eb077f2eaefe75c8d`.
 Same localized parent78da8e09 and saved gauge21fac4fe;40s internal/60+5 external,
 CPU1,2GiB,144/288 calls,108 jets,two charts,128+1MiB raw. No retry or assumed fold membership.
+
+## 2026-10-10 — retained first correlated-chart bound failure
+
+The full235D localized anchor and all proper-divisor exclusions pass, but the
+first half-width chart with reset original weights has weighted norm1.3300
+and174/235 strict coordinate inclusions. Stop before chart2. This is an
+insufficient enclosure, not branch disconnection or instability. No new
+coverage. Worker6.0862s/425016KiB,72/144 C1+54 jets;
+launcher6.6811s/exit2, all immutable/source/payload/PID
+checks pass. Exact receipt `docs/reviews/s2-period18-reanchor-outcome.json`.
+Disclosed next step: saved-only positive anisotropic radii proposal retaining
+the complete correlated-anchor requirement, then a separately source-reviewed
+whole-domain reacquisition if justified. No unchanged retry or failed anchor.
