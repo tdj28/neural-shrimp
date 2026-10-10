@@ -6193,3 +6193,16 @@ attempt: exact endpoint Taylor-tangent gauge proposal, full235D old-root and
 all18 fold projections, and two saved midpoint bordered-matrix diagnostics.
 CPU1/nice10,20s/30+5s,1GiB,3MiB raw. No map/derivative/root acquisition,
 connection or stability claim; full input/source pins in the committed worker.
+
+## 2026-10-10 — saved endpoint gauge diagnosis outcome
+
+One attempt completed in1.2984s/~230MiB; launcher1.7377s/exit0, all files
+hash-checked/read-only and owned PIDs absent. Receipt
+`docs/reviews/s2-period18-gauge-diagnosis-outcome.json` binds exact input/source.
+Old/new saved midpoint condition bounds55371/54105 show little gain from
+rotation alone. Full new endpoint gauge radius~9.55e-6 and linearized anchor
+requirement~1.234e-5 motivate known-root endpoint localization. Native0 full
+fold projection is~0.43474, about14 old-width charts as a heuristic; all18
+alignments retained. No new model/derivative/root or fold membership claim.
+The next proposed unit localizes the existing exact-gauge endpoint, then tests
+half-width charts under a new exact gauge with full correlated anchor.
