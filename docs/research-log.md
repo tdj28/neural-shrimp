@@ -9649,3 +9649,8 @@ Line unit e2b2991c completes10.10s with both fixed budgets exhausted after299 it
 ### 2026-10-10 — Extend independent attraction arithmetic to two adjacent units
 
 Run card: after the independent eight-slice PASS, freeze fixed receipt-derived bindings for completed stability units002 and003. Audit sequentially, unchanged256/384 math, no model calls,240s/2GiB per unit, fresh exclusive immutable roots; stop on first failure. Exact prospective union [5/16,43/128],24 closed slices; no whole branch or shrimp claim. See docs/plans/s2-stability-cover-independent.md.
+
+
+### 2026-10-10 — Saved response/utility audit run card
+
+Root reviewed integrated a555f41d componentwise fsum checker. Freeze bounded execution for fixed completed operator-only/time-line response and common-center utility inputs;30s/2GiB worker,40+5s external,CPU1nice10,no new model calls. Immutable parent captures all failure paths. Exact pins and scope in docs/plans/response-utility-saved-review.md. Existing negative method and generic-gradient interpretations remain until reductions pass.

@@ -3,7 +3,7 @@
 Time-line producer and this checker share an agent; operator/utility producers
 were separate agents. All outcome-informed scope is disclosed, no frozen test.
 """
-import argparse,hashlib,json,math,os,subprocess,time
+import argparse,hashlib,json,math,os,resource,subprocess,time
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[2]
@@ -85,8 +85,8 @@ def utility():
  return dict(source=source,raw_root=str(raw),manifest=PINS['utility'],files=count,rows=rows,scope='Independent fsum paired-state and scalar reductions conditional on saved analytic gradient/loss returns; does not certify arithmetic or repeat model evaluations. Original post-finalization console failure retained.')
 
 def main(out):
- started=time.monotonic();need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');need(not out.exists(),'exclusive output')
- result={'response':[response(k) for k in ('operator-blocks-002','time-lines-001')],'utility':utility()};need(time.monotonic()-started<30,'30s cap');result.update(passed=True,seconds=time.monotonic()-started,reviewer_source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),scope='Post-outcome saved-only independent arithmetic, separate-agent operator/utility review; same-agent time-line review. No scientific acquisition or positive method claim.')
+ resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,)*2);started=time.monotonic();need(all(os.environ.get(k)=='1' for k in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')),'CPU1');need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');need(not out.exists(),'exclusive output')
+ result={'response':[response(k) for k in ('operator-blocks-002','time-lines-001')],'utility':utility()};need(time.monotonic()-started<30 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<2*1024**2,'30s/2GiB cap');result.update(peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,passed=True,seconds=time.monotonic()-started,reviewer_source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),scope='Post-outcome saved-only independent arithmetic, separate-agent operator/utility review; same-agent time-line review. No scientific acquisition or positive method claim.')
  out.mkdir(parents=True);(out/'result.json').write_text(json.dumps(result,indent=2)+'\n');(out/'manifest.json').write_text(json.dumps({'files':{'result.json':{'sha256':digest(out/'result.json'),'bytes':(out/'result.json').stat().st_size}}},indent=2)+'\n')
  for p in out.iterdir():p.chmod(0o444)
  out.chmod(0o555);print(json.dumps(result))
