@@ -9596,3 +9596,7 @@ The first combined edit/test shell inherited a process-peak RSS above the unchan
 ## 2026-10-10: fixed p7 endpoint source skim passed
 
 Optimizer independently cleareddf6546d3 by static differential review. Execute one profile-gated completion001 with original remaining budgets and all native gates unchanged. Also retained independent source clearance85aa258f for root-conditioned saved adjoint intersections;33 synthetic controls, no target evaluation.
+
+## 2026-10-10: p7 original-envelope completion retained
+
+349 additional accepted edges,613 total without repeated prefix. All old residual stops resolve with stricter correction, unchanged gates. Domain/nodecaps remain; lower flip turns, folds monotone. Save-only combined native geometry figure next: exact two rawmanifest pins, all accepted points, failed/capped endpoints retained; no interpolation theorem or new model work. CPU1nice10/10s/2MiB figure budget, exclusive n6-p7-geometry-001.
