@@ -8169,3 +8169,20 @@ One exclusive saved attempt:
 CPU/BLAS1,nice10,20s/30+5,1GiB,7+1MiBraw. Exact source and completed two-case
 worker manifest pinned in the driver. Preserve all failures; no target data
 acquisition, stability coverage or conditional derivative review claim.
+
+### 10 October 2026 UTC — saved budget attempt001 failure and repair
+
+Attempt001 source8fc4a487 exited1: the loaded `slice_start` dictionary replaced
+the monotonic timer variable, so the first pre-reduction tick and finalizer
+raised TypeError. No scientific reduction or model call completed. The outer
+manifest7f13ba1e97dccfaa8a7a3ab61bb72ece3627bbbf22e5549fb1365d634dc588e3
+preserves runtime/log; missing worker finalization remains explicit. All owned
+PIDs absent and outer inventory read-only. Companion failure receipt retained.
+
+Rename the timer to a dedicated variable and add a synthetic two-case execute
+control that exercises finalization with dictionary stages; eight controls
+pass0.17s. Same exact inputs, arithmetic and caps; this is a disclosed code
+repair, not a scientific threshold change. Next exclusive attempt002 uses
+`tools/launch_s2_period18_slice_budget.py --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-slice-budget-2026-10-10/attempt-002`.
+CPU/BLAS1,nice10,20s/30+5,1GiB,7+1MiB. No model or other acquisition.

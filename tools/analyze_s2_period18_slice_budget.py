@@ -75,7 +75,7 @@ def execute(out):
     bound={}
     for name in SOURCES:
         data=(ROOT/name).read_bytes();require(data==subprocess.check_output(['git','show','HEAD:'+name],cwd=ROOT),'committed source');bound[name]=io.sha256(data)
-    out.mkdir(parents=True,exist_ok=False);start=time.monotonic();code=2;stopped=False
+    out.mkdir(parents=True,exist_ok=False);started_at=time.monotonic();code=2;stopped=False
     runtime={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_sha256':bound,
       'pid':os.getpid(),'ppid':os.getppid(),'started_utc':io.now(),'nice':os.getpriority(os.PRIO_PROCESS,0),'precision':256,
       'python_flint':io.flint.__version__,'flint':io.flint.__FLINT_VERSION__,'numpy':io.numpy.__version__,'scipy':io.scipy.__version__,
@@ -86,7 +86,7 @@ def execute(out):
         stopped=True
     signal.signal(signal.SIGTERM,stop);signal.signal(signal.SIGALRM,stop);signal.setitimer(signal.ITIMER_REAL,20)
     def tick():
-        if stopped or time.monotonic()-start>=20:raise TimeoutError('saved diagnosis time cap')
+        if stopped or time.monotonic()-started_at>=20:raise TimeoutError('saved diagnosis time cap')
         if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>=1024**2:raise MemoryError('saved diagnosis RSS cap')
     outcome={'status':'started','scientific_claim':False}
     try:
@@ -109,7 +109,7 @@ def execute(out):
 
     except BaseException as exc:outcome.update(status='failed',error={'type':type(exc).__name__,'message':str(exc)})
     finally:
-        signal.setitimer(signal.ITIMER_REAL,0);outcome.update(elapsed_seconds=time.monotonic()-start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,exit_code=code,finished_utc=io.now())
+        signal.setitimer(signal.ITIMER_REAL,0);outcome.update(elapsed_seconds=time.monotonic()-started_at,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,exit_code=code,finished_utc=io.now())
         io.save(out/'outcome.json',outcome);require(io.total(out)<7*1024**2,'worker raw cap');io.save(out/'manifest.json',{'files':io.inventory(out)})
         for p in out.rglob('*'):p.chmod(0o444 if p.is_file() else 0o555)
         out.chmod(0o555)
