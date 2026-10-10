@@ -6974,3 +6974,20 @@ independently. Floor phase0 corresponding linear bounds≈.00682 and≈.01711.
 Companion `docs/reviews/s2-period18-slice-budget-outcome.json`.
 The recorded shared-gauge Taylor cocycle design is next; no extra native
 derivatives have been acquired. Original timer failure remains retained.
+
+### 10 October 2026 UTC — common-gauge cocycle core preparation
+
+Prepare the scoped correlated polynomial/remainder method from the saved width
+budget. Native phase matrices retain one normalized gauge variable; all degree3/4
+product tails and every polynomial/remainder cross term remain enclosed. Total
+mixed derivatives include actual hidden-rate motion. A fixed monodromy metric
+is tested only on the complete enclosure. Seven synthetic controls pass0.18s,
+including noncommuting order, rate tangent, every remainder term and a stable
+product that independent phase intervals cannot certify.
+
+Two pre-freeze synthetic failures were informative: a nondyadic cancellation
+needs an enclosure assertion, and Arb's generic real-power operator on a
+signed interval produced NaN. Fixed integer multiplication with explicit even-
+power range enclosure is now used and tested. No scientific input evaluated.
+This core checkpoint does not authorize an acquisition; driver/card/profile
+and root mathematical review follow before the same single-slice benchmark.
