@@ -6004,3 +6004,24 @@ The weighted-norm synthetic comparison initially demanded exact agreement after
 public Arb radius reconstruction; its outward radius inflation changed the
 reduction by9.1e-12. The formula regression now allows1e-10 while retaining
 strict proof gates; no target source or threshold was relaxed.
+
+### 10 October 2026 UTC — weighted profile passes; fixed wider target
+
+Root source review passed0534e0fd67b15dff349f1fb452b0cb4114bb8279;38 focused
+controls pass0.20s. The one synthetic weighted profile completed6.7202s/7.0533s,
+689968KiB,266ticks,144/288 C1/unit+108 jets,exit0, both uniform-root stages
+passed. Full source/library/thread/hash/immutable/PID checks pass. Projection
+28.8809s and94,025,634bytes meet the fixed gate. Receipt
+`docs/reviews/s2-period18-weighted-profile.json`; worker manifest
+551ee911b87c1d017e69ec58363e3fea0406f6be511b2c321f28d9a7e99d57d8,
+outer34073329af56475e40b709f1cb91b6c2ba922e3f6906c43f2d80782a4edf46a8.
+
+Run one unchanged-source target after a fresh host check:
+`tools/certify_s2_period18_weighted_connection.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-weighted-connection-2026-10-10/attempt-001-target
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-weighted-connection-2026-10-10/attempt-001-profile/run
+--profile-manifest 551ee911b87c1d017e69ec58363e3fea0406f6be511b2c321f28d9a7e99d57d8`.
+Exact original model/rates/native anchor; fixed saved positive weights,
+delta2^-6,r2^-24,256bits,two Newton proposals, true enlarged-domain derivatives.
+CPU1,nice10,2GiB,128+1MiB,120s/135+5,300ticks,144/288 C1/unit+108 jets.
+Second chart conditional on first qualification; no automatic adaptation.
