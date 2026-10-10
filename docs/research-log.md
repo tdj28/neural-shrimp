@@ -7845,3 +7845,11 @@ Independent source review and exact per-unit cards precede any continuation.
 Clark's separate384-bit root/quotient audit now proves exact+1multiplicity2 and
 an attracting11D complement; these are still not generic unfolding or a complete
 shrimp. Stability peer is preparing saved arithmetic review past the first20.
+
+### 2026-10-10 — reviewed native membership bridge unit001 card
+
+Sourceac37dc4c independently reviewed PASS;34 controls reproduced. Run one
+fixed unit275/128→283/128, at most4accepted/8calls, under unchanged400s/2GiB
+worker caps. Exact root/lift/parent and measured resource forecast are in
+docs/plans/eigenpair-chain-bridge-unit001.json. No other unit begins without
+a complete accepted predecessor and its own card.
