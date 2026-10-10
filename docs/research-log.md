@@ -11565,3 +11565,8 @@ Paperstatesthisfinitearc andsameorganizer connection, whiledistinguishing
 localcomplementpersistence fromstillunproveduniformfinitearcstability.
 Three new evidence-bound macros; derivativeacquisitions/Arb sharing explicit.
 Next readingPDF will include thisafter currentprooflanes settle coherentunits.
+
+
+### 2026-10-10T23:13 UTC — one retained CIFAR direction under actual merit
+
+Question: does the already computed 1600-MINRES direction reduce the true native two-step residual under the existing residual-merit strategy? The Newton forcing failure remains failed. Independent boundary source review of af467432 passed2 controls in1.19s. Same consumed512-image data,98666 parameters, eta/lambda and fixed direction; no fresh solve, spectrum or holdout. Fresh52GiB available/load1.71; GPUidle but unused. One CPU1nice10,90sworker/110+5external/117supervisor,2GiBgroupRSS,255+1MiBraw. Exact phase and2HVP action replay, at most13backtracking trials/28grad. Exclusive output explore/cifar/saved-shooting-merit/attempt-001 plus attempt-001-launcher. Preserve all trials and accept only existing actual-merit gates; no orbit claim.
