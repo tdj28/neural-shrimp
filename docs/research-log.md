@@ -7807,3 +7807,10 @@ requires full six-field equality including both initial rates. New negative
 controls reject old orbit envelope,changed rate/data/network.17controls pass.
 Unchanged math/caps/card,target only chart21,saved-only,newexclusive
 audits/eigenpair-remaining-locus/unit000-attempt002 after peer repair skim.
+
+2026-10-10 Clark differential skim of26339f36 map-binding repair PASS:
+pinned exact eigenpair-map file hash/full six-field equality,both rates and
+negative envelope/data/network controls checked;17tests0.10s. Unchanged
+mathematics and consistent freshattempt002 paths. Proceed the one saved
+chart21 audit with the original fixed caps. Source-skim acquired no target
+arithmetic. Host51GiBavailable; CPU1 proof audit only.
