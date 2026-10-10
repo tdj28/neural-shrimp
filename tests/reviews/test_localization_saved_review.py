@@ -43,3 +43,19 @@ def test_parent_image_dependency_not_just_strict_radius(tamper):
  if tamper:
   with pytest.raises(ValueError,match='inherited parent image'):review.parent_image(c)
  else:assert review.parent_image(c)['passed']
+
+
+@pytest.mark.parametrize('precision',[128,256,384])
+@pytest.mark.parametrize('m,e',[(879609305,-43),(973017905,-279),(1,-100),(1073741823,-90),(3,-100),(0,0)])
+def test_exact_ball_decoder_avoids_public_constructor_radius_inflation(m,e,precision):
+ with ctx.workprec(precision):
+  record={'mid':[3,-10],'rad':[m,e],'display':'not trusted'}
+  got=review.original_ball(record)
+  assert ball_json(got)['mid']==record['mid']
+  assert ball_json(got)['rad']==record['rad']
+  if m in (879609305,973017905):assert arb(arb((3,-10)),arb((m,e))).rad()>got.rad()
+
+
+def test_nonrepresentable_radius_rejected_instead_of_narrowed():
+ with ctx.workprec(256),pytest.raises(ValueError):
+  review.original_ball({'mid':[3,-10],'rad':[1073741825,-90],'display':'untrusted'})

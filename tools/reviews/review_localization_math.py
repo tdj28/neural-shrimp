@@ -18,18 +18,43 @@ def eq(a,record,why):
 def exact(q):
     q=Fraction(q);return arb(q.numerator)/q.denominator
 
+def original_ball(record):
+    """Reconstruct the serialized enclosure exactly, or fail closed.
+
+    python-flint's public radius constructor rounds even a representable radius
+    upward. A quarter magnitude ulp below the requested radius produces the
+    original representable radius; exact serialized midpoint/radius checks are
+    mandatory, so the intermediate smaller constructor argument is never used
+    as an enclosure on its own. No tolerance or narrower accepted ball is used.
+    """
+    M.interval(record)
+    mid=arb(tuple(record['mid']));m,e=record['rad']
+    if m:
+        M.need(m.bit_length()<=30,'serialized magnitude precision')
+        candidate=arb((m,e))-arb((1,e+m.bit_length()-32))
+        value=arb(mid,candidate)
+    else:value=mid
+    got=ball_json(value)
+    M.need(got['mid']==record['mid'] and got['rad']==record['rad'],'exact original ball restoration')
+    return value
+
+
+def original_matrix(rows):
+    return arb_mat([[original_ball(v) for v in row] for row in rows])
+
+
 def parent_image(chart):
     """Bind the actual smaller known-root image, not merely its radius."""
     p,n=chart['statement']['period'],chart['statement']['phase_dimension'];N=p*n
     with ctx.workprec(256):
         A=arb_mat(N,N)
         for phase,block in enumerate(chart['phase_jacobians']):
-            J=M.mat(block);M.need(J.nrows()==J.ncols()==n,'native parent dimension')
+            J=original_matrix(block);M.need(J.nrows()==J.ncols()==n,'native parent dimension')
             for i in range(n):
                 for j in range(n):A[phase*n+i,phase*n+j]+=J[i,j]
                 A[phase*n+i,((phase+1)%p)*n+i]-=1
         eq(A,chart['jacobian_tube'],'parent shooting assembly')
-        C=M.mat(chart['preconditioner']);S=M.mat(chart['predictor_slope']);B=M.mat(chart['parameter_partial_tube']);H=M.mat(chart['residual_center'])
+        C=original_matrix(chart['preconditioner']);S=original_matrix(chart['predictor_slope']);B=original_matrix(chart['parameter_partial_tube']);H=original_matrix(chart['residual_center'])
         for row in chart['preconditioner']:
             for v in row:M.point(v)
         rho=arb((1,chart['settings']['radius_exponent']));d=arb(0,arb((1,chart['settings']['halfwidth_exponent'])))
@@ -58,7 +83,7 @@ def audit_localization(chart,loc,ends):
     rate_lo,rate_hi=M.interval(loc['parameter_interval']);M.need(rate_lo<=lo<=hi<=rate_hi,'rate interval covers exact endpoints')
     prior=loc['initial_correction'];summaries=[]
     with ctx.workprec(256):
-        C=M.mat(loc['preconditioner']);S=M.mat(loc['predictor_slope']);H=M.mat(loc['center_residual']);d=arb(0,exact(half))
+        C=original_matrix(loc['preconditioner']);S=original_matrix(loc['predictor_slope']);H=original_matrix(loc['center_residual']);d=arb(0,exact(half))
         for k,row in enumerate(loc['refinements']):
             M.need(row['iteration']==k and row['prior_correction']==prior,'complete ordered correction chain')
             M.need(len(row['derivative_phase_boxes'])==p and all(len(v)==n for v in row['derivative_phase_boxes']),'native derivative domain shape')
@@ -66,7 +91,7 @@ def audit_localization(chart,loc,ends):
                 elo,ehi=M.interval(prior[i][0]);slo,shi=M.interval(row['predictor_error_segment'][i][0]);M.need(slo<=min(0,elo) and max(0,ehi)<=shi,'derivative segment includes predictor and root error')
                 blo,bhi=M.interval(row['derivative_phase_boxes'][i//n][i%n]);spread=abs(slopes[i])*half
                 M.need(blo<=center[i]-spread+slo and center[i]+spread+shi<=bhi,'whole convex derivative domain')
-            A=M.mat(row['jacobian']);B=M.mat(row['parameter_partial']);E=M.mat(prior)
+            A=original_matrix(row['jacobian']);B=original_matrix(row['parameter_partial']);E=original_matrix(prior)
             M.need(A.nrows()==A.ncols()==N and B.nrows()==N and B.ncols()==1,'full shooting derivative dimensions')
             path=A*S+B;residual=H+path*d;D=M.ident(N)-C*A;image=-C*residual+D*E
             eq(path,row['path_derivative'],'parameter path');eq(residual,row['centered_residual'],'centered residual');eq(D,row['defect'],'defect');eq(image,row['image'],'new correction image')
