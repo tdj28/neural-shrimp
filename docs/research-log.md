@@ -7408,3 +7408,17 @@ After completing the original p5 envelope and preserving nested-tongue anatomy, 
 470D audit attempt002 remains failed/immutable(5c20b159c60f1ec0c1dd75d28eba057a19b65e1410e48ac06b349c1ab405858a). Saved-only isolation leaves exactly one coefficient, whole-path gauge constant(469,0), differing by one outward magnitude ulp. Producer polynomial negation multiplies its interval parameter by−1; direct scalar subtraction omits that intermediate rounding. Checker now reproduces this explicit negation, with no changed coefficient values or inclusion gates. Attempt003 retains same caps and original immutable input.
 
 Independent470D quadratic pair audit now PASS: complete original native C1/path coefficient assembly at256 and new384 reductions, all470 strict inclusions, primitive18 and complete anchor joins, q<.530383/.531608. Exact output gauge[-1/32768,3/32768]. Shared analytic jets/Arb, not a generic-fold or shrimp theorem. Receipt docs/reviews/eigenpair-quadratic-independent.json preserves both checker-ordering failed attempts. Also verified41908files/1013356154B raw incremental backup on separate physical disk; receipt docs/backups/20261010T161114Z-continued-proof-inference-and-cifar.json. Work continues.
+
+### 10 October 2026 UTC — smaller same-gauge two-chart recovery pilot
+
+After successful endpoint localization at exact33/128 (worker9973cd33),
+prepare `tools/certify_s2_period18_fold_rechart.py` and the small shifted-chart
+wrapper. Same gauge/native phases/model; halfwidth2^-8 and previous exact
+anisotropic weights with proposed maximumradius2^-21. Full inherited box,
+fresh whole-domain derivatives and every original strict gate remain.
+See `docs/plans/s2-period18-fold-rechart.md` for rationale and fixed caps.
+
+After source review run only the synthetic profile:
+`tools/certify_s2_period18_fold_rechart.py --mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-rechart-2026-10-10/attempt-001-profile`.
+CPU1/nice10,20s/25+5,2GiB,144/288C1+108jets,400ticks,128+1MiB. Measured source
+and exact target card must be committed before the one target. No target yet.
