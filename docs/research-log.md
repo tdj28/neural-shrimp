@@ -9977,3 +9977,8 @@ Separate physical-disk backup20261010T212721Z-continuous-attraction-and-n12-rese
 ### 2026-10-10 — Human correction: completion criterion and concise abstract
 
 The human explicitly rejects treating partial local/window results as completion and requests an arXiv-length abstract. Global organization of the targeted window remains a central open research obligation, not a waived condition. Replace the overlong abstract with the independently drafted185-word summary, retaining precise existing empirical/proof scope and unresolved full organization. No numerical evidence changed. Boundary interaction localization, whole-state branch/stability proofs and the Clark-space anatomy continue in parallel; publication readiness is not claimed. Recompile and inspect after shortening.
+
+
+### 2026-10-10 — State the contribution directly; retain the demanding research objective
+
+The human challenged the abstract's concluding list of absent results. Replaced that list with the established behavioral consequence: loss reduction can coexist with continuing parameter motion. Detailed evidence limits remain in the manuscript; this editorial change does not supply missing global organization or utility evidence. The full window problem remains active. A new producer-only normalized length-two +1 Jordan-chain root is being independently audited and connected to the traced locus before any stronger manuscript claim.
