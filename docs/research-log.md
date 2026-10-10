@@ -6786,3 +6786,17 @@ source hashes and owned exits verified. Workera1f641992973e0a3b1eee34cca5c5ca0a9
 outer0e2a811737574802c0ed27af57bf45941c4f65932698092b720fff53f9cd4f95. Independent review pending.
 Continue distinct bounded charts from this qualified right endpoint, using
 full target-box projection to bound workload and strict all18 membership tests.
+
+### 10 October 2026 UTC — prospective fold-outward continuation
+
+The restricted reverse chart passed all gates. New adapter/card
+`tools/certify_s2_period18_fold_reverse_march.py` /
+`docs/plans/s2-period18-fold-reverse-march.md` authenticates that fold anchor
+and the full localized156th target, then reuses unchanged stream/rebox kernels.
+All18 full containment tests have explicit center-endpoint comparison role;
+legacy internal membership field naming is disclosed in the card.
+After source commit/review, one forced two-rebox synthetic profile at
+`/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-march-2026-10-10/attempt-001-profile`.
+Measured profile and exact source-bound unit card precede any next model run.
+Distinct completed units may then continue under root standing authorization;
+stop first failed tail/identity/neighborhood-covered-without-identity.
