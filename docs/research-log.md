@@ -8094,3 +8094,6 @@ Independent optimizer_claim_check skim passesc5b968e4 after final launcher byte 
 ## 2026-10-10: common-center acquisition complete; console failure retained
 
 Execution35d5d9c1 saved all4centergradients/8losses, result and manifest before a final json.dumps NumPy-bool failure; externalexit1 remains immutable. No target retry. New post-outcome saved-only checker binds full bundle739737a4 and recomputes arm/dot/fsum identities, CPU1nice10/5sworker10+5external/1MiBraw. Future helper reporting-scale cast and synthetic JSON control repair console formatting only; they do not modify or regenerate the evidence.
+
+## 2026-10-10 — common-center acquisition complete; console failure retained
+Execution 35d5d9c1 saved all four gradients/eight losses and final manifest before console NumPy-bool serialization exited 1. No target rerun. Future console fix and independent saved reductions at db6a96fb; retained evidence passed arithmetic check. Center prediction explains contrast to relative remainders 8.09e-8–1.96e-6, without geometry-utility claim. Receipt docs/reviews/utility-common-center-outcome.json.
