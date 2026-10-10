@@ -6189,3 +6189,5 @@ receipt before target010-ray51-upper then011-ray13-upper, one at a time. Retain
 all results, including incomplete panels; no automatic retry. Later saved-only
 segment intersection checks must distinguish two different full-state orbits
 at common parameter proposals from a shared orbit/multiplier collision.
+
+Profile010 passes unchanged source/runtime and measured cost gate: max 0.179914s, projected 148.931s<170, RSS46648KiB. Immutable worker69f6868be68c8b4337cffe740955d208bd1d5749410f6f996de32de955240f7d and owned exits verified. Admit the two fixed upper flip panels under the preceding card.18 focused controls pass; existing mathematical kernel is unchanged.
