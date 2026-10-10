@@ -6386,3 +6386,26 @@ Same16charts,delta2^-6,r2^-22,256bits,two proposals,1152/2304 C1/unit+
 fresh memory check; stop first failed proof. Root authorizes identical later
 units from their individually committed exact endpoint pins, without rerunning
 prefixes; inspect each result first. Attraction/fold identity remain separate.
+
+### 10 October 2026 UTC — arclength march unit001 outcome
+
+Execution576e2c694687f9b7965f36f41988c3fb2d77bc29, unchanged source de1a6f12. Statusjoined_intervals_certified,
+passed=True;16 durable chart witnesses checked. New exact gauge
+coverage['35/64', '67/64'], last hidden-rate display[72.43190539 +/- 7.29e-9]. Worker61.5677s/
+420184KiB, launcher62.0333s,exit0;
+115613120 immutable bytes, hashes/decompressed payloads/native joins/owned-PIDs
+checked. Worker manifesta09a71a8d68d830e5d018f2b42bc83355925c42e2440a314764a8476dc87701e;
+outer99a7443da146004c70e0106858f510e069b2199bae49676dcfc8742f3b87c89d. Companion `docs/reviews/s2-period18-arclength-march-unit001.json`.
+No prefix rerun, attraction or fold identity claim; independent review pending.
+
+Next authorized identical fixed16-chart unit002: same source/settings,
+180s/195+5,CPU1,nice10,2GiB,384+1MiB,1152/2304 C1/unit+864jets,2200ticks.
+After fresh resource check run `tools/certify_s2_period18_arclength_march.py
+--mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-march-2026-10-10/unit-002
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-march-2026-10-10/attempt-002-profile/run
+--profile-manifest cb0fbbd656f968ef74f3128844cd70bc764c33c837f164bd00ed1cd8d0eb3b68
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-march-2026-10-10/unit-001/run
+--parent-manifest a09a71a8d68d830e5d018f2b42bc83355925c42e2440a314764a8476dc87701e
+--parent-execution 576e2c694687f9b7965f36f41988c3fb2d77bc29`.
+Stop first failed gate; no automatic rerun or change of design. This card is
+committed before that distinct endpoint unit.
