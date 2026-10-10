@@ -6862,3 +6862,13 @@ First inspect the saved endpoint tangent/gauge and propose one new fixed
 gauge with full correlated anchor containment. The old failed witnesses and
 all127 connected charts remain unchanged; no instability or fold identity
 is inferred from these sufficient-bound diagnostics.
+
+## 2026-10-10 — prospective saved-only endpoint gauge diagnosis
+
+After127 joined primitive charts, retain the successful reboxing unit001 and
+stop unchanged advancement at contraction~0.8992. New plan
+`docs/plans/s2-period18-arclength-gauge-diagnostic.md` fixes one saved-only
+attempt: exact endpoint Taylor-tangent gauge proposal, full235D old-root and
+all18 fold projections, and two saved midpoint bordered-matrix diagnostics.
+CPU1/nice10,20s/30+5s,1GiB,3MiB raw. No map/derivative/root acquisition,
+connection or stability claim; full input/source pins in the committed worker.
