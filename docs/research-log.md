@@ -7457,3 +7457,27 @@ worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8,outer8fc0
 Exclusive s2-period18-stability-resume-2026-10-10/unit004.
 CPU1nice10,360s/390+5,2GiB,512MiBworker/514aggregate,1296C1/2592unit/288mixed.
 Fresh resources; stop first failed gate; no prior slice repeated.
+
+2026-10-10 stability march unit004, original chart000, execution
+f6020d4ccf9c38556661ab9450028701abdaac1c: passed=True, 168.949135s /
+693976 KiB; 8 returned slices, 1288 stages.
+Worker f961398ab3e1b8ce51425045093ca9c4b4ade15164fbea536b9b5ee00feda9d9; outer c9d5c1785d4bafd31b82e68680306985f4f8805717f1d130d2560d353c4ba1d2.
+All raw/source hashes, read-only outputs and absent owned PIDs checked;
+301193641 B. First norm passes 8/8;
+every initial result remains unchanged. Exact requested coverage
+['35/128', '9/32']; independent saved outcome review pending.
+
+2026-10-10 completed fixed near-fold attraction prefix: original charts147–156
+have producer strict attraction bounds on80adjacent closed1/1024slices,
+covering[35/128,45/128] in the common native gauge. Reused prior eighth slice
+of chart156 remains separately source-bound; recovered chart151 has explicit
+missing original launcher history. This adds attraction along the same known
+primitive18 branch, not additional orbits. Independent outcome review ongoing.
+
+Whole-chart146 source19e5875a received boundary_resume independent differential
+skim PASS with17focused controls. Mandatory adjacent chart147 receipt now
+exists. Exact next resource card: one fresh full positive161-stage synthetic
+profile at s2-period18-whole-chart-stability-2026-10-10/attempt001-profile,
+CPU1nice10,30s/40+5s,2GiB,512MiBworker/514aggregate,162C1/324unit/36mixed.
+No target data in profile. Only if source/runtime/counters/storage/time gates
+pass will a separate measured target card admit the single exact chart146.
