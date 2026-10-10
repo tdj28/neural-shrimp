@@ -11268,3 +11268,7 @@ existence. Polylines join endpoint midpoints within a gauge family only,
 not interval enclosures; no line bridges the regauge. Read-only saved data,
 no scientific acquisition, no protected inputs. One thread,120s,2GiB;
 run the committed generator, inspect both panels and regenerate byte-identically.
+
+Figure first render stopped before creating outputs because the fold receipt root
+is the attempt directory, unlike the orbit receipt root. Corrected only the
+explicit run/certificate.json path; no acquired evidence or values changed.

@@ -51,8 +51,8 @@ def data():
     # Canonical fold comes from the exact original augmented certificate.
     fp=Path(ix['charts'][0]['join']['parent_certificate']);fc=load(fp);inputs.append(fp)
     frp=c.ROOT/'certificates/s2-period18-fold-receipt.json';fr=load(frp);inputs.append(frp)
-    assert fp==Path(fr['external_root'])/'certificate.json'
-    assert c.sha256(fp)==fr['files']['certificate.json']['sha256']
+    assert fp==Path(fr['external_root'])/'run/certificate.json'
+    assert c.sha256(fp)==fr['files']['run/certificate.json']['sha256']
     assert fc['result']['passed'] and all(fc['result']['gates'].values())
     assert fc['result']['box'][13]==fr['bounds']['hidden_rate']['ball']
     fold=float(ball(fr['bounds']['hidden_rate']['ball'])[0])
