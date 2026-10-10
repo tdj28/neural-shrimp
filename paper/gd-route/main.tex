@@ -41,32 +41,20 @@ been submitted or peer reviewed. Generative-AI tools assisted with implementatio
 figures and drafting. The human researcher will review the evidence, authorship and disclosure before release.}
 
 \begin{abstract}
-Large-step gradient descent can sustain oscillatory training after fixed-point convergence becomes unstable.
-We study how these dynamics are organized in learning-rate planes of small neural networks, combining
-full-state orbit refinement, stability calculations and exploratory bifurcation analysis.
-
-Ball-arithmetic certificates prove local existence, primitive period and full-state attraction for
-\nCOneOrbits{} selected period-\nCOnePeriod{} orbits and one orbit each of periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in a 13-parameter tanh network, plus a period-\nSOneRCertPeriod{} orbit in a \nSOneRCertDimension{}-parameter tanh network, at fixed layer-specific learning rates for the exact-real maps.
-Further certificates establish a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles in the 13-parameter map, each with one neutral multiplier and an attracting complement. A full-state, computer-assisted continuation connects the central primitive period-18 orbit to the certified saddle-node. Attraction is also certified at a near-fold endpoint, while continuous attraction over the entire connecting path remains open. The supercritical flip supplies a local attracting doubled branch; the subcritical flip supplies an unstable one. These results do not yet establish the global organization of the window. Two further certificates establish local cusps in the actual two-rate plane, each with an unstable complementary multiplier; their boundary connections remain open. A separate certificate establishes a local supercritical Neimark--Sacker bifurcation in one scalar unequal-rate model.
-
-A prospectively designed map study, independently cross-checked in a separate numerical implementation,
-identifies \nConfirmed{} attracting periodic windows in two tanh networks with separate layer learning rates.
-Their surrounding cells pass finite-horizon chaos diagnostics. Among cells labeled convergent by a published
-loss-reduction score, \pNotFixedMin{} to \pNotFixedMax{} are not classified as fixed points after
-\nUpdates{} updates. The score therefore combines several dynamical regimes.
-
-Exploratory calculations identify a local organizing mechanism at selected period-two orbits: a complex pair of multipliers
-crosses the unit circle, with a rotation angle that predicts the ensuing oscillation frequency.
-The first Lyapunov coefficient predicts soft versus hard onset in \nDynConsistent{} of \nDynChecks{} tested
-cases. Related crossings occur in a network trained on digit images and in low-dimensional factorization
-models. An explicit scalar control isolates how unequal rates permit complex two-step dynamics. Near one predicted resonance, a locked region narrows with the expected asymptotic scaling, but its
-connection to a selected distant window remains unresolved and the prespecified ancestry test did not pass.
-
-Rotation features provide no robust additional prediction of loss or disagreement magnitude in the tested
-pilots; adapted analyses retain locking effects on perturbation response and learning-rate-decay timing.
-Loss-based estimation of the local complex multiplier is a candidate diagnostic whose prospective utility
-remains untested. The results do not establish
-a general route to chaos, a language-model benefit, or computer-assisted proofs of the reported window census.
+Large learning rates can produce persistent oscillatory neural-network training that loss-reduction criteria label convergent.
+We study these dynamics in the learning-rate planes of small networks trained by full-batch gradient descent.
+A prospectively designed study, cross-checked with a separate numerical implementation, identifies
+\nConfirmed{} attracting periodic windows surrounded by cells passing finite-horizon chaos diagnostics.
+Among cells passing a published loss-reduction criterion, \pNotFixedMin{}--\pNotFixedMax{} are not classified
+as fixed points after \nUpdates{} updates. Computer-assisted proofs for exact-real training maps establish
+selected attracting cycles and local fold and flip bifurcations. Validated continuation connects a primitive
+period-\nPEighteenPeriod{} cycle to its fold, while full-state attraction is proved on a connected subsegment
+of that branch. Exploratory analysis links period-two complex-multiplier crossings to quasiperiodic oscillations,
+with crossing angles predicting their frequencies and normal-form coefficients predicting local onset behavior.
+Near-resonance locking supports further investigation of how periodic windows arise, but distant-window ancestry
+and complete shrimp organization remain unresolved. Rotation features provide no robust additional prediction
+of loss or disagreement in the tested pilots. The results distinguish training regimes hidden by loss-based summaries
+without establishing a general route to chaos or a large-model training benefit.
 \end{abstract}
 
 \noindent\textbf{Study status.} Results labeled \confirmedlabel{} come from the map study of
