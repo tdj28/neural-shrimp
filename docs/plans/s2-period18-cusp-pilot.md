@@ -95,3 +95,5 @@ Driver tools/certify_s2_cusps.py --mode profile/target --panel cusp-a/cusp-b
 --out <exclusive path> --profile <profile/run> --profile-manifest <SHA>.
 No new proof will be called a complete shrimp until boundary curves, interior
 and stability are connected rigorously under the separately stated target.
+
+Pre-target source amendment: independent audit found the driver used restore_ball from rigorous_connection.py without listing that source in its archived pins. Add the exact dependency, preserve profile001, and use fresh source-bound profile002. Also strengthen receipt eligibility to require explicit successful exit/nice and finite nonnegative RSS/elapsed, positive evaluation times, exact recomputed projection. Focused bad-receipt controls cover negative/NaN/infinite resources, wrong source, counters and exit. No target has been acquired, and no mathematical kernel or scientific settings change.

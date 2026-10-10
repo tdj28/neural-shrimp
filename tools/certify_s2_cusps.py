@@ -10,7 +10,7 @@ import flint
 from flint import ctx,arb
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 spec=importlib.util.spec_from_file_location('supervisor',ROOT/'tools/explore_s2_boundary_curves.py');S=importlib.util.module_from_spec(spec);spec.loader.exec_module(S)
-S.SOURCES+=['src/neural_shrimp/rigorous_cusps.py','tests/test_rigorous_cusps.py','tools/certify_s2_cusps.py','docs/plans/s2-period18-cusp-pilot.md']
+S.SOURCES+=['src/neural_shrimp/rigorous_connection.py','src/neural_shrimp/rigorous_cusps.py','tests/test_rigorous_cusps.py','tools/certify_s2_cusps.py','docs/plans/s2-period18-cusp-pilot.md']
 S.__file__=__file__
 from neural_shrimp.rigorous_cusps import TwoRateCuspMap,augmented_cusp,cusp_proof
 from neural_shrimp.rigorous_orbits import exact,dyadic,vector_json,matrix_json
@@ -56,6 +56,19 @@ def synthetic():
     z=[exact(str(Fraction(i,128))) for i in range(13)]+[exact('1/100')]*2+[exact('1/4')]*13+[arb(0)]*13
     return inp,z
 
+def profile_eligibility(profile,prior,runtime,identity):
+    if profile['status']!='synthetic_profile_completed' or profile['resource_pass'] is not True or profile['exit_code']!=0 or profile['native_steps']!=36 or prior['mode']!='profile' or prior['source']['files']!=identity['files'] or prior['nice']<10:raise ValueError('profile identity/status')
+    for key in ('settings','python','numpy','flint','flint_library','threads'):
+        if runtime[key]!=prior[key]:raise ValueError('profile runtime equality')
+    for key in ('elapsed_seconds','peak_rss_kib'):
+        value=profile[key]
+        if type(value) not in (int,float) or not np.isfinite(value) or value<0:raise ValueError('finite nonnegative profile resource')
+    times=profile['evaluation_seconds']
+    if len(times)!=2 or not all(type(v) in (int,float) and np.isfinite(v) and v>0 for v in times):raise ValueError('finite positive evaluation times')
+    projection=20*max(times)+5
+    if projection!=profile['projected_seconds'] or projection>=85 or not 0<profile['elapsed_seconds']<15 or profile['peak_rss_kib']>=512*1024:raise ValueError('measured cost gate')
+    return projection
+
 def execute(args):
     identity=S.source();out=args.out;out.mkdir(parents=True,exist_ok=False);start=time.monotonic();stopped=[False];ticks=[0];serial=[0];used=[0];seed=[None]
     resource.setrlimit(resource.RLIMIT_AS,(768*1024**2,768*1024**2));resource.setrlimit(resource.RLIMIT_FSIZE,(32*1024**2,32*1024**2))
@@ -93,11 +106,7 @@ def execute(args):
             else:
                 if not args.profile or not args.profile_manifest:raise ValueError('bound profile required')
                 verify(args.profile,args.profile_manifest);profile=json.loads((args.profile/'outcome.json').read_text());prior=json.loads((args.profile/'runtime-start.json').read_text())
-                if profile['status']!='synthetic_profile_completed' or not profile['resource_pass'] or profile['native_steps']!=36 or prior['mode']!='profile' or prior['source']['files']!=identity['files']:raise ValueError('profile identity/status')
-                for key in ('settings','python','numpy','flint','flint_library','threads'):
-                    if runtime[key]!=prior[key]:raise ValueError('profile runtime equality')
-                times=profile['evaluation_seconds']
-                if len(times)!=2 or not all(np.isfinite(v) and v>0 for v in times) or 20*max(times)+5>=85 or profile['peak_rss_kib']>=512*1024:raise ValueError('measured cost gate')
+                profile_eligibility(profile,prior,runtime,identity)
                 inp,z,origin=inputs(args.panel);seed[0]=z;save('inputs.json',{'map_inputs':inp,'approximation':[exact_string(v) for v in z],'exact_approximation':vector_json(z),'period':18});save('origin.json',origin);save('profile-binding.json',{'path':str(args.profile),'manifest_sha256':args.profile_manifest})
                 proof=cusp_proof(TwoRateCuspMap(inp),z,18,radius_exponent=-80,newton_steps=8,tick=tick,observe=observe);save('proof.json',proof);check()
                 scales=[1]*13+[10,.1]+[1]*13;near=all(abs(restore_ball(proof['box'][i])-z[i])/exact(dyadic(scales[i]))<exact('1/10') for i in range(28));save('whole-box-proximity.json',{'passed':near,'scaled_cap':'1/10','scales':scales,'scope':'finite proposal neighborhood only; curvature variables excluded; no branch identity'})

@@ -81,3 +81,27 @@ def test_complex_pair_unit_circle_exclusion():
         for radius,expected in [(exact('1/2'),True),(arb(1),False),(arb(2),True)]:
             m=arb_mat([[arb(0),-radius],[radius,arb(0)]])
             assert spectral_exclusion(m)['passed']==expected
+
+
+def cusp_driver():
+    import importlib.util
+    from pathlib import Path
+    p=Path(__file__).parents[1]/'tools/certify_s2_cusps.py'
+    spec=importlib.util.spec_from_file_location('cuspdriver',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+
+def test_profile_provenance_resource_and_source_gates():
+    from copy import deepcopy
+    m=cusp_driver();identity={'files':{'x':'y'}}
+    runtime={key:'same' for key in ('settings','python','numpy','flint','flint_library','threads')}
+    prior=dict(runtime,source=identity,mode='profile',nice=10)
+    good={'status':'synthetic_profile_completed','resource_pass':True,'exit_code':0,'native_steps':36,'elapsed_seconds':2.,'peak_rss_kib':50000,'evaluation_seconds':[.5,.6],'projected_seconds':17.}
+    assert m.profile_eligibility(good,prior,runtime,identity)==17
+    for key in ('elapsed_seconds','peak_rss_kib'):
+        for value in (-1,float('nan'),float('inf'),True):
+            bad=dict(good,**{key:value})
+            with pytest.raises(ValueError):m.profile_eligibility(bad,prior,runtime,identity)
+    for override in ({'exit_code':2},{'native_steps':35},{'projected_seconds':16},{'resource_pass':False}):
+        with pytest.raises(ValueError):m.profile_eligibility(dict(good,**override),prior,runtime,identity)
+    for override in ({'nice':9},{'source':{'files':{'x':'wrong'}}}):
+        with pytest.raises(ValueError):m.profile_eligibility(good,dict(prior,**override),runtime,identity)
+    assert 'src/neural_shrimp/rigorous_connection.py' in m.S.SOURCES
