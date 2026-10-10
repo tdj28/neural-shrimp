@@ -184,3 +184,19 @@ for byte accounting dominated late runtime. The next new unit uses the
 already established constant-time conservative reservation and only the two
 qualified middle-gain folds for actual2D geometry, without rerunning prefixes.
 See `docs/reviews/clark-rnn-p7-slices-outcome.json`.
+
+## P7 low-g geometry now supplies two flip-branch leads
+
+The four short fold traces accepted258nodes, followed by302 additional nodes
+at fixed smaller step.003 from the low-g endpoints. Both fold branches
+encounter a separate multiplier−1 near gain1.802/leak.7866 while the selected
++1 remains simple and foldc stays nonzero. This is a pair of numerical
+fold–flip leads, not evidence of a cusp. Lower/upper endpoint stops remain
+node cap/reverse-error gate; no threshold was weakened.
+
+The next finite anatomy question is whether two distinct period-doubling
+branches from these interactions organize a shrimp-like body. Close
+parameter locations alone do not identify the same native orbit. Evidence is
+bound in `docs/reviews/clark-rnn-p7-curves-outcome.json` and
+`docs/reviews/clark-rnn-p7-extension-outcome.json`; no independent PAL review
+or complete shrimp/interval-arc claim is made.
