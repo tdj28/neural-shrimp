@@ -7892,3 +7892,13 @@ full/compact proofs and owned termination were verified. No next bridge unit.
 This is a connected organizing point, not yet a generic1:1unfolding, complete
 boundary geometry, full shrimp, or LLM-utility claim. The unfolding source
 helper has seven synthetic controls and awaits independent mathematical review.
+
+### 2026-10-10 — unfolding helper reviewed; saved-only packet prepared
+
+Clark independently checked the dual-chain and physical-rate rank derivation
+and matched a,b conventions to the authors' primary preprint§4.4. Seven controls
+reproduced0.09s. The new saved-only packet authenticates the independent384-bit
+whole-root Jacobian and exact attracting quotient, then uses only its recorded
+MixedJet blocks; no new derivative acquisition. Twenty combined helper/binding
+controls pass0.17s. Synthetic profile and exact measured target cards follow
+independent wrapper review. No target coefficients evaluated at this stage.
