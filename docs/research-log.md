@@ -5713,3 +5713,19 @@ Exact original model/rates/native anchor; fixed saved positive weights,
 delta2^-6,r2^-24,256bits,two Newton proposals, true enlarged-domain derivatives.
 CPU1,nice10,2GiB,128+1MiB,120s/135+5,300ticks,144/288 C1/unit+108 jets.
 Second chart conditional on first qualification; no automatic adaptation.
+
+### 10 October 2026 UTC — weighted width1/16 branch passes
+
+The fixed0534e0fd weighted target at executiond183f0cc passes both root,
+primitive and exact native-anchor joins. Connected endpoints
+1254710224381623/17592186044416 and1255809736009399/17592186044416 give
+width1/16. Both234-coordinate inclusions and all proper-divisor exclusions
+pass; weighted contraction<.429375/.426822. Worker10.1286s,761268KiB,
+launcher10.5930s,exit0; all144/288 derivatives and108 jets retained.
+Immutable29,060,541-byte outer inventory
+f945b71d4141434ff48d9645ef3fe6e3b2fa9ee33636d272bd7be9570e8478f2;
+worker0d7bb58ead76db13278d1f338b8d0b5896bb3c8dcc48281d9b8e71ef317efd9c.
+Companions `docs/reviews/s2-period18-weighted-outcome.md/.json` record exact
+scope and the receipt-script envelope KeyError, which caused no target rerun.
+Attraction remains unevaluated and boundary connection unproved. Independent
+saved-ball review is next; continuation development proceeds separately.
