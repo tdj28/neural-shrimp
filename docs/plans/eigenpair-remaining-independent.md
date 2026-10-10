@@ -44,3 +44,28 @@ all six schema/network/data/initial-rate fields; never filter fields or relax
 rate equality. Add an envelope/rate/data/network mismatch regression. No
 mathematical helper changes. Fresh exclusive unit000-attempt002, same180s/
 3GiB/24MiB card; source skim before execution.
+
+## Fixed wider-unit adapter after chart21 passed
+
+The first corrected saved audit passed12.548188s/696780KiB, all470 strict
+root/anchor inclusions at256/384. Extend the unchanged mathematical reduction
+through original wider-march units1–13: units1–12 have four accepted charts;
+unit13 has exactly one accepted chart followed by retained failed attempts.
+The latter's producer exit2/status are required explicitly and never relabeled
+as a complete producer unit. Independently verify only its exact accepted
+chart, retaining all original failed artifacts and source inventories.
+
+Every unit requires its own committed exact JSON card, literal immediate
+independent predecessor root and complete outer pin, matching independently
+recomputed endpoint count/gauge, and exact producer source/outer/worker/full
+and compact accepted-artifact pins. Replay the entire recorded accepted list,
+not a cherry-picked sublist. New wrapper admits no unit outside1–13, no missing
+pin and no automatic loop. Failed independent units cannot feed successors.
+All unit cards except001 remain absent until the exact previous audit passes.
+
+Unit001 is four charts23/128→39/128, globals22–25. Same180s worker/195+5s
+owned timeout,3GiB RSS/4GiB AS,24/25MiBraw and CPU1nice10. Prior measured
+same-math8chart93.715s and fresh single12.548s support this four-chart cap.
+No new phase/path acquisition. Twenty-six controls pass, including invalid
+unit/count/predecessor/pin/partial-status admission negatives; peer skim before
+unit001. Further cards may proceed under this unchanged reviewed adapter.

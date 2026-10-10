@@ -10691,3 +10691,15 @@ Outera9a3e11b0ef451e6e6f390fe7a7d59d7d7e211521f6ad6f4677784469fc0cce7;
 worker4afeac6a5a230317763ac8f0506676f0d04ee08f5deeef5c3a724aaa14f395bd. Full inventory/source/read-only/owned
 exit checks pass. Original zero-arithmetic binding failure remains retained.
 Shared analytic phase/path inputs and Arb remain explicit.
+
+2026-10-10 same-math independent wider-unit adapter prepared after chart21
+passed. Fixed original units1–13 only;12complete four-chart producer units and
+one explicitly partial one-chart producer prefix,with original failed tail
+retained. Exact current source/full+compact artifacts,whole accepted list,
+physicalmap,original native endpoint and fresh384 endpoint joined per chart.
+Independent prior root/pin/count required before each new unit; no loop or
+advance after failure.26controls pass. First card unit001 fixes globals22–25,
+23/128→39/128,previous independent unit000attempt002 outera9a3e11b…,all input
+pins in docs/plans/eigenpair-remaining-unit001.json. CPU1nice10,180s/195+5s,
+3GiB/4GiBAS,24/25MiBraw. Fresh measured12.548s forone and prior93.715s foreight
+support cap. Peer source skim before one first four-chart saved audit.
