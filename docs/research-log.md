@@ -11506,3 +11506,16 @@ Boundary recheck1e7273b7 PASS. Fresh batch002 had a second preflight-only failur
 ### 2026-10-10 — Four concurrent independent attraction charts PASS
 
 Boundary3b0b6bc5 source recheck PASS. Freshbatch003 independently verified all28closed pieces of charts142–145 using unchanged256 localization/U″ and384 norm arithmetic. Per-chart times:142=84.252s,143=83.556s,144=84.550s,145=43.267s. Combined worker RSS peak2780688KiB; actual parent peak17396KiB. All limits, full immutable/source inventories and owned exits checked. Outer4438a1584c00141eebc0dc320fe8341aae3e814fb22cc31c97f22b1f4da82dde. Independent connected attraction now96closed pieces on[27/128,43/128], versus112producer pieces on[27/128,45/128]. Remaining155–156 need independent audit; no whole-window claim. Both preflight failures remain immutable.
+
+
+### 2026-10-10 — Extend rigorous orbit coverage within the numerical census
+
+Prepare an exploratory exact-real proof for the unique largestperiod among
+the61producer/auditor-agreed representatives: saved72Dperiod58, row86.
+This directly addresses rigorous coverage of the census without calling a
+representative proof a complete window proof. UnchangedC1kernel512bit,
+radius2^-160,5Newton,maxpower4096;3native map/Jacobian profiling calls
+first, then measured600s/2GiBgroup/4GiBAS/512MiB bound. No new data,
+no fresh seed, no holdout; allfailed attempts retained. Peerreview before
+profile/target; target needs profilecost gate. Globalboundary andotherlanes
+continue independently.
