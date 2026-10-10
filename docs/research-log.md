@@ -8086,3 +8086,7 @@ All31reverse charts passed independent exact256 and fresh384 saved reductions in
 ## 2026-10-10: common-center utility unit prepared before outcomes
 
 Freeze docs/plans/utility-common-center.md, implementation and synthetic controls. Exactly four center gradients/eight paired one-step losses at the four existing consumed forks; subtract actual-center ordinary gradient prediction, never attribute the residual to geometry. Fixed synthetic measured gate first,5s/2MiB total raw. All prior failed designs and absent distant controls remain. Source review pending; no target acquisition yet.
+
+## 2026-10-10: common-center source cleared before launch
+
+Independent optimizer_claim_check skim passesc5b968e4 after final launcher byte allowance repair;16 producer synthetics pass. Root standing fixedfour-case authorization applies; peer review supplies the short source skim while root stream is disconnected. One measured-profile-gated execution, no scope/cap change.
