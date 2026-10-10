@@ -5588,3 +5588,14 @@ Proceed root-authorized single fixed target, unchanged source/settings, command 
 ### 2026-10-09 PDT: exact native RNN primitive5 certificate passed once
 
 Executionbbed3bfb at reviewed unchanged299640a3 bytes passed the one fixed256bit/-80/fiveNewton/512 target:.221507s internal.418564s external,46588KiB. Krawczyk<2.762e-25, divisor1 excluded, power1attraction<.008462, exact whole-box proximity passes. Optional antipodal all-phase separation proves a distinct symmetry-derived companion. One directly enclosed4D activity cycle; no trained-network count change. Immutable12-file inventory and1010851/1010853owned exits verified. Canonical `certificates/clark-rnn-p5-receipt.json`, compact producer companion and source-bound saved-only geometry figure receipt committed; independent384-bit/nested/step review requested before manuscript claim. No target proof retry or stronger proof by producer.
+
+### 10 October 2026 — native RNN C1 independent review card
+
+Root authorizes one exact-input original replay,384-bit/radius2^-100 nested
+proof and independently written exp-form native step/Jacobian/five-step
+Krawczyk/divisor/attraction/odd-companion check. Fixed4D g10.02/delta.956
+proposal only; no target selection/search. Canonical receipt1ffc0707 and all
+exact pins in tools/reviews/review_clark_rnn_c1.py. Source/card committed before
+one CPU1nice10 run at audits/clark-rnn-c1/attempt-001,30/45+5s,1.5GiB,8+1MiB.
+Check original box contains nested root and all five antipodal phase exclusions.
+Activity theorem remains separate from training counts and window geometry.
