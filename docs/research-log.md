@@ -12027,3 +12027,6 @@ The all18 diagnosis is now a hard source/data-bound prerequisite. Source-only
 peer review precedes freshattempt005-spectrum and its unrelated full profile;
 all original operator/remainder/strict-decrease gates and caps remain. No
 other target trial has run since root requested the conditioning diagnosis.
+### 2026-10-10 — prepare705D connection across the observed coordinate turns
+
+Added a separate native705 pseudo-arclength/quadratic kernel. Squared angle is now an unknown, physical rates remain explicit, and a fixed gauge completes the system; full705 Krawczyk, native primitive exclusions and all-coordinate root membership remain mandatory. Condensed42 inverse is only a proposal. Entire closure path derivatives and full cubic remainder include changing angle; no derivative tensor or native map inverse.24 synthetic controls pass0.58s after correcting reference-rounding artifacts described in native-unit-pair-pal.md. No research profile/target evaluated. Peer review requested before the measured full-size profile. Root owns independent local55 audit, stability owns finite704 complement repair.
