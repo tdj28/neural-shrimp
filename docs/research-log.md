@@ -7578,3 +7578,9 @@ CPU1nice10,90s/110+5,1.5GiBRSS/4GiBAS,32+1MiB.6 source/synthetic controls pass0.
 covering phase/permutation matching, known crossing proposals, stale/tampered
 selected files, complete mode retention and rational gauge values. Source/card
 committed and independently skimmed before saved target reduction.
+
+Root source skimc491ce6d passed for exploratory saved scope: complete52gapless
+selection, numerical+1 exclusion residual gates, ambiguity-labelled assignment,
+fixed4/8/16 proposals not brackets. Proceed one bounded saved diagnostic; later
+native bridges must retain exact root/mode/rate/source identity independently
+of Hungarian labels.
