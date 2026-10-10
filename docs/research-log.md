@@ -11800,3 +11800,8 @@ Stability final wrapper/helper recheck through05c15f0e PASS,7controls reproduced
 ### 2026-10-10 measured exact local native NS–flip certificate card
 
 Interval profile9937d62e passed2.539s/58684KiB,108native phases; all source/history/archive/inventory/owned termination verified. Outer610e7f748b691de58c5756843a5e2f34276f46cfa37aabe4e74271bd323ca8eb; workera004f625472d84d0bd294801b4389183ae2d7515bb48e64eccf4922fd7960ee8. Six-return324phase forecast23.664s/262144KiB/26356820bytes fits60s/1GiB/32MiB. Execute only flip/rigorous/attempt001-target with these pins, fixed exact numerical candidatef5021f3a,384bits/radius2^-60/fourNewton proposals plus freshcenter/wholebox. Strict full55/domain/properdivisor/bracket gates precede same-root critical3-plane quotient and total crossing derivative. Every failed or successful artifact retained; no automatic retry and no claim of rigorous NS connection from704anchor.
+
+
+### 2026-10-10T23:34:07.488518+00:00 — Independent LM source clearance and measured profile card
+
+Independent reviewer reproduced all six controls and cleared20150b20 plus07db5b10 after the CE retention repair. Run only the fixed two-arm profile at consumed seed28160/update50, with two gradients, HVPs and training CE readouts per arm. CPU1/nice10,60s worker/80s external plus5s cleanup,4GiB monitored RSS,256MiB worker evidence. Fresh host reports52GiB available RAM; no GPU is used. A complete source-bound cost forecast below300s is required before a separately recorded four-checkpoint target.
