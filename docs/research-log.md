@@ -5857,3 +5857,19 @@ All source/scientific settings unchanged since repaired profile; same16chart
 limit,180s/195+5,CPU1,nice10,2GiB,384+1MiB,1152/2304 C1/unit+864jets,
 2200ticks. Preserve attempt001 and both profiles. Stop first failed proof;
 no automatic adaptation or attraction/fold identity claim.
+
+### 10 October 2026 UTC — all16 streamed charts pass
+
+Attempt002 on repaired source7dfe2a16/executioned708aa3 passes all16 root,
+primitive and235-coordinate shared-gauge joins. New exact s coverage[3/64,35/64],
+last hidden-rate ball[71.93153610 +/-8.09e-9]; weighted norms<.422568.
+Worker58.1691s/444608KiB,launcher58.6221s,exit0;2144ticks and full1152/2304
+C1/unit+864jets. Actual115,562,220bytes are below all caps. Hash/source,
+decompressed-payload, read-only, native-join and owned-PID checks pass.
+Outer4af41a333670373f982f9a1d021ff30e9ee80a5e8fb75f13c7cb3ed3e06958e1;
+worker7baaf7af18611786403ef8e019f8f0c781ed47867183b6b59bdc55f1cf037a35.
+Companions `docs/reviews/s2-period18-arclength-batch-outcome.md/.json` retain
+all16 artifact identities and the prior non-scientific constructor failure.
+Independent review is in preparation. This is same-orbit branch extension,
+with attraction/fold identity still unresolved; next bounded batches use the
+proved endpoint, never an unqualified restart or repeated prefix.
