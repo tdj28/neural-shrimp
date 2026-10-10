@@ -11726,3 +11726,7 @@ Root agrees to one fixed640bit/radius2^-288 attempt using exact saved refined ce
 ### 2026-10-10 — independent640bit retry source clearance and three-phase profile card
 
 Root source/math skimcaf83f6c PASS;3controls independently reproduced0.11s. Exact saved dyadic center, one recorded Newton, unchanged C1zero-extra-Newton checker,174native phase budget, original positive rates/proper divisors/proximity and same-source measured bindings checked. Fresh host16:21:02PDT load1.43/1.68/1.84,52GiB available; GPU0idle15947MiB free/no active compute, unused. Launch only the threefull72D/640bit profile phases into exclusiveattempt002-profile under60s/2GiB/4GiBAS,owned80+5s. A passing forecast must be logged before the separate fixed target; no profile or target array changes.
+
+### 2026-10-10 — measured640bit admission and single fixed target card
+
+Three native640bit phase costs [0.24749860889278352, 0.245931037934497, 0.24546941509470344] seconds; forecast2*174*max+30=116.12951589468867s<600. Profile1.8177s/328572KiB; owned timeout/worker 1891983/1891984 absent. Full immutable inventories checked: outerf2ccc58af00447c577662df93ce38e2fefd487907bb7361d96f86cb020019325, worker9d4b7115d6a51636df3ed917c7b86af45a68e86b0aa81e27193964755c3932f4. Same mathematical/input/source/library settings admit one exclusiveattempt002-target now. CPU1nice10,600sinternal/620+5external,2GiBmonitoredRSS/4GiBAS/512MiB,one explicit Newton proposal+unchangedzero-extra-Newton C1proof,fullprimitive58/stability/proximity gates; no second search if it fails.
