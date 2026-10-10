@@ -7071,3 +7071,14 @@ Newton-direction diagnostic against the retained200-space baseline. Source/card
 unchanged true forcing/finite trial gates,90sCPU1/2GiB,31+1MiBraw. No correction
 or spectrum follows automatically. Retain all earlier failures and protectedB.
 Independent source skim precedes the one fixed launch; no target yet.
+## 2026-10-10 — prospective correlated-anchor half-width pilot
+
+The same127-chart endpoint is now localized, addressing the accumulated
+anchor-box obstruction. New driver/card
+`docs/plans/s2-period18-correlated-reanchor.md` binds exact localized/gauge
+manifests and reuses the unchanged quadratic chart theorem. First anchor keeps
+its full correlated gauge; the second uses exact shared endpoint. One profile
+then one pinned two-chart target,256bits,halfwidth2^-7/radius2^-22,original
+positive weights,144/288 C1+108 jets,40s target and128+1MiB raw. All18 fullfold
+alignments are checked but no nearby-fold/attraction claim assumed. No rerun
+of existing prefixes and no search; every failed gate remains retained.
