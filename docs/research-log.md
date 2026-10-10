@@ -7744,3 +7744,14 @@ The reverse option will instead consider the known fold's native null
 direction, requiring separately declared18-phase derivative proposals and
 full endpoint localization before a source-reviewed chart pilot. Companion:
 `docs/reviews/s2-period18-near-fold-gauge-outcome.json`.
+
+### 10 October 2026 UTC — prospective156th endpoint localization
+
+Root accepts the reverse fold-normal route after the negative saved-gauge
+comparison. First refine the existing exact45/128 endpoint, with unchanged
+known-root theorem, three intersections and strict authenticated10-prefix
+loader. Source/card: `tools/certify_s2_period18_near_fold_endpoint.py`,
+`docs/plans/s2-period18-near-fold-endpoint.md`. After commit run ONE synthetic
+profile at `/data2/neural-shrimp-data/explore/certificates/s2-period18-near-fold-endpoint-2026-10-10/attempt-001-profile`;
+no target before measured-profile receipt/card. Fixed72/144 calls,256bits,
+20s/25+5 profile and30s/45+5 target,2GiB,128+1MiB,CPU1/nice10.
