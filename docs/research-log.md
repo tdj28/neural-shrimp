@@ -8722,3 +8722,19 @@ corrected to1/16. The production radius cap was not relaxed. Code/card committed
 before one run at attempt-001-inflation-diagnosis, CPU1nice10,45/60+5s,
 1.5GiB sampledRSS,64+1MiB, zero nativecalls. Preserve all outputs and failures.
 A fresh-domain repair remains separate and requires source review.
+
+### 2026-10-10 — saved inflation completed; prospective fresh proof separate
+
+One diagnosis at exact41ef113b completed3.4927s/600184KiB, zero nativecalls.
+All470 exact proposed radii are nonshrinking; maximum inflation1.00261198;
+old-domain floating proxy decreases1.00245664→0.99984686. Linear residual max
+6.47e-27. This is proposal arithmetic only, no new accepted segment. All90files/
+3,407,900bytes immutable/hash/source verified; owned PIDs absent. Outer
+95a048bdff3e979a2d2837acf2cd9b8009b588146c93c0c05985762987afb75a; run
+99d76307817f7e46ae4dfc834008f6ea439fac341f803330c3c878df03e4e7dc.
+
+A source-reviewed one-chart fresh-domain repair will preserve this result,
+round proposed dyadics upward to fixed128significand bits for exact256bit
+construction, keep all old radii, and reacquire all native proof data. No retry
+has occurred; no failed-tail advancement. Companions in docs/reviews/
+eigenpair-inflation-diagnosis.md/.json.
