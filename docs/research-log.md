@@ -6724,3 +6724,17 @@ after fresh resource check. Its parent/source/outer/run pins identify only the
 completed unit001 endpoint11/128; expected final19/128. CPU/BLAS1nice10,
 300s/315+5external,650ticks,4accepted/5calls/one root-only rebox,2GiB monitoredRSS,
 768+1MiB output. Preserve any failed tail and stop ordinary advancement there.
+
+### 2026-10-10 — tangent unit002 passed; change focus to width scaling
+
+Completed unit002 execution5f32fccb:4pass/no rebox,75.95s/508ticks/1137520KiB,
+625 immutable files170148392B, fullsource/inventory/exit/PID checks pass. Gauge
+19/128, actual rates≈75.373241/.82196250; q<.464715. Saved projection≈.935 and
+floating complement+1distance≈.18491 are descriptive only. Companions
+`docs/reviews/eigenpair-tangent-unit002.md/.json` preserve exact enclosures.
+
+Root authorizes, after this outcome, a saved-only Taylor-forcing/defect budget
+split to assess one doubled-halfwidth fresh-domain pilot if justified. This
+adaptation is motivated by slow actual boundary reach, not a desired verdict.
+No automatic unit003. Any wider target must re-evaluate whole widened native
+C1/path coefficients and all original gates; no extrapolated derivative proof.
