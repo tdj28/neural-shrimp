@@ -11429,3 +11429,15 @@ At22:52UTC host52GiBavailable/load1.48/GPUidle; oneCPUthread2GiBgroup
 fits alongside otherownedproofs. Authorize the fixed reviewed local attempt001
 at explore/cifar/symmetric-shooting with exclusive immutable raw andlauncher
 paths. Sourcebindings/review in cifar-symmetric-shooting-source.json.
+
+
+### 2026-10-10 — Native shooting400 outcome and bounded1600 amendment
+
+Native400MINRES completed21.87s,816HVP14grad,800452608B peakownedgroup;
+ownedgroupempty. Symmetry and finite-difference qualification pass; original
+forcing0.84558 fails0.5, so no native trial. Closure remains4.72651e-6.
+One fixed1600extension tests whether this constant-memory symmetric solver
+can resolve the slow component, with identical model/state/gates.3216HVP
+40grad,700sinternal720+5external727supervisor,2GiBgroup255+1MiBraw;
+costed from actual400pilot, no paid work or new data. Requires peerreview
+of scalar wrapper adaptation before execution; no automatic further extension.

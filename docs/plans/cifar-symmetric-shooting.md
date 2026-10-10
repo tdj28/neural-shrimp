@@ -19,3 +19,15 @@ No fresh dataset, holdout, rate or model selection. One local CPU thread,
 nice10; no GPU or paid work. Exact counters, measured timing gate, immutable
 raw receipts and owned process cleanup required before target launch.
 This source-only kernel checkpoint does not launch a target.
+
+## Disclosed bounded continuation after400 iterations
+
+The native derivative checks passed (FD errors<8e-12, pairing errors<3e-19)
+but true forcing0.84558 exceeds0.5; no native trial occurred. One fixed
+1600iteration extension retains the exact consumed initial state, native
+operator, solver and scientific gates. Full native symmetry/FD qualification
+is repeated, and actual forcing is compared with the preserved400result.
+At most3216HVP40grad; measuredmaximumcost×2+20 gives a budget under700s,
+with720+5external727ssupervisor. OneCPUthread2GiBgroup255+1MiBraw.
+No automatic further extension. If forcing does not pass, reassess the
+conditioning; do not silently relax the Newton gate. All raw attempts remain.
