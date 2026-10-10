@@ -6902,3 +6902,15 @@ Subsequent validation/commit commands stop on errors.
 ## 2026-10-10T15:16:46.743974+00:00 — reboxed branch independent audit passed
 
 All16 new charts passed exact256 identities and384 independent strict root, primitive and full predecessor-join gates. Six initial failed bounds reproduced and excluded from anchoring. Total127 connected charts at original gauge253/64. Runtime64.512s/369920KiB; complete immutable inventory and owned exits verified. Outerc1bae707c0912e6a1ef3243aebc641f6dc367d6e305dafb3599f34d77d677d72. Independent saved reductions share analytic acquisitions/Arb; no whole-path attraction or fold inclusion follows.
+## 2026-10-10 — saved endpoint gauge diagnosis outcome
+
+One attempt completed in1.2984s/~230MiB; launcher1.7377s/exit0, all files
+hash-checked/read-only and owned PIDs absent. Receipt
+`docs/reviews/s2-period18-gauge-diagnosis-outcome.json` binds exact input/source.
+Old/new saved midpoint condition bounds55371/54105 show little gain from
+rotation alone. Full new endpoint gauge radius~9.55e-6 and linearized anchor
+requirement~1.234e-5 motivate known-root endpoint localization. Native0 full
+fold projection is~0.43474, about14 old-width charts as a heuristic; all18
+alignments retained. No new model/derivative/root or fold membership claim.
+The next proposed unit localizes the existing exact-gauge endpoint, then tests
+half-width charts under a new exact gauge with full correlated anchor.
