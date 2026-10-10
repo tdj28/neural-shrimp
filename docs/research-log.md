@@ -7165,3 +7165,13 @@ CPU/BLAS1,nice10,30s internal/40+5 external,1GiB sampled owned-group RSS,
 64MiB worker/65MiB aggregate. Recheck shared RAM; no rerun on failure.
 This is the already source-reviewed bounded adaptation, no new data or
 whole-branch/neutral-fold claim. Preserve all gates and attempted counts.
+
+2026-10-10 refined-tangent target completed once at a42bc33fba39fbf3b1c99440e13c81a804ec46fd;
+peer source review414bd5bd. 3.401711s/242044KiB,
+all18mixed calls/75stages, no C1/root calls. Worker 37a1b50124970d35ea11cf6c6815da80a194f6a81d6abf2484ca87fabb88c42a;
+outer 57d7602e1eca501e0226b7dbd39956b45a24bf1a10cb73a65f354f6e0de9985a. Exact inventories/source/read-only/owned
+PID checks pass. Strict full norm-cocycle metric passes on unchanged
+[359/1024,45/128], width1/1024. Remainder<.011800, penalty<.411106; complete
+congruence margins>.980626. Earlier doubled failure remains immutable.
+This producer result awaits independent reduction including the saved Usecond
+and refined-tangent premises; no whole-branch, neutral-fold or shrimp claim.
