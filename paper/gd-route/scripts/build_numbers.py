@@ -1841,6 +1841,37 @@ def build():
             digits=6;scale=10**digits;flo=lo.numerator*scale//lo.denominator;cei=-((-hi.numerator*scale)//hi.denominator)
             value="["+exact_decimal(flo,digits)+", "+exact_decimal(cei,digits)+"]"
             n.add("t"+prefix+suffix,[str(lo),str(hi)],value,proof,cusp_sources,"exact nested dyadic endpoints rounded outward by rational floor/ceiling")
+    # Independently audited continued branch and frozen-checkpoint inference.
+    chainpath=c.ROOT/"docs/reviews/s2-newgauge-chain-independent.json";chain=load(chainpath)
+    assert chain["passed"] and len(chain["units"])==2
+    chainsources=[chainpath]
+    for unit in chain["units"]:
+        assert unit["outcome"]["passed"] and unit["launcher"]["exit_code"]==0
+        chainsources+=bound_inventory(Path(unit["root"])/"manifest.json",unit["outer_manifest"]["sha256"])
+    assert chain["units"][0]["outcome"]["total_qualified_charts"]==129
+    total=chain["units"][-1]["outcome"]["total_qualified_charts"]
+    assert total==chain["total_qualified_charts"]==144 and len(chain["units"][-1]["outcome"]["charts"])==15
+    n.add("nArcTotalReviewed",total,integer(total),proof,chainsources,"total native joined charts across the original and correlated gauges; no full-path attraction or fold membership")
+    inferencepath=c.ROOT/"docs/reviews/saved-lm-inference-independent.json";irec=load(inferencepath);inf=irec["result"]
+    assert irec["passed"] and inf["passed"] and inf["matched_changed"]==inf["rollout_changed"]==0
+    auditpath=Path(irec["audit_file"]["path"]);assert c.sha256(auditpath)==irec["audit_file"]["sha256"] and load(auditpath)==inf
+    iraw=Path(inf["raw_root"]);insources=[inferencepath,auditpath]+bound_inventory(iraw/"manifest.json",inf["outer_manifest"]["sha256"])
+    binding=load(iraw/"run/input-binding.json");prefixes=len(binding["prefix_offsets"])
+    with np.load(iraw/"run/seed-28151-factor-0.8.npz",allow_pickle=False) as arr:steps=arr["tokens32"].shape[0]
+    assert len(inf["cases"])*prefixes*steps==inf["decisions"]==1536
+    label="exploratory saved-checkpoint precision comparison; independently audited outputs; no unseen-text outcomes"
+    for macro,value in [("nInferenceCases",len(inf["cases"])),("nInferencePrefixes",prefixes),("nInferenceSteps",steps),("nInferenceDecisions",inf["decisions"])]:
+        n.add(macro,value,integer(value),label,insources,"all fixed calibration checkpoints and already consumed prefixes; correlated finite-horizon decisions")
+    for macro,key in [("xInferenceMaxLogit","max_logit_difference"),("xInferenceMinMargin","minimum_margin")]:
+        n.add(macro,inf[key],sci(inf[key],3),label,insources,"measured binary32/binary64 pair at the same rounded weights; descriptive value, not rigorous error bound")
+    c400path=c.ROOT/"docs/reviews/cifar400-saved-outcome-review.json";c400=load(c400path);cr=c400["result"]
+    assert cr["passed"] and cr["forcing"]<=.5 and cr["slope"]<0 and not any(t["armijo_pass"] for t in cr["trials"])
+    c400sources=[c400path]+bound_inventory(Path(c400["raw_root"])/"manifest.json",c400["manifest_sha256"])
+    raw400=c.EXPLORE/"cifar/large-space/attempt-002";assert c.sha256(raw400/"manifest.json")==cr["raw_manifest"]
+    c400sources+=[raw400/"manifest.json",raw400/"linear.json"]
+    linear400=load(raw400/"linear.json");assert linear400["inner_iterations"]==400 and linear400["forcing_test_pass"]
+    n.add("nCifarLargerInner",400,"400",EXPLORATORY,c400sources,"single unrestarted Krylov solve with matched first200 callbacks")
+    n.add("xCifarLargerForcing",cr["forcing"],fixed(cr["forcing"],4),EXPLORATORY,c400sources,"independently reduced true residual forcing; all original four trial merits still increase")
     return n
 
 

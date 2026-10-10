@@ -456,6 +456,16 @@ path-jet acquisitions remain shared analytic inputs. See
 \path{docs/reviews/s2-period18-weighted-independent-review.json} and
 \path{docs/reviews/s2-period18-arclength-independent-review.json}.
 
+Further independently audited continuation gives a connected chain of
+\nArcTotalReviewed{} charts across the original coordinate and a subsequently
+changed affine coordinate. The change is justified by full containment of the
+same localized native root, and every later endpoint join is checked in all
+coordinates. Reboxing failures and an interrupted final proposal remain
+retained; only the durable qualified prefix enters this count. These are
+charts along one primitive branch, not additional attracting-cycle instances.
+The extended chain still does not identify the fold or prove attraction along
+its entire length. See \path{docs/reviews/s2-newgauge-chain-independent.json}.
+
 \subsection{A local fold of primitive period-18 cycles}
 \label{sec:fold-proof}
 
@@ -1199,6 +1209,15 @@ An independent saved-data audit reproduces these decisions without regenerating 
 Jacobian products. This single-state comparison does not establish absence of a periodic orbit
 or a general solver advantage. See \path{docs/reviews/cifar-restart-outcome.md} and
 \path{docs/reviews/cifar-restart-independent-outcome.md}.
+
+A disclosed extension to \nCifarLargerInner{} inner iterations reproduces the
+entire preceding callback prefix and reduces true forcing to
+$\xCifarLargerForcing$, passing the same linear forcing bound and strict
+merit-descent test. The original fixed damping trials still fail Armijo, so
+this direction alone is not an accepted correction. The saved-vector audit
+checks arithmetic and retained map identities without reevaluating derivatives;
+a smaller-step continuation study is separate. See
+\path{docs/reviews/cifar400-saved-outcome-review.json}.
 Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
 no result from it is included here.
 
@@ -1380,8 +1399,23 @@ require separate measurements. Parameter symmetries can even leave predictions u
 A future inference test could ask whether training diagnostics predict sensitivity to arithmetic or weight
 perturbations beyond loss and token-score margins. For a unique greedy choice with logit gap $m$, a uniform
 logit-error bound $\epsilon<m/2$ preserves that choice at the given prefix. Empirical precision comparisons
-are not rigorous error bounds, and divergent generated text alone does not establish chaos. No language-model inference
-experiment or benefit is reported here.
+are not rigorous error bounds, and divergent generated text alone does not establish chaos.
+
+A separate exploratory pilot compares CPU float32 and float64 evaluation at the
+same float32-rounded frozen weights for all \nInferenceCases{} final calibration
+checkpoints. Each uses \nInferencePrefixes{} previously consumed training prefixes
+and \nInferenceSteps{} greedy steps with an explicitly sliding context window.
+Repeated float32 evaluations are identical. All \nInferenceDecisions{} token
+choices agree across precisions in both matched-history comparisons and free
+rollouts. The largest measured last-position logit difference is
+$\xInferenceMaxLogit$; the smallest observed top-two float32 margin is
+$\xInferenceMinMargin$. Every measured pair passes the margin screen above.
+An independent saved-output audit reconstructs each history and checks every
+retained target forward output. These correlated finite-horizon decisions
+show no precision-induced token change in this pilot. They do not establish
+inference chaos, unseen-text quality, a causal effect of training dynamics or
+an incremental benefit from shrimp geometry. See
+\path{docs/reviews/saved-lm-inference-independent.json}.
 
 \paragraph{The tests that would settle the local claims.} The criticality prediction is a candidate for confirmation on fresh
 losses: the sign of $d$ at each crossing predicts a circle of normal-form amplitude beyond a supercritical edge, and

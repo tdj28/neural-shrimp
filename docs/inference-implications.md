@@ -88,3 +88,20 @@ selection, perturbations, controls, analysis and measured resource cap. This
 new inference idea does not reopen the failed training-prediction gate, the
 assessment seeds/text or the final 10% holdout, and does not displace the ongoing
 mechanism, CIFAR, training-utility or certificate tracks.
+
+## Completed first diagnostic — 10 October 2026
+
+The six-checkpoint, eight-consumed-prefix,32-step pilot now completed under the
+separately committed run card. It used identical float32-rounded weights onCPU
+for float32 andfloat64, with repeated float32 controls and distinct matched-history
+and free-greedy-history comparisons. All1536token decisions agreed; maxlogit
+difference1.11454517e-5, minimum observed top-two margin9.73701477e-4. Every pair
+passed the measured margin screen; all repeat controls were exact. Independent
+saved-array review reconstructed every history and all768target forward returns.
+
+This is a narrow null result for arithmetic sensitivity at these fixed weights,
+prefixes andhorizon. It supplies no inference-chaos, generalization, causal
+training-dynamics or incremental geometry claim. The next useful question needs
+controlled weight perturbations or longer-horizon sensitivity and matched ordinary
+margin/quality baselines; the protected forecast assessment remains unopened.
+Receipt: docs/reviews/saved-lm-inference-independent.json.

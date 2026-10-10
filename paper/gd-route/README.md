@@ -72,3 +72,12 @@ Their shared-kernel trust, stronger nested proofs and retained inconclusive
 interval-inversion review are explicit. The cusp audits are separate from the
 legacy full verifier. Clark's arXiv2610.12426 remains cited with fixed-weight
 activity versus training distinctions.
+
+The10October continuation/inference update includes an independently checked
+144-chart primitive branch across affine gauges; full-path attraction and fold
+identity remain open. A larger CIFAR400 solve now passes the linear forcing
+bound, but its original damping trials still fail Armijo. A separate saved-LM
+inference pilot shows no token changes among1536fixed finite-horizon decisions
+when comparing float32 andfloat64 at the same rounded weights. It is a narrow
+precision comparison, not a training-utility or language-quality result. New
+audit receipts are linked in the manuscript; no protected text was evaluated.

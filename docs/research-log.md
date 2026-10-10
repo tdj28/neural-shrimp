@@ -7358,3 +7358,12 @@ Parent temporarily assigns CIFAR follow-up while Clark compactp5 anatomy is pres
 CIFAR400 saved-audit91636d0c passed0.393s: independent scalar reductions reproduce forcing.45268758874430365, slope−1.8295645048339273e−10 andallfourArmijofailures; exactbytes/counters/prefix200/sourcebindings pass, no model calls. Next fixed smaller-alpha card: nine independent2^-4..2^-12 states from originaltheta/saveddirection, unchangedforcing/Armijo/closure/primitive, no GMRES/HVP/JVP.20directgradients includinginitial2mapparity; measured41.8573s<45,60+5external/2GiB/63+1MiB,allfailures retained. Rootsource review before target.
 
 Root independently skimmed frozen f921804e and passed exact original-state/saved-direction identity, Ap+R, forcing/descent, map parity, nine independent alphas, unchanged merits and20gradient/zeroJVP/HVP/GMRES caps. Explicitly authorized one measured-gated launch. This source-review record/log is the only new content before execution; numerical source/card bytes unchanged. A passing Armijo trial remains only a local candidate.
+
+## 2026-10-10 — manuscript continuation and inference refresh
+
+Integrate only independently audited144-chart native continuation, passing400
+linear forcing (original damping stillfails), and the null frozen-inference
+precision comparison. New quantitative macros bind their saved audit/manifests.
+No producer-only470D locus or unaudited smaller-step outcome is promoted.
+Rebuild numbers, compile multi-file paper and inspect allpages without rerunning
+the legacy scientific verifier. Private human-review draft only.
