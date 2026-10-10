@@ -8305,3 +8305,8 @@ bound. Source 3e9efb9078671323de188db296f189df3f76300c; 0.598565s,
 This closes independent same-component membership, not generic unfolding or
 complete shrimp anatomy. Shared analytic acquisitions/Arb chart proof scope
 remains explicit; final containment uses independent exact rational arithmetic.
+
+
+### 2026-10-10 — Independent remaining attraction batch source/card
+
+Root-directed continuation after independent107 organizing-point connection: close28 existing producer pieces in charts142–145 without new model acquisitions. Exact fixed producer/prior-proof bindings are in docs/plans/s2-attraction-remaining-inputs.json; plan and per-worker/aggregate caps in docs/plans/s2-attraction-remaining.md. Copied existing root independently reviewed localization/U″/norm helpers byte-for-byte with provenance.38 focused controls pass0.25s. A source-only peer skim is pending before the one fixed batch001 run. Four separate CPU1nice10 workers,240s/2GiB each;8GiB combined worker RSS, fresh12GiB available host requirement. Same-kernel measured per-worker projection183.476s. Preserve original and audit failures, full domains and immutable source/inventories. Independent68/producer112 distinction persists until these saved proofs complete. No complete-window claim.
