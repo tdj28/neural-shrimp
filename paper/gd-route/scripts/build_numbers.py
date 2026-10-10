@@ -1963,6 +1963,18 @@ def build():
     for key in ["native_domain_check","membership","input_bindings"]:
         ref=mem[key];path=Path(ref["path"]);assert c.sha256(path)==ref["sha256"] and path.stat().st_size==ref["bytes"];ims.append(path)
     n.add("nConnectedUnitCharts",len(ix["charts"]),integer(len(ix["charts"])),proof,ims,"every original256/fresh384 chart and full470 known-root membership in the connected normalized+1 locus; no uniform generic-fold assertion")
+    # Finite complex-unit branch independently attached to the same exact root.
+    fp=c.ROOT/"docs/reviews/native-unit-pair-independent-outcome.json";fr=load(fp);fo=fr["outcome"]
+    fs=[fp]+bound_inventory(Path(fr["root"])/"manifest.json",fr["outer_manifest"]["sha256"])
+    assert fo["passed"] and fo["same_independently_connected_root"] and fo["primitive_period"]==18
+    assert all(fr["gates"].values()) and fo["strict_inclusions"]==fo["anchor_coordinates"]==704
+    assert fo["parameter_endpoints"]==["0","1/32768"]
+    pf=Path(fr["root"])/fr["proof_path"];assert c.sha256(pf)==fr["proof_identity"]["sha256"]
+    pr=load(pf);assert pr["passed"] and pr["contraction"]==fo["contraction"]
+    upper=ball_endpoints(fo["contraction"])[1];rounded=Fraction(-((-upper*10**9)//1),10**9);assert upper<=rounded<1
+    n.add("tFiniteUnitParameter",fo["parameter_endpoints"],r"[0,\,2^{-15}]",proof,fs,"exact independently proved nonnegative parameter interval t=angle squared")
+    n.add("nFiniteUnitUnknowns",fo["strict_inclusions"],integer(fo["strict_inclusions"]),proof,fs,"all full native state/mode/rate coordinate inclusions and exact-root anchor inclusions")
+    n.add("xFiniteUnitContraction",str(rounded),exact_decimal(int(rounded*10**9),9),proof,fs,"outward decimal upper bound on independent384 weighted full shooting defect norm")
     # Generic physical-rate unfolding, independently reduced at the same proved root.
     upath=c.ROOT/"docs/reviews/chain-unfolding-independent.json";ur=load(upath);uo=ur["outcome"];uv=uo["reduction"]
     us=[upath]+bound_inventory(Path(ur["raw_root"])/"manifest.json",ur["manifest_sha256"])

@@ -45,8 +45,8 @@ We study this behavior in the two-layer learning-rate plane of deterministic gra
 Our main result is a computer-assisted description of a primitive period-18 training branch in a nonlinear network.
 Validated continuation connects an attracting interior orbit to a saddle-node and continues its $+1$-multiplier
 locus to a generic 1:1 resonance, where two multipliers equal $+1$ and all remaining modes attract.
-We certify a continuous interval of learning rates supporting attracting period-18 cycles and determine the resonance's
-nonlinear unfolding in the physical learning rates. Additional proofs establish attracting cycles of periods 10 and 36
+We certify a continuous attracting interval, the resonance's unfolding in the physical learning rates,
+and a finite emerging branch with a complex unit-multiplier pair. Additional proofs establish attracting cycles of periods 10 and 36
 and a period-2 cycle with 72 trainable parameters. An independently cross-checked numerical census places these results
 within a wider landscape of periodic windows and irregular training. Together, the results connect exact training cycles
 to the bifurcations organizing their parameter-space boundaries.
@@ -747,8 +747,27 @@ $q+i\sqrt{t}\,r$ has multiplier $e^{i\sqrt{t}}$.
 The complementary attraction, primitive period and positive learning rates
 persist by continuity. Shrinking the neighborhood excludes the low-order
 strong resonances. This proves a connected local branch with a complex pair
-on the unit circle; a numerical lower bound on its extent is a separate
-continuation problem.
+on the unit circle.
+
+A separate finite continuation now supplies an explicit interval,
+$t\in\tFiniteUnitParameter$. We retain all 18 native phases of the state and
+both critical vectors, together with the two physical rates, in a
+\nFiniteUnitUnknowns-dimensional shooting system. Independent 384-bit
+arithmetic reconstructs the native derivative blocks and entire terminal
+series, proves a weighted contraction smaller than
+$\xFiniteUnitContraction$, and verifies every strict inclusion uniformly on
+that interval. Proper divisors are excluded on the whole chart. All
+\nFiniteUnitUnknowns{} coordinates of the lifted exact Jordan root lie
+strictly inside its $t=0$ section, so this finite branch is attached to the
+same proved organizer and the preceding $+1$ locus. The real critical frame
+remains independent, giving the exact pair $e^{\pm i\sqrt t}$ for every
+$t>0$ in the interval. The derivative acquisitions and Arb library are shared
+with the producer; the assembly, series and inclusion calculations are
+separate. See \path{docs/reviews/native-unit-pair-independent-outcome.json}.
+The finite proof establishes the primitive cycle and critical pair throughout
+the stated interval. Complementary attraction is proved at the organizer and
+persists locally as above; a uniform complementary bound on the entire finite
+arc and its subsequent global continuation are distinct remaining checks.
 
 \subsection{A local subcritical flip on the historical two-rate ray}
 \label{sec:flip-proof}
@@ -1764,7 +1783,7 @@ and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
 feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
 LM pilots, wider primitive-branch continuation including the fold connection,
-the correlated attraction segments, connected $+1$ locus, generic 1:1 resonance and its unfolding, local cusps and fixed-weight activity proof
+the correlated attraction segments, connected $+1$ locus, generic 1:1 resonance and its unfolding, finite complex-unit branch, local cusps and fixed-weight activity proof
 have separate source-bound audits cited with their results; the full verifier
 does not automatically rerun these later audits. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;

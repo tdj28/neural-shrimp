@@ -21,8 +21,10 @@ rates: a single length2Jordan block at+1, eleven strictly attracting complementa
 modes, nonzero quadratic/resonant coefficients, and a transverse physical-rate
 unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
-connected unit-pair branch; finite extent and global boundary completion are
-separate certificate tasks. Their independent receipts and exact coefficient
+connected unit-pair branch. A separate independently audited704D shooting
+certificate now proves its finite extent t∈[0,1/32768] and attachment to the
+same organizer. Uniform finite-arc complementary stability and global boundary
+completion remain separate certificate tasks. Their independent receipts and exact coefficient
 bounds are in the manuscript and `docs/reviews/`.
 
 Other exact local results include both flip types with attracting complements,
