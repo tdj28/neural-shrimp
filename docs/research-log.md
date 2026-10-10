@@ -7903,3 +7903,11 @@ P12 extension0d0c5008 completed5.817s/6.580s,48560KiB/3079returns. Fold minus167
 ## 2026-10-10 — near-fold endpoint attraction independently passes
 
 The known primitive18 endpoint at old gauge45/128 is locally attracting. Fresh mean-value physical derivatives cover the entire localized235D state/rate box; all18 cyclic interval Lyapunov inequalities pass. Independent384-bit direct P−JᵀPnextJ reduction, exact nonsingular congruences and strict Gershgorin margins also pass all18phases (.862s/80156KiB). Shared analytic derivative acquisition and Arb are disclosed. This proves local attraction at the same known endpoint, not all intermediate parameters. The earlier full-width12-chart metric pilot failed its sufficient bounds and remains retained. Two producer wrapper failures were preserved, including the unpersisted first derivative in attempt002. See docs/reviews/s2-near-fold-endpoint-attraction.json for exact immutable pins.
+### 10 October 2026 UTC — prospective reverse-chart saved residual split
+
+Retained reverse failure7b1f8683 motivates one disclosed width/8 proposal,
+not a grid. After committing source/tests/card, run ONE saved-only diagnostic
+`tools/launch_s2_period18_fold_reverse_restriction.py --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-restriction-2026-10-10/attempt-001`.
+Card docs/plans/s2-period18-fold-reverse-restriction-diagnostic.md fixes all
+terms, one radius rule, inputs,30s/40+5,1GiB and4MiB. No new model calls or
+connection claim; the next actual restricted-domain proof remains separate.
