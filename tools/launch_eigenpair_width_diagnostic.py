@@ -26,7 +26,7 @@ def stop_group(group,sig):
 
 def command():
     cmd=['timeout','--signal=TERM','--kill-after=5s',str(LIMIT)+'s',sys.executable,str(ROOT/'tools/diagnose_eigenpair_width.py'),'--mode',ARGS.mode,'--out',str(OUT/'run')]
-    
+
     return cmd
 
 def main(args):
