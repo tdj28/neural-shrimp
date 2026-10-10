@@ -8653,3 +8653,15 @@ Run committed `tools/launch_eigenpair_width_diagnostic.py` once, CPU/BLAS1nice10
 source, completed-parent and process checks required. Preserve failure. Any
 subsequent widened-domain pilot requires separate committed code/card and all
 fresh proof gates; this diagnostic never launches it.
+
+### 2026-10-10 — saved width diagnosis supports one cautious fresh-domain pilot
+
+Single saved reduction atb71ad685 passed8.25s/784240KiB/zero native calls. Exact
+source/inventories/readonly/PIDs verified. Center defect≈3.32e-73; cubic forcing
+/radius≈.00268813 versus whole defect≈.46471410. Same-width triangle proxy
+.46740223; heuristic doubled-domain proxy.95093323 leaves only.049 margin.
+This is not a widened derivative enclosure or proof. Companions
+`docs/reviews/eigenpair-width-diagnosis.md/.json` retain the full derived vectors
+and matrices. The result justifies preparing one doubled-halfwidth fresh-domain
+two-chart target; no target run yet, no old proof extrapolated, all gates/radii
+and whole native endpoint identity must be rechecked.
