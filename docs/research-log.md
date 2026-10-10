@@ -7067,3 +7067,13 @@ outer 69f9bb5403d415a0c66dd9a6005f06ca41060c1f89ba19c52d8f435c72e93ed4. Compact 
 docs/reviews/s2-period18-norm-cocycle-outcome.json. Independent outcome
 review pending; full branch attraction and whole shrimp organization remain
 unresolved, and the neutral fold is excluded. Earlier failures unchanged.
+
+2026-10-10 prospective doubled-slice unit: after fixed-frame norm-cocycle
+source38ea6ac3/outcomef03b5836 passed the original1/16 terminal slice, prepare
+ONE fresh1/8 terminal slice [359/1024,45/128] of chart156, using the same
+exact inherited root and primitive-period theorem. New composition joins
+whole localization, strict uniform implicit tangent, center localization,
+true mixed physical derivatives and the unchanged norm-cocycle proof.
+No target or profile run yet. Code/card in docs/plans/s2-period18-doubled-stability-slice.md;
+full synthetic profile first, exact measured pins/card before target. Previous
+failed bounds retained; no claim of whole-branch stability or shrimp closure.
