@@ -7123,3 +7123,15 @@ strict root/primitive/anchor gates. No unchanged retry or prefix repetition.
 Precommit synthetic control exposed log2 rounding at a nextafter-above-power
 proposal. This new diagnostic uses frexp for exact binary exponent selection;
 all historical source/evidence remains unchanged. No target data was involved.
+
+## 2026-10-10 — saved correlated-radii proposal completed
+
+One saved-only attempt completed0.9564s/250060KiB,
+launcher1.5417s/exit0; all immutable hashes/source/PIDs checked.
+The positive proposal normalizes to radius2^-21 and expands83 of235 original
+coordinate radii. The SAVED OLD-domain defect has weighted norm<0.496287
+under these weights; this is not a changed-domain proof. Full correlated
+anchor requirements retained. Receipt
+`docs/reviews/s2-period18-correlated-radii-outcome.json` binds all files.
+Next: ONE fresh-domain two-chart weighted reanchor with this fixed proposal,
+unchanged halfwidth2^-7/256bits/strict gates, profile/source review first.
