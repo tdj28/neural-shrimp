@@ -5555,3 +5555,10 @@ run d8fcca4da2cf9fb0098487d74a0399325386c8bf243cdcd7641779fe6d52648c.
 Root authorizes disclosed full108-row synthetic window-mix profile003 with2slot×2
 safety wall-time projection plus probes/5s, unchanged45s gate/60s panel/scientific
 choices. Full rerun only if passing. Every earlier attempt retained immutable.
+
+Clark profile003 passes: source d54446ff,108 synthetic grid solves,3.832s total,
+3.390s grid,132808KiB RSS; projected19.366s<45s. Run manifest
+8ea845a458a76d6b40ff3fcd0d2426f2decbab6ac33ea921deca9d90097841d5;
+outer0adc6365139f36de7a2d33d33f19ba6d542bae4a86f7b7356501a4b962e27309.
+Proceed root-authorized complete unchanged scientific panel in attempt002 with
+this exact pin, preserving earlier partial/cost failures and source bytes.
