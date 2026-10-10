@@ -94,3 +94,14 @@ branches, tangents, failures and hashes in an exclusive new attempt.
 This is a candidate, not the default next run. Decline it if even resolving the
 approximation would not change the larger-model plan. Stopping the geometry-
 utility search remains a scientifically valid response to the negative results.
+
+
+## 10 October 2026 — implementation under renewed all-track authorization
+
+The human renewed all research directions and asked to strengthen the contribution. Implement the fixed mechanism comparison above on consumed development checkpoints; no additional user approval is inferred from this older design-only note. Earlier failed forecasting gates and sealed assessment data remain unchanged. No new corpus, rate, direction, amplitude, seed or horizon search. The operator, model, ridge0.001 and physical rates exactly match saved data; float32 states promote exactly to CPUfloat64 for a new counterfactual trajectory.
+
+Operation inventory per target case:145native objective gradients (17reference including terminal,128perturbed),64HVP (two directions,16steps, frozen and transported),24trainingCE evaluations (two directions,twoamplitudes,two signs,threehorizons). Fourcases total580grad/256HVP/96CE. Gradient direction reuses reference step0; functional readout gradients are objective gradients minusridge*state, never separate objective/CE acquisitions. No probe arrays are evaluated. Retain each trajectory and tangent, partial reference/latest accepted state on interruption, all slope and vector responses, and exact operation counts. Transported agreement is retrospective calculus validation and is not online forecasting.
+
+Profile seed28160 at update50 for both8/256arms: two gradient/HVP/CE evaluations each, exact same native source and historical parentmanifest. Use maximum measured cost per operation and arm. Projection2*2*sum_arms(145*tgrad+64*thvp+24*tCE)+20s mustfit300s. This replaces the unmeasured proposed150s envelope with a fixed300s ceiling before target observations. Profile60s/80+5external; target300s/320+5external; oneCPUthreadnice10,4GiBmonitoredRSS,256MiBworker+1MiBlauncher,8GiBhostheadroom. NoGPU/paidresources. Profile andtarget source/library identities mustmatch. Never reuse old float32 future states as a float64 reference.
+
+Five fixed mathematical controls cover quadratic exact response/call accounting, changing-curvature frozen failure, wrong-derivative rejection, and unique latest-reference retention on interruption, and complete measured operation-cost validation. Target launch independently recomputes the profile forecast and checks complete counts. Source/type syntax is checked before any run; early editing syntax failures produced no research output. Independent source/math review and a committed run card precede the profile and later measured target.

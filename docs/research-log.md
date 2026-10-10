@@ -11688,3 +11688,8 @@ Add112 independently audited closed native slices and exact hidden-rate interval
 ### 2026-10-10T23:18:46.228688+00:00 — timestamp clarification and saved-output checks
 
 Some immediately preceding human-readable headings were manually approximated ahead of the host clock (23:13/23:16/23:18/23:21). They are labels, not execution times. Exact immutable launcher timestamps and Git commit times remain authoritative; CIFAR saved-merit finished23:12:08.916309UTC. No run ordering or source provenance is inferred from those approximate headings.422numbers verify with419prior entries unchanged; new boundary figure byte-identical on repeat generation.18new completed raw roots backed up to separatephysicaldisk:5255files/226165079bytes, manifest8966a76cb714309e82e9bd3f9a171a971ce9293f6b8a9e2d440f926d91481e10.
+
+
+### 2026-10-10T23:31:30.866097+00:00 — Fixed LM response pilot source prepared
+
+Prepared the previously specified four consumed development checkpoints to compare frozen curvature with measured central perturbation response over sixteen updates. The transported derivative is a retrospective chain-rule control. Five synthetic controls cover exact quadratic behavior, changing curvature, wrong derivatives, interrupted evidence retention and complete measured cost accounting. All model, data, rates, directions and horizons remain fixed. An independent source review and a two-arm resource profile precede any target run; no new scientific results or protected evaluations exist yet.
