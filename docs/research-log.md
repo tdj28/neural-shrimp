@@ -10489,3 +10489,10 @@ CPU1nice10,360s/390+5external,2GiB,512/514MiB,1296C1/2592unit/288mixed and
 1288stages. Stopfirstfailure; fresh hostcheck before launch. Unit002 has no
 card yet. Root independently audited146 fourpieces (6de22823), leaving28
 independent pieces vs96producer at this checkpoint.
+
+2026-10-10 boundary independent differential skim of af97afd1 PASS,11focused
+controls0.19s including real original -7family validator and -8rejection.
+Full235D endpoint/gauge/root gates unchanged; zero-call failure preserved.
+Measured corrected unit001card9c93f103 clears source peer gate. No source
+change after positive fresh profile. Host50GiB available; root CPU1audit
+completed and later saved-only audits may run independently.
