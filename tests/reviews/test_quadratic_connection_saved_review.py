@@ -42,3 +42,12 @@ def test_proof_mutations_rejected(mutation):
 def test_exact_decoder_nontrivial_radius(bits):
  with ctx.workprec(bits):
   saved={'mid':[3,-10],'rad':[879609305,-43],'display':'ignored'};got=ball_json(R.original_ball(saved));assert got['mid']==saved['mid']and got['rad']==saved['rad']
+
+
+def test_every_bound_python_source_parses_and_driver_imports():
+ import ast
+ import review_weighted_connection as driver
+ root=Path(__file__).resolve().parents[2]
+ for name in driver.FILES:
+  if name.endswith('.py'):ast.parse((root/name).read_text(),filename=name)
+ assert len(driver.UNITS)==2

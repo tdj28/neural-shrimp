@@ -42,3 +42,16 @@ Exclusive raw `/data2/neural-shrimp-data/audits/s2-period18-weighted-connection/
 Command: repository venv with one-thread environment/PYTHONPATH=src and nice10,
 `tools/reviews/launch_weighted_connection_review.py`. Preserve every failure,
 source/runtime/argv/PID/exit/manifest, then make all raw immutable.
+
+### 10 October 2026 — reviewer entry-point repair before saved arithmetic
+
+Attempt001 at review source012b71e5 failed before imports or evidence loading:
+missing whitespace after the two FLINT version attributes caused SyntaxError.
+Its immutable outer manifest is
+e465c7a849541424719c2d4197668b694ca09c61902e755063f6867153b31f8e;
+exit1,0.1511s, no live owned process. No mathematical verdict was produced.
+Repair only that syntax, add a regression importing the driver and parsing every
+bound Python source, and change the exclusive destination to attempt002.
+Repeat the same saved-only audit with identical input pins, arithmetic, scientific
+gates and caps. Existing producer summaries were known; no target arrays were
+loaded by the failed invocation. Both attempts remain in the final review.

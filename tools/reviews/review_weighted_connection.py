@@ -51,7 +51,7 @@ def bind_runtime(root,commit):
  run=root/'run';rt=read(run/'runtime-start.json');done=read(run/'outcome.json');launch=read(root/'launcher-result.json')
  M.need(rt['source_commit']==launch['source_commit']==commit,'actual execution identity');M.need(rt['source_sha256']==launch['source_sha256'],'launcher source identity')
  for n,h in rt['source_sha256'].items():M.need(entry(run/'source'/n)['sha256']==h and hashlib.sha256(subprocess.check_output(['git','show',commit+':'+n],cwd=ROOT)).hexdigest()==h,'retained committed source '+n)
- M.need(rt['python_flint']==flint.__version__and rt['flint']==flint.__FLINT_VERSION__and rt['python']==platform.python_version(),'same arithmetic runtime')
+ M.need(rt['python_flint']==flint.__version__ and rt['flint']==flint.__FLINT_VERSION__ and rt['python']==platform.python_version(),'same arithmetic runtime')
  M.need(rt['threads']==dict.fromkeys(THREADS,'1')and rt['nice']>=10 and rt['cpu_only']and not rt['paid'],'runtime scope')
  M.need(done['exit_code']==launch['exit_code']==0 and not launch['owned_live_pids'],'successful exited producer')
  for pid in (rt['pid'],launch['launcher_pid'],launch['owned_group_pid']):M.need(not Path('/proc',str(pid)).exists(),'owned PID absent')
