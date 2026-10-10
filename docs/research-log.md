@@ -8984,3 +8984,19 @@ Static P7 boundary differential review4a990b65 clears native packing/identity,
 leading-real/complex-abstention and final repaired storage cap. Review receipt
 `docs/reviews/clark-rnn-n6-p7-boundaries-source-skim.json`; no target arrays,
 model calls or independent test rerun. Author reports20 controls0.19s.
+
+### 2026-10-10 — repair-chain source clearance and unit005 launch
+
+Independent research_strategy differential skim of source
+4c191a65760745e6ee13d09f5b0ebdb9bb97c170 passed; eighteen repair/wider controls
+independently reproduced in0.20s. Exact first source-inventory transition,
+complete native parent, original marcher and all caps cleared. Review receipt
+will be linked when the peer finishes its compact record; direct clearance
+was received before launch. No target arrays were opened by that reviewer.
+
+Fresh17:44UTC host load3.27/2.57/1.94,36GiB available, GPU idle/no compute apps;
+the peer's small P7 unit has exited. The earlier low-headroom observation is
+preserved above. Launch only the prospectively pinned unit005 from87/128,
+using card8a26cfb7 and unchanged scientific source4c191a65. CPU1 nice10 and
+400/420+5s,2GiB sampledRSS,1040ticks,512+1MiB remain unchanged. This metadata
+commit is the execution HEAD; no mathematical source/card bytes changed.
