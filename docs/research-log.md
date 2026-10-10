@@ -6818,3 +6818,26 @@ Two early synthetic control failures were fixture assumptions: a derivative
 perturbation was too small relative to the anisotropic weights to force a
 failure, and a mocked rebox result omitted its required metadata. Fixtures
 were corrected; production mathematical gates were not weakened.
+
+### 10 October 2026 UTC — forced-reboxing profile and target001 card
+
+Source 083182989a29130f2d70562271d31680f803f6a9; profile worker 8.0069s,
+396048KiB; launcher 8.4800s, exit0.
+Both forced rebox root paths and180/360 derivatives+108jets completed.
+Inventories, source/libraries/threads, immutable bytes and owned exits checked.
+Profile manifest c608616f7651c850ca3a3d5611efe9de810834ab1537bf14f674c084670a0ff2; projection 133.1107s,
+335544320B passes. Companion
+`docs/reviews/s2-period18-arclength-reboxing-profile.json`.
+
+After this card is committed, run ONE unit:
+`tools/certify_s2_period18_arclength_reboxing.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-reboxing-2026-10-10/unit-001
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-reboxing-2026-10-10/attempt-001-profile/run
+--profile-manifest c608616f7651c850ca3a3d5611efe9de810834ab1537bf14f674c084670a0ff2
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-radii-2026-10-10/unit-002/run
+--parent-manifest 26cf51439d0d409dbe8b9d03c5b774805d5c93f836d3a3045681f3c065dc3135
+--parent-execution f5922aa97383e81ad455d79980b04b668d4e4fe8`.
+Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
+plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
+final failure or strict fold membership, no automatic alternate search.
+No attraction or full shrimp geometry is implied.
