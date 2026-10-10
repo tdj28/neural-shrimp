@@ -12,7 +12,7 @@ def matrix(v):return arb_mat([[restore(x)for x in r]for r in v])
 def vector(v):return arb_mat([[restore(x)]for x in v])
 def same(a,b):return matrix_json(a)==matrix_json(b)
 
-def arithmetic(proof,precision=384):
+def arithmetic(proof,precision=384,observe=lambda kind,row:None):
     need(proof['passed']and all(v is True for v in proof['gates'].values()),'producer gates')
     n=len(proof['monodromy']);dim=3*n+2;need(len(proof['box'])==dim,'full augmented dimension')
     with ctx.workprec(precision):
@@ -44,7 +44,7 @@ def arithmetic(proof,precision=384):
             U[0,j]=(w*par)[0,0]
             U[1,j]=(w*arb_mat([[g1[i,n+j]+sum((g1[i,k]*y[k,0]for k in range(n)),arb(0))]for i in range(n)]))[0,0]
             need((y[n,0]+U[0,j]).contains(0),'parameter complement multiplier sign');ys.append(matrix_json(y))
-        determinant=U.det();need(cubic.is_finite()and not cubic.contains(0)and determinant.is_finite()and not determinant.contains(0),'independent cubic/versal gates')
+        determinant=U.det();observe('coefficient_reduction',{'left_border':matrix_json(B),'inverse':matrix_json(inverse),'left_augmented':matrix_json(left),'third':matrix_json(third),'cubic':ball_json(cubic),'unfolding':matrix_json(U),'determinant':ball_json(determinant),'parameter_solutions':ys});need(cubic.is_finite()and not cubic.contains(0)and determinant.is_finite()and not determinant.contains(0),'independent cubic/versal gates')
         need(cubic.overlaps(restore(proof['cubic_coefficient']))and determinant.overlaps(restore(proof['unfolding_determinant'])),'quoted coefficient consistency')
         Q=M-q*w;basis=acb_mat([[acb(restore(z['real']),restore(z['imag']))for z in row]for row in proof['spectral_exclusion']['proposal_basis']])
         need(basis.nrows()==n and basis.ncols()==n and all(basis[i,j].real.is_exact()and basis[i,j].imag.is_exact()for i in range(n)for j in range(n)),'exact complex proposal basis')
