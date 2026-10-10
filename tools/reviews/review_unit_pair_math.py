@@ -84,7 +84,7 @@ def contraction(C,J,G0,Jp,Htp,slope,weights,radius,delta):
     checks=[bool(abs(K[i,0]).upper()<rho*w[i]) for i in range(N)]
     return {'passed':bool(bound.is_finite() and bound<1 and all(checks)),'bound':bound,'checks':checks,'D':D,'E':E,'path':path,'G0':G0,'K':K}
 
-def check_chart(chart,anchor,events,precision=384):
+def check_chart(chart,anchor,events,precision=384,tick=lambda:None):
     need(chart['schema']=='neural-shrimp-native-unit-pair-tube-v1' and chart['dimension']==13 and chart['period']==18 and chart['shooting_dimension']==704,'fixed native704 convention')
     settings=chart['settings'];need(settings=={'precision':256,'newton_steps':2,'halfwidth_exponent':-16,'radius_exponent':-11},'fixed measured finite-curve design')
     n,p,N=13,18,704;tc=F(chart['parameter_center']);delta=F(1,65536);radius=F(1,2048)
@@ -101,8 +101,8 @@ def check_chart(chart,anchor,events,precision=384):
         P=[U[i]+S[i,0]*d for i in range(N)];W=[P[i]+arb(0,R.exact(radii[i])) for i in range(N)]
         for old,new in zip(chart['whole_box'],W,strict=True):contains(old,ball_json(new),'retained full correction domain')
         need(all(v>0 for v in W[-2:]),'whole actual rates positive')
-        G0,_,_=rebuild(U,groups[3],n,p,R.exact(tc));_,Jp,Htp=rebuild(P,groups[4],n,p,ti);_,J,_=rebuild(W,groups[5],n,p,ti)
-        C=R.matrix(chart['preconditioner']);r=contraction(C,J,G0,Jp,Htp,S,w,radius,delta)
+        G0,_,_=rebuild(U,groups[3],n,p,R.exact(tc));tick();_,Jp,Htp=rebuild(P,groups[4],n,p,ti);tick();_,J,_=rebuild(W,groups[5],n,p,ti);tick()
+        C=R.matrix(chart['preconditioner']);r=contraction(C,J,G0,Jp,Htp,S,w,radius,delta);tick()
         proper=[1,2,3,6,9];need([v['divisor'] for v in chart['divisors']]==proper,'every proper native divisor')
         primitive=[]
         for k in proper:
