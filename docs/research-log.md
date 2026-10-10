@@ -7619,3 +7619,22 @@ charts? Profile20s/25+5 external,512MiB sampledRSS,32+1MiB raw; preserve failure
 Source/core/card math reviewed by root;65 focused controls passed0.56s. Target
 remains conditional on profile/cost/source/resource gates and its exact pinned
 run card. No parameter or radius adaptation beyond the declared proposal rule.
+
+### 2026-10-10 — reanchor profile passed; exact target pre-run card
+
+The synthetic470D profile executed at `daf30d5b` once and passed in8.9644s,
+326140KiB, with zero native calls. Full outer/run/source inventories are verified,
+all raw is read-only and owned PIDs1360842/1360929/1360930 are absent. The exact
+unit002 full-chart/accepted/source/input ancestry binding passed read-only.
+Compact profile receipt: `docs/reviews/eigenpair-reanchor-profile.json`.
+Measured forecast137.059s/180759142bytes/1414108KiB fits fixed limits.
+
+Execute the exact committed JSON command in
+`docs/plans/eigenpair-reanchor-run001.json`, CPU/BLAS1/nice10, after fresh shared
+resource inspection and final root adapter skim. It creates exclusively
+`explore/eigenpair-locus-prototype/attempt-001-reanchor-target` with180s/internal,
+200+5external,360ticks,2GiB monitoredRSS,512+1MiB raw. Question: can three
+known-root intersections carry the entire proved endpoint into a fresh full
+state/mode tangent gauge and two joined quadratic charts? Any failure remains
+retained and unresolved; no automatic rebox, changed tolerances or target retry.
+A passed result concerns only the connected primitive normalized eigenpair locus.
