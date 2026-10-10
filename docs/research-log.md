@@ -5834,3 +5834,9 @@ This overlay guides the next boundary choice, not a claim of inter-node proof.
 CLI GitHub has no authentication and the connector cannot access this private
 repository (404/422); reviewed changes remain on the private branch, SSH pushes
 work, and no PR or merge is claimed. Existing privacy/CI settings are unchanged.
+
+### 2026-10-09: Clark finite random RNN exploratory track, pre-run card
+
+User requested parallel shrimp search in Clark arXiv2610.12426. Separate source/card in `docs/plans/clark-rnn-shrimp-pilot.md` pins the gain/leak map, six fixed N=4/8/16 matrices, two starts, and a 21×21 first panel. No training or continuous-flow/large-N claim. Source and synthetic controls first, then one measured N16 profile; collection only within the resource-only gate and shared-host CPU1/nice10/512MiB limits. Initial external root `explore/clark-rnn/profile-001`, then a separately pinned scan root. Preserve all partial outcomes. No paid/GPU/holdout work; no target run has yet occurred.
+
+Synthetic-control development: the first proposed axis-aligned p4 control was correctly rejected by full-state Floquet qualification because its transverse multiplier is16. Replaced the intended attracting positive control by the diagonal square p4 and retained the axis cycle as an explicit unstable control. This was synthetic-only, before target inputs/trajectories.
