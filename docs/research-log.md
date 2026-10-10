@@ -7274,3 +7274,27 @@ including wrong-runner fallback rejection, incomplete/wrong-index/owned-live
 predecessors and restoration of wrapped base functions. Initial test import
 path failure repaired before any profile. Plan at
  docs/plans/s2-period18-stability-march.md. No acquisition yet; peer skim next.
+
+2026-10-10 fixed descending stability synthetic profile at b6017dd790c38a52a45082ffa585e2a08fd7d95e
+completed once: 12.258012s/535216 KiB, 162 C1 /
+324 unit / 36 mixed calls, 161 stages; all strict synthetic gates pass. Peer
+source skim and 43 independent controls passed before launch (6e9b9df6).
+Worker a063cde5cf33bffda71adb9d747670a4674ce5e69d2c27a6b77cd0e262e6e8b7; outer c51687eac1257b57bd2d0142734707098217fadd26cd8486aff3447c0e70a478. Full inventories, runtime/library
+identity, read-only status and absent owned PIDs checked. Cost projection
+309.192294s < 360 and 402653184 B < 448 MiB.
+
+Exact unit001 card: select original chart007 (global154), eight descending
+slices covering [21/64,43/128]. Use unchanged reviewed adapter and profile
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-stability-march-2026-10-10/attempt001-profile/run
+--profile-manifest a063cde5cf33bffda71adb9d747670a4674ce5e69d2c27a6b77cd0e262e6e8b7
+--profile-outer-manifest c51687eac1257b57bd2d0142734707098217fadd26cd8486aff3447c0e70a478.
+--index 7 --previous /data2/neural-shrimp-data/explore/certificates/s2-period18-preceding-chart-stability-2026-10-10/attempt-001-target/run
+--previous-manifest bf144fdd7417df256fa828c84fa4563cf29d661f6f1395f73097196bf5034752
+--previous-outer-manifest 4ed29fa3375a3fc196624509d2bb0ec1712a3da8c5a60f1f2f196edddee9d514.
+Exclusive output s2-period18-stability-march-2026-10-10/unit001.
+CPU/BLAS1, nice10, 360s worker / 390+5s external, 2 GiB sampled owned-group RSS,
+512 MiB worker / 514 MiB aggregate. Stop this unit and entire fixed sequence
+at the first final failed gate; preserve every first norm failure and all
+partial outputs. No new orbit count or neutral-fold attraction. Independent
+saved outcome review remains required for final attribution. Fresh resource
+check before launch; no completed scientific interval repeated.
