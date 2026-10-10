@@ -8148,3 +8148,9 @@ Separately prepared outward-rounded55 Krawczyk kernel with native proper-divisor
 ### 2026-10-10 measured native55 junction localization card
 
 Numerical profilea2e4feaa passed3.067s/47960KiB,648native phases,6complete returns of each type. Complete source/archive/history/inventory and owned termination verified. Outer092d52c7e63ca8fecd7e4780f18684547ab53301b55590843e5656509f96d4d5; worker120135e8f61714fcfa5831eca011073a5647bdc7951c7f22a6531c93ca376750. Full5256phase forecast60.705s/262144KiB/20860504bytes fits120s/1GiB/64MiB. Execute only flip/attempt001-target with those profile pins, fixed exact section001points26/27 and actual unstable negative leading seed. All55 root equations, both literal phase spectra/divisors, remaining10, total crossing derivative and both full704+t reverse associations required. Numerical localization only; interval source remains separate and unexecuted.
+
+### 2026-10-10 numerical NS–flip localization passes; rigorous packet ready
+
+Executionf5021f3a localized native NS–flip in4.913s/94384KiB/450native phases: rates(84.407976182202,.8331832347741333),t=.04968796172568402. Both literal native phases have primitive18/simple unit pair/simple−1/allother10 stable, maxother modulus.9292358; total flip derivative−5.39708. Both complete704+t reverse bracket joins pass. Source/archive/history/inventory/owned termination verified; receipt native-unit-pair-flip-localization.json. Numerical only.
+
+Root mathematical/source skim a2e4feaa interval helper PASS,4focused controls.11s. Prepared separate fixed384bit/2^-60/4Newton candidate-bound wrapper; every conditional argument derives from the same proved55box/M/wholeJ. Fresh108phase full55 interval/inverse profile and measured324phase target card required. Six interval/wrapper controls pass.17s. No rigorous profile or target opened; wrapper peer review next.
