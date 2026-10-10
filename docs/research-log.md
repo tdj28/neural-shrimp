@@ -7984,3 +7984,8 @@ After source commit/review, one forced two-rebox synthetic profile at
 Measured profile and exact source-bound unit card precede any next model run.
 Distinct completed units may then continue under root standing authorization;
 stop first failed tail/identity/neighborhood-covered-without-identity.
+Root independently skimmed4e25a62e and approved the adapter/profile/bounded
+units. Before profiling, corrected only the emitted scope string to say
+"full correlated target-root containment"; role metadata already identified
+the center-branch endpoint. Root also independently passed the256-bit156th
+endpoint localization, so both input roots have reviewed provenance.
