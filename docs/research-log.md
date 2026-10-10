@@ -5993,3 +5993,7 @@ Stability peer source-only skim803c8752 PASS;2controls independently reproduced0
 ## 2026-10-10: N12 signed half-return diagnosis complete
 
 Peer-cleared saved run068a9c54 completed1.2814s/56996KiB, exact15selected records. Allthree lower endpoints approach/cross G=-F³ eigen−1; g25upper approaches+1. Oldlower fullperiodfoldproposals violate half-wave at3.80e-6/4.81e-6 and squareidentity2.21e-5/2.59e-5, so no relabeling as symmetric roots. G25upperproposal is symmetric to3.36e-16 but retains failed native reverse association. Full immutable inventory and owned1762908/1762986/group absence checked. Prepare explicit fixed-gGroot+criticalmode solves/criticality with fullnative6 evidence next, not a relaxed fullperiodfold gate. Receipts docs/reviews/clark-rnn-n12-half-return-diagnosis.json and clark-n12-continuation-integration.json list source/integration and all11ownedrawroots since54b06c92.
+
+## 2026-10-10: direct signed-half root/criticality source preparation
+
+Existing clark_rnn_symmetry.g_jets supplies G=-F^k; add fixed-gain critical equations/Jacobian with sign±1 and synthetic complete25-column differential checks plus global G²=F⁶ native composition check. New card docs/plans/clark-rnn-n12-signed-critical.md fixes three lowerG−1 and one upperG+1 original native seeds from003. Require a newly corrected G fixedpoint close to original native state, direct criticalroot, fullnative6/adjacent/divisor/reverse gates and signedG criticality. Runner/resource profile/threshold source remains in preparation; no target launched or source-ready claim yet.
