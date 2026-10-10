@@ -6096,3 +6096,7 @@ Root requested continuation through turns from saved endpoints, no duplicate pre
 ### 2026-10-09 PDT: low-g endpoint extension retained
 
 One source4660bf7a run accepted384 new nodes in3.478s internal4.176s external,43868KiB,2316 family calls. Both curves turn in gain, with nonzero delta tangent. All native phase/sign and reverse checks pass. Full spectra show later second+1/second−1 crossings; large normalized coefficient sign jumps are explicitly not interpreted as cusp/generalized-flip evidence. All nonattracting-complement nodes retained. Immutable full inventories and owned999147/999151/group exits verified; receipt `docs/reviews/clark-rnn-lowgain-outcome.json`. Next root-authorized work is saved-only combined geometry, a finite-envelope proposal, and an exact native4D primitive5 orbit proof prepared independently of morphology.
+
+### 2026-10-09 PDT: combined saved RNN geometry view
+
+Root requests actual combined curves/endpoints before farther extension. Committed `tools/plot_clark_rnn_geometry.py` binds both immutable curve manifests, joins only exact duplicated endpoint records, and renders solid attracting-complement / dashed nonattracting portions, ordinary projection turns and secondary-multiplier brackets. No model/derivative/decomposition/correction, no common-orbit inference from projected crossings. One CPU1nice10 saved-only run at `p5-geometry-001`,30s+5 external,512MiB/64MiB, alloutputs retained. Existing scientific raw unchanged.
