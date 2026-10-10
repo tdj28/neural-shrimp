@@ -11835,3 +11835,7 @@ Source53ff2558 compiles43 pages with no warnings or box errors. The abstract is1
 Target7ae8fbf6 completed7.024s/59996KiB/all324phases; full55 root bound failed at contraction152.021,29/55 inclusions. Other period/rate/angle gates passed but no root claimed. Center residual~4e-79; native interval wrapping grows the2^-60 box to1.88e-5 state width and~.116Jacobian width. Complete source/archive/inventory/owned termination verified; native-unit-pair-flip-interval-failure.json. Parent supports one explicit radius-only2^-80 refinement with same384bits/fourNewton/caps. Width scaling predicts~1.45e-4 contraction only heuristically; fresh derivatives/proof required. New source-bound profile/target002 paths preserve001; narrow peer review precedes execution.
 
 Preprofile source correction: the output-path renaming briefly also renamed the fixed numerical-parent path; restored that parent to original flip/attempt001-target with a regression. No profile or target002 had opened, and every numerical pin stays unchanged.
+
+### 2026-10-10 exact narrower-domain synthetic profile002 card
+
+Stability fc2df708 narrow recheck PASS,8controls reproduced.17s. Execute only rigorous/attempt002-profile at384bits/radius2^-80, same two unrelated full55 interval+inverse returns/108native phases and original60s/1GiB/32MiB/75+5owned caps. Exact numerical candidate remains original001; no target access during profile. Fresh source/library measurement and separate pinned target card remain mandatory.
