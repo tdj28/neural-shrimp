@@ -85,8 +85,8 @@ def correct_section(evaluate,prediction,normal,scale,max_iterations=10,tolerance
     z=pred.copy();history=[]
     def assemble(point):
         data=evaluate(point);plane=float(normal@((point-pred)/scale))
-        v=np.r_[data['value'],plane]
-        return data,v,np.vstack([data['jacobian']*scale,normal])
+        v=np.r_[np.asarray(data['value'],dtype=float),plane]
+        return data,v,np.vstack([np.asarray(data['jacobian'],dtype=float)*scale,normal])
     for iteration in range(max_iterations):
         data,v,j=assemble(z);err=float(np.max(np.abs(v)));history.append(err)
         emit('newton',{'iteration':iteration,'point':z,'error':err,'plane':float(v[-1])})
