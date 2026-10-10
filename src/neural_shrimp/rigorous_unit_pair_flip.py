@@ -41,6 +41,12 @@ def augmented(model,y,period,tick=lambda:None):
     return V,J,{'orbit':orbit,'monodromy':M,'q_phases':qp,'r_phases':rp,'w_phases':wp}
 
 
+def actual_box_delta(center,box):
+    """Cover the constructed Arb box, including its outward-rounded radii."""
+    require(len(center)==len(box)and all(box[i].mid()==center[i]for i in range(len(box))),'exact constructed-box centers')
+    return arb_mat([[arb(0,v.rad())]for v in box])
+
+
 def root_proof(model,initial,period,*,radius_exponent=-60,newton_steps=4,tick=lambda:None,observe=lambda k,v:None):
     n=model.n;dim=4*n+3;k=3*n+2
     require(len(initial)==dim and type(newton_steps)is int and 0<=newton_steps<=6 and type(radius_exponent)is int and -256<=radius_exponent<=-1,'fixed proof settings')
@@ -51,14 +57,14 @@ def root_proof(model,initial,period,*,radius_exponent=-60,newton_steps=4,tick=la
     value,J,_=augmented(model,center,period,tick);observe('center_evaluation',{'center':vector_json(center),'value':matrix_json(value),'jacobian':matrix_json(J)})
     pre=midpoint_matrix(J.inv());radius=arb((1,radius_exponent));box=[arb(v,radius)for v in center]
     _,whole,data=augmented(model,box,period,tick);observe('box_evaluation',{'box':vector_json(box),'jacobian':matrix_json(whole),'monodromy':matrix_json(data['monodromy'])})
-    defect=eye(dim)-pre*whole;contraction=norm_inf_upper(defect);image=-pre*value+defect*arb_mat([[arb(0,radius)]for _ in box])
+    defect=eye(dim)-pre*whole;contraction=norm_inf_upper(defect);delta=actual_box_delta(center,box);image=-pre*value+defect*delta
     inclusion=[bool(box[i].contains_interior(center[i]+image[i,0]))for i in range(dim)]
     divisors=[]
     for d in range(1,period):
         if period%d:continue
         diff=[data['orbit'][d][i]-box[i]for i in range(n)];divisors.append({'divisor':d,'excluded':any(not v.contains(0)for v in diff),'differences':vector_json(diff)})
     gates={'strict_native_augmented_root':bool(all(inclusion)and contraction<1),'primitive_period':all(v['excluded']for v in divisors),'positive_actual_rates':bool(box[n]>0 and box[n+1]>0),'small_positive_angle':bool(box[k]>0 and box[k]<arb(1)/4)}
-    result={'passed':all(gates.values()),'gates':gates,'dimension':n,'period':period,'augmented_dimension':dim,'center':vector_json(center),'box':vector_json(box),'value':matrix_json(value),'preconditioner':matrix_json(pre),'whole_jacobian':matrix_json(whole),'defect':matrix_json(defect),'image_correction':matrix_json(image),'coordinate_inclusions':inclusion,'contraction':ball_json(contraction),'orbit_enclosures':[vector_json(v)for v in data['orbit']],'monodromy':matrix_json(data['monodromy']),'divisors':divisors,'settings':{'newton_steps':newton_steps,'radius_exponent':radius_exponent},'scope':'Locally unique normalized native NS/flip augmented root only. Exact critical multiplicities, complementary attraction, crossing and connection require their same-root qualifications.'}
+    result={'passed':all(gates.values()),'gates':gates,'dimension':n,'period':period,'augmented_dimension':dim,'center':vector_json(center),'box':vector_json(box),'value':matrix_json(value),'preconditioner':matrix_json(pre),'whole_jacobian':matrix_json(whole),'defect':matrix_json(defect),'actual_box_delta':matrix_json(delta),'image_correction':matrix_json(image),'coordinate_inclusions':inclusion,'contraction':ball_json(contraction),'orbit_enclosures':[vector_json(v)for v in data['orbit']],'monodromy':matrix_json(data['monodromy']),'divisors':divisors,'settings':{'newton_steps':newton_steps,'radius_exponent':radius_exponent},'scope':'Locally unique normalized native NS/flip augmented root only. Exact critical multiplicities, complementary attraction, crossing and connection require their same-root qualifications.'}
     observe('root_gate',result);return result,data
 
 
