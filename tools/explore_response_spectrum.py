@@ -44,6 +44,9 @@ class Budget:
         if self.stopped or time.monotonic()-self.start>self.seconds:raise TimeoutError('deadline/termination')
         if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>480*1024:raise MemoryError('480 MiB monitored RSS')
 
+def virtual_memory():
+    return {line.split(':')[0]:line.split(':')[1].strip() for line in Path('/proc/self/status').read_text().splitlines() if line.startswith(('VmPeak:', 'VmSize:', 'VmHWM:', 'VmRSS:'))}
+
 def environment():
     return {'python':platform.python_version(),'numpy':np.__version__,'scipy':scipy.__version__,'threads':{k:os.environ.get(k) for k in THREADS},'nice':os.getpriority(os.PRIO_PROCESS,0)}
 
@@ -91,16 +94,17 @@ def run(mode,out,profile=None,profile_pin=None):
     binding=profile_gate(profile,profile_pin,env) if mode=='panel' else None
     store=Store(out); budget=Budget(15 if mode=='profile' else 60); signal.signal(signal.SIGTERM,budget.stop)
     # Virtual-memory hard cap supplements the launcher RSS monitor; no claim of an RSS RLIMIT.
-    resource.setrlimit(resource.RLIMIT_AS,(480*1024**2,480*1024**2))
-    start={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'sources':sources(),'environment':env,'mode':mode,'pid':os.getpid(),'started_unix':time.time(),'profile_gate':binding,'settings':{'repeats':REPEATS,'etas':ETAS,'shifts':SHIFTS,'boundaries':BOUNDARIES,'internal_seconds':budget.seconds,'hard_address_space_bytes':480*1024**2,'monitored_rss_kib':480*1024}}
+    resource.setrlimit(resource.RLIMIT_AS,(1024*1024**2,1024*1024**2))
+    start={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'sources':sources(),'environment':env,'mode':mode,'pid':os.getpid(),'virtual_memory':virtual_memory(),'started_unix':time.time(),'profile_gate':binding,'settings':{'repeats':REPEATS,'etas':ETAS,'shifts':SHIFTS,'boundaries':BOUNDARIES,'internal_seconds':budget.seconds,'hard_address_space_bytes':1024*1024**2,'monitored_rss_kib':480*1024}}
     store.save('start.json',start);store.save('source-snapshot.json',{name:(ROOT/name).read_text() for name in SOURCES}); result={'status':'incomplete','rows':0,'row_failures':0}
     try:
         if mode=='profile':
             # Deterministic, synthetic 13D/18-phase problem. No empirical reads.
-            m=np.diag(np.exp(np.linspace(-.6,.3,13)))+.025*np.diag(np.ones(12),1);a=np.repeat(m[None],18,axis=0);times=[]
-            for boundary in BOUNDARIES:
-                r=response(a,18*64,-.05,1e-6,boundary,budget.tick);store.save('profile-'+boundary+'.json',r);times.append(r['elapsed_seconds']);budget.tick()
-                if not r['solve_qualified']:raise ValueError('profile solve residual')
+            m=np.diag(np.exp(np.linspace(-.6,.3,13)))+.01*np.triu(np.ones((13,13)),1)+.003*np.tril(np.ones((13,13)),-1);a=np.array([m+((t%3)-1)*.0001*np.triu(np.ones((13,13)),1) for t in range(18)]);times=[]
+            for repetition in range(8):
+                for boundary in BOUNDARIES:
+                    r=response(a,18*64,-.05,1e-6,boundary,budget.tick);r['virtual_memory_after']=virtual_memory();store.save('profile-'+str(repetition)+'-'+boundary+'.json',r);times.append(r['elapsed_seconds']);budget.tick()
+                    if not r['solve_qualified']:raise ValueError('profile solve residual')
             mf=matrix_free_probe(a,18*16,-.05,.01,'free',300,budget.tick);store.save('profile-matrixfree.json',mf);budget.tick()
             result.update(status='complete',projected_panel_seconds=218*max(times)+2*mf['elapsed_seconds']+5)
         else:
@@ -128,7 +132,7 @@ def run(mode,out,profile=None,profile_pin=None):
     except BaseException as exc:
         result['failure']=type(exc).__name__+': '+str(exc)
     finally:
-        result.update(elapsed_seconds=time.monotonic()-budget.start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+        result.update(virtual_memory=virtual_memory(),elapsed_seconds=time.monotonic()-budget.start,max_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
         store.save('result.json',result,True);store.finish()
     print(json.dumps(result),flush=True);return 0 if result['status']=='complete' else 2
 
