@@ -83,3 +83,14 @@ def test_constructor_uses_requested_precision_before_parsing_constants():
   assert high.model.x[1][0].rad()<arb(2)**-248
  z=np.r_[np.arange(4)/10,.1,.05,np.array([1,2,-1,3])/np.sqrt(15)]
  np.testing.assert_array_equal(f(z)['value'],high(z)['value'])
+
+
+def test_exact_saved_coordinate_resume(tmp_path):
+ import importlib.util
+ from pathlib import Path
+ p=Path(__file__).parents[1]/'tools/explore_s2_boundary_curves.py'
+ spec=importlib.util.spec_from_file_location('boundary_runner',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+ x=np.longdouble(1)+np.ldexp(np.longdouble(1),-60)
+ assert m.exact_coordinate(m.coordinates([x])[0])==x
+ with pytest.raises(ValueError):m.exact_coordinate('1/3')
+ with pytest.raises(ValueError):m.exact_coordinate(str((2**80+1))+'/'+str(2**80))

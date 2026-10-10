@@ -80,3 +80,26 @@ Dated resource amendment after profile001 (9 October17:26PDT (corrected prose ti
 Dated coordinate amendment after target001,9October17:29PDT: the certified fold midpoint rounded to binary64 begins with return residual1.43e-9; Newton reaches1.04e-10 and then line search fails. All44 returned evaluations retained, zero boundary nodes, no changed scientific conclusion. Retain all tolerances, panel, scales and budgets; use native extended np.longdouble coordinates (63fractionbits required), exact as_integer_ratio into128-bit mixed jets, and extended coordinate updates. Residual/Jacobian linear algebra remains floating64. Coordinate journal entries use unique round-trip decimal strings, matrices retain64-bit values. Add precision-preservation controls and repeat the tiny synthetic profile as attempt003-profile before target002. This tests whether coordinate quantization caused the observed floor; it does not weaken acceptance gates or replace an interval proof.
 
 Constructor-precision amendment after target002 (9October2026): extended coordinates alone did not change the seed residual floor. Model constants were parsed at default53-bit Arb precision before128-bit evaluation. Set precision before construction, retain extended coordinates and exact journals, and add a regression checking rational input radii at128/256bits after resetting global precision53. Existing rigorous proof kernels/drivers remain unchanged. Preserve target002 and repeat source-bound profile006, then unchanged target003 if resource/tests pass. This supersedes the initial coordinate-only explanation; no tolerance changes.
+
+
+## 10 October UTC extension: saved fold endpoint and known flip
+
+Completed target003 retained64 accepted fold nodes. Saved-only eigenvalue
+analysis shows an additional +1 crossing between plus nodes12/13; the apparent
+fold-coefficient sign reversal there is a pole and is not evidence of a cusp.
+Continue from the exact saved plus endpoint031 for64 forward nodes without
+repeating its completed prefix. Independently start32 nodes in each direction
+from the known certified ray51 flip, convert its exact logarithmic-family center
+to actual two-rate coordinates at128bits, and correct that proposal in the
+native two-rate family. The conversion only supplies a numerical proposal; it
+is not a rigorous identification of the two family charts.
+
+Both panels use the same unchanged period18 residual, primitivity, simple
+critical-mode, step/halving and resource gates. Resume pins both parent map
+inputs and exact node bytes, reconstructs representable dyadics exactly, and
+uses the saved tangent as the initial section/orientation. The flip has sigma=-1
+in both residual and acceptance gate. A source-bound five-evaluation synthetic
+profile precedes either target; it acquires no target data. Each panel remains
+64 accepted-node maximum,800 augmented calls,180s cooperative/200+5s external,
+512MiB,128MiB raw,CPU1/nice10. Stop each direction on unresolved failure and
+retain all rejected trials. No new interval geometry or branch-join claim.

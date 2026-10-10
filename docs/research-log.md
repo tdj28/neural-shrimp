@@ -5724,3 +5724,16 @@ Attempt001 remains retained with the reviewer-decoding failure. All inventories,
 read-only bytes and owned PID absence checked for both attempts. Compact review
 companions docs/reviews/s2-period18-localization-independent-review.md/.json
 record exact source/input/resource scope and shared analytic/Arb trust.
+
+
+### 2026-10-10 00:50 UTC — resume fold and trace known flip, exploratory run card
+
+Root codex/post-edge-next-steps owns two bounded native boundary panels. Resume
+saved target003 plus-node031 for64 forward nodes; trace ray51flip32 each way.
+All pins/seeds/normalizations are in the committed driver and plan. A fresh
+synthetic five-evaluation profile gates both; same800call/180s/512MiB/128MiB
+caps and no target rerun after scientific gate failure. Foreign GPU job and
+protected holdouts untouched. Constructor/coordinate controls retained, and a
+new exact saved-coordinate control rejects non-dyadic/unrepresentable inputs.
+This is numerical exploration only; possible second+1 degeneracy is retained
+as such and no cusp follows from the earlier coefficient pole.
