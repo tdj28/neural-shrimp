@@ -110,7 +110,14 @@ def profile_input():
     return inp
 
 
-def profile_gate(path,pin):
+def profile_gate(path,pin,outer_pin):
+    outer=path.parent
+    require(entry(outer/'manifest.json')['sha256']==outer_pin,'pinned profile launcher manifest')
+    verify_inventory(outer,read(outer/'manifest.json')['files'])
+    launcher=read(outer/'launcher-result.json')
+    require(launcher['mode']=='profile' and launcher['source_sha256']==sources() and launcher['exit_code']==0 and launcher['owned_live_pids']==[],'successful unchanged profile launcher and cleanup')
+    elapsed_outer=launcher['elapsed_seconds']
+    require(type(elapsed_outer) in (int,float) and math.isfinite(elapsed_outer) and 0<elapsed_outer<42,'bounded positive profile launcher time')
     require(entry(path/'manifest.json')['sha256']==pin,'fixed completed profile manifest')
     verify_inventory(path,read(path/'manifest.json')['files'])
     rt=read(path/'runtime-start.json');result=read(path/'outcome.json')
@@ -122,18 +129,18 @@ def profile_gate(path,pin):
     require(rt['threads']==dict.fromkeys(THREADS,'1') and rt['nice']>=10,'profile thread/nice')
     require(result['adapter_counts']=={'map_attempted':90,'map_returned':90,'unit_attempted':180,'unit_returned':180,'map_cap':90,'unit_cap':180},'profile all90 native calls')
     elapsed=result['elapsed_seconds'];rss=result['max_rss_kib']
-    require(type(elapsed) in (int,float) and math.isfinite(elapsed) and 0<=elapsed<30,'finite profile elapsed')
-    require(type(rss) in (int,float) and math.isfinite(rss) and 0<=rss<2*1024**2,'bounded profile RSS')
+    require(type(elapsed) in (int,float) and math.isfinite(elapsed) and 0<elapsed<30,'finite profile elapsed')
+    require(type(rss) in (int,float) and math.isfinite(rss) and 0<rss<2*1024**2,'bounded profile RSS')
     require(result['completed_intersections']==3 and result['completed_cases']==1 and result['completed_physical_phases']==18 and result['completed_products']==18 and result['mixed_counts']=={'attempted':18,'returned':18,'cap':18},'complete profile localization and physical metrics')
     require(result['cases']==[{'role':'probe','passed':True,'point_passed':True,'interval_passed':True}], 'profile must exercise all positive metric paths')
     require(2*rss<2*1024**2,'profile doubled RSS projection')
     require(4*elapsed+10<90,'profile projected target time')
     estimate=max(6*total(path),128*1024**2)
     require(estimate<224*1024**2,'profile projected target storage')
-    return {'manifest_sha256':pin,'projected_seconds':4*elapsed+10,'projected_bytes':estimate,'scope':'engineering gate only'}
+    return {'manifest_sha256':pin,'outer_manifest_sha256':outer_pin,'projected_seconds':4*elapsed+10,'projected_bytes':estimate,'scope':'engineering gate only'}
 
 
-def execute(out,mode,profile=None,profile_pin=None):
+def execute(out,mode,profile=None,profile_pin=None,profile_outer_pin=None):
     bound=sources();require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
     out.mkdir(parents=True,exist_ok=False);start=time.monotonic();limits=30 if mode=='profile' else 90
     calls=90;tick_cap=500
@@ -166,7 +173,7 @@ def execute(out,mode,profile=None,profile_pin=None):
         if kind=='correlated_product':outcome['completed_products']+=1
         tick()
     try:
-        if mode=='target':save(out/'cost-gate.json',profile_gate(profile,profile_pin))
+        if mode=='target':save(out/'cost-gate.json',profile_gate(profile,profile_pin,profile_outer_pin))
         results=[]
         with ctx.workprec(256):
             inp=profile_input() if mode=='profile' else target_input()
@@ -198,7 +205,7 @@ def execute(out,mode,profile=None,profile_pin=None):
         save(out/'outcome.json',outcome);save(out/'manifest.json',{'files':inventory(out),'within_limit':total(out)<CAP})
     print(json.dumps(outcome),flush=True);return code
 
-def launch(out,mode,profile=None,profile_pin=None):
+def launch(out,mode,profile=None,profile_pin=None,profile_outer_pin=None):
     bound=sources();require(os.getpriority(os.PRIO_PROCESS,0)>=10,'launcher nice10 required')
     seconds=35 if mode=='profile' else 105
     out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None
@@ -207,7 +214,7 @@ def launch(out,mode,profile=None,profile_pin=None):
        'meminfo':Path('/proc/meminfo').read_text(),'external_seconds':seconds,'kill_grace_seconds':5,'cpu_only':True}
     cmd=['timeout','--signal=TERM','--kill-after=5s',f'{seconds}s','nice','-n','10',sys.executable,
          str(Path(__file__).resolve()),'--execute','--mode',mode,'--out',str(out/'run')]
-    for flag,value in [('--profile',profile),('--profile-manifest',profile_pin)]:
+    for flag,value in [('--profile',profile),('--profile-manifest',profile_pin),('--profile-outer-manifest',profile_outer_pin)]:
         if value is not None:cmd.extend([flag,str(value)])
     meta['argv']=cmd;save(out/'launcher-start.json',meta)
     with (out/'process.log').open('xb') as log:
@@ -244,7 +251,7 @@ def launch(out,mode,profile=None,profile_pin=None):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--mode',choices=['profile','target'],required=True)
-    p.add_argument('--execute',action='store_true');p.add_argument('--profile',type=Path);p.add_argument('--profile-manifest')
-    a=p.parse_args();require((a.mode=='target')==(a.profile is not None and a.profile_manifest is not None),'target requires pinned profile')
-    return (execute if a.execute else launch)(a.out,a.mode,a.profile,a.profile_manifest)
+    p.add_argument('--execute',action='store_true');p.add_argument('--profile',type=Path);p.add_argument('--profile-manifest');p.add_argument('--profile-outer-manifest')
+    a=p.parse_args();require((a.mode=='target')==(a.profile is not None and a.profile_manifest is not None and a.profile_outer_manifest is not None),'target requires pinned profile')
+    return (execute if a.execute else launch)(a.out,a.mode,a.profile,a.profile_manifest,a.profile_outer_manifest)
 if __name__=='__main__':raise SystemExit(main())
