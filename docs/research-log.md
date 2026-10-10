@@ -8070,3 +8070,7 @@ Prepared the source-reviewed-helper's saved-only complement binding packet,
 requiring exact whole704domain/native-phase/actual-rate correspondence and all11
 quotient modes. Fifteen packet/helper controls pass0.14s. No new derivatives.
 Added a compact field/closure/inequality guide for independent full704 arithmetic.
+
+### 2026-10-10 exact saved finite704 complementary-spectrum card
+
+Source26ef80ea received Clark's independent source-only PASS (15 helper/driver controls,0.15s). Sole exclusive attempt001-spectrum binds successful attempt002 outer73c02be51125e80db4707709e0cdaec8d39f69d453e35e2ef5a4738ed1405447, worker9ee39499eb309e8283f2591857b4bcecb43aedfbfe05136d480899d2a39d92b6 and complete original source/archive/settings. Last36 acquired q/r derivatives must exactly cover the same704 proof domain. At384bits test all11 complementary discs over t[0,1/32768]; no new native calls. Caps60s internal/75+5 external,4GiB sampled RSS/8GiB AS/32MiB raw, CPU1nice10. Host available54912580KiB/load1.72, no owned duplicate. Failure immutable; full704 independent root audit remains separate. Numerical NS scout follows after this outcome.
