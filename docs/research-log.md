@@ -8705,3 +8705,20 @@ run `7a01b994bf31e9a9057ee3e6e369a0acc9da0f3a4450924d66031404484e4e90`.
 Companions `docs/reviews/eigenpair-wider-outcome.md/.json` preserve actual scope.
 Next potentially useful adaptation is saved forcing/defect diagnosis and a
 fresh-domain radius proposal, with all original strict gates retained.
+
+### 2026-10-10 — saved positive-inflation diagnosis pre-run card
+
+Root authorizes saved-only diagnosis after preserved wider failure665e1ab2.
+Pin its complete immutable raw/source/runtime and the single failed full chart.
+Reconstruct conservative saved forcing and |defect|; one floating470D solve
+proposes only additive positive radius corrections, retaining every old exact
+radius and anchor allowance. Fixed17/16 safety plus relative2^-60 floor; no
+native evaluation, eig/SVD, rebox proof or retry. Full return precedes finite/
+nonnegative checks. See docs/plans/eigenpair-inflation-diagnostic.md.
+
+Fourteen focused controls pass0.18s. Initial3 synthetic fixtures used radius1,
+violating the declared proposal radius<1/2; scale-equivalent fixtures were
+corrected to1/16. The production radius cap was not relaxed. Code/card committed
+before one run at attempt-001-inflation-diagnosis, CPU1nice10,45/60+5s,
+1.5GiB sampledRSS,64+1MiB, zero nativecalls. Preserve all outputs and failures.
+A fresh-domain repair remains separate and requires source review.
