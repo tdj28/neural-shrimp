@@ -31,7 +31,7 @@ def inventory(root,pin):
 
 def proposals(b,a):
     """All calculations here are floating engineering diagnostics on |D|."""
-    need(b.ndim==2 and b.shape[0]==b.shape[1] and a.shape==(b.shape[0],),'proposal dimensions')
+    need(b.ndim==2 and b.shape[0]>0 and b.shape[0]==b.shape[1] and a.shape==(b.shape[0],),'proposal dimensions')
     need(np.isfinite(b).all()and np.isfinite(a).all()and np.all(b>=0)and np.all(a>=0),'finite nonnegative inputs')
     values,vectors=np.linalg.eig(b);index=int(np.argmax(np.abs(values)));value=values[index];v=vectors[:,index]
     scale=max(float(np.max(np.abs(v))),np.finfo(float).tiny);w=np.maximum(np.abs(v)/scale,2.**-40)
@@ -46,7 +46,8 @@ def proposals(b,a):
             'linear_radii_proposal':None,'scope':'floating |D| proposal only; neither true-multiplier spectrum nor interval contraction proof'}
     try:
         e=np.linalg.solve(np.eye(len(a))-b,a)
-        need(np.isfinite(e).all()and np.all(e>0),'positive resolvent radii')
+        result['linear_solve_return']=[float(v) if np.isfinite(v) else None for v in e]
+        need(np.isfinite(e).all()and np.all(e>=0),'nonnegative resolvent radii before positive floor')
         raw=e*(17/16)+max(float(np.max(e)),2.**-100)*2.**-40
         rr=(a+b@raw)/raw
         result['linear_radii_proposal']={'minimal_solve':e.tolist(),'solve_residual_inf':float(np.max(np.abs((np.eye(len(a))-b)@e-a))),

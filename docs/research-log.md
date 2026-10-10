@@ -6556,3 +6556,7 @@ After committed failed target001c60f5cf0, root authorizes one saved-only384-bit 
 ## 10 October2026 — retained saved eigenpair diagnosis001
 
 Source3c15c44b completed10.290s/630,452KiB/zero native calls. Outer6d191f18f89e4e4d7bdbc74d60192b9e2a1ca14ab653642fc256eb3ad2752c1e, run ccb4fc3264b67b66a34436afcd0ec663160849b688c93f2b44c47f6196cc8e75;20files861,537B immutable/PIDs1089712/1089804/1089805 absent. Floating |D|rho≈.0143959 and Perron-weighted rowbound≈.0143959 versus allones2.5066; forcing/radius max40.5498 at hidden-rate coordinate468. Predictor-only defect bound2.3462. No new proof. Positive resolvent proposal was withheld by strict e>0 beforefloor; exact gauge coordinate may have zero solution, and the raw solve was not retained. This implementation limitation needs a disclosed saved-only repair; it is not evidence against weighting. Compact receipt docs/reviews/eigenpair-locus-diagnosis001.json.
+
+## 10 October2026 — disclosed saved diagnosis positive-floor repair
+
+After retained001, change only floating proposal admission e>0 to e>=0 before the already declared positive floor, and retain the raw solve before validation. Exact output-gauge coordinates can have zero forcing/solution; negative/nonfinite solve entries still reject without clipping. One fresh saved-only attempt002 under unchanged45s/1.5GiB/32MiB caps and originalinputpins; no new target/derivative/proof gate. Added zero-gauge/negative-solve/empty-array controls. Original001 stays immutable and its incomplete proposal is not relabeled.

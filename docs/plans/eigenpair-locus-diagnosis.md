@@ -29,3 +29,17 @@ partial/failure outputs and immutable manifests. Commit source/tests/card
 before one invocation of tools/launch_eigenpair_diagnosis.py. Source-only
 controls cover nonnormal all-ones inflation, neutral/expanding matrices and
 bad inputs. This is adapted explanatory arithmetic after the negative target.
+
+## Dated saved-only repair after diagnosis001
+
+The first saved reduction completed and is retained. Its positive-resolvent
+proposal checked e>0 before adding the declared positive floor, rejecting the
+natural possibility of an exactly zero output-gauge coordinate. It also did
+not retain that solve before rejection. This is an implementation limitation,
+not a failed mathematical contraction criterion. Diagnosis002 keeps the same
+input, decomposition, precision and all resource caps; retain every finite
+solve coordinate first, require e>=0, then add the original positive floor.
+Negative/nonfinite solves still fail without clipping. The new zero-gauge and
+negative-solve synthetic control passes. This only repairs a floating proposal;
+no rigorous proof gate, target domain or native acquisition changes. New
+exclusive attempt-002-diagnosis; preserve attempt001. One rerun only.
