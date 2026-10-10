@@ -7901,3 +7901,9 @@ exact gauge71/128→87/128.
 Exclusive audits/eigenpair-remaining-locus/unit004-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+
+2026-10-10 Clark source skim7ec2f4ca PASS;27adaptercontrols0.10s.
+Fixed tail indices/counts/statuses, direct full-result identity, immediate
+independent predecessor and unchanged256/384 kernel checked. Source clearance
+applies to individually committed cards only; now execute fixed unit004
+(globals34–37) whose actual completed predecessor is unit003 above.
