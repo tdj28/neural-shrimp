@@ -5986,3 +5986,21 @@ pilot proposes delta2^-6,r2^-24 and the first chart's fixed exact weights for
 both charts, with new Jacobian enclosures. Heuristic forcing×64≈.190 and
 contraction×4≈.431 motivate the setting only; actual proof gates remain exact.
 Source/card/profile must precede that new acquisition.
+
+### 10 October 2026 UTC — prospective weighted quadratic chart expansion
+
+Saved weights diagnose large unweighted row-sum inflation. New separate kernel
+uses the fixed exact first-chart weights for anisotropic radii and strict
+weighted contraction/inclusion; all larger-domain C1 Jacobians are reacquired.
+Card `docs/plans/s2-period18-weighted-connection-pilot.md` fixes one pair at
+delta2^-6,r2^-24,256bits,two proposals, original exact model/native anchor and
+common-parameter containment. Intended width1/16 only if all root/primitive/join
+gates pass; no attraction evaluation. Profile uses synthetic rates1/4 to keep
+this interval positive, with the same fixed weights; target rates unchanged.
+CPU1,nice10,2GiB,128+1MiB,profile20/25+5,target120/135+5,300ticks,
+144/288 C1/unit+108 jets. Code/tests/card freeze and root review precede
+profile, then measured receipt/pin precedes target. No weighted acquisition yet.
+The weighted-norm synthetic comparison initially demanded exact agreement after
+public Arb radius reconstruction; its outward radius inflation changed the
+reduction by9.1e-12. The formula regression now allows1e-10 while retaining
+strict proof gates; no target source or threshold was relaxed.
