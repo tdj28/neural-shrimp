@@ -10496,3 +10496,31 @@ Full235D endpoint/gauge/root gates unchanged; zero-call failure preserved.
 Measured corrected unit001card9c93f103 clears source peer gate. No source
 change after positive fresh profile. Host50GiB available; root CPU1audit
 completed and later saved-only audits may run independently.
+
+2026-10-10 eight-piece chart143 pilot at 390c2da8dd2d7ac0672654a5c146eb331626cc15 completed once,
+201.247170 s / 714892 KiB; 8 returned slices,
+1288 stages. Overall passed=True.
+Worker cb65f22a269b7bee99a32d85eac624979056246af3841750d02f29e9bb4b920e;
+outer 504a91f10a0f1a4aa4875aca8ae551f480b6f6c9d6d04af14f1cb83093470018.
+All inventory/source/count/read-only/ownership checks pass; 299371233 B.
+All eight closed intervals of chart143 have producer sufficient attraction bounds. This extends connected producer coverage to [29/128,45/128]; independent audit pending. No whole-shrimp or two-dimensional-region claim.
+Full-width failed witness remains intact.
+
+2026-10-10 corrected143 completed, producer cover now104 adjacent closed
+pieces on[29/128,45/128],same connected native branch. All8base norm attempts
+false and all8refined norms true; mathematical method unchanged. Root has
+independently reviewed146 in addition to152–154,with147–151 audits in flight.
+
+Exact next and final producer unit in this card: unit002,index12/global142,
+[27/128,29/128],eight descending1/512closedpieces,exclusive native-join rawbase/
+unit002. Immediate predecessor samebase/unit001/run,worker
+cb65f22a269b7bee99a32d85eac624979056246af3841750d02f29e9bb4b920e,
+outer504a91f10a0f1a4aa4875aca8ae551f480b6f6c9d6d04af14f1cb83093470018.
+Same positive profile samebase/attempt001-profile/run,worker
+45260317d2426c8cfc51e7b17b77fd5da416ff1c1ac7117f89864ad615ef2ef3,
+outer6e8494b6a0bf960ef9f7b37748f7ba0de5b3b7f2f9759ba04a133982038841ef.
+Unchanged reviewed source,maps,gates,caps:CPU1nice10,360s/390+5external,2GiB,
+512/514MiB,1296C1/2592unit/288mixed maximum,1288stages. Fresh resource check;
+stopfirstfailure. After142,root directs priority to independent saved-arithmetic
+review of the +1boundary locus through the new isolated double-multiplier
+point. No further stability producer march is planned now.
