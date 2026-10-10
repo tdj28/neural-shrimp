@@ -12,6 +12,13 @@
     "Losses and heuristic 64epsilon scale are float64 diagnostics, not interval arithmetic.",
     "Resource checks are cooperative; sampled or projected RSS must not be called a hard OS memory bound."
   ],
+  "prelaunch_amendment_review": {
+    "commit": "c5b968e4b3d7df6db015f14676ae69b3e3a4ed6b",
+    "limitation": "Cooperative/retrospective success gate, not an OS hard byte cap.",
+    "repair": "Launcher success now requires projected final aggregate<=2MiB and nonworker<=1MiB, exact current entries plus end/manifest lengths and8KiB reserve. Oversize evidence retained with failure.",
+    "scope": "Read-only differential source/card/test inspection; no target arrays or model calls.",
+    "verdict": "No remaining source blocker for the already-authorized fixed profile-gated four-case unit."
+  },
   "reviewed_commit": "cc8a48e2a5e6c8f47b1a430e6577750dadde612f",
   "reviewer_role": "Independent read-only static source skim; author of no files in this utility unit.",
   "scientific_verdict": "No blocker in the fixed four-case actual-common-center one-step arithmetic.",

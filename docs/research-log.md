@@ -6967,3 +6967,16 @@ GPUidle15947MiB/no compute processes; no matching local proof processes.
 Proceed exact unit002 card under root standing authorization, CPU1nice10,
 400/420+5s,2GiB sampledRSS,all retained full-domain gates. This metadata records
 clearance before launch and does not change the bound source inventory.
+
+### 2026-10-10 — wider unit002 complete, source unchanged
+
+Four repaired segments pass to55/128, actual rates≈75.11050/.82258202, all470
+strict inclusions/native anchors/divisors. All8attempts retained; initial1/470
+coordinate misses remain visible. Weighted proof contraction .933768→.931084;
+floating complementary+1distance .179360→.176112 and cproxy−9.3091→−9.5763
+are descriptive, not genericity or attraction proofs. Worker164.0371s,1143248KiB,
+1016ticks; full1232file346355944B/read-only/source/PID verification passed.
+Execution3f9e536b; adapter2c92c3cc/source skim b78ffdd3. Companions
+`docs/reviews/eigenpair-wider-march-unit002.md/.json`; independent outcome
+review remains pending. Continue only through exact prospectively pinned
+complete-parent cards under root standing authorization.
