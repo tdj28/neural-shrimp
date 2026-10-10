@@ -7188,3 +7188,24 @@ pass; early synthetic test caught unsupported Arb negative indexing (repaired)
 and a fixture assumed bit-identical public decoding (corrected to containment).
 The mathematical fixture now uses an actual quadratic GD map, with no empirical
 inputs. Resource/proof scope as card; peer source skim before profile.
+
+2026-10-10 chart156 full synthetic profile at 5f457aaef0e1e4017fab77654bb75117c5653c03 completed
+once: 12.086243s/536132KiB,162C1/324unit/36mixed
+calls/161stages, all strict gates positive. Peer research_strategy source
+skim and47independent controls passed before launch. Worker 0acaad1f51e4d15d72413113efda2fe50b65960d7bf273b90af9d86b9af8c375;
+outer 7aeecc10a184277af7960b548b22190eaef90ad2e52bb63f399b00d79048b1a3. Full immutable inventory/source/settings/owned-PID
+checks pass. Projection 268.811102s<300;
+352321536B<448MiB.
+
+Exact next target card: ONE exclusive attempt001-target in the same
+s2-period18-chart-stability-2026-10-10 root, unchanged source/card bytes.
+Seven fixed descending slices per card, k=358,...,352; reuse pinned eighth
+completed slice. Use --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-chart-stability-2026-10-10/attempt-001-profile/run
+--profile-manifest 0acaad1f51e4d15d72413113efda2fe50b65960d7bf273b90af9d86b9af8c375
+--profile-outer-manifest 7aeecc10a184277af7960b548b22190eaef90ad2e52bb63f399b00d79048b1a3.
+CPU/BLAS1,nice10,300s internal/330+5 external,2GiB sampled owned-group RSS,
+512MiBworker/514MiBaggregate;1,134C1/2,268unit/252mixed maxima. Fresh resource
+check; stop first final failed slice/prerequisite/resource gate, retaining it.
+No rerun, width adaptation or failed-tail coverage in this unit. This is
+producer chart-local attraction only if all eight strict bounds pass;
+independent outcome review remains required before final attribution.
