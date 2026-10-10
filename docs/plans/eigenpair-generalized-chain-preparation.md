@@ -37,3 +37,12 @@ A later target proposal must be derived from an authenticated accepted native
 root and retain exact physical state, phase, model, rates and normalization.
 A nearby floating candidate alone is not a proved branch connection. No
 paid/GPU/holdouts, external release, or paper classification follows here.
+
+Saved-only seed construction is also preparatory. Require the full13-mode
+saved spectrum, small residuals, exact470D native predictor, normalized known
+phase0 q and a distinct real companion mu within0.03 of+1. From its eigenvector
+u, form r=(u*(q.q)/(q.u)-q)/(mu-1), retaining exact-dyadic output and native
+phase/rate order. Check finite direction, overlap, orthogonality and saved
+near-chain identity A r-q-(mu-1)r. These tests qualify a numerical proposal
+only. An eventual runner must authenticate full/compact root equality,
+source/model/manifests and the retained bridge event before using this helper.

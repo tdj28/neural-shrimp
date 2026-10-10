@@ -10006,3 +10006,12 @@ Native calls 4, repairs 0; 80.019 seconds, self peak 1120344 KiB; launcher exit 
 Raw root `/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-005-neutral-bridge`; outer manifest `1d38a76c77fee896c991cdc2e371b73342a5484c4c4a68817f71c92eb7092afd`; worker manifest `0670fec091627c145f97446c6200d8b7f4f467d25d35c0da0681c16a99277a34`. The adjacent JSON preserves all accepted and failed attempt records.
 
 Next unit 006 uses only this complete accepted predecessor and unchanged fixed event/cost caps, as recorded in its prospective card. No duplicate owned bridge process is present.
+
+Added saved-array generalized-direction seed preparation with full-spectrum,
+known-mode, real-companion, native-order and near-chain residual gates.
+This helper has not been applied to research data. Its eventual caller must
+bind the complete native accepted root, compact identity and event provenance.
+
+The combined16 synthetic controls passed in0.18s. Full numerical spectral
+residuals are recomputed from the saved matrix/vectors as well as checked
+against recorded residual gates; no exact spectral claim is inferred.
