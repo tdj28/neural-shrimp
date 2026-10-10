@@ -43,3 +43,8 @@ def test_local_root_does_not_override_failed_reverse_association(tmp_path,monkey
     result=w.localize(point,np.eye(4),5.,1,'toy')
     assert result['status']=='boundary_identity_unresolved' and result['reverse_error']>1e-7
     assert events[-1][0]=='boundary_result' and any(k=='boundary_reverse' for k,v in events)
+
+
+def test_start_must_be_attracting_before_first_loss_claim():
+    m=module();assert m.initial_attracting({'radius':.9})
+    for rho in [1.,1.1,np.nan,np.inf,1-1e-7]:assert not m.initial_attracting({'radius':rho})

@@ -16,6 +16,9 @@ def phase_match(a,b):
     error,sign,shift=min(matches);native=float(np.max(np.abs(a-b))/scale)
     return {'best_error':error,'best_sign':sign,'best_shift':shift,'native_error':native,'passed':sign==1 and shift==0 and native<.05}
 
+def initial_attracting(point):
+    return bool(np.isfinite(point['radius']) and point['radius']<1-1e-6)
+
 def leading_boundary_sign(e):
     e=np.asarray(e)
     if not np.all(np.isfinite(e)):return None
@@ -119,6 +122,7 @@ def main():
             if not len(inds):result['slices'].append({'gain':g,'status':'no_consensus5_seed'});continue
             di=int(inds[len(inds)//2]);d=float(deltas[di]);point,status=w.correct(final[gi,di,0],j,g,d,f'g{gi}-seed')
             if point is None:result['slices'].append({'gain':g,'status':status});continue
+            if not initial_attracting(point):result['slices'].append({'gain':g,'status':'initial_seed_not_qualified_attracting','radius':point['radius']});continue
             report={'gain':g,'gain_index':gi,'delta_index':di,'seed_delta':d,'directions':[]};result['slices'].append(report)
             for direction in [-1,1]:
                 last=point;endstatus='step_limit';tag=f'g{gi}-dir{direction}';boundary=None;steps=0
