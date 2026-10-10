@@ -43,7 +43,7 @@ def bind_target():
  return TanhMap(inputs),z,right,{'producer':bindings,'right_endpoint':right,'map_inputs':inputs,'parameter':'1/32768'}
 
 def bind_profile(args,identity):
- root=BASE/'attempt001-profile';inventory(root,args.profile_outer);inventory(root/'run',args.profile_worker)
+ root=BASE/'attempt002-profile';inventory(root,args.profile_outer);inventory(root/'run',args.profile_worker)
  rt=read(root/'run/runtime.json');out=read(root/'run/outcome.json');la=read(root/'launcher-result.json')
  need(rt['mode']=='profile'and rt['settings']==SETTINGS and rt['commit']==la['commit'],'exact profile mode/settings/source')
  need(la['exit_code']==0 and la['owned_live_pids']==[] and out['passed']and not out['target_acquired']and out['native_calls']==432,'completed synthetic-only profile')
@@ -54,7 +54,7 @@ def bind_profile(args,identity):
 
 def main(args):
  need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source');need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
- out=BASE/f'attempt001-{args.mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;serial=0;used=0;stopped=False
+ out=BASE/f'attempt002-{args.mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;serial=0;used=0;stopped=False
  resource.setrlimit(resource.RLIMIT_AS,(4*1024**3,)*2)
  def halt(*_):raise TimeoutError('240s scout worker cap')
  signal.signal(signal.SIGALRM,halt);signal.signal(signal.SIGTERM,halt);signal.setitimer(signal.ITIMER_REAL,240)

@@ -114,7 +114,7 @@ def qualify(z,t,value,data,previous=None):
     pair_error=max(abs(vals[i]-critical),abs(vals[j]-critical.conjugate()))
     gates={'residual':bool(max(abs(value))<1e-9),'positive_rates':bool(np.all(z[n:n+2]>0)),
            'native_primitive':all(v>1e-5 for v in divisors.values()),'native_step':step<.1,
-           'full_spectrum_residual':max(eigerr)<1e-9,'actual_pair':pair_error<1e-7,'realified_independent':float(np.linalg.norm(r))>1e-5}
+           'full_spectrum_residual':max(eigerr)<1e-9,'actual_pair':bool(pair_error<1e-7),'realified_independent':float(np.linalg.norm(r))>1e-5}
     return {'passed':all(gates.values()),'gates':gates,'residual_inf':float(max(abs(value))),'native_step':step,
             'divisor_distances':divisors,'eigenvalues':[[float(v.real),float(v.imag)]for v in vals],
             'eigen_residuals':eigerr,'pair_indices':[i,j],'pair_error':float(pair_error),
