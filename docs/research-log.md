@@ -5870,3 +5870,9 @@ Optimizer independently skimmed source45c5fd0c and found no blocker in the nativ
 ## 2026-10-10: first N6 p7 native continuation retained
 
 Worker completed2.2815s/1533 calls; final outer manifest exceeded1MiB allowance, exit2 preserved. Full inventory/modes/processes verified; scientific summaries retained separately from launcher failure. Four left-mode stops follow mismatched1e-10 corrector/qualification thresholds; no physical event inferred. Next disclosed unit may finish only these four traces under tighter correction, unchanged acceptance and original remaining budgets. Also independently cleared saved shooting-adjoint8a3029f3 with23 synthetic controls; no target acquisition.
+
+## 2026-10-10: four residual-stopped p7 endpoint completions
+
+Disclosed adaptation from b9c7026a: only four left-mode residual stops, saved last accepted states/tangents; tighten augmented correction1e-10→1e-12 while native qualification/domain/step/remaining128 budgets remain unchanged. Profile/card in docs/plans/clark-rnn-n6-p7-completion.md; no extension of the other two capped traces. Future metadata allowance4MiB from measured prior manifest burden; no old evidence mutation or full scientific rerun. Independent differential skim before target.
+
+The first combined edit/test shell inherited a process-peak RSS above the unchanged448MiB test guard and three old controls stopped before numerical work. A fresh test-only process passed the same13 controls in.11s; no scientific cap or source threshold was changed.
