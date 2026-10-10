@@ -6332,3 +6332,17 @@ Run ONE target with unchanged source bytes after this card is committed:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_weighted_reanchor.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-weighted-reanchor-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-weighted-reanchor-2026-10-10/attempt-001-profile/run --profile-manifest c26bf632f2ab75c6cb8227bdfe98dfdde694a0d3ce7bd730c57c513b2d2de9f6`.
 Same localized parent78da8e09 and saved gauge21fac4fe;40s internal/60+5 external,
 CPU1,2GiB,144/288 calls,108 jets,two charts,128+1MiB raw. No retry or assumed fold membership.
+
+## 2026-10-10 — fresh-domain weighted correlated reanchor passed
+
+TLDR: the same neural-network period18 branch now continues through a new
+coordinate system with full-state identity retained. Both strict charts pass,
+weighted norms0.495958/0.505492, all235 root/anchor inclusions and primitive
+exclusions. New gauge[-1/128,3/128]; final h near75.368383.129 joined charts
+total, no new distinct-orbit count, attraction or fold membership claim.
+Worker11.3150s/761068KiB,144/288 C1+108jets;
+launcher12.0914s/exit0. Full inventories/payloads/readonly/PIDs
+and exact source/native joins checked. Receipt
+`docs/reviews/s2-period18-weighted-reanchor-outcome.json`; independent review
+pending. Next bounded units target the saved full-fold gauge projection and
+stop at strict membership or first failed final gate; no completed-prefix rerun.
