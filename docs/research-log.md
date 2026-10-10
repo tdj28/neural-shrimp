@@ -8065,3 +8065,5 @@ Independent review pending; no attraction or complete geometry claim.
 2026-10-10: New input-Gram conditioning card follows failed exact-diagonal surrogate. Same consumed accepted state; one common augmented-input basis/all512modes/ridge complement, per-hidden mean curvatures, positive right scaling; no true-gate change. One target QR/eigh plus matching synthetic profile, one400 solve only if measured120s gate. Before target, synthetic rank-deficient/indefinite/dense surrogate/packing checks; one test-fixture zero-padding typo corrected, no target had run. Clark p12 continues independently at low memory.
 
 Root pretarget source/card skim60814d21 passes. Execute one fixed synthetic-profile-gated common-input-Gram conditioner; preserve all failures, physical forcing unchanged.
+
+Common-Gram unitb5e961a8 completes32.772s; forcing.64035775 fails.5, no trials. Frozen post-outcome checker now verifies savedQ/R/eigenpair and basis algebra, projector action, physicaltrueforcing/counters/inventories inone15sCPU1saved-only run, no newdecomposition/model/action.
