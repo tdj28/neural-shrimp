@@ -11256,3 +11256,15 @@ bound. Source 3e9efb9078671323de188db296f189df3f76300c; 0.598565s,
 This closes independent same-component membership, not generic unfolding or
 complete shrimp anatomy. Shared analytic acquisitions/Arb chart proof scope
 remains explicit; final containment uses independent exact rational arithmetic.
+
+
+### 2026-10-10 — Connected boundary figure, saved evidence only
+
+Run card: render the independent107-chart native period18 +1 locus, exact
+canonical fold and same-root1:1 organizer beside its11-mode quotient bounds.
+Every native rate endpoint is read from a hash-bound fresh384-bit audit;
+the figure distinguishes the68-slice attracting cross-section from branch
+existence. Polylines join endpoint midpoints within a gauge family only,
+not interval enclosures; no line bridges the regauge. Read-only saved data,
+no scientific acquisition, no protected inputs. One thread,120s,2GiB;
+run the committed generator, inspect both panels and regenerate byte-identically.
