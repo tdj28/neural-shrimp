@@ -7810,3 +7810,12 @@ Source2e04677c independently reviewed PASS;25 controls independently reproduced.
 Run exactly the unrelated36-step profile in docs/plans/eigenpair-chain-lift-profile001.json.
 Host54,182,304KiB available, load2.01; no duplicate owned lift process.
 No target access or continuation is authorized by this profile card.
+
+### 2026-10-10 — measured native lift and exact target card
+
+The unrelated36-step profile passed0.558s/47,424KiB; measured lift times
+0.266739s and0.253937s give16.066957s target forecast below30s. Complete
+immutable inventories, exact source archive/history, and owned process exit
+verified. Run exactly the18phase authenticated root lift in
+docs/plans/eigenpair-chain-lift-target001.json. Existing membership is tested
+with all470 coordinates; no continuation or boundary claim from a failed test.
