@@ -8436,3 +8436,14 @@ check; stop first final failed slice/prerequisite/resource gate, retaining it.
 No rerun, width adaptation or failed-tail coverage in this unit. This is
 producer chart-local attraction only if all eight strict bounds pass;
 independent outcome review remains required before final attribution.
+
+2026-10-10 chart156 coverage target completed once at c891f4d6f12f89db8eb0f441d311116a55552f37,
+peer source review3365fe6b. 142.024375s/695600KiB;
+all seven new strict refined metric gates passed with1,134C1/2,268unit/252mixed
+calls/1,127stages. Reused completed eighth unchanged. Worker b073c1181e7603ec26549fbc4a147c4f091740aa972989ec38c1725dc65cbd5e;
+outer e826d904baa76a9c915091d0e31dce08e118974166816af4f05e22f501d2ca24. All manifests/source/readonly/ownedPIDs
+checked; 261849474B aggregate. Exact eight adjacent closed slices
+cover[11/32,45/128], one whole primitive18 chart. Base first norm passes:
+0/7; every first result retained. This producer
+coverage still awaits independent saved arithmetic review. No neutral-fold,
+whole-connected-branch or complete-shrimp attraction claim.
