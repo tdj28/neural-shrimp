@@ -11825,3 +11825,8 @@ The full72D primitive58 producer and independent768-bit replay both pass, with a
 ### 2026-10-10T23:38:27.976332+00:00 — Fixed LM curvature-response comparison completed
 
 All four fixed checkpoints completed in41.346s, all580 gradients/256HVP/96CE retained; no protected/probe evaluations or GPU use. The predeclared narrow gate passes in both256-window gradient directions at16updates: frozen-vector errors85118.93 and5270.37, while transported errors are9.322e-5 and2.353e-4 and amplitude disagreement below7.06e-4. All24 response rows and CE slope controls resolve. Eight-window controls have frozen-gradient errors0.001313/0.001363. This diagnoses a failure of static initial curvature on these consumed trajectories, not a training benefit or chaos. Independent saved arithmetic audit is assigned before manuscript promotion.
+
+
+### 2026-10-10T23:40:23.387193+00:00 — Independently certified period58 reading PDF
+
+Source53ff2558 compiles43 pages with no warnings or box errors. The abstract is137 words. All429 bound numbers verify;421 prior entries remain unchanged, the individual-orbit count changes5to6, and seven new period58 values are bound. All22 earlier figure outputs are unchanged. All43 pages were contact-inspected; pages1/10/11/38 inspected at detail. Immutable render/source inventory and current human reading PDF are bound in paper-period58-proof-qa.json. The global boundary proof, native RNN branch and larger-model research continue.
