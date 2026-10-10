@@ -7308,3 +7308,49 @@ complete-parent authorization applies; no failed tail consumed.
 ### 2026-10-10 — scalar residual-functional amendment before evaluation
 
 After preserved original and five-intersection coefficient failures, prepare three scalar residual functionals on the SAME unit008 last chart. Strategy independently checked b^Ty=u0^Trhs+(b−B^Tu0)^Ty for fixed exactu0=mid(C^Tmidb); pointwise root dependencies only widen interval bounds. This avoids summing independently broad adjoint coordinates and uses no new inverse/model/derivative.42 synthetic controls pass0.18s, including9new nonnormal/cancellation/interval-sample/nonfinite/observer cases. Separate module/card docs/plans/eigenpair-adjoint-functionals.md; source/card commit precedes source skim and one20s/30+5 saved unit,1GiB/8+1MiB CPU1nice10. Existing geometry unit010 runs unchanged; no target coefficient reduction occurred during implementation. If inconclusive, retain and return to branch reach; no same-method retry.
+
+### 2026-10-10 — wider unit010 retained and verified
+
+Four accepted primitive18 normalized+1 segments reach exact gauge
+183/128. Eight full calls/four repairs, all failed initial
+bounds retained; every accepted chart has470 strict inclusions/full native
+anchor/proper divisors. Execution 0188481387f9b7c9ec62d325e26eaf15dabaa34c; unchanged
+repair-chain source4c191a65, peer reviewe02d9719 (18 controls0.20s).
+Worker164.617165s/1104948KiB/
+1016ticks; launcher exit0, PIDs absent. Complete immutable
+inventories and source/Git equality checked: 1243files/346636777B.
+Outer 7c775c0765f41c0e3a397f713d508a86cc8694eaafb103c9d8bc190ddd56a76e; run
+a9a6e88b49fccbfac02a77e7d8fe510b799645657b48f51f9cb8e1e97d557c05. Companions
+`docs/reviews/eigenpair-wider-march-unit010.md/.json`. Numerical normal-form
+and complementary-mode columns remain diagnostics; independent outcome review
+pending. Next unit requires a newly committed exact complete-parent card.
+
+### 2026-10-10 — scalar residual functionals passed, same fixed chart
+
+Committed source 1843ddcafef651a74af609fe45be1f2d007e95b6 ran once; both gates passed, all three coefficient
+intervals strictly negative. Exact rational/outward endpoints are in
+`docs/reviews/eigenpair-adjoint-functionals-outcome.json`, with scoped prose
+companion. Worker 2.102388s/101840KiB,
+0 new inverses/derivatives/models; launcher exit0, PIDs absent, all inventories
+immutable/source-bound. Outer 3f620248f5f8d2fbdcbd56287bab19ea85bb0db509618086342af3d5560c0b93;
+run 135afb9dda860d759747da28d37bbedf874c69e6116e2a06e13057b340c981bd. Both prior exit2 coefficient attempts retained unchanged.
+Conditional periodic-solution fold nondegeneracy only on gauge[147/128,151/128];
+other unit-circle modes/attraction/global geometry remain unproved. Independent
+source skim42 controls0.18s passed; independent outcome review requested.
+
+### 2026-10-10 — complete repair-chain unit011 pre-run card
+
+Continue only complete endpoint 183/128, execution 0188481387f9b7c9ec62d325e26eaf15dabaa34c,
+outer 7c775c0765f41c0e3a397f713d508a86cc8694eaafb103c9d8bc190ddd56a76e,
+run a9a6e88b49fccbfac02a77e7d8fe510b799645657b48f51f9cb8e1e97d557c05. Exact card:
+`docs/plans/eigenpair-wider-unit011.json`; prospective endpoints
+187/128, 191/128, 195/128, 199/128. Unchanged adapter4c191a65,
+proof7aa2398b, marcherfe35003a and independently cleared source; no new
+scientific choice or profile. Preserve inherited qualified radius floor,
+four accepted/eight calls, sole root-only nonshrinking fresh repair and all
+native470D/primitive gates. Parent measured 164.617s,
+1104948KiB; original conservative cost admission remains.
+Host at 2026-10-10T18:32:19.892154+00:00: 37.94GiB available,
+load (1.8779296875, 1.72998046875, 1.642578125); GPU 0 %, 15947 MiB, apps none.
+CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
+complete-parent authorization applies; no failed tail consumed.
