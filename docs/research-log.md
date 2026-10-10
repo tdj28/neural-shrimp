@@ -7393,3 +7393,21 @@ Exclusive output s2-period18-stability-resume-2026-10-10/unit001.
 CPU/BLAS1,nice10,360s/390+5s,2GiBself/group,512MiBworker/514aggregate,
 1296C1/2592unit/288mixed maxima. Stop first failed gate; fresh host check.
 No scientific interval repeated. Independent outcome review pending.
+
+2026-10-10 stability march unit001, original chart003, execution
+f21fdacf37c9006c65037e70c05bd3f0c5732070: passed=True, 175.238598s /
+695744 KiB; 8 returned slices, 1288 stages.
+Worker 305fe2bdeba55ee13185d3c6351f3731b74ced8939c7a0ac2c21b7c88b3455d0; outer b304b287f26edc157b32e349826c74343e8216f7dec549b6b925e6a13f59a519.
+All raw/source hashes, read-only outputs and absent owned PIDs checked;
+300763694 B. First norm passes 8/8;
+every initial result remains unchanged. Exact requested coverage
+['19/64', '39/128']; independent saved outcome review pending.
+
+Exact next resumed unit002 card: original chart002/global149, eight closed
+slices[37/128,19/64], unchanged scientific method/caps. Predecessor
+/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/unit001/run, worker305fe2bdeba55ee13185d3c6351f3731b74ced8939c7a0ac2c21b7c88b3455d0,
+outerb304b287f26edc157b32e349826c74343e8216f7dec549b6b925e6a13f59a519. Profile/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/attempt001-profile/run,
+worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8,outer8fc0a156d9a39eaf02801a25dd8f14e98960486e58a0f38d3a59bff78307962f.
+Exclusive s2-period18-stability-resume-2026-10-10/unit002.
+CPU1nice10,360s/390+5,2GiB,512MiBworker/514aggregate,1296C1/2592unit/288mixed.
+Fresh resources; stop first failed gate; no prior slice repeated.
