@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 BASE=Path('/data2/neural-shrimp-data/explore/s2-period18-boundary-curves')
-PINS={'attempt-003-target':'1a1b58e678f11db81ca7adb2821ca2ff84056768734073a11e70e004813a71f9','attempt-004-fold-plus':'231b1d448fd06b09a180861d4e67569d3ef0f42967557ba4e24dd7b4780284f6','attempt-005-ray51-flip':'b3ccbdafc68c8ce6981d286d7f7a4145624a9b8d6806e721471a06186b7135c9'}
+PINS={'attempt-003-target':'1a1b58e678f11db81ca7adb2821ca2ff84056768734073a11e70e004813a71f9','attempt-004-fold-plus':'231b1d448fd06b09a180861d4e67569d3ef0f42967557ba4e24dd7b4780284f6','attempt-005-ray51-flip':'b3ccbdafc68c8ce6981d286d7f7a4145624a9b8d6806e721471a06186b7135c9','attempt-006-ray32-fold':'5a407527b29bf0a94540e581b23967c5e956b175e2f6ecf1d7b51806e7688f7d','attempt-007-ray13-flip':'c889339446be01c3110303e311b06266e5a10b1bdacb1dd45f4ee06abd2e49a7'}
 MAP=Path('/data2/neural-shrimp-data/explore/s2-28011-w587-512/map.npz')
 MAP_PIN='5d9fc07f06bbc36025d2ec0b315be1b4cd812141eb0a0a4f9d5464d6b71fa874'
 def ent(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
@@ -16,7 +16,7 @@ def main():
  assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip()
  assert os.getpriority(os.PRIO_PROCESS,0)>=10
  resource.setrlimit(resource.RLIMIT_AS,(1024*1024**2,1024*1024**2));start=time.monotonic()
- out=BASE/'combined-summary001';out.mkdir(exist_ok=False);records=[];rows=[]
+ out=BASE/'combined-summary002';out.mkdir(exist_ok=False);records=[];rows=[]
  for name,pin in PINS.items():
   base=BASE/name;assert ent(base/'manifest.json')['sha256']==pin
   inv=read(base/'manifest.json')['files'];assert set(inv)=={str(p.relative_to(base))for p in base.rglob('*')if p.is_file()}-{'manifest.json'}
@@ -43,7 +43,7 @@ def main():
   for sign in [-1,1]:
    part=sorted([r for r in rows if r['run']==name and r['sign']==sign],key=lambda r:r['index'])
    if not part:continue
-   c='#2377bf' if part[0]['sigma']==1 else '#c8552e';label=('fold' if part[0]['sigma']==1 else 'ray51 flip')+' '+name+' '+str(sign)
+   c={'attempt-003-target':'#2377bf','attempt-004-fold-plus':'#2377bf','attempt-005-ray51-flip':'#c8552e','attempt-006-ray32-fold':'#20a076','attempt-007-ray13-flip':'#9d37ad'}[name];label=('fold' if part[0]['sigma']==1 else 'flip')+' '+name+' '+str(sign)
    x=np.log10([r['output']for r in part]);y=np.log10([r['hidden']for r in part]);axs[0].plot(x,y,'.-',color=c,lw=.8,markersize=2,label=label)
    unstable=np.array([r['complement_radius']>=1 for r in part]);axs[0].plot(x[unstable],y[unstable],'x',color='black',ms=4)
    axs[1].plot(range(len(part)),[r['complement_radius']for r in part],'.-',label=label,ms=2)
