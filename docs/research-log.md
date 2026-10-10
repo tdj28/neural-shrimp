@@ -10242,3 +10242,8 @@ Final focused source controls:35passed in0.30s (native N12/p6, all three divisor
 ## 2026-10-10: prelaunch N12 leading-mode identity repair
 
 Boundary peer identified a valid source-only blocker in93b95c65: first unstable selection carried only sign, so localization could seed a different same-sign multiplier nearer +/-1. Preserve actual phase-zero leading index/eigenvector, require adjacent leading real sign/value agreement within relative1e-7 and abstain otherwise. Retain nearest+1 only for explicitly labeled correction-failure fold proposals. Added same-sign competing-mode, adjacency mismatch and nonleading-index controls. No profile or target ran before the repair.
+
+
+### 2026-10-10 — Bridge the independent attraction coverage with saved proofs
+
+Fixed40saved slices147–151 now specified before arithmetic in docs/plans/s2-refined-stability-gap.md. Same independent U'' mathematics as successful146; each8slice run240s/2GiB, atmost2 concurrentCPU1 workers. Complete exact parent/partition binding and256/384 arithmetic; no fresh derivatives. Missing original151 launcher metadata explicitly retained despite complete worker. Goal is connected independent attraction[17/64,43/128] if all intervening slices pass; full boundary remains a separate active task.
