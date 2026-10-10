@@ -55,8 +55,12 @@ def test_restricted_saved_Taylor_decoder_replay():
  from neural_shrimp.rigorous_chart_restriction import restrict_chart
  from fractions import Fraction
  i,v=fixture();old=v['charts'][0]
+ # A valid deliberately wider enclosure of the exact zero residual makes
+ # conservative redecoding observable, unlike the original all-exact fixture.
+ old['center_path_derivatives']['f'][0][0]=ball_json(arb(0,arb((1,-80))))
  proposal={'halfwidth_exponent':-10,'radius_exponent':-18,'exact_weights':i['weights'],'exact_coordinate_radii':[str(Fraction(2)**-18*Fraction(w)) for w in i['weights']]}
  c=restrict_chart(Fold(),old,proposal)
  assert c['passed']
+ with pytest.raises(ValueError):R.chart_check(c,c['anchor'],c['normal'],c['origin'],c['exact_weights'],256)
  assert R.chart_check(c,c['anchor'],c['normal'],c['origin'],c['exact_weights'],256,decoded_taylor=True)['passed']
  assert R.chart_check(c,c['anchor'],c['normal'],c['origin'],c['exact_weights'],384,decoded_taylor=True)['passed']

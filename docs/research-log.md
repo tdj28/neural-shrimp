@@ -8047,3 +8047,5 @@ The producer joined the independently localized central endpoint to the canonica
 ### Fold-connection independent audit arithmetic amendment
 
 Retain attempt001 (74e807b9c6081d388e1f0d4babfea4726737a4538794c193b03a58633f746f3c): exact Taylor ball replay mismatch after3.21s. Restricted producer intentionally redecodes saved Taylor coefficients conservatively; explicitly reproduce that step at256 while fresh384 reductions retain exact saved enclosures. Original chart path remains unchanged. This fixes checker operation semantics, not the mathematical gate or producer. Attempt002 uses the same caps after tests.
+
+Attempt002 (55642c52779560c8a0bcba3482c9ecb0a25e2f12ac79a0343696c81bdd5ce360) retained: the first source edit added the option but a whitespace-mismatched replacement failed to route Taylor matrices through it. The synthetic fixture had exact-zero coefficients and therefore missed that no-op. Correct the actual decoder route with an asserted edit and a deliberately widened valid residual fixture that fails without conservative decoding. No producer or inequality changes; same bounded attempt003.

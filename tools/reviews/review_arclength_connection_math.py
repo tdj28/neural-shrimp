@@ -40,7 +40,8 @@ def chart_check(c,anchor,normal,origin,weights,precision=384,*,decoded_taylor=Fa
   C=matrix(c['preconditioner']);M.need(C.nrows()==C.ncols()==N,'preconditioner dimensions')
   for row in c['preconditioner']:
    for v in row:M.point(v)
-  H={key:matrix(v)for key,v in c['center_path_derivatives'].items()};third=matrix(c['whole_path_third_derivative'])
+  hm=M.mat if decoded_taylor and precision==256 else matrix
+  H={key:hm(v)for key,v in c['center_path_derivatives'].items()};third=hm(c['whole_path_third_derivative'])
   M.need(set(H)=={'f','d','d2','d3'}and all(v.nrows()==N and v.ncols()==1 for v in [*H.values(),third]),'full path jets')
   d=arb(0,exact(delta));R=H['f']+H['d']*d+H['d2']*(d*d/2)+third*(d*d*d/6);D=M.ident(N)-C*A
   E=arb_mat([[arb(0,exact(r))]for r in radii]);K=-C*R+D*E
