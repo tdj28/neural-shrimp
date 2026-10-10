@@ -10558,3 +10558,8 @@ not112different orbits. Original unrepaired143 zero-call admission failure,
 old whole-chart146 sufficient-bound failure and all base/refined outcomes stay
 immutable. No additional stability producer unit is scheduled: independent
 +1locus geometry through the double-multiplier event is now this agent's lane.
+
+
+### 2026-10-10 — Independent1:1 unfolding arithmetic card
+
+Root independently derived dual-chain and actual-rate trace-rank contractions; checked primary Kuznetsov–Meijer§4.4 formulas. Prepare512-bit saved reduction using primal inverse transpose, with exact polynomial/symmetry/rank-degeneracy controls, no new model evaluations. Full pinned inventories and root/Jacobian/spectrum identity precede calculation. The producer's a<0,b−a<0,s>0 and rank determinant<0 await this separate outcome arithmetic. Source card docs/plans/chain-unfolding-independent.md; no whole-shrimp conclusion from this local result.
