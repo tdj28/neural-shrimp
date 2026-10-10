@@ -142,6 +142,19 @@ def validate_saved_chain(previous,rows,loader):
     return previous
 
 
+def require_producer_driver(runtime):
+    march='tools/certify_s2_period18_arclength_march.py'
+    batch='tools/certify_s2_period18_arclength_batch.py'
+    pins=runtime['source_sha256']
+    if march in pins:
+        require(pins[march]==entry(ROOT/march)['sha256'],'unchanged actual march driver')
+        require(runtime.get('executed_runner')==march,'recorded actual march runner')
+    else:
+        require(pins.get(batch)==entry(ROOT/batch)['sha256'],'exact reviewed batch driver')
+        require(runtime['source_commit']=='ed708aa36f7ee93bb3b6b730c134dcfbb5bc736e','fixed legacy batch execution')
+    return march if march in pins else batch
+
+
 def prepare(parent,pin,execution):
     import re
     require(parent is not None and re.fullmatch('[0-9a-f]{64}',pin or '') and re.fullmatch('[0-9a-f]{40}',execution or ''),'explicit complete predecessor pins')
@@ -157,10 +170,7 @@ def prepare(parent,pin,execution):
         require(runtime['source_sha256'].get(name)==entry(ROOT/name)['sha256'],'unchanged mathematical predecessor source '+name)
     # Only the reviewed original batch or this unchanged march runner may
     # supply complete predecessor results. This is not arbitrary JSON trust.
-    accepted=False
-    for name in ('tools/certify_s2_period18_arclength_batch.py','tools/certify_s2_period18_arclength_march.py'):
-        if runtime['source_sha256'].get(name)==entry(ROOT/name)['sha256']:accepted=True
-    require(accepted,'reviewed producer driver identity')
+    require_producer_driver(runtime)
     require(outcome['exit_code']==0 and outcome['passed'] and batch['passed'] and batch['qualified_charts']==batch['completed_charts']==16,'completed qualified batch required')
     require(saved['model_inputs']==original['model_inputs'] and saved['provenance']['original_anchor']==original['provenance'],'identical original model/data/phase lineage')
     require(entry(INITIAL/'manifest.json')['sha256']==INITIAL_MANIFEST,'fixed initial gauge manifest')
@@ -228,7 +238,7 @@ def execute(out,mode,profile=None,profile_pin=None,parent=None,parent_pin=None,p
     run_count=2 if mode=='profile' else 16;map_cap=72*run_count;jet_cap=54*run_count;tick_cap=300 if mode=='profile' else 2200
     out.mkdir(parents=True,exist_ok=False);start=time.monotonic();ticks=0;serial=0;model=None;jet_model=None
     runtime={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-      'source_sha256':bound,'mode':mode,'pid':os.getpid(),'ppid':os.getppid(),'started_utc':now(),
+      'source_sha256':bound,'executed_runner':str(Path(__file__).resolve().relative_to(ROOT)),'argv':sys.argv,'mode':mode,'pid':os.getpid(),'ppid':os.getppid(),'started_utc':now(),
       'threads':{k:os.environ[k] for k in THREADS},'nice':os.getpriority(os.PRIO_PROCESS,0),
       'predecessor':{'root':str(parent) if parent is not None else None,'manifest_sha256':parent_pin,'execution':parent_execution},
       'python':platform.python_version(),'python_flint':flint.__version__,'flint':flint.__FLINT_VERSION__,'numpy':numpy.__version__,'scipy':scipy.__version__,
