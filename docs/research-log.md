@@ -6028,3 +6028,15 @@ coverage['163/64', '187/64'], last hidden-rate displayunresolved. Worker50.8801s
 checked. Worker manifestb09b179266c7880fd2480e213e2ce1d489e847fd689bafb0e2b1d5f4b21e1ffa;
 outer222d190d2994d0c9eeff5655dd72c8452dbee383888203f9b3865364ac3c83a1. Companion `docs/reviews/s2-period18-arclength-march-unit005.json`.
 No prefix rerun, attraction or fold identity claim; independent review pending.
+
+### 10 October 2026 UTC — first march obstruction, saved-only diagnostic card
+
+The fifth march unit preserved twelve passing charts and then stopped at its
+first failed coordinate inclusion. This leaves a connected primitive prefix
+of 94 charts, not an instability verdict. The new dated card
+`docs/plans/s2-period18-march-failure-diagnostic.md` binds exactly chart011/012
+and the existing local-fold certificate for one saved-only rowwise/radii and
+correlated phase-alignment diagnostic. No target map call or changed-domain
+claim. Fixed20s/30+5s, CPU1 nice10,1GiB,3MiB aggregate; exclusive attempt001.
+Code and controls committed before this diagnostic. Any adapted continuation
+will separately re-enclose its final domain and retain full native joins.
