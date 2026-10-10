@@ -7271,3 +7271,36 @@ Host at 2026-10-10T18:20:52.835443+00:00: 38.41GiB available,
 load (1.3046875, 1.1181640625, 1.38623046875); GPU 0 %, 15947 MiB, apps none.
 CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
 complete-parent authorization applies; no failed tail consumed.
+
+### 2026-10-10 — wider unit009 retained and verified
+
+Four accepted primitive18 normalized+1 segments reach exact gauge
+167/128. Eight full calls/four repairs, all failed initial
+bounds retained; every accepted chart has470 strict inclusions/full native
+anchor/proper divisors. Execution f7552aa68d11eb88484d7bf81e853bb207e4912e; unchanged
+repair-chain source4c191a65, peer reviewe02d9719 (18 controls0.20s).
+Worker163.103258s/1104916KiB/
+1016ticks; launcher exit0, PIDs absent. Complete immutable
+inventories and source/Git equality checked: 1243files/346580267B.
+Outer 221d198909b76a317bbfb6403144b588b98ff363f478b1e1788fee4c5b60e4d3; run
+479bf2b79565c7d279b721dcea2543a57f069bdd8290a3790ea18c401e5c534b. Companions
+`docs/reviews/eigenpair-wider-march-unit009.md/.json`. Numerical normal-form
+and complementary-mode columns remain diagnostics; independent outcome review
+pending. Next unit requires a newly committed exact complete-parent card.
+
+### 2026-10-10 — complete repair-chain unit010 pre-run card
+
+Continue only complete endpoint 167/128, execution f7552aa68d11eb88484d7bf81e853bb207e4912e,
+outer 221d198909b76a317bbfb6403144b588b98ff363f478b1e1788fee4c5b60e4d3,
+run 479bf2b79565c7d279b721dcea2543a57f069bdd8290a3790ea18c401e5c534b. Exact card:
+`docs/plans/eigenpair-wider-unit010.json`; prospective endpoints
+171/128, 175/128, 179/128, 183/128. Unchanged adapter4c191a65,
+proof7aa2398b, marcherfe35003a and independently cleared source; no new
+scientific choice or profile. Preserve inherited qualified radius floor,
+four accepted/eight calls, sole root-only nonshrinking fresh repair and all
+native470D/primitive gates. Parent measured 163.103s,
+1104916KiB; original conservative cost admission remains.
+Host at 2026-10-10T18:24:34.542684+00:00: 37.77GiB available,
+load (2.46337890625, 1.92724609375, 1.662109375); GPU 0 %, 15947 MiB, apps none.
+CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
+complete-parent authorization applies; no failed tail consumed.
