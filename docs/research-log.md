@@ -6519,3 +6519,17 @@ After source skim, run only the saved-synthetic engineering profile with
 `--mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-saved-rebox-2026-10-10/attempt-001-profile`.
 CPU1/nice10,20s/25+5,2GiB,18/36C1,400ticks,128+1MiB. Commit measured source/profile
 receipt and exact one-target card before acquisition; no model target yet.
+
+## 2026-10-10 — measured endpoint-localization profile and exact target card
+
+Reviewed sourcea3d499bb completed the one synthetic profile: worker
+3.0636s/386064KiB, all18/36 fresh-domain calls
+and one complete synthetic root rebox; launcher3.7609s/exit0, no owned PIDs.
+All immutable inventories/payloads/source/library settings checked. Receipt
+`docs/reviews/s2-period18-fold-saved-rebox-profile.json` records the
+passing projection11.1271s<30 and80MiB<112MiB.
+
+Run ONE target with unchanged source bytes after this card is committed:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_saved_rebox.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-saved-rebox-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-saved-rebox-2026-10-10/attempt-001-profile/run --profile-manifest 8eae93f739b7cc65d840fb74b8377f266b77db7d15e4f8a9ec23bfb27df34498`.
+Same saved-pair manifest2b900f6b and qualified predecessor17/64;30s internal/45+5 external,
+CPU1,2GiB,18/36 calls,one saved rebox,128+1MiB raw. No retry/newcoverageclaim. Target uses one numerical proposal and fresh-domain Jacobian; the synthetic profile uses a fixed expansion. No new predictor/path-jet calls. Root source skim passeda3d499bb before profile.
