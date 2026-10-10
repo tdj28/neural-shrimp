@@ -46,3 +46,15 @@ phase/rate order. Check finite direction, overlap, orthogonality and saved
 near-chain identity A r-q-(mu-1)r. These tests qualify a numerical proposal
 only. An eventual runner must authenticate full/compact root equality,
 source/model/manifests and the retained bridge event before using this helper.
+
+A separate conditional spectrum helper is prepared for use only after an
+actual generalized-chain root passes. Propose a frame W=[q,r,E] using fixed
+coordinate columns; validate its whole-interval Arb inverse. The exact root
+identities imply an upper block triangular conjugate with2x2 Jordan block
+[[1,1],[0,1]]. Apply existing outward-rounded Acb similarity/Gershgorin bounds
+to its11D quotient. Unit-circle exclusion would prove exact algebraic
+multiplicity two and one Jordan chain; all quotient discs strictly inside
+would prove an attracting complement. This is conditional on the same-root
+identities and does not establish a generic unfolding or native connection.
+Synthetic nonnormal, interval-frame, additional-neutral, unstable-complement,
+wrong-chain and singular-frame controls are required before a target use.
