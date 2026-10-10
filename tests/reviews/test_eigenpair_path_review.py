@@ -20,3 +20,15 @@ def test_small_nondiagonal_weighted_case():
   a=arb_mat([[1,E.R.exact(Fraction(1,4))],[0,1]]);h=arb_mat(2,4)
   result=E.reduction(arb_mat([[1,0],[0,1]]),a,h,h,[Fraction(1,8),Fraction(1)],Fraction(1,16),Fraction(1,32))
   assert not result['root'] and result['norm']>=2
+
+def test_state_subtraction_does_not_insert_radius_rounding():
+ from neural_shrimp.rigorous_orbits import vector_json,ball_json
+ with ctx.workprec(256):
+  c={'period':1,'dimension':1,'sigma':1,'center':vector_json([arb(1)]*4),'slope':vector_json([arb(1)]*4),'curvature':vector_json([arb(0)]*4),'normal':['0','0','0','1'],'origin':['1']*4,'parameter_center':'0'}
+  d=arb(0,E.R.exact('1/32768'));z=E.path_inputs(c,d)
+  inputs=[[vector_json(z[0]),vector_json(z[1])]]+[[vector_json(v),vector_json([arb(0)]*4)] for v in z[-2:]]
+  event={'phase':0,'d':ball_json(d),'inputs':inputs,'returns':[[vector_json(z[0]),vector_json(z[1])]]}
+  result=E.rebuild_coefficients(c,[event],d)
+  for j in range(4):
+   expected=ball_json(z[0][j]-z[0][j]);actual=ball_json(result[0,j])
+   assert (actual['mid'],actual['rad'])==(expected['mid'],expected['rad'])
