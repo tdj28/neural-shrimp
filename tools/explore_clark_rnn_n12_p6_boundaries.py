@@ -26,6 +26,17 @@ def leading_boundary_sign(e):
     if abs(critical.imag)>1e-8:return None
     return 1 if critical.real>=0 else -1
 
+def leading_boundary_mode(point):
+    e=np.asarray(point['eigenvalues']);adj=np.asarray(point['eigenvalues_adjacent'])
+    if e.ndim!=1 or adj.shape!=e.shape or not len(e) or not np.all(np.isfinite(e)) or not np.all(np.isfinite(adj)):return None
+    index=int(np.argmax(np.abs(e)));adjacent_index=int(np.argmax(np.abs(adj)))
+    first=e[index];second=adj[adjacent_index]
+    if abs(first.imag)>1e-8 or abs(second.imag)>1e-8:return None
+    sign=1 if first.real>=0 else -1
+    if sign!=(1 if second.real>=0 else -1):return None
+    if abs(first-second)>1e-7*max(1,abs(first),abs(second)):return None
+    return {'phase0_index':index,'adjacent_index':adjacent_index,'sign':sign,'phase0_real':float(first.real),'phase0_imag':float(first.imag),'adjacent_real':float(second.real),'adjacent_imag':float(second.imag),'adjacent_agreement_tolerance':1e-7}
+
 def resource_projection(native,augmented_times,eigen,solve,sizes,peak_kib):
     timings=native+augmented_times+eigen+solve
     if not timings or not all(np.isfinite(t)and t>0 for t in timings)or not np.isfinite(peak_kib)or peak_kib<=0:raise ValueError('finite positive profile')
@@ -81,8 +92,11 @@ class Worker:
             self.emit('correction_solve',{'tag':tag,'matrix':m-np.eye(len(x)),'rhs':-res,'direction':dx,'iteration':k})
             if not np.all(np.isfinite(dx)) or np.max(np.abs(dx))>.1*scale:return None,'step_guard'
             x=x+dx
-    def localize(self,point,j,g,sign,tag):
-        e,v=point['eigenvalues'],point['eigenvectors'];idx=int(np.argmin(np.abs(e-sign)))
+    def localize(self,point,j,g,sign,tag,mode_index=None):
+        e,v=point['eigenvalues'],point['eigenvectors'];idx=int(np.argmin(np.abs(e-sign)))if mode_index is None else int(mode_index)
+        if not 0<=idx<len(e):return {'status':'invalid_seed_mode','sign':sign,'tag':tag}
+        if mode_index is not None and (idx!=int(np.argmax(np.abs(e)))or (1 if e[idx].real>=0 else -1)!=sign):return {'status':'unstable_seed_not_leading','sign':sign,'tag':tag}
+        self.emit('localization_mode_selection',{'tag':tag,'sign':sign,'index':idx,'selection':'nearest_plus_one_correction_failure_proposal'if mode_index is None else 'actual_leading_phase0_mode','multiplier':np.array(e[idx]),'eigenvector':v[:,idx].copy()})
         if abs(e[idx].imag)>1e-8 or abs(e[idx]-sign)>.7:return {'status':'no_close_real_multiplier','sign':sign,'tag':tag}
         q=v[:,idx].real.copy();qnorm=float(np.linalg.norm(q))
         if not np.isfinite(qnorm) or qnorm<=1e-12:return {'status':'critical_vector_unqualified','sign':sign,'tag':tag}
@@ -188,9 +202,10 @@ def main():
                     if candidate['radius']>=1:
                         # First sampled loss at step .001 on the carried branch: only the
                         # leading real +/-1 multiplier is localized, not an NS surrogate.
-                        sign=leading_boundary_sign(np.r_[candidate['eigenvalues'],candidate['eigenvalues_adjacent']])
-                        if sign is None:endstatus='first_unstable_complex_unresolved';break
-                        endstatus='first_unstable';boundary=w.localize(candidate,j,g,sign,tag+'-boundary');break
+                        mode=leading_boundary_mode(candidate)
+                        if mode is None:endstatus='first_unstable_leading_mode_unresolved';break
+                        w.emit('first_unstable_leading_mode',dict(mode,tag=tag,phase0_eigenvalues=candidate['eigenvalues'],adjacent_eigenvalues=candidate['eigenvalues_adjacent']))
+                        endstatus='first_unstable';boundary=w.localize(candidate,j,g,mode['sign'],tag+'-boundary',mode_index=mode['phase0_index']);boundary['leading_mode']=mode;break
                     last=candidate
                 report['directions'].append({'direction':direction,'steps':steps,'stop':endstatus,'boundary':boundary,'last_closed_delta':last['delta'],'last_closed_radius':last['radius']});S.save(a.out/f'progress-g{gi}.json',report)
         w.check();result['status']='completed'

@@ -5940,3 +5940,7 @@ Root requests bounded anatomy after complete maps. New card `docs/plans/clark-rn
 Initial direct synthetic test invocation retained four resource-guard failures (29passed): inherited process peak RSS exceeded the unchanged448MiB guard before those native calls. The unchanged source/caps passed all33 focused controls in0.27s using a light parent/child harness matching the actual launcher. Added independent runtime/storage/peak forecast checks and an adjacent-phase positive control before final review; no target boundary work occurred.
 
 Final focused source controls:35passed in0.30s (native N12/p6, all three divisors, adjacent-phase closure/eigen retention, reverse identity, leading complex abstention, separate call caps and runtime/raw/peak forecasts). No target boundary acquisition.
+
+## 2026-10-10: prelaunch N12 leading-mode identity repair
+
+Boundary peer identified a valid source-only blocker in93b95c65: first unstable selection carried only sign, so localization could seed a different same-sign multiplier nearer +/-1. Preserve actual phase-zero leading index/eigenvector, require adjacent leading real sign/value agreement within relative1e-7 and abstain otherwise. Retain nearest+1 only for explicitly labeled correction-failure fold proposals. Added same-sign competing-mode, adjacency mismatch and nonleading-index controls. No profile or target ran before the repair.
