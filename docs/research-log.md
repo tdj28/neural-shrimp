@@ -10599,3 +10599,23 @@ Two synthetic13D/41D coefficient/rank operations completed0.043812s/
 Complete raw/source inventories and owned exit verified. Run only the exact
 saved384-bit audited-root calculation in docs/plans/eigenpair-chain-unfolding-target001.json.
 Retain all coefficient enclosures; zero-containing cases remain unresolved.
+
+### 2026-10-10 — nondegenerate1:1 coefficients and actual-rate rank pass
+
+The exact saved384-bit whole-root Jacobian produces strict a<0,b−a<0,
+s=a(b−a)>0 and nonzero negative two-actual-rate unfolding determinant.
+Thus all three conditional genericity/rank gates pass under the independently
+reviewed reduction.0.689s/53,452KiB, zero native calls; complete original-root,
+fresh derivative-box, quotient, source, profile and immutable inventory bindings
+verified. Exact balls and raw pin in eigenpair-chain-unfolding-target.json.
+Independent coefficient arithmetic replay remains appropriate before the paper
+reports this at the highest evidence level.
+
+Documented the analytic local unit-pair branch through this same root: the
+regularized q+i*sqrt(t)*r equations equal the proved41D chain system at t=0,
+so nonsingular H_z and the analytic implicit-function theorem give an actual
+connected branch for all sufficiently small positive t, with stable complement
+and primitive18 retained. This local existence result has no numerical epsilon.
+Finite interval tubes and complete boundary organization remain the next work.
+The positive s sign indicates subcritical/repelling local invariant circles;
+do not force a fold/flip shrimp interpretation onto different actual geometry.
