@@ -7316,3 +7316,17 @@ After source review, run the synthetic-only profile via that runner with
 CPU1/nice10,20s/25+5,2GiB,72/144 C1 calls,400ticks,128+1MiB. Commit its measured
 receipt and exact target card before any target. No target launched by this
 card. A later smaller-width chart remains separately scoped.
+
+## 2026-10-10 — measured endpoint-localization profile and exact target card
+
+Reviewed source6307e023 completed the one synthetic profile: worker
+4.2903s/416868KiB, all72/144 native calls
+and3 intersections; launcher4.9720s/exit0, no owned PIDs.
+All immutable inventories/payloads/source/library settings checked. Receipt
+`docs/reviews/s2-period18-fold-endpoint-profile.json` records the
+passing projection13.5807s<30 and80MiB<112MiB.
+
+Run ONE target with unchanged source bytes after this card is committed:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_endpoint.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-endpoint-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-endpoint-2026-10-10/attempt-001-profile/run --profile-manifest d86729447170aa1be64b2c2db9e84bb3c101c61ea62dcfb71c17989106d940ef`.
+Same parent manifestdf78f5d1 and qualified endpoint33/128;30s internal/45+5 external,
+CPU1,2GiB,72/144 calls,3 intersections,128+1MiB raw. No retry/newcoverageclaim. The30s target cap includes source binding and rereading15denseparentcharts, a cost not measured by the synthetic profile; any deadline remains a retained failure. Root source skim passed6307e023 before profile.
