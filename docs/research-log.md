@@ -10119,3 +10119,21 @@ skim requested before target. First exactly one full positive synthetic
 profile under docs/plans/s2-period18-preceding-quarter-stability.md, CPU1nice10,
 30s/40+5external,2GiB,512/514MiB,162C1/324unit/36mixed,161stages. Scientific
 acquisition waits for its separately committed measured card and pins.
+
+2026-10-10 chart145 adapter bec1ebef8a41511489174bc821353ae46ea6091e received
+boundary peer source-only PASS, nine controls reproduced. Fresh synthetic
+profile completed once12.168381291s/533172KiB, all161stages and
+162C1/324unit/36mixed; source/inventory/read-only/owned-exit checks pass.
+Worker bbba3bf52ba197a4b136ca92aa88d001dc1942e774f65253c2d5d82266160508;
+outer956d49e5fafa49d3fd60df6f5e4647a47ffc0fcd4d0d4bf935260c7dc8fd55e8.
+Conservative projection307.041151s<360;402653184B<448MiB.
+
+Exact next target card: ONE chart145 pilot, four descending closed pieces
+[135/512,17/64], [67/256,135/512], [133/512,67/256], [33/128,133/512].
+Exclusive s2-period18-preceding-quarter-stability-2026-10-10/attempt001-target.
+Profile /data2/neural-shrimp-data/explore/certificates/s2-period18-preceding-quarter-stability-2026-10-10/attempt001-profile/run
+with above worker/outer pins. Same native map, complete proved predecessor
+join and completed146 admission. CPU1nice10,360s/390+5external,2GiB,
+512MiBworker/514aggregate,648C1/1296unit/144mixed maximum,644stages.
+Fresh host check, first-failed-gate stop, immutable all bounds. No automatic
+onward march or retries. Independent final outcome review required.
