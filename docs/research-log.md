@@ -9033,3 +9033,36 @@ Host at 2026-10-10T17:49:20.459329+00:00: 35.08GiB available,
 load (2.62255859375, 2.92578125, 2.32373046875); GPU 0 %, 15947 MiB, apps none.
 CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
 complete-parent authorization applies; no failed tail consumed.
+
+### 2026-10-10 — wider unit006 retained and verified
+
+Four accepted primitive18 normalized+1 segments reach exact gauge
+119/128. Eight full calls/four repairs, all failed initial
+bounds retained; every accepted chart has470 strict inclusions/full native
+anchor/proper divisors. Execution f33ede5f32bc9a5857def29c22ff9a32210138d4; unchanged
+repair-chain source4c191a65, peer reviewe02d9719 (18 controls0.20s).
+Worker167.962050s/1102912KiB/
+1016ticks; launcher exit0, PIDs absent. Complete immutable
+inventories and source/Git equality checked: 1243files/346524976B.
+Outer 01f9720e0bb4035deaabd07eee1f92c8af278fd6c8244e8d657dc65995124bbf; run
+6f4f261634aef0a70855e78062724af0fe8e81ae5dae4b20c8b61fa1a1cc1d99. Companions
+`docs/reviews/eigenpair-wider-march-unit006.md/.json`. Numerical normal-form
+and complementary-mode columns remain diagnostics; independent outcome review
+pending. Next unit requires a newly committed exact complete-parent card.
+
+### 2026-10-10 — complete repair-chain unit007 pre-run card
+
+Continue only complete endpoint 119/128, execution f33ede5f32bc9a5857def29c22ff9a32210138d4,
+outer 01f9720e0bb4035deaabd07eee1f92c8af278fd6c8244e8d657dc65995124bbf,
+run 6f4f261634aef0a70855e78062724af0fe8e81ae5dae4b20c8b61fa1a1cc1d99. Exact card:
+`docs/plans/eigenpair-wider-unit007.json`; prospective endpoints
+123/128, 127/128, 131/128, 135/128. Unchanged adapter4c191a65,
+proof7aa2398b, marcherfe35003a and independently cleared source; no new
+scientific choice or profile. Preserve inherited qualified radius floor,
+four accepted/eight calls, sole root-only nonshrinking fresh repair and all
+native470D/primitive gates. Parent measured 167.962s,
+1102912KiB; original conservative cost admission remains.
+Host at 2026-10-10T17:54:36.436689+00:00: 4.55GiB available,
+load (2.16845703125, 2.78857421875, 2.447265625); GPU 84 %, 9075 MiB, apps 1456948, /dont_backup/QWEN-OUT/.venv/bin/python, 6832 MiB.
+CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
+complete-parent authorization applies; no failed tail consumed.
