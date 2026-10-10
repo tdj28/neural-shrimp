@@ -9654,3 +9654,8 @@ Run card: after the independent eight-slice PASS, freeze fixed receipt-derived b
 ### 2026-10-10 — Saved response/utility audit run card
 
 Root reviewed integrated a555f41d componentwise fsum checker. Freeze bounded execution for fixed completed operator-only/time-line response and common-center utility inputs;30s/2GiB worker,40+5s external,CPU1nice10,no new model calls. Immutable parent captures all failure paths. Exact pins and scope in docs/plans/response-utility-saved-review.md. Existing negative method and generic-gradient interpretations remain until reductions pass.
+
+
+### 2026-10-10 — Response and utility saved reductions passed
+
+Committed source0d60f415, fixed audit attempt001, outerc7a02ea170f483008f52f04b1e1a1bc75b182dab3aa24264c9dd49a8abd05746. Independent componentwise terminal reductions and true action accounting reproduce both operator-only and coordinate-time-line response failures at the fixed ceilings. Time-line normal residuals improve to0.000538899/0.000365425 but readout errors0.0154085/0.0170279 remain unresolved. Four utility common-center loss contrasts are explained by ordinary first-order gradients with residual fractions8.09e-8 to1.96e-6. This removes apparent evidence for a geometry-specific immediate loss effect, without excluding other effects. No new model evaluations, formal interval certification or positive LLM utility. Full inventory/source checks,3.119s/82528KiB, owned termination verified; receipt docs/reviews/response-utility-saved-audit.json.
