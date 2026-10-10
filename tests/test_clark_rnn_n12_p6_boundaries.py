@@ -145,3 +145,29 @@ def test_adjacent_native_phase_is_qualified_and_retained(tmp_path):
     w.it=native;p,status=w.correct(c[0],np.eye(12),3.,.8,'synthetic')
     assert status=='closed'and p['closure_adjacent']==0 and len(p['eigenvalues_adjacent'])==12
     assert any(k=='native_adjacent_eigen'for k,v in events)
+
+
+def test_leading_mode_preserves_same_sign_competitor_and_adjacent_identity():
+    m=module();e=np.r_[1.2,.999,np.arange(10)/20]
+    mode=m.leading_boundary_mode({'eigenvalues':e,'eigenvalues_adjacent':e[[1,0,*range(2,12)]]})
+    assert mode['phase0_index']==0 and mode['adjacent_index']==1 and mode['sign']==1
+    for adjacent in [np.r_[-1.2,.999,np.arange(10)/20],np.r_[1.19,.999,np.arange(10)/20],np.r_[1.2+.1j,1.2-.1j,np.arange(10)/20]]:
+        assert m.leading_boundary_mode({'eigenvalues':e,'eigenvalues_adjacent':adjacent})is None
+
+@pytest.mark.parametrize('mode_index,expected_index',[(0,0),(None,1)])
+def test_localization_keeps_leading_eigenvector_or_labels_fold_proposal(tmp_path,mode_index,expected_index):
+    m=module();w=m.Worker(tmp_path);events=[];w.emit=lambda k,v:events.append((k,v))
+    cycle=np.arange(72.).reshape(6,12);point={'theta':cycle[0].copy(),'cycle':cycle,'delta':.8,'eigenvalues':np.r_[1.2,.999,np.arange(10)/20],'eigenvectors':np.eye(12)}
+    seen=[]
+    def augmented(z,*args):seen.append(z.copy());return np.full(25,np.nan),np.eye(25),{},0.
+    w.aug=augmented
+    result=w.localize(point,np.eye(12),7.,1,'synthetic',mode_index=mode_index)
+    assert result['status']=='nonfinite_augmented'
+    np.testing.assert_array_equal(seen[0][13:],np.eye(12)[:,expected_index])
+    selection=next(v for k,v in events if k=='localization_mode_selection')
+    assert selection['selection']==('actual_leading_phase0_mode'if mode_index is not None else 'nearest_plus_one_correction_failure_proposal')
+
+def test_first_unstable_cannot_supply_a_nonleading_index(tmp_path):
+    m=module();w=m.Worker(tmp_path);w.emit=lambda *a:None
+    point={'eigenvalues':np.r_[1.2,.999,np.arange(10)/20],'eigenvectors':np.eye(12)}
+    assert w.localize(point,np.eye(12),7.,1,'synthetic',mode_index=1)['status']=='unstable_seed_not_leading'
