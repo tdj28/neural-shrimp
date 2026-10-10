@@ -10644,3 +10644,13 @@ Corrected only the comparisons: transcendental references now use512bits against
 the256bit kernel; zero-system algebra uses exact dyadic input coordinates.
 The series/domain/strict proof algorithm is unchanged. No target or full-size
 profile ran. All15controls then passed; this correction is a separate commit.
+
+### 2026-10-10 — full704 synthetic resource packet prepared
+
+Prepared synthetic-only profile: two complete704D proofs on an unrelated known
+repeated2 orbit, plus12paired native13parameter/24sample tanh derivatives.
+The420native passes and2preconditioner ticks have an explicit422tick ceiling;
+worker240s/4GiB RSS/8GiB AS,512MiB compressed raw, owned255+5s external cap.
+The fresh measured projection must admit a later one-chart-plus-lift packet.
+Twenty-three combined kernel/profile controls pass0.44s. No full-size profile
+or target has run; source skim and exact profile card precede the first launch.
