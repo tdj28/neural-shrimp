@@ -34,15 +34,17 @@ def main():
   if abs(eig[index]-1)>1e-7 or max(abs(left.imag))>1e-8:raise ValueError('simple real unit multiplier unresolved')
   left=left.real;pair=float(left@q)
   if abs(pair)<1e-8:raise ValueError('left/right pairing unresolved')
-  left=left/pair;c=float(left@j[13:26,:13]@q);unfold=left@j[:13,13:15]
+  left=left/pair;others=np.delete(eig,index);near_other=others[int(np.argmin(abs(others-1)))];c=float(left@j[13:26,:13]@q);unfold=left@j[:13,13:15]
   residual=float(np.linalg.norm(m.T@left-left)/max(1,np.linalg.norm(m)*np.linalg.norm(left)))
   tangent=np.asarray(node['tangent']);parameter_tangent=tangent[13:15]*[10,.1]
-  rows.append({'node':node['file'],'sign':node['sign'],'index':node['index'],'hidden':point[13],'output':point[14],'c':c,'quadratic_coefficient_c_over_2':c/2,'unfolding_hidden':float(unfold[0]),'unfolding_output':float(unfold[1]),'unfolding_tangent_dot':float(unfold@parameter_tangent),'parameter_tangent_norm':float(np.linalg.norm(parameter_tangent)),'left_vector':left.tolist(),'left_residual':residual,'closure':node['qualification']['closure'],'complement_radius':node['qualification']['complement_radius'],'evaluation_id':row['id']})
+  rows.append({'node':node['file'],'sign':node['sign'],'index':node['index'],'hidden':point[13],'output':point[14],'c':c,'quadratic_coefficient_c_over_2':c/2,'unfolding_hidden':float(unfold[0]),'unfolding_output':float(unfold[1]),'unfolding_tangent_dot':float(unfold@parameter_tangent),'parameter_tangent_norm':float(np.linalg.norm(parameter_tangent)),'left_vector':left.tolist(),'left_norm':float(np.linalg.norm(left)),'critical_gap':float(min(abs(others-1))),'nearest_other_to_one_real':float(near_other.real),'nearest_other_to_one_imag':float(near_other.imag),'left_residual':residual,'closure':node['qualification']['closure'],'complement_radius':node['qualification']['complement_radius'],'evaluation_id':row['id']})
  crossings=[]
  for sign in (-1,1):
   branch=sorted([x for x in rows if x['sign']==sign],key=lambda x:x['index'])
   for prev,nxt in zip(branch,branch[1:]):
-   if prev['c']*nxt['c']<0:crossings.append({'sign':sign,'from_node':prev['node'],'to_node':nxt['node'],'kind':'numerical_cusp_candidate_sign_change_not_proof'})
+   if prev['c']*nxt['c']<0:
+    other_cross=(abs(prev['nearest_other_to_one_imag'])<1e-8 and abs(nxt['nearest_other_to_one_imag'])<1e-8 and (prev['nearest_other_to_one_real']-1)*(nxt['nearest_other_to_one_real']-1)<0)
+    crossings.append({'sign':sign,'from_node':prev['node'],'to_node':nxt['node'],'kind':'additional_plus_one_crossing_and_normalization_pole_candidate' if other_cross else 'unresolved_coefficient_sign_change_requires_refinement','cusp_inference_allowed':False,'reason':'A sign change of a normalized coefficient can be a pole where the simple critical multiplier loses isolation; endpoints do not establish a continuous finite zero.'})
  a.out.mkdir(parents=True,exist_ok=False);save(a.out/'diagnostics.json',{'rows':rows,'c_sign_changes':crossings,'scope':'numerical fold branch diagnostics only; no certified cusp, branch connectivity or shrimp','all_input_hashes_verified':True})
  import matplotlib;matplotlib.use('Agg')
  import matplotlib.pyplot as plt
