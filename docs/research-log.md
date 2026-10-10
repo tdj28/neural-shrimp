@@ -10252,3 +10252,13 @@ Fixed40saved slices147–151 now specified before arithmetic in docs/plans/s2-re
 ### 2026-10-10 — First two intervening attraction audits pass
 
 Charts147 and148 independently pass all16closed slices from3861a5ff,82.868s/710320KiB and82.792s/709948KiB. Raw audits/s2-refined-stability/chart147-attempt001 outer7cfb9af04ccc5cc704237b3a20cd4d0e14b8aeb3dd213bfa0000415167df28d4 and chart148-attempt001 outer4da1c6eb1926d3deab532f67c877a92deaa6c59ac22a0db0fac34a71f87a99aa. Coverage now joins146 through148:[17/64,37/128];149–151 remain in the fixed audit plan. No producer simulations repeated. Completed separatephysicaldisk backup of14newroots/6305files/509343415bytes verified; receipt in docs/backups/20261010T215034Z-stronger-geometry-and-concise-draft.json.
+
+
+### 2026-10-10 — Resume CIFAR through a true residual adjoint prerequisite
+
+Prepared a distinct corrector path after failed400-step and surrogate variants: exact transpose of the two-step residual derivative, using reverse phase order and two native HVPs. Source-only controls compare full independent autodiff Jacobian, actual merit gradient and finite differences on nonlinear synthetic networks. This supports a future measured trust-region/Gauss–Newton pilot; no CIFAR target replay or accepted orbit in this unit. Global shrimp proof and N12 anatomy remain active in parallel.
+
+
+### 2026-10-10 — Exact aggregation and physical learning-rate projection card
+
+All five intervening147–151 independent audits passed. Before derived-interval arithmetic, commit a saved-only68-slice aggregation checking all9complete audit inventories, exact gapless segment joins and parent endpoint proofs. For the continuous attracting branch, use the upper left hidden-rate bound and lower right hidden-rate bound, rounded inward to6decimal places; IVT proves an attracting primitive18cycle at every intervening hidden rate, without assuming monotonicity/global uniqueness. Source tools/reviews/review_attraction_coverage_projection.py; zero model calls, CPU1nice10, external30s/1GiB target cap, fresh immutable output. This is an interpretable interior result; boundary topology remains active. CIFARadjoint8synthetic controls pass3.12s.
