@@ -6884,3 +6884,17 @@ charts. Nonzero quartic-Taylor and mutation controls cover the new replay path.
 Card/pins docs/plans/s2-reboxed-chain-review.*, same120/135+5s/1.5GiB24+1MiB
 caps, source committed before saved reduction; no target derivatives. Root's
 previous producer-source review and shared analytic acquisition/Arb disclosed.
+
+## 10 October2026UTC — pre-acquisition quartic audit-control amendment
+
+The added quartic decoder control in b4147eea failed at the floating
+`proposed_radii` admission (`fixed radius proposal cap`), before exercising
+the reducer. The command nevertheless committed because its shell did not
+stop on the failed test. No target audit was launched. The prior statement
+that this control covered the replay path was premature. Preserve that commit.
+The fixture now supplies an explicit positive exact dyadic radius2^-22 in
+both coordinates; its purpose is to exercise nonzero interval Taylor decoding,
+not the floating proposal heuristic. Both native chart gates and the256/384
+independent reductions pass with these prescribed radii. Production proposal
+and proof kernels, strict gates, and immutable scientific evidence are unchanged.
+Subsequent validation/commit commands stop on errors.

@@ -1,4 +1,5 @@
 import sys,copy,importlib.util
+from fractions import Fraction
 from pathlib import Path
 import pytest
 from flint import ctx,arb
@@ -45,5 +46,9 @@ def test_nonzero_interval_taylor_residual_uses_the_extra_decode():
  with ctx.workprec(256):
   m=Quartic();c=two_arclength_charts(m,m,inputs(),halfwidth_exponent=-10,radius_exponent=-22)['charts'][-1]
   assert c['predictor_residual'][0][0]['rad'][0]>0
-  r=rebox(m,c,proposed_radii(c));assert r['passed']
+  # Exercise decoder algebra with prescribed exact radii, independently of
+  # the floating proposal heuristic and its radius-cap admission.
+  proposal={'radius_exponent':-22,'exact_weights':['1','1'],
+            'exact_coordinate_radii':[str(Fraction(2)**-22)]*2}
+  r=rebox(m,c,proposal);assert r['passed']
   for precision in(256,384):assert M.chart_check(r,r['anchor'],r['normal'],r['origin'],r['exact_weights'],precision)['passed']
