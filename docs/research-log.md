@@ -8098,3 +8098,7 @@ Authorize one exclusive unit-pair/scout/attempt001-target using only these pinne
 ### 2026-10-10 first numerical target serialization failure, narrow repair
 
 Executionfa1a1c36 stopped8.352s/1,215,872KiB after72native calls, before the first continuation point. Both full value/J/Ht/native returns retained; all704 exact-rational endpoint comparisons passed. Serializing NumPy's actual-pair boolean failed. Immutable receipt native-unit-pair-scout-serialization-failure.json, outerfac0ecdee16dc065017a6d89a0c7022d21bfd302ee00320fc5787e76dc53c6d4. Explicit one-field bool conversion and synthetic strict-JSON regression prepared; no mathematical gate changes. Fresh source-bound profile and target in separate attempt002 paths, with unchanged measured caps, after peer recheck.
+
+### 2026-10-10 corrected numerical profile002 card
+
+Clark2152e3e7 narrow serialization recheck PASS,13controls0.17s. Execute only fresh attempt002-profile with the identical12 synthetic returns/432native phases, same360-evaluation forecast/caps and unchanged mathematical settings. Original profile/target001 remain immutable. Independent review reconfirmed all704 endpoint-association evidence but no branch point was accepted in001. Fresh measured002 target card follows only if this exact changed-source profile passes.
