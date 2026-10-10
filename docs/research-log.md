@@ -6718,3 +6718,12 @@ payloads/source/readonly/owned exits checked. Worker manifest9aee1856145ff51a5f7
 outerf872e5f6640018428004d8945e2fec1b982aa2e1ee694da08bc04a070f1a7e01. Companion docs/reviews/s2-period18-fold-reverse-outcome.json.
 Next separate saved weighted forcing/propagation before selecting ONE narrower
 fresh-domain pilot; no repeated completed prefix, automatic grid, or gate change.
+
+### 10 October 2026 UTC — prospective reverse-chart saved residual split
+
+Retained reverse failure7b1f8683 motivates one disclosed width/8 proposal,
+not a grid. After committing source/tests/card, run ONE saved-only diagnostic
+`tools/launch_s2_period18_fold_reverse_restriction.py --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-restriction-2026-10-10/attempt-001`.
+Card docs/plans/s2-period18-fold-reverse-restriction-diagnostic.md fixes all
+terms, one radius rule, inputs,30s/40+5,1GiB and4MiB. No new model calls or
+connection claim; the next actual restricted-domain proof remains separate.
