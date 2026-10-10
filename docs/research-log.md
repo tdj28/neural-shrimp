@@ -6480,3 +6480,27 @@ Run ONE target with unchanged source bytes after this card is committed:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_rechart.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-rechart-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-rechart-2026-10-10/attempt-001-profile/run --profile-manifest 1a1f3ebae56e9b6c781ba7c5dbcd8a02e325e167489992bdad109935b8aae98a`.
 Same localized parent9973cd33 and unchanged gauge33/128;40s internal/60+5 external,
 CPU1,2GiB,144/288 calls,108 jets,two charts,128+1MiB raw. No retry or assumed fold membership.
+
+## 2026-10-10 — smaller same-gauge rechart outcome
+
+Executionf5a1490549cfc3e44ba045cfcb45d564f862401b, reviewedsource3ee14c839fb27c07051b84998f09a3a201c52f4b. Statusinconclusive;
+2 retainedcharts, gates[{'anchor_identified': True, 'primitive_period': True, 'uniform_root': True}, {'anchor_identified': True, 'primitive_period': True, 'uniform_root': False}]; weighted bounds
+['[0.47893858500254536234 +/- 1.68e-21]', '[0.50419997469932624346 +/- 3.53e-21]']. Last retained h
+[75.6133188 +/- 9.80e-8]; explicit foldchecks
+[False, False]. Worker
+11.4655s/781616KiB, exact144/288C1+
+108jets; launcher11.9787s/exit2.
+Inventories/payloads/source/thread/counters/fullnativejoins/readonly/PIDs
+checked. Companion `docs/reviews/s2-period18-fold-rechart-outcome.json`.
+No attraction, distinctorbitcount or wholegeometry claim. Independentoutcome
+review pending. Failed preceding attempts remain unchanged.
+
+The first smaller chart passed all gates, extending the producer chain to145
+charts and exact gauge17/64. The second chart's contraction bound is0.50420,
+but its proposed coordinate radii do not all contain the Krawczyk image;
+primitive and exact native anchor gates pass. Its endpoint is not a proved
+root and must never anchor another chart. The retained first endpoint and
+failed second Taylor/Jacobian witness permit one diagnosed fresh-domain
+rebox of only the failed chart, without repeating the successful first chart
+or its numerical predictor work. This narrower repair is the next proposed
+adaptation; it is not a parameter-width search or relaxed proof gate.
