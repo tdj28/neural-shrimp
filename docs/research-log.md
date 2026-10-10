@@ -5957,3 +5957,14 @@ No GPU, new random starts, paid resources or protected holdout.
 Root visually checked the320-node overlay. It reveals numerical local anatomy only, with unstable fold-complement points marked. The already certified center and local folds/flips remain distinct from the unresolved rigorous boundary joins.
 
 Boundary continuation profile009 at754fa89c passed: five synthetic evaluations; projection 148.95157042890787s<170s, peakRSS 46472KiB. Worker manifest 24f2a33c4882e7ce0bd9cc7911a2e4b2506958acc8a5eacc72c30482fe5a1dae. Source-bound target008ray32-plus and009ray13-plus admitted with unchanged gates and own exclusive roots.
+
+### 10 October 2026 UTC — prospective saved-defect positive-weight diagnosis
+
+Root authorizes the next saved-only analysis of quadratic target02ab1212.
+Card `docs/plans/s2-period18-positive-weights.md` fixes a single deterministic
+positive-weight proposal from each saved defect and384-bit strict weighted
+inclusion/contraction checks, separating forcing from propagated radius.
+No model or derivative acquisition. CPU1,nice10,15s/20+5external,1GiB/1MiB;
+one exclusive attempt with immutable source/input/runtime receipts. Any wider
+domain later reacquires its true Jacobian. Source/tests/card freeze precedes
+the numerical saved-matrix calculation; no weights or target norms read yet.
