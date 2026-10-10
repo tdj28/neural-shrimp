@@ -7195,3 +7195,11 @@ Root authorizes the eight-coefficient bivariate path remedy after weighted affin
 ## 10 October2026 — quadratic synthetic cost screen completed
 
 Source7aa2398b passed one synthetic-only profile24.131s/484776KiB/278ticks. Both470D repeated2rootcontrols pass, primitive18correctlyfails;12mixed+12pathsyntheticGDcalls retained. Projection106.214s/1100624KiB/265402554B admitted, storage forecast close to256MiB. All345files3747671Bimmutable, owned1312275/1312364/1312365absent. Outer810e8134971edca575034fe8e4cf01c0d60ef4bfdd242aab093a61ff90cda1c3/runb21736eba45d7373b049e705a7747774353b62611edf80d3eb7f776259934937. No empiricalarrays/modelinputs used. Source review pending; future targetwidth requires disclosed separateadapter/card. Companion docs/reviews/eigenpair-quadratic-profile.json.
+
+## 2026-10-10 — saved LM inference precision run card
+
+Under renewed all-track authorization, freeze the six final calibration weights
+and eight already consumed prefixes for the source-bound32-step arithmetic
+sensitivity unit in docs/plans/saved-lm-inference-precision.md. The failed B3
+forecast gate stays failed; no protected outcomes/controller opened. Source and
+synthetic controls precede peer review, full-shape timing and one bounded target.
