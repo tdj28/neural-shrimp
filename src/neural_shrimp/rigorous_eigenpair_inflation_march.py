@@ -11,6 +11,10 @@ from .eigenpair_gauge_diagnostics import saved_predictor_diagnostics
 from .eigenpair_boundary_diagnostics import fold_indicator
 
 
+class DiagnosticObserverFailure(RuntimeError):
+    """Durability/resource exceptions must not be treated as numeric abstention."""
+
+
 def radius_settings(proposal,old_weights,old_exponent):
     old=[Fraction(v)*Fraction(2)**old_exponent for v in old_weights]
     require(list(map(Fraction,proposal['old_exact_radii']))==old,'exact current radius identity')
@@ -25,6 +29,9 @@ def radius_settings(proposal,old_weights,old_exponent):
 def march(model,parent,*,accepted_cap=4,tick=lambda:None,observe=lambda k,v:None,tube=quadratic_tube,proposer=diagnose):
     require(type(accepted_cap)is int and 1<=accepted_cap<=4,'fixed accepted ceiling')
     previous=compact(parent);attempts=[];accepted=[];calls=0;repairs=0
+    def diagnostic_observe(kind,value):
+        try:observe(kind,value)
+        except BaseException as exc:raise DiagnosticObserverFailure(type(exc).__name__+': '+str(exc)) from exc
     with ctx.workprec(previous['settings']['precision']):
         for index in range(accepted_cap):
             initial,kwargs=next_inputs(previous)
@@ -34,7 +41,7 @@ def march(model,parent,*,accepted_cap=4,tick=lambda:None,observe=lambda k,v:None
                 chart,_=tube(model,initial,**kwargs,tick=tick,observe=observe)
                 row={'call':call,'index':index,'attempt':attempt,'gates':chart['gates'],'passed':chart['passed'],'parameter_endpoints':chart['parameter_endpoints']};attempts.append(row)
                 diagnostics={}
-                for name,fn in [('spectrum',lambda:midpoint_spectrum(chart,observe)),('fold',lambda:fold_indicator(chart,observe)),('predictor',lambda:saved_predictor_diagnostics(chart))]:
+                for name,fn in [('spectrum',lambda:midpoint_spectrum(chart,diagnostic_observe)),('fold',lambda:fold_indicator(chart,diagnostic_observe)),('predictor',lambda:saved_predictor_diagnostics(chart))]:
                     try:diagnostics[name]=fn()
                     except (ValueError,np.linalg.LinAlgError,OverflowError,ZeroDivisionError) as exc:diagnostics[name]={'unresolved':str(exc),'scope':'No certified diagnostic conclusion.'}
                 observe('march_diagnostics',{'call':call,'diagnostics':diagnostics})

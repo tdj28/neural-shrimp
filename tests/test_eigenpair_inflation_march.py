@@ -64,3 +64,15 @@ def test_failed_accepted_durability_stops_later_calls():
             if k=='march_accepted':raise OSError('durability')
         with pytest.raises(OSError):march(m,c,tick=lambda:ticks.append(1),observe=obs)
         assert len(ticks)==15
+
+
+def test_diagnostic_store_valueerror_is_not_numeric_abstention():
+    from neural_shrimp.rigorous_eigenpair_inflation_march import DiagnosticObserverFailure
+    with ctx.workprec(256):
+        m,c=parent();ticks=[];events=[]
+        def obs(k,v):
+            events.append(k)
+            if k=='midpoint_eig_return':raise ValueError('aggregate raw cap')
+        with pytest.raises(DiagnosticObserverFailure,match='aggregate raw cap'):
+            march(m,c,tick=lambda:ticks.append(1),observe=obs)
+        assert len(ticks)==15 and 'march_accepted' not in events and 'fold_indicator_linear_return' not in events
