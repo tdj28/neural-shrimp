@@ -9788,3 +9788,14 @@ worker8c0c31b0101819043cdaf563f219b7c0ecd59c4b7c0eb032cebf7ad2221080c5,outer5144
 all file/source/counter/read-only/ownership checks pass. No new coverage or
 instability conclusion. Retain full failed witness; diagnose enclosure scale
 before another explicitly amended coverage method/width.
+
+2026-10-10 saved full-chart146 diagnosis: whole implicit inverse q0.565217,
+first tangent tail0.133479, center inverse defect6.58e-13, second-tangent tail
+39.823. Integrated second bound at halfwidth1/256 cannot improve the original
+whole tangent; polynomial truncation1.176e-9 is negligible beside cocycle
+remainder2.49937. Adjacent147 narrow case q0.145112/second-tail0.2810 permits
+refinement0.01231→0.001513. Prospective fixed four-piece chart146 pilot uses
+fresh smaller domains, unchanged root/tangent/cocycle mathematics, exactly
+four descending width1/512 slices and first-failure stop. Full prior failure
+preserved. Card docs/plans/s2-period18-quarter-chart-stability.md; controls,
+peer skim and a fresh full synthetic profile precede target admission.
