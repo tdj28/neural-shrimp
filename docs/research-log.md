@@ -11853,3 +11853,7 @@ The one disclosed fixed384-bit radius2^-80 retry completed once at714813fa28110c
 ### 2026-10-10T23:48:46.605413+00:00 — Independent local junction audit prepared
 
 Prepared dedicated new audit files for480-bit saved root/complement/crossing arithmetic and a fixed zero-Newton nested native proof. A synthetic measured profile gates162 native phases under60s/1GiB. The initial combined setup command was rejected by automatic review over inferred launcher scope; it executed no changes. The safer implementation creates separate audit files exclusively and leaves existing launchers unchanged. No target audit has run; independent source review precedes launch.
+
+### 2026-10-10 — direct native12 flip source card
+
+Native12 daughter y-branch's retained complex-to-negative instability crossing motivates a fixed fullF12 augmented flip solve from the actual unstable negative leader. Exact points18/19, immutable parent/source chain, strict leak AND amplitude brackets, both F6 phase partners/adjacent phases, primitive12 divisors, full native cubic/totalleak derivative and both fixed-amplitude reverse joins are mandatory. Original crossing label unchanged. New docs/plans/clark-rnn-n12-native12-flip.md keeps all measured resource/call gates with full12 augmented/third profiling before target arrays;13 controls PASS0.51s. Source peer skim next; no target/profile launched. Reciprocal root LM response source review07db5b10 PASS6controls0.09s after completed-CE retention repair; no LM target acquisition by this lane.
