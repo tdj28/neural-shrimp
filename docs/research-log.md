@@ -7579,3 +7579,5 @@ Execution69294393/scientific520447c1 passed four further charts without rebox, t
 10 October2026: extend independent470D audit through exactly8 saved no-rebox charts in two completed units. Same unchanged reducer; original native parents/accepted full charts/source hashes bound. Measured23.485s pair supports180s/3GiB/24MiB allocation. No model/derivative calls. Card docs/plans/eigenpair-march-independent-audit.md.
 
 10 October2026: renewed all-track work advances the paired directional comparator from data-free algebra to a four-saved-gradient feasibility unit. Fixedkappa1/8,tauhalfmax; no data/gradient/model/pulse/tail acquisition. Same25%blockcap; retain first-order gradient contrast and angular weakness explicitly. Ten synthetic controls pass. Card docs/plans/utility-paired-feasibility.md;30s/512MiB/2MiB cap,1000synthetic timing gate first.
+
+10 October2026: independently audit12new235D qualified charts through156total plus6retained root failures, no new model calls. Exact partial prefix/repair/known144root pinned; unchanged reducers256/384,120s/1.5GiB/24MiB. Card docs/plans/s2-small-march-independent-audit.md.
