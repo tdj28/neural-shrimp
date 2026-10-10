@@ -7941,3 +7941,17 @@ After source/tests/card commit and root skim, run ONE synthetic profile:
 `tools/certify_s2_period18_fold_restricted_chart.py --mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-restricted-chart-2026-10-10/attempt-001-profile`.
 The measured profile receipt/card must precede one target. No new chart or
 branch connection is claimed by saved-domain scaling alone.
+
+## 2026-10-10 — measured restricted-chart profile and exact target card
+
+Reviewed source672fc68b completed the one synthetic profile: worker
+3.0081s/390180KiB, all18/36 fresh-domain calls
+and one complete synthetic root restriction; launcher3.5469s/exit0, no owned PIDs.
+All immutable inventories/payloads/source/library settings checked. Receipt
+`docs/reviews/s2-period18-fold-restricted-chart-profile.json` records the
+passing projection11.0162s<30 and80MiB<112MiB.
+
+Run ONE target with unchanged source bytes after this card is committed:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_restricted_chart.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-restricted-chart-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-restricted-chart-2026-10-10/attempt-001-profile/run --profile-manifest ae286b27a4594cf6b2db4b872f2a740b922c285f9f0cd67ece30d4b0d5550581`.
+Same failed reverse manifest9aee1856 and full correlated fold anchor;30s internal/45+5 external,
+CPU1,2GiB,18/36 calls,one saved restriction,128+1MiB raw. No retry. Target uses the pinned saved width/radius and fresh-domain Jacobian; the synthetic profile executes the same restriction. No new predictor/path-jet calls. Root source skim passed672fc68b before profile.
