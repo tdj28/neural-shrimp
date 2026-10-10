@@ -6112,3 +6112,14 @@ After fresh resource check run `tools/certify_s2_period18_arclength_radii.py
 --parent-execution 7b21c3983683eb1c6268d315410e0510e8ffd713`.
 Stop first failed gate; no automatic rerun or change of design. This card is
 committed before that distinct endpoint unit.
+
+### 10 October 2026 UTC — adapted-radii unit002 outcome
+
+Executionf5922aa97383e81ad455d79980b04b668d4e4fe8, unchanged source 2911c68b. Statusinconclusive,
+passed=False;2 durable chart witnesses checked. New exact gauge
+coverage['219/64', '221/64'], last hidden-rate displayunresolved. Worker12.4002s/
+420040KiB, launcher12.8849s,exit2;
+15134056 immutable bytes, hashes/decompressed payloads/native joins/owned-PIDs
+checked. Worker manifest26cf51439d0d409dbe8b9d03c5b774805d5c93f836d3a3045681f3c065dc3135;
+outer513a8ee87bd80165c815ba1443b8f06c30cd5f0955bc7575b488cd144c07ce06. Companion `docs/reviews/s2-period18-arclength-radii-unit002.json`.
+No prefix rerun, attraction or fold identity claim; independent review pending.
