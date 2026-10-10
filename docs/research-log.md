@@ -6041,3 +6041,15 @@ Companions `docs/reviews/s2-period18-weighted-outcome.md/.json` record exact
 scope and the receipt-script envelope KeyError, which caused no target rerun.
 Attraction remains unevaluated and boundary connection unproved. Independent
 saved-ball review is next; continuation development proceeds separately.
+
+### 2026-10-10 — Independent weighted/quadratic branch review card
+
+Root assigns the wider passed weighted width1/16 unit and preceding quadratic
+width1/64 evidence. New independent saved reducer reconstructs exact256-bit
+shooting/Taylor/images and384-bit strict weighted root/primitive/anchor/endpoint
+joins.18 synthetic controls pass(.20s). No derivative/jet acquisition, nonlinear
+proposal or prior proof replay; source/math/caps in
+ docs/plans/weighted-connection-independent-review.md. Exact raw/source pins are
+frozen before one CPU1nice10 saved run,90/105+5s,1.5GiB RSS,9MiB output at
+ audits/s2-period18-weighted-connection/attempt-001. Both units remain root-only,
+with no attraction or boundary-geometry claim. All failures retained.
