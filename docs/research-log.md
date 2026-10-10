@@ -7218,3 +7218,19 @@ output in8d761abc; explicit finite checks now reject it while an exact affine
 control passes. Returned bounds are saved before post-return deadline checks.
 Conditional source clearance only, no target computation; receipt
 `docs/reviews/s2-tangent-variation-peer-source-review.json`.
+
+### 2026-10-10 — wider unit008 retained and verified
+
+Four accepted primitive18 normalized+1 segments reach exact gauge
+151/128. Eight full calls/four repairs, all failed initial
+bounds retained; every accepted chart has470 strict inclusions/full native
+anchor/proper divisors. Execution d42d15298ec6fa70259a3e079f74e3108c941040; unchanged
+repair-chain source4c191a65, peer reviewe02d9719 (18 controls0.20s).
+Worker164.699665s/1105308KiB/
+1016ticks; launcher exit0, PIDs absent. Complete immutable
+inventories and source/Git equality checked: 1243files/346576613B.
+Outer 8914b8547ac17ccc2c2ec28589a71c17884420d48b3e0c89827fc7530e3c8e06; run
+c700c7b393e1565e2a8577a19336dd14b819eb649a915e1f4ddd76433fcbb795. Companions
+`docs/reviews/eigenpair-wider-march-unit008.md/.json`. Numerical normal-form
+and complementary-mode columns remain diagnostics; independent outcome review
+pending. Next unit requires a newly committed exact complete-parent card.
