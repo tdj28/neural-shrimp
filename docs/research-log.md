@@ -11381,3 +11381,19 @@ or complete window closure. Added saved-source figure with byte-identical
 regeneration. One new number binding authenticates every256/384chart proof,
 regauge localization and final membership. Next: regenerate bindings, compile
 and inspect all pages before replacing the human reading PDF. No target run.
+
+
+### 2026-10-10 — CIFAR continuation via symmetric two-phase equations
+
+After independently audited six-stepLSMR stagnation, prepare a genuinely
+different linear formulation rather than increasing the same solver budget.
+The doubled shooting Jacobian is symmetric for scalar-rate gradient descent
+although its eliminated two-step derivative is not. Independent dense controls
+compare actual eliminated solutions, truncated residuals and singular cases.
+The native wrapper/profile/review and fixed run card must precede a target.
+No new acquisition at this checkpoint.
+
+Kernel controls initially caught an accounting defect: SciPy MINRES evaluates
+the explicitly supplied zero initial state before its iterations. The action
+cap now includes that call and the final true-residual call (iterations+2).
+No native target was attempted.
