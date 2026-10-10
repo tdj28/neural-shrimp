@@ -5778,3 +5778,5 @@ Fixed nativep12slices c84aaaf6 completed1.259s/1.618s,1533returns,121172KiB; all
 Root authorizes fixed p12 follow-up: known associatedflip bothPALdirections and both unresolvedfolds finerassociation, originalgates preserved. Newcard freezes.01/192nodes/domain2.6..5.6,.715..91; folds8half-distance nativelevels/14Newton/reverse1e-7 and finalrootjoin, no newroot/no foldPAL.10000calls/120s135+5CPU1/512MiB/256+1MiB aftersynthetic timing; no target before source/test checkpoint.
 
 Root source/card skim b049d12d passed fixed p12 continuation/finer-association unit;19controls pass. Record/privatepush beforeprofile+target; no source or gate change.
+
+Fixed p12followup4216d1fa completed3.505s/4.081s,44992KiB/2188returns. g16fold association passes8levels+rootreverse9.73e-10; g34root stillreverseguard, no promotion. Flip125+193rows(317unique), oneguardafterstronglynonattractingrho590, oppositecapstillattracting. Allrawhashes/modes/owned1370870/1370872 exits verified; no globalanatomyclaim. Next saved-locusplot allowed30sCPU1/8MiB before choosing exact endpoint/fold continuation source.
