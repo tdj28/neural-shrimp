@@ -5944,3 +5944,7 @@ Final focused source controls:35passed in0.30s (native N12/p6, all three divisor
 ## 2026-10-10: prelaunch N12 leading-mode identity repair
 
 Boundary peer identified a valid source-only blocker in93b95c65: first unstable selection carried only sign, so localization could seed a different same-sign multiplier nearer +/-1. Preserve actual phase-zero leading index/eigenvector, require adjacent leading real sign/value agreement within relative1e-7 and abstain otherwise. Retain nearest+1 only for explicitly labeled correction-failure fold proposals. Added same-sign competing-mode, adjacency mismatch and nonleading-index controls. No profile or target ran before the repair.
+
+## 2026-10-10: N12 native boundary clearance and launch card
+
+Boundary peer rechecked cf39fe72 and passed24 adapter controls in0.24s; source-only leading-mode repair clears the blocker. Root authorizes continuation after this clearance. Fresh zeta load2.27,52GiB available RAM, no GPU needed; exclusive n12-p6-boundaries-001 is absent. Execute once: `nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_clark_rnn_n12_p6_boundaries.py --out /data2/neural-shrimp-data/explore/clark-rnn/n12-p6-boundaries-001`. Unrelated measured N12/p6 timing/bytes/peak gate precedes any target arrays, under the unchanged120s/CPU1/448MiBRSS1GiBAS/384MiBscience16MiBmetadata card. All failures retained; no retry or route claim.
