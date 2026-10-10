@@ -5569,3 +5569,34 @@ Under root's existing gated authorization, run one unchanged-source floor stage:
 CPU/BLAS1,nice10;two exact chart-center floors, three refinements each,216/432
 wrapped/unit calls,560ticks,60s internal/75+5external,2GiB,128+1MiB. Recheck
 shared RAM and retain both outcomes; no finite probes unless both floors pass.
+
+### 2026-10-09 local / 10 October UTC — both localized floors pass; two outer probes
+
+Execution4bb62f049454ec06a79262e1c9b30ea3a927fcb5 completed21.7125s/22.1765s,
+1082980KiB,528ticks,216/216 wrapped and432/432 unit calls,exit0. Both original
+unchanged-image sufficient metric bounds fail; both three-step localized
+18-phase bounds pass. Final correction radii<1.835e-25 and<1.833e-25 versus
+the parent image about1.7e-6. This supports the diagnosed root-image floor,
+without establishing wider attraction or a boundary connection. Independent
+outcome review remains pending. Receipt `docs/reviews/s2-period18-localized-roots-floor.json`.
+Full source/input/raw/exit/resource/read-only/PID checks pass; worker manifest
+d93c158266269401dde17e154c75f122fbde0b80b2ce7d186c0efbb4b81c8ce4,
+outer260cc0fe095563537fa8bc179a09628b124f97ebbea4db14a6b6cea94fd99f15.
+
+Disclosed engineering discrepancy: actual floor raw99,591,132bytes exceeded
+the synthetic profile's48,135,582byte projection because the real matrices
+compress differently. The fixed120MiB ordinary/128MiB worker cap was respected;
+no cap is relaxed. The next probe omits both original-image metric acquisitions
+and still uses the same strict aggregate checks, retaining a storage failure if
+necessary. Its runtime projection28.755s exceeded measured floor21.713s.
+
+Run exactly the predeclared two outer width2^-15 probes using unchanged source:
+`tools/certify_s2_period18_localized_roots.py --mode probe --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-probe
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-profile/run
+--profile-manifest ea3714349c5f406edac7005ddaf877dfc74ef53181aa62f432f33ea31d26102f
+--floor /data2/neural-shrimp-data/explore/certificates/s2-period18-localized-roots-2026-10-09/attempt-001-floor/run
+--floor-manifest d93c158266269401dde17e154c75f122fbde0b80b2ce7d186c0efbb4b81c8ce4`.
+CPU/BLAS1,nice10,60s/75+5external,180/360 calls,400ticks,2GiB,128+1MiB.
+No full128-slice coverage, parameter search or boundary step is authorized by
+this card; continued research will adapt openly to these measured results.
