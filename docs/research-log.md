@@ -6790,3 +6790,22 @@ measured same-kernel operation counts admit the trial; no extra synthetic neural
 profile. Preserve any incomplete/failed first or second chart and only report
 actual strict gates. See `docs/plans/eigenpair-doubled-width.md` for full cost,
 inputs and limitation rationale. No target launched during source preparation.
+
+### 2026-10-10 — doubled-width target retained; one strict inclusion fails
+
+Root source skim cleared3e2681f5; fresh40.9GiB available/load1.40. Executed the
+one declared target, immutable `attempt-001-wider-target`, at that exact clean
+source. First interval[19/128,23/128] has contraction0.9407876389 and469/470
+strict inclusions; coordinate387 image/radius=1.0024566875 from exact saved
+balls. Primitive18 and full native anchor checks pass conditionally. Root gate
+fails; no accepted extension and no second chart/retry/rebox. This is a bound
+failure, not branch nonexistence or instability.
+
+Worker19.6225s/656552KiB/127ticks; launcher20.0143s/665556KiB/exit2, noexception
+or resource stop. Full217file/43,314,161byte inventories/source checked and raw
+read-only; owned PIDs1394839/1394925/1394926 absent. Outer SHA256
+`d3a46e841992027d12da3b9495bf93a03a64235da1508870efe4b040cfc0a1d0`;
+run `7a01b994bf31e9a9057ee3e6e369a0acc9da0f3a4450924d66031404484e4e90`.
+Companions `docs/reviews/eigenpair-wider-outcome.md/.json` preserve actual scope.
+Next potentially useful adaptation is saved forcing/defect diagnosis and a
+fresh-domain radius proposal, with all original strict gates retained.
