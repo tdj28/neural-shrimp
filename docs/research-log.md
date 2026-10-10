@@ -9200,3 +9200,7 @@ Host at 2026-10-10T18:24:34.542684+00:00: 37.77GiB available,
 load (2.46337890625, 1.92724609375, 1.662109375); GPU 0 %, 15947 MiB, apps none.
 CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
 complete-parent authorization applies; no failed tail consumed.
+
+### 2026-10-10 — scalar residual-functional amendment before evaluation
+
+After preserved original and five-intersection coefficient failures, prepare three scalar residual functionals on the SAME unit008 last chart. Strategy independently checked b^Ty=u0^Trhs+(b−B^Tu0)^Ty for fixed exactu0=mid(C^Tmidb); pointwise root dependencies only widen interval bounds. This avoids summing independently broad adjoint coordinates and uses no new inverse/model/derivative.42 synthetic controls pass0.18s, including9new nonnormal/cancellation/interval-sample/nonfinite/observer cases. Separate module/card docs/plans/eigenpair-adjoint-functionals.md; source/card commit precedes source skim and one20s/30+5 saved unit,1GiB/8+1MiB CPU1nice10. Existing geometry unit010 runs unchanged; no target coefficient reduction occurred during implementation. If inconclusive, retain and return to branch reach; no same-method retry.
