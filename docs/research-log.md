@@ -7147,3 +7147,21 @@ center Jacobians and cyclic frames; no new root/C1 acquisition. Unchanged
 norm-cocycle gates decide. Synthetic18x13 profile then measured exactpins/card
 before one30s/1GiB target. Source/card tests before any acquisition; plan
 at docs/plans/s2-period18-refined-tangent-cocycle.md. No broad parameter search.
+
+2026-10-10 refined-tangent synthetic profile at db2939483513b793933c0b2adb5f3c49b237c42f completed
+once: 1.195081s/109012KiB, zero C1 and exactly18mixed
+calls/75stages, positive-path gates. Worker efc6c6e5a64a629aff2299e806b443747f884cf6da7c6ea1760e1ea3598ef0cf;
+outer b3e45e37cda7a0e805cca8b792aa5e666f1c9288c83cb22dde0cf7372735034e. Full immutable inventory/source/settings/owned-PID
+checks pass. Projection 9.780322s<30;
+16777216B<56MiB. Compact profile receipt above.
+
+Exact next target card: ONE exclusive attempt001-target in the same
+s2-period18-refined-tangent-cocycle-2026-10-10 root, unchanged executable/card
+bytes, exact chart156 inherited root and [359/1024,45/128]. Use
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-refined-tangent-cocycle-2026-10-10/attempt-001-profile/run
+--profile-manifest efc6c6e5a64a629aff2299e806b443747f884cf6da7c6ea1760e1ea3598ef0cf
+--profile-outer-manifest b3e45e37cda7a0e805cca8b792aa5e666f1c9288c83cb22dde0cf7372735034e.
+CPU/BLAS1,nice10,30s internal/40+5 external,1GiB sampled owned-group RSS,
+64MiB worker/65MiB aggregate. Recheck shared RAM; no rerun on failure.
+This is the already source-reviewed bounded adaptation, no new data or
+whole-branch/neutral-fold claim. Preserve all gates and attempted counts.
