@@ -67,3 +67,12 @@ def test_larger_reference_admission_fails_closed():
     assert m.cost_gate(old)['seconds']<400
     old['elapsed_seconds']=70
     with pytest.raises(ValueError):m.cost_gate(old)
+
+
+def test_actual_launcher_binds_new_install_and_child(tmp_path):
+    m=driver();p=Path(__file__).parents[1]/'tools/launch_eigenpair_neutral_bridge.py';spec=importlib.util.spec_from_file_location('neutral_bridge_launcher',p);l=importlib.util.module_from_spec(spec);spec.loader.exec_module(l)
+    a=args(m);a.mode='target';l.C.install(a)
+    assert Path(l.C.__file__).name=='continue_eigenpair_neutral_bridge.py'
+    l.ARGS=a;l.OUT=tmp_path;l.LIMIT=420;command=l.command()
+    assert any(str(v).endswith('tools/continue_eigenpair_neutral_bridge.py')for v in command)
+    assert command[command.index('--unit')+1]=='1' and command[command.index('--expected-right')+1]=='227/128'
