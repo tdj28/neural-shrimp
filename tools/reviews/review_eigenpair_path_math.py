@@ -54,7 +54,7 @@ def rebuild_coefficients(chart,events,d,curvature=True):
                 vals=vector(returns[i][part]);rows.append([vals[j]-(sign*z[after+part*n+i][j] if part else z[after+i][j]) for j in range(4)])
     norm=[(sum((sum((z[n+i][a]*z[n+i][j-a] for a in range(j+1)),arb(0)) for i in range(n)),arb(0))-arb(int(j==0)))/2 for j in range(4)]
     normal=[R.exact(v) for v in chart['normal']];origin=[R.exact(v) for v in chart['origin']]
-    gauge=[sum((normal[i]*(z[i][j]-(origin[i] if j==0 else 0)) for i in range(N)),arb(0))-(R.exact(chart['parameter_center'])+d if j==0 else int(j==1)) for j in range(4)]
+    gauge=[sum((normal[i]*(z[i][j]-(origin[i] if j==0 else 0)) for i in range(N)),arb(0))+(-1*(R.exact(chart['parameter_center'])+d) if j==0 else -int(j==1)) for j in range(4)]
     return arb_mat(rows+[norm,gauge])
 
 def reduction(C,A,H,W,weights,radius,delta):
