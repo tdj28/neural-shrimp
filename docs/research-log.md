@@ -11712,3 +11712,9 @@ Synthetic diagnosis control initially used `contraction` instead of the real cer
 ### 2026-10-10 — saved period58 diagnosis clearance/execution
 
 Root source-skim50f7ba5b PASS,2controls reproduced0.03s; exact dyadic summaries, full immutable/source bindings, missing Newton history and owned caps checked. Proceed sole saved-only `audits/census-period58-diagnosis/attempt001` with30s/2GiBpeak/3GiBAS/4MiB,40+5outer. Fresh host16:11PDT remains52GiB available and no owned N12worker. No native evaluations or certificate replay.
+
+### 2026-10-10 — saved period58 failure diagnosis outcome and fixed amendment
+
+Saved-only attempt001 passed0.913s/302812KiB, exact inventory/source and owned1880737/1880888 absent. Final refined center and preconditioner remain finite. The final residual midpoint maximum has exact floor-log2−343 and its enclosing radius−316. Whole-state radius starts2^-160, grows roughly3–4bits/phase, reaches2^-20 atphase42,2^1 at48 and2^87 at49; first nonfinite Jacobian49/state50. Proper divisors1/2/29 remain excluded. The original C1 kernel saved no intermediate Newton residual history. These are enclosure-growth diagnostics, not physical instability. Receipt `docs/reviews/census-period58-enclosure-diagnosis.json` preserves every phase and failed outcome. Prior execution-card prose time16:11 was a transcription error; immutable launcher began16:14:32PDT; host recheck16:14:43 showed52GiB available/load2.25/2.14/2.01.
+
+Root agrees to one fixed640bit/radius2^-288 attempt using exact saved refined center. Retain one explicit Newton proposal/history, then call unchanged C1 checker withzero additional proposals. Exact three58step returns are measured/costed fromthree native640bit phases before a separately carded target. No second search if this fails; primitive/stability/fullstate gates unchanged. Native12 daughter preparation remains next after this higher-priority bounded census representative.
