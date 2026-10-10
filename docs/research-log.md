@@ -7518,3 +7518,15 @@ interval, exact failed radii verified above qualified-parent floor, qualified
 endpoint alone anchors, and fresh unchanged whole470D proof. One measured
 partial-repair target admitted. After outcome only, a disclosed narrower-width
 continuation may improve proof efficiency while preserving strict gates.
+
+### 2026-10-10 — partial-prefix fresh repair passes
+
+Sourceb547f56e/execution25e9ac5f: one fresh [219/128,223/128] chart passes all470
+strict inclusions, full470D native anchor and primitive18 gates. The exact failed
+old tail is retained; only the qualified219/128 root supplied the anchor.
+Worker21.153390s/656452KiB/127ticks; launcher21.578616s/667528KiB exit0,
+owned PIDs absent, complete immutable inventories and source/Git checked.
+Outer346a8c03213f4819c73f02feefdb3a38cfd578e1ef211b427281c2def263dc47.
+Receipt docs/reviews/eigenpair-partial-repair-outcome.md/.json; mathematical
+independent outcome review pending. This is71 accepted normalized-locus charts
+in the complete multigauge chain, not71 generic folds or a shrimp conclusion.
