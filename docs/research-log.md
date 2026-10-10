@@ -9552,3 +9552,5 @@ Saved-only plot8131cd84 completed0.935s/195840KiB, image9130fbbd; both starts sh
 P7boundary peer review required explicit final launcher/aggregate byte enforcement. Added projected fullmanifest/end-record sizes plus4096Bmetadatareserve, failclosed1MiBnonworker/129MiBtotal, and oversizedlog/aggregatecontrols beforetarget. Numericalcode unchanged apartfromaccurate leading-realmodecomment.
 
 The combined edit/test shell produced three synthetic MemoryError checks at the unchanged448MiB worker guard (no model target). A fresh separate test process, with the same tests/caps and no source relaxation, passed20controls in0.19s. Retain the failed harness result as a resource-context artifact; do not reinterpret it as a scientific outcome or relax the target guard.
+
+Independent optimizer differential source skim passes4a990b65, including corrected final byte allowance. Proceed single fixed3gain×2directionunit only after unrelated6D/p7profile resource gate. Peer2GiBproof staggered until this≤512MiBjob exits; foreignprocesses untouched.
