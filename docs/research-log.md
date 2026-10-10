@@ -8277,3 +8277,7 @@ Whitened linear degree1 norm~2.588 also fails the polynomial-only fixed-metric
 Gershgorin bound. These are enclosure diagnostics, not dynamical instability.
 Next method should control native product remainder propagation and metric
 variation, rather than repeating a blind shrinking slice campaign.
+
+### 2026-10-10 — prospective saved cyclic-norm cocycle pilot
+
+The saved error budget motivates replacing entrywise product remainder propagation with rigorously bounded operator2 errors in fixed cyclic metric frames. Exactly the original slice and centered quarter slice are compared; all center uncertainty remains unscaled. Optimizer's independent math skim found the recurrence/final Loewner penalty sound with full-polynomial norms and all cross/truncation terms. Source/card at docs/plans/s2-period18-norm-cocycle.md precede one20s/1GiB saved-only unit, no model or derivative acquisition and no blind width search. Existing failed evidence remains unchanged.
