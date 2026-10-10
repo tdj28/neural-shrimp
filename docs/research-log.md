@@ -6912,3 +6912,15 @@ Next single fixed floor+1/16slice target, as root source review authorized:
 --profile-manifest b5c887ff54a8cfee123bcd296f3cde6742d23d472596eff8b1c6c2f203361105`. CPU/BLAS1,nice10;90s/105+5,2GiB,800ticks,
 180/360nativecalls,256+1MiBraw. Same frozen sources/libraries/settings.
 Fresh resource check, no broad slice campaign. Retain both outcomes/failures.
+
+### 10 October 2026 UTC — fixed floor and localized-slice outcome
+
+Scientific source607b0de5, execution 1b3df14e08b5b1ae89a4e834f57295cc22207834; fixed_slice_pilot_completed.
+Cases: [{'interval_phases_passed': 18, 'passed': True, 'point_passed': True, 'role': 'floor'}, {'interval_phases_passed': 0, 'passed': False, 'point_passed': True, 'role': 'probe'}]. Six prescribed intersections and36 final physical
+phases recorded if completed; exact actual post-decoding inputs retained.
+Worker 21.326037s/586836KiB, launcher
+22.132170s,exit0. All immutable
+inventories/payloads/source joins and owned exits checked. Worker manifest
+ccb8f1c8d1cd08389fdcd9ce31d07debb077e6ca7f8d000056d35cba67f84f3a; outer c401143f9a2f768a585563918b3c4a5389bd96a963660973ed21a012e367f2d1.
+Companion `docs/reviews/s2-period18-arclength-slices-outcome.json`.
+No broad coverage or instability conclusion; independent outcome review pending.
