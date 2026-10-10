@@ -6362,3 +6362,27 @@ outere283d0517d7f6a126c9f0f4ee2432b09a23f7b4815771a4600cc501b2f466154)
 and is retained with `s2-period18-arclength-march-profile001.json`. No march
 target has run. Reprofile new bound source at attempt-002-profile before the
 same first endpoint-pinned unit; original source/history stays immutable.
+
+### 10 October 2026 UTC — corrected march profile and unit001 card
+
+Root actual-runner admission review passedde1a6f12;82 controls pass0.30s.
+Corrected profile completed4.6597s/5.0536s,341528KiB,full144/288 C1/unit+
+108jets,exit0. Both root paths and all source/library/thread/hash/read-only/
+owned-PID gates pass. Projection79.5558s/301,989,888bytes satisfies original
+limits. Worker cb0fbbd656f968ef74f3128844cd70bc764c33c837f164bd00ed1cd8d0eb3b68;
+outere3457b80d1762b12f22629ba01d7cc8adc8e5a78645b6632341ef1df8b20dafc.
+Receipt `docs/reviews/s2-period18-arclength-march-profile002.json`.
+
+Launch one distinct unit001 with unchanged source/settings:
+`tools/certify_s2_period18_arclength_march.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-march-2026-10-10/unit-001
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-march-2026-10-10/attempt-002-profile/run
+--profile-manifest cb0fbbd656f968ef74f3128844cd70bc764c33c837f164bd00ed1cd8d0eb3b68
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-batch-2026-10-10/attempt-002-target/run
+--parent-manifest 7baaf7af18611786403ef8e019f8f0c781ed47867183b6b59bdc55f1cf037a35
+--parent-execution ed708aa36f7ee93bb3b6b730c134dcfbb5bc736e`.
+Same16charts,delta2^-6,r2^-22,256bits,two proposals,1152/2304 C1/unit+
+864jets,2200ticks,CPU1,nice10,2GiB,384+1MiB,180s/195+5. Start only after
+fresh memory check; stop first failed proof. Root authorizes identical later
+units from their individually committed exact endpoint pins, without rerunning
+prefixes; inspect each result first. Attraction/fold identity remain separate.
