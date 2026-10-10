@@ -8281,3 +8281,16 @@ variation, rather than repeating a blind shrinking slice campaign.
 ### 2026-10-10 — prospective saved cyclic-norm cocycle pilot
 
 The saved error budget motivates replacing entrywise product remainder propagation with rigorously bounded operator2 errors in fixed cyclic metric frames. Exactly the original slice and centered quarter slice are compared; all center uncertainty remains unscaled. Optimizer's independent math skim found the recurrence/final Loewner penalty sound with full-polynomial norms and all cross/truncation terms. Source/card at docs/plans/s2-period18-norm-cocycle.md precede one20s/1GiB saved-only unit, no model or derivative acquisition and no blind width search. Existing failed evidence remains unchanged.
+
+2026-10-10 fixed saved-only norm-cocycle unit completed once at 38ea6ac3f5b0611f15f0965f5e7a92d6a6a24804,
+peer source review 994eaff78e85f5715da1f612b883dde33df8b5d1. Both fixed
+full [719/2048,45/128] and nested quarter [5755/16384,5757/16384] cases
+pass all strict operator/inverse/P/complete-decrease gates. This resolves
+the earlier sufficient-bound failure on this full slice without any new
+model/derivative acquisition. 2.886418s/316340KiB,
+36/36 phase starts/returns,112 saved stages, exit0; all hashes/read-only
+and owned-PID absence checked. Worker 655a9d031c6eb00c4b98c69e2e88bb9ebf42dfb91c8e6608f3c92bea440034ad;
+outer 69f9bb5403d415a0c66dd9a6005f06ca41060c1f89ba19c52d8f435c72e93ed4. Compact companion
+docs/reviews/s2-period18-norm-cocycle-outcome.json. Independent outcome
+review pending; full branch attraction and whole shrimp organization remain
+unresolved, and the neutral fold is excluded. Earlier failures unchanged.
