@@ -8490,3 +8490,14 @@ cover[43/128,11/32], one whole primitive18 chart. Base first norm passes:
 0/8; every first result retained. This producer
 coverage still awaits independent saved arithmetic review. No neutral-fold,
 whole-connected-branch or complete-shrimp attraction claim.
+
+2026-10-10 prospective fixed descending stability march: binding-only adapter
+admits charts007,...,000 as separate unchanged-method eight-slice units. Full
+preceding coverage/worker+outer/source/current-runner identity and original
+native root prefix required. Same model, kernels,360s/2GiB/514MiB caps; full
+synthetic profile once then exact predecessor card before each distinct unit.
+Stop entire sequence at first failed gate, no repeats. Thirty controls pass,
+including wrong-runner fallback rejection, incomplete/wrong-index/owned-live
+predecessors and restoration of wrapped base functions. Initial test import
+path failure repaired before any profile. Plan at
+ docs/plans/s2-period18-stability-march.md. No acquisition yet; peer skim next.
