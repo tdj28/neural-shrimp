@@ -5758,3 +5758,13 @@ run manifest e3b2e4c7f97b4da64ad1105615c10d0ecc6bd319e18f94fcda1a90d1a600f731.
 Raw immutable, no owned live processes. Root reviewed core/card and authorizes the
 single exact panel from unchanged source/card bytes, with the above run-manifest
 pin and exclusive `.../clark-response/attempt-001-panel`. No gate/grid change.
+
+Clark panel attempt001 failed after73 returned rows and the74th start record:
+MemoryError allocating1.95MiB under the480MiB address-space cap. Measured RSS only
+94336KiB, elapsed1.268s worker/1.524s outer. Source/card4054e0d0, executioneb9cd01a.
+All partial raw is immutable and hash-verified; owned processes absent. Outer
+manifest8d537914c959b2ec4ad348f24a050e31e3e71f2779d09671028151227c6f9896.
+The short triangular resource fixture missed dense/repeated allocator pressure.
+No scientific grid or method threshold is changed; first amend/profile resource
+behavior before a separately retained new panel attempt. Compact failure evidence:
+`docs/reviews/clark-response-first-attempts.json`.
