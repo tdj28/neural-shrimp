@@ -10821,3 +10821,26 @@ exact gauge103/128→119/128.
 Exclusive audits/eigenpair-remaining-locus/unit006-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+
+2026-10-10 boundary reviewer source skim baec9903 endpoint packet PASS;
+13 controls reproduced in0.07s. Exact rational whole-tube containment, actual
+phase domains/rates, enlarged independent41D box and hard final107 prerequisite
+reviewed. No target arithmetic by reviewer; missing final card still prevents
+endpoint run. Any serializer/domain failure must remain immutable.
+
+2026-10-10 independent locus unit006 PASS at 71440525625fbcb34915c0bdf5684f469ced6fe8,
+51.624502s/830128KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+45charts,right119/128.
+Outerc9a4152d99edd05f959853d9e012be166361d4ab770c59a30de39801e49b1d05;
+worker7e9f3dd9a7ccddff756f9f67c45666b5aa68838c212a5738e8dbf10d536c1c2d. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit007: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit007.json; literal complete independent predecessor above.
+Selected accepted globals46–49,
+exact gauge119/128→135/128.
+Exclusive audits/eigenpair-remaining-locus/unit007-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
