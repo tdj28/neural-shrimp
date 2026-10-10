@@ -34,7 +34,7 @@ def forcing(phases,velocity,rate,hidden):
     return result,details
 
 def norm_case(root,rows,bases,delta):
-    saved=read(root/'result.json.gz');need(saved['passed'] and saved['phases']==18,'complete new case')
+    saved=read(root/'result.json.gz');need(saved['passed'] and saved['phases']==18,'complete new case');need(saved['exact_endpoints']==['359/1024','45/128'] and ball(saved['halfwidth'])==delta,'fixed final norm domain')
     frames=[b.transpose() for b in bases];inverses=[b.inv() for b in frames];n=13
     for b,inv in zip(frames,inverses):need(inf(eye(n)-mid(inv)*b)<1,'fixed frame invertibility')
     cs=[eye(n),arb_mat(n,n),arb_mat(n,n)];eps=arb(0);gamma=arb(1)
@@ -88,7 +88,7 @@ def audit():
     need(new['model_inputs']==inp['model_inputs'] and new['whole_box']==physical['actual_whole_box'] and new['bindings']=={'original_manifest':PINS[2][1],'tangent_manifest':PINS[1][1]},'same model/domain provenance')
     # Producer explicitly decodes and re-encodes saved tangent before use.
     refined_decoded=mat(saved['refined_derivative_box']);need(clean(new['whole_tangent'])==[enc(refined_decoded[i,0]) for i in range(235)],'actual refined tangent input')
-    actual=read(root/'stage-000-actual_inputs.json.gz');need(clean(actual['actual_whole_box'])==[enc(ball(v)) for v in new['whole_box']] and clean(actual['actual_uniform_tangent'])==[enc(ball(v)) for v in new['whole_tangent']],'new actual decoded derivative domain')
+    actual=read(root/'stage-000-actual_inputs.json.gz');need(new['halfwidth']==actual['halfwidth']=='1/2048' and actual['exact_endpoints']==ends,'fixed actual derivative parameter domain');need(clean(actual['actual_whole_box'])==[enc(ball(v)) for v in new['whole_box']] and clean(actual['actual_uniform_tangent'])==[enc(ball(v)) for v in new['whole_tangent']],'new actual decoded derivative domain')
     frames=read(old/'stage-029-frames.json.gz');need(frames['cyclic_last_index']==0 and [v['phase'] for v in frames['witnesses']]==list(range(18)),'same native cyclic frames')
     bases=[mat(v['B']).transpose() for v in frames['witnesses']];need([serial(b) for b in bases]==clean(new['bases']),'unchanged frame proposals')
     rows=[]

@@ -7079,3 +7079,5 @@ One audit from066a2037 passed in2.719s,458240KiB. All four worker inputs plus ou
 ## 2026-10-10: independent saved refined-tangent review preparation
 
 Prepare one source/card-bound saved audit of completed doubled interval, including previously unaudited235D U''/centered U' reduction and new18phase norm witness. No derivative/model/decomposition calls. Complete external hashes and historical runtime sources;60s/80+5s/2GiB/8MiB, fixed attempt001. Post-outcome independent-personnel arithmetic with inherited root/localization/analytic enclosure and Arb trust stated. Also static-cleared seven-slice composition5f457aae with47 synthetic controls; target coverage remains unreviewed until outcomes.
+
+Pre-execution producer-author schema skim requested explicit final halfwidth/endpoints joins. Added exact1/2048 input/actual/result binding without numerical changes; author-overlap disclosed and independent reduction remains reviewer-authored. No audit run occurred before amendment.
