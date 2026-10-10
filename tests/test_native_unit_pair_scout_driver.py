@@ -5,10 +5,11 @@ ROOT=Path(__file__).parents[1];sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'src')]
 import scout_native_unit_pair as S
 
 def test_measured_operation_forecast():
- f=S.forecast([.1]*12,100000);assert f['admitted']and f['seconds']==92 and f['native_phase_call_cap']==12960
- assert not S.forecast([1.]*12,100000)['admitted']
+ f=S.forecast([.1]*12,100000,[1000]*12);assert f['admitted']and f['seconds']==92 and f['native_phase_call_cap']==12960
+ assert not S.forecast([1.]*12,100000,[1000]*12)['admitted']
+ assert not S.forecast([.1]*12,100000,[100000]*12)['admitted']
  for v in [[],[-1.]*12,[float('nan')]*12]:
-  with pytest.raises(ValueError):S.forecast(v,100000)
+  with pytest.raises(ValueError):S.forecast(v,100000,[1000]*12)
 
 def test_all704_endpoint_comparison_exact_and_strict():
  rows=[{'mid':[1,0],'rad':[1,-10]}for _ in range(704)];seed=[1.]*704

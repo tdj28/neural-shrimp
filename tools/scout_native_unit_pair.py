@@ -16,10 +16,12 @@ BASE=P.BASE/'scout';SETTINGS={'max_points':64,'max_evaluations':360,'t_max':math
 SOURCES=list(dict.fromkeys(S.SOURCES+['src/neural_shrimp/unit_pair_scout.py','tools/scout_native_unit_pair.py','tools/launch_native_unit_pair_scout.py','tests/test_unit_pair_scout.py','tests/test_native_unit_pair_scout_driver.py','docs/plans/native-unit-pair-scout.md']))
 entry=S.entry;read=S.read;inventory=S.inventory
 
-def forecast(times,peak):
+def forecast(times,peak,sizes):
  need(len(times)==12 and all(type(v)in(int,float)and math.isfinite(v)and v>0 for v in times),'complete positive profile timings')
+ need(len(sizes)==12 and all(type(v)is int and v>0 for v in sizes),'complete positive stored return sizes')
+ raw=2*SETTINGS['max_evaluations']*max(sizes)+8*1024**2
  seconds=2*SETTINGS['max_evaluations']*max(times)+20
- return {'seconds':seconds,'rss_kib':max(2*peak,1400000),'admitted':seconds<240 and max(2*peak,1400000)<2*1024**2,'native_phase_call_cap':36*SETTINGS['max_evaluations']}
+ return {'seconds':seconds,'rss_kib':max(2*peak,1400000),'raw_bytes':raw,'admitted':seconds<240 and max(2*peak,1400000)<2*1024**2 and raw<64*1024**2,'native_phase_call_cap':36*SETTINGS['max_evaluations']}
 
 def endpoint(seed,rows):
  need(len(seed)==len(rows)==704,'full704 numerical endpoint association')
@@ -47,7 +49,7 @@ def bind_profile(args,identity):
  need(la['exit_code']==0 and la['owned_live_pids']==[] and out['passed']and not out['target_acquired']and out['native_calls']==432,'completed synthetic-only profile')
  need(rt['sources']==identity and rt['numpy']==np.__version__ and rt['python']==sys.version,'same source/library profile')
  for n,row in identity.items():need(entry(root/'run/source'/n)==row and hashlib.sha256(subprocess.check_output(['git','show',rt['commit']+':'+n],cwd=ROOT)).hexdigest()==row['sha256'],'historical profiled source')
- projection=forecast(out['times'],out['peak_rss_kib']);need(projection==out['forecast']and projection['admitted'],'measured full-return forecast')
+ projection=forecast(out['times'],out['peak_rss_kib'],out['return_bytes']);need(projection==out['forecast']and projection['admitted'],'measured full-return forecast')
  return {'root':str(root),'outer':args.profile_outer,'worker':args.profile_worker,'source':rt['commit'],'forecast':projection}
 
 def main(args):
@@ -64,6 +66,7 @@ def main(args):
   p=out/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
   used+=len(raw)
+  return len(raw)
  def tick():
   nonlocal calls
   calls+=1;need(calls<=(432 if args.mode=='profile'else 36*SETTINGS['max_evaluations']),'all native phase call cap');check()
@@ -78,11 +81,11 @@ def main(args):
  try:
   if args.mode=='profile':
    inp,x,q,r,rates=P.gd_fixture();model=TanhMap(inp);z=np.r_[[float(v.mid())for v in x],[float(v.mid())for v in rates],[float(v.mid())for v in q],[float(v.mid())for v in r]]
-   save('synthetic-inputs.json',{'map_inputs':inp,'z':z.tolist(),'period':18,'t':1/32768});times=[]
+   save('synthetic-inputs.json',{'map_inputs':inp,'z':z.tolist(),'period':18,'t':1/32768});times=[];sizes=[]
    for i in range(12):
     before=time.monotonic();v,J,ht,data=evaluate(model,z,18,1/32768,tick);times.append(time.monotonic()-before)
-    save(f'profile-{i:02d}.json',{'value':v.tolist(),'jacobian':J.tolist(),'parameter_derivative':ht.tolist(),'native':{k:a.tolist()for k,a in data.items()}})
-   projection=forecast(times,resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);answer.update(passed=projection['admitted'],times=times,forecast=projection,status='completed_synthetic_profile')
+    sizes.append(save(f'profile-{i:02d}.json',{'value':v.tolist(),'jacobian':J.tolist(),'parameter_derivative':ht.tolist(),'native':{k:a.tolist()for k,a in data.items()}}))
+   projection=forecast(times,resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,sizes);answer.update(passed=projection['admitted'],times=times,return_bytes=sizes,forecast=projection,status='completed_synthetic_profile')
   else:
    save('profile-binding.json',bind_profile(args,identity));model,z,right,binding=bind_target();save('inputs.json',binding);check();answer['target_acquired']=True
    def observed(kind,row):

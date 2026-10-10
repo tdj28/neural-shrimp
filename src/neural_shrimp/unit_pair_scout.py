@@ -129,13 +129,22 @@ def continue_branch(model,z,t,*,max_points=64,max_evaluations=360,t_max=math.pi*
     def call(z,t):
         nonlocal calls
         need(calls<max_evaluations,'full return evaluation cap');calls+=1
-        return evaluate(model,z,18,t,tick)
+        observe('evaluation_input',{'evaluation':calls,'z':np.asarray(z).tolist(),'t':t})
+        try:
+            value,jac,ht,data=evaluate(model,z,18,t,tick)
+            observe('evaluation_return',{'evaluation':calls,'z':np.asarray(z).tolist(),'t':t,'value':value.tolist(),'jacobian':jac.tolist(),'parameter_derivative':ht.tolist(),'native':{k:v.tolist()for k,v in data.items()}})
+            return value,jac,ht,data
+        except BaseException as exc:
+            observe('evaluation_failure',{'evaluation':calls,'error':type(exc).__name__+': '+str(exc)})
+            raise
     # Numerical seed correction remains separately checked against rigorous endpoint by caller.
     z=np.array(z,dtype=float);v,J,ht,data=call(z,t)
     for k in range(9):
         if max(abs(v))<1e-10:break
         need(k<8,'initial corrector iteration cap')
-        delta=np.linalg.solve(J,v);need(max(abs(delta)/np.maximum(1.,abs(z)))<.1,'local Newton guard')
+        delta=np.linalg.solve(J,v)
+        observe('newton_step',{'evaluation':calls,'initial':True,'iteration':k,'z':z.tolist(),'t':t,'step':delta.tolist()})
+        need(max(abs(delta)/np.maximum(1.,abs(z)))<.1,'local Newton guard')
         z-=delta;v,J,ht,data=call(z,t)
     initial=qualify(z,t,v,data);need(initial['passed'],'initial numerical branch qualification')
     observe('seed',{'z':z.tolist(),'t':t,'diagnostics':initial,'native_flat':native_flat(z,data).tolist()})
@@ -144,21 +153,24 @@ def continue_branch(model,z,t,*,max_points=64,max_evaluations=360,t_max=math.pi*
         row={'index':index,'z':z.tolist(),'t':t,'diagnostics':info,'native_flat':native_flat(z,data).tolist()};observe('point',row);points.append(row)
         if info['complement_unit_gap']<.03:return {'status':'competing_unit_mode_proposal','points':points,'evaluations':calls}
         if t>=t_max:return {'status':'angle_ceiling_reached','points':points,'evaluations':calls}
-        tangent=np.linalg.solve(J,-ht);step=min(max(.5*t,1/32768),.125,t_max-t);accepted=False
+        if index==max_points-1:return {'status':'point_cap','points':points,'evaluations':calls}
+        tangent=np.linalg.solve(J,-ht);observe('predictor_tangent',{'evaluation':calls,'z':z.tolist(),'t':t,'tangent':tangent.tolist()});step=min(max(.5*t,1/32768),.125,t_max-t);accepted=False
         for retry in range(5):
-            tt=t+step;zz=z+tangent*step;record={'index':index,'retry':retry,'from_t':t,'to_t':tt,'passed':False}
+            tt=t+step;zz=z+tangent*step;record={'index':index,'retry':retry,'from_t':t,'to_t':tt,'predictor':zz.tolist(),'passed':False}
             try:
                 for iteration in range(9):
                     vv,JJ,hh,dd=call(zz,tt)
                     if max(abs(vv))<1e-10:break
                     need(iteration<8,'corrector iteration cap')
-                    delta=np.linalg.solve(JJ,vv);need(max(abs(delta)/np.maximum(1.,abs(zz)))<.1,'local Newton guard')
+                    delta=np.linalg.solve(JJ,vv)
+                    observe('newton_step',{'evaluation':calls,'initial':False,'iteration':iteration,'z':zz.tolist(),'t':tt,'step':delta.tolist()})
+                    need(max(abs(delta)/np.maximum(1.,abs(zz)))<.1,'local Newton guard')
                     zz-=delta
                 info=qualify(zz,tt,vv,dd,data);need(info['passed'],'numerical corrector qualification')
                 need(max(abs(zz-z)/np.maximum(1.,abs(z)))<.1,'all-coordinate neighboring point guard')
                 record.update(passed=True,iterations=iteration+1,diagnostics=info)
                 last=data;z,t,v,J,ht,data=zz,tt,vv,JJ,hh,dd;accepted=True
-            except (ValueError,np.linalg.LinAlgError,FloatingPointError)as exc:record['error']=type(exc).__name__+': '+str(exc)
+            except (ValueError,np.linalg.LinAlgError,FloatingPointError)as exc:record.update(error=type(exc).__name__+': '+str(exc),failed_state=zz.tolist())
             observe('attempt',record)
             if accepted:break
             step/=2
