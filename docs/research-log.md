@@ -7595,3 +7595,14 @@ Added saved-only native residual/J assembly and known-root localization audit, w
 ## 2026-10-10 — disclose first reanchor audit decoder mismatch
 
 Audit attempt001 failed its initial exact-JSON box check before any math reduction (.68s), manifest9d79d0beb7fd62fbc62a94282b9d09a8a23a8abdead913de24efb0212ac66477. The producer explicitly conservatively restores saved balls; its initial radii enlarge by a magnitude ulp. Replace inappropriate byte equality with exact rational full-box containment, preserving exact gauge/native identity and all later operation replay. This is a checker expectation repair, not a producer proof repair. Same caps for immutable attempt002.
+### 2026-10-10 — adapted full-state tangent-gauge reanchor, source-only core
+
+After the two completed four-chart units (unit002 receipt `0adffa5f`), prepare
+known-root endpoint localization and a full native state/mode tangent gauge.
+The fixed output gauge can fail when rate projection flattens; this is distinct
+from a second +1 multiplier. Core/tests/card are new files; previous kernels and
+passing/failed evidence are unchanged. Nine coupled, cusp, containment and
+failure-retention controls passed in0.19s. No target input arrays or new map
+acquisitions were evaluated for this implementation unit. The separate bounded
+runner/profile must precede the target; see the dated reanchor card for complete
+inputs, mathematics, caps and deliberately limited claim.
