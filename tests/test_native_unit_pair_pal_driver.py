@@ -61,3 +61,10 @@ def test_higher_precision_anchor_only_rounds_arbitrary_gauge_origin():
   _,_,origin,_,proposal=P.chart_seed(anchor,proof)
   assert all(exact(v).is_exact()for v in origin)
   assert origin[0]=='1' and proposal['known_endpoint']==saved
+
+
+def test_single_target_constant_at_worker_supervisor_and_entrypoint():
+ source=(ROOT/'tools/launch_native_unit_pair_pal.py').read_text()
+ assert P.TARGET==P.BASE/'attempt002-target/run'
+ assert L.C.TARGET==P.TARGET and 'OUT=C.TARGET.parent'in source
+ assert 'args.out==C.TARGET'in source and 'attempt001-target'not in source

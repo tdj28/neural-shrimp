@@ -34,7 +34,7 @@ def command():
 
 def main(args):
     global OUT,RSS_CAP_KIB,LIMIT,ARGS
-    ARGS=args;OUT=BASE/'attempt002-target';RSS_CAP_KIB=6*1024**2;LIMIT=255
+    ARGS=args;OUT=C.TARGET.parent;RSS_CAP_KIB=6*1024**2;LIMIT=255
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     assert int(next(s.split()[1] for s in Path('/proc/meminfo').read_text().splitlines() if s.startswith('MemAvailable:')))>12*1024**2
@@ -74,4 +74,4 @@ def main(args):
     for p in sorted(OUT.rglob('*'),reverse=True):p.chmod(0o555 if p.is_dir() else 0o444)
     OUT.chmod(0o555);print(json.dumps({'root':str(OUT),'exit_code':code,'manifest':entry(OUT/'manifest.json')}));return code
 if __name__=='__main__':
-    p=C.parser();args=p.parse_args();C.require(args.out==BASE/'attempt001-target/run','fixed exclusive worker path');raise SystemExit(main(args))
+    p=C.parser();args=p.parse_args();C.require(args.out==C.TARGET,'fixed exclusive worker path');raise SystemExit(main(args))
