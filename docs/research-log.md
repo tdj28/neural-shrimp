@@ -5506,3 +5506,16 @@ One saved-only review from00e7d79ba9ae10934b338564dc98ba9dd10dab5a passed in5.03
 Integrated source/card916c76d3, producer71a4a56d and independent saved-arithmetic review00e7d79b/e3cfd534. The mean-value adapter proves the same primitive18 branch across exact width1/256; attraction remains independently proved only on width1/1024. Larger sufficient stability bounds are inconclusive. No new orbit count or boundary connection. Retained every failed attempt. Next obstacle: localize/refine root boxes before measuring a stability floor, not an unmeasured larger coverage run.
 
 Integrated final manuscript8bd8bef6 with joined verification hook854695f1. Root verified all source/proof/figure/PDF hashes and347 saved entries,36pages; freshly rendered/read page11, following earlier root flip-figure review. Companion paper-joined-interval-root-review.json. Latest PDF SHA bce1768ea8ed54e8e4e5675df21bd53c8d1d30669f6fce3ba28f515a6e605921. No scientific rerun for manuscript QA. New mean-value/paper raw backup171files58172073B on separate physical disk, manifest066c4916d830a2a2cd1a9e653c84d193238adcd1de5fd66e5516d1fd0e66be54. No paid/GPU/holdout use or foreign-job interference. All unit-owned processes exited; the broader research remains open.
+
+### 9 October 2026 — Clark response benchmark source/profile card
+
+Root authorized a bounded local method benchmark after the Clark paper discussion.
+Source/card: `docs/plans/clark-response-benchmark.md`; two fixed saved13D cycle
+Jacobian panels, no new derivative/proof/training calls. First a committed synthetic
+largest-window profile15s internal/20+5s external, then root source review before
+fixed216-row panel60s/75+5s. CPU/BLAS1 nice10, worker480MiB address-space/groupRSS,
+root allocation512MiB, raw16+1MiB. Exact receipts and grid frozen in card; retain
+boundary/eta failures, signed/complex multipliers, all partial attempts and source
+hashes. No paid/GPU/holdout work. Adaptive exploratory unit, no headline validation.
+Pre-run source controls:31 synthetic tests passed in0.24s; all three executable
+files compile. No target Jacobian arrays or model computations were read/run.
