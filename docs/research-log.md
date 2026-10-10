@@ -9444,3 +9444,5 @@ in preparation.
 2026-10-10: Root authorizes saved response time-conditioning prototype after original LSMR failures. Fixed one-period normal block-Jacobi versus matched normalCG at same two saved slots; actual residual/readout/callback screen and small-block oracle limitation disclosed. Source/synthetic tests/card beforeoneprofile-gatedunit; no new scientific derivative/trajectory/proof. Tests cover both free endpoints, noncommuting transpose blocks, positive preconditioner, dense direct parity and durable interruption.
 
 Root source/card skima132e7a8 passes before empirical arithmetic; run one measured fixedpair time-block comparison from clean private-pushed checkpoint.
+
+Response47b60228 completed4.612s: blockPCG improvedreadouts butfixedcallback/strictsolver screenfails. Postoutcome source-bound savedK/KT/factor/scalar/callback audit prepared,one10sCPU1/15+5external/no newfactor/model/solve. Preserveallrawandinfo300.
