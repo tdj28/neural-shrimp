@@ -7250,3 +7250,24 @@ Source8a3029f3, execution501f356e, peer source reviewb9c7026a. One saved target 
 ### 2026-10-10 — adjoint exact-root restriction amendment before evaluation
 
 Original saved attempt remains unchanged: conditional simple+1 passed while both coefficient signs were unresolved. Certificate_context independently checked that alpha=0 follows at exact parent roots and can restrict the known solution enclosure; five fixed intersections using the same whole-domain defect retain those roots. New separate module uses centered correction identity E=C(rhs−B*y0)+(I−CB)E and exactE_alpha=−y0_alpha; no new inverse/derivatives.33 synthetic controls pass0.15s including10new affine/coupled, empty/nonfinite, alpha-premise and return-retention tests. One saved reduction under docs/plans/eigenpair-adjoint-refinement.md will use30s/40+5,1GiB,16+1MiB, CPU1nice10. Exact raw pins and the unsuccessful parent calculation are in the card. No scientific threshold changes; code/card committed before the new reduction.
+
+### 2026-10-10 — five adjoint intersections retained, coefficient signs unresolved
+
+Peer source review passed85aa258f with33 independent controls0.15s. One saved run completed1.5496s/102568KiB, no inverse/model calls; all5intersections retain known root-conditioned adjoints. Coefficients tighten to a_h±.230,a_o±32.7,c±60, stillcontainzero, so exit2 preserved. Exact pins in docs/reviews/eigenpair-adjoint-refinement-outcome.json. Old simple+1 result unchanged. Return to boundary reach from complete unit008, no same-bound retry.
+
+### 2026-10-10 — complete repair-chain unit009 pre-run card
+
+Continue only complete endpoint 151/128, execution d42d15298ec6fa70259a3e079f74e3108c941040,
+outer 8914b8547ac17ccc2c2ec28589a71c17884420d48b3e0c89827fc7530e3c8e06,
+run c700c7b393e1565e2a8577a19336dd14b819eb649a915e1f4ddd76433fcbb795. Exact card:
+`docs/plans/eigenpair-wider-unit009.json`; prospective endpoints
+155/128, 159/128, 163/128, 167/128. Unchanged adapter4c191a65,
+proof7aa2398b, marcherfe35003a and independently cleared source; no new
+scientific choice or profile. Preserve inherited qualified radius floor,
+four accepted/eight calls, sole root-only nonshrinking fresh repair and all
+native470D/primitive gates. Parent measured 164.700s,
+1105308KiB; original conservative cost admission remains.
+Host at 2026-10-10T18:20:52.835443+00:00: 38.41GiB available,
+load (1.3046875, 1.1181640625, 1.38623046875); GPU 0 %, 15947 MiB, apps none.
+CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
+complete-parent authorization applies; no failed tail consumed.
