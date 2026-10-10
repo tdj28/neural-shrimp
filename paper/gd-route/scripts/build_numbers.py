@@ -1912,6 +1912,42 @@ def build():
     ends=[str(intervals[0][0]),str(intervals[-1][1])];assert ends==ac["exact_continuation_gauge"]
     n.add("nCorrelatedSlices",len(intervals),integer(len(intervals)),proof,sources,"independently audited closed adjacent attraction slices on the same primitive18 branch")
     n.add("tCorrelatedGauge",ends,"["+", ".join(ends)+"]",proof,sources,"later affine full-state continuation coordinate; not a hidden-rate interval")
+    # Larger connected attraction coverage, including its exact physical-rate projection.
+    covpath=c.ROOT/"docs/reviews/s2-attraction-coverage-independent.json";cov=load(covpath);cv=cov["result"]
+    cs=[covpath]+bound_inventory(Path(cov["raw_root"])/"manifest.json",cov["manifest_sha256"])
+    assert cv==load(Path(cov["raw_root"])/"result.json") and cv["passed"]
+    ends=[];count=0
+    for name,unit in cv["independent_units"].items():
+        raw=c.DATA/"audits"/name;cs+=bound_inventory(raw/"manifest.json",unit["manifest_sha256"])
+        out=load(raw/"run/outcome.json");assert out["passed"] and c.sha256(raw/"run/outcome.json")==unit["outcome_sha256"]
+        assert all(x["passed"] for x in out["slices"]) and len(out["slices"])==unit["slice_count"]
+        ends.append(tuple(map(Fraction,unit["coverage"])));count+=unit["slice_count"]
+    ends.sort();assert count==cv["slices"]==68 and len(ends)==cv["charts"]==9
+    assert all(a[1]==b[0] for a,b in zip(ends,ends[1:]))
+    assert [str(ends[0][0]),str(ends[-1][1])]==cv["exact_full_state_gauge"]
+    parent=c.DATA/"audits/s2-period18-small-march/attempt-001";cs+=bound_inventory(parent/"manifest.json",cv["same_branch_parent_manifest"])
+    left,right=[load(parent/p) for p in cv["endpoint_proof_files"]]
+    assert left["fresh_endpoints"][0][-1]==cv["left_hidden_rate_ball"] and right["fresh_endpoints"][1][-1]==cv["right_hidden_rate_ball"]
+    lo,hi=map(Fraction,cv["rigorous_hidden_rate_interval"])
+    assert ball_endpoints(cv["left_hidden_rate_ball"])[1]<=lo<hi<=ball_endpoints(cv["right_hidden_rate_ball"])[0]
+    assert Fraction(cv["exact_output_rate"])==output
+    displays=[exact_decimal(int(v*10**6),6) for v in (lo,hi)];assert displays==cv["display_hidden_rate_interval"]
+    n.add("nAttractingSlices",count,integer(count),proof,cs,"all closed slices in nine independently audited joined charts")
+    n.add("tAttractingGauge",cv["exact_full_state_gauge"],"["+", ".join(cv["exact_full_state_gauge"])+"]",proof,cs,"exact connected affine full-state gauge")
+    n.add("tAttractingHiddenRate",cv["rigorous_hidden_rate_interval"],"["+", ".join(displays)+"]",proof,cs,"inward decimal rounding and continuity; at least one attracting primitive18 cycle at each hidden rate; monotonicity not assumed")
+    # Independently proved double+1 Jordan root and strictly attracting quotient.
+    jcpath=c.ROOT/"docs/reviews/generalized-chain-independent-outcome.json";jc=load(jcpath);jo=jc["outcome"]
+    js=[jcpath]+bound_inventory(Path(jc["raw_root"])/"manifest.json",jc["outer"]["manifest_sha256"])
+    assert jo["passed"] and jo["root_passed"] and jo["positive_actual_rates"] and jo["exact_algebraic_multiplicity_two"] and jo["complement_attracting"]
+    assert jo["primitive_period"]==18 and jo["strict_inclusions"]==41
+    quotient=jc["quotient"];assert quotient["dimension"]==len(quotient["discs"])==11 and quotient["all_discs_strictly_inside"]
+    for macro,ball,digits in zip(["tJordanHiddenRate","tJordanOutputRate"],jo["actual_rate_enclosures"],[12,12]):
+        lo,hi=ball_endpoints(ball);scale=10**digits;flo=lo.numerator*scale//lo.denominator;cei=-((-hi.numerator*scale)//hi.denominator)
+        n.add(macro,[str(lo),str(hi)],"["+exact_decimal(flo,digits)+", "+exact_decimal(cei,digits)+"]",proof,js,"exact independently certified native rate enclosures; outward rational rounding")
+    bound=max(ball_endpoints(x["recomputed_modulus_upper"])[1] for x in quotient["discs"])
+    upper=Fraction(-((-bound*10**9)//1),10**9);assert bound<=upper<1
+    n.add("xJordanComplementBound",str(upper),exact_decimal(int(upper*10**9),9),proof,js,"outward rounded maximum of eleven rigorous quotient Gershgorin modulus bounds")
+    n.add("nJordanComplement",11,"11",proof,js,"strictly attracting complementary dimensions; remaining two form exactly one length2 Jordan block at+1")
     rupath=c.ROOT/"docs/reviews/response-utility-saved-audit.json";ru=load(rupath);rr=ru["result"]
     assert ru["status"]=="passed_saved_arithmetic" and rr["passed"]
     rus=[rupath]+bound_inventory(Path(ru["raw_root"])/"manifest.json",ru["manifest_sha256"])

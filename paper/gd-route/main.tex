@@ -46,15 +46,14 @@ We study these dynamics in the learning-rate planes of small networks trained by
 A prospectively designed study, cross-checked with a separate numerical implementation, identifies
 \nConfirmed{} attracting periodic windows surrounded by cells passing finite-horizon chaos diagnostics.
 Among cells passing a published loss-reduction criterion, \pNotFixedMin{}--\pNotFixedMax{} are not classified
-as fixed points after \nUpdates{} updates. Computer-assisted proofs for exact-real training maps establish
-selected attracting cycles and local fold and flip bifurcations. Validated continuation connects a primitive
-period-\nPEighteenPeriod{} cycle to its fold, while full-state attraction is proved on a connected subsegment
-of that branch. Exploratory analysis links period-two complex-multiplier crossings to quasiperiodic oscillations,
-with crossing angles predicting their frequencies and normal-form coefficients predicting local onset behavior.
-Near-resonance locking supports further investigation of how periodic windows arise, but distant-window ancestry
-and complete shrimp organization remain unresolved. Rotation features provide no robust additional prediction
-of loss or disagreement in the tested pilots. Together, the numerical surveys and validated local dynamics show
-why loss reduction alone is insufficient to diagnose convergence to a fixed point.
+as fixed points after \nUpdates{} updates. Computer-assisted proofs establish selected attracting cycles,
+local fold and flip bifurcations, and a continuous primitive period-18 branch connecting an interior orbit
+to its fold. A rigorous learning-rate interval supports attracting period-18 training, and a separately
+certified period-18 orbit has a double unit multiplier with an attracting complement.
+Numerical complex-multiplier crossings predict quasiperiodic frequencies and local onset behavior;
+near-resonance locking supplies candidates for the organization of more distant periodic windows.
+These results distinguish sustained parameter motion from convergence and provide exact benchmarks for
+studying stability boundaries in nonlinear neural-network training.
 \end{abstract}
 
 \noindent\textbf{Study status.} Results labeled \confirmedlabel{} come from the map study of
@@ -80,7 +79,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps each have an unstable complementary mode. The central primitive branch is connected to the fold; connections to the flips, cusps and whole boundary remain open. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a double-unit-multiplier orbit has an attracting complement. The central primitive branch is connected to the fold; connections to the flips, cusps and whole boundary remain open. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -478,22 +477,31 @@ complete stability coverage and two-parameter boundary organization remain
 separate tasks. See \path{docs/reviews/s2-period18-fold-connection-independent.json}
 and \path{docs/reviews/s2-near-fold-endpoint-attraction.json}.
 
-\paragraph{Continuous attraction beyond the small interior segment.}
-An additional independent audit establishes local attraction throughout
-\nCorrelatedSlices{} adjoining closed slices of this same primitive branch,
-with the original output rate fixed. Their union is
-$s_{\mathrm{loc}}\in\tCorrelatedGauge$ in the later affine full-state
-continuation coordinate, not an interval of hidden learning rates. Known-root
-localization and an implicit tangent enclosure bound the actual state, rate and
-Jacobian derivative domains. A cyclic change of frame retains a common scalar
-parameter in a polynomial monodromy bound; operator-norm remainders include
-all discarded terms. Strict Lyapunov inequalities then prove attraction at
-each parameter on this segment. Independent arithmetic reconstructs the
-localization and tangent bounds and reevaluates the polynomial/remainder
-inequalities at higher precision. The analytic derivative acquisitions and
-Arb library remain shared dependencies. The coverage does not yet include
-all intervening parameters between the center and the fold. See
-\path{docs/reviews/s2-correlated-stability-chain-independent.json}.
+\paragraph{A certified interval of attracting training cycles.}
+An independent audit establishes local attraction throughout
+\nAttractingSlices{} adjoining closed slices of this same primitive branch,
+with the original output learning rate fixed. Their union is
+$s_{\mathrm{loc}}\in\tAttractingGauge$ in the later affine full-state coordinate.
+Projecting the connected branch into the physical learning-rate plane gives
+the following consequence: for every
+\begin{equation}
+\eta_h\in\tAttractingHiddenRate,
+\qquad \eta_o=\tFoldProofOutput,
+\end{equation}
+there is a locally attracting primitive period-18 training cycle.
+The projected interval is rounded inward from rigorously enclosed endpoint
+rates. Continuity supplies the intermediate values; monotonicity of the rate
+along the branch is not assumed.
+
+Known-root localization and implicit first and second derivatives enclose the
+state, rate and Jacobian variation. A cyclic change of frame retains the common
+continuation parameter in a polynomial monodromy bound, with all discarded
+terms enclosed. Strict Lyapunov inequalities prove attraction on each entire
+closed slice. Independent arithmetic reconstructs these bounds at higher
+precision; the analytic derivative kernels and Arb remain shared dependencies.
+This proves an attracting interior cross-section. Its extension to the two
+bifurcation boundaries is the remaining stability-coverage problem. See
+\path{docs/reviews/s2-attraction-coverage-independent.json}.
 
 \subsection{A local fold of primitive period-18 cycles}
 \label{sec:fold-proof}
@@ -611,6 +619,43 @@ the complete shrimp anatomy remain open. See
 \path{certificates/s2-period18-cusp-a-receipt.json},
 \path{certificates/s2-period18-cusp-b-receipt.json} and
 \path{docs/reviews/s2-cusps-independent-review.json}.
+
+\subsection{A double-unit-multiplier orbit with an attracting complement}
+\label{sec:double-one}
+
+For the same exact S2 training map, let
+$R(\theta,\eta_h,\eta_o)=F_{\eta_h,\eta_o}^{18}(\theta)-\theta$
+and $A=D_\theta R$. A strict interval inclusion encloses a unique root of
+\begin{equation}
+R=0,\qquad Aq=0,\qquad Ar=q,\qquad
+(q^Tq-1)/2=0,\qquad q^Tr=0.
+\label{eq:double-one-chain}
+\end{equation}
+The actual learning rates satisfy
+\begin{equation}
+\begin{aligned}
+\eta_h&\in\tJordanHiddenRate,\\
+\eta_o&\in\tJordanOutputRate.
+\end{aligned}
+\end{equation}
+Every proper divisor is excluded in the native parameter state, so the orbit
+has primitive period 18. At the root, the monodromy matrix $M=A+I$ satisfies
+$Mq=q$ and $Mr=r+q$. A validated invertible frame isolates this invariant
+two-dimensional subspace. All \nJordanComplement{} eigenvalues of the quotient
+have modulus strictly less than $\xJordanComplementBound<1$, using a validated
+complex similarity and Gershgorin bounds. Hence $+1$ has algebraic multiplicity
+exactly two and forms one Jordan block; all remaining modes are attracting.
+
+An independent checker reconstructs the saved inclusion and proper-divisor
+inequalities, evaluates the native center and whole box at higher precision,
+and rechecks the quotient bounds on that same proved root enclosure.
+The derivative kernel and Arb arithmetic library are shared dependencies.
+The result identifies a precise candidate organizing point for interacting
+stability boundaries. A generic unfolding additionally requires nonlinear
+coefficient and two-rate transversality inequalities; membership in the
+targeted boundary requires a full-state uniqueness connection. These are
+distinct from the spectral statement proved here. See
+\path{docs/reviews/generalized-chain-independent-outcome.json}.
 
 \subsection{A local subcritical flip on the historical two-rate ray}
 \label{sec:flip-proof}
@@ -1513,7 +1558,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. The orbit census uses floating-point validation; the \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold, both flips, two cusps and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation now reaches the canonical fold, but the continuously covered attracting interior segment does not reach either bifurcation boundary. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold, both flips, two cusps, double-unit-multiplier orbit and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation now reaches the canonical fold, but the continuously covered attracting interior segment does not reach either bifurcation boundary. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.
@@ -1608,7 +1653,7 @@ and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
 feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
 LM pilots, wider primitive-branch continuation including the fold connection,
-the correlated attraction segments, local cusps and fixed-weight activity proof
+the correlated attraction segments, double-unit-multiplier orbit, local cusps and fixed-weight activity proof
 have separate source-bound audits cited with their results; the full verifier
 does not automatically rerun these later audits. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
