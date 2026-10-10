@@ -10415,3 +10415,13 @@ whole-root Jacobian and exact attracting quotient, then uses only its recorded
 MixedJet blocks; no new derivative acquisition. Twenty combined helper/binding
 controls pass0.17s. Synthetic profile and exact measured target cards follow
 independent wrapper review. No target coefficients evaluated at this stage.
+
+2026-10-10 narrowly fixed two-unit producer continuation prepared after144
+completed. Only native chart143(index13) then142(index12), each eight closed
+1/512 pieces and separate360s/2GiB/512MiB unit. Mandatory complete previous
+worker/outer/source/counters/partition, full235D ordinary native join, and all
+original15 root charts/immutable failures authenticated. This is not an
+unbounded automatic march. New source/card/tests before fresh single complete
+synthetic profile; each scientific unit still gets its separately committed
+exact measured predecessor card.18combined adapter controls pass; peer source
+skim pending. No current worker or duplicate acquisition.
