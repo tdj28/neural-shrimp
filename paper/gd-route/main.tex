@@ -1317,6 +1317,17 @@ retraining from nearby initializations, not chaos during frozen inference. Learn
 games show chaos \citep{sato2002} and phase locking \citep{metaxas2026}, for adaptive rules rather than descent on
 one loss.
 
+\paragraph{Activity dynamics and spectral descriptions.} \citet{clark2026lyapunov} derives a
+large-network Lyapunov-spectrum description for recurrent activity with fixed random asymmetric couplings.
+The construction combines a finite-state-dimensional, infinite-time minimum-norm response identity with a single-site cavity
+calculation; the exchange of the large-network and vanishing-regularization limits remains an explicit
+assumption. The paper proposes training-weight dynamics and looped-transformer reasoning as future
+extensions. This activity-dynamics result complements our finite training-map analysis. For a period-$p$
+training orbit, the exponents per optimizer step are $\lambda_i=p^{-1}\log|\mu_i|$, where $\mu_i$ are the
+return-map multipliers. Multiplier magnitudes do not retain the signs and angles needed to distinguish folds,
+flips and complex-pair crossings. Spectral counts therefore supplement full-state period, branch-connection
+and bifurcation tests; they do not replace them.
+
 \paragraph{Dynamical systems.} Shrimp-shaped windows are described by \citet{gallas1993,gallas1994}; circle maps,
 Arnold tongues, devil's staircases and the breakdown of invariant circles by
 \citet{arnold1965,jensen1983,jensen1984,curry1978,aronson1982,ostlund1983}; numerical bifurcation analysis of maps,
