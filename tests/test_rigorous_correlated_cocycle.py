@@ -1,7 +1,8 @@
 import pytest
 from flint import arb,arb_mat,ctx
 from neural_shrimp.rigorous_correlated_cocycle import (polynomial_value,multiply_models,
-    total_jacobian_derivative,phase_model,cocycle,monodromy_metric,integer_power)
+    total_jacobian_derivative,phase_model,cocycle,monodromy_metric,integer_power,correlated_slice)
+from neural_shrimp.rigorous_orbits import vector_json
 
 
 def scalar(a,b=0,c=0,e=0):
@@ -66,3 +67,12 @@ def test_integer_powers_are_finite_on_signed_parameter_intervals():
         value=integer_power(arb(0,1),k)
         assert value.is_finite() and value.contains(1) and value.contains((-1)**k)
         if k and k%2==0:assert value.contains(0)
+
+
+def test_integrated_fixed_slice_uses_true_state_and_rate_tangent():
+    from test_rigorous_arclength_slices import StableFold,parent
+    with ctx.workprec(256):
+        x=arb('35/64','1/64');h=arb(1)+x*x
+        result=correlated_slice(StableFold(),StableFold(),parent(),vector_json([x,h]),
+            vector_json([arb(1),2*x]),'1/32','1/16')
+        assert result['passed'] and result['exact_endpoints']==['1/32','1/16']
