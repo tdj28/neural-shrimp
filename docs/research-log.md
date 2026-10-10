@@ -9295,3 +9295,50 @@ strict gates and complete input/source retention. Profile15s/20+5, target60s/75+
 CPU1nice10,1.5GiB monitoredRSS,32+1MiB. Commit/tests/peer skim before evaluation.
 
 Neutral-quotient preparation verification: 34 focused synthetic and reused input/border controls passed in0.31s. New controls cover nonnormal cyclic frames, noncommuting native order, negative contracting versus neutral/unstable complement, interval pivots/ties, invalid mode compatibility, observer interruption after return, and470D saved native-layout extraction. No empirical arrays evaluated during implementation.
+
+### 2026-10-10 — wider unit012 retained and verified
+
+Four accepted primitive18 normalized+1 segments reach exact gauge
+215/128. Eight full calls/four repairs, all failed initial
+bounds retained; every accepted chart has470 strict inclusions/full native
+anchor/proper divisors. Execution 6e12cee23dc7fb10750580fa794309843e942e3a; unchanged
+repair-chain source4c191a65, peer reviewe02d9719 (18 controls0.20s).
+Worker164.482116s/1122728KiB/
+1016ticks; launcher exit0, PIDs absent. Complete immutable
+inventories and source/Git equality checked: 1243files/346663731B.
+Outer 7b934859d15e4084ed0a1dffae7c2e5a6e038cc297aa16d84ddaf4df619af83a; run
+0a4a3046a9f7c7d2881c425d300c4920b892e5f9db59f91097a9ec0ef29c2398. Companions
+`docs/reviews/eigenpair-wider-march-unit012.md/.json`. Numerical normal-form
+and complementary-mode columns remain diagnostics; independent outcome review
+pending. Next unit requires a newly committed exact complete-parent card.
+
+### 2026-10-10 — complete repair-chain unit013 pre-run card
+
+Continue only complete endpoint 215/128, execution 6e12cee23dc7fb10750580fa794309843e942e3a,
+outer 7b934859d15e4084ed0a1dffae7c2e5a6e038cc297aa16d84ddaf4df619af83a,
+run 0a4a3046a9f7c7d2881c425d300c4920b892e5f9db59f91097a9ec0ef29c2398. Exact card:
+`docs/plans/eigenpair-wider-unit013.json`; prospective endpoints
+219/128, 223/128, 227/128, 231/128. Unchanged adapter4c191a65,
+proof7aa2398b, marcherfe35003a and independently cleared source; no new
+scientific choice or profile. Preserve inherited qualified radius floor,
+four accepted/eight calls, sole root-only nonshrinking fresh repair and all
+native470D/primitive gates. Parent measured 164.482s,
+1122728KiB; original conservative cost admission remains.
+Host at 2026-10-10T18:41:39.331595+00:00: 37.92GiB available,
+load (1.73046875, 2.02197265625, 1.8212890625); GPU 0 %, 15947 MiB, apps none.
+CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
+complete-parent authorization applies; no failed tail consumed.
+
+### 2026-10-10 — neutral-quotient synthetic profile passed; exact target card
+
+Source f2cc71341379f0e678466fb1d14ac7c19bc68deb, peer certificate_context final static skim passed.
+Synthetic18-phase13D profile 0.724649s/83300KiB,
+all quotient metric gates pass. Source/archive/Git, library/thread/resource,
+immutable inventories and absent owned PIDs checked. Outer 129094b744a7def6f8bfebbd9fe7df34fd857762cd7a268af07e7cee177f8824, run
+2bca83cbb2099a81d5de200b856382acf6f07397cf8548db3f36403242fc2dfc. Admission3*elapsed+10=12.173948<60.
+Proceed one fixed saved unit008 last-chart target under unchanged card/source,
+`tools/launch_eigenpair_quotient.py --mode target --profile /data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-001-neutral-quotient-profile --profile-manifest 129094b744a7def6f8bfebbd9fe7df34fd857762cd7a268af07e7cee177f8824`.
+No model/derivative call;60s/75+5,CPU1nice10,1.5GiB sampledRSS,32+1MiB.
+Passing would prove attracting complement only, conditional on authenticated
+root/mode evidence; neutral fold cycle remains nonattracting. Outcome independent
+review separate. Profile receipt `docs/reviews/eigenpair-neutral-quotient-profile.json`.
