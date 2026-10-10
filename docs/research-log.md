@@ -6959,3 +6959,18 @@ repair, not a scientific threshold change. Next exclusive attempt002 uses
 `tools/launch_s2_period18_slice_budget.py --out
 /data2/neural-shrimp-data/explore/certificates/s2-period18-slice-budget-2026-10-10/attempt-002`.
 CPU/BLAS1,nice10,20s/30+5,1GiB,7+1MiB. No model or other acquisition.
+
+### 10 October 2026 UTC — saved width/metric budget completed
+
+Repaired source f991e22571f25f7f972564b37d7e919fefb3c01a, attempt002 completed2.6653s/436208KiB,
+exit0; all immutable inventories and owned exits checked. Worker manifest
+301b5a433201f4349dfd8fb319f1e269c1edb7d31eb4ab21981a0207fc1e14cc; outer 485b5a1771100d3a7ffbe8e40a720ad0b444ca7e9dd05225b3de6fec1a6f58d8.
+Both conditional implicit tangent bounds pass (weightedq<.159847 floor and
+<.240573 probe). For probe phase0, point-decrease congruence norm≈1 while
+linear uncertainty terms are bounded by≈6.83 and≈16.19, versus quadratic
+≈.001535. The dominant sufficient-bound obstruction is linear interval
+variation; this does not prove physical instability or that phase errors vary
+independently. Floor phase0 corresponding linear bounds≈.00682 and≈.01711.
+Companion `docs/reviews/s2-period18-slice-budget-outcome.json`.
+The recorded shared-gauge Taylor cocycle design is next; no extra native
+derivatives have been acquired. Original timer failure remains retained.
