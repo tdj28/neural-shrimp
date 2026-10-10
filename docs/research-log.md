@@ -5968,3 +5968,21 @@ No model or derivative acquisition. CPU1,nice10,15s/20+5external,1GiB/1MiB;
 one exclusive attempt with immutable source/input/runtime receipts. Any wider
 domain later reacquires its true Jacobian. Source/tests/card freeze precedes
 the numerical saved-matrix calculation; no weights or target norms read yet.
+
+### 10 October 2026 UTC — saved positive weights reduce contraction
+
+One saved-only analysis b41b465e3aa10ebdf2b7c2cdee4de9fbf43a3f00 completed
+1.2906s/1.6496s,439236KiB,297878bytes,exit0; no model or derivative calls.
+Full hashes/read-only/PID/caps checked. Both exact positive dyadic weight vectors
+pass saved-domain weighted inclusion and contraction: bounds<.107849/.107737
+versus unweighted .413206/.412578. First-chart forcing norm<1.580e-10 versus
+propagated norm<2.463e-8; weighted normalized forcing<.002964 and propagation
+<.107849. Minimum proposed weight~.1384. Companion
+`docs/reviews/s2-period18-quadratic-weights.json`; worker manifest
+cbc4c267601135a732268bccf99c6ce91163f7a01171cf0f8c3b5fc1bdd05afa,
+outerf5078d1211b08cc5338710263e9d3e8c6b821be0db3a393e6b05613fc0b4c34c.
+No domain enlargement follows from this reduction. The diagnosed next single
+pilot proposes delta2^-6,r2^-24 and the first chart's fixed exact weights for
+both charts, with new Jacobian enclosures. Heuristic forcing×64≈.190 and
+contraction×4≈.431 motivate the setting only; actual proof gates remain exact.
+Source/card/profile must precede that new acquisition.
