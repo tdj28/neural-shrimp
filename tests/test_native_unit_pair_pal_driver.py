@@ -50,3 +50,14 @@ def test_owned_launcher_help_entrypoint():
  result=subprocess.run([sys.executable,str(ROOT/'tools/launch_native_unit_pair_pal.py'),'--help'],capture_output=True,text=True,timeout=15)
  assert result.returncode==0,result.stderr
  assert '--profile-manifest'in result.stdout and '--profile-outer-manifest'in result.stdout
+
+
+def test_higher_precision_anchor_only_rounds_arbitrary_gauge_origin():
+ with ctx.workprec(384):
+  high=arb(1)+arb((1,-350));anchor=[high]*704+[exact('1/32768')]
+  saved=[ball_json(v)for v in anchor]
+ with ctx.workprec(256):
+  proof={'slope':[[ball_json(arb(1))]for _ in range(704)],'weights':['1/2']*704}
+  _,_,origin,_,proposal=P.chart_seed(anchor,proof)
+  assert all(exact(v).is_exact()for v in origin)
+  assert origin[0]=='1' and proposal['known_endpoint']==saved
