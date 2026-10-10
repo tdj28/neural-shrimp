@@ -9522,3 +9522,7 @@ Executed clean6c516d91 with externally pinned matching N6 profile; all4 seeds co
 ## 2026-10-10: all N6 maps inspected; fixed first-ranked p6 refinement prepared
 
 Saved-only rendering80176c20 retains all four maps/components. Fixed ordering selects seed28181/component14, not a new visual rank. Diagonal tongue/doubled3 alternative explicitly survives; freeze docs/plans/clark-rnn-n6-p6-refinement.md with longertransient51²two-start patch and full native6 qualification. Reuse measuredN6profile only through unchanged source/runtime check and explicit horizon/batch/dimension bounds. No new target yet; short root review pending.
+
+## 2026-10-10: fixed N6 refinement peer-cleared
+
+Independent certificate_context source-only skim passes90d644c6, preserving exact profile/native gates. Root standing local refinement authorization applies; no extra scope. All executable/profile-bound bytes remain frozen, with one profile-pinned acquisition now proceeding after fresh hostcheck.
