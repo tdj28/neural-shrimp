@@ -7271,3 +7271,7 @@ Root source/card skima132e7a8 passes before empirical arithmetic; run one measur
 Response47b60228 completed4.612s: blockPCG improvedreadouts butfixedcallback/strictsolver screenfails. Postoutcome source-bound savedK/KT/factor/scalar/callback audit prepared,one10sCPU1/15+5external/no newfactor/model/solve. Preserveallrawandinfo300.
 
 Response47b60228 retained/audited:4.612s,3400rawfiles,allPIDsabsent. Fixedoverallmethodscreenfails despite readoutimprovement; producer-agent savedcheck793fe442 passes.287s. Rootauthorizes fixed2/4periodblockcomparison/sourcecost,allmethodsreported.
+
+## 2026-10-10: fixed two-/four-period response-block comparison prepared
+
+Before outcomes, freeze docs/plans/response-multiperiod-blocks.md and its separate helper/driver/launcher. All four historical CG/one-period outcomes remain the baseline; exactly four new target probes test2p and4p blocks, with unchanged actual residual/readout/action gates. Synthetic resource profile precedes target inputs,60s/384MiBraw/512MiBRSS overall ceilings. No new derivatives or parameter search. Root review pending; no target execution yet.
