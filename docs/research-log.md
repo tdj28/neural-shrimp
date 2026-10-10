@@ -10176,3 +10176,10 @@ no naive old endpoint equality. CPU1nice10,360s/390+5external,2GiB,
 Fresh host resource check; stop first failed bound; retain every attempt.
 No automatic next unit, retries or changes to sources after profile. Root
 requested producer progress in parallel with its independent refinement audit.
+
+2026-10-10 chart144 localized-predecessor adapter ceb1422b independent boundary
+source skim PASS,8focused controls reproduced0.17s. Reviewer checked exact
+original/localization parent, source-bound3intersections, full235D localized
+anchor, same map/gauge/shared33/128 and restored native8-slice coverage.
+The measured card b2945c90 is now admissible under the peer gate; source
+unchanged since the positive synthetic profile. No audit-scope expansion.
