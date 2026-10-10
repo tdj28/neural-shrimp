@@ -7319,3 +7319,24 @@ outer c51687eac1257b57bd2d0142734707098217fadd26cd8486aff3447c0e70a478.
 CPU/BLAS1 nice10, 360s/390+5s, 2 GiB, 512 MiB worker/514 aggregate;
 1,296 C1 / 2,592 unit / 288 mixed maxima. Fresh resource check; stop fixed
 sequence on the first failed gate. No completed slice repeated.
+
+2026-10-10 stability march unit002, original chart006, execution
+636d0df868707aa78fdc02fee7c8a7e8e62a4dd2: passed=True, 168.152080s /
+694204 KiB; 8 returned slices, 1288 stages.
+Worker a736b79f79b0ad00cc2f4bead28654b9e0656b17c208b15873dd99748e6092bf; outer 1180509c0f3d59ca253267446e2125585a2866d56705b057e02b3286a07b1b73.
+All raw/source hashes, read-only outputs and absent owned PIDs checked;
+300126814 B. First norm passes 8/8;
+every initial result remains unchanged. Exact requested coverage
+['41/128', '21/64']; independent saved outcome review pending.
+
+Next fixed unit003 card, unchanged source/profile/method/caps: chart005
+with exact requested interval ['5/16', '41/128'], eight descending equal slices.
+Exclusive root s2-period18-stability-march-2026-10-10/unit003;
+--index 5 --previous /data2/neural-shrimp-data/explore/certificates/s2-period18-stability-march-2026-10-10/unit002/run
+--previous-manifest a736b79f79b0ad00cc2f4bead28654b9e0656b17c208b15873dd99748e6092bf
+--previous-outer-manifest 1180509c0f3d59ca253267446e2125585a2866d56705b057e02b3286a07b1b73.
+Same profile attempt001-profile/run, worker a063cde5cf33bffda71adb9d747670a4674ce5e69d2c27a6b77cd0e262e6e8b7,
+outer c51687eac1257b57bd2d0142734707098217fadd26cd8486aff3447c0e70a478.
+CPU/BLAS1 nice10, 360s/390+5s, 2 GiB, 512 MiB worker/514 aggregate;
+1,296 C1 / 2,592 unit / 288 mixed maxima. Fresh resource check; stop fixed
+sequence on the first failed gate. No completed slice repeated.
