@@ -8892,3 +8892,15 @@ retention unchanged; fouraccepted/eightcalls/one repair each. Fresh host
 load1.27/1.33/1.23,38GiBavailable,2.9TiBdiskfree,GPUidle/no compute apps.
 CPU1nice10,400/420+5s,1040ticks,2GiBsampledRSS,512+1MiB. Root standing
 authorization applies; no failed tail or pending active call is used.
+
+### 2026-10-10 — wider unit003 complete
+
+Four additional repaired segments pass to71/128, actual rates approximately
+74.99392/0.82286103. All eight attempts retained, all four repaired native
+root/primitive/anchor gates pass. Worker163.247556s/1143404KiB/1016ticks;
+1232files/346394117 bytes immutable and source/PID-verified. Companions
+`docs/reviews/eigenpair-wider-march-unit003.md/.json`; executiona9302347.
+Saved numerical complementary+1 distance .174971→.171362, cproxy−9.6704→−9.9692.
+No genericity or attraction claim. Repeated one-coordinate initial failures
+followed by successful repairs motivate a separately disclosed proposal-only
+radius forecast to avoid redundant full calls; all fresh proof gates must remain.
