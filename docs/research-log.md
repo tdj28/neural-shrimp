@@ -8121,3 +8121,21 @@ Jacobian inputs be retained explicitly. The added pre-acquisition event records
 both the localized enclosure and the actual Arb input box, including any public
 constructor radius widening. A synthetic capture control checks exact serialized
 identity with the model call. No model acquisition preceded this amendment.
+
+### 10 October 2026 UTC — localized gauge-slice profile and target card
+
+Source 607b0de531a8a0e7ee7fd6219497d4d0fded7bfb; full synthetic90/180calls, three intersections,18 positive
+periodic metric phases complete. Worker 5.579489s,
+439832KiB; launcher 6.070077s,exit0.
+Every source/inventory/payload/read-only/owned-exit check passed. Profile
+worker b5c887ff54a8cfee123bcd296f3cde6742d23d472596eff8b1c6c2f203361105; outer 5f5d48d35eb81500df33e8b54db847f317a87cf3e8b811a22af654d560ed7416.
+Measured admission 32.317956s<90s and
+134217728B<224MiB. No scientific profile claim.
+
+Next single fixed floor+1/16slice target, as root source review authorized:
+`tools/certify_s2_period18_arclength_slices.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-slices-2026-10-10/attempt-001-target
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-slices-2026-10-10/attempt-001-profile/run
+--profile-manifest b5c887ff54a8cfee123bcd296f3cde6742d23d472596eff8b1c6c2f203361105`. CPU/BLAS1,nice10;90s/105+5,2GiB,800ticks,
+180/360nativecalls,256+1MiBraw. Same frozen sources/libraries/settings.
+Fresh resource check, no broad slice campaign. Retain both outcomes/failures.
