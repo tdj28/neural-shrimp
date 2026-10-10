@@ -8067,3 +8067,5 @@ Independent review pending; no attraction or complete geometry claim.
 Root pretarget source/card skim60814d21 passes. Execute one fixed synthetic-profile-gated common-input-Gram conditioner; preserve all failures, physical forcing unchanged.
 
 Common-Gram unitb5e961a8 completes32.772s; forcing.64035775 fails.5, no trials. Frozen post-outcome checker now verifies savedQ/R/eigenpair and basis algebra, projector action, physicaltrueforcing/counters/inventories inone15sCPU1saved-only run, no newdecomposition/model/action.
+
+Input-Gram b5e961a8 completes32.772s/34.384s; unchangedforcing.64035775 fails beforetrials. All69worker+5launcher+2auditfiles immutable/hashverified andownedPIDs absent. Savedcheck8ef00a31 passes.399s; QR/eigenpairs/rightprojector/truephysicalresidual agree. No step/orbit, no source repair/retry.
