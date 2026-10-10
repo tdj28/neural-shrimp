@@ -46,3 +46,23 @@ def qualify_boundary(z,j,g,period,sign,emit=lambda kind,value:None):
     if moving is not None:a['branch_derivative']=moving
     scalar={'kind':'fold' if sign==1 else 'flip','status':'numerical_boundary_candidate' if good else 'unqualified','residual':res,'critical_error':critical,'other_distance':otherdist,'complement_radius':rho,'left_residual':leftres,'proper_divisor_separations':seps,'fold_a_delta':fold_a if sign==1 else None,'fold_c':fold_c if sign==1 else None,'total_flip_alpha_delta':alpha,'scope':'numerical local boundary only; no interval, flip cubic, 2D connection or whole shrimp claim'}
     return a,scalar
+
+
+def family_augmented(z,j,period,sign):
+    """Nine equations in (x4,g,delta,q4), or its dimension-generic analog."""
+    n=len(j);theta=z[:n];g=float(z[n]);delta=float(z[n+1]);q=z[n+2:]
+    if sign not in [1,-1]:raise ValueError('boundary sign')
+    end,u,v,states,phase=jets(theta,j,g,delta,period);m=u[:,:n];null=m-sign*np.eye(n)
+    h=np.r_[end-theta,null@q,(q@q-1)/2]
+    b=np.zeros((2*n+1,2*n+2));b[:n,:n+2]=u;b[:n,:n]-=np.eye(n)
+    b[n:2*n,:n+2]=np.einsum('ijk,j->ik',v[:,:n,:],q);b[n:2*n,n+2:]=null;b[-1,n+2:]=q
+    return h,b,{'theta':theta.copy(),'gain':g,'delta':delta,'right_vector':q.copy(),'endpoint':end,'first':u,'second':v,'cycle':states,'phase_jacobians':phase,'monodromy':m}
+
+
+def oriented_null(b,reference=None):
+    u,s,vh=np.linalg.svd(b,full_matrices=True);t=vh[-1].copy()
+    if reference is None:
+        if t[len(t)//2-1]<0:t=-t
+    elif t@reference<0:t=-t
+    residual=float(np.max(np.abs(b@t)))
+    return t,{'matrix':b,'u':u,'s':s,'vh':vh,'null_vector':t,'null_residual':residual}
