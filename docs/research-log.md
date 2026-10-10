@@ -9000,3 +9000,19 @@ preserved above. Launch only the prospectively pinned unit005 from87/128,
 using card8a26cfb7 and unchanged scientific source4c191a65. CPU1 nice10 and
 400/420+5s,2GiB sampledRSS,1040ticks,512+1MiB remain unchanged. This metadata
 commit is the execution HEAD; no mathematical source/card bytes changed.
+
+### 2026-10-10 — wider unit005 retained and verified
+
+Four accepted primitive18 normalized+1 segments reach exact gauge
+103/128. Eight full calls/four repairs, all failed initial
+bounds retained; every accepted chart has470 strict inclusions/full native
+anchor/proper divisors. Execution 7e09ff673b0cf54fa6362d090e7b3cd28967ef5c; unchanged
+repair-chain source4c191a65, peer reviewe02d9719 (18 controls0.20s).
+Worker169.932342s/1121716KiB/
+1016ticks; launcher exit0, PIDs absent. Complete immutable
+inventories and source/Git equality checked: 1243files/346522196B.
+Outer b4d92a2bb0b5cbbccd7e9ed8aa251c78f468ec3719f342e0ab4541b1d74a292d; run
+95a8732e5b0504e5493b13712f6391b0dff49be8a83c834f9214d4d40fa851ca. Companions
+`docs/reviews/eigenpair-wider-march-unit005.md/.json`. Numerical normal-form
+and complementary-mode columns remain diagnostics; independent outcome review
+pending. Next unit requires a newly committed exact complete-parent card.
