@@ -7301,3 +7301,18 @@ no fold membership or full-path attraction is claimed. No identical unit002
 is authorized from this incomplete unit under the frozen complete-parent
 admission. Next adaptation will explicitly authenticate the durable prefix,
 localize that known endpoint, and assess a smaller chart before extending.
+
+### 10 October 2026 UTC — exact partial-prefix endpoint recovery card
+
+Preserve fold-march unit001 and its terminal initial/proposal failure. Root
+reviewed the next bounded recovery direction. New
+`tools/certify_s2_period18_fold_endpoint.py` authenticates the15-chart durable
+prefix, excluding failed initial015, and reuses the unchanged three-step
+known-root localization theorem at exact gauge33/128. It adds no branch.
+`docs/plans/s2-period18-fold-endpoint-recovery.md` fixes all inputs and caps.
+
+After source review, run the synthetic-only profile via that runner with
+`--mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-endpoint-2026-10-10/attempt-001-profile`,
+CPU1/nice10,20s/25+5,2GiB,72/144 C1 calls,400ticks,128+1MiB. Commit its measured
+receipt and exact target card before any target. No target launched by this
+card. A later smaller-width chart remains separately scoped.
