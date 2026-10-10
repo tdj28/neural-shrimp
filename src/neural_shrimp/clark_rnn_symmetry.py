@@ -24,3 +24,17 @@ def fold_flip(z,j,halfperiod=5):
     b[n:2*n,:n+2]=np.einsum('ijk,j->ik',v[:,:n,:],q);b[n:2*n,n+2:2*n+2]=plus
     b[2*n:3*n,:n+2]=np.einsum('ijk,j->ik',v[:,:n,:],w);b[2*n:3*n,2*n+2:]=minus;b[-2,n+2:2*n+2]=q;b[-1,2*n+2:]=w
     return h,b,dict(theta=x.copy(),gain=g,delta=d,right_plus=q.copy(),right_minus=w.copy(),endpoint=end,first=u,second=v,half_cycle=cycle,half_phase_jacobians=phase,monodromy=u[:,:n])
+
+
+def critical_fixed_gain(z,j,g,sign,halfperiod=3):
+    """G=-F^k fixed point and signed critical eigenpair at fixed native gain."""
+    n=len(j)
+    if len(z)!=2*n+1 or sign not in (-1,1):raise ValueError('fixed-gain critical dimensions/sign')
+    x=z[:n];delta=float(z[n]);q=z[n+1:]
+    end,u,v,cycle,phase=g_jets(x,j,g,delta,halfperiod)
+    m=u[:,:n];a=m-sign*np.eye(n)
+    h=np.r_[end-x,a@q,(q@q-1)/2]
+    b=np.zeros((2*n+1,2*n+1));b[:n,:n]=m-np.eye(n);b[:n,n]=u[:,n+1]
+    b[n:2*n,:n]=np.einsum('ijk,j->ik',v[:,:n,:n],q)
+    b[n:2*n,n]=v[:,:n,n+1]@q;b[n:2*n,n+1:]=a;b[-1,n+1:]=q
+    return h,b,dict(theta=np.array(x),gain=g,delta=delta,right_vector=q.copy(),endpoint=end,first=u,second=v,half_cycle=cycle,half_phase_jacobians=phase,monodromy=m)
