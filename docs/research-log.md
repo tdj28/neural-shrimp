@@ -7265,3 +7265,5 @@ Common-Gram unitb5e961a8 completes32.772s; forcing.64035775 fails.5, no trials. 
 Input-Gram b5e961a8 completes32.772s/34.384s; unchangedforcing.64035775 fails beforetrials. All69worker+5launcher+2auditfiles immutable/hashverified andownedPIDs absent. Savedcheck8ef00a31 passes.399s; QR/eigenpairs/rightprojector/truephysicalresidual agree. No step/orbit, no source repair/retry.
 
 2026-10-10: Root authorizes saved response time-conditioning prototype after original LSMR failures. Fixed one-period normal block-Jacobi versus matched normalCG at same two saved slots; actual residual/readout/callback screen and small-block oracle limitation disclosed. Source/synthetic tests/card beforeoneprofile-gatedunit; no new scientific derivative/trajectory/proof. Tests cover both free endpoints, noncommuting transpose blocks, positive preconditioner, dense direct parity and durable interruption.
+
+Root source/card skima132e7a8 passes before empirical arithmetic; run one measured fixedpair time-block comparison from clean private-pushed checkpoint.
