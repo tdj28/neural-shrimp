@@ -243,7 +243,7 @@ def execute(out,mode,profile=None,profile_pin=None,parent=None,parent_pin=None,p
         def emit_chart(index,row):
             if fold is not None:
                 row['known_fold_membership']={'comparison_role':'center_branch_endpoint_in_fold_anchored_chart','identity':fold['identity'],'all_cyclic_alignments':fold_alignments(row,fold['orbit'],fold['rate']),
-                  'scope':'full correlated fold-root containment in this qualified chart; no attraction or whole geometry'}
+                  'scope':'full correlated target-root containment in this qualified chart; no attraction or whole geometry'}
             name=f'chart-{index:03d}.json.gz';payload=save(out/name,row)
             save(out/f'chart-{index:03d}-payload.json',payload)
             identity={'path':name,**entry(out/name),'payload':payload}
