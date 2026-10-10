@@ -82,8 +82,15 @@ def main(out):
             pb=read(run/'profile-binding.json');A.need(pb=={'path':str(BASE/'attempt-002-profile/run'),'manifest_sha256':PROFILE[1]},'measured profile input pin')
             save(panel+'/binding.json',{'inventory':rs,'runtime':rt,'outcome':ro,'proof_sha256':pins[2],'input':input_binding(panel,run,inp)});tick()
             def observe(kind,row):save(panel+f'/observation-{serial[0]:03d}-{kind}.json',row);serial[0]+=1
-            with ctx.workprec(256):
-                z=[exact(v)for v in inp['approximation']];replay=cusp_proof(TwoRateCuspMap(inp['map_inputs']),z,18,**SETTINGS,tick=tick,observe=observe)
+            if panel=='cusp-a':
+                old=Path('/data2/neural-shrimp-data/audits/s2-cusps/attempt-001');inventory(old,'ea2b4066222edc2e2fc1b671b22ea8b64b8003a5a1f9503ad1c2f333805e4e58');inventory(old/'run','84966316809db2173388655f21f449a08d18f0e7189bd6344a8f98f2ca947d93')
+                prior=read(old/'run/runtime-start.json');A.need(prior['source_commit']=='f75bf98a69c71b38eaacaf1e324e42a4196e8e76','retained replay source')
+                for name in SOURCES:A.need(prior['sources'][name]==entry(ROOT/name),'retained replay same analytic sources')
+                saved=old/'run/cusp-a/replay.json';A.need(entry(saved)['sha256']=='5bbc441e1e5fce4855ae0bea6ec5d5f68192eb84f9e0115deb161bc45a9d6a3b','retained replay hash');replay=read(saved)
+                save(panel+'/resumed-replay-binding.json',{'root':str(old),'file':str(saved),'sha256':entry(saved)['sha256'],'meaning':'successful original byte replay retained before the later interval-reduction failure; no derivative rerun'})
+            else:
+                with ctx.workprec(256):
+                    z=[exact(v)for v in inp['approximation']];replay=cusp_proof(TwoRateCuspMap(inp['map_inputs']),z,18,**SETTINGS,tick=tick,observe=observe)
             save(panel+'/replay.json',replay);A.need(canonical_bytes(replay)==canonical_bytes(original),'byte-identical original replay');tick()
             reduced=A.arithmetic(original,384);save(panel+'/independent-saved-math.json',reduced);tick()
             with ctx.workprec(384):

@@ -6166,3 +6166,7 @@ Root authorizes one fixed audit of cusp-a/b at executionc24b47882ff05e32ee141518
 ## 10 October2026 — retained cusp review failure and saved-only diagnosis
 
 Audit001 exit2 after9.677s/71,980KiB/182 ticks: original cusp-a proof byte replay passed, independent coefficient reduction failed; no stronger proof/cusp-b replay. Raw outer ea2b4066222edc2e2fc1b671b22ea8b64b8003a5a1f9503ad1c2f333805e4e58 is immutable. Root requests diagnosis. One fixed saved-only left/right-border interval-inversion comparison, all intermediates saved before failing gates;15s internal20+5external,CPU1nice10,8MiB+1MiB, no target derivatives or new proof. See amended independent review card; verdict withheld.
+
+## 10 October2026 — cusp review interval-wrapping diagnosis and authorized resume
+
+Diagnostic002 outer67849a3d027482700b9669ca940ba7d94d5b87ee0902319cc2221f12a00b44ad,0.113s/51,908KiB/zero native calls retained both valid inverse routes. Direct transpose-border path gives cubic[5±.101] but determinant[±.0658]; primal-inverse transpose gives cubic[4.9928±4.03e-5],determinant[.0290±6.93e-5]. Root authorizes the equivalent validated primal inversion, unchanged exclusion gates, and new attempt003 reusing pinned successful cusp-a replay001. All other reductions/nested/cusp-b replay remain required; scope and caps unchanged. Added nonsymmetric interval vertex-inverse control.

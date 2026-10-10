@@ -62,3 +62,26 @@ valid widths; no tolerance-based identity is substituted. No model/jet replay,
 Newton proposal, eigendecomposition or parameter change.15s internal20+5external,
 CPU1nice10,8MiB worker+1MiB launcher; exclusive attempt-002-diagnostic. This
 amendment authorizes only diagnosis, not another full two-target audit.
+
+## Dated equivalent-enclosure amendment and exact resume
+
+Saved-only diagnostic002(4f8a0b28) retained the initial failure and identifies
+interval inversion wrapping: directly inverting the transposed border gives
+an unfolding determinant enclosure containing0, whereas independently inverting
+the primal border then transposing gives an enclosure strictly above0 and
+consistent with the original proof. Both paths are valid; neither is required
+to be equally tight. The latter shares the producer's algebraic enclosure
+strategy, now explicitly disclosed. The primal border is rebuilt independently
+from saved M/q, not accepted from the quoted coefficient assertion. A new
+nonsymmetric interval control checks its inverse transpose against exact vertex
+inverses without assuming direct-transpose inversion must have equal widths.
+All Krawczyk, cubic, determinant and spectral exclusion gates remain unchanged.
+
+Root authorizes attempt003 to resume the remaining audit. Verify and reuse the
+successful cusp-a byte replay inside immutable failed attempt001 (outerea2b4066,
+run84966316, replay5bbc441e; complete SHA values pinned in source), rather than
+repeat those180 native steps. Recompute both independent reductions, run the
+fixed cusp-a nested proof, and cusp-b original/nested proofs.540 actual native
+steps now suffice; the conservative740 guard cap and prior wall/RSS/raw limits
+remain unchanged. The two previous attempts remain retained and are referenced
+in the final companion; no failed proof or audit is relabeled successful.
