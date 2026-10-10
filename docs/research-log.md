@@ -5645,3 +5645,14 @@ independent outcome review pending. Optimizer's audit window released after
 owned proof workers exited. Continued next research will diagnose weighted
 correction/contraction bounds from retained matrices before wider acquisition;
 the existing proof does not imply a distant boundary connection or whole shrimp.
+
+### 10 October 2026 UTC — prospective saved-defect positive-weight diagnosis
+
+Root authorizes the next saved-only analysis of quadratic target02ab1212.
+Card `docs/plans/s2-period18-positive-weights.md` fixes a single deterministic
+positive-weight proposal from each saved defect and384-bit strict weighted
+inclusion/contraction checks, separating forcing from propagated radius.
+No model or derivative acquisition. CPU1,nice10,15s/20+5external,1GiB/1MiB;
+one exclusive attempt with immutable source/input/runtime receipts. Any wider
+domain later reacquires its true Jacobian. Source/tests/card freeze precedes
+the numerical saved-matrix calculation; no weights or target norms read yet.
