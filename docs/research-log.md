@@ -7089,3 +7089,9 @@ Attempt001 cdd23316 failed2.769s at exact product/remainder identity after all23
 ## 2026-10-10: independent refined tangent/norm saved review passed
 
 Attempt002/6a0597ed completed2.8443s; all235D Uprime/Udoubleprime and18phase strict norm/metric reductions pass. Exact inventories/historical source and actual decode/domain joins checked; original attempt001 byte-identity failure retained. Producer-author schema skim only; no model/derivative/decomposition or new root localization. Fixed doubled slice only, seven-slice coverage review still separate.
+
+## 2026-10-10: independent saved full-chart coverage review preparation
+
+Completed doubled-slice independent review permits a fixed extension to all seven new chart156 slices, same mathematical reducers and explicit actual-input/stage joins. Source/card/16 focused synthetic controls before one60s/80+5s/2GiB/8MiB saved audit; no new derivative or decomposition. Preserve partial results before next slice; exact rational coverage plus the authenticated independent eighth decides final scope.
+
+2026-10-10: Freeze the independent chart156 seven-slice saved audit after18 focused controls passed0.08s. Initial test command named a nonexistent old test path and ran no tests; corrected invocation passed. Producer schema skim found the reused original inputs needed fresh manifest authentication, fixed before any reduction. Also preserve previously delivered source-only adjoint-functional1843ddca and preceding-chart64dfb34a skims.
