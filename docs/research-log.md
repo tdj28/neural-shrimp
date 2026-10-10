@@ -7052,3 +7052,20 @@ with source/PID checks. Companions eigenpair-wider-march-unit004.md/.json.
 No forecast success, genericity or attraction claim. Return to the previously
 reviewed fresh-repair policy via an exact complete-parent adapter/card; no
 outcome-driven factor tuning. Current qualified radius floor remains retained.
+
+### 2026-10-10 — abandon the ineffective fixed radius forecast; binding-only repair-chain source
+
+Unit004's four successful segments still required8calls/4repairs,163.190s;
+its failed initial bounds moved to other coordinates. Preserve source1d0add38,
+executionaf481a1a, outcome508091ab and all raw. New adapter restores unchanged
+fe35003a initial inherited-radius policy and sole fresh-domain repair; it binds
+exactly complete unit004 for the first transition, then completed successive
+units only. No mathematical kernel or gate change. Plan
+`docs/plans/eigenpair-repair-chain.md`; source-only synthetic controls before
+private push/peer skim. A separate unit005 exact-parent card will precede run.
+
+Source-only validation: all24 repair-chain, inherited complete-parent and
+inflation-march controls passed0.36s, CPU1 nice10. Differential inspection
+confirms the numerical call and full worker/launcher loops are unchanged;
+only source inventory transition, first-parent pins and truthful policy label
+change. No target arrays or proof evaluations were used in these tests.
