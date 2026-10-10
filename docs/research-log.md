@@ -5634,3 +5634,7 @@ Execution4c93a329 completed2.418s internal/2.876s external,48040KiB,1636familyca
 ### 2026-10-09 PDT: two fixed p7 fold–flip localizations, pre-run
 
 Both savedfolds cross−1 before any cusp. Card `docs/plans/clark-rnn-p7-fold-flip.md` fixes lower130 andupper28 starts,14D analytic augmented H forsimultaneous+1/−1,12Newtonmaxeach, full retained derivatives/linear/eigen/SVDs and fixedqualifiers. No otherbracket/search or automaticintervalproof. Synthetic analyticJacobian and known polynomialfoldflip controls pass.45s60+5CPU1nice10/512MiB/16+1MiB/128returns,10synthetictimings64max+5gate beforetarget. Comparephase/sign beforeanycommon-orbit interpretation.
+
+### 2026-10-09 PDT: two native p7 fold–flip candidates localized
+
+Sourcea48ce4e9 completed the exactlytwo14D localizations in.5018s/.6173s,44748KiB,16augmentedreturns. Bothpass primitive7/simple±1/two stable remaining modes/fullaugmentedrank/nonzero c/native identity; residuals6.7e-16/1.1e-11. Distinctparameters(1.8021351053,.7866478460) and(1.8020552422,.7866760419); no common-orbit assertion. All fullinventories/modes and1040555/1040579owned/group exits verified, receipt `docs/reviews/clark-rnn-p7-fold-flip-outcome.json`. Next geometry must trace the twoflip families with explicit state-oriented tangents, not use singular M-I branch formulas at the interaction. No interval/cusp/whole-shrimp claim.
