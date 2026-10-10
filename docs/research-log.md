@@ -12034,3 +12034,9 @@ Added a separate native705 pseudo-arclength/quadratic kernel. Squared angle is n
 ### 2026-10-10 —705D source review and cost-screen preparation
 
 Clark independently passed874035c7 math/source and24controls0.59s, including the whole angle column,42D condensed proposal, cubic entire closure, full705 inequalities and conditional gauge/root membership. Prepared one synthetic-only full705 cost screen with exactly590ticks, two complete quadratic charts and unrelated13D MixedJet/PathJet cost fixtures.18controls pass0.48s. Resource plan native-unit-pair-pal-profile.md retains240s/4GiB/512MiB profile caps and separate measured research admission. No target data acquired. Stability finite704 complement repair independently source-cleared and running in its own lane; parent owns local55 arithmetic audit.
+
+### 2026-10-10 —705D profile cleared and fixed first connection packet prepared
+
+Clark independently source-cleared0bd39da2 synthetic705 profile,18controls0.47s. Prepared the separate fixed first705 research wrapper, full independent704 endpoint at t=1/32768, interval-projected new tangent gauge and unchanged inherited704 weights plus angle1/512. TwoNewton/onewholechart only; every253tick acquisition and705gate retained.22synthetic controls pass; a copied non-PAL launcher import was caught and fixed by the owned-root control before any run. Target source review and actual measured profile remain prerequisites.
+
+Synthetic profile run card: execute exactly one tools/launch_native_unit_pair_pal_profile.py at the following commit, exclusive .../unit-pair/pal/attempt001-profile;590ticks/240s/4GiB/8GiBAS/512MiB. Latest host51GiB available/load1.77,GPU0%15947MiB free,no own duplicate. No scientific target is read by this profile. Measured result will determine whether the fixed subsequent target fits its proposed caps.
