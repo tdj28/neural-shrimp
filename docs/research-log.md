@@ -6243,3 +6243,18 @@ worker0460fd73c44e52b479538908e55df12c61a082e2f3541c3c54186bfd7750f71c.
 Companions `docs/reviews/s2-period18-arclength-outcome.md/.json` retain all
 source/provenance and exact scope. Independent review pending; next design
 streams a bounded fixed-width batch rather than acquiring a larger blind grid.
+
+### 10 October 2026 UTC — bounded streamed continuation batch card
+
+The passed235D pair now permits a measured16-chart stream along the identical
+fixed gauge and settings. New wrapper/module only; historical proof core stays
+unchanged. Parent is manifest0460fd73/source11eb9a2d, complete source/model/join
+binding. Every chart's complete witness is durable before advancement; retain
+one full chart in memory and compact predecessor metadata. Stop on first
+failed proof, no retry or altered step/gauge. Profile two synthetic full-shape
+charts; gate16*elapsed+5<180s and storage max(16*bytes,288MiB)<352MiB.
+Card `docs/plans/s2-period18-arclength-batch-pilot.md` fixes target180/195+5,
+CPU1,nice10,2GiB,384+1MiB,16charts,1152/2304 C1/unit+864jets,2200ticks.
+All failure/persistence tests and a small exact fold chain are synthetic.
+No batch acquisition yet; profile receipt and exact target pin are committed
+before target. This advances a primitive branch, not attraction or fold identity.
