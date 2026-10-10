@@ -11355,3 +11355,18 @@ math kernel remains unchanged and reviewed. Run exactly one fresh proof in
 native-unit-pair-target002.json, exact t[0,1/32768] and all704source-bound dyadic
 weights. Measured first target/profile resource ceilings and current host checks
 apply. New full-domain Jacobians and all original-root anchor gates are required.
+
+### 2026-10-10 — finite connected primitive704 unit-pair curve passes
+
+Fresh sourcea7b5a169 completed40.905s/1,805,200KiB,217ticks. All704root
+inclusions and all704original-root-anchor memberships pass; proper primitive18
+and realified-frame gates pass; weighted contraction0.0965712886637.
+The exact finite parameter interval is[0,1/32768]. Full source/archive/history,
+immutable inventories and owned termination verified. The failed first domain
+and saved numerical proposal remain intact. This is a connected finite unit-pair
+curve, not yet complementary attraction on its whole extent or full shrimp.
+
+Prepared the source-reviewed-helper's saved-only complement binding packet,
+requiring exact whole704domain/native-phase/actual-rate correspondence and all11
+quotient modes. Fifteen packet/helper controls pass0.14s. No new derivatives.
+Added a compact field/closure/inequality guide for independent full704 arithmetic.
