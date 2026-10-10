@@ -6802,3 +6802,19 @@ Next saved-audit card: unchanged committed driver/settings, index6, exact prior-
 ## 2026-10-10T02:13:52.390733+00:00 — extended chain audit unit007
 
 Original256bit identities and384bit primitive/root/full-native joins passed; 111 total connected charts, exact gauge endpoint 221/64. Runtime 6.647s/277464KiB, ownedPIDs absent, complete immutable inventory verified. Outer637a19fba87f3f412cc76ab9d99d61923adbf402378395e48e8512d84a00666a. Failed producer tails remain excluded from connection. Shared analytic acquisition/Arb and root source-review overlap explicit; no whole attraction or shrimp claim.
+
+### 10 October 2026 UTC — one-shot per-chart reboxing amendment
+
+Fixed global radii proved17 new charts, then another inclusion failed while
+contraction, native primitive exclusions and anchor checks still passed.
+The new dated card `docs/plans/s2-period18-arclength-reboxing.md` permits
+exactly one deterministic proposal per such failed chart, with the complete
+initial failure persisted before any adaptation and all18 final-domain
+Jacobians reacquired. Unchanged predictor/Taylor bounds remain source-bound.
+All18 correlated native fold alignments will be recorded for each qualified
+chart; no proximity inference. New profile explicitly forces both adaptation
+paths. No target run precedes source/controls/review and measured cost gate.
+Two early synthetic control failures were fixture assumptions: a derivative
+perturbation was too small relative to the anisotropic weights to force a
+failure, and a mocked rebox result omitted its required metadata. Fixtures
+were corrected; production mathematical gates were not weakened.
