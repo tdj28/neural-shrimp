@@ -2,7 +2,7 @@
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-OUT=Path('/data2/neural-shrimp-data/audits/s2-attraction-remaining/batch002')
+OUT=Path('/data2/neural-shrimp-data/audits/s2-attraction-remaining/batch003')
 CHARTS=(142,143,144,145)
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 
@@ -39,7 +39,7 @@ def freeze(root):
     root.chmod(0o555)
 
 def main():
-    assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip()
+    assert not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     available=int(next(s.split()[1] for s in Path('/proc/meminfo').read_text().splitlines() if s.startswith('MemAvailable:')))
     assert available>12*1024**2

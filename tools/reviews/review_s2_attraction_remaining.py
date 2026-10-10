@@ -56,7 +56,9 @@ def worker(out,chart):
     need(type(chart)is int and chart in (142,143,144,145),'fixed remaining chart')
     specs=read(ROOT/CONFIG);spec=next(v for v in specs['units'] if v['chart']==chart)
     TARGET=Path(spec['root']);PIN=spec['outer_manifest']['sha256'];WORKER=spec['worker_manifest']['sha256'];EXEC=spec['execution'];expected=spec['coverage_endpoints']
-    need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
+    # Set the already-approved worker envelope before any Git preflight subprocess.
+    resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,)*2)
+    need(not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
     need(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1' for k in O.THREADS),'CPU1nice10')
     out.mkdir(parents=True,exist_ok=False);started=time.monotonic();stop=[False];result={'passed':False,'chart':chart,'slices':[]};resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,)*2)
     def save(n,v):
