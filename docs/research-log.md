@@ -8904,3 +8904,24 @@ Saved numerical complementary+1 distance .174971→.171362, cproxy−9.6704→�
 No genericity or attraction claim. Repeated one-coordinate initial failures
 followed by successful repairs motivate a separately disclosed proposal-only
 radius forecast to avoid redundant full calls; all fresh proof gates must remain.
+
+### 2026-10-10 — fixed radius forecast, source and synthetic preparation
+
+The completed three wider units all needed one fresh repair per segment.
+Prepare the same next four slots from complete71/128, with initial radii equal
+to inherited radii plus twice one FIXED coordinatewise maximum of the four
+unit003 radius increments. Exact nonshrinking history, matching native gauge,
+and a1/16 relative proposal cap are mandatory;128-bit outward rounding retained.
+No feedback from forecasted radii determines a new increment. All fresh path,
+whole-domain470D root, primitive and full native anchor gates remain unchanged.
+Same sole root-only repair permitted; every failure remains durable.
+
+Twenty-eight synthetic controls pass0.47s, including analytic coupled-map
+continuation, fixed nonamplifying increments, exact native history, wrong pins,
+negative/oversized proposals, repeated failure rollback and observer cap failures.
+Old bound kernels and marcher files unchanged; separate orchestrator/adapter.
+Card docs/plans/eigenpair-radius-forecast.md pins unit003 and all caps. Planned
+exclusive attempt-004-wider-march, four accepted/eight calls/1040 ticks,
+400/420+5s CPU1nice10,2GiB sampledRSS,512+1MiB. Existing measured proof-cost
+gate applies; no target acquisition or model profile from the new source yet.
+Independent brief source skim before launch under standing adaptive local scope.
