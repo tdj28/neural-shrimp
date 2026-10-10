@@ -6673,3 +6673,17 @@ launcher11.6763s/exit0. Full inventories, all stage payloads,
 source identities, immutable permissions and owned exits checked. Receipt
 `docs/reviews/s2-period18-near-fold-endpoint-outcome.json` binds exact files;
 independent outcome review pending. Existing156-chart branch is unchanged; earlier144 charts independently reviewed, new12 awaiting review. A reverse fold-normal chart is next.
+
+### 10 October 2026 UTC — prospective reverse fold-normal pilot
+
+Root prioritizes reverse fold-anchored construction after negative saved gauge
+comparison. Source/card `tools/certify_s2_period18_fold_reverse.py` and
+`docs/plans/s2-period18-fold-reverse.md` retain both authenticated whole roots.
+A new proposal-only helper propagates the known fold's native nullvector,
+freezes a state-only normal and exact positive inverse-row weights; unchanged
+fresh-domain chart gates decide all claims. Seven new synthetic controls plus
+existing chart/membership/derivative controls must pass before source review.
+After committed source and root skim, run ONE synthetic profile at
+`/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-2026-10-10/attempt-001-profile`.
+Measured card must precede one target. No repeated prefix, automatic search,
+proximity claim, or attraction at the fold.
