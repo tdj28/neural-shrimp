@@ -7768,3 +7768,20 @@ Existing same-kernel8-chart audit measured93.715s/.84GiB. Firstexclusive
 saved review root audits/eigenpair-remaining-locus/unit000-attempt001.
 Later fixed units require explicit source-bound cards and complete audited
 predecessors. Shared analytic derivatives/Arb remain disclosed.
+
+2026-10-10 eight-piece chart142 pilot at a1cad087e5e8d34c24eea8b84214a9b67a3a323e completed once,
+198.662010 s / 715040 KiB; 8 returned slices,
+1288 stages. Overall passed=True.
+Worker 5eed533147b022ae93dbfbd877e184b17fbbcaa77c4f8ed07486a51b100b2f0c;
+outer acb8fb51e6da613b9ea76b35fd8f5d8ccda638a70911bf8c73d5b3e8173d04a9.
+All inventory/source/count/read-only/ownership checks pass; 299644755 B.
+All eight closed intervals of chart142 have producer sufficient attraction bounds. This extends connected producer coverage to [27/128,45/128]; independent audit pending. No whole-shrimp or two-dimensional-region claim.
+Full-width failed witness remains intact.
+
+2026-10-10 final planned142 producer unit passed all8refined pieces.
+Producer attraction now112 adjacent closed pieces,original charts142–156,
+common native gauge[27/128,45/128]. This is one connected primitive18 branch,
+not112different orbits. Original unrepaired143 zero-call admission failure,
+old whole-chart146 sufficient-bound failure and all base/refined outcomes stay
+immutable. No additional stability producer unit is scheduled: independent
++1locus geometry through the double-multiplier event is now this agent's lane.
