@@ -5786,3 +5786,5 @@ Savedp12locusplotf8f6e28a completed1.213s and visuallychecked; knownflipturns, o
 Root source/card skim of0d8a8f58 passes before target: associatedg16 only/exactcappedflip andunchangednative/reverse/domain. Launchonefixedprofile+three-traceunit fromcleanprivate-pushedexecution checkpoint; allfailuresretained.
 
 P12 extension0d0c5008 completed5.817s/6.580s,48560KiB/3079returns. Fold minus167rows stops tangent numerical rank/residual as divisor6 shrinks .00472; foldplus182rows and flip147rows reach gain5.6 domainedge. Foldends nonattracting, flipend attracting. All16560files immutable/hashverified and1388575/1388577 exited. No collapse/cusp/common-orbit/whole-shrimp inference. Saved combinedgeometry plot next under30sCPU1/8MiB, no model/decomposition/solve.
+
+Combined p12 geometry rendered e3659ded1.914s, visuallyinspected. No cusp established; csignpole occurs nearother+1, no commonorbit at projectedflipselfcrossing. Pause p12envelope after811distinctnativeboundarynodes, keep unresolved. Proceed predeclared28175component24p14 refinement withsamecost/nativegates/sourceprofile; exactcard/source/tests beforeoneunit.
