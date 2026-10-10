@@ -6563,3 +6563,18 @@ correlated phase-alignment diagnostic. No target map call or changed-domain
 claim. Fixed20s/30+5s, CPU1 nice10,1GiB,3MiB aggregate; exclusive attempt001.
 Code and controls committed before this diagnostic. Any adapted continuation
 will separately re-enclose its final domain and retain full native joins.
+
+### 10 October 2026 UTC — saved march diagnosis completed
+
+Execution f972ba604248bc05b13768e0a69b469d403d6b52 completed in0.9961s,
+325236KiB; launcher1.4712s,exit0, all inventories/read-only/owned PID exits
+checked. Worker manifest dc4ad29ca305f45b3cc58438f30c1e588616cafb7014586b83995e15ec994235.
+Only coordinate7 fails: normalized forcing0.222403 plus propagation0.793197
+exceeds one (1.015600). This is a sufficient-bound failure, not instability.
+The saved-domain proposal gives exact positive dyadic radii normalized by2^-21;
+79 of235 expand, so a new whole-domain Jacobian is mandatory. All18 correlated
+fold alignments remain outside the current qualified chart. Native phase0
+projects near s4.3688892, while the current endpoint is187/64; this suggests a
+finite remaining chart distance but establishes no connection. Full companion
+`docs/reviews/s2-period18-march-diagnosis-outcome.json` retains every row and
+alignment. No proof gate or earlier evidence was changed.
