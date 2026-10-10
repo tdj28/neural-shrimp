@@ -10800,3 +10800,7 @@ exact gauge87/128→103/128.
 Exclusive audits/eigenpair-remaining-locus/unit005-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+
+Prelaunch endpoint source self-review fixes a copied launcher base path to
+match the driver's dedicated membership root;13controls now include exact
+launcher/worker root equality. No target/profile or raw attempt occurred.
