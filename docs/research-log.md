@@ -8447,3 +8447,14 @@ cover[11/32,45/128], one whole primitive18 chart. Base first norm passes:
 0/7; every first result retained. This producer
 coverage still awaits independent saved arithmetic review. No neutral-fold,
 whole-connected-branch or complete-shrimp attraction claim.
+
+2026-10-10 next fixed coverage card: chart155, exactly the immediately preceding
+native chart008 in the already authenticated10-chart small-march prefix. No
+mathematical or analytic kernel changes. Eight equal1/1024 slices, fixed
+descending order; original predictor/weights/image and source-bound full-prefix
+joins. Reuse no scientific acquisition from chart156 because intervals differ.
+Full synthetic profile and peer differential review before target; caps360s/
+390+5s,2GiB,512MiBworker/514aggregate disclosed for eight versus seven slices.
+Twenty-two focused synthetic controls pass, including full-prefix admission,
+selected-chart primitive/gauge rejection, exact partition and failure stop.
+Plan docs/plans/s2-period18-preceding-chart-stability.md; no launch yet.
