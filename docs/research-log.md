@@ -10585,3 +10585,9 @@ Peer review ofb9f7f48c found copied completion fields from the older Newton work
 Native transpose qualification ec1f5304 passed3pairings, maximum scaled discrepancy2.04943e-16; full phase replay and20HVP/2gradient accounting pass. Worker2.077s, launcher3.734s/781729792B, owned group empty. First invocation supplied a mistyped full commit and failed before directories/modelcalls; corrected invocation reads exact git rev-parse. The immutable completed worker manifest7a11499a and launcher701f2de5 preserve all native pairing arrays.
 
 Next source card docs/plans/cifar-merit-lsmr.md bounds a distinct6×200LSMR regularized residual-merit method, true action/actual-merit ratio+Armijo and unchanged native closure/primitivity. This explicitly differs from the old inexact-Newton acceptance; old forcing remains reported. Dense augmented least-squares/reference, trust clipping, merit-increase/fixed-point rejection and resource/schema controls precede run. No target correction yet.
+### 2026-10-10 — independent unfolding wrapper clearance and synthetic card
+
+Root independently cleared ba50e269 binding/resource wrapper and reproduced
+20controls0.17s; Clark mathematical helper clearance stands. Run only the
+zero-native, two-evaluation unrelated profile in
+docs/plans/eigenpair-chain-unfolding-profile001.json before exact target card.
