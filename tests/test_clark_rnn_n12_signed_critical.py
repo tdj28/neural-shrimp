@@ -18,3 +18,24 @@ def test_global_signed_half_square_matches_unquotiented_native_six():
     np.testing.assert_allclose(dv[:,:12]@du[:,:12],m,rtol=1e-11,atol=1e-13)
     # M6=DG(x)^2 needs an actual fixed point; it is not true for this arbitrary x.
     assert np.max(np.abs(du[:,:12]@du[:,:12]-m))>1e-5
+
+def runner():
+    import importlib.util
+    from pathlib import Path
+    p=Path(__file__).parents[1]/'tools/explore_clark_rnn_n12_signed_critical.py'
+    spec=importlib.util.spec_from_file_location('signed_runner',p);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+
+def test_separate_signed_half_and_third_caps_precede_arithmetic(tmp_path):
+    m=runner();w=m.Work(tmp_path);j=np.eye(12);z=np.r_[np.ones(12),.7,np.eye(12)[0]]
+    w.augmented_calls=128
+    with pytest.raises(RuntimeError,match='128 half'):w.half(z,j,2.,-1,'synthetic')
+    w.augmented_calls=0;w.third_calls=14
+    with pytest.raises(RuntimeError,match='14 third'):w.third(z[:12],z[13:],j,2.,.7,'synthetic')
+    w.third_calls=0;w.calls=512
+    with pytest.raises(RuntimeError,match='512 combined'):w.half(z,j,2.,-1,'synthetic')
+
+def test_signed_fixed_point_cannot_replace_native_primitive_six(tmp_path):
+    m=runner();w=m.Work(tmp_path);w.emit=lambda *a:0
+    row=w.target(np.zeros(12),np.eye(12)*.1,2.,.8,-1,'synthetic')
+    assert row['status']=='unresolved'and row['seed_correction_status']=='closed'
+    assert not row.get('gates',{}).get('native6',False)
