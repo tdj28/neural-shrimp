@@ -9518,3 +9518,7 @@ ActualN6profile ed77b4b7 completes1.342s/1.472s,47104KiB. Gate133.297s/257325344
 ## 2026-10-10: fixed N6 panel completed, full-map inspection next
 
 Executed clean6c516d91 with externally pinned matching N6 profile; all4 seeds completed45.91s,96/96 selected native cycle cases qualify numerically. All164 components retained, including the seed28182 edge-only failure of the interior-candidate criterion. Complete1141file/204153133byte inventory and owned PID exit verified. No morphology claim before inspecting all four maps. Freeze tools/summarize_clark_rnn_n6_panel.py for one saved-only spatial census/render, no model/decomposition/trajectory, CPU1nice10/external30s/512MiB/8MiBraw. All failed hypotheses remain; no new candidate target yet.
+
+## 2026-10-10: all N6 maps inspected; fixed first-ranked p6 refinement prepared
+
+Saved-only rendering80176c20 retains all four maps/components. Fixed ordering selects seed28181/component14, not a new visual rank. Diagonal tongue/doubled3 alternative explicitly survives; freeze docs/plans/clark-rnn-n6-p6-refinement.md with longertransient51²two-start patch and full native6 qualification. Reuse measuredN6profile only through unchanged source/runtime check and explicit horizon/batch/dimension bounds. No new target yet; short root review pending.
