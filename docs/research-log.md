@@ -5624,3 +5624,19 @@ Saved-only boundary diagnostic card (10October00:38UTC): target003 completed bot
 Saved diagnostic interpretation amendment before further acquisition: the apparent coefficient sign change is a jump from−63.95 to+753.60 while another real multiplier moves0.97208→1.00232. This suggests loss of simple+1 isolation and a normalization pole, not a cusp zero. Original summary retained. Add all64-point critical gaps/left norms/nearest competing multipliers and label the bracket an additional+1 candidate; no cusp inference. Rerun saved-only summary002, no new model or Jacobian.
 
 Boundary numerical unit checkpoint:64 qualified points and321 saved augmented evaluations; corrected seed closure9.34e-19. Saved-only spectrum audit identifies a possible additional+1 crossing/normalization pole; no cusp claimed. All inputs/outputs hashed, independent outcome review pending, attracting-instance count unchanged. Companions docs/reviews/s2-boundary-curves-outcome.{md,json}. Goal remains active and next unit follows connected fold/flip geometry.
+### 10 October 2026 UTC — prospective quadratic-predictor continuation pilot
+
+The localized center/outer probes repaired the sufficient stability floor but
+do not make tiny-chart marching to the distant fold efficient. New standalone
+quadratic predictor source preserves all old kernels and uses the existing
+explicit gradient plus third-order path jets. Retain H0/H1/H2 cancellation
+defects and a rigorous interval H3 remainder; unchanged C1 bounds error
+segments. Fixed choice: two charts, delta2^-8,r2^-24,256 bits,two Newton
+proposals, exact original anchor/common-parameter containment, primitive18;
+attraction not evaluated. Card `docs/plans/s2-period18-quadratic-connection-pilot.md`.
+55 focused synthetic controls pass0.23s after disclosed pre-freeze fixture/API
+repairs; no new profile or target yet. Root/optimizer have reviewed the proposed
+math; final source review precedes acquisition. CPU1,nice10,2GiB,128+1MiB,
+profile20s/25+5,target120s/135+5,300ticks,144 wrapped/288 unit/108 jet caps.
+Profile command and exclusive output are in the card. Real-parent storage
+factor is included in the measured gate to address synthetic compression bias.
