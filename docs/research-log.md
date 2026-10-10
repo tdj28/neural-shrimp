@@ -6504,3 +6504,18 @@ failed second Taylor/Jacobian witness permit one diagnosed fresh-domain
 rebox of only the failed chart, without repeating the successful first chart
 or its numerical predictor work. This narrower repair is the next proposed
 adaptation; it is not a parameter-width search or relaxed proof gate.
+
+### 10 October 2026 UTC — saved second-chart rebox adaptation
+
+First smaller chart passed, second failed coordinate inclusion withq0.50420
+and primitive/anchor gates passing. New runner
+`tools/certify_s2_period18_fold_saved_rebox.py` binds that exact partial pair
+and uses unchanged one-shot proposal/rebox routines. It reuses the saved
+predictor/Taylor data only;18freshwhole-domainC1 derivatives determine the new
+strict gates. No repeat first chart or new jets. See
+`docs/plans/s2-period18-fold-saved-rebox.md` for every fixed input and limit.
+
+After source skim, run only the saved-synthetic engineering profile with
+`--mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-saved-rebox-2026-10-10/attempt-001-profile`.
+CPU1/nice10,20s/25+5,2GiB,18/36C1,400ticks,128+1MiB. Commit measured source/profile
+receipt and exact one-target card before acquisition; no model target yet.
