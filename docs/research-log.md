@@ -6980,3 +6980,19 @@ Execution3f9e536b; adapter2c92c3cc/source skim b78ffdd3. Companions
 `docs/reviews/eigenpair-wider-march-unit002.md/.json`; independent outcome
 review remains pending. Continue only through exact prospectively pinned
 complete-parent cards under root standing authorization.
+
+### 2026-10-10 — complete-parent wider unit003 pre-run card
+
+Continue only the fully qualified native endpoint55/128 from unit002,
+execution3f9e536b735be97e0c9970a159639d0e984d4705, outer
+0a8a64be444d1481e1d51048485cc7d36b7d401066ec88740f90f28f399bab2e, run
+96bd7a4c88c29e84c869c9036ce7d68ca07a7fde9ad9212fa2a957eb215fd51d. Exact immutable pins/caps in
+`docs/plans/eigenpair-wider-unit003.json`; prospective right endpoints
+59/128, 63/128, 67/128, 71/128. Unchanged source-reviewed adapter
+2c92c3cc and proof/marcherfe35003a; no additional profile or scientific selection.
+Previous eight-call unit164.037s remains within the
+original source-bound362.743s projection. All scientific gates and failure
+retention unchanged; fouraccepted/eightcalls/one repair each. Fresh host
+load1.27/1.33/1.23,38GiBavailable,2.9TiBdiskfree,GPUidle/no compute apps.
+CPU1nice10,400/420+5s,1040ticks,2GiBsampledRSS,512+1MiB. Root standing
+authorization applies; no failed tail or pending active call is used.
