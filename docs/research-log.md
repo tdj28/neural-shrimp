@@ -7257,3 +7257,5 @@ Root source skim f58a94c4 passed analyticdiagonal/rightscaling/physicalgates;21c
 Diagonal bd458b25 completed once29.0475s/30.6882s; forcing.7071773 rejects beforetrials (unscaled.505981 atsamebase). No step/orbit. Saved checker39ebc6d9 passes.1877s; all36worker+5launcher+2auditfiles immutable/hashverified and ownedPIDs absent. Scalarphase-diagonal hypothesis fails here; correlatedinput basis remains a different untested proposal.
 
 2026-10-10: New input-Gram conditioning card follows failed exact-diagonal surrogate. Same consumed accepted state; one common augmented-input basis/all512modes/ridge complement, per-hidden mean curvatures, positive right scaling; no true-gate change. One target QR/eigh plus matching synthetic profile, one400 solve only if measured120s gate. Before target, synthetic rank-deficient/indefinite/dense surrogate/packing checks; one test-fixture zero-padding typo corrected, no target had run. Clark p12 continues independently at low memory.
+
+Root pretarget source/card skim60814d21 passes. Execute one fixed synthetic-profile-gated common-input-Gram conditioner; preserve all failures, physical forcing unchanged.
