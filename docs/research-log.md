@@ -7029,3 +7029,13 @@ exclusive attempt-004-wider-march, four accepted/eight calls/1040 ticks,
 400/420+5s CPU1nice10,2GiB sampledRSS,512+1MiB. Existing measured proof-cost
 gate applies; no target acquisition or model profile from the new source yet.
 Independent brief source skim before launch under standing adaptive local scope.
+
+### 2026-10-10 — radius forecast source clearance and launch card
+
+Independent research_strategy source review6ee0b80271ed650f25f5e561836cff82928e7730
+binds frozen1d0add38, all28 synthetic controls reproduced0.45s, no target reads.
+Exact proposal-only/native history and all unchanged proof gates cleared.
+Proceed the single fixed unit004 from complete71/128 under standing adaptive
+local authorization. Fresh host load1.45/1.42/1.34,38GiB available,GPUidle,
+no compute apps; CPU1nice10,400/420+5s,2GiB sampledRSS,512+1MiB unchanged.
+Bound scientific/card bytes unchanged; this commit is review metadata only.
