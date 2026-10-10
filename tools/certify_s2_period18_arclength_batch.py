@@ -180,7 +180,7 @@ def profile_gate(path,pin):
     require(result['jet_counts']=={'attempted':108,'returned':108,'cap':108},'complete path-jet profile')
     require(result['status']=='synthetic_profile_completed' and result['elapsed_seconds']<20,'completed profile timing')
     require(runtime['source_sha256']==sources(),'same profiled source bytes')
-    require(16*result['elapsed_seconds']+5<180,'conservative profile projection below100 seconds')
+    require(16*result['elapsed_seconds']+5<180,'conservative profile projection below180 seconds')
     require(max(total(path)*16,16*18*1024**2)<352*1024**2,'storage estimate includes real parent compression cost')
     return {'manifest_sha256':pin,'elapsed_seconds':result['elapsed_seconds'],
             'projected_seconds':16*result['elapsed_seconds']+5,'profile_bytes':total(path),'projected_bytes':max(total(path)*16,16*18*1024**2),
