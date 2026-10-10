@@ -6041,3 +6041,7 @@ Stability peer ac8b8653 saved-CIFAR audit source skim PASS;2controls reproduced0
 ## 2026-10-10: independent saved CIFAR merit audit passes
 
 Execution83bdb992 saved-only audit1.15197s/43468KiB/zero native calls independently recomputes all six full-step merit acceptances, exact state chain/damping/trust norms and operation counts4836HVP/14grad. True forcing=.9673129 then.99935–.99964; zero original Newtonforcing passes. Relative closure4.897454780673e-6→4.726511018165e-6, only3.49046% decrease; native separation.000341024 passes screen but closure1e-8 does not. Every step's actual/predicted ratio≈1 and Armijo are valid from saved data; audit does not rerun native maps/adjoints/LSMR or certify an orbit. Full immutable audit/producer inventories and owned1812203/1812205/group absence checked. Receipt docs/reviews/cifar-merit-saved-independent.json; all15ownedrawroots now in integration inventory.
+
+## 2026-10-10: prepare explicit native daughters of the signed-half flip
+
+Root authorizes actual daughter tracking for native6/12/24 anatomy before larger rigorous classification. Add full25D Gperiod2 fixed-amplitude equations/Jacobian, retaining both native partner states and physical leak. Synthetic full-column derivative and known super/subcritical flip daughter controls precede runner. Fixed source roots/gauge/amplitude sequence and native/reverse qualification strategy in docs/plans/clark-rnn-n12-daughters.md. Runner/profile thresholds remain in preparation; no target launched, no native12 inference from Gperiod2.
