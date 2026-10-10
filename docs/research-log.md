@@ -5599,3 +5599,16 @@ exact pins in tools/reviews/review_clark_rnn_c1.py. Source/card committed before
 one CPU1nice10 run at audits/clark-rnn-c1/attempt-001,30/45+5s,1.5GiB,8+1MiB.
 Check original box contains nested root and all five antipodal phase exclusions.
 Activity theorem remains separate from training counts and window geometry.
+
+### 10 October 2026 — native RNN independent proof review passes
+
+Sourcead1fa877 original byte replay,384-bit/-100 nested proof and independent
+exp-form native map/Jacobian/Krawczyk/divisor/power check all pass. Entire nested
+box lies strictly inside original; all5 phases exclude the odd companion.
+Independent contraction<2.859e-26 and return-map norm<.008462 at power1.
+One directly enclosed activity cycle plus distinct symmetry companion; no
+training-count/window claim.18 controls pass.12s. One target review0.113s,
+47,976KiB,outer.337s,exit0; all23 raw files immutable and PIDs absent.
+Outer37ea45b4a1491cdcb109714d04b759e870f5b3f9f6fb61e6fec7b2f33b33775d;
+worker96819f52f8272f71e49db80901f7a885132ea1c7d1717c5a9ef55f3db7cc8de1.
+Companions docs/reviews/clark-rnn-p5-independent-review.md/.json.
