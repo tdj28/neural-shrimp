@@ -8321,3 +8321,7 @@ Boundary recheck1e7273b7 PASS. Fresh batch002 had a second preflight-only failur
 ### 2026-10-10 — Four concurrent independent attraction charts PASS
 
 Boundary3b0b6bc5 source recheck PASS. Freshbatch003 independently verified all28closed pieces of charts142–145 using unchanged256 localization/U″ and384 norm arithmetic. Per-chart times:142=84.252s,143=83.556s,144=84.550s,145=43.267s. Combined worker RSS peak2780688KiB; actual parent peak17396KiB. All limits, full immutable/source inventories and owned exits checked. Outer4438a1584c00141eebc0dc320fe8341aae3e814fb22cc31c97f22b1f4da82dde. Independent connected attraction now96closed pieces on[27/128,43/128], versus112producer pieces on[27/128,45/128]. Remaining155–156 need independent audit; no whole-window claim. Both preflight failures remain immutable.
+
+### 2026-10-10 — Independent704 finite-curve arithmetic helper
+
+Root requested saved independent finite704 curve/anchor/primitive audit while attraction work proceeds. Prepared independent native q/r assembly, degree24 entire terminal series, total parameter derivative, all704 weighted Krawczyk and exact anchor checks, separate native lift-domain replay.17 controls pass0.11s including full Jacobian/H_t finite differences and deliberate native-domain corruption. Target source/card/driver still in preparation; no704audit arithmetic performed. Complementary attraction and finite-arc NS criticality explicitly excluded. Prior107 native connection and newly96continuous attraction pieces are distinct proofs.
