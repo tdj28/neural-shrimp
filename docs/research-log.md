@@ -6478,3 +6478,14 @@ After fresh resource check run `tools/certify_s2_period18_arclength_march.py
 --parent-execution bd51dcc79474482d2044cd140ed20df77d732fa9`.
 Stop first failed gate; no automatic rerun or change of design. This card is
 committed before that distinct endpoint unit.
+### 10 October 2026 — fixed-gauge arclength saved-review card
+
+Root requests independent initial pair and streamed16-chart proof/join review.
+New reducer checks original256-bit exact saved identities and stronger384-bit
+Taylor/Krawczyk/primitive/full-anchor joins, preserving correlated initial gauge
+and identical exact subsequent gauges. No target derivatives or solves. Existing
+weighted parent review is a pinned dependency. Batch attempt001's zero-call
+wrapper failure remains explicitly preserved; only completed attempt002 supplies
+new branch evidence. Commit exact pins/code/card before one saved audit,
+CPU1nice10,120/135+5s,1.5GiB,16+1MiB at audits/s2-period18-arclength-connection/attempt-001.
+No attraction, rate monotonicity, fold or complete shrimp claim.
