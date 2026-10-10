@@ -14,9 +14,9 @@ from neural_shrimp.rigorous_unit_pair_flip import augmented,root_proof,complemen
 from neural_shrimp.rigorous_eigenpair_march import decode
 from neural_shrimp.rigorous_orbits import exact,dyadic,vector_json,matrix_json,eye,midpoint_matrix
 need=N.need;entry=N.entry;read=N.read;inventory=N.inventory
-BASE=N.BASE/'rigorous';PARENT=N.BASE/'attempt001-target'
+BASE=N.BASE/'rigorous';PARENT=N.BASE/'attempt002-target'
 PINS={'execution':'f5021f3aa08bfbc45b9a1e8515315b32c2271b94','outer':'c9bbd5cd3b3baba3a7db6b4d53ddb1cf1a9ae1b09f364baf87311a84ba9dd8de','worker':'f2f357709fb600286b8ef3a8bb4a41575bd651c74fc20423ed0136bf6ba55d19'}
-SETTINGS={'precision':384,'period':18,'newton_steps':4,'radius_exponent':-60}
+SETTINGS={'precision':384,'period':18,'newton_steps':4,'radius_exponent':-80}
 SOURCES=list(dict.fromkeys(N.SOURCES+['src/neural_shrimp/rigorous_unit_pair_flip.py','tools/certify_native_unit_pair_flip.py','tools/launch_rigorous_native_unit_pair_flip.py','tests/test_rigorous_unit_pair_flip.py','tests/test_rigorous_native_unit_pair_flip_driver.py','docs/plans/native-unit-pair-flip-rigorous.md','docs/plans/native-unit-pair-flip-certificate.md']))
 
 
@@ -56,7 +56,7 @@ def qualify_same_root(root):
 
 def main(args):
  need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source');need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
- out=BASE/f'attempt001-{args.mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;serial=0;used=0
+ out=BASE/f'attempt002-{args.mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;serial=0;used=0
  resource.setrlimit(resource.RLIMIT_AS,(2*1024**3,)*2)
  def halt(*_):raise TimeoutError('60s native interval junction cap')
  signal.signal(signal.SIGALRM,halt);signal.signal(signal.SIGTERM,halt);signal.setitimer(signal.ITIMER_REAL,60)
@@ -80,11 +80,11 @@ def main(args):
     inp,x,q,r,rates=N.S.P.gd_fixture();model=TwoRateCuspMap(inp);w=[exact(str(i+1))for i in range(13)];scale=sum((v*v for v in w),arb(0)).sqrt();w=[v/scale for v in w];seed=x+rates+q+r+[exact('1/100')]+w
     save('synthetic-inputs.json',{'map_inputs':inp,'seed':vector_json(seed)});times=[];sizes=[]
     for i in range(2):
-     box=[arb(v.mid(),arb((1,-60)))for v in seed];begin=time.monotonic();v,J,data=augmented(model,box,18,tick);pre=midpoint_matrix(J.inv());defect=eye(55)-pre*J;correction=pre*v;times.append(time.monotonic()-begin)
+     box=[arb(v.mid(),arb((1,SETTINGS['radius_exponent'])))for v in seed];begin=time.monotonic();v,J,data=augmented(model,box,18,tick);pre=midpoint_matrix(J.inv());defect=eye(55)-pre*J;correction=pre*v;times.append(time.monotonic()-begin)
      sizes.append(save(f'profile-{i}.json',{'box':vector_json(box),'value':matrix_json(v),'jacobian':matrix_json(J),'preconditioner':matrix_json(pre),'defect':matrix_json(defect),'correction':matrix_json(correction)}))
     projection=forecast(times,sizes,resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);answer.update(passed=projection['admitted'],status='completed_synthetic_profile',forecast=projection,times=times,sizes=sizes)
    else:
-    profile=BASE/'attempt001-profile';inventory(profile,args.profile_outer);inventory(profile/'run',args.profile_worker);rt=read(profile/'run/runtime.json');po=read(profile/'run/outcome.json');la=read(profile/'launcher-result.json')
+    profile=BASE/'attempt002-profile';inventory(profile,args.profile_outer);inventory(profile/'run',args.profile_worker);rt=read(profile/'run/runtime.json');po=read(profile/'run/outcome.json');la=read(profile/'launcher-result.json')
     need(rt['mode']=='profile'and rt['settings']==SETTINGS and rt['sources']==identity and rt['python']==sys.version and rt['arb_version']=={'python_flint':flint.__version__,'flint':str(getattr(flint,'__FLINT_VERSION__','unavailable'))}and rt['commit']==la['commit'],'same exact arithmetic/source/profile settings')
     need(po['passed']and not po['target_acquired']and po['native_calls']==108 and la['exit_code']==0 and la['owned_live_pids']==[],'completed synthetic profile')
     for n,row in identity.items():need(entry(profile/'run/source'/n)==row and hashlib.sha256(subprocess.check_output(['git','show',rt['commit']+':'+n],cwd=ROOT)).hexdigest()==row['sha256'],'historical profile source')
@@ -95,7 +95,7 @@ def main(args):
      save(f'events/{serial:03d}-{kind}.json',row);serial+=1;check()
      if 'center'in row:
       center=[decode(v)for v in row['center']];need(all(abs(a-b)<arb((1,-20))*max(arb(1),abs(b))for a,b in zip(center,seed,strict=True)),'all55 local candidate proximity')
-    proof,data=root_proof(model,seed,18,radius_exponent=-60,newton_steps=4,tick=tick,observe=observe);save('root.json',proof)
+    proof,data=root_proof(model,seed,18,radius_exponent=SETTINGS['radius_exponent'],newton_steps=SETTINGS['newton_steps'],tick=tick,observe=observe);save('root.json',proof)
     need(proof['passed'],'full55 strict interval root')
     box=[decode(v)for v in proof['box']];ends=binding['bracket'];need(exact(dyadic(ends[0]['z'][13]))<box[13]and box[13]<exact(dyadic(ends[1]['z'][13]))and exact(dyadic(ends[1]['t']))<box[41]and box[41]<exact(dyadic(ends[0]['t'])),'whole proved root strictly inside exact numerical bracket')
     spectral,crossing=qualify_same_root(proof);save('same-root-complement.json',spectral);save('same-root-crossing.json',crossing)
