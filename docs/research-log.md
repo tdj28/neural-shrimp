@@ -9460,3 +9460,6 @@ Independent certificate_context static review passes7200a242 after fatal durabil
 ## 2026-10-10: multi-period unit complete, saved-only audit prepared
 
 Execution9b9b282d completed4targetsolves in4.664s; allactualendpointgatespass, but bothfixed2p/4pmethodscreensfail onp18phase-action threshold. Freeze a post-outcome saved-only K/KT/fsum/factor-residual audit at fullmanifestf932435b, CPU1nice10/10sworker15+5external/1MiBraw. No new factorization/solve/model or thresholdchange.
+
+## 2026-10-10 — response fixed 2p/4p outcome and saved audit
+Execution 9b9b282d completed all four cases; all accuracy endpoints pass, both fixed-method half-callback screens fail. Retained all 1,876 files, source/launcher and historical baselines. Post-outcome saved-only checker e6f95c4a passed without new model/solve/decomposition. Receipt: docs/reviews/response-multiperiod-blocks-outcome.json. No threshold adaptation or selected-winner claim.
