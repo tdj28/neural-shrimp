@@ -20,3 +20,12 @@ def test_dyadic_decode_outward_and_bad_radii():
     x=arb(arb(3)/8,arb(2)**-80);assert A.ball(A.enc(x)).contains(x)
     with pytest.raises(ValueError):A.ball({'mid':[1,0],'rad':[-1,-8]})
     with pytest.raises(ValueError):A.ball({'mid':[1.,0],'rad':[0,0]})
+
+def test_exact_archive_import_closure(tmp_path):
+    import subprocess,sys,os
+    for name in A.MODULES:
+        relative='src/neural_shrimp/'+name+'.py'
+        p=tmp_path/relative;p.parent.mkdir(parents=True,exist_ok=True)
+        p.write_bytes(subprocess.check_output(['git','show',A.PRODUCER+':'+relative],cwd=A.ROOT))
+    code='import sys;sys.path.insert(0,'+repr(str(tmp_path/'src'))+');from neural_shrimp.rigorous_generalized_chain import augmented_chain;from neural_shrimp.rigorous_chain_spectrum import chain_complement'
+    subprocess.run([sys.executable,'-c',code],check=True,timeout=10,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'))

@@ -9,7 +9,7 @@ PRODUCER='b5a62752ba770154009ce694a09f1ede2826a5bd'
 OUTER='bfb722e8c08dd4ad23c198f8020d8042fb804750f70bcef58994fbb0fed4d951'
 WORKER='e108e6e965c8dfa70a986242bed7232674b051a2b233b2da7f106ecf3bc6e141'
 SPECTRUM='99b94ac9444de9754e2ee0b8b6203e6cb70d37366a7489d6c310ad6d1b65591e'
-MODULES=['__init__','rigorous_orbits','rigorous_folds','rigorous_cusps','rigorous_eigenpair_locus','rigorous_generalized_chain','rigorous_chain_spectrum']
+MODULES=['__init__','controls','models','rigorous_orbits','rigorous_folds','rigorous_cusps','rigorous_eigenpair_locus','rigorous_generalized_chain','rigorous_chain_spectrum']
 THREADS=('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 def require(ok,msg):
     if not ok:raise ValueError(msg)
