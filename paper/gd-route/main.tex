@@ -43,8 +43,8 @@ figures and drafting. The human researcher will review the evidence, authorship 
 Neural-network training can settle into stable periodic motion while loss-reduction criteria report convergence.
 We study this behavior in the two-layer learning-rate plane of deterministic gradient descent.
 Our main result is a computer-assisted description of a primitive period-18 training branch in a nonlinear network.
-Validated continuation connects an attracting interior orbit to a saddle-node boundary.
-A separately certified generic 1:1 resonance has two multipliers at $+1$ and all remaining modes attracting.
+Validated continuation connects an attracting interior orbit to a saddle-node and continues its $+1$-multiplier
+locus to a generic 1:1 resonance, where two multipliers equal $+1$ and all remaining modes attract.
 We certify a continuous interval of learning rates supporting attracting period-18 cycles and determine the resonance's
 nonlinear unfolding in the physical learning rates. Additional proofs establish attracting cycles of periods 10 and 36
 and a period-2 cycle with 72 trainable parameters. An independently cross-checked numerical census places these results
@@ -75,7 +75,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch is connected to the fold; connections to the flips, cusps and whole boundary remain open. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance; the other boundary connections remain open. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -108,8 +108,9 @@ Newton's method using an analytic Jacobian evaluated in floating-point arithmeti
 continuous branches with identifiable bifurcation structure. We establish this for a primitive period-18 branch
 of a 13-parameter tanh network by computer-assisted proof: an attracting interior orbit is connected in the
 full parameter state to a nondegenerate saddle-node, and an exact interval of hidden-layer rates supports
-attracting period-18 training. We also prove a generic 1:1 resonance of a primitive period-18 orbit in the
-actual two-rate family, including its nonlinear coefficients, transverse unfolding and attracting complement.
+attracting period-18 training. Continuing the fold's $+1$-multiplier locus reaches a generic 1:1 resonance
+in the actual two-rate family. We prove this connection in the full native state and enclose the resonance's
+nonlinear coefficients, transverse unfolding and attracting complement (Figure~\ref{fig:connected-boundary}).
 This identifies a local mechanism by which a saddle-node boundary meets a complex-multiplier boundary.
 Section~\ref{sec:certificates} gives the exact maps, enclosures and independent checks.
 
@@ -649,6 +650,47 @@ The derivative kernel and Arb arithmetic library are shared dependencies.
 The same root also satisfies the nonlinear and parameter nondegeneracy tests below.
 See \path{docs/reviews/generalized-chain-independent-outcome.json} and
 \path{docs/reviews/chain-unfolding-independent.json}.
+
+\paragraph{Connection from the attracting interior to this organizer.}
+The central period-18 branch already connects to the canonical saddle-node
+(Section~\ref{sec:fold-proof}). Starting at that exact saddle-node, we continue
+\begin{equation}
+F_\eta(x_k)=x_{k+1},\qquad DF_\eta(x_k)q_k=q_{k+1},\qquad k\pmod {18},
+\end{equation}
+with the two physical rates included as unknowns, unit normalization of $q_0$
+and a scalar continuation gauge. The full shooting system has 470 unknowns.
+A chain of \nConnectedUnitCharts{} closed interval charts proves existence,
+local uniqueness and primitive period 18 throughout this $+1$-multiplier locus.
+Independent replay checks every chart, its native rate projection and its
+full-state joins. At the gauge change, three validated localization intersections
+identify the same orbit and mode; equality of the two gauge coordinates is
+neither assumed nor needed.
+
+The independently proved root of \eqref{eq:double-one-chain} is then lifted
+through all native phases. Strict inclusion of all 470 lifted coordinates in
+the final chart identifies it with that chart's unique solution at its gauge
+value. Thus the attracting interior orbit, canonical saddle-node and generic
+1:1 resonance belong to one certified connected structure. This does not
+require the entire $+1$ locus to have an attracting complement or to consist
+only of nondegenerate folds. The separate connection and membership audits are
+\path{docs/reviews/eigenpair-connected107-proof-index.json} and
+\path{docs/reviews/eigenpair-chain-membership-independent.json}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/f11_connected_boundary.pdf}
+\caption{Certified connection to the 1:1 organizer. Left: the interior period-18
+branch reaches its saddle-node, and a continued $+1$-multiplier locus reaches
+the exact resonance. Green marks the continuously certified attracting
+cross-section; attraction is not asserted along the whole gray or blue curve.
+Blue polylines connect midpoint projections of independently enclosed chart
+endpoints within each gauge family and guide the eye; they are not polygonal
+interval enclosures. Right: a rigorously isolated double multiplier at $+1$
+and eleven complementary multipliers inside the dotted radius bound. The
+points show centers of validated quotient Gershgorin discs; their actual
+radii are mostly below the image resolution.}
+\label{fig:connected-boundary}
+\end{figure}
 
 \paragraph{Generic unfolding in the actual learning rates.}
 Write $B=D_\theta^2F^{18}$ and choose the dual chain
@@ -1628,7 +1670,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. The orbit census uses floating-point validation; the \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation now reaches the canonical fold, but the continuously covered attracting interior segment does not reach either bifurcation boundary. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold and its $+1$ locus reaches the exact generic 1:1 resonance. The continuously covered attracting interior segment does not yet reach either bifurcation boundary, and the other boundary connections are separate unfinished tasks. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.
@@ -1722,7 +1764,7 @@ and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
 feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
 LM pilots, wider primitive-branch continuation including the fold connection,
-the correlated attraction segments, generic 1:1 resonance and its unfolding, local cusps and fixed-weight activity proof
+the correlated attraction segments, connected $+1$ locus, generic 1:1 resonance and its unfolding, local cusps and fixed-weight activity proof
 have separate source-bound audits cited with their results; the full verifier
 does not automatically rerun these later audits. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;

@@ -10,7 +10,9 @@ The exact-real nonlinear tanh training maps support five individually certified
 attracting orbits: two primitive period10, one18 and one36 in13parameters,
 and one period2 in72parameters. These are internal examples, not a largest-network
 record. A full native period18 branch connects the interior orbit to its canonical
-saddle-node through156forward and31reverse charts. Continuous attraction is proved
+saddle-node through156forward and31reverse charts. Its normalized+1 locus then
+reaches the same independently proved generic1:1 resonance through107native
+charts and a full470-coordinate known-root membership proof. Continuous attraction is proved
 on68 adjoining closed slices, implying an attracting period18 orbit for every
 hidden learning rate in[75.605732,75.673697] at the specified fixed output rate.
 
@@ -57,7 +59,7 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
 The broader historical `python paper/gd-route/scripts/verify.py` also regenerates
 figures and reruns its original orbit/fold/flip/scalar and32-slice checks. It does
-not yet dispatch the newer complete-branch,68-slice,1:1, cusp and native-activity
+not yet dispatch the newer complete-branch,107-chart locus,68-slice,1:1, cusp and native-activity
 audits; their individually reviewed launchers and immutable receipts are cited
 explicitly. Number verification checks all newly quoted evidence bindings but is
 not a substitute for those arithmetic replays. The next full-release verifier

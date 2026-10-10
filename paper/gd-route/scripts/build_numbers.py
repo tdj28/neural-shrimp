@@ -1948,6 +1948,21 @@ def build():
     upper=Fraction(-((-bound*10**9)//1),10**9);assert bound<=upper<1
     n.add("xJordanComplementBound",str(upper),exact_decimal(int(upper*10**9),9),proof,js,"outward rounded maximum of eleven rigorous quotient Gershgorin modulus bounds")
     n.add("nJordanComplement",11,"11",proof,js,"strictly attracting complementary dimensions; remaining two form exactly one length2 Jordan block at+1")
+    # Entire native +1 locus and exact same-root membership independently proved.
+    ixp=c.ROOT/"docs/reviews/eigenpair-connected107-proof-index.json";ix=load(ixp)
+    assert ix["same_native_component"] and ix["period"]==18 and ix["total_connected_charts"]==len(ix["charts"])==107
+    ims=[ixp]
+    for i,row in enumerate(ix["charts"],1):
+        assert row["global_chart"]==i
+        for key in ["independent256","independent384"]:
+            ref=row[key];path=Path(ref["path"]);assert c.sha256(path)==ref["sha256"] and path.stat().st_size==ref["bytes"]
+            assert load(path)["passed"];ims.append(path)
+        for ref in row["join"].get("localization_proofs",[]):
+            path=Path(ref["path"]);assert c.sha256(path)==ref["sha256"] and load(path)["passed"];ims.append(path)
+    mem=ix["membership"];assert mem["outcome"]["passed"] and mem["outcome"]["native_coordinate_inclusions"]==470
+    for key in ["native_domain_check","membership","input_bindings"]:
+        ref=mem[key];path=Path(ref["path"]);assert c.sha256(path)==ref["sha256"] and path.stat().st_size==ref["bytes"];ims.append(path)
+    n.add("nConnectedUnitCharts",len(ix["charts"]),integer(len(ix["charts"])),proof,ims,"every original256/fresh384 chart and full470 known-root membership in the connected normalized+1 locus; no uniform generic-fold assertion")
     # Generic physical-rate unfolding, independently reduced at the same proved root.
     upath=c.ROOT/"docs/reviews/chain-unfolding-independent.json";ur=load(upath);uo=ur["outcome"];uv=uo["reduction"]
     us=[upath]+bound_inventory(Path(ur["raw_root"])/"manifest.json",ur["manifest_sha256"])

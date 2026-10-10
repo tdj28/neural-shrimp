@@ -11370,3 +11370,14 @@ Prepared the source-reviewed-helper's saved-only complement binding packet,
 requiring exact whole704domain/native-phase/actual-rate correspondence and all11
 quotient modes. Fifteen packet/helper controls pass0.14s. No new derivatives.
 Added a compact field/closure/inequality guide for independent full704 arithmetic.
+
+
+### 2026-10-10 — Connected organizer manuscript update
+
+The complete107-chart native+1 chain and470-coordinate exact-root membership
+are independently proved. Updated abstract, lead result, evidence table and
+full derivation distinguish this genuine connection from uniform fold criticality
+or complete window closure. Added saved-source figure with byte-identical
+regeneration. One new number binding authenticates every256/384chart proof,
+regauge localization and final membership. Next: regenerate bindings, compile
+and inspect all pages before replacing the human reading PDF. No target run.
