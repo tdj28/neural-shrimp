@@ -5961,3 +5961,5 @@ Root requested independent outcome audit of newly proved isolated41D normalized 
 Synthetic audit control correction before target: the first negative-control point sat exactly at nominal radius1, but Arb outward radius construction contains it in the interior; test correctly exposed an invalid test premise (3passed/1failed). Move the negative root to1.5, clearly outside the actual enclosure. No production arithmetic changed or target audit executed.
 
 N12 quota amendment44fe184d independently rechecked PASS by boundary peer:24 adapter controls0.24s, no target data. Execute exactly one fresh n12-p6-boundaries-002 with actual new measured admission before arrays under unchanged120s/448MiBRSS/1GiBAS caps. Prior failed profile remains immutable; old maxima are planning evidence only.
+
+Independent generalized-chain audit source ffd7be9d root mathematical skim PASS, four controls independently reproduced0.05s. Added root-requested explicit positivity guard on both actual rate intervals13/14 and retained it in outcome. Proceed single bounded attempt001, same384bit/72step/30s/2GiB/64MiB card, no further source blocker.
