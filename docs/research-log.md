@@ -7589,3 +7589,15 @@ outer 249b38e8bd3706f55b7c533f785e27f5ebc01cae1d905d57f7a4fe5156bd2584.
 All inventory/source/count/read-only/ownership checks pass; 154215814 B.
 All four closed intervals of chart145 have producer sufficient attraction bounds. This extends the connected producer-covered known primitive18 branch interval to [33/128,45/128]; independent audit pending. No whole-shrimp or two-dimensional-region claim.
 Full-width failed witness remains intact.
+
+2026-10-10 chart144 source preparation uses eight successful-width1/512
+slices on its original1/64 native interval. The adjacent145 join crosses the
+existing three-intersection endpoint localization: exact old qualified parent,
+same physical map/gauge/shared33/128, and complete235D localized anchor identity
+are mandatory. This is a binding-only adapter, not a new root theorem.
+Seventeen combined adapter controls pass. Source/card prepared; no144 target
+or profile acquired. Priority is root's independent U'' arithmetic audit of
+four successful146pieces. Compact exact source/stage/domain guide is
+ docs/reviews/s2-refined-stability-audit-guide.md; it records both actual
+MixedJet domains and both hidden-rate cross terms. No producer acquisition
+is repeated for the independent audit.
