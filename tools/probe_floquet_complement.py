@@ -12,7 +12,7 @@ from neural_shrimp.rigorous_floquet_complement import uniform_complement
 from neural_shrimp.rigorous_orbits import canonical_bytes,ball_json
 from neural_shrimp.rigorous_periodic_lyapunov import exact_float_matrix
 O=B.O;need=U.need;read=B.read
-OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/attempt002-spectrum/run')
+OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/attempt003-spectrum/run')
 CARD='docs/plans/floquet-complement-inputs.json'
 FILES=[CARD,'docs/plans/floquet-complement.md','tools/probe_floquet_complement.py','tools/launch_floquet_complement.py','src/neural_shrimp/rigorous_floquet_complement.py','tests/test_floquet_complement_driver.py','tests/test_rigorous_floquet_complement.py']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
@@ -32,6 +32,11 @@ def admitted_native_blocks(proof,rows,old):
         need(A==[row[:13]for row in r['block'][:13]]==[row[off:off+13]for row in J[off:off+13]],'actual whole704 state Jacobian agrees both acquisitions')
         blocks.append(A)
     need(old['native_blocks']==blocks,'literal old failed quotient input domain');return flat,blocks
+
+def check_parameter(record):
+    expected=ball_json(U.R.exact(U.F(1,65536))+arb(0,arb((1,-16))))
+    need(U.M.interval(record)==U.M.interval(expected),'literal original outward parameter ball')
+    left,right=U.M.interval(record);need(left<=0 and right>=U.F(1,32768),'covers exact proved finite interval')
 
 def profile(tick):
     # Full unrelated13D/18-phase similarity with mixed stable complex/real modes.
@@ -59,7 +64,7 @@ def bind(card,tick):
     old=card['failed'];fr=Path(old['root']);O.verify(fr,old['outer']);O.verify(fr/'run',old['worker']);B.archived(fr/'run',old['source'],'runtime.json','source')
     fo=read(fr/'run/outcome.json');fl=read(fr/'launcher-result.json')
     need(fo['passed']is False and fo['status']=='completed_complement_unresolved'and fo['native_calls']==0 and fl['exit_code']==2 and not fl['owned_live_pids'],'preserved completed failed sufficient bound')
-    inputs=read(fr/'run/inputs.json');need(U.M.interval(inputs['parameter_interval'])==(U.F(0),U.F(1,32768)),'exact old parameter interval')
+    inputs=read(fr/'run/inputs.json');check_parameter(inputs['parameter_interval'])
     cert=pr/'run/certificate.json.gz';need(O.entry(cert)['sha256']==parent['certificate'],'literal complete original proof')
     files=sorted((pr/'run/events').glob('*-direction_return.json.gz'));need(len(files)==216,'all216 shared acquired native directions')
     rows=[read(p)for p in files[-36:]];proof=read(cert);flat,blocks=admitted_native_blocks(proof,rows,inputs)
