@@ -6924,3 +6924,17 @@ actual native derivatives and every intersection. One synthetic72-call profile
 precedes one pinned target;20s/30s internal, CPU1/nice>=10,2GiB,128+1MiB raw.
 This only tightens the existing root enclosure; a new correlated-gauge
 continuation pilot is a separate following unit. No new parameter coverage yet.
+
+## 2026-10-10 — measured endpoint-localization profile and exact target card
+
+Reviewed sourced84a102f completed the one synthetic profile: worker
+4.3251s/415664KiB, all72/144 native calls
+and3 intersections; launcher4.8802s/exit0, no owned PIDs.
+All immutable inventories/payloads/source/library settings checked. Receipt
+`docs/reviews/s2-period18-endpoint-localization-profile.json` records the
+passing projection13.6502s<30 and80MiB<112MiB.
+
+Run ONE target with unchanged source bytes after this card is committed:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_endpoint.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-endpoint-localization-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-endpoint-localization-2026-10-10/attempt-001-profile/run --profile-manifest e9a80d525a7366fc6f99104cf049e6d7a17bb0076f6ca250b942579efe7a3b71`.
+Same parent manifestdd0bae85 and old endpoint253/64;30s internal/45+5 external,
+CPU1,2GiB,72/144 calls,3 intersections,128+1MiB raw. No retry/newcoverageclaim.
