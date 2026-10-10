@@ -6,7 +6,7 @@ from neural_shrimp.rigorous_arclength_connection import arclength_tube
 from neural_shrimp.rigorous_arclength_slices import localize_slice, slice_stability
 from neural_shrimp.rigorous_connection import restore_ball
 from neural_shrimp.rigorous_connection_frames import restore_matrix
-from neural_shrimp.rigorous_orbits import exact, ball_json, matrix_json
+from neural_shrimp.rigorous_orbits import exact, ball_json, matrix_json, vector_json
 
 
 class StableFold:
@@ -100,3 +100,15 @@ def test_native_call_count_no_hidden_model_acquisitions():
         def step(self,x,h):self.calls+=1;return super().step(x,h)
     m=Count();slice_stability(m,parent(),'0','0')
     assert m.calls == 5
+
+
+def test_actual_decoded_physical_inputs_saved_before_derivative():
+    events=[]
+    class Capture(StableFold):
+        def step(self,x,h):
+            if events and events[-1][0]=='slice_physical_input':
+                assert vector_json(x+[h])==events[-1][1]['actual_derivative_input_box']
+            return super().step(x,h)
+    slice_stability(Capture(),parent(),'1/32','1/16',observe=lambda k,r:events.append((k,r)))
+    kinds=[k for k,r in events]
+    assert kinds.index('slice_physical_input')+1==kinds.index('slice_physical_jacobians')
