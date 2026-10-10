@@ -65,3 +65,34 @@ def test_entire_zero_and_callback_cap():
   def cusp_step(self,*_):raise AssertionError('should not evaluate')
  def stop():raise TimeoutError('owned cap')
  with pytest.raises(TimeoutError):evaluate(Never(),np.ones(11),18,.1,stop)
+
+
+def test_corrector_records_every_return_and_stops_before_unsaved_advance(monkeypatch):
+ import neural_shrimp.unit_pair_scout as U
+ class Fake:n=3
+ calls=[];events=[]
+ def evaluation(model,z,period,t,tick):
+  calls.append((z.copy(),t));data={'orbit':np.ones((19,3)),'q_phases':np.ones((19,3)),'r_phases':np.ones((19,3)),'monodromy':np.eye(3)}
+  return np.zeros(11),np.eye(11),np.zeros(11),data
+ monkeypatch.setattr(U,'evaluate',evaluation)
+ monkeypatch.setattr(U,'qualify',lambda *a,**k:{'passed':True,'complement_unit_gap':.4})
+ result=U.continue_branch(Fake(),np.ones(11),.01,max_points=1,observe=lambda k,v:events.append((k,v)))
+ assert result['status']=='point_cap'and len(calls)==1
+ assert [k for k,v in events]==['evaluation_input','evaluation_return','seed','point']
+ assert events[1][1]['jacobian']==np.eye(11).tolist()
+
+
+def test_failed_correction_keeps_evaluated_state_and_residual(monkeypatch):
+ import neural_shrimp.unit_pair_scout as U
+ class Fake:n=3
+ events=[]
+ def evaluation(model,z,period,t,tick):
+  data={'orbit':np.ones((19,3)),'q_phases':np.ones((19,3)),'r_phases':np.ones((19,3)),'monodromy':np.eye(3)}
+  return (np.zeros(11)if t==.01 else np.ones(11)*2),np.eye(11),np.zeros(11),data
+ monkeypatch.setattr(U,'evaluate',evaluation);monkeypatch.setattr(U,'qualify',lambda *a,**k:{'passed':True,'complement_unit_gap':.4})
+ result=U.continue_branch(Fake(),np.ones(11),.01,max_points=2,observe=lambda k,v:events.append((k,v)))
+ assert result['status']=='corrector_limit'
+ attempts=[v for k,v in events if k=='attempt'];returns=[v for k,v in events if k=='evaluation_return']
+ assert len(attempts)==5 and len(returns)==6
+ assert all('failed_state'in v and 'predictor'in v for v in attempts)
+ assert returns[-1]['value']==[2.]*11
