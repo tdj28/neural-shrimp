@@ -5729,3 +5729,19 @@ Companions `docs/reviews/s2-period18-weighted-outcome.md/.json` record exact
 scope and the receipt-script envelope KeyError, which caused no target rerun.
 Attraction remains unevaluated and boundary connection unproved. Independent
 saved-ball review is next; continuation development proceeds separately.
+
+### 10 October 2026 UTC — augmented235D continuation pilot card
+
+Prepare one two-chart fixed-plane arclength pilot, anchored by full containment
+of the last weighted chart endpoint (same actual hidden/output-rate model).
+New core/runner preserve old kernels. Fixed n/O gauge, quadratic curved hidden
+rate, complete Taylor defects and whole235D Jacobian; exact common-s join.
+First anchor retains s=n dot (U*-O), without assuming its gauge is exactly zero.
+Settings delta2^-6,r2^-22,256bits,two proposal steps; no attraction/fold identity.
+The synthetic fold control crosses a fixed-h singularity; an initial negative
+hidden-rate control exposed an absent generic pre-proposal guard, now added
+before any model call. No target data changed or target run occurred.
+Card `docs/plans/s2-period18-arclength-connection-pilot.md` fixes profile20s/
+25+5 and gated target120s/135+5,CPU1,nice10,2GiB,128+1MiB,144/288 C1/unit
+calls+108 jets. Frozen code/tests precede profile and a measured receipt precedes
+target; no automatic retries. Independent reviewer is checking the parent.
