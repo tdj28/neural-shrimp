@@ -6741,3 +6741,19 @@ outerb4798b6138d314f1e6507e100dd67956b7da8491d0bd622b21cc7eb4ba02eaa2;
 all immutable hashes and owned exits checked. The next one-shot restriction
 must prove parameter/path containment in the old H3 acquisition domain and
 reacquire the complete new correction-domain Jacobian.
+
+### 10 October 2026 UTC — prospective fixed reverse-chart restriction
+
+The saved forcing split chose2^-10 width and2^-18 radius once. New source
+`rigorous_chart_restriction.py` retains exact predictor/preconditioner and all
+Taylor coefficients, explicitly proves offset/value/velocity containment in
+old H3 domains, then acquires18 fresh full-domain derivatives. It accepts the
+whole correlated fold anchor without any exact-gauge fiction. Historical
+kernels unchanged. An initial synthetic assertion mistakenly used Arb
+inequality for overlapping interval matrices; corrected the test to compare
+radii (no production change), preserving that failed test in the transcript.
+
+After source/tests/card commit and root skim, run ONE synthetic profile:
+`tools/certify_s2_period18_fold_restricted_chart.py --mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-restricted-chart-2026-10-10/attempt-001-profile`.
+The measured profile receipt/card must precede one target. No new chart or
+branch connection is claimed by saved-domain scaling alone.
