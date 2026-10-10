@@ -12044,3 +12044,7 @@ Synthetic profile run card: execute exactly one tools/launch_native_unit_pair_pa
 ### 2026-10-10 — full705 profile completed within measured caps
 
 Synthetic profile d3ae20526d1baf47bdf80596ab5284b81272bc34 completed30.512s/1989496KiB/exact590ticks. Both complete705 roots and full anchors pass, both correctly reject repeated2 as primitive18. Measured chart13.336/13.022s, max paired tanh MixedJet.034885s/PathJet.032884s. One-chart conservative forecast55.247s/4110064KiB/41,836,097compressed bytes fits the fixed240s/6GiB/768MiB proposal. All inventories/source and owned termination verified; receipt native-unit-pair-pal-profile.json. Scientific target remains unopened pending independent wrapper review and explicit manifest-pinned target card.
+
+### 2026-10-10 — fix705 launcher parser before any target
+
+Clark's target differential review found the copied launcher calls C.parser(), but the new worker initially exposed argparse only inside __main__. No target had launched. Exposed the same three-argument parser and added an actual --help subprocess entrypoint regression;5driver controls pass. No scientific code, profile source, domains, operation counts or caps changed. Narrow recheck requested before the target card.

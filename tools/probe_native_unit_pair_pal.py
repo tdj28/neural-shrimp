@@ -129,5 +129,7 @@ def main(args):
  for p in sorted(out.rglob('*'),reverse=True):p.chmod(0o555 if p.is_dir()else 0o444)
  out.chmod(0o555);print(json.dumps(result));return 0 if result['passed']else 2
 
-if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--profile-manifest',required=True);p.add_argument('--profile-outer-manifest',required=True);raise SystemExit(main(p.parse_args()))
+def parser():
+ p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--profile-manifest',required=True);p.add_argument('--profile-outer-manifest',required=True);return p
+
+if __name__=='__main__':raise SystemExit(main(parser().parse_args()))
