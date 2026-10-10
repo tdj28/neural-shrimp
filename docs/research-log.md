@@ -11018,3 +11018,5 @@ Executionc7c0ff4e actual forecast21.7889s/120469220B passes; worker.51218s/39284
 ## 2026-10-10: independent saved CIFAR merit audit card
 
 Root requests independent audit of completed6×200LSMR merit pilot. Prepare tools/audit_cifar_merit_saved.py with fixed raw/launcher/source pins, complete immutable inventories and math.fsum recomputation of all actual acceptance/forcing/norm/trust/damping quantities, exact state chaining and operation-event tallies. No native/model/adjoint/solver calls.30s/448MiB/2MiB scientific raw, owned40+5s supervisor; exclusive audits/cifar-merit-independent/attempt001 after controls/source checkpoint.
+
+Stability peer ac8b8653 saved-CIFAR audit source skim PASS;2controls reproduced0.11s. Checked independent fsum acceptance/forcing/state/damping/count arithmetic and immutable historical bindings. Fix only the noted test literal-spacing warning; unchanged worker/launcher. Execute one fresh bounded saved audit after host/output availability check, no native calls or producer rerun.

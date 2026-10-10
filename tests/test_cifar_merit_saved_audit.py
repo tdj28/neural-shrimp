@@ -10,4 +10,4 @@ def test_fsum_cancellation_and_exact_synthetic_acceptance():
  assert not m.metrics(x,x,x+r+ap,r,ap,1.)['accepted_local_step']
 def test_prediction_must_use_actual_alpha():
  x=np.array([1.,2.]);r=np.array([1.,0.]);ap=np.array([-.5,0.]);a=m.metrics(x,x+.1,x+r+.25*ap,r,ap,.25)
- assert a['ratio']==1.and a['accepted_local_step']
+ assert a['ratio']==1. and a['accepted_local_step']
