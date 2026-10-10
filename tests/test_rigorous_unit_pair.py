@@ -38,9 +38,13 @@ def test_entire_series_and_two_derivatives(t):
     with ctx.workprec(256):
         tt=exact(t);c,e,d=entire_pair(tt)
         if tt>0:
-            a=tt.sqrt();assert c.contains(a.cos())and e.contains(a.sin()/a)
+            with ctx.workprec(512):
+                a=exact(t).sqrt();reference=(a.cos(),a.sin()/a)
+            assert c.contains(reference[0])and e.contains(reference[1])
         elif tt<0:
-            a=(-tt).sqrt();assert c.contains(a.cosh())and e.contains(a.sinh()/a)
+            with ctx.workprec(512):
+                a=(-exact(t)).sqrt();reference=(a.cosh(),a.sinh()/a)
+            assert c.contains(reference[0])and e.contains(reference[1])
         else:assert c.contains(1)and e.contains(1)and d.is_zero()
         cp,ep,dp=entire_pair(tt,1);cpp,epp,dpp=entire_pair(tt,2)
         assert (2*cp+e).contains(0)
@@ -60,7 +64,7 @@ def test_entire_interval_spans_zero_and_invalid_inputs():
 
 def test_same_zero_equations_as_generalized_chain_full_permutation():
     with ctx.workprec(256):
-        m=Polynomial();z=chain(m);z=[v+exact(str(i+1)+'/100')for i,v in enumerate(z)]
+        m=Polynomial();z=chain(m);z=[v+exact(str(i+1)+'/128')for i,v in enumerate(z)]
         v,j,_=augmented_chain(m,z,1)
         order=[0,1,4,5,6,7,2,3];flat=[z[i]for i in order]
         w,k,_,ht=assemble(m,flat,1,arb(0))

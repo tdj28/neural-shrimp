@@ -7951,3 +7951,14 @@ or full-size profile acquired. First control failures about outward parameter
 rounding were corrected by checking advertised rational interval endpoints
 while evaluating the unchanged analytic extension on the wider Arb domain.
 Next: independent source skim, measured704 profile, then a bounded frozen card.
+
+### 2026-10-10 — synthetic-reference precision correction
+
+Sharpening the entire-series remainder to the actual interval magnitude made
+three same-precision containment controls overstrict: the independently rounded
+reference sometimes had a wider radius than the implementation. Source checkpoint
+ae51c87d retained these failed controls (shell did not stop after pytest).
+Corrected only the comparisons: transcendental references now use512bits against
+the256bit kernel; zero-system algebra uses exact dyadic input coordinates.
+The series/domain/strict proof algorithm is unchanged. No target or full-size
+profile ran. All15controls then passed; this correction is a separate commit.
