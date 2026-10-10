@@ -5516,3 +5516,7 @@ Clark arXiv2610.12426v1 primary full text read by root and independent reviewer.
 Independent local review of the Clark citation passed (optimizer_claim_check): model scope, conditional cavity limit, and the period-normalized multiplier formula checked. Clarified the response identity as infinite-time; finite-window experiments remain separately qualified.
 
 Clark citation PDF checkpoint: clean fresh-directory compile;36 pages,347 saved-data entries verified,20 figure-output hashes unchanged. All-page contact review and detailed pages33–34 pass; no scientific experiment repeated. QA receipt docs/reviews/paper-clark-citation-qa.json. Goal remains active; this paper checkpoint is not a research stopping condition.
+
+2026-10-09 PDT: Root opens a numerical two-rate fold-boundary continuation pilot, docs/plans/s2-period18-boundary-curves.md, in parallel with validated interior localization and Clark tracks. Eight synthetic derivative/continuation controls pass. Main target remains full-state boundary connectivity and finite shrimp anatomy, with any counterevidence preserved. No target acquisition before source, independent adapter review and measured profile.
+
+Boundary adapter independently reviewed by optimizer_claim_check: analytic two-rate blocks and scaled Newton/PAL mathematics pass. Fixed invalid tangent input, scalar complement and terminal trial diagnostics; added durable journal control. Twelve synthetic controls now precede profile.
