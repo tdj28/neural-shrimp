@@ -5842,3 +5842,13 @@ User requested parallel shrimp search in Clark arXiv2610.12426. Separate source/
 Synthetic-control development: the first proposed axis-aligned p4 control was correctly rejected by full-state Floquet qualification because its transverse multiplier is16. Replaced the intended attracting positive control by the diagonal square p4 and retained the axis cycle as an explicit unstable control. This was synthetic-only, before target inputs/trajectories.
 
 Pre-profile root source review requested durable intermediate correction returns, enforced nice/thread limits, owned-group cleanup and prewrite storage reservation. Implemented before any target/profile: returned iterate/eigen/linear events persist; scientific writes reserve room plus final metadata; worker448MiB+64MiB allowance retains the512MiB project bound. Fresh MemAvailable is recorded and checked. Focused synthetic controls include interrupted corrections and full disk reservation failure.
+
+
+### 2026-10-09 PDT: Clark profile passed; exact first-panel card
+
+Single execution `4285339d5dced489f7bb76c05bbefb343c5e1484` completed in 1.582263s internally / 1.722396s externally, peak 61020KiB. Full383-file raw inventory, source equality, read-only modes, owned PIDs/group exit checked. Resource-only gate projects 96.519849s and 303340288bytes for the panel. Companion `docs/reviews/clark-rnn-profile.json`; outer manifest `8f3909608e17e47867c0e0771faad412c04590e505d800df5375631d9bb1e28a`. Profile dynamical outcomes remain separately retained; they did not alter the fixed panel or gate.
+
+Next exact exploratory command, after root sees measured resource gate and a fresh host check:
+`nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/launch_clark_rnn.py --mode scan --out /data2/neural-shrimp-data/explore/clark-rnn/scan-001 --profile /data2/neural-shrimp-data/explore/clark-rnn/profile-001/run --profile-sha256 422e0e8b37d43b4162088c069181a1a6770b01aaa026db1008d3a9fa2a91a2dd`.
+
+Unchanged bound source/card bytes: six matrices N4/8/16 ×seeds28170/28171,441 cells/two fresh starts each,5292 trajectories. CPU1/nice10,300s internal330+5s external,448MiB worker+64MiB headroom,300MiB scientific raw+1MiB launcher. All period proposals and bounded216 numerical correction attempts retained; any cap/failure stops with its partial label. No GPU, paid call, protected data, interval proof or geometry claim. Collection source commit is the new receipt/card commit with unchanged executable/plan hashes.
