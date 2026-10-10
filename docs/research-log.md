@@ -5676,3 +5676,9 @@ New `tools/summarize_clark_rnn_matrix_panel.py` will verify the complete immutab
 ### 2026-10-09 PDT: leading period10 longer-transient patch before outcomes
 
 All-six map inspection confirms the fixed-ranked seed28174/id5 selection is a finite interior component, not an already established shrimp. New card/source fixes its full bounding box plus two coarse cells (gain13–27/leak11–18),51×51 both-start grid and24000+2000+8192 steps. Select32 consensus10+16 consensus20/40 cells evenly in index order, both starts; all other outcomes retained. Reuse hash/source/runtime-bound profile with explicit5202/162 batch and34192/21192 horizon factors, factor2 safety,96×8 qualification units and20s. Gate≤240s/512MiB/256MiB beforetarget; one exclusive new-p10-refinement-001,CPU1nice10/240s270+5. Native boundary anatomy next, no added isolated certificate solely from period qualification.
+
+### 2026-10-09 PDT: longer-transient new period10 refinement retained
+
+Sourcecca494f3 completed12.607s internal/12.845s external,235908KiB. All96 selected p10/p20/p40 seed cases qualify;128 consensus components and82 two-start disagreements remain. The largest634-cell p10 component touches the patch edge, so coarse interior labeling did not establish a closed window. Separate34-cell p10 component80 has margin3 and41 finite-growth halo cells. All1085files/95221033B, outere165c6016c0162a48ce345c3dc1aff84240e6bfa73ec8c66d14f7add37baf707, modes and owned1061659/1061684/group exits verified.
+
+Next saved-only card: render full patch and finite-growth surface using `tools/summarize_clark_rnn_new_p10.py`, inspect all128 components and their selected qualifications, preserve both open-band and interior-island alternatives before boundary acquisition. No new numerical model/derivative/decomposition.30s external+5,CPU1nice10/512MiB/8MiB, exclusive `new-p10-spatial-001`; figure source committed first.
