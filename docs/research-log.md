@@ -7541,3 +7541,12 @@ CPU1, nice10, 360 s internal / 390+5 s external, 2 GiB RSS,
 and 644 stages. Fresh host resource check before acquisition. Stop at first
 failed final slice or prerequisite; retain every result. No retries, omitted
 slices or automatic onward march. Independent outcome audit still required.
+
+2026-10-10 four-piece chart146 pilot at b8ab6ba630f87304488aef8cae17c886164e6ab1 completed once,
+82.458094 s / 693200 KiB; 4 returned slices,
+644 stages. Overall passed=True.
+Worker 4c1e73612a1b78d86dee337ffb6f861ffee7c6122ceb4d98f07c81893f54b3de;
+outer b44b231b4a31a02581c7e438896f548d1a419a350a1619ef9e5872d1dad8fb91.
+All inventory/source/count/read-only/ownership checks pass; 154118674 B.
+All four closed intervals of chart146 have producer sufficient attraction bounds. This extends the connected producer-covered known primitive18 branch interval to [17/64,45/128]; independent audit pending. No whole-shrimp or two-dimensional-region claim.
+Full-width failed witness remains intact.
