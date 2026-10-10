@@ -9965,3 +9965,10 @@ Native calls 4, repairs 0; 78.056 seconds, self peak 1135972 KiB; launcher exit 
 Raw root `/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-004-neutral-bridge`; outer manifest `d3598bc00f62332cada242a1037e41bcf3e8847f2a9bc25967159419b9639e7f`; worker manifest `a0adf9a238027a72ceb35bfd92abe51c8a421fe11ad9c8ef6f58fdcb4ab5fc36`. The adjacent JSON preserves all accepted and failed attempt records.
 
 Next unit 005 uses only this complete accepted predecessor and unchanged fixed event/cost caps, as recorded in its prospective card. No duplicate owned bridge process is present.
+
+
+### 2026-10-10 — Private integration and separate-disk checkpoint
+
+Integrated24 reviewed source/outcome commits from the stability and boundary lanes through chart146 and neutral-bridge004, including the source-only generalized-chain41D kernel. Twenty-seven focused integrated controls passed0.66s. Current independently reviewed coverage remains24closed attraction slices; later88producer slices await the U'' outcome audit. No generalized-chain target or complete shrimp claim.
+
+Separate physical-disk backup20261010T212721Z-continuous-attraction-and-n12-research verified27 completed roots,18868files,2744019106bytes, manifest548dd408ea2ad30bae1ca3cca2943da775ee8a5a32e8b46027896af67c4453e8,9.905s. Covers new independent proofs/failures, paper, N12panel/refinement/first savedrender, responseaudit and completed nativeboundary units through005. Source/copy inventories and all SHA-256 hashes checked twice; samehost,differentdisk,not offsite. Exact selectedroots in docs/backups/20261010T212721Z-continuous-attraction-and-n12-research.json. First N12render has overlapping colorbars; preserved and layoutrepair requested before user-facing use. Scientific evidence unchanged.
