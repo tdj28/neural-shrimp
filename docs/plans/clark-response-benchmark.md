@@ -100,3 +100,21 @@ Report continuous count errors by shift/window/eta/boundary, reference disagreem
 solver failures and matrix-free cost independently. The next decision is whether a
 bounded callback/HVP cost test is warranted, not whether this establishes a training
 or shrimp mechanism. Independent result review remains pending.
+
+## Dated allocation amendment — 9 October, after incomplete attempt001
+
+The first panel stopped after73 rows under the480MiB address-space limit despite
+RSS94,336KiB; no grid result was accepted. Preserve its exact bytes. Vectorize COO
+triplet construction to remove Python-scalar arena pressure. The new synthetic
+profile uses fully dense, nonsymmetric, mildly phase-varying13D matrices and eight
+repetitions of all3 largest-window boundaries (24 solves), recording VmSize/VmPeak
+and RSS separately. The existing15s/20+5s profile and fixed projected45s gates remain.
+No scientific shifts, windows, regularizers, response equations, thresholds or
+reference panel change. New exclusive `attempt-002-profile` and (if passing)
+`attempt-002-panel`; previous raw untouched. Address-space/RSS caps initially
+unchanged; a further disclosed amendment is required if these remain restrictive.
+Root reviewed the failure and authorizes increasing only the virtual-address ceiling
+to1GiB for attempt002. The480MiB monitored worker/groupRSS and512MiB total physical
+allocation remain unchanged. This explicitly supersedes the initial480MiB address
+limit; it is not a claim that1GiB physical RAM is allocated. A complete rerun is
+exploratory continuation after a retained implementation failure, not confirmation.

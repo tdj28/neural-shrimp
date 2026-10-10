@@ -5538,3 +5538,12 @@ The short triangular resource fixture missed dense/repeated allocator pressure.
 No scientific grid or method threshold is changed; first amend/profile resource
 behavior before a separately retained new panel attempt. Compact failure evidence:
 `docs/reviews/clark-response-first-attempts.json`.
+
+Clark allocation amendment (before new profile): preserve attempt001, vectorize
+numeric sparse triplets and use24 fully dense/nonnormal repeated synthetic solves
+at maximum window; retain virtual-memory metrics. Existing time/RSS/address-space
+caps, scientific grid, solver/identity screens unchanged. New exclusive
+attempt002 profile/panel only; panel remains gated by passing measured profile.
+Root approved virtual-only1GiB ceiling for attempt002 after observed address-space
+failure; physical groupRSS480MiB/total512MiB unchanged. Code+dated card records both
+limits separately. All31 unchanged synthetic controls pass0.23s after vectorization.

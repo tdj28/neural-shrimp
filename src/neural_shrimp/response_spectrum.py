@@ -37,14 +37,19 @@ def difference_matrix(maps, steps, shift, boundary):
     a = checked(maps); p, n, _ = a.shape; states = layout(p, steps, boundary)
     if not np.isfinite(shift) or abs(shift) > 100:
         raise ValueError("finite bounded shift required")
-    scale = float(np.exp(-shift)); rows=[]; cols=[]; data=[]
-    rr, cc = np.indices((n,n))
-    for t in range(steps):
-        nxt, prev = indices(t, steps, boundary)
-        rows.extend(t*n+np.arange(n)); cols.extend(nxt*n+np.arange(n)); data.extend(np.ones(n))
-        if prev is not None:
-            rows.extend((t*n+rr).ravel()); cols.extend((prev*n+cc).ravel()); data.extend((-scale*a[t%p]).ravel())
-    return sparse.coo_matrix((data,(rows,cols)), shape=(steps*n,states*n)).tocsc()
+    scale = float(np.exp(-shift))
+    # Vectorized numeric triplets avoid retaining hundreds of thousands of
+    # Python scalar objects/allocator arenas over a repeated-window grid.
+    times=np.arange(steps,dtype=np.int32); coordinate=np.arange(n,dtype=np.int32)
+    nxt=times if boundary=='causal' else (times+1)%steps if boundary=='periodic' else times+1
+    dr=(times[:,None]*n+coordinate).ravel(); dc=(nxt[:,None]*n+coordinate).ravel()
+    active=times[1:] if boundary=='causal' else times
+    prev=active-1 if boundary=='causal' else active
+    rr,cc=np.indices((n,n),dtype=np.int32)
+    ar=np.broadcast_to(active[:,None,None]*n+rr,(len(active),n,n)).ravel()
+    ac=np.broadcast_to(prev[:,None,None]*n+cc,(len(active),n,n)).ravel()
+    data=np.concatenate((np.ones(steps*n),(-scale*a[active%p]).ravel()))
+    return sparse.coo_matrix((data,(np.concatenate((dr,ar)),np.concatenate((dc,ac)))),shape=(steps*n,states*n)).tocsc()
 
 
 def difference_operator(actions, adjoints, dimension, steps, shift, boundary, tick=lambda:None):
