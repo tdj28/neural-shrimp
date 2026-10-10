@@ -40,7 +40,7 @@ def execute(args):
   nonlocal stopped;stopped=True
  signal.signal(signal.SIGTERM,stop)
  def check():
-  if stopped or time.monotonic()-start>(15 if args.mode=='profile' else 120):raise TimeoutError('cooperative time cap')
+  if stopped or time.monotonic()-start>(15 if args.mode=='profile' else 180):raise TimeoutError('cooperative time cap')
   if calls>=800:raise TimeoutError('evaluation cap')
   if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>512*1024:raise MemoryError('RSS cap')
   if sum(f.stat().st_size for f in out.rglob('*') if f.is_file())>CAP-8*1024**2:raise OSError('output cap')
@@ -64,7 +64,7 @@ def execute(args):
    prof=json.loads((args.profile/'outcome.json').read_text());runtime=json.loads((args.profile/'runtime-start.json').read_text())
    if prof['status']!='profile_complete' or runtime['source']['files']!=identity['files'] or runtime['python']!=sys.version or runtime['numpy']!=np.__version__ or runtime['flint']!=flint.__version__ or runtime['threads']!={k:'1' for k in THREADS} or runtime['nice']<10 or runtime['mode']!='profile':raise ValueError('profile source/runtime/status')
    times=prof['evaluation_seconds']
-   if not all(np.isfinite(t) and t>0 for t in times) or 800*max(times)+5>=110 or prof['peak_rss_kib']>=200*1024:raise ValueError('measured resource gate')
+   if not all(np.isfinite(t) and t>0 for t in times) or 800*max(times)+5>=170 or prof['peak_rss_kib']>=200*1024:raise ValueError('measured resource gate')
    for p,h in PINS.items():
     if sha(FOLD/p)!=h:raise ValueError('fold input pin')
    inp=json.loads((FOLD/'inputs.json').read_text());cert=json.loads((FOLD/'certificate.json').read_text())['result']
@@ -115,7 +115,7 @@ def execute(args):
  print(json.dumps(clean(result)),flush=True);return 0 if result['status'] in ('profile_complete','numerical_boundary_panel_recorded') else 2
 
 def launch(args):
- identity=source();args.out.mkdir(parents=True,exist_ok=False);external=20 if args.mode=='profile' else 140;start=time.monotonic()
+ identity=source();args.out.mkdir(parents=True,exist_ok=False);external=20 if args.mode=='profile' else 200;start=time.monotonic()
  cmd=['nice','-n','10',sys.executable,str(Path(__file__).resolve()),'--execute','--mode',args.mode,'--out',str(args.out/'run')]
  if args.profile:cmd+=['--profile',str(args.profile),'--profile-manifest',args.profile_manifest]
  record={'source':identity,'argv':cmd,'launcher_pid':os.getpid(),'external_seconds':external,'kill_grace_seconds':5,'started_unix':time.time()}

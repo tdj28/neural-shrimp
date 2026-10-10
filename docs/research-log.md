@@ -5520,3 +5520,5 @@ Clark citation PDF checkpoint: clean fresh-directory compile;36 pages,347 saved-
 2026-10-09 PDT: Root opens a numerical two-rate fold-boundary continuation pilot, docs/plans/s2-period18-boundary-curves.md, in parallel with validated interior localization and Clark tracks. Eight synthetic derivative/continuation controls pass. Main target remains full-state boundary connectivity and finite shrimp anatomy, with any counterevidence preserved. No target acquisition before source, independent adapter review and measured profile.
 
 Boundary adapter independently reviewed by optimizer_claim_check: analytic two-rate blocks and scaled Newton/PAL mathematics pass. Fixed invalid tangent input, scalar complement and terminal trial diagnostics; added durable journal control. Twelve synthetic controls now precede profile.
+
+Boundary profile001 completed in0.885s/RSS46812KiB but conservative147.754s target projection exceeded initial gate110s. Preserved all raw/hash-bound receipt docs/reviews/s2-boundary-profile001.json; disclosed time-only amendment180/200+5s with same800calls/scientific panel/512MiB. No target acquisition; amended-source profile002 follows.

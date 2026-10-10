@@ -61,8 +61,8 @@ target. No synthetic control is evidence for the S2 target.
 
 Profile five18-step augmented evaluations on a synthetic24-sample13D map,
 including exact source/card bindings. Profile internal15s/external20+5s. Require
-800*maximum_seconds_per_evaluation+5 <110s and peakRSS<200MiB. Target internal120s,
-external140+5s, max800 augmented evaluations,512MiB monitored RSS and hard
+800*maximum_seconds_per_evaluation+5 <170s and peakRSS<200MiB. Target internal180s,
+external200+5s, max800 augmented evaluations,512MiB monitored RSS and hard
 address space, raw<=128MiB with8MiB finalization reserve. CPU/BLAS1, nice>=10.
 An evaluation counts before launch and its return is saved before the next
 resource check. Interrupted calls have only their start record; no invented result.
@@ -74,3 +74,5 @@ hashes, versions, commands, own group PIDs, exit, memory/time and immutable
 inventories are retained. No GPU, paid resource, protected holdout or foreign
 process use. Root's worktree is codex/post-edge-next-steps. Preserve failed
 attempts and private-push the source before the first scientific acquisition.
+
+Dated resource amendment after profile001 (9 October17:46PDT): maximum augmented evaluation0.17845s, conservative800call projection147.754s exceeded the initial110s admission gate. The profile itself completed and is immutable; no target input acquired. Keep scientific panel, call cap, memory and threads fixed; extend internal time180s/external200+5s and projection gate170s. Repeat the five-evaluation synthetic profile under exact amended source as attempt002-profile; only then target001. This is a measured CPU-time adaptation, not outcome selection.
