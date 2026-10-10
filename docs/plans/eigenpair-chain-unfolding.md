@@ -19,7 +19,8 @@ Define a=p0.B(q,q), b=p0.B(q,r)+p1.B(q,q). In this note the explicit critical
 normal form is (u,v)→(u+v,v+a*u²/2+b*u*v)+O(3). These definitions agree with
 Kuznetsov–Meijer, SIAM J.Sci.Comput.26(6),1932–1954(2005),§4.4, equations
 (4.8)–(4.9), DOI[10.1137/030601508](https://doi.org/10.1137/030601508).
-Do not silently mix them with sources using an unfactored quadratic coefficient.
+The [authors' primary preprint](https://www.math.uu.nl/publications/preprints/1290.pdf)
+was independently checked by the Clark reviewer. Do not silently mix them with sources using an unfactored quadratic coefficient.
 The helper retains a,b,b−a and(a)(b−a) with explicit conventions; a physical
 stability-side conclusion also needs the validated parameter unfolding below.
 
