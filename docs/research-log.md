@@ -11492,3 +11492,6 @@ IndependentClark differential review approves c4f2d5b8 fixed1600 extension;
 10controls1.16s, allsame-map/gate/accounting checks confirmed. Launchone
 exclusive attempt002 from currentcommittedsource with runtimehostsnapshot
 and measured400cost gate; no furtherautomaticiterationincrease.
+### 2026-10-10 — Independent remaining attraction batch source/card
+
+Root-directed continuation after independent107 organizing-point connection: close28 existing producer pieces in charts142–145 without new model acquisitions. Exact fixed producer/prior-proof bindings are in docs/plans/s2-attraction-remaining-inputs.json; plan and per-worker/aggregate caps in docs/plans/s2-attraction-remaining.md. Copied existing root independently reviewed localization/U″/norm helpers byte-for-byte with provenance.38 focused controls pass0.25s. A source-only peer skim is pending before the one fixed batch001 run. Four separate CPU1nice10 workers,240s/2GiB each;8GiB combined worker RSS, fresh12GiB available host requirement. Same-kernel measured per-worker projection183.476s. Preserve original and audit failures, full domains and immutable source/inventories. Independent68/producer112 distinction persists until these saved proofs complete. No complete-window claim.
