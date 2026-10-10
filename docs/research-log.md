@@ -7884,3 +7884,20 @@ full470 kernels, source/map bindings and fresh384 joins unchanged.35synthetic
 controls passed0.17s. No new target audit in this amendment. Immediate next
 wider units still require their individually committed complete predecessor
 cards. Independent lift/membership arithmetic remains a separate endpoint task.
+
+2026-10-10 independent wider unit003 PASS at fed72ff6313c9020b9f59cd5183436b56af746c8,
+51.794618s/832300KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+33charts,right71/128.
+Outer8356c6641e34e238d895163aecb30775f98695ddc9814027cbe3336a0dd360dc;
+workera0dbcc9a56193383bc7aace96a086d96080753b0bb46c725222e0be31f53fdfd. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit004: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit004.json; literal complete independent predecessor above.
+Selected accepted globals34–37,
+exact gauge71/128→87/128.
+Exclusive audits/eigenpair-remaining-locus/unit004-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
