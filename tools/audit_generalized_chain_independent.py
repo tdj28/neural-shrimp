@@ -95,6 +95,7 @@ def main(out):
         save('input-binding.json',{'inputs_sha256':sha(RAW/'run/inputs.json'),'proof_sha256':sha(RAW/'run/proof.json'),'map_inputs':inp['map_inputs'],'precision_amendment':'384 bits; outward decoding of saved dyadic radius may enlarge the original ball conservatively; all root and spectrum checks use this same decoded box.'})
         with ctx.workprec(384):
             c=[ball(x)for x in proof['center']];box=[ball(x)for x in proof['box']]
+            require(box[13]>0 and box[14]>0,'positive actual rates');result['positive_actual_rates']=True;result['actual_rate_enclosures']=[enc(box[13]),enc(box[14])]
             saved=krawczyk(c,box,matrix(proof['value']),matrix(proof['whole_jacobian']),matrix(proof['preconditioner']))
             saved_div=divisors([[ball(x)for x in row]for row in proof['orbit_enclosures']],box,18,13)
             save('saved-arithmetic.json',{'root':saved,'divisors':saved_div})
