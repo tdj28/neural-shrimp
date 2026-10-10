@@ -7504,3 +7504,25 @@ Worker4.8778s/465300KiB,18/36C1,nojets;
 launcher5.3761s/exit0. All inventories,
 payloads/source/readonly/PIDs and immutable native dependencies checked.
 Companion `docs/reviews/s2-period18-fold-saved-rebox-outcome.json`. Independentreviewpending; nofullpathattraction or geometryclaim.
+
+### 10 October 2026 UTC — inherited smaller-chart fold-directed march
+
+The single fresh-domain repair passed at35/128 (worker68abff9e), giving146
+producer-qualified charts. Prepare `tools/certify_s2_period18_fold_small_march.py`
+with the same gauge and native order, inherited halfwidth2^-8/weights/radius,
+unchanged strict proof/reboxing kernels and full18fold membership checks.
+Initial/later actual-runner/source/repair admission is explicit. No failed
+witness endpoint can anchor the next chart. See
+`docs/plans/s2-period18-fold-small-march.md` for fixed resources and stop rules.
+
+After source skim, run the forced-two-rebox synthetic profile only at
+`.../s2-period18-fold-small-march-2026-10-10/attempt-001-profile`,20s/25+5,
+CPU1/nice10,180/360C1+108jets,2GiB,384+1MiB. Record measured gate and exact unit001
+card before target. Thereafter only distinct admitted complete-prefix units
+may proceed under the same source/design, stopping at the first substantive
+failure, complete fold identity, or covered neighborhood without identity.
+
+Precommit synthetic suite initially caught a test-edit typo (expected chart
+cap26 instead of16 after textual fixture adaptation). Fixed the test literal;
+production count cap remained16 throughout. Final34 controls pass, including
+whole-fold interval count, native joins, corrupt repairs and fresh rebox gates.
