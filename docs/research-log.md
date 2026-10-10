@@ -7844,3 +7844,7 @@ Original256 known-root arithmetic audit passes all three intersections at exact4
 ## 2026-10-10 — endpoint attraction wrapper precision repair
 
 Attempt001 failed before any model call because the strict derivative model constructor was placed before the256bit context. Preserve rawmanifestf357c63b02a2fd40709f5d1880acda781c882265c8ba19daa5e693665ba4539c. Move construction inside the declared precision context; no mathematical kernel, input or bound change. Repeat once in immutable attempt002 under identical caps.
+
+## 2026-10-10 — native derivative serialization repair
+
+Attempt002 completed one native C1 call but failed while serializing its vector-valued rate partial with a matrix serializer. The returned first derivative was not persisted; this incomplete attempt cannot support any claim. Counters/exception/source retained under outer0cd3c06cacedba0a2cfde7eca4eafb0add704a6528023d8b9c546d72070705bc. Correct the wrapper to use vector_json for the documented list return; same input/kernel/caps, fresh immutable attempt003.

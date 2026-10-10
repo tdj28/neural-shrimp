@@ -31,7 +31,7 @@ def worker(out):
    model=ReboxingMeanValueHiddenRateMap(inp['model_inputs'],max_calls=18)
    box=[restore_ball(v) for v in known['final_state_box']];need(box[-1]>0,'positive enclosed actual hidden rate');blocks=[]
    for j in range(18):
-    tick();state=box[j*13:(j+1)*13];image,jac,partial=model.step(state,box[-1]);save(f'phase-{j:02d}.json',{'phase':j,'state':vector_json(state),'rate':vector_json([box[-1]]),'image':vector_json(image),'jacobian':matrix_json(jac),'partial':matrix_json(partial)});blocks.append(jac)
+    tick();state=box[j*13:(j+1)*13];image,jac,partial=model.step(state,box[-1]);save(f'phase-{j:02d}.json',{'phase':j,'state':vector_json(state),'rate':vector_json([box[-1]]),'image':vector_json(image),'jacobian':matrix_json(jac),'partial':vector_json(partial)});blocks.append(jac)
    proof=periodic_witness(blocks,precision=256,tick=tick,observe=lambda k,v:save(k+'.json.gz',v));save('proof.json.gz',proof);tick()
   result.update(completed=True,passed=proof['passed'],point_passed=proof['point_passed'],interval_phases_passed=sum(v.get('interval_D_positive',{}).get('passed',False) for v in proof['phases']),exact_gauge='45/128',hidden_rate=known['final_state_box'][-1],scope='Local attraction of the inherited primitive18 full-state endpoint at its enclosed actual hidden rate and fixed exact output rate, if all cyclic interval metric gates pass. No neighboring interval or full-branch attraction inferred.')
  except BaseException as e:result['error']=type(e).__name__+': '+str(e)
