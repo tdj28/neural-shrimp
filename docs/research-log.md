@@ -10305,3 +10305,14 @@ Saved-evidence authoring card: regenerate/verify bound numbers, preserve old397 
 ### 2026-10-10 — Current rigorous-results reading PDF
 
 Sourcebae58a62 compiles41pages with no warnings/boxerrors.404 bound numbers verify, all397 earlier entries and20figure outputs unchanged. All41pages visually inspected, affected pages1/2/12/14/36 atdetail. The158-word abstract leads with results. New independent interval and double+1 proof described precisely; later unfolding/membership results await their separate reviews. Immutable QA and current reading PDF bound in docs/reviews/paper-attraction-double-one-qa.json.
+### 2026-10-10 — source preparation for actual native chain membership
+
+The proved primitive18 generalized-chain point is a substantive organizing
+candidate, but it must be placed on the same connected470D boundary and its
+remaining spectrum classified before interpreting it as the stable window's
+organizing point. Prepared an authenticated18phase native lift, rigorous gauge
+projection, and strict full-coordinate uniqueness-domain membership helper.
+Twenty-five focused synthetic/corruption controls pass0.20s. No target was read
+by these controls. Independent source review precedes a separate measured
+profile and target card. The existing97-chart prefix and unit006 stop remain
+unchanged; no automatic continuation or complete-shrimp claim.
