@@ -1,0 +1,2091 @@
+{
+ "figure": "f11_connected_boundary",
+ "evidence_label": "3: computer-assisted proof; displayed polylines are endpoint midpoint guides",
+ "alt_text": "The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.",
+ "notes": "Endpoint boxes and proper full-state joins come from independent saved384-bit arithmetic. No line is interpolated across the change of gauge. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.",
+ "script": "paper/gd-route/figures/f11_connected_boundary.py",
+ "script_sha256": "421d6589007ede7e84dcec0882765bf401000b891c6183c80f770bd733e72eed",
+ "git_commit_at_generation": "500ba8c9dcd0bfae60424a3fd37a054572857fea",
+ "worktree_dirty_at_generation": true,
+ "generated_utc": "2026-10-10T22:46:07Z",
+ "python": "3.12.14",
+ "numpy": "2.5.3",
+ "matplotlib": "3.11.1",
+ "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+ "inputs": [
+  {
+   "path": "data:audits/eigenpair-chain-membership-independent/attempt001/run/input-bindings.json",
+   "sha256": "edf4108301acc39a2d62e9dc06abaf6ec26468ce7f16eaa1a69d8456d8ca7b06",
+   "bytes": 3684
+  },
+  {
+   "path": "data:audits/eigenpair-chain-membership-independent/attempt001/run/membership.json",
+   "sha256": "9e2cc985402a7aa4825ce713ce0b200015807ab59e531b6bace70f43801087a4",
+   "bytes": 953952
+  },
+  {
+   "path": "data:audits/eigenpair-chain-membership-independent/attempt001/run/native-domain-check.json",
+   "sha256": "f09172e4e1d62487cca097739ed59f106c4d678994b6c34394c73859e204a28d",
+   "bytes": 113
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit1-chart0-384.json",
+   "sha256": "88a890b85df740d70d90a499b13af45ca4ab43464ca913f10215a376b1244c64",
+   "bytes": 250547
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit1-chart1-384.json",
+   "sha256": "c71a27ffa464e6121e6cc1415d7375dcc208c986e6f8371b7431b971e613c227",
+   "bytes": 250515
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit1-chart2-384.json",
+   "sha256": "7a09b72bcc71c5a5cca6b4fadab656935fce698cd28119e35aea4aa9a1754eb0",
+   "bytes": 250569
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit1-chart3-384.json",
+   "sha256": "419788e317db35f2a0532c6f959c4c0396cb7def94783a27415806436c82469a",
+   "bytes": 250575
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit2-chart0-384.json",
+   "sha256": "7b5618f6f6240a3d2e4eef8971db9ed60257dd9d1786d086be358b37b04d5c4f",
+   "bytes": 250518
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit2-chart1-384.json",
+   "sha256": "7949407695d5e24ccf904d0415ceab27b3a1091d8a63290e14f353125c6e27b3",
+   "bytes": 250566
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit2-chart2-384.json",
+   "sha256": "ba17b172e3450521a44f6a13af114e62f5150b56a6dcafb71b726d257a81d9a9",
+   "bytes": 250557
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-march/attempt-001/run/unit2-chart3-384.json",
+   "sha256": "0470623990c7fd9572d7f26ea3aea4687d8a52df07e936eadbace93bf05e4d34",
+   "bytes": 250521
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-path/attempt-003/run/chart-0-384.json",
+   "sha256": "79e3ba6143a3e76575ef320cb3f26d698e95266e3379cfea3aef5ab9dfffa29e",
+   "bytes": 250583
+  },
+  {
+   "path": "data:audits/eigenpair-quadratic-path/attempt-003/run/chart-1-384.json",
+   "sha256": "d736c62a4eddfdc84bf0508851390bb26182ea3c6e2cb6336fa0b824d2e65d2a",
+   "bytes": 250618
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit000-attempt002/run/chart0-384.json",
+   "sha256": "43f9aae9625f7904d7dad262dc2d3b805877493583c001478ecaa39b8648a3ad",
+   "bytes": 250202
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit001-attempt001/run/chart0-384.json",
+   "sha256": "ec7a16e710384d279af3ba231d11eb5eaaaed30b3983fca40f98d0129dcfcdb1",
+   "bytes": 250203
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit001-attempt001/run/chart1-384.json",
+   "sha256": "d786a78a7028adb6cb2f6b45b6882d29572a8d418df5680738fccaa6da5ec32f",
+   "bytes": 250178
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit001-attempt001/run/chart2-384.json",
+   "sha256": "5ff0088967f64ccc5c3016066a2893e2d7279a8ef631737b6e04bc9d373df330",
+   "bytes": 250209
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit001-attempt001/run/chart3-384.json",
+   "sha256": "dd5b8d798aa2a48132347c7270a1aa33c91914aa89e488d2bbe1fe4d2671a96e",
+   "bytes": 250269
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit002-attempt001/run/chart0-384.json",
+   "sha256": "f2273bf46479b9b5f1fc4eca99ff8e4d58831f78434ffac9d793dbccc6728396",
+   "bytes": 250175
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit002-attempt001/run/chart1-384.json",
+   "sha256": "dfff5a5e27622a01364b353edf2de5aa6189fcc165b2f9ba62907222d2f67851",
+   "bytes": 250227
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit002-attempt001/run/chart2-384.json",
+   "sha256": "1d52756cea401464c3cc73890ff37dc83b013318dada78326371af5298eee693",
+   "bytes": 250188
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit002-attempt001/run/chart3-384.json",
+   "sha256": "f741facfdeedda44c6da2d0b3a6c650a1f682fbeb2bc0c6b09909f61757b48c1",
+   "bytes": 250160
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit003-attempt001/run/chart0-384.json",
+   "sha256": "d087d2217dcc15d8eab502556bb58a615d6d0c83d499c072dc18bd5f359aa0e4",
+   "bytes": 250072
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit003-attempt001/run/chart1-384.json",
+   "sha256": "2f4a149f94de4c4aad61131cf15a1b00c0f19d01aae5e9c6c98206621aa130e6",
+   "bytes": 250154
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit003-attempt001/run/chart2-384.json",
+   "sha256": "2e14ed36e1ff54691b89e0761b5f2f85ceac7861e0d474082719ad3a077e9f54",
+   "bytes": 250091
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit003-attempt001/run/chart3-384.json",
+   "sha256": "984b6b7c29279aeaa069d54adc991c0415802cfbd41ea9373bcdf8c48b1ddf0e",
+   "bytes": 250135
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit004-attempt001/run/chart0-384.json",
+   "sha256": "624e11dfb4dd7354fb0978302e8415f1fe495f7cf77e6d6a1eea45dc47fa9e96",
+   "bytes": 250142
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit004-attempt001/run/chart1-384.json",
+   "sha256": "03dc4241bb567028a7c8eed5ecc3649c3f7ba0a2ea248e41c6a22491e663d39c",
+   "bytes": 250070
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit004-attempt001/run/chart2-384.json",
+   "sha256": "354384cc77d3922a5f556e39feeeeff6d5afe7f8c06c68db2f41ffd2b71ff6e3",
+   "bytes": 250104
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit004-attempt001/run/chart3-384.json",
+   "sha256": "3b94a249ca65ded39da59d87cf51f3f10c75b8a9887c16c5ba81cde171e25182",
+   "bytes": 250047
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit005-attempt001/run/chart0-384.json",
+   "sha256": "540e359bc7eb611b7239cb1ca9cf409a21ac54bd03b29313606175a156414400",
+   "bytes": 250062
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit005-attempt001/run/chart1-384.json",
+   "sha256": "5d65dc70c349bba8d2c155855ff8300d81ce44c2be8af95afb2a9c5b868bfdea",
+   "bytes": 250032
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit005-attempt001/run/chart2-384.json",
+   "sha256": "0f3590dfb475f0af3483d6a42bf3a36eac91b81625c7c999e040fd3fa0e1529b",
+   "bytes": 249976
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit005-attempt001/run/chart3-384.json",
+   "sha256": "49f79118dd5eb708a1fce91ba85ccc46708f356149fdcb0d09be7ca6a11913e9",
+   "bytes": 250045
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit006-attempt001/run/chart0-384.json",
+   "sha256": "8da919654aedde694dfda2bf06fc40020cd76e1ce46857764ce0fbcbb41703c7",
+   "bytes": 250027
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit006-attempt001/run/chart1-384.json",
+   "sha256": "8d086293bb5dd1b55200df30362ffca3d76c9c92b5024e5bb9b82728954e7098",
+   "bytes": 250033
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit006-attempt001/run/chart2-384.json",
+   "sha256": "fd13fd4e7aaa683af8b62cdb1bd915aeb7167eec4bf98a50a21319e30a8d7e2f",
+   "bytes": 249999
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit006-attempt001/run/chart3-384.json",
+   "sha256": "c3cdcd41040754f296ced40bfe783bcc0a076fa581dc64e4634d98e19d033de7",
+   "bytes": 250019
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit007-attempt001/run/chart0-384.json",
+   "sha256": "c603ebd25a17dce64ecabf288786761759e5250b37598059e6043d46dd5527a5",
+   "bytes": 250007
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit007-attempt001/run/chart1-384.json",
+   "sha256": "d946c1853c9004b2df9b31ddb3f7f2ed4370d63a269eaf46dd1134e69c0bcd6c",
+   "bytes": 249956
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit007-attempt001/run/chart2-384.json",
+   "sha256": "7b844b82f11358578800438be264a9cf4a2d58fbbc9021a73d5cd5095341292d",
+   "bytes": 249962
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit007-attempt001/run/chart3-384.json",
+   "sha256": "a1be44c3580d032b1415cf97d1f05ad0c234e7d18969801a6155e52a399d5c0b",
+   "bytes": 249929
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit008-attempt001/run/chart0-384.json",
+   "sha256": "98763ff78196703e986c3a5104c451947d8edf060fa85b5f70d14b467633fa74",
+   "bytes": 249951
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit008-attempt001/run/chart1-384.json",
+   "sha256": "7693971503816518471ccf8932293ec1802e31e9ef87e876bc3250331d5ec050",
+   "bytes": 249940
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit008-attempt001/run/chart2-384.json",
+   "sha256": "8fc1c04bc609d149a461b4a6fb334f449e159034cbf05f0ab72a73da6eb27d2d",
+   "bytes": 249863
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit008-attempt001/run/chart3-384.json",
+   "sha256": "edc7c171a6912f2f67b4759bc531e370339da9e8156a49ae841ee3deef297bc3",
+   "bytes": 249830
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit009-attempt001/run/chart0-384.json",
+   "sha256": "d4c3f6321a1dbb6f95b9490bb9047af59adcea1d6a8b6402c54728c55487d902",
+   "bytes": 249821
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit009-attempt001/run/chart1-384.json",
+   "sha256": "895b904035a79c051789c225cfd77b54dbb199d7422d87130952724ab3049500",
+   "bytes": 249830
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit009-attempt001/run/chart2-384.json",
+   "sha256": "5fdac6fdff39c6ef9ce0a09ec8806cdb5ab644c96d9e4ed042581705b7b699c2",
+   "bytes": 249811
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit009-attempt001/run/chart3-384.json",
+   "sha256": "2cb1327233bb8e1ec916a2cf04cacad31b8099552376e9fe10a9233797ea8063",
+   "bytes": 249833
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit010-attempt001/run/chart0-384.json",
+   "sha256": "176d86706bdda765fc1dc59b38085a5e9c6bb8e5557508a9c73c90298eaa656a",
+   "bytes": 249752
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit010-attempt001/run/chart1-384.json",
+   "sha256": "2c990298dcc8b6979a813f0cd31c731238f3a3e0e1a169563619797e894f5381",
+   "bytes": 249783
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit010-attempt001/run/chart2-384.json",
+   "sha256": "0c4b11aad8cb8feee9764699beae3375b4f297e20778c6243f1d6ff626b7bad0",
+   "bytes": 249745
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit010-attempt001/run/chart3-384.json",
+   "sha256": "b9d527d64b7c887e16c7b1b6303ecb6c09619096e27378d5eb37e6f94496050d",
+   "bytes": 249683
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit011-attempt001/run/chart0-384.json",
+   "sha256": "04b535d504c757460e860550b31ef4ccbaab48567e94a89164f9b575b6fb95c5",
+   "bytes": 249743
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit011-attempt001/run/chart1-384.json",
+   "sha256": "fdf0940410d18d2e9885ef5d539b6feb4902b6d7871388a22a64a19f4b785fd6",
+   "bytes": 249676
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit011-attempt001/run/chart2-384.json",
+   "sha256": "5398bfd459ee5bfbd3a1de962d7daa5494b82c2c42d5cf3c28d48447913db4d8",
+   "bytes": 249707
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit011-attempt001/run/chart3-384.json",
+   "sha256": "557b70c3c9c9d4cfda70fa9e4ec3a9f0ff0934b44494343ebe7be033b83ce139",
+   "bytes": 249608
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit012-attempt001/run/chart0-384.json",
+   "sha256": "cb895b6980d9435c1eb5d72d2e213bc800f54101d84ee33c8f2d7bbfd94668ae",
+   "bytes": 249672
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit012-attempt001/run/chart1-384.json",
+   "sha256": "48a4fbf159403af61e6fb1105429c035f35de2fbe8f98d0c74034fa8c6f5ba8a",
+   "bytes": 249590
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit012-attempt001/run/chart2-384.json",
+   "sha256": "0d08b7851bf5a3bd3f44583839a5369275daf3d8ee737ba641aaf9bcdda79125",
+   "bytes": 249583
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit012-attempt001/run/chart3-384.json",
+   "sha256": "537516ad45a95149e94fa6d6a93be05f01d0c114348b4629e6395f2f91737c1a",
+   "bytes": 249577
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit013-attempt001/run/chart0-384.json",
+   "sha256": "872b584a0d30307cd85479c7545f2c9db888b8e8bd0b7213e52a0e0f8ff94ce3",
+   "bytes": 249484
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit014-attempt001/run/chart0-384.json",
+   "sha256": "385a2912cd5507420b92fe924bd6993fc7f082763345bd1d4fba6756a3db015d",
+   "bytes": 249466
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit015-attempt001/run/chart0-384.json",
+   "sha256": "43de4fc647e6babf4a2ca8c2a93f984f3d6ee4dbf0ac907fe22fbc09fdad3430",
+   "bytes": 250284
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit015-attempt001/run/chart1-384.json",
+   "sha256": "255f675f694bcd4a734293f51e7dda9bdfedaf8833d03e7f48eea8df6076c0bc",
+   "bytes": 250215
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit016-attempt001/run/chart0-384.json",
+   "sha256": "bbcb552b947d28c35132ca16d4961b7a850f1b2506b2935fa26963bb0a1270c1",
+   "bytes": 250213
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit016-attempt001/run/chart1-384.json",
+   "sha256": "c414934a3ae81ca2f46d030c8d3aade1b421ecad7d24400aa8680c61a10b40ba",
+   "bytes": 250252
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit016-attempt001/run/chart2-384.json",
+   "sha256": "ce63ca54dffcf716917b8f3f5c061e4231f74f8eb797655b6f0023ec2d0baf76",
+   "bytes": 250201
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit016-attempt001/run/chart3-384.json",
+   "sha256": "00254fac10e59498e7a3769ffccae1fb9f0bedbdde8635d55432084be413d7eb",
+   "bytes": 250195
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit017-attempt001/run/chart0-384.json",
+   "sha256": "166e4177e37d0e9ab70b4cffa03f7a569ae82b57941ca7cca03005349bd24c0a",
+   "bytes": 250151
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit017-attempt001/run/chart1-384.json",
+   "sha256": "42a4f19d92aef1edf7e20d1ffef4f81c21e3debd428c9612e7552b4d0cf56da7",
+   "bytes": 250122
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit017-attempt001/run/chart2-384.json",
+   "sha256": "20a91d00e89185d37eef1d9ad1779ae3b3986b158e7c01091b098962e4928703",
+   "bytes": 250144
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit017-attempt001/run/chart3-384.json",
+   "sha256": "a2319cbd5236082d8e0ecb9fa9fcbe81cffb1e9a8258f396d07a579e8497932f",
+   "bytes": 250136
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit018-attempt001/run/chart0-384.json",
+   "sha256": "551a403c8d78d2ee943a991c2caa4f6a057f46eec57cb496fc7be20183c189c3",
+   "bytes": 250109
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit018-attempt001/run/chart1-384.json",
+   "sha256": "7da6d7677cd22fb03bb4db551e67badf3cbecbd97c4f9acf542e087c497e3b96",
+   "bytes": 250113
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit018-attempt001/run/chart2-384.json",
+   "sha256": "6564421da454b463dcc4883c2d6eee2a103e4682bb5e85a473357789a7ad012f",
+   "bytes": 250105
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit018-attempt001/run/chart3-384.json",
+   "sha256": "7cfade16617df42768d5d5c95e94597ac0bd365ae9044e39194a8548d469cf2f",
+   "bytes": 250080
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit019-attempt001/run/chart0-384.json",
+   "sha256": "028c39ace72dade617dfab9ec3c650ae3a7b98bf792ed7b934bc571ee452d952",
+   "bytes": 250090
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit019-attempt001/run/chart1-384.json",
+   "sha256": "8c66ad7a8546b9770dce9b948d07ed069ad2fea9623b260881fc2d5f2efdf051",
+   "bytes": 250041
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit019-attempt001/run/chart2-384.json",
+   "sha256": "7325f90f7d444b86202a3d1e61d6aa399258135c39b59ef67fb6e8732faceac8",
+   "bytes": 250056
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit019-attempt001/run/chart3-384.json",
+   "sha256": "7ff2371a103ad7b2a66a2973d9b5c3d60a0614806db8257a045d69e2c66e3a6f",
+   "bytes": 250053
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit020-attempt001/run/chart0-384.json",
+   "sha256": "1e3f762f107321af50353a5fea2d84386a58820da5d8bd8f5b01b37f89da108c",
+   "bytes": 249998
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit020-attempt001/run/chart1-384.json",
+   "sha256": "e479c4e34a5db81d5ee67a9b52db4dce240cee15624d1ce6836491afce3ba945",
+   "bytes": 250000
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit020-attempt001/run/chart2-384.json",
+   "sha256": "da310c7ea4fa4781607b2e544785e9cf179e031654563f4838e67903d9b7136b",
+   "bytes": 250016
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit020-attempt001/run/chart3-384.json",
+   "sha256": "09bd34922919801714f6a72023d6f8bf959cdaba2edc3915b5fb88af33305093",
+   "bytes": 249980
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit021-attempt001/run/chart0-384.json",
+   "sha256": "921358bc23e4b08d052034e1ea7ff8c874ed703f1603be167e106d56f9a6b2d7",
+   "bytes": 249904
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit021-attempt001/run/chart1-384.json",
+   "sha256": "b510b6a0c66ec4592ef63ad922430fc280b7f7fb33a9c7a6ccd76bc0ab1ea14f",
+   "bytes": 249941
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit021-attempt001/run/chart2-384.json",
+   "sha256": "0288aaa1c9af278e73e623a7da319530461818e00b8c45567e5c61b6e0c55ca3",
+   "bytes": 249915
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit021-attempt001/run/chart3-384.json",
+   "sha256": "3c037de2ed694056f1a67852462d9dbaafe6b808dbc07d6df8d3c48aab3baf0d",
+   "bytes": 249901
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit022-attempt001/run/chart0-384.json",
+   "sha256": "6b12e251343f4c9ddf3831ff890a44eac2186c53f127b134c76e282668c86883",
+   "bytes": 249948
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit022-attempt001/run/chart1-384.json",
+   "sha256": "ba3562ac3637ab84dfaaf21b710e2c55a50601ddd6c2417d249e616bb324b2ea",
+   "bytes": 249884
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit022-attempt001/run/chart2-384.json",
+   "sha256": "6ca3093692bc504ccdf64c10028bb0070bc083986890f569d2197ca503e4e91c",
+   "bytes": 249940
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit022-attempt001/run/chart3-384.json",
+   "sha256": "22fae30d6ba59cc155735fe25b35165480d0d2b23fe91dd65c1ef4c84d792627",
+   "bytes": 249881
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit023-attempt001/run/chart0-384.json",
+   "sha256": "37ddb18490c26a285e9312e5072bd688245b33bc4db7978b5b8772d1fcb5410e",
+   "bytes": 249949
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit023-attempt001/run/chart1-384.json",
+   "sha256": "8da1d7460a83d025ca77512a5349ae1646a60b93090c9fc6e145ebaaaf5a8a42",
+   "bytes": 249836
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit023-attempt001/run/chart2-384.json",
+   "sha256": "434217af27208d2864dbc9ffcc09b7dd9ba9743b53b256a37104c170f3f8a67f",
+   "bytes": 249783
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit023-attempt001/run/chart3-384.json",
+   "sha256": "31d8175c106f2774f5197968d1fc14a764eacd86eb79926611bb1296d2874db4",
+   "bytes": 249832
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit024-attempt001/run/chart0-384.json",
+   "sha256": "f53accfb921d8e672f2757b7bcde61effb3772a7ddbad38c71ff08c7daff8aa4",
+   "bytes": 249804
+  },
+  {
+   "path": "data:audits/eigenpair-remaining-locus/unit024-attempt001/run/chart1-384.json",
+   "sha256": "f0eaf76bd6c1163d12c6f32208c44fa223c1c460c8bb3369d4252178aac9272a",
+   "bytes": 249755
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit1-chart0-384.json",
+   "sha256": "3e8fba81ee6fb888b68dad31ae97762349d1d509d6e77fca8672ee8931d229cd",
+   "bytes": 251123
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit1-chart1-384.json",
+   "sha256": "849c773655bbf29c3192cb7152f1375493305fc1267b7830e3e82e81dec06979",
+   "bytes": 251172
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit1-chart2-384.json",
+   "sha256": "b21b3a4727750e994324e5edaf3860427827626f8b79b77cbb9925df19829085",
+   "bytes": 251128
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit1-chart3-384.json",
+   "sha256": "07d8491b3c7f41e9336b6c67ccbd0d1dd80747cd59ab0b5d283796ff4344624b",
+   "bytes": 251095
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit2-chart0-384.json",
+   "sha256": "cc87820a92643a7368a35e5925115e33946539d49fb1810c3d2ad183a28c34fb",
+   "bytes": 251132
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit2-chart1-384.json",
+   "sha256": "b1b9686ac182355428173d89e50710d76130b8f4fb8faafa352b5fb04073a6c8",
+   "bytes": 251117
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit2-chart2-384.json",
+   "sha256": "6c14d82b464972329f22f592139749399636d9bef192e6e605341811a2fe7e27",
+   "bytes": 251113
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-march/attempt-001/run/unit2-chart3-384.json",
+   "sha256": "73ae919bd52f41afb5fb3c87bc0217929a0a371f201f48def3770edc59f94832",
+   "bytes": 251110
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-reanchor/attempt-002/run/chart-0-384.json",
+   "sha256": "8d4fd2199383c8fd54043e45a916fb38533cd2eb52f0395364dcdeab5029d3aa",
+   "bytes": 251081
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-reanchor/attempt-002/run/chart-1-384.json",
+   "sha256": "94db307ce05871b9f22bb88f55bed8f09acafb0a6bd67bb77fc93cb96ac1a6df",
+   "bytes": 251101
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-reanchor/attempt-002/run/localization-1.json",
+   "sha256": "8076f09058fcf7b97998d94c5429580f2c191bc3c6f7c76364d9217e70590f4d",
+   "bytes": 111893
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-reanchor/attempt-002/run/localization-2.json",
+   "sha256": "899f471a85a9975cc5f05937f56cb2bd785110cbb6e21647de3372bfc83f6671",
+   "bytes": 112800
+  },
+  {
+   "path": "data:audits/eigenpair-tangent-reanchor/attempt-002/run/localization-3.json",
+   "sha256": "1f0df1975a4b3e5eec1c8cb82587814c263d504411cb7f1b11b21a3b43096483",
+   "bytes": 113494
+  },
+  {
+   "path": "data:explore/certificates/s2-period18-2026-10-09/attempt-001/proof/certificate/inputs.json",
+   "sha256": "9c01121b61a195baf20050eaf3bf567ebba6b7a0310d8fbced0aabc67f98248f",
+   "bytes": 5604
+  },
+  {
+   "path": "data:explore/certificates/s2-period18-fold-2026-10-09/attempt-002-target/run/certificate.json",
+   "sha256": "e894dedb29bafa2c054ff6eb5dfd6040cdc10711960c5321c341a32af92d8067",
+   "bytes": 970710
+  },
+  {
+   "path": "repo:certificates/s2-period18-fold-receipt.json",
+   "sha256": "4a67a7bfb67155846e8cc3b4accf15fc9348c1218eb3057f783c5486cb84bf4c",
+   "bytes": 15921
+  },
+  {
+   "path": "repo:certificates/s2-period18-receipt.json",
+   "sha256": "f5b8ed6bc4bded4f6c3515fed5a92d6cfc12614e4e68f0169037810b0d317277",
+   "bytes": 1986
+  },
+  {
+   "path": "repo:docs/reviews/eigenpair-connected107-proof-index.json",
+   "sha256": "8287753679054632e4d3d916f2541dae941cf517853046a62714dc281d9d35fd",
+   "bytes": 464821
+  },
+  {
+   "path": "repo:docs/reviews/generalized-chain-independent-outcome.json",
+   "sha256": "cd4cbfcc051db85e27cd4e573ec31e988deda85845008814ca01d30e51c488bb",
+   "bytes": 25398
+  },
+  {
+   "path": "repo:docs/reviews/s2-attraction-coverage-independent.json",
+   "sha256": "986dace859b74c65a8994ad5a3e8c414d7e044db99a2f3d079dfaf08991e65a2",
+   "bytes": 7857
+  }
+ ],
+ "derived": {
+  "charts": [
+   {
+    "chart": 1,
+    "rates": [
+     [
+      75.7776562148769,
+      0.8210291514803401
+     ],
+     [
+      75.7509365874871,
+      0.8210901866365901
+     ]
+    ]
+   },
+   {
+    "chart": 2,
+    "rates": [
+     [
+      75.75093658748686,
+      0.8210901866365901
+     ],
+     [
+      75.72425224172794,
+      0.8211512217928401
+     ]
+    ]
+   },
+   {
+    "chart": 3,
+    "rates": [
+     [
+      75.72425224172768,
+      0.8211512217928401
+     ],
+     [
+      75.69760382416564,
+      0.8212122569490901
+     ]
+    ]
+   },
+   {
+    "chart": 4,
+    "rates": [
+     [
+      75.69760382416538,
+      0.8212122569490901
+     ],
+     [
+      75.6709919889567,
+      0.8212732921053401
+     ]
+    ]
+   },
+   {
+    "chart": 5,
+    "rates": [
+     [
+      75.67099198895643,
+      0.8212732921053401
+     ],
+     [
+      75.64441739796683,
+      0.8213343272615901
+     ]
+    ]
+   },
+   {
+    "chart": 6,
+    "rates": [
+     [
+      75.64441739796656,
+      0.8213343272615901
+     ],
+     [
+      75.61788072089294,
+      0.8213953624178401
+     ]
+    ]
+   },
+   {
+    "chart": 7,
+    "rates": [
+     [
+      75.61788072089267,
+      0.8213953624178401
+     ],
+     [
+      75.59138263538816,
+      0.8214563975740901
+     ]
+    ]
+   },
+   {
+    "chart": 8,
+    "rates": [
+     [
+      75.59138263538786,
+      0.8214563975740901
+     ],
+     [
+      75.56492382719004,
+      0.8215174327303401
+     ]
+    ]
+   },
+   {
+    "chart": 9,
+    "rates": [
+     [
+      75.56492382718974,
+      0.8215174327303401
+     ],
+     [
+      75.53850499025229,
+      0.8215784678865901
+     ]
+    ]
+   },
+   {
+    "chart": 10,
+    "rates": [
+     [
+      75.538504990252,
+      0.8215784678865901
+     ],
+     [
+      75.51212682687967,
+      0.8216395030428401
+     ]
+    ]
+   },
+   {
+    "chart": 11,
+    "rates": [
+     [
+      75.5194405104141,
+      0.8216225707372482
+     ],
+     [
+      75.50481352648009,
+      0.82165644183937
+     ]
+    ]
+   },
+   {
+    "chart": 12,
+    "rates": [
+     [
+      75.50481352648008,
+      0.8216564418393699
+     ],
+     [
+      75.49018807949662,
+      0.821690339070967
+     ]
+    ]
+   },
+   {
+    "chart": 13,
+    "rates": [
+     [
+      75.4901880794966,
+      0.8216903390709669
+     ],
+     [
+      75.47556417881601,
+      0.8217242627656905
+     ]
+    ]
+   },
+   {
+    "chart": 14,
+    "rates": [
+     [
+      75.475564178816,
+      0.8217242627656904
+     ],
+     [
+      75.46094183409113,
+      0.8217582132610185
+     ]
+    ]
+   },
+   {
+    "chart": 15,
+    "rates": [
+     [
+      75.46094183409112,
+      0.8217582132610183
+     ],
+     [
+      75.4463210552815,
+      0.8217921908983248
+     ]
+    ]
+   },
+   {
+    "chart": 16,
+    "rates": [
+     [
+      75.44632105528149,
+      0.8217921908983247
+     ],
+     [
+      75.43170185265959,
+      0.8218261960229523
+     ]
+    ]
+   },
+   {
+    "chart": 17,
+    "rates": [
+     [
+      75.43170185265957,
+      0.8218261960229521
+     ],
+     [
+      75.41708423681726,
+      0.8218602289842853
+     ]
+    ]
+   },
+   {
+    "chart": 18,
+    "rates": [
+     [
+      75.41708423681725,
+      0.8218602289842852
+     ],
+     [
+      75.4024682186724,
+      0.8218942901358263
+     ]
+    ]
+   },
+   {
+    "chart": 19,
+    "rates": [
+     [
+      75.40246821867238,
+      0.821894290135826
+     ],
+     [
+      75.38785380947569,
+      0.8219283798352714
+     ]
+    ]
+   },
+   {
+    "chart": 20,
+    "rates": [
+     [
+      75.38785380947567,
+      0.8219283798352712
+     ],
+     [
+      75.37324102081759,
+      0.821962498444591
+     ]
+    ]
+   },
+   {
+    "chart": 21,
+    "rates": [
+     [
+      75.37324102080349,
+      0.8219624984444148
+     ],
+     [
+      75.34402035320666,
+      0.8220308238624132
+     ]
+    ]
+   },
+   {
+    "chart": 22,
+    "rates": [
+     [
+      75.34402035320615,
+      0.8220308238624073
+     ],
+     [
+      75.31480631566265,
+      0.8220992693739999
+     ]
+    ]
+   },
+   {
+    "chart": 23,
+    "rates": [
+     [
+      75.3148063156621,
+      0.8220992693739937
+     ],
+     [
+      75.2855990138811,
+      0.8221678380373086
+     ]
+    ]
+   },
+   {
+    "chart": 24,
+    "rates": [
+     [
+      75.28559901388053,
+      0.8221678380373022
+     ],
+     [
+      75.25639855974278,
+      0.8222365329871267
+     ]
+    ]
+   },
+   {
+    "chart": 25,
+    "rates": [
+     [
+      75.25639855974217,
+      0.82223653298712
+     ],
+     [
+      75.22720507157192,
+      0.822305357437937
+     ]
+    ]
+   },
+   {
+    "chart": 26,
+    "rates": [
+     [
+      75.22720507157128,
+      0.8223053574379298
+     ],
+     [
+      75.19801867442341,
+      0.822374314687109
+     ]
+    ]
+   },
+   {
+    "chart": 27,
+    "rates": [
+     [
+      75.19801867442273,
+      0.8223743146871015
+     ],
+     [
+      75.16883950038604,
+      0.8224434081182564
+     ]
+    ]
+   },
+   {
+    "chart": 28,
+    "rates": [
+     [
+      75.16883950038533,
+      0.8224434081182485
+     ],
+     [
+      75.13966768890329,
+      0.822512641204768
+     ]
+    ]
+   },
+   {
+    "chart": 29,
+    "rates": [
+     [
+      75.13966768890253,
+      0.8225126412047596
+     ],
+     [
+      75.11050338711246,
+      0.8225820175135258
+     ]
+    ]
+   },
+   {
+    "chart": 30,
+    "rates": [
+     [
+      75.11050338711165,
+      0.822582017513517
+     ],
+     [
+      75.08134675020388,
+      0.8226515407088226
+     ]
+    ]
+   },
+   {
+    "chart": 31,
+    "rates": [
+     [
+      75.08134675020302,
+      0.8226515407088133
+     ],
+     [
+      75.0521979418013,
+      0.8227212145564894
+     ]
+    ]
+   },
+   {
+    "chart": 32,
+    "rates": [
+     [
+      75.05219794180039,
+      0.8227212145564796
+     ],
+     [
+      75.02305713436515,
+      0.8227910429282498
+     ]
+    ]
+   },
+   {
+    "chart": 33,
+    "rates": [
+     [
+      75.02305713436418,
+      0.8227910429282395
+     ],
+     [
+      74.99392450962031,
+      0.8228610298063141
+     ]
+    ]
+   },
+   {
+    "chart": 34,
+    "rates": [
+     [
+      74.99392450961928,
+      0.8228610298063033
+     ],
+     [
+      74.96480025901023,
+      0.8229311792882319
+     ]
+    ]
+   },
+   {
+    "chart": 35,
+    "rates": [
+     [
+      74.96480025900914,
+      0.8229311792882203
+     ],
+     [
+      74.93568458417927,
+      0.8230014955920173
+     ]
+    ]
+   },
+   {
+    "chart": 36,
+    "rates": [
+     [
+      74.9356845841781,
+      0.8230014955920051
+     ],
+     [
+      74.90657769748553,
+      0.8230719830615706
+     ]
+    ]
+   },
+   {
+    "chart": 37,
+    "rates": [
+     [
+      74.9065776974843,
+      0.8230719830615577
+     ],
+     [
+      74.8774798225465,
+      0.8231426461724125
+     ]
+    ]
+   },
+   {
+    "chart": 38,
+    "rates": [
+     [
+      74.87747982254518,
+      0.8231426461723987
+     ],
+     [
+      74.84839119481998,
+      0.8232134895377569
+     ]
+    ]
+   },
+   {
+    "chart": 39,
+    "rates": [
+     [
+      74.84839119481857,
+      0.8232134895377422
+     ],
+     [
+      74.81931206222306,
+      0.8232845179149444
+     ]
+    ]
+   },
+   {
+    "chart": 40,
+    "rates": [
+     [
+      74.81931206222156,
+      0.8232845179149288
+     ],
+     [
+      74.7902426857924,
+      0.8233557362122653
+     ]
+    ]
+   },
+   {
+    "chart": 41,
+    "rates": [
+     [
+      74.7902426857908,
+      0.8233557362122489
+     ],
+     [
+      74.76118334038885,
+      0.8234271494961982
+     ]
+    ]
+   },
+   {
+    "chart": 42,
+    "rates": [
+     [
+      74.76118334038713,
+      0.8234271494961808
+     ],
+     [
+      74.73213431545024,
+      0.8234987629990983
+     ]
+    ]
+   },
+   {
+    "chart": 43,
+    "rates": [
+     [
+      74.73213431544839,
+      0.8234987629990798
+     ],
+     [
+      74.70309591579621,
+      0.823570582127368
+     ]
+    ]
+   },
+   {
+    "chart": 44,
+    "rates": [
+     [
+      74.70309591579424,
+      0.8235705821273481
+     ],
+     [
+      74.67406846248976,
+      0.8236426124701484
+     ]
+    ]
+   },
+   {
+    "chart": 45,
+    "rates": [
+     [
+      74.67406846248764,
+      0.8236426124701273
+     ],
+     [
+      74.64505229375975,
+      0.8237148598085718
+     ]
+    ]
+   },
+   {
+    "chart": 46,
+    "rates": [
+     [
+      74.64505229375747,
+      0.8237148598085493
+     ],
+     [
+      74.61604776599037,
+      0.8237873301256209
+     ]
+    ]
+   },
+   {
+    "chart": 47,
+    "rates": [
+     [
+      74.61604776598791,
+      0.8237873301255968
+     ],
+     [
+      74.58705525478285,
+      0.8238600296166426
+     ]
+    ]
+   },
+   {
+    "chart": 48,
+    "rates": [
+     [
+      74.58705525478021,
+      0.823860029616617
+     ],
+     [
+      74.55807515609622,
+      0.823932964700572
+     ]
+    ]
+   },
+   {
+    "chart": 49,
+    "rates": [
+     [
+      74.55807515609338,
+      0.8239329647005444
+     ],
+     [
+      74.52910788747405,
+      0.8240061420319238
+     ]
+    ]
+   },
+   {
+    "chart": 50,
+    "rates": [
+     [
+      74.52910788747099,
+      0.8240061420318943
+     ],
+     [
+      74.5001538893652,
+      0.8240795685136184
+     ]
+    ]
+   },
+   {
+    "chart": 51,
+    "rates": [
+     [
+      74.50015388936188,
+      0.8240795685135868
+     ],
+     [
+      74.4712136265472,
+      0.8241532513107129
+     ]
+    ]
+   },
+   {
+    "chart": 52,
+    "rates": [
+     [
+      74.47121362654362,
+      0.824153251310679
+     ],
+     [
+      74.44228758966219,
+      0.8242271978651167
+     ]
+    ]
+   },
+   {
+    "chart": 53,
+    "rates": [
+     [
+      74.44228758965832,
+      0.8242271978650801
+     ],
+     [
+      74.41337629687595,
+      0.824301415911379
+     ]
+    ]
+   },
+   {
+    "chart": 54,
+    "rates": [
+     [
+      74.41337629687176,
+      0.8243014159113397
+     ],
+     [
+      74.3844802956723,
+      0.8243759134936464
+     ]
+    ]
+   },
+   {
+    "chart": 55,
+    "rates": [
+     [
+      74.38448029566776,
+      0.8243759134936041
+     ],
+     [
+      74.35560016479614,
+      0.8244506989838957
+     ]
+    ]
+   },
+   {
+    "chart": 56,
+    "rates": [
+     [
+      74.3556001647912,
+      0.82445069898385
+     ],
+     [
+      74.32673651636021,
+      0.8245257811015627
+     ]
+    ]
+   },
+   {
+    "chart": 57,
+    "rates": [
+     [
+      74.32673651635484,
+      0.8245257811015134
+     ],
+     [
+      74.29788999813245,
+      0.8246011689346997
+     ]
+    ]
+   },
+   {
+    "chart": 58,
+    "rates": [
+     [
+      74.29788999812659,
+      0.8246011689346465
+     ],
+     [
+      74.26906129602263,
+      0.8246768719628084
+     ]
+    ]
+   },
+   {
+    "chart": 59,
+    "rates": [
+     [
+      74.26906129601623,
+      0.8246768719627506
+     ],
+     [
+      74.2402511367896,
+      0.8247529000815135
+     ]
+    ]
+   },
+   {
+    "chart": 60,
+    "rates": [
+     [
+      74.24025113678262,
+      0.8247529000814509
+     ],
+     [
+      74.21146029099299,
+      0.8248292636292623
+     ]
+    ]
+   },
+   {
+    "chart": 61,
+    "rates": [
+     [
+      74.21146029098534,
+      0.8248292636291944
+     ],
+     [
+      74.18268957621622,
+      0.8249059734162562
+     ]
+    ]
+   },
+   {
+    "chart": 62,
+    "rates": [
+     [
+      74.18268957620782,
+      0.8249059734161822
+     ],
+     [
+      74.15393986059138,
+      0.8249830407558447
+     ]
+    ]
+   },
+   {
+    "chart": 63,
+    "rates": [
+     [
+      74.15393986058217,
+      0.8249830407557642
+     ],
+     [
+      74.12521206666048,
+      0.8250604774986471
+     ]
+    ]
+   },
+   {
+    "chart": 64,
+    "rates": [
+     [
+      74.12521206665035,
+      0.8250604774985593
+     ],
+     [
+      74.09650717561215,
+      0.8251382960696905
+     ]
+    ]
+   },
+   {
+    "chart": 65,
+    "rates": [
+     [
+      74.09650717560098,
+      0.8251382960695944
+     ],
+     [
+      74.06782623193868,
+      0.8252165095089019
+     ]
+    ]
+   },
+   {
+    "chart": 66,
+    "rates": [
+     [
+      74.06782623192635,
+      0.8252165095087968
+     ],
+     [
+      74.03917034856421,
+      0.8252951315153284
+     ]
+    ]
+   },
+   {
+    "chart": 67,
+    "rates": [
+     [
+      74.03917034855056,
+      0.825295131515213
+     ],
+     [
+      74.01054071250242,
+      0.8253741764955133
+     ]
+    ]
+   },
+   {
+    "chart": 68,
+    "rates": [
+     [
+      74.01054071248728,
+      0.8253741764953865
+     ],
+     [
+      73.98193859111078,
+      0.8254536596165166
+     ]
+    ]
+   },
+   {
+    "chart": 69,
+    "rates": [
+     [
+      73.98193859109396,
+      0.8254536596163771
+     ],
+     [
+      73.9533653390182,
+      0.8255335968641345
+     ]
+    ]
+   },
+   {
+    "chart": 70,
+    "rates": [
+     [
+      73.95336533899948,
+      0.8255335968639805
+     ],
+     [
+      73.92482240581529,
+      0.8256140051069539
+     ]
+    ]
+   },
+   {
+    "chart": 71,
+    "rates": [
+     [
+      73.92482240579439,
+      0.8256140051067836
+     ],
+     [
+      73.89631134460973,
+      0.8256949021669727
+     ]
+    ]
+   },
+   {
+    "chart": 72,
+    "rates": [
+     [
+      73.89631134489947,
+      0.8256949021696025
+     ],
+     [
+      73.88206828228694,
+      0.8257355398552838
+     ]
+    ]
+   },
+   {
+    "chart": 73,
+    "rates": [
+     [
+      73.88206828228617,
+      0.8257355398552776
+     ],
+     [
+      73.8678338218848,
+      0.8257763069004851
+     ]
+    ]
+   },
+   {
+    "chart": 74,
+    "rates": [
+     [
+      73.86783382188398,
+      0.8257763069004785
+     ],
+     [
+      73.8536081913788,
+      0.8258172058372258
+     ]
+    ]
+   },
+   {
+    "chart": 75,
+    "rates": [
+     [
+      73.85360819137792,
+      0.825817205837219
+     ],
+     [
+      73.83939162692198,
+      0.8258582392732946
+     ]
+    ]
+   },
+   {
+    "chart": 76,
+    "rates": [
+     [
+      73.83939162692106,
+      0.8258582392732873
+     ],
+     [
+      73.82518437354192,
+      0.8258994098954929
+     ]
+    ]
+   },
+   {
+    "chart": 77,
+    "rates": [
+     [
+      73.82518437354095,
+      0.8258994098954853
+     ],
+     [
+      73.81098668557176,
+      0.8259407204730551
+     ]
+    ]
+   },
+   {
+    "chart": 78,
+    "rates": [
+     [
+      73.81098668557073,
+      0.8259407204730469
+     ],
+     [
+      73.79679882710784,
+      0.8259821738612574
+     ]
+    ]
+   },
+   {
+    "chart": 79,
+    "rates": [
+     [
+      73.79679882710673,
+      0.8259821738612487
+     ],
+     [
+      73.78262107249569,
+      0.8260237730052346
+     ]
+    ]
+   },
+   {
+    "chart": 80,
+    "rates": [
+     [
+      73.7826210724945,
+      0.8260237730052254
+     ],
+     [
+      73.76845370684674,
+      0.8260655209440149
+     ]
+    ]
+   },
+   {
+    "chart": 81,
+    "rates": [
+     [
+      73.76845370684548,
+      0.8260655209440051
+     ],
+     [
+      73.75429702658792,
+      0.82610742081479
+     ]
+    ]
+   },
+   {
+    "chart": 82,
+    "rates": [
+     [
+      73.75429702658658,
+      0.8261074208147798
+     ],
+     [
+      73.74015134004672,
+      0.8261494758574391
+     ]
+    ]
+   },
+   {
+    "chart": 83,
+    "rates": [
+     [
+      73.74015134004529,
+      0.8261494758574283
+     ],
+     [
+      73.72601696807466,
+      0.8261916894193208
+     ]
+    ]
+   },
+   {
+    "chart": 84,
+    "rates": [
+     [
+      73.72601696807313,
+      0.8261916894193092
+     ],
+     [
+      73.71189424471198,
+      0.8262340649603577
+     ]
+    ]
+   },
+   {
+    "chart": 85,
+    "rates": [
+     [
+      73.71189424471035,
+      0.8262340649603453
+     ],
+     [
+      73.69778351789715,
+      0.8262766060584332
+     ]
+    ]
+   },
+   {
+    "chart": 86,
+    "rates": [
+     [
+      73.6977835178954,
+      0.8262766060584201
+     ],
+     [
+      73.68368515022455,
+      0.8263193164151235
+     ]
+    ]
+   },
+   {
+    "chart": 87,
+    "rates": [
+     [
+      73.68368515022269,
+      0.8263193164151096
+     ],
+     [
+      73.66959951975464,
+      0.8263621998617927
+     ]
+    ]
+   },
+   {
+    "chart": 88,
+    "rates": [
+     [
+      73.66959951975264,
+      0.8263621998617778
+     ],
+     [
+      73.6555270208808,
+      0.8264052603660775
+     ]
+    ]
+   },
+   {
+    "chart": 89,
+    "rates": [
+     [
+      73.65552702087867,
+      0.8264052603660618
+     ],
+     [
+      73.64146806525775,
+      0.8264485020387942
+     ]
+    ]
+   },
+   {
+    "chart": 90,
+    "rates": [
+     [
+      73.64146806525545,
+      0.8264485020387773
+     ],
+     [
+      73.62742308279692,
+      0.8264919291412993
+     ]
+    ]
+   },
+   {
+    "chart": 91,
+    "rates": [
+     [
+      73.62742308279445,
+      0.8264919291412813
+     ],
+     [
+      73.61339252273454,
+      0.8265355460933448
+     ]
+    ]
+   },
+   {
+    "chart": 92,
+    "rates": [
+     [
+      73.61339252273189,
+      0.8265355460933256
+     ],
+     [
+      73.59937685477912,
+      0.826579357481464
+     ]
+    ]
+   },
+   {
+    "chart": 93,
+    "rates": [
+     [
+      73.59937685477625,
+      0.8265793574814434
+     ],
+     [
+      73.5853765703452,
+      0.8266233680679371
+     ]
+    ]
+   },
+   {
+    "chart": 94,
+    "rates": [
+     [
+      73.58537657034212,
+      0.826623368067915
+     ],
+     [
+      73.5713921838817,
+      0.8266675828003833
+     ]
+    ]
+   },
+   {
+    "chart": 95,
+    "rates": [
+     [
+      73.57139218387836,
+      0.8266675828003596
+     ],
+     [
+      73.55742423430318,
+      0.8267120068220343
+     ]
+    ]
+   },
+   {
+    "chart": 96,
+    "rates": [
+     [
+      73.55742423429957,
+      0.8267120068220088
+     ],
+     [
+      73.5434732865344,
+      0.82675664548275
+     ]
+    ]
+   },
+   {
+    "chart": 97,
+    "rates": [
+     [
+      73.54347328653049,
+      0.8267566454827225
+     ],
+     [
+      73.52953993317836,
+      0.8268015043508415
+     ]
+    ]
+   },
+   {
+    "chart": 98,
+    "rates": [
+     [
+      73.52953993317412,
+      0.8268015043508121
+     ],
+     [
+      73.51562479632064,
+      0.8268465892257761
+     ]
+    ]
+   },
+   {
+    "chart": 99,
+    "rates": [
+     [
+      73.51562479631605,
+      0.8268465892257444
+     ],
+     [
+      73.50172852948299,
+      0.8268919061518443
+     ]
+    ]
+   },
+   {
+    "chart": 100,
+    "rates": [
+     [
+      73.501728529478,
+      0.82689190615181
+     ],
+     [
+      73.48785181974165,
+      0.8269374614328808
+     ]
+    ]
+   },
+   {
+    "chart": 101,
+    "rates": [
+     [
+      73.48785181973624,
+      0.8269374614328437
+     ],
+     [
+      73.47399539002723,
+      0.8269832616481394
+     ]
+    ]
+   },
+   {
+    "chart": 102,
+    "rates": [
+     [
+      73.47399539002133,
+      0.8269832616480993
+     ],
+     [
+      73.46016000162511,
+      0.827029313669434
+     ]
+    ]
+   },
+   {
+    "chart": 103,
+    "rates": [
+     [
+      73.46016000161868,
+      0.8270293136693906
+     ],
+     [
+      73.4463464568979,
+      0.8270756246796709
+     ]
+    ]
+   },
+   {
+    "chart": 104,
+    "rates": [
+     [
+      73.44634645689085,
+      0.8270756246796237
+     ],
+     [
+      73.43255560225387,
+      0.827122202192913
+     ]
+    ]
+   },
+   {
+    "chart": 105,
+    "rates": [
+     [
+      73.43255560224617,
+      0.8271222021928618
+     ],
+     [
+      73.41878833138874,
+      0.8271690540761337
+     ]
+    ]
+   },
+   {
+    "chart": 106,
+    "rates": [
+     [
+      73.41878833138028,
+      0.827169054076078
+     ],
+     [
+      73.40504558883146,
+      0.8272161885728349
+     ]
+    ]
+   },
+   {
+    "chart": 107,
+    "rates": [
+     [
+      73.40504558882216,
+      0.8272161885727741
+     ],
+     [
+      73.3913283738289,
+      0.8272636143287301
+     ]
+    ]
+   }
+  ],
+  "organizer": [
+   73.39688785555755,
+   0.8272443464893865
+  ],
+  "complement_discs": [
+   [
+    0.4569932714454397,
+    0.17008456964995095,
+    1.0123801776756869e-07
+   ],
+   [
+    0.4569932714454397,
+    -0.17008456964995095,
+    1.0123801776756869e-07
+   ],
+   [
+    0.11938191078927742,
+    0.10635089499276752,
+    1.752779230021484e-07
+   ],
+   [
+    0.11938191078927742,
+    -0.10635089499276752,
+    1.752779230021484e-07
+   ],
+   [
+    0.020214698546208436,
+    0.0031446716998120875,
+    2.6732125397999074e-07
+   ],
+   [
+    0.020214698546208436,
+    -0.0031446716998120875,
+    2.6732125397999074e-07
+   ],
+   [
+    0.005242350961505207,
+    -9.517281889933685e-117,
+    3.9235501181345e-07
+   ],
+   [
+    0.00031252239135192567,
+    0.00022205613595298844,
+    6.264822353940769e-07
+   ],
+   [
+    0.00031252239135192567,
+    -0.00022205613595298844,
+    6.264822353940769e-07
+   ],
+   [
+    1.6783459927394162e-08,
+    6.196147063758909e-120,
+    5.0150484043332e-07
+   ],
+   [
+    -0.0006010197028714082,
+    -1.6458515638109603e-120,
+    7.082626855142715e-08
+   ]
+  ],
+  "complement_bound": 0.487618405836414,
+  "attracting_hidden_interval": [
+   75.605732,
+   75.673697
+  ],
+  "fixed_output": 0.8210596690584651,
+  "interior_hidden": 71.337643833463,
+  "fold_hidden": 75.76429203111452
+ },
+ "accessibility": {
+  "color_only_channel": false,
+  "note": "boundary types also differ by marker shape; classes and series are labeled"
+ },
+ "outputs": {
+  "pdf": "f11_connected_boundary.pdf",
+  "pdf_sha256": "9a1a1406d6523fbd5ee056aaf041c1b8767dc0206de917d5aa1d50924ea0a8a8",
+  "png": "f11_connected_boundary.png",
+  "png_sha256": "1db224af45cfb75c405c603268815f99f90fe3d2651bf5a6e180c74d8e4bf040"
+ }
+}
