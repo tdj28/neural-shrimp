@@ -6452,3 +6452,17 @@ launcher13.4925s/exit0. Full inventories, all stage payloads,
 source identities, immutable permissions and owned exits checked. Receipt
 `docs/reviews/s2-period18-fold-endpoint-outcome.json` binds exact files;
 independent outcome review pending. Existing144-chart branch is unchanged; parent independently reviewed that chain at256/384. No gauge rotation is proposed.
+
+### 10 October 2026 UTC — smaller same-gauge two-chart recovery pilot
+
+After successful endpoint localization at exact33/128 (worker9973cd33),
+prepare `tools/certify_s2_period18_fold_rechart.py` and the small shifted-chart
+wrapper. Same gauge/native phases/model; halfwidth2^-8 and previous exact
+anisotropic weights with proposed maximumradius2^-21. Full inherited box,
+fresh whole-domain derivatives and every original strict gate remain.
+See `docs/plans/s2-period18-fold-rechart.md` for rationale and fixed caps.
+
+After source review run only the synthetic profile:
+`tools/certify_s2_period18_fold_rechart.py --mode profile --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-rechart-2026-10-10/attempt-001-profile`.
+CPU1/nice10,20s/25+5,2GiB,144/288C1+108jets,400ticks,128+1MiB. Measured source
+and exact target card must be committed before the one target. No target yet.
