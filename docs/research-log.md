@@ -10783,3 +10783,20 @@ root/lift priors and required future107-chart audit are explicit. Final card
 will only be written after107passes.12synthetic controls pass (including full470 dimensions); same underlying
 analytic phase acquisitions are disclosed. Source skim before target; details
 in docs/plans/eigenpair-chain-membership-independent.md.
+
+2026-10-10 independent wider unit004 PASS at 79e106e3f7ad482293c0c94ce756a36774ef6f28,
+51.206027s/830740KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+37charts,right87/128.
+Outer0b403acdd3c689ddce22eee7ed39e983683d9122747081fb0f79fbd30eb786f8;
+worker0e8177ad5915ff9c4850655cd3171495c1de98f13da8784de9d3198d541ba89b. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit005: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit005.json; literal complete independent predecessor above.
+Selected accepted globals38–41,
+exact gauge87/128→103/128.
+Exclusive audits/eigenpair-remaining-locus/unit005-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
