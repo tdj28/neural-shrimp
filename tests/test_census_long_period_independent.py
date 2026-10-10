@@ -10,19 +10,21 @@ def fixture(m):
  b=m.C.ball_json
  with ctx.workprec(128):
   z=b(arb(0));quarter=b(arb(1)/4);radius=b(arb(0,arb((1,-20))))
-  return {'box':[radius]*2,'center':[z]*2,'settings':{'radius_exponent':-20},'preconditioner':[[b(-arb(16)/15),z],[z,b(-arb(16)/15)]],'residual':[[z],[z]],'jacobians':[[[quarter,z],[z,quarter]]]*2,'orbit_enclosures':[[radius]*2,[b(arb(2)),b(arb(3))],[radius]*2],'attraction_witness_power':1}
+  return {'box':[radius]*2,'center':[z]*2,'settings':{'radius_exponent':-20},'preconditioner':[[b((-arb(16)/15).mid()),z],[z,b((-arb(16)/15).mid())]],'residual':[[z],[z]],'jacobians':[[[quarter,z],[z,quarter]]]*2,'orbit_enclosures':[[radius]*2,[b(arb(2)),b(arb(3))],[radius]*2],'attraction_witness_power':1}
 
 def test_independent_strict_root_divisors_and_power():
  m=module()
  with ctx.workprec(384):
   r=fixture(m);out=m.saved_arithmetic(r,period=2,n=2)
   assert out['strict_inclusions']==2 and out['attraction_power']==1 and out['divisors'][0]['divisor']==1
-  for changed in ['residual','divisor','power','radius']:
+  for changed in ['residual','divisor','power','radius','preconditioner','initial']:
    bad=copy.deepcopy(r)
    if changed=='residual':bad['residual'][0][0]=m.C.ball_json(arb(2))
    if changed=='divisor':bad['orbit_enclosures'][1]=bad['box']
    if changed=='power':bad['attraction_witness_power']=3
    if changed=='radius':bad['box'][0]['rad']=[1,-19]
+   if changed=='preconditioner':bad['preconditioner'][0][0]['rad']=[1,-40]
+   if changed=='initial':bad['orbit_enclosures'][0]=[m.C.ball_json(arb(9))]*2
    with pytest.raises(ValueError):m.saved_arithmetic(bad,period=2,n=2)
 
 def test_exact_all72_strict_membership_not_overlap():
