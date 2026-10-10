@@ -7551,3 +7551,7 @@ Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
 plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
 final failure or strict fold membership, no automatic alternate search.
 No attraction or full shrimp geometry is implied.
+
+## 10 October2026 — connected quadratic eigenpair march source/profile card
+
+Root authorizes one4accepted/5kernel-call continuation unit from the exact passed quadratic positive endpoint, output-gauge direction toward retained numerical cusp-a region. Stable mathematical kernels unchanged; new orchestration carries complete phase/q/root boxes and stops on unresolved tails. One fresh-domain resolvent rebox only for root-only failure; descriptive13D midpoint spectrum/residuals never certify genericity.69focused controls pass0.49s, including couplednative±1paths, failedanchor/primitive exclusion, single-rebox ceiling, accepted-write rollback, bad returned eig retention and resource pins. Initial mock deepcopy of Arb failed1test/67passed; fixed before any acquisition. One synthetic470D resolvent/13D known-double+1 profile is next:20/25+5s,CPU1nice10,512MiB/1GiBAS,8+1MiB,zero native calls. Source byte equality/profile success required before target. Proposed target300/315+5s,650ticks,2GiB/4GiBAS,768+1MiB is measured from prior49.9997s/twochart outcome with2x timing/raw margin. Exact commands/caps in docs/plans/eigenpair-quadratic-march.md. No target begun; root source skim follows frozen commit.
