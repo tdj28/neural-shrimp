@@ -8525,3 +8525,24 @@ at the first final failed gate; preserve every first norm failure and all
 partial outputs. No new orbit count or neutral-fold attraction. Independent
 saved outcome review remains required for final attribution. Fresh resource
 check before launch; no completed scientific interval repeated.
+
+2026-10-10 stability march unit001, original chart007, execution
+564734eaa30a3d8cdd647b8d3619f46970515983: passed=True, 167.681893s /
+693300 KiB; 8 returned slices, 1288 stages.
+Worker 6842aea9f88dfb07b9c78f793e8b7a4c14701ef77c644ea19d118dbaab85e49a; outer 72c9fde4132b29f918aadcaf274fa4326f88d04ff748334b8c719b0d44fe6c4c.
+All raw/source hashes, read-only outputs and absent owned PIDs checked;
+300015518 B. First norm passes 8/8;
+every initial result remains unchanged. Exact requested coverage
+['21/64', '43/128']; independent saved outcome review pending.
+
+Next fixed unit002 card, unchanged source/profile/method/caps: chart006
+with exact requested interval ['41/128', '21/64'], eight descending equal slices.
+Exclusive root s2-period18-stability-march-2026-10-10/unit002;
+--index 6 --previous /data2/neural-shrimp-data/explore/certificates/s2-period18-stability-march-2026-10-10/unit001/run
+--previous-manifest 6842aea9f88dfb07b9c78f793e8b7a4c14701ef77c644ea19d118dbaab85e49a
+--previous-outer-manifest 72c9fde4132b29f918aadcaf274fa4326f88d04ff748334b8c719b0d44fe6c4c.
+Same profile attempt001-profile/run, worker a063cde5cf33bffda71adb9d747670a4674ce5e69d2c27a6b77cd0e262e6e8b7,
+outer c51687eac1257b57bd2d0142734707098217fadd26cd8486aff3447c0e70a478.
+CPU/BLAS1 nice10, 360s/390+5s, 2 GiB, 512 MiB worker/514 aggregate;
+1,296 C1 / 2,592 unit / 288 mixed maxima. Fresh resource check; stop fixed
+sequence on the first failed gate. No completed slice repeated.
