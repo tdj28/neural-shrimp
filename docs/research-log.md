@@ -11805,3 +11805,8 @@ Interval profile9937d62e passed2.539s/58684KiB,108native phases; all source/hist
 ### 2026-10-10T23:34:07.488518+00:00 — Independent LM source clearance and measured profile card
 
 Independent reviewer reproduced all six controls and cleared20150b20 plus07db5b10 after the CE retention repair. Run only the fixed two-arm profile at consumed seed28160/update50, with two gradients, HVPs and training CE readouts per arm. CPU1/nice10,60s worker/80s external plus5s cleanup,4GiB monitored RSS,256MiB worker evidence. Fresh host reports52GiB available RAM; no GPU is used. A complete source-bound cost forecast below300s is required before a separately recorded four-checkpoint target.
+
+
+### 2026-10-10T23:34:44.755298+00:00 — Measured LM response profile and fixed target card
+
+The fixed two-arm profile completed12 native operations in0.980s worker/3.354s launcher; maximum owned RSS936763392B. All source/input inventories and termination checks pass. Conservative measured forecast244.964127s fits the fixed300s worker ceiling. Proceed exactly four saved checkpoints, seeds28161/28162, update600, arms8/256, with580 gradients/256HVP/96CE and the reviewed1%/20% gates. CPU1/nice10,4GiB monitored RSS,256MiB evidence and320s external plus5s cleanup remain fixed. No new data or hyperparameter selection, no protected/probe evaluation.
