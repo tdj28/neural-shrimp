@@ -7105,3 +7105,7 @@ Completed doubled-slice independent review permits a fixed extension to all seve
 2026-10-10: Freeze metadata-only independent saved attraction coverage adapter, unchanged chart156 numerical reducer.26 focused controls pass0.09s. First exact input index8/chart155 external pins are committed; fixed60s/80+5 CPU1nice10/2GiB/8MiB, no derivative acquisition. Complete reviewed119/123source inventories, selected original partial-parent qualified chart/model and exact eight-slice partitions bound; subsequent distinct fixed units need new committed pins, no retries.
 
 2026-10-10: Certificate_context author-overlap schema skim of savedcoverageauditore7ded172 passes; no target/math calls by reviewer. Freeze the known distinct chart155/154/153 pins, one separate60s/80+5s audit each, sequential and stop on any failure. No scientific or helper source change, no prior slice rerun.
+
+2026-10-10: Three separate saved stability audits from c4e39424 passed charts155/154/153, 24 strict slices, exact union[41/128,11/32]. Worker27.658/30.029/29.813s, all bounds within caps, immutable full inventories and nine owned PID exits verified. No new acquisition/root proof; inherited-root/AD scope explicit.
+
+2026-10-10: Static peer skim ee4753e7 partial-radius diagnosis passed with24 focused synthetic controls0.14s. Exact partial-prefix/failure provenance and unchanged proposal math; no target array/reduction/model call in review. Fresh wider-domain proof remains mandatory.
