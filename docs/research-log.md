@@ -8310,3 +8310,21 @@ composition and independently reproduced35 synthetic controls in0.50s.
 Clarified the already enforced385MiB aggregate/384MiB worker caps;
 1MiB nonworker size is an allowance, not a separately checked inventory gate.
 No mathematical, executable or scientific-setting change.
+
+2026-10-10 doubled-slice synthetic profile at b0008a1cdf8c84ee323862c5b6354c865f18010c completed
+once: 10.624791s/482184KiB, all162 C1/324unit/18mixed
+calls,6intersections/85stages, positive-path gates. Worker 35bc565acfe98f6727f6475730832dc3308be7edc66e1607e5c89ece0a802a97;
+outer ea98b3453e2be4d62d53a3f36c1fe91111e9ff1c24e021646270960867280122. Full immutable inventory/source/settings/owned-PID
+checks pass. Projection 52.499162s<90;
+201326592B<336MiB. Compact profile receipt above.
+
+Exact next target card: ONE exclusive attempt001-target in the same
+s2-period18-doubled-stability-slice-2026-10-10 root, unchanged executable/card
+bytes, exact chart156 inherited root and [359/1024,45/128]. Use
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-doubled-stability-slice-2026-10-10/attempt-001-profile/run
+--profile-manifest 35bc565acfe98f6727f6475730832dc3308be7edc66e1607e5c89ece0a802a97
+--profile-outer-manifest ea98b3453e2be4d62d53a3f36c1fe91111e9ff1c24e021646270960867280122.
+CPU/BLAS1,nice10,90s internal/105+5 external,2GiB sampled owned-group RSS,
+384MiB worker/385MiB aggregate. Recheck shared RAM; no rerun on failure.
+This is the already source-reviewed bounded adaptation, no new data or
+whole-branch/neutral-fold claim. Preserve all gates and attempted counts.
