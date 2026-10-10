@@ -9353,3 +9353,18 @@ Outer746a03086c2341487eff3588de582576ff8745eea44fe4210d3971f7baef7275; runc7e440
 `docs/reviews/eigenpair-neutral-quotient-outcome.md/.json`. Related signed
 coefficient saved arithmetic independently passed6c25372c; original creation-time
 pending labels remain unchanged. Geometry continuation proceeds separately.
+
+### 2026-10-10 — peer P24 differential source skim
+
+Read-only source/card review of10fed325 found no blocker to its fixed profile-admitted N6/28184 component67 refinement. Exact matrix/patch/two-start native24/48 selection and inherited qualification/resource gates preserved. No empirical arrays, model calls or tests run by reviewer. Hash-bound record `docs/reviews/clark-rnn-p24-peer-source-skim.json`; geometry and crop limitations explicit.
+
+### 2026-10-10 — unit013 retained qualified prefix and first bound stop
+
+Exactly one chart [215/128,219/128] qualified. Next [219/128,223/128] initial
+178/470, repaired469/470 with coordinate364 unresolved; q<.897265,
+primitive/fullanchor pass. Fourcalls/tworepairs,85.230024s/1139348KiB/508ticks,
+exit2 without resource failure. All immutable inventory/source/PID checks pass.
+Outere8483b59300401f36bfd71d33942f652d2e2c94480bebe84c1965e50875421c0; run9b6ae04c6157cf17cbc0c7213657417e25072716074a051a058ad35c9391bb7e.
+Companions `docs/reviews/eigenpair-wider-march-unit013.md/.json`. Do not consume
+failed tail or invoke complete-parent unit014. Next is a disclosed saved-only
+forcing/radius diagnosis and exact qualified-prefix amendment if justified.
