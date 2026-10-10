@@ -17,7 +17,7 @@ def main():
  assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip()
  assert os.getpriority(os.PRIO_PROCESS,0)>=10
  resource.setrlimit(resource.RLIMIT_AS,(1024*1024**2,1024*1024**2));start=time.monotonic()
- out=BASE/'combined-summary004';out.mkdir(exist_ok=False);records=[];rows=[];native={};fold_details=[]
+ out=BASE/'combined-summary005';out.mkdir(exist_ok=False);records=[];rows=[];native={};fold_details=[]
  for name,pin in PINS.items():
   base=BASE/name;assert ent(base/'manifest.json')['sha256']==pin
   inv=read(base/'manifest.json')['files'];assert set(inv)=={str(p.relative_to(base))for p in base.rglob('*')if p.is_file()}-{'manifest.json'}
@@ -107,6 +107,7 @@ def main():
  axs[0].legend(fontsize=6);axs[1].axhline(1,color='black',lw=.7);axs[1].set(xlabel='Accepted node within segment',ylabel='Other-multiplier spectral radius',title='Crosses mark nonattracting complements on left');axs[1].legend(fontsize=6)
  fig.savefig(out/'combined-boundaries.png',dpi=160);fig.savefig(out/'combined-boundaries.pdf');axs[0].set_xlim(min(np.log10(r['output'])for r in rows)-.001,max(np.log10(r['output'])for r in rows)+.001);axs[0].set_ylim(min(np.log10(r['hidden'])for r in rows)-.005,max(np.log10(r['hidden'])for r in rows)+.005);fig.savefig(out/'full-boundaries.png',dpi=160);plt.close(fig)
  result={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source':ent(Path(__file__)),'runs':records,'map':{'path':str(MAP),**ent(MAP)},'rows':rows,'fold_coefficients':fold_details,'coefficient_sign_changes':changes,'nearest_fold_flip_pairs':pairs,'flip_polyline_intersections':intersections,'elapsed_seconds':time.monotonic()-start,'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'scope':'Numerical carried fold/flip nodes only; historical screen is context, no rigorous inter-node connection or shrimp proof.'}
+ save(out/'resource-outcome.json',{'elapsed_seconds':result['elapsed_seconds'],'peak_rss_kib':result['peak_rss_kib'],'elapsed_gate':result['elapsed_seconds']<45,'rss_gate':result['peak_rss_kib']<512*1024})
  assert result['elapsed_seconds']<45 and result['peak_rss_kib']<512*1024
  save(out/'summary.json',result);(out/'source.py').write_bytes(Path(__file__).read_bytes());save(out/'manifest.json',{'files':{p.name:ent(p)for p in out.iterdir()}})
  for p in out.iterdir():p.chmod(0o444)
