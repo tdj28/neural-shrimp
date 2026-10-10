@@ -6750,3 +6750,15 @@ Saved refined-map inspection shows the634-cell leader reaches both gain edges. A
 Source961fdd76 completed.7226s/.9696s,121728KiB,761native returns. One simple primitive10 flip qualifies at gain14.4608893/leak.4669738980 (alpha_delta−195.63,complementradius.03005); four directions stopped at phase identity and one at reverse error. All inventories/modes/owned1064890/1064915group exits verified, outer18fa07a209e4697aeb3ec4159fff57867a1d1bfa3f4f1f5042dc6288cc308785.
 
 Saved inspection locates an even-period antipodal argmin tie behind four identity labels; original labels remain. New endpoint-only card requires both cycle self-defects and native-best gap<1e−10, exact(-1,shift5) alternate alignment, unchanged native distance<.05, no state transformation and all primitive10 divisors. Quarter leak step, five exact last endpoints, max384 each, no prefix replay or resolved-flip repeat. Genuine reverse mismatch remains unresolved. Six synthetic native/symmetry/collapse controls supplement prior boundary controls; root source/rule read before resumed target.90s105+5CPU1nice10/512MiB/256+1MiB, fixed cost screen first.
+
+## 10 October2026 UTC — extended arclength independent saved-audit card
+
+Root starts seven bounded saved-arithmetic units from the independently audited
+initial18 charts through the111-chart producer prefix. Unchanged independent
+reducer,256bit identities/384bit stronger joins, explicit full native lineage,
+all failed tails retained. Exact pins/card in docs/plans/s2-march-chain-review.*.
+No fresh derivatives or target runs; reboxed proofs explicitly excluded pending
+a later decoder-aware audit. First audit unit uses prior manifest
+5afa111cec0d00ac8ad34d6c51d99d740798ac80d2274065aac58fa6f7092101.
+Integrated RNN/continuation behavior checks passed72controls; no old acquisition
+rerun. No full shrimp or extended-attraction claim.
