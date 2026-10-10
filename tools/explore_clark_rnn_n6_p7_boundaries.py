@@ -145,7 +145,7 @@ def main():
                     if err>1e-7:endstatus='reverse_mismatch';break
                     if candidate['radius']>=1:
                         # First sampled loss at step .001 on the carried branch: only the
-                        # nearest +/-1 real multiplier is localized, not an NS surrogate.
+                        # leading real +/-1 multiplier is localized, not an NS surrogate.
                         sign=leading_boundary_sign(candidate['eigenvalues'])
                         if sign is None:endstatus='first_unstable_complex_unresolved';break
                         endstatus='first_unstable';boundary=w.localize(candidate,j,g,sign,tag+'-boundary');break
