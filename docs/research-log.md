@@ -5618,3 +5618,7 @@ Execution69e2c0a5 passed30.193s projected cost, then hit90s internal cap due rep
 ### 2026-10-09 PDT: two p7 fold branches, prospective2D card
 
 The p7 deadline failure remains immutable. New card `docs/plans/clark-rnn-p7-continuation.md` uses only fully completed qualified middle-gain lower/upperfolds; four96-step traces, fixed.015, same scales/fullnative9x10Jacobian, phase/sign+reverse checks. New wrapper uses established constant-time conservative prewrite accounting, retains current trace before work, and discloses this engineering adaptation.90s105+5CPU1nice10/512MiB/128+1MiB/7000calls, measured6500max+20<=90 synthetic gate first. No repeated slices or new targets beyond these two saved boundary seeds; no automatic proof/cusp claim.
+
+### 2026-10-09 PDT: alternative p7 fold geometry retained
+
+Source1f91d111 completed2.219s internal/2.677s external,42048KiB,1582familycalls. The constant-time conservative reservation avoided the prior storage cost. Four traces accepted258newnodes: lower-lowg36 then phase-distance gate, lower-highg48 then gain10 envelope, upper-lowg96cap, upper-highg78then gain10 envelope. All accepted complements attract, coefficients retained; no cusp/PD/whole-shrimp conclusion. Full inventories/modes and1032359/1032396owned/group exits verified; receipt `docs/reviews/clark-rnn-p7-curves-outcome.json`. Low-g coefficients shrink, motivating a fixed smaller-step endpoint-only resolution unit, with resonance tongue as a competing outcome rather than assumed shrimp.
