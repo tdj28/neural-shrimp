@@ -5,6 +5,7 @@ root/critical-plane identities and whole-domain acquisition bindings belong to
 the caller. Validated full frames then represent all remaining multipliers.
 """
 import numpy as np
+from scipy.linalg import solve_discrete_lyapunov
 from flint import arb,arb_mat
 from .rigorous_connection import require
 from .rigorous_orbits import eye,midpoint_matrix,matrix_json,ball_json
@@ -39,12 +40,46 @@ def proposed_complements(blocks):
     return frames,{'eigenvalues':[[float(v.real),float(v.imag)]for v in values],'selected_indices':selected,'mode_groups':groups,'root_matrix':D.tolist(),'phase_complements':[matrix_json(E)for E in frames],'cyclic_final_index':0,'scope':'Floating proposals only; smallest-modulus selection and root scalings supply no spectral proof. Negative real signs are carried by the final cyclic phase.'}
 
 
+def balanced_complements(blocks,flat):
+    """Orthogonal quotient and periodic Lyapunov metric propose exact columns.
+
+    For midpoint quotient Q_j, P_j=I+Q_j^T P_(j+1) Q_j is solved cyclically.
+    Cholesky B_j^T B_j=P_j yields E'_j=E_j B_j^-1. These are proposals only:
+    final variable frames and every operator/remainder bound are revalidated.
+    """
+    p=len(blocks);n=blocks[0].nrows();m=n-2;matrices=[midpoint_float(A)for A in blocks]
+    require(1<=p<=18 and 4<=n<=13 and len(flat)==3*n*p+2,'bounded full balanced-frame input')
+    E=[];F=[];conditions=[]
+    for j in range(p):
+        off=3*n*j;critical=np.array([[float(flat[off+n+i].mid()),float(flat[off+2*n+i].mid())]for i in range(n)])
+        left,singular,_=np.linalg.svd(critical,full_matrices=True)
+        require(np.isfinite(critical).all()and singular[-1]>0,'full midpoint critical rank')
+        comp=left[:,2:];frame=np.column_stack([critical,comp]);E.append(comp);F.append(frame)
+        conditions.append({'phase':j,'critical_singular_values':singular.tolist(),'orthogonal_frame_condition':float(np.linalg.cond(frame))})
+    Q=[(np.linalg.solve(F[(j+1)%p],matrices[j]@F[j]))[2:,2:]for j in range(p)]
+    prefix=np.eye(m);forcing=np.zeros((m,m))
+    for q in Q:forcing+=prefix.T@prefix;prefix=q@prefix
+    p0=solve_discrete_lyapunov(prefix.T,forcing,method='direct');P=[None]*p;P[0]=(p0+p0.T)/2
+    after=P[0]
+    for j in range(p-1,0,-1):value=np.eye(m)+Q[j].T@after@Q[j];P[j]=(value+value.T)/2;after=P[j]
+    out=[];factors=[]
+    for j in range(p):
+        require(np.isfinite(P[j]).all(),'finite cyclic Lyapunov proposal');B=np.linalg.cholesky(P[j]).T;basis=E[j]@np.linalg.inv(B)
+        require(np.isfinite(basis).all(),'finite balanced complement proposal');out.append(exact_float_matrix(basis));factors.append(B)
+        conditions[j]['balanced_frame_condition']=float(np.linalg.cond(np.column_stack([F[j][:,:2],basis])))
+        conditions[j]['metric_condition']=float(np.linalg.cond(P[j]))
+    return out,{'strategy':'periodic_lyapunov_balanced_orthogonal','conditions':conditions,'midpoint_quotients':[q.tolist()for q in Q],
+      'midpoint_quotient_product':prefix.tolist(),'periodic_forcing':forcing.tolist(),'periodic_metrics':[v.tolist()for v in P],
+      'upper_cholesky_factors':[v.tolist()for v in factors],'phase_complements':[matrix_json(e)for e in out],'cyclic_final_index':0,
+      'scope':'All SVD/linear solves/periodic metrics are floating proposals only. Full native variable frames and every complementary mode are rigorously bounded afterward; no midpoint stability inference.'}
+
+
 def uniform_complement(blocks,flat,p,n,terminal,*,tick=lambda:None,observe=lambda k,v:None):
     require(1<=p<=18 and 4<=n<=13 and len(blocks)==p and len(flat)==3*n*p+2,'full native phase/coordinate inventory')
     require(terminal.nrows()==terminal.ncols()==2,'critical terminal block')
     require(all(A.nrows()==A.ncols()==n and all(v.is_finite()for row in A.tolist()for v in row)for A in blocks),'finite native whole-domain derivatives')
     require(all(v.is_finite()for v in flat)and all(v>0 for v in flat[-2:]),'finite native box and actual rates')
-    E,proposal=proposed_complements(blocks);observe('proposal',proposal);frames=[];inverses=[]
+    E,proposal=balanced_complements(blocks,flat);observe('proposal',proposal);frames=[];inverses=[]
     for j in range(p):
         tick();off=3*n*j;q=flat[off+n:off+2*n];r=flat[off+2*n:off+3*n]
         frame=arb_mat([[q[i],r[i]]+[E[j][i,k]for k in range(n-2)]for i in range(n)]);inverse=frame.inv()
