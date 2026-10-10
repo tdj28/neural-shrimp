@@ -7109,3 +7109,5 @@ Completed doubled-slice independent review permits a fixed extension to all seve
 2026-10-10: Three separate saved stability audits from c4e39424 passed charts155/154/153, 24 strict slices, exact union[41/128,11/32]. Worker27.658/30.029/29.813s, all bounds within caps, immutable full inventories and nine owned PID exits verified. No new acquisition/root proof; inherited-root/AD scope explicit.
 
 2026-10-10: Static peer skim ee4753e7 partial-radius diagnosis passed with24 focused synthetic controls0.14s. Exact partial-prefix/failure provenance and unchanged proposal math; no target array/reduction/model call in review. Fresh wider-domain proof remains mandatory.
+
+2026-10-10: Freeze external pins for the distinct completed chart152/index5 unit003; same reviewed e7ded172 saved-only auditor, one60s/80+5s CPU1nice10/2GiB/8MiB reduction. No prior chart rerun or scientific source change.
