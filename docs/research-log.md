@@ -6167,3 +6167,25 @@ Both preselected targets pass the full outward-rounded local cusp proof. Indepen
 - cusp-b: hidden≈71.8354292407, output≈0.830675873559; cubic≈-1.77136326, unfolding determinant≈0.0127795642. All proper divisors1,2,3,6,9 excluded; simple+1 and all other spectrum off the unit circle. Full exact balls and source/raw hashes are in the canonical receipt.
 
 No acquisition adaptation was needed after the admitted source/profile repair. Each fixed8-Newton attempt used180native steps,CPU1,under10s and67MiB. Complete immutable source/evaluation inventories and exited owned processes verified. Retain profile001 andprofile002. No new paid compute, protected data or optimizer changes.
+
+
+## 10 October UTC: two unfinished upper flip arms
+
+After448 numerical boundary nodes and two local cusp producer passes, the
+crossing/organization of the two period-doubling curves remains unresolved.
+Continue only the saved upper endpoints: ray51 parent005 plus031
+(h78.7729788198,o.813193268269), and ray13 parent007 minus031
+(h80.9194167367,o.835305305430). These are exact saved extended-dyadic states
+with carried outward tangents; the negative parent sign is already included in
+its tangent. New panel names ray51-upper andray13-upper each take64 new
+steps in the saved direction. No prefix repetition, new initialization or
+symmetry identification. Existing steps/gates/resource bounds are unchanged.
+The extension can establish numerical anatomy or contrary evidence; it cannot
+establish interval connectivity or a crossing merely from visual overlap.
+
+Source-bound five-evaluation synthetic profile010 precedes both fixed panels.
+Require unchanged measured gate800*max(evaluation_seconds)+5<170s. Freeze its
+receipt before target010-ray51-upper then011-ray13-upper, one at a time. Retain
+all results, including incomplete panels; no automatic retry. Later saved-only
+segment intersection checks must distinguish two different full-state orbits
+at common parameter proposals from a shared orbit/multiplier collision.

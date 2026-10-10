@@ -146,3 +146,25 @@ Use unchanged equations, tolerances, step0.025 with at most4halvings,64nodes,
 failed trial and stop on unresolved gates. The source-bound synthetic5-call
 profile009 must pass before either target008(ray32-plus) or009(ray13-plus).
 No GPU, new random starts, paid resources or protected holdout.
+
+
+## 10 October UTC: two unfinished upper flip arms
+
+After448 numerical boundary nodes and two local cusp producer passes, the
+crossing/organization of the two period-doubling curves remains unresolved.
+Continue only the saved upper endpoints: ray51 parent005 plus031
+(h78.7729788198,o.813193268269), and ray13 parent007 minus031
+(h80.9194167367,o.835305305430). These are exact saved extended-dyadic states
+with carried outward tangents; the negative parent sign is already included in
+its tangent. New panel names ray51-upper andray13-upper each take64 new
+steps in the saved direction. No prefix repetition, new initialization or
+symmetry identification. Existing steps/gates/resource bounds are unchanged.
+The extension can establish numerical anatomy or contrary evidence; it cannot
+establish interval connectivity or a crossing merely from visual overlap.
+
+Source-bound five-evaluation synthetic profile010 precedes both fixed panels.
+Require unchanged measured gate800*max(evaluation_seconds)+5<170s. Freeze its
+receipt before target010-ray51-upper then011-ray13-upper, one at a time. Retain
+all results, including incomplete panels; no automatic retry. Later saved-only
+segment intersection checks must distinguish two different full-state orbits
+at common parameter proposals from a shared orbit/multiplier collision.
