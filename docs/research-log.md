@@ -6878,3 +6878,27 @@ Companions docs/reviews/eigenpair-wider-repair-outcome.md/.json. Root directs
 bounded multi-chart continuation from this accepted endpoint, retaining every
 failure and allowing at most one fresh-domain nonshrinking repair per chart.
 That new adapter/card must be committed/source-reviewed before its target.
+
+### 2026-10-10 — wider four-chart continuation source/pre-run card
+
+Root directs further boundary continuation after accepted repair783ed376.
+Prepare exactly four accepted charts, at most eight full kernel calls: one
+initial plus at most one fresh-domain nonshrinking radius repair per chart.
+Qualified parent23/128 is fully pinned; prospective right endpoints27/128,
+31/128,35/128,39/128. Failed tails never advance; partial stop remains durable.
+Same exact gauge/native order/sign/halfwidth1/64/256bits/twoNewton and strict
+root/primitive/full-anchor gates. Old derivative enclosures do not qualify new
+radii; all full tubes reacquired. Exact128bit outward proposals preserve floors.
+
+Twenty-five controls pass0.44s, including coupled nonnormal composition/left
+pairing with analytic c=-20.25 and rate derivatives[1.5,-.5], four-pass/eight-call
+repair budget, exact nonshrinking radii, repeated-failure rollback and durable
+accepted-write interruption. New diagnostics consume saved point arrays only:
+one13D eig and one14D transpose-border solve per attempted chart, saved phase/
+mode/solve residuals, c/2 proxy and actual-rate projection; no certified signs,
+genericity, cusp identity or extra model calls. Core proof kernel unchanged.
+
+Measured source-bound cost2*21.4214*8+20≈362.75s. Worker400/external420+5s,
+CPU1nice10,1040ticks,2GiB sampledRSS,512+1MiB. Source/card/rootskim before one
+attempt-001-wider-march launch. See docs/plans/eigenpair-wider-march.md. This
+is a dated exploratory adaptation, not a confirmation or gate relaxation.
