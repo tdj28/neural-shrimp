@@ -7067,3 +7067,7 @@ outer 69f9bb5403d415a0c66dd9a6005f06ca41060c1f89ba19c52d8f435c72e93ed4. Compact 
 docs/reviews/s2-period18-norm-cocycle-outcome.json. Independent outcome
 review pending; full branch attraction and whole shrimp organization remain
 unresolved, and the neutral fold is excluded. Earlier failures unchanged.
+
+## 2026-10-10 — independent norm-cocycle saved-arithmetic review card
+
+Freeze an independently written saved-only checker for the two known successful norm-cocycle outcomes (38ea6ac3, outcome f03b5836), their native derivative acquisitions and uniform tangent premise. Post-outcome review, no new model or decomposition. Fixed 60s/80+5s CPU1, sampled2GiB,8MiB, one attempt; see `docs/reviews/norm-cocycle-saved-audit-card.md`. Synthetic controls and source checkpoint precede execution. Shared analytic derivatives and Arb are explicitly retained trust dependencies.
