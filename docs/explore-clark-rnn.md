@@ -89,3 +89,23 @@ or a whole shrimp. The fold/flip pair is enough to motivate numerical2D
 continuation followed by independent checking and a small-dimensional interval
 certificate. Source, every saved return and failure are bound by
 `docs/reviews/clark-rnn-boundary-slices-outcome.json`.
+
+## Short two-parameter curves
+
+The next fixed pseudoarclength unit accepted192 new boundary nodes,48 in each
+of four fold/flip directions, in1.295s. Every edge passed a reverse correction
+check, worst2.62e-12 in scaled coordinates. The fold spans gain6.383..16.014
+and delta.91826..96332; the flip spans gain6.234..16.031 and delta.90299..94654.
+Both curves bend, all retained complements attract, and all four traces stop
+at their declared node cap. These local numerical connections do not yet show
+a closed shrimp, a cusp or two crossing period-doubling curves. The decreasing
+fold coefficient toward the low-g end motivates a fixed longer extension, but
+is not itself a cusp detection. Exact evidence:
+`docs/reviews/clark-rnn-boundary-curves-outcome.json`.
+
+Neural activity shrimps already have prior art: [Da Silva and Rech (2022)](https://dergipark.org.tr/en/pub/cams/article/1064713)
+report numerical shrimp structures and period-adding spiral organization in a
+three-neuron tanh Hopfield network. We make no first-activity-shrimp claim.
+The present question is the finite fixed iid Clark leaky map, with native
+full-state and eventually validated boundary evidence, while the trained-network
+shrimp remains the main project.
