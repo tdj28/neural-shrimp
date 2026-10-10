@@ -6688,3 +6688,7 @@ Two-fold p7 curves stop at low-g identity resolution and node cap, without cusp/
 ### 2026-10-09 PDT: p7 endpoint resolution finds two fold–flip leads
 
 Execution4c93a329 completed2.418s internal/2.876s external,48040KiB,1636familycalls; added192lower/110upper nodes before cap/reverse gate. Both folds lose complement attraction by a separate real−1 near gain1.802/leak.7866, with simple+1 and nonzero c. No cusp or common-orbit claim from parameter closeness. All raw/modes and1034195/1034219owned/group exits verified, outer01297f353bdcc889bee8ffe497fa3cea28186836f45596b120ddc8d12a088d93. Next disclosed anatomy unit should localize only these two brackets and identify their native flip branches; stop extending thefolds indiscriminately.
+
+### 2026-10-09 PDT: two fixed p7 fold–flip localizations, pre-run
+
+Both savedfolds cross−1 before any cusp. Card `docs/plans/clark-rnn-p7-fold-flip.md` fixes lower130 andupper28 starts,14D analytic augmented H forsimultaneous+1/−1,12Newtonmaxeach, full retained derivatives/linear/eigen/SVDs and fixedqualifiers. No otherbracket/search or automaticintervalproof. Synthetic analyticJacobian and known polynomialfoldflip controls pass.45s60+5CPU1nice10/512MiB/16+1MiB/128returns,10synthetictimings64max+5gate beforetarget. Comparephase/sign beforeanycommon-orbit interpretation.
