@@ -5737,3 +5737,15 @@ protected holdouts untouched. Constructor/coordinate controls retained, and a
 new exact saved-coordinate control rejects non-dyadic/unrepresentable inputs.
 This is numerical exploration only; possible second+1 degeneracy is retained
 as such and no cusp follows from the earlier coefficient pole.
+### 9 October 2026 — Clark response benchmark source/profile card
+
+Root authorized a bounded local method benchmark after the Clark paper discussion.
+Source/card: `docs/plans/clark-response-benchmark.md`; two fixed saved13D cycle
+Jacobian panels, no new derivative/proof/training calls. First a committed synthetic
+largest-window profile15s internal/20+5s external, then root source review before
+fixed216-row panel60s/75+5s. CPU/BLAS1 nice10, worker480MiB address-space/groupRSS,
+root allocation512MiB, raw16+1MiB. Exact receipts and grid frozen in card; retain
+boundary/eta failures, signed/complex multipliers, all partial attempts and source
+hashes. No paid/GPU/holdout work. Adaptive exploratory unit, no headline validation.
+Pre-run source controls:31 synthetic tests passed in0.24s; all three executable
+files compile. No target Jacobian arrays or model computations were read/run.
