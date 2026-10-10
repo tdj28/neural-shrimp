@@ -40,7 +40,7 @@ def localization(chart,start,rows,answer):
         oldlo,oldhi=M.interval(chart['image_correction'][i][0]);disp=z[i]+s[i]*shift+t[i]*shift*shift/2-c[i]
         elo,ehi=M.interval(start['initial_error'][i][0]);need(elo<=oldlo+disp and oldhi+disp<=ehi,'all recentering and inherited error retained')
         slo,shi=M.interval(start['shifted_parent_center'][i]);need(slo<=z[i]+s[i]*shift+t[i]*shift*shift/2<=shi,'shifted exact predictor')
-        need(M.point(start['slope'][i][0])==s[i]+t[i]*shift and M.point(start['curvature'][i][0])==t[i],'shifted full quadratic derivative')
+        sl,sh=M.interval(start['slope'][i][0]);need(sl<=s[i]+t[i]*shift<=sh and M.point(start['curvature'][i][0])==t[i],'shifted full quadratic derivative enclosure')
     normal=list(map(Fraction,chart['normal']));origin=list(map(Fraction,chart['origin']))
     gauge=sum(normal[i]*(c[i]-origin[i]) for i in range(N))-sc
     gl,gh=M.interval(start['center_residual'][-1][0]);need(gl<=gauge<=gh,'actual gauge residual')

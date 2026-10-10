@@ -1,5 +1,5 @@
 """Independent arithmetic audit of eight closed native period18 stability slices."""
-import gc,gzip,hashlib,json,os,resource,signal,subprocess,sys,time
+import gc,gzip,hashlib,json,os,resource,signal,subprocess,sys,time,traceback
 from fractions import Fraction
 from pathlib import Path
 from flint import ctx
@@ -83,7 +83,7 @@ def worker(out):
             need(norm['passed'],'independent strict native attraction')
             row={'index':index,'exact_endpoints':interval,'whole_localization':whole,'center_localization':center,'uniform_tangent':tangent,'norm':norm,'passed':True};save(f'slice-{index:02d}.json',row);result['slices'].append({'index':index,'exact_endpoints':interval,'passed':True});del answer,base,phases,frames,normphases,metric;gc.collect();tick()
         result.update(passed=True,coverage=inp['coverage_endpoints'],native_parameters=13,primitive_period=18,scope='Independent256 localization/implicit-tangent arithmetic and384 native framed polynomial/error/Lyapunov reduction on eight adjacent closed slices of the already independently certified branch. Actual physical state/rate/tangent domains and complete source/phase identity bound. Shared analytic C1/MixedJet acquisitions and Arb; no new derivative implementation, neutral-fold attraction, whole branch or full shrimp claim.')
-    except BaseException as exc:result['error']=type(exc).__name__+': '+str(exc)
+    except BaseException as exc:result.update(error=type(exc).__name__+': '+str(exc),traceback=traceback.format_exc())
     finally:
         signal.setitimer(signal.ITIMER_REAL,0);result.update(elapsed_seconds=time.monotonic()-started,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);save('outcome.json',result);save('manifest.json',{'files':{str(p.relative_to(out)):O.entry(p) for p in sorted(out.rglob('*')) if p.is_file()}})
     print(json.dumps(result));return 0 if result['passed'] else 2

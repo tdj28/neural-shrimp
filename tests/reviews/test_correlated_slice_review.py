@@ -33,3 +33,11 @@ def test_corrupted_containment_or_derivative_is_rejected(kind):
  if kind=='image':next(v for k,v in e if k=='whole_slice_intersection')['image'][0][0]=ball_json(arb(10))
  if kind=='tangent':next(v for k,v in e if k=='physical_inputs')['actual_uniform_tangent'][0]=ball_json(arb(0))
  with pytest.raises(ValueError):check(c,e,r)
+
+
+def test_nonexact_shifted_slope_retains_exact_mathematical_derivative():
+ from fractions import Fraction
+ from neural_shrimp.rigorous_arclength_slices import localize_slice
+ c=chart();sc=str(Fraction(3,64)+Fraction(1,2**301));r=localize_slice(StableFold(),c,sc,sc)
+ assert any(v[0]['rad'][0] for v in r['start']['slope'])
+ assert localization(c,r['start'],r['intersections'],r)['passed']
