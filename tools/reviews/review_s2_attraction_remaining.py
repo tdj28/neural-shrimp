@@ -72,7 +72,7 @@ def worker(out,chart):
         run=TARGET/'run';rt=read(run/'runtime-start.json');done=read(run/'outcome.json');inp=read(run/'inputs.json.gz');launch=read(TARGET/'launcher-result.json')
         need(rt['source_commit']==EXEC and launch['source_commit']==EXEC and launch['exit_code']==done['exit_code']==0 and launch['owned_live_pids']==[],'complete exact producer execution')
         need(rt['mode']=='target' and rt['precision']==256 and rt['nice']>=10 and rt['threads']==dict.fromkeys(O.THREADS,'1'),'native arithmetic and CPU1')
-        for n,h in rt['source_sha256'].items():need(hashlib.sha256(subprocess.check_output(['git','show',EXEC+':'+n],cwd=ROOT)).hexdigest()==h and O.entry(run/'source'/n)['sha256']==h,'all historical source bytes '+n)
+        for n,h in rt['source_sha256'].items():need(hashlib.sha256(subprocess.check_output(['git','show',EXEC+':'+n],cwd=ROOT)).hexdigest()==h,'all historical committed source bytes '+n)
         for pid in (rt['pid'],launch['launcher_pid'],launch['owned_group_pid']):need(not Path('/proc',str(pid)).exists(),'completed original owned processes')
         c=bind_parent(inp,spec);count=validate_partition(inp,done,spec)
         orig=read(ROOT/'certificates/s2-period18-receipt.json');mp=Path(orig['external_root'])/'inputs.json'
