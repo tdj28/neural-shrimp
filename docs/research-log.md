@@ -7483,3 +7483,12 @@ Commit/synthetic controls and peer binder skim precede numerical diagnosis.
 All previous failures remain immutable; no automatic unit014 or failed-tail use.
 
 Partial-diagnosis verification:35 focused controls passed0.37s, including12 malformed prefix/tail cases, real gzip decoding, complete transitive inventory and unchanged positive-radius/fresh-repair controls. Source only; no target diagnosis yet.
+
+### 2026-10-10 — partial-radius diagnosis retained
+
+Executionee4753e71ddad0d9eae6bf58d21a77961979ff88, one saved attempt passed in4.910877s/
+607364KiB, zero native calls. Proposal maximum inflation1.000003942735,
+old-domain ratio.999999769521; unchanged-domain proposal only. Complete immutable
+source/inventory/PID checks passed. Outera857de50ada4f0a84ef94e7641d45f4803e19d56d6887549698a29a9f0b66ac2; run627c2da8bdaa47d9f704c42f59c34fcb01099a20972091e2f3b596c12c35af5a.
+Companions `docs/reviews/eigenpair-partial-diagnosis.md/.json`. Preserve the failed
+unit013 tail and use only qualified call1 as a future fresh-proof anchor.
