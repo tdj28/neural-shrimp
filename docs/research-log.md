@@ -7492,3 +7492,23 @@ old-domain ratio.999999769521; unchanged-domain proposal only. Complete immutabl
 source/inventory/PID checks passed. Outera857de50ada4f0a84ef94e7641d45f4803e19d56d6887549698a29a9f0b66ac2; run627c2da8bdaa47d9f704c42f59c34fcb01099a20972091e2f3b596c12c35af5a.
 Companions `docs/reviews/eigenpair-partial-diagnosis.md/.json`. Preserve the failed
 unit013 tail and use only qualified call1 as a future fresh-proof anchor.
+
+### 2026-10-10 — one fresh partial-prefix repair card
+
+After retained unit013 and diagnosis ee4753e7, one fresh proof on[219/128,223/128]
+from sole proved call1 endpoint219/128. Exact failed-radius proposal identity,
+nonshrinking parent allowance and outward dyadic rounding; all fresh native,
+primitive,470inclusion and correlated-anchor gates unchanged. Source/card
+`docs/plans/eigenpair-partial-repair.md`;90s/110+5,130ticks,CPU1nice10,
+2GiB sampledRSS/4GiBvirtual,128+1MiB. No automatic partial-tail advancement.
+Commit tests and peer differential skim before the one target.
+
+Partial-repair resume, 10 October 2026: recovered the owned implementation after
+context handoff; host process inventory showed no active eigenpair worker.
+Synthetic verification:36 controls passed0.72s, including actual coupled native
+fresh proof, wrong failed-root/mode/gauge rejection, nonshrinking radius identity,
+qualified anchor-only selection and durability/cost failures. Two initial
+synthetic test failures were fixture aliasing and Arb comparison semantics;
+deep-copy fixtures and exact serialized comparisons repair those tests without
+changing mathematical implementation. No target outcome yet. Current host16GiB
+available/load5.77; occupiedGPU remains untouched, CPU1/2GiB lane fits.
