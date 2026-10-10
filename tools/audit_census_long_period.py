@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src')]
 from neural_shrimp import rigorous_orbits as C
 from neural_shrimp.trainability import SYSTEMS,array_sha256
 CARD='docs/plans/census-long-period-independent-inputs.json'
-BASE=Path('/data2/neural-shrimp-data/audits/census-period58-independent/attempt001')
+BASE=Path('/data2/neural-shrimp-data/audits/census-period58-independent/attempt002')
 SOURCES=['tools/audit_census_long_period.py','tools/launch_census_long_period_independent.py','tests/test_census_long_period_independent.py',CARD,'docs/plans/census-long-period-independent.md','src/neural_shrimp/rigorous_orbits.py','src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py','src/neural_shrimp/trainability.py','src/neural_shrimp/gdmaps.py']
 CAP=512*1024**2
 OLD=Path('/data2/neural-shrimp-data/explore/certificates/census-period58/attempt001-target')
@@ -73,6 +73,12 @@ def inventory(root,pin):
   p=root/name;need(not Path(name).is_absolute()and '..'not in Path(name).parts and not p.is_symlink()and entry(p)==item and not p.stat().st_mode&0o222,'immutable file identity '+name)
  return m
 
+def same_network(actual,expected):
+ scalar={'in_scale','out_scale','loss_scale','ridge'}
+ need(set(actual)==set(expected)and scalar<=set(actual),'identical exact model fields')
+ need(all(F(actual[k])==F(expected[k])if k in scalar else actual[k]==expected[k]for k in actual),'identical physical model constants')
+ return True
+
 def binding(card):
  parent=Path(card['producer_root']);inventory(parent,card['producer_outer']);inventory(parent/'run',card['producer_worker']);run=parent/'run';done=read(run/'outcome.json');la=read(parent/'launcher-result.json');rt=read(run/'runtime.json')
  need(la['exit_code']==0 and la['owned_live_pids']==[]and done['passed']and done['status']=='certificate_complete'and rt['source_commit']==la['source_commit']==card['producer_source'],'completed exact producer')
@@ -97,9 +103,8 @@ def binding(card):
  rows=read(paths['certificates']);agreed={(v['map_id'],v['component'])for v in read(paths['summary'])['gate']['qualifying']}&{(v['map_id'],v['component'])for v in read(paths['audit'])['audit_gate']['qualifying']};eligible=[(i,v)for i,v in enumerate(rows)if(v['map_id'],v['component'])in agreed];need(len(agreed)==len(eligible)==61 and [i for i,v in eligible if v['period']==max(w['period']for _,w in eligible)]==[86],'unique maximum among61 agreed representatives')
  row=rows[86];need((row['map_id'],row['component'],row['period'])==('S1R-28002-zoom',262,58),'exact row86');spec=next(v for v in read(paths['plan'])['maps']if v['map_id']=='S1R-28002');need(spec['seed']==28002 and spec['system']=='S1R','unprotected frozen dataset')
  net,x,y,theta=SYSTEMS['S1R'](28002);network=asdict(net);realized={k:array_sha256(v)for k,v in [('x',x),('y',y),('theta0',theta)]};need(network==spec['network']and realized==spec['data_sha256'],'exact regenerated data/model')
- for k in ('in_scale','out_scale','loss_scale','ridge'):network[k]=str(F(network[k]))
  def fractions(v):return [F(float(a))for a in v]
- need(inputs['network']==network and inputs['period']==58 and len(inputs['approximation'])==72,'full exact native model')
+ need(same_network(inputs['network'],network) and inputs['period']==58 and len(inputs['approximation'])==72,'full exact native model')
  need([[F(v)for v in r]for r in inputs['x']]==[fractions(r)for r in x]and[F(v)for v in inputs['y']]==fractions(y),'exact data dyadics')
  need([F(v)for v in inputs['approximation']]==fractions(row['certificate']['orbit'][0])and[F(inputs[k])for k in ['lr_hidden','lr_output']]==[F(float(row[k]))for k in ['lr_hidden','lr_output']]and all(F(inputs[k])>0 for k in ['lr_hidden','lr_output']),'exact selected phase/positive physical rates')
  return actual,r,np.asarray(row['certificate']['orbit']),dict(producer=card,exact_regenerated_hashes=realized,actual_positive_rates=[inputs['lr_hidden'],inputs['lr_output']],scope='One selected72D period58 orbit, no census/window geometry claim.')
