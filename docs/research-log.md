@@ -6902,3 +6902,14 @@ Measured source-bound cost2*21.4214*8+20≈362.75s. Worker400/external420+5s,
 CPU1nice10,1040ticks,2GiB sampledRSS,512+1MiB. Source/card/rootskim before one
 attempt-001-wider-march launch. See docs/plans/eigenpair-wider-march.md. This
 is a dated exploratory adaptation, not a confirmation or gate relaxation.
+
+### 2026-10-10 — prelaunch diagnostic durability amendment
+
+Static self-review found the new diagnostic numerical ValueError handler could
+also swallow a Store observer ValueError from a byte cap. Before any target,
+wrap observer exceptions in a distinct RuntimeError subclass so every failed
+save/deadline/cap immediately aborts instead of becoming numerical abstention.
+An injected aggregate-cap ValueError now proves no later diagnostic/accepted
+record or model call occurs. All26focused controls pass0.45s. Source only;
+no scientific gate, kernel, input or cap changes. Root session was interrupted,
+so certificate_context is providing the same narrow independent source skim.
