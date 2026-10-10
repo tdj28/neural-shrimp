@@ -6540,3 +6540,14 @@ Both independent cusp audits now pass with retained001failure/002diagnostic/003r
 Independent manuscript formula/scope skim passed for the cusp equations, coefficients, unstable complement, weighted/arclength distinctions and native activity companion. Clarified inverse-transpose extraction of the left mode. Saved-evidence build card: fresh cusps-and-native-activity-2026-10-10 output, latexmk120s CPU1nice10, all-page650px contact review and changed-section1500px details,368 number entries with prior353 unchanged and20 figure hashes unchanged. No scientific reruns.
 
 Cusp/native activity PDF checkpoint: clean fresh-directory compile;38 pages,368 saved-data entries verified, including353 unchanged prior entries and15 new entries;20 figure-output hashes unchanged. All-page contact review and detailed pages11,12,13,32,33,38 pass. Independent wording review passed for cusp math/scope, weighted/arclength and native activity proof. Primary metadata corrected/checked for Lessard/Pugliese and MatContM. No scientific experiment repeated. QA receipt docs/reviews/paper-cusps-and-native-activity-qa.json. Goal remains active; this paper checkpoint is not a research stopping condition.
+
+### 10 October 2026 UTC — arclength march unit005 outcome
+
+Execution0c978692eff507dc1ea06ec044c2855e2176367f, unchanged source de1a6f12. Statusinconclusive,
+passed=False;13 durable chart witnesses checked. New exact gauge
+coverage['163/64', '187/64'], last hidden-rate displayunresolved. Worker50.8801s/
+420412KiB, launcher51.3068s,exit2;
+94075652 immutable bytes, hashes/decompressed payloads/native joins/owned-PIDs
+checked. Worker manifestb09b179266c7880fd2480e213e2ce1d489e847fd689bafb0e2b1d5f4b21e1ffa;
+outer222d190d2994d0c9eeff5655dd72c8452dbee383888203f9b3865364ac3c83a1. Companion `docs/reviews/s2-period18-arclength-march-unit005.json`.
+No prefix rerun, attraction or fold identity claim; independent review pending.
