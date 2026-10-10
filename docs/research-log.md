@@ -5570,3 +5570,7 @@ One source4660bf7a run accepted384 new nodes in3.478s internal4.176s external,43
 ### 2026-10-09 PDT: combined saved RNN geometry view
 
 Root requests actual combined curves/endpoints before farther extension. Committed `tools/plot_clark_rnn_geometry.py` binds both immutable curve manifests, joins only exact duplicated endpoint records, and renders solid attracting-complement / dashed nonattracting portions, ordinary projection turns and secondary-multiplier brackets. No model/derivative/decomposition/correction, no common-orbit inference from projected crossings. One CPU1nice10 saved-only run at `p5-geometry-001`,30s+5 external,512MiB/64MiB, alloutputs retained. Existing scientific raw unchanged.
+
+### 2026-10-09 PDT: native4D RNN period5 interval proof preparation
+
+Root requests a stable-body activity-cycle proof in parallel with unresolved geometry. New native Arb map/checker, exact input adapter and card `docs/plans/clark-rnn-p5-certificate.md`, fixed g10.02/delta.956/J0 from saved g16-seed. C1 gates use supplied exact dyadics, proper divisor1, attraction power and whole-box Fraction proximity. Optional distinct odd companion is separate from directly enclosed orbit count. Historical proof kernels unchanged. Four rigorous synthetic controls pass, including primitive4, wrong-period, unstable and odd-companion cases. Source/card to root before synthetic resource profile and single pinned256bit/-80/fiveNewton/512 target;30s45+5/CPU1/512MiB/8+1MiB. No proof target has run in this preparation entry.
