@@ -9664,3 +9664,8 @@ Committed source0d60f415, fixed audit attempt001, outerc7a02ea170f483008f52f04b1
 ### 2026-10-10 —24 adjacent closed attraction slices independently passed
 
 Unit002 source769168de and unit003 source0d60f415 both pass all eight fixed slices, outer manifests d5e510582823bf7130566d79f4b16d8b43dbc6e1e16ea23b713872d078dc9cee and a87a7ac617d70a15218b3d9c5dc58f54ba4392ba33f547ada1a181a24f73a8be. Together with the original eight this gives24 closed adjacent slices, exact affine gauge[5/16,43/128], native13D primitive18. Complete immutable inventories and owned exits verified. Same independent256 localization/tangent and384 correlated native norm/Lyapunov arithmetic; original analytic derivative kernels/Arb shared. This establishes continuous local attraction on this segment, not the entire connecting path, bifurcation boundary or full shrimp. Compact complete chain receipt docs/reviews/s2-correlated-stability-chain-independent.json.
+
+
+### 2026-10-10 — Continuous attraction and parallel negative findings in manuscript
+
+Add independently proved24-slice continuous attraction with exact affine gauge, disclosing shared derivative kernels and remaining all-path/boundary gaps. Add authenticated N12 development-panel scope, negative response preconditioning and common-center gradient explanation. Every quoted new number source-bound; previous entries/figures must remain unchanged. This is a saved-evidence editorial update, no new scientific acquisition or full legacy verifier replay. Compile and visual QA before updated readingPDF.

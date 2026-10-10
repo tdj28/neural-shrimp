@@ -91,3 +91,11 @@ shrimp boundary organization remain open. CIFAR now has a locally accepted
 small damped correction, followed by failed forcing; two same-state right
 conditioners also fail. No accepted CIFAR orbit or language-model utility is
 claimed. The separate audit receipts are cited in the manuscript.
+
+
+The continuous-attraction update adds an independent24-slice proof on three
+adjoining charts, affine full-state gauge[5/16,43/128]. This is distinct from
+the old32-slice small interior cover and does not complete all-path attraction.
+It also records source-checked N12 activity exploration and saved-arithmetic
+response/utility negatives; no shrimp-specific utility or LLM improvement.
+The added audits are separate from the legacy full verifier.

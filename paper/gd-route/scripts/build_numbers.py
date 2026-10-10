@@ -1899,6 +1899,36 @@ def build():
         sources=[path]
         for raw,entry in rec["artifacts"].items():sources+=bound_inventory(Path(raw)/"manifest.json",entry["manifest_sha256"])
         n.add(macro,value,fixed(value,4),EXPLORATORY,sources,"same-state fixed400 true physical forcing; producer-agent saved arithmetic, not independent model reevaluation")
+    # Continuous attraction and separately checked negative transfer/utility pilots.
+    acpath=c.ROOT/"docs/reviews/s2-correlated-stability-chain-independent.json";ac=load(acpath)
+    assert ac["status"]=="passed" and ac["native_parameters"]==13 and ac["primitive_period"]==18
+    sources=[acpath];intervals=[]
+    for unit in ac["units"]:
+        raw=Path(unit["raw_root"]);sources+=bound_inventory(raw/"manifest.json",unit["manifest_sha256"])
+        outcome=load(raw/"run/outcome.json");assert outcome==unit["audit"] and outcome["passed"]
+        intervals.extend(tuple(map(Fraction,row["exact_endpoints"])) for row in outcome["slices"] if row["passed"])
+    intervals.sort();assert len(intervals)==ac["closed_slices"]==24 and len(ac["units"])==ac["reviewed_charts"]==3
+    assert all(a[1]==b[0] for a,b in zip(intervals,intervals[1:]))
+    ends=[str(intervals[0][0]),str(intervals[-1][1])];assert ends==ac["exact_continuation_gauge"]
+    n.add("nCorrelatedSlices",len(intervals),integer(len(intervals)),proof,sources,"independently audited closed adjacent attraction slices on the same primitive18 branch")
+    n.add("tCorrelatedGauge",ends,"["+", ".join(ends)+"]",proof,sources,"later affine full-state continuation coordinate; not a hidden-rate interval")
+    rupath=c.ROOT/"docs/reviews/response-utility-saved-audit.json";ru=load(rupath);rr=ru["result"]
+    assert ru["status"]=="passed_saved_arithmetic" and rr["passed"]
+    rus=[rupath]+bound_inventory(Path(ru["raw_root"])/"manifest.json",ru["manifest_sha256"])
+    fractions=[row["fraction"] for row in rr["utility"]["rows"]];assert len(fractions)==4
+    label="exploratory common-center saved arithmetic; conditional on saved analytic gradients/losses; no geometry-specific benefit"
+    n.add("nCommonCenterCases",len(fractions),str(len(fractions)),label,rus,"all fixed paired loss cases")
+    for macro,value in [("xCommonCenterMinFraction",min(fractions)),("xCommonCenterMaxFraction",max(fractions))]:
+        n.add(macro,value,sci(value,2),label,rus,"absolute centered first-order residual divided by absolute actual paired loss difference")
+    lines=rr["response"][1]["rows"];assert len(lines)==2 and not any(x["endpoint_pass"] for x in lines)
+    for macro,row in zip(["xResponseLineErrorTen","xResponseLineErrorEighteen"],lines):
+        n.add(macro,row["readout_error"],fixed(row["readout_error"],5),EXPLORATORY,rus,"independent terminal fsum reduction of coordinate-time-line preconditioned response; fixed action ceiling exhausted")
+    npath=c.ROOT/"docs/reviews/clark-rnn-n12-panel.json";nr=load(npath);nt=nr["totals"]
+    assert nr["result"]["status"]=="completed" and nt["qualification_attempts"]==nt["qualified_seed_cases"]==116
+    ns=[npath]+bound_inventory(Path(nr["raw"])/"manifest.json",nr["outer_manifest_sha256"])
+    label="exploratory fixed-weight N12 activity panel; source/inventory checked, floating native qualifications; no interval/whole-window proof"
+    for macro,value in [("nClarkPanelMatrices",len(nr["result"]["networks"])),("nClarkPanelDimension",12),("nClarkPanelTrajectories",nt["trajectories"]),("nClarkPanelComponents",nt["consensus_components"]),("nClarkPanelQualified",nt["qualified_seed_cases"])]:
+        n.add(macro,value,integer(value),label,ns,"all fixed development matrices and both starts; selected qualifications only")
     return n
 
 

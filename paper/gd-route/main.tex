@@ -490,6 +490,23 @@ complete stability coverage and two-parameter boundary organization remain
 separate tasks. See \path{docs/reviews/s2-period18-fold-connection-independent.json}
 and \path{docs/reviews/s2-near-fold-endpoint-attraction.json}.
 
+\paragraph{Continuous attraction beyond the small interior segment.}
+An additional independent audit establishes local attraction throughout
+\nCorrelatedSlices{} adjoining closed slices of this same primitive branch,
+with the original output rate fixed. Their union is
+$s_{\mathrm{loc}}\in\tCorrelatedGauge$ in the later affine full-state
+continuation coordinate, not an interval of hidden learning rates. Known-root
+localization and an implicit tangent enclosure bound the actual state, rate and
+Jacobian derivative domains. A cyclic change of frame retains a common scalar
+parameter in a polynomial monodromy bound; operator-norm remainders include
+all discarded terms. Strict Lyapunov inequalities then prove attraction at
+each parameter on this segment. Independent arithmetic reconstructs the
+localization and tangent bounds and reevaluates the polynomial/remainder
+inequalities at higher precision. The analytic derivative acquisitions and
+Arb library remain shared dependencies. The coverage does not yet include
+all intervening parameters between the center and the fold. See
+\path{docs/reviews/s2-correlated-stability-chain-independent.json}.
+
 \subsection{A local fold of primitive period-18 cycles}
 \label{sec:fold-proof}
 
@@ -1196,6 +1213,18 @@ and comparable distant periodic and chaos-qualified controls remain necessary fo
 The result rejects this dose definition at these states, not geometry-based intervention in general. See
 \path{docs/reviews/utility-dose-outcome.md} and \path{docs/reviews/utility-dose-independent-outcome.md}.
 
+\paragraph{Ordinary gradients explain the tested immediate loss contrast.}
+A separate exploratory comparison evaluates feasible paired states
+$\theta_c\pm d$ about the same center. In all \nCommonCenterCases{} cases,
+$2\nabla L(\theta_c)^T d$ explains the measured difference
+$L(\theta_c+d)-L(\theta_c-d)$ up to an absolute residual fraction between
+$\xCommonCenterMinFraction$ and $\xCommonCenterMaxFraction$.
+Independent saved-state and scalar reductions verify this result conditional
+on the recorded analytic gradient and loss evaluations. It supplies no
+geometry-specific explanation of the immediate loss advantage. Longer-horizon
+responses and comparable distant controls would be required to test an
+additional effect. See \path{docs/reviews/response-utility-saved-audit.json}.
+
 \paragraph{Reading the rotation from the loss.} The dominant peak of the even-step training-loss spectrum equals
 the two-step rotation number within $10^{-3}$ in \nPeakQPSTwo{} of \nPeakQPSTwoOf{} quasi-periodic and \nPeakLockSTwo{}
 of \nPeakLockSTwoOf{} locked cells of the S2 slice, and in \nPeakQPSOneR{} of \nPeakQPSOneROf{} and \nPeakLockSOneR{}
@@ -1398,6 +1427,16 @@ products, not measured large-model Hessian-vector products. These results suppor
 further work on window boundaries and preconditioning before any expensive
 language-model experiment; they establish no large-model speedup or training
 utility. See \path{docs/reviews/clark-response-outcome.md}.
+Later operator-only and coordinate-time-line preconditioning pilots also exhaust
+matched Jacobian/vector-action budgets. The latter reduces the physical normal
+equation residual but retains readout errors $\xResponseLineErrorTen$ and
+$\xResponseLineErrorEighteen$ for the period-10 and period-18 references,
+respectively. Componentwise saved-arithmetic checks reproduce both terminal
+residuals and action counts; no inner-iteration or model replay is claimed.
+The time-line checker shares an authoring agent with that producer and received
+a separate root source review. These failures concern the tested finite-window
+solvers, not Clark's asymptotic theorem. See
+\path{docs/reviews/response-utility-saved-audit.json}.
 
 \paragraph{A separate fixed-weight activity pilot.} We also explored Clark's
 finite leaky random-network map,
@@ -1430,6 +1469,16 @@ library. This local activity result establishes neither a periodic window nor
 training dynamics; it leaves the count of trained-network orbit certificates
 unchanged. See \path{certificates/clark-rnn-p5-receipt.json} and
 \path{docs/reviews/clark-rnn-p5-independent-review.json}.
+
+A later development panel uses \nClarkPanelMatrices{} fresh sampled matrices
+with \nClarkPanelDimension{} states and \nClarkPanelTrajectories{} trajectories
+across both starts. It retains all \nClarkPanelComponents{} finite-horizon
+consensus components; all \nClarkPanelQualified{} selected native-cycle cases
+pass the floating-point closure, proper-divisor and stability checks.
+These are selected numerical activity cycles, not rigorously certified
+windows or a population success rate. Full maps and failures are retained;
+boundary refinement remains in progress. See
+\path{docs/reviews/clark-rnn-n12-panel.json}.
 
 \paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter
 space. Freezing weights stops that map; sensitivity of fixed-weight predictions and feedback during generation
@@ -1571,7 +1620,7 @@ and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
 feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
 LM pilots, wider primitive-branch continuation including the fold connection,
-the local cusps and the fixed-weight activity proof
+the correlated attraction segments, local cusps and fixed-weight activity proof
 have separate source-bound audits cited with their results; the full verifier
 does not automatically rerun these later audits. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
