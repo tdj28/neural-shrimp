@@ -46,3 +46,11 @@ def test_nonfinite_negative_ball_rejected():
  m=module()
  for bad in [{'mid':[0,0],'rad':[-1,0]},{'finite':False,'mid':[0,0],'rad':[0,0]}]:
   with pytest.raises(ValueError):m.bounds(bad)
+
+
+def test_equivalent_exact_scalar_spellings_and_real_model_changes():
+ m=module();expected={'d':8,'width':8,'activation':'tanh','bias':False,'in_scale':.5,'out_scale':.125,'loss_scale':1.,'ridge':.001}
+ actual={**expected,'in_scale':'1/2','out_scale':'1/8','loss_scale':'1/1','ridge':str(m.F(.001))}
+ assert m.same_network(actual,expected)
+ for bad in [{**actual,'loss_scale':'10000001/10000000'},{**actual,'width':9},{**actual,'extra':1}]:
+  with pytest.raises(ValueError):m.same_network(bad,expected)

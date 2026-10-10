@@ -18,7 +18,7 @@ def group(g):
  return rows
 
 def main():
- out=Path('/data2/neural-shrimp-data/audits/census-period58-independent/attempt001')
+ out=Path('/data2/neural-shrimp-data/audits/census-period58-independent/attempt002')
  if os.getpriority(os.PRIO_PROCESS,0)<10 or subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip():raise ValueError('clean committed nice10 launch')
  mem=Path('/proc/meminfo').read_text();available=int(next(x.split()[1]for x in mem.splitlines()if x.startswith('MemAvailable:')))*1024
  if available<10*1024**3:raise MemoryError('10GiB headroom')
