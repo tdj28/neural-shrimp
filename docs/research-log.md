@@ -8817,3 +8817,21 @@ root's already-authorized4accepted/8call/caps. Exact scope recorded in
 `docs/reviews/eigenpair-wider-march-source-skim.md`. Reviewer performed no target
 or model calls. All bound scientific/card source bytes remain unchanged; this
 metadata commit records the review before one launch. Fresh host check next.
+
+### 2026-10-10 — wider march001 complete, four retained repairs
+
+Executed metadata-only12ac2c3a with fe35003a scientific bytes after independent
+certificate_context static clearance and fresh40.88GiB availability. Four new
+segments pass to39/128, final actual rates≈75.22721/.82230536. Each first attempt
+failed one coordinate; all four sole permitted fresh-domain nonshrinking repairs
+pass470strict inclusions, native anchor and divisors. All8attempts preserved;
+no failed-tail advancement. Accepted q .936816→.934588. Floating saved-point
+c proxy−8.9834→−9.2246, other+1distance .18331→.18039, rate projection≈.934,
+condition proxy1328→1343; no certified genericity/coefficient/attraction claim.
+
+Worker162.3847s/1103492KiB/1016ticks;8calls/4repairs. Full1227file/346,268,622byte
+inventory/source/immutability checked; owned PIDs1417486/1417572/1417573 absent.
+Outeradab0e94902fe2cdbc397d5346d5bec73614ec59aacf4ed3a3272b220fa49572;
+run665d330535aacb5699d448478d9eab9d88111d9f145861c7bce9ea9ba1d525b0.
+Companions docs/reviews/eigenpair-wider-march-unit001.md/.json. Further units
+must be complete-parent pinned; independent outcome review pending at creation.
