@@ -18,3 +18,19 @@ def test_fixed_domain():
     y=np.r_[np.zeros(4),5.,.6,np.zeros(4)]/M.COL;assert M.in_domain(y)
     for g,d in [(3.8,.6),(8.,.6),(5.,.42),(5.,.85)]:
         y[4]=g/5;y[5]=d/.1;assert not M.in_domain(y)
+
+def test_nonfinite_tangent_is_retained_and_rejected(tmp_path,monkeypatch):
+    w=M.Work(tmp_path);events=[];w.emit=lambda k,v:events.append((k,v))
+    monkeypatch.setattr(M,'oriented_null',lambda *a:(np.full(10,np.nan),{'s':np.ones(9),'null_residual':float('nan')}))
+    with pytest.raises(ValueError,match='tangent'):w.tangent(np.zeros((9,10)),None,'nan')
+    assert events[0][0]=='null_svd'
+
+def test_nonfinite_corrector_return_rejected(tmp_path,monkeypatch):
+    w=M.Work(tmp_path);monkeypatch.setattr(w,'full',lambda *a:(np.full(9,np.nan),np.zeros((9,10)),{'endpoint':np.zeros(4)},0.))
+    with pytest.raises(ValueError,match='nonfinite'):w.correct(np.zeros(10),np.zeros(10),np.zeros(10),np.eye(4),1,'nan')
+
+def test_nonfinite_eigenvectors_retained_and_rejected(tmp_path,monkeypatch):
+    w=M.Work(tmp_path);events=[];w.emit=lambda k,v:events.append((k,v))
+    monkeypatch.setattr(M.np.linalg,'eig',lambda x:(np.ones(4),np.full((4,4),np.nan)))
+    with pytest.raises(ValueError,match='nonfinite'):w.node(np.zeros(10),np.zeros((9,10)),{'monodromy':np.eye(4)},np.zeros(10),1,'nan')
+    assert [e[0] for e in events]==['node_eigen','node_left_eigen']
