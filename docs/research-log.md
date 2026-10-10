@@ -6088,3 +6088,7 @@ Five local numerical boundary roots motivate actual short curves. New source/car
 ### 2026-10-09 PDT: short numerical RNN curves completed
 
 Execution8a2ce1b0 completed all four48-step traces after a33.663s measured synthetic cost projection. Actual1.2946s internal1.6219s external,38836KiB,1164 family calls. All192 new nodes pass primitive/simple and reverse gates, all complements attract, all stops are node caps. Largest reverse error2.62e-12. No closed-loop/cusp/whole geometry or interval claim. Full immutable raw and owned launcher993722/worker993726/group exit verified; companion `docs/reviews/clark-rnn-boundary-curves-outcome.json`. Added primary Hopfield-neural-activity shrimp prior art, explicitly excluding a novelty claim on activity shrimps generally.
+
+### 2026-10-09 PDT: fixed low-g RNN continuation extension
+
+Root requested continuation through turns from saved endpoints, no duplicate prefixes. New card `docs/plans/clark-rnn-lowgain-extension.md`: exactly two low-g endpoints,192 fixed steps each, same PAL gates plus native phase/odd-sign identity, full spectra, fold c/coupling and total flip crossing/cubic diagnostics. Third-directional tanh AD is analytic and synthetic-tested. Nondegeneracy changes are retained, not filtered. One synthetic resource screen then exclusive `p5-lowgain-extension-001`, CPU1nice10/120s135+5/512MiB/128+1MiB/7000familycalls. This adapted numerical anatomy unit precedes any new interval target; old curve evidence remains immutable.
