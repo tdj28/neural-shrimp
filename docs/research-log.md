@@ -11451,3 +11451,5 @@ Stability peer edacb8df complete daughter packet source skim PASS;7 runner contr
 
 
 10 October2026 amendment: attempt001 passed measured admission34.469s/175765504B, then stopped on TypeError from builtin abs(list) while aggregating the first pair of native cycles, before any accepted daughter point. Preserve full immutable attempt001/receipt/PIDs. Repair only this aggregation to np.abs(cycles); add a complete four-context mocked qualification control that reaches literal partner identity and stability aggregation. Same equations, source inputs, fixed amplitudes, thresholds, resource limits and profile remain. Fresh n12-p6-daughters-002 only after narrow peer recheck and committed card. No automatic retry or old failure relabel.
+
+Stability peer cf5bca72 narrow aggregation repair PASS;8 daughter controls independently reproduced0.18s. Same complete qualification thresholds/native gates and measured caps; preserved001 remains separate. Execute fresh002 after resource/output check, with actual synthetic profile repeated before target arrays.
