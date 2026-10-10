@@ -8419,3 +8419,17 @@ docs/reviews/floquet-complement-binding-failure.json:2.191s/83672KiB, outer
 Narrow amendment reproduces exactly the original rounded source expression
 and requires coverage of the exact mathematical domain. Freshattempt003 after
 peer recheck; no other scientific or resource change.
+
+### 2026-10-10 — Failed eigenvector frame; diagnose before another trial
+
+Peer reviewed031162c3 completed exact finite704/independent-root/source binding,
+then Arb could not validate inversion of the first proposed[q,r,E] frame.
+Retain docs/reviews/floquet-complement-frame-failure.json:4.897s/1,435,048KiB,
+outerf971388705dbef6bc0e693717e667bed1776ad82b85022cdb8abafa17799f3ce.
+Zero native calls; this is a proposal/enclosure failure, not instability.
+Root explicitly requested measured saved conditioning before choosing another
+unit. The separate attempt004-diagnosis card records all18 failed-versus-
+orthogonal frame conditions and whole-box inversion feasibility under30s/
+2GiB/16MiB caps. No complementary-stability target trial is included. A periodic
+Lyapunov-balanced orthogonal helper is prepared and synthetically tested only;
+any target use awaits diagnosis and a separately reviewed fixed selection.

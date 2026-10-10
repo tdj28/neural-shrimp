@@ -41,3 +41,14 @@ def test_uniform_error_is_not_replaced_by_its_stable_midpoint():
   A,f,p,n,T=fixture();A[-1][2,2]=arb('-.3','1.5')
   out=uniform_complement(A,f,p,n,T)
   assert not out['passed']and not out['metric']['complete_D_positive']['passed']
+
+def test_periodic_balance_retains_large_individual_expansion():
+ from neural_shrimp.rigorous_floquet_complement import balanced_complements
+ with ctx.workprec(256):
+  A,f,p,n,T=fixture()
+  A[0][2,2]=100;A[1][2,2]=arb('1/100')
+  bases,proposal=balanced_complements(A,f)
+  assert proposal['strategy']=='periodic_lyapunov_balanced_orthogonal'and len(bases)==3
+  out=uniform_complement(A,f,p,n,T)
+  assert out['passed']
+  assert all(row['operator_bound']['passed']for row in out['quotient_phases'])
