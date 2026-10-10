@@ -6762,3 +6762,9 @@ a later decoder-aware audit. First audit unit uses prior manifest
 5afa111cec0d00ac8ad34d6c51d99d740798ac80d2274065aac58fa6f7092101.
 Integrated RNN/continuation behavior checks passed72controls; no old acquisition
 rerun. No full shrimp or extended-attraction claim.
+
+## 2026-10-10T02:09:30.690213+00:00 — extended chain audit unit001
+
+Original256bit identities and384bit primitive/root/full-native joins passed; 34 total connected charts, exact gauge endpoint 67/64. Runtime 52.117s/279772KiB, ownedPIDs absent, complete immutable inventory verified. Outer2e24259580d90c1bdd965bfbdc2c30ab8c1970785cfd1376041212dd1d112e7c. Failed producer tails remain excluded from connection. Shared analytic acquisition/Arb and root source-review overlap explicit; no whole attraction or shrimp claim.
+
+Next saved-audit card: unchanged committed driver/settings, index1, exact prior-output manifest2e24259580d90c1bdd965bfbdc2c30ab8c1970785cfd1376041212dd1d112e7c, next fixed producer row in docs/plans/s2-march-chain-review-inputs.json. Same120/135+5s CPU1nice10/1.5GiB/24+1MiB caps; stop first failure.
