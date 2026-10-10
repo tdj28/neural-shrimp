@@ -6357,3 +6357,28 @@ passed weights/gauge/halfwidth and unchanged one-shot fresh-domain reboxing
 kernel. Forced two-rebox profile then exact pinned unit card;180s/195+5s,
 CPU1,2GiB,384+1MiB. No old prefix rerun, failed anchor, attraction or whole
 geometry claim. Source/run inventories and all failed witnesses preserved.
+
+### 10 October 2026 UTC — fold-directed forced-reboxing profile and unit001 card
+
+Source 649805d2552e7770c43335255f94d83dddd85423; profile worker 8.4183s,
+398708KiB; launcher 8.9905s, exit0.
+Both forced rebox root paths and180/360 derivatives+108jets completed.
+Inventories, source/libraries/threads, immutable bytes and owned exits checked.
+Profile manifest 68f2a3fc8057400f0a29279d19c4fc96bd175826a0acd6b37592574bc7d7ea5a; projection 139.6926s,
+335544320B passes. Companion
+`docs/reviews/s2-period18-fold-march-profile.json`.
+
+Root independently reviewed scientific source 649805d2552e7770c43335255f94d83dddd85423: full fold projection selects workload only, native joins and whole-box membership remain strict; source/radii/rebox authentication passed. Root authorizes this unit and distinct successor units from complete qualified endpoints under the unchanged design, stopping at first failed tail, fold identity, or neighborhood covered without identity.
+
+After this card is committed, run ONE unit:
+`tools/certify_s2_period18_fold_march.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-march-2026-10-10/unit-001
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-march-2026-10-10/attempt-001-profile/run
+--profile-manifest 68f2a3fc8057400f0a29279d19c4fc96bd175826a0acd6b37592574bc7d7ea5a
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-weighted-reanchor-2026-10-10/attempt-001-target/run
+--parent-manifest 5c51e388a0a0cb2ae645b0adc4eab52656414f16ce7789a43e99c85ba63f4ec0
+--parent-execution bd97a76d731ceb51c437d0a9342faabd68068c62`.
+Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
+plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
+final failure or strict fold membership, no automatic alternate search.
+No attraction or full shrimp geometry is implied.
