@@ -168,3 +168,19 @@ shrimp anatomy. See `certificates/clark-rnn-fold-receipt.json` and
 is pending at creation. The existing p5 cycle has since passed a separate
 384-bit nested/independent exp-form map review at69a905e6; its original pending
 receipt remains unchanged.
+
+## Alternative p7 anatomy: partial first boundary unit
+
+The retained p7 alternative differs from p5: at gain4.127951, the native
+body has qualified lower/upper fold candidates at delta.74629698/.82572827.
+At gain2.907011 the lower fold qualifies; the upper root has good numerical
+gates but exceeds the fixed.05 state-association threshold and remains
+identity-unresolved. No flip was localized in those completed slices.
+
+The single three-gain unit hit its90s internal cap during the third slice.
+All returned arrays and failures remain immutable; two completed slices must
+not be reported as a complete six-side protocol. Repeated directory scans
+for byte accounting dominated late runtime. The next new unit uses the
+already established constant-time conservative reservation and only the two
+qualified middle-gain folds for actual2D geometry, without rerunning prefixes.
+See `docs/reviews/clark-rnn-p7-slices-outcome.json`.

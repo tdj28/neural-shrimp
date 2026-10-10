@@ -6668,3 +6668,7 @@ Root read69410e27 and found no source/math blocker. Execution8077a226 passed the
 ### 2026-10-09 PDT: alternative p7 native geometry pre-run card
 
 After the p5 finite-envelope limitation and local-fold proof, root asks for alternative anatomy. Select the already retained N4/28171 p7 component, largest remaining interior coarse component, with18 longer-transient qualified p7 seed cases. New card `docs/plans/clark-rnn-p7-boundaries.md`: gainindices1/3/5, middle consensus7delta/originalstart0, two directions.001×96max, reverse/phase-sign guards, one boundary localization per side. Period7analytic derivatives/core unchanged. Synthetic ten+ten profile precedes target;8000native+96aug+10<=90s,90s105+5CPU1/512MiB/128+1MiB/9000calls. All failures retained; no inferred closure from crop, no automatic local certificate, no freshmatrix/holdout/paidwork.
+
+### 2026-10-09 PDT: p7 slice attempt preserved at deadline
+
+Execution69e2c0a5 passed30.193s projected cost, then hit90s internal cap due repeated directory-size accounting with6520files. Actual90.124s/90.541s,121296KiB,1463nativecalls; source/profile outcome mismatch is retained as engineering failure. Firsttwo gains complete: three qualified folds, one identity-unresolved fold; third slice partial and no overall completion claim. Full manifests/modes and owned1028700/1028727/group exits verified. Outer56b0b759634412447a18700602f75230aa2b4613a84376ffd64cefdd69dc3103. No retry. Next new unit uses constant-time prewrite reservation and the two already qualified middle-gain folds for bounded2D geometry.
