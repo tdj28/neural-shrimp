@@ -6951,3 +6951,12 @@ launcher13.5756s/exit0. Full inventories, all stage payloads,
 source identities, immutable permissions and owned exits checked. Receipt
 `docs/reviews/s2-period18-endpoint-localization-outcome.json` binds exact files;
 independent outcome review pending. Existing127-chart branch is unchanged.
+
+## 10 October 2026 — independent exact-gauge endpoint review card
+
+The producer localized the known127-chart endpoint through three full-domain
+containment intersections, shrinking its maximum radius to3.6911e-15. Root now
+prepares the bounded saved-only original256/independent384 audit described in
+`docs/plans/s2-endpoint-independent-review.md`. The original source review,
+shared derivative acquisition and Arb are disclosed; no new scientific target
+or derivative call. Shifted-center and mutation controls cover the new reducer.
