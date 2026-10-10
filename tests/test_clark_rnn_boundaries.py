@@ -26,3 +26,21 @@ def test_known_scalar_flip_total_derivative_and_degenerate_fold():
     # delta=0 is an identity-map degeneracy, not a nondegenerate fold.
     a,r=qualify_boundary(np.array([0.,0.,1.]),np.array([[-1.]]),2.,1,1)
     assert r['status']=='unqualified'
+
+
+def test_full_family_augmented_derivative_and_null():
+    from neural_shrimp.clark_rnn_boundaries import family_augmented,oriented_null
+    j,x,_=inputs(2,28173);z=np.r_[x[0],1.5,.75,[.6,.8]];eps=1e-5
+    for sign in [1,-1]:
+        h,b,_=family_augmented(z,j,3,sign)
+        fd=np.column_stack([(family_augmented(z+eps*e,j,3,sign)[0]-family_augmented(z-eps*e,j,3,sign)[0])/(2*eps) for e in np.eye(len(z))])
+        np.testing.assert_allclose(b,fd,atol=1e-8,rtol=2e-8)
+        t,w=oriented_null(b);assert np.max(np.abs(b@t))<1e-14
+        t2,_=oriented_null(b,-t);assert t2@t<-.999999
+
+
+def test_fold_family_tangent_can_turn_in_parameter_without_loss_of_rank():
+    from neural_shrimp.clark_rnn_boundaries import oriented_null
+    # Synthetic parabola h(y0,y1)=y0²+y1: tangent at tip points alongy0.
+    b=np.array([[0.,1.]]);t,w=oriented_null(b)
+    assert abs(t[0])==1 and t[1]==0 and w['s'][0]==1
