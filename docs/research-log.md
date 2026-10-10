@@ -6279,3 +6279,19 @@ Run ONE unchanged-source target after fresh memory check:
 Up to16 fixed charts; stop first failed gate, no retry. CPU1,nice10,2GiB,
 384+1MiB,180s/195+5,2200ticks,1152/2304C1/unit+864jets. Every native join
 and all raw chart witnesses remain mandatory. No attraction/fold identity.
+
+### 10 October 2026 UTC — preserve pre-acquisition batch failure; wrapper repair
+
+Attempt001 (cf83b0df) failed before model calls: historical derivative object's
+per-instance max_calls<=180 rejected the1152 aggregate budget. Zero ticks/
+stages,0.8035s/444560KiB; source/card/inputs and failure immutable. Outer
+c802f6902529ae4ae0b3900594d2dd5b77f2304e620e2eb2632c17ca411ded81,
+worker8b65c16802b8560d241bf97bcea4eaab8308aa39843d71c7af233bf4e4cc9b2b.
+Companion `docs/reviews/s2-period18-arclength-batch-attempt001-failure.json`.
+Root approved isolated wrapper repair: identical per-chart72-call objects,
+precision checked at each constructor/call, full aggregate attempted/returned
+counters, old180 guard unchanged. Synthetic1152-call/failure/precision controls
+cover the admission path omitted by the two-chart profile. Reprofile corrected
+source at attempt-002-profile, commit measured receipt before ONE attempt-002
+target, unchanged16chart settings and original180s/384MiB caps. No target
+scientific gate was evaluated in the failed attempt; no threshold is relaxed.

@@ -68,3 +68,23 @@ native join, failed-gate stop, pre/post persistence interruption, endpoint
 corruption, caps and engineering gate. Root source review precedes target;
 independent review precedes final scientific claims. No boundary identity,
 whole-path attraction or complete shrimp verification is claimed by this batch.
+
+## Disclosed wrapper amendment after attempt001 — 10 October 2026 UTC
+
+Attempt001 target stopped at construction, before any derivative call/tick or
+scientific gate: the historical MeanValueHiddenRateMap limits each instance to
+180 calls, so directly supplying the1152 aggregate budget was invalid. The
+successful two-chart profile used144 and did not expose that constructor path.
+The immutable failure remains at attempt-001-target (outerc802f690..., detailed
+companion). This is a wrapper admission failure, not a branch failure.
+
+New `rigorous_batched_gradient.py` creates fresh capped72-call objects using
+identical copied model inputs and unchanged256-bit context, and aggregates
+all attempted/returned wrapper/unit counts. Before rotation require the old
+block fully returned. The180-call historical guard and all mathematical code
+remain unchanged. Synthetic controls exercise all1152 admitted calls across16
+instances with no model, a nested unit failure, wrong precision and cap+1.
+Reprofile this repaired wrapper under attempt-002-profile, then one target
+attempt-002-target if the original cost gate passes. Same settings,16-chart
+cap and resource card; no new width/search or numerical retry of a failed
+scientific gate. Both profile versions and attempt001 remain immutable.
