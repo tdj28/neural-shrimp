@@ -6868,3 +6868,23 @@ immutable files and owned exits checked. 102087401 retained bytes.
 Worker manifest d66af8427a2eeb8da0f5eb8b1cf7065879d18a707e1956a26e8316df4d5bc11f; outer
 e9774d0f9a46b771533f12ae43d65d9b00fa98bc30cb47e5ade23c67a15dbc9e. Companion `docs/reviews/s2-period18-fold-reverse-march-unit002.json`.
 Independent review pending; no attraction or complete geometry claim.
+
+### 10 October 2026 UTC — fixed arclength slice stability method pilot
+
+Following the producer full center-to-fold join100296bc, prepare one known-root
+floor and one endpoint-side1/16 slice at the independently reviewed156th forward
+chart. The new containment-only quadratic-gauge module preserves the inherited
+Kimage, all recentering displacement, quadratic/gauge terms, and entire actual
+rate domain. Fresh physical Jacobians feed the unchanged periodic metric gates.
+Forty-eight synthetic/core controls pass0.26s. Root will skim frozen source
+before acquisition; no target arrays or derivatives acquired during preparation.
+
+First run the non-outcome90-call engineering profile described in
+`docs/plans/s2-period18-arclength-slice-stability.md`:
+`tools/certify_s2_period18_arclength_slices.py --mode profile --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-slices-2026-10-10/attempt-001-profile`.
+Use OMP/OPENBLAS/MKL/NUMEXPR threads1, PYTHONPATH=src, root.venv Python,
+nice10. Profile20s/25+5,2GiB,400ticks,90/180calls,256+1MiB; no target values.
+Commit measured profile receipt/pin and check source/runtime/ownership gates
+before the one fixed floor+slice target. No broad subdivision run authorized
+by this card; preserve failures, do not infer instability from failed bounds.
