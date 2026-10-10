@@ -5616,3 +5616,5 @@ connection. Continued next work is nonlinear predictor scaling, not128 blind
 slices; code/card/profile will precede any new acquisition.
 
 Boundary target002 repeats the residual floor despite extended coordinates:0nodes/44evaluations, retained receipt. Root found adapter constructor parsed constants before setting requested precision. Fixed order, added global53-to128/256 regression; prior rigorous kernels andcertificates unaffected. Initial coordinate-only hypothesis insufficient. Profile006 and target003 require all15controls/resource gates; no threshold relaxation.
+
+Corrected-constructor boundary target003 execution:15controls pass and profile006147.186s projection,47244KiB; source0371e7b1 and exact profile pin f1e35dbcdf518c9d755022836fc065f745a3457c9057664d9c64a773b85179eb. Full inventory/exit checked, sufficient current memory. Unchanged32steps/two directions/gates; constructor-order fix is the sole new scientific implementation change.
