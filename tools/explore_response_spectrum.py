@@ -101,12 +101,17 @@ def run(mode,out,profile=None,profile_pin=None):
         if mode=='profile':
             # Deterministic, synthetic 13D/18-phase problem. No empirical reads.
             m=np.diag(np.exp(np.linspace(-.6,.3,13)))+.01*np.triu(np.ones((13,13)),1)+.003*np.tril(np.ones((13,13)),-1);a=np.array([m+((t%3)-1)*.0001*np.triu(np.ones((13,13)),1) for t in range(18)]);times=[]
-            for repetition in range(8):
-                for boundary in BOUNDARIES:
-                    r=response(a,18*64,-.05,1e-6,boundary,budget.tick);r['virtual_memory_after']=virtual_memory();store.save('profile-'+str(repetition)+'-'+boundary+'.json',r);times.append(r['elapsed_seconds']);budget.tick()
-                    if not r['solve_qualified']:raise ValueError('profile solve residual')
+            grid_start=time.monotonic()
+            for rep in REPEATS:
+                for shift in SHIFTS:
+                    for eta in ETAS:
+                        for boundary in BOUNDARIES:
+                            number=result['rows'];store.save(f'profile-{number:03d}-start.json',{'repeats':rep,'shift':shift,'eta':eta,'boundary':boundary})
+                            r=response(a,18*rep,shift,eta,boundary,budget.tick);r['virtual_memory_after']=virtual_memory();store.save(f'profile-{number:03d}.json',r);times.append(r['elapsed_seconds']);result['rows']+=1;budget.tick()
+                            if not r['solve_qualified']:raise ValueError('profile solve residual')
+            grid_elapsed=time.monotonic()-grid_start
             mf=matrix_free_probe(a,18*16,-.05,.01,'free',300,budget.tick);store.save('profile-matrixfree.json',mf);budget.tick()
-            result.update(status='complete',projected_panel_seconds=218*max(times)+2*mf['elapsed_seconds']+5)
+            result.update(status='complete',synthetic_grid_elapsed_seconds=grid_elapsed,projected_panel_seconds=4*grid_elapsed+2*mf['elapsed_seconds']+5)
         else:
             summary=[]
             for slot in PANEL:
