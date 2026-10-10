@@ -5790,3 +5790,5 @@ P12 extension0d0c5008 completed5.817s/6.580s,48560KiB/3079returns. Fold minus167
 Combined p12 geometry rendered e3659ded1.914s, visuallyinspected. No cusp established; csignpole occurs nearother+1, no commonorbit at projectedflipselfcrossing. Pause p12envelope after811distinctnativeboundarynodes, keep unresolved. Proceed predeclared28175component24p14 refinement withsamecost/nativegates/sourceprofile; exactcard/source/tests beforeoneunit.
 
 Root pretarget source/card skim6c5c0ac5 passes: exactp14comparisonfixedpatch/qualifierandmeasuredsourceprofile. Executeoneboundedunit; retainp12anatomylimits.
+
+P14refinement e86b4354 completes12.830s/13.094s,235608KiB.70/70selected native14/56 cases qualify,18startdisagreements,281consensuscomponents. Largest14component489cells touchesedge;parallel12/16/18components alsoedge. Allrawhashes/modes and1400386/1400408 exits verified. Savedwholemapfigure follows30sCPU1/8MiB, no newmodel/decomposition. No compactbody/shrimpclaim.
