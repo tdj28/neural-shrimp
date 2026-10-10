@@ -7653,3 +7653,23 @@ archived sources, exit0 and absent owned PIDs checked. Companions
 `docs/reviews/eigenpair-reanchor-outcome.md/.json`; independent outcome review
 pending at creation, parent ten-chart chain reviewed. Future cost estimates
 must use the larger measured peak. No previous evidence or receipt rewritten.
+
+### 2026-10-10 — same tangent-gauge continuation adapter / pre-profile card
+
+Continue from successful reanchor `e58732ac` using new endpoint-pinned adapter,
+unchanged quadratic and bounded march kernels. Only complete native parents
+qualify; same exact normal/origin/halfwidth and phase/mode sign. Add saved
+predictor rate-projection arithmetic separately from the floating second+1
+spectrum diagnostic. The bounded worker copies the reviewed storage/process
+pattern so its runtime direction correctly names the full-state gauge; original
+worker/source files stay unchanged.69 focused controls pass0.56s (then repeated
+after this runtime-label fix). Root authorized continuing bounded units after
+source/profile/pin/resource checks. No acquisition in this implementation.
+
+Run one synthetic overhead profile with CPU/BLAS1/nice10:
+`/data2/neural-shrimp/.venv/bin/python tools/launch_eigenpair_tangent_chain.py --mode profile`.
+Exclusive `explore/eigenpair-locus-prototype/attempt-001-tangent-march-profile`,
+20s/25+5external,512MiB sampledRSS,8+1MiB raw. It reuses reviewed470D resolvent
+and13D complementary+1 controls, zero target model calls. See
+`docs/plans/eigenpair-tangent-march.md` for measured cost formula and future
+exact-input run cards. No target until profile and fresh source/resource gates.
