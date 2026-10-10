@@ -36,6 +36,9 @@ def build():
   for proof in [p256,p384]:
    p=Path(proof['path']);assert sha(p)==proof['sha256'];v=read(p);assert v['passed']and v['inclusions']==470 and v['anchor_coordinates']==470
   item={'global_chart':k,'producer':producer,'full_chart':artifact(pr,full),'audit':audit,'independent256':p256,'independent384':p384,'exact_gauge_endpoints':ends,'native_dimensions':{'state':13,'period':18,'shooting':470,'sigma':1},'join':join or {'kind':'full470_endpoint_containment','previous_global_chart':k-1,'proof':p384['path']},'gauge_family':'original_output_rate'if k<=10 else 'reanchored_native_tangent'}
+  endpoint_rates=read(Path(p384['path']))['recomputed_endpoints']
+  assert len(endpoint_rates)==2 and all(len(v)==470 for v in endpoint_rates)
+  item['independently_recomputed_native_rate_endpoints']={'native_coordinate_indices':[468,469],'left':endpoint_rates[0][-2:],'right':endpoint_rates[1][-2:],'source':p384,'json_pointer':'/recomputed_endpoints/{0,1}/{468,469}','exact_serialization':'mid/rad are integer*2**exponent; enclosure is [mid-rad,mid+rad]. Display text is illustrative only.'}
   if compact:item['compact_chart']={**artifact(pr,compact),'selector':selector}
   rows.append(item)
  # Original two charts carry full native lift of independently proved fold.

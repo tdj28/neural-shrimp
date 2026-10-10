@@ -11224,3 +11224,21 @@ exact gauge291/128→295/128.
 Exclusive audits/eigenpair-remaining-locus/unit024-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+
+2026-10-10 independent locus unit024 PASS at a8ddac58fe698c9a6d9650c773233a49d955bb6f,
+25.207688s/825364KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+107charts,right295/128.
+Outer5621de61c518765facff1d6ded1ae1998112f712c1f7e9e4bef2a0557951033d;
+worker626ead6ce51af15c1c0a708687648672e0ea548017e0164818f52cd89c379ba0. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+
+### 2026-10-10 — Complete107 boundary replay; frozen independent endpoint membership
+
+All107 native full470D +1-locus charts now independently pass the saved256/384-bit root, contraction, proper-divisor and endpoint-join replay. Final unit024 completed25.208s; immutable outer5621de61c518765facff1d6ded1ae1998112f712c1f7e9e4bef2a0557951033d. This does not yet assert independent membership of the separate organizing root.
+
+Freeze the exact final source/outer/worker pins in docs/plans/eigenpair-chain-membership-independent.json for the already boundary-peer-reviewed baec9903 endpoint driver. One saved-only exact-Fraction audit, exclusive audits/eigenpair-chain-membership-independent/attempt001,60s internal/75+5owned,CPU/BLAS1nice10,512MiB RSS/1GiB AS,16MiB worker plus1MiB outer. Source-bound shared18 analytic phase acquisitions; no new model calls. Require the full independently enlarged41D root input coverage, all native domains, exact original map/gauge, and strict all470 membership inside final293/128→295/128 tube. Retain any failure and stop this attempt. No generic unfolding or complete shrimp morphology claim.
+
+The metadata-only authoritative index source now includes left/right two-rate enclosures taken directly from each completed384-bit proof, exact binary mid/rad serialization and proof SHA pointer, allowing a figure without manufacturing interpolation across the regauge.
