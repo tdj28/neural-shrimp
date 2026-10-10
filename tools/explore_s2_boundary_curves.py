@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy as np
 import flint
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
-from neural_shrimp.numerical_boundary import TwoRateBoundary,correct_section,null_tangent,qualify_boundary
+from neural_shrimp.numerical_boundary import TwoRateBoundary,correct_section,null_tangent,qualify_boundary,correct_periodic_state
 SOURCES=['src/neural_shrimp/numerical_boundary.py','src/neural_shrimp/rigorous_folds.py','src/neural_shrimp/rigorous_orbits.py','src/neural_shrimp/__init__.py','src/neural_shrimp/models.py','src/neural_shrimp/controls.py','tools/explore_s2_boundary_curves.py','tests/test_numerical_boundary.py','docs/plans/s2-period18-boundary-curves.md']
 FOLD=Path('/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-2026-10-09/attempt-002-target/run')
 PINS={'inputs.json':'4a5a8c53b51cd9d79c2f5ed760a53b3092c0003978033ab290486d75fcaed470','certificate.json':'e894dedb29bafa2c054ff6eb5dfd6040cdc10711960c5321c341a32af92d8067'}
@@ -31,6 +31,13 @@ def midpoint(b):return np.ldexp(np.longdouble(str(b['mid'][0])),b['mid'][1])
 
 
 def seeded_panel(kind):
+    if kind=='ray32-fold':
+        for name,pin in CENTER_PINS.items():
+            if sha(CENTER/name)!=pin:raise ValueError('center input identity')
+        inp=json.loads((CENTER/'inputs.json').read_text());cert=json.loads((CENTER/'certificate.json').read_text())['result']
+        if not cert['passed']:raise ValueError('certified center required')
+        seed=np.r_[[midpoint(v) for v in cert['center']],exact_coordinate(inp['lr_hidden']),exact_coordinate(inp['lr_output']),np.ones(13)/np.sqrt(13)]
+        return inp,seed,1,np.eye(28)[14],[(-1,32),(1,32)],{'parent':str(CENTER),'pins':CENTER_PINS,'selection':'Historical opposite ray32 fold near hidden68.096714; eight fixed-rate orbit corrections to68.2 then augmented fold correction. Numerical branch association only.'}
     if kind=='fold-plus':
         for name,pin in RESUME_PINS.items():
             if sha(RESUME/name)!=pin:raise ValueError('resume input identity')
@@ -39,13 +46,13 @@ def seeded_panel(kind):
         seed=np.array([exact_coordinate(v) for v in row['point_exact_dyadics']])
         if not row['qualification']['qualified']:raise ValueError('qualified parent node required')
         return inputs,seed,1,np.asarray(row['tangent']),[(1,64)],{'parent':str(RESUME),'pins':RESUME_PINS}
-    parent,pins=(FLIP,FLIP_PINS) if kind=='ray51-flip' else (FOLD,PINS)
+    parent,pins=(FLIP,FLIP_PINS) if kind=='ray51-flip' else (FLIP13,FLIP13_PINS) if kind=='ray13-flip' else (FOLD,PINS)
     for name,pin in pins.items():
         if sha(parent/name)!=pin:raise ValueError('boundary input identity')
     inp=json.loads((parent/'inputs.json').read_text());cert=json.loads((parent/'certificate.json').read_text())['result']
     if not cert['passed']:raise ValueError('boundary certificate passed gate')
     inputs=inp['map_inputs'];c=np.array([midpoint(v) for v in cert['center']])
-    if kind=='ray51-flip':
+    if kind in ('ray51-flip','ray13-flip'):
         from neural_shrimp.rigorous_orbits import exact
         with flint.ctx.workprec(128):
             s=exact(str(Fraction(cert['center'][13]['mid'][0])*Fraction(2)**cert['center'][13]['mid'][1]))
@@ -56,6 +63,11 @@ def seeded_panel(kind):
         out=Fraction(inputs['lr_output']);native_out=np.longdouble(str(out.numerator))/np.longdouble(str(out.denominator))
         seed=np.r_[c[:14],native_out,c[14:]];sigma=1
     return inputs,seed,sigma,np.eye(28)[14],[(-1,32),(1,32)],{'parent':str(parent),'pins':pins}
+
+FLIP13=Path('/data2/neural-shrimp-data/explore/certificates/s2-period18-flip-2026-10-09/attempt-001-target/run')
+FLIP13_PINS={'inputs.json':'2b6ca1902882b9aa4270be4f40b53eb497a2bab711c9af0fa993039d4d4d5db5','certificate.json':'63400407ffc4a4b91924db2e97adf3b89747e17d9336b6e0f7f7b208462bd56d'}
+CENTER=Path('/data2/neural-shrimp-data/explore/certificates/s2-period18-2026-10-09/attempt-001/proof/certificate')
+CENTER_PINS={'inputs.json':'9c01121b61a195baf20050eaf3bf567ebba6b7a0310d8fbced0aabc67f98248f','certificate.json':'ab1f20f9d87e1adf108bb5e5514901725a684ac59586922d81b3a5d2bb2a11ff'}
 
 CAP=128*1024**2
 
@@ -130,6 +142,20 @@ def execute(args):
    result.update(status='profile_complete',evaluation_seconds=times,projected_seconds=800*max(times)+5)
   else:
    scales=np.ones(28);scales[13]=10;scales[14]=.1
+   if args.panel=='ray32-fold':
+    for index,rate in enumerate(np.linspace(seed[13],np.longdouble('68.2'),9)[1:]):
+     proposal=seed.copy();proposal[13]=rate
+     corrected=correct_periodic_state(evaluate,proposal,13,emit=emit)
+     save(out/f'orbit-seed-{index:02d}.json',corrected)
+     if not corrected['qualified']:raise ValueError('opposite-fold seed path failed')
+     orbit=corrected['data']['orbit'];m=corrected['data']['monodromy'];scale=max(1,float(np.max(abs(orbit))))
+     if any(np.max(abs(orbit[d]-orbit[0]))/scale<=1e-6 for d in [1,2,3,6,9]):raise ValueError('seed primitive18 unresolved')
+     seed=corrected['state']
+    eigen,vec=np.linalg.eig(m);critical=int(np.argmin(abs(eigen-1)));q=vec[:,critical]
+    if abs(eigen[critical].imag)>1e-8 or np.max(abs(q.imag))>1e-8 or min(abs(np.delete(eigen,critical)-eigen[critical]))<1e-5:raise ValueError('seed simple real mode unresolved')
+    if np.linalg.norm(m@q-eigen[critical]*q)/max(1,np.linalg.norm(m)*np.linalg.norm(q))>1e-10:raise ValueError('seed eigensystem residual')
+    seed[15:]=q.real/np.linalg.norm(q.real)
+    save(out/'fold-eigenvector-seed.json',{'point':seed,'point_exact_dyadics':coordinates(seed),'multipliers_real':eigen.real,'multipliers_imag':eigen.imag,'critical_index':critical})
    point=correct_section(evaluate,seed,normal,scales,emit=emit);save(out/'seed-corrector.json',point)
    if not point['qualified']:raise ValueError('seed correction failed')
    quality=qualify_boundary(point['data'],sigma,18)
@@ -183,4 +209,4 @@ def launch(args):
  args.out.chmod(0o555);print(json.dumps(record));return code if not remaining else 2
 
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--panel',choices=['fold-origin','fold-plus','ray51-flip'],default='fold-origin');p.add_argument('--out',type=Path,required=True);p.add_argument('--profile',type=Path);p.add_argument('--profile-manifest');p.add_argument('--execute',action='store_true');a=p.parse_args();raise SystemExit((execute if a.execute else launch)(a))
+ p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--panel',choices=['fold-origin','fold-plus','ray51-flip','ray13-flip','ray32-fold'],default='fold-origin');p.add_argument('--out',type=Path,required=True);p.add_argument('--profile',type=Path);p.add_argument('--profile-manifest');p.add_argument('--execute',action='store_true');a=p.parse_args();raise SystemExit((execute if a.execute else launch)(a))

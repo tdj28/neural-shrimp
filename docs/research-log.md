@@ -5900,3 +5900,16 @@ third loweredge unresolved. No new trajectory/solve/eig/SVD or acquisition.
 Outer606de0eb94e3c7d14c2f8b80a73865b893dd0b95cda186a244777613942a7063;
 all hashes/read-only/PIDs checked. See docs/reviews/clark-rnn-independent-review
 .md/.json for exact limitations and pins; no shrimp/chaos/learning theorem.
+
+
+### 2026-10-10 01:00 UTC — complementary S2 boundary run card
+
+Saved overlay86890e96666721984e25e16ebabbf70de038b1ab29e5c6776a3498a5614231b8
+shows ray0fold entering a nonattracting complement beyond its additional+1
+crossing; ray51flip remains complement-attracting on its64 sampled nodes.
+Neither covers the lower/right side of the selected body. Prepare two explicit
+complementary panels: certified ray13flip32+32; opposite historical ray32fold
+via eight fixed-rate primitive18 corrections from the certified center to68.2,
+then augmented fold and32+32. Same800total-call/180s/512MiB/128MiB cap, including
+seed calls; source-bound synthetic profile first. Native phase carried, no phase
+selection, no certificate or geometry theorem inferred from the numerical roots.

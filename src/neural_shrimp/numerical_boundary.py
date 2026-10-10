@@ -117,3 +117,29 @@ def qualify_boundary(data,sigma,period):
     divisions={str(d):float(np.max(abs(orbit[d]-orbit[0]))/scale) for d in range(1,period) if period%d==0}
     good=bool(np.max(abs(data['value']))<2e-10 and abs(eig[critical]-sigma)<1e-7 and (len(others)==0 or min(abs(others-sigma))>1e-5) and res<1e-10 and all(v>1e-6 for v in divisions.values()))
     return {'qualified':good,'critical_index':critical,'multipliers_real':eig.real.tolist(),'multipliers_imag':eig.imag.tolist(),'eigen_residual':float(res),'proper_divisor_separations':divisions,'complement_radius':float(max(abs(others))) if len(others) else 0.,'closure':float(np.max(abs(orbit[-1]-orbit[0]))/scale)}
+
+
+def correct_periodic_state(evaluate, initial, n, max_iterations=10, tolerance=2e-11, emit=lambda kind,row:None):
+    """Fixed-rate Newton proposal with every trial retained by the caller.
+
+    This is numerical orbit tracking only. The last two rate coordinates and
+    critical-vector proposal are held bit-for-bit fixed while theta is corrected.
+    """
+    z=np.array(initial,dtype=np.longdouble,copy=True)
+    if z.shape!=(2*n+2,):raise ValueError('native state shape')
+    history=[]
+    for iteration in range(max_iterations):
+        data=evaluate(z);value=np.asarray(data['value'][:n],dtype=float)
+        err=float(np.max(abs(value)));history.append(err)
+        emit('orbit_newton',{'iteration':iteration,'point':z,'error':err})
+        if err<tolerance:return {'qualified':True,'state':z,'data':data,'history':history}
+        delta=np.linalg.solve(np.asarray(data['jacobian'][:n,:n],dtype=float),-value)
+        if not np.isfinite(delta).all():raise FloatingPointError('orbit correction nonfinite')
+        accepted=False
+        for half in range(12):
+            trial=z.copy();trial[:n]+=delta*2.**-half;new=evaluate(trial)
+            error=float(np.max(abs(new['value'][:n])))
+            emit('orbit_line_search',{'iteration':iteration,'half':half,'point':trial,'error':error})
+            if error<err:z=trial;accepted=True;break
+        if not accepted:return {'qualified':False,'state':z,'history':history,'reason':'line_search_failed'}
+    return {'qualified':False,'state':z,'history':history,'reason':'iteration_limit'}

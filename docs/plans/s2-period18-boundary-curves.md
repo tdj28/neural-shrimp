@@ -103,3 +103,28 @@ profile precedes either target; it acquires no target data. Each panel remains
 64 accepted-node maximum,800 augmented calls,180s cooperative/200+5s external,
 512MiB,128MiB raw,CPU1/nice10. Stop each direction on unresolved failure and
 retain all rejected trials. No new interval geometry or branch-join claim.
+
+
+## 10 October UTC: complementary fold and flip candidates
+
+The saved-only overlay of all192 carried boundary nodes makes the remaining
+coverage gap explicit: ray0 supplies one upper fold curve and ray51 one flip
+curve; the lower/right boundary and second flip curve are untraced. Choose the
+already certified ray13 flip, not a new outcome search, for another32+32 nodes.
+For the complementary fold choose the historical opposite ray32 (decreasing
+hidden rate, same output); its saved candidate lies near68.096714. Start from
+the certified center's exact midpoint and rates; carry the same native phase
+through eight equally spaced fixed-hidden-rate orbit corrections ending at68.2.
+Each uses at most10 Newton iterations/12 line-search halvings, unchanged
+residual2e-11, and all proper-divisor separations>1e-6. Select the final real
+monodromy eigenvector closest to+1 after residual/isolation checks, then solve
+the full augmented fold root at fixed output and trace32+32 nodes. This carried
+numerical approach is a proposal, not a proof of connection to the center.
+
+All calls, including the eight seed corrections, count toward800 and180s, so
+seed preparation can reduce achievable boundary coverage. Stop on any unresolved
+seed failure, do not change target or tolerance. Same source-bound profile,
+CPU1/nice10,512MiB/128MiB,external200+5s. Fixed-rate corrector controls verify
+parameter/vector immutability and singular-Jacobian failure. Exact prior ray13
+and center input/certificate hashes are in the driver. Existing folds, flips,
+historical labels and failed attempts remain untouched.

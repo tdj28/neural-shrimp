@@ -94,3 +94,20 @@ def test_exact_saved_coordinate_resume(tmp_path):
  assert m.exact_coordinate(m.coordinates([x])[0])==x
  with pytest.raises(ValueError):m.exact_coordinate('1/3')
  with pytest.raises(ValueError):m.exact_coordinate(str((2**80+1))+'/'+str(2**80))
+
+
+def test_fixed_rate_orbit_corrector():
+ from neural_shrimp.numerical_boundary import correct_periodic_state
+ calls=[]
+ def f(z):
+  calls.append(z.copy())
+  return {'value':np.array([z[0]**2-4]),'jacobian':np.array([[2*z[0],0.,0.,0.]])}
+ initial=np.array([3.,.2,.3,1.],dtype=np.longdouble)
+ out=correct_periodic_state(f,initial,1)
+ assert out['qualified'] and abs(out['state'][0]-2)<1e-12
+ assert all(np.array_equal(z[1:],initial[1:]) for z in calls)
+
+def test_fixed_rate_orbit_corrector_singular_failure():
+ from neural_shrimp.numerical_boundary import correct_periodic_state
+ def f(z):return {'value':np.ones(1),'jacobian':np.zeros((1,4))}
+ with pytest.raises(np.linalg.LinAlgError):correct_periodic_state(f,np.ones(4),1)
