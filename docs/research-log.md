@@ -11006,3 +11006,8 @@ Stability peer narrow source skim c31373f4 PASS;27 direct combined controls0.45s
 ### 2026-10-10 — Damped residual-merit CIFAR correction completed
 
 Peer-reviewed source6a6362d3 ran six200-iteration LSMR directions on the same98666-parameter subsetA map. All six full steps pass actual merit decrease/ratio/Armijo/phase-separation rules. Relative closure decreases4.8974548e-6 to4.7265110e-6, remaining above1e-8; every old Newton forcing diagnostic fails. No orbit accepted. Actual115.42s,4836HVP14directgrad,742.7MiBgroupRSS,32.25MBraw; owned group empty and all immutable hashes checked. This different solver establishes mild residual reduction, not a solved scaling problem. Source/parent/operator bindings remain intact. Independent saved arithmetic review requested; no protected data/paid/GPU work.
+
+
+### 2026-10-10 — Lead manuscript with exact branch and generic resonance
+
+Reframed title/introduction around established periodic training and bifurcation structure, replaced long negative-led abstract with concise result-led text, and added independently512bit-audited nonlinear coefficients/physical-rate transversality plus analytic local-unit-pair consequence. Added primary Kuznetsov–Meijer2005 reference after checking author preprint§4.4 and publisher DOI. Boundary independent mathematical prose skim PASS; tangent interpretation added.409number bindings regenerate/verify, all404 earlier entries preserved. Full107boundary endpoint claim remains withheld until independentmembership gate; manuscript is active work. README rewritten to current state and accurately distinguishes newer individual audit launchers from legacy verifier coverage.

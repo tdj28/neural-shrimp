@@ -1948,6 +1948,16 @@ def build():
     upper=Fraction(-((-bound*10**9)//1),10**9);assert bound<=upper<1
     n.add("xJordanComplementBound",str(upper),exact_decimal(int(upper*10**9),9),proof,js,"outward rounded maximum of eleven rigorous quotient Gershgorin modulus bounds")
     n.add("nJordanComplement",11,"11",proof,js,"strictly attracting complementary dimensions; remaining two form exactly one length2 Jordan block at+1")
+    # Generic physical-rate unfolding, independently reduced at the same proved root.
+    upath=c.ROOT/"docs/reviews/chain-unfolding-independent.json";ur=load(upath);uo=ur["outcome"];uv=uo["reduction"]
+    us=[upath]+bound_inventory(Path(ur["raw_root"])/"manifest.json",ur["manifest_sha256"])
+    assert uo==load(Path(ur["raw_root"])/"run/outcome.json") and uo["passed"] and uo["precision"]==512
+    assert uv["quadratic_nondegenerate"] and uv["resonant_nondegenerate"] and uv["unfolding_transverse"]
+    assert uo["native_inventory"]["manifest_sha256"]==jc["outer"]["manifest_sha256"]
+    for macro,key,digits,sign in [("tJordanNormalA","a",5,-1),("tJordanNormalB","b",3,-1),("tJordanNormalDifference","b_minus_a",3,-1),("tJordanNormalS","s",3,1),("tJordanRateDeterminant","unfolding_determinant",4,-1)]:
+        lo,hi=ball_endpoints(uv[key]);assert (hi<0 if sign<0 else lo>0)
+        scale=10**digits;flo=lo.numerator*scale//lo.denominator;cei=-((-hi.numerator*scale)//hi.denominator)
+        n.add(macro,[str(lo),str(hi)],"["+exact_decimal(flo,digits)+", "+exact_decimal(cei,digits)+"]",proof,us,"independent512bit same-root coefficient/actual-rate unfolding; outward rational rounding")
     rupath=c.ROOT/"docs/reviews/response-utility-saved-audit.json";ru=load(rupath);rr=ru["result"]
     assert ru["status"]=="passed_saved_arithmetic" and rr["passed"]
     rus=[rupath]+bound_inventory(Path(ru["raw_root"])/"manifest.json",ru["manifest_sha256"])

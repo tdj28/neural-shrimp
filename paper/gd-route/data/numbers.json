@@ -1,8 +1,17 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "0ea5938182a9be0c70b882632818a69a54ae34f553d026a7773de4f69374e214",
+ "generator_sha256": "2d5b2891e0adb385e2c2db02c6d72dd30c72025709eb8a8b5daa0c728f80cc32",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
+  "data:audits/chain-unfolding-independent/attempt-001/launcher-result.json": "6874a620290519717c36aca3ee7af31841c2c8f6f0690f8ef990c03882bd4a5d",
+  "data:audits/chain-unfolding-independent/attempt-001/launcher-start.json": "1850320dc9cba0b9fde3d638f2e949bb1a5d745738bd0fedaa25ea9e989e7f64",
+  "data:audits/chain-unfolding-independent/attempt-001/launcher.py": "5e1204b62b0b54280c652e5676318d50cd0fdda0ed5548e36773caaa6ea1ed5d",
+  "data:audits/chain-unfolding-independent/attempt-001/manifest.json": "840b8bceefc234d950581348d2732bc0b257beedf3ed00b0f0be9860d58289bb",
+  "data:audits/chain-unfolding-independent/attempt-001/owned-process.json": "203ce28d262d51c32f6171698daf24febcc1adc34d075db961bab642579fb9f0",
+  "data:audits/chain-unfolding-independent/attempt-001/process.log": "ff07426ca11b12b8562ea6457f2e989dd31ce75afc99188e51fe755b606925a2",
+  "data:audits/chain-unfolding-independent/attempt-001/run/manifest.json": "b9a9b0efdbfd47183c0ee62a7f8d3d73d0c00d2d66bdd0f9253bed77d20d9caa",
+  "data:audits/chain-unfolding-independent/attempt-001/run/outcome.json": "265d90cfc5d4a949ba3938aa7867dcdb3bd69f6aa8bf05ab1e13f58d57b4ac74",
+  "data:audits/chain-unfolding-independent/attempt-001/run/source.py": "eadb6220d12791688e755492188e37e1f6416c54066aa83b7b09b516a19bbdf4",
   "data:audits/cifar-damped-saved/attempt-001/manifest.json": "c85d9c51f06ec7a9cb0e964767727a6fd1941fc0fb443203e7d6e4b656ab5e79",
   "data:audits/cifar-damped-saved/attempt-001/result.json": "86b2be58cba768fbd8cfe8c7bfa1c19b9fa359c8fd227be5c88762ae8d883e74",
   "data:audits/cifar-diagonal-saved/attempt-001/manifest.json": "c0137a1936c6ab10fb51127acc6d79b80ce1be90091b63b9270215abfaacafe4",
@@ -4837,6 +4846,7 @@
   "repo:docs/plans/s2-period18-fold-independent-review.md": "65c8861914ea7f0aff0da094456289b5e96eb3ccff0cba054525f67b29da54ed",
   "repo:docs/plans/s2-ray51-certificates.md": "5cec353b57bfd24961f0f9edcbb5271143ef89c5365335a2f996405c90ec73cb",
   "repo:docs/plans/shrimp-period18-independent-review.md": "6e0080979246bdc0fa8802b1871a86973cf541cfa65f55a95bc37551676069b6",
+  "repo:docs/reviews/chain-unfolding-independent.json": "2e0381c5b3f173d5d17dc466eba455d9c4a63250448b3d3676607200613c275f",
   "repo:docs/reviews/cifar-damped-outcome.json": "cf1d7b2bfacc708bc5ae2f981d9e65dd0d61fecffc2152487e347ac028029581",
   "repo:docs/reviews/cifar-diagonal-outcome.json": "ff2b5d1f565b683c9ab0177f772b2c15e1e19d2d0ac26dd821e13d124454bc31",
   "repo:docs/reviews/cifar-gram-outcome.json": "20761142c7cbd85e590cf337c02ab974d080ccdaecafe27e74b049158420a0e9",
@@ -29892,6 +29902,116 @@
     "data:audits/generalized-chain-independent/attempt002/run/saved-arithmetic.json"
    ],
    "computation": "strictly attracting complementary dimensions; remaining two form exactly one length2 Jordan block at+1"
+  },
+  {
+   "macro": "tJordanNormalA",
+   "value": [
+    "-11726723484313039625405276947631255277014117778205061781899668597387737846363377279272361251394152988569984770789518666060363491718429959864683723337067463/6703903964971298549787012499102923063739682910296196688861780721860882015036773488400937149083451713845015929093243025426876941405973284973216824503042048",
+    "-11726583399796282912963237385716173007110763471091250407942779775080539737098266773189578626940841057843124528866097668394979691264987028065105187173133255/6703903964971298549787012499102923063739682910296196688861780721860882015036773488400937149083451713845015929093243025426876941405973284973216824503042048"
+   ],
+   "tex": "[-1.74924, -1.74921]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/chain-unfolding-independent.json",
+    "data:audits/chain-unfolding-independent/attempt-001/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-result.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-start.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher.py",
+    "data:audits/chain-unfolding-independent/attempt-001/owned-process.json",
+    "data:audits/chain-unfolding-independent/attempt-001/process.log",
+    "data:audits/chain-unfolding-independent/attempt-001/run/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/outcome.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/source.py"
+   ],
+   "computation": "independent512bit same-root coefficient/actual-rate unfolding; outward rational rounding"
+  },
+  {
+   "macro": "tJordanNormalB",
+   "value": [
+    "-10950082415676488991636324723847123760343332486734878769073186805032415333317638734346436654119921413791225860431754786512753786641067196573262320133962563/418993997810706159361688281193932691483730181893512293053861295116305125939798343025058571817715732115313495568327689089179808837873330310826051531440128",
+    "-10949529445208889027505615060885800891104826887827206538523362893025272756554881936600030014253263831100015083268304521995229372722352636775864292790729539/418993997810706159361688281193932691483730181893512293053861295116305125939798343025058571817715732115313495568327689089179808837873330310826051531440128"
+   ],
+   "tex": "[-26.135, -26.132]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/chain-unfolding-independent.json",
+    "data:audits/chain-unfolding-independent/attempt-001/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-result.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-start.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher.py",
+    "data:audits/chain-unfolding-independent/attempt-001/owned-process.json",
+    "data:audits/chain-unfolding-independent/attempt-001/process.log",
+    "data:audits/chain-unfolding-independent/attempt-001/run/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/outcome.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/source.py"
+   ],
+   "computation": "independent512bit same-root coefficient/actual-rate unfolding; outward rational rounding"
+  },
+  {
+   "macro": "tJordanNormalDifference",
+   "value": [
+    "-5108585476594967910557826970318774277337507996884563311089986565117930357937199798333937492315332713263262117756556267113653689920280644586989119643537987/209496998905353079680844140596966345741865090946756146526930647558152562969899171512529285908857866057656747784163844544589904418936665155413025765720064",
+    "-5108304613719304769689126849130580914507669151355969586775711772271280012515884160499860220673291345231948688479235376688608415293197491214768283365364291/209496998905353079680844140596966345741865090946756146526930647558152562969899171512529285908857866057656747784163844544589904418936665155413025765720064"
+   ],
+   "tex": "[-24.386, -24.383]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/chain-unfolding-independent.json",
+    "data:audits/chain-unfolding-independent/attempt-001/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-result.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-start.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher.py",
+    "data:audits/chain-unfolding-independent/attempt-001/owned-process.json",
+    "data:audits/chain-unfolding-independent/attempt-001/process.log",
+    "data:audits/chain-unfolding-independent/attempt-001/run/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/outcome.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/source.py"
+   ],
+   "computation": "independent512bit same-root coefficient/actual-rate unfolding; outward rational rounding"
+  },
+  {
+   "macro": "tJordanNormalS",
+   "value": [
+    "8935533739394834630864878661020164035899109607368610540445632154812810373387045824447760720211727239915156364071836588731230023086178518648795989671665413/209496998905353079680844140596966345741865090946756146526930647558152562969899171512529285908857866057656747784163844544589904418936665155413025765720064",
+    "8936131781277785488501925982559591005148591816317691800015810777470741401313796234617719954542862590420510250421540017727399973620834939050546233569173253/209496998905353079680844140596966345741865090946756146526930647558152562969899171512529285908857866057656747784163844544589904418936665155413025765720064"
+   ],
+   "tex": "[42.652, 42.656]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/chain-unfolding-independent.json",
+    "data:audits/chain-unfolding-independent/attempt-001/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-result.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-start.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher.py",
+    "data:audits/chain-unfolding-independent/attempt-001/owned-process.json",
+    "data:audits/chain-unfolding-independent/attempt-001/process.log",
+    "data:audits/chain-unfolding-independent/attempt-001/run/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/outcome.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/source.py"
+   ],
+   "computation": "independent512bit same-root coefficient/actual-rate unfolding; outward rational rounding"
+  },
+  {
+   "macro": "tJordanRateDeterminant",
+   "value": [
+    "-602948863972658903899716290470966352708345210862728050623142052554835576199167463719682420915298808478646121939155614833431966770262085128963702902581211/3351951982485649274893506249551461531869841455148098344430890360930441007518386744200468574541725856922507964546621512713438470702986642486608412251521024",
+    "-559271646644656885516592720588482178295767609954963885641594830834331762709525158308335159548747322938893869820162292753249376506147780219237858644420571/3351951982485649274893506249551461531869841455148098344430890360930441007518386744200468574541725856922507964546621512713438470702986642486608412251521024"
+   ],
+   "tex": "[-0.1799, -0.1668]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/chain-unfolding-independent.json",
+    "data:audits/chain-unfolding-independent/attempt-001/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-result.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher-start.json",
+    "data:audits/chain-unfolding-independent/attempt-001/launcher.py",
+    "data:audits/chain-unfolding-independent/attempt-001/owned-process.json",
+    "data:audits/chain-unfolding-independent/attempt-001/process.log",
+    "data:audits/chain-unfolding-independent/attempt-001/run/manifest.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/outcome.json",
+    "data:audits/chain-unfolding-independent/attempt-001/run/source.py"
+   ],
+   "computation": "independent512bit same-root coefficient/actual-rate unfolding; outward rational rounding"
   },
   {
    "macro": "nCommonCenterCases",
