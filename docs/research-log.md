@@ -6620,3 +6620,17 @@ The card docs/plans/s2-period18-near-fold-gauge.md fixes all three normals,
 full input prefix, matrix operations,30s/40+5 cap and4MiB total raw. No new
 model acquisition or proof claim. A fold-informed reverse bridge is an
 explicit future option; whole-box uniqueness containment remains mandatory.
+
+### 10 October 2026 UTC — saved near-fold gauge comparison outcome
+
+Source53321c2655007a087b5871fefc6dcf7269681c1c completed7.1708s/512888KiB,
+launcher7.6779s exit0. All exact inventories, immutable permissions and owned
+PID absence checked. Worker manifest12c136d72229a340cd4664439cd3b6c0c2662c80e38ba377c24b04aeb24c25ac;
+outer68266b6565e61971511e15578765d1cf913d7f48aaca7b86e613f9719448ecb3.
+Saved midpoint infinity-condition diagnostics were103282(inherited),
+175356(endpoint Taylor),318957(target-informed fold secant). These diagnostics
+do not justify rotation alone; no model acquisition or new proof occurred.
+The reverse option will instead consider the known fold's native null
+direction, requiring separately declared18-phase derivative proposals and
+full endpoint localization before a source-reviewed chart pilot. Companion:
+`docs/reviews/s2-period18-near-fold-gauge-outcome.json`.
