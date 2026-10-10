@@ -7218,3 +7218,11 @@ returned-forward retention and transitive imported-source hashes. Both adopted
 before any target/model acquisition. CIFAR manifest regression fixture first
 failed from an undefined test-module alias; corrected fixture explicitly imports
 its module before either schema assertion, then rerun; no scientific acquisition.
+
+## 2026-10-10 — independent correlated-gauge and partial-prefix audit card
+
+Freeze review_s2_newgauge_chain.py and its two explicit input descriptors before
+saved-only acquisition. Root audits the correlated pair then15 durable charts,
+reproducing all six failures without inventing absent batch output. Existing
+256 localization replay anchors the chain; supplemental384 localization failure
+stays preserved. All prior/next claims depend on fresh reducer/native join gates.
