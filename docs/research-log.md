@@ -7728,3 +7728,8 @@ are the required root hypothesis for its block-triangular spectral argument.
 
 All six conditional-spectrum synthetic controls passed in0.11s. This helper
 has no target call and will need independent source and outcome checks.
+
+Recorded exact precursor card after a fresh host check (about52GiB available,
+load5, no duplicate owned worker). Source packet still awaits independent
+binding/launcher skim. Synthetic profile and saved-only proposal remain
+separate exclusive invocations; neither obtains a new native target orbit.
