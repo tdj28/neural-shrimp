@@ -6924,3 +6924,21 @@ inventories/payloads/source joins and owned exits checked. Worker manifest
 ccb8f1c8d1cd08389fdcd9ce31d07debb077e6ca7f8d000056d35cba67f84f3a; outer c401143f9a2f768a585563918b3c4a5389bd96a963660973ed21a012e367f2d1.
 Companion `docs/reviews/s2-period18-arclength-slices-outcome.json`.
 No broad coverage or instability conclusion; independent outcome review pending.
+
+### 10 October 2026 UTC — saved stability-width budget card
+
+The fixed floor passed all18 phase inequalities, while the rightmost1/16slice
+failed all interval inequalities despite passing point proposals. Root directs
+saved-only width/metric-error decomposition and a correlated native cocycle
+method before brute subdivision. Seven new synthetic controls pass0.16s.
+The scoped diagnostic also derives a conditional implicit tangent enclosure
+from saved A,C with a strict weighted Neumann bound; no new model or solve.
+Exact mathematical plan/caps are in
+`docs/plans/s2-period18-slice-budget-diagnostic.md`.
+
+One exclusive saved attempt:
+`tools/launch_s2_period18_slice_budget.py --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-slice-budget-2026-10-10/attempt-001`.
+CPU/BLAS1,nice10,20s/30+5,1GiB,7+1MiBraw. Exact source and completed two-case
+worker manifest pinned in the driver. Preserve all failures; no target data
+acquisition, stability coverage or conditional derivative review claim.
