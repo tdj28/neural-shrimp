@@ -6318,3 +6318,17 @@ correlated anchor,halfwidth2^-7,radius2^-21 and all235 exact weights. Fresh
 whole-domain derivatives and all strict gates required; no old-domain norm
 substitution. One source-reviewed profile then one pinned target, same144/288
 C1+108jets,40s,2GiB,128+1MiB. Prior failure remains immutable; no search.
+
+## 2026-10-10 — measured weighted correlated-reanchor profile and exact target card
+
+Reviewed source1f34c844 completed the one synthetic profile: worker
+6.9868s/695356KiB, all144/288 native calls
+and108 path jets, both root stages; launcher7.5891s/exit0, no owned PIDs.
+All immutable inventories/payloads/source/library settings checked. Receipt
+`docs/reviews/s2-period18-weighted-reanchor-profile.json` records the
+passing projection25.9604s<40 and80MiB<112MiB.
+
+Run ONE target with unchanged source bytes after this card is committed:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_weighted_reanchor.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-weighted-reanchor-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-weighted-reanchor-2026-10-10/attempt-001-profile/run --profile-manifest c26bf632f2ab75c6cb8227bdfe98dfdde694a0d3ce7bd730c57c513b2d2de9f6`.
+Same localized parent78da8e09 and saved gauge21fac4fe;40s internal/60+5 external,
+CPU1,2GiB,144/288 calls,108 jets,two charts,128+1MiB raw. No retry or assumed fold membership.
