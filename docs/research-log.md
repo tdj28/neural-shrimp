@@ -6872,3 +6872,15 @@ attempt: exact endpoint Taylor-tangent gauge proposal, full235D old-root and
 all18 fold projections, and two saved midpoint bordered-matrix diagnostics.
 CPU1/nice10,20s/30+5s,1GiB,3MiB raw. No map/derivative/root acquisition,
 connection or stability claim; full input/source pins in the committed worker.
+
+## 10 October2026UTC — reboxed chain independent audit card
+
+The seven saved audits pass through111 connected primitive charts and reproduce
+both failed tails without advancing from them. Prepare one separate audit of
+the next16 charts including six retained/repaired initial bounds. Original256
+replay explicitly includes the producer's conservative decode;384 reduction
+uses exact saved enclosures. Unchanged independent old reducer handles ordinary
+charts. Nonzero quartic-Taylor and mutation controls cover the new replay path.
+Card/pins docs/plans/s2-reboxed-chain-review.*, same120/135+5s/1.5GiB24+1MiB
+caps, source committed before saved reduction; no target derivatives. Root's
+previous producer-source review and shared analytic acquisition/Arb disclosed.
