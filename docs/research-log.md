@@ -5887,3 +5887,17 @@ parent and output are committed before its unit. Stop first failed proof or
 fold-neighborhood issue, no automatic retries. First parent is completed batch
 attempt002,7baaf7af manifest/executioned708aa3. This is branch connection work,
 not an assertion of attraction, fold identity or completed shrimp verification.
+
+### 10 October 2026 UTC — tighten actual predecessor runner before target
+
+Root source review found a provenance OR-gate bypass: a modified march runner
+could have matched its included old-batch file. Before target, require exact
+march hash whenever that source is present and its recorded executed_runner;
+only the fixed legacy executioned708aa3 may use the old-batch branch. Add argv
+and actual runner runtime identity plus adversarial tests. No scientific core,
+settings or proof thresholds change. Initial synthetic profile completed at
+fd628215 (4.6357s; worker e3206f22a341c67289d87dc3350582573ad53fbc1d92cd4e9df95c7575d4410a,
+outere283d0517d7f6a126c9f0f4ee2432b09a23f7b4815771a4600cc501b2f466154)
+and is retained with `s2-period18-arclength-march-profile001.json`. No march
+target has run. Reprofile new bound source at attempt-002-profile before the
+same first endpoint-pinned unit; original source/history stays immutable.

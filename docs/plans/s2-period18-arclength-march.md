@@ -58,3 +58,16 @@ exact parent card, then launch the next distinct interval if qualified. Runner
 --parent <prior/run> --parent-manifest <SHA> --parent-execution <40hex>.
 A completed unit is primitive-branch progress only. Attraction, identification
 with a fold root and whole shrimp geometry remain separate mandatory work.
+
+## Pre-target source review amendment — 10 October 2026 UTC
+
+Root found that accepting either a matching old batch OR matching march file
+could admit a modified march via its unchanged imported old-batch source entry.
+Before any target, select the actual producer class deterministically: presence
+of march source requires its exact current hash and explicit executed_runner
+identity; it cannot fall back. Absence permits only the exact known legacy
+batch executioned708aa3 with its unchanged runner. Future worker runtime also
+records executed_runner and argv. Synthetic tampering controls reject the
+original bypass. Initial profile remains retained (fd628215, worker e3206f22,
+4.636s); run a new same-workload profile at attempt-002-profile after this
+source freeze, then use its pin. No march target occurred under the old gate.

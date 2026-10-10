@@ -58,3 +58,23 @@ def test_both_accepted_producer_drivers_and_all_math_bound():
     assert 'tools/certify_s2_period18_arclength_batch.py' in m.SOURCES
     assert 'tools/certify_s2_period18_arclength_march.py' in m.SOURCES
     assert set(m.PROOF_SOURCES)<=set(m.SOURCES)
+
+
+def test_actual_march_driver_cannot_fall_back_to_matching_old_batch(monkeypatch):
+    m=driver();march='tools/certify_s2_period18_arclength_march.py';batch='tools/certify_s2_period18_arclength_batch.py'
+    monkeypatch.setattr(m,'entry',lambda path:{'sha256':'correct-'+path.name})
+    runtime={'source_sha256':{march:'tampered',batch:'correct-'+Path(batch).name},'executed_runner':march}
+    with pytest.raises(ValueError,match='actual march driver'):m.require_producer_driver(runtime)
+    runtime['source_sha256'][march]='correct-'+Path(march).name
+    assert m.require_producer_driver(runtime)==march
+    runtime['executed_runner']=batch
+    with pytest.raises(ValueError,match='actual march runner'):m.require_producer_driver(runtime)
+
+
+def test_legacy_batch_admission_is_exact_known_execution(monkeypatch):
+    m=driver();batch='tools/certify_s2_period18_arclength_batch.py'
+    monkeypatch.setattr(m,'entry',lambda path:{'sha256':'correct'})
+    runtime={'source_sha256':{batch:'correct'},'source_commit':'ed708aa36f7ee93bb3b6b730c134dcfbb5bc736e'}
+    assert m.require_producer_driver(runtime)==batch
+    runtime['source_commit']='0'*40
+    with pytest.raises(ValueError,match='legacy batch execution'):m.require_producer_driver(runtime)
