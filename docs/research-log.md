@@ -7828,3 +7828,7 @@ payloads/source/readonly/owned exits checked. Worker manifest9aee1856145ff51a5f7
 outerf872e5f6640018428004d8945e2fec1b982aa2e1ee694da08bc04a070f1a7e01. Companion docs/reviews/s2-period18-fold-reverse-outcome.json.
 Next separate saved weighted forcing/propagation before selecting ONE narrower
 fresh-domain pilot; no repeated completed prefix, automatic grid, or gate change.
+
+## 2026-10-10 — boundary reanchor independently passed; attraction pilot
+
+Independent native residual/J assembly, three whole-root localization intersections and correlated470D gauge join passed at256bits; both new charts independently reduce at384bits with q<.433861/.436934.34.35s/999192KiB; receipt docs/reviews/eigenpair-reanchor-independent.json. No producer code repair. Separately freeze one saved-only periodic metric pilot on all12 audited near-fold training charts, plan docs/plans/s2-saved-branch-attraction.md. It supplies attraction only where interval gates pass; no interpolation or complete shrimp claim.
