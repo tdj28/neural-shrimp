@@ -50,7 +50,7 @@ def test_launcher_accounts_final_manifest_and_log(tmp_path):
  from pathlib import Path
  p=Path(__file__).resolve().parents[1]/'tools/launch_response_operator_blocks.py'
  spec=importlib.util.spec_from_file_location('launcher',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
- (tmp_path/'process.log').write_bytes(b'x'*(1024**2))
+ (tmp_path/'process.log').write_bytes(b'x'*(4*1024**2))
  assert not m.final_byte_gate(tmp_path,{'exit_code':0})['passed']
 
 

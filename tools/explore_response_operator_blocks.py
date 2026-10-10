@@ -6,7 +6,8 @@ import scipy
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 spec=importlib.util.spec_from_file_location('prior',ROOT/'tools/explore_response_multiperiod_blocks.py');B=importlib.util.module_from_spec(spec);spec.loader.exec_module(B)
 from neural_shrimp.response_operator_blocks import probe
-SOURCES=B.SOURCES+['src/neural_shrimp/response_operator_blocks.py','tools/explore_response_operator_blocks.py','tools/launch_response_operator_blocks.py','tests/test_response_operator_blocks.py','docs/plans/response-operator-blocks.md']
+from neural_shrimp.response_operator_storage import emitter as bundled_emitter
+SOURCES=B.SOURCES+['src/neural_shrimp/response_operator_blocks.py','src/neural_shrimp/response_operator_storage.py','tests/test_response_operator_storage.py','tools/explore_response_operator_blocks.py','tools/launch_response_operator_blocks.py','tests/test_response_operator_blocks.py','docs/plans/response-operator-blocks.md']
 CEILINGS={'p10-row35':96480,'p18-row111':173664}
 
 def profile_projection(seconds,stored_bytes,counts):
@@ -20,7 +21,7 @@ def main():
  def tick():
   if stopped[0]or time.monotonic()-started>60:raise TimeoutError('60s/termination')
   if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>448*1024:raise MemoryError('448MiB worker')
- def emitter(slot):return B.durable_emitter(store,seq,slot)
+ def emitter(slot):return bundled_emitter(store,seq,slot)
  rt={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'sources':{n:{'sha256':B.sha(ROOT/n),'bytes':(ROOT/n).stat().st_size}for n in SOURCES},'pid':os.getpid(),'python':platform.python_version(),'numpy':np.__version__,'scipy':scipy.__version__,'nice':os.getpriority(os.PRIO_PROCESS,0),'threads':{k:os.environ[k]for k in B.THREADS},'internal_seconds':60,'science_cap':256*1024**2,'action_ceilings':CEILINGS,'started_unix':time.time()};store.json('runtime-start.json',rt)
  result={'status':'incomplete','rows':[],'scope':'two saved13Dmidpoint maps and selected e0response column; all inner/outer callback costs; no model, derivative, geometryutility or measured LLMspeedup'}
  try:

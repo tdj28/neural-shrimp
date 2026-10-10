@@ -7298,3 +7298,5 @@ Final independent static differential skim of58ddeeef passed before launch. Exec
 ## 2026-10-10 — operator-response profile rejected before targets
 
 Executionabdda35e spent the full173664syntheticcallback ceiling in11.736s. Runtimeprojection40.209s passed, but rawprojection278218630B exceeded255MiB; file-per-array manifest also exceeded1MiBnonworker allowance. Exit2/allraw preserved, targetbindingabsent, allhashes/modes/PIDsexitverified. This is storageengineering failure, not a targetscientific endpoint. See `docs/reviews/response-operator-profile-failure.json`.
+
+Storage-only response amendment: preserve9cb647c6 engineeringfailure, replace file-per-array events with lossless per-eventNPZ plus complete fsynced journal; no scientific kernel or action ceilings changed. Increase only final nonworker allowance1→4MiB from measuredmanifest burden; science256MiBunchanged. Fresh source/profile/peer skim before exactsameunopenedtargets.
