@@ -7902,3 +7902,10 @@ whole-root Jacobian and exact attracting quotient, then uses only its recorded
 MixedJet blocks; no new derivative acquisition. Twenty combined helper/binding
 controls pass0.17s. Synthetic profile and exact measured target cards follow
 independent wrapper review. No target coefficients evaluated at this stage.
+
+### 2026-10-10 — independent unfolding wrapper clearance and synthetic card
+
+Root independently cleared ba50e269 binding/resource wrapper and reproduced
+20controls0.17s; Clark mathematical helper clearance stands. Run only the
+zero-native, two-evaluation unrelated profile in
+docs/plans/eigenpair-chain-unfolding-profile001.json before exact target card.
