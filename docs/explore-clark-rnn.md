@@ -138,3 +138,20 @@ its derived companion separately; the trained-network orbit count is unchanged.
 This does not resolve full shrimp morphology or validate a connection to its
 numerical boundaries. Canonical receipt `certificates/clark-rnn-p5-receipt.json`
 retains independent-review-pending status at creation.
+
+## Finite farther-envelope decision
+
+The fixed envelope added593 numerical boundary nodes (257 fold,336 flip) in
+6.187s, stopping both traces just below gain20. All new complements are
+nonattracting. The lower arms remain continued saddle-cycle boundaries; this
+finite exploration does not establish the internal cusp and two crossing
+period-doubling branches of classical shrimp anatomy. It also does not show
+absence of shrimps in this model or beyond the chosen envelope.
+
+Full saved spectra locate further second−1 and +1 encounters on the flip
+curve. Coefficient sign jumps near these encounters are not asserted to be
+generalized flips or cusps. The source-bound receipt is
+`docs/reviews/clark-rnn-envelope-outcome.json`. The next useful rigorous result
+is the already localized upper fold at exact gain10.02, not extending these
+nonattracting arms indefinitely. The native activity-cycle proof remains
+separate from the trained-network results and from whole-window geometry.
