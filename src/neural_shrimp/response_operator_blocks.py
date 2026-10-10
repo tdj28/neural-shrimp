@@ -23,7 +23,8 @@ class Operator:
         self.tick()
         if sum(self.counts.values())+cost+(0 if terminal else self.reserve)>self.ceiling:raise ActionBudget('fixed phase-action ceiling with terminal reserve')
     def rhs(self):
-        self.admission(self.steps);v=np.zeros((self.steps+1,self.n));impulse=np.zeros((self.steps,self.n));impulse[8*self.p,0]=1
+        self.admission(self.steps);self.emit('rhs_started',dict(phase_actions_upper=self.steps,counts_before=dict(self.counts)))
+        v=np.zeros((self.steps+1,self.n));impulse=np.zeros((self.steps,self.n));impulse[8*self.p,0]=1
         actions=[]
         for t in range(self.steps):
             self.counts['VJP']+=1;z=self.maps[t%self.p].T@impulse[t];actions.append(z.copy());v[t]-=self.scale*z;v[t+1]+=impulse[t]
@@ -34,6 +35,7 @@ class Operator:
         require(0<=start<end<=self.steps+1,'principal block indices')
         x=np.asarray(x,dtype=np.float64).reshape(end-start,self.n);require(np.isfinite(x).all(),'finite operator input')
         active=max(0,min(end,self.steps)-start);self.admission(2*active,terminal)
+        self.events+=1;self.emit('operator_started',dict(event=self.events,tag=tag,start=start,end=end,input=x.copy(),phase_actions_upper=2*active,counts_before=dict(self.counts),terminal=terminal))
         out=self.eta**2*x.copy();first=max(0,start-1);last=min(end,self.steps);edges=[];jvs=[];vjps=[]
         for t in range(first,last):
             y=x[t+1-start].copy() if t+1<end else np.zeros(self.n)
@@ -45,7 +47,6 @@ class Operator:
             if t>=start:
                 self.counts['VJP']+=1;z=self.maps[t%self.p].T@y;vjps.append(z.copy());out[t-start]-=self.scale*z
             if t+1<end:out[t+1-start]+=y
-        self.events+=1
         self.emit('operator_return',dict(event=self.events,tag=tag,start=start,end=end,input=x.copy(),output=out.copy(),edge_residuals=np.asarray(edges),jvp_returns=np.asarray(jvs).reshape(-1,self.n),vjp_returns=np.asarray(vjps).reshape(-1,self.n),counts=dict(self.counts),terminal=terminal))
         require(np.isfinite(out).all(),'finite operator output');return out.ravel()
 
