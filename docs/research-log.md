@@ -9142,3 +9142,7 @@ Peer research_strategy independently skimmed full8a3029f3 source/math/driver/car
 ### 2026-10-10 — shooting-adjoint partial interval result retained
 
 Source8a3029f3, execution501f356e, peer source reviewb9c7026a. One saved target endedexit2 after6.0730s/569116KiB: uniform weighted border contraction.439318943 proves conditional simple+1, but both transversality and quadratic coefficient exclusions fail. All returned arrays/result/immutable inventories/owned PID absence verified, no model calls. This is partial evidence, not overall fold certification. Companion docs/reviews/eigenpair-shooting-fold-outcome.json retains exact pins and failure.
+
+### 2026-10-10 — adjoint exact-root restriction amendment before evaluation
+
+Original saved attempt remains unchanged: conditional simple+1 passed while both coefficient signs were unresolved. Certificate_context independently checked that alpha=0 follows at exact parent roots and can restrict the known solution enclosure; five fixed intersections using the same whole-domain defect retain those roots. New separate module uses centered correction identity E=C(rhs−B*y0)+(I−CB)E and exactE_alpha=−y0_alpha; no new inverse/derivatives.33 synthetic controls pass0.15s including10new affine/coupled, empty/nonfinite, alpha-premise and return-retention tests. One saved reduction under docs/plans/eigenpair-adjoint-refinement.md will use30s/40+5,1GiB,16+1MiB, CPU1nice10. Exact raw pins and the unsuccessful parent calculation are in the card. No scientific threshold changes; code/card committed before the new reduction.
