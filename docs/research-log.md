@@ -10222,3 +10222,5 @@ Execution 780af2faa9754f0b887362c586a17fc593c3ca8e completed 32.63775575207546 s
 ### Saved-map rendering card
 
 Adapted after the fixed refinement outcome: render all5202 retained trajectories as full proposed-period, period6/12/24 context and finite-growth maps for both native starts; black dots denote actual selected native records. Source binds outer ed58f64bbfa4513775f2ed2e9e0935da6902b7b6f151e8d72ca176210b6e7674 and consumed input hashes. No model, trajectory, derivative or decomposition calls. Exclusive `n12-p6-geometry-001`, CPU1/nice10,10s internal/15+5s external,448MiB RSS/1GiB AS,2MiB figure budget; preserve failure. Source compilation passed; root source skim before one render.
+
+Root static skim of saved-map source6c150818 passed: complete5202 reshape and bothstarts, source/consumed-file pins, fullperiodcontext, clippedfinitegrowth, actualqualificationrecords and no model/derivativecalls. Execute one capped saved render under the unchanged card; no new scientific acquisition.
