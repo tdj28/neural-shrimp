@@ -38,3 +38,17 @@ def test_bounded_driver_import_and_resource_metadata_fail_closed():
     spec=importlib.util.spec_from_file_location('cusp_audit_driver',path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     assert module.finite(0,1)
     for x in (-1,float('inf'),float('nan'),True):assert not module.finite(x,1)
+
+
+def test_nonsymmetric_interval_primal_inverse_transpose_encloses_exact_vertex_inverses():
+    from flint import arb_mat
+    from fractions import Fraction
+    with ctx.workprec(256):
+        A=arb_mat([[0,arb('2.5','.5')],[0,arb('-1.5','.5')]]);q=arb_mat([[1],[0]])
+        primal,inverse=R.left_border_inverse(A,q)
+        for b in (Fraction(2),Fraction(5,2),Fraction(3)):
+            for d in (Fraction(-2),Fraction(-3,2),Fraction(-1)):
+                target=[[0,0,1],[0,1/d,-b/d],[1,0,0]]
+                for i in range(3):
+                    for j in range(3):
+                        lo,hi=R.endpoints(R.ball_json(inverse[i,j]));assert lo<=target[i][j]<=hi

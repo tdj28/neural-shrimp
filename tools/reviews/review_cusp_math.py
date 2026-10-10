@@ -11,6 +11,11 @@ from review_clark_rnn_c1_math import need,restore,exact,eye,norm,endpoints,stric
 def matrix(v):return arb_mat([[restore(x)for x in r]for r in v])
 def vector(v):return arb_mat([[restore(x)]for x in v])
 def same(a,b):return matrix_json(a)==matrix_json(b)
+def left_border_inverse(A,q):
+    n=A.nrows()
+    primal=arb_mat([[A[i,j]for j in range(n)]+[q[i,0]]for i in range(n)]+[[q[i,0]for i in range(n)]+[arb(0)]])
+    return primal,primal.inv().transpose()
+
 
 def arithmetic(proof,precision=384,observe=lambda kind,row:None):
     need(proof['passed']and all(v is True for v in proof['gates'].values()),'producer gates')
@@ -31,8 +36,8 @@ def arithmetic(proof,precision=384,observe=lambda kind,row:None):
         with ctx.workprec(256):
             jr=arb_mat([[grad[i,j]-int(i==j)for j in range(dim)]for i in range(n)]+[[g1[i,j]-int(n+2+i==j)for j in range(dim)]for i in range(n)]+[[g2[i,j]-int(2*n+2+i==j)for j in range(dim)]for i in range(n)]+[[arb(0)]*(n+2)+[q[i,0]for i in range(n)]+[arb(0)]*n, [arb(0)]*(n+2)+[h[i,0]for i in range(n)]+[q[i,0]for i in range(n)]])
             need(matrix_json(jr)==proof['whole_jacobian'],'exact saved augmented derivative assembly')
-        B=arb_mat([[A[j,i]for j in range(n)]+[q[i,0]]for i in range(n)]+[[q[i,0]for i in range(n)]+[arb(0)]])
-        inverse=B.inv();left=inverse*arb_mat([[arb(0)]]*n+[[arb(1)]]);w=arb_mat([[left[i,0]for i in range(n)]])
+        primal,inverse=left_border_inverse(A,q);B=primal.transpose()
+        left=inverse*arb_mat([[arb(0)]]*n+[[arb(1)]]);w=arb_mat([[left[i,0]for i in range(n)]])
         need(all(inverse[i,j].is_finite()for i in range(n+1)for j in range(n+1)),'left border invertibility')
         need(left[n,0].contains(0)and (w*q)[0,0].contains(1)and (q.transpose()*q)[0,0].contains(1)and(q.transpose()*h)[0,0].contains(0),'normalized augmented relations')
         tangent_h=arb_mat([[sum((g1[i,k]*h[k,0]for k in range(n)),arb(0))]for i in range(n)])
