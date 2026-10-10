@@ -9982,3 +9982,13 @@ The human explicitly rejects treating partial local/window results as completion
 ### 2026-10-10 — State the contribution directly; retain the demanding research objective
 
 The human challenged the abstract's concluding list of absent results. Replaced that list with the established behavioral consequence: loss reduction can coexist with continuing parameter motion. Detailed evidence limits remain in the manuscript; this editorial change does not supply missing global organization or utility evidence. The full window problem remains active. A new producer-only normalized length-two +1 Jordan-chain root is being independently audited and connected to the traced locus before any stronger manuscript claim.
+
+
+### 2026-10-10 — Independent four-slice implicit-curvature audit card
+
+Prepared docs/plans/s2-refined-stability-independent.md for chart146 only, immutable producerb8ab6ba6. Source and14synthetic controls precede saved-target replay. Each base norm fails; independent curvature forcing/implicit inverse/integration at256 and final native norm/Lyapunov384 will determine whether refined proofs pass. Both hidden-rate cross terms and interval-valued RHS retained. No new model derivatives, protecteddata, paidwork or global-window conclusion. CPU1nice10/240s/2GiB/16MiB with owned timeout cleanup.
+
+
+### 2026-10-10 — Short abstract reading PDF
+
+Source5df2bf77 compiled40pages with no warnings or box errors. All397 bound numbers and20figure outputs unchanged. All40pages contact-reviewed and pages1/2 inspected in detail; short abstract fits page1. Immutable QA and current reading PDF in docs/reviews/paper-concise-abstract-qa.json. No new scientific claims were added.
