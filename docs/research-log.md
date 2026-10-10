@@ -9560,3 +9560,9 @@ Independent optimizer differential source skim passes4a990b65, including correct
 Execution 33acead6 completed the six fixed p7 slice directions: one reverse-associated transverse flip, three local fold roots with failed singular-start reverse association, and two unresolved directions. All failures remain immutable; no shrimp or interval claim. See `docs/reviews/clark-rnn-n6-p7-boundaries-outcome.json`. Complete manifests, read-only modes and owned PID exits were checked. A two-sign quadratic fold predictor is a proposed next method, not a retrospective gate change.
 
 Independent static/synthetic skim of repair-chain source 4c191a65 passed 18 controls in 0.20 s; no target arrays were read. Exact source hashes and scope are in `docs/reviews/eigenpair-repair-chain-peer-source-review.json`.
+
+## 2026-10-10 — disclosed N6 p7 two-sign fold association amendment
+
+The original three fold reverse failures remain unchanged. New fixed quadratic proposals use both signs and the exact original parent delta; no parameter or amplitude search, no weakened native identity/divisor gates. Requalify only saved roots and correct six proposals after parent replay. Card `docs/plans/clark-rnn-n6-p7-fold-association.md`:120-call/20s/448MiB/16+1MiB, synthetic timing before target inputs and25+5s external. Source/card/tests/private push and independent source skim precede the single unit.
+
+Synthetic validation: the combined edit/test shell hit the unchanged448MiB process-peak guard in three existing mocked boundary tests (19passed); a fresh test-only process passed all22 controls in0.27s with identical source/caps. No target ran or cap changed.
