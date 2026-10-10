@@ -5606,3 +5606,26 @@ math; final source review precedes acquisition. CPU1,nice10,2GiB,128+1MiB,
 profile20s/25+5,target120s/135+5,300ticks,144 wrapped/288 unit/108 jet caps.
 Profile command and exclusive output are in the card. Real-parent storage
 factor is included in the measured gate to address synthetic compression bias.
+
+### 10 October 2026 UTC — quadratic profile passes; one exact target card
+
+Root source/math review passed55fb44e64d5d00a53b1955b8b5c89ef80cfb9555.
+One synthetic profile completed6.0497s internal/6.4598s external,695668KiB,
+266ticks,144/144 wrapped,288/288 unit and108/108 path-jet acquisitions,exit0.
+Both synthetic uniform-root gates pass; primitive/anchor flags intentionally
+do not qualify the repeated fixed point as an observed18-cycle. Complete
+source/library/thread/cap/hash/decompression, immutable and owned-PID checks
+pass. Projection26.1989s and94,025,634bytes meet fixed gates. Companion
+`docs/reviews/s2-period18-quadratic-profile.json`; worker manifest
+3ab4914052cde2982e10043bfa0f12d9d17c79c3ed10aa549cf513f30d9805f9,
+outer82e4a7b7ba29cedc1e48b127483dfa4fdb1b7b9daccf4269f5951bb7a4faa6f9.
+
+Run one unchanged-source target as authorized by root, after fresh host check:
+`tools/certify_s2_period18_quadratic_connection.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-quadratic-connection-2026-10-10/attempt-001-target
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-quadratic-connection-2026-10-10/attempt-001-profile/run
+--profile-manifest 3ab4914052cde2982e10043bfa0f12d9d17c79c3ed10aa549cf513f30d9805f9`.
+Fixed delta2^-8,r2^-24,256bits,two proposals; second chart only after first
+root/primitive/anchor pass. CPU/BLAS1,nice10,120s/135+5external,2GiB,
+128+1MiB,300ticks,144 wrapped/288 unit/108 jets. Optimizer is holding its
+1.5GiB independent localization review until this owned worker exits.
