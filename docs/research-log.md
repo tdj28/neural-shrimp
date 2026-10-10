@@ -6066,3 +6066,26 @@ requires fresh whole-domain derivatives and all original proof gates. The
 new adapter passes settings separately, preserving predecessor identities.
 Source/tests precede one synthetic two-chart profile; target pin/card follows
 only if the measured resource gate passes. No new geometry/attraction claim.
+
+### 10 October 2026 UTC — adapted-radii profile and target001 card
+
+Source 2911c68be0aaf604f563b18b1aa72333efd59409; synthetic profile worker 4.7539s,
+341040KiB; launcher 5.1759s, exit0.
+All144/288 derivative calls and108 jets returned; both root paths passed;
+all inventories/libraries/thread/settings/immutable bytes/owned exits checked.
+Profile worker manifest fe4e131a1d4e2f839998b87e0c38b51eeb955ec8f52ffcbfaff14d3290d092a5; conservative projection
+81.0623s and 301989888B passes fixed caps.
+No target outcome is implied. Companion
+`docs/reviews/s2-period18-arclength-radii-profile.json`.
+
+Run exactly one changed-domain16-chart target after this card is committed:
+`tools/certify_s2_period18_arclength_radii.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-radii-2026-10-10/unit-001
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-radii-2026-10-10/attempt-001-profile/run
+--profile-manifest fe4e131a1d4e2f839998b87e0c38b51eeb955ec8f52ffcbfaff14d3290d092a5
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-march-2026-10-10/unit-005/run
+--parent-manifest b09b179266c7880fd2480e213e2ce1d489e847fd689bafb0e2b1d5f4b21e1ffa
+--parent-execution 0c978692eff507dc1ea06ec044c2855e2176367f`.
+Same180s/195+5, CPU1 nice10,2GiB,384+1MiB,2200ticks,1152/2304C1/unit
+plus864jets, fixed gauge/delta and new exact box. Stop first failed gate, retain
+all attempts; no attraction or fold identity claim.
