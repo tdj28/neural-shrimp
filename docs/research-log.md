@@ -5614,3 +5614,5 @@ Companions `docs/reviews/s2-period18-localized-roots-outcome.{md,json}`.
 Independent outcome review pending; no whole1/256 attraction or boundary
 connection. Continued next work is nonlinear predictor scaling, not128 blind
 slices; code/card/profile will precede any new acquisition.
+
+Boundary target002 repeats the residual floor despite extended coordinates:0nodes/44evaluations, retained receipt. Root found adapter constructor parsed constants before setting requested precision. Fixed order, added global53-to128/256 regression; prior rigorous kernels andcertificates unaffected. Initial coordinate-only hypothesis insufficient. Profile006 and target003 require all15controls/resource gates; no threshold relaxation.

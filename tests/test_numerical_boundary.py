@@ -71,3 +71,15 @@ def test_extended_corrector_preserves_small_update():
  def f(z):return {'value':np.array([float((z[0]-root)*2.**50)]),'jacobian':np.array([[2.**50,0.]])}
  p=np.array([1,0],dtype=np.longdouble);out=correct_section(f,p,np.array([0.,1.]),np.ones(2))
  assert out['qualified'] and out['state'][0]==root
+
+def test_constructor_uses_requested_precision_before_parsing_constants():
+ from flint import ctx,arb
+ with ctx.workprec(53):
+  f=TwoRateBoundary(model(),3,1,precision=128)
+  assert f.model.x[1][0].rad()<arb(2)**-120
+  assert f.model.ridge.rad()<arb(2)**-120
+ with ctx.workprec(53):
+  high=TwoRateBoundary(model(),3,1,precision=256)
+  assert high.model.x[1][0].rad()<arb(2)**-248
+ z=np.r_[np.arange(4)/10,.1,.05,np.array([1,2,-1,3])/np.sqrt(15)]
+ np.testing.assert_array_equal(f(z)['value'],high(z)['value'])

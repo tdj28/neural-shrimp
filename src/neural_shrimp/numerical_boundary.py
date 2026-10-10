@@ -24,6 +24,8 @@ class TwoRateBoundary:
     """
     def __init__(self, inputs, period, sigma, precision=128):
         if sigma not in (-1,1) or period<1: raise ValueError('invalid boundary')
+        if type(precision) is not int or not 128<=precision<=512:raise ValueError('precision outside pilot bounds')
+        ctx.prec=precision  # Parse rational model constants at the requested precision.
         self.model=FoldTanhMap(inputs);self.period=period;self.sigma=sigma;self.precision=precision
         self.n=self.model.n
 
