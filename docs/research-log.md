@@ -5519,3 +5519,12 @@ boundary/eta failures, signed/complex multipliers, all partial attempts and sour
 hashes. No paid/GPU/holdout work. Adaptive exploratory unit, no headline validation.
 Pre-run source controls:31 synthetic tests passed in0.24s; all three executable
 files compile. No target Jacobian arrays or model computations were read/run.
+
+Clark synthetic profile outcome: source4054e0d0, one attempt completed in0.743s
+worker/1.042s launcher,119876KiB workerRSS; conservative panel projection40.812s
+passes the fixed45s gate. All3 direct residuals qualified. No empirical inputs.
+Outer manifest c3ca49809f01c977c1d82d5675c01bd1508151667a10138eafda6ca992f76064;
+run manifest e3b2e4c7f97b4da64ad1105615c10d0ecc6bd319e18f94fcda1a90d1a600f731.
+Raw immutable, no owned live processes. Root reviewed core/card and authorizes the
+single exact panel from unchanged source/card bytes, with the above run-manifest
+pin and exclusive `.../clark-response/attempt-001-panel`. No gate/grid change.
