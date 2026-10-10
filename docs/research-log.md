@@ -11583,3 +11583,7 @@ Prepared bounded binary64 native full-state unit-pair continuation and profile/t
 ### 2026-10-10 numerical scout peer amendment before first profile
 
 Clark's preliminary math review found the mixed-jet/native41 equations coherent and requested complete failed acquisition retention. Added every attempted z,t and completed value/J/Ht/native phases, computed Newton steps before guard, failed predictor/state/error, and no unrecorded65th advance after the64-point cap. Added measured output projection and two meaningful failure/cap controls;13 controls pass0.19s. No profile or target has run. Source update requires final peer recheck, then synthetic profile before exact target card.
+
+### 2026-10-10 exact numerical scout synthetic-profile card
+
+Clark source/math review through9b97e361 PASS,13 controls reproduced0.17s. Run only exclusive unit-pair/scout/attempt001-profile:12 complete unrelated13D/24sample/18step two-direction returns,432 native phases, same binary64 source/libs/settings. Target remains unopened. Record timing/output bytes;2*360*max(return time)+20<240s and2*360*max(return bytes)+8MiB<64MiB, forecast peak<2GiB. CPU1nice10,240s/2GiB sampled RSS/4GiB AS/64MiB output,255+5 owned timeout. Latest host54882656KiB available/load1.87; no duplicate scout. No paid resources. Separate measured exact card required before target.
