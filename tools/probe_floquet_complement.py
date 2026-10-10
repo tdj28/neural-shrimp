@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src'),str(ROOT/'tools/reviews')]
 from flint import arb,arb_mat,ctx
 import numpy as np
+import platform,flint,scipy
 import review_unit_pair_driver as B
 import review_unit_pair_math as U
 from neural_shrimp.rigorous_floquet_complement import uniform_complement
@@ -76,7 +77,7 @@ def main():
         used[0]+=len(data)
     def tick():need(not stop[0]and time.monotonic()-start<120 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<4*1024**2,'120s/4GiB cap')
     signal.signal(signal.SIGTERM,lambda *_:stop.__setitem__(0,True));signal.signal(signal.SIGALRM,lambda *_:stop.__setitem__(0,True));signal.setitimer(signal.ITIMER_REAL,120)
-    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();save('runtime.json',{'source_commit':source,'pid':os.getpid(),'nice':os.getpriority(os.PRIO_PROCESS,0),'threads':dict.fromkeys(O.THREADS,'1'),'sources':{n:O.entry(ROOT/n)for n in FILES},'precision':384,'native_calls':0})
+    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();save('runtime.json',{'source_commit':source,'pid':os.getpid(),'nice':os.getpriority(os.PRIO_PROCESS,0),'threads':dict.fromkeys(O.THREADS,'1'),'sources':{n:O.entry(ROOT/n)for n in FILES},'precision':384,'native_calls':0,'python':platform.python_version(),'numpy':np.__version__,'scipy':scipy.__version__,'python_flint':flint.__version__,'flint':flint.__FLINT_VERSION__})
     for n in FILES:p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);data=(ROOT/n).read_bytes();need(used[0]+len(data)<32*1024**2,'archive cap');p.write_bytes(data);used[0]+=len(data)
     try:
         with ctx.workprec(384):
