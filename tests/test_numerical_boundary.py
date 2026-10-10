@@ -57,3 +57,17 @@ def test_driver_journal_text_wrapper(tmp_path):
  with gzip.open(tmp_path/'journal.gz','xt') as log:
   log.write('retained\n');log.flush();os.fsync(log.buffer.fileobj.fileno())
  with gzip.open(tmp_path/'journal.gz','rt') as log:assert log.read()=='retained\n'
+
+def test_extended_coordinate_exactness():
+ from neural_shrimp.numerical_boundary import coordinate_ball
+ from flint import ctx
+ with ctx.workprec(128):
+  x=np.longdouble(1)+np.ldexp(np.longdouble(1),-60)
+  assert coordinate_ball(x)-1>0
+  assert coordinate_ball(float(x))==1
+
+def test_extended_corrector_preserves_small_update():
+ root=np.longdouble(1)+np.ldexp(np.longdouble(1),-60)
+ def f(z):return {'value':np.array([float((z[0]-root)*2.**50)]),'jacobian':np.array([[2.**50,0.]])}
+ p=np.array([1,0],dtype=np.longdouble);out=correct_section(f,p,np.array([0.,1.]),np.ones(2))
+ assert out['qualified'] and out['state'][0]==root

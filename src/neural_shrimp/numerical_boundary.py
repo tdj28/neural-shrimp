@@ -10,6 +10,12 @@ from .rigorous_folds import FoldTanhMap, MixedJet
 from .rigorous_orbits import exact, dyadic
 
 
+def coordinate_ball(x):
+    """Preserve each finite native coordinate's exact dyadic value."""
+    n,d=x.as_integer_ratio()
+    return exact(f'{n}/{d}')
+
+
 class TwoRateBoundary:
     """Unknowns (theta, actual hidden rate, actual output rate, q).
 
@@ -22,14 +28,14 @@ class TwoRateBoundary:
         self.n=self.model.n
 
     def __call__(self,z):
-        z=np.asarray(z,dtype=float);n=self.n
+        z=np.asarray(z,dtype=np.longdouble);n=self.n
         if z.shape!=(2*n+2,) or not np.isfinite(z).all() or min(z[n:n+2])<=0:
             raise ValueError('invalid two-rate boundary state')
         ctx.prec=self.precision
-        theta=[exact(dyadic(x)) for x in z[:n]];q=[exact(dyadic(x)) for x in z[n+2:]]
+        theta=[coordinate_ball(x) for x in z[:n]];q=[coordinate_ball(x) for x in z[n+2:]]
         current=[MixedJet.variable(theta[i],n+2,i,q[i]) for i in range(n)]
-        hr=MixedJet.variable(exact(dyadic(z[n])),n+2,n)
-        out=MixedJet.variable(exact(dyadic(z[n+1])),n+2,n+1)
+        hr=MixedJet.variable(coordinate_ball(z[n]),n+2,n)
+        out=MixedJet.variable(coordinate_ball(z[n+1]),n+2,n+1)
         previous_rates=self.model.rates
         self.model.rates=[hr]*self.model.hidden+[out]*(n-self.model.hidden)
         orbit=[list(theta)]
@@ -72,7 +78,7 @@ def correct_section(evaluate,prediction,normal,scale,max_iterations=10,tolerance
     Every trial evaluation is passed through the caller's durable journal.
     Arbitrary sign changes of q or optimizer success cannot pass the residual gate.
     """
-    pred=np.asarray(prediction,dtype=float);scale=np.asarray(scale,dtype=float)
+    pred=np.asarray(prediction,dtype=np.longdouble);scale=np.asarray(scale,dtype=float)
     if pred.shape!=scale.shape or not np.all(scale>0):raise ValueError('invalid scales')
     normal=np.asarray(normal,dtype=float)
     if normal.shape!=pred.shape or abs(np.linalg.norm(normal)-1)>1e-10:raise ValueError('invalid plane normal')

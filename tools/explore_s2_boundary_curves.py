@@ -17,6 +17,7 @@ CAP=128*1024**2
 
 def clean(x):
  if isinstance(x,np.ndarray):return clean(x.tolist())
+ if isinstance(x,np.longdouble):return np.format_float_scientific(x,unique=True,trim='k')
  if isinstance(x,np.generic):return clean(x.item())
  if isinstance(x,dict):return {str(k):clean(v) for k,v in x.items()}
  if isinstance(x,(list,tuple)):return [clean(v) for v in x]
@@ -33,7 +34,9 @@ def source():
  return {'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'files':{p:sha(ROOT/p) for p in SOURCES}}
 
 def execute(args):
- identity=source();out=args.out;out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;stopped=False;last=None;trace=[]
+ identity=source();
+ if np.finfo(np.longdouble).nmant<63:raise ValueError('native extended coordinates required')
+ out=args.out;out.mkdir(parents=True,exist_ok=False);start=time.monotonic();calls=0;stopped=False;last=None;trace=[]
  if os.getpriority(os.PRIO_PROCESS,0)<10:raise ValueError('nice10 required')
  resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,512*1024**2));resource.setrlimit(resource.RLIMIT_FSIZE,(CAP,CAP))
  def stop(*_):
@@ -44,7 +47,7 @@ def execute(args):
   if calls>=800:raise TimeoutError('evaluation cap')
   if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>512*1024:raise MemoryError('RSS cap')
   if sum(f.stat().st_size for f in out.rglob('*') if f.is_file())>CAP-8*1024**2:raise OSError('output cap')
- save(out/'runtime-start.json',{'source':identity,'python':sys.version,'numpy':np.__version__,'flint':flint.__version__,'platform':platform.platform(),'pid':os.getpid(),'ppid':os.getppid(),'threads':{k:os.environ[k] for k in THREADS},'nice':os.getpriority(os.PRIO_PROCESS,0),'mode':args.mode,'started_unix':time.time(),'meminfo':Path('/proc/meminfo').read_text()})
+ save(out/'runtime-start.json',{'source':identity,'python':sys.version,'numpy':np.__version__,'flint':flint.__version__,'coordinate_mantissa_bits':int(np.finfo(np.longdouble).nmant),'platform':platform.platform(),'pid':os.getpid(),'ppid':os.getppid(),'threads':{k:os.environ[k] for k in THREADS},'nice':os.getpriority(os.PRIO_PROCESS,0),'mode':args.mode,'started_unix':time.time(),'meminfo':Path('/proc/meminfo').read_text()})
  for p in SOURCES:
   dest=out/'source'/p;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes((ROOT/p).read_bytes())
  log=gzip.open(out/'evaluations.jsonl.gz','xt')
@@ -70,8 +73,8 @@ def execute(args):
    inp=json.loads((FOLD/'inputs.json').read_text());cert=json.loads((FOLD/'certificate.json').read_text())['result']
    if not cert['passed']:raise ValueError('fold certificate passed gate')
    inputs=inp['map_inputs']
-   def midpoint(b):return float(Fraction(b['mid'][0])*Fraction(2)**b['mid'][1])
-   c=np.array([midpoint(v) for v in cert['center']]);seed=np.r_[c[:14],float(Fraction(inputs['lr_output'])),c[14:]]
+   def midpoint(b):return np.ldexp(np.longdouble(str(b['mid'][0])),b['mid'][1])
+   c=np.array([midpoint(v) for v in cert['center']]);seed=np.r_[c[:14],np.longdouble(str(Fraction(inputs['lr_output']).numerator))/np.longdouble(str(Fraction(inputs['lr_output']).denominator)),c[14:]]
    save(out/'input-provenance.json',{'parent':str(FOLD),'pins':PINS,'profile':str(args.profile),'profile_manifest':args.profile_manifest})
   save(out/'inputs.json',{'map_inputs':inputs,'seed':seed,'period':18,'sigma':1});engine=TwoRateBoundary(inputs,18,1)
   def evaluate(z):
