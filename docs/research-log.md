@@ -11327,3 +11327,9 @@ Prepared a zero-native saved diagnosis of absolute-defect conditioning and
 state/q/r/rate error scales, with a numerical positive scaling/resolvent proposal
 only. Four controls pass0.14s. New width/radius proposals will require fresh
 full704 proofs and exact original-root anchor, not reuse failed-domain bounds.
+
+### 2026-10-10 — saved704 conditioning diagnostic card
+
+Root independently cleared947632a0; four controls reproduced0.09s. Run only
+native-unit-pair-diagnosis001.json against the immutable completed first target,
+zero native calls. Owned local caps and numerical-only labels stay unchanged.
