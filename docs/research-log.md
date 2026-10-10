@@ -9709,3 +9709,13 @@ worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8,outer8fc0
 Exclusive s2-period18-stability-resume-2026-10-10/unit003.
 CPU1nice10,360s/390+5,2GiB,512MiBworker/514aggregate,1296C1/2592unit/288mixed.
 Fresh resources; stop first failed gate; no prior slice repeated.
+
+2026-10-10 prospective larger-enclosure pilot preparation while already-pinned
+chart148 eight-slice unit runs. Binding-only whole-chart adapter selects the
+single immediate earlier repaired chart146 after all remaining eight-slice
+units complete; it cannot launch without the source-bound completed chart147
+receipt, which does not yet exist. The full native root chain and exact common
+endpoint remain mandatory. Unchanged true-tangent/norm-cocycle mathematics;
+new input cardinality exactly1 and whole-chart coverage check. Source/control
+review first; fresh full synthetic profile and measured card only after the
+required adjacent unit completes. No whole-chart target acquisition yet.
