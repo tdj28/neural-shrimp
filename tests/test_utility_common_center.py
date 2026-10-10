@@ -34,3 +34,13 @@ def test_deadline_after_gradient_return_is_durable():
   if events and events[-1]=='operation_return':raise TimeoutError('synthetic')
  with pytest.raises(TimeoutError):evaluate(np.arange(13.),np.arange(1.,14.),np.array([.1,.01]),lambda z:z,lambda z:0.,lambda k,v:events.append(k),check)
  assert events[-1]=='operation_return'
+
+
+def test_launcher_byte_allowance_fails_closed(tmp_path):
+ import importlib.util
+ from pathlib import Path
+ s=importlib.util.spec_from_file_location('center_launcher',Path(__file__).parents[1]/'tools/launch_utility_common_center.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+ (tmp_path/'run').mkdir();(tmp_path/'run'/'data').write_bytes(b'x'*1000)
+ assert m.projected_final_bytes(tmp_path,{})['within_bytes']
+ (tmp_path/'process.log').write_bytes(b'x'*(1024**2))
+ assert not m.projected_final_bytes(tmp_path,{})['within_bytes']

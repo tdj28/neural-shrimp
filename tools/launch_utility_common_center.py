@@ -17,6 +17,12 @@ def cleanup_group(pgid):
         while group_alive(pgid) and time.monotonic()<deadline:time.sleep(.05)
     return not group_alive(pgid)
 
+def projected_final_bytes(root,record):
+    entries={str(f.relative_to(root)):{"sha256":hashlib.sha256(f.read_bytes()).hexdigest(),"bytes":f.stat().st_size} for f in root.rglob("*") if f.is_file()}
+    existing=sum(v["bytes"]for v in entries.values());nonworker=sum(v["bytes"]for n,v in entries.items()if not n.startswith("run/"))
+    end=len((json.dumps(record,indent=2)+"\n").encode());manifest=len((json.dumps({"files":entries},indent=2)+"\n").encode());reserve=end+manifest+8192
+    return {"projected_total_bytes":existing+reserve,"projected_launcher_bytes":nonworker+reserve,"final_metadata_reserve_bytes":reserve,"within_bytes":existing+reserve<=2*1024**2 and nonworker+reserve<=1024**2}
+
 def main():
     p=argparse.ArgumentParser();p.add_argument("--out",type=Path,required=True);a=p.parse_args()
     if os.getpriority(os.PRIO_PROCESS,0)<10:os.nice(10-os.getpriority(os.PRIO_PROCESS,0))
@@ -33,7 +39,9 @@ def main():
             except subprocess.TimeoutExpired:os.killpg(child.pid,signal.SIGKILL);code=child.wait()
     empty=cleanup_group(child.pid)
     if not empty:code=2
-    record.update(owned_group_empty=empty,exit_code=code,elapsed_seconds=time.monotonic()-started,child_pid_absent=not Path(f"/proc/{child.pid}").exists());save(a.out/"launch-end.json",record)
+    record.update(owned_group_empty=empty,exit_code=code,elapsed_seconds=time.monotonic()-started,child_pid_absent=not Path(f"/proc/{child.pid}").exists());record.update(projected_final_bytes(a.out,record))
+    if not record["within_bytes"]:code=2;record["exit_code"]=code
+    save(a.out/"launch-end.json",record)
     files={str(f.relative_to(a.out)):{"sha256":hashlib.sha256(f.read_bytes()).hexdigest(),"bytes":f.stat().st_size} for f in sorted(a.out.rglob("*")) if f.is_file()};save(a.out/"manifest.json",{"files":files})
     for f in a.out.rglob("*"):
         if f.is_file():f.chmod(0o444)
