@@ -8091,3 +8091,8 @@ Update abstract, evidence table, proof narrative, numerical-anatomy and limitati
 ## 2026-10-10 — independently connected fold manuscript checkpoint
 
 Source ffa3119e;385 provenance-bound numbers verified (377 prior entries unchanged),20 figures unchanged. Local multi-file latexmk completed40pages with no final warnings/box errors; all40 pages visually inspected at contact scale and pages1,2,12,30,31 at detail. Updated tracked reading PDF and immutable render inventory bound in docs/reviews/paper-fold-connection-qa.json. The manuscript states the independently certified full-state central-to-fold connection and endpoint attraction, while whole-branch attraction/full shrimp anatomy remain open. CIFAR damping and curvature-surrogate failures retained with correct saved-audit scope. No fresh scientific experiment or full verify.py rerun in this editorial checkpoint.
+
+
+## 2026-10-10 — independent native tangent-locus extension passed
+
+Executione199bb9e; full immutable inventory and owned launcher exit0 verified. Eight additional normalized primitive18+1 charts pass independent470D assembly and256/384 strict inclusions/joins;20 total connected charts including prior pair/reanchor evidence.93.715s,876548KiB; outer3ce722c12345e55f185006acea7e40e94c111cd595e758ae0f0065a0e6d0c656. Exact tangent gauge extends to19/128. This certifies the normalized eigenpair locus only, not genericity, complementary attraction, cusp identity or full shrimp. See docs/reviews/eigenpair-tangent-march-independent.json.
