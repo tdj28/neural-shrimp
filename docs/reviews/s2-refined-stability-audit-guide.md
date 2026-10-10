@@ -85,8 +85,10 @@ branch and uniform nonsingular A; the intersection does not prove new roots.
 
 `0086-refined_inputs.json.gz` is the ACTUAL post-decoding physical whole box
 and refined full235D tangent handed to the second MixedJet pass, with exact
-halfwidth string. Whole state/rate domain must equal `0009`'s actual whole box.
-The tangent must be the outward-restored `0085` refined derivative enclosure;
+halfwidth string. Whole state/rate domain must be the outward-restored
+`0009` actual whole box; this additional restore can widen Arb radii, so do
+not demand bytewise equality with the earlier serialized box. The tangent
+must be the outward-restored `0085` refined derivative enclosure;
 account for any serializer/restore widening rather than demanding a false
 exact equality of internal Arb representations.
 
