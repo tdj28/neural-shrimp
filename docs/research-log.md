@@ -7815,3 +7815,16 @@ Root source skim approved ed019a7d before the profile: proposal normal/weights,
 whole-fold correlated anchor and all18 full phase tests remain separate.
 The synthetic profile's rate gauge is only engineering timing; the actual
 state-only fold-normal proposal will be freshly acquired and saved by target.
+
+### 10 October 2026 UTC — reverse fold pilot retained inconclusive
+
+Sourceed019a7d, execution136b77b4ef7102a49951d44007610d67fcaf596e. First chart primitive/full-fold
+anchor passed, but uniform root failed: weighted bound[2.4755022027968427915 +/- 3.92e-20],
+0/235 coordinate inclusions. No second chart was attempted.
+The156th endpoint projects to positive gauge≈.05867; this is workload direction,
+not association. Worker9.7544s/492840KiB,108/216 native calls+54jets;
+launcher10.4875s/exit2. Full inventories,
+payloads/source/readonly/owned exits checked. Worker manifest9aee1856145ff51a5f76ab809118a406ef40d478344217dddef0aa5472432f71;
+outerf872e5f6640018428004d8945e2fec1b982aa2e1ee694da08bc04a070f1a7e01. Companion docs/reviews/s2-period18-fold-reverse-outcome.json.
+Next separate saved weighted forcing/propagation before selecting ONE narrower
+fresh-domain pilot; no repeated completed prefix, automatic grid, or gate change.
