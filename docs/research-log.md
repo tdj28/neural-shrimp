@@ -9836,3 +9836,15 @@ all native C1/path gates freshly acquired, measured two-call forecast/fixedcaps.
 Proceed one bounded pilot. Further work will diagnose the next critical mode or
 boundary junction from retained whole-state data instead of blindly extending
 chart counts; numerical indicators remain descriptive until interval proof.
+
+### 2026-10-10 — narrower native boundary pilot passes
+
+Source165b87b9/execution05c79b25 proves both [223/128,225/128] and
+[225/128,227/128] with unchanged radii and no repair. Weighted interval
+contraction bounds.452799/.455868 improve the proof margin; they are not
+training contraction factors. All470root/anchor and primitive18 gates pass.
+Worker36.924621s/1125524KiB/254ticks; full immutable/source/PID verification
+passed. Outer32cd52e51ea65398e450621d78749688372cb24e2e64a2d2f7836de211ba288a.
+Companion docs/reviews/eigenpair-narrower-outcome.md/.json, mathematical outcome
+review pending. Next target is the narrowing nontrivial+1 spectral gap, with
+saved-only all-mode tracking before a new certified bridge design.
