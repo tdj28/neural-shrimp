@@ -66,11 +66,11 @@ def reduction(C,A,H,W,weights,radius,delta):
     inclusions=[bool(abs(K[i,0]).upper()<rho*w[i]) for i in range(N)]
     return {'root':bool(norm.is_finite() and norm<1 and all(inclusions)),'norm':norm,'inclusions':inclusions,'D':D,'E':E,'K':K,'residual':residual}
 
-def check_chart(chart,anchor,events,precision):
+def check_chart(chart,anchor,events,precision,expected_settings=None):
     p,n=chart['period'],chart['dimension'];N=2*n*p+2
     need(p==18 and n==13 and chart['sigma']==1 and chart['shooting_dimension']==N==470,'native convention')
     need(chart['schema']=='neural-shrimp-quadratic-eigenpair-locus-v1','quadratic chart schema')
-    settings=chart['settings'];need(settings=={'precision':256,'newton_steps':2,'halfwidth_exponent':-15,'radius_exponent':-18},'initial pair fixed settings')
+    settings=chart['settings'];need(settings==(expected_settings or {'precision':256,'newton_steps':2,'halfwidth_exponent':-15,'radius_exponent':-18}),'explicit fixed settings')
     center=Fraction(chart['parameter_center']);delta=Fraction(2)**settings['halfwidth_exponent'];radius=Fraction(2)**settings['radius_exponent']
     need(list(map(Fraction,chart['parameter_endpoints']))==[center-delta,center+delta],'parameter endpoints')
     c,s,t=[[M.point(v) for v in chart[k]] for k in ('center','slope','curvature')]
@@ -107,7 +107,7 @@ def check_chart(chart,anchor,events,precision):
                 a,b=M.interval(chart['whole_box'][k*2*n+i]);x,y=M.interval(chart['whole_box'][i])
                 if a-y>0 or b-x<0:coords.append(i)
             primitive.append({'divisor':k,'separating_coordinates':coords})
-        at=Fraction(anchor['exact_parameter']);dd=R.exact(at-center);need(center-delta<=at<=center+delta,'shared exact gauge')
+        parameter=anchor_parameter(chart,anchor);dd=parameter-R.exact(center);need(abs(dd).upper()<=R.exact(delta),'whole shared gauge enclosure')
         join=[bool(abs(R.original_ball(anchor['box'][i])-R.exact(c[i])-R.exact(s[i])*dd-R.exact(t[i])*(dd*dd)/2).upper()<R.exact(radii[i])) for i in range(N)]
         gates={'uniform_normalized_eigenpair_locus':r['root'],'primitive_period':all(v['separating_coordinates'] for v in primitive),'anchor_identified':all(join)}
         if precision==256:need(gates==chart['gates'] and all(gates.values())==chart['passed'],'original gates')
@@ -118,3 +118,10 @@ def check_chart(chart,anchor,events,precision):
             if precision==256:identity(endpoint,chart['endpoint_root_boxes'][0 if sign<0 else 1],'endpoint root enclosure')
             ends.append(vector_json(endpoint))
         return {'passed':all(gates.values()),'gates':gates,'precision':precision,'contraction':ball_json(r['norm']),'inclusions':sum(r['inclusions']),'anchor_coordinates':sum(join),'primitive':primitive,'recomputed_endpoints':ends}
+
+
+def anchor_parameter(chart,anchor):
+    """Known-root box implies a correlated gauge enclosure, never its midpoint."""
+    need(len(chart['normal'])==len(chart['origin'])==len(anchor['box']),'full anchor projection')
+    if 'exact_parameter' in anchor:return R.exact(Fraction(anchor['exact_parameter']))
+    return sum((R.exact(a)*(R.original_ball(b)-R.exact(o)) for a,b,o in zip(chart['normal'],anchor['box'],chart['origin'],strict=True)),arb(0))

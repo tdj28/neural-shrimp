@@ -7587,3 +7587,7 @@ Saved utilitypaired unit passedall4algebraiccomparators in.062s/72640KiB, no mod
 ## 2026-10-10 — 156-chart branch independently checked
 
 Independent exact256 replay and fresh384-bit saved reductions pass for the first small chart, its repaired successor and ten subsequent native primitive18 charts. Full235-coordinate joins, all proper divisor exclusions, four initial failures/reboxes and the terminal root failure were checked. Final exact new gauge45/128; largest final contraction bound<.94383. Total connected existence/primitive branch156charts. This does not establish whole-path attraction or identify the fold. Sourcead793ea7;52.93s/546996KiB, manifestd6888862e0cc416e7aa7beb5301b76ec8188735d0cf2de09a1870a6e6009cd16. No model acquisition or protected data; own process ended. See docs/reviews/s2-small-march-independent.json.
+
+## 2026-10-10 — independent reanchor audit design
+
+Added saved-only native residual/J assembly and known-root localization audit, with explicit changed settings and entire correlated gauge projection for the first470D chart. Exact256 replay/fresh384 root reductions retain old defaults and primitive gates. Frozen bounded plan docs/plans/eigenpair-reanchor-independent-audit.md. No target launched before controls/source commit.
