@@ -43,3 +43,10 @@ def test_unique_owned_path_and_fixed_forecast_operation_count():
  assert P.SETTINGS=={'period':18,'precision':256,'parameter':'63/4096','halfwidth_exponent':-6,'radius_exponent':-10,'newton_steps':2}
  assert P.PARENT==P.BASE.parent/'attempt002-target'
  assert 'probe_native_unit_pair_pal.py'in (ROOT/'tools/launch_native_unit_pair_pal.py').read_text()
+
+
+def test_owned_launcher_help_entrypoint():
+ import subprocess,sys
+ result=subprocess.run([sys.executable,str(ROOT/'tools/launch_native_unit_pair_pal.py'),'--help'],capture_output=True,text=True,timeout=15)
+ assert result.returncode==0,result.stderr
+ assert '--profile-manifest'in result.stdout and '--profile-outer-manifest'in result.stdout
