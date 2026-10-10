@@ -6727,3 +6727,17 @@ not a grid. After committing source/tests/card, run ONE saved-only diagnostic
 Card docs/plans/s2-period18-fold-reverse-restriction-diagnostic.md fixes all
 terms, one radius rule, inputs,30s/40+5,1GiB and4MiB. No new model calls or
 connection claim; the next actual restricted-domain proof remains separate.
+
+### 10 October 2026 UTC — reverse restriction proposal retained
+
+Savedsplit e5ab50fb completed0.7687s/251008KiB with no model calls. At fixed
+halfwidth2^-10 the weighted forcing is4.694058e-7, dominated by the retained
+cubic remainder; all lower Taylor defects remain included. The fixed8x rule
+proposes radius2^-18 with unchanged positive weights. Old forcing2.40336e-4
+versus old propagation3.77732e-5 explains why merely enlarging the error box
+was unsuitable. These are saved bounds/proposal, no new root claim.
+Worker48806ca12c4fe7909ae9c90ae937b99bddf734977d77cf16543890620922c034,
+outerb4798b6138d314f1e6507e100dd67956b7da8491d0bd622b21cc7eb4ba02eaa2;
+all immutable hashes and owned exits checked. The next one-shot restriction
+must prove parameter/path containment in the old H3 acquisition domain and
+reacquire the complete new correction-domain Jacobian.
