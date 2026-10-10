@@ -11029,3 +11029,20 @@ Execution83bdb992 saved-only audit1.15197s/43468KiB/zero native calls independen
 ### 2026-10-10 — Keep larger-model and native activity results current
 
 Added all six independently checked CIFAR residual-merit corrections (3.49percent relativeclosure improvement, stillfailsorbitgate) and the native-associated N12 signedflip cubic-sign bracket. Explained why a flip ofG=-F³ neednotdouble native6period. Four new number bindings keep all409 earlier entries unchanged. The first generation rejected a digit-bearing LaTeX macro before writing; corrected alphabetic name regenerates413entries. No new targetrun/holdout. Primary SIAM/authorpreprint content check added to reference ledger.
+
+2026-10-10 independent locus unit013 PASS at a4de6dfe399a2c3b2625078cadc355ae1599e824,
+13.041165s/698808KiB. Original256native
+assembly/replay and fresh384 all470 root/anchor/primitive gates pass on each
+selected chart. Connected independently reviewed prefix now
+70charts,right219/128.
+Outer824847d94c63361e28b803d05627ccaa56cbe14a0d4aef529336e8c57708bf57;
+worker8ffd62ca3a246f317b73d7ddc811c6edabdcc34be2ba0acbf784212217b9a93d. Source/inventory/immutable/owned-exit
+checks complete; shared analytic acquisitions/Arb scope unchanged.
+
+Exact next saved-audit card unit014: source/outer/worker/full+compact
+witness pins in docs/plans/eigenpair-remaining-unit014.json; literal complete independent predecessor above.
+Selected accepted globals71–71,
+exact gauge219/128→223/128.
+Exclusive audits/eigenpair-remaining-locus/unit014-attempt001. Same
+reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
+check before one launch; no new derivatives,loop or advance after failure.
