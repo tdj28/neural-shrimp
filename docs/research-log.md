@@ -10158,3 +10158,21 @@ four successful146pieces. Compact exact source/stage/domain guide is
  docs/reviews/s2-refined-stability-audit-guide.md; it records both actual
 MixedJet domains and both hidden-rate cross terms. No producer acquisition
 is repeated for the independent audit.
+
+2026-10-10 chart144 synthetic profile at d45775db305444902d54873d93118dade2a82a49
+completed once12.539700862s/535436KiB,all161stages and162C1/324unit/36mixed.
+Source/inventory/read-only/owned-exit checks pass. Worker
+1955c139a1f34dbc5a03d26aa8c90723652a522caad120ea21e510184026ed3f;
+outer91ac09a75678a698300e014b09c9c81152d9b1aa10b8722ae95ee5d78156a53c.
+Conservative projection315.952821s<360 and402653184B<448MiB.
+
+Exact next target card: one chart144 unit [31/128,33/128], eight descending
+closed width1/512 pieces. Exclusive s2-period18-localized-predecessor-stability-
+2026-10-10/attempt001-target; profile under the same base/attempt001-profile/run
+with above worker/outer pins. Source peer skim required before launch.
+The existing proved localized endpoint connects144 to145 as documented;
+no naive old endpoint equality. CPU1nice10,360s/390+5external,2GiB,
+512MiBworker/514aggregate,1296C1/2592unit/288mixed maximum,1288stages.
+Fresh host resource check; stop first failed bound; retain every attempt.
+No automatic next unit, retries or changes to sources after profile. Root
+requested producer progress in parallel with its independent refinement audit.
