@@ -10090,3 +10090,20 @@ Independent Clark-lane review of conditional quotient helper1538d43a PASS;
 6 synthetic controls reproduced0.09s. Exact Jordan identities must come from
 the same proved root; entry containment alone is insufficient. No quotient
 target has been evaluated, no genericity or connection inferred.
+
+## 2026-10-10 — isolated primitive18 generalized-chain root proved
+
+Execution b5a62752 completed the fixed attempt in8.645669s/360 native steps,
+601,852KiB. All41 strict Krawczyk inclusions passed with norm upper6.26719e-5;
+actual rates positive and every proper divisor1,2,3,6,9 excluded. Whole-box
+fixed proximity also passed. Actual rates enclose hidden73.396887855557555018
+and output0.82724434648938649076. Full root/proof/raw identity and current/
+archive/historical source equality, immutable inventories and owned process
+absence verified; independent mathematical outcome replay remains pending.
+
+This supplies a nonzero length-two+1 Jordan chain on a genuine primitive18
+training orbit. Exact algebraic multiplicity two and attracting complement
+still require the separately reviewed interval quotient qualification; a
+generic unfolding and actual connected-boundary membership remain separate.
+Next priorities are those qualifications and a full470D native membership
+bridge, preserving the earlier near-neutral stop as its own completed result.
