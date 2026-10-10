@@ -8070,3 +8070,5 @@ Common-Gram unitb5e961a8 completes32.772s; forcing.64035775 fails.5, no trials. 
 
 Input-Gram b5e961a8 completes32.772s/34.384s; unchangedforcing.64035775 fails beforetrials. All69worker+5launcher+2auditfiles immutable/hashverified andownedPIDs absent. Savedcheck8ef00a31 passes.399s; QR/eigenpairs/rightprojector/truephysicalresidual agree. No step/orbit, no source repair/retry.
 Combined p12 geometry rendered e3659ded1.914s, visuallyinspected. No cusp established; csignpole occurs nearother+1, no commonorbit at projectedflipselfcrossing. Pause p12envelope after811distinctnativeboundarynodes, keep unresolved. Proceed predeclared28175component24p14 refinement withsamecost/nativegates/sourceprofile; exactcard/source/tests beforeoneunit.
+
+Root pretarget source/card skim6c5c0ac5 passes: exactp14comparisonfixedpatch/qualifierandmeasuredsourceprofile. Executeoneboundedunit; retainp12anatomylimits.
