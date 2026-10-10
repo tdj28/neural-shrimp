@@ -6860,3 +6860,21 @@ CPU1nice10,90/110+5s,130ticks,2GiB sampledRSS,128+1MiB. Exclusive
 attempt-001-wider-repair. Root source skim then one launch, no automatic retry.
 Details docs/plans/eigenpair-wider-repair.md; no new target evaluated in source
 preparation, no scientific gate or old evidence changed.
+
+### 2026-10-10 — fresh wider repair passes; continue from accepted endpoint
+
+Root source skim cleared534c4cb1; fresh40.97GiB available/load1.17. The single
+repair passes470/470 strict inclusions, full470 native anchor and allfive
+proper-divisor exclusions; q=.9383385217, worst saved ratio.99984690984.
+Accepted interval[19,23]/128 ends at actual rates≈75.34402/.82203082. This is
+normalized primitive18+1 eigenpair continuation only, no genericity/attraction
+or cusp association claim. Original failed wider attempt and diagnosis kept.
+
+Worker21.4214s/657180KiB/127ticks; launcher21.8067s/666360KiBexit0. All230files/
+44,167,734bytes immutable/inventories/source checked; owned PIDs absent. Outer
+5fe146921e1d836036054e32f421e8ccd425204db1f57c31d708017c95dd239d;
+run2035aba9276f0d6aa6a41691fbdef13b9d49f4ba3d478e9832ca3f6962be27d1.
+Companions docs/reviews/eigenpair-wider-repair-outcome.md/.json. Root directs
+bounded multi-chart continuation from this accepted endpoint, retaining every
+failure and allowing at most one fresh-domain nonshrinking repair per chart.
+That new adapter/card must be committed/source-reviewed before its target.
