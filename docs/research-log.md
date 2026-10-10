@@ -7308,3 +7308,7 @@ Certificate_context cleared635a4c74 by read-only source skim: scientific core un
 ## 2026-10-10: fixed operator-only response completed, saved reduction
 
 Execution65f76f20 passed the lossless profile gate and completed both fixed cases. Both exhausted their matched phase-action budgets before accuracy. Prepare one post-outcome producer-authored saved-only terminal check: full immutable inventory, exact event order/bundle schemas, independent free-boundary D-transpose residual assembly and readout error at the two retained terminal states; no model/derivative/decomposition/solver. CPU1nice10 internal10s/external15+5s, output64KiB, exclusive operator-blocks-002-savedcheck. This is not an independent-personnel audit and does not reopen the stopped scientific comparison.
+
+## 2026-10-10: operator-only response negative result retained
+
+Source635a4c74/execution65f76f20, both fixed endpoints fail after matched phase-action ceilings. Worker19.6062s, outer20.1583s exit0,9,247 events and9,264 inventory files. Producer saved terminal check9ad92ec3 passed.8929s without models/solvers. Complete raw and failed earlierprofile retained; compact receipts commit exact identities. Independent-personnel outcome review pending; no large-model/LLM speedup inference.
