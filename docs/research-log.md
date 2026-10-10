@@ -8039,3 +8039,7 @@ Next authorized identical unit002, same source/caps:
 Refresh host resources. CPU1 nice10,180s/195+5,2GiB,384+1MiB,3200ticks,
 1440/2880C1/unit+864jets; stop first final failure or strict center-to-fold identity.
 No repeated prefix, alternate radius search, attraction or geometry claim.
+
+## 2026-10-10 — freeze independent center-to-fold connection audit
+
+The producer joined the independently localized central endpoint to the canonical fold through31reverse charts. Before treating this as a paper claim, freeze an independent saved arithmetic replay: all235D inclusions, correlated anchor, every exact join, all divisors, final all18-phase strict target membership, plus inherited-H3 restriction identity. Measured cost/caps and scope are in docs/plans/s2-fold-connection-independent.md. No new model calls.
