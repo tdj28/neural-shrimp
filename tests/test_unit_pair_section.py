@@ -27,7 +27,8 @@ def test_reverse_native_association_checks_all704_without_phase_transform():
  with pytest.raises(ValueError):native_association(z[:-1],z)
 
 
-def test_complete_reverse_prefix_and_every_section_join(monkeypatch):
+@pytest.mark.parametrize('crossing',[False,True])
+def test_complete_reverse_prefix_and_every_section_join(monkeypatch,crossing):
  import neural_shrimp.unit_pair_section as U
  class Fake:n=13
  def evaluation(model,z,period,t,tick):
@@ -35,13 +36,13 @@ def test_complete_reverse_prefix_and_every_section_join(monkeypatch):
   ht=np.zeros(41);ht[13]=-1
   data={'orbit':np.ones((19,13)),'q_phases':np.ones((19,13)),'r_phases':np.ones((19,13)),'monodromy':np.eye(13),'z':np.array(z)}
   return z-target,np.eye(41),ht,data
- monkeypatch.setattr(U,'evaluate',evaluation);monkeypatch.setattr(U,'qualify',lambda *a,**k:{'passed':True,'complement_unit_gap':.4})
+ monkeypatch.setattr(U,'evaluate',evaluation);monkeypatch.setattr(U,'qualify',lambda *a,**k:{'passed':True,'complement_unit_gap':.4,'complement_max_modulus':1.2 if crossing and a[0][13]>.305 else .8})
  monkeypatch.setattr(U,'native_flat',lambda z,data:np.r_[z,np.zeros(663)])
  points=[]
  for i,t in enumerate(np.linspace(.1,.3,20)):
   z=np.zeros(41);z[13]=t;z[14]=1;z[15]=1;z[29]=1;points.append({'index':i,'t':float(t),'z':z.tolist(),'native_flat':np.r_[z,np.zeros(663)].tolist()})
  events=[];result=U.survey(Fake(),points,max_points=3,hidden_step=.01,observe=lambda k,v:events.append((k,v)))
- assert result['status']=='point_cap'and len(result['reverse_prefix'])==19 and len(result['points'])==3
+ assert result['status']==('competing_unit_crossing_proposal'if crossing else 'point_cap')and len(result['reverse_prefix'])==19 and len(result['points'])==(2 if crossing else 3)
  assert all(v['association']['passed']for v in result['reverse_prefix'])
- attempts=[v for k,v in events if k=='attempt'];assert len(attempts)==2 and all(v['passed']and v['reverse']['passed']for v in attempts)
- assert result['points'][-1]['t']==pytest.approx(.32)
+ attempts=[v for k,v in events if k=='attempt'];assert len(attempts)==(1 if crossing else 2) and all(v['passed']and v['reverse']['passed']for v in attempts)
+ assert result['points'][-1]['t']==pytest.approx(.31 if crossing else .32)
