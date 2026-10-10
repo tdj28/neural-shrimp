@@ -10448,3 +10448,23 @@ skim PASS;10controls reproduced0.19s. Exact complete144 first receipt and
 fixed secondunit predecessor/index/source/counters/coverage, full original15
 native prefix, ordinary235D joins and removal of stale localized metadata
 checked. No math changes. Unit001 measuredcard ef3eef68 now clears peer gate.
+
+2026-10-10 original chart143 unit001 at 22862e72c33ec644338e270b7fe9fcc062e7bc45 failed before
+all derivative acquisition: zero stages and all counters zero,31.378786sworker/
+32.177419slauncher,714512KiB. Exact error: fixed halfwidth/precision and bounded
+adapted radii. Workerbf9befb2f08865060678ff00f26332fb928c3d28e5553a3c3b4ab1af68b2d972;
+outer085bd88018dbbae908715e3562cfb5079d712788113bad45bd3f9a7cfc50027f. Inventories/source/immutability/owned-exit
+checks pass. All original artifacts retained; producer coverage stays96.
+
+Diagnosis and dated amendment: two-predecessor adapter imported the near-fold
+small_march validator (-8 halfwidth) instead of original fold_march validator
+(-7 halfwidth). Mocked join tests and source skim missed this family mismatch.
+Use the unchanged original strict validator; new regression exercises the real
+gate with full235D endpoint metadata and explicitly rejects the wrong family.
+19combined controls pass. New exclusive base
+s2-period18-two-predecessor-stability-native-join-2026-10-10, fresh synthetic
+profile before target and new exact measured target card. Mathematical kernels
+and all caps unchanged; no relaxation of scientific gates. One positive-path
+161-stage synthetic profile is now the next card,CPU1nice10,30s/40+5external,
+2GiB,162C1/324unit/36mixed,512/514MiB. Host14:46PDT load1.51 and50GiB
+available; GPUidle and unused. Boundary source skim requested before target.

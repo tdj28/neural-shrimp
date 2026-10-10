@@ -25,3 +25,21 @@ unit001 (index13) and unit002(index12), with explicit complete predecessor
 worker/outer pins in each private-pushed card. First failed prerequisite or
 final bound stops. No paid/GPU/holdouts, retries or indefinite march.
 Independent arithmetic review and producer coverage remain separate.
+
+
+## Disclosed admission repair, 10 October 2026
+
+Original unit001 stopped with zero derivative calls and zero saved stages:
+the adapter accidentally called the -8 near-fold chart-family admission gate
+for the original -7 native charts. This is an interface error, not a failed
+stability test. Original raw unit and original positive profile stay immutable.
+Use the original native fold_march join validator, whose strict -7 settings,
+full235D endpoint, gauge and root/primitive gates were already used to authenticate
+all15 original charts. A real validator control supplements the mocked adapters.
+
+The amended exclusive raw base is
+s2-period18-two-predecessor-stability-native-join-2026-10-10. A fresh profile
+and fresh exact unit001 card are required; old source-profile pins are inadmissible.
+All targets, mathematical kernels, widths and resource ceilings above remain.
+The corrected profile is one synthetic full161-stage unit at attempt001-profile;
+no target after it until its positive measured receipt is committed and pushed.
