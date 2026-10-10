@@ -5742,3 +5742,9 @@ Reviewed source0e57e818/executione16f04de completed13.182s/13.447s,235440KiB,96/
 Next exactcard: native p5 slices atfixedgainindices16/25/34, middle sorted delta withincomponent8/count654,start0. Both.001directions×128,domain.45–.72,nativephase/reverse/allprimitivechecks. Oneboundaryroot per direction withadded reverseassociation. Actual leadingcomplexinstability remains unresolved,noforcedrealboundary. Fliptotalcrossing withoutcubicclaim.120s135+5CPU1nice10/512MiB/128+1MiB,15000calls,fixedsyntheticprofilegate;source/tests/card toindependentreviewer beforetarget.
 
 Pretarget compact-boundary amendment: explicitly require corrected initial seed finite radius<1−1e−6 before tracing first loss of attraction. Independent reviewer is occupied with the main proof kernel; root will provide the short final source skim. No boundary target has run. Compact refinement independent source review is now committed c2c2cf17; earlier pending-at-creation outcome receipt remains unchanged.
+
+### 2026-10-10 PDT: compact p5 native boundaries retained, four-trace anatomy card
+
+Reviewedb8f4ad9d completed1.621s/2.175s,120960KiB,2417nativecalls. Two upperfolds and oneflip passnativephase/reverse. Three lowerfoldroots passlocalequations butreverse fails; allremainexplicitlyunassociated. Full10799files/11495291B,outer0670c0b16b9002d2b4784275a5b88af52811a245e2f7bd4b677f18706c5f2d28,modes andowned1308912/1308937group exitsverified. No repeatedunit.
+
+Next fixed anatomycard: only associated g25upperfold andg34flip, eachbothdirections,192nodes×scaledstep.01,3.8<g<8,.42<delta<.85. Nativep5/divisor1/phase/odd/reverse/spectrumgates, fullarrays and signedcoefficients; genericfold/transverseflip separate,cubicuntested. Keepfailedlowerrootsunassociated, never seedfromthem.120s135+5CPU1nice10/512MiB/256+1MiB,10000calls,measuredsynthetic9700max+20gate. Source/tests/cardrootreviewbeforetarget; no newrootsearch/intervalclaim.
