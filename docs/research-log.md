@@ -9471,3 +9471,7 @@ Implement the previously disclosed fixed8-step innerCG/flexibleGCR20method on th
 Prelaunch peer fixes: normalize profile runtime/storage by its actual completed callback count to both full target ceilings (minimumfactor3), and retain atomic callback-start records with conservative pending upper counts. Interrupted in-atomic returns are explicitly partial, not falsely claimed complete. No target was run.
 
 Final independent static differential skim of58ddeeef passed before launch. Execute only the single fixed operator-blocks-001 profile/admitted two-case unit; no tolerance/block/column tuning.
+
+## 2026-10-10 — operator-response profile rejected before targets
+
+Executionabdda35e spent the full173664syntheticcallback ceiling in11.736s. Runtimeprojection40.209s passed, but rawprojection278218630B exceeded255MiB; file-per-array manifest also exceeded1MiBnonworker allowance. Exit2/allraw preserved, targetbindingabsent, allhashes/modes/PIDsexitverified. This is storageengineering failure, not a targetscientific endpoint. See `docs/reviews/response-operator-profile-failure.json`.
