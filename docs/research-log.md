@@ -11708,3 +11708,7 @@ Independent source review found that completed CE readouts could be lost after a
 Root's exact72D period58 target3488be38 failed finite enclosure after101s; preserve outerc0f7488e and source. `docs/plans/census-long-period-diagnosis.md` prepares a saved-only30s/2GiB/3GiBAS/4MiB worker under owned40+5s launcher. Exact dyadic radius growth and first nonfinite state/Jacobian identify whether tighter radius/precision is plausible before a separately reviewed native rerun. No Newton history exists in the old kernel; report final refined residual only. No target arrays opened by this packet yet; two direct controls and peer source skim precede run.
 
 Synthetic diagnosis control initially used `contraction` instead of the real certificate field `contraction_norm_upper`;1PASS/1fixture failure. Corrected only the fixture before review; no data run.
+
+### 2026-10-10 — saved period58 diagnosis clearance/execution
+
+Root source-skim50f7ba5b PASS,2controls reproduced0.03s; exact dyadic summaries, full immutable/source bindings, missing Newton history and owned caps checked. Proceed sole saved-only `audits/census-period58-diagnosis/attempt001` with30s/2GiBpeak/3GiBAS/4MiB,40+5outer. Fresh host16:11PDT remains52GiB available and no owned N12worker. No native evaluations or certificate replay.
