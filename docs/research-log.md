@@ -7226,3 +7226,14 @@ saved-only acquisition. Root audits the correlated pair then15 durable charts,
 reproducing all six failures without inventing absent batch output. Existing
 256 localization replay anchors the chain; supplemental384 localization failure
 stays preserved. All prior/next claims depend on fresh reducer/native join gates.
+
+## 2026-10-10 — inference producer result and saved-output audit card
+
+Sourcebcba5eea completed all780 attempted/returned CPU forwards in8.986s; all
+1536 matched-history choices and free greedy choices agree across arithmetic.
+Max last-logit difference1.11454517e-5; minimum float32 top-two margin9.737e-4.
+No inference-chaos/causal/training/heldout utility conclusion follows. Freeze
+audit_saved_lm_inference.py before independent saved-array arithmetic audit:
+reconstruct every greedy history/mask, all768 target returned forwards, case
+order, pairwise margin screens and source/manifests/PID absence.30s/512MiB
+local audit, no model calls. Exact output at externalroot independent-audit.json.
