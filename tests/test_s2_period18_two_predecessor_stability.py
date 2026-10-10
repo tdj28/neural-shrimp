@@ -43,3 +43,21 @@ def test_corruptions_fail_closed(monkeypatch,which):
     elif which=='interval':a[5]['exact_parameter_endpoints']=['1/4','31/128']
     else:a[2]['chart']={'different':'native predecessor'}
     with pytest.raises(ValueError):m.select(*a)
+
+
+def test_real_native_join_uses_original_halfwidth_without_mocking():
+    # Earlier test doubles hid the distinction between original (-7) and
+    # repaired near-fold (-8) chart families. Exercise the real gate.
+    nxt={'passed':True,'gates':{'uniform_root':True,'primitive_period':True,'anchor_identified':True},
+         'coordinate_inclusions':[True]*235,'anchor_check':{'passed':True},
+         'statement':{'period':18,'phase_dimension':13},
+         'divisors':[{'divisor':d,'excluded':True}for d in [1,2,3,6,9]],
+         'settings':{'precision':256,'halfwidth_exponent':-7,'newton_steps':2,'radius_exponent':-30},
+         'exact_weights':['1']*235,'normal':['0']*234+['1'],'origin':['0']*235,
+         'anchor':{'state_box':['full native endpoint']*235,'exact_parameter':'31/128'},
+         'exact_parameter_endpoints':['31/128','33/128']}
+    prev={'normal':nxt['normal'],'origin':nxt['origin'],'endpoint_root_enclosures':[[],nxt['anchor']['state_box']],
+          'exact_parameter_endpoints':['29/128','31/128']}
+    m.native.joined(prev,nxt)
+    nxt['settings']['halfwidth_exponent']=-8
+    with pytest.raises(ValueError,match='fixed halfwidth/precision'):m.native.joined(prev,nxt)

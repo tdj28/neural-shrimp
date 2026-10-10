@@ -5,11 +5,11 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 import certify_s2_period18_localized_predecessor_stability as base
 import certify_s2_period18_preceding_chart_stability as core
 import certify_s2_period18_fold_endpoint as endpoint
-import certify_s2_period18_fold_small_march as native
+import certify_s2_period18_fold_march as native
 ROOT=base.ROOT;io=base.io;require=base.require;CAP=base.CAP;THREADS=base.THREADS
 CURRENT='tools/certify_s2_period18_two_predecessor_stability.py'
 RECEIPT='docs/reviews/s2-period18-localized-predecessor-stability-outcome.json'
-RAW=Path('/data2/neural-shrimp-data/explore/certificates/s2-period18-two-predecessor-stability-2026-10-10')
+RAW=Path('/data2/neural-shrimp-data/explore/certificates/s2-period18-two-predecessor-stability-native-join-2026-10-10')
 FIRST=Path('/data2/neural-shrimp-data/explore/certificates/s2-period18-localized-predecessor-stability-2026-10-10/attempt001-target/run')
 ENDS={13:['29/128','31/128'],12:['27/128','29/128']}
 SOURCES=list(dict.fromkeys(base.SOURCES+[CURRENT,'tools/launch_s2_period18_two_predecessor_stability.py','tests/test_s2_period18_two_predecessor_stability.py','docs/plans/s2-period18-two-predecessor-stability.md',RECEIPT]))
