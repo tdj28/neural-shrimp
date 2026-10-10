@@ -11722,3 +11722,7 @@ Root agrees to one fixed640bit/radius2^-288 attempt using exact saved refined ce
 ### 2026-10-10 — fixed640bit period58 source packet
 
 `docs/plans/census-long-period-tight.md` implements the root-endorsed exact saved-center/640bit/radius2^-288 amendment. One explicitly recorded Newton proposal plus unchanged zero-extra-Newton C1 check costs exactly174native phases; freshthree72D profile returns precede a separately carded target. All original failure/source/data binds and final representative proximity are required. Bounds60sprofile/600starget,2GiB RSS/4GiBAS/512MiB plus owned80/620+5s remain explicit. No profile/target launched. Synthetic controls cover full coupled Newton proposal, exact center/proximity rejection and exact cost arithmetic.
+
+### 2026-10-10 — independent640bit retry source clearance and three-phase profile card
+
+Root source/math skimcaf83f6c PASS;3controls independently reproduced0.11s. Exact saved dyadic center, one recorded Newton, unchanged C1zero-extra-Newton checker,174native phase budget, original positive rates/proper divisors/proximity and same-source measured bindings checked. Fresh host16:21:02PDT load1.43/1.68/1.84,52GiB available; GPU0idle15947MiB free/no active compute, unused. Launch only the threefull72D/640bit profile phases into exclusiveattempt002-profile under60s/2GiB/4GiBAS,owned80+5s. A passing forecast must be logged before the separate fixed target; no profile or target array changes.
