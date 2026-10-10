@@ -6258,3 +6258,24 @@ CPU1,nice10,2GiB,384+1MiB,16charts,1152/2304 C1/unit+864jets,2200ticks.
 All failure/persistence tests and a small exact fold chain are synthetic.
 No batch acquisition yet; profile receipt and exact target pin are committed
 before target. This advances a primitive branch, not attraction or fold identity.
+
+### 10 October 2026 UTC — streamed profile passes; one16-chart target
+
+Root source/driver review passed8de702f3;62 controls pass0.25s. The two-chart
+synthetic stream completed4.6278s/4.9653s,340220KiB,268ticks,full144/288
+C1/unit+108jets,exit0. Both uniform-root paths pass; primitive18 is false for
+the repeated synthetic fixed point. All inventory/source/library/thread/read-only
+and owned-PID checks pass. Measured projection79.0455s; real-data storage floor
+301,989,888bytes fits352MiB. Profile worker manifest
+138fee7a6b8a645dcf9cffcb5f3eab538e4deb3194eaaf94b0a8a8db1939eede,
+outer8c386d93c0a013df51293d1cefce711453cc1b53e2563bff73a20636acdc6cb6;
+receipt `docs/reviews/s2-period18-arclength-batch-profile.json`.
+
+Run ONE unchanged-source target after fresh memory check:
+`tools/certify_s2_period18_arclength_batch.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-batch-2026-10-10/attempt-001-target
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-batch-2026-10-10/attempt-001-profile/run
+--profile-manifest 138fee7a6b8a645dcf9cffcb5f3eab538e4deb3194eaaf94b0a8a8db1939eede`.
+Up to16 fixed charts; stop first failed gate, no retry. CPU1,nice10,2GiB,
+384+1MiB,180s/195+5,2200ticks,1152/2304C1/unit+864jets. Every native join
+and all raw chart witnesses remain mandatory. No attraction/fold identity.
