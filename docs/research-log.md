@@ -7237,3 +7237,15 @@ audit_saved_lm_inference.py before independent saved-array arithmetic audit:
 reconstruct every greedy history/mask, all768 target returned forwards, case
 order, pairwise margin screens and source/manifests/PID absence.30s/512MiB
 local audit, no model calls. Exact output at externalroot independent-audit.json.
+
+## 2026-10-10 — independent144-chart and inference outcomes
+
+Bothnewgaugeauditunits pass:2correlatedcharts then15durablecharts, all256replay
+and384native root/primitive/join checks, including the five reboxinitial failures
+and rejected terminalinitial. Total144nativecharts, endpointgauge33/128. No
+whole-path attraction or fold identity. SavedLMoutputaudit independently passes
+all1536decisions and every768targetreturn; zero precision-induced token changes.
+Receipts: s2-newgauge-chain-independent.json and saved-lm-inference-independent.json.
+Next frozen saved-only review binds the new known-root localization at33/128
+to this actual144-chart audit and independently reduces all three256intersections.
+No384claim or model calls. See s2-fold-endpoint-independent-review.md.
