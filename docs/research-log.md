@@ -9928,3 +9928,15 @@ Native calls 4, repairs 0; 77.327 seconds, self peak 1135228 KiB; launcher exit 
 Raw root `/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-002-neutral-bridge`; outer manifest `f1759cba836e2464bc1955f1ca1f961095f8d273c489ca182cbd2105aecedcb8`; worker manifest `4ea7a7ad31456e53b9772a7bb2c5039cf7d60ba7c5d317fef6d83e522e543e6d`. The adjacent JSON preserves all accepted and failed attempt records.
 
 Next unit 003 uses only this complete accepted predecessor and unchanged fixed event/cost caps, as recorded in its prospective card. No duplicate owned bridge process is present.
+
+## 2026-10-10 — generalized-chain candidate source preparation
+
+Root cleared preparatory source/controls for a possible second+1 interaction
+while the existing native bridge continues. Added an exact 41D generalized-chain
+root system, distinct from the cusp system, with no target driver or acquisition.
+The plan states the separate multiplicity, spectrum, genericity and branch
+connection obligations. Only synthetic controls are authorized at this stage.
+
+Seven new focused synthetic controls passed in0.12s. No research target was
+evaluated by the new system. Its source requires independent mathematical skim
+before any future measured profile/target design.
