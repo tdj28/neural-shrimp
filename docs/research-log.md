@@ -6503,3 +6503,11 @@ all owned PIDs1031150/1031056/1031149 absent. Outer5afa111cec0d00ac8ad34d6c51d99
 worker124551430107f36da8c7b8596409e84969dadc3eaa3712aefb530f1a2f07784e.
 Failed producer batch001 retained as zero-call wrapper failure. Companions
 docs/reviews/s2-period18-arclength-independent-review.md/.json.
+
+## 2026-10-10 UTC: upper flip outcomes and saved geometry check
+
+Both upper-arm continuations complete64 new nodes each, with all historical numerical gates retained; no prefix rerun. Exact immutable outcomes/pins are in docs/reviews/s2-boundary-upper-flips-outcome.json. Their endpoint extensions lie outside parts of the historical map; this is not a fresh dynamics scan.
+
+Saved-only card: combined-summary004 includes allnine panels(576nodes), original historical map and all retained derivative reductions. Add pairwise line-segment intersections between the two distinct flip families in scaled actual-rate coordinates; a crossing is only a numerical proposal. Record segment endpoints/interpolation fractions and full18-phase interpolated discrepancies without assuming shared orbit or true curve intersection. Ignore nearly singular interpolation systems at absdet<1e-14; a no-crossing output concerns only the sampled polylines, not the complete curves. No new map/Jacobian/trajectory/solver acquisition. Same45sCPU1nice10/512MiB/10MiB limits; old summaries preserved. Also save an overview covering all sampled endpoints.
+
+Bibliographic correction: the primary arXiv2404.00535v2 record identifies Lessard/Pugliese, Linear Algebra and its Applications728(2026)26–46, DOI10.1016/j.laa.2025.08.015. The earlier cusp card DOI10.3934/dcdsb.2024181/year2025 was a metadata error; immutable acquisition cards remain retained. The mathematical comparison was to arXivv2 and its ODE scope, unchanged by this correction.

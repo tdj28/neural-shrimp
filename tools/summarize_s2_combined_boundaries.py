@@ -7,6 +7,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 BASE=Path('/data2/neural-shrimp-data/explore/s2-period18-boundary-curves')
 PINS={'attempt-003-target':'1a1b58e678f11db81ca7adb2821ca2ff84056768734073a11e70e004813a71f9','attempt-004-fold-plus':'231b1d448fd06b09a180861d4e67569d3ef0f42967557ba4e24dd7b4780284f6','attempt-005-ray51-flip':'b3ccbdafc68c8ce6981d286d7f7a4145624a9b8d6806e721471a06186b7135c9','attempt-006-ray32-fold':'5a407527b29bf0a94540e581b23967c5e956b175e2f6ecf1d7b51806e7688f7d','attempt-007-ray13-flip':'c889339446be01c3110303e311b06266e5a10b1bdacb1dd45f4ee06abd2e49a7','attempt-008-ray32-plus':'e1bd837122ebc25726f5a71a1928c220bb5f227a623c2f2825a0ff210c53e7ad','attempt-009-ray13-plus':'80906f161004f78f50c9f6496fec2e81c4dcd69af6be06debf370e459317eae5'}
+PINS.update({'attempt-010-ray51-upper': 'dbfb2b3e07a2bde52653a44dd81b07672f9921a8ba790b93eb23ad62d4112b35', 'attempt-011-ray13-upper': '46d50714e954e8885d6efcf53a62ad93e1cb9e1eb029576e89cc362db6e2b640'})
 MAP=Path('/data2/neural-shrimp-data/explore/s2-28011-w587-512/map.npz')
 MAP_PIN='5d9fc07f06bbc36025d2ec0b315be1b4cd812141eb0a0a4f9d5464d6b71fa874'
 def ent(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
@@ -16,7 +17,7 @@ def main():
  assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip()
  assert os.getpriority(os.PRIO_PROCESS,0)>=10
  resource.setrlimit(resource.RLIMIT_AS,(1024*1024**2,1024*1024**2));start=time.monotonic()
- out=BASE/'combined-summary003';out.mkdir(exist_ok=False);records=[];rows=[];native={};fold_details=[]
+ out=BASE/'combined-summary004';out.mkdir(exist_ok=False);records=[];rows=[];native={};fold_details=[]
  for name,pin in PINS.items():
   base=BASE/name;assert ent(base/'manifest.json')['sha256']==pin
   inv=read(base/'manifest.json')['files'];assert set(inv)=={str(p.relative_to(base))for p in base.rglob('*')if p.is_file()}-{'manifest.json'}
@@ -64,6 +65,28 @@ def main():
    branch=sorted([r for r in fold_details if r['run']==name and r['sign']==sign],key=lambda r:r['index'])
    for a,b in zip(branch,branch[1:]):
     if a['c']*b['c']<0:changes.append({'from':a,'to':b,'cusp_established':False,'reason':'finite normalized coefficient sign change; must exclude critical-multiplier collision/pole and locate a nondegenerate zero'})
+ # Saved polyline intersections are only proposals; neither common parameters
+ # nor full-state identity are proved by interpolating samples.
+ segments={51:[],13:[]}
+ for family,names in [(51,['attempt-005-ray51-flip','attempt-010-ray51-upper']),
+                      (13,['attempt-007-ray13-flip','attempt-009-ray13-plus','attempt-011-ray13-upper'])]:
+  for name in names:
+   for sign in (-1,1):
+    part=sorted([r for r in rows if r['run']==name and r['sign']==sign],key=lambda r:r['index'])
+    for a,b in zip(part,part[1:]):segments[family].append((a,b))
+ intersections=[]
+ for a,b in segments[51]:
+  p=np.array([a['hidden']/10,a['output']/.1]);v=np.array([(b['hidden']-a['hidden'])/10,(b['output']-a['output'])/.1])
+  for c,d in segments[13]:
+   q=np.array([c['hidden']/10,c['output']/.1]);w=np.array([(d['hidden']-c['hidden'])/10,(d['output']-c['output'])/.1]);mat=np.column_stack([v,-w])
+   if abs(np.linalg.det(mat))<1e-14:continue
+   t,u=np.linalg.solve(mat,q-p)
+   if not (0<=t<=1 and 0<=u<=1):continue
+   params=(p+t*v)*[10,.1]
+   aa=(1-t)*np.array(native[(a['run'],a['file'])]['orbit'])[:18]+t*np.array(native[(b['run'],b['file'])]['orbit'])[:18]
+   cc=(1-u)*np.array(native[(c['run'],c['file'])]['orbit'])[:18]+u*np.array(native[(d['run'],d['file'])]['orbit'])[:18]
+   scale=max(1,float(abs(aa).max()),float(abs(cc).max()));errors=[float(abs(aa-np.roll(cc,k,axis=0)).max()/scale)for k in range(18)]
+   intersections.append({'segment51':[a,b],'segment13':[c,d],'fractions':[float(t),float(u)],'parameters':params.tolist(),'interpolated_best_phase':int(np.argmin(errors)),'interpolated_native_state_distance':min(errors),'scope':'floating polyline intersection proposal only; no evaluated common-parameter orbit or proof'})
  assert ent(MAP)['sha256']==MAP_PIN
  import matplotlib;matplotlib.use('Agg')
  import matplotlib.pyplot as plt
@@ -75,15 +98,15 @@ def main():
   for sign in [-1,1]:
    part=sorted([r for r in rows if r['run']==name and r['sign']==sign],key=lambda r:r['index'])
    if not part:continue
-   c={'attempt-003-target':'#2377bf','attempt-004-fold-plus':'#2377bf','attempt-005-ray51-flip':'#c8552e','attempt-006-ray32-fold':'#20a076','attempt-007-ray13-flip':'#9d37ad','attempt-008-ray32-plus':'#20a076','attempt-009-ray13-plus':'#9d37ad'}[name];label=('fold' if part[0]['sigma']==1 else 'flip')+' '+name+' '+str(sign)
+   c={'attempt-003-target':'#2377bf','attempt-004-fold-plus':'#2377bf','attempt-005-ray51-flip':'#c8552e','attempt-006-ray32-fold':'#20a076','attempt-007-ray13-flip':'#9d37ad','attempt-008-ray32-plus':'#20a076','attempt-009-ray13-plus':'#9d37ad','attempt-010-ray51-upper':'#c8552e','attempt-011-ray13-upper':'#9d37ad'}[name];label=('fold' if part[0]['sigma']==1 else 'flip')+' '+name+' '+str(sign)
    x=np.log10([r['output']for r in part]);y=np.log10([r['hidden']for r in part]);axs[0].plot(x,y,'.-',color=c,lw=.8,markersize=2,label=label)
    unstable=np.array([r['complement_radius']>=1 for r in part]);axs[0].plot(x[unstable],y[unstable],'x',color='black',ms=4)
    axs[1].plot(range(len(part)),[r['complement_radius']for r in part],'.-',label=label,ms=2)
  axs[0].plot(np.log10(.8210596690584651),np.log10(71.337643833463),'r+',ms=8,label='certified interior center')
  axs[0].set(xlabel='log10 output learning rate',ylabel='log10 hidden learning rate',xlim=(-.105,-.07),ylim=(1.8,1.94),title='Carried numerical boundaries over historical period screen')
  axs[0].legend(fontsize=6);axs[1].axhline(1,color='black',lw=.7);axs[1].set(xlabel='Accepted node within segment',ylabel='Other-multiplier spectral radius',title='Crosses mark nonattracting complements on left');axs[1].legend(fontsize=6)
- fig.savefig(out/'combined-boundaries.png',dpi=160);fig.savefig(out/'combined-boundaries.pdf');plt.close(fig)
- result={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source':ent(Path(__file__)),'runs':records,'map':{'path':str(MAP),**ent(MAP)},'rows':rows,'fold_coefficients':fold_details,'coefficient_sign_changes':changes,'nearest_fold_flip_pairs':pairs,'elapsed_seconds':time.monotonic()-start,'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'scope':'Numerical carried fold/flip nodes only; historical screen is context, no rigorous inter-node connection or shrimp proof.'}
+ fig.savefig(out/'combined-boundaries.png',dpi=160);fig.savefig(out/'combined-boundaries.pdf');axs[0].set_xlim(min(np.log10(r['output'])for r in rows)-.001,max(np.log10(r['output'])for r in rows)+.001);axs[0].set_ylim(min(np.log10(r['hidden'])for r in rows)-.005,max(np.log10(r['hidden'])for r in rows)+.005);fig.savefig(out/'full-boundaries.png',dpi=160);plt.close(fig)
+ result={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source':ent(Path(__file__)),'runs':records,'map':{'path':str(MAP),**ent(MAP)},'rows':rows,'fold_coefficients':fold_details,'coefficient_sign_changes':changes,'nearest_fold_flip_pairs':pairs,'flip_polyline_intersections':intersections,'elapsed_seconds':time.monotonic()-start,'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'scope':'Numerical carried fold/flip nodes only; historical screen is context, no rigorous inter-node connection or shrimp proof.'}
  assert result['elapsed_seconds']<45 and result['peak_rss_kib']<512*1024
  save(out/'summary.json',result);(out/'source.py').write_bytes(Path(__file__).read_bytes());save(out/'manifest.json',{'files':{p.name:ent(p)for p in out.iterdir()}})
  for p in out.iterdir():p.chmod(0o444)
