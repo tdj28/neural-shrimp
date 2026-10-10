@@ -11912,3 +11912,8 @@ Clark independently reviewed4054bd8a, reproduced four controls in0.13s and clear
 ## 2026-10-10T23:56:05.590016+00:00 — preserve inconclusive55 audit and repair interval solve
 
 Attempt001 failed2.415s with0native calls at direct interval section.solve, which can reject an interval system even when another validated factorization succeeds. Complete immutable inventory and empty owned group verified; receipt native-unit-pair-flip-independent-attempt001.json retains the trace. Prepare independently preconditioned interval solves without changing the mathematical gates or target. The stronger source binding remains; attempt002 awaits review.
+
+
+### 2026-10-10T23:56:41.570576+00:00 — LM forecast review retention repair
+
+Independent review confirmed predictor ordering, information budget, profile bindings and240calls, but requested immediate retention of each completed HVP before downstream finite checks. Implement that narrow fix, keep the same64MiB cap, and add a forced nonfinite-action control. No target data acquired.

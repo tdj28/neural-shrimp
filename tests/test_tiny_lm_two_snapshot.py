@@ -14,7 +14,7 @@ def test_order_and_information_budget():
         exact=(a if h%2==0 else b)@exact
         np.testing.assert_allclose(result['alternating'][h],exact,atol=1e-15)
     np.testing.assert_allclose(result['latest'][-1],np.linalg.matrix_power(b,15)@a@u)
-    assert set(saved)=={'alternating','latest'}
+    assert {'alternating','latest'}<=set(saved) and len(saved)==32
 
 def test_interruption_retains_last_acquired_prediction():
     saved={};calls=0
@@ -31,3 +31,11 @@ def test_gate_requires_improvement_over_equal_information_and_persistence():
     assert candidate_gate(rows)
     rows[0]['latest_vector_error']=.05
     assert not candidate_gate(rows)
+
+
+def test_returned_nonfinite_action_is_retained_before_rejection():
+    saved={}
+    with pytest.raises(ValueError):
+        forecast(np.ones(2),1,np.zeros(2),np.ones(2),lambda t,v:np.array([np.nan,1.]),saved.__setitem__,lambda:None)
+    assert np.isnan(saved['alternating-hvp-01'][0])
+    assert saved['alternating'].shape==(1,2)

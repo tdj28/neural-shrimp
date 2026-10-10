@@ -11,7 +11,9 @@ def forecast(initial_response, eta, theta0, theta1, hvp, save, check):
             for step in range(1,16):
                 check()
                 theta = theta1 if label == 'latest' or step % 2 else theta0
-                values.append(finite(values[-1]-eta*finite(hvp(theta,values[-1]))))
+                action=np.asarray(hvp(theta,values[-1]),dtype=np.float64)
+                save(f'{label}-hvp-{step:02d}',action)
+                values.append(finite(values[-1]-eta*finite(action)))
         finally:
             save(label,np.asarray(values))
         trajectories[label]=values
