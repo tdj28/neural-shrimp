@@ -8339,3 +8339,11 @@ as an enclosure failure, not dynamical instability; no doubled-slice attraction
 claim. Earlier source38ea6ac3 smaller-slice proof unchanged. Further work
 will address derivative uncertainty/error geometry using saved evidence
 before another fresh acquisition.
+
+2026-10-10 prospective saved tangent-variation diagnosis: preserve doubled
+slice failurebe240b96. Use its saved native J/Jprime, actual h and true Uprime
+to bound Aprime Uprime, then Usecond via the same strict Neumann identity.
+Intersect centered Uprime(center)+Usecond D with old true tangent. Optimizer
+independently cleared algebra including exactly two theta/rate cross terms.
+One saved-only20s/1GiB unit, code/card before outcomes; no model/derivative
+calls or attraction claim. docs/plans/s2-period18-tangent-variation.md.
