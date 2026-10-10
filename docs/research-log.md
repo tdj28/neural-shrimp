@@ -11772,3 +11772,9 @@ Executionf70f3e6a completed52.322s/51328KiB,351fullreturns/12636native phases,33
 ### 2026-10-10 native55 NS–flip source and exact bracket packet
 
 Prepared full55D three-direction mixed-jet equations and analytic Jacobian, literal adjacent-phase spectrum/primitive/−1-vector checks, total multiplier derivative along physical hidden rate and full704 reverse associations to both exact section001 points26/27. Source-bound synthetic profile and measured5256phase target caps are explicit in native-unit-pair-flip.md; all inputs/returns/steps retained. Nine new/junction/section controls pass.22s; original completed survey remains immutable. No junction profile or target acquired; independent peer source/math skim next.
+
+### 2026-10-10 exact numerical junction profile card and separate interval preparation
+
+Stability independent dfdfea9e source/math skim PASS;9focused controls reproduced.21s. Execute only flip/attempt001-profile:6 full55 augmented+6 full41 section+6 adjacent native returns,648native phases, unrelated13D24sample data. Measured full72/36/4 forecast must fit120s/1GiB/64MiB with same source/libs; target remains unopened until separate exact card. Owned135+5 timeout,2GiB AS,CPU1nice10,4GiB fresh headroom; corrected only launcher's stale8GiB error message to match existing4GiB gate. All attempted/completed outputs retained.
+
+Separately prepared outward-rounded55 Krawczyk kernel with native proper-divisor gates and conditional same-root three-plane complement/total crossing derivative. Seven interval/numerical core controls pass.20s. This separate source is not used in the numerical profile or target; mathematical peer review and measured candidate-bound packet remain required before any rigorous acquisition.

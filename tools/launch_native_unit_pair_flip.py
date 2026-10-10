@@ -15,7 +15,7 @@ def main(args):
  if subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip():raise ValueError('clean source')
  if os.getpriority(os.PRIO_PROCESS,0)<10:raise ValueError('nice10')
  mem=Path('/proc/meminfo').read_text()
- if int(next(v.split()[1]for v in mem.splitlines()if v.startswith('MemAvailable:')))<4*1024**2:raise MemoryError('8GiB current headroom')
+ if int(next(v.split()[1]for v in mem.splitlines()if v.startswith('MemAvailable:')))<4*1024**2:raise MemoryError('4GiB current headroom')
  out=BASE/'flip'/f'attempt001-{args.mode}';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
  def save(name,value):
   with(out/name).open('xb')as f:f.write((json.dumps(value,sort_keys=True,indent=2)+'\n').encode());f.flush();os.fsync(f.fileno())
