@@ -7101,3 +7101,14 @@ CPU/BLAS1,nice10,90s internal/105+5 external,2GiB sampled owned-group RSS,
 384MiB worker/385MiB aggregate. Recheck shared RAM; no rerun on failure.
 This is the already source-reviewed bounded adaptation, no new data or
 whole-branch/neutral-fold claim. Preserve all gates and attempted counts.
+
+2026-10-10 doubled stability target at b837c59318aeebd3de17673fa74ca5c1f2c2d4e3 completed once,
+21.272091s/621300KiB; all162/324/18calls,85stages,
+exit0, inventories/read-only/owned-PIDs pass. Worker ac7c9e89a602e4e0f8d120ece947b2827a95fc854a358a0c3046771d10b3bf77;
+outer d1a95980b2f6ebac5e653e13e7da19643824ca3c1c3eca36fd5d66fc1cb32f64. Whole implicit q<.286027 and all
+frame/operator/point gates passed, but complete interval D failed. Remainder
+<.048702 and penalty<1.727929 exceed the available point decrease. Retain
+as an enclosure failure, not dynamical instability; no doubled-slice attraction
+claim. Earlier source38ea6ac3 smaller-slice proof unchanged. Further work
+will address derivative uncertainty/error geometry using saved evidence
+before another fresh acquisition.
