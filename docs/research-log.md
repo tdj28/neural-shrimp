@@ -5828,3 +5828,7 @@ Independent optimizer_claim_check differential skim passes6ee0b802 after shared 
 ## 2026-10-10 — N6 p7 refinement completed
 
 Execution0d935bd5 completed17.93s/291240KiB,96/96selectednative7/14/28cases qualify;17/2601startdisagreements,260components retained. Largestp7component380cells reachespatch edge; compactness remains unestablished pending whole-map/native-boundary evidence. Immutable1085files/141656012B and all owned PID exits verified. Freeze saved-only fullmap tools/summarize_clark_rnn_n6_p7.py,30sCPU1/512MiB/8MiB, no new model/derivative/decomposition.
+
+## 2026-10-10 — p7 complete map retained; native boundary discrimination
+
+Saved-only plot8131cd84 completed0.935s/195840KiB, image9130fbbd; both starts showelongatedp7wedgeandlowerp14patch. Shape is insufficient toclassifyshrimp/tongue. Freezeonefixedthreegain/twodeltadirectionnative7sliceunitwith6Dprofile,fullstate/primitive/reverseandreal-leadinggatesunchanged. No root/trajectoryrunbeforepeerreview; nointervalclaim.
