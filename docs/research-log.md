@@ -7062,3 +7062,12 @@ has a second physical-disk copy at
 d19a3a8e433f7e11eaebc92bb7234b4c65d455c5f58818208984ce8ee6b699dd.
 Exact inventory, complete SHA256, second source hash pass and fsync succeeded.
 Same-machine separate disk, not offsite. Later attempt roots need another copy.
+
+## 10 October2026UTC — renewed CIFAR400-space card
+
+Under the human's renewed all-track priority, prepare exactly one400-space
+Newton-direction diagnostic against the retained200-space baseline. Source/card
+`docs/plans/cifar-large-space-decision.md`: first200 callback parity,402A/807HVP,
+unchanged true forcing/finite trial gates,90sCPU1/2GiB,31+1MiBraw. No correction
+or spectrum follows automatically. Retain all earlier failures and protectedB.
+Independent source skim precedes the one fixed launch; no target yet.
