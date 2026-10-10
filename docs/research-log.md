@@ -8043,3 +8043,7 @@ No repeated prefix, alternate radius search, attraction or geometry claim.
 ## 2026-10-10 — freeze independent center-to-fold connection audit
 
 The producer joined the independently localized central endpoint to the canonical fold through31reverse charts. Before treating this as a paper claim, freeze an independent saved arithmetic replay: all235D inclusions, correlated anchor, every exact join, all divisors, final all18-phase strict target membership, plus inherited-H3 restriction identity. Measured cost/caps and scope are in docs/plans/s2-fold-connection-independent.md. No new model calls.
+
+### Fold-connection independent audit arithmetic amendment
+
+Retain attempt001 (74e807b9c6081d388e1f0d4babfea4726737a4538794c193b03a58633f746f3c): exact Taylor ball replay mismatch after3.21s. Restricted producer intentionally redecodes saved Taylor coefficients conservatively; explicitly reproduce that step at256 while fresh384 reductions retain exact saved enclosures. Original chart path remains unchanged. This fixes checker operation semantics, not the mathematical gate or producer. Attempt002 uses the same caps after tests.

@@ -49,3 +49,14 @@ def test_bound_review_python_sources_parse():
  root=Path(__file__).resolve().parents[2]
  for name in driver.FILES:
   if name.endswith('.py'):ast.parse((root/name).read_text(),filename=name)
+
+
+def test_restricted_saved_Taylor_decoder_replay():
+ from neural_shrimp.rigorous_chart_restriction import restrict_chart
+ from fractions import Fraction
+ i,v=fixture();old=v['charts'][0]
+ proposal={'halfwidth_exponent':-10,'radius_exponent':-18,'exact_weights':i['weights'],'exact_coordinate_radii':[str(Fraction(2)**-18*Fraction(w)) for w in i['weights']]}
+ c=restrict_chart(Fold(),old,proposal)
+ assert c['passed']
+ assert R.chart_check(c,c['anchor'],c['normal'],c['origin'],c['exact_weights'],256,decoded_taylor=True)['passed']
+ assert R.chart_check(c,c['anchor'],c['normal'],c['origin'],c['exact_weights'],384,decoded_taylor=True)['passed']

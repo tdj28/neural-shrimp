@@ -64,8 +64,9 @@ def worker(out):
   if previous is not None:B.B.validate_transition(previous,c);anchor=c['anchor'];aa={'state_box':fresh,'exact_parameter':previous['exact_parameter_endpoints'][1]}
   else:aa=anchor;M.need(c['anchor']==anchor,'correlated whole fold anchor')
   method=RB.chart_check if 'reboxing' in c else A.chart_check
-  q=method(c,anchor,c['normal'],c['origin'],c['exact_weights'],256);save(label+'-256.json',q);tick()
-  r=method(c,aa,c['normal'],c['origin'],c['exact_weights'],384);save(label+'-384.json',r);tick();M.need(q['passed'] and r['passed'],'full native root/primitive/join passes independently')
+  kwargs={'decoded_taylor':True} if 'restriction' in c else {}
+  q=method(c,anchor,c['normal'],c['origin'],c['exact_weights'],256,**kwargs);save(label+'-256.json',q);tick()
+  r=method(c,aa,c['normal'],c['origin'],c['exact_weights'],384,**kwargs);save(label+'-384.json',r);tick();M.need(q['passed'] and r['passed'],'full native root/primitive/join passes independently')
   previous=compact_chart(c);fresh=r['fresh_endpoints'][1];result['charts'].append({'label':label,'right':c['exact_parameter_endpoints'][1],'contraction384':r['contraction']})
  try:
   O.verify(ENDPOINT,ENDPIN);known=O.read(ENDPOINT/'run/reduction-256.json');M.need(known['passed'] and known['exact_gauge']=='45/128','independently localized forward endpoint')

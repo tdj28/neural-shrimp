@@ -9,7 +9,7 @@ from neural_shrimp.rigorous_orbits import ball_json
 import review_joined_period18_math as M
 from review_quadratic_connection_math import original_ball,matrix,exact,same
 
-def chart_check(c,anchor,normal,origin,weights,precision=384):
+def chart_check(c,anchor,normal,origin,weights,precision=384,*,decoded_taylor=False):
  p,n=c['statement']['period'],c['statement']['phase_dimension'];N=p*n+1
  M.need(c['statement']['shooting_dimension']==N and c['normal']==normal and c['origin']==origin and c['exact_weights']==weights,'fixed native gauge and weights')
  sc=Fraction(c['parameter_center']);delta=Fraction(2)**c['settings']['halfwidth_exponent'];radius=Fraction(2)**c['settings']['radius_exponent']
