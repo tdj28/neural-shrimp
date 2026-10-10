@@ -11897,3 +11897,13 @@ Sourcef442f5c9/execution5a117145, auditattempt001 passes0.82348s/65404KiB,zero n
 At h16 expanded256-arm gradient frozen vectorerrors85118.92976244/5270.37033357 versus transported9.32175e−5/2.35337e−4, twoamplitude disagreement2.79480e−4/7.05889e−4; small8-arm frozenerrors.0013128023/.0013626290. Corresponding expanded responsegains.59028498/2.33085311 show that the huge frozen predictions do not describe observed perturbation growth. Random-direction results and allhorizons/readoutslopes remain in the receipt. This independently audits saved arithmetic, not the acquired gradient/HVP/CE engine; transported matching remains retrospective calculus validation, with no predictive/utility/chaos/shrimp claim.
 
 Own immutable outer296d015f24900d8db9e72b9dc89c71786999a7885aa7267a25856f4d621a9948, worker221b76a9fee9a8baf15f530931bfec9c9f14bc6b5ac437e7d239a9955b249d13. Owned1928605/1928871/group absent. Compact complete-row receipt docs/reviews/tiny-lm-response-independent.json; integration28rawroots. All requested completed outcomes/source/manifests remain preserved and privately backed up.
+
+
+## 2026-10-10T23:53:44.497217+00:00 — two-snapshot forecast source preparation
+
+Prepare the fixed, development-only two-snapshot forecast in docs/plans/tiny-lm-two-snapshot-forecast.md after the independently audited mechanism result. No target acquisition yet. This tests whether the newly observed approximation failure supplies useful predictive information; full future outcomes were already inspected and no confirmation or utility claim follows from reuse. Dedicated files preserve all previous sources and evidence. Source controls, measured forecast and independent review precede execution.
+
+
+## 2026-10-10T23:54:46.483237+00:00 — independent local junction audit clearance and fixed run card
+
+Clark independently reviewed4054bd8a, reproduced four controls in0.13s and cleared exact55-coordinate Krawczyk arithmetic, primitive divisors, validated critical/complement frame, total physical-rate crossing and fresh480-bit same-root containment. Execute one fixed attempt001 under docs/plans/native-unit-pair-flip-independent.md:54synthetic profile phases+108fresh target phases,60s/1GiB worker,80+5s owned outer,32MiB raw. Fresh proof uses the shared native derivative kernel and is not a global connection or generic normal-form proof. The paired-snapshot LM packet is separately prepared with three controls PASS0.13s and awaits review; no LM target work yet.
