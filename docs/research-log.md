@@ -9895,3 +9895,9 @@ never claimed events. Only complete unflagged parents can continue. Plan
 Per-unit worstcase315.397s/353.9MB/1.65GiB forecast fits400s/420+5,1040ticks,
 2GiB sampledRSS/4GiBAS,512+1MiB.15 focused native/stop/resource controls pass0.34s.
 Source and first card committed for independent skim before new acquisition.
+
+Root c0982a17 bridge differential source skim passed: unchanged native
+proof/repair math, full470D accepted anchor, per-unit complete/source/map
+binding, event persists after accepted proof and stops before another tube,
+bounded repair/resources. Proceed unit001 and subsequent units only from a
+complete unflagged predecessor under separately committed exact cards.
