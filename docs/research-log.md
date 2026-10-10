@@ -7597,3 +7597,16 @@ retain ambiguity and do not claim spectral certification. Output200files/
 Receipt docs/reviews/eigenpair-boundary-trend-outcome.md/.json. Next objective:
 full native bridge toward295/128, stopping for a near-neutral or competing
 unit-circle event, then a dedicated codimension-two qualification design.
+
+### 2026-10-10 — native bridge toward the second neutral mode
+
+Prepare exact227/128→295/128 bridge, at most34 accepted halfwidth2^-7 native
+charts in nine bounded units. The unchanged470D proof/repair kernel retains all
+failed intermediates and full phase/mode/rate joins. A new accepted-root event
+stop triggers before another tube on nontrivial+1gap≤.03, any other modulus≥.97,
+cproxy≥−1, or unresolved diagnostics; triggers are numerical search criteria,
+never claimed events. Only complete unflagged parents can continue. Plan
+ docs/plans/eigenpair-neutral-bridge.md and first exact pinned unit001 card.
+Per-unit worstcase315.397s/353.9MB/1.65GiB forecast fits400s/420+5,1040ticks,
+2GiB sampledRSS/4GiBAS,512+1MiB.15 focused native/stop/resource controls pass0.34s.
+Source and first card committed for independent skim before new acquisition.
