@@ -7304,3 +7304,7 @@ Storage-only response amendment: preserve9cb647c6 engineeringfailure, replace fi
 ## 2026-10-10: operator response storage-only differential clearance
 
 Certificate_context cleared635a4c74 by read-only source skim: scientific core unchanged, complete lossless NPZ events/fsynced journal and fail-closed capacity accounting; no target evaluation in review. Run exactly one new fixed profile and, only if its normalized runtime/storage screen passes, the two frozen p10/p18 cases at operator-blocks-002. Prior rejectedprofile001 remains immutable. CPU1/nice10; fresh RAM39GiB; no GPU.
+
+## 2026-10-10: fixed operator-only response completed, saved reduction
+
+Execution65f76f20 passed the lossless profile gate and completed both fixed cases. Both exhausted their matched phase-action budgets before accuracy. Prepare one post-outcome producer-authored saved-only terminal check: full immutable inventory, exact event order/bundle schemas, independent free-boundary D-transpose residual assembly and readout error at the two retained terminal states; no model/derivative/decomposition/solver. CPU1nice10 internal10s/external15+5s, output64KiB, exclusive operator-blocks-002-savedcheck. This is not an independent-personnel audit and does not reopen the stopped scientific comparison.
