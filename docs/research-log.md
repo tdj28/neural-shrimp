@@ -7550,3 +7550,15 @@ outer b44b231b4a31a02581c7e438896f548d1a419a350a1619ef9e5872d1dad8fb91.
 All inventory/source/count/read-only/ownership checks pass; 154118674 B.
 All four closed intervals of chart146 have producer sufficient attraction bounds. This extends the connected producer-covered known primitive18 branch interval to [17/64,45/128]; independent audit pending. No whole-shrimp or two-dimensional-region claim.
 Full-width failed witness remains intact.
+
+2026-10-10 prospective immediate chart145 extension after chart146 passed all
+four fresh width1/512 intervals. Refined remainder penalties range0.290–0.328;
+base penalties1.329–1.434 failed and remain unchanged. Half prior slice count
+succeeded at82.458s. One next four-piece [33/128,17/64] unit is prepared, with
+full known native235D join, mandatory completed chart146 outcome, original
+partial-pair source validation and retained failed second chart. Binding-only
+adapter; no kernel changes. Nine focused source controls pass. Peer source
+skim requested before target. First exactly one full positive synthetic
+profile under docs/plans/s2-period18-preceding-quarter-stability.md, CPU1nice10,
+30s/40+5external,2GiB,512/514MiB,162C1/324unit/36mixed,161stages. Scientific
+acquisition waits for its separately committed measured card and pins.
