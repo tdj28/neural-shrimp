@@ -5589,3 +5589,18 @@ Companions `docs/reviews/s2-period18-localized-roots-outcome.{md,json}`.
 Independent outcome review pending; no whole1/256 attraction or boundary
 connection. Continued next work is nonlinear predictor scaling, not128 blind
 slices; code/card/profile will precede any new acquisition.
+
+### 9 October 2026 — independent saved localization review card
+
+After response checkpoint6e09319a, root prioritizes producer6295b658/outcome800c7023
+interval review. New saved-only source/card reconstructs the parent Kimage and all
+three correction updates per profile/floor/probe, then independently checks cyclic
+metrics. No new map/derivative/proposal. Fixed original256-bit saved reductions and
+384-bit positivity, CPU1 nice10 internal90/external105+5s,1.5GiB monitoredRSS,
+8+1MiB raw. Exact inputs and three source/manifest tuples hardcoded; original
+reviewed parent/primitive/anchor joins inherited. Shared analytic/Arb trust and
+reviewer overlap explicit. Source/card/tests precede the single bounded audit.
+Review pre-run controls:11 synthetic tests pass in0.17s, including a strict-inside
+but false parent image that must be rejected (radius inclusion alone is insufficient).
+Target witness arithmetic remains unexecuted; coordinate launch after quadratic
+producer releases its larger-memory profile/target window.
