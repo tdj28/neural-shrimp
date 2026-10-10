@@ -7312,3 +7312,7 @@ Execution65f76f20 passed the lossless profile gate and completed both fixed case
 ## 2026-10-10: operator-only response negative result retained
 
 Source635a4c74/execution65f76f20, both fixed endpoints fail after matched phase-action ceilings. Worker19.6062s, outer20.1583s exit0,9,247 events and9,264 inventory files. Producer saved terminal check9ad92ec3 passed.8929s without models/solvers. Complete raw and failed earlierprofile retained; compact receipts commit exact identities. Independent-personnel outcome review pending; no large-model/LLM speedup inference.
+
+## 2026-10-10: distinct full-time coordinate-line response card
+
+After both matched-cost operator-only block endpoints failed, prepare exact scalar full-time line preconditioning. This retains global temporal edges with O(Tn) line solves and no inner Krylov, while dropping spatial cross-coordinate couplings. Exact n*p basis-JVP setup is charged and explicitly not an LLM-scalable estimator. Same two consumed operators, physical residual/readout gates, action budgets and free endpoints. Source/tests/card/private push/peer skim before one profile-admitted unit. An unsquared saddle-point Krylov idea was rejected analytically before implementation/acquisition because it does not clearly escape the prior normal/bidiagonal conditioning mechanism.
