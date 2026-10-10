@@ -90,3 +90,73 @@ def test_fixed_predecessor_pin_before_read(tmp_path,monkeypatch):
     m=driver();monkeypatch.setattr(m,'PARENT',tmp_path);monkeypatch.setattr(m,'original_anchor',lambda:{})
     (tmp_path/'manifest.json').write_text('{}')
     with pytest.raises(ValueError,match='predecessor manifest'):m.prepare()
+
+class FakeDerivative:
+    def __init__(self,inputs,max_calls):
+        from flint import arb,ctx
+        self.inputs=inputs;self.prec=ctx.prec;self.n=1;self.hidden=1;self.output=arb('1/4')
+        self.cap=max_calls;self.ma=self.mr=self.ua=self.ur=0
+    def counts(self):return dict(map_attempted=self.ma,map_returned=self.mr,unit_attempted=self.ua,unit_returned=self.ur,map_cap=self.cap,unit_cap=2*self.cap)
+    def step(self,theta,rate):
+        assert self.ma<self.cap;self.ma+=1
+        for i in range(2):
+            self.ua+=1
+            if theta==['fail']:raise RuntimeError('synthetic nested failure')
+            self.ur+=1
+        self.mr+=1;return theta,rate
+
+
+def test_full16chart_admission_rotation_and_aggregate_cap_without_model_calls():
+    from flint import ctx,arb
+    from neural_shrimp.rigorous_batched_gradient import BatchedMeanValueHiddenRateMap
+    made=[]
+    def factory(inp,max_calls):
+        r=FakeDerivative(inp,max_calls);made.append(r);return r
+    original={'x':['exact'], 'output':'1/4'}
+    with ctx.workprec(256):
+        model=BatchedMeanValueHiddenRateMap(original,1152,factory=factory)
+        original['x'][0]='mutated caller'
+        for i in range(1152):model.step(['state'],arb(1))
+        assert len(made)==model.instances==16 and all(v.cap==72 and v.prec==256 for v in made)
+        assert all(v.inputs=={'x':['exact'],'output':'1/4'} for v in made)
+        assert model.counts()==dict(map_attempted=1152,map_returned=1152,unit_attempted=2304,unit_returned=2304,map_cap=1152,unit_cap=2304)
+        with pytest.raises(ValueError,match='aggregate map'):model.step([],arb(1))
+        assert len(made)==16
+
+
+def test_nested_failure_counters_and_precision_change_retained():
+    from flint import ctx,arb
+    from neural_shrimp.rigorous_batched_gradient import BatchedMeanValueHiddenRateMap
+    with ctx.workprec(256):
+        model=BatchedMeanValueHiddenRateMap({},144,factory=FakeDerivative)
+        for i in range(72):model.step([],arb(1))
+        with pytest.raises(RuntimeError):model.step(['fail'],arb(1))
+        assert model.counts()==dict(map_attempted=73,map_returned=72,unit_attempted=145,unit_returned=144,map_cap=144,unit_cap=288)
+        with ctx.workprec(128):
+            with pytest.raises(ValueError,match='precision'):model.step([],arb(1))
+        assert model.instances==2
+
+
+def test_constructor_limit_and_real_adapter_guard_unchanged():
+    from flint import ctx
+    from neural_shrimp.rigorous_batched_gradient import BatchedMeanValueHiddenRateMap
+    with ctx.workprec(256):
+        for value in (0,1153,True):
+            with pytest.raises(ValueError,match='aggregate'):BatchedMeanValueHiddenRateMap({},value,factory=FakeDerivative)
+    import inspect
+    from neural_shrimp.rigorous_gradient_enclosure import MeanValueHiddenRateMap
+    assert 'max_calls<=180' in inspect.getsource(MeanValueHiddenRateMap)
+
+
+def test_failed_rotation_constructor_does_not_double_count_completed_block():
+    from flint import ctx,arb
+    from neural_shrimp.rigorous_batched_gradient import BatchedMeanValueHiddenRateMap
+    made=[]
+    def factory(inputs,max_calls):
+        if made:raise MemoryError('synthetic constructor failure')
+        v=FakeDerivative(inputs,max_calls);made.append(v);return v
+    with ctx.workprec(256):
+        m=BatchedMeanValueHiddenRateMap({},144,factory=factory)
+        for i in range(72):m.step([],arb(1))
+        with pytest.raises(MemoryError):m.step([],arb(1))
+        assert m.counts()==dict(map_attempted=72,map_returned=72,unit_attempted=144,unit_returned=144,map_cap=144,unit_cap=288)

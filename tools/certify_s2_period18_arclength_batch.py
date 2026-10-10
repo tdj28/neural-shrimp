@@ -13,7 +13,7 @@ from neural_shrimp.rigorous_orbits import canonical_bytes,sha256,check_orbit
 from neural_shrimp.rigorous_connection import HiddenRateMap,require
 from neural_shrimp.rigorous_arclength_batch import compact_chart,stream_charts
 from neural_shrimp.rigorous_folds import FoldTanhMap
-from neural_shrimp.rigorous_gradient_enclosure import MeanValueHiddenRateMap
+from neural_shrimp.rigorous_batched_gradient import BatchedMeanValueHiddenRateMap
 RECEIPT='certificates/s2-period18-receipt.json'
 RECEIPT_SHA='f5b8ed6bc4bded4f6c3515fed5a92d6cfc12614e4e68f0169037810b0d317277'
 CARD='docs/plans/s2-period18-arclength-batch-pilot.md'
@@ -21,7 +21,7 @@ SOURCES=['src/neural_shrimp/__init__.py','src/neural_shrimp/rigorous_orbits.py',
  'src/neural_shrimp/rigorous_connection.py','src/neural_shrimp/rigorous_connection_frames.py',
  'src/neural_shrimp/rigorous_folds.py','src/neural_shrimp/rigorous_flips.py',
  'src/neural_shrimp/controls.py','src/neural_shrimp/models.py','src/neural_shrimp/rigorous_gradient_enclosure.py',
- 'src/neural_shrimp/rigorous_quadratic_connection.py','src/neural_shrimp/rigorous_arclength_connection.py','src/neural_shrimp/rigorous_arclength_batch.py',
+ 'src/neural_shrimp/rigorous_batched_gradient.py','src/neural_shrimp/rigorous_quadratic_connection.py','src/neural_shrimp/rigorous_arclength_connection.py','src/neural_shrimp/rigorous_arclength_batch.py',
  'tests/test_rigorous_quadratic_connection.py','tests/test_rigorous_arclength_connection.py','tests/test_rigorous_arclength_batch.py',
  'tools/certify_s2_period18_arclength_batch.py','docs/reviews/s2-period18-quadratic-weights.json','docs/reviews/s2-period18-weighted-outcome.json','docs/reviews/s2-period18-arclength-outcome.json',CARD,RECEIPT]
 SETTINGS=dict(precision=256,halfwidth_exponent=-6,radius_exponent=-22,newton_steps=2)
@@ -230,7 +230,7 @@ def execute(out,mode,profile=None,profile_pin=None,bundle=None,bundle_pin=None):
             outcome['last_durable_chart']={'index':index,'passed':row['passed'],'identity':identity}
             return identity
         with ctx.workprec(SETTINGS['precision']):
-            model=MeanValueHiddenRateMap(inp['model_inputs'],max_calls=map_cap);jet_model=CountedJetMap(inp['model_inputs'],jet_cap)
+            model=BatchedMeanValueHiddenRateMap(inp['model_inputs'],max_calls=map_cap);jet_model=CountedJetMap(inp['model_inputs'],jet_cap)
             result=stream_charts(model,jet_model,inp['previous'],count=run_count,synthetic_profile=mode=='profile',tick=tick,observe=observe,emit_chart=emit_chart)
         save(out/'batch.json',result)
         profile_complete=mode=='profile'
