@@ -6612,3 +6612,15 @@ Root's independent source skim cleared520447c1. Its zero-native-call profile pas
 ## 10 October 2026 — unit002 joined endpoint retained
 
 Execution69294393/scientific520447c1 passed four further charts without rebox, throughs19/32768 and actualrates~75.51213/.8216395030; ten quadratic charts are now joined to the certified fold. Every470D root/primitive/fullanchor gate passes; descriptive complementary+1 distance.19112→.18907, no certified genericity/attraction claim.508ticks77.2366s1151964KiB;outer77.6886sexit0. All607files168283631Bimmutable/source/hashverified, owned1345066/1345090/1345091absent. Outer6984dff87e855a4fa43d036358688ebf536d9feac88bbe1a0fcdc2d0fc9a2715/runf1bb8a6acc3b6b50e53d71ef8fa57be1ea1c9035f3dfbec8d5d6cacc1c8a2cad. Companions docs/reviews/eigenpair-march-unit002.md/.json; independentoutcomereviewpending. Root requests full-state tangent gauge reanchor preparation before approaching the cusp's vanishing rate tangent. No running process or unrecorded target amendment.
+
+### 2026-10-10 — adapted full-state tangent-gauge reanchor, source-only core
+
+After the two completed four-chart units (unit002 receipt `0adffa5f`), prepare
+known-root endpoint localization and a full native state/mode tangent gauge.
+The fixed output gauge can fail when rate projection flattens; this is distinct
+from a second +1 multiplier. Core/tests/card are new files; previous kernels and
+passing/failed evidence are unchanged. Nine coupled, cusp, containment and
+failure-retention controls passed in0.19s. No target input arrays or new map
+acquisitions were evaluated for this implementation unit. The separate bounded
+runner/profile must precede the target; see the dated reanchor card for complete
+inputs, mathematics, caps and deliberately limited claim.
