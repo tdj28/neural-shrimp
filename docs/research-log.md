@@ -6974,3 +6974,9 @@ outerbe793088b7a6e2fed389e54da2c107be70e203cc13dd55c5a8a9e1a63516b408, runtime6.
 ### 2026-10-09 PDT: root source review clears the exact symmetry-tie endpoint unit
 
 Root independently read e41d6edaa7a8df5ccb7f7d38e78caedec96e2df9 rule/source/card and reran all six tie controls. Native arrays, primitive divisors and reverse gates remain unchanged; numerical near-tie scope accepted. Root authorizes the single five-endpoint measured-profile-gated unit, preserving actual reverse mismatch, complex loss and symmetry-breaking outcomes. Bound executable/card bytes unchanged; this entry records coordination before execution. No generic-fold label is substituted when nondegeneracy fails.
+
+### 2026-10-09 PDT: endpoint extension qualifies two folds, preserves unresolved upper boundaries
+
+Execution68a61af5 completed3.602s/4.677s,39696KiB,5120native returns. Two ordinary numerical folds pass all native10 divisor/nondegeneracy/identity checks at(g12.6004,delta.437170325) and(g13.4986,delta.437572475). Other endpoints stop at cap, identity or augmented convergence; these do not become folds by declaration. Full inventories/modes and owned1072308/1072333/group exits verified, outere79ad6abe815a35f7db015f6d013217aa123a494f088cf0746c04499629adc59. Attracting continuation beyond a visual recurrence edge illustrates possible basin-selection effects.
+
+Next saved-only card: inspect exactly the three retained boundary roots and four named terminal/proposed native returns with `tools/diagnose_clark_rnn_p10_symmetry.py`. Compute H from first5 saved phase Jacobians, full product, M−H², antipodal defects and Hq∓q when q is saved. No new eig/SVD/model/derivative/solve. One30s+5/CPU1nice10/512MiB/8MiB unit `new-p10-half-return-001`; two noncommuting-product/symmetry controls beforerun. A simple−1 cannot occur on an exact real squared half-return; classify earlier flip by its actual saved antipodal defect.
