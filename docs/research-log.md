@@ -11501,3 +11501,8 @@ Prelaunch metadata check: these original stability acquisitions retain full sour
 Boundary peer skim c2a47b60 PASS,38 controls0.33s. Fixed batch001 was launched with52GiB available and stopped0.109s at the parent-only inherited-rusage cap before audit runtimes existed. Full immutable failure receipt retained. Narrow actual-RSS accounting repair and fresh batch002 keep every scientific gate/cap unchanged; source recheck pending.
 
 Boundary recheck1e7273b7 PASS. Fresh batch002 had a second preflight-only failure: four Git threaded-lstat errors under inherited parent softAS before worker3GiB AS was established. All owned children gone; no audit run directories. Preserve immutable receipt and move approved workerAS before preflight; disable Git index threads. Freshbatch003 after narrow peer recheck, no scientific gate or resource increase.
+
+
+### 2026-10-10 — Four concurrent independent attraction charts PASS
+
+Boundary3b0b6bc5 source recheck PASS. Freshbatch003 independently verified all28closed pieces of charts142–145 using unchanged256 localization/U″ and384 norm arithmetic. Per-chart times:142=84.252s,143=83.556s,144=84.550s,145=43.267s. Combined worker RSS peak2780688KiB; actual parent peak17396KiB. All limits, full immutable/source inventories and owned exits checked. Outer4438a1584c00141eebc0dc320fe8341aae3e814fb22cc31c97f22b1f4da82dde. Independent connected attraction now96closed pieces on[27/128,43/128], versus112producer pieces on[27/128,45/128]. Remaining155–156 need independent audit; no whole-window claim. Both preflight failures remain immutable.
