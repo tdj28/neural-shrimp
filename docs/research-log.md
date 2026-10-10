@@ -7069,3 +7069,22 @@ inflation-march controls passed0.36s, CPU1 nice10. Differential inspection
 confirms the numerical call and full worker/launcher loops are unchanged;
 only source inventory transition, first-parent pins and truthful policy label
 change. No target arrays or proof evaluations were used in these tests.
+
+### 2026-10-10 — exact complete-parent repair-chain unit005 prospective card
+
+Bind complete unit004 endpoint87/128, executionaf481a1a800465d715ae91eeb4171eb46dd4f0bc,
+outerf846f878fb5cbcf266c9846a5a9c7135fefd5334df57429e3216bfa595f9f27e,
+run1c512659bf31255e70393f49f509117f8f8af6a23d9177dcce804d196c6359b2. Exact card
+`docs/plans/eigenpair-wider-unit005.json`; four prospective endpoints
+91/128, 95/128, 99/128, 103/128. Abandon only the ineffective
+forecast, keep its qualified radius floor and all evidence. Unchanged fresh
+fe35003a proof/march gates; adapter4c191a65 changes parent binding only.
+Same400/420+5s CPU1nice10,1040ticks,2GiB sampledRSS,512+1MiB. Source review
+and a fresh availability check still precede launch. At17:42UTC host3.5GiB
+available, swapfull and foreignQWEN GPU busy; no proof launched while peers'
+small unit is active. Stagger resource use rather than disturb foreign jobs.
+
+Static P7 boundary differential review4a990b65 clears native packing/identity,
+leading-real/complex-abstention and final repaired storage cap. Review receipt
+`docs/reviews/clark-rnn-n6-p7-boundaries-source-skim.json`; no target arrays,
+model calls or independent test rerun. Author reports20 controls0.19s.
