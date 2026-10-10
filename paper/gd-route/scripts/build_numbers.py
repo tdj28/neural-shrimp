@@ -1761,6 +1761,36 @@ def build():
               "exploratory; one fixed text pool, two initializations; independently audited saved-data comparison",
               [broader_path, broader_audit_path, broader_analysis, broader_recomputed],
               "late expanded-arm normalized MSE in seed order28161/28162; " + (family or "tune-selected ordinary comparator"))
+    # Reviewed local attraction probes and separate Clark-method development pilots.
+    locpath = c.ROOT / "docs/reviews/s2-period18-localization-independent-review.json"
+    loc = load(locpath); assert loc["passed"] and loc["checks"]["original_model_anchor_and_parent_joins"]
+    finite = [v for u in loc["units"] if u["mode"] == "probe" for v in u["probes"]]
+    assert len(finite) == loc["checks"]["actual_finite_intervals"] == 2 and all(v["passed"] for v in finite)
+    widths = [Fraction(v["exact_endpoints"][1])-Fraction(v["exact_endpoints"][0]) for v in finite]
+    assert set(widths) == {Fraction(loc["checks"]["finite_interval_exact_width"])}
+    n.add("nLocalizedIntervals", len(finite), str(len(finite)), proof, [locpath], "independently checked finite outer attraction intervals")
+    n.add("tLocalizedWidth", str(widths[0]), str(widths[0]), proof, [locpath], "exact endpoint difference of each of the two outer intervals")
+    responsepath = c.ROOT / "docs/reviews/clark-response-outcome-receipt.json"
+    response = load(responsepath); rsroot = Path(response["raw_summary_root"])
+    rsources = [responsepath] + bound_inventory(rsroot/"manifest.json", response["raw_summary_manifest"]["sha256"])
+    summary = load(rsroot/"summary.json")
+    assert summary["rows"] == summary["solve_qualified"] == response["numerical_solve_rows"] == response["solve_residual_screen_passes"]
+    n.add("nClarkResponseSolves", summary["rows"], str(summary["rows"]), EXPLORATORY, rsources, "all regularized direct solve rows, both saved13D cocycles")
+    limits = {v["maxiter"] for v in summary["matrixfree"]}
+    assert len(limits)==1 and all(v["istop"]==7 and v["iterations"]==v["maxiter"] for v in summary["matrixfree"])
+    limit = limits.pop()
+    n.add("nClarkResponseIterations", limit, str(limit), EXPLORATORY, rsources, "both single-impulse matrix-free probes reach declared LSMR iteration limit")
+    rnnpath = c.ROOT / "docs/reviews/clark-rnn-independent-review.json"
+    rnn = load(rnnpath); assert rnn["passed"] and rnn["dominant_p5_component"]["touches_grid_edge"]
+    refpath = c.ROOT / "docs/reviews/clark-rnn-refinement-outcome.json"; ref = load(refpath)
+    refroot = Path(ref["raw"]); refmanifest = refroot/"manifest.json"
+    assert c.sha256(refmanifest) == ref["raw_manifest_sha256"] == next(u["inventory"]["manifest"] for u in rnn["input_units"] if u["unit"]=="refine-p5-001")
+    designpath = refroot/"run/design.json"; inp = load(designpath)
+    assert c.sha256(designpath) == load(refmanifest)["files"]["run/design.json"]["sha256"]
+    assert inp["n"]==4 and inp["panels"][0]["kind"] == ref["result"]["panels"][0]["kind"] == "p5"
+    sources = [rnnpath,refpath,refmanifest,designpath]
+    n.add("nClarkRNNDimension", inp["n"], str(inp["n"]), EXPLORATORY, sources, "native activity dimension of the fixed refined random network")
+    n.add("nClarkRNNPeriod", int(inp["panels"][0]["kind"][1:]), inp["panels"][0]["kind"][1:], EXPLORATORY, sources, "primary primitive-period refinement; saved native cycle checks independently reviewed")
     return n
 
 

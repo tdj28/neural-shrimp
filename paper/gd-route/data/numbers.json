@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "3cb2720955ed400a513702f929d4b492dd57693c5fea772c614bca2378209b54",
+ "generator_sha256": "9fb96da9dcf345e80921ab7ca4db972f1e43ca2e24428eab04c70d4d8f56cb04",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:audits/cifar-input-span-independent/attempt-001/manifest.json": "0221596b14e01b6630f0d4014d5f34d29d23aa6011e9397ab7b9ee1d1097d82d",
@@ -469,6 +469,11 @@
   "data:explore/cifar/restart-sensitivity/attempt-001/linear.json": "4c64e31b9f458076d383727165ddedcc18422b63ce55527ed53834c9c2619bfb",
   "data:explore/cifar/restart-sensitivity/attempt-001/manifest.json": "5f9f77bb2926581c828e5528e02e475858ca626fc9df49be7a6f234eae4b1e96",
   "data:explore/cifar/restart-sensitivity/attempt-001/result.json": "e98e38b55bd81fe7eddee24fe33da75137fcbdbce07c85fff343b7f4ff12a4a8",
+  "data:explore/clark-response/attempt-002-summary/manifest.json": "2abe32ab6ad013fb7d52cb388e15985bd134a1690cf7d3f6222c3386256ef9e7",
+  "data:explore/clark-response/attempt-002-summary/source.py": "32f90a6cb5dbeea1aea9c99e29b1169a0739b40689118adc7cb8cf2f2a5c402c",
+  "data:explore/clark-response/attempt-002-summary/summary.json": "bded0b940cb4825f4fb9398b17e62929ae35f55cfec2d7bc9f89e1e89adfb2ac",
+  "data:explore/clark-rnn/refine-p5-001/manifest.json": "ec4b2f7083b812d2cee38b287046ecde1f68ea5625ca7fb9d56da9eeadb47af2",
+  "data:explore/clark-rnn/refine-p5-001/run/design.json": "098db61500053e15ed926cc43763e6a2b21d86c36f458314392c8e05b47f8785",
   "data:explore/consequence/analysis-s2-pooled-robust.json": "281f7dec8bb17fc88ecc0935719d779237c748584312efe6710c0daad870a669",
   "data:explore/consequence/analysis.json": "52c5eae658ed3ff02f373103014c5dc53e21a9a68d250d36d4d4808487379909",
   "data:explore/consequence/precursor-s1r-28002-ar/precursor.json": "ae2ddde637a6b644613ce42eb8a6e9cf1c9b824c54d453e7ce7ca87e04b66cbb",
@@ -668,6 +673,9 @@
   "repo:docs/reviews/cifar-linear-diagnostic-outcome-review.json": "15f5c0dd8b53076d09d0ddda1263e88fa0df270227d330dbaf7a53b29f3f61c5",
   "repo:docs/reviews/cifar-restart-independent-outcome-receipt.json": "40d61236d5692baf6aa7c378b7af0e583f0992fcdb6542c317f1bce80c62365d",
   "repo:docs/reviews/cifar-restart-outcome-receipt.json": "a1c404aa7c58c6ed743664906eaf99f887ac751a81793a03bae87bb40a643ea7",
+  "repo:docs/reviews/clark-response-outcome-receipt.json": "f667913ede8e86fdaa8d156601924fa056b40687f79236776bee6788493aaad4",
+  "repo:docs/reviews/clark-rnn-independent-review.json": "f5cc8a00cfcdf9eecb9f6083d7581c03b561e4f06ca3928c0fb25df3d7c57c84",
+  "repo:docs/reviews/clark-rnn-refinement-outcome.json": "60314eaa6f3657b0a3b4d74bf62e9151b08d0381761cf3396c7fac4fa0db858b",
   "repo:docs/reviews/curvature-six-reference-outcome-receipt.json": "a00170a4c32ed6a9f88fd6783221553cf7c6bbd0f052204836ef82e404f8d1a3",
   "repo:docs/reviews/ray51-adapter-source-review.json": "ed65e305573745e1d835d7ced32f2ca92ad8faa5caa445d20f12428e79d8720d",
   "repo:docs/reviews/s1r-bootstrap-outcome-receipt.json": "b441622f5722a2f6bda202281d1e7f64f10d0d0ec95f6ab8ca49717f94edb51b",
@@ -692,6 +700,7 @@
   "repo:docs/reviews/s2-period18-fold-outcome.json": "31968d6e4e5f4c882d75c0da4596bb03969134014adeb56795f984f25f3b64bf",
   "repo:docs/reviews/s2-period18-independent-review.json": "aee255ad165b8dea4a5f37f4a02d834c7b5638add070cf39613f4966da8f88c8",
   "repo:docs/reviews/s2-period18-joined-branch-independent-review.json": "4912521162415a91968dbc4797642fabcaa7201ec1c01c61967563881a18444d",
+  "repo:docs/reviews/s2-period18-localization-independent-review.json": "9a75b657a9545f9d49fe7f8440ef0f3be7d79f917ab750f5e708fc8ff00fc0ac",
   "repo:docs/reviews/s2-period18-producer-receipt.json": "19907bb9bc00fdf4c9393ca2ff1a91f2a56ac27885137b87f968d34f5bc6799c",
   "repo:docs/reviews/s2-period18-sliced-metric-outcome.json": "1eb690ed470f89d34a6032010283716eb9b00f304971bef57f947c7e7eb21668",
   "repo:docs/reviews/s2-ray51-certificates-independent-review.json": "0c75aeb74b3e99f4248ab2170452e3a7c6be8f4d5e6e724088d415356a0997b8",
@@ -10663,6 +10672,78 @@
     "data:audits/tiny-lm-broader-data/attempt-001/recomputed-analysis.json"
    ],
    "computation": "late expanded-arm normalized MSE in seed order28161/28162; tune-selected ordinary comparator"
+  },
+  {
+   "macro": "nLocalizedIntervals",
+   "value": 2,
+   "tex": "2",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/s2-period18-localization-independent-review.json"
+   ],
+   "computation": "independently checked finite outer attraction intervals"
+  },
+  {
+   "macro": "tLocalizedWidth",
+   "value": "1/32768",
+   "tex": "1/32768",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/s2-period18-localization-independent-review.json"
+   ],
+   "computation": "exact endpoint difference of each of the two outer intervals"
+  },
+  {
+   "macro": "nClarkResponseSolves",
+   "value": 216,
+   "tex": "216",
+   "evidence": "exploratory",
+   "sources": [
+    "repo:docs/reviews/clark-response-outcome-receipt.json",
+    "data:explore/clark-response/attempt-002-summary/manifest.json",
+    "data:explore/clark-response/attempt-002-summary/source.py",
+    "data:explore/clark-response/attempt-002-summary/summary.json"
+   ],
+   "computation": "all regularized direct solve rows, both saved13D cocycles"
+  },
+  {
+   "macro": "nClarkResponseIterations",
+   "value": 300,
+   "tex": "300",
+   "evidence": "exploratory",
+   "sources": [
+    "repo:docs/reviews/clark-response-outcome-receipt.json",
+    "data:explore/clark-response/attempt-002-summary/manifest.json",
+    "data:explore/clark-response/attempt-002-summary/source.py",
+    "data:explore/clark-response/attempt-002-summary/summary.json"
+   ],
+   "computation": "both single-impulse matrix-free probes reach declared LSMR iteration limit"
+  },
+  {
+   "macro": "nClarkRNNDimension",
+   "value": 4,
+   "tex": "4",
+   "evidence": "exploratory",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-independent-review.json",
+    "repo:docs/reviews/clark-rnn-refinement-outcome.json",
+    "data:explore/clark-rnn/refine-p5-001/manifest.json",
+    "data:explore/clark-rnn/refine-p5-001/run/design.json"
+   ],
+   "computation": "native activity dimension of the fixed refined random network"
+  },
+  {
+   "macro": "nClarkRNNPeriod",
+   "value": 5,
+   "tex": "5",
+   "evidence": "exploratory",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-independent-review.json",
+    "repo:docs/reviews/clark-rnn-refinement-outcome.json",
+    "data:explore/clark-rnn/refine-p5-001/manifest.json",
+    "data:explore/clark-rnn/refine-p5-001/run/design.json"
+   ],
+   "computation": "primary primitive-period refinement; saved native cycle checks independently reviewed"
   }
  ]
 }

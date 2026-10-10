@@ -5913,3 +5913,17 @@ via eight fixed-rate primitive18 corrections from the certified center to68.2,
 then augmented fold and32+32. Same800total-call/180s/512MiB/128MiB cap, including
 seed calls; source-bound synthetic profile first. Native phase carried, no phase
 selection, no certificate or geometry theorem inferred from the numerical roots.
+
+
+### 2026-10-10 01:06 UTC — current reading draft: transfer pilots and localization
+
+Update the manuscript with independently checked local attraction probes and the
+separate numerical Clark RNN setting. Add the complete response benchmark's
+finite-window bias and failed unpreconditioned callback convergence, without a
+speedup/large-LM claim. Number macros are derived from hash-bound saved receipts;
+training-orbit count remains unchanged. Primary journal abstract supports the
+scoped daSilva/Rech2022 neural-activity shrimp prior-art citation; detailed PDF
+retrieval timed out, so no formula audit is claimed. Clark is already cited.
+New weighted/arc proofs and later numerical boundary continuation remain outside
+this paper checkpoint pending independent outcome review. Fresh compile/render
+will check the reading draft; no scientific trajectory rerun is needed.

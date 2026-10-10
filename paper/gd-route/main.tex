@@ -432,6 +432,15 @@ shrimp geometry. It adds no individually certified attracting-orbit instance to 
 See \path{certificates/s2-period18-connection-receipt.json} and
 \path{docs/reviews/s2-period18-joined-branch-independent-review.json}.
 
+A later, independently checked localization calculation proves attraction on
+\nLocalizedIntervals{} additional outer intervals, each of exact width
+$\tLocalizedWidth$, on the same primitive branch. It contracts an already
+established root enclosure using a mean-value bound before applying the cyclic
+metric inequalities. This resolves the selected intervals whose original image
+boxes were too wide for the sufficient metric test; it does not fill all intervening
+stability gaps or identify a bifurcation boundary. See
+\path{docs/reviews/s2-period18-localization-independent-review.json}.
+
 \subsection{A local fold of primitive period-18 cycles}
 \label{sec:fold-proof}
 
@@ -1227,13 +1236,43 @@ minibatch, optimizer-state, schedule and precision perturbations remain necessar
 compute cost. Similar-looking loss oscillations would not establish either endpoint. A linear loss-based
 multiplier estimate alone also does not identify nonlinear criticality or basin accessibility.
 
-\paragraph{Inference is a separate question.} The bifurcations studied here concern optimizer updates in parameter
+\paragraph{Testing a possible spectral bridge.} Motivated by
+\citet{clark2026lyapunov}, we tested finite-window regularized response readouts
+on saved Jacobian midpoint sequences from the certified small training cycles.
+All \nClarkResponseSolves{} direct linear solves pass the numerical residual
+screen, yet finite-window boundary bias remains: solving the linear system
+accurately does not establish its infinite-time spectral-count limit. Floquet
+and repeated-QR reference counts agree in this fixed panel. Both unpreconditioned
+single-impulse matrix-free probes reach their \nClarkResponseIterations{}-iteration
+limit with unresolved readout error. Their operator calls are small matrix
+products, not measured large-model Hessian-vector products. These results support
+further work on window boundaries and preconditioning before any expensive
+language-model experiment; they establish no large-model speedup or training
+utility. See \path{docs/reviews/clark-response-outcome.md}.
+
+\paragraph{A separate fixed-weight activity pilot.} We also explored Clark's
+finite leaky random-network map,
+\[
+ x_{t+1}=(1-\delta)x_t+\delta gJ_0\tanh(x_t),
+\]
+with the full sampled matrix $J_0$ held fixed while gain $g$ and leak $\delta$
+vary. A selected \nClarkRNNDimension{}-state network has a persistent numerical
+period-\nClarkRNNPeriod{} band with native fold and flip candidates. Independent
+saved-evidence review checks full-state closure, primitive period, phase
+consistency, derivatives and multiplier calculations. The refined band reaches
+the scan boundary; finite-time positive-growth neighbors and local bifurcations
+do not establish surrounding asymptotic chaos or a complete shrimp. This activity
+pilot supplies a separate test setting for the methods. Its cycles are not
+training cycles, and finite-leak observations do not establish an ODE limit.
+See \path{docs/reviews/clark-rnn-independent-review.json}.
+
+\paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter
 space. Freezing weights stops that map; sensitivity of fixed-weight predictions and feedback during generation
 require separate measurements. Parameter symmetries can even leave predictions unchanged along weight motion.
 A future inference test could ask whether training diagnostics predict sensitivity to arithmetic or weight
 perturbations beyond loss and token-score margins. For a unique greedy choice with logit gap $m$, a uniform
 logit-error bound $\epsilon<m/2$ preserves that choice at the given prefix. Empirical precision comparisons
-are not rigorous error bounds, and divergent generated text alone does not establish chaos. No inference
+are not rigorous error bounds, and divergent generated text alone does not establish chaos. No language-model inference
 experiment or benefit is reported here.
 
 \paragraph{The tests that would settle the local claims.} The criticality prediction is a candidate for confirmation on fresh
@@ -1317,7 +1356,12 @@ retraining from nearby initializations, not chaos during frozen inference. Learn
 games show chaos \citep{sato2002} and phase locking \citep{metaxas2026}, for adaptive rules rather than descent on
 one loss.
 
-\paragraph{Activity dynamics and spectral descriptions.} \citet{clark2026lyapunov} derives a
+\paragraph{Activity dynamics and spectral descriptions.} Numerical shrimp structures and
+period-adding organization in three-neuron Hopfield activity dynamics were
+reported by \citet{dasilvarech2022}. We therefore make no priority claim for
+shrimps in neural activity; that model and evidence level differ from both
+optimizer dynamics and the fixed random leaky-network pilot above.
+\citet{clark2026lyapunov} derives a
 large-network Lyapunov-spectrum description for recurrent activity with fixed random asymmetric couplings.
 The construction combines a finite-state-dimensional, infinite-time minimum-norm response identity with a single-site cavity
 calculation; the exchange of the large-network and vanishing-regularization limits remains an explicit
