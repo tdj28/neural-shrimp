@@ -36,3 +36,10 @@ def test_manifest_requires_exact_member_set_and_immutable_files(tmp_path):
  with pytest.raises(ValueError,match='complete'):R.verify(tmp_path,pin)
  other.unlink();p.chmod(0o644)
  with pytest.raises(ValueError,match='immutable'):R.verify(tmp_path,pin)
+
+
+def test_full_eigenpair_map_binding_rejects_old_orbit_envelope_and_changed_rates():
+ known={'schema':'map','network':'native13','x':[[1]],'y':[1],'lr_hidden':'2','lr_output':'1'}
+ R.same_map(dict(known),known)
+ for extra in [dict(known,approximation=[0]),dict(known,lr_hidden='3'),dict(known,x=[[2]]),dict(known,network='other')]:
+  with pytest.raises(ValueError):R.same_map(extra,known)

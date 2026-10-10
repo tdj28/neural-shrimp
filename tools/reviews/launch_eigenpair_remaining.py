@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[2]
 BASE=Path('/data2/neural-shrimp-data/audits/eigenpair-remaining-locus')
 def entry(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
 def main():
-    OUT=BASE/'unit000-attempt001'
+    OUT=BASE/'unit000-attempt002'
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     assert int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')))>4*1024**2
