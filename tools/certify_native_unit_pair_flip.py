@@ -14,7 +14,7 @@ from neural_shrimp.rigorous_unit_pair_flip import augmented,root_proof,complemen
 from neural_shrimp.rigorous_eigenpair_march import decode
 from neural_shrimp.rigorous_orbits import exact,dyadic,vector_json,matrix_json,eye,midpoint_matrix
 need=N.need;entry=N.entry;read=N.read;inventory=N.inventory
-BASE=N.BASE/'rigorous';PARENT=N.BASE/'attempt002-target'
+BASE=N.BASE/'rigorous';PARENT=N.BASE/'attempt001-target'
 PINS={'execution':'f5021f3aa08bfbc45b9a1e8515315b32c2271b94','outer':'c9bbd5cd3b3baba3a7db6b4d53ddb1cf1a9ae1b09f364baf87311a84ba9dd8de','worker':'f2f357709fb600286b8ef3a8bb4a41575bd651c74fc20423ed0136bf6ba55d19'}
 SETTINGS={'precision':384,'period':18,'newton_steps':4,'radius_exponent':-80}
 SOURCES=list(dict.fromkeys(N.SOURCES+['src/neural_shrimp/rigorous_unit_pair_flip.py','tools/certify_native_unit_pair_flip.py','tools/launch_rigorous_native_unit_pair_flip.py','tests/test_rigorous_unit_pair_flip.py','tests/test_rigorous_native_unit_pair_flip_driver.py','docs/plans/native-unit-pair-flip-rigorous.md','docs/plans/native-unit-pair-flip-certificate.md']))

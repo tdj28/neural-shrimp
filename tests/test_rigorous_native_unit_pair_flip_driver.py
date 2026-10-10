@@ -16,3 +16,8 @@ def test_unproved_or_wrong_dimension_root_cannot_enter_conditional_qualification
  m=module()
  with pytest.raises(ValueError):m.qualify_same_root({'passed':False})
  with pytest.raises(ValueError):m.qualify_same_root({'passed':True,'augmented_dimension':41})
+
+
+def test_radius_retry_preserves_original_numerical_candidate():
+ m=module();assert m.PARENT==m.N.BASE/'attempt001-target'
+ assert m.SETTINGS=={'precision':384,'period':18,'newton_steps':4,'radius_exponent':-80}
