@@ -7832,3 +7832,7 @@ fresh-domain pilot; no repeated completed prefix, automatic grid, or gate change
 ## 2026-10-10 — boundary reanchor independently passed; attraction pilot
 
 Independent native residual/J assembly, three whole-root localization intersections and correlated470D gauge join passed at256bits; both new charts independently reduce at384bits with q<.433861/.436934.34.35s/999192KiB; receipt docs/reviews/eigenpair-reanchor-independent.json. No producer code repair. Separately freeze one saved-only periodic metric pilot on all12 audited near-fold training charts, plan docs/plans/s2-saved-branch-attraction.md. It supplies attraction only where interval gates pass; no interpolation or complete shrimp claim.
+
+## 2026-10-10 — full-width near-fold metric limits; independent endpoint refinement
+
+All12 saved point-metric proposals pass, but no full interval periodic-metric gate passes on their existing broad native-J boxes. Complete19.76s/426220KiB, manifestf9916ca4c327ccaa842f12585cca09821efa97217d5d1c401e5a1c99d5ae3f65. This is inconclusive attraction, not instability; no midpoint promotion. Preserve all12 witnesses, receipt docs/reviews/s2-saved-branch-attraction.json. Next, independently replay the completed known-root localization at exact156th endpoint45/128 using unchanged reducer and frozen new pins; plan docs/plans/s2-near-fold-endpoint-independent-review.md.
