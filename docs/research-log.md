@@ -6792,3 +6792,9 @@ Next saved-audit card: unchanged committed driver/settings, index4, exact prior-
 Original256bit identities and384bit primitive/root/full-native joins passed; 94 total connected charts, exact gauge endpoint 187/64. Runtime 42.606s/279472KiB, ownedPIDs absent, complete immutable inventory verified. Outera0b95cec3b4aef1ce32d0d096061831e45762a4bf00055e95744c0f5ceb80706. Failed producer tails remain excluded from connection. Shared analytic acquisition/Arb and root source-review overlap explicit; no whole attraction or shrimp claim.
 
 Next saved-audit card: unchanged committed driver/settings, index5, exact prior-output manifesta0b95cec3b4aef1ce32d0d096061831e45762a4bf00055e95744c0f5ceb80706, next fixed producer row in docs/plans/s2-march-chain-review-inputs.json. Same120/135+5s CPU1nice10/1.5GiB/24+1MiB caps; stop first failure.
+
+## 2026-10-10T02:13:45.107742+00:00 — extended chain audit unit006
+
+Original256bit identities and384bit primitive/root/full-native joins passed; 110 total connected charts, exact gauge endpoint 219/64. Runtime 52.178s/279812KiB, ownedPIDs absent, complete immutable inventory verified. Outer1998cf0f44a7ddab16ebbd6f843dcc407dac819f03e1216160ded2e6dcefcca9. Failed producer tails remain excluded from connection. Shared analytic acquisition/Arb and root source-review overlap explicit; no whole attraction or shrimp claim.
+
+Next saved-audit card: unchanged committed driver/settings, index6, exact prior-output manifest1998cf0f44a7ddab16ebbd6f843dcc407dac819f03e1216160ded2e6dcefcca9, next fixed producer row in docs/plans/s2-march-chain-review-inputs.json. Same120/135+5s CPU1nice10/1.5GiB/24+1MiB caps; stop first failure.
