@@ -84,7 +84,7 @@ def chart_seed(anchor,proof):
  require(len(anchor)==705 and len(proof['slope'])==704 and len(proof['weights'])==704,'full inherited slope/weights')
  tangent=np.array([float(decode(v[0]).mid())for v in proof['slope']]+[1.])
  length=float(np.linalg.norm(tangent));require(np.isfinite(tangent).all()and np.isfinite(length)and length>0,'finite nonzero gauge proposal')
- normal=[dyadic(v/length)for v in tangent];origin=[exact_mid(v)for v in anchor]
+ normal=[dyadic(v/length)for v in tangent];origin=[exact_mid(v+arb(0))for v in anchor]
  nn=[exact(v)for v in normal];slope=[exact(dyadic(v/length))for v in tangent]
  # Exact dyadic gauge normalization removes floating dot-product error from
  # the initial predictor only; full freshly acquired equations remain proof.
@@ -96,7 +96,7 @@ def chart_seed(anchor,proof):
 
 def main(args):
  identity=sources();require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
- require(args.out==BASE/'attempt001-target/run','exclusive target path');out=args.out;out.mkdir(parents=True,exist_ok=False)
+ require(args.out==BASE/'attempt002-target/run','exclusive target path');out=args.out;out.mkdir(parents=True,exist_ok=False)
  start=time.monotonic();stop=[False];ticks=[0];serial=[0];used=[0];counts={}
  signal.signal(signal.SIGTERM,lambda *_:stop.__setitem__(0,True));resource.setrlimit(resource.RLIMIT_AS,(10*1024**3,)*2)
  def check():
