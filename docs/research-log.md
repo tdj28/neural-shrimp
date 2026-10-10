@@ -5832,3 +5832,7 @@ Execution0d935bd5 completed17.93s/291240KiB,96/96selectednative7/14/28cases qual
 ## 2026-10-10 — p7 complete map retained; native boundary discrimination
 
 Saved-only plot8131cd84 completed0.935s/195840KiB, image9130fbbd; both starts showelongatedp7wedgeandlowerp14patch. Shape is insufficient toclassifyshrimp/tongue. Freezeonefixedthreegain/twodeltadirectionnative7sliceunitwith6Dprofile,fullstate/primitive/reverseandreal-leadinggatesunchanged. No root/trajectoryrunbeforepeerreview; nointervalclaim.
+
+P7boundary peer review required explicit final launcher/aggregate byte enforcement. Added projected fullmanifest/end-record sizes plus4096Bmetadatareserve, failclosed1MiBnonworker/129MiBtotal, and oversizedlog/aggregatecontrols beforetarget. Numericalcode unchanged apartfromaccurate leading-realmodecomment.
+
+The combined edit/test shell produced three synthetic MemoryError checks at the unchanged448MiB worker guard (no model target). A fresh separate test process, with the same tests/caps and no source relaxation, passed20controls in0.19s. Retain the failed harness result as a resource-context artifact; do not reinterpret it as a scientific outcome or relax the target guard.

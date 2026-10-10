@@ -77,3 +77,26 @@ def test_nonfinite_augmented_fails_closed(tmp_path):
     p={'theta':np.ones(6),'cycle':np.ones((7,6)),'delta':.6,'eigenvalues':np.array([1.,.2,.3,.4,.5,.6]),'eigenvectors':np.eye(6)}
     w.aug=lambda *a:(np.full(13,np.nan),np.eye(13),{},0.)
     assert w.localize(p,np.eye(6),7.,1,'synthetic')['status']=='nonfinite_augmented'
+
+
+def launcher():
+    p=Path(__file__).resolve().parents[1]/'tools/launch_clark_rnn_n6_p7_boundaries.py'
+    spec=importlib.util.spec_from_file_location('p7_launch',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+
+def test_oversized_launcher_log_fails_closed(tmp_path):
+    (tmp_path/'process.log').write_bytes(b'x'*(1024**2))
+    g=launcher().final_byte_gate(tmp_path,{'exit_code':0})
+    assert not g['passed'] and g['projected_launcher_bytes_upper']>1024**2
+
+def test_final_metadata_allowance_is_included(tmp_path):
+    (tmp_path/'run').mkdir();(tmp_path/'run/result.json').write_text('{}')
+    record={'exit_code':0};m=launcher();g=m.final_byte_gate(tmp_path,record)
+    assert g['passed'] and g['projected_total_bytes_upper']>4096
+    record['final_byte_gate']=g;m.save(tmp_path/'launch-end.json',record)
+    files={str(f.relative_to(tmp_path)):{'sha256':'0'*64,'bytes':f.stat().st_size}for f in tmp_path.rglob('*')if f.is_file()};m.save(tmp_path/'manifest.json',{'files':files})
+    assert sum(f.stat().st_size for f in tmp_path.rglob('*')if f.is_file())<=g['projected_total_bytes_upper']
+
+def test_total_cap_independently_fails(tmp_path):
+    (tmp_path/'run').mkdir();(tmp_path/'run/data').write_bytes(b'x'*20000)
+    g=launcher().final_byte_gate(tmp_path,{},science_cap=1000,launcher_cap=10000)
+    assert not g['passed'] and g['projected_launcher_bytes_upper']<10000
