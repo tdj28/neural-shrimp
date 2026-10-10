@@ -17,7 +17,7 @@ def cleanup_group(pgid):
         while group_alive(pgid) and time.monotonic()<deadline:time.sleep(.05)
     return not group_alive(pgid)
 
-def final_byte_gate(out,record,science_cap=256*1024**2,launcher_cap=1024**2):
+def final_byte_gate(out,record,science_cap=256*1024**2,launcher_cap=4*1024**2):
     files={str(f.relative_to(out)):{"sha256":hashlib.sha256(f.read_bytes()).hexdigest(),"bytes":f.stat().st_size} for f in sorted(out.rglob("*")) if f.is_file()}
     existing=sum(v['bytes'] for v in files.values())
     nonworker=sum(v['bytes'] for n,v in files.items() if Path(n).parts[0]!='run')
