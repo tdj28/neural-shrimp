@@ -11530,3 +11530,6 @@ norm0.08796. Newdisclosedstrategy tests only thisvector under already
 qualified actualresidual-merit acceptance, with2HVP28gradmaximum90s.
 This reusescostlywork without relabelingfailedNewtonor relaxingorbitgates.
 Exactnativephase/actionreplay andpeerreview precede13fixedtrials.
+### 2026-10-10 — Independent704 finite-curve arithmetic helper
+
+Root requested saved independent finite704 curve/anchor/primitive audit while attraction work proceeds. Prepared independent native q/r assembly, degree24 entire terminal series, total parameter derivative, all704 weighted Krawczyk and exact anchor checks, separate native lift-domain replay.17 controls pass0.11s including full Jacobian/H_t finite differences and deliberate native-domain corruption. Target source/card/driver still in preparation; no704audit arithmetic performed. Complementary attraction and finite-arc NS criticality explicitly excluded. Prior107 native connection and newly96continuous attraction pieces are distinct proofs.
