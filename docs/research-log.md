@@ -7135,3 +7135,13 @@ anchor requirements retained. Receipt
 `docs/reviews/s2-period18-correlated-radii-outcome.json` binds all files.
 Next: ONE fresh-domain two-chart weighted reanchor with this fixed proposal,
 unchanged halfwidth2^-7/256bits/strict gates, profile/source review first.
+
+## 2026-10-10 — prospective fresh-domain weighted reanchor
+
+Saved positive radii proposal is fixed in
+`docs/plans/s2-period18-weighted-reanchor.md`. Reuse the exact localized known
+root (never the failed chart) and unchanged two-chart theorem with full
+correlated anchor,halfwidth2^-7,radius2^-21 and all235 exact weights. Fresh
+whole-domain derivatives and all strict gates required; no old-domain norm
+substitution. One source-reviewed profile then one pinned target, same144/288
+C1+108jets,40s,2GiB,128+1MiB. Prior failure remains immutable; no search.
