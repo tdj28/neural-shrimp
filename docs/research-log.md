@@ -9540,3 +9540,7 @@ Saved-only complete patch a507d905 rendered in0.916s/195448KiB; image d30290b8 a
 P7peer skim caught a copied folder seed28181 although regenerated inputs and target card said28183. Fixed before any target using a single SEEDconstant shared by folder and regeneration; added binding regression control. Failed source3b028060 retained; no target directory or model call occurred.
 
 Independent optimizer_claim_check differential skim passes6ee0b802 after shared seed/path repair. Proceed one exactprofile-pinned p7refinement under standing local authorization; no target or input array acquisition occurred during review.
+
+## 2026-10-10 — N6 p7 refinement completed
+
+Execution0d935bd5 completed17.93s/291240KiB,96/96selectednative7/14/28cases qualify;17/2601startdisagreements,260components retained. Largestp7component380cells reachespatch edge; compactness remains unestablished pending whole-map/native-boundary evidence. Immutable1085files/141656012B and all owned PID exits verified. Freeze saved-only fullmap tools/summarize_clark_rnn_n6_p7.py,30sCPU1/512MiB/8MiB, no new model/derivative/decomposition.
