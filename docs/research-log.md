@@ -6295,3 +6295,26 @@ cover the admission path omitted by the two-chart profile. Reprofile corrected
 source at attempt-002-profile, commit measured receipt before ONE attempt-002
 target, unchanged16chart settings and original180s/384MiB caps. No target
 scientific gate was evaluated in the failed attempt; no threshold is relaxed.
+
+### 10 October 2026 UTC — corrected batch profile passes; attempt002 card
+
+Source7dfe2a16 preserves the old180-call object limit using fresh72-call
+objects and aggregate counters;66 synthetic controls pass0.25s, including full
+1152-call16-instance admission without model evaluations. Corrected profile
+attempt002 completed4.6980s/5.0575s,339548KiB,268ticks,full144/288 C1/unit+
+108jets. Both root paths pass; no scientific claim for the repeated synthetic
+fixed point. Immutable/hash/source/library/thread/PID checks pass. Projection
+80.1677s and301,989,888bytes meets original caps. Worker manifest
+5c2642a8f3c4fe4cf88a65276dacc8a87cc7e83b8dc20d8fcc55495190dd83c8,
+outer5634931ab3cf3dc773456543a55f8a8e6fe6a52011f29d59fef182177b8e06b6.
+Receipt `docs/reviews/s2-period18-arclength-batch-profile002.json`.
+
+Run one amended target after root repair review and fresh memory check:
+`tools/certify_s2_period18_arclength_batch.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-batch-2026-10-10/attempt-002-target
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-batch-2026-10-10/attempt-002-profile/run
+--profile-manifest 5c2642a8f3c4fe4cf88a65276dacc8a87cc7e83b8dc20d8fcc55495190dd83c8`.
+All source/scientific settings unchanged since repaired profile; same16chart
+limit,180s/195+5,CPU1,nice10,2GiB,384+1MiB,1152/2304 C1/unit+864jets,
+2200ticks. Preserve attempt001 and both profiles. Stop first failed proof;
+no automatic adaptation or attraction/fold identity claim.
