@@ -105,3 +105,22 @@ file is preserved and made read-only after launch; no automatic retry. Adaptatio
 use dated run cards and new exclusive roots. Useful follow-up is local refinement,
 long-transient tests, full-state boundary continuation and a small interval proof
 for a candidate, not treating the first picture as a finding.
+
+## Pre-profile review amendment
+
+Root read the first freeze7158fc82 before any measurement. Each returned Newton
+iterate now emits its theta, endpoint, full phase Jacobians, cycle and monodromy
+before downstream checks; solved corrections and both eigensystems likewise emit
+before possible later failure. Every event has a numbered array/JSON pair. A
+budget interruption preserves already returned events and the attempted seed.
+
+All scientific NPZ/JSON writes reserve their maximum bytes first, preserving1MiB
+for final failure/result/manifest metadata within the300MiB run cap. A reservation
+failure stops the unit before that write; no partial result is promoted. The
+launcher enforces nice>=10, fixes all four thread variables to1, records fresh
+MemAvailable, and cleans/checks the entire owned process group after the leader
+returns. The worker independently rejects wrong nice/thread settings and shared
+MemAvailable<1GiB. The worker RSS cutoff is448MiB, leaving64MiB within the512MiB
+project limit for the small launcher and headroom. Ten synthetic64-step timing
+returns are also retained. These are source/resource corrections, no outcome-
+dependent change. The original profile and panel scientific settings remain fixed.

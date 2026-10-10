@@ -68,7 +68,7 @@ def test_interruption_retains_current_checkpoint():
 def test_profile_rejects_nonfinite_timing(tmp_path):
     spec=importlib.util.spec_from_file_location('clark_runner',Path(__file__).resolve().parents[1]/'tools/explore_clark_rnn.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
     identity={'sha256':{'a':'b'}}
-    m.save(tmp_path/'runtime-start.json',{'mode':'profile','source':identity,'numpy':np.__version__,'python':m.sys.version,'platform':m.platform.platform(),'thread_environment':{'OMP_NUM_THREADS':'1'}})
+    m.save(tmp_path/'runtime-start.json',{'mode':'profile','source':identity,'numpy':np.__version__,'python':m.sys.version,'platform':m.platform.platform(),'thread_environment':{'OMP_NUM_THREADS':'1'},'nice':10,'mem_available_bytes':2**30})
     for bad in [float('nan'),float('inf'),-1.,0.]:
         (tmp_path/'result.json').write_text(m.json.dumps({'status':'completed','batch_seconds':bad,'period64_unit_seconds':.001,'elapsed_seconds':1,'peak_rss_kib':50000}))
         m.manifest(tmp_path)
@@ -92,3 +92,36 @@ def test_annihilated_tangent_is_retained_unresolved():
     assert np.all(a['tangent_collapse_count']==1024)
     assert np.all(np.isnan(a['lambda_per_step']))
     assert np.all(a['period_proposals']==1)
+
+
+def test_returned_iterates_survive_later_failure(monkeypatch):
+    import neural_shrimp.clark_rnn as core
+    j,x=p4();events=[];original=core.iterate;calls=[0]
+    def damaged(*args):
+        calls[0]+=1
+        if calls[0]==2:raise FloatingPointError('synthetic later failure')
+        return original(*args)
+    monkeypatch.setattr(core,'iterate',damaged)
+    out=core.qualify_cycle(x+1e-5,j,1.,1.,4,emit=lambda k,v:events.append((k,v)))
+    assert out['status']=='numerical_failure'
+    assert events[0][0]=='iterate_return' and events[0][1]['phase_jacobians'].shape==(4,2,2)
+    assert any(k=='linear_return' for k,v in events)
+
+def test_prewrite_reservation_leaves_no_partial_npz(tmp_path):
+    spec=importlib.util.spec_from_file_location('clark_store',Path(__file__).resolve().parents[1]/'tools/explore_clark_rnn.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+    m.ACTIVE_ROOT=tmp_path;m.RAW_CAP=5000;m.FINAL_RESERVE=1000
+    with pytest.raises(OSError):m.save_npz(tmp_path/'blocked.npz',x=np.ones(1000))
+    assert not (tmp_path/'blocked.npz').exists()
+    m.save(tmp_path/'result.json',{'status':'partial'},final=True);m.manifest(tmp_path)
+    assert (tmp_path/'manifest.json').exists()
+
+def test_successful_emit_contains_both_native_returns():
+    j,x=p4();events=[];out=qualify_cycle(x,j,1.,1.,4,emit=lambda k,v:events.append((k,v)))
+    assert out['status']=='numerical_attracting_primitive'
+    assert [k for k,v in events]==['iterate_return','adjacent_iterate_return','eigen_return','adjacent_eigen_return']
+
+def test_launcher_cleanup_empty_and_owned_group():
+    import subprocess,sys
+    spec=importlib.util.spec_from_file_location('clark_launch',Path(__file__).resolve().parents[1]/'tools/launch_clark_rnn.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+    child=subprocess.Popen([sys.executable,'-c','pass'],start_new_session=True);child.wait()
+    assert m.cleanup_group(child.pid) and not m.group_alive(child.pid)

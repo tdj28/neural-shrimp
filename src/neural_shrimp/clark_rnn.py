@@ -82,24 +82,31 @@ def simulate_batch(j, initials, tangents, gains, deltas, *, burn=6000, align=100
                 period_proposals=periods,recurrence=recurrence)
 
 
-def qualify_cycle(seed,j,g,delta,p,check=lambda:None):
+def qualify_cycle(seed,j,g,delta,p,check=lambda:None,emit=lambda kind,value:None):
     """Bounded floating correction plus both adjacent phases; never a certificate."""
     x=np.array(seed,copy=True);history=[];reason="iteration_limit"
     try:
         for k in range(7):
-            check();end,m,cycle,js=iterate(x,j,g,delta,p);res=(end-x);scale=max(1,float(np.max(np.abs(cycle))))
+            check();end,m,cycle,js=iterate(x,j,g,delta,p)
+            emit("iterate_return",dict(iteration=k,theta=x.copy(),end=end,monodromy=m,cycle=cycle,phase_jacobians=js))
+            res=(end-x);scale=max(1,float(np.max(np.abs(cycle))))
             err=float(np.max(np.abs(res))/scale);history.append(err)
             if not np.isfinite(err):raise FloatingPointError("nonfinite closure")
             if err<=1e-11:reason="closed";break
             if k==6:break
             dx=np.linalg.solve(m-np.eye(len(x)),-res)
+            emit("linear_return",dict(iteration=k,theta=x.copy(),residual=res,direction=dx))
             if not np.all(np.isfinite(dx)) or np.max(np.abs(dx))>.05*scale:reason="correction_too_large";break
             x=x+dx
         out={"period":p,"status":reason,"history":history,"theta":x,"cycle":cycle,"phase_jacobians":js,"monodromy":m,"closure":err}
         if reason!="closed":return out
-        end1,m1,_,_=iterate(cycle[1%p],j,g,delta,p)
+        end1,m1,cycle1,js1=iterate(cycle[1%p],j,g,delta,p)
+        emit("adjacent_iterate_return",dict(theta=cycle[1%p],end=end1,monodromy=m1,cycle=cycle1,phase_jacobians=js1))
         closure1=float(np.max(np.abs(end1-cycle[1%p]))/scale)
-        eig,vec=np.linalg.eig(m);eig1,vec1=np.linalg.eig(m1)
+        eig,vec=np.linalg.eig(m)
+        emit("eigen_return",dict(monodromy=m,eigenvalues=eig,eigenvectors=vec))
+        eig1,vec1=np.linalg.eig(m1)
+        emit("adjacent_eigen_return",dict(monodromy=m1,eigenvalues=eig1,eigenvectors=vec1))
         def eres(a,e,v):return float(np.max(np.linalg.norm(a@v-v*e[None,:],axis=0)/np.maximum(1,np.linalg.norm(a,ord=np.inf)*np.linalg.norm(v,axis=0))))
         separation={str(d):float(np.max(np.abs(cycle[d]-cycle[0]))/scale) for d in divisors(p)}
         primitive=all(v>1e-6 for v in separation.values())
