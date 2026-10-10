@@ -14,3 +14,10 @@ def test_scaling_has_horizon_and_batch():
     r=M.projection({'batch_seconds':1.,'period64_unit_seconds':.001,'peak_rss_kib':50000})
     assert r['projected_seconds']==pytest.approx(2*(2601/81)*(34192/21192)+96*8*.001+20)
     assert r['conservative_raw_bytes']<256*1024**2
+
+
+def test_single_seed_identity_binds_folder_and_regeneration(tmp_path,monkeypatch):
+    assert M.SEED==28183 and M.target_folder(tmp_path)==tmp_path/'run/n6-s28183'
+    source=Path(M.__file__).read_text()
+    assert 'folder=target_folder(raw)' in source and 'inputs(6,SEED)' in source
+    assert "run/n6-s28181" not in source
