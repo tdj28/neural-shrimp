@@ -7077,3 +7077,9 @@ true mixed physical derivatives and the unchanged norm-cocycle proof.
 No target or profile run yet. Code/card in docs/plans/s2-period18-doubled-stability-slice.md;
 full synthetic profile first, exact measured pins/card before target. Previous
 failed bounds retained; no claim of whole-branch stability or shrimp closure.
+
+2026-10-10 peer source review: research_strategy cleared6f989522
+composition and independently reproduced35 synthetic controls in0.50s.
+Clarified the already enforced385MiB aggregate/384MiB worker caps;
+1MiB nonworker size is an allowance, not a separately checked inventory gate.
+No mathematical, executable or scientific-setting change.
