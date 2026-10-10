@@ -10049,3 +10049,11 @@ Recorded exact precursor card after a fresh host check (about52GiB available,
 load5, no duplicate owned worker). Source packet still awaits independent
 binding/launcher skim. Synthetic profile and saved-only proposal remain
 separate exclusive invocations; neither obtains a new native target orbit.
+
+Independent stability-agent packet skim beec5b56 PASS: event/full470D source
+and native identity, saved-only seed, same-source/library precursor admission,
+72/360 step accounting, fresh whole box, neighborhood and primitive gates,
+owned caps and immutable failure retention checked.28 controls reproduced
+in0.22s; no target arrays evaluated. Proceed with the already frozen synthetic
+profile, then separately inspect the saved-only proposal. The target remains
+gated by its own measured frozen card.
