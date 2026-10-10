@@ -7797,3 +7797,21 @@ After committed source and root skim, run ONE synthetic profile at
 `/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-2026-10-10/attempt-001-profile`.
 Measured card must precede one target. No repeated prefix, automatic search,
 proximity claim, or attraction at the fold.
+
+## 2026-10-10 — measured reverse fold-normal profile and exact target card
+
+Reviewed sourceed019a7d completed the one synthetic profile: worker
+7.2306s/682008KiB, all180/360 native calls
+and108 path jets, both root stages; launcher7.9848s/exit0, no owned PIDs.
+All immutable inventories/payloads/source/library settings checked. Receipt
+`docs/reviews/s2-period18-fold-reverse-profile.json` records the
+passing projection26.6919s<45 and80MiB<112MiB.
+
+Run ONE target with unchanged source bytes after this card is committed:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_reverse.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-2026-10-10/attempt-001-profile/run --profile-manifest bc7eae8d537ef078963ec86738303af26ae75cf3955c3f3bd66ef2a1a86b7a73`.
+Same localized parentc2361075 and canonical fold, new state-only fold-normal;45s internal/60+5 external,
+CPU1,2GiB,180/360 calls,108 jets,two charts,128+1MiB raw. No retry or assumed fold membership.
+Root source skim approved ed019a7d before the profile: proposal normal/weights,
+whole-fold correlated anchor and all18 full phase tests remain separate.
+The synthetic profile's rate gauge is only engineering timing; the actual
+state-only fold-normal proposal will be freshly acquired and saved by target.
