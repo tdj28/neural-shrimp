@@ -54,3 +54,14 @@ def test_singular_critical_frame_is_rejected_and_caps_precede_native_call():
   with pytest.raises((ValueError,ZeroDivisionError)):complement(data['monodromy'],y[6:10],y[6:10],y[15:],y[14])
   def stop():raise TimeoutError('owned native cap')
   with pytest.raises(TimeoutError):augmented(model,y,18,stop)
+
+
+def test_rounding_edge_uses_actual_arb_box_radius_not_requested_radius():
+ from neural_shrimp.rigorous_unit_pair_flip import actual_box_delta
+ with ctx.workprec(384):
+  requested=arb((1,-60));box=arb(0,requested);actual=box.rad();assert actual>requested
+  epsilon=actual-requested;forcing=requested/2+epsilon*3/4
+  old_image=forcing+arb(0,requested)/2
+  new_image=forcing+actual_box_delta([arb(0)],[box])[0,0]/2
+  assert box.contains_interior(old_image)
+  assert not box.contains_interior(new_image)
