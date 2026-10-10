@@ -9514,3 +9514,7 @@ P14wholemap64d8bf43 rendered.859s/153968KiB,hashfe1b662e andPID1405085exit; visu
 Root pretarget skimo85c812fc passes; proceedactualN6profile andexactsource/pinnedpanelonlyifresourcegatepasses,allfailuresretained.
 
 ActualN6profile ed77b4b7 completes1.342s/1.472s,47104KiB. Gate133.297s/257325344Bpeak/255708544Braw passes240s/512MiB/256MiB; fullinventories/modes/PIDs1413860/1413862 verified. Runmanifest8f1032de externallypinned foroneexactsource fourmatrixpanel; source/card/testbytesunchanged, no behavioraladmission.
+
+## 2026-10-10: fixed N6 panel completed, full-map inspection next
+
+Executed clean6c516d91 with externally pinned matching N6 profile; all4 seeds completed45.91s,96/96 selected native cycle cases qualify numerically. All164 components retained, including the seed28182 edge-only failure of the interior-candidate criterion. Complete1141file/204153133byte inventory and owned PID exit verified. No morphology claim before inspecting all four maps. Freeze tools/summarize_clark_rnn_n6_panel.py for one saved-only spatial census/render, no model/decomposition/trajectory, CPU1nice10/external30s/512MiB/8MiBraw. All failed hypotheses remain; no new candidate target yet.
