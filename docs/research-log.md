@@ -8061,3 +8061,5 @@ immutable files and owned exits checked. 102087401 retained bytes.
 Worker manifest d66af8427a2eeb8da0f5eb8b1cf7065879d18a707e1956a26e8316df4d5bc11f; outer
 e9774d0f9a46b771533f12ae43d65d9b00fa98bc30cb47e5ade23c67a15dbc9e. Companion `docs/reviews/s2-period18-fold-reverse-march-unit002.json`.
 Independent review pending; no attraction or complete geometry claim.
+
+2026-10-10: New input-Gram conditioning card follows failed exact-diagonal surrogate. Same consumed accepted state; one common augmented-input basis/all512modes/ridge complement, per-hidden mean curvatures, positive right scaling; no true-gate change. One target QR/eigh plus matching synthetic profile, one400 solve only if measured120s gate. Before target, synthetic rank-deficient/indefinite/dense surrogate/packing checks; one test-fixture zero-padding typo corrected, no target had run. Clark p12 continues independently at low memory.
