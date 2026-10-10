@@ -2018,6 +2018,13 @@ def build():
     lo,hi=[Fraction.from_float(v["gain"])for v in br];assert lo<hi
     digits=10;scale=10**digits;flo=lo.numerator*scale//lo.denominator;cei=-((-hi.numerator*scale)//hi.denominator)
     n.add("tNTwelveCubicGain",[float(lo),float(hi)],"["+exact_decimal(flo,digits)+", "+exact_decimal(cei,digits)+"]",EXPLORATORY,cs,"outward decimal display of numerical same-branch cubic-sign bracket; no interval proof")
+    smp=c.ROOT/"docs/reviews/cifar-saved-shooting-merit-outcome.json";sm=load(smp);sr=sm["outcome"]
+    sms=[smp]+bound_inventory(Path(sm["raw_root"])/"manifest.json",sm["manifest_sha256"])
+    assert sr==load(Path(sm["raw_root"])/"result.json") and sr["comparison_qualified"] and not sr["accepted_orbit"] and sr["accepted_index"]==4
+    assert sr["trials"][4]["accepted_local_step"] and not sr["direction_gate"]["old_newton_forcing_pass"]
+    label="exploratory native CIFAR residual-merit correction; native replay passed, independent outcome arithmetic pending; no accepted orbit"
+    n.add("xCifarSavedMeritClosure",sr["final_relative_residual"],sci(sr["final_relative_residual"],3),label,sms,"last accepted saved-direction two-step relative closure")
+    n.add("xCifarShootingForcing",sr["direction_gate"]["true_forcing"],fixed(sr["direction_gate"]["true_forcing"],4),label,sms,"true eliminated Newton forcing of the retained1600MINRES direction; fixed.5gate fails")
     return n
 
 

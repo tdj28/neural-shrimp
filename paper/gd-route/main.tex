@@ -75,7 +75,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance; the other boundary connections remain open. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance; a finite complex-unit branch is also enclosed at that same resonance. Other boundary connections remain open. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -1383,62 +1383,31 @@ rules are fixed in advance.
 \placeholder{Prespecified route-to-chaos path: a connected path, fixed in advance, from the period-2 region
 through the quasi-periodic band and locked windows into sustained chaos with converged diagnostics (not yet run).}
 
-\paragraph{CIFAR development pilot (unresolved).} The development-subset learning-rate sweep has completed
-and shows a slowly drifting period-2 candidate followed by loss modulation. The initial full-state Newton--GMRES
-continuation was no longer running after its configured time limit and left no saved orbit result. A reviewed
-revision adds incremental checkpoints, convergence checks at every returned state and residual-qualified
-matrix-free multiplier estimates. A bounded correction then failed its linear-solver tolerance before any
-Newton update; the saved state remains outside the closure gate and no spectrum was computed.
-A diagnostic at the same saved state and Krylov budget gives a true linear forcing ratio
-$\xCifarForcing$, above the declared $\xCifarForcingLimit$ limit. Two of four fixed damping trials
-reduce the residual merit, but none passes the forcing or full-state closure gate; the smallest relative
-closure residual is $\xCifarBestClosure$, against $\xCifarClosureGate$ required. An independent
-saved-array audit reproduces these decisions; it does not independently reevaluate the model's saved map
-images or Jacobian products. This diagnoses a failed correction attempt, not absence of a period-two orbit.
-See \path{docs/cifar-linear-diagnostic-receipt.json} and
-\path{docs/reviews/cifar-linear-diagnostic-outcome-review.md}.
+\paragraph{Large-model orbit correction.}
+The CIFAR development model exhibits slowly drifting period-2 motion and loss modulation.
+We test full-state periodicity by correcting the saved two-step return residual rather than
+identifying a cycle from the loss trace. At a fixed learning rate and on the same development subset,
+longer Krylov solves eventually produce a direction passing the declared linear forcing bound;
+coordinate-diagonal and common input-Gram surrogates do not improve the matched-budget solve.
+After native transpose qualification, damped LSMR accepts \nCifarMeritSteps{} corrections under
+actual residual decrease, Armijo, reduction-ratio and phase-separation checks, reducing relative
+closure by \pCifarMeritImprovement{} to $\xCifarMeritClosure$. An independent compensated-sum
+audit reproduces those decisions.
 
-A later matched comparison replaces \nCifarBaselineCycles{} restart-\nCifarBaselineRestart{} cycles
-with one restart-\nCifarRestartInner{} cycle, retaining \nCifarRestartInner{} inner iterations at the
-same saved state. Its first \nCifarRestartPrefix{} callback residuals reproduce the saved baseline.
-The true linear forcing improves from $\xCifarForcing$ to $\xCifarRestartForcing$, but remains above
-$\xCifarForcingLimit$. All \nCifarRestartTrials{} fixed trials now increase the absolute residual
-merit; none passes Armijo, closure or the candidate-step gates, and no update is applied.
-An independent saved-data audit reproduces these decisions without regenerating map images or
-Jacobian products. This single-state comparison does not establish absence of a periodic orbit
-or a general solver advantage. See \path{docs/reviews/cifar-restart-outcome.md} and
-\path{docs/reviews/cifar-restart-independent-outcome.md}.
-
-A disclosed extension to \nCifarLargerInner{} inner iterations reproduces the
-entire preceding callback prefix and reduces true forcing to
-$\xCifarLargerForcing$, passing the same linear forcing bound and strict
-merit-descent test. The original fixed damping trials still fail Armijo, so
-this direction alone is not an accepted correction. The saved-vector audit
-checks arithmetic and retained map identities without reevaluating derivatives;
-a subsequent fixed smaller-step study accepts a local correction at
-$\alpha=\tCifarAcceptedAlpha$ after the earlier forcing gate passes. The next
-unscaled solve has forcing $\xCifarNextForcing$, above the same limit, leaving
-relative closure $\xCifarAcceptedClosure$ and no accepted periodic orbit.
-At that exact saved state, coordinate-diagonal and common input-Gram right
-surrogates give forcing $\xCifarDiagonalForcing$ and $\xCifarGramForcing$,
-respectively, with the same inner-iteration budget. Both are worse than the
-unscaled direction and trigger no line search. The Gram approximation retains
-input correlations but averages sample-dependent hidden curvature and omits
-cross-layer blocks; this negative result concerns that approximation, not all
-preconditioning. Producer-agent saved-array checks verify physical residuals,
-packing and operation counts; they do not independently reevaluate derivatives.
-See \path{docs/reviews/cifar400-saved-outcome-review.json},
-\path{docs/reviews/cifar-damped-outcome.json} and
-\path{docs/reviews/cifar-gram-outcome.json}.
-A different residual-merit method uses damped LSMR after qualifying the native
-transpose action. All \nCifarMeritSteps{} full corrections pass actual decrease,
-Armijo, reduction-ratio and phase-separation checks. Relative closure improves
-by \pCifarMeritImprovement{} to $\xCifarMeritClosure$, still above
-$\xCifarClosureGate$. An independent compensated-sum audit reproduces every
-acceptance and operation count. This is modest progress on correction, with
-no accepted CIFAR orbit. See \path{docs/reviews/cifar-merit-saved-independent.json}.
-Modulated loss alone does not establish an invariant circle or a Neimark--Sacker crossing. The second subset remains reserved for a separately frozen test;
-no result from it is included here.
+A symmetric two-phase formulation then gives a further accepted residual-merit step, reaching
+$\xCifarSavedMeritClosure$, still above the fixed $\xCifarClosureGate$ closure requirement.
+For a scalar-step gradient map $F$, its shooting residual is
+$H(x,y)=(F(x)-y,F(y)-x)$, with symmetric derivative
+$DH=\left(\begin{smallmatrix}DF(x)&-I\\-I&DF(y)\end{smallmatrix}\right)$.
+This uses symmetry of each Hessian; the eliminated product $DF(y)DF(x)-I$ is generally nonsymmetric.
+The retained direction's true eliminated forcing is $\xCifarShootingForcing$, which fails the
+original $\xCifarForcingLimit$ Newton gate. Acceptance therefore belongs to the explicitly
+separate actual-merit strategy and does not certify an orbit. Native maps and the retained
+derivative action replay bit-for-bit; independent saved-arithmetic review of this last step is pending.
+The solver comparisons and all failures remain in the linked receipts and research log.
+See \path{docs/reviews/cifar-merit-saved-independent.json} and
+\path{docs/reviews/cifar-saved-shooting-merit-outcome.json}.
+The second subset remains reserved for a separately frozen test.
 
 \paragraph{An exact structural reduction, with a negative solver diagnostic.}
 For the same fixed-input full-batch model with ridge term $\lambda\|\theta\|^2/2$, write the first-layer weights

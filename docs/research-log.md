@@ -11660,3 +11660,8 @@ Independent saved-array arithmetic recomputed augmented equations, branch/cubic 
 ### 2026-10-10T23:16 UTC — retained CIFAR direction reduces actual residual
 
 Reviewed source56efc511 completed1.862sworker/3.536slaunch,2HVP12grad,772726784B peakownedRSS; full inventory hashes verified and owned group empty. Full/half/quarter/eighth trials fail; alpha1/16 passes original actual merit/Armijo/rho/separation, ratio0.57866. Relative residual4.726511018165264e-6 to4.63242402566228e-6; still above1e-8 and no orbit accepted. Failed1600MINRES forcing.659849 remains failed. Allfive saved trials retained. Next correction must address weak-mode conditioning and nonlinear step quality, not relabel convergence.
+
+
+### 2026-10-10T23:18 UTC — focus the manuscript on scientific results
+
+Condense the CIFAR solver chronology to current physical residual, exact symmetric two-phase formulation and the distinct Newton/merit gates. Preserve all failed runs and their source/receipts; no manuscript chronology is needed to retain them. Add latest consumed-data correction as exploratory with its pending independent outcome review stated. Abstract remains short; finite704 proof is already in source. No new scientific runs or holdouts.
