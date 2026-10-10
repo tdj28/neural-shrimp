@@ -44,3 +44,23 @@ def test_fold_family_tangent_can_turn_in_parameter_without_loss_of_rank():
     # Synthetic parabola h(y0,y1)=y0²+y1: tangent at tip points alongy0.
     b=np.array([[0.,1.]]);t,w=oriented_null(b)
     assert abs(t[0])==1 and t[1]==0 and w['s'][0]==1
+
+
+def test_third_directional_analytic_and_composed_controls():
+    from neural_shrimp.clark_rnn_boundaries import third_directional
+    x=np.array([.37]);q=np.array([.8]);j=np.array([[1.2]]);g=1.7;d=.6;t=np.tanh(x);s=1-t*t
+    c,_=third_directional(x,q,j,g,d,1);np.testing.assert_allclose(c,d*g*j@(s*(6*t*t-2)*q**3),rtol=1e-15)
+    j,x,_=inputs(3,28173);x=x[0];q=np.array([.2,-.7,.4]);eps=2e-5
+    def second(at):return np.einsum('ijk,j,k->i',jets(at,j,1.2,.8,4)[2][:,:3,:3],q,q)
+    fd=(second(x+eps*q)-second(x-eps*q))/(2*eps);c,_=third_directional(x,q,j,1.2,.8,4)
+    np.testing.assert_allclose(c,fd,rtol=2e-7,atol=1e-8)
+
+
+def test_phase_sign_matching_retains_native_identity():
+    import importlib.util
+    from pathlib import Path
+    p=Path(__file__).resolve().parents[1]/'tools/extend_clark_rnn_lowgain.py';sp=importlib.util.spec_from_file_location('ext',p);m=importlib.util.module_from_spec(sp);sp.loader.exec_module(m)
+    a=np.arange(20).reshape(5,4)/20
+    assert m.phase_match(a,a+1e-4)['passed']
+    assert not m.phase_match(a,-a)['passed']
+    assert not m.phase_match(a,np.roll(a,1,axis=0))['passed']

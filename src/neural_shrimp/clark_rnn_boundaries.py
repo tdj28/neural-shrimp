@@ -66,3 +66,13 @@ def oriented_null(b,reference=None):
     elif t@reference<0:t=-t
     residual=float(np.max(np.abs(b@t)))
     return t,{'matrix':b,'u':u,'s':s,'vh':vh,'null_vector':t,'null_residual':residual}
+
+
+def third_directional(theta,direction,j,g,delta,period):
+    """D^3 F^period(theta)[q,q,q] through analytic scalar tanh rules."""
+    z=np.array(theta,copy=True);v=np.array(direction,copy=True);b=np.zeros_like(z);c=np.zeros_like(z);records=[]
+    for k in range(period):
+        t=np.tanh(z);s=1-t*t;t2=-2*t*s;t3=s*(6*t*t-2);a=jacobian(z,j,g,delta)
+        newc=a@c+delta*g*(j@(3*t2*v*b+t3*v**3));newb=a@b+delta*g*(j@(t2*v*v));newv=a@v
+        records.append(np.stack([z,v,b,c]));z=step(z,j,g,delta);v=newv;b=newb;c=newc
+    return c,np.array(records)
