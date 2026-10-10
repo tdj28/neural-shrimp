@@ -8078,3 +8078,7 @@ P14refinement e86b4354 completes12.830s/13.094s,235608KiB.70/70selected native14
 ## 2026-10-10 — freeze independent tangent boundary extension audit
 
 Replay eight subsequent full470D eigenpair charts from the independently checked tangent reanchor. Exact pins and settings in docs/plans/eigenpair-tangent-march-independent.md; no new native acquisition, same measured180s cap.
+
+## 2026-10-10 — central period18 branch connected to its canonical fold, independently passed
+
+All31reverse charts passed independent exact256 and fresh384 saved reductions in105.917s/417088KiB. The restricted chart contains the full known canonical fold at its actual correlated gauge. Every subsequent235D endpoint join and primitive divisor gate passes; the final chart strictly contains the same independently localized central-branch endpoint in phase0, checking all18alignments. This establishes branch identity between the central primitive18 cycle and the previously certified simple saddle-node. The same endpoint is independently proved attracting. It does not yet establish attraction throughout the full path or the global shrimp boundary anatomy. All original producer failures and both failed checker attempts are preserved. Receipt docs/reviews/s2-period18-fold-connection-independent.json; immutable outer2b226474ef87cbe5d06650e095fa2e33b6525cd0eb3ff73e5f8fef25e82a1f6f.
