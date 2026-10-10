@@ -6914,3 +6914,13 @@ fold projection is~0.43474, about14 old-width charts as a heuristic; all18
 alignments retained. No new model/derivative/root or fold membership claim.
 The next proposed unit localizes the existing exact-gauge endpoint, then tests
 half-width charts under a new exact gauge with full correlated anchor.
+
+## 2026-10-10 — prospective fixed old-endpoint localization
+
+Root reviewed the saved diagnosis and approved preparing three known-root
+intersections at exact old gauge253/64. New source/card
+`docs/plans/s2-period18-endpoint-localization.md` retains full235D old error,
+actual native derivatives and every intersection. One synthetic72-call profile
+precedes one pinned target;20s/30s internal, CPU1/nice>=10,2GiB,128+1MiB raw.
+This only tightens the existing root enclosure; a new correlated-gauge
+continuation pilot is a separate following unit. No new parameter coverage yet.
