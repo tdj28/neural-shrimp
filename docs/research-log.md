@@ -11519,3 +11519,14 @@ first, then measured600s/2GiBgroup/4GiBAS/512MiB bound. No new data,
 no fresh seed, no holdout; allfailed attempts retained. Peerreview before
 profile/target; target needs profilecost gate. Globalboundary andotherlanes
 continue independently.
+
+
+### 2026-10-10 —1600shooting result and retained-direction merit test
+
+1600MINRES completed75.33s/3216HVP14grad/800362496Bgroup, exitedempty.
+Trueforcing0.65985 improvesfrom0.84558 butstillfails0.5; noNewtontrial.
+Retainthatfailure. Savedvector predicts56.46%meritdecrease withrelative
+norm0.08796. Newdisclosedstrategy tests only thisvector under already
+qualified actualresidual-merit acceptance, with2HVP28gradmaximum90s.
+This reusescostlywork without relabelingfailedNewtonor relaxingorbitgates.
+Exactnativephase/actionreplay andpeerreview precede13fixedtrials.
