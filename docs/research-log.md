@@ -5589,3 +5589,20 @@ Companions `docs/reviews/s2-period18-localized-roots-outcome.{md,json}`.
 Independent outcome review pending; no whole1/256 attraction or boundary
 connection. Continued next work is nonlinear predictor scaling, not128 blind
 slices; code/card/profile will precede any new acquisition.
+
+### 10 October 2026 UTC — prospective quadratic-predictor continuation pilot
+
+The localized center/outer probes repaired the sufficient stability floor but
+do not make tiny-chart marching to the distant fold efficient. New standalone
+quadratic predictor source preserves all old kernels and uses the existing
+explicit gradient plus third-order path jets. Retain H0/H1/H2 cancellation
+defects and a rigorous interval H3 remainder; unchanged C1 bounds error
+segments. Fixed choice: two charts, delta2^-8,r2^-24,256 bits,two Newton
+proposals, exact original anchor/common-parameter containment, primitive18;
+attraction not evaluated. Card `docs/plans/s2-period18-quadratic-connection-pilot.md`.
+55 focused synthetic controls pass0.23s after disclosed pre-freeze fixture/API
+repairs; no new profile or target yet. Root/optimizer have reviewed the proposed
+math; final source review precedes acquisition. CPU1,nice10,2GiB,128+1MiB,
+profile20s/25+5,target120s/135+5,300ticks,144 wrapped/288 unit/108 jet caps.
+Profile command and exclusive output are in the card. Real-parent storage
+factor is included in the measured gate to address synthetic compression bias.
