@@ -6956,3 +6956,14 @@ currently interrupted, so research_strategy provides the narrow independent
 source/native complete-parent skim before first launch. Fresh host check and
 clean committed source required. No target from this adapter has run yet;
 no gate relaxation or claim beyond connected normalized primitive eigenpairs.
+
+### 2026-10-10 — wider chain source clearance and unit002 launch
+
+research_strategy independently clears frozen2c92c3cc complete-parent/native
+binding at reviewb78ffdd384321d941675a6c25daa6648c2ce524f. Sixteen fabricated
+controls reproduced0.28s; no target arrays or proof acquisition. Original proof
+and marcher bytes unchanged. Fresh host load0.88/1.07/1.13,38GiB available,
+GPUidle15947MiB/no compute processes; no matching local proof processes.
+Proceed exact unit002 card under root standing authorization, CPU1nice10,
+400/420+5s,2GiB sampledRSS,all retained full-domain gates. This metadata records
+clearance before launch and does not change the bound source inventory.
