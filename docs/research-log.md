@@ -6108,3 +6108,9 @@ Root requests a stable-body activity-cycle proof in parallel with unresolved geo
 ### 2026-10-09 PDT: proposed finite farther RNN envelope
 
 Root requested a fixed envelope after seeing combined curves, not indefinite closure chasing. Prepared card `docs/plans/clark-rnn-envelope-extension.md`: both latest low-delta endpoints,384 new steps each; stop atdelta<=.05/gain>=20/domain/correction/identity/cap; same reverse/full-spectrum/coefficient rules. CPU1nice10/120s135+5/512MiB/256+1MiB/14000calls, measured synthetic screen first. Source prepared for root coordination; no target in this preparation entry. Common-orbit identity is not inferred from parameter-projection crossings.
+
+### 2026-10-09 PDT: native RNN proof profile passed; single target card
+
+Root source review299640a3 passed. Profile executione02ad841, same bound bytes, completed.011524s internally/.216725s externally,45768KiB. Resource projection5.038103s passes30s; expected synthetic divisor failure has no empirical meaning. Exact immutable outer8dac91ea34571d10d87fb2e347ebbfabc76e8ba2a5c3d522c1bb445f21f811ee and runa04be76a700e6b0ce33515b75c53e83efcadc4a8f990a2dcaf32eedefc8df262; owned1009723/1009735/group absent.
+
+Proceed root-authorized single fixed target, unchanged source/settings, command `nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_clark_rnn_p5_certificate.py --mode target --out /data2/neural-shrimp-data/explore/certificates/clark-rnn-p5-2026-10-09/attempt-001 --profile /data2/neural-shrimp-data/explore/certificates/clark-rnn-p5-2026-10-09/profile-001/run --profile-sha256 a04be76a700e6b0ce33515b75c53e83efcadc4a8f990a2dcaf32eedefc8df262`. Same30s45+5/CPU1nice10/512MiB/8+1MiB. Whole-state and odd-companion counts remain distinct; independent replay/nested review required before paper claim.
