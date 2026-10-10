@@ -1791,6 +1791,32 @@ def build():
     sources = [rnnpath,refpath,refmanifest,designpath]
     n.add("nClarkRNNDimension", inp["n"], str(inp["n"]), EXPLORATORY, sources, "native activity dimension of the fixed refined random network")
     n.add("nClarkRNNPeriod", int(inp["panels"][0]["kind"][1:]), inp["panels"][0]["kind"][1:], EXPLORATORY, sources, "primary primitive-period refinement; saved native cycle checks independently reviewed")
+    # Reviewed native activity proof and primitive branch extension, separate scopes.
+    activity_path=c.ROOT/"certificates/clark-rnn-p5-receipt.json"
+    activity_review_path=c.ROOT/"docs/reviews/clark-rnn-p5-independent-review.json"
+    activity=load(activity_path);activity_review=load(activity_review_path)
+    assert activity["proof"]["passed"] and activity_review["passed"] and activity_review["result"]["independent_exp_proof"]
+    activity_sources=[activity_path,activity_review_path]+bound_inventory(Path(activity["raw"])/"manifest.json",activity["raw_manifest_sha256"])+bound_inventory(Path(activity_review["raw"])/"manifest.json",activity_review["outer_manifest"]["sha256"])
+    assert activity["inputs"]["period"]==activity_review["result"]["primitive_period"]==5
+    assert activity["proof"]["odd_companion_distinct"] and activity_review["checks"]["strict_nested_box_in_original"]
+    assert activity["proof"]["attraction_witness_power"]==1
+    ub=max(sum(max(abs(v)for v in ball_endpoints(b))for b in row)for row in activity["proof"]["attraction_witness"])
+    rounded=Fraction(-((-ub.numerator*10**6)//ub.denominator),10**6)
+    assert ub<rounded<1
+    n.add("xClarkActivityBound",str(rounded),fixed(float(rounded),6),proof,activity_sources,"exact rational interval row-sum norm upper bound rounded upward to six decimals")
+    for name,key,digits in [("xClarkActivityGain","gain",2),("xClarkActivityLeak","delta",3)]:
+        value=Fraction(activity["inputs"][key]);n.add(name,str(value),fixed(float(value),digits),proof,activity_sources,"decimal display of exact binary64-dyadic "+key+"; full rational input in receipt")
+    weighted_path=c.ROOT/"docs/reviews/s2-period18-weighted-independent-review.json";weighted=load(weighted_path)
+    assert weighted["passed"];w=next(v for v in weighted["units"]if v["name"]=="weighted")
+    width=Fraction(w["exact_parameter_endpoints"][1])-Fraction(w["exact_parameter_endpoints"][0]);assert w["passed"] and width==Fraction(1,16)
+    n.add("tWeightedPrimitiveWidth",str(width),str(width),proof,[weighted_path],"exact hidden-rate width of independently reviewed weighted primitive branch; no attraction claim")
+    arcpath=c.ROOT/"docs/reviews/s2-period18-arclength-independent-review.json";arc=load(arcpath)
+    arcsources=[arcpath]+bound_inventory(Path(arc["raw"])/"manifest.json",arc["outer_manifest"]["sha256"])
+    assert arc["passed"] and arc["checks"]["first_anchor_full_correlated_gauge_containment"] and arc["checks"]["independent384_bit_all_coordinate_inclusions"]
+    count=arc["result"]["chart_count"];assert count==len(arc["result"]["charts"]) and all(v["passed"]for v in arc["result"]["charts"])
+    n.add("nArcReviewedCharts",count,str(count),proof,arcsources,"independently reviewed initial arclength charts, distinct from later producer-only extensions")
+    endpoints=arc["result"]["exact_gauge_endpoints"]
+    n.add("tArcGaugeInterval",endpoints,"["+", ".join(endpoints)+"]",proof,arcsources,"exact affine gauge interval; not a hidden-rate interval")
     return n
 
 

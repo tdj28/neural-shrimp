@@ -55,3 +55,12 @@ Before release, complete the outstanding science, author review, reference-conte
 checks, a self-contained source archive and a clean compilation of that archive.
 Rigor labels follow the certified-computation playbook; historical filenames
 containing `certificate` do not by themselves denote interval proofs.
+
+
+The later independently reviewed primitive-branch extension uses weighted
+quadratic predictors and18 affine-gauge charts. It establishes native branch
+identity without extending attraction over the whole path or reaching the fold.
+A separate4D fixed-weight RNN activity proof establishes one attracting
+primitive5 cycle and its distinct odd-symmetry companion; these are not training
+cycles. Their cited independent audits are separate from the legacy full
+verifier. Further producer-only work remains in the research log until reviewed.

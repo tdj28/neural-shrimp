@@ -6513,3 +6513,7 @@ Saved-only card: combined-summary004 includes allnine panels(576nodes), original
 Bibliographic correction: the primary arXiv2404.00535v2 record identifies Lessard/Pugliese, Linear Algebra and its Applications728(2026)26–46, DOI10.1016/j.laa.2025.08.015. The earlier cusp card DOI10.3934/dcdsb.2024181/year2025 was a metadata error; immutable acquisition cards remain retained. The mathematical comparison was to arXivv2 and its ODE scope, unchanged by this correction.
 
 Saved-only summary004 reached figure writes but failed its final combined time/RSS gate before persisting measurements/summary. Retained allfiles, exactexecutedsource and failuremanifest; no science evaluations. Amendment: fresh summary005 keeps the same numerical calculation and45s/512MiB gates but saves separate elapsed/RSS gate results before assertion; execute under an external60s timeout and /usr/bin/time resource log. No interpretation of partial figures as a successful summary.
+
+## 2026-10-10 UTC: manuscript update from reviewed branch/activity evidence
+
+Integrate the independently reviewed weighted/initial18-chart primitive continuation and native4D primitive5 activity proof, keeping attraction and training/activity scopes separate. Generated numbers bind exact raw/audit hashes; old353entries/20figureoutputs will be checked unchanged. Cusp outcomes remain outside the reviewed manuscript statement until outcomeaudit resolves. Bibliographic metadata correction is recorded above. Compile/layout QA after source review; no new scientific acquisition in this manuscript pass.

@@ -441,6 +441,21 @@ boxes were too wide for the sufficient metric test; it does not fill all interve
 stability gaps or identify a bifurcation boundary. See
 \path{docs/reviews/s2-period18-localization-independent-review.json}.
 
+Quadratic predictors and positive coordinate weights extend the same primitive
+branch over a hidden-rate interval of width $\tWeightedPrimitiveWidth$.
+A subsequent independently reviewed set of \nArcReviewedCharts{} charts uses
+an affine continuation coordinate
+$s=n^T(U-U_0)$, where $U$ contains every native phase and the hidden learning
+rate, with $s\in\tArcGaugeInterval$. Full enclosure containment identifies the
+initial anchor and each subsequent common endpoint. The gauge interval is not
+a hidden-rate interval, and these wider existence/primitive-period checks do
+not extend the attraction statement to the whole branch. In particular, they
+do not yet identify the previously certified fold. Saved arithmetic was
+independently reconstructed at higher precision; the native derivative and
+path-jet acquisitions remain shared analytic inputs. See
+\path{docs/reviews/s2-period18-weighted-independent-review.json} and
+\path{docs/reviews/s2-period18-arclength-independent-review.json}.
+
 \subsection{A local fold of primitive period-18 cycles}
 \label{sec:fold-proof}
 
@@ -1266,6 +1281,22 @@ pilot supplies a separate test setting for the methods. Its cycles are not
 training cycles, and finite-leak observations do not establish an ODE limit.
 See \path{docs/reviews/clark-rnn-independent-review.json}.
 
+For a selected setting, a separate outward-rounded proof encloses a primitive
+period-\nClarkRNNPeriod{} activity cycle at exact dyadic inputs whose decimal
+displays are $g=\xClarkActivityGain$ and $\delta=\xClarkActivityLeak$.
+Its full-state return derivative satisfies
+$\|DF^5\|_\infty<\xClarkActivityBound<1$ throughout the certificate enclosure.
+Oddness of the fixed-weight map supplies a second cycle: every cyclic phase
+of the enclosed orbit is separated from its negative. This is one directly
+certified orbit plus a distinct symmetry-derived companion. An independent
+audit replays the original proof, verifies a strictly nested higher-precision
+box, and reconstructs the native map, Jacobian and proof inequalities using
+an exponential representation of $\tanh$. Arb/FLINT remains a shared trusted
+library. This local activity result establishes neither a periodic window nor
+training dynamics; it leaves the count of trained-network orbit certificates
+unchanged. See \path{certificates/clark-rnn-p5-receipt.json} and
+\path{docs/reviews/clark-rnn-p5-independent-review.json}.
+
 \paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter
 space. Freezing weights stops that map; sensitivity of fixed-weight predictions and feedback during generation
 require separate measurements. Parameter symmetries can even leave predictions unchanged along weight motion.
@@ -1390,7 +1421,9 @@ displays. Quoted empirical numbers and the design and consequence tables are gen
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
 feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
-LM pilots have separate source-bound saved-data audits cited with their results. The verification status of every reference is
+LM pilots, wider primitive-branch continuation, and the fixed-weight activity proof
+have separate source-bound audits cited with their results; the full verifier
+does not automatically rerun these later audits. The verification status of every reference is
 kept in \path{data/references-ledger.json}. The map study corresponds to the repository's EXP-028 plan and audit;
 its plan, receipts and audit are linked from \path{docs/EXP-028-results.md}. The exploratory streams are summarized in
 \path{docs/explore-criticality-2026-10-07.md}, \path{docs/explore-ancestry-2026-10-07.md},
