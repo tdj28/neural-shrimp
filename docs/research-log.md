@@ -5927,3 +5927,5 @@ retrieval timed out, so no formula audit is claimed. Clark is already cited.
 New weighted/arc proofs and later numerical boundary continuation remain outside
 this paper checkpoint pending independent outcome review. Fresh compile/render
 will check the reading draft; no scientific trajectory rerun is needed.
+
+Clark transfer PDF checkpoint: clean fresh-directory compile;37 pages,353 saved-data entries verified, including347 unchanged prior entries and6 new entries;20 figure-output hashes unchanged. All-page contact review and detailed pages11,31,33,34,35 pass. Independent wording review passed for localization, response, RNN and Clark paragraphs; primary-abstract check for daSilva/Rech performed by root. No scientific experiment repeated. QA receipt docs/reviews/paper-clark-transfer-qa.json. Goal remains active; this paper checkpoint is not a research stopping condition.
