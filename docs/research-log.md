@@ -7669,3 +7669,9 @@ with above worker/outer pins. Exclusive samebase/unit001. Peer source skim
 required before launch. CPU1nice10,360s/390+5external,2GiB,512/514MiB,
 1296C1/2592unit/288mixed maximum,1288stages. Fresh hostcheck; first failed
 bound stops. Complete144nativejoin mandatory. Unit002 has no launch card yet.
+
+2026-10-10 bcaec44c fixed143→142 adapter received boundary independent source
+skim PASS;10controls reproduced0.19s. Exact complete144 first receipt and
+fixed secondunit predecessor/index/source/counters/coverage, full original15
+native prefix, ordinary235D joins and removal of stale localized metadata
+checked. No math changes. Unit001 measuredcard ef3eef68 now clears peer gate.
