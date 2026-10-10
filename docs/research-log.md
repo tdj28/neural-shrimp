@@ -5596,3 +5596,9 @@ Root explicitly authorized the unchanged e02ad841 card. Execution1ffc0707 passed
 ### 2026-10-09 PDT: native RNN upper-fold proof preparation
 
 Root authorized this narrow boundary target after the nonclosing farther envelope. New native MixedJet composition reuses unchanged rigorous_folds engine; exact fixed gain10.02/J0, variable leakdelta, preselected g16-dir1-fold final00606. Card `docs/plans/clark-rnn-fold-certificate.md` fixes256/-80/fiveNewton/512, two synthetic evaluations and16max+5<=30s gate,30s45+5/CPU1nice10/512MiB/8+1MiB/128ticks. All returned Newton/wholebox/root gates retained; no target in this source-preparation entry. Native derivative/composition/domain/interruption controls plus unchanged fold/C1 controls pass25 tests. No old proof kernel altered; exact neutral local fold is distinct from complete shrimp anatomy.
+
+### 2026-10-09 PDT: native RNN fold profile passed; exact target card
+
+Frozen/private-pushed69410e27 synthetic profile completed.006013s internal/.166173s external,45320KiB. Two augmented returns give5.025934529s projection under30s. Outer d3bad8157ec91a3997d75020302e745ce2844e2d5d1ee6e0e5bb75ebc3619912; run7f51e5ca391d5f8bc6acc68d1f8155ec291b5604d269c70888632ba56695d4fa. All files/hash/modes and owned1021933/1021957/group exits verified. No target was read in profile. Root requested source read before the one fixed proof; source/card supplied.
+
+Exact next command under existing authorization: `nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_clark_rnn_fold.py --mode target --out /data2/neural-shrimp-data/explore/certificates/clark-rnn-fold-2026-10-09/attempt-001 --profile /data2/neural-shrimp-data/explore/certificates/clark-rnn-fold-2026-10-09/profile-001/run --profile-sha256 7f51e5ca391d5f8bc6acc68d1f8155ec291b5604d269c70888632ba56695d4fa`. Unchanged256/-80/fiveNewton/512,30s45+5CPU1nice10/512MiB/8+1MiB/128ticks; no automatic retry. Bound executable/card bytes remain unchanged.
