@@ -7274,3 +7274,30 @@ Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
 plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
 final failure or strict fold membership, no automatic alternate search.
 No attraction or full shrimp geometry is implied.
+
+### 10 October 2026 UTC — fold-directed unit001 outcome
+
+Execution c33834a52bd260321d8bc4186210afdb26329ff9, scientific source649805d2. Status failed_or_interrupted,
+15 qualified charts; 5 retained initial failures/reboxes.
+Last qualified hidden-rate endpoint [75.5981 +/- 4.74e-5]; fold membership rows [].
+Worker 71.5286s/475084KiB; launcher
+72.2953s, exit2. All inventories,
+decompressed payloads, initial/final predictor identities, native joins,
+immutable files and owned exits checked. 151427445 retained bytes.
+Worker manifest df78f5d1f4f1b358f8cdd3a9a6ccf3496949d5ae2568a9ff0471ca11232b6eb9; outer
+d90f7d2d79d5896cd98b91393bd5a324d179fd0d4924eba63961780a08455a08. Companion `docs/reviews/s2-period18-fold-march-unit001.json`.
+Independent review pending; no attraction or complete geometry claim.
+
+The terminal exception occurred before raw `batch.json` finalization: the
+receipt reconstructs only the 15 durable `chart_committed` records, verifies
+all corresponding native joins and retained initial/final identities, and
+keeps the failed `initial-015.json.gz` separately. Five earlier reboxes passed;
+the sixth proposal was rejected before a fresh reboxed derivative call.
+Original coordinate radius grew from 2^-21 to 2^-15; saved weighted bounds
+rose from 0.515573 to 0.955089, then the failed initial bound was 1.027856.
+The final qualified gauge endpoint is 33/128. This is 144 joined primitive
+charts in the producer chain, pending independent review of the newest 17;
+no fold membership or full-path attraction is claimed. No identical unit002
+is authorized from this incomplete unit under the frozen complete-parent
+admission. Next adaptation will explicitly authenticate the durable prefix,
+localize that known endpoint, and assess a smaller chart before extending.
