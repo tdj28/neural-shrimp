@@ -7673,3 +7673,20 @@ Exclusive `explore/eigenpair-locus-prototype/attempt-001-tangent-march-profile`,
 and13D complementary+1 controls, zero target model calls. See
 `docs/plans/eigenpair-tangent-march.md` for measured cost formula and future
 exact-input run cards. No target until profile and fresh source/resource gates.
+
+### 2026-10-10 — tangent-march profile passed; unit001 pre-run card
+
+Synthetic profile44f1eed8 passed1.1263s/79548KiB with zero model calls. All raw,
+source hashes and process exits verified; complete physical reanchor parent bind
+passed read-only at exact right3/128. Compact receipt
+`docs/reviews/eigenpair-tangent-march-profile.json`; source/card root skim passed.
+Forecast272.439s/708826328B/1701668KiB fits the unchanged300s/768MiB/2GiB limits.
+
+Run the exact committed command in `docs/plans/eigenpair-tangent-unit001.json`
+after fresh shared-resource check, CPU/BLAS1/nice10. Exclusive output
+`explore/eigenpair-locus-prototype/attempt-001-tangent-march-target`.
+At most4 accepted charts/5 whole-kernel calls/1root-only fresh-domain rebox;
+650ticks,300s/internal315+5external. Same full-state gauge/native phase/sign,
+all primitive and whole-root joins retained. Separate saved predictor projection
+and floating complementary+1 diagnostics remain noncertified. Preserve any
+failed tail and do not consume it as a parent without an explicit amendment.
