@@ -6282,3 +6282,17 @@ checks pass. Exact receipt `docs/reviews/s2-period18-reanchor-outcome.json`.
 Disclosed next step: saved-only positive anisotropic radii proposal retaining
 the complete correlated-anchor requirement, then a separately source-reviewed
 whole-domain reacquisition if justified. No unchanged retry or failed anchor.
+
+## 2026-10-10 — prospective saved correlated-anchor radii diagnosis
+
+Preserve the failed half-width chart. New card
+`docs/plans/s2-period18-correlated-radii-diagnostic.md` binds its exact manifest
+and source; one saved-only positive radii proposal uses full correlated anchor
+requirements, retaining forcing rows before any numerical solve.20s/30+5s,
+CPU1/nice10,1GiB,3MiBraw. No new derivatives or assumed changed-domain bounds.
+A later proof must freshly enclose the entire proposed box and pass unchanged
+strict root/primitive/anchor gates. No unchanged retry or prefix repetition.
+
+Precommit synthetic control exposed log2 rounding at a nextafter-above-power
+proposal. This new diagnostic uses frexp for exact binary exponent selection;
+all historical source/evidence remains unchanged. No target data was involved.
