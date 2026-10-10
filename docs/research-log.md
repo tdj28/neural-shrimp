@@ -7071,3 +7071,7 @@ unresolved, and the neutral fold is excluded. Earlier failures unchanged.
 ## 2026-10-10 — independent norm-cocycle saved-arithmetic review card
 
 Freeze an independently written saved-only checker for the two known successful norm-cocycle outcomes (38ea6ac3, outcome f03b5836), their native derivative acquisitions and uniform tangent premise. Post-outcome review, no new model or decomposition. Fixed 60s/80+5s CPU1, sampled2GiB,8MiB, one attempt; see `docs/reviews/norm-cocycle-saved-audit-card.md`. Synthetic controls and source checkpoint precede execution. Shared analytic derivatives and Arb are explicitly retained trust dependencies.
+
+## 2026-10-10 — independent norm-cocycle saved review completed
+
+One audit from066a2037 passed in2.719s,458240KiB. All four worker inputs plus outer inventory/source joins, exact Neumann/intersection reproduction,36phase operator gates and both complete metric gates passed with independent saved arithmetic. No derivative/model/decomposition acquisition. Full source/trust limitations and exact bounds: `docs/reviews/s2-period18-norm-cocycle-independent-review.json`. All output hashes, modes and three owned PID exits checked. The separate doubled-slice source6f989522 also received a static skim and35synthetic controls before its producer profile; this is distinct from its later outcome.
