@@ -11412,3 +11412,14 @@ wrapper review and current host availability before launch.
 Driver controls caught a wrong helper-module alias for finite_vector and a
 test command-index error before native execution. Corrected the direct import
 and test path position; mathematical kernel and scientific gates unchanged.
+
+
+### 2026-10-10 — Connected generic resonance reading PDF
+
+Source3f45e928 compiles44pages withoutwarnings/boxerrors.146wordabstract
+leads with proved interior→saddle-node→generic1:1connection.414numbers
+verify;404priorentries and20priorfigureoutputs unchanged. Newfigure
+regeneratesbyte-identically. All44pages inspected,8affectedpages atdetail.
+CurrentPDF and immutableQA bound in paper-connected-generic-resonance-qa.json.
+The reading checkpoint is not completion: finiteunit-pairaudit/globalwindow,
+widerattraction, nativeRNNanatomy andCIFAR/LMutility remainactive.
