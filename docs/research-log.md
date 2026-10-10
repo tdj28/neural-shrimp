@@ -7175,3 +7175,16 @@ PID checks pass. Strict full norm-cocycle metric passes on unchanged
 congruence margins>.980626. Earlier doubled failure remains immutable.
 This producer result awaits independent reduction including the saved Usecond
 and refined-tangent premises; no whole-branch, neutral-fold or shrimp claim.
+
+2026-10-10 prospective chart156 coverage amendment: after the fixed doubled
+slice passed, prepare seven remaining equal closed width1/1024 slices, keeping
+that eighth slice unchanged. New composition module and driver retain the
+base norm attempt, true-Udoubleprime refinement and final norm attempt with
+all exact same-domain/native-frame joins; old numerical/proof modules remain
+unchanged. Fixed descending seven-slice stream stops first failure, no retries.
+Full synthetic profile first, then measured pinned card before acquisition.
+Plan: docs/plans/s2-period18-chart-stability.md. Forty-seven focused controls
+pass; early synthetic test caught unsupported Arb negative indexing (repaired)
+and a fixture assumed bit-identical public decoding (corrected to containment).
+The mathematical fixture now uses an actual quadratic GD map, with no empirical
+inputs. Resource/proof scope as card; peer source skim before profile.
