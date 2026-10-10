@@ -5561,3 +5561,15 @@ candidate equations/nondegeneracy/crossing values. No trajectory, solve/eig/SVD,
 new acquisition or geometry/proof claim. CPU1nice10,60/75+5s,512MiB aggregateRSS,
 8MiB output; exclusive audits/clark-rnn/attempt-001. Source/card and independent
 synthetic controls committed before the one saved-evidence execution.
+
+### 2026-10-10 — Independent RNN saved review passed
+
+Source/card d1434523,33 synthetic controls(.26s), one immutable saved-only run:
+3.956s/218728KiB,CPU1nice10. All282 selected numerical cycle-seed qualifications,
+10550 retained-tail labels/growth reductions,324-cell edge-touching p5 component,
+and415 saved boundary evaluations (395 actual,20 synthetic) pass independent
+arithmetic. Three numerical folds/two transverse-minus-one points retained;
+third loweredge unresolved. No new trajectory/solve/eig/SVD or acquisition.
+Outer606de0eb94e3c7d14c2f8b80a73865b893dd0b95cda186a244777613942a7063;
+all hashes/read-only/PIDs checked. See docs/reviews/clark-rnn-independent-review
+.md/.json for exact limitations and pins; no shrimp/chaos/learning theorem.
