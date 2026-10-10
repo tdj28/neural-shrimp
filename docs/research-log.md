@@ -6805,3 +6805,28 @@ units. Before profiling, corrected only the emitted scope string to say
 "full correlated target-root containment"; role metadata already identified
 the center-branch endpoint. Root also independently passed the256-bit156th
 endpoint localization, so both input roots have reviewed provenance.
+
+### 10 October 2026 UTC — fold-directed forced-reboxing profile and unit001 card
+
+Source b97bbf0a508ce6680e6e62fb6d7c09c0c603dcf0; profile worker 8.1743s,
+399844KiB; launcher 8.8848s, exit0.
+Both forced rebox root paths and180/360 derivatives+108jets completed.
+Inventories, source/libraries/threads, immutable bytes and owned exits checked.
+Profile manifest 77297c28542b108ef19b3eb39a8b263245515f5a3d8d2bc23dbb25ad2c2ca0b0; projection 135.7883s,
+335544320B passes. Companion
+`docs/reviews/s2-period18-fold-reverse-march-profile.json`.
+
+Root independently reviewed scientific source b97bbf0a508ce6680e6e62fb6d7c09c0c603dcf0: fold-anchored restricted input and actual-runner admission were checked; full center-endpoint projection selects workload only, native joins and whole-box membership remain strict. Root authorizes this unit and distinct successor units from complete qualified endpoints under the unchanged design, stopping at first failed tail, center-to-fold identity, or neighborhood covered without identity.
+
+After this card is committed, run ONE unit:
+`tools/certify_s2_period18_fold_reverse_march.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-march-2026-10-10/unit-001
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-reverse-march-2026-10-10/attempt-001-profile/run
+--profile-manifest 77297c28542b108ef19b3eb39a8b263245515f5a3d8d2bc23dbb25ad2c2ca0b0
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-restricted-chart-2026-10-10/attempt-001-target/run
+--parent-manifest a1f641992973e0a3b1eee34cca5c5ca0a97a7efadcd1ae75e1322e3c48e332c6
+--parent-execution c5f9c0690e4364199e5a70b39c577854ef305c4f`.
+Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
+plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
+final failure or strict center-branch membership, no automatic alternate search.
+No attraction or full shrimp geometry is implied.
