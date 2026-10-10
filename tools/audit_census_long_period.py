@@ -7,6 +7,7 @@ from dataclasses import asdict
 from fractions import Fraction as F
 from pathlib import Path
 import numpy as np
+import flint
 from flint import arb,arb_mat,ctx
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src')]
 from neural_shrimp import rigorous_orbits as C
@@ -120,7 +121,7 @@ def main():
   nonlocal used
   b=C.canonical_bytes(v);need(used+len(b)<CAP,'512MiB audit cap');used+=len(b);p=out/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(b);f.flush();os.fsync(f.fileno())
- source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();identity={n:entry(ROOT/n)for n in SOURCES};save('runtime.json',dict(source_commit=source,pid=os.getpid(),sources=identity,threads=dict.fromkeys(THREADS,'1'),nice=os.getpriority(os.PRIO_PROCESS,0),precision=768,numpy=np.__version__,python=sys.version))
+ source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();identity={n:entry(ROOT/n)for n in SOURCES};save('runtime.json',dict(source_commit=source,pid=os.getpid(),sources=identity,threads=dict.fromkeys(THREADS,'1'),nice=os.getpriority(os.PRIO_PROCESS,0),precision=768,numpy=np.__version__,python=sys.version,python_flint=flint.__version__,flint=str(getattr(flint,'__FLINT_VERSION__','unavailable'))))
  for n in SOURCES:need(hashlib.sha256(subprocess.check_output(['git','show','HEAD:'+n],cwd=ROOT)).hexdigest()==identity[n]['sha256'],'committed dependency');p=out/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes());used+=p.stat().st_size
  result={'passed':False,'native_calls':0}
  try:
