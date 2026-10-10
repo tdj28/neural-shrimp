@@ -2,7 +2,7 @@
 import hashlib,json,os,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path('/data2/neural-shrimp-data/audits/native-unit-pair-flip-independent/attempt001')
+OUT=Path('/data2/neural-shrimp-data/audits/native-unit-pair-flip-independent/attempt002')
 
 def entry(p):return dict(bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest())
 def group(g):

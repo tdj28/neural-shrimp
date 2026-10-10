@@ -13,7 +13,7 @@ from neural_shrimp.rigorous_cusps import TwoRateCuspMap
 from neural_shrimp.rigorous_orbits import ball_json,matrix_json
 import certify_native_unit_pair_flip as B
 PARENT=B.BASE/'attempt002-target'
-OUT=Path('/data2/neural-shrimp-data/audits/native-unit-pair-flip-independent/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/native-unit-pair-flip-independent/attempt002/run')
 PIN='9c7c871fd974d752bef6139a8c0fa2b49496f495eaf54fc22ba37cf61c3cc6c3'
 WORKER='24ff31605b67a2c990fef915866396ce1fb59ae3aedd31f8f327399712ccbe17'
 EXECUTION='714813fa28110cbeb5fac57833c833ea19a3ed0e'
@@ -31,8 +31,8 @@ def main():
     def tick():
         nonlocal calls
         calls+=1;A.need(calls<=162 and time.monotonic()-start<60 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<1024**2,'fixed162phases/60s/1GiB')
-    def summary(root,proposal):
-        a=A.root_arithmetic(root);b=A.spectrum_crossing(root,proposal)
+    def summary(root,proposal,label):
+        a=A.root_arithmetic(root);save(label+'-root-arithmetic.json',dict(inclusions=a['inclusions'],contraction=ball_json(a['contraction']),proper_divisors=a['divisors']));b=A.spectrum_crossing(root,proposal)
         return dict(inclusions=a['inclusions'],contraction=ball_json(a['contraction']),proper_divisors=a['divisors'],complement_bounds=[ball_json(v)for v in b['complement_bounds']],crossing=ball_json(b['crossing']))
     result=dict(passed=False)
     try:
@@ -52,7 +52,7 @@ def main():
             save('binding.json',dict(root=str(PARENT),outer=PIN,worker=WORKER,source=EXECUTION,map_inputs=binding['map_inputs']))
             old=B.read(PARENT/'run/root.json');proposal=B.read(PARENT/'run/same-root-complement.json')
             A.need(old['dimension']==13 and old['period']==18 and old['settings']==dict(newton_steps=4,radius_exponent=-80),'literal original root')
-            saved=summary(old,proposal);save('saved-arithmetic.json',saved)
+            saved=summary(old,proposal,'saved');save('saved-arithmetic.json',saved)
             profile_root=B.BASE/'attempt002-profile';pb=B.read(PARENT/'run/profile-binding.json')
             B.inventory(profile_root,pb['outer']);B.inventory(profile_root/'run',pb['worker'])
             fixture=B.read(profile_root/'run/synthetic-inputs.json');pm=TwoRateCuspMap(fixture['map_inputs']);seed=[A.decode(v).mid()for v in fixture['seed']]
@@ -64,7 +64,7 @@ def main():
             center=[A.decode(v)for v in old['center']]
             fresh,_=root_proof(model,center,18,radius_exponent=-84,newton_steps=0,tick=tick,observe=observe)
             save('fresh-root.json',fresh);A.need(fresh['passed'],'fresh480 strict native root')
-            replay=summary(fresh,proposal);save('fresh-arithmetic.json',replay)
+            replay=summary(fresh,proposal,'fresh');save('fresh-arithmetic.json',replay)
             same=A.strict_nested(old['box'],fresh['box']);save('root-identity.json',dict(fresh_inside_original=same,original_box=old['box'],fresh_box=fresh['box']))
         result.update(passed=True,saved=saved,fresh=replay,same_unique_root=True,coordinates=55,scope='Independent saved interval root/complement/crossing arithmetic plus fresh480-bit zero-Newton shared-kernel native proof in a strictly nested box. Local unit-pair/simple-flip junction; no generic normal form or global connection.')
     except BaseException as exc:

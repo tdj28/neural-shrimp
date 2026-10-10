@@ -11907,3 +11907,8 @@ Prepare the fixed, development-only two-snapshot forecast in docs/plans/tiny-lm-
 ## 2026-10-10T23:54:46.483237+00:00 — independent local junction audit clearance and fixed run card
 
 Clark independently reviewed4054bd8a, reproduced four controls in0.13s and cleared exact55-coordinate Krawczyk arithmetic, primitive divisors, validated critical/complement frame, total physical-rate crossing and fresh480-bit same-root containment. Execute one fixed attempt001 under docs/plans/native-unit-pair-flip-independent.md:54synthetic profile phases+108fresh target phases,60s/1GiB worker,80+5s owned outer,32MiB raw. Fresh proof uses the shared native derivative kernel and is not a global connection or generic normal-form proof. The paired-snapshot LM packet is separately prepared with three controls PASS0.13s and awaits review; no LM target work yet.
+
+
+## 2026-10-10T23:56:05.590016+00:00 — preserve inconclusive55 audit and repair interval solve
+
+Attempt001 failed2.415s with0native calls at direct interval section.solve, which can reject an interval system even when another validated factorization succeeds. Complete immutable inventory and empty owned group verified; receipt native-unit-pair-flip-independent-attempt001.json retains the trace. Prepare independently preconditioned interval solves without changing the mathematical gates or target. The stronger source binding remains; attempt002 awaits review.

@@ -39,6 +39,17 @@ def root_arithmetic(root):
     need(box[n]>0 and box[n+1]>0 and box[3*n+2]>0 and box[3*n+2]<arb(1)/4,'positive rates and nonreal unit pair')
     return dict(inclusions=len(checks),contraction=norm(D),divisors=divisors)
 
+def validated_solve(A,b):
+    """Exact midpoint preconditioner; validated inverse of the interval product."""
+    n=A.nrows();need(n==A.ncols()and b.nrows()==n,'square interval system')
+    center=arb_mat([[A[i,j].mid()for j in range(n)]for i in range(n)])
+    raw=center.inv();R=arb_mat([[raw[i,j].mid()for j in range(n)]for i in range(n)])
+    inverse=(R*A).inv()*R
+    need(all(inverse[i,j].is_finite()for i in range(n)for j in range(n)),'validated preconditioned inverse')
+    residual=A*inverse-eye(n)
+    need(all(residual[i,j].contains(0)for i in range(n)for j in range(n)),'inverse identity enclosure')
+    return inverse*b
+
 def spectrum_crossing(root,proposal):
     n=root['dimension'];k=3*n+2;box=[decode(v)for v in root['box']]
     M,J=mat(root['monodromy']),mat(root['whole_jacobian']);need(M.nrows()==M.ncols()==n,'full native monodromy')
@@ -59,9 +70,9 @@ def spectrum_crossing(root,proposal):
     bounds=[sum((abs(T[i,j])for j in range(n-3)),arb(0)).upper()for i in range(n-3)]
     need(all(v.is_finite()and v<1 for v in bounds),'all complementary eigenvalues attract')
     section=arb_mat([[J[i,k]if j==n else J[i,j]for j in range(k)]for i in range(k)])
-    tangent=section.solve(arb_mat([[-J[i,n]]for i in range(k)]));physical=[arb(1)if i==n else tangent[i,0]for i in range(n+2)]
+    tangent=validated_solve(section,arb_mat([[-J[i,n]]for i in range(k)]));physical=[arb(1)if i==n else tangent[i,0]for i in range(n+2)]
     border=arb_mat([[M[j,i]+int(i==j)if i<n and j<n else w[i]if i<n else w[j]if j<n else arb(0)for j in range(n+1)]for i in range(n+1)])
-    left=border.solve(arb_mat([[int(i==n)]for i in range(n+1)]))
+    left=validated_solve(border,arb_mat([[int(i==n)]for i in range(n+1)]))
     derivative=sum((left[i,0]*sum((J[k+i,j]*physical[j]for j in range(n+2)),arb(0))for i in range(n)),arb(0))
     need(derivative.is_finite()and not derivative.contains(0),'nonzero total physical crossing')
     return dict(complement_bounds=bounds,crossing=derivative)

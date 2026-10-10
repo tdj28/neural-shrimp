@@ -40,3 +40,11 @@ def test_critical_quotient_and_total_crossing():
 def test_nonfinite_and_negative_ball_rejected():
     for v in [dict(mid=[1,0],rad=[-1,-80]),dict(mid=[1,0],rad=[0,0],finite=False)]:
         with pytest.raises(ValueError):A.decode(v)
+
+
+def test_preconditioned_interval_solve_encloses_solution():
+    with ctx.workprec(192):
+        a=arb_mat([[arb(2,arb((1,-60))),1],[1,3]])
+        b=arb_mat([[3],[4]]);x=A.validated_solve(a,b)
+        assert all(x[i,0].contains(1)for i in range(2))
+        with pytest.raises(ZeroDivisionError):A.validated_solve(arb_mat([[1,1],[1,1]]),b)
