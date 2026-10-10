@@ -10946,3 +10946,6 @@ exact gauge215/128→219/128.
 Exclusive audits/eigenpair-remaining-locus/unit013-attempt001. Same
 reviewed adapter,CPU1nice10,180s/195+5s,3GiB/4GiBAS,24/25MiBraw. Freshhost
 check before one launch; no new derivatives,loop or advance after failure.
+## 2026-10-10: saved N12 representation diagnosis card
+
+After all6 retained direction stops, compute all12 native sign/phase scores on EVERY saved parent/child match pair, both intrinsic sign-reversed half-wave residuals, and all proper-divisor1/2/3 distances. Bind complete boundary002 immutable manifest4d89c7a2. This is saved-array arithmetic only, no model/corrector/eigensystem calls and no relabeling old failures. Source tools/diagnose_clark_rnn_n12_phase_ties.py; single exclusive n12-p6-phase-diagnosis-001; CPU1nice10/5sinternal15+5external/448MiBRSS1GiBAS/2MiBworker1MiBmetadata. Immutable source/output/ownership recorded before any explicit native-representation amendment.
