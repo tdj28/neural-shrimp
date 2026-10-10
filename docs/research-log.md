@@ -8835,3 +8835,20 @@ Outeradab0e94902fe2cdbc397d5346d5bec73614ec59aacf4ed3a3272b220fa49572;
 run665d330535aacb5699d448478d9eab9d88111d9f145861c7bce9ea9ba1d525b0.
 Companions docs/reviews/eigenpair-wider-march-unit001.md/.json. Further units
 must be complete-parent pinned; independent outcome review pending at creation.
+
+### 2026-10-10 — exact complete-parent wider unit002 pre-run card
+
+New binding-only adapter refuses incomplete prior units, mismatched full/native
+parents, source/library changes, extra calls and wrong prospective endpoints.
+The reviewed fe35003a marcher and proof kernels remain unchanged. Seventeen
+focused synthetic controls pass0.30s. Exact unit002 pins and caps are in
+`docs/plans/eigenpair-wider-unit002.json`; generic source card is
+`docs/plans/eigenpair-wider-chain.md`. Start39/128; four prospective accepted
+endpoints43/128,47/128,51/128,55/128. Same4accepted/8calls/one repair perchart,
+400/420+5s,CPU1nice10,1040ticks,2GiB sampledRSS,512+1MiB.
+
+Root standing authorization directs continued bounded units; its stream is
+currently interrupted, so research_strategy provides the narrow independent
+source/native complete-parent skim before first launch. Fresh host check and
+clean committed source required. No target from this adapter has run yet;
+no gate relaxation or claim beyond connected normalized primitive eigenpairs.
