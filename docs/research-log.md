@@ -5600,3 +5600,17 @@ Run exactly the predeclared two outer width2^-15 probes using unchanged source:
 CPU/BLAS1,nice10,60s/75+5external,180/360 calls,400ticks,2GiB,128+1MiB.
 No full128-slice coverage, parameter search or boundary step is authorized by
 this card; continued research will adapt openly to these measured results.
+
+### 2026-10-09 local / 10 October UTC — finite localized probes pass
+
+Execution839c2494ad2ff5e2489e03e584a44e437518cd42 completed19.3137s/19.7715s,
+998308KiB,340ticks,180/180 wrapped and360/360 unit calls,exit0. Both fixed
+outer width1/32768 intervals pass the unchanged18-phase cyclic metric gates;
+three-step correction radii<5.941e-10 and<5.937e-10. Full hashes, immutable
+inventory, source/environment/caps and absent owned PIDs checked. Raw90,530,352
+bytes; worker4f3565a939ff47b349badecf56192edd9f45c5a357c52353b01bce9d6b13137b,
+outer6eb16640e673d76ee7b3c338f0eb7ed99b1fe49e374c828e13925915b9a26cc2.
+Companions `docs/reviews/s2-period18-localized-roots-outcome.{md,json}`.
+Independent outcome review pending; no whole1/256 attraction or boundary
+connection. Continued next work is nonlinear predictor scaling, not128 blind
+slices; code/card/profile will precede any new acquisition.
