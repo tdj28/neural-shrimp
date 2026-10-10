@@ -58,13 +58,28 @@ def joined(previous,chart):
  need(chart['parameter_endpoints'][0]==previous['parameter_endpoints'][1],'exact shared endpoint')
  need(all(chart[k]==previous[k]for k in ('period','dimension','sigma','shooting_dimension')),'same full native convention')
  return {'box':previous['endpoint_root_boxes'][1],'exact_parameter':previous['parameter_endpoints'][1]}
+def unit_shape(index):
+ if index==0:return (21,1,'direct',None)
+ if 1<=index<=13:return (22+4*(index-1),1 if index==13 else 4,'accepted','qualified_prefix_then_unresolved'if index==13 else 'four_joined_charts')
+ if index==14:return (71,1,'direct','one_repaired_partial_chart')
+ if index==15:return (72,2,'direct','two_narrower_charts')
+ if 16<=index<=23:return (74+4*(index-16),4,'accepted','qualified_event_stop'if index==21 else 'four_joined_charts')
+ if index==24:return (106,2,'accepted','rigorous_chain_membership')
+ raise ValueError('fixed remaining units only')
+def producer_selection(done,selected,spec,unit):
+ if unit==0:return
+ first,count,kind,status=unit_shape(unit)
+ need(done['status']==status==spec['producer_status'],'fixed retained terminal status')
+ if kind=='accepted':need(done['progress']['accepted']==[r['record']for r in spec['selected']],'exact entire accepted prefix')
+ else:need(selected['passed']is True and len(selected['charts'])==count,'exact complete direct chart count')
 def admit(out,specfile,spec):
- index=spec['index'];need(type(index)is int and 0<=index<=13,'fixed remaining wider units only')
+ index=spec['index'];need(type(index)is int and 0<=index<=24,'fixed remaining units only')
  need(specfile==ROOT/f'docs/plans/eigenpair-remaining-unit{index:03d}.json','fixed committed input card')
  need(out==BASE/('unit000-attempt002/run'if index==0 else f'unit{index:03d}-attempt001/run'),'exclusive audit output')
  if index==0:need(len(spec['selected'])==1 and spec['first_global_chart']==21,'one repaired first chart')
  else:
-  need(len(spec['selected'])==(1 if index==13 else 4)and spec['first_global_chart']==22+4*(index-1),'fixed complete accepted prefix')
+  first,count,kind,status=unit_shape(index)
+  need(len(spec['selected'])==count and spec['first_global_chart']==first,'fixed complete selected prefix')
   prior=BASE/('unit000-attempt002'if index==1 else f'unit{index-1:03d}-attempt001')
   need(Path(spec['prior_root'])==prior and spec['prior_endpoint']=='run/endpoint.json','immediate independent predecessor only')
   need(spec['outcome_passed']is(index!=13)and spec['producer_exit']==(2 if index==13 else 0),'partial final unit explicitly retained')
@@ -90,13 +105,15 @@ def worker(out,specfile):
   root=Path(spec['root']);run=root/'run';verify(root,spec['outer']);verify(run,spec['worker']);rt=source_bind(run,spec['execution']);la=read(root/'launcher-result.json');done=read(run/'outcome.json');inp=read(run/'inputs.json')
   need(la['commit']==spec['execution']and la['exit_code']==spec.get('producer_exit',0) and la['owned_live_pids']==[]and la['stop_reason']is None and done['passed']is spec['outcome_passed'],'exact complete producer unit')
   need(inp['parent']==previous,'complete original native predecessor')
-  if unit>0:need(done['status']==spec['producer_status']and done['progress']['accepted']==[r['record']for r in spec['selected']],'exact entire accepted prefix and retained terminal status')
+  selection=read(run/'result.json')if unit in (14,15)else None
+  producer_selection(done,selection,spec,unit)
   need(entry(MAP_INPUT)['sha256']==MAP_SHA,'exact independently audited eigenpair map file');same_map(inp['map_inputs'],read(MAP_INPUT))
   need(not Path('/proc',str(rt['pid'])).exists(),'producer absent');gc.collect();tick()
   for index,row in enumerate(spec['selected']):
    p=run/row['path'];need(entry(p)==row['identity'],'exact saved full witness');c=read(p);need(c['parameter_endpoints']==row['expected_endpoints']and c['settings']==row['settings'],'fixed chart and settings')
-   if unit>0:
+   if unit_shape(unit)[2]=='accepted':
     ap=run/row['accepted_path'];need(entry(ap)==row['accepted_identity'],'exact accepted compact witness');accepted=read(ap);need(accepted['chart']==compact(c)and accepted['call']==row['record']['call']and accepted['index']==index,'full and compact native identity')
+   elif unit in (14,15):need(selection['charts'][index]==compact(c),'complete direct compact identity')
    known=joined(previous,c);events,attempts=event_group(run,row['path']);r256=E.check_chart(c,known,events,256,expected_settings=row['settings']);save(f'chart{index}-256.json',r256);tick()
    r384=E.check_chart(c,fresh,events,384,expected_settings=row['settings']);save(f'chart{index}-384.json',r384);tick();need(r256['passed']and r384['passed'],'independent native root primitive and full join')
    result['charts'].append({'global_chart':spec['first_global_chart']+index,'exact_endpoints':c['parameter_endpoints'],'passed':True,'contraction384':r384['contraction'],'coordinate_inclusions':r384['inclusions'],'earlier_attempt_returns':attempts[:-1]})

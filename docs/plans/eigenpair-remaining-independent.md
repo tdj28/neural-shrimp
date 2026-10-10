@@ -69,3 +69,19 @@ same-math8chart93.715s and fresh single12.548s support this four-chart cap.
 No new phase/path acquisition. Twenty-six controls pass, including invalid
 unit/count/predecessor/pin/partial-status admission negatives; peer skim before
 unit001. Further cards may proceed under this unchanged reviewed adapter.
+
+10 October 2026 tail admission amendment (preparation, no new proof kernel):
+fixed units014–024 extend the same saved replay from the 70-chart independently
+required prefix, with one repaired partial chart, two narrower charts, six
+four-chart neutral units, and 4+4+2 event-membership bridge charts. The exact
+counts/global indices are fixed in unit_shape, including qualified_event_stop
+for unit021 and rigorous_chain_membership for unit024. Direct results014/015
+must expose their entire successful chart list, exactly equal to selected full
+witness compact fields; other units retain the complete accepted-record list.
+Full original predecessor identity, fresh independently computed384 endpoint,
+map/source/inventory pins, primitive divisors and unchanged256/384 proofs remain
+mandatory. No end-of-run membership flag substitutes for replay of the final
+chart; final lift/membership arithmetic is a separate later audit. Every next
+card is frozen only after the immediately preceding independent PASS, with its
+actual immutable manifest, no loop or advance after failure. Same CPU1nice10,
+180s/3GiB RSS/4GiB AS/24MiB worker caps. Source skim before tail execution.

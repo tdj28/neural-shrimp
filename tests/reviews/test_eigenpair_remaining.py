@@ -54,3 +54,26 @@ def test_fixed_complete_units_and_disclosed_partial_unit():
 def test_unfrozen_or_mismatched_next_unit_fails(key,value):
  d=admission();d[key]=value
  with pytest.raises(ValueError):R.admit(R.BASE/'unit001-attempt001/run',R.ROOT/'docs/plans/eigenpair-remaining-unit001.json',d)
+
+
+@pytest.mark.parametrize('i,first,count',[(14,71,1),(15,72,2),(16,74,4),(21,94,4),(22,98,4),(23,102,4),(24,106,2)])
+def test_tail_exact_complete_units(i,first,count):
+ d=admission(i);d.update(first_global_chart=first,selected=[{}]*count)
+ assert R.admit(R.BASE/f'unit{i:03d}-attempt001/run',R.ROOT/f'docs/plans/eigenpair-remaining-unit{i:03d}.json',d)==i
+ d['selected']=d['selected'][:-1]
+ with pytest.raises(ValueError):R.admit(R.BASE/f'unit{i:03d}-attempt001/run',R.ROOT/f'docs/plans/eigenpair-remaining-unit{i:03d}.json',d)
+
+def test_direct_tail_preserves_terminal_status_and_complete_count():
+ d={'producer_status':'one_repaired_partial_chart'}
+ R.producer_selection({'status':'one_repaired_partial_chart'},{'passed':True,'charts':[{}]},d,14)
+ for selected in [{'passed':False,'charts':[{}]},{'passed':True,'charts':[]}]:
+  with pytest.raises(ValueError):R.producer_selection({'status':'one_repaired_partial_chart'},selected,d,14)
+ with pytest.raises(ValueError):R.producer_selection({'status':'four_joined_charts'},{'passed':True,'charts':[{}]},d,14)
+
+def test_event_terminal_is_not_ordinary_completion():
+ for i,status in [(21,'qualified_event_stop'),(24,'rigorous_chain_membership')]:
+  rows=[{'record':{'index':k}}for k in range(R.unit_shape(i)[1])]
+  spec={'selected':rows,'producer_status':status};done={'status':status,'progress':{'accepted':[r['record']for r in rows]}}
+  R.producer_selection(done,None,spec,i)
+  done['status']='four_joined_charts'
+  with pytest.raises(ValueError):R.producer_selection(done,None,spec,i)

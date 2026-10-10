@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[2]
 BASE=Path('/data2/neural-shrimp-data/audits/eigenpair-remaining-locus')
 def entry(p):b=p.read_bytes();return {'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
 def main(unit=0):
-    assert type(unit)is int and 0<=unit<=13
+    assert type(unit)is int and 0<=unit<=24
     OUT=BASE/('unit000-attempt002'if unit==0 else f'unit{unit:03d}-attempt001')
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
@@ -40,4 +40,4 @@ def main(unit=0):
     OUT.chmod(0o555);print(json.dumps({'root':str(OUT),'exit_code':code,'manifest':entry(OUT/'manifest.json')}),flush=True);return code
 if __name__=='__main__':
     import argparse
-    p=argparse.ArgumentParser();p.add_argument('--unit',type=int,choices=range(14),required=True);a=p.parse_args();raise SystemExit(main(a.unit))
+    p=argparse.ArgumentParser();p.add_argument('--unit',type=int,choices=range(25),required=True);a=p.parse_args();raise SystemExit(main(a.unit))
