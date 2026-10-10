@@ -8116,3 +8116,9 @@ Prepared source-only saved gauge/conditioning diagnosis: all20accepted points mu
 ### 2026-10-10 exact saved scout gauge-diagnosis card
 
 Clark source9503d6ed independent PASS,2controls0.11s. Execute only scout/attempt001-diagnosis, exact completed20point/84return scout002 source and manifests. Zero native calls; compute saved41D singular values, implicit tangent/residual and q²−t r² gauge factor, with allfailed attempts retained.30s/1GiB sampled RSS/2GiB AS/8MiB output,40+5 owned timeout,CPU1nice10. Existing source-bound profile shows ample shared headroom; launcher freshly rechecks. Numerical diagnostic only, not a singularity or event proof.
+
+### 2026-10-10 saved gauge diagnosis points toward angle turning; fixed-rate section
+
+Source1914a480 saved diagnosis passed.560s/58108KiB,0native. Last q²−t r²=.958581, while d(hidden rate)/dt=408.412 and d(output rate)/dt=−.009016. Hidden-rate tangent sign changes between accepted t.01781795 and.02672692. Failed next-t corrections alternate large signed rate tangents with nonzero residual; this suggests an angle-coordinate turn, not a proved singularity or gauge failure. Immutable source/complete inventories/ownership verified; native-unit-pair-scout-diagnosis.json.
+
+Prepared full41fixed-hidden-rate/free-t section. Before extending, reverse through all19earlier native saved points and compare all704coordinates; each new rate step additionally requires a full reverse native join. Same q/r gauge and original science guards,48points/360returns inclusive, unchanged measured ceilings with fresh actual-section synthetic profile required. Fourteen core/driver/reverse controls pass.27s. No section profile or target yet; source peer skim next.
