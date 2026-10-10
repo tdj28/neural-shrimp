@@ -8228,3 +8228,25 @@ Pre-profile review amendment: peer driver skim passed same-gauge/model/uniform t
 2026-10-10 cocycle profile amendment: attempt001 launcher failed on missing io.canonical_bytes before writing launch metadata or spawning a child; no model acquisition. Retain the empty directory with a source-bound preparation-failure record. Explicit canonical serializer import plus actual plain/gzip save/read test repairs it. New exclusive attempt-002-profile keeps the same source-reviewed math/settings/caps; no empirical target has run.
 
 The added serialization control initially omitted the required gzip payload sidecar and failed before any profile rerun; corrected the fixture to write its returned size/checksum sidecar, matching production. No production scientific path changed for that test-only correction.
+
+### 2026-10-10 — correlated cocycle profile002 and exact single-target card
+
+Source fff2638abcda16af06b802613fc9e8031a784c73; complete90C1/180unit/18mixedcalls, three center intersections,
+18common-variable product updates and the positive metric path all complete.
+Worker 5.234875s/439880KiB;
+launcher 5.768357s exit0. All hashes, gzip payloads,
+readonly modes and task-owned PID absence verified. Profile worker 5cb06e734880e93e32752ea48fec193ac94c1434171be967ecc75622d472fb59;
+outer 1723dda6a65c300c6c70421c0ac6a253eee6fc2a8fbca6a00e74111c2395e87c. Strict admission projects30.939500s<90
+and134217728B<224MiB. Profile is resource-only.
+
+Run ONE target using unchanged source-reviewed method/settings and same
+failed independent-phase slice [719/2048,45/128]:
+`tools/certify_s2_period18_correlated_cocycle.py --mode target --out
+/data2/neural-shrimp-data/explore/certificates/s2-period18-correlated-cocycle-2026-10-10/attempt-001-target
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-correlated-cocycle-2026-10-10/attempt-002-profile/run --profile-manifest 5cb06e734880e93e32752ea48fec193ac94c1434171be967ecc75622d472fb59
+--profile-outer-manifest 1723dda6a65c300c6c70421c0ac6a253eee6fc2a8fbca6a00e74111c2395e87c`.
+CPU/BLAS1,nice>=10,256bits,90s/105+5s,2GiBmonitored,500ticks,
+90C1/180unit/18mixedcalls,256+1MiBraw. Fresh shared-host resource check
+before launch. Retain all stages/failures; no automatic width/grid search.
+Peer research_strategy reviewed source/math/input bindings and independently
+ran31 controls; serializer-only followup has32 passingcontrols.
