@@ -6769,3 +6769,24 @@ This is not a widened derivative enclosure or proof. Companions
 and matrices. The result justifies preparing one doubled-halfwidth fresh-domain
 two-chart target; no target run yet, no old proof extrapolated, all gates/radii
 and whole native endpoint identity must be rechecked.
+
+### 2026-10-10 — doubled-width fresh-domain pilot source / pre-run card
+
+After saved diagnosis42207d75 reports heuristic.95093323<1, prepare exactly one
+fresh doubled-width two-chart pilot. Parent is complete tangent unit002,
+right19/128; first center21/128 spans[19/128,23/128], conditional second25/128
+spans[23/128,27/128]. Initial is only the old exact predictor proposal at3old
+halfwidths; the entire prior endpoint anchors identity. Same coordinate radii,
+normal/origin, native phase/mode sign,256bits/twoNewton and all gates. Fresh
+whole widened C1/path arrays required; no extrapolated proof, retry or rebox.
+Twelve synthetic/control cases passed0.23s, including both signs and exact30
+native/tick coupled two-chart count. Original mathematical kernels unchanged.
+
+Source/card commit precedes `tools/launch_eigenpair_wider.py`, after root brief
+source skim and fresh resources. Exclusive
+`explore/eigenpair-locus-prototype/attempt-001-wider-target`; CPU/BLAS1nice10,
+150s/internal170+5external,260ticks,2GiB monitoredRSS,384+1MiB raw. Existing
+measured same-kernel operation counts admit the trial; no extra synthetic neural
+profile. Preserve any incomplete/failed first or second chart and only report
+actual strict gates. See `docs/plans/eigenpair-doubled-width.md` for full cost,
+inputs and limitation rationale. No target launched during source preparation.
