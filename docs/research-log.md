@@ -10366,3 +10366,12 @@ fixed unit275/128→283/128, at most4accepted/8calls, under unchanged400s/2GiB
 worker caps. Exact root/lift/parent and measured resource forecast are in
 docs/plans/eigenpair-chain-bridge-unit001.json. No other unit begins without
 a complete accepted predecessor and its own card.
+
+### 2026-10-10 — membership bridge unit001 passed; exact unit002 card
+
+Four new full470 native root/anchor/primitive proofs pass through283/128,
+78.361s/1,128,780KiB,4calls/no repair. Total101 accepted native charts.
+Existing event membership correctly remains false because its gauge lies ahead.
+All raw inventories/source identities and owned exit verified. Run exactly
+unit002 from this completed predecessor to291/128 under unchanged caps;
+source/host/receipt pins in docs/plans/eigenpair-chain-bridge-unit002.json.
