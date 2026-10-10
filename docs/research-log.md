@@ -7626,3 +7626,19 @@ original/localization parent, source-bound3intersections, full235D localized
 anchor, same map/gauge/shared33/128 and restored native8-slice coverage.
 The measured card b2945c90 is now admissible under the peer gate; source
 unchanged since the positive synthetic profile. No audit-scope expansion.
+
+2026-10-10 eight-piece chart144 pilot at 04d33ff94c8cd47cd2879337879c12cf98b48a01 completed once,
+192.119064 s / 714664 KiB; 8 returned slices,
+1288 stages. Overall passed=True.
+Worker 900fa3a928a738a7c540cbb075baa6e2709017a86af378d24f15390d0edf8b1b;
+outer 19d7e1b60f4e02588fa998006678ec6a266cf0d097d874ce3e2e43aafae11824.
+All inventory/source/count/read-only/ownership checks pass; 298161288 B.
+All eight closed intervals of chart144 have producer sufficient attraction bounds. This extends the connected producer-covered known primitive18 branch interval to [31/128,45/128]; independent audit pending. No whole-shrimp or two-dimensional-region claim.
+Full-width failed witness remains intact.
+
+2026-10-10 producer attraction coverage now96 adjacent closed slices on
+original charts144–156, common native gauge[31/128,45/128]. Both native
+chart and localized-endpoint joins are retained; no separate orbit count.
+Root independent audit remains24 slices on152–154 at this checkpoint.
+The newest144 eight-piece pass depends on the refined U'' method; all
+base attempts are retained false. No complete-shrimp classification follows.
