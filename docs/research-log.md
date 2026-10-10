@@ -7831,3 +7831,17 @@ Ten further halfwidth-7 charts, in bounded4+4+2 units, would cover the event
 strictly before295/128. Prepare that explicit bridge and require all470
 uniqueness-domain inclusions. Root/quotient independent audit proceeds in
 parallel; no stability-side, generic unfolding, or complete shrimp claim yet.
+
+### 2026-10-10 — exact bounded membership bridge source
+
+Prepared fixed4+4+2 native charts from275/128 to295/128, matching the rigorous
+lifted event gauge enclosure. The unchanged full470D tube/repair kernels retain
+all native root/phase/mode/rate/anchor/divisor gates; one nonshrinking fresh
+repair per chart remains the maximum. Numerical near-neutral stopping served
+its original search purpose; the new driver stops on strict full470D membership
+of the authenticated root, or on the fixed cap/failure. Final gauge coverage
+without membership is unresolved. Thirty-four focused controls pass0.16s.
+Independent source review and exact per-unit cards precede any continuation.
+Clark's separate384-bit root/quotient audit now proves exact+1multiplicity2 and
+an attracting11D complement; these are still not generic unfolding or a complete
+shrimp. Stability peer is preparing saved arithmetic review past the first20.
