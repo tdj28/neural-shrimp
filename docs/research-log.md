@@ -5975,3 +5975,7 @@ N12 boundary002 actual resource admission113.2253s passed, target completed0.792
 ## 2026-10-10: saved N12 representation diagnosis card
 
 After all6 retained direction stops, compute all12 native sign/phase scores on EVERY saved parent/child match pair, both intrinsic sign-reversed half-wave residuals, and all proper-divisor1/2/3 distances. Bind complete boundary002 immutable manifest4d89c7a2. This is saved-array arithmetic only, no model/corrector/eigensystem calls and no relabeling old failures. Source tools/diagnose_clark_rnn_n12_phase_ties.py; single exclusive n12-p6-phase-diagnosis-001; CPU1nice10/5sinternal15+5external/448MiBRSS1GiBAS/2MiBworker1MiBmetadata. Immutable source/output/ownership recorded before any explicit native-representation amendment.
+
+## 2026-10-10: explicit N12 native representation amendment
+
+Saved-only diagnosis b833ed1d completed0.08264s/33892KiB:35 pairs, all native error<=0.00301659, min proper divisor0.875847, raw native-minus-best<=7.43e-16; half-wave symmetry residual<=8.48e-14. Six prior stops are argmin representation ties, retained unchanged. Explicit amendment requires native<.05 and native score within64eps of raw minimum, retaining rawargmin/gap/tolerance and all true full-state proper-divisor/adjacent/reverse gates. No symmetry quotient or phase reassignment. New synthetic half-wave ties and real phase-jump negative control before source skim and single fresh003 profile/target. Receipt docs/reviews/clark-rnn-n12-phase-tie-diagnosis.json.
