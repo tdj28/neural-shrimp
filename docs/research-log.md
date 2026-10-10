@@ -10619,3 +10619,17 @@ and primitive18 retained. This local existence result has no numerical epsilon.
 Finite interval tubes and complete boundary organization remain the next work.
 The positive s sign indicates subcritical/repelling local invariant circles;
 do not force a fold/flip shrimp interpretation onto different actual geometry.
+
+### 2026-10-10 — native704 finite-unit-pair kernel and controls
+
+Prepared source-only continuation from the proved connected Jordan point.
+Native18-phase (x,q,r), two physical rates and both normalization rows remain
+in the full704D Krawczyk proof. The regularized t=angle² closure handles t=0
+without division or square-root singularity. Two exact MixedJet passes per
+phase, full parameter derivative, condensed inverse proposal and whole-domain
+C1 residual are implemented. Fifteen synthetic controls cover finite positive
+extent, nonlinear exact-rate formulas and repeated-cycle rejection. No target
+or full-size profile acquired. First control failures about outward parameter
+rounding were corrected by checking advertised rational interval endpoints
+while evaluating the unchanged analytic extension on the wider Arb domain.
+Next: independent source skim, measured704 profile, then a bounded frozen card.
