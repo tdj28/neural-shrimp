@@ -9674,3 +9674,20 @@ Add independently proved24-slice continuous attraction with exact affine gauge, 
 ### 2026-10-10 — Current reading PDF with independently audited continuous attraction
 
 Source88704db0,397 bound numbers verified;385 prior entries and20 figure hashes unchanged. Local multi-file latexmk completed40pages without warnings/box errors. All40pages visually inspected, pages1/2/12/29/34 atdetail. Updated readingPDF and immutable QA bound in docs/reviews/paper-continuous-attraction-qa.json. Includes24closed attracting slices, ordinary-gradient contrast explanation, negative response checks and N12floating activitypanel. Full shrimp/all-path attraction remain open. No full legacy verify.py replay or fresh scientific acquisition in this manuscript checkpoint.
+2026-10-10 stability march unit001, original chart003, execution
+f21fdacf37c9006c65037e70c05bd3f0c5732070: passed=True, 175.238598s /
+695744 KiB; 8 returned slices, 1288 stages.
+Worker 305fe2bdeba55ee13185d3c6351f3731b74ced8939c7a0ac2c21b7c88b3455d0; outer b304b287f26edc157b32e349826c74343e8216f7dec549b6b925e6a13f59a519.
+All raw/source hashes, read-only outputs and absent owned PIDs checked;
+300763694 B. First norm passes 8/8;
+every initial result remains unchanged. Exact requested coverage
+['19/64', '39/128']; independent saved outcome review pending.
+
+Exact next resumed unit002 card: original chart002/global149, eight closed
+slices[37/128,19/64], unchanged scientific method/caps. Predecessor
+/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/unit001/run, worker305fe2bdeba55ee13185d3c6351f3731b74ced8939c7a0ac2c21b7c88b3455d0,
+outerb304b287f26edc157b32e349826c74343e8216f7dec549b6b925e6a13f59a519. Profile/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/attempt001-profile/run,
+worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8,outer8fc0a156d9a39eaf02801a25dd8f14e98960486e58a0f38d3a59bff78307962f.
+Exclusive s2-period18-stability-resume-2026-10-10/unit002.
+CPU1nice10,360s/390+5,2GiB,512MiBworker/514aggregate,1296C1/2592unit/288mixed.
+Fresh resources; stop first failed gate; no prior slice repeated.
