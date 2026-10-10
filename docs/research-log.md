@@ -7652,3 +7652,20 @@ unbounded automatic march. New source/card/tests before fresh single complete
 synthetic profile; each scientific unit still gets its separately committed
 exact measured predecessor card.18combined adapter controls pass; peer source
 skim pending. No current worker or duplicate acquisition.
+
+2026-10-10 two-predecessor synthetic profile at bcaec44c03c8ee77dfa5fcf17f00ed79da893bc1
+completed once12.432401773s/534324KiB,all161stages and162C1/324unit/36mixed.
+Source/inventory/read-only/owned-exit checks pass. Worker
+fb4102ca9ac655f33a38b4d6b7dfe607d226e1c590769c3cff9f6bc6ad7cce9f;
+outer42335faee3d044ac78c78b67c317c25ac86f4e4f9f9819d71aa39657fef6e719.
+Conservative313.377643s<360,402653184B<448MiB.
+
+Exact next card: only unit001,index13/global143,[29/128,31/128], eight closed
+1/512pieces. Predecessor /data2/neural-shrimp-data/explore/certificates/s2-period18-localized-predecessor-stability-2026-10-10/attempt001-target/run,
+worker900fa3a928a738a7c540cbb075baa6e2709017a86af378d24f15390d0edf8b1b,
+outer19d7e1b60f4e02588fa998006678ec6a266cf0d097d874ce3e2e43aafae11824.
+Profile /data2/neural-shrimp-data/explore/certificates/s2-period18-two-predecessor-stability-2026-10-10/attempt001-profile/run
+with above worker/outer pins. Exclusive samebase/unit001. Peer source skim
+required before launch. CPU1nice10,360s/390+5external,2GiB,512/514MiB,
+1296C1/2592unit/288mixed maximum,1288stages. Fresh hostcheck; first failed
+bound stops. Complete144nativejoin mandatory. Unit002 has no launch card yet.
