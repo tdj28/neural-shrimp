@@ -7023,3 +7023,16 @@ CPU/BLAS1,nice>=10,256bits,90s/105+5s,2GiBmonitored,500ticks,
 before launch. Retain all stages/failures; no automatic width/grid search.
 Peer research_strategy reviewed source/math/input bindings and independently
 ran31 controls; serializer-only followup has32 passingcontrols.
+
+### 2026-10-10 — common-gauge cocycle fixed-slice outcome
+
+Execution4ef38b0530ada42ec8164777d136768627989eed, sourcefff2638a, peer static review before target. All90C1/180unit
+and18mixedcalls returned; three center intersections,18phase models and18
+common-variable product updates retained. Worker16.765432s/
+588884KiB; launcher17.527382s,exit0.
+Worker manifestdafbf4da8cf43a60b4c65883aa2d6874b756a788af97925fc531a0c810ea364b; outer
+0f60dc81ca84872496a8ef916f3c4cbdf7d3ea530b1e526d063b4cd2563c1f93; every inventory/payload/read-only/PID check
+passed. P and point decrease pass, but full interval decrease FAILS. No
+slice-attraction or instability claim follows. No width search or new
+trajectory/proof-prefix rerun occurred. Preserve this diagnosis before any
+method adaptation; next work must identify the saved remainder bottleneck.
