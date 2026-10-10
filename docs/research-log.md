@@ -7242,3 +7242,7 @@ After completed unit008 (53 connected producer charts; recent outcomes pending i
 ### 2026-10-10 — shooting-adjoint profile passed; fixed saved target admitted
 
 Peer research_strategy independently skimmed full8a3029f3 source/math/driver/card/launcher and reproduced23 controls0.12s, no blocker. One synthetic235D profile passed in1.249383583s/92920KiB; exact outer9d5f5ea08b6814539235f1c49200f24cd9d93433be8e4a15e7e88434191067f9. Full inventories/current+archive+Git sources/read-only/owned PID absence checked. Fixed3x+10 cost gate13.748150749s<60 admits ONE saved unit008 last-chart reduction with unchanged source/card, CPU1nice10,60s/75+5,1.5GiB,32+1MiB. Profile and target source bytes remain identical; this log/receipt is metadata only. Fresh host capacity checked by launcher; no model calls or other slot selection.
+
+### 2026-10-10 — shooting-adjoint partial interval result retained
+
+Source8a3029f3, execution501f356e, peer source reviewb9c7026a. One saved target endedexit2 after6.0730s/569116KiB: uniform weighted border contraction.439318943 proves conditional simple+1, but both transversality and quadratic coefficient exclusions fail. All returned arrays/result/immutable inventories/owned PID absence verified, no model calls. This is partial evidence, not overall fold certification. Companion docs/reviews/eigenpair-shooting-fold-outcome.json retains exact pins and failure.
