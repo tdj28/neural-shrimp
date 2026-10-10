@@ -8366,3 +8366,11 @@ retain the true tangent. Floating radius ratios span 0.226826–0.253403.
 This is a conditional derivative improvement only, not attraction. It
 justifies preparing one18mixed-call reevaluation on the unchanged doubled
 state/rate slice; separate source/card/profile before acquisition.
+
+2026-10-10 prospective refined-tangent acquisition: one18mixed-call update
+on EXACT unchanged doubled slice/state/rate domain after all235 true tangent
+radii narrowed by~4x in source-reviewed saved reductiondb95fc15. Retain old
+center Jacobians and cyclic frames; no new root/C1 acquisition. Unchanged
+norm-cocycle gates decide. Synthetic18x13 profile then measured exactpins/card
+before one30s/1GiB target. Source/card tests before any acquisition; plan
+at docs/plans/s2-period18-refined-tangent-cocycle.md. No broad parameter search.
