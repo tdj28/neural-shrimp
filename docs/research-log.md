@@ -10703,3 +10703,10 @@ advance after failure.26controls pass. First card unit001 fixes globals22–25,
 pins in docs/plans/eigenpair-remaining-unit001.json. CPU1nice10,180s/195+5s,
 3GiB/4GiBAS,24/25MiBraw. Fresh measured12.548s forone and prior93.715s foreight
 support cap. Peer source skim before one first four-chart saved audit.
+
+2026-10-10 Clark differential skim99d99a40 PASS,26controls0.10s.
+Unchanged math,strict immediate independent predecessor/count/fresh384 anchor,
+whole accepted prefix/full+compact identities,and explicit partialunit13
+retention checked. Only committedunit001card clears launch now; subsequent
+fixed cards still require normal pre-run recording. Execute one saved-only
+unit001 (globals22–25) under unchanged180s/3GiB/24MiB cap.
