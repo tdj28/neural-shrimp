@@ -11629,3 +11629,7 @@ Clark source/math skim84a2dbb2 PASS,14controls reproduced.22s. Execute only fres
 ### 2026-10-10 measured native physical-rate section target card
 
 Profile106d9ce7 passed2.629s/47164KiB,432native phases. Complete source/history/archive/inventory and owned termination verified. Outer6a86813395d42dcac864f028d26e9e9d01af2b8e04d89c92aa4698e51a5f8d7c; workerfd92cc99f55be72c3bf3dcc6c289ddca009b8bb490e7390db202bb42bea7e875. Full360return forecast118.422s/1,400,000KiB/40,665,488bytes fits unchanged caps. Run one exclusive section/attempt001-target using these exact profile pins and exact original20point/84return scout002. Reverse all19 prior native points first, then fixed hidden-rate+.25 continuation with full native reverse on every step,48point/360return/12960phase maxima and original period/spectrum/gauge/rate/neighbor guards. Retain failures and all returns; no finite complement/criticality/complete-window proof implied.
+
+## 2026-10-10: fixed-leak daughter continuation card
+
+After retaining lower-gain amplitude guard and qualifying higher-gain native fold, continue only the exact two last accepted attracting extension001 endpoints with32 fixed leak decrements.0002. Change continuation coordinate through24Gpair equations/top24Jacobian; keep signed projected amplitude aspositive diagnostic. Same fullnative6/fourphase/primitive/literalpartner/forward/reverse gates and measured resource envelope. Profile includes actual24D solve beforetargets. No target until controls/source/card/privatepush and independent skim; n12-p6-daughter-leak-001 exclusive.
