@@ -155,3 +155,16 @@ generalized flips or cusps. The source-bound receipt is
 is the already localized upper fold at exact gain10.02, not extending these
 nonattracting arms indefinitely. The native activity-cycle proof remains
 separate from the trained-network results and from whole-window geometry.
+
+## Exact local upper-fold certificate (review pending)
+
+The fixed native9D augmented proof at gain10.02 passed once. It encloses a
+primitive5 neutral fold near delta.963273875594964 with simple+1, strictly
+positive a_delta and c, and an attracting complement (power1bound<8.435e-5).
+This adds a rigorous local boundary result to the activity-cycle certificate;
+it adds no attracting-orbit instance and proves no connecting arc or whole
+shrimp anatomy. See `certificates/clark-rnn-fold-receipt.json` and
+`docs/reviews/clark-rnn-fold-producer-outcome.json`; independent outcome review
+is pending at creation. The existing p5 cycle has since passed a separate
+384-bit nested/independent exp-form map review at69a905e6; its original pending
+receipt remains unchanged.
