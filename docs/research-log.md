@@ -9283,3 +9283,15 @@ Host at 2026-10-10T18:36:37.393954+00:00: 38.09GiB available,
 load (1.228515625, 1.505859375, 1.57373046875); GPU 0 %, 15947 MiB, apps none.
 CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
 complete-parent authorization applies; no failed tail consumed.
+
+### 2026-10-10 — neutral quotient saved-complement card
+
+Preparing one synthetic profile and one fixed saved-only target on unit008 last
+chart[147/128,151/128], after signed scalar coefficients. Exact source/card:
+`docs/plans/eigenpair-neutral-quotient.md`. Cyclic coordinate quotient removes
+only the authenticated native+1 direction; existing periodic metric tests all
+12 remaining modes. No model/derivative/trajectory acquisition; fixed pivots,
+strict gates and complete input/source retention. Profile15s/20+5, target60s/75+5,
+CPU1nice10,1.5GiB monitoredRSS,32+1MiB. Commit/tests/peer skim before evaluation.
+
+Neutral-quotient preparation verification: 34 focused synthetic and reused input/border controls passed in0.31s. New controls cover nonnormal cyclic frames, noncommuting native order, negative contracting versus neutral/unstable complement, interval pivots/ties, invalid mode compatibility, observer interruption after return, and470D saved native-layout extraction. No empirical arrays evaluated during implementation.
