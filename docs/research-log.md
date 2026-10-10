@@ -9493,3 +9493,5 @@ Source635a4c74/execution65f76f20, both fixed endpoints fail after matched phase-
 ## 2026-10-10: distinct full-time coordinate-line response card
 
 After both matched-cost operator-only block endpoints failed, prepare exact scalar full-time line preconditioning. This retains global temporal edges with O(Tn) line solves and no inner Krylov, while dropping spatial cross-coordinate couplings. Exact n*p basis-JVP setup is charged and explicitly not an LLM-scalable estimator. Same two consumed operators, physical residual/readout gates, action budgets and free endpoints. Source/tests/card/private push/peer skim before one profile-admitted unit. An unsquared saddle-point Krylov idea was rejected analytically before implementation/acquisition because it does not clearly escape the prior normal/bidiagonal conditioning mechanism.
+
+Independent stability_resume source skim a66e1a7a passes,9 focused controls0.19s; root agrees after its own source/driver read. Exact principal SPD time lines, charged setup/physical actions and true terminal residual remain unchanged. Proceed one fixed profile-admitted two-case unit; no target has run before this record.
