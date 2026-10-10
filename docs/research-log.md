@@ -11889,3 +11889,11 @@ Independent saved arithmetic rechecks186native contexts/31points/29joins, all pr
 ### 2026-10-10 — independent LM response audit clearance and execution
 
 Stability peer source/binding skimf442f5c9 PASS;5controls independently reproduced0.08s. All24rows/comparators/readouts/gates, exactfourcases/statepromotion/referenceupdates, complete580/256/96eventorder and native source/parent/profile/inventories reviewed, no target arithmetic. Execute sole saved-only audits/tiny-lm-response-independent/attempt001 under30s/1GiB RSS/2GiBAS/2MiB,owned40+5/2MiBlauncher. Freshhost has52GiBavailable/lowCPUload;GPUunused. Shared acquired gradients/HVP/CE remain explicit and are not newly evaluated.
+
+### 2026-10-10 — independent saved LM response arithmetic passes
+
+Sourcef442f5c9/execution5a117145, auditattempt001 passes0.82348s/65404KiB,zero native operations. Full producer123.43MB/parent205.28MB/profile inventories and archived historical source bind exactly. Independently recomputed original float32step600 promotion, referenceupdates/directions/amplitudes, all24central responses/frozen/transported/persistence/scalar comparisons/CEslopes, exact580gradient256HVP96CEevents, prior244.9641s profile admission and every1%/20%gate. All24rows mechanism-qualified and CEslopes resolved; fixedtwo-expanded-seed gradienth16 gateTRUE.
+
+At h16 expanded256-arm gradient frozen vectorerrors85118.92976244/5270.37033357 versus transported9.32175e−5/2.35337e−4, twoamplitude disagreement2.79480e−4/7.05889e−4; small8-arm frozenerrors.0013128023/.0013626290. Corresponding expanded responsegains.59028498/2.33085311 show that the huge frozen predictions do not describe observed perturbation growth. Random-direction results and allhorizons/readoutslopes remain in the receipt. This independently audits saved arithmetic, not the acquired gradient/HVP/CE engine; transported matching remains retrospective calculus validation, with no predictive/utility/chaos/shrimp claim.
+
+Own immutable outer296d015f24900d8db9e72b9dc89c71786999a7885aa7267a25856f4d621a9948, worker221b76a9fee9a8baf15f530931bfec9c9f14bc6b5ac437e7d239a9955b249d13. Owned1928605/1928871/group absent. Compact complete-row receipt docs/reviews/tiny-lm-response-independent.json; integration28rawroots. All requested completed outcomes/source/manifests remain preserved and privately backed up.
