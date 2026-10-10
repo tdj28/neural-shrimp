@@ -30,4 +30,10 @@ def test_corruption_is_not_a_complete_cover(change):
 def test_fixed_batch_has_four_distinct_charts_and_environment_caps():
     p=ROOT/'tools/reviews/launch_s2_attraction_remaining.py';spec=importlib.util.spec_from_file_location('batch',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
     assert m.CHARTS==(142,143,144,145) and len(set(m.CHARTS))==4
-    assert m.OUT.name=='batch001' and set(m.THREADS)=={'OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'}
+    assert m.OUT.name=='batch002' and set(m.THREADS)=={'OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'}
+
+
+def test_actual_launcher_rss_is_not_historical_exec_highwater():
+    p=ROOT/'tools/reviews/launch_s2_attraction_remaining.py';spec=importlib.util.spec_from_file_location('batch',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+    assert m.current_rss_kib('VmHWM: 612668 kB\nVmRSS: 18432 kB\n')==18432
+    with pytest.raises(ValueError):m.current_rss_kib('VmRSS: -1 kB\n')
