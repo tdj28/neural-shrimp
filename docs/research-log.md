@@ -11601,3 +11601,7 @@ Executionfa1a1c36 stopped8.352s/1,215,872KiB after72native calls, before the fir
 ### 2026-10-10 corrected numerical profile002 card
 
 Clark2152e3e7 narrow serialization recheck PASS,13controls0.17s. Execute only fresh attempt002-profile with the identical12 synthetic returns/432native phases, same360-evaluation forecast/caps and unchanged mathematical settings. Original profile/target001 remain immutable. Independent review reconfirmed all704 endpoint-association evidence but no branch point was accepted in001. Fresh measured002 target card follows only if this exact changed-source profile passes.
+
+### 2026-10-10 corrected measured native NS scout002 target card
+
+Profile002 executionb72f89c9 passed2.747s/47324KiB,432native calls. Complete unchanged source/archive/inventories and owned process absence verified. Outer455745a31fbc170677637dcb3430e84cec665b15f1335590f4d74f588b77b24e; workerfb6b659adbf4b0dbf581a57b5642a8315a16d563c1a144ab6ef2435e066fbda3. Full360return forecast116.469s/1,400,000KiB/40,665,488bytes fits original caps. Launch exactly one attempt002-target with those pins, same certified right endpoint, all704 association and native13mode/18phase/divisor/actual-rate gates,64point/360return/12960phase ceiling, tmaxπ²/4. Full corrector/failure records; original001 kept. No new rigorous extent or complete-window claim follows the floating survey.
