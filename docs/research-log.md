@@ -6841,3 +6841,24 @@ Fresh host check,CPU1 nice10,2GiB,180s/195+5,3200ticks,1440/2880C1/unit
 plus864jets,384+1MiB. At most16 charts/one retained rebox each; stop first
 final failure or strict fold membership, no automatic alternate search.
 No attraction or full shrimp geometry is implied.
+
+### 10 October 2026 UTC — reboxing unit001 outcome
+
+Execution 0e48ce6bc3f87b8e2fac12da14fc7e28648e50f3, scientific source08318298. Status joined_intervals_certified,
+16 qualified charts; 6 retained initial failures/reboxes.
+Last qualified hidden-rate endpoint [75.34528 +/- 4.62e-6]; fold membership rows [].
+Worker 73.2582s/466732KiB; launcher
+73.9819s, exit0. All inventories,
+decompressed payloads, initial/final predictor identities, native joins,
+immutable files and owned exits checked. 158371676 retained bytes.
+Worker manifest dd0bae85fe2ada8f90d0b50aa1d0284e71a87961a8925026a3f74fe8aad0d7dd; outer
+931cb5939cc437fdb57532e3e23dc492162b15b8335f7201b1b1e11ab45124eb. Companion `docs/reviews/s2-period18-arclength-reboxing-unit001.json`.
+Independent review pending; no attraction or complete geometry claim.
+
+The next unchanged unit was considered but is not launched: the last four
+contraction bounds rise through0.786,0.814,0.862,0.899 and the correction
+radius grows to2^-16. This is the previously declared fold neighborhood.
+First inspect the saved endpoint tangent/gauge and propose one new fixed
+gauge with full correlated anchor containment. The old failed witnesses and
+all127 connected charts remain unchanged; no instability or fold identity
+is inferred from these sufficient-bound diagnostics.
