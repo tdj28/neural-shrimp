@@ -7039,3 +7039,16 @@ Proceed the single fixed unit004 from complete71/128 under standing adaptive
 local authorization. Fresh host load1.45/1.42/1.34,38GiB available,GPUidle,
 no compute apps; CPU1nice10,400/420+5s,2GiB sampledRSS,512+1MiB unchanged.
 Bound scientific/card bytes unchanged; this commit is review metadata only.
+
+### 2026-10-10 — radius forecast negative efficiency result, positive branch advance
+
+The fixed forecast made no reduction in proof calls: all four initial attempts
+failed and every sole repair passed. Failed coordinates changed from the prior
+387 to357/439, then19/155/357/439. All eight attempts retained. Four qualified
+segments reach87/128 and actual rates≈74.87748/0.8231426. Acceptedq<.937290,
+all470 inclusions/native anchors/divisors pass. Executionaf481a1a/source1d0add38;
+worker163.190108s/1141724KiB/1016ticks,1242files/346890654 bytes verified immutable
+with source/PID checks. Companions eigenpair-wider-march-unit004.md/.json.
+No forecast success, genericity or attraction claim. Return to the previously
+reviewed fresh-repair policy via an exact complete-parent adapter/card; no
+outcome-driven factor tuning. Current qualified radius floor remains retained.
