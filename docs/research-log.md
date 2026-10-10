@@ -10071,3 +10071,22 @@ zero native steps, fixed30s/40+5 cap and2GiB/4GiB AS. Host has ample memory
 and no duplicate owned bridge/probe process. Parent explicitly accepts the
 peer source skim and authorizes the later isolated attempt only after exact
 measured precursor gates and a frozen target card.
+
+## 2026-10-10 — saved native event proposal passed; exact target frozen
+
+Saved-only execution b06314a3 authenticated the full470D event/compact/source/
+model identity and emitted one41D seed in2.322886s,601,220KiB,zero native steps.
+Known/companion mode overlap0.9995461; proposed r norm1.0056847; saved near-chain
+residual6.59e-14 and orthogonality6.11e-16. These are proposal diagnostics only.
+Seed actual rates73.53650437 and0.8267790470. Full immutable inventories,
+current/archive/history source equality and owned termination checked.
+
+Freeze the exact profile/proposal outer+worker pins, unchanged settings,
+29.712509s measured forecast and fixed target caps in target001 card. Parent
+explicitly authorized the isolated attempt when these reviewed gates passed.
+No source, native phase, seed, radius, Newton count or scope is adapted here.
+
+Independent Clark-lane review of conditional quotient helper1538d43a PASS;
+6 synthetic controls reproduced0.09s. Exact Jordan identities must come from
+the same proved root; entry containment alone is insufficient. No quotient
+target has been evaluated, no genericity or connection inferred.
