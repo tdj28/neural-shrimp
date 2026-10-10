@@ -6730,3 +6730,7 @@ Execution644a0f57 completed58.831s internal/59.170s external,102904KiB, with all
 ### 2026-10-09 PDT: all-six saved map and selection inventory card
 
 New `tools/summarize_clark_rnn_matrix_panel.py` will verify the complete immutable panel, render every seed/cell with recurrence and finite-growth diagnostics, preserve all335 components and exact grid/rate ranges, and compare both-start qualified cycles under phase/odd symmetry. The already fixed ranking nominates seed28174/id5/period10; the visual display does not reselect a prettier component. No new target computation. CPU1/nice10,30s external+5,512MiB expected bound,8MiB raw; exclusive `new-matrices-spatial-001`. Source committed before execution; all figures are exploratory numerical evidence only.
+
+### 2026-10-09 PDT: leading period10 longer-transient patch before outcomes
+
+All-six map inspection confirms the fixed-ranked seed28174/id5 selection is a finite interior component, not an already established shrimp. New card/source fixes its full bounding box plus two coarse cells (gain13–27/leak11–18),51×51 both-start grid and24000+2000+8192 steps. Select32 consensus10+16 consensus20/40 cells evenly in index order, both starts; all other outcomes retained. Reuse hash/source/runtime-bound profile with explicit5202/162 batch and34192/21192 horizon factors, factor2 safety,96×8 qualification units and20s. Gate≤240s/512MiB/256MiB beforetarget; one exclusive new-p10-refinement-001,CPU1nice10/240s270+5. Native boundary anatomy next, no added isolated certificate solely from period qualification.
