@@ -7047,3 +7047,18 @@ Executionca7cdeef completed10.446s/631212KiB with zero native calls. Outerdd5d8d
 ## 10 October2026 — weighted470D fresh-domain pilot card
 
 Following saved diagnosis002 and root standing authorization, prepare one exclusiveattempt-002-weighted-target with all470hash-pinned positive radii decoded exactly, base2^-18, unchanged width2^-20/two proposals/256bits/anchor/gauge/kernel. Complete new Jacobian on changed domain mandatory; old-domain ratio is only a proposal.26synthetic controls pass0.26s. Reuse byte-identical original profile source and separately require actual first-target cost gate106.325s/208625774B; same120/135+5s,CPU1nice10,216ticks,2GiBmonitoredRSS/4GiBAS,256+1MiB. No launch before frozen source skim and fresh host check. Failed001and bothdiagnoses retained; no claim tiny affine charts scale to cusp. See docs/plans/eigenpair-locus-weighted.md.
+
+## 10 October 2026 UTC — all research tracks resumed and evidence backed up
+
+The human explicitly renews work on every research track alongside the shrimp
+proof. This supersedes the earlier priority-only stops in the CIFAR/utility
+strategy notes; it does not relax scientific gates or open protected data.
+Root is preparing one fixed larger-space CIFAR decision and a checkpoint-only
+LM inference diagnostic, while the proof and Clark agents continue their work.
+The integrated eigenpair/RNN controls pass41 tests. Completed raw evidence now
+has a second physical-disk copy at
+/archive/neural-shrimp-backups/20261010T152608Z-proof-bridge-and-rnn-anatomy:
+43,753files/591,000,068bytes, manifest
+d19a3a8e433f7e11eaebc92bb7234b4c65d455c5f58818208984ce8ee6b699dd.
+Exact inventory, complete SHA256, second source hash pass and fsync succeeded.
+Same-machine separate disk, not offsite. Later attempt roots need another copy.
