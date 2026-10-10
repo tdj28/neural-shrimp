@@ -9469,3 +9469,5 @@ Execution 9b9b282d completed all four cases; all accuracy endpoints pass, both f
 Implement the previously disclosed fixed8-step innerCG/flexibleGCR20method on the same two saved response operators. Exact per-phase JVP/VJP returns retained; all inner/setup/outer/terminal costs count against96480/173664. Fresh true residual before every accepted state, reserved terminal evaluation, no dense temporal inverse. The profile is unrelated but same13D/p18/16period dimensions and complete action ceiling; resource-only gate before target reads. Source/synthetic tests/private checkpoint and independent skim precede the bounded unit. No target work yet.
 
 Prelaunch peer fixes: normalize profile runtime/storage by its actual completed callback count to both full target ceilings (minimumfactor3), and retain atomic callback-start records with conservative pending upper counts. Interrupted in-atomic returns are explicitly partial, not falsely claimed complete. No target was run.
+
+Final independent static differential skim of58ddeeef passed before launch. Execute only the single fixed operator-blocks-001 profile/admitted two-case unit; no tolerance/block/column tuning.
