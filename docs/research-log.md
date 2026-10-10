@@ -7580,3 +7580,12 @@ join and completed146 admission. CPU1nice10,360s/390+5external,2GiB,
 512MiBworker/514aggregate,648C1/1296unit/144mixed maximum,644stages.
 Fresh host check, first-failed-gate stop, immutable all bounds. No automatic
 onward march or retries. Independent final outcome review required.
+
+2026-10-10 four-piece chart145 pilot at ec249fb6603c59b0f25937e7b2ac6018bf254c18 completed once,
+86.481407 s / 714516 KiB; 4 returned slices,
+644 stages. Overall passed=True.
+Worker 7d880920c01ee3e9749ca5c07452bcc08b45417c2ff786ec63c7adb87c5b77d3;
+outer 249b38e8bd3706f55b7c533f785e27f5ebc01cae1d905d57f7a4fe5156bd2584.
+All inventory/source/count/read-only/ownership checks pass; 154215814 B.
+All four closed intervals of chart145 have producer sufficient attraction bounds. This extends the connected producer-covered known primitive18 branch interval to [33/128,45/128]; independent audit pending. No whole-shrimp or two-dimensional-region claim.
+Full-width failed witness remains intact.
