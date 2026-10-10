@@ -6158,3 +6158,12 @@ Cusp synthetic profile001 passed2full18-step/41D evaluations: maximum0.910329s, 
 Pre-target source amendment: independent audit found the driver used restore_ball from rigorous_connection.py without listing that source in its archived pins. Add the exact dependency, preserve profile001, and use fresh source-bound profile002. Also strengthen receipt eligibility to require explicit successful exit/nice and finite nonnegative RSS/elapsed, positive evaluation times, exact recomputed projection. Focused bad-receipt controls cover negative/NaN/infinite resources, wrong source, counters and exit. No target has been acquired, and no mathematical kernel or scientific settings change.
 
 Independent final cusp source/driver review passes161bf34b;17 integrated controls pass. Profile002 exactsource agrees, max 0.92703333706595s/evaluation, conservative projection 23.540666741319s<85. Complete immutable hashes/exits checked, worker98f4f9c3fe20fd52e45d041d2f1ec536fc4dd95f8228b65e0442316f9b5d8655. Admit exactly cusp-a-attempt001 andcusp-b-attempt001 under unchanged fixed settings; first profile preserved.
+
+## 2026-10-10 UTC: both fixed local cusp targets pass producer gates
+
+Both preselected targets pass the full outward-rounded local cusp proof. Independent outcome review is pending. The native training map remains13-dimensional;41 is the augmented equation dimension. Both are on numerically nonattracting fold arms. This adds local boundary singularities, not a completed attracting shrimp or a proved connection to the center/fold.
+
+- cusp-a: hidden≈72.9813604461, output≈0.831239148942; cubic≈4.99280534, unfolding determinant≈0.0290031087. All proper divisors1,2,3,6,9 excluded; simple+1 and all other spectrum off the unit circle. Full exact balls and source/raw hashes are in the canonical receipt.
+- cusp-b: hidden≈71.8354292407, output≈0.830675873559; cubic≈-1.77136326, unfolding determinant≈0.0127795642. All proper divisors1,2,3,6,9 excluded; simple+1 and all other spectrum off the unit circle. Full exact balls and source/raw hashes are in the canonical receipt.
+
+No acquisition adaptation was needed after the admitted source/profile repair. Each fixed8-Newton attempt used180native steps,CPU1,under10s and67MiB. Complete immutable source/evaluation inventories and exited owned processes verified. Retain profile001 andprofile002. No new paid compute, protected data or optimizer changes.
