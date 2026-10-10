@@ -5638,3 +5638,7 @@ Both savedfolds cross−1 before any cusp. Card `docs/plans/clark-rnn-p7-fold-fl
 ### 2026-10-09 PDT: two native p7 fold–flip candidates localized
 
 Sourcea48ce4e9 completed the exactlytwo14D localizations in.5018s/.6173s,44748KiB,16augmentedreturns. Bothpass primitive7/simple±1/two stable remaining modes/fullaugmentedrank/nonzero c/native identity; residuals6.7e-16/1.1e-11. Distinctparameters(1.8021351053,.7866478460) and(1.8020552422,.7866760419); no common-orbit assertion. All fullinventories/modes and1040555/1040579owned/group exits verified, receipt `docs/reviews/clark-rnn-p7-fold-flip-outcome.json`. Next geometry must trace the twoflip families with explicit state-oriented tangents, not use singular M-I branch formulas at the interaction. No interval/cusp/whole-shrimp claim.
+
+### 2026-10-09 PDT: native p7 flip-family geometry before outcomes
+
+Two qualified14D roots are distinct inparameters andfullstate. New card `docs/plans/clark-rnn-p7-flips.md` fixes both savedroots,minus-one rightvectors,plus-one state tangentorientation, bothdirections128steps.003,domain1.6<g<2.2/.75<delta<.83. Same fullnative9x10PAL/phase-sign/reverse gates; all complementary stability retained. No singular branchformula atfoldflip, no proof or commonorbit fromprojection.90s105+5CPU1/512MiB/128+1MiB/9000calls;8000max+20 synthetic gatefirst.

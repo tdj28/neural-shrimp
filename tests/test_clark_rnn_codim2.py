@@ -20,3 +20,14 @@ def test_known_decoupled_fold_flip_full_rank_and_normalizations(monkeypatch):
 
 def test_dimension_fail_closed():
     with pytest.raises(ValueError):C.fold_flip_augmented(np.zeros(7),np.eye(2),1)
+
+def test_flip_tangent_at_fold_flip_uses_state_not_parameter_orientation(monkeypatch):
+    import neural_shrimp.clark_rnn_boundaries as B
+    def toy(x,j,g,d,p):
+        a,b=x;end=np.array([a+g+a*a,-(1+d)*b]);u=np.array([[1+2*a,0,1,0],[0,-1-d,0,-b]])
+        v=np.zeros((2,4,4));v[0,0,0]=2;v[1,1,3]=v[1,3,1]=-1
+        return end,u,v,np.array([x]),np.array([u[:,:2]])
+    monkeypatch.setattr(B,'jets',toy)
+    _,jac,_=B.family_augmented(np.array([0.,0.,0.,0.,0.,1.]),np.eye(2),1,-1)
+    tangent,_=B.oriented_null(jac,np.array([1.,0,0,0,0,0]))
+    assert tangent[0]>.99 and np.max(abs(tangent[2:4]))<1e-14
