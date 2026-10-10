@@ -7481,3 +7481,20 @@ profile at s2-period18-whole-chart-stability-2026-10-10/attempt001-profile,
 CPU1nice10,30s/40+5s,2GiB,512MiBworker/514aggregate,162C1/324unit/36mixed.
 No target data in profile. Only if source/runtime/counters/storage/time gates
 pass will a separate measured target card admit the single exact chart146.
+
+2026-10-10 whole-chart146 full synthetic profile at5f3a19cad576277d0dc8872d1c137bede3c262b2
+completed once12.085101s/534928KiB,
+all161stages and162C1/324unit/36mixed positive; unchanged library/source,
+full inventories/read-only outputs/owned exit checked. Worker
+0b6eebae75fca38c2398dffd0f38bda0052e4620184760e37ac86a3f17565539; outer937307ea614ca997e80ac33c0cb27d157bc34612789e4f6c1f1a22aaeea2df06.
+Conservative existing admission305.042434s<360,
+402653184B<448MiB.
+
+Exact target card: ONE complete chart146, gauge[17/64,35/128], one full-width
+slice, exclusive s2-period18-whole-chart-stability-2026-10-10/attempt001-target.
+Profile/data2/neural-shrimp-data/explore/certificates/s2-period18-whole-chart-stability-2026-10-10/attempt001-profile/run with above worker/outer pins. Same source/adjoining
+chart147 receipt/native235Djoin, no source or math changes.
+CPU1nice10,360s/390+5s,2GiB,512MiBworker/514aggregate, exactly one input
+slice with at most162C1/324unit/36mixed. Stop first failed prerequisite or
+final gate; retain failed base bound. No subdivision/retry/automatic march.
+Fresh resources before acquisition; independent final review required.
