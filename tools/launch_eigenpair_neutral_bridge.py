@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Own-group supervisor for one fixed localization/tangent-reanchor and synthetic cost profile."""
 import argparse,hashlib,json,os,signal,subprocess,sys,time
+import continue_eigenpair_neutral_bridge as C
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype')
@@ -72,6 +73,5 @@ def main(args):
     for p in sorted(OUT.rglob('*'),reverse=True):p.chmod(0o555 if p.is_dir() else 0o444)
     OUT.chmod(0o555);print(json.dumps({'root':str(OUT),'exit_code':code,'manifest':entry(OUT/'manifest.json')}));return code
 if __name__=='__main__':
-    import continue_eigenpair_repair_chain as C
     p=argparse.ArgumentParser();p.add_argument('--mode',choices=['target'],default='target');p.add_argument('--unit',type=int,required=True);p.add_argument('--parent',type=Path,required=True);p.add_argument('--parent-source',required=True);p.add_argument('--parent-manifest',required=True);p.add_argument('--parent-run-manifest',required=True);p.add_argument('--expected-right',required=True)
     args=p.parse_args();C.install(args);raise SystemExit(main(args))

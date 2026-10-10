@@ -9901,3 +9901,10 @@ proof/repair math, full470D accepted anchor, per-unit complete/source/map
 binding, event persists after accepted proof and stops before another tube,
 bounded repair/resources. Proceed unit001 and subsequent units only from a
 complete unflagged predecessor under separately committed exact cards.
+
+Bridge launcher correction before any output/acquisition: invocation atb174c7ab
+failed the copied legacy launcher's import-time unit-range check(legacy5–64,
+new unit1). The worker never started and exclusive attempt001 directory does
+not exist. Preserve this failure here; no scientific return was lost. Correct
+only launcher preflight import to the reviewed new bridge validator, add actual
+launcher→worker/argument control. Native proof, input/card/caps unchanged.
