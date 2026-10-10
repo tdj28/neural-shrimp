@@ -6191,3 +6191,18 @@ segment intersection checks must distinguish two different full-state orbits
 at common parameter proposals from a shared orbit/multiplier collision.
 
 Profile010 passes unchanged source/runtime and measured cost gate: max 0.179914s, projected 148.931s<170, RSS46648KiB. Immutable worker69f6868be68c8b4337cffe740955d208bd1d5749410f6f996de32de955240f7d and owned exits verified. Admit the two fixed upper flip panels under the preceding card.18 focused controls pass; existing mathematical kernel is unchanged.
+### 10 October 2026 UTC — augmented235D continuation pilot card
+
+Prepare one two-chart fixed-plane arclength pilot, anchored by full containment
+of the last weighted chart endpoint (same actual hidden/output-rate model).
+New core/runner preserve old kernels. Fixed n/O gauge, quadratic curved hidden
+rate, complete Taylor defects and whole235D Jacobian; exact common-s join.
+First anchor retains s=n dot (U*-O), without assuming its gauge is exactly zero.
+Settings delta2^-6,r2^-22,256bits,two proposal steps; no attraction/fold identity.
+The synthetic fold control crosses a fixed-h singularity; an initial negative
+hidden-rate control exposed an absent generic pre-proposal guard, now added
+before any model call. No target data changed or target run occurred.
+Card `docs/plans/s2-period18-arclength-connection-pilot.md` fixes profile20s/
+25+5 and gated target120s/135+5,CPU1,nice10,2GiB,128+1MiB,144/288 C1/unit
+calls+108 jets. Frozen code/tests precede profile and a measured receipt precedes
+target; no automatic retries. Independent reviewer is checking the parent.
