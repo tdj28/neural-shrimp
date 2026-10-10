@@ -84,3 +84,37 @@ and carried orientation; zero tangent rejection; image retention on empty
 intersection; and no subsequent assembly after durability failure. Nine controls
 passed in0.19 seconds before the adapter freeze. Independent source review and
 empirical reanchor acquisition remain pending.
+
+## 10 October adapter freeze / pre-profile card
+
+`tools/reanchor_eigenpair_locus.py` binds the completed unit002 through the
+unchanged chain checks, then reloads and matches the full final chart so its C
+is available. New source inventory extends the full transitive old inventory,
+including package imports, tests/card and unit002 receipt. Profile and target
+must have identical source bytes, libraries, precision, one-thread environment
+and nice>=10. The synthetic profile performs three dense470D known-root
+intersection reductions and writes the same matrix payload shapes, with no
+neural model or target input read. Profile20s/internal,25+5/external,
+512MiB monitoredRSS/1GiB virtual-address,32+1MiB output. It records zero native
+calls and exactly three intersections.
+
+Admission formula from the completed unit002 is
+`2*(unit002_elapsed*326/508 + profile_elapsed)+20` seconds;
+`unit002_bytes + 6*profile_bytes + 8MiB` storage; and
+`max(unit002_RSS, profile_RSS)+256MiB` RSS. These must be below180s,
+504MiB ordinary storage and2GiB, respectively. This is a conservative heuristic,
+not a promise of runtime; the actual independent caps still enforce termination.
+The previous full ancestry cost gates are also preserved. The two newly proved
+charts are saved only once as durable events; aggregate output contains compact
+accepted summaries. Failures retain localization, proposal and completed chart
+references without promoting an unfinished chart.
+
+Ready profile command (from clean source, CPU/BLAS1, nice10):
+`/data2/neural-shrimp/.venv/bin/python tools/launch_eigenpair_reanchor.py --mode profile`.
+Exclusive raw profile root is
+`/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/attempt-001-reanchor-profile`;
+target root is adjacent `attempt-001-reanchor-target`. Target command requires
+`--profile <profile-root>/run --profile-manifest <run-SHA> --profile-outer-manifest <outer-SHA>`.
+Those measured pins and the exact execution command will be committed before
+launch. Core/root math review of2141e738 passed; full65 focused source/controls
+passed in0.56s before this driver freeze. No new target outcome has been read.

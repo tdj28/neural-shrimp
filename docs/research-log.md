@@ -6624,3 +6624,16 @@ failure-retention controls passed in0.19s. No target input arrays or new map
 acquisitions were evaluated for this implementation unit. The separate bounded
 runner/profile must precede the target; see the dated reanchor card for complete
 inputs, mathematics, caps and deliberately limited claim.
+
+### 2026-10-10 — reanchor synthetic profile pre-run card
+
+Run the committed470D synthetic containment/serialization profile once at
+`explore/eigenpair-locus-prototype/attempt-001-reanchor-profile`, using
+`nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/launch_eigenpair_reanchor.py --mode profile`
+with OMP/OPENBLAS/MKL/NUMEXPR threads1. No model, trajectory or empirical input
+acquisition. Question: does dense containment plus durable evidence fit the
+cost admission for one fixed endpoint localization and two fresh tangent-gauge
+charts? Profile20s/25+5 external,512MiB sampledRSS,32+1MiB raw; preserve failure.
+Source/core/card math reviewed by root;65 focused controls passed0.56s. Target
+remains conditional on profile/cost/source/resource gates and its exact pinned
+run card. No parameter or radius adaptation beyond the declared proposal rule.
