@@ -45,6 +45,7 @@ def test_driver_retains_complete_synthetic_interaction(tmp_path):
     w.full=lambda *args:(np.zeros(9),np.zeros((9,10)),a,0.)
     w.returned=lambda *args:(np.zeros(14),np.eye(14),a,0.)
     y=np.r_[x,15.5,.45,[1.,0,0,0]]/D.COL
-    out=w.localize(y,np.eye(4),'toy')
+    w.correct=lambda *args:((y.copy(),np.zeros((9,10)),a),'closed')
+    out=w.localize(y,np.eye(4),'toy',np.eye(10)[4])
     assert out['status']=='numerical_G_plus_minus_interaction' and out['native_plus_one_count_1e6']==2
     assert saved[-1][0]=='interaction_result' and out['native_square_relative_defect']==0

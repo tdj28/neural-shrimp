@@ -56,8 +56,8 @@ class Work(P.Work):
         self.emit('symmetric_node',dict(out,y=y.copy(),physical=y*COL,tangent=tan.copy(),left_vector=left,g_monodromy=m,native_monodromy=a['native_monodromy']))
         if not good:raise ValueError('G/native qualification')
         return out
-    def localize(self,y,j,tag):
-        _,_,a,_=self.full(y,j,1,tag+'-initial');e,v=np.linalg.eig(a['monodromy']);self.emit('interaction_initial_eigen',{'tag':tag,'matrix':a['monodromy'],'eigenvalues':e,'eigenvectors':v});rv=v[:,int(np.argmin(abs(e+1)))]
+    def localize(self,y,j,tag,tangent):
+        _,_,a,_=self.full(y,j,1,tag+'-initial');start_cycle=a['cycle'].copy();e,v=np.linalg.eig(a['monodromy']);self.emit('interaction_initial_eigen',{'tag':tag,'matrix':a['monodromy'],'eigenvalues':e,'eigenvectors':v});rv=v[:,int(np.argmin(abs(e+1)))]
         if np.max(abs(rv.imag))>1e-8:return {'status':'complex_initial_mode'}
         z=np.r_[y*COL,rv.real/np.linalg.norm(rv.real)];w=z/CC
         for k in range(15):
@@ -68,7 +68,12 @@ class Work(P.Work):
                 er=float(max(abs((a['monodromy']@v-v*e[None,:])).ravel())/max(1,np.max(abs(a['monodromy']))));ner=float(max(abs((a['native_monodromy']@nv-nv*ne[None,:])).ravel())/max(1,np.max(abs(a['native_monodromy']))))
                 gclosure=float(max(abs(a['endpoint']-a['theta'])));square=float(np.max(abs(a['native_monodromy']-a['monodromy']@a['monodromy']))/max(1,np.max(abs(a['native_monodromy']))));native_plus=int(sum(abs(ne-1)<1e-6))
                 passed=gclosure<1e-9 and square<1e-7 and native_plus==2 and plus!=minus and abs(e[plus]-1)<1e-7 and abs(e[minus]+1)<1e-7 and min(abs(np.delete(e,plus)-1))>1e-4 and min(abs(np.delete(e,minus)+1))>1e-4 and s[-1]>1e-8 and er<1e-10 and ner<1e-10 and native<1e-9 and sym<1e-8 and all(x>1e-6 for x in seps.values())
-                out={'status':'numerical_G_plus_minus_interaction' if passed else 'unqualified_interaction','gain':float(w[4]*10),'delta':float(w[5]*.1),'scaled_residual':float(max(abs(rr))),'g_plus_error':float(abs(e[plus]-1)),'g_minus_error':float(abs(e[minus]+1)),'g_other_radius':float(max(abs(remaining))),'native_closure':native,'g_closure':gclosure,'native_square_relative_defect':square,'native_plus_one_count_1e6':native_plus,'antipodal_defect':sym,'proper_divisor_separations':seps,'augmented_min_singular':float(s[-1]),'g_eigen_residual':er,'native_eigen_residual':ner,'scope':'G=-F5 +/-1 interaction only; nativeF10 has two +1 modes. No generic codim2 normal-form or original-map fold-flip theorem.'}
+                pm=B.phase_match(start_cycle,a['cycle']);self.emit('interaction_phase_match',dict(pm,tag=tag,parent_cycle=start_cycle,child_cycle=a['cycle']))
+                reverse,rs=self.correct(w[:10].copy(),y,tangent,j,1,tag+'-reverse')
+                mismatch=float(max(abs(reverse[0]-y))) if reverse is not None else None
+                self.emit('interaction_reverse',{'tag':tag,'seed':y.copy(),'reverse':reverse[0].copy() if reverse is not None else np.full_like(y,np.nan),'status':rs,'mismatch':mismatch})
+                passed=passed and pm['passed'] and mismatch is not None and mismatch<1e-7
+                out={'status':'numerical_G_plus_minus_interaction' if passed else 'unqualified_interaction','gain':float(w[4]*10),'delta':float(w[5]*.1),'native_identity':pm,'reverse_status':rs,'reverse_mismatch':mismatch,'scaled_residual':float(max(abs(rr))),'g_plus_error':float(abs(e[plus]-1)),'g_minus_error':float(abs(e[minus]+1)),'g_other_radius':float(max(abs(remaining))),'native_closure':native,'g_closure':gclosure,'native_square_relative_defect':square,'native_plus_one_count_1e6':native_plus,'antipodal_defect':sym,'proper_divisor_separations':seps,'augmented_min_singular':float(s[-1]),'g_eigen_residual':er,'native_eigen_residual':ner,'scope':'G=-F5 +/-1 interaction only; nativeF10 has two +1 modes. No generic codim2 normal-form or original-map fold-flip theorem.'}
                 self.emit('interaction_result',dict(out,physical=w*CC,cycle=a['cycle'],g_monodromy=a['monodromy'],native_monodromy=a['native_monodromy']));return out
             if k==14:return {'status':'iteration_limit'}
             try:dx=np.linalg.solve(bb,-rr)
@@ -127,7 +132,7 @@ def main():
             if mismatch>1e-7:result['stop']='reverse_mismatch';break
             node=w.node(nxt,nb,na,nt,1,tag);node['reverse_mismatch']=mismatch;result['nodes'].append(node)
             if abs(old['g_nearest_minus_imag'])<1e-8 and abs(node['g_nearest_minus_imag'])<1e-8 and (old['g_nearest_minus_real']+1)*(node['g_nearest_minus_real']+1)<=0:
-                result['stop']='first_G_minus_crossing';result['interaction']=w.localize(nxt,j,'interaction');break
+                result['stop']='first_G_minus_crossing';result['interaction']=w.localize(nxt,j,'interaction',nt);break
             cur=nxt;tan=nt;oldcycle=na['cycle'];old=node
             if k%8==0:S.save(a.out/'progress.json',result)
         w.check();result['status']='completed'
