@@ -8620,3 +8620,17 @@ Exclusive output s2-period18-stability-resume-2026-10-10/unit001.
 CPU/BLAS1,nice10,360s/390+5s,2GiBself/group,512MiBworker/514aggregate,
 1296C1/2592unit/288mixed maxima. Stop first failed gate; fresh host check.
 No scientific interval repeated. Independent outcome review pending.
+
+### 2026-10-10 — tangent unit002 passed; change focus to width scaling
+
+Completed unit002 execution5f32fccb:4pass/no rebox,75.95s/508ticks/1137520KiB,
+625 immutable files170148392B, fullsource/inventory/exit/PID checks pass. Gauge
+19/128, actual rates≈75.373241/.82196250; q<.464715. Saved projection≈.935 and
+floating complement+1distance≈.18491 are descriptive only. Companions
+`docs/reviews/eigenpair-tangent-unit002.md/.json` preserve exact enclosures.
+
+Root authorizes, after this outcome, a saved-only Taylor-forcing/defect budget
+split to assess one doubled-halfwidth fresh-domain pilot if justified. This
+adaptation is motivated by slow actual boundary reach, not a desired verdict.
+No automatic unit003. Any wider target must re-evaluate whole widened native
+C1/path coefficients and all original gates; no extrapolated derivative proof.
