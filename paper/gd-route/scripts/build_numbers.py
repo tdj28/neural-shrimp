@@ -1124,7 +1124,6 @@ def build():
         n.add("n" + prefix + "Power", witness["power"], str(witness["power"]), label51, r51_sources, "bounded repeated-squaring monodromy/complement power witness")
         n.add("x" + prefix + "Bound", str(Fraction(ticks51, 1000000)), exact_decimal(ticks51, 6), label51, r51_sources, "exact dyadic power bound rounded upward to six decimals")
     n.add("nPThirtySixPeriod", op36["exact_statement"]["primitive_period"], "36", label51, r51_sources, "primitive period after excluding all eight proper divisors")
-    n.add("nCertifiedOrbits", len(certificates) + 3, str(len(certificates) + 3), "five individually certified attracting orbits; neutral bifurcations and same-orbit tube excluded", p18_sources + certificate_paths + [s1r_cert_path] + r51_sources, "two period10 plus13D period18 and36 plus72D period2; local bifurcations/tube add no instance")
 
     # Saved-only binding of the joined interior branch and its separate stability cover.
     joined_path = c.ROOT / "certificates/s2-period18-connection-receipt.json"
@@ -2050,6 +2049,33 @@ def build():
     label="exploratory native CIFAR residual-merit correction; native replay passed, independent outcome arithmetic pending; no accepted orbit"
     n.add("xCifarSavedMeritClosure",sr["final_relative_residual"],sci(sr["final_relative_residual"],3),label,sms,"last accepted saved-direction two-step relative closure")
     n.add("xCifarShootingForcing",sr["direction_gate"]["true_forcing"],fixed(sr["direction_gate"]["true_forcing"],4),label,sms,"true eliminated Newton forcing of the retained1600MINRES direction; fixed.5gate fails")
+    # Highest-period agreed census representative: independent native72D proof.
+    p58p=c.ROOT/"docs/reviews/census-period58-tight-outcome.json"
+    p58a=c.ROOT/"docs/reviews/census-period58-independent-outcome.json"
+    p58c=c.ROOT/"certificates/s1r-period58-receipt.json"
+    producer,review,receipt=load(p58p),load(p58a),load(p58c)
+    pr,ar=Path(producer["raw_root"]),Path(review["root"])
+    sources58=[p58p,p58a,p58c]+bound_inventory(pr/"manifest.json",producer["outer"]["manifest"]["sha256"])
+    sources58+=bound_inventory(ar/"manifest.json",review["outer_manifest"]["sha256"])
+    outcome=load(ar/"run/outcome.json");assert outcome==review["outcome"] and outcome["passed"] and outcome["same_unique_root"]
+    statement=receipt["statement"];assert statement==producer["outcome"]["certificate_receipt"]["statement"]
+    assert statement["dimension"]==outcome["dimension"]==72 and statement["primitive_period"]==outcome["primitive_period"]==58
+    assert all(statement[k] for k in ["attraction","existence_and_local_uniqueness","primitive_period_excluded_divisors"])
+    identity58=load(ar/"run/root-identity.json");assert len(identity58["original_box_strictly_contained_in_fresh"])==72 and all(identity58["original_box_strictly_contained_in_fresh"])
+    runtime58=load(ar/"run/runtime.json");assert runtime58["precision"]==768
+    for which in ["saved","fresh"]:
+        value=outcome[which];assert value["strict_inclusions"]==72 and value["phase_jacobians"]==58 and value["attraction_power"]==8
+        assert [x["divisor"]for x in value["divisors"]]==[1,2,29] and all(x["coordinates"]for x in value["divisors"])
+        assert ball_endpoints(value["contraction"])[1]<1
+    power_bound=max(ball_endpoints(outcome[k]["attraction_bound"])[1]for k in ["saved","fresh"])
+    rounded58=Fraction(-((-power_bound*1000)//1),1000);assert power_bound<rounded58<1
+    for macro,value,calc in [("nPFiftyEightPeriod",58,"primitive period after all proper divisor exclusions"),("nPFiftyEightDimension",72,"full native trainable parameter dimension"),("nPFiftyEightPower",8,"monodromy-power attraction witness"),("nPFiftyEightPrecision",768,"independent interval arithmetic and replay precision in bits")]:
+        n.add(macro,value,str(value),proof,sources58,calc)
+    n.add("xPFiftyEightBound",str(rounded58),exact_decimal(int(rounded58*1000),3),proof,sources58,"maximum independent saved/fresh exact dyadic power bound rounded upward to three decimals")
+    input58=load(ar/"run/fresh-inputs.json")
+    for key,macro in [("lr_hidden","xPFiftyEightHiddenRate"),("lr_output","xPFiftyEightOutputRate")]:
+        value=Fraction(input58[key]);n.add(macro,str(value),fixed(float(value),8),proof,sources58,"display approximation to supplied exact dyadic physical learning rate")
+    n.add("nCertifiedOrbits",len(certificates)+4,str(len(certificates)+4),"six individually certified attracting training orbits; neutral bifurcations, same-orbit tubes and fixed-weight activity excluded",p18_sources+certificate_paths+[s1r_cert_path]+r51_sources+sources58,"two period10 plus13D periods18/36 and72D periods2/58")
     return n
 
 

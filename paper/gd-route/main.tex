@@ -40,16 +40,17 @@ been submitted or peer reviewed. Generative-AI tools assisted with implementatio
 figures and drafting. The human researcher will review the evidence, authorship and disclosure before release.}
 
 \begin{abstract}
-Neural-network training can settle into stable periodic motion while loss-reduction criteria report convergence.
-We study this behavior in the two-layer learning-rate plane of deterministic gradient descent.
-Our main result is a computer-assisted description of a primitive period-18 training branch in a nonlinear network.
-Validated continuation connects an attracting interior orbit to a saddle-node and continues its $+1$-multiplier
-locus to a generic 1:1 resonance, where two multipliers equal $+1$ and all remaining modes attract.
-We certify a continuous attracting interval, the resonance's unfolding in the physical learning rates,
-and a finite emerging branch with a complex unit-multiplier pair. Additional proofs establish attracting cycles of periods 10 and 36
-and a period-2 cycle with 72 trainable parameters. An independently cross-checked numerical census places these results
-within a wider landscape of periodic windows and irregular training. Together, the results connect exact training cycles
-to the bifurcations organizing their parameter-space boundaries.
+Deterministic gradient descent can converge to long periodic orbits in neural-network parameter space.
+We give computer-assisted proofs of attracting training cycles, including a primitive period-58 orbit
+in a nonlinear network with 72 trainable parameters. We then resolve connected bifurcation structure
+in the two-layer learning-rate plane of a 13-parameter network. Validated continuation connects an
+attracting period-18 orbit to a saddle-node and continues its $+1$-multiplier locus to a generic
+1:1 resonance, where two multipliers equal $+1$ and all remaining modes attract. We certify a
+continuous attracting interval, the resonance's unfolding in the physical learning rates, and a finite
+emerging branch with a complex unit-multiplier pair. An independently cross-checked numerical census
+places these proofs within a wider landscape of periodic windows and irregular training. The results
+establish long-period attracting training and connect exact cycles to bifurcations organizing their
+parameter-space boundaries.
 \end{abstract}
 
 \noindent\textbf{Study status.} Results labeled \confirmedlabel{} come from the map study of
@@ -74,7 +75,7 @@ ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
-Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-2 orbit in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
+Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus primitive period-2 and period-58 orbits in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
 Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance; a finite complex-unit branch is also enclosed at that same resonance. Other boundary connections remain open. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
@@ -104,7 +105,7 @@ for the hidden and output layers as a two-parameter family of maps on parameter 
 learning-rate grid we screen the parameter state at the end of a long run, refine selected periodic orbits with
 Newton's method using an analytic Jacobian evaluated in floating-point arithmetic, and follow orbits and their stability boundaries through the plane.
 
-\paragraph{Main result.} Stable oscillatory training occupies intervals of learning rates and belongs to
+\paragraph{Main results.} A nonlinear network with \nPFiftyEightDimension{} trainable parameters has an attracting training orbit of minimal period \nPFiftyEightPeriod{}, proved in the full parameter state by interval arithmetic and independently replayed at higher precision. Stable oscillatory training also occupies intervals of learning rates and belongs to
 continuous branches with identifiable bifurcation structure. We establish this for a primitive period-18 branch
 of a 13-parameter tanh network by computer-assisted proof: an attracting interior orbit is connected in the
 full parameter state to a nondegenerate saddle-node, and an exact interval of hidden-layer rates supports
@@ -140,7 +141,7 @@ cycles on smooth strongly convex two-dimensional objectives that advance by $1/K
 
 \paragraph{This paper's contribution.}
 \begin{itemize}
-\item Computer-assisted proofs from exploratory selection: our \nCOneOrbits{} primitive period-\nCOnePeriod{} orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus one primitive period-\nSOneRCertPeriod{} orbit in \nSOneRCertDimension{} dimensions are locally attracting in the full parameter state, at fixed layer-specific rates for the exact-real tanh maps. We also prove a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles, and one local supercritical NS of a scalar period-2 orbit. The certificates have independent ball-arithmetic reviews, with shared implementation dependencies disclosed.
+\item Computer-assisted proofs from exploratory selection: our \nCOneOrbits{} primitive period-\nCOnePeriod{} orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus primitive period-\nSOneRCertPeriod{} and period-\nPFiftyEightPeriod{} orbits in \nSOneRCertDimension{} dimensions are locally attracting in the full parameter state, at fixed layer-specific rates for the exact-real tanh maps. We also prove a local saddle-node and both subcritical and supercritical flips of primitive period-18 cycles, and one local supercritical NS of a scalar period-2 orbit. The certificates have independent ball-arithmetic reviews, with shared implementation dependencies disclosed.
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
 score conflates fixed points, periodic orbits, chaos and drift.
@@ -384,6 +385,26 @@ reviewed Arb checker; the separate differentiation and higher-precision nested-b
 two S2 proofs. The new certificate extends the demonstrated proof dimension, without establishing a general
 scaling law or a proof of the S1R bifurcation. See \path{certificates/s1r-period2-receipt.json} and
 \path{docs/reviews/s1r72-certificate-outcome.md}.
+
+\paragraph{An attracting primitive period-58 training cycle.}
+The S1R map also admits an attracting orbit of minimal period \nPFiftyEightPeriod{} in all
+\nPFiftyEightDimension{} trainable coordinates. The target is the unique largest-period representative
+in the intersection of the original census and independent qualifying lists, S1R-28002-zoom component 262.
+The learning rates are approximately $(\eta_h,\eta_o)=(\xPFiftyEightHiddenRate,\xPFiftyEightOutputRate)$;
+the certificate retains their exact dyadic values and the original dataset. Strict Krawczyk inclusion
+proves existence and local uniqueness, disjoint enclosures exclude proper divisors $1,2,29$, and
+\begin{equation}
+\|M_{58}^{\nPFiftyEightPower}\|_\infty<\xPFiftyEightBound<1
+\end{equation}
+proves attraction in the full state. The first enclosure failed through wrapping; its narrower,
+higher-precision successor passed. An independent audit recomputed the saved interval products,
+inclusion, divisor exclusions and power bound at \nPFiftyEightPrecision{} bits, then repeated the
+native proof at that precision with the identical dyadic center and a larger box. Exact strict
+containment in every coordinate identifies the same unique root in both proofs. The audit shares
+the analytic derivative implementation and Arb/FLINT. This promotes one census representative to a
+computer-assisted proof; other census entries retain their numerical evidence labels. See
+\path{certificates/s1r-period58-receipt.json} and
+\path{docs/reviews/census-period58-independent-outcome.json}.
 
 A further selected certificate proves a primitive period-\nPEighteenPeriod{} orbit near the saved center
 of S2-28011-zoom component 587, the anatomy candidate in Figure~\ref{fig:anatomy}. The unchanged checker
@@ -857,7 +878,7 @@ fixed rates
 These are the exact dyadic interpretations of the numerical evaluation's binary64 rates, not the rates
 defined by the exact exponential family. Strict Krawczyk inclusion and contraction prove a unique
 local fixed point of $F^{36}$ in the recorded 13-dimensional box; coordinate separation excludes all
-proper divisors $1,2,3,4,6,9,12,18$. This is the fifth individually certified attracting orbit. The numerical
+proper divisors $1,2,3,4,6,9,12,18$. This is an individually certified attracting orbit. The numerical
 full-state continuation associates it with the doubled branch, but the two certificates alone do not
 prove that connection between the distinct exact maps.
 
@@ -1750,7 +1771,7 @@ displays. Quoted empirical numbers and the design and consequence tables are gen
 \path{paper/gd-route/scripts/build_numbers.py}; \path{data/numbers.json} records each number's source file, hash
 and computation, and \path{provenance.json} indexes all receipts. \path{paper/gd-route/scripts/verify.py}
 regenerates every figure and quoted number, replays the scalar-mechanism, warmup and initial transformer
-feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. Later S1R, CIFAR and
+feasibility receipts, orbit certificates, the local fold, both flips, scalar NS gates and the joined attracting interior branch, and fails on any difference. The period-58 proof and later S1R, CIFAR and
 LM pilots, wider primitive-branch continuation including the fold connection,
 the correlated attraction segments, connected $+1$ locus, generic 1:1 resonance and its unfolding, finite complex-unit branch, local cusps and fixed-weight activity proof
 have separate source-bound audits cited with their results; the full verifier

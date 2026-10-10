@@ -318,3 +318,12 @@ no new individually certified attracting orbit, boundary connection or whole
 shrimp geometry. Source-bound original commands and raw inventories are retained
 in the producer/reviewer companions; the manuscript-only refresh does not replay
 their scientific calculations.
+
+
+## Full72D primitive period58 (10 October2026)
+
+`certificates/s1r-period58-receipt.json` binds the exact S1R-28002-zoom/component262 training map and the successful640-bit producer certificate. It is the unique highest-period representative among61 entries agreed by the historical census and independent audit; this selection was fixed before certification. The first512-bit enclosure failed through wrapping and remains immutable. A disclosed640-bit narrower-radius attempt proved a unique primitive58 orbit and attraction, excluding divisors1/2/29 and bounding the eighth monodromy power below0.254.
+
+`docs/reviews/census-period58-independent-outcome.json` binds an independent768-bit reassembly of all interval matrix/Krawczyk/divisor/power arithmetic and a fresh768-bit native proof at the exact same center. Exact strict inclusion of all72 original coordinate boxes in the fresh unique box identifies the same root. The native analytic derivative implementation and Arb/FLINT are shared. The audit's first admission attempt stopped on equivalent scalar spellings before proof arithmetic; the corrected exact rational comparison and retained failure are documented.
+
+This is the sixth individually certified attracting training orbit (the fixed-weight RNN activity certificate and continuous families are counted separately). It certifies one census orbit, not the whole window census or its boundaries. The existing `tools/verify_certificates.py` can replay the producer via the new canonical receipt; the independent audit executable has a fixed exclusive output path, so a new full audit requires a newly recorded attempt rather than overwriting saved evidence. Raw files are hash-bound outside Git and separately backed up.
