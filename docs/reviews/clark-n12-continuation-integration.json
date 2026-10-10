@@ -1,7 +1,7 @@
 {
   "schema": "clark-n12-continuation-integration-v1",
   "base": "54b06c92",
-  "through_commit": "068a9c54db99cbe25d852deb2ab44f481f8e4347",
+  "through_commit": "c1fbda1b5564502c2d8d530f476278ff77b2e666",
   "branch": "codex/clark-rnn-shrimp",
   "worktree": "/home/d7082791602/.codex/worktrees/utility-dose-source-review/neural-shrimp",
   "commits": [
@@ -25,7 +25,12 @@
     "501cf88f2c9f80e40407483c51f4192586585953 Preserve native phase identity across roundoff-tied symmetry labels",
     "0582a8d35510e05f99d3da9191f6d686c0e1fedb Record native phase tie source clearance for fixed N12 attempt",
     "803c87520c434c4dba55e02d6cf9d06bd2e397e0 Retain N12 boundary failures and prepare signed half-return diagnosis",
-    "068a9c54db99cbe25d852deb2ab44f481f8e4347 Record reciprocal source clearance for native half-return diagnosis"
+    "068a9c54db99cbe25d852deb2ab44f481f8e4347 Record reciprocal source clearance for native half-return diagnosis",
+    "02966528a979e172ac488c0aece8fd7703c2088c Record native signed half-return diagnosis and integration inventory",
+    "2e3d99771243929ef62430666848420020911bee Prepare direct signed-half critical equations and fixed N12 strategy",
+    "4e88cefc8fc7fd7a517e312a7346fd1939d7cafa Prepare measured fixed N12 signed-half critical roots and native gates",
+    "193eeefea832015ad3b606937dc834f3f844b529 Require critical native spectrum at both signed-half orbit phases",
+    "c1fbda1b5564502c2d8d530f476278ff77b2e666 Record independent clearance for fixed N12 signed critical roots"
   ],
   "immutable_raw_roots": [
     {
@@ -104,10 +109,17 @@
       "manifest_bytes": 3879,
       "inventory_files": 24,
       "inventory_bytes": 2913725
+    },
+    {
+      "root": "/data2/neural-shrimp-data/explore/clark-rnn/n12-p6-signed-critical-001",
+      "manifest_sha256": "56c5cf552ebeee4400962b7407662d0edc65835ec0e4ba8b3ed44c0588ad3a63",
+      "manifest_bytes": 55887,
+      "inventory_files": 381,
+      "inventory_bytes": 2738669
     }
   ],
   "reviewed_complete_map": "/data2/neural-shrimp-data/explore/clark-rnn/n12-p6-geometry-002/maps.png",
-  "clark_scope": "FixedN12/28192 period6 region with both-start native6/12/24 qualified samples. All nativeboundary attempts retained; none fullyqualified. Signedhalf diagnosis motivates explicitG=-F3 criticalroots, not fullshrimp claim.",
+  "clark_scope": "Three numerical G=-F3 flips plus one G fold on original primitive6 cycles. G period2 daughters can be symmetry-broken native6, not automatically native12. Cubic sign difference across fixed gains is not yet a connected generalizedflip certificate; explicit boundary continuation and native12/24 joins remain open.",
   "central_audit_receipt": "docs/reviews/generalized-chain-independent-outcome.json",
   "central_audit_scope": "384-bit freshsamebox41D normalizedprimitive18chain root, exactalgebraicmultiplicity2 at+1 and attracting11Dcomplement. Sharednativeanalytic/Arbkernel; no genericunfolding or470Dbranchmembership."
 }
