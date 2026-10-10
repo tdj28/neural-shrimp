@@ -38,3 +38,26 @@ def critical_fixed_gain(z,j,g,sign,halfperiod=3):
     b[n:2*n,:n]=np.einsum('ijk,j->ik',v[:,:n,:n],q)
     b[n:2*n,n]=v[:,:n,n+1]@q;b[n:2*n,n+1:]=a;b[-1,n+1:]=q
     return h,b,dict(theta=np.array(x),gain=g,delta=delta,right_vector=q.copy(),endpoint=end,first=u,second=v,half_cycle=cycle,half_phase_jacobians=phase,monodromy=m)
+
+
+def pair_fixed_amplitude(z,j,g,amplitude,projection,halfperiod=3):
+    """G two-cycle with fixed signed amplitude; no quotient of the native state.
+
+    z=(x,y,delta), G(x)=y, G(y)=x and projection.(x-y)=2*amplitude.
+    For odd F and G=-F^3 each point is a native F^6 root, but primitive native
+    period and stability still require separate full-state checks.
+    """
+    n=len(j);projection=np.asarray(projection)
+    if len(z)!=2*n+1 or projection.shape!=(n,)or not np.isfinite(projection).all():
+        raise ValueError('paired state/projection dimensions')
+    if not np.isfinite(amplitude)or amplitude<=0 or abs(projection@projection-1)>1e-12:
+        raise ValueError('positive amplitude and normalized fixed projection')
+    x,y=z[:n],z[n:2*n];d=float(z[-1])
+    ex,ux,vx,cx,px=g_jets(x,j,g,d,halfperiod)
+    ey,uy,vy,cy,py=g_jets(y,j,g,d,halfperiod)
+    h=np.r_[ex-y,ey-x,projection@(x-y)-2*amplitude]
+    b=np.zeros((2*n+1,2*n+1));b[:n,:n]=ux[:,:n];b[:n,n:2*n]=-np.eye(n);b[:n,-1]=ux[:,n+1]
+    b[n:2*n,:n]=-np.eye(n);b[n:2*n,n:2*n]=uy[:,:n];b[n:2*n,-1]=uy[:,n+1]
+    b[-1,:n]=projection;b[-1,n:2*n]=-projection
+    return h,b,dict(theta_x=np.array(x),theta_y=np.array(y),gain=g,delta=d,amplitude=float(amplitude),projection=projection.copy(),
+        Gx=ex,Gy=ey,first_x=ux,first_y=uy,second_x=vx,second_y=vy,half_cycle_x=cx,half_cycle_y=cy,half_phase_x=px,half_phase_y=py)

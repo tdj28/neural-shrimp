@@ -11441,3 +11441,6 @@ can resolve the slow component, with identical model/state/gates.3216HVP
 40grad,700sinternal720+5external727supervisor,2GiBgroup255+1MiBraw;
 costed from actual400pilot, no paid work or new data. Requires peerreview
 of scalar wrapper adaptation before execution; no automatic further extension.
+## 2026-10-10: prepare explicit native daughters of the signed-half flip
+
+Root authorizes actual daughter tracking for native6/12/24 anatomy before larger rigorous classification. Add full25D Gperiod2 fixed-amplitude equations/Jacobian, retaining both native partner states and physical leak. Synthetic full-column derivative and known super/subcritical flip daughter controls precede runner. Fixed source roots/gauge/amplitude sequence and native/reverse qualification strategy in docs/plans/clark-rnn-n12-daughters.md. Runner/profile thresholds remain in preparation; no target launched, no native12 inference from Gperiod2.
