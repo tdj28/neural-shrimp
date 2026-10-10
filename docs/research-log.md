@@ -6075,3 +6075,8 @@ Fixed extension001 execution f663fe12 passes measured31.6594s/175765504B gate; a
 Lower-gain branch remains attracting through amplitude1.235078108268263/leak.7792115787976915/radius.42497351848749415, then retains an unresolved paired state/leak guard at next amplitude1.335078108268263. Saved failed corrector has9 Newton solves, residuals.0157–.1093 and final Jacobian condition~24633; final proposed state step.83370/leakstep.03261 violates unchanged guard. This supports diagnosing the amplitude coordinate before trying fixed-leak continuation, but does not prove a coordinate fold. No correction failure was relabeled an orbit.
 
 Independent saved arithmetic checks all80native contexts/14accepted points/12joins: maxclosure1.28e-15,minproperdivisor1.01542,maxpairresidual4.22e-15,maxforward.024870,maxreverse1.36e-15. Complete immutable898files9.60MB and owned1834415/1834417/group absence verified. Receipt docs/reviews/clark-rnn-n12-daughter-extension-001.json; outeracce75e7/worker3dfd2585. Integration now18ownedrawroots. Next exact g25 plus bracket localization/criticality and g16 coordinate repair retain all same native associations; no native12/24 or shrimp claim.
+
+
+## 2026-10-10: direct native daughter fold qualification card
+
+Prepare one fixed actual F6 fold solve from extension001 higher-gain native+1 bracket. Full native augmented equations and actual leading mode; literal G partner, four primitive6 phase contexts, native fold coefficients at both partners, both saved endpoint forward/paired-reverse joins. Ten unrelated full25D augmented profiles added to unchanged measured resource envelope;32fullaugmented cap. Source/tests/review before n12-p6-daughter-fold-001; lower-gain guard failure remains separate and no period12 inference.
