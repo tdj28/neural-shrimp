@@ -11917,3 +11917,8 @@ Attempt001 failed2.415s with0native calls at direct interval section.solve, whic
 ### 2026-10-10T23:56:41.570576+00:00 — LM forecast review retention repair
 
 Independent review confirmed predictor ordering, information budget, profile bindings and240calls, but requested immediate retention of each completed HVP before downstream finite checks. Implement that narrow fix, keep the same64MiB cap, and add a forced nonfinite-action control. No target data acquired.
+
+
+### 2026-10-10T23:56:59.222319+00:00 — fixed independent junction attempt002
+
+Clark re-reviewed1b974d0e, reproduced five controls in0.13s and cleared the exact-preconditioned interval solves. Execute the unchanged fixed162phase/480bit/60s/1GiB unit in exclusive attempt002; no failed output is replaced and no mathematical gate is relaxed.
