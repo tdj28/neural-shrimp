@@ -7231,3 +7231,24 @@ Full synthetic profile and peer differential review before target; caps360s/
 Twenty-two focused synthetic controls pass, including full-prefix admission,
 selected-chart primitive/gauge rejection, exact partition and failure stop.
 Plan docs/plans/s2-period18-preceding-chart-stability.md; no launch yet.
+
+2026-10-10 chart155 full synthetic profile at 64dfb34a87b40cac876be9d9b556403d09fa696f completed
+once: 12.315627s/525976KiB,162C1/324unit/36mixed
+calls/161stages, all strict gates positive. Peer research_strategy source
+skim and22independent controls passed before launch. Worker d247afccc0699cce9bca020560910c10f6c79e1c23c0db08644dadcebb420102;
+outer ba6bb8c398204ffe2c74ba344cf176c91878c4e0a6d284fa42b2f4d61f722260. Full immutable inventory/source/settings/owned-PID
+checks pass. Projection 310.575049s<360;
+402653184B<448MiB.
+
+Exact next target card: ONE exclusive attempt001-target in the same
+s2-period18-preceding-chart-stability-2026-10-10 root, unchanged source/card bytes.
+Eight fixed descending equal slices per card on[43/128,11/32], no reused
+slice. Use --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-preceding-chart-stability-2026-10-10/attempt-001-profile/run
+--profile-manifest d247afccc0699cce9bca020560910c10f6c79e1c23c0db08644dadcebb420102
+--profile-outer-manifest ba6bb8c398204ffe2c74ba344cf176c91878c4e0a6d284fa42b2f4d61f722260.
+CPU/BLAS1,nice10,360s internal/390+5 external,2GiB sampled owned-group RSS,
+512MiBworker/514MiBaggregate;1,296C1/2,592unit/288mixed maxima. Fresh resource
+check; stop first final failed slice/prerequisite/resource gate, retaining it.
+No rerun, width adaptation or failed-tail coverage in this unit. This is
+producer chart-local attraction only if all eight strict bounds pass;
+independent outcome review remains required before final attribution.
