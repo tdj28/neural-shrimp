@@ -42,6 +42,12 @@ def joined(inp,result,start,whole,center,physical,phases):
       'weights':[exact(v) for v in chart['exact_weights']],'halfwidth':exact(str((hi-lo)/2))}
 
 
+def retain_result(out,result,tick):
+    payload=io.save(out/'tangent-result.json.gz',result)
+    io.save(out/'tangent-result-payload.json',payload)
+    tick()
+
+
 def execute(out):
     require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip(),'clean source');require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
     bound={}
@@ -70,7 +76,8 @@ def execute(out):
             args=joined(inp,result,io.read(PARENT/'stage-000-whole_slice_start.json.gz'),io.read(PARENT/'stage-003-whole_slice_intersection.json.gz'),
               io.read(PARENT/'stage-008-center_slice_intersection.json.gz'),io.read(PARENT/'stage-009-physical_inputs.json.gz'),
               [io.read(PARENT/f'stage-{10+j:03d}-phase_derivatives.json.gz') for j in range(18)])
-            tick();refined=refine_tangent(**args);tick();payload=io.save(out/'tangent-result.json.gz',refined);io.save(out/'tangent-result-payload.json',payload)
+            tick();refined=refine_tangent(**args)
+            retain_result(out,refined,tick)
             if refined['passed']:
                 tight=restore_matrix(refined['refined_derivative_box']);old=args['velocity']
                 diagnostic=[{'coordinate':i,'old_radius':float(old[i,0].rad()),'refined_radius':float(tight[i,0].rad())} for i in range(235)]

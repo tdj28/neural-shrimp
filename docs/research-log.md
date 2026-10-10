@@ -8347,3 +8347,11 @@ Intersect centered Uprime(center)+Usecond D with old true tangent. Optimizer
 independently cleared algebra including exactly two theta/rate cross terms.
 One saved-only20s/1GiB unit, code/card before outcomes; no model/derivative
 calls or attraction claim. docs/plans/s2-period18-tangent-variation.md.
+
+2026-10-10 pre-execution tangent reviewer correction: optimizer's independent
+NaN synthetic exposed that a finite Neumann q alone did not reject nonfinite
+RHS/solution boxes. No target ran. Added explicit finite checks for every
+implicit input/defect/RHS/tail/image/intersection and phase curvature forcing,
+with seven NaN/Inf controls. Save a returned refinement before the subsequent
+deadline check so late completion remains durable. Mathematics/settings and
+all existing evidence unchanged; revised source is re-reviewed before launch.

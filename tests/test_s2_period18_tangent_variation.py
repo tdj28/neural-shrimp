@@ -49,3 +49,12 @@ def test_native_phase_and_packing_rejected():
 def test_source_inventory_includes_actual_derivative_and_new_kernel():
     m=driver()
     for name in ('src/neural_shrimp/rigorous_folds.py','src/neural_shrimp/rigorous_tangent_variation.py','src/neural_shrimp/rigorous_gradient_enclosure.py',m.CARD):assert name in m.SOURCES
+
+
+def test_returned_bound_survives_postreturn_deadline(tmp_path):
+    m=driver();result={'passed':False,'reason':'synthetic retained result'}
+    def stop():raise TimeoutError('post-return deadline')
+    with pytest.raises(TimeoutError,match='post-return'):
+        m.retain_result(tmp_path,result,stop)
+    assert m.io.read(tmp_path/'tangent-result.json.gz')==result
+    assert (tmp_path/'tangent-result-payload.json').is_file()

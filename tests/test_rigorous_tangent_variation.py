@@ -49,3 +49,20 @@ def test_nonpositive_actual_rate_rejected(rate):
 
 def test_missing_native_phase_is_rejected():
     with pytest.raises(ValueError):curvature_forcing([eye(1)],[],arb_mat([[1],[1]]),arb(1),1)
+
+
+@pytest.mark.parametrize('which',['pre','jac','rhs','weight'])
+def test_nonfinite_implicit_input_never_passes(which):
+    args={'pre':eye(1),'jac':eye(1),'rhs':arb_mat([[1]]),'weights':[arb(1)]}
+    if which=='weight':args['weights']=[arb('inf')]
+    else:args[which]=arb_mat([[arb('nan')]])
+    with pytest.raises(ValueError,match='finite'):implicit_solve(**args)
+
+
+@pytest.mark.parametrize('which',['jac','prime','velocity'])
+def test_nonfinite_curvature_input_never_passes(which):
+    j=eye(1);jp=eye(1);v=arb_mat([[1],[1]])
+    if which=='jac':j[0,0]=arb('nan')
+    elif which=='prime':jp[0,0]=arb('nan')
+    else:v[0,0]=arb('nan')
+    with pytest.raises(ValueError,match='finite'):curvature_forcing([j],[jp],v,arb(1),1)
