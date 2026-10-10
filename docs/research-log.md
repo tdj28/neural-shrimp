@@ -5754,3 +5754,16 @@ bound Python source, and change the exclusive destination to attempt002.
 Repeat the same saved-only audit with identical input pins, arithmetic, scientific
 gates and caps. Existing producer summaries were known; no target arrays were
 loaded by the failed invocation. Both attempts remain in the final review.
+
+### 10 October 2026 — independent wider primitive-branch review passes
+
+Corrected source5a8d5723 attempt002 passes original256-bit saved identities and
+independent384-bit root/primitive/original-anchor/fresh-endpoint joins for both
+weighted width1/16 and quadratic width1/64. No derivatives reacquired, no
+attraction claim.48 focused controls pass.27s; worker11.140s/457332KiB,
+outer11.376s,exit0. Immutable outer c62a15eeda71f73356b5e082e92215a386240ad84ff28f459d06c096ef3b9ad5;
+worker3800b3d7f1b86ccea7f59c4955803aec77cdd4e7ccf019ff2da97fcd4154582b.
+All23 inventory files/hash checks pass and owned PIDs1013360/1013445/1013446
+are absent. Reviewer SyntaxError attempt001 remains immutable and explicitly
+reported. Companion docs/reviews/s2-period18-weighted-independent-review.md/.json
+records exact endpoints, all source/input pins, trust overlap and scope.
