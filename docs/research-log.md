@@ -5850,3 +5850,5 @@ Independent static/synthetic skim of repair-chain source 4c191a65 passed 18 cont
 The original three fold reverse failures remain unchanged. New fixed quadratic proposals use both signs and the exact original parent delta; no parameter or amplitude search, no weakened native identity/divisor gates. Requalify only saved roots and correct six proposals after parent replay. Card `docs/plans/clark-rnn-n6-p7-fold-association.md`:120-call/20s/448MiB/16+1MiB, synthetic timing before target inputs and25+5s external. Source/card/tests/private push and independent source skim precede the single unit.
 
 Synthetic validation: the combined edit/test shell hit the unchanged448MiB process-peak guard in three existing mocked boundary tests (19passed); a fresh test-only process passed all22 controls in0.27s with identical source/caps. No target ran or cap changed.
+
+Prelaunch peer amendment: explicitly require the original saved fold-to-parent native phase/sign gate in BOTH joined records before applying the new reverse proposal. New proposals cannot repair phase-ambiguous historical roots. Added five adversarial controls; no target work preceded this repair.
