@@ -10316,3 +10316,10 @@ Twenty-five focused synthetic/corruption controls pass0.20s. No target was read
 by these controls. Independent source review precedes a separate measured
 profile and target card. The existing97-chart prefix and unit006 stop remain
 unchanged; no automatic continuation or complete-shrimp claim.
+
+### 2026-10-10 — native lift synthetic run card
+
+Source2e04677c independently reviewed PASS;25 controls independently reproduced.
+Run exactly the unrelated36-step profile in docs/plans/eigenpair-chain-lift-profile001.json.
+Host54,182,304KiB available, load2.01; no duplicate owned lift process.
+No target access or continuation is authorized by this profile card.
