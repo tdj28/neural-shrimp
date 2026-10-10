@@ -11347,3 +11347,11 @@ dyadic radii equal to the saved resolvent proposal divided by8. New whole-domain
 704 proof and all704 original-root-anchor gates remain mandatory. Kernel,
 operation count, measured local resource ceilings and independent root bindings
 are unchanged. Thirty-three combined controls pass0.37s; no second target yet.
+
+### 2026-10-10 — exact fresh weighted704 card after independent clearance
+
+Root independently cleared406dae05,41combined controls0.47s; the original
+math kernel remains unchanged and reviewed. Run exactly one fresh proof in
+native-unit-pair-target002.json, exact t[0,1/32768] and all704source-bound dyadic
+weights. Measured first target/profile resource ceilings and current host checks
+apply. New full-domain Jacobians and all original-root anchor gates are required.
