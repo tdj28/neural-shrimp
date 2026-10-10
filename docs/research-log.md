@@ -7120,3 +7120,20 @@ Outer b4d92a2bb0b5cbbccd7e9ed8aa251c78f468ec3719f342e0ab4541b1d74a292d; run
 `docs/reviews/eigenpair-wider-march-unit005.md/.json`. Numerical normal-form
 and complementary-mode columns remain diagnostics; independent outcome review
 pending. Next unit requires a newly committed exact complete-parent card.
+
+### 2026-10-10 — complete repair-chain unit006 pre-run card
+
+Continue only complete endpoint 103/128, execution 7e09ff673b0cf54fa6362d090e7b3cd28967ef5c,
+outer b4d92a2bb0b5cbbccd7e9ed8aa251c78f468ec3719f342e0ab4541b1d74a292d,
+run 95a8732e5b0504e5493b13712f6391b0dff49be8a83c834f9214d4d40fa851ca. Exact card:
+`docs/plans/eigenpair-wider-unit006.json`; prospective endpoints
+107/128, 111/128, 115/128, 119/128. Unchanged adapter4c191a65,
+proof7aa2398b, marcherfe35003a and independently cleared source; no new
+scientific choice or profile. Preserve inherited qualified radius floor,
+four accepted/eight calls, sole root-only nonshrinking fresh repair and all
+native470D/primitive gates. Parent measured 169.932s,
+1121716KiB; original conservative cost admission remains.
+Host at 2026-10-10T17:49:20.459329+00:00: 35.08GiB available,
+load (2.62255859375, 2.92578125, 2.32373046875); GPU 0 %, 15947 MiB, apps none.
+CPU1 nice10,400/420+5s,1040ticks,2GiB sampledRSS,512+1MiB. Standing
+complete-parent authorization applies; no failed tail consumed.
