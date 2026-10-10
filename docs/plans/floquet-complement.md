@@ -50,3 +50,14 @@ arithmetic before promotion. It would prove only the11 complementary modes
 strictly inside the unit circle throughout this already proved finite unit-pair
 tube. It would not prove signed NS criticality, stability sides, the705D
 connection to a remote NS–flip junction, or a completed enclosing shrimp.
+
+Amendment after first execution: attempt002-spectrum stopped before target
+proof/quotient arithmetic on an overstrict provenance guard. Original Arb
+addition saved the parameter enclosure with midpoint2^-16 and outward radius
+536870913*2^-45. Require exact reproduction of this original source-generated
+ball, together with containment of the exact proved[0,1/32768] interval. This
+does not change the theorem domain or weaken any state/derivative identity.
+A focused regression retains the rounding distinction and rejects changed
+centers/radii. The complete2.191-second/zero-native failure is retained; the
+new exclusive attempt003-spectrum repeats the unrelated profile and unchanged
+mathematics/caps after peer differential review.

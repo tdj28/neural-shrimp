@@ -26,3 +26,13 @@ def test_fullsize_unrelated_profile():
  m=module()
  with ctx.workprec(384):
   x=m.profile(lambda:None);assert x['passed']and x['period']==18 and x['complement_dimension']==11 and x['native_calls']==0
+
+
+def test_source_rounded_parameter_domain_covers_exact_interval():
+ m=module()
+ with ctx.workprec(384):
+  original={'mid':[1,-16],'rad':[536870913,-45]}
+  m.check_parameter(original)
+  assert m.U.M.interval(original)!=(m.U.F(0),m.U.F(1,32768))
+  for changed in [{'mid':[1,-17],'rad':[536870913,-45]},{'mid':[1,-16],'rad':[1,-16]},{'mid':[1,-16],'rad':[536870913,-44]}]:
+   with pytest.raises(ValueError):m.check_parameter(changed)

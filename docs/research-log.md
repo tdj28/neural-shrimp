@@ -8406,3 +8406,16 @@ runtime-version fields before launch; this is metadata only. Host at16:46PDT
 had52GiB available and no active native scientific worker in the inspected
 process list. The sole fixed saved attempt002-spectrum is now admitted under
 the above committed card and exact unchanged scientific caps.
+
+### 2026-10-10 — Preserve rounded-parameter binding failure
+
+The first fixed Floquet trial6ec2162a completed its unrelated measured profile
+in0.112s (forecast73.30s) then stopped at the old parameter-ball equality gate.
+The source-generated Arb ball encloses the exact interval with a one-ulp
+outward radius; equating its endpoints to mathematical endpoints was wrong.
+No target certificate or quotient arithmetic ran. Preserved immutable receipt
+docs/reviews/floquet-complement-binding-failure.json:2.191s/83672KiB, outer
+5efab3ced610cf1fffdc3ac4d04ffde67d61e25f6c187c68aea79c5862b9a0f4.
+Narrow amendment reproduces exactly the original rounded source expression
+and requires coverage of the exact mathematical domain. Freshattempt003 after
+peer recheck; no other scientific or resource change.
