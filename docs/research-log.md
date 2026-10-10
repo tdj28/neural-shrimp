@@ -6712,3 +6712,7 @@ After the overlapping flip envelope, assemble exactly four pinned p7 units into 
 ### 2026-10-09 PDT: saved p7 anatomy does not establish a classical shrimp
 
 Saved-only source aeb56862 completed2.930s/113428KiB, with all four input inventories verified. Visual review of the retained overview and local flip envelope is complete. Full-cycle nearest sampled returns remain nonzero; no common-orbit/closed-loop assertion. Compact figure/arithmetic receipt and anatomy decision preserve this adapted negative interpretation. Stop extending this family; a finite new N4 matrix panel is more informative than another local certificate. No global absence or continuous-time/training/utility claim.
+
+### 2026-10-09 PDT: finite new N4 matrices after two anatomy limitations
+
+Root authorizes a finite new-matrix panel after the p5/p7 tongue-like outcomes. New source/card fixes seeds28172–28177,31×31 gain/leak grid, both starts,12000+1000+8192 updates and all connected consensus-period components retained. At most8 components/matrix get first/last-cell both-start native qualification by margin/context/size/period/index ranking, max192. No visual island becomes a shrimp. First a separate seed28169/9×9 identical-horizon resource profile with explicit six-matrix/batch/step arithmetic; target only if runtime/peak/raw gates pass.45s profile/240s panel internal, CPU1nice10/512MiB/256+1MiB, exclusive new-matrices-{profile,panel}-001. All failures retained; no GPU/paid/protected data. Source/tests/card sent to root before profile.
