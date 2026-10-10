@@ -9669,3 +9669,8 @@ Unit002 source769168de and unit003 source0d60f415 both pass all eight fixed slic
 ### 2026-10-10 — Continuous attraction and parallel negative findings in manuscript
 
 Add independently proved24-slice continuous attraction with exact affine gauge, disclosing shared derivative kernels and remaining all-path/boundary gaps. Add authenticated N12 development-panel scope, negative response preconditioning and common-center gradient explanation. Every quoted new number source-bound; previous entries/figures must remain unchanged. This is a saved-evidence editorial update, no new scientific acquisition or full legacy verifier replay. Compile and visual QA before updated readingPDF.
+
+
+### 2026-10-10 — Current reading PDF with independently audited continuous attraction
+
+Source88704db0,397 bound numbers verified;385 prior entries and20 figure hashes unchanged. Local multi-file latexmk completed40pages without warnings/box errors. All40pages visually inspected, pages1/2/12/29/34 atdetail. Updated readingPDF and immutable QA bound in docs/reviews/paper-continuous-attraction-qa.json. Includes24closed attracting slices, ordinary-gradient contrast explanation, negative response checks and N12floating activitypanel. Full shrimp/all-path attraction remain open. No full legacy verify.py replay or fresh scientific acquisition in this manuscript checkpoint.
