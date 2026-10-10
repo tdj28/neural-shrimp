@@ -1935,6 +1935,31 @@ def build():
     n.add("nAttractingSlices",count,integer(count),proof,cs,"all closed slices in nine independently audited joined charts")
     n.add("tAttractingGauge",cv["exact_full_state_gauge"],"["+", ".join(cv["exact_full_state_gauge"])+"]",proof,cs,"exact connected affine full-state gauge")
     n.add("tAttractingHiddenRate",cv["rigorous_hidden_rate_interval"],"["+", ".join(displays)+"]",proof,cs,"inward decimal rounding and continuity; at least one attracting primitive18 cycle at each hidden rate; monotonicity not assumed")
+    tp=c.ROOT/"docs/reviews/s2-attraction-tail-independent-outcome.json";tw=load(tp)
+    wp=c.ROOT/tw["previous_receipt"];w=load(wp)
+    assert c.sha256(wp)==tw["previous_receipt_identity"]["sha256"] and w["status"]=="independent_pass" and tw["status"]=="passed"
+    ws=cs+[tp,wp]+bound_inventory(Path(w["root"])/"manifest.json",w["outer_manifest"]["sha256"])
+    ws+=bound_inventory(Path(tw["tail_batch_root"])/"manifest.json",tw["tail_batch_outer_manifest"]["sha256"])
+    ws+=bound_inventory(Path(tw["reused_piece"]["root"])/"manifest.json",tw["reused_piece"]["outer_manifest"]["sha256"])
+    wider=list(ends);total=count
+    for row in w["charts"]+tw["tail_charts"]:
+        out=row["outcome"];assert out["passed"] and out==load(Path(row["root"])/"run/outcome.json")
+        wider.append(tuple(map(Fraction,out["coverage"])));total+=out["completed_slices"]
+    out=tw["reused_piece"]["outcome"];assert out["passed"] and out==load(Path(tw["reused_piece"]["root"])/"run/outcome.json")
+    wider.append(tuple(map(Fraction,out["coverage"])));total+=out["completed_slices"];wider.sort()
+    assert total==tw["total_connected_independent_slices"]==112 and all(a[1]==b[0]for a,b in zip(wider,wider[1:]))
+    wideends=[str(wider[0][0]),str(wider[-1][1])];assert wideends==tw["total_connected_exact_gauge_interval"]
+    physical=[]
+    for row in tw["physical_endpoint_proofs"]:
+        pp=Path(row["path"]);assert c.sha256(pp)==row["identity"]["sha256"];ws.append(pp);pv=load(pp)
+        if row["selector"] is not None:pv=pv[row["selector"]]
+        assert pv["passed"] and pv["fresh_endpoints"][row["endpoint_index"]][-1]==row["hidden_rate_enclosure"]
+        physical.append(ball_endpoints(row["hidden_rate_enclosure"]))
+    lo,hi=map(Fraction,tw["guaranteed_hidden_rate_interval"]);assert physical[0][1]<=lo<hi<=physical[1][0] and Fraction(tw["fixed_output_rate"])==output
+    displays=[exact_decimal(int(v*10**6),6)for v in(lo,hi)]
+    n.add("nWideAttractingSlices",total,integer(total),proof,ws,"all112independently checked closed adjoining native attraction pieces")
+    n.add("tWideAttractingGauge",wideends,"["+", ".join(wideends)+"]",proof,ws,"full closed connected gauge coverage after tail audit")
+    n.add("tWideAttractingHiddenRate",tw["guaranteed_hidden_rate_interval"],"["+", ".join(displays)+"]",proof,ws,"exact rational endpoint bounds and IVT; no monotonicity assumption")
     # Independently proved double+1 Jordan root and strictly attracting quotient.
     jcpath=c.ROOT/"docs/reviews/generalized-chain-independent-outcome.json";jc=load(jcpath);jo=jc["outcome"]
     js=[jcpath]+bound_inventory(Path(jc["raw_root"])/"manifest.json",jc["outer"]["manifest_sha256"])

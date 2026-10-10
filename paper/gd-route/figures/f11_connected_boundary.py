@@ -45,9 +45,9 @@ def data():
         discs.append([float(ball(d['center_real'])[0]),float(ball(d['center_imag'])[0]),float(sum(ball(d['radius'])))])
     assert len(discs)==11
     bound=max(float(sum(ball(d['recomputed_modulus_upper'])))for d in j['quotient']['discs'])
-    ap=c.ROOT/'docs/reviews/s2-attraction-coverage-independent.json';a=load(ap)['result'];inputs.append(ap);assert a['passed'] and a['slices']==68
-    stable=[float(Fraction(v))for v in a['rigorous_hidden_rate_interval']];output=float(Fraction(a['exact_output_rate']))
-    cp=c.ROOT/'certificates/s2-period18-receipt.json';cr=load(cp);inp=Path(cr['external_root'])/'inputs.json';inputs.extend([cp,inp]);assert c.sha256(inp)==cr['files']['inputs.json']['sha256'];orig=load(inp);center=float(Fraction(orig['lr_hidden']));assert Fraction(orig['lr_output'])==Fraction(a['exact_output_rate'])
+    ap=c.ROOT/'docs/reviews/s2-attraction-tail-independent-outcome.json';a=load(ap);inputs.append(ap);assert a['status']=='passed' and a['total_connected_independent_slices']==112
+    stable=[float(Fraction(v))for v in a['guaranteed_hidden_rate_interval']];output=float(Fraction(a['fixed_output_rate']))
+    cp=c.ROOT/'certificates/s2-period18-receipt.json';cr=load(cp);inp=Path(cr['external_root'])/'inputs.json';inputs.extend([cp,inp]);assert c.sha256(inp)==cr['files']['inputs.json']['sha256'];orig=load(inp);center=float(Fraction(orig['lr_hidden']));assert Fraction(orig['lr_output'])==Fraction(a['fixed_output_rate'])
     # Canonical fold comes from the exact original augmented certificate.
     fp=Path(ix['charts'][0]['join']['parent_certificate']);fc=load(fp);inputs.append(fp)
     frp=c.ROOT/'certificates/s2-period18-fold-receipt.json';fr=load(frp);inputs.append(frp)

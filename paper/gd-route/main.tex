@@ -476,13 +476,13 @@ and \path{docs/reviews/s2-near-fold-endpoint-attraction.json}.
 
 \paragraph{A certified interval of attracting training cycles.}
 An independent audit establishes local attraction throughout
-\nAttractingSlices{} adjoining closed slices of this same primitive branch,
+\nWideAttractingSlices{} adjoining closed slices of this same primitive branch,
 with the original output learning rate fixed. Their union is
-$s_{\mathrm{loc}}\in\tAttractingGauge$ in the later affine full-state coordinate.
+$s_{\mathrm{loc}}\in\tWideAttractingGauge$ in the later affine full-state coordinate.
 Projecting the connected branch into the physical learning-rate plane gives
 the following consequence: for every
 \begin{equation}
-\eta_h\in\tAttractingHiddenRate,
+\eta_h\in\tWideAttractingHiddenRate,
 \qquad \eta_o=\tFoldProofOutput,
 \end{equation}
 there is a locally attracting primitive period-18 training cycle.
@@ -498,7 +498,7 @@ closed slice. Independent arithmetic reconstructs these bounds at higher
 precision; the analytic derivative kernels and Arb remain shared dependencies.
 This proves an attracting interior cross-section. Its extension to the two
 bifurcation boundaries is the remaining stability-coverage problem. See
-\path{docs/reviews/s2-attraction-coverage-independent.json}.
+\path{docs/reviews/s2-attraction-tail-independent-outcome.json}.
 
 \subsection{A local fold of primitive period-18 cycles}
 \label{sec:fold-proof}
