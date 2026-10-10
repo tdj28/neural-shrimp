@@ -43,3 +43,14 @@ def test_full_eigenpair_map_binding_rejects_old_orbit_envelope_and_changed_rates
  R.same_map(dict(known),known)
  for extra in [dict(known,approximation=[0]),dict(known,lr_hidden='3'),dict(known,x=[[2]]),dict(known,network='other')]:
   with pytest.raises(ValueError):R.same_map(extra,known)
+
+def admission(index=1):
+ return {'index':index,'first_global_chart':22+4*(index-1),'selected':[{}]*(1 if index==13 else 4),'prior_root':str(R.BASE/('unit000-attempt002'if index==1 else f'unit{index-1:03d}-attempt001')),'prior_endpoint':'run/endpoint.json','prior_manifest':'a'*64,'outcome_passed':index!=13,'producer_exit':2 if index==13 else 0}
+
+def test_fixed_complete_units_and_disclosed_partial_unit():
+ for i in [1,2,12,13]:assert R.admit(R.BASE/f'unit{i:03d}-attempt001/run',R.ROOT/f'docs/plans/eigenpair-remaining-unit{i:03d}.json',admission(i))==i
+
+@pytest.mark.parametrize('key,value',[('index',14),('index',True),('first_global_chart',99),('prior_root','/wrong'),('prior_manifest',None),('selected',[{}]),('outcome_passed',False),('producer_exit',2)])
+def test_unfrozen_or_mismatched_next_unit_fails(key,value):
+ d=admission();d[key]=value
+ with pytest.raises(ValueError):R.admit(R.BASE/'unit001-attempt001/run',R.ROOT/'docs/plans/eigenpair-remaining-unit001.json',d)
