@@ -9554,3 +9554,9 @@ P7boundary peer review required explicit final launcher/aggregate byte enforceme
 The combined edit/test shell produced three synthetic MemoryError checks at the unchanged448MiB worker guard (no model target). A fresh separate test process, with the same tests/caps and no source relaxation, passed20controls in0.19s. Retain the failed harness result as a resource-context artifact; do not reinterpret it as a scientific outcome or relax the target guard.
 
 Independent optimizer differential source skim passes4a990b65, including corrected final byte allowance. Proceed single fixed3gain×2directionunit only after unrelated6D/p7profile resource gate. Peer2GiBproof staggered until this≤512MiBjob exits; foreignprocesses untouched.
+
+## 2026-10-10 — N6 p7 boundary outcome and repair-chain peer skim
+
+Execution 33acead6 completed the six fixed p7 slice directions: one reverse-associated transverse flip, three local fold roots with failed singular-start reverse association, and two unresolved directions. All failures remain immutable; no shrimp or interval claim. See `docs/reviews/clark-rnn-n6-p7-boundaries-outcome.json`. Complete manifests, read-only modes and owned PID exits were checked. A two-sign quadratic fold predictor is a proposed next method, not a retrospective gate change.
+
+Independent static/synthetic skim of repair-chain source 4c191a65 passed 18 controls in 0.20 s; no target arrays were read. Exact source hashes and scope are in `docs/reviews/eigenpair-repair-chain-peer-source-review.json`.
