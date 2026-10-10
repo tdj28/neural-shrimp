@@ -9570,3 +9570,7 @@ Synthetic validation: the combined edit/test shell hit the unchanged448MiB proce
 Prelaunch peer amendment: explicitly require the original saved fold-to-parent native phase/sign gate in BOTH joined records before applying the new reverse proposal. New proposals cannot repair phase-ambiguous historical roots. Added five adversarial controls; no target work preceded this repair.
 
 Independent final differential skim of db8be328 passed before launch; see `docs/reviews/clark-rnn-n6-p7-fold-association-source-review.json`. Execute only the single source-bound synthetic-profile/admitted association unit at `n6-p7-fold-association-001`; preserve every sign and failure.
+
+## 2026-10-10 — fixed p7 quadratic association completed
+
+Executionc97a3ed4 completed50calls in0.678s. All three fixed folds recover the original attracting parent with unchangedfullnativeerror<=1e-7; the other three proposals close distinct unstableprimitive7 companions and fail original-parent identity. All six retained; oldsingular-startfailuresunchanged. Complete201-fileinventory/modes/ownedPIDexitverified. See `docs/reviews/clark-rnn-n6-p7-fold-association-outcome.json`. Full2Dshrimpanatomy remainsunresolved.
