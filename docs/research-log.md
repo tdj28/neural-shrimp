@@ -6672,3 +6672,7 @@ After the p5 finite-envelope limitation and local-fold proof, root asks for alte
 ### 2026-10-09 PDT: p7 slice attempt preserved at deadline
 
 Execution69e2c0a5 passed30.193s projected cost, then hit90s internal cap due repeated directory-size accounting with6520files. Actual90.124s/90.541s,121296KiB,1463nativecalls; source/profile outcome mismatch is retained as engineering failure. Firsttwo gains complete: three qualified folds, one identity-unresolved fold; third slice partial and no overall completion claim. Full manifests/modes and owned1028700/1028727/group exits verified. Outer56b0b759634412447a18700602f75230aa2b4613a84376ffd64cefdd69dc3103. No retry. Next new unit uses constant-time prewrite reservation and the two already qualified middle-gain folds for bounded2D geometry.
+
+### 2026-10-09 PDT: two p7 fold branches, prospective2D card
+
+The p7 deadline failure remains immutable. New card `docs/plans/clark-rnn-p7-continuation.md` uses only fully completed qualified middle-gain lower/upperfolds; four96-step traces, fixed.015, same scales/fullnative9x10Jacobian, phase/sign+reverse checks. New wrapper uses established constant-time conservative prewrite accounting, retains current trace before work, and discloses this engineering adaptation.90s105+5CPU1nice10/512MiB/128+1MiB/7000calls, measured6500max+20<=90 synthetic gate first. No repeated slices or new targets beyond these two saved boundary seeds; no automatic proof/cusp claim.

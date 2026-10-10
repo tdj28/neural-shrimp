@@ -25,3 +25,12 @@ def test_interrupt_before_any_native_call(tmp_path):
     m=module();w=m.Worker(tmp_path);w.interrupted=True
     with pytest.raises(InterruptedError):w.it(np.zeros(4),np.eye(4),1.,.7,'synthetic')
     assert w.calls==0
+
+def test_p7_pal_native_period_and_seed_schema(tmp_path):
+    p=Path(__file__).resolve().parents[1]/'tools/continue_clark_rnn_p7.py'
+    s=importlib.util.spec_from_file_location('p7_pal_control',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+    w=m.Work(tmp_path);events=[];w.emit=lambda k,v:events.append((k,v))
+    y=np.r_[.1,-.2,.3,-.4,2.,.7,1.,0.,0.,0.]/m.COL
+    h,b,a,t=w.full(y,np.eye(4)*.2,1,'synthetic')
+    assert a['cycle'].shape==(7,4) and b.shape==(9,10)
+    assert events[0][0]=='family' and events[0][1]['cycle'].shape==(7,4)
