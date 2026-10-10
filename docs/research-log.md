@@ -6170,3 +6170,7 @@ Audit001 exit2 after9.677s/71,980KiB/182 ticks: original cusp-a proof byte repla
 ## 10 October2026 — cusp review interval-wrapping diagnosis and authorized resume
 
 Diagnostic002 outer67849a3d027482700b9669ca940ba7d94d5b87ee0902319cc2221f12a00b44ad,0.113s/51,908KiB/zero native calls retained both valid inverse routes. Direct transpose-border path gives cubic[5±.101] but determinant[±.0658]; primal-inverse transpose gives cubic[4.9928±4.03e-5],determinant[.0290±6.93e-5]. Root authorizes the equivalent validated primal inversion, unchanged exclusion gates, and new attempt003 reusing pinned successful cusp-a replay001. All other reductions/nested/cusp-b replay remain required; scope and caps unchanged. Added nonsymmetric interval vertex-inverse control.
+
+## 10 October2026 — independent two-cusp review completed
+
+Attempt003 passed both original replays (cusp-a resumed from001), independent saved arithmetic and384-bit/-100 nested proofs.30.006s/78,740KiB/548ticks;98 files23,236,732B immutable, all owned PIDs absent. Outer78e62b008394c33df0537a3ac11234ab7a2738fe82da32173832610ccd2bc08f, run cfd4068ce380359599386e027884ed119825424d4cd760e5765708ac17d32510. Failed001 and diagnostic002 retained; equivalent validated primal inverse-transpose corrected an enclosure-width obstruction without changing gates. Companions docs/reviews/s2-cusps-independent-review.md/.json give exact source/proof pins and scope. Two local primitive18 cusps with unstable complement, not a body/branch connection or complete shrimp.
