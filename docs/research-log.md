@@ -7446,3 +7446,14 @@ No model/derivative call;60s/75+5,CPU1nice10,1.5GiB sampledRSS,32+1MiB.
 Passing would prove attracting complement only, conditional on authenticated
 root/mode evidence; neutral fold cycle remains nonattracting. Outcome independent
 review separate. Profile receipt `docs/reviews/eigenpair-neutral-quotient-profile.json`.
+
+### 2026-10-10 — fixed neutral quotient bound unresolved and retained
+
+Sourcef2cc7134/executiona52c4c99857cdac3562da3858dac1ec20c5d1259; synthetic profile admitted one saved unit008
+target. All18 frames/point metrics pass;0/18 whole interval decrease passes.
+No instability inference; no automatic retry. Worker3.250007s/
+588368KiB,0model calls, launcher exit2, allraw immutable andPIDs absent.
+Outer746a03086c2341487eff3588de582576ff8745eea44fe4210d3971f7baef7275; runc7e4403832ee43859705ba4b5fe91d5ebb76351bde73714f7c7bd498e6c8eaf1. Exact companion
+`docs/reviews/eigenpair-neutral-quotient-outcome.md/.json`. Related signed
+coefficient saved arithmetic independently passed6c25372c; original creation-time
+pending labels remain unchanged. Geometry continuation proceeds separately.
