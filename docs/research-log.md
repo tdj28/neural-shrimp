@@ -6612,3 +6612,26 @@ Run exactly one changed-domain16-chart target after this card is committed:
 Same180s/195+5, CPU1 nice10,2GiB,384+1MiB,2200ticks,1152/2304C1/unit
 plus864jets, fixed gauge/delta and new exact box. Stop first failed gate, retain
 all attempts; no attraction or fold identity claim.
+
+### 10 October 2026 UTC — adapted-radii unit001 outcome
+
+Execution7b21c3983683eb1c6268d315410e0510e8ffd713, unchanged source 2911c68b. Statusjoined_intervals_certified,
+passed=True;16 durable chart witnesses checked. New exact gauge
+coverage['187/64', '219/64'], last hidden-rate display[74.8118737 +/- 3.68e-8]. Worker61.5675s/
+419356KiB, launcher62.1363s,exit0;
+115703661 immutable bytes, hashes/decompressed payloads/native joins/owned-PIDs
+checked. Worker manifeste2d1dfcaf8e51672eff3aac609ff721e843bf232fd95d48681291df6c17e8f98;
+outerfb5c69163f6d78923f5422e2431891689f41777dc637cba7bbcdbc07b5ba660d. Companion `docs/reviews/s2-period18-arclength-radii-unit001.json`.
+No prefix rerun, attraction or fold identity claim; independent review pending.
+
+Next authorized identical fixed16-chart unit002: same source/settings,
+180s/195+5,CPU1,nice10,2GiB,384+1MiB,1152/2304 C1/unit+864jets,2200ticks.
+After fresh resource check run `tools/certify_s2_period18_arclength_radii.py
+--mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-radii-2026-10-10/unit-002
+--profile /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-radii-2026-10-10/attempt-001-profile/run
+--profile-manifest fe4e131a1d4e2f839998b87e0c38b51eeb955ec8f52ffcbfaff14d3290d092a5
+--parent /data2/neural-shrimp-data/explore/certificates/s2-period18-arclength-radii-2026-10-10/unit-001/run
+--parent-manifest e2d1dfcaf8e51672eff3aac609ff721e843bf232fd95d48681291df6c17e8f98
+--parent-execution 7b21c3983683eb1c6268d315410e0510e8ffd713`.
+Stop first failed gate; no automatic rerun or change of design. This card is
+committed before that distinct endpoint unit.
