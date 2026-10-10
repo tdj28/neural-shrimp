@@ -14,7 +14,11 @@ def phase_match(a,b):
     scale=max(1,float(np.max(np.abs(a))),float(np.max(np.abs(b))))
     matches=[(float(np.max(np.abs(a-sign*np.roll(b,k,axis=0)))/scale),sign,k) for sign in [1,-1] for k in range(len(a))]
     error,sign,shift=min(matches);native=float(np.max(np.abs(a-b))/scale)
-    return {'best_error':error,'best_sign':sign,'best_shift':shift,'native_error':native,'passed':sign==1 and shift==0 and native<.05}
+    tolerance=64*np.finfo(float).eps
+    # Retain the raw symmetry argmin as a diagnostic. Identity is checked on
+    # the unchanged native arrays; a tied half-wave representation is not a jump.
+    native_minimal=bool(np.isfinite(native) and np.isfinite(error) and native-error<=tolerance)
+    return {'best_error':error,'best_sign':sign,'best_shift':shift,'native_error':native,'native_minus_best':native-error,'score_roundoff_tolerance':tolerance,'native_minimal_up_to_roundoff':native_minimal,'passed':native_minimal and native<.05}
 
 def initial_attracting(point):
     return bool(np.isfinite(point['radius']) and point['radius']<1-1e-6)

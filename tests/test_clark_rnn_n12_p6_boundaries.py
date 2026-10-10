@@ -171,3 +171,16 @@ def test_first_unstable_cannot_supply_a_nonleading_index(tmp_path):
     m=module();w=m.Worker(tmp_path);w.emit=lambda *a:None
     point={'eigenvalues':np.r_[1.2,.999,np.arange(10)/20],'eigenvectors':np.eye(12)}
     assert w.localize(point,np.eye(12),7.,1,'synthetic',mode_index=1)['status']=='unstable_seed_not_leading'
+
+def test_half_wave_symmetry_tie_does_not_override_native_identity():
+    m=module();half=np.arange(1.,37.).reshape(3,12);cycle=np.vstack([half,-half])
+    result=m.phase_match(cycle,cycle)
+    assert result['best_sign']==-1 and result['best_shift']==3
+    assert result['native_error']==0 and result['passed']
+    assert not m.phase_match(cycle,-cycle)['passed']
+    assert not m.phase_match(cycle,np.roll(cycle,1,axis=0))['passed']
+def test_small_native_distance_cannot_hide_a_better_distinct_phase():
+    m=module();cycle=np.arange(72.).reshape(6,12)*1e-5
+    result=m.phase_match(cycle,np.roll(cycle,1,axis=0))
+    assert result['native_error']<.05 and result['best_error']==0
+    assert result['native_minus_best']>result['score_roundoff_tolerance']and not result['passed']
