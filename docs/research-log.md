@@ -9719,3 +9719,21 @@ endpoint remain mandatory. Unchanged true-tangent/norm-cocycle mathematics;
 new input cardinality exactly1 and whole-chart coverage check. Source/control
 review first; fresh full synthetic profile and measured card only after the
 required adjacent unit completes. No whole-chart target acquisition yet.
+
+2026-10-10 stability march unit003, original chart001, execution
+b2274e1a4f6a5fd755b81569897df1f4b05501a0: passed=True, 169.076135s /
+696680 KiB; 8 returned slices, 1288 stages.
+Worker 67888a4e30afa7db52ec779cbdbe60db07aafcaa0a8918d58fdfee6d92665236; outer 287843cc85349659d78ab227aa2aa3e20fbb2b7d739b768eb1f0b7ed2d76a85d.
+All raw/source hashes, read-only outputs and absent owned PIDs checked;
+301153774 B. First norm passes 8/8;
+every initial result remains unchanged. Exact requested coverage
+['9/32', '37/128']; independent saved outcome review pending.
+
+Exact next resumed unit004 card: original chart000/global147,
+eight closed slices['35/128', '9/32'], unchanged scientific method/caps. Predecessor
+/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/unit003/run, worker67888a4e30afa7db52ec779cbdbe60db07aafcaa0a8918d58fdfee6d92665236,
+outer287843cc85349659d78ab227aa2aa3e20fbb2b7d739b768eb1f0b7ed2d76a85d. Profile/data2/neural-shrimp-data/explore/certificates/s2-period18-stability-resume-2026-10-10/attempt001-profile/run,
+worker9317925cd1742e1d5a58f858f56f1a3e8108f332ea4c16e26b6fa40c382220d8,outer8fc0a156d9a39eaf02801a25dd8f14e98960486e58a0f38d3a59bff78307962f.
+Exclusive s2-period18-stability-resume-2026-10-10/unit004.
+CPU1nice10,360s/390+5,2GiB,512MiBworker/514aggregate,1296C1/2592unit/288mixed.
+Fresh resources; stop first failed gate; no prior slice repeated.
