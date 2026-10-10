@@ -5814,3 +5814,23 @@ acquisition justified by this prototype. Complete report/receipt in
 summary manifest2abe32ab6ad013fb7d52cb388e15985bd134a1690cf7d3f6222c3386256ef9e7.
 No further target run in this unit; next assigned task is independent interval
 localization review, not stopping the wider research goal.
+
+
+### 2026-10-10 00:56 UTC — completed boundary extensions and saved-only overlay
+
+Source3c114928/profile007 passed measured151.52s projection; independent seed
+mapping/source review passed. Fold-plus retained64 new nodes (321 evaluations,
+58.46s,49152KiB); ray51flip retained32+32 (345 evaluations,62.89s,52116KiB).
+All nodes pass numerical closure/primitive/simple-critical screens. Both owned
+groups exited. New outer manifests231b1d448fd06b09a180861d4e67569d3ef0f42967557ba4e24dd7b4780284f6
+andb3ccbdafc68c8ce6981d286d7f7a4145624a9b8d6806e721471a06186b7135c9.
+
+A fixed saved-only overlay now joins these two panels and previous target003
+against the unchanged historical512-grid, retaining every node and complement
+radius. It verifies complete inventories/read-only modes/PID absence, performs
+no model/derivative call or new eigensolve, and writes an exclusive summary.
+Budget30s/512MiB RSS/1GiB address space/8MiB output,CPU1/nice10, external40s.
+This overlay guides the next boundary choice, not a claim of inter-node proof.
+CLI GitHub has no authentication and the connector cannot access this private
+repository (404/422); reviewed changes remain on the private branch, SSH pushes
+work, and no PR or merge is claimed. Existing privacy/CI settings are unchanged.
