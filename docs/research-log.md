@@ -7330,3 +7330,17 @@ Run ONE target with unchanged source bytes after this card is committed:
 `OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONPATH=src nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/certify_s2_period18_fold_endpoint.py --mode target --out /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-endpoint-2026-10-10/attempt-001-target --profile /data2/neural-shrimp-data/explore/certificates/s2-period18-fold-endpoint-2026-10-10/attempt-001-profile/run --profile-manifest d86729447170aa1be64b2c2db9e84bb3c101c61ea62dcfb71c17989106d940ef`.
 Same parent manifestdf78f5d1 and qualified endpoint33/128;30s internal/45+5 external,
 CPU1,2GiB,72/144 calls,3 intersections,128+1MiB raw. No retry/newcoverageclaim. The30s target cap includes source binding and rereading15denseparentcharts, a cost not measured by the synthetic profile; any deadline remains a retained failure. Root source skim passed6307e023 before profile.
+
+## 2026-10-10 — known old-endpoint localization completed
+
+TLDR: the same already-proved neural-network cycle now has a much tighter
+full-state enclosure, allowing smaller fresh chart domains to be tested
+without carrying a wide anchor box. No new parameter coverage or attraction.
+One attempt at execution70402bfb87508b269111e930c9fc500ff1ff46ed passed three inherited-root
+intersections; maximum235D radius[1.1698308229125412093e-14 +/- 4.71e-34],
+hidden rate[75.5981371447189 +/- 2.38e-14].
+Worker13.0359s/473736KiB,72/144 native calls;
+launcher13.4925s/exit0. Full inventories, all stage payloads,
+source identities, immutable permissions and owned exits checked. Receipt
+`docs/reviews/s2-period18-fold-endpoint-outcome.json` binds exact files;
+independent outcome review pending. Existing144-chart branch is unchanged; parent independently reviewed that chain at256/384. No gauge rotation is proposed.
