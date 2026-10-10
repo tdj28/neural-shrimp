@@ -6092,3 +6092,7 @@ Execution8a2ce1b0 completed all four48-step traces after a33.663s measured synth
 ### 2026-10-09 PDT: fixed low-g RNN continuation extension
 
 Root requested continuation through turns from saved endpoints, no duplicate prefixes. New card `docs/plans/clark-rnn-lowgain-extension.md`: exactly two low-g endpoints,192 fixed steps each, same PAL gates plus native phase/odd-sign identity, full spectra, fold c/coupling and total flip crossing/cubic diagnostics. Third-directional tanh AD is analytic and synthetic-tested. Nondegeneracy changes are retained, not filtered. One synthetic resource screen then exclusive `p5-lowgain-extension-001`, CPU1nice10/120s135+5/512MiB/128+1MiB/7000familycalls. This adapted numerical anatomy unit precedes any new interval target; old curve evidence remains immutable.
+
+### 2026-10-09 PDT: low-g endpoint extension retained
+
+One source4660bf7a run accepted384 new nodes in3.478s internal4.176s external,43868KiB,2316 family calls. Both curves turn in gain, with nonzero delta tangent. All native phase/sign and reverse checks pass. Full spectra show later second+1/second−1 crossings; large normalized coefficient sign jumps are explicitly not interpreted as cusp/generalized-flip evidence. All nonattracting-complement nodes retained. Immutable full inventories and owned999147/999151/group exits verified; receipt `docs/reviews/clark-rnn-lowgain-outcome.json`. Next root-authorized work is saved-only combined geometry, a finite-envelope proposal, and an exact native4D primitive5 orbit proof prepared independently of morphology.

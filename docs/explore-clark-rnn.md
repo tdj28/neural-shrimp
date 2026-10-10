@@ -109,3 +109,20 @@ three-neuron tanh Hopfield network. We make no first-activity-shrimp claim.
 The present question is the finite fixed iid Clark leaky map, with native
 full-state and eventually validated boundary evidence, while the trained-network
 shrimp remains the main project.
+
+## Low-g turns and an important exclusion
+
+The fixed endpoint extension accepted384 new nodes in3.478s. Native phase and
+odd-sign identities plus reverse corrections pass throughout. The fold turns
+in gain near(5.68424,.827276); the flip turns near(5.69890,.826373). Their delta
+tangents remain nonzero, so these are ordinary turns of the parameter projection,
+not cusps. All traces still stop at the node cap.
+
+Later, the attracting complement is lost. Along the fold a second real multiplier
+passes+1 between nodes107–108; along the flip a second passes−1 between86–87.
+The large fold/cubic coefficient sign jumps there are excluded as evidence for
+cusp/generalized-flip bifurcations: the normalized simple-mode formulas become
+ill-conditioned near the intervening resonance. The subsequent nonattracting
+branches remain in the record. This is a numerical codimension-two lead, not a
+validated resonance or a complete shrimp anatomy. The exact source and all
+outputs are bound in `docs/reviews/clark-rnn-lowgain-outcome.json`.
