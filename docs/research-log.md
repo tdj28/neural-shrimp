@@ -5858,3 +5858,7 @@ Independent final differential skim of db8be328 passed before launch; see `docs/
 ## 2026-10-10 — fixed p7 quadratic association completed
 
 Executionc97a3ed4 completed50calls in0.678s. All three fixed folds recover the original attracting parent with unchangedfullnativeerror<=1e-7; the other three proposals close distinct unstableprimitive7 companions and fail original-parent identity. All six retained; oldsingular-startfailuresunchanged. Complete201-fileinventory/modes/ownedPIDexitverified. See `docs/reviews/clark-rnn-n6-p7-fold-association-outcome.json`. Full2Dshrimpanatomy remainsunresolved.
+
+## 2026-10-10 — first N6 p7 two-parameter anatomy card
+
+After all three fixed fold associations passed, trace two separatedg16fold roots and the associatedg25flip in both directions: fixed.01scaledstep,128edges each, domain(5.5,12)x(.48,.67). Sixfixedtraces, fullnative7/divisor1/phase/reverse/simple-multiplier gates; no projectedcrossing/commonorbit shortcut. Card `docs/plans/clark-rnn-n6-p7-continuation.md`; source/synthetics/privatepush/peer skim before one measuredprofile-gated120s/10000call unit.
