@@ -10568,3 +10568,8 @@ Root independently derived dual-chain and actual-rate trace-rank contractions; c
 ### 2026-10-10 — Larger-model adjoint qualification run card
 
 Prepare one actual-state derivative/adjoint pairing pilot at the unchanged already consumed98666-parameter CIFAR state. Committed helper has8independent-autodiff/noncommuting/merit-gradient controls. Full-size synthetic profile precedes native inputs, three deterministic pairings, byte-exact two-phase map replay and original parent admission.30s CPU1nice10,20HVP/2direct gradients,31MiBraw; plan docs/plans/cifar-adjoint-pairing.md. This supplies a true residual-merit gradient for a genuinely different least-squares corrector; no correction or orbit claim from this unit.
+
+
+### 2026-10-10 — Independent generic1:1 unfolding PASS
+
+Sourceb9f7f48c with reviewed18f97b2e checker completes0.0306s/50968KiB,512bits,zero native calls. All coefficient signs and physical-rate rank independently pass using primal inverse transpose: a<0,b−a<0,s>0,det<0. Same exact independently proved41D primitive18 root and stable11D quotient. Raw outer840b8bce; full receipt docs/reviews/chain-unfolding-independent.json. Remaining107-chart branch identity replay is separately owned; generic local structure is now rigorously established, not yet full-window topology.
