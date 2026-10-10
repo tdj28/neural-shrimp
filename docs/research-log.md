@@ -6842,3 +6842,21 @@ round proposed dyadics upward to fixed128significand bits for exact256bit
 construction, keep all old radii, and reacquire all native proof data. No retry
 has occurred; no failed-tail advancement. Companions in docs/reviews/
 eigenpair-inflation-diagnosis.md/.json.
+
+### 2026-10-10 — one-chart fresh-domain repair source/pre-run card
+
+After immutable diagnosis41ef113b, prepare one unchanged-kernel full proof with
+its positive radius proposal. Reconstruct initial predictor/whole anchor from
+completed unit002 at19/128, never advance the failed tail. Same center21/128,
+interval[19,23]/128; round each requested radius upward to128significand bits,
+verify requested>=old and rounded>=requested; retain exact rounding arrays.
+Recompute whole C1, all path coefficients and all strict gates, one chart only.
+
+Twenty focused synthetic controls pass0.26s, including both critical signs,
+one-chart15tick coupled model, outward exact rounding beyond256inputbits,
+parent/radius mismatch rejection and failed-save stopping before model calls.
+Measured failed127tick proof19.62s supplies a2x+20s admission forecast;
+CPU1nice10,90/110+5s,130ticks,2GiB sampledRSS,128+1MiB. Exclusive
+attempt-001-wider-repair. Root source skim then one launch, no automatic retry.
+Details docs/plans/eigenpair-wider-repair.md; no new target evaluated in source
+preparation, no scientific gate or old evidence changed.
