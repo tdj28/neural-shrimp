@@ -5620,3 +5620,18 @@ serialized-ball decoder and edge controls, preserving every proof gate and the
 original producer bytes. One saved-only attempt002 uses unchanged90/105+5s,
 CPU1/nice10,1.5GiB monitoredRSS/9MiB output; no model or derivative acquisition.
 Source/card and passing controls are committed before the new invocation.
+
+### 2026-10-10 — Localization saved-only outcome passed
+
+Exact-decoder source a396dbf6 (30 synthetic controls,0.17s) completed immutable
+attempt002 in21.531s, launcher21.811s, peak742936KiB. Both parent234D Kimages,
+15 known-root containment iterations and90 cyclic-phase inequalities pass
+(72 phases from actual target probes,18 synthetic). Exact two outer intervals
+have width1/32768; both center floors pass. No full1/256 attraction/boundary
+connection follows. No model/derivative acquisition or new metric proposal.
+Successful outer manifest eab2cefb737db91d7640ddb4e5cf9beeccf7b581667cdb5cec92bcfc5d7513ec;
+worker e59fd154f88912175868457f8ca0a29064e77a6915262a8bd246f73ec38ca20b.
+Attempt001 remains retained with the reviewer-decoding failure. All inventories,
+read-only bytes and owned PID absence checked for both attempts. Compact review
+companions docs/reviews/s2-period18-localization-independent-review.md/.json
+record exact source/input/resource scope and shared analytic/Arb trust.
