@@ -5830,3 +5830,17 @@ wrapper failure remains explicitly preserved; only completed attempt002 supplies
 new branch evidence. Commit exact pins/code/card before one saved audit,
 CPU1nice10,120/135+5s,1.5GiB,16+1MiB at audits/s2-period18-arclength-connection/attempt-001.
 No attraction, rate monotonicity, fold or complete shrimp claim.
+
+### 10 October 2026 — all18 fixed-gauge chart joins independently pass
+
+Review source810acf72 passed initial2 plus corrected16 charts, original256-bit
+ball identities and384-bit strict weighted roots/primitive/full-native joins.
+Exact gauge coverage[-1/64,35/64], width9/16; no hidden-rate monotonicity or
+attraction/fold claim. All235 inclusions perchart and divisors1,2,3,6,9 pass;
+contraction<.426056, max image/radius<.468827. Correlated initial anchor and
+17 fresh endpoint joins remain exact. Source-bound derivative/jet trust explicit.
+One review61.619s/423312KiB,outer61.824s,exit0;38 immutable files/5,008,602bytes,
+all owned PIDs1031150/1031056/1031149 absent. Outer5afa111cec0d00ac8ad34d6c51d99d740798ac80d2274065aac58fa6f7092101;
+worker124551430107f36da8c7b8596409e84969dadc3eaa3712aefb530f1a2f07784e.
+Failed producer batch001 retained as zero-call wrapper failure. Companions
+docs/reviews/s2-period18-arclength-independent-review.md/.json.
