@@ -1760,6 +1760,29 @@ def build():
               "exploratory; one fixed text pool, two initializations; independently audited saved-data comparison",
               [broader_path, broader_audit_path, broader_analysis, broader_recomputed],
               "late expanded-arm normalized MSE in seed order28161/28162; " + (family or "tune-selected ordinary comparator"))
+    # Independent saved-data perturbation response, not an online forecast.
+    lmrp=c.ROOT/"docs/reviews/tiny-lm-response-outcome.json"
+    lmra=c.ROOT/"docs/reviews/tiny-lm-response-independent.json"
+    lmp,lma=load(lmrp),load(lmra)
+    lms=[lmrp,lmra]+bound_inventory(Path(lmp["raw_root"])/"manifest.json",lmp["outer_manifest_sha256"])
+    lms+=bound_inventory(Path(lma["raw_root"])/"manifest.json",lma["outer"]["manifest_sha256"])
+    lmo=load(Path(lmp["raw_root"])/"run/result.json");lmao=load(Path(lma["raw_root"])/"run/result.json")
+    assert lmo==lmp["outcome"] and lmao==lma["result"] and lmao["passed"] and lmo["narrow_frozen_curvature_inadequacy"] and lmao["narrow_frozen_curvature_inadequacy"]
+    assert lmao["rows_recomputed"]==24 and lmo["model_parameters"]==15776
+    for arm,label in [(8,"Small"),(256,"Expanded")]:
+        selected=[]
+        for seed in [28161,28162]:
+            prod=next(x for x in lmo["cases"]if x["seed"]==seed and x["arm"]==arm)
+            aud=next(x for x in lmao["cases"]if x["seed"]==seed and x["arm"]==arm)
+            row=next(x for x in prod["rows"]if x["direction"]=="gradient"and x["horizon"]==16)
+            auditrow=next(x for x in aud["rows"]if x["direction"]=="gradient"and x["horizon"]==16)
+            assert row["mechanism_qualified"] and auditrow["mechanism_qualified"] and row["training_ce_slope_resolved"] and auditrow["training_ce_slope_resolved"]
+            for key in ["response_gain","frozen_vector_error","transported_vector_error"]:assert abs(row[key]-auditrow[key])<1e-8*max(1,abs(row[key]))
+            selected.append(auditrow)
+        for suffix,key in [("Gain","response_gain"),("Frozen","frozen_vector_error"),("Transport","transported_vector_error")]:
+            vals=[x[key]for x in selected]
+            display=r",\; ".join(fixed(x,3)if suffix=="Gain"else sci(x,2)for x in vals)
+            n.add("tLMResponse"+label+suffix,vals,display,"exploratory four consumed checkpoints; independent saved arithmetic, shared native derivatives; no prospective forecast or intervention",lms,"gradient direction16-step response in seed order28161/28162; "+key)
     # Reviewed local attraction probes and separate Clark-method development pilots.
     locpath = c.ROOT / "docs/reviews/s2-period18-localization-independent-review.json"
     loc = load(locpath); assert loc["passed"] and loc["checks"]["original_model_anchor_and_parent_joins"]
@@ -2049,6 +2072,21 @@ def build():
     label="exploratory native CIFAR residual-merit correction; native replay passed, independent outcome arithmetic pending; no accepted orbit"
     n.add("xCifarSavedMeritClosure",sr["final_relative_residual"],sci(sr["final_relative_residual"],3),label,sms,"last accepted saved-direction two-step relative closure")
     n.add("xCifarShootingForcing",sr["direction_gate"]["true_forcing"],fixed(sr["direction_gate"]["true_forcing"],4),label,sms,"true eliminated Newton forcing of the retained1600MINRES direction; fixed.5gate fails")
+    # Same-root local unit-pair/simple-flip junction; connectivity separate.
+    jpath=c.ROOT/"docs/reviews/native-unit-pair-flip-independent.json";jr=load(jpath);jroot=Path(jr["raw_root"])
+    js=[jpath]+bound_inventory(jroot/"manifest.json",jr["outer_manifest_sha256"])
+    jo=load(jroot/"run/outcome.json");assert jo==jr["result"]and jo["passed"]and jo["same_unique_root"]and jo["native_calls"]==162
+    ji=load(jroot/"run/root-identity.json");assert len(ji["fresh_inside_original"])==55 and all(ji["fresh_inside_original"])
+    for which in ["saved","fresh"]:
+        v=jo[which];assert v["inclusions"]==55 and v["proper_divisors"]==[1,2,3,6,9]and ball_endpoints(v["contraction"])[1]<1
+        assert len(v["complement_bounds"])==10 and max(ball_endpoints(x)[1]for x in v["complement_bounds"])<Fraction(93,100)
+        assert ball_endpoints(v["crossing"])[1]<0
+    n.add("xUnitFlipComplement","93/100","0.930",proof,js,"strict upper bound on all ten complementary multiplier moduli, saved and fresh independently validated quotients")
+    cross=ball_endpoints(jo["fresh"]["crossing"]);scale=10000;lo=(cross[0]*scale)//1;hi=-((-cross[1]*scale)//1)
+    n.add("tUnitFlipCrossing",[str(x)for x in cross],"["+exact_decimal(int(lo),4)+", "+exact_decimal(int(hi),4)+"]",proof,js,"outward four-decimal interval for total hidden-rate derivative of the simple minus-one multiplier along the complex-unit section")
+    rootj=load(jroot/"run/fresh-root.json");assert rootj["dimension"]==13 and rootj["period"]==18
+    for index,macro in [(13,"xUnitFlipHidden"),(14,"xUnitFlipOutput")]:
+        lo,hi=ball_endpoints(rootj["box"][index]);n.add(macro,str((lo+hi)/2),fixed(float((lo+hi)/2),8),proof,js,"display approximation to exact same-root physical-rate enclosure midpoint")
     # Highest-period agreed census representative: independent native72D proof.
     p58p=c.ROOT/"docs/reviews/census-period58-tight-outcome.json"
     p58a=c.ROOT/"docs/reviews/census-period58-independent-outcome.json"

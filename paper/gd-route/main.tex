@@ -74,7 +74,7 @@ Global resonance ancestry & 0: exploratory/adapted & Near-root scaling is sugges
 ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
-CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved after checkpointed solver failures; two text-transformer prediction pilots fail their incremental-utility gates. No accepted transformer orbit or training benefit. \\
+CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. Two transformer prediction pilots fail their utility gates; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
 Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus primitive period-2 and period-58 orbits in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
 Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance; a finite complex-unit branch is also enclosed at that same resonance. Other boundary connections remain open. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
@@ -785,6 +785,22 @@ remains independent, giving the exact pair $e^{\pm i\sqrt t}$ for every
 $t>0$ in the interval. The derivative acquisitions and Arb library are shared
 with the producer; the assembly, series and inclusion calculations are
 separate. See \path{docs/reviews/native-unit-pair-independent-outcome.json}.
+
+
+\paragraph{A certified complex-unit/simple-flip junction.}
+A separate local certificate encloses a primitive period-18 orbit at physical rates approximately
+$(\eta_h,\eta_o)=(\xUnitFlipHidden,\xUnitFlipOutput)$ where a nonreal conjugate pair has unit modulus
+and one real multiplier equals $-1$. The augmented root contains the full state, both rates, two
+real vectors for the complex invariant plane, its squared angle, and a normalized flip eigenvector.
+All 55 coordinates satisfy strict interval inclusion; every proper divisor of 18 is excluded.
+A validated basis at that same exact root isolates the three critical modes and bounds all ten
+complementary multiplier moduli below $\xUnitFlipComplement$. Along the locally unique complex-unit
+section parameterized by $\eta_h$, the total derivative of the real multiplier lies in
+$\tUnitFlipCrossing$, proving a transverse flip crossing. An independent 480-bit replay uses a
+strictly nested box around the original 384-bit root, establishing exact root identity as well as
+recomputing the inclusion, spectrum and crossing arithmetic. This establishes a local junction;
+its connection to the finite branch above and its nonlinear interaction coefficients require
+separate proofs. See \path{docs/reviews/native-unit-pair-flip-independent.json}.
 The finite proof establishes the primitive cycle and critical pair throughout
 the stated interval. Complementary attraction is proved at the organizer and
 persists locally as above; a uniform complementary bound on the entire finite
@@ -1514,6 +1530,45 @@ language-model advantage and does not exclude other useful diagnostics. See
 \path{docs/explore-tiny-lm-broader-outcome.md} and
 \path{docs/reviews/tiny-lm-broader-outcome-audit.md}.
 
+\paragraph{Changing curvature controls finite-horizon transformer response.}
+We next test the local approximation itself on four consumed development checkpoints: update 600 of
+both initializations and both 8/256-window arms. Each saved float32 parameter vector is promoted exactly
+to float64 and replayed for 16 updates with its original rate and regularized training objective.
+This defines a new float64 counterfactual trajectory. For the initial-gradient and a fixed Gaussian
+unit direction $u$, central perturbations use both $10^{-4}$ and $5\times10^{-5}$ times
+$\max(1,\|\theta_0\|)$. With $J_k=I-\eta H_L(\theta_k)$, we compare the measured response with
+$J_0^h u$, the scalar estimate $\|J_0u\|^h$, persistence, and the transported derivative
+$J_{h-1}\cdots J_0u$. The last uses the observed trajectory and is a retrospective control.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Training windows & Measured gain & Frozen vector error & Transported vector error \\
+\midrule
+8 & $\tLMResponseSmallGain$ & $\tLMResponseSmallFrozen$ & $\tLMResponseSmallTransport$ \\
+256 & $\tLMResponseExpandedGain$ & $\tLMResponseExpandedFrozen$ & $\tLMResponseExpandedTransport$ \\
+\bottomrule
+\end{tabular}
+\caption{Gradient-direction response after 16 updates. Each entry lists the two initializations in the
+same order. Vector error is $\|p-d\|/\|d\|$ relative to the smaller-amplitude central difference.
+The initial frozen Hessian predicts large vector errors on the expanded arms while measured gains
+remain moderate; the transported derivative matches the response.}
+\label{tab:lmresponse}
+\end{table}
+
+All direction/horizon comparisons at 1, 4 and 16 updates pass the fixed 1\% two-amplitude and
+transport agreement gates; terminal training-CE directional slopes also agree within the fixed
+1\% check. Both expanded-arm gradient responses exceed the declared 20\% frozen-error threshold
+(Table~\ref{tab:lmresponse}); the small-arm gradient errors remain small. Independent saved-data
+arithmetic recomputes all responses, comparator errors, functional slopes and decisions, sharing
+the acquired native gradient/HVP kernel. Thus initial curvature is insufficient for these measured
+finite-horizon responses. The arm contrast does not isolate data quantity: rates and intervening
+trajectories also differ. Prediction from information available before the future trajectory,
+and an intervention that improves training, are separate tests. Complete outcomes, including
+random directions and scalar/persistence controls, are bound in
+\path{docs/reviews/tiny-lm-response-independent.json}.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -1551,7 +1606,7 @@ and predictive accuracy. Along nonperiodic or scheduled training, finite-horizon
 initial quantity; Floquet language is reserved for a sufficiently closed periodic reference orbit.
 The fixed-batch transformer pilot establishes an architectural test path, but has not yielded a periodic reference
 orbit. Neither the drift-aware event calibration nor the separate broader-data continuous-progress pilot has
-shown incremental predictive utility. Separate
+shown incremental predictive utility. The independently audited perturbation comparison now identifies a concrete failure of the initial frozen-curvature approximation; exploiting that information requires a causal forecast or intervention. Separate
 minibatch, optimizer-state, schedule and precision perturbations remain necessary. Relevant endpoints are prospective transition predictions and improved interventions at comparable
 compute cost. Similar-looking loss oscillations would not establish either endpoint. A linear loss-based
 multiplier estimate alone also does not identify nonlinear criticality or basin accessibility.

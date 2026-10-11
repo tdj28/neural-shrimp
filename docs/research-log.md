@@ -11932,3 +11932,8 @@ Attempt002 passes all55 root inclusions, proper divisors1/2/3/6/9, conditional e
 ### 2026-10-10T23:58:00.517394+00:00 — reviewed two-snapshot forecast fixed run card
 
 Clark reviewed5e972c2d and7159722a, reproduced four controls and cleared causal indexing, saved source/data/profile binding,240HVP inventory and immediate acquired-action retention. Original measured operation costs give 95.18028412014246seconds under the fixed180s worker cap. Execute exclusive attempt001:4consumedcases, two directions, horizons4/16, original rates, CPU1nice10,4GiB,64MiB raw/1MiB log,200+5s external. No new gradient/CE, holdout, optimizer intervention or paid operation. All outcomes already consumed in the earlier mechanism experiment; this is explicitly adaptive development forecasting.
+
+
+## 2026-10-11T00:00:13.836225+00:00 — two-snapshot forecast completes with negative gate
+
+All240HVP and16 mandatory rows retained,26.576s/955444KiB, no live owned process. Expanded gradient16-step alternating errors67.4203 and1.32726 improve on latest-only7384.40 and14.8576 but remain worse than persistence2.05922 and1.18937, failing both20%accuracy and persistence-improvement gate. Random errors0.351739/0.062844 and all8-window controls retained. No threshold/direction/rate/horizon tuning. Independent saved-action arithmetic review pending. This exposes the insufficiency of a simple two-phase frozen forecast on these already consumed cases; it does not erase the independently checked changing-curvature mechanism result.
