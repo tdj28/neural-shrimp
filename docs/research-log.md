@@ -9279,3 +9279,7 @@ Narrow source-only adapter reuses unchanged independently authored signed470 nat
 ### 2026-10-11 — output-rate section prepared to test the apparent hidden-rate turn
 
 Source-only native27 section now fixes output and solves state/hidden/negative mode, replacing exactly one Jacobian column and preserving all470 phase/rate coordinates. Two nonlinear/retention controls pass0.08s. The seed will be the last accepted extension point, never the failed simultaneous-event iterate. This is a numerical geometry proposal; no new native acquisition or event claim. Complete wrapper/profile/card and independent source review remain prerequisites.
+
+### 2026-10-11 — fixed output-section caller prepared
+
+Complete wrapper binds the entire prior numerical/certified genealogy and both failed41 attempts, then resumes only the last accepted extension point. Output remains literal binary64 and full470 cross-section association is mandatory. Six controls pass5.63s, including actual metadata preflight with target arrays forbidden, full unrelated216-phase measured profile, phase cap and isolated import/settings closure. Fixed32points/240returns/4536inclusive phases, unchanged240s3GiB256MiB. Card is prepared; no target/profile has run as an experiment. Independent review and committed admission remain prerequisites.
