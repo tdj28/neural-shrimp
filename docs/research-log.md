@@ -13623,3 +13623,7 @@ Boundary independently reviews a4320eb4 wrapper PASS, reproduces9controls0.29s a
 ### 2026-10-11 UTC — Saved corner ownership-schema failure retained
 
 Attempt001 source01e64111 stopped0.168s/64912KiB/0native before physical target gradients: historical independent launcher omits launcher_pid, stores owned group under owned-process.json pid. Profile passed7.32s/5.88MB forecast. All immutable hashes and actual owned exit verified, receipt retained. Exact source-specific extraction now requires recorded schemas, verifies producer group equality and all recorded PID absences; no fabricated launcher identifier.10controls0.23s and actual both-source/archive/PID preflight PASS. Same math/roots/budgets, fresh attempt002 after narrow peer clearance.
+
+### 2026-10-11 UTC — Four-step saved CIFAR audit admitted
+
+Clark independently reviews01e64111 source/binding/resource PASS,12combined controls0.20s. Run sole0-native attempt001 from clean current source; same60s1GiB4MiB worker/75+5s6MiB owned limits. Own full98666D synthetic profile before target arrays. Exact current-state acceptance only; final stationarity remains an independent tested condition.
