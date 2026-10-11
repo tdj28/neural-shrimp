@@ -12597,3 +12597,17 @@ forecasts before arrays and unchanged full synthetic profile bind admission.
 incomplete attempt retained. No paid/GPU/holdouts. Source-only controls9PASS;
 peer wrapper review still required. Generic audit interface recorded in
 native705-rotated-march.md; precise pins in native705-rotated-inputs.json.
+
+### 11 October2026 UTC — peer-cleared rotated705 execution card
+
+Clark independently passed5860671f wrapper/rechart source review and9controls
+0.30s, including actual independent wide-prefix schema9674baf5. Execute only
+pal/rotated001 at this source: up to10batches×8CPU1, no automatic retry; first
+failedbatch stops while retaining all80-or-fewer completed/incomplete proofs.
+Each batch requires fresh44GiB memory availability, unchanged253-call full705
+kernel/profile and all705 projected firstroot membership afterrotation.
+Current host52GiBavailable/load1.39,GPU0percent15947MiBfree,2.7TiBdiskfree,
+no duplicate. Clark's separate saved705audit CPU1/4GiB fits remaining headroom;
+no new native acquisitions in that audit. Fixed191.893s/3.53GiB/312445404byte
+forecast supplements eachworker's original source-bound fullsize profile.
+4GiBworker×8 plus4GiBparent/330sbatch/3300scomplete/60GiBraw remain hardcaps.
