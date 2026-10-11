@@ -9253,3 +9253,12 @@ Arb-ball lower endpoint and was corrected to test exact-range containment.
 Implementation unchanged, no target evaluated. Await peer source review before
 committed live admission. No further complement subdivision authorized by this
 saved-only diagnosis.
+
+### 2026-10-11T07:31UTC — admitted saved inverse diagnosis
+
+Boundary source/math/binding/resource review73845836 PASS and four controls
+reproduced0.86s. Current host54,659,380KiB available,load1.78/2.08/2.52;
+Boundary reserves one6GiB worker plus4GiB parent, no duplicate diagnosis.
+Own4GiB worker plus256MiB launcher fits with headroom. Execute exactly one
+saved-only unit with full705 measured synthetic admission before target arrays;
+no new native evaluations, no complementary claim, no automatic follow-up.
