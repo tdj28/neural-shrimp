@@ -6593,3 +6593,13 @@ independently checked positive-weight norm for the same acquired matrix.
 No native calls, second-pass inference, root or branch promotion. Three
 controls0.16s; fixed30s512MiB2GiBAS4MiB/45+5owned, failure reserve and immutable
 original bound. Source review before sole saved diagnosis.
+
+### 2026-10-11 — Independent physical-corner helper prepared
+
+Separate complex bordered left-eigenvector reduction, realified in Arb,
+reconstructs both physical derivatives including the moving fixed point.
+No producer real-trace/Sylvester code is imported. Five synthetic controls
+pass (eight with saved inverse-diagnosis controls,0.19s), including nonnormal
+complex modes, angular variation, actual state motion and corrupt identities.
+Helper-only source; exact same-root binding and bounded wrapper remain next.
+The direction (-1,11/20000) is explicitly selected after producer gradients.
