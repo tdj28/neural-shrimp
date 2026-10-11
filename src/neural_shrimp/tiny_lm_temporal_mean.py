@@ -130,7 +130,7 @@ def acquire_control(theta, direction, eta, ridge, gradient, hvp, ce, save, check
     increments = np.diff(objective)
     need(np.isfinite(increments).all(), 'finite objective increments')
     save('objective-increments', increments)
-    return dict(reference=reference, direction=u, frozen=np.asarray(frozen), ordered=np.asarray(ordered),
+    return dict(reference=reference, reference_gradients=np.asarray(gradients), direction=u, frozen=np.asarray(frozen), ordered=np.asarray(ordered),
                 branches=branches, epsilons=epsilons, readout_gradients=readout_gradients,
                 objective_increments=increments.tolist(), small_step_monotone=bool(np.all(increments <= 0)))
 
