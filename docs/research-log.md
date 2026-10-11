@@ -9267,3 +9267,7 @@ Following retained undamped001 residual increase, fresh002 keeps the.1 full-stat
 ### 2026-10-11 — admit damped41 and advancing470 independent local units
 
 Stability cleared d5528916 damped41 with9controls6.27s; Clark cleared08dec958 advancing470 with9controls1.52s. Both cards now reviewed. Each retains its own full unrelated profile before target, source/inventory/raw roots and owned240s deadline; reservations3GiB+4GiB, CPU1 each, fresh54GiB host previously available and rechecked before launch. Actual metadata preflights precede both launches. They share immutable source only, no scientific data dependency; no result at admission.
+
+### 2026-10-11 — advancing signed470 passes; damped candidate remains unresolved
+
+Sourceeaa86c6f advancing001 passed every470 root/anchor coordinate and primitive18, q<.545203, new hidden interval[84.3415699322,84.4040699322];276phases34.682s/1723028KiB. Same independently known old endpoint joins at exact−1/256. Fresh independent replay remains outstanding; no complementary stability/global closure claim. Numerical damped41 attempt002 hit16-step cap after2232 inclusive phases21.025s;49 line-search trials/16 accepted, residual.002866. Its hidden coordinate moved to71.3585 beyond the planned local.3 guard, so no root is promoted. This suggests checking a physical-rate section turn before pursuing a simultaneous event. Both complete immutable inventories, original sources and owner exits verified.
