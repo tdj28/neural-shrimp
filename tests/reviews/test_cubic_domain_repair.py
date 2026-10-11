@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from flint import arb,arb_mat,ctx
 ROOT=Path(__file__).resolve().parents[2]
-sys.path[:0]=[str(Path(__file__).parent),str(ROOT/'tools/reviews'),str(ROOT/'tools'),str(ROOT/'src')]
+sys.path[:0]=[str(ROOT/'tools/reviews'),str(ROOT/'tools'),str(ROOT/'src')]
 import review_cubic_center as C
 
 
@@ -36,6 +36,8 @@ def test_domain_failure_retains_root_and_whole_before_check(monkeypatch):
  with pytest.raises(ValueError,match='strict acquired'):C.shared_domain(w,Path('/unread'),s,d)
  assert 'domains/001/root.json'in w.saved and 'domains/001/whole-domain.json'in w.saved
  assert len(w.saved['domains/001/whole-domain.json']['whole'])==705
+ assert len(w.saved['domains/001/pre-tangent-comparisons.json']['checks'])==8
+ assert 'domains/001/polynomial-bounds.json'in w.saved
 
 
 def test_tangent_failure_retains_rhs_and_actual_comparison(monkeypatch):
