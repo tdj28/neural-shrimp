@@ -9682,3 +9682,22 @@ One CPU1/nice10 4GiB worker plus256MiB launcher is admitted under existing caps;
 fresh full705 synthetic profile and complete8064-call forecast remain mandatory
 before target arrays. No accepted earlier domain is reacquired. New quarter
 results retain producer-only status until independent replay.
+
+### 2026-10-11 — remaining chart31 quarters producer proof completed
+
+Reviewed source d3243515 completed in204.415s/1,878,192KiB with2520inclusive native
+phases:144profile+4x90domains+16x126centers. The thirdquarter accepted four cells;
+the fourth accepted six. Six complete coarse metric failures remain immutable,
+including two depth1 failures that required the declared second subdivision.
+The ten accepted cells close [15,79]/2048, exactly adjacent to the independently
+qualified [-49,15]/2048 prefix. All11 complementary metric penalties are below
+.900147. Entire chart31 is now producer-covered; new halves still require their
+separate independent replay before fullchart complementary-stability promotion.
+The critical pair stays neutral; no completewindow or genericNS claim follows.
+Full inventories, source archives and actual owner termination were verified.
+Outer16612e1f6b1d1a15a1755f5e4c3baadcb6bbd18f795609e971aab6f4f38e0a59;
+compact receipt docs/reviews/native705-remaining-quarters001.json. Receipt assembly
+initially selected remainder_penalty at the wrong dictionary level; corrected to
+its actual nested metric field before any receipt was written. No proof arithmetic
+or native data changed. A saved-only adapter using unchanged separately authored
+independent reducers is being prepared for root review/execution.
