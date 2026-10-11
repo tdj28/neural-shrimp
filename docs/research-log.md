@@ -15018,3 +15018,13 @@ native timing maxima and native/scientific/RSS/storage limits, only1500sworker/
 1515+5supervisor after measured1319.57s forecast; failed001 mandatory. Card
 reviewed for one fresh002 with full-size repeated admission, no cap relaxation
 inside a run. No native current022 action has occurred before this admission.
+
+### 2026-10-11 — prepare independent24 continuation replay
+
+Completed19 independent root/joins now anchor all24maintained003 charts. Same
+unchanged cubic705 acquired-domain reduction, original h1/8, onlyrotation24,
+complete all24history, no producer proof arithmetic reused. Source-only packet
+with4500s6GiB14GiB caps measured from completed19 and fresh full705 synthetic.
+A fixed optional endpoint16/17/18 test checks interior angle maximum; no
+complement/junction conclusion follows. Root owns separate task-worktree
+packet; no duplicate or target evaluation before peerreview/admission.
