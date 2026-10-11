@@ -13956,3 +13956,13 @@ Fresh full98666x256 two-SVD profile must forecast the entire four-unit workload
 below180s before any scientific vector. FixedCPU1/2GiB/6GiBAS/64MiB worker,
 owned195+5s/66MiB launcher, zero native calls. Source-only packet remains prepared;
 independent binding/resource review and a committed reviewed card precede use.
+### 2026-10-11 — Saved internal inverse diagnosis source packet
+
+Reconstruct the five failed first-pass H_U/H_b matrices directly from retained
+native even/odd MixedJet gradients; full214event/24attempt and historic source
+binding mandatory. Recompute384 midpoint inverse/defect and original infinity
+rejection, then floating absolute-matrix spectral/resolvent diagnosis with
+independently checked positive-weight norm for the same acquired matrix.
+No native calls, second-pass inference, root or branch promotion. Three
+controls0.16s; fixed30s512MiB2GiBAS4MiB/45+5owned, failure reserve and immutable
+original bound. Source review before sole saved diagnosis.
