@@ -8901,3 +8901,26 @@ passed18.264s541496KiB,zero nativecalls; strict exact rational validation.
 Admit24 unchanged root workers plus at most8one-shot endpoint fallbacks under
 fixed8400s8GiB caps. Record every actual physical endpoint; no turn or distant
 junction claim follows from this admission.
+
+### 2026-10-11 — maintained002 advances beyond the first physical-rate minimum
+
+The reviewed source16128128 fixed24-attempt packet completed in1400.026s with20
+new connected primitive18 native705 charts, retaining four complete bound
+failures (3,5,8,19). All accepted roots and all705 joins passed; one gauge
+rotation at11 joined directly, so no fallback acquisition was needed. Successful
+halfwidth grew from1/128 after early failures to1/8 for the final three charts.
+The endpoint is hidden rate74.33182±9.49e-6, output rate0.834169±1.40e-7,
+angle variable0.04837±2.83e-6. The earlier source-bound three-endpoint inequality
+is retained: continuity implies an interior hidden-rate minimum conditional on
+the connected root proofs, with no uniqueness/nondegeneracy assertion.
+
+All24 inventories, archived source hashes, complete331-operation records and
+owned process exits were verified. Raw1,828,503,307 bytes remain immutable;
+outer manifest6f7ece7f2017b3dc2b5755b5697ca3cf5320a769c54498cad351638110d902a3.
+Compact receipt: docs/reviews/native705-maintained002.json. Clark independently
+reviews the root5/fallback/first-successor minimum; later successor reductions
+and complementary spectra remain separate. This is concrete physical progress,
+not a claim that the distant junction or complete shrimp window is connected.
+Next: continue from the exact accepted endpoint at its successful1/8 halfwidth,
+retaining bounded adaptation and full projected joins. A quadratic inverse
+proposal is prepared separately for a saved-only failed-width comparison.
