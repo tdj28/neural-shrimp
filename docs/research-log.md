@@ -15511,3 +15511,7 @@ feed binary64 defect midpoint/radius norms, positive scaling and forcing-order
 budgets; hypotheses never become certificates. Fixed60s/4GiB/16MiB with75+5s
 owned launcher; bounded256MiB decode. Two synthetic controls passed0.13s.
 Peer source review and fresh host admission precede this fixed saved unit.
+
+### 2026-10-11T09:00:17.194373+00:00 — Independent quarter-cover replay admitted
+
+Root reviewed the producer-authored adapter against separately authored unchanged polynomial, known-root, polarized tangent, raw residual and quotient reducers. All16 final residual/domain associations, original full705 root/tangent, exact17-cell union and reused independently proved central cell checked. Ten meaningful corruption/closure controls passed3.03s; actual complete metadata preflight passed. CPU1nice10/480bits,1200s4GiB6GiBAS256MiB raw, owned1215+5s258MiB. Fresh unrelated705 arithmetic admission before target; no new native calls, raw immutable, all original failed attempts/source/shared derivatives remain explicit.
