@@ -9,3 +9,7 @@ One CPU1/nice10,1800s4GiB RSS6GiB AS256MiB raw4MiB closing reserve;1815+5s owned
 ## 2026-10-11 attempt003 enclosure amendment
 
 Preserve failed attempts001 (card status) and002 (actual whole-domain containment). At480bits, replace only cubic predictor/derivative interval construction by separately reviewed exact monomial ranges, including parity-aware even powers; no interval remainder differentiation. The previous association is retained as diagnostic only. Save root, whole domain, tangent/RHS and exact coordinate-containment diagnostics before strict actual-acquisition checks. Every original containment gate and exact-point procedure stays unchanged. Five independent core module hashes are pinned by controls; new helper/tests join the archived closure. The same1800s/4GiB/256MiB ceilings and full fresh admission apply.
+
+## Attempt004 after full six-domain screening
+
+Screen183ca098 passed all6 exact predictor and nested-derivative containment checks, preserving140–302 mismatched coordinates per domain for the alternate rigorous derivative association. Select only the source-reviewed exact-monomial predictor and nested derivative. Admit the complete fresh004 root/tangent/quotient replay under unchanged caps and all original acquired-domain checks; screen success is not scientific qualification.
