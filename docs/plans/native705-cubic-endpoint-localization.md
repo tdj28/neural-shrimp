@@ -20,3 +20,22 @@ matrix/decode timing profile must precede the saved calculation. Proposed
 120s/6GiB RSS/10GiB address space/64MiB raw, CPU1nice10 and135+5s owned cleanup.
 Raw and source failures remain immutable. A pass earns only the actual joined
 primitive18 complex-unit curve segment, not its complement or global window.
+
+Fixed packet binds independent audit f2f0d768/outer21c4c935/worker1623ae46
+and exact last endpoint c8531091; its entire saved source/native domains were
+independently checked at480. Producer original6ae48eb0/outer4fe4f57a and new
+adaptivec73978cb/outer58f6ee7f/worker83aace9d remain immutable. The latter's
+full uniform root is already true, original full membership remains false.
+All complete inventories and exact native-source identities are checked. The
+original cube's constant-error D coefficients cover the actual root's entire
+predictor segment by the inherited theorem; outward decoding can only enlarge
+these derivative/forcing enclosures. Initial errors intersect known-root minus
+exact predictor with the original correction enclosure. No new domain is used.
+
+Before target arrays, time actual dense705 serialization/decode and full saved
+localization on an unrelated contractive synthetic example. Require6*measured
+seconds+30<120 and measured RSS+3GiB<6GiB. Profile data counts under64MiB;
+all native calls zero. Save both direct independent-endpoint membership and
+localized membership, including complete false results. Supervisor135+5s,
+6GiB owned RSS,16GiB fresh available, source-clean nice10CPU1. Fixed exclusive
+cubic-continuation001/endpoint-localization001/attempt001. No automated retry.
