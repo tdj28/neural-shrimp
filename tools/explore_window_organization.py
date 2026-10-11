@@ -32,6 +32,10 @@ Subcommands:
                 orbit curve in a one-parameter section (fixed hidden or output
                 rate) through the section's other fold, refine that fold and
                 continue it both ways in the rate plane.
+  ns2-locus     Follow the period-2 Neimark-Sacker locus (complex pair of the
+                two-step Jacobian on the unit circle) in steps of the output
+                rate, continuing the same 2-cycle, and record its rotation and
+                its other multipliers (where does a real multiplier pass +1?).
   composite     One figure of the organization: rotation field with the 2/9
                 level set, the banana's two folds, continued window folds and
                 the carried flip curves, plus a zoom on the banana and its
@@ -604,6 +608,89 @@ def section_from_node(args):
     print(json.dumps({"out": str(out / "section.json")}))
 
 
+def ns2_locus(args):
+    net, x, y, theta0 = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    n = f.n
+
+    def critical(theta, p, ref):
+        _, m, _, _ = f.period_map(theta, p, 2)
+        mult = np.linalg.eigvals(m)
+        upper = mult[mult.imag > 1e-9]
+        if len(upper) == 0:
+            return None, mult
+        if ref is None:
+            c = upper[np.argmin(np.abs(np.abs(upper) - 1.0))]
+        else:
+            c = upper[np.argmin(np.abs(upper - ref))]
+        return c, mult
+
+    def solve(theta, ly, lx, ref, max_iter=30):
+        """Newton on (F^2(theta)-theta, |mu_c|^2-1) for (theta, ly) at fixed lx."""
+        z = np.concatenate([theta, [ly]])
+        for _ in range(max_iter):
+            p = [lx, z[-1]]
+            t, m, dp, _ = f.period_map(z[:n], p, 2)
+            c, _ = critical(z[:n], p, ref)
+            if c is None:
+                return None, None
+            g = abs(c) ** 2 - 1.0
+            res = np.concatenate([t - z[:n], [g]])
+            if np.linalg.norm(res) < 1e-12:
+                return z, c
+            jac = np.zeros((n + 1, n + 1))
+            jac[:n, :n] = m - np.eye(n)
+            jac[:n, n] = dp[:, 1]
+            h = 1e-7
+            for j in range(n + 1):
+                w = z.copy()
+                w[j] += h
+                cj, _ = critical(w[:n], [lx, w[-1]], c)
+                jac[n, j] = (abs(cj) ** 2 - 1.0 - g) / h
+            z = z + np.linalg.solve(jac, -res)
+        return None, None
+
+    # start: stable 2-cycle just below the curve at the first output rate
+    lx = args.start[0]
+    theta = f.iterate(theta0, [lx, args.start[1] - args.below], args.transient)
+    z, c = solve(theta, args.start[1], lx, None)
+    if z is None:
+        print(json.dumps({"outcome": "no Neimark-Sacker point at the start"}))
+        return
+    rows = []
+    previous = None
+    for k in range(args.steps):
+        _, mult = critical(z[:n], [lx, z[-1]], c)
+        others = mult[np.abs(mult - c) > 1e-6]
+        others = others[np.abs(others - np.conj(c)) > 1e-6]
+        real = np.sort(others[np.abs(others.imag) < 1e-9].real)[::-1]
+        row = {"lx": lx, "ly": float(z[-1]), "turns": float(np.angle(c) / (2 * np.pi)),
+               "modulus": float(abs(c)), "largest_other_real": float(real[0]) if len(real) else None,
+               "other_moduli": sorted(np.abs(others).tolist(), reverse=True)[:4],
+               "theta": z[:n].tolist()}
+        rows.append(row)
+        if k % args.print_every == 0:
+            print(json.dumps({key: (round(v, 6) if isinstance(v, float) else v) for key, v in row.items()
+                              if key not in ("theta", "other_moduli")}))
+        lx_next = lx + args.step
+        guess = z.copy()
+        if previous is not None:
+            guess = z + (z - previous)
+        z_new, c_new = solve(guess[:n], guess[-1], lx_next, c)
+        if z_new is None:
+            z_new, c_new = solve(z[:n], z[-1], lx_next, c)
+        if z_new is None:
+            rows.append({"stop": "corrector failed", "lx": lx_next})
+            break
+        previous, z, c, lx = z, z_new, c_new, lx_next
+        if (args.step > 0 and lx > args.stop) or (args.step < 0 and lx < args.stop):
+            break
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "ns2-locus.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
+    print(json.dumps({"out": str(out / "ns2-locus.json"), "rows": len(rows)}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -679,10 +766,19 @@ def main():
     sec.add_argument("--min-spread", type=float, default=1e-3)
     sec.add_argument("--box", type=float, nargs=4, default=[-0.13, 0.05, 1.65, 2.00])
     sec.add_argument("--out", required=True)
+    ns2 = sub.add_parser("ns2-locus")
+    ns2.add_argument("--start", type=float, nargs=2, required=True, help="lx ly near the locus")
+    ns2.add_argument("--below", type=float, default=0.002, help="decades below the locus for the stable start")
+    ns2.add_argument("--transient", type=int, default=30000)
+    ns2.add_argument("--step", type=float, default=2e-4)
+    ns2.add_argument("--steps", type=int, default=400)
+    ns2.add_argument("--stop", type=float, default=-0.03)
+    ns2.add_argument("--print-every", type=int, default=10)
+    ns2.add_argument("--out", required=True)
     args = parser.parse_args()
     {"circle-check": circle_check, "figure": figure, "banana": banana,
      "fold-from-node": fold_from_node, "composite": composite, "period2-at": period2_at,
-     "section-from-node": section_from_node}[args.command](args)
+     "section-from-node": section_from_node, "ns2-locus": ns2_locus}[args.command](args)
 
 
 if __name__ == "__main__":
