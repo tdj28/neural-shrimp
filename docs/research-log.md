@@ -6613,3 +6613,7 @@ CPU1nice10,384bits30s512MiB2GiBAS4MiB and45+5 owned6MiB. Reconstruct all five
 exact retained failed first-pass Jacobians, reproduce infinity-bound failure,
 then inspect interval weighted bounds from finite float proposals. No native
 calls, missing-pass inference, root or branch claim. Preserve failed outcome.
+
+### 2026-10-10 23:30 PDT — saved inverse diagnosis complete
+
+All five original predictor H_U infinity rejections reproduced,621.25→36.11; floating absolute-defect spectral radii112.49→6.00365 and no positive resolvent proposal do not support scaling alone.0.9275s150560KiB,0nativecalls; complete immutable source/inventories and owned2388805/2388870 exits verified. Receipt clark-amplitude-inverse-diagnosis.json;50rawroots. Initial shell invocation omitted nice10 and stopped before output/worker creation, then corrected with unchanged source/card. Future formulation may include the implicit tangent as51joint unknowns; requires source/control review and fresh actual domains. No tube or physical nonexistence claim.
