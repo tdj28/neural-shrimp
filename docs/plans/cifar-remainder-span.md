@@ -34,3 +34,20 @@ been read or evaluated in preparation. Proposed saved-only wrapper CPU1/300s/
 98666x512 SVD with four synthetic RHS fits before target arrays, twice measured
 complete time and retained-output bytes plus explicit decoding/source headroom.
 A separate caller/source/resource review remains mandatory.
+
+The complete caller now binds the literal completed current512 independent audit,
+all514HVP/9gradient events and the completed nonlinear diagnosis with exact source
+archives/owned exits. V/W use native HVP1 and3..513 at state000=current022; HVP514
+is the separately qualified full Newton action. Direct gradients6..9 are the four
+actual in-trust trials; all seven trust rows remain bound. No regularized endpoint
+or final accepted point is used as a new Hessian state. Complete original-model
+and dataset identities remain inherited through the audited source binder.
+
+Profile computes one actual98666x512 thinSVD plus four known quadratic image fits;
+twice complete elapsed time plus60s headroom and actual retained vector bytes
+are priced before arrays. Save all12 coefficient/acceleration/action arrays and
+all scalar rows;128MiB cap/reserve, exact archive closure and owner limits are
+covered. Seven combined controls pass4.49s, including actual metadata binding
+with scientific vector loading forbidden. No target evaluated. During preparation
+the prior receipt field was inspected and bound as execution, its actual schema,
+before tests or any run. Card remains prepared for independent caller review.
