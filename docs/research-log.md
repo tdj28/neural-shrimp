@@ -8790,3 +8790,23 @@ halfwidth,216 operation order, original failed siblings and finalization
 reserve remain intact. Proceed sole wide001 after fresh host admission.
 Boundary confirms the one4GiB reservation does not conflict with its profile
 or prospective24GiB continuation; no simultaneous large complement batch.
+
+### 2026-10-11 UTC — wider705 complement completes unresolved; inverse wrapping identified
+
+Execution94faea3f completed216 calls in25.09s/~1.43GiB. All original independent
+root/domain bindings, localization, polarized forcing and quotient acquisitions
+completed. The full-box Neumann bound0.95631768 amplifies correlated tangent
+error to4.015091 (previous narrow charts~0.00185), producing scalar cocycle
+remainder60.1018. Center metric and point decrease pass; complete interval
+decrease fails. This is no evidence of instability. Receipt
+`docs/reviews/native705-complement-wide001.json` binds every immutable file
+and host-rechecked owned PID absence. First5 complementary proofs remain the
+coverage boundary; no new chart is promoted.
+
+Next method preparation: restrict this already independently proved quadratic
+root to its two exact closed halves and reacquire local center/whole full705
+Jacobians with a fresh exact midpoint preconditioner. No Newton, root proposal,
+rate change or basis retry. Exact original predictor identity, residual/Taylor
+bounds and containing original derivative domains remain prerequisites. This
+addresses the measured full-domain inverse wrapping; new source/card/profile
+and independent review precede any further acquisition.
