@@ -17,11 +17,14 @@ from neural_shrimp.rigorous_orbits import exact,vector_json,matrix_json,canonica
 from neural_shrimp.rigorous_eigenpair_locus import phase,exact_mid
 from neural_shrimp.rigorous_eigenpair_path import path_coefficients
 from neural_shrimp.rigorous_saved_cubic_endpoint import original_ball
-need,read,entry=C.need,C.read,C.entry
-OUT=C.OUT.parents[2]/'signed-flip-correlated001/attempt002/run';CARD='docs/plans/native470-correlated-inputs.json'
+need,entry=C.need,C.entry
+def read(p):
+ with (gzip.open(p,'rb')if p.suffix=='.gz'else p.open('rb'))as f:raw=f.read(256*1024**2+1)
+ need(len(raw)<=256*1024**2,'bounded256MiB JSON decode');return json.loads(raw)
+OUT=C.OUT.parents[2]/'signed-flip-correlated001/attempt003/run';CARD='docs/plans/native470-correlated-inputs.json'
 SETTINGS=dict(period=18,sigma=-1,halfwidth_exponent=-3,radius_exponent=-12,newton_steps=2,precision=256,parameter='-49/256',known_parameter='-17/256')
 LIMITS=dict(seconds=240,rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=768*1024**2,profile_ticks=186,target_ticks=150,native_calls=324)
-FILES=sorted(set(C.FILES+[CARD,'docs/plans/native470-correlated.md','tools/probe_native470_correlated.py','tools/launch_native470_correlated.py','tests/test_native470_correlated_driver.py','tests/test_signed_gradient_path.py','tests/test_signed_correlated.py','tests/test_signed_proposal.py','docs/reviews/native470-correlated-profile001.json']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
+FILES=sorted(set(C.FILES+[CARD,'docs/plans/native470-correlated.md','tools/probe_native470_correlated.py','tools/launch_native470_correlated.py','tests/test_native470_correlated_driver.py','tests/test_signed_gradient_path.py','tests/test_signed_correlated.py','tests/test_signed_proposal.py','docs/reviews/native470-correlated-profile001.json','docs/reviews/native470-correlated-profile002.json']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 def jet(v):return dict(kind='gradient_path',**v.serialized())if isinstance(v,GradientPathJet)else encode(v)
 class Retained:
@@ -45,7 +48,7 @@ def chart(model,initial,normal,origin,parameter,weights,anchor,settings,w):
  return signed_correlated_tube(model,proposal['center'],proposal['slope'],proposal['curvature'],proposal['C0'],period=18,sigma=-1,normal=n,origin=o,parameter=parameter,halfwidth_exponent=settings['halfwidth_exponent'],radius_exponent=settings['radius_exponent'],weights=[exact(v)for v in weights],anchor=anchor,tick=w.tick,observe=w.observe)
 
 def profile(w):
- retained_failure(w)
+ retained_failure(w);retained_second_failure(w)
  ini,kw=synthetic_fixture();w.save('profile-fixture.json',dict(initial=ini,settings={k:v for k,v in kw.items()if k!='anchor'},scope='Unrelated full470 repeated primitive2, false primitive18'))
  used=w.used;t=time.monotonic();r=chart(Retained(SyntheticFlip(),w.observe),ini,kw['normal'],ini,'0',['1']*470,kw['anchor'],kw,w);charttime=time.monotonic()-t
  need(r['gates']['uniform_normalized_eigenpair_locus']and r['gates']['anchor_identified']and not r['gates']['primitive_period'],'full470 synthetic proof/anchor and false primitive18');del r
@@ -73,6 +76,12 @@ def retained_failure(w):
  need(spec['root']==str(OUT.parents[1]/'attempt001')and spec['source']=='2fb0cd3ebd06331f85cb697a49b70a5440aaa896','literal first profile source/path')
  need(o==spec['outcome']and not o['passed']and not o['target_acquired']and o['native_calls']==145 and o['ticks']==151 and o['error']=='ValueError: exact finite predictor and gauge'and not list((p/'run/events').glob('*-target-*')),'immutable failed exact-fixture profile before target')
  w.save('retained-profile-failure.json',dict(source=spec['source'],outer=spec['outer'],worker=spec['worker'],outcome=o))
+
+def retained_second_failure(w):
+ spec=read(ROOT/'docs/reviews/native470-correlated-profile002.json');p,rt=history(w,spec,2);o=read(p/'run/outcome.json');pr=read(p/'run/profile.json')
+ need(spec['root']==str(OUT.parents[1]/'attempt002')and spec['source']=='a3f1d2484f34dcc22d7010159429ec0623c3fccf','literal second failed binding source/path')
+ need(o==spec['outcome']and pr==spec['profile']and pr['passed']and not o['passed']and not o['target_acquired']and o['native_calls']==180 and o['ticks']==186 and o['error'].startswith('UnicodeDecodeError:')and not list((p/'run/events').glob('*-target-*')),'completed profile and zero-target decoder failure retained')
+ w.save('retained-profile002-failure.json',dict(source=spec['source'],outer=spec['outer'],worker=spec['worker'],outcome=o))
 
 def binding(w,card,metadata_only=False):
  need(card['status']=='reviewed'and card['settings']==SETTINGS and card['limits']==LIMITS,'fixed reviewed wider correlated design')

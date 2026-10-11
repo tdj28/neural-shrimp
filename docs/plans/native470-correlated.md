@@ -19,3 +19,7 @@ Full synthetic470 refresh+correlated root, plus12 actual unrelated Mixed/Gradien
 ## Retained profile001 and exact timing-fixture repair
 
 The first complete synthetic470 proof passed, but unrelated actual timing fixture values were interval rational enclosures. Its gradient path requires finite exact predictor inputs and rejected the first timing gradient before target (145 calls). Fresh002 explicitly takes finite midpoints of every unrelated timing state/mode/rate before recording and acquisition. This changes no target or derivative rule. Full real profile regression now exercises all180 native calls/186ticks; old failure source/inventory is mandatory. Same h/rho/count/time/RSS/raw caps, no further automatic retries.
+
+## Retained profile002 and bounded compressed-history repair
+
+The complete second unrelated profile passed all180 native calls and measured gates. Before target acquisition the inherited plain reader rejected the immutable target-certificate.json.gz. Fresh003 uses bounded256MiB plain/gzip JSON decoding; all prior source/inventory/zero-target failures remain mandatory. No geometry, equations, counts, arithmetic or resource gate changes. The actual historical compressed470 schema and full saved binding now pass with new native-map construction forbidden (two controls3.50s). Six existing controls including full profile passed20.15s. Narrow independent source review and committed admission still precede fresh003.

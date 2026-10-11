@@ -45,12 +45,34 @@ def test_caps_and_archive_import_closure(tmp_path):
  subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,check=True,capture_output=True)
 
 
-def test_real_full_profile_exact_timing_inputs_and_exclusive002(tmp_path,monkeypatch):
- monkeypatch.setattr(D,'OUT',tmp_path/'run');D.OUT.mkdir();monkeypatch.setattr(D,'retained_failure',lambda w:None)
+def test_real_full_profile_exact_timing_inputs_and_exclusive003(tmp_path,monkeypatch):
+ monkeypatch.setattr(D,'OUT',tmp_path/'run');D.OUT.mkdir();monkeypatch.setattr(D,'retained_failure',lambda w:None);monkeypatch.setattr(D,'retained_second_failure',lambda w:None)
  with ctx.workprec(256):
   w=D.Work();D.profile(w)
  assert w.native==180 and w.ticks==186
  profile=D.read(D.OUT/'profile.json');assert profile['passed']and profile['target_arrays_unopened']
  old=D.read(D.OUT/'profile-native-fixture.json')
  assert all(v['rad']==[0,0]for k in ('state','mode','rates')for v in old[k])
- assert "attempt002"in (ROOT/'tools/launch_native470_correlated.py').read_text()
+ assert "attempt003"in (ROOT/'tools/launch_native470_correlated.py').read_text()
+
+
+def test_actual_archived_compressed_schema_and_both_retained_failures():
+ class W:
+  def check(self):pass
+  def save(self,*a):pass
+ D.retained_failure(W());D.retained_second_failure(W())
+ c=D.read(ROOT/D.CARD);p=Path(c['producer']['root']);v=D.read(p/'run/target-certificate.json.gz')
+ assert v['shooting_dimension']==470 and v['sigma']==-1 and v['parameter_endpoints'][0]=='-17/256'and len(v['center'])==len(v['weights'])==470
+ assert all(x['rad']==[0,0]for k in ('center','slope','curvature')for x in v[k])
+
+
+def test_actual_full_saved_binding_before_any_new_native(monkeypatch):
+ class W:
+  start=time.monotonic()
+  def check(self):pass
+  def save(self,*a):pass
+ def forbidden(*a,**kw):raise AssertionError('new native map construction forbidden')
+ monkeypatch.setattr(D.C,'TwoRateCuspMap',forbidden)
+ card=dict(D.read(ROOT/D.CARD),status='reviewed')
+ with ctx.workprec(256):inp,initial,known,anchor=D.binding(W(),card)
+ assert len(initial)==len(known['box'])==len(anchor['box'])==470 and known['exact_parameter']=='-17/256'and anchor['exact_parameter']=='-17/256'
