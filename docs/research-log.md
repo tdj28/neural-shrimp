@@ -14359,3 +14359,7 @@ All72 producer attempts retained; independently replay48 leaves and exact
 within-gauge unions with original24 full-state root/gauge joins. Zero native
 calls. Stop and retain partial arithmetic on first failure; no adaptations
 within this attempt. Exact51 RNN fold preparation continues separately.
+
+### 2026-10-11 00:03 PDT — fixed48 attempt001 retained failure
+
+Measured admission passed1448.44s/215.96MB/2.15GiB forecast. Actual35.013s/1416984KiB stopped at first leaf whole-residual Neumann premise; center enclosure with same defect had completed, no quotient or accepted leaf. Zero native calls. All72 histories bound and failed attempt source/full immutable inventories/owned2429455 and worker exits verified;52rawroots. Diagnose nonfinite whole residual arithmetic before any narrow fresh attempt; no source/domain or proof gate relaxation.
