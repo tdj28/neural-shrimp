@@ -15162,3 +15162,17 @@ metadata sequence and isolated archive. Synthetic exact trust-boundary fixture
 was changed to a strict interior point after binary64 subtraction placed it
 outside. Full98666x512 measured profile precedes target vectors;300s4GiB8MiB,
 owned315+5s. Independent source review is still required before one attempt.
+
+### 2026-10-11 — independent fresh-center stability audit admission
+Prepared independent480-bit replay of the successful chart31 centered cell
+[-34,-32]/2048. Shared original independent coefficient authority and metadata
+binder are disclosed; separate polynomial, weighted Neumann, six-intersection
+root/tangent/point, full705 residual and moving-frame quotient reductions are
+used. Every actual segment/state/both-rate/tangent domain is checked literally.
+Five controls pass1.52s, including all705 residual coordinates reconstructed
+from36 unrelated saved native returns and corrupted-seed/domain rejection.
+Metadata-only complete source/ownership/486-pair inventory passes0.94s.
+Stability independently reviewed source and reproduced5controls1.57s PASS.
+One CPU1nice10/BLAS1,400s4GiB RSS6GiB AS64MiB raw4MiBreserve,415+5 owned;
+full705 unrelated measured profile before target. Zero new native calls.
+The pilot audit is mandatory before any systematic quarter coverage launch.
