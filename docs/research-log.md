@@ -15763,3 +15763,14 @@ controls pass2.47s, including complete immutable historical binding; zero model
 operations or target array reductions. Source-prepared card deliberately blocks
 both launches. Fresh full-size profile and separate committed measured target
 admission remain mandatory; original1% qualification and20%/10x gate unchanged.
+
+### 2026-10-11 02:23 PDT — temporal-mean profile001 admission
+
+Boundary independent full788ded7d wrapper/source/binding/resource skim PASS,
+12 controls reproduced2.44s including actual immutable histories and isolated
+archive. Root helper65bb5e09 math/count PASS retained. Admit ONLY six full-size
+operations on consumed28160/update50/arm256:2HVP/2gradient/2CE,60s4GiB8GiBAS,
+512MiB with4MiBreserve,80+5owned. Host51GiB available/load2.38/2.6TiB free;
+GPU0%/15947MiBfree/noGPUprocess; no owned duplicate. Exclusive
+explore/tiny-lm-temporal-mean/attempt001-profile. Fresh forecasts must pass before
+a separate target card; no target authorization from this profile admission.
