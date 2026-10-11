@@ -65,3 +65,15 @@ all reduced coefficients/projections/diagnostics. Proposed ceiling60s,1GiB RSS,
 3GiB AS,64MiB output with closing reserve, CPU1/nice10,0native. Actual measured
 forecast and committed card must precede outcome arrays. No target launch is
 admitted by this helper or proposed envelope alone.
+
+The prepared wrapper now fixes the exact producer plus complete source/history,
+1308 input/return records, all content-addressed objects and four case bindings.
+The independent mean audit contract is run/result.json with passed/native_calls,
+counts1088/162/58, rows12 and descriptive_gate=false; input-binding.json must
+carry the exact producer root/source/outer/worker tuple. Authority remains null
+and launch fails before output creation until a reviewed literal receipt fills it.
+One15776x16 unrelated dense synthetic uses all16 retained directions and the
+complete reconstruction/eigenmatching/comparison path. The forecast is8times
+its runtime+15s, and8times its retained bytes+source/profile+8MiB; both must fit
+fixed60s/1GiB/3GiBAS/64MiB limits. Supervision is75+5s/1GiBchild/256MiBparent/
+66MiBtotal,6GiB host headroom. No new native actions and no automatic adaptation.

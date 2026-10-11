@@ -7246,3 +7246,16 @@ rotating bases, leakage/action failures, crossings/ambiguous matching and rank/
 fidelity rejection. Helper/plan only; complete immutable binding, independent
 mean-audit receipt and measured full-size profile remain future wrapper gates.
 No target arrays read for this design and no new target admitted.
+
+### 2026-10-11 — prepared common-subspace binding and owned envelope
+
+Root a92f8b87 helper/math source PASS,8controls reproduced0.32s. Prepared wrapper
+binds all1308 exact saved operations, both profile failures, full historical
+source/inventories and four fixed cases; no native model import. Each16-action
+row must use identical saved mean direction and exact time-indexed reference.
+Independent temporal-mean audit authority remains null, blocking launch before
+output creation. Fixed60s1GiB3GiBAS64MiB/4MiBreserve,75+5owned66MiB, full15776x16
+unrelated synthetic before arrays and8x measured runtime/retention admission.
+Thirteen controls pass0.95s, including complete16D pipeline, immutable-pointer
+negatives, finalization after deadline, isolated import and actual pre-import AS.
+No target arrays evaluated; wrapper peer review and sealed prerequisite pending.
