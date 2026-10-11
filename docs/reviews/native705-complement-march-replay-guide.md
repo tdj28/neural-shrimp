@@ -1,8 +1,8 @@
-# Fixed24 complementary march — decoding guide (producer in flight)
+# Fixed24 complementary march — decoding guide (completed two-packet coverage)
 
 Source packet d4d22970; binding-schema amendment90921cc9; execution3d778fd0.
 Raw root /data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/march002.
-Do not audit/promote a unit until its folder manifest and owner result are sealed.
+All48 original and24 resumed units are now sealed; independent outcome replay remains required.
 
 The original24 roots are indexed by ordinal7..30 in
  docs/plans/native705-complement-march-inputs.json.
@@ -71,3 +71,17 @@ Decision accept requires workerexit0,360 complete native inputs/returns,
 profile180+target180, metricpassed true/full11, exact assignment/source closure,
 and immutable inventories. Split requires a complete false full11 metric only.
 No whole-window/genericity/stability-side implication follows from these cells.
+
+The reviewed pending-only march003 (execution78feac55) acquires24 new cells,
+16 passing and8 complete negative bounds. Its root is the siblingmarch003;
+outer8000faff79eca88efa37cec0edc04ac772a4daeb913cc0f7b946ee66537eda70.
+Combined with immutable march002,48 accepted leaves give exact closed unions
+for all original7–30: four wholecharts,18 pairs ofhalves andtwo groups ofquarters.
+Do not count the48+24 attempts as distinct originalcharts. Parent negatives
+remain24 total. The unchanged actual360-call/native schema applies to eachleaf.
+Resume source/card binds prior complete accepted unions and only exact pending
+cell descendants. Separate perpacket audit indices are in
+/tmp/native705-complement-march002-audit-index.json and
+/tmp/native705-complement-march003-audit-index.json; tracked receipts name
+every selected source-bound artifact. Full finalcoverage in march003 includes
+prior accepted leaves; its own rows alone do not constitute complete unions.
