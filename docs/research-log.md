@@ -9446,3 +9446,13 @@ No automatic retries. The cosmetic launcher heading now names its actual
 output-gauge scope; no executable source changed after review.
 
 11 October2026 — output-gauge001 source72266c49 completed432native/450ticks in56.602s/792636KiB, exit2. All three same-root endpoint refinements passed (weighted radii2.778e-7,2.930e-10,1.811e-13). Fresh output-gauge chart failed q~1.785e7,101/470images and469/470anchor, primitive18passed. Sole anchorfailure is hidden-rate coordinate468, whose inherited weight1/1048576 was designed when it was the fixed gauge coordinate. No extent promoted and no blind step retry. Fullsource/inventories/owned termination/432input-return pairs verified immutable. A saved full-defect scaling diagnosis will precede any changed-E reacquisition. Independent sixteen-chart prefix has separately passed at Root; its new endpoint will be bound in any next attempt.
+
+11 October2026 — prepared saved output-gauge scaling diagnosis. The complete
+failed432-phase source is retained; a new zero-native packet reconstructs
+full470 J0/J1 from acquired fullE atd0 and J2 from wholeparameter/fullE, then
+C0+C1 polynomial defect0..3 and forcing0..4. Floating interval-style majorants
+separate the inherited hidden-weight issue from coefficient growth, and provide
+positive scaling/resolvent proposals only. Any changedE still requires fresh
+proof acquisition. Five helper/actual-metadata/archive controls passed4.77s.
+Fixed90s4GiB32MiB, full470 synthetic arithmetic first; prepared card unlaunchable
+until peer review and explicit source admission.
