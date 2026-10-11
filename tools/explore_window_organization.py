@@ -25,6 +25,10 @@ Subcommands:
                 (tangent reversals), 1:1 points (a second multiplier at +1),
                 fold-flip points (a multiplier at -1) and fold-NS points (a
                 complex pair on the unit circle) can be located afterwards.
+  composite     One figure of the organization: rotation field with the 2/9
+                level set, the banana's two folds, continued window folds and
+                the carried flip curves, plus a zoom on the banana and its
+                locking width along the curve.
 """
 
 import argparse
@@ -388,6 +392,96 @@ def fold_from_node(args):
     print(json.dumps({"out": str(out / "fold-from-node.json")}))
 
 
+def composite(args):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    z = np.load(args.rotation)
+    lh, lo, rho = z["log10_hidden"], z["log10_output"], z["rho"]
+    target = 2.0 / 9.0
+    fig = plt.figure(figsize=(16, 8))
+    grid = fig.add_gridspec(2, 2, width_ratios=[1.35, 1])
+    ax = fig.add_subplot(grid[:, 0])
+    extent = [lo[0], lo[-1], lh[0], lh[-1]]
+    shown = np.where(np.isfinite(rho) & (rho > 0.05), rho, np.nan)
+    image = ax.imshow(shown, origin="lower", extent=extent, aspect="auto", cmap="coolwarm",
+                      vmin=target - 0.006, vmax=target + 0.006, interpolation="nearest")
+    fig.colorbar(image, ax=ax, label="rotation number of the two-step map")
+    ax.imshow(np.where(np.abs(rho - target) < 5e-5, 1.0, np.nan), origin="lower", extent=extent,
+              aspect="auto", cmap="Greys", vmin=0, vmax=1.2, alpha=0.5, interpolation="nearest")
+    for curve in boundary_curves(args.summary):
+        if curve["sigma"] == -1:
+            ax.plot(curve["x"], curve["y"], "-", color="tab:purple", lw=1.0)
+    ax.plot([], [], "-", color="tab:purple", label="flip curves (carried)")
+    colours = ["k", "tab:green", "tab:olive"]
+    for k, path in enumerate(args.folds):
+        data = json.loads(Path(path).read_text())
+        for key in ("direction_+1", "direction_-1"):
+            rows = data.get(key, {}).get("nodes", [])
+            if not rows:
+                continue
+            x = np.array([r["lx"] for r in rows])
+            yv = np.array([r["ly"] for r in rows])
+            ax.plot(x, yv, "-", color=colours[k % len(colours)], lw=1.4)
+        ax.plot([], [], "-", color=colours[k % len(colours)], label=f"continued fold: {Path(path).parent.name}")
+    banana_data = json.loads(Path(args.banana).read_text())
+    for fold in banana_data["folds"]:
+        for branch in fold.get("branches", {}).values():
+            x = np.array([r["lx"] for r in branch["nodes"]])
+            yv = np.array([r["ly"] for r in branch["nodes"]])
+            ax.plot(x, yv, "-", color="gold", lw=1.6)
+    ax.plot([], [], "-", color="gold", label="banana folds (exact period-18 orbits)")
+    for name, (x, yv) in {"A": (-0.0769, 1.7447), "B": (-0.0681, 1.7369)}.items():
+        ax.plot(x, yv, "*", ms=12, color="gold", mec="k")
+        ax.annotate(name, (x, yv), xytext=(4, -12), textcoords="offset points")
+    ax.set_xlim(args.xlim)
+    ax.set_ylim(args.ylim)
+    ax.set_xlabel("log10 output-layer rate")
+    ax.set_ylabel("log10 hidden-layer rate")
+    ax.set_title("2/9 resonance: near-curve banana and the detached window")
+    ax.legend(loc="upper right", fontsize=7)
+    # zoom on the banana
+    zx = fig.add_subplot(grid[0, 1])
+    zx.imshow(shown, origin="lower", extent=extent, aspect="auto", cmap="coolwarm",
+              vmin=target - 0.006, vmax=target + 0.006, interpolation="nearest")
+    widths = []
+    lower, upper = None, None
+    for fold in banana_data["folds"]:
+        xs, ys = [], []
+        for branch in fold.get("branches", {}).values():
+            xs += [r["lx"] for r in branch["nodes"]]
+            ys += [r["ly"] for r in branch["nodes"]]
+        order = np.argsort(xs)
+        xs, ys = np.array(xs)[order], np.array(ys)[order]
+        zx.plot(xs, ys, "-", color="gold", lw=1.2)
+        if fold["label"] == "lower":
+            lower = (xs, ys)
+        else:
+            upper = (xs, ys)
+    zx.set_xlim(-0.0785, -0.0665)
+    zx.set_ylim(1.734, 1.752)
+    zx.set_title("zoom: banana between roots A and B")
+    zx.set_xlabel("log10 output-layer rate")
+    wx = fig.add_subplot(grid[1, 1])
+    if lower is not None and upper is not None:
+        grid_x = np.linspace(max(lower[0].min(), upper[0].min()), min(lower[0].max(), upper[0].max()), 400)
+        width = np.interp(grid_x, upper[0], upper[1]) - np.interp(grid_x, lower[0], lower[1])
+        wx.semilogy(grid_x, np.abs(width), "-", color="goldenrod")
+        widths = list(zip(grid_x.tolist(), width.tolist()))
+    wx.set_xlabel("log10 output-layer rate")
+    wx.set_ylabel("banana thickness (decades of hidden rate)")
+    wx.set_title("locking width along the banana")
+    fig.tight_layout()
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out / "window-organization.png", dpi=args.dpi)
+    (out / "window-organization.json").write_text(json.dumps(
+        {"rotation": str(args.rotation), "folds": args.folds, "banana": str(args.banana),
+         "banana_width": widths}, indent=1))
+    print(json.dumps({"out": str(out / "window-organization.png")}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -434,9 +528,18 @@ def main():
     ffn.add_argument("--box", type=float, nargs=4, default=[-0.13, 0.05, 1.70, 2.00],
                      help="lx_min lx_max ly_min ly_max")
     ffn.add_argument("--out", required=True)
+    comp = sub.add_parser("composite")
+    comp.add_argument("--rotation", required=True)
+    comp.add_argument("--summary", default=str(BOUNDARY / "combined-summary005/summary.json"))
+    comp.add_argument("--folds", nargs="+", required=True, help="fold-from-node.json files")
+    comp.add_argument("--banana", required=True)
+    comp.add_argument("--xlim", type=float, nargs=2, default=[-0.12, -0.064])
+    comp.add_argument("--ylim", type=float, nargs=2, default=[1.725, 2.0])
+    comp.add_argument("--dpi", type=int, default=110)
+    comp.add_argument("--out", required=True)
     args = parser.parse_args()
     {"circle-check": circle_check, "figure": figure, "banana": banana,
-     "fold-from-node": fold_from_node}[args.command](args)
+     "fold-from-node": fold_from_node, "composite": composite}[args.command](args)
 
 
 if __name__ == "__main__":

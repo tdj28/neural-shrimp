@@ -17633,3 +17633,49 @@ _commit `0c7e75dbe54d` (dirty worktree)_
 Anatomy-002 (tool 0c7e75db, map rotation-gap-361): the 2/9 arc joins roots A and B just above the curve; the window's 2/9 region is separate, its lower edge traced by the carried U fold; between them every column's circle rotation dips below 2/9, highest column minimum 0.22043 at (-0.0766, 1.792). Pro consult (window organization; cost in the private ledger) adjudicated in docs/consults/2026-10-11-window-organization/adjudication.md: detachment is theoretically allowed (closed locking disks without any Neimark-Sacker curve exist); claim only circle-locking detachment until period-18 branches are continued, since unstable branches could connect the structures; the arc needs exact period-18 orbits before it is called a banana; generic reconnection under a third parameter is a Morse saddle of the fold surface; nontwist is only an analogy. Registered answer and open items: docs/window-organization.md.
 
 _commit `0c7e75dbe54d` (dirty worktree)_
+
+## 2026-10-11 22:18 UTC: run (exploratory)
+
+- **Question:** Are there exact period-18 orbits on the near-curve 2/9 arc (section log10 output -0.0745, near its top), and where do the two folds bounding that locking interval go when continued in the rate plane: down to roots A and B (a closed banana), up to the window's U, or elsewhere?
+- **Setup:** fastcont (float64 single shooting on F^18, analytic DF, central-difference second derivatives); seed: 60000 steps from the shared initial parameters at (-0.0745, 1.74959), phase condition on the coordinate of largest circle variance, hidden rate free; closed orbit curve traced by pseudo-arclength at fixed output rate; both folds refined and continued 300 steps each way, stopping when the even-point spread falls below 2e-3 (approach to the period-2 orbit) or the rates leave [-0.10,-0.06]x[1.72,1.95]; one process, OPENBLAS 1 thread, nice 10
+- **Output:** `../neural-shrimp-data/explore/window-organization/banana-0745`
+- **Would surprise us:** No period-18 orbit on the arc; a fold that reaches the window's U fold instead of a root; folds that end somewhere other than A or B
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py banana --lx -0.0745 --ly 1.74959 --out ../neural-shrimp-data/explore/window-organization/banana-0745`
+
+_commit `c4e238fc36c3`_
+
+## 2026-10-11 22:20 UTC: run (exploratory)
+
+- **Question:** Where does the window's lower U fold go when continued far in both directions with fast float64 continuation: which cusps, 1:1, fold-flip or fold-NS points does it meet, and does either arm head toward the near-curve 2/9 arc, the third 2/9 root on the right, or close on itself?
+- **Setup:** fastcont FoldCurve (sigma +1) from carried node attempt-006-ray32-fold +1-010 (U bottom); pseudo-arclength with parameter scale 100, step 0.02 (max 0.1), 600 steps each way; stop outside [-0.13,0.05]x[1.70,2.00] or if a proper-divisor separation falls below 1e-4; per node: rates, tangent, multipliers nearest +1, -1 and the unit circle; one process, OPENBLAS 1 thread, nice 10
+- **Output:** `../neural-shrimp-data/explore/window-organization/ufold-continuation-001`
+- **Would surprise us:** An arm that descends toward the near-curve arc or the Neimark-Sacker curve; a closed loop; a fold coefficient change without a cusp
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py fold-from-node --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-006-ray32-fold/run/node-+1-010.json --out ../neural-shrimp-data/explore/window-organization/ufold-continuation-001`
+
+_commit `0e3113662a5b` (dirty worktree)_
+
+- run started 2026-10-11 22:18 UTC finished 22:21 UTC with exit status 0
+
+## 2026-10-11 22:22 UTC: The near-curve 2/9 arc is a closed banana of exact period-18 orbits attached at roots A and B
+
+banana-0745 (tool c4e238fc, fastcont float64 single shooting). At log10 output -0.0745 an exact primitive period-18 orbit sits on the circle (even-point spread 0.104; proper-divisor separations 0.11-0.69; multipliers 1.00012 and a complex pair of modulus 0.953, i.e. the saddle of a weakly attracting circle). The orbit curve at fixed output rate closes through two folds; the locking interval is [1.7495516, 1.7495670] (width 1.54e-5 decades). Both folds, continued in the rate plane, run to root B (end (-0.068092, 1.736914), spread 6e-4 and 1.8e-3, shrinking to the period-2 orbit) and to root A (ends (-0.076900, 1.744846) and (-0.076930, 1.744751), spread 0.013 and 0.002; the first stalled at the minimum step). Banana top near (-0.0741, 1.74972), about 0.006 decades above the curve. So the near-curve 2/9 locking region is a closed banana bounded by two fold curves from A to B (Peckham-Frouzakis-Kevrekidis geometry), and its period-18 family never leaves the curve's neighbourhood; with the rotation valley below 2/9, the window is a separate component also at the level of these circle-locked orbit families. Open: orbit families off the circle (window side), and the right-hand side (map running).
+
+_commit `0e3113662a5b` (dirty worktree)_
+
+- run started 2026-10-11 22:20 UTC finished 22:25 UTC with exit status 0
+
+## 2026-10-11 22:28 UTC: The window's lower U fold is part of a closed fold loop with two cusps
+
+ufold-continuation-001 (tool 0e311366; 600 fastcont nodes each way, 170 s each). From the U bottom (-0.0802, 1.8201) the fold curve runs up the right arm to a parameter-plane reversal (cusp candidate) near (-0.0664, 1.8582), returns left through the window interior as an internal fold (-0.077, 1.8425) -> (-0.092, 1.852) -> (-0.107, 1.907), reaches a second reversal near (-0.114, 1.97), and comes back down the U's left arm (-0.104, 1.922) -> (-0.099, 1.869) to the U bottom; both directions traverse the same closed loop (lap closed after about 540 nodes). Residuals 1e-11 to 1e-15; all proper-divisor separations >= 0.38. The complement is attracting on the lower parts (radius 0.68-0.83) and strongly unstable on the top-left part between (-0.1043, 1.8812) and (-0.1040, 1.8805) (radius up to 11.8). Closest approaches along the loop: a second multiplier within 1.0e-3 of +1 near (-0.1072, 1.9137) and a multiplier within 3.3e-3 of -1 near (-0.0761, 1.8534), both candidates for codimension-two points; no complex pair near the unit circle. The loop's lowest point is the U bottom, so the window's lower fold system never descends toward the Neimark-Sacker curve or the banana. This matches the U-shaped saddle-node outline plus internal saddle-node curve with a cusp described by Varga, Klapcsik and Hegedus (2019). Codex's upper fold (canonical fold, 1:1 point, cusps A and B) is a different curve; its continuation is running.
+
+_commit `0e3113662a5b` (dirty worktree)_
+
+## 2026-10-11 22:28 UTC: run (exploratory)
+
+- **Question:** Where does the window's upper fold (the certified canonical fold, carrying the 1:1 point and cusps A and B) go when continued far in both directions: does it close, join the lower fold loop, or descend toward the near-curve banana?
+- **Setup:** Same as ufold-continuation-001 but starting from carried node attempt-003-target +1-000 (canonical fold, log10 rates -0.0854, 1.87839); 600 steps each way; stop outside [-0.13,0.05]x[1.70,2.00] or a proper-divisor separation below 1e-4
+- **Output:** `../neural-shrimp-data/explore/window-organization/upperfold-continuation-001`
+- **Would surprise us:** A branch that descends below log10 hidden 1.80 toward the banana or the Neimark-Sacker curve
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py fold-from-node --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --out ../neural-shrimp-data/explore/window-organization/upperfold-continuation-001`
+
+_commit `cc66269163b6` (dirty worktree)_

@@ -53,4 +53,8 @@ def test_newton_recovers_a_fixed_point_as_a_period_two_orbit():
     perturbed = t.numpy() + 1e-4 * np.random.default_rng(3).normal(size=t.numel())
     solution, _, history = newton_period2(reduced, perturbed, eta, tol=1e-13, max_iter=10)
     assert history[-1] < 1e-13
-    assert np.linalg.norm(solution - t.numpy()) < 1e-8
+    # the slow weight-decay directions leave plain gradient descent short of the
+    # fixed point; Newton must land on a genuine fixed point of F itself nearby
+    step = reduced.update(torch.as_tensor(solution), eta).numpy() - solution
+    assert np.linalg.norm(step) < 1e-12
+    assert np.linalg.norm(solution - t.numpy()) < 0.05
