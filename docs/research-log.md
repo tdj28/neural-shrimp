@@ -15779,3 +15779,7 @@ Producer adapter reviewed by root against unchanged independently authored root/
 ### 2026-10-11T11:03:38.963149+00:00 — Preserve zero-target chart32 audit admission failure; admit002
 
 The first audit deff7e2b completed the full705 synthetic profile, then its first metadata check stopped because root left statusprepared in the card despite completed review. No target arrays/proof reductions; elapsed1.799s202664KiB. Exact source and all inventories/owner exits verified in the failure receipt. Fresh002 changes only literalreviewed status and outputroot; same mathematical adapter, pins,1800s4GiB256MiB ceilings. Existing sixcontrols rerun using the nowactualreviewed card before privately committed launch.
+
+### 2026-10-11T11:08:12.455714+00:00 — Preserve independent domain-containment failure
+
+Remaining32attempt002 source2479041c validates its literal admission and completes the first derivative domain and two accepted cells, then fails a full705 actual-acquisition containment check at domain2.34.541s916712KiB,0native. Exact source and entire immutable inventories/owner exits verified. Producer result is not promoted to wholechart independent status. Stability is diagnosing exact interval dependency/rounding differences; no containment relaxation or out-of-domain reuse is authorized. Both failed auditattempts and partial positive cells remain retained.
