@@ -12190,3 +12190,7 @@ Profile002 completed3 full768-bit phase acquisitions. Fixed2x4200-call forecast9
 ### 2026-10-11T00:22:16.876785+00:00 — fixed independent705 saved reduction prepared
 
 Source-bound driver retains original coarse anchor and separately reports uniform versus connected proof. Separate direct path polynomial/entire series and full native705 Jacobian assembly;384-bit weighted reduction, no native calls. Four controls PASS. CPU1nice10/240s/4GiB/64MiB based on measured48.48s producer and20.12s saved704 reducer. Peer review before fixed attempt001 launch.
+
+### 2026-10-11T00:22:36.899254+00:00 — census13 measured-storage profile003 admission
+
+Clark narrowreview e4ff7cf1 PASS and three controls0.10s. Only raw storage allowance amended to1GiB; fixed3-phase row139 profile repeats to bind current source before separately committed26-target card. Local data freebytes 2911166881792. Same CPU1nice10,1GiB RSS,60/80+5s profile and immutable attempt003 ownership.
