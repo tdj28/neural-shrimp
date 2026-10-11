@@ -7091,3 +7091,12 @@ fixedgain4.0756 endpoint remains separately proved/joined/generic.138phase cap,
 90s2GiB256MiB/105+5owned258MiB; actual source-matched profile forecast88.8761s
 239298144bytes.15source/binding/closure controls pass1.86s, no new target.
 Peer review and fresh host admission precede execution.
+
+### 2026-10-11 01:56 PDT — fixed two-segment extension admitted
+
+Boundary8a003552 differential source/binding/resource PASS4direct controls
+1.57s; all15 combined controls previously passed1.86s. Same profiled native
+source and literal independently known51 endpoint,138phase90s2GiB256MiB.
+Host51GiB available/load2.30,2.6TiBfree,GPU0percent15947MiBfree/noGPUprocess;
+no duplicate own worker and exclusiveattempt001 absent. One fixed owned unit,
+no cap/geometry adaptation; every failed and partial outcome preserved.
