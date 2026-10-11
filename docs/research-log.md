@@ -7879,3 +7879,12 @@ containment checks. Exact Fraction intersections are unchanged. End-to-end
 synthetic huge-history localization, wrapper save/reload and exact-root/oldbox/E
 containment now exercise the complete output path. All three failed attempts
 and completed stages remain immutable; no localized endpoint promoted yet.
+
+### 2026-10-11 — admit end-to-end-tested endpoint004 output path
+
+Root ff106912 differential review PASS; eleven controls3.28s include full huge
+localization/save/hex-and-Arb roundtrip and exact-root/oldbox/E containment.
+Admit fresh004 only, all three historical failures bound. Explicit outward512
+rounding precedes final containment; exact16 Fraction intersections unchanged.
+Same zero-native120s2GiB64MiB/135+5owned. Private push/current resource check
+and source freeze precede execution; no mathematical or cap adaptation.
