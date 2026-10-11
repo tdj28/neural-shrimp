@@ -15891,3 +15891,18 @@ reported50GiB available, load4.61/3.27/2.78 and no matching owned producer proce
 Card now reviewed for one sequential source-bound run. Fresh unrelated fullsize
 profile and complete worst-case admission remain mandatory before target arrays;
 all failures remain immutable and stop outside the explicitly bounded split rule.
+
+### 2026-10-11 — producer second-quarter coverage completed
+
+Source dda943e5 completed the secondquarter in100.324s/1,858,892KiB, with1080 native
+phases (144profile+2×90 shared derivatives+6×126centers). Both initial halfquarter
+metric bounds failed and remain retained (penalties1.24093/1.20483). Each split
+once; four halfwidth1/512 accepted cells cover the entire [-17,15]/2048 closed
+interval, with penalties below.612804. This is four times the firstquarter grid
+cell width, obtained by narrower true derivative domains while retaining fresh
+same-root centers. All files/source archives and actual owner exits were verified;
+outer070b819ada019aaeee9f58fca3e3f6145740ffb6e3b61e9f1f8dfeeb9dc5bc1f.
+The independent replay remains pending. After that gate, the exact previous
+chart30 endpoint projection and firstquarter boundary adjacency can establish a
+joined complementary-stable arc; no wholechart or completewindow claim is made.
+Compact receipt: docs/reviews/native705-second-quarter001.json.
