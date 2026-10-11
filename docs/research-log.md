@@ -15586,3 +15586,10 @@ reduction versus actual.82475%, so only32.27% of predicted gain is realized.
 This is a directional nonlinear-model bottleneck, not merely the global trust
 limit. It motivates a separately bounded saved512-action regularized proposal
 at originalcurrent022; no new direction/trial/state transfer is admitted here.
+
+### 2026-10-11 — Admit fixed saved signed470 diagnostic
+
+Clark independently reviewed bb9bae8e math/source/caps PASS; two controls0.09s
+and isolated actual-file archive import pass. Actual complete failed source/
+inventory/owner metadata preflight passed0.284s without target arrays. Proceed
+one fixed diagnosis001 after10GiB host admission; no native calls or new root.
