@@ -9,7 +9,7 @@ def fixture(k):
  return dict(original_cycle=cycle,phase_jacobians=np.repeat(j[None],6,axis=0),original_physical=np.r_[x,.8,q],physical=z,continued_physical=z.copy(),continued_cycle=np.roll(cycle,-k,axis=0),cycle=np.roll(cycle,-k,axis=0),transport=t,transport_norm=np.array(np.linalg.norm(t@q)),reverse_transport=rev,reverse_q=back)
 
 def test_literal_phase4_and_mode_orientation():
- a=fixture(4);assert A.phase_arithmetic(a,4)['joined'];a['continued_physical'][13:]*=-1;assert A.phase_arithmetic(a,4)['joined']
+ a=fixture(4);assert A.phase_arithmetic(a,4,float(a.pop('transport_norm',1.)))['joined'];a['continued_physical'][13:]*=-1;assert A.phase_arithmetic(a,4,float(a.pop('transport_norm',1.)))['joined']
 
 @pytest.mark.parametrize('field',['physical','transport','continued_physical'])
 def test_wrong_literal_state_product_or_matching_mode_rejected(field):
@@ -17,4 +17,10 @@ def test_wrong_literal_state_product_or_matching_mode_rejected(field):
  if field=='physical':a[field][0]*=-1
  elif field=='transport':a[field][0,0]+=.1
  else:a[field][13:]=np.eye(12)[3]
- with pytest.raises(AssertionError):A.phase_arithmetic(a,4)
+ with pytest.raises(AssertionError):A.phase_arithmetic(a,4,float(a.pop('transport_norm',1.)))
+
+
+def test_actual_emit_schema_keeps_transport_norm_in_metadata():
+ a=fixture(4);value=float(a.pop('transport_norm'));assert 'transport_norm'not in a
+ assert A.phase_arithmetic(a,4,value)['joined']
+ with pytest.raises(AssertionError):A.phase_arithmetic(a,4,value+.1)

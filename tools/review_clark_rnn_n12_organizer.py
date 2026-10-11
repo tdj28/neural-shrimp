@@ -21,13 +21,13 @@ def inventory(root):
   f=root/name;assert not Path(name).is_absolute()and '..'not in Path(name).parts and not f.is_symlink()and not f.stat().st_mode&0o222 and f.stat().st_size==row['bytes']and sha(f)==row['sha256']
  return dict(manifest_sha256=sha(p),manifest_bytes=p.stat().st_size,files_including_manifest=len(v)+1,bytes_including_manifest=sum(x['bytes']for x in v.values())+p.stat().st_size)
 
-def phase_arithmetic(a,k):
+def phase_arithmetic(a,k,transport_norm):
  assert 0<=k<6 and a['original_cycle'].shape==(6,12)and a['phase_jacobians'].shape==(6,12,12)
  original=a['original_physical'];physical=a['physical'];target=a['continued_physical'];product=np.eye(12)
  for jac in a['phase_jacobians'][:k]:product=jac@product
  transported=product@original[13:];length=norm(transported);assert length>1e-8;transported/=length
  assert np.array_equal(physical[:12],a['original_cycle'][k])and physical[12]==original[12]and norm(physical[13:]-transported)<1e-12
- assert np.max(abs(product-a['transport']))<1e-12 and abs(length-float(a['transport_norm']))<1e-12
+ assert np.max(abs(product-a['transport']))<1e-12 and abs(length-float(transport_norm))<1e-12
  cyclic=distance(np.roll(a['original_cycle'],-k,axis=0),a['cycle']);assert cyclic<=1e-7
  reverse=np.eye(12)
  for jac in a['phase_jacobians'][k:]:reverse=jac@reverse
@@ -97,7 +97,7 @@ def audit():
   elif kind=='literal_phase_bridge':
    k=d['phase'];old=signed[tag+'-original'][1];target=signed['organizer-'+tag.rsplit('-',1)[1]][1];phase=signed[tag+'-phase'+str(k)][1]
    for name,expected in [('original_physical',old['physical']),('original_cycle',old['cycle']),('physical',phase['physical']),('cycle',phase['cycle']),('continued_physical',target['physical']),('continued_cycle',target['cycle']),('phase_jacobians',native_records[tag+'-original-native']['phase_jacobians'])]:assert np.array_equal(a[name],expected)
-   report=phase_arithmetic(a,k);assert report['joined']==d['continued_native_join']['passed'];assert recomputed_cubics[tag+'-original']*recomputed_cubics[tag+'-phase'+str(k)]>0
+   report=phase_arithmetic(a,k,d['transport_norm']);assert report['joined']==d['continued_native_join']['passed'];assert recomputed_cubics[tag+'-original']*recomputed_cubics[tag+'-phase'+str(k)]>0
    phase_bridges.setdefault(tag,[]).append(report)
  assert result['status']=='completed_native_organizer_phase_connection'and len(result['points'])==len(folds)==17 and len(signed)==33 and len(assocs)==len(result['associations'])==16
  assert len(signed_assocs)==len(result['signed_extension'])==2 and len(phase_bridges)==len(result['phase_bridges'])==2
