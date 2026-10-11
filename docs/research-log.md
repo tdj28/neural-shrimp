@@ -17002,3 +17002,14 @@ whole known boxes retained. Full synthetic admission forecast107.63s passed;
 actual final180s2GiB64MiB limits passed. Immutable manifests/source/owned exits
 verified; original001 synthetic failure retained. No degree increase, expanded
 radius, clipped domain, native retry or inferred optimizer/shrimp utility.
+
+### 2026-10-11 — admit fixed independent22-prefix replay
+
+Root80eb3065 full source/math/binding/resource PASS; four actual driver controls
+3.54s independently reproduced. Original raw path/native reducers unchanged;
+all2257 events/32attempts and22 strict root+all51 ordered joins/88 native contexts
+retained. Subset screen002 is sealed and all owned processes have exited.
+Admit sole saved attempt001 from exact independent b1/2048 endpoint, no native.
+Current shared host has ample headroom; CPU1nice10,300s2GiB4GiBAS256MiB,
+315+5 owned. Full-size unrelated profile and original entire-extension actual
+cost floor precede decoding. No wider failed chart is promoted by this audit.
