@@ -6964,3 +6964,15 @@ with2x plus4x algebra/8x context allowances. Fourteen controls pass1.22s.
 Initial keyword/import-list controls caught and corrected before target;
 isolated profile source inventory now literal. No target launched. Independent
 source/binding/cache/cap review and fresh host/card admission remain required.
+
+### 2026-10-11 01:17 PDT — correlated51 fixed target admitted
+
+Stability6049ce35 independent source/binding/resource PASS14controls1.23s.
+Exact full profile extrema give158.583455s/455347768bytes; same native/helper
+source and libraries remain mandatory before target arrays. Host50GiB available,
+load4.11,2.7TiB free, GPU0percent15947MiBfree/noGPUprocess. Boundary owns
+its separate maintained004 worker; no correlated51 duplicate and exclusive001
+is absent. Launch sole fixed8attempt/6accepted CPU1nice10/180s2GiB4GiBAS
+512MiB worker,195+5owned514MiB. All51 roots/curved joins, native phase/mode
+qualifications and separate endpoint genericity remain mandatory. No geometry,
+radius or quota adaptation within this attempt; preserve every failure.
