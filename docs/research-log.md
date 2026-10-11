@@ -14103,3 +14103,16 @@ worker or duplicate; root paper numbers only observed. Admit one fresh reviewed
 reorthogonalized001, CPU1nice10/300s/3GiB/768MiB,257HVP+1gradient maximum.
 Full fresh algebra/cost profile still mandatory before scientific arrays/calls.
 No direction application, no state022 action, no stationarity or orbit claim.
+
+#### Equal-action CIFAR comparison completed
+
+Execution2195df22 completed22.407s/1,348,028KiB,257HVP+1gradient. Full measured
+profile forecast112.142s/2,175,980KiB passed. All immutable source/inventories
+and actual owned exits verified, outer685caf2c84e977a79356782b60fbf607c083cc77d86616680fe74fe68bee6ed4. Fresh256-direction Gram infinity error5.69e-15 and W rank256
+confirm reorthogonalization maintained the intended basis. True physical forcing
+.6441489991 versus .7800333350 improves17.42%; this MISSES predeclared20% material
+and.5 forcing gates. FreshHp versus Wc discrepancy2.03e-12. Thus orthogonality loss
+explains a real portion of the previous residual, without solving the stationary
+problem. No direction applied, state022 action, seed, eigenpair or orbit claim.
+Complete decoder guide prepared for independent saved replay; no automatic longer
+Krylov, trust-ball change or follow-up native unit. Resume later-chart complements.
