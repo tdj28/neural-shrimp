@@ -9235,3 +9235,7 @@ Preserve the completed48-point path and restart at its literal terminal full470 
 ### 2026-10-11 — admitted fixed flip-route extension
 
 Clark independently reviewed a1dd9892 source, literal prior470 association, unchanged native equations and exact3096 inclusive phase cap, PASS13controls4.61s. Admit one fresh12-return profile followed by at most24 points/160 full evaluations from the exact saved terminal. Current metadata-only preflight and host admission precede launch; no cap/gate relaxation or automatic retry. Target remains numerical event localization, not certified extent.
+
+### 2026-10-11 — flip extension reaches near-positive mode, then fixed return cap
+
+Reviewed sourcec4926de3 completed all160 permitted target evaluations/3096 inclusive phases in27.553s. Overall failed/incomplete, not a completed survey. Seventeen accepted primitive18 native points and16 full470 reverse joins survive; nine completed failed continuation attempts and the final unfinished correction remain immutable. Last accepted hidden70.8591480572, output0.8382915102619093, competing positive multiplier.979488440248; strict local corrector guards repeatedly reject further fixed-hidden attempts near70.84. This motivates a full-native plus/minus-one augmented localization and testing for a physical-rate turn; neither event is yet proved. Exact full inventories/source/ownership checked. Outerf56f5e7ce42f2ac5aa860f876091b639563b10dab0580e6feb3ab7671758dc86.
