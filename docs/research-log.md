@@ -6810,3 +6810,13 @@ Preserve every radius/tube/native bound failure; only predeclared halfwidth
 reductions within12 attempts/8 accepted charts, unchanged target range.
 All51 actual organizer/phase/normalization authority and separate positive
 endpoint genericfold gates retained. No new approval or geometry adaptation.
+
+### 2026-10-11 — retained51 binding failure and narrow correction
+
+Explicit001 stopped0.807s/70788KiB after21 unrelated profile phases, before
+target: success-only inherited historical check rejected the intentionally
+failed implicit predecessor. Sealed fullsource/inventories/PIDs absent;55raw
+roots. Correct to explicit expected exit with actual metadata negatives;
+mandatory001 and fresh002 retain all science/caps/profile gates. Previous
+card timestamp00:37 was a typo; actual launcher00:32PDT is authoritative.
+Narrow peer review precedes retry.

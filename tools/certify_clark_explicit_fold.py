@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Fixed bounded explicit51 native critical curve with a generic fold endpoint."""
-import gzip,json,os,platform,resource,signal,subprocess,sys,time,traceback
+import gzip,hashlib,json,os,platform,resource,signal,subprocess,sys,time,traceback
 from pathlib import Path
 from fractions import Fraction as F
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src')]
@@ -13,11 +13,11 @@ from neural_shrimp import rigorous_clark_explicit_tube as T
 from neural_shrimp import rigorous_clark_amplitude_fold as A
 from neural_shrimp.rigorous_orbits import ball_json,vector_json,matrix_json,midpoint_matrix
 need,entry,read,decode=B.need,B.entry,B.read,B.decode
-OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/explicit-fold-bridge/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/explicit-fold-bridge/attempt002/run')
 CARD='docs/plans/clark-explicit-fold-inputs.json';THREADS=B.THREADS
 SETTINGS=dict(B.SETTINGS,dimension=51,v_radius_ceiling_exponent=2)
 CAPS=dict(explicit=93,anchor=2,implicit=2,context=14,native_phase_returns=381,events=2048)
-FILES=sorted(set(B.FILES+[CARD,'docs/plans/clark-explicit-amplitude-fold.md','docs/reviews/clark-amplitude-fold-attempt001.json','docs/reviews/clark-amplitude-inverse-diagnosis.json','tools/certify_clark_explicit_fold.py','tools/launch_clark_explicit_fold.py','tests/test_clark_explicit_fold_driver.py','tests/test_rigorous_clark_explicit_fold.py','tests/test_rigorous_clark_explicit_tube.py']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
+FILES=sorted(set(B.FILES+[CARD,'docs/reviews/clark-explicit-fold-attempt001.json','docs/plans/clark-explicit-amplitude-fold.md','docs/reviews/clark-amplitude-fold-attempt001.json','docs/reviews/clark-amplitude-inverse-diagnosis.json','tools/certify_clark_explicit_fold.py','tools/launch_clark_explicit_fold.py','tests/test_clark_explicit_fold_driver.py','tests/test_rigorous_clark_explicit_fold.py','tests/test_rigorous_clark_explicit_tube.py']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 class Work(B.Work):
  def __init__(self):super().__init__();self.calls=dict.fromkeys(CAPS,0)
@@ -48,13 +48,21 @@ def synthetic(w):
  report=dict(passed=bool(forecast<180 and raw<512*1024**2 and peak<2*1024**3),times=times,bytes=sizes,remaining=remaining,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,target_arrays_unopened=True,calls=dict(w.calls));w.save('profile.json',report);need(report['passed'],'full51 explicit/implicit/context measured admission')
 
 
+def historical(root,source,expected_exit):
+ need(type(expected_exit)is int and expected_exit in(0,2),'declared historical exit');rt=read(root/'run/runtime.json');la=read(root/'launcher-result.json');need(rt['source_commit']==la['source_commit']==source and la['exit_code']==expected_exit and not la['owned_live_pids'],'completed exact expected execution')
+ for pid in(rt['pid'],la['launcher_pid'],la['owned_group_pid']):need(not Path('/proc',str(pid)).exists(),'old owned PID absent')
+ actual={str(p.relative_to(root/'run/source')):p for p in(root/'run/source').rglob('*')if p.is_file()};need(set(actual)==set(rt['sources']),'complete historical source archive')
+ for n,p in actual.items():need(entry(p)==rt['sources'][n]and hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==rt['sources'][n]['sha256'],'exact historical source '+n)
+ return rt
+
 def bind(w):
  card=read(ROOT/CARD);need(card['settings']==SETTINGS and card['caps']==CAPS and card['base_card']==entry(ROOT/B.CARD),'exact amended full51 card')
  failures=[]
- for key in('failed_implicit','diagnosis'):
-  spec=card[key];root=Path(spec['root']);failures.extend([B.B.inventory(root,spec['outer'],w.tick),B.B.inventory(root/'run',spec['worker'],w.tick)]);B.B.historical(root,spec['source']);out=read(root/'run/outcome.json')
+ for key in('failed_implicit','diagnosis','binding_failure'):
+  spec=card[key];root=Path(spec['root']);failures.extend([B.B.inventory(root,spec['outer'],w.tick),B.B.inventory(root/'run',spec['worker'],w.tick)]);historical(root,spec['source'],0 if key=='diagnosis'else 2);out=read(root/'run/outcome.json')
   if key=='failed_implicit':need(not out['passed']and out['calls']['native_phase_returns']==135,'preserved original zero-tube implicit failure')
-  else:need(out['passed']and out['native_calls']==0,'preserved exact saved inverse diagnosis')
+  elif key=='diagnosis':need(out['passed']and out['native_calls']==0,'preserved exact saved inverse diagnosis')
+  else:need(not out['passed']and out['error']=='ValueError: completed exact execution'and out['calls']==dict(anchor=1,context=1,events=38,explicit=3,implicit=1,native_phase_returns=21),'preserved zero-target binding failure')
  j,organizer,gain,arrays=B.bind(w);base=read(ROOT/B.B.CARD);ip=Path(base['independent']['root'])/'run';unfold=read(ip/'unfolding.json');lambda_leak=decode(unfold['multiplier_leak_derivative']);w.charge('anchor')
  known,anchor=E.conditional_organizer_anchor(lambda z,b:A.paired_family(j,z,b,w.emit),organizer,12,lambda_leak,w.emit)
  need(len(known)==51,'complete exact organizer plus unique paired tangent');w.save('explicit-anchor.json',dict(known=vector_json(known),proof=anchor,failures=failures,organizer_authority=base['independent'],scope='Same authenticated exact c3zero normalized organizer and nonzero lambda_leak imply v_leak=0; tiny paired inverse encloses all v. No zero-containment existence inference.'));return j,known,gain,arrays
