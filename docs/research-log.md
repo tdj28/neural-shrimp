@@ -8684,3 +8684,15 @@ and gauge alignment across allfour before another target. Fixed saved-only
 Root independently cleared9766d1af saved diagnosis,2controls0.10s. Add requested
 Python/NumPy/FLINT/thread provenance before sole bounded saved run; no math or
 cap change. Execute next under fresh host admission; no new native arrays.
+
+
+### 2026-10-11 UTC: saved diagnosis distinguishes width from Newton failure
+
+Zero-native diagnosis9fe6aa61 completed allfour. Firstcenter finalNewton
+correction4.99e-13radii is numerical proximity only, not existence;
+quarticforcing2.808+.343 and q.4224 explain failedimage3.569. Secondforcing
+38.28+7.87; later gaugealignmentdrops.703/.420 andfourth correction1822radii.
+Root independently confirmed cubic convention and cleared one fixed h1/32
+batch, same rho/weights, fresh all331 calls and705 joins; no radius grid.
+Prepare narrow001 from unchanged independently proved79/2048 endpoint. The
+h^4 width forecast is noncertified guidance, not reused larger-domain proof.
