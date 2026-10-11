@@ -7457,3 +7457,19 @@ Added the suggested Python/NumPy/thread runtime metadata only. Admit sole
 zero-native attempt001 after fresh host/ownership check; same fixed66 synthetic
 profile and30s512MiB8MiB gates before saved target interpretation. Native phase,
 orientation, thresholds and full66-point scope unchanged.
+
+### 2026-10-11 — saved fold coordinate diagnosis completed
+
+The existing numerical native6 fold branch has a smoothly oriented normalized
+paired coordinate over all65 unique points: b increases strictly from
+.000370692188 to3.091569975 as gain increases4.0756 to5.487660623, and adjacent
+q dot products are at least.99993048. The old projected amplitude squared is
+only.81315–.87132 of actual b. Thus it must not be substituted directly in the
+rigorous desingularized family. All66 rows including the shared4.08 point are
+retained. This is numerical path planning, not a new exact global connection.
+
+Source07d24ef1 completed1.473204s/39828KiB,0native, all immutable source and
+output hashes and absent owned process IDs verified. Next proposed finite
+adaptive unit starts at independent b1/2048 and seeks b1/16, including the
+already saved gain4.10932626298 fold at b.03959454564. Full51/native joins and
+separate endpoint genericity remain mandatory; no radius-ceiling escalation.
