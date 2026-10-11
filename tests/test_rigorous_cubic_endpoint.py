@@ -25,3 +25,12 @@ def test_invalid_domain_or_unstable_point_rejected():
  with pytest.raises(ValueError):localize_cubic_endpoint(*args)
  args=list(fixture());args[4][0]=arb(0,1)
  with pytest.raises(ValueError):localize_cubic_endpoint(*args)
+
+
+def test_fresh_rhs_at_shifted_point_retains_identical_known_root():
+ from neural_shrimp.rigorous_cubic_endpoint import localize_fresh_endpoint
+ with ctx.workprec(256):
+  D=[arb_mat([[arb(1)/8]])]+[arb_mat(1,1)for _ in range(3)]
+  point=[arb(1)/1024];known=[arb(point[0],arb(1)/64)]
+  box,p=localize_fresh_endpoint(D,arb_mat([[arb(1)/2]]),arb_mat(1,1),arb_mat([[arb(1)/65536]]),arb(1)/32,arb(1)/32,point,known,[arb(1)])
+  assert box[0].contains(point[0]-arb(1)/114688)and box[0].rad()<arb((1,-20))
