@@ -9327,3 +9327,7 @@ Source2fb0cd3e output003 passed24points/23full470reverse joins in29.085s/2952pha
 ### 2026-10-11 — exact unrelated timing-fixture repair prepared
 
 Retained proof-profile001 remains unchanged at145 calls and zero target. Fresh002 takes explicit exact finite midpoints of all unrelated timing state/mode/rate values before serialization and acquisition. Full real profile regression now executes all180 calls/186ticks successfully; five caller controls pass18.72s, including actual failed-history and archive bindings. Target equations/domain/radii/weights/anchor and resource caps unchanged. No retry before narrow source review and committed admission.
+
+### 2026-10-11 — admit corrected unrelated profile and unchanged correlated target
+
+Stability cleared746ef82d, all five controls18.88s including real full180-call profile. Fresh002 repeats the measured profile under unchanged limits and can acquire the single fixed target only if all measured/source/known-root gates pass. Old145-call zero-target attempt001 remains mandatory immutable evidence. All own preceding workers exited; source frozen for this one CPU1/4GiB unit.

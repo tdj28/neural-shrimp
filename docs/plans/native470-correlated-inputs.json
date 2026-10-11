@@ -1,5 +1,5 @@
 {
-  "status": "prepared",
+  "status": "reviewed",
   "settings": {
     "period": 18,
     "sigma": -1,
@@ -1123,10 +1123,23 @@
       "sha256": "cfd7e7f1863512c352b6b1c90d12b962293d641d2592fe0fe389ab478cb0b850"
     }
   },
-  "source_review": null,
+  "source_review": {
+    "source": "746ef82d",
+    "reviewer": "stability_resume",
+    "result": "PASS",
+    "controls": 5,
+    "seconds": 18.88,
+    "scope": "Only unrelated timing fixture, immutable first-profile binding and new002 paths; actual target unchanged."
+  },
   "amendment": {
     "date": "2026-10-11",
     "failed": "docs/reviews/native470-correlated-profile001.json",
     "scope": "Only exact midpoint conversion for the unrelated timing fixture and fresh002 paths. Same target domain/kernel/source authority/caps; entire full-size profile repeated."
+  },
+  "admission": {
+    "date": "2026-10-11",
+    "available_ram": "52GiB last host check",
+    "reservation": "CPU1/4GiB; own other workers completed; fresh supervisor12GiB check mandatory",
+    "scope": "Same240s/768MiB; entire new source profile before target."
   }
 }
