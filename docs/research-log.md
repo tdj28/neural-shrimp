@@ -16599,3 +16599,7 @@ failures before any new geometry or budget proposal.
 ### 2026-10-11T11:01:47.526636+00:00 — Admit independent remaining chart32 stability replay
 
 Producer adapter reviewed by root against unchanged independently authored root/tangent/point/quotient reducers. All176 dependency hashes verified; six controls13.50s including complete actual metadata with scientific decoders blocked. Admit one saved-only attempt001,1800s4GiBRSS6GiBAS256MiB,1815+5s owned supervisor,CPU1/BLAS1/nice10. Authenticate all4464 retained phases and thirty attempts, then recompute six full domains and eighteen accepted cells. Exact[55,103]/1024 union must join the independently complete[39,55]/1024 first portion and old stable projection. No new native derivatives. Source is this privately pushed admission commit.
+
+### 2026-10-11T11:03:38.963149+00:00 — Preserve zero-target chart32 audit admission failure; admit002
+
+The first audit deff7e2b completed the full705 synthetic profile, then its first metadata check stopped because root left statusprepared in the card despite completed review. No target arrays/proof reductions; elapsed1.799s202664KiB. Exact source and all inventories/owner exits verified in the failure receipt. Fresh002 changes only literalreviewed status and outputroot; same mathematical adapter, pins,1800s4GiB256MiB ceilings. Existing sixcontrols rerun using the nowactualreviewed card before privately committed launch.
