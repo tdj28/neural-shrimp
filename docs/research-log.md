@@ -15799,3 +15799,7 @@ Root reviewed the unchanged parity-aware predictor and independent nested exact 
 ### 2026-10-11T11:31:07.260040+00:00 — Six-domain containment screen passed; admit full replay004
 
 Source183ca098 screen passed all6 fixed705 predictor and nested derivative domains,13.860s93668KiB0native. The alternate monomial derivative remains valid mathematically but its different outward ball association misses140–302 exact acquired bounds, fully retained. Complete immutable inventories/source and owner exits verified. Root admits full fresh004 under unchanged1800s4GiB6GiB-AS256MiB4MiBreserve,1815+5outer, independently reviewed16controls. Full root/tangent/polarized/quotient containment and18leaf exactclosedunion must all pass; no relaxed gate or derivative reacquisition.
+
+### 2026-10-11T11:34:35.393719+00:00 — Preserve exact-polynomial audit004 containment failure
+
+The reviewed helper passed all fixed polynomial screens and two cells, but at domain2 the combined fullroot enclosure misses the actual quotient box by3coordinates and fails actual polarized segment containment.33.351s917176KiB0native; complete root/whole/predictor-derivative diagnostics retained. Exact committed source, all immutable inventory hashes and absent owners verified. Stability is examining the exact endpoints, with no relaxation of acquired-domain containment. Previous positive cells and failed attempts remain immutable.
