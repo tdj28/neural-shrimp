@@ -15370,3 +15370,11 @@ The admission log's08:46UTC label was rounded ahead; actual launcher time was
 raw decoding/independent replay guide added; new16 cells remain producer-only
 until independent arithmetic review. Existing centered cell is reused, never
 reacquired. No entirechart or wholewindow stability claim follows.
+### 2026-10-11 — independent six-prefix51 math prepared
+
+Separate saved-only affine-polynomial convolution, strict51root and all51
+curved known-root joins, six own exact-endpoint intersections, initialtiny
+organizer inverse and native6 four-context primitive/+1/quotient reductions.
+No producer theorem import or new native calls. Initial parity test corrected
+for conservative Arb radius rounding, no gate change. Fivecontrols pass.
+Actual acquisition/domain/model/root authority remains the pending wrapper.
