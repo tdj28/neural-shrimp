@@ -7818,3 +7818,15 @@ Eight complete helper/caller controls pass2.95s, including actual331-event
 metadata with scientific decoding blocked and isolated archive import. One
 120s2GiB64MiB saved unit is prepared; full51 profile plus completed22-tube
 actual cost/storage floor and peer wrapper review precede target arithmetic.
+
+### 2026-10-11 — admit exact saved successor/endpoint replay
+
+Root independently cleared full f3ba3b07 wrapper/math/binding/resource packet
+and reproduced eight controls3.19s; Stability cleared the endpoint helper.
+Admit only clark-subset-endpoint-independent/attempt001, with unchanged331
+historical events, five bounds, one candidate tube/four native contexts and
+16 fixed endpoint intersections. Fixed512bits120s2GiB64MiB, zero native calls,
+135+5s owned. Fresh unrelated profile and entire prior22 actual floors before
+target arrays, strict own-image/oldendpoint and fullE coverage throughout.
+Host CPU/RAM/GPU/disk and absence of duplicate owned processes checked before
+launch; checkout frozen until completion. Failed containment stays failed.
