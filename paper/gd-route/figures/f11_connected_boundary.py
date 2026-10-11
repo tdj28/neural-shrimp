@@ -153,7 +153,7 @@ def main():
     ax.annotate('Interior orbit',xy=(d['center'],d['output']),xytext=(71.3,.8221),fontsize=7,arrowprops={'arrowstyle':'-','lw':.6,'color':c.MUTED})
     ax.annotate('Saddle-node',xy=(fold,d['output']),xytext=(74.6,.8221),fontsize=7,arrowprops={'arrowstyle':'-','lw':.6,'color':c.MUTED})
     ax.plot([],[],color=c.FOLD,lw=1.7,label=r'Connected $+1$ locus')
-    ax.set(xlim=(71,76.1),ylim=(.8207,.8310),xlabel=r'Hidden-layer learning rate $\eta_h$',ylabel=r'Output-layer learning rate $\eta_o$');ax.set_title('a  Certified connections in the learning-rate plane');ax.legend(loc='upper left',bbox_to_anchor=(0,.69),frameon=False,fontsize=6.4)
+    ax.set(xlim=(71,76.1),ylim=(.8207,.8310),xlabel=r'Hidden-layer learning rate $\eta_h$',ylabel=r'Output-layer learning rate $\eta_o$');ax.set_title('a  Certified connections in the learning-rate plane');ax.legend(loc='upper left',bbox_to_anchor=(0,.55),frameon=False,fontsize=6.4)
     bx.add_patch(Circle((0,0),1,fill=False,lw=.9,color=c.MUTED));bx.add_patch(Circle((0,0),d['bound'],fill=False,lw=.8,ls=':',color=c.NS))
     for real,imag,radius in d['discs']:
         bx.add_patch(Circle((real,imag),radius,facecolor=c.FOLD,edgecolor=c.FOLD,lw=.5));bx.plot(real,imag,'.',ms=4,color=c.FOLD)
