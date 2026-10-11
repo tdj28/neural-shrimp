@@ -12797,3 +12797,21 @@ LMprofile001 sourceaa2b4e69 stopped before any numerical array/model operation i
 Boundary narrow reviewdbcd27c8 PASS, ten controls2.10s; exact historical container qualification and failed001 retention accepted, unchanged science/caps. Fresh002 profile permitted after current host admission. In parallel, write preparatory amplitude-constrained CIFAR equations and exact symmetric bordered action from root-approved augmented energy, explicitly varying eta=2/tau. Three nonlinear derivative/symmetry/known-cycle controls pass0.07s. No native CIFAR target or a=0 solve; exact stationary/eigenpair start remains a separate design.
 
 LMprofile002 PASSED with all4HVP+4CE under sourcec154a944,0.945s worker/3.468s outer,931,436KiB peak. Exact immutable inventory and owned absence verified; outercd6bcd0f2b6d13301a621bbe1613f9a8d08e122b60756c4adb27bc50e5dd8bd7,worker8a5f2595df633dafb2b356384d83260a5a97bb6fb7877d5ea2c64595d2fad452. Recomputed worst-cost forecast56.7768s fits unchanged180s. Fix sole attempt002-target with those exact manifests, identical executed source/runtime,72HVP32CE and original32-row causal design. No target outcomes yet; launch after fresh capacity check. Original zero-call001 remains mandatory and unchanged.
+
+### 2026-10-11 UTC — fixed causal LM horizon outcome, preserved negative utility comparison
+
+The committed target002 card/source c59a319e completed all72 HVP and32 training
+CE calls, all32 fixed correlated development cases, with no protected outcomes.
+Full immutable747-file outer/741-file worker inventories and owned process
+absence were rechecked. Runtime10.148s, peak954628KiB. Receipt:
+`docs/reviews/tiny-lm-horizon-target002.json`; independent replay guide:
+`docs/reviews/tiny-lm-horizon-audit-guide.md`.
+
+All32 amplitude/tangent responses qualify; eight already fail frozen-model
+prediction by horizon2 and are not advance-warning successes. Of24 future
+eligible cases, one fails by horizon4. Drift catches it with7 false warnings,
+identical to gradient-change/composite; static curvature catches it with5
+false warnings; persistence/loss miss it with0 false warnings. No unique drift
+success. Preserve this negative incremental-utility result; do not tune the
+threshold or relabel correlated prefixes as independent cases. Root owns a
+separate saved arithmetic review next. No benefit/generalization claim is made.
