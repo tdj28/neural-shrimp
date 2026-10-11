@@ -7711,3 +7711,20 @@ Admit sole saved attempt001 from exact independent b1/2048 endpoint, no native.
 Current shared host has ample headroom; CPU1nice10,300s2GiB4GiBAS256MiB,
 315+5 owned. Full-size unrelated profile and original entire-extension actual
 cost floor precede decoding. No wider failed chart is promoted by this audit.
+
+### 2026-10-11 — independent22 native6 critical tubes passed
+
+The connected critical native6 branch now has independently recomputed full51
+roots/ordered same-phase joins and88 partner/adjacent primitive/stable-complement
+contexts through b=15/8192, extending the prior eight-tube organizer-to-generic-
+fold result. All22 selected new roots and full known boxes passed at512bits;
+all32 histories and ten unselected wider failures were retained. This closes
+original ancestry for the saved radius feasibility result. It does not assert
+new genericity throughout the curve or connection to native12/24 organization.
+
+Executionf79b5ad0 completed31.208441s/107212KiB/0native within300s2GiB caps.
+Source/native acquisitions and Arb are shared; independent augmented coefficient,
+Krawczyk, literal root/phase joins, monodromy/divisors/quotient reductions passed.
+Complete manifests/source/owned exits and all88 context outcomes verified.
+Exact all51 endpoint and compact receipt are ready for the reviewed finite
+successor method using subset radii; requested b1/16 extent remains incomplete.
