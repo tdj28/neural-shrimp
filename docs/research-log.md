@@ -8585,3 +8585,14 @@ computed full augmented Hessians for linear/cubic maps and true nonlinear root
 tangent. Initial control-only Fraction constructor/serializer import and unsupported
 PathJet power syntax failed, then were corrected to supported exact arithmetic
 before passing; no target/profile acquired. Fixed wrapper/card still required.
+
+### 2026-10-10: fixed705 correlated tangent acquisition card
+
+After boundary342cc845 math PASS9controls0.15s, prepare one unit003-tangent:
+72 unrelated full13native calls plus dense705 Neumann profile before arrays,
+then72 actual augmented mixed-direction calls. Fixed scale1/256, original
+quadratic predictor-root error, full exact original segment containment, all705
+rates/angle/modes. Same independently connected root/C/J/source; immutable
+failed002 bound is prerequisite.240s/4GiB/6GiBAS/64MiB and144 total calls,
+owned255+5/66MiB; each input saved before actualcall. No complement or newroot
+trial. Wrapper peer review and fresh availability required before execution.
