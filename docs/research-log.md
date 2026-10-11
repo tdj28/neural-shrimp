@@ -14604,3 +14604,10 @@ qualified256 solution. No direction application or new state; .5/20percent gates
 remain fixed. Source-only helper/four controls and docs/plans/cifar-nested512.md;
 full measured caller/binding review required before acquisition. Root owns this
 track, independent of Stability's active boundary-proof work.
+
+### 2026-10-11 — Complete nested512 caller prepared
+
+Full prior/audit/event source binding, measured unrelated98666x512 admission,
+exact savedterminal-residual continuation and inclusive258HVP cap prepared.
+Original256actions are reused; no gradients or steps. New source and synthetic
+controls await independent review; card remains prepared, no native acquisition.

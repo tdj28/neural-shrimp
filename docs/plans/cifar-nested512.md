@@ -34,3 +34,16 @@ retention/write overhead. Proposed CPU1/nice10 300s/4GiBRSS/12GiBAS/1GiBraw,
 315+5s owned launcher; hard limits and forecast must pass. Source/card and tests
 are independently reviewed and committed before any scientific acquisition.
 Preserve every failed attempt and all retained old evidence. No paid/GPU/holdout.
+
+## Complete fixed caller
+
+Authenticate complete256-producer and independent-audit sources/inventories,
+plus all prior original state018 authority. Profile full98666x512CGS2, Gram/SVD,
+assembly and two extra256prefix buffers before target vectors. Forecast twice
+256times maximum full-widthCGS2 cost,258times prior maximumHVP cost, one complete
+assembly cost, plus actual binding/profile elapsed time,30s overhead and50MiB/s
+retention allowance. Add1GiB to measured profileRSS;524 full-vector ceiling plus
+128MiB metadata gives the1GiB worker cap. Parent315+5s/1026MiB,worker300s/4GiBRSS/
+12GiBAS. Actual prefixlast-residual coefficients and norm must replay identically.
+First physical replay is byte-exact old firstHVP. Every new input/result is saved
+before/after calls. Source-only until peer review and separate card admission.
