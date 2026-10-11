@@ -15593,3 +15593,14 @@ Clark independently reviewed bb9bae8e math/source/caps PASS; two controls0.09s
 and isolated actual-file archive import pass. Actual complete failed source/
 inventory/owner metadata preflight passed0.284s without target arrays. Proceed
 one fixed diagnosis001 after10GiB host admission; no native calls or new root.
+
+
+### 2026-10-11 — Saved signed470 diagnosis supports coordinate weighting
+
+The reviewed zero-native diagnosis passed2.041s/837856KiB. Midpoint defect
+5.61e-5 versus interval-radius12.17466; floating positive scaling yields
+.491042 upper Collatz and.491043 image ratio. All forcing orders are tiny;
+condensed minimum singular.03039. Preserve exact failure and diagnostic.
+Prepare one fresh same-span weighted correction box using exact saved weights
+with2^-20 floor, complete512-bit known anchor and unchanged full470 gates.
+Unchanged276 nativecalls/240s4GiB768MiB; mandatory full synthetic profile first.

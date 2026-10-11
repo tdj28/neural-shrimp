@@ -19,10 +19,15 @@ need,read,entry=L.need,L.read,L.entry
 PARENT=L.OUT.parent
 OUT=PARENT.parents[1]/'signed-flip-first001/attempt001/run'
 CARD='docs/plans/native470-first-flip-inputs.json'
+WEIGHTS=['1']*470
+EXTRA_BINDING=None
 SETTINGS=dict(period=18,sigma=-1,halfwidth_exponent=-8,radius_exponent=-14,newton_steps=2,precision=256)
 FILES=[CARD,'docs/plans/native470-first-flip.md','tools/probe_native470_first_flip.py','tools/launch_native470_first_flip.py','tests/test_native470_first_flip.py']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
-def settings():return dict(chart=SETTINGS,seconds=240,rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=768*1024**2,profile_ticks=151,target_ticks=127,native_calls=276)
+def settings():
+ ans=dict(chart=SETTINGS,seconds=240,rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=768*1024**2,profile_ticks=151,target_ticks=127,native_calls=276)
+ if WEIGHTS!=['1']*470:ans['weights']=WEIGHTS
+ return ans
 class Work:
  def __init__(self):self.start=time.monotonic();self.used=0;self.ticks=0;self.serial=0;self.stage='profile';self.native=0
  def check(self):need(time.monotonic()-self.start<240 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<4*1024**2,'240s/4GiB cap')
@@ -58,7 +63,9 @@ def binding(w,card):
  for n,row in rt['sources'].items():need(entry(PARENT/'run/source'/n)==row and hashlib.sha256(subprocess.check_output(['git','show',spec['source']+':'+n],cwd=ROOT)).hexdigest()==row['sha256'],'historical signed source '+n);w.check()
  for n in L.K.NATIVE:need(entry(ROOT/n)==rt['sources'][n]==ib['native_sources'][n],'identical actual native map '+n)
  need(ib['source']==L.SOURCE and ib['outer']==L.PINS[0]and ib['worker']==L.PINS[1],'literal original705 and55 authority')
- w.save('binding.json',dict(anchor=spec,source_archive=rt['sources'],same55=ib['independent55'],scope='Same known root, exact phase/sign/rates. No full-region complementary stability inherited.'));return known,ib['independent55']['map_inputs']
+ w.save('binding.json',dict(anchor=spec,source_archive=rt['sources'],same55=ib['independent55'],scope='Same known root, exact phase/sign/rates. No full-region complementary stability inherited.'))
+ if EXTRA_BINDING is not None:EXTRA_BINDING(w,card)
+ return known,ib['independent55']['map_inputs']
 
 def main():
  resource.setrlimit(resource.RLIMIT_AS,(8*1024**3,)*2);need(not subprocess.check_output(['git','-c','core.preloadIndex=false','status','--porcelain'],cwd=ROOT).strip(),'clean source');need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');OUT.mkdir(parents=True,exist_ok=False);w=Work();result=dict(passed=False,target_acquired=False)
@@ -73,8 +80,8 @@ def main():
    # Restore512-bit inherited balls exactly before proposing a256-bit finite center.
   with ctx.workprec(512):box=[original_ball(v)for v in known['box']]
   with ctx.workprec(256):
-   initial=[exact_mid(v+arb(0))for v in box];normal=['0']*468+['1','0'];anchor=dict(box=box,period=18,sigma=-1,dimension=13);w.stage='target';w.save('target-inputs.json',dict(map_inputs=inp,known=known,initial=initial,normal=normal,origin=initial,parameter='0',settings=SETTINGS,weights=['1']*470));result['target_acquired']=True
-   r,_=quadratic_tube(RetainedMap(TwoRateCuspMap(inp),w.observe),initial,normal=normal,origin=initial,parameter='0',anchor=anchor,**SETTINGS,tick=w.tick,observe=w.observe)
+   initial=[exact_mid(v+arb(0))for v in box];normal=['0']*468+['1','0'];anchor=dict(box=box,period=18,sigma=-1,dimension=13);w.stage='target';w.save('target-inputs.json',dict(map_inputs=inp,known=known,initial=initial,normal=normal,origin=initial,parameter='0',settings=SETTINGS,weights=WEIGHTS));result['target_acquired']=True
+   r,_=quadratic_tube(RetainedMap(TwoRateCuspMap(inp),w.observe),initial,normal=normal,origin=initial,parameter='0',anchor=anchor,weights=WEIGHTS,**SETTINGS,tick=w.tick,observe=w.observe)
    need(w.ticks==278 and w.native==276,'complete profile and one native470 tube');result.update(passed=r['passed'],status='anchored_signed470_tube_passed'if r['passed']else'complete_bound_failure',gates=r['gates'],contraction=r['contraction'],strict_inclusions=sum(r['coordinate_inclusions']),anchor_inclusions=sum(r['anchor_check']['coordinate_inclusions']),anchor_parameter_inside=r['anchor_check']['parameter_inside'],physical_endpoints=[v[-2:]for v in r['endpoint_root_boxes']],scope='Connected local primitive18 sigma−1 locus through the same certified junction; no full-chart complement or generic flip normal form follows.')
  except BaseException as e:result.update(status='failed_or_interrupted',error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:
