@@ -15739,3 +15739,14 @@ One fixed48-point scout completed283 full evaluations/5310 inclusive phases,45.8
 ### 2026-10-11T09:44:37.573521+00:00 — Independent regularized CIFAR audit prepared
 
 Prepare independent symmetric spectral whitening (producer triangularCholesky), SciPygesvd and80stepsecular solve, full-state fsum physical merit/trust/first acceptance. Four controls passed5.62s: basis-change invariance, actualmetadata before targetarrays, nativeevent corruption and isolated sourceclosure.300s4GiB/12GiBAS8MiBworker,315+5s10MiBouter; full-size unrelated profile mandatory. No native calls. Source awaiting peer review.
+### 2026-10-11 — temporal-mean LM helper preparation, consumed development
+
+Root approved the /tmp design: test retrospective temporal-mean curvature
+sufficiency on the two exact original expanded gradient directions, with
+same-checkpoint eta/4 controls and unchanged1% transport/FD/CE qualifications.
+New helper has five synthetic controls passing0.09s, including exact combined
+1088HVP/162gradient/58CE counts; CE slopes reuse counted reference gradients.
+Native inputs/returns will be fully retained with exact-vector deduplication.
+Fixed20%/10x descriptive gate, no forecast/utility/order-causality claim and no
+native acquisition. Plan tiny-lm-temporal-mean.md. Full source-binding/profile
+caller remains to be prepared and peer reviewed before any profile.
