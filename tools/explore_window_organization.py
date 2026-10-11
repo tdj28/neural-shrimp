@@ -19,6 +19,12 @@ Subcommands:
                 orbit curve at fixed output rate through its two folds, then
                 continue both folds in the rate plane and report where they
                 go (toward the 2/9 roots, the window, or elsewhere).
+  fold-from-node  Continue a saved carried fold (or flip) node of the window
+                in both directions with fast float64 continuation, recording
+                every node's rates, multipliers and parameter tangent so cusps
+                (tangent reversals), 1:1 points (a second multiplier at +1),
+                fold-flip points (a multiplier at -1) and fold-NS points (a
+                complex pair on the unit circle) can be located afterwards.
 """
 
 import argparse
@@ -322,6 +328,66 @@ def banana(args):
     print(json.dumps({"out": str(out / "banana.json")}))
 
 
+def node_events(node, sigma):
+    """Spectral and tangent data for one fold/flip continuation node."""
+    m, z, t = node["monodromy"], node["z"], node["tangent"]
+    mult = np.linalg.eigvals(m)
+    crit = int(np.argmin(np.abs(mult - sigma)))
+    others = np.delete(mult, crit)
+    near_plus = others[int(np.argmin(np.abs(others - 1.0)))]
+    near_minus = others[int(np.argmin(np.abs(others + 1.0)))]
+    complex_others = others[np.abs(others.imag) > 1e-9]
+    unit_complex = (complex_others[int(np.argmin(np.abs(np.abs(complex_others) - 1.0)))]
+                    if len(complex_others) else None)
+    return {"lx": float(z[-2]), "ly": float(z[-1]), "t_lx": float(t[-2]), "t_ly": float(t[-1]),
+            "critical": [float(mult[crit].real), float(mult[crit].imag)],
+            "complement_radius": float(np.max(np.abs(others))),
+            "nearest_plus_one": [float(near_plus.real), float(near_plus.imag)],
+            "nearest_minus_one": [float(near_minus.real), float(near_minus.imag)],
+            "complex_nearest_unit": None if unit_complex is None else
+            [float(unit_complex.real), float(unit_complex.imag)],
+            "min_divisor_separation": min(divisor_separations(node["points"], 18).values()),
+            "spread": even_spread(node["points"]), "newton_last": node["newton"][-1], "h": node["h"]}
+
+
+def fold_from_node(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    node = json.loads(Path(args.node).read_text())
+    point = [float(v) for v in node["point"]]
+    theta, q = np.array(point[:13]), np.array(point[15:28])
+    z0 = np.concatenate([theta, q / np.linalg.norm(q), [math.log10(point[14]), math.log10(point[13])]])
+    system = FoldCurve(f, 18, sigma=args.sigma)
+    z, history = newton(system, z0, max_iter=15)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"node": str(args.node), "sigma": args.sigma, "start_newton": history}
+    if z is None:
+        record["outcome"] = "start node did not correct"
+        (out / "fold-from-node.json").write_text(json.dumps(record, indent=1))
+        print(json.dumps(record))
+        return
+    _, jac, m, points = system.residual_jacobian(z)
+    scale = np.concatenate([np.ones(26), [args.p_scale, args.p_scale]])
+    record["start"] = {"lx": float(z[-2]), "ly": float(z[-1])}
+    for sign in (1, -1):
+        tangent = sign * null_tangent(jac, scale)
+        tic = time.perf_counter()
+        path, reason = arclength(
+            system, z, tangent, scale, steps=args.steps, h0=args.h, h_min=1e-7, h_max=args.h_max,
+            stop=lambda nd: (not (args.box[0] <= nd["z"][-2] <= args.box[1]
+                                  and args.box[2] <= nd["z"][-1] <= args.box[3])
+                             or min(divisor_separations(nd["points"], 18).values()) < 1e-4))
+        rows = [node_events(nd, args.sigma) for nd in path]
+        record[f"direction_{sign:+d}"] = {"reason": reason, "seconds": round(time.perf_counter() - tic, 1),
+                                          "nodes": rows}
+        end = rows[-1] if rows else None
+        print(json.dumps({"direction": sign, "nodes": len(rows), "reason": reason,
+                          "end": None if end is None else [end["lx"], end["ly"], end["complement_radius"]]}))
+    (out / "fold-from-node.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({"out": str(out / "fold-from-node.json")}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -358,8 +424,19 @@ def main():
     ban.add_argument("--box", type=float, nargs=4, default=[-0.10, -0.06, 1.72, 1.95],
                      help="lx_min lx_max ly_min ly_max")
     ban.add_argument("--out", required=True)
+    ffn = sub.add_parser("fold-from-node")
+    ffn.add_argument("--node", required=True)
+    ffn.add_argument("--sigma", type=float, default=1.0)
+    ffn.add_argument("--p-scale", type=float, default=100.0)
+    ffn.add_argument("--h", type=float, default=0.02)
+    ffn.add_argument("--h-max", type=float, default=0.1)
+    ffn.add_argument("--steps", type=int, default=600)
+    ffn.add_argument("--box", type=float, nargs=4, default=[-0.13, 0.05, 1.70, 2.00],
+                     help="lx_min lx_max ly_min ly_max")
+    ffn.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"circle-check": circle_check, "figure": figure, "banana": banana}[args.command](args)
+    {"circle-check": circle_check, "figure": figure, "banana": banana,
+     "fold-from-node": fold_from_node}[args.command](args)
 
 
 if __name__ == "__main__":
