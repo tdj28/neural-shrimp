@@ -8800,3 +8800,19 @@ OneCPU1nice10 worker, current host admission before execution. This is one
 authorized adaptive exploratory packet; every fresh full705 proof and strict
 known-root join remains mandatory. Physical endpoints, failures and complete
 source/input/output inventories retained. No global or complement promotion.
+
+### 2026-10-11 — Maintained001 earned three-chart prefix and retained rotated root
+
+Execution7edc9010 completed five331-operation units,295.688s. Attempts1/2
+passed full705 roots and exact same-gauge joins (q<.123751,.165125); the
+policy-expanded h1/32 attempt3 failed q1.64547 and was retained. Restored
+h1/64 attempt4 passed root/join q<.251429 and triggered a new gauge.
+Attempt5 passed its complete root q<.112362 but its full projected known-root
+join failed, correctly stopping the packet. No root was retried or relabelled.
+Three-chart connected right endpoint has hidden rate72.7785, output.830588,
+t.01771, near the numerical physical-rate turn; no turn claim follows yet.
+All inventories, native331 streams, exact source archives and absent owned
+processes verified. Receipt docs/reviews/native705-maintained001.json.
+Next amendment will reuse successful root5 and generalize the exact fresh
+endpoint residual localization as a bounded changed-gauge join fallback;
+source/review/profile accounting precedes new native acquisition.
