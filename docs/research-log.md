@@ -16919,3 +16919,12 @@ is abstention, never proof of infeasibility. No new native calls or whole-chart
 primitive/complement/genericity claim. Original22-prefix independent replay is
 separate. Fixed180s2GiB/4GiBAS64MiB, full-size measured admission,195+5 owned;
 card remains prepared pending independent complete caller review.
+
+### 2026-10-11 — correct subset-screen prelaunch headroom
+
+Stability independently reproduced10 controls and passed the all-ten math,
+raw fullE/source/known51 binding and exact subset gates. It caught a launcher
+copy-replacement typo requesting66GiB host headroom. Replace this with the
+separate named original10GiB headroom constant and add a regression keeping
+66MiB output distinct. No target launched, mathematical/time/RSS/raw limits
+unchanged. Eleven controls now pass; narrow peer recheck precedes admission.
