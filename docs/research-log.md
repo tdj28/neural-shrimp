@@ -12088,3 +12088,7 @@ Source290f2c88/execution559a6fa3 stopped before target arrays: measured storage 
 ### 2026-10-10 — joint-curve002 admission
 
 Independent971df78a narrow resource review PASS12controls0.37s. Current availableRAM56167964672B/load(1.77392578125, 2.01123046875, 1.89208984375), GPU unused and originalownedPIDs absent; new002path unused. Launch one fresh unrelatedprofile→conditional target under1024solve/unchangednative/science/hardcaps. Profile001remainsimmutable; no target prior to newadmission.
+
+### 2026-10-10 — saved joint-curve outcome audit card
+
+Target002 completed49points/48joins in2.874s/42000KiB,448native+1288half-unit returns,713solves. Prepare saved-only independent NumPy/math.fsum replay of all438native contexts, nativefold/half augmented equations, every fold and signed-flip coefficient, literal partners, all144native reversejoins/96modejoins and49same-gain diagnostics. Recompute profile and complete immutable inventory/historicalsource bindings. No new model/derivative calls. Fixed30s,1GiB peak/2GiBAS,4MiB compact outcome,CPU1nice10; output/tmp/joint-curves-audit-002.json before committed receipt.
