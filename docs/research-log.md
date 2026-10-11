@@ -15041,3 +15041,18 @@ pass, including negative original scalar and nonlinear known-root enclosure.
 An initial synthetic test demanded an arbitrary10000-fold narrowing; the actual
 valid bound narrowed about4800-fold, so the asserted performance floor is now
 1000-fold with exact-root containment unchanged. No target native call.
+### 2026-10-11 — Prepared exact-junction completion continuation
+
+Prepared maintained004 from complete24 joined maintained003 (81.32230 hidden
+rate) with actual inherited h1/8,strong0,same gauge. New conditional completion
+event binds exact lifted local55 junction in all705 coordinates and performs
+full cubic uniqueness-box membership after every accepted root/predecessor join.
+Durable root/joins/endpoint/event/inventory precede positive-event termination.
+No numerical proximity, phase relabeling or inherited gauge scalar is used.
+Unchanged331-operation kernel,24 attempts/8 fallback policy and all time/RSS/raw
+caps remain. Prepared plan/card is unlaunchable until independent source review,
+complete actual48-history/lift metadata preflight, and committed measured card.
+Initial combined old/new tests saw historical global-sys.modules archive-closure
+assertions polluted by unrelated newly imported tests; each historical source
+closure is therefore rechecked in its own fresh interpreter, as at original use.
+This is a test-session isolation issue, not a source archive or target failure.
