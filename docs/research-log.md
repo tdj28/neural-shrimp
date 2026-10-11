@@ -9625,3 +9625,14 @@ a real completed-metadata regression covers this schema. The repeated full
 source/inventory/overlap preflight passed1.58s, zero native calls and no research
 arrays opened. No scientific attempt was allocated. Mathematical kernels, domains
 and resource limits are unchanged.
+
+Second-quarter admission: Boundary independently reviewed36c1a1b7/base0f4a8997,
+reproduced9 controls2.18s and cleared the exact domains, original-root/segment
+coverage, real rate/tangent reuse, full11 metric-only subdivision, complete
+4104-call forecasts and owned resource limits. Prior actual metadata preflight
+passed1.58s with no native calls/research arrays; the exact completed firstquarter,
+five-width history and cfbc stable-endpoint projection all bind. Host at02:34 UTC
+reported50GiB available, load4.61/3.27/2.78 and no matching owned producer process.
+Card now reviewed for one sequential source-bound run. Fresh unrelated fullsize
+profile and complete worst-case admission remain mandatory before target arrays;
+all failures remain immutable and stop outside the explicitly bounded split rule.
