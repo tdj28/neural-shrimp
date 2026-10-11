@@ -16772,3 +16772,15 @@ CPU1nice10/60s4GiB192MiB. Current52GiB RAM and no owned duplicate; GPU idle
 15947MiB free at04:27PDT. Every upstream actual/cold maximum is retained.
 Only a passed240s/192MiB target forecast plus separately committed literal
 profile manifest/source may admit the fixed128HVP target. No newgradients/CE.
+
+### 2026-10-11 — pair-block profile passed and target admission
+
+Fresh sourcebcf5f447 profile retained both coldHVP returns .629302132/.198866003s,
+3.029735s total/934828KiB. Complete source/inventory/owned exits verified.
+New .629302132 exceeds all retained upstream maxima .570807749 and remains
+fully charged:191.101346s conservative forecast,157703466bytes, pass fixed
+240s4GiB192MiB. Target arrays remained unopened. Literal source and both
+manifest pins now admit sole128HVP target, no gradient/CE or geometry changes.
+All four inherited qualifications, exact oldP/R/Q/T chains and separate20%
+material/10x attenuation reports remain. Fresh host52GiB/2.6TiB/no duplicate;
+CPU1nice10 with255+5 owned. Full target must pass its actual final caps.
