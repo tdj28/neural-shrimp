@@ -94,3 +94,13 @@ have1 true warning/7 false warnings/0 misses/16 correct quiet; curvature has
 1/5/0/18; persistence and loss have0/0/1/23. Drift-only caught failures=0.
 These outcomes do not establish incremental utility, generalization, training
 benefit, causality of a new intervention, or a shrimp-specific effect.
+
+## Independent audit completed
+
+Root's separate f997c733 audit passed all32 cases/128 horizons in3.050s,
+61516KiB, zero native calls. Receipt b86835e9 is
+`docs/reviews/tiny-lm-horizon-independent-outcome.json` in the integration
+branch. Audit outer56e9f2f517888494832bb6354e1faf1dee35c5590e40c360034054b35877f619;
+worker6aba13c0d30b116dc1d2f23c8f09906feb54c7ea7b9434e9caab0d0f290e5615.
+The negative incremental conclusion above is independently reproduced within
+its explicit shared-acquisition, consumed-development scope.

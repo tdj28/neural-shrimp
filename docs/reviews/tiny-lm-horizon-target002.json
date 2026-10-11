@@ -160,6 +160,16 @@
       "sha256": "054ac7fbe71c887f1c0b798ff45f6c589427a6c3e4aa9990856221cfcbd15f85"
     }
   },
-  "independent_outcome_review": "pending; root assigned separate saved arithmetic",
+  "independent_outcome_review": {
+    "status": "PASS",
+    "reviewer": "root",
+    "source_commit": "f997c733b134efb7d775094105d31e8262d17112",
+    "receipt_commit": "b86835e917fd91a1423498569c16cc1a51d447b3",
+    "receipt_path": "docs/reviews/tiny-lm-horizon-independent-outcome.json",
+    "root": "/data2/neural-shrimp-data/audits/tiny-lm-horizon-independent/attempt001",
+    "outer": "56e9f2f517888494832bb6354e1faf1dee35c5590e40c360034054b35877f619",
+    "worker": "6aba13c0d30b116dc1d2f23c8f09906feb54c7ea7b9434e9caab0d0f290e5615",
+    "scope": "Separate fsum saved32-case/128-horizon arithmetic;104 actual input/output recurrences and seals authenticated. Native HVP/CE and historical transport remain shared; no native reacquisition."
+  },
   "scope": "32 correlated consumed development cases; fixed early predictor, no generalization, intervention, benefit or shrimp-specific claim"
 }
