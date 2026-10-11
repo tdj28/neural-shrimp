@@ -12111,6 +12111,10 @@ The actual native6 daughter fold approaches the same-gain signed-half flip as ga
 
 Source1fdd4819 reviewed by boundary, execution14296f7d; saved-only audit passes.7293s/61424KiB,240HVP recurrences and16rows,zero new native calls. In expanded256 arms, gradient h16 alternating errors67.4203/1.32726 improve over latest-only7384.40/14.8576 but fail fixed20% accuracy and10× persistence gates (persistence2.05922/1.18937). This is a negative forecasting candidate on consumed development cases, not demonstrated control utility. Full readouts/comparators/gates and immutable source/profile/parent inventories are retained; raw outer7378d61f7e7b50789156f0195407ea302be9093d71612ece6514ead2673ab74d,workerf1aa43f6b791c3a4d77050e9a2b33db0c9c62209939211ed14f1e6ae9f06879e. Ownership1962422/1962498/group ended. Receipt docs/reviews/tiny-lm-two-snapshot-independent.json; integration now31 completed immutable roots, including failed profile001.
 
-### 2026-10-11T00:22Z — census13 reuse-binding review amendment
+### 2026-10-11T00:16Z — census13 reuse-binding review amendment
 
 Clark independently reproduced three controls and requested whole-proof-box seed proximity for both reused rows, not only identical map/rates/period. Added that mandatory existing gate and retained distances and literal receipt/proof hashes; both tracked receipts now join the complete source archive. No native profile or target evaluated yet.
+
+### 2026-10-11T00:18Z — independent full705 polynomial audit preparation
+
+Independent direct four-term convolution, degree26 entire-series derivatives through3, authenticated path/native block reconstruction and full705 weighted interval reduction prepared. The first three synthetic controls exposed a decoder-name error and an overstrict test comparing two outward enclosures of the same rational; corrected to the established exact serialized-ball decoder and exact rational membership. No saved target reduction or native acquisition evaluated. Next source review and fixed bounded saved-only run card precede target audit.
