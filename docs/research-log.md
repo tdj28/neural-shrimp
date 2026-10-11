@@ -13542,3 +13542,15 @@ source-reviewed full wrapper and fresh measured caps still precede a new run.
 The first halves receipt accidentally included dense metric matrices; a follow-up
 compaction replaces them with scalar decisions/bounds and exact full-artifact
 hashes. Original immutable raw evidence and prior Git history remain intact.
+
+### 2026-10-11 UTC — fixed four-unit stationary wrapper after independent merit audit
+
+Root cleared c7586cd6 helper and reproduced3controls.16s. Prepared sole
+continuation001 using exact independent-audited saved-merit endpoint, original
+midpoint global5% ball, fresh current-point gradient/FD/symmetry/HVPs. All
+1063HVP/59gradient maximum attempts and full states retained; original.5source
+is unchanged and old failure stays failed. Copied five root producer files
+byte-identically for complete source closure. During self-review updated copied
+launcher completeness predicate to the disclosed.9gate; otherwise it would
+mislabel correctly accepted trials. No target launched; full source review
+and same-source actual measured400s/2GiB/3GiB gates remain mandatory.
