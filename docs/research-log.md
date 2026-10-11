@@ -8324,3 +8324,21 @@ no duplicate. Clark's separate saved705audit CPU1/4GiB fits remaining headroom;
 no new native acquisitions in that audit. Fixed191.893s/3.53GiB/312445404byte
 forecast supplements eachworker's original source-bound fullsize profile.
 4GiBworker×8 plus4GiBparent/330sbatch/3300scomplete/60GiBraw remain hardcaps.
+
+
+### 11 October2026 UTC — 24 connected rotated705 intervals; width bottleneck
+
+Fixed packet2c9fc56d completed328.588s and stopped after batch004 failed:
+three successful8-chart batches/all705 joins, then eight full253-call bound
+failures. Firstfailed has contraction.99841885 but704/705inclusions; later
+q1.0414→1.4083. Lastacceptedphysical≈(73.003,.82883),t≈.0080; no finaljunction
+connection implied. All32 attempts immutable, no ownedlive; outer1071d42d45a686b4d30869d13931a29fa4609db685bce24d17fb4070029e2643.
+Receipt native705-rotated001.json; parent owns independent rotated replay.
+
+**Saved-only run card, before execution:** diagnose firstfailed full705 defect,
+positive-scaling/resolvent proposals and all53 retained native scout/section
+polygonal lengths. This measures the actual width/route bottleneck before
+preparing correlated Jacobian/inverse mathematics. Exact same map/source and
+all32nativeattempt inventories, old19reverse-prefix association retained;
+60s/4GiB/16MiB worker,75+5owned,10GiB availability,zero native. Source controls
+and peer review required. No change to failed certificates or automatic retry.
