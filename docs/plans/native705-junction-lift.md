@@ -58,3 +58,12 @@ capacity64→80MiB (same2MiB closing reserve), supervisor66→82MiB and use fres
 exclusiveattempt002. Full original001 inventory is a mandatory input. All
 source/math/precision/native/time/RSS gates remain; a complete fresh profile
 still precedes target arrays. Source6de89045 and failureouter8ea83a85 retained.
+
+Historical schema amendment: attempt002's fresh72-call profile admitted all
+caps, but the historical fresh-box_evaluation object has literal jacobian and
+monodromy fields instead of J/M. Binding stopped before target propagation.
+Preserve its entire immutable inventory and require it before fresh003. Change
+only the two historical field names and exclusive output paths. An actual
+historical center/box/J/M association regression now executes the full qualify
+function (plus corruption rejection), and a complete source/inventory/ownership
+preflight runs before launch. Mathematics and all resource/native caps remain.

@@ -36,3 +36,15 @@ def test_call_and_storage_limits_preserve_failure(tmp_path,monkeypatch):
  w.used=78*1024**2
  with pytest.raises(ValueError,match='closing reserve'):w.save('x.json',{})
  w.save('outcome.json',{'passed':False},True);assert D.read(tmp_path/'outcome.json')['passed']is False
+
+
+def test_actual_complete_historical_derivative_association():
+ from flint import ctx
+ p=D.PARENT;b=D.read(p/'run/binding.json');root=D.read(p/'run/fresh-root.json');old=D.read(Path(b['root'])/'run/root.json');identity=D.read(p/'run/root-identity.json');out=D.read(p/'run/outcome.json');ce=D.read(p/'run/fresh-center_evaluation.json');wh=D.read(p/'run/fresh-box_evaluation.json')
+ assert set(wh)=={'box','jacobian','monodromy'}
+ with ctx.workprec(512):D.qualify(root,out,identity,old,ce,wh)
+ from copy import deepcopy
+ corrupted=deepcopy(wh);corrupted['jacobian'][0][0]=root['center'][0]
+ with ctx.workprec(512),pytest.raises(ValueError,match='acquired derivative association'):D.qualify(root,out,identity,old,ce,corrupted)
+ assert D.OUT.parent.name=='attempt003'and D.FAILED_SCHEMA.name=='attempt002'
+ assert D.entry(D.FAILED_SCHEMA/'manifest.json')['sha256']==D.FAILED_SCHEMA_OUTER

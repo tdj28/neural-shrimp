@@ -9009,3 +9009,16 @@ Prepared only80MiB worker/82MiB outer and fresh002, same2MiB closingreserve and
 all mathematical/native/time/RSS gates. Prior001 is mandatory and a new full
 profile is still required. No target run in this amendment; narrow peer recheck
 precedes retry.
+
+
+### 2026-10-11 — Known junction lift historical schema amendment
+
+Preserved lift002 after full72-call profile admission and zero target calls:
+exact historical fresh-box_evaluation uses jacobian/monodromy fields, while the
+new binder expected J/M. No derivative or scientific test failed. Full immutable
+outer bdcbe018611a72f07d1d8ebc10d74e7afd95dd7fb0f8902926f53d48dd365857,
+source2fe71744 and failure receipt are retained. New exclusive003 fixes only
+that association spelling, adds actual historical full qualification and corrupt
+array regression, and requires a full read-only metadata preflight. The same
+reviewed512-bit60s2GiB80MiB72profile+36target unit is the run card; execute only
+after peer recheck and fresh host availability. No paid/GPU/holdouts.
