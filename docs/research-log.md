@@ -6750,3 +6750,13 @@ gauge/exact old scalar and exact planned overlap, then unchanged all705 strict
 membership. Actual metadata/changed-scalar/gauge regression added. No target
 run under old left-end-equality adapter. Stability b9eb0a2b explicit51 tube
 helper PASS10controls0.22s; full wrapper remains next after current audits.
+
+### 2026-10-11 00:14 PDT — independent minimum audit admitted
+
+Boundary115d5833 full wrapper+narrow overlap review PASS13controls0.99s;
+helper3d77e7c6 PASS. Fixed two-root saved900s6GiB10GiBAS2GiB with4MiB
+reserve/915+5owned2050MiB, CPU1nice10, zero native. Host capacity rechecked
+with only own fixed48 CPU1/4GiB replay running; no duplicate minimum worker.
+Fresh full705 synthetic degree5/profile before targetarrays; retain every
+failure. Exact independently known root4→projected root5→same-gauge successor
+and strict three-endpoint rate comparison only; no unproved global geometry.
