@@ -7,12 +7,12 @@ full derivative domains for all ten retained wider root-bound failures. Those
 screen rows alone are not new native/stability qualifications.
 
 Start from the literal independently sealed full51 endpoint, retaining its
-matrix, phase and normalized q genealogy. Propose at most32 new charts toward
+matrix, phase and normalized q genealogy. Propose at most24 new charts toward
 b=1/16, followed only if reached by the preselected fold47 fixed-gain endpoint.
 Initial halfwidth2^-14, minimum2^-17, maximum2^-7. After two consecutive qualified
 charts with contraction<9/10, double halfwidth; halve after a completed bound
 failure. These are disclosed exploratory proposal choices, not mathematical
-gate changes. At most32 attempted charts; no restart or budget expansion.
+gate changes. At most24 attempted charts; no restart or budget expansion.
 
 Each attempt uses the unchanged native explicit51 equations and four actual
 path acquisitions: zero-error residual at center/whole parameter, and full
@@ -37,9 +37,9 @@ complementary modes and normalized orientation. Only then advance. Exact51
 invertibility is not a generic-fold proof; a selected positive fixed-gain
 endpoint separately needs H_U invertibility and nonzero physical leak_bb.
 
-Proposed unchanged native quotas:102 explicit,160 path,33 context,one organizer
-anchor andone implicit endpoint;993 native phases inclusive. Add at most32
-subset LP and32 outward re-reductions; no new native calls for fallback.
+Native quotas:78 explicit,120 path,25 context,one organizer
+anchor andone implicit endpoint;753 native phases inclusive. Add at most24
+subset LP and24 outward re-reductions; no new native calls for fallback.
 CPU1/nice10,600s,2GiB RSS,4GiB AS,2GiB raw,4MiB closing reserve;615+5 owned
 launcher. Admission uses original complete30-phase same-source profile, the
 complete prior32-attempt actual cost/storage, and the measured14.59-second
@@ -52,3 +52,13 @@ projection test used the slope index instead of the center and assumed exact
 Arb radius construction; corrected the unrelated test to check the actual
 conservative serialized interval. No target acquisition occurred. Caller/card
 and source review are still required.
+
+Prelaunch resource amendment: the first32-attempt caller control correctly
+rejected its forecast. Charging original algebra and a complete measured
+subset-reduction/LP floor once each requires about659s, exceeding600s. The
+prepared packet is narrowed to24 attempts/753 inclusive native phases. No
+target/admission was launched. The complete prior32-attempt cost floor is
+retained despite this smaller task; the growth ladder can still reach1/16
+in24 successful charts. Two synthetic reductions plus one LP are included
+in the98-algebra/25-subset ceilings. Mathematical gates, radii/domain
+conditions and600s/2GiB caps are unchanged.
