@@ -9755,3 +9755,20 @@ Host03:11UTC52GiB available, load1.35/1.57/1.93 and no matched researchworker;
 one CPU1/nice10 saved-only worker4GiB is admitted under300s/128MiB. Fresh complete
 98666x512 synthetic SVD/fourfit profile still gates target arrays. No native calls
 or acceleration application is authorized by this packet.
+
+### 2026-10-11 — saved same-current022 nonlinear image diagnosis completed
+
+Source345ad394 completed the source-reviewed saved-only diagnostic in34.302s,
+2,054,144KiB and zero native calls. All512 action columns retain numerical rank.
+The fixed smallest-alpha1/64 fit represents86.073% of the squared nonlinear
+remainder; its unrepresented norm fraction is.373192. Its physical acceleration
+norm is3.14261, with correction/primary-step ratio.07585 at1/64. Cross-fit against
+the1/32 remainder changes the coefficient by.01701 relatively. Formal curved
+merit ratios.97516 at1/64 and.96123 at1/32 are within the original trust ball,
+but omit Hessian drift and are not actual gradient evaluations or accepted steps.
+The separately fitted1/8 acceleration violates the original trust ball; allfour
+fits and cross-checks remain retained. No correction was applied and the original
+better endpoint remains unchanged. This supports a bounded actual comparison of
+the fixed-reference curved path, not another unqualified Newton retry. Full49file
+inventory,22 archived sources, immutable modes and absent actual owners verified;
+receipt docs/reviews/cifar-remainder-span001.json binds allproposed vectors.
