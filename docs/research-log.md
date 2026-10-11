@@ -6920,3 +6920,13 @@ CPU1nice10/90s2GiB4GiBAS256MiB with4MiB reserve,105+5owned258MiB. Twelve
 combined controls pass0.53s including isolated source import and failure
 reserve. No actual target reader/profile launched. Root resource/source review
 precedes this sole profile; later target remains separately costed/reviewed.
+
+### 2026-10-11 01:02 PDT — synthetic correlated51 profile admitted
+
+Root02d98e7a source/resource PASS12controls0.59s; Stabilityb9eadcee
+composition math PASS9controls0.35s. Fresh host51GiB available/load2.02/
+2.7TiB disk/GPU0percent15947MiBfree/noGPUprocess; exclusive001 absent and
+no owned profile duplicate. One CPU1nice10/90s2GiB4GiBAS256MiB profile,
+105+5owned258MiB,exact30native unrelated phases. Old19 savedaudit remains
+within6GiB/CPU1. No target arrays opened; later actualRNN launch requires
+separate same-source measured card and independent wrapper review.
