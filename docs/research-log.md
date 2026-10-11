@@ -16462,3 +16462,7 @@ Compact receipt docs/reviews/native705-cubic32-remaining001.json binds outer
 987a2d87 and worker43f215c5. Fullchart32 remains producer-complete only until
 the separately authored saved reductions replay all accepted cells. Preparing
 that adapter for root review/execution; no new native acquisition is needed.
+
+### 2026-10-11 — fixed wider correlated470 caller prepared
+
+Prepared one fresh fullE affine-inverse chart[-81/256,−17/256] with unchanged signed native equations, exact independently proved right anchor, h1/8 and rho2^-12. All324 inclusive native calls and336 algebra/acquisition ticks are measured before target,240s4GiB768MiB fixed caps. Full unrelated470 proof/count and actual metadata controls pass. Source prepared pending peer review; no target acquisition.
