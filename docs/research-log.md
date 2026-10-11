@@ -16740,3 +16740,12 @@ with per-power magnitude diagnostics and all51 coordinate detail. No new root
 or enlarged-domain inference. Full51 synthetic cost admission first;30s512MiB
 8MiB/45+5owned, full immutable source/2257event inventory. Source/card review
 precedes target arithmetic; original22 prefixes and10 failures unchanged.
+
+### 2026-10-11 — finite RNN saved diagnosis admission
+
+Stability f35a760c complete math/source/binding/resource PASS; four controls
+reproduced1.93s including original2257 metadata with proof decoding forbidden.
+Admit sole saved attempt001 after current52GiB RAM/2.6TiB disk and no-duplicate
+check. Same30s512MiB8MiB, full51 measured synthetic before32 target proofs,
+zero native calls. The22 qualified prefix and10 failed wider bounds remain
+unchanged; no resized-domain or global connection inference.
