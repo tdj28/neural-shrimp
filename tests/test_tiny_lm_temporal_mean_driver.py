@@ -84,3 +84,15 @@ def test_actual_worker_entrypoint_raises_inherited_soft_limit_before_torch():
 def test_preserved_zero_native_profile_failure(tmp_path):
  store=D.Store(tmp_path/'run');D.preserved_profile_failure(store)
  assert D.read(store.root/'preserved-profile001-failure.json')['native_calls']==0
+
+
+def test_exact_completed_profile_time_only_amendment_and_mutation_rejection():
+ card=D.read(ROOT/D.CARD);identity={n:D.entry(ROOT/n) for n in D.FILES}
+ bound=D.profile_binding(card,identity)
+ assert 600<bound['seconds']<900 and bound['bytes']<D.CAP-D.RESERVE
+ with pytest.raises(ValueError):D.profile_binding(dict(card,profile_worker='0'*64),identity)
+ name='src/neural_shrimp/tiny_lm.py';wrong=dict(identity);wrong[name]=dict(identity[name],sha256='0'*64)
+ with pytest.raises(ValueError):D.profile_binding(card,wrong)
+ old=(ROOT/'tools/explore_tiny_lm_temporal_mean.py').read_text()
+ changed=old.replace("self.returned[name]+=1","self.returned[name]+=2")
+ assert D.native_function_identity(old)!=D.native_function_identity(changed)

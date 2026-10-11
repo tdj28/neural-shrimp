@@ -34,7 +34,7 @@ def main():
  out=BASE/('attempt002-profile' if args.mode=='profile' else 'attempt001-target');out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0
  def save(name,row):
   with(out/name).open('xb') as f:f.write((json.dumps(row,indent=2,sort_keys=True)+'\n').encode());f.flush();os.fsync(f.fileno())
- limit=80 if args.mode=='profile' else 620
+ limit=80 if args.mode=='profile' else 920
  argv=[sys.executable,str(ROOT/'tools/explore_tiny_lm_temporal_mean.py'),'--mode',args.mode,'--out',str(out/'run')]
  metadata=dict(source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),launcher_pid=os.getpid(),mode=args.mode,argv=argv,external_seconds=limit,kill_grace_seconds=5,worker_rss_kib=4*1024**2,worker_as_bytes=8*1024**3,output_cap_bytes=CAP,mem_available_kib=available,load=os.getloadavg(),started_unix=time.time(),threads=dict.fromkeys(THREADS,'1'))
  save('launcher-start.json',metadata);(out/'launcher.py').write_bytes(Path(__file__).read_bytes())

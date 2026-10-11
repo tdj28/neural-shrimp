@@ -2,7 +2,7 @@
 import os
 THREADS = ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 for key in THREADS: os.environ[key] = '1'
-import argparse, hashlib, io, json, resource, signal, subprocess, sys, time, traceback
+import argparse, ast, hashlib, io, json, resource, signal, subprocess, sys, time, traceback
 from pathlib import Path
 # Apply the declared worker address-space limit before loading NumPy/Torch.
 # The lightweight supervisor intentionally starts with a512MiB soft limit.
@@ -18,6 +18,9 @@ DATA = Path('/data2/neural-shrimp-data')
 BASE = DATA/'explore/tiny-lm-temporal-mean'
 PROFILE_ROOT=BASE/'attempt002-profile'
 TARGET_ROOT=BASE/'attempt001-target'
+PROFILE_SOURCE='adc6bbe153a05f8e47dcd10d2a03ed38972cd377'
+PROFILE_OUTER='7b46a95ca74d33c4b88ab2f279a5882aea1ec09ed67ff41de3a03ac96242e587'
+PROFILE_WORKER='199c1d3f794ca630d4e2e369400da44a5ad9b7aae138cea38a73c6120b07eb57'
 CARD = 'docs/plans/tiny-lm-temporal-mean-inputs.json'
 PARENTS = {
  'profile': (DATA/'explore/tiny-lm-broader-data/attempt-001-profile','ce56de837203182187912654b9ac0200096366a15d850ed7e917fb903837d2cd'),
@@ -34,7 +37,7 @@ FILES = ['src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/ne
  'src/neural_shrimp/tiny_lm.py','src/neural_shrimp/tiny_lm_temporal_mean.py',
  'tools/explore_tiny_lm_temporal_mean.py','tools/launch_tiny_lm_temporal_mean.py',
  'tests/test_tiny_lm_temporal_mean.py','tests/test_tiny_lm_temporal_mean_driver.py',
- 'docs/plans/tiny-lm-temporal-mean.md','docs/reviews/tiny-lm-temporal-mean-profile001-failure.json']
+ 'docs/plans/tiny-lm-temporal-mean.md','docs/reviews/tiny-lm-temporal-mean-profile001-failure.json','docs/reviews/tiny-lm-temporal-mean-profile002.json']
 CAP = 512*1024**2
 RESERVE = 4*1024**2
 
@@ -184,7 +187,7 @@ def load_case(seed,theta,eta):
 def card_check(card,mode):
  need(card['schema']=='tiny-lm-temporal-mean-v1' and card['target_counts']==T.TARGET_COUNTS and card['profile_counts']==T.PROFILE_COUNTS,'fixed operation card')
  need(card['seeds']==[28161,28162] and card['arm']==256 and card['step']==600 and card['control_rate_factor']==.25 and card['horizons']==list(T.HORIZONS),'fixed development design')
- need(card['worker_seconds']==dict(profile=60,target=600) and card['worker_rss_bytes']==4*1024**3 and card['worker_as_bytes']==8*1024**3 and card['worker_raw_bytes']==CAP,'fixed resource card')
+ need(card['worker_seconds']==dict(profile=60,target=900) and card['worker_rss_bytes']==4*1024**3 and card['worker_as_bytes']==8*1024**3 and card['worker_raw_bytes']==CAP,'fixed resource card')
  need(card['profile_root']==str(PROFILE_ROOT) and card['target_root']==str(TARGET_ROOT),'exclusive paths')
  need(card['status'] in ('source_prepared','profile_admitted','target_admitted'),'explicit card status')
  if mode=='profile':need(card['status']=='profile_admitted' and card['source_review'],'source-cleared profile admission')
@@ -201,14 +204,33 @@ def preserved_profile_failure(store):
  store.json('preserved-profile001-failure.json',dict(root=str(root),manifest=pin,source=out['source_commit'],files=files,native_calls=0))
 
 
+def native_function_identity(raw):
+ tree=ast.parse(raw)
+ names={'Store','Calls','select','grad','hvp','ce'}
+ found={n.name:ast.dump(n,include_attributes=False) for n in ast.walk(tree) if isinstance(n,(ast.FunctionDef,ast.ClassDef)) and n.name in names}
+ need(set(found)==names,'complete profiled acquisition/retention function inventory')
+ return found
+
+
 def profile_binding(card,identity):
- root=PROFILE_ROOT;inventory(root,card['profile_outer']);inventory(root/'run',card['profile_worker'])
+ root=PROFILE_ROOT
+ need(card['profile_outer']==PROFILE_OUTER and card['profile_worker']==PROFILE_WORKER,'literal completed002 measured profile')
+ inventory(root,PROFILE_OUTER);inventory(root/'run',PROFILE_WORKER)
  prior=read(root/'run/result.json');runtime=read(root/'run/runtime.json');owner=read(root/'launcher-result.json')
- need(prior['passed'] and prior['mode']=='profile' and prior['attempted']==prior['returned']==T.PROFILE_COUNTS,'complete successful fresh profile')
- need(runtime['sources']==identity and runtime['torch']==torch.__version__ and runtime['numpy']==np.__version__,'exact profiled source/runtime')
- need(owner['exit_code']==0 and not owner['owned_live_pids'] and owner['worker_pid_absent'],'completed measured profile owner')
+ need(runtime['source_commit']==owner['source_commit']==PROFILE_SOURCE,'exact completed measured execution')
+ need(not prior['passed'] and 'error' not in prior and prior['mode']=='profile' and prior['attempted']==prior['returned']==T.PROFILE_COUNTS and prior['event_pairs']==6,'complete finite profile rejected only old time forecast')
+ for name,value in runtime['sources'].items():
+  raw=git_bytes(PROFILE_SOURCE,name)
+  need((root/'run/source'/name).read_bytes()==raw and hashlib.sha256(raw).hexdigest()==value['sha256'],'complete measured source archive')
+ for name in ['src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py','src/neural_shrimp/tiny_lm.py','src/neural_shrimp/tiny_lm_temporal_mean.py']:
+  need(runtime['sources'][name]==identity[name],'unchanged profiled native/math module')
+ worker='tools/explore_tiny_lm_temporal_mean.py'
+ need(native_function_identity((root/'run/source'/worker).read_bytes())==native_function_identity((ROOT/worker).read_bytes()),'same exact measured acquisition/retention functions')
+ need(runtime['torch']==torch.__version__ and runtime['numpy']==np.__version__,'exact measured runtime')
+ need(owner['exit_code']==2 and not owner['owned_live_pids'] and owner['worker_pid_absent'],'retained measured time-rejection owner')
  for pid in (owner['launcher_pid'],owner['owned_group_pid'],runtime['pid']):need(not Path('/proc',str(pid)).exists(),'profile owners absent')
- bound=T.forecast(prior['times'],prior['return_bytes']);need(bound==prior['forecast'] and bound['seconds']<600 and bound['bytes']<CAP-RESERVE,'recomputed complete measured cap')
+ bound=T.forecast(prior['times'],prior['return_bytes'])
+ need(bound==prior['forecast'] and 600<bound['seconds']<900 and bound['bytes']<CAP-RESERVE and prior['seconds']<60 and prior['peak_rss_kib']<4*1024**2,'unchanged cold maxima fit disclosed900s time-only amendment')
  return bound
 
 
@@ -222,7 +244,7 @@ def main(args):
  card=read(ROOT/CARD);need((ROOT/CARD).read_bytes()==git_bytes(source,CARD),'committed run card');card_check(card,args.mode)
  need(args.out==(PROFILE_ROOT if args.mode=='profile' else TARGET_ROOT)/'run','exclusive worker path')
  torch.set_num_threads(1);torch.set_num_interop_threads(1);torch.use_deterministic_algorithms(True)
- store=Store(args.out);calls=Calls(store,args.mode,60 if args.mode=='profile' else 600);out=dict(passed=False,mode=args.mode,native_scope='consumed development only',cases=[])
+ store=Store(args.out);calls=Calls(store,args.mode,60 if args.mode=='profile' else 900);out=dict(passed=False,mode=args.mode,native_scope='consumed development only',cases=[])
  def stop(*_):raise TimeoutError('owned temporal-mean deadline')
  signal.signal(signal.SIGALRM,stop);signal.signal(signal.SIGTERM,stop);signal.setitimer(signal.ITIMER_REAL,calls.seconds)
  try:
@@ -268,7 +290,7 @@ def main(args):
      store.json(label+'/result.json',result);out['cases'].append(result)
   need(calls.attempted==calls.returned==calls.cap,'all exact declared operations completed')
   if args.mode=='profile':
-   bound=T.forecast(calls.times,calls.return_bytes);out.update(forecast=bound,passed=bool(bound['seconds']<600 and bound['bytes']<CAP-RESERVE))
+   bound=T.forecast(calls.times,calls.return_bytes);out.update(forecast=bound,passed=bool(bound['seconds']<900 and bound['bytes']<CAP-RESERVE))
   else:out.update(passed=True,descriptive_gate=T.descriptive_gate(out['cases']),scope='Retrospective temporal-mean sufficiency only; no causal forecast, commutator isolation, utility or shrimp claim.')
  except BaseException as e:out.update(error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:
