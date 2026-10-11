@@ -16113,3 +16113,24 @@ including actual metadata-only bind forbidding scientific-vector access and full
 isolated archive closure. Root cleared df2fc700 pure math; complete caller/card
 awaits peer source/resource review. Bound actual receipt field execution rather
 than an assumed source key before the test run; no scientific attempt existed.
+
+### 2026-10-11 — exact chart31 hypothesis mapping to physical boundary lemma
+
+Root's final independent remaining-quarter replay passed3d94d468, ten cells,
+67.177s and all11 modulus below.980311. Together with the independently proved
+17 firstquarter and4 secondquarter cells, the exact closed chart31 interval
+[-49,79]/2048 is now covered. A zero-native/zero-new-interval metadata checker
+binds all four proof authorities and source equations to the existing paper
+Physical stability boundary lemma and compact-family argument at a200f636.
+Original full705 strict contraction.066721 implies full augmented Jacobian
+nonsingularity; all five proper divisors, mode independence, positive rates and
+0<t<=1/4 hold. Complete new quotient bounds make the critical nonreal pair simple.
+Original full705 anchor projection lies in the stable secondquarter. Hence the
+existing analytic lemma supplies a local physical attracting side and joined
+compact attracting family through chart31 without a fresh derivative estimate.
+Root separately reviews this hypothesis mapping before paper promotion; no
+collar width, numerical axis orientation, NS Lyapunov coefficient or global
+window topology is inferred. Two mapping controls passed0.08s. Initial metadata
+assumption treated original_whole as root authority, but it is the historical
+polynomial context; explicit context-manifest/input binding now traces its exact
+independent root/C-family identity before passing. No numerical gate changed.
