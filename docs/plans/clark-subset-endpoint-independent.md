@@ -39,3 +39,21 @@ with prior audits. New endpoint intersections use exact dyadic Fraction bounds;
 no producer augmented reducer is imported. Stability source-reviewed the new
 conditional endpoint helper with four controls passing0.41s. Complete caller
 source/binding review is required before the prepared card is admitted.
+
+## Disclosed coefficient representation amendment
+
+Attempt001 passed the82.42s/51.43MB synthetic/actual floor, then stopped after
+3.54s/0native at literal residual coefficient JSON equality. The original
+producer subset helper decodes C/J/R at384bits and reserializes them; that
+conservative representation changes200/204 residual and5580/7803 Jacobian
+radii. All match the exact declared384bit decode-reserialize transformation;
+no C coefficient changed. Attempt001 is immutable and mandatory input.
+
+Fresh002 checks exact dyadic endpoint equality to that deterministic historical
+transformation, including every row/column, while unchanged geometry/fullE/C
+still compare literally. The independent audit continues to reconstruct all
+arithmetic coefficients from the ORIGINAL raw native acquisitions; transformed
+producer coefficients supply no new mathematical authority. No tolerance,
+clipping, native call, proof gate, domain or resource limit changed. Add a
+synthetic nontrivial-radius/corrupted-coefficient regression. Prepared until
+narrow peer review and separately committed fresh admission.
