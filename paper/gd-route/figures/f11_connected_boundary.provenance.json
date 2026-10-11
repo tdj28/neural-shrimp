@@ -4,10 +4,10 @@
  "alt_text": "The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance; a finite704-dimensional chart and38 further705-dimensional charts continue a complex-unit-pair branch. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.",
  "notes": "Endpoint boxes and proper full-state joins come from independent saved384/480-bit arithmetic. No line is interpolated across changes of gauge. Orange is connected unit-pair geometry; all eleven transverse modes are independently stable on the initial finite arc and first six705 charts. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.",
  "script": "paper/gd-route/figures/f11_connected_boundary.py",
- "script_sha256": "f0f8d6a07ac72e83d861cb692a222e024c946e9b52f2353efd9dcdaa9b77cf99",
- "git_commit_at_generation": "0dd59ebb6c63196395f624bac8cca0f8e676f0d5",
+ "script_sha256": "eb934b49c9e3a6637907670c94777ce085e14928746ba78e894c30858fa8fb52",
+ "git_commit_at_generation": "2cede7dcba4d5e3812fdea29803351d2a3fe23d9",
  "worktree_dirty_at_generation": true,
- "generated_utc": "2026-10-11T07:02:38Z",
+ "generated_utc": "2026-10-11T07:32:41Z",
  "python": "3.12.14",
  "numpy": "2.5.3",
  "matplotlib": "3.11.1",
@@ -929,6 +929,31 @@
    "bytes": 5543
   },
   {
+   "path": "data:audits/native705-minimum-independent/attempt001/manifest.json",
+   "sha256": "8c6a7f18aec062c7f9a2451d31e91cf582d595e5d5a67b1bcf7d0e27030f9c13",
+   "bytes": 15689
+  },
+  {
+   "path": "data:audits/native705-minimum-independent/attempt001/run/chart001/independent-proof.json",
+   "sha256": "f6b75140f0adb89fe678c0f1622bf0786f91bfd87e8f379d2f0c21dcf257f24d",
+   "bytes": 1144784
+  },
+  {
+   "path": "data:audits/native705-minimum-independent/attempt001/run/chart002/independent-proof.json",
+   "sha256": "b03104a1d9ff01b7317f9f0fa661245b99344ab6b2b0165da016a15cbdab61e4",
+   "bytes": 1143903
+  },
+  {
+   "path": "data:audits/native705-minimum-independent/attempt001/run/input-binding.json",
+   "sha256": "ca96f43e5e0360bbe4ec4a77b4ffed73274b4546170d5e1ab0818494fb470797",
+   "bytes": 12773
+  },
+  {
+   "path": "data:audits/native705-minimum-independent/attempt001/run/outcome.json",
+   "sha256": "c1be47104abc60e2d50c8164f3e2d8e80f3012a32ed5005091831a2b3037bd20",
+   "bytes": 5885
+  },
+  {
    "path": "data:audits/native705-rotated-independent/attempt001/manifest.json",
    "sha256": "e3adb6b78ae5d7f8a3a92f6ecbdf8df65d8c60268d613b498701ae1a705f8622",
    "bytes": 11263
@@ -1017,6 +1042,11 @@
    "path": "repo:docs/reviews/native705-maintained-independent.json",
    "sha256": "4d724f3fd6bcea720b332927ac39ff78c04f7174be005bdde1956da3e547ce5c",
    "bytes": 18640
+  },
+  {
+   "path": "repo:docs/reviews/native705-minimum-independent.json",
+   "sha256": "cbc51e24fed9ae45da6172c8c3dcb514d74679049db04079595dad22a2e9362a",
+   "bytes": 14582
   },
   {
    "path": "repo:docs/reviews/native705-rotated-independent-001-outcome.json",
@@ -1575,6 +1605,34 @@
      [
       72.77847488894068,
       0.8305881206006426
+     ]
+    ]
+   },
+   {
+    "packet": "minimum",
+    "chart": 1,
+    "rates": [
+     [
+      72.77859868547648,
+      0.830584869894332
+     ],
+     [
+      72.77337693202556,
+      0.8307974470426343
+     ]
+    ]
+   },
+   {
+    "packet": "minimum",
+    "chart": 2,
+    "rates": [
+     [
+      72.77341343784158,
+      0.8307940508600764
+     ],
+     [
+      72.77444496261478,
+      0.8310168418034962
      ]
     ]
    }
@@ -3058,8 +3116,8 @@
  },
  "outputs": {
   "pdf": "f11_connected_boundary.pdf",
-  "pdf_sha256": "d8241b5cc656f24b9212d952932181a35cfc5990c1951b9d6c768c6b2ae8bc27",
+  "pdf_sha256": "e54582ced7a80dc0e098c36c4840dcb1762c529f546d9a4ec93c91c278578bc3",
   "png": "f11_connected_boundary.png",
-  "png_sha256": "dee7bfef540be67019eca8fcd8b73317fe0f9601b8f317503797bdb7747fba29"
+  "png_sha256": "09df2565179c3d0cddd02b9904667d15eeb4061e560a39ed34cd078ac4becb8a"
  }
 }

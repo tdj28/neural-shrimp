@@ -2,7 +2,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{amsmath,amssymb,booktabs,array}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array}
 \usepackage{graphicx}
 \usepackage[section]{placeins}
 \usepackage[font=small,labelfont=bf]{caption}
@@ -11,6 +11,7 @@
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage{xurl}
 \usepackage{microtype}
+\newtheorem{lemma}{Lemma}
 \graphicspath{{figures/}}
 \input{generated-numbers.tex}
 
@@ -46,8 +47,8 @@ trainable parameters, covering all \nCensusAll{} census representatives and prim
 For a period-18 orbit, validated continuation resolves connected bifurcation structure in the
 layer-learning-rate plane: the attracting branch reaches a saddle-node, whose $+1$-multiplier locus
 continues to a generic 1:1 resonance. We prove a continuous attracting interval, a transverse
-resonance unfolding in the physical rates, and an emerging complex-unit branch with attracting
-complementary modes. A separate certified intersection of complex-unit and flip boundaries
+resonance unfolding in the physical rates, and a connected complex-unit branch with certified attracting sides and an interior
+learning-rate minimum. A separate certified intersection of complex-unit and flip boundaries
 has an open adjacent sector of attracting period-18 cycles. An independently cross-checked
 numerical census places these proofs within a wider landscape of periodic windows.
 The results establish long-period attracting training and exact connections between cycles and
@@ -77,7 +78,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. The transformer prediction pilots fail their utility comparisons; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
 Full-state orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including all \nCensusAll{} census representatives in 13 or 72 dimensions. Each new representative is independently proved by scalar-loss automatic differentiation. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALVisualCharts{} positive-angle charts extend its connected geometry, with an independent transverse bound on the first six. A separately certified complex-unit/flip intersection has an adjacent open attracting sector. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALVisualCharts{} positive-angle charts extend its connected geometry, with independently proved transverse stability and an attracting side throughout the first \nPALStableCharts{}. A separately certified complex-unit/flip intersection has an adjacent open attracting sector. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -150,7 +151,7 @@ automatic differentiation checks the new 13- and 72-dimensional certificates; al
 \item Connected bifurcation geometry: validated native continuation links a primitive period-18 interior orbit,
 a saddle-node and a generic 1:1 resonance. We prove a continuous attracting interval, the organizer's
 unfolding in the physical rates, and an emerging complex-unit branch with a uniformly attracting complement.
-A total of \nPALVisualCharts{} positive-angle charts extend that branch's connected geometry; the first six also have independently bounded transverse spectra. Separate local
+A total of \nPALVisualCharts{} positive-angle charts extend that branch's connected geometry; the first \nPALStableCharts{} have independently bounded transverse spectra and certified attracting sides. Separate local
 certificates cover both flip types, two cusps, a complex-unit/simple-flip junction and a scalar supercritical NS.
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
@@ -894,7 +895,7 @@ critical frame. Figure~\ref{fig:connected-boundary} includes their independently
 endpoint projections. See \path{docs/reviews/native705-cubic-prefix-independent.json}.
 
 A rotated cubic chart and three more charts in its maintained gauge extend the
-independently joined branch to \nPALVisualCharts{} positive-angle charts in total.
+independently joined branch further.
 The rotated join uses a freshly evaluated residual to localize the identical
 known endpoint before projecting it into the next uniqueness tube. All four
 new charts pass every strict 705-coordinate root and membership inequality,
@@ -902,6 +903,149 @@ with contraction below $\xPALMaintainedContraction$. The two unsuccessful
 continuation attempts remain preserved in the source-bound record.
 See \path{docs/reviews/native705-rotated-independent.json} and
 \path{docs/reviews/native705-maintained-independent.json}.
+
+\paragraph{A proved learning-rate turn.}
+Two additional independently reconstructed charts extend the same full-state
+branch to \nPALVisualCharts{} positive-angle charts. Their joins retain all
+705 coordinates, and the closed connected path contains three successive
+endpoint enclosures $E_0,E_1,E_2$ whose hidden-rate projections satisfy
+\begin{equation}
+ \inf\eta_h(E_0)-\sup\eta_h(E_1)>\xPALMinimumLeftGap,\qquad
+ \inf\eta_h(E_2)-\sup\eta_h(E_1)>\xPALMinimumRightGap.
+\end{equation}
+Continuity and compactness therefore force a hidden-learning-rate minimum in
+the interior of this connected path. This is an exact geometric turn, proved
+from disjoint interval bounds rather than a plotted trajectory. The proof
+establishes existence; uniqueness and nondegeneracy of the minimum require
+additional derivative information. See
+\path{docs/reviews/native705-minimum-independent.json}.
+
+\paragraph{Transverse stability along the first thirty charts.}
+Independent 480-bit proofs on 48 closed subintervals cover original charts
+7--30 exactly, with each local gauge, shared endpoint and same-root identity
+checked against its prior full shooting proof. Every one of the eleven
+complementary multipliers has modulus below $\xPALMarchComplement$.
+Together with the preceding six proofs, this certifies the complement
+throughout the first \nPALStableCharts{} positive-angle charts. The proof
+uses moving metrics and fresh full-domain derivative enclosures, with all
+failed subdivisions retained. See
+\path{docs/reviews/native705-march-independent.json}.
+
+These bounds have a physical consequence: the covered arc consists of regular
+stability boundaries with attracting primitive period-18 cycles on one side.
+The full shooting proof itself supplies the required transverse crossing,
+without an additional numerical estimate of a small normal derivative.
+The following argument explains why.
+
+\begin{lemma}[Physical stability boundary]\label{lem:physical-boundary}
+Let $F_p:\mathbb R^n\to\mathbb R^n$ be a $C^3$ family with two physical
+parameters $p=(p_1,p_2)$, and let a primitive $k$-cycle be represented by
+$x_0,\ldots,x_{k-1}$. Write $M=D_xF_p^k(x_0)$.
+Suppose the full shooting equations have an exact solution with $t>0$,
+$\alpha=\sqrt t\in(0,\pi)$, and real independent vectors $q_0,r_0$ satisfying
+\[
+ Mq_0=\cos\alpha\,q_0-\alpha\sin\alpha\,r_0,
+ \qquad Mr_0=\frac{\sin\alpha}{\alpha}q_0+\cos\alpha\,r_0.
+\]
+Suppose all $n-2$ eigenvalues of the induced quotient by
+$\operatorname{span}(q_0,r_0)$ lie strictly inside the unit disk.
+Include the two normalization equations
+$(q_0^Tq_0-1)/2=0$ and $q_0^Tr_0=0$, and one affine continuation condition.
+If the Jacobian with respect to all $3nk+3$ shooting, mode, parameter and
+$t$ variables is nonsingular, then, on the local periodic-orbit branch,
+\[
+ \nabla_p\sigma(p_0)\ne0,\qquad
+ \sigma(p)=\log|\lambda(p)|,
+\]
+where $\lambda(p_0)=e^{i\alpha}$ is the continued nonreal multiplier.
+Consequently $\sigma=0$ is a regular curve in the physical parameter plane
+near $p_0$. Its side $\sigma<0$ consists locally of attracting primitive
+$k$-cycles of this branch, and its side $\sigma>0$ is unstable.
+\end{lemma}
+
+\begin{proof}
+The critical multipliers $e^{\pm i\alpha}$ are distinct and nonreal; the
+strict quotient bound separates them from every other eigenvalue. They are
+therefore algebraically simple. Also $1\notin\operatorname{spec}(M)$, so
+$I-M$ is invertible. The implicit function theorem gives a smooth local
+fixed point $x_0(p)$ of $F_p^k$, with all other orbit phases determined by
+forward iteration. In the linearized full shooting equations, eliminating
+intermediate orbit states and the orbit closing equation thus determines
+all orbit variations uniquely from $\delta p$.
+
+Eliminating intermediate mode variations by the native transport recurrences
+reduces the remaining mode equations to the displayed two return equations.
+This elimination preserves the kernel, including the two normalization rows
+and the final continuation row. The smooth change of variables
+\[
+ v=q_0+i\alpha r_0,\qquad \lambda(t)=e^{i\sqrt t}
+\]
+turns the return equations into $M(p)v=\lambda(t)v$.
+Here differentiation of $M(p)$ includes the already determined periodic-state
+motion. Take the complex left eigenvector $\ell$ with $\ell^Tv=1$; transpose,
+not Hermitian transpose, is used in this bilinear normalization. Linearized
+solvability requires
+\[
+ \lambda^{-1}\ell^T(D_pM[\delta p])v
+       -\frac{i}{2\alpha}\,\delta t=0.
+\]
+Its real part is exactly $\nabla_p\sigma\cdot\delta p=0$; its imaginary part
+uniquely determines $\delta t$. Simplicity of $\lambda$ means that, after
+this solvability condition, every mode variation has the form
+$\delta v=\delta v_{\rm part}+a v$, with $a\in\mathbb C$.
+The two real components of $a$ are the infinitesimal scale and phase freedoms.
+
+If $\nabla_p\sigma=0$, both real parameter variations would remain free.
+Together with the two real scale/phase freedoms, this gives a four-dimensional
+space of solutions of the linearized native return equations (with angle
+variation already determined). The two real normalization rows impose at
+most two independent constraints, leaving a kernel of dimension at least
+two before the continuation row. One additional affine row cannot remove
+this entire kernel. This contradicts nonsingularity of the full shooting
+Jacobian. This argument does not assume a separately nonsingular phase/scale
+normalization submatrix.
+
+Thus $\nabla_p\sigma\ne0$. The implicit function theorem makes $\sigma=0$
+a regular physical parameter curve. By continuity, the other $n-2$
+multipliers remain strictly inside the unit disk nearby and the proper-divisor
+separations remain nonzero. On $\sigma<0$ the critical pair also lies strictly
+inside the disk; on $\sigma>0$ that pair lies outside. This proves the stated
+local attraction and instability for the continued primitive cycle.
+\end{proof}
+
+\paragraph{A connected attracting family beside the boundary.}
+Let $K$ be the compact image of a finite, fully joined collection of the above
+exact periodic-orbit charts, with positive physical parameters and uniformly
+separated nonreal critical pair and stable complement. It is enough to work
+on the lifted fixed-orbit manifold
+$\mathcal N=\{(x,p):F_p^k(x)=x\}$ near $K$; an embedded or injective curve in
+the physical parameter plane is not required. The parameter projection is a
+local diffeomorphism because $I-M$ is invertible. The isolated nonreal pair
+defines a smooth real function $\sigma$ near $K$ (either conjugate gives the
+same modulus). Lift the physical vector field $-\nabla_p\sigma$ to
+$\mathcal N$ by
+\[
+ \dot p=-\nabla_p\sigma,\qquad
+ \dot x=(I-M)^{-1}D_pF_p^k\,\dot p.
+\]
+Along this field $\dot\sigma=-\|\nabla_p\sigma\|^2<0$ on $K$.
+Here $C^3$ regularity of $F$ gives $\sigma\in C^2$ and a $C^1$ lifted
+vector field, so its local flow is unique and continuously dependent.
+Compactness and smoothness give a uniform sufficiently small positive flow
+time for which the images of all points of $K$ have $\sigma<0$, while the
+complementary stability, positive parameters and primitive-period
+separations persist. Composing this flow with the original joined path gives
+a continuous attracting primitive-$k$ family arbitrarily close to it in
+lifted orbit/parameter space. The displacement is qualitative; a numerical collar width is not assigned.
+
+
+For our analytic training map, $n=13$ and $k=18$ give the 705-dimensional
+system above. Uniform strict contraction makes its Jacobian nonsingular at
+every exact root; the independently verified positive angle, primitive period,
+frame independence and eleven-dimensional stability bounds provide the other
+hypotheses on the first \nPALStableCharts{} charts. Hence the attracting-side
+and compact-family conclusions apply to their joined arc. Complementary
+stability on the later charts remains a separate computation.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
 A separate local certificate encloses a primitive period-18 orbit at physical rates approximately
@@ -1718,6 +1862,25 @@ trajectories also differ. Prediction from information available before the futur
 and an intervention that improves training, are separate tests. Complete outcomes, including
 random directions and scalar/persistence controls, are bound in
 \path{docs/reviews/tiny-lm-response-independent.json}.
+
+A second diagnostic isolates the part of the response that changes sign when
+the same symmetric Jacobians are reversed. For $P=J_{h-1}\cdots J_0$,
+the reverse product is $P^T$. Thus
+\begin{equation}
+ A=\tfrac12(P-P^T)u,\qquad
+ S=\tfrac12(P+P^T)u-J_0^h u,\qquad
+ Pu-J_0^h u=A+S.
+\end{equation}
+We retain the cross term $2A^TS$ in the squared-error identity; the norm ratios
+are not additive shares. All sixteen direction/horizon cases pass the skew
+and reciprocal-product checks. In the two expanded-arm gradient cases at
+$h=16$, the ratios $\|A\|/\|Pu-J_0^h u\|$ are
+$\tLMOrderingOddRatios$, both below the fixed $0.5$ materiality threshold.
+The large frozen-curvature discrepancy is therefore almost entirely in the
+reversal-even remainder in these cases. This remainder may itself depend on
+ordering. The independent audit rechecks all 160 retained reverse HVP
+recurrences and scalar reductions; the native derivative kernel remains shared.
+See \path{docs/reviews/tiny-lm-ordering-independent.json}.
 
 A fixed follow-up uses only the first two Jacobians to extrapolate the response by alternating them,
 and compares it with repeatedly using the second Jacobian and with persistence. Both expanded-arm

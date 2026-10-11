@@ -14514,3 +14514,14 @@ gradient directions remain negative for the fixed material criterion: ratios
 order independence; the reversal-even remainder may depend on order. Complete
 archives, exact committed source, counts and actual owned PID exits verified.
 Receipt docs/reviews/tiny-lm-ordering-independent.json; no holdout or new data.
+
+## 2026-10-11 — Physical boundary manuscript update
+
+Add independently authenticated40-chart continuation and interior rate minimum,
+48-leaf cover completing first30 complementary proofs, and C3 full-shooting
+rank lemma proving regular physical stability boundaries and a continuous nearby
+attracting family. Root and Boundary independently reviewed the analytic proof.
+Later root-only charts do not inherit complementary stability. Add independent
+transformer reversal decomposition negative result, exact saved source binding.
+Short abstract retained; regenerate all bound quantities and connected figure,
+compile and render for human reading before exporting the updated PDF.

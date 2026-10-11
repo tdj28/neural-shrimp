@@ -2282,7 +2282,7 @@ def build():
                 assert row["passed"]and row["strict_inclusions"]==row["anchor_coordinates"]==705 and ball_endpoints(row["contraction"])[1]<Fraction(251429,1000000)
                 pr=load(root/f"run/chart{k:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and all(pr["root"]["coordinate_inclusions"])
         previous=root;more_sources += [rp,root/"manifest.json"]
-    n.add("nPALVisualCharts",38,"38",proof,extra_sources+cors+cubs+more_sources,"thirty original plus correlated and three cubic and rotated and three maintained full705 independently connected charts; initial704 arc excluded")
+
     n.add("xPALMaintainedContraction","251429/1000000","0.251429",proof,more_sources,"strict upward bound across the rotated root and three independently reconstructed maintained roots")
     # Sixth original chart has independently covered closed halves and stable quotient.
     hp=c.ROOT/"docs/reviews/native705-halves-independent.json";hr=load(hp);hroot=Path(hr["root"]);bound_inventory(hroot/"manifest.json",hr["inventories"][0]["manifest_sha256"])
@@ -2301,6 +2301,39 @@ def build():
         lo,hi=ball_endpoints(v);scale=10**digits;a=(lo*scale).numerator//(lo*scale).denominator;b=-((-hi*scale).numerator//(-hi*scale).denominator)
         display="["+format(Decimal(a)/Decimal(scale),f".{digits}f")+", "+format(Decimal(b)/Decimal(scale),f".{digits}f")+"]"
         n.add(macro,{"ball":v,"lower":str(Fraction(a,scale)),"upper":str(Fraction(b,scale))},display,proof,[cp,croot/"manifest.json"],"outward decimal enclosure of independent512 physical derivative; direction selected after producer result")
+    # Whole connected geometry and independent complementary stability are separate counts.
+    mp=c.ROOT/"docs/reviews/native705-minimum-independent.json";mr=load(mp);mroot=Path(mr["root"])
+    bound_inventory(mroot/"manifest.json",mr["inventories"][0]["manifest_sha256"])
+    mo=load(mroot/"run/outcome.json");assert mo==mr["outcome"]and mo["passed"]and mo["connected"]and mo["native_calls"]==0
+    mb=load(mroot/"run/input-binding.json");assert mb["card"]["prior"]["root"]==str(previous)and mb["card"]["prior"]["outer"]==c.sha256(previous/"manifest.json")
+    assert len(mo["charts"])==2
+    for i,row in enumerate(mo["charts"],1):
+        assert row["passed"]and row["strict_inclusions"]==row["anchor_coordinates"]==705 and ball_endpoints(row["contraction"])[1]<Fraction(134647,1000000)
+        pr=load(mroot/f"run/chart{i:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and all(pr["root"]["coordinate_inclusions"])and pr["anchor"]["passed"]
+    minimum=mo["minimum"];assert minimum["passed"]and minimum["coordinate"]=="hidden_learning_rate"
+    edges=[[Fraction(v)for v in row]for row in minimum["endpoint_intervals"]]
+    assert edges[0][0]-edges[1][1]==Fraction(minimum["left_gap"])>Fraction(5018993,10**9)
+    assert edges[2][0]-edges[1][1]==Fraction(minimum["right_gap"])>Fraction(1016317,10**9)
+    minsources=[mp,mroot/"manifest.json"]
+    n.add("nPALVisualCharts",40,"40",proof,extra_sources+cors+cubs+more_sources+minsources,"forty independently joined positive-angle full705 charts; initial704 arc excluded")
+    n.add("xPALMinimumLeftGap","5018993/1000000000","0.005018993",proof,minsources,"strict downward bound on first endpoint lower minus middle endpoint upper, exact rational subtraction")
+    n.add("xPALMinimumRightGap","1016317/1000000000","0.001016317",proof,minsources,"strict downward bound on last endpoint lower minus middle endpoint upper, exact rational subtraction")
+    cp=c.ROOT/"docs/reviews/native705-march-independent.json";cr=load(cp);croot=Path(cr["root"])
+    bound_inventory(croot/"manifest.json",cr["inventories"][0]["manifest_sha256"])
+    co=load(croot/"run/outcome.json");unions=load(croot/"run/same-root-unions.json")
+    assert co==cr["outcome"]and unions==cr["same_root_unions"]and co["passed"]and co["native_calls"]==0 and co["original_charts"]==24 and co["accepted_leaves"]==48
+    assert unions["passed"]and [v["ordinal"]for v in unions["charts"]]==list(range(7,31))
+    for original in unions["charts"]:
+        rows=[r for r in co["rows"]if r["ordinal"]==original["ordinal"]];assert len(rows)==original["leaves"]and original["passed"]and original["same_gauge_within_original_chart"]
+        pieces=sorted([[Fraction(x)for x in row["cell"]["endpoints"]]for row in rows]);assert pieces[0][0]==Fraction(original["parameter_endpoints"][0])and pieces[-1][1]==Fraction(original["parameter_endpoints"][1])and all(a[1]==b[0]for a,b in zip(pieces,pieces[1:]))
+        for row in rows:assert row["passed"]and row["same_root"]and row["primitive_period"]==18 and row["complement_dimension"]==11 and ball_endpoints(row["complementary_modulus_upper"])[1]<Fraction(497679,500000)
+    compsources=[cp,croot/"manifest.json",hp,hroot/"manifest.json"]
+    n.add("nPALStableCharts",30,"30",proof,compsources+extra_sources,"first six independently stable charts followed by exact closed-leaf cover of original charts7through30")
+    n.add("xPALMarchComplement","497679/500000","0.995358",proof,compsources,"strict upper bound across48 independently proved complementary leaves covering charts7through30")
+    lp=c.ROOT/"docs/reviews/tiny-lm-ordering-independent.json";lr=load(lp);lroot=Path(lr["root"]);bound_inventory(lroot/"manifest.json",lr["inventories"][0]["manifest"]["sha256"])
+    lo=load(lroot/"run/result.json");assert lo==lr["outcome"]and lo["passed"]and lo["native_calls"]==0 and lo["rows"]==16 and lo["retained_hvp_checked"]==160
+    rows=lo["summary"]["selected_rows"];assert len(rows)==2 and all(v["qualified"]for v in rows)and not lo["summary"]["material_reversal_odd_in_both_expanded_gradients"]and lo["summary"]["material_threshold"]==.5
+    n.add("tLMOrderingOddRatios",[v["odd_to_error"]for v in rows],"1.14\\times10^{-5},\\ 2.78\\times10^{-4}","exploratory, independently cross-checked",[lp,lroot/"manifest.json"],"two independently reduced odd-to-frozen-error ratios;3significant figures; original seed order")
     # Independently reconstructed causal horizon warnings on consumed LM prefixes.
     lhp=c.ROOT/"docs/reviews/tiny-lm-horizon-independent-outcome.json";lh=load(lhp);lhr=Path(lh["root"])
     lpin=next(v["manifest_sha256"]for v in lh["inventories"]if v["root"]==str(lhr));bound_inventory(lhr/"manifest.json",lpin)

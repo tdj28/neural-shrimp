@@ -27,8 +27,10 @@ connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
 same organizer. Thirty quadratic705 charts, a wider correlated chart and seven cubic charts
 with independent full-coordinate joins extend the connected unit-pair branch
-to38 charts. The initial six705 charts also have independently proved
-complementary stability. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
+to40 charts, with a proved interior hidden-rate minimum. The first30 charts
+have independently proved complementary stability and, by the full shooting
+rank argument, a regular attracting side and a continuous nearby attracting
+family. Later complements and the global junction connection remain active. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
 bounds are in the manuscript and `docs/reviews/`.
 
 A separate independently proved complex-unit/simple-flip intersection has a

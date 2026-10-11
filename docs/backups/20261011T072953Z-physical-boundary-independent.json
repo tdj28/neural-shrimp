@@ -1,0 +1,26 @@
+{
+  "status": "verified",
+  "started_utc": "20261011T072953Z",
+  "completed_utc": "2026-10-11T07:29:56.258874+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261011T072953Z-physical-boundary-independent",
+  "selected_roots": [
+    "audits/native705-march-independent/attempt001",
+    "audits/native705-march-independent/attempt002",
+    "audits/native705-minimum-independent/attempt001",
+    "audits/tiny-lm-ordering-independent/attempt001"
+  ],
+  "file_count": 529,
+  "bytes": 772296642,
+  "symlink_count": 0,
+  "manifest_sha256": "5a6feb4159e998fa18143ddca360554bdf786f5f54a7fe72c483effd12fac496",
+  "elapsed_seconds": 2.3761342249345034,
+  "source_commit_at_copy": "2cede7dcba4d5e3812fdea29803351d2a3fe23d9",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

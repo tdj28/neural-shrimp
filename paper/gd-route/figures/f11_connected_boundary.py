@@ -131,6 +131,16 @@ def data():
             pts=[[float(ball(v)[0])for v in e[702:704]]for e in ends];unit_groups.setdefault(5,[]).extend(pts);unit_rows.append(dict(packet=kind,chart=i,rates=pts))
         previous=root
     assert len(unit_rows)==38
+    rp=c.ROOT/'docs/reviews/native705-minimum-independent.json';rec=load(rp);root=Path(rec['root']);outer=root/'manifest.json';inputs.extend([rp,outer]);assert c.sha256(outer)==rec['inventories'][0]['manifest_sha256'];inv=load(outer)['files']
+    def authenticated_minimum(relative):
+        p=root/relative;v=inv[relative];assert p.stat().st_size==v['bytes']and c.sha256(p)==v['sha256'];inputs.append(p);return load(p)
+    o=authenticated_minimum('run/outcome.json');assert o==rec['outcome']and o['passed']and o['connected']and o['minimum']['passed']
+    prior=authenticated_minimum('run/input-binding.json')['card']['prior'];assert prior['root']==str(previous)and prior['outer']==c.sha256(previous/'manifest.json')
+    for i in range(1,3):
+        pr=authenticated_minimum(f'run/chart{i:03d}/independent-proof.json');assert pr['passed']and all(pr['gates'].values())and all(pr['root']['coordinate_inclusions'])and pr['anchor']['passed']
+        ends=pr['endpoints'];assert len(ends)==2 and all(len(x)==705 for x in ends)
+        pts=[[float(ball(v)[0])for v in e[702:704]]for e in ends];unit_groups.setdefault(6,[]).extend(pts);unit_rows.append(dict(packet='minimum',chart=i,rates=pts))
+    assert len(unit_rows)==40
     up=c.ROOT/'docs/reviews/native-unit-pair-independent-outcome.json';uc=load(up);inputs.append(up)
     assert uc['outcome']['passed'];finite_unit=[[float(ball(v)[0])for v in z]for z in uc['endpoint_actual_rate_enclosures']]
     return locals()
@@ -153,7 +163,7 @@ def main():
     ax.annotate('Interior orbit',xy=(d['center'],d['output']),xytext=(71.3,.8221),fontsize=7,arrowprops={'arrowstyle':'-','lw':.6,'color':c.MUTED})
     ax.annotate('Saddle-node',xy=(fold,d['output']),xytext=(74.6,.8221),fontsize=7,arrowprops={'arrowstyle':'-','lw':.6,'color':c.MUTED})
     ax.plot([],[],color=c.FOLD,lw=1.7,label=r'Connected $+1$ locus')
-    ax.set(xlim=(71,76.1),ylim=(.8207,.8310),xlabel=r'Hidden-layer learning rate $\eta_h$',ylabel=r'Output-layer learning rate $\eta_o$');ax.set_title('a  Certified connections in the learning-rate plane');ax.legend(loc='upper left',bbox_to_anchor=(0,.55),frameon=False,fontsize=6.4)
+    ax.set(xlim=(71,76.1),ylim=(.8207,.8314),xlabel=r'Hidden-layer learning rate $\eta_h$',ylabel=r'Output-layer learning rate $\eta_o$');ax.set_title('a  Certified connections in the learning-rate plane');ax.legend(loc='upper left',bbox_to_anchor=(0,.55),frameon=False,fontsize=6.4)
     bx.add_patch(Circle((0,0),1,fill=False,lw=.9,color=c.MUTED));bx.add_patch(Circle((0,0),d['bound'],fill=False,lw=.8,ls=':',color=c.NS))
     for real,imag,radius in d['discs']:
         bx.add_patch(Circle((real,imag),radius,facecolor=c.FOLD,edgecolor=c.FOLD,lw=.5));bx.plot(real,imag,'.',ms=4,color=c.FOLD)
