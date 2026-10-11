@@ -9169,3 +9169,13 @@ condensed minimum singular.03039. Preserve exact failure and diagnostic.
 Prepare one fresh same-span weighted correction box using exact saved weights
 with2^-20 floor, complete512-bit known anchor and unchanged full470 gates.
 Unchanged276 nativecalls/240s4GiB768MiB; mandatory full synthetic profile first.
+
+
+### 2026-10-11 — Admit fresh weighted signed470 domain
+
+Stability independently cleared1eb3671e differential math/binding/caps; three
+controls0.85s. Entire actual known/failure/diagnostic metadata and exact weights
+preflight passed0.399s, zero native. Fixed attempt002 now reviewed: same span
+h2^-8 andrho2^-14, full new weighted-domain derivative/root/primitive/anchor
+proof. Fresh12GiB host admission then150native synthetic before126target.
+Actual prior native costs supplement unchanged240s4GiB768MiB envelope.
