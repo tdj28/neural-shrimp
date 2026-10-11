@@ -15791,3 +15791,7 @@ Root reviewed the exact parity-aware cubic monomial helper and adapter diagnosti
 ### 2026-10-11T11:20:02.003270+00:00 — Preserve exact-polynomial audit003 containment failure
 
 The reviewed helper produces a contained full705 whole domain, but the actual predictor-tangent containment check fails at domain1 before cell reductions.25.600s917748KiB0native; complete root/whole/predictor-derivative diagnostics are retained. Exact committed source, all immutable inventory hashes and absent owners verified. Stability is examining the exact endpoints, with no relaxation of acquired-domain containment. Previous positive cells and failed attempts remain immutable.
+
+### 2026-10-11T11:27:40.170157+00:00 — Admit six-domain exact-polynomial screen before replay004
+
+Root reviewed the unchanged parity-aware predictor and independent nested exact derivative s+a*d+(3*b*d)*d. Both derivative candidates and their exact endpoint diagnostics are retained; no acquisition bound is used as a proof input or intersection. Sixteen controls passed14.15s, including unchanged core hashes, actualmetadata, full705 signed quadratic controls, six-domain failure retention, resource reserve and isolated archive closure. Admit only the source-bound zero-native six-domain screen,480bits120s2GiB6GiB-AS64MiB/4MiBreserve135+5sowned. Full705 polynomial profile precedes original arrays; successful necessary containment screening is not fullroot/tangent/quotient qualification. Full remaining replay will require separate admission in a fresh004 directory.

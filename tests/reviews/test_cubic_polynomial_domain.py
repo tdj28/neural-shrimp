@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[2]
-sys.path[:0]=[str(ROOT/'tools/reviews'),str(ROOT/'src')]
+sys.path[:0]=[str(Path(__file__).parent),'/home/d7082791602/.codex/worktrees/tiny-lm-prediction-review/neural-shrimp/tools/reviews','/home/d7082791602/.codex/worktrees/tiny-lm-prediction-review/neural-shrimp/src']
 from fractions import Fraction as F
 from flint import arb,ctx
 import pytest
@@ -32,3 +31,16 @@ def test_actual_full_dimension_and_invalid_coefficients():
   n=705;z=[arb(0)]*n;p,t=H.polynomial_domain(z,[arb(1)]*n,z,z,F(-1,256),F(1,256));assert len(p)==len(t)==705 and all(v==1 for v in t)
   with pytest.raises(ValueError):H.polynomial_domain([arb(0,1)],[arb(0)],[arb(0)],[arb(0)],0,1)
   with pytest.raises(ValueError):H.polynomial_domain(z,z,z,z,1,-1)
+
+
+def test_both_derivative_candidates_contain_exact_rational_quadratics():
+ with ctx.workprec(480):
+  c,s,v,b=[list(map(a,row))for row in([0,0,0],[F(3,8),-17,0],[7,-2,-4],[-3,5,-9])]
+  for lo,hi in [(F(-1,64),F(-1,128)),(F(-1,128),F(0)),(F(-1,128),F(1,128)),(F(0),F(1,32))]:
+   _,nested,monomial=H.candidates(c,s,v,b,lo,hi)
+   for j in range(33):
+    d=lo+(hi-lo)*j/32
+    for i in range(3):
+     exact=H.Q.M.point(H.Q.ball_json(s[i]))+H.Q.M.point(H.Q.ball_json(v[i]))*d+3*H.Q.M.point(H.Q.ball_json(b[i]))*d*d
+     for enclosure in(nested[i],monomial[i]):
+      lower,upper=H.Q.M.interval(H.Q.ball_json(enclosure));assert lower<=exact<=upper
