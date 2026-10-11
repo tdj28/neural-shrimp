@@ -40,7 +40,7 @@ the actual current Hessian before any solver. All native actions have exact
 state pointers and attempted direction/output files; every new state is retained.
 Fresh measured gates use full1063HVP/59gradient ceiling,2x actual timing maxima
 plus20s and61.44s raw-write allowance before solver. Same400s/2GiB RSS/8GiB AS/
-3GiB raw worker,4MiB final reserve; owned420+5s parent256MiB actualRSS,3074MiB
+3GiB raw worker,4MiB final reserve; owned420+5s parent256MiB actualRSS,3075MiB
 aggregate. CPU/BLAS1nice10; no GPU, holdout or paid activity.
 
 The precise one-run source/card is this committed wrapper and plan. Independent

@@ -13588,3 +13588,10 @@ Sourceea75624e clean47page PDF with148wordabstract;480numbers verified and all47
 ### 2026-10-11 UTC — Physical stability-corner fixed saved unit prepared
 
 Nine source controls pass0.24s. Exact historical full-inventory/source bindings, fresh512 full13/55 synthetic measured admission, same-root55 proof reconstruction and10-mode complement/crossing checks precede the new determinant. Zero native calls;30s512MiB/2GiBAS16MiB worker,45+5s/18MiB owned envelope. Synthetic serialization alone rejected an unnecessary20×byte forecast; before target access, use workload-based4×storedbytes+2MiB while preserving hard limits. Wrapper peer review precedes sole attempt001.
+### 2026-10-11 UTC — fresh four-unit stationary continuation source cleared
+
+Root independently reviewed f6a58ee1 full source/runtime/binding/owned caps and
+reproduced9controls2.45s. Corrected plan-only aggregate typo3074→3075MiB to
+match launcher; science/resources unchanged. Proceed sole continuation001 after
+fresh availability, exact source admission, current gradient replay, actual
+FD/symmetry and measured full-operation cost gates. No prior-state HVP reuse.
