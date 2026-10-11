@@ -9339,3 +9339,7 @@ Sourcea3f1d248 completed all180 unrelated calls/186ticks and passed measured res
 ### 2026-10-11 — bounded historical compressed decoder prepared
 
 Preserve full-profile002 and zero-target decode failure. Fresh003 adds only bounded plain/gzip decoding, mandatory second failure and exclusive paths. Six controls20.15s pass; two actual compressed-schema/full-saved-binding controls3.50s pass with any new native map forbidden. Scientific settings/caps unchanged. Pending narrow peer review/admission.
+
+### 2026-10-11 — second unit-pair/flip numerical localization prepared
+
+The retained actual complex-pair crossing at hidden72.2280–72.2373/output.8448415–.8450915 seeds the unchanged full55 native equations. New realification helper preserves the negative mode and strict both-rate brackets; phase0/1 primitive/simple-spectrum qualification and both literal all470 reverse joins remain required. Complete caller retains every native input/return,1548 inclusive phases,240s3GiB256MiB with real540-phase unrelated profile. Six helper/caller controls pass9.03s including actual metadata, archive closure and nonfinite-return retention. Helper independently cleared by Stability; full caller remains prepared pending peer review/admission. No new target yet.
