@@ -13744,3 +13744,9 @@ actual three certificate gates AND both actual positivity gates. A synthetic
 schema regression removes the nonexistent-field assumption. Fresh march002
 paths and mandatory previous complete failures; no mathematical/cap change.
 All18 focused controls pass2.70s. Narrow peer recheck required before launch.
+
+Clark narrow-rechecked90921cc9: PASS18 controls2.71s. Both real positivity
+fields and three original certificate gates remain mandatory; unchanged
+proof/caps and exact previous failures retained. Execute only freshmarch002
+under the same recorded resource admission, rechecked by the launcher and
+before every worker; every new fullprofile must pass before target arrays.
