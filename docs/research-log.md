@@ -14315,3 +14315,14 @@ not a claim that the distant junction or complete shrimp window is connected.
 Next: continue from the exact accepted endpoint at its successful1/8 halfwidth,
 retaining bounded adaptation and full projected joins. A quadratic inverse
 proposal is prepared separately for a saved-only failed-width comparison.
+### 2026-10-11 — Explicit paired-tangent fold formulation prepared
+
+Adapted after sealed inverse diagnosis7f2c9ecc. New51-variable system retains
+H=0,H_Uv+H_b=0,v_leak=0 explicitly, one full MixedJet pass and all base/v/b
+columns, avoiding a broad-domain implicit inverse during equation evaluation.
+The exact b0 anchor derives c3+lambda_leak*v_leak=0 at the same authenticated
+normalized signed organizer, with a validated inverse only on its tiny known
+box. Six controls pass0.12s, including all columns, polynomial zero-amplitude
+root, literal native agreement and singular-family non-promotion. Helper-only;
+full51 tube/known-root joins and native physical fold gates remain required.
+No new target/profile acquisition; prior failed26-variable unit unchanged.
