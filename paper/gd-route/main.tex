@@ -76,7 +76,7 @@ Global resonance ancestry & 0: exploratory/adapted & Near-root scaling is sugges
 ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
-CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. The transformer prediction pilots fail their utility comparisons; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
+CIFAR and language-model transfer & 0: exploratory development & Curved CIFAR corrections improve local gradient-merit progress. Transformer experiments establish full-state Jacobian-order sensitivity; prediction pilots have not yet improved their ordinary baselines. \\
 Full-state orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including all \nCensusAll{} census representatives in 13 or 72 dimensions. Each new representative is independently proved by scalar-loss automatic differentiation. \\
 Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALVisualCharts{} positive-angle charts extend its connected geometry, with independently proved transverse stability and an attracting side throughout the first \nPALStableCharts{}. The same connected branch reaches a complex-unit/flip intersection with an adjacent open attracting sector and a finite joined flip locus. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
@@ -1833,6 +1833,22 @@ Shortening the linearized correction alone therefore does not resolve the
 nonlinear bottleneck at this state; the better original endpoint is retained.
 See \path{docs/reviews/cifar-regularized-independent.json}.
 
+A correction to the path itself produces more progress at this same state.
+Let $p$ be the original accepted linear direction and fix an acceleration $a$
+from its retained small-step nonlinear remainder, before evaluating new trials.
+We test $\theta(\alpha)=\theta_0+\alpha p+\alpha^2a$ at $\alpha=1/32$ and $1/64$.
+Both pass the original trust and actual gradient-merit decrease gates.
+The predeclared first-passing rule selects $1/32$, with merit ratio
+$\xCifarCurvedMeritRatio$: a $\pCifarCurvedDecrease\%$ decrease compared with
+$\pCifarStraightDecrease\%$ for the straight correction. The retained second
+trial gives $\xCifarCurvedSecondRatio$ and is not retrospectively selected.
+One fresh Hessian action qualifies the acceleration and two fresh gradients
+evaluate the trials; an independent full-vector and compensated-sum replay
+verifies the path, action, decisions and comparison. This is improved local
+progress toward stationarity. The forcing qualification applies to the initial
+tangent $p$, and is not transferred to $p+\alpha a$.
+See \path{docs/reviews/cifar-curved-path-independent.json}.
+
 \paragraph{An exact structural reduction, with a negative solver diagnostic.}
 For the same fixed-input full-batch model with ridge term $\lambda\|\theta\|^2/2$, write the first-layer weights
 as $W=QB+N$, where $Q$ has orthonormal columns spanning a space containing $\operatorname{range}(X^\top)$,
@@ -2018,6 +2034,74 @@ the entire observed path. This comparison is retrospective: even commuting,
 time-varying Jacobians can have a product different from a power of their mean,
 so the result does not isolate matrix ordering.
 See \path{docs/reviews/tiny-lm-temporal-mean-independent.json}.
+
+\paragraph{A full-state ordering intervention.}
+To isolate ordering sensitivity, we now keep all sixteen Jacobians fixed and
+change only their application order. The chronological product $P$ applies
+indices $0,1,\ldots,15$. Let $Q$ apply the even indices in increasing order,
+then the odd indices in increasing order; reversing either list gives $P^T$
+and $Q^T$, because each $J_t=I-\eta H_L(\theta_t)$ is symmetric. Define
+\[
+ E=\tfrac12(Q+Q^T-P-P^T)u,\quad
+ O_Q=\tfrac12(Q-Q^T)u,\quad O_P=\tfrac12(P-P^T)u.
+\]
+Then $Qu-Pu=E+(O_Q-O_P)$. We check this vector identity and its squared-norm
+identity including the signed cross term. If the Jacobians commute, all four
+products coincide and $E=0$, even when their values change along the path.
+Thus this contrast detects ordering sensitivity that the earlier
+reversal-odd test can miss.
+
+For fixed Hessians, the symmetrized product has the expansion
+\[
+ \operatorname{Sym}P
+ =I-\eta\sum_i H_i
+  +\frac{\eta^2}{2}\sum_{i<j}(H_iH_j+H_jH_i)+O(\eta^3),
+ \qquad \operatorname{Sym}P=\tfrac12(P+P^T).
+\]
+The displayed terms are invariant under every permutation, so
+$E=O(\eta^3)$ when the states and $u$ are held fixed as $\eta\to0$.
+For three symmetric factors, the exact identity
+$\operatorname{Sym}(ABC)-\operatorname{Sym}(ACB)=\tfrac12[A,[B,C]]$
+exhibits the double commutator, where $[A,B]=AB-BA$.
+This explains why a small reversal-odd contrast does not control the
+reversal-even ordering contrast. Our quarter-rate controls change the
+reference trajectory, so they do not test this fixed-Hessian asymptotic law.
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\captionsetup{hypcap=false}
+\centering\small
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Initialization & Rate & $\|Pu\|$ & $\|Qu\|$ & $\|E\|/\|Pu\|$ \\
+\midrule
+1 & Original & $\xLMParityOneOriginalP$ & $\xLMParityOneOriginalQ$ & $\xLMParityOneOriginalEven$ \\
+1 & Quarter & $\xLMParityOneQuarterP$ & $\xLMParityOneQuarterQ$ & $\xLMParityOneQuarterEven$ \\
+2 & Original & $\xLMParityTwoOriginalP$ & $\xLMParityTwoOriginalQ$ & $\xLMParityTwoOriginalEven$ \\
+2 & Quarter & $\xLMParityTwoQuarterP$ & $\xLMParityTwoQuarterQ$ & $\xLMParityTwoQuarterEven$ \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Ordering sensitivity in the full transformer parameter space.
+Each row uses the same sixteen Jacobians and unit perturbation direction for
+all orders. Quarter-rate rows follow their previously acquired reference
+trajectories from the same initial states and directions. These are four
+consumed development cases.}
+\label{tab:lmparity}
+\end{minipage}\par\medskip
+
+The reversal-even ordering contrast is large in both original-rate cases
+(Table~\ref{tab:lmparity}), while their chronological response norms remain
+moderate. Its ratios to the frozen-curvature error are
+$\tLMParityFrozenShare$; these norm ratios are not additive explanatory shares.
+All cases pass the inherited 1\% nonlinear-response and functional-slope
+checks, fresh chronological replay, transpose and decomposition gates.
+An independent audit reconstructs every new Hessian-vector recurrence and
+all reused reverse-product associations using the complete retained vectors.
+The experiment identifies a strong dependence of finite-horizon linear
+response on Jacobian order. It permutes operators along a saved trajectory;
+it does not yet specify a realizable change to training data or optimizer
+updates. The smaller quarter-rate contrasts motivate testing whether
+preserving adjacent-step pairs attenuates the effect.
+See \path{docs/reviews/tiny-lm-parity-order-independent.json}.
 
 \section{Discussion}
 \label{sec:discussion}

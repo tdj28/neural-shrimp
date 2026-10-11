@@ -56,7 +56,13 @@ native period six and eleven attracting complementary modes. Clark's arXiv2610.1
 The numerical census reports61 independently cross-checked periodic-window representatives. All61 now have exact primitive attracting-cycle certificates; the26 new13D and32 new72D proofs are independently reconstructed by1024-bit scalar-loss automatic differentiation on the same boxes. These are orbit proofs; connected window boundaries and surrounding chaos require their respective geometry/dynamics evidence.
 CIFAR development currently reduces a98666-parameter orbit residual without yet
 meeting the closure gate. Transformer prediction/response pilots have not shown
-incremental utility over ordinary baselines. The retained inference comparison
+incremental utility over ordinary baselines. A separate independently audited15776D
+operator-order intervention now shows strong reversal-even sensitivity in both
+expanded-arm original-rate trajectories, with much smaller same-state quarter-rate
+contrasts. These are saved-trajectory response experiments, not changed training.
+A same-start curved CIFAR correction independently improves gradient-merit
+decrease from0.82% to2.04%; stationarity remains the continuation target.
+The retained inference comparison
 has0/1536changed greedy decisions at its consumed calibration prefixes. Protected
 assessment inputs and reserved seeds remain unopened. Native N12 RNN boundary
 anatomy continues in parallel, with numerical critical points kept distinct from

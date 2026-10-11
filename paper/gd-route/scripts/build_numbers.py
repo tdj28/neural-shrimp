@@ -2430,6 +2430,32 @@ def build():
         values=[case["rows"][-1]["comparisons"][model]["vector_error"]for case in mo["cases"]if case["rate_role"]==role]
         n.add(name,values,",\\ ".join(fixed(v,5)for v in values),label,[mp,mroot/"manifest.json"],"horizon16 vector errors for two initializations in fixed seed order, "+role+" "+model)
     n.add("nLMMeanCalls",sum(mo["counts"].values()),str(sum(mo["counts"].values())),label,[mp,mroot/"manifest.json"],"every retained input and return pair independently associated with actual state/direction and recurrence")
+    # Full-state parity ordering contrast: independently replayed fixed development cases.
+    pp=c.ROOT/"docs/reviews/tiny-lm-parity-order-independent.json";pr=load(pp);proot=Path(pr["root"])
+    bound_inventory(proot/"manifest.json",pr["inventories"][0]["manifest"]["sha256"]);po=load(proot/"run/result.json")
+    assert po==pr["outcome"]and po["passed"]and po["native_calls"]==0 and po["retained_hvp_checked"]==224 and po["old_reverse_hvp_checked"]==32 and po["descriptive_gate"]
+    assert [(z["seed"],z["rate_role"])for z in po["cases"]]==[(28161,"original"),(28161,"quarter_step"),(28162,"original"),(28162,"quarter_step")]
+    assert all(z["qualified"]and z["inherited_response_qualified"]and z["chronological_replay"]["passed"]and max(x["error"]for x in z["chronological_replay"]["rows"])==0 for z in po["cases"])
+    label="exploratory, independently cross-checked full15776D saved-Jacobian order intervention; consumed development"
+    for macro,role,key in [("tLMParityOriginalEven","original","even_relative_ordered"),("tLMParityControlEven","quarter_step","even_relative_ordered"),("tLMParityFrozenShare","original","even_relative_frozen_error")]:
+        vals=[z["comparison"][key]for z in po["cases"]if z["rate_role"]==role]
+        n.add(macro,vals,",\\ ".join(fixed(v,6)for v in vals),label,[pp,proot/"manifest.json"],"same two seeds in order: "+role+" "+key+"; norm ratios are not additive attribution shares")
+    for j,z in enumerate(po["cases"]):
+        tag=["OneOriginal","OneQuarter","TwoOriginal","TwoQuarter"][j]
+        for key,description in [("P","chronological response"),("Q","even-indices then odd-indices response")]:
+            val=z["comparison"]["products"][key]["gain"]
+            n.add("xLMParity"+tag+key,val,fixed(val,6),label,[pp,proot/"manifest.json"],description+" norm, unit original direction")
+        val=z["comparison"]["even_relative_ordered"]
+        n.add("xLMParity"+tag+"Even",val,fixed(val,6),label,[pp,proot/"manifest.json"],"reversal-even ordering contrast norm divided by chronological response norm")
+    # Independently reduced same-start curved correction, first passing point retained.
+    cp=c.ROOT/"docs/reviews/cifar-curved-path-independent.json";cr=load(cp);croot=Path(cr["root"])
+    bound_inventory(croot/"manifest.json",cr["outer"]["sha256"]);co=load(croot/"run/result.json")
+    assert co==cr["outcome"]and co["passed"]and co["native_calls"]==0 and co["counts"]==dict(hvp=1,gradient=2)and co["improves_same_start"]
+    assert co["arithmetic"]["accepted_index"]==0 and all(z["accepted"]for z in co["arithmetic"]["trials"])
+    assert co["arithmetic"]["trials"][0]["alpha"]==1/32 and co["arithmetic"]["trials"][1]["alpha"]==1/64
+    label="exploratory, independently replayed same-start curved gradient-merit correction"
+    for macro,val,calc in [("xCifarCurvedMeritRatio",co["chosen_merit_ratio"],"fixed first passingalpha1/32 squared-gradient merit ratio"),("xCifarCurvedSecondRatio",co["arithmetic"]["trials"][1]["merit_ratio"],"retained secondalpha1/64 merit ratio, not retrospectively selected"),("pCifarCurvedDecrease",100*(1-co["chosen_merit_ratio"]),"percent actual same-start merit decrease for selected curved trial"),("pCifarStraightDecrease",100*(1-co["baseline_merit_ratio"]),"percent actual same-start merit decrease for original straight trial")]:
+        n.add(macro,val,fixed(val,2 if macro.startswith("p")else 6),label,[cp,croot/"manifest.json"],calc)
     # Exact generalized flip of the signed native RNN return, independently512 audited.
     crp=c.ROOT/"docs/reviews/clark-rnn-generalized-flip-independent.json";cr=load(crp);crr=Path(cr["root"])
     assert cr["passed"]and cr["source"]=="e62b17ec13d41a5dce79eab4a88d7052745f5b18"
