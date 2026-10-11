@@ -23,7 +23,7 @@ ORIGINAL_EXEC='081c5dcc779c3b2f60d0a3102275f0fa7609efbf'
 FILES=B.SOURCES+['src/neural_shrimp/'+n+'.py'for n in('__init__','controls','models','tiny_lm_horizon')]+[
     'tools/explore_tiny_lm_horizon.py','tools/launch_tiny_lm_horizon.py',
     'tests/test_tiny_lm_horizon.py','tests/test_tiny_lm_horizon_driver.py',
-    'docs/plans/tiny-lm-causal-horizon.md','docs/plans/tiny-lm-horizon-source-provenance.json']
+    'docs/plans/tiny-lm-causal-horizon.md','docs/plans/tiny-lm-horizon-source-provenance.json','docs/reviews/tiny-lm-horizon-profile001-failure.json']
 
 
 def forecast(rows):
@@ -39,8 +39,9 @@ def forecast(rows):
 
 def immutable(root,pin):
     inv=B.inventory(root,pin)
-    need(not root.stat().st_mode&0o222 and all(not(root/n).stat().st_mode&0o222 for n in inv),'closed immutable input')
-    return dict(root=str(root),manifest=pin,files=len(inv),bytes=sum(e['bytes']for e in inv.values()))
+    legacy=(root,pin)in B.PARENTS.values()
+    need((legacy or not root.stat().st_mode&0o222)and not(root/'manifest.json').stat().st_mode&0o222 and all(not(root/n).stat().st_mode&0o222 for n in inv),'closed read-only input files and qualified container')
+    return dict(root=str(root),manifest=pin,files=len(inv),bytes=sum(e['bytes']for e in inv.values()),directory_mode=oct(root.stat().st_mode&0o777),historical_writable_container=bool(legacy and root.stat().st_mode&0o222))
 
 
 class Work:
@@ -155,7 +156,7 @@ def evaluate_predictions(w,records):
 
 def main(args):
     resource.setrlimit(resource.RLIMIT_AS,(8*1024**3,)*2)
-    need(args.out==BASE/f'attempt001-{args.mode}'/'run','fixed exclusive output')
+    need(args.out==BASE/f'attempt002-{args.mode}'/'run','fixed exclusive output')
     need(not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
     need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');torch.set_num_threads(1);torch.set_num_interop_threads(1);torch.use_deterministic_algorithms(True)
     w=Work(args.out,args.mode);result=dict(passed=False,status='incomplete',mode=args.mode,protected_outcomes_evaluated=False)
@@ -163,7 +164,7 @@ def main(args):
     signal.signal(signal.SIGALRM,stop);signal.signal(signal.SIGTERM,stop);signal.setitimer(signal.ITIMER_REAL,w.limit)
     try:
         identity=source(w);runtime=dict(source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),sources=identity,python=platform.python_version(),numpy=np.__version__,torch=torch.__version__,pid=os.getpid(),dtype='float64',device='cpu',threads=dict.fromkeys(THREADS,'1'),operation_caps=w.cap)
-        w.json('runtime.json',runtime);parent,pin=B.PARENTS[args.mode];w.json('parent-binding.json',immutable(parent,pin))
+        w.json('runtime.json',runtime);failed=BASE/'attempt001-profile';immutable(failed,'b5475b36a5e22d5381473fe490bedfbfcf422e01ab8880bccf40d6e1891925a7');failure=B.load(failed/'run/result.json');need(not failure['passed']and failure['error']=='ValueError: closed immutable input'and failure['operation_attempted']==failure['operation_returned']==dict(hvp=0,ce=0),'literal preserved zero-native legacy-container failure');w.json('prior-failure.json',dict(root=str(failed),outer='b5475b36a5e22d5381473fe490bedfbfcf422e01ab8880bccf40d6e1891925a7'));parent,pin=B.PARENTS[args.mode];w.json('parent-binding.json',immutable(parent,pin))
         if args.mode=='profile':
             costs=[]
             for arm in(8,256):
@@ -176,7 +177,7 @@ def main(args):
             estimate=forecast(costs);need(estimate<180,'fixed measured180s target admission')
             result.update(passed=True,status='profile_complete',profile_costs=costs,forecast_seconds=estimate)
         else:
-            profile=BASE/'attempt001-profile';need(args.profile_outer and args.profile_worker,'both completed profile manifests')
+            profile=BASE/'attempt002-profile';need(args.profile_outer and args.profile_worker,'both completed profile manifests')
             immutable(profile,args.profile_outer);immutable(profile/'run',args.profile_worker);prior=B.load(profile/'run/result.json');pr=B.load(profile/'run/runtime.json');la=B.load(profile/'launcher-result.json')
             need(prior['passed']and prior['status']=='profile_complete'and la['exit_code']==0 and not la['owned_live_pids']and la['worker_pid_absent'],'complete owned profile')
             need(pr['sources']==identity and all(pr[k]==runtime[k]for k in('python','numpy','torch','dtype','device','threads')),'same source/runtime profile')

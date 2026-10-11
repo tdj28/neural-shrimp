@@ -26,7 +26,7 @@ def main():
     global OUT
     p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--profile-outer');p.add_argument('--profile-worker');a=p.parse_args()
     if a.mode=='target' and not(a.profile_outer and a.profile_worker):raise ValueError('both completed profile manifests required')
-    OUT=Path('/data2/neural-shrimp-data/explore/tiny-lm-horizon')/f'attempt001-{a.mode}';internal=60 if a.mode=='profile' else 180;external=80 if a.mode=='profile' else 200
+    OUT=Path('/data2/neural-shrimp-data/explore/tiny-lm-horizon')/f'attempt002-{a.mode}';internal=60 if a.mode=='profile' else 180;external=80 if a.mode=='profile' else 200
     assert not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     available=int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')));assert available>10*1024**2

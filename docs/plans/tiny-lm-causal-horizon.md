@@ -77,3 +77,7 @@ costs forecast about44s. Fixed CPU/BLAS1nice10,4GiB RSS/8GiB AS/128MiB raw;
 profile60s and target180s with80/200+5 owned launchers. Preserve immutable
 failures, exact source archive and all raw predictions/evaluations. New source,
 controls, committed card and independent peer review precede either unit.
+
+### Narrow legacy-container amendment before any native operation
+
+Profile001 rejected the original broader-data directory775 despite complete matching read-only files (29profile/191target). Its immutable failure and exact source are mandatory inputs to fresh002. Do not alter old modes/evidence. Recognize only the two literal B.PARENTS root+manifest pairs as historical writable containers; still require complete fresh inventory, exact content hashes and read-only manifest/every file. Every new input/attempt remains a fully closed directory. No scientific selection, numerical operation, prediction rule or resource cap changes. Fresh002 profile must pass before separately bound002 target.

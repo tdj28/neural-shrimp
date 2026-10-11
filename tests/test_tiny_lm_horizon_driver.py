@@ -50,3 +50,15 @@ assert Path(W.__file__).resolve().is_relative_to(root)
 """
     env=dict(os.environ,PYTHONPATH=str(tmp_path/'src')+os.pathsep+str(tmp_path/'tools'),PYTHONDONTWRITEBYTECODE='1',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1')
     subprocess.run([sys.executable,'-c',code],cwd=tmp_path,env=env,check=True,capture_output=True,text=True)
+
+
+def test_only_exact_historical_container_exemption(tmp_path,monkeypatch):
+    root=tmp_path/'legacy';root.mkdir();data=root/'data.json';data.write_text('{}');data.chmod(0o444)
+    manifest=root/'manifest.json';manifest.write_text(json.dumps(dict(files={'data.json':W.B.entry(data)})));manifest.chmod(0o444)
+    pin=W.B.sha(manifest);monkeypatch.setattr(W.B,'PARENTS',dict(profile=(root,pin)))
+    assert W.immutable(root,pin)['historical_writable_container']
+    monkeypatch.setattr(W.B,'PARENTS',{})
+    with pytest.raises(ValueError):W.immutable(root,pin)
+    root.chmod(0o555);assert not W.immutable(root,pin)['historical_writable_container']
+    data.chmod(0o644)
+    with pytest.raises(ValueError):W.immutable(root,pin)
