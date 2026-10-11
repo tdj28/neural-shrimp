@@ -8449,3 +8449,12 @@ All old failed bounds preserved. Receipt native705-correlated-target.json
 binds outer28393e38.../workerda963cfe... and complete audit guide. No own jobs
 remain. Next prioritize measured larger steps/reusable continuation, retaining
 all exact branch joins and scientific gates.
+
+### 11 October2026 UTC — prepare saved-only correlated margin diagnosis
+
+Successful wider proof q.06672 gives strong contraction margin, but radius
+and residual margins need measurement before a larger fresh-domain proposal.
+Prepare fixed saved diagnostic per native705-correlated-margins.md; no native
+calls or new proof. Exact current matrix coefficient norms are numerical
+proposal diagnostics; future width/radius changes require fresh acquisitions.
+No diagnostic executed yet; peer review and committed card precede it.
