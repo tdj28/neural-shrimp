@@ -63,3 +63,12 @@ def test_mixed_fold_gradient_includes_all_base_and_b_columns():
    else:bp+=eps;bm-=eps
    fp=A.augment(polynomial_family,plus,bp,1)[0];fm=A.augment(polynomial_family,minus,bm,1)[0]
    for i in range(4):assert abs((fp[i,0]-fm[i,0])/(2*eps)-(jac[i,k]if k<4 else h[i,0])).upper()<arb((1,-150))
+
+
+def test_entire_polynomial_stays_finite_through_negative_and_zero_containing_z():
+ with ctx.workprec(384):
+  for z in (arb(0,arb('1/8')),arb('-1/4')):
+   for offset in (0,1):
+    for derivative in (0,1,2):assert A.entire(z,offset,derivative).is_finite()
+  z=arb('-1/4');assert A.entire(z,0).overlaps(arb('1/2').cos())and A.entire(z,1).overlaps(2*arb('1/2').sin())
+  interval=arb(0,arb('1/8'));assert A.entire(interval,0).contains(1)

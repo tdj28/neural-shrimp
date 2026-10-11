@@ -26,16 +26,22 @@ def reciprocal(x):
  return unary(x,1/x.f,-1/(x.f*x.f),2/(x.f*x.f*x.f))
 
 
+def integer_power(z,k):
+ require(type(k)is int and k>=0,'nonnegative polynomial degree');out=arb(1)
+ for _ in range(k):out=out*z
+ return out
+
+
 def entire(z,offset,derivative=0):
  """C(z)=cosh(sqrt(z)), S(z)=sinh(sqrt(z))/sqrt(z), derivatives0..2."""
  require(offset in(0,1)and derivative in(0,1,2)and z.is_finite()and abs(z).upper()<=16,'bounded entire pair function')
  result=arb(0)
  for k in range(derivative,25):
   coefficient=rational(Fraction(factorial(k),factorial(k-derivative)*factorial(2*k+offset)))
-  result+=coefficient*z**(k-derivative)
+  result+=coefficient*integer_power(z,k-derivative)
  # At k>=25, j<=2, |z|<=16, consecutive absolute terms have ratio
  # <=(26/24)*16/(51*52)<1/2, so twice the first omitted term bounds the tail.
- tail=2*rational(Fraction(factorial(25),factorial(25-derivative)*factorial(50+offset)))*abs(z).upper()**(25-derivative)
+ tail=2*rational(Fraction(factorial(25),factorial(25-derivative)*factorial(50+offset)))*integer_power(abs(z).upper(),25-derivative)
  return result+arb(0,tail)
 
 
