@@ -8419,3 +8419,16 @@ explicit current-vs-known-parent native map/gradient dependency hash equality.
 Added ten-file map/gradient/closure/path equality guard and corruption controls
 before reading proof arrays. Original source archives and literal map equality
 remain required. No target attempt occurred; profiled source remains unchanged.
+
+### 11 October2026 UTC — execute sole wider correlated705 pilot
+
+Stability cleared8ae56769 native-source hardening and five controls0.22s;
+root independently checked33745fd8/311c919b math without additional issue.
+Run only correlated001/attempt001-target from exact profile outer773e6c74...
+and workerff9c3712..., unchanged measured fixed240s/6GiB/12GiBAS/1GiB and
+255+5s owned caps, CPU1nice10. Full h1/32/rho2^-10 unchanged-domain card is
+native705-correlated-inverse-target.md;148ticks include144 fresh native passes
+and4 algebra stages. Host52GiB available/load1.85, GPU previously0%15947MiB;
+no duplicate ownprocess. Exact independently known24prefix root is mandatory.
+All failed bounds and acquired inputs/outputs remain immutable. Prepared audit
+guide specifies a separate independent replay, not an outcome claim.
