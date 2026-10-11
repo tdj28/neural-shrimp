@@ -12734,3 +12734,7 @@ All32 new full72D attracting primitive orbit proofs passed at768bits;sum840perio
 ### 2026-10-11 UTC — Independent72D audit resource-only amendment
 
 Complete three-phase profile001 failed only the3600s admission ceiling:2x forecast4701.31s,3.512GB; native3/3 retained, peak489368KiB, no target. Outcome docs/reviews/census72-ad-profile001-resource-rejection.json. Raise local CPU target ceiling6000s/external6020+5 with identical32cases/math/1024bits/1680calls/2GiB/8GiBraw. Fresh profile002 is mandatory. No scientific result changed or paid resource used. Usage-limit interruption preserved; resumed by human04:07UTC.
+
+### 2026-10-11 UTC — Admit complete independent72D AD proof panel
+
+Fresh profile002 passed:3/3nativephases,19.21s total,486992KiB peak,2xforecast5084.88s/3511803968bytes fits6000s/8GiB. Complete inventories/committed dependencies/ownedtermination checked;outerbe1e9308e484164b23ccf3ebddf697dda49820bdc7629a4b2233d602ef31b9e5,workera404c4cc47efd090ae86e23096626a89a84e0e25399c0131c388fff845c94ad5. Execute exactly one attempt002-target of all32 fixed originals,1024bits1680phases2GiBRSS8GiBAS8GiBraw, no paid resources or holdouts. Preserve all failed rows. Profile001 resource rejection remains immutable.
