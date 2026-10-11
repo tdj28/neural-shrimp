@@ -16696,3 +16696,7 @@ Stability independently reviewed d3509fa0 full source/binding/resource packet an
 Source11121221 completed54 unrelated native phases and passed measured profile, then stopped21.026s/77884KiB before target on duplicate exclusive input-binding.json from inherited root/candidate binders. No fresh target root acquired. Complete failure immutable, source/ownership verified. Namespaced old-root-/numerical- receipts preserve both and final binding separately; real exclusive-save regression added. Fresh002 mandatory failure ancestry, unchanged480/-96,noNewton,162phases/60s/2GiB/128MiB. Original metadata-only no-op writer did not expose this collision; disclosed without claiming target progress.
 
 Root requested explicit full failed cold-cost admission. Add the retained21.026s full attempt plus6×max(current,old54phase profile)+15s to the fresh forecast, taking the maximum with the old formula. Same60s cap, no removed cold costs. Positive-cost synthetic regression verifies this independently of target arrays.
+
+
+### 2026-10-11 — admit fixed nested audit002 after namespace/cold-cost review
+Stability narrowly cleared56df5385+8bd954c6 and reproduced six controls16.21s. Fresh002 only; original54-profile/zero-target failure mandatory. Full measured profile includes prior21.026s cold cost, and unchanged60s/2GiB/128MiB/162phase/zeroNewton480/-96 domain. Exact55same-root nesting and independent arithmetic remain mandatory; current host resource/ownership check precedes launch.
