@@ -9238,3 +9238,18 @@ provides a tighter known-root error enclosure, conditional on the exact same
 predictor and domain; it does not authorize reusing unacquired Jacobian domains.
 No new target launched. Peer Boundary confirms the saved independent root-image
 identity; root requests correlation diagnosis before further subdivisions.
+
+### 2026-10-11 — prepared saved inverse-correlation diagnosis
+
+Fixed the four retained later001 quarters of independently proved chart31.
+Rebuild each saved constant-C/J weighted defect and compare with the original
+independently certified polynomial defect on the exact same scalar subset;
+report the different correction domains explicitly. Also quantify the original
+uniform image/root-error enclosure. No native calls, new root, derivative domain
+or stability proof. One measured dense705 synthetic gate precedes research
+arrays;120s/4GiB RSS/6GiB AS/24MiB, owned135+5s launcher/26MiB. Four controls
+passed0.66s; initial even-power test erroneously required a nonnegative outward
+Arb-ball lower endpoint and was corrected to test exact-range containment.
+Implementation unchanged, no target evaluated. Await peer source review before
+committed live admission. No further complement subdivision authorized by this
+saved-only diagnosis.
