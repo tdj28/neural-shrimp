@@ -16,7 +16,7 @@ def test_actual_profile_caps_settings_and_metadata_admission(tmp_path,monkeypatc
  bad=copy.deepcopy(p);bad['max_seconds']['path']/=2
  with pytest.raises(ValueError):D.forecast(bad)
  bad=copy.deepcopy(p);bad['times']['path']=[100]*6;bad['max_seconds']['path']=100;assert not D.forecast(bad)['passed']
- for k,exitcode in [('profile',0),('failed_explicit',2),('diagnosis',0)]:
+ for k,exitcode in [('profile',0),('failed_correlated',2),('failed_explicit',2),('diagnosis',0)]:
   spec=card[k];rt=D.read(Path(spec['root'])/'run/runtime.json');la=D.read(Path(spec['root'])/'launcher-result.json');assert rt['source_commit']==spec['source']==la['source_commit']and la['exit_code']==exitcode and not la['owned_live_pids']
  monkeypatch.setattr(D.B,'OUT',tmp_path);monkeypatch.setattr(D,'OUT',tmp_path);w=D.Work();D.bind_profile(w,card);assert (tmp_path/'profile-binding.json').exists()and w.calls['native_phase_returns']==0
 
@@ -55,4 +55,4 @@ def test_archive_import_and_expected_endpoint_curved_join(tmp_path):
 def test_actual_retained_failure_metadata_before_old_target_binder(tmp_path,monkeypatch):
  monkeypatch.setattr(D.B,'OUT',tmp_path);monkeypatch.setattr(D,'OUT',tmp_path);monkeypatch.setattr(D.OLD,'bind',lambda w:('unopened',))
  w=D.Work();assert D.bind(w,D.read(ROOT/D.CARD))==('unopened',)and w.calls['native_phase_returns']==0
- assert (tmp_path/'failed_explicit-binding.json').exists()and (tmp_path/'diagnosis-binding.json').exists()
+ assert (tmp_path/'failed_correlated-binding.json').exists()and (tmp_path/'failed_explicit-binding.json').exists()and (tmp_path/'diagnosis-binding.json').exists()

@@ -13,11 +13,11 @@ from neural_shrimp import rigorous_clark_correlated_tube as CT
 from neural_shrimp.rigorous_orbits import ball_json,vector_json,matrix_json,canonical_bytes,midpoint_matrix
 B,T,A=OLD.B,OLD.T,OLD.A
 need,read,entry,decode=OLD.need,OLD.read,OLD.entry,OLD.decode
-OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-bridge/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-bridge/attempt002/run')
 CARD='docs/plans/clark-correlated-fold-inputs.json';THREADS=OLD.THREADS
 SETTINGS=dict(OLD.SETTINGS,attempts=8,accepted_charts=6)
 CAPS=dict(explicit=32,path=40,implicit=1,anchor=1,context=8,algebra=24,native_phase_returns=270,cache_reuses=16,events=1600)
-FILES=sorted(set(OLD.FILES+PROFILE.FILES+[CARD,'docs/plans/clark-correlated-fold-target.md','docs/reviews/clark-correlated-fold-profile.json','docs/reviews/clark-explicit-fold-attempt002.json','docs/reviews/clark-explicit-radius-diagnosis.json','tools/certify_clark_correlated_fold.py','tools/launch_clark_correlated_fold.py','tests/test_clark_correlated_fold_driver.py']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
+FILES=sorted(set(OLD.FILES+PROFILE.FILES+[CARD,'docs/plans/clark-correlated-fold-target.md','docs/reviews/clark-correlated-fold-profile002.json','docs/reviews/clark-correlated-fold-attempt001.json','docs/reviews/clark-explicit-fold-attempt002.json','docs/reviews/clark-explicit-radius-diagnosis.json','tools/certify_clark_correlated_fold.py','tools/launch_clark_correlated_fold.py','tests/test_clark_correlated_fold_driver.py']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 class Work(OLD.Work):
  def __init__(self):super().__init__();self.calls=dict.fromkeys(CAPS,0);self.last_path=None
@@ -66,9 +66,10 @@ def bind_profile(w,card):
 
 
 def bind(w,card):
- for k in('failed_explicit','diagnosis'):
-  spec=card[k];p=Path(spec['root']);rows=[B.B.inventory(p,spec['outer'],w.tick),B.B.inventory(p/'run',spec['worker'],w.tick)];OLD.historical(p,spec['source'],2 if k=='failed_explicit'else 0);out=read(p/'run/outcome.json')
-  if k=='failed_explicit':need(not out['passed']and out['calls']['native_phase_returns']==87 and len(read(p/'run/continuation.json')['attempts'])==5,'retained allfive first-chart radius failures')
+ for k in('failed_correlated','failed_explicit','diagnosis'):
+  spec=card[k];p=Path(spec['root']);rows=[B.B.inventory(p,spec['outer'],w.tick),B.B.inventory(p/'run',spec['worker'],w.tick)];OLD.historical(p,spec['source'],0 if k=='diagnosis'else 2);out=read(p/'run/outcome.json')
+  if k=='failed_correlated':need(not out['passed']and out['error']=='ValueError: all finite native coefficients'and out['calls']['native_phase_returns']==23 and out['calls']['path']==3 and not (p/'run/continuation.json').exists(),'retained initial whole-d nonfinite acquisition failure')
+  elif k=='failed_explicit':need(not out['passed']and out['calls']['native_phase_returns']==87 and len(read(p/'run/continuation.json')['attempts'])==5,'retained allfive first-chart radius failures')
   else:need(out['passed']and out['native_calls']==0,'retained predictor-correlation saved diagnosis')
   w.save(k+'-binding.json',dict(spec=spec,inventories=rows,outcome=out))
  return OLD.bind(w)
