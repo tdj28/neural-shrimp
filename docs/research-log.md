@@ -12198,3 +12198,7 @@ Clark narrowreview e4ff7cf1 PASS and three controls0.10s. Only raw storage allow
 ### 2026-10-11T00:23:39.043385+00:00 — fixed26 census13 target admission
 
 Same-source profile003 PASS: all3 native returns,83.7997811s/739243264byte doubled4200-call forecast; measuredpeak75488KiB. Literal outerf41c67137679c77d36d571655da89b291632ce1983170e67d7a64bbb364241e3 worker7ac53a59234e3c74705c9fdac7863b3c12a2db0067a25d184beb5bce757d7687. Execute exactly the26 committed new indices at768bits,6Newton,2^-320 radius, proper-divisor exclusions and squared-monodromy power<=4096; source unchanged, each failure retained, no retries. CPU1nice10/600sworker/620+5souter/1GiBgroupRSS/1GiBraw, complete derivatives retained. Independent arithmetic audit required before paper promotion.
+
+### 2026-10-11T00:24:02.262033+00:00 — independent705 saved reduction admission
+
+Boundary independently cleared ab94eb6b source/manifests/acquisition inventories, complete coordinates and owned caps; reproduced4controls0.11s. Execute fixed attempt001 at384bits with zero native calls,240s/4GiB/64MiB. Uniform-root verdict remains separate from original coarse-anchor membership. The newly acquired producer endpoint localization has a separate receipt and requires independent replay before connection promotion.
