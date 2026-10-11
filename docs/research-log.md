@@ -8596,3 +8596,15 @@ rates/angle/modes. Same independently connected root/C/J/source; immutable
 failed002 bound is prerequisite.240s/4GiB/6GiBAS/64MiB and144 total calls,
 owned255+5/66MiB; each input saved before actualcall. No complement or newroot
 trial. Wrapper peer review and fresh availability required before execution.
+
+### 2026-10-10: correlated705 true tangent passed
+
+Source b0c1b118 completed all144 calls in21.119s/1,523,436KiB; unrelated72call
+plus full705 profile2.313s preceded arrays. Weighted true-tangent correction
+fell from66.718 to0.00291413 (over22,000-fold tighter), with unchanged known
+root, gauge interval and wholeJ contraction .461295. Exact original-contained
+segment, all705 modes/rates/angle and full third native derivative retained.
+No complementary result follows yet. Immutable manifests/owned termination
+verified; receipt docs/reviews/native705-correlated-tangent-outcome.json.
+Next fixed quotient adapter may reuse unchanged saved center derivatives and
+acquire only18 new whole/tangent derivatives after separate source/card review.
