@@ -14611,3 +14611,14 @@ Full prior/audit/event source binding, measured unrelated98666x512 admission,
 exact savedterminal-residual continuation and inclusive258HVP cap prepared.
 Original256actions are reused; no gradients or steps. New source and synthetic
 controls await independent review; card remains prepared, no native acquisition.
+
+### 2026-10-11 — Admit exact nested512 CIFAR comparison
+
+Boundary independently reviewed7495f8b7 full caller/source/binding/resource and
+reproduced10controls2.57s; initial mathreview2ceec48c4controlsPASS. Root actual
+metadata/inventory preflight3.955s,1288events,256prefixvectors,0native and no
+scientific arrays opened; separatecurrentPID exception was verified beforehand.
+Admit sole nested512001 under unchanged300s4GiB12GiBAS1GiB limits/258HVP cap.
+Full98666x512 synthetic profile must pass before target vectors; preserve any
+failure. No gradients, steps, paidruns or protecteddata. All other live research
+runs owned by their agents; root keeps frozen source until this worker exits.
