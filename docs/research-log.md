@@ -14594,3 +14594,13 @@ same correlated inverse for implicit tangents, instead of discarding the
 parameter correlation or blindly subdividing. No complementary theorem or
 new acquisition follows from this diagnostic alone. First30 complementary
 charts independently passed Clark48 replay; later31–38 remain unresolved.
+
+## 2026-10-11 — Prepare nested same-state512-direction CIFAR helper
+
+The independently audited256-column result justifies one explicit larger-budget
+extension at historicalstate018. Reuse its literal256 vectors/actions, continue
+two-pass orthogonalization to512, and compare fresh physical forcing to the old
+qualified256 solution. No direction application or new state; .5/20percent gates
+remain fixed. Source-only helper/four controls and docs/plans/cifar-nested512.md;
+full measured caller/binding review required before acquisition. Root owns this
+track, independent of Stability's active boundary-proof work.
