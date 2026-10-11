@@ -8696,3 +8696,17 @@ Root independently confirmed cubic convention and cleared one fixed h1/32
 batch, same rho/weights, fresh all331 calls and705 joins; no radius grid.
 Prepare narrow001 from unchanged independently proved79/2048 endpoint. The
 h^4 width forecast is noncertified guidance, not reused larger-domain proof.
+
+
+### 2026-10-11 UTC: fixed smaller-domain measured run card
+
+Prepared82b973c7 awaits root source clearance. Same source-bound746-call
+profile and actual-native cost floor143.017s/5188656KiB/159832433bytes per
+worker retained, unchanged caps. Exact committed card
+native705-cubic-batch-narrow-001.json binds original failedbatch and saved
+zero-native diagnosis, h1/32/rho2^-10 from independent known79/2048. Command:
+nice -n10 project Python tools/launch_native705_cubic_narrow_batch.py --card
+ docs/plans/native705-cubic-batch-narrow-001.json. Exclusive
+pal/cubic-continuation001/narrow001/batch001; no target outcome yet. No launch
+until source clearance and fresh36GiB host admission. First failed root/join
+stops connected prefix; all four complete or interrupted attempts retained.
