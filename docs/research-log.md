@@ -8923,3 +8923,11 @@ byte-identically for complete source closure. During self-review updated copied
 launcher completeness predicate to the disclosed.9gate; otherwise it would
 mislabel correctly accepted trials. No target launched; full source review
 and same-source actual measured400s/2GiB/3GiB gates remain mandatory.
+
+### 2026-10-11 UTC — fresh four-unit stationary continuation source cleared
+
+Root independently reviewed f6a58ee1 full source/runtime/binding/owned caps and
+reproduced9controls2.45s. Corrected plan-only aggregate typo3074→3075MiB to
+match launcher; science/resources unchanged. Proceed sole continuation001 after
+fresh availability, exact source admission, current gradient replay, actual
+FD/symmetry and measured full-operation cost gates. No prior-state HVP reuse.
