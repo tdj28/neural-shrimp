@@ -17435,3 +17435,7 @@ profile before target arrays. Zero native calls; all outcomes retained.
 ### 2026-10-11 — Independent first-order temporal correction replay
 
 Source-admit one saved replay of all448 literal current/mid/state HVP chains and28 independently summed correction means in the four consumed15776D cases. Separately authored core plus Root history/resource wrapper both peer reviewed; seven controls passed4.32s/5.46s. Bind prior512-action independent powers/diagonal forcing and original two-amplitude nonlinear/CE outcomes. Preserve qualification versus original-rate accuracy versus relative-improvement gates. Zero native calls,180s1GiB2GiB-AS8MiB raw; fullsize profile and retained actual audit cost before arrays. No online/geometry-utility conclusion.
+
+### 2026-10-11T13:16:11.761651+00:00 — Independent first-order temporal response confirmed
+
+All448 new saved native action associations,28 independent fsum correction means, literal prior512-action powers/diagonal forcing and four full-state nonlinear/CE response pairs independently reproduced. First-order vector errors are1.19296/.0702423 for seed28161 original/quarter and1.23288/.0275708 for28162. Quarter-rate improvements14.84x/20.33x over block mean are retrospective development evidence; both original-rate accuracy and twofold-improvement gates remain false. 6.279s/263268KiB, zero new native calls. Complete immutable manifests, exact committed source and absent owners verified. Next mechanistic question is temporal resolution of local block averages, not generalization or online benefit.
