@@ -12139,3 +12139,9 @@ Prepare one fresh half-width705 chart[-1/4096,63/4096], same known root/gauge, e
 ###2026-10-10 — peer-cleared fresh705 attempt003 run card
 
 Clark independently passedbdb10321 binding/math/resource skim and4controls0.24s. Execute exactly one exclusivepal/attempt003-target at the following source with original profile outerfa27b1e43c10cbe66040fa7bd80f58e4effdd44b72f31101ae04f92e5db7135f/worker11819b8985345f34fb68e2ed8c9da5384f33804dd3343671ae2cd0c6fd38cbcc, diagnosis61e72cf1 outere8b443f98e2f0b21c2f66e1de18694b2e81510c1a78ccebefb278ca21f30df90/workerd2fb96c658f10dcc2402dfd19bf444bf545b5f557b15d1dcf153d125bdc62195. Fixed halfwidth−7/center31/4096/radii4r, full original anchor,253freshcalls,240s/6GiB/10GiBAS/768MiB and255+5owned. Current host52GiB available/load1.44, no own duplicate; no GPU use. No automatic additional chart or retry. Every failed predecessor remains immutable.
+
+###2026-10-10 — native705 uniform root passes; endpoint identity needs localization
+
+Attempt003 b03d990f completed48.475s/1787044KiB/all253calls. Every705 uniformroot inclusion passes, q<.461294305; native primitive18, frame and positive whole angle pass. Only inherited coarse704 endpoint-box membership fails (274/705); the projected known-gauge uncertainty is1.26e−4. Record native-unit-pair-pal-unjoined-root.json; no connected extension claimed yet.
+
+Prepare one separate known-endpoint localization with exact copied peer-reviewed fixed-point helper8fe8c142. Two proposal corrections plus final fresh residual=108native384 calls; previous root existence/wholeJ/C retained. Full original derivative domain and knownroot intersections mandatory. Then full705 membership in the unchanged successful uniform tube. Source-reviewed synthetic full704/native36 profile precedes alltarget arrays; fixed240s/4GiB/8GiBAS/128MiB andowned255+5. Parent prepares independent705 proofreplay; stability's distinct centered/full704 localization remains separate.
