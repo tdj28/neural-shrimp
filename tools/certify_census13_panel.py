@@ -15,7 +15,7 @@ from neural_shrimp import rigorous_orbits as K
 SETTINGS=dict(precision=768,radius_exponent=-320,newton_steps=6,max_power=4096)
 BASE=Path('/data2/neural-shrimp-data/explore/certificates/census13-panel')
 CARD='docs/plans/census13-panel-inputs.json'
-SOURCES=list(dict.fromkeys(B.SOURCES+['tools/certify_census13_panel.py','tools/launch_census13_panel.py','tests/test_census13_panel.py',CARD,'docs/plans/census13-panel.md']))
+SOURCES=list(dict.fromkeys(B.SOURCES+['tools/certify_census13_panel.py','tools/launch_census13_panel.py','tests/test_census13_panel.py',CARD,'docs/plans/census13-panel.md','certificates/c1-row35-receipt.json','certificates/s2-period18-receipt.json']))
 CAP=512*1024**2
 
 def need(v,s):
@@ -61,13 +61,15 @@ def main(mode,profile_outer=None,profile_worker=None):
         rows=B.load(paths['certificates']);indices=selected(B.load(paths['summary']),B.load(paths['audit']),rows)
         need(indices==card['all13_indices']and len(indices)==28 and card['new_indices']==[i for i in indices if i not in [35,111]],'complete fixed13D panel')
         prepared={i:C.prepare(paths['certificates'],paths['plan'],i,card['selection'])for i in indices}
+        reused=[]
         for i,receiptpath in [(35,'certificates/c1-row35-receipt.json'),(111,'certificates/s2-period18-receipt.json')]:
             rec=B.load(ROOT/receiptpath);oldroot=Path(rec['external_root']);prior=B.load(oldroot/'inputs.json')
             need(rec['passed']and rec['statement']['attraction']and rec['statement']['existence_and_local_uniqueness']and rec['statement']['primitive_period_excluded_divisors'],'reuse existing attracting primitive proof')
             for n,v in rec['files'].items():need(B.entry(oldroot/n)==v,'existing proof receipt inventory')
             for k in ['schema','network','x','y','lr_hidden','lr_output','period']:need(prior[k]==prepared[i][k],'exact existing representative map '+k)
+            oldproof=B.load(oldroot/'certificate.json');distance=proximity(oldproof['box'],prepared[i]['approximation']);reused.append(dict(index=i,whole_box_proximity=distance,receipt=B.entry(ROOT/receiptpath),proof=B.entry(oldroot/'certificate.json'),root=str(oldroot)))
         need(sum(prepared[i]['period']for i in card['new_indices'])==525 and max(card['new_indices'],key=lambda i:prepared[i]['period'])==139,'fixed4200phase count and largest-period profile')
-        save('input-binding.json',dict(pins=pins,all13=indices,new=card['new_indices'],already_proved=[35,111],scope='Complete13D representative orbit subset only; no interval window census or topology.'))
+        save('input-binding.json',dict(pins=pins,all13=indices,new=card['new_indices'],already_proved=reused,scope='Complete13D representative orbit subset only; no interval window census or topology.'))
         if mode=='profile':
             inp=prepared[139];save('profile-inputs.json',inp);orbit=np.asarray(rows[139]['certificate']['orbit']);times=[];sizes=[]
             with ctx.workprec(768):
