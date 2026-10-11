@@ -13098,3 +13098,17 @@ Contribution list now explicitly includes both13D and72D independent scalar-loss
 ### 2026-10-11T04:57:38.216035+00:00 — Complete-census reading PDF verified
 
 Sourceb8bde3c7 compiles cleanly to47pages/148-wordabstract.474boundnumbers verify; all461previous entries preserved except certified-setting count32→64.22figure hashes unchanged. Every page contact-inspected and changed passages detail-checked. Current PDF SHAc61aa014b85417f3fa49a5f55a343bf656a5f904a3b2e53f6f6e7dc33f1aa812. Fresh immutable QAroot/data2/neural-shrimp-data/paper/gd-route/complete-census-2026-10-11-revision002,manifestba8e2791c43cb6ad84420b82ba6083dd7046726d021d8dfa31ab33b66f0ee6d7. Final LaTeX log clean. Full historical verify.py not rerun.
+
+
+### 2026-10-11 UTC: aggressive cubic pilot failed; prepare actual batch continuation
+
+Sourcec230b809 cubic h1/8,rho2^-8 completed149ticks in63.53s/2,528,792KiB/50.5MB,
+but q1.3390094 and0/705 strict images failed. All705 prior-root membership,
+primitive18/frame/positive-angle checks passed, which cannot promote a curve.
+Exact immutable receipt native705-cubic-pilot-failure.json retained; owned group
+empty. No instability inferred. Do not keep probing widths at the same center.
+Prepare bounded reusable native predictor refresh for genuine new centers:
+180native+5algebra per period18/two-Newton proposal, then the separate fresh
+144native+2algebra proof and full705 joins. Three controls passed0.16s, including
+analytic native endpoints, absence of any proposal-only root claim and complete
+input retention on failure. Future measured profile/batch card/review required.
