@@ -42,3 +42,32 @@ error coefficient; independent base-basis and external nonlinear b directions
 are mandatory, followed by literal native phase-chain identity. Normalization
 and restored v columns are assembled independently. Unrelated comparisons
 and changed-domain/gradient/phase negatives pass; no target arithmetic yet.
+
+
+## Fixed six-prefix saved attempt001
+
+Bind producer d5dcb853, outer1969c37c7b7864a55ca8c714e523e9fe64e82b8301062dcfe5ff5934a514e15e
+and workerb32b5fa607afa0df8127e41c53875162a603160491ea94f5010851c1424c601d.
+Authenticate all577events/40path acquisitions plus every profile and failed
+predecessor/source archive, independent512 organizer and local bridge. Rebuild
+four complete raw acquisitions for every one ofeight tube attempts (including
+two retained failures), exactly identical fullE center/whole input, arbitrary
+finite inverse proposals, and own512 polynomial roots. Only originalaccepted
+3–8 may join, starting from the independently known organizer plus own25D
+paired inverse. Six own endpoint intersections carry the next full51 root.
+
+Each accepted root's independently narrowed image must fit the actual retained
+native input, followed by literal six phase returns and allfour independent
+primitive6/+1/11-complement contexts. Physical gain/leak and normalizedmode
+orientation remain explicit. The final51 endpoint is saved separately at3/8192.
+The old requested1/2048 range and selected generic endpoint remain incomplete.
+
+Zero native calls. Full51 and12D synthetic algebra admission precedes target
+arrays; forecast2*(8root+24nativealgebra)+80s,32xprofilebytes+4MiB. The80s
+allowance covers complete191.9MB source/inventory/decompression and exact-domain
+checks. Fixed180s/2GiB RSS/4GiB AS/128MiB worker with4MiB final reserve;
+195+5owned supervisor130MiB. OneCPU/nice10, exclusive
+audits/clark-correlated-fold-independent/attempt001. Failed outcome/trace and
+all completed arithmetic persist. Twelve controls pass0.43s, actualmetadata
+checked withouttarget reductions. Independent wrapper review/currenthost and
+committed admission still precede launch.
