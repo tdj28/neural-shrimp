@@ -7779,3 +7779,28 @@ current host inventory checked immediately before launch, exclusive output
 absent and no duplicate own worker. Preserve original failed bounds and all
 new LP/native failures; no automatic extension. Checkout remains frozen during
 worker. Independent CIFAR packet f005c22d stays prepared and unlaunched.
+
+### 2026-10-11 — subset successor retained one qualified tube and four failures
+
+The same activity-network critical branch advanced from b=15/8192 to b=1/512
+with one producer-qualified full51 root/strict known-root join and four fresh
+native6 partner/adjacent primitive/simple+1/stable-complement contexts. Exact
+subset radii repaired its original q=1.4871 bound to q=0.825895. Independent
+replay of this new tube remains pending; the prior22-tube replay stays intact.
+
+Execution cf1cd08e completed37.1207s/170812KiB with132 inclusive native phases,
+well within the admitted24-attempt/753-phase/600s envelope. Four following
+completed bounds failed across halfwidths2^-14 through2^-17, with q decreasing
+only3.66022 to3.65720. Their floating LP returned no verified proposal; this
+is not a mathematical infeasibility proof. The run stopped at its declared
+minimum width, retaining all five attempts, proposals,132 native returns and
+immutable source/ownership inventories (134145825 bytes). The b=1/16 target
+and selected generic endpoint were not reached. No native12/24 or global
+window connection follows.
+
+Next: source-reviewed saved-only fixed-parameter endpoint localization, keeping
+its complete original correction domain and monotone known-root intersections.
+The weak response to halving motivates inspecting propagation of the broad
+uniform endpoint enclosure before any further native continuation. Exact pins
+are in docs/reviews/clark-subset-successor-attempt001.json. All owned PIDs are
+absent; code and acquisition outputs are sealed.
