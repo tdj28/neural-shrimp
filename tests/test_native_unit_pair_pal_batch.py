@@ -25,6 +25,7 @@ def test_uniform_proof_never_claims_a_missing_anchor():
  p={'shooting_dimension':705,'dimension':13,'period':18,'gates':{'uniform_full_native_unit_pair_locus':True,'primitive_period':True,'realified_frame_independent':True,'anchor_identified':False},'coordinate_inclusions':[True]*705}
  assert B.uniform_admission(p,True)and not B.uniform_admission(p,False)
  p['coordinate_inclusions'][704]=False;assert not B.uniform_admission(p,True)
+ p['coordinate_inclusions']=[True]*704;assert not B.uniform_admission(p,True)
 
 def fixture():
  z=ball_json(arb(0));one=ball_json(arb(1));p={'period':18,'dimension':13,'parameter_endpoints':['-1/4096','63/4096'],'normal':['1']+['0']*704,'origin':['0']*705,'endpoint_root_boxes':[[z]*705,[z]*705]};c={'period':18,'dimension':13,'parameter_center':'95/4096','parameter_endpoints':['63/4096','127/4096'],'normal':p['normal'][:],'origin':p['origin'][:],'center':[z]*705,'slope':[z]*705,'curvature':[z]*705,'coordinate_radii':[one]*705};return p,c
