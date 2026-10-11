@@ -6639,3 +6639,7 @@ Full13/55 measured synthetic gate before exact saved target arrays. Own
 Krawczyk/divisor/complement and complex bordered physical gradients, strict
 same-root and qualitative selected-direction signs. Zero native acquisition;
 all completed stages and any failed attempt remain immutable.
+
+### 2026-10-10 23:38 PDT — independent same-root physical corner PASS
+
+Own512 complex-bordered gradients agree with producer realtrace/Sylvester: determinant[-148.32±.00875], unit-boundary flip crossing[-5.397±.000235]. Explicit post-outcome direction(-1,11/20000) gives dσ[-.004447±2.89e-7]<0,dτ[3.0471±2.03e-5]>0: qualitative local attracting side only, no finite distance. Own55Krawczyk/properdivisors and ten complementary modes recomputed on exact same independently proved root; strict original containment and all histories bound.1.4442s59624KiB0native. Complete immutable inventories/source/owned exits verified;51rawroots. Shared native augmented acquisitions and Arb remain explicit.
