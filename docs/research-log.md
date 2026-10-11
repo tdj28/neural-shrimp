@@ -8479,3 +8479,18 @@ Source67df26e9 fixed006 completed20.116s/1,490,920KiB; whole owned sampled peak1
 
 
 Prepared correlated quotient math kernel and five synthetic controls (0.16s): exact variable-frame inverse derivative, all physical rate/state tangents, fixed cyclic complement/metrics and complete operator remainder/positive decrease. No target evaluation; future acquisition remains separately bounded and reviewed.
+
+
+### 2026-10-10: fixed007 correlated complement run card
+
+After saved704 localization006 PASS, prepare the sole common-parameter quotient
+unit described in docs/plans/unit-pair-correlated-target.md.36 unrelated native
+calls and full18×11 correlated proof profile precede arrays; then exactly36
+fresh center/whole-tangent derivatives. Original model source and both actual
+rate tangents retained; frozen005 orthogonal complement/metrics and all q/r
+frame derivatives included.240s/4GiB RSS/6GiB AS/64MiB worker,72 total calls,
+255+5s/256MiB parent/66MiB combined owned launcher. No retry/subdivision or new
+basis proposals. Mathematical source peer review and fixed wrapper review plus
+fresh host admission required before target; failures remain immutable. This
+run tests a sufficient complementary stability bound only, not whole-window
+geometry or signed NS coefficient. No target has been executed under this card.
