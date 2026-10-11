@@ -16486,3 +16486,7 @@ Retained proof-profile001 remains unchanged at145 calls and zero target. Fresh00
 ### 2026-10-11 — admit corrected unrelated profile and unchanged correlated target
 
 Stability cleared746ef82d, all five controls18.88s including real full180-call profile. Fresh002 repeats the measured profile under unchanged limits and can acquire the single fixed target only if all measured/source/known-root gates pass. Old145-call zero-target attempt001 remains mandatory immutable evidence. All own preceding workers exited; source frozen for this one CPU1/4GiB unit.
+
+### 2026-10-11 — full correlated profile passes; compressed historical binding retained
+
+Sourcea3f1d248 completed all180 unrelated calls/186ticks and passed measured resource admission. Plain JSON reader then rejected the historical compressed certificate before any new target call (14.639s,428172KiB). Preserve complete immutable002 source and inventories. A bounded gzip decoder and actual saved-certificate schema control will repair only packaging for exclusive003; same scientific domain and caps.
