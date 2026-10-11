@@ -12178,3 +12178,7 @@ Source67df26e9 fixed006 completed20.116s/1,490,920KiB; whole owned sampled peak1
 
 
 Prepared correlated quotient math kernel and five synthetic controls (0.16s): exact variable-frame inverse derivative, all physical rate/state tangents, fixed cyclic complement/metrics and complete operator remainder/positive decrease. No target evaluation; future acquisition remains separately bounded and reviewed.
+
+### 2026-10-11T00:21Z — PAL schema control and census retry admission
+
+Clark cleared helper mathematics e7cd955b and census envelope repair729da953. Root then compared actual PathJet.serialized source and corrected helper expected shape from named a/b to literal two-list serialization; added synthetic actual-schema/domain-rejection control, no target evaluated. Census fresh002 fixed three-phase profile is now admitted under unchanged reviewed caps/cases, with target still separately gated by measured costs.

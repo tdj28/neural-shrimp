@@ -56,12 +56,12 @@ def path_coefficients(center,slope,curvature,d,events,n,p,normal,origin,sc):
             expected=[(z[off+i],z[off+j*n+i])for i in range(n)]+[(z[-3],const(arb(0))),(z[-2],const(arb(0)))]
             need(len(event['inputs'])==n+2 and len(event['returns'])==n,'full path acquisition shape')
             for old,(a,b)in zip(event['inputs'],expected,strict=True):
-                need(set(old)=={'a','b'} and len(old['a'])==len(old['b'])==4,'full actual input jet')
-                for outer,inner in zip(old['a']+old['b'],a+b,strict=True):U.contains(outer,ball_json(inner),'each retained native path derivative domain')
-            for item in event['returns']:need(set(item)=={'a','b'} and len(item['a'])==len(item['b'])==4,'full return jet')
-            returns.append([([R.original_ball(v)for v in item['a']],[R.original_ball(v)for v in item['b']])for item in event['returns']])
+                need(type(old)is list and len(old)==2 and len(old[0])==len(old[1])==4,'full actual input jet')
+                for outer,inner in zip(old[0]+old[1],a+b,strict=True):U.contains(outer,ball_json(inner),'each retained native path derivative domain')
+            for item in event['returns']:need(type(item)is list and len(item)==2 and len(item[0])==len(item[1])==4,'full return jet')
+            returns.append([([R.original_ball(v)for v in item[0]],[R.original_ball(v)for v in item[1]])for item in event['returns']])
         for i in range(n):
-            need(all(U.same_ball(a,b)for a,b in zip(events[2*k]['returns'][i]['a'],events[2*k+1]['returns'][i]['a'],strict=True)),'same state Taylor returns')
+            need(all(U.same_ball(a,b)for a,b in zip(events[2*k]['returns'][i][0],events[2*k+1]['returns'][i][0],strict=True)),'same state Taylor returns')
             rows.append(add(returns[0][i][0],scale(z[nxt+i],-1)))
         for group,ret in [(n,returns[0]),(2*n,returns[1])]:
             for i in range(n):
