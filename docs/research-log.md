@@ -12158,3 +12158,15 @@ Prepared a conditional known-root/parameter-tangent Neumann kernel and four
 analytic/synthetic controls for the correlated method described in
  docs/plans/unit-pair-correlated-complement.md. The full704 fixed driver/card
 is next; no target localization or new derivatives have been evaluated.
+
+### 2026-10-10 — Fixed saved704 correlated-localization unit card
+
+Boundary independently skimmed8fe8c142 generic localization kernel and reproduced
+four controls0.08s:PASS, conditional on complete predictor-root derivative domains.
+The new fixed driver/card supplies these domains via the exact original finite704
+source and groups4/5/6, and binds the independent704 root/anchor proof plus005's
+completed uniform-bound failure. Soleattempt006-localization:240s/4GiB/64MiB,
+fresh dense704 synthetic profile before research arrays, no native calls and no
+complementary-stability trial. Seven kernel/driver controls pass. Source/card
+peer review and current host check precede launch; any derivative acquisition
+will need its own measured fixed packet after this outcome.
