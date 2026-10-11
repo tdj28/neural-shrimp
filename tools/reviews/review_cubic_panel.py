@@ -1,4 +1,4 @@
-"""Saved two-chart adapter; producer-authored wrapper, independent core reductions.
+"""Saved whole33 prefix adapter; producer-authored wrapper, independent core reductions.
 
 Every fixed scalar domain and the full global acquisition tree are reconstructed
 here. All original curve roots/joins remain independently source-bound. No native
@@ -24,7 +24,7 @@ FILES=sorted(set(B.FILES+P.FILES+[f'tools/reviews/{pre}{n}.py'for pre in('','nat
 
 
 def card_check(card):
-    need(card['status']=='reviewed'and card['limits']==LIMITS and card['ordinals']==[33,34]and card['maximum_domains']==16 and card['maximum_centers']==96,'literal reviewed saved panel card')
+    need(card['status']=='reviewed'and card['limits']==LIMITS and card['ordinals']==[33]and card['maximum_domains']==16 and card['maximum_centers']==96,'literal reviewed saved panel card')
     need(card['measured_producer']==P.MEASURED,'literal measured producer reference')
     for k in('producer','initial_independent'):
         need(set(card[k])=={'root','source','outer','worker'}and all(type(v)is str and v for v in card[k].values()),'completed literal '+k+' pins')
@@ -50,51 +50,58 @@ def exact_union(rows,endpoints):
 
 
 def history(out,run,pc):
-    need(out['passed']and out['status']=='two_cubic_charts_complement_covered'and out['domains_done']==16 and not out['pending_cells'],'complete two-chart producer')
-    all_attempts=out['completed_attempts'];need(16<=len(all_attempts)<=96 and len(out['completed_charts'])==2,'fixed global96 center bound')
+    need(out['passed']is False and out['status']=='failed_or_incomplete'and out['error']=='ValueError: fixed maximum refinement depth'and out['domains_done']==9,'exact retained partial panel and depth3 stop')
+    all_attempts=out['completed_attempts'];need(12<=len(all_attempts)<=96 and len(out['completed_charts'])==1,'bounded complete33 and terminal34 history')
     B.pairs(run,0,144);cursor=144;index=0;selected=[];stages=[]
     for spec in pc['charts']:
         ordinal=spec['ordinal'];folder=run/f'charts/{ordinal:03d}';domains=fixed_domains(spec);accepted=[]
-        for d in domains:
+        for d in (domains if ordinal==33 else domains[:1]):
             part=folder/f"domains/{d['index']:03d}";dom=read(part/'domain-outcome.json')
             need(dom==dict(passed=True,domain=d,dimension=705,native_calls=90,first_call=cursor+1,last_call=cursor+90),'exact successive90-call domain')
-            B.pairs(part,cursor,90);stages.append(dict(chart=ordinal,domain=d,start=cursor));cursor+=90;queue=[fixed_cell(domains,d['index'],0,0)]
+            B.pairs(part,cursor,90)
+            if ordinal==33:stages.append(dict(chart=ordinal,domain=d,start=cursor))
+            cursor+=90;queue=[fixed_cell(domains,d['index'],0,0)]
             while queue:
                 need(index<len(all_attempts),'complete literal binary subtree');cell=queue.pop(0);number=index+1;r=all_attempts[index];index+=1;part=folder/f'cells/{number:03d}'
                 need(r['chart']==ordinal and r['ordinal']==number and r['cell']==cell and r['completed']and r['native_calls']==126 and r['dimension']==705 and r['complement_dimension']==11 and r['first_call']==cursor+1 and r['last_call']==cursor+126,'global ordered126-call full705 attempt')
                 native={k:v for k,v in r.items()if k not in('chart','ordinal')}
                 need(read(part/'cell-input.json')==cell and read(part/'cell-outcome.json')==native and read(run/f'completed-attempt-{number:03d}.json')==r,'literal durable attempt records')
-                B.pairs(part,cursor,126)
+                B.pairs(part,cursor,126);cursor+=126
                 if r['passed']:
-                    item=dict(chart=ordinal,ordinal=number,cell=cell,start=cursor);selected.append(item);accepted.append(item)
+                    need(ordinal==33,'no terminal chart34 cell promoted');item=dict(chart=ordinal,ordinal=number,cell=cell,start=cursor-126);selected.append(item);accepted.append(item)
                 else:
-                    need(r['passed']is False and cell['depth']<3 and read(part/'complement.json')['passed']is False,'only complete negative metric split')
+                    need(r['passed']is False and read(part/'complement.json')['passed']is False,'only complete negative metric history')
+                    if ordinal==34:
+                        need(cell['domain']==1 and cell['index']==0,'exact four left-descending terminal failures')
+                    if cell['depth']==3:
+                        need(ordinal==34 and index==len(all_attempts)and out['pending_cells']==queue,'literal terminal failure and remaining siblings; no retry')
+                        break
                     queue=[fixed_cell(domains,cell['domain'],cell['depth']+1,2*cell['index']+k)for k in(0,1)]+queue
-                cursor+=126
-        complete=read(run/f'complete-chart-{ordinal:03d}.json')
-        need(complete==out['completed_charts'][ordinal-33]and complete['chart']==ordinal and complete['root_index']==spec['root_index'],'literal complete chart/source row')
-        u=exact_union([dict(v,passed=True,complement_dimension=11)for v in accepted],spec['parameter_endpoints'])
-        need(complete['union']==dict(passed=True,endpoints=u['endpoints'],accepted_cells=len(accepted),domain_count=8),'original exact full chart completion')
-    need(index==len(all_attempts)and out['accepted_cells']==[all_attempts[r['ordinal']-1]for r in selected],'all accepted producer leaves, no selected subset')
-    need(out['native_calls']==cursor==144+16*90+126*index<=13680 and out['profile_native_calls']==144 and out['target_native_calls']==cursor-144,'complete global13680 acquisition history')
+        if ordinal==33:
+            complete=read(run/'complete-chart-033.json')
+            need(complete==out['completed_charts'][0]and complete['chart']==33 and complete['root_index']==spec['root_index'],'literal complete chart33/source row')
+            u=exact_union([dict(v,passed=True,complement_dimension=11)for v in accepted],spec['parameter_endpoints'])
+            need(complete['union']==dict(passed=True,endpoints=u['endpoints'],accepted_cells=len(accepted),domain_count=8),'original exact full chart33 completion')
+    need(index==len(all_attempts)and out['accepted_cells']==[all_attempts[r['ordinal']-1]for r in selected],'all accepted producer leaves; chart34 remains unqualified')
+    need(out['native_calls']==cursor==144+9*90+126*index<=13680 and out['profile_native_calls']==144 and out['target_native_calls']==cursor-144,'complete global13680 acquisition history')
     return stages,selected
 
 
 def metadata(w,card):
     card_check(card)
-    root,rt,out,inventory=B.A.S.bundle(card['producer'],w.tick);run=root/'run';pc=read(run/'source'/P.CARD);P.card_check(pc)
+    root,rt,out,inventory=B.A.S.bundle(card['producer'],w.tick,code=2);run=root/'run';pc=read(run/'source'/P.CARD);P.card_check(pc)
     need(pc['initial_independent']==card['initial_independent']and rt['caps']==P.CAPS,'same initial independent32 and reviewed producer caps')
     for n in P.G.B.NATIVE+P.G.M.T.PATH_FILES:need(rt['sources'][n]==B.A.S.entry(ROOT/n),'unchanged acquired native/path source')
     for n in('tools/probe_native705_cubic_panel.py','tools/bind_native705_cubic_panel.py','src/neural_shrimp/cubic_complement_panel.py'):
         need(rt['sources'][n]==B.A.S.entry(ROOT/n),'literal producer adapter grammar '+n)
     profile=read(run/'batch-profile.json');need(profile['passed']and profile['maximum_total_calls']==13680,'whole global budget profiled before acquisition')
-    stages,cells=history(out,run,pc);w.prefix='';previous=P.initial(w,pc);contexts=[]
-    for spec in pc['charts']:
+    stages,cells=history(out,run,pc);need(len(out['completed_attempts'])==74 and len(cells)==39 and out['native_calls']==10278,'literal sealed74-attempt/39-leaf source');w.prefix='';previous=P.initial(w,pc);contexts=[]
+    for spec in pc['charts'][:1]:
         original=P.G.metadata(spec,previous,w.tick);saved=read(run/f"charts/{spec['ordinal']:03d}/context/input-binding.json")
         need(saved['index']==original['index']and saved['prior_card']==original['independent_binding']['card']and saved['prior_stable_authority']==previous and saved['prior_projection']==original['anchor_projection']and saved['predictor']==spec['predictor']and saved['coefficient_artifacts']==spec['coefficients'],'literal original full705 root/gauge/source context')
         completed=read(run/f"complete-chart-{spec['ordinal']:03d}.json");need(completed['predecessor']==previous,'literal completed prior-root link')
         contexts.append((spec,original));previous=dict(index=spec['root_index'],complete_complement_endpoints=spec['parameter_endpoints'],producer_prefix_ordinal=spec['ordinal'])
-    w.save('authority-binding.json',dict(producer=card['producer'],initial_independent=card['initial_independent'],charts=pc['charts'],inventories=inventory,domains=stages,cells=cells,authorship='Producer-agent wrapper reviewed/executed by root; shared source/metadata and finite decoding, separately authored root/tangent/point/quotient arithmetic unchanged.'))
+    w.save('authority-binding.json',dict(producer=card['producer'],initial_independent=card['initial_independent'],charts=pc['charts'][:1],retained_unqualified_chart=pc['charts'][1],retained_failed_attempts=[71,72,73,74],inventories=inventory,domains=stages,cells=cells,authorship='Producer-agent wrapper reviewed/executed by root; shared source/metadata and finite decoding, separately authored root/tangent/point/quotient arithmetic unchanged.'))
     return run,stages,cells,contexts
 
 
@@ -131,7 +138,7 @@ def main():
                         if item['chart']!=ordinal or item['cell']['domain']!=domain['domain']['index']:continue
                         row=C.one(w,run/f'charts/{ordinal:03d}',item,data,shared);row['chart']=ordinal;local.append(row);w.rows.append(row);w.save(f'prefix-{len(local):02d}.json',dict(rows=local));gc.collect()
                 union=exact_union(local,spec['parameter_endpoints']);w.save('union.json',union);w.completed.append(dict(chart=ordinal,union=union,original_root=spec['root_index']));del data,shared;gc.collect()
-            need(len(w.completed)==2 and len(w.rows)==len(cells),'entire independently replayed two-chart union');w.tick();result.update(passed=True,complement_dimension=11,scope='Independent full11 complementary stability on whole existing cubic33–34, joined by original full705 uniqueness to independently qualified whole32. Neutral critical pair retained; no final-junction or full-window claim.')
+            need(len(w.completed)==1 and len(w.rows)==len(cells)==39,'entire independently replayed whole33 union');w.tick();result.update(passed=True,complement_dimension=11,scope='Independent full11 complementary stability on whole existing cubic33, joined by original full705 uniqueness to independently qualified whole32. All four chart34 failures remain unqualified. Neutral critical pair retained; no final-junction or full-window claim.')
     except BaseException as exc:result.update(passed=False,error=type(exc).__name__+': '+str(exc),traceback=traceback.format_exc())
     finally:
         signal.setitimer(signal.ITIMER_REAL,0);w.prefix='';result.update(completed_charts=w.completed,completed_cells=w.rows,elapsed_seconds=time.monotonic()-w.start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);w.save('outcome.json',result,True);w.save('manifest.json',dict(files={str(p.relative_to(OUT)):B.A.S.entry(p)for p in OUT.rglob('*')if p.is_file()}),True)
