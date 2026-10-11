@@ -2,7 +2,7 @@
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path('/data2/neural-shrimp-data/explore/cifar/stationary-seed/fresh512001')
+OUT=Path('/data2/neural-shrimp-data/explore/cifar/stationary-seed/fresh512002')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 def entry(p):
     h=hashlib.sha256()
@@ -37,7 +37,7 @@ def main():
     resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,12*1024**3))
     OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0;parent_peak=0
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();command=[sys.executable,str(ROOT/'tools/explore_cifar_current512.py')]
-    meta={'source_commit':source,'launcher_pid':os.getpid(),'argv':command,'load':os.getloadavg(),'mem_available_kib':available,'started_unix':time.time(),'internal_seconds':400,'external_seconds':415,'kill_grace_seconds':5,'worker_rss_kib':4*1024**2,'worker_as_bytes':12*1024**3,'launcher_rss_kib':256*1024,'output_cap_bytes':1538*1024**2,'threads':dict.fromkeys(THREADS,'1'),'nice':os.getpriority(os.PRIO_PROCESS,0)}
+    meta={'source_commit':source,'launcher_pid':os.getpid(),'argv':command,'load':os.getloadavg(),'mem_available_kib':available,'started_unix':time.time(),'internal_seconds':1500,'external_seconds':1515,'kill_grace_seconds':5,'worker_rss_kib':4*1024**2,'worker_as_bytes':12*1024**3,'launcher_rss_kib':256*1024,'output_cap_bytes':1538*1024**2,'threads':dict.fromkeys(THREADS,'1'),'nice':os.getpriority(os.PRIO_PROCESS,0)}
     save('launcher-start.json',meta);(OUT/'launcher.py').write_bytes(Path(__file__).read_bytes());env=dict(os.environ,**dict.fromkeys(THREADS,'1'),PYTHONDONTWRITEBYTECODE='1')
     with(OUT/'process.log').open('xb')as log:
         try:
@@ -45,7 +45,7 @@ def main():
             while proc.poll()is None:
                 _,rss=owned(proc.pid);peak=max(peak,rss);parent_peak=max(parent_peak,current_rss_kib())
                 if peak>4*1024**2 or parent_peak>256*1024:raise MemoryError('owned4GiB/launcher256MiB cap')
-                if time.monotonic()-start>415:raise TimeoutError('external415s cap')
+                if time.monotonic()-start>1515:raise TimeoutError('external1515s cap')
                 if sum(p.stat().st_size for p in OUT.rglob('*')if p.is_file())>1538*1024**2:raise OSError('combined1538MiB output cap')
                 time.sleep(.25)
         except BaseException as exc:failure=type(exc).__name__+': '+str(exc)

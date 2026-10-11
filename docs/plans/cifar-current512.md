@@ -28,3 +28,11 @@ immutable manifests and verified owned termination retained. Failed gates stop,
 without changing resource/scientific criteria. A negative fixedunit is complete
 numerical evidence, not a stationary/cycle result. Independent actual acceptance
 review follows before a new current-state solve.
+
+Time-only amendment,11October: fresh512001 completed full unrelated profile
+but stopped before target arrays,0native. Literal retained native maxima include
+1.109992s HVP/.928012s gradient, giving1319.57s conservative forecast. Preserve
+these maxima (no timing selection), same scientific/call/memory/storage gates;
+raise solely worker400→1500s and supervisor415→1515s. Fresh exclusive002,
+mandatory complete failed001 inventory, and fresh full-size measured admission.
+LocalCPU only,$0. No target action occurred in the first attempt.

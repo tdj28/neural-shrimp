@@ -12,15 +12,17 @@ from neural_shrimp.cifar_current_correction import correct,SETTINGS
 from neural_shrimp.cifar_nested_krylov import extend
 from neural_shrimp.cifar_reorthogonalized import orthogonalize,SETTINGS as KS
 B=N.B;E=N.E;U=N.U;need=U.need;read=U.read;entry=U.entry;Store=N.Store
-BASE=Path('/data2/neural-shrimp-data/explore/cifar/stationary-seed/fresh512001')
+BASE=Path('/data2/neural-shrimp-data/explore/cifar/stationary-seed/fresh512002')
 CARD='docs/plans/cifar-current512-inputs.json'
+FAILED=BASE.with_name('fresh512001')
+FAILED_PIN='cb796aaeff1fce47e3479226725fcd011387fccd819f5fc3124de3976dc6bfb0'
 CAPS=dict(action=0,j2vp=0,hvp=514,direct_gradient=18)
-LIMITS=dict(seconds=400,rss_kib=4*1024**2,as_bytes=12*1024**3,raw_bytes=1536*1024**2)
-EXTRA=['tools/explore_cifar_current512.py','tools/launch_cifar_current512.py','src/neural_shrimp/cifar_current_correction.py','tests/test_cifar_current_correction.py','tests/test_cifar_current512_driver.py','docs/plans/cifar-current512.md',CARD,'docs/reviews/cifar-nested512001.json']
+LIMITS=dict(seconds=1500,rss_kib=4*1024**2,as_bytes=12*1024**3,raw_bytes=1536*1024**2)
+EXTRA=['tools/explore_cifar_current512.py','tools/launch_cifar_current512.py','src/neural_shrimp/cifar_current_correction.py','tests/test_cifar_current_correction.py','tests/test_cifar_current512_driver.py','docs/plans/cifar-current512.md',CARD,'docs/reviews/cifar-nested512001.json','docs/reviews/cifar-current512-profile-failure.json']
 def install():N.install();B.SOURCES=tuple(dict.fromkeys(tuple(B.SOURCES)+tuple(EXTRA)))
 class Budget:
  def __init__(self,event):self.start=time.monotonic();self.event=event;self.attempted=dict.fromkeys(CAPS,0);self.returned=dict.fromkeys(CAPS,0);self.stopped=False
- def check(self):need(not self.stopped and time.monotonic()-self.start<LIMITS['seconds']and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<LIMITS['rss_kib'],'owned400s4GiB budget')
+ def check(self):need(not self.stopped and time.monotonic()-self.start<LIMITS['seconds']and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<LIMITS['rss_kib'],'owned1500s4GiB budget')
  def call(self,kind,fn,*a,**kw):
   self.check();need(self.attempted[kind]<CAPS[kind],'fixed native cap '+kind);self.attempted[kind]+=1;t=time.monotonic();self.event(dict(kind='operation_started',operation=kind,index=self.attempted[kind]));v=fn(*a,**kw);self.returned[kind]+=1;self.event(dict(kind='operation_returned',operation=kind,index=self.returned[kind],seconds=time.monotonic()-t));self.check();return v
 
@@ -32,6 +34,7 @@ def check_card(c):
 
 
 def bind(c,inventory,runtime,budget,store):
+ U.inventory(FAILED,FAILED_PIN,budget.check);failed=read(FAILED/'run/result.json');need(failed['operation_attempted']==failed['operation_returned']==dict.fromkeys(CAPS,0)and read(FAILED/'run/profile.json')['target_arrays_unopened']and not read(FAILED/'launcher-result.json')['owned_live_pids'],'preserved full-size timing-only failure');store.json('prior-profile-failure.json',dict(root=str(FAILED),outer=FAILED_PIN,source=failed['source_commit']))
  parent,index,old,*_=N.bind(c['history'],inventory,runtime,budget,store)
  p=c['positive512'];path=Path(p['root']);need(path==N.BASE,'literal completed larger-space comparison')
  U.inventory(path,p['outer'],budget.check);U.inventory(path/'run',p['worker'],budget.check);row=read(path/'run/result.json');U.source(path,row,p['source'])

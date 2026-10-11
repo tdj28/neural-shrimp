@@ -15000,3 +15000,13 @@ f0adc44d with outerdc03a47c/workerc7d4dfa2 mandatory. Card now reviewed.
 Launch exactly the fixed400s4GiB/514HVP18gradient unit only after its full-size
 measured profile passes. All old derivatives remain historical; no fresh
 current action or accepted correction exists at admission time.
+
+### 2026-10-11 — preserve current512 timing admission and amend only runtime
+
+Source0398e031 full unrelated512 profile completed13.253s/1737212KiB, but
+conservative all-history native maximum1.109992HVP/.928012gradient gives
+1319.57s forecast above400s. Targetarrays unopened,0native, exactcomplete
+inventories andownedexitverified; failurecb796aae preserved. Retain the same
+worst observed timing data and change only1500sworker/1515+5supervisor, fresh
+002, mandatoryfailed001 binding. No scientific/native/memory/storage changes;
+new measured profile and narrow peer review required before retry.

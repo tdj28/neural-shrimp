@@ -16,7 +16,7 @@ def test_current_card_rejects_old_operator_and_missing_audit():
 def test_profile_covers_all_fresh_actions_and_retention():
  r=W.forecasts(.05,3.,dict(hvp=.04,direct_gradient=.02),8.,1024**2,1024**2)
  assert r['passed']and r['forecast_raw_bytes']>900*1024**2
- assert not W.forecasts(1.,3.,dict(hvp=.04,direct_gradient=.02),8.,1024**2,1024**2)['passed']
+ assert not W.forecasts(2.,3.,dict(hvp=.04,direct_gradient=.02),8.,1024**2,1024**2)['passed']
  with pytest.raises(ValueError):W.forecasts(float('nan'),3.,dict(hvp=.04,direct_gradient=.02),8.,1,1024**2)
 
 def test_completed_negative_and_accepted_units_account_every_call():
