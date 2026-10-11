@@ -12921,3 +12921,11 @@ Prepare fixed saved diagnostic per native705-correlated-margins.md; no native
 calls or new proof. Exact current matrix coefficient norms are numerical
 proposal diagnostics; future width/radius changes require fresh acquisitions.
 No diagnostic executed yet; peer review and committed card precede it.
+
+### 11 October2026 UTC — peer-cleared saved margin execution
+
+Clark cleared34d8c631 margin mathematics/binding/resource scope and reproduced
+2controls0.08s. Execute only correlated001/attempt001-margins,90s6GiB10GiBAS/
+16MiB andowned105+5, CPU1nice10, fresh16GiB headroom gate. No model call or new
+proof; current saved coefficients cannot validate any changed-width/radius
+domain. Wider705 independent outcome replay now belongs to Clark.
