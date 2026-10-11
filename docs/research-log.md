@@ -7485,3 +7485,15 @@ Prior full51 profile plus entire actual93-phase two-chart cost forecast precede
 arrays;600s2GiB2GiBraw/615+5owned,993inclusivephase cap. No acquisition yet;
 peer source review/card admission required. Descending numerical index corrected
 from fold01 to literal fold47 during metadata-only preparation before any run.
+
+### 2026-10-11 — finite native6 extent admission
+
+Root f51a98c5 complete source/math/binding/resource PASS; six controls
+reproduced1.25s. Admit sole attempt001 with the literal card reviewed. Same
+32-attempt growth/halving ladder, original radius ceilings, full51 predecessor
+joins, native6 partner/adjacent/primitive/complement and separate fixed-gain
+generic endpoint gates. Measured full prior profile plus actual two-chart floor
+forecasts565.579s/1,880,805,088bytes under600s/2GiB raw;993native-phase ceiling.
+Fresh04:10PDT host52GiB available/load1.50,2.6TiB free,GPU0%15947MiB free,
+no owned duplicate. LocalCPU1nice10,2GiB RSS4GiB AS,615+5 owned. This is an
+exploratory finite connection unit; partial prefixes/failures remain explicit.
