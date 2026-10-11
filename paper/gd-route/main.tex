@@ -77,7 +77,7 @@ Global resonance ancestry & 0: exploratory/adapted & Near-root scaling is sugges
 ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
-CIFAR and language-model transfer & 0: exploratory development & Curved CIFAR corrections improve local gradient-merit progress. Transformer experiments establish full-state Jacobian-order sensitivity; prediction pilots have not yet improved their ordinary baselines. \\
+CIFAR and language-model transfer & 0: exploratory development & Curved CIFAR corrections improve local gradient-merit progress. Transformer experiments establish full-state Jacobian-order sensitivity and recover quarter-rate responses with a temporal correction; a training or forecasting benefit remains untested. \\
 Full-state orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including all \nCensusAll{} census representatives in 13 or 72 dimensions. Each new representative is independently proved by scalar-loss automatic differentiation. \\
 Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALVisualCharts{} positive-angle charts extend its connected geometry, with independently proved transverse stability and an attracting side throughout the first \nPALStableCharts{}. The same connected branch reaches a complex-unit/flip intersection with an adjacent open attracting sector and a finite joined flip locus. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
@@ -1100,6 +1100,16 @@ predecessor inclusion extend the same regular physical boundary and connected
 adjacent attracting family through chart 33. See
 \path{docs/reviews/native705-chart33-boundary-hypotheses.json}.
 
+Beyond these 33 complete charts, \nChartThirtyFourPrefixCells{} independently
+checked closed cells cover $[83/512,57/256]$ of chart 34. All eleven
+complementary multiplier moduli are below $\xChartThirtyFourPrefixComplement$.
+The preceding endpoint lies inside the original full 705-coordinate
+uniqueness tube, whose root proof excludes every proper divisor of 18.
+This supplies a connected complementary-stability cover on the stated prefix;
+the uncovered tail remains outside the claim. The retained record includes
+every failed subdivision and does not count this as a complete 34th chart.
+See \path{docs/reviews/native705-cubic34-prefix-paper-review.json}.
+
 \paragraph{A certified complex-unit/simple-flip junction.}
 A local certificate encloses a primitive period-18 orbit at physical rates approximately
 $(\eta_h,\eta_o)=(\xUnitFlipHidden,\xUnitFlipOutput)$ where a nonreal conjugate pair has unit modulus
@@ -1158,6 +1168,16 @@ piece proves the root, every full-state predecessor inclusion and exclusion
 of all proper divisors of 18. All 23 producer attempts, including the seven
 failed wider bounds, remain in the record. See
 \path{docs/reviews/native470-march-independent.json}.
+
+An output-rate parameterization then extends this same $-1$ critical locus beyond
+the hidden-rate charts. An independent full 470-coordinate inclusion proves
+contraction below $\xOutputFlipContraction$ and exact attachment to the
+predecessor; primitive period 18 is retained. Its connected endpoint has
+physical rates approximately
+$(\eta_h,\eta_o)=(\xOutputFlipHidden,\xOutputFlipOutput)$.
+The change of parameterization is checked through full-coordinate root
+membership, so it does not rely on agreement of projected curves.
+See \path{docs/reviews/native470-output-independent-attempt002.json}.
 
 \paragraph{A second exact intersection.}
 A separate local certificate encloses another primitive period-18
@@ -1896,6 +1916,62 @@ progress toward stationarity. The forcing qualification applies to the initial
 tangent $p$, and is not transferred to $p+\alpha a$.
 See \path{docs/reviews/cifar-curved-path-independent.json}.
 
+At the selected curved endpoint, a fresh full 512-dimensional correction
+uses 514 Hessian-vector products and ten gradients, including qualification
+and line search. The true
+forcing ratio is $\xCifarFreshForcing<0.5$, but the nonlinear line search again
+limits progress: three trials leave the global trust region and four further
+trials fail merit decrease before the first acceptance at $\alpha=1/128$.
+The gradient norm falls from $\xCifarFreshOldNorm$ to $\xCifarFreshNewNorm$,
+with squared-gradient merit ratio $\xCifarFreshMeritRatio$.
+An independent replay checks the complete basis, all 511 recurrence rows,
+the retained actions and all eight trial decisions.
+See \path{docs/reviews/cifar-curved512-independent.json}.
+
+\paragraph{A quadratic remainder explains the local step-size restriction.}
+For this fresh direction $p$, write $g(\alpha)=\nabla L(\theta+\alpha p)$
+and $r(\alpha)=g(\alpha)-g(0)-\alpha H p$. From the two retained gradients at
+$\alpha=1/16$ and $1/32$, fit
+\[
+ c=\frac12\left[\frac{r(1/16)}{(1/16)^2}
+                 +\frac{r(1/32)}{(1/32)^2}\right],\qquad
+ \widehat g(\alpha)=g(0)+\alpha Hp+\alpha^2c.
+\]
+The three remaining retained gradients check the approximation without
+further model evaluations. Define the gradient error by
+$\|\widehat g-g\|/\|g\|$, the increment error by
+$\|\widehat g-g\|/\|g-g(0)\|$, and the merit ratio by
+$\|g\|^2/\|g(0)\|^2$.
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\captionsetup{hypcap=false}
+\centering\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Step & Gradient error & Increment error & Predicted merit & Actual merit \\
+\midrule
+$1/8$ & $\xCifarRayLargeGradientError$ & $\xCifarRayLargeIncrementError$ & $\xCifarRayLargePredictedMerit$ & $\xCifarRayLargeActualMerit$ \\
+$1/64$ & $\xCifarRayRejectedGradientError$ & $\xCifarRayRejectedIncrementError$ & $\xCifarRayRejectedPredictedMerit$ & $\xCifarRayRejectedActualMerit$ \\
+$1/128$ & $\xCifarRayAcceptedGradientError$ & $\xCifarRayAcceptedIncrementError$ & $\xCifarRayAcceptedPredictedMerit$ & $\xCifarRayAcceptedActualMerit$ \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Retrospective quadratic approximation along the fresh CIFAR
+correction. Errors are relative fractions. The two fit gradients are excluded
+from these checks; all five gradients were already consumed development data.}
+\label{tab:cifarray}
+\end{minipage}\par\medskip
+
+The quadratic term reproduces the merit increase at the last rejected step
+and the decrease at the first accepted step (Table~\ref{tab:cifarray}).
+Its error relative to the nonlinear remainder is below 10\% at all three
+checks, whereas the largest step fails the fixed 1\% full-gradient criterion.
+Thus the calculation diagnoses the observed line-search restriction locally;
+it does not yet provide a prospectively validated step selector or a
+stationary-point certificate. The saved-vector replay is also cross-checked
+by an independent extended-precision reduction of all 98,666 coordinates.
+See \path{docs/reviews/cifar-ray-remainder-attempt001.json} and
+\path{docs/reviews/cifar-ray-paper-independent.json}.
+
 \paragraph{An exact structural reduction, with a negative solver diagnostic.}
 For the same fixed-input full-batch model with ridge term $\lambda\|\theta\|^2/2$, write the first-layer weights
 as $W=QB+N$, where $Q$ has orthonormal columns spanning a space containing $\operatorname{range}(X^\top)$,
@@ -2230,11 +2306,58 @@ is a retrospective response comparison. It motivates an explicit temporal
 correction rather than a claim of improved training or online prediction.
 See \path{docs/reviews/tiny-lm-block-mean-independent.json}.
 
+\paragraph{First-order block variation recovers the quarter-rate responses.}
+Set $A=\overline B$, $v_k=A^k u$ and $r_0=0$, and propagate
+\[
+ r_{k+1}=Ar_k+(B_k-A)v_k.
+\]
+The corrected prediction $v_8+r_8$ is the first-order expansion at
+$\varepsilon=0$ of
+\[
+ [A+\varepsilon(B_7-A)]\cdots[A+\varepsilon(B_0-A)]u,
+\]
+evaluated at $\varepsilon=1$. Each correction uses the full state and the
+observed block at its actual location in the product. A separate replay
+verifies all \nLMFirstOrderActions{} retained Hessian-vector actions and
+\nLMFirstOrderMeans{} correction means; both nonlinear-response amplitudes
+and the CE-slope qualification remain unchanged.
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\captionsetup{hypcap=false}
+\centering\small
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Initialization & Rate & Vector error & Alignment & CE-slope error \\
+\midrule
+1 & Original & $\xLMFirstOrderOneOriginalError$ & $\xLMFirstOrderOneOriginalAlignment$ & $\xLMFirstOrderOneOriginalSlopeError$ \\
+1 & Quarter & $\xLMFirstOrderOneQuarterError$ & $\xLMFirstOrderOneQuarterAlignment$ & $\xLMFirstOrderOneQuarterSlopeError$ \\
+2 & Original & $\xLMFirstOrderTwoOriginalError$ & $\xLMFirstOrderTwoOriginalAlignment$ & $\xLMFirstOrderTwoOriginalSlopeError$ \\
+2 & Quarter & $\xLMFirstOrderTwoQuarterError$ & $\xLMFirstOrderTwoQuarterAlignment$ & $\xLMFirstOrderTwoQuarterSlopeError$ \\
+\bottomrule
+\end{tabular}
+\captionof{table}{First-order temporal correction of the two-step-block mean,
+using the same four qualified responses as Table~\ref{tab:lmblockmean}.
+The quarter-rate cases recover direction as well as response magnitude.}
+\label{tab:lmfirstorder}
+\end{minipage}\par\medskip
+
+At the quarter rates, the relative response errors fall by factors
+$\tLMFirstOrderImprovement$ compared with the block mean. At the original
+rates, both fixed gates---20\% accuracy and twofold improvement over the block
+mean---remain failed. First-order temporal variation is therefore sufficient
+for accurate response reconstruction in these two quarter-rate cases, but
+insufficient at the original rates. This is a learning-rate-dependent
+mechanistic result on consumed trajectories. Because the calculation uses
+the complete observed path, training acceleration and future-response
+prediction require separate tests.
+See \path{docs/reviews/tiny-lm-block-first-order-independent.json}.
+
 \section{Discussion}
 \label{sec:discussion}
 
-Everything in this section is interpretation. The confirmed results in Section~\ref{sec:confirmed} stand on
-their own, and the hypotheses here need their own prespecified tests.
+This section relates the training results to broader mechanisms and to
+fixed-weight recurrent activity. The recurrent-network certificates below
+are separate rigorous results; proposed applications require their own tests.
 
 The local part of the thesis now rests on several independent kinds of evidence: the crossing multipliers, the
 normal-form coefficient and its dynamical checks, agreement of sampled rotation numbers with corresponding
@@ -2445,6 +2568,22 @@ selected numerical fold. See
 \path{docs/reviews/clark-correlated-prefix-independent.json} and
 \path{docs/reviews/clark-correlated-extension-independent.json}.
 
+The same critical branch now extends through
+\nRNNExtendedFoldTubes{} independently joined tubes to $b=1/512$.
+The additional positive-amplitude tubes retain primitive native period six,
+the simple $+1$ multiplier and eleven attracting complementary modes.
+The final endpoint enclosure is independently tightened within its original
+certified endpoint box before continuation. These joins extend the known
+branch, without assigning the generic-fold curvature at the original
+selected gain to every later point.
+See \path{docs/reviews/clark-correlated-extent-independent.json} and
+\path{docs/reviews/clark-subset-endpoint-independent-attempt004.json}.
+A subsequent bounded attempt tests four narrower parameter widths but
+accepts no new tube: the uniform interval bounds remain unresolved.
+The proved endpoint stays at $b=1/512$; this failure is a limitation of the
+current enclosure, not evidence that the physical branch ends there.
+See \path{docs/reviews/clark-localized-successor-paper-review.json}.
+
 \paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter
 space. Freezing weights stops that map; sensitivity of fixed-weight predictions and feedback during generation
 require separate measurements. Parameter symmetries can even leave predictions unchanged along weight motion.
@@ -2490,7 +2629,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. Complete-grid screening and connected-component assignment remain numerical; all \nCensusAll{} agreed representatives now have exact full-state orbit proofs. The \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold; its $+1$ locus reaches the exact generic 1:1 resonance, and the connected complex-unit branch reaches the complex-unit/simple-flip junction. A finite $-1$ locus passes through that same junction. Uniform complementary stability and a connected adjacent attracting family are proved along the first \nPALStableCharts{} positive-angle charts, with an open attracting sector at the junction. Closing the intervening stability coverage, extending the flip boundary and connecting the finite attracting interior segment remain active tasks. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold; its $+1$ locus reaches the exact generic 1:1 resonance, and the connected complex-unit branch reaches the complex-unit/simple-flip junction. A finite $-1$ locus passes through that same junction. Uniform complementary stability and a connected adjacent attracting family are proved along the first \nPALStableCharts{} positive-angle charts, with an additional independently covered prefix of chart 34 and an open attracting sector at the junction. The joined flip locus now continues in an output-rate parameterization. Closing the intervening stability coverage, connecting the second junction and attaching the finite attracting interior segment remain active tasks. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.

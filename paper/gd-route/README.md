@@ -33,7 +33,11 @@ argument, a regular attracting side and a continuous nearby attracting family.
 Charts31,32 and33 now have complete independently proved31-,22- and39-cell covers, respectively, with full705-coordinate joins and all11 complementary modes strictly inside the unit circle. All 101 charts and exact full705 membership
 now independently connect the branch to the same certified complex-unit/flip junction.
 Independently verified470-dimensional tubes prove a finite joined flip locus; the latest16-piece extension covers hidden-rate affine extent7.5, retaining all23 attempts.
-Later complementary stability and extension of the flip boundary remain active. On the entire original
+A further68 independently checked cells cover the connected chart34 prefix
+[83/512,57/256], with complementary moduli below0.985169; this is not a complete
+34th chart. A full470 independent proof also extends the flip branch in an
+output-rate parameterization. Later complementary stability and the connection
+to the second junction remain active. On the entire original
 finite arc, independent 480-bit arithmetic proves all eleven complementary
 multiplier moduli below 0.843 using a common Lyapunov metric. Their receipts
 and exact coefficient bounds are in the manuscript and `docs/reviews/`.
@@ -48,19 +52,27 @@ two cusps with unstable complements, and a scalar supercritical Neimark–Sacker
 bifurcation. Separate fixed-weight RNN proofs include an attracting4D activity cycle and
 an exact12D generalized-flip organizer with a rigorously joined local critical
 curve and a generic fold of asymmetric native six-cycles, with primitive
-native period six and eleven attracting complementary modes. Clark's arXiv2610.12426 is cited and its scope distinguished.
+native period six and eleven attracting complementary modes. The independently
+connected critical chain now has31pieces through squared amplitude1/512;
+the next four-width attempt accepted no new piece. Clark's arXiv2610.12426 is cited and its scope distinguished.
 
 ## Wider experiments and open work
 
 The numerical census reports61 independently cross-checked periodic-window representatives. All61 now have exact primitive attracting-cycle certificates; the26 new13D and32 new72D proofs are independently reconstructed by1024-bit scalar-loss automatic differentiation on the same boxes. These are orbit proofs; connected window boundaries and surrounding chaos require their respective geometry/dynamics evidence.
 CIFAR development currently reduces a98666-parameter orbit residual without yet
-meeting the closure gate. Transformer prediction/response pilots have not shown
-incremental utility over ordinary baselines. A separate independently audited15776D
+meeting the closure gate. Transformer response experiments now recover quarter-rate responses with a
+first-order temporal correction; training and forecasting utility remain untested. A separate independently audited15776D
 operator-order intervention now shows strong reversal-even sensitivity in both
 expanded-arm original-rate trajectories, with much smaller same-state quarter-rate
-contrasts. Preserving adjacent-step blocks strongly attenuates the original ordering contrast. An independently replayed two-step mean then reduces original-rate vector errors by46.72x/27.54x over the single-step mean but still fails directional accuracy. These are full saved-trajectory response comparisons, not changed training.
+contrasts. Preserving adjacent-step blocks strongly attenuates the original ordering contrast. An independently replayed two-step mean then reduces original-rate vector errors by46.72x/27.54x over the single-step mean but still fails directional accuracy. The subsequent independently replayed448-action first-order temporal correction
+reduces quarter-rate errors to7.02%/2.76% (14.84x/20.33x below the block mean),
+while original-rate accuracy gates remain failed. These are full saved-trajectory
+response comparisons, not changed training.
 A same-start curved CIFAR correction independently improves gradient-merit
-decrease from0.82% to2.04%; stationarity remains the continuation target.
+decrease from0.82% to2.04%. A fresh512-dimensional correction at that endpoint
+accepts1/128 with merit ratio0.995627. A retained-vector quadratic remainder
+fit reproduces the last rejected/first accepted merit classification but fails
+the all-check1% gradient-error criterion; stationarity remains the continuation target.
 The retained inference comparison
 has0/1536changed greedy decisions at its consumed calibration prefixes. Protected
 assessment inputs and reserved seeds remain unopened. Native N12 RNN boundary

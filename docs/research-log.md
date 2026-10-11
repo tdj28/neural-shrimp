@@ -17524,3 +17524,38 @@ Run: nice10 oneCPU tools/reviews/launch_cubic34_narrow_review.py, output
 Zero native;480bits;3600s4GiB RSS6GiB AS1GiB raw/4MiB reserve,3615+5 owned.
 Full705 unrelated profile and unchanged conservative192-center cold-cost gate
 precede arrays. Preserve any stopped or failed independent attempt.
+
+### 2026-10-11T15:35:44.213688+00:00 — Refresh the paper for the requested credit-limit handoff
+
+The human requested a manuscript update before transferring the research to a
+new agent. This turn launches no scientific experiment, paid job, GPU work or
+protected-data evaluation. Integrated the completed reviewed signed470
+output-coordinate audit, chart34 prefix audit sources, and retained RNN/CIFAR
+outcomes into the paper branch without changing the canonical Claude-owned log.
+
+The updated manuscript includes the connected68-cell chart34 stability prefix
+(33 whole charts remain the count), the exact470 output-coordinate connection,
+the independently joined31-piece native6 critical branch through b=1/512 and
+its subsequent unsuccessful four-width attempt. It adds the independent448-action
+first-order LM response comparison and fresh512 CIFAR correction with the
+quadratic-ray diagnosis. The LM quarter-rate errors are7.02%/2.76%; original-rate
+accuracy and improvement gates remain failed. CIFAR's all-check1% gradient-error
+gate also remains failed; the result is retrospective local diagnosis.
+
+Separate reviewers checked the proof records and mathematical prose, and a
+full98666-coordinate longdouble reduction independently reproduced30 ray metrics
+within3.55e-15. Compact receipts are in docs/reviews. The generator's first
+attempt exposed a compact-vs-full RNN receipt comparison; named-field binding
+fixed that bookkeeping error. Full regeneration and --verify then passed596
+source-bound quantities:37 new, no previous value/label changes. The22 figure
+outputs are byte-identical. The161-word abstract is unchanged. latexmk passed
+with57 pages and zero warnings/overfull/underfull boxes; all57 page contacts and
+detail pages1,2,21,22,41,47,51 were visually inspected without overlap or clipping.
+The broader historical scientific verify.py was not rerun.
+
+Completed the previously interrupted separate-disk backup:35703 files,
+8684123594 bytes, manifest24bf496a3977aa85298753f74299b0ea357ea7e2c747f51343fa3059307fa946.
+The two formerly running task-owned jobs' launcher/worker PIDs were absent in
+an actual host /proc check before backup. Full global window closure and the
+pending prepared research packets remain next-session work; this is a reading
+and handoff checkpoint, not research completion.

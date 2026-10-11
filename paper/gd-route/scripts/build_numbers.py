@@ -2573,6 +2573,142 @@ def build():
     es=[erp,err/"manifest.json",prp,Path(prefix["root"])/"manifest.json"]
     n.add("nRNNFoldTubes",8,"8",proof,es,"six plus two independently joined full51 critical tubes from the exact organizer to squared amplitude1/2048")
     n.add("tRNNFoldCurvature",[str(lo),str(hi)],r"[-0.015859138005,\,-0.015859138003]",proof,es,"outward-rounded independent total physical leak curvature with respect to squared amplitude, at original selected fixed gain")
+    # First-order block variation on the same four independently qualified LM paths.
+    fop=c.ROOT/"docs/reviews/tiny-lm-block-first-order-independent.json";fo=load(fop);foroot=Path(fo["root"])
+    assert fo["schema"]=="tiny-lm-block-first-order-independent-v1"
+    bound_inventory(foroot/"manifest.json",fo["outer"]["sha256"])
+    assert c.sha256(foroot/"run/manifest.json")==fo["worker"]["sha256"]
+    foo=load(foroot/"run/result.json");assert foo==fo["result"]and foo["passed"]and foo["native_calls"]==0
+    assert foo["retained_hvp_checked"]==448 and foo["correction_means_checked"]==28 and foo["maximum_mean_rounding_ratio"]<=1
+    assert foo["descriptive"]==dict(all_four_qualified=True,accurate_in_both_originals=False,twice_better_than_block_mean_in_both=False)
+    assert [(row["seed"],row["rate_role"])for row in foo["cases"]]==[(seed,role)for seed in(28161,28162)for role in("original","quarter_step")]
+    bmreceipt=c.ROOT/"docs/reviews/tiny-lm-block-mean-independent.json";bmr=load(bmreceipt);bmroot=Path(bmr["root"])
+    fob=load(foroot/"run/input-binding.json")
+    assert any(entry["root"]==str(bmroot)and entry["manifest"]==bmr["outer"]["sha256"]for entry in fob["inventories"])
+    fosources=[fop,foroot/"manifest.json",foroot/"run/result.json",bmreceipt,bmroot/"manifest.json"]
+    label="exploratory, independently replayed full15776D first-order block variation; four consumed retrospective development cases"
+    for j,row in enumerate(foo["cases"]):
+        assert row["qualified"]and row["inherited_response_qualified"]and row["comparison"]["qualified"]
+        assert row["comparison"]["gates"]==dict(qualification=.01,vector_error=.2,improvement_factor=2.)
+        tag=["OneOriginal","OneQuarter","TwoOriginal","TwoQuarter"][j];metrics=row["comparison"]["comparisons"]["first_order"]
+        for suffix,key in [("Error","vector_error"),("Alignment","signed_alignment"),("SlopeError","training_ce_slope_error")]:
+            value=metrics[key]
+            n.add("xLMFirstOrder"+tag+suffix,value,fixed(value,5),label,fosources,"horizon16 first-order block-variation prediction versus the same qualified nonlinear response: "+key+"; errors are fractions, not percentages")
+    quarter=[row for row in foo["cases"]if row["rate_role"]=="quarter_step"]
+    improvements=[row["block_mean_comparison"]["comparisons"]["block_mean"]["vector_error"]/row["comparison"]["comparisons"]["first_order"]["vector_error"]for row in quarter]
+    assert all(row["comparison"]["comparisons"]["first_order"]["vector_error"]<.2 for row in quarter)and all(value>2 for value in improvements)
+    n.add("tLMFirstOrderImprovement",improvements,",\\ ".join(fixed(value,2)for value in improvements),label,fosources,"quarter-rate block-mean error divided by first-order error, fixed seed order; retrospective response accuracy, not training speed")
+    for macro,key in [("nLMFirstOrderActions","retained_hvp_checked"),("nLMFirstOrderMeans","correction_means_checked")]:
+        value=foo[key];n.add(macro,value,integer(value),label,fosources,"independent complete saved action/recurrence replay count: "+key)
+
+    # Fresh full512 correction at the previously selected curved endpoint.
+    ffp=c.ROOT/"docs/reviews/cifar-curved512-independent.json";ff=load(ffp);ffroot=Path(ff["root"])
+    assert ff["schema"]=="cifar-curved512-independent-v1"
+    bound_inventory(ffroot/"manifest.json",ff["outer"]["sha256"])
+    assert c.sha256(ffroot/"run/manifest.json")==ff["worker"]["sha256"]
+    ffo=load(ffroot/"run/outcome.json");assert ffo==ff["outcome"]and ffo["passed"]and ffo["native_calls"]==0
+    ffb=load(ffroot/"run/input-binding.json");assert ffb==ff["input_binding"]and ffb["counts"]==dict(hvp=514,direct_gradient=10)
+    assert ffb["all_hessian_actions_at_selected_curved_one_over32"]and ffb["old_basis_reused"]==0
+    assert ffo["numerical_action_rank"]==512 and ffo["recurrence_rows"]==511 and ffo["qualification"]["passed"]
+    correction=ffo["correction"];assert correction["accepted_index"]==7 and correction["direction_gate"]["passed"]and not correction["stationarity_qualified"]
+    assert [trial["alpha"]for trial in correction["trials"]]==[1.,.5,.25,.125,.0625,.03125,.015625,.0078125]
+    assert [trial["within_trust"]for trial in correction["trials"]]==[False]*3+[True]*5
+    assert correction["trials"][-1]["accepted"]and correction["direction_gate"]["true_forcing"]<.5
+    ffnew=correction["gradient_norm"];ffold=ffnew/np.sqrt(ffo["merit_ratio"])
+    ffsources=[ffp,ffroot/"manifest.json",ffroot/"run/outcome.json"]
+    label="exploratory, independently replayed fresh512 full-state correction at the selected curved endpoint; no stationarity certificate"
+    for macro,value,display,calc in [
+        ("xCifarFreshForcing",correction["direction_gate"]["true_forcing"],fixed(correction["direction_gate"]["true_forcing"],6),"physical norm of g+Hp divided by norm of g"),
+        ("xCifarFreshMeritRatio",ffo["merit_ratio"],fixed(ffo["merit_ratio"],6),"first acceptedalpha1/128 new/old squared-gradient merit"),
+        ("xCifarFreshOldNorm",ffold,sci(ffold,6),"old full-gradient norm derived from new norm divided by square root of audited merit ratio"),
+        ("xCifarFreshNewNorm",ffnew,sci(ffnew,6),"full-gradient norm at the fixed first-acceptedalpha1/128 endpoint")]:
+        n.add(macro,value,display,label,ffsources,calc)
+
+    # Same-ray quadratic remainder diagnosis; all five points already consumed.
+    ryp=c.ROOT/"docs/reviews/cifar-ray-remainder-attempt001.json";ry=load(ryp);ryroot=Path(ry["root"])
+    bound_inventory(ryroot/"manifest.json",ry["outer"]["sha256"])
+    assert c.sha256(ryroot/"run/manifest.json")==ry["worker"]["sha256"]
+    ryo=load(ryroot/"run/outcome.json");ryd=load(ryroot/"run/diagnosis.json");ryb=load(ryroot/"run/input-binding.json")
+    assert ryo["passed"]and ry["outcome"]["execution_passed"]and ryo["new_native_calls"]==ryd["new_native_calls"]==ry["outcome"]["new_native_calls"]==0
+    assert ryo["rows"]==ryd["rows"]==ry["outcome"]["rows"]and not ryo["quadratic_sufficiency_qualified"]and not ryd["quadratic_sufficiency_qualified"]and not ry["outcome"]["quadratic_sufficiency_qualified"]
+    assert ryo["all_five_consumed_development"]and ryd["all_five_consumed_development"]and ryb==ry["input_binding"]and ryb["all_five_consumed"]
+    assert ryb["independent"]==dict(root=str(ffroot),source=ff["execution"],outer=ff["outer"]["sha256"],worker=ff["worker"]["sha256"])
+    assert ryb["producer"]==dict(root=ffb["producer"],source=ffb["source"],outer=ffb["pins"][0],worker=ffb["pins"][1])
+    expected_settings=dict(alphas=[1/8,1/16,1/32,1/64,1/128],fit_indices=[1,2],check_indices=[0,3,4],gradient_error_limit=.01,remainder_error_limit=.1,remainder_relative_floor=1e-12)
+    assert ryd["settings"]==ry["settings"]==ryb["settings"]==expected_settings
+    assert [row["role"]for row in ryo["rows"]]==["check","fit","fit","check","check"]
+    assert np.isclose(ryd["initial_gradient_norm"],ffold,rtol=1e-14,atol=0)and ryd["rows"][-1]["gradient_norm"]==ffnew
+    assert ryd["rows"][-1]["actual_merit_ratio"]==ffo["merit_ratio"]
+    assert all(ryo["rows"][j]["gradient_change_eligible"]and ryo["rows"][j]["remainder_eligible"]and ryo["rows"][j]["remainder_relative_error"]<.1 for j in [0,3,4])
+    assert ryo["rows"][0]["gradient_relative_error"]>.01 and all(ryo["rows"][j]["gradient_relative_error"]<.01 for j in [3,4])
+    ryreviewp=c.ROOT/"docs/reviews/cifar-ray-paper-independent.json";ryreview=load(ryreviewp)
+    assert ryreview["passed"]and ryreview["method"]["full_coordinates"]==98666 and ryreview["maximum_absolute_scalar_discrepancy"]<1e-12 and ryreview["new_native_calls"]==0
+    assert ryreview["bindings"]["diagnosis"]["sha256"]==c.sha256(ryroot/"run/diagnosis.json")
+    for path,identity in ryreview["source_vectors"].items():
+        assert Path(path).stat().st_size==identity["bytes"]and c.sha256(Path(path))==identity["sha256"]
+    rysources=[ryp,ryroot/"manifest.json",ryroot/"run/diagnosis.json",ryreviewp]+ffsources
+    label="exploratory retrospective quadratic-gradient remainder fit on five consumed development trials; fixed check gate failed"
+    for tag,j in [("Large",0),("Rejected",3),("Accepted",4)]:
+        row=ryo["rows"][j]
+        for suffix,key in [("GradientError","gradient_relative_error"),("IncrementError","quadratic_error_over_actual_gradient_change"),("PredictedMerit","quadratic_merit_ratio"),("ActualMerit","actual_merit_ratio")]:
+            value=row[key]
+            n.add("xCifarRay"+tag+suffix,value,fixed(value,6),label,rysources,"fixed checkalpha="+str(Fraction(row["alpha"]))+": "+key+"; errors are fractions, not percentages; fit uses onlyalpha1/16 and1/32")
+
+    # Independently replayed chart34 prefix; never round this to a whole chart.
+    p34p=c.ROOT/"docs/reviews/native705-cubic34-prefix-paper-review.json";p34=load(p34p);p34root=Path(p34["root"])
+    bound_inventory(p34root/"manifest.json",p34["outer_manifest"]["sha256"])
+    p34o=load(p34root/"run/outcome.json");p34u=load(p34root/"run/union.json");p34a=load(p34root/"run/authority-binding.json")
+    assert p34["passed"]and p34["evidence_rung"]==3 and p34["chart"]==34 and not p34["complete_chart"]
+    assert p34o["passed"]and p34o["native_calls"]==0 and p34o["complement_dimension"]==11 and len(p34o["completed_cells"])==68
+    assert p34u==p34o["union"]==dict(passed=True,complement_dimension=11,total_cells=68,endpoints=["83/512","57/256"])
+    p34spans=sorted(tuple(map(Fraction,v["cell"]["endpoints"]))for v in p34o["completed_cells"])
+    assert p34spans[0][0]==Fraction(83,512)and p34spans[-1][1]==Fraction(57,256)and all(a[1]==b[0]for a,b in zip(p34spans,p34spans[1:]))
+    assert all(v["passed"]and v["complement_dimension"]==11 and ball_endpoints(v["modulus"])[1]<Fraction(985169,10**6)for v in p34o["completed_cells"])
+    p34join=p34a["stable_prefix_join"];assert p34join["passed"]and Fraction(83,512)<=Fraction(p34join["projection"][0])<=Fraction(p34join["projection"][1])<=Fraction(57,256)
+    p34original=p34a["chart"]["root_index"]["independent"];p34proofpath=Path(p34original["root"])/"run"/p34original["proof"]["path"]
+    assert c.sha256(p34proofpath)==p34original["proof"]["identity"]["sha256"]
+    p34proof=load(p34proofpath);assert p34proof["passed"]and all(p34proof["gates"].values())and p34proof["root"]["dimension"]==705 and len(p34proof["root"]["coordinate_inclusions"])==705 and all(p34proof["root"]["coordinate_inclusions"])
+    assert [v["divisor"]for v in p34proof["proper_divisors"]]==[1,2,3,6,9]and all(v["coordinates"]for v in p34proof["proper_divisors"])
+    p34sources=[p34p,p34root/"manifest.json",p34proofpath]
+    n.add("nChartThirtyFourPrefixCells",len(p34o["completed_cells"]),"68",proof,p34sources,"exact closed independently reconstructed complementary-stability prefix of chart34, [83/512,57/256], joined to independently complete33; not a wholechart34 claim")
+    n.add("xChartThirtyFourPrefixComplement","985169/1000000","0.985169",proof,p34sources,"strict upward rational bound for all11 complementary multipliers on all68 closed prefix cells; original primitive18 full705 root and prior projection retained")
+
+    # Changed-output-gauge full470 continuation, with all-coordinate predecessor identity.
+    ofp=c.ROOT/"docs/reviews/native470-output-independent-attempt002.json";of=load(ofp);ofroot=Path(of["root"])
+    bound_inventory(ofroot/"manifest.json",of["outer"]["sha256"]);ofo=load(ofroot/"run/outcome.json");ofproof=load(ofroot/"run/independent512.json")
+    assert ofo==of["outcome"]and ofo["passed"]and ofo["native_calls"]==0 and ofo["root_coordinates"]==ofo["anchor_coordinates"]==470
+    assert ofproof["passed"]and all(ofproof["gates"].values())and ofproof["root"]["passed"]and len(ofproof["root"]["coordinate_inclusions"])==470 and all(ofproof["root"]["coordinate_inclusions"])
+    assert ofproof["anchor"]["passed"]and ofproof["anchor"]["parameter_inside"]and ofproof["anchor"]["coordinates"]==470
+    assert [v["divisor"]for v in ofproof["primitive"]]==[1,2,3,6,9]and all(v["coordinates"]for v in ofproof["primitive"])
+    assert ball_endpoints(ofo["contraction"])[1]<Fraction(69279977,10**9)
+    ofendpointpath=ofroot/"run/connected-right-endpoint.json";assert c.sha256(ofendpointpath)==of["endpoint"]["sha256"]and ofendpointpath.stat().st_size==of["endpoint"]["bytes"]
+    ofendpoint=load(ofendpointpath);assert ofendpoint["dimension"]==13 and ofendpoint["period"]==18 and len(ofendpoint["box"])==470 and ofendpoint["exact_parameter"]==ofo["exact_parameter"]
+    ofsources=[ofp,ofroot/"manifest.json"]
+    n.add("xOutputFlipContraction","69279977/1000000000","0.069279977",proof,ofsources,"strict upward full470 uniform-root contraction bound after independently checked changed-output-coordinate projection; does not assert complementary stability or generic flip")
+    for macro,index,digits in [("xOutputFlipHidden",468,4),("xOutputFlipOutput",469,10)]:
+        lo,hi=ball_endpoints(ofendpoint["box"][index]);assert lo>0
+        n.add(macro,ofendpoint["box"][index],fixed(float((lo+hi)/2),digits),proof,ofsources,"approximate midpoint display of the same independently enclosed connected full470 right endpoint physical rate; interval stored, not a point-exact decimal")
+
+    # Previously eight proved RNN tubes plus22 full51/native6 pieces and one strict subset successor.
+    rep=c.ROOT/"docs/reviews/clark-correlated-extent-independent.json";re=load(rep);reroot=Path(re["root"])
+    rsp=c.ROOT/"docs/reviews/clark-subset-endpoint-independent-attempt004.json";rs=load(rsp);rsroot=Path(rs["root"])
+    bound_inventory(reroot/"manifest.json",re["outer"]["sha256"]);bound_inventory(rsroot/"manifest.json",rs["outer"]["sha256"])
+    reo=load(reroot/"run/outcome.json");rso=load(rsroot/"run/outcome.json");rei=load(reroot/"run/input-binding.json");rsi=load(rsroot/"run/input-binding.json")
+    assert reo==re["outcome"]and reo["passed"]and reo["native_calls"]==0 and reo["prior_independent_tubes"]==8 and reo["new_independent_tubes"]==len(reo["accepted"])==22 and reo["new_native_contexts"]==88 and reo["range"]==["1/2048","15/8192"]
+    assert all(rso[k]==rs["outcome"][k]for k in ["passed","native_calls","new_independent_tubes","new_native_contexts","prior_independent_tubes","range","peak_rss_kib"])and rso["elapsed_seconds"]==rs["outcome"]["seconds"]
+    assert rso["passed"]and rso["native_calls"]==0 and rso["prior_independent_tubes"]==30 and rso["new_independent_tubes"]==1 and rso["new_native_contexts"]==4 and rso["range"]==["15/8192","1/512"]
+    rinitialp=c.ROOT/"docs/reviews/clark-correlated-extension-independent.json";rinitial=load(rinitialp)
+    assert rei["independent_extension"]["root"]==rinitial["root"]and rei["independent_extension"]["outer"]==rinitial["outer"]["sha256"]and rinitial["outcome"]["range"]==["0","1/2048"]and rinitial["outcome"]["prior_independent_tubes"]+rinitial["outcome"]["new_independent_tubes"]==reo["prior_independent_tubes"]
+    assert rsi["known"]["root"]==str(reroot)and rsi["known"]["outer"]==re["outer"]["sha256"]and rsi["known"]["endpoint"]==re["endpoint"]
+    assert c.sha256(reroot/"run/connected-endpoint.json")==re["endpoint"]["sha256"]and c.sha256(rsroot/"run/connected-endpoint.json")==rs["endpoint"]["sha256"]
+    rtotal=reo["prior_independent_tubes"]+reo["new_independent_tubes"]+rso["new_independent_tubes"];assert rtotal==31==rso["prior_independent_tubes"]+rso["new_independent_tubes"]
+    # Preserve the later unsuccessful acquisition explicitly; it adds no tube.
+    rfailp=c.ROOT/"docs/reviews/clark-localized-successor-paper-review.json";rfail=load(rfailp);rfroot=Path(rfail["root"])
+    bound_inventory(rfroot/"manifest.json",rfail["outer_manifest"]["sha256"]);rfout=load(rfroot/"run/outcome.json");rfcont=load(rfroot/"run/continuation.json")
+    assert not rfout["passed"]and rfcont["accepted"]==0 and len(rfcont["attempts"])==4 and rfail["existing_independent_tubes"]==rtotal and rfail["initial_and_final_parameter"]=="1/512"
+    assert ball_endpoints(rfcont["last_parameter"])==(Fraction(1,512),Fraction(1,512))
+    n.add("nRNNExtendedFoldTubes",rtotal,str(rtotal),proof,[rinitialp,rep,reroot/"manifest.json",rsp,rsroot/"manifest.json",rfailp,rfroot/"manifest.json"],"eight prior plus22 independently joined full51/native6 critical tubes plusone independently checked strict subset successor, ending at squared amplitude1/512; four later failed bounds add zero; no uniform generic-fold claim")
+
     return n
 
 
