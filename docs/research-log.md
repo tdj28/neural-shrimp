@@ -8432,3 +8432,20 @@ and4 algebra stages. Host52GiB available/load1.85, GPU previously0%15947MiB;
 no duplicate ownprocess. Exact independently known24prefix root is mandatory.
 All failed bounds and acquired inputs/outputs remain immutable. Prepared audit
 guide specifies a separate independent replay, not an outcome claim.
+
+### 11 October2026 UTC — four-times-wider correlated native705 curve passed
+
+Execution99b6f71e completed132.819s/3766432KiB/148ticks, all144 native calls.
+Every705 strict interval inclusion and every705 full projected known-root
+membership passed, with primitive18/frame/whole positive t. Contraction bound
+0.06672096213 on[-49/2048,79/2048] vs old failed1/128halfwidth q.9984.
+Right physical endpoint is about(72.9729,.828984),t.00884. This extends the
+same independently known branch; no whole shrimp or final55junction proof.
+Root owns independent saved reconstruction next. Raw385620844bytes is below
+1GiB cap but above synthetic64.6MB forecast; actual132.8s above forecast120.2s
+also remains below240s cap. Future packets must use this actual dense-model
+measurement as well as synthetic profile, especially storage and runtime.
+All old failed bounds preserved. Receipt native705-correlated-target.json
+binds outer28393e38.../workerda963cfe... and complete audit guide. No own jobs
+remain. Next prioritize measured larger steps/reusable continuation, retaining
+all exact branch joins and scientific gates.
