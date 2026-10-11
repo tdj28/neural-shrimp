@@ -33,3 +33,19 @@ def test_invalid_proposal_domain_fails_before_acquisition():
  model=Polynomial();N=9;z=[arb(0)]*N;calls=[]
  with pytest.raises(ValueError):correlated_tube(model,z,z,z,arb_mat(N,N),period=1,normal=z,origin=z,parameter='0',halfwidth_exponent=-1,radius_exponent=-1,weights=[arb(-1)]*N,tick=lambda:calls.append(1))
  assert not calls
+
+
+def test_compact_evidence_keeps_native_returns_exact_inverse_and_identical_gates():
+ with ctx.workprec(256):
+  model=Polynomial();ini,kw=fixture(model,1);kw.update(parameter='3/1024',halfwidth_exponent=-11)
+  old,data=quadratic_tube(model,ini,**kw);N=len(ini);C=arb_mat([[decode(v)for v in row]for row in old['preconditioner']])
+  args=dict(period=1,normal=[exact(v)for v in kw['normal']],origin=[arb(0)]*N,parameter='3/1024',halfwidth_exponent=-11,radius_exponent=-12,weights=[arb(1)]*N,anchor={'box':data['endpoints'][0],'exact_parameter':'5/2048','dimension':2,'period':1})
+  records=[];full=correlated_tube(model,data['center'],data['slope'],data['curvature'],C,**args)
+  slim=correlated_tube(model,data['center'],data['slope'],data['curvature'],C,**args,compact=True,observe=lambda k,v:records.append((k,v)))
+  assert full['passed']==slim['passed']is True and full['gates']==slim['gates']
+  for k in ['contraction','coordinate_inclusions','radii','whole_image']:assert full['bound'][k]==slim['bound'][k]
+  for i,M in enumerate(slim['inverse_polynomial_exact']):
+   assert all(arb(tuple(v))==decode(full['inverse_polynomial'][i][j][k])for j,row in enumerate(M)for k,v in enumerate(row))
+  assert sum(k=='gradient_path_input'for k,v in records)==sum(k=='gradient_path_return'for k,v in records)==4
+  assert all('coefficients'not in v and v['shape']==[9,9]for k,v in records if k=='gradient_path_assembly_return')
+  assert len(slim['bound']['image_radius_ratio_upper'])==N

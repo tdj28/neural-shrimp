@@ -11,7 +11,7 @@ from .rigorous_orbits import eye,matrix_json,ball_json,vector_json
 from .rigorous_eigenpair_locus import require,finite
 
 
-def correlated_inverse_bound(C,J,residual,weights,radius,halfwidth,*,tick=lambda:None):
+def correlated_inverse_data(C,J,residual,weights,radius,halfwidth,*,tick=lambda:None):
     n=len(weights)
     require(1<=n<=705 and len(C)==2 and len(J)==3 and len(residual)==4,'full bounded polynomial shapes')
     require(all(v.nrows()==v.ncols()==n and finite(v)for v in C+J),'full finite matrix polynomials')
@@ -34,4 +34,25 @@ def correlated_inverse_bound(C,J,residual,weights,radius,halfwidth,*,tick=lambda
     require(finite(defect)and finite(forcing)and finite(image),'finite full correlated images')
     bound=max((sum((abs(defect[i,j]).upper()*weights[j]for j in range(n)),arb(0))/weights[i]).upper()for i in range(n))
     included=[bool(abs(image[i,0]).upper()<radii[i])for i in range(n)]
-    return {'passed':bool(bound<1 and all(included)),'dimension':n,'contraction':ball_json(bound),'coordinate_inclusions':included,'radii':vector_json(radii),'defect_coefficients':[matrix_json(v)for v in dc],'forcing_coefficients':[matrix_json(v)for v in rc],'whole_defect':matrix_json(defect),'whole_image':matrix_json(image),'scope':'Conditional same-domain full-dimensional Krawczyk sufficient inequalities only. Requires independently authenticated Jacobian/residual Taylor enclosures and exact inverse proposals on the actual curved correction tube; no primitive orbit, connection, spectrum or new derivative claim.'}
+    return {'passed':bool(bound<1 and all(included)),'dimension':n,'contraction':bound,'coordinate_inclusions':included,'radii':radii,'defect_coefficients':dc,'forcing_coefficients':rc,'whole_defect':defect,'whole_image':image}
+
+
+def serialize_correlated_inverse(data,*,dense=True):
+    """Serialization only; dense=False retains gates while derived arrays replay.
+
+    Native input/returns and the finite exact C polynomial are mandatory caller
+    evidence. They uniquely determine every omitted derived matrix at the
+    recorded arithmetic settings; this flag changes no mathematical bound.
+    """
+    require(type(dense)is bool,'explicit derived-array retention mode')
+    result={'passed':data['passed'],'dimension':data['dimension'],'contraction':ball_json(data['contraction']),'coordinate_inclusions':data['coordinate_inclusions'],'radii':vector_json(data['radii']),'scope':'Conditional same-domain full-dimensional Krawczyk sufficient inequalities only. Requires independently authenticated Jacobian/residual Taylor enclosures and exact inverse proposals on the actual curved correction tube; no primitive orbit, connection, spectrum or new derivative claim.'}
+    if dense:
+        result.update(defect_coefficients=[matrix_json(v)for v in data['defect_coefficients']],forcing_coefficients=[matrix_json(v)for v in data['forcing_coefficients']],whole_defect=matrix_json(data['whole_defect']),whole_image=matrix_json(data['whole_image']))
+    else:
+        result.update(derived_matrices_retained=False,whole_image=matrix_json(data['whole_image']),image_radius_ratio_upper=vector_json([(abs(data['whole_image'][i,0]).upper()/r).upper()for i,r in enumerate(data['radii'])]),reconstruction='Full noncommuting C(d)*J(d,e) and C(d)*residual convolution from retained native analytic outputs and finite exact inverse proposal; all mathematical operations and inequalities unchanged.')
+    return result
+
+
+def correlated_inverse_bound(C,J,residual,weights,radius,halfwidth,*,tick=lambda:None):
+    """Historical full derived-array serialization, unchanged mathematical API."""
+    return serialize_correlated_inverse(correlated_inverse_data(C,J,residual,weights,radius,halfwidth,tick=tick))

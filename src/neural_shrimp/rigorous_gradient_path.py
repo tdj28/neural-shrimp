@@ -52,7 +52,8 @@ def entire_first_paths(t):
     return tuple(PathJet([f.a[1],2*f.a[2]*t.a[1],2*f.a[2]*t.a[2]+3*f.a[3]*t.a[1]*t.a[1],0])for f in base)
 
 
-def jacobian_path_coefficients(model,center,slope,curvature,error,d,period,normal,*,tick=lambda:None,observe=lambda k,v:None):
+def jacobian_path_coefficients(model,center,slope,curvature,error,d,period,normal,*,tick=lambda:None,observe=lambda k,v:None,retain_assembly=True):
+    require(type(retain_assembly)is bool,'explicit assembly retention mode')
     n=model.n;m=3*n;size=m*period+3
     require(type(period)is int and 1<=period<=18 and 2<=n<=13,'native phase dimensions')
     require(all(len(v)==size for v in [center,slope,curvature,error,normal]),'all native mode/rate/angle coordinates')
@@ -99,5 +100,7 @@ def jacobian_path_coefficients(model,center,slope,curvature,error,d,period,norma
                     J[k][size-2,n+i]=z[2*n+i].a[k];J[k][size-2,2*n+i]=z[n+i].a[k]
     for j in range(size):J[0][size-1,j]=normal[j]
     require(all(finite(v)for v in J),'full finite native Jacobian Taylor coefficients')
-    observe('gradient_path_assembly_return',{'d':ball_json(d),'coefficients':[matrix_json(v)for v in J]})
+    summary={'d':ball_json(d),'coefficient_orders':[0,1,2],'shape':[size,size],'derived_assembly_retained':retain_assembly}
+    if retain_assembly:summary['coefficients']=[matrix_json(v)for v in J]
+    observe('gradient_path_assembly_return',summary)
     return J
