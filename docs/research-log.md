@@ -8401,3 +8401,13 @@ controls0.88s. Execute only pal/correlated001/attempt001-profile: unchanged
 51GiB available/load2.02, GPU0%15947MiB free; no duplicate ownworker. Other
 owned census work is unaffected. No target input read or proof run is authorized
 by this profile; actual forecast/manifest and separately reviewed card follow.
+
+### 11 October2026 UTC — full correlated profile passed; wider target prepared
+
+Synthetic2bf9eff8 completed87.173s/1964824KiB/629ticks, all two705 controls and
+24 actual13D cost pairs. Target forecast120.164s/4060720KiB/64550264bytes.
+Receipt docs/reviews/native705-correlated-profile.json retains exact inventory.
+Prepare one4xwidth fresh target as docs/plans/native705-correlated-inverse-target.md,
+from same retained finite failed-chart predictor with full independent24prefix
+endpoint, strict all705 projected join. No target run yet; peer binding review
+and final measured execution card required. Core/helpers unchanged.
