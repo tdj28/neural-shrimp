@@ -22,7 +22,7 @@ def test_source_closure_and_inclusive_operation_caps():
  with pytest.raises(ValueError):w.tick()
  w=W.Work();w.saved=144
  with pytest.raises(ValueError):w.replay_tick()
- assert 'LIMIT=255'in Path(L.__file__).read_text()and '514*1024**2'in Path(L.__file__).read_text()
+ assert 'LIMIT=315'in Path(L.__file__).read_text()and '514*1024**2'in Path(L.__file__).read_text()
 
 def test_actual_all72_saved_pairs_metadata_only():
  r=Path(W.read(ROOT/W.CARD)['pilot']['root'])/'attempt004/run'
@@ -38,3 +38,11 @@ def test_exact_geometry_rejects_changed_original_error_domain():
   assert W.geometry(c,domain)[-1]==arb(1)/64
   domain['error'][1]={'mid':[0,0],'rad':[1,-20]}
   with pytest.raises(ValueError):W.geometry(c,domain)
+
+
+def test_exact_profile_failure_and_time_only_new_path():
+ assert W.OUT==W.BASE/'attempt002/run'
+ r=W.read(W.ROOT/'docs/reviews/native705-rechart-refinement-profile001.json')
+ assert r['source']=='9248ae90876b5dc53c1b1d2b527d5ad634bfaae3' and r['outcome']['native_calls']==36 and r['profile']['target_arrays_unopened']
+ card=W.read(W.ROOT/W.CARD)
+ assert card['caps']==dict(seconds=300,rss_bytes=6*1024**3,as_bytes=10*1024**3,raw_bytes=512*1024**2,native_calls=72,saved_replay_calls=144)
