@@ -12249,3 +12249,6 @@ basis proposals. Mathematical source peer review and fixed wrapper review plus
 fresh host admission required before target; failures remain immutable. This
 run tests a sufficient complementary stability bound only, not whole-window
 geometry or signed NS coefficient. No target has been executed under this card.
+
+
+Before007 launch, Clark source review identified final retention reserve was also applied to closing writes. Added explicit closing writes consuming the reserved2MiB for outcome/manifest, plus a near-cap failed-write/retained-finalization control. No target or mathematical change. Original fixed72-call/240s/4GiB packet otherwise unchanged.

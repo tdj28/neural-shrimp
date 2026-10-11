@@ -19,3 +19,14 @@ def test_unrelated_native_profile_full_dimension_and_both_rate_tangents():
 def test_copied_analytic_two_rate_model_is_literal_original():
  root=Path(__file__).parents[1];p='src/neural_shrimp/rigorous_cusps.py'
  assert hashlib.sha256((root/p).read_bytes()).digest()==hashlib.sha256(subprocess.check_output(['git','show','a7b5a169:'+p],cwd=root)).digest()
+
+
+def test_failed_near_cap_write_retains_reserved_failure_and_manifest(tmp_path):
+ import pytest,json
+ m=module();used=[62*1024**2-32]
+ with pytest.raises(ValueError,match='final reserve'):m.save_bound(tmp_path,'large.json',{'payload':'x'*100},used)
+ assert not (tmp_path/'large.json').exists()
+ m.save_bound(tmp_path,'outcome.json',{'passed':False,'status':'raw_cap_failure_retained'},used,closing=True)
+ m.save_bound(tmp_path,'manifest.json',{'files':{'outcome.json':m.O.entry(tmp_path/'outcome.json')}},used,closing=True)
+ assert json.loads((tmp_path/'outcome.json').read_text())['passed']is False
+ assert used[0]<64*1024**2
