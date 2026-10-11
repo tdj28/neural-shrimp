@@ -8608,3 +8608,15 @@ No complementary result follows yet. Immutable manifests/owned termination
 verified; receipt docs/reviews/native705-correlated-tangent-outcome.json.
 Next fixed quotient adapter may reuse unchanged saved center derivatives and
 acquire only18 new whole/tangent derivatives after separate source/card review.
+
+### 2026-10-10: fixed refined705 complement card
+
+Prepare one attempt004-correlated using successful tangent003 .00291413 bound,
+original center/whole domains and exact E/B. Reuse18 original002 center native
+matrices only after exact phase/state/two-rate/zero-tangent/source/map equality;
+acquire18 new whole/tangent matrices. Unchanged full11 common-parameter proof.
+36 unrelated native profile calls plus full18×11 proof before arrays, then18
+target calls (54 total),384bits/240s/4GiB/6GiBAS/64MiB and owned255+5/66MiB.
+All failed/proved parent receipts retained. Wrapper peer review/fresh admission
+required; no target launched under this card. Complementary scope remains
+conditional producer until independent tangent/quotient outcome review.
