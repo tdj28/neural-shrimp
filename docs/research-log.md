@@ -14989,3 +14989,14 @@ gates passed; root existence is inherited from independent55 proof.4.067s,
 76492KiB,228 retained events, ownedgroups gone, all source/inventories verified.
 Outer ebfb53346cfc47589ecd24dc14ef8e29c25e5ba62cbb616ceda97176cc4eadb4.
 No globalconnection is asserted before the separate complete705 membership.
+
+### 2026-10-11 — admit reviewed one-unit fresh current022 correction
+
+Stability independently cleared c6a8d86e complete caller/resources and
+reproduced9controls2.51s; Boundary previously cleared a116db24 merit helper.
+Root metadata-only actual bind passes5.136s,6544 old events,0native, target
+arrays unopened, exact gradient23/state022; completed independent512 source
+f0adc44d with outerdc03a47c/workerc7d4dfa2 mandatory. Card now reviewed.
+Launch exactly the fixed400s4GiB/514HVP18gradient unit only after its full-size
+measured profile passes. All old derivatives remain historical; no fresh
+current action or accepted correction exists at admission time.
