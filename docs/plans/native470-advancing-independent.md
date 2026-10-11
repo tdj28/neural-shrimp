@@ -14,3 +14,5 @@ Same full470 unrelated arithmetic profile plus twice actual producercost+30s,
 doubled actual peak+256MiB.300s4GiB8GiBAS64MiB/315+5owned66MiB, zero native calls.
 Card prepared until source review. Root will own independent execution; producer
 agent prepares only binding adapter, unchanged independent mathematics.
+
+Root independently reviewed adapter and unchanged check_chart reducer inputs: literal prior independently recomputed470left endpoint at−1/256, identical physicalhidden gauge/origin/weights, newcenter−9/256 andhalfwidth1/32, complete actualfreshsigma−1events. Eight combined controls2.50s including real metadata and isolated source closure. Admit one fixed saved replay after full470 synthetic profile.
