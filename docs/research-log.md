@@ -8728,3 +8728,7 @@ full-window or complementary-stability claim from this new producer prefix.
 ### 2026-10-11 — reusable adaptive cubic endpoint rotation preparation
 
 After sealed three-chart narrow prefix 68be1c16, prepare finite cubic endpoint rotation using the actual cubic endpoint velocity/acceleration and a bounded halfwidth transition. Preserve complete error/root gates and full projected native known-root membership after every gauge change. Three controls pass, including full705 dimensions, chain-rule derivative convention and refusal to retry a failed branch join. This is proposal/source preparation only; no target arrays acquired. A source-reviewed wrapper and measured fixed total attempt/native/time/storage card still precede the adaptive packet.
+
+### 2026-10-11 — fixed adaptive cubic705 packet source preparation
+
+Cubic rotation helper9b98cc15 independently source/math PASS by stability, three controls0.09s. Implement reusable sequential32-attempt packet with exact inherited three-root authority, fixed two-Newton/fresh331-call worker, endpoint gauge rotation and full projected705 joins, halving only completed root-bound failures down to1/512. Overall8400s/8GiB raw and per-worker240s6GiB caps; old746-call profile plus actual149-call cost floor unchanged. Seven new adapter/helper controls pass0.54s, including real entrypoints/source closure and failed-join stop. No target; wrapper peer review and committed measured final policy remain gates.
