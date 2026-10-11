@@ -15038,3 +15038,12 @@ completed independent19. Actual full metadata/inventory binding passes30.579s,
 run exactly the fixed4500s6GiB14GiB sequential audit after fresh full705 profile.
 No native call or production source modification. Root owns this audit in
 reused task-owned tiny-lm-prediction-review worktree on its separate branch.
+
+
+### 2026-10-11 — maintained003 independent replay time-only amendment
+Attempt001 stopped before target arrays after measured50.047s705D synthetic:
+forecast5453.445s exceeded4500s, while12.976GB storage and3.111GB memory fit.
+Complete failed evidence is immutable/hash-bound; no native call or target chart.
+Attempt002 keeps all24 fixed roots/joins,480bits,6GiB RSS/14GiB raw and exact
+reducer, with measured-gate7200s and owned7215+5s. Reprofile before scientific
+arrays; zero native. Peer review and private source push precede launch.
