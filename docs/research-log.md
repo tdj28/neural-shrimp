@@ -16173,3 +16173,7 @@ better endpoint remains unchanged. This supports a bounded actual comparison of
 the fixed-reference curved path, not another unqualified Newton retry. Full49file
 inventory,22 archived sources, immutable modes and absent actual owners verified;
 receipt docs/reviews/cifar-remainder-span001.json binds allproposed vectors.
+
+### 2026-10-11 10:27 UTC — Fixed current022 curved-path pilot prepared
+
+Following the preserved negative regularized comparison and saved nonlinear-image diagnosis, prepare one fresh acceleration HVP and both fixed actual gradients at alpha1/32 and1/64. Source/card plan fixes the reference alpha1/64 acceleration, original trust ball, .2 curvature ratio, initial-tangent forcing, and both actual comparisons. No composite-direction forcing assertion. Measured unchanged-native cost authority,120s/4GiB/64MiB owned caps, no new basis or holdouts; source and review before launch.
