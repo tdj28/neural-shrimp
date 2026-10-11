@@ -17122,3 +17122,22 @@ Added full33 physical-stability coverage, the16-chart independently joined signe
 ### 2026-10-11T12:59:53.047184+00:00 — Export inspected current55-page PDF
 
 Source270b917f0356954c3bfd0c4735b7878aedfbd389, 161-wordabstract,559verified quantities and22unchanged figureoutputs. SHA2d82d20a34daa34a3f20dec8872a07d9f0e6a004daaece4d200c68ad9d9d0f73, immutableQAmanifeste5a6cfc4a4c86fa0b76c47b7e4e3f92b83133e4f04b1b2a165db9ecdec49a9cf. CurrentPDF exported for human feedback; proof and mechanism runs continue.
+
+### 11 October 2026 — prepared output-rate rechart after signed470 march
+
+The complete hidden-gauge march earned16 joined primitive18 charts (7.5 physical
+hidden-rate units), while attempt23 failed both root image and one anchor bound.
+The new fixed output-gauge packet preserves that failure, first sharpens the
+same accepted chart22 endpoint with three original-domain residual evaluations
+and its certified polynomial inverse/contraction, then proves a fresh full470
+chart with a complete projected join. This changes the continuation coordinate
+before the numerical hidden-rate turn; no numerical path is promoted to proof.
+The conditional endpoint helper received Stability mathematical review PASS,
+3 controls0.28s. Prepared wrapper initially passed7 source/metadata/profile/
+projection controls5.11s; full saved-domain preflight added before source review.
+One300s/4GiB/1GiB packet only,432 inclusive native phases; card remains prepared
+and no target/profile has run. Existing independent16-prefix replay is owned
+by Root in a separate checkout.
+Full saved-domain/schema preflight and all8 controls passed9.93s. No target
+native calls occurred; endpoint metadata and original fixed correction domain
+were read and checked before launch preparation.
