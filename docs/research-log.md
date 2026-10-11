@@ -9525,3 +9525,24 @@ Independent fsum arithmetic decomposes actual gradient-merit changes into linear
 cross and squared-remainder terms and preserves all3 trust skips/4 observed
 trial gradients. This does not authorize a new native call, correction or a
 transfer of current022 Hessian actions to the accepted final state.
+
+### 2026-10-11 — exact stable-overlap scope and saved CIFAR diagnosis
+
+The independently saved chart30 endpoint projects to approximately±1.25591e-5
+in chart31's absolute native gauge. Exact Fraction arithmetic confirms its
+entire ball lies inside secondquarter[-17,15]/2048 and outside firstquarter
+[-49,-17]/2048; the quarters are exactly adjacent. Thus the completed first
+quarter is a separate stable arc on the same already proved root curve, pending
+secondquarter coverage to join the prior30 complementary-stable charts. The
+compact check binds the original480-bit membership and source/manifest pins.
+
+Reviewed saved-only CIFAR diagnosis16c0e2ab passed6.055s/69,040KiB/zero native,
+all28 files/14 sources and actual owners verified. Trust allows alpha up to
+.181871 but the observed alpha1/8 already increases gradient merit21.439-fold.
+Across the four observed trials the gradient remainder is almost exactly
+quadratic (successive orders2.00056,2.00073,2.00029); its norm/alpha² stays
+.22415–.22439. At acceptedalpha1/64 the linear model predicts2.556% merit
+reduction versus actual.82475%, so only32.27% of predicted gain is realized.
+This is a directional nonlinear-model bottleneck, not merely the global trust
+limit. It motivates a separately bounded saved512-action regularized proposal
+at originalcurrent022; no new direction/trial/state transfer is admitted here.
