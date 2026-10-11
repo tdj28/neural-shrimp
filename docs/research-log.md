@@ -6910,3 +6910,13 @@ literal sharedE acquisition calls and all51 curved known-root joins. Nine
 combined synthetic controls pass0.35s; corrected two test-only unavailable
 Arb matrix methods. No native target/profile. Sending composed reduction for
 independent mathematical review; full51 measured profile remains next.
+
+### 2026-10-11 — full51 unrelated cost profile packet prepared
+
+Separate synthetic-only384bit profile: six full path/mode/base acquisitions,
+two MixedJet returns with full point comparison, negative native context and
+two full51 reductions. Exact30phase cap; every native/input/assembly retained.
+CPU1nice10/90s2GiB4GiBAS256MiB with4MiB reserve,105+5owned258MiB. Twelve
+combined controls pass0.53s including isolated source import and failure
+reserve. No actual target reader/profile launched. Root resource/source review
+precedes this sole profile; later target remains separately costed/reviewed.
