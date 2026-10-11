@@ -12066,3 +12066,8 @@ Clark passed9bb42afe gauge-origin math/6controls0.25s, and caught one remaining 
 Attempt002 at9a395b70 completed48.379s/1785356KiB/all253ticks; all705 known-anchor coordinates, native primitive18, realified frame and positive whole angle passed. Uniformroot failed:360/705 inclusions, contraction5.35855. All152MB native events retained and owned group empty; compact receipt native-unit-pair-pal-bound-failure.json. No additional interval is proved.
 
 One saved-only diagnostic adapts the previously reviewed704 Collatz/resolvent proposal to705 with a separate angle group, exact failed source/domain/count binding and no model calls. Native-unit-pair-pal-diagnosis.md fixes60s/4GiB/8GiBAS/16MiB,CPU1nice10,owned75+5. Source review before its single exclusive run; any later adaptation needs fresh native proof.
+
+
+## 2026-10-11T00:11:10.945704+00:00 — complete13D census representative certificate preparation
+
+Continue the certificates lane beyond the single highest-period representative. Fixed28member13D subset includes two existing exact-map proofs reused after binding; prepare26remaining rows with unchanged C1kernel and fixed768bit/2^-320/sixNewton settings. Complete nativephase retention and measured whole-panel resource admission precede target. Individual orbit certificates do not establish connected-window counts or boundaries. Independent source review/profile/card required before target; no native calls yet.
