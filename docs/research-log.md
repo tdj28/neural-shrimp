@@ -13502,3 +13502,15 @@ Self-review caught the copied launcher hard address-space ceiling1GiB would
 prevent its worker setting the declared2GiB ceiling. Corrected parent hard
 ceiling to2GiB while keeping parent soft512MiB/actual RSS256MiB and childRSS1GiB
 unchanged. Added source regression. No audit execution or mathematical change.
+
+### 2026-10-11 UTC — amended two-half packet cleared; numerical seed helper preparation
+
+Boundary independently cleared cdbbf56e narrow raw-cap/profile amendment;
+seven direct controls2.52s. Proceed fresh002 after host admission. No scientific
+changes or retrospective promotion of the retained profile001 failure.
+
+Prepared source-only `cifar_stationary_continuation.py`: derived from reviewed
+stationary helper with disclosed.9forcing and explicit original global trust
+origin; same bounded4x256 actual-state directions/true action/Armijo tests.
+Three synthetic controls0.16s pass. No target caller/card and no native calls;
+independent source review plus saved-merit audit still precede any such run.
