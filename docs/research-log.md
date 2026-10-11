@@ -15119,3 +15119,14 @@ Complete failed evidence is immutable/hash-bound; no native call or target chart
 Attempt002 keeps all24 fixed roots/joins,480bits,6GiB RSS/14GiB raw and exact
 reducer, with measured-gate7200s and owned7215+5s. Reprofile before scientific
 arrays; zero native. Peer review and private source push precede launch.
+
+### 2026-10-11 — fixed fresh-center subinterval caller prepared
+
+Boundary and root independently cleared e2760586 helper. New caller tests only
+centered[-34,-32]/2048, halfwidth1/2048, with two finite old-C proposals and a
+final full705 residual;18 fresh center Jacobians reuse whole-quarter actual
+true derivatives after exact-domain checks. Original root/center failure and
+all provenance retained; no full-quarter coverage claim.144profile+126target
+calls,400s4GiB384MiB/owned415+5s. Eight controls1.19s passed after correcting an
+unsupported division in the unrelated MixedJet fixture to dyadic multiplication.
+No target evaluated; source review/profile admission still mandatory.
