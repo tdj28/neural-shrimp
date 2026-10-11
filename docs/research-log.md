@@ -17762,3 +17762,447 @@ _commit `0c7e75dbe54d` (dirty worktree)_
 Anatomy-002 (tool 0c7e75db, map rotation-gap-361): the 2/9 arc joins roots A and B just above the curve; the window's 2/9 region is separate, its lower edge traced by the carried U fold; between them every column's circle rotation dips below 2/9, highest column minimum 0.22043 at (-0.0766, 1.792). Pro consult (window organization; cost in the private ledger) adjudicated in docs/consults/2026-10-11-window-organization/adjudication.md: detachment is theoretically allowed (closed locking disks without any Neimark-Sacker curve exist); claim only circle-locking detachment until period-18 branches are continued, since unstable branches could connect the structures; the arc needs exact period-18 orbits before it is called a banana; generic reconnection under a third parameter is a Morse saddle of the fold surface; nontwist is only an analogy. Registered answer and open items: docs/window-organization.md.
 
 _commit `0c7e75dbe54d` (dirty worktree)_
+
+## 2026-10-11 22:18 UTC: run (exploratory)
+
+- **Question:** Are there exact period-18 orbits on the near-curve 2/9 arc (section log10 output -0.0745, near its top), and where do the two folds bounding that locking interval go when continued in the rate plane: down to roots A and B (a closed banana), up to the window's U, or elsewhere?
+- **Setup:** fastcont (float64 single shooting on F^18, analytic DF, central-difference second derivatives); seed: 60000 steps from the shared initial parameters at (-0.0745, 1.74959), phase condition on the coordinate of largest circle variance, hidden rate free; closed orbit curve traced by pseudo-arclength at fixed output rate; both folds refined and continued 300 steps each way, stopping when the even-point spread falls below 2e-3 (approach to the period-2 orbit) or the rates leave [-0.10,-0.06]x[1.72,1.95]; one process, OPENBLAS 1 thread, nice 10
+- **Output:** `../neural-shrimp-data/explore/window-organization/banana-0745`
+- **Would surprise us:** No period-18 orbit on the arc; a fold that reaches the window's U fold instead of a root; folds that end somewhere other than A or B
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py banana --lx -0.0745 --ly 1.74959 --out ../neural-shrimp-data/explore/window-organization/banana-0745`
+
+_commit `c4e238fc36c3`_
+
+## 2026-10-11 22:20 UTC: run (exploratory)
+
+- **Question:** Where does the window's lower U fold go when continued far in both directions with fast float64 continuation: which cusps, 1:1, fold-flip or fold-NS points does it meet, and does either arm head toward the near-curve 2/9 arc, the third 2/9 root on the right, or close on itself?
+- **Setup:** fastcont FoldCurve (sigma +1) from carried node attempt-006-ray32-fold +1-010 (U bottom); pseudo-arclength with parameter scale 100, step 0.02 (max 0.1), 600 steps each way; stop outside [-0.13,0.05]x[1.70,2.00] or if a proper-divisor separation falls below 1e-4; per node: rates, tangent, multipliers nearest +1, -1 and the unit circle; one process, OPENBLAS 1 thread, nice 10
+- **Output:** `../neural-shrimp-data/explore/window-organization/ufold-continuation-001`
+- **Would surprise us:** An arm that descends toward the near-curve arc or the Neimark-Sacker curve; a closed loop; a fold coefficient change without a cusp
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py fold-from-node --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-006-ray32-fold/run/node-+1-010.json --out ../neural-shrimp-data/explore/window-organization/ufold-continuation-001`
+
+_commit `0e3113662a5b` (dirty worktree)_
+
+- run started 2026-10-11 22:18 UTC finished 22:21 UTC with exit status 0
+
+## 2026-10-11 22:22 UTC: The near-curve 2/9 arc is a closed banana of exact period-18 orbits attached at roots A and B
+
+banana-0745 (tool c4e238fc, fastcont float64 single shooting). At log10 output -0.0745 an exact primitive period-18 orbit sits on the circle (even-point spread 0.104; proper-divisor separations 0.11-0.69; multipliers 1.00012 and a complex pair of modulus 0.953, i.e. the saddle of a weakly attracting circle). The orbit curve at fixed output rate closes through two folds; the locking interval is [1.7495516, 1.7495670] (width 1.54e-5 decades). Both folds, continued in the rate plane, run to root B (end (-0.068092, 1.736914), spread 6e-4 and 1.8e-3, shrinking to the period-2 orbit) and to root A (ends (-0.076900, 1.744846) and (-0.076930, 1.744751), spread 0.013 and 0.002; the first stalled at the minimum step). Banana top near (-0.0741, 1.74972), about 0.006 decades above the curve. So the near-curve 2/9 locking region is a closed banana bounded by two fold curves from A to B (Peckham-Frouzakis-Kevrekidis geometry), and its period-18 family never leaves the curve's neighbourhood; with the rotation valley below 2/9, the window is a separate component also at the level of these circle-locked orbit families. Open: orbit families off the circle (window side), and the right-hand side (map running).
+
+_commit `0e3113662a5b` (dirty worktree)_
+
+- run started 2026-10-11 22:20 UTC finished 22:25 UTC with exit status 0
+
+## 2026-10-11 22:28 UTC: The window's lower U fold is part of a closed fold loop with two cusps
+
+ufold-continuation-001 (tool 0e311366; 600 fastcont nodes each way, 170 s each). From the U bottom (-0.0802, 1.8201) the fold curve runs up the right arm to a parameter-plane reversal (cusp candidate) near (-0.0664, 1.8582), returns left through the window interior as an internal fold (-0.077, 1.8425) -> (-0.092, 1.852) -> (-0.107, 1.907), reaches a second reversal near (-0.114, 1.97), and comes back down the U's left arm (-0.104, 1.922) -> (-0.099, 1.869) to the U bottom; both directions traverse the same closed loop (lap closed after about 540 nodes). Residuals 1e-11 to 1e-15; all proper-divisor separations >= 0.38. The complement is attracting on the lower parts (radius 0.68-0.83) and strongly unstable on the top-left part between (-0.1043, 1.8812) and (-0.1040, 1.8805) (radius up to 11.8). Closest approaches along the loop: a second multiplier within 1.0e-3 of +1 near (-0.1072, 1.9137) and a multiplier within 3.3e-3 of -1 near (-0.0761, 1.8534), both candidates for codimension-two points; no complex pair near the unit circle. The loop's lowest point is the U bottom, so the window's lower fold system never descends toward the Neimark-Sacker curve or the banana. This matches the U-shaped saddle-node outline plus internal saddle-node curve with a cusp described by Varga, Klapcsik and Hegedus (2019). Codex's upper fold (canonical fold, 1:1 point, cusps A and B) is a different curve; its continuation is running.
+
+_commit `0e3113662a5b` (dirty worktree)_
+
+## 2026-10-11 22:28 UTC: run (exploratory)
+
+- **Question:** Where does the window's upper fold (the certified canonical fold, carrying the 1:1 point and cusps A and B) go when continued far in both directions: does it close, join the lower fold loop, or descend toward the near-curve banana?
+- **Setup:** Same as ufold-continuation-001 but starting from carried node attempt-003-target +1-000 (canonical fold, log10 rates -0.0854, 1.87839); 600 steps each way; stop outside [-0.13,0.05]x[1.70,2.00] or a proper-divisor separation below 1e-4
+- **Output:** `../neural-shrimp-data/explore/window-organization/upperfold-continuation-001`
+- **Would surprise us:** A branch that descends below log10 hidden 1.80 toward the banana or the Neimark-Sacker curve
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py fold-from-node --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --out ../neural-shrimp-data/explore/window-organization/upperfold-continuation-001`
+
+_commit `cc66269163b6` (dirty worktree)_
+
+- run started 2026-10-11 22:28 UTC finished 22:31 UTC with exit status 0
+
+## 2026-10-11 22:32 UTC: run (exploratory)
+
+- **Question:** Repeat the upper-fold continuation saving every node's orbit, to identify where the descending branch ends: does the period-18 orbit collapse onto a period-2 orbit at a 2/9 resonance of that orbit's Neimark-Sacker locus near (-0.0406, 1.7240)?
+- **Setup:** Identical to upperfold-continuation-001 (same node, steps, scales, box), now with node states and orbits saved (nodes-direction+1/-1.npz)
+- **Output:** `../neural-shrimp-data/explore/window-organization/upperfold-continuation-002`
+- **Would surprise us:** A different endpoint from run 001 (the continuation is deterministic)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py fold-from-node --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --out ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002`
+
+_commit `66740ae3461d` (dirty worktree)_
+
+- run started 2026-10-11 22:32 UTC finished 22:35 UTC with exit status 0
+
+## 2026-10-11 22:36 UTC: run (exploratory)
+
+- **Question:** Which period-2 orbit does the window's descending upper fold collapse onto at (-0.040625, 1.723958), and is that point a 2/9 resonance on its Neimark-Sacker locus (complex pair on the unit circle at 2/9 turns)?
+- **Setup:** period2-at: Newton for F^2(theta)=theta at fixed rates from the last saved fold node's first orbit point; report all two-step multipliers
+- **Output:** `../neural-shrimp-data/explore/window-organization/collapse-period2-001`
+- **Would surprise us:** No period-2 orbit there, or a complex pair far from the unit circle or from 2/9 turns
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py period2-at --seed ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/collapse-seed.npy --lx -0.04062495362591641 --ly 1.7239577869922749 --out ../neural-shrimp-data/explore/window-organization/collapse-period2-001`
+
+_commit `66740ae3461d` (dirty worktree)_
+
+- run started 2026-10-11 22:36 UTC finished 22:36 UTC with exit status 0
+
+## 2026-10-11 22:37 UTC: The window's upper fold descends, through non-attracting orbits, to a 2/9 resonance of a saddle 2-cycle at (-0.0406, 1.7240)
+
+upperfold-continuation-001/002 (tool 66740ae3, fastcont from carried node attempt-003-target +1-000, the certified canonical fold). Direction -1 reproduces the certified codimension-two points: stability change (1:1) at (-0.0823, 1.8654), parameter reversals (cusps) at (-0.0803, 1.8632) and (-0.0806, 1.8563); it then continues up to two further reversals near (-0.085, 1.973) and (-0.0835, 1.963) and leaves the box at the top. Direction +1 passes reversals near (-0.0978, 1.9335) and (-0.0988, 1.8906), crosses the window, and descends as a non-attracting fold (complement radius 1.08-1.88) through (-0.0673, 1.8264), (-0.0478, 1.7805), (-0.0310, 1.7335), turning near x = -0.0287, to (-0.040625, 1.723958), where the nine even points merge (spread 4e-5) and a second multiplier reaches +1 (6e-10); consecutive nodes change smoothly (largest state step 0.034 where the amplitude shrinks fastest). collapse-period2-001: the period-2 orbit there (Newton residual 3e-16, separation 0.66) has two-step multipliers 1.03098 (real), 0.17364818 +- 0.98480775i (modulus 1 - 4e-11, angle 0.2222222226 turns = 2/9 to 4e-10) and the rest below 0.95. So the window's upper fold is a boundary of a 2/9 tongue rooted on the Neimark-Sacker locus of a SADDLE 2-cycle at R3 = (-0.040625, 1.723958); the tongue is non-attracting near its root and the window is its attracting upper part. Revision of the registered answer: the window is detached from the attracting circle's 2/9 locking at roots A and B (banana, rotation valley, closed lower fold loop) but is connected at the orbit level to the 2/9 resonance at R3, exactly the kind of unstable bridge the consult warned about. Next: the tongue's second fold from R3; the period-2 Neimark-Sacker locus between B and R3 (where does the 2-cycle acquire the real multiplier above 1?).
+
+_commit `66740ae3461d` (dirty worktree)_
+
+## 2026-10-11 22:38 UTC: run (exploratory)
+
+- **Question:** What is the second boundary fold of the 2/9 tongue rooted at R3 = (-0.040625, 1.723958), and where does it go: back into the window, to the lower fold loop, or elsewhere?
+- **Setup:** section-from-node at node 330 of upperfold-continuation-002 direction +1 (near R3), fixed hidden rate, output rate free: trace the closed period-18 orbit curve through the section's other fold, refine it, continue it 600 steps each way (stop when the even-point spread falls below 1e-3 or outside [-0.13,0.05]x[1.65,2.00])
+- **Output:** `../neural-shrimp-data/explore/window-organization/r3-tongue-section-001`
+- **Would surprise us:** No second fold in the section (open curve), or a second fold that runs into the attracting banana
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py section-from-node --nodes ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/nodes-direction+1.npz --index 330 --free lx --out ../neural-shrimp-data/explore/window-organization/r3-tongue-section-001`
+
+_commit `b81b60429d09` (dirty worktree)_
+
+- run started 2026-10-11 22:04 UTC finished 22:38 UTC with exit status 0
+
+- run started 2026-10-11 22:38 UTC finished 22:40 UTC with exit status 0
+
+## 2026-10-11 22:42 UTC: run (exploratory)
+
+- **Question:** At fixed output rate through the certified attracting interval (log10 output about -0.0854), which folds bound the attracting period-18 orbit below and above: is the node sheet shared between the canonical (R3-tongue) fold and the lower U-loop fold?
+- **Setup:** section-from-node at node 0 of upperfold-continuation-002 direction +1 (canonical fold), fixed output rate, hidden rate free; trace the closed period-18 orbit curve (up to 3000 steps, h 0.005) and record every turning point; continue only the farthest fold briefly (20 steps)
+- **Output:** `../neural-shrimp-data/explore/window-organization/canonical-section-001`
+- **Would surprise us:** An open orbit curve, or a node branch that ends at a fold other than the U loop
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py section-from-node --nodes ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/nodes-direction+1.npz --index 0 --free ly --loop-steps 3000 --loop-h 0.005 --steps 20 --out ../neural-shrimp-data/explore/window-organization/canonical-section-001`
+
+_commit `b81b60429d09` (dirty worktree)_
+
+- run started 2026-10-11 22:42 UTC finished 22:42 UTC with exit status 0
+
+## 2026-10-11 22:48 UTC: run (exploratory)
+
+- **Question:** One picture of the 2/9 organization around the window: both rotation maps, the banana, the closed lower fold loop, the upper fold descending to R3, and the R3 tongue's second fold
+- **Setup:** composite subcommand on saved outputs: rotation-gap-361 and rotation-right-441; ufold-continuation-001, upperfold-continuation-002, r3-tongue-section-001; banana-0745
+- **Output:** `../neural-shrimp-data/explore/window-organization/composite-001`
+- **Would surprise us:** -
+- **Command:** `.venv/bin/python tools/explore_window_organization.py composite --rotation ../neural-shrimp-data/explore/window-organization/rotation-gap-361/rotation.npz ../neural-shrimp-data/explore/window-organization/rotation-right-441/rotation.npz --folds ../neural-shrimp-data/explore/window-organization/ufold-continuation-001/fold-from-node.json ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/fold-from-node.json ../neural-shrimp-data/explore/window-organization/r3-tongue-section-001/section.json --banana ../neural-shrimp-data/explore/window-organization/banana-0745/banana.json --xlim -0.12 0.035 --ylim 1.64 2.0 --out ../neural-shrimp-data/explore/window-organization/composite-001`
+
+_commit `851d2aa29c45` (dirty worktree)_
+
+- run started 2026-10-11 22:48 UTC finished 22:48 UTC with exit status 0
+
+## 2026-10-11 22:49 UTC: run (exploratory)
+
+- **Question:** Is the saddle 2-cycle at R3 = (-0.040625, 1.723958) the same edge-of-stability 2-cycle whose Neimark-Sacker locus passes roots A and B, and where along the locus does it acquire a real multiplier above 1?
+- **Setup:** ns2-locus: start from the stable 2-cycle 0.002 decades below the locus at log10 output -0.0700 (between A and B... B side), solve for the locus point (complex pair modulus 1) at fixed output rate, then step the output rate by +2e-4 up to -0.030 continuing the same 2-cycle; record rotation, the largest other real multiplier and other moduli
+- **Output:** `../neural-shrimp-data/explore/window-organization/ns2-locus-001`
+- **Would surprise us:** The continued locus does not reach R3's output rate with rotation 2/9 there; or the cycle is lost (corrector failure) before
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py ns2-locus --start -0.0700 1.7410 --step 2e-4 --steps 300 --stop -0.030 --out ../neural-shrimp-data/explore/window-organization/ns2-locus-001`
+
+_commit `2cbbf25b6759` (dirty worktree)_
+
+- run started 2026-10-11 22:49 UTC finished 22:49 UTC with exit status 0
+
+## 2026-10-11 22:50 UTC: run (exploratory)
+
+- **Question:** Continuing the main edge-of-stability 2-cycle upward from its Neimark-Sacker point at log10 output -0.040625, does it become the saddle 2-cycle at R3 (hidden 1.723958)?
+- **Setup:** continue-period2: start from the ns2-locus-001 row nearest -0.0406 (corrected at -0.040625), pseudo-arclength in the hidden rate up to 1.723958, multipliers at every node, distance of the orbit to the R3 2-cycle state (collapse-period2-001)
+- **Output:** `../neural-shrimp-data/explore/window-organization/main2cycle-to-r3-001`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py continue-period2 --start-json ../neural-shrimp-data/explore/window-organization/ns2-locus-001/ns2-locus.json --lx -0.040625 --target-ly 1.723958 --reference ../neural-shrimp-data/explore/window-organization/collapse-period2-001/period2.json --out ../neural-shrimp-data/explore/window-organization/main2cycle-to-r3-001`
+
+_commit `e512ca3ea0e4` (dirty worktree)_
+
+- run started 2026-10-11 22:50 UTC finished 22:50 UTC with exit status 0
+
+## 2026-10-11 22:50 UTC: R3 lies on a second, coexisting 2-cycle; the window's period-18 family bridges two invariant circles
+
+ns2-locus-001 (tool 2cbbf25b): the main edge-of-stability 2-cycle's Neimark-Sacker locus continued from near B runs down to (-0.040, 1.6836) with rotation 0.2135 there and all other multipliers below 1 (largest real 0.9918); it does not pass R3. main2cycle-to-r3-001: continuing that main cycle upward at log10 output -0.040625 to 1.724, its complex pair leaves the unit circle (modulus about 1.07) and its real multiplier stays below 1 (0.9991); its orbit stays 0.78 from the R3 cycle. So R3 = (-0.040625, 1.723958) is a 2/9 resonance on the Neimark-Sacker locus of a different, coexisting 2-cycle that is a saddle (real multiplier 1.031). canonical-section-001 (fixed output rate through the certified attracting interval): the period-18 orbit curve oscillates between exactly two folds, the U-loop fold at 1.832573 and the canonical fold at 1.878581, so one node-saddle pair spans the window there; the node sheet joins the lower loop (circle locking of the main cycle) to the canonical fold, which bounds the hidden 2/9 tongue of the saddle cycle (r3-tongue-section-001: tongue width 1.3e-8 decades at 9e-4 decades from R3; its second fold rises into the window, attracting between (-0.0619, 1.8316) and (-0.0785, 1.8973)). Composite figure: composite-001.
+
+_commit `e512ca3ea0e4` (dirty worktree)_
+
+## 2026-10-11 22:52 UTC: run (exploratory)
+
+- **Question:** Is the input-span reduction of the CIFAR subset-A MLP exact on a saved state (one gradient step in full and reduced coordinates agree), and how long do the dense 16,746-dimensional Hessian, matrix product and LU take on this CPU?
+- **Setup:** subset A (512 samples), lambda 1e-2, saved sweep state at eta 0.00827753; reduction via thin QR of X^T (all 512 columns kept); dense Hessian from batched exact HVPs (chunks of 256), one dense product and one LU; 12 torch/BLAS threads at nice 10; CPU only
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/profile-001`
+- **Would surprise us:** Step mismatch above 1e-12 relative, or dense operations too slow for Newton (more than 10 minutes per iteration)
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py profile --threads 12 --out ../neural-shrimp-data/explore/cifar-reduced/profile-001`
+
+_commit `70889c463e1b`_
+
+- run started 2026-10-11 22:52 UTC finished 22:53 UTC with exit status 0
+
+## 2026-10-11 22:53 UTC: run (exploratory)
+
+- **Question:** In exact reduced coordinates (16,746 active of 98,666), does dense Newton converge to the CIFAR subset-A period-2 orbit where Krylov solves stalled, and does a complex pair of two-step multipliers cross the unit circle (Neimark-Sacker) between eta 0.0083 and 0.0094, with the slow rotation seen in the loss (about 0.0015-0.002 turns per two-step)?
+- **Setup:** lambda 1e-2; start from the saved sweep state at eta 0.00827753; dense Newton (two dense Hessians, dense product, LU) to relative residual 1e-12 at eta = 0.00827753, 0.0084, 0.0086, 0.0088, 0.0090, 0.0092, 0.0094, continuing each solution; full spectrum at the first rate, shift-invert Arnoldi (k=8) at the previous critical pair afterwards; stop if Newton fails or the orbit collapses to a fixed point; 12 threads, nice 10, CPU only; subset B untouched
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/orbit-001`
+- **Would surprise us:** Newton failing in reduced coordinates; no complex pair near the unit circle; a real multiplier (flip or fold) reaching the unit circle first
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py orbit --threads 12 --etas 0.00827753 0.0084 0.0086 0.0088 0.0090 0.0092 0.0094 --out ../neural-shrimp-data/explore/cifar-reduced/orbit-001`
+
+_commit `70889c463e1b` (dirty worktree)_
+
+## 2026-10-11 23:09 UTC: run (exploratory)
+
+- **Question:** E1 pilot, S2-28011 with heavy-ball momentum beta=0.5: along the rate ray through the plain-GD period-2 Neimark-Sacker point near the window (log10 hidden - log10 output = 1.828), how does the edge-of-stability 2-cycle lose stability: Neimark-Sacker (complex pair crossing the unit circle) as in plain GD, or a flip/fold?
+- **Setup:** explore_momentum_maps scan: ray parameter s from 1.84 to 2.04 (41 points; log10 hidden = s, log10 output = s - 1.828), 20000 steps from the shared initial parameters with zero momentum, Newton on F^2 in the 26-dimensional (theta, m) state, two-step multipliers; beta=0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/scan-beta0.5`
+- **Would surprise us:** For beta=0: no Neimark-Sacker crossing near s=1.748 (control failure). For beta>0: the 2-cycle losing stability by a real multiplier, or no 2-cycle after the flip
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py scan --beta 0.5 --start 1.84 --stop 2.04 --points 41 --offset-output -1.828 --out momentum/scan-beta0.5`
+
+_commit `244e64c1573e` (dirty worktree)_
+
+## 2026-10-11 23:09 UTC: run (exploratory)
+
+- **Question:** E1 pilot, S2-28011 with heavy-ball momentum beta=0.9: along the rate ray through the plain-GD period-2 Neimark-Sacker point near the window (log10 hidden - log10 output = 1.828), how does the edge-of-stability 2-cycle lose stability: Neimark-Sacker (complex pair crossing the unit circle) as in plain GD, or a flip/fold?
+- **Setup:** explore_momentum_maps scan: ray parameter s from 1.94 to 2.14 (41 points; log10 hidden = s, log10 output = s - 1.828), 20000 steps from the shared initial parameters with zero momentum, Newton on F^2 in the 26-dimensional (theta, m) state, two-step multipliers; beta=0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/scan-beta0.9`
+- **Would surprise us:** For beta=0: no Neimark-Sacker crossing near s=1.748 (control failure). For beta>0: the 2-cycle losing stability by a real multiplier, or no 2-cycle after the flip
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py scan --beta 0.9 --start 1.94 --stop 2.14 --points 41 --offset-output -1.828 --out momentum/scan-beta0.9`
+
+_commit `244e64c1573e` (dirty worktree)_
+
+## 2026-10-11 23:09 UTC: run (exploratory)
+
+- **Question:** E1 pilot, S2-28011 with heavy-ball momentum beta=0.0: along the rate ray through the plain-GD period-2 Neimark-Sacker point near the window (log10 hidden - log10 output = 1.828), how does the edge-of-stability 2-cycle lose stability: Neimark-Sacker (complex pair crossing the unit circle) as in plain GD, or a flip/fold?
+- **Setup:** explore_momentum_maps scan: ray parameter s from 1.66 to 1.86 (41 points; log10 hidden = s, log10 output = s - 1.828), 20000 steps from the shared initial parameters with zero momentum, Newton on F^2 in the 26-dimensional (theta, m) state, two-step multipliers; beta=0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/scan-beta0.0`
+- **Would surprise us:** For beta=0: no Neimark-Sacker crossing near s=1.748 (control failure). For beta>0: the 2-cycle losing stability by a real multiplier, or no 2-cycle after the flip
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py scan --beta 0.0 --start 1.66 --stop 1.86 --points 41 --offset-output -1.828 --out momentum/scan-beta0.0`
+
+_commit `244e64c1573e` (dirty worktree)_
+
+- run started 2026-10-11 23:09 UTC finished 23:09 UTC with exit status 0
+
+- run started 2026-10-11 23:09 UTC finished 23:09 UTC with exit status 0
+
+- run started 2026-10-11 23:09 UTC finished 23:09 UTC with exit status 0
+
+## 2026-10-11 23:12 UTC: run (exploratory)
+
+- **Question:** E1, S2-28011 with heavy-ball momentum beta=0.5, ray log10 output = log10 hidden - 1.828: after the minimum's flip (exact, from the largest eigenvalue of P H), how does the continued 2-cycle first lose stability: Neimark-Sacker (complex pair) or a real multiplier?
+- **Setup:** explore_momentum_maps branch: minimum from 200000 plain-GD steps at s=1.0 then Newton on the gradient; flip at lambda_max(P H) = 2(1+beta); 2-cycle seeded from the 26-dimensional flip eigenvector on the side where it exists; natural continuation in s with step 5e-4, Newton on F^2, multipliers; stop 0.02 past the first crossing; beta=0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/branch-beta0.5`
+- **Would surprise us:** beta=0 not crossing by a complex pair (control failure); a momentum branch losing stability by a real multiplier
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py branch --beta 0.5 --out momentum/branch-beta0.5`
+
+_commit `419b364c63f1` (dirty worktree)_
+
+## 2026-10-11 23:12 UTC: run (exploratory)
+
+- **Question:** E1, S2-28011 with heavy-ball momentum beta=0.9, ray log10 output = log10 hidden - 1.828: after the minimum's flip (exact, from the largest eigenvalue of P H), how does the continued 2-cycle first lose stability: Neimark-Sacker (complex pair) or a real multiplier?
+- **Setup:** explore_momentum_maps branch: minimum from 200000 plain-GD steps at s=1.0 then Newton on the gradient; flip at lambda_max(P H) = 2(1+beta); 2-cycle seeded from the 26-dimensional flip eigenvector on the side where it exists; natural continuation in s with step 5e-4, Newton on F^2, multipliers; stop 0.02 past the first crossing; beta=0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/branch-beta0.9`
+- **Would surprise us:** beta=0 not crossing by a complex pair (control failure); a momentum branch losing stability by a real multiplier
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py branch --beta 0.9 --out momentum/branch-beta0.9`
+
+_commit `419b364c63f1` (dirty worktree)_
+
+## 2026-10-11 23:12 UTC: run (exploratory)
+
+- **Question:** E1, S2-28011 with heavy-ball momentum beta=0.0, ray log10 output = log10 hidden - 1.828: after the minimum's flip (exact, from the largest eigenvalue of P H), how does the continued 2-cycle first lose stability: Neimark-Sacker (complex pair) or a real multiplier?
+- **Setup:** explore_momentum_maps branch: minimum from 200000 plain-GD steps at s=1.0 then Newton on the gradient; flip at lambda_max(P H) = 2(1+beta); 2-cycle seeded from the 26-dimensional flip eigenvector on the side where it exists; natural continuation in s with step 5e-4, Newton on F^2, multipliers; stop 0.02 past the first crossing; beta=0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/branch-beta0.0`
+- **Would surprise us:** beta=0 not crossing by a complex pair (control failure); a momentum branch losing stability by a real multiplier
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py branch --beta 0.0 --out momentum/branch-beta0.0`
+
+_commit `419b364c63f1` (dirty worktree)_
+
+- run started 2026-10-11 23:12 UTC finished 23:12 UTC with exit status 0
+
+- run started 2026-10-11 23:12 UTC finished 23:12 UTC with exit status 0
+
+- run started 2026-10-11 23:12 UTC finished 23:12 UTC with exit status 0
+
+## 2026-10-11 23:12 UTC: run (exploratory)
+
+- **Question:** E1 rerun (beta=0.0) after the failed minimum (descent point was past the flip): same question as branch-beta0.0
+- **Setup:** as branch-beta0.0, with the descent at s=0.5, a converged-minimum check (gradient below 1e-10, positive definite Hessian), up to 4000 continuation steps
+- **Output:** `../neural-shrimp-data/explore/momentum/branch2-beta0.0`
+- **Would surprise us:** as before
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py branch --beta 0.0 --out momentum/branch2-beta0.0`
+
+_commit `ab7bc5c82781` (dirty worktree)_
+
+## 2026-10-11 23:12 UTC: run (exploratory)
+
+- **Question:** E1 rerun (beta=0.9) after the failed minimum (descent point was past the flip): same question as branch-beta0.9
+- **Setup:** as branch-beta0.9, with the descent at s=0.5, a converged-minimum check (gradient below 1e-10, positive definite Hessian), up to 4000 continuation steps
+- **Output:** `../neural-shrimp-data/explore/momentum/branch2-beta0.9`
+- **Would surprise us:** as before
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py branch --beta 0.9 --out momentum/branch2-beta0.9`
+
+_commit `ab7bc5c82781` (dirty worktree)_
+
+## 2026-10-11 23:12 UTC: run (exploratory)
+
+- **Question:** E1 rerun (beta=0.5) after the failed minimum (descent point was past the flip): same question as branch-beta0.5
+- **Setup:** as branch-beta0.5, with the descent at s=0.5, a converged-minimum check (gradient below 1e-10, positive definite Hessian), up to 4000 continuation steps
+- **Output:** `../neural-shrimp-data/explore/momentum/branch2-beta0.5`
+- **Would surprise us:** as before
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py branch --beta 0.5 --out momentum/branch2-beta0.5`
+
+_commit `ab7bc5c82781` (dirty worktree)_
+
+- run started 2026-10-11 23:12 UTC finished 23:13 UTC with exit status 0
+
+- run started 2026-10-11 23:12 UTC finished 23:13 UTC with exit status 0
+
+- run started 2026-10-11 23:12 UTC finished 23:13 UTC with exit status 0
+
+## 2026-10-11 23:14 UTC: run (exploratory)
+
+- **Question:** E1 (arc, beta=0.0): continuing the 2-cycle born at the minimum's flip along the ray by pseudo-arclength (state and ray parameter together), how does it first lose stability?
+- **Setup:** explore_momentum_maps arc: minimum at s=0.5 (checked), flip from lambda_max(P H) = 2(1+beta), 2-cycle by Newton 0.01 past the flip from the flip eigenvector (separation above 1e-3 required), pseudo-arclength (s scale 10, step 0.01..0.05, up to 6000 steps) until 0.02 past the first unit-circle crossing or s = 2.3; beta = 0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/arc-beta0.0`
+- **Would surprise us:** Control (beta=0) not reaching a complex crossing; momentum branch first crossing by a real multiplier
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.0 --out momentum/arc-beta0.0`
+
+_commit `54cf59971beb` (dirty worktree)_
+
+## 2026-10-11 23:14 UTC: run (exploratory)
+
+- **Question:** E1 (arc, beta=0.5): continuing the 2-cycle born at the minimum's flip along the ray by pseudo-arclength (state and ray parameter together), how does it first lose stability?
+- **Setup:** explore_momentum_maps arc: minimum at s=0.5 (checked), flip from lambda_max(P H) = 2(1+beta), 2-cycle by Newton 0.01 past the flip from the flip eigenvector (separation above 1e-3 required), pseudo-arclength (s scale 10, step 0.01..0.05, up to 6000 steps) until 0.02 past the first unit-circle crossing or s = 2.3; beta = 0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/arc-beta0.5`
+- **Would surprise us:** Control (beta=0) not reaching a complex crossing; momentum branch first crossing by a real multiplier
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.5 --out momentum/arc-beta0.5`
+
+_commit `54cf59971beb` (dirty worktree)_
+
+## 2026-10-11 23:14 UTC: run (exploratory)
+
+- **Question:** E1 (arc, beta=0.9): continuing the 2-cycle born at the minimum's flip along the ray by pseudo-arclength (state and ray parameter together), how does it first lose stability?
+- **Setup:** explore_momentum_maps arc: minimum at s=0.5 (checked), flip from lambda_max(P H) = 2(1+beta), 2-cycle by Newton 0.01 past the flip from the flip eigenvector (separation above 1e-3 required), pseudo-arclength (s scale 10, step 0.01..0.05, up to 6000 steps) until 0.02 past the first unit-circle crossing or s = 2.3; beta = 0 is the plain-GD control
+- **Output:** `../neural-shrimp-data/explore/momentum/arc-beta0.9`
+- **Would surprise us:** Control (beta=0) not reaching a complex crossing; momentum branch first crossing by a real multiplier
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.9 --out momentum/arc-beta0.9`
+
+_commit `54cf59971beb` (dirty worktree)_
+
+- run started 2026-10-11 23:14 UTC finished 23:15 UTC with exit status 0
+
+- run started 2026-10-11 23:14 UTC finished 23:15 UTC with exit status 0
+
+- run started 2026-10-11 23:14 UTC finished 23:15 UTC with exit status 0
+
+## 2026-10-11 23:15 UTC: E1 pilot: with heavy-ball momentum the edge-of-stability 2-cycle still loses stability by Neimark-Sacker, sooner and with slower rotation
+
+arc-beta0.0/0.5/0.9 (tool commit after 419b364c; pseudo-arclength continuation of the 2-cycle from just past the minimum's exact flip, S2-28011, ray log10 output = log10 hidden - 1.828). The minimum is rate independent (gradient 1.4e-15); flips at s = 0.6619, 0.8380, 0.9407 (shift log10(1+beta) as predicted by mu^2 - (1+beta-eta h) mu + beta = 0). First unit-circle crossing of the continued 2-cycle: beta 0 (control) complex pair at s = 1.6564, 0.178 turns per two-step (the known plain-GD Neimark-Sacker route); beta 0.5 complex pair at s = 1.0699, 0.047 turns; beta 0.9 complex pair by s = 0.9517 (first node past the crossing, modulus 1.044; coarse, needs refinement), 0.022 turns. Stable 2-cycle range in s: 0.994, 0.232, about 0.011. So the route survives momentum in this toy; larger momentum shortens the stable 2-cycle range and slows the rotation (slower loss modulation). Earlier scan/branch attempts are preserved but invalid: from-initialization scans diverged at these rates, and natural continuation collapsed back onto the fixed point. Next: refine beta=0.9, test soft vs hard onset and rotation beyond the crossing, other rays, Adam.
+
+_commit `54cf59971beb` (dirty worktree)_
+
+## 2026-10-11 23:16 UTC: run (exploratory)
+
+- **Question:** E1 arc rerun with node states saved (beta=0.5, finer steps for larger beta), as input to the onset test
+- **Setup:** explore_momentum_maps arc --beta 0.5 --h 0.005 --h-max 0.02 (otherwise as arc-beta0.5)
+- **Output:** `../neural-shrimp-data/explore/momentum/arc2-beta0.5`
+- **Would surprise us:** A different crossing type from arc-beta0.5
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.5 --h 0.005 --h-max 0.02 --out momentum/arc2-beta0.5`
+
+_commit `9ec0719541b4` (dirty worktree)_
+
+## 2026-10-11 23:16 UTC: run (exploratory)
+
+- **Question:** E1 arc rerun with node states saved (beta=0.0, finer steps for larger beta), as input to the onset test
+- **Setup:** explore_momentum_maps arc --beta 0.0 --h 0.01 --h-max 0.05 (otherwise as arc-beta0.0)
+- **Output:** `../neural-shrimp-data/explore/momentum/arc2-beta0.0`
+- **Would surprise us:** A different crossing type from arc-beta0.0
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.0 --h 0.01 --h-max 0.05 --out momentum/arc2-beta0.0`
+
+_commit `9ec0719541b4` (dirty worktree)_
+
+## 2026-10-11 23:16 UTC: run (exploratory)
+
+- **Question:** E1 arc rerun with node states saved (beta=0.9, finer steps for larger beta), as input to the onset test
+- **Setup:** explore_momentum_maps arc --beta 0.9 --h 0.001 --h-max 0.004 (otherwise as arc-beta0.9)
+- **Output:** `../neural-shrimp-data/explore/momentum/arc2-beta0.9`
+- **Would surprise us:** A different crossing type from arc-beta0.9
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.9 --h 0.001 --h-max 0.004 --out momentum/arc2-beta0.9`
+
+_commit `9ec0719541b4` (dirty worktree)_
+
+- run started 2026-10-11 23:16 UTC finished 23:16 UTC with exit status 0
+
+- run started 2026-10-11 23:16 UTC finished 23:16 UTC with exit status 0
+
+- run started 2026-10-11 23:16 UTC finished 23:16 UTC with exit status 0
+
+## 2026-10-11 23:17 UTC: run (exploratory)
+
+- **Question:** E1 onset (beta=0.5): just past the 2-cycle's Neimark-Sacker crossing (s = 1.06880, 0.047 turns), is the onset soft (small attracting invariant circle, amplitude ~ sqrt(distance), rotation near 0.047) or hard?
+- **Setup:** explore_momentum_maps onset --arc momentum/arc2-beta0.5: Newton for the 2-cycle at offsets -0.002, 0.001, 0.002, 0.004, 0.008 from the crossing; kick 1e-4 along the critical eigenvector; 100000 transient steps, 20000 two-step samples; amplitude = distance of theta from the nearer cycle point; rotation in the critical eigenplane
+- **Output:** `../neural-shrimp-data/explore/momentum/onset-beta0.5`
+- **Would surprise us:** Divergence or a far jump at small offsets (hard onset); amplitude not shrinking toward the crossing
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py onset --beta 0.5 --arc momentum/arc2-beta0.5 --out momentum/onset-beta0.5`
+
+_commit `9ec0719541b4` (dirty worktree)_
+
+## 2026-10-11 23:17 UTC: run (exploratory)
+
+- **Question:** E1: locate the beta=0.9 2-cycle's first crossing, which lies within 0.01 of the flip
+- **Setup:** arc --beta 0.9 --start-offset 0.0005 --amplitudes 0.005 0.01 0.02 0.05 --min-separation 3e-4 --h 0.0005 --h-max 0.002
+- **Output:** `../neural-shrimp-data/explore/momentum/arc3-beta0.9`
+- **Would surprise us:** No 2-cycle that close to the flip, or a real-multiplier crossing
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.9 --start-offset 0.0005 --amplitudes 0.005 0.01 0.02 0.05 --min-separation 3e-4 --h 0.0005 --h-max 0.002 --out momentum/arc3-beta0.9`
+
+_commit `9ec0719541b4` (dirty worktree)_
+
+- run started 2026-10-11 23:17 UTC finished 23:17 UTC with exit status 0
+
+- run started 2026-10-11 23:17 UTC finished 23:17 UTC with exit status 0
+
+## 2026-10-11 23:18 UTC: run (exploratory)
+
+- **Question:** E1 onset control (beta=0, plain GD): past the 2-cycle's Neimark-Sacker crossing at s = 1.65644 (0.178 turns), does the onset test show the expected soft behaviour (amplitude ~ sqrt(distance), rotation near 0.178)?
+- **Setup:** explore_momentum_maps onset --beta 0 --arc momentum/arc2-beta0.0, offsets -0.002, 0.001, 0.002, 0.004, 0.008; otherwise as onset-beta0.5
+- **Output:** `../neural-shrimp-data/explore/momentum/onset-beta0.0`
+- **Would surprise us:** Constant amplitude (hard) at a crossing the criticality analysis calls soft: the onset test would be invalid
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py onset --beta 0.0 --arc momentum/arc2-beta0.0 --out momentum/onset-beta0.0`
+
+_commit `9ec0719541b4` (dirty worktree)_
+
+- run started 2026-10-11 23:18 UTC finished 23:19 UTC with exit status 0
+
+## 2026-10-11 23:20 UTC: run (exploratory)
+
+- **Question:** E1 onset (beta=0.5), refined: relative to the bisected crossing, does the attractor amplitude go to zero as the distance shrinks (soft), and does a large-amplitude attractor coexist with the stable 2-cycle just before the crossing (hysteresis, hard)?
+- **Setup:** onset --beta 0.5 --arc momentum/arc2-beta0.5 with bisection of the crossing; offsets -0.003, -0.001 (kick 0.05 along the critical eigenvector, bistability test) and +0.0002, +0.0005, +0.001, +0.003 (kick 1e-4); otherwise as before
+- **Output:** `../neural-shrimp-data/explore/momentum/onset2-beta0.5`
+- **Would surprise us:** Amplitude shrinking like sqrt(distance) (soft), or no large attractor before the crossing
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py onset --beta 0.5 --arc momentum/arc2-beta0.5 --offsets -0.003 -0.001 0.0002 0.0005 0.001 0.003 --hysteresis-kick 0.05 --out momentum/onset2-beta0.5`
+
+_commit `4bd6f4019e87` (dirty worktree)_
+
+- run started 2026-10-11 23:20 UTC finished 23:20 UTC with exit status 0
+
+## 2026-10-11 23:21 UTC: E1: momentum 0.5 makes the 2-cycle's Neimark-Sacker onset hard (hysteresis) where plain GD is soft
+
+onset-beta0.0 (control) and onset2-beta0.5 (bisected crossing). Plain GD on the ray (crossing near s = 1.653 by amplitude extrapolation; arc's reported crossing is one step late): attractor amplitude grows with distance (0.028 -> 0.084 over 0.01 in s; amplitude^2 roughly linear) and its rotation (0.1766-0.1780) matches the crossing angle: soft, supercritical. Momentum 0.5: crossing bisected to s = 1.0679622 (0.0469 turns). Before it (-0.003, -0.001) the 2-cycle is stable (critical modulus 0.9990, 0.9997) yet a 0.05 kick lands on a coexisting large attractor (mean distance 0.047 from the cycle, cycle separation 0.083, rotation 0.0147); just after it a 1e-4 kick escapes slowly (+0.0002: still spiralling at 0.005 after 1e5 steps, growth rate 6e-5 per two-step) and reaches the same large attractor (+0.0005 to +0.003: amplitude 0.0473-0.0477, rotation 0.0149-0.0150). So the momentum 2-cycle's Neimark-Sacker bifurcation is subcritical on this ray, with hysteresis and an abrupt jump to a slow large-amplitude oscillation, where plain gradient descent shows a soft onset. Exploratory: one network, one ray; relevant to the spike-versus-soft-onset hypothesis (H1) and optimizer memory (H4).
+
+_commit `4bd6f4019e87` (dirty worktree)_
+
+## 2026-10-11 23:21 UTC: run (exploratory)
+
+- **Question:** E1 onset (beta=0.9): soft or hard Neimark-Sacker of the momentum 2-cycle just past the flip (crossing near s = 0.94124, 0.0066 turns)?
+- **Setup:** onset --beta 0.9 --arc momentum/arc3-beta0.9 with bisection; offsets -0.0002, -0.0001 (kick 0.02, bistability test) and +0.00002, +0.00005, +0.0001, +0.0003 (kick 1e-5); 200000 transient steps, 20000 two-step samples
+- **Output:** `../neural-shrimp-data/explore/momentum/onset-beta0.9`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py onset --beta 0.9 --arc momentum/arc3-beta0.9 --offsets -0.0002 -0.0001 0.00002 0.00005 0.0001 0.0003 --kick 1e-5 --hysteresis-kick 0.02 --transient 200000 --out momentum/onset-beta0.9`
+
+_commit `4bd6f4019e87` (dirty worktree)_
+
+- run started 2026-10-11 23:21 UTC finished 23:22 UTC with exit status 0
+
+- run started 2026-10-11 22:53 UTC finished 23:22 UTC with exit status 0
+
+## 2026-10-11 23:23 UTC: run (exploratory)
+
+- **Question:** CIFAR orbit-001 diverged (full Newton steps from a 5e-6 residual overshoot along the nearly neutral weight-decay directions). With 400,000 reduced-coordinate descent steps first and backtracking Newton, does the period-2 orbit converge, and does a complex pair cross the unit circle between eta 0.0083 and 0.0094?
+- **Setup:** As orbit-001 plus --pre-steps 400000 at the first rate (reduced GD, about 1 ms per step), backtracking on the residual norm (up to 12 halvings), etas 0.00827753, 0.0084, 0.0085, ..., 0.0094; full spectrum at the first rate, shift-invert afterwards; 12 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/orbit-002`
+- **Would surprise us:** Pre-descent not settling (the orbit unstable at 0.00828), Newton still failing, or a real multiplier reaching the unit circle first
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py orbit --threads 12 --pre-steps 400000 --etas 0.00827753 0.0084 0.0085 0.0086 0.0087 0.0088 0.0089 0.0090 0.0091 0.0092 0.0093 0.0094 --out ../neural-shrimp-data/explore/cifar-reduced/orbit-002`
+
+_commit `842cf4b9f5f0` (dirty worktree)_
+
+## 2026-10-11 23:24 UTC: CIFAR orbit-001 failed: full dense Newton steps diverged from a 5e-6 residual
+
+orbit-001 (tool 70889c46): from the saved sweep state at eta 0.00827753 (relative residual 4.97e-6 for F^2) the first full Newton step raised the residual to 0.021 and the iteration diverged to 45 after ten steps (988 s); the full spectrum at the diverged point (738 s) is meaningless. Likely cause: about 11,600 nearly neutral weight-decay directions (two-step multipliers near (1 - eta lambda)^2 = 0.99983) make a tiny residual correspond to a distance of order 3% of the state, so undamped steps overshoot into the nonlinear regime. Remedy in orbit-002: 400,000 reduced-coordinate descent steps first (about 1 ms each) and backtracking Newton. The dense machinery itself is validated (tests: Hessian and two-step Jacobian against autodiff; profile: reduction exact to 5e-17).
+
+_commit `842cf4b9f5f0` (dirty worktree)_
+
+## 2026-10-11 23:24 UTC: E1 beta 0.9 onset unresolved: the 2-cycle's Neimark-Sacker crossing sits 5.5e-4 past the flip
+
+arc3-beta0.9 (seeded 5e-4 past the flip): first complex crossing near s = 0.94124, rotation 0.0066 turns, when the 2-cycle separation is only about 0.003. onset-beta0.9: the crossing bracket did not refine (stored nodes too close) and at offset -0.0001 the critical modulus is already 1.00037; attractors stay at about half the tiny cycle size (amplitude 0.0013-0.0019, rotation 0.0016-0.0022, not the crossing angle 0.006-0.008). With the flip and the Neimark-Sacker crossing this close, the dynamics is governed by their codimension-two interaction; recorded as unresolved, not as soft or hard.
+
+_commit `842cf4b9f5f0` (dirty worktree)_

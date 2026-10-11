@@ -1,0 +1,572 @@
+"""Exploratory E1: does the edge-of-stability route survive heavy-ball momentum?
+
+Map (PyTorch SGD-momentum convention, per-layer rates P):
+    m' = beta * m + grad L(theta),    theta' = theta - P m'.
+This equals heavy ball, theta_{t+1} = theta_t - P grad L(theta_t) + beta (theta_t - theta_{t-1}).
+At a minimum every Hessian eigenvalue h gives mu^2 - (1 + beta - eta h) mu + beta = 0, so
+complex pairs have modulus sqrt(beta) and the minimum first loses stability by a flip at
+eta h = 2 (1 + beta). The question here is what the resulting 2-cycle does next: a
+Neimark-Sacker bifurcation (quasi-periodic training, locking windows) as in plain gradient
+descent, or something else.
+
+Subcommands:
+  scan     Along a ray of rates (fixed output/hidden ratio), iterate from the shared initial
+           parameters, find the attracting 2-cycle by Newton on F^2 in the 26-dimensional
+           state, and report its two-step multipliers; the first unit-circle crossing type is
+           the answer for that ray.
+  rotation-map  Rotation numbers of two-step samples of theta on a rate rectangle (CPU).
+  branch   Basin-independent version of scan: find the minimum (rate independent), locate its
+           flip on the ray exactly (largest eigenvalue of P H equal to 2 (1 + beta)), seed the
+           2-cycle from the flip eigenvector and continue it along the ray, recording its
+           two-step multipliers until (and after) the first unit-circle crossing.
+  arc      Same question with pseudo-arclength continuation of the 2-cycle branch (state and
+           ray parameter together), started a little past the flip, so the branch cannot slide
+           back onto the fixed point; records the first unit-circle crossing.
+  onset    Just past that crossing: Newton for the (now unstable) 2-cycle at given distances
+           past the crossing, start next to it along the critical eigenvector, iterate, and
+           measure the attractor's distance from the cycle and its rotation around it (soft
+           onset: amplitude ~ sqrt(distance), rotation near the crossing angle; hard onset: a
+           jump far away or divergence).
+"""
+
+import argparse
+import json
+import os
+import sys
+import time
+from concurrent.futures import ProcessPoolExecutor
+from pathlib import Path
+
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from neural_shrimp.trainability import SYSTEMS  # noqa: E402
+
+DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
+
+
+class MomentumMap:
+    def __init__(self, system, seed, beta):
+        self.net, self.x, self.y, self.theta0 = SYSTEMS[system](seed)
+        self.beta = float(beta)
+        self.n = self.net.n_parameters
+        h = self.net.hidden_parameter_count
+        self.mask_h = np.zeros(self.n)
+        self.mask_h[:h] = 1.0
+
+    def rates(self, lh, lo):
+        lh, lo = np.atleast_1d(lh), np.atleast_1d(lo)
+        return 10.0 ** lh[:, None] * self.mask_h + 10.0 ** lo[:, None] * (1.0 - self.mask_h)
+
+    def step(self, theta, m, rates):
+        g = self.net.gradient(theta, self.x, self.y)
+        m = self.beta * m + g
+        return theta - rates * m, m
+
+    def jacobian(self, theta, m, rates):
+        """26 x 26 Jacobian of one step for a single state."""
+        h = self.net.hessian(theta, self.x, self.y)
+        n = self.n
+        jac = np.zeros((2 * n, 2 * n))
+        r = rates[0]
+        jac[:n, :n] = np.eye(n) - r[:, None] * h
+        jac[:n, n:] = -self.beta * np.diag(r)
+        jac[n:, :n] = h
+        jac[n:, n:] = self.beta * np.eye(n)
+        return jac
+
+
+def newton_two_cycle(mm, state, rates, tol=1e-12, max_iter=30):
+    n = mm.n
+    z = state.copy()
+    for _ in range(max_iter):
+        t1, m1 = mm.step(z[None, :n], z[None, n:], rates)
+        j0 = mm.jacobian(z[:n], z[n:], rates)
+        t2, m2 = mm.step(t1, m1, rates)
+        j1 = mm.jacobian(t1[0], m1[0], rates)
+        f2 = np.concatenate([t2[0], m2[0]])
+        res = f2 - z
+        if np.linalg.norm(res) < tol * max(1.0, np.linalg.norm(z)):
+            return z, j1 @ j0
+        z = z + np.linalg.solve(j1 @ j0 - np.eye(2 * n), -res)
+    return None, None
+
+
+def scan(args):
+    mm = MomentumMap(args.system, args.seed, args.beta)
+    rows = []
+    state_prev = None
+    for s in np.linspace(args.start, args.stop, args.points):
+        lh = s + args.offset_hidden
+        lo = s + args.offset_output
+        rates = mm.rates(lh, lo)
+        theta = mm.theta0[None, :].copy()
+        m = np.zeros_like(theta)
+        for _ in range(args.transient):
+            theta, m = mm.step(theta, m, rates)
+        state = np.concatenate([theta[0], m[0]])
+        if not np.all(np.isfinite(state)):
+            rows.append({"s": float(s), "status": "diverged"})
+            continue
+        z, mono = newton_two_cycle(mm, state, rates)
+        if z is None and state_prev is not None:
+            z, mono = newton_two_cycle(mm, state_prev, rates)
+        if z is None:
+            rows.append({"s": float(s), "status": "no 2-cycle"})
+            continue
+        t1, m1 = mm.step(z[None, :mm.n], z[None, mm.n:], rates)
+        separation = float(np.linalg.norm(t1[0] - z[:mm.n]))
+        mult = np.linalg.eigvals(mono)
+        order = np.argsort(-np.abs(mult))
+        top = mult[order[0]]
+        attract = float(np.linalg.norm(state - z))
+        rows.append({"s": float(s), "status": "fixed point" if separation < 1e-8 else "2-cycle",
+                     "separation": separation, "distance_attractor_to_cycle": attract,
+                     "top": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]],
+                     "top_modulus": float(abs(top)),
+                     "top_turns": float(abs(np.angle(top)) / (2 * np.pi))})
+        state_prev = z
+        print(json.dumps({k: (round(v, 6) if isinstance(v, float) else v) for k, v in rows[-1].items()
+                          if k != "top"} | {"top2": [[round(a, 4), round(b, 4)] for a, b in rows[-1]["top"][:2]]}))
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "scan.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
+    print(json.dumps({"out": str(out / "scan.json")}))
+
+
+def rotation_block(task):
+    system, seed, beta, lh, lo, steps, pca, samples = task
+    mm = MomentumMap(system, seed, beta)
+    rates = mm.rates(lh, lo)
+    theta = np.repeat(mm.theta0[None, :], len(lh), axis=0)
+    m = np.zeros_like(theta)
+    with np.errstate(over="ignore", invalid="ignore"):
+        for _ in range(steps):
+            theta, m = mm.step(theta, m, rates)
+        lobe = np.empty((pca, len(lh), mm.n))
+        for k in range(pca):
+            lobe[k] = theta
+            theta, m = mm.step(*mm.step(theta, m, rates), rates)
+        alive = np.all(np.isfinite(theta), axis=1) & np.all(np.isfinite(lobe), axis=(0, 2))
+        centroid = np.nan_to_num(lobe.mean(0))
+        centered = np.nan_to_num(np.transpose(lobe - centroid[None], (1, 0, 2)))
+        _, singular, vt = np.linalg.svd(centered, full_matrices=False)
+        plane = vt[:, :2, :]
+        spread = singular[:, 0] / np.sqrt(pca)
+
+        def angle(t):
+            planar = np.einsum("cp,cjp->cj", np.nan_to_num(t) - centroid, plane)
+            return np.arctan2(planar[:, 1], planar[:, 0])
+
+        previous = angle(theta)
+        total = np.zeros(len(lh))
+        for _ in range(samples):
+            theta, m = mm.step(*mm.step(theta, m, rates), rates)
+            current = angle(theta)
+            total += (current - previous + np.pi) % (2 * np.pi) - np.pi
+            previous = current
+    alive &= np.all(np.isfinite(theta), axis=1)
+    rho = np.where(alive, np.abs(total) / (2 * np.pi * samples), np.nan)
+    return {"rho": rho, "spread": np.where(alive, spread, np.nan)}
+
+
+def rotation_map(args):
+    rows, cols = args.resolution
+    log_h = np.linspace(*args.hidden, rows)
+    log_o = np.linspace(*args.output, cols)
+    r, c = np.divmod(np.arange(rows * cols), cols)
+    chunks = np.array_split(np.arange(rows * cols), args.workers * 4)
+    tasks = [(args.system, args.seed, args.beta, log_h[r[i]], log_o[c[i]], args.steps, args.pca, args.samples)
+             for i in chunks]
+    start = time.perf_counter()
+    with ProcessPoolExecutor(args.workers) as pool:
+        parts = list(pool.map(rotation_block, tasks, chunksize=1))
+    merged = {k: np.concatenate([p[k] for p in parts]).reshape(rows, cols) for k in parts[0]}
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez(out / "rotation.npz", log10_hidden=log_h, log10_output=log_o, **merged)
+    (out / "metadata.json").write_text(json.dumps({"args": vars(args), "seconds": time.perf_counter() - start},
+                                                  indent=1))
+    print(json.dumps({"out": str(out), "seconds": round(time.perf_counter() - start, 1)}))
+
+
+def branch(args):
+    mm = MomentumMap(args.system, args.seed, args.beta)
+    n = mm.n
+    p0 = mm.rates(0.0, args.offset_output)[0]           # rates at s = 0 on the ray
+    # the minimum: plain gradient descent at a small rate on the ray, then Newton on the gradient
+    small = mm.rates(args.s_low, args.s_low + args.offset_output)
+    theta = mm.theta0[None, :].copy()
+    for _ in range(args.descent_steps):
+        theta = theta - small * mm.net.gradient(theta, mm.x, mm.y)
+    theta = theta[0]
+    for _ in range(20):
+        g = mm.net.gradient(theta[None, :], mm.x, mm.y)[0]
+        if np.linalg.norm(g) < 1e-13:
+            break
+        theta = theta - np.linalg.solve(mm.net.hessian(theta, mm.x, mm.y), g)
+    if np.linalg.norm(mm.net.gradient(theta[None, :], mm.x, mm.y)) > 1e-10:
+        print(json.dumps({"outcome": "descent and Newton did not reach a critical point; lower --s-low"}))
+        return
+    hess = mm.net.hessian(theta, mm.x, mm.y)
+    if np.min(np.linalg.eigvalsh(hess)) <= 0:
+        print(json.dumps({"outcome": "critical point is not a minimum"}))
+        return
+    lam = np.linalg.eigvals(p0[:, None] * hess)
+    lam_max = float(np.max(lam.real))
+    s_flip = float(np.log10(2.0 * (1.0 + mm.beta) / lam_max))
+    record = {"args": vars(args), "minimum_gradient": float(np.linalg.norm(
+        mm.net.gradient(theta[None, :], mm.x, mm.y))), "minimum_loss": float(mm.net.loss(theta[None, :], mm.x, mm.y)[0]),
+        "lambda_max_at_s0": lam_max, "s_flip": s_flip, "minimum": theta.tolist()}
+    print(json.dumps({k: record[k] for k in ("minimum_gradient", "minimum_loss", "lambda_max_at_s0", "s_flip")}))
+    # flip eigenvector of the 2n-dimensional step Jacobian just beyond the flip
+    rows = []
+    for side in (+1, -1):
+        s = s_flip + side * args.seed_offset
+        rates = mm.rates(s, s + args.offset_output)
+        jac = mm.jacobian(theta, np.zeros(n), rates)
+        mult, vecs = np.linalg.eig(jac)
+        i = int(np.argmin(np.abs(mult + 1.0)))
+        v = np.real(vecs[:, i])
+        v /= np.linalg.norm(v)
+        found = None
+        for amp in args.amplitudes:
+            z0 = np.concatenate([theta, np.zeros(n)]) + amp * v
+            z, mono = newton_two_cycle(mm, z0, rates)
+            if z is not None:
+                t1, _ = mm.step(z[None, :n], z[None, n:], rates)
+                if np.linalg.norm(t1[0] - z[:n]) > 1e-7:
+                    found = (z, mono, amp)
+                    break
+        if found is not None:
+            record["seed_side"] = side
+            break
+    if found is None:
+        record["outcome"] = "no 2-cycle near the flip on either side"
+        print(json.dumps({"outcome": record["outcome"]}))
+    else:
+        z, mono, amp = found
+        direction = side
+        crossed = None
+        for k in range(args.steps):
+            rates = mm.rates(s, s + args.offset_output)
+            z_new, mono = newton_two_cycle(mm, z, rates)
+            if z_new is None:
+                rows.append({"s": s, "status": "Newton failed"})
+                break
+            z = z_new
+            t1, _ = mm.step(z[None, :n], z[None, n:], rates)
+            sep = float(np.linalg.norm(t1[0] - z[:n]))
+            mult = np.linalg.eigvals(mono)
+            order = np.argsort(-np.abs(mult))
+            top = mult[order[0]]
+            row = {"s": float(s), "separation": sep, "top_modulus": float(abs(top)),
+                   "top_turns": float(abs(np.angle(top)) / (2 * np.pi)),
+                   "top": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]]}
+            rows.append(row)
+            if crossed is None and abs(top) > 1.0 + 1e-9 and k > 0:
+                kind = "complex (Neimark-Sacker)" if abs(top.imag) > 1e-8 else (
+                    "real +1 (fold)" if top.real > 0 else "real -1 (flip)")
+                crossed = {"s": float(s), "type": kind, "turns": row["top_turns"]}
+                print(json.dumps({"first_crossing": crossed}))
+            if k % args.print_every == 0:
+                print(json.dumps({"s": round(s, 5), "sep": round(sep, 5), "mod": round(abs(top), 6),
+                                  "turns": round(row["top_turns"], 4)}))
+            if crossed is not None and abs(s - crossed["s"]) > args.beyond:
+                break
+            s += direction * args.ds
+        record["first_crossing"] = crossed
+    record["rows"] = rows
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "branch.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({"out": str(out / "branch.json"), "first_crossing": record.get("first_crossing")}))
+
+
+class MomentumTwoCycle:
+    """F^2(z) - z on a rate ray, unknowns (26-dimensional state, s), for fastcont.arclength."""
+
+    def __init__(self, mm, offset_output):
+        self.mm, self.offset = mm, offset_output
+
+    def rates(self, s):
+        return self.mm.rates(s, s + self.offset)
+
+    def one(self, z, rates):
+        n = self.mm.n
+        t, m = self.mm.step(z[None, :n], z[None, n:], rates)
+        jac = self.mm.jacobian(z[:n], z[n:], rates)
+        ds = np.concatenate([-np.log(10.0) * rates[0] * m[0], np.zeros(n)])
+        return np.concatenate([t[0], m[0]]), jac, ds
+
+    def residual_jacobian(self, w):
+        z, s = w[:-1], w[-1]
+        rates = self.rates(s)
+        z1, j0, d0 = self.one(z, rates)
+        z2, j1, d1 = self.one(z1, rates)
+        mono = j1 @ j0
+        dfds = j1 @ d0 + d1
+        jac = np.concatenate([mono - np.eye(len(z)), dfds[:, None]], axis=1)
+        return z2 - z, jac, mono, np.array([z, z1, z2])
+
+
+def arc(args):
+    from neural_shrimp.fastcont import arclength, newton, null_tangent
+
+    mm = MomentumMap(args.system, args.seed, args.beta)
+    n = mm.n
+    p0 = mm.rates(0.0, args.offset_output)[0]
+    small = mm.rates(args.s_low, args.s_low + args.offset_output)
+    theta = mm.theta0[None, :].copy()
+    for _ in range(args.descent_steps):
+        theta = theta - small * mm.net.gradient(theta, mm.x, mm.y)
+    theta = theta[0]
+    for _ in range(20):
+        g = mm.net.gradient(theta[None, :], mm.x, mm.y)[0]
+        if np.linalg.norm(g) < 1e-13:
+            break
+        theta = theta - np.linalg.solve(mm.net.hessian(theta, mm.x, mm.y), g)
+    if np.linalg.norm(mm.net.gradient(theta[None, :], mm.x, mm.y)) > 1e-10:
+        print(json.dumps({"outcome": "no converged minimum"}))
+        return
+    lam_max = float(np.max(np.linalg.eigvals(p0[:, None] * mm.net.hessian(theta, mm.x, mm.y)).real))
+    s_flip = float(np.log10(2.0 * (1.0 + mm.beta) / lam_max))
+    system = MomentumTwoCycle(mm, args.offset_output)
+    record = {"args": vars(args), "s_flip": s_flip, "lambda_max_at_s0": lam_max}
+    seed = None
+    for side in (+1, -1):
+        s0 = s_flip + side * args.start_offset
+        rates = system.rates(s0)
+        jac = mm.jacobian(theta, np.zeros(n), rates)
+        mult, vecs = np.linalg.eig(jac)
+        v = np.real(vecs[:, int(np.argmin(np.abs(mult + 1.0)))])
+        v /= np.linalg.norm(v)
+        fixed = np.zeros(2 * n + 1)
+        fixed[-1] = 1.0
+        for amp in args.amplitudes:
+            w0 = np.concatenate([theta, np.zeros(n), [s0]]) + np.concatenate([amp * v, [0.0]])
+            w, hist = newton(system, w0, max_iter=40, extra=lambda q, s0=s0: (fixed, q[-1] - s0))
+            if w is None:
+                continue
+            _, _, _, pts = system.residual_jacobian(w)
+            if np.linalg.norm(pts[1][:n] - pts[0][:n]) > args.min_separation:
+                seed = (w, side)
+                break
+        if seed is not None:
+            break
+    if seed is None:
+        record["outcome"] = "no 2-cycle found near the flip"
+        print(json.dumps({"s_flip": s_flip, "outcome": record["outcome"]}))
+    else:
+        w, side = seed
+        _, jac, _, _ = system.residual_jacobian(w)
+        scale = np.concatenate([np.ones(2 * n), [args.s_scale]])
+        tangent = null_tangent(jac, scale)
+        if tangent[-1] * side < 0:
+            tangent = -tangent
+        crossing = []
+
+        def watch(node):
+            mult = np.linalg.eigvals(node["monodromy"])
+            top = mult[np.argmax(np.abs(mult))]
+            if abs(top) > 1.0 + 1e-9 and not crossing:
+                kind = "complex (Neimark-Sacker)" if abs(top.imag) > 1e-8 else (
+                    "real +1 (fold)" if top.real > 0 else "real -1 (flip)")
+                crossing.append({"s": float(node["z"][-1]), "type": kind,
+                                 "turns": float(abs(np.angle(top)) / (2 * np.pi)), "modulus": float(abs(top))})
+            return bool(crossing) and abs(node["z"][-1] - crossing[0]["s"]) > args.beyond or node["z"][-1] > args.s_max
+
+        nodes, reason = arclength(system, w, tangent, scale, steps=args.steps, h0=args.h, h_min=1e-8,
+                                  h_max=args.h_max, stop=watch)
+        rows = []
+        for node in nodes:
+            mult = np.linalg.eigvals(node["monodromy"])
+            order = np.argsort(-np.abs(mult))
+            pts = node["points"]
+            rows.append({"s": float(node["z"][-1]), "separation": float(np.linalg.norm(pts[1][:n] - pts[0][:n])),
+                         "top": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]]})
+        record.update({"seed_side": side, "reason": reason, "first_crossing": crossing[0] if crossing else None,
+                       "rows": rows})
+        print(json.dumps({"s_flip": s_flip, "seed_side": side, "nodes": len(rows), "reason": reason,
+                          "first_crossing": record["first_crossing"],
+                          "separation_range": [min(r["separation"] for r in rows), max(r["separation"] for r in rows)]
+                          if rows else None}))
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "arc.json").write_text(json.dumps(record, indent=1))
+    if seed is not None and nodes:
+        np.savez_compressed(out / "nodes.npz", w=np.array([node["z"] for node in nodes]))
+
+
+def onset(args):
+    from neural_shrimp.fastcont import newton
+
+    mm = MomentumMap(args.system, args.seed, args.beta)
+    n = mm.n
+    base = DATA / "explore" / args.arc
+    record = json.loads((base / "arc.json").read_text())
+    nodes = np.load(base / "nodes.npz")["w"]
+    crossing = record["first_crossing"]
+    system = MomentumTwoCycle(mm, args.offset_output)
+    k = int(np.argmin(np.abs(nodes[:, -1] - crossing["s"])))
+    fixed_row = np.zeros(2 * n + 1)
+    fixed_row[-1] = 1.0
+
+    def cycle_at(s_value, guess):
+        w0 = guess.copy()
+        w0[-1] = s_value
+        w, _ = newton(system, w0, max_iter=40, extra=lambda q: (fixed_row, q[-1] - s_value))
+        if w is None:
+            return None, None
+        _, _, mono, _ = system.residual_jacobian(w)
+        return w, float(np.max(np.abs(np.linalg.eigvals(mono))))
+
+    # bisection for the crossing between the last stable and first unstable stored nodes
+    lo_s, hi_s = nodes[max(k - 1, 0)][-1], nodes[k][-1]
+    guess = nodes[max(k - 1, 0)]
+    _, r_lo = cycle_at(lo_s, guess)
+    if r_lo is not None and r_lo > 1.0:
+        lo_s = nodes[max(k - 2, 0)][-1]
+    for _ in range(40):
+        mid = 0.5 * (lo_s + hi_s)
+        w_mid, r_mid = cycle_at(mid, guess)
+        if w_mid is None:
+            break
+        guess = w_mid
+        if r_mid > 1.0:
+            hi_s = mid
+        else:
+            lo_s = mid
+    s_cross = 0.5 * (lo_s + hi_s)
+    print(json.dumps({"refined_crossing": s_cross, "bracket": [lo_s, hi_s]}))
+    rows = []
+    for offset in args.offsets:
+        s_target = s_cross + offset
+        fixed = np.zeros(2 * n + 1)
+        fixed[-1] = 1.0
+        w0 = nodes[k].copy()
+        w0[-1] = s_target
+        w, hist = newton(system, w0, max_iter=40, extra=lambda q: (fixed, q[-1] - s_target))
+        if w is None:
+            rows.append({"offset": offset, "outcome": "cycle not found"})
+            continue
+        z = w[:-1]
+        _, _, mono, pts = system.residual_jacobian(w)
+        mult, vecs = np.linalg.eig(mono)
+        i = int(np.argmax(np.abs(mult)))
+        v = vecs[:, i]
+        crit = mult[i]
+        rates = system.rates(s_target)
+        kick = args.kick if offset > 0 or args.hysteresis_kick is None else args.hysteresis_kick
+        state = z + kick * np.real(v) / np.linalg.norm(np.real(v))
+        t, m = state[None, :n], state[None, n:]
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _ in range(args.transient):
+                t, m = mm.step(t, m, rates)
+            samples = []
+            for _ in range(args.samples):
+                samples.append(np.concatenate([t[0], m[0]]))
+                t, m = mm.step(*mm.step(t, m, rates), rates)
+        samples = np.array(samples)
+        if not np.all(np.isfinite(samples)):
+            rows.append({"offset": offset, "outcome": "diverged", "critical_modulus": float(abs(crit))})
+            print(json.dumps(rows[-1]))
+            continue
+        d = np.linalg.norm(samples[:, :n] - z[:n], axis=1)
+        d_other = np.linalg.norm(samples[:, :n] - pts[1][:n], axis=1)
+        dist = np.minimum(d, d_other)
+        basis = np.stack([np.real(v)[:n], np.imag(v)[:n]], axis=1)
+        q, _ = np.linalg.qr(basis)
+        planar = (samples[:, :n] - z[:n]) @ q
+        angles = np.unwrap(np.arctan2(planar[:, 1], planar[:, 0]))
+        rot = float(abs(angles[-1] - angles[0]) / (2 * np.pi * (len(angles) - 1)))
+        rows.append({"offset": offset, "s": s_target, "kick": kick, "critical_modulus": float(abs(crit)),
+                     "critical_turns": float(abs(np.angle(crit)) / (2 * np.pi)),
+                     "amplitude_mean": float(dist.mean()), "amplitude_max": float(dist.max()),
+                     "amplitude_min": float(dist.min()), "rotation_two_step": rot,
+                     "cycle_separation": float(np.linalg.norm(pts[1][:n] - pts[0][:n]))})
+        print(json.dumps({key: (round(val, 6) if isinstance(val, float) else val) for key, val in rows[-1].items()}))
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "onset.json").write_text(json.dumps({"args": vars(args), "crossing": crossing,
+                                                "refined_crossing": s_cross, "rows": rows}, indent=1))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = parser.add_subparsers(dest="command", required=True)
+    sc = sub.add_parser("scan")
+    sc.add_argument("--system", default="S2")
+    sc.add_argument("--seed", type=int, default=28011)
+    sc.add_argument("--beta", type=float, required=True)
+    sc.add_argument("--start", type=float, required=True, help="ray parameter start (log10 units)")
+    sc.add_argument("--stop", type=float, required=True)
+    sc.add_argument("--points", type=int, default=40)
+    sc.add_argument("--offset-hidden", type=float, default=0.0)
+    sc.add_argument("--offset-output", type=float, default=0.0)
+    sc.add_argument("--transient", type=int, default=20000)
+    sc.add_argument("--out", required=True)
+    rm = sub.add_parser("rotation-map")
+    rm.add_argument("--system", default="S2")
+    rm.add_argument("--seed", type=int, default=28011)
+    rm.add_argument("--beta", type=float, required=True)
+    rm.add_argument("--hidden", type=float, nargs=2, required=True)
+    rm.add_argument("--output", type=float, nargs=2, required=True)
+    rm.add_argument("--resolution", type=int, nargs=2, default=(128, 128))
+    rm.add_argument("--steps", type=int, default=20000)
+    rm.add_argument("--pca", type=int, default=256)
+    rm.add_argument("--samples", type=int, default=8000)
+    rm.add_argument("--workers", type=int, default=8)
+    rm.add_argument("--out", required=True)
+    br = sub.add_parser("branch")
+    br.add_argument("--system", default="S2")
+    br.add_argument("--seed", type=int, default=28011)
+    br.add_argument("--beta", type=float, required=True)
+    br.add_argument("--offset-output", type=float, default=-1.828, help="log10 output - log10 hidden on the ray")
+    br.add_argument("--s-low", type=float, default=0.5, help="small-rate point for the descent to the minimum")
+    br.add_argument("--descent-steps", type=int, default=200000)
+    br.add_argument("--seed-offset", type=float, default=2e-4)
+    br.add_argument("--amplitudes", type=float, nargs="+", default=[1e-3, 3e-3, 1e-2, 3e-2, 0.1])
+    br.add_argument("--ds", type=float, default=5e-4)
+    br.add_argument("--steps", type=int, default=4000)
+    br.add_argument("--beyond", type=float, default=0.02)
+    br.add_argument("--print-every", type=int, default=20)
+    br.add_argument("--out", required=True)
+    ac = sub.add_parser("arc")
+    ac.add_argument("--system", default="S2")
+    ac.add_argument("--seed", type=int, default=28011)
+    ac.add_argument("--beta", type=float, required=True)
+    ac.add_argument("--offset-output", type=float, default=-1.828)
+    ac.add_argument("--s-low", type=float, default=0.5)
+    ac.add_argument("--descent-steps", type=int, default=200000)
+    ac.add_argument("--start-offset", type=float, default=0.01)
+    ac.add_argument("--amplitudes", type=float, nargs="+", default=[0.02, 0.05, 0.1, 0.2, 0.4])
+    ac.add_argument("--min-separation", type=float, default=1e-3)
+    ac.add_argument("--s-scale", type=float, default=10.0)
+    ac.add_argument("--h", type=float, default=0.01)
+    ac.add_argument("--h-max", type=float, default=0.05)
+    ac.add_argument("--steps", type=int, default=6000)
+    ac.add_argument("--beyond", type=float, default=0.02)
+    ac.add_argument("--s-max", type=float, default=2.3)
+    ac.add_argument("--out", required=True)
+    on = sub.add_parser("onset")
+    on.add_argument("--system", default="S2")
+    on.add_argument("--seed", type=int, default=28011)
+    on.add_argument("--beta", type=float, required=True)
+    on.add_argument("--offset-output", type=float, default=-1.828)
+    on.add_argument("--arc", required=True, help="explore-relative folder of an arc run")
+    on.add_argument("--offsets", type=float, nargs="+", default=[-0.002, 0.001, 0.002, 0.004, 0.008])
+    on.add_argument("--kick", type=float, default=1e-4)
+    on.add_argument("--hysteresis-kick", type=float, default=None,
+                    help="kick used at negative offsets (before the crossing) to test bistability")
+    on.add_argument("--transient", type=int, default=100000)
+    on.add_argument("--samples", type=int, default=20000)
+    on.add_argument("--out", required=True)
+    args = parser.parse_args()
+    {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset}[args.command](args)
+
+
+if __name__ == "__main__":
+    main()

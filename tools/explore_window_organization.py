@@ -14,6 +14,36 @@ Subcommands:
   figure        Anatomy figure from a saved rotation map and the carried
                 fold/flip curves: rotation field, the 2/9 level set, the
                 rotation minimum along each column, and the boundary curves.
+  banana        Exact period-18 orbits on the near-curve 2/9 arc: shoot from
+                circle points with the hidden rate free, trace the closed
+                orbit curve at fixed output rate through its two folds, then
+                continue both folds in the rate plane and report where they
+                go (toward the 2/9 roots, the window, or elsewhere).
+  fold-from-node  Continue a saved carried fold (or flip) node of the window
+                in both directions with fast float64 continuation, recording
+                every node's rates, multipliers and parameter tangent so cusps
+                (tangent reversals), 1:1 points (a second multiplier at +1),
+                fold-flip points (a multiplier at -1) and fold-NS points (a
+                complex pair on the unit circle) can be located afterwards.
+  period2-at    Period-2 orbit at given rates by Newton from a saved state
+                (for example the collapse point of a period-18 fold), with
+                its two-step multipliers.
+  section-from-node  From a saved continuation node on a fold, trace the closed
+                orbit curve in a one-parameter section (fixed hidden or output
+                rate) through the section's other fold, refine that fold and
+                continue it both ways in the rate plane.
+  ns2-locus     Follow the period-2 Neimark-Sacker locus (complex pair of the
+                two-step Jacobian on the unit circle) in steps of the output
+                rate, continuing the same 2-cycle, and record its rotation and
+                its other multipliers (where does a real multiplier pass +1?).
+  continue-period2  Continue a period-2 orbit at fixed output rate in the hidden
+                rate (pseudo-arclength, any stability) from a stored state and
+                record its two-step multipliers, optionally comparing with a
+                reference 2-cycle state at a target hidden rate.
+  composite     One figure of the organization: rotation field with the 2/9
+                level set, the banana's two folds, continued window folds and
+                the carried flip curves, plus a zoom on the banana and its
+                locking width along the curve.
 """
 
 import argparse
@@ -30,6 +60,8 @@ from scipy.spatial import cKDTree
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from neural_shrimp.fastcont import (FoldCurve, OrbitCurve, TwoRateMap, arclength,  # noqa: E402
+                                    divisor_separations, newton, null_tangent)
 from neural_shrimp.regimes import rotation_number  # noqa: E402
 from neural_shrimp.trainability import make_s2  # noqa: E402
 
@@ -202,6 +234,515 @@ def figure(args):
                       "min_column_minimum": float(minima[:, 2].min()) if len(minima) else None}))
 
 
+def even_spread(points):
+    """Largest distance of the nine even points of a period-18 orbit from their mean."""
+    even = points[0:18:2]
+    return float(np.max(np.linalg.norm(even - even.mean(axis=0), axis=1)))
+
+
+def summarize_node(node, period):
+    z, m = node["z"], node["monodromy"]
+    n = 13
+    mult = np.linalg.eigvals(m)
+    order = np.argsort(-np.abs(mult))
+    return {"lx": float(z[-2]) if len(z) > n + 1 else None, "ly": float(z[-1]),
+            "spread": even_spread(node["points"]),
+            "min_divisor_separation": min(divisor_separations(node["points"], period).values()),
+            "multipliers": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]],
+            "newton_last": node["newton"][-1], "h": node["h"]}
+
+
+def banana(args):
+    net, x, y, theta0 = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    period = 18
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"lx": args.lx, "ly_seed": args.ly, "period": period, "transient": args.transient}
+    p_seed = [args.lx, args.ly]
+    theta = f.iterate(theta0, p_seed, args.transient)
+    short = f.orbit(theta, p_seed, 2 * 64)[0::2]
+    j = int(np.argmax(short.std(axis=0)))
+    target = float(theta[j])
+    curve = OrbitCurve(f, period, fixed=args.lx)
+    phase_row = np.zeros(f.n + 1)
+    phase_row[j] = 1.0
+    z0, history = newton(curve, np.concatenate([theta, [args.ly]]), max_iter=30,
+                         extra=lambda w: (phase_row, w[j] - target))
+    record["seed_newton"] = history
+    if z0 is None:
+        record["outcome"] = "no period-18 orbit from the circle seed"
+        (out / "banana.json").write_text(json.dumps(record, indent=1))
+        print(json.dumps({"outcome": record["outcome"], "newton": history[-3:]}))
+        return
+    _, jac, m, points = curve.residual_jacobian(z0)
+    seps = divisor_separations(points, period)
+    record["seed_orbit"] = {"ly": float(z0[-1]), "spread": even_spread(points), "divisor_separations": seps,
+                            "multipliers_abs": sorted(np.abs(np.linalg.eigvals(m)).tolist(), reverse=True)[:4]}
+    print(json.dumps({"seed_ly": z0[-1], "spread": even_spread(points), "min_sep": min(seps.values())}))
+    # trace the closed orbit curve at fixed output rate
+    scale = np.concatenate([np.ones(f.n), [args.ly_scale]])
+    t0 = null_tangent(jac, scale)
+    seen = []
+
+    def closed(nd):
+        seen.append(1)
+        return len(seen) > 10 and np.linalg.norm((nd["z"] - z0) * scale) < 1.5 * nd["h"]
+
+    nodes, why = arclength(curve, z0, t0, scale, steps=args.loop_steps, h0=args.loop_h, h_min=1e-9,
+                           h_max=4 * args.loop_h, stop=closed)
+    record["loop_stop"] = why
+    lys = np.array([nd["z"][-1] for nd in nodes]) if nodes else np.array([])
+    record["loop"] = [{"ly": float(nd["z"][-1]), "spread": even_spread(nd["points"]),
+                       "theta_j": float(nd["z"][j])} for nd in nodes]
+    if len(lys) == 0:
+        record["outcome"] = "orbit curve did not advance"
+        (out / "banana.json").write_text(json.dumps(record, indent=1))
+        print(json.dumps({"outcome": record["outcome"]}))
+        return
+    record["loop_ly_range"] = [float(lys.min()), float(lys.max())]
+    print(json.dumps({"loop_nodes": len(nodes), "why": why, "ly_min": lys.min(), "ly_max": lys.max(),
+                      "width_decades": lys.max() - lys.min()}))
+    # refine both folds at fixed output rate, then continue them in the rate plane
+    folds = []
+    for label, k in (("lower", int(np.argmin(lys))), ("upper", int(np.argmax(lys)))):
+        nd = nodes[k]
+        theta_f, ly_f = nd["z"][:f.n], nd["z"][-1]
+        mult, vecs = np.linalg.eig(nd["monodromy"])
+        i = int(np.argmin(np.abs(mult - 1.0)))
+        q = np.real(vecs[:, i])
+        q /= np.linalg.norm(q)
+        fold = FoldCurve(f, period, sigma=1.0)
+        zf0 = np.concatenate([theta_f, q, [args.lx, ly_f]])
+        lx_row = np.zeros(2 * f.n + 2)
+        lx_row[-2] = 1.0
+        zf, fh = newton(fold, zf0, max_iter=20, extra=lambda w: (lx_row, w[-2] - args.lx))
+        entry = {"label": label, "start_ly": float(ly_f), "newton": fh}
+        if zf is None:
+            entry["outcome"] = "fold refinement failed"
+            folds.append(entry)
+            continue
+        _, fj, fm, fpoints = fold.residual_jacobian(zf)
+        entry["fold_ly"] = float(zf[-1])
+        fscale = np.concatenate([np.ones(2 * f.n), [args.p_scale, args.p_scale]])
+        branches = {}
+        for sign in (1, -1):
+            tangent = sign * null_tangent(fj, fscale)
+            path, reason = arclength(
+                fold, zf, tangent, fscale, steps=args.fold_steps, h0=args.fold_h, h_min=1e-7,
+                h_max=args.fold_h_max,
+                stop=lambda node: (even_spread(node["points"]) < args.min_spread
+                                   or not (args.box[0] <= node["z"][-2] <= args.box[1]
+                                           and args.box[2] <= node["z"][-1] <= args.box[3])))
+            branches[str(sign)] = {"reason": reason,
+                                   "nodes": [summarize_node(node, period) | {"lx": float(node["z"][-2])}
+                                             for node in path]}
+            last = branches[str(sign)]["nodes"][-1] if path else None
+            print(json.dumps({"fold": label, "direction": sign, "nodes": len(path), "reason": reason,
+                              "end": None if last is None else [last["lx"], last["ly"], last["spread"]]}))
+        entry["branches"] = branches
+        folds.append(entry)
+    record["folds"] = folds
+    (out / "banana.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({"out": str(out / "banana.json")}))
+
+
+def node_events(node, sigma):
+    """Spectral and tangent data for one fold/flip continuation node."""
+    m, z, t = node["monodromy"], node["z"], node["tangent"]
+    mult = np.linalg.eigvals(m)
+    crit = int(np.argmin(np.abs(mult - sigma)))
+    others = np.delete(mult, crit)
+    near_plus = others[int(np.argmin(np.abs(others - 1.0)))]
+    near_minus = others[int(np.argmin(np.abs(others + 1.0)))]
+    complex_others = others[np.abs(others.imag) > 1e-9]
+    unit_complex = (complex_others[int(np.argmin(np.abs(np.abs(complex_others) - 1.0)))]
+                    if len(complex_others) else None)
+    return {"lx": float(z[-2]), "ly": float(z[-1]), "t_lx": float(t[-2]), "t_ly": float(t[-1]),
+            "critical": [float(mult[crit].real), float(mult[crit].imag)],
+            "complement_radius": float(np.max(np.abs(others))),
+            "nearest_plus_one": [float(near_plus.real), float(near_plus.imag)],
+            "nearest_minus_one": [float(near_minus.real), float(near_minus.imag)],
+            "complex_nearest_unit": None if unit_complex is None else
+            [float(unit_complex.real), float(unit_complex.imag)],
+            "min_divisor_separation": min(divisor_separations(node["points"], 18).values()),
+            "spread": even_spread(node["points"]), "newton_last": node["newton"][-1], "h": node["h"]}
+
+
+def fold_from_node(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    node = json.loads(Path(args.node).read_text())
+    point = [float(v) for v in node["point"]]
+    theta, q = np.array(point[:13]), np.array(point[15:28])
+    z0 = np.concatenate([theta, q / np.linalg.norm(q), [math.log10(point[14]), math.log10(point[13])]])
+    system = FoldCurve(f, 18, sigma=args.sigma)
+    z, history = newton(system, z0, max_iter=15)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"node": str(args.node), "sigma": args.sigma, "start_newton": history}
+    if z is None:
+        record["outcome"] = "start node did not correct"
+        (out / "fold-from-node.json").write_text(json.dumps(record, indent=1))
+        print(json.dumps(record))
+        return
+    _, jac, m, points = system.residual_jacobian(z)
+    scale = np.concatenate([np.ones(26), [args.p_scale, args.p_scale]])
+    record["start"] = {"lx": float(z[-2]), "ly": float(z[-1])}
+    for sign in (1, -1):
+        tangent = sign * null_tangent(jac, scale)
+        tic = time.perf_counter()
+        path, reason = arclength(
+            system, z, tangent, scale, steps=args.steps, h0=args.h, h_min=1e-7, h_max=args.h_max,
+            stop=lambda nd: (not (args.box[0] <= nd["z"][-2] <= args.box[1]
+                                  and args.box[2] <= nd["z"][-1] <= args.box[3])
+                             or min(divisor_separations(nd["points"], 18).values()) < 1e-4))
+        rows = [node_events(nd, args.sigma) for nd in path]
+        record[f"direction_{sign:+d}"] = {"reason": reason, "seconds": round(time.perf_counter() - tic, 1),
+                                          "nodes": rows}
+        if path:
+            np.savez_compressed(out / f"nodes-direction{sign:+d}.npz",
+                                z=np.array([nd["z"] for nd in path]),
+                                points=np.array([nd["points"] for nd in path]))
+        end = rows[-1] if rows else None
+        print(json.dumps({"direction": sign, "nodes": len(rows), "reason": reason,
+                          "end": None if end is None else [end["lx"], end["ly"], end["complement_radius"]]}))
+    (out / "fold-from-node.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({"out": str(out / "fold-from-node.json")}))
+
+
+def composite(args):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    target = 2.0 / 9.0
+    fig = plt.figure(figsize=(16, 8))
+    grid = fig.add_gridspec(2, 2, width_ratios=[1.35, 1])
+    ax = fig.add_subplot(grid[:, 0])
+    maps = []
+    for path in args.rotation:
+        z = np.load(path)
+        lh, lo, rho = z["log10_hidden"], z["log10_output"], z["rho"]
+        extent = [lo[0], lo[-1], lh[0], lh[-1]]
+        shown = np.where(np.isfinite(rho) & (rho > 0.05), rho, np.nan)
+        image = ax.imshow(shown, origin="lower", extent=extent, aspect="auto", cmap="coolwarm",
+                          vmin=target - 0.006, vmax=target + 0.006, interpolation="nearest")
+        ax.imshow(np.where(np.abs(rho - target) < 5e-5, 1.0, np.nan), origin="lower", extent=extent,
+                  aspect="auto", cmap="Greys", vmin=0, vmax=1.2, alpha=0.5, interpolation="nearest")
+        maps.append((shown, extent))
+    fig.colorbar(image, ax=ax, label="rotation number of the two-step map")
+    shown, extent = maps[0]
+    for curve in boundary_curves(args.summary):
+        if curve["sigma"] == -1:
+            ax.plot(curve["x"], curve["y"], "-", color="tab:purple", lw=1.0)
+    ax.plot([], [], "-", color="tab:purple", label="flip curves (carried)")
+    colours = ["k", "tab:green", "tab:olive"]
+    for k, path in enumerate(args.folds):
+        data = json.loads(Path(path).read_text())
+        for key in ("direction_+1", "direction_-1"):
+            rows = data.get(key, {}).get("nodes", [])
+            if not rows:
+                continue
+            x = np.array([r["lx"] for r in rows])
+            yv = np.array([r["ly"] for r in rows])
+            ax.plot(x, yv, "-", color=colours[k % len(colours)], lw=1.4)
+        ax.plot([], [], "-", color=colours[k % len(colours)], label=f"continued fold: {Path(path).parent.name}")
+    banana_data = json.loads(Path(args.banana).read_text())
+    for fold in banana_data["folds"]:
+        for branch in fold.get("branches", {}).values():
+            x = np.array([r["lx"] for r in branch["nodes"]])
+            yv = np.array([r["ly"] for r in branch["nodes"]])
+            ax.plot(x, yv, "-", color="gold", lw=1.6)
+    ax.plot([], [], "-", color="gold", label="banana folds (exact period-18 orbits)")
+    for name, (x, yv) in {"A": (-0.0769, 1.7447), "B": (-0.0681, 1.7369)}.items():
+        ax.plot(x, yv, "*", ms=12, color="gold", mec="k")
+        ax.annotate(name, (x, yv), xytext=(4, -12), textcoords="offset points")
+    for name, (x, yv) in {"R3": (-0.040625, 1.723958)}.items():
+        ax.plot(x, yv, "*", ms=12, color="magenta", mec="k")
+        ax.annotate(name + " (saddle 2-cycle, 2/9)", (x, yv), xytext=(4, -12), textcoords="offset points",
+                    fontsize=8)
+    ax.set_xlim(args.xlim)
+    ax.set_ylim(args.ylim)
+    ax.set_xlabel("log10 output-layer rate")
+    ax.set_ylabel("log10 hidden-layer rate")
+    ax.set_title("2/9 resonance: near-curve banana and the detached window")
+    ax.legend(loc="upper right", fontsize=7)
+    # zoom on the banana
+    zx = fig.add_subplot(grid[0, 1])
+    zx.imshow(shown, origin="lower", extent=extent, aspect="auto", cmap="coolwarm",
+              vmin=target - 0.006, vmax=target + 0.006, interpolation="nearest")
+    widths = []
+    lower, upper = None, None
+    for fold in banana_data["folds"]:
+        xs, ys = [], []
+        for branch in fold.get("branches", {}).values():
+            xs += [r["lx"] for r in branch["nodes"]]
+            ys += [r["ly"] for r in branch["nodes"]]
+        order = np.argsort(xs)
+        xs, ys = np.array(xs)[order], np.array(ys)[order]
+        zx.plot(xs, ys, "-", color="gold", lw=1.2)
+        if fold["label"] == "lower":
+            lower = (xs, ys)
+        else:
+            upper = (xs, ys)
+    zx.set_xlim(-0.0785, -0.0665)
+    zx.set_ylim(1.734, 1.752)
+    zx.set_title("zoom: banana between roots A and B")
+    zx.set_xlabel("log10 output-layer rate")
+    wx = fig.add_subplot(grid[1, 1])
+    if lower is not None and upper is not None:
+        grid_x = np.linspace(max(lower[0].min(), upper[0].min()), min(lower[0].max(), upper[0].max()), 400)
+        width = np.interp(grid_x, upper[0], upper[1]) - np.interp(grid_x, lower[0], lower[1])
+        wx.semilogy(grid_x, np.abs(width), "-", color="goldenrod")
+        widths = list(zip(grid_x.tolist(), width.tolist()))
+    wx.set_xlabel("log10 output-layer rate")
+    wx.set_ylabel("banana thickness (decades of hidden rate)")
+    wx.set_title("locking width along the banana")
+    fig.tight_layout()
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out / "window-organization.png", dpi=args.dpi)
+    (out / "window-organization.json").write_text(json.dumps(
+        {"rotation": [str(r) for r in args.rotation], "folds": args.folds, "banana": str(args.banana),
+         "banana_width": widths}, indent=1))
+    print(json.dumps({"out": str(out / "window-organization.png")}))
+
+
+def period2_at(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    seed = np.load(args.seed)
+    if seed.ndim > 1:
+        seed = seed[args.index]
+    curve = OrbitCurve(f, 2, fixed=args.lx)
+    fixed_row = np.zeros(f.n + 1)
+    fixed_row[-1] = 1.0
+    z, history = newton(curve, np.concatenate([seed, [args.ly]]), max_iter=30,
+                        extra=lambda w: (fixed_row, w[-1] - args.ly))
+    record = {"lx": args.lx, "ly": args.ly, "newton": history}
+    if z is not None:
+        t, m, _, points = f.period_map(z[:f.n], [args.lx, args.ly], 2)
+        mult = np.linalg.eigvals(m)
+        order = np.argsort(-np.abs(mult))
+        record.update({"theta": z[:f.n].tolist(),
+                       "separation_F": float(np.linalg.norm(points[1] - points[0])),
+                       "multipliers": [[float(mult[i].real), float(mult[i].imag), float(abs(mult[i])),
+                                        float(np.angle(mult[i]) / (2 * np.pi))] for i in order]})
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "period2.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({k: record[k] for k in record if k != "theta"})[:1500])
+
+
+def section_from_node(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    period = 18
+    nodes = np.load(args.nodes)
+    z_start = nodes["z"][args.index]
+    theta, p = z_start[:13], z_start[26:28]
+    free = 0 if args.free == "lx" else 1
+    curve = OrbitCurve(f, period, fixed=p[1 - free], free=free)
+    z0 = np.concatenate([theta, [p[free]]])
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"nodes": str(args.nodes), "index": args.index, "start": p.tolist(), "free": args.free}
+    res, jac, _, _ = curve.residual_jacobian(z0)
+    record["start_residual"] = float(np.linalg.norm(res))
+    scale = np.concatenate([np.ones(f.n), [args.param_scale]])
+    tangent = null_tangent(jac, scale)
+    seen = []
+
+    def closed(nd):
+        seen.append(1)
+        return len(seen) > 10 and np.linalg.norm((nd["z"] - z0) * scale) < 1.5 * nd["h"]
+
+    loop, why = arclength(curve, z0, tangent, scale, steps=args.loop_steps, h0=args.loop_h, h_min=1e-9,
+                          h_max=4 * args.loop_h, stop=closed)
+    values = np.array([nd["z"][-1] for nd in loop])
+    record["loop_stop"] = why
+    record["loop"] = [{"s": float(nd["z"][-1]), "spread": even_spread(nd["points"])} for nd in loop]
+    print(json.dumps({"loop_nodes": len(loop), "why": why, "range": [float(values.min()), float(values.max())]
+                      if len(values) else None, "start": float(p[free])}))
+    if len(values) == 0:
+        (out / "section.json").write_text(json.dumps(record, indent=1))
+        return
+    # the far turning point from the start is the section's other fold
+    k = int(np.argmax(np.abs(values - p[free])))
+    nd = loop[k]
+    mult, vecs = np.linalg.eig(nd["monodromy"])
+    i = int(np.argmin(np.abs(mult - 1.0)))
+    q = np.real(vecs[:, i])
+    q /= np.linalg.norm(q)
+    pf = [0.0, 0.0]
+    pf[free] = float(nd["z"][-1])
+    pf[1 - free] = float(p[1 - free])
+    fold = FoldCurve(f, period, sigma=1.0)
+    row = np.zeros(2 * f.n + 2)
+    row[2 * f.n + (1 - free)] = 1.0
+    zf, fh = newton(fold, np.concatenate([nd["z"][:f.n], q, pf]), max_iter=20,
+                    extra=lambda w: (row, w[2 * f.n + (1 - free)] - p[1 - free]))
+    record["other_fold_newton"] = fh
+    if zf is None:
+        record["outcome"] = "other fold did not refine"
+        (out / "section.json").write_text(json.dumps(record, indent=1))
+        print(json.dumps({"outcome": record["outcome"]}))
+        return
+    record["other_fold"] = zf[26:28].tolist()
+    _, fj, _, _ = fold.residual_jacobian(zf)
+    fscale = np.concatenate([np.ones(26), [args.p_scale, args.p_scale]])
+    for sign in (1, -1):
+        path, reason = arclength(
+            fold, zf, sign * null_tangent(fj, fscale), fscale, steps=args.steps, h0=args.h, h_min=1e-7,
+            h_max=args.h_max,
+            stop=lambda node: (even_spread(node["points"]) < args.min_spread
+                               or not (args.box[0] <= node["z"][-2] <= args.box[1]
+                                       and args.box[2] <= node["z"][-1] <= args.box[3])))
+        rows = [node_events(node, 1.0) for node in path]
+        record[f"direction_{sign:+d}"] = {"reason": reason, "nodes": rows}
+        if path:
+            np.savez_compressed(out / f"nodes-direction{sign:+d}.npz", z=np.array([n_["z"] for n_ in path]),
+                                points=np.array([n_["points"] for n_ in path]))
+        end = rows[-1] if rows else None
+        print(json.dumps({"direction": sign, "nodes": len(rows), "reason": reason,
+                          "end": None if end is None else [end["lx"], end["ly"], end["spread"],
+                                                           end["complement_radius"]]}))
+    (out / "section.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({"out": str(out / "section.json")}))
+
+
+def ns2_locus(args):
+    net, x, y, theta0 = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    n = f.n
+
+    def critical(theta, p, ref):
+        _, m, _, _ = f.period_map(theta, p, 2)
+        mult = np.linalg.eigvals(m)
+        upper = mult[mult.imag > 1e-9]
+        if len(upper) == 0:
+            return None, mult
+        if ref is None:
+            c = upper[np.argmin(np.abs(np.abs(upper) - 1.0))]
+        else:
+            c = upper[np.argmin(np.abs(upper - ref))]
+        return c, mult
+
+    def solve(theta, ly, lx, ref, max_iter=30):
+        """Newton on (F^2(theta)-theta, |mu_c|^2-1) for (theta, ly) at fixed lx."""
+        z = np.concatenate([theta, [ly]])
+        for _ in range(max_iter):
+            p = [lx, z[-1]]
+            t, m, dp, _ = f.period_map(z[:n], p, 2)
+            c, _ = critical(z[:n], p, ref)
+            if c is None:
+                return None, None
+            g = abs(c) ** 2 - 1.0
+            res = np.concatenate([t - z[:n], [g]])
+            if np.linalg.norm(res) < 1e-12:
+                return z, c
+            jac = np.zeros((n + 1, n + 1))
+            jac[:n, :n] = m - np.eye(n)
+            jac[:n, n] = dp[:, 1]
+            h = 1e-7
+            for j in range(n + 1):
+                w = z.copy()
+                w[j] += h
+                cj, _ = critical(w[:n], [lx, w[-1]], c)
+                jac[n, j] = (abs(cj) ** 2 - 1.0 - g) / h
+            z = z + np.linalg.solve(jac, -res)
+        return None, None
+
+    # start: stable 2-cycle just below the curve at the first output rate
+    lx = args.start[0]
+    theta = f.iterate(theta0, [lx, args.start[1] - args.below], args.transient)
+    z, c = solve(theta, args.start[1], lx, None)
+    if z is None:
+        print(json.dumps({"outcome": "no Neimark-Sacker point at the start"}))
+        return
+    rows = []
+    previous = None
+    for k in range(args.steps):
+        _, mult = critical(z[:n], [lx, z[-1]], c)
+        others = mult[np.abs(mult - c) > 1e-6]
+        others = others[np.abs(others - np.conj(c)) > 1e-6]
+        real = np.sort(others[np.abs(others.imag) < 1e-9].real)[::-1]
+        row = {"lx": lx, "ly": float(z[-1]), "turns": float(np.angle(c) / (2 * np.pi)),
+               "modulus": float(abs(c)), "largest_other_real": float(real[0]) if len(real) else None,
+               "other_moduli": sorted(np.abs(others).tolist(), reverse=True)[:4],
+               "theta": z[:n].tolist()}
+        rows.append(row)
+        if k % args.print_every == 0:
+            print(json.dumps({key: (round(v, 6) if isinstance(v, float) else v) for key, v in row.items()
+                              if key not in ("theta", "other_moduli")}))
+        lx_next = lx + args.step
+        guess = z.copy()
+        if previous is not None:
+            guess = z + (z - previous)
+        z_new, c_new = solve(guess[:n], guess[-1], lx_next, c)
+        if z_new is None:
+            z_new, c_new = solve(z[:n], z[-1], lx_next, c)
+        if z_new is None:
+            rows.append({"stop": "corrector failed", "lx": lx_next})
+            break
+        previous, z, c, lx = z, z_new, c_new, lx_next
+        if (args.step > 0 and lx > args.stop) or (args.step < 0 and lx < args.stop):
+            break
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "ns2-locus.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
+    print(json.dumps({"out": str(out / "ns2-locus.json"), "rows": len(rows)}))
+
+
+def continue_period2(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    n = f.n
+    start = json.loads(Path(args.start_json).read_text())
+    if "rows" in start:
+        rows_in = [r for r in start["rows"] if "theta" in r]
+        row = min(rows_in, key=lambda r: abs(r["lx"] - args.lx))
+        theta, ly0 = np.array(row["theta"]), row["ly"]
+    else:
+        theta, ly0 = np.array(start["theta"]), start["ly"]
+    curve = OrbitCurve(f, 2, fixed=args.lx)
+    fixed = np.zeros(n + 1)
+    fixed[-1] = 1.0
+    z, history = newton(curve, np.concatenate([theta, [ly0]]), max_iter=30,
+                        extra=lambda w: (fixed, w[-1] - ly0))
+    if z is None:
+        print(json.dumps({"outcome": "start did not correct at the requested output rate"}))
+        return
+    _, jac, _, _ = curve.residual_jacobian(z)
+    scale = np.concatenate([np.ones(n), [args.param_scale]])
+    tangent = null_tangent(jac, scale)
+    if tangent[-1] * (args.target_ly - z[-1]) < 0:
+        tangent = -tangent
+    reference = np.array(json.loads(Path(args.reference).read_text())["theta"]) if args.reference else None
+    path, reason = arclength(curve, z, tangent, scale, steps=args.steps, h0=args.h, h_min=1e-8, h_max=args.h_max,
+                             stop=lambda nd: (nd["z"][-1] - args.target_ly) * np.sign(args.target_ly - ly0) > 0)
+    rows = []
+    for nd in path:
+        mult = np.linalg.eigvals(nd["monodromy"])
+        order = np.argsort(-np.abs(mult))
+        row = {"ly": float(nd["z"][-1]),
+               "multipliers": [[float(mult[i].real), float(mult[i].imag)] for i in order[:5]]}
+        if reference is not None:
+            pts = nd["points"]
+            row["distance_to_reference"] = float(min(np.linalg.norm(pts[0] - reference),
+                                                     np.linalg.norm(pts[1] - reference)))
+        rows.append(row)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "continue-period2.json").write_text(json.dumps({"args": vars(args), "start_ly": float(z[-1]),
+                                                           "reason": reason, "rows": rows}, indent=1))
+    for r in rows[:: max(1, len(rows) // 12)] + rows[-1:]:
+        print(json.dumps({"ly": round(r["ly"], 6), "top": [[round(a, 5), round(b, 5)] for a, b in r["multipliers"][:3]],
+                          "dist_ref": r.get("distance_to_reference")}))
+    print(json.dumps({"reason": reason, "nodes": len(rows), "out": str(out / "continue-period2.json")}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -223,8 +764,84 @@ def main():
                      default=[-0.0830, -0.0805, -0.0790, -0.0769, -0.0745, -0.0727, -0.0700])
     fig.add_argument("--dpi", type=int, default=110)
     fig.add_argument("--out", required=True)
+    ban = sub.add_parser("banana")
+    ban.add_argument("--lx", type=float, required=True, help="log10 output rate of the section")
+    ban.add_argument("--ly", type=float, required=True, help="log10 hidden rate seed on the arc")
+    ban.add_argument("--transient", type=int, default=60000)
+    ban.add_argument("--ly-scale", type=float, default=100.0)
+    ban.add_argument("--loop-h", type=float, default=2e-3)
+    ban.add_argument("--loop-steps", type=int, default=400)
+    ban.add_argument("--p-scale", type=float, default=100.0)
+    ban.add_argument("--fold-h", type=float, default=0.01)
+    ban.add_argument("--fold-h-max", type=float, default=0.05)
+    ban.add_argument("--fold-steps", type=int, default=300)
+    ban.add_argument("--min-spread", type=float, default=2e-3)
+    ban.add_argument("--box", type=float, nargs=4, default=[-0.10, -0.06, 1.72, 1.95],
+                     help="lx_min lx_max ly_min ly_max")
+    ban.add_argument("--out", required=True)
+    ffn = sub.add_parser("fold-from-node")
+    ffn.add_argument("--node", required=True)
+    ffn.add_argument("--sigma", type=float, default=1.0)
+    ffn.add_argument("--p-scale", type=float, default=100.0)
+    ffn.add_argument("--h", type=float, default=0.02)
+    ffn.add_argument("--h-max", type=float, default=0.1)
+    ffn.add_argument("--steps", type=int, default=600)
+    ffn.add_argument("--box", type=float, nargs=4, default=[-0.13, 0.05, 1.70, 2.00],
+                     help="lx_min lx_max ly_min ly_max")
+    ffn.add_argument("--out", required=True)
+    comp = sub.add_parser("composite")
+    comp.add_argument("--rotation", nargs="+", required=True)
+    comp.add_argument("--summary", default=str(BOUNDARY / "combined-summary005/summary.json"))
+    comp.add_argument("--folds", nargs="+", required=True, help="fold-from-node.json files")
+    comp.add_argument("--banana", required=True)
+    comp.add_argument("--xlim", type=float, nargs=2, default=[-0.12, -0.064])
+    comp.add_argument("--ylim", type=float, nargs=2, default=[1.725, 2.0])
+    comp.add_argument("--dpi", type=int, default=110)
+    comp.add_argument("--out", required=True)
+    p2 = sub.add_parser("period2-at")
+    p2.add_argument("--seed", required=True, help=".npy state or (k, 13) array")
+    p2.add_argument("--index", type=int, default=0)
+    p2.add_argument("--lx", type=float, required=True)
+    p2.add_argument("--ly", type=float, required=True)
+    p2.add_argument("--out", required=True)
+    sec = sub.add_parser("section-from-node")
+    sec.add_argument("--nodes", required=True, help="nodes-direction*.npz from fold-from-node")
+    sec.add_argument("--index", type=int, required=True)
+    sec.add_argument("--free", choices=("lx", "ly"), default="lx")
+    sec.add_argument("--param-scale", type=float, default=100.0)
+    sec.add_argument("--loop-h", type=float, default=2e-3)
+    sec.add_argument("--loop-steps", type=int, default=600)
+    sec.add_argument("--p-scale", type=float, default=100.0)
+    sec.add_argument("--h", type=float, default=0.02)
+    sec.add_argument("--h-max", type=float, default=0.1)
+    sec.add_argument("--steps", type=int, default=600)
+    sec.add_argument("--min-spread", type=float, default=1e-3)
+    sec.add_argument("--box", type=float, nargs=4, default=[-0.13, 0.05, 1.65, 2.00])
+    sec.add_argument("--out", required=True)
+    ns2 = sub.add_parser("ns2-locus")
+    ns2.add_argument("--start", type=float, nargs=2, required=True, help="lx ly near the locus")
+    ns2.add_argument("--below", type=float, default=0.002, help="decades below the locus for the stable start")
+    ns2.add_argument("--transient", type=int, default=30000)
+    ns2.add_argument("--step", type=float, default=2e-4)
+    ns2.add_argument("--steps", type=int, default=400)
+    ns2.add_argument("--stop", type=float, default=-0.03)
+    ns2.add_argument("--print-every", type=int, default=10)
+    ns2.add_argument("--out", required=True)
+    cp2 = sub.add_parser("continue-period2")
+    cp2.add_argument("--start-json", required=True, help="ns2-locus.json (row nearest lx) or period2.json")
+    cp2.add_argument("--lx", type=float, required=True)
+    cp2.add_argument("--target-ly", type=float, required=True)
+    cp2.add_argument("--reference", default=None, help="period2.json whose theta is compared")
+    cp2.add_argument("--param-scale", type=float, default=100.0)
+    cp2.add_argument("--h", type=float, default=0.01)
+    cp2.add_argument("--h-max", type=float, default=0.05)
+    cp2.add_argument("--steps", type=int, default=2000)
+    cp2.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"circle-check": circle_check, "figure": figure}[args.command](args)
+    {"circle-check": circle_check, "figure": figure, "banana": banana,
+     "fold-from-node": fold_from_node, "composite": composite, "period2-at": period2_at,
+     "section-from-node": section_from_node, "ns2-locus": ns2_locus,
+     "continue-period2": continue_period2}[args.command](args)
 
 
 if __name__ == "__main__":
