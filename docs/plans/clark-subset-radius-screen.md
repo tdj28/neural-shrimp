@@ -48,3 +48,14 @@ larger of2*10*(measured unit+1s)+30 and2*10*the entire completed independent
 extension time+30. Each decoded proof is bounded and processed one at a time.
 Full inputs/proposals/rejections, strict final time/RSS and failures are retained.
 No automatically expanded radii, geometry, quota or native retry is permitted.
+
+## Disclosed pretarget proposal amendment
+
+Attempt001 stopped at the unrelated full51 synthetic gate, before target proof
+arrays: HiGHS produced nominal upper-bound coordinates as large as
+1.0000000000000044. The exact subset test correctly rejected them. Retain the
+complete immutable attempt/source/receipt as mandatory input. Fresh002 changes
+only the floating proposal upper bound to1-2^-30 (no clipping), preserving the
+exact0<z<=1, image, contraction and known51-box tests. The complete synthetic
+proposal is now saved before its qualification gate; an actual dense full51
+profile regression exercises the same path. Math/domain/time/RSS/raw unchanged.

@@ -3,6 +3,7 @@ from fractions import Fraction as F
 import warnings
 import numpy as np
 from scipy.optimize import linprog,OptimizeWarning
+PROPOSAL_UPPER=1.-2.**-30
 
 def need(v,m):
  if not v:raise ValueError(m)
@@ -29,7 +30,7 @@ def propose(A,beta,anchor,observe=lambda record:None):
  lhs=np.vstack([np.c_[a-np.eye(n),np.ones(n)],np.c_[-np.eye(n),np.ones(n)]]);rhs=np.r_[-b,-e];objective=np.r_[np.zeros(n),-1.]
  with warnings.catch_warnings():
   warnings.filterwarnings('ignore',message='Unrecognized options detected.*threads.*',category=OptimizeWarning)
-  raw=linprog(objective,A_ub=lhs,b_ub=rhs,bounds=[(0.,1.)]*n+[(0.,1.)],method='highs-ds',options=dict(threads=1,time_limit=1.))
+  raw=linprog(objective,A_ub=lhs,b_ub=rhs,bounds=[(0.,PROPOSAL_UPPER)]*n+[(0.,1.)],method='highs-ds',options=dict(threads=1,time_limit=1.))
  record=plain(dict(raw));observe(record)
  if not raw.success or raw.x is None or not np.isfinite(raw.x).all():return dict(proposal=record,verification=None,scope='Floating solver failure is not mathematical infeasibility.')
  z=[F.from_float(float(x))for x in raw.x[:n]];return dict(proposal=record,verification=verify(A,beta,anchor,z))
