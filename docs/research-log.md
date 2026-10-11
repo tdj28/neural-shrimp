@@ -16181,3 +16181,7 @@ Following the preserved negative regularized comparison and saved nonlinear-imag
 ### 2026-10-11 10:34 UTC — Reviewed fixed curved-path pilot admitted
 
 Clark independently reviewed25a92cc2 source/math/binding/resource and reproduced10 controls9.62s including actual metadata with arrays forbidden, isolated imports and inherited512MiB launcher-AS. No blocker; initial derivative g^T Hp and both fixed admitted gradients correctly separated from composite forcing. Admit unchanged1HVP/up-to2grad120s4GiB64MiB worker plan, conditional on exact same-source historical native maxima and full-sized vector profile. All failed outcomes retained.
+
+### 2026-10-11T10:30:04.860705+00:00 — Fixed curved-path correction improves actual same-start merit
+
+Execution e470dded40446ca5532526dc313b6fbea4889a02 retained exactly1HVP/2gradient calls,6.313s/704768KiB. Both fixed points pass original trust, curvature and Armijo gates. Actual merit ratios .979648193 atalpha1/32 and.975765158 at1/64, versus straightbaseline.991752501. The declared firstpassing rule selects1/32; bettersecond result is retained separately. Acceleration action agreement1.759e-13. Full source/raw inventories and owned exits verified; independent arithmetic replay next. Cold HVP.896s exceeded selected direct-event maximum.114s, but30s overhead covered total below39.485sforecast/120scap; future envelopes include retained upstream1.110s maximum explicitly. No original evidence revised and no stationary/cycle/utility claim.
