@@ -16278,3 +16278,16 @@ opened. Fixed224HVP full retention and conservative528-vector bound retain all
 actual cold costs. Eleven combined controls pass5.82s, including metadata-only
 binding and real inherited-AS import/archive closure. Preparatory syntax error
 was fixed before tests passed or any acquisition. Card remains unlaunchable.
+
+### 2026-10-11 03:26 PDT — fixed parity-order profile admission
+
+Boundary complete347f88e6 source/math/binding/resource PASS;12controls reproduced
+5.56s. Exact four consumed cases, all inherited qualifications, full historical
+reverse16-action state identity,224-HVP target and528-vector retention bound
+remain unchanged. Host51GiB available/load1.66/2.6TiBfree/GPU0%15947MiBfree/no
+GPUprocess/no own duplicate. Restricted GPU query failed; authorized host query
+confirmed capacity. Admit only fresh attempt001-profile: two full15776D HVPs,
+CPU1nice10/60s4GiB8GiBAS192MiB,80+5owned194MiB, cold costs retained. Exact max over
+new2, prior1088 actual and priorcold2 returns must forecast target<240s and
+complete conservative bytes<192MiB. Target still requires separate committed
+profile source/outer/worker pins and current headroom. No target arrays opened.
