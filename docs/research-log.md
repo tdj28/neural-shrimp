@@ -13376,3 +13376,11 @@ All26 uniform root inclusions and exact organizer/direct endpoint/fullF6return j
 ### 2026-10-10 — independent exact critical bridge reductions preparation
 
 After producer118c8644 sealed, prepare independent512 full26 weighted uniform reductions and exact serialized-domain coverage, known-root direct projection and literal positive-normalized native return orientation. Reuse already independently reviewed cosh native6/quotient and root Krawczyk helper; source-bound augmented family acquisitions shared explicitly. Four controls0.05s include nonlinear uniform family, exact boundary escape and mismatched orientation negatives. No target audit arithmetic; binding/profile/cap caller and source review remain prerequisites.
+
+Independent bridge wrapper first full26 serialization test exposed unconverted flint integer mantissas; explicitly convert dyadic pairs to Python integers. No target audit ran. Complete dimension and literal parameter-domain joins are enforced separately from source pinning.
+
+The next synthetic profile test correctly rejected inherited pytest high-water RSS (~688MiB); moved the test into a fresh subprocess matching the actual owned launcher rather than weakening the measured1GiB admission. No target audit had run.
+
+### 2026-10-10 — fixed independent critical bridge audit packet
+
+Boundary8beb1e7e source/math PASS, four controls0.05s. Fixed wrapper authenticates full97 family/native event history, complete producer/inherited failure/diagnosis/independent organizer inventories and exact native map, actual predictor/error/whole domains and unchanged endpoint parameter. Own512 full26 strict uniform/root and known-root/native phase joins, fresh cosh-native context and exact original endpoint-domain Krawczyk. Seven controls0.35s, full fresh-process profile and isolated archive closure included. Fixed30s1GiB3GiBAS32MiB/45+5owned and18inclusive native phases; no shared augmented reevaluation. Source binding review before soleattempt001; no audit target arithmetic yet.
