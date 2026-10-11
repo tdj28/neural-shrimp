@@ -8864,3 +8864,10 @@ passed:true was written before the admission test; failure outcomes are
 unambiguous and that metadata ordering is corrected. Preserve literal receipt.
 Fresh002 changes only storage to384MiB each/772MiB aggregate; same360 native
 cap,400s/4GiB each and two exact half domains. New profile/source review required.
+
+### 2026-10-11 UTC — saved audit launcher inheritance correction before launch
+
+Self-review caught the copied launcher hard address-space ceiling1GiB would
+prevent its worker setting the declared2GiB ceiling. Corrected parent hard
+ceiling to2GiB while keeping parent soft512MiB/actual RSS256MiB and childRSS1GiB
+unchanged. Added source regression. No audit execution or mathematical change.
