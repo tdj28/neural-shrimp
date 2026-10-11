@@ -16805,3 +16805,11 @@ arithmetic is still required before promotion.
 ### 2026-10-11 11:53 UTC — Admit reviewed fresh CIFAR correction
 
 Boundary independently reviewed committed9ad366f5 source, entire selected-point ancestry, original trust, new operator qualifications, full-size/cold-cost profile, native return retention and own-group caps. Five controls passed5.95s nice10; no target evaluated during review. Admit one fixed1500s4GiB1536MiB full98666D fresh512 correction from the independently accepted curved1/32 endpoint. Source frozen for execution; no prior Hessian columns transferred, no protected holdouts or GPU use.
+
+### 2026-10-11 — Fresh operator after curved correction completes
+
+The exact source68408ddb execution completed60.280s1902184KiB with514HVP10grad. Symmetry6.99e-18 and finest finite-difference9.88e-9 passed. Fresh512 true forcing.486221 and action agreement2.73e-12 pass; original trust rejects1,1/2,1/4 and actual merit rejects1/8 through1/64, accepting1/128. Gradient norm .00077907164 to .00077736646, about0.219percent. Nonlinear bottleneck persists despite fresh linear solve; saved derivative/merit diagnosis required before further native correction. Complete immutable inventories/source archive and absent owners verified; independent full basis/correction replay requested. No stationary root, cycle or utility claim.
+
+### 2026-10-11T11:52:22.344134+00:00 — Prepare independent full-state pair-block audit
+
+Separately authored root adapter reuses only previously independent fsum/native-association reducers. Exact P/R/parity/frozen/CE baseline bytes must match the prior independent full-state histories. All128 actual U/V action state/vector associations, complete recurrence, transpose/vector/squared identities, every scalar and all four cases are replayed. Five controls passed2.54s: alternating identical two-step blocks, independent material/attenuation gates, corrupted vectors, actual metadata with scientific arrays prohibited, isolated source closure. Fixed120s1GiB2GiBAS8MiB with full15776 synthetic/cold prior admission; zero new native calls. Prepared source pending peer review; no target replay yet.
