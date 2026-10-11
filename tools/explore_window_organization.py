@@ -36,6 +36,10 @@ Subcommands:
                 two-step Jacobian on the unit circle) in steps of the output
                 rate, continuing the same 2-cycle, and record its rotation and
                 its other multipliers (where does a real multiplier pass +1?).
+  continue-period2  Continue a period-2 orbit at fixed output rate in the hidden
+                rate (pseudo-arclength, any stability) from a stored state and
+                record its two-step multipliers, optionally comparing with a
+                reference 2-cycle state at a target hidden rate.
   composite     One figure of the organization: rotation field with the 2/9
                 level set, the banana's two folds, continued window folds and
                 the carried flip curves, plus a zoom on the banana and its
@@ -691,6 +695,54 @@ def ns2_locus(args):
     print(json.dumps({"out": str(out / "ns2-locus.json"), "rows": len(rows)}))
 
 
+def continue_period2(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    n = f.n
+    start = json.loads(Path(args.start_json).read_text())
+    if "rows" in start:
+        rows_in = [r for r in start["rows"] if "theta" in r]
+        row = min(rows_in, key=lambda r: abs(r["lx"] - args.lx))
+        theta, ly0 = np.array(row["theta"]), row["ly"]
+    else:
+        theta, ly0 = np.array(start["theta"]), start["ly"]
+    curve = OrbitCurve(f, 2, fixed=args.lx)
+    fixed = np.zeros(n + 1)
+    fixed[-1] = 1.0
+    z, history = newton(curve, np.concatenate([theta, [ly0]]), max_iter=30,
+                        extra=lambda w: (fixed, w[-1] - ly0))
+    if z is None:
+        print(json.dumps({"outcome": "start did not correct at the requested output rate"}))
+        return
+    _, jac, _, _ = curve.residual_jacobian(z)
+    scale = np.concatenate([np.ones(n), [args.param_scale]])
+    tangent = null_tangent(jac, scale)
+    if tangent[-1] * (args.target_ly - z[-1]) < 0:
+        tangent = -tangent
+    reference = np.array(json.loads(Path(args.reference).read_text())["theta"]) if args.reference else None
+    path, reason = arclength(curve, z, tangent, scale, steps=args.steps, h0=args.h, h_min=1e-8, h_max=args.h_max,
+                             stop=lambda nd: (nd["z"][-1] - args.target_ly) * np.sign(args.target_ly - ly0) > 0)
+    rows = []
+    for nd in path:
+        mult = np.linalg.eigvals(nd["monodromy"])
+        order = np.argsort(-np.abs(mult))
+        row = {"ly": float(nd["z"][-1]),
+               "multipliers": [[float(mult[i].real), float(mult[i].imag)] for i in order[:5]]}
+        if reference is not None:
+            pts = nd["points"]
+            row["distance_to_reference"] = float(min(np.linalg.norm(pts[0] - reference),
+                                                     np.linalg.norm(pts[1] - reference)))
+        rows.append(row)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "continue-period2.json").write_text(json.dumps({"args": vars(args), "start_ly": float(z[-1]),
+                                                           "reason": reason, "rows": rows}, indent=1))
+    for r in rows[:: max(1, len(rows) // 12)] + rows[-1:]:
+        print(json.dumps({"ly": round(r["ly"], 6), "top": [[round(a, 5), round(b, 5)] for a, b in r["multipliers"][:3]],
+                          "dist_ref": r.get("distance_to_reference")}))
+    print(json.dumps({"reason": reason, "nodes": len(rows), "out": str(out / "continue-period2.json")}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -775,10 +827,21 @@ def main():
     ns2.add_argument("--stop", type=float, default=-0.03)
     ns2.add_argument("--print-every", type=int, default=10)
     ns2.add_argument("--out", required=True)
+    cp2 = sub.add_parser("continue-period2")
+    cp2.add_argument("--start-json", required=True, help="ns2-locus.json (row nearest lx) or period2.json")
+    cp2.add_argument("--lx", type=float, required=True)
+    cp2.add_argument("--target-ly", type=float, required=True)
+    cp2.add_argument("--reference", default=None, help="period2.json whose theta is compared")
+    cp2.add_argument("--param-scale", type=float, default=100.0)
+    cp2.add_argument("--h", type=float, default=0.01)
+    cp2.add_argument("--h-max", type=float, default=0.05)
+    cp2.add_argument("--steps", type=int, default=2000)
+    cp2.add_argument("--out", required=True)
     args = parser.parse_args()
     {"circle-check": circle_check, "figure": figure, "banana": banana,
      "fold-from-node": fold_from_node, "composite": composite, "period2-at": period2_at,
-     "section-from-node": section_from_node, "ns2-locus": ns2_locus}[args.command](args)
+     "section-from-node": section_from_node, "ns2-locus": ns2_locus,
+     "continue-period2": continue_period2}[args.command](args)
 
 
 if __name__ == "__main__":
