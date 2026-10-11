@@ -71,3 +71,9 @@ audits/clark-correlated-fold-independent/attempt001. Failed outcome/trace and
 all completed arithmetic persist. Twelve controls pass0.43s, actualmetadata
 checked withouttarget reductions. Independent wrapper review/currenthost and
 committed admission still precede launch.
+
+Boundary's 8758013a review passed12 controls0.45s. Before acquisition, the
+optional hardening now literally compares the anchor event/record and its
+first26 inputs with the bound organizer box; changed-coordinate control fails.
+The anchor native derivatives remain shared and their input authority remains
+the authenticated frozen caller, not a separately acquired input event.
