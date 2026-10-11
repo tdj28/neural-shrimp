@@ -9651,3 +9651,18 @@ The independent replay remains pending. After that gate, the exact previous
 chart30 endpoint projection and firstquarter boundary adjacency can establish a
 joined complementary-stable arc; no wholechart or completewindow claim is made.
 Compact receipt: docs/reviews/native705-second-quarter001.json.
+
+### 2026-10-11 — prepared shared-context final chart31 quarters
+
+Following root's instruction, the same reviewed center/derivative proof workflow
+now has default-preserving geometry/output/counter hooks for quarters3and4. A
+single worker will retain the original known-root context, acquire two narrower
+true-tangent domains per quarter and split only complete negative all11 metric
+bounds to depth3. Exact completed independent secondquarter authority is required;
+its pins remain null/prepared until root replay seals. No new acquisition has
+run. Inclusive8064phase/6000s/4GiB/12GiBraw limits and worst-case measured forecasts
+charge all60 possible centers plus4domains, with actual complete secondquarter
+cost floor and unchanged profile before arrays. Thirteen old/new controls passed
+3.10s, including unchanged default secondquarter behavior, all exact closed unions,
+new bound/pin rejection and full isolated archive closure. New cells require
+independent replay before wholechart stability promotion.
