@@ -15195,3 +15195,13 @@ passed4.081s,511 recurrence rows, research vectors unopened. Host54,862,572KiB
 available/load1.27/1.96/2.36 and no duplicate own worker. Admit one CPU1/nice10
 saved-only300s4GiB8MiB attempt001, owned315+5s. Full98666x512 synthetic gate
 still precedes research vectors; no new derivatives, candidate or correction.
+
+### 2026-10-11 — fresh-current512 independent numerical audit PASS
+
+Source eabcd27c finished55.415s/1,265,604KiB/zero native. All511 recurrence
+transitions/full512 Gram/rank/least squares and523 actual action/gradient calls
+reconstructed; fresh forcing.419126460267590 and actionagreement3.1056e-12.
+Exact firstacceptancealpha1/64 follows3trustskips and3meritrejections; full global
+original trust remains. Meritratio.991752501053, relativegradient
+.000258153111404→.000257082118822; still nonstationary. Complete immutable
+source/inventories and actual exited ownership verified; no new correction.
