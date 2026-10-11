@@ -7,7 +7,7 @@ from neural_shrimp.cifar_saved_geometry import assess,need
 from diagnose_cifar_phase_scaling import entry,read,preflight
 OUT=Path('/data2/neural-shrimp-data/explore/cifar/phase-scaling/geometry001/run')
 PARENT=Path('/data2/neural-shrimp-data/explore/cifar/phase-scaling/corrector001');PIN='966225d5358a9f81479de0519db856c635398d43b8615aee8705a87e87b6a2ea';EXEC='9bc60ebaea7334a72903d71761e085f99f7bdd1a'
-FILES=['src/neural_shrimp/cifar_saved_geometry.py','src/neural_shrimp/cifar_phase_scaling.py','tools/diagnose_cifar_phase_scaling.py','tools/diagnose_cifar_phase_corrector.py','tools/launch_cifar_phase_geometry.py','tests/test_cifar_saved_geometry.py','docs/plans/cifar-phase-geometry.md']
+FILES=['src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py','src/neural_shrimp/cifar_saved_geometry.py','src/neural_shrimp/cifar_phase_scaling.py','tools/diagnose_cifar_phase_scaling.py','tools/diagnose_cifar_phase_corrector.py','tools/launch_cifar_phase_geometry.py','tests/test_cifar_saved_geometry.py','docs/plans/cifar-phase-geometry.md']
 def main():
  preflight();need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;result=dict(passed=False,native_calls=0)
  def stop(*_):raise TimeoutError('30s saved geometry deadline')
