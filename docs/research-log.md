@@ -12571,3 +12571,7 @@ Peer review of1af01fc0 passed all8 controls. Attempt001 profile used3 full nativ
 ### 2026-10-11 UTC — Independent changed-gauge boundary replay card
 
 Prepared explicit sealed rotated001/batch001 eight-chart replay. Root existence/known endpoint starts from independently verified wide prefix outerbf910c9698081b745d9cc1998441bc29a8a7f4bd250d14494ec51ea5f7604fef. Reconstruct prior Jacobian and endpoint cubic residual from original native arrays, apply independently reviewed known-root Neumann arithmetic, then full705 projected membership into changed gauge; seven subsequent joins use exact identical gauge only. Each705 root is separately rebuilt at384bits, zero native calls. Fixed240s/4GiB/64MiB; no audit run before source review. Producer rotated24-chart result and failed fourthbatch remain distinct from independent qualification.
+
+### 2026-10-11 UTC — Admit measured complete census72 target
+
+Fresh attempt002 profile passes:3.3405s/417372KiB, three full retained native calls, conservative target forecast4571.31s/11012620928B below5400s/16GiB. Profile outer097a90e6cd6a7a913bb11fde0880348d12de8cd6abbef4f6ca4f70139492c14b, worker7e5939bb87444d730af6c1b56cb4181a80e324c5bf69a86f15b7fb7841e8851f. Both original source and resource-only amendment independently reviewed;8controls pass. Launch exactly one fixed32-representative target on one nice10 CPU,2GiB RSS, complete immutable exact retention, all6720 maximum calls. No target tuning/selection, no paid/GPU/holdouts. Independent AD review required before promotion.
