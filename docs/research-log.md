@@ -15357,3 +15357,16 @@ Boundary prospective4GiB plus this4GiB fit. No duplicate own worker. Admit one
 CPU1nice10 sequential16-new-cell packet under original1500s4GiB3GiBraw and
 2160inclusive native cap; full fresh144phase profile remains a hard gate.
 No further subdivision or other quarter is admitted by this card.
+
+### 2026-10-11 — entire first-quarter complementary producer cover PASS
+
+Fixed0cdfc549 completed all16 new cells plus prior independent centered cell;
+exact closed union[-49,-17]/2048. Every full705 known-root center and all11
+complementary metric gates passed, no failure/adaptation.2160inclusive native
+phases,158.738s/1,121,604KiB,810,006,055worker bytes. All5042 immutable files and
+125 exact archived source files verified, owned launcher/worker actually gone.
+The admission log's08:46UTC label was rounded ahead; actual launcher time was
+08:45:18UTC and is retained in immutable launcher metadata. Compact receipt and
+raw decoding/independent replay guide added; new16 cells remain producer-only
+until independent arithmetic review. Existing centered cell is reused, never
+reacquired. No entirechart or wholewindow stability claim follows.
