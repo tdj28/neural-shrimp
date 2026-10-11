@@ -23,3 +23,5 @@ frozen frame/metric proposals. Planned saved-only0native, CPU1nice10,480bits,
 240s4GiB6GiBAS64MiB with2MiB reserve/255+5owned. Full705 synthetic measured
 admission precedes arrays. No complementary claim for later charts, stability
 side, signed NS coefficient or complete window. Source peer review before run.
+
+Fixed wrapper now authenticates the exact c7586cd6 two-worker successes and both retained failures, original partial batch (three siblings failed), independent384 full root and705-coordinate prior join through319/4096. All360 native input/return pairs per half are checked,72 target MixedJet records rebuilt from raw f/g/d/m seeds/returns and compared to saved direction rows. Both actual full705 assembly domains and the original exact normal/origin/parameter are bound before tangent reuse. No producer localization/quotient routine import. Full705 synthetic timing forecasts8×time+150s<240s, matching two halves with original PathJet reconstruction and native event validation; same4GiB/64MiB caps and source archive isolation.

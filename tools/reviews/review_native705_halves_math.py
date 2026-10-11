@@ -68,6 +68,6 @@ def localize(chart,old_paths,fresh,C,unit,tick=lambda:None):
  # Mean-value segments stay in the actual recentered root-domain expression.
  for outer,inner in zip(data['domain'],segment,strict=True):H.H.contains(ball_json(outer),inner)
  need(all(z.is_finite()for z in centerbox+whole+segment)and all(z>0 for z in centerbox[-3:]+whole[-3:]+segment[-3:]),'same known root with positive both rates/angle')
- result=dict(C=C,D=D,kappa=k,weights=w,center=centerbox,whole=whole,error=error,segment=segment,pprime=pprime,rp=data['rp'],normal=nn,origin=oo,parameter=newsc,halfwidth=h)
+ result=dict(fresh_center=data['c'],fresh_domain=data['domain'],C=C,D=D,kappa=k,weights=w,center=centerbox,whole=whole,error=error,segment=segment,pprime=pprime,rp=data['rp'],normal=nn,origin=oo,parameter=newsc,halfwidth=h)
  report=dict(passed=True,precision=ctx.prec,dimension=705,own_intersections=6,parameter_endpoints=list(map(str,ends)),weighted_neumann_bound=ball_json(k),center=vector_json(centerbox),whole=vector_json(whole),error=vector_json(error),segment=vector_json(segment),predictor_tangent=vector_json(pprime),residual_derivative=matrix_json(data['rp']),scope='Independent exact restriction of same previously proved root, original Taylor residual and fresh-domain full705 derivative reconstruction. No new root acquisition.')
  return result,report
