@@ -6930,3 +6930,26 @@ no owned profile duplicate. One CPU1nice10/90s2GiB4GiBAS256MiB profile,
 105+5owned258MiB,exact30native unrelated phases. Old19 savedaudit remains
 within6GiB/CPU1. No target arrays opened; later actualRNN launch requires
 separate same-source measured card and independent wrapper review.
+
+### 2026-10-11 — full51 synthetic cost profile completed
+
+Exact30phase/6path/2MixedJet/1context/2algebra profile passed6.3848s/100332KiB.
+Maximum saved path unit0.97014s/3469246bytes; MixedJet0.11396s/602854bytes;
+full51 algebra0.24279s/609667bytes. Complete retained72events/source/inventories
+and owned exits verified. This is solely unrelated acquisition/resource
+qualification, no target root or actualmatrix evaluation. Prepare same-source
+reuse of exact residual acquisitions and a separate bounded target card; no
+target launch follows from this profile alone. Inventory58 completed rawroots.
+
+### 2026-10-11 — remaining19 maintained705 roots independently joined
+
+The physical period18 branch continues beyond the proved rate minimum through
+all19 remaining maintained002 segments. Independent480 saved reductions pass
+all705 root and ordered predecessor joins, including the sole gauge rotation
+at originalattempt11. All24 original attempts and four failures remain bound.
+No new native calls; actual runtime 1343.756s/peak1051016KiB. Shared native acquisitions
+and Arb remain explicit. These are root/primitive/connection results; stability
+of this later branch, physical monotonicity and a distant organizing-point
+connection remain separate. Exact final705 endpoint at2995/2048 is pinned for
+subsequent independent continuation. All immutable bytes/historic sources/owned
+exits independently verified; inventory now59 completed rawroots.
