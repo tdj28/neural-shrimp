@@ -17,8 +17,8 @@ larger outcome including failures. The center root and all705 tangent authority
 are inherited from the independent pilot and literal source/inventories;
 no result transfers to a different center or quarter.
 
-One fixed CPU1nice10/BLAS1 saved replay,60s1GiB RSS3GiB AS16MiB raw with2MiB
-closing reserve;75+5s owned launcher,18MiB combined. Full18phase11mode five-width
+One fixed CPU1nice10/BLAS1 saved replay,60s1GiB RSS3GiB AS64MiB raw with2MiB
+closing reserve;75+5s owned launcher,66MiB combined. Full18phase11mode five-width
 synthetic controls before target arrays; forecast3times measured plus elapsed
 and20s,128MiB RAM headroom, complete source+output bytes required. Exact original
 sources and independent pilot authority are mandatory. This is a cost/scaling
@@ -26,3 +26,10 @@ diagnosis using the producer reduction, not a separately independent new proof.
 No newNative, unstable-orbit conclusion, other-quarter acquisition or automatic
 adaptive grid is authorized by this card. Source checkpoint/review/admission
 precede execution.
+
+Resource-only amendment after001: full five-width synthetic mathematics passed,
+but complete conservative source/output forecast63,409,480B exceeded16MiB.
+Time21.15s and162,824KiB fit. Preserve exact immutable001 and require its entire
+source/inventory and zero-target admission status. Fresh002 increases only
+raw64MiB/combined66MiB; all math/domain/time/RSS gates remain unchanged and the
+full measured profile repeats before target arrays.

@@ -9565,3 +9565,13 @@ three controls PASS0.30s. Same actual whole-quarter domains/center and all error
 terms remain fixed. Host52GiB-class availability and no duplicate own worker
 permit the fixed CPU1nice10/60s1GiB16MiB card; complete fresh synthetic profile
 remains the target-array admission gate. Admit exactly this saved5-width unit.
+
+### 2026-10-11 — width diagnostic storage-only amendment
+
+First fixed001 passed all5 synthetic reductions but rejected before target arrays:
+63,409,480B conservative complete forecast exceeds16MiB;0.850s/162,824KiB and
+21.147s forecast fit. All evidence/source/owners sealed in the compact failure
+receipt. Fresh002 retains that exact zero-target failure and increases only raw
+64MiB/outer66MiB;60s/1GiB/math/domains unchanged. Four controls PASS0.66s,
+including actual prior-profile binding and closing reserve. Fresh measured
+profile and narrow peer review remain mandatory; no target arithmetic yet.
