@@ -22,6 +22,11 @@ Subcommands:
   arc      Same question with pseudo-arclength continuation of the 2-cycle branch (state and
            ray parameter together), started a little past the flip, so the branch cannot slide
            back onto the fixed point; records the first unit-circle crossing.
+  onset    Just past that crossing: Newton for the (now unstable) 2-cycle at given distances
+           past the crossing, start next to it along the critical eigenvector, iterate, and
+           measure the attractor's distance from the cycle and its rotation around it (soft
+           onset: amplitude ~ sqrt(distance), rotation near the crossing angle; hard onset: a
+           jump far away or divergence).
 """
 
 import argparse
@@ -391,6 +396,70 @@ def arc(args):
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "arc.json").write_text(json.dumps(record, indent=1))
+    if seed is not None and nodes:
+        np.savez_compressed(out / "nodes.npz", w=np.array([node["z"] for node in nodes]))
+
+
+def onset(args):
+    from neural_shrimp.fastcont import newton
+
+    mm = MomentumMap(args.system, args.seed, args.beta)
+    n = mm.n
+    base = DATA / "explore" / args.arc
+    record = json.loads((base / "arc.json").read_text())
+    nodes = np.load(base / "nodes.npz")["w"]
+    crossing = record["first_crossing"]
+    system = MomentumTwoCycle(mm, args.offset_output)
+    k = int(np.argmin(np.abs(nodes[:, -1] - crossing["s"])))
+    rows = []
+    for offset in args.offsets:
+        s_target = crossing["s"] + offset
+        fixed = np.zeros(2 * n + 1)
+        fixed[-1] = 1.0
+        w0 = nodes[k].copy()
+        w0[-1] = s_target
+        w, hist = newton(system, w0, max_iter=40, extra=lambda q: (fixed, q[-1] - s_target))
+        if w is None:
+            rows.append({"offset": offset, "outcome": "cycle not found"})
+            continue
+        z = w[:-1]
+        _, _, mono, pts = system.residual_jacobian(w)
+        mult, vecs = np.linalg.eig(mono)
+        i = int(np.argmax(np.abs(mult)))
+        v = vecs[:, i]
+        crit = mult[i]
+        rates = system.rates(s_target)
+        state = z + args.kick * np.real(v) / np.linalg.norm(np.real(v))
+        t, m = state[None, :n], state[None, n:]
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _ in range(args.transient):
+                t, m = mm.step(t, m, rates)
+            samples = []
+            for _ in range(args.samples):
+                samples.append(np.concatenate([t[0], m[0]]))
+                t, m = mm.step(*mm.step(t, m, rates), rates)
+        samples = np.array(samples)
+        if not np.all(np.isfinite(samples)):
+            rows.append({"offset": offset, "outcome": "diverged", "critical_modulus": float(abs(crit))})
+            print(json.dumps(rows[-1]))
+            continue
+        d = np.linalg.norm(samples[:, :n] - z[:n], axis=1)
+        d_other = np.linalg.norm(samples[:, :n] - pts[1][:n], axis=1)
+        dist = np.minimum(d, d_other)
+        basis = np.stack([np.real(v)[:n], np.imag(v)[:n]], axis=1)
+        q, _ = np.linalg.qr(basis)
+        planar = (samples[:, :n] - z[:n]) @ q
+        angles = np.unwrap(np.arctan2(planar[:, 1], planar[:, 0]))
+        rot = float(abs(angles[-1] - angles[0]) / (2 * np.pi * (len(angles) - 1)))
+        rows.append({"offset": offset, "s": s_target, "critical_modulus": float(abs(crit)),
+                     "critical_turns": float(abs(np.angle(crit)) / (2 * np.pi)),
+                     "amplitude_mean": float(dist.mean()), "amplitude_max": float(dist.max()),
+                     "amplitude_min": float(dist.min()), "rotation_two_step": rot,
+                     "cycle_separation": float(np.linalg.norm(pts[1][:n] - pts[0][:n]))})
+        print(json.dumps({key: (round(val, 6) if isinstance(val, float) else val) for key, val in rows[-1].items()}))
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "onset.json").write_text(json.dumps({"args": vars(args), "crossing": crossing, "rows": rows}, indent=1))
 
 
 def main():
@@ -450,8 +519,19 @@ def main():
     ac.add_argument("--beyond", type=float, default=0.02)
     ac.add_argument("--s-max", type=float, default=2.3)
     ac.add_argument("--out", required=True)
+    on = sub.add_parser("onset")
+    on.add_argument("--system", default="S2")
+    on.add_argument("--seed", type=int, default=28011)
+    on.add_argument("--beta", type=float, required=True)
+    on.add_argument("--offset-output", type=float, default=-1.828)
+    on.add_argument("--arc", required=True, help="explore-relative folder of an arc run")
+    on.add_argument("--offsets", type=float, nargs="+", default=[-0.002, 0.001, 0.002, 0.004, 0.008])
+    on.add_argument("--kick", type=float, default=1e-4)
+    on.add_argument("--transient", type=int, default=100000)
+    on.add_argument("--samples", type=int, default=20000)
+    on.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc}[args.command](args)
+    {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset}[args.command](args)
 
 
 if __name__ == "__main__":
