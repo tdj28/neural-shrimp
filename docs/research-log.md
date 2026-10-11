@@ -7111,3 +7111,14 @@ partner/adjacent/primitive/+1/stable11/orientation and numericalphase/mode
 association gates passed.16.237s128432KiB93nativephases207events. Complete
 source/inventories/ownedexits verified; new independent reductions pending,
 not uniformgenericity/native12/24/full-window completion.64completedrawroots.
+
+### 2026-10-11 — independent extension endpoint math prepared
+
+Separate raw MixedJet full51 endpoint/normalization/column assembly and25D
+paired inverse/totalphysical curvature prepared; no native calls. Four synthetic
+controls exercise actual unrelated native comparison, fixedgain permutation,
+missing acquired-direction coverage and positive curvature/b0 rejection.
+Initial source syntax/fixture/type issues fixed before target. The producer
+actual93phases are complete; its abstract category maximum omits the second
+implicit3-phase pass (141 versus hard138), disclosed in the audit plan. Actual
+run stayed within138; no result altered. Wrapper/source review next.
