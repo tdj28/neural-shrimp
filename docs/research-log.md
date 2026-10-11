@@ -15785,3 +15785,12 @@ receipt retained. Narrow repair moves unchanged8GiB workerAS before library
 import, fresh profile002; mandatory failure/source/inventory binding added.
 Real --help under inherited512MiB/8GiB now passes;14 controls3.49s. Card blocked
 pending narrow independent source review; science/call/time/RSS/raw gates intact.
+
+### 2026-10-11 02:27 PDT — temporal-mean fresh profile002 admission
+
+Boundary narrow94f80673 repair PASS,14controls reproduced3.63s including actual
+inherited-AS entrypoint and retained001. Admit sole6-operation profile002 under
+unchanged60s4GiB8GiBAS512MiB/80+5bounds; target001 unopened. Host52GiB available,
+load1.95,2.6TiBdiskfree,GPU0%/15947MiBfree,no own duplicate. Full historical
+broader-data inventories independently preflighted without scientific arrays
+(.30s,29profile/191targetfiles). Separate measured target card remains required.
