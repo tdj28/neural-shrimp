@@ -7199,3 +7199,15 @@ Root explicitly authorized time-only900s/920+5 amendment; no dropped cold costs,
 call changes, partitioning or relaxed qualification. Exact complete measured
 source/native/helper/operation-AST bindings now gate reuse;15controls3.54s.
 No target opened, source-prepared card remains blocked for narrow peer review.
+
+### 2026-10-11 02:33 PDT — fixed temporal-mean target001 admission
+
+Boundary c6265245 narrow time-only review PASS,15controls reproduced3.74s;
+full788ded7d/94f80673 reviews retained. Root explicitly authorized900s worker/
+920+5outer. Complete literal002 cold forecast869.572629s/471905184B admitted;
+no costs dropped. Run all1088HVP/162gradient/58CE overexact originaltwo cases
+and same-state eta/4 controls under unchanged4GiB8GiBAS512MiB/4MiBreserve.
+Host51GiB available/load3.20/2.6TiBfree/GPU0%15947MiBfree/noGPUprocess, no owned
+duplicate. Commit/push card before exclusiveattempt001-target. Keep all four
+cases and fixed1% qualifications/20%/10x gate regardless of outcome. No fresh
+holdout, paid resource, GPU, geometry-specific inference or forecast claim.
