@@ -15010,3 +15010,11 @@ inventories andownedexitverified; failurecb796aae preserved. Retain the same
 worst observed timing data and change only1500sworker/1515+5supervisor, fresh
 002, mandatoryfailed001 binding. No scientific/native/memory/storage changes;
 new measured profile and narrow peer review required before retry.
+
+### 2026-10-11 — admit time-only fresh512002 after peer recheck
+
+Stability independently rechecked6f1f4f4a and9controls2.52s. Same all-history
+native timing maxima and native/scientific/RSS/storage limits, only1500sworker/
+1515+5supervisor after measured1319.57s forecast; failed001 mandatory. Card
+reviewed for one fresh002 with full-size repeated admission, no cap relaxation
+inside a run. No native current022 action has occurred before this admission.
