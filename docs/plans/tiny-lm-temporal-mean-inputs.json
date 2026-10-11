@@ -1,5 +1,18 @@
 {
-  "admission": null,
+  "admission": {
+    "active_gpu_processes": [],
+    "available_ram_gib": 51,
+    "forecast_bytes": 471905184,
+    "forecast_seconds": 869.5726292729378,
+    "free_disk_tib": 2.6,
+    "gpu_free_mib": 15947,
+    "gpu_used_mib": 2,
+    "gpu_utilization_percent": 0,
+    "load_1m": 3.2,
+    "local_time": "2026-10-11T02:33:11-07:00",
+    "mode": "fixed target only",
+    "owned_duplicate_workers": []
+  },
   "arm": 256,
   "control_rate_factor": 0.25,
   "horizons": [
@@ -20,8 +33,15 @@
     28161,
     28162
   ],
-  "source_review": null,
-  "status": "source_prepared",
+  "source_review": {
+    "controls": 15,
+    "reviewer": "boundary_resume",
+    "scope": "time-only source amendment; original full788ded7d and94f80673 packaging reviews retained",
+    "seconds": 3.74,
+    "source": "c626524596b012ddb9ca1cafe6876061598a0731",
+    "verdict": "PASS"
+  },
+  "status": "target_admitted",
   "step": 600,
   "target_counts": {
     "ce": 58,
