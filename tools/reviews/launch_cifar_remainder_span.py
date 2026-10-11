@@ -1,4 +1,4 @@
-"""One bounded independent saved stationary-merit audit; zero native calls."""
+"""One bounded saved current512 nonlinear-image diagnostic; zero native calls."""
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]

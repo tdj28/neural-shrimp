@@ -65,8 +65,8 @@ def main():
   source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();w.save('runtime.json',dict(source_commit=source,pid=os.getpid(),files={n:M.entry(ROOT/n)for n in FILES},python=platform.python_version(),numpy=np.__version__,threads=dict.fromkeys(THREADS,'1'),settings=SETTINGS,caps=CAPS))
   for n in FILES:
    b=(ROOT/n).read_bytes();need(b==subprocess.check_output(['git','show',source+':'+n],cwd=ROOT),'literal exact source');w.write('source/'+n,b)
-  binding=bind(w,M.read(ROOT/CARD));profile(w);result=target(w,binding)
- except BaseException as e:result.update(error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
+  binding=bind(w,M.read(ROOT/CARD));profile(w);result=target(w,binding);w.tick()
+ except BaseException as e:result.update(passed=False,error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:
   signal.setitimer(signal.ITIMER_REAL,0);result.update(elapsed_seconds=time.monotonic()-w.start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);w.save('outcome.json',result,True);w.save('manifest.json',dict(files={str(p.relative_to(OUT)):M.entry(p)for p in OUT.rglob('*')if p.is_file()}),True)
  print(json.dumps(result));return 0 if result['passed']else 2
