@@ -8342,3 +8342,16 @@ preparing correlated Jacobian/inverse mathematics. Exact same map/source and
 all32nativeattempt inventories, old19reverse-prefix association retained;
 60s/4GiB/16MiB worker,75+5owned,10GiB availability,zero native. Source controls
 and peer review required. No change to failed certificates or automatic retry.
+
+### 11 October2026 UTC — conditional correlated inverse algebra
+
+Prepare source-only fullmatrix polynomial inverse helper: exact C0+C1d against
+same-domain J0+J1d+J2d² and cubic predictor residual. Common-parameter coefficient
+products retain noncommuting order and cancel first-order inverse/Jacobian
+variation. No derivative coefficients acquired and no new native proof. Four
+synthetic controls pass0.09s: a nonnormal domain where constantinverse fails
+and correlatedinverse succeeds, independent noncommuting polynomial expansion,
+interval remainders and malformed/inexact rejection. Initial3controls exposed
+Arb generic real-power NaNs across negative-base intervals; replaced by explicit
+integer parity enclosures before these passed controls. Full authenticated
+native derivative/domain/profile wrapper and source review remain required.
