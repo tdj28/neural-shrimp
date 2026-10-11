@@ -12194,3 +12194,7 @@ Source-bound driver retains original coarse anchor and separately reports unifor
 ### 2026-10-11T00:22:36.899254+00:00 — census13 measured-storage profile003 admission
 
 Clark narrowreview e4ff7cf1 PASS and three controls0.10s. Only raw storage allowance amended to1GiB; fixed3-phase row139 profile repeats to bind current source before separately committed26-target card. Local data freebytes 2911166881792. Same CPU1nice10,1GiB RSS,60/80+5s profile and immutable attempt003 ownership.
+
+### 2026-10-11T00:23:39.043385+00:00 — fixed26 census13 target admission
+
+Same-source profile003 PASS: all3 native returns,83.7997811s/739243264byte doubled4200-call forecast; measuredpeak75488KiB. Literal outerf41c67137679c77d36d571655da89b291632ce1983170e67d7a64bbb364241e3 worker7ac53a59234e3c74705c9fdac7863b3c12a2db0067a25d184beb5bce757d7687. Execute exactly the26 committed new indices at768bits,6Newton,2^-320 radius, proper-divisor exclusions and squared-monodromy power<=4096; source unchanged, each failure retained, no retries. CPU1nice10/600sworker/620+5souter/1GiBgroupRSS/1GiBraw, complete derivatives retained. Independent arithmetic audit required before paper promotion.
