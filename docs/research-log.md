@@ -16392,3 +16392,13 @@ Native actions/gradients remain shared acquisitions. Entire immutable inventorie
 archived source and absent owned2772340/2772405 verified. The producer's cold-HVP
 component cost miss remains explicit; total actual time stayed within its cap.
 See docs/reviews/cifar-curved-path-independent.json for exact receipts.
+
+### Independent first cubic32 portion adapter prepared
+
+Producer-authored metadata and p/p-prime cubic extension reviewed by root. Complete original C0+C1d, D0..3, f0..5 and Taylor derivative R1/2R2/3R3/4R4 retained; existing independently authored root/tangent/fresh-center/quotient reducers unchanged byte-for-byte. Fixed [39,55]/1024 union must contain whole stable chart31 endpoint projection. All1080 producer calls and two failed coarse cells retained. Source closure added required transitive dependencies, with shared metadata/decoding/native acquisitions and Arb disclosed. Six packet controls passed5.97s before transfer; repository-local adaptation and tests next, no target replay yet.
+
+### 2026-10-11T10:39:19.961537+00:00 — Independent first cubic32 replay admitted
+
+Root source/domain review passed; six repository-local controls5.57s, actual1080-pair preflight with scientific decoders forbidden and isolated exact closure included. Unchanged independent Neumann/point/metric reducers; source-authenticated cubic context, exact complete priorstable projection. Admit zero-native full705 profile-gated1200s4GiB256MiB run in reused isolated audit checkout.
+
+Integration 2026-10-11 10:51 UTC: copied the six new independent audit files from execution commit742eb90d; all seventeen shared source files matched byte-for-byte. Execution remains bound to the isolated original source archive.
