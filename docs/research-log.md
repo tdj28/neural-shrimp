@@ -12961,3 +12961,13 @@ inverse proposals while omitting reproducible dense derived arrays. Prepare a
 fresh source-bound full705 synthetic profile under the unchanged629tick/240s/
 6GiB/768MiB screen and new exclusive correlated002 root. The first dense native
 proof remains a separate measured baseline. No target arrays read or run yet.
+
+
+### 2026-10-11 UTC: compact doubled-width target preparation
+
+Saved margins500791b6 motivate h=1/16,rho=2^-7 at the same finite predictor and
+weights. Prepare one fresh full-domain148tick attempt, all original705 root/
+known-endpoint gates unchanged. Compact native evidence stays complete and the
+final certificate is written once. Both fresh source-bound synthetic costs and
+1.25×first actual native costs gate the unchanged240s/6GiB/1GiB ceiling. No new
+profile or target has run; only source/controls prepared.
