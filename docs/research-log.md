@@ -16852,3 +16852,20 @@ Stability independently cleared e2d6e24d source/policy/binding/resource packet, 
 
 ### 2026-10-11 — signed470 march earns16 connected charts, stops on strict association gate
 Sourcea34129fd completed23 full144-phase attempts plus180-phase profile in709.993s/728152KiB. Sixteen strict full470 primitive18 root/known-root joins advance hiddenrate84.09156993217→76.59156993217, exact gauge−81/256→−2001/256 (7.5 physical units). Six wider h1/2 image-bound failures were retained and policy-halved; final23 also failed one anchor coordinate469/470 and stopped exactly as declared, with85 root inclusions despiteq<.252. No24th attempt or radius/gate change. Overall exit2 remains; earned16-chart connected prefix is separate. Complete3492native input/return pairs, allsource/inventories/owned termination immutable. Independent512 saved-prefix replay is prepared separately; no complementary-stability, generic-flip or complete second-junction/window claim. Next output-gauge transition must prove full projected470 membership.
+11 October 2026 — Preparatory changed-gauge chart35 binder, root source/math
+review PASS (two controls independently reproduced6.52s). It authenticates the
+original independently localized full705 chart34 endpoint and strict projected
+uniqueness membership in chart35. known_parameter remains null, with the whole
+projection inside[-1,63]/2048; no scalar equality across gauges is asserted.
+This adds no worker, spectrum, acquisition or launch authority. The entire
+independent chart34 complementary cover remains a future prerequisite.
+
+The current chart32 independent replay failures were preserved through004.
+A separately prepared rational-range helper now uses exact quadratic extrema
+and monotonic cubic endpoints or eight fixed Bernstein hulls. Root reviewed
+and executed the fixed all-six domain screen, which passed41.233s/zero native
+on full705 root, segment, correction, predictor tangent, polarized directions,
+true tangent and acquired derivative domains. No containment gate was weakened.
+Full remaining32 replay005 is still required before the prepared33–34 packet
+can be admitted. Its independent saved adapter is source-prepared separately;
+all existing mathematical reduction kernels remain unchanged.
