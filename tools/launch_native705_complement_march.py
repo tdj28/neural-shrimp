@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 for k in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):os.environ[k]='1'
 from neural_shrimp.complement_partition import cell,children,next_action,coverage
 import launch_native705_complement_halves as L
-BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/march001')
+BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/march002')
 CARD='docs/plans/native705-complement-march-inputs.json'
 LIMITS=dict(attempts=48,concurrent=4,worker_seconds=400,owned_seconds=415,grace_seconds=5,worker_rss_kib=4*1024**2,total_rss_kib=16*1024**2,parent_rss_kib=256*1024,worker_raw_bytes=384*1024**2,total_raw_bytes=16*1024**3,total_seconds=8400,available_kib=24*1024**2,depth=3)
 entry=L.entry

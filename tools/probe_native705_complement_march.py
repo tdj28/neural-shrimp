@@ -6,9 +6,9 @@ from pathlib import Path
 import bind_native705_complement_march as M
 from neural_shrimp.complement_partition import cell
 H=M.H;ROOT=H.ROOT;need=H.need;read=H.read;D=H.D;U=H.U
-BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/march001')
+BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/march002')
 CARD=M.CARD
-FILES=sorted(set(H.FILES+[CARD,'docs/plans/native705-complement-march.md','src/neural_shrimp/complement_partition.py','tests/test_complement_partition.py','tools/bind_native705_complement_march.py','tools/probe_native705_complement_march.py','tools/launch_native705_complement_march.py','tests/test_native705_complement_march.py']))
+FILES=sorted(set(H.FILES+[CARD,'docs/reviews/native705-complement-march001-schema-failure.json','docs/plans/native705-complement-march.md','src/neural_shrimp/complement_partition.py','tests/test_complement_partition.py','tools/bind_native705_complement_march.py','tools/probe_native705_complement_march.py','tools/launch_native705_complement_march.py','tests/test_native705_complement_march.py']))
 
 
 def assignment(card,job,attempt,source):
@@ -28,11 +28,19 @@ def bind(card,job,attempt,source,tick):
     del a;gc.collect();tick();return model,restricted,rp,normal,origin,sc,E,metrics,binding
 
 
+def retained_failure(card):
+    old=card['retained_schema_failure'];root=Path(old['root']);need(root.name=='march001'and old['source']=='cbe9096df14075f1e59a34c86182f027fc897232'and old['outer']=='b9e6eff0ca3cf18da0003d9cf2163f6ffbfd82f133588f250767f7df2cb5d18a','literal retained first schema failure')
+    H.O.verify(root,old['outer']);done=read(root/'launcher-result.json');need(not done['passed']and done['launched']==4 and done['complete_charts']==0 and not done['owned_live_pids'],'complete first four stopped workers')
+    for unit,pin in enumerate(old['workers'],1):
+        run=root/f'chart{unit:03d}/run';H.O.verify(run,pin);H.D.B.archived(run,old['source'],'runtime.json','source');out=read(run/'outcome.json');profile=read(run/'profile.json')
+        need(out['status']=='failed_or_interrupted'and out['error']=="KeyError: 'whole_angle_positive'"and out['native_calls']==out['profile_native_calls']==180 and out['target_native_calls']==0 and profile['passed']and not(run/'bindings.json').exists(),'literal complete profiles and zero target calls')
+
+
 def main(attempt):
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();card=read(ROOT/CARD);job=read(BASE/f'chart{attempt:03d}/attempt-card.json');_,c=assignment(card,job,attempt,source)
     original={k:getattr(H,k)for k in ['BASE','CARD','FILES','geometry','bind','preserved_profile','save_bound']}
     def geometry(unit):need(unit==attempt,'same assigned cell');return c['center'],c['endpoints']
-    def preprofile(actual):need(actual==card,'same literal fixed24 source index');assignment(actual,job,attempt,source)
+    def preprofile(actual):need(actual==card,'same literal fixed24 source index');assignment(actual,job,attempt,source);retained_failure(actual)
     def save(out,name,value,used,closing=False):
         if name=='profile.json':
             total_time=12*value['forecast_seconds']+600;total_raw=48*value['forecast_bytes']+64*1024**2
