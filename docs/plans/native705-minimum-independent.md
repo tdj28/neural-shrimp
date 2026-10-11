@@ -37,3 +37,10 @@ covers three root-size units; two uniform roots plus old endpoint operator are
 at most that retained matrix scale. Same exact source archive and all bounds
 checked before target calculations. Actual prior2x+90<900 additionally required.
 Any failed gate ends the one attempt and retains outputs. No native calls.
+
+Before launch, boundary review caught that the real successor intentionally
+starts1/2048 before the old right endpoint. Exact same-gauge membership now
+uses the genuine previous right63/2048 inside the successor[62,126]/2048,
+including a literal1/2048 overlap check, rather than incorrectly requiring
+left-end equality. No math/domain/gate relaxation; actual metadata regression
+rejects changed scalar/gauge. No target was run under the defective adapter.
