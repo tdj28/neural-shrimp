@@ -16029,3 +16029,7 @@ Prepared one fresh width1/32 chart centered−9/256 in the unchanged native hidd
 ### 2026-10-11 — admit fixed native41 localization
 
 Stability independently reviewed helperc2ce8dbc and complete caller3cfb4585 PASS; seven controls reproduced6.28s. Fixed1224 inclusive native phases/240s3GiB256MiB and no retries unchanged. Actual metadata preflight and fresh host availability are required immediately before launch; unrelated432-phase profile precedes all research arrays. No result exists at admission.
+
+### 2026-10-11 — undamped native41 localization rejected
+
+Attempt001 source85977e04 stopped after two full41 target evaluations/504 inclusive phases in7.208s. The first finite Newton proposal increased residual .01570→.28016, and the next full-mode step violated the unchanged.1 relative guard. All values/Jacobians/native returns/steps are immutable and no root is promoted. A bounded residual-decreasing line search with unchanged accepted-step guard is the next proposal. Exact source/inventory/ownership verified; outer6a843ae4e44226c5cba7f818f0a00f98a6691ef607ac2ec709cb5c9ef03780be.
