@@ -1,6 +1,6 @@
 {
   "schema": "tiny-lm-parity-order-v1",
-  "status": "profile_admitted",
+  "status": "target_admitted",
   "source_review": {
     "reviewer": "boundary_resume",
     "commit": "e7f339801387a608c1e8ac43d43722ada1bc2b2a",
@@ -113,7 +113,12 @@
   },
   "profile_root": "/data2/neural-shrimp-data/explore/tiny-lm-parity-order/attempt002-profile",
   "target_root": "/data2/neural-shrimp-data/explore/tiny-lm-parity-order/attempt001-target",
-  "profile": null,
+  "profile": {
+    "root": "/data2/neural-shrimp-data/explore/tiny-lm-parity-order/attempt002-profile",
+    "source": "dace82532109cf6f4d1b475ccc30035ccbc13315",
+    "outer": "610460ba82fb4966a21729151576df9088e2bfba52799e830cf5492b1e60791c",
+    "worker": "76a6e8a1ab5b571bc8f975d00ee833248212b041736f52f847cef3d58c0d8810"
+  },
   "mean_authority": {
     "root": "/data2/neural-shrimp-data/audits/tiny-lm-temporal-mean-independent/attempt001",
     "source": "8624111d26fc8e3ee916fe89c2f32fb5286139d2",
@@ -134,16 +139,16 @@
     "unchanged": "224HVP, zero gradients/CE, four cases, all gates,4GiB RSS,8GiB AS,192MiB raw, full actual/cold maximum and528-vector accounting."
   },
   "host_admission": {
-    "observed_local": "2026-10-11 03:31 PDT",
+    "observed_local": "2026-10-11 03:34 PDT",
     "available_ram": "52GiB",
     "load": [
-      1.73,
-      1.78,
-      1.81
+      1.52,
+      1.63,
+      1.74
     ],
     "disk_free": "2.6TiB",
     "gpu_last_checked": "03:26 PDT 0%,15947MiBfree,no compute processes",
     "owned_duplicate": false,
-    "scope": "CPU1nice10 fresh002 two-HVP profile only; separate target admission required."
+    "scope": "Single fixed target224HVP; measured285.721872s and201087284B pass300s/192MiB. CPU1nice10,4GiB8GiBAS,315+5owned. Both prior profiles retained; no scientific gate or data change."
   }
 }

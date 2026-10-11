@@ -16325,3 +16325,14 @@ available/load1.73/2.6TiBfree, no owned duplicate; same CPU1nice10profile60s and
 4GiB8GiBAS192MiB,80+5owned194MiB. Fresh two-HVP profile only; separately committed
 target card still requires literal new successful source/inventory and forecast
 under authorized300s. No scientific threshold or retained-byte change.
+
+### 2026-10-11 03:34 PDT — parity fresh profile PASS and fixed target admission
+
+Fresh002 source dace8253 completed2HVP in2.446064s/942400KiB. All actual/cold
+maximum remains.570807749s, forecast285.721872s<authorized300;201087284B<192MiB.
+Complete immutable inventories/historical source and owned termination verified;
+literal source/outer/worker now bind separate target card. Host52GiB available/
+load1.52/2.6TiBfree. Admit sole target001224HVP,zero gradients/CE, samefour cases,
+all inherited1% gates/freshchronological and transpose checks,528-vector complete
+retention,CPU1nice10/300s4GiB8GiBAS192MiB,315+5owned194MiB. All profiles remain
+retained. Original240s rejection is unchanged; no additional paths or capratchet.
