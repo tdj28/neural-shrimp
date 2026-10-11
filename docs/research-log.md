@@ -7100,3 +7100,14 @@ source and literal independently known51 endpoint,138phase90s2GiB256MiB.
 Host51GiB available/load2.30,2.6TiBfree,GPU0percent15947MiBfree/noGPUprocess;
 no duplicate own worker and exclusiveattempt001 absent. One fixed owned unit,
 no cap/geometry adaptation; every failed and partial outcome preserved.
+
+### 2026-10-11 — two-tube extension and selected generic endpoint PASS
+
+From the independently known b3/8192 root, both new critical tubes reached
+1/2048. The original gain4.0756 positive endpoint passed51D root and strict
+chart1 membership; separate paired H_U inverse and leak_bb≈−.0158591380041
+prove the selected generic fold under exact paired-root authority. All native6
+partner/adjacent/primitive/+1/stable11/orientation and numericalphase/mode
+association gates passed.16.237s128432KiB93nativephases207events. Complete
+source/inventories/ownedexits verified; new independent reductions pending,
+not uniformgenericity/native12/24/full-window completion.64completedrawroots.
