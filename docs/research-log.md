@@ -17404,3 +17404,18 @@ native6 connection and endpoint restriction, not full window organization.
 ### 2026-10-11 — Preserve chart34 narrow-domain prefix and terminal depth stop
 
 Execution191b325793e7e4c689d392e940df6657aef424d4 completed63 fresh derivative domains and76 complete center attempts,15390 inclusive native calls,1324.444s/1880900KiB. The exact accepted68-cell prefix covers[83/512,57/256], through62 of64 original domains. Seven coarse metric failures were retained; the left depth1 child in domain63 also failed, causing the declared maximum-depth stop. Its right sibling and domain64 were not acquired. This is an incomplete complementary proof, not instability or whole34 coverage. All174 exact source archives, complete immutable outer/worker inventories and absent owners were verified. Receipt docs/reviews/native705-cubic34-narrow001.json records every accepted/failed cell, pending domain and original wide failures. The prepared whole34 independent card remains unlaunchable; a disclosed accepted-prefix replay amendment and a bounded saved final-cell diagnosis precede any additional native proposal.
+### 2026-10-11 — prepare fixed saved CIFAR ray-remainder diagnosis
+
+Root approved the five already consumed in-trust gradients and fixed fit/check
+split: fit1/16,1/32; checks1/8,1/64,1/128. Stability independently cleared the
+quadratic remainder helper (four controls0.24s). The complete caller binds the
+separately passed fresh512 audit and exact same-state g,p,Hp and all five
+actual trial states/gradients, then retains first-order and quadratic vector
+errors, actual-gradient-change normalization and complete merit cross terms.
+Eight helper/driver controls7.41s include actual metadata with scientific
+arrays forbidden, full-size synthetic target/state-corruption controls and
+isolated archive import under inherited address-space limits. An initial test
+expected AssertionError where the inherited guard raises ValueError; fixed
+before any target. Card remains prepared, not runnable until independent
+source review and committed admission. One zero-native60s1GiB32MiB attempt,
+full98666 synthetic profile before arrays; all abstentions remain outcomes.
