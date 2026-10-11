@@ -15836,3 +15836,7 @@ Complete4332outer/4326worker files202328383B/201608022B, source archive and all
 native object pointers verified, owned2668524/2668952 absent. Both profile
 failures preserved; independent saved-arithmetic guide and compact receipt
 prepared, independent outcome replay pending. Integration index now67rawroots.
+
+### 2026-10-11T09:47:18.894845+00:00 — Independent CIFAR regularized arithmetic admitted
+
+Boundary source/math/resource review of d16d02d3 PASS;4controls6.19s, physical symmetric metric/SVD/secular solve and exact native state/event bindings checked. Admit unchanged single300s4GiB8MiB saved-only audit after mandatory full98666×512 profile; zero new native calls.
