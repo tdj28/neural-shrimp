@@ -23,8 +23,9 @@ def qualify(z,output,value,data,prior=None):
     return S.qualify(np.r_[z[:n],output,z[n+1:]],z[n],value,data,prior)
 
 
-def survey(model,seed,output,*,step=.000025,max_points=32,max_evaluations=240,tick=lambda:None,observe=lambda k,v:None):
+def survey(model,seed,output,*,step=.000025,max_points=32,max_evaluations=240,near_plus_threshold=.01,tick=lambda:None,observe=lambda k,v:None):
     """Retained local corrections and all-coordinate reverse associations."""
+    need(np.isfinite(near_plus_threshold)and 0<near_plus_threshold<=.01,'bounded near-plus event threshold')
     calls=0;points=[];n=model.n
     def call(z,h):
         nonlocal calls
@@ -47,7 +48,7 @@ def survey(model,seed,output,*,step=.000025,max_points=32,max_evaluations=240,ti
         base=dict(points=points,evaluations=calls)
         if index and (points[-2]['diagnostics']['complement_max_modulus']-1)*(info['complement_max_modulus']-1)<=0:return dict(base,status='noncritical_unit_crossing_proposal')
         if info['critical_gap']<.01:return dict(base,status='near_competing_minus_one_proposal')
-        if info['plus_one_distance']<.01:return dict(base,status='near_plus_one_proposal')
+        if info['plus_one_distance']<near_plus_threshold:return dict(base,status='near_plus_one_proposal')
         if index==max_points-1:return dict(base,status='point_cap')
         tangent=np.linalg.solve(J,-dh);observe('tangent_proposal',dict(index=index,tangent=tangent.tolist()));accepted=False;dhstep=step
         for retry in range(5):
