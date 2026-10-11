@@ -43,3 +43,22 @@ and fifth scalar derivative via nested path/mode/base differentiation. Initial
 fixture used non-dyadic Arb divisions for an exact-predictor API and correctly
 failed its exact-data gate. Replaced only fixture inputs by exact dyadics; all
 five controls pass0.27s. No actual model data, profile, or proof target opened.
+
+## Composed tube reduction
+
+Source-only `rigorous_clark_correlated_tube.py` makes four complete native
+coefficient acquisitions: center/whole-d residual with E=0, center fullE
+J0/J1, and whole-d fullE J2. The same fixed full51 error is passed literally
+to both Jacobian acquisitions. Finite exact C0 from the midpoint inverse and
+C1=mid(-C0 mid(J1) C0) are proposals only. Noncommuting convolution gives
+D coefficients0..3 and forcing0..4; interval parity enclosures preserve even
+powers on sign-changing d. All51 strict weighted inclusions and q<1 precede
+any uniform-root claim. Curved all-coordinate joins retain exact known-root
+authority and external amplitude support. All native6 primitive/partner/phase/
+mode/complement gates and separate positive-endpoint H_U curvature remain.
+
+Four reduction controls include noncommuting2D products, common-parameter
+cancellation, full51 synthetic acquisition/domain joins, and a single failed
+51st inclusion. Initial tests used two unavailable Arb matrix conveniences;
+replaced only test comparison/copy syntax. Nine combined controls pass0.35s.
+This is not an actual root or resource-profile outcome.
