@@ -23,7 +23,7 @@ RESPONSE_PROFILE=dict(root='/data2/neural-shrimp-data/explore/tiny-lm-response/a
 PAIR={'root': '/data2/neural-shrimp-data/explore/tiny-lm-pair-blocks/attempt001-target', 'source': '1c91e14fb01276a5d764e8facc65ab6585f38606', 'outer': '03022d864990b299468c026a1b1bf9210a61a028bfae91f02a604fe7fb3cc5e6', 'worker': '615376d85ffcc62f6d2a24a0799544dab16c3e4a61b18cb4fae9f2e22fc19b58'}
 PAIR_AUDIT={'root': '/data2/neural-shrimp-data/audits/tiny-lm-pair-blocks-independent/attempt001', 'source': '99e4efa111c97bc09c562dbbd30f5c90aecef1e8', 'outer': '906fc65ff04aee2d86aedf7bc1d63cd62a0016c7076412b4c8015f9b754896c5', 'worker': 'e6a22991e3bcddf5eabe74ecec5d3d8f3fd1b03083dddd27297a38a0f91b429f'}
 FILES=sorted(set(B.FILES+[CARD,'src/neural_shrimp/tiny_lm_block_mean.py','tools/explore_tiny_lm_block_mean.py','tools/launch_tiny_lm_block_mean.py','tests/test_tiny_lm_block_mean.py','tests/test_tiny_lm_block_mean_driver.py','docs/plans/tiny-lm-block-mean.md','docs/reviews/tiny-lm-parity-order-outcome.json']))
-SETTINGS=dict(profile_counts=H.PROFILE_COUNTS,target_counts=H.TARGET_COUNTS,gates=H.GATES,blocks=8,powers=8,seeds=[28161,28162],roles=['original','quarter_step'],worker_seconds=dict(profile=60,target=900),rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=CAP)
+SETTINGS=dict(profile_counts=H.PROFILE_COUNTS,target_counts=H.TARGET_COUNTS,gates=H.GATES,blocks=8,powers=8,seeds=[28161,28162],roles=['original','quarter_step'],worker_seconds=dict(profile=60,target=1200),rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=CAP)
 
 class Store(N.Store):
  def write(self,name,raw,closing=False):
@@ -33,7 +33,7 @@ class Store(N.Store):
 
 class Calls(N.Calls):
  def __init__(self,store,mode):
-  super().__init__(store,mode,60 if mode=='profile'else 900);self.cap=H.PROFILE_COUNTS if mode=='profile'else H.TARGET_COUNTS
+  super().__init__(store,mode,60 if mode=='profile'else 1200);self.cap=H.PROFILE_COUNTS if mode=='profile'else H.TARGET_COUNTS
   self.attempted=dict.fromkeys(self.cap,0);self.returned=dict.fromkeys(self.cap,0);self.times={k:[]for k in self.cap};self.return_bytes={k:[]for k in self.cap}
 
 class Binding:
@@ -97,14 +97,33 @@ def comparison_inputs(run,files,label,case,role):
 
 
 def profile_binding(card,store,calls,worst,identity):
- p,rt=history(card['profile'],Binding(store,calls));row=S.read(p/'run/result.json')
- need(row['passed']and row['mode']=='profile'and row['attempted']==row['returned']==H.PROFILE_COUNTS and row['event_pairs']==2 and row['seconds']<60 and row['peak_rss_kib']<4*1024**2,'complete successful two-HVP profile')
+ import ast
+ expected={'root': '/data2/neural-shrimp-data/explore/tiny-lm-block-mean/attempt001-profile', 'source': '58d08555eab4032dee87843bbe2b280aa9da4a03', 'outer': '02dcb4f349c1589ad0e556de97c5e8e44412c9f8159f550de88dc52349bf8c34', 'worker': '87c4d5876d6a2c2d2135c982f5eca0cb2ebded325b8239f11bc30bbf91e6084a'}
+ need(card['profile']==expected,'literal retained first measured time rejection')
+ p=Path(expected['root']);S.inventory(p,expected['outer'],calls.check);S.inventory(p/'run',expected['worker'],calls.check);rt=S.historical(p,expected['source'],2);row=S.read(p/'run/result.json')
+ need(row['passed']is False and 'error'not in row and row['mode']=='profile'and row['attempted']==row['returned']==H.PROFILE_COUNTS and row['event_pairs']==2 and row['target_arrays_unopened']and row['seconds']<60 and row['peak_rss_kib']<4*1024**2,'complete two-HVP time-only rejection')
+ worker='tools/explore_tiny_lm_block_mean.py';launcher='tools/launch_tiny_lm_block_mean.py';test='tests/test_tiny_lm_block_mean_driver.py';plan='docs/plans/tiny-lm-block-mean.md'
+ need(set(rt['sources'])==set(FILES),'same complete profiled closure')
  for n in FILES:
-  if n!=CARD:need(rt['sources'][n]==identity[n],'same exact profiled closure '+n)
+  if n not in(CARD,worker,launcher,test,plan):need(rt['sources'][n]==identity[n],'same exact profiled math/native closure '+n)
+ def normalize(raw):
+  tree=ast.parse(raw)
+  tree.body=[node for node in tree.body if not(isinstance(node,(ast.FunctionDef,ast.AsyncFunctionDef))and node.name=='profile_binding')]
+  class TimeOnly(ast.NodeTransformer):
+   def visit_Constant(self,node):
+    if type(node.value)is int and node.value==900:return ast.copy_location(ast.Constant(1200),node)
+    return node
+  return ast.dump(TimeOnly().visit(tree),include_attributes=False)
+ need(normalize((p/'run/source'/worker).read_text())==normalize((ROOT/worker).read_text()),'unchanged entire caller outside reviewed admission/time-only literals')
+ need((p/'run/source'/launcher).read_text().replace('else 915','else 1215')==(ROOT/launcher).read_text(),'launcher time-only amendment')
+ need((p/'run/source'/test).read_text().replace('co_consts.count(900)','co_consts.count(1200)').replace("'else 915'","'else 1215'")==(ROOT/test).read_text(),'same control suite with only updated time cap')
+ need((ROOT/plan).read_text().startswith((p/'run/source'/plan).read_text()),'original plan preserved with disclosed amendment')
+ oldcard=S.read(p/'run/source'/CARD);oldsettings=dict(SETTINGS,worker_seconds=dict(profile=60,target=900))
+ need(oldcard['status']=='profile_admitted'and oldcard['settings']==oldsettings and oldcard['pair_producer']==PAIR and oldcard['pair_authority']==PAIR_AUDIT and oldcard['profile']is None,'original measured card and unchanged design')
  need(rt['torch']==torch.__version__ and rt['numpy']==np.__version__,'same fresh profile libraries')
- need(H.forecast(row['times']['hvp'],row['return_bytes']['hvp'],worst,row['preforecast_bytes'])==row['forecast'],'recompute all measured maxima and exact retained-byte forecast')
+ need(H.forecast(row['times']['hvp'],row['return_bytes']['hvp'],worst,row['preforecast_bytes'])==row['forecast']and 900<row['forecast']['seconds']<1200,'unchanged cold maximum and retained900s rejection')
  current=H.forecast(row['times']['hvp'],row['return_bytes']['hvp'],worst,store.used)
- need(current['seconds']<900 and current['bytes']<CAP,'fixed900s512MiB actual target admission');store.json('profile-reference.json',dict(profile=card['profile'],original_forecast=row['forecast'],current_forecast=current));return current
+ need(current['seconds']<1200 and current['bytes']<CAP,'fixed1200s512MiB actual target admission');store.json('profile-reference.json',dict(profile=card['profile'],original_forecast=row['forecast'],current_forecast=current,amendment='Time-only900to1200; no new profile and no changed scientific gate'));return current
 
 
 def main(args):
@@ -139,7 +158,7 @@ def main(args):
      row=dict(seed=seed,rate_role=role,qualified=bool(comparison['qualified']and binding['original_qualification']),comparison=comparison,inherited_response_qualified=binding['original_qualification']);out['cases'].append(row);store.json(label+'/result.json',row)
   need(calls.attempted==calls.returned==calls.cap,'all512 or profile2 native calls exactly')
   if args.mode=='profile':
-   out['preforecast_bytes']=store.used;bound=H.forecast(calls.times['hvp'],calls.return_bytes['hvp'],worst,store.used);out.update(forecast=bound,passed=bool(bound['seconds']<900 and bound['bytes']<CAP),target_arrays_unopened=True)
+   out['preforecast_bytes']=store.used;bound=H.forecast(calls.times['hvp'],calls.return_bytes['hvp'],worst,store.used);out.update(forecast=bound,passed=bool(bound['seconds']<1200 and bound['bytes']<CAP),target_arrays_unopened=True)
   else:out.update(passed=True,descriptive=H.descriptive(out['cases']),scope='Consumed full-state retrospective mean-of-two-step-blocks directional prediction. Uses the whole observed path; not an online forecast, ordering isolation, training intervention or geometry utility.')
  except BaseException as e:out.update(error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:

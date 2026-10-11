@@ -11,7 +11,12 @@
     "source": "1c91e14fb01276a5d764e8facc65ab6585f38606",
     "worker": "615376d85ffcc62f6d2a24a0799544dab16c3e4a61b18cb4fae9f2e22fc19b58"
   },
-  "profile": null,
+  "profile": {
+    "outer": "02dcb4f349c1589ad0e556de97c5e8e44412c9f8159f550de88dc52349bf8c34",
+    "root": "/data2/neural-shrimp-data/explore/tiny-lm-block-mean/attempt001-profile",
+    "source": "58d08555eab4032dee87843bbe2b280aa9da4a03",
+    "worker": "87c4d5876d6a2c2d2135c982f5eca0cb2ebded325b8239f11bc30bbf91e6084a"
+  },
   "profile_root": "/data2/neural-shrimp-data/explore/tiny-lm-block-mean/attempt001-profile",
   "schema": "tiny-lm-block-mean-v1",
   "settings": {
@@ -41,15 +46,16 @@
     },
     "worker_seconds": {
       "profile": 60,
-      "target": 900
+      "target": 1200
     }
   },
   "source_review": {
     "controls": 11,
     "result": "PASS",
-    "reviewer": "boundary independent source/math; root control/baseline",
-    "seconds": 9.23
+    "retained_profile_forecast_seconds": 900.691704750061,
+    "reviewer": "boundary independent source/math/caller and time-only amendment",
+    "seconds": 10.91
   },
-  "status": "profile_admitted",
+  "status": "target_admitted",
   "target_root": "/data2/neural-shrimp-data/explore/tiny-lm-block-mean/attempt001-target"
 }

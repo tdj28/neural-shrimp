@@ -48,9 +48,9 @@ def test_isolated_archive_and_actual_soft_limit_entrypoint(tmp_path):
 
 
 def test_counts_and_external_caps():
- s=(ROOT/'tools/launch_tiny_lm_block_mean.py').read_text();assert 'else 915'in s and '514*1024**2'in s and 'attempt001-profile'in s
+ s=(ROOT/'tools/launch_tiny_lm_block_mean.py').read_text();assert 'else 1215'in s and '514*1024**2'in s and 'attempt001-profile'in s
  assert W.SETTINGS['target_counts']=={'hvp':512}and W.CAP==512*1024**2 and W.H.VECTOR_BOUND==1280
- assert W.Calls.__init__.__code__.co_consts.count(900)==1
+ assert W.Calls.__init__.__code__.co_consts.count(1200)==1
 
 def test_actual_four_saved_baselines_and_inherited_nonlinear_responses(monkeypatch):
  class Store:

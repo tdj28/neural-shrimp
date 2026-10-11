@@ -17034,3 +17034,11 @@ successor method using subset radii; requested b1/16 extent remains incomplete.
 ### 2026-10-11T12:20:29.931090+00:00 — Admit full-state two-step mean profile
 
 Same four consumed transformer cases; Bbar^8u sufficiency at h16,512targetHVP/no newgradient orCE. Boundary source/math/caller review PASS,11controls9.23s; root10controls6.89s plusactualfourbaseline4.11s. No symmetric-block assumption, same-vector eachblock, finite-difference/CE qualification inherited literally. Fresh disjoint2HVP profile now admitted; target remains blocked until measured900s4GiB8GiBAS512MiB forecast and separate committedcard. Raw/source closure and all negativehistory retained.
+
+### 2026-10-11T12:24:22.004138+00:00 — Retain first blockmean profile and prepare time-only amendment
+
+Profile source58d08555 completed2HVP/4.025s, no targetarrays, but conservative900.691705s forecast exceeds900s. Full immutable source/arrays/manifests/absentowners verified. Prepared1200s time-only amendment reuses exactly this measured maximum;512 targetactions and all scientific/resourceothergates unchanged. Target still blocked pending reviewedadmission.
+
+### 2026-10-11T12:27:51.065827+00:00 — Admit unchanged512-action blockmean target under measured time amendment
+
+Boundary independently replayed exact failed-profile/source-equivalence checks, retains900.691704750061s forecast under1200s ceiling, zero native during review. Root11controls10.91s PASS. Immutable originalprofile remains failed; source archive/AST/nativeclosure checks bind allscientific operations unchanged. Target512HVP now admitted once, no gradients/CE/holdouts.
