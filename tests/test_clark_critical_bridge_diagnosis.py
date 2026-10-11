@@ -14,3 +14,9 @@ def test_exact_dyadic_upper_and_invalid_data():
  assert D.upper_abs(dict(mid=[-3,-2],rad=[1,-3]))==D.F(7,8)
  with pytest.raises(ValueError):D.reduce([[0,-1],[0,0]],[1,1],[1,1])
  with pytest.raises(ValueError):D.reduce([[2,0],[0,2]],[1,1],[1,1])
+
+def test_launcher_uses_declared_worker_and_import_address_space():
+ import launch_clark_critical_bridge_diagnosis as L
+ assert L.OUT==D.OUT.parent
+ text=Path(L.__file__).read_text()
+ assert '(512*1024**2,2*1024**3)'in text and "worker_rss_kib':448*1024" in text
