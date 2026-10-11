@@ -9389,3 +9389,14 @@ correction1ea0413b restores intended512MiB launcher soft AS. Host53,914,544KiB
 available,load2.02/2.10/2.36; no matching research worker. Admit one CPU1
 300s4GiB8MiB saved-only attempt001, full unrelated98666x512 profile before
 research vectors. No new model calls, parameter step, or original-state transfer.
+
+### 2026-10-11 — independent nested512 arithmetic PASS
+
+Source f0adc44d completed60.341s/1,249,956KiB/zero native. Full unrelated profile
+forecast155.11s passed before target arrays. Independent511 recurrence steps,
+512-column Gram/rank/least squares, exact258 new events and physical gradient/
+final-action provenance all pass. Fresh forcing.427388278751536 vs qualified256
+.644148999130369; ratio.6634928865, both fixed20-percent/.5 gates pass. Gram
+error8.30384e-15, rank512, independent direction assembly9.59e-16, action8.79e-13.
+All immutable files verified and owned exits absent. This is a nested larger
+budget numerical solve at historical018, with no step/current022/orbit claim.
