@@ -17419,3 +17419,15 @@ expected AssertionError where the inherited guard raises ValueError; fixed
 before any target. Card remains prepared, not runnable until independent
 source review and committed admission. One zero-native60s1GiB32MiB attempt,
 full98666 synthetic profile before arrays; all abstentions remain outcomes.
+
+### 2026-10-11 — admit fixed saved five-ray CIFAR diagnosis
+
+Stability independently reviewed complete7e8a4851 source/math/binding/resource
+packet and reproduced all eight controls7.83s, including actual complete
+metadata with vector decoding forbidden and isolated archive closure. Admit
+only cifar-ray-remainder/attempt001: same exact selected curved point, p/Hp514,
+all five original trial states/gradients and independent fresh512 authority.
+Fixed fit/check indices and1%/10% sufficiency gates, original first acceptance,
+60s1GiB3GiBAS32MiB/75+5owned remain. Private push/current CPU/RAM/GPU/disk
+and duplicate-process checks precede execution; fresh full98666 synthetic
+profile before target arrays. Zero native calls; all outcomes retained.
