@@ -15176,3 +15176,14 @@ Stability independently reviewed source and reproduced5controls1.57s PASS.
 One CPU1nice10/BLAS1,400s4GiB RSS6GiB AS64MiB raw4MiBreserve,415+5 owned;
 full705 unrelated measured profile before target. Zero new native calls.
 The pilot audit is mandatory before any systematic quarter coverage launch.
+
+
+### 2026-10-11 — independent centered complementary contraction passes
+All11 complementary multipliers on closed[-34,-32]/2048 have modulus<.875102.
+Independent480-bit saved root/tangent/residual/point/quotient replay passes
+26.751s/818196KiB/zero native, complete Lyapunov penalty<.401346 and remainder
+<.029642524. All124 source files, complete inventories and exited ownership
+verified. Entire705 actual root/tangent/acquired-domain coverage holds. Neutral
+complex pair is retained. This is one centered subinterval of chart31; the
+next bounded coverage run must prove an exact closed union before claiming
+first-quarter coverage. This success unlocks that already prepared source.
