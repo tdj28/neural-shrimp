@@ -1,0 +1,41 @@
+# One successor and saved endpoint localization
+
+Exploratory saved-only unit, 11 October 2026. The preceding native run retained
+one qualified tube to b=1/512 and four subsequent unresolved bounds. The desired
+b=1/16 finite extent remains incomplete. There is no instability inference from
+a failed enclosure or floating LP failure.
+
+First independently reconstruct all five full51 augmented Jacobian/residual
+polynomials from the 331 retained source-bound events (132 native phases).
+The actual original full E remains in every derivative acquisition. The one
+selected subset must use identical C/J/R, predictor and E, with positive
+componentwise smaller radii. Independently prove its full51 root and join from
+the independently proved b=15/8192 box, then qualify all four native6 contexts
+using separate primitive divisors and 11-dimensional quotient products. All
+four later failures are retained and never promoted by this audit.
+
+For the earned endpoint, evaluate independently reconstructed f(h),D(h) at the
+exact right parameter. Before localization require its recorded endpoint to
+cover the independent uniform image. Start from that known image intersected
+with E, then execute exactly 16 rational interval intersections
+X <- X intersect (f(h)+D(h)X). Every intersection preserves the same root and
+is a subset of the preceding box. The native Jacobian bounds still cover the
+original full E; no derivative domain is narrowed or reacquired. Final outward
+Arb restoration must lie inside both the original known endpoint and E. Save
+all iterates, coefficients and coordinate widths. Compare old and localized
+endpoint projection requirements in each of the four failed successor tubes;
+these are diagnostics, not a new root or a proved infeasibility result.
+
+Fixed 512 bits, zero native calls, CPU1nice10 and BLAS1. Worker120s/2GiB RSS/
+4GiB AS/64MiB raw with4MiB closing reserve; owned supervisor135+5s/66MiB and
+10GiB host admission. Complete source and immutable owner/inventory bindings.
+Full51 unrelated reduction/localization and full12 quotient profile precede
+target arrays. Conservative admission also uses the entire independently
+completed22-tube replay (2x its31.21s plus20s; its complete47.3MB plus4MiB).
+Both caps must pass. Preserve any failed bound, containment or profile attempt.
+
+The unchanged independently authored native/raw reductions and Arb are shared
+with prior audits. New endpoint intersections use exact dyadic Fraction bounds;
+no producer augmented reducer is imported. Stability source-reviewed the new
+conditional endpoint helper with four controls passing0.41s. Complete caller
+source/binding review is required before the prepared card is admitted.

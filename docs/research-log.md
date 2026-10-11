@@ -17300,3 +17300,17 @@ The weak response to halving motivates inspecting propagation of the broad
 uniform endpoint enclosure before any further native continuation. Exact pins
 are in docs/reviews/clark-subset-successor-attempt001.json. All owned PIDs are
 absent; code and acquisition outputs are sealed.
+
+### 2026-10-11 — prepared independent successor/endpoint saved replay
+
+Prepared one fixed zero-native replay of all five successor histories: own
+full51 raw coefficient reconstruction, one selected subset/root/known51 join,
+four native6 contexts and exact right-endpoint localization. Stability cleared
+the conditional endpoint helper (four controls0.41s). Sixteen exact Fraction
+intersections at the fixed parameter preserve the known root on unchanged
+fullE; both original box and E must still contain outward serialization.
+Four failed successors remain failed, with only endpoint projection diagnostics.
+Eight complete helper/caller controls pass2.95s, including actual331-event
+metadata with scientific decoding blocked and isolated archive import. One
+120s2GiB64MiB saved unit is prepared; full51 profile plus completed22-tube
+actual cost/storage floor and peer wrapper review precede target arithmetic.
