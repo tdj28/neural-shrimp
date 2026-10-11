@@ -45,7 +45,19 @@ def profile(identity,pins):
  require(out['events']==expected,'all actual complete profile acquisitions')
  forecast=P.projection(out['chart_times'],out['gradient_times'],out['path_times'],out['peak_rss_kib'],out['stored_bytes_before_final'])
  require(forecast==out['projection']and forecast['resource_admitted']and out['elapsed_seconds']<240 and out['peak_rss_kib']<6*1024**2,'measured full-refresh caps')
- return dict(root=str(root),**pins,forecast=forecast)
+ # Retain measured actual native target costs as a floor; the synthetic
+ # matrix fixture alone underestimates the more expensive tanh domains.
+ oldroot=Path(FPINS['root']);inventory(oldroot,FPINS['outer']);inventory(oldroot/'run',FPINS['worker']);old=read(oldroot/'run/outcome.json');oldrt=read(oldroot/'run/runtime.json')
+ require(oldrt['commit']==FPINS['source']and old['ticks']==149 and old['status']=='completed_bounds_failed'and not old['passed'],'complete retained actual-cost source')
+ forecast=actual_floor(forecast,old)
+ require(forecast['resource_admitted'],'actual measured native floor fits caps')
+ return dict(root=str(root),**pins,forecast=forecast,actual_cost_source=FPINS)
+
+def actual_floor(forecast,old):
+ require(all(type(old[k])in(int,float)and old[k]>0 for k in ['seconds','peak_rss_kib','stored_bytes_before_final']),'positive retained actual costs')
+ out=dict(forecast);out.update(one_fresh_chart_seconds=max(forecast['one_fresh_chart_seconds'],1.5*old['seconds']+10),rss_kib=max(forecast['rss_kib'],2*old['peak_rss_kib']+128*1024),compressed_storage_bytes=max(forecast['compressed_storage_bytes'],3*old['stored_bytes_before_final']+8*1024**2))
+ out['resource_admitted']=out['one_fresh_chart_seconds']<220 and out['rss_kib']<6*1024**2 and out['compressed_storage_bytes']<1024**3
+ return out
 
 def uniform(proof):
  g={'uniform_full_native_unit_pair_locus':True,'primitive_period':True,'realified_frame_independent':True,'whole_positive_angle':True,'anchor_identified':False}

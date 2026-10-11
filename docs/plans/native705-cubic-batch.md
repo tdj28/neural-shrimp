@@ -42,3 +42,9 @@ degree5 forcing; perform all705 inequalities and ordered joins. Completed
 connected-endpoint.json has the prior compatible {chart,endpoint} schema.
 Complementary spectrum, NS criticality, final55-junction identity and a closed
 shrimp region require their separate remaining proofs.
+
+Measured actual-cost floor: retain complete native cubic149-tick failed pilot
+as additional evidence, despite its mathematical failure. Forecast is at least
+1.5x its time+10s,2x its RSS+128MiB,3x its raw+8MiB, or the full refresh
+synthetic forecast, whichever is larger. All caps unchanged; smaller synthetic
+matrices cannot hide actual native model cost.
