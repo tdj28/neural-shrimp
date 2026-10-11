@@ -14128,3 +14128,15 @@ identity. Initial unrelated test used1/3 instead of an exactdyadic predictor;
 changed to3/8. One test command named a nonexistent legacy filename and ran no
 controls; corrected focused command passed. No target arrays or native calls.
 Source/math peer review and full resource/binding wrapper remain before use.
+
+### 2026-10-11 — Prepare bounded reusable endpoint fallback pilot
+
+Source46919a22 helper passed stability mathematical review (7controls0.15s).
+New fixed wrapper binds all five retained maintained001 attempts and entire
+initial known-root genealogy, reconstructs original fullE Jacobian polynomial
+from actual72 saved returns, then evaluates one36-phase endpoint residual.
+No uniform root rerun; target is exact oldattempt4 to retained root5. Complete
+unrelated705 replay/denseoperator/native profile precedes arrays.240s6GiB
+512MiB worker,72native+144saved replay inclusive; owned255+5. Eleven
+helper/driver controls0.30s include actual archive/index/card metadata and all
+72 existing input/return file pairs. Card remains prepared until peer clearance.

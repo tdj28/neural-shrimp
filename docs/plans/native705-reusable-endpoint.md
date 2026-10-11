@@ -25,3 +25,24 @@ The older exact-gauge scalar cannot cross the changed gauge. No interval
 zero-containment becomes an identity and no derivative on an expanded E is
 reused. Initial helper source only: a measured complete705 replay/profile and
 source/map/known-chain-bound wrapper precede target or fallback acquisition.
+
+## First reusable fallback pilot
+
+Fixed source-bound maintained001 attempts4→5 only, with all five attempts and
+initial historical known-root chain authenticated. Recompute fullE point
+operator from two72-return saved Jacobian groups, then fresh36 native phases.
+The same reusable function can later run inside the maintained engine only
+with explicit added budgets; this pilot does not authorize an unbounded loop.
+Profile: two full705 unrelated saved-gradient assemblies/replays, dense705
+point operator and real13D/18phase residual cost,72 synthetic replay operations
+and36 actual native profile phases. Full target:72 saved replay plus36 fresh
+native phases. Inclusive72 native and144 replay operations. Store source,
+actual point input before calls, point C/D, residual/refinement and strict705
+join, including failures. Fixed240s/6GiBRSS/10GiBAS/512MiB, owned255+5s/514MiB,
+CPU1nice10 and fresh16GiB headroom. Forecast8×full synthetic measured unit
+plus2×the authenticated21.32s previous actual endpoint unit+20s; raw4×measured
+operator output+64MiB, peak+2GiB. All three bounds precede target arrays.
+Original known box and exact point must remain in literal original p(h)+E;
+no expanded-domain use. Prepared card requires source review and explicit
+measured-reviewed status before execution. Existing source-native bytes and
+all retained failures remain immutable. Eleven helper/driver controls passed.
