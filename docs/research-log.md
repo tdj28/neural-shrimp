@@ -17337,3 +17337,11 @@ match that exact transformation. Fresh002 binds this deterministic dyadic
 representation, still reconstructing mathematics solely from original raw
 native acquisitions. Original001/source/owners are mandatory immutable inputs;
 no tolerance, originalfullE, known-root or resource gate is relaxed.
+
+### 2026-10-11 — admit saved endpoint002 after exact representation review
+
+Root narrow f31f4d5b review PASS and nine controls3.57s reproduced. Admit fresh
+002 only: exact384 historical decode-reserialize binding, all original raw
+coefficients remain mathematical authority, mandatory immutable001 failure.
+Unchanged512bits120s2GiB64MiB/0native and135+5owned; profile before arrays.
+Recheck shared host and own process absence, private-push then freeze checkout.
