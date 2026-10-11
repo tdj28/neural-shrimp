@@ -1,0 +1,2096 @@
+{
+  "experiment_id": "EXP-016",
+  "recorded_utc": "2026-09-17T16:57:47.800794+00:00",
+  "status": "Execution finished; scientific census incomplete and both settings unqualified; all failures retained",
+  "human_friendly_tldr": "Individually checked near-edge cases retain readable transverse memory for several cycles, but a second input can interfere strongly. The available core cases forget rapidly. Ordinary linear dynamics explain the completed examples closely. Missing reference-qualified phases prevent an overall comparison or shrimp-specific advantage claim.",
+  "source_commit": "9904368b7b13721292efdc84dcf31efd7add30c7",
+  "plan_sha256": "f9b9b2e5052bea79a4a4eae5273e7496468c7211fbf42dd5fcbf535e12ac2e71",
+  "raw_directory": "/data2/neural-shrimp-data/raw/EXP-016/attempt-001",
+  "raw_receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-016/attempt-001/receipt.json",
+    "bytes": 1393097,
+    "sha256": "5bb1ce4aa6e3934af04049853b621628ab9cf86e36a6b4091db75b01211f47ef"
+  },
+  "artifact_count": 6649,
+  "artifact_bytes": 3015098986,
+  "producer_status": {
+    "experiment_id": "EXP-016",
+    "complete": false,
+    "source_valid": true,
+    "error": null,
+    "postflight_error": null,
+    "status_counts": {
+      "references": {
+        "complete": 96
+      },
+      "development": {
+        "not_started_reference_qualification": 243,
+        "complete": 675
+      },
+      "heldout": {
+        "complete": 1404,
+        "not_started_reference_qualification": 378
+      }
+    },
+    "stage_wall_seconds": {
+      "input_seal": 0.12342987199372146,
+      "build": 0.673826120008016,
+      "references": 122.2678316530073,
+      "reference_seal": 4.877975327006425,
+      "development": 43.59346249800001,
+      "heldout": 89.56743696400372,
+      "saved_analysis": 14.039497057994595
+    },
+    "total_wall_seconds": 287.60430350400566,
+    "prior_failures_unchanged": true
+  },
+  "scientific_counts": {
+    "contexts": 48,
+    "reference_jobs": 96,
+    "histories": 1296,
+    "trace_tasks": 2700,
+    "comparisons": 1404,
+    "scores_complete": 2079,
+    "comparisons_complete": 1080,
+    "comparisons_qualified": 1080
+  },
+  "settings": {
+    "core": {
+      "qualified": false,
+      "contexts": 24,
+      "qualified_contexts": 20,
+      "means": null
+    },
+    "failed-near-edge": {
+      "qualified": false,
+      "contexts": 24,
+      "qualified_contexts": 17,
+      "means": null
+    }
+  },
+  "primary": null,
+  "primary_failure_bounds": {
+    "setting_accuracy": {
+      "core": {
+        "lower": 0.4375054619953284,
+        "upper": 0.5625054619953285,
+        "known": 14,
+        "unknown": 2,
+        "denominator": 16
+      },
+      "failed-near-edge": {
+        "lower": 0.3704530298808456,
+        "upper": 0.6829530298808456,
+        "known": 11,
+        "unknown": 5,
+        "denominator": 16
+      }
+    },
+    "edge_minus_core_percentage_points": [
+      -19.205243211448288,
+      24.54475678855172
+    ]
+  },
+  "failed_reference_contexts": [
+    {
+      "context_id": "core--p00",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 2.349910976917613e-08,
+      "event_normalization": 1.5821638266189098e-07
+    },
+    {
+      "context_id": "core--p03",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 1.2828278439513952e-08,
+      "event_normalization": 1.2299294649409376e-07
+    },
+    {
+      "context_id": "core--p09",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 3.668133485845715e-08,
+      "event_normalization": 2.889486481194581e-07
+    },
+    {
+      "context_id": "core--p10",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 2.6128035957029283e-08,
+      "event_normalization": 2.4404609777484154e-07
+    },
+    {
+      "context_id": "failed-near-edge--p04",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 6.000568930630834e-08,
+      "event_normalization": 1.0389803795085584e-07
+    },
+    {
+      "context_id": "failed-near-edge--p07",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 6.403267782673083e-08,
+      "event_normalization": 1.3333202142362666e-07
+    },
+    {
+      "context_id": "failed-near-edge--p11",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 5.797640301175022e-08,
+      "event_normalization": 5.930879909410436e-07
+    },
+    {
+      "context_id": "failed-near-edge--p14",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 6.317371181729925e-08,
+      "event_normalization": 1.0727831556422984e-07
+    },
+    {
+      "context_id": "failed-near-edge--p15",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 6.78832661193951e-08,
+      "event_normalization": 1.1302750246855453e-07
+    },
+    {
+      "context_id": "failed-near-edge--p16",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 7.705360305365616e-08,
+      "event_normalization": 2.5758039523537946e-07
+    },
+    {
+      "context_id": "failed-near-edge--p22",
+      "failed_gates": [
+        "normalization"
+      ],
+      "initial_normalization": 6.327365631442206e-08,
+      "event_normalization": 1.0733740918311696e-07
+    }
+  ],
+  "frozen_verification": {
+    "all_original_owned_identities_absent_now": true,
+    "complete": false,
+    "receipt_sha256": "5bb1ce4aa6e3934af04049853b621628ab9cf86e36a6b4091db75b01211f47ef",
+    "saved_array_replay": true,
+    "total_jobs": 2796
+  },
+  "independent_algorithmic_audit": {
+    "scope": "External EXP-016 saved-evidence audit; no producer imports or integrations.\n\nAlgorithmically independent checks written by the producer-evaluation author;\nthis is NOT independent scientific review. Gaussian CDF uses scipy.ndtr rather\nthan the producer's erfc formula. Saved observers and reference prerequisites\nare inputs: this does not independently derive h, A/B, or adjoint trajectories.\nEvery arithmetic mismatch and gate disagreement is retained separately.\nOnly --out is written, exclusively; immutable evidence is opened read-only.\n",
+    "passed": true,
+    "failure_count": 0,
+    "check_counts": {
+      "identity": 58320,
+      "gate": 6542,
+      "arithmetic": 182831
+    },
+    "strict_arithmetic_max_abs_difference": 1.0658141036401503e-14,
+    "counts": {
+      "reference_contexts": 48,
+      "histories": 1296,
+      "planned_trace_scores": 2700,
+      "recomputed_trace_scores": 2079,
+      "planned_pairs": 1404,
+      "retained_pairs": 1404,
+      "complete_pairs": 1080,
+      "numerical_pairs_passing": 1080
+    }
+  },
+  "audit_bindings": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/frozen-verifier-attempt-001.json",
+      "bytes": 204,
+      "sha256": "9e829e1fa0933db288547428d3d57d7d114045c1d334b06ae934a9c23749b59f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/independent-audit-001/report.json",
+      "bytes": 3805349,
+      "sha256": "06d8add8810eff42c53fb7650314e5d9d1aa6f8647a8967ec6b4c47ec5fde537"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/independent-audit-code-001/audit_two_write_saved.py",
+      "bytes": 35703,
+      "sha256": "6d99955ca0e68ba7ea196279561be68ea6099da072469df18f124b4625953d70"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/report-001/receipt.json",
+      "bytes": 2758,
+      "sha256": "1f85b6f5a8c3d2a7c7e500d4a1904f23f66545b245846f2fe1e561fd2c928825"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/report-code-001/plot_two_write_saved.py",
+      "bytes": 11845,
+      "sha256": "f0560ef99ad1d65714cb9232f2441a87c297fec6dc490828da9a2649f2fd4928"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/report-code-001/test_plot_two_write_saved.py",
+      "bytes": 3904,
+      "sha256": "5339590f3382ba0401a956764944a922308b5646fffca2502be2cafa9ec22121"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/receipt.json",
+      "bytes": 2023,
+      "sha256": "02fbe9338cfe4acb7994f8553bb5ef27c9bae1a6da1a71ffa1154ebaeac37a56"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/report.json",
+      "bytes": 1394002,
+      "sha256": "9b0c4bf0aa270e6bb3a21340730df08578c5c6a6eb487775d0c5f3d2355dbc9c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/interpretation.md",
+      "bytes": 7310,
+      "sha256": "cfddbaac422ba7e33e93a32b7ba92e10e87a4905d5d923fb243c2a2d75eb9428"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/reference-diagnosis-001/next-diagnostic-plan.md",
+      "bytes": 7816,
+      "sha256": "043f5e439f68f0f4fdfeaa2d6c3a57d857405d875adc4f7b72671f34456867ff"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/interpretation-001/INTERPRETATION.md",
+      "bytes": 8953,
+      "sha256": "3436c3cd25603dcf060b5a1187613e04efc468b0d1c368cf4d6f7044ab1331bf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-016/interpretation-001/interpretation-addendum.json",
+      "bytes": 1082,
+      "sha256": "fac2856ff3f966e5723246772c6630c4ed454479d4783717472a2416770d411d"
+    }
+  ],
+  "resources": {
+    "samples": 278,
+    "peak_owned_rss_bytes": 559869952,
+    "minimum_host_available_ram_bytes": 76414910464,
+    "workers": 4,
+    "numerical_library_threads": 1,
+    "paid_compute": false
+  },
+  "incomplete_heldout_identity_ranges": [
+    {
+      "setting": "core",
+      "window": "immediate",
+      "available": 14,
+      "planned": 16,
+      "with_second": [
+        0.5000012028230041,
+        0.6480872483694028
+      ],
+      "without_second": [
+        0.5000012028230041,
+        0.6480872483694028
+      ],
+      "maximum_interference": 0.0,
+      "maximum_linear_accuracy_discrepancy": 6.809597330459383e-11,
+      "maximum_one_mode_accuracy_discrepancy": 6.809597330459383e-11
+    },
+    {
+      "setting": "core",
+      "window": "k2",
+      "available": 14,
+      "planned": 16,
+      "with_second": [
+        0.5000000894398294,
+        0.5109434299914928
+      ],
+      "without_second": [
+        0.500000090154392,
+        0.5109435735680936
+      ],
+      "maximum_interference": 4.527998342496176e-06,
+      "maximum_linear_accuracy_discrepancy": 3.2558211682243154e-09,
+      "maximum_one_mode_accuracy_discrepancy": 0.010810021559983674
+    },
+    {
+      "setting": "core",
+      "window": "k4",
+      "available": 14,
+      "planned": 16,
+      "with_second": [
+        0.5000000008631621,
+        0.5000463286137353
+      ],
+      "without_second": [
+        0.4999999992188079,
+        0.5000463307180545
+      ],
+      "maximum_interference": 2.104319163365176e-09,
+      "maximum_linear_accuracy_discrepancy": 7.364120313546607e-09,
+      "maximum_one_mode_accuracy_discrepancy": 7.3641441833416366e-09
+    },
+    {
+      "setting": "core",
+      "window": "k8",
+      "available": 14,
+      "planned": 16,
+      "with_second": [
+        0.49999999586576377,
+        0.5000000212027478
+      ],
+      "without_second": [
+        0.4999999923172135,
+        0.5000000206739246
+      ],
+      "maximum_interference": 1.4205427056879216e-08,
+      "maximum_linear_accuracy_discrepancy": 2.1202603117664864e-08,
+      "maximum_one_mode_accuracy_discrepancy": 2.1202648192719664e-08
+    },
+    {
+      "setting": "failed-near-edge",
+      "window": "immediate",
+      "available": 11,
+      "planned": 16,
+      "with_second": [
+        0.5000007986009569,
+        0.6793564111608861
+      ],
+      "without_second": [
+        0.5000007986009569,
+        0.6793564111608861
+      ],
+      "maximum_interference": 0.0,
+      "maximum_linear_accuracy_discrepancy": 5.876742426025316e-10,
+      "maximum_one_mode_accuracy_discrepancy": 5.876742426025316e-10
+    },
+    {
+      "setting": "failed-near-edge",
+      "window": "k2",
+      "available": 11,
+      "planned": 16,
+      "with_second": [
+        0.500001824233187,
+        0.8656880342139134
+      ],
+      "without_second": [
+        0.500001824333886,
+        0.9269840356080988
+      ],
+      "maximum_interference": 0.06129600139418545,
+      "maximum_linear_accuracy_discrepancy": 5.416625115106655e-08,
+      "maximum_one_mode_accuracy_discrepancy": 0.17305380841963613
+    },
+    {
+      "setting": "failed-near-edge",
+      "window": "k4",
+      "available": 11,
+      "planned": 16,
+      "with_second": [
+        0.5000013315448186,
+        0.7088176442926382
+      ],
+      "without_second": [
+        0.5000013330030946,
+        0.9347496003651095
+      ],
+      "maximum_interference": 0.23519588576793415,
+      "maximum_linear_accuracy_discrepancy": 2.5647165724507204e-07,
+      "maximum_one_mode_accuracy_discrepancy": 2.79776411260535e-07
+    },
+    {
+      "setting": "failed-near-edge",
+      "window": "k8",
+      "available": 11,
+      "planned": 16,
+      "with_second": [
+        0.5000007020549267,
+        0.7032653869023414
+      ],
+      "without_second": [
+        0.5000007103255584,
+        0.7916018224933388
+      ],
+      "maximum_interference": 0.08833643559099735,
+      "maximum_linear_accuracy_discrepancy": 4.4616783234641133e-07,
+      "maximum_one_mode_accuracy_discrepancy": 4.2206623296348056e-07
+    }
+  ],
+  "posthoc_example_selection": "phase20 chosen after outcomes to illustrate large interference; not a primary test",
+  "posthoc_phase20_examples": [
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "identity",
+      "window": "k2",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5051726387640222,
+      "without_second": 0.5051749672610601,
+      "interference_loss": 2.3284970379622294e-06,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.4932030623674681,
+          0.5051690242113056,
+          0.5171341029317623
+        ],
+        [
+          0.5171432040730606,
+          0.5051809103108147,
+          0.4932101856837976
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5051726395152006,
+        "without_second": 0.5051749678095422,
+        "probabilities": [
+          [
+            0.49320662456208564,
+            0.5051749678095422,
+            0.5171386544683156
+          ],
+          [
+            0.5171386544683156,
+            0.5051749678095422,
+            0.49320662456208564
+          ]
+        ],
+        "finite_minus_prediction_with_second": -7.511784527736154e-10
+      },
+      "one_mode": {
+        "with_second": 0.4992216584629581,
+        "without_second": 0.4992213080987841,
+        "probabilities": [
+          [
+            0.4872546597687307,
+            0.4992213080987841,
+            0.5111886571571853
+          ],
+          [
+            0.5111886571571853,
+            0.4992213080987841,
+            0.4872546597687307
+          ]
+        ],
+        "finite_minus_prediction_with_second": 0.005950980301064113
+      },
+      "secondary": {
+        "with_second": 0.5051726387640222,
+        "without_second": 0.5051749672610601,
+        "probabilities": [
+          [
+            0.4932030623674681,
+            0.5051690242113056,
+            0.5171341029317623
+          ],
+          [
+            0.5171432040730606,
+            0.5051809103108147,
+            0.4932101856837976
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.5018702768775736,
+        "without_second": 0.5018778319762152,
+        "probabilities": [
+          [
+            0.46606887373403866,
+            0.501861300916751,
+            0.5376249547175066
+          ],
+          [
+            0.5376681304651081,
+            0.5018943630356794,
+            0.4661191485936407
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "identity",
+      "window": "k4",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5000219049337999,
+      "without_second": 0.5000219044365394,
+      "interference_loss": -4.972605660569229e-10,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.5003451176036936,
+          0.5000158580485273,
+          0.49967456267245675
+        ],
+        [
+          0.4996958583073437,
+          0.5000279508245514,
+          0.5003720811517056
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000219045664153,
+        "without_second": 0.5000219045742165,
+        "probabilities": [
+          [
+            0.5003585997534581,
+            0.5000219045742165,
+            0.4996852093793725
+          ],
+          [
+            0.4996852093793725,
+            0.5000219045742165,
+            0.5003585997534581
+          ]
+        ],
+        "finite_minus_prediction_with_second": 3.673846782348278e-10
+      },
+      "one_mode": {
+        "with_second": 0.5000219054168654,
+        "without_second": 0.5000219054246668,
+        "probabilities": [
+          [
+            0.5003586006039081,
+            0.5000219054246668,
+            0.49968521022982265
+          ],
+          [
+            0.49968521022982265,
+            0.5000219054246668,
+            0.5003586006039081
+          ]
+        ],
+        "finite_minus_prediction_with_second": -4.830654765086706e-10
+      },
+      "secondary": {
+        "with_second": 0.5000219049337999,
+        "without_second": 0.5000219044365394,
+        "probabilities": [
+          [
+            0.5003451176036936,
+            0.5000158580485273,
+            0.49967456267245675
+          ],
+          [
+            0.4996958583073437,
+            0.5000279508245514,
+            0.5003720811517056
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.5000079480748496,
+        "without_second": 0.5000079469301719,
+        "probabilities": [
+          [
+            0.5000929610137859,
+            0.4999912632418929,
+            0.4998564164221003
+          ],
+          [
+            0.4999151401169187,
+            0.5000246306184508,
+            0.5001672747465936
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "identity",
+      "window": "k8",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5000000015319339,
+      "without_second": 0.5000000030003596,
+      "interference_loss": 1.4684257143571244e-09,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.5000367856327379,
+          0.5000165923640911,
+          0.5000291107847312
+        ],
+        [
+          0.4999708985613597,
+          0.4999834136366281,
+          0.499963211148907
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000000022341535,
+        "without_second": 0.5000000022341536,
+        "probabilities": [
+          [
+            0.5000000010151381,
+            0.5000000022341536,
+            0.5000000034531691
+          ],
+          [
+            0.5000000034531691,
+            0.5000000022341536,
+            0.5000000010151381
+          ]
+        ],
+        "finite_minus_prediction_with_second": -7.022196157890903e-10
+      },
+      "one_mode": {
+        "with_second": 0.4999999999206907,
+        "without_second": 0.4999999999206907,
+        "probabilities": [
+          [
+            0.4999999987016752,
+            0.4999999999206907,
+            0.5000000011397062
+          ],
+          [
+            0.5000000011397062,
+            0.4999999999206907,
+            0.4999999987016752
+          ]
+        ],
+        "finite_minus_prediction_with_second": 1.6112431944215189e-09
+      },
+      "secondary": {
+        "with_second": 0.5000000015319339,
+        "without_second": 0.5000000030003596,
+        "probabilities": [
+          [
+            0.5000367856327379,
+            0.5000165923640911,
+            0.5000291107847312
+          ],
+          [
+            0.4999708985613597,
+            0.4999834136366281,
+            0.499963211148907
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.49999999842748544,
+        "without_second": 0.4999999969754761,
+        "probabilities": [
+          [
+            0.49996271355924626,
+            0.49998318204878955,
+            0.499970491541969
+          ],
+          [
+            0.500029497056071,
+            0.5000168119021626,
+            0.5000372915526554
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "timing",
+      "window": "k2",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.49999999945201706,
+      "without_second": 0.499999999397176,
+      "interference_loss": -5.4841076124745314e-11,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.48802894534014296,
+          0.4999940803185983,
+          0.5119629888384623
+        ],
+        [
+          0.5119710531340744,
+          0.5000059184757536,
+          0.48803701049538867
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.49999999927683547,
+        "without_second": 0.49999999927650995,
+        "probabilities": [
+          [
+            0.4880329777929877,
+            0.49999999927650995,
+            0.5119670207606832
+          ],
+          [
+            0.5119670207606832,
+            0.49999999927650995,
+            0.4880329777929877
+          ]
+        ],
+        "finite_minus_prediction_with_second": 1.7518159145524237e-10
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000000020819431,
+        "without_second": 0.5000000017163906,
+        "probabilities": [
+          [
+            0.5356275656685664,
+            0.5000164437628674,
+            0.4644190326662267
+          ],
+          [
+            0.46437243668042694,
+            0.49998355966991376,
+            0.5355809733125522
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.49999999792020466,
+        "without_second": 0.4999999982840505,
+        "probabilities": [
+          [
+            0.46420006619399146,
+            0.4999835559662987,
+            0.5357533848044653
+          ],
+          [
+            0.5357999314544454,
+            0.5000164406018023,
+            0.4642466092279164
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "timing",
+      "window": "k4",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.49999999920974725,
+      "without_second": 0.49999999889571994,
+      "interference_loss": -3.1402730416019153e-10,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.5003246938200628,
+          0.4999940146460554,
+          0.4996513026225196
+        ],
+        [
+          0.4996753068838303,
+          0.5000059831453845,
+          0.5003486935125764
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.4999999992719486,
+        "without_second": 0.4999999992719483,
+        "probabilities": [
+          [
+            0.5003366944594989,
+            0.4999999992719483,
+            0.4996633040843983
+          ],
+          [
+            0.4996633040843983,
+            0.4999999992719483,
+            0.5003366944594989
+          ]
+        ],
+        "finite_minus_prediction_with_second": -6.220135517764902e-11
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000000028530565,
+        "without_second": 0.5000000027309444,
+        "probabilities": [
+          [
+            0.4999109133283973,
+            0.5000165201134382,
+            0.500155261898158
+          ],
+          [
+            0.5000890876950428,
+            0.4999834853484506,
+            0.4998447484906277
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.49999999714694365,
+        "without_second": 0.4999999972690556,
+        "probabilities": [
+          [
+            0.5000890867478825,
+            0.4999834798865638,
+            0.49984473802556284
+          ],
+          [
+            0.4999109122286776,
+            0.5000165146515474,
+            0.5001552515856514
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "timing",
+      "window": "k8",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5000000005965555,
+      "without_second": 0.49999999926580274,
+      "interference_loss": -1.3307527302330868e-09,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.500032774743092,
+          0.5000164353993624,
+          0.5000327735825079
+        ],
+        [
+          0.4999672195784565,
+          0.4999835631322431,
+          0.4999672344821655
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000000019798793,
+        "without_second": 0.5000000019798793,
+        "probabilities": [
+          [
+            0.5000000007608637,
+            0.5000000019798793,
+            0.5000000031988948
+          ],
+          [
+            0.5000000031988948,
+            0.5000000019798793,
+            0.5000000007608637
+          ]
+        ],
+        "finite_minus_prediction_with_second": -1.3833237888505323e-09
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000000005641583,
+        "without_second": 0.49999999931037203,
+        "probabilities": [
+          [
+            0.5000332207213132,
+            0.5000166588949763,
+            0.5000332213854202
+          ],
+          [
+            0.4999667736565621,
+            0.4999833397257678,
+            0.49996678649333764
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.4999999994358417,
+        "without_second": 0.500000000689628,
+        "probabilities": [
+          [
+            0.49996677927868677,
+            0.4999833411050238,
+            0.4999667786145798
+          ],
+          [
+            0.5000332263434379,
+            0.5000166602742322,
+            0.5000332135066624
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "transverse",
+      "window": "k2",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5051726399330436,
+      "without_second": 0.505174968189137,
+      "interference_loss": 2.3282560933646224e-06,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.4932089853320672,
+          0.5051749470992221,
+          0.5171400216240349
+        ],
+        [
+          0.517137288433022,
+          0.5051749892790519,
+          0.4932042643430502
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5051726402383044,
+        "without_second": 0.5051749685329714,
+        "probabilities": [
+          [
+            0.4932066252854708,
+            0.5051749685329714,
+            0.517138655191138
+          ],
+          [
+            0.517138655191138,
+            0.5051749685329714,
+            0.4932066252854708
+          ]
+        ],
+        "finite_minus_prediction_with_second": -3.052608166242976e-10
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5051726399330392,
+        "without_second": 0.5051749681938285,
+        "probabilities": [
+          [
+            0.49320897326864255,
+            0.5051749471038773,
+            0.5171400336815016
+          ],
+          [
+            0.517137300494929,
+            0.5051749892837795,
+            0.4932042522870834
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.5018702764807735,
+        "without_second": 0.5018778332031077,
+        "probabilities": [
+          [
+            0.46608524369466847,
+            0.5018777319859002,
+            0.5376413101943661
+          ],
+          [
+            0.5376517723162727,
+            0.5018779344203151,
+            0.4661027797177871
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "transverse",
+      "window": "k4",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5000219044549082,
+      "without_second": 0.5000219048223529,
+      "interference_loss": 3.6744463027815755e-10,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.5003510772301382,
+          0.5000218174066046,
+          0.4996805223573203
+        ],
+        [
+          0.4996898957291416,
+          0.5000219922381013,
+          0.500366122503033
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000219052944668,
+        "without_second": 0.5000219053022681,
+        "probabilities": [
+          [
+            0.5003586004815095,
+            0.5000219053022681,
+            0.49968521010742395
+          ],
+          [
+            0.49968521010742395,
+            0.5000219053022681,
+            0.5003586004815095
+          ]
+        ],
+        "finite_minus_prediction_with_second": -8.395585338050182e-10
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000219044548129,
+        "without_second": 0.5000219048223995,
+        "probabilities": [
+          [
+            0.5003510755826602,
+            0.5000218173858635,
+            0.49968052132648194
+          ],
+          [
+            0.4996898967562866,
+            0.5000219922589356,
+            0.5003661241538228
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.5000079460007183,
+        "without_second": 0.5000079476814612,
+        "probabilities": [
+          [
+            0.5001093907427152,
+            0.5000076890750353,
+            0.49987284069771043
+          ],
+          [
+            0.499898703690689,
+            0.5000082062878871,
+            0.5001508488717585
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "core--p20",
+      "setting": "core",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "transverse",
+      "window": "k8",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5000000021099318,
+      "without_second": 0.4999999993826867,
+      "interference_loss": -2.727245096423303e-09,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.5000205792667752,
+          0.500000387593687,
+          0.5000128911677344
+        ],
+        [
+          0.4999871132157713,
+          0.4999996111716864,
+          0.49997942478944607
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000000002542744,
+        "without_second": 0.5000000002542744,
+        "probabilities": [
+          [
+            0.4999999990352588,
+            0.5000000002542744,
+            0.5000000014732899
+          ],
+          [
+            0.5000000014732899,
+            0.5000000002542744,
+            0.4999999990352588
+          ]
+        ],
+        "finite_minus_prediction_with_second": 1.8556574055139663e-09
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000000006664097,
+        "without_second": 0.49999999966315933,
+        "probabilities": [
+          [
+            0.5000099062581183,
+            0.5000001927847888,
+            0.5000061979272424
+          ],
+          [
+            0.4999937928076318,
+            0.4999998065415299,
+            0.4999901056726463
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.4999999977891548,
+        "without_second": 0.5000000006174719,
+        "probabilities": [
+          [
+            0.4999791415984542,
+            0.4999996084341955,
+            0.49998693242454667
+          ],
+          [
+            0.5000130607778249,
+            0.5000003928007482,
+            0.5000208563557934
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "identity",
+      "window": "k2",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.8656880342139134,
+      "without_second": 0.9269840356080988,
+      "interference_loss": 0.06129600139418545,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.9878436202445806,
+          0.9268681852834044,
+          0.7431792170139666
+        ],
+        [
+          0.7438187360060483,
+          0.9270998859327932,
+          0.9879105635910582
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.8656880883801645,
+        "without_second": 0.9269841031586016,
+        "probabilities": [
+          [
+            0.9878771349244644,
+            0.9269841031586016,
+            0.7434990418358648
+          ],
+          [
+            0.7434990418358648,
+            0.9269841031586016,
+            0.9878771349244644
+          ]
+        ],
+        "finite_minus_prediction_with_second": -5.416625115106655e-08
+      },
+      "one_mode": {
+        "with_second": 0.6926342257942772,
+        "without_second": 0.7531439569338527,
+        "probabilities": [
+          [
+            0.9310872924933908,
+            0.7531439569338527,
+            0.4541811590951636
+          ],
+          [
+            0.4541811590951636,
+            0.7531439569338527,
+            0.9310872924933908
+          ]
+        ],
+        "finite_minus_prediction_with_second": 0.17305380841963613
+      },
+      "secondary": {
+        "with_second": 0.8656880342139134,
+        "without_second": 0.9269840356080988,
+        "probabilities": [
+          [
+            0.9878436202445806,
+            0.9268681852834044,
+            0.7431792170139666
+          ],
+          [
+            0.7438187360060483,
+            0.9270998859327932,
+            0.9879105635910582
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.23551652876448134,
+        "without_second": 0.021344809383055725,
+        "probabilities": [
+          [
+            3.4621059813170136e-05,
+            0.021403125405591406,
+            0.47162843413428024
+          ],
+          [
+            0.4703689695374514,
+            0.021286493360520048,
+            3.409032638055845e-05
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "identity",
+      "window": "k4",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.6995537145971753,
+      "without_second": 0.9347496003651095,
+      "interference_loss": 0.23519588576793415,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.9994717689499747,
+          0.9345436833056551,
+          0.3986808153653241
+        ],
+        [
+          0.4005774569068947,
+          0.934955517424564,
+          0.999484817166508
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.6995534581255181,
+        "without_second": 0.934749837984718,
+        "probabilities": [
+          [
+            0.9994783317972855,
+            0.934749837984718,
+            0.39962858445375055
+          ],
+          [
+            0.39962858445375055,
+            0.934749837984718,
+            0.9994783317972855
+          ]
+        ],
+        "finite_minus_prediction_with_second": 2.5647165724507204e-07
+      },
+      "one_mode": {
+        "with_second": 0.699553434820764,
+        "without_second": 0.9347498227115782,
+        "probabilities": [
+          [
+            0.9994783315753016,
+            0.9347498227115782,
+            0.3996285380662264
+          ],
+          [
+            0.3996285380662264,
+            0.9347498227115782,
+            0.9994783315753016
+          ]
+        ],
+        "finite_minus_prediction_with_second": 2.79776411260535e-07
+      },
+      "secondary": {
+        "with_second": 0.6995537145971753,
+        "without_second": 0.9347496003651095,
+        "probabilities": [
+          [
+            0.9994717689499747,
+            0.9345436833056551,
+            0.3986808153653241
+          ],
+          [
+            0.4005774569068947,
+            0.934955517424564,
+            0.999484817166508
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.29962980208990114,
+        "without_second": 0.06874866692991188,
+        "probabilities": [
+          [
+            0.0006489663707556031,
+            0.06897241107403553,
+            0.5996198378779629
+          ],
+          [
+            0.5976179474456844,
+            0.06852492278578823,
+            0.0006324566652015881
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "identity",
+      "window": "k8",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.7032653869023414,
+      "without_second": 0.7916018224933388,
+      "interference_loss": 0.08833643559099735,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.9604299987253672,
+          0.7909832396858718,
+          0.44426820107270243
+        ],
+        [
+          0.4471119250235867,
+          0.7922204053008057,
+          0.9612514227877094
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.7032658330701738,
+        "without_second": 0.7916021910665993,
+        "probabilities": [
+          [
+            0.9608423721182073,
+            0.7916021910665993,
+            0.4456892940221401
+          ],
+          [
+            0.4456892940221401,
+            0.7916021910665993,
+            0.9608423721182073
+          ]
+        ],
+        "finite_minus_prediction_with_second": -4.4616783234641133e-07
+      },
+      "one_mode": {
+        "with_second": 0.7032658089685744,
+        "without_second": 0.7916021622507393,
+        "probabilities": [
+          [
+            0.9608423636117034,
+            0.7916021622507393,
+            0.4456892543254454
+          ],
+          [
+            0.4456892543254454,
+            0.7916021622507393,
+            0.9608423636117034
+          ]
+        ],
+        "finite_minus_prediction_with_second": -4.2206623296348056e-07
+      },
+      "secondary": {
+        "with_second": 0.7032653869023414,
+        "without_second": 0.7916018224933388,
+        "probabilities": [
+          [
+            0.9604299987253672,
+            0.7909832396858718,
+            0.44426820107270243
+          ],
+          [
+            0.4471119250235867,
+            0.7922204053008057,
+            0.9612514227877094
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.297619669480631,
+        "without_second": 0.2125752290410031,
+        "probabilities": [
+          [
+            0.042335484640015,
+            0.21321695706343563,
+            0.5548145500867944
+          ],
+          [
+            0.5518807326081706,
+            0.21193350101857056,
+            0.04144791058754394
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "timing",
+      "window": "k2",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.500001139044119,
+      "without_second": 0.5000015680888746,
+      "interference_loss": 4.2904475561211797e-07,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.786606833434962,
+          0.4981545298455144,
+          0.2106005956681022
+        ],
+        [
+          0.21339545367205623,
+          0.5018486063322349,
+          0.7894016734013558
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000000012380672,
+        "without_second": 0.5000000017043239,
+        "probabilities": [
+          [
+            0.7880058568454548,
+            0.5000000017043239,
+            0.21199414563067964
+          ],
+          [
+            0.21199414563067964,
+            0.5000000017043239,
+            0.7880058568454548
+          ]
+        ],
+        "finite_minus_prediction_with_second": 1.1378060518207889e-06
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000012399258942,
+        "without_second": 0.5000015517491413,
+        "probabilities": [
+          [
+            0.7468999697977986,
+            0.4981738632551177,
+            0.24994106488158352
+          ],
+          [
+            0.25310251867761074,
+            0.5018292402431649,
+            0.7500614063465838
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.4999996785551583,
+        "without_second": 0.4999978313704553,
+        "probabilities": [
+          [
+            0.02576680710397292,
+            0.502551900721028,
+            0.9750570896349673
+          ],
+          [
+            0.974232541117772,
+            0.49744376201988255,
+            0.02494227636392114
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "timing",
+      "window": "k4",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.5000004473061501,
+      "without_second": 0.5000021292690954,
+      "interference_loss": 1.6819629452546891e-06,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.9606929100922397,
+          0.4974935609660402,
+          0.03802363189627434
+        ],
+        [
+          0.039307996928638476,
+          0.5025106975721506,
+          0.961977250307448
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000000004863348,
+        "without_second": 0.5000000023147412,
+        "probabilities": [
+          [
+            0.961339007087343,
+            0.5000000023147412,
+            0.03866099388532657
+          ],
+          [
+            0.03866099388532657,
+            0.5000000023147412,
+            0.961339007087343
+          ]
+        ],
+        "finite_minus_prediction_with_second": 4.4681981536953685e-07
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000007354697695,
+        "without_second": 0.5000019246654858,
+        "probabilities": [
+          [
+            0.9162003764812883,
+            0.49773485232577197,
+            0.08163658978171452
+          ],
+          [
+            0.08380110964520197,
+            0.5022689970051996,
+            0.9183648659708734
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.4999995187224869,
+        "without_second": 0.4999978319756405,
+        "probabilities": [
+          [
+            0.04207444343892615,
+            0.5025519270226865,
+            0.9593157810356044
+          ],
+          [
+            0.9579245805298803,
+            0.49744373692859456,
+            0.040683269885536714
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "timing",
+      "window": "k8",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.500001360577178,
+      "without_second": 0.5000021346479171,
+      "interference_loss": 7.74070739062438e-07,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.8264433284091582,
+          0.4974935379804629,
+          0.16930800314752664
+        ],
+        [
+          0.17355941003132427,
+          0.5025107313153713,
+          0.8306947007207028
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.5000000014761468,
+        "without_second": 0.5000000023147729,
+        "probabilities": [
+          [
+            0.8285760149038877,
+            0.5000000023147729,
+            0.17142398804840586
+          ],
+          [
+            0.17142398804840586,
+            0.5000000023147729,
+            0.8285760149038877
+          ]
+        ],
+        "finite_minus_prediction_with_second": 1.3591010312730134e-06
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.5000014418885375,
+        "without_second": 0.5000021457288194,
+        "probabilities": [
+          [
+            0.8113892974292584,
+            0.4974804985808115,
+            0.18409035515026648
+          ],
+          [
+            0.18861360383471487,
+            0.5025237928768272,
+            0.8159125111399104
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.49999859228460813,
+        "without_second": 0.49999782662643366,
+        "probabilities": [
+          [
+            0.1779713940641202,
+            0.5025519495983845,
+            0.8264338945518811
+          ],
+          [
+            0.8220257723883161,
+            0.4974437036544829,
+            0.1735633081341151
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "transverse",
+      "window": "k2",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.8656861656849,
+      "without_second": 0.9269818754598731,
+      "interference_loss": 0.06129570977497312,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.9879889298170034,
+          0.9275081224066994,
+          0.7446673180339357
+        ],
+        [
+          0.7423243277471717,
+          0.9264556285130469,
+          0.9877640871414888
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.8656880876248425,
+        "without_second": 0.9269841025661228,
+        "probabilities": [
+          [
+            0.9878771347898465,
+            0.9269841025661228,
+            0.7434990404598385
+          ],
+          [
+            0.7434990404598385,
+            0.9269841025661228,
+            0.9878771347898465
+          ]
+        ],
+        "finite_minus_prediction_with_second": -1.921939942528539e-06
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.8656861656801396,
+        "without_second": 0.926981875483351,
+        "probabilities": [
+          [
+            0.9879889298297764,
+            0.9275081224300015,
+            0.7446673180116304
+          ],
+          [
+            0.7423243277247189,
+            0.9264556285367005,
+            0.9877640871544322
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.23551847911065926,
+        "without_second": 0.021346619321107194,
+        "probabilities": [
+          [
+            3.370186766407543e-05,
+            0.02107738383956924,
+            0.46908500700065464
+          ],
+          [
+            0.47292018562177335,
+            0.021615854802645152,
+            3.5021952545023004e-05
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "transverse",
+      "window": "k4",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.6995533829446698,
+      "without_second": 0.9347474384988238,
+      "interference_loss": 0.23519405555415396,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.9994834025081817,
+          0.9353411894057042,
+          0.40110886888269615
+        ],
+        [
+          0.3981480552465375,
+          0.9341536875919434,
+          0.9994732051412641
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.6995534569996069,
+        "without_second": 0.9347498372468345,
+        "probabilities": [
+          [
+            0.9994783317865609,
+            0.9347498372468345,
+            0.3996285822126529
+          ],
+          [
+            0.3996285822126529,
+            0.9347498372468345,
+            0.9994783317865609
+          ]
+        ],
+        "finite_minus_prediction_with_second": -7.405493707146604e-08
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.6995533829446675,
+        "without_second": 0.9347474384988244,
+        "probabilities": [
+          [
+            0.9994834025081817,
+            0.9353411894054451,
+            0.4011088688823859
+          ],
+          [
+            0.39814805524683855,
+            0.9341536875922035,
+            0.9994732051412641
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.299630021609562,
+        "without_second": 0.06875081149145254,
+        "probabilities": [
+          [
+            0.0006346384548386046,
+            0.06812681342325537,
+            0.5971446622960972
+          ],
+          [
+            0.6000940400079587,
+            0.06937480955964972,
+            0.0006467456793534461
+          ]
+        ]
+      }
+    },
+    {
+      "context_id": "failed-near-edge--p20",
+      "setting": "failed-near-edge",
+      "phase_index": 20,
+      "split": "heldout",
+      "phase_fraction": 0.6315203015021786,
+      "arm": "transverse",
+      "window": "k8",
+      "complete": true,
+      "qualified": true,
+      "with_second": 0.7032677064457166,
+      "without_second": 0.7916023132828851,
+      "interference_loss": 0.08833460683716854,
+      "secondary_available": true,
+      "secondary_qualified": true,
+      "probabilities": [
+        [
+          0.9609647578575866,
+          0.7927877796505889,
+          0.446755915989079
+        ],
+        [
+          0.44462910116857224,
+          0.7904168469151812,
+          0.9607210507676286
+        ]
+      ],
+      "no_first_balanced_probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "no_first_chance_pass": true,
+      "linear": {
+        "with_second": 0.7032658316778123,
+        "without_second": 0.7916021894018929,
+        "probabilities": [
+          [
+            0.9608423716267823,
+            0.7916021894018929,
+            0.44568929172884225
+          ],
+          [
+            0.44568929172884225,
+            0.7916021894018929,
+            0.9608423716267823
+          ]
+        ],
+        "finite_minus_prediction_with_second": 1.8747679042530052e-06
+      },
+      "one_mode": null,
+      "secondary": {
+        "with_second": 0.7032677064457142,
+        "without_second": 0.7916023132828841,
+        "probabilities": [
+          [
+            0.9609647578575525,
+            0.7927877796500604,
+            0.44675591598880565
+          ],
+          [
+            0.44462910116883786,
+            0.7904168469157078,
+            0.9607210507676611
+          ]
+        ]
+      },
+      "derivative_available": true,
+      "derivative_qualified": true,
+      "derivative": {
+        "with_second": 0.29761714598789946,
+        "without_second": 0.21257458681262043,
+        "probabilities": [
+          [
+            0.04176031756975306,
+            0.21135800446064018,
+            0.5522807121536641
+          ],
+          [
+            0.5544093101537264,
+            0.21379116916460064,
+            0.042018244074454196
+          ]
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "two selected cycles in a fixed-weight three-neuron network",
+    "known phase/external clock/calibrated noiseless baseline",
+    "analytic Gaussian observation probabilities, no ODE noise",
+    "local oblique interventions do not establish total information erasure",
+    "setting means and primary contrast withheld",
+    "no shrimp-geometry increment or trained-network claim"
+  ],
+  "figures": [
+    {
+      "path": "paper/figures/EXP-016-identity-readout-by-phase.png",
+      "bytes": 299122,
+      "sha256": "c6038587940bcd0cf23452a5a2f4b3977cfcd56028e59f98b00d71b35441d0c1"
+    },
+    {
+      "path": "paper/figures/EXP-016-interference-and-margins-at-4T.png",
+      "bytes": 385960,
+      "sha256": "29b3aba623c587f0c050886ce0c98a53e6dd0ef26dde0612bc9f9cc4104bd804"
+    }
+  ],
+  "reference_diagnosis": {
+    "checks": 14981,
+    "failures": 0,
+    "inputs_bound": 296,
+    "initial_normalization_passes": 48,
+    "event_normalization_failures": 11,
+    "interpretation": "Event-only phase/physical-flow mismatch; interpolation versus inherited approximate periodicity unresolved before EXP017"
+  },
+  "linear_discrepancy_scope": "Reported ranges concern balanced accuracy with second write present; they are not upper bounds on individual sign probabilities."
+}

@@ -1,0 +1,50 @@
+{
+  "experiment_id": "EXP-013",
+  "date": "2026-09-17",
+  "status": "ready_for_exploratory_execution",
+  "plan_sha256": "23fa73be0a2cbb7cc39247f32cbcf956a34c548a52c6e8efc6a8b79f8651793f",
+  "original_review": {
+    "path": "/data2/neural-shrimp/docs/EXP-013-local-review.json",
+    "sha256": "7d0876fd11ed9aeb4a10fccc9fb4c6b832b40e4f47f2d18da5cd2b5d33d8b556",
+    "bytes": 3624
+  },
+  "amendment": {
+    "path": "/data2/neural-shrimp/docs/EXP-013-operational-amendment.md",
+    "sha256": "3c618df5b8faa2b9323d814922bc86012a7d9121eea602786a600637b2bba5b3",
+    "bytes": 3949
+  },
+  "independent_review": {
+    "path": "/data2/neural-shrimp-data/audits/EXP-013/independent-evidence-001/EXP-013-attempt001-recovery-audit.json",
+    "sha256": "6f1022b8e0fa16f48874e0a34c9f9c554c94bcb33cc8f09c95c48feb5d614061",
+    "bytes": 7562
+  },
+  "review_checks": 32450,
+  "failed_checks": 0,
+  "scientific_plan_unchanged": true,
+  "source_additions": [
+    "tools/run_fresh_preview_recovery.py",
+    "tests/test_fresh_preview_recovery.py",
+    "docs/EXP-013-operational-amendment.md"
+  ],
+  "tests": {
+    "passed": 4,
+    "seconds": 1.75,
+    "scope": "Targeted recovery event-flow, full failure receipt, safe serialization and exact normalized AST invariants"
+  },
+  "old_data_replay": {
+    "recipes": 4,
+    "inner_folds": 96,
+    "numeric_leaves": 344771,
+    "max_numeric_absolute_difference": 0,
+    "normalized_full_tree_exact_match": true,
+    "original_strict_replay": "failed_type_category_mismatch_retained"
+  },
+  "fresh_dynamics_before_review": 0,
+  "prior_attempt": "attempt-001 retained incomplete/unqualified with unchanged raw artifacts",
+  "next_attempt": "attempt-002 new exclusive directory, no resume",
+  "remaining_before_execution": [
+    "Reviewed explicit staging and secret/size sweep",
+    "Private commit/push with exact remote verification",
+    "Live clean-source and resource guards"
+  ]
+}

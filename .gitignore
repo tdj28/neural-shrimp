@@ -20,3 +20,18 @@ build/
 paper/main.pdf
 artifacts/
 tmp/
+
+# New bulky outputs live in ../neural-shrimp-data/. These are local fallbacks.
+/data/
+/raw-data/
+/checkpoints/
+/scratch/
+/outputs/
+
+# Claude Code agent worktrees and local tool state
+.claude/
+
+# Private notes kept out of Git at the human's request
+checkpoint.md
+cost-ledger.md
+CURRENT_STATE_NEXT_STEPS.md

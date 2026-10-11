@@ -1,0 +1,311 @@
+{
+  "experiment_id": "EXP-014-refinement",
+  "date": "2026-09-17",
+  "status": "complete_diagnostic_with_unresolved_cases",
+  "source_commit": "67be43cc5ed821543bca384eaf574dbff26d73f3",
+  "plan_sha256": "150e18cf4b528ea8740e498a2cc610454e7f313dcce482a6a4735e0016104bfe",
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-014-refinement/attempt-001/receipt.json",
+    "bytes": 277783,
+    "sha256": "23ade00539cb1a138dbac3afc64e183b306f34d108beb7e6f58873b4c062243e"
+  },
+  "raw_summary": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-014-refinement/attempt-001/summary.json",
+    "bytes": 14185215,
+    "sha256": "6d9e5d81ff48a92e80ed370279dc6017de675ec80baca59e9c14faf0b242f2b6"
+  },
+  "artifact_count": 1295,
+  "artifact_bytes": 211402685,
+  "counts": {
+    "physical_cases": 85,
+    "methods": 8,
+    "trace_rows": 680,
+    "pair_rows": 2380,
+    "same_method_ba_cells": 3744,
+    "required_new_traces": 425,
+    "required_old_traces": 255
+  },
+  "comparison_groups": {
+    "old-old": {
+      "required": 255,
+      "complete": 255,
+      "passed": 207
+    },
+    "old-new": {
+      "required": 1275,
+      "complete": 1275,
+      "passed": 1090
+    },
+    "new-new": {
+      "required": 850,
+      "complete": 850,
+      "passed": 776
+    }
+  },
+  "cases": {
+    "old-old": {
+      "required": 85,
+      "all_comparisons_pass": 67,
+      "any_comparison_fails": 18
+    },
+    "old-new": {
+      "required": 85,
+      "all_comparisons_pass": 67,
+      "any_comparison_fails": 18
+    },
+    "new-new": {
+      "required": 85,
+      "all_comparisons_pass": 77,
+      "any_comparison_fails": 8
+    },
+    "all": {
+      "required": 85,
+      "all_comparisons_pass": 67,
+      "any_comparison_fails": 18
+    }
+  },
+  "unresolved_cases": {
+    "core--p3--d2--neuron_one--s+1": {
+      "failed_pairs": 10,
+      "required_pairs": 10,
+      "max_state": 0.00011191113209996217,
+      "max_activation": 6.92928611128324e-05,
+      "max_standardized_readout": 0.14228540021217556,
+      "earliest_state_crossing": 115.30000000000001,
+      "earliest_activation_crossing": 114.35000000000001,
+      "tight_adaptive_pair": {
+        "passed": false,
+        "state_max": 2.5747199794423636e-06,
+        "activation_max": 1.5942093993526196e-06,
+        "standardized_readout_max": 0.0032735232435499874
+      }
+    },
+    "core--p7--d2--neuron_one--s-1": {
+      "failed_pairs": 10,
+      "required_pairs": 10,
+      "max_state": 0.00013113709890522074,
+      "max_activation": 8.116480539827053e-05,
+      "max_standardized_readout": 0.16786812693162745,
+      "earliest_state_crossing": 115.22500000000001,
+      "earliest_activation_crossing": 114.30000000000001,
+      "tight_adaptive_pair": {
+        "passed": false,
+        "state_max": 4.380981751594959e-06,
+        "activation_max": 2.7115223571322344e-06,
+        "standardized_readout_max": 0.0056080604315690225
+      }
+    },
+    "failed-near-edge--p2--d2--neuron_one--s-1": {
+      "failed_pairs": 10,
+      "required_pairs": 10,
+      "max_state": 6.323118151652096e-05,
+      "max_activation": 3.891874656117289e-05,
+      "max_standardized_readout": 0.0723721629945222,
+      "earliest_state_crossing": 76.375,
+      "earliest_activation_crossing": 67.47500000000001,
+      "tight_adaptive_pair": {
+        "passed": false,
+        "state_max": 3.183980270549114e-07,
+        "activation_max": 1.9597344239064007e-07,
+        "standardized_readout_max": 0.0003644289884495285
+      }
+    },
+    "failed-near-edge--p2--d2--phase_write--s-1": {
+      "failed_pairs": 10,
+      "required_pairs": 10,
+      "max_state": 0.021600608266983734,
+      "max_activation": 0.013266434267439176,
+      "max_standardized_readout": 31.668230574436603,
+      "earliest_state_crossing": 81.15,
+      "earliest_activation_crossing": 67.8,
+      "tight_adaptive_pair": {
+        "passed": false,
+        "state_max": 0.0005603305115107204,
+        "activation_max": 0.0003441281705158644,
+        "standardized_readout_max": 0.8249418562995885
+      }
+    },
+    "failed-near-edge--p3--d2--neuron_one--s+1": {
+      "failed_pairs": 4,
+      "required_pairs": 10,
+      "max_state": 4.4366888474201005e-07,
+      "max_activation": 2.1653720933684228e-07,
+      "max_standardized_readout": 0.0002827978027283113,
+      "earliest_state_crossing": null,
+      "earliest_activation_crossing": 291.15000000000003,
+      "tight_adaptive_pair": {
+        "passed": true,
+        "state_max": 1.4870828124458058e-08,
+        "activation_max": 7.258408520061099e-09,
+        "standardized_readout_max": 9.481283311510798e-06
+      }
+    },
+    "failed-near-edge--p3--d2--phase_write--s-1": {
+      "failed_pairs": 10,
+      "required_pairs": 10,
+      "max_state": 6.411221782798293e-06,
+      "max_activation": 3.9734701542393225e-06,
+      "max_standardized_readout": 0.006001117626487528,
+      "earliest_state_crossing": 246.875,
+      "earliest_activation_crossing": 176.85000000000002,
+      "tight_adaptive_pair": {
+        "passed": false,
+        "state_max": 2.7445618222543544e-07,
+        "activation_max": 1.7009865395378743e-07,
+        "standardized_readout_max": 0.00025689639448389645
+      }
+    },
+    "failed-near-edge--p6--d2--neuron_one--s-1": {
+      "failed_pairs": 10,
+      "required_pairs": 10,
+      "max_state": 4.201589376209003,
+      "max_activation": 1.7312526247020654,
+      "max_standardized_readout": 2853.7907675476745,
+      "earliest_state_crossing": 98.5,
+      "earliest_activation_crossing": 91.775,
+      "tight_adaptive_pair": {
+        "passed": false,
+        "state_max": 0.3337311589919887,
+        "activation_max": 0.1923867088899523,
+        "standardized_readout_max": 68.37241281562572
+      }
+    },
+    "failed-near-edge--p6--d2--phase_write--s-1": {
+      "failed_pairs": 10,
+      "required_pairs": 10,
+      "max_state": 6.076357315087932e-06,
+      "max_activation": 3.6051399245722038e-06,
+      "max_standardized_readout": 0.0022693785226383114,
+      "earliest_state_crossing": 96.875,
+      "earliest_activation_crossing": 96.47500000000001,
+      "tight_adaptive_pair": {
+        "passed": false,
+        "state_max": 2.109126029381514e-07,
+        "activation_max": 1.251320212621032e-07,
+        "standardized_readout_max": 7.876368273842884e-05
+      }
+    }
+  },
+  "lower_dose_cases": {
+    "required": 52,
+    "failing_any_method_pair": 0
+  },
+  "shams": {
+    "traces": 56,
+    "readouts": 224,
+    "all_pass": true,
+    "maximum_absolute_standardized_bias": 0.0015304103098942804
+  },
+  "maxima": {
+    "old-old": {
+      "max_state": 23.681840227729722,
+      "max_activation": 1.9999998886413648,
+      "max_standardized_readout": 5777.893079464552,
+      "state_failures": 33,
+      "activation_failures": 48,
+      "readout_failures": 25
+    },
+    "old-new": {
+      "max_state": 23.792295423676208,
+      "max_activation": 1.9999998890039525,
+      "max_standardized_readout": 8431.350382475961,
+      "state_failures": 134,
+      "activation_failures": 185,
+      "readout_failures": 101
+    },
+    "new-new": {
+      "max_state": 4.201589376209003,
+      "max_activation": 1.7312526247020654,
+      "max_standardized_readout": 2853.7907675476745,
+      "state_failures": 62,
+      "activation_failures": 74,
+      "readout_failures": 41
+    }
+  },
+  "producer_and_analysis_seconds": 227.75483434500347,
+  "stage_wall_seconds": {
+    "saved_input_replay": 13.157347561995266,
+    "build": 0.6517483759962488,
+    "traces": 178.0358871060016,
+    "saved_analysis": 32.86684777600021
+  },
+  "resources": {
+    "workers": 4,
+    "threads": 1,
+    "peak_sampled_owned_rss_bytes": 4683366400,
+    "minimum_sampled_available_ram_bytes": 74633646080,
+    "paid_compute": false
+  },
+  "verification": {
+    "frozen_replay": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/replay-001/verification.json",
+      "bytes": 392,
+      "sha256": "ae349cd5ff73f3a70d2e1e57e78e61f95be07d25b6c11488cb37ef184e768985"
+    },
+    "independent_report": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/attempt-001-independent/report.json",
+      "bytes": 1493310,
+      "sha256": "73e1587fb6f817c7798c3198fe82fb4a15b54db4f14a28afc98f5be6770be8fe"
+    },
+    "evidence_and_scientific_checks_passed": true,
+    "evidence_checks": 271702,
+    "strict_arithmetic_replay_passed": false,
+    "strict_arithmetic_checks": 134168,
+    "strict_arithmetic_failures": 1375,
+    "maximum_failed_absolute_difference": 6.497619674437918e-12,
+    "maximum_scalar_difference": 5.820766091346741e-11
+  },
+  "interpretation": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/attempt-001-independent/diagnostic-interpretation.json",
+      "bytes": 5962,
+      "sha256": "b03e07158c97627bd1d20bdabd027a46827e13340697b61af5e59e24510eacad"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/interpretation-001/EXP-014-refinement-scientific-interpretation.json",
+      "bytes": 42489,
+      "sha256": "48145cfe84814ef4d1add6933d3a0764a37cc69510bd3033d41824d4ebc1c883"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/interpretation-001/interpret_saved_refinement.py",
+      "bytes": 12798,
+      "sha256": "5c8855c4a171dcef7b1893dcc76bac201239d08cbdbcda529369dd00065cc495"
+    }
+  ],
+  "report_receipt": {
+    "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/report-001/receipt.json",
+    "bytes": 2628,
+    "sha256": "57c3e99c09561ac0b789dde2fdbfad224145385694769c90f922110e8c6544ba"
+  },
+  "figure": {
+    "path": "paper/figures/EXP-014-refinement-diagnostics.png",
+    "bytes": 387465,
+    "sha256": "5254a056b026c7ef0ccdfce4261633e682103a9d9fc4006f01e42f816c4dd201"
+  },
+  "tests": {
+    "preflight_root_passed": 59,
+    "preflight_root_seconds": 59.2,
+    "postrun_reporting_audit_passed": 41,
+    "postrun_reporting_audit_seconds": 5.49
+  },
+  "next_analysis": {
+    "status": "proposed_not_executed",
+    "cells": 192,
+    "pre_outcome_note": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/pre-outcome-decision-001/conditional-next-mechanism.md",
+      "bytes": 7712,
+      "sha256": "942a38eb7a55322a4ecb675f444e397d7b9ecf403cf29ee337d023727a67ab1d"
+    },
+    "record": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/pre-outcome-decision-001/record.json",
+      "bytes": 916,
+      "sha256": "767b10f2c6772037ae28bcf3bdbe2360baffde7152ed0e071be40d841c00b27b"
+    }
+  },
+  "scope": "Outcome-selected diagnosis, not new population evidence. Original EXP014 settings remain unqualified; setting means and original requalification are forbidden. No chaos, basin or geometry-utility claim.",
+  "consultation": {
+    "model": "GPT-6 Astra Pro",
+    "status": "not_run",
+    "spent_usd": 0
+  }
+}

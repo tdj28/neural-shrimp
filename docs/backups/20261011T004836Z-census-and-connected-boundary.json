@@ -1,0 +1,38 @@
+{
+  "status": "verified",
+  "started_utc": "20261011T004836Z",
+  "completed_utc": "2026-10-11T00:48:41.576959+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261011T004836Z-census-and-connected-boundary",
+  "selected_roots": [
+    "audits/census13-independent-ad/attempt001-profile",
+    "audits/census13-independent-ad/attempt001-target",
+    "audits/native704-complement-independent/attempt001",
+    "audits/native704-complement-independent/attempt002",
+    "audits/native704-complement-independent/attempt003",
+    "audits/native705-batch-independent/attempt001",
+    "audits/native705-endpoint-independent/attempt001",
+    "audits/native705-independent/attempt001",
+    "explore/certificates/census13-panel/attempt003-profile",
+    "explore/certificates/census13-panel/attempt003-target",
+    "explore/clark-rnn/n12-organizer-connection-001",
+    "explore/eigenpair-locus-prototype/generalized-chain/unit-pair/attempt007-correlated",
+    "explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/batch001",
+    "explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/batch001-diagnosis",
+    "explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/attempt001-localization",
+    "explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/endpoint-localization/attempt001"
+  ],
+  "file_count": 10922,
+  "bytes": 1156357803,
+  "symlink_count": 0,
+  "manifest_sha256": "2e4599e29321f4b9ae5a60acc8aeb1e7e45fa8bc32bc690ec110c168f51fe795",
+  "elapsed_seconds": 4.726281934184954,
+  "source_commit_at_copy": "60d558f93d92aaf212674bea4ee7d894fd3e70af",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

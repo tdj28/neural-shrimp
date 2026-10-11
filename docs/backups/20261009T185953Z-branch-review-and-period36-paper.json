@@ -1,0 +1,25 @@
+{
+  "status": "verified",
+  "started_utc": "20261009T185953Z",
+  "completed_utc": "2026-10-09T18:59:53.167678+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261009T185953Z-branch-review-and-period36-paper",
+  "selected_roots": [
+    "audits/s2-period18-joined-branch/attempt-001",
+    "paper/gd-route/ray51-supercritical-2026-10-09",
+    "paper/gd-route/ray51-supercritical-build002-2026-10-09"
+  ],
+  "file_count": 135,
+  "bytes": 38560862,
+  "symlink_count": 0,
+  "manifest_sha256": "cd66a6f7b050bfc40ad575d20b07562411bf649693617cedfaf91b579d05396a",
+  "elapsed_seconds": 0.12235122104175389,
+  "source_commit_at_copy": "55bda243b6a7a9b34ae426612f3dfd6116f58b29",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

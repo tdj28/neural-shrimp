@@ -1,0 +1,58 @@
+{
+  "experiment_id": "EXP-014",
+  "date": "2026-09-17",
+  "status": "ready_for_exploratory_execution",
+  "plan_sha256": "c6d82aa6efbef7da39f2fe6c3b1b38f7d11577589dd3d80561c3a582189a8062",
+  "source_files": 24,
+  "historical_inputs": 5,
+  "planned_terminal_tasks": 930,
+  "target_outcomes_before_freeze": false,
+  "validation": {
+    "full_repository_tests": {
+      "passed": 904,
+      "skipped": 1,
+      "seconds": 83.91,
+      "warnings": "Two NumPy configuration notices suggesting optional PyYAML."
+    },
+    "integrated_scientific_tests": {
+      "passed": 142,
+      "seconds": 24.8
+    },
+    "independent_metadata_checks": 60
+  },
+  "independent_review": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/local-scientific-review-001/EXP-014-scientific-review.json",
+      "bytes": 7451,
+      "sha256": "db197b09b75a4f4c756eb7d59341737d2f55f9c2a02602a5da49fa1e2243b046"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/local-scientific-review-001/EXP-014-integrated-review-binding.json",
+      "bytes": 8660,
+      "sha256": "6afacfdc977fba81a0486c0c03460e0b4e8d655052f43d922e383778a0d7d249"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/local-scientific-review-001/review_integrated_plan.py",
+      "bytes": 8421,
+      "sha256": "78c8c82908b7f75b3c46b543a0a951a2d6143efe5c16fd60d94959c2a2c67da7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/local-scientific-review-001/review_phase_memory_math.py",
+      "bytes": 5069,
+      "sha256": "c1a75bb37da9f8adfd6a2b1c98645d32ace897ff45b1066ce672c493788933ee"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/local-scientific-review-001/synthetic-review-results.json",
+      "bytes": 2573,
+      "sha256": "b41580ad04977af1206059180cefde9981f027f6c7e633bc9a21e8e869ae584f"
+    }
+  ],
+  "root_review": "Reviewed complete scientific protocol, code integration, dependency/source census, prepared-seal chronology, exact replay, resource and interruption scope, measured historical estimate and source guards. No remaining execution blocker.",
+  "conditions": [
+    "Commit and privately push this exact source,plan and review before target dynamics.",
+    "No tolerance relaxation or replacement cases; preserve all930 task identities.",
+    "Setting-level numerical failures suppress its qualified means; complete-study qualification needs both settings.",
+    "Private exploratory branch execution; PR creation still pending API authentication; no main merge.",
+    "No Pro consultation occurred and no paid compute is authorized by this plan."
+  ]
+}

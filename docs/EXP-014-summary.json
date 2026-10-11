@@ -1,0 +1,156 @@
+{
+  "experiment_id": "EXP-014",
+  "attempt": "attempt-002",
+  "complete": true,
+  "qualified": false,
+  "error": null,
+  "postflight_error": null,
+  "source_commit": "406b89553b956bac1b97ef05413c799e383a9103",
+  "plan_sha256": "7f7e2861e716fe8243b01ba44137c3be90009dbe018ac5ccd9929c8df115362d",
+  "raw_directory": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002/receipt.json",
+    "sha256": "2494966914cb68d8c5286a5dca6710212ade171ead42c9cfaed82cebd44c12a8",
+    "bytes": 577793
+  },
+  "summary": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002/summary.json",
+    "sha256": "1773489ba5a91be1d691ce8e110dd89a214983297ad01e679149950d3427f2fd",
+    "bytes": 4510088
+  },
+  "artifacts": 2817,
+  "artifact_bytes": 701904643,
+  "status_counts": {
+    "references": {
+      "complete": 2
+    },
+    "propagators": {
+      "complete": 16
+    },
+    "traces": {
+      "complete": 912
+    }
+  },
+  "producer_and_analysis_seconds": 211.26646199099923,
+  "stage_wall_seconds": {
+    "build": 0.6796158970028046,
+    "references": 1.4753788730013184,
+    "propagators": 1.672148298996035,
+    "reference_preparation_and_seal": 8.498701807999169,
+    "traces": 138.54371386700223,
+    "saved_analysis": 56.23779516600189
+  },
+  "setting_qualification": {
+    "core": {
+      "complete": true,
+      "qualified": false,
+      "required_traces": 456,
+      "aggregates": null
+    },
+    "failed-near-edge": {
+      "complete": true,
+      "qualified": false,
+      "required_traces": 456,
+      "aggregates": null
+    }
+  },
+  "failure_counts": {
+    "core": 10,
+    "failed_near_edge": 20,
+    "comparison_rows": 608,
+    "unique_signed_cases": 18,
+    "binary_contexts": 13,
+    "setting_phase_contexts": 7
+  },
+  "all_failures_at_dose": 0.01,
+  "all_shams_pass": true,
+  "balanced_accuracy_comparisons": {
+    "required": 3456,
+    "failed": 0
+  },
+  "setting_means": null,
+  "selected_individual_diagnostic": {
+    "selection": "Post hoc illustrative cell; all its required saved numerical comparisons pass but its overall setting remains unqualified.",
+    "cell": {
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "dose_index": 0,
+      "direction": "phase_null",
+      "method": "rk4-0.00125",
+      "delay_cycles": 4,
+      "sigma": 0.0001,
+      "status": "complete",
+      "balanced_accuracy": 0.9929902093822511,
+      "phase_only_balanced_accuracy": 0.5,
+      "full_linear_balanced_accuracy": 0.9929902141553599,
+      "zero_balanced_accuracy": 0.5
+    }
+  },
+  "references": {
+    "core": {
+      "period": 37.63637538160568,
+      "qualified": true,
+      "transverse_spectral_radius": 0.06506009853233931,
+      "fine_relative_closure": 8.493910654961736e-11,
+      "adjoint_normalization_maximum": 1.3960878675334243e-08
+    },
+    "failed-near-edge": {
+      "period": 37.33149958853496,
+      "qualified": true,
+      "transverse_spectral_radius": 0.8560332411446863,
+      "fine_relative_closure": 5.610153815286486e-10,
+      "adjoint_normalization_maximum": 6.048335876585043e-08
+    }
+  },
+  "frozen_verifier": {
+    "path": "/data2/neural-shrimp-data/audits/EXP-014/replay-002/verification.json",
+    "sha256": "85815bc30aefc48a1c0452c15bf3ef836e6ff836492bf31b5202da2902e5b681",
+    "bytes": 118
+  },
+  "independent_numerical_audit": {
+    "status": "strict_arithmetic_replay_failed",
+    "checks": 137935,
+    "arithmetic_failures": 423,
+    "maximum_absolute_discrepancy": 8.663493533678235e-12,
+    "qualification_decision_mismatches": 0,
+    "hash_census_category_mismatches": 0,
+    "report": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/attempt-002-independent/report-corrected-serialization.json",
+      "sha256": "b30ba4e2a048077696b1696e94f1470a457e3d455ba1d5225604fc1ee91c0f5e",
+      "bytes": 80562
+    },
+    "provenance": {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/attempt-002-independent/interpretation-and-provenance.json",
+      "sha256": "536c5cf5a633bc8ab83c557be30d777ac279f733d3bc204b55faf3ddf2af4d36",
+      "bytes": 3637
+    }
+  },
+  "scientific_interpretation": {
+    "path": "/data2/neural-shrimp-data/audits/EXP-014/interpretation-001/EXP-014-scientific-interpretation.json",
+    "sha256": "54dfccaca06185d5ec5c7ef8fa51d109cb0d3a69c39563039d4b9b84e868447b",
+    "bytes": 23387
+  },
+  "plot_report_receipt": {
+    "path": "/data2/neural-shrimp-data/audits/EXP-014/report-002/receipt.json",
+    "sha256": "eeed21c37c5a990aeb1e948b0f74bf742ef4207215d6aed8bccb7fc9065f6160",
+    "bytes": 6341
+  },
+  "figures": [
+    {
+      "path": "/data2/neural-shrimp/paper/figures/EXP-014-core-diagnostic.png",
+      "sha256": "e6910614d4d4e1014369b04ed704e53e1c7a724aa7ff99f9b39976b0e199dd8c",
+      "bytes": 164562
+    },
+    {
+      "path": "/data2/neural-shrimp/paper/figures/EXP-014-failed-near-edge-diagnostic.png",
+      "sha256": "f39950fa371db4516b607138d7846df9cb2c1aeeae5cfdeceffe0d972e086501",
+      "bytes": 166316
+    },
+    {
+      "path": "/data2/neural-shrimp/paper/figures/EXP-014-linear-mode-decay.png",
+      "sha256": "33bc3e168d7720e0a058341a616e5e3f9721eaa12c1c290cff31186fd1ed175c",
+      "bytes": 117446
+    }
+  ],
+  "scope": "Exploratory two-setting study; complete but unqualified. Individual diagnostics remain outcome-selected. BA is analytic under assumed Gaussian measurement noise, not noisy-trial accuracy. No topology-specific, capacity, trained-network or qualified setting-level memory claim."
+}

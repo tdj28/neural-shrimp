@@ -1,6 +1,417 @@
-# Next steps after EXP-008
+# Next steps after EXP-021
 
-## Current decision, 13 September 2026
+## 21 September 2026: historical matching check closed
+
+**Human-friendly TLDR:** Existing memory evidence still shows longer retention near the selected edge. EXP-022 adds a limitation: the saved core samples miss both comparison bins, so the proposed matched comparison cannot run as specified. Adjacent eligible nodes bracket both targets, suggesting a sampling gap rather than absence of suitable cycles.
+
+[EXP-022](EXP-022-results.md) is closed at historical preparation, with four of six seeds available and all proposed 114 jobs/528 IVP slots unlaunched. Prepare EXP-023 using two fixed interpolated gamma settings and a bounded seed bridge, followed by the unchanged tight reference checks. Freeze the complete executable plan, tests and local review privately before new integrations. Preserve the two original missing slots and every new failure; do not widen bins or select parameters using memory outcomes.
+
+**Human-friendly TLDR:** Near the selected periodic-window edge, an earlier input can remain readable after a second input arrives. Across all 24 tested phases, nonlinear readout raises four-cycle first-bit accuracy from **55.05% to 58.98%**; one previously identified phase rises from **50.31% to 99.69%**. The core cycle is essentially at chance by then. A simpler one-mode reference gives an equally effective late observer on these same neural observations. This demonstrates recoverable, timing-dependent memory in two fixed-weight three-neuron settings; a unique shrimp-geometry advantage and transfer to trained networks remain unproven.
+
+## Current decision: compare contraction and observability before claiming a geometry increment
+
+[EXP-021](EXP-021-results.md) completes and qualifies the full nonlinear-readout comparison. Late one-mode and full-reference observers are equally effective on the same observations; this does not establish that the finite neural dynamics themselves are scalar. The next practical stage is a small reference-only continuation and matching-feasibility panel. It must fix candidate identities, common phase fractions, duplicate rules, failure slots and all numerical gates before new target calculations. No more finite-write histories should run until the new reference panel and its separately frozen task census are ready.
+
+Matching full A/B Gram data and observation noise fixes the Gaussian reference prediction. Any residual then measures finite-dynamics/model mismatch, not a direct proof of shrimp geometry. A geometry-increment claim needs an independently verified parameter-space descriptor and a distinct predictive or robustness endpoint. Full multidirectional boundary organization and trained-network transfer remain unfinished.
+
+## Earlier decision: correct tiny-signal nominal arithmetic, preserve the failed study
+
+[EXP-020](EXP-020-results.md) retains all 4,704 mixture records and 1,728 auxiliary controls. Its Arb enclosures are available, but 304 nominal quadratures fail the original warning or agreement requirements. All 25 incomplete cells lie in the core at 4T or 8T; the complete-study primary remains withheld. Frozen replay and independent audits agree on that incomplete status.
+
+Prepare EXP-021 with high-precision point likelihood/CDF evaluation inside the nominal quadrature, synthetic tiny-signal and integration-hint controls, and the unchanged statistical definitions, full 144-cell census, certified bounds and numerical thresholds. Record the correction's timing and source separately, freeze and push before new scores, and never relabel EXP-020 successful. All results remain conditional on known phase, fixed Gaussian observation noise and two selected fixed-weight cycles.
+
+## Earlier decision: distinguish linear-readout interference from recoverable information
+
+[EXP-019](EXP-019-results.md) completes and qualifies all 48 contexts, 2,796 jobs
+and 1,404 comparisons. The refined references resolve the missing-phase problem
+for this new run; earlier incomplete studies remain unchanged. The primary
+near-edge-minus-core contrast is 5.0463 percentage points at 4T, with a descriptive
+reused-phase bootstrap interval [1.3677, 9.5264]. Timing-only retention is near
+chance, while transverse retention preserves the same-observer result.
+
+Prepare a separately frozen, reference-defined Gaussian-mixture readout with
+an unknown second-bit nuisance. Apply it across the entire reused phase census,
+not only the post-hoc phase 16 example whose fixed linear score drops from 100%
+to 50.31%. Classifier templates must come from the sealed reference-only linear
+responses; do not fit an oracle to finite class means. Preserve complete
+class/method denominators, stable near-collinear handling and independently
+checked probability integration before reporting any new decoder outcomes.
+This is first-bit recovery under a specified observation model, not a joint
+capacity estimate or proof of information destruction when decoding fails.
+
+Full shrimp boundary organization, matched controls for geometry's incremental
+value, and transfer to trained networks remain separate unfinished questions.
+
+## Earlier decision: repeat the full memory task with the qualified new reference
+
+[EXP-018](EXP-018-results.md) completes all 102 jobs and qualifies all 48 phase
+contexts. Both cycles retain nine primitive peaks and transverse attraction;
+the largest event-normalization error is 1.34e-10, below the unchanged 1e-7
+criterion. The frozen verifier reproduces the result and confirms cleanup.
+The earlier incomplete studies and their missing histories remain unchanged.
+
+Prepare EXP-019 as a fresh complete two-write experiment using the new canonical
+DOP853 exact dense phase states and gradients. Both eight-period reference
+methods start from that common state. Every one of 96 reference jobs and all
+48 observer/context seals must qualify before any finite-input worker starts.
+If this global gate fails, retain all 2,700 finite traces as blocked. Preserve
+the same pulse, intervention, noise, observer and numerical comparison rules.
+The 24 reused fractions are a regression census, not newly held-out phases.
+Freeze the complete 2,796-job plan, tests and local review privately before
+new memory outcomes. Full boundary organization, matched controls for geometry
+and trained-network transfer remain separate questions.
+
+## Earlier decision: refine the global periodic reference before repeating the memory task
+
+[EXP-017](EXP-017-results.md) completes all 102 reference-only jobs. Direct dense
+samples reduce the largest coordinate defect, but nine of 48 phase contexts
+still fail the unchanged event-normalization threshold in both finer methods.
+All six base reconstructions and six base-method pairs pass their declared
+diagnostics. Interpolation contributes but cannot explain the full defect;
+inherited approximate orbit/adjoint consistency remains the next target.
+
+Prepare a bounded global shooting refinement at the same two parameter
+settings, retaining the original x3-maximum phase convention and independently
+verifying the refined candidates before deriving new phase gradients. Use
+fixed methods, limits and all 48 phase contexts; do not patch individual
+gradients or reinterpret the original missing histories as completed. A new
+full eight-period memory experiment needs its own later freeze and gates.
+See the [reference diagnostic](EXP-017-results.md) for the retained failures.
+
+## Earlier decision: diagnose the phase reference while preserving the behavioral result
+
+[EXP-016](EXP-016-results.md) has finished execution with an incomplete scientific
+census: all 96 references completed, but eleven phase-normalization failures
+blocked 621 of 2,700 planned input traces. All 2,079 eligible traces and 1,080
+available method comparisons qualify individually. Both setting means remain
+withheld; frozen missing-phase bounds span both signs of the primary effect.
+The frozen replay and separate algorithmic saved-evidence audit pass while
+preserving this incomplete status.
+
+The immediate next step is a bounded phase-reference diagnosis across all 48
+contexts. Separate interpolation error from the mismatch between a nominal
+periodic phase gradient and the actual integrated reference endpoint. Do not
+renormalize old evidence, lower thresholds or fill missing cells opportunistically.
+Any new reference calculation and repeated task requires a separately reviewed,
+privately pushed freeze. Preserve the original protocol, source and failures.
+
+## Earlier decision, 17 September: test two-write memory under interference
+
+The [authorized Astra Pro consultation](consults/2026-09-17-pro-adjudication.md)
+completed for USD 0.78126. Its main recommendation is accepted with local
+modifications in the [two-write design](two-write-memory-design.md). Implement
+the full controlled task, including all zero-write/reset histories, matched
+linear and one-mode controls, numerical qualification, and a fixed observer
+whose information access is explicit. Freeze code, tests, machine plan and
+local review privately before new neural outcomes. The design is currently
+under implementation; it is not yet an executed experiment.
+
+The previous independent-tangent question is incorporated into new reference
+qualification rather than run as the main standalone study. Keep its earlier
+design intact as a conditional diagnostic. Report linearly accessible memory
+without claiming total capacity, information erasure, geometry causality or
+trained-network transfer. No additional paid consultation is authorized.
+
+## Earlier decision, 17 September: independently qualify the transverse operator
+
+[EXP-015](EXP-015-results.md) is complete: all 192 cells and 1,152 realized-pulse
+rows are retained. Frozen decisions are 191 algebraically qualified and 179
+ideal-neutral-qualified cells. All 64 phase-null cells pass the frozen checks;
+core signals strongly attenuate while near-edge responses persist and can
+increase across sampled windows. Transverse opposition also reverses some
+early phase-writing readouts. These are conditional linear mechanisms.
+
+Independent evidence and recorded-decision checks pass, but strict alternate
+arithmetic retains discrepancies. The physical/noise-scale approximation
+classifications are unchanged. No original failed study is requalified.
+
+The [next bounded design](independent-tangent-qualification-next-design.md)
+prioritizes independent full-state and all-nine-entry tangent integration at
+all sixteen original contexts, through eight periods, with two fixed methods:
+32 jobs. Separately compare the methods, the inherited composed propagator,
+and each method's first-period composition. Retain fixed clocks/projectors,
+all three directions, every failure and both strict arithmetic and physically
+scaled operator criteria. No new solver or timing pilot has run; executable
+implementation, synthetic checks, local review and a private push precede it.
+
+Repackaging the existing phase-only/full-linear score comparison would not
+close the shared-propagator assumption. A later saved-pulse extension needs
+an explicit new nonlinear-remainder question, such as signed odd/even dose
+response. Full shrimp boundary organization, matched controls for geometry's
+incremental value and trained-network transfer still require separate work.
+
+## Earlier decision, 17 September: explain local memory while retaining numerical limits
+
+The [425-trace refinement](EXP-014-refinement-results.md) is complete. All
+five new methods agree in 77/85 selected cases; eight large pulses remain
+unresolved. All 52 smaller-dose cases and seven shams pass every method pair.
+The independent evidence/scientific-decision audit passes, while strict
+alternative-arithmetic replay retains 1,375 small discrepancies. No original
+qualification or numerical tolerance changes.
+
+The next bounded step is a separately frozen saved-reference phase/transverse
+gain decomposition: all 16 setting/phase contexts, three input directions and
+four clock windows, giving 192 cells. Use the existing full propagators and
+fixed readout to separate neutral timing response from transverse response,
+check the decomposition against direct propagation, and retain every cell.
+Keep requested and realized pulses, finite phase shifts and linear neutral
+response distinct. This analysis has not run and needs executable review and
+a private freeze before new target summaries.
+
+The pre-outcome decision note is retained at
+`/data2/neural-shrimp-data/audits/EXP-014-refinement/pre-outcome-decision-001/conditional-next-mechanism.md`;
+its hash is in the refinement summary. After sealing reference-only predictions,
+compare finite-pulse responses only under an explicit numerical eligibility
+rule, retaining unresolved cases visibly. Do not relax the long-horizon gate
+or launch another undirected sweep merely to obtain agreement.
+
+Full shrimp boundary organization and incremental geometry utility still need
+separate tests. A trained-network bridge is motivated by published work, but
+their external oscillatory input differs from our observation-only clock.
+See the [literature assessment](neural-memory-literature-bridge-2026-09-17.md).
+
+## Earlier decision, 17 September: diagnose finite-pulse sensitivity
+
+EXP-014 completes all 930 jobs, but 30 of 608 trajectory comparisons fail at
+the largest pulse, 0.01. All prerequisites, shams, smaller-dose and phase-null
+comparisons, and all 3,456 analytic balanced-accuracy comparisons pass. Both
+setting means remain withheld. Bounded accuracy saturation hides large
+signed-readout and trajectory disagreements, reaching nearly the full
+activation range. See the [timing-memory audit](EXP-014-results-audit.md).
+
+A selected individually consistent phase-null case agrees with the full-linear
+prediction (analytic BA about 0.9929902) while phase-only predicts 0.5. This
+suggests transverse response can contribute to the readout; it does not establish
+shrimp-specific computation, network memory capacity or trained-model benefit.
+
+The next bounded follow-up diagnoses all thirteen affected binary contexts,
+both signs, all three original doses and seven matched shams: 85 cases and
+425 new traces. It will use three finer RK4 steps and two tighter DOP853
+settings, retaining all 2,380 old/new method pairs, unsaturated signed readouts
+and sampled threshold crossings. No horizon truncation, failed-case exclusion,
+decoder refit or original-cohort requalification is allowed. Complete the
+reviewed executable freeze and privately push before any new solve.
+
+The [EXP-013 numerical follow-up](EXP-013-refinement-results.md) is complete:
+all ten new traces and thirty new comparisons pass, supporting its original
+fine trace while preserving the original failed cohort gate. Code and compact
+receipts are backed up privately; bulky raw data remain in the sibling directory.
+No paid Pro request has been sent; incremental consultation spend remains zero.
+
+## Earlier decision, 17 September: diagnose one numerical failure and test timing memory
+
+EXP-013 completes all 10,681 tasks but one of 3,456 candidates fails the
+unchanged waveform agreement rule. All scalar checks, shams and independent
+sentinels pass; no tested policy selects the failed candidate. Preserve the
+complete-but-unqualified outcome and withhold full-cohort utility averages.
+See [the audit](EXP-013-results-audit.md) and
+[updated assessment](project-assessment-2026-09-17.md).
+
+1. Freeze and run a small outcome-selected finer-resolution diagnostic of the
+   failed candidate and matching sham. Preserve all original comparisons and
+   prohibit retrospective gate changes or hidden exclusions.
+2. Complete the already drafted phase-memory experiment: two independently
+   recertified settings, phase-writing/null/neuron controls, signed pulses,
+   sealed phase-only and full-linear predictions, externally timed readout,
+   complete multi-solver qualification and explicit failure denominators.
+   Finish synthetic lifecycle tests and independent review, privately push
+   the executable freeze, then run on the qualified CPU path.
+3. Compare measured timing memory with the ordinary oscillator phase model.
+   A signal predicted by that model is a mechanistic consequence in this
+   network, not evidence of special shrimp topology or modern-network benefit.
+   Boundary organization and matched controls remain separate work.
+4. Keep source, plans and compact receipts privately pushed; retain bulky raw
+   evidence externally. No paid Pro call has run because the requested hard
+   $10 maximum could not be enforced. Local independent review is documented.
+
+
+## Earlier decision, 15 September local / 16 September UTC: continue on CPU and finish EXP-013
+
+**EXP-012 is complete and the tested GPU backend does not qualify.** All
+54 planned batches and 64,188 repeated known-case integrations are preserved.
+CPU reference reproduction and all ten GPU repeat/layout comparisons pass;
+rankings remain unchanged. Full-census state and metric parity fail at both
+step sizes. GPU execution is slower in all 24 matched warm pairs: at the
+declared 3,456-case, `dt=0.00125` deployment setting, median pipeline time is
+69.6893 seconds on CPU and 75.8564 seconds on GPU, with median paired speedup
+0.918177. Retain the original gates and use the local CPU for the next study.
+No RunPod allocation is needed. The numerical audit and separate saved-array
+replay verify this outcome; they do not convert failed qualification into a pass.
+
+The next scientific question remains the **75-unit preview-loss versus budget
+tradeoff**, with simple controls central. The
+[EXP-013 design](fresh-origin-tradeoff-design.md) proposes 24 new physical
+starting settings, excluding all 36 distinct prior starts, and budgets
+2, 4, 8 and 18. Selection is conditional on the already observed atlas;
+its descriptive results will not establish population-wide utility or the
+original 300-unit task benefit. EXP-011's signed axes still have lower pooled
+development error than either learner, while geometry's increment over shared
+features remains uncertain.
+
+Implementation has advanced to a **draft final-model support module** with
+34 passing synthetic tests. It enforces physical-origin and feature/candidate
+identities, old-origin-only tuning, both stable solvers at all five penalties,
+and exact ordered top-2/4/8 agreement. It retains failed-fit evidence. **No
+EXP-013 final fit or fresh-origin dynamics have run.** The complete EXP-013
+runner, feature/label access integration, machine plan, lifecycle tests,
+independent review and prospective private commit/push are still required.
+
+Complete that package, bind CPU execution and costs, then fit/seal the four
+old-data models before fresh dynamics. Seal fresh features, predictions and
+shortlists before any fresh preview-label access. Execute every planned
+reference, sensitivity, candidate, sham and independent numerical check;
+retain failures and all 24 origins rather than replacing or omitting cases.
+The draft calls for 10,608 short traces plus the prerequisite work. Report
+the whole 2/4/8/18 loss curve and measured costs, with no invented acceptable
+loss or utility pass/fail criterion.
+
+The [15 September assessment](project-assessment-2026-09-15.md) separates
+completed achievements, numerical limits and remaining work. The
+[EXP-012 protocol](EXP-012-protocol.md) and immutable external attempt under
+`/data2/neural-shrimp-data/raw/EXP-012/attempt-001/` retain the GPU decision.
+The original EXP-008 strict gate and longer-target numerical limitations
+remain unresolved. Earlier decisions are preserved below as historical records.
+
+## Earlier decision, 14 September local / 15 September UTC: prioritize simple controls
+
+EXP-011 completed the planned retrospective four-preview comparison on all
+24 historical physical origins. All 96 recipes pass the frozen numerical
+checks and built-in replay; both qualified label resolutions retain exactly
+the same learned shortlists and actions. The numerical qualification was
+worth doing: this result can be interpreted without selecting a favorable
+solver or removing difficult origins.
+
+| Policy | Mean 75-unit preview RMSE | Excess over full eighteen |
+|---|---:|---:|
+| Full eighteen, evaluation reference | 0.00617504 | 0 |
+| Four signed axes | 0.00856899 | 0.00239395 |
+| Four selected with geometry | 0.0107899 | 0.00461487 |
+| Four local-coverage entries | 0.0124641 | 0.00628906 |
+| Four selected with shared features | 0.0162661 | 0.0100910 |
+| Four diagonal entries | 0.119968 | 0.113793 |
+
+Geometry's observed benefit over shared features is 0.00547615, with a
+descriptive whole-origin bootstrap range of [-0.00265276, 0.01561846]. These
+known origins are development data, and the range is not confirmation on
+fresh origins. The signed-axis control has lower pooled error than both
+learners while avoiding their sensitivity/atlas prerequisites. Local coverage
+has the lowest mean among four-preview policies at the first three radii;
+geometry has the lowest at radius 0.016. Do not silently turn these observed
+winners into a validated radius-dependent policy. The full-eighteen reference
+still has lower error and no task-derived acceptable loss margin was frozen.
+
+**Decision:** do not advance the current geometry learner as a confirmed
+control improvement. Keep simple coverage controls central and treat any
+learned-policy redesign as further development. The immediate next research
+packet should address the quality/cost tradeoff:
+
+1. Specify the actual waveform-quality requirement and endpoint before fresh
+   outcomes. A numerical convergence threshold is not an acceptable quality
+   loss. If only an exploratory tradeoff curve is intended, label it that way
+   and retain all declared budgets and radii without a pass/fail utility claim.
+2. Freeze a fresh-origin selection rule disjoint from all 24 known origins,
+   reference qualification, candidate recipe, simple control policies,
+   missingness rules, and the full-eighteen evaluation expense. Keep all
+   attempted origins and failures; do not replace difficult origins.
+3. Measure actual acquisition cost, including reference orbits, sensitivity,
+   atlas construction where needed, training and amortization. EXP-011's
+   fourteen omitted calls are nominal: it reuses labels and establishes no
+   net runtime saving. CPU measurements on the new server should precede
+   any GPU port or paid allocation.
+4. If geometry is retained, freeze its comparison against the strongest
+   applicable simple controls as well as shared features. Do not choose a
+   favorable radius or redesign the regression target using future test
+   outcomes. Rank/inclusion accuracy and selected waveform error must remain
+   separate readouts.
+
+Longer-term work remains conditional: investigate the unresolved 300-unit
+labels before later control claims; complete boundary organization if making
+topology claims; and find and verify cycles in trained networks before any
+modern training/reasoning claim. The existing fixed-weight three-neuron
+result does not establish those extensions. A separate numerically justified
+portability amendment is still needed for the original EXP-008 strict gate;
+its failures remain intact and PR #7 stays unmerged.
+
+See [EXP-011 results](EXP-011-results-audit.md) and the
+[project assessment](project-assessment-2026-09-14.md). Private branch pushes
+continue on the cadence in [Skills.md](../Skills.md), with large raw data in
+`../neural-shrimp-data/`. GitHub API authentication for opening the review PR
+remains unavailable; SSH backup pushes work.
+
+## Earlier decision, 14 September 2026: test retrospective four-preview feasibility
+
+The server follow-up separates four issues that previously shared the label
+"numerical portability". The original strict gate remains failed and unchanged.
+
+1. **Arithmetic diagnosis is complete.** Direct residual-norm evaluation
+   greatly reduces cancellation error in the two known directional-feature
+   failures. QR/SVD comparisons isolate the conditioned ridge objective,
+   preserve all selected penalties, and still retain old coefficient-tolerance
+   failures. Future feature/fit arithmetic should be specified prospectively;
+   it must not be retrofitted into EXP-008 as a new success.
+2. **Complete saved-trajectory regeneration is complete.** All 48 contexts,
+   3,456 previews and 7,008 targets are rebuilt. Aggregate waveform scores,
+   three selected penalties, 288 learned actions and 96 minimum-preview
+   actions agree with the saved record. Nineteen eigenvalue/coefficient
+   comparisons fail and are retained. This is stronger than the old
+   saved-feature refits, but it does not integrate new sensitivities or
+   certify general platform invariance.
+3. **EXP-009 finer integration is complete.** All 2,776 planned traces and
+   their saved-array verification complete. All 220 original selected actions
+   meet the declared native RMSE-stability rule, and the primary fixed-action
+   contrast barely changes. Conversely, 952 known-sensitive candidates still
+   differ by more than 1e-4 at the two finer steps; 13/19 independent-panel
+   cases agree in RMSE, and 12/19 meet all waveform-agreement rules. The
+   original full-candidate labels cannot be treated as
+   uniformly precise learning targets.
+4. **EXP-010 short-preview qualification is complete.** All 6,944 mandatory
+   traces complete and pass saved-array verification. All 3,456 original
+   75-unit labels pass both native scalar gates and whole-preview waveform
+   checks; all sixteen independent sentinels agree. Every complete ranking,
+   minimum choice and top-four set is unchanged in all 192 contexts. The
+   largest finer-step RMSE difference is 5.818072e-6. This supports the
+   separately designed retrospective shortlist investigation, while leaving
+   EXP-009's longer outcomes unresolved.
+
+See the [arithmetic audit](EXP-008-arithmetic-results-audit.md),
+[regeneration audit](EXP-008-regeneration-results-audit.md), and
+[EXP-009 audit](EXP-009-results-audit.md), and
+[EXP-010 audit](EXP-010-results-audit.md) for exact scopes and receipts.
+
+The next bounded investigation is **retrospective four-preview feasibility**
+under a new EXP-011 freeze. Use the complete qualified EXP-008 preview table
+as development evidence. Compare identical shared pre-preview inputs with and
+without geometry, predicting short-preview quality. Select four candidates before evaluating
+any of their previews, then apply the same minimum-preview winner rule.
+The retrospective run requires strong four-axis/local-coverage controls,
+the full-eighteen reference and explicit cost accounting. A later prospective
+utility claim also requires fresh evaluation cases and task-derived quality
+criteria. Any altered
+learning target or arithmetic is a dated new design, not the original
+EXP-008 method. Do not drop numerically difficult evaluation cases or choose
+the most favorable solver after observing their results.
+
+The [shortlist feasibility design](shortlist-feasibility-design.md) specifies
+the bounded retrospective development step. Treat
+the 24 EXP-008 physical origins as development evidence, group validation by
+origin, and audit feature access before fitting. EXP-007 reuses the twelve
+original development origins; it supplies no additional independent origins.
+The [feature-adapter audit](shortlist-feature-adapter-appendix.md) specifies
+the exact 37 shared and six geometry fields. The new builder reconstructs
+all 3,456 rows without reading perturbed previews, target records or old mixed
+feature packets. Its direction reconstruction matches every original direction
+exactly; direct response norms are an explicitly new arithmetic method.
+Freeze and push the complete nested origin-validation, feature-access,
+solver, label-resolution and cost rules before fitting. Implementation is in
+progress; no EXP-011 model result is established by this decision.
+
+The local server has ample capacity for the next bounded CPU qualification;
+GPU porting or paid compute is not required by the measured work. Preserve
+regular private code pushes and put new raw data outside Git as specified in
+[Skills.md](../Skills.md). The review PR remains an operational requirement;
+SSH pushes work, while GitHub API authentication is pending in this session.
+
+## Previous decision, 13 September 2026
 
 **Numerical portability is the immediate priority.** Release candidate
 `1d12ebeda0400c179e54dd36e647a835f7e0d91d` fails both strict Linux release
@@ -447,3 +858,5 @@ start locally. A GPU is justified only by profiling the exact later workload,
 checking numerical parity, and preparing a measured bounded cost plan under
 [compute-plan.md](compute-plan.md). Paid execution and paid Pro review each need
 their own explicit approval; none was used for the present numerical result.
+
+The next bounded research stage is documented in the [cycle-reference feasibility design](next-cycle-reference-design.md). It remains an advisory plan pending implementation and execution freeze.

@@ -1,6 +1,6 @@
 # Claim ledger
 
-Status: private exploratory program, updated 2026-09-13 through EXP-008. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. Adding old-map features improves the observed secondary prediction-MSE mean, while the primary action-utility contrast remains unresolved and direct minimum-preview selection has lower error. Modern training/reasoning benefit and net compute savings are not established.
+Status: private exploratory program, updated 2026-09-14 through EXP-011 and the saved-input audits. Original training claims retain their meanings. A small fixed-weight recurrent shrimp is numerically reproduced. The retrospective four-preview geometry learner improves the observed shared-feature mean but is worse than the signed-axis control in the pooled mean; its paired improvement remains uncertain. Modern training/reasoning benefit and net compute savings are not established.
 
 **Current release qualification:** EXP-008 is a private working diagnostic
 draft, not a fully reproduced release. PR #7 remains unmerged. Local frozen
@@ -179,3 +179,69 @@ shortlist **before** paying for previews, against equal-budget controls and the
 full-eighteen reference. It first requires Linux portability and numerical-label
 review, followed by a new freeze;
 it is not a successful result or an executed experiment.
+
+## 2026-09-14 server numerical follow-up
+
+Arithmetic method/source was pushed at
+`b3cf51bb88df75eccec4b19e0f7a15976b3a9b21`; the regeneration audit and
+EXP-009 executable plan were pushed at
+`d276782c229aa33e2819ec89f15df4e23c7f7834` before their outcomes. These are
+post-run numerical studies of previously observed cases. Original data,
+model choices, thresholds and failed comparisons remain unchanged.
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| N1 | Directional cancellation contributes to the two known feature failures | Supported on saved sensitivity tensors: direct residual-norm evaluation is much closer to wider-precision and Decimal checks at the failed cases. This diagnoses arithmetic on saved inputs, not integration error or universal superiority of one solver. |
+| N2 | Original choices survive a complete saved-trajectory input regeneration | Supported on this server: all 48 contexts, 3,456 previews and 7,008 targets regenerate; all aggregate waveform scores, three penalties, 288 learned actions and 96 preview actions remain unchanged. Nineteen eigenvalue/coefficient checks fail. New ODE/sensitivity integration and the original strict gate are separate. |
+| N3 | Selected-policy task results are stable under finer target integration | Supported for the original 220 unique selected actions in EXP-009: all meet its predeclared native RMSE-stability rule. Largest new-step difference is 3.822096e-6; largest old-fine-to-finest change is 6.521438e-5. The mean baseline-minus-geometry contrast is 0.000857638205. This is post-run numerical sensitivity, not new held-out utility evidence. |
+| N4 | Finer integration resolves all candidate labels | Rejected at the tested resolutions: 952/1,012 prior-selected sensitive cases still exceed 1e-4 native RMSE disagreement; one more fails the nonincreasing-difference criterion. Across the full selected cohort 416/1,369 pass both native RMSE criteria and 953 remain unresolved. Independent-panel RMSE agreement holds for 13/19 cases; 12/19 pass all waveform comparisons. This selected sample cannot estimate a population failure rate. |
+| N5 | The numerical follow-up establishes a practical geometry advantage | Not established. Original control choices and their small unresolved contrast persist. Prediction across all candidates requires explicit treatment of label uncertainty; net preview savings still need their own frozen comparison. |
+| N6 | The complete 75-unit preview table is numerically qualified for retrospective development | Supported by EXP-010 at the tested resolutions: 3,456/3,456 native scalar and waveform checks pass, 16/16 independent sentinels agree, and all 192 complete candidate rankings remain unchanged. Maximum finer-step RMSE difference is 5.818072e-6. This is not a qualification of EXP-009's longer outcomes, a new shortlist result or a net compute-saving claim. |
+
+Full new raw reports and traces are under `/data2/neural-shrimp-data/`, with
+compact hash-bound summaries in the repository. See the
+[arithmetic](EXP-008-arithmetic-results-audit.md),
+[regeneration](EXP-008-regeneration-results-audit.md), and
+[refinement](EXP-009-results-audit.md) audits. All 2,776 EXP-009 traces complete;
+no failed attempt was overwritten, paid resource launched or public release
+made.
+
+## 2026-09-14 local / 2026-09-15 UTC: retrospective shortlist feasibility
+
+EXP-011 source `64712453153ade24d2b22cf811f7a83811304de4` was privately
+pushed before fitting. The 24 historical origins are all development evidence;
+each outer fold excludes its origin from fitting and inner tuning. Predictions
+and four-entry shortlists are sealed before their labels, and chosen winners
+are sealed before full-eighteen oracle evaluation.
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| S1 | The frozen four-preview recipe runs with qualified numerical behavior | Supported on this server: all 24 folds and 96 recipes complete; all SVD/QR prediction, selected-penalty and ordered-shortlist gates pass, as does complete built-in model replay. Both label resolutions retain the same shortlists and actions. This is not general cross-platform certification. |
+| S2 | Geometry improves the matched shared-feature shortlist | Observed pooled RMSE is 0.0107899 versus 0.0162661 (33.67% lower). The paired contrast is 0.00547615 with descriptive bootstrap bounds [-0.00265276, 0.01561846]. Its sign varies with radius; no fresh-origin confirmation or guaranteed increment follows. |
+| S3 | Learning or geometry beats strong simple four-preview controls | Not established. Signed axes have the lowest pooled four-preview RMSE, 0.00856899, versus geometry 0.0107899 and local coverage 0.0124641. Local coverage has the lowest mean at the three smaller radii, and geometry at the largest. Choosing a radius-dependent winner now would be a new, outcome-informed policy. |
+| S4 | Four previews preserve full-eighteen quality or save total runtime | Not established. Full-eighteen mean RMSE is 0.00617504; even the best pooled four-entry control adds 0.00239395. Four versus eighteen means fourteen fewer candidate calls by design, but this study reuses all labels and measures no new preview acquisition, sensitivity or atlas acquisition cost. No task-quality margin was specified. |
+| S5 | Shortlist results qualify long-target control, modern training or a shrimp-specific mechanism | Not established. The endpoint is 75-unit preview RMSE in the known fixed-weight system. EXP-009's unresolved 300-unit labels, spatial dependence, learned-model generalization and topology-specific alternatives remain separate questions. |
+
+See the [EXP-011 protocol](EXP-011-protocol.md),
+[results audit](EXP-011-results-audit.md) and
+[compact summary](EXP-011-summary.json). Preserve the original EXP-008 strict
+gate and every prior failed comparison.
+
+## 2026-09-15 local / 2026-09-16 UTC: local CUDA qualification
+
+EXP-012 source `c3a88b9db0a3e82b65d5d55a58d155b9a3275d5f` was privately
+pushed before known-case integration. All 54 planned batches and 64,188 case
+integrations completed on the shared local server.
+
+| ID | Claim | Evidence and permitted interpretation |
+|---|---|---|
+| G1 | The tested CUDA backend reproduces the required scientific CPU output | Not qualified. CPU output matches the saved EXP-010 reference, but both full GPU case sets fail frozen state/activation and complete metric/phase tolerances. All 384 full-context orders and control decisions remain unchanged; this does not waive waveform requirements. |
+| G2 | The tested GPU layouts and repetitions are repeatable | Supported within this runtime and tested workload: all ten required full-output bit comparisons pass. This is not universal determinism or cross-device numerical equivalence. |
+| G3 | GPU integration reduces total preview pipeline time | Rejected for this implementation and measurement: GPU is slower in all 24 warm pairs, with median CPU/GPU ratio 0.918 at the intended 3,456-case finer-step batch. CPU scoring and saved-array replay dominate. No amortization break-even is observed. |
+| G4 | The result rules out GPU acceleration for this project generally | Not established. The measurement covers this float64 75-unit integration/score/storage/verification pipeline on this shared host. Other workloads or later implementations need their own qualification. |
+| G5 | EXP-012 supplies new geometry-utility or fresh-origin results | Not established. These are previously observed cases used for engineering qualification. EXP-013 remains a draft design and tested model component, without final fits or fresh dynamics. |
+
+The [results audit](EXP-012-results-audit.md) and
+[compact summary](EXP-012-summary.json) retain all failures and provenance.
+Keep CPU as the current scientific default and preserve the original failed
+EXP-008 strict gate.

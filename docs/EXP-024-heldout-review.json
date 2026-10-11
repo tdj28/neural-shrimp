@@ -1,0 +1,60 @@
+{
+  "census": {
+    "analysis_cells": 768,
+    "jobs": 1668,
+    "maximum_ivp_calls": 3336,
+    "reference_definitions": 2688,
+    "solver_histories": 1536,
+    "unique_heldout_histories": 768
+  },
+  "date_local": "2026-09-22",
+  "development": {
+    "canonical_replay": true,
+    "complete": true,
+    "independent_arithmetic": true,
+    "qualified": true,
+    "raw_receipt_sha256": "6f1488818683757a90181e0e99fcc48f1dd716d20ec1f33b0648d77f50b4bdef"
+  },
+  "findings": [
+    {
+      "finding": "Reviewed complete diff from the development runner: no scientific solver, pulse, derivative, noise, observation or reference-decoder changes.",
+      "id": "H01",
+      "status": "pass"
+    },
+    {
+      "finding": "Exactly original reserved phase indices8..39 are used; eight development phases excluded. Global phase identities and32-element context census are tested.",
+      "id": "H02",
+      "status": "pass"
+    },
+    {
+      "finding": "All reference definitions are sealed before any finite outcome. No held-out finite-difference tuning. Every finite history still has a cross-method numerical comparison.",
+      "id": "H03",
+      "status": "pass"
+    },
+    {
+      "finding": "Fixed20000 phase-bootstrap draws preserve paired phases, negative scores and declared denominators. Missing, duplicate or unqualified cells block primary inference.",
+      "id": "H04",
+      "status": "pass"
+    },
+    {
+      "finding": "The interval is conditional on two fixed networks and chosen known-phase measurement protocol. Nonprimary intervals are descriptive; no shrimp-specific or trained-network inference.",
+      "id": "H05",
+      "status": "accepted_scope_limit"
+    },
+    {
+      "finding": "Measured development throughput supports the same four-worker local CPU plan; exact private push and shared resource recheck precede target execution.",
+      "id": "H06",
+      "status": "pass"
+    }
+  ],
+  "plan_sha256": "a9e6c6ba4a5a3d15e41dada18940e8dc37f8b58c734a5d089a7a911d7235841d",
+  "reviewer": "local executing agent; independent mathematical controls and a reviewed diff from the development lifecycle; not independent scientific replication",
+  "status": "ready_for_heldout_execution",
+  "tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m pytest -q tests/test_two_write_interaction_heldout.py tests/test_two_write_interaction_runner.py tests/test_two_write_sensitivity.py tests/test_two_write_interaction.py tests/test_two_write_runtime.py",
+    "failed": 0,
+    "passed": 55,
+    "seconds": 3.13
+  },
+  "unresolved_blocking_findings": []
+}

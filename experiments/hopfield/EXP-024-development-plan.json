@@ -1,0 +1,7223 @@
+{
+  "contract": {
+    "experiment": "EXP-024",
+    "stage": "development-only",
+    "phase_seed": 2026092201,
+    "development_phases": 8,
+    "reserved_heldout_phases": 32,
+    "sigma": 0.0001,
+    "workers": 4,
+    "deadline_seconds": 28800,
+    "per_task_seconds": 180,
+    "finite_difference_phases": [
+      0,
+      1
+    ],
+    "finite_difference_steps": [
+      0.001,
+      0.0005
+    ],
+    "automatic_retries": 0,
+    "state_tolerance": 2e-07,
+    "coefficient_tolerance": 2e-07,
+    "contrast_tolerance": 1e-07,
+    "risk_tolerance": 0.005,
+    "phase_normalization_tolerance": 1e-07,
+    "phase_adjoint_tolerance": 1e-06,
+    "finite_difference_first_tolerance": 0.001,
+    "finite_difference_second_tolerance": 0.02,
+    "benchmark_primary_count": 32,
+    "heldout_execution_enabled": false,
+    "paid_compute": false
+  },
+  "methods": {
+    "primary": {
+      "method": "DOP853",
+      "rtol": 2e-11,
+      "atol": 2e-13,
+      "steps_per_period": 512
+    },
+    "independent": {
+      "method": "RK45",
+      "rtol": 2e-12,
+      "atol": 2e-14,
+      "steps_per_period": 2048
+    }
+  },
+  "amplitudes": [
+    0.0001,
+    0.001,
+    0.01
+  ],
+  "windows": {
+    "early": [
+      0,
+      32
+    ],
+    "later": [
+      32,
+      64
+    ]
+  },
+  "phases": [
+    {
+      "index": 0,
+      "fraction": 0.03889690877373719,
+      "split": "development"
+    },
+    {
+      "index": 1,
+      "fraction": 0.598348099930268,
+      "split": "development"
+    },
+    {
+      "index": 2,
+      "fraction": 0.4483755324258344,
+      "split": "development"
+    },
+    {
+      "index": 3,
+      "fraction": 0.20247271120342325,
+      "split": "development"
+    },
+    {
+      "index": 4,
+      "fraction": 0.6252900291959848,
+      "split": "development"
+    },
+    {
+      "index": 5,
+      "fraction": 0.9784270881370727,
+      "split": "development"
+    },
+    {
+      "index": 6,
+      "fraction": 0.4919145616411611,
+      "split": "development"
+    },
+    {
+      "index": 7,
+      "fraction": 0.3343884072757387,
+      "split": "development"
+    },
+    {
+      "index": 8,
+      "fraction": 0.4169507090622948,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 9,
+      "fraction": 0.1640531730395215,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 10,
+      "fraction": 0.6355164363401213,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 11,
+      "fraction": 0.9444003062585967,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 12,
+      "fraction": 0.6906569473367813,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 13,
+      "fraction": 0.6218558572124319,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 14,
+      "fraction": 0.4088991843960649,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 15,
+      "fraction": 0.3872071303106879,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 16,
+      "fraction": 0.4577412245080352,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 17,
+      "fraction": 0.34822811000959275,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 18,
+      "fraction": 0.3705904053740059,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 19,
+      "fraction": 0.06496346708608958,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 20,
+      "fraction": 0.2950039827713914,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 21,
+      "fraction": 0.8252961120104109,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 22,
+      "fraction": 0.5298772209239166,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 23,
+      "fraction": 0.2351075208654999,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 24,
+      "fraction": 0.12854493344000895,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 25,
+      "fraction": 0.11952479155864693,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 26,
+      "fraction": 0.07499196784405038,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 27,
+      "fraction": 0.2616866152109133,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 28,
+      "fraction": 0.5649372957083402,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 29,
+      "fraction": 0.5034171906872255,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 30,
+      "fraction": 0.4294747205056433,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 31,
+      "fraction": 0.14591920919478296,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 32,
+      "fraction": 0.9293118823495673,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 33,
+      "fraction": 0.5681212049375602,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 34,
+      "fraction": 0.06956042515533578,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 35,
+      "fraction": 0.7927795901897914,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 36,
+      "fraction": 0.6755303862307057,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 37,
+      "fraction": 0.9440943673174458,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 38,
+      "fraction": 0.4279254298754548,
+      "split": "heldout_reserved"
+    },
+    {
+      "index": 39,
+      "fraction": 0.6923880277833642,
+      "split": "heldout_reserved"
+    }
+  ],
+  "tasks": {
+    "phases": [
+      {
+        "id": "core--phase--primary",
+        "kind": "phase",
+        "case": {
+          "id": "core"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--phase--independent",
+        "kind": "phase",
+        "case": {
+          "id": "core"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--phase--primary",
+        "kind": "phase",
+        "case": {
+          "id": "failed-near-edge"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--phase--independent",
+        "kind": "phase",
+        "case": {
+          "id": "failed-near-edge"
+        },
+        "method": {
+          "id": "independent"
+        }
+      }
+    ],
+    "references": [
+      {
+        "id": "core--p00--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p00--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "core--p01--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p01--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "core--p02--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p02--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "core--p03--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p03--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "core--p04--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p04--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "core--p05--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p05--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "core--p06--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p06--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "core--p07--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "core--p07--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p00--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p00--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p01--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p01--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p02--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p02--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p03--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p03--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p04--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p04--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p05--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p05--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p06--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p06--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        }
+      },
+      {
+        "id": "failed-near-edge--p07--reference--primary",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        }
+      },
+      {
+        "id": "failed-near-edge--p07--reference--independent",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        }
+      }
+    ],
+    "differences": [
+      {
+        "id": "core--p00--difference--primary--step--1--sign1-0--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": -1,
+        "sign1": 0,
+        "sign2": 0
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--difference--primary--step-0--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--difference--primary--step-1--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--difference--primary--step--1--sign1-0--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": -1,
+        "sign1": 0,
+        "sign2": 0
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--difference--primary--step-0--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--difference--primary--step-1--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step--1--sign1-0--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": -1,
+        "sign1": 0,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-0--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--difference--primary--step-1--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step--1--sign1-0--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": -1,
+        "sign1": 0,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-0--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1-1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1--1--sign2-0",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 0
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1-0--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1-0--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 0,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1-1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1-1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1--1--sign2-1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--difference--primary--step-1--sign1--1--sign2--1",
+        "kind": "difference",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "step": 1,
+        "sign1": -1,
+        "sign2": -1
+      }
+    ],
+    "finite": [
+      {
+        "id": "core--p00--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p00--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p00--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p01--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p01--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p02--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p02--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p03--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p03--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p04--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p04--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p05--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p05--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p06--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p06--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "core--p07--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "core--p07--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "core--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p00--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p00"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p01--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p01"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p02--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p02"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p03--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p03"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p04--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p04"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p05--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p05"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p06--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p06"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-0--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-0--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-0--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-0--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 0,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-1--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-1--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-1--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-1--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 1,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-2--sign1-1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-2--sign1-1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": 1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-2--sign1--1--sign2-1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": 1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--primary--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "primary"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      },
+      {
+        "id": "failed-near-edge--p07--finite--independent--dose-2--sign1--1--sign2--1",
+        "kind": "finite",
+        "case": {
+          "id": "failed-near-edge--p07"
+        },
+        "method": {
+          "id": "independent"
+        },
+        "dose": 2,
+        "sign1": -1,
+        "sign2": -1
+      }
+    ]
+  },
+  "counts": {
+    "phases": 4,
+    "references": 32,
+    "differences": 68,
+    "finite": 384
+  },
+  "maximum_ivp_calls": 976,
+  "historical_inputs": [
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "receipt.json",
+      "bytes": 62596,
+      "sha256": "b4b56a8fbcc592285cebdbf15c2182a3173c62d3e770ebc1681cd9a142066ce1"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/core--reference-pair/packet.json",
+      "bytes": 134044,
+      "sha256": "df293429b9cc3f26d5c209cdee102f7214f210dba20873662945535d96a5e07e"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/core--reference-pair/packet.npz",
+      "bytes": 12995164,
+      "sha256": "52c4865b8b2fc17304a742b216c6ee267949a19df6b828086770154f980f3294"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/failed-near-edge--reference-pair/packet.json",
+      "bytes": 135372,
+      "sha256": "5346826101a9b742e6f953ed0c302265d7c7ac61ae8ba7607754bc44e8444e85"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/failed-near-edge--reference-pair/packet.npz",
+      "bytes": 12994874,
+      "sha256": "e7d1ca24a52b633bd9fe8431b82df84b588bc8c4ab0a2e9be32aaef7257fbaaf"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "summary.json",
+      "bytes": 2003914,
+      "sha256": "4d6c078c85cecc3bfc6e467031efcb949fd84ea62ceabf51473a184dd9c50969"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "manifest.json",
+      "bytes": 108272,
+      "sha256": "1d02f44981e81fe7023d0e7e46a3ae4ae77e5332a4c46d1c6289c2bd7f9b6340"
+    },
+    {
+      "root": "/data2/neural-shrimp",
+      "path": "docs/EXP-018-summary.json",
+      "bytes": 255209,
+      "sha256": "263d54bac28807abc371b539e24beb59830ec4c16bbec255f7e392c3696456cf"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "docs/EXP-018-summary.json",
+      "bytes": 255209,
+      "sha256": "263d54bac28807abc371b539e24beb59830ec4c16bbec255f7e392c3696456cf"
+    },
+    {
+      "path": "docs/EXP-024-development-protocol.md",
+      "bytes": 8947,
+      "sha256": "b6bf6204a8a9d2d42f8bcf59676af7e79f0af4310cf4bf72a1404bb9e900d105"
+    },
+    {
+      "path": "docs/EXP-024-protocol.md",
+      "bytes": 9720,
+      "sha256": "b7491ed827a891097e764bc9a6145c3b8e9769e7ecd20e0760941b7d603d2a0e"
+    },
+    {
+      "path": "src/neural_shrimp/__init__.py",
+      "bytes": 423,
+      "sha256": "e474d9c3fb973648a06562d0468780a3046adfeb14604ed7cc791817c3878c05"
+    },
+    {
+      "path": "src/neural_shrimp/cli.py",
+      "bytes": 17552,
+      "sha256": "ecadde1935fcd52f9e817fb1d3121c1d8d00cae047fbe1b33712453f4da07470"
+    },
+    {
+      "path": "src/neural_shrimp/controls.py",
+      "bytes": 1120,
+      "sha256": "919014aab26839471c47ff0d27545052015bc8e1f2b943f7eca6e785d1341087"
+    },
+    {
+      "path": "src/neural_shrimp/diagnostics.py",
+      "bytes": 14265,
+      "sha256": "22f962fd63a79a4bc902a0ec9da2c7c68c84b7a40427d70be31283d56bee2a78"
+    },
+    {
+      "path": "src/neural_shrimp/models.py",
+      "bytes": 8383,
+      "sha256": "48768aceb5ab9bb1f568c153209b0a40c11657ee0b86d0eac76c1f6098759897"
+    },
+    {
+      "path": "src/neural_shrimp/report.py",
+      "bytes": 5827,
+      "sha256": "a3806fe73e595ee46b88f07550ea1a2fdc17ede33b902caef3700f97578823bb"
+    },
+    {
+      "path": "src/neural_shrimp/utility.py",
+      "bytes": 3630,
+      "sha256": "8cb8751d7aba8595753b2aa28515d7cd9a430acec3998bd8146a9e2a93f48d2e"
+    },
+    {
+      "path": "tests/test_two_write_interaction.py",
+      "bytes": 5821,
+      "sha256": "68ddcc280c5cd98025fcc20e57e60381c67f3a2320285b956117635f52ef8fd2"
+    },
+    {
+      "path": "tests/test_two_write_interaction_runner.py",
+      "bytes": 5091,
+      "sha256": "bf2200580d717cb58be7a9bbb31a2b8b8b7c04774fbb39f3b405729beb05196a"
+    },
+    {
+      "path": "tests/test_two_write_sensitivity.py",
+      "bytes": 5233,
+      "sha256": "f68b67ee5d43bf5bbc9d1f35997fbd9884b3609350c03e7082e8b67b206601be"
+    },
+    {
+      "path": "tools/audit_hopfield_holdout.py",
+      "bytes": 21176,
+      "sha256": "fccd4e36cfec0fcdaf2d9517cf4574db151de1f407ae0f8b4d6cad7ca13acff4"
+    },
+    {
+      "path": "tools/audit_hopfield_information.py",
+      "bytes": 32500,
+      "sha256": "539f56e0f2e6c93d090dbbab8348eb5b1a0e15a5dd9ee7393bbc7405befb11ac"
+    },
+    {
+      "path": "tools/audit_information_models.py",
+      "bytes": 24006,
+      "sha256": "8b6bf64f6ea1702b9818bc6748ec1278c31d612d03531a8f3b4030aff0bdda06"
+    },
+    {
+      "path": "tools/audit_information_platform.py",
+      "bytes": 21924,
+      "sha256": "e2d7e054e7079d69a009212b3134e279f82527cc9da11b261f04fb3523c19383"
+    },
+    {
+      "path": "tools/audit_information_regeneration.py",
+      "bytes": 42628,
+      "sha256": "86e79bb69f00decf325d6abf9e6e85d04832eb0017f7561ffa8109d783d05d30"
+    },
+    {
+      "path": "tools/audit_phase_memory.py",
+      "bytes": 41881,
+      "sha256": "1a5595642a2a697e8caa0408b070a9cf79fe5a33cb93500535087d9222a6ee23"
+    },
+    {
+      "path": "tools/audit_preprint_identities.py",
+      "bytes": 2790,
+      "sha256": "d0ea23d48478f9105b3c4109772109dddea0b44b050fe24e616de61930309b7d"
+    },
+    {
+      "path": "tools/build_concept_figures.py",
+      "bytes": 12038,
+      "sha256": "36ae55b64aedea822b59ed078c50bc996e7a36ed8c6a5074a89f26a38c4e32c5"
+    },
+    {
+      "path": "tools/build_evidence_figures.py",
+      "bytes": 37680,
+      "sha256": "d55e10b36c9874ea4ae4966bb5a9c6507e1d55e4addec03b207a7b6b04a15ef9"
+    },
+    {
+      "path": "tools/check_information_bundle.py",
+      "bytes": 2830,
+      "sha256": "56f66127b764cda5be8e12dd5897a83170890ee373fa66871aa87fdd98d72b03"
+    },
+    {
+      "path": "tools/cycle_reference_selection.py",
+      "bytes": 16039,
+      "sha256": "e8e2584b4b296af5d7b73f983d425e384da80406f946ea02064a4bc53e2cd023"
+    },
+    {
+      "path": "tools/diagnose_information_arithmetic.py",
+      "bytes": 16952,
+      "sha256": "87c62027791ec732e0c04d5b9835715e4f4d2181a2b5bdb827835c45fbae07fc"
+    },
+    {
+      "path": "tools/fresh_preview_evaluation.py",
+      "bytes": 40307,
+      "sha256": "7e97aa73cdde98669d86198a38fcb8488f245148bc8f60115bc3c3734db67f59"
+    },
+    {
+      "path": "tools/fresh_preview_features.py",
+      "bytes": 17041,
+      "sha256": "299bb3f4d6f97726c55d4c344f81142ade22c64ca2d2edf67c6968a348e94ca2"
+    },
+    {
+      "path": "tools/fresh_preview_runtime.py",
+      "bytes": 16993,
+      "sha256": "c15449d6dd51fa17959d2670cc0a6f4921b84301b029a66221fbeb2ed2f0c01c"
+    },
+    {
+      "path": "tools/gaussian_mixture_readout.py",
+      "bytes": 24681,
+      "sha256": "04c586df68f8d06527146243035b1182b6cd7fa75c056b55a33f6794be66e2f3"
+    },
+    {
+      "path": "tools/gaussian_mixture_readout_stable.py",
+      "bytes": 10839,
+      "sha256": "85b6a514c8fc57775d8a1f72dc70102e4c0920609b3cd4485121283220f10301"
+    },
+    {
+      "path": "tools/hopfield_continuation.py",
+      "bytes": 20663,
+      "sha256": "a00d71c7d4cc3ee0fec1308fe160c3f4674c5bad94b9ce485d7dea3f13ed1b94"
+    },
+    {
+      "path": "tools/hopfield_cuda.py",
+      "bytes": 12962,
+      "sha256": "b69b57170b5ab51128da54dfea887f2c4e4271d33d7406cb0acea9360306dfd4"
+    },
+    {
+      "path": "tools/hopfield_diagnostics.py",
+      "bytes": 16573,
+      "sha256": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07"
+    },
+    {
+      "path": "tools/hopfield_drift_design.py",
+      "bytes": 22914,
+      "sha256": "ef8233132c83ea9a0727b483d3d234e4e2bc7ba7e444bddc17f38c290cf7a812"
+    },
+    {
+      "path": "tools/hopfield_drift_metrics.py",
+      "bytes": 7702,
+      "sha256": "f2aacb77aa40e0c1e90d19cf57fd44fc00c1c1b3c40af745380658eee37f4c03"
+    },
+    {
+      "path": "tools/hopfield_drift_probe.py",
+      "bytes": 9688,
+      "sha256": "24e06c7a001135e29bd376603cf6b40027a87be649c2d250571aea4d792b7767"
+    },
+    {
+      "path": "tools/hopfield_holdout_design.py",
+      "bytes": 10160,
+      "sha256": "6e29d5b9f0875d7dcfbd11527867295087f44b98d46fa80f6d0ffa3c1c7bcaa3"
+    },
+    {
+      "path": "tools/hopfield_information_design.py",
+      "bytes": 17460,
+      "sha256": "41e71719b9a17b7b8e8322c77945d0a38f4f2d189aa6fbbc884202708dea8e35"
+    },
+    {
+      "path": "tools/hopfield_information_features.py",
+      "bytes": 4145,
+      "sha256": "4e616e317f7af3e859f4ea3d9947042b0dd79323682eaa9d97dc7c625fd39e2a"
+    },
+    {
+      "path": "tools/hopfield_information_model.py",
+      "bytes": 24478,
+      "sha256": "fe8a742d626ea1d0a657bbc45676a4e638d4480e6047c4615e897ed7f0ca01e4"
+    },
+    {
+      "path": "tools/hopfield_probe_selector.py",
+      "bytes": 11537,
+      "sha256": "786400be4b89ef47d6016d6a2418d1a0be03cad3957cc831568f8a93ff4ec177"
+    },
+    {
+      "path": "tools/matched_cycle_reference_acquisition.py",
+      "bytes": 36627,
+      "sha256": "fd7cbdcf7af47239788928bfd9cfcf01ae0e6d0b9af5464bc2498007092c6247"
+    },
+    {
+      "path": "tools/matched_cycle_reference_evaluation.py",
+      "bytes": 69619,
+      "sha256": "69e5d961414411c925283c6d12b97fa2eed564e165058e7d33c73b8e48820d3a"
+    },
+    {
+      "path": "tools/matched_cycle_seed_bridge.py",
+      "bytes": 17063,
+      "sha256": "90af633d6e145d59790cd0d039a301f77441c9b05d0d11e59bf5f8b453d1286b"
+    },
+    {
+      "path": "tools/mixture_readout_evaluation.py",
+      "bytes": 40846,
+      "sha256": "af558bd15209dc61ce174da86f7fb8d5265dcbbde927a2d4ebe86e30bd2e0fd8"
+    },
+    {
+      "path": "tools/periodic_reference_refinement.py",
+      "bytes": 28032,
+      "sha256": "976a6b4c0bbc5c1f1ea25c9955ae7a8a7151f6bed53703d0e3f20bcda02bc69e"
+    },
+    {
+      "path": "tools/periodic_reference_refinement_evaluation.py",
+      "bytes": 55108,
+      "sha256": "6b353566cd091c3c2e41996d0f88cf9433d6375c751e6f35bad20127e1899b4d"
+    },
+    {
+      "path": "tools/phase_memory.py",
+      "bytes": 18875,
+      "sha256": "6e3eb8a665fd0cca8e5493c2d6773f0625e07d28ae57e4e00807d7fb8d7bd681"
+    },
+    {
+      "path": "tools/phase_memory_acquisition.py",
+      "bytes": 30400,
+      "sha256": "e133b981bdb205fc8df31d4708be890959c7e05f6876ae02a81c6a7237bc0c4c"
+    },
+    {
+      "path": "tools/phase_memory_evaluation.py",
+      "bytes": 42230,
+      "sha256": "169b0d3fbc886958e23e5a1719ef564d8df52a2412949502fdef79ca82554980"
+    },
+    {
+      "path": "tools/phase_memory_refinement_audit/audit_refinement.py",
+      "bytes": 24522,
+      "sha256": "9122dda99a87ee1e66d06ba1e7bde84b7adc3a3c950e4374408c3d1156366cf3"
+    },
+    {
+      "path": "tools/phase_memory_refinement_audit/independent_codec.py",
+      "bytes": 4254,
+      "sha256": "77571fbd5cb33c38f52ffea249591b52e6d1bc023ed31017de7c96b5b8040b87"
+    },
+    {
+      "path": "tools/phase_memory_refinement_audit/selection.py",
+      "bytes": 4166,
+      "sha256": "621e1682b4d87db6acb5777d8b5021b4a86a1d56cf04a64045b2ec141be12c0e"
+    },
+    {
+      "path": "tools/phase_memory_refinement_audit/selection_v2.py",
+      "bytes": 2778,
+      "sha256": "b8cb69e48a1f2c953c707082a2b102bac3a0d83bfcc0430885221c16219315de"
+    },
+    {
+      "path": "tools/phase_memory_refinement_audit/snapshots/interpret_saved_refinement.py",
+      "bytes": 12798,
+      "sha256": "5c8855c4a171dcef7b1893dcc76bac201239d08cbdbcda529369dd00065cc495"
+    },
+    {
+      "path": "tools/phase_memory_refinement_audit/snapshots/review_phase_refinement.py",
+      "bytes": 9164,
+      "sha256": "8d753a25c2cbd633ed5d202a8a7c7e084a4f2c8532a9b3a7ea2d16d987530127"
+    },
+    {
+      "path": "tools/phase_memory_refinement_evaluation.py",
+      "bytes": 20957,
+      "sha256": "e2c6af964fa7d1f7c4d413f13f3eb1c9f2ff6414d28d70a5a8573f29f61dfa20"
+    },
+    {
+      "path": "tools/phase_reference_diagnostic.py",
+      "bytes": 19610,
+      "sha256": "41485f76890e48b85d3480d34dc65a1c4cafe4488d18d75af17e49a8b0603061"
+    },
+    {
+      "path": "tools/phase_reference_diagnostic_evaluation.py",
+      "bytes": 32976,
+      "sha256": "ada9e743504d29c41f22da0702ba18669a72d85033cd4040cc89ee57bba5b0bb"
+    },
+    {
+      "path": "tools/phase_transverse_gain.py",
+      "bytes": 17730,
+      "sha256": "dd431eea19e39342ddf5a9c81233525f153b36bfd259b52be83b8dda793a6605"
+    },
+    {
+      "path": "tools/phase_transverse_gain_audit/audit_alternate_gates.py",
+      "bytes": 5784,
+      "sha256": "4755cfddc9ede83481632926f69357471977ec630693fb38d363f4744bbb9b6b"
+    },
+    {
+      "path": "tools/phase_transverse_gain_audit/audit_gain.py",
+      "bytes": 27376,
+      "sha256": "b2d36cc33fe3c7845a98d6e1965626b463cd550786ee75e63b9eefcbee8a6a72"
+    },
+    {
+      "path": "tools/phase_transverse_gain_audit/independent_codec.py",
+      "bytes": 4254,
+      "sha256": "77571fbd5cb33c38f52ffea249591b52e6d1bc023ed31017de7c96b5b8040b87"
+    },
+    {
+      "path": "tools/phase_transverse_gain_audit_snapshots/interpret_saved_gains.py",
+      "bytes": 13488,
+      "sha256": "23c362e2802e32b61b27da00a13cdb62d0ad88e6f73aebe97d9ca0877136da7d"
+    },
+    {
+      "path": "tools/phase_transverse_gain_audit_snapshots/preflight_metadata.py",
+      "bytes": 7419,
+      "sha256": "f0376f9e33e3b8a0d2b838b650a01591169924d6de9d4e533717ab6374c481d0"
+    },
+    {
+      "path": "tools/phase_transverse_gain_inputs.py",
+      "bytes": 16054,
+      "sha256": "d0f134c95f6a7e5e7aaf275a39894426c80f3a245de49aeb9c6ce8e05ce883c8"
+    },
+    {
+      "path": "tools/plot_cycle_decay.py",
+      "bytes": 2214,
+      "sha256": "d2f1d5fbdc149f356d03ef6798ce72fbf2615ee46bf70bc8adccbd17ef482c1d"
+    },
+    {
+      "path": "tools/plot_hopfield.py",
+      "bytes": 31137,
+      "sha256": "5426ad18dad69a0ebadc234ceeba41f33364ff86a83887eef5f623ebe69ef1e0"
+    },
+    {
+      "path": "tools/plot_hopfield_controls.py",
+      "bytes": 14327,
+      "sha256": "877f62949d9ce28aa379307959cd1d59b7620053aa92cf1ac877799015f0dad7"
+    },
+    {
+      "path": "tools/plot_hopfield_drift.py",
+      "bytes": 31673,
+      "sha256": "43c064d7e2e1543a5db778ff173fbe7f7745e8d6963a10c5c122ae7cdb12eaee"
+    },
+    {
+      "path": "tools/plot_hopfield_holdout.py",
+      "bytes": 32574,
+      "sha256": "12b0c18a8b5b759452e061071bcf4012a7fd8bfdb7cd1d17464e03d8cf43c530"
+    },
+    {
+      "path": "tools/plot_hopfield_information.py",
+      "bytes": 29966,
+      "sha256": "81b43a8ea3a6e74f367dff66c1b7720e6f92a485f283b61f95b3c0e0ed74ee70"
+    },
+    {
+      "path": "tools/plot_phase_memory.py",
+      "bytes": 19701,
+      "sha256": "3bee5544c144a0c6107dae2c086b9bc6aae7dfe7eb0116aafb01fc3d63ceec8c"
+    },
+    {
+      "path": "tools/plot_phase_memory_refinement.py",
+      "bytes": 27170,
+      "sha256": "af7275cdea8e52d2013ec0270138b93e30ed0bf1f4e78d0fad198fdaeb0356be"
+    },
+    {
+      "path": "tools/plot_phase_transverse_gain.py",
+      "bytes": 19994,
+      "sha256": "7370ac7c03cd89e588596347165db47d21fd43b8e284378d4b5bf2e9b675a510"
+    },
+    {
+      "path": "tools/plot_refined_two_write_saved.py",
+      "bytes": 19502,
+      "sha256": "5b4b4b1aaddc2a523280469030ebcf8f2c1e917584455277e3558a4629ae3acf"
+    },
+    {
+      "path": "tools/plot_stable_mixture_readout_saved.py",
+      "bytes": 19819,
+      "sha256": "df8a72b1c4832fce2d7491c39af342f68941a7da3369ec63169f8f09af723e4b"
+    },
+    {
+      "path": "tools/plot_two_write_saved.py",
+      "bytes": 11845,
+      "sha256": "f0560ef99ad1d65714cb9232f2441a87c297fec6dc490828da9a2649f2fd4928"
+    },
+    {
+      "path": "tools/postrun_audits/audit_exp010_ranking_operational.py",
+      "bytes": 13759,
+      "sha256": "41af54dd12b6abc882940e8aef9074b1edcb8444a6166f870c30153eddbbbffb"
+    },
+    {
+      "path": "tools/postrun_audits/audit_exp011_statistics_operational.py",
+      "bytes": 20605,
+      "sha256": "2e416da9a911a5570919098955d979aa1821e0bbb72ae6c670aad3e181f8f98b"
+    },
+    {
+      "path": "tools/postrun_audits/audit_exp012_performance.py",
+      "bytes": 26960,
+      "sha256": "2d8bd4056a1b51b37aee09d150a8da17d0c4c11d45f2a73abed185332919cf6f"
+    },
+    {
+      "path": "tools/postrun_audits/exp010_independent_audit.py",
+      "bytes": 13188,
+      "sha256": "db64140c9e5fddc9c6b23e38e93304bb90badbfd510b88124e9bbc611ede8642"
+    },
+    {
+      "path": "tools/postrun_audits/exp011_independent_evidence_audit.py",
+      "bytes": 27656,
+      "sha256": "5f1ae5f73684f5e112bad4143f5181aa67711659e0b1b07f240e3714ee6a95bc"
+    },
+    {
+      "path": "tools/postrun_audits/exp012_independent_numerical_audit.py",
+      "bytes": 24633,
+      "sha256": "69f5cd84110ae2f0a1b04ecd3a278287b55fd1213a8406fe3999a203a13d9a2a"
+    },
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/audit.py",
+      "bytes": 4469,
+      "sha256": "f6ed79b2709ee662d05c3c49169a38b43e51bc239b447bc5da5593c042f7066a"
+    },
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/close_historical_panel.py",
+      "bytes": 4779,
+      "sha256": "95d96f6850eb7741a73683d0a7109686d5f0b33cf76ea087ee7bccc606c7f4dc"
+    },
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/materialize_selection.py",
+      "bytes": 7057,
+      "sha256": "ec85d06556fa457fd836bf68bf2f18a609b77068e98dea309de1d300e1588c09"
+    },
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/run_validation.py",
+      "bytes": 2749,
+      "sha256": "ca1b6cbbf7a75c1b39de55552a4ad7415023a02f7b122ab90d628d9a5e7c85dc"
+    },
+    {
+      "path": "tools/prepare_hopfield_drift.py",
+      "bytes": 5605,
+      "sha256": "042f1375cc94158175e7debb5bc42566015c076123c749d0ba634188592c2123"
+    },
+    {
+      "path": "tools/prepare_hopfield_holdout.py",
+      "bytes": 5498,
+      "sha256": "91e1fab462bd73e6ca4745969b3bcc2999fbe6c7d45028bda392931e5b8745e3"
+    },
+    {
+      "path": "tools/prepare_hopfield_information.py",
+      "bytes": 5405,
+      "sha256": "8efdeb49e97ac4328fcb045d78be1f07536a34ac70f635f729d9dcbee7957ce0"
+    },
+    {
+      "path": "tools/prepare_runpod.py",
+      "bytes": 19714,
+      "sha256": "a6e65dbef6af862fe214eda4504709a7d33ec5ff37ba5b7d4f80e3cae89a8d6c"
+    },
+    {
+      "path": "tools/preview_final_model.py",
+      "bytes": 17792,
+      "sha256": "ffd43de77a7b1e0cbdfc7dc8c2727e48803f955aab89083a1bac646b1ac6590d"
+    },
+    {
+      "path": "tools/preview_shortlist_features.py",
+      "bytes": 10484,
+      "sha256": "f599ebf1644219657f41c8f915ab4815b233ea145d3bcbb787e8312da5eddfee"
+    },
+    {
+      "path": "tools/preview_shortlist_model.py",
+      "bytes": 8749,
+      "sha256": "42fb6075d1c85a0c0d5939ea035e6b77aee8de5cfe4e1d5e57a59f79eabb6539"
+    },
+    {
+      "path": "tools/refined_two_write_context.py",
+      "bytes": 11049,
+      "sha256": "202cd4ff5e2aa8febc5c18a6e7ba1d287cf797a8ce2340d299f28a71b9347489"
+    },
+    {
+      "path": "tools/run_fresh_failure_refinement.py",
+      "bytes": 31754,
+      "sha256": "74f5ce6052e84c1cf2b9cb8dfac18017c07872870f1169fb0acc217747bb3cb5"
+    },
+    {
+      "path": "tools/run_fresh_preview.py",
+      "bytes": 54917,
+      "sha256": "af22a0142c0b737dc8d5a23e7090440aa5c94cb79f809782a1757034c601a5d8"
+    },
+    {
+      "path": "tools/run_fresh_preview_recovery.py",
+      "bytes": 55087,
+      "sha256": "8e70c5cbd2e6dd09721ffb7c02c56cbc5b43ca8446bd6c2892e0b9ee33724741"
+    },
+    {
+      "path": "tools/run_gpu_preview_qualification.py",
+      "bytes": 58288,
+      "sha256": "d9880d729afdaa64071e74321d2ed3c6d791050a460486491c7baca26037452d"
+    },
+    {
+      "path": "tools/run_hopfield.py",
+      "bytes": 15022,
+      "sha256": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077"
+    },
+    {
+      "path": "tools/run_hopfield_controls.py",
+      "bytes": 13010,
+      "sha256": "493600d7b36c199c4f30079adcbcdf14018394a9e606b9306353dd29137d1e15"
+    },
+    {
+      "path": "tools/run_hopfield_drift.py",
+      "bytes": 23852,
+      "sha256": "23ac06eacaab249093c1abcbac5f8b3942c49d4b2a7e001afec508d051e5a5f9"
+    },
+    {
+      "path": "tools/run_hopfield_holdout.py",
+      "bytes": 22064,
+      "sha256": "ff70d0ad0499435f82b7e28ae9d43fe803ec42ad5ebf8a788b2734e8c5753497"
+    },
+    {
+      "path": "tools/run_hopfield_information.py",
+      "bytes": 31695,
+      "sha256": "76a32213b1384afab2ea1759d351bb03ea1a8eeae1893eff3398b8ccc70a1546"
+    },
+    {
+      "path": "tools/run_hopfield_refinement.py",
+      "bytes": 42934,
+      "sha256": "5a78ba0b7a1a9e9db2fd0818f2e567d2ce169839c9b787c74d18e827c9d61c95"
+    },
+    {
+      "path": "tools/run_matched_cycle_references.py",
+      "bytes": 22298,
+      "sha256": "9eec390003c1a549623a5a492a27abb9f83caecb94f1a72ab501b78fb8e3c1c9"
+    },
+    {
+      "path": "tools/run_mixture_readout.py",
+      "bytes": 45850,
+      "sha256": "5a3f7b0dc12eb62122d8f61524c81f2b61dfc5b78c21805edf7d00877c9e4475"
+    },
+    {
+      "path": "tools/run_periodic_reference_refinement.py",
+      "bytes": 37582,
+      "sha256": "9c2dd88d447d4e9b2e0d81d85ea5d8ee22f1bf37a6b461823853d4b928fb6c3c"
+    },
+    {
+      "path": "tools/run_phase_memory.py",
+      "bytes": 42055,
+      "sha256": "2ce56074d87f48f7de156c6e14678ff545ea3e9d9518f34744d49cf105517c75"
+    },
+    {
+      "path": "tools/run_phase_memory_recovery.py",
+      "bytes": 42182,
+      "sha256": "edcf3b8bfb12db902b1689f9e2777508fe02fa4dfc9c46edc25497d83cf9c239"
+    },
+    {
+      "path": "tools/run_phase_memory_refinement.py",
+      "bytes": 39503,
+      "sha256": "733c610021b26ee8c3c9879d13afad70b7626e36e7594dff4bee7363faedcfc9"
+    },
+    {
+      "path": "tools/run_phase_reference_diagnostic.py",
+      "bytes": 26612,
+      "sha256": "e4b3171c958a550bf2b6e2e72e774291198908618cb3f666c80e4116e56f7764"
+    },
+    {
+      "path": "tools/run_phase_transverse_gain.py",
+      "bytes": 25572,
+      "sha256": "fcdda51dc0121cf3d0e9339f6a6f01290e6f24d365cea0043ca388cea02d4f2d"
+    },
+    {
+      "path": "tools/run_preview_refinement.py",
+      "bytes": 35007,
+      "sha256": "e944490aa08d3987895f01311d8a5846339a8040d1a7d4fa0918402f5dada36e"
+    },
+    {
+      "path": "tools/run_preview_shortlist.py",
+      "bytes": 58082,
+      "sha256": "49aa75c59fc6359f3a4a11efb56b081a81d080fc3236f2e2005bd23c11b5e91f"
+    },
+    {
+      "path": "tools/run_refined_two_write_memory.py",
+      "bytes": 50004,
+      "sha256": "3a6e5ecc869e62c7a6ede94da3ebc70ddca17cd85bee340d652554dd81915e2e"
+    },
+    {
+      "path": "tools/run_stable_mixture_readout.py",
+      "bytes": 49712,
+      "sha256": "3f307317fc13ae4ae6f181ffcb8b7e42654c396a879f32e02d23f4081ba69d91"
+    },
+    {
+      "path": "tools/run_two_write_interaction.py",
+      "bytes": 24026,
+      "sha256": "438bce929910234f522b51f15e53cfd2fdbe03415e7acb15da8fb3095ad0a31b"
+    },
+    {
+      "path": "tools/run_two_write_memory.py",
+      "bytes": 38424,
+      "sha256": "e0448b67404ae9d114eeb86d2bd888aca288cacbe3b27bc2023a05a79034bde5"
+    },
+    {
+      "path": "tools/stable_mixture_readout_evaluation.py",
+      "bytes": 1910,
+      "sha256": "d7945d7f0cd3b60ff67d1c43e4f495e747461f780d647b62fb92bb1ce72d15c1"
+    },
+    {
+      "path": "tools/summarize_hopfield.py",
+      "bytes": 2971,
+      "sha256": "350f8fc7c87d1770477a6b169a859b6877f83120b631c8ff14dc98fdde6b331a"
+    },
+    {
+      "path": "tools/summarize_information_paper.py",
+      "bytes": 13488,
+      "sha256": "5bc084fcb88df207d74051d24a05e7d7a7587b8fc807e7159a1307905eab3df6"
+    },
+    {
+      "path": "tools/summarize_pilots.py",
+      "bytes": 4744,
+      "sha256": "0ab4116f7827b4d5f5280500cd1cdee843ce8520bd43ae89d4d7e431e5b3ce95"
+    },
+    {
+      "path": "tools/two_write_acquisition.py",
+      "bytes": 19391,
+      "sha256": "0d58101128b4d68f051c18b12a8d12aec7e27246fff8a4d00627fbbd91f54963"
+    },
+    {
+      "path": "tools/two_write_evaluation.py",
+      "bytes": 53042,
+      "sha256": "a58d04968c8967d2d19fc2747072849865bd72150318942ef853d971445a7680"
+    },
+    {
+      "path": "tools/two_write_interaction.py",
+      "bytes": 5454,
+      "sha256": "2aef016506e5d334bbb4953a3fcaf8fbbc1244362be0192c61bc3be445fc601e"
+    },
+    {
+      "path": "tools/two_write_memory.py",
+      "bytes": 16857,
+      "sha256": "eee083269a4bc515126d520b75fbd72d4db610e49fb1f96876cbe19ddb72c1ce"
+    },
+    {
+      "path": "tools/two_write_runtime.py",
+      "bytes": 6145,
+      "sha256": "47b7562ed8f0f97760b9c2d8304b4f906f5131ebc4e037ca0023ba437883759c"
+    },
+    {
+      "path": "tools/two_write_sensitivity.py",
+      "bytes": 6918,
+      "sha256": "7225c1f124e51aaa9c114a84233639608fd13a066deae79a00fdb2e6d26f8e57"
+    }
+  ],
+  "packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  }
+}

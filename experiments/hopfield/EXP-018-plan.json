@@ -1,0 +1,3540 @@
+{
+  "experiment_id": "EXP-018",
+  "exploratory": true,
+  "shooting_jobs": 4,
+  "reference_jobs": 2,
+  "event_jobs": 96,
+  "contexts": 48,
+  "total_jobs": 102,
+  "nested_slots": 208,
+  "shooting_trial_slots": 100,
+  "cross_forward_slots": 8,
+  "adjoint_slots": 4,
+  "methods": [
+    "tight-dop853",
+    "tight-rk45"
+  ],
+  "canonical_method": "tight-dop853",
+  "workers": 4,
+  "thread_limit": 1,
+  "producer_seconds": 1800,
+  "per_job_seconds": 180,
+  "sealing_seconds": 180,
+  "source_reference_receipt_sha256": "2494966914cb68d8c5286a5dca6710212ade171ead42c9cfaed82cebd44c12a8",
+  "previous_receipt_sha256": "7d8daa8d4bfe816247c568149b040758785c82d4fd4bb94a97b9c71b625b40f7",
+  "launch_ram_bytes": 17179869184,
+  "reserve_ram_bytes": 8589934592,
+  "owned_rss_bytes": 12884901888,
+  "raw_budget_bytes": 8589934592,
+  "required_packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "paid_compute": false,
+  "new_pulses": false,
+  "new_memory_scores": false,
+  "original_study_requalified": false,
+  "eight_period_memory_qualified": false,
+  "date": "2026-09-17",
+  "phases": [
+    {
+      "phase_index": 0,
+      "phase_fraction": 0.2832706692575573,
+      "split": "development"
+    },
+    {
+      "phase_index": 1,
+      "phase_fraction": 0.41369593731298093,
+      "split": "development"
+    },
+    {
+      "phase_index": 2,
+      "phase_fraction": 0.4522679969177369,
+      "split": "development"
+    },
+    {
+      "phase_index": 3,
+      "phase_fraction": 0.25950372110979825,
+      "split": "development"
+    },
+    {
+      "phase_index": 4,
+      "phase_fraction": 0.9990248784284849,
+      "split": "development"
+    },
+    {
+      "phase_index": 5,
+      "phase_fraction": 0.4600667039646923,
+      "split": "development"
+    },
+    {
+      "phase_index": 6,
+      "phase_fraction": 0.6756364216539279,
+      "split": "development"
+    },
+    {
+      "phase_index": 7,
+      "phase_fraction": 0.07502324174447983,
+      "split": "development"
+    },
+    {
+      "phase_index": 8,
+      "phase_fraction": 0.3715533042383875,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 9,
+      "phase_fraction": 0.27970799551420344,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 10,
+      "phase_fraction": 0.279100272459458,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 11,
+      "phase_fraction": 0.0907541082322425,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 12,
+      "phase_fraction": 0.8610425706131125,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 13,
+      "phase_fraction": 0.4827807858153893,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 14,
+      "phase_fraction": 0.8900413068768991,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 15,
+      "phase_fraction": 0.0477094602234972,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 16,
+      "phase_fraction": 0.14653384185918805,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 17,
+      "phase_fraction": 0.4644340440931325,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 18,
+      "phase_fraction": 0.3777196215503532,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 19,
+      "phase_fraction": 0.8964807745360148,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 20,
+      "phase_fraction": 0.6315203015021786,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 21,
+      "phase_fraction": 0.5954933266578307,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 22,
+      "phase_fraction": 0.9135168528486673,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 23,
+      "phase_fraction": 0.4704734401256553,
+      "split": "heldout"
+    }
+  ],
+  "acquisition_methods": {
+    "tight-dop853": {
+      "kind": "DOP853",
+      "rtol": 1e-13,
+      "atol": 1e-15,
+      "max_step_period_divisor": 16384
+    },
+    "tight-rk45": {
+      "kind": "RK45",
+      "rtol": 1e-13,
+      "atol": 1e-15,
+      "max_step_period_divisor": 16384
+    }
+  },
+  "evaluation_contract": {
+    "settings": [
+      "core",
+      "failed-near-edge"
+    ],
+    "methods": [
+      "tight-dop853",
+      "tight-rk45"
+    ],
+    "shooting_jobs": 4,
+    "reference_jobs": 2,
+    "event_jobs": 96,
+    "contexts": 48,
+    "trial_slots_per_shoot": 25,
+    "verification_paths": 8,
+    "backward_paths": 4,
+    "maximum_ivp_solves": 208,
+    "thresholds": {
+      "closure_relative": 1e-12,
+      "section_absolute": 1e-12,
+      "state_neighborhood": 1e-06,
+      "period_neighborhood": 1e-06,
+      "candidate_state": 1e-10,
+      "candidate_period": 1e-11,
+      "bordered_condition": 10000000000.0,
+      "neutral_residual": 1e-10,
+      "adjoint_periodicity": 1e-10,
+      "unique_singular_rtol": 1e-12,
+      "normalization_cosine_min": 1e-12,
+      "normalization": 1e-07,
+      "state": 1e-06,
+      "activation": 1e-07,
+      "epsilon": 0.0001
+    },
+    "canonical_method": "tight-dop853",
+    "global_normalizations_per_setting": 1,
+    "individual_phase_normalization": false,
+    "diagnostic_only": true,
+    "original_study_requalified": false,
+    "eight_period_memory_qualified": false,
+    "arithmetic_replay": {
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "left_unit_residual_order": "norm((M.T-I)@unit)",
+      "normalization_order": "pointwise z@f-1"
+    },
+    "completion": "All required saved computations are available and arithmetic-valid; science gates are separate",
+    "qualification": "All planned candidate, reference, and48 context gates; unavailable rows remain in denominator"
+  },
+  "source_files": [
+    {
+      "path": "tools/run_periodic_reference_refinement.py",
+      "bytes": 37582,
+      "sha256": "9c2dd88d447d4e9b2e0d81d85ea5d8ee22f1bf37a6b461823853d4b928fb6c3c"
+    },
+    {
+      "path": "tools/periodic_reference_refinement.py",
+      "bytes": 28032,
+      "sha256": "976a6b4c0bbc5c1f1ea25c9955ae7a8a7151f6bed53703d0e3f20bcda02bc69e"
+    },
+    {
+      "path": "tools/periodic_reference_refinement_evaluation.py",
+      "bytes": 55108,
+      "sha256": "6b353566cd091c3c2e41996d0f88cf9433d6375c751e6f35bad20127e1899b4d"
+    },
+    {
+      "path": "tools/phase_reference_diagnostic.py",
+      "bytes": 19610,
+      "sha256": "41485f76890e48b85d3480d34dc65a1c4cafe4488d18d75af17e49a8b0603061"
+    },
+    {
+      "path": "tools/phase_reference_diagnostic_evaluation.py",
+      "bytes": 32976,
+      "sha256": "ada9e743504d29c41f22da0702ba18669a72d85033cd4040cc89ee57bba5b0bb"
+    },
+    {
+      "path": "tests/test_periodic_reference_refinement.py",
+      "bytes": 18890,
+      "sha256": "57883ee10854aaa5559d9baacb98bfff986b9ddb835e82e5c6e44dd231a59a7e"
+    },
+    {
+      "path": "tests/test_periodic_reference_refinement_evaluation.py",
+      "bytes": 9020,
+      "sha256": "6dc09ec7dcfcad1879e7bcfca14ef3bdd0f5648feded5306e1989b7486de50ca"
+    },
+    {
+      "path": "tests/test_periodic_reference_refinement_runner.py",
+      "bytes": 24266,
+      "sha256": "6eb91184b6d1f66745f1ee0934541d7613dfe0b84dc0ecb7630778ea0fdd98ca"
+    },
+    {
+      "path": "tests/test_periodic_reference_refinement_integration.py",
+      "bytes": 8658,
+      "sha256": "1854e4460f507eecac02a99921be0928a92ef4c8d1a11a988ad9c1eff3b71a5b"
+    },
+    {
+      "path": "docs/EXP-018-protocol.md",
+      "bytes": 11437,
+      "sha256": "7870a23f083d55e4d149b8ed205219045441ea52f205bb17547abc9a9d1f346b"
+    },
+    {
+      "path": "docs/EXP-017-summary.json",
+      "bytes": 115959,
+      "sha256": "0195aea7af501d439ec08bdfdf6801b521ce39360aa2ee6bc0f6a8d208f5408c"
+    },
+    {
+      "path": "tools/run_two_write_memory.py",
+      "bytes": 38424,
+      "sha256": "e0448b67404ae9d114eeb86d2bd888aca288cacbe3b27bc2023a05a79034bde5"
+    },
+    {
+      "path": "tools/two_write_memory.py",
+      "bytes": 16857,
+      "sha256": "eee083269a4bc515126d520b75fbd72d4db610e49fb1f96876cbe19ddb72c1ce"
+    },
+    {
+      "path": "tools/two_write_acquisition.py",
+      "bytes": 19391,
+      "sha256": "0d58101128b4d68f051c18b12a8d12aec7e27246fff8a4d00627fbbd91f54963"
+    },
+    {
+      "path": "tools/two_write_evaluation.py",
+      "bytes": 53042,
+      "sha256": "a58d04968c8967d2d19fc2747072849865bd72150318942ef853d971445a7680"
+    },
+    {
+      "path": "tools/two_write_runtime.py",
+      "bytes": 6145,
+      "sha256": "47b7562ed8f0f97760b9c2d8304b4f906f5131ebc4e037ca0023ba437883759c"
+    },
+    {
+      "path": "tests/test_two_write_runtime.py",
+      "bytes": 6441,
+      "sha256": "04ede953ee0cdd2730feff46627c438132d778f523d431c2f01f72a75e9f5c50"
+    },
+    {
+      "path": "tests/test_two_write_runner.py",
+      "bytes": 19899,
+      "sha256": "d0427abe960286d81e8ccceb76012958dc047ffa20760cc7455df2b6a36c8a3b"
+    },
+    {
+      "path": "tests/test_two_write_memory.py",
+      "bytes": 14866,
+      "sha256": "ec09492d60f44182a79886eecd0a008031609fe1ed536898746b489a42217532"
+    },
+    {
+      "path": "tests/test_two_write_acquisition.py",
+      "bytes": 13155,
+      "sha256": "909a92562df09c19ab31d283c21ac738ebb516f1b206b4e09fa99ece05a0e7fd"
+    },
+    {
+      "path": "tests/test_two_write_evaluation.py",
+      "bytes": 19714,
+      "sha256": "079c1490da940545a2b942f875bf3fe3db8d15688a9a4f3cd02462a78308077c"
+    },
+    {
+      "path": "docs/EXP-016-protocol.md",
+      "bytes": 13914,
+      "sha256": "57b4a280c991b2598359c871aa1d652fa832841086f747b7b732b3b7eef66164"
+    },
+    {
+      "path": "docs/two-write-memory-design.md",
+      "bytes": 9115,
+      "sha256": "1b16036b751a16e16cb6022a8539612c3510ea249212e89ad1d2267e5c3e8203"
+    },
+    {
+      "path": "docs/consults/2026-09-17-pro-adjudication.md",
+      "bytes": 8765,
+      "sha256": "ce72d07076cb52502b4f4e9867320227be73859cfb0c5f47eebc5225585d2cd3"
+    },
+    {
+      "path": "docs/consults/2026-09-17-pro-receipt.json",
+      "bytes": 5217,
+      "sha256": "133d41f4e66845a2f9a3800453250d0d4a8cfc414e6e8f566132e28955393b62"
+    },
+    {
+      "path": "docs/consults/2026-09-17-pro-response.md",
+      "bytes": 21039,
+      "sha256": "ff81ca3e906f53711a549fadcf01fc9896a73d69920ecd89a6c5051d723f65e6"
+    },
+    {
+      "path": "docs/consults/2026-09-17-two-write-independent-adjudication.md",
+      "bytes": 10615,
+      "sha256": "76e59a297abab78e561b351fb68d02f1a415d964deafa7a39fd000f6a2972921"
+    },
+    {
+      "path": "tools/run_phase_memory_recovery.py",
+      "bytes": 42182,
+      "sha256": "edcf3b8bfb12db902b1689f9e2777508fe02fa4dfc9c46edc25497d83cf9c239"
+    },
+    {
+      "path": "tests/test_phase_memory_recovery.py",
+      "bytes": 6768,
+      "sha256": "55f624c66466c713c2e1746f5b3ad8bbfbb122566bd879e34ac59ce77c3ef730"
+    },
+    {
+      "path": "docs/EXP-014-operational-amendment.md",
+      "bytes": 3320,
+      "sha256": "9231fb07e9b531d05601bbd06c957866f5cf3522f14f3ab07648070cf3aa58c3"
+    },
+    {
+      "path": "tools/run_phase_memory.py",
+      "bytes": 42055,
+      "sha256": "2ce56074d87f48f7de156c6e14678ff545ea3e9d9518f34744d49cf105517c75"
+    },
+    {
+      "path": "tools/phase_memory_acquisition.py",
+      "bytes": 30400,
+      "sha256": "e133b981bdb205fc8df31d4708be890959c7e05f6876ae02a81c6a7237bc0c4c"
+    },
+    {
+      "path": "tools/phase_memory.py",
+      "bytes": 18875,
+      "sha256": "6e3eb8a665fd0cca8e5493c2d6773f0625e07d28ae57e4e00807d7fb8d7bd681"
+    },
+    {
+      "path": "tools/phase_memory_evaluation.py",
+      "bytes": 42230,
+      "sha256": "169b0d3fbc886958e23e5a1719ef564d8df52a2412949502fdef79ca82554980"
+    },
+    {
+      "path": "tests/test_phase_memory_acquisition.py",
+      "bytes": 18356,
+      "sha256": "b922f524eab3f475bc2fd571aebf9abefab7a595ee460b170734c870a660f465"
+    },
+    {
+      "path": "tests/test_phase_memory.py",
+      "bytes": 15003,
+      "sha256": "c2f37ca6ec7292e39dd1b30b54d2c517a063b03f3997e81ba0db5c5a8092bb61"
+    },
+    {
+      "path": "tests/test_phase_memory_evaluation.py",
+      "bytes": 17640,
+      "sha256": "66e29978e16dc07fdc507eb18af8825c7b415f99a6b509cae342ee0e375adf47"
+    },
+    {
+      "path": "tests/test_phase_memory_runner.py",
+      "bytes": 20897,
+      "sha256": "f49fdabda103182a6e95117bdb9dfc14a207b5059c329f78f3708b42f89b5d39"
+    },
+    {
+      "path": "docs/EXP-014-protocol.md",
+      "bytes": 13667,
+      "sha256": "21314553aa20da12fea9a8c6bd74dce403f80d2662477222449047b100451c22"
+    },
+    {
+      "path": "docs/phase-memory-design.md",
+      "bytes": 20387,
+      "sha256": "3b588110a20574adb14e802ca924537599ba203b651cfd77e13f06cc27f3ad3a"
+    },
+    {
+      "path": "tools/fresh_preview_runtime.py",
+      "bytes": 16993,
+      "sha256": "c15449d6dd51fa17959d2670cc0a6f4921b84301b029a66221fbeb2ed2f0c01c"
+    },
+    {
+      "path": "tools/run_hopfield.py",
+      "bytes": 15022,
+      "sha256": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077"
+    },
+    {
+      "path": "tools/run_hopfield_drift.py",
+      "bytes": 23852,
+      "sha256": "23ac06eacaab249093c1abcbac5f8b3942c49d4b2a7e001afec508d051e5a5f9"
+    },
+    {
+      "path": "tools/run_hopfield_refinement.py",
+      "bytes": 42934,
+      "sha256": "5a78ba0b7a1a9e9db2fd0818f2e567d2ce169839c9b787c74d18e827c9d61c95"
+    },
+    {
+      "path": "tools/hopfield_diagnostics.py",
+      "bytes": 16573,
+      "sha256": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07"
+    },
+    {
+      "path": "tools/hopfield_drift_metrics.py",
+      "bytes": 7702,
+      "sha256": "f2aacb77aa40e0c1e90d19cf57fd44fc00c1c1b3c40af745380658eee37f4c03"
+    },
+    {
+      "path": "tools/hopfield_drift_probe.py",
+      "bytes": 9688,
+      "sha256": "24e06c7a001135e29bd376603cf6b40027a87be649c2d250571aea4d792b7767"
+    },
+    {
+      "path": "native/hopfield.cpp",
+      "bytes": 9205,
+      "sha256": "d77afbf22b10abb829eecb41ff6ace262713a8b00e7544f2bfe4d389d661eba4"
+    },
+    {
+      "path": "native/hopfield_drift.cpp",
+      "bytes": 1942,
+      "sha256": "8261b60153f82497724d115e14a6264a00706f3ef825f11e95a0e1145b7d7f72"
+    },
+    {
+      "path": "tests/test_hopfield_refinement.py",
+      "bytes": 13579,
+      "sha256": "9c3d65ff9e7c25c43b92bcaa436c1ecb7a00357e57391bbed7f4462244d180db"
+    },
+    {
+      "path": "docs/EXP-009-protocol.md",
+      "bytes": 12900,
+      "sha256": "431aafd9af901044d091b0f7639c90cfd14c6123c649e2d9289a573863c24ba3"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 555,
+      "sha256": "78acf5fae0c94d1c2739e3632b47abef5d081c57c32eca5e3eba877c103c62da"
+    },
+    {
+      "path": "requirements.lock",
+      "bytes": 57027,
+      "sha256": "05caa21f496bd7e3ba7c0cdbe176bf78dc7eea309be00cf40c95c530b509399c"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 213926,
+      "sha256": "601c1bccf7f0768d942083d59fb30ad2c29db5aaee50c42911c99e5a7bf49c9e"
+    }
+  ],
+  "historical_inputs": [
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+      "path": "receipt.json",
+      "bytes": 577793,
+      "sha256": "2494966914cb68d8c5286a5dca6710212ade171ead42c9cfaed82cebd44c12a8"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+      "path": "references/payloads/core/packet.json",
+      "bytes": 700786,
+      "sha256": "552faf590b9f2b719297e217cd4021008d805f6ceefa4f94432e4e453ee73ff8"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+      "path": "references/payloads/core/packet.npz",
+      "bytes": 1099012,
+      "sha256": "3a832442a14e4a4363d279b225add7aca7d9924229fc73a848300159d30950c1"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+      "path": "references/payloads/failed-near-edge/packet.json",
+      "bytes": 700925,
+      "sha256": "35052a925590b579a3a4fe050562fdd9bd88717ca7fe1ed25c8abdaaa3100772"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+      "path": "references/payloads/failed-near-edge/packet.npz",
+      "bytes": 1099012,
+      "sha256": "87e74309d2b85e32e9e7fa1ce4176952a913151b3b46d9bdb1daf0693e796c4b"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-017/attempt-001",
+      "path": "receipt.json",
+      "bytes": 61089,
+      "sha256": "7d8daa8d4bfe816247c568149b040758785c82d4fd4bb94a97b9c71b625b40f7"
+    },
+    {
+      "root": "/data2/neural-shrimp",
+      "path": "docs/EXP-017-summary.json",
+      "bytes": 115959,
+      "sha256": "0195aea7af501d439ec08bdfdf6801b521ce39360aa2ee6bc0f6a8d208f5408c"
+    }
+  ],
+  "ledger": {
+    "shooting": [
+      {
+        "id": "core--tight-dop853",
+        "kind": "shoot",
+        "case": {
+          "id": "core--tight-dop853",
+          "setting": "core"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--tight-rk45",
+        "kind": "shoot",
+        "case": {
+          "id": "core--tight-rk45",
+          "setting": "core"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--tight-dop853",
+        "kind": "shoot",
+        "case": {
+          "id": "failed-near-edge--tight-dop853",
+          "setting": "failed-near-edge"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--tight-rk45",
+        "kind": "shoot",
+        "case": {
+          "id": "failed-near-edge--tight-rk45",
+          "setting": "failed-near-edge"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      }
+    ],
+    "references": [
+      {
+        "id": "core--reference-pair",
+        "kind": "reference",
+        "case": {
+          "id": "core",
+          "setting": "core"
+        },
+        "method": {
+          "id": "paired"
+        }
+      },
+      {
+        "id": "failed-near-edge--reference-pair",
+        "kind": "reference",
+        "case": {
+          "id": "failed-near-edge",
+          "setting": "failed-near-edge"
+        },
+        "method": {
+          "id": "paired"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "core--p00--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p00--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 0,
+          "phase_fraction": 0.2832706692575573,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p00--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p00--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 0,
+          "phase_fraction": 0.2832706692575573,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p01--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p01--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 1,
+          "phase_fraction": 0.41369593731298093,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p01--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p01--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 1,
+          "phase_fraction": 0.41369593731298093,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p02--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p02--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 2,
+          "phase_fraction": 0.4522679969177369,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p02--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p02--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 2,
+          "phase_fraction": 0.4522679969177369,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p03--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p03--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 3,
+          "phase_fraction": 0.25950372110979825,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p03--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p03--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 3,
+          "phase_fraction": 0.25950372110979825,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p04--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p04--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 4,
+          "phase_fraction": 0.9990248784284849,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p04--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p04--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 4,
+          "phase_fraction": 0.9990248784284849,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p05--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p05--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 5,
+          "phase_fraction": 0.4600667039646923,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p05--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p05--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 5,
+          "phase_fraction": 0.4600667039646923,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p06--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p06--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 6,
+          "phase_fraction": 0.6756364216539279,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p06--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p06--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 6,
+          "phase_fraction": 0.6756364216539279,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p07--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p07--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 7,
+          "phase_fraction": 0.07502324174447983,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p07--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p07--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 7,
+          "phase_fraction": 0.07502324174447983,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p08--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p08--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 8,
+          "phase_fraction": 0.3715533042383875,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p08--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p08--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 8,
+          "phase_fraction": 0.3715533042383875,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p09--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p09--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 9,
+          "phase_fraction": 0.27970799551420344,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p09--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p09--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 9,
+          "phase_fraction": 0.27970799551420344,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p10--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p10--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 10,
+          "phase_fraction": 0.279100272459458,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p10--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p10--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 10,
+          "phase_fraction": 0.279100272459458,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p11--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p11--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 11,
+          "phase_fraction": 0.0907541082322425,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p11--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p11--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 11,
+          "phase_fraction": 0.0907541082322425,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p12--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p12--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 12,
+          "phase_fraction": 0.8610425706131125,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p12--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p12--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 12,
+          "phase_fraction": 0.8610425706131125,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p13--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p13--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 13,
+          "phase_fraction": 0.4827807858153893,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p13--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p13--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 13,
+          "phase_fraction": 0.4827807858153893,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p14--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p14--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 14,
+          "phase_fraction": 0.8900413068768991,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p14--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p14--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 14,
+          "phase_fraction": 0.8900413068768991,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p15--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p15--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 15,
+          "phase_fraction": 0.0477094602234972,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p15--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p15--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 15,
+          "phase_fraction": 0.0477094602234972,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p16--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p16--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 16,
+          "phase_fraction": 0.14653384185918805,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p16--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p16--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 16,
+          "phase_fraction": 0.14653384185918805,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p17--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p17--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 17,
+          "phase_fraction": 0.4644340440931325,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p17--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p17--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 17,
+          "phase_fraction": 0.4644340440931325,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p18--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p18--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 18,
+          "phase_fraction": 0.3777196215503532,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p18--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p18--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 18,
+          "phase_fraction": 0.3777196215503532,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p19--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p19--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 19,
+          "phase_fraction": 0.8964807745360148,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p19--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p19--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 19,
+          "phase_fraction": 0.8964807745360148,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p20--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p20--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 20,
+          "phase_fraction": 0.6315203015021786,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p20--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p20--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 20,
+          "phase_fraction": 0.6315203015021786,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p21--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p21--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 21,
+          "phase_fraction": 0.5954933266578307,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p21--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p21--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 21,
+          "phase_fraction": 0.5954933266578307,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p22--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p22--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 22,
+          "phase_fraction": 0.9135168528486673,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p22--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p22--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 22,
+          "phase_fraction": 0.9135168528486673,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "core--p23--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "core--p23--tight-dop853",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-dop853",
+          "phase_index": 23,
+          "phase_fraction": 0.4704734401256553,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "core--p23--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "core--p23--tight-rk45",
+          "setting": "core",
+          "reference_id": "core--reference-pair",
+          "base_id": "core--tight-rk45",
+          "phase_index": 23,
+          "phase_fraction": 0.4704734401256553,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p00--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p00--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 0,
+          "phase_fraction": 0.2832706692575573,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p00--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p00--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 0,
+          "phase_fraction": 0.2832706692575573,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p01--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p01--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 1,
+          "phase_fraction": 0.41369593731298093,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p01--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p01--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 1,
+          "phase_fraction": 0.41369593731298093,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p02--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p02--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 2,
+          "phase_fraction": 0.4522679969177369,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p02--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p02--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 2,
+          "phase_fraction": 0.4522679969177369,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p03--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p03--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 3,
+          "phase_fraction": 0.25950372110979825,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p03--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p03--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 3,
+          "phase_fraction": 0.25950372110979825,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p04--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p04--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 4,
+          "phase_fraction": 0.9990248784284849,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p04--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p04--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 4,
+          "phase_fraction": 0.9990248784284849,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p05--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p05--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 5,
+          "phase_fraction": 0.4600667039646923,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p05--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p05--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 5,
+          "phase_fraction": 0.4600667039646923,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p06--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p06--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 6,
+          "phase_fraction": 0.6756364216539279,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p06--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p06--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 6,
+          "phase_fraction": 0.6756364216539279,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p07--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p07--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 7,
+          "phase_fraction": 0.07502324174447983,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p07--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p07--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 7,
+          "phase_fraction": 0.07502324174447983,
+          "split": "development"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p08--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p08--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 8,
+          "phase_fraction": 0.3715533042383875,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p08--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p08--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 8,
+          "phase_fraction": 0.3715533042383875,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p09--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p09--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 9,
+          "phase_fraction": 0.27970799551420344,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p09--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p09--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 9,
+          "phase_fraction": 0.27970799551420344,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p10--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p10--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 10,
+          "phase_fraction": 0.279100272459458,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p10--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p10--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 10,
+          "phase_fraction": 0.279100272459458,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p11--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p11--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 11,
+          "phase_fraction": 0.0907541082322425,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p11--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p11--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 11,
+          "phase_fraction": 0.0907541082322425,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p12--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p12--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 12,
+          "phase_fraction": 0.8610425706131125,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p12--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p12--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 12,
+          "phase_fraction": 0.8610425706131125,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p13--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p13--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 13,
+          "phase_fraction": 0.4827807858153893,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p13--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p13--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 13,
+          "phase_fraction": 0.4827807858153893,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p14--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p14--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 14,
+          "phase_fraction": 0.8900413068768991,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p14--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p14--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 14,
+          "phase_fraction": 0.8900413068768991,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p15--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p15--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 15,
+          "phase_fraction": 0.0477094602234972,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p15--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p15--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 15,
+          "phase_fraction": 0.0477094602234972,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p16--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p16--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 16,
+          "phase_fraction": 0.14653384185918805,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p16--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p16--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 16,
+          "phase_fraction": 0.14653384185918805,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p17--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p17--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 17,
+          "phase_fraction": 0.4644340440931325,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p17--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p17--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 17,
+          "phase_fraction": 0.4644340440931325,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p18--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p18--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 18,
+          "phase_fraction": 0.3777196215503532,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p18--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p18--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 18,
+          "phase_fraction": 0.3777196215503532,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p19--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p19--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 19,
+          "phase_fraction": 0.8964807745360148,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p19--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p19--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 19,
+          "phase_fraction": 0.8964807745360148,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p20--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p20--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 20,
+          "phase_fraction": 0.6315203015021786,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p20--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p20--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 20,
+          "phase_fraction": 0.6315203015021786,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p21--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p21--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 21,
+          "phase_fraction": 0.5954933266578307,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p21--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p21--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 21,
+          "phase_fraction": 0.5954933266578307,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p22--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p22--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 22,
+          "phase_fraction": 0.9135168528486673,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p22--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p22--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 22,
+          "phase_fraction": 0.9135168528486673,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      },
+      {
+        "id": "failed-near-edge--p23--tight-dop853",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p23--tight-dop853",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-dop853",
+          "phase_index": 23,
+          "phase_fraction": 0.4704734401256553,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-dop853"
+        }
+      },
+      {
+        "id": "failed-near-edge--p23--tight-rk45",
+        "kind": "event",
+        "case": {
+          "id": "failed-near-edge--p23--tight-rk45",
+          "setting": "failed-near-edge",
+          "reference_id": "failed-near-edge--reference-pair",
+          "base_id": "failed-near-edge--tight-rk45",
+          "phase_index": 23,
+          "phase_fraction": 0.4704734401256553,
+          "split": "heldout"
+        },
+        "method": {
+          "id": "tight-rk45"
+        }
+      }
+    ]
+  },
+  "nested_ledger": [
+    {
+      "id": "core--tight-dop853--trial-00",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 0
+    },
+    {
+      "id": "core--tight-dop853--trial-01",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 1
+    },
+    {
+      "id": "core--tight-dop853--trial-02",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 2
+    },
+    {
+      "id": "core--tight-dop853--trial-03",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 3
+    },
+    {
+      "id": "core--tight-dop853--trial-04",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 4
+    },
+    {
+      "id": "core--tight-dop853--trial-05",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 5
+    },
+    {
+      "id": "core--tight-dop853--trial-06",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 6
+    },
+    {
+      "id": "core--tight-dop853--trial-07",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 7
+    },
+    {
+      "id": "core--tight-dop853--trial-08",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 8
+    },
+    {
+      "id": "core--tight-dop853--trial-09",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 9
+    },
+    {
+      "id": "core--tight-dop853--trial-10",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 10
+    },
+    {
+      "id": "core--tight-dop853--trial-11",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 11
+    },
+    {
+      "id": "core--tight-dop853--trial-12",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 12
+    },
+    {
+      "id": "core--tight-dop853--trial-13",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 13
+    },
+    {
+      "id": "core--tight-dop853--trial-14",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 14
+    },
+    {
+      "id": "core--tight-dop853--trial-15",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 15
+    },
+    {
+      "id": "core--tight-dop853--trial-16",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 16
+    },
+    {
+      "id": "core--tight-dop853--trial-17",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 17
+    },
+    {
+      "id": "core--tight-dop853--trial-18",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 18
+    },
+    {
+      "id": "core--tight-dop853--trial-19",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 19
+    },
+    {
+      "id": "core--tight-dop853--trial-20",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 20
+    },
+    {
+      "id": "core--tight-dop853--trial-21",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 21
+    },
+    {
+      "id": "core--tight-dop853--trial-22",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 22
+    },
+    {
+      "id": "core--tight-dop853--trial-23",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 23
+    },
+    {
+      "id": "core--tight-dop853--trial-24",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-dop853",
+      "index": 24
+    },
+    {
+      "id": "core--tight-rk45--trial-00",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 0
+    },
+    {
+      "id": "core--tight-rk45--trial-01",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 1
+    },
+    {
+      "id": "core--tight-rk45--trial-02",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 2
+    },
+    {
+      "id": "core--tight-rk45--trial-03",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 3
+    },
+    {
+      "id": "core--tight-rk45--trial-04",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 4
+    },
+    {
+      "id": "core--tight-rk45--trial-05",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 5
+    },
+    {
+      "id": "core--tight-rk45--trial-06",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 6
+    },
+    {
+      "id": "core--tight-rk45--trial-07",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 7
+    },
+    {
+      "id": "core--tight-rk45--trial-08",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 8
+    },
+    {
+      "id": "core--tight-rk45--trial-09",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 9
+    },
+    {
+      "id": "core--tight-rk45--trial-10",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 10
+    },
+    {
+      "id": "core--tight-rk45--trial-11",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 11
+    },
+    {
+      "id": "core--tight-rk45--trial-12",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 12
+    },
+    {
+      "id": "core--tight-rk45--trial-13",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 13
+    },
+    {
+      "id": "core--tight-rk45--trial-14",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 14
+    },
+    {
+      "id": "core--tight-rk45--trial-15",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 15
+    },
+    {
+      "id": "core--tight-rk45--trial-16",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 16
+    },
+    {
+      "id": "core--tight-rk45--trial-17",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 17
+    },
+    {
+      "id": "core--tight-rk45--trial-18",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 18
+    },
+    {
+      "id": "core--tight-rk45--trial-19",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 19
+    },
+    {
+      "id": "core--tight-rk45--trial-20",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 20
+    },
+    {
+      "id": "core--tight-rk45--trial-21",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 21
+    },
+    {
+      "id": "core--tight-rk45--trial-22",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 22
+    },
+    {
+      "id": "core--tight-rk45--trial-23",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 23
+    },
+    {
+      "id": "core--tight-rk45--trial-24",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "core--tight-rk45",
+      "index": 24
+    },
+    {
+      "id": "core--verify--tight-dop853--tight-dop853",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "core--reference-pair",
+      "key": "tight-dop853--tight-dop853"
+    },
+    {
+      "id": "core--verify--tight-dop853--tight-rk45",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "core--reference-pair",
+      "key": "tight-dop853--tight-rk45"
+    },
+    {
+      "id": "core--verify--tight-rk45--tight-dop853",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "core--reference-pair",
+      "key": "tight-rk45--tight-dop853"
+    },
+    {
+      "id": "core--verify--tight-rk45--tight-rk45",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "core--reference-pair",
+      "key": "tight-rk45--tight-rk45"
+    },
+    {
+      "id": "core--adjoint--tight-dop853",
+      "kind": "adjoint",
+      "stage": "references",
+      "worker_id": "core--reference-pair",
+      "key": "tight-dop853"
+    },
+    {
+      "id": "core--adjoint--tight-rk45",
+      "kind": "adjoint",
+      "stage": "references",
+      "worker_id": "core--reference-pair",
+      "key": "tight-rk45"
+    },
+    {
+      "id": "core--p00--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p00--tight-dop853"
+    },
+    {
+      "id": "core--p00--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p00--tight-rk45"
+    },
+    {
+      "id": "core--p01--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p01--tight-dop853"
+    },
+    {
+      "id": "core--p01--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p01--tight-rk45"
+    },
+    {
+      "id": "core--p02--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p02--tight-dop853"
+    },
+    {
+      "id": "core--p02--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p02--tight-rk45"
+    },
+    {
+      "id": "core--p03--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p03--tight-dop853"
+    },
+    {
+      "id": "core--p03--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p03--tight-rk45"
+    },
+    {
+      "id": "core--p04--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p04--tight-dop853"
+    },
+    {
+      "id": "core--p04--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p04--tight-rk45"
+    },
+    {
+      "id": "core--p05--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p05--tight-dop853"
+    },
+    {
+      "id": "core--p05--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p05--tight-rk45"
+    },
+    {
+      "id": "core--p06--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p06--tight-dop853"
+    },
+    {
+      "id": "core--p06--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p06--tight-rk45"
+    },
+    {
+      "id": "core--p07--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p07--tight-dop853"
+    },
+    {
+      "id": "core--p07--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p07--tight-rk45"
+    },
+    {
+      "id": "core--p08--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p08--tight-dop853"
+    },
+    {
+      "id": "core--p08--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p08--tight-rk45"
+    },
+    {
+      "id": "core--p09--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p09--tight-dop853"
+    },
+    {
+      "id": "core--p09--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p09--tight-rk45"
+    },
+    {
+      "id": "core--p10--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p10--tight-dop853"
+    },
+    {
+      "id": "core--p10--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p10--tight-rk45"
+    },
+    {
+      "id": "core--p11--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p11--tight-dop853"
+    },
+    {
+      "id": "core--p11--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p11--tight-rk45"
+    },
+    {
+      "id": "core--p12--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p12--tight-dop853"
+    },
+    {
+      "id": "core--p12--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p12--tight-rk45"
+    },
+    {
+      "id": "core--p13--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p13--tight-dop853"
+    },
+    {
+      "id": "core--p13--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p13--tight-rk45"
+    },
+    {
+      "id": "core--p14--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p14--tight-dop853"
+    },
+    {
+      "id": "core--p14--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p14--tight-rk45"
+    },
+    {
+      "id": "core--p15--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p15--tight-dop853"
+    },
+    {
+      "id": "core--p15--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p15--tight-rk45"
+    },
+    {
+      "id": "core--p16--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p16--tight-dop853"
+    },
+    {
+      "id": "core--p16--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p16--tight-rk45"
+    },
+    {
+      "id": "core--p17--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p17--tight-dop853"
+    },
+    {
+      "id": "core--p17--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p17--tight-rk45"
+    },
+    {
+      "id": "core--p18--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p18--tight-dop853"
+    },
+    {
+      "id": "core--p18--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p18--tight-rk45"
+    },
+    {
+      "id": "core--p19--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p19--tight-dop853"
+    },
+    {
+      "id": "core--p19--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p19--tight-rk45"
+    },
+    {
+      "id": "core--p20--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p20--tight-dop853"
+    },
+    {
+      "id": "core--p20--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p20--tight-rk45"
+    },
+    {
+      "id": "core--p21--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p21--tight-dop853"
+    },
+    {
+      "id": "core--p21--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p21--tight-rk45"
+    },
+    {
+      "id": "core--p22--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p22--tight-dop853"
+    },
+    {
+      "id": "core--p22--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p22--tight-rk45"
+    },
+    {
+      "id": "core--p23--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p23--tight-dop853"
+    },
+    {
+      "id": "core--p23--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "core--p23--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-00",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 0
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-01",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 1
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-02",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 2
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-03",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 3
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-04",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 4
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-05",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 5
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-06",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 6
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-07",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 7
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-08",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 8
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-09",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 9
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-10",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 10
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-11",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 11
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-12",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 12
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-13",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 13
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-14",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 14
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-15",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 15
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-16",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 16
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-17",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 17
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-18",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 18
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-19",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 19
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-20",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 20
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-21",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 21
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-22",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 22
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-23",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 23
+    },
+    {
+      "id": "failed-near-edge--tight-dop853--trial-24",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-dop853",
+      "index": 24
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-00",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 0
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-01",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 1
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-02",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 2
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-03",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 3
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-04",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 4
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-05",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 5
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-06",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 6
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-07",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 7
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-08",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 8
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-09",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 9
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-10",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 10
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-11",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 11
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-12",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 12
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-13",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 13
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-14",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 14
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-15",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 15
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-16",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 16
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-17",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 17
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-18",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 18
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-19",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 19
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-20",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 20
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-21",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 21
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-22",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 22
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-23",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 23
+    },
+    {
+      "id": "failed-near-edge--tight-rk45--trial-24",
+      "kind": "shooting_trial",
+      "stage": "shooting",
+      "worker_id": "failed-near-edge--tight-rk45",
+      "index": 24
+    },
+    {
+      "id": "failed-near-edge--verify--tight-dop853--tight-dop853",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "failed-near-edge--reference-pair",
+      "key": "tight-dop853--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--verify--tight-dop853--tight-rk45",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "failed-near-edge--reference-pair",
+      "key": "tight-dop853--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--verify--tight-rk45--tight-dop853",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "failed-near-edge--reference-pair",
+      "key": "tight-rk45--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--verify--tight-rk45--tight-rk45",
+      "kind": "cross_forward",
+      "stage": "references",
+      "worker_id": "failed-near-edge--reference-pair",
+      "key": "tight-rk45--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--adjoint--tight-dop853",
+      "kind": "adjoint",
+      "stage": "references",
+      "worker_id": "failed-near-edge--reference-pair",
+      "key": "tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--adjoint--tight-rk45",
+      "kind": "adjoint",
+      "stage": "references",
+      "worker_id": "failed-near-edge--reference-pair",
+      "key": "tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p00--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p00--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p00--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p00--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p01--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p01--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p01--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p01--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p02--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p02--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p02--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p02--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p03--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p03--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p03--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p03--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p04--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p04--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p04--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p04--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p05--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p05--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p05--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p05--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p06--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p06--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p06--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p06--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p07--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p07--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p07--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p07--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p08--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p08--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p08--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p08--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p09--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p09--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p09--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p09--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p10--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p10--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p10--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p10--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p11--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p11--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p11--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p11--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p12--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p12--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p12--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p12--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p13--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p13--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p13--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p13--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p14--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p14--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p14--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p14--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p15--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p15--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p15--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p15--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p16--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p16--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p16--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p16--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p17--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p17--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p17--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p17--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p18--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p18--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p18--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p18--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p19--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p19--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p19--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p19--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p20--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p20--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p20--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p20--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p21--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p21--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p21--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p21--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p22--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p22--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p22--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p22--tight-rk45"
+    },
+    {
+      "id": "failed-near-edge--p23--tight-dop853",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p23--tight-dop853"
+    },
+    {
+      "id": "failed-near-edge--p23--tight-rk45",
+      "kind": "event",
+      "stage": "events",
+      "worker_id": "failed-near-edge--p23--tight-rk45"
+    }
+  ],
+  "census": {
+    "shooting": {
+      "count": 4,
+      "sha256": "8ea1e648c0022c509b892839f1bcc7628d4ff637f171313204c5822167e25c64"
+    },
+    "references": {
+      "count": 2,
+      "sha256": "5519a6154326930cd8e2b4d9b3fdebac4d9720c36ed94c647b94e3f80e254e93"
+    },
+    "events": {
+      "count": 96,
+      "sha256": "71c630b8e69db4ae09dfe267f7549193601948b5f710065f72c7a5011ef7c940"
+    }
+  },
+  "nested_census": {
+    "count": 208,
+    "sha256": "f646e676bc21246747008a0ac98270bb0e311de3f465c5cb900d2bcbb81ae419"
+  },
+  "planning": {
+    "previous_experiment": "EXP-017",
+    "event_jobs": 96,
+    "event_summed_worker_seconds": 157.198,
+    "base_jobs": 6,
+    "base_summed_worker_seconds": 17.032,
+    "maximum_ivp_slots": 208,
+    "estimated_summed_worker_seconds": 680,
+    "scope": "historical step-density scaling proxy; no new target pilot"
+  }
+}

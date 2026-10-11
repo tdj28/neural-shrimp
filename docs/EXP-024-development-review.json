@@ -1,0 +1,68 @@
+{
+  "date_local": "2026-09-22",
+  "findings": [
+    {
+      "finding": "First32 histories originally covered only core; benchmark now covers both settings and four fixed phases each at amplitude .01.",
+      "id": "L01",
+      "status": "resolved"
+    },
+    {
+      "finding": "Activation comparator now includes exact tanh of additive reference states, with coefficients sealed before finite outcomes.",
+      "id": "L02",
+      "status": "resolved"
+    },
+    {
+      "finding": "Handled parent termination now invokes owned-runtime cleanup and preserves terminal ledgers; no foreign processes are signaled.",
+      "id": "L03",
+      "status": "resolved"
+    },
+    {
+      "finding": "Saved replay reconstructs phase contexts and references, checks complete task census, hashes, observer coefficients, difference checks and final metrics without integration.",
+      "id": "L04",
+      "status": "resolved"
+    },
+    {
+      "finding": "This is a development panel; derivative gates may fail due to finite-step approximation or cancellation. Preserve such failures, do not silently tune h or gates, and do not promote available subsets to a held-out result.",
+      "id": "L05",
+      "status": "accepted_scope_limit"
+    },
+    {
+      "finding": "Synthetic bilinear and self-quadratic exact solutions verify Hessian factors and scheduled pulse chronology; dense covariance and known parity-risk controls verify analysis.",
+      "id": "L06",
+      "status": "pass"
+    },
+    {
+      "finding": "Source guard requires the complete reviewed code and plan in a clean checkout at the exact private remote HEAD. Raw outputs and partial attempts use exclusive external directories.",
+      "id": "L07",
+      "status": "pass"
+    },
+    {
+      "finding": "All 672 reference observer definitions precede every finite trajectory. Oracle coefficients derived from finite means are labeled descriptive and never replace sealed predictors.",
+      "id": "L08",
+      "status": "pass"
+    }
+  ],
+  "metadata_validation": {
+    "heldout_jobs": 0,
+    "jobs": 488,
+    "maximum_ivp_calls": 976,
+    "status": "valid_metadata_only"
+  },
+  "paid_review": "Completed authorized Astra Pro direction consult adjudicated; no additional call",
+  "plan_sha256": "3ca01774e9888a034ff5b3167f3e7cd7067f4a112f9118f24c3bd722a7d486db",
+  "resource_observation": {
+    "available_ram_gib_approx": 29,
+    "chosen": "four single-thread CPU workers; no paid compute",
+    "gpu": "RTX 2000 Ada, 15299 MiB free, 0% utilization; another task owns 636 MiB",
+    "rationale": "Small adaptive ODE, prior GPU path slower and unqualified; CPU/RAM capacity adequate"
+  },
+  "reviewer": "local executing agent with synthetic independent mathematical controls; not independent scientific replication",
+  "status": "ready_for_development_execution",
+  "tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m pytest -q tests/test_two_write_interaction.py tests/test_two_write_sensitivity.py tests/test_two_write_interaction_runner.py tests/test_two_write_runtime.py",
+    "failed": 0,
+    "passed": 49,
+    "seconds": 2.22
+  },
+  "unresolved_blocking_findings": []
+}

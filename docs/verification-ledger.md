@@ -326,3 +326,151 @@ unresolved, PR #7 remains **unmerged**, and the project remains a private
 working diagnostic draft. Numerical portability takes priority over the
 proposed four-preview experiment. Original Linux logs, local results,
 thresholds and raw evidence remain unchanged.
+
+## 2026-09-14: executed server numerical follow-up
+
+| Capability | Verification and scope |
+|---|---|
+| Shared-server policy and private checkpoints | Hardware queried live; external data root created; private SSH pushes verified by remote SHA. GitHub API authentication for the review PR is still pending. |
+| Arithmetic diagnostic | Pushed source `b3cf51bb88df75eccec4b19e0f7a15976b3a9b21`; complete saved-input diagnostic, all 3,456 directions and 195 ridge objectives. Full output remains external. No original failure threshold changed. |
+| Saved-trajectory regeneration | Pushed source `d276782c229aa33e2819ec89f15df4e23c7f7834`; all 48 contexts/3,456 previews/7,008 targets completed, exact before/after evidence bindings passed. Exit 1 intentionally retains 19 comparison failures; all choices and aggregate scores agree. |
+| EXP-009 | Same pushed source; all 2,776 planned integrations complete; built-in saved-array/complete-score verification passed. Raw data and original inputs remain hash-bound. This verifies execution, not universal numerical convergence. |
+| Combined code | 325 tests passed in 21.97 seconds before the integrated freeze; independent local review findings were fixed before outcomes. |
+
+Reports: [arithmetic](EXP-008-arithmetic-results-audit.md),
+[regeneration](EXP-008-regeneration-results-audit.md),
+[EXP-009](EXP-009-results-audit.md). The original EXP-008 strict verifier
+remains unchanged and failed; these separate checks do not replace it.
+
+## 2026-09-14 local / 2026-09-15 UTC: complete preview qualification
+
+EXP-010 source `98632899646f3eefa292b8a9f4c1b5123ae37ba0` was privately
+pushed and verified before execution. All 348 project tests passed before
+the freeze. The attempt completes all 6,944 required traces and its complete
+saved-array verification; the producer exits zero. Independent checks cover
+all 13,896 receipt artifacts, 3,463 old inputs, fourteen source files, every
+trace/metric/window and 3,504 waveform comparisons. The separate ranking
+audit passes 56,275 exact checks, with all 192 complete orders unchanged.
+All 3,456 scalar/waveform cases and sixteen independent sentinels pass their
+declared criteria. No raw evidence is added to Git and no paid resource is
+launched. See the [EXP-010 audit](EXP-010-results-audit.md).
+
+## 2026-09-14 local / 2026-09-15 UTC: complete shortlist feasibility
+
+EXP-011 source `64712453153ade24d2b22cf811f7a83811304de4` was privately
+pushed and its remote SHA verified before the first fit. All 385 repository
+tests passed before the freeze. The new feature adapter, nested model and
+runner passed separate independent pre-fit reviews; the full plan was
+reconstructed without fitting. Original EXP-009/010 source bindings remain
+intact.
+
+The exclusive external attempt completes all 24 origin folds, 96 model
+recipes and 192 contexts. Every SVD/QR score, selected-penalty and ordered-list
+gate passes. Both full label-resolution recipes preserve their chosen
+penalties, shortlists and actions. Built-in replay reproduces all 96 model
+packets; a separate invocation of the frozen verifier exits zero, verifies
+all 346 receipt-listed artifacts and repeats all 96 recipes, access/seal,
+label and aggregate checks. Its output is
+`verified_saved_shortlist_evidence`, with `all_complete: true`.
+
+The receipt lists 94,844,269 artifact bytes excluding itself and records
+114.067794487 seconds through execution, built-in replay and receipt sealing.
+Preflight and the separate verification are outside that elapsed time.
+Four bounded CPU workers and one numerical thread per worker were used;
+no new preview integration or paid resource was required. Full raw evidence
+is in `/data2/neural-shrimp-data/raw/EXP-011/attempt-001/`.
+
+Independent evidence reconstruction passes 76,598 checks with zero failures,
+including every raw/source/input binding, 2,208 inner-fold score recipes,
+27,648 held predictions, 1,536 complete rankings, 1,920 policy scores and
+all training/reveal events. It uses an independent elementwise prediction
+reduction from saved coefficients, without producer imports or refitting.
+Its largest held-prediction discrepancy is 8.9928065e-15. The last prediction
+seal precedes the first held-label reveal by 1.364514597 seconds; every
+four-label winner seal precedes full-eighteen oracle access. These conclusions
+combine persisted logs, hashes and the reviewed source; they are not an
+OS-level proof about unlogged file access.
+
+The independent statistical audit passes 17,742 checks, exactly reconstructing
+all 380 bootstrap intervals and the complete per-origin/aggregate trees.
+It also reproduces all solver/resolution rankings, choices and cost summaries.
+Its original sandbox-only process claim was preserved and explicitly corrected
+without changing any statistical value. Root's actual host inventory at
+01:44:26 UTC confirms every one of the 24 worker PIDs and producer 1716452
+absent. A separate host inventory at 01:47:43 UTC likewise confirms all 6,944
+EXP-010 workers and producer 1649165 absent, closing the previously uncertain
+namespace scope of that earlier audit. Both dated host reports are hash-bound
+in the corresponding compact summaries; no unrelated process was changed.
+
+See the [results audit](EXP-011-results-audit.md) and
+[compact summary](EXP-011-summary.json) for exact source, manifest, receipt
+and audit bindings. Numerical completion does not establish general geometry
+utility: signed axes have lower pooled preview error than either learner,
+and the observed shared-minus-geometry interval spans zero. The original
+EXP-008 strict Linux gate remains failed and unchanged.
+
+## EXP-012 local GPU qualification, 15 September local / 16 September UTC
+
+The complete protocol, executable source and 13,824-member reference binding
+were frozen and privately pushed as
+`c3a88b9db0a3e82b65d5d55a58d155b9a3275d5f` before target outcomes. The exact
+plan hash is `74cef32c3eedf20cba0f3e9b05dc44f1a3f29f6b04c865cf60bee4712750360e`.
+Pre-freeze tests passed 508 with one optional CUDA skip; a separately recorded
+real-GPU synthetic smoke also passed. Independent pre-run reviews covered
+native arithmetic, plan census, numerical gates and worker ownership/failure
+paths. Synthetic smoke did not qualify the scientific workload.
+
+All 54 batches and 64,188 case integrations completed, with all raw outputs
+and complete score packets saved. All 25 CPU batches reproduce EXP-010;
+all ten GPU repeat/layout checks pass; all tested candidate rankings and
+fixed-control choices agree. Both complete GPU case sets fail the frozen
+waveform and metric/phase gates. GPU is slower in all 24 paired warm timings;
+the intended full finer-step median paired speedup is 0.9181768421, below 1.25.
+The correct result is complete evidence and **failed GPU qualification**.
+
+The raw receipt binds 175 files and 1,738,050,920 artifact bytes outside Git,
+with source, manifest and per-file hashes. Its SHA-256 is
+`8a3119d77d5e07be2039c08411303533b6b67aec800049a5cac500be1b40c020`.
+The frozen CLI audit exits zero and reproduces its complete original audit
+byte for byte, including the failed qualification. The independent numerical
+audit passes 194,275 evidence checks with no evidence/replay failures, replays
+13,824 canonical score packets and 34,560 windows exactly, compares 6,912
+CPU cases to EXP-010 and independently reconstructs all 384 complete rankings
+and fixed-control choices. It confirms both failed GPU parity results.
+
+The independently authored performance/ownership audit, executed by root on
+the unrestricted host, passes 4,178 checks with zero failures. It reconstructs
+all timings and cost fields, checks the complete planned schedule and resource
+limits, and verifies both worker identities absent. The producer PID is also
+absent; its original start ticks were not recorded. At 06:06:08 UTC no owned
+PID holds GPU memory. Other GPU owners remain present and were not modified.
+The audit report and exact script are bound in the compact summary.
+
+No post-run audit integrates fresh dynamics or fits research models. All
+22 frozen EXP-012 source bindings remain unchanged. The draft EXP-013 pure
+final-model module adds 34 synthetic/failure-path tests; the complete suite
+now passes 542 tests with one optional skip. That component is not a complete
+EXP-013 executable freeze, and no EXP-013 final fit or fresh outcome has run.
+
+See the [results audit](EXP-012-results-audit.md) and
+[compact summary](EXP-012-summary.json) for full gate scope, timing pairs and
+hash-bound audit provenance. Keep CPU as the scientific default, preserve all
+failures, and retain the original EXP-008 strict gate unchanged.
+
+## gdmap CUDA backend engineering qualification, 6-7 October 2026
+
+An optional float64 CUDA backend for `gdmaps.run_grid` on TwoLayerNet grids
+(`src/neural_shrimp/gdmaps_cuda.py`, `native/gdmap_cuda.cu`) was built and
+qualified on artificial fixtures only (seeds 99990-99999); no study system or
+seed ran. Verification level: **locally tested and engineering-qualified, not
+qualified for any study.** It mirrors the CPU arithmetic operation by
+operation except CUDA tanh and log: identity networks with even input
+dimension match the CPU loss, gradient and HVP bitwise; tanh networks agree to
+about 3e-16 per step. On 12 x 12 grids over 6,000 updates with the EXP-028
+windows, statuses agree for 143/144 cells on each of two fixtures and 64/64 on
+a width-16 grid; repeats, re-chunked runs and host screening are bit-identical.
+The formal throughput benchmark and the FMA throughput comparison are deferred
+while the GPU is reserved. The CPU engine remains the scientific default. See
+[the qualification](gdmap-cuda-qualification.md); receipts are under
+`../neural-shrimp-data/audits/gdmap-cuda-qualification/` (attempt-001
+incomplete and preserved, attempt-002 complete).

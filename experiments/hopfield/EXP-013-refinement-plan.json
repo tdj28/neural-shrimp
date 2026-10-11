@@ -1,0 +1,497 @@
+{
+  "schema_version": "EXP013-refinement-v1",
+  "experiment_id": "EXP-013-refinement",
+  "outcome_selected": true,
+  "new_traces": 10,
+  "cases": 2,
+  "methods": [
+    {
+      "id": "rk4-0.000625",
+      "kind": "RK4",
+      "dt": 0.000625
+    },
+    {
+      "id": "rk4-0.0003125",
+      "kind": "RK4",
+      "dt": 0.0003125
+    },
+    {
+      "id": "rk4-0.00015625",
+      "kind": "RK4",
+      "dt": 0.00015625
+    },
+    {
+      "id": "dop853-1e-12",
+      "kind": "DOP853",
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "max_step": 0.025
+    },
+    {
+      "id": "dop853-1e-13",
+      "kind": "DOP853",
+      "rtol": 1e-13,
+      "atol": 1e-15,
+      "max_step": 0.0125
+    }
+  ],
+  "duration": 75.0,
+  "sample_dt": 0.1,
+  "samples": 751,
+  "phase_grid": 128,
+  "workers": 4,
+  "thread_limit": 1,
+  "wall_clock_ceiling_seconds": 120,
+  "per_trace_seconds": 30,
+  "ram_reserve_bytes": 8589934592,
+  "disk_reserve_bytes": 2147483648,
+  "gates": {
+    "rmse_absolute_difference": 0.0001,
+    "activation_rms_difference": 0.001,
+    "activation_max_difference": 0.01
+  },
+  "required_packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "paid_compute": false,
+  "paid_review": false,
+  "scope": "Outcome-selected numerical diagnosis of one EXP013 failed case and its preselected matched sham. Original failed waveform gate remains failed; no policy refit, label replacement, new origin, cohort geometry means, deployment inference or retrospective qualification of EXP013.",
+  "original_directory": "/data2/neural-shrimp-data/raw/EXP-013/attempt-002",
+  "original_source": "e5864f93ec6e822ba4fc6670640149f4a7c07b7b",
+  "original_receipt_sha256": "058aa80de824ecdfa00d8abc77d85ff231353a2af60e8db932f39eb07936552e",
+  "selected_cases": [
+    {
+      "id": "fresh-11-p1350-r0.016-c07",
+      "role": "fresh",
+      "anchor": "fresh-11",
+      "group": "hopfield-da-silva-rech-2022:0x1.101c66207eb3fp+0:0x1.4ae4ebbf5fcd1p+3",
+      "phase": 1350,
+      "radius": 0.016,
+      "candidate": 7,
+      "sensitivity_context": "fresh-11-p1350",
+      "direction_recipe": {
+        "kind": "uniform_16",
+        "index": 7
+      }
+    },
+    {
+      "id": "fresh-11-p1350-sham",
+      "radius": 0.0,
+      "role": "fresh",
+      "anchor": "fresh-11",
+      "group": "hopfield-da-silva-rech-2022:0x1.101c66207eb3fp+0:0x1.4ae4ebbf5fcd1p+3",
+      "phase": 1350
+    }
+  ],
+  "anchor": {
+    "id": "fresh-11",
+    "anchor": "fresh-11",
+    "row": 88,
+    "column": 52,
+    "alpha": 1.0629333333333333,
+    "gamma": 10.340444444444445,
+    "atlas_period": 9,
+    "raw_margin": 0.0009333333333334526,
+    "crop_edge_lower_bound": 0.006933333333333236,
+    "nearest_non_core_row": 88,
+    "nearest_non_core_column": 59,
+    "outward": [
+      1.0,
+      0.0
+    ],
+    "inward": [
+      -1.0,
+      -0.0
+    ],
+    "tangent": [
+      -0.0,
+      1.0
+    ],
+    "phase_indices": [
+      675,
+      1350
+    ],
+    "reference_samples": 2700,
+    "block_id": "fresh-block-11",
+    "group": "hopfield-da-silva-rech-2022:0x1.101c66207eb3fp+0:0x1.4ae4ebbf5fcd1p+3",
+    "minimum_development_distance": 0.040445054940448234,
+    "nearest_development_index": 22,
+    "role": "fresh"
+  },
+  "original_numerical_gates": {
+    "fresh-11-p1350-r0.016-c07": {
+      "id": "fresh-11-p1350-r0.016-c07",
+      "sham": false,
+      "independent": false,
+      "statuses": {
+        "rk4-0.005": "complete",
+        "rk4-0.0025": "complete",
+        "rk4-0.00125": "complete"
+      },
+      "all_required_complete": true,
+      "all_native_complete": true,
+      "native_scalar_pass": true,
+      "native_waveform_pass": false,
+      "independent_pass": true,
+      "d1": 0.00014525375118701334,
+      "d2": 1.3842566720767557e-05,
+      "activation_rms_difference": 0.00104337894839951,
+      "activation_max_difference": 0.026650288158257568,
+      "qualified": false
+    },
+    "fresh-11-p1350-sham": {
+      "id": "fresh-11-p1350-sham",
+      "sham": true,
+      "independent": false,
+      "statuses": {
+        "rk4-0.005": "complete",
+        "rk4-0.0025": "complete",
+        "rk4-0.00125": "complete"
+      },
+      "all_required_complete": true,
+      "all_native_complete": true,
+      "native_scalar_pass": true,
+      "native_waveform_pass": true,
+      "independent_pass": true,
+      "d1": 1.6132772391206848e-11,
+      "d2": 7.744846566371325e-13,
+      "activation_rms_difference": 2.1516162414423072e-10,
+      "activation_max_difference": 4.885629623085919e-09,
+      "qualified": true
+    }
+  },
+  "source_files": [
+    {
+      "path": "tools/run_fresh_preview_recovery.py",
+      "sha256": "8e70c5cbd2e6dd09721ffb7c02c56cbc5b43ca8446bd6c2892e0b9ee33724741",
+      "bytes": 55087
+    },
+    {
+      "path": "tests/test_fresh_preview_recovery.py",
+      "sha256": "ca11bd286d02b6d04abf2c65b85a989618d821fe899ba28dd454fdc1cd54c5d2",
+      "bytes": 11270
+    },
+    {
+      "path": "docs/EXP-013-operational-amendment.md",
+      "sha256": "3c618df5b8faa2b9323d814922bc86012a7d9121eea602786a600637b2bba5b3",
+      "bytes": 3949
+    },
+    {
+      "path": "tools/run_fresh_preview.py",
+      "sha256": "af22a0142c0b737dc8d5a23e7090440aa5c94cb79f809782a1757034c601a5d8",
+      "bytes": 54917
+    },
+    {
+      "path": "tools/fresh_preview_runtime.py",
+      "sha256": "c15449d6dd51fa17959d2670cc0a6f4921b84301b029a66221fbeb2ed2f0c01c",
+      "bytes": 16993
+    },
+    {
+      "path": "tests/test_fresh_preview_runtime.py",
+      "sha256": "276ac86c113813a6416715ae9fb85dc237f04d9c39554e511215781084906dca",
+      "bytes": 20510
+    },
+    {
+      "path": "tests/test_fresh_preview.py",
+      "sha256": "eb5068f43b2d997aa3a55b7bc1da8dafac1145ad8a315c1fb61406ffe4270aa8",
+      "bytes": 32396
+    },
+    {
+      "path": "tests/test_preview_final_model.py",
+      "sha256": "a27bf1ef31a9f45a2e5503bd7813f703d21f7bf4e6ac266cd3ef145124febe52",
+      "bytes": 18925
+    },
+    {
+      "path": "tests/test_fresh_preview_features.py",
+      "sha256": "616f9d55c3e50d37095db1628cbfaaf50816a4f31d62cb667aae401e0af38223",
+      "bytes": 18661
+    },
+    {
+      "path": "tests/test_fresh_preview_evaluation.py",
+      "sha256": "988892caef6da42a32a12737aed138df7c69703e7ec6531cb9e582286e94203c",
+      "bytes": 31050
+    },
+    {
+      "path": "docs/EXP-013-protocol.md",
+      "sha256": "5c748766766a76d36d50c7677f355b439a2e73df99842a422b95424a205ad05f",
+      "bytes": 27665
+    },
+    {
+      "path": "docs/fresh-origin-tradeoff-design.md",
+      "sha256": "6c5d27529ded184ac7983e75bb30a2d9b40d71db2ce661c3fc1f834c368760d3",
+      "bytes": 26189
+    },
+    {
+      "path": "docs/consults/2026-09-17-strategy-brief.md",
+      "sha256": "cceca16829ef19879024dc30471f0e06192ab338ae2fb7db6e85a2419f7733f3",
+      "bytes": 8220
+    },
+    {
+      "path": "docs/consults/2026-09-17-receipt.json",
+      "sha256": "a6f2d91ef977e872cad1c5539c0b5dd8cfee2667e6324d3af16560d84860875f",
+      "bytes": 4192
+    },
+    {
+      "path": "tools/run_hopfield.py",
+      "sha256": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077",
+      "bytes": 15022
+    },
+    {
+      "path": "tools/run_hopfield_drift.py",
+      "sha256": "23ac06eacaab249093c1abcbac5f8b3942c49d4b2a7e001afec508d051e5a5f9",
+      "bytes": 23852
+    },
+    {
+      "path": "tools/fresh_preview_features.py",
+      "sha256": "299bb3f4d6f97726c55d4c344f81142ade22c64ca2d2edf67c6968a348e94ca2",
+      "bytes": 17041
+    },
+    {
+      "path": "tools/hopfield_diagnostics.py",
+      "sha256": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07",
+      "bytes": 16573
+    },
+    {
+      "path": "tools/preview_shortlist_features.py",
+      "sha256": "f599ebf1644219657f41c8f915ab4815b233ea145d3bcbb787e8312da5eddfee",
+      "bytes": 10484
+    },
+    {
+      "path": "tools/hopfield_information_design.py",
+      "sha256": "41e71719b9a17b7b8e8322c77945d0a38f4f2d189aa6fbbc884202708dea8e35",
+      "bytes": 17460
+    },
+    {
+      "path": "tools/hopfield_drift_design.py",
+      "sha256": "ef8233132c83ea9a0727b483d3d234e4e2bc7ba7e444bddc17f38c290cf7a812",
+      "bytes": 22914
+    },
+    {
+      "path": "tools/hopfield_probe_selector.py",
+      "sha256": "786400be4b89ef47d6016d6a2418d1a0be03cad3957cc831568f8a93ff4ec177",
+      "bytes": 11537
+    },
+    {
+      "path": "tools/hopfield_drift_metrics.py",
+      "sha256": "f2aacb77aa40e0c1e90d19cf57fd44fc00c1c1b3c40af745380658eee37f4c03",
+      "bytes": 7702
+    },
+    {
+      "path": "tools/fresh_preview_evaluation.py",
+      "sha256": "7e97aa73cdde98669d86198a38fcb8488f245148bc8f60115bc3c3734db67f59",
+      "bytes": 40307
+    },
+    {
+      "path": "tools/preview_final_model.py",
+      "sha256": "ffd43de77a7b1e0cbdfc7dc8c2727e48803f955aab89083a1bac646b1ac6590d",
+      "bytes": 17792
+    },
+    {
+      "path": "tools/preview_shortlist_model.py",
+      "sha256": "42fb6075d1c85a0c0d5939ea035e6b77aee8de5cfe4e1d5e57a59f79eabb6539",
+      "bytes": 8749
+    },
+    {
+      "path": "tools/run_preview_shortlist.py",
+      "sha256": "49aa75c59fc6359f3a4a11efb56b081a81d080fc3236f2e2005bd23c11b5e91f",
+      "bytes": 58082
+    },
+    {
+      "path": "tests/test_preview_shortlist.py",
+      "sha256": "633054230b615250aecb49b959a1d05c3faf05d93e6b3619956daf37291db00d",
+      "bytes": 16555
+    },
+    {
+      "path": "tests/test_preview_shortlist_features.py",
+      "sha256": "60bf901496c2e386fd89ed75c130e30a3f6987088faf2673049ef04e3614d9db",
+      "bytes": 8991
+    },
+    {
+      "path": "docs/EXP-011-protocol.md",
+      "sha256": "5b28873c7d69d209b0325fa1ef331a1ab4ab6d9b826403cbda18e87bd556a937",
+      "bytes": 10857
+    },
+    {
+      "path": "docs/EXP-010-qualification.json",
+      "sha256": "6f414b0034b967a24682f8c3068f8c0c68c5d2dd52fcbb91a93814fab28e57b1",
+      "bytes": 2117
+    },
+    {
+      "path": "tools/run_hopfield_refinement.py",
+      "sha256": "5a78ba0b7a1a9e9db2fd0818f2e567d2ce169839c9b787c74d18e827c9d61c95",
+      "bytes": 42934
+    },
+    {
+      "path": "tools/hopfield_drift_probe.py",
+      "sha256": "24e06c7a001135e29bd376603cf6b40027a87be649c2d250571aea4d792b7767",
+      "bytes": 9688
+    },
+    {
+      "path": "native/hopfield.cpp",
+      "sha256": "d77afbf22b10abb829eecb41ff6ace262713a8b00e7544f2bfe4d389d661eba4",
+      "bytes": 9205
+    },
+    {
+      "path": "native/hopfield_drift.cpp",
+      "sha256": "8261b60153f82497724d115e14a6264a00706f3ef825f11e95a0e1145b7d7f72",
+      "bytes": 1942
+    },
+    {
+      "path": "tests/test_hopfield_refinement.py",
+      "sha256": "9c3d65ff9e7c25c43b92bcaa436c1ecb7a00357e57391bbed7f4462244d180db",
+      "bytes": 13579
+    },
+    {
+      "path": "docs/EXP-009-protocol.md",
+      "sha256": "431aafd9af901044d091b0f7639c90cfd14c6123c649e2d9289a573863c24ba3",
+      "bytes": 12900
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "78acf5fae0c94d1c2739e3632b47abef5d081c57c32eca5e3eba877c103c62da",
+      "bytes": 555
+    },
+    {
+      "path": "requirements.lock",
+      "sha256": "05caa21f496bd7e3ba7c0cdbe176bf78dc7eea309be00cf40c95c530b509399c",
+      "bytes": 57027
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "601c1bccf7f0768d942083d59fb30ad2c29db5aaee50c42911c99e5a7bf49c9e",
+      "bytes": 213926
+    },
+    {
+      "path": "tools/run_fresh_failure_refinement.py",
+      "sha256": "74f5ce6052e84c1cf2b9cb8dfac18017c07872870f1169fb0acc217747bb3cb5",
+      "bytes": 31754
+    },
+    {
+      "path": "tests/test_fresh_failure_refinement.py",
+      "sha256": "18e356a3e5d172dece0d1ec867c01ff3052609bdcd64514725682b41b5126133",
+      "bytes": 20087
+    },
+    {
+      "path": "docs/EXP-013-refinement-protocol.md",
+      "sha256": "8123775ec2db2184236ad1fc54cea694c9c20069eee64b70efd2474e23e11662",
+      "bytes": 6507
+    }
+  ],
+  "input_files": [
+    {
+      "path": "manifest.json",
+      "sha256": "7c901f0cd0a66c83384119363b8140a8d01729ae4630c02a18c47feb68fbb810",
+      "bytes": 2080041
+    },
+    {
+      "path": "receipt.json",
+      "sha256": "058aa80de824ecdfa00d8abc77d85ff231353a2af60e8db932f39eb07936552e",
+      "bytes": 4239820
+    },
+    {
+      "path": "numerical-audit.json",
+      "sha256": "e346cefc6070afccea826925fffeb5afea532a34925b85f0dc7d36b295629971",
+      "bytes": 2250630
+    },
+    {
+      "path": "policy-seal.json",
+      "sha256": "eaee0c9bf57f0ec99d289fa840214ef8fd85138b5aaef52fa4f162690b284e7d",
+      "bytes": 10305947
+    },
+    {
+      "path": "winner-seal.json",
+      "sha256": "d8a7d1c7e96a26bce93a8df7e003986ee6062423967c7c29caffde1677d4f4ce",
+      "bytes": 3974631
+    },
+    {
+      "path": "access-audit.json",
+      "sha256": "9af0b19bce6bd89c1ff1a052f3dae577a89a4863229f305cd10211f81c8b54ff",
+      "bytes": 298
+    },
+    {
+      "path": "postflight.json",
+      "sha256": "e666ff83fb24223882afc0ebfbe64be3eaf7bca4840a8a83cd72e0476aea5db6",
+      "bytes": 347
+    },
+    {
+      "path": "baselines/records/fresh-11.json",
+      "sha256": "aa95fbd64919ccdfe61bbff95acbcdc24921bee20d928de7fa4a4bde33ddfcb6",
+      "bytes": 578
+    },
+    {
+      "path": "baselines/payloads/fresh-11/baselines/fresh-11/result.json",
+      "sha256": "582d8cae59475698a83791b02aa886edada581fa96310fee4d738fa9ee3c95ca",
+      "bytes": 625747
+    },
+    {
+      "path": "previews/records/fresh-11-p1350-r0.016-c07--rk4-0.005.json",
+      "sha256": "c62736b14408e79fc50867506b6d4ca560695d8a7db9a41bea04a7d39eea859c",
+      "bytes": 4136
+    },
+    {
+      "path": "previews/payloads/fresh-11-p1350-r0.016-c07--rk4-0.005/trace.npz",
+      "sha256": "0882f8af554664bdefe516f615869882574ed88d691e09fa9770ad407d2a93cf",
+      "bytes": 20200
+    },
+    {
+      "path": "previews/records/fresh-11-p1350-r0.016-c07--rk4-0.0025.json",
+      "sha256": "6c9cd65b435814d4fdf4ffa1825119c50bd1a04f8b22b4aa41349fdde5d3b404",
+      "bytes": 4142
+    },
+    {
+      "path": "previews/payloads/fresh-11-p1350-r0.016-c07--rk4-0.0025/trace.npz",
+      "sha256": "c12713041e7fa88a7dc8fe418992884b300f5facbd602bbfc4973e0e3b47e77f",
+      "bytes": 20196
+    },
+    {
+      "path": "previews/records/fresh-11-p1350-r0.016-c07--rk4-0.00125.json",
+      "sha256": "8ba763f52eadacce077884c7276f09effd09a699a99b0b39fb0d1a825a9972b8",
+      "bytes": 4141
+    },
+    {
+      "path": "previews/payloads/fresh-11-p1350-r0.016-c07--rk4-0.00125/trace.npz",
+      "sha256": "4650d29273563a79de2d6758b79e4c0ab4f15d90398f48a07a8e8e6ac0b7f0c0",
+      "bytes": 20186
+    },
+    {
+      "path": "previews/records/fresh-11-p1350-sham--rk4-0.005.json",
+      "sha256": "545ef404ca073ba6245e586ff6a3ad38685a05b3c00f92389476dfdc5304f52a",
+      "bytes": 4237
+    },
+    {
+      "path": "previews/payloads/fresh-11-p1350-sham--rk4-0.005/trace.npz",
+      "sha256": "eb6806b30c8dc635fc179269ae719f26e5976ad6fa7c0e345a2580be1dfd301e",
+      "bytes": 20189
+    },
+    {
+      "path": "previews/records/fresh-11-p1350-sham--rk4-0.0025.json",
+      "sha256": "579553e99be84b82aa11037d3bade7478e2593dd49b4f5dc504349bb06a18771",
+      "bytes": 4233
+    },
+    {
+      "path": "previews/payloads/fresh-11-p1350-sham--rk4-0.0025/trace.npz",
+      "sha256": "684772ff09bcce4398fb825a86f1c81cc0285595f3e1e892b3152f61d49c6660",
+      "bytes": 20175
+    },
+    {
+      "path": "previews/records/fresh-11-p1350-sham--rk4-0.00125.json",
+      "sha256": "290f0df96e8477c225bba59572f65dc37fdb5851b65ba75dfe610955b371763d",
+      "bytes": 4245
+    },
+    {
+      "path": "previews/payloads/fresh-11-p1350-sham--rk4-0.00125/trace.npz",
+      "sha256": "32ef0bc47c6502401b2e3b35fa3a9878969a500ea55319060e4352cfc8ede241",
+      "bytes": 20188
+    }
+  ],
+  "comparison_counts": {
+    "all_new_method_pairs": 20,
+    "old_fine_against_new": 10,
+    "original_adjacent_native": 4,
+    "unique_pairs": 34,
+    "new_native_adjacent_subset": 6
+  },
+  "failure_policy": "Retain all10 planned terminal statuses and34 planned comparisons; no retry/replacement.",
+  "selection_reason": "Sole EXP013 candidate failing original native waveform gates; fixed same-origin/phase zero-dose sham."
+}

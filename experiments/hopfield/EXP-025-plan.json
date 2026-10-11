@@ -1,0 +1,167 @@
+{
+  "experiment_id": "EXP-025",
+  "date": "2026-09-23",
+  "status": "prospective exploratory boundary behavior comparison",
+  "points": [
+    {
+      "alpha": 1.064,
+      "gamma": 10.14
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.19
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.2
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.21
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.24
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.260722222222222
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.29
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.3
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.31
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.32
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.33
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.35
+    },
+    {
+      "alpha": 1.064,
+      "gamma": 10.55
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.14
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.19
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.2
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.21
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.24
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.260722222222222
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.29
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.3
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.31
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.32
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.33
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.35
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "gamma": 10.55
+    }
+  ],
+  "initial_states": [
+    [
+      0.1,
+      0.1,
+      0.1
+    ],
+    [
+      0.2,
+      -0.1,
+      0.3
+    ]
+  ],
+  "train_contexts_per_start": 32,
+  "test_contexts_per_start": 64,
+  "context_seed": 2026092300,
+  "amplitudes": [
+    0.01,
+    0.1
+  ],
+  "task_dt": [
+    0.0025,
+    0.00125
+  ],
+  "windows": [
+    [
+      20,
+      25
+    ],
+    [
+      55,
+      60
+    ]
+  ],
+  "ridge": 0.0001,
+  "activation_gate": 0.0001,
+  "score_gate": 0.002,
+  "minimum_effect": 0.05,
+  "workers": 6,
+  "wall_seconds": 1800,
+  "paid_compute": false,
+  "geometry": {
+    "dt": [
+      0.01,
+      0.005
+    ],
+    "burn_time": 10000.0,
+    "sample_time": 2000.0,
+    "event_capacity": 256,
+    "max_peak_period": 32,
+    "minimum_repeats": 4,
+    "recurrence_atol": 2e-06,
+    "recurrence_rtol": 2e-05
+  },
+  "primary": "First input sign held-out R2 at amplitude 0.1, observation t=55..60, affine readout; adjacent periodic minus irregular-supported differences equally weighted.",
+  "selection": "All fixed points run; adjacent regime pairs selected by geometry census before any task outcome. No interpolation claims.",
+  "provenance": "Plan and executable source privately pushed before any new target trajectory. Prior EXP004/005/006/024 informed coordinates and questions."
+}

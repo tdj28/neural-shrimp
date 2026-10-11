@@ -1,0 +1,24 @@
+{
+  "status": "verified",
+  "started_utc": "20261009T043052Z",
+  "completed_utc": "2026-10-09T04:30:52.863465+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261009T043052Z-period18-rigorous-fold",
+  "selected_roots": [
+    "explore/certificates/s2-period18-fold-2026-10-09",
+    "audits/s2-period18-rigorous-fold"
+  ],
+  "file_count": 98,
+  "bytes": 11740087,
+  "symlink_count": 0,
+  "manifest_sha256": "619c73e96aafa5de75071ccacc4c2bccca15d7aaea5d510a2e21bb4512d61d9c",
+  "elapsed_seconds": 0.03723266487941146,
+  "source_commit_at_copy": "4744edb828eda5df9e6488bb20205f79e04ed1f9",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

@@ -1,0 +1,35 @@
+{
+  "date_local": "2026-09-22",
+  "findings": [
+    {
+      "finding": "All four originally failed cells belong to the single selected context/dose; plan checks this identity against immutable original analysis.",
+      "status": "pass"
+    },
+    {
+      "finding": "Both solver methods and all four signs are refined, with sixteen-fold smaller step caps and tighter tolerances. No scientific gates or observer coefficients change.",
+      "status": "pass"
+    },
+    {
+      "finding": "Analytic pulse chronology and explicit failed-solver behavior pass; no target integration performed before this freeze.",
+      "status": "pass"
+    },
+    {
+      "finding": "Composite retains original source and per-history hashes, substitutes exactly eight complete packets, and recomputes the unchanged complete-panel aggregate.",
+      "status": "pass"
+    },
+    {
+      "finding": "This numerical refinement is selected after seeing a failure and is transparently labeled. Original attempt stays unqualified; negative scores remain and no readout is refit.",
+      "status": "accepted_scope_limit"
+    }
+  ],
+  "plan_sha256": "f265cf0c692e1a36aea8b6fff5dd2e27e26dca9eabf9d20c3cf14276c34df47f",
+  "reviewer": "local executing agent; explicit post-failure numerical amendment",
+  "status": "ready_for_numerical_refinement",
+  "tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m pytest -q tests/test_refine_two_write_interaction.py tests/test_two_write_interaction_heldout.py",
+    "failed": 0,
+    "passed": 10,
+    "seconds": 0.38
+  },
+  "unresolved_blocking_findings": []
+}

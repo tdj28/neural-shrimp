@@ -1,0 +1,1932 @@
+{
+  "experiment_id": "EXP-015",
+  "schema_version": "EXP015-saved-reference-v1",
+  "exploratory": true,
+  "outcome_aware": true,
+  "cells": 192,
+  "realized_pulse_rows": 1152,
+  "settings": 2,
+  "phase_contexts": 16,
+  "directions": 3,
+  "clock_windows": 4,
+  "new_integrations": 0,
+  "model_fits": 0,
+  "threads": 1,
+  "child_workers": 0,
+  "producer_seconds": 300,
+  "per_cell_seconds": 10,
+  "sealing_seconds": 60,
+  "owned_rss_bytes": 4294967296,
+  "launch_available_ram_bytes": 8589934592,
+  "reserve_ram_bytes": 4294967296,
+  "raw_budget_bytes": 268435456,
+  "required_packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "paid_compute": false,
+  "paid_review": false,
+  "scope": "Exploratory saved-reference local phase/transverse decomposition, selected after EXP014. All192 cells retained; no ODE solve, decoder fit, best-direction selection, setting means, original-study requalification, finite-pulse chaos or geometry-utility claim.",
+  "mathematical_contract": {
+    "schema_version": "phase-transverse-gain-v1",
+    "settings": [
+      "core",
+      "failed-near-edge"
+    ],
+    "phases": 8,
+    "directions": [
+      "phase_write",
+      "phase_null",
+      "neuron_one"
+    ],
+    "delays": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "doses": [
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "noise_levels": [
+      1e-05,
+      0.0001,
+      0.001
+    ],
+    "cells": 192,
+    "realized_pulses_per_cell": 6,
+    "compatibility_rows": 1152,
+    "clock_samples": 32,
+    "unit_noise_rows": 576,
+    "realized_noise_rows": 3456,
+    "gates": {
+      "algebra_rtol": 1e-12,
+      "algebra_atol": 1e-14,
+      "normalization_atol": 1e-07,
+      "potential_max": 1e-06,
+      "activation_max": 1e-07,
+      "standardized_readout": 0.01,
+      "primary_noise": 0.0001
+    },
+    "no_ODE": true,
+    "no_fit": true,
+    "setting_means": false,
+    "original_study_requalified": false,
+    "relative_flow_transport": "descriptive only; not a certified accumulated-error bound",
+    "physical_flow": "unchanged Hopfield RHS evaluated on saved periodic Hermite states",
+    "clock_velocity": "derivative of the original periodic Hermite template"
+  },
+  "gates": {
+    "algebra_rtol": 1e-12,
+    "algebra_atol": 1e-14,
+    "normalization_atol": 1e-07,
+    "potential_max": 1e-06,
+    "activation_max": 1e-07,
+    "standardized_readout": 0.01,
+    "primary_noise": 0.0001
+  },
+  "cells_census": [
+    {
+      "id": "core--p0--phase_write--k1",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p0--phase_write--k2",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p0--phase_write--k4",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p0--phase_write--k8",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p0--phase_null--k1",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p0--phase_null--k2",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p0--phase_null--k4",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p0--phase_null--k8",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p0--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p0--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p0--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p0--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p1--phase_write--k1",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p1--phase_write--k2",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p1--phase_write--k4",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p1--phase_write--k8",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p1--phase_null--k1",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p1--phase_null--k2",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p1--phase_null--k4",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p1--phase_null--k8",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p1--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p1--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p1--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p1--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p2--phase_write--k1",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p2--phase_write--k2",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p2--phase_write--k4",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p2--phase_write--k8",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p2--phase_null--k1",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p2--phase_null--k2",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p2--phase_null--k4",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p2--phase_null--k8",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p2--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p2--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p2--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p2--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p3--phase_write--k1",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p3--phase_write--k2",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p3--phase_write--k4",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p3--phase_write--k8",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p3--phase_null--k1",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p3--phase_null--k2",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p3--phase_null--k4",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p3--phase_null--k8",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p3--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p3--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p3--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p3--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p4--phase_write--k1",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p4--phase_write--k2",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p4--phase_write--k4",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p4--phase_write--k8",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p4--phase_null--k1",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p4--phase_null--k2",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p4--phase_null--k4",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p4--phase_null--k8",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p4--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p4--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p4--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p4--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p5--phase_write--k1",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p5--phase_write--k2",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p5--phase_write--k4",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p5--phase_write--k8",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p5--phase_null--k1",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p5--phase_null--k2",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p5--phase_null--k4",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p5--phase_null--k8",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p5--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p5--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p5--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p5--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p6--phase_write--k1",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p6--phase_write--k2",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p6--phase_write--k4",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p6--phase_write--k8",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p6--phase_null--k1",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p6--phase_null--k2",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p6--phase_null--k4",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p6--phase_null--k8",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p6--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p6--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p6--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p6--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p7--phase_write--k1",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p7--phase_write--k2",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p7--phase_write--k4",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p7--phase_write--k8",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p7--phase_null--k1",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p7--phase_null--k2",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p7--phase_null--k4",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p7--phase_null--k8",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "core--p7--neuron_one--k1",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "core--p7--neuron_one--k2",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "core--p7--neuron_one--k4",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "core--p7--neuron_one--k8",
+      "setting": "core",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p0--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p0--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p0--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p0--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p0--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p0--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p0--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p0--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p0--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p0--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p0--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p0--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 0,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p1--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p1--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p1--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p1--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p1--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p1--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p1--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p1--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p1--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p1--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p1--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p1--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 1,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p2--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p2--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p2--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p2--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p2--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p2--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p2--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p2--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p2--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p2--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p2--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p2--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 2,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p3--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p3--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p3--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p3--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p3--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p3--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p3--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p3--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p3--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p3--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p3--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p3--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 3,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p4--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p4--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p4--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p4--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p4--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p4--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p4--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p4--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p4--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p4--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p4--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p4--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 4,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p5--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p5--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p5--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p5--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p5--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p5--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p5--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p5--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p5--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p5--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p5--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p5--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 5,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p6--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p6--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p6--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p6--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p6--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p6--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p6--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p6--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p6--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p6--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p6--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p6--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 6,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p7--phase_write--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p7--phase_write--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p7--phase_write--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p7--phase_write--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_write",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p7--phase_null--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p7--phase_null--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p7--phase_null--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p7--phase_null--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "phase_null",
+      "delay_cycles": 8
+    },
+    {
+      "id": "failed-near-edge--p7--neuron_one--k1",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 1
+    },
+    {
+      "id": "failed-near-edge--p7--neuron_one--k2",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 2
+    },
+    {
+      "id": "failed-near-edge--p7--neuron_one--k4",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 4
+    },
+    {
+      "id": "failed-near-edge--p7--neuron_one--k8",
+      "setting": "failed-near-edge",
+      "phase_index": 7,
+      "direction": "neuron_one",
+      "delay_cycles": 8
+    }
+  ],
+  "original_directory": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+  "original_source": "406b89553b956bac1b97ef05413c799e383a9103",
+  "original_receipt_sha256": "2494966914cb68d8c5286a5dca6710212ade171ead42c9cfaed82cebd44c12a8",
+  "input_files": [
+    {
+      "path": "receipt.json",
+      "bytes": 577793,
+      "sha256": "2494966914cb68d8c5286a5dca6710212ade171ead42c9cfaed82cebd44c12a8"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 284087,
+      "sha256": "c2219ad480baee09afd80a3c81831bc9b45142daf5341c2eb931279ab37f71fd"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 4510088,
+      "sha256": "1773489ba5a91be1d691ce8e110dd89a214983297ad01e679149950d3427f2fd"
+    },
+    {
+      "path": "all-terminal-records.json",
+      "bytes": 907490,
+      "sha256": "9003facb7205f74e89d061e57be93a6b66a3779751b4a247c772f64d62c32dde"
+    },
+    {
+      "path": "postflight.json",
+      "bytes": 313,
+      "sha256": "fe03e4488614dfaa0775d0933e7c0eea1d25bca01f8133d6994b08d9cd5ad75b"
+    },
+    {
+      "path": "reference-seal.json",
+      "bytes": 2817746,
+      "sha256": "8ce10733fdca93b801ce0b6440baf1188a276a55d303517cc9fad48f647231d7"
+    },
+    {
+      "path": "reference-seal.npz",
+      "bytes": 283600118,
+      "sha256": "f13d60d5a2a6b8d218ec07560b08f149d77701b2d5d7a36879588458e94ced00"
+    },
+    {
+      "path": "reference-seal-replay.json",
+      "bytes": 146,
+      "sha256": "31044e2e281bd2b45c33f77f12020df3b304d2bc31c00ecfef5e4e9136159f48"
+    },
+    {
+      "path": "events.jsonl",
+      "bytes": 1341,
+      "sha256": "1e8f095b9273d68ce259dfb52cd4ea5574c66d2c1377e155f93a0c4c934704b3"
+    },
+    {
+      "path": "references/records/core.json",
+      "bytes": 776,
+      "sha256": "90ab04d3378ab40ea427dc411a07bf9129fd330a76e639137f447818e3c210a5"
+    },
+    {
+      "path": "references/payloads/core/packet.json",
+      "bytes": 700786,
+      "sha256": "552faf590b9f2b719297e217cd4021008d805f6ceefa4f94432e4e453ee73ff8"
+    },
+    {
+      "path": "references/payloads/core/packet.npz",
+      "bytes": 1099012,
+      "sha256": "3a832442a14e4a4363d279b225add7aca7d9924229fc73a848300159d30950c1"
+    },
+    {
+      "path": "references/records/failed-near-edge.json",
+      "bytes": 803,
+      "sha256": "63781ab93d766ff336c98a5419ac8c5a435281b086469b59064817003ab288f1"
+    },
+    {
+      "path": "references/payloads/failed-near-edge/packet.json",
+      "bytes": 700925,
+      "sha256": "35052a925590b579a3a4fe050562fdd9bd88717ca7fe1ed25c8abdaaa3100772"
+    },
+    {
+      "path": "references/payloads/failed-near-edge/packet.npz",
+      "bytes": 1099012,
+      "sha256": "87e74309d2b85e32e9e7fa1ce4176952a913151b3b46d9bdb1daf0693e796c4b"
+    },
+    {
+      "path": "propagators/records/core--p0.json",
+      "bytes": 779,
+      "sha256": "bd175160236d3a3ac9b17de16a1cc5c93e3e62a48939f130d23e9243e0ad7a23"
+    },
+    {
+      "path": "propagators/payloads/core--p0/packet.json",
+      "bytes": 2062,
+      "sha256": "90c0d1f38e4dad4a1824c9218e3fb9a2aa927935f3952c40a0ed6e030ef31402"
+    },
+    {
+      "path": "propagators/payloads/core--p0/packet.npz",
+      "bytes": 821510,
+      "sha256": "9a56ea90876fa9d4eae084bd6a498a63b57ec19dbdc5161769798a395c1af75c"
+    },
+    {
+      "path": "propagators/records/core--p1.json",
+      "bytes": 777,
+      "sha256": "d16695f516a4e8140b5fd6b3131917813857bac27a9f1f24fb52b4e96f884db6"
+    },
+    {
+      "path": "propagators/payloads/core--p1/packet.json",
+      "bytes": 2075,
+      "sha256": "8ccfa381614eac1b5aa593f75aabc90e1b55e217ddaba2c134b4c01773a041c7"
+    },
+    {
+      "path": "propagators/payloads/core--p1/packet.npz",
+      "bytes": 821510,
+      "sha256": "b5d9d8ca8e0247d95f5b49fc9de2a66d3c83ecc82dfbb9b28bb42a696007e667"
+    },
+    {
+      "path": "propagators/records/core--p2.json",
+      "bytes": 771,
+      "sha256": "9242a851743d5b1ef12ef0c612560130696c363fd6fb3697eccb61f4b15aa36f"
+    },
+    {
+      "path": "propagators/payloads/core--p2/packet.json",
+      "bytes": 2077,
+      "sha256": "35132a1b96167f42a717ff01d0b49802413c0a0b7093160e91561e95b6d943b7"
+    },
+    {
+      "path": "propagators/payloads/core--p2/packet.npz",
+      "bytes": 821510,
+      "sha256": "68aa830f22b92e993a2a4b3f345ff14b10c5e1daecf705e86d8d32582b367f9f"
+    },
+    {
+      "path": "propagators/records/core--p3.json",
+      "bytes": 778,
+      "sha256": "571a589ca8f8ec55feffedf01e6de1991fbc1c3837670e3722f1f97187f68174"
+    },
+    {
+      "path": "propagators/payloads/core--p3/packet.json",
+      "bytes": 2077,
+      "sha256": "7e93ee118f2274fa1e1afa48b748813519a72e4a06000c10ffbea7d4db9834fb"
+    },
+    {
+      "path": "propagators/payloads/core--p3/packet.npz",
+      "bytes": 821510,
+      "sha256": "6757b0fef7bcb75396b54a1f7cd9263b034c9801625dbcf2a689b684fc21f7c3"
+    },
+    {
+      "path": "propagators/records/core--p4.json",
+      "bytes": 771,
+      "sha256": "56bbb2f815015a42f4539e6f5f0b0ff60f7e50b1db768602b4513303faaa8cc3"
+    },
+    {
+      "path": "propagators/payloads/core--p4/packet.json",
+      "bytes": 2076,
+      "sha256": "2886eecd4d809ea5b89ec0ab039e00fd63760fb78741aaf17afce2499dae3a31"
+    },
+    {
+      "path": "propagators/payloads/core--p4/packet.npz",
+      "bytes": 821510,
+      "sha256": "07b17361473d857e9ca95e159baa2517a3a94558b01fac62a4c586af965c5cbe"
+    },
+    {
+      "path": "propagators/records/core--p5.json",
+      "bytes": 771,
+      "sha256": "24efe2d5592d97ccff91334a28bbe8ceb56a8323b59a0885e3a523db347a8ac7"
+    },
+    {
+      "path": "propagators/payloads/core--p5/packet.json",
+      "bytes": 2077,
+      "sha256": "b85e99abb69981a66585973f7e58f13efa0b6a9e22e2ac0c5993e89371756d85"
+    },
+    {
+      "path": "propagators/payloads/core--p5/packet.npz",
+      "bytes": 821510,
+      "sha256": "a292f1eea939c1ad4e18d76596cd87219c50be8856491a408549ab2c31ea07fb"
+    },
+    {
+      "path": "propagators/records/core--p6.json",
+      "bytes": 770,
+      "sha256": "7909272897a9262e30d024f956e45408a9bdfe241326113cfb01291d2a5e203c"
+    },
+    {
+      "path": "propagators/payloads/core--p6/packet.json",
+      "bytes": 2075,
+      "sha256": "53e2fea9a3c9ffdaf8dde42c09b5bd86cdb1cc21445d39cc233347a1777cc8da"
+    },
+    {
+      "path": "propagators/payloads/core--p6/packet.npz",
+      "bytes": 821510,
+      "sha256": "d5f7b8a2e36cb54efcbbed63c7d0c60cff90024319be6618b5b24db822e5a4de"
+    },
+    {
+      "path": "propagators/records/core--p7.json",
+      "bytes": 769,
+      "sha256": "0b5c42ed17a9ccd2d1d1a6ffbd6194354ed33ed6d78f26ee78decf7950f97e6c"
+    },
+    {
+      "path": "propagators/payloads/core--p7/packet.json",
+      "bytes": 2078,
+      "sha256": "35c31b8fb0fbd8bdc05c9419838042cd711193fd6078ca9b4c8f6fffd8da2212"
+    },
+    {
+      "path": "propagators/payloads/core--p7/packet.npz",
+      "bytes": 821510,
+      "sha256": "7fbc4c5f97b535ebdc1b609b1654c2a631a3e4195f58aaa894f43a44538d68ec"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p0.json",
+      "bytes": 806,
+      "sha256": "58babf18b82ee6f87280373b56e9065d22c83773728471d91c45a39b090f4dba"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p0/packet.json",
+      "bytes": 2088,
+      "sha256": "d13b2f3237bc7906f0315e171c2e9963dd6928baa76ed0b66720da7ac3dcd74c"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p0/packet.npz",
+      "bytes": 821510,
+      "sha256": "de4b38cea39eecbcb0d7822b86a811b0487e88a0b9fc30f6ac7a17d347dd1aa2"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p1.json",
+      "bytes": 806,
+      "sha256": "23d0f0d7d23f3bb8c1d22745b98039e7c69df0d67d20439a81bdd9bc2daefa33"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p1/packet.json",
+      "bytes": 2101,
+      "sha256": "8e218ece52867756f95d4148a36b7719e9ce72e131a5502555a9c1e3c10636d6"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p1/packet.npz",
+      "bytes": 821510,
+      "sha256": "9549ec0f556464e7f17d8853cc587e4f501f1186b39d3d839af51caebfb80d65"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p2.json",
+      "bytes": 807,
+      "sha256": "cf2455b10a8a4a166d8ff6391735b7f388191aa214b437466fdcdb328162d168"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p2/packet.json",
+      "bytes": 2101,
+      "sha256": "dde99e37187cee411456eb135b0a2a4dcecbc9493dc1a8d9f66f07fabcbde1ae"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p2/packet.npz",
+      "bytes": 821510,
+      "sha256": "4ff53e28c33dff32b5c8587711788a729837d7dfe37b2a1a39b2f742cbf17bc3"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p3.json",
+      "bytes": 807,
+      "sha256": "b7255b3aaf0dbcb38cda05892afa557d292b188eb351e107b93561d63c7d2e25"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p3/packet.json",
+      "bytes": 2100,
+      "sha256": "6e208bf444631b2d7a6d572f36f01308e70015cab6209c84e13a34055d2a4365"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p3/packet.npz",
+      "bytes": 821510,
+      "sha256": "9a33623ed3e44fa59004afbff6ea137406dd59d824fe9586ff36c56df739d266"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p4.json",
+      "bytes": 806,
+      "sha256": "25a6d8519cc1978dd9c1c83aa961ba0b933f3d4cbc3278bc290e59f7fc714b7d"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p4/packet.json",
+      "bytes": 2102,
+      "sha256": "f374f7c2ec8f0457596ac0e90331c18a35a30bd47213c5ba4d13827ccac0423a"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p4/packet.npz",
+      "bytes": 821510,
+      "sha256": "eabe41c014a27a3545aaa23c3d753601342c0f5d50e312bd85c1170967f99be9"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p5.json",
+      "bytes": 805,
+      "sha256": "ef146ece71b2792cd79f804217873f54e36a2d588f8244789e75e03d27297e60"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p5/packet.json",
+      "bytes": 2102,
+      "sha256": "d69e7e5be910eacb1834f19f81ac30800faecd42e741049ec5b3bbfd5261abb6"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p5/packet.npz",
+      "bytes": 821510,
+      "sha256": "b17dc2124ec1c74c8a49aec2b3693e7fb3bbb6d3f52ff5b7ca9a5e2fecccb05b"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p6.json",
+      "bytes": 806,
+      "sha256": "a93ee78f0643a14919ce0fb94bb6ee930b9b4cba765441782076f6e81a102b02"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p6/packet.json",
+      "bytes": 2102,
+      "sha256": "1663f57fe6ba018594259afd70613a1fb7d852d2095337535840a21165547296"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p6/packet.npz",
+      "bytes": 821510,
+      "sha256": "50f30515376a83146203dfc5764dacde41315d542f1111e7436a63f74daa8d30"
+    },
+    {
+      "path": "propagators/records/failed-near-edge--p7.json",
+      "bytes": 814,
+      "sha256": "16ca6f93cbe9998d6be4130eed91b9a096c59610650d3255c7ea14849762064b"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p7/packet.json",
+      "bytes": 2099,
+      "sha256": "2513289a57b06cde286fe931584ba58569e2672ce394841c586d79ec9c44d0c1"
+    },
+    {
+      "path": "propagators/payloads/failed-near-edge--p7/packet.npz",
+      "bytes": 821510,
+      "sha256": "d9375eca2b701b096f5cb260f62dbcb0c693c79a478bab972d64a7a45c2becbf"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "tools/run_phase_memory_recovery.py",
+      "bytes": 42182,
+      "sha256": "edcf3b8bfb12db902b1689f9e2777508fe02fa4dfc9c46edc25497d83cf9c239"
+    },
+    {
+      "path": "tests/test_phase_memory_recovery.py",
+      "bytes": 6768,
+      "sha256": "55f624c66466c713c2e1746f5b3ad8bbfbb122566bd879e34ac59ce77c3ef730"
+    },
+    {
+      "path": "docs/EXP-014-operational-amendment.md",
+      "bytes": 3320,
+      "sha256": "9231fb07e9b531d05601bbd06c957866f5cf3522f14f3ab07648070cf3aa58c3"
+    },
+    {
+      "path": "tools/run_phase_memory.py",
+      "bytes": 42055,
+      "sha256": "2ce56074d87f48f7de156c6e14678ff545ea3e9d9518f34744d49cf105517c75"
+    },
+    {
+      "path": "tools/phase_memory_acquisition.py",
+      "bytes": 30400,
+      "sha256": "e133b981bdb205fc8df31d4708be890959c7e05f6876ae02a81c6a7237bc0c4c"
+    },
+    {
+      "path": "tools/phase_memory.py",
+      "bytes": 18875,
+      "sha256": "6e3eb8a665fd0cca8e5493c2d6773f0625e07d28ae57e4e00807d7fb8d7bd681"
+    },
+    {
+      "path": "tools/phase_memory_evaluation.py",
+      "bytes": 42230,
+      "sha256": "169b0d3fbc886958e23e5a1719ef564d8df52a2412949502fdef79ca82554980"
+    },
+    {
+      "path": "tests/test_phase_memory_acquisition.py",
+      "bytes": 18356,
+      "sha256": "b922f524eab3f475bc2fd571aebf9abefab7a595ee460b170734c870a660f465"
+    },
+    {
+      "path": "tests/test_phase_memory.py",
+      "bytes": 15003,
+      "sha256": "c2f37ca6ec7292e39dd1b30b54d2c517a063b03f3997e81ba0db5c5a8092bb61"
+    },
+    {
+      "path": "tests/test_phase_memory_evaluation.py",
+      "bytes": 17640,
+      "sha256": "66e29978e16dc07fdc507eb18af8825c7b415f99a6b509cae342ee0e375adf47"
+    },
+    {
+      "path": "tests/test_phase_memory_runner.py",
+      "bytes": 20897,
+      "sha256": "f49fdabda103182a6e95117bdb9dfc14a207b5059c329f78f3708b42f89b5d39"
+    },
+    {
+      "path": "docs/EXP-014-protocol.md",
+      "bytes": 13667,
+      "sha256": "21314553aa20da12fea9a8c6bd74dce403f80d2662477222449047b100451c22"
+    },
+    {
+      "path": "docs/phase-memory-design.md",
+      "bytes": 20387,
+      "sha256": "3b588110a20574adb14e802ca924537599ba203b651cfd77e13f06cc27f3ad3a"
+    },
+    {
+      "path": "tools/fresh_preview_runtime.py",
+      "bytes": 16993,
+      "sha256": "c15449d6dd51fa17959d2670cc0a6f4921b84301b029a66221fbeb2ed2f0c01c"
+    },
+    {
+      "path": "tools/run_hopfield.py",
+      "bytes": 15022,
+      "sha256": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077"
+    },
+    {
+      "path": "tools/run_hopfield_drift.py",
+      "bytes": 23852,
+      "sha256": "23ac06eacaab249093c1abcbac5f8b3942c49d4b2a7e001afec508d051e5a5f9"
+    },
+    {
+      "path": "tools/run_hopfield_refinement.py",
+      "bytes": 42934,
+      "sha256": "5a78ba0b7a1a9e9db2fd0818f2e567d2ce169839c9b787c74d18e827c9d61c95"
+    },
+    {
+      "path": "tools/hopfield_diagnostics.py",
+      "bytes": 16573,
+      "sha256": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07"
+    },
+    {
+      "path": "tools/hopfield_drift_metrics.py",
+      "bytes": 7702,
+      "sha256": "f2aacb77aa40e0c1e90d19cf57fd44fc00c1c1b3c40af745380658eee37f4c03"
+    },
+    {
+      "path": "tools/hopfield_drift_probe.py",
+      "bytes": 9688,
+      "sha256": "24e06c7a001135e29bd376603cf6b40027a87be649c2d250571aea4d792b7767"
+    },
+    {
+      "path": "native/hopfield.cpp",
+      "bytes": 9205,
+      "sha256": "d77afbf22b10abb829eecb41ff6ace262713a8b00e7544f2bfe4d389d661eba4"
+    },
+    {
+      "path": "native/hopfield_drift.cpp",
+      "bytes": 1942,
+      "sha256": "8261b60153f82497724d115e14a6264a00706f3ef825f11e95a0e1145b7d7f72"
+    },
+    {
+      "path": "tests/test_hopfield_refinement.py",
+      "bytes": 13579,
+      "sha256": "9c3d65ff9e7c25c43b92bcaa436c1ecb7a00357e57391bbed7f4462244d180db"
+    },
+    {
+      "path": "docs/EXP-009-protocol.md",
+      "bytes": 12900,
+      "sha256": "431aafd9af901044d091b0f7639c90cfd14c6123c649e2d9289a573863c24ba3"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 555,
+      "sha256": "78acf5fae0c94d1c2739e3632b47abef5d081c57c32eca5e3eba877c103c62da"
+    },
+    {
+      "path": "requirements.lock",
+      "bytes": 57027,
+      "sha256": "05caa21f496bd7e3ba7c0cdbe176bf78dc7eea309be00cf40c95c530b509399c"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 213926,
+      "sha256": "601c1bccf7f0768d942083d59fb30ad2c29db5aaee50c42911c99e5a7bf49c9e"
+    },
+    {
+      "path": "tools/run_phase_transverse_gain.py",
+      "bytes": 25572,
+      "sha256": "fcdda51dc0121cf3d0e9339f6a6f01290e6f24d365cea0043ca388cea02d4f2d"
+    },
+    {
+      "path": "tools/phase_transverse_gain.py",
+      "bytes": 17730,
+      "sha256": "dd431eea19e39342ddf5a9c81233525f153b36bfd259b52be83b8dda793a6605"
+    },
+    {
+      "path": "tools/phase_transverse_gain_inputs.py",
+      "bytes": 16054,
+      "sha256": "d0f134c95f6a7e5e7aaf275a39894426c80f3a245de49aeb9c6ce8e05ce883c8"
+    },
+    {
+      "path": "tests/test_phase_transverse_gain.py",
+      "bytes": 11520,
+      "sha256": "b731c1aa1222284a7bc32ddd03a3ba2991a8321e752249923c44759be3d951e4"
+    },
+    {
+      "path": "tests/test_phase_transverse_gain_inputs.py",
+      "bytes": 10300,
+      "sha256": "7e0b238d54af18f44c344d297911e91e94017325bf42051f674b47cb5e67b504"
+    },
+    {
+      "path": "tests/test_phase_transverse_gain_run.py",
+      "bytes": 12206,
+      "sha256": "c620ac59ce1059b9f41690ffc16ff6e1d1734dd3036e2cbb49bb383d554a7d25"
+    },
+    {
+      "path": "docs/EXP-015-protocol.md",
+      "bytes": 11145,
+      "sha256": "d131d2f10b138fe9dd72ad219af6eccf0cf34a498636085a4de699dc8c020992"
+    }
+  ],
+  "original_setting_qualification": {
+    "core": false,
+    "failed-near-edge": false
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "experiment_id": "EXP-014",
+  "date": "2026-09-17",
+  "status": "ready_for_exploratory_execution",
+  "plan_sha256": "7f7e2861e716fe8243b01ba44137c3be90009dbe018ac5ccd9929c8df115362d",
+  "original_frozen_commit": "d1ca6043c2476f34b2314d88309ff732b34822a2",
+  "original_sources_preserved": true,
+  "scientific_changes": false,
+  "new_attempt_reuses_no_old_target_outputs": true,
+  "changes": {
+    "owned_rss_gib": 12,
+    "launch_available_ram_gib": 16,
+    "reserve_ram_gib": 8,
+    "administration": "Separate recovery source,plan,review,addedsourcebindings and saved-verifier Git plan path."
+  },
+  "validation": {
+    "original_repository_suite": {
+      "passed": 904,
+      "skipped": 1
+    },
+    "recovery_regressions": {
+      "passed": 7,
+      "seconds": 1.6
+    },
+    "independent_recovery_regressions": {
+      "passed": 7,
+      "seconds": 1.58
+    },
+    "independent_binding_ast_checks": 69
+  },
+  "independent_review": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/recovery-review-001/EXP-014-recovery-independent-review.json",
+      "sha256": "9dcda207a2da0c0b7349dfe4c999785a48a885381122dc2f6784d7c30b40995b",
+      "bytes": 12992
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014/recovery-review-001/review_phase_recovery.py",
+      "sha256": "d3b96299e112068b32325a316aaa915903303a7b07b9bdc6d27ebc287af08f9d",
+      "bytes": 6949
+    }
+  ],
+  "root_review": "Original/recovery whole-source diff reviewed; only three declared RAM settings and administrative paths/source bindings differ. Full930-task census, scientific gates,1,800-second ceiling,all algorithms,2GiB raw cap and four-worker count remain identical. Original incomplete evidence and saved replay preserved.",
+  "conditions": [
+    "Exact clean commit and private remote HEAD before full recovery acquisition.",
+    "Fresh exclusive attempt; all two references,sixteen propagators and912 traces rerun with a new pre-pulse seal.",
+    "No tolerance relaxation, case replacement or use of seven old pulse outcomes.",
+    "PR creation pending API authentication; no main merge or paid services."
+  ]
+}

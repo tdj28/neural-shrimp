@@ -1,0 +1,652 @@
+{
+  "experiment_id": "EXP-019",
+  "schema": "two-write-memory-v1",
+  "exploratory": true,
+  "contexts": 48,
+  "development_phases": 8,
+  "heldout_phases": 16,
+  "histories": 1296,
+  "reference_jobs": 96,
+  "development_traces": 918,
+  "heldout_traces": 1782,
+  "traces": 2700,
+  "total_jobs": 2796,
+  "comparisons": 1404,
+  "phase_seed": 2026091701,
+  "phase_rng": "numpy.Generator(PCG64)",
+  "bootstrap_seed": 20260917,
+  "bootstrap_draws": 20000,
+  "epsilon": 0.0001,
+  "sigma": 0.0001,
+  "windows": [
+    "immediate",
+    "k2",
+    "k4",
+    "k8"
+  ],
+  "first_signs": [
+    -1,
+    0,
+    1
+  ],
+  "second_signs": [
+    -1,
+    0,
+    1
+  ],
+  "arms": [
+    "identity",
+    "timing",
+    "transverse"
+  ],
+  "native_steps_per_period": [
+    32768,
+    65536
+  ],
+  "samples_per_period": 4096,
+  "reference_methods": [
+    "dop853",
+    "rk45"
+  ],
+  "independent_panel_phases": [
+    0,
+    8
+  ],
+  "workers": 4,
+  "thread_limit": 1,
+  "producer_seconds": 3600,
+  "per_reference_seconds": 90,
+  "per_trace_seconds": 60,
+  "sealing_seconds": 180,
+  "launch_ram_bytes": 17179869184,
+  "reserve_ram_bytes": 8589934592,
+  "owned_rss_bytes": 12884901888,
+  "raw_budget_bytes": 8589934592,
+  "potential_threshold": 1e-06,
+  "activation_threshold": 1e-07,
+  "standardized_margin_threshold": 0.01,
+  "accuracy_threshold": 0.001,
+  "adjoint_normalization_threshold": 1e-07,
+  "paid_compute": false,
+  "paid_review": false,
+  "required_packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "maximum_segment_integrations": 5592,
+  "global_reference_barrier": true,
+  "reused_regression_phases": true,
+  "fresh_holdout": false,
+  "original_studies_requalified": false,
+  "scope": "Prespecified linear observer, known phase and external clock, two selected fixed-weight cycles at reused regression phases; no fresh holdout, capacity, information-erasure, geometry-causal or trained-network claim.",
+  "date": "2026-09-17",
+  "phases": [
+    {
+      "phase_index": 0,
+      "phase_fraction": 0.2832706692575573,
+      "split": "development"
+    },
+    {
+      "phase_index": 1,
+      "phase_fraction": 0.41369593731298093,
+      "split": "development"
+    },
+    {
+      "phase_index": 2,
+      "phase_fraction": 0.4522679969177369,
+      "split": "development"
+    },
+    {
+      "phase_index": 3,
+      "phase_fraction": 0.25950372110979825,
+      "split": "development"
+    },
+    {
+      "phase_index": 4,
+      "phase_fraction": 0.9990248784284849,
+      "split": "development"
+    },
+    {
+      "phase_index": 5,
+      "phase_fraction": 0.4600667039646923,
+      "split": "development"
+    },
+    {
+      "phase_index": 6,
+      "phase_fraction": 0.6756364216539279,
+      "split": "development"
+    },
+    {
+      "phase_index": 7,
+      "phase_fraction": 0.07502324174447983,
+      "split": "development"
+    },
+    {
+      "phase_index": 8,
+      "phase_fraction": 0.3715533042383875,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 9,
+      "phase_fraction": 0.27970799551420344,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 10,
+      "phase_fraction": 0.279100272459458,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 11,
+      "phase_fraction": 0.0907541082322425,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 12,
+      "phase_fraction": 0.8610425706131125,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 13,
+      "phase_fraction": 0.4827807858153893,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 14,
+      "phase_fraction": 0.8900413068768991,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 15,
+      "phase_fraction": 0.0477094602234972,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 16,
+      "phase_fraction": 0.14653384185918805,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 17,
+      "phase_fraction": 0.4644340440931325,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 18,
+      "phase_fraction": 0.3777196215503532,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 19,
+      "phase_fraction": 0.8964807745360148,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 20,
+      "phase_fraction": 0.6315203015021786,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 21,
+      "phase_fraction": 0.5954933266578307,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 22,
+      "phase_fraction": 0.9135168528486673,
+      "split": "heldout"
+    },
+    {
+      "phase_index": 23,
+      "phase_fraction": 0.4704734401256553,
+      "split": "heldout"
+    }
+  ],
+  "reference_root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+  "reference_source_commit": "7c9b1977f5d12e4354ff41c537778a3a284a4027",
+  "historical_inputs": [
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "receipt.json",
+      "bytes": 62596,
+      "sha256": "b4b56a8fbcc592285cebdbf15c2182a3173c62d3e770ebc1681cd9a142066ce1"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/core--reference-pair/packet.json",
+      "bytes": 134044,
+      "sha256": "df293429b9cc3f26d5c209cdee102f7214f210dba20873662945535d96a5e07e"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/core--reference-pair/packet.npz",
+      "bytes": 12995164,
+      "sha256": "52c4865b8b2fc17304a742b216c6ee267949a19df6b828086770154f980f3294"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/failed-near-edge--reference-pair/packet.json",
+      "bytes": 135372,
+      "sha256": "5346826101a9b742e6f953ed0c302265d7c7ac61ae8ba7607754bc44e8444e85"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "references/payloads/failed-near-edge--reference-pair/packet.npz",
+      "bytes": 12994874,
+      "sha256": "e7d1ca24a52b633bd9fe8431b82df84b588bc8c4ab0a2e9be32aaef7257fbaaf"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "summary.json",
+      "bytes": 2003914,
+      "sha256": "4d6c078c85cecc3bfc6e467031efcb949fd84ea62ceabf51473a184dd9c50969"
+    },
+    {
+      "root": "/data2/neural-shrimp-data/raw/EXP-018/attempt-001",
+      "path": "manifest.json",
+      "bytes": 108272,
+      "sha256": "1d02f44981e81fe7023d0e7e46a3ae4ae77e5332a4c46d1c6289c2bd7f9b6340"
+    },
+    {
+      "root": "/data2/neural-shrimp",
+      "path": "docs/EXP-018-summary.json",
+      "bytes": 255209,
+      "sha256": "263d54bac28807abc371b539e24beb59830ec4c16bbec255f7e392c3696456cf"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "tools/run_refined_two_write_memory.py",
+      "bytes": 50004,
+      "sha256": "3a6e5ecc869e62c7a6ede94da3ebc70ddca17cd85bee340d652554dd81915e2e"
+    },
+    {
+      "path": "tools/refined_two_write_context.py",
+      "bytes": 11049,
+      "sha256": "202cd4ff5e2aa8febc5c18a6e7ba1d287cf797a8ce2340d299f28a71b9347489"
+    },
+    {
+      "path": "tests/test_refined_two_write_runner.py",
+      "bytes": 27849,
+      "sha256": "6067299945df2215952d556517fcd66e3ee41b0d9b4acb5c752804d5057b647e"
+    },
+    {
+      "path": "tests/test_refined_two_write_context.py",
+      "bytes": 9704,
+      "sha256": "035c3d71df4f0a0be94a6085fc950460005389d9e9a247599946c0abfe863459"
+    },
+    {
+      "path": "tests/test_refined_two_write_integration.py",
+      "bytes": 14838,
+      "sha256": "fd664b331294d854c0f1d533eb5ce8997436fbfd26a0cbc73a394f42d1522ce1"
+    },
+    {
+      "path": "tests/test_periodic_reference_refinement_integration.py",
+      "bytes": 8658,
+      "sha256": "1854e4460f507eecac02a99921be0928a92ef4c8d1a11a988ad9c1eff3b71a5b"
+    },
+    {
+      "path": "tools/periodic_reference_refinement.py",
+      "bytes": 28032,
+      "sha256": "976a6b4c0bbc5c1f1ea25c9955ae7a8a7151f6bed53703d0e3f20bcda02bc69e"
+    },
+    {
+      "path": "tools/periodic_reference_refinement_evaluation.py",
+      "bytes": 55108,
+      "sha256": "6b353566cd091c3c2e41996d0f88cf9433d6375c751e6f35bad20127e1899b4d"
+    },
+    {
+      "path": "tools/phase_reference_diagnostic.py",
+      "bytes": 19610,
+      "sha256": "41485f76890e48b85d3480d34dc65a1c4cafe4488d18d75af17e49a8b0603061"
+    },
+    {
+      "path": "tools/phase_reference_diagnostic_evaluation.py",
+      "bytes": 32976,
+      "sha256": "ada9e743504d29c41f22da0702ba18669a72d85033cd4040cc89ee57bba5b0bb"
+    },
+    {
+      "path": "docs/EXP-019-protocol.md",
+      "bytes": 17452,
+      "sha256": "016bae70ebdac7b4c844d8a07fa7d4d14d722ff2aa0839da3e1298bce042844e"
+    },
+    {
+      "path": "docs/EXP-018-summary.json",
+      "bytes": 255209,
+      "sha256": "263d54bac28807abc371b539e24beb59830ec4c16bbec255f7e392c3696456cf"
+    },
+    {
+      "path": "tools/run_two_write_memory.py",
+      "bytes": 38424,
+      "sha256": "e0448b67404ae9d114eeb86d2bd888aca288cacbe3b27bc2023a05a79034bde5"
+    },
+    {
+      "path": "tools/two_write_memory.py",
+      "bytes": 16857,
+      "sha256": "eee083269a4bc515126d520b75fbd72d4db610e49fb1f96876cbe19ddb72c1ce"
+    },
+    {
+      "path": "tools/two_write_acquisition.py",
+      "bytes": 19391,
+      "sha256": "0d58101128b4d68f051c18b12a8d12aec7e27246fff8a4d00627fbbd91f54963"
+    },
+    {
+      "path": "tools/two_write_evaluation.py",
+      "bytes": 53042,
+      "sha256": "a58d04968c8967d2d19fc2747072849865bd72150318942ef853d971445a7680"
+    },
+    {
+      "path": "tools/two_write_runtime.py",
+      "bytes": 6145,
+      "sha256": "47b7562ed8f0f97760b9c2d8304b4f906f5131ebc4e037ca0023ba437883759c"
+    },
+    {
+      "path": "tests/test_two_write_runtime.py",
+      "bytes": 6441,
+      "sha256": "04ede953ee0cdd2730feff46627c438132d778f523d431c2f01f72a75e9f5c50"
+    },
+    {
+      "path": "tests/test_two_write_runner.py",
+      "bytes": 19899,
+      "sha256": "d0427abe960286d81e8ccceb76012958dc047ffa20760cc7455df2b6a36c8a3b"
+    },
+    {
+      "path": "tests/test_two_write_memory.py",
+      "bytes": 14866,
+      "sha256": "ec09492d60f44182a79886eecd0a008031609fe1ed536898746b489a42217532"
+    },
+    {
+      "path": "tests/test_two_write_acquisition.py",
+      "bytes": 13155,
+      "sha256": "909a92562df09c19ab31d283c21ac738ebb516f1b206b4e09fa99ece05a0e7fd"
+    },
+    {
+      "path": "tests/test_two_write_evaluation.py",
+      "bytes": 19714,
+      "sha256": "079c1490da940545a2b942f875bf3fe3db8d15688a9a4f3cd02462a78308077c"
+    },
+    {
+      "path": "docs/EXP-016-protocol.md",
+      "bytes": 13914,
+      "sha256": "57b4a280c991b2598359c871aa1d652fa832841086f747b7b732b3b7eef66164"
+    },
+    {
+      "path": "docs/two-write-memory-design.md",
+      "bytes": 9115,
+      "sha256": "1b16036b751a16e16cb6022a8539612c3510ea249212e89ad1d2267e5c3e8203"
+    },
+    {
+      "path": "docs/consults/2026-09-17-pro-adjudication.md",
+      "bytes": 8765,
+      "sha256": "ce72d07076cb52502b4f4e9867320227be73859cfb0c5f47eebc5225585d2cd3"
+    },
+    {
+      "path": "docs/consults/2026-09-17-pro-receipt.json",
+      "bytes": 5217,
+      "sha256": "133d41f4e66845a2f9a3800453250d0d4a8cfc414e6e8f566132e28955393b62"
+    },
+    {
+      "path": "docs/consults/2026-09-17-pro-response.md",
+      "bytes": 21039,
+      "sha256": "ff81ca3e906f53711a549fadcf01fc9896a73d69920ecd89a6c5051d723f65e6"
+    },
+    {
+      "path": "docs/consults/2026-09-17-two-write-independent-adjudication.md",
+      "bytes": 10615,
+      "sha256": "76e59a297abab78e561b351fb68d02f1a415d964deafa7a39fd000f6a2972921"
+    },
+    {
+      "path": "tools/run_phase_memory_recovery.py",
+      "bytes": 42182,
+      "sha256": "edcf3b8bfb12db902b1689f9e2777508fe02fa4dfc9c46edc25497d83cf9c239"
+    },
+    {
+      "path": "tests/test_phase_memory_recovery.py",
+      "bytes": 6768,
+      "sha256": "55f624c66466c713c2e1746f5b3ad8bbfbb122566bd879e34ac59ce77c3ef730"
+    },
+    {
+      "path": "docs/EXP-014-operational-amendment.md",
+      "bytes": 3320,
+      "sha256": "9231fb07e9b531d05601bbd06c957866f5cf3522f14f3ab07648070cf3aa58c3"
+    },
+    {
+      "path": "tools/run_phase_memory.py",
+      "bytes": 42055,
+      "sha256": "2ce56074d87f48f7de156c6e14678ff545ea3e9d9518f34744d49cf105517c75"
+    },
+    {
+      "path": "tools/phase_memory_acquisition.py",
+      "bytes": 30400,
+      "sha256": "e133b981bdb205fc8df31d4708be890959c7e05f6876ae02a81c6a7237bc0c4c"
+    },
+    {
+      "path": "tools/phase_memory.py",
+      "bytes": 18875,
+      "sha256": "6e3eb8a665fd0cca8e5493c2d6773f0625e07d28ae57e4e00807d7fb8d7bd681"
+    },
+    {
+      "path": "tools/phase_memory_evaluation.py",
+      "bytes": 42230,
+      "sha256": "169b0d3fbc886958e23e5a1719ef564d8df52a2412949502fdef79ca82554980"
+    },
+    {
+      "path": "tests/test_phase_memory_acquisition.py",
+      "bytes": 18356,
+      "sha256": "b922f524eab3f475bc2fd571aebf9abefab7a595ee460b170734c870a660f465"
+    },
+    {
+      "path": "tests/test_phase_memory.py",
+      "bytes": 15003,
+      "sha256": "c2f37ca6ec7292e39dd1b30b54d2c517a063b03f3997e81ba0db5c5a8092bb61"
+    },
+    {
+      "path": "tests/test_phase_memory_evaluation.py",
+      "bytes": 17640,
+      "sha256": "66e29978e16dc07fdc507eb18af8825c7b415f99a6b509cae342ee0e375adf47"
+    },
+    {
+      "path": "tests/test_phase_memory_runner.py",
+      "bytes": 20897,
+      "sha256": "f49fdabda103182a6e95117bdb9dfc14a207b5059c329f78f3708b42f89b5d39"
+    },
+    {
+      "path": "docs/EXP-014-protocol.md",
+      "bytes": 13667,
+      "sha256": "21314553aa20da12fea9a8c6bd74dce403f80d2662477222449047b100451c22"
+    },
+    {
+      "path": "docs/phase-memory-design.md",
+      "bytes": 20387,
+      "sha256": "3b588110a20574adb14e802ca924537599ba203b651cfd77e13f06cc27f3ad3a"
+    },
+    {
+      "path": "tools/fresh_preview_runtime.py",
+      "bytes": 16993,
+      "sha256": "c15449d6dd51fa17959d2670cc0a6f4921b84301b029a66221fbeb2ed2f0c01c"
+    },
+    {
+      "path": "tools/run_hopfield.py",
+      "bytes": 15022,
+      "sha256": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077"
+    },
+    {
+      "path": "tools/run_hopfield_drift.py",
+      "bytes": 23852,
+      "sha256": "23ac06eacaab249093c1abcbac5f8b3942c49d4b2a7e001afec508d051e5a5f9"
+    },
+    {
+      "path": "tools/run_hopfield_refinement.py",
+      "bytes": 42934,
+      "sha256": "5a78ba0b7a1a9e9db2fd0818f2e567d2ce169839c9b787c74d18e827c9d61c95"
+    },
+    {
+      "path": "tools/hopfield_diagnostics.py",
+      "bytes": 16573,
+      "sha256": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07"
+    },
+    {
+      "path": "tools/hopfield_drift_metrics.py",
+      "bytes": 7702,
+      "sha256": "f2aacb77aa40e0c1e90d19cf57fd44fc00c1c1b3c40af745380658eee37f4c03"
+    },
+    {
+      "path": "tools/hopfield_drift_probe.py",
+      "bytes": 9688,
+      "sha256": "24e06c7a001135e29bd376603cf6b40027a87be649c2d250571aea4d792b7767"
+    },
+    {
+      "path": "native/hopfield.cpp",
+      "bytes": 9205,
+      "sha256": "d77afbf22b10abb829eecb41ff6ace262713a8b00e7544f2bfe4d389d661eba4"
+    },
+    {
+      "path": "native/hopfield_drift.cpp",
+      "bytes": 1942,
+      "sha256": "8261b60153f82497724d115e14a6264a00706f3ef825f11e95a0e1145b7d7f72"
+    },
+    {
+      "path": "tests/test_hopfield_refinement.py",
+      "bytes": 13579,
+      "sha256": "9c3d65ff9e7c25c43b92bcaa436c1ecb7a00357e57391bbed7f4462244d180db"
+    },
+    {
+      "path": "docs/EXP-009-protocol.md",
+      "bytes": 12900,
+      "sha256": "431aafd9af901044d091b0f7639c90cfd14c6123c649e2d9289a573863c24ba3"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 555,
+      "sha256": "78acf5fae0c94d1c2739e3632b47abef5d081c57c32eca5e3eba877c103c62da"
+    },
+    {
+      "path": "requirements.lock",
+      "bytes": 57027,
+      "sha256": "05caa21f496bd7e3ba7c0cdbe176bf78dc7eea309be00cf40c95c530b509399c"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 213926,
+      "sha256": "601c1bccf7f0768d942083d59fb30ad2c29db5aaee50c42911c99e5a7bf49c9e"
+    }
+  ],
+  "acquisition_methods": {
+    "reference": {
+      "dop853": {
+        "kind": "DOP853",
+        "rtol": 1e-12,
+        "atol": 1e-14,
+        "max_step_period_divisor": 2048
+      },
+      "rk45": {
+        "kind": "RK45",
+        "rtol": 1e-12,
+        "atol": 1e-14,
+        "max_step_period_divisor": 4096
+      }
+    },
+    "trace": {
+      "rk4-coarse": {
+        "kind": "RK4",
+        "steps_per_cycle": 32768
+      },
+      "rk4-fine": {
+        "kind": "RK4",
+        "steps_per_cycle": 65536
+      },
+      "dop853-independent": {
+        "kind": "DOP853",
+        "rtol": 1e-13,
+        "atol": 1e-15,
+        "max_step_period_divisor": 4096
+      }
+    }
+  },
+  "evaluation_contract": {
+    "settings": [
+      "core",
+      "failed-near-edge"
+    ],
+    "arms": [
+      "identity",
+      "timing",
+      "transverse"
+    ],
+    "windows": [
+      "immediate",
+      "k2",
+      "k4",
+      "k8"
+    ],
+    "methods": [
+      "rk4-coarse",
+      "rk4-fine",
+      "dop853-independent"
+    ],
+    "phases": 24,
+    "development_phases": 8,
+    "heldout_phases": 16,
+    "phase_seed": 2026091701,
+    "epsilon": 0.0001,
+    "sigma": 0.0001,
+    "observation_samples": 32,
+    "observation_coordinates": 3,
+    "thresholds": {
+      "state_max": 1e-06,
+      "activation_max": 1e-07,
+      "standardized_margin_max": 0.01,
+      "probability_max": 0.001,
+      "zero_zero_standardized_drift_max": 0.01,
+      "normalization_max": 1e-07
+    },
+    "expected": {
+      "contexts": 48,
+      "reference_jobs": 96,
+      "histories": 1296,
+      "trace_tasks": 2700,
+      "all_jobs": 2796,
+      "comparisons": 1404,
+      "coarse_fine_comparisons": 1296,
+      "fine_independent_comparisons": 108
+    },
+    "bootstrap": {
+      "seed": 20260917,
+      "resamples": 20000,
+      "paired_phase_blocks": 16,
+      "interval": "central 95%, descriptive conditional on two saved cycles"
+    },
+    "primary": "heldout identity k4, second present, near-edge minus core percentage points",
+    "arithmetic": {
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "reported_separately": true
+    },
+    "scope": "fixed phase-informed linear Gaussian observer, no memory-capacity or erasure claim"
+  },
+  "census": {
+    "references": {
+      "count": 96,
+      "sha256": "052a3cc765594cf8fedde03af3ccd70042b9010fd96098f99241eac5661d8dc5"
+    },
+    "development": {
+      "count": 918,
+      "sha256": "2129aaa170da6cf4237f3f30348ba277db55a2c06568c0ca5b5347c6e60d6740"
+    },
+    "heldout": {
+      "count": 1782,
+      "sha256": "00cacbbcbe34febdc72534c2bd48b8b91d35f0701b8cc9458c47287d5f589f60"
+    }
+  },
+  "planning_evidence": {
+    "previous_experiment": "EXP-016",
+    "prior_trace_count": 2079,
+    "prior_acquisition_seconds": 133.16,
+    "prior_reference_seconds": 122.27,
+    "estimated_trace_seconds": 173.0,
+    "prior_workers": 4,
+    "planned_grid_bytes": 3460512000,
+    "prior_summary": "docs/EXP-016-summary.json",
+    "note": "Historical timing is not a measurement of this new event/reference pipeline. Fixed development-stage timings are recorded without response-based tuning; 3600 seconds is a producer ceiling, not a runtime prediction."
+  }
+}

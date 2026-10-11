@@ -1,0 +1,561 @@
+{
+  "accuracy_threshold": 0.001,
+  "acquisition_methods": {
+    "reference": {
+      "dop853": {
+        "atol": 1e-14,
+        "kind": "DOP853",
+        "max_step_period_divisor": 2048,
+        "rtol": 1e-12
+      },
+      "rk45": {
+        "atol": 1e-14,
+        "kind": "RK45",
+        "max_step_period_divisor": 4096,
+        "rtol": 1e-12
+      }
+    },
+    "trace": {
+      "dop853-independent": {
+        "atol": 1e-15,
+        "kind": "DOP853",
+        "max_step_period_divisor": 4096,
+        "rtol": 1e-13
+      },
+      "rk4-coarse": {
+        "kind": "RK4",
+        "steps_per_cycle": 32768
+      },
+      "rk4-fine": {
+        "kind": "RK4",
+        "steps_per_cycle": 65536
+      }
+    }
+  },
+  "activation_threshold": 1e-07,
+  "adjoint_normalization_threshold": 1e-07,
+  "arms": [
+    "identity",
+    "timing",
+    "transverse"
+  ],
+  "bootstrap_draws": 20000,
+  "bootstrap_seed": 20260917,
+  "census": {
+    "development": {
+      "count": 918,
+      "sha256": "2129aaa170da6cf4237f3f30348ba277db55a2c06568c0ca5b5347c6e60d6740"
+    },
+    "heldout": {
+      "count": 1782,
+      "sha256": "00cacbbcbe34febdc72534c2bd48b8b91d35f0701b8cc9458c47287d5f589f60"
+    },
+    "references": {
+      "count": 96,
+      "sha256": "052a3cc765594cf8fedde03af3ccd70042b9010fd96098f99241eac5661d8dc5"
+    }
+  },
+  "comparisons": 1404,
+  "contexts": 48,
+  "date": "2026-09-17",
+  "development_phases": 8,
+  "development_traces": 918,
+  "epsilon": 0.0001,
+  "evaluation_contract": {
+    "arithmetic": {
+      "atol": 1e-14,
+      "reported_separately": true,
+      "rtol": 1e-12
+    },
+    "arms": [
+      "identity",
+      "timing",
+      "transverse"
+    ],
+    "bootstrap": {
+      "interval": "central 95%, descriptive conditional on two saved cycles",
+      "paired_phase_blocks": 16,
+      "resamples": 20000,
+      "seed": 20260917
+    },
+    "development_phases": 8,
+    "epsilon": 0.0001,
+    "expected": {
+      "all_jobs": 2796,
+      "coarse_fine_comparisons": 1296,
+      "comparisons": 1404,
+      "contexts": 48,
+      "fine_independent_comparisons": 108,
+      "histories": 1296,
+      "reference_jobs": 96,
+      "trace_tasks": 2700
+    },
+    "heldout_phases": 16,
+    "methods": [
+      "rk4-coarse",
+      "rk4-fine",
+      "dop853-independent"
+    ],
+    "observation_coordinates": 3,
+    "observation_samples": 32,
+    "phase_seed": 2026091701,
+    "phases": 24,
+    "primary": "heldout identity k4, second present, near-edge minus core percentage points",
+    "scope": "fixed phase-informed linear Gaussian observer, no memory-capacity or erasure claim",
+    "settings": [
+      "core",
+      "failed-near-edge"
+    ],
+    "sigma": 0.0001,
+    "thresholds": {
+      "activation_max": 1e-07,
+      "normalization_max": 1e-07,
+      "probability_max": 0.001,
+      "standardized_margin_max": 0.01,
+      "state_max": 1e-06,
+      "zero_zero_standardized_drift_max": 0.01
+    },
+    "windows": [
+      "immediate",
+      "k2",
+      "k4",
+      "k8"
+    ]
+  },
+  "experiment_id": "EXP-016",
+  "exploratory": true,
+  "first_signs": [
+    -1,
+    0,
+    1
+  ],
+  "heldout_phases": 16,
+  "heldout_traces": 1782,
+  "historical_inputs": [
+    {
+      "bytes": 577793,
+      "path": "receipt.json",
+      "sha256": "2494966914cb68d8c5286a5dca6710212ade171ead42c9cfaed82cebd44c12a8"
+    },
+    {
+      "bytes": 700786,
+      "path": "references/payloads/core/packet.json",
+      "sha256": "552faf590b9f2b719297e217cd4021008d805f6ceefa4f94432e4e453ee73ff8"
+    },
+    {
+      "bytes": 1099012,
+      "path": "references/payloads/core/packet.npz",
+      "sha256": "3a832442a14e4a4363d279b225add7aca7d9924229fc73a848300159d30950c1"
+    },
+    {
+      "bytes": 700925,
+      "path": "references/payloads/failed-near-edge/packet.json",
+      "sha256": "35052a925590b579a3a4fe050562fdd9bd88717ca7fe1ed25c8abdaaa3100772"
+    },
+    {
+      "bytes": 1099012,
+      "path": "references/payloads/failed-near-edge/packet.npz",
+      "sha256": "87e74309d2b85e32e9e7fa1ce4176952a913151b3b46d9bdb1daf0693e796c4b"
+    }
+  ],
+  "histories": 1296,
+  "independent_panel_phases": [
+    0,
+    8
+  ],
+  "launch_ram_bytes": 17179869184,
+  "native_steps_per_period": [
+    32768,
+    65536
+  ],
+  "owned_rss_bytes": 12884901888,
+  "paid_compute": false,
+  "paid_review": false,
+  "per_reference_seconds": 90,
+  "per_trace_seconds": 60,
+  "phase_rng": "numpy.Generator(PCG64)",
+  "phase_seed": 2026091701,
+  "phases": [
+    {
+      "phase_fraction": 0.2832706692575573,
+      "phase_index": 0,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.41369593731298093,
+      "phase_index": 1,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.4522679969177369,
+      "phase_index": 2,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.25950372110979825,
+      "phase_index": 3,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.9990248784284849,
+      "phase_index": 4,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.4600667039646923,
+      "phase_index": 5,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.6756364216539279,
+      "phase_index": 6,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.07502324174447983,
+      "phase_index": 7,
+      "split": "development"
+    },
+    {
+      "phase_fraction": 0.3715533042383875,
+      "phase_index": 8,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.27970799551420344,
+      "phase_index": 9,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.279100272459458,
+      "phase_index": 10,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.0907541082322425,
+      "phase_index": 11,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.8610425706131125,
+      "phase_index": 12,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.4827807858153893,
+      "phase_index": 13,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.8900413068768991,
+      "phase_index": 14,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.0477094602234972,
+      "phase_index": 15,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.14653384185918805,
+      "phase_index": 16,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.4644340440931325,
+      "phase_index": 17,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.3777196215503532,
+      "phase_index": 18,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.8964807745360148,
+      "phase_index": 19,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.6315203015021786,
+      "phase_index": 20,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.5954933266578307,
+      "phase_index": 21,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.9135168528486673,
+      "phase_index": 22,
+      "split": "heldout"
+    },
+    {
+      "phase_fraction": 0.4704734401256553,
+      "phase_index": 23,
+      "split": "heldout"
+    }
+  ],
+  "planning_evidence": {
+    "note": "Historical timing is not a measurement of this new event/reference pipeline. Fixed development-stage timings are recorded without response-based tuning; 3600 seconds is a producer ceiling, not a runtime prediction.",
+    "previous_experiment": "EXP-014-refinement",
+    "prior_acquisition_seconds": 178.036,
+    "prior_summary": "docs/EXP-014-refinement-summary.json",
+    "prior_trace_count": 425,
+    "prior_workers": 4
+  },
+  "potential_threshold": 1e-06,
+  "producer_seconds": 3600,
+  "raw_budget_bytes": 8589934592,
+  "reference_jobs": 96,
+  "reference_methods": [
+    "dop853",
+    "rk45"
+  ],
+  "reference_root": "/data2/neural-shrimp-data/raw/EXP-014/attempt-002",
+  "reference_source_commit": "406b89553b956bac1b97ef05413c799e383a9103",
+  "required_packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "reserve_ram_bytes": 8589934592,
+  "samples_per_period": 4096,
+  "schema": "two-write-memory-v1",
+  "scope": "Prespecified linear observer, known phase and external clock, two selected fixed-weight cycles; no capacity, information-erasure, geometry-causal or trained-network claim.",
+  "sealing_seconds": 180,
+  "second_signs": [
+    -1,
+    0,
+    1
+  ],
+  "sigma": 0.0001,
+  "source_files": [
+    {
+      "bytes": 38424,
+      "path": "tools/run_two_write_memory.py",
+      "sha256": "e0448b67404ae9d114eeb86d2bd888aca288cacbe3b27bc2023a05a79034bde5"
+    },
+    {
+      "bytes": 16857,
+      "path": "tools/two_write_memory.py",
+      "sha256": "eee083269a4bc515126d520b75fbd72d4db610e49fb1f96876cbe19ddb72c1ce"
+    },
+    {
+      "bytes": 19391,
+      "path": "tools/two_write_acquisition.py",
+      "sha256": "0d58101128b4d68f051c18b12a8d12aec7e27246fff8a4d00627fbbd91f54963"
+    },
+    {
+      "bytes": 53042,
+      "path": "tools/two_write_evaluation.py",
+      "sha256": "a58d04968c8967d2d19fc2747072849865bd72150318942ef853d971445a7680"
+    },
+    {
+      "bytes": 6145,
+      "path": "tools/two_write_runtime.py",
+      "sha256": "47b7562ed8f0f97760b9c2d8304b4f906f5131ebc4e037ca0023ba437883759c"
+    },
+    {
+      "bytes": 6441,
+      "path": "tests/test_two_write_runtime.py",
+      "sha256": "04ede953ee0cdd2730feff46627c438132d778f523d431c2f01f72a75e9f5c50"
+    },
+    {
+      "bytes": 19899,
+      "path": "tests/test_two_write_runner.py",
+      "sha256": "d0427abe960286d81e8ccceb76012958dc047ffa20760cc7455df2b6a36c8a3b"
+    },
+    {
+      "bytes": 14866,
+      "path": "tests/test_two_write_memory.py",
+      "sha256": "ec09492d60f44182a79886eecd0a008031609fe1ed536898746b489a42217532"
+    },
+    {
+      "bytes": 13155,
+      "path": "tests/test_two_write_acquisition.py",
+      "sha256": "909a92562df09c19ab31d283c21ac738ebb516f1b206b4e09fa99ece05a0e7fd"
+    },
+    {
+      "bytes": 19714,
+      "path": "tests/test_two_write_evaluation.py",
+      "sha256": "079c1490da940545a2b942f875bf3fe3db8d15688a9a4f3cd02462a78308077c"
+    },
+    {
+      "bytes": 13914,
+      "path": "docs/EXP-016-protocol.md",
+      "sha256": "57b4a280c991b2598359c871aa1d652fa832841086f747b7b732b3b7eef66164"
+    },
+    {
+      "bytes": 9115,
+      "path": "docs/two-write-memory-design.md",
+      "sha256": "1b16036b751a16e16cb6022a8539612c3510ea249212e89ad1d2267e5c3e8203"
+    },
+    {
+      "bytes": 8765,
+      "path": "docs/consults/2026-09-17-pro-adjudication.md",
+      "sha256": "ce72d07076cb52502b4f4e9867320227be73859cfb0c5f47eebc5225585d2cd3"
+    },
+    {
+      "bytes": 5217,
+      "path": "docs/consults/2026-09-17-pro-receipt.json",
+      "sha256": "133d41f4e66845a2f9a3800453250d0d4a8cfc414e6e8f566132e28955393b62"
+    },
+    {
+      "bytes": 21039,
+      "path": "docs/consults/2026-09-17-pro-response.md",
+      "sha256": "ff81ca3e906f53711a549fadcf01fc9896a73d69920ecd89a6c5051d723f65e6"
+    },
+    {
+      "bytes": 10615,
+      "path": "docs/consults/2026-09-17-two-write-independent-adjudication.md",
+      "sha256": "76e59a297abab78e561b351fb68d02f1a415d964deafa7a39fd000f6a2972921"
+    },
+    {
+      "bytes": 42182,
+      "path": "tools/run_phase_memory_recovery.py",
+      "sha256": "edcf3b8bfb12db902b1689f9e2777508fe02fa4dfc9c46edc25497d83cf9c239"
+    },
+    {
+      "bytes": 6768,
+      "path": "tests/test_phase_memory_recovery.py",
+      "sha256": "55f624c66466c713c2e1746f5b3ad8bbfbb122566bd879e34ac59ce77c3ef730"
+    },
+    {
+      "bytes": 3320,
+      "path": "docs/EXP-014-operational-amendment.md",
+      "sha256": "9231fb07e9b531d05601bbd06c957866f5cf3522f14f3ab07648070cf3aa58c3"
+    },
+    {
+      "bytes": 42055,
+      "path": "tools/run_phase_memory.py",
+      "sha256": "2ce56074d87f48f7de156c6e14678ff545ea3e9d9518f34744d49cf105517c75"
+    },
+    {
+      "bytes": 30400,
+      "path": "tools/phase_memory_acquisition.py",
+      "sha256": "e133b981bdb205fc8df31d4708be890959c7e05f6876ae02a81c6a7237bc0c4c"
+    },
+    {
+      "bytes": 18875,
+      "path": "tools/phase_memory.py",
+      "sha256": "6e3eb8a665fd0cca8e5493c2d6773f0625e07d28ae57e4e00807d7fb8d7bd681"
+    },
+    {
+      "bytes": 42230,
+      "path": "tools/phase_memory_evaluation.py",
+      "sha256": "169b0d3fbc886958e23e5a1719ef564d8df52a2412949502fdef79ca82554980"
+    },
+    {
+      "bytes": 18356,
+      "path": "tests/test_phase_memory_acquisition.py",
+      "sha256": "b922f524eab3f475bc2fd571aebf9abefab7a595ee460b170734c870a660f465"
+    },
+    {
+      "bytes": 15003,
+      "path": "tests/test_phase_memory.py",
+      "sha256": "c2f37ca6ec7292e39dd1b30b54d2c517a063b03f3997e81ba0db5c5a8092bb61"
+    },
+    {
+      "bytes": 17640,
+      "path": "tests/test_phase_memory_evaluation.py",
+      "sha256": "66e29978e16dc07fdc507eb18af8825c7b415f99a6b509cae342ee0e375adf47"
+    },
+    {
+      "bytes": 20897,
+      "path": "tests/test_phase_memory_runner.py",
+      "sha256": "f49fdabda103182a6e95117bdb9dfc14a207b5059c329f78f3708b42f89b5d39"
+    },
+    {
+      "bytes": 13667,
+      "path": "docs/EXP-014-protocol.md",
+      "sha256": "21314553aa20da12fea9a8c6bd74dce403f80d2662477222449047b100451c22"
+    },
+    {
+      "bytes": 20387,
+      "path": "docs/phase-memory-design.md",
+      "sha256": "3b588110a20574adb14e802ca924537599ba203b651cfd77e13f06cc27f3ad3a"
+    },
+    {
+      "bytes": 16993,
+      "path": "tools/fresh_preview_runtime.py",
+      "sha256": "c15449d6dd51fa17959d2670cc0a6f4921b84301b029a66221fbeb2ed2f0c01c"
+    },
+    {
+      "bytes": 15022,
+      "path": "tools/run_hopfield.py",
+      "sha256": "71730796911ca7ad4b4b163ef35f5e658dd1bcb114923b4796332550ca53a077"
+    },
+    {
+      "bytes": 23852,
+      "path": "tools/run_hopfield_drift.py",
+      "sha256": "23ac06eacaab249093c1abcbac5f8b3942c49d4b2a7e001afec508d051e5a5f9"
+    },
+    {
+      "bytes": 42934,
+      "path": "tools/run_hopfield_refinement.py",
+      "sha256": "5a78ba0b7a1a9e9db2fd0818f2e567d2ce169839c9b787c74d18e827c9d61c95"
+    },
+    {
+      "bytes": 16573,
+      "path": "tools/hopfield_diagnostics.py",
+      "sha256": "e31e266f5e9659ca69ed70a200d45055a04454e5d53f808f81a62607c0dd8c07"
+    },
+    {
+      "bytes": 7702,
+      "path": "tools/hopfield_drift_metrics.py",
+      "sha256": "f2aacb77aa40e0c1e90d19cf57fd44fc00c1c1b3c40af745380658eee37f4c03"
+    },
+    {
+      "bytes": 9688,
+      "path": "tools/hopfield_drift_probe.py",
+      "sha256": "24e06c7a001135e29bd376603cf6b40027a87be649c2d250571aea4d792b7767"
+    },
+    {
+      "bytes": 9205,
+      "path": "native/hopfield.cpp",
+      "sha256": "d77afbf22b10abb829eecb41ff6ace262713a8b00e7544f2bfe4d389d661eba4"
+    },
+    {
+      "bytes": 1942,
+      "path": "native/hopfield_drift.cpp",
+      "sha256": "8261b60153f82497724d115e14a6264a00706f3ef825f11e95a0e1145b7d7f72"
+    },
+    {
+      "bytes": 13579,
+      "path": "tests/test_hopfield_refinement.py",
+      "sha256": "9c3d65ff9e7c25c43b92bcaa436c1ecb7a00357e57391bbed7f4462244d180db"
+    },
+    {
+      "bytes": 12900,
+      "path": "docs/EXP-009-protocol.md",
+      "sha256": "431aafd9af901044d091b0f7639c90cfd14c6123c649e2d9289a573863c24ba3"
+    },
+    {
+      "bytes": 555,
+      "path": "pyproject.toml",
+      "sha256": "78acf5fae0c94d1c2739e3632b47abef5d081c57c32eca5e3eba877c103c62da"
+    },
+    {
+      "bytes": 57027,
+      "path": "requirements.lock",
+      "sha256": "05caa21f496bd7e3ba7c0cdbe176bf78dc7eea309be00cf40c95c530b509399c"
+    },
+    {
+      "bytes": 213926,
+      "path": "uv.lock",
+      "sha256": "601c1bccf7f0768d942083d59fb30ad2c29db5aaee50c42911c99e5a7bf49c9e"
+    }
+  ],
+  "standardized_margin_threshold": 0.01,
+  "thread_limit": 1,
+  "total_jobs": 2796,
+  "traces": 2700,
+  "windows": [
+    "immediate",
+    "k2",
+    "k4",
+    "k8"
+  ],
+  "workers": 4
+}

@@ -1,0 +1,23 @@
+{
+  "status": "verified",
+  "started_utc": "20261011T045011Z",
+  "completed_utc": "2026-10-11T04:50:16.295996+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261011T045011Z-complete-census-independent-proofs",
+  "selected_roots": [
+    "audits/census72-independent-ad/attempt002-target"
+  ],
+  "file_count": 3450,
+  "bytes": 1697543777,
+  "symlink_count": 0,
+  "manifest_sha256": "71a4ceb76c35eb5298c6588bb90af496928225a139449627b0e6fe1829fd1b25",
+  "elapsed_seconds": 4.336754640797153,
+  "source_commit_at_copy": "15abb94f0b59b034c168ff779c0eeb80cc093d29",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

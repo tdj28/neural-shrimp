@@ -1,0 +1,57 @@
+{
+  "experiment_id": "EXP-017",
+  "status": "ready_for_exploratory_execution",
+  "recorded_utc": "2026-09-17T17:17:09.941927+00:00",
+  "plan_sha256": "38a8d2aeb9f543a15cc7c3d0d471073b2ec095a669c8031acc837bd962e392f2",
+  "source_count": 51,
+  "historical_input_count": 102,
+  "review_scope": "Root exact-plan adjudication after separate controller/scientific source reviews; no new neural target solve before freeze",
+  "tests": {
+    "passed": 105,
+    "acquisition": 35,
+    "evaluation": 39,
+    "controller": 31,
+    "seconds": 8.16,
+    "neural_target_solves": 0,
+    "synthetic_actual_api_pipeline": "6 bases,96 events,48 contexts; retained missing-event case"
+  },
+  "evidence": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/preflight-001/integrated-tests-001.json",
+      "bytes": 1864,
+      "sha256": "138d44da8bb3442f30c0a563de969f90b6acbe2c99924bda2c52a6a7daf53cfc"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/preflight-001/controller-independent-review.json",
+      "bytes": 15165,
+      "sha256": "4cbc9cf223ed9c9d675d707e9da8e252273f9e9bb59be20a396f0b9eba790939"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/preflight-001/scientific-review-001.json",
+      "bytes": 9121,
+      "sha256": "c508957637f7c6072aa52c8fa4c398012713d09dc036f8b71089aecc6a8ecf5b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/preflight-001/resources-001.json",
+      "bytes": 1058,
+      "sha256": "b12306f5bbb9857cd56a4f376888da56b1bcfae3a2495e1b9fc7b31668120350"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-017/preflight-001/controller-exact-plan-review.json",
+      "bytes": 10092,
+      "sha256": "0325c8ea70793c28c956f13c6e29f9a6c31ba76e207e69775504b049dc39c7fe"
+    }
+  ],
+  "all_source_bindings_match": true,
+  "prior_frozen_sources_unchanged": true,
+  "open_findings": [],
+  "interpretation": [
+    "Completion is distinct from scientific diagnostic flags.",
+    "Fine-pair combined context flag conservatively requires baseline availability too; individual pair/normalization metrics remain visible.",
+    "all_dense_fine_pairs_pass does not include every base-grid/closure/adjoint diagnostic and does not authorize automatic memory-study qualification.",
+    "Old event comparator is primary DOP853 context seal only.",
+    "Original EXP016 failures and missing traces remain; any later full8T input task needs separate freeze."
+  ],
+  "authorized_resources": "Local CPU/RAM,4 workers,one numerical-library thread,1800 second producer; no paid execution",
+  "human_friendly_tldr": "We are checking the reference behind missing phase tests; this diagnostic will not measure new memory behavior. Persistent and interfering transverse memory remains an individual-case finding from EXP016."
+}

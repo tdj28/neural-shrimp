@@ -9,13 +9,35 @@ available: `EXPERIMENT_INTEGRITY_SKILLS.md`, `GPU_COMPUTE_SKILLS.md`,
 `GIT_WORKFLOW_SKILLS.md`, and the applicable parts of `RESEARCH_NOTE_WRITEUP.md`.
 This repository records their hashes in `docs/skill-provenance.json`.
 
+Read [Skills.md](Skills.md) for the current server and shared-resource policy.
+The user authorizes local CPU, RAM and GPU use on `zeta`; prefer suitable
+local resources and check availability without disturbing other agents.
+RunPod remains an acceptable fallback when local capacity is insufficient or
+the GPU is busy, subject to the paid-run requirements below. This local
+amendment supersedes older weak-computer assumptions in the playbooks.
+Checkpoint and push code regularly as specified in Skills.md. Keep new bulky
+raw data under `../neural-shrimp-data/`, with compact hash-bound receipts in
+Git; preserve existing frozen evidence and history.
+
 - Initial experiments are exploratory pilots, never formal preregistrations.
-- Commit and push complete plans and executable code before target outcomes.
+- Follow [the adaptive research protocol](docs/adaptive-research-protocol.md)
+  (user directive, 6 October 2026): explore freely with code committed and a
+  run card in the research log before each run; adapt any plan when findings
+  warrant it through dated, disclosed amendments; push a frozen test design
+  before outcomes only for confirmatory tests of headline claims on fresh data.
 - Preserve every failed or incomplete attempt, immutable raw evidence, exact
   source commit, manifest hashes, and changes of plan in a dated amendment.
 - Do not label visual islands or loss oscillations as verified shrimps. Verify
   full-state primitive periodic orbits, stability, and boundary organization.
 - Utility of cycle detection is distinct from incremental utility of geometry.
+- Before claiming a shrimp-specific behavioral effect, test comparable distant
+  regimes, including both chaotic and ordinary periodic controls. Qualify
+  chaotic controls with explicit chaos diagnostics; retain unresolved or
+  finite-horizon irregular cases under their actual evidence labels.
+  An effect that also appears
+  away from the shrimp remains generic unless the geometry adds demonstrated
+  explanatory or predictive value. See docs/EXP-027-status.md for the paused
+  control-design requirements requested by the user on 23 September 2026.
 - Use local audits. Paid Pro reviews are optional at major milestones and
   require explicit approval for each call under canonical integrity section 7A.
 - Paid RunPod execution requires a measured, costed run plan, an approved hard

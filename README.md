@@ -1,7 +1,24 @@
 # A neural shrimp and what the network does inside it
 
+**Human-friendly TLDR:** Near the selected periodic-window edge, an earlier input can remain readable after a second input arrives. Across all 24 tested phases, nonlinear readout raises four-cycle first-bit accuracy from **55.05% to 58.98%**; one previously identified phase rises from **50.31% to 99.69%**. The core cycle is essentially at chance by then. A simpler one-mode reference gives an equally effective late observer on these same neural observations. This demonstrates recoverable, timing-dependent memory in two fixed-weight three-neuron settings; a unique shrimp-geometry advantage and transfer to trained networks remain unproven.
+
 Private exploratory research on periodic-window geometry, neural activity, and
 whether geometric information can improve model control.
+
+**Current program, 6 October 2026: [Program C](docs/program-c-2026-10-06.md).**
+Track A asks whether the two-learning-rate plane of full-batch gradient-descent
+training contains verified periodic windows with shrimp organization, and
+whether that structure matters for training. Its first pilot is
+[EXP-028](docs/EXP-028-protocol.md), prepared but not yet run. Track B tests
+whether window geometry in this three-neuron network predicts memory and
+nonlinear capacity beyond local dynamics, against distant periodic and chaotic
+controls ([design draft](docs/track-b-design-2026-10-06.md)). The
+[6 October assessment](docs/project-assessment-2026-10-06.md) explains the
+choice. The summaries below describe earlier work.
+
+**Latest analysis: [EXP-021](docs/EXP-021-results.md), complete and numerically qualified.** The corrected nominal arithmetic completes all 144 cells, 4,704 mixture probabilities and 1,728 auxiliary controls under the original gates. Frozen numerical replay and separate saved-evidence/summary audits pass. The primary gain is 3.9268 percentage points at 4T, with a numerical enclosure [3.9253, 3.9327], not a population confidence interval. [EXP-020](docs/EXP-020-results.md) remains incomplete. [EXP-019](docs/EXP-019-results.md) supplies the unchanged neural observations. The next question is whether matched cycle references can separate contraction and observability from geometry's incremental value.
+
+**Latest feasibility check: [EXP-022](docs/EXP-022-results.md).** The fixed historical panel supplies only four of six seeds: the sampled core path misses both contraction bins, although adjacent nodes bracket both targets. No new neural integrations were launched. A separately planned successor will test two fixed intermediate gamma values while preserving this missing-support result.
 
 **Current release status: private working diagnostic draft.** EXP-008
 [PR #7](https://github.com/tdj28/neural-shrimp/pull/7) remains **unmerged**.
@@ -10,11 +27,141 @@ Linux verification in both the push and PR workflows. Local replay passed;
 two later Linux diagnostics preserve all three penalties and all 288 learned
 actions when refitting on **saved features**. Complete cross-platform
 reproduction remains unresolved and the strict gate has not passed. The
-numerical-portability failures below take priority over a new preview-budget
-experiment.
+separate numerical studies below qualify a new retrospective preview-budget
+recipe; they preserve the original failures and do not replace that gate.
 
-**EXP-004 numerically reproduces an actual shrimp-shaped window in a
-three-neuron recurrent neural network.** This is the fixed-weight tanh system
+**Server follow-up, 14 September 2026:** the new saved-trajectory regeneration
+audit rebuilds all 3,456 previews and 7,008 targets, then refits on regenerated
+inputs. All 288 learned actions, 96 minimum-preview actions and three selected
+penalties remain unchanged; all regenerated aggregate waveform scores are
+identical to their saved values. Nineteen eigenvalue/coefficient comparison
+failures remain. This closes the previous saved-feature-only scope gap without
+making the original strict gate pass.
+
+The separately frozen **EXP-009** completes all 2,776 finer/independent
+integrations and passes saved-array verification. All 220 distinct actions
+chosen by the original policies satisfy its numerical-stability rule; the
+baseline-minus-geometry mean becomes 0.000857638, essentially unchanged.
+However, 952 of the 1,012 deliberately selected sensitive candidates still
+change in RMSE by more than 1e-4 between the two finer native steps, and only
+13/19 independent-panel cases meet the declared RMSE-agreement rule; only
+12/19 also meet all independent waveform-agreement rules. The selected
+control results are robust in this follow-up; many unselected
+training labels remain numerically unresolved. This is an outcome-selected
+numerical study, not fresh utility confirmation.
+
+The short-preview qualification, **EXP-010**, completes all 6,944 traces.
+All 3,456 original 75-unit labels pass the declared native scalar and waveform
+checks, all sixteen independent sentinels agree, and all 192 complete candidate
+rankings remain unchanged. These shorter labels support the separately frozen
+retrospective four-preview development experiment. They do not resolve the
+longer candidate outcomes or establish a geometry benefit. See the
+[preview qualification audit](docs/EXP-010-results-audit.md).
+
+**EXP-011 completes the four-preview study:** all 24 origin folds and 96 model
+recipes pass the frozen numerical gates and built-in replay. Geometry lowers
+observed mean preview RMSE from 0.0162661 for shared features to 0.0107899,
+but the simple signed-axis control is better at 0.00856899. The full-eighteen
+reference is 0.00617504. The shared-minus-geometry contrast is 0.00547615 with
+a descriptive origin-bootstrap range of [-0.00265276, 0.01561846]; these
+historical origins are development evidence. Both resolutions produce the
+same four-entry lists and actions. Geometry is best among the four-preview
+policies at the largest radius; local coverage is best at the three smaller
+radii. This motivates examination of the quality/cost tradeoff, not a claim
+of general geometry utility or net speedup. See the
+[shortlist results audit](docs/EXP-011-results-audit.md).
+
+**EXP-012 completes the local GPU qualification:** all 54 batches and 64,188
+case integrations finish, but the CUDA path fails the frozen state/metric
+compatibility gates and is slower in all 24 warm timing pairs. At the intended
+full finer-step batch, median CPU time is 69.69 seconds versus 75.86 seconds
+with GPU integration. Tested rankings and repeat/layout bits are unchanged;
+those checks do not waive the failed gates. Keep CPU as the scientific default.
+Independent saved-evidence audits reproduce the result. See the
+[GPU results](docs/EXP-012-results-audit.md).
+
+**EXP-013 completes fresh-origin acquisition but fails cohort qualification.**
+All 24 references, 48 sensitivities and 10,608 previews finish. All 3,456 scalar
+checks pass, but one candidate fails the preset waveform agreement threshold;
+3,455 candidates, all 48 shams and all 48 independent-panel cases qualify.
+Independent audits reproduce this result. The frozen rule withholds full-cohort
+loss means and intervals. The separate numerical diagnostic and direct timing-memory acquisition
+are now complete; their distinct qualification limits are recorded below. See the
+[fresh-origin results](docs/EXP-013-results-audit.md) and
+[current project assessment](docs/project-assessment-2026-09-17.md).
+
+**EXP-014 completes acquisition; numerical qualification fails.**
+All 930 jobs finish. Thirty full-trace comparisons fail at the largest pulse
+size, although all bounded bit-readout accuracy comparisons agree. Both
+setting averages remain withheld: a saturated readout can hide large
+trajectory differences. One numerically consistent individual phase-null
+case agrees with the full-linear model and differs from the phase-only
+prediction, motivating study of transverse response and forgetting rates.
+The probabilities assume Gaussian measurement noise; they are not noisy-trial
+accuracies. See [the timing-memory audit](docs/EXP-014-results-audit.md).
+The separate [EXP-013 finer-step diagnostic](docs/EXP-013-refinement-results.md)
+supports its original finest-step trace, while preserving the original failed
+cohort qualification.
+
+**EXP-014 refinement completes all 425 tighter-solver traces.** All five new
+methods agree in 77/85 selected cases, including all smaller-pulse controls
+and shams. Eight large-pulse cases remain unresolved; nearly unchanged binary
+accuracy still hides large trajectory and signed-readout differences.
+Original settings remain unqualified. See
+[the refinement results](docs/EXP-014-refinement-results.md) for the full census,
+independent audit and retained strict arithmetic-replay failures.
+
+
+**EXP-015 completes all 192 phase/transverse decomposition cells.** All 64
+phase-null cells pass the frozen checks: their predicted readout is transverse. Core signals
+strongly attenuate; near-edge signals persist and can grow across sampled windows. Overall, 191 cells pass algebraic
+consistency and 179 pass the ideal-neutral approximation; every failed gate
+is retained. Independent alternate arithmetic retains additional strict
+discrepancies. This explains a local memory mechanism conditional on the saved
+propagators, without establishing shrimp-specific or trained-network benefit.
+See [the decomposition results](docs/EXP-015-results.md).
+
+**The authorized Astra Pro strategy consultation is complete**, with a
+conservative receipt-derived cost of **$0.78126**. Its
+[adjudicated recommendation](docs/consults/2026-09-17-pro-adjudication.md)
+is to test whether the earlier input remains readable after a second input
+interferes with it. The [two-write experiment](docs/EXP-016-results.md) has now
+run: all 2,079 eligible traces pass their comparisons, but eleven failed
+phase-reference normalization checks block 621 planned traces and leave both
+setting means unqualified. Individual checked cases show persistent near-edge
+memory and interference from a second input. One illustrative four-period case
+falls from 93.5% to 70.0% first-input accuracy; its core counterpart is near
+chance. The full linear model closely explains completed cases, and the slow-mode
+model explains much of the later response. This is a conditional behavioral
+finding, not a qualified cohort advantage or special geometry benefit.
+
+**EXP-017 completes all 102 reference diagnostic jobs.** Exact dense cycle
+samples reduce the largest phase-coordinate defect, but nine starting phases
+still fail the unchanged event check in both finer solvers. The remaining
+issue concerns inherited periodic-reference consistency; interpolation alone
+does not explain it. See [the reference diagnostic](docs/EXP-017-results.md).
+It supplies no new memory scores and does not requalify EXP-016.
+
+**EXP-018 completes global reference refinement and all 48 phase contexts qualify.**
+All 102 jobs finish: both independently refined candidates at each setting
+retain the primitive nine-peak attracting cycle, and all 96 event continuations
+pass. The largest event-normalization error is 1.34e-10 against the unchanged
+1e-7 limit. The frozen saved-array verifier passes and confirms owned-process
+cleanup. This resolves the one-period reference problem for the declared phase
+set, without changing earlier failures or supplying new memory scores. The subsequent
+[EXP-019 study](docs/EXP-019-results.md) completes the fresh eight-period
+reference and two-write census with its global gate before finite inputs. See [the refinement results](docs/EXP-018-results.md).
+
+Read the [arithmetic diagnosis](docs/EXP-008-arithmetic-results-audit.md),
+[regenerated-input audit](docs/EXP-008-regeneration-results-audit.md),
+[EXP-009 results](docs/EXP-009-results-audit.md), and
+[updated next steps](docs/next-steps.md). New bulky raw outputs live in
+`../neural-shrimp-data/`; code, protocols and compact hash-bound summaries
+remain in this private repository. See [Skills.md](Skills.md).
+
+**EXP-004 maps a shrimp-shaped periodic region and verifies selected full-state
+cycles in a three-neuron recurrent neural network.** Full boundary organization
+remains unfinished. This is the fixed-weight tanh system
 reported by da Silva and Rech (2022), not a newly trained modern network. The
 network's three potentials evolve while two connection weights define the map.
 
@@ -214,14 +361,16 @@ more favorable illustration is substituted. Read the
 [generated summary](evidence/information-paper-summary.json), and
 [receipt](evidence/EXP-008/attempt-001/receipt.json).
 
-The practical next question is **whether geometry can reduce the number of
-previews needed for an acceptable waveform**, rather than improve a learner
-after all 18 previews have already been paid for. The proposed next test uses
-a provisional budget of four previews, with shortlists chosen before those
-previews, equal-budget controls and the full-18 reference. Numerical portability
-and label auditing come first. This is a proposal, not a frozen or executed experiment;
-see [next steps](docs/next-steps.md). No trained-model benefit, topology-specific
-mechanism, net speedup or paid-resource need follows from EXP-008.
+The four-preview question has now been tested retrospectively in **EXP-011**.
+The simple controls are essential: signed axes have lower pooled error than
+either learner, while geometry's observed increment over shared features is
+uncertain and varies with radius. The next study must specify a useful quality
+margin and measure prerequisite costs before claiming that fourteen fewer
+preview calls save total work. Short-preview error and 300-unit waveform
+preservation remain separate endpoints. See [next steps](docs/next-steps.md),
+the [frozen protocol](docs/EXP-011-protocol.md) and
+[results](docs/EXP-011-results-audit.md). No trained-model benefit,
+topology-specific mechanism or net speedup is established.
 
 The [new unreviewed dynamical-memory preprint](https://arxiv.org/abs/2609.07341v1)
 is documented in a [critical reading note](docs/literature/2026-09-11-aguilera-demartino.md).
@@ -345,3 +494,5 @@ shrimp reproduced in EXP-004.
 Paid research reviews require explicit approval for each request. See the
 [compute plan](docs/compute-plan.md) before considering paid resources. This
 repository remains private until its owner authorizes publication.
+
+The next bounded research stage is documented in the [cycle-reference feasibility design](docs/next-cycle-reference-design.md). It remains an advisory plan pending implementation and execution freeze.

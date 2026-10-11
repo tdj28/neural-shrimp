@@ -1,0 +1,81 @@
+{
+  "experiment_id": "EXP-019",
+  "certificate_schema": "saved-evidence-reuse-qualification-v1",
+  "created_utc": "2026-09-17T18:54:26.022697+00:00",
+  "source_commit": "7eeba42182184a209dbc2f718e8469a5cd97e4a9",
+  "plan_sha256": "86ae6924a1a89c1d8ae878742f0b012680443fa2cad8746c1853a52d4b6c0543",
+  "raw_receipt": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-019/attempt-001/receipt.json",
+    "bytes": 1789928,
+    "sha256": "ef9d6020c6c13f3b7ea89fddff4c4eabb112275c6c8b98724f2e56d0735c5001"
+  },
+  "raw_summary": {
+    "path": "/data2/neural-shrimp-data/raw/EXP-019/attempt-001/summary.json",
+    "bytes": 85461306,
+    "sha256": "f8c665c7d184248a71498a6fcabf16d20f546348880db112485e4cf18b3c8a71"
+  },
+  "compact_summary": {
+    "path": "/data2/neural-shrimp/docs/EXP-019-summary.json",
+    "bytes": 677308,
+    "sha256": "1fdffac18c5c5de47fe721c042dcd437a4b33ef1545537ce083dac3d4020ad7a"
+  },
+  "qualification": {
+    "complete": true,
+    "source_valid": true,
+    "contexts_planned": 48,
+    "contexts_qualified": 48,
+    "scores_planned": 2700,
+    "scores_complete": 2700,
+    "comparisons_planned": 1404,
+    "comparisons_qualified": 1404,
+    "all_primary_setting_prerequisites_qualified": true,
+    "global_reference_barrier_pass": true,
+    "frozen_saved_replay_pass": true,
+    "owned_process_cleanup_verified": true,
+    "reference_evidence_and_gate_pass": true,
+    "finite_evidence_and_gate_pass": true,
+    "finite_strict_arithmetic_pass": true,
+    "reference_alternate_strict_arithmetic_pass": false,
+    "reference_alternate_failed_comparisons": 165,
+    "strict_thresholds_unchanged": true
+  },
+  "audit_bindings": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/frozen-verifier-attempt-001.json",
+      "bytes": 279,
+      "sha256": "b58d8e76140d116b5aee0206e7ef3f9885e8325d32ffc91fb975281608dc4dbe"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/reference-audit-001/receipt.json",
+      "bytes": 4363,
+      "sha256": "e32bfdf60ce026aab74c0bac72d3803ee1f8c629d825b461965c07c8d84cbf1d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/reference-audit-001/report.json",
+      "bytes": 431879,
+      "sha256": "e8779b8009c8d6907e520d221294127badaf29793f4be093cb722eb05b7c1af0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/reference-audit-001/arithmetic-units-and-observer-companion.json",
+      "bytes": 205222,
+      "sha256": "90ae371703a86a58aa1c9a11e9edf0babd0387c809fec98976c71ddf281a8485"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/finite-audit-001/report.json",
+      "bytes": 9280948,
+      "sha256": "0486f1fd6d0133db48a48f4782f17404636c07e335349e4c99131e1e2a263028"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/finite-audit-001/compact-summary-001.json",
+      "bytes": 11787,
+      "sha256": "bb79213c448c944e0d5f8439643206532626a8a40869814165c360b3079c4360"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/summary-audit-001.json",
+      "bytes": 725,
+      "sha256": "ac2383a7e33c12a14da4dc060eed602e332824e57b3880b9341130497d136f47"
+    }
+  ],
+  "scope": "Metadata-only certificate for saved-evidence reuse. Contains no accuracies, margins, finite observation vectors, classifier gains or selected-phase outcomes. Strict reference arithmetic failures stay recorded; original scientific qualification gates are not changed.",
+  "no_performance_outcomes": true
+}

@@ -1,0 +1,88 @@
+{
+  "experiment_id": "EXP-014-refinement",
+  "date": "2026-09-17",
+  "status": "ready_for_exploratory_execution",
+  "plan_sha256": "150e18cf4b528ea8740e498a2cc610454e7f313dcce482a6a4735e0016104bfe",
+  "outcome_selected": true,
+  "census": {
+    "physical_cases": 85,
+    "new_traces": 425,
+    "old_traces": 255,
+    "all_method_rows": 680,
+    "comparison_pairs": 2380,
+    "same_method_paired_BA_cells": 3744
+  },
+  "validation": {
+    "integrated_synthetic_tests": {
+      "passed": 59,
+      "seconds": 59.2
+    },
+    "independent_synthetic_tests": {
+      "passed": 59,
+      "seconds": 58.75
+    },
+    "independent_metadata_checks": 1690,
+    "original_saved_packets_replayed": 255,
+    "original_saved_readouts_replayed": 1020
+  },
+  "independent_review": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/preflight-scientific-001/EXP-014-refinement-independent-preflight.json",
+      "bytes": 8633,
+      "sha256": "3cf4c635f05015f16180eaf620795e36d1c34205f6704f79d59f52016a3ed240"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/preflight-scientific-001/review_phase_refinement.py",
+      "bytes": 9164,
+      "sha256": "8d753a25c2cbd633ed5d202a8a7c7e084a4f2c8532a9b3a7ea2d16d987530127"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/preflight-scientific-001/synthetic-tests.json",
+      "bytes": 1321,
+      "sha256": "7281d93db6ca9c8a3fce6bb91a154e9b207643bbc1f06d0df345b892db9e3a74"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/root-preflight-001/root-preflight.json",
+      "bytes": 2369,
+      "sha256": "62f928b8760daab3d64b289de05c72445ecce0baf07529c4a6afca0bd51a1d00"
+    }
+  ],
+  "pre_outcome_independent_auditor": {
+    "synthetic_tests_passed": 17,
+    "files": [
+      {
+        "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/independent-audit-source/audit_refinement.py",
+        "bytes": 24522,
+        "sha256": "9122dda99a87ee1e66d06ba1e7bde84b7adc3a3c950e4374408c3d1156366cf3"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/independent-audit-source/independent_codec.py",
+        "bytes": 4254,
+        "sha256": "77571fbd5cb33c38f52ffea249591b52e6d1bc023ed31017de7c96b5b8040b87"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/independent-audit-source/selection.py",
+        "bytes": 4166,
+        "sha256": "621e1682b4d87db6acb5777d8b5021b4a86a1d56cf04a64045b2ec141be12c0e"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/independent-audit-source/selection_v2.py",
+        "bytes": 2778,
+        "sha256": "b8cb69e48a1f2c953c707082a2b102bac3a0d83bfcc0430885221c16219315de"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/audits/EXP-014-refinement/independent-audit-source/test_audit_refinement.py",
+        "bytes": 5157,
+        "sha256": "6184e090dfcabfe3274e206b56951dd8880ab0e2a0efd303977c39e1f3eadaad"
+      }
+    ]
+  },
+  "root_review": "Reviewed exact 85-case signed-complete selection, truthful solver identities and parameters, original fixed-clock score replay, source/input guards, unchanged gates, complete failure denominators, sampled crossing definitions, finite deadlines/resource ownership and saved-evidence verification. No remaining blocker. All 27 original source bindings remain unchanged.",
+  "conditions": [
+    "Commit and privately push exact code, plan and this review before 425 new target traces.",
+    "Keep all original EXP014 numerical failures and both unqualified setting conclusions unchanged.",
+    "No cohort or setting means, decoder refit, phase alignment, solver selection, convergence-order claim or geometry-utility claim.",
+    "Use exclusive external raw directory, four CPU workers and frozen memory/time limits; no paid compute/review or main merge.",
+    "Run saved-array verification and independent audit, keeping strict arithmetic replay discrepancies separate from scientific gate decisions."
+  ]
+}

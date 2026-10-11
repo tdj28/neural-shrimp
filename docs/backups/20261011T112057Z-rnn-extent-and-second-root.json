@@ -1,0 +1,26 @@
+{
+  "status": "verified",
+  "started_utc": "20261011T112057Z",
+  "completed_utc": "2026-10-11T11:21:00.009091+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261011T112057Z-rnn-extent-and-second-root",
+  "selected_roots": [
+    "audits/native705-cubic32-remaining-independent/attempt003",
+    "audits/clark-fold-extent-geometry/attempt001",
+    "explore/clark-rnn/correlated-fold-extent/attempt001",
+    "explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/second-unit-flip-localization001/rigorous001/attempt001"
+  ],
+  "file_count": 3921,
+  "bytes": 805716354,
+  "symlink_count": 0,
+  "manifest_sha256": "42d804c5792d6e3f3c3d4303c9863e4e696e3ebb9ff8eff1edf1926add828ab2",
+  "elapsed_seconds": 2.429211009060964,
+  "source_commit_at_copy": "300885c3c11ce6a3434094edfcc7e2cf7c38b74d",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

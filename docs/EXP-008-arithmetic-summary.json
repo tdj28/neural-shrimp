@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "assessment_date": "2026-09-14",
+  "scope": "Independent post-run interpretation and arithmetic checks of the completed saved-input diagnostic; original EXP-008 frozen gate remains failed",
+  "raw_report": {
+    "path": "/data2/neural-shrimp-data/audits/EXP-008-arithmetic/attempt-001/report.json",
+    "sha256": "56618ec929f8851cecd722cbeb279d66254ffdecb9cf020ccd1180d3302deba0",
+    "bytes": 6794062,
+    "diagnostic_source_commit": "b3cf51bb88df75eccec4b19e0f7a15976b3a9b21",
+    "method_sha256": "c6a037e9c2174a98a988a20304f9e1836bfd330920adbd927726723b3e1b6006",
+    "script_sha256": "87c62027791ec732e0c04d5b9835715e4f4d2181a2b5bdb827835c45fbae07fc",
+    "status": "completed",
+    "started_at": "2026-09-14T21:28:53.784016+00:00",
+    "wall_seconds": 5.703366499990807
+  },
+  "original_bindings": {
+    "original_source": "3c5604497ec57b19d62fbb595da7b190102f4b33",
+    "manifest_sha256": "fb0e546947e0f36b77ff4978f60769db3541fc64330022bd664da22c20c321cd",
+    "receipt_sha256": "ddb22c78a6b5f11a023088fd90f3403d25a2797e00624f01c316171ce35706fb",
+    "development_data_sha256": "366687e299b0e55852b0ae359378e617a227ad001ba6c37c3e405ac464c4b8a3",
+    "artifact_count": 10650,
+    "raw_bindings_passed": true
+  },
+  "runtime": {
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "numpy_version": "2.5.3",
+    "scipy_version": "1.18.1",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "float64_mantissa_bits": 53,
+    "longdouble_mantissa_bits": 64
+  },
+  "census": {
+    "contexts": 48,
+    "directions": 3456,
+    "common_ridge_objectives": 195,
+    "solver_coefficient_vectors": 585,
+    "fold_solver_penalty_validation_losses": 540,
+    "integrations": 0,
+    "new_targets": 0
+  },
+  "directional": {
+    "frozen_feature_failure_count": 2,
+    "failed_ids": [
+      "development-10-p675-r0.016-c16",
+      "development-10-p675-r0.016-c17"
+    ],
+    "context_direction_comparison_failures": 0,
+    "max_context_direction_difference": 2.498001805406602e-16,
+    "negative_frozen_quadratic_count": 0,
+    "maximum_cancellation_ratio": 20500.771232937524,
+    "maximum_frozen_replay_rmse_error_to_extended_reference": 8.597142586724707e-15,
+    "maximum_direct_rmse_error_to_extended_reference": 3.664603343001005e-16,
+    "direct_vs_frozen_reference_error_counts": {
+      "closer": 1784,
+      "equal": 1396,
+      "farther": 276
+    },
+    "failed_example": {
+      "frozen_quadratic": 1.3139833863843549e-05,
+      "frozen_clamped_rmse": 0.0036248908761290386,
+      "direct_residual_quadratic": 1.313983386378126e-05,
+      "direct_residual_rmse": 0.0036248908761204466,
+      "extended_reference_quadratic": 1.3139833863781222e-05,
+      "extended_reference_rmse": 0.0036248908761204414,
+      "stored_gram_extended_quadratic": 1.3139833863839805e-05,
+      "frozen_residual_extended_quadratic": 1.313983386378126e-05,
+      "directional_cancellation_ratio": 20500.771232937524,
+      "frozen_quadratic_negative": false,
+      "frozen_rmse_reference_error": 8.597142586724707e-15,
+      "direct_rmse_reference_error": 5.0572102115818e-18,
+      "quadratic_evaluation_error": 3.7438856268640075e-18,
+      "gram_formation_error": 5.854499990955734e-17,
+      "projection_error": 3.7889835138603986e-20,
+      "id": "development-10-p675-r0.016-c16",
+      "role": "development",
+      "delta": [
+        0.0010572155364542508,
+        -0.01596503352046214
+      ],
+      "saved_projected_rmse": 0.0036248908761150602,
+      "saved_reference_error": 5.381112222480056e-15
+    },
+    "failed_example_frozen_bound": {
+      "path": "development-10-p675-r0.016-c16.local_projected_rmse",
+      "kind": "float_tolerance",
+      "saved": 0.0036248908761150602,
+      "replayed": 0.0036248908761290386,
+      "absolute_difference": 1.3978401769421112e-14,
+      "allowed_difference": 1.3624890876129038e-14,
+      "error_over_allowance": 1.0259459614396933,
+      "relative_difference": 3.856226917470248e-12
+    }
+  },
+  "ridge": {
+    "baseline": {
+      "development_folds": 12,
+      "final_feature_columns": 51,
+      "original_selected_lambda": 1e-06,
+      "selected_lambda_by_solver": {
+        "normal": 1e-06,
+        "svd": 1e-06,
+        "augmented_qr": 1e-06
+      },
+      "all_selected_penalties_match_original": true,
+      "coefficient_failures_vs_original": {
+        "normal": 8,
+        "svd": 8,
+        "augmented_qr": 8
+      },
+      "max_coefficient_error_vs_original": {
+        "normal": 7.819905167849583e-08,
+        "svd": 7.496289300412684e-08,
+        "augmented_qr": 7.496412135488129e-08
+      },
+      "selected_normal_condition": 13494907.120296903,
+      "selected_augmented_condition": 3673.541495654691,
+      "selected_pairwise_differences": {
+        "normal_vs_svd": {
+          "max_coefficient_difference": 1.0133053646166346e-08,
+          "max_training_prediction_difference": 7.03202606349999e-12
+        },
+        "normal_vs_augmented_qr": {
+          "max_coefficient_difference": 1.013669470584233e-08,
+          "max_training_prediction_difference": 7.038004245765162e-12
+        },
+        "svd_vs_augmented_qr": {
+          "max_coefficient_difference": 1.4045264951079162e-11,
+          "max_training_prediction_difference": 4.859442369033966e-14
+        }
+      },
+      "selected_stationarity": {
+        "normal": {
+          "objective_extended": 0.02779482791415449,
+          "stationarity_norm_extended": 2.4486293186988405e-14,
+          "relative_stationarity": 1.5499329245210826e-16,
+          "coefficient_error_upper_bound_from_stationarity": 2.448629318698841e-08
+        },
+        "svd": {
+          "objective_extended": 0.02779482791415449,
+          "stationarity_norm_extended": 7.724391538803117e-14,
+          "relative_stationarity": 4.889383900092594e-16,
+          "coefficient_error_upper_bound_from_stationarity": 7.724391538803116e-08
+        },
+        "augmented_qr": {
+          "objective_extended": 0.02779482791415449,
+          "stationarity_norm_extended": 3.099164800258356e-14,
+          "relative_stationarity": 1.9617087510381472e-16,
+          "coefficient_error_upper_bound_from_stationarity": 3.099164800258356e-08
+        }
+      },
+      "largest_normal_condition_all_fits": 14098744.065657321,
+      "largest_augmented_condition_all_fits": 3754.829432298799,
+      "cv_mse": {
+        "normal": [
+          0.03374042729084376,
+          0.03778534274059132,
+          0.038819248332740516,
+          0.04427667732056737,
+          0.10628258678701892
+        ],
+        "svd": [
+          0.033740427292005805,
+          0.037785342740604654,
+          0.038819248332741946,
+          0.044276677320567344,
+          0.10628258678701892
+        ],
+        "augmented_qr": [
+          0.03374042729200371,
+          0.03778534274060458,
+          0.038819248332741925,
+          0.04427667732056736,
+          0.10628258678701892
+        ]
+      }
+    },
+    "geometry": {
+      "development_folds": 12,
+      "final_feature_columns": 57,
+      "original_selected_lambda": 0.01,
+      "selected_lambda_by_solver": {
+        "normal": 0.01,
+        "svd": 0.01,
+        "augmented_qr": 0.01
+      },
+      "all_selected_penalties_match_original": true,
+      "coefficient_failures_vs_original": {
+        "normal": 0,
+        "svd": 0,
+        "augmented_qr": 0
+      },
+      "max_coefficient_error_vs_original": {
+        "normal": 8.72487845859915e-14,
+        "svd": 7.779540900365589e-14,
+        "augmented_qr": 7.76522943168878e-14
+      },
+      "selected_normal_condition": 1511.890115229625,
+      "selected_augmented_condition": 38.88303119909281,
+      "selected_pairwise_differences": {
+        "normal_vs_svd": {
+          "max_coefficient_difference": 2.2877533201182132e-14,
+          "max_training_prediction_difference": 1.047374574510334e-14
+        },
+        "normal_vs_augmented_qr": {
+          "max_coefficient_difference": 2.3168966745146236e-14,
+          "max_training_prediction_difference": 9.305395396189206e-15
+        },
+        "svd_vs_augmented_qr": {
+          "max_coefficient_difference": 1.0660959962049965e-15,
+          "max_training_prediction_difference": 1.856038642573949e-15
+        }
+      },
+      "selected_stationarity": {
+        "normal": {
+          "objective_extended": 0.020516375698194447,
+          "stationarity_norm_extended": 9.167140446679161e-16,
+          "relative_stationarity": 1.8629842195414657e-16,
+          "coefficient_error_upper_bound_from_stationarity": 9.16714044667916e-14
+        },
+        "svd": {
+          "objective_extended": 0.020516375698194447,
+          "stationarity_norm_extended": 9.149991862592956e-16,
+          "relative_stationarity": 1.859499213314478e-16,
+          "coefficient_error_upper_bound_from_stationarity": 9.149991862592955e-14
+        },
+        "augmented_qr": {
+          "objective_extended": 0.020516375698194447,
+          "stationarity_norm_extended": 2.6667427671510516e-16,
+          "relative_stationarity": 5.419465013845611e-17,
+          "coefficient_error_upper_bound_from_stationarity": 2.6667427671510516e-14
+        }
+      },
+      "largest_normal_condition_all_fits": 15784177.514848836,
+      "largest_augmented_condition_all_fits": 3972.930595272064,
+      "cv_mse": {
+        "normal": [
+          0.025943902702269792,
+          0.02524111134318407,
+          0.0242202148133752,
+          0.030018189856169303,
+          0.10315764313673781
+        ],
+        "svd": [
+          0.025943902702249375,
+          0.025241111343184127,
+          0.024220214813375152,
+          0.030018189856169313,
+          0.10315764313673781
+        ],
+        "augmented_qr": [
+          0.025943902702246408,
+          0.02524111134318412,
+          0.02422021481337515,
+          0.030018189856169303,
+          0.10315764313673781
+        ]
+      }
+    },
+    "shuffled_geometry": {
+      "development_folds": 12,
+      "final_feature_columns": 57,
+      "original_selected_lambda": 1e-06,
+      "selected_lambda_by_solver": {
+        "normal": 1e-06,
+        "svd": 1e-06,
+        "augmented_qr": 1e-06
+      },
+      "all_selected_penalties_match_original": true,
+      "coefficient_failures_vs_original": {
+        "normal": 8,
+        "svd": 8,
+        "augmented_qr": 8
+      },
+      "max_coefficient_error_vs_original": {
+        "normal": 7.797943624154868e-08,
+        "svd": 7.521501288465515e-08,
+        "augmented_qr": 7.522606670917753e-08
+      },
+      "selected_normal_condition": 14779432.205749324,
+      "selected_augmented_condition": 3844.402711182756,
+      "selected_pairwise_differences": {
+        "normal_vs_svd": {
+          "max_coefficient_difference": 9.613366436234116e-09,
+          "max_training_prediction_difference": 7.462118855273303e-12
+        },
+        "normal_vs_augmented_qr": {
+          "max_coefficient_difference": 9.613044471556975e-09,
+          "max_training_prediction_difference": 7.486507678342972e-12
+        },
+        "svd_vs_augmented_qr": {
+          "max_coefficient_difference": 1.7867513024683035e-11,
+          "max_training_prediction_difference": 4.2419193295900625e-14
+        }
+      },
+      "selected_stationarity": {
+        "normal": {
+          "objective_extended": 0.02734863885593919,
+          "stationarity_norm_extended": 2.440723571688597e-14,
+          "relative_stationarity": 1.4350521338909085e-16,
+          "coefficient_error_upper_bound_from_stationarity": 2.440723571688597e-08
+        },
+        "svd": {
+          "objective_extended": 0.02734863885593919,
+          "stationarity_norm_extended": 5.743713540014177e-14,
+          "relative_stationarity": 3.377083938382621e-16,
+          "coefficient_error_upper_bound_from_stationarity": 5.743713540014177e-08
+        },
+        "augmented_qr": {
+          "objective_extended": 0.02734863885593919,
+          "stationarity_norm_extended": 3.352723259282603e-14,
+          "relative_stationarity": 1.9712730779283927e-16,
+          "coefficient_error_upper_bound_from_stationarity": 3.352723259282603e-08
+        }
+      },
+      "largest_normal_condition_all_fits": 15362589.601422813,
+      "largest_augmented_condition_all_fits": 3919.5139496400334,
+      "cv_mse": {
+        "normal": [
+          0.03885763127196688,
+          0.04134248334453416,
+          0.0420839581691534,
+          0.04449537551781391,
+          0.10474189747780537
+        ],
+        "svd": [
+          0.038857631270987146,
+          0.04134248334453969,
+          0.042083958169153446,
+          0.0444953755178139,
+          0.10474189747780537
+        ],
+        "augmented_qr": [
+          0.0388576312709846,
+          0.04134248334453961,
+          0.04208395816915348,
+          0.04449537551781391,
+          0.10474189747780537
+        ]
+      }
+    }
+  },
+  "overall_ridge": {
+    "max_pairwise_differences": {
+      "normal_vs_svd": {
+        "max_coefficient_difference": 3.015369642866972e-08,
+        "max_training_prediction_difference": 5.894321801576848e-11
+      },
+      "normal_vs_augmented_qr": {
+        "max_coefficient_difference": 3.0151424468272126e-08,
+        "max_training_prediction_difference": 5.895236105156798e-11
+      },
+      "svd_vs_augmented_qr": {
+        "max_coefficient_difference": 9.462353123268485e-11,
+        "max_training_prediction_difference": 1.9648572830153093e-13
+      }
+    },
+    "max_exported_objective_spread": 0.0,
+    "stationarity_by_solver": {
+      "normal": {
+        "max_relative": 4.802179255442604e-16,
+        "median_relative": 1.984732240318075e-16,
+        "minimum_stationarity_count": 27
+      },
+      "svd": {
+        "max_relative": 8.967738071893522e-16,
+        "median_relative": 2.366330967345965e-16,
+        "minimum_stationarity_count": 14
+      },
+      "augmented_qr": {
+        "max_relative": 4.874513950180581e-16,
+        "median_relative": 8.763426184293729e-17,
+        "minimum_stationarity_count": 154
+      }
+    }
+  },
+  "independent_checks": {
+    "frozen_source_and_method_hashes": {
+      "tools/diagnose_information_arithmetic.py": true,
+      "docs/EXP-008-arithmetic-method.md": true
+    },
+    "pairwise_coefficient_maxima_reconstructed": 585,
+    "condition_relations_reconstructed": 195,
+    "cv_means_and_selected_indices_reconstructed": 9,
+    "decimal_failed_example": {
+      "precision_digits": 60,
+      "input_path": "evidence/EXP-008/attempt-001/sensitivity/development-10-p675.npz",
+      "input_sha256": "ca484b26f759c10057d4d5a5e5cb6eee3838309a9eed33af832218d0dac1741f",
+      "candidate_id": "development-10-p675-r0.016-c16",
+      "delta": [
+        0.0010572155364542508,
+        -0.01596503352046214
+      ],
+      "flattened_samples": 6750,
+      "reference_rmse": "0.00362489087612044150514103547841289857998083973208100474807409",
+      "errors": {
+        "original_saved": "5.38126119611460815024932045083189287812388869909E-15",
+        "linux_frozen_form_replay": "8.59714057330650341652196702022409161894642380091E-15",
+        "direct_residual": "5.05519679337787789970506388997754423939255091E-18"
+      },
+      "scope": "Independent post-run Decimal arithmetic on exact saved binary64 tensors and delta; not reintegration or an exact-real-arithmetic certificate"
+    }
+  },
+  "conclusions": {
+    "supported": [
+      "Directional cancellation after rounding the Gram substantially amplifies arithmetic error in the known weak-direction failures",
+      "Direct residual norms avoid this measured Gram-formation error for those saved inputs",
+      "Correlated low-penalty ridge coefficient coordinates are sensitive while same-objective solver predictions remain much closer"
+    ],
+    "not_established": [
+      "Original strict portability gate repaired",
+      "Uniform superiority of one arithmetic method",
+      "Integration convergence or exact real arithmetic",
+      "All platform differences attributable to normal equations alone",
+      "New action utility, test-action robustness or geometry-controller benefit"
+    ],
+    "next_methods": [
+      "Prospectively freeze direct projected-response norms for future local-error features",
+      "Prospectively specify weighted SVD or augmented QR and condition diagnostics",
+      "Specify redundant-feature handling before outcomes; dropping columns can change the ridge objective",
+      "Validate regenerated inputs and refined trajectories separately without overwriting original evidence"
+    ]
+  },
+  "validation": {
+    "prefreeze_design_audit_path": "docs/EXP-008-arithmetic-design-audit.md",
+    "prefreeze_design_audit_sha256": "100833b6aa4b2ec1b82d01b4fbf13051879a6ff8f057f0b698fd1642a2564b0c",
+    "recorded_prefreeze_arithmetic_tests": {
+      "passed": 18,
+      "wall_seconds": 0.33
+    },
+    "results_audit": "Independent summary reconstruction and fixed-example 60-digit Decimal calculation; no new integrations or target runs"
+  }
+}

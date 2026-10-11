@@ -11,6 +11,14 @@ dependencies = ["numpy>=2.0", "scipy>=1.14", "matplotlib>=3.9"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+dl = [
+    "scikit-learn>=1.9.1",
+    "torch>=2.14.1",
+    "torchvision>=0.29.1",
+]
+exp020 = [
+    "python-flint",
+]
 
 [project.scripts]
 neural-shrimp = "neural_shrimp.cli:main"
@@ -21,3 +29,6 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+
+[tool.uv.sources]
+python-flint = { path = "../neural-shrimp-data/dependencies/EXP-020/python-flint-0.9.0/python_flint-0.9.0-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl" }

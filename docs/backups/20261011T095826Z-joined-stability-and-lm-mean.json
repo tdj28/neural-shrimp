@@ -1,0 +1,26 @@
+{
+  "status": "verified",
+  "started_utc": "20261011T095826Z",
+  "completed_utc": "2026-10-11T09:58:28.623619+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261011T095826Z-joined-stability-and-lm-mean",
+  "selected_roots": [
+    "audits/native705-second-quarter-independent/attempt001",
+    "audits/cifar-regularized-independent/attempt001",
+    "explore/tiny-lm-temporal-mean/attempt001-target",
+    "explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/second-quarter001"
+  ],
+  "file_count": 7059,
+  "bytes": 661993911,
+  "symlink_count": 0,
+  "manifest_sha256": "af4b6818ae23c8892b45635982a7c0c9e0c8e0fd17df46275a554838fcb9360d",
+  "elapsed_seconds": 2.188285319833085,
+  "source_commit_at_copy": "027f11681bcbe7cb496f21448f2927141a1e7523",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

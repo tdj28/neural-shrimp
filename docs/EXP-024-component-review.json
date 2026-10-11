@@ -1,0 +1,59 @@
+{
+  "checks": [
+    {
+      "check": "balanced parity covariance and exact analytic noise risk",
+      "result": "pass; synthetic additive and injected orthogonal controls"
+    },
+    {
+      "check": "SVD reference weights versus independent dense covariance equation",
+      "result": "pass; synthetic test"
+    },
+    {
+      "check": "row order, centering error, rank deficiency, coordinate units and negative scores",
+      "result": "pass; synthetic tests"
+    },
+    {
+      "check": "no finite test means used to construct reference observer implicitly",
+      "result": "pass; separate explicit coefficient and risk APIs; lifecycle sealing still unimplemented"
+    },
+    {
+      "check": "static nonlinear observation can create apparent mixing",
+      "result": "pass; synthetic quadratic exact value and tanh example"
+    },
+    {
+      "check": "no neural data or target integration in test execution",
+      "result": "pass; inspected imports and complete test file"
+    },
+    {
+      "check": "target execution readiness",
+      "result": "blocked by unimplemented sensitivity/acquisition pipeline, machine plan and numerical gates; not an execution freeze"
+    }
+  ],
+  "date_local": "2026-09-22",
+  "files": [
+    {
+      "bytes": 5454,
+      "path": "tools/two_write_interaction.py",
+      "sha256": "2aef016506e5d334bbb4953a3fcaf8fbbc1244362be0192c61bc3be445fc601e"
+    },
+    {
+      "bytes": 5821,
+      "path": "tests/test_two_write_interaction.py",
+      "sha256": "68ddcc280c5cd98025fcc20e57e60381c67f3a2320285b956117635f52ef8fd2"
+    },
+    {
+      "bytes": 9720,
+      "path": "docs/EXP-024-protocol.md",
+      "sha256": "b7491ed827a891097e764bc9a6145c3b8e9769e7ecd20e0760941b7d603d2a0e"
+    }
+  ],
+  "reviewer": "local executing agent; not independent scientific validation",
+  "schema_version": 1,
+  "status": "synthetic_component_reviewed_not_neural_execution_ready",
+  "test_command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m pytest -q tests/test_two_write_interaction.py",
+  "test_result": {
+    "failed": 0,
+    "passed": 25,
+    "reported_seconds": 0.11
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "schema": "neural-shrimp-consultation-preflight-v1",
+  "date": "2026-09-17",
+  "status": "not_run_hard_cap_unavailable",
+  "requested_model": "gpt-6-astra",
+  "requested_reasoning_mode": "pro",
+  "requested_reasoning_effort": "medium",
+  "human_authorization": {
+    "scope": "One consultation on missing research directions and meaningful neural consequences",
+    "strict_total_incremental_usd": 10,
+    "additional_call_authorized": false
+  },
+  "generating_requests": 0,
+  "input_token_counter_requests": 0,
+  "api_credentials_loaded": false,
+  "incremental_spend_usd": 0,
+  "known_prior_project_review_spend_usd": 0,
+  "prior_spend_basis": "Existing project ledgers; not account billing reconciliation",
+  "review_response": null,
+  "review_usage": null,
+  "api_cap_established": false,
+  "browser_inventory": {
+    "apps": [],
+    "browsers": []
+  },
+  "canonical_helper": {
+    "path": "/data2/agent-skill-documents/scripts/review_experiment_plan.py",
+    "bytes": 81025,
+    "sha256": "f3596de522f39f61cbb981f72cfbed1d6f3916c0f78bc8e4ce36efcb6fa171ff",
+    "repository_commit": "3227f9067d3ab8c5c33727c054004b9371a2e71d"
+  },
+  "canonical_policy": {
+    "path": "/data2/agent-skill-documents/EXPERIMENT_INTEGRITY_SKILLS.md",
+    "bytes": 165723,
+    "sha256": "652596342b8b863cf5a27fcc322759b200c686f441a398ef53421e705c6c5ec9"
+  },
+  "brief": {
+    "path": "/data2/neural-shrimp/docs/consults/2026-09-17-strategy-brief.md",
+    "bytes": 8220,
+    "sha256": "cceca16829ef19879024dc30471f0e06192ab338ae2fb7db6e85a2419f7733f3"
+  },
+  "dry_run": {
+    "status": "prepared_only",
+    "estimate_is_hard_cap": false,
+    "estimated_budget_reserve_usd": 1.1367375,
+    "estimated_input_tokens": 4771,
+    "reserved_billable_input_tokens": 23855,
+    "requested_max_output_tokens": 6000,
+    "reserved_billable_output_tokens": 12000,
+    "artifacts": [
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/dry-run-001/request_payload.json",
+        "bytes": 15447,
+        "sha256": "bd6531be1853ac1a441fcb6e16a744efc83b5b520a4d99e340490bd84af1a03c"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/dry-run-001/review_manifest.json",
+        "bytes": 2924,
+        "sha256": "8d821b8ce6e7837ecfd9f28982124004711dc8dd3f4d43212f447fdc7f9ebdd6"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/dry-run-001/review_request.md",
+        "bytes": 14340,
+        "sha256": "d408d98e418e3f4a7e41b68934f7df79bbe282c86d00a57902b6ba489f731096"
+      }
+    ]
+  },
+  "documentation": {
+    "artifacts": [
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/documentation-001/latest-model.md",
+        "bytes": 16592,
+        "sha256": "aac7e7e1b0bf90b346f5fc4ffd523902279841c60c3adf572452a529bd5b1e5e"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/documentation-001/model.md",
+        "bytes": 3812,
+        "sha256": "f45ae813c3f69708e2576328056de14cdf71fec174c875f4b81d236105545625"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/documentation-001/pricing.md",
+        "bytes": 23005,
+        "sha256": "63878741d55c9dc3c928cd88ac8f55399198daedfb49456f816d7d2cbab96768"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/documentation-001/reasoning.md",
+        "bytes": 70253,
+        "sha256": "91604df954335250d16e33f3b07ebbfa3e6e2b7f821f0722ad7a69b9d586719a"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/documentation-001/receipt.json",
+        "bytes": 1761,
+        "sha256": "c873dfe1e633c9cc83bf54e76ed9d671fe2d0e7b475be6104d6187102e58b802"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/consults/2026-09-17-strategy/documentation-001/spend-limits.md",
+        "bytes": 4489,
+        "sha256": "c390d663cfc85416270be1804ab1fd52f731bbaa7d2d789ea037156426b5343c"
+      }
+    ]
+  },
+  "decision": "Do not send Pro without an enforceable strict ceiling; no enabled authenticated included subscription UI. Continue local research and literature review, explicitly not Pro advice."
+}

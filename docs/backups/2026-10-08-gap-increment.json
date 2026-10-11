@@ -1,0 +1,25 @@
+{
+  "status": "verified",
+  "started_utc": "20261008T130606Z",
+  "completed_utc": "2026-10-08T13:06:06.779988+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261008T130606Z-gap-increment",
+  "selected_roots": [
+    "explore/s1r-lower-gap",
+    "audits/s1r-lower-gap-independent",
+    "audits/aronson-primary-content"
+  ],
+  "file_count": 297,
+  "bytes": 7067996,
+  "symlink_count": 0,
+  "manifest_sha256": "b75efb1cae7668deac8a6d12f7004f418deb0c54d449c73d5f62b2d03338612f",
+  "elapsed_seconds": 0.04000131296925247,
+  "source_commit_at_copy": "2dbd648e32a506ec92b6041c1d5a743003c9a87b",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

@@ -1,0 +1,99 @@
+{
+  "experiment_id": "EXP-019",
+  "status": "ready_for_exploratory_execution",
+  "recorded_utc": "2026-09-17T18:29:33.938905+00:00",
+  "plan_sha256": "86ae6924a1a89c1d8ae878742f0b012680443fa2cad8746c1853a52d4b6c0543",
+  "source_count": 55,
+  "historical_input_count": 8,
+  "review_scope": "Root source/scientific claim review and independent literal plan audit, separate controller review, scientific evaluator-author review and disclosed controller-author self-review. No target acquisition before exact private freeze.",
+  "tests": {
+    "distinct_passed": 80,
+    "adapter": 30,
+    "integration": 8,
+    "controller": 42,
+    "integrated_before_final_gate_readback_fix": {
+      "passed": 79,
+      "seconds": 16.88,
+      "source_stable": true
+    },
+    "final_controller": {
+      "passed": 42,
+      "seconds": 1.41,
+      "source_stable": true
+    },
+    "coverage": "Only controller and its tests changed after the integrated run. Final42 controller tests pass;38 unchanged adapter/integration tests carry forward. All55 final source hashes match coverage receipt.",
+    "synthetic_integration": "Genuine9-maximum synthetic refined bundle; both fresh8T reference methods; full27-history81-trace context;54 method comparisons; full-study failure denominators; all numerical kernels explicitly synthetic.",
+    "neural_target_solves": 0
+  },
+  "evidence": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/preflight-001/integrated-tests-001.json",
+      "bytes": 6359,
+      "sha256": "1a65744adc7be503fee14587311e8d403269bbb43729ea5cc5c3607112d83c4c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/preflight-001/controller-tests-002.json",
+      "bytes": 6261,
+      "sha256": "f6692c84353a05a5abdaf519a2c4e42e57e6d41b8c134037ff892155a42895d7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/preflight-001/validation-coverage.json",
+      "bytes": 847,
+      "sha256": "e429859b4dd5663e875c68c83354df901c350e0387b8a6e35ef969e103e197af"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/preflight-001/root-independent-plan-audit-002.json",
+      "bytes": 840,
+      "sha256": "fa0b4780d8fcc0ad54361701c1a657c29ea56183cd40615a91b9c05db90208f5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/preflight-001/controller-author-exact-plan-review.json",
+      "bytes": 18952,
+      "sha256": "e0d92f1bd4f4656ecf6cbc4e0f13020e774f6bcb267c7699f8ad38f363d49904"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/preflight-001/controller-review-001.json",
+      "bytes": 19728,
+      "sha256": "8a5c53eb643525baae66f6d2b41a90121f304aa506ffdcf73452d1466084ca82"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/scientific-review-001/review.json",
+      "bytes": 13165,
+      "sha256": "44106aa1837435a1bbdb5c8eb93530f5ffc3f446f986bb31f852286d301bc0ac"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/scientific-review-001/review.md",
+      "bytes": 8533,
+      "sha256": "029319cb5ca02749908dd587b5e59cefacdf5d30211d94ed0c31fa9acd522d04"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-019/preflight-001/resources-001.json",
+      "bytes": 598,
+      "sha256": "023514fd9f60b9ad987ed901105195fbf6a54a228c5866a487dfcbf62052e582"
+    }
+  ],
+  "all_source_bindings_match": true,
+  "prior_frozen_sources_unchanged": true,
+  "open_findings": [],
+  "resolved_review_findings": [
+    "General sealed-ancestor output protection preserves arbitrary historical attempts.",
+    "All new integration-test and synthetic-fixture dependencies are source-bound.",
+    "Reference index is persisted/reloaded and compared before cohort decision.",
+    "Global gate is persisted/reloaded and compared to computed96/48 decision before any finite dispatch.",
+    "Returned partial worker packets after parent timeout remain retained and unqualified.",
+    "Reference-only A/B positive-basis definition, unchanged EXP016 clock and model-time observation budget made explicit."
+  ],
+  "interpretation": [
+    "All24 original phase fractions are reused regression phases; inherited heldout label is not fresh validation.",
+    "Complete2796 ledger; all2700 finite traces blocked if one reference/context prerequisite fails.",
+    "Original scientific kernels and gates unchanged; no per-phase/event adjoint renormalization.",
+    "No old study requalification, geometry-specific utility, total-capacity or trained-network claim.",
+    "Reviewers disclose authorship; no independent scientific replication or rigorous cycle proof claimed."
+  ],
+  "retained_preflight_attempts": [
+    "Initial79-test integrated receipt before final gate readback guard.",
+    "Original metadata draft030aa retained externally. Exclusive prepare refused overwrite; stale draft audit001 correctly failed source hash check. Regenerated final86ae plan passes root audit002. No target integrations."
+  ],
+  "authorized_resources": "Shared local CPU/RAM,4workers,1numerical-library thread,3600s acquisition+180s sealing,16GiBlaunch/8GiBreserve/12GiBownedRSS/8GiBraw; no paid execution or new Pro call.",
+  "human_friendly_tldr": "Previously checked near-edge cases retain readable input traces and show interference from a second input. This complete regression repeat tests how consistent that behavior is across the planned phase set; no new memory result exists at freeze."
+}

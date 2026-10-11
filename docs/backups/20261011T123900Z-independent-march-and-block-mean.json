@@ -1,0 +1,29 @@
+{
+  "status": "verified",
+  "started_utc": "20261011T123900Z",
+  "completed_utc": "2026-10-11T12:39:07.607267+00:00",
+  "source": "/data2/neural-shrimp-data",
+  "destination": "/archive/neural-shrimp-backups/20261011T123900Z-independent-march-and-block-mean",
+  "selected_roots": [
+    "audits/signed470-march-independent/attempt001",
+    "audits/native705-cubic-panel-independent/attempt001",
+    "audits/cifar-curved512-independent/attempt001",
+    "explore/tiny-lm-block-mean/attempt001-profile",
+    "explore/tiny-lm-block-mean/attempt001-target",
+    "explore/clark-rnn/correlated-fold-subset-successor/attempt001",
+    "audits/clark-subset-endpoint-independent/attempt001"
+  ],
+  "file_count": 3649,
+  "bytes": 1860083393,
+  "symlink_count": 0,
+  "manifest_sha256": "8b3f71c2c9f9f3964c16e4b127742949fd0f1e809189fea084ed67e71577c068",
+  "elapsed_seconds": 6.888216911116615,
+  "source_commit_at_copy": "dae1ec00191badd1e74cb5551a43d6018efd30db",
+  "verification": "Exact selected source/copy inventory; complete SHA-256 comparison; second source hash pass; stable sizes and mtimes.",
+  "physical_storage": {
+    "source": "nvme1n1",
+    "destination": "sda",
+    "basis": "prior verified block-device inspection, docs/backups/2026-10-08-local-archive.json"
+  },
+  "scope": "Incremental selected raw evidence, all retained attempt files and explicitly listed logs; complements the earlier full snapshot. Same-machine separate physical disk; not offsite or continuous."
+}

@@ -1,0 +1,332 @@
+{
+  "experiment": "EXP-022",
+  "status": "historical_support_incomplete_no_neural_launch",
+  "planned_slots": 6,
+  "available_slots": 4,
+  "missing_slots": [
+    "core-rho025",
+    "core-rho050"
+  ],
+  "matching_pairs_planned": 2,
+  "matching_pairs_with_both_historical_candidates": 0,
+  "intended_workers": 114,
+  "intended_nested_ivp_slots": 528,
+  "workers_launched": 0,
+  "ivps_launched": 0,
+  "slots": [
+    {
+      "alpha": 1.064,
+      "available": true,
+      "dominant_rho": null,
+      "gamma": 10.260722222222222,
+      "id": "anchor-core",
+      "node_id": null,
+      "period": 37.63637537906959,
+      "status": "selected"
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "available": true,
+      "dominant_rho": null,
+      "gamma": 10.297166666666667,
+      "id": "anchor-failed-near-edge",
+      "node_id": null,
+      "period": 37.33149959002596,
+      "status": "selected"
+    },
+    {
+      "alpha": null,
+      "available": false,
+      "dominant_rho": null,
+      "gamma": null,
+      "id": "core-rho025",
+      "node_id": null,
+      "period": null,
+      "status": "no_historical_match"
+    },
+    {
+      "alpha": null,
+      "available": false,
+      "dominant_rho": null,
+      "gamma": null,
+      "id": "core-rho050",
+      "node_id": null,
+      "period": null,
+      "status": "no_historical_match"
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "available": true,
+      "dominant_rho": 0.24345218838602822,
+      "gamma": 10.24754714408088,
+      "id": "failed-near-edge-rho025",
+      "node_id": "failed-near-edge-direction--1--node-17",
+      "period": 37.48046608382668,
+      "status": "selected"
+    },
+    {
+      "alpha": 1.0661333333333334,
+      "available": true,
+      "dominant_rho": 0.4886399722702959,
+      "gamma": 10.21239159069086,
+      "id": "failed-near-edge-rho050",
+      "node_id": "failed-near-edge-direction--1--node-29",
+      "period": 37.41831320347389,
+      "status": "selected"
+    }
+  ],
+  "branches": [
+    {
+      "branch_id": "core-direction-+1",
+      "eligible_nodes": 18,
+      "nodes": 49,
+      "prefix_nodes": 18,
+      "prefix_positive_real_dominant_max": 0.8996079347149627,
+      "prefix_positive_real_dominant_min": 4.490535089020165e-06,
+      "prefix_stop": {
+        "index": 18,
+        "reasons": [
+          "not_attracting",
+          "unstable",
+          "plus_one_bracket",
+          "unit_circle_bracket"
+        ]
+      }
+    },
+    {
+      "branch_id": "failed-near-edge-direction--1",
+      "eligible_nodes": 30,
+      "nodes": 49,
+      "prefix_nodes": 30,
+      "prefix_positive_real_dominant_max": 0.978918680512652,
+      "prefix_positive_real_dominant_min": 0.0013453492123767117,
+      "prefix_stop": {
+        "index": 30,
+        "reasons": [
+          "not_attracting",
+          "unstable",
+          "plus_one_bracket",
+          "unit_circle_bracket"
+        ]
+      }
+    }
+  ],
+  "prospective_gap_brackets": [
+    {
+      "endpoint_relative_period_separation": 0.0008074166325223996,
+      "endpoint_scaled_state_separation": 0.0011272642518518308,
+      "fraction": 0.2686463095892526,
+      "left": {
+        "alpha": 1.064,
+        "dominant_rho": 0.2052939378714072,
+        "first_maximum_state": [
+          -0.1512742676204532,
+          -0.6068979606801611,
+          10.844329810241979
+        ],
+        "gamma": 10.313312108590425,
+        "index": 14,
+        "node_id": "core-direction-+1--node-14",
+        "node_metadata_sha256": "f1c179bbb26197365fff2f7cd142755e6686dfad9dcfe92cb672bd4ddacd9435",
+        "period": 37.37968447881378
+      },
+      "new_parameter_acquisition_performed": false,
+      "proposed_interpolated_gamma": 10.314407775231995,
+      "proposed_nearest_endpoint_index": 14,
+      "right": {
+        "alpha": 1.064,
+        "dominant_rho": 0.3717062820310803,
+        "first_maximum_state": [
+          -0.15080187291708486,
+          -0.6058446409245029,
+          10.832105384911602
+        ],
+        "gamma": 10.317390581297701,
+        "index": 15,
+        "node_id": "core-direction-+1--node-15",
+        "node_metadata_sha256": "bf4a53c10400ad784bd8a3b28f3eabb1b59b97f97f607ac843aa8c468bae445a",
+        "period": 37.349503499847145
+      },
+      "target": 0.25
+    },
+    {
+      "endpoint_relative_period_separation": 0.0007807815136792976,
+      "endpoint_scaled_state_separation": 0.001061165924493096,
+      "fraction": 0.557914432581788,
+      "left": {
+        "alpha": 1.064,
+        "dominant_rho": 0.3717062820310803,
+        "first_maximum_state": [
+          -0.15080187291708486,
+          -0.6058446409245029,
+          10.832105384911602
+        ],
+        "gamma": 10.317390581297701,
+        "index": 15,
+        "node_id": "core-direction-+1--node-15",
+        "node_metadata_sha256": "bf4a53c10400ad784bd8a3b28f3eabb1b59b97f97f607ac843aa8c468bae445a",
+        "period": 37.349503499847145
+      },
+      "new_parameter_acquisition_performed": false,
+      "proposed_interpolated_gamma": 10.319667049937767,
+      "proposed_nearest_endpoint_index": 16,
+      "right": {
+        "alpha": 1.064,
+        "dominant_rho": 0.6016586017357912,
+        "first_maximum_state": [
+          -0.15035388096876276,
+          -0.6048557078261589,
+          10.820622908599207
+        ],
+        "gamma": 10.321470899904142,
+        "index": 16,
+        "node_id": "core-direction-+1--node-16",
+        "node_metadata_sha256": "12ffa93c593916aaeaf5347b3b9be8b7f6958ba95b8edbbec4ede41a7e93a081",
+        "period": 37.320364449201435
+      },
+      "target": 0.5
+    }
+  ],
+  "interpretation": "The discrete historical core path skipped both fixed bins within its attracting prefix. This proves insufficient sampled metadata support, not absence of comparable attracting cycles. No new memory performance, gain or cycle qualification was measured.",
+  "schema": "historical-reference-feasibility-summary-v1",
+  "date": "2026-09-21",
+  "metadata_preparation_base_commit": "7dd8f67fce6e488b7e0f4f96369879d1b8b1156e",
+  "selector_sha256": "e8e2584b4b296af5d7b73f983d425e384da80406f946ea02064a4bc53e2cd023",
+  "selector_tests_sha256": "610d70cb8b2b5c59117066830c4871d74b8b97277d84c3d40c326cd40941d6f0",
+  "full_neural_execution_frozen": false,
+  "source_preparation_checks": 51,
+  "independent_literal_checks": 132,
+  "target_integrations": 0,
+  "finite_writes": 0,
+  "decoder_probabilities": 0,
+  "selector_changed_after_availability": false,
+  "external_artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/selection-001/materialize_selection.py",
+      "sha256": "ec85d06556fa457fd836bf68bf2f18a609b77068e98dea309de1d300e1588c09",
+      "bytes": 7057
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/selection-001/input-bindings.json",
+      "sha256": "1edad139614b5431c809201ad6ece4216536d94c70e157f6f5624b0d2383bb36",
+      "bytes": 3048
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/selection-001/selection.json",
+      "sha256": "b8bcf7f11fc82623993e07af54cc3d6a42a338d18561cc148f4316329952416b",
+      "bytes": 214714
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/selection-001/receipt.json",
+      "sha256": "56110bbbe632754295490ad24545946ed87577cbc0313c9b306c78dd130416a1",
+      "bytes": 5091
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/root-selection-001/audit.py",
+      "sha256": "f6ed79b2709ee662d05c3c49169a38b43e51bc239b447bc5da5593c042f7066a",
+      "bytes": 4469
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/root-selection-001/report.json",
+      "sha256": "c1b2796bd4e9636eab7c92a5db3d40f609ca6aa26b29bdace963fe06fd4744f7",
+      "bytes": 10648
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/closure-001/close_historical_panel.py",
+      "sha256": "95d96f6850eb7741a73683d0a7109686d5f0b33cf76ea087ee7bccc606c7f4dc",
+      "bytes": 4779
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/closure-001/not-launched-ledger.json",
+      "sha256": "93a570ac818b4e6812e37301c9a9c44875a834b3898750e1a78ae74ed54287fb",
+      "bytes": 246738
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/closure-001/report.json",
+      "sha256": "1b4d929b8e720dcc7ef6f964d100f8b17a14bb416e9279af6892c3578f71bab2",
+      "bytes": 6706
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/planning-001/historical-cost-proxy.json",
+      "sha256": "cae38e11c027c5a742f18a8bf08720012509494b034150cfae4f425953155739",
+      "bytes": 27812
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/root-integration-001/receipt.json",
+      "sha256": "748b2d5d0b9232afe30ea3ff44f12697bfa12d3d0720c266770bd76660c4d330",
+      "bytes": 1134
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-001/receipt.json",
+      "sha256": "70939e89e76610aa78fda6fa6847062c97b100e5665365a1b7cefa9ccb50cb94",
+      "bytes": 5164
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-001/run_validation.py",
+      "sha256": "ca1b6cbbf7a75c1b39de55552a4ad7415023a02f7b122ab90d628d9a5e7c85dc",
+      "bytes": 2749
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-001/stdout.txt",
+      "sha256": "e52a46f36ffb84900332338842faacb27141323e306fb821adad60813e857561",
+      "bytes": 181
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-001/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-002/receipt.json",
+      "sha256": "a9acf392a62d8048969ce52a94759823d2404d12b45220503978928c1399b818",
+      "bytes": 5164
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-002/run_validation.py",
+      "sha256": "ca1b6cbbf7a75c1b39de55552a4ad7415023a02f7b122ab90d628d9a5e7c85dc",
+      "bytes": 2749
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-002/stdout.txt",
+      "sha256": "103d45d0847ee829dfc7acdc272ec232cf5b6f9d2ccb9d5958914468329227b7",
+      "bytes": 181
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-022/adapter-validation-002/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "raw_backup": "Local sibling storage only; no independently verified backup of these audit artifacts",
+  "authorship": "Selection and closure by selector author; independent root literal audit did not import selector. Shared historical inputs, not scientific replication.",
+  "audit_code_snapshots": [
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/audit.py",
+      "sha256": "f6ed79b2709ee662d05c3c49169a38b43e51bc239b447bc5da5593c042f7066a",
+      "bytes": 4469
+    },
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/close_historical_panel.py",
+      "sha256": "95d96f6850eb7741a73683d0a7109686d5f0b33cf76ea087ee7bccc606c7f4dc",
+      "bytes": 4779
+    },
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/materialize_selection.py",
+      "sha256": "ec85d06556fa457fd836bf68bf2f18a609b77068e98dea309de1d300e1588c09",
+      "bytes": 7057
+    },
+    {
+      "path": "tools/postrun_audits/exp022_snapshots/run_validation.py",
+      "sha256": "ca1b6cbbf7a75c1b39de55552a4ad7415023a02f7b122ab90d628d9a5e7c85dc",
+      "bytes": 2749
+    }
+  ],
+  "engineering_validation": {
+    "initial_independent_integration": "7 setup errors; undefined evaluator _solver helper, preserved",
+    "intermediate": "123 passed in 24.07s",
+    "final": "129 passed in 24.51s",
+    "scope": "Synthetic selector, acquisition, evaluation and independent analytic packet integration; no neural target data generated",
+    "evaluator_sha256": "69e5d961414411c925283c6d12b97fa2eed564e165058e7d33c73b8e48820d3a",
+    "gate_review": "Separate local acquisition-author review found and closed outer-parameter duplicate classification and duplicated tangent phase metadata issues; modal decomposition is descriptive only"
+  }
+}

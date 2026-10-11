@@ -1,8 +1,26 @@
-# Compute plan: CPU first, paid resources only after a costed decision
+# Compute plan: local server first, paid resources after a costed decision
 
 Status: an offline packaging and workload-control implementation, not a provisioned RunPod experiment. No paid resource or paid review has been requested by this plan. Current NumPy/SciPy experiments run on CPU. No CUDA code, GPU parity, remote throughput, remote resumption, or GPU speedup has been demonstrated. Buying a GPU for the current runner would not accelerate its Python/NumPy code automatically.
 
 The governing local playbook is [`GPU_COMPUTE_SKILLS.md`](../../agent-skill-documents/GPU_COMPUTE_SKILLS.md), especially §§1–4 and 6–7. Its §3 requires an explicit, costed go-ahead for each paid run. Repository creation, general research authorization, and a standing budget do not supply that approval. Routine experiments and audits remain local until the next rung is justified.
+
+## Server amendment, 14 September 2026
+
+The project now runs on `zeta`: an Intel Core i9-14900K (24 cores, 32 logical
+CPUs), about 91.75 GiB usable RAM, and an NVIDIA RTX 2000 Ada Generation GPU
+with 16,380 MiB reported VRAM. The user authorizes use of all three local
+resources. Follow [Skills.md](../Skills.md) for the measured inventory,
+availability checks and coordination with other agents. The GPU is shared;
+its full memory and compute capacity must not be assumed available.
+
+Prefer the server CPU for the existing reference runners and use the local
+GPU when a suitable accelerator path has been implemented, numerically
+validated and timed. RunPod remains acceptable when the local GPU is
+insufficient or occupied; a CPU/RAM bottleneck can justify a CPU-only
+alternative. Prepare a measured, costed run packet and obtain the required
+hard-ceiling approval before a paid launch. The existing packaging and
+provider-lifecycle limitations below still apply. Historical timings are
+observations from their original machines, not benchmarks of this server.
 
 ## What is implemented
 
@@ -19,8 +37,8 @@ The governing local playbook is [`GPU_COMPUTE_SKILLS.md`](../../agent-skill-docu
 
 1. Run the CPU pilot and unit tests locally. Freeze and publish the exact private-repository commit and manifest before consuming the experiment attempt. Preserve failed attempts.
 2. Measure a representative completed parameter-grid unit after warmup with the same iteration limits, dtype, model size, diagnostics and raw-output settings. Include setup/warmup and retrieval separately. The CLI receipt and unit timing are evidence, not an assumed accelerator speed factor.
-3. Profile before scaling. Candidate follow-up work is batched/vectorized CPU parameter scans. A GPU successor is conditional on an implemented accelerator kernel, a measured bottleneck it addresses, and float64/parity validation around periodic-window boundaries. Changing dtype or arithmetic creates a new numerical contract.
-4. If local runtime or RAM still justifies a cloud run, compare current CPU and GPU total costs using provider quotes and measured relevant throughput. A CPU-only instance is the natural first candidate for this reference code. Local timing is provisional for remote planning; a target-machine qualification is still necessary.
+3. Profile before scaling. Candidate follow-up work is batched/vectorized CPU parameter scans. A GPU successor is conditional on an implemented accelerator kernel, a measured bottleneck it addresses, and float64/parity validation around periodic-window boundaries. Qualify it on the local GPU when available and suitable. Changing dtype or arithmetic creates a new numerical contract.
+4. If local runtime, RAM, GPU capacity or contention justifies a cloud run, compare current CPU and GPU total costs using provider quotes and measured relevant throughput. A CPU-only instance is the natural first candidate for this reference code. Local timing is provisional for remote planning; a target-machine qualification is still necessary.
 5. Record a base estimate, plausible slow case, cumulative spend, hard lifetime/spend ceiling, artifact-progress timeout, output-volume estimate and retrieval reserve. Obtain explicit approval for that particular paid run, including any bounded qualification phase. No automatic retries or successor resources are authorized.
 
 The training CLI consumes locally prepared, SHA256-bound synthetic input `.npz` files declared by seed in the manifest. Prepare these with the CLI `prepare-inputs` command before freezing the commit; retain the exact input files under `experiments/inputs/`, which the source bundle includes. The execution path verifies hashes and shapes and saves input copies in its results. It does not rebuild training datasets on the pod.

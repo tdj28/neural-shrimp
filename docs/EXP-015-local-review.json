@@ -1,0 +1,67 @@
+{
+  "experiment_id": "EXP-015",
+  "date": "2026-09-17",
+  "status": "ready_for_exploratory_execution",
+  "plan_sha256": "6bc005d773af7aa60d3f8c2e7b85a97db6ddb70909815bbd787ea64fa54716e1",
+  "outcome_aware": true,
+  "census": {
+    "cells": 192,
+    "realized_pulse_rows": 1152,
+    "unit_noise_rows": 576,
+    "realized_noise_rows": 3456
+  },
+  "validation": {
+    "integrated_synthetic_tests": {
+      "passed": 71,
+      "seconds": 7.07
+    },
+    "independent_test_runs": [
+      {
+        "scope": "pre-final helper and adapter",
+        "passed": 54,
+        "seconds": 5.06
+      },
+      {
+        "scope": "final controller",
+        "passed": 16,
+        "seconds": 2.17
+      },
+      {
+        "scope": "final helper including signed residual",
+        "passed": 34,
+        "seconds": 2.05
+      }
+    ],
+    "independent_metadata_checks": 413
+  },
+  "independent_review": [
+    {
+      "path": "/data2/neural-shrimp-data/checkpoints/exp015-development-20260917/reviews/final-closure-bindings.json",
+      "bytes": 2112,
+      "sha256": "7fc99de6dbf690431010a2b2fa2a8f919213418710cb9483f88bb730a0af8f99"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/checkpoints/exp015-development-20260917/reviews/independent-decomposition-design-review.md",
+      "bytes": 11260,
+      "sha256": "00f2b737b48cda655c03001bbf14123383ba287e418f960597f433adcea9c104"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/preflight-metadata-002/EXP-015-independent-metadata-preflight.json",
+      "bytes": 6993,
+      "sha256": "673b7ff0311c1901d80b5711db4772342be2ac247b6f49421908dc1268b22859"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/EXP-015/preflight-metadata-002/review_plan.py",
+      "bytes": 7419,
+      "sha256": "f0376f9e33e3b8a0d2b838b650a01591169924d6de9d4e533717ab6374c481d0"
+    }
+  ],
+  "root_review": "Reviewed exact source/input/clock and 192-cell bindings, chronological variational product, algebraic versus ideal-neutral distinctions, signed contributions, separate approximation defects, original realized/requested pulse identities, retained failed denominators, resource/interruption limits and independent closure. No remaining blocker for this conditional saved-reference analysis.",
+  "conditions": [
+    "Commit and privately push exact code, plan and this review before new gain calculations.",
+    "Keep original EXP014 setting qualification and every prior strict audit failure unchanged.",
+    "No new ODE, decoder/model fit, finite-pulse accuracy comparison, pooled task means, best-direction selection, original requalification or geometry-utility claim.",
+    "Use exclusive external attempt and frozen CPU, time, memory and raw-byte limits; no paid compute/review or main merge.",
+    "Verify complete saved arrays and independently audit the decomposition before reporting; retain failed algebraic and approximation gates separately."
+  ]
+}
