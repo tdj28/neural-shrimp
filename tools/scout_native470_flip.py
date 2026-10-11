@@ -26,7 +26,7 @@ class Work:
  def check(self):
   if not(time.monotonic()-self.start<240 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<3*1024**2):raise RuntimeError('240s3GiB resource cap')
  def tick(self):
-  if self.calls>=5976:raise RuntimeError('216profile+5760target phase cap')
+  if self.calls>=SETTINGS['native_calls']:raise RuntimeError('inclusive native phase cap')
   self.calls+=1;self.check()
  def save(self,name,row,closing=False):
   raw=(json.dumps(safe(row),sort_keys=True,allow_nan=False)+'\n').encode();b=gzip.compress(raw,mtime=0)if name.endswith('.gz')else raw;
@@ -49,7 +49,7 @@ def profile(w):
  inp,x=C.L.K.fixture();n=13;z=np.r_[[float(v.mid())for v in x[:n]],float(x[n+1].mid()),[float(v.mid())for v in x[n+2:2*n+2]]];hidden=float(x[n].mid());model=TanhMap(inp);times=[];sizes=[];w.save('profile-inputs.json',dict(map_inputs=inp,z=z,hidden=hidden,period=18))
  for i in range(12):
   used=w.used;t=time.monotonic();w.observe('evaluation_input',dict(index=i,z=z,hidden=hidden));v,J,dh,d=evaluate(model,z,hidden,18,w.tick,w.observe);w.observe('evaluation_return',dict(index=i,value=v,jacobian=J,hidden_derivative=dh,native=d));times.append(time.monotonic()-t);sizes.append(w.used-used)
- old=read(ROOT/'docs/reviews/native470-first-diagnosis001.json')['outcome'];seconds=time.monotonic()-w.start+2*320*max(times)+2*old['seconds']+20;raw=2*320*max(sizes)+32*1024**2;rss=max(2*resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+256*1024,2*old['peak_rss_kib']+256*1024);ans=dict(passed=seconds<240 and raw<256*1024**2 and rss<3*1024**2,seconds=times,bytes=sizes,forecast_seconds=seconds,forecast_bytes=raw,forecast_rss_kib=rss,target_arrays_unopened=True,native_calls=w.calls);w.save('profile.json',ans);need(ans['passed']and w.calls==216,'full native18 timing/storage admission')
+ old=read(ROOT/'docs/reviews/native470-first-diagnosis001.json')['outcome'];seconds=time.monotonic()-w.start+2*SETTINGS['max_evaluations']*max(times)+2*old['seconds']+20;raw=2*SETTINGS['max_evaluations']*max(sizes)+32*1024**2;rss=max(2*resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+256*1024,2*old['peak_rss_kib']+256*1024);ans=dict(passed=seconds<240 and raw<256*1024**2 and rss<3*1024**2,seconds=times,bytes=sizes,forecast_seconds=seconds,forecast_bytes=raw,forecast_rss_kib=rss,target_arrays_unopened=True,native_calls=w.calls);w.save('profile.json',ans);need(ans['passed']and w.calls==216,'full native18 timing/storage admission')
 
 def binding(w,card,metadata_only=False):
  need(card['status']=='reviewed'and card['settings']==SETTINGS,'fixed reviewed scout');r=card['proof'];p=Path(r['root'])
@@ -78,7 +78,7 @@ def main():
   source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();w.save('runtime.json',dict(source_commit=source,pid=os.getpid(),settings=SETTINGS,sources={n:entry(ROOT/n)for n in FILES},numpy=np.__version__,python=platform.python_version(),threads=dict.fromkeys(THREADS,'1')))
   for n in FILES:
    b=(ROOT/n).read_bytes();need(b==subprocess.check_output(['git','show',source+':'+n],cwd=ROOT),'exact source');q=OUT/'source'/n;q.parent.mkdir(parents=True,exist_ok=True);q.write_bytes(b);w.used+=len(b)
-  profile(w);card=read(ROOT/CARD);model,z,h=binding(w,card);w.stage='target';ans['target_acquired']=True;result=survey(model,z,h,step=SETTINGS['step'],max_points=48,max_evaluations=320,tick=w.tick,observe=w.observe);w.save('survey.json',result);ans.update(passed=True,status=result['status'],points=len(result['points']),evaluations=result['evaluations'],last=result['points'][-1]['diagnostics'],last_hidden=result['points'][-1]['hidden'])
+  profile(w);card=read(ROOT/CARD);model,z,h=binding(w,card);w.stage='target';ans['target_acquired']=True;result=survey(model,z,h,step=SETTINGS['step'],max_points=SETTINGS['max_points'],max_evaluations=SETTINGS['max_evaluations'],tick=w.tick,observe=w.observe);w.save('survey.json',result);ans.update(passed=True,status=result['status'],points=len(result['points']),evaluations=result['evaluations'],last=result['points'][-1]['diagnostics'],last_hidden=result['points'][-1]['hidden'])
  except BaseException as e:ans.update(status='failed_or_interrupted',error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:
   signal.setitimer(signal.ITIMER_REAL,0);ans.update(seconds=time.monotonic()-w.start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,native_calls=w.calls,events=w.serial);w.save('outcome.json',ans,True);w.save('manifest.json',dict(files={str(p.relative_to(OUT)):entry(p)for p in OUT.rglob('*')if p.is_file()}),True)
