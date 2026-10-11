@@ -14140,3 +14140,13 @@ unrelated705 replay/denseoperator/native profile precedes arrays.240s6GiB
 512MiB worker,72native+144saved replay inclusive; owned255+5. Eleven
 helper/driver controls0.30s include actual archive/index/card metadata and all
 72 existing input/return file pairs. Card remains prepared until peer clearance.
+
+### 2026-10-11 — Admit fixed reusable endpoint refinement
+
+Stability peer review of299505fa passed11controls0.29s; helper46919a22
+already mathematically cleared. Fresh host inventory reports51GiB available,
+GPUidle15947MiBfree, one unrelated owned root audit and no matching fallback
+worker. Admit only the fixed source-bound maintained4-to5 pilot, CPU1nice10,
+240s6GiB512MiB with72native and144saved replay inclusive. Its fresh full705
+profile must still pass all measured forecasts before opening target arrays.
+No uniform proof retry or threshold change; full old5attempts retained.
