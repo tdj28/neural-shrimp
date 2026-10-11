@@ -7728,3 +7728,13 @@ Krawczyk, literal root/phase joins, monodromy/divisors/quotient reductions passe
 Complete manifests/source/owned exits and all88 context outcomes verified.
 Exact all51 endpoint and compact receipt are ready for the reviewed finite
 successor method using subset radii; requested b1/16 extent remains incomplete.
+
+### 2026-10-11 — Source-only exact subset continuation helper
+
+Prepared conditional same-fullE radius restriction for the next finite native6
+march, based on all-ten saved exact subset passes and independently closed
+22-chart prefix. Floating LP remains proposal-only; all known51 coordinates,
+exact subset/root/join inequalities and outward reduction are mandatory.
+Nine controls pass0.32s; initial synthetic projection fixture indexing/radius
+expectation corrected, no target. Complete caller/card and independent source
+review precede acquisition; see clark-subset-successor plan.
