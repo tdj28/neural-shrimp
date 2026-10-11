@@ -13980,3 +13980,7 @@ The direction (-1,11/20000) is explicitly selected after producer gradients.
 ## 2026-10-11 — independent maintained prefix source preparation
 
 Fixed attempts1,2,4 of maintained001 for a fresh480-bit three-root audit from the independently proved rotated endpoint. Preserve allfive producer attempts. Explicitly enable only1/64 width; old1/32 checker default remains unchanged. Full705 synthetic measured serialization/resource admission precedes scientific arrays.900s/6GiB/2GiB internal,920+5s/2050MiB owned,CPU1nice10,no native calls. Source and actual metadata peer review before launch.
+
+### 2026-10-11 06:43 UTC — independent maintained prefix admission
+
+Peer Boundary reviewed27ea3a83 source/binding/math/resource packet and reran13 maintained/cubic/rotated controls0.85s PASS. Root actual complete metadata preflight passed8.42s with no target arrays evaluated. The fixed three-chart audit is admitted from clean committed source under900s/6GiB/2GiB internal and920+5s/2050MiB owned caps, conditioned on its full705 synthetic measured gate. Allfive original attempts remain immutable and authenticated. No new native acquisitions.
