@@ -39,3 +39,29 @@ stop at138. No actual result or limit violation; future forecasts must include
 both passes. The original artifact/card remains immutable.
 
 Binding/resource wrapper still pending; this source-only helper launches nothing.
+
+## Fixed complete saved attempt001
+
+Producer3616fca0 outer49cb143ed9328833f6910d2122479519428d7fe2d95c2304b035b1b69ac5767e,
+worker08e483a208bc4685f6744cfbd7b35f164dbe6fa6e6e3e0c4dce8325fce32b544.
+All207 events bind all93 native phases (45MixedJet,30gradientpath,18DF), including
+unused finite proposals and all old failures. Prior independent bf1a89ea full51
+endpoint and exact source/map/organizer/bridge genealogy are mandatory. Four
+actual path acquisition groups pernewtube retain identical fullE domains.
+
+New full51 fixedgain root uses center/whole native MixedJet arrays and exact
+serialized original domain endpoints. Known root enclosures must fit every
+actual native/implicit acquisition domain. Both implicit passes bind literal
+basez,b to original box; second direction is literal saved U_b plus0gain/1b
+from the authenticated unchanged caller. Original all6phase/two-partner mode
+association is also independently recomputed from saved NPZ and native arrays.
+
+Same full51/12 synthetic saved-algebra admission before targetarrays, zero new
+native calls,512bits180s2GiB4GiBAS128MiB with4MiBclosing reserve;195+5owned
+130MiB. This retains a conservative8root/24nativealgebra cost forecast although
+only2tubes/12contexts plus selectedroot/curvature are needed. Full metadata
+preflight checks actual source/inventories and endpoint associations without
+scientific reductions. New exclusive audits/clark-correlated-extension-independent/
+attempt001; no target yet. Root bee2b333 math review PASS.15combined controls
+pass after fixing a test error-message regex and a local variable/module name
+collision found in source self-review. Finished wrapper peer review required.
