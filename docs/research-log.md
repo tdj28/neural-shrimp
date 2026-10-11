@@ -12996,3 +12996,17 @@ mode derivatives through4, with rigorous entire terminal tails. Four meaningful
 controls passed0.18s, including independent85-digit derivatives for all nine
 augmented equations. Source-only; no target/native proof data evaluated. The
 complete new curve kernel/profile/binding remains to be prepared and reviewed.
+
+
+### 2026-10-11 UTC: compact doubled-width connected705 proof passed
+
+Execution917641f164f23d9be855b865c58564babd67b2ca completed all148ticks and every705 strict root/
+projected known-endpoint inclusion. Primitive18, full frame and positive whole
+angle pass. h=1/16,rho=2^-7,q<.460539295, max image/radius0.98720704; interval
+[-113/2048,143/2048]. Actual62.794s/2528216KiB/
+49726073bytes, versus previous132.82s/385.6MB at half
+this width. All native evidence retained, one exact compact certificate.
+Outer76c5decd85de28edfdaedcb35ff969a25067e9dc9ced63ec13b8c6ec753bab85, worker1b45c3ac083ff675687db899c4442ce046b8c396dd3aa2cc17a786dfe141f6bd; owned group empty.
+Independent replay pending; no added complementary/global topology claim.
+Next priority is reusable connected continuation toward actual junction, with
+cubic predictor preparation addressing the remaining residual limitation.
