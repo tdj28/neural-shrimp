@@ -16849,3 +16849,7 @@ Root source/math/resource review PASS; seven controls including complete actual 
 ### 2026-10-11T12:28:17.422623+00:00 — Fresh512 CIFAR correction independently reproduced
 
 All514HVP/10gradient associations, full512 recurrence/action rank, Gram/least-squares and original trust/firstmerit acceptance independently checked. Currentforcing.4862210877, firstaccepted1/128, meritratio.9956273123, gradient.000777366459.56.576s1259476KiB0native. Literal curved1/32 authority and unchanged originalglobal5percenttrust retained. Nonlinear merit obstruction persists; not a stationaryroot/cycle. Full immutable manifests/exactsource/absentowners verified.
+
+### 2026-10-11 — Admit independent512-action block-mean replay
+
+Boundary independently authored full512 action/four-response/f32mean fsum core; root wrote/read complete source/inventory/profile/owner binding. Root seven controls3.30s and Boundary seven3.57s PASS, including actual metadata with target arrays blocked and isolated closure/no native imports. Boundary full wrapper source/resource review PASS, final strict elapsed/RSS guard applied before result sealing. Complete900s original profile rejection and same-source1200s time-only amendment are authenticated. One CPU1/nice10 saved-only180s1GiB2GiBAS8MiB, fullsize measured admission before arrays; no new HVP. Signed/CIFAR worker checkout idle and no output exists. Source committed/private-pushed before exclusive launch.
