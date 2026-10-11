@@ -6859,3 +6859,14 @@ known-root projection at five failed widths; fresh proof domain remains
 unacquired. Includes actual source/inventory/event binding and independent
 synthetic residual/anchor failures. No native calls or new geometry. Sending
 for peer review while remaining19 saved705 audit is admitted independently.
+
+### 2026-10-11 00:40 PDT — fixed19 independent saved replay admitted
+
+Boundary6baaf317 full source/binding/resource review PASS;12 named tail/minimum
+controls0.75s, full local14controls0.90s. Actual all24 metadata preflight passed.
+Fresh host51GiB available/load2.05/2.7TiB disk/GPU idle/no GPU processes and no
+owned duplicate. One sequential4500s6GiB10GiBAS14GiB480bit worker,4515+5owned,
+CPU1nice10/BLAS1. Fresh705 measurement and conservative actual prior cost/raw
+floor before target arrays; no new native calls. Exact188916e9 starting root,
+all24 histories, single rotation11 and ordered strict705 joins retained.
+All failures/partial reductions preserved; no automatic proof adaptation.
