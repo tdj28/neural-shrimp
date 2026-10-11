@@ -12396,3 +12396,7 @@ Fixed saved attempt001 exited2 after3.26368s/177864KiB, zero native. Full704 unr
 ### 2026-10-10 17:40 PDT — fixed finite704 saved audit002 admitted
 
 Stability peer narrow2cc4222c PASS,11controls independently reproduced0.47s; same mathematical kernel/gates/caps, original001 retained. Fresh host52GiB available/load2.07/1.84/1.69,GPU idle15947MiB/no compute process; no prior owned audit process live. Execute only fixed002 via owned135+5s supervisor, CPU1nice10,120s4GiB6GiBAS64MiB with fresh full704 profile before target arrays. No further retry implied; every failure remains immutable.
+
+### 2026-10-10 17:43 PDT — finite704 audit002 domain obstruction and saved diagnosis card
+
+Attempt002 preserved outer63693fa6403218a6e4c7723f5a599ab311b96ff233d806595f62c3f5214eea93. Full fresh480 localization completed, saved localization-480.json; all center/whole704 coordinates fit actual007 acquisitions, but tangent containment failed before quotient.15.65235s/1489384KiB, zero native calls, owned group empty. First quantify exact serialized dyadic endpoint differences with committed diagnose_native704_domains.py: only the two literal-manifest-bound saved vectors, exact Fraction arithmetic, no Arb/model,30s/448MiB RSS/1GiB AS/2MiB output, CPU1nice10. One synthetic exact-endpoint control precedes fixed diagnostic; output retained in tracked failure/diagnosis receipt. Extra fixed-point intersections, if justified by diagnosis, require separate source review; no clipping to unproved old bounds or widening acquired domains.
