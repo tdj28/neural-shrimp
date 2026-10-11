@@ -9590,3 +9590,13 @@ arrays, profile, candidate or derivative acquired; full measured caller pending.
 Clark narrow9b3d464f review PASS and4controls0.67s reproduced. Exact old failure,
 complete same domains/widths and60s1GiB ceilings remain. Admit one fresh002
 profile-gated replay under64MiBraw/66MiBouter; no scientific target in001.
+
+### 2026-10-11 — saved5width diagnosis002 completed
+
+All fixed reductions completed3.102s/162,832KiB/0native. Firstquarter center
+passes halfwidth1/2048 and1/1024 (penalties.40135/.81293);1/512,1/256,1/128
+fail1.66789/3.51289/7.81314. All errors/domains retained; old001 storage failure
+remains immutable. This supports only2× larger cells with the same whole-quarter
+derivative domain. Next planned secondquarter splits derivative domains before
+new centers, then uses bounded exact dyadic subdivision only on a complete
+negative11-mode metric. No new native work is admitted by this outcome.
