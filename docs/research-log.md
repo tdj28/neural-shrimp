@@ -16405,3 +16405,7 @@ Integration 2026-10-11 10:51 UTC: copied the six new independent audit files fro
 ### 2026-10-11T10:41:00.988884+00:00 — Independent first cubic32 portion passed
 
 Four exact closed cells cover[39,55]/1024 and contain the entire previous stable chart31 endpoint projection. All eleven complementary multipliers have modulus below.991372; maximum metric remainder penalty below.955276 is a different bound and is not a multiplier estimate. Full native domains and saved central residuals independently reduced at480bits,33.962s917108KiB,zero new native calls. Exact archived source and all immutable inventory hashes/owner exits verified. Whole chart32 and later boundary coverage continue.
+
+## 2026-10-11 10:51 UTC — Admit independent saved LM parity-order audit
+
+Stability reviewer passed source/math/binding/resource review of1f0cdaca and reproduced all five controls in2.34s. Added final resource tick and explicit failed flag as suggested; five controls passed2.13s. Admit exactly one attempt001 under the prepared120s/1GiBRSS/2GiBAS/8MiB worker and135+5s owned supervisor; localCPU1/BLAS1/nice10, zero native/model/holdout calls. All224 retained actions,32 reused reverse associations and four complete cases will be replayed with separately authored fsum arithmetic. Source is this admission commit, privately pushed before target access.

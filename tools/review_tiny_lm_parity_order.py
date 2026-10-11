@@ -115,8 +115,8 @@ def main():
   commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();save('runtime.json',dict(source_commit=commit,pid=os.getpid(),numpy=np.__version__,threads=dict.fromkeys(THREADS,'1'),sources={n:entry(ROOT/n)for n in FILES}))
   for n in FILES:
    raw=(ROOT/n).read_bytes();need(raw==subprocess.check_output(['git','show',commit+':'+n],cwd=ROOT),'complete committed own source');write('source/'+n,raw)
-  t=time.monotonic();u=np.linspace(.1,1,15776);reduce(u,u,2*u,3*u,4*u,5*u,u);seconds=time.monotonic()-t;forecast=16*seconds+30;save('profile.json',dict(passed=forecast<120,seconds=seconds,forecast_seconds=forecast,target_arrays_unopened=True));need(forecast<120,'full-sized fsum/vector measured admission');result=audit(tick,save)
- except BaseException as e:result.update(error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
+  t=time.monotonic();u=np.linspace(.1,1,15776);reduce(u,u,2*u,3*u,4*u,5*u,u);seconds=time.monotonic()-t;forecast=16*seconds+30;save('profile.json',dict(passed=forecast<120,seconds=seconds,forecast_seconds=forecast,target_arrays_unopened=True));need(forecast<120,'full-sized fsum/vector measured admission');result=audit(tick,save);tick()
+ except BaseException as e:result.update(passed=False,error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:
   signal.setitimer(signal.ITIMER_REAL,0);result.update(seconds=time.monotonic()-start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);save('result.json',result,True);save('manifest.json',dict(files={str(p.relative_to(OUT)):entry(p)for p in OUT.rglob('*')if p.is_file()}),True)
  print(json.dumps({k:result.get(k)for k in ('passed','seconds','error','descriptive_gate')}));return 0 if result['passed']else 2
