@@ -9191,3 +9191,15 @@ finite negative-one locus; the two-sided chart crosses the critical complex
 pair and is not claimed uniformly complement-attracting. Independent replay
 and left-side qualification follow. Exact learning-rate span retains h2^-8.
 Outer426738d7b3fa1b635a2f7594160274bb912f01064f1f12d844380ce17910a2f2. Prior failed unweighted proof remains failed.
+
+
+### 2026-10-11 — Prepared independent saved signed470 replay
+
+Copy independently authored eigenpair path reducer, with only explicit−1
+admission; zero native calls throughout. Fresh512 inequalities
+and an independent rational negative-mode lift from root-audited refined55/
+705 domains check whole470 junction membership. Fixed300s4GiB64MiB after a
+full unrelated470 arithmetic profile plus2x actual producer time/RSS floor.
+Initial synthetic mutation control aliased both DF records; corrected fixture
+uses independent copies and exercises the intended direction-disagreement
+rejection. No scientific target evaluated. Root will review/run this packet.
