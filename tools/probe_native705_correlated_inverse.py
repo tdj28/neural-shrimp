@@ -22,6 +22,10 @@ APINS={'source':'cfc5bc32d7c02142f47073b02d25b9dc60cc9c7b','outer':'640bb20df7c7
 OUTER='1071d42d45a686b4d30869d13931a29fa4609db685bce24d17fb4070029e2643';OLD_SOURCE='2c9fc56dd9e8fd75434970487d4a0fafb21fbe6d'
 SOURCES=list(dict.fromkeys(P.SOURCES+W.SOURCES+['src/neural_shrimp/rigorous_parameter_localization.py','src/neural_shrimp/rigorous_connection.py','src/neural_shrimp/rigorous_pal_rechart.py','tools/probe_native705_correlated_inverse.py','tools/launch_native705_correlated_inverse.py','tests/test_native705_correlated_inverse_driver.py','docs/plans/native705-correlated-inverse-target.md']))
 read=W.read;entry=W.entry;inventory=W.inventory;require=W.require
+NATIVE_SOURCES=tuple('src/neural_shrimp/'+n+'.py'for n in ('__init__','models','controls','rigorous_orbits','rigorous_folds','rigorous_cusps','rigorous_eigenpair_locus','rigorous_eigenpair_path','rigorous_unit_pair','rigorous_unit_pair_pal'))
+
+def same_native_source(identity,parent):
+ for n in NATIVE_SOURCES:require(n in identity and n in parent and identity[n]==parent[n],'identical native map/gradient/closure source '+n)
 
 def admit_profile(out):
  require(out['passed']is True and out['target_acquired']is False and out['ticks']==629,'complete sole synthetic629 profile')
@@ -41,11 +45,11 @@ def bind_profile(args,identity):
  for k,v in {'settings':P.SETTINGS,'python':sys.version,'numpy':np.__version__,'flint':flint.__version__,'flint_library':flint.__FLINT_VERSION__,'threads':dict.fromkeys(THREADS,'1')}.items():require(rt[k]==v,'same measured '+k)
  return {'root':str(root),'source':rt['commit'],'outer':args.profile_outer,'worker':args.profile_worker,'forecast':admit_profile(out)}
 
-def bind_parent(tick,save):
+def bind_parent(tick,save,identity):
  inventory(W.BASE,OUTER);packet=read(W.BASE/'outcome.json')
  require(packet['source']==OLD_SOURCE and packet['connected_charts']==24 and len(packet['batches'])==4 and not packet['passed']and not packet['owned_live_pids'],'complete immutable24 plus failed8 packet')
  b=packet['batches'][2];require(b['passed']and b['connected_count']==8 and b['manifest']['sha256']=='fe94e9326f6bd7b71919f501a0a1689625926bda9d2af612c9b1d0f97ebd9607','exact final passing batch')
- parent=W.BASE/'batch003/chart008';W.C.archive_bound(parent,OLD_SOURCE);done=read(parent/'run/outcome.json');old=read(parent/'run/certificate.json.gz')
+ parent=W.BASE/'batch003/chart008';native_runtime=W.C.archive_bound(parent,OLD_SOURCE);same_native_source(identity,native_runtime['sources']);done=read(parent/'run/outcome.json');old=read(parent/'run/certificate.json.gz')
  require(done['passed']and done['ticks']==253 and done['strict_inclusions']==705 and W.uniform_admission(old,decode(old['whole_box'][-1])>0),'complete final known curve')
  inventory(AUDIT,APINS['outer']);inventory(AUDIT/'run',APINS['worker']);W.C.archive_bound(AUDIT,APINS['source'])
  ao=read(AUDIT/'run/outcome.json');al=read(AUDIT/'launcher-result.json');ab=read(AUDIT/'run/input-binding.json');ep=read(AUDIT/'run/connected-endpoint.json')
@@ -87,7 +91,7 @@ def main(args):
  try:
   save('profile-binding.json',bind_profile(args,identity));check()
   with ctx.workprec(256):
-   inp,p,anchor=bind_parent(tick,save);save('inputs.json',{'map_inputs':inp,'anchor':vector_json(anchor['box']),'settings':SETTINGS})
+   inp,p,anchor=bind_parent(tick,save,identity);save('inputs.json',{'map_inputs':inp,'anchor':vector_json(anchor['box']),'settings':SETTINGS})
    c,s,a=[[decode(v)for v in p[k]]for k in ['center','slope','curvature']];C0=arb_mat([[decode(v)for v in row]for row in p['preconditioner']]);normal=[exact(v)for v in p['normal']];origin=[exact(v)for v in p['origin']];weights=[exact(v)for v in p['weights']];del p;gc.collect()
    proof=correlated_tube(TwoRateCuspMap(inp),c,s,a,C0,period=18,normal=normal,origin=origin,parameter=SETTINGS['parameter'],halfwidth_exponent=-5,radius_exponent=-10,weights=weights,anchor=anchor,tick=tick,observe=observe);save('certificate.json.gz',proof)
    require(ticks[0]==148 and counts['gradient_path_input']==counts['gradient_path_return']==72 and counts['gradient_path_assembly_return']==2 and counts['pal_path_phase_return']==72 and counts['pal_path_assembly_return']==2,'complete fresh changed-domain acquisitions')

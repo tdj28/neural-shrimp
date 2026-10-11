@@ -12874,3 +12874,11 @@ Prepare one4xwidth fresh target as docs/plans/native705-correlated-inverse-targe
 from same retained finite failed-chart predictor with full independent24prefix
 endpoint, strict all705 projected join. No target run yet; peer binding review
 and final measured execution card required. Core/helpers unchanged.
+
+### 11 October2026 UTC — native source identity hardening before target
+
+Stability reproduced24controls1.05s and cleared mathematics/caps, requesting
+explicit current-vs-known-parent native map/gradient dependency hash equality.
+Added ten-file map/gradient/closure/path equality guard and corruption controls
+before reading proof arrays. Original source archives and literal map equality
+remain required. No target attempt occurred; profiled source remains unchanged.

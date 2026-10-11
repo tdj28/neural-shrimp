@@ -35,3 +35,9 @@ any target arrays:120.164s/4060720KiB/64550264bytes. Enforce CPU1nice10,
 One exclusive correlated001/attempt001-target only after source peer review
 and final committed measured run card. Preserve all actual inputs/returns and
 failed completion. No finite complementary-spectrum or whole-window claim.
+
+Peer source review requested explicit current-vs-parent native equation bytes.
+Before target arrays, require identical hashes for the complete native map,
+gradient and closure/path dependency modules (ten exact files), in addition
+to already authenticated source archives and literal data/rate JSON. This is
+a metadata-only hardening; scientific kernels and measured profile unchanged.
