@@ -9342,3 +9342,14 @@ original-endpoint coverage promoted. Zero native,30s1GiB8MiB, owned45+5s10MiB.
 Three controls passed0.62s including isolated source closure; initial interval
 comparison test corrected to compare literal ball serialization rather than
 Arb definite-real equality. No target evaluated; peer review before launch.
+
+### 2026-10-11 — prepared independent saved nested512 CIFAR audit
+
+Root producer545c1d42 passed fixed20-percent and0.5 forcing gates at historical
+state018. New independent reducer retains original256 prefix and every511
+basis transition, full512 Gram/rank/least squares and exact258 new operation
+sequence. No new native calls or direction application. Five controls passed
+0.18s, including full recurrence corruption and isolated source closure.
+Copied independent predecessor modules remain byte-identical. Full98666x512
+synthetic profile before research vectors;300s4GiB8MiB/owned315+5s10MiB.
+Source review and actual metadata preflight precede any target arithmetic.
