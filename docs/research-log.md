@@ -9278,3 +9278,14 @@ same correlated inverse for implicit tangents, instead of discarding the
 parameter correlation or blindly subdividing. No complementary theorem or
 new acquisition follows from this diagnostic alone. First30 complementary
 charts independently passed Clark48 replay; later31–38 remain unresolved.
+
+### 2026-10-11 — polynomial same-root localization/tangent helper prepared
+
+Implement the measured repair in a small conditional helper: retain the original
+D(d) and -C(d)R(d) for center/whole known-root intersections, and convolve
+-C(d)R'(d) before combining full mixed Hessian forcing in the true tangent.
+All705 coordinates and the constant external-gauge requirement are explicit.
+No differentiation of an interval remainder or approximate fixed-point equation.
+Six controls passed0.12s, including a nonlinear square-root branch/true tangent,
+noncommuting convolution and exact-domain negatives. No research arrays or
+native calls; source review first, then a separate bounded domain-bound caller.
