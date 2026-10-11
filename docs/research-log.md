@@ -13021,3 +13021,5 @@ known-root membership and endpoints. All native gates retained. Nine meaningful
 controls passed0.96s, including full independent Jacobian derivatives and exact
 primitive analytic endpoints. Draft fifth-power omission was caught in source
 inspection and now has a dedicated control. Source-only, no target/profile.
+
+Post-commit bookkeeping: the staged content/secret/size scan passed, but its whitespace check found a trailing blank line. The shell continued to commit94d232b6; the following source-only fix removes that line and repeats the full staged check. No scientific source or target changed.
