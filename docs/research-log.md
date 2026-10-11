@@ -15295,3 +15295,16 @@ geometry/radii/cache/fullE/native/endpoint gates and270phase/180s2GiB
 512MiB limits retained. Fresh host capacity checked beforelaunch, no duplicate
 owned worker, exclusive002 absent. One CPU1nice10 target with195+5owned
 cleanup; every prior failure and all actual new attempts preserved.
+
+### 2026-10-11 — six correlated native6 critical tubes, bounded prefix
+
+Actual activity branch now has six producer-qualified full51 critical tubes
+from the exact organizer through squared amplitude3/8192; all51 joins and
+both native partners/adjacent primitive6/+1/stable11/orientation passed.
+Max contraction.05265508. Initial two wider complete uniform bounds failed;
+the original8attempt/6accepted limit then stopped beforetarget1/2048.
+Final status remains incomplete and the selected genericfold endpoint was
+notattempted.50.2778s129596KiB234nativephases; all577events/full source/
+immutableinventories/ownedexits verified. Independent saved reductions are
+next before continuation. No uniform genericity/native12/24/window claim.
+Inventory62completedrawroots.
