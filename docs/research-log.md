@@ -16375,3 +16375,20 @@ zero-native attempt001, fresh full98666 arithmetic beforetarget arrays and
 acquisitions explicitly separate from own fsum/path/scalar reductions; neither
 accelerationfit nor model is recomputed. Bothtrialresults/fixedfirstselection
 and originalcost miss remain bound. Fresh host headroom checked at launch.
+
+### 2026-10-11 — independent saved CIFAR curved-path arithmetic passed
+
+The retained curved step reduces the same-start residual merit more than the
+previous straight step: independently recomputed ratios .979648192559 versus
+.991752501053. Both fixed trials pass, while first alpha1/32 remains selected
+despite the second trial's smaller .975765157980 ratio. This is local numerical
+corrector progress, not a stationary-point, periodic-orbit or training benefit.
+
+Execution70a7b837 passed in4.249980s/60528KiB with zero native calls. Own fsum
+full98666-vector replay confirms physical tangent forcing .419126460268,
+fresh acceleration-action relative error1.758719e-13, all actual states and
+both gradients, Armijo/trust/curvature gates and exact original selection.
+Native actions/gradients remain shared acquisitions. Entire immutable inventories,
+archived source and absent owned2772340/2772405 verified. The producer's cold-HVP
+component cost miss remains explicit; total actual time stayed within its cap.
+See docs/reviews/cifar-curved-path-independent.json for exact receipts.
