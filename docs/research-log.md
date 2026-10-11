@@ -14346,3 +14346,16 @@ and5.77MB scaled1.5x to48 plus allowances fit. Fresh full705 synthetic gate
 precedes arrays. Stop on any failure and retain completed leaves. Packet sent
 for peer source review. Stability274d9133 explicit51 fold helper PASS6controls
 0.12s; exact51 tube/native proof wrapper remains active next.
+
+### 2026-10-10 23:57 PDT — fixed48 independent replay admitted
+
+Stability7af3370f source/math/binding/resource PASS,15 controls1.10s. Fresh
+host51GiB available, load1.89/2.13/2.38,2.7TiB free disk, GPUidle15944MiBfree
+and no GPU processes; no owned audit duplicate. Sole immutable
+native705-march-independent/attempt001, sequentialCPU1nice10/480bits,
+1800s4GiB6GiBAS256MiB/4MiB reserve,1815+5owned258MiB. Fresh full705
+synthetic and prior measured two-half admission precede saved target arrays.
+All72 producer attempts retained; independently replay48 leaves and exact
+within-gauge unions with original24 full-state root/gauge joins. Zero native
+calls. Stop and retain partial arithmetic on first failure; no adaptations
+within this attempt. Exact51 RNN fold preparation continues separately.
