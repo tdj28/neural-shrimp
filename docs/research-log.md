@@ -9422,3 +9422,14 @@ all provenance retained; no full-quarter coverage claim.144profile+126target
 calls,400s4GiB384MiB/owned415+5s. Eight controls1.19s passed after correcting an
 unsupported division in the unrelated MixedJet fixture to dyadic multiplication.
 No target evaluated; source review/profile admission still mandatory.
+
+### 2026-10-11T08:17UTC — admitted one fresh-center subinterval proof
+
+Clark independently reviewed08f9a1da caller/source/domains/resource accounting
+and reproduced eight controls1.16s. Exact original full705 known-root domain,
+retained quarter tangent, fresh center derivatives and centered1/16 scope remain.
+Host53,081,908KiB available/load3.95/3.83/2.98; no matching own/currentCIFAR
+worker. Admit sole CPU1/nice10 fresh-center001 under400s4GiB384MiB, owned415+5s;
+full144-phase synthetic measured gate precedes126 new target phases. Existing
+failed quarter and center-floor diagnosis remain immutable. No whole-quarter
+or later-chart complementary stability claim follows from this pilot.
