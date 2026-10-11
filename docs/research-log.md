@@ -17679,3 +17679,103 @@ _commit `0e3113662a5b` (dirty worktree)_
 - **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py fold-from-node --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --out ../neural-shrimp-data/explore/window-organization/upperfold-continuation-001`
 
 _commit `cc66269163b6` (dirty worktree)_
+
+- run started 2026-10-11 22:28 UTC finished 22:31 UTC with exit status 0
+
+## 2026-10-11 22:32 UTC: run (exploratory)
+
+- **Question:** Repeat the upper-fold continuation saving every node's orbit, to identify where the descending branch ends: does the period-18 orbit collapse onto a period-2 orbit at a 2/9 resonance of that orbit's Neimark-Sacker locus near (-0.0406, 1.7240)?
+- **Setup:** Identical to upperfold-continuation-001 (same node, steps, scales, box), now with node states and orbits saved (nodes-direction+1/-1.npz)
+- **Output:** `../neural-shrimp-data/explore/window-organization/upperfold-continuation-002`
+- **Would surprise us:** A different endpoint from run 001 (the continuation is deterministic)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py fold-from-node --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --out ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002`
+
+_commit `66740ae3461d` (dirty worktree)_
+
+- run started 2026-10-11 22:32 UTC finished 22:35 UTC with exit status 0
+
+## 2026-10-11 22:36 UTC: run (exploratory)
+
+- **Question:** Which period-2 orbit does the window's descending upper fold collapse onto at (-0.040625, 1.723958), and is that point a 2/9 resonance on its Neimark-Sacker locus (complex pair on the unit circle at 2/9 turns)?
+- **Setup:** period2-at: Newton for F^2(theta)=theta at fixed rates from the last saved fold node's first orbit point; report all two-step multipliers
+- **Output:** `../neural-shrimp-data/explore/window-organization/collapse-period2-001`
+- **Would surprise us:** No period-2 orbit there, or a complex pair far from the unit circle or from 2/9 turns
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py period2-at --seed ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/collapse-seed.npy --lx -0.04062495362591641 --ly 1.7239577869922749 --out ../neural-shrimp-data/explore/window-organization/collapse-period2-001`
+
+_commit `66740ae3461d` (dirty worktree)_
+
+- run started 2026-10-11 22:36 UTC finished 22:36 UTC with exit status 0
+
+## 2026-10-11 22:37 UTC: The window's upper fold descends, through non-attracting orbits, to a 2/9 resonance of a saddle 2-cycle at (-0.0406, 1.7240)
+
+upperfold-continuation-001/002 (tool 66740ae3, fastcont from carried node attempt-003-target +1-000, the certified canonical fold). Direction -1 reproduces the certified codimension-two points: stability change (1:1) at (-0.0823, 1.8654), parameter reversals (cusps) at (-0.0803, 1.8632) and (-0.0806, 1.8563); it then continues up to two further reversals near (-0.085, 1.973) and (-0.0835, 1.963) and leaves the box at the top. Direction +1 passes reversals near (-0.0978, 1.9335) and (-0.0988, 1.8906), crosses the window, and descends as a non-attracting fold (complement radius 1.08-1.88) through (-0.0673, 1.8264), (-0.0478, 1.7805), (-0.0310, 1.7335), turning near x = -0.0287, to (-0.040625, 1.723958), where the nine even points merge (spread 4e-5) and a second multiplier reaches +1 (6e-10); consecutive nodes change smoothly (largest state step 0.034 where the amplitude shrinks fastest). collapse-period2-001: the period-2 orbit there (Newton residual 3e-16, separation 0.66) has two-step multipliers 1.03098 (real), 0.17364818 +- 0.98480775i (modulus 1 - 4e-11, angle 0.2222222226 turns = 2/9 to 4e-10) and the rest below 0.95. So the window's upper fold is a boundary of a 2/9 tongue rooted on the Neimark-Sacker locus of a SADDLE 2-cycle at R3 = (-0.040625, 1.723958); the tongue is non-attracting near its root and the window is its attracting upper part. Revision of the registered answer: the window is detached from the attracting circle's 2/9 locking at roots A and B (banana, rotation valley, closed lower fold loop) but is connected at the orbit level to the 2/9 resonance at R3, exactly the kind of unstable bridge the consult warned about. Next: the tongue's second fold from R3; the period-2 Neimark-Sacker locus between B and R3 (where does the 2-cycle acquire the real multiplier above 1?).
+
+_commit `66740ae3461d` (dirty worktree)_
+
+## 2026-10-11 22:38 UTC: run (exploratory)
+
+- **Question:** What is the second boundary fold of the 2/9 tongue rooted at R3 = (-0.040625, 1.723958), and where does it go: back into the window, to the lower fold loop, or elsewhere?
+- **Setup:** section-from-node at node 330 of upperfold-continuation-002 direction +1 (near R3), fixed hidden rate, output rate free: trace the closed period-18 orbit curve through the section's other fold, refine it, continue it 600 steps each way (stop when the even-point spread falls below 1e-3 or outside [-0.13,0.05]x[1.65,2.00])
+- **Output:** `../neural-shrimp-data/explore/window-organization/r3-tongue-section-001`
+- **Would surprise us:** No second fold in the section (open curve), or a second fold that runs into the attracting banana
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py section-from-node --nodes ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/nodes-direction+1.npz --index 330 --free lx --out ../neural-shrimp-data/explore/window-organization/r3-tongue-section-001`
+
+_commit `b81b60429d09` (dirty worktree)_
+
+- run started 2026-10-11 22:04 UTC finished 22:38 UTC with exit status 0
+
+- run started 2026-10-11 22:38 UTC finished 22:40 UTC with exit status 0
+
+## 2026-10-11 22:42 UTC: run (exploratory)
+
+- **Question:** At fixed output rate through the certified attracting interval (log10 output about -0.0854), which folds bound the attracting period-18 orbit below and above: is the node sheet shared between the canonical (R3-tongue) fold and the lower U-loop fold?
+- **Setup:** section-from-node at node 0 of upperfold-continuation-002 direction +1 (canonical fold), fixed output rate, hidden rate free; trace the closed period-18 orbit curve (up to 3000 steps, h 0.005) and record every turning point; continue only the farthest fold briefly (20 steps)
+- **Output:** `../neural-shrimp-data/explore/window-organization/canonical-section-001`
+- **Would surprise us:** An open orbit curve, or a node branch that ends at a fold other than the U loop
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py section-from-node --nodes ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/nodes-direction+1.npz --index 0 --free ly --loop-steps 3000 --loop-h 0.005 --steps 20 --out ../neural-shrimp-data/explore/window-organization/canonical-section-001`
+
+_commit `b81b60429d09` (dirty worktree)_
+
+- run started 2026-10-11 22:42 UTC finished 22:42 UTC with exit status 0
+
+## 2026-10-11 22:48 UTC: run (exploratory)
+
+- **Question:** One picture of the 2/9 organization around the window: both rotation maps, the banana, the closed lower fold loop, the upper fold descending to R3, and the R3 tongue's second fold
+- **Setup:** composite subcommand on saved outputs: rotation-gap-361 and rotation-right-441; ufold-continuation-001, upperfold-continuation-002, r3-tongue-section-001; banana-0745
+- **Output:** `../neural-shrimp-data/explore/window-organization/composite-001`
+- **Would surprise us:** -
+- **Command:** `.venv/bin/python tools/explore_window_organization.py composite --rotation ../neural-shrimp-data/explore/window-organization/rotation-gap-361/rotation.npz ../neural-shrimp-data/explore/window-organization/rotation-right-441/rotation.npz --folds ../neural-shrimp-data/explore/window-organization/ufold-continuation-001/fold-from-node.json ../neural-shrimp-data/explore/window-organization/upperfold-continuation-002/fold-from-node.json ../neural-shrimp-data/explore/window-organization/r3-tongue-section-001/section.json --banana ../neural-shrimp-data/explore/window-organization/banana-0745/banana.json --xlim -0.12 0.035 --ylim 1.64 2.0 --out ../neural-shrimp-data/explore/window-organization/composite-001`
+
+_commit `851d2aa29c45` (dirty worktree)_
+
+- run started 2026-10-11 22:48 UTC finished 22:48 UTC with exit status 0
+
+## 2026-10-11 22:49 UTC: run (exploratory)
+
+- **Question:** Is the saddle 2-cycle at R3 = (-0.040625, 1.723958) the same edge-of-stability 2-cycle whose Neimark-Sacker locus passes roots A and B, and where along the locus does it acquire a real multiplier above 1?
+- **Setup:** ns2-locus: start from the stable 2-cycle 0.002 decades below the locus at log10 output -0.0700 (between A and B... B side), solve for the locus point (complex pair modulus 1) at fixed output rate, then step the output rate by +2e-4 up to -0.030 continuing the same 2-cycle; record rotation, the largest other real multiplier and other moduli
+- **Output:** `../neural-shrimp-data/explore/window-organization/ns2-locus-001`
+- **Would surprise us:** The continued locus does not reach R3's output rate with rotation 2/9 there; or the cycle is lost (corrector failure) before
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py ns2-locus --start -0.0700 1.7410 --step 2e-4 --steps 300 --stop -0.030 --out ../neural-shrimp-data/explore/window-organization/ns2-locus-001`
+
+_commit `2cbbf25b6759` (dirty worktree)_
+
+- run started 2026-10-11 22:49 UTC finished 22:49 UTC with exit status 0
+
+## 2026-10-11 22:50 UTC: run (exploratory)
+
+- **Question:** Continuing the main edge-of-stability 2-cycle upward from its Neimark-Sacker point at log10 output -0.040625, does it become the saddle 2-cycle at R3 (hidden 1.723958)?
+- **Setup:** continue-period2: start from the ns2-locus-001 row nearest -0.0406 (corrected at -0.040625), pseudo-arclength in the hidden rate up to 1.723958, multipliers at every node, distance of the orbit to the R3 2-cycle state (collapse-period2-001)
+- **Output:** `../neural-shrimp-data/explore/window-organization/main2cycle-to-r3-001`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py continue-period2 --start-json ../neural-shrimp-data/explore/window-organization/ns2-locus-001/ns2-locus.json --lx -0.040625 --target-ly 1.723958 --reference ../neural-shrimp-data/explore/window-organization/collapse-period2-001/period2.json --out ../neural-shrimp-data/explore/window-organization/main2cycle-to-r3-001`
+
+_commit `e512ca3ea0e4` (dirty worktree)_
+
+- run started 2026-10-11 22:50 UTC finished 22:50 UTC with exit status 0
+
+## 2026-10-11 22:50 UTC: R3 lies on a second, coexisting 2-cycle; the window's period-18 family bridges two invariant circles
+
+ns2-locus-001 (tool 2cbbf25b): the main edge-of-stability 2-cycle's Neimark-Sacker locus continued from near B runs down to (-0.040, 1.6836) with rotation 0.2135 there and all other multipliers below 1 (largest real 0.9918); it does not pass R3. main2cycle-to-r3-001: continuing that main cycle upward at log10 output -0.040625 to 1.724, its complex pair leaves the unit circle (modulus about 1.07) and its real multiplier stays below 1 (0.9991); its orbit stays 0.78 from the R3 cycle. So R3 = (-0.040625, 1.723958) is a 2/9 resonance on the Neimark-Sacker locus of a different, coexisting 2-cycle that is a saddle (real multiplier 1.031). canonical-section-001 (fixed output rate through the certified attracting interval): the period-18 orbit curve oscillates between exactly two folds, the U-loop fold at 1.832573 and the canonical fold at 1.878581, so one node-saddle pair spans the window there; the node sheet joins the lower loop (circle locking of the main cycle) to the canonical fold, which bounds the hidden 2/9 tongue of the saddle cycle (r3-tongue-section-001: tongue width 1.3e-8 decades at 9e-4 decades from R3; its second fold rises into the window, attracting between (-0.0619, 1.8316) and (-0.0785, 1.8973)). Composite figure: composite-001.
+
+_commit `e512ca3ea0e4` (dirty worktree)_
