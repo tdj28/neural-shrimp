@@ -17692,3 +17692,73 @@ _commit `cd080e889870` (dirty worktree)_
 After 60,000 further steps: at eta 0.00828 the state is still 3.9e-6 from a period-2 orbit (two-step relative residual) and the even-step loss shows only slow real relaxation (AR(2) root 1.000035 + 0.00045i); the matrix-free critical pair at the earlier sweep state was 0.998575 +- 0.006340i (modulus 0.998595, theta/2pi 0.00101). At eta 0.00939 the loss oscillation no longer decays (envelope 1.12e-4 to 1.13e-4), so training is on a small closed modulation of the 2-cycle with frequency 0.0018 (spectral peak) to 0.0028 (AR(2) on the second half, modulus 0.99993) turns per two-step; Arnoldi at that point (on the loop, not at the 2-cycle) gives 0.99013 + 0.02154i (theta/2pi 0.0035). The pre-stated surprise (Arnoldi and loss angles disagreeing by more than 20 percent) occurred, but the comparison is not like-for-like because the 2-cycle itself could not be certified (Newton-GMRES failure). Above, the modulation frequency rises smoothly to 0.020 at eta 0.020 with steady envelopes. Status: consistent with a Neimark-Sacker of the edge-of-stability 2-cycle with small birth angle between 0.0083 and 0.0094 (as in the digits network), but neither the crossing nor its type is certified; no invariant-circle or Lyapunov test was completed.
 
 _commit `bfeeb7b1f915` (dirty worktree)_
+
+## 2026-10-11 21:10 UTC: run (exploratory)
+
+- **Question:** Below the S2-28011 period-18 (2/9) window, does the invariant-circle rotation number fall from the period-2 Neimark-Sacker curve to an interior minimum below 2/9 and rise back to 2/9 at the window's lower fold in every column, so that the 2/9 resonance region splits into a part attached to roots A and B and a detached window part?
+- **Setup:** S2-28011, shared initial parameters, EXP-028 iteration options (20000 steps, status/period/FTLE), then 256 two-step samples fix the PCA plane and 20000 two-step samples give the rotation; rectangle log10 hidden 1.725-1.905 (361 rows) x log10 output -0.100 to -0.064 (361 cols); 12 workers at nice 10, CPU only
+- **Output:** `../neural-shrimp-data/explore/window-organization/rotation-gap-361`
+- **Would surprise us:** A column where the rotation stays at or above 2/9 between the near-curve band and the window (a neck), or a minimum at or above 2/9 anywhere below the window
+- **Command:** `.venv/bin/python tools/explore_a3_rotation_map.py --system S2 --seed 28011 --hidden 1.725 1.905 --output -0.100 -0.064 --resolution 361 361 --pca 256 --samples 20000 --workers 12 --out window-organization/rotation-gap-361`
+
+_commit `e1b2bbb5a7d4`_
+
+## 2026-10-11 21:55 UTC: run (exploratory)
+
+- **Question:** Does the period-18 orbit at the bottom of the window's lower U fold (carried node attempt-006-ray32-fold +1-010, log10 rates 1.82002, -0.07999) lie on the attracting invariant circle of the two-step map just outside the fold, as expected if the U is the 2/9 locking edge of that circle?
+- **Setup:** Rates moved by -0.003, -0.001, -0.0003 and +0.0003 decades of the hidden rate at fixed output; start at the fold orbit plus 1e-6; 100000 transient steps, then 100000 two-step samples; nearest-neighbour distance of all 18 orbit points to the sampled attractor, attractor extent, rotation number and planar share; one process, OPENBLAS 1 thread, nice 10
+- **Output:** `../neural-shrimp-data/explore/window-organization/circle-check-001`
+- **Would surprise us:** Orbit points far (comparable to the attractor extent) from the attractor below the fold, or a below-fold attractor that is not a circle (periodic, or planar share well below 1)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py circle-check --out ../neural-shrimp-data/explore/window-organization/circle-check-001`
+
+_commit `4f9aaf6d8c37` (dirty worktree)_
+
+- run started 2026-10-11 21:55 UTC finished 21:56 UTC with exit status 0
+
+## 2026-10-11 21:56 UTC: Window U-fold orbit lies on the invariant circle; the U is the 2/9 locking edge
+
+Circle check (circle-check-001, tool commit 4f9aaf6d). Just below the bottom of the window's lower U fold (carried node +1-010 at log10 rates 1.82002, -0.07999) the attractor of the two-step map is a quasi-periodic circle: rotation 0.221481, 0.221888, 0.222058 at -0.003, -0.001, -0.0003 decades of hidden rate (halves agree to 2e-6 except 4.5e-5 at the closest offset; planar share 0.98; no repeats in the last 64 samples). The nine even points of the period-18 fold orbit lie on that circle: nearest-sample distances 0.007-0.016, 0.002-0.006 and 0.0007-0.0018 (attractor extent 0.72-0.73), shrinking in proportion to the offset; the odd points lie on the other circle (distances 0.26-0.72). At +0.0003 decades the trajectory locks to a period-18 orbit with rotation exactly 2/9. So the U is where the 2/9 node-saddle pair is born on the circle, with the rotation rising to 2/9 from below. Together with the 7 Oct rotation map (rotation falls from the Neimark-Sacker curve to a minimum 0.2178-0.2204 below 2/9 near log10 hidden 1.78-1.79 and rises to 2/9 at the U in every column), this indicates that the certified window is a detached component of the 2/9 resonance region, separated from the near-curve band that joins roots A and B. Confirmation map running (rotation-gap-361).
+
+_commit `4f9aaf6d8c37` (dirty worktree)_
+
+- run started 2026-10-11 21:10 UTC finished 22:02 UTC with exit status 0
+
+## 2026-10-11 22:02 UTC: run (exploratory)
+
+- **Question:** Anatomy of the 2/9 resonance around the window from the confirmation map: where is the 2/9 level set, the rotation minimum along each column, and how do they sit relative to the carried fold/flip curves?
+- **Setup:** Saved rotation-gap-361 map and combined-summary005 boundary nodes; columns -0.0830..-0.0700; minimum searched below log10 hidden 1.84 excluding chaotic cells; lock tolerance 5e-5
+- **Output:** `../neural-shrimp-data/explore/window-organization/anatomy-001`
+- **Would surprise us:** Column minima at or above 2/9, or a 2/9 locked band connecting the near-curve band to the window
+- **Command:** `.venv/bin/python tools/explore_window_organization.py figure --rotation ../neural-shrimp-data/explore/window-organization/rotation-gap-361/rotation.npz --out ../neural-shrimp-data/explore/window-organization/anatomy-001`
+
+_commit `76b5ac141f7b` (dirty worktree)_
+
+- run started 2026-10-11 22:02 UTC finished 22:02 UTC with exit status 0
+
+## 2026-10-11 22:03 UTC: run (exploratory)
+
+- **Question:** Repeat the window anatomy with the column minimum restricted to quasi-periodic cells (statuses unresolved/drift) above the curve, and locate the rotation saddle (highest column minimum)
+- **Setup:** Saved rotation-gap-361 map and combined-summary005 boundary nodes; tool commit 0c7e75db; otherwise as anatomy-001
+- **Output:** `../neural-shrimp-data/explore/window-organization/anatomy-002`
+- **Would surprise us:** Saddle value at or above 2/9
+- **Command:** `.venv/bin/python tools/explore_window_organization.py figure --rotation ../neural-shrimp-data/explore/window-organization/rotation-gap-361/rotation.npz --out ../neural-shrimp-data/explore/window-organization/anatomy-002`
+
+_commit `0c7e75dbe54d`_
+
+- run started 2026-10-11 22:03 UTC finished 22:03 UTC with exit status 0
+
+## 2026-10-11 22:04 UTC: run (exploratory)
+
+- **Question:** Does the detached period-18 (2/9) window component connect, through the right side, to the 2/9 resonance region of the third 2/9 root of the period-2 Neimark-Sacker curve at log10 rates (1.6809, +0.0112), or is it bounded away from it too?
+- **Setup:** Same tool and options as rotation-gap-361 (S2-28011, EXP-028 iteration, 256 PCA + 20000 rotation samples); rectangle log10 hidden 1.64-1.96 (321 rows) x log10 output -0.075 to +0.035 (441 cols); 12 workers at nice 10, CPU only
+- **Output:** `../neural-shrimp-data/explore/window-organization/rotation-right-441`
+- **Would surprise us:** A continuous 2/9 locked band joining the window's right arm (the period-18 flip curve near log10 hidden 1.859) to the third root's resonance region
+- **Command:** `.venv/bin/python tools/explore_a3_rotation_map.py --system S2 --seed 28011 --hidden 1.64 1.96 --output -0.075 0.035 --resolution 321 441 --pca 256 --samples 20000 --workers 12 --out window-organization/rotation-right-441`
+
+_commit `0c7e75dbe54d` (dirty worktree)_
+
+## 2026-10-11 22:10 UTC: Window organization registered; consult adjudicated
+
+Anatomy-002 (tool 0c7e75db, map rotation-gap-361): the 2/9 arc joins roots A and B just above the curve; the window's 2/9 region is separate, its lower edge traced by the carried U fold; between them every column's circle rotation dips below 2/9, highest column minimum 0.22043 at (-0.0766, 1.792). Pro consult (window organization; cost in the private ledger) adjudicated in docs/consults/2026-10-11-window-organization/adjudication.md: detachment is theoretically allowed (closed locking disks without any Neimark-Sacker curve exist); claim only circle-locking detachment until period-18 branches are continued, since unstable branches could connect the structures; the arc needs exact period-18 orbits before it is called a banana; generic reconnection under a third parameter is a Morse saddle of the fold surface; nontwist is only an analogy. Registered answer and open items: docs/window-organization.md.
+
+_commit `0c7e75dbe54d` (dirty worktree)_

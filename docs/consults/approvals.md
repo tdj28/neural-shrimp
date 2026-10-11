@@ -86,3 +86,22 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   model page and pricing page, 8 October2026. The standard-context row applies
   to this small packet. This is advisory strategy review, not independent
   scientific validation. Material advice will be locally adjudicated.
+
+## 2026-10-11: window-organization consult
+
+- **Approval (human, in session, 11 October 2026):** "please feel free to use a
+  gpt pro consult ... to clarify these things", in reply to the question of how
+  the period-18 window is organized relative to the period-2 Neimark-Sacker
+  curve; budget in the private cost ledger. This approves sending the compact
+  packet below to OpenAI.
+- **Milestone:** the window's lower fold is the 2/9 locking edge of the
+  invariant circle, and the rotation has a valley below 2/9 between the window
+  and the near-curve band joining the 2/9 roots, suggesting a detached
+  resonance component.
+- **Scope:** one `research-strategy` request using
+  `2026-10-11-window-organization/brief.md`, with the theory questions answered
+  first; no retry without a new decision recorded here.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000
+  output tokens; canonical client reserves and authorization guard apply.
+  Advisory only: every cited reference is checked at its primary source before
+  use, and material advice is adjudicated locally.
