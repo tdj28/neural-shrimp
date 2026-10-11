@@ -9177,3 +9177,14 @@ explains a real portion of the previous residual, without solving the stationary
 problem. No direction applied, state022 action, seed, eigenpair or orbit claim.
 Complete decoder guide prepared for independent saved replay; no automatic longer
 Krylov, trust-ball change or follow-up native unit. Resume later-chart complements.
+
+#### Later cubic known-root enclosure prepared
+
+Added the cubic analogue of the already reviewed conditional localization:
+full705 corrections and true tangent include bδ³ and3bδ², with exact saved
+full-J domain containment for mean-value/polarization segments. The zero-cubic
+case reproduces previous quadratic outputs exactly; twelve nonlinear/domain/
+restriction controls pass0.14s. Boundary confirms ordered independent later31
+is quadratic correlated;32–38 cubic. Failed compact/overlapping pilots are not
+counted. This math is source-only pending peer review and a reusable bounded
+caller; no later-chart complementary target opened.

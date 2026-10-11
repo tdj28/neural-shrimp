@@ -17,3 +17,22 @@ synthetic version used Python Arb exponentiation on a sign-changing interval,
 which returns nan in this runtime; controls caught it before any target. All
 integer powers now use repeated multiplication, including negative shifts.
 No target wrapper, proof acquisition or new complementary result exists yet.
+
+## Cubic known-root localization and actual segments
+
+The companion cubic localization helper keeps the previous weighted Neumann
+operator and inherited correction intersections, replacing every predictor by
+c+sδ+aδ²/2+bδ³ and every predictor derivative by s+aδ+3bδ². Full705 variables,
+angle and both rates stay present. True tangent identity remains
+(I-D)(Uprime-pprime)=-C(J*pprime+H_parameter); its initial bound is superseded
+only by the separately reviewed correlated mixed-forcing calculation. Exact
+serialized endpoints of the actual fresh full-J acquisition must contain the
+entire predictor-root segment after restoration, before polarization directions
+are used. No serialization expansion enlarges derivative authority. Zero cubic
+coefficients reproduce the previous quadratic formulas byte-for-byte.
+
+Four new controls cover a nonlinear square-root family with cubic predictor,
+a genuine cubic second coordinate and derivative, all mixed direction domains,
+rejection of an insufficient original acquisition box, and the quadratic special
+case. Twelve combined localization/restriction/prior controls pass0.14s. No target
+arrays or derivatives acquired. Full root/input index and caller still required.
