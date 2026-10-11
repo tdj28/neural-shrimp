@@ -12186,3 +12186,7 @@ Clark cleared helper mathematics e7cd955b and census envelope repair729da953. Ro
 ### 2026-10-11T00:21:05.233592+00:00 — measured census13 retention-cap amendment
 
 Profile002 completed3 full768-bit phase acquisitions. Fixed2x4200-call forecast94.6081s fits600s;739243264bytes fails512MiB. Preserve declined admission; target never launched. Raise only local raw cap to1GiB+1MiBlog, with same CPU/RSS/time/proof settings and fixed26 cases. Fresh003 profile required for amended source identity and peer recheck; no automatic proof retries.
+
+### 2026-10-11T00:22:16.876785+00:00 — fixed independent705 saved reduction prepared
+
+Source-bound driver retains original coarse anchor and separately reports uniform versus connected proof. Separate direct path polynomial/entire series and full native705 Jacobian assembly;384-bit weighted reduction, no native calls. Four controls PASS. CPU1nice10/240s/4GiB/64MiB based on measured48.48s producer and20.12s saved704 reducer. Peer review before fixed attempt001 launch.
