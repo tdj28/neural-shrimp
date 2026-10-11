@@ -25,6 +25,9 @@ Subcommands:
                 (tangent reversals), 1:1 points (a second multiplier at +1),
                 fold-flip points (a multiplier at -1) and fold-NS points (a
                 complex pair on the unit circle) can be located afterwards.
+  period2-at    Period-2 orbit at given rates by Newton from a saved state
+                (for example the collapse point of a period-18 fold), with
+                its two-step multipliers.
   composite     One figure of the organization: rotation field with the 2/9
                 level set, the banana's two folds, continued window folds and
                 the carried flip curves, plus a zoom on the banana and its
@@ -385,6 +388,10 @@ def fold_from_node(args):
         rows = [node_events(nd, args.sigma) for nd in path]
         record[f"direction_{sign:+d}"] = {"reason": reason, "seconds": round(time.perf_counter() - tic, 1),
                                           "nodes": rows}
+        if path:
+            np.savez_compressed(out / f"nodes-direction{sign:+d}.npz",
+                                z=np.array([nd["z"] for nd in path]),
+                                points=np.array([nd["points"] for nd in path]))
         end = rows[-1] if rows else None
         print(json.dumps({"direction": sign, "nodes": len(rows), "reason": reason,
                           "end": None if end is None else [end["lx"], end["ly"], end["complement_radius"]]}))
@@ -482,6 +489,32 @@ def composite(args):
     print(json.dumps({"out": str(out / "window-organization.png")}))
 
 
+def period2_at(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    seed = np.load(args.seed)
+    if seed.ndim > 1:
+        seed = seed[args.index]
+    curve = OrbitCurve(f, 2, fixed=args.lx)
+    fixed_row = np.zeros(f.n + 1)
+    fixed_row[-1] = 1.0
+    z, history = newton(curve, np.concatenate([seed, [args.ly]]), max_iter=30,
+                        extra=lambda w: (fixed_row, w[-1] - args.ly))
+    record = {"lx": args.lx, "ly": args.ly, "newton": history}
+    if z is not None:
+        t, m, _, points = f.period_map(z[:f.n], [args.lx, args.ly], 2)
+        mult = np.linalg.eigvals(m)
+        order = np.argsort(-np.abs(mult))
+        record.update({"theta": z[:f.n].tolist(),
+                       "separation_F": float(np.linalg.norm(points[1] - points[0])),
+                       "multipliers": [[float(mult[i].real), float(mult[i].imag), float(abs(mult[i])),
+                                        float(np.angle(mult[i]) / (2 * np.pi))] for i in order]})
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "period2.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({k: record[k] for k in record if k != "theta"})[:1500])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -537,9 +570,15 @@ def main():
     comp.add_argument("--ylim", type=float, nargs=2, default=[1.725, 2.0])
     comp.add_argument("--dpi", type=int, default=110)
     comp.add_argument("--out", required=True)
+    p2 = sub.add_parser("period2-at")
+    p2.add_argument("--seed", required=True, help=".npy state or (k, 13) array")
+    p2.add_argument("--index", type=int, default=0)
+    p2.add_argument("--lx", type=float, required=True)
+    p2.add_argument("--ly", type=float, required=True)
+    p2.add_argument("--out", required=True)
     args = parser.parse_args()
     {"circle-check": circle_check, "figure": figure, "banana": banana,
-     "fold-from-node": fold_from_node, "composite": composite}[args.command](args)
+     "fold-from-node": fold_from_node, "composite": composite, "period2-at": period2_at}[args.command](args)
 
 
 if __name__ == "__main__":
