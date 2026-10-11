@@ -9413,3 +9413,22 @@ Stability independently cleared e2d6e24d source/policy/binding/resource packet, 
 
 ### 2026-10-11 — signed470 march earns16 connected charts, stops on strict association gate
 Sourcea34129fd completed23 full144-phase attempts plus180-phase profile in709.993s/728152KiB. Sixteen strict full470 primitive18 root/known-root joins advance hiddenrate84.09156993217→76.59156993217, exact gauge−81/256→−2001/256 (7.5 physical units). Six wider h1/2 image-bound failures were retained and policy-halved; final23 also failed one anchor coordinate469/470 and stopped exactly as declared, with85 root inclusions despiteq<.252. No24th attempt or radius/gate change. Overall exit2 remains; earned16-chart connected prefix is separate. Complete3492native input/return pairs, allsource/inventories/owned termination immutable. Independent512 saved-prefix replay is prepared separately; no complementary-stability, generic-flip or complete second-junction/window claim. Next output-gauge transition must prove full projected470 membership.
+
+### 11 October 2026 — prepared output-rate rechart after signed470 march
+
+The complete hidden-gauge march earned16 joined primitive18 charts (7.5 physical
+hidden-rate units), while attempt23 failed both root image and one anchor bound.
+The new fixed output-gauge packet preserves that failure, first sharpens the
+same accepted chart22 endpoint with three original-domain residual evaluations
+and its certified polynomial inverse/contraction, then proves a fresh full470
+chart with a complete projected join. This changes the continuation coordinate
+before the numerical hidden-rate turn; no numerical path is promoted to proof.
+The conditional endpoint helper received Stability mathematical review PASS,
+3 controls0.28s. Prepared wrapper initially passed7 source/metadata/profile/
+projection controls5.11s; full saved-domain preflight added before source review.
+One300s/4GiB/1GiB packet only,432 inclusive native phases; card remains prepared
+and no target/profile has run. Existing independent16-prefix replay is owned
+by Root in a separate checkout.
+Full saved-domain/schema preflight and all8 controls passed9.93s. No target
+native calls occurred; endpoint metadata and original fixed correction domain
+were read and checked before launch preparation.
