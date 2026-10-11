@@ -9789,3 +9789,14 @@ decoders forbidden and isolated archive closure. The initial pure geometry test
 compared separately rounded nondyadic expressions for containment; corrected to
 exact dyadic sample values, without a formula/gate change. Card remains prepared,
 no profile/target yet; full source/math/binding/resource peer review required.
+
+Cubic32 first-portion admission: Boundary independently source/math/binding/
+resource reviewed c477070d PASS and reproduced8 controls4.49s. Exact cubic and
+R′ Taylor/full coefficient-source genealogy/whole705 domain/previous stable
+projection/closed union/caps were checked; no target arithmetic evaluated by the
+reviewer. Card now reviewed; repeated8controls and complete actual metadata
+preflight pass with all target coefficient/model decoders forbidden. Host
+2026-10-11 10:27UTC52GiB available, load2.01/1.78/1.81; no other matching research
+worker. One CPU1/nice10 worker4GiB plus256MiB launcher admitted. Full144native
+synthetic+full705 cubic algebra profile and complete30-center resource forecast
+remain mandatory before research arrays. Original full root is never rerun.
