@@ -8741,3 +8741,12 @@ identified prior `curvature-six-reference-outcome.md` already rejecting a
 rank-one plus isotropic-bulk mechanism at six references; no duplicate rank-one
 follow-up or new LM acquisition is planned. Future hypotheses must address
 that actual negative evidence explicitly.
+
+### 2026-10-11 UTC — independent stationary wrapper clearance
+
+Clark reviewed7c9c8dc3 source/binding/resources PASS and independently reproduced
+all11 controls2.49s. One metadata-only clarity correction replaces the initial
+`optimizer_eta_unchanged=False` field with an explicit conditional candidate-rate
+scope: no optimizer is run at a new rate. Native kernels, equations, selections,
+thresholds and caps are unchanged. Proceed the single fixed attempt001 after
+fresh host admission; any failed/incomplete attempt remains immutable.

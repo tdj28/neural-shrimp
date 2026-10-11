@@ -63,7 +63,7 @@ def run(out,review):
     B.require(out==BASE/'run','single fixed output');inventory=B.sources();runtime=B.environment()
     store=Store(out,limit=3*1024**3,reserve=4*1024**2);started=time.monotonic();budget=Budget(store.event)
     result=dict(status='running',source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),source_sha256=inventory,review_commit=review,runtime=runtime,
-        settings=SETTINGS,accepted_orbit=False,rigorous_certificate=False,mode=None,comparison_qualified=False,optimizer_eta_unchanged=False)
+        settings=SETTINGS,accepted_orbit=False,rigorous_certificate=False,mode=None,comparison_qualified=False,candidate_rate_scope='2/tau is only a proposal after qualified stationarity and eigenpair; no optimizer run at that rate')
     try:
         B.require(review==result['source_commit'],'exact reviewed execution source');store.json('runtime-start.json',result);store.write('minres-source.py',inspect.getsource(minres).encode())
         for root,pin in[(PARENT,PIN),(Q.CORR,Q.CORR_PIN),(Q.GEOM,Q.GEOM_PIN),(P.DIAGNOSTIC,P.DIAG_PIN)]:P.verify_diagnostic(root,pin,budget.check)
