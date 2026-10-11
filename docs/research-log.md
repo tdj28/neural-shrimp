@@ -13297,3 +13297,17 @@ nice -n10 project Python tools/launch_native705_cubic_narrow_batch.py --card
 pal/cubic-continuation001/narrow001/batch001; no target outcome yet. No launch
 until source clearance and fresh36GiB host admission. First failed root/join
 stops connected prefix; all four complete or interrupted attempts retained.
+
+
+### 2026-10-11 UTC: first genuine advancing cubic705 prefix passed
+
+Root cleared82b973c7,10controls0.83s. Fixed source6ae48eb0 narrower batch
+completed all4x331calls in66.106s,4.37MKiB aggregate,allownedgone. First3
+full705 roots and all705 joins passed, q.09856/.13918/.23017; known local
+right79/2048→115/512. Finalphysical hidden72.8391±8.33e-5,
+output.829837±4.39e-7,t.01344±4.98e-6. Fourthq.5171 but144/705images
+failed, retained; whole four-chart attempt remainsfalse. Compact prefix
+receipt and independent degree4/degree5 replay guide saved; root owns that
+audit. Parent authorizes bounded adaptive rotate/halve packet with fixed total
+caps, retaining every failedattempt and strict full705 projected joins. No
+full-window or complementary-stability claim from this new producer prefix.
