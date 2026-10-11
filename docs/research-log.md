@@ -8542,3 +8542,17 @@ and absent ownedPIDs verified. Boundary source review passed6controls0.24s.
 Receipt docs/reviews/native705-localization-outcome.json. Next one fixed
 full-chart correlated all11 complementary bound uses these actual domains;
 no complementary claim follows from this localization alone.
+
+### 2026-10-10: one fixed first705 complementary trial card
+
+Prepare pal/complement/attempt002-correlated after complete705 localization
+f0eedc05. Exact curve/384proof/480join/actual705domains and original analytic
+map/data/source bound. Drop only final angle for unchanged704 quotient layout;
+both actual rates/tangents retained, terminal block uses whole actual angle,
+gauge halfwidth1/128. Frozen005 exact E/B are revalidated proposals, no new
+basis search. Full unrelated36-native+18×11 profile before arrays then exactly
+36 target phases;384bits/240s/4GiB/6GiBAS/64MiB,owned255+5s/66MiB combined.
+All raw inputs/returns retained with2MiB final reserve. This one trial assesses
+whether current true-tangent enclosure suffices; failure will be diagnosed
+from saved phases before refinement. Peer wrapper review/fresh host required;
+no target acquired under this card yet.
