@@ -17,7 +17,7 @@ def test_complete_metadata_only_and_cost_floor(monkeypatch):
 
 
 def test_card_roles_and_separate_admission():
- c=json.loads((ROOT/W.CARD).read_text())
+ c=json.loads((ROOT/W.CARD).read_text());c['status']='source_prepared'
  with pytest.raises(ValueError):W.card_check(c,'profile')
  c['status']='profile_admitted';c['source_review']='synthetic';W.card_check(c,'profile')
  with pytest.raises(ValueError):W.card_check(c,'target')
@@ -37,7 +37,7 @@ def test_call_retention_on_nonfinite_and_deduplicated_trajectories(tmp_path):
 
 
 def test_profile_target_constants_and_launcher():
- s=(ROOT/'tools/launch_tiny_lm_parity_order.py').read_text();assert 'else 260'in s and '194*1024**2'in s and 'attempt001-profile'in s
+ s=(ROOT/'tools/launch_tiny_lm_parity_order.py').read_text();assert 'else 315'in s and '194*1024**2'in s and 'attempt002-profile'in s
  assert W.SETTINGS['target_counts']=={'hvp':224}and W.CAP==192*1024**2
 
 
@@ -66,3 +66,13 @@ def test_literal_reused_reverse_states_and_actions(monkeypatch):
  c=dict(direction=u,reference=states);assert np.array_equal(W.original_reverse(28161,c,.2),u)
  changed[0]=True
  with pytest.raises(ValueError,match='state/vector/action'):W.original_reverse(28161,c,.2)
+
+
+def test_literal_failed240s_profile_and_time_only_amendment():
+ class Bound:
+  def tick(self):pass
+  def save(self,*a,**kw):pass
+ W.failed_profile(Bound())
+ assert W.SETTINGS['worker_seconds']==dict(profile=60,target=300)
+ assert W.Calls.__init__.__code__.co_consts.count(300)==1
+ assert W.PROFILE.name=='attempt002-profile'and W.TARGET.name=='attempt001-target'

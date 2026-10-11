@@ -7340,3 +7340,16 @@ disclosed time-only300s target/315s outer plus5s grace, same224HVP/4GiB/192MiB
 and all gates. Fresh002 profile on revised source precedes separate target card;
 no dropping cold costs or changing scientific contrast. Receipt stores literal
 manifest pins and original failed outcome.
+
+### 2026-10-11 — source-only parity time amendment and fresh profile preparation
+
+Root explicitly authorized300s worker/315s supervisor plus5s grace, unchanged
+224HVP/all fourcases/gates/4GiB8GiBAS192MiB. Mandatory originalprofile001 binds
+full source/inventory and recomputes original285.721872s>240s failure. Fresh
+attempt002-profile acquires both full-size HVPs again; no source-equivalence
+shortcut or discarded cold return. Target remains unlaunchable pending narrowed
+peer review, current admission, fresh measured profile and exact target card.
+
+Preparatory metadata control caught a broad text edit accidentally adding an
+extra argument to an unrelated receipt read; repaired before acquisition.
+All prior parity cold returns also explicitly enter the maximum.

@@ -1,14 +1,7 @@
 {
   "schema": "tiny-lm-parity-order-v1",
-  "status": "profile_admitted",
-  "source_review": {
-    "reviewer": "boundary_resume",
-    "commit": "347f88e605ae2b20ea1102d4c56ed46007f5da77",
-    "result": "PASS",
-    "controls": 12,
-    "seconds": 5.56,
-    "scope": "Source/math/binding/resource only; no target evaluated."
-  },
+  "status": "source_prepared",
+  "source_review": null,
   "settings": {
     "profile_counts": {
       "hvp": 2
@@ -106,13 +99,13 @@
     ],
     "worker_seconds": {
       "profile": 60,
-      "target": 240
+      "target": 300
     },
     "rss_bytes": 4294967296,
     "as_bytes": 8589934592,
     "raw_bytes": 201326592
   },
-  "profile_root": "/data2/neural-shrimp-data/explore/tiny-lm-parity-order/attempt001-profile",
+  "profile_root": "/data2/neural-shrimp-data/explore/tiny-lm-parity-order/attempt002-profile",
   "target_root": "/data2/neural-shrimp-data/explore/tiny-lm-parity-order/attempt001-target",
   "profile": null,
   "mean_authority": {
@@ -127,19 +120,11 @@
     "outer": "13d4b20207e2d94052ab003d6b8488a07e68aca1e74d896736b6191bf5016f35",
     "worker": "b57d546bfa1aac86bcd4a2b232c30abf71dfc34f7e7ceee7c6d8da15b65068d5"
   },
-  "host_admission": {
-    "observed_local": "2026-10-11 03:26 PDT",
-    "available_ram": "51GiB",
-    "load": [
-      1.66,
-      1.68,
-      1.78
-    ],
-    "disk_free": "2.6TiB",
-    "gpu_utilization_percent": 0,
-    "gpu_free_mib": 15947,
-    "gpu_compute_processes": [],
-    "owned_duplicate": false,
-    "scope": "CPU1 nice10; fixed two-HVP full-size profile only. Target requires separately committed successful profile hashes and fixed measured admission."
+  "amendment": {
+    "date": "2026-10-11",
+    "authorization": "Root explicitly authorized time-only300s worker/315s supervisor plus5s grace after retained profile001 forecast285.721872s failed240s.",
+    "failed_profile": "docs/reviews/tiny-lm-parity-order-profile001.json",
+    "fresh_profile_required": true,
+    "unchanged": "224HVP, zero gradients/CE, four cases, all gates,4GiB RSS,8GiB AS,192MiB raw, full actual/cold maximum and528-vector accounting."
   }
 }

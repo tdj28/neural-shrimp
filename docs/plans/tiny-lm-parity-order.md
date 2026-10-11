@@ -140,3 +140,14 @@ a missing whitespace syntax error before any profile or target.
 Card status remains source_prepared until complete caller peer review and
 current host admission; the subsequent target requires literal successful
 new-profile source/outer/worker pins and unchanged profiled file hashes.
+
+## Disclosed time-only amendment after profile001
+
+Profile001 completed both HVPs; fixed240s forecast correctly rejected285.721872s
+using the retained prioractual worst.570807749s. All complete inputs/returns,
+immutable source/inventories and original negative outcome remain mandatory.
+Root authorized300s target/315s supervisor plus5s grace on11October2026.
+Science,224HVP, all cold maxima,4GiB/8GiBAS/192MiB and528-vector bound unchanged.
+A fresh two-HVP attempt002-profile on this amended source is required; both
+profiles count as acquisitions and target remains a separate pinned card.
+No automatic further extension if the fresh full-cost forecast fails.

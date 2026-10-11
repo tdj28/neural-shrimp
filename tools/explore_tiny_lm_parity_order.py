@@ -13,14 +13,15 @@ import explore_tiny_lm_common_subspace as S
 from neural_shrimp import tiny_lm_parity_order as H
 need=H.need
 BASE=Path('/data2/neural-shrimp-data/explore/tiny-lm-parity-order')
-PROFILE=BASE/'attempt001-profile';TARGET=BASE/'attempt001-target'
+PROFILE=BASE/'attempt002-profile';TARGET=BASE/'attempt001-target'
 CARD='docs/plans/tiny-lm-parity-order-inputs.json'
 CAP=192*1024**2;RESERVE=4*1024**2
+FAILED_PROFILE=dict(root=str(BASE/'attempt001-profile'),source='bdfdc963359d988bd807bb4dcf720f4391f70c4a',outer='8e51dcad6e0e9c39952cbc794533ee44852e110a3c04e608a6f4b2ab2aa831d9',worker='424b1210db90ba2c083a9f2331bd65fea0dcffa8f5bc97b98ad3178c27b884d7')
 MEAN_AUDIT=dict(root='/data2/neural-shrimp-data/audits/tiny-lm-temporal-mean-independent/attempt001',source='8624111d26fc8e3ee916fe89c2f32fb5286139d2',outer='01efa208f3bd15e11ce2a969ff2216c10bc5f522ed2f7350321822a63c7d9eb1',worker='7d99e6c55de8ffa0bc1167af9106ffe32c548293f32c5ee01ddad5a5d2125e1b')
 ORDER=dict(root='/data2/neural-shrimp-data/explore/tiny-lm-ordering/attempt001-target',source='358a93ca3cc6434d5b8ea5c4989ad391fb471a0f',outer='eb3f0c4503a73ac21443fe56b88a3834ec4cf13ae98fc98d53d3e40b4e8fc686',worker='ce69af6c687cc66f6cc5118af7744734a8266cc233a6862e34e3d05ea60870ec')
 ORDER_AUDIT=dict(root='/data2/neural-shrimp-data/audits/tiny-lm-ordering-independent/attempt001',source='f408bba83021bc5ea57e7fe5b5eb11f582fefb64',outer='13d4b20207e2d94052ab003d6b8488a07e68aca1e74d896736b6191bf5016f35',worker='b57d546bfa1aac86bcd4a2b232c30abf71dfc34f7e7ceee7c6d8da15b65068d5')
-FILES=sorted(set(N.FILES+S.FILES+[CARD,'src/neural_shrimp/tiny_lm_parity_order.py','tools/explore_tiny_lm_parity_order.py','tools/launch_tiny_lm_parity_order.py','tests/test_tiny_lm_parity_order.py','tests/test_tiny_lm_parity_order_driver.py','docs/plans/tiny-lm-parity-order.md','docs/reviews/tiny-lm-common-subspace-outcome.json']))
-SETTINGS=dict(profile_counts=H.PROFILE_COUNTS,target_counts=H.TARGET_COUNTS,gates=H.GATES,orders={k:list(v)for k,v in H.ORDERS.items()},seeds=[28161,28162],roles=['original','quarter_step'],worker_seconds=dict(profile=60,target=240),rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=CAP)
+FILES=sorted(set(N.FILES+S.FILES+[CARD,'src/neural_shrimp/tiny_lm_parity_order.py','tools/explore_tiny_lm_parity_order.py','tools/launch_tiny_lm_parity_order.py','tests/test_tiny_lm_parity_order.py','tests/test_tiny_lm_parity_order_driver.py','docs/plans/tiny-lm-parity-order.md','docs/reviews/tiny-lm-common-subspace-outcome.json','docs/reviews/tiny-lm-parity-order-profile001.json']))
+SETTINGS=dict(profile_counts=H.PROFILE_COUNTS,target_counts=H.TARGET_COUNTS,gates=H.GATES,orders={k:list(v)for k,v in H.ORDERS.items()},seeds=[28161,28162],roles=['original','quarter_step'],worker_seconds=dict(profile=60,target=300),rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=CAP)
 
 class Store(N.Store):
  def write(self,name,raw,closing=False):
@@ -30,7 +31,7 @@ class Store(N.Store):
 
 class Calls(N.Calls):
  def __init__(self,store,mode):
-  super().__init__(store,mode,60 if mode=='profile'else 240);self.cap=H.PROFILE_COUNTS if mode=='profile'else H.TARGET_COUNTS
+  super().__init__(store,mode,60 if mode=='profile'else 300);self.cap=H.PROFILE_COUNTS if mode=='profile'else H.TARGET_COUNTS
   self.attempted=dict.fromkeys(self.cap,0);self.returned=dict.fromkeys(self.cap,0);self.times={k:[]for k in self.cap};self.return_bytes={k:[]for k in self.cap}
 
 class Binding:
@@ -50,16 +51,25 @@ def history(spec,w):
  root=Path(spec['root']);S.inventory(root,spec['outer'],w.tick);S.inventory(root/'run',spec['worker'],w.tick);rt=S.historical(root,spec['source']);return root,rt
 
 
+def failed_profile(w):
+ p=Path(FAILED_PROFILE['root']);S.inventory(p,FAILED_PROFILE['outer'],w.tick);S.inventory(p/'run',FAILED_PROFILE['worker'],w.tick);S.historical(p,FAILED_PROFILE['source'],2)
+ row=S.read(p/'run/result.json');receipt=S.read(ROOT/'docs/reviews/tiny-lm-parity-order-profile001.json')
+ need(receipt['execution']==FAILED_PROFILE['source']and receipt['outer']['sha256']==FAILED_PROFILE['outer']and receipt['worker']['sha256']==FAILED_PROFILE['worker']and receipt['result']==row,'literal retained original240s rejection')
+ need(not row['passed']and row['attempted']==row['returned']=={'hvp':2}and row['event_pairs']==2 and row['target_arrays_unopened']and 'error'not in row and row['seconds']<60 and row['peak_rss_kib']<4*1024**2,'complete original measured profile')
+ need(H.forecast(row['times']['hvp'],row['return_bytes']['hvp'],row['forecast']['old_max_hvp_seconds'],row['preforecast_bytes'])==row['forecast']and 240<row['forecast']['seconds']<300 and row['forecast']['bytes']<CAP,'original admission failed only time')
+ w.save('retained-profile001.json',FAILED_PROFILE)
+
+
 def metadata(store,calls):
- w=Binding(store,calls);oldcard=S.read(ROOT/S.CARD);need(oldcard['independent']==MEAN_AUDIT,'fixed already sealed mean authority');run,files,result=S.bind(w,oldcard);records=S.events(run,files);rt=S.read(run/'runtime.json')
+ w=Binding(store,calls);failed_profile(w);oldcard=S.read(ROOT/S.CARD);need(oldcard['independent']==MEAN_AUDIT,'fixed already sealed mean authority');run,files,result=S.bind(w,oldcard);records=S.events(run,files);rt=S.read(run/'runtime.json')
  need(rt['torch']==torch.__version__ and rt['numpy']==np.__version__ and N.entry(ROOT/'src/neural_shrimp/tiny_lm.py')['sha256']==N.NATIVE_SHA,'same native and measured libraries')
  order,ort=history(ORDER,w);audit,_=history(ORDER_AUDIT,w);a=S.read(audit/'run/result.json');ib=S.read(audit/'run/input-binding.json')
  need(a['passed']and a['native_calls']==0 and a['retained_hvp_checked']==160 and a['rows']==16 and ib['execution']==ORDER['source'],'complete independent reversal audit')
  need(any(v['root']==ORDER['root']and v['manifest']==ORDER['outer']for v in ib['inventories']),'literal reverse producer in independent authority')
  need(ort['sources']['src/neural_shrimp/tiny_lm.py']['sha256']==N.NATIVE_SHA and ort['torch']==torch.__version__ and ort['numpy']==np.__version__,'same ordering native/runtime')
  oldprofile=S.read(N.PROFILE_ROOT/'run/result.json');times=[r['seconds']for r in records if r['operation']=='hvp']
- need(len(times)==1088 and len(oldprofile['times']['hvp'])==2,'complete actual1088 plus cold2 prior costs');worst=max(times+oldprofile['times']['hvp'])
- store.json('ordering-binding.json',dict(producer=ORDER,independent=ORDER_AUDIT,old_max_hvp_seconds=worst,actual_target_hvp_times=1088,cold_profile_hvp_times=2))
+ need(len(times)==1088 and len(oldprofile['times']['hvp'])==2,'complete actual1088 plus cold2 prior costs');worst=max(times+oldprofile['times']['hvp']+S.read(Path(FAILED_PROFILE['root'])/'run/result.json')['times']['hvp'])
+ store.json('ordering-binding.json',dict(producer=ORDER,independent=ORDER_AUDIT,old_max_hvp_seconds=worst,actual_target_hvp_times=1088,cold_profile_hvp_times=2,retained_failed_parity_profile_hvp_times=2))
  # Retain all four abstentions as history without treating them as operator evidence.
  receipt=S.read(ROOT/'docs/reviews/tiny-lm-common-subspace-outcome.json');common=dict(root=receipt['root'],source=receipt['execution'],outer=receipt['outer']['sha256'],worker=receipt['worker']['sha256']);cr,_=history(common,w);co=S.read(cr/'run/result.json');need(co['passed']and co['qualified_cases']==0 and co['abstained_cases']==4 and co['native_calls']==0,'four unchanged leakage abstentions');store.json('retained-subspace-abstentions.json',common)
  return run,files,records,worst
@@ -73,7 +83,7 @@ def profile_binding(card,store,calls,worst,identity):
  need(rt['torch']==torch.__version__ and rt['numpy']==np.__version__,'same fresh profile libraries')
  need(H.forecast(row['times']['hvp'],row['return_bytes']['hvp'],worst,row['preforecast_bytes'])==row['forecast'],'recompute all measured maxima and exact retained-byte forecast')
  current=H.forecast(row['times']['hvp'],row['return_bytes']['hvp'],worst,store.used)
- need(current['seconds']<240 and current['bytes']<CAP,'fixed240s192MiB actual target admission');store.json('profile-reference.json',dict(profile=card['profile'],original_forecast=row['forecast'],current_forecast=current));return current
+ need(current['seconds']<300 and current['bytes']<CAP,'fixed300s192MiB actual target admission');store.json('profile-reference.json',dict(profile=card['profile'],original_forecast=row['forecast'],current_forecast=current));return current
 
 
 def load_case(run,files,records,seed,role,theta,eta):
@@ -132,7 +142,7 @@ def main(args):
      row=dict(seed=seed,rate_role=role,qualified=bool(replay['passed']and comparison['qualified']),chronological_replay=replay,comparison=comparison,inherited_response_qualified=binding['original_qualification']);out['cases'].append(row);store.json(label+'/result.json',row)
   need(calls.attempted==calls.returned==calls.cap,'all224 or profile2 native calls exactly')
   if args.mode=='profile':
-   out['preforecast_bytes']=store.used;bound=H.forecast(calls.times['hvp'],calls.return_bytes['hvp'],worst,store.used);out.update(forecast=bound,passed=bool(bound['seconds']<240 and bound['bytes']<CAP),target_arrays_unopened=True)
+   out['preforecast_bytes']=store.used;bound=H.forecast(calls.times['hvp'],calls.return_bytes['hvp'],worst,store.used);out.update(forecast=bound,passed=bool(bound['seconds']<300 and bound['bytes']<CAP),target_arrays_unopened=True)
   else:out.update(passed=True,descriptive_gate=H.descriptive_gate(out['cases']),scope='Consumed full-state directional parity-order contrast only. No projected model, eigenbasis attribution, operator-norm, forecast, training or geometry utility.')
  except BaseException as e:out.update(error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:
