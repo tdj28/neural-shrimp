@@ -16502,3 +16502,9 @@ The retained actual complex-pair crossing at hidden72.2280–72.2373/output.8448
 ### 2026-10-11 — admit bounded corrected correlated proof and second55 localization
 
 Stability independently cleared665ad3b6 narrow decoder/binding (two actual controls3.79s) and3aa0b848 full55 caller (six controls10.70s). Actual compressed470 full binding with new native map forbidden passed, and second55 entire historical metadata passed. Both retain complete source and failed ancestors. Current host52GiB free-to-use availability, no own scientific workers, GPU idle; two CPU1 workers reserve7GiB combined. Admit only the fixed fresh003 correlated proof and fixed numerical55 candidate, each full current-source measured profile before target. Source remains frozen through both executions; no outcome at admission.
+
+### 2026-10-11 — wider rigorous signed boundary and second numerical junction pass
+
+Sourceb3f10db8 correlated003 passed all470 strict root/anchor gates and primitive18 at h1/8, q<.076489025. The joined exact gauge[-81/256,−17/256] covers hidden[84.09156993217,84.34156993217],44.147s/947156KiB/324native. Failed001/002 remain intact. This producer proof supports a maintained continuation engine; independent arithmetic and later complement/genericity remain separate.
+
+The independent numerical unit localized a second full55 unit-pair/flip at hidden72.23306826339869/output.8449741879464531 with t=.013575257964120896, other10 max.288624813, crossing−28.2086. Literal phases0/1 and both470 reverse joins pass (errors1.96e−13/6.25e−14);900inclusive phases12.371s. This is still numerical pending interval certification, distinct from the old84.408 junction and earlier sampled real+1 near miss. Complete source/inventories/owned termination and all900/324 native input/return pairs independently verified; compact receipts saved.
