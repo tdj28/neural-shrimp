@@ -8951,3 +8951,14 @@ noncommuting convolution/degree6, interval uncertainty and malformed proposals.
 No target arithmetic or new derivative acquisition. Source review and a fixed
 measured saved-input packet remain prerequisites; the unchanged maintained
 continuation resumes independently.
+
+### 2026-10-11 — admit maintained003 at actual successful width
+
+Stability independently reviewed25662a28 source/binding/caps PASS and reproduced
+seven controls1.34s. The bounded real saved-metadata preflight passed26.146s,
+704784KiB, zero native calls: all24 prior inventories/source/genealogy plus14
+actual finite next width/gauge cards. Same-source746-tick synthetic profile and
+retained actual-cost floor remain unchanged. Complete24-root/8-fallback forecast
+5906.27s and6,684,982,520 bytes fits8400s/8GiB. New measured-reviewed card authorizes
+one maintained003 packet, starting from the accepted physical74.33182 endpoint
+at halfwidth1/8,strong1. Fresh host admission and owned launch follow this commit.

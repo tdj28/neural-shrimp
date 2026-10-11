@@ -1,6 +1,6 @@
 {
   "schema": "native705-resumed-v1",
-  "status": "prepared",
+  "status": "measured-reviewed",
   "initial_parent": {
     "root": "/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/cubic-continuation001/maintained002",
     "source": "16128128be3821790b613d36728efc389855d660",
@@ -69,12 +69,18 @@
     "target_arrays_unopened": true
   },
   "source_review": {
-    "source": "adc67ae7",
+    "source": "25662a28",
     "reviewer": "stability_resume",
-    "controls": 13,
-    "seconds": 0.88
+    "controls": "7 resumed/policy controls1.34s independently reproduced; binding/resource PASS"
   },
-  "metadata_preflight": "docs/reviews/native705-connected-preflight.json",
+  "metadata_preflight": {
+    "receipt": "docs/reviews/native705-resumed-preflight.json",
+    "passed": true,
+    "seconds": 26.14613838191144,
+    "native_calls": 0,
+    "actual_cards": 14,
+    "all_previous_attempts": 24
+  },
   "initial_state": [
     -3,
     1,
