@@ -12375,3 +12375,8 @@ All raw inputs/returns retained with2MiB final reserve. This one trial assesses
 whether current true-tangent enclosure suffices; failure will be diagnosed
 from saved phases before refinement. Peer wrapper review/fresh host required;
 no target acquired under this card yet.
+### 2026-10-10 — independent finite704 complement arithmetic source preparation
+
+Root prioritizes replay of stability007 positive conditional complementary bound. New independent helper recomputes480-bit full704 conditional localization, moving critical frames/total quotient derivatives and all11-mode common-scalar metric decrease from shared authenticated native acquisitions. Previously source-reviewed independent704 block/direct-series code is copied exactly into a dedicated archive directory; no producer proof/model/derivative routine is imported. Fixed complete synthetic controls precede driver/card/source review and any outcome replay. The neutral critical pair is excluded only by the exact inherited invariant-plane identities; no claim that this boundary orbit itself attracts.
+
+Initial two full-cocycle synthetic controls correctly rejected decimal interval coefficients as nonexact proposals; fixture now takes their exact dyadic midpoints and keeps the true interval values in native matrices/defects. This changes only the test proposal, not proof gates.
