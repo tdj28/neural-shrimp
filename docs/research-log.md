@@ -13654,3 +13654,7 @@ Stability source/binding/resource review ccee32f2 PASS; seven direct controls0.5
 ### 2026-10-11 — adaptive001 zero-native validator failure retained
 
 Executionf160f797 stopped4.322s before worker launch: exact256-bit dyadic strings parsed at ambient53-bit Arb precision failed the exactness guard. Outer1ab0e0f7fd4781305ff06afcf97db4901a32c2772e97c00e3df77b52d61a9dd6, no nativecalls/ownedprocess. Fresh adaptive002 preparation replaces only guard arithmetic with exact Fraction dyadic/256bit checks and persists cards before validation. Same complete331-call kernels, targetsettings, profile, caps and bound/branch gates; mandatory firstfailure inventory. Unmocked ambient53 regression exercises the actual cause. Source recheck before retry.
+
+### 2026-10-11T05:32:19.017881+00:00 — adaptive002 narrow repair source admitted
+
+Stability4ba533a9 narrow recheck PASS, eight controls0.53s. Final measured policy now requires immutable zero-native001 failure. Before any launch, execute root-requested read-only preflight against the actual existing profile, all four prefix inventories, exact historical/native sources, actual last705 endpoint and every permitted halfwidth proposal at ambient53-bit guard precision. A temporary policy mirror exercises actual card validation without reserving target output. Only a complete preflight pass admits freshadaptive002 under unchanged331-call scientific kernel,32attempt/8400s8GiB caps and new host admission.
