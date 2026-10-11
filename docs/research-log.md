@@ -14819,3 +14819,15 @@ original-endpoint coverage promoted. Zero native,30s1GiB8MiB, owned45+5s10MiB.
 Three controls passed0.62s including isolated source closure; initial interval
 comparison test corrected to compare literal ball serialization rather than
 Arb definite-real equality. No target evaluated; peer review before launch.
+
+### 2026-10-11 — fresh current-state 512-direction correction source
+
+The completed nested512 historical018 comparison passed both fixed improvement
+criteria (true forcing .427388 vs .644149); its independent audit is in flight.
+Prepare a single new512 solve at the independently audited currentstate022,
+with no historical basis/action transferred. Fresh symmetric/finite-difference
+qualification, a true final Hessian action, forcing <=.5, and the original5%
+trust ball precede any gradient-squared Armijo acceptance. This is a disclosed
+exploratory adaptation, not an efficacy claim. Four synthetic acceptance,
+rejection, trust-origin and failed-backtracking controls pass0.09s. Full-size
+profile, committed run card and peer review remain required before acquisition.
