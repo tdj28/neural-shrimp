@@ -15650,3 +15650,13 @@ Root independently reviewed source8b57b7aa mathematics, same55/705 genealogy, ex
 ### 2026-10-11 — independent finite flip-curve proof passed
 
 Independent signed470 attempt001 passed all470 uniform root inclusions and all470 same-junction projected membership coordinates, proper divisors, q<.082184351347. Independent exact-rational negative-mode propagation uses the same independently validated55/705 junction; native/path assembly and512-bit inequalities use the fresh weighted acquisitions.9.069s/859904KiB/zero native calls. Full immutable inventories, historical sources, launcher/worker ownership and exit checked. Source150b13b5; outer89387263b6e97a1bce46d8fddea81944b0a26581de1bedf112c5ad979190fd3f. This is a finite connected flip locus, without full two-sided complementary stability or complete shrimp claim.
+### 2026-10-11 — fixed saved five-width scalability card
+
+Prepare one zero-native60s1GiB16MiB diagnostic at the independently proved
+fresh center. All5 prescribed halfwidths retain the same actual full-quarter
+root/tangent derivative domain and all matrix uncertainties. Recompute complete
+18phase11mode reductions, preserving failed widths. Three source controls
+PASS0.32s; actual metadata-only binding PASS1.105s,18 phase files authenticated
+without target phase arithmetic. This tests whether coarser coverage is viable
+before spending native calls on the other quarters. Fixed source/card peer
+review and clean private checkpoint remain necessary before execution.
