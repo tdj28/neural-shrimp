@@ -12575,3 +12575,7 @@ Prepared explicit sealed rotated001/batch001 eight-chart replay. Root existence/
 ### 2026-10-11 UTC — Admit measured complete census72 target
 
 Fresh attempt002 profile passes:3.3405s/417372KiB, three full retained native calls, conservative target forecast4571.31s/11012620928B below5400s/16GiB. Profile outer097a90e6cd6a7a913bb11fde0880348d12de8cd6abbef4f6ca4f70139492c14b, worker7e5939bb87444d730af6c1b56cb4181a80e324c5bf69a86f15b7fb7841e8851f. Both original source and resource-only amendment independently reviewed;8controls pass. Launch exactly one fixed32-representative target on one nice10 CPU,2GiB RSS, complete immutable exact retention, all6720 maximum calls. No target tuning/selection, no paid/GPU/holdouts. Independent AD review required before promotion.
+
+### 2026-10-11 UTC — Rotated boundary batch001 independently proved
+
+Fixed independent384-bit audit passed all8 uniform705 roots and joins, including separately reconstructed prior endpoint localization and whole705 projected membership across the changed affine gauge. 133.437s/1735332KiB, zero native, owned groups absent. Outerffb057c1ac962f6b3057d610a5846062725f2c88c38ae77923d9a74f7d9dadfe. Local gauge[-1/2048,255/2048] is not concatenated across rotations. Exact next completed packet pinned when present; unchanged240s/4GiB/64MiB audit, no new acquisition.
