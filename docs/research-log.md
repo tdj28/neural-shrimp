@@ -9772,3 +9772,20 @@ better endpoint remains unchanged. This supports a bounded actual comparison of
 the fixed-reference curved path, not another unqualified Newton retry. Full49file
 inventory,22 archived sources, immutable modes and absent actual owners verified;
 receipt docs/reviews/cifar-remainder-span001.json binds allproposed vectors.
+
+### 2026-10-11 — reusable cubic known-root complement adapter prepared
+
+Fullchart31 hypothesis mapping independently reproduced by root; existing
+physical-boundary lemma applies to all31 cells and promotes the connected
+attracting-side family through chart31. The next source-only packet reuses the
+already independently proved cubic32 root, exact C0/C1 and D0..3/forcing0..5/
+residual0..4. Exact cubic geometry and residual-derivative Taylor are the only
+polynomial-order changes; fresh-point, full705 tangent and11-mode reductions
+are unchanged. Fixed first[39,55]/1024 portion uses two derivative domains of
+halfwidth1/256,30maximum depth3 centers,4104inclusive phases under3000s/4GiB/
+6GiBraw. Entire previous stable endpoint projection is authenticated inside it.
+Eight controls passed4.94s, including actual full metadata with coefficient/model
+decoders forbidden and isolated archive closure. The initial pure geometry test
+compared separately rounded nondyadic expressions for containment; corrected to
+exact dyadic sample values, without a formula/gate change. Card remains prepared,
+no profile/target yet; full source/math/binding/resource peer review required.
