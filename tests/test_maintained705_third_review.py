@@ -41,7 +41,7 @@ def test_archive_import_and_scalar_limits():
   for n in D.FILES:
    p=out/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes())
   subprocess.run([sys.executable,'-B','-c',"import sys;sys.path[:0]=['src','tools/reviews'];import review_maintained705_third as d;assert callable(d.A.rebuild_J);assert d.settings()['charts']==24"],cwd=out,check=True,capture_output=True)
- s=(ROOT/'tools/launch_maintained705_third_review.py').read_text();assert 'review_maintained705_third.py'in s and 'native705-maintained003-independent/attempt001'in s and '4515'in s and '14338*1024**2'in s
+ s=(ROOT/'tools/launch_maintained705_third_review.py').read_text();assert 'review_maintained705_third.py'in s and 'native705-maintained003-independent/attempt002'in s and '7215'in s and '14338*1024**2'in s
 
 def test_small_degree5_math_synthetic(tmp_path,monkeypatch):
  from flint import arb,ctx

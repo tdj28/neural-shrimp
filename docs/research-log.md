@@ -15111,3 +15111,11 @@ inventories and exited ownership verified. Root authority and derivative returns
 are shared; the arithmetic reducer does not import producer refinement/lift code.
 This certifies coordinate conversion for the known junction; the separately
 proved continuation membership still needs its own independent chart replay.
+
+### 2026-10-11 — maintained003 independent replay time-only amendment
+Attempt001 stopped before target arrays after measured50.047s705D synthetic:
+forecast5453.445s exceeded4500s, while12.976GB storage and3.111GB memory fit.
+Complete failed evidence is immutable/hash-bound; no native call or target chart.
+Attempt002 keeps all24 fixed roots/joins,480bits,6GiB RSS/14GiB raw and exact
+reducer, with measured-gate7200s and owned7215+5s. Reprofile before scientific
+arrays; zero native. Peer review and private source push precede launch.

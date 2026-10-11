@@ -9,13 +9,13 @@ import review_native705_minimum as A
 B,H,R,M,U=A.B,A.H,A.R,A.M,A.U
 need,read,entry,inventory,historical=A.need,A.read,A.entry,A.inventory,A.historical
 from neural_shrimp.rigorous_orbits import ball_json,vector_json,canonical_bytes
-OUT=Path('/data2/neural-shrimp-data/audits/native705-maintained003-independent/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/native705-maintained003-independent/attempt002/run')
 CARD='docs/plans/native705-maintained003-independent-inputs.json'
 SELECTED=list(range(1,25))
-FILES=[CARD,'docs/plans/native705-maintained003-independent.md','docs/reviews/native705-maintained-tail-independent.json','tools/reviews/review_maintained705_third.py','tools/launch_maintained705_third_review.py','tests/test_maintained705_third_review.py']
+FILES=['docs/reviews/native705-maintained003-independent-profile-failure.json',CARD,'docs/plans/native705-maintained003-independent.md','docs/reviews/native705-maintained-tail-independent.json','tools/reviews/review_maintained705_third.py','tools/launch_maintained705_third_review.py','tests/test_maintained705_third_review.py']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
-def settings():return dict(precision=480,seconds=4500,rss_bytes=6*1024**3,as_bytes=10*1024**3,raw_bytes=14*1024**3,closing_reserve=4*1024**2,charts=24,native_calls=0)
+def settings():return dict(precision=480,seconds=7200,rss_bytes=6*1024**3,as_bytes=10*1024**3,raw_bytes=14*1024**3,closing_reserve=4*1024**2,charts=24,native_calls=0)
 
 def selection(card):
  need(card['status']=='reviewed'and card['schema']=='independent-maintained003-all24-v1'and card['settings']==settings()and card['selected_attempts']==SELECTED,'fixed selected24 bounded design')
@@ -86,7 +86,7 @@ def tube(run,pc,previous,w,index,rotated):
 
 class Work:
  def __init__(self):self.start=time.monotonic();self.used=0;self.stopped=False;self.stage='profile'
- def tick(self):need(not self.stopped and time.monotonic()-self.start<4500 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<6*1024**2,'4500s/6GiB cap')
+ def tick(self):need(not self.stopped and time.monotonic()-self.start<7200 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<6*1024**2,'7200s/6GiB cap')
  def save(self,name,row,closing=False):
   raw=canonical_bytes(row);need(self.used+len(raw)<(14336 if closing else 14332)*1024**2,'14GiB with4MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
@@ -112,16 +112,20 @@ class Work:
   self.tick()
 
 def synthetic(w,card):
+ failed=read(ROOT/'docs/reviews/native705-maintained003-independent-profile-failure.json');priorfailed=Path(failed['root'])
+ inventory(priorfailed,failed['outer']['sha256'],w.tick);inventory(priorfailed/'run',failed['worker']['sha256'],w.tick)
+ oldprofile=read(priorfailed/'run/profile.json');oldout=read(priorfailed/'run/outcome.json')
+ need(not oldout['passed']and not oldout['charts']and oldout['native_calls']==0 and oldprofile['target_arrays_unopened']and oldprofile['forecast_seconds']>4500,'preserved literal profile-only rejection')
  # The completed19 replay supplies a conservative two-times average cost,
  # including full prior profile/binding overhead; fresh full705 floor also applies.
  spec=card['anchor'];r=Path(spec['root']);need(entry(r/'manifest.json')['sha256']==spec['outer']and entry(r/'run/manifest.json')['sha256']==spec['worker'],'literal measured prior manifest')
  manifest=read(r/'run/manifest.json');po=read(r/'run/outcome.json');need(entry(r/'run/outcome.json')==manifest['files']['outcome.json']and po['passed']and po['native_calls']==0,'measured actual prior result')
  C,J,res,h,rho=B.synthetic_fixture();before=time.monotonic();used=w.used;proof=H.polynomial_root(C,J,res,[arb(1)]*705,rho,h,[arb(0,rho)]*705,w.tick,w.emit);need(proof['passed'],'fresh full705 degree5 synthetic');elapsed=time.monotonic()-before;stored=w.used-used
  priorbytes=sum(x['bytes']for x in read(r/'manifest.json')['files'].values());seconds=max(elapsed+24*(3*elapsed+75),2*24*po['elapsed_seconds']/19+90+elapsed);raw=max(73*stored+128*1024**2,2*24*priorbytes/19+128*1024**2);peak=max(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024+2*1024**3,2*po['peak_rss_kib']*1024+256*1024**2)
- report=dict(passed=bool(seconds<4500 and raw<14*1024**3 and peak<6*1024**3),seconds=elapsed,stored_bytes=stored,forecast_seconds=seconds,forecast_bytes=raw,forecast_peak_bytes=peak,charts=24,dimension=705,target_arrays_unopened=True,prior=spec);w.save('profile.json',report);need(report['passed'],'measured fixed24 time/RSS/storage admission');del C,J,res;gc.collect()
+ report=dict(passed=bool(seconds<7200 and raw<14*1024**3 and peak<6*1024**3),seconds=elapsed,stored_bytes=stored,forecast_seconds=seconds,forecast_bytes=raw,forecast_peak_bytes=peak,charts=24,dimension=705,target_arrays_unopened=True,prior=spec);w.save('profile.json',report);need(report['passed'],'measured fixed24 time/RSS/storage admission');del C,J,res;gc.collect()
 
 def main():
- resource.setrlimit(resource.RLIMIT_AS,(10*1024**3,)*2);need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean exact source');need(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1'for k in B.THREADS),'CPU1nice10');OUT.mkdir(parents=True,exist_ok=False);w=Work();signal.signal(signal.SIGTERM,lambda *_:setattr(w,'stopped',True));signal.signal(signal.SIGALRM,lambda *_:setattr(w,'stopped',True));signal.setitimer(signal.ITIMER_REAL,4500);result=dict(passed=False,connected=False,status='incomplete',native_calls=0,charts=[])
+ resource.setrlimit(resource.RLIMIT_AS,(10*1024**3,)*2);need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean exact source');need(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1'for k in B.THREADS),'CPU1nice10');OUT.mkdir(parents=True,exist_ok=False);w=Work();signal.signal(signal.SIGTERM,lambda *_:setattr(w,'stopped',True));signal.signal(signal.SIGALRM,lambda *_:setattr(w,'stopped',True));signal.setitimer(signal.ITIMER_REAL,7200);result=dict(passed=False,connected=False,status='incomplete',native_calls=0,charts=[])
  try:
   source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();w.save('runtime.json',dict(source_commit=source,pid=os.getpid(),sources={n:entry(ROOT/n)for n in FILES},precision=480,python=platform.python_version(),python_flint=flint.__version__,flint=flint.__FLINT_VERSION__,nice=10,threads=dict.fromkeys(B.THREADS,'1')))
   for n in FILES:

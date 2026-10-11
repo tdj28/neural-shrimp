@@ -18,8 +18,8 @@ middle elevation proves an interior maximum by continuity only; no uniqueness
 or genericity. Failed inequality is retained without invalidating proven roots.
 No complementary spectrum or junction/window claim follows automatically.
 
-One CPU1nice10/BLAS1,480bits,4500s6GiB RSS10GiB AS14GiB raw,4MiBreserve;
-4515+5s owned14338MiB supervisor. Completed19 cost1343.76s and3.853GB are
+One CPU1nice10/BLAS1,480bits,7200s6GiB RSS10GiB AS14GiB raw,4MiBreserve;
+7215+5s owned14338MiB supervisor. Completed19 cost1343.76s and3.853GB are
 used at2*24/19 times total (including old profile/binding) plus90s and128MiB.
 Fresh unrelated full705 degree5 reduction precedes target arrays; enforce max
 of actualcost floor and elapsed+24*(3*elapsed+75), and max actualbytes floor
@@ -28,3 +28,10 @@ all under6GiB. All raw attempts immutable, fullsource execution frozen. Card
 prepared until peerreview; metadata preflight has zero native and no target
 mathematical reductions. Run in reused clean task-owned separate worktree to
 keep root integration/paper work active without changing a running source.
+
+Dated amendment2026-10-11: attempt001 completed its unrelated full705 synthetic
+profile in50.047s, forecasting5453.445s versus4500s and rejected before scientific
+arrays. Zero native calls and zero target charts. Preserve its full immutable
+inventories and receipt as mandatory inputs. New attempt002 allows7200s with
+7215+5s ownership, unchanged480bits,24charts,14GiB raw,6GiB RSS and proof gates.
+Repeat the exact fresh profile; do not substitute historical optimistic timing.
