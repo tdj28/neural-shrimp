@@ -13988,3 +13988,12 @@ Peer Boundary reviewed27ea3a83 source/binding/math/resource packet and reran13 m
 ### 2026-10-11 UTC — independent maintained three-chart prefix PASS
 
 Exact source3f9166ad, immutable outer2690fe4971cce7bb2eb9c7a2bf7251189bd13facaab2f27f18a696255cbf3e86. All705 strict root and known-root membership coordinates passed on retained attempts1,2,4; allfive original attempts/source/events authenticated. Fresh480 contractions below0.123751,0.165125,0.251429, primitive18 and nonreal frame retained. Right local gauge63/512, hidden rate about72.7785.253.580s975884KiB0native; complete inventories/source/owned exits verified. The independently connected positive-angle705 count is now38; this does not yet cross the physical-rate turn.
+### 2026-10-10 23:29 PDT — Saved amplitude inverse diagnosis admitted
+
+Stability0fe681a3 source/math/resource PASS,3controls0.13s; no target arithmetic.
+Host49GiB available, load5.04/4.75/4.04, GPUidle15947MiBfree,2.7TiB disk and
+no owned duplicate. Run sole audits/clark-amplitude-inverse/attempt001 with
+CPU1nice10,384bits30s512MiB2GiBAS4MiB and45+5 owned6MiB. Reconstruct all five
+exact retained failed first-pass Jacobians, reproduce infinity-bound failure,
+then inspect interval weighted bounds from finite float proposals. No native
+calls, missing-pass inference, root or branch claim. Preserve failed outcome.
