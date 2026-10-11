@@ -8,7 +8,7 @@ def load(name):
 P=load('profile_native705_cubic_continuation');L=load('launch_native705_cubic_continuation_profile')
 
 def test_exclusive_synthetic_source_closure_and_matching_roots():
- assert P.BASE==L.BASE and P.OUT==L.BASE/'attempt001-profile/run'
+ assert P.BASE==L.BASE and P.OUT==L.BASE/'attempt002-profile/run'
  assert len(P.SOURCES)==len(set(P.SOURCES))and all((ROOT/n).is_file()for n in P.SOURCES)
  assert 'src/neural_shrimp/rigorous_gradient_path.py'in P.SOURCES and 'src/neural_shrimp/rigorous_polynomial_inverse.py'in P.SOURCES
  assert 'argparse'not in(ROOT/'tools/profile_native705_cubic_continuation.py').read_text()
@@ -50,3 +50,10 @@ def test_complete_refresh_is_included_in_measured_cost_and_source():
  # 36 lift + 2*(180 native+5 algebra+144 native+2 algebra) +48 samples.
  assert 36+2*(180+5+144+2)+48==746
  assert P.projection([1,2],[.01]*12,[.01]*12,100000,1000)['one_fresh_chart_seconds']==2*(2+90*.01+72*.01)+20
+
+
+def test_actual_fixture_strings_are_explicitly_converted_before_refresh():
+ with ctx.workprec(256):
+  initial,_,_=P.P.fixture();assert all(isinstance(v,str)for v in initial)
+  converted=P.exact_seed(initial);assert len(converted)==705 and all(v.is_finite()and v.is_exact()for v in converted)
+ assert P.OUT==L.BASE/'attempt002-profile/run'

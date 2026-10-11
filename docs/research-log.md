@@ -8636,3 +8636,12 @@ GPU0percent/15947MiBfree, no owned705 worker. CPU1/nice10,240s6GiB12GiBAS,
 must satisfy synthetic false-primitive/false-anchor controls and measured
 forecast; no target inputs are acquired. Four-chart source cf618fb2 awaits
 independent review and measured manifest card before its separate launch.
+
+
+### 2026-10-11 UTC: preserve synthetic refresh interface failure
+
+Profile001 sourceae0c7146 stopped0.364s/46376KiB after36 synthetic lift calls,
+before either full705 refresh. No target acquired. Exact string fixture needs
+explicit exact Arb conversion for the new helper. Retain complete immutable
+failure and add unmocked705 fixture conversion control; exclusive002 changes
+only interface conversion/provenance/output path, same caps and science.

@@ -16,7 +16,7 @@ def main():
  if os.getpriority(os.PRIO_PROCESS,0)<10:raise ValueError('nice10')
  mem=Path('/proc/meminfo').read_text()
  if int(next(v.split()[1]for v in mem.splitlines()if v.startswith('MemAvailable:')))<16*1024**2:raise MemoryError('16GiB current headroom')
- out=BASE/'attempt001-profile';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
+ out=BASE/'attempt002-profile';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;code=2
  def save(name,value):
   with(out/name).open('xb')as f:f.write((json.dumps(value,sort_keys=True,indent=2)+'\n').encode());f.flush();os.fsync(f.fileno())
  argv=['timeout','--signal=TERM','--kill-after=5s','255s',sys.executable,str(ROOT/'tools/profile_native705_cubic_continuation.py')]

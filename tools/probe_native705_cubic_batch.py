@@ -33,7 +33,7 @@ def settings(right,unit):
  return {'period':18,'precision':256,'parameter':str(center),'halfwidth_exponent':-4,'radius_exponent':-10,'newton_steps':2,'predictor_degree':3,'residual_degree':4}
 
 def profile(identity,pins):
- root=BASE/'attempt001-profile';inventory(root,pins['outer']);inventory(root/'run',pins['worker']);rt=read(root/'run/runtime.json');la=read(root/'launcher-result.json');out=read(root/'run/outcome.json')
+ root=P.OUT.parent;inventory(root,pins['outer']);inventory(root/'run',pins['worker']);rt=read(root/'run/runtime.json');la=read(root/'launcher-result.json');out=read(root/'run/outcome.json')
  require(rt['commit']==la['commit']==pins['source']and la['exit_code']==0 and not la['owned_live_pids']and rt['mode']==la['mode']=='synthetic_only','complete sole measured synthetic profile')
  require(set(rt['sources'])==set(P.SOURCES),'complete profiled source closure')
  for n in P.SOURCES:

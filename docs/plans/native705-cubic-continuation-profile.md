@@ -26,3 +26,9 @@ failures retained. The target batch has its own reviewed binding/card gate.
 
 Command: `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/launch_native705_cubic_continuation_profile.py`
 Raw: `pal/cubic-continuation001/attempt001-profile` beneath the existing unit-pair root.
+
+Amendment after synthetic001: the fixture returns exact strings while the new
+refresh API requires exact Arb values. Explicitly convert through exact(v)
+before refresh; no mathematical or resource change.001's36 synthetic native
+lift calls and failure are immutable and mandatory provenance. New exclusive
+002 profile; unmocked fixture conversion regression added.
