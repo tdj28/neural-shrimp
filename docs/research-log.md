@@ -14167,3 +14167,15 @@ Time-only amendment15b8344e passed stability review,8focusedcontrols0.26s.
 Admit one fresh002 under300s/315+5 caps, all earlier gates retained. Parent
 review independently agreed measured271.41s forecast warrants this adjustment.
 No root5 rerun; profile must pass before target.
+
+### 2026-10-11 — Reusable endpoint refinement joins retained root5
+
+Fixed002 sourcefd6e9426 passed all705 strict projected coordinates after
+source-bound wholeE Jacobian replay and one36-phase target residual. Inclusive
+72native144saved replay,72.062s2,082,020KiB; profile forecast271.73s passed
+300s. Same old endpoint q<.251367. Entire inventories/source checked and owned
+group absent. No uniform-root retry. New connected endpoint hidden72.7734,
+output.830797,t.018951 is below the old floating scout sampled minimum, so
+that sampled point was only a coarse proposal; no physical-minimum claim yet.
+Prepare bounded maintained002 with24roots and at most8fallbacks, same global
+8400s8GiB, unchangedfull705 proofs and strict joins.
