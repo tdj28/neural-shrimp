@@ -7964,3 +7964,17 @@ controls1.17s passed, including actual starting metadata and archive closure.
 Initial helper fmpz-conversion test failures were fixed before target. Caller
 card stays prepared until independent full source/binding/resource review;
 no new native run or radius/gate relaxation has occurred.
+
+### 2026-10-11 — admit localized-endpoint native6 successor
+
+Root full66167bd5 caller/helper/archive/resource review PASS;12 controls1.25s.
+Actual complete admission plus sealed004 endpoint binding with np.load blocked
+passed in Root's temporary sink: zero native calls, all51 coordinates, forecast
+507.148s/1.597GB raw/598MB peak including twice24 endpoint-localization units.
+Stability helper review remains PASS. Admit only localized-successor/attempt001
+with original24 attempts/753 phases/600s2GiB RSS4GiBAS2GiBraw/615+5owned.
+Use exact independent b=1/512 phase/model authority; every new fullE acquisition,
+subset fallback, full51 predecessor join and four native contexts remain.
+Private push/current shared-host and duplicate checks precede launch; source
+checkout freezes until this fixed unit ends. All failures retained, no retry
+or enlargement within the attempt.
