@@ -16857,3 +16857,7 @@ Boundary independently authored full512 action/four-response/f32mean fsum core; 
 ### 2026-10-11T12:48:13.798220+00:00 — Independent block-mean replay complete
 
 All512 native action associations,32 independent fsum mean powers, four full-state nonlinear/CE response pairs and all inherited baselines independently reproduced. Accuracy failure and tenfold-improvement gate both retained exactly. 4.852s/245384KiB, zero new native calls. Complete immutable manifests, exact e4c5117a source archive and absent owners verified; this is now authority for the first-order temporal-variation diagnostic.
+
+### 2026-10-11 — Independent weighted output-gauge connection
+
+Run card `docs/plans/native470-output-independent.md` admits one saved512 arithmetic replay of the scaled primitive18 output-gauge chart and its original-root localization. Root reviewed full driver/history/launcher and6 controls passed10.06s; inherited source and cards match byte-for-byte. Zero native calls,300s/6GiB RSS/10GiB AS/768MiB raw; measured complete forecast before target arrays and owned315+5s launcher. Both failed original chart and saved scaling diagnosis remain bound. This run can establish only the complete root/join; no complementary spectrum or whole-window claim.
