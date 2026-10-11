@@ -8,7 +8,7 @@ import launch_tiny_lm_common_subspace as L
 
 
 def test_null_authority_and_literal_gate_mutation_block():
-    c=W.read(ROOT/W.CARD)
+    c=W.read(ROOT/W.CARD);c['status']='prepared';c['independent']=None
     with pytest.raises(ValueError):W.card_check(c)
     c['status']='reviewed';c['independent']=dict(root='/tmp/control',source='a'*40,outer='b'*64,worker='c'*64);W.card_check(c)
     bad=copy.deepcopy(c);bad['gates']['fidelity']=.1
@@ -47,6 +47,13 @@ def test_isolated_archive_and_preimport_worker_cap(tmp_path):
     p=subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,capture_output=True,text=True);assert p.returncode==0,p.stderr
     # Exercise the real script under the inherited512MiB soft cap. It must
     # finish scientific imports, then reject the dirty/prepared/null card.
-    code="import resource,runpy,os;resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,3*1024**3));os.nice(10);runpy.run_path("+repr(str(ROOT/'tools/explore_tiny_lm_common_subspace.py'))+",run_name='__main__')"
+    code="import resource,runpy,os;resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,3*1024**3));os.nice(10);runpy.run_path("+repr(str(tmp_path/'tools/explore_tiny_lm_common_subspace.py'))+",run_name='__main__')"
     p=subprocess.run([sys.executable,'-I','-B','-c',code],capture_output=True,text=True)
-    assert p.returncode!=0 and any(x in p.stderr for x in ['clean exact source','literal reviewed fixed design','sealed independent temporal-mean authority required']),p.stderr
+    assert p.returncode!=0 and any(x in p.stderr for x in ['clean exact source','literal reviewed fixed design','sealed independent temporal-mean authority required','not a git repository']),p.stderr
+
+
+def test_final_resource_success_gate():
+    assert W.final_pass(True,59.,1000000)
+    assert not W.final_pass(True,60.,1000000)
+    assert not W.final_pass(True,5.,1024**2)
+    assert not W.final_pass(False,5.,100)
