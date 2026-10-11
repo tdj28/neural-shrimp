@@ -16291,3 +16291,15 @@ CPU1nice10/60s4GiB8GiBAS192MiB,80+5owned194MiB, cold costs retained. Exact max o
 new2, prior1088 actual and priorcold2 returns must forecast target<240s and
 complete conservative bytes<192MiB. Target still requires separate committed
 profile source/outer/worker pins and current headroom. No target arrays opened.
+
+### 2026-10-11 — parity profile001 retained time-admission failure
+
+Both full-size HVPs completed in2.362601s/943940KiB. New coldmax.503215443s is
+below retained oldactual.570807749s, so all-cost target forecast285.721872s
+correctly rejects original240s. Conservative201081781B fits192MiB narrowly.
+No target arrays opened; all inputs/returns, complete immutable inventories and
+exact historical source verified; owned2740208/2740300 absent. Root authorized
+disclosed time-only300s target/315s outer plus5s grace, same224HVP/4GiB/192MiB
+and all gates. Fresh002 profile on revised source precedes separate target card;
+no dropping cold costs or changing scientific contrast. Receipt stores literal
+manifest pins and original failed outcome.
