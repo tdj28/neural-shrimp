@@ -17563,3 +17563,31 @@ and handoff checkpoint, not research completion.
 ### 2026-10-11T15:36:45.370605+00:00 — Export inspected57-page reading checkpoint
 
 Source `def1b29ac218b39501a478196b1bab34bd97e938`;596 verified quantities;161-word abstract;22unchanged figure outputs. PDF SHA `49e04261e74387ecfc71525d16d69c020526e09a9d80d3564ada22d22f5d1953`. Sealed visual-QA manifest `51dbea62be631540f2a46183be5abfefcb845978656af118bc958c0d9d4b7cb1` at `/data2/neural-shrimp-data/paper/gd-route/credit-handoff-refresh-2026-10-11`. All57page contacts and seven detailed pages reviewed. Updated uncommitted `/data2/Handoff.md` will point the next session at this artifact and unfinished research packets.
+
+## 2026-10-11 21:10 UTC: run (exploratory)
+
+- **Question:** Below the S2-28011 period-18 (2/9) window, does the invariant-circle rotation number fall from the period-2 Neimark-Sacker curve to an interior minimum below 2/9 and rise back to 2/9 at the window's lower fold in every column, so that the 2/9 resonance region splits into a part attached to roots A and B and a detached window part?
+- **Setup:** S2-28011, shared initial parameters, EXP-028 iteration options (20000 steps, status/period/FTLE), then 256 two-step samples fix the PCA plane and 20000 two-step samples give the rotation; rectangle log10 hidden 1.725-1.905 (361 rows) x log10 output -0.100 to -0.064 (361 cols); 12 workers at nice 10, CPU only
+- **Output:** `../neural-shrimp-data/explore/window-organization/rotation-gap-361`
+- **Would surprise us:** A column where the rotation stays at or above 2/9 between the near-curve band and the window (a neck), or a minimum at or above 2/9 anywhere below the window
+- **Command:** `.venv/bin/python tools/explore_a3_rotation_map.py --system S2 --seed 28011 --hidden 1.725 1.905 --output -0.100 -0.064 --resolution 361 361 --pca 256 --samples 20000 --workers 12 --out window-organization/rotation-gap-361`
+
+_commit `e1b2bbb5a7d4`_
+
+## 2026-10-11 21:55 UTC: run (exploratory)
+
+- **Question:** Does the period-18 orbit at the bottom of the window's lower U fold (carried node attempt-006-ray32-fold +1-010, log10 rates 1.82002, -0.07999) lie on the attracting invariant circle of the two-step map just outside the fold, as expected if the U is the 2/9 locking edge of that circle?
+- **Setup:** Rates moved by -0.003, -0.001, -0.0003 and +0.0003 decades of the hidden rate at fixed output; start at the fold orbit plus 1e-6; 100000 transient steps, then 100000 two-step samples; nearest-neighbour distance of all 18 orbit points to the sampled attractor, attractor extent, rotation number and planar share; one process, OPENBLAS 1 thread, nice 10
+- **Output:** `../neural-shrimp-data/explore/window-organization/circle-check-001`
+- **Would surprise us:** Orbit points far (comparable to the attractor extent) from the attractor below the fold, or a below-fold attractor that is not a circle (periodic, or planar share well below 1)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python tools/explore_window_organization.py circle-check --out ../neural-shrimp-data/explore/window-organization/circle-check-001`
+
+_commit `4f9aaf6d8c37` (dirty worktree)_
+
+- run started 2026-10-11 21:55 UTC finished 21:56 UTC with exit status 0
+
+## 2026-10-11 21:56 UTC: Window U-fold orbit lies on the invariant circle; the U is the 2/9 locking edge
+
+Circle check (circle-check-001, tool commit 4f9aaf6d). Just below the bottom of the window's lower U fold (carried node +1-010 at log10 rates 1.82002, -0.07999) the attractor of the two-step map is a quasi-periodic circle: rotation 0.221481, 0.221888, 0.222058 at -0.003, -0.001, -0.0003 decades of hidden rate (halves agree to 2e-6 except 4.5e-5 at the closest offset; planar share 0.98; no repeats in the last 64 samples). The nine even points of the period-18 fold orbit lie on that circle: nearest-sample distances 0.007-0.016, 0.002-0.006 and 0.0007-0.0018 (attractor extent 0.72-0.73), shrinking in proportion to the offset; the odd points lie on the other circle (distances 0.26-0.72). At +0.0003 decades the trajectory locks to a period-18 orbit with rotation exactly 2/9. So the U is where the 2/9 node-saddle pair is born on the circle, with the rotation rising to 2/9 from below. Together with the 7 Oct rotation map (rotation falls from the Neimark-Sacker curve to a minimum 0.2178-0.2204 below 2/9 near log10 hidden 1.78-1.79 and rises to 2/9 at the U in every column), this indicates that the certified window is a detached component of the 2/9 resonance region, separated from the near-curve band that joins roots A and B. Confirmation map running (rotation-gap-361).
+
+_commit `4f9aaf6d8c37` (dirty worktree)_
