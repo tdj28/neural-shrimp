@@ -9744,3 +9744,14 @@ window topology is inferred. Two mapping controls passed0.08s. Initial metadata
 assumption treated original_whole as root authority, but it is the historical
 polynomial context; explicit context-manifest/input binding now traces its exact
 independent root/C-family identity before passing. No numerical gate changed.
+
+Saved remainder-image admission: root cleared df2fc700 numerical helper; Clark
+cleared e1d19d76 complete caller/source/resource packet and reproduced7 controls
+5.23s, including actual metadata with vectors forbidden. Added his suggested
+final strict time/RSS success check and explicit failed status for any exception,
+and corrected the inherited launcher docstring. Same mathematical settings,
+complete source/state identities and caps remain. Seven controls repeated5.09s.
+Host03:11UTC52GiB available, load1.35/1.57/1.93 and no matched researchworker;
+one CPU1/nice10 saved-only worker4GiB is admitted under300s/128MiB. Fresh complete
+98666x512 synthetic SVD/fourfit profile still gates target arrays. No native calls
+or acceleration application is authorized by this packet.
