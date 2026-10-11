@@ -2,7 +2,7 @@
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path('/data2/neural-shrimp-data/audits/native705-correlated-independent/attempt001')
+OUT=Path('/data2/neural-shrimp-data/audits/native705-correlated-independent/attempt002')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 def entry(p):
     h=hashlib.sha256()
@@ -29,7 +29,7 @@ def main():
     resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,10*1024**3))
     OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0;parent_peak=0
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();command=[sys.executable,str(ROOT/'tools/reviews/review_correlated705.py')]
-    meta={'source_commit':source,'launcher_pid':os.getpid(),'argv':command,'load':os.getloadavg(),'mem_available_kib':available,'started_unix':time.time(),'internal_seconds':240,'external_seconds':255,'kill_grace_seconds':5,'worker_rss_kib':6*1024**2,'worker_as_bytes':10*1024**3,'launcher_rss_kib':256*1024,'output_cap_bytes':514*1024**2,'threads':dict.fromkeys(THREADS,'1'),'nice':os.getpriority(os.PRIO_PROCESS,0)}
+    meta={'source_commit':source,'launcher_pid':os.getpid(),'argv':command,'load':os.getloadavg(),'mem_available_kib':available,'started_unix':time.time(),'internal_seconds':240,'external_seconds':255,'kill_grace_seconds':5,'worker_rss_kib':6*1024**2,'worker_as_bytes':10*1024**3,'launcher_rss_kib':256*1024,'output_cap_bytes':642*1024**2,'threads':dict.fromkeys(THREADS,'1'),'nice':os.getpriority(os.PRIO_PROCESS,0)}
     save('launcher-start.json',meta);(OUT/'launcher.py').write_bytes(Path(__file__).read_bytes());env=dict(os.environ,**dict.fromkeys(THREADS,'1'),PYTHONDONTWRITEBYTECODE='1')
     with(OUT/'process.log').open('xb')as log:
         try:
@@ -38,7 +38,7 @@ def main():
                 _,rss=owned(proc.pid);peak=max(peak,rss);parent_peak=max(parent_peak,current_rss_kib())
                 if peak>6*1024**2 or parent_peak>256*1024:raise MemoryError('owned6GiB/launcher256MiB cap')
                 if time.monotonic()-start>255:raise TimeoutError('external255s cap')
-                if sum(p.stat().st_size for p in OUT.rglob('*')if p.is_file())>514*1024**2:raise OSError('combined514MiB output cap')
+                if sum(p.stat().st_size for p in OUT.rglob('*')if p.is_file())>642*1024**2:raise OSError('combined642MiB output cap')
                 time.sleep(.25)
         except BaseException as exc:failure=type(exc).__name__+': '+str(exc)
         finally:
@@ -52,7 +52,7 @@ def main():
                 except ProcessLookupError:pass
                 proc.wait()
     live=[] if proc is None else owned(proc.pid)[0];code=2 if proc is None else proc.returncode
-    if failure or live or sum(p.stat().st_size for p in OUT.rglob('*')if p.is_file())>514*1024**2:code=2
+    if failure or live or sum(p.stat().st_size for p in OUT.rglob('*')if p.is_file())>642*1024**2:code=2
     meta.update(exit_code=code,elapsed_seconds=time.monotonic()-start,owned_group_pid=None if proc is None else proc.pid,owned_live_pids=live,worker_pid_absent=proc is None or not Path('/proc',str(proc.pid)).exists(),maximum_group_rss_kib=peak,launcher_peak_sampled_rss_kib=parent_peak,failure=failure);save('launcher-result.json',meta)
     files={str(p.relative_to(OUT)):entry(p)for p in sorted(OUT.rglob('*'))if p.is_file()};save('manifest.json',{'files':files,'total_bytes':sum(e['bytes']for e in files.values())})
     for p in sorted(OUT.rglob('*'),reverse=True):p.chmod(0o555 if p.is_dir()else 0o444)

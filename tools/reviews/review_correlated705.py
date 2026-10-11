@@ -9,7 +9,7 @@ from flint import arb,arb_mat,ctx
 import review_correlated705_math as H
 from neural_shrimp.rigorous_orbits import ball_json,vector_json,canonical_bytes
 need,P,R,M,U=H.need,H.P,H.R,H.M,H.U
-OUT=Path('/data2/neural-shrimp-data/audits/native705-correlated-independent/attempt001/run');CARD='docs/plans/native705-correlated-independent-inputs.json'
+OUT=Path('/data2/neural-shrimp-data/audits/native705-correlated-independent/attempt002/run');CARD='docs/plans/native705-correlated-independent-inputs.json'
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 NATIVE=['src/neural_shrimp/'+n+'.py'for n in('__init__','models','controls','rigorous_orbits','rigorous_folds','rigorous_cusps','rigorous_eigenpair_locus','rigorous_eigenpair_path','rigorous_unit_pair','rigorous_unit_pair_pal')]
 FILES=[CARD,'docs/plans/native705-correlated-independent.md','tools/reviews/review_correlated705.py','tools/launch_correlated705_review.py','tests/test_correlated705_review.py','tests/test_correlated705_driver.py']
@@ -49,8 +49,16 @@ def strip_chart(p):
   if k not in keep:del chart[k]
  gc.collect();return chart
 
+def preserved_failure(card,w):
+ spec=card['prior_failure'];root=Path(spec['root']);rows=[inventory(root,spec['outer'],w.tick),inventory(root/'run',spec['worker'],w.tick)];rt=historical(root/'run',spec['source']);la=read(root/'launcher-result.json');profile=read(root/'run/profile.json');out=read(root/'run/outcome.json')
+ need(la['source_commit']==spec['source']and la['exit_code']==2 and not la['owned_live_pids']and not out['passed']and out['native_calls']==0,'preserved failed admission')
+ need(profile['target_arrays_unopened']and not profile['passed']and profile['forecast_bytes']==560985542 and profile['forecast_seconds']<240 and profile['forecast_peak_bytes']<6*1024**3 and read(root/'run/profile/correlated_root.json')['passed']and not(root/'run/input-binding.json').exists(),'actual prior storage-only failure')
+ for key in('launcher_pid','owned_group_pid'):need(not Path('/proc',str(la[key])).exists(),'failed attempt owned PID absent')
+ return rows
+
 def bind(card,w):
- pr,rt,out,rows=bundle(card['producer'],w.tick);run=pr/'run';need(rt['settings']==card['settings']and rt['nice']>=10 and rt['threads']==dict.fromkeys(THREADS,'1'),'same actual source/settings')
+ prior=preserved_failure(card,w)
+ pr,rt,out,rows=bundle(card['producer'],w.tick);rows+=prior;run=pr/'run';need(rt['settings']==card['settings']and rt['nice']>=10 and rt['threads']==dict.fromkeys(THREADS,'1'),'same actual source/settings')
  need(out['passed']and out['connected']and out['ticks']==148 and out['strict_inclusions']==out['anchor_inclusions']==705 and out['events']=={'correlated_chart_return':1,'correlated_domain':1,'gradient_path_assembly_return':2,'gradient_path_input':72,'gradient_path_return':72,'pal_path_assembly_return':2,'pal_path_phase_return':72},'complete wider producer record')
  binding=read(run/'input-binding.json');need(binding['independent']==card['independent']and binding['packet']==card['packet']and binding['parent']['root']==card['parent']['root']and binding['parent']['worker']['sha256']==card['parent']['worker']and binding['proposal']['root']==card['proposal']['root']and binding['proposal']['worker']['sha256']==card['proposal']['worker']and binding['prior_failure_preserved']and binding['settings']==card['settings'],'all exact original parent bindings')
  packet=Path(card['packet']['root']);rows.append(inventory(packet,card['packet']['outer'],w.tick));oldout=read(packet/'outcome.json');need(oldout['source']==card['packet']['source']and oldout['connected_charts']==24 and len(oldout['batches'])==4 and not oldout['passed']and not oldout['owned_live_pids'],'retained24 connected and8 failed packet')
@@ -84,7 +92,7 @@ class Work:
  def __init__(self):self.start=time.monotonic();self.used=0;self.stopped=False;self.stage='profile'
  def tick(self):need(not self.stopped and time.monotonic()-self.start<240 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<6*1024**2,'240s/6GiB cap')
  def save(self,name,row,closing=False):
-  raw=canonical_bytes(row);need(self.used+len(raw)<(512 if closing else 508)*1024**2,'512MiB with4MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
+  raw=canonical_bytes(row);need(self.used+len(raw)<(640 if closing else 636)*1024**2,'640MiB with4MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
   self.used+=len(raw)
  def matrix(self,name,a):
@@ -96,11 +104,11 @@ class Work:
      f.write(b'{"encoding":"mid-rad-dyadic-pairs","rows":[')
      for i in range(a.nrows()):
       row=[[[int(t)for t in a[i,j].mid().man_exp()],[int(t)for t in a[i,j].rad().man_exp()]]for j in range(a.ncols())]
-      f.write(((','if i else'')+json.dumps(row,separators=(',',':'))).encode());need(start+raw.tell()<508*1024**2,'derived matrix cap preserves final reserve');self.tick()
+      f.write(((','if i else'')+json.dumps(row,separators=(',',':'))).encode());need(start+raw.tell()<636*1024**2,'derived matrix cap preserves final reserve');self.tick()
      f.write(b']}')
     raw.flush();os.fsync(raw.fileno())
   finally:self.used=start+(p.stat().st_size if p.exists()else 0)
-  need(self.used<508*1024**2,'full derived matrix byte cap')
+  need(self.used<636*1024**2,'full derived matrix byte cap')
 
  def emit(self,tag,value):
   if isinstance(value,arb_mat):self.matrix(self.stage+'/'+tag+'.json.gz',value)
@@ -110,7 +118,7 @@ class Work:
 def synthetic(w):
  n=705;den=arb((1,270));A=arb_mat([[arb(((i+1)*6364136223846793005+(j+1)*1442695040888963407)**4%2**250)/den for j in range(n)]for i in range(n)]);I=M.ident(n);C=I+A;J=[I-A,A/8,A/32];res=[arb_mat([[arb((1,-80))*(i+1)/n]for i in range(n)])]+[arb_mat(n,1)for _ in range(3)];h=arb(1)/32;rho=arb(1)/1024;before=time.monotonic();old=w.used
  proof=H.polynomial_root(C,J,res,[arb(1)]*n,rho,h,[arb(0,rho)]*n,w.tick,w.emit);need(proof['passed'],'full705 synthetic correlated control');elapsed=time.monotonic()-before;stored=w.used-old;forecast=3*elapsed+75;raw=3*stored+32*1024**2;peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024+2*1024**3
- result=dict(passed=bool(forecast<240 and raw<512*1024**2 and peak<6*1024**3),dimension=n,seconds=elapsed,stored_bytes=stored,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,target_arrays_unopened=True);w.save('profile.json',result);need(result['passed'],'measured full705 source/serialization admission');del A,C,J,res;gc.collect()
+ result=dict(passed=bool(forecast<240 and raw<640*1024**2 and peak<6*1024**3),dimension=n,seconds=elapsed,stored_bytes=stored,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,target_arrays_unopened=True);w.save('profile.json',result);need(result['passed'],'measured full705 source/serialization admission');del A,C,J,res;gc.collect()
 
 def actual_geometry(proposal,domain):
  c,s,a=[[R.exact(M.point(v))for v in proposal[k]]for k in('center','slope','curvature')];weights=[R.exact(F(v))for v in proposal['weights']];normal=[R.exact(F(v))for v in proposal['normal']];origin=[R.exact(F(v))for v in proposal['origin']];need(all(len(v)==705 for v in(c,s,a,weights,normal,origin))and all(v>0 for v in weights),'complete exact705 proposals')
@@ -129,7 +137,7 @@ def main():
   for n in FILES:
    raw=(ROOT/n).read_bytes();need(hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==hashlib.sha256(raw).hexdigest(),'exact source archive');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw);w.used+=len(raw)
   with ctx.workprec(480):
-   synthetic(w);card=read(ROOT/CARD);need(card['audit']==dict(output=str(OUT),precision=480,seconds=240,rss_bytes=6*1024**3,as_bytes=10*1024**3,output_bytes=512*1024**2,closing_reserve_bytes=4*1024**2,synthetic_dimension=705,forecast_multiplier=3,forecast_allowance_seconds=75),'literal audit bounds')
+   synthetic(w);card=read(ROOT/CARD);need(card['audit']==dict(output=str(OUT),precision=480,seconds=240,rss_bytes=6*1024**3,as_bytes=10*1024**3,output_bytes=640*1024**2,closing_reserve_bytes=4*1024**2,synthetic_dimension=705,forecast_multiplier=3,forecast_allowance_seconds=75),'literal audit bounds')
    run,proposal_root,domain,old,dg,pg,known=bind(card,w);localized=H.L.localize_right(old,dg,pg,known,precision=480,tick=w.tick);w.save('known-endpoint-480.json',localized);need(localized['passed']and len(localized['box'])==705,'independent existing root localization');del old,dg,pg,known;gc.collect();w.tick()
    proposal=strip_chart(proposal_root/'run/certificate.json.gz');c,s,a,weights,normal,origin,h,rho,d,radii,error,whole=actual_geometry(proposal,domain);C0=R.matrix(proposal['preconditioner']);del proposal;gc.collect();w.stage='target';sc=R.exact(F(15,2048))
    ac=P.anchor_membership(localized['box'],c,s,a,normal,origin,sc,h,radii);w.save('known-root-membership.json',ac)

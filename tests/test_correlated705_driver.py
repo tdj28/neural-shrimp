@@ -36,10 +36,10 @@ def test_streamed_dyadic_matrix_and_interrupted_bytes_retained(tmp_path,monkeypa
 
 
 def test_final_reserve_and_literal_launcher_caps(tmp_path,monkeypatch):
- monkeypatch.setattr(W,'OUT',tmp_path);w=W.Work();w.used=508*1024**2-1
+ monkeypatch.setattr(W,'OUT',tmp_path);w=W.Work();w.used=636*1024**2-1
  with pytest.raises(ValueError):w.save('large.json',{'x':'y'*20})
  w.save('outcome.json',dict(passed=False),True);assert (tmp_path/'outcome.json').is_file()
- s=(ROOT/'tools/launch_correlated705_review.py').read_text();assert 'tools/reviews/review_correlated705.py'in s and "'internal_seconds':240,'external_seconds':255"in s and "'worker_rss_kib':6*1024**2"in s and '514*1024**2'in s and 'parents[1]'in s
+ s=(ROOT/'tools/launch_correlated705_review.py').read_text();assert 'tools/reviews/review_correlated705.py'in s and "'internal_seconds':240,'external_seconds':255"in s and "'worker_rss_kib':6*1024**2"in s and '642*1024**2'in s and 'parents[1]'in s
 
 
 def test_actual_gradient_phase_order_and_missing_pair_fail(tmp_path):
@@ -60,3 +60,14 @@ assert loaded<=set(W.FILES),(loaded-set(W.FILES))
 assert Path(W.__file__).resolve().is_relative_to(root)
 """
  env=dict(os.environ,PYTHONPATH=str(tmp_path/'src')+os.pathsep+str(tmp_path/'tools/reviews'),PYTHONDONTWRITEBYTECODE='1',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1');subprocess.run([sys.executable,'-c',code],cwd=tmp_path,env=env,check=True,capture_output=True,text=True)
+
+
+def test_storage_amendment_is_fixed_and_previous_failure_mandatory():
+ card=json.loads((ROOT/W.CARD).read_text())
+ assert card['audit']['output_bytes']==640*1024**2 and card['audit']['seconds']==240
+ assert card['audit']['rss_bytes']==6*1024**3 and card['audit']['closing_reserve_bytes']==4*1024**2
+ assert card['audit']['output']==str(W.OUT) and W.OUT.parent.name=='attempt002'
+ assert card['prior_failure']['outer']=='c318dfaf4a5c564e79af21bf98a086c3e9bc4cfeea201d37978ff9d82b96a664'
+ class Dummy:
+  def tick(self):pass
+ with pytest.raises(KeyError):W.preserved_failure({},Dummy())
