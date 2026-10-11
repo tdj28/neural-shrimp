@@ -17098,3 +17098,7 @@ The completed block-mean pilot removes most single-step-mean amplification but f
 ### 2026-10-11 — Admit independent512-action block-mean replay
 
 Boundary independently authored full512 action/four-response/f32mean fsum core; root wrote/read complete source/inventory/profile/owner binding. Root seven controls3.30s and Boundary seven3.57s PASS, including actual metadata with target arrays blocked and isolated closure/no native imports. Boundary full wrapper source/resource review PASS, final strict elapsed/RSS guard applied before result sealing. Complete900s original profile rejection and same-source1200s time-only amendment are authenticated. One CPU1/nice10 saved-only180s1GiB2GiBAS8MiB, fullsize measured admission before arrays; no new HVP. Signed/CIFAR worker checkout idle and no output exists. Source committed/private-pushed before exclusive launch.
+
+### 2026-10-11T12:48:13.798220+00:00 — Independent block-mean replay complete
+
+All512 native action associations,32 independent fsum mean powers, four full-state nonlinear/CE response pairs and all inherited baselines independently reproduced. Accuracy failure and tenfold-improvement gate both retained exactly. 4.852s/245384KiB, zero new native calls. Complete immutable manifests, exact e4c5117a source archive and absent owners verified; this is now authority for the first-order temporal-variation diagnostic.
