@@ -16103,3 +16103,13 @@ and cross-checks the fixed smallest-alpha fit against every other remainder.
 Formal predicted curved-path gradients are explicitly not actual merit evidence.
 Four synthetic controls passed0.07s. No target arrays/native evaluation; complete
 source-bound caller, full-size measured admission and peer review remain pending.
+
+Current512 saved-image diagnostic caller prepared with full same-current audit,
+all actions/trials and prior nonlinear source/immutable history. Fresh full-size
+SVD plus four synthetic fits precedes target vectors; fixed300s/4GiB/128MiB with
+315+5s owner. All12 proposed acceleration/action/coefficient arrays retained;
+no native call or candidate application. Seven helper/caller controls passed4.49s,
+including actual metadata-only bind forbidding scientific-vector access and full
+isolated archive closure. Root cleared df2fc700 pure math; complete caller/card
+awaits peer source/resource review. Bound actual receipt field execution rather
+than an assumed source key before the test run; no scientific attempt existed.
