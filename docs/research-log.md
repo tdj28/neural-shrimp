@@ -17046,3 +17046,6 @@ Boundary independently replayed exact failed-profile/source-equivalence checks, 
 ### 2026-10-11T12:33:16.774732+00:00 — Two-step mean removes large amplification but fails directional accuracy
 
 All512HVP/4cases complete96.798s999316KiB, original nonlinearresponse/CE qualifications unchanged. Originalerrors1.203155963/1.265432333 versus56.2070945/34.84956481 forsinglemean (46.72x/27.54x lower); prespecified20percent accuracyfails, tenfoldimprovementpasses. Quartererrors1.042198578/.560607053. Gaincontrolalone doesnotrecoverresponse direction or CE slope. Fullimmutableinventories/exact858fec5fsource/absentowners verified; independent savedrecurrence/metric replay remains pending.
+### 2026-10-11T12:08:21.655104+00:00 — Admit independent complete signed470 march prefix
+
+Root source/math review and Stability peer review passed; eight controls, including actual metadata association, passed in6.61s. Replay all16 accepted full470 charts and strict predecessor joins from the completed23-attempt producer, retaining every failed attempt. Zero native acquisitions; fixed4800s6GiB RSS10GiB AS12GiB raw, perunit300s768MiB, full470 synthetic and prioractual cost forecast before target arrays. This frozen worktree remains unchanged during execution. No complement or global-window promotion.
