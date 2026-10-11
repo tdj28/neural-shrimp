@@ -38,3 +38,9 @@ def test_archive_import_closure(tmp_path):
   p=tmp_path/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/name).read_bytes())
  code="import importlib.util,sys;from pathlib import Path;p=Path(sys.argv[1]);s=importlib.util.spec_from_file_location('audit',p/'tools/reviews/review_cifar_stationary_merit.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);assert not any(k.startswith('neural_shrimp') or k.startswith('torch') for k in sys.modules)"
  subprocess.run([sys.executable,'-I','-c',code,str(tmp_path)],check=True,cwd=tmp_path)
+
+
+def test_launcher_hard_as_allows_reviewed_child_limit():
+ text=(ROOT/'tools/reviews/launch_cifar_stationary_merit_review.py').read_text()
+ assert 'resource.RLIMIT_AS,(512*1024**2,2*1024**3)'in text
+ assert 'resource.RLIMIT_AS,(2*1024**3,)*2)'in (ROOT/'tools/reviews/review_cifar_stationary_merit.py').read_text()
