@@ -199,7 +199,13 @@ def branch(args):
         if np.linalg.norm(g) < 1e-13:
             break
         theta = theta - np.linalg.solve(mm.net.hessian(theta, mm.x, mm.y), g)
+    if np.linalg.norm(mm.net.gradient(theta[None, :], mm.x, mm.y)) > 1e-10:
+        print(json.dumps({"outcome": "descent and Newton did not reach a critical point; lower --s-low"}))
+        return
     hess = mm.net.hessian(theta, mm.x, mm.y)
+    if np.min(np.linalg.eigvalsh(hess)) <= 0:
+        print(json.dumps({"outcome": "critical point is not a minimum"}))
+        return
     lam = np.linalg.eigvals(p0[:, None] * hess)
     lam_max = float(np.max(lam.real))
     s_flip = float(np.log10(2.0 * (1.0 + mm.beta) / lam_max))
@@ -302,12 +308,12 @@ def main():
     br.add_argument("--seed", type=int, default=28011)
     br.add_argument("--beta", type=float, required=True)
     br.add_argument("--offset-output", type=float, default=-1.828, help="log10 output - log10 hidden on the ray")
-    br.add_argument("--s-low", type=float, default=1.0, help="small-rate point for the descent to the minimum")
+    br.add_argument("--s-low", type=float, default=0.5, help="small-rate point for the descent to the minimum")
     br.add_argument("--descent-steps", type=int, default=200000)
     br.add_argument("--seed-offset", type=float, default=2e-4)
     br.add_argument("--amplitudes", type=float, nargs="+", default=[1e-3, 3e-3, 1e-2, 3e-2, 0.1])
     br.add_argument("--ds", type=float, default=5e-4)
-    br.add_argument("--steps", type=int, default=800)
+    br.add_argument("--steps", type=int, default=4000)
     br.add_argument("--beyond", type=float, default=0.02)
     br.add_argument("--print-every", type=int, default=20)
     br.add_argument("--out", required=True)
