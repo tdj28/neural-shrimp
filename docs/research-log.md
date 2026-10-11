@@ -12567,3 +12567,7 @@ Single001 completed2.84337s/45888KiB after21.4649s measured conservative forecas
 ### 2026-10-11 UTC — Measured census72 retention budget amendment
 
 Peer review of1af01fc0 passed all8 controls. Attempt001 profile used3 full native phase calls,3.721s/417236KiB and rejected target admission: forecast4704.53s and11012620928B versus1800s/8GiB. No target launched. Preserved exact raw and receipt census72-profile-admission-failure.json. Before any target, fixed attempt002 keeps all scientific choices and oneCPU/2GiB RSS but admits at most5400s/16GiB raw after fresh same-source measurements. This covers the measured complete-retention cost with margin; no outcome-adaptive selection or paid resources.
+
+### 2026-10-11 UTC — Independent changed-gauge boundary replay card
+
+Prepared explicit sealed rotated001/batch001 eight-chart replay. Root existence/known endpoint starts from independently verified wide prefix outerbf910c9698081b745d9cc1998441bc29a8a7f4bd250d14494ec51ea5f7604fef. Reconstruct prior Jacobian and endpoint cubic residual from original native arrays, apply independently reviewed known-root Neumann arithmetic, then full705 projected membership into changed gauge; seven subsequent joins use exact identical gauge only. Each705 root is separately rebuilt at384bits, zero native calls. Fixed240s/4GiB/64MiB; no audit run before source review. Producer rotated24-chart result and failed fourthbatch remain distinct from independent qualification.

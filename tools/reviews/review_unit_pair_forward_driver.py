@@ -7,8 +7,9 @@ from pathlib import Path
 import flint
 ROOT=Path(__file__).resolve().parents[2];sys.path[:0]=[str(ROOT/'src'),str(Path(__file__).parent)]
 import review_unit_pair_pal_math as A
+import review_pal_rechart_math as E
 need=A.need
-FILES=['tools/reviews/review_unit_pair_pal_math.py','tools/reviews/review_unit_pair_forward_driver.py','tools/reviews/launch_unit_pair_forward_review.py','tests/test_unit_pair_forward_review.py','docs/plans/native705-forward-independent.md']
+FILES=['tools/reviews/review_unit_pair_pal_math.py','tools/reviews/review_unit_pair_forward_driver.py','tools/reviews/launch_unit_pair_forward_review.py','tests/test_unit_pair_forward_review.py','tests/test_pal_rechart_review.py','docs/plans/native705-forward-independent.md']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 def entry(p):
     h=hashlib.sha256()
@@ -29,6 +30,7 @@ def validate_card(card):
     need(card['schema']=='native705-fixed-batch-audit-v1'and 1<=card['qualified_prefix']<=8 and card['qualified_prefix']<=card['expected_workers']<=8,'bounded complete fixed prefix')
     need(len(card['charts'])==card['qualified_prefix']and [v['unit']for v in card['charts']]==list(range(1,card['qualified_prefix']+1)),'ordered literal prefix')
     for row in card['charts']:need(row['path']==f"chart{row['unit']:03d}/run"and len(row['worker'])==64,'safe literal chart and worker pin')
+    need(type(card.get('localize_prior',False))is bool,'explicit saved localization switch')
     need(len(card['source'])==40 and len(card['outer'])==len(card['prior']['outer'])==64,'complete literal source/inventory pins')
     need(Path(card['root']).is_relative_to('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal')and Path(card['prior']['root']).is_relative_to('/data2/neural-shrimp-data/audits')and Path(card['out']).is_relative_to('/data2/neural-shrimp-data/audits/native705-forward-independent'),'fixed task-owned storage')
     need(all('..'not in Path(card[k]).parts for k in ['root','out'])and '..'not in Path(card['prior']['root']).parts,'no path escape')
@@ -63,6 +65,15 @@ def main(card_path):
         previous=ce['chart'];endpoint=ce['endpoint'];meta=['shooting_dimension','normal','origin','parameter_center','parameter_endpoints','settings']
         previous_source=Path(oldbind['charts'][-1]['root']);need(entry(previous_source/'manifest.json')==oldbind['charts'][-1]['manifest'],'prior source map inventory pin')
         inventory(previous_source,oldbind['charts'][-1]['manifest']['sha256']);map_inputs=read(previous_source/'inputs.json')['map_inputs']
+        if card.get('localize_prior',False):
+            prior_chart=read(previous_source/'certificate.json.gz')
+            need(all(prior_chart[k]==previous[k]for k in meta),'known endpoint matches exact prior chart geometry')
+            pd=sorted((previous_source/'events').glob('*-direction_return.json.gz'));pp=sorted((previous_source/'events').glob('*-pal_path_phase_return.json.gz'))
+            localized=E.localize_right(prior_chart,[read(p)for p in pd],[read(p)for p in pp],endpoint,384,tick)
+            save('prior-endpoint-localization.json',localized);need(localized['passed']and localized['dimension']==705,'independent known endpoint localization')
+            endpoint=localized['box'];del prior_chart,localized;gc.collect();tick()
+            packet=read(batch/'input-card.json')
+            need(packet['source']==bs and packet['worker_count']==card['expected_workers']and packet['map_inputs']==map_inputs and Path(packet['parent']['root'])/'run'==previous_source and packet['parent']['manifest']==entry(previous_source/'manifest.json'),'literal rotated predecessor and exact map')
         checked=set();proofs=[];joins=[];inputs=[]
         for row in card['charts']:
             unit=row['unit'];root=batch/row['path'];inventory(root,row['worker']);rt=read(root/'runtime.json');done=read(root/'outcome.json')
@@ -73,6 +84,7 @@ def main(card_path):
                 if key not in checked:
                     need(hashlib.sha256(subprocess.check_output(['git','show',bs+':'+name],cwd=ROOT)).hexdigest()==v['sha256'],'historical committed producer source '+name);checked.add(key)
             inp=read(root/'inputs.json');ci=read(root/'chart-inputs.json');need(inp['map_inputs']==map_inputs,'identical exact native map')
+            if card.get('localize_prior',False):need(inp['card']==entry(batch/'input-card.json')and ci['normal']==packet['normal']and ci['origin']==packet['origin']and ci['weights']==packet['weights'],'exact rotated finite proposal and current card')
             directions=sorted((root/'events').glob('*-direction_return.json.gz'));paths=sorted((root/'events').glob('*-pal_path_phase_return.json.gz'))
             need(len(directions)==144 and len(paths)==108,'complete chart derivative inventory')
             chart=read(root/'certificate.json.gz');need(chart['normal']==ci['normal']and chart['origin']==ci['origin']and chart['weights']==ci['weights'],'same exact geometry inputs')
@@ -94,7 +106,7 @@ def main(card_path):
             del chart,proof;gc.collect();tick()
         save('input-binding.json',dict(card=card,prior=str(prior),prior_manifest=card['prior']['outer'],charts=inputs))
         save('connected-endpoint.json',dict(chart=previous,endpoint=endpoint))
-        result.update(passed=True,connected=True,connected_count=len(proofs),connected_parameter_endpoints=[proofs[0]['parameter_endpoints'][0],proofs[-1]['parameter_endpoints'][1]],proofs=proofs,joins=joins,scope='Independent384-bit native705 uniform roots and strict full-state known-root joins for only the fixed qualified prefix. Parameter intervals refer to this packet; global scalar ordering is not inferred across changed gauges. Shared acquired analytic derivatives and Arb.')
+        result.update(passed=True,connected=True,connected_count=len(proofs),connected_parameter_endpoints=[proofs[0]['parameter_endpoints'][0],proofs[-1]['parameter_endpoints'][1]],proofs=proofs,joins=joins,localized_prior=card.get('localize_prior',False),scope='Independent384-bit native705 uniform roots and strict full-state known-root joins for only the fixed qualified prefix. Parameter intervals refer to this packet; global scalar ordering is not inferred across changed gauges. Shared acquired analytic derivatives and Arb.')
     except BaseException as exc:result.update(error=type(exc).__name__+': '+str(exc),traceback=traceback.format_exc())
     finally:
         signal.setitimer(signal.ITIMER_REAL,0);result.update(seconds=time.monotonic()-start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,ticks=ticks,native_calls=0);save('outcome.json',result,True);save('manifest.json',dict(files={str(p.relative_to(OUT)):entry(p)for p in OUT.rglob('*')if p.is_file()}),True)
