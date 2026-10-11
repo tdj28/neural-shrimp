@@ -15324,3 +15324,12 @@ New completed geometry/stability/CIFAR/RNN evidence and failed attempts backed
 up to /archive/neural-shrimp-backups/20261011T084133Z-connected-junction-and-fresh-stability:
 18170 files,2008390745 bytes, full source/copy inventories and twice-read SHA256.
 Separate physical disk on same host; private Git checkpoint accompanies receipts.
+
+### 2026-10-11 — final junction verifier peer review
+Boundary independently reviewed the final18 chart/history/membership verifier.
+Added explicit equality between actual known-junction and continued model/data,
+actual native source tables and immutable lifted-producer inventories; the
+known lift's own binding must match its receipt literally. Five controls pass
+0.50s, independently reproduced0.49s. Original math,705 strict membership and
+7200s/6GiB/14GiB caps unchanged. The completed24 predecessor remains a mandatory
+unmet launch prerequisite; no dependent target run yet.

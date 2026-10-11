@@ -43,3 +43,12 @@ def test_archived_source_closure(tmp_path):
   f=tmp_path/n;f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes((ROOT/n).read_bytes())
  code="import sys;from pathlib import Path;sys.path[:0]=['tools/reviews','src'];import review_maintained705_junction as A;loaded={str(Path(m.__file__).resolve().relative_to(Path.cwd()))for m in sys.modules.values()if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(Path.cwd())};assert loaded<=set(A.FILES),loaded-set(A.FILES)"
  out=subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'),capture_output=True,text=True);assert out.returncode==0,out.stderr
+
+
+def test_known_junction_and_curve_equation_identity():
+ model=dict(network=dict(width=3,ridge='1/1024'),x=[['1']])
+ native={'native.py':dict(sha256='same',bytes=1)}
+ lift=dict(native_source=native);curve=dict(model=model,native_source=native)
+ A.same_equations(lift,curve,model)
+ with pytest.raises(ValueError):A.same_equations(lift,curve,dict(network=dict(width=4)))
+ with pytest.raises(ValueError):A.same_equations(dict(native_source={'native.py':dict(sha256='different',bytes=1)}),curve,model)
