@@ -14754,3 +14754,17 @@ No differentiation of an interval remainder or approximate fixed-point equation.
 Six controls passed0.12s, including a nonlinear square-root branch/true tangent,
 noncommuting convolution and exact-domain negatives. No research arrays or
 native calls; source review first, then a separate bounded domain-bound caller.
+
+### 2026-10-11 — fixed first-quarter polynomial complement caller prepared
+
+Boundary independently cleared a470519a helper/four direct controls0.08s.
+Prepared a single reuse of chart31's first original quarter with the complete
+independently480-proved C(d)/D(d)/forcing family and exact old root domains.
+Center/whole error intersections precede fresh full705 mixed forcing, true
+polynomial tangents and unchanged11-mode common-metric proof. All108 native
+profile phases precede at most108 target phases; no root acquisition or other
+quarter.400s4GiB384MiB, owned415+5s386MiB. Full705 profile includes actual
+61.466s saved decode cost floor. Eleven source/math/wrapper controls passed
+0.76s. Source self-check caught the inherited native-domain schema requiring
+weighted_neumann_bound and adds that field explicitly before target use; no
+research arrays or native target evaluated. Metadata/peer review still pending.
