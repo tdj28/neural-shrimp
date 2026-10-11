@@ -15719,3 +15719,7 @@ Source1352ed40 yields warning-free52page PDF with151wordabstract.498bound quanti
 ### 2026-10-11T09:35:04.368506+00:00 — Same-current CIFAR regularized caller admitted
 
 Boundary independently reviewed full03edc356 source and reran all9controls9.37s including real historical binding and isolated startup. Admit the unchanged single300s/4GiB/128MiB unit; full-size profile remains mandatory before target arrays, no retries. Author-date of03edc356 is the preparation time; removed an accidentally future clock label in its draft log heading. No scientific timestamps/evidence changed.
+
+### 2026-10-11T09:37:50.917350+00:00 — Same-start regularized correction completed (negative comparison)
+
+Execution8254a7a9ad9e57e4b1af09e7cf4a4cdbf440f986 retained all native1HVP/5gradient calls and completed38.707s/2980408KiB. Direction norm0.593616×original, true forcing~.49, acceptedalpha1/32, new gradient-merit ratio0.997018 versus original1/64 ratio0.991753. Thus shorter direction did not improve actual same-start progress. Full source/inventories and owned exits verified; independent saved arithmetic replay next. No stationary root, cycle or utility claim; original better endpoint retained as authority.
