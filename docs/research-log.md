@@ -7557,3 +7557,13 @@ supported by these bounds. Any reshaping must preserve actual acquiredE and
 full51 known-root membership; a saved smaller weighted enclosure is a possible
 next diagnostic, never an automatic new-domain proof. All histories and owned
 exits verified; requested finite range remains incomplete.
+
+### 2026-10-11 — pair-block LM profile admission
+
+Root a7deea4c full helper/caller/binding/resource PASS;12 controls reproduced
+6.48s. Saved RNN diagnosis has completed/sealed. Admit sole fresh2HVP profile
+with fixed unrelated seed28160step50, exact same native model/runtime/dimension,
+CPU1nice10/60s4GiB192MiB. Current52GiB RAM and no owned duplicate; GPU idle
+15947MiB free at04:27PDT. Every upstream actual/cold maximum is retained.
+Only a passed240s/192MiB target forecast plus separately committed literal
+profile manifest/source may admit the fixed128HVP target. No newgradients/CE.
