@@ -14229,3 +14229,7 @@ Complete independent fsum/vector/Gram/SVD/source/event caller passes five contro
 ### 2026-10-11T07:16:50.974246+00:00 — Independent CIFAR saved audit admission
 
 Boundary complete source/binding/resource review PASS; five controls0.14s. Actual full immutable inventory/source/native-event schema preflight3.488s:1288fresh event rows,257HVP+1gradient,256basis rows,5256original events, all at the literal historical state018. Admit the sole zero-native audit under120s2GiB/4MiB after its internal full98666x256 measured profile; exact negative gates unchanged.
+
+### 2026-10-11T07:19:15.916474+00:00 — Independent CIFAR physical comparison passes, benefit gates remain negative
+
+Source1550c628 independently replays exact same-state operation/source binding, sequential256-column direction/action reconstruction, full Gram and fixed-rcond rank, plus fsum physical forcing.11.105s670444KiB0native; own direction error6.84e-16/action8.79e-13. Forcing0.6441489991303693 versus0.7800333350025626 gives ratio0.825796757940163, missing both20percent improvement and0.5forcing gates. All256directions orthogonal, numerical actionrank256; no direction applied, stationary point, Hessian-spectrum theorem or cycle proof. Shared native outputs/BLAS disclosed. Outerd3b140937df127b89765d7901b6926bb4bf2094c5e7edb195cbda3c593850f84.
