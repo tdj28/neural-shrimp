@@ -6976,3 +6976,15 @@ is absent. Launch sole fixed8attempt/6accepted CPU1nice10/180s2GiB4GiBAS
 512MiB worker,195+5owned514MiB. All51 roots/curved joins, native phase/mode
 qualifications and separate endpoint genericity remain mandatory. No geometry,
 radius or quota adaptation within this attempt; preserve every failure.
+
+### 2026-10-11 — correlated51 attempt001 retained operational failure
+
+Whole-d zero-error residual acquisition stopped at third nativephase with
+nonfinite scalar derivatives:5.125s/72664KiB,23phase returns,zeroacceptedcharts.
+All49events/source/immutableinventories/ownedexits verified. An unrelated
+scalar control reproduces reciprocal derivative NaN for x=2±1/4 because
+repeated denominator powers inflate to containzero. The base reciprocal
+domain itself excludeszero. Prepare inv=1/x then powers ofinv, preserving
+mathematics/domain; require negative/positivewide controls, independent
+review and fresh same-source costprofile before any new target attempt.
+No spectral/nonexistence conclusion. Inventory60completedrawroots.
