@@ -9575,3 +9575,12 @@ receipt. Fresh002 retains that exact zero-target failure and increases only raw
 64MiB/outer66MiB;60s/1GiB/math/domains unchanged. Four controls PASS0.66s,
 including actual prior-profile binding and closing reserve. Fresh measured
 profile and narrow peer review remain mandatory; no target arithmetic yet.
+
+### 2026-10-11 — preparatory regularized same-state projected direction
+
+Pure helper uses actual VᵀV whitening and SVD of W R^-1, choosing the largest
+ridge satisfying fixed predictedforcing.49 with bounded64doublings/64bisections.
+Physical p/Hp and shorter norm are independently recomputed inside the helper;
+caller will still require fresh actual forcing<=.5, unchanged trust/Armijo and
+same current022 authority. Three synthetic controls PASS0.14s. No saved target
+arrays, profile, candidate or derivative acquired; full measured caller pending.
