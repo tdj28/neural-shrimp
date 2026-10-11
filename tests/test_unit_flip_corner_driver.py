@@ -24,3 +24,10 @@ def test_full_synthetic_serialization_fits_declared_forecast():
   z=W.gradients(*W.fixture(13));C=W.A.eye(55);C[0,54]=arb(1)/3
   data=json.dumps(W.pack(dict(gradient=z,inverse55=W.A.validated_solve(C,W.A.eye(55)))),sort_keys=True,indent=2).encode()
   assert 4*(len(data)+65536)+2*1024**2<16*1024**2
+
+
+def test_literal_historical_process_schemas():
+ assert W.history_pids({'pid':7},{},{'pid':8},W.SOURCE)==[7,8]
+ assert W.history_pids({'pid':7},{'launcher_pid':9,'owned_group_pid':8},{'group_pid':8},'producer')==[7,9,8]
+ with pytest.raises(ValueError):W.history_pids({'pid':7},{},{'pid':8,'extra':9},W.SOURCE)
+ with pytest.raises(ValueError):W.history_pids({'pid':7},{'launcher_pid':9,'owned_group_pid':8},{'group_pid':10},'producer')

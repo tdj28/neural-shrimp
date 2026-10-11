@@ -13619,3 +13619,7 @@ Six source controls pass0.10s. No producer/model imports; separate math.fsum ful
 ### 2026-10-11 UTC — Physical corner saved unit admitted
 
 Boundary independently reviews a4320eb4 wrapper PASS, reproduces9controls0.29s and verifies historical source/schema literal pins. Authorize sole saved attempt001 on exact clean current source;30s512MiB16MiB worker and45+5s18MiB ownership envelope, CPU1nice10, zero native calls. Full synthetic/source/inventory/root/spectrum checks precede physical gradients. Preserve any failure without altering target.
+
+### 2026-10-11 UTC — Saved corner ownership-schema failure retained
+
+Attempt001 source01e64111 stopped0.168s/64912KiB/0native before physical target gradients: historical independent launcher omits launcher_pid, stores owned group under owned-process.json pid. Profile passed7.32s/5.88MB forecast. All immutable hashes and actual owned exit verified, receipt retained. Exact source-specific extraction now requires recorded schemas, verifies producer group equality and all recorded PID absences; no fabricated launcher identifier.10controls0.23s and actual both-source/archive/PID preflight PASS. Same math/roots/budgets, fresh attempt002 after narrow peer clearance.

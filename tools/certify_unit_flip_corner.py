@@ -10,7 +10,7 @@ from test_unit_flip_corner import fixture
 PARENT=Path('/data2/neural-shrimp-data/audits/native-unit-pair-flip-independent/attempt002')
 SOURCE='1a991e0205cf6ddf00adb5b678a14d0f44857a49'
 PINS=['d14c91bdfc3c754a6654a8c30ffbd4b69ac59150aeea717d1426fc2b1480e952','7f0e39d8b206859914b5aabb4da063427ad81c0b9f26f836bbb6b9899d47db49']
-OUT=Path('/data2/neural-shrimp-data/explore/certificates/native-unit-flip-stability-corner/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/explore/certificates/native-unit-flip-stability-corner/attempt002/run')
 FILES=['src/neural_shrimp/__init__.py','src/neural_shrimp/junction_audit.py','src/neural_shrimp/unit_flip_corner.py','tools/certify_unit_flip_corner.py','tools/launch_unit_flip_corner.py','tests/test_unit_flip_corner.py','tests/test_unit_flip_corner_driver.py','docs/plans/native-unit-flip-stability-corner.md','docs/reviews/native-unit-pair-flip-independent.json']
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 def read(p):return json.loads(p.read_bytes())
@@ -36,9 +36,18 @@ class Work:
 def inventory(root,pin,w):
  A.need(entry(root/'manifest.json')['sha256']==pin,'literal immutable outer pin');m=read(root/'manifest.json')['files'];actual={str(p.relative_to(root)):p for p in root.rglob('*')if p.is_file()and p!=root/'manifest.json'};A.need(set(actual)==set(m),'complete immutable inventory')
  for n,p in actual.items():A.need(not p.is_symlink()and not p.stat().st_mode&0o222 and entry(p)==m[n],'full original bytes '+n);w.tick()
+def history_pids(rt,la,owned,source):
+ if source==SOURCE:
+  A.need(set(owned)=={'pid'} and 'launcher_pid'not in la and 'owned_group_pid'not in la,'literal original independent ownership schema')
+  ids=[rt['pid'],owned['pid']]
+ else:
+  A.need(set(owned)=={'group_pid'}and owned['group_pid']==la['owned_group_pid'],'literal producer group ownership')
+  ids=[rt['pid'],la['launcher_pid'],la['owned_group_pid']]
+ A.need(all(type(v)is int and v>0 for v in ids),'actual positive historical process identifiers');return ids
+
 def archive(root,source,w):
  rt=read(root/'run/runtime.json');la=read(root/'launcher-result.json');A.need(rt['commit']==la['commit']==source and la['exit_code']==0 and not la['owned_live_pids'],'exact completed historical source')
- for pid in [rt['pid'],la['launcher_pid'],la['owned_group_pid']]:A.need(not Path('/proc',str(pid)).exists(),'historical owned process absent')
+ for pid in history_pids(rt,la,read(root/'owned-process.json'),source):A.need(not Path('/proc',str(pid)).exists(),'historical owned process absent')
  actual={str(p.relative_to(root/'run/source')):p for p in(root/'run/source').rglob('*')if p.is_file()};A.need(set(actual)==set(rt['sources']),'complete executed source archive')
  for n,v in rt['sources'].items():A.need(entry(actual[n])==v and hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==v['sha256'],'historical source '+n);w.tick()
  return rt

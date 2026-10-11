@@ -45,3 +45,14 @@ physical-gradient output, one root-check summary and bindings; the profile
 already serializes that full gradient plus a55×55 inverse. Before opening
 target arrays, use4× these measured bytes plus2MiB for metadata/archive reserve.
 The16MiB worker and18MiB aggregate hard ceilings remain unchanged.
+
+## Historical ownership-schema correction before unit002
+
+Unit001 stopped after0.168s during source/ownership binding, before target
+gradients (outer9ed567c7). Its synthetic profile passed7.32s/5.88MB forecast.
+The original independent launcher records its owned group in owned-process.json
+under pid, and never recorded a launcher PID; the original producer uses
+group_pid plus launcher_pid. Parse these two literal pinned schemas separately,
+require source and matching producer group IDs, and check absence of every
+actually recorded PID. Do not invent an unrecorded PID. Same roots, scientific
+math, budgets and all other gates; fresh attempt002 retains attempt001 intact.
