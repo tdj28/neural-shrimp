@@ -15031,3 +15031,13 @@ launch repeatedbare512 steps. Independentactualacceptance review requested,
 then saved damping/nonlinearity diagnosis before choosing another nativeunit.
 All exactsources/inventories/ownedexits checked; outer6fec47a9. No stationary
 root/orbit/utility inference. Original profile-only failure remains immutable.
+### 2026-10-11 — fresh polynomial-point helper prepared
+
+Added a conditional same-root point enclosure using one fresh full residual
+and original correlated inverse/defect at an exact scalar, plus finite old-C
+point proposals. Caller must cover the complete original point/root segment;
+no new root/Jacobian/whole-interval narrowing follows. Seven new/prior controls
+pass, including negative original scalar and nonlinear known-root enclosure.
+An initial synthetic test demanded an arbitrary10000-fold narrowing; the actual
+valid bound narrowed about4800-fold, so the asserted performance floor is now
+1000-fold with exact-root containment unchanged. No target native call.
