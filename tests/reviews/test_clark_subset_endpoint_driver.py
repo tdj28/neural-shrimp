@@ -53,3 +53,20 @@ def test_large_exact_dyadic_output_roundtrips_without_decimal_limit():
  assert F(int(v['mantissa_hex'],16))*F(2)**v['exponent']==x
  assert len(json.dumps(raw))<6000
  with pytest.raises(ValueError,match='bounded'):W.exact_serial(F(1,2**131073))
+
+def test_end_to_end_huge_localization_history_endpoint_save_restore(tmp_path,monkeypatch):
+ from fractions import Fraction as F
+ from flint import arb,arb_mat,ctx
+ monkeypatch.setattr(W,'OUT',tmp_path)
+ with ctx.workprec(512):
+  n=2;d=arb((1,-2048));D=W.M.eye(n)*d;f=W.M.col([arb(1)/8]*n);zero=arb_mat(n,1);z=[arb(0)]*n
+  data=dict(passed=True,dimension=n,halfwidth=arb(1)/8,radii=[arb(1)]*n,defect_coefficients=[D]+[arb_mat(n,n)]*3,forcing_coefficients=[f]+[zero]*4,image=f+D*W.M.col([arb(0,1)]*n))
+  old=[arb(arb(1)/8,arb(1)/1024)]*n;answer=W.E.localize(data,z,z,z,old)
+  assert max(x.numerator.bit_length()for box in answer['history']for interval in box for x in interval)>16000
+  assert all(abs(int(x.mid().man_exp()[0])).bit_length()<=512 for x in answer['endpoint'])
+  w=W.Work();w.save('localization.json.gz',W.exact_serial(answer));saved=W.read(tmp_path/'localization.json.gz');restored=[W.M.decode(x)for x in saved['endpoint']]
+  exact_root=F(1,8)/(1-F(1,2**2048))
+  for x,previous in zip(restored,old):
+   assert W.E.cover(W.E.bounds(previous),W.E.bounds(x))and W.E.cover((F(-1),F(1)),W.E.bounds(x))and W.E.cover(W.E.bounds(x),(exact_root,exact_root))
+  for original,serialized in zip(answer['history'],saved['history']):
+   for a,b in zip(original,serialized):assert tuple(F(int(v['mantissa_hex'],16))*F(2)**v['exponent']for v in b)==a

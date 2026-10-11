@@ -17364,3 +17364,14 @@ lossless bounded dyadic hex output only; unchanged512bit reductions and16
 exact intersections, both failed attempts fully bound. Zero native calls,
 120s2GiB64MiB/135+5owned. Private push, current shared-capacity/owner check,
 then fresh synthetic admission before target arrays; source stays frozen.
+
+### 2026-10-11 — preserve endpoint003 Arb output failure
+
+Audit003 again passed independent root/join/four native contexts, then failed
+22.2266s/105268KiB/0native at ball JSON output: constructing Arb from an exact
+dyadic tuple preserves its huge midpoint regardless of current precision.
+Prepared004 explicitly outward-rounds restored balls at512bits before all final
+containment checks. Exact Fraction intersections are unchanged. End-to-end
+synthetic huge-history localization, wrapper save/reload and exact-root/oldbox/E
+containment now exercise the complete output path. All three failed attempts
+and completed stages remain immutable; no localized endpoint promoted yet.

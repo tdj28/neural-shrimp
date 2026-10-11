@@ -23,7 +23,7 @@ def restore(x):
  m=(x[0]+x[1])/2;r=(x[1]-x[0])/2
  def a(v):
   need(v.denominator&(v.denominator-1)==0,'dyadic endpoint arithmetic');return arb((v.numerator,-(v.denominator.bit_length()-1)))
- z=arb(a(m),a(r));need(cover(bounds(z),x),'outward restored rational interval');return z
+ z=arb(a(m),a(r))+arb(0);need(cover(bounds(z),x),'outward restored rational interval');return z
 
 def localize(data,c,s,a,old_endpoint,*,iterations=16):
  n=len(c);need(data['passed']and n==data['dimension']and 1<=n<=51 and len(s)==len(a)==len(old_endpoint)==n,'already proved complete root')
