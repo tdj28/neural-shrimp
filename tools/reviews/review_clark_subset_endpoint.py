@@ -12,13 +12,14 @@ ROOT=D.ROOT
 PARENT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-subset-successor/attempt001')
 SOURCE='cf1cd08e7a868e0dd948c6bd4b188c99f9a53767'
 PINS=['8443f4e777c5ebfa5c4a0659ba90dbc8ebb19b84d44cc0932ed06946dbbd552a','53bbddefb9ec52767b8a48a17de98b0e59326a9859bb874473d8a408a16d0fca']
-OUT=Path('/data2/neural-shrimp-data/audits/clark-subset-endpoint-independent/attempt002/run')
+OUT=Path('/data2/neural-shrimp-data/audits/clark-subset-endpoint-independent/attempt003/run')
 THREADS=D.THREADS;read,entry,serial,covered=D.read,D.entry,D.serial,D.covered
 EXPECTED={'native_even_odd_phase': 51, 'explicit_organizer_anchor': 1, 'explicit_family_attempt': 16, 'explicit_amplitude_fold_return': 16, 'correlated_center_newton_proposal': 10, 'path_attempt': 25, 'clark_gradient_path_input': 75, 'clark_gradient_path_return': 75, 'clark_correlated_path_return': 25, 'quadratic_predictor_proposal': 5, 'correlated_radius_proposal': 5, 'cached_residual_reuse': 10, 'correlated_explicit_tube_return': 5, 'context_attempt': 1, 'paired_native_phase': 6, 'validated_inverse': 4, 'paired_native_result': 1}
 KNOWN={'endpoint': {'bytes': 14972, 'sha256': '149c9884e79635252b11c796c74396af777d948715baabb68d549a8cc0a2401f'}, 'outer': '09aa30ca1399a667217f0be1c09ede0b2a5097f875fd0ebb3acad61699bcba81', 'root': '/data2/neural-shrimp-data/audits/clark-correlated-extent-independent/attempt001', 'source': 'f79b5ad059d08b88cd2aa8c360b538fe7b5c284c', 'worker': '9ecd7edbe7bc802042bbee4f625621a82fa4b64c57a9fae3cd5f7e9705c2a5ea'}
 FAILED=dict(root='/data2/neural-shrimp-data/audits/clark-subset-endpoint-independent/attempt001',source='c753b2d04926b2d5a61b66f8c07d3e756e82c4a4',outer='91aaa6a4822a9b44f0cdce6a37c6b77e2b6cd43fba8b2e72a46443bfaeea7503',worker='79dc5b8d9147350306164effb0756efdf6943865ad03e8068d5c6df204669b0c')
+FAILED_SERIAL=dict(root='/data2/neural-shrimp-data/audits/clark-subset-endpoint-independent/attempt002',source='86d7816f566f93183ff968f4b01bafaa159fdb46',outer='67bec499f4b4dcff31e153c863eefc89c68ec655ae99b6792bb4f18816a125d7',worker='e0265a7d4cb7ea58fb113bbba2b4efb7eafd244516c19435233716c158f3691d')
 CARD='docs/plans/clark-subset-endpoint-independent-inputs.json'
-FILES=sorted(set(D.FILES+[CARD,'tools/reviews/review_clark_subset_endpoint.py','tools/reviews/review_clark_endpoint_math.py','tools/launch_clark_subset_endpoint_review.py','tests/reviews/test_clark_subset_endpoint_driver.py','tests/reviews/test_clark_endpoint_math.py','docs/plans/clark-subset-endpoint-independent.md','docs/reviews/clark-subset-endpoint-independent-attempt001.json','docs/reviews/clark-subset-successor-attempt001.json','docs/reviews/clark-correlated-extent-independent.json']))
+FILES=sorted(set(D.FILES+[CARD,'tools/reviews/review_clark_subset_endpoint.py','tools/reviews/review_clark_endpoint_math.py','tools/launch_clark_subset_endpoint_review.py','tests/reviews/test_clark_subset_endpoint_driver.py','tests/reviews/test_clark_endpoint_math.py','docs/plans/clark-subset-endpoint-independent.md','docs/reviews/clark-subset-endpoint-independent-attempt002.json','docs/reviews/clark-subset-endpoint-independent-attempt001.json','docs/reviews/clark-subset-successor-attempt001.json','docs/reviews/clark-correlated-extent-independent.json']))
 class Work(D.Work):
  def tick(self):need(not self.stopped and time.monotonic()-self.start<120 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<2*1024**2,'120s/2GiB independent extent')
  def save(self,n,v,closing=False):
@@ -30,8 +31,9 @@ class Work(D.Work):
   if not closing:self.tick()
 
 def metadata(w):
- card=read(ROOT/CARD);need(card['status']=='reviewed'and card['caps']==dict(seconds=120,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=64*1024**2,native_calls=0,precision=512,intersections=16)and card['parent']==dict(root=str(PARENT),source=SOURCE,outer=PINS[0],worker=PINS[1])and card['known']==KNOWN and card['failed']==FAILED,'fixed reviewed literal source/domain authority')
+ card=read(ROOT/CARD);need(card['status']=='reviewed'and card['caps']==dict(seconds=120,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=64*1024**2,native_calls=0,precision=512,intersections=16)and card['parent']==dict(root=str(PARENT),source=SOURCE,outer=PINS[0],worker=PINS[1])and card['known']==KNOWN and card['failed']==FAILED and card['failed_serialization']==FAILED_SERIAL,'fixed reviewed literal source/domain authority')
  fp=Path(FAILED['root']);D.inventory(fp,FAILED['outer'],w);D.inventory(fp/'run',FAILED['worker'],w);D.archive(fp,FAILED['source'],2,w);fo=read(fp/'run/outcome.json');need(not fo['passed']and fo['native_calls']==0 and fo['error']=='ValueError: unchanged actual coefficient/domain residual_coefficients','literal retained001 binding failure')
+ sp=Path(FAILED_SERIAL['root']);D.inventory(sp,FAILED_SERIAL['outer'],w);D.inventory(sp/'run',FAILED_SERIAL['worker'],w);D.archive(sp,FAILED_SERIAL['source'],2,w);so=read(sp/'run/outcome.json');need(not so['passed']and so['native_calls']==0 and so['error'].startswith('ValueError: Exceeds the limit (4300 digits)'),'literal retained002 serialization failure')
  for p,pin in zip((PARENT,PARENT/'run'),PINS,strict=True):D.inventory(p,pin,w)
  D.archive(PARENT,SOURCE,2,w);run=PARENT/'run';out=read(run/'outcome.json');cont=read(run/'continuation.json')
  need(not out['passed']and out['error']=='ValueError: bounded finite extent incomplete'and out['calls']==dict(algebra=22,anchor=1,cache_reuses=10,context=1,events=331,explicit=16,implicit=0,native_phase_returns=132,path=25,subset=6),'complete exact bounded successor')
@@ -86,7 +88,7 @@ def target(w):
    need(attempt==1 and selected['passed']and data['passed']and left==b-h,'single independently passed original successor')
    join=H.join(known,left,c,s,a,b,h,r);w.save(tag+'/join.json',join);need(join['passed']and join['coordinates']==51,'all51 exact preceding phase/root identity');need(kinds[i+1]=='context_attempt','fresh native contexts after root');native=D.qualify_native(paths,i+1,selected,data,w,tag)
    ep=read(PARENT/'run/connected-endpoint.json');need(ep['box']==selected['endpoints'][1]and A.point(ep['parameter'])==F(1,512),'literal whole original endpoint')
-   localized=E.localize(data,c,s,a,[M.decode(x)for x in ep['box']],iterations=16);w.save('endpoint-localization.json.gz',exact_serial(localized));known=localized['endpoint'];left=b+h;w.save('connected-endpoint.json',dict(parameter=left,box=known,scope='Same independently proved root, fixed-parameter contraction on original E.'));accepted.append(dict(attempt=attempt,contraction=data['contraction'],native_contexts=len(native)));record['localization_rows']=localized['rows']
+   localized=E.localize(data,c,s,a,[M.decode(x)for x in ep['box']],iterations=16);w.save('endpoint-localization.json.gz',exact_serial(localized));known=localized['endpoint'];left=b+h;w.save('connected-endpoint.json',dict(parameter=left,box=known,scope='Same independently proved root, fixed-parameter contraction on original E.'));accepted.append(dict(attempt=attempt,contraction=data['contraction'],native_contexts=len(native)));record['localization_rows']=exact_serial(localized['rows'])
   else:
    need(attempt in(2,3,4,5)and not selected['passed']and selected==t,'all four unresolved original bounds retained')
    # These are anchor requirements only; no failed chart is promoted and no LP is rerun.
@@ -100,7 +102,9 @@ def target(w):
  return dict(passed=True,status='independent_one_native6_tube_and_exact_endpoint_localization',range=['15/8192','1/512'],prior_independent_tubes=30,new_independent_tubes=1,new_native_contexts=4,attempts=attempts,accepted=accepted,full_requested_range_completed=False,scope='Shared retained native analytic derivative acquisitions and Arb; separate full51 assembly/root/join/native reductions. Four failed successor bounds stay failed; endpoint restriction adds no new existence theorem.')
 
 def exact_serial(v):
- if isinstance(v,F):return str(v)
+ if isinstance(v,F):
+  need(v.denominator&(v.denominator-1)==0 and max(abs(v.numerator).bit_length(),v.denominator.bit_length())<=131072,'bounded exact dyadic serialization')
+  return dict(mantissa_hex=format(v.numerator,'x'),exponent=-(v.denominator.bit_length()-1))
  if isinstance(v,dict):return {k:exact_serial(x)for k,x in v.items()}
  if isinstance(v,(list,tuple)):return [exact_serial(x)for x in v]
  return v

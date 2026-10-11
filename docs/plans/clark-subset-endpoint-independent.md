@@ -57,3 +57,18 @@ producer coefficients supply no new mathematical authority. No tolerance,
 clipping, native call, proof gate, domain or resource limit changed. Add a
 synthetic nontrivial-radius/corrupted-coefficient regression. Prepared until
 narrow peer review and separately committed fresh admission.
+
+## Disclosed exact-output encoding amendment
+
+Attempt002 independently passed the selected root(q<.825896), all51 join,
+and four native6 primitive/stable-complement contexts. Sixteen exact Fraction
+intersections and final containment then completed, but decimal formatting of
+a width exceeded Python's4300digit integer-string limit. Its22.06s zero-native
+failure and all completed stages are immutable. No localized endpoint was saved.
+
+Fresh003 retains the same exact arithmetic and16intersections; Fraction outputs
+are losslessly encoded as bounded signed hexadecimal mantissa plus binary
+exponent. A131072-bit ceiling applies before conversion, and global Python
+integer limits remain unchanged. Regression roundtrips an18000bit mantissa and
+rejects an over-cap denominator. Both failed inventories are mandatory. Same
+profile, math, domains,120s2GiB64MiB; this is an output encoding amendment only.

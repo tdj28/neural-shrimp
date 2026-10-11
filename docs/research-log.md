@@ -7849,3 +7849,14 @@ Root narrow f31f4d5b review PASS and nine controls3.57s reproduced. Admit fresh
 coefficients remain mathematical authority, mandatory immutable001 failure.
 Unchanged512bits120s2GiB64MiB/0native and135+5owned; profile before arrays.
 Recheck shared host and own process absence, private-push then freeze checkout.
+
+### 2026-10-11 — preserve endpoint002 completed stages/formatting failure
+
+Independent selected root(q<.825896), all51 known join and four native6
+primitive/stable-complement contexts passed. Audit002 then failed22.0568s/
+105416KiB/0native when decimal-string conversion of exact localization width
+exceeded Python's4300digit limit. All completed stages/source/owners retained;
+no final audit or localized endpoint promoted. Prepared fresh003 keeps identical
+16 exact intersections, encoding dyadics as bounded hexadecimal mantissa/binary
+exponent instead. No global integer-limit change or mathematical gate change.
+Both preceding failures remain mandatory immutable inputs.

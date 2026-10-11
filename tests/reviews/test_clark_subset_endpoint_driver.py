@@ -46,3 +46,10 @@ def test_exact_384_coefficient_reserialization_and_corruption():
  assert W.selected_domain(old,old,False)==[2]*51
  new['residual_coefficients'][0][0][0]=ball(3)
  with pytest.raises(ValueError,match='exact384'):W.selected_domain(old,new)
+
+def test_large_exact_dyadic_output_roundtrips_without_decimal_limit():
+ from fractions import Fraction as F
+ x=F(-(2**18000+1),2**20000);raw=W.exact_serial({'history':[(x,F(0))]});v=raw['history'][0][0]
+ assert F(int(v['mantissa_hex'],16))*F(2)**v['exponent']==x
+ assert len(json.dumps(raw))<6000
+ with pytest.raises(ValueError,match='bounded'):W.exact_serial(F(1,2**131073))
