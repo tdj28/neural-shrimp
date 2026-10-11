@@ -9411,3 +9411,14 @@ pass, including negative original scalar and nonlinear known-root enclosure.
 An initial synthetic test demanded an arbitrary10000-fold narrowing; the actual
 valid bound narrowed about4800-fold, so the asserted performance floor is now
 1000-fold with exact-root containment unchanged. No target native call.
+
+### 2026-10-11 — fixed fresh-center subinterval caller prepared
+
+Boundary and root independently cleared e2760586 helper. New caller tests only
+centered[-34,-32]/2048, halfwidth1/2048, with two finite old-C proposals and a
+final full705 residual;18 fresh center Jacobians reuse whole-quarter actual
+true derivatives after exact-domain checks. Original root/center failure and
+all provenance retained; no full-quarter coverage claim.144profile+126target
+calls,400s4GiB384MiB/owned415+5s. Eight controls1.19s passed after correcting an
+unsupported division in the unrelated MixedJet fixture to dyadic multiplication.
+No target evaluated; source review/profile admission still mandatory.
