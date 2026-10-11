@@ -7399,3 +7399,13 @@ actual states/actions, both originalcurvepoints and fixedfirstselection bound.
 No native/SVD calls. Unrelatedfull98666 arithmetic beforetargetarrays,60s1GiB
 3GiBAS8MiB/2MiBreserve,75+5owned10MiB. Actual metadata-only preflight passed with
 NumPy loads forbidden. No target arithmetic yet; peer review/admission pending.
+
+### 2026-10-11 — independent saved CIFAR curved-path admission
+
+Boundary97ad9c5d full source/math/binding/resource PASS7controls3.31s. Complete
+actual metadata-only preflight and own synthetic7controls2.73s passed. Admit sole
+zero-native attempt001, fresh full98666 arithmetic beforetarget arrays and
+8xmeasured+15<60 gate,60s1GiB3GiBAS8MiB/2MiBreserve,75+5owned10MiB. Shared native
+acquisitions explicitly separate from own fsum/path/scalar reductions; neither
+accelerationfit nor model is recomputed. Bothtrialresults/fixedfirstselection
+and originalcost miss remain bound. Fresh host headroom checked at launch.
