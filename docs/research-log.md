@@ -9243,3 +9243,7 @@ Reviewed sourcec4926de3 completed all160 permitted target evaluations/3096 inclu
 ### 2026-10-11 — prepare full native plus/minus-one equations
 
 Source-only41D localization helper keeps all13 state coordinates, both physical rates and two independent normalized real modes, with two full native18 returns. Three synthetic controls pass after replacing an unsupported power in the test fixture with multiplication. No target acquired and no fold/flip claim. Wrapper/profile/card and source review remain prerequisites.
+
+### 2026-10-11 — fixed numerical41 localization packet ready
+
+The helper received Stability’s independent mathematical review. Completed caller retains all capped extension evidence, binds the accepted near+1 native return, and demands adjacent-phase plus two full470 reverse associations. Seven controls pass5.79s, including actual metadata and full unrelated12×36-phase profile. Fixed1224 total phases/240s3GiB256MiB; no target acquired. Independent caller review and committed admission remain required.
