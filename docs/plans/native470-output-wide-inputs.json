@@ -1,5 +1,5 @@
 {
-  "status": "prepared",
+  "status": "reviewed",
   "settings": {
     "as_bytes": 8589934592,
     "max_evaluations": 240,
@@ -1765,5 +1765,25 @@
       "sha256": "ad3b0d35301ea856b19419c7a1aead0ed89700a4b220a53a06da29743d8822d1"
     }
   },
-  "source_review": null
+  "source_review": {
+    "source": "e3e22396",
+    "reviewer": "clark_n12_continuation",
+    "result": "PASS",
+    "controls": 5,
+    "seconds": 5.86
+  },
+  "admission": {
+    "date": "2026-10-11",
+    "available_ram": "52GiB",
+    "gpu_utilization_percent": 0,
+    "gpu_free_mib": 15947,
+    "load": [
+      1.51,
+      1.65,
+      1.72
+    ],
+    "own_duplicate": false,
+    "metadata_preflight": "Complete actual host source/inventory/ownership preflight, target proof arrays forbidden;0.477s proof /5.073s scout.",
+    "scope": "One fixed CPU1 worker each; actual same-source profile must pass before target. Reservations4GiB+3GiB plus independent peer work leave host headroom."
+  }
 }
