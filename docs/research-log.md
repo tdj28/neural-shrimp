@@ -6628,3 +6628,14 @@ exact acquired monodromy/whole-Jacobian retained, zero native calls. Full13/55
 synthetic profile precedes arrays;30s512MiB2GiBAS16MiB with2MiB closing reserve,
 45+5 owned18MiB. Nine math/binding/archive/reserve controls pass0.23s. Source
 review before sole attempt001; direction remains post-outcome qualitative.
+
+### 2026-10-10 23:37 PDT — independent corner audit admitted
+
+Root c7e08f29 binding/resource review PASS9controls0.22s;959be026 math PASS.
+Host52GiB available, load1.23/2.02/2.95, GPUidle15947MiBfree,2.7TiB disk,
+no own duplicate. Sole audits/unit-flip-corner-independent/attempt001,
+CPU1nice10/512bits30s512MiB2GiBAS16MiB with2MiB closing reserve,45+5owned18MiB.
+Full13/55 measured synthetic gate before exact saved target arrays. Own
+Krawczyk/divisor/complement and complex bordered physical gradients, strict
+same-root and qualitative selected-direction signs. Zero native acquisition;
+all completed stages and any failed attempt remain immutable.
