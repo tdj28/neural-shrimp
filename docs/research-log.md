@@ -12122,3 +12122,7 @@ Independent direct four-term convolution, degree26 entire-series derivatives thr
 ### 2026-10-11T00:18:21.322941+00:00 — census13 fixed profile admission
 
 Clark independently cleared source071f88af and reproduced three controls0.10s after exact reused-box binding repair. Execute only the three predetermined full768-bit native map/Jacobian returns at period50 row139 phases0/16/33; CPU1nice10,60sworker/80+5souter,1GiBgroupRSS,512MiBraw plus1MiBlog. Dedicated exclusive path explore/certificates/census13-panel/attempt001-profile. No proof or26-row target until measured forecast passes and its separate card is committed.
+
+### 2026-10-11T00:19Z — census13 retained input envelope failure
+
+Profile001 stopped before any native acquisition: reused historical certificate stores its proof under result, not at top level. Complete immutable outcome retained, owned group empty. Source now reads result.box and checks result.passed. Fresh exclusive002 profile/target roots preserve001. No proof settings/cases/resources/gates changed. Source recheck before fresh profile.

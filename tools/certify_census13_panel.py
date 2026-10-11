@@ -36,7 +36,7 @@ def proximity(box,reference):
 
 def main(mode,profile_outer=None,profile_worker=None):
     need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');resource.setrlimit(resource.RLIMIT_AS,(2*1024**3,)*2)
-    out=BASE/f'attempt001-{mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;calls=0;returned=0;current=None
+    out=BASE/f'attempt002-{mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;calls=0;returned=0;current=None
     limit=60 if mode=='profile'else 600
     def stop(*_):raise TimeoutError('fixed census13 deadline')
     signal.signal(signal.SIGALRM,stop);signal.signal(signal.SIGTERM,stop);signal.setitimer(signal.ITIMER_REAL,limit)
@@ -67,7 +67,7 @@ def main(mode,profile_outer=None,profile_worker=None):
             need(rec['passed']and rec['statement']['attraction']and rec['statement']['existence_and_local_uniqueness']and rec['statement']['primitive_period_excluded_divisors'],'reuse existing attracting primitive proof')
             for n,v in rec['files'].items():need(B.entry(oldroot/n)==v,'existing proof receipt inventory')
             for k in ['schema','network','x','y','lr_hidden','lr_output','period']:need(prior[k]==prepared[i][k],'exact existing representative map '+k)
-            oldproof=B.load(oldroot/'certificate.json');distance=proximity(oldproof['box'],prepared[i]['approximation']);reused.append(dict(index=i,whole_box_proximity=distance,receipt=B.entry(ROOT/receiptpath),proof=B.entry(oldroot/'certificate.json'),root=str(oldroot)))
+            oldproof=B.load(oldroot/'certificate.json');need(oldproof['result']['passed'],'reused raw proof passed');distance=proximity(oldproof['result']['box'],prepared[i]['approximation']);reused.append(dict(index=i,whole_box_proximity=distance,receipt=B.entry(ROOT/receiptpath),proof=B.entry(oldroot/'certificate.json'),root=str(oldroot)))
         need(sum(prepared[i]['period']for i in card['new_indices'])==525 and max(card['new_indices'],key=lambda i:prepared[i]['period'])==139,'fixed4200phase count and largest-period profile')
         save('input-binding.json',dict(pins=pins,all13=indices,new=card['new_indices'],already_proved=reused,scope='Complete13D representative orbit subset only; no interval window census or topology.'))
         if mode=='profile':
@@ -80,7 +80,7 @@ def main(mode,profile_outer=None,profile_worker=None):
                     need(all(v.is_finite()for v in end)and all(J[i,j].is_finite()for i in range(13)for j in range(13)),'finite full profile')
             estimate=forecast(times,sizes);result.update(passed=estimate['seconds']<600 and estimate['bytes']<CAP,times=times,sizes=sizes,forecast=estimate)
         else:
-            profile=BASE/'attempt001-profile/run';need(B.entry(profile.parent/'manifest.json')['sha256']==profile_outer and B.entry(profile/'manifest.json')['sha256']==profile_worker,'literal committed profile manifest pins');outer=B.load(profile.parent/'launcher-result.json');need(outer['exit_code']==0 and outer['owned_live_pids']==[],'successful terminated profile');need(B.load(profile/'input-binding.json')==B.load(out/'input-binding.json'),'identical profile input binding');m=B.load(profile/'manifest.json')['files'];need(set(m)=={str(p.relative_to(profile))for p in profile.rglob('*')if p.is_file()and p!=profile/'manifest.json'}and all(B.entry(profile/n)==v for n,v in m.items()),'complete measured profile inventory')
+            profile=BASE/'attempt002-profile/run';need(B.entry(profile.parent/'manifest.json')['sha256']==profile_outer and B.entry(profile/'manifest.json')['sha256']==profile_worker,'literal committed profile manifest pins');outer=B.load(profile.parent/'launcher-result.json');need(outer['exit_code']==0 and outer['owned_live_pids']==[],'successful terminated profile');need(B.load(profile/'input-binding.json')==B.load(out/'input-binding.json'),'identical profile input binding');m=B.load(profile/'manifest.json')['files'];need(set(m)=={str(p.relative_to(profile))for p in profile.rglob('*')if p.is_file()and p!=profile/'manifest.json'}and all(B.entry(profile/n)==v for n,v in m.items()),'complete measured profile inventory')
             pr=B.load(profile/'outcome.json');rt=B.load(profile/'runtime.json');need(pr['passed']and rt['sources']==source and all(rt[k]==runtime[k]for k in ['settings','python','numpy','flint','flint_library','threads']),'same measured source/library')
             estimate=forecast(pr['times'],pr['sizes']);need(estimate==pr['forecast']and estimate['seconds']<600 and estimate['bytes']<CAP,'recomputed fixed fullpanel resource gate');save('profile-binding.json',dict(root=str(profile),manifest=B.entry(profile/'manifest.json'),forecast=estimate))
             class RetainingMap(Original):

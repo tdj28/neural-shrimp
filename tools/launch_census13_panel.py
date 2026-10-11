@@ -19,7 +19,7 @@ def group(g):
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--profile-outer');p.add_argument('--profile-worker');a=p.parse_args()
- if a.out!=Path('/data2/neural-shrimp-data/explore/certificates/census13-panel')/f'attempt001-{a.mode}':raise ValueError('fixed owned output root')
+ if a.out!=Path('/data2/neural-shrimp-data/explore/certificates/census13-panel')/f'attempt002-{a.mode}':raise ValueError('fixed owned output root')
  if os.getpriority(os.PRIO_PROCESS,0)<10 or subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip():raise ValueError('clean committed nice10 launch')
  mem=Path('/proc/meminfo').read_text();available=int(next(x.split()[1]for x in mem.splitlines()if x.startswith('MemAvailable:')))*1024
  if available<8*1024**3:raise MemoryError('8GiBheadroom')
