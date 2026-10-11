@@ -9387,3 +9387,7 @@ Fixed480-bit radius2^-96 at the literal old exact55 center, zero Newton correcti
 
 ### 2026-10-11 — admit one fresh nested second-junction audit
 Stability independently reviewed d3509fa0 full source/binding/resource packet and reproduced nine controls12.85s; byte-identical independent reducer provenance verified. Execute one fixed480/-96 zero-Newton same-center audit under60s/2GiB/128MiB and162inclusive native phase caps, mandatory full54-phase unrelated admission first. All55 strict old-box nesting, both physical brackets, independent primitive/spectrum/crossing remain hard gates. Output audits/second-unit-flip-independent/attempt001; failure retained. Current local CPU/RAM/GPU availability and ownprocess check recorded in launcher.
+
+
+### 2026-10-11 — nested audit001 namespace failure and fixed002 source
+Source11121221 completed54 unrelated native phases and passed measured profile, then stopped21.026s/77884KiB before target on duplicate exclusive input-binding.json from inherited root/candidate binders. No fresh target root acquired. Complete failure immutable, source/ownership verified. Namespaced old-root-/numerical- receipts preserve both and final binding separately; real exclusive-save regression added. Fresh002 mandatory failure ancestry, unchanged480/-96,noNewton,162phases/60s/2GiB/128MiB. Original metadata-only no-op writer did not expose this collision; disclosed without claiming target progress.
