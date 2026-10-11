@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src'),str(ROOT/
 import probe_native_unit_pair_pal as C
 from neural_shrimp.unit_pair_pal_conditioning import diagnose
 BASE=C.BASE;PARENT=BASE/'attempt002-target';OUT=BASE/'attempt002-diagnosis/run'
-SOURCES=list(dict.fromkeys(C.SOURCES+['src/neural_shrimp/unit_pair_pal_conditioning.py','tools/diagnose_native_unit_pair_pal.py','tools/launch_native_unit_pair_pal_diagnosis.py','tests/test_unit_pair_pal_conditioning.py','docs/plans/native-unit-pair-pal-diagnosis.md']))
+SOURCES=list(dict.fromkeys(C.SOURCES+['src/neural_shrimp/unit_pair_conditioning.py','tests/test_unit_pair_conditioning.py','src/neural_shrimp/unit_pair_pal_conditioning.py','tools/diagnose_native_unit_pair_pal.py','tools/launch_native_unit_pair_pal_diagnosis.py','tests/test_unit_pair_pal_conditioning.py','docs/plans/native-unit-pair-pal-diagnosis.md']))
 def main():
  C.require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean source');C.require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
  OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=[0];resource.setrlimit(resource.RLIMIT_AS,(8*1024**3,)*2)
