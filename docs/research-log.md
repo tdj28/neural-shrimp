@@ -13360,3 +13360,7 @@ Root b000edda source/math/binding/limits PASS, three controls0.07s. Fresh host51
 ### 2026-10-10 22:02 PDT — saved bridge diagnosis complete
 
 Zero-native0.1637s/37412KiB diagnosis separates dominant coordinate8 forcing/r3.38264 from defect-row0.71085; image/r4.09349. Floating spectral radius of absoluteD0.09531 suggests common-radius imbalance. Fixed dyadic2times-positive-resolvent proposals enlarge state/mode radii2–8times, halve leak radius, and shrink exact gain-equation radius to2^-39; frozen-old-domain weightedq0.13997/image0.57938 only, never proof on expandedE. Full immutable/source/ownership verified; receipt clark-critical-bridge-diagnosis.json. Prepare exactlyone unchanged-halfwidth fresh weighted002 with complete new predictor/whole derivatives and all original exact known-root/native gates; peer review/fresh profile precede target.
+
+### 2026-10-10 — fixed weighted critical bridge002 preparation
+
+Saved diagnosis aed65390 sealed. Prepare sole weighted002 at unchanged gain center/halfwidth using exact26 dyadic saved proposals, literal failed001 and completed diagnostic inventories/source bound. All center/predictor/whole derivatives fresh on changedE, exact organizer/direct26/F6normalized return and native context gates unchanged. Same inclusive acquisitions and90s2GiB128MiB caps with repeated unrelated measured profile; source review before launch. No original bound reused on expanded error box.

@@ -56,3 +56,13 @@ assert Path(W.__file__).resolve().is_relative_to(root)
 """
  env=dict(os.environ,PYTHONPATH=str(tmp_path/'src')+os.pathsep+str(tmp_path/'tools'),PYTHONDONTWRITEBYTECODE='1',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1')
  subprocess.run([sys.executable,'-c',code],cwd=tmp_path,env=env,check=True,capture_output=True,text=True)
+
+def test_weighted_amendment_uses_only_literal_dyadic_proposals():
+ from flint import arb
+ d=dict(dimension=26,proposed_exponents=W.RADIUS_EXPONENTS.copy(),proposed_radii=[2.**e for e in W.RADIUS_EXPONENTS]);o=dict(passed=True,native_calls=0,status='saved_floating_diagnosis_complete',original_strict_inclusions=5)
+ assert W.weighted_radii(d,o)==[arb((1,e))for e in W.RADIUS_EXPONENTS]
+ for key in ['proposed_exponents','proposed_radii']:
+  q=copy.deepcopy(d);q[key][5]+=1
+  with pytest.raises(ValueError):W.weighted_radii(q,o)
+ bad=copy.deepcopy(o);bad['native_calls']=1
+ with pytest.raises(ValueError):W.weighted_radii(d,bad)
