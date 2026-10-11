@@ -6879,3 +6879,14 @@ headroom51GiB at00:40PDT with own saved19 worker capped6GiB/CPU1. Fixed single
 native operations. Complete immutable explicit002 and exact source required;
 all5 failed radius proposals retained. Any subsequent proof adaptation needs
 fresh fullE acquisitions, source review and another disclosed card.
+
+### 2026-10-11 — saved51 radius diagnosis complete
+
+All5 rejections reproduced. At smallest2^-17 halfwidth, residual requirement
+max.00707606 exceeds.00390625 state ceiling, while known-anchor requirement
+~6e-11 is negligible. Predictor-only absolute defect floatingrho91.1934 and
+interval infinity716.583 (largest widthrho2505.38) show lost parameter
+correlation, not a case for blind radius growth. These are not wholeE bounds
+or nonexistence claims.0.5235s/100476KiB/0native; complete immutable source/
+inventory/owned exits checked,57rawroots. Prepare common-parameter residual
+and Jacobian Taylor acquisition with freshfullE before any new proof target.
