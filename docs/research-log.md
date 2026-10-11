@@ -12844,3 +12844,14 @@ full-gradient-over-PathJet native coefficient source; all state/q/r/rates/t
 columns and normalization/gauge rows kept. Five independent analytic/mixed
 controls plus4inverse controls pass0.32s. Source-only, no actual coefficient
 acquisitions or promoted newroot. Nativeprofile/card/peerreview required next.
+
+### 11 October2026 UTC — full correlated acquisition and synthetic profile prepared
+
+Clark cleared33745fd8 gradient-path mathematics and reproduced5controls0.28s.
+Prepare reusable same-errorbox full705 correlated acquisition and synthetic
+profile as docs/plans/native705-correlated-inverse-profile.md. No target data
+or derivative acquired. Both full J0/J1 at d0 and whole J2 retain identical
+actual full correction domain; C1 is only a finite proposal. All704 native
+coordinates plusangle/gauge remain in strict Krawczyk and endpoint membership.
+Synthetic profile card fixes629ticks,240s/6GiB/768MiB andowned255+5 before any
+run; separate peer composition/wrapper review remains mandatory.
