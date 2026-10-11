@@ -16660,3 +16660,7 @@ Prepared a full98666D fresh512 correction from the independently accepted first 
 ### 2026-10-11 — exact second55 interval caller prepared
 
 Reuse unchanged384-bit full55 root, same-box quotient and total crossing kernels for the successfully localized second junction. All432 inclusive MixedJet phases retain inputs/returns; both-rate strict whole-box bracket, primitive18 and every root coordinate are mandatory. New120s2GiB256MiB source-bound full55 profile precedes target. Four controls pass10.40s, including actual no-array metadata and108 complete unrelated native phases. Initial source controls caught use of the whole55 fixture instead of its first41 coordinates, and a dynamically expanded current source list instead of the exact historical runtime list; corrected before acquisition. No target/profile experiment yet; independent caller review pending.
+
+### 2026-10-11 — admit exact second55 interval qualification
+
+Stability independently cleared5975d844, four controls12.35s, full actual source ancestry and input/return/cap gates. Admit one source-frozen384-bit radius2^-80 unit under120s2GiB256MiB,108 unrelated profile calls before324 target phases. Same-root complement/crossing and strict both-rate bracket remain mandatory. No target at admission; fresh host/owned checks follow, all preceding own workers exited.
