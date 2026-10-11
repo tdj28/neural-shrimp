@@ -12462,3 +12462,9 @@ Prepare one bounded4worker batch002 with doubledhalfwidth1/64,3/4 priorlastchart
 ###2026-10-10 — peer-cleared doubled-width705 batch card
 
 Clark passed a1a3ecb7 plus the prelaunch manifest-SHA schema correction,10 controls0.40s. Parent independently passed all4 prior roots/joins at384; hard-bound new independentendpoint audit outer6382f1d06e34ced6cd252d7b6b5dc1d986017ef4c844d02b0a932569538adaea/workerd2bc72f5782ffbae819689926124656d460479dad70d2fc692824b0fed605815. Execute exactlypal/batch002, four fresh253call proofs from lastacceptedquadratic seed, halfwidth−6/weights3/4/radius−10. Initialknownroot is the independently recomputed705 endpoint. Allnewroots explicitlyunjoined until sequentialfull705 exactgauge membership passes. Freshhostcapacity checked; same4CPU1/24GiBworkeraggregate+4GiBparent/330s/3076MiB and36GiB availability. No automatic retry or laterbatch; independentstudy and everyoldfailure retained.
+
+###2026-10-10 — measured doubled-width limit; reusable rotation helper
+
+Batch002 source50fd709f completed71.675s with one connected705 chart[319,447]/4096, q.95631768/all705roots+join. Laterchart002 hasq.99346 but676/705inclusions;003/004q1.03855/1.08772, all complete253native acquisitions retained. Onlyfirstprefixadvances. Receipt native705-batch002.json.
+
+Root endorses bounded reusable8worker rotatedPAL batches after this measured limit. Preparatoryhelper localizes same endpoint fromsavedexactC/J/Taylor residual and proposes finite rotatedgauge quadratic seeds; no newproof or target now. Firstnewchart needs full projected705 membership, subsequentexactgaugejoins; nativekernel unchanged. Narrow1/128h proposed, max10batches/80charts with8CPU1/32GiB+4GiBparent/3300s/60GiBtotal and44GiBavailable. Full resource/bindingwrapper and source review pending.
