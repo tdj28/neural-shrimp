@@ -14768,3 +14768,15 @@ quarter.400s4GiB384MiB, owned415+5s386MiB. Full705 profile includes actual
 0.76s. Source self-check caught the inherited native-domain schema requiring
 weighted_neumann_bound and adds that field explicitly before target use; no
 research arrays or native target evaluated. Metadata/peer review still pending.
+
+### 2026-10-11T07:45UTC — admitted one polynomial-inverse quarter
+
+Boundary independently reviewed08bb6723 wrapper/source/math/caps PASS, with
+nine caller/helper controls0.68s. Actual metadata-only preflight passed2.561s:
+original31 independent/source inventory and unique old C0 event1072bcc147…
+match the same unmodified certificate variable; no target interval arithmetic.
+Current host52,873,032KiB available,load2.91/2.71/2.65; Boundary active one6GiB
+worker plus4GiB parent. Own4GiB worker plus256MiB parent fits with headroom.
+Launch one polynomial001, original first quarter only, measured full705 and
+108 synthetic phases before at most108 target phases. All previous failures
+remain immutable; no automatic retry, further cells or root acquisition.
