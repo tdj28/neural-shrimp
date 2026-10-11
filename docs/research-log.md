@@ -7473,3 +7473,15 @@ output hashes and absent owned process IDs verified. Next proposed finite
 adaptive unit starts at independent b1/2048 and seeks b1/16, including the
 already saved gain4.10932626298 fold at b.03959454564. Full51/native joins and
 separate endpoint genericity remain mandatory; no radius-ceiling escalation.
+
+### 2026-10-11 — finite adaptive native6 extent source proposal
+
+Prepare one32-attempt correlated51 unit from independent b1/2048 toward1/16,
+with the next exact numerical fold47/gain4.10932626298 as a separately certified
+generic endpoint. Two qualified low-contraction charts permit step doubling,
+complete bounds halve, fixed2^-17…2^-9 ladder and old radius ceilings remain.
+Full native phase/partner/mode/primitive6/+1/complement and all51 joins unchanged.
+Prior full51 profile plus entire actual93-phase two-chart cost forecast precede
+arrays;600s2GiB2GiBraw/615+5owned,993inclusivephase cap. No acquisition yet;
+peer source review/card admission required. Descending numerical index corrected
+from fold01 to literal fold47 during metadata-only preparation before any run.
