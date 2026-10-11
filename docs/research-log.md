@@ -16072,3 +16072,22 @@ common-subspace target arithmetic. Host52GiB available/load1.33/2.6TiBfree/GPU0%
 privatepush,60s1GiB3GiBAS64MiB/4MiBreserve,75+5owned66MiB. Full15776x16 synthetic
 must pass fresh measured admission before target arrays. All four cases and
 abstentions retained; zero native calls and no gate/rank adaptation.
+
+### 2026-10-11 — saved common-subspace pilot: all four cases abstain
+
+The saved mean-Krylov span does not support a qualified reduced explanation of
+the observed perturbation response. All four cases fail the fixed 1% operator
+subspace-leakage gate at every time: maximum original leakage .500125/.421890,
+matched eta/4 leakage .123341/.118377. Retained ranks16/11/16/11; action closure,
+symmetry, conditioning and input/direction gates pass. Full ordered/mean fidelity
+and eigenmatching/commuting decomposition are not reached. This is an explicit
+abstention, not evidence for ordering, noncommutativity or basis rotation.
+
+Execution d73e7fc5 completed 1.796388s / 140684KiB, zero native calls. Full-size
+synthetic admission .188494s forecast16.507951s / 28072595B passed first. Complete
+146 outer / 140 worker immutable files and all historical archived sources
+verified; owned2709631/2709634 absent. Outer ab90c882ae4292b5a0397d51eb54e4964c4d1fa72440dc06e591f9f239298499,
+worker5048f291284457f641b0f9291f0ab2dc0e071d93cc53954355ed55d846e03780.
+Root's independent temporal-mean replay is bound literally before this pilot.
+No native span expansion or changed gates. Compact outcome receipt is
+`docs/reviews/tiny-lm-common-subspace-outcome.json`; integration lists68rawroots.
