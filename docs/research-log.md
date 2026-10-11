@@ -12971,3 +12971,17 @@ known-endpoint gates unchanged. Compact native evidence stays complete and the
 final certificate is written once. Both fresh source-bound synthetic costs and
 1.25×first actual native costs gate the unchanged240s/6GiB/1GiB ceiling. No new
 profile or target has run; only source/controls prepared.
+
+
+### 2026-10-11 UTC: compact profile passed; fixed fresh target card
+
+Peer stability cleared5fb76961 compact math,c58d4b60 profile and2299ef10 target.
+Fresh profile source2299ef1058720b7443f2eb679b4c6e7d2535e7db passed all629ticks in49.190s,
+peak1179920KiB; two complete705 compact proof controls each14.24s,
+versus33.24s dense. Raw9.06MB versus previous18.7MB profile. Every native input
+and return retained. Outer26b769f5090a23044cc18a0438e3ffa1c99f8bef80f2c10f290892cfa91aa020, worker57eb6806ec77d2c76387d61c7b1bcd536d3d28f18f62b50e7de13fd13d4f3183.
+Owned group empty. Combined conservative forecast retains actual dense native
+floor: 176.023s/4839112KiB/490414663bytes,
+within unchanged240s/6GiB/1GiB. Freeze manifest-bound single h1/16,rho2^-7 card;
+full148tick fresh domain, all705root/primitive/frame/positiveangle/knownroot joins.
+No target outcome yet. CPU1nice10; recheck host before exclusive launch.
