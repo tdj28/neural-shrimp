@@ -8822,3 +8822,19 @@ this was an overstrict metadata-domain test, not a proof failure. Exact subset
 containment is the authority; the interval multiplier only bounds monomials.
 Removed that wrong extra check, documented the distinction. Fourteen combined
 controls pass0.16s. No target acquisition; wrapper still in preparation.
+
+### 2026-10-11 UTC — fixed two-half fresh-J complement wrapper
+
+Clark independently cleared2ed46cbb restriction mathematics; five direct
+controls0.09s. Prepared `probe_native705_complement_halves.py` and owned
+launcher/card. Two exact closed halves, same known705 root; each fresh center
+and whole Jacobian plus exact C replace the measured broad old-J inverse.
+No Newton/root proposal. Full72 local-J+72 polarized+36 quotient calls are
+charged alongside180 unrelated profile calls. Added complete before/after
+MixedJet records and lossless full-matrix gzip; per-worker400s/4GiB/256MiB,
+two-worker8GiB/516MiB, unchanged ownership and final reserve discipline.
+Initial mechanical call-window replacement was caught and corrected during
+source self-review before any launch. Twenty controls pass2.94s, including
+actual unrelated13D/full705 assembly and condensed preconditioner, exact
+source-archive import closure and failed-write finalization. No target yet;
+independent wrapper review and fresh measured/resource gates remain mandatory.
