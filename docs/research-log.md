@@ -8748,3 +8748,7 @@ Stability4ba533a9 narrow recheck PASS, eight controls0.53s. Final measured polic
 ### 2026-10-11 — adaptive002 retained successful root but unresolved join
 
 Actual saved-input preflight passed every original inventory/source/card and five permitted dyadic widths at ambient53, zero native. Sourcec73978cb completed two331-call attempts in121.080s. Rotated h1/32 root failed44 image inclusions (q.30030); fresh h1/64 full705 root passed (q.100101), but changed-gauge known-root projection passed only589/705 coordinate inclusions. Parameter projection is inside. All owned workers ended; no extension promoted. Exact outer58f6ee7f and both complete outcomes retained in native705-adaptive002-unjoined.json. Next use the independent480 known cubic endpoint and saved polynomial inverse/forcing for conditional localization, then recheck membership against the already successful smaller tube. No repeated native acquisition or relabeling of old failure.
+
+### 2026-10-11 — conditional cubic endpoint localization source
+
+Prepare saved-only pointwise Neumann localization from the independent480 full-error D0..D3 and v0..v5 at the old exact endpoint. Initial synthetic assertions incorrectly demanded near-exact convergence after three intersections; corrected to the actual geometric error reduction and a high-degree forcing separation control. Three controls pass; no target arithmetic. Full exact binding/profile/owned wrapper remains required. This preserves the already successful adaptive h1/64 tube and seeks its actual full705 projected overlap.
