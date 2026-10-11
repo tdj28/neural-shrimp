@@ -76,7 +76,7 @@ def replay(fresh,saved):
 
 def descriptive_gate(cases):
     need([(x['seed'],x['rate_role'])for x in cases]==[(s,r)for s in(28161,28162)for r in('original','quarter_step')],'all four fixed cases')
-    return bool(all(c['qualified']and c['comparison']['even_relative_ordered']>=GATES['material']for c in cases if c['rate_role']=='original'))
+    return bool(all(c['qualified']for c in cases) and all(c['comparison']['even_relative_ordered']>=GATES['material']for c in cases if c['rate_role']=='original'))
 
 
 def forecast(times,return_bytes,old_max,already_bytes=0):
