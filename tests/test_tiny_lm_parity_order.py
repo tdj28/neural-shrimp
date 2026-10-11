@@ -49,7 +49,7 @@ def test_failure_keeps_partial_trace():
 def test_replay_and_fixed_primary_gate():
     x=np.ones((17,3));assert H.replay(x,x)['passed'];y=x.copy();y[4,0]+=.01;assert not H.replay(y,x)['passed']
     cases=[dict(seed=s,rate_role=r,qualified=True,comparison=dict(even_relative_ordered=.2))for s in(28161,28162)for r in('original','quarter_step')]
-    assert H.descriptive_gate(cases);cases[2]['qualified']=False;assert not H.descriptive_gate(cases)
+    assert H.descriptive_gate(cases);cases[1]['qualified']=False;assert not H.descriptive_gate(cases);cases[1]['qualified']=True;cases[2]['qualified']=False;assert not H.descriptive_gate(cases)
     with pytest.raises(ValueError):H.descriptive_gate(cases[:-1])
 
 

@@ -16267,3 +16267,14 @@ The symmetrized difference vanishes for every commuting sequence and can reveal
 order dependence missed by reversal-odd alone. Fixed224HVP/0gradient/0CE; unchanged
 1% inherited qualifications, fresh chronological replay and actual cold-cost
 floor. Helper source/synthetic tests only; no native profile or target yet.
+
+### 2026-10-11 — full-state parity-order caller prepared
+
+Boundary helper review PASS6controls0.11s. Complete caller pins independently
+audited temporal-mean and reversal histories, all1308 event pairs, unchanged
+native source/runtime, and exact original reverse action/state chains. Four
+inherited1% qualifications and fresh full chronology are mandatory; no target
+opened. Fixed224HVP full retention and conservative528-vector bound retain all
+actual cold costs. Eleven combined controls pass5.82s, including metadata-only
+binding and real inherited-AS import/archive closure. Preparatory syntax error
+was fixed before tests passed or any acquisition. Card remains unlaunchable.

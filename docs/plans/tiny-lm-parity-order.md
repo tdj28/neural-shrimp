@@ -116,3 +116,27 @@ metadata/closing headroom and actual current profile/source bytes must fit192MiB
 This conservative bound is deliberately close to the fixed ceiling; a storage
 failure is retained, never silently compressed away. The64MiB headroom includes
 the4MiB finalization reserve.
+
+## Complete prepared caller
+
+Boundary reviewed ddf38a70 helper:6 controls PASS0.11s. Caller additionally requires
+all four fresh replay/algebra qualifications before a primary descriptive result.
+Original reverse paths are byte-bound to the independent160-action reversal audit;
+each of their16 actual state/direction/HVP returns reproduces its stored trace at
+the exact original rate. The two quarter controls acquire their missing reverse
+paths. All four original1% gates and source-matched native libraries remain bound.
+
+The full historical1308-event inventory and both mean-profile failures remain
+mandatory. New maxima use every1088 actual HVP time plus both original cold HVP
+profile times and both fresh times. Full path records use the already reviewed
+lossless per-row NPY aliases, without copies of historical reference/frozen/CE
+vectors. Only three derived vectors percase are newly stored. Actual card/source
+bytes enter storage admission, and all closing failure records retain a4MiB
+reserve. Actual --help under inherited512MiB soft/8GiB hard AS and isolated
+archive import pass. Source/preflight controls inspect all historical metadata
+without opening scientific arrays. Initial preparation exposed and corrected
+a missing whitespace syntax error before any profile or target.
+
+Card status remains source_prepared until complete caller peer review and
+current host admission; the subsequent target requires literal successful
+new-profile source/outer/worker pins and unchanged profiled file hashes.
