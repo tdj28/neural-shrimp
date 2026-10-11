@@ -12985,3 +12985,14 @@ floor: 176.023s/4839112KiB/490414663bytes,
 within unchanged240s/6GiB/1GiB. Freeze manifest-bound single h1/16,rho2^-7 card;
 full148tick fresh domain, all705root/primitive/frame/positiveangle/knownroot joins.
 No target outcome yet. CPU1nice10; recheck host before exclusive launch.
+
+
+### 2026-10-11 UTC: cubic predictor residual kernel prepared
+
+While the independently cleared compact doubled-width target runs from its
+archived source, prepare a separate quartic residual algebra to attack the
+measured cubic-error bottleneck. Ten coefficients retain full native state and
+mode derivatives through4, with rigorous entire terminal tails. Four meaningful
+controls passed0.18s, including independent85-digit derivatives for all nine
+augmented equations. Source-only; no target/native proof data evaluated. The
+complete new curve kernel/profile/binding remains to be prepared and reviewed.
