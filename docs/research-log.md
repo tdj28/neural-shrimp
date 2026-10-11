@@ -16209,3 +16209,7 @@ Timing correction: the two manually entered curved-path preparation/admission he
 ### 2026-10-11 — admit narrower event-distance output continuation
 
 Clark independently cleared75b4b051, five controls5.27s. One fresh attempt002 resumes the literal near-positive accepted endpoint with smaller event distance0.0001 and unchanged complete native/reverse/scientific/resource gates. The original default0.01 remains untouched for prior callers. Full committed metadata and measured profile must pass before target. No new result at admission.
+
+### 2026-10-11 — positive mode approaches then recedes without sampled crossing
+
+Source8bceb04d completed32 numerical points/31 full470 reverse joins,187 evaluations/3582 inclusive phases in34.295s. Positive multiplier peaked among saved samples at.9998100565 (hidden71.3591228/output.8392665103), then decreased; no sampled+1 crossing or .0001 near-event stop occurred. The fixed point cap ends the unit at hidden71.3943473/output.8393415103. This explains the previous simultaneous-event correctors as unresolved near-miss searches, not evidence of an actual fold/flip root. The gaps between samples remain unproved. All full input/return/native spectra/source/ownership records retained. Outer79615cdd766a1cd5af8e1146b293eeb4b4a8f95c6a676a7ca1492893652298f5.
