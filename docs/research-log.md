@@ -14162,3 +14162,8 @@ scientific gates/quotas/RSS/storage and mandatory failed001 genealogy.
 Amendment controls initially caught two stale test bindings (old255s literal
 and a wrong imported-module alias); corrected tests, source caps unchanged.
 An initial test command named a nonexistent old test and collected none.
+
+Time-only amendment15b8344e passed stability review,8focusedcontrols0.26s.
+Admit one fresh002 under300s/315+5 caps, all earlier gates retained. Parent
+review independently agreed measured271.41s forecast warrants this adjustment.
+No root5 rerun; profile must pass before target.
