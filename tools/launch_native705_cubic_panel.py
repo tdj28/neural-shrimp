@@ -1,9 +1,16 @@
-"""Six cubic derivative domains with bounded fresh-center subdivision."""
+"""One bounded complementary cover of existing cubic root charts33 and34."""
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/cubic-panel001')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
+CARD='docs/plans/native705-cubic-panel-inputs.json'
+def card_check(card):
+    assert card['status']=='reviewed' and [v['ordinal']for v in card['charts']]==[33,34],'literal reviewed cubic33–34 panel required'
+    assert (card['maximum_domains'],card['maximum_centers'],card['maximum_depth'])==(16,96,3),'fixed panel quotas required'
+    assert card['caps']==dict(seconds=10800,rss_bytes=4*1024**3,as_bytes=6*1024**3,raw_bytes=24*1024**3,profile_calls=144,maximum_target_calls=13536,maximum_total_calls=13680),'fixed owned panel caps required'
+    spec=card['initial_independent']
+    assert set(spec)=={'root','source','outer','worker'} and all(type(v)is str and v for v in spec.values()),'completed independent entire chart32 pins required'
 def entry(p):
     h=hashlib.sha256()
     with p.open('rb') as f:
@@ -24,8 +31,7 @@ def owned(group):
 def current_rss_kib():return int(next(v.split()[1]for v in Path('/proc/self/status').read_text().splitlines()if v.startswith('VmRSS:')))
 def main():
     assert not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip()
-    card=json.loads((ROOT/'docs/plans/native705-cubic32-remaining-inputs.json').read_text())
-    assert card['status']=='reviewed' and card['ordinal']==32 and all(isinstance(v,str) and v for v in card['first_independent'].values()),'literal independently qualified first portion required'
+    card=json.loads((ROOT/CARD).read_text());card_check(card)
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     available=int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')));assert available>10*1024**2
     resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,6*1024**3))
