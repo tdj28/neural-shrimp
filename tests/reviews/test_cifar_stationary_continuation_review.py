@@ -29,3 +29,9 @@ def test_event_order_rejects_orphan():
 def test_fixed_caps_and_paths():
  import launch_cifar_stationary_continuation_review as L
  assert L.OUT==A.OUT.parent and len(A.PINS)==2 and len(A.EXEC)==40
+
+
+def test_literal_inputs_fail_before_vector_loading():
+ with pytest.raises(ValueError):A.fixed_input_names({})
+ names=('global-original-midpoint.npy','initial-point.npy','native-direct_gradient-0001-return.npy','stationary-point.npy','stationary-gradient.npy')
+ assert A.fixed_input_names(dict.fromkeys(names,{}))==names

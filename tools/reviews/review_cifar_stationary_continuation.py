@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import review_cifar_stationary_merit as M
 ROOT=Path(__file__).resolve().parents[2]
-OUT=Path('/data2/neural-shrimp-data/audits/cifar-stationary-continuation/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/cifar-stationary-continuation/attempt002/run')
 PARENT=Path('/data2/neural-shrimp-data/explore/cifar/stationary-seed/continuation001')
 EXEC='59764281d2aaeeb7ed4f18da2044dc796afb4923'
 PINS=['70194f724daad0bc1fb94812e233f2b27dc8eb32f3a8d560d6dd9d1f09a9dcea','8b2c8864d956974bc85e4f4d6a584ed53e6cdefffb79208945be31804868574a']
@@ -50,8 +50,12 @@ def bind_events(folder,events,manifest,tick):
   calls[op,idx]=z;pos+=4
  return counts,calls,extra
 
+def fixed_input_names(inventory):
+ names=('global-original-midpoint.npy','initial-point.npy','native-direct_gradient-0001-return.npy','stationary-point.npy','stationary-gradient.npy')
+ M.need(all(n in inventory for n in names),'all literal saved input names present');return names
+
 def audit(tick,save):
- M.inventory(PARENT,PINS[0],tick);inv=M.inventory(PARENT/'run',PINS[1],tick)
+ M.inventory(PARENT,PINS[0],tick);inv=M.inventory(PARENT/'run',PINS[1],tick);fixed_input_names(inv)
  M.inventory(M.PARENT,M.PINS['parent'],tick);M.inventory(M.PARENT/'run',M.PINS['worker'],tick);M.inventory(PRIOR,PRIOR_PIN,tick)
  prior=M.read(PRIOR/'run/outcome.json');M.need(prior['passed']and prior['native_calls']==0,'prior acceptance audit passed')
  row=M.read(PARENT/'run/result.json');outer=M.read(PARENT/'launcher-result.json');old=M.read(M.PARENT/'run/result.json');M.source(PARENT,row,EXEC);M.source(M.PARENT,old,M.EXEC)
@@ -63,7 +67,7 @@ def audit(tick,save):
  for k in('data_identity','eta','lam','model'):M.need(ident[k]==old['input_identity'][k],'unchanged objective '+k)
  M.need(M.read(PARENT/'run/input-identity.json')==ident,'identity mirror')
  folder=PARENT/'run';load=lambda n:M.vector(folder/n);oldload=lambda n:M.vector(M.PARENT/'run'/n)
- origin=load('global-original-midpoint.npy');x=load('initial-point.npy');g=load('initial-gradient.npy')
+ origin=load('global-original-midpoint.npy');x=load('initial-point.npy');g=load('native-direct_gradient-0001-return.npy')
  M.need(M.same(origin,oldload('initial-point.npy'))and M.same(x,oldload('final-point.npy'))and M.same(g,oldload('final-gradient.npy')),'unchanged original trust origin and accepted starting point')
  events=[json.loads(z)for z in(folder/'events.jsonl').read_text().splitlines()];counts,calls,extra=bind_events(folder,events,inv,tick)
  M.need(counts==dict(hvp=1030,direct_gradient=23),'full actual call counts');M.need(row['operation_attempted']==row['operation_returned']==dict(action=0,j2vp=0,**counts),'reported full call counts')

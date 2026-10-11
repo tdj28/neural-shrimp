@@ -13627,3 +13627,11 @@ Attempt001 source01e64111 stopped0.168s/64912KiB/0native before physical target 
 ### 2026-10-11 UTC — Four-step saved CIFAR audit admitted
 
 Clark independently reviews01e64111 source/binding/resource PASS,12combined controls0.20s. Run sole0-native attempt001 from clean current source; same60s1GiB4MiB worker/75+5s6MiB owned limits. Own full98666D synthetic profile before target arrays. Exact current-state acceptance only; final stationarity remains an independent tested condition.
+
+### 2026-10-11 UTC — Exact local physical stability corner PASS
+
+Same independently proved primitive18 unit-pair/simple-flip root, source9f6776ed, attempt002 outerd811ef49ad4dc22dd6cce5da3c630e66d13f4a170ec285e29af19a74dae70ff3. Fresh512 saved arithmetic reconstructs55root, full10-mode stable complement and previous crossing, then state-motion/nonnormal-coupled physical gradients. Determinant[-148.32 +/-0.00887] excludes zero; sigma gradients[-0.010668,-27.4824], tau[-11.0348,-14523.00]. Existing unit-locus flip crossing agrees[-5.397 +/-0.00024].1.323s76040KiB0native; all raw/source inventories and owned exits verified. Full-state IFT and continuity yield a qualitative open primitive attracting18 sector sigma<0,tau>0. No finite wedge extent or global boundary join inferred. Independent alternate derivative implementation requested before promotion to independently checked paper result.
+
+### 2026-10-11 UTC — Four-step audit filename correction
+
+Saved audit001 source9f6776ed stopped2.909s41792KiB before acceptance arithmetic on missing initial-gradient.npy; actual source uses native-direct_gradient-0001-return.npy. Full immutable/source and owned process check retained in failed receipt. Same original trust/data/math/caps; corrected first-return path with unchanged prior-gradient byte equality and explicit fixed-name inventory preflight.7controls0.10s plus actual filename manifest preflight PASS. Fresh attempt002 after narrow independent clearance.

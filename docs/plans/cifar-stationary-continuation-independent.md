@@ -16,3 +16,12 @@ owned75+5s/6MiB supervisor. Fresh full98666D synthetic fsum serialization
 profile before target arrays,24×time+15<60s. Complete original input inventory
 hashing included in wall-clock ceiling. Retain every failure unchanged.
 Peer source/control review before attempt001.
+
+## Literal saved-gradient correction before attempt002
+
+Attempt001 stopped2.909s/41792KiB after immutable/source checks, before
+acceptance arithmetic: the producer stores its fresh initial gradient only as
+native-direct_gradient-0001-return.npy, not initial-gradient.npy. Use the actual
+first-call return, require byte equality with the prior accepted final gradient,
+and preflight all fixed filenames against the authenticated inventory. Same
+mathematics, data and budgets. Preserve outerc77c54aa and use fresh attempt002.
