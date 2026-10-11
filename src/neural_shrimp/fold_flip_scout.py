@@ -33,3 +33,27 @@ def qualify(y,value,data):
     plus_gap=float(min(abs(values[j]-1)for j in range(n)if j!=plus));minus_gap=float(min(abs(values[j]+1)for j in range(n)if j!=minus))
     gates=dict(residual=bool(max(abs(value))<1e-9),positive_rates=bool(y[n]>0 and y[n+1]>0),primitive=all(v>1e-5 for v in divisors.values()),plus_one=bool(abs(values[plus]-1)<1e-7),minus_one=bool(abs(values[minus]+1)<1e-7),simple=bool(min(plus_gap,minus_gap)>1e-5),eigensystem=bool(max(residuals)<1e-9),complement=bool(max((abs(values[j])for j in others),default=0)<1-1e-5))
     return dict(passed=all(gates.values()),gates=gates,divisors=divisors,eigenvalues=[[float(v.real),float(v.imag)]for v in values],eigen_residuals=residuals,plus_index=plus,minus_index=minus,plus_gap=plus_gap,minus_gap=minus_gap,complement_max_modulus=float(max((abs(values[j])for j in others),default=0)),scope='Floating simultaneous native plus/minus-one proposal only; no rigorous multiplicity, generic fold/flip, unfolding, or branch connection.')
+
+
+def damped_correct(evaluate,seed,*,max_evaluations=64,max_steps=16,observe=lambda k,v:None):
+    """Bounded finite proposals; accepted full steps keep the original .1 guard."""
+    y=np.array(seed,dtype=float);calls=0
+    def call(z):
+        nonlocal calls
+        if calls>=max_evaluations:raise RuntimeError('fixed augmented evaluation cap')
+        calls+=1;observe('augmented_input',dict(index=calls,y=z.copy()))
+        v,J,d=evaluate(z);observe('augmented_return',dict(index=calls,value=v,jacobian=J,native=d));return v,J,d
+    v,J,d=call(y)
+    for iteration in range(max_steps+1):
+        norm=float(max(abs(v)))
+        if norm<1e-10:return y,v,J,d,calls
+        need(iteration<max_steps,'fixed accepted Newton step cap');step=np.linalg.solve(J,-v);observe('augmented_step',dict(iteration=iteration,step=step.copy()));accepted=False
+        for k in range(9):
+            alpha=2.**(-k);trial=y+alpha*step;guard=bool(max(abs(alpha*step)/np.maximum(1.,abs(y)))<.1);record=dict(iteration=iteration,backtrack=k,alpha=alpha,trial=trial.copy(),local_guard=guard,passed=False)
+            if guard:
+                tv,tJ,td=call(trial);tn=float(max(abs(tv)));record.update(old_residual=norm,new_residual=tn,passed=bool(tn<=(1-1e-4*alpha)*norm))
+                if record['passed']:y,v,J,d=trial,tv,tJ,td;accepted=True
+            observe('line_search',record)
+            if accepted:break
+        need(accepted,'fixed residual-decreasing line search failed')
+    raise AssertionError('unreachable')

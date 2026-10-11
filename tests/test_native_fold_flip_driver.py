@@ -23,7 +23,7 @@ def test_isolated_archive_closure_and_launcher_same_path(tmp_path):
 def test_full_unrelated_profile_and_inclusive_count(tmp_path,monkeypatch):
  monkeypatch.setattr(D.C,'OUT',tmp_path);monkeypatch.setattr(D.C,'SETTINGS',D.SETTINGS);w=D.C.Work();D.profile(w);r=D.read(tmp_path/'profile.json')
  assert r['passed']and r['target_arrays_unopened']and w.calls==432
- assert D.SETTINGS['native_calls']==432+13*36+18*18
+ assert D.SETTINGS['native_calls']==432+65*36+18*18
  assert len(list((tmp_path/'events').glob('*native_input*')))==432
 
 def test_complete_localization_retains_adjacent_and_both_full_reverse(monkeypatch):

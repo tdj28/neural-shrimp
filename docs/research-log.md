@@ -16033,3 +16033,7 @@ Stability independently reviewed helperc2ce8dbc and complete caller3cfb4585 PASS
 ### 2026-10-11 — undamped native41 localization rejected
 
 Attempt001 source85977e04 stopped after two full41 target evaluations/504 inclusive phases in7.208s. The first finite Newton proposal increased residual .01570→.28016, and the next full-mode step violated the unchanged.1 relative guard. All values/Jacobians/native returns/steps are immutable and no root is promoted. A bounded residual-decreasing line search with unchanged accepted-step guard is the next proposal. Exact source/inventory/ownership verified; outer6a843ae4e44226c5cba7f818f0a00f98a6691ef607ac2ec709cb5c9ef03780be.
+
+### 2026-10-11 — bounded damped numerical41 amendment prepared
+
+Following retained undamped001 residual increase, fresh002 keeps the.1 full-state step guard and adds actual max-residual decrease on a bounded dyadic line search. At most64 full41 evaluations/16 accepted steps, unchanged adjacent and two reverse associations;3096inclusive phases, same240s3GiB256MiB. Nine controls pass5.81s, including actual metadata, non-descent/resource rejection and full unrelated profile. Old failure is mandatory; no target run or scientific threshold relaxation.

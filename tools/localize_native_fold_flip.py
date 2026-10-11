@@ -5,11 +5,11 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'src')]
 import scout_native470_flip_extension as D
 C=D.C;need,read,entry=C.need,C.read,C.entry
-from neural_shrimp.fold_flip_scout import augmented,qualify
+from neural_shrimp.fold_flip_scout import augmented,qualify,damped_correct
 from neural_shrimp.signed_flip_scout import evaluate,flat,qualify as signed_qualify
-OUT=D.OUT.parents[2]/'fold-flip-localization001/attempt001/run';CARD='docs/plans/native-fold-flip-localization-inputs.json'
-SETTINGS=dict(period=18,newton_evaluations=12,adjacent_evaluations=1,reverse_evaluations=18,profile_evaluations=12,native_calls=1224,seconds=240,rss_bytes=3*1024**3,as_bytes=8*1024**3,raw_bytes=256*1024**2)
-FILES=sorted(set(D.FILES+[CARD,'docs/plans/native-fold-flip-localization.md','docs/reviews/native470-flip-extension002.json','src/neural_shrimp/fold_flip_scout.py','tools/localize_native_fold_flip.py','tools/launch_native_fold_flip.py','tests/test_native_fold_flip_driver.py','tests/test_fold_flip_scout.py']))
+OUT=D.OUT.parents[2]/'fold-flip-localization001/attempt002/run';CARD='docs/plans/native-fold-flip-localization-inputs.json'
+SETTINGS=dict(period=18,newton_evaluations=64,adjacent_evaluations=1,reverse_evaluations=18,profile_evaluations=12,native_calls=3096,seconds=240,rss_bytes=3*1024**3,as_bytes=8*1024**3,raw_bytes=256*1024**2)
+FILES=sorted(set(D.FILES+[CARD,'docs/plans/native-fold-flip-localization.md','docs/reviews/native470-flip-extension002.json','src/neural_shrimp/fold_flip_scout.py','tools/localize_native_fold_flip.py','tools/launch_native_fold_flip.py','tests/test_native_fold_flip_driver.py','tests/test_fold_flip_scout.py','docs/reviews/native-fold-flip-localization001.json']))
 
 def owned_source(w,p,spec,exitcode):
  for b,k in ((p,'outer'),(p/'run','worker')):C.C.L.K.inventory(b,spec[k]['sha256'],w)
@@ -23,6 +23,7 @@ def binding(w,card,metadata_only=False):
  need(card['status']=='reviewed'and card['settings']==SETTINGS,'fixed reviewed41 packet');old=C.SETTINGS
  try:C.SETTINGS=D.SETTINGS;D.binding(w,card['preceding'],metadata_only=True)
  finally:C.SETTINGS=old
+ prior=card['undamped_failure'];priorp=Path(prior['root']);need(priorp==OUT.parents[1]/'attempt001','literal undamped failure');po=owned_source(w,priorp,prior,2);need(po['error']=='ValueError: local full41 step'and po['native_calls']==504,'immutable two-evaluation failed correction')
  spec=card['failed'];p=Path(spec['root']);need(p==D.OUT.parent,'literal failed extension');o=owned_source(w,p,spec,2)
  need(o['error']=='RuntimeError: fixed full return cap'and o['native_calls']==3096 and spec['accepted_points']==17 and spec['full470_reverse_joins']==16,'retained capped attempt')
  need(entry(p/spec['last_point_file'])==spec['last_point_pin'],'literal accepted final point')
@@ -41,17 +42,11 @@ def profile(w):
  inp,x=C.C.L.K.fixture();n=13;y=np.r_[[float(v.mid())for v in x[:n+2]],np.ones(n)/np.sqrt(n),np.arange(1,n+1)/np.linalg.norm(np.arange(1,n+1))];model=C.TanhMap(inp);times=[];sizes=[];w.save('profile-inputs.json',dict(map_inputs=inp,y=y))
  for i in range(12):
   start=time.monotonic();size=w.used;w.observe('evaluation_input',dict(index=i,y=y));v,J,d=augmented(model,y,18,w.tick,w.observe);w.observe('evaluation_return',dict(index=i,value=v,jacobian=J,native=d));times.append(time.monotonic()-start);sizes.append(w.used-size)
- forecast=time.monotonic()-w.start+44*max(times)+30;raw=w.used+44*max(sizes)+32*1024**2;rss=2*resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+256*1024
+ forecast=time.monotonic()-w.start+148*max(times)+30;raw=w.used+148*max(sizes)+32*1024**2;rss=2*resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+256*1024
  a=dict(passed=forecast<240 and raw<256*1024**2 and rss<3*1024**2,seconds=times,bytes=sizes,forecast_seconds=forecast,forecast_bytes=raw,forecast_rss_kib=rss,native_calls=w.calls,target_arrays_unopened=True);w.save('profile.json',a);need(a['passed']and w.calls==432,'full unrelated41 measured profile')
 
 def localize(model,seed,targets,w):
- y=seed.copy();last=None
- for i in range(12):
-  w.observe('augmented_input',dict(index=i,y=y));v,J,d=augmented(model,y,18,w.tick,w.observe);w.observe('augmented_return',dict(index=i,value=v,jacobian=J,native=d));last=(v,J,d)
-  if max(abs(v))<1e-10:break
-  need(i<11,'fixed twelve augmented evaluations');step=np.linalg.solve(J,-v);w.observe('augmented_step',dict(index=i,step=step));need(max(abs(step)/np.maximum(1.,abs(y)))<.1,'local full41 step');y+=step
- else:raise AssertionError('unreachable')
- augmented_count=i+1;v,J,d=last;report=qualify(y,v,d);need(report['passed']and abs(y[13]-seed[13])<.3 and abs(y[14]-seed[14])<.02 and max(abs(y[:13]-seed[:13]))<.1,'complete nearby native plus/minus proposal')
+ y,v,J,d,augmented_count=damped_correct(lambda z:augmented(model,z,18,w.tick,w.observe),seed,max_evaluations=64,max_steps=16,observe=w.observe);report=qualify(y,v,d);need(report['passed']and abs(y[13]-seed[13])<.3 and abs(y[14]-seed[14])<.02 and max(abs(y[:13]-seed[:13]))<.1,'complete nearby native plus/minus proposal')
  qp=d['q_phases'][1];wp=d['w_phases'][1];adj=np.r_[d['orbit'][1],y[13:15],qp/np.linalg.norm(qp),wp/np.linalg.norm(wp)];w.observe('adjacent_input',dict(y=adj));av,aJ,ad=augmented(model,adj,18,w.tick,w.observe);w.observe('adjacent_return',dict(value=av,jacobian=aJ,native=ad));ar=qualify(adj,av,ad);need(ar['passed'],'literal adjacent phase primitive/simple/complement')
  joins=[]
  for target in targets:

@@ -25,3 +25,15 @@ and corresponding bytes plus32MiB; doubled observed RSS plus256MiB. Fixed240s/
 fresh host headroom. No retry/continuation grid. Seven helper/caller controls
 pass5.79s, including actual source metadata, unrelated full-size profile and
 isolated archive. Card remains prepared until independent caller review.
+
+Amendment11October, after preserved undamped001: one full Newton step increased
+residual before the next local-step guard rejected. Fresh002 uses at most16
+accepted Newton steps and64 augmented evaluations, nine fixed dyadic line-search
+proposals per step. The identical.1 relative accepted-step guard is enforced
+before every trial acquisition; a trial must also decrease max residual by
+Armijo factor1−10^-4 alpha. Every guarded/skipped/evaluated/rejected trial remains
+visible; no resource failure becomes a retry. Adjacent/primitive/spectrum/rate/
+state/reverse gates are unchanged. Total432profile+65*36+18*18=3096native phases;
+forecast148 times measured full36 evaluation plus30s and corresponding bytes.
+All time/RSS/AS/raw limits unchanged. Undamped001 exact inventory/source/outcome
+is mandatory. Fresh profile precedes targets again. Nine controls pass5.81s.
