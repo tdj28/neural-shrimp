@@ -21,6 +21,7 @@ OUT=PARENT.parents[1]/'signed-flip-first001/attempt001/run'
 CARD='docs/plans/native470-first-flip-inputs.json'
 WEIGHTS=['1']*470
 EXTRA_BINDING=None
+TARGET_SETUP=None
 SETTINGS=dict(period=18,sigma=-1,halfwidth_exponent=-8,radius_exponent=-14,newton_steps=2,precision=256)
 FILES=[CARD,'docs/plans/native470-first-flip.md','tools/probe_native470_first_flip.py','tools/launch_native470_first_flip.py','tests/test_native470_first_flip.py']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
@@ -77,11 +78,15 @@ def main():
    raw=(ROOT/n).read_bytes();need(raw==subprocess.check_output(['git','show',commit+':'+n],cwd=ROOT),'exact committed source');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw);w.used+=len(raw)
   with ctx.workprec(256):
    profile(w);card=read(ROOT/CARD);known,inp=binding(w,card)
+  if TARGET_SETUP is None:
    # Restore512-bit inherited balls exactly before proposing a256-bit finite center.
-  with ctx.workprec(512):box=[original_ball(v)for v in known['box']]
+   with ctx.workprec(512):box=[original_ball(v)for v in known['box']]
+   with ctx.workprec(256):
+    initial=[exact_mid(v+arb(0))for v in box];normal=['0']*468+['1','0'];origin=initial;parameter='0';anchor=dict(box=box,period=18,sigma=-1,dimension=13)
+  else:known,initial,normal,origin,parameter,anchor=TARGET_SETUP(w,known,inp)
   with ctx.workprec(256):
-   initial=[exact_mid(v+arb(0))for v in box];normal=['0']*468+['1','0'];anchor=dict(box=box,period=18,sigma=-1,dimension=13);w.stage='target';w.save('target-inputs.json',dict(map_inputs=inp,known=known,initial=initial,normal=normal,origin=initial,parameter='0',settings=SETTINGS,weights=WEIGHTS));result['target_acquired']=True
-   r,_=quadratic_tube(RetainedMap(TwoRateCuspMap(inp),w.observe),initial,normal=normal,origin=initial,parameter='0',anchor=anchor,weights=WEIGHTS,**SETTINGS,tick=w.tick,observe=w.observe)
+   w.stage='target';w.save('target-inputs.json',dict(map_inputs=inp,known=known,initial=initial,normal=normal,origin=origin,parameter=parameter,settings=SETTINGS,weights=WEIGHTS));result['target_acquired']=True
+   r,_=quadratic_tube(RetainedMap(TwoRateCuspMap(inp),w.observe),initial,normal=normal,origin=origin,parameter=parameter,anchor=anchor,weights=WEIGHTS,**SETTINGS,tick=w.tick,observe=w.observe)
    need(w.ticks==278 and w.native==276,'complete profile and one native470 tube');result.update(passed=r['passed'],status='anchored_signed470_tube_passed'if r['passed']else'complete_bound_failure',gates=r['gates'],contraction=r['contraction'],strict_inclusions=sum(r['coordinate_inclusions']),anchor_inclusions=sum(r['anchor_check']['coordinate_inclusions']),anchor_parameter_inside=r['anchor_check']['parameter_inside'],physical_endpoints=[v[-2:]for v in r['endpoint_root_boxes']],scope='Connected local primitive18 sigma−1 locus through the same certified junction; no full-chart complement or generic flip normal form follows.')
  except BaseException as e:result.update(status='failed_or_interrupted',error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:

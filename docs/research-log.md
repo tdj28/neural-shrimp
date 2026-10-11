@@ -9247,3 +9247,7 @@ Source-only41D localization helper keeps all13 state coordinates, both physical 
 ### 2026-10-11 — fixed numerical41 localization packet ready
 
 The helper received Stability’s independent mathematical review. Completed caller retains all capped extension evidence, binds the accepted near+1 native return, and demands adjacent-phase plus two full470 reverse associations. Seven controls pass5.79s, including actual metadata and full unrelated12×36-phase profile. Fixed1224 total phases/240s3GiB256MiB; no target acquired. Independent caller review and committed admission remain required.
+
+### 2026-10-11 — first advancing signed470 source ready
+
+Prepared one fresh width1/32 chart centered−9/256 in the unchanged native hidden-rate gauge, joining the independently proved left470 endpoint exactly at−1/256. Same rho2^-14/weights, unchanged fresh126 native target calls and every proof/divisor/anchor gate. Old quadratic extrapolation is only a finite proposal. Nine source/binding/default-driver controls pass; actual independent schema checked before launch. A generated missing token space produced a Python syntax warning, corrected before source admission. Same measured synthetic profile plus actual prior-cost floor and240s4GiB768MiB caps. Card prepared; no target acquired.
