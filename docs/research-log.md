@@ -12579,3 +12579,21 @@ Fresh attempt002 profile passes:3.3405s/417372KiB, three full retained native ca
 ### 2026-10-11 UTC — Rotated boundary batch001 independently proved
 
 Fixed independent384-bit audit passed all8 uniform705 roots and joins, including separately reconstructed prior endpoint localization and whole705 projected membership across the changed affine gauge. 133.437s/1735332KiB, zero native, owned groups absent. Outerffb057c1ac962f6b3057d610a5846062725f2c88c38ae77923d9a74f7d9dadfe. Local gauge[-1/2048,255/2048] is not concatenated across rotations. Exact next completed packet pinned when present; unchanged240s/4GiB/64MiB audit, no new acquisition.
+
+### 11 October2026 — fixed reusable rotated705 continuation packet
+
+**Run card, before execution.** Preserve complete widebatch002 partial1/4 and
+all three failed bounds. Root independently384 proved that firstwidechart and
+all705 connection to447/4096. Freeze exact source/card for at most10 batches
+of8CPU1 native705 charts, rotating finite affine gauge eachbatch to follow the
+observed turn without relying on projected floating intersections. Initial
+known endpoint is independently recomputed; every gauge transition requires
+full705 projected membership, laterjoins exactsamegauge. Unchanged253-call
+quadratic kernel,256bits,precision/period/stability scope unchanged; fixed
+halfwidth1/128,radius2^-10,weights2×wideparent. Recomputed worst measured
+forecasts before arrays and unchanged full synthetic profile bind admission.
+4GiBworker×8,4GiBparent,44GiBfreshheadroom,240sworker/255+5owned,
+330sbatch/3300stotal/60GiBraw. First failedbatch stops, every finished or
+incomplete attempt retained. No paid/GPU/holdouts. Source-only controls9PASS;
+peer wrapper review still required. Generic audit interface recorded in
+native705-rotated-march.md; precise pins in native705-rotated-inputs.json.
