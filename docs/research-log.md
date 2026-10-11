@@ -9885,3 +9885,21 @@ the output root stays unopened; changed ordinal/caps and missing prerequisite
 pins are rejected. This focused control passed. Mathematical kernels and
 resource limits are unchanged. The card remains prepared with null pins while
 root independently replays remaining32 in fresh attempt003.
+
+11 October 2026 — Preparatory changed-gauge chart35 binder, root source/math
+review PASS (two controls independently reproduced6.52s). It authenticates the
+original independently localized full705 chart34 endpoint and strict projected
+uniqueness membership in chart35. known_parameter remains null, with the whole
+projection inside[-1,63]/2048; no scalar equality across gauges is asserted.
+This adds no worker, spectrum, acquisition or launch authority. The entire
+independent chart34 complementary cover remains a future prerequisite.
+
+The current chart32 independent replay failures were preserved through004.
+A separately prepared rational-range helper now uses exact quadratic extrema
+and monotonic cubic endpoints or eight fixed Bernstein hulls. Root reviewed
+and executed the fixed all-six domain screen, which passed41.233s/zero native
+on full705 root, segment, correction, predictor tangent, polarized directions,
+true tangent and acquired derivative domains. No containment gate was weakened.
+Full remaining32 replay005 is still required before the prepared33–34 packet
+can be admitted. Its independent saved adapter is source-prepared separately;
+all existing mathematical reduction kernels remain unchanged.
