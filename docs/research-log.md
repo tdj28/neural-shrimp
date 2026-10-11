@@ -8249,3 +8249,7 @@ Prepare one separate known-endpoint localization with exact copied peer-reviewed
 ###2026-10-10 — exact original endpoint derivative-domain binding
 
 Stability source review confirmed the conditional localization math but found an exact-domain binding issue before any target: decoding original whole-box radii outward can expand the authenticated derivative domain slightly. Added exact Fraction endpoint containment against original serialized whole-box records for the entire knownroot enclosure and every proposed point (including after both corrections). Outward J/root enclosures remain conservative. A synthetic radius-edge regression rejects a point admitted only by a re-decoded larger box. No target acquired; request narrow recheck.
+
+###2026-10-10 — cleared exact-domain endpoint localization card
+
+Stability independently passedefdecd12 narrow source/math recheck and5controls0.10s. Run exactly pal/endpoint-localization/attempt001 at the following source: full unrelated704 localization plus36native384 profile first; measuredforecast<240 before arrays. Then exactly two bounded old-C proposals and one final residual (108native), total144, fixed384bits/240s/4GiB/8GiBAS/128MiB andowned255+5/129MiB. Exact original derivative-domain rational guards protect every point and the whole knownroot enclosure. All705 membership uses unchanged passed003tube. Host52GiB available/load1.53,GPU0%15947MiBfree, no duplicate. Oldfailures remain immutable; no automatic retry.
