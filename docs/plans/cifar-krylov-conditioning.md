@@ -29,3 +29,14 @@ CPU1nice10 saved-only profile at full98666x256 before four historical operators,
 with fixedwall/RSS/raw caps and all attempts retained. Freeze thresholds/scopes
 above before examining actual projected outcomes; allfour cases are consumed
 and correlated development evidence.
+
+The fixed caller now binds all1053 actual original calls, every action's literal
+state/direction/output and the independently audited four acceptances. Exact
+source/archive/complete immutable producer/audit inventories and saved SciPy
+MINRES source are required. First-action Hg is explicitly a numerical estimate
+with retained alignment error. A full98666x256 unrelated deterministic two-SVD
+profile precedes scientific arrays; conservative four-unit forecast8*T+30<180s.
+SingleCPU1nice10,180s/2GiBRSS/6GiBAS/64MiB, owned195+5s/66MiB launcher. Four
+operators are sequential; no spectrum is displayed after failed Gram/recurrence
+gates, no action-span prediction is applied. Candidate directions/small matrices
+are retained exactly. No native calls or data/holdout accesses occur.
