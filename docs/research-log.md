@@ -16959,3 +16959,19 @@ Host04:49PDT:51GiB available, load3.13, GPU0%/15947MiB free/no GPU processes,
 2.6TiB disk, clean source/no owned duplicate. CPU1nice10,180s2GiB4GiBAS64MiB,
 195+5 owned with10GiB admission headroom. Independent22-prefix packet is only
 prepared and will not execute in this run. Source stays frozen during screen.
+
+### 2026-10-11 — preserve synthetic subset-profile failure and narrow proposal repair
+
+Attempt001 stopped in1.691716s/0native before any ten-failure target proof
+decode: dense full51 HiGHS proposals exceeded their nominal upper bound by
+up to4.44e-15, and exact subset verification correctly rejected them. Entire
+source/inventory/owned exits sealed. This is a floating optimization tolerance
+issue, not a RNN bound outcome. Original synthetic proposal was not saved before
+the old gate; disclosure/source retained and unrelated fixture reproduces it.
+
+Prepared fresh002 only: floating LP upper bound1-2^-30, no clipping, unchanged
+exact0<z<=1/root/contraction/full known51 tests. Complete synthetic proposal is
+saved before qualification. Original001 is a mandatory literal failure/source
+input. Twelve controls3.85s pass, including the exact dense full51 profile path,
+retention on synthetic rejection and actual historical metadata. Same180s2GiB/
+4GiBAS64MiB; source review and fresh committed admission remain before retry.

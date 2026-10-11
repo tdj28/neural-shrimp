@@ -49,3 +49,22 @@ def test_host_headroom_is_separate_from_output_cap():
  assert L.HEADROOM_KIB==10*1024**2
  source=(ROOT/'tools/launch_clark_subset_radius_screen.py').read_text()
  assert 'assert available>HEADROOM_KIB' in source and "'output_cap_bytes':66*1024**2" in source
+
+
+def test_complete_unrelated_profile_includes_dense_lp_and_retains_before_gate(monkeypatch):
+ from flint import ctx
+ class Capture:
+  def __init__(self):self.used=0;self.rows={}
+  def tick(self):pass
+  def save(self,n,v,**kw):self.rows[n]=v;self.used+=len(json.dumps(W.serial(v)))
+ with ctx.workprec(512):
+  w=Capture();W.profile(w,{'elapsed_seconds':3.8814183159265667});assert w.rows['profile.json']['passed']
+  z=w.rows['profile-full51.json.gz']['result']['verification']['proposal'];assert len(z)==51 and all(0<x<=1 for x in z)
+  old=W.S.propose
+  def bad(*a,**kw):
+   v=old(*a,**kw);v['verification']['passed']=False;return v
+  monkeypatch.setattr(W.S,'propose',bad);w=Capture()
+  with pytest.raises(ValueError,match='full51 synthetic'):W.profile(w,{'elapsed_seconds':3.88})
+  assert 'profile-full51.json.gz' in w.rows
+ assert W.S.PROPOSAL_UPPER==1.-2.**-30
+ assert W.OUT.parent.name=='attempt002'

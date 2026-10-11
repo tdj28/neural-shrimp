@@ -19,12 +19,13 @@ import review_clark_correlated as D
 import clark_subset_radius_math as S
 A,H,M,need=D.A,D.H,D.M,D.need
 PARENT,SOURCE,PINS=B.PARENT,B.SOURCE,B.PINS
-OUT=Path('/data2/neural-shrimp-data/audits/clark-subset-radius-screen/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/clark-subset-radius-screen/attempt002/run')
 CARD='docs/plans/clark-subset-radius-screen-inputs.json'
 CAPS=dict(seconds=180,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=64*1024**2,native_calls=0,precision=512,lp_seconds_each=1)
 FAILURES=list(range(3,31,3))
+FAILED=dict(root='/data2/neural-shrimp-data/audits/clark-subset-radius-screen/attempt001',source='a4883183b44980491509f485633811ed26672f70',outer='e0f18f29ac49a07dff10c05284cb28fee2a0ef17172de7c84b8037c39618db97',worker='c79a09912d3197f1584efacbf48d1db3e0610f6113cdb773091e7b1da615b7fe')
 EXPECTED={'clark_gradient_path_input':480,'path_attempt':160,'clark_correlated_path_return':160,'native_even_odd_phase':294,'explicit_amplitude_fold_return':97,'clark_gradient_path_return':480,'explicit_family_attempt':97,'paired_native_result':22,'validated_inverse':88,'cached_residual_reuse':64,'correlated_center_newton_proposal':64,'context_attempt':22,'paired_native_phase':132,'correlated_radius_proposal':32,'quadratic_predictor_proposal':32,'correlated_explicit_tube_return':32,'explicit_organizer_anchor':1}
-FILES=sorted(set(D.FILES+B.FILES+[CARD,'tools/screen_clark_subset_radii.py','tools/clark_subset_radius_math.py','tools/launch_clark_subset_radius_screen.py','tests/test_clark_subset_radius_math.py','tests/test_clark_subset_radius_driver.py','docs/plans/clark-subset-radius-screen.md','docs/reviews/clark-correlated-extent-diagnosis.json','docs/reviews/clark-correlated-extension-authority.json']))
+FILES=sorted(set(D.FILES+B.FILES+[CARD,'tools/screen_clark_subset_radii.py','tools/clark_subset_radius_math.py','tools/launch_clark_subset_radius_screen.py','tests/test_clark_subset_radius_math.py','tests/test_clark_subset_radius_driver.py','docs/plans/clark-subset-radius-screen.md','docs/reviews/clark-correlated-extent-diagnosis.json','docs/reviews/clark-correlated-extension-authority.json','docs/reviews/clark-subset-radius-screen-attempt001.json']))
 read,entry=D.read,D.entry
 
 def serial(v):
@@ -47,6 +48,7 @@ def history(spec,w,exitcode=0):
 
 def metadata(w):
  card=read(ROOT/CARD);need(card['status']=='reviewed'and card['caps']==CAPS and card['failures']==FAILURES and card['parent']==dict(root=str(PARENT),source=SOURCE,outer=PINS[0],worker=PINS[1]),'literal reviewed fixed10 screen')
+ need(card['failed_profile']==FAILED,'literal retained failed profile');fp=history(FAILED,w,2);fo=read(fp/'run/outcome.json');need(not fo['passed']and fo['native_calls']==0 and fo['error']=='ValueError: full51 synthetic reduction/LP/exact verification'and not list((fp/'run').glob('attempt-*')),'retained zero-target synthetic admission failure')
  cont=B.bind(w);need([r['attempt']for r in cont['attempts']if not r['passed']]==FAILURES,'all ten retained failures')
  run=PARENT/'run';original=read(run/'source/docs/plans/clark-correlated-extent-inputs.json');spec=original['independent_extension'];need(spec==card['independent_extension'],'same exact prior root authority');p=history(spec,w);old=read(p/'run/outcome.json');ep=read(p/'run/connected-endpoint.json');ib=read(run/'input-binding.json');need(old['passed']and old['native_calls']==0 and old['new_independent_tubes']==2 and old['range']==['0','1/2048']and entry(p/'run/connected-endpoint.json')==spec['endpoint']and len(ep['box'])==51 and A.point(ep['parameter'])==F(1,2048),'full independent original51 authority')
  need(read(run/'known-endpoint-binding.json')['endpoint']==ep and read(p/'run/input-binding.json')['map']==ib['map']and entry(Path(ib['card']['matrix']['path']))==ib['card']['matrix']['entry'],'same original phase/map/whole starting box')
@@ -90,8 +92,8 @@ def full_error_reduction(paths,recent,t,matrix,w):
 
 def profile(w,old):
  start=time.monotonic();n=51;I=M.eye(n);Z=arb_mat(n,n);J0=arb_mat([[arb(int(i==j))*arb(7)/8+arb(1,1)/2**25 for j in range(n)]for i in range(n)]);data=H.reduction([I,Z],[J0,Z,Z],[M.col([arb(1)/128]*n)]+[arb_mat(n,1)]*3,[arb(1)]*n,arb(1)/16)
- aa=[[B.bound(D.serial(data['defect'][i,j]))for j in range(n)]for i in range(n)];beta=[B.bound(D.serial(data['forcing'][i,0]))for i in range(n)];anchor=[F(1,4)]*n;proposal=S.propose(aa,beta,anchor);need(proposal['verification']['passed'],'full51 synthetic reduction/LP/exact verification')
- before=w.used;w.save('profile-full51.json.gz',dict(A=aa,beta=beta,anchor=anchor,result=proposal));unit=time.monotonic()-start;cost=max(2*10*(unit+1)+30,2*10*old['elapsed_seconds']+30);raw=max(2*10*(w.used-before)+8*1024**2,2*10*1024**2)
+ aa=[[B.bound(D.serial(data['defect'][i,j]))for j in range(n)]for i in range(n)];beta=[B.bound(D.serial(data['forcing'][i,0]))for i in range(n)];anchor=[F(1,4)]*n;proposal=S.propose(aa,beta,anchor)
+ before=w.used;w.save('profile-full51.json.gz',dict(A=aa,beta=beta,anchor=anchor,result=proposal));need(proposal['verification'] and proposal['verification']['passed'],'full51 synthetic reduction/LP/exact verification');unit=time.monotonic()-start;cost=max(2*10*(unit+1)+30,2*10*old['elapsed_seconds']+30);raw=max(2*10*(w.used-before)+8*1024**2,2*10*1024**2)
  w.save('profile.json',dict(unit_seconds=unit,forecast_seconds=cost,forecast_bytes=raw,actual_old_extension_seconds=old['elapsed_seconds'],passed=cost<180 and raw<60*1024**2,target_arrays_unopened=True,native_calls=0));need(cost<180 and raw<60*1024**2,'full51 measured admission with old actual raw-assembly floor')
 
 def target(w,paths,kinds,ib):
