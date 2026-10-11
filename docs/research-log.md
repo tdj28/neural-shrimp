@@ -6870,3 +6870,12 @@ CPU1nice10/BLAS1. Fresh705 measurement and conservative actual prior cost/raw
 floor before target arrays; no new native calls. Exact188916e9 starting root,
 all24 histories, single rotation11 and ordered strict705 joins retained.
 All failures/partial reductions preserved; no automatic proof adaptation.
+
+### 2026-10-11 — saved51 radius diagnosis admitted
+
+Stability3f76e610 source/binding/resource PASS3controls0.29s. Current available
+headroom51GiB at00:40PDT with own saved19 worker capped6GiB/CPU1. Fixed single
+30s512MiB2GiBAS4MiB/45+5owned6MiB diagnostic is admitted in parallel, zero
+native operations. Complete immutable explicit002 and exact source required;
+all5 failed radius proposals retained. Any subsequent proof adaptation needs
+fresh fullE acquisitions, source review and another disclosed card.
