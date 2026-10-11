@@ -8816,3 +8816,15 @@ processes verified. Receipt docs/reviews/native705-maintained001.json.
 Next amendment will reuse successful root5 and generalize the exact fresh
 endpoint residual localization as a bounded changed-gauge join fallback;
 source/review/profile accounting precedes new native acquisition.
+
+### 2026-10-11 — Prepare reusable saved-gradient endpoint operator
+
+Reconstruction helper preserves full native acquisition inputs and phase/mode
+ordering before feeding saved outputs into unchanged reviewed cubic assembly.
+It derives a fresh endpoint defect from the whole originalE Jacobian polynomial
+and finite midpointC. Three controls pass0.12s including exact roundoff-domain
+edge rejection, corrupted input/phase rejection and noncommuting point matrix
+identity. Initial unrelated test used1/3 instead of an exactdyadic predictor;
+changed to3/8. One test command named a nonexistent legacy filename and ran no
+controls; corrected focused command passed. No target arrays or native calls.
+Source/math peer review and full resource/binding wrapper remain before use.
