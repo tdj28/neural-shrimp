@@ -16206,3 +16206,6 @@ Sourced4c26d9f completed12 accepted native points/11 full470 reverse joins,67 ev
 Retain completed output001 and its numerical hidden-rate turn. Source-default-preserving event argument now permits one explicit smaller near+1 distance0.0001, keeping the actual unit-crossing stop and all original native qualification/reverse guards. Attempt002 starts the exact accepted terminal; unchanged32points/240returns/4536 phases and resources. Five controls pass4.72s, including actual no-array metadata, exact output association, historical default/threshold rejection and isolated closure. Card prepared; no target.
 
 Timing correction: the two manually entered curved-path preparation/admission headings above were ahead of the wall clock; corrected to their Git commit times25a92cc2 (10:26 UTC) ande470dded (10:28 UTC). Immutable execution timestamps and evidence are unchanged.
+### 2026-10-11 — admit narrower event-distance output continuation
+
+Clark independently cleared75b4b051, five controls5.27s. One fresh attempt002 resumes the literal near-positive accepted endpoint with smaller event distance0.0001 and unchanged complete native/reverse/scientific/resource gates. The original default0.01 remains untouched for prior callers. Full committed metadata and measured profile must pass before target. No new result at admission.
