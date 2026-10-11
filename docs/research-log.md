@@ -16652,3 +16652,7 @@ Root reviewed separately authored signed gradient/path assembly, unchanged indep
 ### 2026-10-11T11:29:43.959177+00:00 — Wider full470 signed boundary independently complete
 
 Independent512 replay passed all470 strict root and known-root coordinates, primitive18 divisors, on exact[-81,-17]/256, with contraction below0.076489025.51.938s700464KiB0native. Complete immutable inventories, exact archived execution7ff709c6 source and all absent owner PIDs verified. New exact-gauge connected left endpoint at−81/256 is sealed for sequential continuation. This advances the signed critical boundary; complementary stability/generic flip/global closure require their own proofs.
+
+### 2026-10-11 11:47 UTC — Prepare fresh CIFAR operator at the verified curved endpoint
+
+Prepared a full98666D fresh512 correction from the independently accepted first curved1/32 point, with new actual gradient, Hessian symmetry/finite differences, fresh two-pass basis and final true direction action. Original global5percent trust and fixed first-passing backtracking remain unchanged. Source binds the complete independent/producer ancestry before a full98666x512 profile; all historical native maxima and the retained1.109992s cold HVP enter admission. Fixed1500s4GiB RSS12GiB AS1536MiB raw,514HVP18grad,CPU1/nice10. Native returns are retained before elapsed checks. Five focused controls passed6.89s, including metadata with array/model calls prohibited and exclusive-store source closure. Card prepared pending independent source/resource review; no run performed.
