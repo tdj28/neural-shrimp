@@ -58,3 +58,17 @@ owned launcher255+5s/514MiB plus256MiB parent; require16GiB current headroom.
 All actual roots/images/endpoint corrections saved. Unpassed root/join writes
 only an unqualified endpoint candidate. No automatic retry, changed domain,
 proof clipping or complementary-spectrum inference.
+
+## 11 October 2026 UTC — measured storage amendment
+
+Attempt001 remains immutable as a synthetic admission failure: full705 math
+passed,50.2515s gives225.7544s conservative time; storage175810370B gives
+560985542B forecast, exceeding512MiB by24114630B. Target arrays stayed unopened.
+Fresh exclusiveattempt002 changes only retained raw cap to640MiB worker and
+642MiB combined owned launcher;4MiB failure reserve remains. All proof inputs,
+precision, arithmetic,240s/6GiB/10GiBAS,255+5s external and synthetic forecast
+formula are unchanged. Fresh identical full705 measured admission is mandatory.
+The complete failed001 inventories/source and its actual storage-only failure
+are authenticated before target binding. No deletion, lossy serialization,
+scientific gate relaxation or automatic further cap increase. Narrow peer
+review and a fresh source-bound run card precede this sole retry.

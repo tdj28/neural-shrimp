@@ -6405,3 +6405,7 @@ Root independently reviewedf196b033 binding/math/resource PASS, nine controls re
 ### 2026-10-10 21:26 PDT — wider705 audit001 retained storage admission failure
 
 Full705 unrelated dense synthetic polynomial proof passed,50.2515s/1010500KiB, but exact retained175810370B yields560985542B conservative forecast exceeding512MiB by24114630B. Time225.7544s and peak3182235648B forecasts fit unchanged240s/6GiB. Target arrays remain unopened; zero native calls and no target arithmetic, so no contradiction of producer proof. Worker51.058s; all immutable source/inventories and owned2169459/2169462 absence verified. Receipt native705-correlated-independent-attempt001.json, execution388029d3, outerc318dfaf4a5c564e79af21bf98a086c3e9bc4cfeea201d37978ff9d82b96a664. Prepare disclosed storage-only640MiB/fresh002 amendment under same arithmetic/time/RSS and fresh measured admission, requiring narrow peer review before launch.
+
+### 2026-10-10 21:29 PDT — narrow wider705 storage amendment prepared
+
+Retained and privately backed up001 admission failure7572a69c. Propose fresh002 with640MiB worker/642MiB owned raw caps, unchanged4MiB reserve,240s6GiB10GiBAS and all480bit mathematics/acquisition/705join gates. Explicit original001 immutable/source and storage-only failure admission binding added; full705 synthetic profile repeated before target arrays. This responds only to measured560985542B forecast exceeding536870912B; no automatic further cap increase. Narrow peer review pending, no retry launched.
