@@ -13352,3 +13352,7 @@ The sole reviewed attempt completed1.6461s/56060KiB after21.7618s/37236963B meas
 Prepare one zero-native10s bounded forcing/defect/radius diagnosis from immutable001. Exact inclusion list sums5, correcting first receipt prose6; underlying recorded booleans and computed strict_inclusions were always5. Floating positive resolvent and dyadic radii are proposals only; enlargedE requires fresh native acquisition. Source review precedes diagnostic, no native retry prepared.
 
 Prelaunch static launcher inspection caught substring replacement turning512MiB soft AS into malformed51448KiB; restored exact512MiB/2GiB hard and added a regression before any diagnostic run.
+
+### 2026-10-10 22:02 PDT — saved bridge diagnosis source cleared and admitted
+
+Root b000edda source/math/binding/limits PASS, three controls0.07s. Fresh host51GiB available/load1.31/1.84/2.07; no owned duplicate and output unused. Execute sole zero-native fixed10s448MiB2GiBAS2MiB diagnostic with25+5owned. Original tube failure immutable; floating proposed radii never prove enlarged-domain coverage.
