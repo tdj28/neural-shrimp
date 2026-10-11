@@ -16845,3 +16845,7 @@ Saved512 replay passed all470 root and known-root inequalities in every accepted
 ### 2026-10-11T12:23:00.966684+00:00 — Admit independent saved fresh-curved512 correction replay
 
 Root source/math/resource review PASS; seven controls including complete actual metadata with arrays blocked. Reuses root-authored recurrence/assembly/merit helpers byte-identically. All514HVP and10gradient associations, new512basis, actualforcing/trust/firstacceptance checked; full-size unrelated profile before saved arrays.300s4GiB8GiBAS8MiBraw, zero native. Signedmarch worker is sealed and absent; reused taskowned checkout freezes for this audit.
+
+### 2026-10-11T12:28:17.422623+00:00 — Fresh512 CIFAR correction independently reproduced
+
+All514HVP/10gradient associations, full512 recurrence/action rank, Gram/least-squares and original trust/firstmerit acceptance independently checked. Currentforcing.4862210877, firstaccepted1/128, meritratio.9956273123, gradient.000777366459.56.576s1259476KiB0native. Literal curved1/32 authority and unchanged originalglobal5percenttrust retained. Nonlinear merit obstruction persists; not a stationaryroot/cycle. Full immutable manifests/exactsource/absentowners verified.
