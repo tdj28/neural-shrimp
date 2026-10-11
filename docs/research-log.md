@@ -9203,3 +9203,7 @@ full unrelated470 arithmetic profile plus2x actual producer time/RSS floor.
 Initial synthetic mutation control aliased both DF records; corrected fixture
 uses independent copies and exercises the intended direction-disagreement
 rejection. No scientific target evaluated. Root will review/run this packet.
+
+### 2026-10-11 — prepared native signed-boundary scout checkpoint
+
+Checkpointed the unlaunched binary64 signed470 scout source as a prepared proposal. Two synthetic kernel controls passed; the complete source/binding/resource peer review and additional meaningful adapter controls remain pending. No profile or target has run. Numerical scouting will follow the independently replayed finite connected negative-one tube, with exact curved-tube initial association and retained forward/reverse full-state returns; it supplies proposals, not interval proof.
