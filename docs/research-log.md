@@ -15461,3 +15461,23 @@ signed-junction-lift001/attempt001 under the complete fixed source plan;
 actual full13/18 profile remains mandatory before saved target algebra.
 Host53,840,784KiB available andno own live scientific worker; no GPU use.
 30s/2GiB/4GiBAS/40MiB, owned45+5s/42MiB. No finite flip tube claim yet.
+
+
+### 2026-10-11 — Same known junction signed470 lift passed
+
+Source86cb452f completed profile and conditional saved mode
+transport,54 blocks/zero native calls in0.930s. Full470 state/mode/
+actual rates retained; unchanged same55 proof supplies exact signed closure.
+All input/source/inventory and owned-exit checks passed. Outer6968a0ec83d1bc26520e4652b41f7740b2c1e1fbf274dd9fd7faf9feb3a1dd43.
+Next finite signed470 tube must strictly contain this entire known root.
+
+
+### 2026-10-11 — Prepare finite signed470 junction tube
+
+Same-root signedlift passed. Prepare one source-reviewed/profile-gated native
+470 quadratic tube, unchanged sign-aware kernel, fixed hidden-rate gauge and
+whole known-root projection. Halfwidth2^-8/radius2^-14/256bits,127targetticks;
+full151tick unrelated profile precedes target arrays,276inclusive nativecalls.
+Full acquisition proxy retains inputs before calls and every complete return.
+240s/4GiB/768MiB worker,255+5owned; no finite stability claim on the two-sided
+anchoring tube. Source/card currently prepared only, no scientific launch.
