@@ -12145,3 +12145,16 @@ Clark independently passedbdb10321 binding/math/resource skim and4controls0.24s.
 Attempt003 b03d990f completed48.475s/1787044KiB/all253calls. Every705 uniformroot inclusion passes, q<.461294305; native primitive18, frame and positive whole angle pass. Only inherited coarse704 endpoint-box membership fails (274/705); the projected known-gauge uncertainty is1.26e−4. Record native-unit-pair-pal-unjoined-root.json; no connected extension claimed yet.
 
 Prepare one separate known-endpoint localization with exact copied peer-reviewed fixed-point helper8fe8c142. Two proposal corrections plus final fresh residual=108native384 calls; previous root existence/wholeJ/C retained. Full original derivative domain and knownroot intersections mandatory. Then full705 membership in the unchanged successful uniform tube. Source-reviewed synthetic full704/native36 profile precedes alltarget arrays; fixed240s/4GiB/8GiBAS/128MiB andowned255+5. Parent prepares independent705 proofreplay; stability's distinct centered/full704 localization remains separate.
+
+### 2026-10-10 — Orthogonal inverses pass; retain wide-domain failure
+
+Peer-clearedcc4494a5 completed fixed005 in4.656s/1,435,120KiB, zero native calls.
+All18 orthogonal full-frame inverses and point Lyapunov checks pass, but whole
+quotient errors0.16–0.67 accumulate to151.9066 and the sufficient uniform decrease
+fails. Receipt docs/reviews/floquet-complement-orthogonal-outcome.json binds all
+raw data and immutable outer070535a7509620f08afe042c267cb23ac977673a2228f9780143432af57b3c9d.
+This is not instability. Root agrees there will be no more basis retries.
+Prepared a conditional known-root/parameter-tangent Neumann kernel and four
+analytic/synthetic controls for the correlated method described in
+ docs/plans/unit-pair-correlated-complement.md. The full704 fixed driver/card
+is next; no target localization or new derivatives have been evaluated.
