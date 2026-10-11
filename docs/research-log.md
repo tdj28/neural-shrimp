@@ -14179,3 +14179,16 @@ output.830797,t.018951 is below the old floating scout sampled minimum, so
 that sampled point was only a coarse proposal; no physical-minimum claim yet.
 Prepare bounded maintained002 with24roots and at most8fallbacks, same global
 8400s8GiB, unchangedfull705 proofs and strict joins.
+
+### 2026-10-11 — Prepare maintained engine with bounded endpoint fallback
+
+New binding-only worker retains full331-operation proof; maintained002 admits
+at most24roots and8one-shot endpoint refinements in8400s8GiB. Same240s
+root and300s fallback caps; no successful uniform root is repeated. Only
+full-root/other-gate pass plus failed changed-gauge join can invoke fallback;
+same-gauge, incomplete, provenance, domain or resource failures stop. Full
+exact old/current native/source/root/model binding and literal originalE
+segment precede72saved replays and36freshpoint phases. Successful fixed pilot
+profile/source bytes are mandatory and measured full24+8 forecast must fit.
+13source/policy/entrypoint controls0.83s pass. Prepared policy cannot launch;
+peer review and complete actualmetadata preflight are next.
