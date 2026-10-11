@@ -16644,3 +16644,7 @@ the output root stays unopened; changed ordinal/caps and missing prerequisite
 pins are rejected. This focused control passed. Mathematical kernels and
 resource limits are unchanged. The card remains prepared with null pins while
 root independently replays remaining32 in fresh attempt003.
+
+### 2026-10-11T11:25:21.931176+00:00 — Admit full470 correlated signed-boundary independent audit
+
+Root reviewed separately authored signed gradient/path assembly, unchanged independent polynomial contraction reducer, exact full470 same-gauge known-root membership, all native payload ordering and complete source/resource binding. Eight controls reproduced3.70s; full actual metadata with scientific arrays forbidden, compressed schema and exact C0, corrupted470th anchor, and isolated closure included. Admit one saved-only512bit300s6GiBRSS10GiBAS768MiB unit, inner636MiB serialization/profile ceiling retained,315+5s owned outer770MiB,CPU1/BLAS1/nice10. Full470 unrelated profile before target arrays. Native derivatives/Arb shared and explicitly disclosed; zero new native calls, no inferred complementary stability or global closure.
