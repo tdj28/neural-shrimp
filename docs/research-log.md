@@ -9031,3 +9031,16 @@ Clark receives the literal complete source/acquisition/coverage index for fresh
 saved arithmetic; unchanged methods may resume only the precise uncovered cells
 under a new reviewed bounded card. Compact receipt native705-complement-march002
 and replay guide retain all failures and every accepted actual domain.
+
+#### Exact pending-cell resume source card (not launched)
+
+The48-attempt result supports a new bounded attempt that reuses every accepted
+cell. March003 admits only the literal eight pending cells from sealedmarch002
+(right26,25,24,23;whole27–30), plus descendants after complete negative metric
+bounds. The entire prior immutable inventory is verified before allocation;
+worker ancestry, complete prior counters/source and exact union are mandatory.
+24 maximum new attempts/4200s/8GiB raw, unchanged4x4GiB workers, depth3 and
+fresh180+180 native profile/target. Same root/localization/quotient mathematics;
+all positive results remain producer-only until independent replay. Four new
+controls and11 historical adapter/partition controls pass1.58s. The policy
+remains prepared pending independent differential review and fresh admission.
