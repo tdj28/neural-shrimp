@@ -14275,3 +14275,21 @@ Own four4GiB workers plus256MiB parent fit with explicit headroom. GPU unused.
 Exact prepared index changes only to reviewed-packet; source/math unchanged.
 Launch sole later001 with exclusive cards and measured180-phase per-worker
 profile before any180-phase target. Maximum64 attempts, no first30 duplication.
+
+### 2026-10-11 — later001 complete complementary bound failures retained
+
+Execution56a2df17 stopped correctly after first four quarters of independently
+proved chart31: no accepted cells. Two fresh constant-preconditioner Neumann
+bounds failed; first quarter localized but its complete mean-value segment did
+not fit the exact fresh-J domain; second quarter completed full11 reduction but
+failed its sufficient metric bound. All1116 calls retained(720synthetic,396target),
+67.557s/4,004,504KiB aggregate observed,669,602,665bytes, all owned processes gone.
+Outer aea25e9590f5b147d8671faf7f2c1de80acb2100d6c26cdad21f99c4f210e4b9.
+No geometry failure or instability inferred. Remaining originalcharts32–38
+unopened; automatic subdivisions stop on incomplete theorem stages as planned.
+Next diagnosis compares fixed-C domain loss against the already independently
+proved affine-preconditioner polynomial family. Its uniform image_correction
+provides a tighter known-root error enclosure, conditional on the exact same
+predictor and domain; it does not authorize reusing unacquired Jacobian domains.
+No new target launched. Peer Boundary confirms the saved independent root-image
+identity; root requests correlation diagnosis before further subdivisions.
