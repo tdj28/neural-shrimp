@@ -1,13 +1,13 @@
 {
  "figure": "f11_connected_boundary",
  "evidence_label": "3: computer-assisted proof; displayed polylines are endpoint midpoint guides",
- "alt_text": "The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance; a finite704-dimensional chart and30 further705-dimensional charts continue a complex-unit-pair branch. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.",
- "notes": "Endpoint boxes and proper full-state joins come from independent saved384-bit arithmetic. No line is interpolated across changes of gauge. Orange is connected unit-pair geometry; all eleven transverse modes are independently stable on the initial finite arc and first five705 charts. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.",
+ "alt_text": "The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance; a finite704-dimensional chart and34 further705-dimensional charts continue a complex-unit-pair branch. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.",
+ "notes": "Endpoint boxes and proper full-state joins come from independent saved384/480-bit arithmetic. No line is interpolated across changes of gauge. Orange is connected unit-pair geometry; all eleven transverse modes are independently stable on the initial finite arc and first five705 charts. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.",
  "script": "paper/gd-route/figures/f11_connected_boundary.py",
- "script_sha256": "2577784d385f9fe413f20ca64ab76b5a365575074f226999945ee77a9a1f6523",
- "git_commit_at_generation": "0233845ee172affb09c9cf706ae31616456f0988",
+ "script_sha256": "39ec46439685117714e39eb1af0ca073cc08cca1d2dd70d94a702d3d04a840fa",
+ "git_commit_at_generation": "141eb42a6fada6fd3f1706d58594b393742aaf2c",
  "worktree_dirty_at_generation": true,
- "generated_utc": "2026-10-11T01:36:44Z",
+ "generated_utc": "2026-10-11T05:38:40Z",
  "python": "3.12.14",
  "numpy": "2.5.3",
  "matplotlib": "3.11.1",
@@ -614,6 +614,56 @@
    "bytes": 3235
   },
   {
+   "path": "data:audits/native705-correlated-independent/attempt002/manifest.json",
+   "sha256": "db0c695ee52bd019239f683a7158701ad82be9728fcbd0af99359af8c9b66b79",
+   "bytes": 9730
+  },
+  {
+   "path": "data:audits/native705-correlated-independent/attempt002/run/independent-proof.json",
+   "sha256": "c8aa3eb03fe87f0cebe1e53ce837680f9c8752840e4b202903a9e044ba474371",
+   "bytes": 1132770
+  },
+  {
+   "path": "data:audits/native705-correlated-independent/attempt002/run/input-binding.json",
+   "sha256": "ac13ff36a16bd680b2b05d711580d82659d29f7ca23a63116d2709dac2320eaf",
+   "bytes": 41114
+  },
+  {
+   "path": "data:audits/native705-correlated-independent/attempt002/run/outcome.json",
+   "sha256": "f10b87f846bae1b8ef011a8a850d00129a0ed90ec452b58bcdcccd25ba3601e9",
+   "bytes": 875
+  },
+  {
+   "path": "data:audits/native705-cubic-prefix-independent/attempt001/manifest.json",
+   "sha256": "21c4c93586dfe0f71386eafb1dc39fa8de6925baf4c22837c40784125cdc27d2",
+   "bytes": 18140
+  },
+  {
+   "path": "data:audits/native705-cubic-prefix-independent/attempt001/run/chart001/independent-proof.json",
+   "sha256": "3bdb4c7dbdf7748b749920a5e1cd27462e2b4ecbb383815208d9e34f9c3de42a",
+   "bytes": 1144162
+  },
+  {
+   "path": "data:audits/native705-cubic-prefix-independent/attempt001/run/chart002/independent-proof.json",
+   "sha256": "eb71ced223a0f9da98a39bb0ab8a705fded206d3d6ff99ce17480e7bf9b8ec30",
+   "bytes": 1143751
+  },
+  {
+   "path": "data:audits/native705-cubic-prefix-independent/attempt001/run/chart003/independent-proof.json",
+   "sha256": "185cdfc78865e9dae42bc41b306e6d76d8b92f576b703c58351a8cb5f0ae300f",
+   "bytes": 1142315
+  },
+  {
+   "path": "data:audits/native705-cubic-prefix-independent/attempt001/run/input-binding.json",
+   "sha256": "1686aa8979230fe34a8b445eca97154e02f81cb826ac4403a914cedce0d33fd7",
+   "bytes": 5775
+  },
+  {
+   "path": "data:audits/native705-cubic-prefix-independent/attempt001/run/outcome.json",
+   "sha256": "e66cf5d920abc1d3e1e5b0036c6dd9e73f5b2e4accbd744a019a96ebce7c5602",
+   "bytes": 5502
+  },
+  {
    "path": "data:audits/native705-endpoint-independent/attempt001/manifest.json",
    "sha256": "93a0029c3d9f61899b0dd7c4ef574b1c7ef546fa52477bb426007e3ef6eda4e8",
    "bytes": 3654
@@ -887,6 +937,16 @@
    "path": "repo:docs/reviews/native705-batch-independent-outcome.json",
    "sha256": "21ab7cc85a4b8072195792653ca2b355a28de84b7f5c7f48fb2ce0c256138af7",
    "bytes": 7990
+  },
+  {
+   "path": "repo:docs/reviews/native705-correlated-independent-outcome.json",
+   "sha256": "ef0711390f89a5e64f95c263845b929ceff68ca6843c8acf487586cd1978244e",
+   "bytes": 9432
+  },
+  {
+   "path": "repo:docs/reviews/native705-cubic-prefix-independent.json",
+   "sha256": "5ddb3caa3d941256c89144de534ecd88baab777bf456b03ed3440c7a6f9bb7a7",
+   "bytes": 18344
   },
   {
    "path": "repo:docs/reviews/native705-endpoint-independent-outcome.json",
@@ -1343,6 +1403,62 @@
      [
       73.00268873956499,
       0.8288315087705368
+     ]
+    ]
+   },
+   {
+    "packet": "correlated",
+    "chart": 1,
+    "rates": [
+     [
+      73.02139547086269,
+      0.8287399724013923
+     ],
+     [
+      72.97287670784586,
+      0.8289836688576595
+     ]
+    ]
+   },
+   {
+    "packet": "cubic",
+    "chart": 1,
+    "rates": [
+     [
+      72.97325119643062,
+      0.8289817054366857
+     ],
+     [
+      72.92606989038286,
+      0.8292423566150073
+     ]
+    ]
+   },
+   {
+    "packet": "cubic",
+    "chart": 2,
+    "rates": [
+     [
+      72.92643204276241,
+      0.8292402415823978
+     ],
+     [
+      72.88114761360626,
+      0.8295235248739136
+     ]
+    ]
+   },
+   {
+    "packet": "cubic",
+    "chart": 3,
+    "rates": [
+     [
+      72.88149198010213,
+      0.8295212029333232
+     ],
+     [
+      72.83907974341929,
+      0.829837000041943
      ]
     ]
    }
@@ -2826,8 +2942,8 @@
  },
  "outputs": {
   "pdf": "f11_connected_boundary.pdf",
-  "pdf_sha256": "bb035d4bed63a547c68971ce303d56a7540f68f5b07543ec2a614c83bd1669ea",
+  "pdf_sha256": "25831c61c9ef6c91658d05b7c884ab817437bc71e4c4da8ebd3efa73af82db1e",
   "png": "f11_connected_boundary.png",
-  "png_sha256": "fb4aa2c39bb22282344e71272e03e6497ea54eb175db7af0e200b48206deec30"
+  "png_sha256": "3a546edd55935b92e9674e44d601781570f694cc8fb55d8c1d17ea0205680dbf"
  }
 }
