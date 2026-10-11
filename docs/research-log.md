@@ -7071,3 +7071,13 @@ control, with actual saved metadata matching. Sole saved-only attempt001,
 admission before target reductions. Host50GiB available/load2.89,2.6TiBfree,
 GPU0percent15947MiBfree/noGPUprocess. No own duplicate/exclusivepathabsent.
 All original failures retained; six-prefix scope only.
+
+### 2026-10-11 — independent six-prefix51 replay PASS
+
+All six exact critical tubes and ordered51 organizer/endpoint joins passed
+independent512 raw-path assembly and strict polynomial reductions. All24
+literal native6 contexts retain primitive1/2/3 exclusion, +1 mode and11stable
+quotient directions. Original wider attempts1/2 independently fail again.
+8.50998s105576KiB0native; full inventories/source/ownedexits verified. Exact
+endpoint b3/8192 now carries independent authority; target1/2048/generic
+endpoint remain separate. Inventory63completedrawroots.
