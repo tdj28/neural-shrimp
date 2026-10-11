@@ -7426,3 +7426,13 @@ Native actions/gradients remain shared acquisitions. Entire immutable inventorie
 archived source and absent owned2772340/2772405 verified. The producer's cold-HVP
 component cost miss remains explicit; total actual time stayed within its cap.
 See docs/reviews/cifar-curved-path-independent.json for exact receipts.
+
+### 2026-10-11 — saved native6 fold amplitude-coordinate proposal
+
+Prepare one zero-native geometry diagnosis of all66 saved independently audited
+fold points. Exact normalized b=||x-y||²/4, actual oriented phase partners and
+shared matrix genealogy replace no model or proof gate. This measures the finite
+path for a later bounded adaptive correlated51 continuation from the proved
+b=1/2048 endpoint. Preserve the duplicate overlap and original projection
+amplitude; numerical planning only. Fixed66 synthetic profile before arrays,
+30s512MiB2GiBAS8MiB,45+5owned. Source/test/card peer review precedes execution.
