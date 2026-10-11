@@ -13254,3 +13254,16 @@ Clark independently reviewed f986e271 math/source/native binding/resource gates 
 ### 2026-10-11T05:13:54.728957+00:00 — Prepare independent cubic705 proof reductions
 
 Boundary earned three new uniform producer charts after halving width, keeping unchanged proof gates; root prepares independent quartic-residual/degree5forcing/domain replay to check allthree and full known-root joins. No target audit yet. Root CIFAR saved-merit86ab814c completed α1/8actualgradient-merit ratio.9334656,1HVP5grad2.32s; raw immutable outer3d77085cf744c2bb60e1e5d905765e20e6bf2e1cb10abd28415fa20139593300, separate scalar audit delegated. Not stationarity/eigenpair/orbit.
+
+
+### 2026-10-11 UTC: four refreshed new-center proofs failed; saved diagnosis card
+
+Complete batch001 source0f595572 retained4x331 calls in59.763s,4.39MKiB
+aggregate, allownedgone. Firstq.4224 but21/705imageinclusions; laterq1.7847,
+115.628,98.539 and0/705. No curve/connection promoted, no instability inferred.
+Exact failure receipt native705-cubic-batch001-failure.json. Root independently
+checked cubic coefficient convention: d^3 coefficient and second derivative
+curvature consistent end-to-end. Diagnose retained finalNewton residual,
+forcing degree0..4, conditional finite inverse norms/condensed singularvalues,
+and gauge alignment across allfour before another target. Fixed saved-only
+90s4GiB8GiBAS16MiB,105+5 external; separate peer review before execution.
