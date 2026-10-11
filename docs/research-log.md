@@ -15787,3 +15787,7 @@ Remaining32attempt002 source2479041c validates its literal admission and complet
 ### 2026-10-11T11:18:21.959105+00:00 — Admit exact-polynomial remaining32 independent replay003
 
 Root reviewed the exact parity-aware cubic monomial helper and adapter diagnostics. Twelve controls passed14.04s, including actual4464-phase metadata with scientific decoders forbidden, complete isolated source closure, signed/cross-zero/705-dimensional polynomial controls, retained diagnostics before strict failure, and five unchanged independent core hashes. Only predictor/derivative interval construction changes; actual acquisition containment remains mandatory, all exact-point/core reductions unchanged. Preserve failed001/002. Admit one fresh003 under unchanged1800s4GiB6GiB-AS256MiB/4MiBreserve and1815+5s owned outer, CPU1/BLAS1/nice10, zero native; full705 profile before target arrays.
+
+### 2026-10-11T11:20:02.003270+00:00 — Preserve exact-polynomial audit003 containment failure
+
+The reviewed helper produces a contained full705 whole domain, but the actual predictor-tangent containment check fails at domain1 before cell reductions.25.600s917748KiB0native; complete root/whole/predictor-derivative diagnostics are retained. Exact committed source, all immutable inventory hashes and absent owners verified. Stability is examining the exact endpoints, with no relaxation of acquired-domain containment. Previous positive cells and failed attempts remain immutable.
