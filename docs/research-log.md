@@ -12468,3 +12468,18 @@ Clark passed a1a3ecb7 plus the prelaunch manifest-SHA schema correction,10 contr
 Batch002 source50fd709f completed71.675s with one connected705 chart[319,447]/4096, q.95631768/all705roots+join. Laterchart002 hasq.99346 but676/705inclusions;003/004q1.03855/1.08772, all complete253native acquisitions retained. Onlyfirstprefixadvances. Receipt native705-batch002.json.
 
 Root endorses bounded reusable8worker rotatedPAL batches after this measured limit. Preparatoryhelper localizes same endpoint fromsavedexactC/J/Taylor residual and proposes finite rotatedgauge quadratic seeds; no newproof or target now. Firstnewchart needs full projected705 membership, subsequentexactgaugejoins; nativekernel unchanged. Narrow1/128h proposed, max10batches/80charts with8CPU1/32GiB+4GiBparent/3300s/60GiBtotal and44GiBavailable. Full resource/bindingwrapper and source review pending.
+
+### 2026-10-10: first705 sufficient complementary bound unresolved
+
+Sourceac4f9cbb full-chart unit completed13.997s/1,428,824KiB and all72 native
+calls (36 unrelatedprofile+36target). All18 frames/inverses and center metric
+proposals passed, but phase remainder bounds.499..1.654 accumulated99,372.17;
+polynomialnorm.993645 and fullerrorpenalty2.8663e10. This is an enclosure
+failure, not a detected unstable multiplier. Whole known-root correction is
+only6.56e-6; next mathematical amendment will preserve quadratic path residual
+correlation in H_U(root)p′+H_s, adding a rigorous mixed Hessian bound on the
+small predictor-root segment. Original wholeJ*p′ tangent bound66.7 discarded
+this cancellation. No new basis trial or automatic subdivision. Complete
+immutable source/inputs/returns/events/failure and absent ownedPIDs verified;
+receipt docs/reviews/native705-correlated-failure.json. Boundary peer source
+review passed9controls0.48s before this fixed unit.
