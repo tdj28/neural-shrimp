@@ -2119,7 +2119,11 @@ def build():
     # Every13D agreed-census representative has an exact attracting orbit proof.
     c13p=c.ROOT/"certificates/census13-orbits-receipt.json";c13a=c.ROOT/"docs/reviews/census13-ad-independent-outcome.json"
     c13,ac13=load(c13p),load(c13a);cp13,ca13=Path(c13["producer"]["root"]),Path(c13["independent"]["root"])
-    c13s=[c13p,c13a]+bound_inventory(cp13/"manifest.json",c13["producer"]["outer"])+bound_inventory(ca13/"manifest.json",c13["independent"]["outer"])
+    # Verify every raw file, then bind the complete inventories by their hashes.
+    # Repeating thousands of native acquisitions in each macro bloats the index.
+    bound_inventory(cp13/"manifest.json",c13["producer"]["outer"])
+    bound_inventory(ca13/"manifest.json",c13["independent"]["outer"])
+    c13s=[c13p,c13a,cp13/"manifest.json",ca13/"manifest.json"]
     ao13=load(ca13/"run/outcome.json");assert ao13==ac13["outcome"]and ao13["passed"]and ao13["proofs_passed"]==26 and ao13["native_returned"]==1050
     assert c13["passed"]and c13["dimension"]==13 and c13["certified_13d_representatives"]==28 and c13["new_independent_ad_certificates"]==26
     inputbind=load(cp13/"run/input-binding.json");assert inputbind["already_proved"]==c13["reused"]and len(inputbind["all13"])==28 and [v["index"]for v in c13["new"]]==inputbind["new"]

@@ -12282,3 +12282,17 @@ All2568outer/2564worker immutable files16.884MB verified; outer4eda3681c066743f0
 ### 2026-10-11T00:34:08.434540+00:00 — independent AD proof of all26 new13D representatives
 
 All26 fixed same-box proofs independently PASS using fresh1024-bit scalar-loss AD;1050/1050 full native returns retained,55.5390s/70168KiB. Full primal/state derivative map differs from producer hand formula; contraction, strict13coordinate inclusion, everyproperdivisor and full monodromy powers independently implemented. Complete outer/worker inventories verified. Combined with two reused reviewed roots covers all28 thirteen-dimensional representatives of61agreed numerical census. Distinct window components/boundaries remain a separate geometry task. Canonical census13-orbits-receipt.json binds allmap/rate/period/input/proof identities.
+
+
+### 2026-10-11 UTC — manuscript inventory compaction
+
+The manuscript source checkpoint abe30ad3 was created after its staged-size check failed: the shell continued after the failed check. This checkpoint is retained. The enlarged number index repeated every retained acquisition across several new macros. The correction continues to verify every file in both literal raw inventories, but records those inventories transitively by their own hashes. No evidence or numerical claim changes. Rebuild and verify the number bindings, then repeat the complete staged checks before the corrective commit/push.
+
+
+### 2026-10-11 UTC — four-chart independent continuation audit card
+
+Run the fixed saved-only audit in docs/plans/native705-batch-independent.md after
+source peer review and controls. Recompute all four705-dimensional roots and
+all705-coordinate exact-gauge joins independently at384bits. One nice10CPU,
+240s/4GiB/64MiB; measured four-chart forecast61.35s plus binding overhead.
+Every failed attempt remains immutable; no native calls, paid use or holdouts.

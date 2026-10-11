@@ -112,3 +112,30 @@ def check_chart(chart,directions,paths,anchor=None,precision=384,tick=lambda:Non
             endpoints.append(vector_json([c[i]+s[i]*x+a[i]*x*x/2+ke[i,0]for i in range(N)]))
         gates=dict(uniform_root=bool(all(checks)and bound.is_finite()and bound<1),primitive_period=all(bool(v['separating_coordinates'])for v in primitive),frame_independent=bool(nonzero),positive_angle=True,anchor_identified=ac['passed'])
         return dict(passed=all(gates.values()),gates=gates,precision=precision,inclusions=sum(checks),contraction=ball_json(bound),anchor=ac,primitive=primitive,recomputed_endpoints=endpoints,scope='Independent direct polynomial/terminal-series/native block and full705 Krawczyk arithmetic. Shared source-authenticated native derivatives and Arb. Connected only with separately proved full anchor; no complementary attraction, criticality or whole-window topology.')
+
+
+def exact_gauge_join(previous, endpoint, current, precision=384):
+    """Membership of a proved endpoint, using its exact identical affine gauge.
+
+    Existence of endpoint and uniform uniqueness of current must already have
+    been independently established by the caller and bound to these charts.
+    """
+    n=705
+    for chart in (previous,current):
+        need(chart['shooting_dimension']==n and len(chart['normal'])==len(chart['origin'])==n,'complete same705 gauge')
+        sc=F(chart['parameter_center']);delta=F(2)**chart['settings']['halfwidth_exponent']
+        need(chart['parameter_endpoints']==[str(sc-delta),str(sc+delta)],'exact chart endpoints')
+    need(list(map(F,previous['normal']))==list(map(F,current['normal']))and list(map(F,previous['origin']))==list(map(F,current['origin'])),'identical exact affine gauge')
+    parameter=F(previous['parameter_endpoints'][1])
+    need(parameter==F(current['parameter_endpoints'][0]),'ordered common exact endpoint')
+    need(len(endpoint)==n,'all705 known endpoint coordinates')
+    with ctx.workprec(precision):
+        normal=[R.exact(F(v))for v in current['normal']];origin=[R.exact(F(v))for v in current['origin']]
+        e=[R.original_ball(v)for v in endpoint];c,s,a=[[R.exact(M.point(v))for v in current[k]]for k in ['center','slope','curvature']]
+        rr=[R.exact(M.point(v))for v in current['coordinate_radii']]
+        need(all(len(v)==n for v in (c,s,a,rr))and all(v>0 for v in rr),'all exact predictor coordinates and positive radii')
+        projection=sum((normal[i]*(e[i]-origin[i])for i in range(n)),arb(0))
+        need(projection.contains(R.exact(parameter)),'known exact gauge consistent with endpoint enclosure')
+        d=R.exact(parameter-F(current['parameter_center']))
+        checks=[bool(abs(e[i]-c[i]-s[i]*d-a[i]*d*d/2).upper()<rr[i])for i in range(n)]
+        return dict(passed=all(checks),coordinates=sum(checks),parameter=str(parameter),projection=ball_json(projection),scope='Strict full705 membership at the exact common parameter of identical gauges; endpoint existence and current uniqueness supplied by independent proofs.')

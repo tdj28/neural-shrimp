@@ -41,3 +41,21 @@ def test_actual_serialized_jet_schema_and_full_input_rejection():
         assert all(got[i,j].is_zero()for i in [0,1,6,7,8]for j in range(4))
         events[0]['inputs'][0][0][0]=ball_json(arb(9))
         with pytest.raises(ValueError):A.path_coefficients(c,s,a,d,events,2,1,s,c,arb(0))
+
+
+def test_exact_gauge_endpoint_join_rejects_changed_gauge_and_boundary():
+    import copy
+    from neural_shrimp.rigorous_orbits import ball_json
+    n=705
+    old=dict(shooting_dimension=n,normal=['1']+['0']*(n-1),origin=['0']*n,parameter_center='0',parameter_endpoints=['-1','1'],settings={'halfwidth_exponent':0})
+    new=dict(old,parameter_center='2',parameter_endpoints=['1','3'],center=vector_json([arb(2)]+[arb(0)]*(n-1)),slope=vector_json([arb(1)]+[arb(0)]*(n-1)),curvature=vector_json([arb(0)]*n),coordinate_radii=vector_json([arb(1)]*n))
+    endpoint=vector_json([arb(1)]+[arb(0)]*(n-1))
+    assert A.exact_gauge_join(old,endpoint,new)['passed']
+    bad=copy.deepcopy(new);bad['normal'][1]='1'
+    with pytest.raises(ValueError,match='identical exact'):A.exact_gauge_join(old,endpoint,bad)
+    bad=copy.deepcopy(new);bad['parameter_center']='4';bad['parameter_endpoints']=['3','5']
+    with pytest.raises(ValueError,match='ordered common'):A.exact_gauge_join(old,endpoint,bad)
+    bad=endpoint[:];bad[1]=ball_json(arb(1))
+    assert not A.exact_gauge_join(old,bad,new)['passed']
+    bad=endpoint[:];bad[0]=ball_json(arb(0))
+    with pytest.raises(ValueError,match='gauge consistent'):A.exact_gauge_join(old,bad,new)
