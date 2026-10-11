@@ -24,6 +24,11 @@ def fixed_frames(inp,card):
     need(len(E)==len(metrics)==18 and all(v.is_exact()and v.is_finite()for m in E+metrics for row in m.tolist()for v in row),'all18 exact finite proposals')
     return E,metrics
 
+def validate_chart_gates(chart,outcome,uniform):
+    need(all(chart['gates'][k]for k in ['uniform_full_native_unit_pair_locus','primitive_period','realified_frame_independent']),'original root/primitive/frame gates')
+    need(outcome['gates']['whole_angle_positive']and uniform['gates']['positive_angle'],'both actual original and independent entire positive-angle gates')
+
+
 def known_chart(card,ordinal,tick):
     row=select(card,ordinal);run=Path(row['producer_root']);pr=run.parents[1];unit=row['unit'];O.verify(pr,row['producer_outer']);O.verify(run,row['producer_manifest']['sha256']);rt=D.B.archived(run,row['producer_source'],'runtime.json','source')
     out=read(run/'outcome.json');po=read(pr/'outcome.json');need(po['commit']==row['producer_source']and po['passed']and po['connected_count']==8 and not po['owned_live_pids'],'complete original rotated batch')
@@ -45,7 +50,7 @@ def known_chart(card,ordinal,tick):
     need(chart['settings']=={k:row['settings'][k]for k in['precision','newton_steps','halfwidth_exponent','radius_exponent']}and chart['parameter_center']==row['settings']['parameter']and chart['parameter_endpoints']==row['parameter_endpoints'],'exact original per-chart parameter domain')
     need(io['proofs'][unit-1]['parameter_endpoints']==chart['parameter_endpoints']and io['proofs'][unit-1]['unit']==unit,'same independently proved interval')
     need(join.get('parameter')==chart['parameter_endpoints'][0]if unit>1 else join.get('parameter_inside')is True,'actual exact-gauge or projected-gauge join')
-    need(all(chart['gates'][k]for k in ['uniform_full_native_unit_pair_locus','primitive_period','realified_frame_independent','whole_angle_positive']),'all original root/primitive/frame/angle gates')
+    validate_chart_gates(chart,out,uniform)
     need({k:hashlib.sha256(json.dumps(chart[k],sort_keys=True,separators=(',',':')).encode()).hexdigest()for k in ['normal','origin','weights']}==row['geometry_hashes'],'exact frozen affine geometry')
     c,s,a=[[U.R.exact(U.M.point(v))for v in chart[k]]for k in['center','slope','curvature']];w=[U.R.exact(F(v))for v in chart['weights']]
     need(len(c)==len(s)==len(a)==len(w)==705 and all(0<v<=1 for v in w),'all705 exact coefficients and positive weights')

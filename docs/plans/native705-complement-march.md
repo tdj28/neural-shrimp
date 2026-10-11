@@ -47,3 +47,11 @@ The saved independent proof authorizes root existence, not attraction; each
 new complementary bound is a producer result until separate arithmetic replay.
 
 No target launch or fresh acquisition occurs during source preparation.
+
+Amendment after retained march001 schema failure: the original certificate
+contains root/primitive/frame/anchor gates only. Require its actual three
+non-anchor gates and the positive-angle gates in BOTH authenticated original
+outcome and independent uniform proof. The former nonexistent certificate
+field stopped all4 workers after their profiles (720 synthetic,0 target
+native calls). Keep full immutable failure as a mandatory input; use only new
+march002 output. Same mathematics,48/depth3/time/RSS/raw caps, fresh profiles.

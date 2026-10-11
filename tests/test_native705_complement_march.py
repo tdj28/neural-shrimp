@@ -31,6 +31,7 @@ def test_actual_profile_target_counts_and_owner_are_mandatory():
 
 def test_adapter_restores_historical_runner_bindings(monkeypatch,tmp_path):
     card,job=fixture();old={k:getattr(P.H,k)for k in ['BASE','CARD','FILES','geometry','bind','preserved_profile','save_bound']}
+    monkeypatch.setattr(P,'retained_failure',lambda card:None)
     monkeypatch.setattr(P.subprocess,'check_output',lambda *a,**kw:'source\n')
     monkeypatch.setattr(P,'read',lambda path:card if path==ROOT/P.CARD else job)
     def run(unit):
@@ -59,7 +60,8 @@ def test_isolated_source_archive_contains_executed_module_closure(tmp_path):
 
 
 def test_full_plan_admission_cannot_inherit_only_worker_success(monkeypatch,tmp_path):
-    card,job=fixture();monkeypatch.setattr(P.subprocess,'check_output',lambda *a,**kw:'source\n');monkeypatch.setattr(P,'read',lambda path:card if path==ROOT/P.CARD else job)
+    card,job=fixture();monkeypatch.setattr(P,'retained_failure',lambda card:None)
+    monkeypatch.setattr(P.subprocess,'check_output',lambda *a,**kw:'source\n');monkeypatch.setattr(P,'read',lambda path:card if path==ROOT/P.CARD else job)
     def run(unit):
         P.H.save_bound(tmp_path,'profile.json',dict(passed=True,forecast_seconds=321,forecast_bytes=370*1024**2,native_calls=180),[0]);return 2
     monkeypatch.setattr(P.H,'main',run);assert P.main(1)==2
@@ -77,3 +79,15 @@ def test_all_saved_index_metadata_schemas_without_dense_arrays():
         assert all(v for k,v in uniform['gates'].items()if k!='anchor_identified')and uniform['inclusions']==705
         assert join['passed']and join['coordinates']==705
         assert join.get('parameter')==row['parameter_endpoints'][0]if row['unit']>1 else join['parameter_inside']
+
+
+def test_literal_certificate_and_outcome_positive_angle_schemas():
+    chart=dict(gates=dict(uniform_full_native_unit_pair_locus=True,primitive_period=True,realified_frame_independent=True,anchor_identified=False))
+    outcome=dict(gates={'whole_angle_positive':True});uniform=dict(gates={'positive_angle':True})
+    P.M.validate_chart_gates(chart,outcome,uniform)
+    for which,key in [(outcome,'whole_angle_positive'),(uniform,'positive_angle')]:
+        which['gates'][key]=False
+        with pytest.raises(ValueError):P.M.validate_chart_gates(chart,outcome,uniform)
+        which['gates'][key]=True
+    assert P.BASE.name=='march002'
+    card,_=fixture();assert card['retained_schema_failure']['root'].endswith('/march001')

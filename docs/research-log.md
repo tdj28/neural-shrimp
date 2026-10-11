@@ -8992,3 +8992,17 @@ reviewed march001 packet with4 maximum CPU1nice10 workers, fixed24 roots,
 48 maximum attempts/depth3,16GiB combined RSS/8400s/16GiB raw. Every worker
 still must pass its fresh full profile before reading target arrays; stop
 new work at any unqualified gate. No paid/GPU/holdout or CIFAR/LM acquisition.
+
+#### March001 schema failure retained; narrow march002 amendment
+
+Executioncbe9096d completed four unrelated full180-call profiles (~25.3s each)
+but stopped each binder with KeyError whole_angle_positive before any target
+native call. The source kernel's certificate contains only root/primitive/
+frame/anchor gates; positivity is separately recorded by its original outcome
+and independent uniform proof. Preserve the720 synthetic calls, complete
+source/owned records and immutable outerb9e6eff0ca3cf18da0003d9cf2163f6ffbfd82f133588f250767f7df2cb5d18a.
+No conclusion about boundary stability follows. New validation requires the
+actual three certificate gates AND both actual positivity gates. A synthetic
+schema regression removes the nonexistent-field assumption. Fresh march002
+paths and mandatory previous complete failures; no mathematical/cap change.
+All18 focused controls pass2.70s. Narrow peer recheck required before launch.
