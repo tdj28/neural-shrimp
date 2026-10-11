@@ -42,3 +42,10 @@ def test_real_exclusive_nested_binder_namespaces(tmp_path,monkeypatch):
  w.save('input-binding.json',dict(kind='final'))
  assert len(list(tmp_path.glob('*input-binding.json')))==3
  with pytest.raises(FileExistsError):D.Prefix(w,'old-root-').save('input-binding.json',{})
+
+
+def test_retained_complete_cold_runtime_cannot_be_hidden():
+ prior=dict(outcome=dict(seconds=21),profile=dict(seconds=2))
+ assert D.measured_time(3,1,prior)==51
+ assert D.measured_time(3,3,prior)==57
+ with pytest.raises(ValueError):D.measured_time(3,1,dict(outcome=dict(seconds=-1),profile=dict(seconds=2)))
