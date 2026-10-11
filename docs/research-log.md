@@ -14831,3 +14831,16 @@ trust ball precede any gradient-squared Armijo acceptance. This is a disclosed
 exploratory adaptation, not an efficacy claim. Four synthetic acceptance,
 rejection, trust-origin and failed-backtracking controls pass0.09s. Full-size
 profile, committed run card and peer review remain required before acquisition.
+
+### 2026-10-11 — bounded fresh512 caller prepared after independent comparison
+
+Independent historical512 replay f0adc44d passed all511recurrences, full512
+Gram/SVD/least-squares and trueforcing. Its immutable source and both manifests
+are now mandatory before the proposed freshcurrent022 unit. Full-size measured
+profile precedes target arrays; fixed400s4GiB RSS12GiB AS1536MiBraw and514HVP/
+18gradient ceilings;415+5owned supervisor. Boundary cleared correction helper
+with4controls. Caller has9combined controls passing; the initial archive test
+mistook PyTorch virtual _ops/_classes module names for files, corrected to
+inspect actual files only, with full real import closure still required. No
+research acquisition yet. Run card remains prepared pending independent caller
+review; operational metadata preflight follows the source commit.
