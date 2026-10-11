@@ -15219,3 +15219,13 @@ This earns the producer global connection. Independent003/004/lift/event
 replay and later complementary stability remain separate; no complete shrimp
 claim. Next follow the same-root signed470 flip branch toward the existing
 plus-one boundary, retaining actual geometry and all native joins.
+### 2026-10-11 — measured correlated51 target packet prepared
+
+Source-only finite8attempt/6accepted adaptation retains180s2GiB512MiB and
+all existing geometry/51root/native gates. Literal two residual acquisitions
+are reused with full input/file/array digests, requiring5paths perattempt; all
+fullE derivatives freshly acquired. Profile forecasts158.583s/455347768bytes
+with2x plus4x algebra/8x context allowances. Fourteen controls pass1.22s.
+Initial keyword/import-list controls caught and corrected before target;
+isolated profile source inventory now literal. No target launched. Independent
+source/binding/cache/cap review and fresh host/card admission remain required.
