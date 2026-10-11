@@ -1,5 +1,10 @@
 {
-  "mean_authority": null,
+  "mean_authority": {
+    "outer": "e8e3a32649844788439d1173d98cf5fd55abe04f5b920d0736e36297bda3c181",
+    "root": "/data2/neural-shrimp-data/audits/tiny-lm-block-mean-independent/attempt001",
+    "source": "e4c5117a65774e98cf58ae31ab5f3c494247272c",
+    "worker": "e7233fcadb628e0a7b3afaf8fe4695c6e6ce2ac7779a4a4ebd5a5457e8351b45"
+  },
   "mean_producer": {
     "outer": "7f4fedc79c4b3ae16980e406cb768f9e32353eb48e1762d41fd7d08390c60fe5",
     "root": "/data2/neural-shrimp-data/explore/tiny-lm-block-mean/attempt001-target",
@@ -39,7 +44,13 @@
       "target": 1200
     }
   },
-  "source_review": null,
-  "status": "prepared",
+  "source_review": {
+    "full_binding_hardening": true,
+    "prepared_controls": 6,
+    "prepared_seconds": 2.79,
+    "result": "PASS",
+    "reviewer": "boundary algebra/core and complete caller/binding/resource review"
+  },
+  "status": "profile_admitted",
   "target_root": "/data2/neural-shrimp-data/explore/tiny-lm-block-first-order/attempt001-target"
 }

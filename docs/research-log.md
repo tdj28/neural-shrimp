@@ -17102,3 +17102,7 @@ Boundary independently authored full512 action/four-response/f32mean fsum core; 
 ### 2026-10-11T12:48:13.798220+00:00 — Independent block-mean replay complete
 
 All512 native action associations,32 independent fsum mean powers, four full-state nonlinear/CE response pairs and all inherited baselines independently reproduced. Accuracy failure and tenfold-improvement gate both retained exactly. 4.852s/245384KiB, zero new native calls. Complete immutable manifests, exact e4c5117a source archive and absent owners verified; this is now authority for the first-order temporal-variation diagnostic.
+
+### 2026-10-11 — Admit first-order block-variation profile
+
+Baseline independent512-action audit e4c5117a passed4.852s245384KiB with32 mean powers, all four nonlinear qualifications and original accuracy failure retained. Boundary full caller/source/binding/resource review PASS; added literal full checkpoint/token/rate/direction binding equality as recommended. All seven final controls5.73s PASS, including actual complete metadata with target object loader and native constructor forbidden, closed admission and isolated archive closure. Exactly448 targetHVP costed1200s4GiB512MiB; only unrelated2-HVP60s profile admitted now. No protected holdout, paid resources or changed training.

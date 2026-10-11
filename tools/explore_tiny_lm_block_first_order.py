@@ -24,7 +24,7 @@ RESPONSE_PROFILE=dict(root='/data2/neural-shrimp-data/explore/tiny-lm-response/a
 PAIR={'root': '/data2/neural-shrimp-data/explore/tiny-lm-pair-blocks/attempt001-target', 'source': '1c91e14fb01276a5d764e8facc65ab6585f38606', 'outer': '03022d864990b299468c026a1b1bf9210a61a028bfae91f02a604fe7fb3cc5e6', 'worker': '615376d85ffcc62f6d2a24a0799544dab16c3e4a61b18cb4fae9f2e22fc19b58'}
 PAIR_AUDIT={'root': '/data2/neural-shrimp-data/audits/tiny-lm-pair-blocks-independent/attempt001', 'source': '99e4efa111c97bc09c562dbbd30f5c90aecef1e8', 'outer': '906fc65ff04aee2d86aedf7bc1d63cd62a0016c7076412b4c8015f9b754896c5', 'worker': 'e6a22991e3bcddf5eabe74ecec5d3d8f3fd1b03083dddd27297a38a0f91b429f'}
 MEAN=dict(root=str(M.TARGET),source='858fec5feaabd4c6eee31449445330d390500a01',outer='7f4fedc79c4b3ae16980e406cb768f9e32353eb48e1762d41fd7d08390c60fe5',worker='833baaa3d853a03b71576dd3f590bdc321c12efb42571dd78676cbc1377c40fe')
-FILES=sorted(set(M.FILES+[CARD,'src/neural_shrimp/tiny_lm_block_first_order.py','tools/explore_tiny_lm_block_first_order.py','tools/launch_tiny_lm_block_first_order.py','tests/test_tiny_lm_block_first_order.py','tests/test_tiny_lm_block_first_order_driver.py','docs/plans/tiny-lm-block-first-order.md','docs/reviews/tiny-lm-block-mean-outcome.json']))
+FILES=sorted(set(M.FILES+[CARD,'src/neural_shrimp/tiny_lm_block_first_order.py','tools/explore_tiny_lm_block_first_order.py','tools/launch_tiny_lm_block_first_order.py','tests/test_tiny_lm_block_first_order.py','tests/test_tiny_lm_block_first_order_driver.py','docs/plans/tiny-lm-block-first-order.md','docs/reviews/tiny-lm-block-mean-outcome.json','docs/reviews/tiny-lm-block-mean-independent.json']))
 SETTINGS=dict(profile_counts=H.PROFILE_COUNTS,target_counts=H.TARGET_COUNTS,gates=H.GATES,blocks=8,powers=8,seeds=[28161,28162],roles=['original','quarter_step'],worker_seconds=dict(profile=60,target=1200),rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=CAP)
 
 class Store(N.Store):
@@ -89,9 +89,9 @@ def profile_binding(card,store,calls,worst,identity):
  need(current['seconds']<1200 and current['bytes']<CAP,'fixed1200s512MiB admission');store.json('profile-reference.json',dict(profile=card['profile'],original_forecast=row['forecast'],current_forecast=current));return current
 
 
-def saved_mean(label,case,old,responses,slopes,rate):
+def saved_mean(label,case,old,responses,slopes,rate,full_binding):
  run=Path(MEAN['root'])/'run';files=S.read(run/'manifest.json')['files'];row=S.read(run/label/'result.json');bind=S.read(run/label/'binding.json')
- need(bind['eta']==rate and bind['full_state']and bind['original_qualification'],'same consumed case and rate')
+ need(bind==full_binding and bind['eta']==rate and bind['full_state']and bind['original_qualification'],'same entire consumed checkpoint/token/direction/rate binding')
  powers=S.alias(run,label+'/block-mean-powers',files);need(powers.shape==(9,15776)and np.array_equal(powers[0],case['direction']),'complete independently replayed powers')
  diagonal=[]
  for i in range(8):
@@ -125,11 +125,11 @@ def main(args):
     for _ in range(2):need(np.isfinite(hvp(theta,u)).all(),'finite measured full-size HVP')
    else:
     for role in('original','quarter_step'):
-     label=f'seed-{seed}-{role}';case,rate,binding=P.load_case(run,files,records,seed,role,theta,eta);store.json(label+'/binding.json',dict(**binding,checkpoint=checkpoint,eta=rate,full_state=True))
+     label=f'seed-{seed}-{role}';case,rate,binding=P.load_case(run,files,records,seed,role,theta,eta);full_binding=dict(**binding,checkpoint=checkpoint,eta=rate,full_state=True);store.json(label+'/binding.json',full_binding)
      old,responses,slopes,eps=comparison_inputs(run,files,label,case,role)
      for name,value in old.items():store.alias(label+'/baseline-'+name,value)
      store.alias(label+'/responses',np.asarray(responses));store.json(label+'/nonlinear-readout.json',dict(slopes=slopes,epsilons=eps))
-     powers,diagonal,baseline=saved_mean(label,case,old,responses,slopes,rate)
+     powers,diagonal,baseline=saved_mean(label,case,old,responses,slopes,rate,full_binding)
      store.alias(label+'/block-mean-powers',powers);store.alias(label+'/block-diagonal-actions',diagonal)
      pred=H.correct(case['reference'],powers,diagonal,rate,hvp,lambda n,v:store.alias(label+'/'+n,v),calls.check);store.alias(label+'/first-order-prediction',pred)
      comparison=M.H.compare(pred,old,responses,slopes);comparison['comparisons']['first_order']=comparison['comparisons'].pop('block_mean');comparison['gates']=H.GATES
