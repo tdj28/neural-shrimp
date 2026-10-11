@@ -9546,3 +9546,14 @@ reduction versus actual.82475%, so only32.27% of predicted gain is realized.
 This is a directional nonlinear-model bottleneck, not merely the global trust
 limit. It motivates a separately bounded saved512-action regularized proposal
 at originalcurrent022; no new direction/trial/state transfer is admitted here.
+
+### 2026-10-11 — fixed saved five-width scalability card
+
+Prepare one zero-native60s1GiB16MiB diagnostic at the independently proved
+fresh center. All5 prescribed halfwidths retain the same actual full-quarter
+root/tangent derivative domain and all matrix uncertainties. Recompute complete
+18phase11mode reductions, preserving failed widths. Three source controls
+PASS0.32s; actual metadata-only binding PASS1.105s,18 phase files authenticated
+without target phase arithmetic. This tests whether coarser coverage is viable
+before spending native calls on the other quarters. Fixed source/card peer
+review and clean private checkpoint remain necessary before execution.
