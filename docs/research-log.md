@@ -8715,3 +8715,17 @@ actual forcing<=0.5, thirteen Armijo trials and5% total movement cap are fixed;
 failed units stop. Eigenpair work occurs only after actual stationarity<=1e−10.
 Seven combined synthetic controls PASS0.27s. See
 `docs/plans/cifar-stationary-seed.md`. No target card or acquisition yet.
+
+### 2026-10-11 UTC — fixed stationary/eigenpair CIFAR unit001 pre-run card
+
+Clark f967ff94 helper review PASS, seven controls0.19s. Prepared the exact
+attempt001 wrapper and owned launcher under
+`docs/plans/cifar-stationary-seed.md`: literal current-phase midpoint, same
+original objective/source, fresh Hessian FD/symmetry qualification, at most
+four256-action stationary Newton units and conditional33-action mode gate.
+Every attempted state/direction/return is retained; exact old negative outcomes
+remain prerequisites. Fixed1063HVP/59gradient/400s/2GiB/3GiB local envelope,
+420+5 owned launcher; measured original maxima plus2× safety/full-write allowance
+fit~374.28s. Eleven controls including isolated archive closure PASS2.50s.
+No target evaluated. Independent wrapper review/current availability precede
+the sole run. Numerical stationary/eigenpair seeding is not a cycle certificate.
