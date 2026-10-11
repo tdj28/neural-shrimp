@@ -14622,3 +14622,13 @@ Admit sole nested512001 under unchanged300s4GiB12GiBAS1GiB limits/258HVP cap.
 Full98666x512 synthetic profile must pass before target vectors; preserve any
 failure. No gradients, steps, paidruns or protecteddata. All other live research
 runs owned by their agents; root keeps frozen source until this worker exits.
+
+### 2026-10-11 — Nested512 CIFAR direction passes fixed forcing gates
+
+Execution545c1d42 complete51.228s/2335644KiB;258newHVPexact,0gradient/steps,
+full512orthogonalbasis rank512,Gram8.30e-15,freshphysicalHp agreement2.60e-12.
+Trueforcing.427388278752 vsqualified256 .644148999130, ratio.663492886473;
+bothfixed20percent and.5 gatesPASS. Samehistoricalstate018, so this is a useful
+solver comparison; currentfinalstate022 requires its own fresh512 solve.
+All rawsource/inventory/actualownedexitverified. Independent arithmetic audit
+assignedStability after activeboundary trial. Receiptcifar-nested512001.json.
