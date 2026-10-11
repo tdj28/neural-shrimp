@@ -12425,3 +12425,8 @@ all11 complementary multiplier moduli below0.843 on the original finite704arc.
 The additional705charts do not inherit this transverse bound beyond its stated
 interval. No global-window completion or language-model utility claim is added.
 The next operation compiles and renders the current source for human reading.
+
+
+### 2026-10-11T00:57:25.494309+00:00 — current reading PDF
+
+Sourcee0cca289 compiles cleanly to45pages with146-wordabstract. All450 bound numbers verify;22figures unchanged. All45pages visually contact-checked and10/17 in detail. Current PDF and immutable render receipt: docs/reviews/paper-census-connected-qa.json. Three prior entries changed in value/evidence label as disclosed;11new entries added. Full historical verify.py was not rerun. Global research remains active.
