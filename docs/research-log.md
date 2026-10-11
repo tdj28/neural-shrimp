@@ -16490,3 +16490,7 @@ Stability cleared746ef82d, all five controls18.88s including real full180-call p
 ### 2026-10-11 — full correlated profile passes; compressed historical binding retained
 
 Sourcea3f1d248 completed all180 unrelated calls/186ticks and passed measured resource admission. Plain JSON reader then rejected the historical compressed certificate before any new target call (14.639s,428172KiB). Preserve complete immutable002 source and inventories. A bounded gzip decoder and actual saved-certificate schema control will repair only packaging for exclusive003; same scientific domain and caps.
+
+### 2026-10-11 — bounded historical compressed decoder prepared
+
+Preserve full-profile002 and zero-target decode failure. Fresh003 adds only bounded plain/gzip decoding, mandatory second failure and exclusive paths. Six controls20.15s pass; two actual compressed-schema/full-saved-binding controls3.50s pass with any new native map forbidden. Scientific settings/caps unchanged. Pending narrow peer review/admission.
