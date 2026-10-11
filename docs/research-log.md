@@ -14243,3 +14243,23 @@ restriction controls pass0.14s. Boundary confirms ordered independent later31
 is quadratic correlated;32–38 cubic. Failed compact/overlapping pilots are not
 counted. This math is source-only pending peer review and a reusable bounded
 caller; no later-chart complementary target opened.
+
+### 2026-10-11 — prepared complementary proof packet for later connected charts31–38
+
+Prepared fixed eight-root source-bound continuation, with no new target acquisition.
+Original quadratic/cubic geometry and full705 joins are independently proved.
+New binder uses exact original predictor/domain plus independent480 residual
+Taylor columns and correction radii; it does not trust producer derived proof
+matrices. Fresh full705 local J/C and already reviewed cubic restriction and
+localization feed unchanged correlated tangent/full11 common-metric proof.
+Initial24 closed cells have halfwidth1/128; at most64 attempts/depth3, only
+complete negative metric bounds split. Four CPU1 workers,400s/4GiB/384MiB each,
+10800s/16GiB aggregate RSS/24GiB raw; full180-call synthetic admission before
+180 target calls per cell, no paid/GPU/holdout. Card remains prepared pending
+peer source review, actual metadata preflight and live resource admission.
+Fifteen focused controls passed1.06s. The first metadata control exposed the
+older chart31 membership schema: that historical independent function stores
+sum(checks)=705 with passed=all(checks), rather than a705-element Boolean list.
+Its literal four-field schema is now required only for source-pinned31;
+charts32–38 require every individual membership bit. No native target was read
+or evaluated during this correction. All failed geometry siblings remain bound.
