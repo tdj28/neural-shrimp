@@ -47,3 +47,13 @@ def test_inexact_inverse_and_bad_shapes_fail_closed():
  with pytest.raises(ValueError):correlated_inverse_bound([C,Z],[I,Z,Z],zeros(1),[arb(1)],arb(1),arb(1))
  with pytest.raises(ValueError):correlated_inverse_bound([I,Z],[I,Z],zeros(1),[arb(1)],arb(1),arb(1))
  with pytest.raises(ValueError):correlated_inverse_bound([I,Z],[I,Z,Z],zeros(1),[arb(-1)],arb(1),arb(1))
+
+
+def test_compact_serialization_changes_no_mathematical_inequality():
+ from neural_shrimp.rigorous_polynomial_inverse import correlated_inverse_data,serialize_correlated_inverse
+ I=eye(2);N=arb_mat([[0,8],[0,0]]);z=arb_mat(2,2);r=zeros(2);r[0][0,0]=arb((1,-20))
+ raw=correlated_inverse_data([I,-N],[I,N,z],r,[arb(1)]*2,arb((1,-10)),arb((1,-1)))
+ dense=serialize_correlated_inverse(raw);compact=serialize_correlated_inverse(raw,dense=False)
+ for k in ['passed','dimension','contraction','coordinate_inclusions','radii','whole_image']:assert dense[k]==compact[k]
+ assert 'whole_defect'not in compact and compact['derived_matrices_retained']is False
+ assert decode(compact['image_radius_ratio_upper'][0])==arb((1,-10))

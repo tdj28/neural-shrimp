@@ -8479,3 +8479,13 @@ fresh-domain proposal. None of these extrapolations are proof bounds on the
 new domain. Root notified; source/method retention will be streamlined before
 new profile/target, retaining every native input/return and finite proposals.
 Old184MB dense certificate and duplicate remain immutable.
+
+### 11 October2026 UTC — compact reconstructible proof evidence prepared
+
+First wider proof actual132.8s/3.59GiB exposed redundant dense serialization.
+Prepare optional compact output per native705-compact-evidence.md: keep every
+native input/return and exact finite inverse proposal, omit only derived dense
+J/D matrices and eventual duplicate finalcertificate. Algebra and all705 gates
+unchanged; endpoint uses already validated in-memoryD directly. Old full
+formats/defaults and all immutable evidence retained. No compact profile or
+native target yet; source review and fresh full-size measurement are next.
