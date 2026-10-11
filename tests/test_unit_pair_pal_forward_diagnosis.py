@@ -11,3 +11,12 @@ def test_geometry_retains_all705_and_projection_turn_is_only_proposal():
 
 def test_diagnostic_rejects_missing_full_uniform_theorem():
  with pytest.raises(ValueError):diagnose({'schema':'neural-shrimp-native-unit-pair-pal-v1','shooting_dimension':705,'gates':{},'coordinate_inclusions':[True]*705})
+
+
+def test_successful_full705_zero_defect_retains_all_groups():
+ from test_unit_pair_pal_conditioning import chart
+ c=chart();c['gates']={'anchor_identified':False,'primitive_period':True,'realified_frame_independent':True,'uniform_full_native_unit_pair_locus':True};c['coordinate_inclusions']=[True]*705
+ result=diagnose(c)
+ assert result['scaling']['collatz_max']==0 and result['resolvent_proposal']['nonnegative']
+ assert sum(row['strict_inclusions']for row in result['groups'].values())==705
+ assert result['groups']['angle']['coordinates']==1
