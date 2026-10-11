@@ -9054,3 +9054,11 @@ historical currentpoint actions remain separate; finalstate022 has no actions.
 Four synthetic controls pass0.24s. Source/helper review and a fully source-bound
 measured caller are required before reading scientific action arrays. No new
 CIFAR/LM native acquisition is planned or authorized by this helper.
+
+Boundary independently source-reviewed5f657356: PASS15 controls1.61s, exact
+prior inventory/accepted union/pending ancestry and unchanged360-call proof
+method confirmed. At2026-10-11 06:22:05UTC host52,623,336KiB available RAM,
+load3.00/3.40/3.41, GPU idle15,947MiBfree (unused), no own previous worker.
+Boundary reserves at most6GiBworker+4GiBparent; Clark's bounded2GiB lane does
+not conflict. Execute only the reviewed march003 with24-new-attempt caps;
+eachworker and wholepacket forecast remains mandatory before target arrays.
