@@ -13242,3 +13242,7 @@ already independently covered and must not be duplicated. No new LM run.
 ### 2026-10-11T05:00:57.087759+00:00 — Reviewed combined continuation controls and durable reading checkpoint
 
 Integrated reviewed refreshed cubic continuation and bounded negative stationary CIFAR sources;31 combined proposal/driver/solver controls PASS4.05s. Current47page reading PDF sourceb8bde3c7, PDF94265b81,148wordabstract and474verifiednumberbindings. Seven sealed raw roots/3561files/532005591bytes separately backed ontoSDA, manifest243ac07e0dfab22287eb84c0e10206fc47bc862d73dde8245c04d5641a589aad. Independent cubic convention inspection confirms curvature as second derivative and cubic as degree3 coefficient, wholeE Jacobian domains and noncommuting polynomial inverse products. Advancing batch001 failed rigorous bounds at all4newcenters; no extension promoted, saved diagnosis underway. Research remains active.
+
+### 2026-10-11T05:06:08.912840+00:00 — Prepare one mathematically justified saved CIFAR merit direction
+
+The frozen stationary .5 forcing failure is retained. For exact gradient merit eta<1 gives strict descent, so prepare a separate fixed .9-gated line search using saved MINRES256 direction and byte-exact gradient/HVP replay, unchanged5% trust bound and13dyadic trials. No target opened by this preparation. At most1HVP14gradients,90s2GiB128MiB,CPU1 and full measured/source/profile gates. Main geometry agents continue independently.
