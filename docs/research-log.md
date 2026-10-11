@@ -9150,3 +9150,11 @@ feed binary64 defect midpoint/radius norms, positive scaling and forcing-order
 budgets; hypotheses never become certificates. Fixed60s/4GiB/16MiB with75+5s
 owned launcher; bounded256MiB decode. Two synthetic controls passed0.13s.
 Peer source review and fresh host admission precede this fixed saved unit.
+
+
+### 2026-10-11 — Admit fixed saved signed470 diagnostic
+
+Clark independently reviewed bb9bae8e math/source/caps PASS; two controls0.09s
+and isolated actual-file archive import pass. Actual complete failed source/
+inventory/owner metadata preflight passed0.284s without target arrays. Proceed
+one fixed diagnosis001 after10GiB host admission; no native calls or new root.
