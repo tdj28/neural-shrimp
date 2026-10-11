@@ -4,6 +4,9 @@ THREADS = ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_N
 for key in THREADS: os.environ[key] = '1'
 import argparse, hashlib, io, json, resource, signal, subprocess, sys, time, traceback
 from pathlib import Path
+# Apply the declared worker address-space limit before loading NumPy/Torch.
+# The lightweight supervisor intentionally starts with a512MiB soft limit.
+if __name__ == '__main__': resource.setrlimit(resource.RLIMIT_AS,(8*1024**3,)*2)
 import numpy as np
 import torch
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +16,8 @@ from neural_shrimp import tiny_lm_temporal_mean as T
 need = T.need
 DATA = Path('/data2/neural-shrimp-data')
 BASE = DATA/'explore/tiny-lm-temporal-mean'
+PROFILE_ROOT=BASE/'attempt002-profile'
+TARGET_ROOT=BASE/'attempt001-target'
 CARD = 'docs/plans/tiny-lm-temporal-mean-inputs.json'
 PARENTS = {
  'profile': (DATA/'explore/tiny-lm-broader-data/attempt-001-profile','ce56de837203182187912654b9ac0200096366a15d850ed7e917fb903837d2cd'),
@@ -29,7 +34,7 @@ FILES = ['src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/ne
  'src/neural_shrimp/tiny_lm.py','src/neural_shrimp/tiny_lm_temporal_mean.py',
  'tools/explore_tiny_lm_temporal_mean.py','tools/launch_tiny_lm_temporal_mean.py',
  'tests/test_tiny_lm_temporal_mean.py','tests/test_tiny_lm_temporal_mean_driver.py',
- 'docs/plans/tiny-lm-temporal-mean.md']
+ 'docs/plans/tiny-lm-temporal-mean.md','docs/reviews/tiny-lm-temporal-mean-profile001-failure.json']
 CAP = 512*1024**2
 RESERVE = 4*1024**2
 
@@ -180,14 +185,24 @@ def card_check(card,mode):
  need(card['schema']=='tiny-lm-temporal-mean-v1' and card['target_counts']==T.TARGET_COUNTS and card['profile_counts']==T.PROFILE_COUNTS,'fixed operation card')
  need(card['seeds']==[28161,28162] and card['arm']==256 and card['step']==600 and card['control_rate_factor']==.25 and card['horizons']==list(T.HORIZONS),'fixed development design')
  need(card['worker_seconds']==dict(profile=60,target=600) and card['worker_rss_bytes']==4*1024**3 and card['worker_as_bytes']==8*1024**3 and card['worker_raw_bytes']==CAP,'fixed resource card')
- need(card['profile_root']==str(BASE/'attempt001-profile') and card['target_root']==str(BASE/'attempt001-target'),'exclusive paths')
+ need(card['profile_root']==str(PROFILE_ROOT) and card['target_root']==str(TARGET_ROOT),'exclusive paths')
  need(card['status'] in ('source_prepared','profile_admitted','target_admitted'),'explicit card status')
  if mode=='profile':need(card['status']=='profile_admitted' and card['source_review'],'source-cleared profile admission')
  else:need(card['status']=='target_admitted' and card['profile_outer'] and card['profile_worker'] and card['source_review'],'separate measured target admission')
 
 
+def preserved_profile_failure(store):
+ root=BASE/'attempt001-profile';pin='4760072e1ecaf3487b215656a98b80dc54a37cad2b87fbdcc7270173b7af8c0b'
+ files=inventory(root,pin);out=read(root/'launcher-result.json')
+ need(out['source_commit']=='a717415c7852e2e4303b089e581acad52ed3d0b4' and out['exit_code']==1 and out['owned_live_pids']==[] and out['worker_pid_absent'],'literal failed profile owner')
+ need(not(root/'run').exists() and 'failed to map segment' in (root/'process.log').read_text(),'zero-native import failure')
+ need((root/'launcher.py').read_bytes()==git_bytes(out['source_commit'],'tools/launch_tiny_lm_temporal_mean.py'),'original failed launcher source')
+ for pid in (out['launcher_pid'],out['owned_group_pid']):need(not Path('/proc',str(pid)).exists(),'failed profile owners absent')
+ store.json('preserved-profile001-failure.json',dict(root=str(root),manifest=pin,source=out['source_commit'],files=files,native_calls=0))
+
+
 def profile_binding(card,identity):
- root=BASE/'attempt001-profile';inventory(root,card['profile_outer']);inventory(root/'run',card['profile_worker'])
+ root=PROFILE_ROOT;inventory(root,card['profile_outer']);inventory(root/'run',card['profile_worker'])
  prior=read(root/'run/result.json');runtime=read(root/'run/runtime.json');owner=read(root/'launcher-result.json')
  need(prior['passed'] and prior['mode']=='profile' and prior['attempted']==prior['returned']==T.PROFILE_COUNTS,'complete successful fresh profile')
  need(runtime['sources']==identity and runtime['torch']==torch.__version__ and runtime['numpy']==np.__version__,'exact profiled source/runtime')
@@ -205,7 +220,7 @@ def main(args):
  for n in FILES:need((ROOT/n).read_bytes()==git_bytes(source,n),'committed source')
  need(identity['src/neural_shrimp/tiny_lm.py']['sha256']==NATIVE_SHA,'unchanged native model')
  card=read(ROOT/CARD);need((ROOT/CARD).read_bytes()==git_bytes(source,CARD),'committed run card');card_check(card,args.mode)
- need(args.out==BASE/f'attempt001-{args.mode}'/'run','exclusive worker path')
+ need(args.out==(PROFILE_ROOT if args.mode=='profile' else TARGET_ROOT)/'run','exclusive worker path')
  torch.set_num_threads(1);torch.set_num_interop_threads(1);torch.use_deterministic_algorithms(True)
  store=Store(args.out);calls=Calls(store,args.mode,60 if args.mode=='profile' else 600);out=dict(passed=False,mode=args.mode,native_scope='consumed development only',cases=[])
  def stop(*_):raise TimeoutError('owned temporal-mean deadline')
@@ -215,6 +230,7 @@ def main(args):
   store.json('run-card.json',card)
   for n in FILES:store.write('source/'+n,(ROOT/n).read_bytes())
   if args.mode=='target':store.json('profile-reference.json',dict(outer=card['profile_outer'],worker=card['profile_worker'],forecast=profile_binding(card,identity)))
+  preserved_profile_failure(store)
   parent,pin=PARENTS[args.mode];inventory(parent,pin,legacy=True)
   if args.mode=='target':
    histories=[history(*h) for h in HISTORY]
