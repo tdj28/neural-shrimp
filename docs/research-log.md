@@ -16045,3 +16045,7 @@ Stability cleared d5528916 damped41 with9controls6.27s; Clark cleared08dec958 ad
 ### 2026-10-11 — advancing signed470 passes; damped candidate remains unresolved
 
 Sourceeaa86c6f advancing001 passed every470 root/anchor coordinate and primitive18, q<.545203, new hidden interval[84.3415699322,84.4040699322];276phases34.682s/1723028KiB. Same independently known old endpoint joins at exact−1/256. Fresh independent replay remains outstanding; no complementary stability/global closure claim. Numerical damped41 attempt002 hit16-step cap after2232 inclusive phases21.025s;49 line-search trials/16 accepted, residual.002866. Its hidden coordinate moved to71.3585 beyond the planned local.3 guard, so no root is promoted. This suggests checking a physical-rate section turn before pursuing a simultaneous event. Both complete immutable inventories, original sources and owner exits verified.
+
+### 2026-10-11 — independent advancing470 replay adapter prepared for Root
+
+Narrow source-only adapter reuses unchanged independently authored signed470 native/path/root reducer at512bits. Exact original independent left root/gauge scalar−1/256, all new842events/native map hashes and larger h1/32 domain bound; old derivative data never substitutes. Eight old/new controls pass2.13s including full actual binding before proof arrays and isolated archive. Same300s4GiB64MiB saved-only profile/resource envelope. Root owns review/execution; card prepared and no audit arithmetic launched here.
