@@ -114,10 +114,21 @@ def orbit(args):
     out.mkdir(parents=True, exist_ok=True)
     rows = []
     previous = None
+    if args.pre_steps:
+        from neural_shrimp.cifar_reduced import descend
+
+        tic = time.perf_counter()
+        before = theta_r.copy()
+        theta_r = descend(reduced, theta_r, args.etas[0], args.pre_steps)
+        t = torch.as_tensor(theta_r)
+        pre_residual = float((reduced.update(reduced.update(t, args.etas[0]), args.etas[0]) - t).norm() / t.norm())
+        print(json.dumps({"pre_steps": args.pre_steps, "seconds": round(time.perf_counter() - tic, 1),
+                          "moved": float(np.linalg.norm(theta_r - before)), "relative_residual": pre_residual}))
     for k, eta in enumerate(args.etas):
         tic = time.perf_counter()
+        steps_taken = []
         theta_r, m, history = newton_period2(reduced, theta_r, eta, tol=args.tol, max_iter=args.max_newton,
-                                             chunk=args.chunk)
+                                             chunk=args.chunk, emit=steps_taken.append)
         seconds_newton = time.perf_counter() - tic
         t = torch.as_tensor(theta_r)
         separation = float((reduced.update(t, eta) - t).norm() / t.norm())
@@ -125,7 +136,7 @@ def orbit(args):
         values, info = spectrum(m, previous, mode)
         pairs = critical_pairs(values)
         real_top = values[np.abs(values.imag) <= 1e-9]
-        row = {"eta": eta, "newton": history, "seconds_newton": seconds_newton,
+        row = {"eta": eta, "newton": history, "newton_events": steps_taken, "seconds_newton": seconds_newton,
                "relative_separation_F": separation, "critical_pairs": pairs, "spectrum": info,
                "largest_real": float(real_top.real.max()) if len(real_top) else None,
                "smallest_real": float(real_top.real.min()) if len(real_top) else None,
@@ -161,6 +172,8 @@ def main():
             p.add_argument("--tol", type=float, default=1e-12)
             p.add_argument("--max-newton", type=int, default=10)
             p.add_argument("--spectrum", choices=("full", "shift"), default="shift")
+            p.add_argument("--pre-steps", type=int, default=0,
+                           help="gradient-descent steps in reduced coordinates before the first Newton")
     args = parser.parse_args()
     {"profile": profile, "orbit": orbit}[args.command](args)
 

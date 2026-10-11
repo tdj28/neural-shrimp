@@ -79,7 +79,7 @@ def two_step(problem, theta, eta, chunk=256):
     return t2.numpy(), t1.numpy(), m
 
 
-def newton_period2(problem, theta, eta, *, tol=1e-12, max_iter=8, chunk=256, emit=None):
+def newton_period2(problem, theta, eta, *, tol=1e-12, max_iter=8, chunk=256, emit=None, max_halvings=12):
     """Dense Newton for F^2(theta) = theta in reduced coordinates.
 
     Returns (theta, monodromy at the last iterate, history of relative residuals).
@@ -100,6 +100,27 @@ def newton_period2(problem, theta, eta, *, tol=1e-12, max_iter=8, chunk=256, emi
             break
         j = m.copy()
         j[np.diag_indices_from(j)] -= 1.0
-        theta = theta + lu_solve(lu_factor(j, overwrite_a=True, check_finite=False), -residual)
+        step = lu_solve(lu_factor(j, overwrite_a=True, check_finite=False), -residual)
         del j
+        # backtracking on the residual norm; residual evaluations cost two cheap steps
+        norm0 = float(np.linalg.norm(residual))
+        alpha = 1.0
+        for _ in range(max_halvings):
+            trial = theta + alpha * step
+            t = torch.as_tensor(trial)
+            trial_residual = (problem.update(problem.update(t, eta), eta) - t).numpy()
+            if np.all(np.isfinite(trial_residual)) and np.linalg.norm(trial_residual) < norm0:
+                break
+            alpha *= 0.5
+        if emit is not None:
+            emit({"step_fraction": alpha})
+        theta = trial
     return theta, m, history
+
+
+def descend(problem, theta, eta, steps):
+    """Plain gradient-descent steps in (reduced) coordinates."""
+    t = torch.as_tensor(np.asarray(theta, dtype=np.float64))
+    for _ in range(steps):
+        t = problem.update(t, eta)
+    return t.numpy()
