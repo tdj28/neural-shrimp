@@ -17431,3 +17431,7 @@ Fixed fit/check indices and1%/10% sufficiency gates, original first acceptance,
 60s1GiB3GiBAS32MiB/75+5owned remain. Private push/current CPU/RAM/GPU/disk
 and duplicate-process checks precede execution; fresh full98666 synthetic
 profile before target arrays. Zero native calls; all outcomes retained.
+
+### 2026-10-11 — Independent first-order temporal correction replay
+
+Source-admit one saved replay of all448 literal current/mid/state HVP chains and28 independently summed correction means in the four consumed15776D cases. Separately authored core plus Root history/resource wrapper both peer reviewed; seven controls passed4.32s/5.46s. Bind prior512-action independent powers/diagonal forcing and original two-amplitude nonlinear/CE outcomes. Preserve qualification versus original-rate accuracy versus relative-improvement gates. Zero native calls,180s1GiB2GiB-AS8MiB raw; fullsize profile and retained actual audit cost before arrays. No online/geometry-utility conclusion.
