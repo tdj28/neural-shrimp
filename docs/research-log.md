@@ -9062,3 +9062,18 @@ load3.00/3.40/3.41, GPU idle15,947MiBfree (unused), no own previous worker.
 Boundary reserves at most6GiBworker+4GiBparent; Clark's bounded2GiB lane does
 not conflict. Execute only the reviewed march003 with24-new-attempt caps;
 eachworker and wholepacket forecast remains mandatory before target arrays.
+
+#### March003 completed full remaining original-chart coverage
+
+Execution78feac55 completed24 new360-call workers in391.599s, peak combined
+RSS5,995,732KiB, immutable4,595,738,259B plus manifest. Outer8000faff79eca88efa37cec0edc04ac772a4daeb913cc0f7b946ee66537eda70.
+Sixteen accepted newcells andeight complete negative parent metric bounds,
+combined withmarch002's immutable accepted leaves, give exact closed coverage
+of all24 originalcharts7–30. This covers fourwholecharts,18half-pairs andtwo
+quarter-groups;48 accepted leaf proofs inall, not72 distinct originalcharts.
+Full inventory and actual owned PID exits verified. All11 complementary modes
+satisfy strict sufficient attraction bounds throughout these proved roots;
+the complex criticalpair remains neutral. No independent outcome replay or
+full-window classification is inferred. Independent replay guide now records
+both packets and exact union genealogy; Clark owns its fresh saved reductions.
+No more native workers remain in this lane.
