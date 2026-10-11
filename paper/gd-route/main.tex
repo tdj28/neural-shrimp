@@ -45,7 +45,7 @@ Deterministic gradient descent can converge to long periodic orbits in neural-ne
 We prove attracting cycles at \nCertifiedOrbits{} explicit settings in nonlinear networks with 13 or 72
 trainable parameters, covering all \nCensusAll{} census representatives and primitive periods up to 58.
 For a period-18 orbit, validated continuation resolves connected bifurcation structure in the
-layer-learning-rate plane: the attracting branch reaches a saddle-node, whose $+1$-multiplier locus
+layer-learning-rate plane: the branch from an attracting orbit reaches a saddle-node, whose $+1$-multiplier locus
 continues to a generic 1:1 resonance. We prove a continuous attracting interval, a transverse
 resonance unfolding in the physical rates, and a connected complex-unit branch with certified attracting sides and an interior
 learning-rate minimum. This branch reaches a certified intersection with a flip boundary,
@@ -1807,6 +1807,18 @@ The remaining bottleneck is nonlinear progress; this iterate is not treated
 as a stationary root or periodic orbit. See
 \path{docs/reviews/cifar-current512-independent.json}.
 
+A same-start regularization test chooses the shortest direction in this
+512-dimensional space with a target forcing ratio of $0.49$.
+The direction norm falls to $\xCifarRegularizedNormRatio$ times the original,
+and actual Armijo acceptance moves from $1/64$ to $1/32$.
+Nevertheless, its squared-gradient merit ratio is
+$\xCifarRegularizedMeritRatio$, worse than $\xCifarCurrentMeritRatio$ for the
+original direction. Independent spectral whitening, a separate singular-value
+solve, and compensated-sum trial reductions reproduce this comparison.
+Shortening the linearized correction alone therefore does not resolve the
+nonlinear bottleneck at this state; the better original endpoint is retained.
+See \path{docs/reviews/cifar-regularized-independent.json}.
+
 \paragraph{An exact structural reduction, with a negative solver diagnostic.}
 For the same fixed-input full-batch model with ridge term $\lambda\|\theta\|^2/2$, write the first-layer weights
 as $W=QB+N$, where $Q$ has orthonormal columns spanning a space containing $\operatorname{range}(X^\top)$,
@@ -1966,6 +1978,32 @@ directional curvature catches that failure with \nLHCurvatureFalse{} false alarm
 persistence miss it. Independent saved arithmetic reconstructs every acquired action, response,
 warning and confusion count. This comparison supplies no incremental forecasting advantage for
 the drift rule. See \path{docs/reviews/tiny-lm-horizon-independent-outcome.json}.
+
+\paragraph{Temporal-mean curvature remains insufficient.}
+Using the same two expanded-arm checkpoints and initial-gradient directions,
+we compare the measured response with powers of the full-trajectory mean
+\[
+ \bar J=I-\frac{\eta}{16}\sum_{t=0}^{15}H_L(\theta_t).
+\]
+Each power applies all sixteen saved-state Hessians to the same current vector.
+At horizon 16, the two original-rate relative vector errors are
+$\tLMMeanOriginalErrors$, compared with $\tLMResponseExpandedFrozen$ for
+frozen curvature. Both improve substantially, but both fail the fixed joint
+criterion of error below $0.2$ and tenfold improvement over the frozen error.
+
+Same-state controls at $\eta/4$ preserve the original perturbation direction
+and decrease the regularized training objective at every reference step.
+Their mean-curvature errors are $\tLMMeanControlErrors$, compared with
+$\tLMMeanControlFrozen$ for frozen curvature. All twelve direction/horizon
+rows retain the original two-amplitude, transported-response and training-CE
+slope agreement gates of 1\%. An independent audit checks all
+\nLMMeanCalls{} acquired call associations and reconstructs the mean powers
+and response metrics from the full retained vectors.
+Thus the original-rate discrepancy survives access to the mean curvature of
+the entire observed path. This comparison is retrospective: even commuting,
+time-varying Jacobians can have a product different from a power of their mean,
+so the result does not isolate matrix ordering.
+See \path{docs/reviews/tiny-lm-temporal-mean-independent.json}.
 
 \section{Discussion}
 \label{sec:discussion}

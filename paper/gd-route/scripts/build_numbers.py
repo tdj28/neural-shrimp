@@ -2385,6 +2385,27 @@ def build():
     assert lc["loss_change"]==lc["persistent_defect"]==dict(true_warning=0,false_warning=0,missed_failure=1,correct_quiet=23)and ls["drift_only_caught_failures"]==0
     lhs=[lhp,lhr/"manifest.json"];lhl="independently checked saved32 correlated consumed development prefixes; shared native acquisitions, no incremental utility"
     for macro,value,calc in [("nLHRows",ls["total_rows"],"all fixed prefixes"),("nLHEligible",ls["future_eligible_rows"],"all qualified prefixes below20percent frozen error at first two horizons"),("nLHAlready",ls["already_failing_rows"],"resolved prefixes already over threshold"),("nLHTrue",lc["drift"]["true_warning"],"sole eligible future failure also caught by gradient and curvature"),("nLHDriftFalse",lc["drift"]["false_warning"],"false drift warnings"),("nLHCurvatureFalse",lc["static_curvature"]["false_warning"],"false static-curvature warnings")]:n.add(macro,value,str(value),lhl,lhs,calc)
+    # Independent negative development comparisons; no fresh holdout or utility claim.
+    rp=c.ROOT/"docs/reviews/cifar-regularized-independent.json";rr=load(rp);root=Path(rr["root"])
+    bound_inventory(root/"manifest.json",rr["inventories"][0]["manifest"]["sha256"]);ro=load(root/"run/outcome.json")
+    assert ro==rr["outcome"]and ro["passed"]and ro["native_calls"]==0 and not ro["improves_same_start_merit"]and not ro["correction"]["stationarity_qualified"]
+    assert ro["correction"]["accepted_index"]==5 and ro["correction"]["trials"][-1]["alpha"]==1/32 and ro["regularized_merit_ratio"]>ro["baseline_merit_ratio"]
+    pp=c.ROOT/"docs/reviews/cifar-regularized001.json";pr=load(pp);proot=Path(pr["root"]);bound_inventory(proot/"manifest.json",pr["inventories"][0]["manifest"]["sha256"])
+    normratio=pr["outcome"]["comparison"]["direction_norm_ratio"]
+    label="exploratory, independently cross-checked same-start negative comparison"
+    n.add("xCifarRegularizedNormRatio",normratio,fixed(normratio,6),label,[rp,root/"manifest.json",pp,proot/"manifest.json"],"physical direction norm divided by original same-start direction norm; separate independent solve agrees")
+    n.add("xCifarRegularizedMeritRatio",ro["regularized_merit_ratio"],fixed(ro["regularized_merit_ratio"],6),label,[rp,root/"manifest.json"],"actual regularized new/old squared-gradient merit; larger accepted alpha does not imply better progress")
+    mp=c.ROOT/"docs/reviews/tiny-lm-temporal-mean-independent.json";mr=load(mp);mroot=Path(mr["root"])
+    bound_inventory(mroot/"manifest.json",mr["inventories"][0]["manifest"]["sha256"]);mo=load(mroot/"run/result.json")
+    assert mo==mr["outcome"]and mo["passed"]and mo["native_calls"]==0 and mo["counts"]==dict(hvp=1088,gradient=162,ce=58)and mo["rows"]==12 and not mo["descriptive_gate"]
+    assert [(z["seed"],z["rate_role"])for z in mo["cases"]]==[(28161,"original"),(28161,"quarter_step"),(28162,"original"),(28162,"quarter_step")]
+    assert all(z["mechanism_qualified"]and z["training_ce_slope_resolved"]for case in mo["cases"]for z in case["rows"])
+    assert all(case["small_step_monotone"]and max(case["objective_increments"])<=0 for case in mo["cases"]if case["rate_role"]=="quarter_step")
+    label="exploratory, independently cross-checked full retained temporal-mean response; consumed development"
+    for name,role,model in [("tLMMeanOriginalErrors","original","mean"),("tLMMeanControlErrors","quarter_step","mean"),("tLMMeanControlFrozen","quarter_step","frozen")]:
+        values=[case["rows"][-1]["comparisons"][model]["vector_error"]for case in mo["cases"]if case["rate_role"]==role]
+        n.add(name,values,",\\ ".join(fixed(v,5)for v in values),label,[mp,mroot/"manifest.json"],"horizon16 vector errors for two initializations in fixed seed order, "+role+" "+model)
+    n.add("nLMMeanCalls",sum(mo["counts"].values()),str(sum(mo["counts"].values())),label,[mp,mroot/"manifest.json"],"every retained input and return pair independently associated with actual state/direction and recurrence")
     # Exact generalized flip of the signed native RNN return, independently512 audited.
     crp=c.ROOT/"docs/reviews/clark-rnn-generalized-flip-independent.json";cr=load(crp);crr=Path(cr["root"])
     assert cr["passed"]and cr["source"]=="e62b17ec13d41a5dce79eab4a88d7052745f5b18"
