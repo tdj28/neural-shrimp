@@ -16025,3 +16025,7 @@ The helper received Stability’s independent mathematical review. Completed cal
 ### 2026-10-11 — first advancing signed470 source ready
 
 Prepared one fresh width1/32 chart centered−9/256 in the unchanged native hidden-rate gauge, joining the independently proved left470 endpoint exactly at−1/256. Same rho2^-14/weights, unchanged fresh126 native target calls and every proof/divisor/anchor gate. Old quadratic extrapolation is only a finite proposal. Nine source/binding/default-driver controls pass; actual independent schema checked before launch. A generated missing token space produced a Python syntax warning, corrected before source admission. Same measured synthetic profile plus actual prior-cost floor and240s4GiB768MiB caps. Card prepared; no target acquired.
+
+### 2026-10-11 — admit fixed native41 localization
+
+Stability independently reviewed helperc2ce8dbc and complete caller3cfb4585 PASS; seven controls reproduced6.28s. Fixed1224 inclusive native phases/240s3GiB256MiB and no retries unchanged. Actual metadata preflight and fresh host availability are required immediately before launch; unrelated432-phase profile precedes all research arrays. No result exists at admission.
