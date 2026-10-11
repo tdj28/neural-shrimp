@@ -18206,3 +18206,11 @@ _commit `842cf4b9f5f0` (dirty worktree)_
 arc3-beta0.9 (seeded 5e-4 past the flip): first complex crossing near s = 0.94124, rotation 0.0066 turns, when the 2-cycle separation is only about 0.003. onset-beta0.9: the crossing bracket did not refine (stored nodes too close) and at offset -0.0001 the critical modulus is already 1.00037; attractors stay at about half the tiny cycle size (amplitude 0.0013-0.0019, rotation 0.0016-0.0022, not the crossing angle 0.006-0.008). With the flip and the Neimark-Sacker crossing this close, the dynamics is governed by their codimension-two interaction; recorded as unresolved, not as soft or hard.
 
 _commit `842cf4b9f5f0` (dirty worktree)_
+
+- run started 2026-10-11 23:23 UTC finished 23:56 UTC with exit status 0
+
+## 2026-10-11 23:57 UTC: CIFAR orbit-002: Newton collapsed onto the fixed point just past the flip; the Neimark-Sacker crossing is likely near eta 0.010
+
+orbit-002 (commit with backtracking and pre-descent): 400,000 reduced descent steps at eta 0.00827753 took 277 s and left a relative F^2 residual of 2.3e-6; dense backtracking Newton then converged toward the fixed point (relative separation |F(theta)-theta|/|theta| = 2.2e-5, two-step spectral radius 1.000087, final residual 4.3e-5), so the run stopped. Reading: eta 0.0083 is just past the fixed point's flip, where the 2-cycle is born with tiny amplitude and F^2 Newton prefers the nearby fixed point. The 8 Oct pilot's loss-modulation envelope still decays at eta 0.0094 and is steady from 0.0107, so the 2-cycle's complex pair should cross the unit circle near eta 0.010. Next: orbit-003 from the saved eta 0.00938931 state, scanning 0.0094-0.0110.
+
+_commit `0f0f19024eab` (dirty worktree)_
