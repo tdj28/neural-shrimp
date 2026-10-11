@@ -9433,3 +9433,13 @@ worker. Admit sole CPU1/nice10 fresh-center001 under400s4GiB384MiB, owned415+5s;
 full144-phase synthetic measured gate precedes126 new target phases. Existing
 failed quarter and center-floor diagnosis remain immutable. No whole-quarter
 or later-chart complementary stability claim follows from this pilot.
+
+### 2026-10-11 — fresh same-root center resolves subinterval complement bound
+
+Reviewed execution f7db2cf7 completed36.488s/1,131,356KiB with270 exact inclusive
+calls. Same-root fresh center Neumann q<.055661797270; complete11-mode Lyapunov
+bound passes on only centered[-34,-32]/2048. Product remainder.029642682639 and
+penalty.401347633001 replace priorquarter.873048/13.709; this supports the diagnosed
+center-floor remedy, not wholequarter stability. Source116files and both complete
+immutable inventories/actual owned exits verified. Compact receipt and exact
+saved arithmetic guide committed; independent outcome replay remains pending.
