@@ -17225,3 +17225,12 @@ Seven controls passed16.04s including full192-center scheduler, retained termina
 ### 2026-10-11 — Whole34 narrow-domain reviewed admission
 
 Root independently reviewed complete b49c2776 source/math/binding/resource packet PASS and reproduced all seven controls15.97s, including actual original histories with scientific reducers blocked and full192-center scheduler. No kernel/domain/cap changes after review; status alone becomes reviewed. Current host54,935,996KiB available/load1.98, GPUunused15,947MiB free, raw filesystem2.837TB free; no duplicate worker/output. Boundary informed of one CPU1/4GiB reservation. Commit/private-push before the sole whole34 launch; source remains frozen during execution. The full source-matched144-phase profile and complete64domain192center cold-cost/storage gates still precede target arrays. Every failure/partial cover is retained and no outcome is promoted without independent replay.
+### 2026-10-11 — Source-only exact subset continuation helper
+
+Prepared conditional same-fullE radius restriction for the next finite native6
+march, based on all-ten saved exact subset passes and independently closed
+22-chart prefix. Floating LP remains proposal-only; all known51 coordinates,
+exact subset/root/join inequalities and outward reduction are mandatory.
+Nine controls pass0.32s; initial synthetic projection fixture indexing/radius
+expectation corrected, no target. Complete caller/card and independent source
+review precede acquisition; see clark-subset-successor plan.
