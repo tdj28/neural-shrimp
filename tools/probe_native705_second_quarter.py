@@ -43,13 +43,14 @@ def bind_meta(w,card):
 
 
 class Work(Q.Work):
- def __init__(self):super().__init__();self.attempts=[];self.accepted=[]
+ output_dir=None;maximum_calls=4104;raw_cap=6*1024**3
+ def __init__(self):super().__init__();self.output_dir=OUT if self.output_dir is None else self.output_dir;self.attempts=[];self.accepted=[]
  def tick(self):need(not self.stopped and time.monotonic()-self.start<3000 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<4*1024**2,'3000s4GiB owned worker')
  def save(self,name,value,closing=False):
   if name=='profile.json':name='base-profile.json'
   if name=='profile-admission.json':name='single-profile-admission.json'
   if self.prefix:name=self.prefix+'/'+name
-  raw=D.canonical_bytes(value);raw=gzip.compress(raw,compresslevel=1,mtime=0)if name.endswith('.gz')else raw;need(self.used+len(raw)<6*1024**3-(0 if closing else 8*1024**2),'6GiB8MiB final reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
+  raw=D.canonical_bytes(value);raw=gzip.compress(raw,compresslevel=1,mtime=0)if name.endswith('.gz')else raw;need(self.used+len(raw)<self.raw_cap-(0 if closing else 8*1024**2),'declared raw cap with8MiB final reserve');p=self.output_dir/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
   self.used+=len(raw)
  def paths(self,model,flat,direction,normal,origin,sc,stage):
@@ -57,7 +58,7 @@ class Work(Q.Work):
   class Recorded:
    n=13
    def cusp_step(self,x,a,b):
-    owner.tick();need(owner.calls<4104 and owner.calls-start<36,'bounded complete path group');owner.calls+=1;k=owner.calls;owner.save(f'native/{k:04d}-input.json',dict(kind='path',stage=stage,phase=(k-start-1)//2,direction='q'if(k-start)%2 else'r',inputs=[z.serialized()for z in x+[a,b]]));values=model.cusp_step(x,a,b);owner.save(f'native/{k:04d}-return.json',dict(kind='path',stage=stage,returns=[z.serialized()for z in values]));owner.tick();return values
+    owner.tick();need(owner.calls<owner.maximum_calls and owner.calls-start<36,'bounded complete path group');owner.calls+=1;k=owner.calls;owner.save(f'native/{k:04d}-input.json',dict(kind='path',stage=stage,phase=(k-start-1)//2,direction='q'if(k-start)%2 else'r',inputs=[z.serialized()for z in x+[a,b]]));values=model.cusp_step(x,a,b);owner.save(f'native/{k:04d}-return.json',dict(kind='path',stage=stage,returns=[z.serialized()for z in values]));owner.tick();return values
   coeff=path_coefficients(Recorded(),flat,direction,[arb(0)]*705,arb(0),18,normal,origin,sc,self.tick,lambda *_:None);need(self.calls-start==36,'all actual polarized phases');self.save('coefficients/'+stage+'.json',matrix_json(coeff));return coeff
  def residual(self,model,point,normal,origin,parameter,stage):
   start=self.calls;owner=self
@@ -65,16 +66,16 @@ class Work(Q.Work):
   class Recorded:
    n=13
    def cusp_step(self,x,a,b):
-    owner.tick();need(owner.calls-start<36 and owner.calls<4104,'bounded complete residual group');owner.calls+=1;k=owner.calls;owner.save(f'native/{k:04d}-input.json',dict(kind='residual',stage=stage,inputs=[jet(z)for z in x+[a,b]]));values=model.cusp_step(x,a,b);owner.save(f'native/{k:04d}-return.json',dict(kind='residual',stage=stage,returns=[jet(z)for z in values]));owner.tick();return values
+    owner.tick();need(owner.calls-start<36 and owner.calls<owner.maximum_calls,'bounded complete residual group');owner.calls+=1;k=owner.calls;owner.save(f'native/{k:04d}-input.json',dict(kind='residual',stage=stage,inputs=[jet(z)for z in x+[a,b]]));values=model.cusp_step(x,a,b);owner.save(f'native/{k:04d}-return.json',dict(kind='residual',stage=stage,returns=[jet(z)for z in values]));owner.tick();return values
   self.save('residual-inputs/'+stage+'.json',dict(point=vector_json(point),normal=vector_json(normal),origin=vector_json(origin),parameter=ball_json(parameter)));G,J,_=assemble(Recorded(),point,18,normal,origin,parameter,self.tick,lambda *_:None);del J;need(self.calls-start==36,'complete full705 residual');self.save('residuals/'+stage+'.json',matrix_json(G));return G
  def jac(self,model,x,rates,v,vp,kind,phase):
-  self.tick();need(self.calls<4104,'inclusive native cap');self.calls+=1;k=self.calls;self.save(f'native/{k:04d}-input.json',dict(kind=kind,phase=phase,state=vector_json(x),rates=vector_json(rates),state_tangent=vector_json(v),rate_tangent=vector_json(vp)));A,Ap=total_two_rate_jacobian(model,x,rates,v,vp);self.save(f'native/{k:04d}-return.json',dict(kind=kind,phase=phase,A=matrix_json(A),Aprime=matrix_json(Ap)));self.tick();return A,Ap
+  self.tick();need(self.calls<self.maximum_calls,'inclusive native cap');self.calls+=1;k=self.calls;self.save(f'native/{k:04d}-input.json',dict(kind=kind,phase=phase,state=vector_json(x),rates=vector_json(rates),state_tangent=vector_json(v),rate_tangent=vector_json(vp)));A,Ap=total_two_rate_jacobian(model,x,rates,v,vp);self.save(f'native/{k:04d}-return.json',dict(kind=kind,phase=phase,A=matrix_json(A),Aprime=matrix_json(Ap)));self.tick();return A,Ap
 
 
-def derivative_domain(w,row,context):
+def derivative_domain(w,row,context,quarter=2):
  start=w.calls;model,c,s,a,normal,origin,sc,weights,original,image,C,ds,ff,rp,E,metrics,domain=context
  left,right=map(F,row['endpoints']);center=(left+right)/2;half=(right-left)/2;shift=center-U.M.point(ball_json(sc));lo,hi=shift-half,shift+half
- need(row in H.domains()and F(-1,32)<=lo<hi<=F(1,32),'fixed derivative domain inside exact original chart')
+ need(row in H.domains(quarter)and F(-1,32)<=lo<hi<=F(1,32),'fixed derivative domain inside exact original chart')
  error,wp=localize_polynomial_root(ds,ff,weights,original,lo,hi,F(1,32),known_image=image,tick=w.tick);ce,cp=localize_polynomial_root(ds,ff,weights,original,shift,shift,F(1,32),known_image=image,tick=w.tick)
  dd=arb(U.R.exact(shift),U.R.exact(half));d=U.R.exact(shift);predictor=[c[i]+s[i]*dd+a[i]*dd*dd/2 for i in range(705)];pp=[s[i]+a[i]*dd for i in range(705)];xc=[c[i]+s[i]*d+a[i]*d*d/2+ce[i,0]for i in range(705)];whole=[predictor[i]+error[i,0]for i in range(705)];segment=[predictor[i]+arb(0,abs(error[i,0]).upper())for i in range(705)]
  for values,name in[(xc,'center'),(whole,'whole'),(segment,'segment')]:P.exact_coverage(domain['whole_box'],values,'literal original full705 '+name+' domain')
@@ -83,13 +84,13 @@ def derivative_domain(w,row,context):
  loc=dict(passed=True,dimension=705,weighted_neumann_bound=proof['weighted_neumann_bound'],center_box=vector_json(xc),whole_box=vector_json(whole),tangent_box=matrix_json(tangent));xc,whole,v,terminal,full=B.native_domains(loc);qi=dict(domain=row,full705=full,terminal=matrix_json(terminal),complements=[matrix_json(e)for e in E],metrics=[matrix_json(e)for e in metrics]);w.save('quotient-domain-inputs.json',qi)
  derivatives=[]
  for j in range(18):
-  off=39*j;Aw,Ap=w.jac(model,whole[off:off+13],whole[-2:],v[off:off+13],v[-2:],'whole_tangent',j);derivatives.append(dict(phase=j,A=Aw,Aprime=Ap,call=w.calls,input=read(OUT/w.prefix/f'native/{w.calls:04d}-input.json')))
+  off=39*j;Aw,Ap=w.jac(model,whole[off:off+13],whole[-2:],v[off:off+13],v[-2:],'whole_tangent',j);derivatives.append(dict(phase=j,A=Aw,Aprime=Ap,call=w.calls,input=read(w.output_dir/w.prefix/f'native/{w.calls:04d}-input.json')))
  need(w.calls-start==90,'72polarized+18whole derivative phases');w.save('domain-outcome.json',dict(passed=True,domain=row,dimension=705,native_calls=90,first_call=start+1,last_call=w.calls));return qi,proof,derivatives
 
 
-def fresh_cell(w,row,context,qi,tan,derivatives):
+def fresh_cell(w,row,context,qi,tan,derivatives,quarter=2):
  start=w.calls;model,c,s,a,normal,origin,sc,weights,original,image,C,ds,ff,rp,E,metrics,domain=context
- need(row==H.cell(row['domain'],row['depth'],row['index'])and qi['domain']==H.domains()[row['domain']-1],'literal cell and actual derivative domain');center=F(row['center']);half=F(row['halfwidth']);shift=center-U.M.point(ball_json(sc))
+ need(row==H.cell(row['domain'],row['depth'],row['index'],quarter)and qi['domain']==H.domains(quarter)[row['domain']-1],'literal cell and actual derivative domain');center=F(row['center']);half=F(row['halfwidth']);shift=center-U.M.point(ball_json(sc))
  error,initial=localize_polynomial_root(ds,ff,weights,original,shift,shift,F(1,32),known_image=image,tick=w.tick);d=U.R.exact(shift);predictor=[c[i]+s[i]*d+a[i]*d*d/2 for i in range(705)];known=[predictor[i]+error[i,0]for i in range(705)];OLD.original_contains(domain['error'],predictor,known);point=[x.mid()for x in known];w.save('center-authority.json',dict(cell=row,known=vector_json(known),predictor=vector_json(predictor),original_error=domain['error'],refinement=initial,offset=str(shift)))
  for k in range(3):
   OLD.original_contains(domain['error'],predictor,point);G=w.residual(model,point,normal,origin,U.R.exact(center),f'target{k}')
