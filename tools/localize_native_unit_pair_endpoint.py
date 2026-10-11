@@ -4,6 +4,7 @@ import os
 for k in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):os.environ[k]='1'
 import gc,gzip,json,resource,signal,subprocess,sys,time,hashlib
 from pathlib import Path
+from fractions import Fraction
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src'),str(ROOT/'tools')]
 import probe_native_unit_pair_pal as C
 import profile_native_unit_pair_pal as P
@@ -22,6 +23,14 @@ SOURCES=list(dict.fromkeys(C.SOURCES+['src/neural_shrimp/rigorous_connection.py'
 entry=C.entry;read=C.read;inventory=C.inventory;CAP=128*1024**2;THREADS=C.THREADS
 
 def matrix(rows):return arb_mat([[decode(v)for v in row]for row in rows])
+
+def exact_domain_contains(serialized,boxes):
+ require(len(serialized)==len(boxes),'all original acquisition coordinates')
+ def endpoints(row):
+  m,e=row['mid'];r,f=row['rad'];require(all(type(v)is int for v in(m,e,r,f))and r>=0,'exact dyadic domain')
+  mid=Fraction(m)*Fraction(2)**e;rad=Fraction(r)*Fraction(2)**f;return mid-rad,mid+rad
+ for record,box in zip(serialized,boxes):
+  require(box.is_finite(),'finite tested coordinate');lo,hi=endpoints(record);a,b=endpoints(ball_json(box));require(lo<=a<=b<=hi,'exact original native acquisition domain')
 
 def profile(tick,observe):
  start=time.monotonic();n=704;e=arb((1,-16));pre=arb_mat([[arb(int(i==j))+e for j in range(n)]for i in range(n)]);jac=arb_mat([[arb(int(i==j))-e for j in range(n)]for i in range(n)])
@@ -59,12 +68,12 @@ def main():
   with ctx.workprec(384):
    cost=profile(tick,observe);save('profile.json',cost);require(cost['forecast_seconds']<240,'full704 and native384 measured admission');check()
    inp,full,old,binding=C.bind_root();known=full[:-1];t=full[-1];require(t==exact('1/32768'),'exact inherited endpoint parameter')
-   pre=matrix(old['preconditioner']);jac=matrix(old['whole_jacobian']);whole=[decode(v)for v in old['whole_box']];weights=[exact(v)for v in old['weights']];del old;gc.collect()
+   pre=matrix(old['preconditioner']);jac=matrix(old['whole_jacobian']);serialized_whole=old['whole_box'];whole=[decode(v)for v in serialized_whole];exact_domain_contains(serialized_whole,known);weights=[exact(v)for v in old['weights']];del old;gc.collect()
    save('inputs.json',{'map_inputs':inp,'binding':binding,'known_endpoint':vector_json(full),'parameter':ball_json(t),'preconditioner_source':'exact source-bound original704 certificate','whole_jacobian_source':'same source-bound original704 whole domain'})
    center=[v.mid()for v in known];model=TwoRateCuspMap(inp)
    # Two bounded proposals reduce midpoint residual; existence remains inherited.
    for it in range(3):
-    require(all(whole[i].contains(center[i])for i in range(704)),'entire point evaluation inside authenticated old domain')
+    exact_domain_contains(serialized_whole,center)
     g,j,_,_=assemble(model,center,18,t,tick,observe);save(f'point-{it}.json.gz',{'center':vector_json(center),'value':matrix_json(g),'jacobian':matrix_json(j),'t':ball_json(t)});del j
     if it<2:
      correction=pre*g;save(f'newton-{it}.json',{'correction':matrix_json(correction)});center=[(center[i]-correction[i,0]).mid()for i in range(704)]
