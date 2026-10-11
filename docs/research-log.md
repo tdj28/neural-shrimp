@@ -12430,3 +12430,14 @@ The next operation compiles and renders the current source for human reading.
 ### 2026-10-11T00:57:25.494309+00:00 — current reading PDF
 
 Sourcee0cca289 compiles cleanly to45pages with146-wordabstract. All450 bound numbers verify;22figures unchanged. All45pages visually contact-checked and10/17 in detail. Current PDF and immutable render receipt: docs/reviews/paper-census-connected-qa.json. Three prior entries changed in value/evidence label as disclosed;11new entries added. Full historical verify.py was not rerun. Global research remains active.
+
+
+### 2026-10-11 UTC — reusable independent boundary packet card
+
+Prepare tools/reviews/review_unit_pair_forward_driver.py with fixed card
+docs/plans/native705-forward-independent-inputs.json. First target only the
+one successful wider batch002 chart, anchored to independently proved batch001
+endpoint. All705 root/strictjoin arithmetic at384bits, zero nativecalls.
+Measured15.34s perchart;240s/4GiB/64MiBcap,1nice10CPU. Changedgauges require
+full projected knownroot membership; identicalgauge exactparameter use requires
+adjacency. Original three later width failures remain excluded.
