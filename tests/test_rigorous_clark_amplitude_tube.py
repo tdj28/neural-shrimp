@@ -51,3 +51,15 @@ def test_conditional_native_context_never_promotes_a_fixed_point_to_period_six()
   assert not out['passed']and not out['positive_amplitude']and len(out['contexts'])==4
   assert all(c['witness_power']==1 and not any(d['excluded']for d in c['divisors'])for c in out['contexts'])
   assert events.count('paired_native_phase')==6
+
+
+def test_zero_endpoint_support_is_exact_authority_without_clipping_b():
+ with ctx.workprec(384):
+  j=[[arb(1),arb(0)],[arb(0),arb(0)]];z=[arb(0),arb(0),arb('1/2'),arb(1),arb(0),arb(1)];v=arb_mat(5,1)
+  # A tiny interval permits the same synthetic fixed-point consistency.
+  h=arb((1,-200));b=h+arb(0,h);assert b.lower()<0
+  out=T.conditional_native(j,z,b,v,support=[arb(0),2*h])
+  assert not out['positive_amplitude']and out['parameter_support'][0]['mid'][0]==0
+  import pytest
+  with pytest.raises(ValueError):T.conditional_native(j,z,b,v,support=[-h,2*h])
+  with pytest.raises(ValueError):T.conditional_native(j,z,b,v,support=[arb(0),4*h])

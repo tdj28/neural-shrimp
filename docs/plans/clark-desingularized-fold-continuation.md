@@ -78,3 +78,66 @@ Ten helper/tube controls pass, including general explicit-parameter columns,
 closed endpoint joins and wrong-root rejection, insufficient-radius retention,
 fixed-gain Jacobian/curvature, and a native fixed-point negative period control.
 No target or full-size native profile has been run.
+
+## Fixed adaptive execution packet
+
+One exclusive amplitude-fold-bridge/attempt001 worker is prepared. Same exact
+matrix, independent organizer, independently proved critical bridge and original
+native fold16 at exact binary64 gain4.0756 are bound before target evaluations.
+The mathematical anchor is c3+lambda_leak*leak_b=0 with the same phase/q; full
+source/inventory and positive quintic/nonzero physical derivative are required.
+Numerical native fold arrays seed only the later fixed-gain intersection.
+
+At most12 chart attempts,8 accepted charts, b from0 to1/2048, initial halfwidth
+2^-13 and minimum2^-17. Each center uses2 Newton proposals. Two more family
+acquisitions choose a finite predictor and dyadic coordinate radii strictly
+above max(8*preconditioned mean-value residual,4*known-root projection), with
+floor2^-40 and ceiling2^-8. These are proposals only. The reviewed tube then
+freshly acquires its center/predictor/entire predictor+E Jacobian, for7 family
+calls perattempt. Every accepted chart requires all26 strict images, weighted
+q<1, exact known-root join, whole native6 proper-divisor/simple+1/complement
+qualification in four literal contexts, and nonzero total leak_bb. Strict
+positive-b points are nondegenerate folds; b=0 remains the generalized organizer.
+The two native3 paths use the exact physical closed b support for sqrt, because
+Arb's outward radius may extend a zero-ended ball infinitesimally below0.
+The acquired b ball itself is never clipped or used outside its domain.
+
+Only completed uniform/native/curvature sufficient-bound failures, the explicit
+internal interval-inverse bound, or the fixed radius-ceiling rejection halve
+the next attempt at the SAME known left root. Every failed acquisition/attempt
+is retained. Source, identity, resource or other failures stop. No radius
+expansion from an old whole-domain Jacobian and no automatic budget increase.
+Accepted intervals meet exactly; their complete known right root boxes feed
+the next all26 join. A capped incomplete prefix is reported as incomplete.
+
+After the exact range connects, a fixed-gain26D root solves for(U,b) with3
+Newton proposals and2 proof acquisitions at radius2^-80. Its positive b and
+all26 coordinates must fit a previously passed tube strictly. Both literal
+native partners, all6 phases and normalized modes are compared to the old
+fold16 arrays with unique recorded mode orientation; native primitive/simple+1,
+11-mode complement and leak_bb gates are separately mandatory. No native12/24
+or full-window conclusion is implied.
+
+CPU1nice10/384bits,180s/2GiB RSS/4GiB AS/512MiB raw with4MiB closing reserve;
+owned195+5s/514MiB supervisor. Inclusive ceilings93 family,14 native contexts,
+642 native phase returns,2048 events. Accounting:3 unrelated full12 family
+profiles+1 initial tangent+12*7 attempts+5 endpoint calls;1 profile context+
+12 attempted-chart contexts+1 endpoint. Full26 matrix algebra and a native
+fixed-point negative context are profiled too. Fresh full-source/profile gate:
+2*(90*max family+13*max context+48*algebra)+20 plus elapsed must fit180s;
+corresponding retained compressed bytes×2+16MiB must fit512MiB. No target arrays
+open until the gate passes. The source-control profile forecast55.35s/142.2MB
+is planning evidence only; actual fresh run measurements remain mandatory.
+
+The first full-size synthetic test rejected its non-dyadic matrix fixture;
+changed only that unrelated fixture to exact dyadics. The next test exposed
+python-flint generic ** on a signed interval containing0 returning NaN, even
+for integer powers. Entire-series powers now use explicit integer products,
+with unchanged coefficient/tail mathematics and new negative/zero-containing
+controls. No research target or profile had run. Metadata preflight also
+caught that independent quintic/unfolding reductions have no individual
+passed key; bind their exact values to the already passed same-root outcome.
+Seventeen helper/driver controls pass, including full12 fresh-process profile,
+complete archive import closure, exact old metadata, quota arithmetic, source
+failure retention and zero-ended supported amplitude handling. Peer source
+review precedes the single committed local admission.
