@@ -14209,3 +14209,7 @@ Source4387351d yields clean48page PDF with143wordabstract.485bound quantities ve
 ### 2026-10-11T07:05:29.583559+00:00 — Fixed retrospective LM ordering caller prepared
 
 Ten controls pass2.10s for the existing reversal helper and complete caller. The fixed160HVP target consumes the original four trajectories, two original directions and horizons4/16; fresh measured4HVP profile is mandatory. All source/runtime/data/rate identities, raw finite-difference qualification, operation inputs/returns, partial traces and owned termination are checked and retained. No gradients, CE calls, trajectories or protected outcomes. Caller peer review and actual saved-input preflight precede profile admission. The fixed descriptive material gate remains0.5 in both expanded gradient directions; reversal preserves singular values and the even remainder can also depend on ordering. No target launched.
+
+### 2026-10-11T07:06:45.513353+00:00 — Reviewed LM reversal profile admission
+
+Complete caller peer review by Stability PASS;ten controls independently pass2.19s. Actual source closure, immutable original inputs and six fixed profile/target cases preflight0.690s with zero native calls; all16retained directional response qualifications reproduce. Admit only the fixed4HVP measured profile under60sinternal/80+5external,4GiBRSS/8GiBAS/128MiBraw,CPU1nice10. The sole160HVPtarget requires complete matching profile/runtime/owned-exit inventories and the unchanged measured180s gate before separate admission.
