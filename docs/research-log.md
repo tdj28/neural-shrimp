@@ -16449,3 +16449,16 @@ passed before this admission. Host2026-10-11 10:48UTC52GiB available, load2.01/
 launcher admitted alongside other lanes' separately owned jobs. Card reviewed;
 private source checkpoint precedes fresh144-phase synthetic and full90-center
 measured admission. All research arrays remain unopened until that admission.
+
+11 October 2026 — Remaining cubic32 producer completed under6920efa4:
+all six derivative domains and18 accepted cells cover[55,103]/1024, adjoining
+the independently qualified first[39,55]/1024. Thirty complete center attempts
+retain12 failed coarse metrics; no failed cell was silently dropped. Inclusive
+native count4464=144+6*90+30*126, elapsed334.237s. The fresh measured forecast
+passed7187.958s/12,510,871,977bytes within9000s/4GiB/18GiB ceilings.
+All10,224 outer inventoried files,151 exact committed source files and both
+manifests rechecked; worker,launcher and owned group are absent on the host.
+Compact receipt docs/reviews/native705-cubic32-remaining001.json binds outer
+987a2d87 and worker43f215c5. Fullchart32 remains producer-complete only until
+the separately authored saved reductions replay all accepted cells. Preparing
+that adapter for root review/execution; no new native acquisition is needed.
