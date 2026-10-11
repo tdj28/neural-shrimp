@@ -1,7 +1,13 @@
 {
   "schema": "tiny-lm-parity-order-v1",
-  "status": "source_prepared",
-  "source_review": null,
+  "status": "profile_admitted",
+  "source_review": {
+    "reviewer": "boundary_resume",
+    "commit": "e7f339801387a608c1e8ac43d43722ada1bc2b2a",
+    "result": "PASS",
+    "controls": 13,
+    "seconds": 5.95
+  },
   "settings": {
     "profile_counts": {
       "hvp": 2
@@ -126,5 +132,18 @@
     "failed_profile": "docs/reviews/tiny-lm-parity-order-profile001.json",
     "fresh_profile_required": true,
     "unchanged": "224HVP, zero gradients/CE, four cases, all gates,4GiB RSS,8GiB AS,192MiB raw, full actual/cold maximum and528-vector accounting."
+  },
+  "host_admission": {
+    "observed_local": "2026-10-11 03:31 PDT",
+    "available_ram": "52GiB",
+    "load": [
+      1.73,
+      1.78,
+      1.81
+    ],
+    "disk_free": "2.6TiB",
+    "gpu_last_checked": "03:26 PDT 0%,15947MiBfree,no compute processes",
+    "owned_duplicate": false,
+    "scope": "CPU1nice10 fresh002 two-HVP profile only; separate target admission required."
   }
 }

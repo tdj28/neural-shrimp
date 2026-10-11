@@ -7353,3 +7353,12 @@ peer review, current admission, fresh measured profile and exact target card.
 Preparatory metadata control caught a broad text edit accidentally adding an
 extra argument to an unrelated receipt read; repaired before acquisition.
 All prior parity cold returns also explicitly enter the maximum.
+
+### 2026-10-11 — parity fresh002 profile admission
+
+Boundary e7f33980 time-only narrow review PASS13controls5.95s. Actual metadata
+preflight binds retained original2-return failure and all cold costs. Host52GiB
+available/load1.73/2.6TiBfree, no owned duplicate; same CPU1nice10profile60s and
+4GiB8GiBAS192MiB,80+5owned194MiB. Fresh two-HVP profile only; separately committed
+target card still requires literal new successful source/inventory and forecast
+under authorized300s. No scientific threshold or retained-byte change.
