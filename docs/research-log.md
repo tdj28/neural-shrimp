@@ -16508,3 +16508,12 @@ Stability independently cleared665ad3b6 narrow decoder/binding (two actual contr
 Sourceb3f10db8 correlated003 passed all470 strict root/anchor gates and primitive18 at h1/8, q<.076489025. The joined exact gauge[-81/256,−17/256] covers hidden[84.09156993217,84.34156993217],44.147s/947156KiB/324native. Failed001/002 remain intact. This producer proof supports a maintained continuation engine; independent arithmetic and later complement/genericity remain separate.
 
 The independent numerical unit localized a second full55 unit-pair/flip at hidden72.23306826339869/output.8449741879464531 with t=.013575257964120896, other10 max.288624813, crossing−28.2086. Literal phases0/1 and both470 reverse joins pass (errors1.96e−13/6.25e−14);900inclusive phases12.371s. This is still numerical pending interval certification, distinct from the old84.408 junction and earlier sampled real+1 near miss. Complete source/inventories/owned termination and all900/324 native input/return pairs independently verified; compact receipts saved.
+### 2026-10-11 — saved native6 fold amplitude-coordinate proposal
+
+Prepare one zero-native geometry diagnosis of all66 saved independently audited
+fold points. Exact normalized b=||x-y||²/4, actual oriented phase partners and
+shared matrix genealogy replace no model or proof gate. This measures the finite
+path for a later bounded adaptive correlated51 continuation from the proved
+b=1/2048 endpoint. Preserve the duplicate overlap and original projection
+amplitude; numerical planning only. Fixed66 synthetic profile before arrays,
+30s512MiB2GiBAS8MiB,45+5owned. Source/test/card peer review precedes execution.
