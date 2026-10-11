@@ -17106,3 +17106,7 @@ All512 native action associations,32 independent fsum mean powers, four full-sta
 ### 2026-10-11 — Admit first-order block-variation profile
 
 Baseline independent512-action audit e4c5117a passed4.852s245384KiB with32 mean powers, all four nonlinear qualifications and original accuracy failure retained. Boundary full caller/source/binding/resource review PASS; added literal full checkpoint/token/rate/direction binding equality as recommended. All seven final controls5.73s PASS, including actual complete metadata with target object loader and native constructor forbidden, closed admission and isolated archive closure. Exactly448 targetHVP costed1200s4GiB512MiB; only unrelated2-HVP60s profile admitted now. No protected holdout, paid resources or changed training.
+
+### 2026-10-11T12:51:22.077920+00:00 — Admit448-HVP first-order temporal correction
+
+Reviewed unrelated2-HVP profile completed3.971s964872KiB; entire retained coldmaximum.850284868 unchanged despite faster new profile. Full conservative448-HVP forecast791.855s472164189B fits1200s512MiB. Exact ae4db39c archive/immutable inventories/absentowners verified; same entire scientific source closure and native/profile library identity rechecked with only admitted card changed. Four consumed cases/qualifications and both declared accuracy/improvement gates unchanged. Source frozen/private-pushed before target launch, no holdout/new training.
