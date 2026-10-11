@@ -6564,3 +6564,17 @@ and narrow literal first-gradient filename repair4695ea62 PASS7controls0.10s,
 actual manifest checked. Stability march90921cc9 actual angle-schema repair
 PASS18controls2.71s, retains all four profile-only failures before fresh002.
 No colleague target arithmetic was evaluated in these source reviews.
+
+### 2026-10-10 23:17 PDT — exact amplitude-fold attempt001 admitted
+
+Boundary f26d44ec full source/binding/resource PASS,17controls1.14s; helper
+83797aae independently reviewed earlier. Current host52GiB available, load
+1.89/3.52/3.43, GPUidle15947MiBfree,2.7TiB disk; no owned duplicate or active
+complementary-march workers. Execute sole amplitude-fold-bridge/attempt001
+CPU1nice10/384bits180s2GiB4GiBAS512MiB with4MiB reserve and195+5s owned cap.
+Fresh unrelated full12/26 measured profile precedes all research arrays;
+inclusive93family/14context/642native phases. Finite12 attempts/8accepted
+charts, b0→1/2048, only disclosed mathematical-bound step halving; unchanged
+full26 root/identity/native primitive6/+1/complement/curvature gates. Then
+fixed-gain fold16 root and exact tube/literal native association. Preserve
+all partials/failures; no cap, equation or geometry changes during this unit.
