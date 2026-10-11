@@ -25,10 +25,16 @@ unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
 connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
-same organizer. Thirty quadratic705 charts, a wider correlated chart and three cubic charts
-with independent full-coordinate joins extend the connected unit-pair branch.
-The initial five705 charts also have independently proved complementary stability. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
+same organizer. Thirty quadratic705 charts, a wider correlated chart and seven cubic charts
+with independent full-coordinate joins extend the connected unit-pair branch
+to38 charts. The initial six705 charts also have independently proved
+complementary stability. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
 bounds are in the manuscript and `docs/reviews/`.
+
+A separate independently proved complex-unit/simple-flip intersection has a
+transverse physical-rate unfolding and a qualitative open adjacent sector of
+attracting primitive18 cycles. An explicit direction into that sector is
+independently validated; finite extent and global connection are ongoing.
 
 Other exact local results include both flip types with attracting complements,
 two cusps with unstable complements, and a scalar supercritical Neimark–Sacker

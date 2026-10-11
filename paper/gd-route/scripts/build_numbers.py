@@ -2263,9 +2263,44 @@ def build():
         assert len(pp["root"]["coordinate_inclusions"])==705 and all(pp["root"]["coordinate_inclusions"])and ball_endpoints(row["contraction"])[1]<Fraction(230168,1000000)
     cubs=[cubp,cubr/"manifest.json"]
     n.add("nPALCubicCharts",3,"3",proof,cubs,"three ordered independently480 proved cubic705 tubes and full705 joins")
-    n.add("nPALVisualCharts",34,"34",proof,extra_sources+cors+cubs,"thirty original705 charts plus one correlated and three cubic independently connected charts; initial704 arc excluded")
+
     n.add("xPALCubicContraction","230168/1000000","0.230168",proof,cubs,"strict upward bound on all three independent weighted contractions")
     n.add("tPALCubicRight","115/512",r"115/512",proof,cubs,"right endpoint in the unchanged local affine gauge shared with the correlated predecessor")
+    # Later rotated root and three maintained roots, every connection independently proved.
+    more_sources=[];previous=cubr
+    for name,count in [("native705-rotated-independent",1),("native705-maintained-independent",3)]:
+        rp=c.ROOT/"docs/reviews"/(name+".json");rec=load(rp);root=Path(rec["root"]);pin=rec["inventories"][0]["manifest"]["sha256"]
+        bound_inventory(root/"manifest.json",pin);out=load(root/"run/outcome.json");assert out==rec["outcome"]and out["passed"]and out["connected"]and out["native_calls"]==0
+        binding=load(root/"run/input-binding.json");prior=binding["card"]["old_independent"if count==1 else "anchor"]
+        assert prior["root"]==str(previous)and prior["outer"]==c.sha256(previous/"manifest.json")
+        if count==1:
+            assert out["strict_inclusions"]==out["anchor_coordinates"]==705 and out["primitive_period"]==18 and ball_endpoints(out["contraction"])[1]<Fraction(100102,1000000)
+            pr=load(root/"run/new-root/independent-proof.json");assert pr["passed"]and all(pr["root"]["coordinate_inclusions"])and pr["membership"]["coordinates"]==705
+        else:
+            assert out["connected_count"]==3 and out["connected_right"]=="63/512"and [x["attempt"]for x in out["charts"]]==[1,2,4]
+            for k,row in enumerate(out["charts"],1):
+                assert row["passed"]and row["strict_inclusions"]==row["anchor_coordinates"]==705 and ball_endpoints(row["contraction"])[1]<Fraction(251429,1000000)
+                pr=load(root/f"run/chart{k:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and all(pr["root"]["coordinate_inclusions"])
+        previous=root;more_sources += [rp,root/"manifest.json"]
+    n.add("nPALVisualCharts",38,"38",proof,extra_sources+cors+cubs+more_sources,"thirty original plus correlated and three cubic and rotated and three maintained full705 independently connected charts; initial704 arc excluded")
+    n.add("xPALMaintainedContraction","251429/1000000","0.251429",proof,more_sources,"strict upward bound across the rotated root and three independently reconstructed maintained roots")
+    # Sixth original chart has independently covered closed halves and stable quotient.
+    hp=c.ROOT/"docs/reviews/native705-halves-independent.json";hr=load(hp);hroot=Path(hr["root"]);bound_inventory(hroot/"manifest.json",hr["inventories"][0]["manifest_sha256"])
+    ho=load(hroot/"run/outcome.json");assert ho==hr["outcome"]and ho["passed"]and ho["native_calls"]==0
+    assert ho["parameter_endpoints"]==["319/4096","447/4096"]and len(ho["rows"])==2
+    assert [v["parameter_endpoints"]for v in ho["rows"]]==[["319/4096","383/4096"],["383/4096","447/4096"]]
+    assert all(v["passed"]and v["same_root"]and v["primitive_period"]==18 and v["complement_dimension"]==11 and ball_endpoints(v["complementary_modulus_upper"])[1]<Fraction(241,250)for v in ho["rows"])
+    n.add("xPALSixthComplement","241/250","0.964",proof,[hp,hroot/"manifest.json"],"strict upper bound on both independent closed-half complementary multiplier enclosures")
+    # Two independent physical derivative reductions at the same exact local junction.
+    cp=c.ROOT/"docs/reviews/unit-flip-corner-independent.json";cr=load(cp);croot=Path(cr["root"]);bound_inventory(croot/"manifest.json",cr["inventories"][0]["manifest_sha256"])
+    co=load(croot/"run/outcome.json");assert co==cr["outcome"]and co["passed"]and co["same_unique_root"]and co["native_calls"]==0
+    assert ball_endpoints(co["determinant"])[1]<0 and ball_endpoints(co["directional_derivatives"][0])[1]<0 and ball_endpoints(co["directional_derivatives"][1])[0]>0
+    assert all(lo<=exact<=hi and hi-lo<Fraction(2)**-500 for (lo,hi),exact in zip(map(ball_endpoints,co["direction"]),[Fraction(-1),Fraction(11,20000)],strict=True))
+    assert all(ball_endpoints(v)[1]<1 for v in co["complement_bounds"])
+    for macro,v,digits in [("tCornerDeterminant",co["determinant"],2),("tCornerSigmaDirection",co["directional_derivatives"][0],8),("tCornerTauDirection",co["directional_derivatives"][1],5)]:
+        lo,hi=ball_endpoints(v);scale=10**digits;a=(lo*scale).numerator//(lo*scale).denominator;b=-((-hi*scale).numerator//(-hi*scale).denominator)
+        display="["+format(Decimal(a)/Decimal(scale),f".{digits}f")+", "+format(Decimal(b)/Decimal(scale),f".{digits}f")+"]"
+        n.add(macro,{"ball":v,"lower":str(Fraction(a,scale)),"upper":str(Fraction(b,scale))},display,proof,[cp,croot/"manifest.json"],"outward decimal enclosure of independent512 physical derivative; direction selected after producer result")
     # Independently reconstructed causal horizon warnings on consumed LM prefixes.
     lhp=c.ROOT/"docs/reviews/tiny-lm-horizon-independent-outcome.json";lh=load(lhp);lhr=Path(lh["root"])
     lpin=next(v["manifest_sha256"]for v in lh["inventories"]if v["root"]==str(lhr));bound_inventory(lhr/"manifest.json",lpin)

@@ -41,16 +41,17 @@ figures and drafting. The human researcher will review the evidence, authorship 
 
 \begin{abstract}
 Deterministic gradient descent can converge to long periodic orbits in neural-network parameter space.
-We give computer-assisted proofs at \nCertifiedOrbits{} explicit settings, covering every agreed census representative
-in networks with 13 or 72 trainable parameters and primitive periods up to 58. We then resolve connected bifurcation structure
-in the two-layer learning-rate plane of a 13-parameter network. Validated continuation connects an
-attracting period-18 orbit to a saddle-node and continues its $+1$-multiplier locus to a generic
-1:1 resonance, where two multipliers equal $+1$ and all remaining modes attract. We certify a
-continuous attracting interval, the resonance's unfolding in the physical learning rates, and a finite
-emerging branch with a complex unit-multiplier pair and uniformly attracting complementary modes. An independently cross-checked numerical census
-places these proofs within a wider landscape of periodic windows and irregular training. The results
-establish long-period attracting training and connect exact cycles to bifurcations organizing their
-parameter-space boundaries.
+We prove attracting cycles at \nCertifiedOrbits{} explicit settings in nonlinear networks with 13 or 72
+trainable parameters, covering all \nCensusAll{} census representatives and primitive periods up to 58.
+For a period-18 orbit, validated continuation resolves connected bifurcation structure in the
+layer-learning-rate plane: the attracting branch reaches a saddle-node, whose $+1$-multiplier locus
+continues to a generic 1:1 resonance. We prove a continuous attracting interval, a transverse
+resonance unfolding in the physical rates, and an emerging complex-unit branch with attracting
+complementary modes. A separate certified intersection of complex-unit and flip boundaries
+has an open adjacent sector of attracting period-18 cycles. An independently cross-checked
+numerical census places these proofs within a wider landscape of periodic windows.
+The results establish long-period attracting training and exact connections between cycles and
+bifurcations organizing their parameter-space boundaries.
 \end{abstract}
 
 \noindent\textbf{Study status.} Results labeled \confirmedlabel{} come from the map study of
@@ -76,7 +77,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. The transformer prediction pilots fail their utility comparisons; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
 Full-state orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including all \nCensusAll{} census representatives in 13 or 72 dimensions. Each new representative is independently proved by scalar-loss automatic differentiation. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALTotalCharts{} positive-angle charts extend its connected geometry, with the transverse bound checked on the first five. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALVisualCharts{} positive-angle charts extend its connected geometry, with an independent transverse bound on the first six. A separately certified complex-unit/flip intersection has an adjacent open attracting sector. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -865,8 +866,11 @@ an independently localized previous endpoint is projected into the new gauge and
 all 705 strict membership inequalities in the next uniqueness tube; the other joins use identical
 exact gauges. Every chart has a uniform root, primitive period 18, positive squared angle and
 independent critical frame. These are connected full-state solutions, not proximity matches in
-the learning-rate plane. Gauge intervals are local to each packet. The transverse spectral bound
-above covers the first five charts; the later charts currently certify the unit-pair geometry.
+the learning-rate plane. Gauge intervals are local to each packet. The sixth chart also has a strictly attracting complement: independent 480-bit
+proofs on two adjoining closed halves bound all eleven multiplier moduli below
+$\xPALSixthComplement$. The full halves meet at their shared exact gauge
+endpoint, so the bound covers the whole sixth chart. See
+\path{docs/reviews/native705-halves-independent.json}.
 The receipts are \path{docs/reviews/native705-forward-independent-outcome.json} and
 \path{docs/reviews/native705-rotated-independent-001-outcome.json} through
 \path{docs/reviews/native705-rotated-independent-003-outcome.json}.
@@ -889,6 +893,16 @@ These \nPALCubicCharts{} connected charts retain primitive period 18 and the com
 critical frame. Figure~\ref{fig:connected-boundary} includes their independently enclosed
 endpoint projections. See \path{docs/reviews/native705-cubic-prefix-independent.json}.
 
+A rotated cubic chart and three more charts in its maintained gauge extend the
+independently joined branch to \nPALVisualCharts{} positive-angle charts in total.
+The rotated join uses a freshly evaluated residual to localize the identical
+known endpoint before projecting it into the next uniqueness tube. All four
+new charts pass every strict 705-coordinate root and membership inequality,
+with contraction below $\xPALMaintainedContraction$. The two unsuccessful
+continuation attempts remain preserved in the source-bound record.
+See \path{docs/reviews/native705-rotated-independent.json} and
+\path{docs/reviews/native705-maintained-independent.json}.
+
 \paragraph{A certified complex-unit/simple-flip junction.}
 A separate local certificate encloses a primitive period-18 orbit at physical rates approximately
 $(\eta_h,\eta_o)=(\xUnitFlipHidden,\xUnitFlipOutput)$ where a nonreal conjugate pair has unit modulus
@@ -903,6 +917,43 @@ strictly nested box around the original 384-bit root, establishing exact root id
 recomputing the inclusion, spectrum and crossing arithmetic. This establishes a local junction;
 its connection to the finite branch above and its nonlinear interaction coefficients require
 separate proofs. See \path{docs/reviews/native-unit-pair-flip-independent.json}.
+
+\paragraph{An open attracting sector at the junction.}
+The local junction also determines which nearby physical rates produce attracting
+training cycles. Write $\lambda_c$ for its continued nonreal multiplier and
+$\lambda_f$ for the continued real multiplier near $-1$, and set
+\begin{equation}
+ \sigma(\eta_h,\eta_o)=\log|\lambda_c|,\qquad
+ \tau(\eta_h,\eta_o)=\lambda_f+1.
+\end{equation}
+At the same exact primitive orbit, two independently implemented interval
+reductions enclose the total physical derivatives, including motion of the
+periodic state. They prove
+\begin{equation}
+ \det\frac{\partial(\sigma,\tau)}{\partial(\eta_h,\eta_o)}
+ \in\tCornerDeterminant<0.
+\end{equation}
+One reduction isolates the critical block by a real Sylvester equation; the
+other solves a complex bordered left-eigenvector problem and evaluates
+$\operatorname{Re}(\lambda_c'/\lambda_c)$. Both validate the same full root,
+primitive period and ten attracting complementary modes.
+
+Since $1$ is absent from the return spectrum, the periodic state continues
+smoothly in both physical rates. The nonzero determinant makes $(\sigma,\tau)$
+local parameter coordinates. In a sufficiently small neighborhood, precisely
+the open sector $\sigma<0$, $\tau>0$ has all thirteen return multipliers inside
+the unit circle and hence locally attracting primitive period-18 training
+cycles. Its two boundary arcs meet transversely at the certified junction.
+For the explicit physical direction $v=(-1,11/20000)$, the independent enclosures
+\begin{equation}
+ D_v\sigma\in\tCornerSigmaDirection<0,\qquad
+ D_v\tau\in\tCornerTauDirection>0
+\end{equation}
+show that every sufficiently small positive displacement along this ray enters
+the attracting sector. This direction was selected after the first gradient
+calculation and then verified independently. The assertion is local; it assigns
+no numerical length to that ray. The exact interval data and independent proof
+are in \path{docs/reviews/unit-flip-corner-independent.json}.
 
 \subsection{A local subcritical flip on the historical two-rate ray}
 \label{sec:flip-proof}
