@@ -16985,3 +16985,20 @@ known-box inequality is unchanged. Admit fresh002 with repeated unrelated
 full51 profile before target proofs. Current04:53PDT52GiB available/load2.21,
 GPU0%/15947MiB/no GPU process,2.6TiB disk/no owned duplicate. Same fixed
 180s2GiB4GiBAS64MiB/195+5 owned, CPU1nice10. No new native acquisitions.
+
+### 2026-10-11 — all ten saved wider charts admit exact subset radii
+
+Coordinate rebalancing resolves every retained wider root-bound failure on its
+unchanged native derivative domain: all10 have strict exact-rational root and
+full51 known-predecessor inclusion. Maximum contraction is.8258651 versus the
+original~1.49. Smallest per-coordinate radius ratios are.05067–.05083; every
+new radius is strictly positive and no larger than its original. This is useful
+scaling evidence for the next continuation design, not new whole-chart native
+primitive/complement or generic-fold qualification. Original known-root ancestry
+remains producer-source authority until the separate22-prefix audit completes.
+
+Sourcef3d9db67,14.585521s/160948KiB/0native, all10 fixed proposals/decisions and
+whole known boxes retained. Full synthetic admission forecast107.63s passed;
+actual final180s2GiB64MiB limits passed. Immutable manifests/source/owned exits
+verified; original001 synthetic failure retained. No degree increase, expanded
+radius, clipped domain, native retry or inferred optimizer/shrimp utility.
