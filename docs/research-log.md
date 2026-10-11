@@ -6643,3 +6643,15 @@ all completed stages and any failed attempt remain immutable.
 ### 2026-10-10 23:38 PDT — independent same-root physical corner PASS
 
 Own512 complex-bordered gradients agree with producer realtrace/Sylvester: determinant[-148.32±.00875], unit-boundary flip crossing[-5.397±.000235]. Explicit post-outcome direction(-1,11/20000) gives dσ[-.004447±2.89e-7]<0,dτ[3.0471±2.03e-5]>0: qualitative local attracting side only, no finite distance. Own55Krawczyk/properdivisors and ten complementary modes recomputed on exact same independently proved root; strict original containment and all histories bound.1.4442s59624KiB0native. Complete immutable inventories/source/owned exits verified;51rawroots. Shared native augmented acquisitions and Arb remain explicit.
+
+### 2026-10-11 — Explicit paired-tangent fold formulation prepared
+
+Adapted after sealed inverse diagnosis7f2c9ecc. New51-variable system retains
+H=0,H_Uv+H_b=0,v_leak=0 explicitly, one full MixedJet pass and all base/v/b
+columns, avoiding a broad-domain implicit inverse during equation evaluation.
+The exact b0 anchor derives c3+lambda_leak*v_leak=0 at the same authenticated
+normalized signed organizer, with a validated inverse only on its tiny known
+box. Six controls pass0.12s, including all columns, polynomial zero-amplitude
+root, literal native agreement and singular-family non-promotion. Helper-only;
+full51 tube/known-root joins and native physical fold gates remain required.
+No new target/profile acquisition; prior failed26-variable unit unchanged.
