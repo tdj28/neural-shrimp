@@ -41,7 +41,7 @@ def localize(data,c,s,a,old_endpoint,*,iterations=16):
   new=[intersection(box[i],image[i])for i in range(n)];need(all(cover(box[i],new[i])and cover(E[i],new[i])for i in range(n)),'monotone full-domain restriction');box=new;history.append(box)
  endpoint=[restore(tuple(v+bounds(p[i])[0]for v in box[i]))for i in range(n)]
  need(all(cover(bounds(old_endpoint[i]),bounds(endpoint[i]))and cover(E[i],tuple(v-bounds(p[i])[0]for v in bounds(endpoint[i])))for i in range(n)),'serialized endpoint remains in original known box/full E')
- rows=[dict(index=i,original_width=str(bounds(old_endpoint[i])[1]-bounds(old_endpoint[i])[0]),new_width=str(box[i][1]-box[i][0]),ratio=float((box[i][1]-box[i][0])/(bounds(old_endpoint[i])[1]-bounds(old_endpoint[i])[0]))if bounds(old_endpoint[i])[1]>bounds(old_endpoint[i])[0]else 0.)for i in range(n)]
+ rows=[dict(index=i,original_width=bounds(old_endpoint[i])[1]-bounds(old_endpoint[i])[0],new_width=box[i][1]-box[i][0],ratio=float((box[i][1]-box[i][0])/(bounds(old_endpoint[i])[1]-bounds(old_endpoint[i])[0]))if bounds(old_endpoint[i])[1]>bounds(old_endpoint[i])[0]else 0.)for i in range(n)]
  return dict(passed=True,endpoint=endpoint,point_defect=D,point_forcing=f,initial=initial,history=history,exact_correction=box,rows=rows,scope='Same unique root at exact right parameter; sixteen monotone exact rational intersections on unchanged full-error coefficient bounds. No new derivative or existence assertion.')
 def sum_intervals(v):
  z=(F(0),F(0))
