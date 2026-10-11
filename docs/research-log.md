@@ -12700,3 +12700,7 @@ The manuscript now source-binds all30 positive-angle native705 charts: original5
 ### 2026-10-11 UTC — Independent complete72D panel prepared
 
 Source-only fixed32 audit uses separately reviewed generic scalar-lossAD at1024bits and exact original proof boxes/preconditioners. All1680 center/box phases retained with full72x72 Jacobians and same-map divisor/attraction proofs.11 controls PASS0.41s. Full producer execution source is pinned, immutable producer manifest fields intentionally null until running panel completes; no target acquisition or source-only profile launch. Three actual phase measurements and peer-reviewed wrapper required for bounded3600s/2GiB/8GiBraw audit.
+
+### 2026-10-11T01:42:02.435731+00:00 — Updated reading PDF with connected30 boundary
+
+Sourceab730cf1 compiles cleanly to46pages,146-wordabstract.453boundnumbers and regeneratedfigure11 verify;20other figure hashes unchanged. All46pages contact-inspected and16/18 in detail. Current PDF SHA8ec35eda0833c6a9be3a8272aa6408a0d1f168f4cb2e0a579965233ec1c3f63e. Fresh immutable QAroot/data2/neural-shrimp-data/paper/gd-route/connected30-boundary-2026-10-11, manifest0e7170bc10fca3bd32bba16d7765e8bde968f31308a6749c3671fb80bdc7377d. Full historical verify.py not rerun; all scientific qualifications preserved.
