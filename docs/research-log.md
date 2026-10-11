@@ -8615,3 +8615,13 @@ and full705 cubic proof before any real continuation batch. Two synthetic
 full705 units plus actual unrelated13D native cost samples total746ticks. All
 existing time/RSS/source/input-before-call gates remain. This is source-only;
 peer review and a clean committed run card precede synthetic execution.
+
+
+### 2026-10-11 UTC: reusable four-chart fresh cubic source preparation
+
+Stability peer cleared complete746-tick profile a78824f5 (19controls1.37s).
+Prepare same-gauge four genuinely new h1/16,rho2^-10 charts with fresh native
+predictors from independent480 endpoint79/2048. All705 root/primitive/frame
+and strict ordered joins required; later unjoined roots retained after first
+failure. Source preparation only: no profile or target launched yet. Fixed
+resource budget and independent replay interface in native705-cubic-batch.md.
