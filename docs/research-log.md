@@ -14901,3 +14901,14 @@ final-action provenance all pass. Fresh forcing.427388278751536 vs qualified256
 error8.30384e-15, rank512, independent direction assembly9.59e-16, action8.79e-13.
 All immutable files verified and owned exits absent. This is a nested larger
 budget numerical solve at historical018, with no step/current022/orbit claim.
+
+### 2026-10-11 — correlated explicit51 path source prepared
+
+Retain explicit002 and its diagnosis. New source-only path×mode+base-gradient
+acquisition carries fullE through J0/J1 at d0 and J2 over whole d, including
+all tangent coordinates and nonlinear external squared amplitude. Entire
+C/S derivatives through5 have explicit tails; no affine external-gauge
+shortcut. Five synthetic controls pass0.27s; initial nonexact fixture rejected
+by exact-data gate was corrected to dyadic input, no scientific gate changed.
+No target/profile run. Independent source/math review and measured full51
+resource profile precede any fresh actual derivative acquisition.
