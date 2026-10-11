@@ -6890,3 +6890,14 @@ correlation, not a case for blind radius growth. These are not wholeE bounds
 or nonexistence claims.0.5235s/100476KiB/0native; complete immutable source/
 inventory/owned exits checked,57rawroots. Prepare common-parameter residual
 and Jacobian Taylor acquisition with freshfullE before any new proof target.
+
+### 2026-10-11 — correlated explicit51 path source prepared
+
+Retain explicit002 and its diagnosis. New source-only path×mode+base-gradient
+acquisition carries fullE through J0/J1 at d0 and J2 over whole d, including
+all tangent coordinates and nonlinear external squared amplitude. Entire
+C/S derivatives through5 have explicit tails; no affine external-gauge
+shortcut. Five synthetic controls pass0.27s; initial nonexact fixture rejected
+by exact-data gate was corrected to dyadic input, no scientific gate changed.
+No target/profile run. Independent source/math review and measured full51
+resource profile precede any fresh actual derivative acquisition.
