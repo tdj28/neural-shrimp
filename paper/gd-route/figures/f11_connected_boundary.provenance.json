@@ -1,13 +1,13 @@
 {
  "figure": "f11_connected_boundary",
  "evidence_label": "3: computer-assisted proof; displayed polylines are endpoint midpoint guides",
- "alt_text": "The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.",
- "notes": "Endpoint boxes and proper full-state joins come from independent saved384-bit arithmetic. No line is interpolated across the change of gauge. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.",
+ "alt_text": "The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance; a finite704-dimensional chart and30 further705-dimensional charts continue a complex-unit-pair branch. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.",
+ "notes": "Endpoint boxes and proper full-state joins come from independent saved384-bit arithmetic. No line is interpolated across changes of gauge. Orange is connected unit-pair geometry; all eleven transverse modes are independently stable on the initial finite arc and first five705 charts. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.",
  "script": "paper/gd-route/figures/f11_connected_boundary.py",
- "script_sha256": "9f73df259857c610c66543a6402ed60c79b489acccf6855b64df116af58b4f71",
- "git_commit_at_generation": "c355a2d4271028073ff57a779b1dc6deef698f89",
+ "script_sha256": "2577784d385f9fe413f20ca64ab76b5a365575074f226999945ee77a9a1f6523",
+ "git_commit_at_generation": "0233845ee172affb09c9cf706ae31616456f0988",
  "worktree_dirty_at_generation": true,
- "generated_utc": "2026-10-10T23:18:46Z",
+ "generated_utc": "2026-10-11T01:36:44Z",
  "python": "3.12.14",
  "numpy": "2.5.3",
  "matplotlib": "3.11.1",
@@ -579,6 +579,276 @@
    "bytes": 113494
   },
   {
+   "path": "data:audits/native705-batch-independent/attempt001/manifest.json",
+   "sha256": "6382f1d06e34ced6cd252d7b6b5dc1d986017ef4c844d02b0a932569538adaea",
+   "bytes": 4483
+  },
+  {
+   "path": "data:audits/native705-batch-independent/attempt001/run/chart-1/uniform.json",
+   "sha256": "24dd263f19a0cd51e297e0c9ec27d4598658326a290e8a5adda0bfc7c090f7b7",
+   "bytes": 222413
+  },
+  {
+   "path": "data:audits/native705-batch-independent/attempt001/run/chart-2/uniform.json",
+   "sha256": "45eb4cb4a13a7d94ed8d224956279fcba04212b7b4c82ccc4c8613df57799b27",
+   "bytes": 222467
+  },
+  {
+   "path": "data:audits/native705-batch-independent/attempt001/run/chart-3/uniform.json",
+   "sha256": "c28cf5ccc454e1b34702a08e074869da5fd7eecafc84e5593dd81e992f744345",
+   "bytes": 222403
+  },
+  {
+   "path": "data:audits/native705-batch-independent/attempt001/run/chart-4/uniform.json",
+   "sha256": "f047bf7cdd984e3b65cd6b648e4c8a75e8c9bd2cdf38f93950ba43c9d85bb9b7",
+   "bytes": 222306
+  },
+  {
+   "path": "data:audits/native705-batch-independent/attempt001/run/manifest.json",
+   "sha256": "d2bc72f5782ffbae819689926124656d460479dad70d2fc692824b0fed605815",
+   "bytes": 3043
+  },
+  {
+   "path": "data:audits/native705-batch-independent/attempt001/run/outcome.json",
+   "sha256": "23b9be73a7172a919c39a6d5a0dad5152be566a0a1709a7ab05fd68ed2fa74c9",
+   "bytes": 3235
+  },
+  {
+   "path": "data:audits/native705-endpoint-independent/attempt001/manifest.json",
+   "sha256": "93a0029c3d9f61899b0dd7c4ef574b1c7ef546fa52477bb426007e3ef6eda4e8",
+   "bytes": 3654
+  },
+  {
+   "path": "data:audits/native705-endpoint-independent/attempt001/run/outcome.json",
+   "sha256": "42c5e11da31bf52b25def65ee512a5a2f8132a1e8ea2c8e9c803f41235137174",
+   "bytes": 742
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt001/manifest.json",
+   "sha256": "bf910c9698081b745d9cc1998441bc29a8a7f4bd250d14494ec51ea5f7604fef",
+   "bytes": 3803
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt001/run/chart-1/uniform.json",
+   "sha256": "f53f4576f34fda996c8fbfb79a09a5c7be9e5d9b2064837fe5abb0580dbdc5bc",
+   "bytes": 221262
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt001/run/input-binding.json",
+   "sha256": "8c0c05fd8d2444f4f4da5516a06ed4914a524f102272fbce645b655ae7b4acc5",
+   "bytes": 1364
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt001/run/manifest.json",
+   "sha256": "066fbcfc757aa100c7f1d75346c0f8e69cc9471ff8d62384e3bb3f6db1380b97",
+   "bytes": 2518
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt001/run/outcome.json",
+   "sha256": "3f008592a3df7ab6be5fa78ae47e997fe1d7281066bb2bfb4f9221f2c0f6c7d8",
+   "bytes": 1194
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/manifest.json",
+   "sha256": "ffb057c1ac962f6b3057d610a5846062725f2c88c38ae77923d9a74f7d9dadfe",
+   "bytes": 6487
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-1/uniform.json",
+   "sha256": "e7bcc7a56c8886a8011c5bccc00fff43bf24b24a50f7ac93615e1454f00dc5db",
+   "bytes": 222132
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-2/uniform.json",
+   "sha256": "1d567a70378e24cb0e51645e083ea085a81ddb4051ba91a11f2f40ea3c795d0c",
+   "bytes": 221942
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-3/uniform.json",
+   "sha256": "a3a3f4da80588f331154f04076ba930cd96e4d045ed272e5e9cbe0332f5bd35c",
+   "bytes": 221996
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-4/uniform.json",
+   "sha256": "4e37b133000da12feed52772e8d118840a344497a69f7169c9102ff91bdd96cf",
+   "bytes": 221980
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-5/uniform.json",
+   "sha256": "c1f672a70e935a5985b65555522c6bec0239ef7f5a77bf4130fd825deae5af97",
+   "bytes": 221919
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-6/uniform.json",
+   "sha256": "168b770ec59e786d52150940efcf88b61e29e2d63e9e3b29bce070a2881d9f09",
+   "bytes": 221836
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-7/uniform.json",
+   "sha256": "33e8bb40db0039e6c3d1e6080a347c82cc4458b07742953df194270023c90727",
+   "bytes": 221916
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/chart-8/uniform.json",
+   "sha256": "1dd6f82969ea541a78793428a45c73c4229c990ab9425232652d643bebbc3a52",
+   "bytes": 221920
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/input-binding.json",
+   "sha256": "4345901d23cbb0f619e99036a26720423da5d5cecc413a47cfb4c72cdcbc4394",
+   "bytes": 4616
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/manifest.json",
+   "sha256": "d93b917dbad19fe5db46ba794e04e4487e3d59d167160139e5b70ec59d8163a2",
+   "bytes": 4644
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt002/run/outcome.json",
+   "sha256": "683c92dd5bbbbd19d08cb4ffb414bc15a24094ba72c92fb256143a8d467f47b2",
+   "bytes": 6029
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/manifest.json",
+   "sha256": "f80a7d9768ccfe0448aad33638bbb1794cd62fc09b8818bf3a2a601e50d37674",
+   "bytes": 6487
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-1/uniform.json",
+   "sha256": "96b3f7392ef931a024c5ff230e3fe1a8ac37d5885a9646564a7f4f0dbe44f931",
+   "bytes": 221903
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-2/uniform.json",
+   "sha256": "65a61ec3cc4d76c2a3d517f941f2726f438506ce164b1168637aafe9a017ec52",
+   "bytes": 221692
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-3/uniform.json",
+   "sha256": "624afd760a66c5e4b1ce22577f263b1d474b5fce5a5cc0f319cc43ba178f20db",
+   "bytes": 221681
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-4/uniform.json",
+   "sha256": "736d41e9bd6733ddae925f10efc83662c4dedbddde331f82d5e157e33eacf281",
+   "bytes": 221634
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-5/uniform.json",
+   "sha256": "c8b9b18d6c2cfef882b583c9ca6af70f5b631b6f7f4c371237fc6db1badcfa41",
+   "bytes": 221622
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-6/uniform.json",
+   "sha256": "dbc638459f50897c14aed74182dfc9d57035cc34425848df55f900970c5e9878",
+   "bytes": 221605
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-7/uniform.json",
+   "sha256": "a01dc3dbb9547fec2a4c7fec19cf342a66322f82ea05725b0f10031cc2789b22",
+   "bytes": 221526
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/chart-8/uniform.json",
+   "sha256": "74729df393630fb3ff5ed1b3fa9f323ad54d908e84fbd775f26e5c248178f2dc",
+   "bytes": 221443
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/input-binding.json",
+   "sha256": "6a3afce0ba1bbd02ad7cc895e1a6fa71c575af77896daef6d178984962c58a3c",
+   "bytes": 4588
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/manifest.json",
+   "sha256": "e1c797769083abdd30048ccdff102e8b7b2c2e970753ffffa4b1f6489e259004",
+   "bytes": 4644
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt003/run/outcome.json",
+   "sha256": "95d971da954db2eda7816fdee2e37d170a98ac6fe1a24ca077b409851ecc7786",
+   "bytes": 6074
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/manifest.json",
+   "sha256": "640bb20df7c75308e74bb8c5a40636f1dac7071dd459b584c2067f549a2dc38b",
+   "bytes": 6487
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-1/uniform.json",
+   "sha256": "b42b56bc6e45b0f3e2a830278b134fceb18d4c66b61755a520c2b1fd2a55fcb7",
+   "bytes": 221515
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-2/uniform.json",
+   "sha256": "40c9dfd1474072e389081dbd0035922eb69ad1627627547e6505ef38aa399cae",
+   "bytes": 221356
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-3/uniform.json",
+   "sha256": "85e69e554eb15f008f05fabcc0360b325ec1751277e3cc1a7c3c231b94479a92",
+   "bytes": 221337
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-4/uniform.json",
+   "sha256": "42b8a60d51c415c104dabb7225a13b3672d7d824b017c04b4138d5e943edf8fb",
+   "bytes": 221297
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-5/uniform.json",
+   "sha256": "7b6c92c5612a2ad497ec0d26fa56d3bd7c16f1c3ffd56e1adde0838ca8d71c79",
+   "bytes": 221326
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-6/uniform.json",
+   "sha256": "768868f2aefe9d6ec94cf3f2eff6040c3056bc17cd0f2a54431c29d9f0405521",
+   "bytes": 221172
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-7/uniform.json",
+   "sha256": "946299d730a9b961f3b6b450e4bc54e6d3c2589eafcdcd1dc67bcf1932d23f8d",
+   "bytes": 221132
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/chart-8/uniform.json",
+   "sha256": "68e1e8095590661b463dcb2a225ec4e5a6f1e03e3a1d241f766bf25f7614a07a",
+   "bytes": 221031
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/input-binding.json",
+   "sha256": "2e9a999ad4ea772e043a90bdd0921b2f386e334f073c9c84edf7d9ff08a432f7",
+   "bytes": 4588
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/manifest.json",
+   "sha256": "3874b35953b0f1b63f3751b64093cf54d9108c7aa88603960ff5655e103c7750",
+   "bytes": 4644
+  },
+  {
+   "path": "data:audits/native705-forward-independent/attempt004/run/outcome.json",
+   "sha256": "d0b520e1ffd08ffeed3091bd38bffc3aacb6fe3943bbf041e2b37dcd4f6ca885",
+   "bytes": 6073
+  },
+  {
+   "path": "data:audits/native705-independent/attempt001/manifest.json",
+   "sha256": "9177a2a3c17b5886a0c3f08d831dcb22822fe09f3e15ec278cde411367414f76",
+   "bytes": 3305
+  },
+  {
+   "path": "data:audits/native705-independent/attempt001/run/manifest.json",
+   "sha256": "49f0e1682e0b18ec3999c6ad205f3a803fbba883c46b120fc07c5b29c5f0e2ef",
+   "bytes": 2114
+  },
+  {
+   "path": "data:audits/native705-independent/attempt001/run/native705-384.json",
+   "sha256": "a0053d8068a367e4979f3aeae2da12d8308c651c5e8e0be19d067df10b677497",
+   "bytes": 223000
+  },
+  {
+   "path": "data:audits/native705-independent/attempt001/run/outcome.json",
+   "sha256": "d0201adfaa59e41ece6f8cfd1c02f5f3244d9bd3ec40b7bf77a4021b503b9e64",
+   "bytes": 835
+  },
+  {
    "path": "data:explore/certificates/s2-period18-2026-10-09/attempt-001/proof/certificate/inputs.json",
    "sha256": "9c01121b61a195baf20050eaf3bf567ebba6b7a0310d8fbced0aabc67f98248f",
    "bytes": 5604
@@ -609,12 +879,484 @@
    "bytes": 25398
   },
   {
+   "path": "repo:docs/reviews/native-unit-pair-independent-outcome.json",
+   "sha256": "0c7aa64a79eb97c4ffe2e560b4f28d431d9b0eb6800a1b42941af982b3a06bfe",
+   "bytes": 3997
+  },
+  {
+   "path": "repo:docs/reviews/native705-batch-independent-outcome.json",
+   "sha256": "21ab7cc85a4b8072195792653ca2b355a28de84b7f5c7f48fb2ce0c256138af7",
+   "bytes": 7990
+  },
+  {
+   "path": "repo:docs/reviews/native705-endpoint-independent-outcome.json",
+   "sha256": "a489429d45de6f932deed5e3e2649b18267c0c8fe8e882b4ceaabf0362df0791",
+   "bytes": 1199
+  },
+  {
+   "path": "repo:docs/reviews/native705-forward-independent-outcome.json",
+   "sha256": "07d9579223dc408ba99cdcc99a9fae5159ad964b6955137675dd45b6e467a3ff",
+   "bytes": 4998
+  },
+  {
+   "path": "repo:docs/reviews/native705-independent-outcome.json",
+   "sha256": "eed152ce71d694cd10c86dd8539bd2f9097d331016db314e0d424dce14fc70a9",
+   "bytes": 1406
+  },
+  {
+   "path": "repo:docs/reviews/native705-rotated-independent-001-outcome.json",
+   "sha256": "03d31fef5d9a6edab0351c1497da95c92b4c626ff5d207dae32594e05b579682",
+   "bytes": 12491
+  },
+  {
+   "path": "repo:docs/reviews/native705-rotated-independent-002-outcome.json",
+   "sha256": "d0e9c352420b5b51b281f80b4ec7e02837b536f0d3171c194462543633169dad",
+   "bytes": 12538
+  },
+  {
+   "path": "repo:docs/reviews/native705-rotated-independent-003-outcome.json",
+   "sha256": "a722d79530e16fa7183f9e05de8910da1dfa9d01e9c558a7247056b14a9193aa",
+   "bytes": 12541
+  },
+  {
    "path": "repo:docs/reviews/s2-attraction-tail-independent-outcome.json",
    "sha256": "f20d85120a5238162e6f3e29bb8eaee5af38291f7553ffdb7db37f75fdf42f61",
    "bytes": 12888
   }
  ],
  "derived": {
+  "unit_pair_charts": [
+   {
+    "packet": 0,
+    "chart": 1,
+    "rates": [
+     [
+      73.39530091871663,
+      0.8272498396164257
+     ],
+     [
+      73.38235731933459,
+      0.8272948178555424
+     ]
+    ]
+   },
+   {
+    "packet": 1,
+    "chart": 1,
+    "rates": [
+     [
+      73.38235731933078,
+      0.8272948178554917
+     ],
+     [
+      73.36941944406945,
+      0.8273400940187261
+     ]
+    ]
+   },
+   {
+    "packet": 1,
+    "chart": 2,
+    "rates": [
+     [
+      73.3694194440653,
+      0.8273400940186709
+     ],
+     [
+      73.35648793196614,
+      0.8273856761728285
+     ]
+    ]
+   },
+   {
+    "packet": 1,
+    "chart": 3,
+    "rates": [
+     [
+      73.35648793196161,
+      0.8273856761727684
+     ],
+     [
+      73.34356345196817,
+      0.8274315727822343
+     ]
+    ]
+   },
+   {
+    "packet": 1,
+    "chart": 4,
+    "rates": [
+     [
+      73.34356345196322,
+      0.8274315727821687
+     ],
+     [
+      73.33064670500816,
+      0.8274777927366052
+     ]
+    ]
+   },
+   {
+    "packet": 2,
+    "chart": 1,
+    "rates": [
+     [
+      73.33064670348101,
+      0.8274777927163125
+     ],
+     [
+      73.30483938620443,
+      0.8275712405286951
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 1,
+    "rates": [
+     [
+      73.30524230734008,
+      0.8275697698897106
+     ],
+     [
+      73.29235401927335,
+      0.8276170029768434
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 2,
+    "rates": [
+     [
+      73.29235401926611,
+      0.8276170029767497
+     ],
+     [
+      73.27947691346856,
+      0.8276645983246207
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 3,
+    "rates": [
+     [
+      73.27947691346058,
+      0.8276645983245176
+     ],
+     [
+      73.2666119016077,
+      0.8277125673599451
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 4,
+    "rates": [
+     [
+      73.26661190159889,
+      0.8277125673598311
+     ],
+     [
+      73.25375994527093,
+      0.8277609221573128
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 5,
+    "rates": [
+     [
+      73.25375994526117,
+      0.8277609221571867
+     ],
+     [
+      73.24092205998112,
+      0.8278096754910594
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 6,
+    "rates": [
+     [
+      73.24092205997027,
+      0.8278096754909195
+     ],
+     [
+      73.2280993196723,
+      0.8278588408930428
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 7,
+    "rates": [
+     [
+      73.22809931966022,
+      0.8278588408928871
+     ],
+     [
+      73.21529286164551,
+      0.8279084327165775
+     ]
+    ]
+   },
+   {
+    "packet": 3,
+    "chart": 8,
+    "rates": [
+     [
+      73.21529286163204,
+      0.8279084327164039
+     ],
+     [
+      73.20250389207884,
+      0.8279584662074725
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 1,
+    "rates": [
+     [
+      73.20290319474178,
+      0.8279568961132051
+     ],
+     [
+      73.19013516497533,
+      0.8280073618925885
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 2,
+    "rates": [
+     [
+      73.19013516495824,
+      0.8280073618923778
+     ],
+     [
+      73.17738800239907,
+      0.8280582989026194
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 3,
+    "rates": [
+     [
+      73.17738800237983,
+      0.8280582989023825
+     ],
+     [
+      73.1646631969766,
+      0.8281097252522184
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 4,
+    "rates": [
+     [
+      73.1646631969549,
+      0.8281097252519513
+     ],
+     [
+      73.15196233862329,
+      0.828161660287872
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 5,
+    "rates": [
+     [
+      73.15196233859874,
+      0.82816166028757
+     ],
+     [
+      73.13928712705811,
+      0.8282141247148883
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 6,
+    "rates": [
+     [
+      73.13928712703023,
+      0.8282141247145456
+     ],
+     [
+      73.12663938291901,
+      0.8282671407341161
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 7,
+    "rates": [
+     [
+      73.12663938288723,
+      0.8282671407337258
+     ],
+     [
+      73.11402106036556,
+      0.8283207321968635
+     ]
+    ]
+   },
+   {
+    "packet": 4,
+    "chart": 8,
+    "rates": [
+     [
+      73.11402106032921,
+      0.8283207321964171
+     ],
+     [
+      73.10143426141933,
+      0.8283749247810667
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 1,
+    "rates": [
+     [
+      73.10182691403178,
+      0.8283732226981024
+     ],
+     [
+      73.089279666838,
+      0.8284279938921798
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 2,
+    "rates": [
+     [
+      73.08927966678934,
+      0.8284279938916239
+     ],
+     [
+      73.07677053628758,
+      0.8284834132487432
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 3,
+    "rates": [
+     [
+      73.07677053623128,
+      0.8284834132481006
+     ],
+     [
+      73.06430227802238,
+      0.8285395121785699
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 4,
+    "rates": [
+     [
+      73.06430227795694,
+      0.8285395121778233
+     ],
+     [
+      73.05187788248486,
+      0.8285963247868589
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 5,
+    "rates": [
+     [
+      73.05187788240839,
+      0.828596324785987
+     ],
+     [
+      73.03950060423283,
+      0.828653888207658
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 6,
+    "rates": [
+     [
+      73.03950060414297,
+      0.8286538882066342
+     ],
+     [
+      73.02717399606637,
+      0.8287122429929507
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 7,
+    "rates": [
+     [
+      73.02717399596015,
+      0.8287122429917413
+     ],
+     [
+      73.01490194902883,
+      0.8287714335684369
+     ]
+    ]
+   },
+   {
+    "packet": 5,
+    "chart": 8,
+    "rates": [
+     [
+      73.01490194890248,
+      0.828771433566999
+     ],
+     [
+      73.00268873956499,
+      0.8288315087705368
+     ]
+    ]
+   }
+  ],
+  "finite_unit": [
+   [
+    73.39688759499273,
+    0.8272443466579397
+   ],
+   [
+    73.3950986220009,
+    0.8272505394586306
+   ]
+  ],
   "charts": [
    {
     "chart": 1,
@@ -2084,8 +2826,8 @@
  },
  "outputs": {
   "pdf": "f11_connected_boundary.pdf",
-  "pdf_sha256": "a1e2f5a43786dea6e1e72461efa9fe6c735f44465e7f56a4f30b1ea56021e4b4",
+  "pdf_sha256": "bb035d4bed63a547c68971ce303d56a7540f68f5b07543ec2a614c83bd1669ea",
   "png": "f11_connected_boundary.png",
-  "png_sha256": "7ee92d23c2f42b6d80dc5ec521e65b2bdf086fa95bee433005c948e8ec0bf7cb"
+  "png_sha256": "fb4aa2c39bb22282344e71272e03e6497ea54eb175db7af0e200b48206deec30"
  }
 }

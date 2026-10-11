@@ -12692,3 +12692,7 @@ interval remainders and malformed/inexact rejection. Initial3controls exposed
 Arb generic real-power NaNs across negative-base intervals; replaced by explicit
 integer parity enclosures before these passed controls. Full authenticated
 native derivative/domain/profile wrapper and source review remain required.
+
+### 2026-10-11 UTC — Thirty independently connected unit-pair charts in manuscript
+
+The manuscript now source-binds all30 positive-angle native705 charts: original5, one wider successor, and24 across three rotated gauges. Each changed-gauge join uses independently localized full705 membership; local gauges are not concatenated. Independent480-bit common-metric proofs cover all11 transverse modes on the first5 with strict modulus<0.944. Figure11 adds saved independent endpoint projections, explicitly guides rather than polygonal enclosures. Figure binding initially expected an anchor inside each uniform proof; corrected to require the separate successful full-state anchor/join receipts, preserving the earlier rejected coarse anchor.453 numbers and figure11 independently regenerate; other20 figure outputs unchanged. Abstract remains146words. Remaining global connections and later transverse/nonlinear proofs are active work, not established by this update.

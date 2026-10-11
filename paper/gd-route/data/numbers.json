@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "99c6ba8e5a4c22c2e8ef7a91e1a28585920ba77e8e254c5358749608177947cf",
+ "generator_sha256": "1b51a297625ff4e64659e5a196088afb5a7da7c28795dd3fe9d4fe7d7528ed5b",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:audits/census-period58-independent/attempt002/launcher-result.json": "0de9a9736161565250e1f5d1dfb52f677e96e2757c6b5072932b12ace573fef7",
@@ -612,6 +612,8 @@
   "data:audits/native-unit-pair-independent/attempt001/run/source/tools/reviews/review_unit_pair_math.py": "27f42e59f3c0830d0c9aae6e40a6b979e02bbae91a8048ec1b1a628885d6f15e",
   "data:audits/native704-complement-independent/attempt003/manifest.json": "565b25146ab353afb136b9091e437090e86ced6091feb6901fe15120f3fe1bf8",
   "data:audits/native705-batch-independent/attempt001/manifest.json": "6382f1d06e34ced6cd252d7b6b5dc1d986017ef4c844d02b0a932569538adaea",
+  "data:audits/native705-complement-batch-independent/attempt001/manifest.json": "851bbbffb308ae3e9ae0a2a935f5e05c5d416fc6b2b274b0b7ac563d072069af",
+  "data:audits/native705-complement-independent/attempt001/manifest.json": "d787b45285df6f4c68fea6c8d628286ffb1e7bd56bc0203d54face078f38e603",
   "data:audits/native705-endpoint-independent/attempt001/launcher-result.json": "79329f46f5070cc1be58372480b0584107d6688b5f2ce2a35dc9c063917fdb33",
   "data:audits/native705-endpoint-independent/attempt001/launcher-start.json": "89339f296529fa67a0a58f7b466929623288f4ff19a29577e93ecda9cc5052a4",
   "data:audits/native705-endpoint-independent/attempt001/manifest.json": "93a0029c3d9f61899b0dd7c4ef574b1c7ef546fa52477bb426007e3ef6eda4e8",
@@ -636,6 +638,10 @@
   "data:audits/native705-endpoint-independent/attempt001/run/source/tools/reviews/review_quadratic_connection_math.py": "6757da1c1ee4246b6004292e6dd0a49e330d3d9bd3f61f70d311188662947f4d",
   "data:audits/native705-endpoint-independent/attempt001/run/source/tools/reviews/review_unit_pair_math.py": "27f42e59f3c0830d0c9aae6e40a6b979e02bbae91a8048ec1b1a628885d6f15e",
   "data:audits/native705-endpoint-independent/attempt001/run/source/tools/reviews/review_unit_pair_pal_math.py": "bcb80cfdc26cbcbe545492fae9acc293b11f7525a5b1e110344495028c7c9f6c",
+  "data:audits/native705-forward-independent/attempt001/manifest.json": "bf910c9698081b745d9cc1998441bc29a8a7f4bd250d14494ec51ea5f7604fef",
+  "data:audits/native705-forward-independent/attempt002/manifest.json": "ffb057c1ac962f6b3057d610a5846062725f2c88c38ae77923d9a74f7d9dadfe",
+  "data:audits/native705-forward-independent/attempt003/manifest.json": "f80a7d9768ccfe0448aad33638bbb1794cd62fc09b8818bf3a2a601e50d37674",
+  "data:audits/native705-forward-independent/attempt004/manifest.json": "640bb20df7c75308e74bb8c5a40636f1dac7071dd459b584c2067f549a2dc38b",
   "data:audits/native705-independent/attempt001/launcher-result.json": "36e79558371182d1bb7a2665f5818bc45d8b2f0568f106c10e19ba7d17433e32",
   "data:audits/native705-independent/attempt001/launcher-start.json": "ad265e5c9a74099ec6c4efd04f0b635f3c902959086de74c9034a01120d63c44",
   "data:audits/native705-independent/attempt001/manifest.json": "9177a2a3c17b5886a0c3f08d831dcb22822fe09f3e15ec278cde411367414f76",
@@ -7266,8 +7272,14 @@
   "repo:docs/reviews/native-unit-pair-independent-outcome.json": "0c7aa64a79eb97c4ffe2e560b4f28d431d9b0eb6800a1b42941af982b3a06bfe",
   "repo:docs/reviews/native704-complement-independent.json": "2716bdac962c9f2960b088f14774bd98418b17bf88992a816780708f736027e0",
   "repo:docs/reviews/native705-batch-independent-outcome.json": "21ab7cc85a4b8072195792653ca2b355a28de84b7f5c7f48fb2ce0c256138af7",
+  "repo:docs/reviews/native705-complement-batch-independent.json": "c7519c4c1f0d74477ee4e786c60dfa5a70586c08b380217c2fbcd35c7ea737b5",
+  "repo:docs/reviews/native705-complement-independent.json": "3e169fb689d850e62cb8c7328bcc3a2106d288d184742db22eaa670594b2971e",
   "repo:docs/reviews/native705-endpoint-independent-outcome.json": "a489429d45de6f932deed5e3e2649b18267c0c8fe8e882b4ceaabf0362df0791",
+  "repo:docs/reviews/native705-forward-independent-outcome.json": "07d9579223dc408ba99cdcc99a9fae5159ad964b6955137675dd45b6e467a3ff",
   "repo:docs/reviews/native705-independent-outcome.json": "eed152ce71d694cd10c86dd8539bd2f9097d331016db314e0d424dce14fc70a9",
+  "repo:docs/reviews/native705-rotated-independent-001-outcome.json": "03d31fef5d9a6edab0351c1497da95c92b4c626ff5d207dae32594e05b579682",
+  "repo:docs/reviews/native705-rotated-independent-002-outcome.json": "d0e9c352420b5b51b281f80b4ec7e02837b536f0d3171c194462543633169dad",
+  "repo:docs/reviews/native705-rotated-independent-003-outcome.json": "a722d79530e16fa7183f9e05de8910da1dfa9d01e9c558a7247056b14a9193aa",
   "repo:docs/reviews/ray51-adapter-source-review.json": "ed65e305573745e1d835d7ced32f2ca92ad8faa5caa445d20f12428e79d8720d",
   "repo:docs/reviews/response-utility-saved-audit.json": "fa84a56dc794838fa4dc5fbadab711444fd2e2c09663bbff9858cd5c3cb7b674",
   "repo:docs/reviews/s1r-bootstrap-outcome-receipt.json": "b441622f5722a2f6bda202281d1e7f64f10d0d0ec95f6ab8ca49717f94edb51b",
@@ -46171,6 +46183,57 @@
     "repo:docs/reviews/native705-endpoint-independent-outcome.json"
    ],
    "computation": "union of all five adjoining independently proved705 chart intervals"
+  },
+  {
+   "macro": "xPALStableComplement",
+   "value": "118/125",
+   "tex": "0.944",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-complement-independent.json",
+    "repo:docs/reviews/native705-complement-batch-independent.json",
+    "data:audits/native705-complement-independent/attempt001/manifest.json",
+    "data:audits/native705-complement-batch-independent/attempt001/manifest.json"
+   ],
+   "computation": "strict upward bound on all eleven complementary multipliers across first five independently connected705 charts"
+  },
+  {
+   "macro": "nPALTotalCharts",
+   "value": 30,
+   "tex": "30",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-batch-independent-outcome.json",
+    "data:audits/native705-batch-independent/attempt001/manifest.json",
+    "repo:docs/reviews/native705-independent-outcome.json",
+    "repo:docs/reviews/native705-endpoint-independent-outcome.json",
+    "repo:docs/reviews/native705-forward-independent-outcome.json",
+    "data:audits/native705-forward-independent/attempt001/manifest.json",
+    "repo:docs/reviews/native705-rotated-independent-001-outcome.json",
+    "data:audits/native705-forward-independent/attempt002/manifest.json",
+    "repo:docs/reviews/native705-rotated-independent-002-outcome.json",
+    "data:audits/native705-forward-independent/attempt003/manifest.json",
+    "repo:docs/reviews/native705-rotated-independent-003-outcome.json",
+    "data:audits/native705-forward-independent/attempt004/manifest.json"
+   ],
+   "computation": "five original charts, one wider successor and three independently connected eight-chart rotated-gauge packets; gauge coordinates are local"
+  },
+  {
+   "macro": "nPALRotatedCharts",
+   "value": 24,
+   "tex": "24",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-forward-independent-outcome.json",
+    "data:audits/native705-forward-independent/attempt001/manifest.json",
+    "repo:docs/reviews/native705-rotated-independent-001-outcome.json",
+    "data:audits/native705-forward-independent/attempt002/manifest.json",
+    "repo:docs/reviews/native705-rotated-independent-002-outcome.json",
+    "data:audits/native705-forward-independent/attempt003/manifest.json",
+    "repo:docs/reviews/native705-rotated-independent-003-outcome.json",
+    "data:audits/native705-forward-independent/attempt004/manifest.json"
+   ],
+   "computation": "three fixed eight-chart packets with independently reconstructed prior localization and full705-coordinate cross-gauge membership"
   }
  ]
 }

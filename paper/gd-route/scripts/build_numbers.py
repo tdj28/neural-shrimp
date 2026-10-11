@@ -2185,6 +2185,41 @@ def build():
     n.add("nPALCharts",5,"5",proof,cbs,"one original independently connected quadratic705 chart plus four independently recomputed exact-gauge joins")
     n.add("xPALConnectedContraction","483/1000","0.483",proof,cbs,"strict upper bound across all five independently proved705 charts")
     n.add("tPALConnectedParameter",cbo["connected_parameter_endpoints"],r"[-1/4096,\;319/4096]",proof,cbs,"union of all five adjoining independently proved705 chart intervals")
+    # First five705 charts now independently have all eleven transverse modes stable.
+    scp=c.ROOT/"docs/reviews/native705-complement-independent.json";scb=c.ROOT/"docs/reviews/native705-complement-batch-independent.json"
+    sc,bc=load(scp),load(scb);stable_sources=[scp,scb];stable_rows=[]
+    for rec in [sc,bc]:
+        root=Path(rec["root"]);pin=next(z["manifest_sha256"]for z in rec["inventories"]if z["root"]==str(root))
+        bound_inventory(root/"manifest.json",pin);stable_sources.append(root/"manifest.json")
+        o=load(root/"run/outcome.json");assert o==rec["outcome"]and o["passed"]and o["native_calls"]==0
+        stable_rows.extend(o.get("rows",[o]))
+    assert len(stable_rows)==5
+    endpoint="-1/4096"
+    for row in stable_rows:
+        assert row["passed"]and row["primitive_period"]==18 and row["complement_dimension"]==11
+        assert row["domain_coverage"]and row["own_localization"]and row["own_correlated_tangent"]
+        assert row["parameter_endpoints"][0]==endpoint;endpoint=row["parameter_endpoints"][1]
+        assert ball_endpoints(row["complementary_modulus_upper"])[1]<Fraction(944,1000)
+    assert endpoint=="319/4096"
+    n.add("xPALStableComplement","118/125","0.944",proof,stable_sources,"strict upward bound on all eleven complementary multipliers across first five independently connected705 charts")
+    # One wide successor plus three rotated eight-chart packets, every join independently proved.
+    extra_sources=[];extra_count=0
+    names=["native705-forward-independent-outcome"]+[f"native705-rotated-independent-{i:03d}-outcome"for i in range(1,4)]
+    previous_root=cbr
+    for packet,name in enumerate(names):
+        rp=c.ROOT/"docs/reviews"/(name+".json");rec=load(rp);root=Path(rec["root"])
+        bound_inventory(root/"manifest.json",rec["outer_manifest_sha256"]);extra_sources.extend([rp,root/"manifest.json"])
+        o=load(root/"run/outcome.json");assert o==rec["outcome"]and o["passed"]and o["connected"]and o["native_calls"]==0
+        count=1 if packet==0 else 8;assert o["connected_count"]==len(o["proofs"])==len(o["joins"])==count
+        binding=load(root/"run/input-binding.json");assert binding["card"]["prior"]["root"]==str(previous_root)
+        assert c.sha256(previous_root/"manifest.json")==binding["card"]["prior"]["outer"]
+        if packet:assert o["localized_prior"]and o["joins"][0]["parameter_inside"]and not o["proofs"][0]["same_gauge"]
+        for pr,jr in zip(o["proofs"],o["joins"],strict=True):
+            assert pr["inclusions"]==jr["coordinates"]==705 and jr["passed"]and ball_endpoints(pr["contraction"])[1]<1
+        extra_count+=count;previous_root=root
+    assert extra_count==25
+    n.add("nPALTotalCharts",5+extra_count,str(5+extra_count),proof,cbs+extra_sources,"five original charts, one wider successor and three independently connected eight-chart rotated-gauge packets; gauge coordinates are local")
+    n.add("nPALRotatedCharts",24,"24",proof,extra_sources,"three fixed eight-chart packets with independently reconstructed prior localization and full705-coordinate cross-gauge membership")
     return n
 
 
