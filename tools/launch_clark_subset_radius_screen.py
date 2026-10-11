@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 OUT=Path('/data2/neural-shrimp-data/audits/clark-subset-radius-screen/attempt001')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
+HEADROOM_KIB=10*1024**2
 def entry(p):
     h=hashlib.sha256()
     with p.open('rb') as f:
@@ -26,7 +27,7 @@ def main():
     assert not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip()
     assert json.loads((ROOT/'docs/plans/clark-subset-radius-screen-inputs.json').read_text())['status']=='reviewed'
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
-    available=int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')));assert available>66*1024**2
+    available=int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')));assert available>HEADROOM_KIB
     resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,4*1024**3))
     OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0;parent_peak=0
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();command=[sys.executable,str(ROOT/'tools/screen_clark_subset_radii.py')]

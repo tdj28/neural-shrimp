@@ -42,3 +42,10 @@ def test_fixed_caps_and_final_failure_retention():
  assert W.CAPS['native_calls']==0 and W.CAPS['seconds']==180
  assert "out['seconds']<180"in s and "out.update(passed=False,error="in s and "observe=lambda record:w.save(tag+'/proposal.json',record)"in s
  assert "'external_seconds':195"in launch and "'worker_as_bytes':4*1024**3"in launch and "'output_cap_bytes':66*1024**2"in launch
+
+
+def test_host_headroom_is_separate_from_output_cap():
+ import launch_clark_subset_radius_screen as L
+ assert L.HEADROOM_KIB==10*1024**2
+ source=(ROOT/'tools/launch_clark_subset_radius_screen.py').read_text()
+ assert 'assert available>HEADROOM_KIB' in source and "'output_cap_bytes':66*1024**2" in source
