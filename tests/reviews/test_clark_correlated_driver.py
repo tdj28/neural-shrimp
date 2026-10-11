@@ -34,3 +34,11 @@ def test_isolated_archive_import_without_producer_theorems(tmp_path):
   p=tmp_path/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes())
  code="import sys,runpy;sys.path.insert(0,'tools/reviews');d=runpy.run_path('tools/reviews/review_clark_correlated.py',run_name='source_import');assert sum(d['EXPECTED'].values())==577;assert not any('rigorous_clark_' in x for x in sys.modules)"
  result=subprocess.run([sys.executable,'-c',code],cwd=tmp_path,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'),capture_output=True,text=True,timeout=15);assert result.returncode==0,result.stderr
+
+
+def test_literal_anchor_known_input_binding_and_changed_coordinate():
+ from copy import deepcopy
+ run=D.PARENT/'run';record=D.read(run/'explicit-anchor.json');event=D.read(run/'events/0004-explicit_organizer_anchor.json.gz');binding=D.read(run/'input-binding.json')
+ D.anchor_binding(record,event,binding)
+ bad=deepcopy(binding);bad['organizer_box'][0]=bad['organizer_box'][1]
+ with pytest.raises(ValueError,match='actual anchor input'):D.anchor_binding(record,event,bad)

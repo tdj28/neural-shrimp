@@ -64,6 +64,9 @@ def covered(raw,x):
  def q(v):return A.dyadic([int(k)for k in v.man_exp()])
  return A.covers(raw,(q(x.lower()),q(x.upper())))
 
+def anchor_binding(record,event,binding):
+ need(event==record['proof'] and record['known']==event['known'] and event['known'][:26]==binding['organizer_box'],'literal actual anchor input equals bound organizer')
+
 def metadata(w):
  for p,pin in zip((PARENT,PARENT/'run'),PINS,strict=True):inventory(p,pin,w)
  rt=archive(PARENT,SOURCE,2,w);run=PARENT/'run';out=read(run/'outcome.json');cont=read(run/'continuation.json')
@@ -73,7 +76,7 @@ def metadata(w):
  card=read(run/'source/docs/plans/clark-correlated-fold-inputs.json')
  for key in('profile','failed_correlated','failed_explicit','diagnosis'):
   s=card[key];p=Path(s['root']);inventory(p,s['outer'],w);inventory(p/'run',s['worker'],w);archive(p,s['source'],0 if key in('profile','diagnosis')else 2,w)
- binding=read(run/'input-binding.json');organizer=binding['card']['independent'];p=Path(organizer['root']);inventory(p,organizer['outer'],w);inventory(p/'run',organizer['worker'],w);org_rt=archive(p,organizer['source'],0,w);oo=read(p/'run/outcome.json');fresh=read(p/'run/fresh-root.json');same=read(p/'run/same-root.json');unfold=read(p/'run/unfolding.json')
+ binding=read(run/'input-binding.json');anchor_binding(read(run/'explicit-anchor.json'),read(paths[3]),binding);organizer=binding['card']['independent'];p=Path(organizer['root']);inventory(p,organizer['outer'],w);inventory(p/'run',organizer['worker'],w);org_rt=archive(p,organizer['source'],0,w);oo=read(p/'run/outcome.json');fresh=read(p/'run/fresh-root.json');same=read(p/'run/same-root.json');unfold=read(p/'run/unfolding.json')
  need(oo['passed']and oo['primitive_period']==6 and oo['complement_dimension']==11 and fresh['passed']and len(fresh['coordinate_inclusions'])==26 and all(fresh['coordinate_inclusions'])and same['all26_original_boxes_strictly_inside'],'exact independent same normalized c3zero organizer')
  need(read(p/'run/input-binding.json')['map']==binding['map'],'same exact native matrix/physical map');known=[M.decode(x)for x in fresh['box']];need(len(binding['organizer_box'])==26 and all(covered(x,y)for x,y in zip(binding['organizer_box'],known,strict=True)),'whole known organizer covered')
  matrix=binding['card']['matrix'];need(entry(Path(matrix['path']))==matrix['entry'],'same fixed original matrix bytes')
