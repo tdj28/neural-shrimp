@@ -8702,3 +8702,16 @@ false warnings; persistence/loss miss it with0 false warnings. No unique drift
 success. Preserve this negative incremental-utility result; do not tune the
 threshold or relabel correlated prefixes as independent cases. Root owns a
 separate saved arithmetic review next. No benefit/generalization claim is made.
+
+### 2026-10-11 UTC — preparatory stationary/eigenpair CIFAR formulation
+
+Boundary independently source-reviewed c154a944 amplitude equations and all
+three controls PASS0.07s. Root agrees the energy and variable-rate scope.
+New `cifar_stationary.py` prepares a finite stationary anchor followed by a
+fresh positive Hessian eigenpair, avoiding the near-flip null direction of the
+fixed-rate two-step shooting equation. Exact native derivatives and stationarity
+remain untested. Four Newton units at most, max256 Hessian actions each,
+actual forcing<=0.5, thirteen Armijo trials and5% total movement cap are fixed;
+failed units stop. Eigenpair work occurs only after actual stationarity<=1e−10.
+Seven combined synthetic controls PASS0.27s. See
+`docs/plans/cifar-stationary-seed.md`. No target card or acquisition yet.
