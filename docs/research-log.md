@@ -16825,3 +16825,7 @@ The exact-rational domain repair preserved all original independent root/tangent
 ### 2026-10-11T11:54:39.933939+00:00 — Admit independent pair-block mechanism replay
 
 Boundary independently reviewed source99257276 and reproduced all five controls2.66s, including exact recurrence associations, full independent baseline genealogy, fsum/vector identities and separately qualified material/attenuation gates. Admit one fixed120s1GiB8MiB saved-only run with full15776 measured profile and retained cold prior audit cost. Entire native acquisitions remain shared and explicitly disclosed. New rigorous junction, wholechart32 and CIFAR/LM evidence also copied and hash-verified to separate physical disk:4322files1,144,845,452bytes, manifest0e00d306.
+
+### 2026-10-11T11:56:43.585761+00:00 — Adjacent-pair ordering attenuation independently confirmed
+
+All128 actual state/vector/action recurrences, exact prior qualified baseline bytes, four full15776D cases, transpose/decomposition/CE scalar identities and independently computed fsum metrics passed. Both originals retain material Epair/P1.540077 and2.535039 while Epair/Eparity .00103020412 and.00251418786 give about970.68x and397.74x attenuation. Quarter controls .96956 and1.79606 show this attenuation is not universal.2.842s132832KiB0native; all source/inventories/ownership verified. This identifies saved-trajectory adjacent-step structure relevant to finite-horizon response. It does not itself alter training or establish useful optimization.
