@@ -25,3 +25,23 @@ Independently check the existing hidden-rate flip crossing equals−det/sigma_ou
 when that denominator is nonzero. This first commit supplies source/control
 math only; literal input bindings and a small measured/capped saved-run wrapper
 must be independently reviewed before evaluating target gradients.
+
+## Fixed saved unit001
+
+Literal independent source1a991e02, outerd14c91bd and its nested fresh480
+box; bind every original native source/input/root/complement artifact via its
+immutable manifests. Own512 arithmetic reconstructs root, complement and
+previous crossing first, then computes both physical gradients. Fresh full13
+Sylvester and55inverse synthetic/serialization profile precedes target arrays;
+forecast20*t+6seconds and4*storedbytes+2MiB must fit30s/16MiB. CPU1nice10,
+512MiB RSS/2GiB AS, owned45+5s/18MiB aggregate. Exact attempted source/archive,
+full results, all failures, and owned process termination retained. Zero native
+map/derivative calls. Original numerical crossing is only a consistency check;
+new determinant must exclude zero without changing root or source.
+
+Pre-target source profile: a20× serialization multiplier exceeded the16MiB
+cap on the synthetic13-dimensional fixture alone. The fixed unit contains one
+physical-gradient output, one root-check summary and bindings; the profile
+already serializes that full gradient plus a55×55 inverse. Before opening
+target arrays, use4× these measured bytes plus2MiB for metadata/archive reserve.
+The16MiB worker and18MiB aggregate hard ceilings remain unchanged.

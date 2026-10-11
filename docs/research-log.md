@@ -13584,3 +13584,7 @@ Own480 saved replay independently reconstructed original residual Taylor coeffic
 ### 2026-10-11T05:46:05.455434+00:00 — Connected-proof reading PDF verified
 
 Sourceea75624e clean47page PDF with148wordabstract;480numbers verified and all474previous values/evidence unchanged. Geometry figure regenerated from34independently connected705 endpoints;20other figure outputs unchanged. All47pages contact-inspected and changed18/41details clean. PDF SHA9559e5982eab5e0b543ec848704e9906ba6fdc7140a73c19ad953d972163334e, immutableQAmanifestaa6610310941bdf27685e661fe782072591d7f1f728e1df45553c48defce1302. Full historical verify.py not rerun. New later complementary-half proof/CIFAR correction remain in separate receipts for next update. Research continues.
+
+### 2026-10-11 UTC — Physical stability-corner fixed saved unit prepared
+
+Nine source controls pass0.24s. Exact historical full-inventory/source bindings, fresh512 full13/55 synthetic measured admission, same-root55 proof reconstruction and10-mode complement/crossing checks precede the new determinant. Zero native calls;30s512MiB/2GiBAS16MiB worker,45+5s/18MiB owned envelope. Synthetic serialization alone rejected an unnecessary20×byte forecast; before target access, use workload-based4×storedbytes+2MiB while preserving hard limits. Wrapper peer review precedes sole attempt001.
