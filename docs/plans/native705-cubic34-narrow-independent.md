@@ -23,3 +23,21 @@ centers, not expected accepted count. Zero native calls; all derivative reuse
 is explicitly source/domain authenticated. Card remains prepared with null
 producer pins until complete producer sealing, actual metadata preflight and
 source review; no speculative audit execution.
+
+## Disclosed amendment after the complete producer stop
+
+The producer completed63 derivative domains and76 center attempts, then stopped
+on the declared depth1 failure in domain63. All68 positive cells cover exactly
+[83/512,57/256], ending at domain62. All eight negative metrics, the failed left
+child, its pending right sibling, and unacquired domain64 remain unqualified.
+The complete15390-phase history is mandatory, including every negative.
+
+The independent adapter now authenticates all63 domains/76 attempts and exact
+terminal queue, but replays only62 derivative domains and68 selected centers.
+It requires the exact closed earned prefix and retains the original full34
+root authority and whole33 association. No whole34 success is manufactured.
+All core reducers, precision, strict acquisition containment and conservative
+full192-center admission/caps remain unchanged. The producer-authored adapter
+is disclosed and requires Root's independent source review before execution.
+The card has literal sealed producer pins and remains prepared until review,
+actual metadata-only preflight, committed admission and private push.

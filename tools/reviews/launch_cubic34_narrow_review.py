@@ -1,4 +1,4 @@
-"""One bounded independent whole34 narrow-domain audit; zero native calls."""
+"""One bounded independent chart34 prefix audit; zero native calls."""
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
@@ -8,6 +8,7 @@ CARD='docs/plans/native705-cubic34-narrow-independent-inputs.json'
 def card_check(card):
     assert card['status']=='reviewed' and card['ordinal']==34 and (card['maximum_domains'],card['maximum_centers'])==(64,192),'literal reviewed independent34 card'
     assert card['limits']==dict(seconds=3600,rss_bytes=4*1024**3,as_bytes=6*1024**3,raw_bytes=1024*1024**2,native_calls=0),'fixed independent panel caps'
+    assert card['target_endpoints']==['83/512','57/256']and card['expected']==dict(domains=63,attempts=76,accepted=68,native_calls=15390,failed=[1,4,7,66,69,72,75,76]),'literal earned prefix'
     for k in ('producer','previous'):
         assert set(card[k])=={'root','source','outer','worker'}and all(type(v)is str and v for v in card[k].values()),'completed literal '+k
 

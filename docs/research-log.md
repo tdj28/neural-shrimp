@@ -17505,3 +17505,22 @@ or enlargement within the attempt.
 Root source/domain/history/resource review cleared the producer-agent binding adapter with unchanged separately authored480-bit exact-rational/root/tangent/fresh-point/11-mode reducers. Six controls pass1.08s; the final success bit now also requires final elapsed<3600s and peakRSS<4GiB. All200 prior source files are byte-identical to6bc6967b;14 exact dependency additions come from producer191b325793e7e4c689d392e940df6657aef424d4. Legacy import-time archive closure can list a new caller in ancestor FILES; clean-process dependency inventories prevent misattributing that caller to historical source.
 
 The fixed complete64-domain/up-to192-center/30096-phase acquisition history, all complete negative coarse cells, full705 root ancestry and exact whole[83/512,115/512] union remain mandatory. The adapter performs no native evaluation. OneCPU1/nice10/3600s4GiB RSS6GiB AS1GiB raw with4MiB reserve and owned3615+5s/1026MiB caps; cost charges twice the complete independent39-cell whole33 result scaled by8 plus fresh full705 synthetic and cold-decode allowance. Producer still runs; this card remains prepared with null producer pins. No target arithmetic or audit launch is authorized by this checkpoint. Before admission the complete immutable producer must be sealed and actual metadata preflight must pass with scientific reducers/decoders/native construction forbidden.
+
+
+### 2026-10-11 — Narrow chart34 accepted-prefix independent replay admission
+
+Adapted after the sealed producer191b3257 stopped at declared depth1 in domain63.
+All63 domains,76 attempts,15390 acquired phases,68 positives and eight negatives
+remain mandatory. Only exact prefix[83/512,57/256] is replayed; no whole34 claim.
+The entire independently joined whole33 projection must lie inside this prefix.
+Root reviewed the five-file amendment and independently reproduced8 controls
+in1.06s; own8controls1.07s. Actual metadata-only preflight passed34.9287s with
+native constructor, interval matrix decoders and proof reducers forbidden.
+All existing200 core source files remain unchanged, with the prior14 declared
+producer dependencies. Producer-agent binding authorship is disclosed.
+
+Run: nice10 oneCPU tools/reviews/launch_cubic34_narrow_review.py, output
+/data2/neural-shrimp-data/audits/native705-cubic34-narrow-independent/attempt001.
+Zero native;480bits;3600s4GiB RSS6GiB AS1GiB raw/4MiB reserve,3615+5 owned.
+Full705 unrelated profile and unchanged conservative192-center cold-cost gate
+precede arrays. Preserve any stopped or failed independent attempt.
