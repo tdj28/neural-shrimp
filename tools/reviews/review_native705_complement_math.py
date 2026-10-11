@@ -12,12 +12,18 @@ from neural_shrimp.rigorous_orbits import ball_json,matrix_json,vector_json
 finite,infnorm,frob,positive,convolution,polynomial,frame=H.finite,H.infnorm,H.frob,H.positive,H.convolution,H.polynomial,H.frame
 
 
-def localize(chart,directions,paths,tick=lambda:None):
+def geometry(unit):
+ need(type(unit)is int and 0<=unit<=4,'only first and four fixed successor charts')
+ return str(F(31+64*unit,4096)),[str(F(-1+64*unit,4096)),str(F(63+64*unit,4096))]
+
+
+def localize(chart,directions,paths,tick=lambda:None,unit=0):
  need(chart['schema']=='neural-shrimp-native-unit-pair-pal-v1' and chart['shooting_dimension']==705 and chart['dimension']==13 and chart['period']==18,'actual full705 chart')
- need(chart['parameter_center']=='31/4096' and chart['parameter_endpoints']==['-1/4096','63/4096'] and chart['settings']=={'precision':256,'newton_steps':2,'halfwidth_exponent':-7,'radius_exponent':-10},'fixed first705 chart')
+ sc_text,endpoints=geometry(unit)
+ need(chart['parameter_center']==sc_text and chart['parameter_endpoints']==endpoints and chart['settings']=={'precision':256,'newton_steps':2,'halfwidth_exponent':-7,'radius_exponent':-10},'fixed first705 chart')
  n=705;c,s,a=[[R.exact(M.point(v))for v in chart[k]]for k in ('center','slope','curvature')];w=[R.exact(F(v))for v in chart['weights']];nn=[R.exact(F(v))for v in chart['normal']];oo=[R.exact(F(v))for v in chart['origin']]
  need(all(len(v)==n for v in (c,s,a,w,nn,oo))and all(v>0 for v in w),'all exact705 coefficients')
- sc=R.exact(F(31,4096));h=R.exact(F(1,128));d=arb(0,h);rho=R.exact(F(1,1024));pred=[c[i]+s[i]*d+a[i]*d*d/2 for i in range(n)];whole=[pred[i]+arb(0,rho*w[i])for i in range(n)]
+ sc=R.exact(F(sc_text));h=R.exact(F(1,128));d=arb(0,h);rho=R.exact(F(1,1024));pred=[c[i]+s[i]*d+a[i]*d*d/2 for i in range(n)];whole=[pred[i]+arb(0,rho*w[i])for i in range(n)]
  need([M.point(v)for v in chart['coordinate_radii']]==[F(1,1024)*F(v)for v in chart['weights']],'literal native weighted radius')
  for old,new in zip(chart['whole_box'],whole,strict=True):H.contains(old,new)
  need(len(directions)==144 and len(paths)==108,'all original native acquisition groups')
