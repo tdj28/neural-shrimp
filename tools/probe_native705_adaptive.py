@@ -14,9 +14,9 @@ from neural_shrimp.rigorous_cubic_proposal import refresh_cubic_proposal
 from neural_shrimp.rigorous_cubic_correlated_pal import cubic_correlated_tube,cubic_anchor_test
 from neural_shrimp.rigorous_orbits import exact,vector_json
 from neural_shrimp.rigorous_eigenpair_locus import exact_mid
-P=W.P;C=W.C;BASE=P.BASE/'adaptive001';MAX_ATTEMPTS=32;CAP=1024**3
+P=W.P;C=W.C;BASE=P.BASE/'adaptive002';MAX_ATTEMPTS=32;CAP=1024**3
 read=W.read;entry=W.entry;inventory=W.inventory;require=W.require;decode=W.decode;EXPECTED=W.EXPECTED
-SOURCES=list(dict.fromkeys(W.SOURCES+['src/neural_shrimp/cubic_rechart.py','src/neural_shrimp/rigorous_pal_rechart.py','tools/probe_native705_adaptive.py','tools/launch_native705_adaptive.py','tests/test_cubic_rechart.py','tests/test_native705_adaptive.py','docs/plans/native705-adaptive-continuation.md','docs/plans/native705-adaptive-policy.json','docs/reviews/native705-cubic-narrow-prefix.json']))
+SOURCES=list(dict.fromkeys(W.SOURCES+['src/neural_shrimp/cubic_rechart.py','src/neural_shrimp/rigorous_pal_rechart.py','tools/probe_native705_adaptive.py','tools/launch_native705_adaptive.py','tests/test_cubic_rechart.py','tests/test_native705_adaptive.py','docs/plans/native705-adaptive-continuation.md','docs/plans/native705-adaptive-policy.json','docs/reviews/native705-cubic-narrow-prefix.json','docs/reviews/native705-adaptive001-validation-failure.json']))
 
 def sources():
  require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed adaptive source')
@@ -28,13 +28,18 @@ def settings(exponent):
  require(type(exponent)is int and -9<=exponent<=-5,'fixed dyadic adaptive width range')
  return dict(period=18,precision=256,parameter=str(Fraction(2)**exponent-Fraction(1,2048)),halfwidth_exponent=exponent,radius_exponent=-10,newton_steps=2,predictor_degree=3,residual_degree=4)
 
+def exact_proposal(value):
+ try:q=Fraction(value)
+ except (TypeError,ValueError,ZeroDivisionError):return False
+ return q.denominator&(q.denominator-1)==0 and abs(q.numerator).bit_length()<=256
+
 def validate_card(card,source,attempt):
  require(card['source']==source and card['attempt']==attempt and type(attempt)is int and 1<=attempt<=MAX_ATTEMPTS,'literal source and bounded indexed attempt')
  require(card['kernel']=='fresh-cubic705-adaptive-v1'and card['settings']==settings(card['settings']['halfwidth_exponent']),'unchanged native settings with frozen adaptive width')
  require(all(len(card[k])==705 for k in ['normal','origin','weights','initial'])and len(card['anchor']['box'])==705,'complete actual state/modes/rates/angle')
  require('exact_parameter'not in card['anchor'],'rotated gauge cannot inherit exact scalar')
  require(all(0<Fraction(v)<=1 for v in card['weights']),'fixed positive native weights')
- require(all(exact(v).is_exact()and exact(v).is_finite()for k in ['normal','origin','initial']for v in card[k]),'finite exact arbitrary proposals')
+ require(all(exact_proposal(v)for k in ['normal','origin','initial']for v in card[k]),'finite exact arbitrary proposals')
  require(card['policy']['sha256']==entry(BASE/'policy.json')['sha256'],'same sealed bounded policy')
  return card
 
