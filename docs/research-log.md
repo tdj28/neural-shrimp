@@ -13976,3 +13976,7 @@ pass (eight with saved inverse-diagnosis controls,0.19s), including nonnormal
 complex modes, angular variation, actual state motion and corrupt identities.
 Helper-only source; exact same-root binding and bounded wrapper remain next.
 The direction (-1,11/20000) is explicitly selected after producer gradients.
+
+## 2026-10-11 — independent maintained prefix source preparation
+
+Fixed attempts1,2,4 of maintained001 for a fresh480-bit three-root audit from the independently proved rotated endpoint. Preserve allfive producer attempts. Explicitly enable only1/64 width; old1/32 checker default remains unchanged. Full705 synthetic measured serialization/resource admission precedes scientific arrays.900s/6GiB/2GiB internal,920+5s/2050MiB owned,CPU1nice10,no native calls. Source and actual metadata peer review before launch.
