@@ -20,7 +20,7 @@ import probe_native705_cubic_remaining as P
 from flint import arb_mat
 Q,H,R,M,need,read=A.Q,A.H,A.R,A.M,A.need,A.read
 ball_json,vector_json,matrix_json=A.ball_json,A.vector_json,A.matrix_json
-OUT=Path('/data2/neural-shrimp-data/audits/native705-cubic32-remaining-independent/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/native705-cubic32-remaining-independent/attempt002/run')
 CARD='docs/plans/native705-cubic32-remaining-independent-inputs.json'
 FILES=sorted(set(S.FILES+P.FILES+['src/neural_shrimp/rigorous_arclength_connection.py','src/neural_shrimp/rigorous_arclength_slices.py','src/neural_shrimp/rigorous_connection.py','src/neural_shrimp/rigorous_connection_frames.py','src/neural_shrimp/rigorous_correlated_cocycle.py','src/neural_shrimp/rigorous_flips.py','src/neural_shrimp/rigorous_norm_cocycle.py','src/neural_shrimp/rigorous_periodic_lyapunov.py','src/neural_shrimp/__init__.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py','tools/reviews/review_cubic_center.py','tools/reviews/review_cubic_remaining.py','tools/reviews/launch_cubic_remaining_review.py','tools/bind_native705_cubic_complement.py','tools/probe_native705_cubic_complement.py','tools/launch_native705_cubic_complement.py','src/neural_shrimp/cubic_complement_geometry.py','tests/test_cubic_complement_geometry.py','tests/test_native705_cubic_complement.py','docs/plans/native705-cubic-complement.md','docs/plans/native705-cubic-complement-inputs.json','tools/reviews/check_native705_chart31_boundary_hypotheses.py','docs/reviews/native705-chart31-boundary-hypotheses.json','tests/reviews/test_cubic_remaining_review.py','docs/plans/native705-cubic32-remaining-independent.md',CARD]))
 
