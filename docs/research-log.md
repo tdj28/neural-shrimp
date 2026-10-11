@@ -12952,3 +12952,12 @@ J/D matrices and eventual duplicate finalcertificate. Algebra and all705 gates
 unchanged; endpoint uses already validated in-memoryD directly. Old full
 formats/defaults and all immutable evidence retained. No compact profile or
 native target yet; source review and fresh full-size measurement are next.
+
+
+### 2026-10-11 UTC: fixed compact full705 profile preparation
+
+The optional compact proof source5fb76961 retains all native evidence and exact
+inverse proposals while omitting reproducible dense derived arrays. Prepare a
+fresh source-bound full705 synthetic profile under the unchanged629tick/240s/
+6GiB/768MiB screen and new exclusive correlated002 root. The first dense native
+proof remains a separate measured baseline. No target arrays read or run yet.
