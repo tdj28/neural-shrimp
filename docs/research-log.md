@@ -15937,3 +15937,7 @@ One CPU1/nice10 4GiB worker plus256MiB launcher is admitted under existing caps;
 fresh full705 synthetic profile and complete8064-call forecast remain mandatory
 before target arrays. No accepted earlier domain is reacquired. New quarter
 results retain producer-only status until independent replay.
+
+### 2026-10-11T09:59:39.743939+00:00 — Independent temporal-mean replay admitted
+
+Boundary source/semantics/call-order/resource review PASS and5controls1.48s; root5controls1.67s. Admit one saved replay,120s1GiB0native with synthetic full-size admission before outcomes. All evidence stays on consumed development states.
