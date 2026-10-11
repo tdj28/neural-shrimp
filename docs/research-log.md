@@ -17400,3 +17400,7 @@ All three preceding output/binding failures are retained. Complete immutable
 inventories, exact source, absent owned processes and17.93MB output verified;
 receipt clark-subset-endpoint-independent-attempt004.json. This is a local
 native6 connection and endpoint restriction, not full window organization.
+
+### 2026-10-11 — Preserve chart34 narrow-domain prefix and terminal depth stop
+
+Execution191b325793e7e4c689d392e940df6657aef424d4 completed63 fresh derivative domains and76 complete center attempts,15390 inclusive native calls,1324.444s/1880900KiB. The exact accepted68-cell prefix covers[83/512,57/256], through62 of64 original domains. Seven coarse metric failures were retained; the left depth1 child in domain63 also failed, causing the declared maximum-depth stop. Its right sibling and domain64 were not acquired. This is an incomplete complementary proof, not instability or whole34 coverage. All174 exact source archives, complete immutable outer/worker inventories and absent owners were verified. Receipt docs/reviews/native705-cubic34-narrow001.json records every accepted/failed cell, pending domain and original wide failures. The prepared whole34 independent card remains unlaunchable; a disclosed accepted-prefix replay amendment and a bounded saved final-cell diagnosis precede any additional native proposal.
