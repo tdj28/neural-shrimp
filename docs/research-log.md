@@ -9315,3 +9315,19 @@ worker plus4GiB parent. Own4GiB worker plus256MiB parent fits with headroom.
 Launch one polynomial001, original first quarter only, measured full705 and
 108 synthetic phases before at most108 target phases. All previous failures
 remain immutable; no automatic retry, further cells or root acquisition.
+
+### 2026-10-11 — polynomial quarter completes root/tangent, metric unresolved
+
+Fixed polynomial001 execution2d932da2 completed all216 phases (108synthetic,
+108target),38.355s/1,532,960KiB/94,456,327bytes. All original-domain center/whole
+root and full705 tangent gates now pass, weighted Neumann .06640412; native
+phase critical-plane identities and all11 quotient construction completed.
+Final sufficient metric failed: remainder .873048, penalty13.7091. This is an
+enclosure failure, not instability. Outerfd297b95b22708c5c33b0284fca27f55c095a2fd2d3d0cfc223c42a9e840e031,
+worker d213344ab2edc294add003ae8a6f8dd9bb2a106c765fbf2d6c67bb0f85ce04c8;
+full immutable inventory verified and owned2509327/2509435 absent. No cells
+promoted. The correlated inverse resolved the prior incomplete Neumann/domain
+stage. A saved center-uncertainty versus parameter-derivative remainder diagnosis
+will determine whether a tighter center or narrower scalar cells is appropriate;
+no blind subdivision/new acquisition follows this result. Root separately owns
+new CIFAR512 development; independent saved outcome replay is next parallel work.
