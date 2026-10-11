@@ -2154,9 +2154,34 @@ def build():
         return json.dumps(normalize({k:inp[k]for k in ["network","x","y","lr_hidden","lr_output"]}),sort_keys=True)
     previous_maps=[load(Path(z["external_root"])/"inputs.json")for z in certificates]
     previous_maps+=[load(Path(load(c.ROOT/"certificates/s2-period18-receipt.json")["external_root"])/"inputs.json"),r51_inputs["period36"],load(Path(s1r_cert["external_root"])/"inputs.json"),input58]
-    allmaps=previous_maps+[load(cp13/f"run/row-{z['index']}/inputs.json")for z in c13["new"]]
-    assert len(allmaps)==32 and len({exact_map_identity(z)for z in allmaps})==32
-    n.add("nCertifiedOrbits",len(certificates)+4+len(c13["new"]),str(len(certificates)+4+len(c13["new"])),"individually certified attracting training settings; neutral bifurcations, same-orbit tubes and fixed-weight activity excluded",p18_sources+certificate_paths+[s1r_cert_path]+r51_sources+sources58+c13s,"six previous exact attracting settings plus26 distinct new13D census settings")
+    # Complete full-state proof coverage of every72D agreed census representative.
+    import gzip
+    c72p=c.ROOT/"certificates/census72-orbits-receipt.json";c72a=c.ROOT/"docs/reviews/census72-ad-independent-outcome.json"
+    c72,ac72=load(c72p),load(c72a);cp72,ca72=Path(c72["producer"]["root"]),Path(c72["independent"]["root"])
+    bound_inventory(cp72/"manifest.json",c72["producer"]["outer"]);bound_inventory(ca72/"manifest.json",c72["independent"]["outer"])
+    c72s=[c72p,c72a,cp72/"manifest.json",ca72/"manifest.json"]
+    ao72=load(ca72/"run/outcome.json");assert ao72==ac72["outcome"]and ao72["passed"]and ao72["proofs_passed"]==32 and ao72["native_attempted"]==ao72["native_returned"]==1680
+    assert c72["passed"]and c72["dimension"]==72 and c72["certified_72d_representatives"]==33 and c72["independent"]["precision"]==1024
+    ib72=load(cp72/"run/input-binding.json");assert c72["reused"]==ib72["already_proved"]and len(ib72["all72"])==33 and [v["index"]for v in c72["new"]]==ib72["new"]
+    periods72=[]
+    for row in c72["new"]:
+        idx=row["index"];ap=ca72/f"run/row-{idx}/proof.json.gz";pp=cp72/f"run/row-{idx}/proof.json.gz";ip=cp72/f"run/row-{idx}/inputs.json"
+        assert c.sha256(ap)==row["independent_proof_sha256"]and c.sha256(pp)==row["producer_proof_sha256"]and c.sha256(ip)==row["input_sha256"]
+        with gzip.open(ap,"rt")as f:aa=json.load(f)
+        with gzip.open(pp,"rt")as f:bb=json.load(f)
+        ii=load(ip);assert aa["passed"]and all(aa["gates"].values())and aa["same_exact_original_box"]and aa["box"]==bb["box"]and aa["dimension"]==72 and aa["period"]==row["period"]==ii["period"]
+        assert len(aa["inclusions"])==72 and all(aa["inclusions"])and ball_endpoints(aa["contraction"])[1]<1 and ball_endpoints(aa["power_bounds"][-1]["bound"])[1]<1
+        assert [d["divisor"]for d in aa["divisors"]]==[k for k in range(1,ii["period"])if ii["period"]%k==0]and all(d["separating_coordinates"]for d in aa["divisors"])
+        periods72.append(ii["period"])
+    assert sum(periods72)==840 and len(c72["reused"])==1 and c72["reused"][0]["index"]==86
+    old72=Path(c72["reused"][0]["root"])/"certificate.json";assert c.sha256(old72)==c72["reused"][0]["proof"]["sha256"];periods72.append(58)
+    indices13={v["index"]for v in c13["new"]+c13["reused"]};indices72=set(ib72["all72"])
+    assert indices13.isdisjoint(indices72)and len(indices13|indices72)==c72["agreed_census_representatives"]==61
+    for macro,value,calc in [("nCensusAll",61,"complete disjoint28 thirteen-dimensional plus33 seventy-two-dimensional representative indices"),("nCensusSeventyTwo",33,"all72D agreed census representatives including previously proved58-cycle"),("nCensusSeventyTwoNew",32,"new full72D same-box scalar-lossAD proofs"),("nCensusADPhases",1680,"fresh center and original-box native scalar-lossAD phases")]:n.add(macro,value,str(value),proof,c13s+c72s,calc)
+    n.add("tCensusSeventyTwoPeriods",sorted(set(periods72)),", ".join(map(str,sorted(set(periods72)))),proof,c72s,"all distinct primitive periods in complete72D census subset")
+    allmaps=previous_maps+[load(cp13/f"run/row-{z['index']}/inputs.json")for z in c13["new"]]+[load(cp72/f"run/row-{z['index']}/inputs.json")for z in c72["new"]]
+    assert len(allmaps)==64 and len({exact_map_identity(z)for z in allmaps})==64
+    n.add("nCertifiedOrbits",len(allmaps),str(len(allmaps)),"individually certified attracting training settings; neutral bifurcations, same-orbit tubes and fixed-weight activity excluded",p18_sources+certificate_paths+[s1r_cert_path]+r51_sources+sources58+c13s+c72s,"six previous exact attracting settings plus26 distinct new13D and32 distinct new72D census settings")
     # Independent705 uniform curve and same-root endpoint connection.
     palp=c.ROOT/"docs/reviews/native705-independent-outcome.json";palj=c.ROOT/"docs/reviews/native705-endpoint-independent-outcome.json"
     pp,pj=load(palp),load(palj);prs=Path(pp["root"]);pjs=Path(pj["root"])
@@ -2220,6 +2245,25 @@ def build():
     assert extra_count==25
     n.add("nPALTotalCharts",5+extra_count,str(5+extra_count),proof,cbs+extra_sources,"five original charts, one wider successor and three independently connected eight-chart rotated-gauge packets; gauge coordinates are local")
     n.add("nPALRotatedCharts",24,"24",proof,extra_sources,"three fixed eight-chart packets with independently reconstructed prior localization and full705-coordinate cross-gauge membership")
+    # Independent correlated705 larger-domain root and projected known-root join.
+    corpath=c.ROOT/"docs/reviews/native705-correlated-independent-outcome.json";cor=load(corpath);corr=Path(cor["root"])
+    corp=next(v["manifest_sha256"]for v in cor["inventories"]if v["root"]==str(corr));bound_inventory(corr/"manifest.json",corp)
+    co=load(corr/"run/outcome.json");assert cor["passed"]and co==cor["outcome"]and co["passed"]and co["connected"]and co["strict_inclusions"]==co["anchor_coordinates"]==705 and co["primitive_period"]==18
+    assert co["parameter_endpoints"]==["-49/2048","79/2048"]and ball_endpoints(co["contraction"])[1]<Fraction(66721,1000000)
+    cors=[corpath,corr/"manifest.json"]
+    n.add("xPALCorrelatedContraction","66721/1000000","0.066721",proof,cors,"independent480 all705 weighted contraction upper bound rounded upward")
+    n.add("tPALCorrelatedParameter",co["parameter_endpoints"],r"[-49/2048,\;79/2048]",proof,cors,"exact new local-gauge domain joined by full705 known-root projection")
+    # Independently reconstructed causal horizon warnings on consumed LM prefixes.
+    lhp=c.ROOT/"docs/reviews/tiny-lm-horizon-independent-outcome.json";lh=load(lhp);lhr=Path(lh["root"])
+    lpin=next(v["manifest_sha256"]for v in lh["inventories"]if v["root"]==str(lhr));bound_inventory(lhr/"manifest.json",lpin)
+    lho=load(lhr/"run/result.json");assert lho["passed"]and lho["native_calls"]==0 and lho["rows_recomputed"]==32 and lho["retained_native_operations_checked"]==dict(hvp=72,ce=32)
+    assert {k:v for k,v in lho.items()if k!="rows"}==lh["outcome"]
+    ls=lho["summary"];lc=ls["future_warning_counts"];assert ls["total_rows"]==ls["resolved_rows"]==32 and ls["future_eligible_rows"]==24 and ls["already_failing_rows"]==8
+    assert lc["drift"]==lc["gradient_change"]==lc["baseline_composite"]==dict(true_warning=1,false_warning=7,missed_failure=0,correct_quiet=16)
+    assert lc["static_curvature"]==dict(true_warning=1,false_warning=5,missed_failure=0,correct_quiet=18)
+    assert lc["loss_change"]==lc["persistent_defect"]==dict(true_warning=0,false_warning=0,missed_failure=1,correct_quiet=23)and ls["drift_only_caught_failures"]==0
+    lhs=[lhp,lhr/"manifest.json"];lhl="independently checked saved32 correlated consumed development prefixes; shared native acquisitions, no incremental utility"
+    for macro,value,calc in [("nLHRows",ls["total_rows"],"all fixed prefixes"),("nLHEligible",ls["future_eligible_rows"],"all qualified prefixes below20percent frozen error at first two horizons"),("nLHAlready",ls["already_failing_rows"],"resolved prefixes already over threshold"),("nLHTrue",lc["drift"]["true_warning"],"sole eligible future failure also caught by gradient and curvature"),("nLHDriftFalse",lc["drift"]["false_warning"],"false drift warnings"),("nLHCurvatureFalse",lc["static_curvature"]["false_warning"],"false static-curvature warnings")]:n.add(macro,value,str(value),lhl,lhs,calc)
     # Exact generalized flip of the signed native RNN return, independently512 audited.
     crp=c.ROOT/"docs/reviews/clark-rnn-generalized-flip-independent.json";cr=load(crp);crr=Path(cr["root"])
     assert cr["passed"]and cr["source"]=="e62b17ec13d41a5dce79eab4a88d7052745f5b18"

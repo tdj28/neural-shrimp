@@ -41,8 +41,8 @@ figures and drafting. The human researcher will review the evidence, authorship 
 
 \begin{abstract}
 Deterministic gradient descent can converge to long periodic orbits in neural-network parameter space.
-We give computer-assisted proofs of attracting training cycles at \nCertifiedOrbits{} explicit settings, including a primitive period-58 orbit
-in a nonlinear network with 72 trainable parameters. We then resolve connected bifurcation structure
+We give computer-assisted proofs at \nCertifiedOrbits{} explicit settings, covering every agreed census representative
+in networks with 13 or 72 trainable parameters and primitive periods up to 58. We then resolve connected bifurcation structure
 in the two-layer learning-rate plane of a 13-parameter network. Validated continuation connects an
 attracting period-18 orbit to a saddle-node and continues its $+1$-multiplier locus to a generic
 1:1 resonance, where two multipliers equal $+1$ and all remaining modes attract. We certify a
@@ -74,8 +74,8 @@ Global resonance ancestry & 0: exploratory/adapted & Near-root scaling is sugges
 ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
-CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. Two transformer prediction pilots fail their utility gates; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
-Selected orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including every \nCensusThirteen{} 13-parameter census representative and primitive periods 2 and 58 in 72 dimensions. New census certificates are independently proved by scalar-loss automatic differentiation. \\
+CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. The transformer prediction pilots fail their utility comparisons; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
+Full-state orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including all \nCensusAll{} census representatives in 13 or 72 dimensions. Each new representative is independently proved by scalar-loss automatic differentiation. \\
 Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALTotalCharts{} positive-angle charts extend its connected geometry, with the transverse bound checked on the first five. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
@@ -106,7 +106,7 @@ learning-rate grid we screen the parameter state at the end of a long run, refin
 Newton's method using an analytic Jacobian evaluated in floating-point arithmetic, and follow orbits and their stability boundaries through the plane.
 
 \paragraph{Main results.} We certify attracting training cycles at \nCertifiedOrbits{} explicit settings,
-including every 13-parameter representative of the numerical census. A nonlinear network with \nPFiftyEightDimension{} trainable parameters has an attracting training orbit of minimal period \nPFiftyEightPeriod{}, proved in the full parameter state by interval arithmetic and independently replayed at higher precision. Stable oscillatory training also occupies intervals of learning rates and belongs to
+including all \nCensusAll{} representatives of the numerical census in 13 or 72 dimensions. A nonlinear network with \nPFiftyEightDimension{} trainable parameters has an attracting training orbit of minimal period \nPFiftyEightPeriod{}, proved in the full parameter state by interval arithmetic and independently replayed at higher precision. Stable oscillatory training also occupies intervals of learning rates and belongs to
 continuous branches with identifiable bifurcation structure. We establish this for a primitive period-18 branch
 of a 13-parameter tanh network by computer-assisted proof: an attracting interior orbit is connected in the
 full parameter state to a nondegenerate saddle-node, and an exact interval of hidden-layer rates supports
@@ -143,7 +143,7 @@ cycles on smooth strongly convex two-dimensional objectives that advance by $1/K
 \paragraph{This paper's contribution.}
 \begin{itemize}
 \item Computer-assisted orbit proofs: \nCertifiedOrbits{} exact training settings have locally attracting
-primitive cycles in the full parameter state, including every 13-parameter census representative and
+primitive cycles in the full parameter state, including every agreed census representative in 13 or 72 dimensions and
 primitive period \nPFiftyEightPeriod{} in \nPFiftyEightDimension{} dimensions. Independent scalar-loss
 automatic differentiation checks the new 13-dimensional certificates; all proofs disclose shared dependencies.
 \item Connected bifurcation geometry: validated native continuation links a primitive period-18 interior orbit,
@@ -409,6 +409,18 @@ The evidence covers the selected representative orbits. Parameter-space boundari
 labels are investigated separately by continuation. Exact settings, raw proofs and independent checks
 are indexed in \path{certificates/census13-orbits-receipt.json}.
 
+\paragraph{Complete orbit-proof coverage in 72 dimensions.}
+All \nCensusSeventyTwo{} larger-network representatives are also certified.
+The \nCensusSeventyTwoNew{} new cases use the same fixed proof settings and exact original boxes;
+independent scalar-loss automatic differentiation at \nCensusThirteenPrecision{} bits recomputes
+\nCensusADPhases{} center and interval phases, then establishes strict inclusion, all proper-divisor
+exclusions and full-state attraction. Their primitive periods, together with the previously proved
+58-cycle, are \tCensusSeventyTwoPeriods{}. Thus every one of the \nCensusAll{} agreed census
+representatives has an exact attracting-orbit proof. Together with the additional selected settings,
+there are \nCertifiedOrbits{} distinct certified training maps. The proof coverage concerns full-state
+orbits at their exact learning rates; connected window geometry is established by the separate
+continuation results below. See \path{certificates/census72-orbits-receipt.json}.
+
 \paragraph{An attracting primitive period-58 training cycle.}
 The S1R map also admits an attracting orbit of minimal period \nPFiftyEightPeriod{} in all
 \nPFiftyEightDimension{} trainable coordinates. The target is the unique largest-period representative
@@ -424,7 +436,7 @@ higher-precision successor passed. An independent audit recomputed the saved int
 inclusion, divisor exclusions and power bound at \nPFiftyEightPrecision{} bits, then repeated the
 native proof at that precision with the identical dyadic center and a larger box. Exact strict
 containment in every coordinate identifies the same unique root in both proofs. The audit shares
-the analytic derivative implementation and Arb/FLINT. This promotes the highest-period agreed census representative to a computer-assisted proof. The complete 13-parameter subset is certified above. See
+the analytic derivative implementation and Arb/FLINT. This promotes the highest-period agreed census representative to a computer-assisted proof. Both complete dimensional subsets are certified above. See
 \path{certificates/s1r-period58-receipt.json} and
 \path{docs/reviews/census-period58-independent-outcome.json}.
 
@@ -858,6 +870,15 @@ above covers the first five charts; the later charts currently certify the unit-
 The receipts are \path{docs/reviews/native705-forward-independent-outcome.json} and
 \path{docs/reviews/native705-rotated-independent-001-outcome.json} through
 \path{docs/reviews/native705-rotated-independent-003-outcome.json}.
+
+A further independently checked chart uses a correlated polynomial enclosure of the native
+Jacobian and an affine approximate inverse. It proves contraction below
+$\xPALCorrelatedContraction$ on $s\in\tPALCorrelatedParameter$ in its new local gauge.
+All 705 inclusion and known-root membership inequalities pass, with primitive period 18 and
+a nondegenerate positive-angle frame. This extends the same boundary branch using wider local
+domains. The check reconstructs the polynomial and join reductions independently at 480 bits,
+sharing the acquired native derivative arrays and Arb/FLINT. See
+\path{docs/reviews/native705-correlated-independent-outcome.json}.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
 A separate local certificate encloses a primitive period-18 orbit at physical rates approximately
@@ -1645,6 +1666,17 @@ reconstructs every acquired Hessian-vector recurrence and decision. Thus this tw
 has not supplied a useful predictor for these consumed development cases; its complete negative result
 is retained in \path{docs/reviews/tiny-lm-two-snapshot-independent.json}.
 
+A subsequent causal warning pilot fixes \nLHRows{} correlated prefixes of the same four consumed
+trajectories. Every prediction uses only two local states and their derivatives, and all predictions
+are sealed before the four-step responses are evaluated. Two-amplitude finite differences qualify
+all prefixes; \nLHAlready{} already exceed the error threshold and are excluded from advance-warning
+scoring. Among the \nLHEligible{} eligible prefixes, the drift warning catches \nLHTrue{} future
+failure with \nLHDriftFalse{} false alarms. Ordinary gradient change has the same totals, while
+directional curvature catches that failure with \nLHCurvatureFalse{} false alarms. Loss change and
+persistence miss it. Independent saved arithmetic reconstructs every acquired action, response,
+warning and confusion count. This comparison supplies no incremental forecasting advantage for
+the drift rule. See \path{docs/reviews/tiny-lm-horizon-independent-outcome.json}.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -1682,7 +1714,7 @@ and predictive accuracy. Along nonperiodic or scheduled training, finite-horizon
 initial quantity; Floquet language is reserved for a sufficiently closed periodic reference orbit.
 The fixed-batch transformer pilot establishes an architectural test path, but has not yielded a periodic reference
 orbit. Neither the drift-aware event calibration nor the separate broader-data continuous-progress pilot has
-shown incremental predictive utility. The independently audited perturbation comparison now identifies a concrete failure of the initial frozen-curvature approximation; exploiting that information requires a causal forecast or intervention. Separate
+shown incremental predictive utility. The independently audited perturbation comparison identifies a failure of the initial frozen-curvature approximation; the subsequent causal warning comparison also fails to improve on ordinary curvature. A useful intervention remains to be demonstrated. Separate
 minibatch, optimizer-state, schedule and precision perturbations remain necessary. Relevant endpoints are prospective transition predictions and improved interventions at comparable
 compute cost. Similar-looking loss oscillations would not establish either endpoint. A linear loss-based
 multiplier estimate alone also does not identify nonlinear criticality or basin accessibility.
@@ -1858,7 +1890,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 529-parameter network on one subset and task; the linear network is a solvable model. These map and bifurcation
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
-reruns. Complete-grid screening and connected-component assignment remain numerical; every 13-parameter representative now has an exact orbit proof. The \nCertifiedOrbits{} selected exact-real attracting orbits and
+reruns. Complete-grid screening and connected-component assignment remain numerical; all \nCensusAll{} agreed representatives now have exact full-state orbit proofs. The \nCertifiedOrbits{} selected exact-real attracting orbits and
 the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold and its $+1$ locus reaches the exact generic 1:1 resonance. The continuously covered attracting interior segment does not yet reach either bifurcation boundary, and the other boundary connections are separate unfinished tasks. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
