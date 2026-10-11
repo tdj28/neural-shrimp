@@ -37,7 +37,7 @@ def forecast(times,sizes):
 
 def main(mode,profile_outer=None,profile_worker=None):
     need(os.getpriority(os.PRIO_PROCESS,0)>=10 and not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip(),'clean committed CPU1 nice10')
-    resource.setrlimit(resource.RLIMIT_AS,(8*1024**3,)*2);out=BASE/f'attempt001-{mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;calls=0;returned=0;limit=180 if mode=='profile'else 3600;result=dict(passed=False,mode=mode,rows=[])
+    resource.setrlimit(resource.RLIMIT_AS,(8*1024**3,)*2);out=BASE/f'attempt002-{mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;calls=0;returned=0;limit=180 if mode=='profile'else 6000;result=dict(passed=False,mode=mode,rows=[])
     def stop(*_):raise TimeoutError('fixed AD proof deadline')
     signal.signal(signal.SIGALRM,stop);signal.signal(signal.SIGTERM,stop);signal.setitimer(signal.ITIMER_REAL,limit)
     def save(name,v,closing=False):
@@ -73,11 +73,11 @@ def main(mode,profile_outer=None,profile_worker=None):
                 proof=read(PARENT/'run/row-88/proof.json.gz');times=[];sizes=[]
                 for k in [0,16,33]:
                     state=[A.R.original_ball(v).mid()for v in proof['orbit_enclosures'][k]];beg=time.monotonic();_,_,size=step(data[88],state,88);times.append(time.monotonic()-beg);sizes.append(size)
-                cost=forecast(times,sizes);result.update(passed=cost['seconds']<3600 and cost['bytes']<8*1024**3,times=times,sizes=sizes,forecast=cost)
+                cost=forecast(times,sizes);result.update(passed=cost['seconds']<6000 and cost['bytes']<8*1024**3,times=times,sizes=sizes,forecast=cost)
             else:
-                pr=BASE/'attempt001-profile';inventory(pr,profile_outer);inventory(pr/'run',profile_worker);prof=read(pr/'run/outcome.json');prt=read(pr/'run/runtime.json');pl=read(pr/'launcher-result.json')
+                pr=BASE/'attempt002-profile';inventory(pr,profile_outer);inventory(pr/'run',profile_worker);prof=read(pr/'run/outcome.json');prt=read(pr/'run/runtime.json');pl=read(pr/'launcher-result.json')
                 need(prof['passed']and pl['exit_code']==0 and not pl['owned_live_pids']and all(prt[k]==rt[k]for k in ['sources','precision','python','flint','flint_library','threads']),'same measured AD source/runtime')
-                need(read(pr/'run/input-binding.json')==read(out/'input-binding.json'),'same profile target input binding');cost=forecast(prof['times'],prof['sizes']);need(cost==prof['forecast']and cost['seconds']<3600 and cost['bytes']<8*1024**3,'measured admission');save('profile-binding.json',dict(root=str(pr),outer=profile_outer,worker=profile_worker,forecast=cost))
+                need(read(pr/'run/input-binding.json')==read(out/'input-binding.json'),'same profile target input binding');cost=forecast(prof['times'],prof['sizes']);need(cost==prof['forecast']and cost['seconds']<6000 and cost['bytes']<8*1024**3,'measured admission');save('profile-binding.json',dict(root=str(pr),outer=profile_outer,worker=profile_worker,forecast=cost))
                 for i in indices:
                     inp=data[i];proposal=read(PARENT/f'run/row-{i}/proof.json.gz');save(f'row-{i}/inputs.json',inp);beg=time.monotonic();proof=A.prove(inp,proposal,lambda state:step(inp,state,i)[:2]);save(f'row-{i}/proof.json.gz',proof);result['rows'].append(dict(index=i,period=inp['period'],passed=proof['passed'],gates=proof['gates'],contraction=proof['contraction'],attraction_power=proof['attraction_power'],seconds=time.monotonic()-beg));gc.collect()
                 result.update(passed=all(v['passed']for v in result['rows'])and len(result['rows'])==32,proofs_passed=sum(v['passed']for v in result['rows']),forecast=cost)

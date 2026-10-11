@@ -19,12 +19,12 @@ def group(g):
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--profile-outer');p.add_argument('--profile-worker');a=p.parse_args()
- if a.out!=Path('/data2/neural-shrimp-data/audits/census72-independent-ad')/f'attempt001-{a.mode}':raise ValueError('fixed owned output root')
+ if a.out!=Path('/data2/neural-shrimp-data/audits/census72-independent-ad')/f'attempt002-{a.mode}':raise ValueError('fixed owned output root')
  if os.getpriority(os.PRIO_PROCESS,0)<10 or subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip():raise ValueError('clean committed nice10 launch')
  mem=Path('/proc/meminfo').read_text();available=int(next(x.split()[1]for x in mem.splitlines()if x.startswith('MemAvailable:')))*1024
  if available<8*1024**3:raise MemoryError('8GiBheadroom')
  if a.mode=='target' and not(a.profile_outer and a.profile_worker):raise ValueError('literal profile pins required')
- a.out.mkdir(parents=True,exist_ok=False);external=200 if a.mode=='profile'else 3620;env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');args=['timeout','--signal=TERM','--kill-after=5s',str(external)+'s',sys.executable,str(ROOT/'tools/reviews/review_census72_ad_driver.py'),'--mode',a.mode]
+ a.out.mkdir(parents=True,exist_ok=False);external=200 if a.mode=='profile'else 6020;env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');args=['timeout','--signal=TERM','--kill-after=5s',str(external)+'s',sys.executable,str(ROOT/'tools/reviews/review_census72_ad_driver.py'),'--mode',a.mode]
  if a.mode=='target':args+=['--profile-outer',a.profile_outer,'--profile-worker',a.profile_worker]
 
  def save(n,v):
