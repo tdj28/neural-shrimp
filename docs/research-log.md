@@ -15921,3 +15921,19 @@ cost floor and unchanged profile before arrays. Thirteen old/new controls passed
 3.10s, including unchanged default secondquarter behavior, all exact closed unions,
 new bound/pin rejection and full isolated archive closure. New cells require
 independent replay before wholechart stability promotion.
+
+Remaining-quarter admission: Clark independently reviewed34474731, reproduced13
+controls3.16s and cleared default-preserving geometry, exact full705 domains,
+all8064 inclusive calls and worst-case resource/retention bounds. Root's separately
+reviewed secondquarter replay now passed c59e0957, outer5a815a2533d67a1fd2b51b162357f6e79f6abb87f5475c4a95a41b29cc38d849,
+with four accepted cells, all11 modulus below.921099 and exact first+second union
+[-49,15]/2048 containing the full previous stable endpoint projection. Card now
+binds that complete literal independent source/outer/worker; only prerequisite
+pins and status changed. Repeated13 controls passed2.98s and actual full metadata,
+source/inventory/owner/union preflight passed3.583s with zero native calls and no
+research arrays opened. Host02:54UTC:52GiB available, load3.86/2.31/2.51;
+Boundary's bounded numerical41 job alone reserves3GiB, GPU idle and unused.
+One CPU1/nice10 4GiB worker plus256MiB launcher is admitted under existing caps;
+fresh full705 synthetic profile and complete8064-call forecast remain mandatory
+before target arrays. No accepted earlier domain is reacquired. New quarter
+results retain producer-only status until independent replay.
