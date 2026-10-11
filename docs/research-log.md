@@ -8810,3 +8810,15 @@ rate change or basis retry. Exact original predictor identity, residual/Taylor
 bounds and containing original derivative domains remain prerequisites. This
 addresses the measured full-domain inverse wrapping; new source/card/profile
 and independent review precede any further acquisition.
+
+### 2026-10-11 UTC — exact known-root restriction helper
+
+Prepared `rigorous_quadratic_restriction.py`: exact recentering and inherited
+error radii on the two closed halves, original R and R' Taylor coefficients
+used only for actual parameters in their proved domain. Fresh Jacobians will
+cover each recentered expression, so no unqualified old-J reuse occurs. The
+first synthetic run rejected Arb's outward delta multiplier at a closed edge;
+this was an overstrict metadata-domain test, not a proof failure. Exact subset
+containment is the authority; the interval multiplier only bounds monomials.
+Removed that wrong extra check, documented the distinction. Fourteen combined
+controls pass0.16s. No target acquisition; wrapper still in preparation.
