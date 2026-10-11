@@ -9383,3 +9383,7 @@ Sourcea763706a completed saved crossing001 in1.756s/62392KiB/zero native calls. 
 
 ### 2026-10-11 — prepare independently reduced nested second-junction audit
 Fixed480-bit radius2^-96 at the literal old exact55 center, zero Newton corrections. Full54-phase unrelated profile precedes target arrays; fresh108-phase derivative acquisition, strict55 nesting in old unique root, independently authored root/primitive/direct-trig quotient/total crossing reductions copied byte-identically from1b974d0e. Same native derivative/Arb dependency explicit. Native inputs precede all162 calls. Complete numerical/partial-root/unresolved-crossing ancestry retained. Nine arithmetic, actual-metadata, full55 profile, call-cap and isolated archive/startup controls passed12.67s. Prepared60s2GiB4GiBAS128MiB and owned75+5s130MiB card awaits peer source review; no target acquisition.
+
+
+### 2026-10-11 — admit one fresh nested second-junction audit
+Stability independently reviewed d3509fa0 full source/binding/resource packet and reproduced nine controls12.85s; byte-identical independent reducer provenance verified. Execute one fixed480/-96 zero-Newton same-center audit under60s/2GiB/128MiB and162inclusive native phase caps, mandatory full54-phase unrelated admission first. All55 strict old-box nesting, both physical brackets, independent primitive/spectrum/crossing remain hard gates. Output audits/second-unit-flip-independent/attempt001; failure retained. Current local CPU/RAM/GPU availability and ownprocess check recorded in launcher.
