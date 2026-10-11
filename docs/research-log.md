@@ -8569,3 +8569,14 @@ predictor mathematics. Same705 fixture, two full curves,12actual tanh gradient
 pairs and12new quartic native pairs;629 inclusive ticks, unchanged240s/6GiB/
 768MiB. No native target arrays read. Future run needs peer wrapper/math review;
 future target needs its own exact measured card and complete source/domain join.
+
+
+### 2026-10-11 UTC: source-bound cubic wider-domain target prepared
+
+Prepare one fixed h1/8,rho2^-8 cubic pilot from the same finite predictor and
+source-authenticated old r3 proposal. Full new correction/parameter domains,
+quartic remainder, degree5 forcing and all705 known-root/primitive gates remain.
+The historical worker now exposes default-preserving fixed event/tick labels
+for this adapter. Fresh cubic profile and exact measured card still required;
+no target or profile executed by this preparation. Intended next step after a
+pass is reusable connected batches toward the distant junction.

@@ -15,7 +15,7 @@ from neural_shrimp.rigorous_pal_rechart import localize_endpoint
 from neural_shrimp.rigorous_eigenpair_march import decode
 from neural_shrimp.rigorous_orbits import exact,vector_json
 from neural_shrimp.rigorous_cusps import TwoRateCuspMap
-BASE=P.BASE;TARGET=BASE/'attempt001-target/run';CAP=1024**3;COMPACT=False
+BASE=P.BASE;TARGET=BASE/'attempt001-target/run';CAP=1024**3;COMPACT=False;TICK_CAP=148;FINAL_EVENT="correlated_chart_return";PATH_EVENT="pal_path_phase_return";PATH_ASSEMBLY_EVENT="pal_path_assembly_return"
 SETTINGS={'period':18,'precision':256,'parameter':'15/2048','halfwidth_exponent':-5,'radius_exponent':-10,'newton_steps':0}
 AUDIT=Path('/data2/neural-shrimp-data/audits/native705-forward-independent/attempt004')
 APINS={'source':'cfc5bc32d7c02142f47073b02d25b9dc60cc9c7b','outer':'640bb20df7c75308e74bb8c5a40636f1dac7071dd459b584c2067f549a2dc38b','worker':'3874b35953b0f1b63f3751b64093cf54d9108c7aa88603960ff5655e103c7750','endpoint':'d56ed2992697924b767e16b76e7cd1271384899b039e52e8d416f790318ac9be'}
@@ -81,10 +81,10 @@ def main(args):
   raw=json.dumps(row,sort_keys=True,separators=(',',':'),allow_nan=False).encode();data=gzip.compress(raw,mtime=0)if name.endswith('.gz')else raw+b'\n';require(used[0]+len(data)<CAP-(0 if final else 4*1024**2),'1GiB raw cap');p=out/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(data);f.flush();os.fsync(f.fileno())
   used[0]+=len(data)
- def tick():ticks[0]+=1;require(ticks[0]<=148,'144 native and4 algebra calls');check()
+ def tick():ticks[0]+=1;require(ticks[0]<=TICK_CAP,'fixed144 native and bounded proposal/algebra calls');check()
  def observe(k,v):
   counts[k]=counts.get(k,0)+1
-  if COMPACT and k=='correlated_chart_return':v={'canonical_certificate':'certificate.json.gz','gates':v['gates'],'shooting_dimension':v['shooting_dimension'],'derived_matrices_retained':False}
+  if COMPACT and k==FINAL_EVENT:v={'canonical_certificate':'certificate.json.gz','gates':v['gates'],'shooting_dimension':v['shooting_dimension'],'derived_matrices_retained':False}
   save(f'events/{serial[0]:04d}-{k}.json.gz',v);serial[0]+=1;check()
  source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();identity={n:entry(ROOT/n)for n in SOURCES}
  for n,v in identity.items():require(hashlib.sha256(subprocess.check_output(['git','show','HEAD:'+n],cwd=ROOT)).hexdigest()==v['sha256'],'committed source '+n)
@@ -97,7 +97,7 @@ def main(args):
    inp,p,anchor=bind_parent(tick,save,identity);save('inputs.json',{'map_inputs':inp,'anchor':vector_json(anchor['box']),'settings':SETTINGS})
    c,s,a=[[decode(v)for v in p[k]]for k in ['center','slope','curvature']];C0=arb_mat([[decode(v)for v in row]for row in p['preconditioner']]);normal=[exact(v)for v in p['normal']];origin=[exact(v)for v in p['origin']];weights=[exact(v)for v in p['weights']];del p;gc.collect()
    proof=correlated_tube(TwoRateCuspMap(inp),c,s,a,C0,period=18,normal=normal,origin=origin,parameter=SETTINGS['parameter'],halfwidth_exponent=SETTINGS['halfwidth_exponent'],radius_exponent=SETTINGS['radius_exponent'],weights=weights,anchor=anchor,tick=tick,observe=observe,compact=COMPACT);save('certificate.json.gz',proof)
-   require(ticks[0]==148 and counts['gradient_path_input']==counts['gradient_path_return']==72 and counts['gradient_path_assembly_return']==2 and counts['pal_path_phase_return']==72 and counts['pal_path_assembly_return']==2,'complete fresh changed-domain acquisitions')
+   require(ticks[0]==TICK_CAP and counts['gradient_path_input']==counts['gradient_path_return']==72 and counts['gradient_path_assembly_return']==2 and counts[PATH_EVENT]==72 and counts[PATH_ASSEMBLY_EVENT]==2,'complete fresh changed-domain acquisitions')
    result.update(passed=proof['passed'],connected=proof['passed'],status='connected_correlated705'if proof['passed']else'completed_bounds_failed',gates=proof['gates'],contraction=proof['bound']['contraction'],strict_inclusions=sum(proof['bound']['coordinate_inclusions']),anchor_inclusions=sum(proof['anchor_check']['coordinate_inclusions']),parameter_endpoints=proof['parameter_endpoints'],physical_endpoint=proof['endpoint_root_boxes'][1][-3:])
  except BaseException as exc:result.update(status='failed_or_interrupted',error=type(exc).__name__+': '+str(exc))
  finally:signal.setitimer(signal.ITIMER_REAL,0)
