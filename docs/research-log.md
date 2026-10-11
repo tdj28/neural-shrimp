@@ -13112,3 +13112,12 @@ Prepare bounded reusable native predictor refresh for genuine new centers:
 144native+2algebra proof and full705 joins. Three controls passed0.16s, including
 analytic native endpoints, absence of any proposal-only root claim and complete
 input retention on failure. Future measured profile/batch card/review required.
+
+
+### 2026-10-11 UTC: full refreshed-cubic continuation profile prepared
+
+After retained h1/8 failure, measure the complete new-center predictor refresh
+and full705 cubic proof before any real continuation batch. Two synthetic
+full705 units plus actual unrelated13D native cost samples total746ticks. All
+existing time/RSS/source/input-before-call gates remain. This is source-only;
+peer review and a clean committed run card precede synthetic execution.
