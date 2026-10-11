@@ -8787,3 +8787,16 @@ existing746-operation profile plus actual149-operation cost floor. Prepared
 policy is not launchable pending peer review and complete actual-metadata
 preflight. Exact upper-bound contraction metadata is source-bound before
 proposal adaptation. No new target acquisition in this source preparation.
+
+### 2026-10-11 — Admit one reviewed maintained705 packet
+
+Stability peer source/binding/resource PASS on ace4314c (8 direct controls,
+0.45s); own11 controls0.44s. Read-only actual historical source/inventory,
+fresh endpoint and complete profile admission passed7.532s/340556KiB,
+zero native calls; all14 exact finite width/gauge cards validate before launch.
+Policy now measured-reviewed. Per-chart forecast143.0174s,5188656KiB,
+159832433B;32-attempt forecast4816.56s/5.131GB within8400s/8GiB.
+OneCPU1nice10 worker, current host admission before execution. This is one
+authorized adaptive exploratory packet; every fresh full705 proof and strict
+known-root join remains mandatory. Physical endpoints, failures and complete
+source/input/output inventories retained. No global or complement promotion.
