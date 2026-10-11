@@ -6820,3 +6820,12 @@ roots. Correct to explicit expected exit with actual metadata negatives;
 mandatory001 and fresh002 retain all science/caps/profile gates. Previous
 card timestamp00:37 was a typo; actual launcher00:32PDT is authoritative.
 Narrow peer review precedes retry.
+
+### 2026-10-11 — fresh explicit51 attempt002 admitted
+
+Stability bc5ec35a narrow historical-exit review PASS15controls1.23s.
+Mandatory001 and original failed implicit history remain immutable. Fresh002
+same384bit180s2GiB512MiB/381phase cap, exact same geometry and inclusive
+measurements. Host rechecked immediately before launch; no owned duplicate.
+Full-size fresh synthetic gates precede any target; no further changes inside
+attempt. Scientific conclusions require passed full roots/joins/native gates.
