@@ -16720,3 +16720,13 @@ The reviewed helper passed all fixed polynomial screens and two cells, but at do
 ### 2026-10-11 11:50 UTC — Admit all-six exact-rational cubic domain screen
 
 Root independently reviewed the exact derivative extrema, monotonic cubic endpoint bound and eight fixed Bernstein convex hulls; the outward Arb conversion checks both rational endpoints. No acquisition endpoint enters construction. Root reproduced twelve controls1.37s including actual source closure, all-six rejection retention, resource abort and endpoint/vertex cases. Unchanged independent root/tangent/native reducers and unchanged480bit precision. One360s4GiB RSS6GiB AS256MiB saved-only screen,375+5s owned outer, CPU1/nice10. Complete004 failure inventories and all original source bindings precede a measured full705 synthetic admission with cold004 cost. All eight whole/root/segment/polarization comparisons saved before gates; native tangent domain checked before saved quotient derivatives. No new native acquisition and no complementary stability extension from this diagnostic.
+### 2026-10-11 — complete pair-block LM source proposal
+
+Prepare the Root-approved128HVP adjacent-pair-preserving intervention after
+independent parity authority01c924fe. Exact full original/eta4 four cases and
+all old P/R/Q/T actions are bound; every new U/V action/partial response stays
+retained. Fixed20% material and10x attenuation are separate, gated by allfour
+unchanged1% qualifications. Same model/runtime, zero newgradients/CE; original
+consumed development only. All upstream actual/cold maxima now explicit in
+forecast. Source review, fresh2HVP profile and separate measured card remain
+mandatory before target. No new acquisition at this preparation stage.
