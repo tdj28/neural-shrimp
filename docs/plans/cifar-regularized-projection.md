@@ -33,3 +33,24 @@ controls (diagonal discrepancy/shorter norm, invariance under nonorthogonal basi
 rescaling/mixing, unsupported span/rank/nonfinite rejection). No actual arrays,
 profile, candidate or native call is admitted yet. Complete measured resource
 plan, source-bound caller and independent review precede any target work.
+
+### 2026-10-11 — Bounded actual same-start comparison
+
+The complete caller uses only the previously independently qualified512 V/HV
+columns at original current022; it never transfers their Hessian to an accepted
+new state. It authenticates every prior actual call and independent source/inventory
+before opening target arrays. A fresh unrelated98666×512 full whitening/SVD/
+64-step discrepancy profile must fit300s,4GiB RSS,12GiB AS,128MiB raw. The forecast
+includes twice the full algebra time and twice all native costs using all retained
+current512, prior-current and nested512 event maxima, plus30s and conservative write
+costs. Peak includes768MiB reserve. Retention is bounded by64 complete98666-vectors,
+32MiB metadata plus source archive; V/HV are pinned references rather than copied.
+
+Native caps: one fresh actualHp,14 gradients (one exact initial replay plus at most13
+in-trust Armijo trials), zero other native calls. All inputs and complete returns
+are persisted before post-call validation, including budget failure. Same forcing.5,
+action agreement1e-8, original5% trust ball, Armijo1e-4, first acceptance over
+alpha1..1/4096. Compare final gradient merit with the old unregularized1/64 outcome
+from exactly the same original022 state. Negative outcomes and failed direction gates
+remain completed units; no adaptive retry is inside this card. CPU1/nice10, independent
+owned outer315s+5s termination,130MiB combined cap. No GPU,holdoutB or paid resources.
