@@ -49,3 +49,13 @@ def test_worker_and_launcher_actual_entrypoints_and_source_closure():
   run=subprocess.run([sys.executable,str(root/'tools'/name),'--help'],capture_output=True,text=True);assert run.returncode==0,run.stderr
  code="import sys,json;sys.path.insert(0,'tools');import launch_native705_adaptive as L;from pathlib import Path;print(json.dumps(sorted(str(Path(m.__file__).resolve().relative_to(L.ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(L.ROOT)and str(Path(m.__file__).resolve().relative_to(L.ROOT))not in L.W.SOURCES)))"
  out=subprocess.check_output([sys.executable,'-c',code],cwd=root,text=True);assert json.loads(out)==[]
+
+
+def test_exact_dyadic_proposal_validation_ignores_ambient_arb_precision():
+ from fractions import Fraction
+ q=Fraction(2**255+17,2**300)
+ with ctx.workprec(53):
+  assert not W.exact(str(q)).is_exact() # old validation caused zero-native stop
+  assert W.exact_proposal(str(q))
+ for bad in ['nan','inf','1/3',str(Fraction(2**256+1,2**300))]:assert not W.exact_proposal(bad)
+ assert W.BASE==L.BASE and W.BASE.name=='adaptive002'

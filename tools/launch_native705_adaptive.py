@@ -20,6 +20,13 @@ def committed_policy(path):
  need(p['schema']=='native705-adaptive-v1'and p['status']=='measured-reviewed'and p['limits']==LIMITS and p['initial_parent']==PREFIX,'fixed policy/source parent and total caps')
  return p
 
+def retained_validation_failure(policy):
+ old=policy['retained_validation_failure'];need(old=={'root':str(W.P.BASE/'adaptive001'),'source':'f160f797fd1aedd768ece5c170f9d5fe7e963ebc','outer':'1ab0e0f7fd4781305ff06afcf97db4901a32c2772e97c00e3df77b52d61a9dd6'},'literal first validator-only failure')
+ root=Path(old['root']);W.inventory(root,old['outer']);out=read(root/'outcome.json');start=read(root/'launcher-start.json')
+ need(out['source']==start['source']==old['source']and not out['passed']and out['failure']=='ValueError: finite exact arbitrary proposals'and out['launched_attempts']==out['native_call_ceiling']==0 and not out['owned_live_pids'],'unchanged actual zero-native failure')
+ need(not(root/'attempt001/run').exists()and not(root/'attempt001/owned-process.json').exists(),'no first scientific worker or acquisition')
+ return old
+
 def initial_parent(identity):
  root=Path(PREFIX['root']);W.inventory(root,PREFIX['outer']);out=read(root/'outcome.json');card=read(root/'input-card.json');ep=read(root/'connected-endpoint.json')
  need(out['source']==card['source']==PREFIX['source']and out['passed']is False and out['connected_count']==3 and out['connected_right']=='115/512'and not out['owned_live_pids'],'actual three-chart prefix with fourth failure retained')
@@ -84,7 +91,7 @@ def main(args):
  signal.signal(signal.SIGALRM,halt);signal.signal(signal.SIGTERM,halt);signal.setitimer(signal.ITIMER_REAL,LIMITS['seconds'])
  save(BASE,'policy.json',policy);save(BASE,'launcher-start.json',dict(source=source,pid=os.getpid(),plan=entry(args.card),limits=LIMITS,meminfo=mem,load=os.getloadavg(),started_unix=time.time(),threads=dict.fromkeys(W.THREADS,'1')))
  try:
-  prof=W.profile(identity,policy['profile']);need(prof['forecast']==policy['forecast'],'same actual measured full331 forecast')
+  save(BASE,'retained-failure.json',retained_validation_failure(policy));prof=W.profile(identity,policy['profile']);need(prof['forecast']==policy['forecast'],'same actual measured full331 forecast')
   need(32*prof['forecast']['one_fresh_chart_seconds']+240<8400 and 32*prof['forecast']['compressed_storage_bytes']+16*1024**2<8*1024**3,'complete32-attempt measured time/storage forecast');save(BASE,'profile-binding.json',prof)
   with ctx.workprec(384):model,proposal,anchor,parent=initial_parent(identity)
   save(BASE,'initial-parent.json',parent);exponent=-5;endpoint=None;sealed_bytes[0]=sum(p.stat().st_size for p in BASE.rglob('*')if p.is_file())
@@ -93,7 +100,7 @@ def main(args):
    if LIMITS['seconds']-(time.monotonic()-start)<270:result['status']='insufficient_remaining_bounded_time';break
    folder=BASE/f'attempt{index:03d}';folder.mkdir(exist_ok=False);current[0]=folder
    try:
-    card=make_card(source,index,exponent,model,proposal,anchor,parent,policy['profile'],entry(BASE/'policy.json'));W.validate_card(card,source,index);save(folder,'input-card.json',card);check()
+    card=make_card(source,index,exponent,model,proposal,anchor,parent,policy['profile'],entry(BASE/'policy.json'));save(folder,'input-card.json',card);W.validate_card(card,source,index);check()
     available=int(next(v.split()[1]for v in Path('/proc/meminfo').read_text().splitlines()if v.startswith('MemAvailable:')));need(available>10*1024**2,'fresh10GiB worker/OS admission')
     result['launched_attempts']+=1;owner=run_worker(folder,index,entry(folder/'input-card.json')['sha256'],check)
     need(owner['exit_code']in (0,2),'expected mathematical worker exit');pin=entry(folder/'run/manifest.json');W.inventory(folder/'run',pin['sha256']);rt=read(folder/'run/runtime.json');done=read(folder/'run/outcome.json');inp=read(folder/'run/inputs.json')
