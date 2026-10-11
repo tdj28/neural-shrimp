@@ -19,12 +19,12 @@ def group(g):
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--mode',choices=['profile','target'],required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--profile-outer');p.add_argument('--profile-worker');a=p.parse_args()
- if a.out!=Path('/data2/neural-shrimp-data/explore/certificates/census72-panel')/f'attempt001-{a.mode}':raise ValueError('fixed owned output root')
+ if a.out!=Path('/data2/neural-shrimp-data/explore/certificates/census72-panel')/f'attempt002-{a.mode}':raise ValueError('fixed owned output root')
  if os.getpriority(os.PRIO_PROCESS,0)<10 or subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip():raise ValueError('clean committed nice10 launch')
  mem=Path('/proc/meminfo').read_text();available=int(next(x.split()[1]for x in mem.splitlines()if x.startswith('MemAvailable:')))*1024
  if available<8*1024**3:raise MemoryError('8GiBheadroom')
  if a.mode=='target' and not(a.profile_outer and a.profile_worker):raise ValueError('literal profile pins required')
- a.out.mkdir(parents=True,exist_ok=False);external=200 if a.mode=='profile'else 1820;env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');args=['timeout','--signal=TERM','--kill-after=5s',str(external)+'s',sys.executable,str(ROOT/'tools/certify_census72_panel.py'),'--mode',a.mode]
+ a.out.mkdir(parents=True,exist_ok=False);external=200 if a.mode=='profile'else 5420;env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');args=['timeout','--signal=TERM','--kill-after=5s',str(external)+'s',sys.executable,str(ROOT/'tools/certify_census72_panel.py'),'--mode',a.mode]
  if a.mode=='target':args+=['--profile-outer',a.profile_outer,'--profile-worker',a.profile_worker]
 
  def save(n,v):
@@ -48,5 +48,5 @@ def main():
   files={str(p.relative_to(a.out)):entry(p)for p in a.out.rglob('*')if p.is_file()};save('manifest.json',{'files':files})
   for f in sorted(a.out.rglob('*'),key=lambda p:len(p.parts),reverse=True):f.chmod(0o555 if f.is_dir()else 0o444)
   a.out.chmod(0o555)
- print(json.dumps({'root':str(a.out),'code':code,'owned_live_pids':rec['owned_live_pids'],'manifest':entry(a.out/'manifest.json')}));return 0 if code==0 and not live and sum(x['bytes']for x in files.values())<8*1024**3+1024**2 else 2
+ print(json.dumps({'root':str(a.out),'code':code,'owned_live_pids':rec['owned_live_pids'],'manifest':entry(a.out/'manifest.json')}));return 0 if code==0 and not live and sum(x['bytes']for x in files.values())<16*1024**3+1024**2 else 2
 if __name__=='__main__':raise SystemExit(main())

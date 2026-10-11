@@ -13,3 +13,9 @@ One CPU, nice10, no GPU or paid service. Profile three saved phases0/16/33 of th
 Profile limit180seconds; target1800seconds;2GiB worker/process-group RSS and8GiB virtual address space;8GiB complete scientific raw storage with8MiB closing reserve. External owner uses200/1820seconds plus5seconds TERM/KILL grace, checks its exact process group, retains complete immutable manifests and verifies termination. All6720 possible native return calls, including failed candidates, are retained as exact ball JSON in deterministic gzip. Final proof objects are also compressed; inputs, outcomes and manifests remain ordinary JSON. No worker survives completion.
 
 Fixed roots: /data2/neural-shrimp-data/explore/certificates/census72-panel/attempt001-profile and attempt001-target. The target accepts only the measured profile's manifest pins. No arithmetic or selection adaptation within this unit. A new independent scalar-loss AD audit must precede scientific promotion.
+
+## Dated resource amendment before any target, 2026-10-11 UTC
+
+Attempt001 profile completed three full exact returns with0.33996–0.34558s per retained phase and largest compressed record809405B. Its conservative complete-panel forecast4704.53s and11012620928B exceeds the original1800s/8GiB budget. The original profile remains immutable as an admission failure, and no target was launched. The measured dominant cost includes complete native Jacobian serialization and storage.
+
+Attempt002 keeps oneCPU/nice10,2GiB RSS,8GiB virtual memory and the identical32 rows/arithmetic/calls. It uses a measured5400-second target ceiling and16GiB scientific raw ceiling, external5420+5seconds; profile remains180+20seconds. A fresh same-source three-phase profile must pass both new ceilings. Source/card/library binding and immutable retention are unchanged. This local-only resource increase follows measured evidence; no paid run, GPU, protected holdout or scientific threshold changes.
