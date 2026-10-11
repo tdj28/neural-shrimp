@@ -7596,3 +7596,24 @@ transpose/decomposition qualifications pass. Exact source1c91e14f, immutable
 full events/source and absent owned IDs verified. AllP/R/U/V norms, CEslopes,
 odd contrasts and squared cross terms retained. Separate independent saved
 arithmetic is still required before promotion.
+
+### 2026-10-11 — prepare fixed saved full51 subset-radius screen
+
+The saved wider-chart failures are dominated by whole-error center-defect row
+bounds, so prepare all ten original failures for coordinate-radius rebalancing
+inside their unchanged acquired E. Root independently reviewed the floating-LP
+proposal/exact-rational checker (four controls). The caller reconstructs all
+four raw three-phase path groups independently, preserves literal C0/C1 and
+uses the larger original/independent absolute defect and forcing envelopes.
+Every proposal retains the whole original known51 predecessor box and scalar;
+no center-only ancestry or new-domain derivative assumption is used.
+
+Ten combined controls pass4.20s, including actual complete historical metadata,
+full51 projection/changed-last-radius negatives and isolated archive import.
+Initial metadata control caught a missing160-return counter entry before any
+scientific target decode; corrected and rerun. Exact bounds and old failures
+are saved before LP, its complete return before exact verification. Failed LP
+is abstention, never proof of infeasibility. No new native calls or whole-chart
+primitive/complement/genericity claim. Original22-prefix independent replay is
+separate. Fixed180s2GiB/4GiBAS64MiB, full-size measured admission,195+5 owned;
+card remains prepared pending independent complete caller review.
