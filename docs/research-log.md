@@ -17564,3 +17564,46 @@ and handoff checkpoint, not research completion.
 
 Source `def1b29ac218b39501a478196b1bab34bd97e938`;596 verified quantities;161-word abstract;22unchanged figure outputs. PDF SHA `49e04261e74387ecfc71525d16d69c020526e09a9d80d3564ada22d22f5d1953`. Sealed visual-QA manifest `51dbea62be631540f2a46183be5abfefcb845978656af118bc958c0d9d4b7cb1` at `/data2/neural-shrimp-data/paper/gd-route/credit-handoff-refresh-2026-10-11`. All57page contacts and seven detailed pages reviewed. Updated uncommitted `/data2/Handoff.md` will point the next session at this artifact and unfinished research packets.
 - run started 2026-10-07 23:04 UTC finished 01:30 UTC with exit status 0
+## 2026-10-10 — independent norm-cocycle saved-arithmetic review card
+
+Freeze an independently written saved-only checker for the two known successful norm-cocycle outcomes (38ea6ac3, outcome f03b5836), their native derivative acquisitions and uniform tangent premise. Post-outcome review, no new model or decomposition. Fixed 60s/80+5s CPU1, sampled2GiB,8MiB, one attempt; see `docs/reviews/norm-cocycle-saved-audit-card.md`. Synthetic controls and source checkpoint precede execution. Shared analytic derivatives and Arb are explicitly retained trust dependencies.
+
+## 2026-10-10 — independent norm-cocycle saved review completed
+
+One audit from066a2037 passed in2.719s,458240KiB. All four worker inputs plus outer inventory/source joins, exact Neumann/intersection reproduction,36phase operator gates and both complete metric gates passed with independent saved arithmetic. No derivative/model/decomposition acquisition. Full source/trust limitations and exact bounds: `docs/reviews/s2-period18-norm-cocycle-independent-review.json`. All output hashes, modes and three owned PID exits checked. The separate doubled-slice source6f989522 also received a static skim and35synthetic controls before its producer profile; this is distinct from its later outcome.
+
+## 2026-10-10: independent saved refined-tangent review preparation
+
+Prepare one source/card-bound saved audit of completed doubled interval, including previously unaudited235D U''/centered U' reduction and new18phase norm witness. No derivative/model/decomposition calls. Complete external hashes and historical runtime sources;60s/80+5s/2GiB/8MiB, fixed attempt001. Post-outcome independent-personnel arithmetic with inherited root/localization/analytic enclosure and Arb trust stated. Also static-cleared seven-slice composition5f457aae with47 synthetic controls; target coverage remains unreviewed until outcomes.
+
+Pre-execution producer-author schema skim requested explicit final halfwidth/endpoints joins. Added exact1/2048 input/actual/result binding without numerical changes; author-overlap disclosed and independent reduction remains reviewer-authored. No audit run occurred before amendment.
+
+## 2026-10-10: preserve first refined saved-audit decode mismatch
+
+Attempt001 cdd23316 failed2.769s at exact product/remainder identity after all235D derivative reductions and joins. Live-to-serialized Jprime public decode widens intervals; peer schema confirmed. Separately freeze attempt002 with original/recomputed diagnostics and unchanged strict independent positivity gates. No producer byte/threshold change, no model acquisition.
+
+## 2026-10-10: independent refined tangent/norm saved review passed
+
+Attempt002/6a0597ed completed2.8443s; all235D Uprime/Udoubleprime and18phase strict norm/metric reductions pass. Exact inventories/historical source and actual decode/domain joins checked; original attempt001 byte-identity failure retained. Producer-author schema skim only; no model/derivative/decomposition or new root localization. Fixed doubled slice only, seven-slice coverage review still separate.
+
+## 2026-10-10: independent saved full-chart coverage review preparation
+
+Completed doubled-slice independent review permits a fixed extension to all seven new chart156 slices, same mathematical reducers and explicit actual-input/stage joins. Source/card/16 focused synthetic controls before one60s/80+5s/2GiB/8MiB saved audit; no new derivative or decomposition. Preserve partial results before next slice; exact rational coverage plus the authenticated independent eighth decides final scope.
+
+2026-10-10: Freeze the independent chart156 seven-slice saved audit after18 focused controls passed0.08s. Initial test command named a nonexistent old test path and ran no tests; corrected invocation passed. Producer schema skim found the reused original inputs needed fresh manifest authentication, fixed before any reduction. Also preserve previously delivered source-only adjoint-functional1843ddca and preceding-chart64dfb34a skims.
+
+2026-10-10: Independent chart156 saved audit857e4800 passed one execution in23.643s/813524KiB. Seven new strict refined slices plus independently reviewed eighth cover exact[11/32,45/128]. All original failed first bounds retained; complete inventories/read-only/PID exits verified. No model, derivative, solve or decomposition acquisition.
+
+2026-10-10: Freeze independent saved eigenpair adjoint/functionals audit after18 synthetic controls pass0.11s. Peer certificate_context independently skimmed border normalization, root-only alpha/five intersections and scalar identity; inherited parent root/AD limitation explicit. One60s/80+5s CPU1nice10/2GiB/8MiB audit, no new inverse/model. Also preserve static stability-marchb6017dd7 skim with43 controls0.26s; no target reads in that review.
+
+2026-10-10: Independent saved adjoint/functionals audit6e9b9df6 PASSED one run5.927s/658076KiB. Rebuilt native border/coefficients, exact Neumann and five root-only intersections, allthree scalar identities; a_h,a_o,c strictlynegative. Four source/raw inventories and ownedexits verified; oldfailures retained. Inherits parent eigenpair-root/AD, no new inverse/model or other-mode/attraction claim.
+
+2026-10-10: Freeze metadata-only independent saved attraction coverage adapter, unchanged chart156 numerical reducer.26 focused controls pass0.09s. First exact input index8/chart155 external pins are committed; fixed60s/80+5 CPU1nice10/2GiB/8MiB, no derivative acquisition. Complete reviewed119/123source inventories, selected original partial-parent qualified chart/model and exact eight-slice partitions bound; subsequent distinct fixed units need new committed pins, no retries.
+
+2026-10-10: Certificate_context author-overlap schema skim of savedcoverageauditore7ded172 passes; no target/math calls by reviewer. Freeze the known distinct chart155/154/153 pins, one separate60s/80+5s audit each, sequential and stop on any failure. No scientific or helper source change, no prior slice rerun.
+
+2026-10-10: Three separate saved stability audits from c4e39424 passed charts155/154/153, 24 strict slices, exact union[41/128,11/32]. Worker27.658/30.029/29.813s, all bounds within caps, immutable full inventories and nine owned PID exits verified. No new acquisition/root proof; inherited-root/AD scope explicit.
+
+2026-10-10: Static peer skim ee4753e7 partial-radius diagnosis passed with24 focused synthetic controls0.14s. Exact partial-prefix/failure provenance and unchanged proposal math; no target array/reduction/model call in review. Fresh wider-domain proof remains mandatory.
+
+2026-10-10: Freeze external pins for the distinct completed chart152/index5 unit003; same reviewed e7ded172 saved-only auditor, one60s/80+5s CPU1nice10/2GiB/8MiB reduction. No prior chart rerun or scientific source change.
