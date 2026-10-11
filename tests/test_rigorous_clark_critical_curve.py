@@ -44,7 +44,7 @@ def test_literal_native_transport_retains_six_phases_and_mode_normalization():
   j=[[arb(1),arb(0)],[arb(0),arb('1/2')]];box=[arb(0),arb(0),arb('3/4'),arb(1),arb(0),arb(1)];events=[]
   transformed,r=C.native_transport(j,box,observe=lambda k,v:events.append((k,v)))
   assert transformed==box and len(r['orbit'])==len(r['modes'])==7 and len(r['native_jacobians'])==6
-  assert sum(k=='native_transport_phase'for k,v in events)==6 and r['phase']==2
+  assert sum(k=='native_transport_phase'for k,v in events)==6 and r['phase']==6
   with pytest.raises(ValueError):C.native_transport(j,box,steps=4)
   bad=box.copy();bad[3]=arb(0)
   with pytest.raises(ValueError):C.native_transport(j,bad)

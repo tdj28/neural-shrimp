@@ -52,14 +52,14 @@ Jacobian encloses every p(d)+E before the fixed C contraction test.
  report=dict(passed=passed,dimension=N,center=vector_json(center),slope=vector_json(v),parameter_center=ball_json(parameter),halfwidth=ball_json(halfwidth),radii=vector_json(radii),actual_error=vector_json(error),predictor_box=vector_json(predictor),whole_box=vector_json(whole),center_value=matrix_json(h0),center_jacobian=matrix_json(J0),predictor_jacobian=matrix_json(Jp),whole_jacobian=matrix_json(Jw),preconditioner=matrix_json(C),defect=matrix_json(D),preconditioned_residual=matrix_json(residual),image_correction=matrix_json(image),coordinate_inclusions=checks,contraction=ball_json(bound),scope='Uniform unique critical root at every physical gain in the fixed interval, conditional on complete authenticated family acquisitions. Known organizer and endpoint identities require separate strict full-coordinate joins.')
  observe('critical_tube_return',report);return whole,v,data,report
 
-def native_transport(j,box,steps=2,observe=lambda *_:None):
+def native_transport(j,box,steps=6,observe=lambda *_:None):
  """Literal F^steps/DF^steps inside one full six-phase native cycle.
 
 Conditional on an exact G=-F3 fixed root and its normalized critical -1
 mode in box. Oddness gives G F^k=F^k G and transports that mode; normalize
 by the positive norm. The caller must prove root authority and joins.
 """
- n=len(j);N=2*n+2;require(1<=n<=16 and len(box)==N and steps==2 and all(len(row)==n for row in j),'fixed literal phase-two bridge')
+ n=len(j);N=2*n+2;require(1<=n<=16 and len(box)==N and steps==6 and all(len(row)==n for row in j),'fixed literal full-six-phase return')
  x,d,g=box[:n],box[n],box[-1];q=box[n+1:-1];orbit=[list(x)];modes=[list(q)];js=[]
  require(g>0 and 0<d<1,'positive native physical parameters')
  for phase in range(6):
@@ -68,5 +68,5 @@ by the positive norm. The caller must prove root authority and joins.
  norm=sum((v*v for v in modes[steps]),arb(0)).sqrt();require(norm.is_finite()and norm>0,'strict nonzero literal transported mode')
  qq=[v/norm for v in modes[steps]];result=orbit[steps]+[d]+qq+[g]
  require(all((orbit[6][i]-x[i]).contains(0)and(modes[6][i]-q[i]).contains(0)for i in range(n)),'known native6 state/mode consistency')
- report=dict(phase=steps,normalization=ball_json(norm),input=vector_json(box),transported=vector_json(result),orbit=[vector_json(v)for v in orbit],modes=[vector_json(v)for v in modes],native_jacobians=[matrix_json(v)for v in js],scope='Literal full-native phase2 and positive mode normalization, conditional on the exact signed critical root. No state sign/phase search; mode orientation is a separately recorded caller choice.')
+ report=dict(phase=steps,normalization=ball_json(norm),input=vector_json(box),transported=vector_json(result),orbit=[vector_json(v)for v in orbit],modes=[vector_json(v)for v in modes],native_jacobians=[matrix_json(v)for v in js],scope='Literal full-native phase6 and positive mode normalization, conditional on the exact signed critical root. No state sign/phase search; mode orientation is a separately recorded caller choice.')
  observe('native_transport_return',report);return result,report
