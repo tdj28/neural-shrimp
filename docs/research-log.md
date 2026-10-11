@@ -8592,3 +8592,17 @@ Outera12c2e8bb643cc112caafd3270292ebc21eed0ad0faae50870e465e0ae7992a6, workerc92
 projection84.48s; preserved conservative actual dense floor still176.023s,
 4839112KiB,490414663bytes, inside unchanged caps. Commit the exact
 manifest-bound single h1/8,rho2^-8 card before target. No cubic target outcome yet.
+
+
+### 2026-10-11 UTC: aggressive cubic pilot failed; prepare actual batch continuation
+
+Sourcec230b809 cubic h1/8,rho2^-8 completed149ticks in63.53s/2,528,792KiB/50.5MB,
+but q1.3390094 and0/705 strict images failed. All705 prior-root membership,
+primitive18/frame/positive-angle checks passed, which cannot promote a curve.
+Exact immutable receipt native705-cubic-pilot-failure.json retained; owned group
+empty. No instability inferred. Do not keep probing widths at the same center.
+Prepare bounded reusable native predictor refresh for genuine new centers:
+180native+5algebra per period18/two-Newton proposal, then the separate fresh
+144native+2algebra proof and full705 joins. Three controls passed0.16s, including
+analytic native endpoints, absence of any proposal-only root claim and complete
+input retention on failure. Future measured profile/batch card/review required.

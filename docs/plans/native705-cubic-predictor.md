@@ -57,3 +57,28 @@ corrupt-anchor rejection. First source-generation inspection caught an omitted
 fifth power in the draft convolution before testing or any run; it was corrected,
 and the explicit nonzero-degree5 control prevents that omission. No profile or
 scientific target has been run with these new kernels.
+
+## Reusable fresh finite predictor preparation
+
+The first h1/8 cubic pilot failed q1.3390 with0/705 coordinate inequalities,
+while all705 known-root memberships passed. This is a retained enclosure
+failure, not a root or instability statement. Stop same-center width probes.
+Prepare a reusable native finite predictor refresh for genuine continuation:
+at most two full705 Newton proposals, a final exact finite preconditioner,
+slope C0*e_gauge, curvature from the actual affine native coefficient, and cubic
+coefficient from the actual quadratic residual. All native input centers are
+retained before their deterministic phase calls; every native direction return
+and all correction results are retained. Relative Newton corrections are
+bounded, and every resulting value remains a proposal until the fresh full-
+domain cubic proof and full705 join pass. No midpoint root acceptance.
+
+For period18/two Newton steps the refresh is180native+5algebra ticks; a complete
+fresh correlated proof adds144native+2algebra, totaling331. Three controls use
+exact analytic primitive1/2 models and independently checked native endpoints,
+and prove the proposal record itself never reports success or a known anchor.
+A synthetic native failure retains the complete attempted input. This helper
+is source-only; the future batch needs a measured full-size profile, exact
+source/parent/seed card, resource ownership and independent review. Proposed
+first step h1/16, fixed radius chosen in that later card, four independently
+computed chart workers and a full ordered join reduction. Stop the qualified
+prefix at the first failed root/join and retain every later unjoined result.
