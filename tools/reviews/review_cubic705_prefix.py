@@ -29,13 +29,13 @@ def acquisitions(run,kind,group):
   need(int(op[j].name.split('-')[0])==int(ip[j].name.split('-')[0])+1,'adjacent actual native input/output');a=read(ip[j]);b=read(op[j]);need(a['phase']==b['phase']==(j%36)//2 and a['direction']==b['direction']==('q'if j%2==0 else'r'),'fixed phase/direction order');rows.append(dict(**a,returns=b['returns']))
  return rows
 
-def geometry(domain,proposal,cfg,card):
- need(cfg['period']==18 and cfg['precision']==256 and cfg['newton_steps']==2 and cfg['halfwidth_exponent']==-5 and cfg['radius_exponent']==-10 and cfg['predictor_degree']==3 and cfg['residual_degree']==4,'same fixed source settings')
+def geometry(domain,proposal,cfg,card,*,allowed_widths=(-5,)):
+ need(cfg['period']==18 and cfg['precision']==256 and cfg['newton_steps']==2 and cfg['halfwidth_exponent']in allowed_widths and cfg['radius_exponent']==-10 and cfg['predictor_degree']==3 and cfg['residual_degree']==4,'same fixed source settings')
  c,s,a,b=[[R.exact(M.point(v))for v in proposal[k]]for k in('center','slope','curvature','cubic')];normal=[R.exact(F(v))for v in card['normal']];origin=[R.exact(F(v))for v in card['origin']];weights=[R.exact(F(v))for v in card['weights']]
  need(all(len(v)==705 for v in(c,s,a,b,normal,origin,weights))and all(0<v<=1 for v in weights),'entire native predictor/gauge/weights')
  for k in('center','slope','curvature','cubic'):need(domain[k]==proposal[k],'literal finite predictor '+k)
- need(domain['parameter']==cfg['parameter']and domain['halfwidth_exponent']==-5 and domain['radius_exponent']==-10,'actual source domain scales')
- h=arb(1)/32;rho=arb(1)/1024;d=arb(0,h);radii=[rho*v for v in weights];error=[R.original_ball(v)for v in domain['error']];need(len(error)==705,'all actual correction variables')
+ need(domain['parameter']==cfg['parameter']and domain['halfwidth_exponent']==cfg['halfwidth_exponent'] and domain['radius_exponent']==-10,'actual source domain scales')
+ need(allowed_widths and all(type(k)is int and -12<=k<=-3 for k in allowed_widths),'explicit reviewed dyadic width policy');h=arb((1,cfg['halfwidth_exponent']));rho=arb(1)/1024;d=arb(0,h);radii=[rho*v for v in weights];error=[R.original_ball(v)for v in domain['error']];need(len(error)==705,'all actual correction variables')
  for old,r in zip(domain['error'],radii,strict=True):
   lo,hi=M.interval(old);rr=M.point(ball_json(r));need(lo==-hi and lo<=-rr and hi>=rr,'original exact acquired domain covers requested correction')
  whole=[c[i]+s[i]*d+a[i]*d*d/2+b[i]*d*d*d+error[i]for i in range(705)]
@@ -93,7 +93,7 @@ class Work:
   self.tick()
 
 def synthetic(w):
- n=705;den=arb((1,270));A=arb_mat([[arb(((i+1)*6364136223846793005+(j+1)*1442695040888963407)**4%2**250)/den for j in range(n)]for i in range(n)]);I=M.ident(n);C=I+A;J=[I-A,A/8,A/32];res=[arb_mat([[arb((1,-80))*(i+1)/n]for i in range(n)])]+[arb_mat(n,1)for _ in range(3)]+[arb_mat([[arb((1,-60))*(i+1)/n]for i in range(n)])];h=arb(1)/32;rho=arb(1)/1024;before=time.monotonic();used=w.used
+ n=705;den=arb((1,270));A=arb_mat([[arb(((i+1)*6364136223846793005+(j+1)*1442695040888963407)**4%2**250)/den for j in range(n)]for i in range(n)]);I=M.ident(n);C=I+A;J=[I-A,A/8,A/32];res=[arb_mat([[arb((1,-80))*(i+1)/n]for i in range(n)])]+[arb_mat(n,1)for _ in range(3)]+[arb_mat([[arb((1,-60))*(i+1)/n]for i in range(n)])];need(allowed_widths and all(type(k)is int and -12<=k<=-3 for k in allowed_widths),'explicit reviewed dyadic width policy');h=arb((1,cfg['halfwidth_exponent']));rho=arb(1)/1024;before=time.monotonic();used=w.used
  proof=H.polynomial_root(C,J,res,[arb(1)]*n,rho,h,[arb(0,rho)]*n,w.tick,w.emit);need(proof['passed'],'fresh full705 degree5 polynomial control');elapsed=time.monotonic()-before;stored=w.used-used;forecast=elapsed+3*(3*elapsed+75);raw=10*stored+64*1024**2;peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024+2*1024**3
  report=dict(passed=bool(forecast<900 and raw<2048*1024**2 and peak<6*1024**3),seconds=elapsed,stored_bytes=stored,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,dimension=705,target_arrays_unopened=True);w.save('profile.json',report);need(report['passed'],'complete measured900s/6GiB/2GiB source/serialization admission');del A,C,J,res;gc.collect()
 

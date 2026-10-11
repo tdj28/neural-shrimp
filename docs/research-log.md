@@ -13750,3 +13750,7 @@ fields and three original certificate gates remain mandatory; unchanged
 proof/caps and exact previous failures retained. Execute only freshmarch002
 under the same recorded resource admission, rechecked by the launcher and
 before every worker; every new fullprofile must pass before target arrays.
+
+### 2026-10-11 UTC — Independent rotated705 endpoint proof math
+
+Prepare independent native point-residual assembly (actual input/output identities, terminal signs, norms/gauge), weighted Neumann known-root localization and exact original-domain segment checks. Extend old independent geometry helper with explicitly permitted dyadic widths while preservingh1/32default and exact acquired-domain authority. Fixed new target is retained adaptive h1/64 root plus fresh36phase endpoint connection; no target arithmetic or native acquisition. Mathematical controls cover nonnormal enclosure, noncontractive rejection, wrong exact input/segment/terminal sign, and explicit width/actual-domain mismatch. Literal wrapper/resource card and peer review next.
