@@ -15018,3 +15018,16 @@ native timing maxima and native/scientific/RSS/storage limits, only1500sworker/
 1515+5supervisor after measured1319.57s forecast; failed001 mandatory. Card
 reviewed for one fresh002 with full-size repeated admission, no cap relaxation
 inside a run. No native current022 action has occurred before this admission.
+
+### 2026-10-11 — fresh512 current correction accepted, nonlinear bottleneck
+
+Source4de18a1d fresh512002 completed61.046s/1953204KiB,514HVP9grad. Current022
+symmetry1.36e-17 and finite difference1.0031e-8 pass; full512 fresh action
+agreement3.11e-12, trueforcing.419126 pass. Originaltrust rejectsalpha1,1/2,1/4;
+actualmerit rejects1/8,1/16,1/32;1/64 accepted. Relativegradient.0002581531→
+.0002570821 (about.415% decrease), originaltrustdistance.0231418<.05. Linear
+solve improvement is real but nonlinear correction remains inefficient; do not
+launch repeatedbare512 steps. Independentactualacceptance review requested,
+then saved damping/nonlinearity diagnosis before choosing another nativeunit.
+All exactsources/inventories/ownedexits checked; outer6fec47a9. No stationary
+root/orbit/utility inference. Original profile-only failure remains immutable.
