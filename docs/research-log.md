@@ -8667,3 +8667,16 @@ per worker,24GiB aggregate,330s batch, fresh36GiB headroom. Retain all331-call
 outcomes; stop qualifying at first failed full705 root or known-root join.
 Would surprise: all four advance cleanly with comfortable margins despite the
 previous aggressive same-center failure. No target outcome seen for this card.
+
+
+### 2026-10-11 UTC: four refreshed new-center proofs failed; saved diagnosis card
+
+Complete batch001 source0f595572 retained4x331 calls in59.763s,4.39MKiB
+aggregate, allownedgone. Firstq.4224 but21/705imageinclusions; laterq1.7847,
+115.628,98.539 and0/705. No curve/connection promoted, no instability inferred.
+Exact failure receipt native705-cubic-batch001-failure.json. Root independently
+checked cubic coefficient convention: d^3 coefficient and second derivative
+curvature consistent end-to-end. Diagnose retained finalNewton residual,
+forcing degree0..4, conditional finite inverse norms/condensed singularvalues,
+and gauge alignment across allfour before another target. Fixed saved-only
+90s4GiB8GiBAS16MiB,105+5 external; separate peer review before execution.
