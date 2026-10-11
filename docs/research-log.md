@@ -14854,3 +14854,13 @@ sequence. No new native calls or direction application. Five controls passed
 Copied independent predecessor modules remain byte-identical. Full98666x512
 synthetic profile before research vectors;300s4GiB8MiB/owned315+5s10MiB.
 Source review and actual metadata preflight precede any target arithmetic.
+
+### 2026-10-11T07:59UTC — admitted saved boundary remainder diagnosis
+
+Root independently cleared3c30606f math/source/binding and reproduced three
+controls0.68s. Host54,100,288KiB available,load2.00/2.19/2.45; no matching
+native research worker active. Admit exactly seven disclosed saved scenarios,
+30s1GiB8MiB/zero native, owned45+5s. Original polynomial001 final metric failure
+remains authoritative; hypothetical deletions and smaller centered intervals
+cannot promote cells. Nested512 metadata preflight separately passed1.819s,
+258 events/256 rows, no target arrays; its target awaits source review/profile.
