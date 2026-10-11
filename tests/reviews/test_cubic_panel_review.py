@@ -32,11 +32,13 @@ def fixture(tmp_path,monkeypatch):
     def domain(w,row,context,domains):
         first=w.calls+1;w.calls+=90;w.save('domain-outcome.json',dict(passed=True,domain=row,dimension=705,native_calls=90,first_call=first,last_call=w.calls));return {},{},[]
     def cell(w,row,context,*rest):
-        first=w.calls+1;w.calls+=126;passed=not(context==33 and row['domain']==1 and row['depth']==0)
+        first=w.calls+1;w.calls+=126;passed=context==33 and not(row['domain']==1 and row['depth']==0)
         r=dict(cell=row,passed=passed,completed=True,native_calls=126,dimension=705,complement_dimension=11,first_call=first,last_call=w.calls)
         w.save('complement.json',dict(passed=passed));return r
     monkeypatch.setattr(D.P.C,'derivative_domain',domain);monkeypatch.setattr(D.P.C,'fresh_cell',cell)
-    w=D.P.Work();w.output_dir=tmp_path;w.calls=144;out=D.P.target(w,pc)
+    w=D.P.Work();w.output_dir=tmp_path;w.calls=144
+    with pytest.raises(ValueError,match='fixed maximum refinement depth'):D.P.target(w,pc)
+    out=dict(passed=False,status='failed_or_incomplete',error='ValueError: fixed maximum refinement depth')
     out.update(domains_done=w.domains_done,pending_cells=w.pending,completed_attempts=w.attempts,completed_charts=w.completed_charts,accepted_cells=w.accepted,native_calls=w.calls,profile_native_calls=144,target_native_calls=w.calls-144)
     monkeypatch.setattr(D.B,'pairs',lambda *a:None)
     return pc,out
@@ -44,8 +46,8 @@ def fixture(tmp_path,monkeypatch):
 
 def test_actual_producer_record_schema_and_global_history(tmp_path,monkeypatch):
     pc,out=fixture(tmp_path,monkeypatch);domains,cells=D.history(out,tmp_path,pc)
-    assert len(domains)==16 and len(cells)==17 and len(out['completed_attempts'])==18
-    assert domains[8]['chart']==34 and domains[8]['domain']['index']==1
+    assert len(domains)==8 and len(cells)==9 and len(out['completed_attempts'])==14
+    assert all(d['chart']==33 for d in domains)and out['completed_attempts'][-1]['chart']==34
     assert cells[0]['ordinal']==2 and cells[0]['cell']['depth']==1
     bad=copy.deepcopy(out);bad['completed_attempts'][2]['first_call']-=1
     with pytest.raises(ValueError,match='global ordered'):D.history(bad,tmp_path,pc)
@@ -57,7 +59,7 @@ def test_actual_producer_record_schema_and_global_history(tmp_path,monkeypatch):
 
 def test_exact_union_requires_entire_closed_chart(tmp_path,monkeypatch):
     pc,out=fixture(tmp_path,monkeypatch);domains,cells=D.history(out,tmp_path,pc)
-    for chart in pc['charts']:
+    for chart in pc['charts'][:1]:
         rows=[dict(r,passed=True,complement_dimension=11)for r in cells if r['chart']==chart['ordinal']]
         assert D.exact_union(rows,chart['parameter_endpoints'])['passed']
         with pytest.raises(ValueError):D.exact_union(rows[:-1],chart['parameter_endpoints'])
@@ -83,3 +85,13 @@ assert D.OUT.parent==L.OUT
 """
     r=subprocess.run([sys.executable,'-I','-B','-c',script],cwd=archive,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'),capture_output=True,text=True)
     assert r.returncode==0,r.stderr
+
+
+def test_terminal_depth_stop_and_pending_cells_must_remain_literal(tmp_path,monkeypatch):
+    pc,out=fixture(tmp_path,monkeypatch)
+    for change in ('status','pending','accepted'):
+        bad=copy.deepcopy(out)
+        if change=='status':bad['passed']=True
+        elif change=='pending':bad['pending_cells']=[]
+        else:bad['accepted_cells'].append(bad['completed_attempts'][-1])
+        with pytest.raises(ValueError):D.history(bad,tmp_path,pc)

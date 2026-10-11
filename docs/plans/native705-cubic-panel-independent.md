@@ -11,3 +11,10 @@ Each derivative domain independently reconstructs its full705 known-root error, 
 The source card permits one CPU1/nice10 sequential worker,2400s/4GiB RSS/6GiB AS/512MiB raw with4MiB closing reserve, supervisor2415+5s/256MiB RSS/514MiB aggregate. Fresh full705 unrelated profile before target arrays; forecast is twice max(16/6,96/18) times the completed independent remaining32 runtime/storage, plus fresh profile/cold-context allowances. If the complete measured forecast does not fit, retain a pretarget failure; do not adapt automatically. Every scientific/resource/provenance failure stops the replay and preserves the prefix. Independent success requires both entire original closed chart domains.
 
 No claim is made for changed-gauge chart35, all later boxes, the final complex-unit/flip junction, or an entire shrimp window. The final junction cannot satisfy an eleven-mode strict complementary contraction at the neutral−1 multiplier.
+
+
+## 11 October 2026: exact completed prefix amendment before any audit run
+
+Producer8cbb5f42 ended after74 complete centers and9 derivative domains at the fixed depth3 negative11-mode bound in chart34 domain1. Whole33 has39 accepted cells and its complete eight-domain union; chart34 has four nested negative cells and no accepted cell. No audit attempt or output existed under the earlier two-chart prepared card. This amendment retains all74 attempts/10278 inclusive native phases, all original source/ownership/inventories, and the exact three pending siblings after the final failed cell. The audit independently replays exactly the39 earned whole33 leaves using unchanged root/tangent/point/quotient and exact-rational polynomial reducers. It makes no spectral assertion for chart34.
+
+All resource caps and conservative96-center forecast remain unchanged. The source and card must be reviewed, actual metadata preflighted without proof arithmetic, admitted/committed/private-pushed, and the fresh synthetic profile passed before any saved proof arithmetic. This is a producer-authored adapter around separately authored independent mathematics, reviewed and executed in the root-owned audit checkout.

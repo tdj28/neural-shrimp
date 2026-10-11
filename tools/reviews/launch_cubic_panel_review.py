@@ -1,4 +1,4 @@
-"""One bounded independent two-chart complementary audit; zero native calls."""
+"""One bounded independent whole33 complementary prefix audit; zero native calls."""
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
@@ -6,7 +6,7 @@ OUT=Path('/data2/neural-shrimp-data/audits/native705-cubic-panel-independent/att
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 CARD='docs/plans/native705-cubic-panel-independent-inputs.json'
 def card_check(card):
-    assert card['status']=='reviewed' and card['ordinals']==[33,34] and (card['maximum_domains'],card['maximum_centers'])==(16,96),'literal reviewed independent33–34 card'
+    assert card['status']=='reviewed' and card['ordinals']==[33] and (card['maximum_domains'],card['maximum_centers'])==(16,96),'literal reviewed independent33 prefix card'
     assert card['limits']==dict(seconds=2400,rss_bytes=4*1024**3,as_bytes=6*1024**3,raw_bytes=512*1024**2,native_calls=0),'fixed independent panel caps'
     for k in ('producer','initial_independent'):
         assert set(card[k])=={'root','source','outer','worker'}and all(type(v)is str and v for v in card[k].values()),'completed literal '+k
