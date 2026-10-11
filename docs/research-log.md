@@ -9600,3 +9600,20 @@ remains immutable. This supports only2× larger cells with the same whole-quarte
 derivative domain. Next planned secondquarter splits derivative domains before
 new centers, then uses bounded exact dyadic subdivision only on a complete
 negative11-mode metric. No new native work is admitted by this outcome.
+
+### 2026-10-11 — prepared second-quarter complementary continuation
+
+The completed five-width saved diagnostic retains a material method limit: the
+fresh center and original whole-quarter derivative pass at halfwidth1/1024 but
+fail at1/512 and above. Exact prior stable-endpoint projection lies inside chart31
+second quarter, not inside the independently proved first quarter. The new
+prepared packet therefore acquires two narrower true-tangent/total-derivative
+domains, then uses fresh centers with bounded binary subdivision. It preserves
+all705 state/mode/rate/angle coordinates and validates all11 complementary modes.
+At most30 center attempts, only complete negative metric bounds split, exact
+closed second-quarter union required. Inclusive4104 phase/3000s/4GiB/6GiBraw
+caps and2× measured worst-case forecasts apply before research arrays. Source
+card remains prepared pending peer review and committed admission. Eight focused
+controls passed1.19s, including full705 residual/path retention, cap/reserve,
+exact partition, acquired-domain rejection and isolated archive closure. No new
+scientific native evaluations have run. See native705-second-quarter.md.
