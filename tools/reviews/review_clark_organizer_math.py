@@ -27,12 +27,14 @@ def inverse(a,emit=lambda *_:None):
  emit('inverse',dict(matrix=a,proposal=R,defect=D,bound=rho,inverse=inv));return inv
 
 
-def krawczyk(center,box,value,jacobian,emit=lambda *_:None):
+def krawczyk(center,box,value,jacobian,emit=lambda *_:None,exact_bounds=None):
  n=len(center);need(n==len(box)==jacobian.nrows()==jacobian.ncols()and value.nrows()==n and value.ncols()==1,'complete Krawczyk shape')
  need(all(b.contains(c)for b,c in zip(box,center))and finite(value)and finite(jacobian),'finite center/domain')
  C=midpoint(midpoint(jacobian).inv());D=eye(n)-C*jacobian;delta=col([b-c for b,c in zip(box,center)]);image=-C*value+D*delta;rho=norm(D)
- strict=[bool(b.contains_interior(c+image[i,0]))for i,(b,c)in enumerate(zip(box,center))]
- report=dict(passed=bool(all(strict)and rho.is_finite()and rho<1),center=center,box=box,preconditioner=C,defect=D,image=image,coordinate_inclusions=strict,contraction=rho)
+ if exact_bounds is None:exact_bounds=[(b.lower(),b.upper())for b in box]
+ need(len(exact_bounds)==n and all(lo.is_exact()and hi.is_exact()and lo<=c<=hi for (lo,hi),c in zip(exact_bounds,center)),'exact actual acquired box endpoints')
+ strict=[bool(lo<(c+image[i,0]).lower()and(c+image[i,0]).upper()<hi)for i,((lo,hi),c)in enumerate(zip(exact_bounds,center))]
+ report=dict(passed=bool(all(strict)and rho.is_finite()and rho<1),center=center,box=box,exact_domain_endpoints=exact_bounds,preconditioner=C,defect=D,image=image,coordinate_inclusions=strict,contraction=rho)
  emit('krawczyk',report);need(report['passed'],'all strict independent root inclusions');return report
 
 

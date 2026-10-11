@@ -28,3 +28,23 @@ curved stable-coordinate reduction and degeneracies. An initial scalar test
 mistakenly expected threefold tanh quintic−17/15; direct composition gives−7/5,
 so corrected only its fixture. Dedicated exact inventory/source binding,
 measured full12D synthetic admission and bounded caller are still prerequisites.
+
+## Fixed caller and admission
+
+The only output is audits/clark-generalized-flip-independent/attempt001. Literal
+producer outer/worker manifests, complete146 retained event sequence, source
+archive/history and the original fixed matrix are bound. The final center and
+whole inputs/values/full Jacobian must equal their exact acquired event records.
+The original root reduction uses exact serialized dyadic endpoints: Arb radius
+construction can inflate a decoded magnitude, which is safe for bounding values
+but must not silently enlarge the domain covered by saved Jacobian acquisitions.
+Fresh zeroNewton512 radius2^-94 proof then contains the entire original box.
+
+CPU1nice10/BLAS1,60s/1GiB RSS/3GiB AS/128MiB with4MiB closing reserve; owned
+75+5s/130MiB combined plus256MiB launcher. Full12D unrelated profile runs two
+augmented returns, five independent native order5 paths, six native phases and
+full26/25/13/12D proof reductions before any target arrays. Measured admission
+uses elapsed+2*(2maxAug+5maxPath+maxAlgebra)+20s, analogous retained byte maximum
+plus8MiB, and measured peak+256MiB. Inclusive limits4aug/10paths/54native phases,
+160events. Every acquired return and completed intermediate proof is retained;
+failed outcome and manifest use reserved space. No Newton, new search or retry.
