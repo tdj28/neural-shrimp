@@ -23,3 +23,14 @@ def test_fixed_sources_dimensions_and_native_counts():
  assert E.TARGET==L.C.TARGET and E.PARENT.name=='attempt003-target'
  assert 'src/neural_shrimp/rigorous_parameter_localization.py'in E.SOURCES
  assert 'ticks[0]==144'in (root/'tools/localize_native_unit_pair_endpoint.py').read_text()
+
+
+def test_outward_radius_decode_cannot_expand_native_acquisition_domain():
+ from pathlib import Path
+ import sys
+ sys.path.insert(0,str(Path(__file__).parents[1]/'tools'));import localize_native_unit_pair_endpoint as E
+ record={'mid':[0,0],'rad':[536870913,-100]}
+ outer=decode(record);edge=outer.upper()
+ assert outer.contains(edge)
+ with pytest.raises(ValueError,match='exact original'):E.exact_domain_contains([record],[edge])
+ E.exact_domain_contains([record],[arb(0)])
