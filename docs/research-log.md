@@ -16700,3 +16700,7 @@ Root requested explicit full failed cold-cost admission. Add the retained21.026s
 
 ### 2026-10-11 — admit fixed nested audit002 after namespace/cold-cost review
 Stability narrowly cleared56df5385+8bd954c6 and reproduced six controls16.21s. Fresh002 only; original54-profile/zero-target failure mandatory. Full measured profile includes prior21.026s cold cost, and unchanged60s/2GiB/128MiB/162phase/zeroNewton480/-96 domain. Exact55same-root nesting and independent arithmetic remain mandatory; current host resource/ownership check precedes launch.
+
+
+### 2026-10-11 — second junction independently qualified in nested480-bit box
+Sourcee1f2b102 audit002 PASSED all55 independently reduced root inclusions, primitive18 and strict exact fresh-in-original nesting at unchanged exactcenter/radius2^-96. Fresh108 target phases plus54 profile,27.193s/78088KiB. Independent direct-trig critical frame/ten-mode quotient bound<.288624814 and total physical crossing−28.20860505±7.56e−9, strictly negative. Root contraction<1.368253e−10. Rates72.233068263398713/.84497418794645304 and t=.013575257964120745. All327events/162 native input-return pairs, full source/inventories and owned termination verified immutable. Shared native derivative kernel/Arb scope explicit. Original broad crossing failures and namespace001 remain immutable. This earns a second local transverse unit-pair/flip junction; complete signed connection and generic normal form remain separate.
