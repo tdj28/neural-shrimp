@@ -13941,3 +13941,18 @@ the complex criticalpair remains neutral. No independent outcome replay or
 full-window classification is inferred. Independent replay guide now records
 both packets and exact union genealogy; Clark owns its fresh saved reductions.
 No more native workers remain in this lane.
+
+#### Fixed saved-only CIFAR conditioning caller prepared
+
+Root cleared8c289433 helper and four controls, requesting explicit numerical
+Hg estimate/alignment disclosure; that metadata is now retained. Caller binds
+all1053 actual derivativeevents and literal historical source/model/audit,
+then analyzes exactly four256-action currentpoint blocks. It imports no native
+model/solver implementation. The corrected original independent audit schema
+uses its literal two-pin list and source field (read in saved-metadata preflight,
+not an executed failed target). Seven helper/driver controls pass0.28s, including
+complete event ordering/inventory, isolated archiveclosure, no Torch/SciPy import.
+Fresh full98666x256 two-SVD profile must forecast the entire four-unit workload
+below180s before any scientific vector. FixedCPU1/2GiB/6GiBAS/64MiB worker,
+owned195+5s/66MiB launcher, zero native calls. Source-only packet remains prepared;
+independent binding/resource review and a committed reviewed card precede use.
