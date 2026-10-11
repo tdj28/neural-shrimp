@@ -9363,3 +9363,14 @@ native research worker active. Admit exactly seven disclosed saved scenarios,
 remains authoritative; hypothetical deletions and smaller centered intervals
 cannot promote cells. Nested512 metadata preflight separately passed1.819s,
 258 events/256 rows, no target arrays; its target awaits source review/profile.
+
+### 2026-10-11 — saved metric decomposition identifies center floor
+
+The fixed seven-scenario diagnosis completed0.8845s/72,816KiB/zero native.
+All inventories immutable and owned exits verified. Original error reproduces
+.873048/penalty13.7091. Even zero halfwidth with actual center uncertainty
+retained fails: remainder.285419/penalty4.05075. Removing center uncertainty
+hypothetically also fails at original width (.527230/7.81314). Therefore width
+reduction with this same center enclosure cannot solve the current sufficient
+bound; fresh residual localization of the already proved root is needed before
+new complementary work. No scenario promotes an accepted cell or instability.
