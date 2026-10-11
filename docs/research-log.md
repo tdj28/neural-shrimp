@@ -7544,3 +7544,16 @@ Admit sole saved attempt001 after current52GiB RAM/2.6TiB disk and no-duplicate
 check. Same30s512MiB8MiB, full51 measured synthetic before32 target proofs,
 zero native calls. The22 qualified prefix and10 failed wider bounds remain
 unchanged; no resized-domain or global connection inference.
+
+### 2026-10-11 — saved finite RNN bounds diagnose center-error defect
+
+All32 saved reductions checked in8.268s/66960KiB,0native. The10 wider failures
+are dominated by fullE center-Jacobian defect, not residual/radius: q1.48503
+through1.48684,27/51 images, residual/radius at most.12416. At first failure,
+coordinate14 receives1.48325 from constant defect versus only.00178 from
+higher parameter terms. Small-width roots keepq about.05265 andimage/radius
+about.1764. Simply increasing common radii or parameter-inverse degree is not
+supported by these bounds. Any reshaping must preserve actual acquiredE and
+full51 known-root membership; a saved smaller weighted enclosure is a possible
+next diagnostic, never an automatic new-domain proof. All histories and owned
+exits verified; requested finite range remains incomplete.
