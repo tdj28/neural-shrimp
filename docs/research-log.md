@@ -16899,3 +16899,23 @@ review and eight controls, but needs the completed producer seal before use.
 Reviewed source `8cbb5f429375cb92d0619f093dc50f857977057c` completed the entire original chart33 union `[205/2048,333/2048]` with 39 accepted cells and its full705 predecessor association, then stopped at the fixed depth3 negative metric in chart34 domain1. No chart34 cell passed. All 74 complete attempts (35 negative), 9 derivative domains, and 10,278 inclusive native phases are retained. Worker 728.141 s / 1,878,968 KiB; outer owned exit2, no live owners. No deeper retry or instability inference. Whole33 remains producer-only until separately reduced saved arithmetic; whole34 remains unresolved.
 
 All literal outer/worker files, 160 archived sources against the execution commit, immutable modes and absent process IDs were independently checked during sealing. Compact receipt: `docs/reviews/native705-cubic-panel001.json`; outer `179857405bbbaa7d1bd32f0decd0f788ca28af27c9585a690e3673e945a762ae`, worker `81232683b6a1cac7a4ad1fed4da890c11f302a91f3f97a32e5951155f7620a22`. Next authorized work is independent whole33 replay retaining all34 failures and a bounded saved-only diagnosis before any new acquisition.
+### 2026-10-11 — prepare fixed saved full51 subset-radius screen
+
+The saved wider-chart failures are dominated by whole-error center-defect row
+bounds, so prepare all ten original failures for coordinate-radius rebalancing
+inside their unchanged acquired E. Root independently reviewed the floating-LP
+proposal/exact-rational checker (four controls). The caller reconstructs all
+four raw three-phase path groups independently, preserves literal C0/C1 and
+uses the larger original/independent absolute defect and forcing envelopes.
+Every proposal retains the whole original known51 predecessor box and scalar;
+no center-only ancestry or new-domain derivative assumption is used.
+
+Ten combined controls pass4.20s, including actual complete historical metadata,
+full51 projection/changed-last-radius negatives and isolated archive import.
+Initial metadata control caught a missing160-return counter entry before any
+scientific target decode; corrected and rerun. Exact bounds and old failures
+are saved before LP, its complete return before exact verification. Failed LP
+is abstention, never proof of infeasibility. No new native calls or whole-chart
+primitive/complement/genericity claim. Original22-prefix independent replay is
+separate. Fixed180s2GiB/4GiBAS64MiB, full-size measured admission,195+5 owned;
+card remains prepared pending independent complete caller review.
