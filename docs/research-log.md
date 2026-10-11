@@ -8355,3 +8355,12 @@ interval remainders and malformed/inexact rejection. Initial3controls exposed
 Arb generic real-power NaNs across negative-base intervals; replaced by explicit
 integer parity enclosures before these passed controls. Full authenticated
 native derivative/domain/profile wrapper and source review remain required.
+
+### 11 October2026 UTC — cleared saved route/conditioning execution
+
+Clark independently passede663ac4a source/binding/cap review and8controls0.83s.
+Run only pal/rotated001-diagnosis under this source, unchanged60s/4GiB/8GiBAS/
+16MiB and75+5owned/17MiB, CPU1nice10. Exact immutable32-attempt inventory and
+all53 retained native route vectors feed numerical proposals only. Current
+host inventory checked; no duplicate, no native or GPU calls. Latercorrelated
+inverse helper is source-only and is not used by this saveddiagnostic.
