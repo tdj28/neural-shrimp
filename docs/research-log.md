@@ -13562,3 +13562,9 @@ Add the independent three cubic705 chart continuation and exact native6 RNN crit
 ### 2026-10-11 UTC — Physical stability-corner saved-arithmetic preparation
 
 Prepared exact total physical-rate gradients at the already independently proved native18 unit/flip junction. Full I−M inverse and30D Sylvester left-frame solve account for state motion and nonnormal coupling. Five synthetic controls cover known2×2 determinant, both derivative components, wrong frozen-state calculation, full13D dimensions and singular/degenerate rejection. Initial fixture integer-type/exception-class failures corrected before target work. No target gradients or native calls evaluated. Wrapper source/literal inventory and measured caps still pending peer review.
+
+### 2026-10-10 — independent two-half705 complement math preparation
+
+Root assigns saved-only two-half replay after exact local RNN bridge independently passed. Prepare separate exact quadratic recentering and original R/R′ Taylor bounds, raw MixedJet-to-native-block reconstruction, fresh-domain full705 Neumann localization; existing independently reviewed polarized tangent and11-mode quotient reduction remain unchanged. Same independently proved root and full gauge authority remain wrapper prerequisites, not inferred from producer flags. Both closed halves must cover [319,447]/4096 exactly. Zero target/native computations in preparation; source controls/review precede binding/resource card and sole bounded audit.
+
+The first synthetic control collection caught a missing space in its conditional expression (else0); corrected before any controls or target arithmetic ran. No scientific code change.
