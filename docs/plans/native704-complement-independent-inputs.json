@@ -82,7 +82,7 @@
     "proof": "8ba60a1e1b741d97b8e48dae5f6e30d5a9e7f17f30455cce999e8d24080314cb"
   },
   "audit": {
-    "output": "/data2/neural-shrimp-data/audits/native704-complement-independent/attempt002/run",
+    "output": "/data2/neural-shrimp-data/audits/native704-complement-independent/attempt003/run",
     "precision": 480,
     "seconds": 120,
     "rss_bytes": 4294967296,
@@ -91,7 +91,8 @@
     "closing_reserve_bytes": 2097152,
     "synthetic_dimension": 704,
     "forecast_multiplier": 4,
-    "forecast_allowance_seconds": 60
+    "forecast_allowance_seconds": 60,
+    "tangent_intersections": 6
   },
   "previous_failure": {
     "root": "/data2/neural-shrimp-data/audits/native704-complement-independent/attempt001",
@@ -99,5 +100,12 @@
     "outer": "5f61f8ab03e057b46094705ddbcded7461d4cfba02e243593455344b6f67b18c",
     "worker": "e16c46ca0b39c7aac4f8e64b8952bba352b2328e000aca60f22b2fc816cfae73",
     "error": "FileNotFoundError: [Errno 2] No such file or directory: '/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/attempt002-target/run/events/0110-direction_return-payload.json'"
+  },
+  "previous_domain_failure": {
+    "root": "/data2/neural-shrimp-data/audits/native704-complement-independent/attempt002",
+    "source": "33716ceac022faf7d3012b0e8e63fc3bbc0cd222",
+    "outer": "63693fa6403218a6e4c7723f5a599ab311b96ff233d806595f62c3f5214eea93",
+    "worker": "dd3e134c97bdb70b5cab9806ef54f6190f0a9a2d1efd88dae022539c7184e57e",
+    "error": "ValueError: fresh480 enclosure inside actual tangent domain"
   }
 }

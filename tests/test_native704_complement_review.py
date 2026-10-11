@@ -37,3 +37,10 @@ def test_full18phase11mode_strict_decrease_and_modulus():
 def test_unstable_complement_not_promoted_by_neutral_critical_plane():
  with ctx.workprec(480):
   with pytest.raises(ValueError,match='Lyapunov decrease'):A.reduction(*fixture(arb('101/100')))
+
+def test_six_own_intersections_keep_known_solution_and_tighten():
+ with ctx.workprec(480):
+  d=arb_mat([[arb('1/2')]]);v=arb_mat([[arb(1)]]);w=[arb(1)];k=arb('1/2')
+  a=A.enclosure(d,v,w,k,iterations=3);b=A.enclosure(d,v,w,k,iterations=6)
+  assert a[0,0].contains(2)and b[0,0].contains(2)and b[0,0].lower()>a[0,0].lower()
+  with pytest.raises(ValueError):A.enclosure(d,v,w,k,iterations=7)

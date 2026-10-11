@@ -8,11 +8,11 @@ ROOT=Path(__file__).resolve().parents[2];sys.path[:0]=[str(ROOT/'src'),str(Path(
 import review_native704_complement_math as H
 from neural_shrimp.rigorous_orbits import canonical_bytes,ball_json
 need=H.need;R=H.R;M=H.M
-OUT=Path('/data2/neural-shrimp-data/audits/native704-complement-independent/attempt002/run')
+OUT=Path('/data2/neural-shrimp-data/audits/native704-complement-independent/attempt003/run')
 CARD='docs/plans/native704-complement-independent-inputs.json'
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 NATIVE=['src/neural_shrimp/'+n+'.py'for n in('rigorous_cusps','rigorous_folds','rigorous_orbits','controls','models')]
-FILES=[CARD,'docs/plans/native704-complement-independent.md','tools/reviews/review_native704_complement.py','tools/reviews/launch_native704_complement_review.py','tests/test_native704_complement_driver.py','tests/test_native704_complement_review.py']
+FILES=[CARD,'docs/plans/native704-complement-independent.md','tools/reviews/review_native704_complement.py','tools/reviews/launch_native704_complement_review.py','tests/test_native704_complement_driver.py','tests/test_native704_complement_review.py','docs/reviews/native704-complement-independent-attempt002-failure.json']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 def entry(p):
@@ -73,12 +73,14 @@ def synthetic(n,tick):
  need(type(n)is int and 1<=n<=704,'fixed bounded synthetic size');small=arb((1,-16));C=arb_mat([[arb(int(i==j))+small for j in range(n)]for i in range(n)]);J=arb_mat([[arb(int(i==j))-small for j in range(n)]for i in range(n)]);D=M.ident(n)-C*J;tick()
  w=[arb(1)]*n;k=H.infnorm(D);v=arb_mat([[arb((1,-80))]for _ in range(n)]);initial=arb_mat([[arb(0,arb((1,-11)))]for _ in range(n)])
  for sign in(1,-1,2):
-  box=H.enclosure(D,-C*(v*sign),w,k,initial);need(H.finite(box),'full synthetic retained enclosure');tick()
- return {'passed':True,'dimension':n,'neumann':ball_json(k),'intersections':9,'dense_matrix_product':True}
+  box=H.enclosure(D,-C*(v*sign),w,k,initial,iterations=6 if sign==2 else 3);need(H.finite(box),'full synthetic retained enclosure');tick()
+ return {'passed':True,'dimension':n,'neumann':ball_json(k),'intersections':12,'dense_matrix_product':True}
 
 def bind(card,tick):
  rows=[];failed,_,failure,rr=bundle(card['previous_failure'],tick,2);rows+=rr
  need(failure['passed']is False and failure['native_calls']==0 and failure['error']==card['previous_failure']['error'],'retained original packaging failure')
+ _,_,failure,rr=bundle(card['previous_domain_failure'],tick,2);rows+=rr
+ need(failure['passed']is False and failure['native_calls']==0 and failure['error']==card['previous_domain_failure']['error'],'retained original strict tangent-domain failure')
  pr,rt,done,rr=bundle(card['producer'],tick);rows+=rr
  need(rt['mode']=='target'and rt['settings']==card['settings']and rt['nice']>=10 and rt['threads']==dict.fromkeys(THREADS,'1'),'original native settings')
  need(done['passed']and done['status']=='qualified_unit_pair_tube'and done['strict_inclusions']==704 and done['parameter_endpoints']==['0','1/32768']and done['events']=={'chart_return':1,'direction_return':216,'newton_proposal':2,'preconditioner_return':1}and done['ticks']==217,'complete original native704 theorem')
@@ -139,7 +141,7 @@ def main():
    b=(ROOT/n).read_bytes();need(hashlib.sha256(subprocess.check_output(['git','show',commit+':'+n],cwd=ROOT)).hexdigest()==hashlib.sha256(b).hexdigest(),'committed archive source');need(used[0]+len(b)<62*1024**2,'source bytes cap');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b);used[0]+=len(b)
   with ctx.workprec(480):
    before=time.monotonic();profile=synthetic(704,tick);seconds=time.monotonic()-before;forecast=4*seconds+60;save('profile.json',dict(profile,seconds=seconds,forecast_seconds=forecast,target_arrays_unopened=True));need(forecast<120,'measured full704 arithmetic admission');gc.collect();tick()
-   card=read(ROOT/CARD);need(card['audit']=={'output':str(OUT),'precision':480,'seconds':120,'rss_bytes':4*1024**3,'as_bytes':6*1024**3,'output_bytes':64*1024**2,'closing_reserve_bytes':2*1024**2,'synthetic_dimension':704,'forecast_multiplier':4,'forecast_allowance_seconds':60},'literal fixed audit settings')
+   card=read(ROOT/CARD);need(card['audit']=={'output':str(OUT),'precision':480,'seconds':120,'rss_bytes':4*1024**3,'as_bytes':6*1024**3,'output_bytes':64*1024**2,'closing_reserve_bytes':2*1024**2,'synthetic_dimension':704,'forecast_multiplier':4,'forecast_allowance_seconds':60,'tangent_intersections':6},'literal fixed audit settings')
    chart,groups,domains,E,B,native,records,metric,binding=bind(card,tick);save('input-bindings.json',binding);center,whole,tangent,localized=H.localization(chart,groups,tick);save('localization-480.json',localized);del chart,groups;gc.collect();tick()
    for key,values in [('center',center),('whole',whole),('tangent',tangent)]:exact_cover(domains[key],values,'fresh480 enclosure inside actual '+key+' domain')
    save('domain-coverage.json',{'passed':True,'coordinates':704,'domains':['center','whole','tangent'],'exact_rational_containment':True});proof=H.reduction(center,whole,tangent,E,B,native,records,metric,tick);save('complement-480.json',proof);tick()
