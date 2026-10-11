@@ -14031,3 +14031,12 @@ Own512 complex-bordered gradients agree with producer realtrace/Sylvester: deter
 ### 2026-10-11 UTC — language-model reversal decomposition preparation
 
 Follow the failed causal-horizon predictor with a retrospective mechanism test on the same four consumed trajectories, two original directions and horizons4/16. Exact identity separates reversal-odd propagator response from its even remainder; R=P^T for symmetric GD Jacobians, so reversal preserves singular values. Stability peer corrected interpretation: small odd term does not imply order independence. Preserve cancellation and CE-gradient projections. Proposed160HVP,0newtrajectory/gradient/CE/holdout; profile/card/caller review before any native execution. Six mathematical controls PASS after a synthetic zero-error case exposed inappropriate cancellation normalization; fixed to original vector scales before target. Primary literature checked: Sweeney2609.34348 and Pervez–Locatello2605.08856, cited in plan; generic ordering/transient effects are prior art. Helper/plan only at this commit.
+
+Root independent caller review5f212232 PASS: exact1053event/audit/same-state
+bindings, preserved finalstate022 exclusion, measured twoSVD gate and owned
+caps checked. Seven controls rerunPASS0.27s. Complete actual metadata-only
+bind passed2.964s (no vector evaluation/native call), literal1030HVP23gradient
+inventory and originalsource/audit schema confirmed. At06:33:13UTC host
+55,106,228KiBavailable RAM,load1.42/2.97/3.48; no own duplicate worker or proof.
+Execute only fixed savedconditioning001 CPU1/180s/2GiB with full unrelated
+profile before historical scientific vectors. No new CIFAR native acquisition.
