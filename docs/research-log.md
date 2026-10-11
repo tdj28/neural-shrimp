@@ -12098,3 +12098,7 @@ Root source reviewad897f18 requested literal outer/worker pins, explicit final a
 ### 2026-10-10 — independent two-snapshot LM saved-audit source card
 
 Root two-snapshot producer completed240HVP/16rows with failed candidate gate. Prepare independent saved240-action recurrence and all scalar/readout/comparator/gate replay under tools/review_tiny_lm_two_snapshot.py; exact source/raw/priorresponse/audit/profile pins, zero native calls. Fixed30s/1GiB/2MiB and owned40+5s cap; source controls and peer skim precede exclusive attempt001.
+
+### 2026-10-10 — saved joint-audit aggregation repair; LM saved-audit admission
+
+Root fd76bb70 clearance preceded joint saved audit. That audit retained TypeError from builtinabs over the two-cycle Python list before completing fold aggregation. Replace only this aggregation with np.abs; all thresholds/source/input pins unchanged, no native rerun. Compact failure receipt is committed. Source review1fdd4819 for independent LM two-snapshot audit PASS from boundary,3controls0.07s. Admit one owned audit at audits/tiny-lm-two-snapshot-independent/attempt001 under unchanged30s/1GiB/2MiB caps; host headroom rechecked and no nativecalls.
