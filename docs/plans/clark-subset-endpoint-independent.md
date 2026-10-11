@@ -72,3 +72,15 @@ exponent. A131072-bit ceiling applies before conversion, and global Python
 integer limits remain unchanged. Regression roundtrips an18000bit mantissa and
 rejects an over-cap denominator. Both failed inventories are mandatory. Same
 profile, math, domains,120s2GiB64MiB; this is an output encoding amendment only.
+
+## Disclosed Arb endpoint rounding amendment
+
+Attempt003 retained the same passed root/join/native stages and completed
+localization, but Arb(tuple) preserved its enormous exact midpoint even inside
+a512bit context. Ordinary ball-JSON output still hit Python's decimal limit.
+Fresh004 explicitly adds zero at working precision to round each restored Arb
+interval outward BEFORE checking oldbox/fullE containment. Exact Fraction
+intersections remain unchanged. A complete synthetic localization fixture
+creates >16000-bit dyadic history/endpoint data, saves through the real wrapper,
+reloads exact history and Arb balls, and checks exact-root/oldbox/E containment.
+This covers the entire output path; three prior failures remain immutable.
