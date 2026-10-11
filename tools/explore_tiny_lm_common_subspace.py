@@ -136,6 +136,10 @@ def synthetic(n,save):
  result=H.analyze(mean@basis.T,actions,ordered@basis.T,eta,save);need(result['passed']and result['rank']==16,'complete full16 synthetic reconstruction');return result
 
 
+def final_pass(passed, seconds, peak_rss_kib):
+ return bool(passed and np.isfinite(seconds)and 0<=seconds<60 and 0<=peak_rss_kib<1024**2)
+
+
 class Work:
  def __init__(self):self.start=time.monotonic();self.used=0;self.rows=[]
  def tick(self):need(time.monotonic()-self.start<60 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<1024**2,'60s1GiB saved-only cap')
@@ -170,6 +174,6 @@ def main():
   result.update(passed=True,cases=w.rows,qualified_cases=sum(x['passed']for x in w.rows),abstained_cases=sum(not x['passed']for x in w.rows),scope='Consumed development, shared saved HVPs, conditional reduced-model sufficiency only. All abstentions retained; no new native calls, forecast, geometry or utility claim.')
  except BaseException as e:result.update(error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
  finally:
-  signal.setitimer(signal.ITIMER_REAL,0);result.update(cases=w.rows,seconds=time.monotonic()-w.start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);w.save('result.json',result,True);w.save('manifest.json',dict(files={str(p.relative_to(OUT)):entry(p)for p in OUT.rglob('*')if p.is_file()}),True)
+  signal.setitimer(signal.ITIMER_REAL,0);result.update(cases=w.rows,seconds=time.monotonic()-w.start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);within=final_pass(result['passed'],result['seconds'],result['peak_rss_kib']);result.update(passed=within);w.save('result.json',result,True);w.save('manifest.json',dict(files={str(p.relative_to(OUT)):entry(p)for p in OUT.rglob('*')if p.is_file()}),True)
  print(json.dumps({k:result.get(k)for k in('passed','qualified_cases','abstained_cases','error')}));return 0 if result['passed']else 2
 if __name__=='__main__':raise SystemExit(main())

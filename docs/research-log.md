@@ -16057,3 +16057,18 @@ Root reviewed exactsamegauge priorleftroot identification and fullfresh native e
 ### 2026-10-11T10:10:14.547452+00:00 — Advancing flip boundary independently proved
 
 All470 uniformroot and knownpredecessor endpoint coordinates independently pass with primitive18 and negative-one multiplier. Samegauge newinterval[-17,-1]/256 joins previous independently recomputedleftendpoint at−1/256; contraction<.545203. Fullnative/source/inventory/termination checked; 8.756092702038586s/841956KiB/0native. New independentleftendpoint is retained for continuedmarch; no complementary stability inferred.
+
+### 2026-10-11 03:02 PDT — fixed common-subspace saved pilot admission
+
+Boundary bbb98cca complete wrapper PASS,13controls reproduced0.97s; Root helper
+math a92f8b87 PASS retained. Conservative final elapsed/RSS success gate added
+under Boundary explicit narrow clearance;14controls0.92s. Root's sealed mean
+independent source8624111d, outer01efa208f3bd15e11ce2a969ff2216c10bc5f522ed2f7350321822a63c7d9eb1,
+worker7d99e6c55de8ffa0bc1167af9106ffe32c548293f32c5ee01ddad5a5d2125e1b
+now fills exact previously-null authority. Agreed12-row1088/162/58 negative gate
+contract and full source/inventory/owner metadata preflight PASS1.275s; no new
+common-subspace target arithmetic. Host52GiB available/load1.33/2.6TiBfree/GPU0%
+15947MiBfree/noGPUprocess/no owned duplicate. Admit sole savedattempt001 after
+privatepush,60s1GiB3GiBAS64MiB/4MiBreserve,75+5owned66MiB. Full15776x16 synthetic
+must pass fresh measured admission before target arrays. All four cases and
+abstentions retained; zero native calls and no gate/rank adaptation.
