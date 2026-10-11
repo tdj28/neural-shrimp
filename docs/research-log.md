@@ -6231,3 +6231,7 @@ Independent971df78a narrow resource review PASS12controls0.37s. Current availabl
 Target002 completed49points/48joins in2.874s/42000KiB,448native+1288half-unit returns,713solves. Prepare saved-only independent NumPy/math.fsum replay of all438native contexts, nativefold/half augmented equations, every fold and signed-flip coefficient, literal partners, all144native reversejoins/96modejoins and49same-gain diagnostics. Recompute profile and complete immutable inventory/historicalsource bindings. No new model/derivative calls. Fixed30s,1GiB peak/2GiBAS,4MiB compact outcome,CPU1nice10; output/tmp/joint-curves-audit-002.json before committed receipt.
 
 Root source reviewad897f18 requested literal outer/worker pins, explicit final augmented-root residual gates distinct from Newton intermediates, and a retained failed audit outcome. Added all three before saved-array execution; final fold/sign roots<1e-13, literal fold partner<1e-11, unchanged producer tolerances. Every exception/time limit now writes compact failure/trace/source identity. No target scientific rerun.
+
+### 2026-10-10 — independent two-snapshot LM saved-audit source card
+
+Root two-snapshot producer completed240HVP/16rows with failed candidate gate. Prepare independent saved240-action recurrence and all scalar/readout/comparator/gate replay under tools/review_tiny_lm_two_snapshot.py; exact source/raw/priorresponse/audit/profile pins, zero native calls. Fixed30s/1GiB/2MiB and owned40+5s cap; source controls and peer skim precede exclusive attempt001.
