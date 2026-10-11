@@ -9813,3 +9813,20 @@ cubic root was reused, never reacquired. All archivedsource/files/modes/owners
 verified; compact docs/reviews/native705-cubic32-first-quarter001.json. Root
 requested one bounded generic plan for allremaining portions after identity and
 independentfirst-portion checks, preserving exact same-domain source genealogy.
+
+### 2026-10-11 — remaining cubic32 interval prepared after independent first-portion PASS
+
+Root separately replayed first[39,55]/1024 using unchanged independently authored
+480-bit reducers: source742eb90d,33.962s/917108KiB/zero native, allfour cells and
+entire priorstable projection PASS. Maximum multiplier-modulus bound.991372 is
+separate from metric penalty.955276. Complete literal sealed authority is bound
+in a new prepared remaining[55,103]/1024 card. One shared context supplies six
+h1/256 derivative domains; only complete126-call negative full11 metrics split
+to depth3,90maximum centers. Original cubic root/affine inverse/polynomial
+forcing and all proof kernels are unchanged. Inclusive144+540+90x126=12024
+native ceiling,9000s/4GiB/18GiBraw; forecast retains three times the original
+30-cell admission and twice the actual first1080-call cost scaled to maximum.
+All16 old/new controls pass14.14s, including actual complete first-independent
+metadata with scientific decoders forbidden, exact remaining union, failure
+stop, storage reserve and isolated archive closure. No profile/target opened;
+card prepared pending independent source/resource review and fresh admission.
