@@ -15941,3 +15941,7 @@ results retain producer-only status until independent replay.
 ### 2026-10-11T09:59:39.743939+00:00 — Independent temporal-mean replay admitted
 
 Boundary source/semantics/call-order/resource review PASS and5controls1.48s; root5controls1.67s. Admit one saved replay,120s1GiB0native with synthetic full-size admission before outcomes. All evidence stays on consumed development states.
+
+### 2026-10-11T10:01:15.638621+00:00 — Independent temporal-mean response replay complete
+
+All1308retained native call associations,64mean steps and12FD/vector/CE rows passed independent replay. All1%qualification gates survive; fixed mean<.20/tenfold descriptive criterion fails. Originalh16meanerrors56.2071/34.8496 versus frozen85118.9/5270.37; eta/4meanerrors1.07965/.580247 versus frozen2.65982/1.24173, bothcontrolsmonotone. Mean failure does not isolate ordering. Immutable raw/source/owner verification complete. Runtime 4.056457298109308s; peak290264KiB;0new native. Receipt3ce408de was committed before this log append because the sealing helper had a post-receipt text-format exception; all verification and receipt writes had completed, no raw changed.
