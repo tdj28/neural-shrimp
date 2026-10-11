@@ -15151,3 +15151,14 @@ penalty.401347633001 replace priorquarter.873048/13.709; this supports the diagn
 center-floor remedy, not wholequarter stability. Source116files and both complete
 immutable inventories/actual owned exits verified. Compact receipt and exact
 saved arithmetic guide committed; independent outcome replay remains pending.
+
+### 2026-10-11 — independent fresh-current512 acceptance audit prepared
+
+Saved-only packet binds complete514HVP/9gradient stream,511 full reorthogonalized
+transitions and512action least squares, actual current022 symmetry/FD/forcing,
+all7 trust/Armijo rows and exact firstaccepted final state. No native calls or
+producer reducer imports. Ten new/prior controls0.38s passed including actual
+metadata sequence and isolated archive. Synthetic exact trust-boundary fixture
+was changed to a strict interior point after binary64 subtraction placed it
+outside. Full98666x512 measured profile precedes target vectors;300s4GiB8MiB,
+owned315+5s. Independent source review is still required before one attempt.
