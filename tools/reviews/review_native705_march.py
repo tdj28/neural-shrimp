@@ -11,9 +11,9 @@ A,H,R,M,need=S.A,S.H,S.R,S.M,S.need
 entry,read,historical,exact_cover,equal_balls=S.entry,S.read,S.historical,S.exact_cover,S.equal_balls
 acquisition,exact_direction=S.acquisition,S.exact_direction
 NATIVE,PATH_FILES,THREADS=S.NATIVE,S.PATH_FILES,S.THREADS
-OUT=Path('/data2/neural-shrimp-data/audits/native705-march-independent/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/native705-march-independent/attempt002/run')
 CARD='docs/plans/native705-march-independent-inputs.json'
-FILES=sorted(set(S.FILES+[CARD,'docs/plans/native705-march-independent.md','tools/reviews/review_native705_march_math.py','tools/reviews/review_native705_march.py','tools/reviews/launch_native705_march_review.py','tests/test_native705_march_review.py','docs/reviews/native705-halves-independent.json']))
+FILES=sorted(set(S.FILES+[CARD,'docs/plans/native705-march-independent.md','tools/reviews/review_native705_march_math.py','tools/reviews/review_native705_march.py','tools/reviews/launch_native705_march_review.py','tests/test_native705_march_review.py','docs/reviews/native705-halves-independent.json','docs/reviews/native705-march-independent-attempt001.json']))
 _CACHE={};_HISTORY={}
 
 def settings():return dict(precision=480,worker_seconds=1800,rss_bytes=4*1024**3,as_bytes=6*1024**3,raw_bytes=256*1024**2,closing_reserve=4*1024**2,workers=1,expected_leaves=48,original_ordinals=list(range(7,31)))
@@ -149,7 +149,7 @@ def main():
    forecast=max(8*seconds+1440,36*priorout['elapsed_seconds']+90)
    # Storage uses the entire immutable prior two-cell inventory, not manifest length.
    raw=36*sum(v['bytes']for v in read(prior/'manifest.json')['files'].values())+8*1024**2
-   rss=1.5*priorout['peak_rss_kib']+128*1024;profile=dict(trial,seconds=seconds,forecast_seconds=forecast,forecast_bytes=raw,forecast_rss_kib=rss,target_arrays_unopened=True);profile['passed']=bool(trial['passed']and forecast<1800 and raw<252*1024**2 and rss<4*1024**2);save('profile.json',profile);need(profile['passed'],'measured full48 saved-reducer admission');gc.collect();accepted,base,invs=validate_packets(card,tick);save('input-binding.json',dict(card=card,inventories=invs+rr));shared=None
+   rss=1.5*priorout['peak_rss_kib']+128*1024;profile=dict(trial,seconds=seconds,forecast_seconds=forecast,forecast_bytes=raw,forecast_rss_kib=rss,target_arrays_unopened=True);profile['passed']=bool(trial['passed']and forecast<1800 and raw<252*1024**2 and rss<4*1024**2);save('profile.json',profile);need(profile['passed'],'measured full48 saved-reducer admission');gc.collect();failed,_,failedout,fr=bundle(card['prior_failure'],tick,2);need(not failedout['passed']and failedout['native_calls']==0 and failedout['rows']==[]and failedout['error']=='ValueError: finite strict known-root Neumann premise','preserved exact first-leaf arithmetic failure');rr+=fr;accepted,base,invs=validate_packets(card,tick);save('input-binding.json',dict(card=card,inventories=invs+rr));shared=None
    for index,item in enumerate(accepted,1):
     row=item['row'];ordinal=row['ordinal'];cell=row['cell'];prefix=f'cell-{index:03d}/'
     if shared is None or shared['old']['ordinal']!=ordinal:

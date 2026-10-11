@@ -6702,3 +6702,14 @@ and exact three-endpoint ordering helper,9combined controls0.53s. Full native
 residual/input-domain and independently known root/gauge authority remain
 wrapper prerequisites. Zero target arithmetic, no new native calls. Packet
 sent for source/math review; explicit51 fold wrapper stays queued afterwards.
+
+### 2026-10-11 — centered polynomial runtime amendment
+
+Stability independently reproduced scalar delta**3 nonfinite on a centered
+Arb interval; explicit delta*delta*delta is finite. Restriction changes only
+integer multiplication semantics, all exact domains/Taylor/gates unchanged.
+First48 attempt001 remains mandatory; fresh002 pending narrow peer skim.
+Added centered nonzero-cubic, one-sided/endpoint enclosures and actual first
+leaf metadata control. Earlier first-six audit forcing/images/quotient finite
+assertions preclude a false pass from this expression. No spectral-instability
+interpretation and no native acquisition.

@@ -35,7 +35,7 @@ def test_generic_restriction_formula_keeps_original_closed_support():
   for dep in range(4):
    for i in range(2**dep):
     sc=F(15,2048);h=F(1,128)/2**dep;c=sc+(2*i+1-2**dep)*h;cell=dict(center=str(c),depth=dep,endpoints=list(map(str,[c-h,c+h])),halfwidth=str(h),index=i,shift=str(c-sc));Q.geometry(dict(parameter_center=str(sc),parameter_endpoints=['-1/2048','31/2048']),cell)
-    out=Q.translate([arb(1)],[arb(2)],[arb(3)],[arb(1)],arb('1/128'),arb('1/1024'),Q.R.exact(c-sc),Q.R.exact(h),arb_mat([[0,0,0,0]]),arb_mat([[0,0,0,0]]));assert out['h']==Q.R.exact(h)and out['r']==[arb('1/1024')]
+    out=Q.translate([arb(1)],[arb(2)],[arb(3)],[arb(1)],arb('1/128'),arb('1/1024'),Q.R.exact(c-sc),Q.R.exact(h),arb_mat([[0,0,0,0]]),arb_mat([[0,0,0,1]]));assert Q.H.finite(out['residual'])and Q.H.finite(out['rp']);assert out['h']==Q.R.exact(h)and out['r']==[arb('1/1024')]
 
 def test_archive_closure_and_launcher_path():
  with tempfile.TemporaryDirectory()as name:
@@ -49,3 +49,20 @@ def test_archive_closure_and_launcher_path():
 def test_old_measured_time_storage_and_cap_are_explicit():
  card=D.read(ROOT/D.CARD);prior=Path(card['prior_measured']['root']);out=D.read(prior/'run/outcome.json');m=D.read(prior/'manifest.json');assert 36*out['elapsed_seconds']+90<1800 and 36*sum(v['bytes']for v in m['files'].values())+8*1024**2<252*1024**2
  assert card['settings']==D.settings()
+
+
+def test_sign_changing_cubic_and_actual_first_leaf_metadata():
+ from flint import arb,arb_mat,ctx
+ with ctx.workprec(480):
+  h=arb(1)/128;d=arb(0,h)
+  assert not (d**3).is_finite() # observed runtime failure, never a proof input
+  for shift in [arb(0),-h/2,h/2,-h,h]:
+   width=h if shift==0 else h/2 if abs(shift)==h/2 else arb(1)/256
+   H=abs(shift)+width
+   got=Q.translate([arb(1)],[arb(2)],[arb(3)],[arb(1)],H,arb(1)/1024,shift,width,arb_mat([[1,2,3,0]]),arb_mat([[0,0,0,5]]))
+   assert Q.H.finite(got['residual'])and Q.H.finite(got['rp'])
+   for v in [shift-width,shift,shift+width]:
+    assert got['residual'][0,0].contains(1+2*v+3*v*v+5*v*v*v)
+  card=D.read(ROOT/D.CARD);row=min((r for r in card['packets'][0]['rows']if r['passed']),key=lambda r:(r['ordinal'],F(r['cell']['endpoints'][0])));assert row['ordinal']==7 and row['cell']['depth']==0 and row['cell']['shift']=='0'
+  old=card['packets'][0]['fixed_index']['charts'][0];Q.geometry(dict(parameter_center=old['settings']['parameter'],parameter_endpoints=old['parameter_endpoints']),row['cell'])
+  assert card['prior_failure']['source']=='3fe2d661b549a8fe7a7dccceb34a39ece2506b68'
