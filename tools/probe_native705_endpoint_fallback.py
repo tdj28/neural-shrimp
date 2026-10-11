@@ -8,6 +8,7 @@ from flint import ctx
 import probe_native705_connected as W
 import refine_native705_rechart_endpoint as F
 ROOT=W.ROOT;need=W.need;entry=W.entry;read=W.read
+POLICY_PATH=ROOT/'docs/plans/native705-connected-policy.json'
 
 def source_archive(run,source,identity):
  rt=read(run/'runtime.json');need(rt['commit']==source,'exact proof source')
@@ -35,7 +36,7 @@ def main(args):
   for n,v in identity.items():need(hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==v['sha256'],'committed exact source');p=out/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes());w.used+=p.stat().st_size
   # No duplicate synthetic work: the exact complete pilot profile and unchanged
   # entire source closure are authenticated by the parent before this card.
-  prof=card['profile'];need(prof==read(ROOT/'docs/plans/native705-connected-policy.json')['fallback_forecast']and prof==read(W.BASE/'fallback-profile-binding.json'),'same completed parent-bound measured endpoint unit');need(prof['forecast_seconds']<300 and prof['forecast_bytes']<F.CAP and prof['forecast_peak_bytes']<6*1024**3,'unchanged per-fallback measured limits');w.save('profile-binding.json',prof);w.save('inputs.json',card)
+  prof=card['profile'];need(prof==read(POLICY_PATH)['fallback_forecast']and prof==read(W.BASE/'fallback-profile-binding.json'),'same completed parent-bound measured endpoint unit');need(prof['forecast_seconds']<300 and prof['forecast_bytes']<F.CAP and prof['forecast_peak_bytes']<6*1024**3,'unchanged per-fallback measured limits');w.save('profile-binding.json',prof);w.save('inputs.json',card)
   with ctx.workprec(480):
    oldrun,old,new,domain=binding(card,identity,w.check);localized,join,q=F.refine_pair(card['model'],oldrun,old,new,card['known'],domain,w);need(w.native==36 and w.saved==72,'one36-phase point residual and72 saved native replays');passed=bool(join['passed']and len(join['coordinate_inclusions'])==705 and all(join['coordinate_inclusions']));w.save('known-endpoint.json',dict(box=F.vector_json(localized),old_parameter=card['old_parameter']))
    result.update(passed=passed,status='same_known_endpoint_joined'if passed else'completed_projected_join_unresolved',strict_inclusions=sum(join['coordinate_inclusions']),weighted_bound=F.ball_json(q),scope='Conditional old known endpoint enclosure plus strict projected membership in already completed new uniform tube. No uniform root retry.')

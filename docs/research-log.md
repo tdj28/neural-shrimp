@@ -8924,3 +8924,19 @@ not a claim that the distant junction or complete shrimp window is connected.
 Next: continue from the exact accepted endpoint at its successful1/8 halfwidth,
 retaining bounded adaptation and full projected joins. A quadratic inverse
 proposal is prepared separately for a saved-only failed-width comparison.
+
+### 2026-10-11 — prepare exact completed-packet continuation resume
+
+The new binding-only maintained003 adapter authenticates all24 prior workers,
+retains all four failures and carries the last successful full705 endpoint and
+actual policy state (halfwidth1/8,strong1,same gauge) into another fixed24-attempt
+packet. The331-operation root and bounded endpoint-refinement mathematics,
+profile/cost floors and caps are unchanged. Historical launchers only gain
+explicit path/initial-state hooks with identical defaults. The new policy is
+prepared and unlaunchable pending peer review, actual complete metadata
+preflight and a measured committed card. No target launched.
+
+One combined pytest invocation failed an older global-import closure assertion
+because collection had imported the new adapter outside that old archive's
+scope; no scientific control failed. Run the old source-closure controls in a
+separate interpreter. The new archive closure explicitly includes its adapter.
