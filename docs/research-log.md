@@ -14844,3 +14844,13 @@ mistook PyTorch virtual _ops/_classes module names for files, corrected to
 inspect actual files only, with full real import closure still required. No
 research acquisition yet. Run card remains prepared pending independent caller
 review; operational metadata preflight follows the source commit.
+### 2026-10-11 — prepared independent saved nested512 CIFAR audit
+
+Root producer545c1d42 passed fixed20-percent and0.5 forcing gates at historical
+state018. New independent reducer retains original256 prefix and every511
+basis transition, full512 Gram/rank/least squares and exact258 new operation
+sequence. No new native calls or direction application. Five controls passed
+0.18s, including full recurrence corruption and isolated source closure.
+Copied independent predecessor modules remain byte-identical. Full98666x512
+synthetic profile before research vectors;300s4GiB8MiB/owned315+5s10MiB.
+Source review and actual metadata preflight precede any target arithmetic.
