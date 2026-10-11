@@ -14090,3 +14090,16 @@ no direction applied and no state022 extrapolation. Ten helper/driver controls
 pass2.66s including isolated executed-source closure, final reserve and native
 failure retention. Card remains prepared/unlaunchable until independent source
 review, actual metadata preflight and fresh host admission.
+
+#### Reorthogonalized comparison admission
+
+Root source/binding/resource review679b64e5 PASS. Ten controls rerun2.37s.
+Actual metadata-only binding passed3.139s: complete original/audit/diagnostic
+inventories, runtime and1053 historical native events; zero native calls or
+target vectors evaluated. Initial metadata command omitted nice10 and was
+rejected by environment() before binding; corrected policy-compliant preflight
+is retained. At06:52:23UTC available54,429,936KiB,load2.41/2.14/2.44; no own
+worker or duplicate; root paper numbers only observed. Admit one fresh reviewed
+reorthogonalized001, CPU1nice10/300s/3GiB/768MiB,257HVP+1gradient maximum.
+Full fresh algebra/cost profile still mandatory before scientific arrays/calls.
+No direction application, no state022 action, no stationarity or orbit claim.
