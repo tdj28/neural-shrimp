@@ -15,3 +15,13 @@ Archive complete imported local source, runtime/library identities and calls.
 All failures immutable. This only measures unit time/storage/memory; a later
 fixed target requires exact same profiled source/libs and a separately committed
 costed cap/card with independent review, full organizer/known-root/native joins.
+
+
+### 2026-10-11 fresh profile002
+
+Reprofile the same complete30-phase unrelated fixture after the reciprocal-first
+scalar enclosure amendment. All dimensions, caps, retained inputs and measured
+categories remain unchanged. Profile001 and actual target001 failure remain
+immutable. This profile opens no target arrays and grants no target admission
+by itself; a separately updated source-matched target card must pass measured
+cost/resource gates and independent review.

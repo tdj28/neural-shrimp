@@ -6988,3 +6988,12 @@ domain itself excludeszero. Prepare inv=1/x then powers ofinv, preserving
 mathematics/domain; require negative/positivewide controls, independent
 review and fresh same-source costprofile before any new target attempt.
 No spectral/nonexistence conclusion. Inventory60completedrawroots.
+
+### 2026-10-11 — reciprocal-first coefficient amendment prepared
+
+Unrelated x=2±1/4 control proves original denominator degree6 wraps overzero.
+Use inverse-once then numerator powers, retaining exact scalar identity and
+nonzero domain; positive/negative endpoint controls throughfifth derivative.
+Completed nonfinite phase arrays are retained before the finiteness rejection.
+Fresh synthetic profile002 keeps all original30-phase/90s2GiB256MiB caps.
+Actual target002 is not admitted until new measured source-bound card/review.

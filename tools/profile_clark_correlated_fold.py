@@ -11,11 +11,11 @@ from neural_shrimp import rigorous_clark_explicit_fold as E
 from neural_shrimp import rigorous_clark_amplitude_tube as A
 from neural_shrimp.rigorous_orbits import canonical_bytes,vector_json,matrix_json,ball_json,midpoint_matrix
 need=P.require
-OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-profile/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-profile/attempt002/run')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 SETTINGS=dict(precision=384,seconds=90,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=256*1024**2,closing_reserve=4*1024**2)
 CAPS=dict(path=6,mixed=2,context=1,algebra=2,native_phases=30,events=128)
-FILES=sorted(set(['tools/profile_clark_correlated_fold.py','tools/launch_clark_correlated_fold_profile.py','tests/test_clark_correlated_profile.py','tests/test_rigorous_clark_correlated_path.py','tests/test_rigorous_clark_correlated_tube.py','docs/plans/clark-correlated-explicit-path.md','docs/plans/clark-correlated-profile.md']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
+FILES=sorted(set(['tools/profile_clark_correlated_fold.py','tools/launch_clark_correlated_fold_profile.py','tests/test_clark_correlated_profile.py','tests/test_rigorous_clark_correlated_path.py','tests/test_rigorous_clark_correlated_tube.py','docs/plans/clark-correlated-explicit-path.md','docs/plans/clark-correlated-profile.md','docs/reviews/clark-correlated-fold-attempt001.json']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 def entry(p):
  h=hashlib.sha256()

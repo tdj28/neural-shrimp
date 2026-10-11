@@ -62,3 +62,17 @@ cancellation, full51 synthetic acquisition/domain joins, and a single failed
 51st inclusion. Initial tests used two unavailable Arb matrix conveniences;
 replaced only test comparison/copy syntax. Nine combined controls pass0.35s.
 This is not an actual root or resource-profile outcome.
+
+
+### 2026-10-11 reciprocal enclosure amendment
+
+Actual correlated attempt001 stopped with nonfinite fifth derivatives on the
+whole-d zero-error residual, before any full-error tube. The original nonzero
+scalar denominator can have a repeated-product enclosure that contains zero
+(x=2±1/4 already demonstrates this at degree6). Compute its reciprocal once,
+then multiply powers of that interval for (-1)^k k!/x^(k+1). The original
+nonzero denominator gate remains; no clipping, precision or domain change.
+Positive/negative wide denominator controls include all derivatives through5.
+Every completed phase array is now saved before its finiteness gate, including
+explicit nonfinite markers if the gate fails. The original failure is immutable.
+Fresh full51 profile002 is required before any separately bound target002.
