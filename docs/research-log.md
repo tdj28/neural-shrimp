@@ -15844,3 +15844,7 @@ Boundary source/math/resource review of d16d02d3 PASS;4controls6.19s, physical s
 ### 2026-10-11T09:53:24.151671+00:00 — cifar-regularized-independent completed
 
 Independent regularized CIFAR replay confirms the shorter direction gives less actual same-start gradient-merit reduction: ratio0.997018 versus baseline0.991753, despite acceptedalpha1/32 versus1/64. Retain the better baseline endpoint. No stationary root or utility claim. Full immutable inventories, exact archived source and owner termination checked. Runtime33.946s, peak2474340KiB, zero new native calls.
+
+### 2026-10-11T09:46:22.909235+00:00 — Independent second-quarter stability replay admitted
+
+Producer source dda943e5 retained all1080phases on2 derivative domains and6 center attempts,4accepted. Root mathematical/domain review and Clark source/binding/resource review passed;5controls1.10s and actualmetadata3.236s, repeat isolated5controls0.93s. Replay independently authored six-intersection/tangent/point/full11 quotient reductions using producer-authored adapter, disclosure explicit. Exact second-quarter4cell union must contain entire first30 stable projection and join independently proved firstquarter.1200s4GiB6GiB-AS256MiB,1215+5outer,0native, full705profile beforearrays; no wholechart claim.
