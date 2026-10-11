@@ -15100,3 +15100,14 @@ mathematical reductions. Full55 synthetic profile precedes target arithmetic.
 One CPU1nice10/BLAS1,90s1GiB RSS2GiB AS32MiB raw4MiB reserve;105+5s owned
 34MiB supervisor. Original producer failure histories remain immutable. Peer
 review covers the reducer and historical source/ownership schema before launch.
+
+
+### 2026-10-11 — exact junction coordinate-lift audit passes
+Independent Fraction endpoint replay passed6.96s/75764KiB/zero native calls.
+All55x55 I−CJ entries, complete contraction norm, three conditional intersections,
+original-domain containment and all36 saved native input/returns were checked;
+all705 normalized lifted coordinates agree literally. Complete outer/worker
+inventories and exited ownership verified. Root authority and derivative returns
+are shared; the arithmetic reducer does not import producer refinement/lift code.
+This certifies coordinate conversion for the known junction; the separately
+proved continuation membership still needs its own independent chart replay.
