@@ -16091,3 +16091,15 @@ worker5048f291284457f641b0f9291f0ab2dc0e071d93cc53954355ed55d846e03780.
 Root's independent temporal-mean replay is bound literally before this pilot.
 No native span expansion or changed gates. Compact outcome receipt is
 `docs/reviews/tiny-lm-common-subspace-outcome.json`; integration lists68rawroots.
+
+### 2026-10-11 — source-only current512 nonlinear image diagnostic
+
+Root's independently audited regularized proposal did not improve the original
+same-start Newton result, so preparation now asks whether the retained nonlinear
+remainder can be represented in the saved512 Hessian-action image. A numerical
+helper retains all four original in-trust remainders and fits each using one fixed
+SVD/rank cutoff, reports actual action residual/physical acceleration/trust size,
+and cross-checks the fixed smallest-alpha fit against every other remainder.
+Formal predicted curved-path gradients are explicitly not actual merit evidence.
+Four synthetic controls passed0.07s. No target arrays/native evaluation; complete
+source-bound caller, full-size measured admission and peer review remain pending.
