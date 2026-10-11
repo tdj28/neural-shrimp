@@ -12126,3 +12126,6 @@ Clark independently cleared source071f88af and reproduced three controls0.10s af
 ### 2026-10-11T00:19Z — census13 retained input envelope failure
 
 Profile001 stopped before any native acquisition: reused historical certificate stores its proof under result, not at top level. Complete immutable outcome retained, owned group empty. Source now reads result.box and checks result.passed. Fresh exclusive002 profile/target roots preserve001. No proof settings/cases/resources/gates changed. Source recheck before fresh profile.
+###2026-10-10 — saved705 diagnosis review and fixed run card
+
+Clark passed mathematics/resources and7controls0.77s atf6a09480, identified one reused-helper archive omission before any diagnostic run. Explicitly added unit_pair_conditioning.py and its tests; import-closure regression now included. Execute the sole fixed pal/attempt002-diagnosis at the following commit, zero native calls, exact failed705 source/settings/inventories,60s/4GiB/8GiBAS/16MiB and owned75+5. Host52GiB available,CPUload1.8,GPU0%/15947MiBfree,no duplicate. No mathematical acceptance follows from the numerical proposals.

@@ -21,3 +21,10 @@ def test_fixed_saved_paths_and_no_native_model_call():
  root=Path(__file__).parents[1];w=(root/'tools/diagnose_native_unit_pair_pal.py').read_text();l=(root/'tools/launch_native_unit_pair_pal_diagnosis.py').read_text()
  assert "PARENT=BASE/'attempt002-target'"in w and "attempt002-diagnosis"in w and 'attempt002-diagnosis'in l
  assert 'quadratic_tube('not in w and 'TwoRateCuspMap('not in w
+
+
+def test_reused_conditioning_kernel_in_archived_source_closure():
+ from pathlib import Path
+ s=(Path(__file__).parents[1]/'tools/diagnose_native_unit_pair_pal.py').read_text()
+ assert "'src/neural_shrimp/unit_pair_conditioning.py'"in s
+ assert "'tests/test_unit_pair_conditioning.py'"in s
