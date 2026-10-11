@@ -13538,3 +13538,7 @@ It confirms three rejected alphas then1/8, meritratio.933465645526637 and
 relgradient.00027696046. Stationarity remains false; no eigenpair/orbit claim.
 Root independently cleared the preparatory four-unit continuation helper;
 source-reviewed full wrapper and fresh measured caps still precede a new run.
+
+The first halves receipt accidentally included dense metric matrices; a follow-up
+compaction replaces them with scalar decisions/bounds and exact full-artifact
+hashes. Original immutable raw evidence and prior Git history remain intact.
