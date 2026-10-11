@@ -15872,3 +15872,11 @@ card remains prepared pending peer review and committed admission. Eight focused
 controls passed1.19s, including full705 residual/path retention, cap/reserve,
 exact partition, acquired-domain rejection and isolated archive closure. No new
 scientific native evaluations have run. See native705-second-quarter.md.
+
+Second-quarter metadata preflight amendment: the first saved-only authority check
+found the completed width diagnostic stores `results`, not `rows`. The caller
+now requires its five literal widths and preserved two-pass/three-fail verdicts;
+a real completed-metadata regression covers this schema. The repeated full
+source/inventory/overlap preflight passed1.58s, zero native calls and no research
+arrays opened. No scientific attempt was allocated. Mathematical kernels, domains
+and resource limits are unchanged.

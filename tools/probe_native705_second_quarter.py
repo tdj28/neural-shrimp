@@ -37,7 +37,7 @@ def bind_meta(w,card):
  first=authority(card['independent_first_quarter']);width=authority(card['width_diagnosis']);qcard=read(ROOT/Q.CARD)
  need(first['parameter_endpoints']==qcard['original_quarter']and first['total_cells']==17 and first['complement_dimension']==11,'entire original first-quarter independent proof')
  ib=read(Path(FIXED_FIRST['root'])/'run/authority-binding.json');need(ib['pilot']==qcard['pilot']and ib['prior']==qcard['independent_pilot']and ib['original_whole']['outer']==OLD.PARENT_PIN,'same native-root prior genealogy')
- need(len(width['rows'])==5,'all fixed width outcomes retained');overlap=OVERLAP.check();need(overlap==read(ROOT/'docs/reviews/native705-quarter-stable-overlap.json'),'literal source-bound exact stable-overlap check')
+ need([r['halfwidth']for r in width['results']]==['1/2048','1/1024','1/512','1/256','1/128']and[r['passed']for r in width['results']]==[True,True,False,False,False],'all fixed width outcomes retained');overlap=OVERLAP.check();need(overlap==read(ROOT/'docs/reviews/native705-quarter-stable-overlap.json'),'literal source-bound exact stable-overlap check')
  need(overlap['second_quarter_contains_previous_endpoint']and overlap['second_quarter']==card['parameter_endpoints']and overlap['first_quarter']==first['parameter_endpoints']and overlap['quarters_exactly_adjacent'],'entire prior endpoint and first-quarter adjacency')
  w.save('authority-binding.json',dict(first=FIXED_FIRST,first_outcome=first,width=FIXED_WIDTH,width_outcome=width,overlap=overlap,prior_first_authority=ib));return overlap
 
