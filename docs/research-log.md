@@ -17559,3 +17559,7 @@ The two formerly running task-owned jobs' launcher/worker PIDs were absent in
 an actual host /proc check before backup. Full global window closure and the
 pending prepared research packets remain next-session work; this is a reading
 and handoff checkpoint, not research completion.
+
+### 2026-10-11T15:36:45.370605+00:00 — Export inspected57-page reading checkpoint
+
+Source `def1b29ac218b39501a478196b1bab34bd97e938`;596 verified quantities;161-word abstract;22unchanged figure outputs. PDF SHA `49e04261e74387ecfc71525d16d69c020526e09a9d80d3564ada22d22f5d1953`. Sealed visual-QA manifest `51dbea62be631540f2a46183be5abfefcb845978656af118bc958c0d9d4b7cb1` at `/data2/neural-shrimp-data/paper/gd-route/credit-handoff-refresh-2026-10-11`. All57page contacts and seven detailed pages reviewed. Updated uncommitted `/data2/Handoff.md` will point the next session at this artifact and unfinished research packets.
