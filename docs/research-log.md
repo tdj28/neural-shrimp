@@ -6221,3 +6221,7 @@ Independent stability source/math review290f2c88 PASS,11controls0.35s; no target
 ### 2026-10-10 — retain joint-curve profile001 failure and cap linear solves
 
 Source290f2c88/execution559a6fa3 stopped before target arrays: measured storage forecast397586944>268435456B despite66.75s time and307154944B peak. Actual profile0.0737s/37812KiB,10native+60derivative half-units. Outer3d442e89a5ccf3d9ae353aa4fee0c8ef542b574636f62e4380e80566556c1f89, worker217a4cfae5d02ae3a5e715c1d99062e73700a97522f565bcbc0875e2f6e48fc9; complete immutable inventory verified. Owned1945791/1945859 ended with empty group. New separately enforced1024 linear-solve ceiling replaces an overcount of three solves and four extra eigensystems per derivative half-unit; paired/fullnative/scientific gates and hardcaps unchanged. Fresh002 profile and narrow peer skim precede any target.
+
+### 2026-10-10 — joint-curve002 admission
+
+Independent971df78a narrow resource review PASS12controls0.37s. Current availableRAM56167964672B/load(1.77392578125, 2.01123046875, 1.89208984375), GPU unused and originalownedPIDs absent; new002path unused. Launch one fresh unrelatedprofile→conditional target under1024solve/unchangednative/science/hardcaps. Profile001remainsimmutable; no target prior to newadmission.
