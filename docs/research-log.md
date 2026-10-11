@@ -16478,3 +16478,7 @@ Stability cleared correlated caller4a8286bb (four controls6.50s); Clark cleared 
 ### 2026-10-11 — new numerical unit-pair/flip bracket; unrelated proof-profile input failure
 
 Source2fb0cd3e output003 passed24points/23full470reverse joins in29.085s/2952phases. Final output bracket[.8448415103,.8450915103] has complex-pair moduli.9987615668 and1.0010721503, with simple−1 retained, hidden72.2280353→72.2372884. This is a new simultaneous unit-pair/flip candidate, distinct from the earlier real+1 sampled near miss. No exact root or interval connection claimed. Correlated proof001 stopped in its unrelated profile after145nativecalls/9.570s: full470 synthetic proof passed, but a non-dyadic interval fixture reached the exact-predictor guard for gradient timing. Target remained unopened. Correct only timing-fixture finite-midpoint conversion, retain failure and new source profile before target. Both complete source/inventory/ownership records verified immutable.
+
+### 2026-10-11 — exact unrelated timing-fixture repair prepared
+
+Retained proof-profile001 remains unchanged at145 calls and zero target. Fresh002 takes explicit exact finite midpoints of all unrelated timing state/mode/rate values before serialization and acquisition. Full real profile regression now executes all180 calls/186ticks successfully; five caller controls pass18.72s, including actual failed-history and archive bindings. Target equations/domain/radii/weights/anchor and resource caps unchanged. No retry before narrow source review and committed admission.

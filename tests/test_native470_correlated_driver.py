@@ -43,3 +43,14 @@ def test_caps_and_archive_import_closure(tmp_path):
   p=tmp_path/n;p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/n,p)
  code="import sys;from pathlib import Path;sys.path.insert(0,'tools');import probe_native470_correlated as d;import launch_native470_correlated as l;r=Path.cwd();assert d.OUT.parent==l.OUT;loaded={str(Path(m.__file__).resolve().relative_to(r))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).is_file()and Path(m.__file__).resolve().is_relative_to(r)};assert loaded<=set(d.FILES),loaded-set(d.FILES)"
  subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,check=True,capture_output=True)
+
+
+def test_real_full_profile_exact_timing_inputs_and_exclusive002(tmp_path,monkeypatch):
+ monkeypatch.setattr(D,'OUT',tmp_path/'run');D.OUT.mkdir();monkeypatch.setattr(D,'retained_failure',lambda w:None)
+ with ctx.workprec(256):
+  w=D.Work();D.profile(w)
+ assert w.native==180 and w.ticks==186
+ profile=D.read(D.OUT/'profile.json');assert profile['passed']and profile['target_arrays_unopened']
+ old=D.read(D.OUT/'profile-native-fixture.json')
+ assert all(v['rad']==[0,0]for k in ('state','mode','rates')for v in old[k])
+ assert "attempt002"in (ROOT/'tools/launch_native470_correlated.py').read_text()
