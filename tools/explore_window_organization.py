@@ -408,19 +408,23 @@ def composite(args):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    z = np.load(args.rotation)
-    lh, lo, rho = z["log10_hidden"], z["log10_output"], z["rho"]
     target = 2.0 / 9.0
     fig = plt.figure(figsize=(16, 8))
     grid = fig.add_gridspec(2, 2, width_ratios=[1.35, 1])
     ax = fig.add_subplot(grid[:, 0])
-    extent = [lo[0], lo[-1], lh[0], lh[-1]]
-    shown = np.where(np.isfinite(rho) & (rho > 0.05), rho, np.nan)
-    image = ax.imshow(shown, origin="lower", extent=extent, aspect="auto", cmap="coolwarm",
-                      vmin=target - 0.006, vmax=target + 0.006, interpolation="nearest")
+    maps = []
+    for path in args.rotation:
+        z = np.load(path)
+        lh, lo, rho = z["log10_hidden"], z["log10_output"], z["rho"]
+        extent = [lo[0], lo[-1], lh[0], lh[-1]]
+        shown = np.where(np.isfinite(rho) & (rho > 0.05), rho, np.nan)
+        image = ax.imshow(shown, origin="lower", extent=extent, aspect="auto", cmap="coolwarm",
+                          vmin=target - 0.006, vmax=target + 0.006, interpolation="nearest")
+        ax.imshow(np.where(np.abs(rho - target) < 5e-5, 1.0, np.nan), origin="lower", extent=extent,
+                  aspect="auto", cmap="Greys", vmin=0, vmax=1.2, alpha=0.5, interpolation="nearest")
+        maps.append((shown, extent))
     fig.colorbar(image, ax=ax, label="rotation number of the two-step map")
-    ax.imshow(np.where(np.abs(rho - target) < 5e-5, 1.0, np.nan), origin="lower", extent=extent,
-              aspect="auto", cmap="Greys", vmin=0, vmax=1.2, alpha=0.5, interpolation="nearest")
+    shown, extent = maps[0]
     for curve in boundary_curves(args.summary):
         if curve["sigma"] == -1:
             ax.plot(curve["x"], curve["y"], "-", color="tab:purple", lw=1.0)
@@ -446,6 +450,10 @@ def composite(args):
     for name, (x, yv) in {"A": (-0.0769, 1.7447), "B": (-0.0681, 1.7369)}.items():
         ax.plot(x, yv, "*", ms=12, color="gold", mec="k")
         ax.annotate(name, (x, yv), xytext=(4, -12), textcoords="offset points")
+    for name, (x, yv) in {"R3": (-0.040625, 1.723958)}.items():
+        ax.plot(x, yv, "*", ms=12, color="magenta", mec="k")
+        ax.annotate(name + " (saddle 2-cycle, 2/9)", (x, yv), xytext=(4, -12), textcoords="offset points",
+                    fontsize=8)
     ax.set_xlim(args.xlim)
     ax.set_ylim(args.ylim)
     ax.set_xlabel("log10 output-layer rate")
@@ -488,7 +496,7 @@ def composite(args):
     out.mkdir(parents=True, exist_ok=True)
     fig.savefig(out / "window-organization.png", dpi=args.dpi)
     (out / "window-organization.json").write_text(json.dumps(
-        {"rotation": str(args.rotation), "folds": args.folds, "banana": str(args.banana),
+        {"rotation": [str(r) for r in args.rotation], "folds": args.folds, "banana": str(args.banana),
          "banana_width": widths}, indent=1))
     print(json.dumps({"out": str(out / "window-organization.png")}))
 
@@ -643,7 +651,7 @@ def main():
                      help="lx_min lx_max ly_min ly_max")
     ffn.add_argument("--out", required=True)
     comp = sub.add_parser("composite")
-    comp.add_argument("--rotation", required=True)
+    comp.add_argument("--rotation", nargs="+", required=True)
     comp.add_argument("--summary", default=str(BOUNDARY / "combined-summary005/summary.json"))
     comp.add_argument("--folds", nargs="+", required=True, help="fold-from-node.json files")
     comp.add_argument("--banana", required=True)
