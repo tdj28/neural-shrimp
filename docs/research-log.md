@@ -14192,3 +14192,12 @@ segment precede72saved replays and36freshpoint phases. Successful fixed pilot
 profile/source bytes are mandatory and measured full24+8 forecast must fit.
 13source/policy/entrypoint controls0.83s pass. Prepared policy cannot launch;
 peer review and complete actualmetadata preflight are next.
+
+### 2026-10-11 — Admit maintained002 after complete actual metadata preflight
+
+Stability independently clearedadc67ae7,13controls0.88s. Full historical
+source/inventory/known-root/profile bindings and all14width/gauge proposals
+passed18.264s541496KiB,zero nativecalls; strict exact rational validation.
+Admit24 unchanged root workers plus at most8one-shot endpoint fallbacks under
+fixed8400s8GiB caps. Record every actual physical endpoint; no turn or distant
+junction claim follows from this admission.
