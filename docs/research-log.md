@@ -15087,3 +15087,16 @@ completed independent19. Actual full metadata/inventory binding passes30.579s,
 run exactly the fixed4500s6GiB14GiB sequential audit after fresh full705 profile.
 No native call or production source modification. Root owns this audit in
 reused task-owned tiny-lm-prediction-review worktree on its separate branch.
+
+### 2026-10-11 — independent exact-dyadic junction lift audit
+Prepared zero-native replay of the saved55-to705 junction coordinate lift.
+Exact Fraction endpoint arithmetic recomputes all55x55 defect entries, the full
+row norm and three conditional known-root intersections; literal state/mode/rate
+seeds,36 native returns and all705 output coordinates are bound independently.
+Known55 existence/normalization and native derivative returns are shared and
+explicit. Five synthetic/corruption/archive/legacy-owner controls pass4.72s;
+actual source/inventory/ownership metadata preflight passes0.95s without target
+mathematical reductions. Full55 synthetic profile precedes target arithmetic.
+One CPU1nice10/BLAS1,90s1GiB RSS2GiB AS32MiB raw4MiB reserve;105+5s owned
+34MiB supervisor. Original producer failure histories remain immutable. Peer
+review covers the reducer and historical source/ownership schema before launch.
