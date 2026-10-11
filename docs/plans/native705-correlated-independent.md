@@ -36,3 +36,25 @@ constant error domains and input/basis corruption, verify noncommuting matrix
 polynomials, and retain failed strict inclusions. Source-only stage: dedicated
 binding/resource wrapper and measured full705 admission precede any target
 arithmetic. No audit target has been launched.
+
+## Fixed wrapper/resources
+
+Single audits/native705-correlated-independent/attempt001, CPU1nice10/BLAS1,
+480-bit saved arithmetic, zero native calls. Exact producer/previous32-attempt
+packet/independent24-endpoint inventories and source archives are mandatory;
+old passed705 and retained failed704-of705 proposal stay distinct. Authenticate
+all222 producer events and both copies of its184MB derived certificate without
+parsing either huge copy. The two earlier56MB certificates decode below194.2MB;
+read each only through a256MiB bounded reader and release unused fields. Stream
+all newly derived matrix artifacts rowwise as exact mid/rad dyadic pairs with
+gzip, retaining and charging interrupted writes. Independently rederive the old
+known endpoint from actual direction/cubic inputs before projected705 membership.
+
+Before target arrays, a full705 dense synthetic polynomial proof with actual
+streamed C1/D/forcing outputs measures arithmetic and serialization. Admission:
+3×measured proof time+75s<240s,3×stored bytes+32MiB<512MiB and measured peak+2GiB
+<6GiB. Inclusive worker240s/6GiB RSS/10GiB AS/512MiB with4MiB final reserve;
+owned launcher255+5s/514MiB plus256MiB parent; require16GiB current headroom.
+All actual roots/images/endpoint corrections saved. Unpassed root/join writes
+only an unqualified endpoint candidate. No automatic retry, changed domain,
+proof clipping or complementary-spectrum inference.
