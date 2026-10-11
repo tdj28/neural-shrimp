@@ -21,3 +21,14 @@ Synthetic controls cover nonnormal complex modes, angular changes, moving
 fixed points, degenerate transversality, corrupt modes, and full13 dimensions.
 Wrapper/source/card and measured synthetic admission will precede any target
 arithmetic; the present commit is helper-only.
+
+## Fixed saved arithmetic attempt001
+
+Bind literal complete original384 junction, independent480 same-root proof,
+and physical-corner512 source archives/inventories from the input card. Own
+512-bit saved55 Krawczyk/divisor and ten-mode quotient reductions precede the
+new complex-gradient arithmetic. All55 exact serialized fresh-inside-original
+coordinates establish authority on the same root; no new native evaluation.
+Full13 complex/real border and55 inverse synthetic measurement precedes target
+arrays. Fixed30s512MiB RSS/2GiB AS/16MiB worker with2MiB closing reserve,
+45+5s owned launcher/18MiB. Preserve failed stages and immutable outcome.
