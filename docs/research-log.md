@@ -9473,3 +9473,17 @@ Exact firstacceptancealpha1/64 follows3trustskips and3meritrejections; full glob
 original trust remains. Meritratio.991752501053, relativegradient
 .000258153111404→.000257082118822; still nonstationary. Complete immutable
 source/inventories and actual exited ownership verified; no new correction.
+
+### 2026-10-11 — fixed first-quarter fresh-center cover prepared
+
+Root independently replayed the centered pilot at480bits, all11 modulus
+<.875102 on[-34,-32]/2048; source9c83b5ec and two exact immutable manifests
+are mandatory. Prepare exactly16 new cells; closed17-cell union covers original
+[-49,-17]/2048 without reacquiring the central cell. Original root/coefficient/
+tangent data loaded once, each fresh center126calls; same full705 domains and
+all11 metric gates. Single1500s4GiB3GiBraw/2160inclusivecalls, fresh measured
+144phase profile and conservative twice-complete-pilot per-cell forecast.
+Boundary reviewed the exact partition/cost helper; seven combined controls
+1.06s pass including actual full705 residual retention, stage/cap rejection,
+reserved failure finalization and isolated archive. Card remains prepared;
+complete wrapper review and source admission still required before native work.
