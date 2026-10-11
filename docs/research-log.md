@@ -7738,3 +7738,17 @@ exact subset/root/join inequalities and outward reduction are mandatory.
 Nine controls pass0.32s; initial synthetic projection fixture indexing/radius
 expectation corrected, no target. Complete caller/card and independent source
 review precede acquisition; see clark-subset-successor plan.
+
+### 2026-10-11 — Prepared measured finite subset-radius successor
+
+Stability independently cleared helper1ce25f40 (nine controls0.38s). The caller
+now binds the entire failed32-attempt producer, passed independent22-prefix
+endpoint and all-ten saved subset screen. One completed original root failure
+may receive one exact verified subset proposal and second outward reduction;
+all51 joins and fresh native6 partner/adjacent primitive/complement gates remain.
+The32-attempt prelaunch cost control failed600s; disclosed narrowing to24
+attempts/753 inclusive native phases gives actual metadata/full51 synthetic
+preflight502.0903s,1,596,152,461B,598,056,960B peak forecast. No target arrays
+or native calls in that2.169s preflight. All15 helper/driver controls pass1.14s.
+Card remains prepared until full caller source review. Fixed600s2GiB RSS4GiB AS
+2GiB raw/615+5 owned; no outcome-dependent cap extension.
