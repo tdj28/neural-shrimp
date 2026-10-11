@@ -13199,3 +13199,15 @@ remain prerequisites. Fixed1063HVP/59gradient/400s/2GiB/3GiB local envelope,
 fit~374.28s. Eleven controls including isolated archive closure PASS2.50s.
 No target evaluated. Independent wrapper review/current availability precede
 the sole run. Numerical stationary/eigenpair seeding is not a cycle certificate.
+
+### 2026-10-11 UTC — independent causal-horizon audit closes negative result
+
+Root independently ran source f997c733 after this lane's source/binding/reducer
+review and seven reproduced controls. Receipt b86835e9 records all32 cases,
+128 horizons and104 retained native operation input/output recurrences passed,
+3.050s/61516KiB/zero native calls. Updated own producer receipt with exact audit
+outer/worker pointers. No incremental warning benefit was found. Root also
+identified prior `curvature-six-reference-outcome.md` already rejecting a
+rank-one plus isotropic-bulk mechanism at six references; no duplicate rank-one
+follow-up or new LM acquisition is planned. Future hypotheses must address
+that actual negative evidence explicitly.
