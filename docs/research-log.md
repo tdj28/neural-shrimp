@@ -13686,3 +13686,31 @@ Stability independently cleared0f599d0f math/source/binding, nine controls0.17s.
 ### 2026-10-11 — retained rotated cubic tube is now connected
 
 Fresh residual source3c730978 completed72 inclusive phases (36profile+36target) in21.319s/950288KiB. Exact original correction-domain checks and same independently proved endpoint identity retained. All705 projected membership checks passed with weighted Neumann bound.230086, using the already successful h1/64 tube without root reacquisition. Outer65b642c6/worker0aa0d0b2, all owned workers gone. Retain both earlier false join outcomes. Seal compact receipt and independent arithmetic guide; root owns separate new uniform/endpoint audit. New physical endpoint hidden72.8205/output.830003/t.014361 approaches the nearest known hidden-rate turn, without a distant junction or complementary claim. Next reusable policy preserves exact same-gauge joins while strong, rotates only when conditioning warrants it, and boundedly re-expands widths after strong passes.
+### 2026-10-11 — reusable fixed24 complementary march, source packet
+
+Parent requests complementary attraction to keep pace with the existing
+independently connected quadratic705 boundary. Fixed ordinals7..30 use literal
+original and independent source/manifests; ordinal6's two successful halves
+are excluded and independently replayed separately. New generic bindings and
+owned scheduler retain the reviewed fresh-local-J/C restriction pipeline.
+No proof kernel changes; the historical half worker now serializes its actual
+exact halfwidth (default1/128 unchanged). All360 calls percell are explicitly
+180 fresh unrelated profile plus180 target, including complete attempted
+inputs/returns. Fixed48 attempts,depth3,4 CPU1nice10 workers4GiB/400s/384MiB;
+aggregate16GiB RSS,8400s/16GiB raw with64MiB final reserve and current capacity
+admission. Each fresh profile must forecast both its full worker and the
+complete48-unit plan before target arrays. Exact per-chart unions use existing
+full705 joins across changed gauges; only complete negative11-mode metric
+bounds permit bisection, all incomplete/domain/localization/resource failures
+stop new work. No fresh root, numerical-spectrum or whole-window inference.
+
+Seventeen focused controls passed2.75s, including unmocked historical metadata
+schemas for all24 charts, source archive closure, counted native partitions,
+assignment corruption, profile-total admission and exact nonuniform unions.
+Metadata inspection caught and corrected prelaunch assumptions: same_gauge and
+parameter_endpoints live in the independent outcome's selected proof summary,
+not the join/uniform payload; geometry hashes use compact sorted JSON without
+newline. Original uniform passed includes its optional anchor gate, so the
+adapter checks all uniform non-anchor gates and the separately proved full705
+join. No target arithmetic/native acquisition occurred in these checks.
+Packet awaits independent source/binding/resource review before launch.
