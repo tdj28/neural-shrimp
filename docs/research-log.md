@@ -12642,3 +12642,7 @@ Fixed independent384-bit audit passed all8 uniform705 roots and joins, including
 ### 2026-10-11 UTC — Independent72D scalar AD source preparation
 
 The old13D review scalar AD intentionally rejects bias-free networks. Prepared a separate generic scalar-objective AD with Arb matrix derivative storage, actual72D bias-free layout, and the same-box theorem expanded to72. Controls use exact polynomials/tanh, synthetic point/boxes and exact mixed derivatives; no target calls or producer outcome selection. A measured bound and complete immutable producer inventory must precede the future independent1024-bit panel.
+
+### 2026-10-11 UTC — Rotated boundary batch003 independently proved
+
+Fixed independent384-bit audit passed all8 uniform705 roots and joins, including separately reconstructed prior endpoint localization and whole705 projected membership across the changed affine gauge. 132.014s/1735904KiB, zero native, owned groups absent. Outer640bb20df7c75308e74bb8c5a40636f1dac7071dd459b584c2067f549a2dc38b. Local gauge[-1/2048,255/2048] is not concatenated across rotations. Exact next completed packet pinned when present; unchanged240s/4GiB/64MiB audit, no new acquisition.
