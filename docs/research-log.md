@@ -9262,3 +9262,19 @@ Boundary reserves one6GiB worker plus4GiB parent, no duplicate diagnosis.
 Own4GiB worker plus256MiB launcher fits with headroom. Execute exactly one
 saved-only unit with full705 measured synthetic admission before target arrays;
 no new native evaluations, no complementary claim, no automatic follow-up.
+
+### 2026-10-11 — inverse correlation is the measured enclosure bottleneck
+
+The fixed saved diagnosis PASSED61.465s/1,386,384KiB with zero native calls,
+all immutable inventories verified and owned2481409/2481474 absent. Outer
+3c64c71a014c3193b9b246fd21efd220d54bb99452a0de288e57e38671acf0a0.
+The four fresh constant-C defect bounds are .94005,.97832,1.01911,1.06280;
+the original affine-C polynomial family on the same scalar subsets bounds
+.066405,.048018,.048052,.066713, despite covering the larger original error
+domain. Original independently proved uniform root-image radius ratios are
+at most .382495. This establishes a concrete dependency/wrapping bottleneck,
+not an unstable orbit. Next method should retain e=-C(d)R(d)+D(d)e and the
+same correlated inverse for implicit tangents, instead of discarding the
+parameter correlation or blindly subdividing. No complementary theorem or
+new acquisition follows from this diagnostic alone. First30 complementary
+charts independently passed Clark48 replay; later31–38 remain unresolved.
