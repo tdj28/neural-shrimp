@@ -14221,3 +14221,7 @@ Profile source0e4aea53 passes exact4HVP,0.814s929MiB; complete immutable source/
 ### 2026-10-11T07:09:14.535698+00:00 — Reversal-odd LM response contribution is small at horizon16
 
 Fixed target source358a93ca completes160HVP in18.369s,951260KiB; all16raw two-amplitude qualifications and allfloating algebra checks pass. Expanded gradient horizon16 odd/error norm ratios1.1415984e-5 and2.7778627e-4 miss the fixed0.5 gate; even remainders dominate these large frozen errors. Early horizon4 ratios0.1078/0.2258 and other arms are retained. Reversal preserves singular values; small odd contribution does not imply all ordering effects are small because the even part can depend on order. No predictor or training benefit established. Independent saved arithmetic/operation audit assigned; no fresh operations repeated. Outereb3f0c4503a73ac21443fe56b88a3834ec4cf13ae98fc98d53d3e40b4e8fc686.
+
+### 2026-10-11T07:13:31.905448+00:00 — Independent saved CIFAR comparison audit prepared
+
+Complete independent fsum/vector/Gram/SVD/source/event caller passes five controls0.10s and Boundary independent source/resource review with five controls0.14s. Fixed historical state018 only, original256basis and fresh physical257th direction; original20percent/.5 gates unchanged. No native model imported.120s/2GiBRSS/4GiBAS/4MiBworker,135+5s/6MiBowned; measured full98666x256 unrelated profile mandatory. Actual input schema preflight precedes admission. Shared native outputs and NumPy/BLAS explicitly disclosed.
