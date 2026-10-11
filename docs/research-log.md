@@ -7947,3 +7947,20 @@ quadratic ratios1.00910/0.99568 are closer. Full-size profile passed27.59s/
 29.61MB; complete12.82MB immutable output/source/owned exits verified. No new
 basis, model call or optimizer step; no whole-range qualification, independent
 new outcome audit or utility claim. Receipt cifar-ray-remainder-attempt001.json.
+
+### 2026-10-11 — prepare finite successor with pointwise endpoint restriction
+
+The independently localized endpoint004 supplies exact b=1/512/all51 root
+identity. Keep the previous24-attempt/753-native-phase/600s finite schedule,
+fullE subset fallback and all fresh native6 partner/phase/primitive/+1/stable11
+gates. After each accepted tube, replace its whole-parameter endpoint only
+with a representable same-root subset from16 pointwise interval images/exact
+dyadic intersections. OriginalE and original endpoint containment are checked
+after outward512 rounding; retain the original endpoint if no representable
+restriction is available. Native acquisitions remain384bits. Add at most25
+localization units with measured full51 profile and explicit2x cost/storage.
+Stability reviewed helper math/source PASS, five controls0.27s; complete12
+controls1.17s passed, including actual starting metadata and archive closure.
+Initial helper fmpz-conversion test failures were fixed before target. Caller
+card stays prepared until independent full source/binding/resource review;
+no new native run or radius/gate relaxation has occurred.
