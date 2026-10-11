@@ -15759,3 +15759,11 @@ Root+Clark source/domain review passed, five controls and full actual metadata r
 ### 2026-10-11T10:07:58.814508+00:00 — Whole chart31 complementary stability independently complete
 
 Allten finalquartercells pass independent root/tangent/metric reduction. Combined with first17cell and second4cell exactclosedcovers, all31cells cover[-49,79]/2048, retaining entire chart30 endpoint projection. All11moduli<.980311 throughout fullchart31. Fullimmutable/source/owner checks complete; 67.17668376606889s/818152KiB/0native. Analytic physical-stability-boundary lemma applicability is being mapped separately; no direct signednormal derivative acquired.
+
+### Independent first cubic32 portion adapter prepared
+
+Producer-authored metadata and p/p-prime cubic extension reviewed by root. Complete original C0+C1d, D0..3, f0..5 and Taylor derivative R1/2R2/3R3/4R4 retained; existing independently authored root/tangent/fresh-center/quotient reducers unchanged byte-for-byte. Fixed [39,55]/1024 union must contain whole stable chart31 endpoint projection. All1080 producer calls and two failed coarse cells retained. Source closure added required transitive dependencies, with shared metadata/decoding/native acquisitions and Arb disclosed. Six packet controls passed5.97s before transfer; repository-local adaptation and tests next, no target replay yet.
+
+### 2026-10-11T10:39:19.961537+00:00 — Independent first cubic32 replay admitted
+
+Root source/domain review passed; six repository-local controls5.57s, actual1080-pair preflight with scientific decoders forbidden and isolated exact closure included. Unchanged independent Neumann/point/metric reducers; source-authenticated cubic context, exact complete priorstable projection. Admit zero-native full705 profile-gated1200s4GiB256MiB run in reused isolated audit checkout.
