@@ -15523,3 +15523,13 @@ All24 maintained003 charts passed independent480 full705 root/primitive/frame/ra
 ### 2026-10-11T09:05:51.354508+00:00 — Independent exact first-quarter complementary cover
 
 All16 new closed cells and the reused independently proved central cell pass. Exact union[-49,-17]/2048 covers the entire first quarter of chart31, all11 complementary multipliers strictly below0.878041. Same full705 roots, true tangents, actual native domains and all18 moving-frame steps independently reconstructed. Runtime77.675s/peak818596KiB/0native. Complete immutable inventories, all archived sources and actual owner exits verified. The neutral complex pair remains; later quarters/window boundaries remain active.
+### 2026-10-11 — independent extension endpoint math prepared
+
+Separate raw MixedJet full51 endpoint/normalization/column assembly and25D
+paired inverse/totalphysical curvature prepared; no native calls. Four synthetic
+controls exercise actual unrelated native comparison, fixedgain permutation,
+missing acquired-direction coverage and positive curvature/b0 rejection.
+Initial source syntax/fixture/type issues fixed before target. The producer
+actual93phases are complete; its abstract category maximum omits the second
+implicit3-phase pass (141 versus hard138), disclosed in the audit plan. Actual
+run stayed within138; no result altered. Wrapper/source review next.
