@@ -16648,3 +16648,7 @@ root independently replays remaining32 in fresh attempt003.
 ### 2026-10-11T11:25:21.931176+00:00 — Admit full470 correlated signed-boundary independent audit
 
 Root reviewed separately authored signed gradient/path assembly, unchanged independent polynomial contraction reducer, exact full470 same-gauge known-root membership, all native payload ordering and complete source/resource binding. Eight controls reproduced3.70s; full actual metadata with scientific arrays forbidden, compressed schema and exact C0, corrupted470th anchor, and isolated closure included. Admit one saved-only512bit300s6GiBRSS10GiBAS768MiB unit, inner636MiB serialization/profile ceiling retained,315+5s owned outer770MiB,CPU1/BLAS1/nice10. Full470 unrelated profile before target arrays. Native derivatives/Arb shared and explicitly disclosed; zero new native calls, no inferred complementary stability or global closure.
+
+### 2026-10-11T11:29:43.959177+00:00 — Wider full470 signed boundary independently complete
+
+Independent512 replay passed all470 strict root and known-root coordinates, primitive18 divisors, on exact[-81,-17]/256, with contraction below0.076489025.51.938s700464KiB0native. Complete immutable inventories, exact archived execution7ff709c6 source and all absent owner PIDs verified. New exact-gauge connected left endpoint at−81/256 is sealed for sequential continuation. This advances the signed critical boundary; complementary stability/generic flip/global closure require their own proofs.
