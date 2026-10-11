@@ -57,3 +57,12 @@ def test_archive_closure(tmp_path):
   p=tmp_path/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes())
  code="import sys;from pathlib import Path;sys.path[:0]=['tools','tools/reviews','src'];import probe_native705_second_quarter as w;r=Path.cwd();loaded={str(Path(m.__file__).resolve().relative_to(r))for m in sys.modules.values()if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(r)};assert loaded<=set(w.FILES),loaded-set(w.FILES)"
  p=subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,capture_output=True,text=True,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'));assert p.returncode==0,p.stderr
+
+
+def test_actual_completed_prior_metadata_and_width_schema():
+ class Saved:
+  def __init__(self):self.rows={}
+  def save(self,name,value):self.rows[name]=value
+ w=Saved();overlap=W.bind_meta(w,admitted());assert overlap['second_quarter_contains_previous_endpoint']
+ actual=w.rows['authority-binding.json']['width_outcome'];assert 'results'in actual and 'rows'not in actual
+ assert [r['passed']for r in actual['results']]==[True,True,False,False,False]
