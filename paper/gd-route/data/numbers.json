@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "1b51a297625ff4e64659e5a196088afb5a7da7c28795dd3fe9d4fe7d7528ed5b",
+ "generator_sha256": "3e5a3acdc3677f6711f810d480e23bc18a2eb16553a39ed5a3ec14459796ffac",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:audits/census-period58-independent/attempt002/launcher-result.json": "0de9a9736161565250e1f5d1dfb52f677e96e2757c6b5072932b12ace573fef7",
@@ -84,6 +84,7 @@
   "data:audits/cifar-saved-shooting-merit/attempt001/run/trial-4.json": "91a3051c4ab6519bb2b84345ffc8a49c9ca0ed5fa3d486c2d38750af45c95786",
   "data:audits/cifar400-saved/attempt-001/manifest.json": "e56b60c72459cbedbdbd6dd5c3cfd661173397611854293d4e4f1a4290661575",
   "data:audits/cifar400-saved/attempt-001/result.json": "bb3473509b948306cfcab30ae6d54d63c7a0d8aebbdcc9d5d65b835aa42d4fd0",
+  "data:audits/clark-generalized-flip-independent/attempt001/manifest.json": "9134483613052c96472ddff3790c705adcf0621055bc5ea47528f5865d29598e",
   "data:audits/clark-rnn-c1/attempt-001/launcher-result.json": "f55b57410cdd045e6867f7403cc4c8e2c8a418c09d810b86a6a5bc32632e1cdb",
   "data:audits/clark-rnn-c1/attempt-001/launcher-start.json": "e00793dbce9c0f02de58cdc77ff6f3f6fbba0175e8cd03641dc9ba900c546336",
   "data:audits/clark-rnn-c1/attempt-001/launcher.py": "cb0c9287c77ebfb3bd8ef1ae392be4f32831e4092d2cec58ea92ea41d2fae805",
@@ -7260,6 +7261,7 @@
   "repo:docs/reviews/cifar-saved-step-independent.json": "7cb517f5a380d20d0604be0250b4e9d0453c41e97c98f1f8939fe02871ddf097",
   "repo:docs/reviews/cifar400-saved-outcome-review.json": "d77ed1204394284b8cc45e59bb0c921a3761ff2610cbcc5befd1d33cbb82f20c",
   "repo:docs/reviews/clark-response-outcome-receipt.json": "f667913ede8e86fdaa8d156601924fa056b40687f79236776bee6788493aaad4",
+  "repo:docs/reviews/clark-rnn-generalized-flip-independent.json": "d82dcbdae60cc9700b16780e9fd9c4ecd83970d11a92492af992107f77c52084",
   "repo:docs/reviews/clark-rnn-independent-review.json": "f5cc8a00cfcdf9eecb9f6083d7581c03b561e4f06ca3928c0fb25df3d7c57c84",
   "repo:docs/reviews/clark-rnn-n12-flip-cubic-outcome.json": "d28e6f0fe4bcc21027535fffa4b058b9479dbdb3d7103e01dad3b55e89f929e4",
   "repo:docs/reviews/clark-rnn-n12-panel.json": "d7a09e49b9b5f48dda8023beaab6c59207ce1cbb09bda8076c76cce50f8771eb",
@@ -46234,6 +46236,94 @@
     "data:audits/native705-forward-independent/attempt004/manifest.json"
    ],
    "computation": "three fixed eight-chart packets with independently reconstructed prior localization and full705-coordinate cross-gauge membership"
+  },
+  {
+   "macro": "xRNNOrganizerGain",
+   "value": "1254485458178324774181631456493739964211423477368973179520677456406977152920930963971438939034410478287719065124387/307828173409331868845930000782371982852185463050511302093346042220669701339821957901673955116288403443801781174272",
+   "tex": "4.075278244627",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "midpoint display of independently512 enclosed gain; strict signs validated from exact dyadic endpoints"
+  },
+  {
+   "macro": "xRNNOrganizerLeak",
+   "value": "7701865071760581626197388311842862763806485425413295206116424609616737306935892558677118432474072274931582222710673/9850501549098619803069760025035903451269934817616361666987073351061430442874302652853566563721228910201656997576704",
+   "tex": "0.781875423639",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "midpoint display of independently512 enclosed leak; strict signs validated from exact dyadic endpoints"
+  },
+  {
+   "macro": "xRNNOrganizerQuintic",
+   "value": "5886182369845257790832313117/39614081257132168796771975168",
+   "tex": "0.148588133",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "midpoint display of independently512 enclosed quintic; strict signs validated from exact dyadic endpoints"
+  },
+  {
+   "macro": "xRNNOrganizerDeterminant",
+   "value": "1343268679551874709725332990607282564034548201041456117027342212277739841463454910878266710837775683653204892919270050057489670423441718235517001395821777/209496998905353079680844140596966345741865090946756146526930647558152562969899171512529285908857866057656747784163844544589904418936665155413025765720064",
+   "tex": "6.411875524",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "midpoint display of independently512 enclosed physical_determinant; strict signs validated from exact dyadic endpoints"
+  },
+  {
+   "macro": "xRNNOrganizerLambdaLeak",
+   "value": "7847444250175092746438674845476070395914979350956019736200697209172732945728757753569450392214180833035260764226815819148308685843736427041762335822905713/418993997810706159361688281193932691483730181893512293053861295116305125939798343025058571817715732115313495568327689089179808837873330310826051531440128",
+   "tex": "18.729252188",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "midpoint display of independently512 enclosed multiplier_leak_derivative; strict signs validated from exact dyadic endpoints"
+  },
+  {
+   "macro": "xRNNOrganizerCubicGain",
+   "value": "-1147525734466817027483209936754926939347563702171040902098987615715337138416078140634718576700449807610125795603981908106633348265661521116299808841069907/3351951982485649274893506249551461531869841455148098344430890360930441007518386744200468574541725856922507964546621512713438470702986642486608412251521024",
+   "tex": "-0.342345517",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "midpoint display of independently512 enclosed critical_cubic_gain_derivative; strict signs validated from exact dyadic endpoints"
+  },
+  {
+   "macro": "xRNNOrganizerComplement",
+   "value": "479/1000",
+   "tex": "0.479",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "strict upward bound on norm of signed critical quotient squared; nativeF6 quotient has this square"
+  },
+  {
+   "macro": "nRNNOrganizerPrecision",
+   "value": 512,
+   "tex": "512",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/clark-rnn-generalized-flip-independent.json",
+    "data:audits/clark-generalized-flip-independent/attempt001/manifest.json"
+   ],
+   "computation": "independent exact same26-dimensional root and normal-form arithmetic precision bits"
   }
  ]
 }

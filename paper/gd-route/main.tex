@@ -76,7 +76,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. Two transformer prediction pilots fail their utility gates; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
 Selected orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including every \nCensusThirteen{} 13-parameter census representative and primitive periods 2 and 58 in 72 dimensions. New census certificates are independently proved by scalar-loss automatic differentiation. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; five further chart intervals extend its connected geometry. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALTotalCharts{} positive-angle charts extend its connected geometry, with the transverse bound checked on the first five. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -149,7 +149,7 @@ automatic differentiation checks the new 13-dimensional certificates; all proofs
 \item Connected bifurcation geometry: validated native continuation links a primitive period-18 interior orbit,
 a saddle-node and a generic 1:1 resonance. We prove a continuous attracting interval, the organizer's
 unfolding in the physical rates, and an emerging complex-unit branch with a uniformly attracting complement.
-Five additional quadratic chart intervals extend that branch's connected geometry. Separate local
+A total of \nPALTotalCharts{} positive-angle charts extend that branch's connected geometry; the first five also have independently bounded transverse spectra. Separate local
 certificates cover both flip types, two cusps, a complex-unit/simple-flip junction and a scalar supercritical NS.
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
@@ -1757,10 +1757,9 @@ half-wave relation $F^3(x)=-x$. The signed return map $G=-F^3$ therefore fixes
 $x$, and $G^2=F^6$. Along a continued simple flip of $G$, native phase and
 reverse-continuation checks retain the same period-6 orbit family. Its cubic
 coefficient changes sign within the numerical gain bracket
-$\tNTwelveCubicGain$. This identifies a candidate degenerate flip of the signed
-return map, with a native $+1$ multiplier. It is not a native period-doubling
-claim: a period-2 daughter of $G$ can remain a period-6 orbit of $F$.
-The candidate needs a quintic and unfolding analysis plus interval enclosures.
+$\tNTwelveCubicGain$. This located the degenerate signed flip that we now
+certify below. Its critical native multiplier is $+1$: a period-2 daughter
+of $G$ can remain a period-6 orbit of $F$.
 Subsequent joint continuation follows the native period-6 fold and the signed flip toward that
 bracket. Continuing the same signed orbit to both bracket endpoints and checking all six literal
 native phases resolves the earlier phase-label mismatch: each endpoint joins uniquely at phase four,
@@ -1768,6 +1767,51 @@ including the transported critical eigenvector. Independent saved arithmetic che
 returns, ordered Jacobian products, reverse joins and strictly opposite cubic signs. The original
 failed phase-zero comparison is retained in \path{docs/reviews/clark-rnn-n12-flip-cubic-outcome.json};
 the resolved numerical connection is in \path{docs/reviews/clark-rnn-n12-organizer-connection-001.json}.
+
+
+\paragraph{Certified local organizer in the activity model.}
+For the exact dyadic sampled matrix above, a 26-dimensional augmented system
+simultaneously imposes $G(x)=x$, $(DG(x)+I)q=0$, $q^Tq=1$ and vanishing
+cubic flip coefficient. Strict interval inclusion proves a locally unique root
+whose physical coordinates are approximately
+\[
+ (g_*,\delta_*)=(\xRNNOrganizerGain,\;\xRNNOrganizerLeak).
+\]
+An independent \nRNNOrganizerPrecision{}-bit audit proves the original root
+and a larger uniqueness box containing every original coordinate. It
+reconstructs the native Jacobians using $\operatorname{sech}^2$ and the
+fifth-order expansion using exponential and reciprocal series. The augmented
+derivative kernel and Arb/FLINT remain shared dependencies.
+
+On the one-dimensional center manifold of the signed return, a local
+coordinate has the normal form
+\[
+ u'=-u+c_5u^5+O(u^6),\qquad c_5\approx\xRNNOrganizerQuintic>0.
+\]
+The enclosure excludes zero, and the gain--leak unfolding has nonzero
+Jacobian determinant, approximately $\xRNNOrganizerDeterminant$. Specifically,
+the critical multiplier changes with leak at rate
+$\partial_\delta\lambda\approx\xRNNOrganizerLambdaLeak>0$ along the
+fixed-point branch, while the cubic coefficient changes along the critical
+curve at rate $dc_3/dg\approx\xRNNOrganizerCubicGain<0$. With parameter order
+$(g,\delta)$, the unfolding determinant is
+\[
+ \det\frac{\partial(\lambda+1,c_3)}{\partial(g,\delta)}
+ =-(\partial_\delta\lambda)\left.\frac{dc_3}{dg}\right|_{\lambda=-1}>0.
+\]
+These strict signs establish a nondegenerate generalized flip of $G$ in the
+actual physical parameters.
+
+All proper divisors of native period six are excluded. For the signed
+return's 11-dimensional complementary quotient $Q$, the same audit proves
+$\|Q^2\|_\infty<\xRNNOrganizerComplement<1$. Since $G^2=F^6$, the native
+six-cycle has one critical $+1$ multiplier and all other multipliers strictly
+inside the unit circle. This is a rigorous local symmetry-breaking organizer
+of fixed-weight activity. The connection to the numerically followed distant
+fold and period-doubling branches still requires validated continuation.
+The full proof and independent reconstruction are indexed in
+\path{docs/reviews/clark-rnn-generalized-flip-outcome.json} and
+\path{docs/reviews/clark-rnn-generalized-flip-independent.json}.
 
 
 \paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter

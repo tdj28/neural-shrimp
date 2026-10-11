@@ -2220,6 +2220,26 @@ def build():
     assert extra_count==25
     n.add("nPALTotalCharts",5+extra_count,str(5+extra_count),proof,cbs+extra_sources,"five original charts, one wider successor and three independently connected eight-chart rotated-gauge packets; gauge coordinates are local")
     n.add("nPALRotatedCharts",24,"24",proof,extra_sources,"three fixed eight-chart packets with independently reconstructed prior localization and full705-coordinate cross-gauge membership")
+    # Exact generalized flip of the signed native RNN return, independently512 audited.
+    crp=c.ROOT/"docs/reviews/clark-rnn-generalized-flip-independent.json";cr=load(crp);crr=Path(cr["root"])
+    assert cr["passed"]and cr["source"]=="e62b17ec13d41a5dce79eab4a88d7052745f5b18"
+    cpin=next(z["manifest_sha256"]for z in cr["inventories"]if z["root"]==str(crr))
+    bound_inventory(crr/"manifest.json",cpin);cro=load(crr/"run/outcome.json")
+    assert cro==cr["outcome"]and cro["passed"]and cro["primitive_period"]==6 and cro["complement_dimension"]==11
+    assert cro["same_root"]["all26_original_boxes_strictly_inside"]and cro["calls"]["native_phases"]==54
+    crt=load(crr/"run/runtime.json");assert crt["precision"]==512 and crt["source_commit"]==cr["source"]
+    assert cr["launcher"]["exit_code"]==0 and not cr["launcher"]["owned_live_pids"]and cr["launcher"]["worker_pid_absent"]
+    for name in ["saved-root","fresh-root"]:
+        z=load(crr/"run"/(name+".json"));assert z["passed"]and len(z["coordinate_inclusions"])==26 and all(z["coordinate_inclusions"])and ball_endpoints(z["contraction"])[1]<1
+    native=load(crr/"run/native-context.json");assert native["primitive_period"]==6 and native["complement_dimension"]==11 and set(native["divisors"])=={"1","2","3"}
+    assert all(any(not(lo<=0<=hi)for lo,hi in map(ball_endpoints,row))for row in native["divisors"].values())
+    assert cro["power_bounds"]==native["power_bounds"]and native["witness_power"]==2 and ball_endpoints(cro["power_bounds"][-1]["bound"])[1]<Fraction(479,1000)
+    assert ball_endpoints(cro["quintic"])[0]>0 and ball_endpoints(cro["physical_determinant"])[0]>0 and ball_endpoints(cro["multiplier_leak_derivative"])[0]>0 and ball_endpoints(cro["critical_cubic_gain_derivative"])[1]<0
+    crs=[crp,crr/"manifest.json"]
+    for macro,key,digits in [("xRNNOrganizerGain","gain",12),("xRNNOrganizerLeak","leak",12),("xRNNOrganizerQuintic","quintic",9),("xRNNOrganizerDeterminant","physical_determinant",9),("xRNNOrganizerLambdaLeak","multiplier_leak_derivative",9),("xRNNOrganizerCubicGain","critical_cubic_gain_derivative",9)]:
+        lo,hi=ball_endpoints(cro[key]);n.add(macro,str((lo+hi)/2),fixed(float((lo+hi)/2),digits),proof,crs,"midpoint display of independently512 enclosed "+key+"; strict signs validated from exact dyadic endpoints")
+    n.add("xRNNOrganizerComplement","479/1000","0.479",proof,crs,"strict upward bound on norm of signed critical quotient squared; nativeF6 quotient has this square")
+    n.add("nRNNOrganizerPrecision",512,"512",proof,crs,"independent exact same26-dimensional root and normal-form arithmetic precision bits")
     return n
 
 
