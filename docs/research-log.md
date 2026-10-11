@@ -13469,3 +13469,18 @@ source self-review before any launch. Twenty controls pass2.94s, including
 actual unrelated13D/full705 assembly and condensed preconditioner, exact
 source-archive import closure and failed-write finalization. No target yet;
 independent wrapper review and fresh measured/resource gates remain mandatory.
+
+### 2026-10-11 UTC — two-half complementary source cleared; saved CIFAR audit prepared
+
+Clark independently reviewed589cfdac PASS; six direct controls2.27s. Exact
+same-root recentering, fresh full705 Jacobian/C domains,360 complete native
+records per worker and unchanged correlated quotient are retained. Boundary
+reports no current native worker and agrees the combined8GiB reservation fits.
+Proceed the two fixed halves only after fresh actual host availability check.
+
+Separately prepare `review_cifar_stationary_merit.py`, an independent saved
+fsum audit of root's one numerical gradient-merit step. No producer reducers
+or native calls. Literal old negative/new accepted trial, full event/source/
+array identities, own forcing/descent/Armijo/trust/final-state arithmetic.
+Fixed30s/1GiB/4MiB worker and full-size synthetic measured admission; independent
+source review precedes target audit. This does not pause main complement work.
