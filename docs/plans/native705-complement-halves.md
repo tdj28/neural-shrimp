@@ -35,3 +35,17 @@ Exclusive pal/complement/wide-halves001. All failed/completed siblings retained,
 no automatic retry or further subdivision. No paid/GPU/holdout or new root.
 Independent outcome replay is required before promotion; critical pair remains
 neutral and no signed NS, attracting side or completed shrimp conclusion follows.
+
+
+## Disclosed storage amendment after unrelated profile001
+
+Both001 workers stopped after180 synthetic native calls before every research
+array, with measured forecast295581267B exceeding256MiB. Time323.2s fit400s.
+Complete immutable receipt native705-complement-halves001-profile-failure.json
+is mandatory input, including both worker inventories/source and zero-target
+scope. The historical profile passed:true field was premature; the failure
+outcome remains authoritative. New profile field reports the combined gate.
+Fresh wide-halves002 raises only retained raw storage to384MiB per worker,
+772MiB aggregate; unchanged4MiB final reserve,360calls,400s/4GiB each and415s/
+8GiB batch. Exact science and prior native domains unchanged. Fresh full
+profiles remain mandatory; no target attempted under the old cap.

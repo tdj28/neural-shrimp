@@ -13484,3 +13484,14 @@ or native calls. Literal old negative/new accepted trial, full event/source/
 array identities, own forcing/descent/Armijo/trust/final-state arithmetic.
 Fixed30s/1GiB/4MiB worker and full-size synthetic measured admission; independent
 source review precedes target audit. This does not pause main complement work.
+
+### 2026-10-11 UTC — two-half001 synthetic storage stop and resource-only amendment
+
+Both independently cleared workers completed180 unrelated profile calls each
+(~24.9s), then correctly stopped because forecast295581267B exceeds256MiB.
+No research arrays or target calls. Full1061-file immutable outer plus both
+worker inventories and actual PID absence checked. Historical profile.json
+passed:true was written before the admission test; failure outcomes are
+unambiguous and that metadata ordering is corrected. Preserve literal receipt.
+Fresh002 changes only storage to384MiB each/772MiB aggregate; same360 native
+cap,400s/4GiB each and two exact half domains. New profile/source review required.
