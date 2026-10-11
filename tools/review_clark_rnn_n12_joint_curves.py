@@ -53,7 +53,7 @@ def audit():
    z=a['physical'];p=a['paired_physical'];projection=a['projection'];ad,aa=aug[tag];pd,pa=pairs[tag+'-pair'];assert max(abs(aa['h']))<1e-13 and max(abs(aug[tag+'-partner'][1]['h']))<1e-11;assert np.array_equal(z[:12],aa['theta'])and np.array_equal(z[13:],aa['right_vector'])and z[12]==ad['delta'];assert np.array_equal(p[12:24],-aa['cycle'][3])
    h=np.r_[pa['Gx']-p[12:24],pa['Gy']-p[:12],dot(projection,p[:12]-p[12:24])-2*d['amplitude']];assert max(abs(h))<1e-13;maximum('max_pair_residual',max(abs(h)))
    qy=pa['first_x'][:,:12]@z[13:];qy/=np.linalg.norm(qy);assert np.array_equal(qy,a['partner_mode'])
-   cy=[a['cycle_x'],a['cycle_y']];cross=float(np.max(abs(cy[0]+np.roll(cy[1],3,axis=0)))/max(1,np.max(abs(cy))));assert cross<1e-8;maximum('max_partner_identity',cross)
+   cy=[a['cycle_x'],a['cycle_y']];cross=float(np.max(abs(cy[0]+np.roll(cy[1],3,axis=0)))/max(1,np.max(np.abs(cy))));assert cross<1e-8;maximum('max_partner_identity',cross)
    for partner in ['x','y']:
     cd,ca=critical[tag+'-'+partner];zz=ca['physical'];ax=aa if partner=='x'else aug[tag+'-partner'][1];assert np.array_equal(zz[13:],z[13:]if partner=='x'else qy)
     w=ca['left'];q=zz[13:];bqq=np.einsum('ijk,j,k->i',ax['second'][:,:12,:12],q,q);par=dot(w,ax['first'][:,13]);quad=dot(w,bqq);err=max(abs(par-cd['parameter']),abs(quad-cd['quadratic']));assert err<1e-9 and abs(par)>1e-5 and abs(quad)>1e-5 and max(abs(w@ax['monodromy']-w))<1e-7 and abs(dot(w,q)-1)<1e-10;maximum('max_fold_coefficient_error',err)
