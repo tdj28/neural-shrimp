@@ -16634,3 +16634,13 @@ cells and every complete negative metric remain durable. Nine controls passed
 and archive closure. Entire independent32 pins remain null and card prepared;
 source/resource peer review and all normal gates are still required before any
 new native acquisition. Mathematical kernels are unchanged.
+
+11 October 2026 — Panel launcher admission repair before any run. Root's
+source review reproduced all nine existing controls and found that the copied
+launcher still read the old chart32 card. It now reads its own exact chart33–34
+card, checks fixed quotas/caps and all four completed independent32 pins before
+creating any output. A regression exercises the real prepared card and proves
+the output root stays unopened; changed ordinal/caps and missing prerequisite
+pins are rejected. This focused control passed. Mathematical kernels and
+resource limits are unchanged. The card remains prepared with null pins while
+root independently replays remaining32 in fresh attempt003.

@@ -19,6 +19,22 @@ def test_card_and_incomplete_independent_prerequisite():
   with pytest.raises(ValueError):W.card_check(bad)
 
 
+def test_launcher_uses_own_prepared_card_before_output(monkeypatch,tmp_path):
+ assert L.CARD==W.CARD
+ c=card();L.card_check(c)
+ for key in ('root','source','outer','worker'):
+  bad=copy.deepcopy(c);bad['initial_independent'][key]=None
+  with pytest.raises(AssertionError):L.card_check(bad)
+ bad=copy.deepcopy(c);bad['charts'][0]['ordinal']=32
+ with pytest.raises(AssertionError):L.card_check(bad)
+ bad=copy.deepcopy(c);bad['caps']['maximum_total_calls']+=1
+ with pytest.raises(AssertionError):L.card_check(bad)
+ monkeypatch.setattr(L.subprocess,'check_output',lambda *a,**k:b'')
+ monkeypatch.setattr(L,'OUT',tmp_path/'unopened')
+ with pytest.raises(AssertionError,match='reviewed cubic33'):L.main()
+ assert not L.OUT.exists()
+
+
 def test_two_chart_scheduler_uses_one_context_and_closed_union(monkeypatch,tmp_path):
  c=card();contexts=[];monkeypatch.setattr(W,'initial',lambda *a:{'first':True})
  def bind(w,s,p):contexts.append((s['ordinal'],p));return s['ordinal']
