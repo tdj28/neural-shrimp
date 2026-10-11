@@ -17118,3 +17118,7 @@ All448HVP completed92.029s1,011,804KiB, all four inherited1percent response/CE q
 ### 2026-10-11T12:59:04.814005+00:00 — Paper source refresh through whole33 and block-mean replay
 
 Added full33 physical-stability coverage, the16-chart independently joined signed extension and complete independently replayed two-step-mean comparison with all four cases.161-word source abstract,559 verified quantities (17new, only existing stablechartcount32→33 changed), warning-free55-page compilation;22 figure outputs unchanged. Source matches scoped exact proofs and consumed LM comparison; newfirstorderresult stays pending its separate arithmetic replay. Visual QA/export in progress. Separate physical archive backup20261011T125806Z verified5243files272284096B manifest19f2ba773042b1f18b24386e4e330fd332d4b6756811b21308cb369be2e7d8ad; all retained newfailures included.
+
+### 2026-10-11T12:59:53.047184+00:00 — Export inspected current55-page PDF
+
+Source270b917f0356954c3bfd0c4735b7878aedfbd389, 161-wordabstract,559verified quantities and22unchanged figureoutputs. SHA2d82d20a34daa34a3f20dec8872a07d9f0e6a004daaece4d200c68ad9d9d0f73, immutableQAmanifeste5a6cfc4a4c86fa0b76c47b7e4e3f92b83133e4f04b1b2a165db9ecdec49a9cf. CurrentPDF exported for human feedback; proof and mechanism runs continue.
