@@ -7390,3 +7390,12 @@ Exact immutable inventories and every historical source entry verified; owned
 Descriptive gate TRUE; separately authored saved arithmetic audit remains next.
 No operator-norm, basis/individual-commutator, forecast, training or geometry
 utility claim follows. See compact receipt and independent replay guide.
+
+### 2026-10-11 — independent saved curved-path arithmetic prepared
+
+Separately authored full-vector/fSum audit of Root e470dded exact1HVP2gradient
+CIFAR current022 result. Full historicalsource/inventory, independent512authority,
+actual states/actions, both originalcurvepoints and fixedfirstselection bound.
+No native/SVD calls. Unrelatedfull98666 arithmetic beforetargetarrays,60s1GiB
+3GiBAS8MiB/2MiBreserve,75+5owned10MiB. Actual metadata-only preflight passed with
+NumPy loads forbidden. No target arithmetic yet; peer review/admission pending.
