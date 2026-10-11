@@ -8940,3 +8940,14 @@ One combined pytest invocation failed an older global-import closure assertion
 because collection had imported the new adapter outside that old archive's
 scope; no scientific control failed. Run the old source-closure controls in a
 separate interpreter. The new archive closure explicitly includes its adapter.
+
+### 2026-10-11 — prepare degree-two parameter preconditioner
+
+Prepared a small conditional quadratic C(d) kernel for saved failed-width
+comparison. Full noncommuting defect coefficients0..4 and forcing0..6 retain
+C2*r4. Complete original J0(E),J1(E),J2(I,E) and residual remainder remain caller
+obligations. Four synthetic controls include a nonnormal case resolved by C2,
+noncommuting convolution/degree6, interval uncertainty and malformed proposals.
+No target arithmetic or new derivative acquisition. Source review and a fixed
+measured saved-input packet remain prerequisites; the unchanged maintained
+continuation resumes independently.
