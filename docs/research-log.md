@@ -6229,3 +6229,5 @@ Independent971df78a narrow resource review PASS12controls0.37s. Current availabl
 ### 2026-10-10 — saved joint-curve outcome audit card
 
 Target002 completed49points/48joins in2.874s/42000KiB,448native+1288half-unit returns,713solves. Prepare saved-only independent NumPy/math.fsum replay of all438native contexts, nativefold/half augmented equations, every fold and signed-flip coefficient, literal partners, all144native reversejoins/96modejoins and49same-gain diagnostics. Recompute profile and complete immutable inventory/historicalsource bindings. No new model/derivative calls. Fixed30s,1GiB peak/2GiBAS,4MiB compact outcome,CPU1nice10; output/tmp/joint-curves-audit-002.json before committed receipt.
+
+Root source reviewad897f18 requested literal outer/worker pins, explicit final augmented-root residual gates distinct from Newton intermediates, and a retained failed audit outcome. Added all three before saved-array execution; final fold/sign roots<1e-13, literal fold partner<1e-11, unchanged producer tolerances. Every exception/time limit now writes compact failure/trace/source identity. No target scientific rerun.

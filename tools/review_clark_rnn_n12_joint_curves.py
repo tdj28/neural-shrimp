@@ -5,6 +5,8 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 RAW=Path('/data2/neural-shrimp-data/explore/clark-rnn/n12-p6-fold-continuation-002')
 EXECUTION='ef913ec9e0aaa7ba93853089fa56b2c16d883be2'
+OUTER_PIN='3ed78bc034921adb9c469384114cb2f52784bd7b0d834477f9bb1fe268ad78eb'
+WORKER_PIN='a5cc8471a9e0d28cb51e2f7d054f835403daaab7ab33049fc99277c8b3425f6f'
 
 def norm(x):return math.sqrt(math.fsum(float(v)*float(v)for v in np.ravel(x)))
 def dot(a,b):return math.fsum(float(x)*float(y)for x,y in zip(a,b))
@@ -22,6 +24,7 @@ def inventory(root):
 def audit():
  start=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(2*1024**3,)*2);signal.signal(signal.SIGALRM,lambda *_:(_ for _ in()).throw(TimeoutError('30s saved audit')));signal.alarm(30)
  assert os.getpriority(os.PRIO_PROCESS,0)>=10
+ assert sha(RAW/'manifest.json')==OUTER_PIN and sha(RAW/'run/manifest.json')==WORKER_PIN
  outer,worker=inventory(RAW),inventory(RAW/'run');run=RAW/'run';read=lambda n:json.loads((run/n).read_text());result=read('result.json');launch=json.loads((RAW/'launch-end.json').read_text());rt=read('runtime-start.json');profile=read('profile.json')
  assert launch['source_commit']==rt['source']['commit']==EXECUTION and launch['exit_code']==0 and launch['owned_group_empty']and all(not Path('/proc/'+str(launch[k])).exists()for k in ['child_pid','launcher_pid'])
  for name,pin in rt['source']['sha256'].items():assert hashlib.sha256(subprocess.check_output(['git','show',EXECUTION+':'+name],cwd=ROOT)).hexdigest()==pin
@@ -47,7 +50,7 @@ def audit():
   elif kind=='signed_third':third[tag]=(d,a)
   elif kind=='native_fold_criticality':critical[tag]=(d,a)
   elif kind=='fold_curve_point':
-   z=a['physical'];p=a['paired_physical'];projection=a['projection'];ad,aa=aug[tag];pd,pa=pairs[tag+'-pair'];assert np.array_equal(z[:12],aa['theta'])and np.array_equal(z[13:],aa['right_vector'])and z[12]==ad['delta'];assert np.array_equal(p[12:24],-aa['cycle'][3])
+   z=a['physical'];p=a['paired_physical'];projection=a['projection'];ad,aa=aug[tag];pd,pa=pairs[tag+'-pair'];assert max(abs(aa['h']))<1e-13 and max(abs(aug[tag+'-partner'][1]['h']))<1e-11;assert np.array_equal(z[:12],aa['theta'])and np.array_equal(z[13:],aa['right_vector'])and z[12]==ad['delta'];assert np.array_equal(p[12:24],-aa['cycle'][3])
    h=np.r_[pa['Gx']-p[12:24],pa['Gy']-p[:12],dot(projection,p[:12]-p[12:24])-2*d['amplitude']];assert max(abs(h))<1e-13;maximum('max_pair_residual',max(abs(h)))
    qy=pa['first_x'][:,:12]@z[13:];qy/=np.linalg.norm(qy);assert np.array_equal(qy,a['partner_mode'])
    cy=[a['cycle_x'],a['cycle_y']];cross=float(np.max(abs(cy[0]+np.roll(cy[1],3,axis=0)))/max(1,np.max(abs(cy))));assert cross<1e-8;maximum('max_partner_identity',cross)
@@ -58,7 +61,7 @@ def audit():
      _,cn=contexts[tag+'-'+partner+suffix];ev=np.linalg.eigvals(cn['monodromy']);ix=int(np.argmin(abs(ev-1)));other=np.delete(ev,ix);assert abs(ev[ix]-1)<1e-7 and min(abs(other-1))>1e-4 and max(abs(other))<1-1e-5;maximum('max_critical_error',abs(ev[ix]-1));maximum('max_complement',max(abs(other)))
    folds[tag]=(d,a)
   elif kind=='branch_point':
-   z=a['physical'];hd,ha=halves[tag];assert np.array_equal(z[:12],ha['theta'])and np.array_equal(z[13:],ha['right_vector'])and z[12]==hd['delta'];q=z[13:];w=a['left_vector'];gm=ha['monodromy'];BB=ha['second'][:,:12,:12];bqq=np.einsum('ijk,j,k->i',BB,q,q);sol=np.linalg.solve(gm-np.eye(12),np.column_stack([-ha['first'][:,13],bqq]));c3=third[tag+'-cubic'][1]['third'];alpha=dot(w,np.einsum('ijk,j,k->i',BB,q,sol[:,0])+ha['second'][:,:12,13]@q);cubic=dot(w,c3)/6-dot(w,np.einsum('ijk,j,k->i',BB,q,sol[:,1]))/2
+   z=a['physical'];hd,ha=halves[tag];assert max(abs(ha['h']))<1e-13;assert np.array_equal(z[:12],ha['theta'])and np.array_equal(z[13:],ha['right_vector'])and z[12]==hd['delta'];q=z[13:];w=a['left_vector'];gm=ha['monodromy'];BB=ha['second'][:,:12,:12];bqq=np.einsum('ijk,j,k->i',BB,q,q);sol=np.linalg.solve(gm-np.eye(12),np.column_stack([-ha['first'][:,13],bqq]));c3=third[tag+'-cubic'][1]['third'];alpha=dot(w,np.einsum('ijk,j,k->i',BB,q,sol[:,0])+ha['second'][:,:12,13]@q);cubic=dot(w,c3)/6-dot(w,np.einsum('ijk,j,k->i',BB,q,sol[:,1]))/2
    err=max(abs(alpha-d['alpha_delta']),abs(cubic-d['cubic']));assert err<1e-9 and abs(alpha)>1e-5 and max(abs(w@gm+w))<1e-7;maximum('max_signed_coefficient_error',err)
    e=np.linalg.eigvals(gm);ix=int(np.argmin(abs(e+1)));assert abs(e[ix]+1)<1e-7 and min(abs(np.delete(e,ix)+1))>1e-4 and max(abs(np.delete(e,ix)))<1-1e-5
    for suffix in ['-native','-adjacent']:
@@ -82,6 +85,14 @@ def audit():
  signal.alarm(0);assert time.monotonic()-start<30 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<1024**2
  return dict(schema='clark-native6-joint-curves-saved-audit-v1',passed=True,raw_root=str(RAW),execution_commit=EXECUTION,outer=outer,worker=worker,launch=launch,profile={k:v for k,v in profile.items()if k not in ['times','bytes']},native_contexts=len(contexts),points=49,joins=48,metrics=metrics,counts=counts,comparisons=comparisons,seconds=time.monotonic()-start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,scope='Independent saved-array native primitive6/eigensystem/fold and signed-flip coefficient, literal partner and raw forward/reverse arithmetic. Analytic derivative acquisitions shared. Numerical approach toward organizer; no exact endpoint identity, interval global connection or whole-shrimp claim.')
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);args=p.parse_args();out=audit();data=(json.dumps(out,indent=2)+'\n').encode();assert len(data)<4*1024**2
+ p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);args=p.parse_args()
+ try:out=audit()
+ except BaseException as exc:
+  import traceback
+  out=dict(schema='clark-native6-joint-curves-saved-audit-v1',passed=False,error=type(exc).__name__+': '+str(exc),traceback=traceback.format_exc(),raw_root=str(RAW),execution_commit=EXECUTION,outer_manifest=OUTER_PIN,worker_manifest=WORKER_PIN)
+ finally:signal.alarm(0)
+ out['audit_source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();out['audit_source_sha256']=sha(Path(__file__))
+ data=(json.dumps(out,indent=2)+'\n').encode();assert len(data)<4*1024**2
  with args.out.open('xb')as f:f.write(data)
  print(json.dumps({k:v for k,v in out.items()if k not in ['comparisons','counts','launch']}))
+ raise SystemExit(0 if out['passed']else 2)
