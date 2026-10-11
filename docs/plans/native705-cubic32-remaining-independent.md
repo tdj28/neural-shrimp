@@ -13,3 +13,5 @@ Preserve failed attempts001 (card status) and002 (actual whole-domain containmen
 ## Attempt004 after full six-domain screening
 
 Screen183ca098 passed all6 exact predictor and nested-derivative containment checks, preserving140–302 mismatched coordinates per domain for the alternate rigorous derivative association. Select only the source-reviewed exact-monomial predictor and nested derivative. Admit the complete fresh004 root/tangent/quotient replay under unchanged caps and all original acquired-domain checks; screen success is not scientific qualification.
+
+11 October2026: Attempt005 uses the reviewed exact-rational extrema/Bernstein ranges. All six full root, segment, error, predictor derivative, polarized plus/minus, true tangent and native quotient domains passed in the mandatory hash-bound preceding screen. It verifies the unchanged screened helper and independent reducers before the full705 measured admission. All failed001–004 evidence remains immutable. Caps, known-root, center, quotient metric and whole-union gates unchanged.

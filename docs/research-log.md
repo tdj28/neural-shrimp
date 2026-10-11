@@ -16813,3 +16813,7 @@ The exact source68408ddb execution completed60.280s1902184KiB with514HVP10grad. 
 ### 2026-10-11T11:52:22.344134+00:00 — Prepare independent full-state pair-block audit
 
 Separately authored root adapter reuses only previously independent fsum/native-association reducers. Exact P/R/parity/frozen/CE baseline bytes must match the prior independent full-state histories. All128 actual U/V action state/vector associations, complete recurrence, transpose/vector/squared identities, every scalar and all four cases are replayed. Five controls passed2.54s: alternating identical two-step blocks, independent material/attenuation gates, corrupted vectors, actual metadata with scientific arrays prohibited, isolated source closure. Fixed120s1GiB2GiBAS8MiB with full15776 synthetic/cold prior admission; zero new native calls. Prepared source pending peer review; no target replay yet.
+
+### 2026-10-11T11:48:36.688921+00:00 — Seal all-six complete acquisition-domain screen and admit full replay005
+
+All six full705 known-root, segment, polarized and true-tangent domains independently passed using exact rational cubic extrema/Bernstein bounds.41.233s917488KiB0native. Exact source, whole immutable inventories and absent ownership verified. The fixed1800s4GiB256MiB full remaining-chart replay now requires this exact successful screen and unchanged helper/reducer hashes before its fresh full705 profile. No relaxed gate or new native acquisition. Original center and full11 metric gates remain unchanged.
