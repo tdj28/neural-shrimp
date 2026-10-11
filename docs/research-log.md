@@ -12333,3 +12333,18 @@ both rates and all18 native state/q/r phases until actual physical domains are
 derived. Three new nonlinear/rejection controls plus four existing known-root
 controls pass0.10s. No705 target arrays or derivatives acquired; separately
 bound source/input/profile/card remains necessary.
+
+
+### 2026-10-10: fixed saved705 localization card
+
+Prepare pal/complement/attempt001-localization on exact original003 chart, now
+independently proved384 and connected by independent480 endpoint membership.
+Full archived source/inventories, fixed gauge/radii/predictor and original
+domain containment are mandatory. Recompute authenticated cubic-Taylor
+residual and use source-reviewed quadratic helper974bb17d (boundary PASS7
+combinedcontrols0.10s) for all705 actual center/whole/tangent coordinates,
+including both rates and angle. Zero native calls, full705 unrelated profile
+before arrays;240s/4GiB/6GiBAS/64MiB,owned255+5/256MiB/66MiBcombined. Fixed
+exact manifest card docs/plans/native705-saved-localization-inputs.json.
+No target executed yet; fixed wrapper peer review and fresh availability
+required. This supplies domains only, not complementary stability or newroots.
