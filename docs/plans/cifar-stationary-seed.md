@@ -41,3 +41,41 @@ Seven combined stationary/amplitude controls check exact nonlinear Jacobian
 identities, full quadratic stationary closure, actual nonlinear merit and
 radius behavior, a deliberately corrupted fresh action rejected before trials,
 and positive/negative actual Hessian-mode qualification. All passed0.27s.
+
+## Fixed attempt001 card after helper review
+
+Clark independently cleared f967ff94 helper/math with seven controls0.19s.
+One source-reviewed wrapper now fixes
+`/data2/neural-shrimp-data/explore/cifar/stationary-seed/attempt001`.
+The unchanged initial pair is exactly the completed projected001 pair;
+outer89eb660c4f1ba722381db36eda561c8c826a642efa704b5c0c7ba9f7e9c4803e,
+executiond9c74b034913e7891def3919548ae276f9d92944, unchanged subsetA512,
+MLP3072–32–10tanh/ridge0.01. The preceding scaled correction, saved geometry
+and phase diagnostic are also authenticated and preserved. Every original
+executed source byte/archive and Python/numpy/scipy/Torch environment matches
+the measured parent before target arrays. The new midpoint is literal(x+y)/2.
+
+Full unit has at most1063 HVP and59 gradients: two Hessian qualification
+vectors; one initial and six centered-difference gradients at scales1e−3,
+1e−4,1e−5 times max(1,norm(midpoint)); at most four256-action solves plus
+fresh action checks and four13-trial gradient searches; conditional32+1
+Hessian mode actions. Final FD relative error<=5e−6 and symmetric bilinear
+error<=1e−10 are mandatory before solving. No LSMR, old Jacobian transfer,
+fixed-rate shooting step, protected subset or new data acquisition occurs.
+
+All native state inputs are retained once and referred to by full hash in
+per-attempt records before each call; every HVP direction, gradient/HVP return
+and operation counter is durably retained. Complete exact source archive,
+actual SciPy MINRES source, every accepted/intermediate native state and final
+candidate remain available. Isolated copied-archive import test checks all
+executed repository modules including package initialization.
+
+Fixed400s worker/420s launcher+5 cleanup, CPU/BLAS/Torch1 nice10,2GiB RSS,
+8GiB address space,3GiB worker+3MiB launcher raw,10GiB host headroom. Same-native
+projected001 maximum timings0.0849204881s/HVP and0.9516282950s/gradient give
+~374.28s bound including2× all operation maxima,20s overhead and61.44s for
+full raw-cap writes at50MiB/s. Repeat that exact admission with the fresh
+qualification timings before solving. No conditional budget expansion.
+Eleven combined controls passed2.50s; independent wrapper review still needed
+before launch. A completed negative stationary attempt remains a result,
+not authorization to expand iterations or trust radius.
