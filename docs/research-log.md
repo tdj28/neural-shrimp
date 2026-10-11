@@ -7436,3 +7436,16 @@ path for a later bounded adaptive correlated51 continuation from the proved
 b=1/2048 endpoint. Preserve the duplicate overlap and original projection
 amplitude; numerical planning only. Fixed66 synthetic profile before arrays,
 30s512MiB2GiBAS8MiB,45+5owned. Source/test/card peer review precedes execution.
+
+### 2026-10-11 — adjacent-pair-preserving LM ordering helper
+
+Root approved the fixed128HVP follow-up after the full-state parity contrast
+passed independent saved replay. Preserve every adjacent chronological pair
+while reversing the eight blocks; compare its reversal-even contrast with
+both chronological response and the already measured parity contrast. The
+20% material and10x attenuation reports are separate, not competing verdicts.
+Four consumed original/eta4 cases, inherited1% qualifications, no new gradient,
+CE or optimizer trajectory. Pure helper/control preparation only;240s4GiB
+192MiB, fresh full-size profile plus every retained cold maximum and separate
+source/card admission remain required before any new target. RNN continuation
+preparation stays active while this helper receives source review.
