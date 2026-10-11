@@ -17499,3 +17499,9 @@ subset fallback, full51 predecessor join and four native contexts remain.
 Private push/current shared-host and duplicate checks precede launch; source
 checkout freezes until this fixed unit ends. All failures retained, no retry
 or enlargement within the attempt.
+
+### 2026-10-11 — Prepared independent whole34 narrow-domain replay
+
+Root source/domain/history/resource review cleared the producer-agent binding adapter with unchanged separately authored480-bit exact-rational/root/tangent/fresh-point/11-mode reducers. Six controls pass1.08s; the final success bit now also requires final elapsed<3600s and peakRSS<4GiB. All200 prior source files are byte-identical to6bc6967b;14 exact dependency additions come from producer191b325793e7e4c689d392e940df6657aef424d4. Legacy import-time archive closure can list a new caller in ancestor FILES; clean-process dependency inventories prevent misattributing that caller to historical source.
+
+The fixed complete64-domain/up-to192-center/30096-phase acquisition history, all complete negative coarse cells, full705 root ancestry and exact whole[83/512,115/512] union remain mandatory. The adapter performs no native evaluation. OneCPU1/nice10/3600s4GiB RSS6GiB AS1GiB raw with4MiB reserve and owned3615+5s/1026MiB caps; cost charges twice the complete independent39-cell whole33 result scaled by8 plus fresh full705 synthetic and cold-decode allowance. Producer still runs; this card remains prepared with null producer pins. No target arithmetic or audit launch is authorized by this checkpoint. Before admission the complete immutable producer must be sealed and actual metadata preflight must pass with scientific reducers/decoders/native construction forbidden.
