@@ -16,10 +16,14 @@ from neural_shrimp.rigorous_orbits import exact
 from neural_shrimp.rigorous_eigenpair_locus import exact_mid
 ROOT=W.ROOT;BASE=W.BASE;need=W.need;entry=W.entry;read=W.read;save=OLD.save;seal=OLD.seal;KEEP=OLD.KEEP
 PARENT={'root': '/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/cubic-continuation001/maintained-fallback001/attempt002', 'source': 'fd6e94262e2513fa0b8f79509b547b5b1fe9f178', 'outer': '7f02b097ff456f07eb9a1b1f75b869329d9cb35327afba5977dc146eaf10dfff', 'worker': '098cd5732e908340c57cd92a068ff669745253d3f54f59179560dd50235bb04d', 'endpoint': '3420d7a2e9cf495f106ff96fdb2e23f47b291db2bc9255c6c8df17908fe5746b'}
+POLICY_PATH=ROOT/'docs/plans/native705-connected-policy.json'
+WORKER_PATH=ROOT/'tools/probe_native705_connected.py'
+FALLBACK_PATH=ROOT/'tools/probe_native705_endpoint_fallback.py'
+INITIAL_STATE=(-6,0,'same_gauge')
 LIMITS=dict(OLD.LIMITS,attempts=24,ticks=24*331,native_calls=24*324+8*36,initial_halfwidth=-6,maximum_halfwidth=-3,strong_threshold='1/5',strong_passes=2,rotate_threshold='1/4',fallbacks=8,fallback_seconds=300,fallback_owned_seconds=315,fallback_replays=8*72)
 
 def policy(path):
- need(path.resolve()==ROOT/'docs/plans/native705-connected-policy.json','literal committed continuation policy');p=read(path);need(p['status']=='measured-reviewed'and p['limits']==LIMITS and p['initial_parent']==PARENT and p['schema']=='native705-connected-v1','fixed measured bounded policy')
+ need(path.resolve()==POLICY_PATH,'literal committed continuation policy');p=read(path);need(p['status']=='measured-reviewed'and p['limits']==LIMITS and p['initial_parent']==PARENT and p['schema']=='native705-connected-v1','fixed measured bounded policy')
  need(hashlib.sha256(subprocess.check_output(['git','show','HEAD:'+str(path.resolve().relative_to(ROOT))],cwd=ROOT)).hexdigest()==entry(path)['sha256'],'same committed policy');return p
 
 def fallback_profile(identity,pin,check):
@@ -70,7 +74,7 @@ def contraction_upper(done,chart):
  m,e=done['contraction']['mid'];q=F(m)*F(2)**e;need(0<=q<1,'strict passed contraction');return q
 
 def run_worker(folder,index,cardsha,check):
- cmd=[sys.executable,str(ROOT/'tools/probe_native705_connected.py'),'--attempt',str(index),'--out',str(folder/'run'),'--card-sha',cardsha];log=(folder/'process.log').open('xb');proc=None;start=time.monotonic();peak=0;failure=None
+ cmd=[sys.executable,str(WORKER_PATH),'--attempt',str(index),'--out',str(folder/'run'),'--card-sha',cardsha];log=(folder/'process.log').open('xb');proc=None;start=time.monotonic();peak=0;failure=None
  try:
   proc=subprocess.Popen(cmd,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);save(folder,'owned-process.json',dict(group=proc.pid,command=cmd))
   while proc.poll()is None:
@@ -89,7 +93,7 @@ def run_worker(folder,index,cardsha,check):
 def fallback_worker(folder,index,card,pin,parent,policy,identity,check):
  target=folder/'fallback';target.mkdir(exist_ok=False);oldroot=Path(parent['root']);oldcard=read(oldroot/'input-card.json');old_parameter=str(F(oldcard['settings']['parameter'])+F(2)**oldcard['settings']['halfwidth_exponent'])
  fc=dict(kind='native705-complete-root-projected-fallback-v1',source=card['source'],attempt=index,mode=card['mode'],current_root=str(folder),current_worker=pin,parent=parent,model=card['map_inputs'],known=card['anchor']['box'],old_parameter=old_parameter,profile=policy['fallback_forecast'])
- save(target,'input-card.json',fc);cmd=[sys.executable,str(ROOT/'tools/probe_native705_endpoint_fallback.py'),'--attempt',str(index),'--out',str(target/'run'),'--card-sha',entry(target/'input-card.json')['sha256']];start=time.monotonic();proc=None;peak=0;failure=None
+ save(target,'input-card.json',fc);cmd=[sys.executable,str(FALLBACK_PATH),'--attempt',str(index),'--out',str(target/'run'),'--card-sha',entry(target/'input-card.json')['sha256']];start=time.monotonic();proc=None;peak=0;failure=None
  with(target/'process.log').open('xb')as log:
   try:
    available=int(next(v.split()[1]for v in Path('/proc/meminfo').read_text().splitlines()if v.startswith('MemAvailable:')));need(available>10*1024**2,'fresh10GiB fallback headroom');proc=subprocess.Popen(cmd,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);save(target,'owned-process.json',dict(group=proc.pid,command=cmd))
@@ -121,7 +125,7 @@ def main(args):
  try:
   prof=W.W.profile(identity,p['profile']);fallback_cost=fallback_profile(identity,p['fallback_profile'],check);need(fallback_cost==p['fallback_forecast'],'same literal measured fallback forecast');save(BASE,'fallback-profile-binding.json',fallback_cost);need(prof['forecast']==p['forecast']and 24*prof['forecast']['one_fresh_chart_seconds']+8*p['fallback_forecast']['forecast_seconds']+300<8400 and 24*prof['forecast']['compressed_storage_bytes']+8*p['fallback_forecast']['forecast_bytes']+16*1024**2<8*1024**3,'complete measured24-root8-fallback admission');save(BASE,'profile-binding.json',prof)
   with ctx.workprec(480):model,proposal,anchor,parent=initial_parent(identity,check)
-  exponent=-6;strong=0;mode='same_gauge';endpoint=None;used[0]=sum(v.stat().st_size for v in BASE.rglob('*')if v.is_file())
+  exponent,strong,mode=INITIAL_STATE;endpoint=None;used[0]=sum(v.stat().st_size for v in BASE.rglob('*')if v.is_file())
   for index in range(1,25):
    check()
    if 8400-(time.monotonic()-start)<600:result['status']='insufficient_remaining_time';break

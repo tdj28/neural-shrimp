@@ -14455,3 +14455,19 @@ interior minimum, without uniqueness, location or nondegeneracy. Receipt
 pins exact independently proved successor endpoint for subsequent audits.
 All complete immutable inventories, historical source bytes and four owned
 PIDs absent independently checked. Integration inventory now54 raw roots.
+
+### 2026-10-11 — prepare exact completed-packet continuation resume
+
+The new binding-only maintained003 adapter authenticates all24 prior workers,
+retains all four failures and carries the last successful full705 endpoint and
+actual policy state (halfwidth1/8,strong1,same gauge) into another fixed24-attempt
+packet. The331-operation root and bounded endpoint-refinement mathematics,
+profile/cost floors and caps are unchanged. Historical launchers only gain
+explicit path/initial-state hooks with identical defaults. The new policy is
+prepared and unlaunchable pending peer review, actual complete metadata
+preflight and a measured committed card. No target launched.
+
+One combined pytest invocation failed an older global-import closure assertion
+because collection had imported the new adapter outside that old archive's
+scope; no scientific control failed. Run the old source-closure controls in a
+separate interpreter. The new archive closure explicitly includes its adapter.
