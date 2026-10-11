@@ -10,8 +10,8 @@ from neural_shrimp.rigorous_orbits import eye,ball_json,matrix_json
 from flint import arb,arb_mat,ctx
 P,O,D,U,need,read=Q.P,Q.O,Q.D,Q.U,Q.need,Q.read
 WIDTHS=[F(1,2**k)for k in(11,10,9,8,7)]
-OUT=Q.PILOT.with_name('fresh-widths001')/'run'
-FILES=sorted(set(Q.FILES+['tools/diagnose_native705_fresh_widths.py','tools/launch_native705_fresh_widths.py','tests/test_native705_fresh_widths.py','docs/plans/native705-fresh-widths.md']))
+OUT=Q.PILOT.with_name('fresh-widths002')/'run'
+FILES=sorted(set(Q.FILES+['tools/diagnose_native705_fresh_widths.py','tools/launch_native705_fresh_widths.py','tests/test_native705_fresh_widths.py','docs/plans/native705-fresh-widths.md','docs/reviews/native705-fresh-widths001-profile-failure.json']))
 
 
 def geometry(center,widths,domain):
@@ -34,12 +34,22 @@ class Work:
  def __init__(self):self.start=time.monotonic();self.used=0
  def tick(self):need(time.monotonic()-self.start<60 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<1024**2,'60s1GiB saved width cap')
  def save(self,name,row,closing=False):
-  raw=D.canonical_bytes(row);need(self.used+len(raw)<(16 if closing else 14)*1024**2,'16MiB2MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
+  raw=D.canonical_bytes(row);need(self.used+len(raw)<(64 if closing else 62)*1024**2,'64MiB2MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
   self.used+=len(raw)
 
 
+def preserved_profile(w):
+ r=read(ROOT/'docs/reviews/native705-fresh-widths001-profile-failure.json');root=Path(r['root'])
+ need(root==Q.PILOT.with_name('fresh-widths001')and r['execution']=='5dae38f39cddf0fd3f37e8a774665c87ace50ef7'and r['outer']['sha256']=='6fc1d58bbfe58ccc095280db2b1cac469f3be63adb94574fddc2d44728f0a248'and r['worker']['sha256']=='ded4ae76d1e10a342ab3f41528e2695bb527250946702e04808fb32a8129465d','literal old profile-only failure')
+ O.verify(root,r['outer']['sha256']);O.verify(root/'run',r['worker']['sha256']);rt=D.B.archived(root/'run',r['execution'],'runtime.json','source');own=read(root/'launcher-result.json');p=read(root/'run/profile.json');out=read(root/'run/outcome.json')
+ need(not out['passed']and out['native_calls']==0 and not p['passed']and p['target_arrays_unopened']and p['forecast_bytes']==63409480 and p['forecast_seconds']<60 and own['exit_code']==2 and not own['owned_live_pids']and not(root/'run/input-binding.json').exists(),'unchanged complete pretarget storage rejection')
+ for pid in[rt['pid'],own['launcher_pid'],own['owned_group_pid']]:need(not Path('/proc',str(pid)).exists(),'old failure owners gone')
+ w.save('preserved-profile-failure.json',r)
+
+
 def bind(w):
+ preserved_profile(w)
  card=read(ROOT/Q.CARD);Q.card_check(card);Q.independent(w,card)
  O.verify(Q.PILOT,Q.PILOT_PINS[0]);O.verify(Q.PILOT/'run',Q.PILOT_PINS[1]);rt=D.B.archived(Q.PILOT/'run',Q.PILOT_EXEC,'runtime.json','source');own=read(Q.PILOT/'launcher-result.json');out=read(Q.PILOT/'run/outcome.json')
  need(out['passed']and out['native_calls']==270 and out['parameter_endpoints']==['-17/1024','-1/64']and own['exit_code']==0 and not own['owned_live_pids']and own['worker_pid_absent'],'literal independently qualified pilot')
@@ -60,10 +70,10 @@ def main():
  try:
   source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();w.save('runtime.json',dict(source_commit=source,pid=os.getpid(),sources={n:O.entry(ROOT/n)for n in FILES},precision=480,python=D.platform.python_version(),numpy=D.np.__version__,python_flint=D.flint.__version__,flint=D.flint.__FLINT_VERSION__,native_calls=0))
   for n in FILES:
-   raw=(ROOT/n).read_bytes();need(raw==subprocess.check_output(['git','show',source+':'+n],cwd=ROOT),'exact committed archive');need(w.used+len(raw)<14*1024**2,'source reserve');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw);w.used+=len(raw)
+   raw=(ROOT/n).read_bytes();need(raw==subprocess.check_output(['git','show',source+':'+n],cwd=ROOT),'exact committed archive');need(w.used+len(raw)<62*1024**2,'source reserve');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw);w.used+=len(raw)
   with ctx.workprec(480):
    before=time.monotonic();synthetic=[(eye(11)/2,eye(11)*arb(0,arb(1)/64))for _ in range(18)]
-   profiles=[replay(synthetic,h,w.tick)for h in WIDTHS];need(all(r['passed']for r in profiles),'all full18phase11mode synthetic controls');elapsed=time.monotonic()-before;forecast=time.monotonic()-w.start+3*elapsed+20;raw=4*(w.used+len(D.canonical_bytes(profiles)))+2*1024**2;passed=forecast<60 and raw<16*1024**2 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+128*1024<1024**2;w.save('profile.json',dict(passed=passed,seconds=elapsed,forecast_seconds=forecast,forecast_bytes=raw,target_arrays_unopened=True));need(passed,'full source-bound measured replay admission')
+   profiles=[replay(synthetic,h,w.tick)for h in WIDTHS];need(all(r['passed']for r in profiles),'all full18phase11mode synthetic controls');elapsed=time.monotonic()-before;forecast=time.monotonic()-w.start+3*elapsed+20;raw=4*(w.used+len(D.canonical_bytes(profiles)))+2*1024**2;passed=forecast<60 and raw<64*1024**2 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+128*1024<1024**2;w.save('profile.json',dict(passed=passed,seconds=elapsed,forecast_seconds=forecast,forecast_bytes=raw,target_arrays_unopened=True));need(passed,'full source-bound measured replay admission')
    paths=bind(w);phases=[]
    for j,p in enumerate(paths):
     row=read(p);need(row['phase']==j and row['operator_bound']['passed'],'literal phase order/old qualified reduction');phases.append((U.R.matrix(row['center_quotient']),U.R.matrix(row['whole_quotient_derivative'])))

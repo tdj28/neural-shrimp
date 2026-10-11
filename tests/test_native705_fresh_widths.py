@@ -18,6 +18,11 @@ def test_full18_quotient_includes_actual_derivative_error():
   assert D.U.R.original_ball(large['remainder'])>D.U.R.original_ball(small['remainder'])
 
 def test_closing_reserve(tmp_path,monkeypatch):
- monkeypatch.setattr(D,'OUT',tmp_path);w=D.Work();w.used=14*1024**2
+ monkeypatch.setattr(D,'OUT',tmp_path);w=D.Work();w.used=62*1024**2
  with pytest.raises(ValueError):w.save('x.json',{})
  w.save('outcome.json',dict(passed=False),True)
+
+
+def test_literal_preserved_profile_metadata(tmp_path,monkeypatch):
+ monkeypatch.setattr(D,'OUT',tmp_path);w=D.Work();D.preserved_profile(w)
+ assert D.read(tmp_path/'preserved-profile-failure.json')['outcome']['native_calls']==0
