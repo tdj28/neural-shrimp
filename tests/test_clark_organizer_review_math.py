@@ -63,3 +63,12 @@ def test_curved_stable_center_manifold_reduction():
    return [[f[k],rate*(v[k]-beta*u2[k]-gamma*u3[k])+beta*f2[k]+gamma*f3[k]]for k in range(6)]
   r=M.normal_form([arb(0)]*2,arb_mat([[-1,0],[0,rate]]),[arb(1),arb(0)],[arb(1),arb(0)],path)
   assert(r['quintic']-3).contains(0);assert(r['parameterization'][2][1]-beta).contains(0);assert(r['parameterization'][3][1]-gamma).contains(0)
+
+
+def test_decoded_radius_inflation_cannot_enlarge_saved_domain():
+ with ctx.workprec(200):
+  box=[arb(0,1)];value=M.col([-1-arb((1,-32))]);jac=arb_mat([[1]])
+  # Radius constructors may widen a serialized mag. Saved derivative data only
+  # cover the exact original endpoints, never this harmless decoding envelope.
+  assert box[0].upper()>1+arb((1,-32))
+  with pytest.raises(ValueError,match='strict'):M.krawczyk([arb(0)],box,value,jac,exact_bounds=[(arb(-1),arb(1))])
