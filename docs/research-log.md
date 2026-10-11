@@ -12296,3 +12296,15 @@ source peer review and controls. Recompute all four705-dimensional roots and
 all705-coordinate exact-gauge joins independently at384bits. One nice10CPU,
 240s/4GiB/64MiB; measured four-chart forecast61.35s plus binding overhead.
 Every failed attempt remains immutable; no native calls, paid use or holdouts.
+
+
+### 2026-10-11 UTC — independent four-chart boundary chain passes
+
+Source0cbabdf3 was peer reviewed by stability_resume with five controls. The
+fixed384bit saved-only replay passed every705-dimensional root and every
+705-coordinate ordered join on all four charts. Independent contractions are
+0.472994,0.476105,0.479359,0.482736 (rounded upward); exact connected gauge
+now[-1/4096,319/4096]. Runtime63.348s,peak1,666,856KiB,zero native calls,
+owners absent. All immutable files and full inventory verified again. Receipt:
+docs/reviews/native705-batch-independent-outcome.json. Complementary stability
+and global completion retain separate evidence.
