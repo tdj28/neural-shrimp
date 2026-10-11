@@ -43,6 +43,12 @@ Git; preserve existing frozen evidence and history.
 - Paid RunPod execution requires a measured, costed run plan, an approved hard
   ceiling, exact task resource ownership, artifact retrieval and verified
   termination. A prepared archive does not authorize a launch.
-- Stage files explicitly, sweep staged content for secrets, and use a branch
-  and locally reviewed, tested PR for behavior changes. Never force-push main.
+- Work directly on `main` during the early research stage (human directive,
+  11 October 2026). Commit tested changes and push them to `main` regularly;
+  pull requests are not required. Use a short-lived branch only when parallel
+  agents need isolation, and merge it back into `main` promptly. Do not leave
+  long-lived or divergent branches. Stage files explicitly and sweep staged
+  content for secrets. Never force-push or otherwise rewrite published
+  history: receipts cite commit hashes. This supersedes the branch-and-PR
+  workflow of the canonical Git playbook for this repository.
 - Do not add assistant coauthor trailers to commits.

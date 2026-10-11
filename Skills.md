@@ -125,14 +125,15 @@ leave completed code only in the working tree or in a local commit. If a
 push fails, preserve the local commit, record the failure and retry after
 fixing access; do not report a remote backup until it is verified.
 
-Use a dedicated branch, stage files explicitly, inspect the staged diff,
-sweep for secrets and inspect staged file sizes before committing. A partial
-implementation may be checkpointed on its private working branch with its
-unfinished/test status clearly recorded. A confirmatory freeze still
-requires the complete plan and executable code, local review and applicable
-tests before the pre-outcome push; exploratory runs follow the adaptive
-research protocol. Use a reviewed PR for behavior changes;
-never force-push main or add assistant coauthor trailers.
+Commit on `main` (see AGENTS.md: short-lived branches only when parallel
+agents need isolation, merged back promptly; no pull requests required during
+the early research stage). Stage files explicitly, inspect the staged diff,
+sweep for secrets and inspect staged file sizes before committing, and run the
+applicable tests first. A partial implementation may be checkpointed with its
+unfinished/test status clearly recorded. A confirmatory freeze still requires
+the complete plan and executable code, local review and applicable tests
+before the pre-outcome push; exploratory runs follow the adaptive research
+protocol. Never force-push main or add assistant coauthor trailers.
 
 Store new bulky raw arrays, trajectories, checkpoints and verbose run outputs
 in `/data2/neural-shrimp-data/`, the sibling `../neural-shrimp-data/`, rather
