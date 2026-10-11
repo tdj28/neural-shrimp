@@ -8768,3 +8768,16 @@ independently proved native705 charts and subsequent new correlated charts.
 Reuse reviewed moving-frame/correlated-tangent machinery with fresh actual
 source/domain and measured bounded cards. First5 charts and native704 are
 already independently covered and must not be duplicated. No new LM run.
+
+### 2026-10-11 UTC — fixed next wider705 complementary pilot prepared
+
+Following the closed CIFAR stationary negative, prepare exactly the next
+independently connected native705 chart, [319,447]/4096. The literal original
+partial batch and independent384 prefix card admit chart001 only; three failed
+siblings remain excluded. Same reviewed localization/full705 tangent/moving
+quotient mathematics, actual halfwidth1/64, frozen E/B proposals revalidated.
+One400s/4GiB/128MiB worker with108 unrelated profile and108 target native calls;
+profile/resource/source gates and independent source review precede launch.
+Plan `docs/plans/native705-complement-wide.md` discloses preparation metadata
+inspection and the incidental finite-seed print. No new research arithmetic
+or acquisition has occurred. Later24 charts remain unattempted by this packet.
