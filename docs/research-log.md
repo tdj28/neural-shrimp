@@ -17610,3 +17610,31 @@ Completed doubled-slice independent review permits a fixed extension to all seve
 2026-10-10: Static peer skim ee4753e7 partial-radius diagnosis passed with24 focused synthetic controls0.14s. Exact partial-prefix/failure provenance and unchanged proposal math; no target array/reduction/model call in review. Fresh wider-domain proof remains mandatory.
 
 2026-10-10: Freeze external pins for the distinct completed chart152/index5 unit003; same reviewed e7ded172 saved-only auditor, one60s/80+5s CPU1nice10/2GiB/8MiB reduction. No prior chart rerun or scientific source change.
+### 2026-10-11 — Prepared maintained signed470 output-coordinate continuation
+
+After scaled output chart `1467fe8a` passed and was sealed at `f5bcdb47`, prepare
+one bounded24-attempt forward output-coordinate packet. The full470 native
+kernel, rho2^-12, positive dyadic weights and all root/primitive/connection
+gates remain unchanged. Start h2^-18 and propose doubling after two q<1/5
+passes, at most2^-12; only a complete associated root-bound failure can halve,
+at least2^-24. Stop at output rate>=.8445 or any nonretryable failure. All
+failed widths remain evidence. Same6000s/4GiB/6GiB wholepacket and240s/unit
+caps,3636 native calls including full-size profile. Both actual65.5098s
+producer cost and fresh full-profile forecasts are charged before target.
+The independent new right endpoint is deliberately null until the saved
+refinement/output-chart replay seals; source preparation does not launch.
+Eight policy/caller controls passed12.41s, including actual predecessor
+metadata without native calls and isolated archive closure. Initial synthetic
+fake-chart control indexed its anchor/settings arguments incorrectly; fixed
+those test-only indices before acquisition. No new target or profile run.
+
+### 2026-10-11 — Harden prepared output continuation metadata
+
+Root's saved output audit retained a pure string-representation failure after
+three independent endpoint localizations: input weight468 `1/1` versus
+certificate `1`. The prepared continuation had the same literal comparison;
+replace it with exact positive Fraction value equality and test the entire
+saved output-gauge/header before any target arithmetic. Changed weight values
+still reject. Nine controls passed12.86s, including actual metadata/geometry
+and isolated closure. No profile/target launch; independent authority remains
+null. Proof mathematics, error radii, step policy and caps remain unchanged.
