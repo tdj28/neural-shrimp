@@ -12827,3 +12827,20 @@ Run only pal/rotated001-diagnosis under this source, unchanged60s/4GiB/8GiBAS/
 all53 retained native route vectors feed numerical proposals only. Current
 host inventory checked; no duplicate, no native or GPU calls. Latercorrelated
 inverse helper is source-only and is not used by this saveddiagnostic.
+
+### 11 October2026 UTC — route scale measured and full correlated derivative source
+
+Saved diagnosis73c6cb2d completed9.963s/1225540KiB/zero native; outer3adaeb11e0c66dd98340fff4af1a4652249068583a7a0ce9f0c718e205582ee9.
+Full705 polygonal distance to numerical flipbracket12.7974–13.0619; chord
+11.1639–11.4202. Originalgauge-turn point16 polygonal1.06995. These are saved
+floating geometry proposals, not exact arc lengths or new branch identities.
+Firstfailed chart numerical optimal Collatz≈.79218; resolvent radii1.59–4.25%
+ofoldradii; onlyone state coordinate fails original strict image. This supports
+better localweights but reinforces the need for commonparameter Jacobian bounds
+to enlarge proof intervals. Originalfailed proof remainsunchanged.
+
+Root independently cleareda18183cc conditional inverse math/4controls. Prepare
+full-gradient-over-PathJet native coefficient source; all state/q/r/rates/t
+columns and normalization/gauge rows kept. Five independent analytic/mixed
+controls plus4inverse controls pass0.32s. Source-only, no actual coefficient
+acquisitions or promoted newroot. Nativeprofile/card/peerreview required next.
