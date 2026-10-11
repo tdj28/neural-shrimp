@@ -9432,3 +9432,15 @@ by Root in a separate checkout.
 Full saved-domain/schema preflight and all8 controls passed9.93s. No target
 native calls occurred; endpoint metadata and original fixed correction domain
 were read and checked before launch preparation.
+
+11 October 2026, output-gauge admission: Clark independently reviewed full
+source e3903955 PASS and reproduced all8 controls10.47s, including the actual
+old fixed-domain and source closure. Same-C/q/weights, three original-contained
+known-root refinements and full470 changed-gauge projection are retained.
+Fresh host check05:19local:51GiB available, load2.68, GPU0% with15947MiB free;
+no matching owned output-gauge or march native worker. Admit exactly the
+prepared432phase/450tick300s4GiB1GiB unit, fresh full profile before target.
+Run: nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_native470_output_gauge.py
+Output: ../neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/signed-flip-output-gauge001/attempt001
+No automatic retries. The cosmetic launcher heading now names its actual
+output-gauge scope; no executable source changed after review.

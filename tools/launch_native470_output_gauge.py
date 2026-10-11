@@ -1,4 +1,4 @@
-"""One bounded one finite signed470 junction tube."""
+"""One bounded signed470 output-gauge rechart and known-root refinement."""
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
