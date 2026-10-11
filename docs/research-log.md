@@ -16784,3 +16784,20 @@ manifest pins now admit sole128HVP target, no gradient/CE or geometry changes.
 All four inherited qualifications, exact oldP/R/Q/T chains and separate20%
 material/10x attenuation reports remain. Fresh host52GiB/2.6TiB/no duplicate;
 CPU1nice10 with255+5 owned. Full target must pass its actual final caps.
+
+### 2026-10-11 — pair-block full-state ordering pilot completed
+
+Preserving adjacent pairs greatly attenuated the large parity intervention in
+both consumed original-rate cases, while a material ordering effect remained.
+Producer Epair/Eparity=.00103020/.00251419 (about971x/398x attenuation), yet
+Epair/P=1.54008/2.53504. Both prespecified separate20%material and10xattenuation
+reports pass. Quarter-rate controls remainsmall Epair/P=.11376/.07874 but are
+not attenuated relative to their already-small parity effects (.96956/1.79606).
+Thus this is not a universal adjacent-pair cancellation claim. It also does not
+explain all frozen error or establish optimizer/forecast/geometry utility.
+
+All128HVP,0newgradients/CE complete in27.553046s/981716KiB; allfour inherited/
+transpose/decomposition qualifications pass. Exact source1c91e14f, immutable
+full events/source and absent owned IDs verified. AllP/R/U/V norms, CEslopes,
+odd contrasts and squared cross terms retained. Separate independent saved
+arithmetic is still required before promotion.
