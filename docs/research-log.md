@@ -13131,3 +13131,14 @@ predictors from independent480 endpoint79/2048. All705 root/primitive/frame
 and strict ordered joins required; later unjoined roots retained after first
 failure. Source preparation only: no profile or target launched yet. Fixed
 resource budget and independent replay interface in native705-cubic-batch.md.
+
+### 2026-10-11 04:52 UTC: refreshed native705 synthetic profile run card
+
+Run the independently source-cleared a78824f5 full746-tick unrelated synthetic
+profile via tools/launch_native705_cubic_continuation_profile.py, exclusive
+pal/cubic-continuation001/attempt001-profile. Current host52GiB available,
+GPU0percent/15947MiBfree, no owned705 worker. CPU1/nice10,240s6GiB12GiBAS,
+768MiB raw,255+5s owned timeout. The two complete fresh predictor/proof units
+must satisfy synthetic false-primitive/false-anchor controls and measured
+forecast; no target inputs are acquired. Four-chart source cf618fb2 awaits
+independent review and measured manifest card before its separate launch.
