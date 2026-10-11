@@ -16253,3 +16253,7 @@ cubic root was reused, never reacquired. All archivedsource/files/modes/owners
 verified; compact docs/reviews/native705-cubic32-first-quarter001.json. Root
 requested one bounded generic plan for allremaining portions after identity and
 independentfirst-portion checks, preserving exact same-domain source genealogy.
+
+### 2026-10-11 — correlated signed470 mathematical preparation cleared
+
+The independently checked advancing chart has constant-preconditioner contraction below.545203 at halfwidth1/32. Prepare the same full-error affine-inverse method already used for the connected705 curve, now retaining every signed470 coordinate. Clark cleared fullE gradient/path and composition; Root independently cleared composition and finite refresh. Eight focused controls pass16.79s, including independent nonlinear all-entry/order derivative comparisons and completed nonfinite-return retention. No target profile or proof was acquired. A separately reviewed full-size measured caller must bind the exact independent left endpoint and all source/domain/cap premises before continuation.
