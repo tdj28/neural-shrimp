@@ -9120,3 +9120,14 @@ full151tick unrelated profile precedes target arrays,276inclusive nativecalls.
 Full acquisition proxy retains inputs before calls and every complete return.
 240s/4GiB/768MiB worker,255+5owned; no finite stability claim on the two-sided
 anchoring tube. Source/card currently prepared only, no scientific launch.
+
+
+### 2026-10-11 — Admit one finite signed470 chart
+
+Stability independently reviewed d94a30de source/binding/caps PASS,5controls
+0.80s; actual historical metadata/whole known470 source binding is also a
+passing regression. The entire512-bit anchor is retained while finite256-bit
+proposals are rounded explicitly. All470 membership and primitive gates remain.
+One source-frozen profile+target at signed-flip-first001/attempt001; no loop.
+Fresh12GiB host admission and151tick profile precede target126native phases.
+Full276native/278ticks,240s4GiB768MiB, owned255+5s770MiB. Card now reviewed.
