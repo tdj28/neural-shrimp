@@ -13862,3 +13862,21 @@ OneCPU1nice10 worker, current host admission before execution. This is one
 authorized adaptive exploratory packet; every fresh full705 proof and strict
 known-root join remains mandatory. Physical endpoints, failures and complete
 source/input/output inventories retained. No global or complement promotion.
+#### Fixed march002 completed at its48-attempt cap
+
+Execution3d778fd0 ran48 complete360-call workers in782.295s with peak combined
+RSS5,988,476KiB. All17,280 inclusive calls are retained (8,640 target and8,640
+unrelated profile phases); the full immutable9,177,094,765B inventory and all
+owned exits were verified. Outer5e91a422b88e3ec61b15caf9f743f31332e1975beda76d65c814b373294ef9c3.
+There are32 passing cells and16 retained whole-cell sufficient-bound failures.
+Exact closed unions completely cover original charts7–22; charts23–26 each
+have only their left half passed, and27–30 were not acquired. The original
+48-attempt ceiling stopped new work without any resource or mathematical
+exception. The packet's overall passed=false is preserved because all24
+original charts are not covered. Negative metric bounds do not show instability.
+These are producer full11 complementary-stability bounds on the already proved
+primitive18 unit-pair locus, not independent outcomes or whole-window proofs.
+Clark receives the literal complete source/acquisition/coverage index for fresh
+saved arithmetic; unchanged methods may resume only the precise uncovered cells
+under a new reviewed bounded card. Compact receipt native705-complement-march002
+and replay guide retain all failures and every accepted actual domain.
