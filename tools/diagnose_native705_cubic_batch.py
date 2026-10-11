@@ -22,7 +22,7 @@ def main():
   raw=(json.dumps(row,sort_keys=True,allow_nan=False)+'\n').encode();C.require(used[0]+len(raw)<14*1024**2,'16MiB raw cap')
   with(OUT/name).open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
   used[0]+=len(raw)
- save('runtime.json',{'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'pid':os.getpid(),'sources':{n:C.entry(ROOT/n)for n in SOURCES},'native_calls':0,'worker_seconds':90,'rss_kib':4*1024**2,'hard_as_bytes':8*1024**3})
+ save('runtime.json',{'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'pid':os.getpid(),'sources':{n:C.entry(ROOT/n)for n in SOURCES},'native_calls':0,'python':sys.version,'numpy':C.np.__version__,'python_flint':C.flint.__version__,'flint_library':C.flint.__FLINT_VERSION__,'threads':{k:os.environ[k]for k in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')},'worker_seconds':90,'rss_kib':4*1024**2,'hard_as_bytes':8*1024**3})
  for n in SOURCES:p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes());used[0]+=p.stat().st_size
  result={'passed':False,'native_calls':0}
  try:

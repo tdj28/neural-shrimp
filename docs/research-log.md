@@ -8680,3 +8680,7 @@ curvature consistent end-to-end. Diagnose retained finalNewton residual,
 forcing degree0..4, conditional finite inverse norms/condensed singularvalues,
 and gauge alignment across allfour before another target. Fixed saved-only
 90s4GiB8GiBAS16MiB,105+5 external; separate peer review before execution.
+
+Root independently cleared9766d1af saved diagnosis,2controls0.10s. Add requested
+Python/NumPy/FLINT/thread provenance before sole bounded saved run; no math or
+cap change. Execute next under fresh host admission; no new native arrays.
