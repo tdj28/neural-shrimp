@@ -9490,3 +9490,21 @@ and saved scaling diagnosis retained, no automatic retry.
 Run: nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_native470_output_weighted.py
 
 11 October2026 — weighted output-gauge002 source1467fe8a completed PASS65.510s/787588KiB,324native336ticks. All470 strict root and full projected same-root join, primitive18, q<.069279977. Right physical hidden76.5570±2.8e-5/output.836634797712 extends from prior hidden76.59156993217. Full old/new source, independent16-root identity, all native input/return counts, immutable manifests and absent owners verified. All preceding failures retained. New coordinate proof is producer evidence pending independent saved replay; no spectrum/genericity/second-junction claim. Next maintained output-gauge packet can propose larger widths under unchanged full proof/association gates.
+
+### 2026-10-11 — Prepared maintained signed470 output-coordinate continuation
+
+After scaled output chart `1467fe8a` passed and was sealed at `f5bcdb47`, prepare
+one bounded24-attempt forward output-coordinate packet. The full470 native
+kernel, rho2^-12, positive dyadic weights and all root/primitive/connection
+gates remain unchanged. Start h2^-18 and propose doubling after two q<1/5
+passes, at most2^-12; only a complete associated root-bound failure can halve,
+at least2^-24. Stop at output rate>=.8445 or any nonretryable failure. All
+failed widths remain evidence. Same6000s/4GiB/6GiB wholepacket and240s/unit
+caps,3636 native calls including full-size profile. Both actual65.5098s
+producer cost and fresh full-profile forecasts are charged before target.
+The independent new right endpoint is deliberately null until the saved
+refinement/output-chart replay seals; source preparation does not launch.
+Eight policy/caller controls passed12.41s, including actual predecessor
+metadata without native calls and isolated archive closure. Initial synthetic
+fake-chart control indexed its anchor/settings arguments incorrectly; fixed
+those test-only indices before acquisition. No new target or profile run.
