@@ -15767,3 +15767,7 @@ Producer-authored metadata and p/p-prime cubic extension reviewed by root. Compl
 ### 2026-10-11T10:39:19.961537+00:00 — Independent first cubic32 replay admitted
 
 Root source/domain review passed; six repository-local controls5.57s, actual1080-pair preflight with scientific decoders forbidden and isolated exact closure included. Unchanged independent Neumann/point/metric reducers; source-authenticated cubic context, exact complete priorstable projection. Admit zero-native full705 profile-gated1200s4GiB256MiB run in reused isolated audit checkout.
+
+### 2026-10-11T10:41:00.988884+00:00 — Independent first cubic32 portion passed
+
+Four exact closed cells cover[39,55]/1024 and contain the entire previous stable chart31 endpoint projection. All eleven complementary multipliers have modulus below.991372; maximum metric remainder penalty below.955276 is a different bound and is not a multiplier estimate. Full native domains and saved central residuals independently reduced at480bits,33.962s917108KiB,zero new native calls. Exact archived source and all immutable inventory hashes/owner exits verified. Whole chart32 and later boundary coverage continue.
