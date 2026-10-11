@@ -30,3 +30,17 @@ def test_momentum_jacobian_matches_central_differences():
         plus = np.concatenate(mm.step((z + e)[None, :mm.n], (z + e)[None, mm.n:], rates), axis=1)[0]
         minus = np.concatenate(mm.step((z - e)[None, :mm.n], (z - e)[None, mm.n:], rates), axis=1)[0]
         np.testing.assert_allclose(jac[:, j], (plus - minus) / (2 * h), rtol=1e-6, atol=1e-8)
+
+
+def test_two_cycle_system_jacobian_matches_central_differences():
+    mm = emm.MomentumMap("S2", 28011, 0.5)
+    system = emm.MomentumTwoCycle(mm, -1.828)
+    rng = np.random.default_rng(1)
+    w = np.concatenate([mm.theta0, 0.05 * rng.normal(size=mm.n), [0.9]])
+    _, jac, _, _ = system.residual_jacobian(w)
+    h = 1e-6
+    for j in range(len(w)):
+        e = np.zeros(len(w))
+        e[j] = h
+        col = (system.residual_jacobian(w + e)[0] - system.residual_jacobian(w - e)[0]) / (2 * h)
+        np.testing.assert_allclose(jac[:, j], col, rtol=1e-5, atol=1e-7)
