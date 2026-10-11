@@ -1,0 +1,7 @@
+# Fixed nested second-junction audit
+
+The original384/-80 root and stable10 quotient passed, but the original and saved midpoint-preconditioned crossing bounds contain zero. Retain both immutable failures. Exactly one fresh480-bit, zero-Newton, radius2^-96 domain at the original exact55 center. Fresh root arithmetic, primitive18 and full55 strict nesting must pass, followed by the independently authored old-junction direct-trig/validated frame/quotient and total-crossing arithmetic. The module and tests are copied byte-identically from source1b974d0e with explicit hash provenance. Shared native analytic derivatives and Arb remain trusted dependencies. No generic normal form or full signed-branch connection follows.
+
+OneCPU1/nice10 worker60s/2GiB/4GiBAS/128MiB (4MiB reserve), owned75+5s/130MiB. Complete54-phase unrelated full55 retained profile before arrays,6×elapsed+15s and6×bytes+16MiB measured admission; target108phases only, total162. Every actual native input precedes its call, all returns and failed enclosures retained. Full prior candidate/failed-root/saved-crossing inventories and source/map bind the same root. Both physical-rate brackets remain mandatory.
+
+Saved exact-rational feasibility only: original |C H(center)|≤1.505193e−89 and image correction≤0.58766×2^-96. This motivates the fixed fresh domain; it does not replace its acquisition and proof. Prepared card is unlaunchable until source review, committed admission and fresh host availability.
