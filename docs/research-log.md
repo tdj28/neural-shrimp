@@ -9315,3 +9315,7 @@ Prepared one fresh fullE affine-inverse chart[-81/256,−17/256] with unchanged 
 ### 2026-10-11 — wider numerical output continuation prepared
 
 After the retained32-point sampled near miss, prepare one fixed tenfold output step.00025 with unchanged32-point/240-return and4536-phase limits. Every literal terminal470 coordinate and prior31 reverse joins is bound; all forward/reverse/native spectrum guards and actual crossing/.0001 stop remain. Same240s3GiB256MiB and fresh full unrelated profile. Two binding/archive controls pass in combined6-control run11.71s. No numerical target yet; sampled gap is not an interval exclusion.
+
+### 2026-10-11 — admit two independent bounded signed-boundary units
+
+Stability cleared correlated caller4a8286bb (four controls6.50s); Clark cleared wider numerical adaptere3e22396 (five controls5.86s). Actual host metadata preflight passed0.477s/5.073s with proof arrays forbidden;52GiB available, no owned duplicate. Admit one CPU1/4GiB correlated proof and one CPU1/3GiB numerical scout, separate immutable roots and actual profiles. Combined reservations leave shared headroom. Neither outcome known; same committed source stays frozen until both workers finish.
