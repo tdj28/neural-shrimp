@@ -8996,3 +8996,16 @@ native target calls; source binding and resource wrapper review still pending.
 The future membership event must bind this known705 enclosure and prove strict
 full705 inclusion in an accepted connected tube; projected proximity alone
 will never terminate with a connection claim. No target run in this commit.
+
+### 2026-10-11 — junction lift profile storage-only amendment
+
+Root independently cleared complete6de89045 caller with9controls0.36s. Current
+host51GiBavailable/no competing own native worker admitted the fixed run.
+Attempt001 stopped after72 unrelated native calls, before target arrays:
+conservative rawforecast68,358,460bytes exceeded64MiB by1,249,596bytes. Time
+18.634s andRSS267560KiB forecasts fit; actualprofile1.847s/68244KiB. Complete
+source/inventories/ownedexit verified and immutable failureouter8ea83a85 sealed.
+Prepared only80MiB worker/82MiB outer and fresh002, same2MiB closingreserve and
+all mathematical/native/time/RSS gates. Prior001 is mandatory and a new full
+profile is still required. No target run in this amendment; narrow peer recheck
+precedes retry.

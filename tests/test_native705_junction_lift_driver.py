@@ -10,7 +10,7 @@ def test_exact_paths_limits_and_measurements():
  assert D.OUT.parent==L.OUT and D.settings()['profile_calls']+D.settings()['target_calls']==108
  assert D.forecast([1.,1.5],[1024,2048],100000)['admitted']
  assert not D.forecast([15.,15.],[1024,2048],100000)['admitted']
- assert not D.forecast([1.,1.],[16*1024**2]*2,100000)['admitted']
+ assert not D.forecast([1.,1.],[20*1024**2]*2,100000)['admitted']
  with pytest.raises(ValueError):D.forecast([0.,1.],[1024,2048],100000)
 
 
@@ -33,6 +33,6 @@ def test_full_archive_import_closure(tmp_path):
 def test_call_and_storage_limits_preserve_failure(tmp_path,monkeypatch):
  monkeypatch.setattr(D,'OUT',tmp_path);w=D.Work();w.calls=108
  with pytest.raises(ValueError,match='native ceiling'):w.tick()
- w.used=62*1024**2
+ w.used=78*1024**2
  with pytest.raises(ValueError,match='closing reserve'):w.save('x.json',{})
  w.save('outcome.json',{'passed':False},True);assert D.read(tmp_path/'outcome.json')['passed']is False
