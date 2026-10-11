@@ -7525,3 +7525,13 @@ unchanged1% qualifications. Same model/runtime, zero newgradients/CE; original
 consumed development only. All upstream actual/cold maxima now explicit in
 forecast. Source review, fresh2HVP profile and separate measured card remain
 mandatory before target. No new acquisition at this preparation stage.
+
+### 2026-10-11 — saved finite RNN bound diagnosis preparation
+
+After the fixed32-attempt incomplete unit, prepare zero-native exact-dyadic
+consistency/diagnostic reductions over all32 saved full51 coefficient packets.
+Separate residual/radius, whole-defect weighted contraction and image/radius,
+with per-power magnitude diagnostics and all51 coordinate detail. No new root
+or enlarged-domain inference. Full51 synthetic cost admission first;30s512MiB
+8MiB/45+5owned, full immutable source/2257event inventory. Source/card review
+precedes target arithmetic; original22 prefixes and10 failures unchanged.
