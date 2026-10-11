@@ -16861,3 +16861,7 @@ All512 native action associations,32 independent fsum mean powers, four full-sta
 ### 2026-10-11 — Independent weighted output-gauge connection
 
 Run card `docs/plans/native470-output-independent.md` admits one saved512 arithmetic replay of the scaled primitive18 output-gauge chart and its original-root localization. Root reviewed full driver/history/launcher and6 controls passed10.06s; inherited source and cards match byte-for-byte. Zero native calls,300s/6GiB RSS/10GiB AS/768MiB raw; measured complete forecast before target arrays and owned315+5s launcher. Both failed original chart and saved scaling diagnosis remain bound. This run can establish only the complete root/join; no complementary spectrum or whole-window claim.
+
+### 2026-10-11T13:07:59.662140+00:00 — Output-gauge independent replay retained
+
+Saved512 audit124e184d completed all three independently reconstructed full470 same-root localizations, then stopped before new-chart arithmetic at literal predictor/gauge metadata equality. Zero native calls,41.739s718352KiB. Every original raw file is immutable and hash/source/owner verified. Peer diagnosis isolates equivalent exact weight spelling1/1 versus1; a new reviewed attempt must perform exact rational equality and run the entire actual chart metadata preflight before proof arrays. No failed result overwritten or chart proof inferred.
