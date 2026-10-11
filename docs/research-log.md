@@ -15543,3 +15543,7 @@ strict51endpoint membership, native6 phases/quotient and totalphysicalcurvature
 plus original numericalphase/mode arithmetic. Zero native,512bit180s2GiB128MiB;
 15controls pass, no target reductions. Test-regex and source localname collision
 fixed before review. Peer wrapper review/card precedes sole savedattempt001.
+
+### 2026-10-11T09:09:16.557836+00:00 — Independent Clark endpoint replay admitted
+
+Root reviewed bee2b333/225cdd7f full51 MixedJet assembly, exact original serialized Krawczyk domain, full known-curve membership, all93 actual native phases and complete207-event genealogy, both implicit base/direction passes, own H_U inverse/total physical curvature and literal6phase/mode association. Targeted15 controls and metadata preflight passed. One512bit CPU1nice10 zero-native replay,180s2GiB4GiBAS128MiB raw,195+5s130MiB supervisor. Fresh full-size saved arithmetic profile before target. Producer phase-budget omission disclosed (actual93below138; abstract worst141 would stop138). No native12/24 or whole-window claim.
