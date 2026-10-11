@@ -15205,3 +15205,17 @@ Exact firstacceptancealpha1/64 follows3trustskips and3meritrejections; full glob
 original trust remains. Meritratio.991752501053, relativegradient
 .000258153111404→.000257082118822; still nonstationary. Complete immutable
 source/inventories and actual exited ownership verified; no new correction.
+
+
+### 2026-10-11 — Connected unit-pair curve reaches the known flip junction
+
+Maintained004 source39dfa284 completed20 attempts in1211.644s:18 full705
+roots and predecessor joins, retained complete bound failures10/18, no fallback.
+Attempt020 also passed strict all705 membership of the same independently
+certified local55 junction after whole-gauge projection; parameter inside.
+The supervisor stopped before021. All source archives, immutable inventories
+and owned exits verified. Outer c0e04b666cee74625b085456eae17a4143d8450609bd73e637696347fde69391.
+This earns the producer global connection. Independent003/004/lift/event
+replay and later complementary stability remain separate; no complete shrimp
+claim. Next follow the same-root signed470 flip branch toward the existing
+plus-one boundary, retaining actual geometry and all native joins.
