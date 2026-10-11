@@ -17641,3 +17641,54 @@ still reject. Nine controls passed12.86s, including actual metadata/geometry
 and isolated closure. No profile/target launch; independent authority remains
 null. Proof mathematics, error radii, step policy and caps remain unchanged.
 - run started 2026-10-07 22:53 UTC finished 23:07 UTC with exit status 0
+## 2026-10-08 01:31 UTC: run (exploratory)
+
+- **Question:** CIFAR subset A, single learning rate: how does the period-2 orbit lose stability as eta grows past 0.0083? Rerun with BLAS threads capped
+- **Setup:** lambda 1e-2; start from the sweep state at eta 0.00827753; Newton-GMRES period-2 corrector; two-step multipliers by Arnoldi, LM and LI searches, k 6; secant continuation, step 0.01 in log10 eta, up to 25 steps; bisection to 1e-5; torch 14 threads, OpenBLAS 2
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/orbit`
+- **Would surprise us:** Loss of stability by flip or fold rather than a complex pair; Newton-GMRES failing to certify a period-2 orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --lam 1e-2 --eta 0.00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --step 0.01 --max-steps 25 --threads 14`
+
+_commit `3c2e3fc5a9b7`_
+
+## 2026-10-08 04:54 UTC: Informative failure: first CIFAR orbit continuation timed out (3.3 h, no point completed)
+
+The orbit run with Arnoldi searches LM and LI (k 6, uncapped iterations) did not finish its first point within the 12,000 s timeout. Timing afterwards: two-step Jacobian-vector product 12 ms; LI search with k 4 converged 2 of 4 eigenvalues in 1,127 products; LI with k 2 converged in about 250 products (3.7 s). The LM search cannot get past the nearly degenerate real cluster of flat-direction multipliers at (1 - eta lambda)^2. Fix (committed): LI and SR searches, k 2, capped iterations, partial results flagged; capped Newton-GMRES. First matrix-free multiplier at the eta 0.00828 sweep state (not Newton-polished): dominant complex pair 0.998575 +- 0.006340i, modulus 0.998595, theta/2pi 0.00101.
+
+_commit `adf063bcd739` (dirty worktree)_
+
+## 2026-10-08 04:54 UTC: run (exploratory)
+
+- **Question:** CIFAR subset A, single learning rate: how does the period-2 orbit lose stability as eta grows past 0.0083? Rerun with LI and SR Arnoldi searches
+- **Setup:** lambda 1e-2; sweep state at eta 0.00827753; capped Newton-GMRES; two-step multipliers LI and SR, k 2; secant continuation, step 0.01 in log10 eta, up to 16 steps; bisection to 1e-5; 1 h timeout
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/orbit`
+- **Would surprise us:** Loss of stability by flip rather than a complex pair; Newton-GMRES failing to certify a period-2 orbit
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar.py orbit --lam 1e-2 --eta 0.00827753 --state /data2/neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00827753.npy --step 0.01 --max-steps 16 --threads 14`
+
+_commit `adf063bcd739` (dirty worktree)_
+
+- run started 2026-10-08 04:54 UTC finished 04:56 UTC with exit status 0
+
+## 2026-10-08 04:57 UTC: run (exploratory)
+
+- **Question:** Below the onset of sustained loss modulation, does the matrix-free critical multiplier of the CIFAR 2-cycle match the multiplier read from the decaying loss spiral, and how close is it to the unit circle?
+- **Setup:** lambda 1e-2; eta 0.00827753 and 0.00938931 from the sweep states; 60,000 further GD steps; Arnoldi LI k 2 at the final state; AR(2) root of the detrended even-step loss over the second half
+- **Output:** `/data2/neural-shrimp-data/explore/cifar/spiral/spiral.json`
+- **Would surprise us:** Arnoldi angle and loss-spiral angle disagreeing by more than 20 percent
+- **Command:** `nice -n 10 /data2/neural-shrimp/.venv/bin/python tools/explore_cifar_spiral.py --etas 0.00827753 0.00938931 --steps 60000`
+
+_commit `cd080e889870` (dirty worktree)_
+
+## 2026-10-08 04:58 UTC: Informative failure: capped Newton-GMRES did not certify the CIFAR period-2 orbit
+
+Continuation rerun with LI and SR searches: at eta 0.00828 the capped Newton-GMRES corrector (8 Newton steps, GMRES(100) x 8 restarts) left the relative two-step residual at 1.2e-5 (start about 5e-6), so continuation stopped by its corrector rule after one point (132 s). The multiplier at that unconverged point was 0.996036 - 0.009417i (modulus 0.99608, theta/2pi 0.0015), not to be used. Likely cause: the near-singular flat-direction cluster of J^2 - I (eigenvalues about -2 eta lambda = -1.7e-4) with a wide stiff spectrum stalls restarted GMRES. Fallback for this stream: converge to the attracting 2-cycle by gradient descent below the transition and compare the Arnoldi multiplier with the loss spiral (running).
+
+_commit `cd080e889870` (dirty worktree)_
+
+- run started 2026-10-08 04:57 UTC finished 05:02 UTC with exit status 0
+
+## 2026-10-08 05:11 UTC: CIFAR pilot: onset of sustained slow modulation of the 2-cycle between eta 0.0083 and 0.0094; crossing not certified
+
+After 60,000 further steps: at eta 0.00828 the state is still 3.9e-6 from a period-2 orbit (two-step relative residual) and the even-step loss shows only slow real relaxation (AR(2) root 1.000035 + 0.00045i); the matrix-free critical pair at the earlier sweep state was 0.998575 +- 0.006340i (modulus 0.998595, theta/2pi 0.00101). At eta 0.00939 the loss oscillation no longer decays (envelope 1.12e-4 to 1.13e-4), so training is on a small closed modulation of the 2-cycle with frequency 0.0018 (spectral peak) to 0.0028 (AR(2) on the second half, modulus 0.99993) turns per two-step; Arnoldi at that point (on the loop, not at the 2-cycle) gives 0.99013 + 0.02154i (theta/2pi 0.0035). The pre-stated surprise (Arnoldi and loss angles disagreeing by more than 20 percent) occurred, but the comparison is not like-for-like because the 2-cycle itself could not be certified (Newton-GMRES failure). Above, the modulation frequency rises smoothly to 0.020 at eta 0.020 with steady envelopes. Status: consistent with a Neimark-Sacker of the edge-of-stability 2-cycle with small birth angle between 0.0083 and 0.0094 (as in the digits network), but neither the crossing nor its type is certified; no invariant-circle or Lyapunov test was completed.
+
+_commit `bfeeb7b1f915` (dirty worktree)_
