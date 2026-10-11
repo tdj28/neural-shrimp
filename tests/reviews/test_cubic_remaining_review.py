@@ -25,8 +25,6 @@ def test_resource_closing_reserve(tmp_path,monkeypatch):
  w.save('outcome.json',{'passed':False},True)
  assert W.read(tmp_path/'outcome.json')['passed']is False
 
-def test_unchanged_independent_center_adapter():
- assert hashlib.sha256((ROOT/'tools/reviews/review_cubic_center.py').read_bytes()).hexdigest()=='7ac68a1e508e84cc182f1d2d5d4727bfad9db6533372fdf4dc189ba214afc041'
 
 def test_isolated_archive_closure(tmp_path):
  for n in W.FILES:

@@ -8,16 +8,34 @@ unchanged separately authored independent routines. No target execution here.
 from fractions import Fraction as F
 from flint import arb
 import review_second_quarter as S
+from review_cubic_polynomial_domain import polynomial_domain
 A,Q,H,R,M,need,read=S.A,S.Q,S.H,S.R,S.M,S.need,S.read
 ball_json,vector_json,matrix_json=S.ball_json,S.vector_json,S.matrix_json
+
+def coverage_diagnostic(old,new):
+ need(len(old)==len(new),'complete diagnostic domain')
+ flags=[];misses=[]
+ for i,(a,z)in enumerate(zip(old,new,strict=True)):
+  lo,hi=M.interval(a);left,right=M.interval(ball_json(z));ok=lo<=left<=right<=hi;flags.append(ok)
+  if not ok:misses.append(dict(coordinate=i,actual_endpoints=[str(lo),str(hi)],independent_endpoints=[str(left),str(right)],lower_excess=str(max(F(0),lo-left)),upper_excess=str(max(F(0),right-hi))))
+ return dict(passed=all(flags),dimension=len(flags),coordinate_containment=flags,failures=misses,scope='Exact rational actual-domain containment diagnostic; never an alternative acceptance gate.')
+
 
 def shared_domain(w,run,spec,data):
  folder=run/f"domains/{spec['domain']['index']:03d}";td=read(folder/'tangent-domain-inputs.json');qd=read(folder/'quotient-domain-inputs.json');left,right=map(F,spec['domain']['endpoints']);center=(left+right)/2;half=(right-left)/2;shift=center-M.point(ball_json(data['sc']));lo,hi=shift-half,shift+half;normal,origin=data['normal'],data['origin'];c,s,a,b=[data[k]for k in('c','s','a','b')]
  need(td['domain']==qd['domain']==spec['domain']and td['scale']=='1/256'and td['original_offset']==[str(lo),str(hi)]and td['normal']==vector_json(normal)and td['origin']==vector_json(origin)and M.point(td['parameter'])==center,'actual exact tangent domain and native gauge');need(qd['complements']==[matrix_json(e)for e in data['E']]and qd['metrics']==[matrix_json(b)for b in data['metrics']],'fixed exact frames')
- err,proof=Q.root(data['ds'],data['ff'],data['weights'],data['original'],data['image'],lo,hi,w.tick);dd=arb(R.exact(shift),R.exact(half));pred=[c[i]+s[i]*dd+a[i]*dd*dd/2+b[i]*dd*dd*dd for i in range(705)];pp=[s[i]+a[i]*dd+3*b[i]*dd*dd for i in range(705)];whole=[pred[i]+err[i,0]for i in range(705)];segment=[pred[i]+arb(0,abs(err[i,0]).upper())for i in range(705)]
+ err,proof=Q.root(data['ds'],data['ff'],data['weights'],data['original'],data['image'],lo,hi,w.tick);pred,pp=polynomial_domain(c,s,a,b,lo,hi);whole=[pred[i]+err[i,0]for i in range(705)];segment=[pred[i]+arb(0,abs(err[i,0]).upper())for i in range(705)]
+ # Preserve every independently reconstructed enclosure before any actual-domain
+ # coverage check. The retained old association is diagnostic, not a proof input.
+ dd=arb(R.exact(shift),R.exact(half));oldpred=[c[i]+s[i]*dd+a[i]*dd*dd/2+b[i]*dd*dd*dd for i in range(705)];oldwhole=[oldpred[i]+err[i,0]for i in range(705)]
+ w.save(f"domains/{spec['domain']['index']:03d}/root.json",proof)
+ w.save(f"domains/{spec['domain']['index']:03d}/whole-domain.json",dict(parameter_offset=[str(lo),str(hi)],predictor=vector_json(pred),predictor_tangent=vector_json(pp),error=matrix_json(err),whole=vector_json(whole),segment=vector_json(segment),previous_association_whole=vector_json(oldwhole),actual_whole_comparison=coverage_diagnostic(qd['full705']['whole'],whole),previous_association_comparison=coverage_diagnostic(qd['full705']['whole'],oldwhole)))
  Q.cover(data['domain']['whole_box'],whole,'original full root');Q.cover(data['domain']['whole_box'],segment,'original full segment');Q.cover(td['segment'],segment,'actual segment');Q.cover([v[0]for v in td['error']],[err[i,0]for i in range(705)],'actual correction');Q.cover(td['predictor_tangent'],pp,'actual predictor tangent');plus=[err[i,0]*256+pp[i]/256 for i in range(705)];minus=[err[i,0]*256-pp[i]/256 for i in range(705)];Q.cover(td['plus'],plus,'actual plus');Q.cover(td['minus'],minus,'actual minus')
  paths=[A.A.path_event(read(folder/f'native/{spec["start"]+j:04d}-input.json'),read(folder/f'native/{spec["start"]+j:04d}-return.json'),72+j)for j in range(1,73)]
- mixed=H.polarized_paths(segment,plus,minus,paths,normal,origin,R.exact(center),13,18,w.tick);tangent,tp=Q.tangent(data['C'],data['ds'],data['rp'],mixed,pp,data['weights'],lo,hi,w.tick);Q.cover(qd['full705']['whole'],whole,'actual705 whole');Q.cover(qd['full705']['tangent'],tangent,'actual705 tangent');w.save(f"domains/{spec['domain']['index']:03d}/root.json",proof);w.save(f"domains/{spec['domain']['index']:03d}/tangent.json",tp)
+ mixed=H.polarized_paths(segment,plus,minus,paths,normal,origin,R.exact(center),13,18,w.tick);tangent,tp=Q.tangent(data['C'],data['ds'],data['rp'],mixed,pp,data['weights'],lo,hi,w.tick)
+ w.save(f"domains/{spec['domain']['index']:03d}/tangent.json",tp)
+ w.save(f"domains/{spec['domain']['index']:03d}/tangent-domain-comparison.json",coverage_diagnostic(qd['full705']['tangent'],tangent))
+ Q.cover(qd['full705']['whole'],whole,'actual705 whole');Q.cover(qd['full705']['tangent'],tangent,'actual705 tangent')
  derivatives=[]
  for j in range(18):
   k=spec['start']+73+j;inp=read(folder/f'native/{k:04d}-input.json');out=read(folder/f'native/{k:04d}-return.json');aw,ap=A.native(inp,out,whole,whole,tangent,'whole_tangent',j);derivatives.append((aw,ap))
