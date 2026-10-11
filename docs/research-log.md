@@ -17030,3 +17030,7 @@ Krawczyk, literal root/phase joins, monodromy/divisors/quotient reductions passe
 Complete manifests/source/owned exits and all88 context outcomes verified.
 Exact all51 endpoint and compact receipt are ready for the reviewed finite
 successor method using subset radii; requested b1/16 extent remains incomplete.
+
+### 2026-10-11T12:20:29.931090+00:00 — Admit full-state two-step mean profile
+
+Same four consumed transformer cases; Bbar^8u sufficiency at h16,512targetHVP/no newgradient orCE. Boundary source/math/caller review PASS,11controls9.23s; root10controls6.89s plusactualfourbaseline4.11s. No symmetric-block assumption, same-vector eachblock, finite-difference/CE qualification inherited literally. Fresh disjoint2HVP profile now admitted; target remains blocked until measured900s4GiB8GiBAS512MiB forecast and separate committedcard. Raw/source closure and all negativehistory retained.
