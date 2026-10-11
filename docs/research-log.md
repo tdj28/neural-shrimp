@@ -9089,3 +9089,14 @@ complete fixed wrapper/cost/source review is still required before launch.
 Measured full13/18 synthetic block profile precedes saved target arrays;
 30s/2GiB/40MiB, owned45+5s/42MiB, no native calls. This supplies an exact anchor
 for finite flip continuation; no finite flip curve exists from this lift alone.
+
+
+### 2026-10-11 — Admit one saved signed470 junction lift
+
+Stability independently source/binding/resource reviewed2ce309d4 PASS, six
+controls0.79s. Actual551-check source/history/55+705+36record preflight passed
+0.180s withzero native andzero signed target reductions. Launch one exclusive
+signed-junction-lift001/attempt001 under the complete fixed source plan;
+actual full13/18 profile remains mandatory before saved target algebra.
+Host53,840,784KiB available andno own live scientific worker; no GPU use.
+30s/2GiB/4GiBAS/40MiB, owned45+5s/42MiB. No finite flip tube claim yet.
