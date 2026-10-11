@@ -17042,3 +17042,7 @@ Profile source58d08555 completed2HVP/4.025s, no targetarrays, but conservative90
 ### 2026-10-11T12:27:51.065827+00:00 — Admit unchanged512-action blockmean target under measured time amendment
 
 Boundary independently replayed exact failed-profile/source-equivalence checks, retains900.691704750061s forecast under1200s ceiling, zero native during review. Root11controls10.91s PASS. Immutable originalprofile remains failed; source archive/AST/nativeclosure checks bind allscientific operations unchanged. Target512HVP now admitted once, no gradients/CE/holdouts.
+
+### 2026-10-11T12:33:16.774732+00:00 — Two-step mean removes large amplification but fails directional accuracy
+
+All512HVP/4cases complete96.798s999316KiB, original nonlinearresponse/CE qualifications unchanged. Originalerrors1.203155963/1.265432333 versus56.2070945/34.84956481 forsinglemean (46.72x/27.54x lower); prespecified20percent accuracyfails, tenfoldimprovementpasses. Quartererrors1.042198578/.560607053. Gaincontrolalone doesnotrecoverresponse direction or CE slope. Fullimmutableinventories/exact858fec5fsource/absentowners verified; independent savedrecurrence/metric replay remains pending.
