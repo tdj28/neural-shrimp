@@ -2392,7 +2392,12 @@ def build():
         pieces=sorted([[Fraction(x)for x in row["cell"]["endpoints"]]for row in rows]);assert pieces[0][0]==Fraction(original["parameter_endpoints"][0])and pieces[-1][1]==Fraction(original["parameter_endpoints"][1])and all(a[1]==b[0]for a,b in zip(pieces,pieces[1:]))
         for row in rows:assert row["passed"]and row["same_root"]and row["primitive_period"]==18 and row["complement_dimension"]==11 and ball_endpoints(row["complementary_modulus_upper"])[1]<Fraction(497679,500000)
     compsources=[cp,croot/"manifest.json",hp,hroot/"manifest.json"]
-    n.add("nPALStableCharts",31,"31",proof,compsources+extra_sources+whole31sources+[hmp],"first30 plus independently covered wholechart31, exact prior-endpoint inclusion and all existing physical-stability-boundary lemma hypotheses")
+    hp32=c.ROOT/"docs/reviews/native705-chart32-boundary-hypotheses.json";h32=load(hp32)
+    assert h32["passed"]and h32["chart"]==32 and h32["independent_complement_cells"]==22 and h32["analytic_lemma"]==hm["analytic_lemma"]and h32["prior_boundary_receipt"]["sha256"]==c.sha256(hmp)
+    for key,spec in h32["authorities"].items():
+        ar=Path(spec["root"]);bound_inventory(ar/"manifest.json",spec["outer"])
+        for name,e in h32["artifacts"][key].items():assert c.sha256(ar/"run"/name)==e["sha256"]
+    n.add("nPALStableCharts",32,"32",proof,compsources+extra_sources+whole31sources+[hmp,hp32],"first30 plus independently covered wholecharts31 and32, exact predecessor endpoint inclusions and all reviewed physical-stability-boundary lemma hypotheses")
     n.add("xPALMarchComplement","497679/500000","0.995358",proof,compsources,"strict upper bound across48 independently proved complementary leaves covering charts7through30")
     lp=c.ROOT/"docs/reviews/tiny-lm-ordering-independent.json";lr=load(lp);lroot=Path(lr["root"]);bound_inventory(lroot/"manifest.json",lr["inventories"][0]["manifest"]["sha256"])
     lo=load(lroot/"run/result.json");assert lo==lr["outcome"]and lo["passed"]and lo["native_calls"]==0 and lo["rows"]==16 and lo["retained_hvp_checked"]==160
@@ -2447,6 +2452,48 @@ def build():
             n.add("xLMParity"+tag+key,val,fixed(val,6),label,[pp,proot/"manifest.json"],description+" norm, unit original direction")
         val=z["comparison"]["even_relative_ordered"]
         n.add("xLMParity"+tag+"Even",val,fixed(val,6),label,[pp,proot/"manifest.json"],"reversal-even ordering contrast norm divided by chronological response norm")
+    # Independent adjacent-pair order mechanism in the same full-state cases.
+    pp=c.ROOT/"docs/reviews/tiny-lm-pair-blocks-independent.json";pr=load(pp);proot=Path(pr["root"])
+    bound_inventory(proot/"manifest.json",pr["inventories"][0]["manifest"]["sha256"]);po=load(proot/"run/result.json")
+    assert po==pr["outcome"]and po["passed"]and po["native_calls"]==0 and po["retained_hvp_checked"]==128 and all(po["descriptive"].values())
+    assert [(z["seed"],z["rate_role"])for z in po["cases"]]==[(28161,"original"),(28161,"quarter_step"),(28162,"original"),(28162,"quarter_step")]
+    assert all(z["qualified"]and z["inherited_response_qualified"]for z in po["cases"])
+    label="exploratory, independently cross-checked full15776D adjacent-pair order intervention; consumed development"
+    for j,z in enumerate(po["cases"]):
+        tag=["OneOriginal","OneQuarter","TwoOriginal","TwoQuarter"][j]
+        for key,field in [("Even","even_relative_ordered"),("Parity","even_relative_parity_even")]:
+            value=z["comparison"][field]
+            n.add("xLMPair"+tag+key,value,fixed(value,6),label,[pp,proot/"manifest.json"],"pair-block reversal-even contrast, "+field+"; all4 response/CE and algebra qualifications")
+    vals=[1/z["comparison"]["even_relative_parity_even"]for z in po["cases"]if z["rate_role"]=="original"]
+    n.add("tLMPairAttenuation",vals,",\\ ".join(fixed(v,2)for v in vals),label,[pp,proot/"manifest.json"],"Eparity norm divided by Epair norm in the two original-rate cases; not a training-speed comparison")
+    # Second exact unit-pair/simple-flip junction, fresh nested independent root.
+    jp=c.ROOT/"docs/reviews/second-unit-flip-independent.json";jr=load(jp);jroot=Path(jr["root"])
+    bound_inventory(jroot/"manifest.json",jr["outer"]["sha256"]);jo=load(jroot/"run/outcome.json")
+    assert jo==jr["outcome"]and jo["passed"]and jo["same_unique_root"]and jo["coordinates"]==55 and jo["native_calls"]==162
+    rootproof=load(jroot/"run/fresh-root.json");assert rootproof["passed"]and rootproof["period"]==18 and all(rootproof["gates"].values())and len(rootproof["coordinate_inclusions"])==55 and all(rootproof["coordinate_inclusions"])
+    assert all(ball_endpoints(v)[1]<Fraction(288624814,10**9)for v in jo["complement_bounds"])
+    assert Fraction(-2820860506,10**8)<ball_endpoints(jo["crossing"])[0]<=ball_endpoints(jo["crossing"])[1]<Fraction(-2820860504,10**8)
+    for macro,v in zip(["xSecondUnitFlipHidden","xSecondUnitFlipOutput"],jo["rates"],strict=True):
+        lo,hi=ball_endpoints(v);n.add(macro,v,fixed(float((lo+hi)/2),12),proof,[jp,jroot/"manifest.json"],"approximate physical learning rate of same independent55 root;12decimal places")
+    n.add("xSecondUnitFlipComplement","288624814/1000000000","0.288624814",proof,[jp,jroot/"manifest.json"],"strict upward bound for all10 complementary modes at the same second exact junction")
+    n.add("tSecondUnitFlipCrossing",jo["crossing"],"[-28.20860506,\\ -28.20860504]",proof,[jp,jroot/"manifest.json"],"outward decimal enclosure of total flip derivative along physical hidden-rate complex-unit section")
+    # Entire independently covered cubic32 joins the stable predecessor.
+    fp=c.ROOT/"docs/reviews/native705-cubic32-first-independent.json";lp=c.ROOT/"docs/reviews/native705-cubic32-remaining-independent.json";ff=load(fp);ll=load(lp)
+    allcells=[]
+    for receipt in (ff,ll):
+        ar=Path(receipt["root"]);bound_inventory(ar/"manifest.json",receipt["inventories"][0]["manifest"]["sha256"]);out=load(ar/"run/outcome.json")
+        assert out==receipt["outcome"]and out["passed"]and out["native_calls"]==0 and out["complement_dimension"]==11
+        allcells+=out["completed_cells"]
+    assert len(allcells)==22 and ll["outcome"]["whole_chart_endpoints"]==["39/1024","103/1024"]
+    assert all(row["passed"]and ball_endpoints(row["modulus"])[1]<Fraction(996091,10**6)for row in allcells)
+    n.add("xChartThirtyTwoComplement","996091/1000000","0.996091",proof,[fp,lp,Path(ff["root"])/"manifest.json",Path(ll["root"])/"manifest.json"],"strict upward bound for all11 transverse multipliers over exact22-cell wholechart32 cover")
+    n.add("nChartThirtyTwoCells",22,"22",proof,[fp,lp],"fourfirst plus18remaining independently checked cells, exact closed wholechart32 union")
+    # Wider signed branch, full470 strict common-parameter root and exact join.
+    sp=c.ROOT/"docs/reviews/native470-correlated-independent.json";ss=load(sp);sr=Path(ss["root"])
+    bound_inventory(sr/"manifest.json",ss["outer"]["sha256"]);so=load(sr/"run/outcome.json")
+    assert so==ss["outcome"]and so["passed"]and so["native_calls"]==0 and so["root_coordinates"]==so["anchor_coordinates"]==470 and ss["parameter_endpoints"]==["-81/256","-17/256"]
+    assert ball_endpoints(so["contraction"])[1]<Fraction(76489025,10**9)
+    n.add("xCorrelatedFlipContraction","76489025/1000000000","0.076489025",proof,[sp,sr/"manifest.json"],"strict upward bound on independently connected full470 hidden-rate interval of length1/4")
     # Independently reduced same-start curved correction, first passing point retained.
     cp=c.ROOT/"docs/reviews/cifar-curved-path-independent.json";cr=load(cp);croot=Path(cr["root"])
     bound_inventory(croot/"manifest.json",cr["outer"]["sha256"]);co=load(croot/"run/result.json")

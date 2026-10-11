@@ -49,8 +49,9 @@ layer-learning-rate plane: the branch from an attracting orbit reaches a saddle-
 continues to a generic 1:1 resonance. We prove a continuous attracting interval, a transverse
 resonance unfolding in the physical rates, and a connected complex-unit branch with certified attracting sides and an interior
 learning-rate minimum. This branch reaches a certified intersection with a flip boundary,
-where we prove an open adjacent sector of attracting period-18 cycles. An independently cross-checked
-numerical census places these proofs within a wider landscape of periodic windows.
+where we prove an open adjacent sector of attracting period-18 cycles. We also certify a second
+complex-unit/flip intersection. An independently cross-checked numerical census places these proofs
+within a wider landscape of periodic windows.
 The results establish long-period attracting training and exact connections between cycles and
 bifurcations organizing their parameter-space boundaries.
 \end{abstract}
@@ -1079,8 +1080,18 @@ hypotheses on the first \nPALStableCharts{} charts. Hence the attracting-side
 and compact-family conclusions apply to their joined arc. The chart-31 extension
 uses the same full shooting equations, positive nonreal angle and nonsingular
 Jacobian; its complete hypothesis mapping is recorded in
-\path{docs/reviews/native705-chart31-boundary-hypotheses.json}. Complementary
-stability beyond this arc remains a separate computation.
+\path{docs/reviews/native705-chart31-boundary-hypotheses.json}.
+The next cubic chart also has a complete independent transverse-stability proof:
+\nChartThirtyTwoCells{} closed cells cover $[39,103]/1024$ in its affine coordinate,
+with all eleven complementary moduli below $\xChartThirtyTwoComplement$.
+The entire previous stable endpoint lies within the first covered portion of
+the same 705-dimensional uniqueness tube. Exact rational cubic extrema and
+Bernstein bounds close the derivative-domain containments used by the independent replay.
+See \path{docs/reviews/native705-cubic32-remaining-independent.json}.
+The full cubic root and this cover satisfy the same physical-boundary lemma;
+its regular boundary and connected adjacent attracting family therefore extend
+through chart 32. The exact hypothesis mapping is recorded in
+\path{docs/reviews/native705-chart32-boundary-hypotheses.json}.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
 A local certificate encloses a primitive period-18 orbit at physical rates approximately
@@ -1127,8 +1138,29 @@ endpoint of its predecessor in the identical gauge. Primitive period 18 and
 the $-1$ mode persist throughout the new interval. See
 \path{docs/reviews/native470-advancing-independent.json}.
 
+A correlated polynomial chart extends the joined flip locus by a further
+hidden-rate length $1/4$. All 470 strict root and predecessor-membership
+inequalities pass independently, with contraction below
+$\xCorrelatedFlipContraction$, and primitive period 18 persists.
+See \path{docs/reviews/native470-correlated-independent.json}.
 
-\paragraph{An open attracting sector at the junction.}
+\paragraph{A second exact intersection.}
+A separate local certificate encloses another primitive period-18
+complex-unit/simple-flip intersection at
+$(\eta_h,\eta_o)\simeq(\xSecondUnitFlipHidden,\xSecondUnitFlipOutput)$.
+An independent 480-bit calculation proves all 55 root inclusions in a box
+strictly nested inside the first enclosure. At this same exact root, the
+nonreal unit pair and the real $-1$ mode are simple, and all ten remaining
+multiplier moduli lie below $\xSecondUnitFlipComplement$.
+The total flip-multiplier derivative along the local unit-pair section is
+enclosed by $\tSecondUnitFlipCrossing$, proving a transverse crossing.
+This supplies a second exact junction for the continuing boundary reconstruction.
+The connected critical branch proved above ends at the first junction;
+identifying a connecting branch to this second junction requires full-state continuation joins.
+See \path{docs/reviews/second-unit-flip-independent.json}.
+
+
+\paragraph{An open attracting sector at the first junction.}
 The local junction also determines which nearby physical rates produce attracting
 training cycles. Write $\lambda_c$ for its continued nonreal multiplier and
 $\lambda_f$ for the continued real multiplier near $-1$, and set
@@ -2099,9 +2131,51 @@ all reused reverse-product associations using the complete retained vectors.
 The experiment identifies a strong dependence of finite-horizon linear
 response on Jacobian order. It permutes operators along a saved trajectory;
 it does not yet specify a realizable change to training data or optimizer
-updates. The smaller quarter-rate contrasts motivate testing whether
-preserving adjacent-step pairs attenuates the effect.
+updates. We next test which temporal structure the ordering contrast depends on.
 See \path{docs/reviews/tiny-lm-parity-order-independent.json}.
+
+\paragraph{Preserving adjacent steps strongly attenuates the contrast.}
+Let $B_k=J_{2k+1}J_{2k}$, so each block retains two consecutive training steps.
+Keep the order within each block and reverse the order of the eight blocks:
+$U$ applies indices $14,15,12,13,\ldots,0,1$. Its reversed list gives $U^T$.
+The corresponding reversal-even contrast is
+\[
+ E_{\rm pair}=\tfrac12(U+U^T-P-P^T)u.
+\]
+This intervention retains the same sixteen full-state Jacobians and direction
+as the preceding test. It changes only their order.
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\captionsetup{hypcap=false}
+\centering\small
+\begin{tabular}{@{}llrr@{}}
+\toprule
+Initialization & Rate & $\|E_{\rm pair}\|/\|Pu\|$ & $\|E_{\rm pair}\|/\|E\|$ \\
+\midrule
+1 & Original & $\xLMPairOneOriginalEven$ & $\xLMPairOneOriginalParity$ \\
+1 & Quarter & $\xLMPairOneQuarterEven$ & $\xLMPairOneQuarterParity$ \\
+2 & Original & $\xLMPairTwoOriginalEven$ & $\xLMPairTwoOriginalParity$ \\
+2 & Quarter & $\xLMPairTwoQuarterEven$ & $\xLMPairTwoQuarterParity$ \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Adjacent-pair preservation attenuates the reversal-even
+ordering contrast in both original-rate cases, with a material residual.
+The quarter-rate controls show that this attenuation is not universal.}
+\label{tab:lmpair}
+\end{minipage}\par\medskip
+
+The original-rate contrasts fall by factors $\tLMPairAttenuation$, while
+remaining larger than their chronological response norms
+(Table~\ref{tab:lmpair}). All four cases pass the inherited nonlinear-response
+and CE-slope qualifications and the new transpose and decomposition identities.
+An independent replay checks all 128 newly acquired Hessian-vector products,
+their actual states and input directions, the complete recurrences and the
+byte-identical previously qualified baselines. Preserving adjacent-step
+structure therefore removes most of this particular ordering contrast in
+the two original-rate cases. It does not imply that two-step blocks commute:
+the residual is material, and their arithmetic-mean product need not predict
+the true response. Testing that prediction is a separate mechanism question.
+See \path{docs/reviews/tiny-lm-pair-blocks-independent.json}.
 
 \section{Discussion}
 \label{sec:discussion}
