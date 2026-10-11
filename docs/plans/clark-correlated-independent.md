@@ -33,3 +33,12 @@ exact0 andh² endpoints with a bounded rounding excess; no interval or root gate
 changed. Five source-only controls pass, including noncommuting polynomial
 identity, strictnegative root gates, full51phase join and independent native
 primitive/complement negatives.
+
+
+The separate acquisition adapter reconstructs all51 F0..3 and J0..2 from
+raw three-phase even/odd path/base-gradient outputs. Exact rational quadratic
+extrema (including interior vertices) authenticate every initial state/mode/
+error coefficient; independent base-basis and external nonlinear b directions
+are mandatory, followed by literal native phase-chain identity. Normalization
+and restored v columns are assembled independently. Unrelated comparisons
+and changed-domain/gradient/phase negatives pass; no target arithmetic yet.
