@@ -1,0 +1,11 @@
+# Bounded adaptive native705 cubic continuation
+
+Prepared 11 October 2026 following the fixed narrow three-chart prefix. The first wider failure was dominated by quartic residual overestimation; later fixed-gauge seeds deteriorated. The smaller width gave three fresh complete roots and full705 joins, then the fourth image bound failed. Every old attempt remains immutable.
+
+The proposed reusable packet rotates its finite gauge from each accepted cubic endpoint. It uses p′(h)=v+a h+3b h² and p″(h)=a+6b h, then the chain rule ds/dd=n·p′ for finite first/second seed derivatives. These are proposals only. No true derivative or branch claim comes from the finite frame. The new known endpoint always uses its full projected affine-parameter interval; an old exact scalar is never carried across a changed gauge.
+
+The mathematical worker remains the reviewed fresh two-Newton proposal plus full cubic705 interval proof: 331 inclusive operations, full correction E in J0/J1, whole parameter/E in J2, new quartic remainder, all705 strict images, primitive18, positive rates/angle and realified-frame gates. The finite failed chart never supplies a known root.
+
+The initial halfwidth is 1/32, radius 2^-10 and existing exact positive weights. After a complete root-bound failure with every other native gate passing, halve the halfwidth, down to 1/512. After a successful root and full projected join, advance to that proved endpoint and rotate; retain that successful halfwidth. A failed join, malformed/incomplete acquisition, other scientific gate failure, provenance error or resource stop ends the packet. All failed attempts and standalone unjoined roots remain saved.
+
+A fixed measured card and reviewed wrapper are still required before any target. The proposed single-worker packet will impose total attempt/native-call/time/raw caps, fresh host admission, per-worker 240 s / 6 GiB RSS / 12 GiB address space / 1 GiB raw, exact profile and actual-cost floors, and durable per-attempt cards/manifests. No target is authorized by this preparatory helper alone. Independent arithmetic review and complementary stability remain separate, and this does not certify a complete window or a junction connection.

@@ -8724,3 +8724,7 @@ receipt and independent degree4/degree5 replay guide saved; root owns that
 audit. Parent authorizes bounded adaptive rotate/halve packet with fixed total
 caps, retaining every failedattempt and strict full705 projected joins. No
 full-window or complementary-stability claim from this new producer prefix.
+
+### 2026-10-11 — reusable adaptive cubic endpoint rotation preparation
+
+After sealed three-chart narrow prefix 68be1c16, prepare finite cubic endpoint rotation using the actual cubic endpoint velocity/acceleration and a bounded halfwidth transition. Preserve complete error/root gates and full projected native known-root membership after every gauge change. Three controls pass, including full705 dimensions, chain-rule derivative convention and refusal to retry a failed branch join. This is proposal/source preparation only; no target arrays acquired. A source-reviewed wrapper and measured fixed total attempt/native/time/storage card still precede the adaptive packet.
