@@ -15660,3 +15660,36 @@ PASS0.32s; actual metadata-only binding PASS1.105s,18 phase files authenticated
 without target phase arithmetic. This tests whether coarser coverage is viable
 before spending native calls on the other quarters. Fixed source/card peer
 review and clean private checkpoint remain necessary before execution.
+
+### 2026-10-11 — saved width replay admission
+
+Clark independently reviewedf3945afd full source/bindings/math and reproduced
+three controls PASS0.30s. Same actual whole-quarter domains/center and all error
+terms remain fixed. Host52GiB-class availability and no duplicate own worker
+permit the fixed CPU1nice10/60s1GiB16MiB card; complete fresh synthetic profile
+remains the target-array admission gate. Admit exactly this saved5-width unit.
+
+### 2026-10-11 — width diagnostic storage-only amendment
+
+First fixed001 passed all5 synthetic reductions but rejected before target arrays:
+63,409,480B conservative complete forecast exceeds16MiB;0.850s/162,824KiB and
+21.147s forecast fit. All evidence/source/owners sealed in the compact failure
+receipt. Fresh002 retains that exact zero-target failure and increases only raw
+64MiB/outer66MiB;60s/1GiB/math/domains unchanged. Four controls PASS0.66s,
+including actual prior-profile binding and closing reserve. Fresh measured
+profile and narrow peer review remain mandatory; no target arithmetic yet.
+
+### 2026-10-11 — preparatory regularized same-state projected direction
+
+Pure helper uses actual VᵀV whitening and SVD of W R^-1, choosing the largest
+ridge satisfying fixed predictedforcing.49 with bounded64doublings/64bisections.
+Physical p/Hp and shorter norm are independently recomputed inside the helper;
+caller will still require fresh actual forcing<=.5, unchanged trust/Armijo and
+same current022 authority. Three synthetic controls PASS0.14s. No saved target
+arrays, profile, candidate or derivative acquired; full measured caller pending.
+
+### 2026-10-11 — fresh saved-width002 admission
+
+Clark narrow9b3d464f review PASS and4controls0.67s reproduced. Exact old failure,
+complete same domains/widths and60s1GiB ceilings remain. Admit one fresh002
+profile-gated replay under64MiBraw/66MiBouter; no scientific target in001.
