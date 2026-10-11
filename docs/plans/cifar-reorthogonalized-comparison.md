@@ -27,3 +27,24 @@ arrays, full98666x256 unrelated dense two-pass algebra/SVD profile combines with
 original measured HVP/gradient maxima to forecast all256+1 calls,retention and
 analysis conservatively. This initial helper is source-only; fullsource/cost/
 binding caller and independent review are required before any native acquisition.
+
+## Fixed caller and retention packet
+
+The caller binds the complete four-step producer and independent acceptance
+inventories plus the completed saved conditioning diagnosis. Before any target
+vectors it authenticates sources/runtime/events and profiles three full-width
+CGS2 passes plus actual 98666x256 Gram/SVD/assembly. Forecast charges twice the
+maximum full-width orthogonalization for all256 actions, twice original native
+maxima for257HVP+1gradient, complete profile/binding elapsed time, thirty seconds
+overhead and an explicit50MiB/s write allowance. Exact524-array ceiling plus64MiB
+metadata/archive allowance stays inside768MiB. Peak forecast adds1GiB to measured
+profile peak; full unit remains300s/3GiB RSS/8GiB AS, owned315+5s/770MiB.
+
+After admission, replay the literal state018 gradient and first original direction
+HVP byte-exactly. Every new native input, direction, return and operation event is
+retained before/after the call. Keep all orthogonalization coefficients and final
+Gram, SVD, candidate and predicted action. One final freshHp determines comparison;
+no trial gradient or state update follows, including a favorable result. Breakdown
+remains a complete shortened experiment with equal256 qualification false. A failed
+qualification is never silently treated as an equal-action improvement. Existing
+native derivatives are shared source-validated autograd; this is numerical research.

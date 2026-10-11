@@ -9140,3 +9140,14 @@ predeclared material comparison, old.5 forcing reported separately. Numerical
 breakdown and invalid orthogonality remain explicit. Four synthetic controls
 pass0.09s, including indefinite fullsolve and breakdown. This is preparatory
 math; no target acquisition before complete source-bound measured caller review.
+
+#### Fixed reorthogonalized caller prepared; target unopened
+
+Root source/math reviewb3bd6468 PASS. Prepared single state018 caller, exact prior
+1053-call source/event/audit/diagnostic binding, original gradient/firstHVP replay,
+full measured maximum-width algebra admission, literal257HVP+1gradient ceilings
+and durable attempted/returned arrays. CPU1/300s/3GiB/768MiB with owned315+5s parent;
+no direction applied and no state022 extrapolation. Ten helper/driver controls
+pass2.66s including isolated executed-source closure, final reserve and native
+failure retention. Card remains prepared/unlaunchable until independent source
+review, actual metadata preflight and fresh host admission.
