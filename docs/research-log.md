@@ -12118,3 +12118,7 @@ Clark independently reproduced three controls and requested whole-proof-box seed
 ### 2026-10-11T00:18Z — independent full705 polynomial audit preparation
 
 Independent direct four-term convolution, degree26 entire-series derivatives through3, authenticated path/native block reconstruction and full705 weighted interval reduction prepared. The first three synthetic controls exposed a decoder-name error and an overstrict test comparing two outward enclosures of the same rational; corrected to the established exact serialized-ball decoder and exact rational membership. No saved target reduction or native acquisition evaluated. Next source review and fixed bounded saved-only run card precede target audit.
+
+### 2026-10-11T00:18:21.322941+00:00 — census13 fixed profile admission
+
+Clark independently cleared source071f88af and reproduced three controls0.10s after exact reused-box binding repair. Execute only the three predetermined full768-bit native map/Jacobian returns at period50 row139 phases0/16/33; CPU1nice10,60sworker/80+5souter,1GiBgroupRSS,512MiBraw plus1MiBlog. Dedicated exclusive path explore/certificates/census13-panel/attempt001-profile. No proof or26-row target until measured forecast passes and its separate card is committed.
