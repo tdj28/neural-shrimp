@@ -86,3 +86,9 @@ Fixed90s/2GiB RSS/4GiB AS/128MiB with4MiB final reserve, owned105+5s/130MiB and
 10GiB host headroom. Source archive closure, all attempted inputs, complete
 native returns, failed stages and mode orientation candidates are retained.
 Target remains unopened; source review and committed launch card precede run.
+
+## 2026-10-10: one fixed weighted002 after retained001 diagnosis
+
+The original uniform-radius tube failed5/26 image inclusions despite contraction0.71085. Saved-only source-reviewed diagnosis isolated forcing/r up to3.38264 and absolute-defect floating spectral radius0.09531. Use exactly its26 dyadic2times-resolvent proposals, fixed in the input card and code: state/mode radii2–8times original, leak half, exact gain-equation radius2^-39. The displayed frozen-bound q0.13997/image0.57938 do not certify new domains.
+
+Fresh exclusiveattempt002 repeats the identical full unrelated measured profile then authenticates complete001 and diagnostic source/inventories. All three center/predictor/whole family acquisitions are fresh on actual newE; no original derivative bound is used on an expanded box. Gain center and halfwidth2^-11 unchanged, separate exact endpoint proof and full native6/direct26/same-orientation return/known-organizer joins mandatory. Original context/divisor/11-mode stability gates and all12family2context2transport60phase,90s2GiB4GiBAS128MiB/105+5owned caps unchanged. No adaptation or additional retry inside this attempt. Source review precedes admission.

@@ -11,13 +11,14 @@ from neural_shrimp import rigorous_clark_critical_curve as C
 from neural_shrimp import rigorous_clark_generalized_flip_proof as P
 from neural_shrimp.rigorous_orbits import ball_json,vector_json,matrix_json,canonical_bytes,midpoint_matrix
 need=C.require
-OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/critical-organizer-bridge/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/critical-organizer-bridge/attempt002/run')
 BASE=Path('/data2/neural-shrimp-data/explore/clark-rnn')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 CAPS=dict(family=12,context=2,transport=2,native_phase_returns=60,events=256)
 CARD='docs/plans/clark-critical-organizer-bridge-inputs.json'
-SETTINGS=dict(precision=384,halfwidth_exponent=-11,tube_radius_exponent=-16,endpoint_radius_exponent=-80,newton_steps=2,seconds=90,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=128*1024**2)
-FILES=[CARD,'docs/plans/clark-critical-organizer-bridge.md','docs/reviews/clark-rnn-generalized-flip-independent.json','docs/reviews/clark-rnn-generalized-flip-outcome.json','docs/reviews/clark-rnn-n12-organizer-connection-001.json','tools/certify_clark_critical_bridge.py','tools/launch_clark_critical_bridge.py','tests/test_clark_critical_bridge_driver.py','tests/test_rigorous_clark_critical_curve.py']
+RADIUS_EXPONENTS=[-14, -15, -14, -14, -13, -13, -14, -15, -13, -15, -14, -14, -17, -15, -13, -14, -14, -13, -14, -14, -14, -14, -14, -14, -14, -39]
+SETTINGS=dict(precision=384,halfwidth_exponent=-11,tube_radius_exponents=RADIUS_EXPONENTS,endpoint_radius_exponent=-80,newton_steps=2,seconds=90,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=128*1024**2)
+FILES=['docs/reviews/clark-critical-bridge-diagnosis.json','docs/reviews/clark-critical-bridge-attempt001.json',CARD,'docs/plans/clark-critical-organizer-bridge.md','docs/reviews/clark-rnn-generalized-flip-independent.json','docs/reviews/clark-rnn-generalized-flip-outcome.json','docs/reviews/clark-rnn-n12-organizer-connection-001.json','tools/certify_clark_critical_bridge.py','tools/launch_clark_critical_bridge.py','tests/test_clark_critical_bridge_driver.py','tests/test_rigorous_clark_critical_curve.py']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 def entry(p):
@@ -38,6 +39,23 @@ def historical(root,source):
  actual={str(p.relative_to(root/'run/source')):p for p in(root/'run/source').rglob('*')if p.is_file()};need(set(actual)==set(rt['sources']),'complete historical source archive')
  for n,p in actual.items():need(entry(p)==rt['sources'][n]and hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==rt['sources'][n]['sha256'],'exact historical source '+n)
  return rt
+
+def weighted_radii(diagnosis,outcome):
+ need(outcome['passed']is True and outcome['native_calls']==0 and outcome['status']=='saved_floating_diagnosis_complete'and outcome['original_strict_inclusions']==5,'complete retained diagnosis only')
+ need(diagnosis['dimension']==26 and diagnosis['proposed_exponents']==RADIUS_EXPONENTS and len(diagnosis['proposed_radii'])==26,'literal precommitted26 weighted coordinates')
+ need(all(type(e)is int and -40<=e<=-13 for e in RADIUS_EXPONENTS),'fixed dyadic physical scales')
+ r=[arb((1,e))for e in RADIUS_EXPONENTS]
+ need(all(exact_float(x)==v for x,v in zip(diagnosis['proposed_radii'],r)),'exact dyadic proposal equality')
+ return r
+
+def bind_weighted(w):
+ card=read(ROOT/CARD)['weighted_amendment'];root=Path(card['diagnosis']['root']);pin=card['diagnosis']
+ inventories=[inventory(root,pin['outer'],w.tick),inventory(root/'run',pin['worker'],w.tick)];historical(root,pin['source']);need(entry(root/'run/diagnosis.json')==pin['artifact'],'literal diagnostic proposal bytes')
+ old=card['failure'];prior=Path(old['root']);inventories.extend([inventory(prior,old['outer'],w.tick),inventory(prior/'run',old['worker'],w.tick)])
+ original=read(prior/'run/outcome.json');rt=read(prior/'run/runtime.json');la=read(prior/'launcher-result.json');need(original['error']=='ValueError: uniform full26 root tube'and not original['passed']and rt['source_commit']==la['source_commit']==old['source']and la['exit_code']==2 and not la['owned_live_pids'],'original failed scientific tube retained')
+ binding=read(root/'run/input-binding.json');need(binding['root']==str(prior)and binding['source']==old['source']and binding['outer']==old['outer']and binding['worker']==old['worker']and binding['tube']==entry(prior/'run/tube.json'),'same diagnosed original bound')
+ for n,p in rt['sources'].items():need(entry(prior/'run/source'/n)==p and hashlib.sha256(subprocess.check_output(['git','show',old['source']+':'+n],cwd=ROOT)).hexdigest()==p['sha256'],'historic failed source '+n)
+ d=read(root/'run/diagnosis.json');out=read(root/'run/outcome.json');r=weighted_radii(d,out);w.save('weighted-radius-binding.json',dict(card=card,inventories=inventories,radii=vector_json(r),scope='Fixed saved floating proposals only. Complete fresh center/predictor/whole acquisitions establish every new mathematical bound; no expanded-domain inference from old derivatives.'));return r
 
 def exact_authority(original,audit,fresh,same):
  need(original['passed']and audit['passed']and fresh['passed']and len(fresh['box'])==len(fresh['coordinate_inclusions'])==26 and all(fresh['coordinate_inclusions'])and same['all26_original_boxes_strictly_inside'],'complete exact same organizer authority')
@@ -133,7 +151,7 @@ def main():
   for n in FILES:
    raw=(ROOT/n).read_bytes();need(hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==hashlib.sha256(raw).hexdigest(),'exact source bytes');need(w.used+len(raw)<124*1024**2,'source raw cap');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw);w.used+=len(raw)
   with ctx.workprec(384):
-   need(read(ROOT/CARD)['settings']==SETTINGS,'literal fixed settings');synthetic(w);j,known,seed,arrays=bind(w);s=known[-1].mid();h=arb((1,-11));r=[arb((1,-16))]*26;need(s-h<seed[-1]<s+h,'fixed endpoint within predeclared gain interval');c=newton_center(w,j,known,s)
+   need(read(ROOT/CARD)['settings']==SETTINGS,'literal fixed settings');synthetic(w);r=bind_weighted(w);j,known,seed,arrays=bind(w);s=known[-1].mid();h=arb((1,-11));need(s-h<seed[-1]<s+h,'fixed endpoint within predeclared gain interval');c=newton_center(w,j,known,s)
    whole,v,data,tube=C.tube(lambda z,g:w.family(j,z,g),c,s,h,r,observe=w.emit,tick=w.tick);w.save('tube.json',tube);need(tube['passed']and len(tube['coordinate_inclusions'])==26 and all(tube['coordinate_inclusions']),'uniform full26 root tube')
    join=C.anchor(known,c,v,s,h,r);w.save('organizer-join.json',join);need(join['passed']and join['coordinates']==26,'exact known organizer identity')
    context=w.context(j,whole,data['monodromy']);w.save('tube-native-context.json',context);need(context['passed'],'whole native primitive6/simple signed-minus/stable11 complement')
