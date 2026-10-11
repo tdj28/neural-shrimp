@@ -938,26 +938,30 @@ histories are retained in
 \path{docs/reviews/native705-maintained-tail-independent.json} and
 \path{docs/reviews/native705-maintained003-independent.json}.
 
-\paragraph{Transverse stability along the first thirty charts.}
+\paragraph{Transverse stability along the first thirty-one charts.}
 Independent 480-bit proofs on 48 closed subintervals cover original charts
 7--30 exactly, with each local gauge, shared endpoint and same-root identity
 checked against its prior full shooting proof. Every one of the eleven
 complementary multipliers has modulus below $\xPALMarchComplement$.
 Together with the preceding six proofs, this certifies the complement
-throughout the first \nPALStableCharts{} positive-angle charts. The proof
+throughout the first thirty positive-angle charts. The proof
 uses moving metrics and fresh full-domain derivative enclosures, with all
 failed subdivisions retained. See
 \path{docs/reviews/native705-march-independent.json}.
 
-Fresh center refinements prove complementary stability on the first
-quarter $[-49,-17]/2048$ of chart 31's local gauge. Sixteen new cells and one
-previously verified central cell form an exact closed cover. Independent
-480-bit arithmetic proves all eleven complementary multipliers below
-$\xFreshQuarterComplement$ throughout that quarter. The replay reconstructs
-the full 705-coordinate root and tangent, verifies every actual derivative
-domain, and bounds all eighteen moving-frame steps. It gives another certified
-stable complementary segment on the same exact critical curve. See
-\path{docs/reviews/native705-fresh-quarter-independent.json}.
+Fresh center refinements extend this coverage across all of chart 31's
+local gauge interval $[-49,79]/2048$. Three independently replayed packets
+supply exact closed covers of its first quarter, second quarter and remaining
+half, using \nChartThirtyOneCells{} cells in total. All eleven complementary
+multipliers have modulus below $\xChartThirtyOneComplement$ throughout the
+whole chart. Each replay reconstructs the full 705-coordinate root and tangent,
+checks every actual derivative domain, and bounds all eighteen moving-frame
+steps. The second quarter contains the entire projected endpoint enclosure
+of chart 30, establishing the connection of the stable cover to its predecessor.
+All failed coarser metric attempts are retained. See
+\path{docs/reviews/native705-fresh-quarter-independent.json},
+\path{docs/reviews/native705-second-quarter-independent.json} and
+\path{docs/reviews/native705-remaining-quarters-independent.json}.
 
 These bounds have a physical consequence: each covered segment consists of regular
 stability boundaries with attracting primitive period-18 cycles on one side.
@@ -1072,8 +1076,11 @@ system above. Uniform strict contraction makes its Jacobian nonsingular at
 every exact root; the independently verified positive angle, primitive period,
 frame independence and eleven-dimensional stability bounds provide the other
 hypotheses on the first \nPALStableCharts{} charts. Hence the attracting-side
-and compact-family conclusions apply to their joined arc. Complementary
-stability on the later charts remains a separate computation.
+and compact-family conclusions apply to their joined arc. The chart-31 extension
+uses the same full shooting equations, positive nonreal angle and nonsingular
+Jacobian; its complete hypothesis mapping is recorded in
+\path{docs/reviews/native705-chart31-boundary-hypotheses.json}. Complementary
+stability beyond this arc remains a separate computation.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
 A local certificate encloses a primitive period-18 orbit at physical rates approximately
@@ -1113,6 +1120,13 @@ all 470 coordinates with contraction below $0.082185$; exact rational mode
 propagation identifies the known junction inside this tube. The locus retains
 primitive period 18. This supplies a finite connected part of the second
 boundary. See \path{docs/reviews/native470-independent001.json}.
+A fresh independently reduced chart extends the same locus by hidden-rate
+length $1/16$. Its full 470-coordinate enclosure has contraction below
+$\xAdvancingFlipContraction$ and contains the independently recomputed left
+endpoint of its predecessor in the identical gauge. Primitive period 18 and
+the $-1$ mode persist throughout the new interval. See
+\path{docs/reviews/native470-advancing-independent.json}.
+
 
 \paragraph{An open attracting sector at the junction.}
 The local junction also determines which nearby physical rates produce attracting
@@ -2265,7 +2279,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. Complete-grid screening and connected-component assignment remain numerical; all \nCensusAll{} agreed representatives now have exact full-state orbit proofs. The \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold; its $+1$ locus reaches the exact generic 1:1 resonance, and the connected complex-unit branch reaches the complex-unit/simple-flip junction. A finite $-1$ locus passes through that same junction. Uniform complementary stability is proved on the initial thirty positive-angle charts and a later quarter-chart, with an open attracting sector at the junction. Closing the intervening stability coverage, extending the flip boundary and connecting the finite attracting interior segment remain active tasks. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold; its $+1$ locus reaches the exact generic 1:1 resonance, and the connected complex-unit branch reaches the complex-unit/simple-flip junction. A finite $-1$ locus passes through that same junction. Uniform complementary stability and a connected adjacent attracting family are proved along the first \nPALStableCharts{} positive-angle charts, with an open attracting sector at the junction. Closing the intervening stability coverage, extending the flip boundary and connecting the finite attracting interior segment remain active tasks. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.

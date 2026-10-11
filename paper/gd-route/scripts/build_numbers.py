@@ -2341,7 +2341,31 @@ def build():
     assert len(qo["completed_cells"])==16 and all(v["passed"]and ball_endpoints(v["modulus"])[1]<Fraction(878041,10**6)for v in qo["completed_cells"])
     prior=load(Path(quarter["binding"]["prior"]["root"])/"run/outcome.json");assert prior["passed"]and prior["complement_dimension"]==11 and ball_endpoints(prior["complementary_modulus_upper"])[1]<Fraction(878041,10**6)
     union=load(qroot/"run/union.json");assert union["passed"]and union["parameter_endpoints"]==qo["parameter_endpoints"]and union["total_cells"]==17
-    n.add("xFreshQuarterComplement","878041/1000000","0.878041",proof,[quarterp,qroot/"manifest.json"],"strict upward bound on all11 complementary multipliers on exact17-cell closed cover of chart31 first quarter; same root curve, not yet connected stable-prefix extension")
+    n.add("xFreshQuarterComplement","878041/1000000","0.878041",proof,[quarterp,qroot/"manifest.json"],"strict upward bound on all11 complementary multipliers on exact17-cell closed cover of chart31 first quarter; same root curve; full chart coverage and stable-prefix connection are now separately proved")
+    secondp=c.ROOT/"docs/reviews/native705-second-quarter-independent.json";second=load(secondp);sr=Path(second["root"])
+    bound_inventory(sr/"manifest.json",second["inventories"][0]["manifest"]["sha256"]);so=load(sr/"run/outcome.json")
+    lastp=c.ROOT/"docs/reviews/native705-remaining-quarters-independent.json";last=load(lastp);lr=Path(last["root"])
+    bound_inventory(lr/"manifest.json",last["inventories"][0]["manifest"]["sha256"]);las=load(lr/"run/outcome.json")
+    assert so==second["outcome"]and las==last["outcome"]and so["passed"]and las["passed"]and so["native_calls"]==las["native_calls"]==0
+    assert so["parameter_endpoints"]==["-17/2048","15/2048"]and las["parameter_endpoints"]==["15/2048","79/2048"]and las["whole_chart_endpoints"]==["-49/2048","79/2048"]
+    assert so["total_cells"]==4 and las["total_cells"]==10 and all(v["passed"]and v["complement_dimension"]==11 and ball_endpoints(v["modulus"])[1]<Fraction(980311,10**6)for v in so["completed_cells"]+las["completed_cells"])
+    whole31sources=[quarterp,qroot/"manifest.json",secondp,sr/"manifest.json",lastp,lr/"manifest.json"]
+    n.add("xChartThirtyOneComplement","980311/1000000","0.980311",proof,whole31sources,"strict upward bound for all11 complementary moduli on exact whole chart31 closed cover")
+    n.add("nChartThirtyOneCells",31,"31",proof,whole31sources,"17first-quarter+4second-quarter+10remaining-half independently checked closed cells")
+    hmp=c.ROOT/"docs/reviews/native705-chart31-boundary-hypotheses.json";hm=load(hmp)
+    assert hm["passed"]and hm["chart"]==31 and hm["independent_complement_cells"]==31 and hm["parameter_endpoints"]==las["whole_chart_endpoints"]and hm["authorities"]["last"]["root"]==str(lr)
+    for k,spec in hm["authorities"].items():
+        rr=Path(spec["root"]);bound_inventory(rr/"manifest.json",spec["outer"])
+        for name,e in hm["artifacts"][k].items():assert c.sha256(rr/"run"/name)==e["sha256"]
+    for name,e in hm["source_equations"].items():
+        if (c.ROOT/name).exists():assert c.sha256(c.ROOT/name)==e["sha256"]
+    import hashlib
+    actual=(PAPER/"main.tex").read_text();a=actual.index(r"\begin{lemma}[Physical stability boundary]");b=actual.index("For our analytic training map",a)
+    assert hashlib.sha256(actual[a:b].encode()).hexdigest()==hm["analytic_lemma"]["lemma_and_compact_argument_sha256"]
+    flipadvp=c.ROOT/"docs/reviews/native470-advancing-independent.json";fa=load(flipadvp);far=Path(fa["root"])
+    bound_inventory(far/"manifest.json",fa["inventories"][0]["manifest"]["sha256"]);fao=load(far/"run/outcome.json")
+    assert fao==fa["outcome"]and fao["passed"]and fao["native_calls"]==0 and fao["root_coordinates"]==fao["anchor_coordinates"]==470 and ball_endpoints(fao["contraction"])[1]<Fraction(545203,10**6)
+    n.add("xAdvancingFlipContraction","545203/1000000","0.545203",proof,[flipadvp,far/"manifest.json"],"strict upper full470 contraction on independently joined same-hidden-gauge interval of width1/16")
     freshp=c.ROOT/"docs/reviews/native705-fresh-center-independent.json";fresh=load(freshp);froot=Path(fresh["root"]);bound_inventory(froot/"manifest.json",fresh["outer"]["sha256"])
     fo=load(froot/"run/outcome.json");assert fo==fresh["outcome"]and fo["passed"]and fo["native_calls"]==0 and fo["complement_dimension"]==11 and fo["subinterval_only"]and fo["parameter_endpoints"]==["-17/1024","-1/64"]
     assert ball_endpoints(fo["complementary_modulus_upper"])[1]<Fraction(875102,10**6)
@@ -2368,7 +2392,7 @@ def build():
         pieces=sorted([[Fraction(x)for x in row["cell"]["endpoints"]]for row in rows]);assert pieces[0][0]==Fraction(original["parameter_endpoints"][0])and pieces[-1][1]==Fraction(original["parameter_endpoints"][1])and all(a[1]==b[0]for a,b in zip(pieces,pieces[1:]))
         for row in rows:assert row["passed"]and row["same_root"]and row["primitive_period"]==18 and row["complement_dimension"]==11 and ball_endpoints(row["complementary_modulus_upper"])[1]<Fraction(497679,500000)
     compsources=[cp,croot/"manifest.json",hp,hroot/"manifest.json"]
-    n.add("nPALStableCharts",30,"30",proof,compsources+extra_sources,"first six independently stable charts followed by exact closed-leaf cover of original charts7through30")
+    n.add("nPALStableCharts",31,"31",proof,compsources+extra_sources+whole31sources+[hmp],"first30 plus independently covered wholechart31, exact prior-endpoint inclusion and all existing physical-stability-boundary lemma hypotheses")
     n.add("xPALMarchComplement","497679/500000","0.995358",proof,compsources,"strict upper bound across48 independently proved complementary leaves covering charts7through30")
     lp=c.ROOT/"docs/reviews/tiny-lm-ordering-independent.json";lr=load(lp);lroot=Path(lr["root"]);bound_inventory(lroot/"manifest.json",lr["inventories"][0]["manifest"]["sha256"])
     lo=load(lroot/"run/result.json");assert lo==lr["outcome"]and lo["passed"]and lo["native_calls"]==0 and lo["rows"]==16 and lo["retained_hvp_checked"]==160

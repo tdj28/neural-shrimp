@@ -27,13 +27,13 @@ connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
 same organizer. One hundred and one positive-angle 705-dimensional charts, with
 independent full-coordinate joins, extend the connected unit-pair branch
-beyond a proved interior hidden-rate minimum and critical-pair angle maximum. The first 30 charts have
+beyond a proved interior hidden-rate minimum and critical-pair angle maximum. The first 31 charts have
 independently proved complementary stability and, by the full shooting rank
 argument, a regular attracting side and a continuous nearby attracting family.
-The entire first quarter of chart 31 also has an independently proved
-11-mode bound below 0.878041 on an exact 17-cell cover. All 101 charts and exact full705 membership
+The entire chart 31 now has an independently proved
+11-mode bound below 0.980311 on an exact 31-cell cover joined to chart30. All 101 charts and exact full705 membership
 now independently connect the branch to the same certified complex-unit/flip junction.
-A separate independently verified470-dimensional tube proves a finite joined flip locus.
+Two independently verified470-dimensional tubes prove a finite joined flip locus.
 Later complementary stability and extension of the flip boundary remain active. On the entire original
 finite arc, independent 480-bit arithmetic proves all eleven complementary
 multiplier moduli below 0.843 using a common Lyapunov metric. Their receipts

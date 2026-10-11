@@ -16134,3 +16134,11 @@ window topology is inferred. Two mapping controls passed0.08s. Initial metadata
 assumption treated original_whole as root authority, but it is the historical
 polynomial context; explicit context-manifest/input binding now traces its exact
 independent root/C-family identity before passing. No numerical gate changed.
+
+### 2026-10-11T10:14:20.791618+00:00 — Wholechart31 physical boundary applicability independently checked
+
+Root read original archived actual_geometry and weighted inverse proof, reconstructed hash-bound hypothesis map exactly, and checked existing C3 kernel-dimension/compact-flow argument. All705 strictroot, 0<t<=1/4, allproperdivisor/modeframe gates, nonsingularfullJ and entire31cell11-mode cover match. Thus physical regularboundary and adjacent connectedattracting-family claim extends30to31charts, with no new derivative sign or collarwidth claim. Paper updated accordingly, plus independently advancing470interval and LM/CIFAR negative development comparisons. Full numbergeneration/compile/visualQA next.
+
+### 2026-10-11T10:16:23.844445+00:00 — Updated paper source passed accuracy and compile checks
+
+Boundary independently reviewed abstract, fullchart31/lemma application, advancing470 and LMmean/CIFARsame-start paragraphs with no substantive issues.507quantities source-bound and verified; previous498entries unchanged except31stablechartcount and now-completed-quarter scope text;9newquantities.154wordabstract; latexmk clean53pages, zero warning/overfull/underfull. VisualQA and finalexport remain before replacing currentPDF.
