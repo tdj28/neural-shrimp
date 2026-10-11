@@ -13830,3 +13830,7 @@ charts, b0→1/2048, only disclosed mathematical-bound step halving; unchanged
 full26 root/identity/native primitive6/+1/complement/curvature gates. Then
 fixed-gain fold16 root and exact tube/literal native association. Preserve
 all partials/failures; no cap, equation or geometry changes during this unit.
+
+### 2026-10-10 23:18 PDT — bounded amplitude-fold001 retained negative
+
+Fresh full12/26 profile passed58.65s/142.46MB forecast. All five allowed first-chart halfwidths2^-13 through2^-17 failed the internal predictor-domain paired H_U inverse norm bound; zero tubes accepted, no endpoint or target native context acquired.5.2523s/55340KiB,24family attempts/135inclusive native phases including incomplete first AD passes, all214events retained. Complete immutable source/inventories and owned launcher2353221/worker2353362 absence verified. Receipt clark-amplitude-fold-attempt001.json, execution8c610570;49rawroots. This is an unresolved interval enclosure, not evidence against the fold. Next saved-only reconstruction of H_U/C/defect distinguishes coordinate scaling from interval width before a costed method amendment. No changed target/caps or further acquisition.
