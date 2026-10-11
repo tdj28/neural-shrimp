@@ -12815,3 +12815,5 @@ false warnings; persistence/loss miss it with0 false warnings. No unique drift
 success. Preserve this negative incremental-utility result; do not tune the
 threshold or relabel correlated prefixes as independent cases. Root owns a
 separate saved arithmetic review next. No benefit/generalization claim is made.
+
+2026-10-11 UTC — Prepare fixed independent saved32-prefix LM horizon audit. All104 retained native actions, causal prediction seals, two-amplitude qualifications,128 horizon rows and six confusion tables are mandatory. Zero native calls;60s/1GiB RSS/4MiB worker,75+5s owned launcher. No target opened by the audit until committed code/card and independent review.
