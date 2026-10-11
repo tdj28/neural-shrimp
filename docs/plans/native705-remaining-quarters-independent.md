@@ -31,3 +31,5 @@ arrays; forecast includes16x actual complete four-cell secondquarter time,
 Every partial prefix/failure is retained and final termination verified. No paid,
 GPU, holdout or new native acquisition. Fixed single attempt after actual metadata
 preflight, source/math review, committed card/private push and host admission.
+
+Root reviewed all domain/center/genealogy mappings; Clark independently reviewed unchanged-reducer adapter and reproduced5controls1.16s plus full actual metadata4.414s. Root5controls0.96s and metadata3.787s. Admit one saved replay after exact source checkpoint.
