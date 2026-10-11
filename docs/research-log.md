@@ -13595,3 +13595,19 @@ reproduced9controls2.45s. Corrected plan-only aggregate typo3074→3075MiB to
 match launcher; science/resources unchanged. Proceed sole continuation001 after
 fresh availability, exact source admission, current gradient replay, actual
 FD/symmetry and measured full-operation cost gates. No prior-state HVP reuse.
+
+### 2026-10-11 UTC — bounded CIFAR steps complete; reusable complement march preparation
+
+Stationary continuation59764281 completed4/4 actual-merit steps, allalpha1/8,
+32.96s/1030HVP/23gradient. Relative gradient.00027696→.000258153; originaltrust
+distance.0218849<.05, but stationarity remains false and no mode was acquired.
+All2130files/1.67GB immutable and owned PIDs absent; compact receipt retained.
+Do not add iterations automatically; saved state/action evidence can support
+later conditioning diagnosis. Main priority returns to complementary coverage.
+
+Prepared exact per-chart dyadic partition/coverage helper and fixed24-chart
+metadata index. Same successful fresh-J and full-mode method; no bespoke source
+per chart, no old-J action transfer, no gauge interpolation. Proposed bounded
+adaptive packet stops incomplete/domain/source failures and only splits a
+complete negative complementary enclosure. Source/worker/profile/card review
+still required; no acquisition performed by this preparation.
