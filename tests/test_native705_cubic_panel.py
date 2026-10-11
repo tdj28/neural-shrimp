@@ -31,6 +31,8 @@ def test_launcher_uses_own_prepared_card_before_output(monkeypatch,tmp_path):
  with pytest.raises(AssertionError):L.card_check(bad)
  monkeypatch.setattr(L.subprocess,'check_output',lambda *a,**k:b'')
  monkeypatch.setattr(L,'OUT',tmp_path/'unopened')
+ prepared=copy.deepcopy(c);prepared['status']='prepared'
+ monkeypatch.setattr(L.json,'loads',lambda *_:prepared)
  with pytest.raises(AssertionError,match='reviewed cubic33'):L.main()
  assert not L.OUT.exists()
 
