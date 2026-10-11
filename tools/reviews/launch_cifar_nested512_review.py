@@ -26,7 +26,7 @@ def main():
     assert not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     available=int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')));assert available>10*1024**2
-    resource.setrlimit(resource.RLIMIT_AS,(514*1024**2,8*1024**3))
+    resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,8*1024**3))
     OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0;parent_peak=0
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();command=[sys.executable,str(ROOT/'tools/reviews/review_cifar_nested512.py')]
     meta={'source_commit':source,'launcher_pid':os.getpid(),'argv':command,'load':os.getloadavg(),'mem_available_kib':available,'started_unix':time.time(),'internal_seconds':300,'external_seconds':315,'kill_grace_seconds':5,'worker_rss_kib':4*1024**2,'worker_as_bytes':8*1024**3,'launcher_rss_kib':256*1024,'output_cap_bytes':10*1024**2,'threads':dict.fromkeys(THREADS,'1'),'nice':os.getpriority(os.PRIO_PROCESS,0)}
