@@ -1,39 +1,119 @@
 {
-  "status": "prepared",
-  "policy": {
-    "max_attempts": 24,
-    "initial_width": -3,
-    "minimum_width": -8,
-    "maximum_width": -1,
-    "strong_contraction": "1/5",
-    "strong_passes": 2,
-    "radius_exponent": -12,
-    "newton_steps": 2,
-    "precision": 256,
-    "period": 18,
-    "sigma": -1,
-    "hidden_stop": "76"
+  "independent": {
+    "all_owners_absent": true,
+    "endpoint": {
+      "bytes": 182468,
+      "sha256": "a975fff8a423b7da11e4373cb48ed38f1a084a92e67c8e2a865550c44b460e8b"
+    },
+    "inventories": [
+      {
+        "files": 75,
+        "manifest": {
+          "bytes": 12383,
+          "sha256": "58637576a7b03cb2e6736c1536574d2c2726d08c02de44b679d05561085dbc6d"
+        },
+        "root": "/data2/neural-shrimp-data/audits/signed470-correlated-independent/attempt001"
+      },
+      {
+        "files": 69,
+        "manifest": {
+          "bytes": 11260,
+          "sha256": "a17ece08a075925e8e3b651c590fa1f9fa7fa47e6f3f1d092b109fb063d3739e"
+        },
+        "root": "/data2/neural-shrimp-data/audits/signed470-correlated-independent/attempt001/run"
+      }
+    ],
+    "outcome": {
+      "anchor_coordinates": 470,
+      "contraction": {
+        "display": "[0.076489024153431204575 +/- 1.59e-23]",
+        "mid": [
+          4102200578391782998292753850303765870547046233962614231408045895226651270159409129298541704777292263603717113542612370248665550048107943649686230276803737,
+          -514
+        ],
+        "rad": [
+          0,
+          0
+        ]
+      },
+      "native_calls": 0,
+      "passed": true,
+      "peak_rss_kib": 700464,
+      "root_coordinates": 470,
+      "scope": "Independent saved512 fullE native Jacobian/path assembly and polynomial proof plus exact-gauge full470 known-root join. Shared native derivatives/Arb; no complement/genericity/global closure.",
+      "seconds": 51.93820469197817
+    },
+    "outer": {
+      "bytes": 12383,
+      "sha256": "58637576a7b03cb2e6736c1536574d2c2726d08c02de44b679d05561085dbc6d"
+    },
+    "parameter_endpoints": [
+      "-81/256",
+      "-17/256"
+    ],
+    "profile": {
+      "bytes": 83097210,
+      "forecast": {
+        "bytes": 382955046,
+        "rss_kib": 2588876,
+        "seconds": 167.0992790358141
+      },
+      "native_calls": 0,
+      "passed": true,
+      "seconds": 21.63743203599006,
+      "target_arrays_unopened": true
+    },
+    "proof": {
+      "bytes": 654488,
+      "sha256": "68e21fa7fc6e5c4c1240076566260be7427088de0b60ade0ebed0a75d893fc09"
+    },
+    "root": "/data2/neural-shrimp-data/audits/signed470-correlated-independent/attempt001",
+    "schema": "signed470-correlated-independent-v1",
+    "scope": "Independent512 full470 correlated signed root, exact full-state connection to the previous independently certified endpoint, and primitive18 throughout the tube. Native derivative acquisitions and Arb shared; no complementary stability or genericity inferred.",
+    "source": "7ff709c66d6a954af53949a8ab5f01eab1d3e175",
+    "worker": {
+      "bytes": 11260,
+      "sha256": "a17ece08a075925e8e3b651c590fa1f9fa7fa47e6f3f1d092b109fb063d3739e"
+    }
   },
   "limits": {
-    "seconds": 6000,
-    "unit_seconds": 240,
-    "rss_bytes": 4294967296,
     "as_bytes": 8589934592,
-    "raw_bytes": 6442450944,
-    "unit_raw_bytes": 805306368,
     "native_calls": 3636,
-    "ticks": 3786
+    "raw_bytes": 6442450944,
+    "rss_bytes": 4294967296,
+    "seconds": 6000,
+    "ticks": 3786,
+    "unit_raw_bytes": 805306368,
+    "unit_seconds": 240
+  },
+  "policy": {
+    "hidden_stop": "76",
+    "initial_width": -3,
+    "max_attempts": 24,
+    "maximum_width": -1,
+    "minimum_width": -8,
+    "newton_steps": 2,
+    "period": 18,
+    "precision": 256,
+    "radius_exponent": -12,
+    "sigma": -1,
+    "strong_contraction": "1/5",
+    "strong_passes": 2
   },
   "producer": {
-    "root": "/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/signed-flip-correlated001/attempt003",
-    "source": "b3f10db84a792bd9b92606af06b1615203fb44ec",
-    "outer": {
-      "bytes": 197020,
-      "sha256": "e5e2026f7bab9f9098134c42d69e437ccef2ff6c5215efacc914190816f74ed1"
-    },
-    "worker": {
-      "bytes": 191496,
-      "sha256": "0826e622b84c0a4eedc710e1e3a3aec2b92dd98c1b517ee85e846bc03f58f933"
+    "files": {
+      "input-binding.json": {
+        "bytes": 295857,
+        "sha256": "05ca8326909465c58be97f580d6708df5fbbdad5097e60bd777799b7443b20f2"
+      },
+      "target-certificate.json.gz": {
+        "bytes": 18261969,
+        "sha256": "5476a49bad85335e822ffef02800b8dff135edfd00189c6b189f74f8378ca642"
+      },
+      "target-inputs.json": {
+        "bytes": 366409,
+        "sha256": "e43b33ae6831a37e32ffc6812478f41f754d86cd4cdb0d785d77960e8758c5fe"
+      }
     },
     "outcome": {
       "anchor_inclusions": 470,
@@ -119,6 +199,10 @@
       "target_acquired": true,
       "ticks": 336
     },
+    "outer": {
+      "bytes": 197020,
+      "sha256": "e5e2026f7bab9f9098134c42d69e437ccef2ff6c5215efacc914190816f74ed1"
+    },
     "profile": {
       "chart_seconds": 9.266277485061437,
       "forecast_bytes": 52731932,
@@ -173,103 +257,25 @@
         ]
       }
     },
+    "root": "/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/signed-flip-correlated001/attempt003",
+    "source": "b3f10db84a792bd9b92606af06b1615203fb44ec",
     "validation": {
-      "full_inventories": true,
       "archived_committed_source": true,
-      "owned_processes_absent": true,
+      "full_inventories": true,
       "immutable": true,
-      "native_input_returns": 324
+      "native_input_returns": 324,
+      "owned_processes_absent": true
     },
-    "files": {
-      "input-binding.json": {
-        "bytes": 295857,
-        "sha256": "05ca8326909465c58be97f580d6708df5fbbdad5097e60bd777799b7443b20f2"
-      },
-      "target-inputs.json": {
-        "bytes": 366409,
-        "sha256": "e43b33ae6831a37e32ffc6812478f41f754d86cd4cdb0d785d77960e8758c5fe"
-      },
-      "target-certificate.json.gz": {
-        "bytes": 18261969,
-        "sha256": "5476a49bad85335e822ffef02800b8dff135edfd00189c6b189f74f8378ca642"
-      }
+    "worker": {
+      "bytes": 191496,
+      "sha256": "0826e622b84c0a4eedc710e1e3a3aec2b92dd98c1b517ee85e846bc03f58f933"
     }
   },
-  "independent": {
-    "all_owners_absent": true,
-    "endpoint": {
-      "bytes": 182468,
-      "sha256": "a975fff8a423b7da11e4373cb48ed38f1a084a92e67c8e2a865550c44b460e8b"
-    },
-    "inventories": [
-      {
-        "files": 75,
-        "manifest": {
-          "bytes": 12383,
-          "sha256": "58637576a7b03cb2e6736c1536574d2c2726d08c02de44b679d05561085dbc6d"
-        },
-        "root": "/data2/neural-shrimp-data/audits/signed470-correlated-independent/attempt001"
-      },
-      {
-        "files": 69,
-        "manifest": {
-          "bytes": 11260,
-          "sha256": "a17ece08a075925e8e3b651c590fa1f9fa7fa47e6f3f1d092b109fb063d3739e"
-        },
-        "root": "/data2/neural-shrimp-data/audits/signed470-correlated-independent/attempt001/run"
-      }
-    ],
-    "outcome": {
-      "anchor_coordinates": 470,
-      "contraction": {
-        "display": "[0.076489024153431204575 +/- 1.59e-23]",
-        "mid": [
-          4102200578391782998292753850303765870547046233962614231408045895226651270159409129298541704777292263603717113542612370248665550048107943649686230276803737,
-          -514
-        ],
-        "rad": [
-          0,
-          0
-        ]
-      },
-      "native_calls": 0,
-      "passed": true,
-      "peak_rss_kib": 700464,
-      "root_coordinates": 470,
-      "scope": "Independent saved512 fullE native Jacobian/path assembly and polynomial proof plus exact-gauge full470 known-root join. Shared native derivatives/Arb; no complement/genericity/global closure.",
-      "seconds": 51.93820469197817
-    },
-    "outer": {
-      "bytes": 12383,
-      "sha256": "58637576a7b03cb2e6736c1536574d2c2726d08c02de44b679d05561085dbc6d"
-    },
-    "parameter_endpoints": [
-      "-81/256",
-      "-17/256"
-    ],
-    "profile": {
-      "bytes": 83097210,
-      "forecast": {
-        "bytes": 382955046,
-        "rss_kib": 2588876,
-        "seconds": 167.0992790358141
-      },
-      "native_calls": 0,
-      "passed": true,
-      "seconds": 21.63743203599006,
-      "target_arrays_unopened": true
-    },
-    "proof": {
-      "bytes": 654488,
-      "sha256": "68e21fa7fc6e5c4c1240076566260be7427088de0b60ade0ebed0a75d893fc09"
-    },
-    "root": "/data2/neural-shrimp-data/audits/signed470-correlated-independent/attempt001",
-    "schema": "signed470-correlated-independent-v1",
-    "scope": "Independent512 full470 correlated signed root, exact full-state connection to the previous independently certified endpoint, and primitive18 throughout the tube. Native derivative acquisitions and Arb shared; no complementary stability or genericity inferred.",
-    "source": "7ff709c66d6a954af53949a8ab5f01eab1d3e175",
-    "worker": {
-      "bytes": 11260,
-      "sha256": "a17ece08a075925e8e3b651c590fa1f9fa7fa47e6f3f1d092b109fb063d3739e"
-    }
-  }
+  "review": {
+    "controls": "9 controls passed in2.84s; actual completed payload and metadata; no new target",
+    "reviewer": "independent stability agent",
+    "scope": "Full adaptive wrapper/policy/source/binding/resource review; all original kernel gates unchanged",
+    "source": "e2d6e24d8eaad0bbd75bfd566712e1deda0b13de"
+  },
+  "status": "reviewed"
 }
