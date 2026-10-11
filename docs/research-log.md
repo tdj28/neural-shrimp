@@ -15708,6 +15708,14 @@ negative11-mode metric. No new native work is admitted by this outcome.
 
 All18 final full705 root and primitive/frame/rate proofs passed with exact ordered705-coordinate joins from the preceding83-chart branch. Strict membership of the independently lifted known unit-pair/simple-flip junction passed in all705 coordinates. Therefore the generic1:1 organizer and this second organizer lie on the same exact connected complex-unit-pair branch: initial704 arc plus101 positive705 charts. Runtime 1283.484s, peak1023852KiB, zero native calls. Both failed producer attempts retained, full source/inventories verified and exact owners gone. This closes the global identity of this critical branch; later transverse-stability coverage and remaining boundary connections continue as explicit separate tasks.
 
-### 2026-10-11 09:59 UTC — Same-current CIFAR regularized caller prepared
+### 2026-10-11 — Same-current CIFAR regularized caller prepared
 
 Following saved nonlinear-remainder diagnosis, prepare one physically whitened minimum-norm correction in the exact original022 independently qualified512-dimensional action span. No operator transfer. Full unrelated98666×512 algebra profile must precede target arrays; fixed300s4GiB/12GiB-AS/128MiB worker and315+5s/130MiB outer. One actualHp and at most14 gradients; full native inputs and returns retained before post-call budget checks. Original trust/forcing/Armijo thresholds and same-start baseline comparison. Nine controls passed8.39s including all historical inventory preflight without target arrays, actual retained over-time native output, complete archive imports and inherited512MiB soft-AS startup. Pure proposal mathematics reviewed by root; complete caller awaiting independent review, card remains unlaunchable. Local CPU only, no protected holdout or paid run.
+
+### 2026-10-11T09:34:33.077756+00:00 — Connected101 reading PDF verified
+
+Source1352ed40 yields warning-free52page PDF with151wordabstract.498bound quantities verified; all489old values/evidence unchanged except chartcount40to101; eight new bound quantities. All52pages visually reviewed with1/21/22/46details and full-size connected figure;20other figure outputs unchanged. PDF SHA25a5e428e45689bb650cf5cc00154a892cd40f6b5caecd93d8c338469a763619, immutable QAmanifest89effbefb8f3d06bbdcfb901ad2d6b0be23725db1d38cf86327feda3b9b86d20. Exact connected critical branch and nativeRNNfold earned; later complement and other boundaries continue. Full historical scientific verify.py not rerun.
+
+### 2026-10-11T09:35:04.368506+00:00 — Same-current CIFAR regularized caller admitted
+
+Boundary independently reviewed full03edc356 source and reran all9controls9.37s including real historical binding and isolated startup. Admit the unchanged single300s/4GiB/128MiB unit; full-size profile remains mandatory before target arrays, no retries. Author-date of03edc356 is the preparation time; removed an accidentally future clock label in its draft log heading. No scientific timestamps/evidence changed.
