@@ -6603,3 +6603,13 @@ pass (eight with saved inverse-diagnosis controls,0.19s), including nonnormal
 complex modes, angular variation, actual state motion and corrupt identities.
 Helper-only source; exact same-root binding and bounded wrapper remain next.
 The direction (-1,11/20000) is explicitly selected after producer gradients.
+
+### 2026-10-10 23:29 PDT — Saved amplitude inverse diagnosis admitted
+
+Stability0fe681a3 source/math/resource PASS,3controls0.13s; no target arithmetic.
+Host49GiB available, load5.04/4.75/4.04, GPUidle15947MiBfree,2.7TiB disk and
+no owned duplicate. Run sole audits/clark-amplitude-inverse/attempt001 with
+CPU1nice10,384bits30s512MiB2GiBAS4MiB and45+5 owned6MiB. Reconstruct all five
+exact retained failed first-pass Jacobians, reproduce infinity-bound failure,
+then inspect interval weighted bounds from finite float proposals. No native
+calls, missing-pass inference, root or branch claim. Preserve failed outcome.
