@@ -17188,3 +17188,12 @@ saved-only audit archives reducers while its input binding authenticates native
 producer hashes. Both corrected with explicit original-source checks. All
 three controls now pass22.26s, including real original-domain and no-native
 association plus isolated archive closure. Card prepared, no new acquisition.
+
+11 October2026 — admit weighted output-gauge002 from source d527ccfe after
+Stability independent source/math/binding/resource PASS, all3 controls23.88s.
+Actual independent/refined root original-domain identity and isolated source
+closure passed with new native calls forbidden. Fresh51GiB availability, load3.51,
+GPU0%/15947MiB free; no owned weighted chart process. One fixed324-phase/336tick
+240s4GiB768MiB run, fresh full measured profile before target. All prior failures
+and saved scaling diagnosis retained, no automatic retry.
+Run: nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_native470_output_weighted.py
