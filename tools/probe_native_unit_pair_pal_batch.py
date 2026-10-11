@@ -81,7 +81,7 @@ def seed(parent,unit):
 def uniform_admission(proof,positive):
  require(proof['shooting_dimension']==705 and proof['dimension']==13 and proof['period']==18,'complete native705 proof')
  expected={'uniform_full_native_unit_pair_locus':True,'primitive_period':True,'realified_frame_independent':True,'anchor_identified':False}
- return bool(proof['gates']==expected and all(proof['coordinate_inclusions'])and positive)
+ return bool(proof['gates']==expected and len(proof['coordinate_inclusions'])==705 and all(proof['coordinate_inclusions'])and positive)
 
 def ordered_join(previous,current):
  # Exact parameter can replace projection only for byte-identical fixed gauge.
