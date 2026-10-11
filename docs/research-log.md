@@ -15963,3 +15963,18 @@ initially selected remainder_penalty at the wrong dictionary level; corrected to
 its actual nested metric field before any receipt was written. No proof arithmetic
 or native data changed. A saved-only adapter using unchanged separately authored
 independent reducers is being prepared for root review/execution.
+### 2026-10-11 — source-only saved common-subspace LM design
+
+The failed mean-power test cannot isolate ordering because commuting varying
+operators already differ from powers of their mean. Root authorized a separate
+saved-only common-subspace design using all16 same-direction action columns per
+time, no new native calls. Fixed normalized SVD/rank/condition/action/symmetry/
+leakage and1% full ordered+mean fidelity gates precede interpretation. Fixed
+consecutive eigenvector matching and near-degeneracy exclusion precede a
+spectrum-preserving commuting control. Its changed mean is a third explicit
+vector term, not silently attributed to ordering. All abstentions retained.
+Eight unrelated synthetic controls pass0.38s, including commuting variation,
+rotating bases, leakage/action failures, crossings/ambiguous matching and rank/
+fidelity rejection. Helper/plan only; complete immutable binding, independent
+mean-audit receipt and measured full-size profile remain future wrapper gates.
+No target arrays read for this design and no new target admitted.
