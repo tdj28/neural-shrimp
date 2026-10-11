@@ -8275,3 +8275,9 @@ Prepare saved-only finalchart conditioning plus whole retained scout/section gau
 ###2026-10-10 — peer-cleared fixed saved forward diagnosis card
 
 Clark passed0f91940a source/binding skim and7 controls1.44s, including the added full705 successful-root zero-defect regression. Execute only pal/batch001-diagnosis at this source: exactbatch001 lastchart004 and historical20+33 native scout/section, allsource/map/manifest/reverse-prefix binding; no model calls.60s/4GiB/8GiBAS/16MiB and75+5owned,10GiB currentavailability. Existing4.113s/1.17GiB representative saved705 diagnosis supplies forecast headroom. Output remains numerical conditioning and geometry proposals; any wider/reparameterized proof requires its own freshdomain/card.
+
+###2026-10-10 — actual PAL gauge turn and fixed wider-step proposal
+
+Saved diagnosis78d246c2 passed7.790s/1227068KiB/zero native. Lastchart004 numerical Collatz.4677716413 and resolvent/actualradius ratio.002402–.003706 show small forcing relative to current box. Entire53 retained numerical vectors demonstrate originalPAL gauge reversal near oldpoint16; duplicate19/20 sharedpoint also appears in raw proposal list and is not another interaction. Currentfixedgauge must be changed before that turn to reach local55junction. Receipt native705-forward-diagnosis.json.
+
+Prepare one bounded4worker batch002 with doubledhalfwidth1/64,3/4 priorlastchartweights, samefullkernel/source/cardgates, independentlyproposed centers383/511/639/767 over4096. Full fresh proof decides contraction and strictall705 join acceptance. Laterfailures/unjoinedroots retained; independentbatch001 audit owned byroot. No automatic laterbatch.
