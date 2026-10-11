@@ -15551,3 +15551,17 @@ Root reviewed bee2b333/225cdd7f full51 MixedJet assembly, exact original seriali
 ### 2026-10-11T09:10:22.101109+00:00 — Exact RNN organizer-to-generic-fold connection independently passes
 
 Two new full51 critical tubes join the independently proved six-tube prefix, covering squared amplitude0through1/2048. The original selected fixed gain4.0756 endpoint has all51 strict Krawczyk inclusions in its exact original box and full51 membership in newtube1. Separate25D H_U inverse and total curvature excludezero: leak_bb approximately−.0158591380041 and leak_aa−2.35154327604e−5. All12 new native contexts qualify primitive6/+1/elevenstable complements; full6phase and normalized mode association with original numerical fold passes. Independent512saved replay3.881s/124712KiB/0native, full immutable sources/owners verified. This establishes organizer→generic native6 activity fold, with arbitrary-state12/24 daughters and full window still separate.
+
+### 2026-10-11 — saved current512 nonlinearity diagnostic source and card
+
+Root independently reviewed the complete six-file /tmp packet and reproduced
+seven controls PASS0.17s; original preparation seven PASS0.35s. The actual
+metadata-only binder passed4.102s with all523 native events and seven original
+trial rows, without reading scientific vectors. Admit one saved-only CPU1nice10
+unit after this source checkpoint and current host admission:60s1GiB RSS3GiB AS,
+8MiB raw including2MiB finalization reserve, owned75+5s/10MiB aggregate.
+Full98666-dimensional synthetic profile remains mandatory before target arrays.
+Independent fsum arithmetic decomposes actual gradient-merit changes into linear,
+cross and squared-remainder terms and preserves all3 trust skips/4 observed
+trial gradients. This does not authorize a new native call, correction or a
+transfer of current022 Hessian actions to the accepted final state.
