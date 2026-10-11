@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 from neural_shrimp.cifar_phase_scaling import transform,scales,diagonal,dot
-OUT=Path('/data2/neural-shrimp-data/explore/cifar/phase-scaling/diagnostic001/run')
+OUT=Path('/data2/neural-shrimp-data/explore/cifar/phase-scaling/diagnostic002/run')
 SPECS=[('attempt-001','657eb4b4de1811ff23785125e170f522eee083d244626753f3129c4dcb3e2d32','920b829a459459903b9d45491243c008fa1a1c6178c00ee435736850a29b3f73','aad92e8a21f6c8f62d2397f7ec276ef8d3e20145',400),('attempt-002','6cbaa8aa34330a870c5cb135787325e7601a75c6fd91d8c663900a744e3ec661','2997623cd378c4726a6e710f6d0ef3a8146893cb9690833e3235170fc4f9c0fe','1e8d9abf07381e9bce200fe4ac77d7c29743abb1',1600)]
 FILES=['src/neural_shrimp/cifar_phase_scaling.py','tools/diagnose_cifar_phase_scaling.py','tools/launch_cifar_phase_diagnostic.py','tests/test_cifar_phase_scaling.py','tests/test_cifar_phase_diagnostic.py','docs/plans/cifar-phase-scaling.md']
 
@@ -28,8 +28,13 @@ def summary(z,az,r,eta,lam):
     need(z.shape==az.shape==(2*len(r),)and all(np.isfinite(v).all()for v in [z,az,r]),'complete finite two-phase arrays');w,scale=scales(eta,lam);rhs=np.r_[np.zeros(len(r)),-r];err=az-rhs
     return dict(scaling=scale,direction=parts(z),action=parts(az),rhs=parts(rhs),residual=parts(err),physical_shooting_relative_residual=norm(err)/norm(rhs),scaled_saved_residual=norm(diagonal(transform(err),w))/norm(diagonal(transform(rhs),w)),scope='Saved direction at its original state only. Phase residual decomposition, not separate R-I/S/R+I blocks, preconditioned convergence or new-state operator action.')
 
+def preflight():
+    resource.setrlimit(resource.RLIMIT_AS,(1024**3,)*2)
+    need(not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
+
 def main():
-    need(os.getpriority(os.PRIO_PROCESS,0)>=10 and not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed nice10');resource.setrlimit(resource.RLIMIT_AS,(1024**3,)*2);OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;result=dict(passed=False,native_calls=0,rows=[])
+    preflight()
+    need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;result=dict(passed=False,native_calls=0,rows=[])
     def stop(*_):raise TimeoutError('30s diagnostic deadline')
     signal.signal(signal.SIGALRM,stop);signal.signal(signal.SIGTERM,stop);signal.setitimer(signal.ITIMER_REAL,30)
     def tick():need(time.monotonic()-start<30 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<448*1024,'30s448MiB cap')
@@ -42,6 +47,8 @@ def main():
         source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();identities={n:entry(ROOT/n)for n in FILES};save('runtime.json',dict(source_commit=source,sources=identities,pid=os.getpid(),native_calls=0,python=sys.version,numpy=np.__version__))
         for n,v in identities.items():
             b=(ROOT/n).read_bytes();need(hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==v['sha256'],'exact committed source');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b);used+=len(b)
+        failed=Path('/data2/neural-shrimp-data/explore/cifar/phase-scaling/diagnostic001');result['preserved_failure']=verify(failed,'84a5704e960bdcf8363a88309d665633ccd8cd0bdab134713f51aad7b8424d37',tick);old=read(failed/'launcher-result.json');need(old['exit_code']==1 and old['source_commit']=='3da9a176c9c8339b5714c43ef9dd3e1b66a4667f'and not old['owned_live_pids']and not(failed/'run').exists(),'exact zero-array preflight failure retained')
+        for pid in (old['launcher_pid'],old['owned_group_pid']):need(not Path('/proc',str(pid)).exists(),'failed ownership terminated')
         # Full-size unrelated array profile precedes all target arrays.
         before=time.monotonic();x=np.linspace(-1,1,197332);trial=summary(x,x/2,np.linspace(-.1,.1,98666),.00827753,.01);seconds=time.monotonic()-before;forecast=8*seconds+15;save('profile.json',dict(seconds=seconds,forecast_seconds=forecast,target_arrays_unopened=True));need(forecast<30,'measured diagnostic gate');del x,trial
         base=Path('/data2/neural-shrimp-data/explore/cifar/symmetric-shooting');prior_state=None;identity=None
