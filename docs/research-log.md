@@ -13173,3 +13173,15 @@ per worker,24GiB aggregate,330s batch, fresh36GiB headroom. Retain all331-call
 outcomes; stop qualifying at first failed full705 root or known-root join.
 Would surprise: all four advance cleanly with comfortable margins despite the
 previous aggressive same-center failure. No target outcome seen for this card.
+### 2026-10-11 UTC — preparatory stationary/eigenpair CIFAR formulation
+
+Boundary independently source-reviewed c154a944 amplitude equations and all
+three controls PASS0.07s. Root agrees the energy and variable-rate scope.
+New `cifar_stationary.py` prepares a finite stationary anchor followed by a
+fresh positive Hessian eigenpair, avoiding the near-flip null direction of the
+fixed-rate two-step shooting equation. Exact native derivatives and stationarity
+remain untested. Four Newton units at most, max256 Hessian actions each,
+actual forcing<=0.5, thirteen Armijo trials and5% total movement cap are fixed;
+failed units stop. Eigenpair work occurs only after actual stationarity<=1e−10.
+Seven combined synthetic controls PASS0.27s. See
+`docs/plans/cifar-stationary-seed.md`. No target card or acquisition yet.
