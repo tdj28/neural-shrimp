@@ -13220,3 +13220,21 @@ all11 controls2.49s. One metadata-only clarity correction replaces the initial
 scope: no optimizer is run at a new rate. Native kernels, equations, selections,
 thresholds and caps are unchanged. Proceed the single fixed attempt001 after
 fresh host admission; any failed/incomplete attempt remains immutable.
+
+### 2026-10-11 UTC — stationary CIFAR001 completes negative at fixed forcing gate
+
+Execution ebc18b48 completed259HVP and7gradient calls in9.416s. Actual midpoint
+Hessian FD relative error2.32813e−7 and symmetry0 passed, and fresh measured
+forecast376.18s fit400s. However the first fixed256-action stationary MINRES
+solve had true forcing0.7651434546>0.5. The helper stopped before every nonlinear
+trial and before any eigenpair acquisition; current relative gradient remains
+0.0002866350. No accepted state, new optimizer rate or cycle is claimed. Full
+immutable inventories, actual owned process absence and bounded completion
+were checked; receipt `docs/reviews/cifar-stationary001.json` preserves all
+attempts and source. Do not expand this unit's iterations or trust radius.
+
+Root now prioritizes full complementary stability on the later25 already
+independently proved native705 charts and subsequent new correlated charts.
+Reuse reviewed moving-frame/correlated-tangent machinery with fresh actual
+source/domain and measured bounded cards. First5 charts and native704 are
+already independently covered and must not be duplicated. No new LM run.
