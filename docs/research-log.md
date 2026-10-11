@@ -7752,3 +7752,15 @@ preflight502.0903s,1,596,152,461B,598,056,960B peak forecast. No target arrays
 or native calls in that2.169s preflight. All15 helper/driver controls pass1.14s.
 Card remains prepared until full caller source review. Fixed600s2GiB RSS4GiB AS
 2GiB raw/615+5 owned; no outcome-dependent cap extension.
+
+### 2026-10-11 — Prepared independent fresh-curved512 saved replay
+
+Adapted Root's separately authored current512 arithmetic, retaining four exact
+pure-helper copies. New binding requires the independently fixed curved1/32
+endpoint, all514 fresh HVP/10gradient events at their literal states, no old
+basis transfer, all512 columns/CGS2/Gram/least-squares, actual FD/pairing/Hp and
+first Armijo point under the global original5% trust ball. Seven controls pass
+4.52s, including complete immutable source/history metadata with scientific
+array decoding forbidden. Zero target arithmetic/native calls. Card prepared
+pending independent source review;300s4GiB RSS8GiB AS8MiB, full98666x512 unrelated
+profile first, owned315+5. Source/RNN equations are unchanged by these new files.
