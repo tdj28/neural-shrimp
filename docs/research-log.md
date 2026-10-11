@@ -14493,3 +14493,14 @@ retained actual-cost floor remain unchanged. Complete24-root/8-fallback forecast
 5906.27s and6,684,982,520 bytes fits8400s/8GiB. New measured-reviewed card authorizes
 one maintained003 packet, starting from the accepted physical74.33182 endpoint
 at halfwidth1/8,strong1. Fresh host admission and owned launch follow this commit.
+
+## 2026-10-11 — Independent saved transformer ordering audit admission
+
+Stability supplied a separately implemented math.fsum audit of all16 directional
+reductions,8 reciprocal cases and160 literal reversed HVP recurrences. Root
+review repaired separate exact profile/target execution pins and normalized the
+two historical list manifests with duplicate rejection before execution.
+Six controls pass. CPU1/nice10,60s1GiB worker/75+5s owned launcher, no native
+calls, no new checkpoints or protected data. Fixed .5 material gate unchanged;
+retain every failure and complete committed source/owned termination receipts.
+See docs/plans/tiny-lm-ordering-independent.md for full measured admission.
