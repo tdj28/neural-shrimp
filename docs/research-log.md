@@ -9076,3 +9076,16 @@ This earns the producer global connection. Independent003/004/lift/event
 replay and later complementary stability remain separate; no complete shrimp
 claim. Next follow the same-root signed470 flip branch toward the existing
 plus-one boundary, retaining actual geometry and all native joins.
+
+
+### 2026-10-11 — Prepared same-junction signed470 lift
+
+The complete705 continuation has reached the known local junction. Prepare one
+saved-only512-bit reduction to the same470 signed eigenpair state: literal
+native DF blocks from both held q/r passes, every original state/rate domain,
+normalized negative mode from the same independently proved55 root, and all18
+phases. No new derivatives or eigensolver. Source helper reviewed by Stability;
+complete fixed wrapper/cost/source review is still required before launch.
+Measured full13/18 synthetic block profile precedes saved target arrays;
+30s/2GiB/40MiB, owned45+5s/42MiB, no native calls. This supplies an exact anchor
+for finite flip continuation; no finite flip curve exists from this lift alone.
