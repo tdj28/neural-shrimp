@@ -7904,3 +7904,19 @@ All three preceding output/binding failures are retained. Complete immutable
 inventories, exact source, absent owned processes and17.93MB output verified;
 receipt clark-subset-endpoint-independent-attempt004.json. This is a local
 native6 connection and endpoint restriction, not full window organization.
+
+### 2026-10-11 — prepare fixed saved CIFAR ray-remainder diagnosis
+
+Root approved the five already consumed in-trust gradients and fixed fit/check
+split: fit1/16,1/32; checks1/8,1/64,1/128. Stability independently cleared the
+quadratic remainder helper (four controls0.24s). The complete caller binds the
+separately passed fresh512 audit and exact same-state g,p,Hp and all five
+actual trial states/gradients, then retains first-order and quadratic vector
+errors, actual-gradient-change normalization and complete merit cross terms.
+Eight helper/driver controls7.41s include actual metadata with scientific
+arrays forbidden, full-size synthetic target/state-corruption controls and
+isolated archive import under inherited address-space limits. An initial test
+expected AssertionError where the inherited guard raises ValueError; fixed
+before any target. Card remains prepared, not runnable until independent
+source review and committed admission. One zero-native60s1GiB32MiB attempt,
+full98666 synthetic profile before arrays; all abstentions remain outcomes.
