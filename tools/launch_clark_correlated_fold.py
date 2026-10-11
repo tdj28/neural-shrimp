@@ -2,7 +2,7 @@
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-bridge/attempt001')
+OUT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-bridge/attempt002')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 def entry(p):
     h=hashlib.sha256()

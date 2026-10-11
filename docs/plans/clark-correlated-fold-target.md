@@ -41,3 +41,18 @@ and isolated archive import. Initial collection caught keyword spacing; then
 actual metadata exposed import-order expansion of PROFILE.FILES. Bind the
 literal complete isolated source inventory from the sealed profile instead.
 No mathematical source or target outcomes changed; no target launched.
+
+
+### 2026-10-11 fixed attempt002 after reciprocal enclosure repair
+
+Attempt001's complete nonfinite whole-d acquisition failure is a mandatory
+source/inventory/history input. Fresh profile002 binds the reciprocal-first
+helper and exact isolated source/runtime inventory; all category extrema and
+same180s/508MiB pre-finalization gates are recomputed. Same original exact
+geometry, eight-attempt limits, native qualifications, fullE and curved joins.
+Only fresh002 paths/history/profile identity change in the caller. No target
+launch until independent narrow review and current admission/card.
+
+Fresh002 measured forecast157.991745975s/455330008bytes passes unchanged
+180s/508MiB gates;16 combined controls pass1.33s, including actual complete
+profile/failure metadata and unchanged exact endpoint/native logic.
