@@ -12,9 +12,12 @@ ROOT=Path(__file__).resolve().parents[2]
 PARENT=Path('/data2/neural-shrimp-data/explore/clark-rnn/critical-organizer-bridge/attempt002')
 SOURCE='60d2cdb8b3575ed9034c090f07f121a2edc6ed74'
 PINS=['d26b3603f6df5db6b054347244e9293b2bb13b44cc3cf055844b4223df5cb617','5c173ff6dab3aac842bea80cdd05f254d79231eb8b28a4370b3b2d4ff26011ec']
-OUT=Path('/data2/neural-shrimp-data/audits/clark-critical-bridge-independent/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/clark-critical-bridge-independent/attempt002/run')
+FAILED=OUT.parents[1]/'attempt001'
+FAILED_SOURCE='0703853eed8ddf3494bc5472c4ba974e689f41d6'
+FAILED_PINS=['553131f2751d2944f337f24a0fe684eb471d8f7eefa0287360c3b1e5b1265a0b', '24f47896b5c744d5a7780c19cf2bff5036c315409000019c9f019130af170d16']
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
-FILES=['tools/reviews/review_clark_bridge.py','tools/reviews/review_clark_bridge_math.py','tools/reviews/review_clark_organizer_math.py','tools/launch_clark_bridge_review.py','tests/test_clark_bridge_review.py','tests/test_clark_bridge_review_driver.py','docs/plans/clark-critical-bridge-independent.md','docs/reviews/clark-critical-bridge-outcome.json']
+FILES=['tools/reviews/review_clark_bridge.py','tools/reviews/review_clark_bridge_math.py','tools/reviews/review_clark_organizer_math.py','tools/launch_clark_bridge_review.py','tests/test_clark_bridge_review.py','tests/test_clark_bridge_review_driver.py','docs/plans/clark-critical-bridge-independent.md','docs/reviews/clark-critical-bridge-outcome.json','docs/reviews/clark-critical-bridge-independent-attempt001.json']
 EXPECTED={'native_polynomial':36,'native_context_phase':12,'family_attempt':12,'native_transport_phase':12,'critical_family_return':12,'center_newton_proposal':2,'validated_inverse':2,'native_context_result':2,'critical_tube_return':2,'native_transport_return':2,'newton_proposal':2,'root_enclosure':1}
 def read(p):return json.loads(p.read_bytes())
 def entry(p):return dict(bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest())
@@ -36,8 +39,8 @@ class Work:
 def inventory(root,pin,w):
  need(entry(root/'manifest.json')['sha256']==pin,'literal immutable inventory');files=read(root/'manifest.json')['files'];actual={str(p.relative_to(root)):p for p in root.rglob('*')if p.is_file()and p!=root/'manifest.json'};need(set(files)==set(actual),'complete original inventory')
  for n,p in actual.items():need(not p.is_symlink()and not p.stat().st_mode&0o222 and entry(p)==files[n],'actual immutable bytes '+n);w.tick()
-def archive(root,source,w):
- rt=read(root/'run/runtime.json');la=read(root/'launcher-result.json');need(rt['source_commit']==la['source_commit']==source and la['exit_code']==0 and not la['owned_live_pids'],'complete literal successful source')
+def archive(root,source,w,exit_code=0):
+ rt=read(root/'run/runtime.json');la=read(root/'launcher-result.json');need(rt['source_commit']==la['source_commit']==source and la['exit_code']==exit_code and not la['owned_live_pids'],'complete literal source and expected exit')
  for pid in [rt['pid'],la['launcher_pid'],la['owned_group_pid']]:need(not Path('/proc',str(pid)).exists(),'old owned PID absent')
  actual={str(p.relative_to(root/'run/source')):p for p in(root/'run/source').rglob('*')if p.is_file()};need(set(actual)==set(rt['sources']),'complete source archive')
  for n,pin in rt['sources'].items():need(entry(actual[n])==pin and hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==pin['sha256'],'historical source '+n);w.tick()
@@ -47,7 +50,19 @@ def family_record(run,start,end):
  a=read(run/f'events/{start:03d}-family_attempt.json');z=read(run/f'events/{end:03d}-critical_family_return.json');need(z['input']==a['input']and z['parameter']==a['parameter'],'literal acquisition input/return pairing')
  names=[run/f'events/{k:03d}-native_polynomial.json'for k in range(start+1,end)];need(end-start==4 and all(p.is_file()for p in names),'all three native signed phases');return z
 
+def parameter_coverage(t,first,second):
+ need(first==second,'same actual parameter acquisition')
+ s=M.decode(t['parameter_center']);h=M.decode(t['halfwidth'])
+ need(s.is_exact()and s.is_finite()and h.is_exact()and h==arb((1,-11)),'fixed exact gain interval')
+ # Different outward expression radii are allowed only with exact closed-set coverage.
+ for raw in [first,t['predictor_box'][-1]]:
+  need(B.covered(raw,s-h)and B.covered(raw,s+h),'actual full closed gain range coverage')
+
 def bind(w):
+ for r,pin in zip([FAILED,FAILED/'run'],FAILED_PINS):inventory(r,pin,w)
+ archive(FAILED,FAILED_SOURCE,w,2);failed=read(FAILED/'run/outcome.json')
+ need(not failed['passed']and failed['error']=='ValueError: same entire actual gain domain'and failed['native_calls']==6 and failed['events']==8 and failed['shared_augmented_calls']==0,'exact retained binding-only audit failure')
+ w.save('retained-failure.json',dict(root=str(FAILED),source=FAILED_SOURCE,outer=FAILED_PINS[0],worker=FAILED_PINS[1],outcome=failed))
  for r,pin in zip([PARENT,PARENT/'run'],PINS):inventory(r,pin,w)
  rt=archive(PARENT,SOURCE,w);run=PARENT/'run';out=read(run/'outcome.json');need(out['passed']and out['calls']==dict(context=2,events=97,family=12,native_phase_returns=60,transport=2),'complete original inclusive scientific inventory')
  events=sorted((run/'events').iterdir());need(len(events)==97 and [int(p.name[:3])for p in events]==list(range(1,98))and Counter(p.stem.split('-',1)[1]for p in events)==EXPECTED,'exact all97 acquisition events')
@@ -56,7 +71,7 @@ def bind(w):
  for start,end,key,mat in [(44,48,'center','center_jacobian'),(49,53,'predictor_box','predictor_jacobian'),(54,58,'whole_box','whole_jacobian')]:
   a=family_record(run,start,end);need(a['input']==t[key]and a['jacobian']==t[mat],'actual family proof domain/value binding')
   if key=='center':need(a['value']==t['center_value']and a['parameter']==t['parameter_center'],'exact tube center residual/gain')
- need(family_record(run,49,53)['parameter']==family_record(run,54,58)['parameter']==t['predictor_box'][-1],'same entire actual gain domain')
+ parameter_coverage(t,family_record(run,49,53)['parameter'],family_record(run,54,58)['parameter'])
  for start,end,key in [(80,84,'center'),(85,89,'box')]:
   a=family_record(run,start,end);need(a['parameter']==ep['center'][-1],'same exact fixed endpoint gain');need(a['input']==ep[key]and a['value']==ep['center_value'if key=='center'else'whole_value'],'exact endpoint value/root domain')
   if key=='box':need(a['jacobian']==ep['whole_jacobian'],'exact endpoint wholeJ')

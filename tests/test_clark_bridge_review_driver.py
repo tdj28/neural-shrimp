@@ -22,3 +22,18 @@ def test_isolated_archive_and_actual_launcher(tmp_path):
  code="import sys;sys.path.insert(0,'tools/reviews');import review_clark_bridge as w;assert all((w.ROOT/n).is_file()for n in w.FILES)"
  subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,check=True,capture_output=True)
  s=(ROOT/'tools/launch_clark_bridge_review.py').read_text();assert str(W.OUT.parent)in s and "'internal_seconds':30,'external_seconds':45"in s and '(512*1024**2,3*1024**3)'in s
+
+
+def test_exact_gain_set_coverage_accepts_outward_expression_radii():
+ from flint import arb
+ with ctx.workprec(512):
+  s=arb(4);h=arb((1,-11))
+  parameter=W.serial(arb(s,arb((536870913,-40))))
+  predictor=W.serial(arb(s,arb((536870916,-40))))
+  t=dict(parameter_center=W.serial(s),halfwidth=W.serial(h),predictor_box=[predictor])
+  W.parameter_coverage(t,parameter,parameter)
+  too_small=W.serial(arb(s,h/2))
+  with pytest.raises(ValueError,match='closed gain range'):W.parameter_coverage(t,too_small,too_small)
+  with pytest.raises(ValueError,match='same actual parameter'):W.parameter_coverage(t,parameter,predictor)
+  t['predictor_box']=[too_small]
+  with pytest.raises(ValueError,match='closed gain range'):W.parameter_coverage(t,parameter,parameter)
