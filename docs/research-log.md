@@ -12855,3 +12855,12 @@ actual full correction domain; C1 is only a finite proposal. All704 native
 coordinates plusangle/gauge remain in strict Krawczyk and endpoint membership.
 Synthetic profile card fixes629ticks,240s/6GiB/768MiB andowned255+5 before any
 run; separate peer composition/wrapper review remains mandatory.
+
+### 11 October2026 UTC — peer-cleared correlated705 synthetic profile execution
+
+Stability independently cleared311c919b composition/profile and reproduced20
+controls0.88s. Execute only pal/correlated001/attempt001-profile: unchanged
+629ticks,240s6GiB/12GiBAS/768MiB and255+5s owned ceiling, CPU1nice10. Host
+51GiB available/load2.02, GPU0%15947MiB free; no duplicate ownworker. Other
+owned census work is unaffected. No target input read or proof run is authorized
+by this profile; actual forecast/manifest and separately reviewed card follow.
