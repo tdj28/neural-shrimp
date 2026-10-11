@@ -9307,3 +9307,7 @@ Source8bceb04d completed32 numerical points/31 full470 reverse joins,187 evaluat
 ### 2026-10-11 — correlated signed470 mathematical preparation cleared
 
 The independently checked advancing chart has constant-preconditioner contraction below.545203 at halfwidth1/32. Prepare the same full-error affine-inverse method already used for the connected705 curve, now retaining every signed470 coordinate. Clark cleared fullE gradient/path and composition; Root independently cleared composition and finite refresh. Eight focused controls pass16.79s, including independent nonlinear all-entry/order derivative comparisons and completed nonfinite-return retention. No target profile or proof was acquired. A separately reviewed full-size measured caller must bind the exact independent left endpoint and all source/domain/cap premises before continuation.
+
+### 2026-10-11 — fixed wider correlated470 caller prepared
+
+Prepared one fresh fullE affine-inverse chart[-81/256,−17/256] with unchanged signed native equations, exact independently proved right anchor, h1/8 and rho2^-12. All324 inclusive native calls and336 algebra/acquisition ticks are measured before target,240s4GiB768MiB fixed caps. Full unrelated470 proof/count and actual metadata controls pass. Source prepared pending peer review; no target acquisition.
