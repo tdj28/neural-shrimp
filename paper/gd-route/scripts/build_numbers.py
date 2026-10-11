@@ -2315,7 +2315,27 @@ def build():
     assert edges[0][0]-edges[1][1]==Fraction(minimum["left_gap"])>Fraction(5018993,10**9)
     assert edges[2][0]-edges[1][1]==Fraction(minimum["right_gap"])>Fraction(1016317,10**9)
     minsources=[mp,mroot/"manifest.json"]
-    n.add("nPALVisualCharts",40,"40",proof,extra_sources+cors+cubs+more_sources+minsources,"forty independently joined positive-angle full705 charts; initial704 arc excluded")
+    tailp=c.ROOT/"docs/reviews/native705-maintained-tail-independent.json";tail=load(tailp);tailroot=Path(tail["root"])
+    bound_inventory(tailroot/"manifest.json",tail["inventories"][0]["manifest_sha256"])
+    tailout=load(tailroot/"run/outcome.json");assert tailout==tail["outcome"]and tailout["passed"]and tailout["connected"]and tailout["connected_count"]==19 and tailout["native_calls"]==0
+    tailbind=load(tailroot/"run/input-binding.json");assert tailbind["card"]["anchor"]["root"]==str(mroot)and tailbind["card"]["anchor"]["outer"]==c.sha256(mroot/"manifest.json")
+    for i in range(1,20):
+        pr=load(tailroot/f"run/chart{i:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and len(pr["root"]["coordinate_inclusions"])==705 and all(pr["root"]["coordinate_inclusions"])and pr["anchor"]["passed"]and pr["anchor"]["coordinates"]==705
+    n.add("nPALVisualCharts",59,"59",proof,extra_sources+cors+cubs+more_sources+minsources+[tailp,tailroot/"manifest.json"],"fifty-nine independently joined positive-angle full705 charts; initial704 arc excluded")
+    freshp=c.ROOT/"docs/reviews/native705-fresh-center-independent.json";fresh=load(freshp);froot=Path(fresh["root"]);bound_inventory(froot/"manifest.json",fresh["outer"]["sha256"])
+    fo=load(froot/"run/outcome.json");assert fo==fresh["outcome"]and fo["passed"]and fo["native_calls"]==0 and fo["complement_dimension"]==11 and fo["subinterval_only"]and fo["parameter_endpoints"]==["-17/1024","-1/64"]
+    assert ball_endpoints(fo["complementary_modulus_upper"])[1]<Fraction(875102,10**6)
+    n.add("xFreshCenterComplement","437551/500000","0.875102",proof,[freshp,froot/"manifest.json"],"strict upward bound for all11 complementary multipliers only on fixed chart31 center subinterval")
+    currentp=c.ROOT/"docs/reviews/cifar-current512-independent.json";current=load(currentp);curoot=Path(current["root"]);bound_inventory(curoot/"manifest.json",current["inventories"][0]["manifest"]["sha256"])
+    cu=load(curoot/"run/outcome.json");assert cu==current["outcome"]and cu["passed"]and cu["native_calls"]==0 and cu["recurrence_rows"]==511 and cu["numerical_action_rank"]==512
+    correction=cu["correction"];assert correction["direction_gate"]["passed"]and correction["accepted_index"]==6 and len(correction["trials"])==7 and not correction["stationarity_qualified"]
+    assert abs(correction["direction_gate"]["true_forcing"]-.419126460267590)<1e-12 and correction["trials"][-1]["alpha"]==1/64
+    cs=[currentp,curoot/"manifest.json"]
+    n.add("nCifarCurrentBasis",512,"512","exploratory, independently cross-checked",cs,"full same-current-state qualified action basis rank")
+    n.add("xCifarCurrentForcing",correction["direction_gate"]["true_forcing"],"0.419126","exploratory, independently cross-checked",cs,"true physical forcing at actual current state, six decimal places")
+    n.add("xCifarCurrentGradient",correction["relative_gradient"],"2.57082\\times10^{-4}","exploratory, independently cross-checked",cs,"accepted current-state relative gradient, six significant figures")
+    n.add("xCifarCurrentMeritRatio",cu["merit_ratio"],"0.991753","exploratory, independently cross-checked",cs,"actual new over old squared gradient norm, six decimal places")
+
     n.add("xPALMinimumLeftGap","5018993/1000000000","0.005018993",proof,minsources,"strict downward bound on first endpoint lower minus middle endpoint upper, exact rational subtraction")
     n.add("xPALMinimumRightGap","1016317/1000000000","0.001016317",proof,minsources,"strict downward bound on last endpoint lower minus middle endpoint upper, exact rational subtraction")
     cp=c.ROOT/"docs/reviews/native705-march-independent.json";cr=load(cp);croot=Path(cr["root"])

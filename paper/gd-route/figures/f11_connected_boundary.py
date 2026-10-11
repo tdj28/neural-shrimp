@@ -141,6 +141,19 @@ def data():
         ends=pr['endpoints'];assert len(ends)==2 and all(len(x)==705 for x in ends)
         pts=[[float(ball(v)[0])for v in e[702:704]]for e in ends];unit_groups.setdefault(6,[]).extend(pts);unit_rows.append(dict(packet='minimum',chart=i,rates=pts))
     assert len(unit_rows)==40
+    previous=root
+    rp=c.ROOT/'docs/reviews/native705-maintained-tail-independent.json';rec=load(rp);root=Path(rec['root']);outer=root/'manifest.json';inputs.extend([rp,outer]);assert c.sha256(outer)==rec['inventories'][0]['manifest_sha256'];inv=load(outer)['files']
+    def authenticated_tail(relative):
+        p=root/relative;v=inv[relative];assert p.stat().st_size==v['bytes']and c.sha256(p)==v['sha256'];inputs.append(p);return load(p)
+    o=authenticated_tail('run/outcome.json');assert o==rec['outcome']and o['passed']and o['connected']and o['connected_count']==19
+    prior=authenticated_tail('run/input-binding.json')['card']['anchor'];assert prior['root']==str(previous)and prior['outer']==c.sha256(previous/'manifest.json')
+    group=6
+    for i in range(1,20):
+        pr=authenticated_tail(f'run/chart{i:03d}/independent-proof.json');assert pr['passed']and all(pr['gates'].values())and len(pr['root']['coordinate_inclusions'])==705 and all(pr['root']['coordinate_inclusions'])and pr['anchor']['passed']and pr['anchor']['coordinates']==705
+        if o['charts'][i-1]['rotated']:group+=1
+        ends=pr['endpoints'];assert len(ends)==2 and all(len(x)==705 for x in ends)
+        pts=[[float(ball(v)[0])for v in e[702:704]]for e in ends];unit_groups.setdefault(group,[]).extend(pts);unit_rows.append(dict(packet='maintained002-tail',chart=i,rates=pts))
+    assert len(unit_rows)==59
     up=c.ROOT/'docs/reviews/native-unit-pair-independent-outcome.json';uc=load(up);inputs.append(up)
     assert uc['outcome']['passed'];finite_unit=[[float(ball(v)[0])for v in z]for z in uc['endpoint_actual_rate_enclosures']]
     return locals()
@@ -163,12 +176,12 @@ def main():
     ax.annotate('Interior orbit',xy=(d['center'],d['output']),xytext=(71.3,.8221),fontsize=7,arrowprops={'arrowstyle':'-','lw':.6,'color':c.MUTED})
     ax.annotate('Saddle-node',xy=(fold,d['output']),xytext=(74.6,.8221),fontsize=7,arrowprops={'arrowstyle':'-','lw':.6,'color':c.MUTED})
     ax.plot([],[],color=c.FOLD,lw=1.7,label=r'Connected $+1$ locus')
-    ax.set(xlim=(71,76.1),ylim=(.8207,.8314),xlabel=r'Hidden-layer learning rate $\eta_h$',ylabel=r'Output-layer learning rate $\eta_o$');ax.set_title('a  Certified connections in the learning-rate plane');ax.legend(loc='upper left',bbox_to_anchor=(0,.55),frameon=False,fontsize=6.4)
+    ax.set(xlim=(71,76.1),ylim=(.8207,.8350),xlabel=r'Hidden-layer learning rate $\eta_h$',ylabel=r'Output-layer learning rate $\eta_o$');ax.set_title('a  Certified connections in the learning-rate plane');ax.legend(loc='upper left',bbox_to_anchor=(0,.55),frameon=False,fontsize=6.4)
     bx.add_patch(Circle((0,0),1,fill=False,lw=.9,color=c.MUTED));bx.add_patch(Circle((0,0),d['bound'],fill=False,lw=.8,ls=':',color=c.NS))
     for real,imag,radius in d['discs']:
         bx.add_patch(Circle((real,imag),radius,facecolor=c.FOLD,edgecolor=c.FOLD,lw=.5));bx.plot(real,imag,'.',ms=4,color=c.FOLD)
     bx.plot(1,0,'D',ms=5,color=c.FLIP);bx.annotate('Double +1',xy=(1,0),xytext=(.1,.72),fontsize=8,arrowprops={'arrowstyle':'-','lw':.6,'color':c.MUTED})
     bx.text(0,-.69,f"{len(d['discs'])} complementary modes\ninside radius {math.ceil(d['bound']*1000)/1000:.3f}",ha='center',fontsize=7,color=c.SECONDARY)
     bx.axhline(0,color=c.NEUTRAL,lw=.6,zorder=0);bx.axvline(0,color=c.NEUTRAL,lw=.6,zorder=0);bx.set(xlim=(-1.12,1.12),ylim=(-1.12,1.12),xlabel='Real multiplier',ylabel='Imaginary multiplier',xticks=[-1,0,1],yticks=[-1,0,1]);bx.set_aspect('equal');bx.set_title('b  Spectrum at the organizer')
-    c.save(fig,'f11_connected_boundary',sorted(set(d['inputs'])),__file__,'3: computer-assisted proof; displayed polylines are endpoint midpoint guides','The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance; a finite704-dimensional chart and38 further705-dimensional charts continue a complex-unit-pair branch. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.',derived={'unit_pair_charts':d['unit_rows'],'finite_unit':d['finite_unit'],'charts':d['rows'],'organizer':d['organizer'],'complement_discs':d['discs'],'complement_bound':d['bound'],'attracting_hidden_interval':d['stable'],'fixed_output':d['output'],'interior_hidden':d['center'],'fold_hidden':fold},notes='Endpoint boxes and proper full-state joins come from independent saved384/480-bit arithmetic. No line is interpolated across changes of gauge. Orange is connected unit-pair geometry; all eleven transverse modes are independently stable on the initial finite arc and first six705 charts. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.')
+    c.save(fig,'f11_connected_boundary',sorted(set(d['inputs'])),__file__,'3: computer-assisted proof; displayed polylines are endpoint midpoint guides','The original period18 orbit is joined to a saddle-node at fixed output rate. A107-chart native plus-one locus joins that fold to a generic1:1 resonance; a finite704-dimensional chart and59 further705-dimensional charts continue a complex-unit-pair branch. The resonance has exactly two unit multipliers and eleven strictly attracting complementary modes.',derived={'unit_pair_charts':d['unit_rows'],'finite_unit':d['finite_unit'],'charts':d['rows'],'organizer':d['organizer'],'complement_discs':d['discs'],'complement_bound':d['bound'],'attracting_hidden_interval':d['stable'],'fixed_output':d['output'],'interior_hidden':d['center'],'fold_hidden':fold},notes='Endpoint boxes and proper full-state joins come from independent saved384/480-bit arithmetic. No line is interpolated across changes of gauge. Orange is connected unit-pair geometry; all eleven transverse modes are independently stable on the initial finite arc and first thirty705 charts. Lines inside each group guide the eye; they are not polygonal interval enclosures. Spectrum dots locate Gershgorin centers; true enclosure radii are drawn but mostly below image resolution. Attraction is proved on the green cross-section, not claimed along the whole grey line or blue locus.')
 if __name__=='__main__':main()

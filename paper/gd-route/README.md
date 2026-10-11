@@ -25,13 +25,18 @@ unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
 connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
-same organizer. Thirty quadratic705 charts, a wider correlated chart and seven cubic charts
-with independent full-coordinate joins extend the connected unit-pair branch
-to40 charts, with a proved interior hidden-rate minimum. The first30 charts
-have independently proved complementary stability and, by the full shooting
-rank argument, a regular attracting side and a continuous nearby attracting
-family. Later complements and the global junction connection remain active. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
-bounds are in the manuscript and `docs/reviews/`.
+same organizer. Fifty-nine positive-angle 705-dimensional charts, with
+independent full-coordinate joins, extend the connected unit-pair branch
+beyond a proved interior hidden-rate minimum. The first 30 charts have
+independently proved complementary stability and, by the full shooting rank
+argument, a regular attracting side and a continuous nearby attracting family.
+A fresh-center subinterval of chart 31 also has an independently proved
+11-mode bound. Producer continuation has reached the certified complex-unit/flip
+junction; its final 42 charts are undergoing independent replay. Later
+complements and the next flip boundary remain active. On the entire original
+finite arc, independent 480-bit arithmetic proves all eleven complementary
+multiplier moduli below 0.843 using a common Lyapunov metric. Their receipts
+and exact coefficient bounds are in the manuscript and `docs/reviews/`.
 
 A separate independently proved complex-unit/simple-flip intersection has a
 transverse physical-rate unfolding and a qualitative open adjacent sector of
