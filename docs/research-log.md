@@ -9454,3 +9454,12 @@ metadata sequence and isolated archive. Synthetic exact trust-boundary fixture
 was changed to a strict interior point after binary64 subtraction placed it
 outside. Full98666x512 measured profile precedes target vectors;300s4GiB8MiB,
 owned315+5s. Independent source review is still required before one attempt.
+
+### 2026-10-11T08:30UTC — admitted independent current512 acceptance audit
+
+Root independently reviewed26e9d74d source/authority/actual acceptance and
+reproduced10 controls0.42s. Actual metadata-only source/inventory/523-call bind
+passed4.081s,511 recurrence rows, research vectors unopened. Host54,862,572KiB
+available/load1.27/1.96/2.36 and no duplicate own worker. Admit one CPU1/nice10
+saved-only300s4GiB8MiB attempt001, owned315+5s. Full98666x512 synthetic gate
+still precedes research vectors; no new derivatives, candidate or correction.
