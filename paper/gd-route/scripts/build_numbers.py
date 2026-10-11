@@ -2166,6 +2166,25 @@ def build():
     n.add("nPALUnknowns",705,"705",proof,pals,"full18phase state andtwo-mode shooting plus two physical rates and squared angle")
     n.add("xPALContraction","231/500","0.462",proof,pals,"independent384 strict uniform weighted contraction rounded upward")
     n.add("tPALParameter",jo["parameter_endpoints"],r"[-1/4096,\;63/4096]",proof,pals,"exact affine-gauge interval with independent480 same-root endpoint membership")
+    # Uniform complementary stability on the already connected finite704 arc.
+    ucp=c.ROOT/"docs/reviews/native704-complement-independent.json";uca=load(ucp);ucr=Path(uca["raw_roots"][-1]["root"])
+    bound_inventory(ucr/"manifest.json",uca["outer_manifest"]["sha256"])
+    uco=load(ucr/"run/outcome.json");assert uco==uca["outcome"]and uco["passed"]and uco["localization_passed"]and uco["domain_coverage"]and uco["complement_dimension"]==11 and uco["primitive_period"]==18 and uco["parameter_endpoints"]==["0","1/32768"]
+    assert ball_endpoints(uco["complementary_modulus_upper"])[1]<Fraction(843,1000)
+    n.add("xFiniteUnitComplement","843/1000","0.843",proof,[ucp,ucr/"manifest.json"],"independent480 common-parameter Lyapunov bound on all11 complementary multiplier moduli, rounded strictly upward")
+    # Four independently recomputed additional charts and every full-state join.
+    cbp=c.ROOT/"docs/reviews/native705-batch-independent-outcome.json";cba=load(cbp);cbr=Path(cba["root"])
+    bound_inventory(cbr/"manifest.json",cba["outer_manifest_sha256"]);cbo=load(cbr/"run/outcome.json")
+    assert cbo==cba["outcome"]and cbo["passed"]and cbo["connected"]and cbo["connected_count"]==4 and len(cbo["proofs"])==len(cbo["joins"])==4
+    right=jo["parameter_endpoints"][1]
+    for k,(pr,jr)in enumerate(zip(cbo["proofs"],cbo["joins"],strict=True),1):
+        assert pr["unit"]==k and pr["inclusions"]==705 and ball_endpoints(pr["contraction"])[1]<Fraction(483,1000)
+        assert jr["passed"]and jr["coordinates"]==705 and jr["parameter"]==right==pr["parameter_endpoints"][0];right=pr["parameter_endpoints"][1]
+    assert cbo["connected_parameter_endpoints"]==[jo["parameter_endpoints"][0],right]==["-1/4096","319/4096"]
+    cbs=[cbp,cbr/"manifest.json",palp,palj]
+    n.add("nPALCharts",5,"5",proof,cbs,"one original independently connected quadratic705 chart plus four independently recomputed exact-gauge joins")
+    n.add("xPALConnectedContraction","483/1000","0.483",proof,cbs,"strict upper bound across all five independently proved705 charts")
+    n.add("tPALConnectedParameter",cbo["connected_parameter_endpoints"],r"[-1/4096,\;319/4096]",proof,cbs,"union of all five adjoining independently proved705 chart intervals")
     return n
 
 

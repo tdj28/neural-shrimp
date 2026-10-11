@@ -12414,3 +12414,14 @@ Stability peer1083e4f8 narrow math/source PASS,12 complement controls independen
 ### 2026-10-10 17:48 PDT — independent finite704 complement003 PASS
 
 The original finite primitive18 boundary now has independently validated complementary stability: all11 noncritical multipliers uniformly have modulus<0.842669364084092 on t∈[0,1/32768]. Its two critical modes remain neutral. Fresh480 full704 root/whole/tangent localization, exact coverage of all actual007 derivative domains, every moving frame/total derivative, ordered common-scalar polynomial and complete P-metric error inequality independently recomputed. Six own tangent intersections resolved the exact4-coordinate rounding mismatch; no input bound widened or old tangent assumed.15.71330s/1489460KiB, zero native, full704 profile1.01286s forecast64.05144s. Source1083e4f8/executioneefcc602, outer565b25146ab353afb136b9091e437090e86ced6091feb6901fe15120f3fe1bf8; owned2013440/2013509 terminated, inventory/read-only checks complete. Both001 packaging and002 tangent failures preserved. Full compact receipt native704-complement-independent.json and integration inventory now35 immutable raw roots. Shared native analytic acquisitions and Arb remain explicit; no NS cubic/stability-side/later705 spectrum/full-window claim. Root and peers notified immediately; resume RNN organizer quintic/unfolding preparation next.
+
+
+### 2026-10-11 UTC — manuscript records connected geometry and finite spectral stability
+
+All450 bound manuscript values rebuilt and independently matched stored bytes.
+The paper now includes32 exact attracting training settings, all28 thirteen-dimensional
+census representatives, independently connected five705-dimensional charts, and
+all11 complementary multiplier moduli below0.843 on the original finite704arc.
+The additional705charts do not inherit this transverse bound beyond its stated
+interval. No global-window completion or language-model utility claim is added.
+The next operation compiles and renders the current source for human reading.

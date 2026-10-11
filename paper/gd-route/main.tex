@@ -47,7 +47,7 @@ in the two-layer learning-rate plane of a 13-parameter network. Validated contin
 attracting period-18 orbit to a saddle-node and continues its $+1$-multiplier locus to a generic
 1:1 resonance, where two multipliers equal $+1$ and all remaining modes attract. We certify a
 continuous attracting interval, the resonance's unfolding in the physical learning rates, and a finite
-emerging branch with a complex unit-multiplier pair. An independently cross-checked numerical census
+emerging branch with a complex unit-multiplier pair and uniformly attracting complementary modes. An independently cross-checked numerical census
 places these proofs within a wider landscape of periodic windows and irregular training. The results
 establish long-period attracting training and connect exact cycles to bifurcations organizing their
 parameter-space boundaries.
@@ -76,7 +76,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. Two transformer prediction pilots fail their utility gates; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
 Selected orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including every \nCensusThirteen{} 13-parameter census representative and primitive periods 2 and 58 in 72 dimensions. New census certificates are independently proved by scalar-loss automatic differentiation. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance; a finite complex-unit branch is also enclosed at that same resonance. Other boundary connections remain open. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; five further chart intervals extend its connected geometry. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -105,7 +105,8 @@ for the hidden and output layers as a two-parameter family of maps on parameter 
 learning-rate grid we screen the parameter state at the end of a long run, refine selected periodic orbits with
 Newton's method using an analytic Jacobian evaluated in floating-point arithmetic, and follow orbits and their stability boundaries through the plane.
 
-\paragraph{Main results.} A nonlinear network with \nPFiftyEightDimension{} trainable parameters has an attracting training orbit of minimal period \nPFiftyEightPeriod{}, proved in the full parameter state by interval arithmetic and independently replayed at higher precision. Stable oscillatory training also occupies intervals of learning rates and belongs to
+\paragraph{Main results.} We certify attracting training cycles at \nCertifiedOrbits{} explicit settings,
+including every 13-parameter representative of the numerical census. A nonlinear network with \nPFiftyEightDimension{} trainable parameters has an attracting training orbit of minimal period \nPFiftyEightPeriod{}, proved in the full parameter state by interval arithmetic and independently replayed at higher precision. Stable oscillatory training also occupies intervals of learning rates and belongs to
 continuous branches with identifiable bifurcation structure. We establish this for a primitive period-18 branch
 of a 13-parameter tanh network by computer-assisted proof: an attracting interior orbit is connected in the
 full parameter state to a nondegenerate saddle-node, and an exact interval of hidden-layer rates supports
@@ -800,8 +801,16 @@ with the producer; the assembly, series and inclusion calculations are
 separate. See \path{docs/reviews/native-unit-pair-independent-outcome.json}.
 The finite proof establishes the primitive cycle and critical pair throughout
 the stated interval. Complementary attraction is proved at the organizer and
-persists locally as above; a uniform complementary bound on the entire finite
-arc and its subsequent global continuation are distinct remaining checks.
+holds on this entire finite arc: independent 480-bit arithmetic proves that every one of the
+11 complementary multipliers has modulus below $\xFiniteUnitComplement$. In a moving frame
+that isolates the two critical directions, the complementary return matrix $M(t)$ admits a
+common positive-definite metric $P$ with $P-M(t)^\top P M(t)\succ0$ throughout the interval.
+The proof retains the common parameter across all native phases and bounds the full operator
+remainder, including changes in the orbit, both learning rates and the critical frame.
+It uses independently reconstructed root and tangent enclosures and verifies that each lies
+inside the actual acquired derivative domain. This is a metric contraction proof; no Euclidean
+operator-norm bound below one is assumed. See
+\path{docs/reviews/native704-complement-independent.json}.
 
 
 The branch is extended with a quadratic predictor in a fixed affine arclength gauge. Including
@@ -815,6 +824,14 @@ proves that this is the same connected boundary branch. The native derivative ac
 shared; the terminal series, polynomial assembly, localization and membership reductions are
 independently implemented. See \path{docs/reviews/native705-independent-outcome.json} and
 \path{docs/reviews/native705-endpoint-independent-outcome.json}.
+Four additional charts, with all native blocks and remainders independently recomputed at 384 bits,
+extend the connected gauge interval to $s\in\tPALConnectedParameter$.
+All \nPALCharts{} charts have strict contraction below $\xPALConnectedContraction$.
+Each adjoining pair uses the identical exact affine gauge; its independently enclosed endpoint
+passes all 705 strict membership inequalities in the next chart's uniqueness tube.
+The finite-arc complementary bound above applies to its stated $t$ interval; the additional
+charts certify the extended unit-pair geometry. See
+\path{docs/reviews/native705-batch-independent-outcome.json}.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
 A separate local certificate encloses a primitive period-18 orbit at physical rates approximately

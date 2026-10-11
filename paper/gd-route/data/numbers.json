@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "ca6c5587a2e88b130665559a584fd53c16897134af2007020feabdbf78a06a9d",
+ "generator_sha256": "99c6ba8e5a4c22c2e8ef7a91e1a28585920ba77e8e254c5358749608177947cf",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:audits/census-period58-independent/attempt002/launcher-result.json": "0de9a9736161565250e1f5d1dfb52f677e96e2757c6b5072932b12ace573fef7",
@@ -610,6 +610,8 @@
   "data:audits/native-unit-pair-independent/attempt001/run/source/tools/reviews/review_quadratic_connection_math.py": "6757da1c1ee4246b6004292e6dd0a49e330d3d9bd3f61f70d311188662947f4d",
   "data:audits/native-unit-pair-independent/attempt001/run/source/tools/reviews/review_unit_pair_driver.py": "c4c846734849ef138731ea7df4864680c7e2f7446e9b0fa2b97c6da059941a6b",
   "data:audits/native-unit-pair-independent/attempt001/run/source/tools/reviews/review_unit_pair_math.py": "27f42e59f3c0830d0c9aae6e40a6b979e02bbae91a8048ec1b1a628885d6f15e",
+  "data:audits/native704-complement-independent/attempt003/manifest.json": "565b25146ab353afb136b9091e437090e86ced6091feb6901fe15120f3fe1bf8",
+  "data:audits/native705-batch-independent/attempt001/manifest.json": "6382f1d06e34ced6cd252d7b6b5dc1d986017ef4c844d02b0a932569538adaea",
   "data:audits/native705-endpoint-independent/attempt001/launcher-result.json": "79329f46f5070cc1be58372480b0584107d6688b5f2ce2a35dc9c063917fdb33",
   "data:audits/native705-endpoint-independent/attempt001/launcher-start.json": "89339f296529fa67a0a58f7b466929623288f4ff19a29577e93ecda9cc5052a4",
   "data:audits/native705-endpoint-independent/attempt001/manifest.json": "93a0029c3d9f61899b0dd7c4ef574b1c7ef546fa52477bb426007e3ef6eda4e8",
@@ -7262,6 +7264,8 @@
   "repo:docs/reviews/generalized-chain-independent-outcome.json": "cd4cbfcc051db85e27cd4e573ec31e988deda85845008814ca01d30e51c488bb",
   "repo:docs/reviews/native-unit-pair-flip-independent.json": "0fb36af005f1adf5613494e9d56d946c209e7869a8f97280d5ce5109557f135f",
   "repo:docs/reviews/native-unit-pair-independent-outcome.json": "0c7aa64a79eb97c4ffe2e560b4f28d431d9b0eb6800a1b42941af982b3a06bfe",
+  "repo:docs/reviews/native704-complement-independent.json": "2716bdac962c9f2960b088f14774bd98418b17bf88992a816780708f736027e0",
+  "repo:docs/reviews/native705-batch-independent-outcome.json": "21ab7cc85a4b8072195792653ca2b355a28de84b7f5c7f48fb2ce0c256138af7",
   "repo:docs/reviews/native705-endpoint-independent-outcome.json": "a489429d45de6f932deed5e3e2649b18267c0c8fe8e882b4ceaabf0362df0791",
   "repo:docs/reviews/native705-independent-outcome.json": "eed152ce71d694cd10c86dd8539bd2f9097d331016db314e0d424dce14fc70a9",
   "repo:docs/reviews/ray51-adapter-source-review.json": "ed65e305573745e1d835d7ced32f2ca92ad8faa5caa445d20f12428e79d8720d",
@@ -46114,6 +46118,59 @@
     "data:audits/native705-endpoint-independent/attempt001/run/source/tools/reviews/review_unit_pair_pal_math.py"
    ],
    "computation": "exact affine-gauge interval with independent480 same-root endpoint membership"
+  },
+  {
+   "macro": "xFiniteUnitComplement",
+   "value": "843/1000",
+   "tex": "0.843",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native704-complement-independent.json",
+    "data:audits/native704-complement-independent/attempt003/manifest.json"
+   ],
+   "computation": "independent480 common-parameter Lyapunov bound on all11 complementary multiplier moduli, rounded strictly upward"
+  },
+  {
+   "macro": "nPALCharts",
+   "value": 5,
+   "tex": "5",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-batch-independent-outcome.json",
+    "data:audits/native705-batch-independent/attempt001/manifest.json",
+    "repo:docs/reviews/native705-independent-outcome.json",
+    "repo:docs/reviews/native705-endpoint-independent-outcome.json"
+   ],
+   "computation": "one original independently connected quadratic705 chart plus four independently recomputed exact-gauge joins"
+  },
+  {
+   "macro": "xPALConnectedContraction",
+   "value": "483/1000",
+   "tex": "0.483",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-batch-independent-outcome.json",
+    "data:audits/native705-batch-independent/attempt001/manifest.json",
+    "repo:docs/reviews/native705-independent-outcome.json",
+    "repo:docs/reviews/native705-endpoint-independent-outcome.json"
+   ],
+   "computation": "strict upper bound across all five independently proved705 charts"
+  },
+  {
+   "macro": "tPALConnectedParameter",
+   "value": [
+    "-1/4096",
+    "319/4096"
+   ],
+   "tex": "[-1/4096,\\;319/4096]",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-batch-independent-outcome.json",
+    "data:audits/native705-batch-independent/attempt001/manifest.json",
+    "repo:docs/reviews/native705-independent-outcome.json",
+    "repo:docs/reviews/native705-endpoint-independent-outcome.json"
+   ],
+   "computation": "union of all five adjoining independently proved705 chart intervals"
   }
  ]
 }

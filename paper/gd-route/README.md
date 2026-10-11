@@ -23,7 +23,7 @@ unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
 connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
-same organizer. A separate independently proved705D quadratic chart and480-bit same-root endpoint localization extend that connected positive-unit-pair branch. Uniform finite-arc complementary stability is undergoing independent replay; global boundary completion continues. Their independent receipts and exact coefficient
+same organizer. Five independently proved 705-dimensional quadratic charts and exact endpoint joins extend that connected positive-unit-pair branch. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
 bounds are in the manuscript and `docs/reviews/`.
 
 Other exact local results include both flip types with attracting complements,
