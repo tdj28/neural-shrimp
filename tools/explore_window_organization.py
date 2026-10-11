@@ -28,6 +28,10 @@ Subcommands:
   period2-at    Period-2 orbit at given rates by Newton from a saved state
                 (for example the collapse point of a period-18 fold), with
                 its two-step multipliers.
+  section-from-node  From a saved continuation node on a fold, trace the closed
+                orbit curve in a one-parameter section (fixed hidden or output
+                rate) through the section's other fold, refine that fold and
+                continue it both ways in the rate plane.
   composite     One figure of the organization: rotation field with the 2/9
                 level set, the banana's two folds, continued window folds and
                 the carried flip curves, plus a zoom on the banana and its
@@ -515,6 +519,83 @@ def period2_at(args):
     print(json.dumps({k: record[k] for k in record if k != "theta"})[:1500])
 
 
+def section_from_node(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    period = 18
+    nodes = np.load(args.nodes)
+    z_start = nodes["z"][args.index]
+    theta, p = z_start[:13], z_start[26:28]
+    free = 0 if args.free == "lx" else 1
+    curve = OrbitCurve(f, period, fixed=p[1 - free], free=free)
+    z0 = np.concatenate([theta, [p[free]]])
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"nodes": str(args.nodes), "index": args.index, "start": p.tolist(), "free": args.free}
+    res, jac, _, _ = curve.residual_jacobian(z0)
+    record["start_residual"] = float(np.linalg.norm(res))
+    scale = np.concatenate([np.ones(f.n), [args.param_scale]])
+    tangent = null_tangent(jac, scale)
+    seen = []
+
+    def closed(nd):
+        seen.append(1)
+        return len(seen) > 10 and np.linalg.norm((nd["z"] - z0) * scale) < 1.5 * nd["h"]
+
+    loop, why = arclength(curve, z0, tangent, scale, steps=args.loop_steps, h0=args.loop_h, h_min=1e-9,
+                          h_max=4 * args.loop_h, stop=closed)
+    values = np.array([nd["z"][-1] for nd in loop])
+    record["loop_stop"] = why
+    record["loop"] = [{"s": float(nd["z"][-1]), "spread": even_spread(nd["points"])} for nd in loop]
+    print(json.dumps({"loop_nodes": len(loop), "why": why, "range": [float(values.min()), float(values.max())]
+                      if len(values) else None, "start": float(p[free])}))
+    if len(values) == 0:
+        (out / "section.json").write_text(json.dumps(record, indent=1))
+        return
+    # the far turning point from the start is the section's other fold
+    k = int(np.argmax(np.abs(values - p[free])))
+    nd = loop[k]
+    mult, vecs = np.linalg.eig(nd["monodromy"])
+    i = int(np.argmin(np.abs(mult - 1.0)))
+    q = np.real(vecs[:, i])
+    q /= np.linalg.norm(q)
+    pf = [0.0, 0.0]
+    pf[free] = float(nd["z"][-1])
+    pf[1 - free] = float(p[1 - free])
+    fold = FoldCurve(f, period, sigma=1.0)
+    row = np.zeros(2 * f.n + 2)
+    row[2 * f.n + (1 - free)] = 1.0
+    zf, fh = newton(fold, np.concatenate([nd["z"][:f.n], q, pf]), max_iter=20,
+                    extra=lambda w: (row, w[2 * f.n + (1 - free)] - p[1 - free]))
+    record["other_fold_newton"] = fh
+    if zf is None:
+        record["outcome"] = "other fold did not refine"
+        (out / "section.json").write_text(json.dumps(record, indent=1))
+        print(json.dumps({"outcome": record["outcome"]}))
+        return
+    record["other_fold"] = zf[26:28].tolist()
+    _, fj, _, _ = fold.residual_jacobian(zf)
+    fscale = np.concatenate([np.ones(26), [args.p_scale, args.p_scale]])
+    for sign in (1, -1):
+        path, reason = arclength(
+            fold, zf, sign * null_tangent(fj, fscale), fscale, steps=args.steps, h0=args.h, h_min=1e-7,
+            h_max=args.h_max,
+            stop=lambda node: (even_spread(node["points"]) < args.min_spread
+                               or not (args.box[0] <= node["z"][-2] <= args.box[1]
+                                       and args.box[2] <= node["z"][-1] <= args.box[3])))
+        rows = [node_events(node, 1.0) for node in path]
+        record[f"direction_{sign:+d}"] = {"reason": reason, "nodes": rows}
+        if path:
+            np.savez_compressed(out / f"nodes-direction{sign:+d}.npz", z=np.array([n_["z"] for n_ in path]),
+                                points=np.array([n_["points"] for n_ in path]))
+        end = rows[-1] if rows else None
+        print(json.dumps({"direction": sign, "nodes": len(rows), "reason": reason,
+                          "end": None if end is None else [end["lx"], end["ly"], end["spread"],
+                                                           end["complement_radius"]]}))
+    (out / "section.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({"out": str(out / "section.json")}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -576,9 +657,24 @@ def main():
     p2.add_argument("--lx", type=float, required=True)
     p2.add_argument("--ly", type=float, required=True)
     p2.add_argument("--out", required=True)
+    sec = sub.add_parser("section-from-node")
+    sec.add_argument("--nodes", required=True, help="nodes-direction*.npz from fold-from-node")
+    sec.add_argument("--index", type=int, required=True)
+    sec.add_argument("--free", choices=("lx", "ly"), default="lx")
+    sec.add_argument("--param-scale", type=float, default=100.0)
+    sec.add_argument("--loop-h", type=float, default=2e-3)
+    sec.add_argument("--loop-steps", type=int, default=600)
+    sec.add_argument("--p-scale", type=float, default=100.0)
+    sec.add_argument("--h", type=float, default=0.02)
+    sec.add_argument("--h-max", type=float, default=0.1)
+    sec.add_argument("--steps", type=int, default=600)
+    sec.add_argument("--min-spread", type=float, default=1e-3)
+    sec.add_argument("--box", type=float, nargs=4, default=[-0.13, 0.05, 1.65, 2.00])
+    sec.add_argument("--out", required=True)
     args = parser.parse_args()
     {"circle-check": circle_check, "figure": figure, "banana": banana,
-     "fold-from-node": fold_from_node, "composite": composite, "period2-at": period2_at}[args.command](args)
+     "fold-from-node": fold_from_node, "composite": composite, "period2-at": period2_at,
+     "section-from-node": section_from_node}[args.command](args)
 
 
 if __name__ == "__main__":
