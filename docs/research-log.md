@@ -12206,3 +12206,7 @@ Boundary independently cleared ab94eb6b source/manifests/acquisition inventories
 ### 2026-10-11T00:26:46.781492+00:00 — complete13D producer panel and independent705 reduction
 
 All26 fixed new13D census orbit proofs PASS at768bits with all4200 native returns retained;31.8717s/88104KiB. Prior2 reused proof boxes/source matched, so all28 representative orbit certificates covered at producer level; independent new arithmetic still pending. Independent705384-bit full native/polynomial reduction PASS705 inclusions,q<.461294318,15.3368s/1402968KiB; coarseanchor274/705 correctly false. New independent480 saved endpoint localization/strict membership driver prepared,6syntheticcontrolsPASS; peer review before zero-native bounded run.
+
+### 2026-10-11T00:29:20.059497+00:00 — independent scalar-loss AD census panel prepared
+
+Prepare fresh1024-bit independent scalar-loss AD proof for all26 new13D exactsame boxes;1050 calls plus separate3-call measuredprofile, noNewton/rate/radius adjustments. Separate contraction/divisor/matrix-power theorem and complete native retention. Three synthetic controls PASS; measured profile and source peer review before native target. No derivative/model evaluations yet.
