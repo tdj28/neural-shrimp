@@ -11810,6 +11810,9 @@ Independent reviewer reproduced all six controls and cleared20150b20 plus07db5b1
 ### 2026-10-10T23:34:44.755298+00:00 — Measured LM response profile and fixed target card
 
 The fixed two-arm profile completed12 native operations in0.980s worker/3.354s launcher; maximum owned RSS936763392B. All source/input inventories and termination checks pass. Conservative measured forecast244.964127s fits the fixed300s worker ceiling. Proceed exactly four saved checkpoints, seeds28161/28162, update600, arms8/256, with580 gradients/256HVP/96CE and the reviewed1%/20% gates. CPU1/nice10,4GiB monitored RSS,256MiB evidence and320s external plus5s cleanup remain fixed. No new data or hyperparameter selection, no protected/probe evaluation.
+
+### 2026-10-10 — Prepared four-quarter141 amendment while72D audit runs
+
 The whole141 failure is fully retained; only its one-piece coverage changes to four fixed closed descending quarters[25/128,27/128], width1/256, using unchanged correlated/U″/norm arithmetic. The full original141→142 native join and all142 producer/independent-admission checks remain. Every nested source/input/path/coverage override restores on exceptions, including an explicit stable path to the prior whole141 failure. No automatic subdivision or further chart. Twelve quarter/whole controls pass0.20s. Fresh unrelated161-stage measured profile and separate target card required; unchanged CPU1nice10/30sprofile360starget/2GiB/512MiB envelope and strict eight-piece engineering forecast. Preparation only while the already started72D audit uses its committed archived248e2365 code; no proof dependency edited. Peer skim before any quarter profile.
 
 ### 2026-10-10 — Independent72D attracting primitive58 saved/fresh audit PASS
