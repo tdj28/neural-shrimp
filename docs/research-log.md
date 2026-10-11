@@ -9179,3 +9179,15 @@ preflight passed0.399s, zero native. Fixed attempt002 now reviewed: same span
 h2^-8 andrho2^-14, full new weighted-domain derivative/root/primitive/anchor
 proof. Fresh12GiB host admission then150native synthetic before126target.
 Actual prior native costs supplement unchanged240s4GiB768MiB envelope.
+
+
+### 2026-10-11 — Finite signed470 branch through the junction passed
+
+Fresh same-span weighted tube passed all470 root and all470 whole-known-root
+projected inclusions, primitive18 and q<.082184352. Complete276calls/278ticks
+in33.141s,1710992KiB, source5a3d309212831b987fc32176853ea565433c91f1.
+Full immutable source/inventory and owned exit verified. This certifies the
+finite negative-one locus; the two-sided chart crosses the critical complex
+pair and is not claimed uniformly complement-attracting. Independent replay
+and left-side qualification follow. Exact learning-rate span retains h2^-8.
+Outer426738d7b3fa1b635a2f7594160274bb912f01064f1f12d844380ce17910a2f2. Prior failed unweighted proof remains failed.
