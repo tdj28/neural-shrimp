@@ -9131,3 +9131,22 @@ proposals are rounded explicitly. All470 membership and primitive gates remain.
 One source-frozen profile+target at signed-flip-first001/attempt001; no loop.
 Fresh12GiB host admission and151tick profile precede target126native phases.
 Full276native/278ticks,240s4GiB768MiB, owned255+5s770MiB. Card now reviewed.
+
+
+### 2026-10-11 — First signed470 uniform bound failed
+
+Complete276native/278ticks,32.679s,1711128KiB.
+All470 known-junction membership coordinates and primitive18 exclusions passed;
+q=12.1747188 and208/470 correction inclusions leave uniform root unproved.
+Failed result/source/inventory and owned process exit all verified. No stability
+inference; saved-only forcing/defect diagnosis precedes another acquisition.
+Outerfea2b1cc19b649d945804f98f3bf1b0d5a63f5467fc9e518a5aa331d004aaeed; exact source08892068bf9ef775cca988a06331170b5316e290.
+
+
+### 2026-10-11 — Prepared saved signed470 budget diagnostic
+
+Single immutable failure only, zero native calls. Complete retained470 matrices
+feed binary64 defect midpoint/radius norms, positive scaling and forcing-order
+budgets; hypotheses never become certificates. Fixed60s/4GiB/16MiB with75+5s
+owned launcher; bounded256MiB decode. Two synthetic controls passed0.13s.
+Peer source review and fresh host admission precede this fixed saved unit.
