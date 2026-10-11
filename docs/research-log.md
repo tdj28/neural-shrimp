@@ -16257,3 +16257,13 @@ independentfirst-portion checks, preserving exact same-domain source genealogy.
 ### 2026-10-11 — correlated signed470 mathematical preparation cleared
 
 The independently checked advancing chart has constant-preconditioner contraction below.545203 at halfwidth1/32. Prepare the same full-error affine-inverse method already used for the connected705 curve, now retaining every signed470 coordinate. Clark cleared fullE gradient/path and composition; Root independently cleared composition and finite refresh. Eight focused controls pass16.79s, including independent nonlinear all-entry/order derivative comparisons and completed nonfinite-return retention. No target profile or proof was acquired. A separately reviewed full-size measured caller must bind the exact independent left endpoint and all source/domain/cap premises before continuation.
+### 2026-10-11 — prepare full-state parity-order contrast
+
+Root approved the fixed reversal-even contrast after all four common-subspace
+leakage abstentions. Same16 full Jacobians, literal direction and four consumed
+original/eta4 cases; no projection or eigenmatching. Parity grouping plus its
+transpose changes temporal adjacency while preserving all individual operators.
+The symmetrized difference vanishes for every commuting sequence and can reveal
+order dependence missed by reversal-odd alone. Fixed224HVP/0gradient/0CE; unchanged
+1% inherited qualifications, fresh chronological replay and actual cold-cost
+floor. Helper source/synthetic tests only; no native profile or target yet.
