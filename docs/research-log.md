@@ -15817,3 +15817,22 @@ Host51GiB available/load3.20/2.6TiBfree/GPU0%15947MiBfree/noGPUprocess, no owned
 duplicate. Commit/push card before exclusiveattempt001-target. Keep all four
 cases and fixed1% qualifications/20%/10x gate regardless of outcome. No fresh
 holdout, paid resource, GPU, geometry-specific inference or forecast claim.
+
+### 2026-10-11 — temporal-mean fixed target complete, sufficiency FAIL
+
+The observed small perturbation response is not accurately reproduced by the
+retrospective temporal mean Hessian in either original expanded-arm checkpoint.
+At h16 mean vectorerrors56.2070945/34.8495648 versus frozen85118.9298/5270.3703;
+large improvement does not satisfy fixed20% accuracy. Matched eta/4 controls
+are both monotone, meanerrors1.07964885/.580246575 versus frozen2.65981673/
+1.24173211. All12 FD/ordered transport/CE qualifications pass unchanged1% gates.
+This is a negative consumed-development sufficiency test, not causal ordering,
+commutator, forecast, geometry-specific or utility evidence.
+
+Execution5ce30146 complete244.334727s/1012220KiB, all1088HVP162gradient58CE and
+1308 indexed input/return pairs. Immutable outerbfd68a18be37a672a637da02b1e3dcbb32435ae2e7f5055be5657bef356ccf65,
+worker44e8f6a03d7edba850c55e969f8a93d55cbb3277793276a0def5e3f6c24437c2.
+Complete4332outer/4326worker files202328383B/201608022B, source archive and all
+native object pointers verified, owned2668524/2668952 absent. Both profile
+failures preserved; independent saved-arithmetic guide and compact receipt
+prepared, independent outcome replay pending. Integration index now67rawroots.
