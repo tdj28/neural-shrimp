@@ -92,10 +92,15 @@ class Work:
   else:self.save(self.stage+'/'+tag+'.json',value)
   self.tick()
 
+def synthetic_fixture(n=705):
+ need(type(n)is int and 2<=n<=705,'bounded unrelated profile dimensions')
+ den=arb((1,270));A=arb_mat([[arb(((i+1)*6364136223846793005+(j+1)*1442695040888963407)**4%2**250)/den for j in range(n)]for i in range(n)]);I=M.ident(n);C=I+A;J=[I-A,A/8,A/32];res=[arb_mat([[arb((1,-80))*(i+1)/n]for i in range(n)])]+[arb_mat(n,1)for _ in range(3)]+[arb_mat([[arb((1,-60))*(i+1)/n]for i in range(n)])]
+ return C,J,res,arb(1)/32,arb(1)/1024
+
 def synthetic(w):
- n=705;den=arb((1,270));A=arb_mat([[arb(((i+1)*6364136223846793005+(j+1)*1442695040888963407)**4%2**250)/den for j in range(n)]for i in range(n)]);I=M.ident(n);C=I+A;J=[I-A,A/8,A/32];res=[arb_mat([[arb((1,-80))*(i+1)/n]for i in range(n)])]+[arb_mat(n,1)for _ in range(3)]+[arb_mat([[arb((1,-60))*(i+1)/n]for i in range(n)])];need(allowed_widths and all(type(k)is int and -12<=k<=-3 for k in allowed_widths),'explicit reviewed dyadic width policy');h=arb((1,cfg['halfwidth_exponent']));rho=arb(1)/1024;before=time.monotonic();used=w.used
+ n=705;C,J,res,h,rho=synthetic_fixture(n);before=time.monotonic();used=w.used
  proof=H.polynomial_root(C,J,res,[arb(1)]*n,rho,h,[arb(0,rho)]*n,w.tick,w.emit);need(proof['passed'],'fresh full705 degree5 polynomial control');elapsed=time.monotonic()-before;stored=w.used-used;forecast=elapsed+3*(3*elapsed+75);raw=10*stored+64*1024**2;peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024+2*1024**3
- report=dict(passed=bool(forecast<900 and raw<2048*1024**2 and peak<6*1024**3),seconds=elapsed,stored_bytes=stored,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,dimension=705,target_arrays_unopened=True);w.save('profile.json',report);need(report['passed'],'complete measured900s/6GiB/2GiB source/serialization admission');del A,C,J,res;gc.collect()
+ report=dict(passed=bool(forecast<900 and raw<2048*1024**2 and peak<6*1024**3),seconds=elapsed,stored_bytes=stored,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,dimension=705,target_arrays_unopened=True);w.save('profile.json',report);need(report['passed'],'complete measured900s/6GiB/2GiB source/serialization admission');del C,J,res;gc.collect()
 
 def check_one(run,cfg,pc,previous,w,unit):
  dom=sorted((run/'events').glob('*-cubic_correlated_domain.json.gz'));pro=sorted((run/'events').glob('*-cubic_predictor_return.json.gz'));need(len(dom)==len(pro)==1,'unique literal domain/finite proposal')
