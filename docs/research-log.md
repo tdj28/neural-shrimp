@@ -8645,3 +8645,25 @@ before either full705 refresh. No target acquired. Exact string fixture needs
 explicit exact Arb conversion for the new helper. Retain complete immutable
 failure and add unmocked705 fixture conversion control; exclusive002 changes
 only interface conversion/provenance/output path, same caps and science.
+
+
+### 2026-10-11 UTC: complete refresh profile passed; measured advancing batch card
+
+Repaired synthetic profile659d8cf7 completed746ticks in41.623s,
+653324KiB/8093261bytes; two full705 units
+17.729/17.528s and all native cost samples retained. Outer10e407c3d2ac94e02bc58adc787726a265692fac5b38d4478246a7f92213cd20,
+worker32fe5cb57740336a66f5db9c09234cfe26a814cb75bbd179f2419af2dbb27023; owned group empty. Original001 preserved. Source peer
+review cf618fb2/659d8cf7 PASS by Clark (7controls0.56s); actual-cost-floor
+hardening e52089bd pending narrow peer acknowledgement before target.
+
+Exact committed native705-cubic-batch-001.json binds independent480 endpoint
+79/2048, four new h1/16/rho2^-10 charts and complete measured profile. Forecast
+143.017s/5188656KiB/
+159832433bytes per worker, including
+actual failed native pilot cost floor. Command: nice -n10 project Python
+ tools/launch_native705_cubic_batch.py --card docs/plans/native705-cubic-batch-001.json.
+Exclusive pal/cubic-continuation001/batch001. FourCPU1 workers,240s/6GiB/1GiB
+per worker,24GiB aggregate,330s batch, fresh36GiB headroom. Retain all331-call
+outcomes; stop qualifying at first failed full705 root or known-root join.
+Would surprise: all four advance cleanly with comfortable margins despite the
+previous aggressive same-center failure. No target outcome seen for this card.
