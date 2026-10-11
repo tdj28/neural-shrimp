@@ -8891,3 +8891,19 @@ Own fsum reductions, exact full coordinates, native event/source identities
 and first-acceptance chain retained; declared address-space inheritance now
 consistent. Proceed the sole30s saved audit under fresh admission. Zero native
 calls, no numerical stationary/cycle promotion.
+
+### 2026-10-11 UTC — both reconditioned halves pass; saved CIFAR merit independently confirmed
+
+Executionc7586cd6 passed360calls per half, ~72.94s/~1.526MKiB. Fresh localJ/C
+reduced tangent errors to.01136/.01177 and cocycle remainders.1153/.1189; both
+full11-mode metric decreases pass. Closed union[319,447]/4096 is a producer
+complementary extension of the SAME independently proved graph. Independent
+outcome replay is pending; guide and literal inventories retained. All prior
+wrapping/profile failures remain immutable. Actual owned PIDs absent.
+
+Separate independent saved audit5c41b3cf passed1.497s/48196KiB/zero native,
+rebuilding all six native event bindings and98666-coordinate fsum arithmetic.
+It confirms three rejected alphas then1/8, meritratio.933465645526637 and
+relgradient.00027696046. Stationarity remains false; no eigenpair/orbit claim.
+Root independently cleared the preparatory four-unit continuation helper;
+source-reviewed full wrapper and fresh measured caps still precede a new run.
