@@ -3,7 +3,7 @@ import os,resource
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 for k in THREADS:os.environ[k]='1'
 if __name__=='__main__':resource.setrlimit(resource.RLIMIT_AS,(2*1024**3,)*2)
-import hashlib,json,math,signal,subprocess,sys,time,traceback
+import hashlib,json,math,platform,signal,subprocess,sys,time,traceback
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
@@ -76,7 +76,7 @@ def main():
  def stop(*_):raise TimeoutError('owned30s saved diagnosis')
  signal.signal(signal.SIGALRM,stop);signal.signal(signal.SIGTERM,stop);signal.setitimer(signal.ITIMER_REAL,30)
  try:
-  source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();w.save('runtime.json',dict(source_commit=source,pid=os.getpid(),sources={n:entry(ROOT/n)for n in FILES}))
+  source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();w.save('runtime.json',dict(source_commit=source,pid=os.getpid(),sources={n:entry(ROOT/n)for n in FILES},python=platform.python_version(),numpy=np.__version__,threads=dict.fromkeys(THREADS,'1')))
   for n in FILES:
    raw=(ROOT/n).read_bytes();need(raw==subprocess.check_output(['git','show',source+':'+n],cwd=ROOT),'own committed source');p=w.root/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);need(w.used+len(raw)<6*1024**2,'source reserve');p.write_bytes(raw);w.used+=len(raw)
   synthetic(w);out=diagnose(w);w.tick()
