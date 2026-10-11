@@ -17165,3 +17165,11 @@ positive scaling/resolvent proposals only. Any changedE still requires fresh
 proof acquisition. Five helper/actual-metadata/archive controls passed4.77s.
 Fixed90s4GiB32MiB, full470 synthetic arithmetic first; prepared card unlaunchable
 until peer review and explicit source admission.
+
+11 October2026 — admit saved output-gauge diagnosis001. Stability independently
+reviewed source4aeec9c2 PASS and reproduced five controls5.60s; reconstructed
+full470 blocks, noncommuting orders and proposal-only interpretation unchanged.
+Fresh host52GiB available, load1.39, GPU0%/15947MiB free, no own boundary worker.
+Execute one zero-native90s4GiB32MiB unit under owned105+5s, full470 synthetic
+admission before target arrays. All original failed432-phase evidence retained.
+Run: nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_native470_output_diagnosis.py
