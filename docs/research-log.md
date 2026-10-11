@@ -9800,3 +9800,16 @@ preflight pass with all target coefficient/model decoders forbidden. Host
 worker. One CPU1/nice10 worker4GiB plus256MiB launcher admitted. Full144native
 synthetic+full705 cubic algebra profile and complete30-center resource forecast
 remain mandatory before research arrays. Original full root is never rerun.
+
+### 2026-10-11 — first cubic32 portion producer complement proof passed
+
+Sourcee63d1c4a completed in94.617s/1,869,972KiB with1080inclusive native phases:
+144profile+180derivative domains+6x126centers. Four h1/512 accepted cells close
+[39,55]/1024 and contain the entire independently proved previous stable endpoint
+projection. Two failed h1/256 metric attempts remain immutable. All11 accepted
+metric penalties are below.955282. This is producer proof only until its separate
+saved replay; chart32 remaining threequarters are still open. Full original
+cubic root was reused, never reacquired. All archivedsource/files/modes/owners
+verified; compact docs/reviews/native705-cubic32-first-quarter001.json. Root
+requested one bounded generic plan for allremaining portions after identity and
+independentfirst-portion checks, preserving exact same-domain source genealogy.
