@@ -15308,3 +15308,19 @@ notattempted.50.2778s129596KiB234nativephases; all577events/full source/
 immutableinventories/ownedexits verified. Independent saved reductions are
 next before continuation. No uniform genericity/native12/24/window claim.
 Inventory62completedrawroots.
+
+### 2026-10-11 — prepare independent final critical-branch connection replay
+Producer maintained004 reached the exact certified unit-pair/simple-flip junction
+with18 joined705 charts, preserving failed attempts10/18 and stopping after20.
+Prepare independent all18 unchanged cubic/fullE root reductions, actual rotated
+gauge joins and complete known705 junction membership against the separately
+exact-rational audited lift. Four controls pass0.49s, including every-coordinate
+strict-membership failure and isolated source archive. The source/card remains
+prepared until the active preceding24-chart independent replay passes and its
+exact immutable endpoint/proof pins are inserted. No dependent run launched.
+7200s6GiB14GiB raw, full705 measured admission and complete history retention.
+
+New completed geometry/stability/CIFAR/RNN evidence and failed attempts backed
+up to /archive/neural-shrimp-backups/20261011T084133Z-connected-junction-and-fresh-stability:
+18170 files,2008390745 bytes, full source/copy inventories and twice-read SHA256.
+Separate physical disk on same host; private Git checkpoint accompanies receipts.
