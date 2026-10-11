@@ -9508,3 +9508,14 @@ Eight policy/caller controls passed12.41s, including actual predecessor
 metadata without native calls and isolated archive closure. Initial synthetic
 fake-chart control indexed its anchor/settings arguments incorrectly; fixed
 those test-only indices before acquisition. No new target or profile run.
+
+### 2026-10-11 — Harden prepared output continuation metadata
+
+Root's saved output audit retained a pure string-representation failure after
+three independent endpoint localizations: input weight468 `1/1` versus
+certificate `1`. The prepared continuation had the same literal comparison;
+replace it with exact positive Fraction value equality and test the entire
+saved output-gauge/header before any target arithmetic. Changed weight values
+still reject. Nine controls passed12.86s, including actual metadata/geometry
+and isolated closure. No profile/target launch; independent authority remains
+null. Proof mathematics, error radii, step policy and caps remain unchanged.

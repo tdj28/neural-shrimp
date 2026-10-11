@@ -36,3 +36,11 @@ second junction connection remain separate proof obligations. The saved audit
 adapter can replay the same acquired polynomial data with positive traversal,
 fixed output gauge and variable literal widths; no scientific kernel change
 is required.
+
+Before launch, the saved output audit exposed a representation mismatch:
+input weight468 is `1/1`, while its certificate canonically stores `1`.
+The maintained adapter now compares exact positive Fraction values and runs
+its complete saved JSON gauge/interval/weight header in metadata preflight.
+An actual predecessor control accepts those equivalent values and rejects a
+changed value without interval arithmetic. All root/domain/gate values are
+unchanged. Nine controls passed12.86s; no new profile or target was run.

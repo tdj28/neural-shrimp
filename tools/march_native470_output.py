@@ -45,6 +45,13 @@ class Prefix:
  def start(self):return self.w.start
  def save(self,n,v,closing=False):return self.w.save(self.prefix+n,v,closing)
 
+def check_output_header(inp,chart):
+ need(chart['schema']=='neural-shrimp-correlated-signed-eigenpair-v1'and chart['sigma']==-1 and chart['shooting_dimension']==470 and chart['settings']==dict(halfwidth_exponent=-18,radius_exponent=-12),'literal predecessor full470 theorem')
+ need(inp['normal']==chart['normal']==['0']*469+['1']and inp['origin']==chart['origin']and inp['parameter']==chart['parameter_center']and not inp['anchor_exact_parameter_used'],'literal prior projected output gauge')
+ need(chart['parameter_endpoints']==[str(F(inp['parameter'])-F(1,2**18)),str(F(inp['parameter'])+F(1,2**18))],'complete prior exact interval')
+ need(len(inp['weights'])==len(chart['weights'])==470 and all(F(a)==F(b)>0 for a,b in zip(inp['weights'],chart['weights'],strict=True)),'exact positive predecessor weights despite canonical spelling')
+ return True
+
 def binding(w,card,metadata_only=False):
  need(card['status']=='reviewed'and card['policy']==POLICY and card['limits']==LIMITS and card['independent']is not None,'fixed reviewed output continuation with independent authority')
  p,rt=C.history(w,card['producer']);a,ar=C.history(w,card['independent']);o=read(p/'run/outcome.json');ao=read(a/'run/outcome.json');ib=read(a/'run/input-binding.json');oldcard=read(ROOT/W.CARD)
@@ -57,11 +64,12 @@ def binding(w,card,metadata_only=False):
   need(rt['sources'][n]==entry(ROOT/n),'unchanged full-domain proof kernel '+n)
  for n,k in [('connected-right-endpoint.json','endpoint'),('independent512.json','proof')]:need(entry(a/'run'/n)==card['independent'][k],'literal independently recomputed root '+n)
  for n,e in card['producer']['files'].items():need(entry(p/'run'/n)==e,'literal complete acquired source/input '+n)
+ inp=read(p/'run/target-inputs.json');chart=read(p/'run/target-certificate.json.gz');check_output_header(inp,chart)
  if metadata_only:return p,a
  known=read(a/'run/connected-right-endpoint.json');proof=read(a/'run/independent512.json');chart=read(p/'run/target-certificate.json.gz');inp=read(p/'run/target-inputs.json')
  need(known['box']==proof['recomputed_endpoints'][1]and len(known['box'])==470 and proof['passed']and all(proof['gates'].values()),'entire independently recomputed right endpoint')
  need(known['exact_parameter']==chart['parameter_endpoints'][1]and known['normal']==chart['normal']==inp['normal']==['0']*469+['1']and known['origin']==chart['origin']==inp['origin']and known['period']==18 and known['sigma']==-1 and known['dimension']==13,'literal phase/sign/output gauge')
- need(chart['weights']==inp['weights']and len(chart['weights'])==470 and all(F(v)>0 for v in chart['weights'])and F(chart['weights'][-2])==1 and F(chart['weights'][-1])==F(1,1048576)and inp['map_inputs']==ib['model'],'same full model and actual finite weights')
+ need(len(chart['weights'])==len(inp['weights'])==470 and all(F(a)==F(b)for a,b in zip(chart['weights'],inp['weights'],strict=True)) and all(F(v)>0 for v in chart['weights'])and F(chart['weights'][-2])==1 and F(chart['weights'][-1])==F(1,1048576)and inp['map_inputs']==ib['model'],'same full model and actual finite weights')
  w.save('input-binding.json',dict(card=card,known=known,model=ib['model'],native_source=ib['native_source'],weights=chart['weights'],scope='Same literal output gauge with exact previously proved endpoint scalar; no phase/sign transform.'))
  return known,chart,ib['model'],chart['weights']
 

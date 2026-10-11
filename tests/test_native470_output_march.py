@@ -50,3 +50,12 @@ def test_isolated_archive(tmp_path):
  code="import sys;from pathlib import Path;sys.path[:0]=['tools','src'];import march_native470_output as d;import launch_native470_output_march as l;r=Path.cwd();loaded={str(Path(m.__file__).resolve().relative_to(r))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(r)};assert loaded<=set(d.FILES),loaded-set(d.FILES);assert d.OUT.parent==l.OUT"
  p=subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,capture_output=True,text=True,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'));assert p.returncode==0,p.stderr
  assert D.LIMITS['native_calls']==180+24*144 and D.LIMITS['ticks']==186+24*150
+
+def test_actual_predecessor_header_and_exact_weight_values(monkeypatch):
+ import copy
+ def no(*a,**k):raise AssertionError('target arithmetic forbidden')
+ monkeypatch.setattr(D,'original_ball',no)
+ c=D.read(ROOT/D.CARD);p=Path(c['producer']['root'])/'run';inp=D.read(p/'target-inputs.json');chart=D.read(p/'target-certificate.json.gz');assert D.check_output_header(inp,chart)
+ assert inp['weights'][468]=='1/1'and chart['weights'][468]=='1'
+ bad=copy.deepcopy(inp);bad['weights'][468]='2'
+ with pytest.raises(ValueError,match='predecessor weights'):D.check_output_header(bad,chart)
