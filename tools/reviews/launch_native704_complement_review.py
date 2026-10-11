@@ -2,7 +2,7 @@
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-OUT=Path('/data2/neural-shrimp-data/audits/native704-complement-independent/attempt002')
+OUT=Path('/data2/neural-shrimp-data/audits/native704-complement-independent/attempt003')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 def entry(p):
     h=hashlib.sha256()

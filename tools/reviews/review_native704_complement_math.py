@@ -19,12 +19,12 @@ def frob(a):return sum((abs(v).upper()**2 for row in a.tolist()for v in row),arb
 def mid(a):return arb_mat([[v.mid()for v in row]for row in a.tolist()])
 def contains(outer,inner):U.contains(outer,ball_json(inner),'fresh independent domain within actual acquired domain')
 
-def enclosure(D,v,w,kappa,initial=None):
- n=len(w);need(0<=kappa and kappa<1 and finite(D)and finite(v),'finite strict known-root Neumann premise')
+def enclosure(D,v,w,kappa,initial=None,iterations=3):
+ n=len(w);need(type(iterations)is int and iterations in(3,6),'fixed three or six valid own intersections');need(0<=kappa and kappa<1 and finite(D)and finite(v),'finite strict known-root Neumann premise')
  rho=max((abs(v[i,0]).upper()/w[i]).upper()for i in range(n))/(1-kappa)
  box=arb_mat([[arb(0,(rho*w[i]).upper())]for i in range(n)])
  if initial is not None:box=arb_mat([[box[i,0].intersection(initial[i,0])]for i in range(n)])
- for _ in range(3):
+ for _ in range(iterations):
   image=v+D*box;need(finite(image),'finite known-root image');box=arb_mat([[box[i,0].intersection(image[i,0])]for i in range(n)])
  return box
 
@@ -43,10 +43,10 @@ def localization(chart,groups,tick=lambda:None):
  D=M.ident(n)-C*j;kappa=max((sum((abs(D[i,k]).upper()*w[k]for k in range(n)),arb(0))/w[i]).upper()for i in range(n));need(kappa.is_finite()and kappa<1,'independently strict full Neumann contraction')
  initial=arb_mat([[arb(0,rho*v)]for v in w]);center_error=enclosure(D,-C*g0,w,kappa,initial);tick()
  whole_error=enclosure(D,-C*(g0+(jp*s+hp)*d),w,kappa,initial);tick()
- tangent_error=enclosure(D,-C*(j*s+hw),w,kappa);tick()
+ tangent_error=enclosure(D,-C*(j*s+hw),w,kappa,iterations=6);tick()
  center=[c[i]+center_error[i,0]for i in range(n)];domain=[pred[i]+whole_error[i,0]for i in range(n)];tangent=[s[i,0]+tangent_error[i,0]for i in range(n)]
  need(all(v.is_finite()for v in center+domain+tangent)and all(v>0 for v in center[-2:]+domain[-2:]),'finite full localized same root and both positive rates')
- return center,domain,tangent,dict(passed=True,dimension=704,weighted_neumann_bound=ball_json(kappa),center=vector_json(center),whole=vector_json(domain),tangent=vector_json(tangent),scope='Independent conditional known-root center/whole/tangent enclosure from full native shooting blocks; existence and branch identity inherited from authenticated prior independent704 proof.')
+ return center,domain,tangent,dict(passed=True,dimension=704,tangent_intersections=6,weighted_neumann_bound=ball_json(kappa),center=vector_json(center),whole=vector_json(domain),tangent=vector_json(tangent),scope='Independent conditional known-root center/whole/tangent enclosure from full native shooting blocks; existence and branch identity inherited from authenticated prior independent704 proof.')
 
 def positive(a,basis):
  n=a.nrows();need(a.ncols()==basis.nrows()==basis.ncols()==n and all(v.is_exact()and v.is_finite()for row in basis.tolist()for v in row),'exact square congruence proposal')
