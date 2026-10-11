@@ -35,15 +35,23 @@ Native critical multiplier remains+1; this is the signed critical boundary.
 Separately certify the untransformed original numerical signed critical state
 and normalized mode at its exact saved float64 gain4.0756 using the same26D
 fixed-gain equations, two Newton proposals and radius2^-80. Preserve its source,
-all numerical curve/join/failure inventories and actual matrix. Transport that
-exact root through literal F2 and DF2 inside a freshly retained six-phase native
-cycle. Normalize the transported mode by its positive interval norm; record both
-mode orientations and require exactly one strict all26-coordinate membership
-in the organizer tube. No physical state sign transform or phase search is
-allowed. The earlier unique phase4 association predicts this inverse phase2
-join but does not supply proof. At a signed critical root, exact oddness implies
-G F2=F2 G and DG(F2x) DF2(x)q=-DF2(x)q; this identity, the proven root and
-strict uniqueness provide authority, not a contains-zero consistency check.
+all numerical curve/join/failure inventories and actual matrix. Root genealogy
+shows the exact organizer's numerical seed comes from signed_extension of that
+same continued phase; the old phase4 bridge already connected the distinct
+original cubic representation. Therefore require a direct strict all26 join.
+Retain literal F6 and DF6 over all six phases, positive transported mode norm,
+and exactly one of the two normalized mode orientations entering the same tube.
+The direct and full-native-return joins must use the same recorded orientation.
+Every native phase must also match the corresponding saved numerical cycle by
+an explicit interval proximity bound. No state sign or phase search is allowed.
+At the authenticated signed root, oddness implies F6(x)=x and DF6 q=q exactly;
+these identities supply authority, not a contains-zero consistency check.
+
+Source amendment before any acquisition: the initial plan incorrectly treated
+the organizer as still using the old untransported cubic phase, proposing F2.
+Source inspection of explore_clark_rnn_n12_quintic.verify_input shows its center
+instead descends from the continued signed_extension. The new direct/F6 joins
+honor that actual genealogy; no scientific result was generated under F2.
 
 Preparatory source only: the exact input/archive bindings, independent source
 review and fixed measured run card precede any target acquisition. Provisional
