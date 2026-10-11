@@ -24,3 +24,12 @@ research arrays, forecast=max(8*synthetic+1440,36*prior_seconds+90)<1800.
 Storage36*actual prior bytes+8MiB<252MiB and1.5*priorRSS+128MiB<4GiB required.
 Source/test/card review precedes the sole immutable attempt001. No automatic
 new domain, intersections, precision, geometry or cap changes.
+
+Attempt001 failed at the first centered whole cell: this Arb runtime interprets
+delta**3 as a real power and returns nonfinite on a sign-changing interval.
+Amendment uses explicit three multiplications (and shift*shift), unchanged
+Taylor theorem/gates/domains. The exact failure remains mandatory; fresh002
+profile/target only. Centered nonzero-cubic, one-sided and endpoint controls
+exercise finite full residual/derivative and exact actual first-cell metadata.
+Earlier first-six audits require finite Neumann forcing/images and finite
+quotient matrices before pass; the failure cannot silently pass those gates.

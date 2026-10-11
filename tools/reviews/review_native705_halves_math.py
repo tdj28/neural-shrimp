@@ -21,14 +21,14 @@ def translate(c,v,a,w,H0,rho,shift,h,cc,wc):
  need(all(x.is_exact()and x.is_finite()for x in c+v+a+w+[H0,rho,shift,h])and H0>0 and rho>0 and h>0 and all(x>0 for x in w),'exact finite predictor/scales')
  need(abs(shift)+h<=H0,'closed subset of proved parameter interval')
  need(cc.nrows()==wc.nrows()==n and cc.ncols()==wc.ncols()==4 and H.finite(cc)and H.finite(wc),'all original cubic residual coefficients')
- newc=[c[i]+v[i]*shift+a[i]*shift**2/2 for i in range(n)];newv=[v[i]+a[i]*shift for i in range(n)]
+ newc=[c[i]+v[i]*shift+a[i]*shift*shift/2 for i in range(n)];newv=[v[i]+a[i]*shift for i in range(n)]
  need(all(x.is_exact()for x in newc+newv),'no rounded predictor recentering')
  d=arb(0,h);delta=shift+d;r=[rho*x for x in w]
  need(all(x.is_exact()for x in r),'exact inherited coordinate radii')
  pred=[newc[i]+newv[i]*d+a[i]*d*d/2 for i in range(n)]
  domain=[pred[i]+arb(0,r[i])for i in range(n)]
  # Two separate Taylor theorems at the OLD center. Never differentiate a remainder.
- residual=arb_mat([[cc[i,0]+cc[i,1]*delta+cc[i,2]*delta*delta+wc[i,3]*delta**3]for i in range(n)])
+ residual=arb_mat([[cc[i,0]+cc[i,1]*delta+cc[i,2]*delta*delta+wc[i,3]*delta*delta*delta]for i in range(n)])
  derivative=arb_mat([[cc[i,1]+2*cc[i,2]*delta+3*wc[i,3]*delta*delta]for i in range(n)])
  return dict(c=newc,v=newv,a=a,w=w,h=h,r=r,pred=pred,domain=domain,residual=residual,rp=derivative,delta=delta)
 
