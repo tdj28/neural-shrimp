@@ -6730,3 +6730,14 @@ old independent root4, old entire failed/successful history, exact freshpoint
 residual, all705 projected root5 and same-gauge successor joins remain required.
 One900s6GiB2GiB saved unit with independent strict endpoint-value ordering;
 packet awaiting review, no target arithmetic yet. No active parent mutation.
+
+### 2026-10-11 00:10 PDT — full51 critical tube helper
+
+Root accepts connected51 native critical curve first, separate positive endpoint
+paired inverse/curvature for genericfold, preserving b0 degeneracy. New helper
+extends exact tube/join/root arithmetic to51 and fixed-gain (U,v,b) columns.
+Ten synthetic controls pass, including full51 root/tube, all fixed-gain columns,
+strict51join and zero-amplitude rejection. One test initially passed integer−1
+instead of Arb−1 and was corrected before target. Source-only, no acquisitions;
+full binding/costed runner still pending. Correct prior run-card clock typo:
+48 retry was admitted00:07PDT (recorded00:14), actual launcher timestamp retained.
