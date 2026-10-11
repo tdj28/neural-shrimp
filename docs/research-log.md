@@ -9361,3 +9361,9 @@ Reuse unchanged384-bit full55 root, same-box quotient and total crossing kernels
 ### 2026-10-11 — admit exact second55 interval qualification
 
 Stability independently cleared5975d844, four controls12.35s, full actual source ancestry and input/return/cap gates. Admit one source-frozen384-bit radius2^-80 unit under120s2GiB256MiB,108 unrelated profile calls before324 target phases. Same-root complement/crossing and strict both-rate bracket remain mandatory. No target at admission; fresh host/owned checks follow, all preceding own workers exited.
+
+### 2026-10-11 — second junction root/spectrum proven; crossing bound retained unresolved
+
+Interval source18c622cb completed432 native phases23.854s. All55 strict root inclusions, primitive18 and positive-rate/angle gates passed(q8.97e−6); the same-root10-mode complementary quotient passed. The direct interval section/border inverse crossing enclosure included zero, so overall qualification remains failed. All source/owned/inventory evidence immutable, outere422b76d.
+
+Prepare a saved-only same-box midpoint-preconditioned validated inverse refinement, preserving the original root and derivative domains with zero native calls. The strict inverse defect and two-sided product checks precede unchanged crossing formula. Four controls pass1.74s, including known normal-form derivative/zero rejection, singular inverse, actual metadata and isolated full55 profile/archive. Initial in-process profile test inherited unrelated pytest RSS highwater and was moved to a fresh process; unchanged production30s1GiB32MiB caps. No saved target arithmetic yet; peer review pending.
