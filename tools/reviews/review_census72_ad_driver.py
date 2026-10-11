@@ -52,8 +52,10 @@ def main(mode,profile_outer=None,profile_worker=None):
         nonlocal calls,returned
         if time.monotonic()-start>=limit:raise TimeoutError('AD panel deadline')
         if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss>=2*1024**2:raise MemoryError('AD panel2GiB RSS')
-        need(calls<(3 if mode=='profile'else 1680),'fixed native AD phase cap');calls+=1;v,j=objective_ad(inp,state);returned+=1
-        size=save(f'row-{row}/native-{calls:05d}.json.gz',dict(input=vector_json(state),value=vector_json(v),jacobian=matrix_json(j)))
+        need(calls<(3 if mode=='profile'else 1680),'fixed native AD phase cap');calls+=1
+        started_size=save(f'row-{row}/attempt-{calls:05d}.json',dict(index=calls,input=vector_json(state),row=row,status='attempted_before_native_call'))
+        v,j=objective_ad(inp,state);returned+=1
+        size=started_size+save(f'row-{row}/native-{calls:05d}.json.gz',dict(input=vector_json(state),value=vector_json(v),jacobian=matrix_json(j)))
         need(all(x.is_finite()for x in v)and all(x.is_finite()for a in j.tolist()for x in a),'finite complete AD return')
         return v,j,size
     try:
