@@ -17110,3 +17110,7 @@ Baseline independent512-action audit e4c5117a passed4.852s245384KiB with32 mean 
 ### 2026-10-11T12:51:22.077920+00:00 — Admit448-HVP first-order temporal correction
 
 Reviewed unrelated2-HVP profile completed3.971s964872KiB; entire retained coldmaximum.850284868 unchanged despite faster new profile. Full conservative448-HVP forecast791.855s472164189B fits1200s512MiB. Exact ae4db39c archive/immutable inventories/absentowners verified; same entire scientific source closure and native/profile library identity rechecked with only admitted card changed. Four consumed cases/qualifications and both declared accuracy/improvement gates unchanged. Source frozen/private-pushed before target launch, no holdout/new training.
+
+### 2026-10-11T12:54:21.901846+00:00 — First-order temporal variation succeeds at low rates, fails at original rates
+
+All448HVP completed92.029s1,011,804KiB, all four inherited1percent response/CE qualifications retained. Originalvectorerrors1.192956/1.232882 remain above20percent; only1.009x/1.026x blockmean improvement, so both declared original gates fail. Quartererrors.0702423/.0275708, alignments.997530/.999626 and CE-slopeerrors.004892/.002576;14.84x/20.33x improvement. This is a consumed rate-dependent first-order-sufficiency comparison; independently authored replay remains next. Full immutable manifests/exact4ad497e5 source/absentowners verified.
