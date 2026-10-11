@@ -6760,3 +6760,27 @@ with only own fixed48 CPU1/4GiB replay running; no duplicate minimum worker.
 Fresh full705 synthetic degree5/profile before targetarrays; retain every
 failure. Exact independently known root4→projected root5→same-gauge successor
 and strict three-endpoint rate comparison only; no unproved global geometry.
+
+### 2026-10-11 — two independent705 milestones sealed
+
+Behavioral consequence: the continued period18 branch has a rigorously stable
+11-dimensional complement on all first30 joined charts, and a later joined
+portion bends back in the physical hidden learning rate. The latter has at
+least one interior rate minimum; neither result completes a shrimp window.
+
+Saved fixed48 audit attempt002 passed all48 leaves and exact closed unions
+over original24 charts7–30, maximum complementary modulus<0.995357024565.
+Independent480 reductions used source-authenticated native acquisitions and
+Arb, with zero native calls.810.0416s/1911280KiB; first zero-native interval
+power failure remains immutable. Previous six charts plus these24 give30
+complement-qualified charts. Scope is same-root linear spectral stability,
+not nonlinear NS criticality or later root-only chart stability.
+
+Independent minimum attempt001 passed both full705 roots and all-coordinate
+joins, including actual same-gauge overlap.224.5628s/967940KiB, zero native.
+Hidden rate endpoints72.7785±8.17e-5,72.7734±4.56e-5,72.7744±7.43e-5 have
+strict exact rational gaps>0.00501899 and>0.00101631. Continuity proves an
+interior minimum, without uniqueness, location or nondegeneracy. Receipt
+pins exact independently proved successor endpoint for subsequent audits.
+All complete immutable inventories, historical source bytes and four owned
+PIDs absent independently checked. Integration inventory now54 raw roots.
