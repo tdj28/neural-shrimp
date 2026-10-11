@@ -14744,3 +14744,13 @@ correlation, not a case for blind radius growth. These are not wholeE bounds
 or nonexistence claims.0.5235s/100476KiB/0native; complete immutable source/
 inventory/owned exits checked,57rawroots. Prepare common-parameter residual
 and Jacobian Taylor acquisition with freshfullE before any new proof target.
+### 2026-10-11 — polynomial same-root localization/tangent helper prepared
+
+Implement the measured repair in a small conditional helper: retain the original
+D(d) and -C(d)R(d) for center/whole known-root intersections, and convolve
+-C(d)R'(d) before combining full mixed Hessian forcing in the true tangent.
+All705 coordinates and the constant external-gauge requirement are explicit.
+No differentiation of an interval remainder or approximate fixed-point equation.
+Six controls passed0.12s, including a nonlinear square-root branch/true tangent,
+noncommuting convolution and exact-domain negatives. No research arrays or
+native calls; source review first, then a separate bounded domain-bound caller.
