@@ -6409,3 +6409,7 @@ Full705 unrelated dense synthetic polynomial proof passed,50.2515s/1010500KiB, b
 ### 2026-10-10 21:29 PDT — narrow wider705 storage amendment prepared
 
 Retained and privately backed up001 admission failure7572a69c. Propose fresh002 with640MiB worker/642MiB owned raw caps, unchanged4MiB reserve,240s6GiB10GiBAS and all480bit mathematics/acquisition/705join gates. Explicit original001 immutable/source and storage-only failure admission binding added; full705 synthetic profile repeated before target arrays. This responds only to measured560985542B forecast exceeding536870912B; no automatic further cap increase. Narrow peer review pending, no retry launched.
+
+### 2026-10-10 21:29 PDT — wider705 audit002 narrow amendment cleared and admitted
+
+Boundary independently reviewedac21dd43 storage-only amendment PASS, ten controls0.76s; target not evaluated. Fresh host52GiB available/load2.01/2.22/2.32,GPUidle15947MiBfree,2.7TiBdisk; owned0012169459/2169462 absent and exclusive002 unused. Execute sole fresh002 after identical full705 synthetic measured admission.640MiB worker/642MiB combined with4MiB reserve; all480bit mathematics/exact native domains/full705 known-root joins and240s6GiB10GiBAS255+5owned unchanged. Original001 storage-only failure remains mandatory immutable input. No automatic further retry.
