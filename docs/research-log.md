@@ -9128,3 +9128,15 @@ powers with repeated multiplication; initial synthetic failure is disclosed in
 the plan, no target was opened. First combined test command named a nonexistent
 old test file and executed none; corrected direct new controls pass. This helper
 is source-only, not a new boundary proof, pending peer mathematical review.
+
+#### Fresh equal-action CIFAR comparison: helper preparation
+
+Prepared source-only two-pass full classical Gram–Schmidt Krylov helper at the
+fixed original state018. Retain256 actual basis actions, full coefficient
+history, SVD/rcond1e-12 action-space solve and one separate fresh physicalHp;
+no direction application. Equal-action qualification requires all256, final
+Gram<=1e-8 and fresh action agreement<=1e-8; a20% forcing decrease is the
+predeclared material comparison, old.5 forcing reported separately. Numerical
+breakdown and invalid orthogonality remain explicit. Four synthetic controls
+pass0.09s, including indefinite fullsolve and breakdown. This is preparatory
+math; no target acquisition before complete source-bound measured caller review.
