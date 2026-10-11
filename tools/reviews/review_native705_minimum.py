@@ -69,12 +69,18 @@ def fallback(run,pc,point_run,pi,known,w):
  point=[R.exact(M.point(v))for v in pi['point']];A.translated_domain(dom['error'],predictor,[known['endpoint'],pi['point']]);returns=[read(point_run/f'events/{i:03d}-direction_return.json.gz')for i in range(36,72)]
  G,unused=H.P.rebuild(point,returns,13,18,normal,origin,R.exact(F('63/512')));del unused;w.matrix(w.stage+'/independent-residual.json.gz',G);proof=A.localize(C,D,G,point,known['endpoint'],weights,w.tick);w.save(w.stage+'/localization.json',proof);del C,D,G;gc.collect();return dict(chart=known['chart'],endpoint=proof['box'])
 
+def same_gauge_parameter(previous,pc):
+ need(previous['chart']['normal']==pc['normal']and previous['chart']['origin']==pc['origin'],'literal same affine gauge before exact scalar membership')
+ value=F(previous['chart']['parameter_endpoints'][1]);center=F(pc['settings']['parameter']);left=center-F(1,64);right=center+F(1,64)
+ need(left<=value<=right and value-left==F(1,2048),'literal planned closed overlap and exact known scalar')
+ return str(value)
+
 def tube(run,pc,previous,w,index,rotated):
  data,C0,dom=geometry(run,pc);c,s,a,b,normal,origin,weights,h,rho,d,radii,error,whole=data;sc=R.exact(F(pc['settings']['parameter']));w.stage=f'chart{index:03d}'
  if rotated:
   need(previous['chart']['normal']!=pc['normal']or previous['chart']['origin']!=pc['origin'],'actual changed gauge');parameter=None
  else:
-  need(previous['chart']['normal']==pc['normal']and previous['chart']['origin']==pc['origin']and F(previous['chart']['parameter_endpoints'][1])==F(pc['settings']['parameter'])-F(1,64),'exact same-gauge adjacency');parameter=previous['chart']['parameter_endpoints'][1]
+  parameter=same_gauge_parameter(previous,pc)
  join=H.cubic_membership(previous['endpoint'],c,s,a,b,normal,origin,sc,h,radii,known_parameter=parameter);w.save(w.stage+'/known-root-membership.json',join);need(join['passed']and join['coordinates']==705,'all705 strict known-root projected/exact join')
  J=rebuild_J(run,data,w)
  for k,v in enumerate(J):w.matrix(w.stage+f'/jacobian_coefficient_{k}.json.gz',v)

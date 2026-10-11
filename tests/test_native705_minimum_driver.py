@@ -31,3 +31,13 @@ def test_copied_reviewed_math_exact_and_no_producer_import():
  import hashlib
  assert hashlib.sha256((ROOT/'tools/reviews/review_cubic705_math.py').read_bytes()).hexdigest()==hashlib.sha256(subprocess.check_output(['git','show','e687be3198d92e25fb78dabec9310d002353a6fc:tools/reviews/review_cubic705_math.py'],cwd=ROOT)).hexdigest()
  source=(ROOT/'tools/reviews/review_native705_minimum.py').read_text();assert 'rigorous_saved_cubic_endpoint'not in source and 'localize_fresh_endpoint'not in source
+
+
+def test_actual_same_gauge_overlap_and_changed_scalar_rejection():
+ c=D.read(ROOT/D.CARD);a=D.read(Path(c['root5']['root'])/'input-card.json');b=D.read(Path(c['successor']['root'])/'input-card.json')
+ previous=dict(chart=dict(normal=a['normal'],origin=a['origin'],parameter_endpoints=['-1/2048','63/2048']))
+ assert D.same_gauge_parameter(previous,b)=='63/2048'
+ bad=copy.deepcopy(previous);bad['chart']['parameter_endpoints'][1]='31/2048'
+ with pytest.raises(ValueError):D.same_gauge_parameter(bad,b)
+ bad=copy.deepcopy(previous);bad['chart']['normal'][0]='0'
+ with pytest.raises(ValueError):D.same_gauge_parameter(bad,b)

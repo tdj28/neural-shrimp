@@ -14412,3 +14412,12 @@ strict51join and zero-amplitude rejection. One test initially passed integer−1
 instead of Arb−1 and was corrected before target. Source-only, no acquisitions;
 full binding/costed runner still pending. Correct prior run-card clock typo:
 48 retry was admitted00:07PDT (recorded00:14), actual launcher timestamp retained.
+
+### 2026-10-11 — minimum overlap adapter repair before acquisition
+
+Boundary source review caught actual planned1/2048 same-gauge overlap:
+root5right63/2048 lies inside successor[62,126]/2048. Require literal same
+gauge/exact old scalar and exact planned overlap, then unchanged all705 strict
+membership. Actual metadata/changed-scalar/gauge regression added. No target
+run under old left-end-equality adapter. Stability b9eb0a2b explicit51 tube
+helper PASS10controls0.22s; full wrapper remains next after current audits.
