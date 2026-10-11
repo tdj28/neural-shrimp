@@ -17153,3 +17153,5 @@ Run: nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_native470_outp
 Output: ../neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/signed-flip-output-gauge001/attempt001
 No automatic retries. The cosmetic launcher heading now names its actual
 output-gauge scope; no executable source changed after review.
+
+11 October2026 — output-gauge001 source72266c49 completed432native/450ticks in56.602s/792636KiB, exit2. All three same-root endpoint refinements passed (weighted radii2.778e-7,2.930e-10,1.811e-13). Fresh output-gauge chart failed q~1.785e7,101/470images and469/470anchor, primitive18passed. Sole anchorfailure is hidden-rate coordinate468, whose inherited weight1/1048576 was designed when it was the fixed gauge coordinate. No extent promoted and no blind step retry. Fullsource/inventories/owned termination/432input-return pairs verified immutable. A saved full-defect scaling diagnosis will precede any changed-E reacquisition. Independent sixteen-chart prefix has separately passed at Root; its new endpoint will be bound in any next attempt.
