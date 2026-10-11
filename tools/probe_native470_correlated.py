@@ -18,10 +18,10 @@ from neural_shrimp.rigorous_eigenpair_locus import phase,exact_mid
 from neural_shrimp.rigorous_eigenpair_path import path_coefficients
 from neural_shrimp.rigorous_saved_cubic_endpoint import original_ball
 need,read,entry=C.need,C.read,C.entry
-OUT=C.OUT.parents[2]/'signed-flip-correlated001/attempt001/run';CARD='docs/plans/native470-correlated-inputs.json'
+OUT=C.OUT.parents[2]/'signed-flip-correlated001/attempt002/run';CARD='docs/plans/native470-correlated-inputs.json'
 SETTINGS=dict(period=18,sigma=-1,halfwidth_exponent=-3,radius_exponent=-12,newton_steps=2,precision=256,parameter='-49/256',known_parameter='-17/256')
 LIMITS=dict(seconds=240,rss_bytes=4*1024**3,as_bytes=8*1024**3,raw_bytes=768*1024**2,profile_ticks=186,target_ticks=150,native_calls=324)
-FILES=sorted(set(C.FILES+[CARD,'docs/plans/native470-correlated.md','tools/probe_native470_correlated.py','tools/launch_native470_correlated.py','tests/test_native470_correlated_driver.py','tests/test_signed_gradient_path.py','tests/test_signed_correlated.py','tests/test_signed_proposal.py']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
+FILES=sorted(set(C.FILES+[CARD,'docs/plans/native470-correlated.md','tools/probe_native470_correlated.py','tools/launch_native470_correlated.py','tests/test_native470_correlated_driver.py','tests/test_signed_gradient_path.py','tests/test_signed_correlated.py','tests/test_signed_proposal.py','docs/reviews/native470-correlated-profile001.json']+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 def jet(v):return dict(kind='gradient_path',**v.serialized())if isinstance(v,GradientPathJet)else encode(v)
 class Retained:
@@ -45,10 +45,11 @@ def chart(model,initial,normal,origin,parameter,weights,anchor,settings,w):
  return signed_correlated_tube(model,proposal['center'],proposal['slope'],proposal['curvature'],proposal['C0'],period=18,sigma=-1,normal=n,origin=o,parameter=parameter,halfwidth_exponent=settings['halfwidth_exponent'],radius_exponent=settings['radius_exponent'],weights=[exact(v)for v in weights],anchor=anchor,tick=w.tick,observe=w.observe)
 
 def profile(w):
+ retained_failure(w)
  ini,kw=synthetic_fixture();w.save('profile-fixture.json',dict(initial=ini,settings={k:v for k,v in kw.items()if k!='anchor'},scope='Unrelated full470 repeated primitive2, false primitive18'))
  used=w.used;t=time.monotonic();r=chart(Retained(SyntheticFlip(),w.observe),ini,kw['normal'],ini,'0',['1']*470,kw['anchor'],kw,w);charttime=time.monotonic()-t
  need(r['gates']['uniform_normalized_eigenpair_locus']and r['gates']['anchor_identified']and not r['gates']['primitive_period'],'full470 synthetic proof/anchor and false primitive18');del r
- inp,z=C.L.K.fixture();n=13;x=z[:n];q=z[n+2:2*n+2];rates=z[n:n+2];w.save('profile-native-fixture.json',dict(map_inputs=inp,state=vector_json(x),mode=vector_json(q),rates=vector_json(rates)))
+ inp,z=C.L.K.fixture();z=[v.mid()for v in z];n=13;x=z[:n];q=z[n+2:2*n+2];rates=z[n:n+2];w.save('profile-native-fixture.json',dict(map_inputs=inp,state=vector_json(x),mode=vector_json(q),rates=vector_json(rates)))
  model=Retained(C.TwoRateCuspMap(inp),w.observe);initial=x+q+rates;slope=[exact(str(F(i-14,128)))for i in range(28)];curve=[exact(str(F(7-i,256)))for i in range(28)];normal=[arb(0)]*26+[arb(1),arb(0)];delta=arb(0,arb((1,-14)));err=[arb(0,arb((1,-20)))]*28;times={k:[]for k in ('mixed','gradient','path')}
  for k in range(12):
   w.tick();t=time.monotonic();v,j,e=phase(model,x,q,rates);w.save(f'profile-mixed-{k}.json.gz',dict(value=matrix_json(v),block=matrix_json(j),rates=matrix_json(e)));times['mixed'].append(time.monotonic()-t)
@@ -58,14 +59,20 @@ def profile(w):
  ok=seconds<240 and raw<768*1024**2 and rss<4*1024**2
  w.save('profile.json',dict(passed=ok,chart_seconds=charttime,times=times,forecast_seconds=seconds,forecast_bytes=raw,forecast_rss_kib=rss,target_arrays_unopened=True,ticks=w.ticks,native_calls=w.native));need(ok and w.ticks==186 and w.native==180,'complete full470 same-source measured profile before target')
 
-def history(w,spec):
+def history(w,spec,expected_exit=0):
  p=Path(spec['root'])
  for b,k in ((p,'outer'),(p/'run','worker')):C.L.K.inventory(b,spec[k]['sha256'],w)
  rt=read(p/'run/runtime.json');la=read(p/'launcher-result.json');owner=read(p/'owned-process.json');group=owner.get('group_pid',owner.get('pid'))
- need(type(group)is int and la['source_commit']==rt['source_commit']==spec['source']and la['exit_code']==0 and la['failure']is None and not la['owned_live_pids']and la['worker_pid_absent'],'complete successful source and ownership')
+ need(type(group)is int and la['source_commit']==rt['source_commit']==spec['source']and la['exit_code']==expected_exit and la['failure']is None and not la['owned_live_pids']and la['worker_pid_absent'],'complete successful source and ownership')
  need(la.get('owned_group_pid',group)==group and all(not Path('/proc',str(pid)).exists()for pid in [group,la.get('launcher_pid',-1)]),'historical owned processes gone')
  for n,v in rt['sources'].items():need(entry(p/'run/source'/n)==v and hashlib.sha256(subprocess.check_output(['git','show',spec['source']+':'+n],cwd=ROOT)).hexdigest()==v['sha256'],'historical exact source '+n);w.check()
  return p,rt
+
+def retained_failure(w):
+ spec=read(ROOT/'docs/reviews/native470-correlated-profile001.json');p,rt=history(w,spec,2);o=read(p/'run/outcome.json')
+ need(spec['root']==str(OUT.parents[1]/'attempt001')and spec['source']=='2fb0cd3ebd06331f85cb697a49b70a5440aaa896','literal first profile source/path')
+ need(o==spec['outcome']and not o['passed']and not o['target_acquired']and o['native_calls']==145 and o['ticks']==151 and o['error']=='ValueError: exact finite predictor and gauge'and not list((p/'run/events').glob('*-target-*')),'immutable failed exact-fixture profile before target')
+ w.save('retained-profile-failure.json',dict(source=spec['source'],outer=spec['outer'],worker=spec['worker'],outcome=o))
 
 def binding(w,card,metadata_only=False):
  need(card['status']=='reviewed'and card['settings']==SETTINGS and card['limits']==LIMITS,'fixed reviewed wider correlated design')
