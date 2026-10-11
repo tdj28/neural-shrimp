@@ -12441,3 +12441,7 @@ endpoint. All705 root/strictjoin arithmetic at384bits, zero nativecalls.
 Measured15.34s perchart;240s/4GiB/64MiBcap,1nice10CPU. Changedgauges require
 full projected knownroot membership; identicalgauge exactparameter use requires
 adjacency. Original three later width failures remain excluded.
+
+### 2026-10-11 UTC — Independent wider native705 prefix proved
+
+The fixed one-chart replay at source9674baf5 passed after six peer controls: all705 root inclusions and strict full-state exact-gauge endpoint membership,384-bit independent arithmetic, contraction<0.956317871, gauge[319/4096,447/4096]. This extends the independently connected chain; the other three producer trials remain rejected. Saved-only replay used zero native calls,15.9205s and1406780KiB; owned processes are absent. Immutable outer manifest bf910c9698081b745d9cc1998441bc29a8a7f4bd250d14494ec51ea5f7604fef. Endpoint is pinned for the next rotated-gauge packet. Active work continues toward the separate unit-pair/flip junction.
