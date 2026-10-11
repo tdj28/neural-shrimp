@@ -9400,3 +9400,14 @@ final-action provenance all pass. Fresh forcing.427388278751536 vs qualified256
 error8.30384e-15, rank512, independent direction assembly9.59e-16, action8.79e-13.
 All immutable files verified and owned exits absent. This is a nested larger
 budget numerical solve at historical018, with no step/current022/orbit claim.
+
+### 2026-10-11 — fresh polynomial-point helper prepared
+
+Added a conditional same-root point enclosure using one fresh full residual
+and original correlated inverse/defect at an exact scalar, plus finite old-C
+point proposals. Caller must cover the complete original point/root segment;
+no new root/Jacobian/whole-interval narrowing follows. Seven new/prior controls
+pass, including negative original scalar and nonlinear known-root enclosure.
+An initial synthetic test demanded an arbitrary10000-fold narrowing; the actual
+valid bound narrowed about4800-fold, so the asserted performance floor is now
+1000-fold with exact-root containment unchanged. No target native call.
