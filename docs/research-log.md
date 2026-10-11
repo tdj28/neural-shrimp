@@ -16928,3 +16928,22 @@ copy-replacement typo requesting66GiB host headroom. Replace this with the
 separate named original10GiB headroom constant and add a regression keeping
 66MiB output distinct. No target launched, mathematical/time/RSS/raw limits
 unchanged. Eleven controls now pass; narrow peer recheck precedes admission.
+
+### 2026-10-11 — prepare independent22-tube finite-prefix replay
+
+While the higher-priority subset screen awaits its narrow peer recheck, finish
+source preparation of the exact original22 accepted successors/all32 histories.
+Start at the independently proved whole51 b1/2048 box and require separately
+assembled native path coefficients, strict all51 roots/ordered joins and all88
+partner/adjacent native6 primitive/+1/stable-complement contexts. Reuse the
+reviewed raw-native and interval reducers; no generic endpoint or new native.
+Failed wider attempts stay failed selections. Process one proof at a time,
+removing the unused full-proof accumulation flagged by Root's preliminary skim.
+
+Twelve controls pass4.16s. An initial combined-test import guard saw unrelated
+producer-reference modules from synthetic controls; the archive closure check
+now runs in its own clean subprocess and confirms no producer/native imports.
+Actual full metadata succeeds before decoding. Fixed300s2GiB4GiBAS256MiB,
+315+5 owned; conservative full original extension cost/raw floor and synthetic
+admission before target. Card remains prepared pending complete peer review;
+this source preparation does not delay or authorize a new subset/native run.
