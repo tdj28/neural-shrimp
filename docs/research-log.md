@@ -13635,3 +13635,7 @@ Same independently proved primitive18 unit-pair/simple-flip root, source9f6776ed
 ### 2026-10-11 UTC — Four-step audit filename correction
 
 Saved audit001 source9f6776ed stopped2.909s41792KiB before acceptance arithmetic on missing initial-gradient.npy; actual source uses native-direct_gradient-0001-return.npy. Full immutable/source and owned process check retained in failed receipt. Same original trust/data/math/caps; corrected first-return path with unchanged prior-gradient byte equality and explicit fixed-name inventory preflight.7controls0.10s plus actual filename manifest preflight PASS. Fresh attempt002 after narrow independent clearance.
+
+### 2026-10-11 UTC — Four fresh CIFAR steps independently replayed
+
+Saved audit002 source4695ea62 passed3.480s54792KiB0native, outer8ca1ec27bd1a30a99a2b5a8e47fde0c96bcd73c9232e64b3b644742a690d83c8. Independent math.fsum reproduces all four true-forcing/descent tests, all16trials and first Armijo acceptance at1/8, exact current-state1030HVP23gradient bindings and the original trust origin. Final relative gradient0.00025815311140404816, original-origin distance0.02188490537983431. Full raw/source inventories and owned exit verified; no stationarity/eigenpair/orbit inferred. Next conditioning diagnosis assigned while geometry continues; no repeated unamended solve.
