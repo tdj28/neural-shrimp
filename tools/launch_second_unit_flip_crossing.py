@@ -1,8 +1,11 @@
-"""One bounded one finite signed470 junction tube."""
+"""One bounded saved-only second-junction crossing refinement."""
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/second-unit-flip-localization001/rigorous001/crossing001')
+MIN_AVAILABLE_KIB=1024**2
+PARENT_AS_BYTES=512*1024**2
+WORKER_AS_BYTES=3*1024**3
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 def entry(p):
     h=hashlib.sha256()
@@ -25,8 +28,8 @@ def current_rss_kib():return int(next(v.split()[1]for v in Path('/proc/self/stat
 def main():
     assert not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
-    available=int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')));assert available>11024**2
-    resource.setrlimit(resource.RLIMIT_AS,(511024**2,3*1024**3))
+    available=int(next(s.split()[1]for s in Path('/proc/meminfo').read_text().splitlines()if s.startswith('MemAvailable:')));assert available>MIN_AVAILABLE_KIB
+    resource.setrlimit(resource.RLIMIT_AS,(PARENT_AS_BYTES,WORKER_AS_BYTES))
     OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0;parent_peak=0
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();command=[sys.executable,str(ROOT/'tools/refine_second_unit_flip_crossing.py')]
     meta={'source_commit':source,'launcher_pid':os.getpid(),'argv':command,'load':os.getloadavg(),'mem_available_kib':available,'started_unix':time.time(),'internal_seconds':30,'external_seconds':45,'kill_grace_seconds':5,'worker_rss_kib':1024**2,'worker_as_bytes':3*1024**3,'launcher_rss_kib':256*1024,'output_cap_bytes':34*1024**2,'threads':dict.fromkeys(THREADS,'1'),'nice':os.getpriority(os.PRIO_PROCESS,0)}
@@ -38,7 +41,7 @@ def main():
                 _,rss=owned(proc.pid);peak=max(peak,rss);parent_peak=max(parent_peak,current_rss_kib())
                 if peak>1024**2 or parent_peak>256*1024:raise MemoryError('owned1GiB/launcher256MiB cap')
                 if time.monotonic()-start>45:raise TimeoutError('external45s cap')
-                if sum(p.stat().st_size for p in OUT.rglob('*')if p.is_file())>34*1024**2:raise OSError('combined258MiB output cap')
+                if sum(p.stat().st_size for p in OUT.rglob('*')if p.is_file())>34*1024**2:raise OSError('combined34MiB output cap')
                 time.sleep(.25)
         except BaseException as exc:failure=type(exc).__name__+': '+str(exc)
         finally:

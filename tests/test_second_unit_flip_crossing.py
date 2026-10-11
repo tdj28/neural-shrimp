@@ -36,3 +36,13 @@ def test_full_synthetic_profile_and_archive(tmp_path,monkeypatch):
   p=tmp_path/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes())
  code="import sys;from pathlib import Path;sys.path[:0]=['tools','src'];import refine_second_unit_flip_crossing as d;import launch_second_unit_flip_crossing as l;r=Path.cwd();loaded={str(Path(m.__file__).resolve().relative_to(r))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(r)};assert loaded<=set(d.FILES),loaded-set(d.FILES);assert d.OUT.parent==l.OUT"
  p=subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,capture_output=True,text=True,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'));assert p.returncode==0,p.stderr
+
+
+def test_launcher_declared_memory_constants_and_real_limit_pair():
+ assert L.MIN_AVAILABLE_KIB==1024**2
+ assert L.PARENT_AS_BYTES==512*1024**2
+ assert L.WORKER_AS_BYTES==3*1024**3
+ assert L.PARENT_AS_BYTES<L.WORKER_AS_BYTES
+ code="import resource;resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,3*1024**3));assert resource.getrlimit(resource.RLIMIT_AS)==(512*1024**2,3*1024**3)"
+ p=subprocess.run([sys.executable,'-I','-B','-c',code],capture_output=True,text=True)
+ assert p.returncode==0,p.stderr
