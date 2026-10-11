@@ -64,7 +64,11 @@ class Gradient:
 def scalar_derivatives(x,kind):
  require(x.is_finite(),'finite scalar expansion domain')
  if kind=='reciprocal':
-  require(not x.contains(0),'nonzero whole pair denominator');return [arb((-1)**k*factorial(k))/integer_power(x,k+1)for k in range(6)]
+  require(not x.contains(0),'nonzero whole pair denominator')
+  # Take the reciprocal of the original nonzero interval first. Repeated
+  # denominator products can wrap across zero although x itself excludes it.
+  inverse=1/x
+  return [arb((-1)**k*factorial(k))*integer_power(inverse,k+1)for k in range(6)]
  if kind in('sinh','cosh'):
   a,b=(x.sinh(),x.cosh())if kind=='sinh'else(x.cosh(),x.sinh());return [a if k%2==0 else b for k in range(6)]
  require(kind in('C','S')and abs(x).upper()<=16,'bounded entire pair argument');offset=int(kind=='S');out=[]
@@ -87,7 +91,7 @@ def paired(j,z,b,*,tick=lambda:None,observe=lambda *_:None):
  for phase in range(3):
   observe('clark_gradient_path_input',dict(phase=phase,even=[x.serialized()for x in m],odd=[x.serialized()for x in q],leak=delta.serialized(),gain=gain.serialized(),squared_amplitude=b.serialized()));tick();t=[pair(x,y,b)for x,y in zip(m,q,strict=True)]
   m=[(1-delta)*m[i]+delta*gain*sum((j[i][k]*t[k][0]for k in range(n)),0)for i in range(n)];q=[(1-delta)*q[i]+delta*gain*sum((j[i][k]*t[k][1]for k in range(n)),0)for i in range(n)]
-  require(all(v.is_finite()for x in m+q for p in[x.v,*x.g]for v in p.a+p.b),'all finite native coefficients');observe('clark_gradient_path_return',dict(phase=phase,even=[x.serialized()for x in m],odd=[x.serialized()for x in q]));tick()
+  observe('clark_gradient_path_return',dict(phase=phase,even=[x.serialized()for x in m],odd=[x.serialized()for x in q]));require(all(v.is_finite()for x in m+q for p in[x.v,*x.g]for v in p.a+p.b),'all finite native coefficients');tick()
  return [-m[i]-m0[i]for i in range(n)]+[-q[i]+q0[i]for i in range(n)]+[(sum((x*x for x in q0),0)-1)/2]
 
 def coefficients(j,center,slope,curvature,error,parameter,d,*,tick=lambda:None,observe=lambda *_:None):

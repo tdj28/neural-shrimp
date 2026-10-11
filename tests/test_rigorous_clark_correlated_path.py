@@ -52,3 +52,31 @@ def test_full_error_including_v_is_retained_at_d0_and_whole_d():
    for k in range(11):assert (J[0][i,k]-Jo[i,k]).contains(0)
   assert sum(k=='clark_gradient_path_input'for k,_ in events)==3 and events[-1][1]['error']==P.vector_json(err)
   with pytest.raises(ValueError):P.coefficients(j,c,s,a,err[:-1],b,arb(0))
+
+
+def test_reciprocal_first_preserves_finite_wide_positive_and_negative_domains():
+ with ctx.workprec(384):
+  x=arb(2,arb(1)/4)
+  assert not x.contains(0) and P.integer_power(x,6).contains(0)
+  for sign in (1,-1):
+   for radius in (arb(1)/4,arb(3)/4):
+    x=arb(2*sign,radius);ds=P.scalar_derivatives(x,'reciprocal')
+    assert all(v.is_finite()for v in ds)
+    for y in [arb(2*sign)-radius,arb(2*sign),arb(2*sign)+radius]:
+     for k,value in enumerate(ds):
+      expected=arb((-1)**k*factorial(k))/P.integer_power(y,k+1)
+      assert (value-expected).contains(0)
+  with pytest.raises(ValueError,match='nonzero'):P.scalar_derivatives(arb(0,1),'reciprocal')
+
+
+def test_nonfinite_completed_native_arrays_retained_before_rejection(monkeypatch):
+ with ctx.workprec(384):
+  j,c,s,a,b=setup();events=[];original=P.pair
+  def corrupt(m,q,b):
+   even,odd=original(m,q,b)
+   return P.Gradient(P.Path.constant(arb('nan')),even.g),odd
+  monkeypatch.setattr(P,'pair',corrupt)
+  with pytest.raises(ValueError,match='all finite native coefficients'):
+   P.coefficients(j,c,s,a,[arb(0)]*11,b,arb(0),observe=lambda k,v:events.append((k,v)))
+  assert events[-1][0]=='clark_gradient_path_return'
+  assert events[-1][1]['even'][0]['value'][0][0]=={'finite':False}
