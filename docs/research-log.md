@@ -9263,3 +9263,7 @@ Attempt001 source85977e04 stopped after two full41 target evaluations/504 inclus
 ### 2026-10-11 — bounded damped numerical41 amendment prepared
 
 Following retained undamped001 residual increase, fresh002 keeps the.1 full-state step guard and adds actual max-residual decrease on a bounded dyadic line search. At most64 full41 evaluations/16 accepted steps, unchanged adjacent and two reverse associations;3096inclusive phases, same240s3GiB256MiB. Nine controls pass5.81s, including actual metadata, non-descent/resource rejection and full unrelated profile. Old failure is mandatory; no target run or scientific threshold relaxation.
+
+### 2026-10-11 — admit damped41 and advancing470 independent local units
+
+Stability cleared d5528916 damped41 with9controls6.27s; Clark cleared08dec958 advancing470 with9controls1.52s. Both cards now reviewed. Each retains its own full unrelated profile before target, source/inventory/raw roots and owned240s deadline; reservations3GiB+4GiB, CPU1 each, fresh54GiB host previously available and rechecked before launch. Actual metadata preflights precede both launches. They share immutable source only, no scientific data dependency; no result at admission.
