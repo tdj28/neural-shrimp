@@ -13043,3 +13043,15 @@ The historical worker now exposes default-preserving fixed event/tick labels
 for this adapter. Fresh cubic profile and exact measured card still required;
 no target or profile executed by this preparation. Intended next step after a
 pass is reusable connected batches toward the distant junction.
+
+
+### 2026-10-11 UTC: cubic full705 profile passed; fixed target card
+
+Stability independently cleared0fda41c8 residual,94d232b6/09c64f85 composition,
+9179ff2a profile andc1c31256 target binding. New sourcec1c312569d7b07e24cd1b6f242cbecfc7047dac3 profile
+passed all629ticks, two full705 cubic controls, actual13D gradient/quartic pairs
+in49.565s/1202828KiB/9485461bytes.
+Outera12c2e8bb643cc112caafd3270292ebc21eed0ad0faae50870e465e0ae7992a6, workerc929f9cc8fa4292be2d045edb7a9ad2b8c55088a4b5f7fa290ab0c5d4b4b3707; owned group empty. New native
+projection84.48s; preserved conservative actual dense floor still176.023s,
+4839112KiB,490414663bytes, inside unchanged caps. Commit the exact
+manifest-bound single h1/8,rho2^-8 card before target. No cubic target outcome yet.
