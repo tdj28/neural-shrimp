@@ -9118,3 +9118,13 @@ finite projected diagnostics only; no full-Hessian spectrum/condition claim.
 No action at finalstate022, stationary seed or orbit follows. Root explicitly
 authorizes preparing one fresh256-action plusfinalHp comparison atstate018,
 with independent source review and new measured card before any acquisition.
+
+#### Later cubic-chart complementary method preparation
+
+Prepared exact cubic predictor restriction and separate residual/derivative
+Taylor forcing, preserving full705 root corrections and requiring fresh local
+J/C. Five synthetic controls pass0.09s after replacing sign-changing Arb integer
+powers with repeated multiplication; initial synthetic failure is disclosed in
+the plan, no target was opened. First combined test command named a nonexistent
+old test file and executed none; corrected direct new controls pass. This helper
+is source-only, not a new boundary proof, pending peer mathematical review.
