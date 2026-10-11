@@ -14326,3 +14326,23 @@ box. Six controls pass0.12s, including all columns, polynomial zero-amplitude
 root, literal native agreement and singular-family non-promotion. Helper-only;
 full51 tube/known-root joins and native physical fold gates remain required.
 No new target/profile acquisition; prior failed26-variable unit unchanged.
+
+### 2026-10-11 — Fixed48 independent saved complementary replay prepared
+
+Generalize independently passed two-half arithmetic only to each exact original
+center/closed dyadic cell; retain all705 MixedJet reconstruction, original
+R/Rprime Taylor authority, six own intersections, strict actual acquisition
+coverage and full11-mode quotient/metric proof. Both complete72-attempt
+inventories and24 negative parents retained;48 accepted leaves give exact
+within-gauge unions over independent original charts7–30. Source/control tests
+caught that resume guide source-index metadata was stale, and that parent JSON
+reserialization can differ from actual archived input bytes. Both identities
+are now pinned separately and every72 assignment checked against its actual
+archived source input card. No target interval arithmetic performed.
+
+Fifteen geometry/metadata/archive/inherited-math controls pass1.05s. OneCPU1
+1800s4GiB6GiBAS256MiB with4MiB reserve/1815+5owned258MiB; prior two-cell37.734s
+and5.77MB scaled1.5x to48 plus allowances fit. Fresh full705 synthetic gate
+precedes arrays. Stop on any failure and retain completed leaves. Packet sent
+for peer source review. Stability274d9133 explicit51 fold helper PASS6controls
+0.12s; exact51 tube/native proof wrapper remains active next.
