@@ -9488,3 +9488,5 @@ GPU0%/15947MiB free; no owned weighted chart process. One fixed324-phase/336tick
 240s4GiB768MiB run, fresh full measured profile before target. All prior failures
 and saved scaling diagnosis retained, no automatic retry.
 Run: nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_native470_output_weighted.py
+
+11 October2026 — weighted output-gauge002 source1467fe8a completed PASS65.510s/787588KiB,324native336ticks. All470 strict root and full projected same-root join, primitive18, q<.069279977. Right physical hidden76.5570±2.8e-5/output.836634797712 extends from prior hidden76.59156993217. Full old/new source, independent16-root identity, all native input/return counts, immutable manifests and absent owners verified. All preceding failures retained. New coordinate proof is producer evidence pending independent saved replay; no spectrum/genericity/second-junction claim. Next maintained output-gauge packet can propose larger widths under unchanged full proof/association gates.
