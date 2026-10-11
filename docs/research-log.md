@@ -6617,3 +6617,14 @@ calls, missing-pass inference, root or branch claim. Preserve failed outcome.
 ### 2026-10-10 23:30 PDT — saved inverse diagnosis complete
 
 All five original predictor H_U infinity rejections reproduced,621.25→36.11; floating absolute-defect spectral radii112.49→6.00365 and no positive resolvent proposal do not support scaling alone.0.9275s150560KiB,0nativecalls; complete immutable source/inventories and owned2388805/2388870 exits verified. Receipt clark-amplitude-inverse-diagnosis.json;50rawroots. Initial shell invocation omitted nice10 and stopped before output/worker creation, then corrected with unchanged source/card. Future formulation may include the implicit tangent as51joint unknowns; requires source/control review and fresh actual domains. No tube or physical nonexistence claim.
+
+### 2026-10-11 — Independent physical-corner binding packet
+
+Root959be026 helper source/math PASS5controls0.07s. Fixed saved wrapper binds
+complete original384 junction, independent480 root and producer512 corner
+inventories/sources; own512 Krawczyk/divisor/ten-mode reduction precedes
+complex-bordered physical gradients. Strict all55 same-root inclusion and
+exact acquired monodromy/whole-Jacobian retained, zero native calls. Full13/55
+synthetic profile precedes arrays;30s512MiB2GiBAS16MiB with2MiB closing reserve,
+45+5 owned18MiB. Nine math/binding/archive/reserve controls pass0.23s. Source
+review before sole attempt001; direction remains post-outcome qualitative.
