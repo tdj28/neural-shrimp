@@ -33,3 +33,12 @@ def test_isolated_archive_and_inherited_soft_as_startup(tmp_path):
  code="import resource,sys;from pathlib import Path;resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,4*1024**3));resource.setrlimit(resource.RLIMIT_AS,(4*1024**3,)*2);sys.path[:0]=['tools','src'];import audit_second_unit_flip_nested as d;import launch_second_unit_flip_nested as l;r=Path.cwd();loaded={str(Path(m.__file__).resolve().relative_to(r))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(r)};assert loaded<=set(d.FILES),loaded-set(d.FILES);assert d.OUT.parent==l.OUT"
  p=subprocess.run([sys.executable,'-I','-B','-c',code],cwd=tmp_path,capture_output=True,text=True,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'));assert p.returncode==0,p.stderr
  source=(ROOT/'tools/audit_second_unit_flip_nested.py').read_text();assert source.index("if __name__=='__main__':resource.setrlimit")<source.index('import flint')
+
+
+def test_real_exclusive_nested_binder_namespaces(tmp_path,monkeypatch):
+ monkeypatch.setattr(D,'OUT',tmp_path);w=D.Work()
+ D.Prefix(w,'old-root-').save('input-binding.json',dict(kind='old'))
+ D.Prefix(w,'numerical-').save('input-binding.json',dict(kind='numerical'))
+ w.save('input-binding.json',dict(kind='final'))
+ assert len(list(tmp_path.glob('*input-binding.json')))==3
+ with pytest.raises(FileExistsError):D.Prefix(w,'old-root-').save('input-binding.json',{})
