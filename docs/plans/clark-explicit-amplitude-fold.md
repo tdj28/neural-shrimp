@@ -29,3 +29,22 @@ check supplies existence or replaces source/phase/root authority.
 The full51 tube, source/binding wrapper, native nondegeneracy and bounded
 resource/profile card will be reviewed separately. This is preparatory math
 only; no research arrays or derivative acquisitions are evaluated here.
+
+## Full51 tube and endpoint distinction
+
+The separate explicit-tube helper extends the reviewed mean-value tube and
+strict root arithmetic to51 coordinates and retains every parameter column.
+Fixed-gain coordinates are (U25,v25,b), so removing only the gain column and
+appending the b derivative gives the full51 square root. Root joins retain
+all51 coordinates including the tangent. The native partner/mode identity
+uses exact H=0,H_Uv+H_b=0,v_leak=0 and remains valid without inferring that
+H_U is invertible from the larger matrix.
+
+The initial target is a connected critical curve with native primitive6,
+single+1 and11 stable complementary modes, preserving the b=0 degeneracy.
+Generic physical fold is a separate strictly positive endpoint gate: perform
+a validated H_U inverse on its tiny exact root box, identify the same v by
+uniqueness, and use the existing total fixed-gain leak_bb derivative. It is
+not promoted uniformly from full51 invertibility. Uniform fold nondegeneracy
+can follow with correlated restrictions only if needed. Root explicitly
+accepted this distinction. No target acquisition or new run budget yet.
