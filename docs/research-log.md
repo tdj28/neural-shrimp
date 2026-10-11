@@ -12483,3 +12483,17 @@ this cancellation. No new basis trial or automatic subdivision. Complete
 immutable source/inputs/returns/events/failure and absent ownedPIDs verified;
 receipt docs/reviews/native705-correlated-failure.json. Boundary peer source
 review passed9controls0.48s before this fixed unit.
+
+### 2026-10-10: correlated705 tangent forcing mathematical amendment
+
+Prepare exact identity H_U(U)(U′−p′)=−R′−integral H_UU(p+τe)[e,p′]dτ.
+Retained quadratic Taylor coefficients give R′=c1+2c2δ+3c3wholeδ² by Taylor's
+theorem; no differentiation of an arbitrary interval remainder. Balanced
+polarization e/(1/256)±(1/256)p′ through copied original PathJet supplies the
+mixed correction on authenticated predictor-root segments. All705 variables
+retained. Four source files byte-identical to b03d990f; unchanged native map.
+Six new controls plus three quadratic controls pass0.14s, including independently
+computed full augmented Hessians for linear/cubic maps and true nonlinear root
+tangent. Initial control-only Fraction constructor/serializer import and unsupported
+PathJet power syntax failed, then were corrected to supported exact arithmetic
+before passing; no target/profile acquired. Fixed wrapper/card still required.
