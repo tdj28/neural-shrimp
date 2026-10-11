@@ -16,7 +16,7 @@ SETTINGS=dict(precision=768,radius_exponent=-320,newton_steps=6,max_power=4096)
 BASE=Path('/data2/neural-shrimp-data/explore/certificates/census13-panel')
 CARD='docs/plans/census13-panel-inputs.json'
 SOURCES=list(dict.fromkeys(B.SOURCES+['tools/certify_census13_panel.py','tools/launch_census13_panel.py','tests/test_census13_panel.py',CARD,'docs/plans/census13-panel.md','certificates/c1-row35-receipt.json','certificates/s2-period18-receipt.json']))
-CAP=512*1024**2
+CAP=1024*1024**2
 
 def need(v,s):
     if not v:raise ValueError(s)
@@ -36,14 +36,14 @@ def proximity(box,reference):
 
 def main(mode,profile_outer=None,profile_worker=None):
     need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');resource.setrlimit(resource.RLIMIT_AS,(2*1024**3,)*2)
-    out=BASE/f'attempt002-{mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;calls=0;returned=0;current=None
+    out=BASE/f'attempt003-{mode}'/'run';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=0;calls=0;returned=0;current=None
     limit=60 if mode=='profile'else 600
     def stop(*_):raise TimeoutError('fixed census13 deadline')
     signal.signal(signal.SIGALRM,stop);signal.signal(signal.SIGTERM,stop);signal.setitimer(signal.ITIMER_REAL,limit)
     def save(name,value,closing=False):
         nonlocal used
         data=K.canonical_bytes(value)
-        if used+len(data)>=CAP-(0 if closing else 8*1024**2):raise MemoryError('512MiB panel raw cap, reserved8MiB closing inventory')
+        if used+len(data)>=CAP-(0 if closing else 8*1024**2):raise MemoryError('1GiB panel raw cap, reserved8MiB closing inventory')
         used+=len(data);p=out/name;p.parent.mkdir(parents=True,exist_ok=True)
         with p.open('xb')as f:f.write(data);f.flush();os.fsync(f.fileno())
         return len(data)
@@ -80,7 +80,7 @@ def main(mode,profile_outer=None,profile_worker=None):
                     need(all(v.is_finite()for v in end)and all(J[i,j].is_finite()for i in range(13)for j in range(13)),'finite full profile')
             estimate=forecast(times,sizes);result.update(passed=estimate['seconds']<600 and estimate['bytes']<CAP,times=times,sizes=sizes,forecast=estimate)
         else:
-            profile=BASE/'attempt002-profile/run';need(B.entry(profile.parent/'manifest.json')['sha256']==profile_outer and B.entry(profile/'manifest.json')['sha256']==profile_worker,'literal committed profile manifest pins');outer=B.load(profile.parent/'launcher-result.json');need(outer['exit_code']==0 and outer['owned_live_pids']==[],'successful terminated profile');need(B.load(profile/'input-binding.json')==B.load(out/'input-binding.json'),'identical profile input binding');m=B.load(profile/'manifest.json')['files'];need(set(m)=={str(p.relative_to(profile))for p in profile.rglob('*')if p.is_file()and p!=profile/'manifest.json'}and all(B.entry(profile/n)==v for n,v in m.items()),'complete measured profile inventory')
+            profile=BASE/'attempt003-profile/run';need(B.entry(profile.parent/'manifest.json')['sha256']==profile_outer and B.entry(profile/'manifest.json')['sha256']==profile_worker,'literal committed profile manifest pins');outer=B.load(profile.parent/'launcher-result.json');need(outer['exit_code']==0 and outer['owned_live_pids']==[],'successful terminated profile');need(B.load(profile/'input-binding.json')==B.load(out/'input-binding.json'),'identical profile input binding');m=B.load(profile/'manifest.json')['files'];need(set(m)=={str(p.relative_to(profile))for p in profile.rglob('*')if p.is_file()and p!=profile/'manifest.json'}and all(B.entry(profile/n)==v for n,v in m.items()),'complete measured profile inventory')
             pr=B.load(profile/'outcome.json');rt=B.load(profile/'runtime.json');need(pr['passed']and rt['sources']==source and all(rt[k]==runtime[k]for k in ['settings','python','numpy','flint','flint_library','threads']),'same measured source/library')
             estimate=forecast(pr['times'],pr['sizes']);need(estimate==pr['forecast']and estimate['seconds']<600 and estimate['bytes']<CAP,'recomputed fixed fullpanel resource gate');save('profile-binding.json',dict(root=str(profile),manifest=B.entry(profile/'manifest.json'),forecast=estimate))
             class RetainingMap(Original):

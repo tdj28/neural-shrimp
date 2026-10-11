@@ -12182,3 +12182,7 @@ Prepared correlated quotient math kernel and five synthetic controls (0.16s): ex
 ### 2026-10-11T00:21Z — PAL schema control and census retry admission
 
 Clark cleared helper mathematics e7cd955b and census envelope repair729da953. Root then compared actual PathJet.serialized source and corrected helper expected shape from named a/b to literal two-list serialization; added synthetic actual-schema/domain-rejection control, no target evaluated. Census fresh002 fixed three-phase profile is now admitted under unchanged reviewed caps/cases, with target still separately gated by measured costs.
+
+### 2026-10-11T00:21:05.233592+00:00 — measured census13 retention-cap amendment
+
+Profile002 completed3 full768-bit phase acquisitions. Fixed2x4200-call forecast94.6081s fits600s;739243264bytes fails512MiB. Preserve declined admission; target never launched. Raise only local raw cap to1GiB+1MiBlog, with same CPU/RSS/time/proof settings and fixed26 cases. Fresh003 profile required for amended source identity and peer recheck; no automatic proof retries.
