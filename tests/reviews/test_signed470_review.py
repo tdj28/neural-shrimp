@@ -33,3 +33,11 @@ def test_native_negative_closure_block_sign():
  b=lambda x:ball_json(arb(x));box=[b(0)]*10;chart=dict(period=2,dimension=2,sigma=-1,whole_box=box,normal=['0']*8+['1','0']);events=[]
  for k in range(2):events.append(dict(phase=k,input=box[4*k:4*(k+1)]+box[-2:],block=[[b(int(i==j))for j in range(4)]for i in range(4)],rates=[[b(0),b(0)]for i in range(4)]))
  J=D.E.rebuild_whole(chart,events);assert J[4,0]==-1 and J[6,2]==1 and J[7,3]==1
+
+def test_isolated_actual_file_archive_import_closure(tmp_path):
+ import shutil,subprocess
+ for name in D.FILES:
+  target=tmp_path/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/name,target)
+ script=tmp_path/'closure.py'
+ script.write_text("from pathlib import Path\nimport sys\na=Path(__file__).resolve().parent\nsys.path[:0]=[str(a/'tools/reviews'),str(a/'src')]\nimport review_signed470 as d\nassert d.ROOT==a\nfor name in d.FILES:\n assert (a/name).is_file(),name\nfor m in list(sys.modules.values()):\n p=getattr(m,'__file__',None)\n if p and ('neural_shrimp' in str(p) or '/tools/reviews/' in str(p)):\n  assert Path(p).resolve().is_relative_to(a),p\n")
+ subprocess.run([sys.executable,'-I',str(script)],cwd=tmp_path,check=True,capture_output=True,text=True)

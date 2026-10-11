@@ -30,7 +30,7 @@ def survey(model,seed,hidden,*,step=-.25,max_points=48,max_evaluations=320,tick=
     calls=0;points=[];n=model.n
     def call(z,h):
         nonlocal calls
-        
+
         if calls>=max_evaluations:raise RuntimeError('fixed full return cap')
         calls+=1;observe('evaluation_input',dict(index=calls,z=np.asarray(z).tolist(),hidden=float(h)))
         try:

@@ -9207,3 +9207,7 @@ rejection. No scientific target evaluated. Root will review/run this packet.
 ### 2026-10-11 — prepared native signed-boundary scout checkpoint
 
 Checkpointed the unlaunched binary64 signed470 scout source as a prepared proposal. Two synthetic kernel controls passed; the complete source/binding/resource peer review and additional meaningful adapter controls remain pending. No profile or target has run. Numerical scouting will follow the independently replayed finite connected negative-one tube, with exact curved-tube initial association and retained forward/reverse full-state returns; it supplies proposals, not interval proof.
+
+### 2026-10-11 — independent signed470 audit admission
+
+Root independently reviewed source8b57b7aa mathematics, same55/705 genealogy, explicit negative-one closure and all470 membership, PASS. Five controls now pass0.74s including isolated actual-file archive import closure. Previous actual metadata-only preflight passed0.698s; no target arrays evaluated. Admit one prepared300s4GiB64MiB zero-native audit under its existing full470 profile and actual producer cost floor. Current host has51GiB available, no task-owned worker; root final18 audit is separate. Prepared scout remains unlaunched/unreviewed. Its checkpoint trailing whitespace was immediately corrected; staged secret/size scan had passed before that whitespace check.
