@@ -15735,3 +15735,7 @@ Clark independently reviewed complete7e21aa4b source/binding/resources, reproduc
 ### 2026-10-11 — native flip scout reaches a near-positive-multiplier region
 
 One fixed48-point scout completed283 full evaluations/5310 inclusive phases,45.838s/840288KiB, sourceac61f8a0. Exact rational initial full470 tube association and all47 full470 numerical reverse checks passed. Hidden rate84.4060230572→72.6560230572; output.8331847186→.8371558316. All sampled noncritical moduli remain below1; final leading real multiplier.92509683698 approaches+1, but no crossing was encountered before the fixed point cap. This is a numerical candidate route, not a new interval connection or proved stable boundary extent. Full immutable data/source/ownership checked; all returns and spectra retained. Outera7dba0fed6bae889a03dd889b736cbea473b40c247fa36b43b32ed177588b212.
+
+### 2026-10-11T09:44:37.573521+00:00 — Independent regularized CIFAR audit prepared
+
+Prepare independent symmetric spectral whitening (producer triangularCholesky), SciPygesvd and80stepsecular solve, full-state fsum physical merit/trust/first acceptance. Four controls passed5.62s: basis-change invariance, actualmetadata before targetarrays, nativeevent corruption and isolated sourceclosure.300s4GiB/12GiBAS8MiBworker,315+5s10MiBouter; full-size unrelated profile mandatory. No native calls. Source awaiting peer review.
