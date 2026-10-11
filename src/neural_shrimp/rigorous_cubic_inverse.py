@@ -33,5 +33,3 @@ def cubic_inverse_data(C,J,residual,weights,radius,halfwidth,*,tick=lambda:None)
     bound=max((sum((abs(defect[i,j]).upper()*weights[j]for j in range(n)),arb(0))/weights[i]).upper()for i in range(n))
     included=[bool(abs(image[i,0]).upper()<radii[i])for i in range(n)]
     return {'passed':bool(bound<1 and all(included)),'dimension':n,'contraction':bound,'coordinate_inclusions':included,'radii':radii,'defect_coefficients':dc,'forcing_coefficients':rc,'whole_defect':defect,'whole_image':image}
-
-
