@@ -6427,3 +6427,9 @@ Synthetic first run caught an exact-zero assertion on interval6/5−6/5; changed
 ### 2026-10-10 — critical bridge genealogy corrected before acquisition
 
 Root14f09e36 source/math PASS, nine controls0.20s. During exact binding preparation, code genealogy showed quintic center descends from organizer signed_extension, the same continued phase as saved4.0756; initialF2 bridge would have changed an already matched physical phase. Amend helper's sole transport to completeF6/DF6 return, and wrapper plan to direct strict26 join plus same-orientation normalized full return and every literal saved native phase. Preserve this planning error; no target/profile had run. No state relabeling or mathematical tube change.
+
+### 2026-10-10 — fixed exact Clark bridge binding/resource packet prepared
+
+Root narrow259a1517 direct-phase/F6 review PASS, nine controls0.20s. Bound independently exact organizer and newly proved fixed-gain endpoint separately, complete matrix/numerical17point16join/oldfailure/quintic genealogy and exact signed16 full-native arrays. Full12D/26D synthetic profile before target, inclusive12family/2context/2transport/60phase/256events,90s2GiB4GiBAS128MiB/105+5owned. Copied launcher initially retained258MiB outer metadata; source regression caught it before launch and corrected all occurrences to130MiB. Header inspection used unavailable private NumPy helper once, then public versioned header reader; no target numerical evaluation. New source/binding peer review pending.
+
+First driver-control run compared the monkeypatched temporary output to the launcher literal; corrected the test to retain the original output before monkeypatching. Scientific source and gates unchanged; all14 controls then rerun.
