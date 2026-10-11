@@ -15437,3 +15437,16 @@ partner/adjacent/primitive/+1/stable11/orientation and numericalphase/mode
 association gates passed.16.237s128432KiB93nativephases207events. Complete
 source/inventories/ownedexits verified; new independent reductions pending,
 not uniformgenericity/native12/24/full-window completion.64completedrawroots.
+
+
+### 2026-10-11 — Prepared same-junction signed470 lift
+
+The complete705 continuation has reached the known local junction. Prepare one
+saved-only512-bit reduction to the same470 signed eigenpair state: literal
+native DF blocks from both held q/r passes, every original state/rate domain,
+normalized negative mode from the same independently proved55 root, and all18
+phases. No new derivatives or eigensolver. Source helper reviewed by Stability;
+complete fixed wrapper/cost/source review is still required before launch.
+Measured full13/18 synthetic block profile precedes saved target arrays;
+30s/2GiB/40MiB, owned45+5s/42MiB, no native calls. This supplies an exact anchor
+for finite flip continuation; no finite flip curve exists from this lift alone.
