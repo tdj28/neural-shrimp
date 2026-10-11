@@ -9466,3 +9466,16 @@ admission before target arrays. All original failed432-phase evidence retained.
 Run: nice -n10 /data2/neural-shrimp/.venv/bin/python tools/launch_native470_output_diagnosis.py
 
 11 October2026 — saved output-gauge diagnosis source9b343a0c PASS8.248s/392900KiB, zero native. Original hidden-coordinate weight2^-20 dominates q1.785e7. The finite Collatz proposal rescales free hidden weight to1 and fixed output to2^-20, reducing old-domain row norm to1.0763; old-domain image64.83 is still not a proof. Cubic forcing dominates. Quarter-width fixed-coefficient forecastq.9674/image1.901 remains unresolved. Next fixed fresh h2^-18/rho2^-12 proposed box uses these dyadic scales and the already sharpened same root, with independent16-prefix root identity; every changedE derivative must be reacquired. All original failures remain unchanged.
+
+11 October2026 — prepare weighted output-gauge attempt002 after saved diagnosis.
+One h2^-18/rho2^-12 fresh fullE chart uses exact positive diagnostic weights;
+complete324 profile+target native phases/336ticks,240s4GiB768MiB. Reuses passed
+endpoint refinement without more residual calls, and binds the independently
+reconstructed16-prefix endpoint inside the same original fixed-parameter
+uniqueness domain before all470 intersection and new-gauge projection. Actual
+metadata and existing-domain controls caught two packaging schema mistakes
+before any profile/target: independent card has six producer fields, and the
+saved-only audit archives reducers while its input binding authenticates native
+producer hashes. Both corrected with explicit original-source checks. All
+three controls now pass22.26s, including real original-domain and no-native
+association plus isolated archive closure. Card prepared, no new acquisition.
