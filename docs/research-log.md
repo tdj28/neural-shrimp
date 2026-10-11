@@ -12445,3 +12445,7 @@ adjacency. Original three later width failures remain excluded.
 ### 2026-10-11 UTC — Independent wider native705 prefix proved
 
 The fixed one-chart replay at source9674baf5 passed after six peer controls: all705 root inclusions and strict full-state exact-gauge endpoint membership,384-bit independent arithmetic, contraction<0.956317871, gauge[319/4096,447/4096]. This extends the independently connected chain; the other three producer trials remain rejected. Saved-only replay used zero native calls,15.9205s and1406780KiB; owned processes are absent. Immutable outer manifest bf910c9698081b745d9cc1998441bc29a8a7f4bd250d14494ec51ea5f7604fef. Endpoint is pinned for the next rotated-gauge packet. Active work continues toward the separate unit-pair/flip junction.
+
+### 2026-10-11 UTC — Fixed complete72D census representative panel
+
+Prepared docs/plans/census72-panel.md before any run: attempt all32 remaining72D representatives in original order, reuse exact independently proved row86, sum840 periods and at most6720 native phase returns. Unchanged768-bit orbit kernel, six Newton iterations, radius2^-320 and all divisor/attraction gates. Three full compressed native phase profiles must admit1800s/2GiB/8GiB target bounds; one nice10 CPU, no GPU/payment/holdouts. Full exact raw ball data remain retained in deterministic gzip. This is an exploratory census-representative proof expansion, not a claim of certified global component topology. Independent audit required before promotion.
