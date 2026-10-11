@@ -15286,3 +15286,12 @@ Target002 binds complete immutable target001 failure and reciprocal-first
 source/library profile; no geometry, radius, quotas, cache or native gates
 changed.16 controls pass1.33s. Independent narrow source/history/profile
 review remains before current-host card/admission; no target002 launched.
+
+### 2026-10-11 01:25 PDT — fixed correlated51 target002 admitted
+
+Stability5c82147e narrow binding/source PASS16controls1.40s. Same exact
+source/runtime profile002 forecast157.991746s/455330008bytes; original
+geometry/radii/cache/fullE/native/endpoint gates and270phase/180s2GiB
+512MiB limits retained. Fresh host capacity checked beforelaunch, no duplicate
+owned worker, exclusive002 absent. One CPU1nice10 target with195+5owned
+cleanup; every prior failure and all actual new attempts preserved.
