@@ -12638,3 +12638,7 @@ Fixed four-successor batch001 completed PASS for all4 entire intervals in25.934s
 ### 2026-10-11 UTC — Rotated boundary batch002 independently proved
 
 Fixed independent384-bit audit passed all8 uniform705 roots and joins, including separately reconstructed prior endpoint localization and whole705 projected membership across the changed affine gauge. 131.229s/1736188KiB, zero native, owned groups absent. Outerf80a7d9768ccfe0448aad33638bbb1794cd62fc09b8818bf3a2a601e50d37674. Local gauge[-1/2048,255/2048] is not concatenated across rotations. Exact next completed packet pinned when present; unchanged240s/4GiB/64MiB audit, no new acquisition.
+
+### 2026-10-11 UTC — Independent72D scalar AD source preparation
+
+The old13D review scalar AD intentionally rejects bias-free networks. Prepared a separate generic scalar-objective AD with Arb matrix derivative storage, actual72D bias-free layout, and the same-box theorem expanded to72. Controls use exact polynomials/tanh, synthetic point/boxes and exact mixed derivatives; no target calls or producer outcome selection. A measured bound and complete immutable producer inventory must precede the future independent1024-bit panel.
