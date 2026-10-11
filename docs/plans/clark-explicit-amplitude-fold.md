@@ -100,3 +100,13 @@ full51 unrelated profile and isolated archived import. An initial synthetic
 anchor divided a MixedJet directly by an integer, unsupported by its API;
 the coefficient is now an Arb fraction before multiplication. This was caught
 by the synthetic control before any target/profile run.
+
+### Narrow provenance correction before target (11 October2026)
+
+Attempt001 profilepassed50.571s/112.5MB forecast; zero target calls. Reused
+success-only historical checker rejected required original failed implicit
+receipt with exit2. Preserve entire001/source and make it mandatory for002.
+New checker verifies explicit expected exit2 for the two failures and exit0
+for diagnosis, with complete same source/archive/owned-exit checks. Actual
+metadata positive/opposite-exit negatives added. Science, caps, geometry and
+measured profile unchanged; fresh002 profile required.

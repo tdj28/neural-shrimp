@@ -14665,3 +14665,12 @@ native target calls; source binding and resource wrapper review still pending.
 The future membership event must bind this known705 enclosure and prove strict
 full705 inclusion in an accepted connected tube; projected proximity alone
 will never terminate with a connection claim. No target run in this commit.
+### 2026-10-11 — retained51 binding failure and narrow correction
+
+Explicit001 stopped0.807s/70788KiB after21 unrelated profile phases, before
+target: success-only inherited historical check rejected the intentionally
+failed implicit predecessor. Sealed fullsource/inventories/PIDs absent;55raw
+roots. Correct to explicit expected exit with actual metadata negatives;
+mandatory001 and fresh002 retain all science/caps/profile gates. Previous
+card timestamp00:37 was a typo; actual launcher00:32PDT is authoritative.
+Narrow peer review precedes retry.
