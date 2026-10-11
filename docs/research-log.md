@@ -12220,3 +12220,7 @@ Stability independently cleared d4ee596b source/math/domain/ownership and reprod
 Endpoint saved480-bit audit independently reconstructed original704 whole Jacobian and fresh residual, proved same-root localization and ALL705 strict projected-gauge inclusions into the separately independently proved curve. PASS16.7932s/2001720KiB/zero native calls; receipt native705-endpoint-independent-outcome.json. Existing primitive18 central branch now connected through fold and1:1 to this extended positive-unit-pair interval. Complement on extension and55junction still separate.
 
 Stability cleared independent census13 scalar-loss AD source0dd4db9a and reproduced3controls0.10s. Run only fixed3-phase1024-bit profile, immutable attempt001-profile;60s/1GiB/512MiB/CPU1nice10.1050target remains gated by measured costs and separate card.
+
+### 2026-10-11T00:31:08.295772+00:00 — independent census13 AD fixed target admission
+
+Same-source3-phase1024bit scalar-loss AD profile PASS; measured forecast169.340435s and228815164bytes fits600s/512MiB;58528KiBpeak. Fixed26same exact original boxes,1050AD native calls, noNewton/refinement/reselection. Literal outer5c408d4ab5e5a45321cc9916e6dd1195846e083fdfef952f88f29d8558c5b9f1 worker075c8827fac5ee1fbed410eb392ffbda5bb1cad12ba20d58a44392f9fc33a5f9. Execute one immutable attempt001-target,CPU1nice10/1GiBgroupRSS,all returned native arrays retained and all proper divisors/power gates unchanged.
