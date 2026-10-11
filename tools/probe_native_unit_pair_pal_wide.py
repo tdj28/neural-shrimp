@@ -37,7 +37,7 @@ def bind_parent():
  chart=read(PARENT/'chart004/run/certificate.json.gz');B.require(B.uniform_admission(chart,B.decode(chart['whole_box'][-1])>0)and chart['parameter_endpoints']==['255/4096','319/4096'],'last complete native parent')
  inventory(AUDIT,APINS['outer']);inventory(AUDIT/'run',APINS['worker']);C.archive_bound(AUDIT,APINS['source']);audit=read(AUDIT/'run/outcome.json');al=read(AUDIT/'launcher-result.json');ab=read(AUDIT/'run/input-binding.json');ae=read(AUDIT/'run/connected-endpoint.json')
  B.require(al['exit_code']==0 and not al['owned_live_pids']and audit['passed']and audit['connected']and audit['connected_count']==4 and audit['connected_parameter_endpoints']==['-1/4096','319/4096'],'independent full4 connected705 audit')
- B.require(ab['batch']==str(PARENT)and ab['batch_manifest']==entry(PARENT/'manifest.json')and ab['producer_source']==out['commit'],'exact audited batch identity')
+ B.require(ab['batch']==str(PARENT)and ab['batch_manifest']==entry(PARENT/'manifest.json')['sha256']and ab['producer_source']==out['commit'],'exact audited batch identity')
  B.require(ae['chart']['normal']==chart['normal']and ae['chart']['origin']==chart['origin']and ae['chart']['parameter_endpoints']==chart['parameter_endpoints']and len(ae['endpoint'])==705,'same exact audited endpoint gauge')
  chart['endpoint_root_boxes'][1]=ae['endpoint']
  return model,chart,{'independent_batch':dict(root=str(AUDIT),**APINS),'initial_independent':prior,'prior_batch':{'root':str(PARENT),'outer':PIN,'source':out['commit']},'diagnosis':dict(root=str(DIAG),**DPINS),'forecast':forecast,'scope':'Exact original gauge; numerical width/radius adaptation only. Full new root proofs and ordered joins decide accepted prefix.'}
