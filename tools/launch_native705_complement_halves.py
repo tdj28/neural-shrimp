@@ -2,7 +2,7 @@
 import hashlib,json,os,resource,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/wide-halves001')
+BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/wide-halves002')
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 
 def entry(p):
@@ -29,7 +29,7 @@ def main():
     resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,6*1024**3));BASE.mkdir(parents=True,exist_ok=False);start=time.monotonic();jobs=[];failure=None;peak=0;parent_peak=0
     def save(name,value):
         with(BASE/name).open('x')as f:json.dump(value,f,sort_keys=True,indent=2);f.write('\n');f.flush();os.fsync(f.fileno())
-    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();save('launcher-start.json',dict(source_commit=source,launcher_pid=os.getpid(),units=[1,2],mem_available_kib=available,load=os.getloadavg(),started_unix=time.time(),per_worker_seconds=400,external_seconds=415,kill_grace_seconds=5,per_worker_rss_kib=4*1024**2,total_rss_kib=8*1024**2,parent_rss_kib=256*1024,per_worker_raw_bytes=256*1024**2,total_raw_bytes=516*1024**2,threads=dict.fromkeys(THREADS,'1')))
+    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();save('launcher-start.json',dict(source_commit=source,launcher_pid=os.getpid(),units=[1,2],mem_available_kib=available,load=os.getloadavg(),started_unix=time.time(),per_worker_seconds=400,external_seconds=415,kill_grace_seconds=5,per_worker_rss_kib=4*1024**2,total_rss_kib=8*1024**2,parent_rss_kib=256*1024,per_worker_raw_bytes=384*1024**2,total_raw_bytes=772*1024**2,threads=dict.fromkeys(THREADS,'1')))
     (BASE/'launcher.py').write_bytes(Path(__file__).read_bytes());env=dict(os.environ,**dict.fromkeys(THREADS,'1'),PYTHONDONTWRITEBYTECODE='1')
     try:
         for unit in [1,2]:
@@ -42,7 +42,7 @@ def main():
             peak=max(peak,total);parent_peak=max(parent_peak,rss())
             if total>8*1024**2 or parent_peak>256*1024:raise MemoryError('combined8GiB/parent256MiB cap')
             if time.monotonic()-start>415:raise TimeoutError('owned415s batch cap')
-            if sum(p.stat().st_size for p in BASE.rglob('*')if p.is_file())>516*1024**2:raise OSError('combined516MiB raw cap')
+            if sum(p.stat().st_size for p in BASE.rglob('*')if p.is_file())>772*1024**2:raise OSError('combined772MiB raw cap')
             time.sleep(.25)
     except BaseException as e:failure=type(e).__name__+': '+str(e)
     finally:

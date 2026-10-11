@@ -13,14 +13,22 @@ from neural_shrimp.rigorous_quadratic_tangent_forcing import mixed_hessian_from_
 from neural_shrimp.rigorous_correlated_complement import total_two_rate_jacobian,correlated_complement
 from neural_shrimp.rigorous_orbits import vector_json,matrix_json
 B,T,L,D,U,O,need,read=W.B,W.T,W.L,W.D,W.U,W.O,W.need,W.read
-BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/wide-halves001')
+BASE=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/complement/wide-halves002')
 CARD='docs/plans/native705-complement-halves-inputs.json'
-FILES=sorted(set(W.FILES+[CARD,'docs/plans/native705-complement-halves.md','docs/plans/native705-restricted-complement.md','docs/reviews/native705-complement-wide001.json','src/neural_shrimp/rigorous_quadratic_restriction.py','tests/test_rigorous_quadratic_restriction.py','tools/probe_native705_complement_halves.py','tools/launch_native705_complement_halves.py','tests/test_native705_complement_halves.py']))
+FILES=sorted(set(W.FILES+[CARD,'docs/reviews/native705-complement-halves001-profile-failure.json','docs/plans/native705-complement-halves.md','docs/plans/native705-restricted-complement.md','docs/reviews/native705-complement-wide001.json','src/neural_shrimp/rigorous_quadratic_restriction.py','tests/test_rigorous_quadratic_restriction.py','tools/probe_native705_complement_halves.py','tools/launch_native705_complement_halves.py','tests/test_native705_complement_halves.py']))
 
 
 def geometry(unit):
     need(type(unit)is int and unit in(1,2),'exact two closed halves only')
     return str(F(351+64*(unit-1),4096)),[str(F(319+64*(unit-1),4096)),str(F(383+64*(unit-1),4096))]
+
+
+def preserved_profile(card):
+    old=card['failed_profile'];fr=Path(old['root']);O.verify(fr,old['outer'])
+    for i,pin in enumerate(old['workers'],1):
+        r=fr/f'chart{i:03d}/run';O.verify(r,pin);D.B.archived(r,old['source'],'runtime.json','source');out=read(r/'outcome.json');profile=read(r/'profile.json')
+        need(not out['passed']and out['native_calls']==180 and 'storage admission'in out['error']and profile['target_arrays_unopened']and profile['forecast_bytes']>256*1024**2 and not(r/'bindings.json').exists(),'original profile-only storage failure')
+    need(not read(fr/'launcher-result.json')['owned_live_pids'],'original owned completion')
 
 
 def bind(card,unit,tick):
@@ -45,7 +53,7 @@ def jet_json(z):
     return dict(f=D.ball_json(z.f),g=vector_json(z.g),d=D.ball_json(z.d),m=vector_json(z.m))
 
 def save_bound(out,name,value,used,closing=False):
-    raw=D.canonical_bytes(value);raw=gzip.compress(raw,mtime=0)if name.endswith('.gz')else raw;need(used[0]+len(raw)<(256 if closing else 252)*1024**2,'256MiB cap with4MiB closing reserve');p=out/name;p.parent.mkdir(parents=True,exist_ok=True)
+    raw=D.canonical_bytes(value);raw=gzip.compress(raw,mtime=0)if name.endswith('.gz')else raw;need(used[0]+len(raw)<(384 if closing else 380)*1024**2,'384MiB cap with4MiB closing reserve');p=out/name;p.parent.mkdir(parents=True,exist_ok=True)
     with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
     used[0]+=len(raw)
 
@@ -87,7 +95,8 @@ def main(unit):
     try:
         source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();save('runtime.json',dict(source_commit=source,sources={n:O.entry(ROOT/n)for n in FILES},unit=unit,pid=os.getpid(),nice=os.getpriority(os.PRIO_PROCESS,0),threads=dict.fromkeys(O.THREADS,'1'),precision=384,python=D.platform.python_version(),numpy=D.np.__version__,scipy=D.scipy.__version__,python_flint=D.flint.__version__,flint=D.flint.__FLINT_VERSION__,native_call_cap=360))
         for n in FILES:
-            p=out/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);raw=(ROOT/n).read_bytes();need(used[0]+len(raw)<252*1024**2,'source archive cap');p.write_bytes(raw);used[0]+=len(raw)
+            p=out/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);raw=(ROOT/n).read_bytes();need(used[0]+len(raw)<380*1024**2,'source archive cap');p.write_bytes(raw);used[0]+=len(raw)
+        preserved_profile(read(ROOT/CARD))
         with ctx.workprec(384):
             before=time.monotonic();trial=L.synthetic(tick);need(trial['passed'],'unrelated full705 localization');del trial;gc.collect()
             m,flat,plus,minus,pprime,normal,origin,sc,inp=T.synthetic_inputs();save('profile-path-inputs.json',dict(map_inputs=inp,segment=vector_json(flat),plus=vector_json(plus),minus=vector_json(minus),normal=vector_json(normal),origin=vector_json(origin),parameter=D.ball_json(sc)))
@@ -98,7 +107,7 @@ def main(unit):
             inp,x,rates,v,vp=B.gd_fixture();m=B.TwoRateCuspMap(inp);save('profile-jac-inputs.json',dict(map_inputs=inp))
             for j in range(36):jac(m,x,rates,v,vp,'synthetic',j)
             trial=B.synthetic_cocycle(tick);need(trial['passed'],'full18phase11-mode profile');seconds=time.monotonic()-before;forecast=4*seconds+4*(15.419+21.120+14.366)+20
-            storage_forecast=3*used[0]+48*1024**2;save('profile.json',dict(passed=True,seconds=seconds,forecast_seconds=forecast,forecast_bytes=storage_forecast,native_calls=calls[0],target_arrays_unopened=True));need(calls[0]==180 and forecast<400 and storage_forecast<256*1024**2,'measured full-pipeline time/storage admission before target arrays');del trial,m;gc.collect()
+            storage_forecast=3*used[0]+48*1024**2;save('profile.json',dict(passed=calls[0]==180 and forecast<400 and storage_forecast<384*1024**2,seconds=seconds,forecast_seconds=forecast,forecast_bytes=storage_forecast,native_calls=calls[0],target_arrays_unopened=True));need(calls[0]==180 and forecast<400 and storage_forecast<384*1024**2,'measured full-pipeline time/storage admission before target arrays');del trial,m;gc.collect()
             card=read(ROOT/CARD);model,restricted,rp,normal,origin,sc,E,metrics,binding=bind(card,unit,tick);save('bindings.json',binding)
             save('restriction.json',dict(center=vector_json(restricted['center']),slope=vector_json(restricted['slope']),curvature=vector_json(restricted['curvature']),weights=vector_json(restricted['weights']),radius=D.ball_json(restricted['radius']),halfwidth=D.ball_json(restricted['halfwidth']),original_delta=D.ball_json(restricted['original_delta']),fresh_domain=vector_json(restricted['fresh_domain']),path_residual=matrix_json(restricted['path_residual']),residual_derivative=matrix_json(rp)))
             g0,j0,local=full_assembly(model,restricted['center'],normal,origin,sc,'target_center');C,small=proposal(j0,local,13,restricted['center'][-1]);save('assembly/target-preconditioner.json.gz',dict(C=matrix_json(C),border=matrix_json(small)));del j0,local,small;gc.collect()
