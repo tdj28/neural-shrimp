@@ -16192,3 +16192,7 @@ Source-only native27 section now fixes output and solves state/hidden/negative m
 ### 2026-10-11 — fixed output-section caller prepared
 
 Complete wrapper binds the entire prior numerical/certified genealogy and both failed41 attempts, then resumes only the last accepted extension point. Output remains literal binary64 and full470 cross-section association is mandatory. Six controls pass5.63s, including actual metadata preflight with target arrays forbidden, full unrelated216-phase measured profile, phase cap and isolated import/settings closure. Fixed32points/240returns/4536inclusive phases, unchanged240s3GiB256MiB. Card is prepared; no target/profile has run as an experiment. Independent review and committed admission remain prerequisites.
+
+### 2026-10-11 — admit output-section numerical scout
+
+Stability independently reviewed9752c90d helper/caller, actual metadata ancestry, full unrelated profile and archive closure; six controls reproduced5.61s. Admit exactly one fixed32point/240return output-section scout,4536inclusive phases/240s3GiB256MiB with original failure retention and unchanged native reverse gates. Current host admission and complete committed-source measured profile precede target arrays. No target result at admission.
