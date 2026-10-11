@@ -61,3 +61,28 @@ include serialization, and charge profile calls to exact ceilings. No automatic
 retry or cap change. The expected conclusion is an exact local organizer-to-
 known-critical-curve identity; continued connection to the remote native6
 fold/native12/native24 anatomy remains a later proof obligation.
+
+## Fixed binding and resource packet
+
+The wrapper binds complete exact organizer producer and independent same-root
+inventories/source archives, the original matrix and numerical organizer run,
+its complete17points/16reversejoins/both phase4 bridges, original failed global
+join, and the consumed quintic genealogy. The endpoint is exactly signed16
+(01068-branch_point), with literal metadata/array hashes and all six phases.
+Both known exact organizer existence and fresh endpoint root existence are
+mandatory before either strict uniqueness identity join; native return
+contains-zero checks are only conditional consistency. Exactly one identical
+mode orientation must join directly and after the full native return.
+
+Single exclusive critical-organizer-bridge/attempt001,384bits,2 center Newton
+proposals, one gain halfwidth2^-11/common radius2^-16 tube and one twoNewton
+endpoint radius2^-80 proof. Inclusive12 family returns,2 native contexts,
+2 full transports,60 native phase returns and256 retained events. Full unrelated
+12D/26D synthetic profile consumes3family/1context/1transport/21phase returns;
+remaining target9family/1context/1transport costs are bounded from measured
+maxima at2× plus7 measured26D algebra blocks and20s allowance. Serialization is
+included; raw forecast doubles all remaining category sizes plus8MiB overhead.
+Fixed90s/2GiB RSS/4GiB AS/128MiB with4MiB final reserve, owned105+5s/130MiB and
+10GiB host headroom. Source archive closure, all attempted inputs, complete
+native returns, failed stages and mode orientation candidates are retained.
+Target remains unopened; source review and committed launch card precede run.
