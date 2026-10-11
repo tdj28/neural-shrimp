@@ -30,3 +30,30 @@ zero-angle entire series and invalid-domain rejection. No target data or new
 curve is evaluated. The full-error gradient Jacobian, polynomial inverse,
 anchors/endpoints, complete native profile/binding and resource card still
 need extension/review before a cubic proof can run.
+
+## Complete conditional curve composition (source-only)
+
+The full-error gradient PathJet algebra stays at order3: substitute the complete
+cubic predictor in its path coefficients, retaining error E at d0 and whole d.
+This gives J0(E),J1(E),J2(I,E) with all state/q/r/rate/angle/gauge columns. An
+exact finite affine C(d) yields the unchanged degree3 defect; its product with
+the quartic residual produces degree5 forcing, including C1*r4*d5. Enclose
+even powers by[0,h^k] and odd powers by[-h^k,h^k], and use the actual constructed
+full E in the Krawczyk image. Both strict weighted contraction and all705 strict
+coordinate inclusions remain mandatory.
+
+Full known-root anchor membership evaluates the actual cubic predictor at the
+whole projected gauge parameter, unless the same authenticated gauge supplies
+an exact parameter. Endpoint enclosures retain both the degree4 residual and
+degree3 predictor. Native primitive divisors, q/r independence and whole-positive
+angle remain separate required gates. No complement/criticality/topology result
+is inferred. Compact exact inverse/native evidence is mandatory.
+
+Nine combined controls passed0.96s: the four residual controls, independent85-
+digit all9x9 full Jacobian derivatives through2 at a nonzero cubic-path point,
+whole-E d0/J2 containment, nonzero fifth-order forcing/noncommuting products,
+and full primitive1/2 test curves with exact analytic physical endpoints and
+corrupt-anchor rejection. First source-generation inspection caught an omitted
+fifth power in the draft convolution before testing or any run; it was corrected,
+and the explicit nonzero-degree5 control prevents that omission. No profile or
+scientific target has been run with these new kernels.
