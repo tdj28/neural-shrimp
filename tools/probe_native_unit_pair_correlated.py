@@ -15,6 +15,13 @@ CARD='docs/plans/unit-pair-correlated-inputs.json'
 NATIVE=['src/neural_shrimp/rigorous_cusps.py','src/neural_shrimp/rigorous_folds.py','src/neural_shrimp/rigorous_orbits.py','src/neural_shrimp/controls.py','src/neural_shrimp/models.py']
 FILES=sorted(set(L.FILES+NATIVE+[CARD,'docs/plans/unit-pair-correlated-target.md','tools/probe_native_unit_pair_correlated.py','tools/launch_native_unit_pair_correlated.py','src/neural_shrimp/rigorous_correlated_complement.py','tests/test_rigorous_correlated_complement.py','tests/test_unit_pair_correlated_driver.py']))
 
+def save_bound(root,name,value,used,*,closing=False):
+    raw=D.canonical_bytes(value);limit=64*1024**2-(0 if closing else 2*1024**2)
+    need(used[0]+len(raw)<limit,'64MiB raw cap with final reserve');p=root/name;p.parent.mkdir(parents=True,exist_ok=True)
+    with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
+    used[0]+=len(raw)
+
+
 def gd_fixture():
     f=lambda v:str(Fraction(v))
     inp={'schema':'neural-shrimp-c1-input-v1','network':{'activation':'tanh','d':2,'width':3,'bias':True,'in_scale':'3/2','out_scale':'2/3','loss_scale':'1/2','ridge':'1/1000'},'x':[[f(Fraction(i-12,48)),f(Fraction((i*7)%23-11,48))]for i in range(24)],'y':[f(Fraction((i*3)%17-8,64))for i in range(24)],'lr_hidden':'1/100','lr_output':'1/100'}
@@ -60,10 +67,7 @@ def main():
     need(not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip(),'clean committed source')
     need(os.getpriority(os.PRIO_PROCESS,0)>=10 and all(os.environ.get(k)=='1'for k in O.THREADS),'CPU1nice10')
     OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();used=[0];stop=[False];calls=[0];result={'passed':False,'status':'incomplete'}
-    def save(name,value):
-        raw=D.canonical_bytes(value);need(used[0]+len(raw)<64*1024**2-2*1024**2,'64MiB raw cap with final reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
-        with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
-        used[0]+=len(raw)
+    def save(name,value,closing=False):save_bound(OUT,name,value,used,closing=closing)
     def tick():need(not stop[0]and time.monotonic()-start<240 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<4*1024**2,'240s/4GiB cap')
     def native(model,x,rates,v,vp,kind,phase):
         tick();need(calls[0]<72,'fixed72 native-call total cap');calls[0]+=1
@@ -91,6 +95,6 @@ def main():
             result.update(passed=proof['passed'],status='finite_complement_attracting'if proof['passed']else'completed_correlated_bound_unresolved',complement_dimension=11,parameter_endpoints=['0','1/32768'],remainder=proof['remainder_norm_upper'],metric_passed=proof['metric']['passed'],scope=proof['scope'])
     except BaseException as e:result.update(status='failed_or_interrupted',error=type(e).__name__+': '+str(e),traceback=traceback.format_exc())
     finally:
-        signal.setitimer(signal.ITIMER_REAL,0);result.update(native_calls=calls[0],elapsed_seconds=time.monotonic()-start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);save('outcome.json',result);save('manifest.json',{'files':{str(p.relative_to(OUT)):O.entry(p)for p in sorted(OUT.rglob('*'))if p.is_file()}})
+        signal.setitimer(signal.ITIMER_REAL,0);result.update(native_calls=calls[0],elapsed_seconds=time.monotonic()-start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss);save('outcome.json',result,closing=True);save('manifest.json',{'files':{str(p.relative_to(OUT)):O.entry(p)for p in sorted(OUT.rglob('*'))if p.is_file()}},closing=True)
     print(json.dumps(result));return 0 if result['passed']else 2
 if __name__=='__main__':raise SystemExit(main())
