@@ -14880,3 +14880,13 @@ Nested512 prelaunch source self-check corrected only launcher soft address-space
 ceiling514MiB to intended512MiB; a broad literal replacement while adapting the
 prior launcher had altered that integer. Worker8GiB hard envelope, all math,
 scientific and resource caps remain unchanged. No audit target/profile opened.
+
+### 2026-10-11T08:02UTC — admitted independent nested512 saved audit
+
+Root independently reviewed3c9ded2e source/math/bindings/caps and reproduced
+five controls0.17s. Actual full metadata preflight already passed1.819s with
+258 actions/256 new rows and original archive authority. Sole later metadata
+correction1ea0413b restores intended512MiB launcher soft AS. Host53,914,544KiB
+available,load2.02/2.10/2.36; no matching research worker. Admit one CPU1
+300s4GiB8MiB saved-only attempt001, full unrelated98666x512 profile before
+research vectors. No new model calls, parameter step, or original-state transfer.
