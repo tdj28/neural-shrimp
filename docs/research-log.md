@@ -15187,3 +15187,11 @@ verified. Entire705 actual root/tangent/acquired-domain coverage holds. Neutral
 complex pair is retained. This is one centered subinterval of chart31; the
 next bounded coverage run must prove an exact closed union before claiming
 first-quarter coverage. This success unlocks that already prepared source.
+### 2026-10-11T08:30UTC — admitted independent current512 acceptance audit
+
+Root independently reviewed26e9d74d source/authority/actual acceptance and
+reproduced10 controls0.42s. Actual metadata-only source/inventory/523-call bind
+passed4.081s,511 recurrence rows, research vectors unopened. Host54,862,572KiB
+available/load1.27/1.96/2.36 and no duplicate own worker. Admit one CPU1/nice10
+saved-only300s4GiB8MiB attempt001, owned315+5s. Full98666x512 synthetic gate
+still precedes research vectors; no new derivatives, candidate or correction.
