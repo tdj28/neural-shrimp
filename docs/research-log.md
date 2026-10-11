@@ -12819,3 +12819,11 @@ separate saved arithmetic review next. No benefit/generalization claim is made.
 2026-10-11 UTC — Prepare fixed independent saved32-prefix LM horizon audit. All104 retained native actions, causal prediction seals, two-amplitude qualifications,128 horizon rows and six confusion tables are mandatory. Zero native calls;60s/1GiB RSS/4MiB worker,75+5s owned launcher. No target opened by the audit until committed code/card and independent review.
 
 2026-10-11 UTC — Independent saved LM horizon audit PASS:32/32 resolved prefixes,24 eligible/8 already failing,128 horizon comparisons and exact72HVP/32CE retained input/output recurrences;3.050s61516KiB,0 native calls. Drift1 true/7 false alarms, curvature1/5, loss/persistence miss the sole failure; no incremental utility. Raw /data2/neural-shrimp-data/audits/tiny-lm-horizon-independent/attempt001, outer 56e9f2f517888494832bb6354e1faf1dee35c5590e40c360034054b35877f619, worker 6aba13c0d30b116dc1d2f23c8f09906feb54c7ea7b9434e9caab0d0f290e5615. Sourcef997c733 independently reviewed before audit; full inventories/source archives/owned absence verified. Preserve negative outcome; no heldout or new acquisition.
+### 11 October2026 UTC — cleared saved route/conditioning execution
+
+Clark independently passede663ac4a source/binding/cap review and8controls0.83s.
+Run only pal/rotated001-diagnosis under this source, unchanged60s/4GiB/8GiBAS/
+16MiB and75+5owned/17MiB, CPU1nice10. Exact immutable32-attempt inventory and
+all53 retained native route vectors feed numerical proposals only. Current
+host inventory checked; no duplicate, no native or GPU calls. Latercorrelated
+inverse helper is source-only and is not used by this saveddiagnostic.
