@@ -25,4 +25,8 @@ bytes plus previous complete certificate-decode cost/RSS, fixed240s3GiB8GiBAS
 model used by earlier unitpair scout; no arbitrary independent initial seed,
 period reduction, phase/sign search or global shrimp inference. Source/card/
 review then measured admission. Original rigorous chart independent replay is
-separate and in progress under root ownership.
+complete in independently reviewed512-bit attempt150b13b5. Its full literal source, producer/domain binding and all470 strict membership now gate this scout.
+
+Resource/retention caps raise non-retryable exceptions, so local Newton recovery
+never converts a resource stop into a scientific corrector outcome. The native
+phase counter increments only after its inclusive5976 admission.
