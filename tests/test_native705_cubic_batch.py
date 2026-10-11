@@ -62,3 +62,10 @@ def test_card_rejects_missing_coordinates_changed_gauge_and_domain():
  for mutate in [lambda q:q['initials'][1].pop(),lambda q:q['settings'][0].__setitem__('halfwidth_exponent',-3),lambda q:q['weights'].__setitem__(0,'0')]:
   q=copy.deepcopy(c);mutate(q)
   with pytest.raises(ValueError):W.validate_card(q,'fixed',1)
+
+
+def test_actual_native_cost_cannot_be_hidden_by_smaller_synthetic_profile():
+ f={'one_fresh_chart_seconds':20,'rss_kib':100,'compressed_storage_bytes':100}
+ a=W.actual_floor(f,{'seconds':50.,'peak_rss_kib':2500000,'stored_bytes_before_final':50000000})
+ assert a['one_fresh_chart_seconds']==85 and a['rss_kib']==5131072 and a['compressed_storage_bytes']==158388608 and a['resource_admitted']
+ assert not W.actual_floor(f,{'seconds':150.,'peak_rss_kib':1,'stored_bytes_before_final':1})['resource_admitted']
