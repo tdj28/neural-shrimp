@@ -16177,3 +16177,7 @@ receipt docs/reviews/cifar-remainder-span001.json binds allproposed vectors.
 ### 2026-10-11 10:27 UTC — Fixed current022 curved-path pilot prepared
 
 Following the preserved negative regularized comparison and saved nonlinear-image diagnosis, prepare one fresh acceleration HVP and both fixed actual gradients at alpha1/32 and1/64. Source/card plan fixes the reference alpha1/64 acceleration, original trust ball, .2 curvature ratio, initial-tangent forcing, and both actual comparisons. No composite-direction forcing assertion. Measured unchanged-native cost authority,120s/4GiB/64MiB owned caps, no new basis or holdouts; source and review before launch.
+
+### 2026-10-11 10:34 UTC — Reviewed fixed curved-path pilot admitted
+
+Clark independently reviewed25a92cc2 source/math/binding/resource and reproduced10 controls9.62s including actual metadata with arrays forbidden, isolated imports and inherited512MiB launcher-AS. No blocker; initial derivative g^T Hp and both fixed admitted gradients correctly separated from composite forcing. Admit unchanged1HVP/up-to2grad120s4GiB64MiB worker plan, conditional on exact same-source historical native maxima and full-sized vector profile. All failed outcomes retained.
