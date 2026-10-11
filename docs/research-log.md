@@ -11942,3 +11942,8 @@ All240HVP and16 mandatory rows retained,26.576s/955444KiB, no live owned process
 ### 2026-10-11T00:02:58.524927+00:00 — paper reading QA clarification
 
 First45-page junction/LM render compiles cleanly and439bound values verify. Contact-inspected every page and detail-inspected17/36. Move the finite-arc scope paragraph before the new separate local-junction paragraph to avoid an ambiguous referent; tighten LM heading/caption to the measured approximation failure. Preserve and seal the pre-correction QA directory; final render follows.
+
+
+## 2026-10-11T00:04:15.311045+00:00 — CIFAR saved-step audit preparation
+
+Prepare fixed saved-only independent arithmetic of the latest actual residual-merit correction, including four failed larger steps, exact action/parent/source bindings and unchanged Newton/orbit thresholds. No new native calls or solver search. Four direction controls plus existing independent merit tests and peer review precede30s attempt001.
