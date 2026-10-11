@@ -17454,3 +17454,17 @@ Admit the fixed second saved-only replay after complete differential review and 
 ### 2026-10-11T13:15:11.440067+00:00 — Full470 output-gauge connection independently verified
 
 Independent512 replay0bd16624 passed all470 root and projected known-root coordinates, primitive18 and three separately reassembled complete470 endpoint localizations; q<0.069279977. All original exact native returns, full-error domains and corrected exact rational metadata are source/hash bound. Zero new native evaluations,69.567s793860KiB. Immutable inventories, complete archived committed source, owned launcher/worker disappearance and exact saved right endpoint verified. Original first metadata failure remains in authority chain. This provides the independently verified starting endpoint for the already prepared maintained output-gauge continuation; complementary stability/genericity/global closure are separate.
+### 2026-10-11 — saved CIFAR remainder diagnosis completed, model gate failed
+
+The fixed quadratic model improves the vector approximation at all five
+consumed ray trials, explaining the sign of the small-step merit reversal,
+but fails its unchanged all-check1% gradient gate atalpha1/8 (7.2651% error).
+Execution passed10.5599s/100588KiB/zero native calls; all five exact states and
+actual p/Hp identities retained. At check1/64 and1/128, full-gradient errors
+are0.1999% and0.06304%; remainder errors3.2965% and4.1259%; errors relative to
+actual gradient change3.4235% and4.2216%, versus first-order103.85% and102.32%.
+The first-order merit ratios0.97632/0.98812 miss the measured1.00898/0.99563;
+quadratic ratios1.00910/0.99568 are closer. Full-size profile passed27.59s/
+29.61MB; complete12.82MB immutable output/source/owned exits verified. No new
+basis, model call or optimizer step; no whole-range qualification, independent
+new outcome audit or utility claim. Receipt cifar-ray-remainder-attempt001.json.
