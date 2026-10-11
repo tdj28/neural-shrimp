@@ -12308,3 +12308,6 @@ now[-1/4096,319/4096]. Runtime63.348s,peak1,666,856KiB,zero native calls,
 owners absent. All immutable files and full inventory verified again. Receipt:
 docs/reviews/native705-batch-independent-outcome.json. Complementary stability
 and global completion retain separate evidence.
+###2026-10-10 — parallel705 continuation packet from independent joined endpoint
+
+Parent independently passed full705curve at384 (outer9177a2...) and same-root endpoint join at480 (outer93a0029...). Prepare one fixed four-worker batch using the independent384 recomputed rightendpoint and unchanged authenticatedPAL gauge. Charts[63,127],[127,191],[191,255],[255,319]/4096, weights2×original003, all253freshcalls each. Root proofs run independently from pre-proposed originalquadratic seeds; only subsequent strict orderedall705 exactgauge joins earn a connectedprefix. No projection proximity or laterunjoinedroot counts as connection. Fixed4CPU/24GiB workeraggregate+4GiBparent/330s/3076MiB and36GiB availability; source review beforetarget.
