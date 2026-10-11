@@ -16947,3 +16947,15 @@ Actual full metadata succeeds before decoding. Fixed300s2GiB4GiBAS256MiB,
 315+5 owned; conservative full original extension cost/raw floor and synthetic
 admission before target. Card remains prepared pending complete peer review;
 this source preparation does not delay or authorize a new subset/native run.
+
+### 2026-10-11 — admit sole saved all-ten subset screen
+
+Stability11667c84 full math/source/actual-domain/known-box PASS (ten controls
+3.78s), followed by9bfa5946 narrow named-headroom PASS. Root's pure exact-rational
+checker review retained. Eleven local combined controls3.69s. Admit only fixed
+attempt001, full51 synthetic/profile gate before ten failed-tube arrays. No
+native calls; all failed original wider outcomes and any LP abstentions remain.
+Host04:49PDT:51GiB available, load3.13, GPU0%/15947MiB free/no GPU processes,
+2.6TiB disk, clean source/no owned duplicate. CPU1nice10,180s2GiB4GiBAS64MiB,
+195+5 owned with10GiB admission headroom. Independent22-prefix packet is only
+prepared and will not execute in this run. Source stays frozen during screen.
