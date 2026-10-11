@@ -7293,3 +7293,14 @@ worker5048f291284457f641b0f9291f0ab2dc0e071d93cc53954355ed55d846e03780.
 Root's independent temporal-mean replay is bound literally before this pilot.
 No native span expansion or changed gates. Compact outcome receipt is
 `docs/reviews/tiny-lm-common-subspace-outcome.json`; integration lists68rawroots.
+
+### 2026-10-11 — prepare full-state parity-order contrast
+
+Root approved the fixed reversal-even contrast after all four common-subspace
+leakage abstentions. Same16 full Jacobians, literal direction and four consumed
+original/eta4 cases; no projection or eigenmatching. Parity grouping plus its
+transpose changes temporal adjacency while preserving all individual operators.
+The symmetrized difference vanishes for every commuting sequence and can reveal
+order dependence missed by reversal-odd alone. Fixed224HVP/0gradient/0CE; unchanged
+1% inherited qualifications, fresh chronological replay and actual cold-cost
+floor. Helper source/synthetic tests only; no native profile or target yet.
