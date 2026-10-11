@@ -18,11 +18,26 @@ from neural_shrimp.rigorous_eigenpair_march import decode
 from neural_shrimp.rigorous_eigenpair_locus import require
 from neural_shrimp.rigorous_orbits import exact,vector_json
 from neural_shrimp.rigorous_cusps import TwoRateCuspMap
-BASE=P.BASE/'cubic-continuation001';OUT=BASE/'attempt001-profile/run';CAP=768*1024**2
+BASE=P.BASE/'cubic-continuation001';OUT=BASE/'attempt002-profile/run';CAP=768*1024**2
 SETTINGS={'period':18,'precision':256,'parameter':'1/16384','halfwidth_exponent':-15,'radius_exponent':-16,'newton_steps':2,'full_chart_repeats':2,'tanh_pairs_each':12,'compact_evidence':True,'predictor_degree':3,'residual_degree':4}
 SOURCES=list(dict.fromkeys(P.SOURCES+['src/neural_shrimp/rigorous_eigenpair_march.py','src/neural_shrimp/rigorous_gradient_path.py','src/neural_shrimp/rigorous_polynomial_inverse.py','src/neural_shrimp/rigorous_correlated_pal.py','tests/test_rigorous_gradient_path.py','tests/test_rigorous_polynomial_inverse.py','tests/test_rigorous_correlated_pal.py','tools/profile_native705_cubic_inverse.py','tools/launch_native705_cubic_inverse_profile.py','tests/test_native705_cubic_inverse_profile.py','docs/plans/native705-correlated-inverse.md','docs/plans/native705-correlated-inverse-profile.md','docs/plans/native705-compact-evidence.md','docs/plans/native705-compact-profile.md','docs/plans/native705-cubic-predictor.md','docs/plans/native705-cubic-profile.md','src/neural_shrimp/rigorous_cubic_unit_pair.py','src/neural_shrimp/rigorous_cubic_gradient_path.py','src/neural_shrimp/rigorous_cubic_inverse.py','src/neural_shrimp/rigorous_cubic_correlated_pal.py','tests/test_rigorous_cubic_unit_pair.py','tests/test_rigorous_cubic_correlated_pal.py']))
 SOURCES=list(dict.fromkeys(SOURCES+['src/neural_shrimp/rigorous_cubic_proposal.py','tests/test_rigorous_cubic_proposal.py','tools/profile_native705_cubic_continuation.py','tools/launch_native705_cubic_continuation_profile.py','tests/test_native705_cubic_continuation_profile.py','docs/plans/native705-cubic-continuation-profile.md']))
+SOURCES+=['docs/reviews/native705-cubic-refresh-profile-failure.json']
 entry=P.entry
+
+def exact_seed(initial):
+ return [exact(v)for v in initial]
+
+def retained_failure():
+ prior=BASE/'attempt001-profile'
+ receipt=json.loads((ROOT/'docs/reviews/native705-cubic-refresh-profile-failure.json').read_text())
+ require(str(prior)==receipt['root'],'literal failed profile root')
+ for root,key in [(prior,'outer'),(prior/'run','worker')]:
+  require(entry(root/'manifest.json')==receipt[key],'exact failed profile inventory')
+  for name,row in json.loads((root/'manifest.json').read_text())['files'].items():require(entry(root/name)==row and not((root/name).stat().st_mode&0o222),'immutable failed profile file '+name)
+ out=json.loads((prior/'run/outcome.json').read_text());require(out==receipt['outcome']and not out['passed']and not out['target_acquired']and out['ticks']==36 and out['events']=={'direction_return':36},'exact original interface failure retained')
+ return receipt
+
 
 def gradient_pair(model,x,q,r,rates,tick=lambda:None,observe=lambda k,v:None,index=None):
  for name,direction in [('q',q),('r',r)]:
@@ -50,7 +65,7 @@ def projection(chart_times,gradient_times,path_times,peak,raw):
 
 def main():
  require(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source');require(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10')
- OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();ticks=[0];serial=[0];used=[0];counts={};resource.setrlimit(resource.RLIMIT_AS,(12*1024**3,)*2)
+ prior_failure=retained_failure();OUT.mkdir(parents=True,exist_ok=False);start=time.monotonic();ticks=[0];serial=[0];used=[0];counts={};resource.setrlimit(resource.RLIMIT_AS,(12*1024**3,)*2)
  def alarm(*_):raise TimeoutError('240s synthetic profile cap')
  signal.signal(signal.SIGALRM,alarm);signal.setitimer(signal.ITIMER_REAL,240)
  def check():
@@ -68,14 +83,14 @@ def main():
  for n,v in identity.items():require(hashlib.sha256(subprocess.check_output(['git','show','HEAD:'+n],cwd=ROOT)).hexdigest()==v['sha256'],'committed source '+n)
  save('runtime.json',{'commit':commit,'pid':os.getpid(),'mode':'synthetic_only','sources':identity,'settings':SETTINGS,'python':sys.version,'numpy':np.__version__,'flint':flint.__version__,'flint_library':flint.__FLINT_VERSION__,'threads':dict.fromkeys(THREADS,'1'),'nice':os.getpriority(os.PRIO_PROCESS,0),'worker_seconds':240,'sampled_rss_kib':6*1024**2,'hard_as_bytes':12*1024**3,'tick_cap':746,'target_acquired':False})
  for n in SOURCES:p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes());used[0]+=p.stat().st_size
- result={'passed':False,'target_acquired':False,'chart_times':[],'gradient_times':[],'path_times':[]}
+ result={'passed':False,'target_acquired':False,'prior_profile_failure':prior_failure,'chart_times':[],'gradient_times':[],'path_times':[]}
  try:
   with ctx.workprec(256):
    initial,anchor,lift=P.fixture(tick,observe);save('synthetic-lift.json',lift)
    normal=[arb(0)]*704+[arb(1)];origin=[arb(0)]*705
    for slot in range(2):
     t=time.monotonic()
-    data=refresh_cubic_proposal(P.Synthetic13(),initial,period=18,normal=normal,origin=origin,parameter=exact(SETTINGS['parameter']),newton_steps=2,tick=tick,observe=observe)
+    data=refresh_cubic_proposal(P.Synthetic13(),exact_seed(initial),period=18,normal=normal,origin=origin,parameter=exact(SETTINGS['parameter']),newton_steps=2,tick=tick,observe=observe)
     proof=correlated_tube(P.Synthetic13(),data['center'],data['slope'],data['curvature'],data['cubic'],data['C0'],period=18,normal=normal,origin=origin,parameter=SETTINGS['parameter'],halfwidth_exponent=-15,radius_exponent=-16,weights=[arb(1)]*705,tick=tick,observe=observe,compact=True)
     result['chart_times'].append(time.monotonic()-t)
     require(proof['bound']['passed']and proof['gates']['realified_frame_independent']and proof['gates']['whole_positive_angle']and not proof['gates']['primitive_period']and not proof['gates']['anchor_identified'],'full705 refreshed cubic conditional control without false primitive/anchor claim')
