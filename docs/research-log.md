@@ -14504,3 +14504,13 @@ Six controls pass. CPU1/nice10,60s1GiB worker/75+5s owned launcher, no native
 calls, no new checkpoints or protected data. Fixed .5 material gate unchanged;
 retain every failure and complete committed source/owned termination receipts.
 See docs/plans/tiny-lm-ordering-independent.md for full measured admission.
+
+### 2026-10-11 — Transformer ordering independent arithmetic PASS
+
+Executionf408bba8: independent saved160 HVP recurrences,16 scalar decompositions
+and8 reciprocal cases all PASS in1.910s/66844KiB/0native. Both expanded h16
+gradient directions remain negative for the fixed material criterion: ratios
+1.14159837535e-5 and .000277786266434, threshold .5. This does not show general
+order independence; the reversal-even remainder may depend on order. Complete
+archives, exact committed source, counts and actual owned PID exits verified.
+Receipt docs/reviews/tiny-lm-ordering-independent.json; no holdout or new data.
