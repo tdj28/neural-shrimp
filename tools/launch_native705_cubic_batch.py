@@ -60,7 +60,7 @@ def seeds(proposal,anchor):
 def committed_plan(path):
  path=path.resolve();need(path.parent==ROOT/'docs/plans'and path.name.startswith('native705-cubic-batch-')and path.suffix=='.json','committed local batch plan only')
  rel=str(path.relative_to(ROOT));need(hashlib.sha256(subprocess.check_output(['git','show','HEAD:'+rel],cwd=ROOT)).hexdigest()==entry(path)['sha256'],'exact committed pretarget card');p=read(path)
- need(p['schema']=='native705-cubic-batch-v1'and p['status']=='measured-reviewed'and type(p['batch'])is int and 1<=p['batch']<=20 and p['workers']==4 and p['halfwidth_exponent']==-4 and p['radius_exponent']==-10 and p['overlap']=='1/2048','fixed reviewed domain and measured card')
+ need(p['schema']=='native705-cubic-batch-v1'and p['status']=='measured-reviewed'and type(p['batch'])is int and 1<=p['batch']<=20 and p['workers']==4 and p['halfwidth_exponent']==W.HALFWIDTH and p['radius_exponent']==-10 and p['overlap']=='1/2048','fixed reviewed domain and measured card')
  return p
 
 def main(args):
@@ -80,7 +80,7 @@ def main(args):
   card={'source':source,'batch':plan['batch'],'worker_count':4,'kernel':'fresh-cubic705-v1','map_inputs':model,'normal':anchor['normal'],'origin':anchor['origin'],'weights':proposal['weights'],'anchor':anchor,'initials':initials,'settings':[W.settings(anchor['parameter'],i)for i in range(1,5)],'parent':binding,'profile':plan['profile'],'committed_plan':entry(args.card),'forecast':prof['forecast']}
   W.validate_card(card,source,plan['batch']);save(root,'input-card.json',card);del proposal;gc.collect();check();cardsha=entry(root/'input-card.json')['sha256']
   for unit in range(1,5):
-   folder=root/f'chart{unit:03d}';folder.mkdir();log=(folder/'process.log').open('xb');cmd=[sys.executable,str(ROOT/'tools/probe_native705_cubic_batch.py'),'--batch',str(plan['batch']),'--unit',str(unit),'--out',str(folder/'run'),'--card-sha',cardsha]
+   folder=root/f'chart{unit:03d}';folder.mkdir();log=(folder/'process.log').open('xb');cmd=[sys.executable,str(ROOT/W.WORKER),'--batch',str(plan['batch']),'--unit',str(unit),'--out',str(folder/'run'),'--card-sha',cardsha]
    proc=subprocess.Popen(cmd,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);jobs.append({'unit':unit,'proc':proc,'log':log,'folder':folder,'start':time.monotonic(),'peak':0,'reason':None,'term':None,'command':cmd})
   save(root,'owned-processes.json',{'workers':[{'unit':j['unit'],'group':j['proc'].pid,'command':j['command']}for j in jobs]})
   while any(j['proc'].poll()is None for j in jobs):

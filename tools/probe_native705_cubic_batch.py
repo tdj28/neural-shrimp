@@ -15,7 +15,7 @@ from neural_shrimp.rigorous_cubic_proposal import refresh_cubic_proposal
 from neural_shrimp.rigorous_cubic_correlated_pal import cubic_correlated_tube,cubic_anchor_test
 from neural_shrimp.rigorous_orbits import exact,vector_json
 from neural_shrimp.rigorous_eigenpair_locus import exact_mid
-BASE=P.BASE;CAP=1024**3;read=C.read;entry=C.entry;inventory=C.inventory;require=C.require;decode=C.decode
+BASE=P.BASE;HALFWIDTH=-4;WORKER='tools/probe_native705_cubic_batch.py';CAP=1024**3;read=C.read;entry=C.entry;inventory=C.inventory;require=C.require;decode=C.decode
 SOURCES=list(dict.fromkeys(C.SOURCES+P.SOURCES+['tools/probe_native705_cubic_batch.py','tools/launch_native705_cubic_batch.py','tests/test_native705_cubic_batch.py','docs/plans/native705-cubic-batch.md']))
 APINS={'root':'/data2/neural-shrimp-data/audits/native705-correlated-independent/attempt002','source':'d70eaaf9abd34ea65f1946c7727912b89a57ce55','outer':'db0c695ee52bd019239f683a7158701ad82be9728fcbd0af99359af8c9b66b79','worker':'12157fcd7d23f7aff29c2a8a317ec2a7999348f6162b3347f5fcf8af1537332c','endpoint':'41a904368aeb9458297bf3a436474698d0d95beced993a01102961be13fda078'}
 FPINS={'root':str(BASE.parent/'cubic001/attempt001-target'),'source':'c230b809ef43385d624350930c31120f726bd225','outer':'fde50164e0f93636de70a110ed4585d175a2ca0e44bc497eafb2c92075a81579','worker':'dbda7a520bfe1e8f2910aca550ee5d20c9ac8375c5a94f212c4eafd5b2570f7a','certificate':'38a06563fa2f10cea3b0495b7e5133d146cb2b6053062dd42ece0515385363c8'}
@@ -29,8 +29,8 @@ def sources():
 
 def settings(right,unit):
  require(type(unit)is int and 1<=unit<=4,'fixed four charts')
- center=Fraction(right)+Fraction(1,16)-Fraction(1,2048)+(unit-1)*(Fraction(1,8)-Fraction(1,2048))
- return {'period':18,'precision':256,'parameter':str(center),'halfwidth_exponent':-4,'radius_exponent':-10,'newton_steps':2,'predictor_degree':3,'residual_degree':4}
+ h=Fraction(2)**HALFWIDTH;center=Fraction(right)+h-Fraction(1,2048)+(unit-1)*(2*h-Fraction(1,2048))
+ return {'period':18,'precision':256,'parameter':str(center),'halfwidth_exponent':HALFWIDTH,'radius_exponent':-10,'newton_steps':2,'predictor_degree':3,'residual_degree':4}
 
 def profile(identity,pins):
  root=P.OUT.parent;inventory(root,pins['outer']);inventory(root/'run',pins['worker']);rt=read(root/'run/runtime.json');la=read(root/'launcher-result.json');out=read(root/'run/outcome.json')
@@ -103,7 +103,7 @@ def main(args):
   with ctx.workprec(256):
    model=C.TwoRateCuspMap(card['map_inputs']);normal=[exact(v)for v in card['normal']];origin=[exact(v)for v in card['origin']];weights=[exact(v)for v in card['weights']]
    data=refresh_cubic_proposal(model,[exact(v)for v in card['initials'][args.unit-1]],period=18,normal=normal,origin=origin,parameter=exact(cfg['parameter']),newton_steps=2,tick=tick,observe=observe)
-   proof=cubic_correlated_tube(model,data['center'],data['slope'],data['curvature'],data['cubic'],data['C0'],period=18,normal=normal,origin=origin,parameter=cfg['parameter'],halfwidth_exponent=-4,radius_exponent=-10,weights=weights,tick=tick,observe=observe,compact=True);save('certificate.json.gz',proof)
+   proof=cubic_correlated_tube(model,data['center'],data['slope'],data['curvature'],data['cubic'],data['C0'],period=18,normal=normal,origin=origin,parameter=cfg['parameter'],halfwidth_exponent=cfg['halfwidth_exponent'],radius_exponent=cfg['radius_exponent'],weights=weights,tick=tick,observe=observe,compact=True);save('certificate.json.gz',proof)
    require(ticks[0]==331 and counts==EXPECTED,'complete fresh native331 acquisition and no hidden return')
    result.update(passed=uniform(proof),status='uniform705_unjoined'if uniform(proof)else'completed_bounds_failed',contraction=proof['bound']['contraction'],strict_inclusions=sum(proof['bound']['coordinate_inclusions']),gates=proof['gates'],parameter_endpoints=proof['parameter_endpoints'],physical_endpoint=proof['endpoint_root_boxes'][1][-3:])
  except BaseException as exc:result.update(status='failed_or_interrupted',failure=type(exc).__name__+': '+str(exc))
