@@ -11952,3 +11952,8 @@ Prepare fixed saved-only independent arithmetic of the latest actual residual-me
 ### 2026-10-11T00:05:15.763130+00:00 — cleared fixed saved CIFAR audit
 
 Clark reviewed4c28542c and reproduced six controls in0.13s, clearing independent forcing/merit arithmetic, allfive exact trials and parent/action/count bindings. Execute fixed30s448MiB saved-only attempt001,40+5s launcher; nativecalls0, no changed scientific gates. Shared-host availablememory remains~52GiB; unrelatedworkers remain untouched.
+
+
+## 2026-10-11T00:06:41.626787+00:00 — current45-page reading PDF and CIFAR saved audit
+
+The45-page paper compiles without warnings/box errors, all439bound values verify with429previous entries unchanged, and22figure hashes remain unchanged. All45pages contact-inspected and17/36 detailed;137wordabstract unchanged. Source8b479434 and immutable render bound in paper-junction-lm-qa.json. Independently audited local55junction and transformer-response mechanism are included. Separate CIFAR saved-step audit passes allfive trial calculations, exactparent/action/count bindings and failedNewton/orbit labels: closure4.632424e-6 remains above1e-8; no native acquisitions. Bound in cifar-saved-step-independent.json. Researchcontinues.
