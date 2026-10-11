@@ -16174,11 +16174,11 @@ the fixed-reference curved path, not another unqualified Newton retry. Full49fil
 inventory,22 archived sources, immutable modes and absent actual owners verified;
 receipt docs/reviews/cifar-remainder-span001.json binds allproposed vectors.
 
-### 2026-10-11 10:27 UTC — Fixed current022 curved-path pilot prepared
+### 2026-10-11 10:26 UTC — Fixed current022 curved-path pilot prepared
 
 Following the preserved negative regularized comparison and saved nonlinear-image diagnosis, prepare one fresh acceleration HVP and both fixed actual gradients at alpha1/32 and1/64. Source/card plan fixes the reference alpha1/64 acceleration, original trust ball, .2 curvature ratio, initial-tangent forcing, and both actual comparisons. No composite-direction forcing assertion. Measured unchanged-native cost authority,120s/4GiB/64MiB owned caps, no new basis or holdouts; source and review before launch.
 
-### 2026-10-11 10:34 UTC — Reviewed fixed curved-path pilot admitted
+### 2026-10-11 10:28 UTC — Reviewed fixed curved-path pilot admitted
 
 Clark independently reviewed25a92cc2 source/math/binding/resource and reproduced10 controls9.62s including actual metadata with arrays forbidden, isolated imports and inherited512MiB launcher-AS. No blocker; initial derivative g^T Hp and both fixed admitted gradients correctly separated from composite forcing. Admit unchanged1HVP/up-to2grad120s4GiB64MiB worker plan, conditional on exact same-source historical native maxima and full-sized vector profile. All failed outcomes retained.
 
@@ -16204,3 +16204,5 @@ Sourced4c26d9f completed12 accepted native points/11 full470 reverse joins,67 ev
 ### 2026-10-11 — prepared continuation toward the actual positive-mode interaction
 
 Retain completed output001 and its numerical hidden-rate turn. Source-default-preserving event argument now permits one explicit smaller near+1 distance0.0001, keeping the actual unit-crossing stop and all original native qualification/reverse guards. Attempt002 starts the exact accepted terminal; unchanged32points/240returns/4536 phases and resources. Five controls pass4.72s, including actual no-array metadata, exact output association, historical default/threshold rejection and isolated closure. Card prepared; no target.
+
+Timing correction: the two manually entered curved-path preparation/admission headings above were ahead of the wall clock; corrected to their Git commit times25a92cc2 (10:26 UTC) ande470dded (10:28 UTC). Immutable execution timestamps and evidence are unchanged.
