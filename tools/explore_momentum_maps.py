@@ -411,9 +411,39 @@ def onset(args):
     crossing = record["first_crossing"]
     system = MomentumTwoCycle(mm, args.offset_output)
     k = int(np.argmin(np.abs(nodes[:, -1] - crossing["s"])))
+    fixed_row = np.zeros(2 * n + 1)
+    fixed_row[-1] = 1.0
+
+    def cycle_at(s_value, guess):
+        w0 = guess.copy()
+        w0[-1] = s_value
+        w, _ = newton(system, w0, max_iter=40, extra=lambda q: (fixed_row, q[-1] - s_value))
+        if w is None:
+            return None, None
+        _, _, mono, _ = system.residual_jacobian(w)
+        return w, float(np.max(np.abs(np.linalg.eigvals(mono))))
+
+    # bisection for the crossing between the last stable and first unstable stored nodes
+    lo_s, hi_s = nodes[max(k - 1, 0)][-1], nodes[k][-1]
+    guess = nodes[max(k - 1, 0)]
+    _, r_lo = cycle_at(lo_s, guess)
+    if r_lo is not None and r_lo > 1.0:
+        lo_s = nodes[max(k - 2, 0)][-1]
+    for _ in range(40):
+        mid = 0.5 * (lo_s + hi_s)
+        w_mid, r_mid = cycle_at(mid, guess)
+        if w_mid is None:
+            break
+        guess = w_mid
+        if r_mid > 1.0:
+            hi_s = mid
+        else:
+            lo_s = mid
+    s_cross = 0.5 * (lo_s + hi_s)
+    print(json.dumps({"refined_crossing": s_cross, "bracket": [lo_s, hi_s]}))
     rows = []
     for offset in args.offsets:
-        s_target = crossing["s"] + offset
+        s_target = s_cross + offset
         fixed = np.zeros(2 * n + 1)
         fixed[-1] = 1.0
         w0 = nodes[k].copy()
@@ -429,7 +459,8 @@ def onset(args):
         v = vecs[:, i]
         crit = mult[i]
         rates = system.rates(s_target)
-        state = z + args.kick * np.real(v) / np.linalg.norm(np.real(v))
+        kick = args.kick if offset > 0 or args.hysteresis_kick is None else args.hysteresis_kick
+        state = z + kick * np.real(v) / np.linalg.norm(np.real(v))
         t, m = state[None, :n], state[None, n:]
         with np.errstate(over="ignore", invalid="ignore"):
             for _ in range(args.transient):
@@ -451,7 +482,7 @@ def onset(args):
         planar = (samples[:, :n] - z[:n]) @ q
         angles = np.unwrap(np.arctan2(planar[:, 1], planar[:, 0]))
         rot = float(abs(angles[-1] - angles[0]) / (2 * np.pi * (len(angles) - 1)))
-        rows.append({"offset": offset, "s": s_target, "critical_modulus": float(abs(crit)),
+        rows.append({"offset": offset, "s": s_target, "kick": kick, "critical_modulus": float(abs(crit)),
                      "critical_turns": float(abs(np.angle(crit)) / (2 * np.pi)),
                      "amplitude_mean": float(dist.mean()), "amplitude_max": float(dist.max()),
                      "amplitude_min": float(dist.min()), "rotation_two_step": rot,
@@ -459,7 +490,8 @@ def onset(args):
         print(json.dumps({key: (round(val, 6) if isinstance(val, float) else val) for key, val in rows[-1].items()}))
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
-    (out / "onset.json").write_text(json.dumps({"args": vars(args), "crossing": crossing, "rows": rows}, indent=1))
+    (out / "onset.json").write_text(json.dumps({"args": vars(args), "crossing": crossing,
+                                                "refined_crossing": s_cross, "rows": rows}, indent=1))
 
 
 def main():
@@ -527,6 +559,8 @@ def main():
     on.add_argument("--arc", required=True, help="explore-relative folder of an arc run")
     on.add_argument("--offsets", type=float, nargs="+", default=[-0.002, 0.001, 0.002, 0.004, 0.008])
     on.add_argument("--kick", type=float, default=1e-4)
+    on.add_argument("--hysteresis-kick", type=float, default=None,
+                    help="kick used at negative offsets (before the crossing) to test bistability")
     on.add_argument("--transient", type=int, default=100000)
     on.add_argument("--samples", type=int, default=20000)
     on.add_argument("--out", required=True)
