@@ -16498,3 +16498,7 @@ Preserve full-profile002 and zero-target decode failure. Fresh003 adds only boun
 ### 2026-10-11 — second unit-pair/flip numerical localization prepared
 
 The retained actual complex-pair crossing at hidden72.2280–72.2373/output.8448415–.8450915 seeds the unchanged full55 native equations. New realification helper preserves the negative mode and strict both-rate brackets; phase0/1 primitive/simple-spectrum qualification and both literal all470 reverse joins remain required. Complete caller retains every native input/return,1548 inclusive phases,240s3GiB256MiB with real540-phase unrelated profile. Six helper/caller controls pass9.03s including actual metadata, archive closure and nonfinite-return retention. Helper independently cleared by Stability; full caller remains prepared pending peer review/admission. No new target yet.
+
+### 2026-10-11 — admit bounded corrected correlated proof and second55 localization
+
+Stability independently cleared665ad3b6 narrow decoder/binding (two actual controls3.79s) and3aa0b848 full55 caller (six controls10.70s). Actual compressed470 full binding with new native map forbidden passed, and second55 entire historical metadata passed. Both retain complete source and failed ancestors. Current host52GiB free-to-use availability, no own scientific workers, GPU idle; two CPU1 workers reserve7GiB combined. Admit only the fixed fresh003 correlated proof and fixed numerical55 candidate, each full current-source measured profile before target. Source remains frozen through both executions; no outcome at admission.
