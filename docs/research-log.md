@@ -8883,3 +8883,11 @@ stationary helper with disclosed.9forcing and explicit original global trust
 origin; same bounded4x256 actual-state directions/true action/Armijo tests.
 Three synthetic controls0.16s pass. No target caller/card and no native calls;
 independent source review plus saved-merit audit still precede any such run.
+
+### 2026-10-11 UTC — independent saved CIFAR audit cleared
+
+Clark reviewed370bf7b9 plus59ad17bf source/binding PASS; six controls0.17s.
+Own fsum reductions, exact full coordinates, native event/source identities
+and first-acceptance chain retained; declared address-space inheritance now
+consistent. Proceed the sole30s saved audit under fresh admission. Zero native
+calls, no numerical stationary/cycle promotion.
