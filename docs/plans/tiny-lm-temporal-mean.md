@@ -57,3 +57,31 @@ combined counts including readouts, literal direction, unchanged qualification,
 failed monotonicity, partial-readout/nonfinite retention and resource pricing.
 The full binding/ownership caller is being prepared; this helper card authorizes
 no native acquisition by itself.
+
+## Completed fixed caller
+
+The source-prepared JSON card is deliberately unlaunchable. The wrapper binds
+all four original response/two-snapshot producer and independent-audit immutable
+inventories and historical source identities. It checks current native-model
+bytes and runtime equality, exact float32 checkpoint promotion, original
+reference updates, literal observed direction, readout gradients and unchanged
+perturbation amplitudes. The original comparator archive stores h1..h16; the
+wrapper authenticates h1 against the original ordered response and prepends
+only the exact original h0 direction. New control g0 must equal the saved
+original g0 byte for byte. No original comparator is recomputed with extra HVPs.
+
+Every native input and return has an exclusive indexed event. Vector objects
+are losslessly deduplicated by their complete NPY bytes; trajectory aliases are
+row-reference lists, not duplicate dense arrays. Nonfinite native returns remain
+saved. Full immutable inventories and absent owned process IDs precede reuse.
+The only writable historical containers permitted are the two literal older
+broader-data roots; every file and manifest remains immutable and hash-bound.
+The source archive passes an isolated import-closure control. The owned launcher
+uses a512MiB parent softAS and8GiB inherited hardAS, so the worker can apply its
+actual8GiB limit without an inherited contradiction. Source is CPU float64 only.
+
+Before native acquisition, actual historical schema preflight caught and fixed
+the comparator's h1-origin indexing. The initial import-closure control counted
+Torch pseudo-file names as real paths; its fixed file-existence filter now
+checks every real loaded local module. Twelve source/binding/synthetic controls
+pass. These were preparatory checks, not native profile or target failures.

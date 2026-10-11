@@ -15750,3 +15750,16 @@ Native inputs/returns will be fully retained with exact-vector deduplication.
 Fixed20%/10x descriptive gate, no forecast/utility/order-causality claim and no
 native acquisition. Plan tiny-lm-temporal-mean.md. Full source-binding/profile
 caller remains to be prepared and peer reviewed before any profile.
+
+### 2026-10-11 — fixed temporal-mean wrapper ready for review
+
+Helper65bb5e09 independently reviewed PASS by Root, five controls reproduced.
+Completed owned caller binds original response+two-snapshot and both independent
+receipts, exact native/library/checkpoint/reference/direction/readout identities,
+per-operation attempted inputs and returns, and true row-based byte deduplication.
+Actual historical header preflight corrected saved comparator h1-origin versus
+h0; isolated-import test corrected Torch pseudo-file handling. Twelve focused
+controls pass2.47s, including complete immutable historical binding; zero model
+operations or target array reductions. Source-prepared card deliberately blocks
+both launches. Fresh full-size profile and separate committed measured target
+admission remain mandatory; original1% qualification and20%/10x gate unchanged.
