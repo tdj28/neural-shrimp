@@ -12929,3 +12929,16 @@ Clark cleared34d8c631 margin mathematics/binding/resource scope and reproduced
 16MiB andowned105+5, CPU1nice10, fresh16GiB headroom gate. No model call or new
 proof; current saved coefficients cannot validate any changed-width/radius
 domain. Wider705 independent outcome replay now belongs to Clark.
+
+### 11 October2026 UTC — saved margin decomposition identifies next limitation
+
+Savedb3b456a4 margin unit completed9.405s/2611172KiB/zero native. Current
+maximage/radius.382495; individual defect contributions(.041166,.002150,
+.023098,.000311), forcing cubic.302054/quartic.013752. So next width increase
+is limited by quadratic-predictor cubic residual, not only inverse variation.
+Frozen-coefficient doubling predicts forcing2.636 at old radius; radius8x
+balances its reduction against D0 growth, suggesting h1/16,rho2^-7 as one
+fresh-domain proposal. None of these extrapolations are proof bounds on the
+new domain. Root notified; source/method retention will be streamlined before
+new profile/target, retaining every native input/return and finite proposals.
+Old184MB dense certificate and duplicate remain immutable.
