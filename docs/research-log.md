@@ -17326,3 +17326,14 @@ historical events, five bounds, one candidate tube/four native contexts and
 target arrays, strict own-image/oldendpoint and fullE coverage throughout.
 Host CPU/RAM/GPU/disk and absence of duplicate owned processes checked before
 launch; checkout frozen until completion. Failed containment stays failed.
+
+### 2026-10-11 — preserve endpoint audit001 representation failure
+
+Saved audit001 completed3.5431s/91996KiB/0native, after its82.42s/51.43MB
+admission, but before selected-root/native/localization gates. It required
+literal JSON equality where the authenticated subset producer actually applies
+384bit decode/reserialize. All changed200 residual and5580 Jacobian balls
+match that exact transformation. Fresh002 binds this deterministic dyadic
+representation, still reconstructing mathematics solely from original raw
+native acquisitions. Original001/source/owners are mandatory immutable inputs;
+no tolerance, originalfullE, known-root or resource gate is relaxed.

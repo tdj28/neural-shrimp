@@ -12,12 +12,13 @@ ROOT=D.ROOT
 PARENT=Path('/data2/neural-shrimp-data/explore/clark-rnn/correlated-fold-subset-successor/attempt001')
 SOURCE='cf1cd08e7a868e0dd948c6bd4b188c99f9a53767'
 PINS=['8443f4e777c5ebfa5c4a0659ba90dbc8ebb19b84d44cc0932ed06946dbbd552a','53bbddefb9ec52767b8a48a17de98b0e59326a9859bb874473d8a408a16d0fca']
-OUT=Path('/data2/neural-shrimp-data/audits/clark-subset-endpoint-independent/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/clark-subset-endpoint-independent/attempt002/run')
 THREADS=D.THREADS;read,entry,serial,covered=D.read,D.entry,D.serial,D.covered
 EXPECTED={'native_even_odd_phase': 51, 'explicit_organizer_anchor': 1, 'explicit_family_attempt': 16, 'explicit_amplitude_fold_return': 16, 'correlated_center_newton_proposal': 10, 'path_attempt': 25, 'clark_gradient_path_input': 75, 'clark_gradient_path_return': 75, 'clark_correlated_path_return': 25, 'quadratic_predictor_proposal': 5, 'correlated_radius_proposal': 5, 'cached_residual_reuse': 10, 'correlated_explicit_tube_return': 5, 'context_attempt': 1, 'paired_native_phase': 6, 'validated_inverse': 4, 'paired_native_result': 1}
 KNOWN={'endpoint': {'bytes': 14972, 'sha256': '149c9884e79635252b11c796c74396af777d948715baabb68d549a8cc0a2401f'}, 'outer': '09aa30ca1399a667217f0be1c09ede0b2a5097f875fd0ebb3acad61699bcba81', 'root': '/data2/neural-shrimp-data/audits/clark-correlated-extent-independent/attempt001', 'source': 'f79b5ad059d08b88cd2aa8c360b538fe7b5c284c', 'worker': '9ecd7edbe7bc802042bbee4f625621a82fa4b64c57a9fae3cd5f7e9705c2a5ea'}
+FAILED=dict(root='/data2/neural-shrimp-data/audits/clark-subset-endpoint-independent/attempt001',source='c753b2d04926b2d5a61b66f8c07d3e756e82c4a4',outer='91aaa6a4822a9b44f0cdce6a37c6b77e2b6cd43fba8b2e72a46443bfaeea7503',worker='79dc5b8d9147350306164effb0756efdf6943865ad03e8068d5c6df204669b0c')
 CARD='docs/plans/clark-subset-endpoint-independent-inputs.json'
-FILES=sorted(set(D.FILES+[CARD,'tools/reviews/review_clark_subset_endpoint.py','tools/reviews/review_clark_endpoint_math.py','tools/launch_clark_subset_endpoint_review.py','tests/reviews/test_clark_subset_endpoint_driver.py','tests/reviews/test_clark_endpoint_math.py','docs/plans/clark-subset-endpoint-independent.md','docs/reviews/clark-subset-successor-attempt001.json','docs/reviews/clark-correlated-extent-independent.json']))
+FILES=sorted(set(D.FILES+[CARD,'tools/reviews/review_clark_subset_endpoint.py','tools/reviews/review_clark_endpoint_math.py','tools/launch_clark_subset_endpoint_review.py','tests/reviews/test_clark_subset_endpoint_driver.py','tests/reviews/test_clark_endpoint_math.py','docs/plans/clark-subset-endpoint-independent.md','docs/reviews/clark-subset-endpoint-independent-attempt001.json','docs/reviews/clark-subset-successor-attempt001.json','docs/reviews/clark-correlated-extent-independent.json']))
 class Work(D.Work):
  def tick(self):need(not self.stopped and time.monotonic()-self.start<120 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<2*1024**2,'120s/2GiB independent extent')
  def save(self,n,v,closing=False):
@@ -29,7 +30,8 @@ class Work(D.Work):
   if not closing:self.tick()
 
 def metadata(w):
- card=read(ROOT/CARD);need(card['status']=='reviewed'and card['caps']==dict(seconds=120,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=64*1024**2,native_calls=0,precision=512,intersections=16)and card['parent']==dict(root=str(PARENT),source=SOURCE,outer=PINS[0],worker=PINS[1])and card['known']==KNOWN,'fixed reviewed literal source/domain authority')
+ card=read(ROOT/CARD);need(card['status']=='reviewed'and card['caps']==dict(seconds=120,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=64*1024**2,native_calls=0,precision=512,intersections=16)and card['parent']==dict(root=str(PARENT),source=SOURCE,outer=PINS[0],worker=PINS[1])and card['known']==KNOWN and card['failed']==FAILED,'fixed reviewed literal source/domain authority')
+ fp=Path(FAILED['root']);D.inventory(fp,FAILED['outer'],w);D.inventory(fp/'run',FAILED['worker'],w);D.archive(fp,FAILED['source'],2,w);fo=read(fp/'run/outcome.json');need(not fo['passed']and fo['native_calls']==0 and fo['error']=='ValueError: unchanged actual coefficient/domain residual_coefficients','literal retained001 binding failure')
  for p,pin in zip((PARENT,PARENT/'run'),PINS,strict=True):D.inventory(p,pin,w)
  D.archive(PARENT,SOURCE,2,w);run=PARENT/'run';out=read(run/'outcome.json');cont=read(run/'continuation.json')
  need(not out['passed']and out['error']=='ValueError: bounded finite extent incomplete'and out['calls']==dict(algebra=22,anchor=1,cache_reuses=10,context=1,events=331,explicit=16,implicit=0,native_phase_returns=132,path=25,subset=6),'complete exact bounded successor')
@@ -47,8 +49,18 @@ def metadata(w):
  w.save('input-binding.json',dict(parent=str(PARENT),source=SOURCE,pins=PINS,known=KNOWN,map=ib['map'],events=EXPECTED,scope='Independent saved coefficient/root/native reduction and exact endpoint restriction; all original histories retained. Native analytic derivatives and Arb shared.'))
  return paths,kinds,[M.decode(x)for x in ep['box']],ib
 
-def selected_domain(original,selected):
- for key in('center','slope','curvature','parameter','halfwidth','inverse_coefficients','residual_coefficients','jacobian_coefficients','actual_error'):need(selected[key]==original[key],'unchanged actual coefficient/domain '+key)
+def selected_domain(original,selected,reencoded=True):
+ for key in('center','slope','curvature','parameter','halfwidth','inverse_coefficients','actual_error'):need(selected[key]==original[key],'unchanged actual coefficient/domain '+key)
+ for key in('residual_coefficients','jacobian_coefficients'):
+  need(len(selected[key])==len(original[key])==(3 if key=='jacobian_coefficients'else 4),'complete coefficient degrees')
+  with ctx.workprec(384):
+   for oldmat,newmat in zip(original[key],selected[key],strict=True):
+    need(len(oldmat)==len(newmat)==51,'all coefficient rows')
+    for oldrow,newrow in zip(oldmat,newmat,strict=True):
+     need(len(oldrow)==len(newrow)==(51 if key=='jacobian_coefficients'else 1),'all coefficient columns')
+     for x,y in zip(oldrow,newrow,strict=True):
+      expected=serial(M.decode(x))if reencoded else x
+      need(A.interval(expected)==A.interval(y),'exact384 decode-reserialize '+key)
  old=[A.point(x)for x in original['radii']];new=[A.point(x)for x in selected['radii']];need(len(old)==len(new)==51 and all(0<v<=r for v,r in zip(new,old,strict=True)),'positive componentwise subset only')
  return new
 
@@ -67,7 +79,7 @@ def target(w):
    if not center:need(A.covers(req['d'],(-A.point(t['halfwidth']),A.point(t['halfwidth']))),'whole acquired parameter covers original interval')
    found[key]=D.path_group(paths,k,matrix);w.tick()
   need(set(found)=={(True,True),(True,False),(False,True),(False,False)},'four complete residual/fullE acquisitions');need(found[False,True][0]['error']==found[False,False][0]['error']==t['actual_error'],'same literal fullE in center/whole Jacobian acquisitions');fc=found[True,True][1];fw=found[True,False][1];J=[found[False,True][2][0],found[False,True][2][1],found[False,False][2][2]];residual_coefficients=[M.col([fc[k,j]if j<3 else fw[k,3]for k in range(51)])for j in range(4)];C=[M.matrix(v)for v in t['inverse_coefficients']];original_data=H.reduction(C,J,residual_coefficients,r,h);w.save(tag+'/original-root.json.gz',original_data);selected=read(PARENT/f'run/charts/{attempt:02d}/tube.json.gz');decision=read(PARENT/f'run/charts/{attempt:02d}/decision.json')
-  selected_domain(t,selected)
+  selected_domain(t,selected,decision['subset_fallback'])
   sr=[M.decode(x)for x in selected['radii']];need(all(v.is_exact()and 0<v<=old for v,old in zip(sr,r,strict=True)),'positive componentwise subset only');data=H.reduction(C,J,residual_coefficients,sr,h);w.save(tag+'/root.json.gz',data);record=dict(attempt=attempt,root_passed=data['passed'],contraction=data['contraction'],original_accepted=decision['passed'],original_contraction=original_data['contraction']);r=sr
 
   if decision['passed']:
