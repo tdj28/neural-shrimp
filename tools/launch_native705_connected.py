@@ -20,6 +20,8 @@ POLICY_PATH=ROOT/'docs/plans/native705-connected-policy.json'
 WORKER_PATH=ROOT/'tools/probe_native705_connected.py'
 FALLBACK_PATH=ROOT/'tools/probe_native705_endpoint_fallback.py'
 INITIAL_STATE=(-6,0,'same_gauge')
+COMPLETION_BINDER=None
+COMPLETION_TEST=None
 LIMITS=dict(OLD.LIMITS,attempts=24,ticks=24*331,native_calls=24*324+8*36,initial_halfwidth=-6,maximum_halfwidth=-3,strong_threshold='1/5',strong_passes=2,rotate_threshold='1/4',fallbacks=8,fallback_seconds=300,fallback_owned_seconds=315,fallback_replays=8*72)
 
 def policy(path):
@@ -124,7 +126,9 @@ def main(args):
  signal.signal(signal.SIGTERM,halt);signal.signal(signal.SIGALRM,halt);signal.setitimer(signal.ITIMER_REAL,8400);save(BASE,'policy.json',p);save(BASE,'launcher-start.json',dict(source=source,pid=os.getpid(),policy=entry(args.card),limits=LIMITS,started_unix=time.time(),meminfo=mem,load=os.getloadavg()))
  try:
   prof=W.W.profile(identity,p['profile']);fallback_cost=fallback_profile(identity,p['fallback_profile'],check);need(fallback_cost==p['fallback_forecast'],'same literal measured fallback forecast');save(BASE,'fallback-profile-binding.json',fallback_cost);need(prof['forecast']==p['forecast']and 24*prof['forecast']['one_fresh_chart_seconds']+8*p['fallback_forecast']['forecast_seconds']+300<8400 and 24*prof['forecast']['compressed_storage_bytes']+8*p['fallback_forecast']['forecast_bytes']+16*1024**2<8*1024**3,'complete measured24-root8-fallback admission');save(BASE,'profile-binding.json',prof)
-  with ctx.workprec(480):model,proposal,anchor,parent=initial_parent(identity,check)
+  with ctx.workprec(480):
+   model,proposal,anchor,parent=initial_parent(identity,check)
+   completion=None if COMPLETION_BINDER is None else COMPLETION_BINDER(p,identity,model,check,lambda name,value:save(BASE,name,value))
   exponent,strong,mode=INITIAL_STATE;endpoint=None;used[0]=sum(v.stat().st_size for v in BASE.rglob('*')if v.is_file())
   for index in range(1,25):
    check()
@@ -146,9 +150,15 @@ def main(args):
     transition=next_step(exponent,strong,root_passed=done['passed'],joined=bool(joined),other_gates=other,contraction=q);row=dict(attempt=index,settings=card['settings'],mode=mode,root_passed=done['passed'],joined=bool(joined),transition=transition,worker=pin,contraction=done['contraction'],strict_inclusions=done['strict_inclusions'],owner=owner,fallback=fallback)
     if transition['action']=='advance':
      result['connected_count']+=1;anchor=anchor_from(chart);proposal={k:chart[k]for k in KEEP};endpoint=dict(chart={k:chart[k]for k in ['shooting_dimension','normal','origin','parameter_center','parameter_endpoints','settings']},endpoint=anchor['box']);save(folder,'connected-endpoint.json',endpoint);row['physical_endpoint']=anchor['box'][-3:]
+     if completion is not None:
+      with ctx.workprec(480):event=COMPLETION_TEST(completion,chart)
+      save(folder,'completion-membership.json',event);row['completion_event']=event
+     else:row['completion_event']=None
     save(folder,'decision.json',row);del chart;gc.collect();check();seal(folder);row['outer_manifest']=entry(folder/'manifest.json');result['attempts'].append(row)
     if transition['action']=='advance':parent=dict(kind='accepted-maintained-endpoint',root=str(folder),source=source,outer=row['outer_manifest']['sha256'],worker=pin['sha256'],endpoint=entry(folder/'connected-endpoint.json')['sha256']);mode='rotated_gauge'if transition['rotate']else'same_gauge'
     exponent=transition['halfwidth'];strong=transition['strong'];used[0]+=sum(v.stat().st_size for v in folder.rglob('*')if v.is_file());active[0]=None
+    if row.get('completion_event',{} ) and row['completion_event']['passed']:
+     result.update(passed=True,status='known_junction_connected',junction_connection=dict(attempt=index,worker=pin,outer=row['outer_manifest'],membership=row['completion_event']));break
     if transition['action']=='stop':result['status']='mathematical_stop';break
    except BaseException as exc:
     if folder.stat().st_mode&0o200:save(folder,'packet-error.json',dict(error=type(exc).__name__+': '+str(exc)));seal(folder)
