@@ -16801,3 +16801,7 @@ transpose/decomposition qualifications pass. Exact source1c91e14f, immutable
 full events/source and absent owned IDs verified. AllP/R/U/V norms, CEslopes,
 odd contrasts and squared cross terms retained. Separate independent saved
 arithmetic is still required before promotion.
+
+### 2026-10-11 11:53 UTC — Admit reviewed fresh CIFAR correction
+
+Boundary independently reviewed committed9ad366f5 source, entire selected-point ancestry, original trust, new operator qualifications, full-size/cold-cost profile, native return retention and own-group caps. Five controls passed5.95s nice10; no target evaluated during review. Admit one fixed1500s4GiB1536MiB full98666D fresh512 correction from the independently accepted curved1/32 endpoint. Source frozen for execution; no prior Hessian columns transferred, no protected holdouts or GPU use.
