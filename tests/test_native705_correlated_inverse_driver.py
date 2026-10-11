@@ -41,3 +41,13 @@ def test_actual_launcher_entrypoint_help_and_required_pins():
  p=subprocess.run([sys.executable,str(ROOT/'tools/launch_native705_correlated_inverse.py'),'--help'],text=True,capture_output=True)
  assert p.returncode==0 and all(s in p.stdout for s in ['--out','--profile-outer','--profile-worker'])
  with pytest.raises(SystemExit):C.parser().parse_args(['--out',str(C.TARGET)])
+
+
+def test_changed_native_map_gradient_or_closure_bytes_rejected():
+ identity={n:{'sha256':'same','bytes':1}for n in C.NATIVE_SOURCES}
+ C.same_native_source(identity,copy.deepcopy(identity))
+ for n in C.NATIVE_SOURCES:
+  bad=copy.deepcopy(identity);bad[n]['sha256']='changed'
+  with pytest.raises(ValueError):C.same_native_source(identity,bad)
+  del bad[n]
+  with pytest.raises(ValueError):C.same_native_source(identity,bad)
