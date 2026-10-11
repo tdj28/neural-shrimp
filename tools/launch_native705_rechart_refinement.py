@@ -30,7 +30,7 @@ def command():
 
 def main(args):
     global OUT,RSS_CAP_KIB,LIMIT,ARGS
-    ARGS=args;OUT=C.OUT.parent;RSS_CAP_KIB=6*1024**2;LIMIT=255
+    ARGS=args;OUT=C.OUT.parent;RSS_CAP_KIB=6*1024**2;LIMIT=315
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()
     assert os.getpriority(os.PRIO_PROCESS,0)>=10
     assert int(next(s.split()[1] for s in Path('/proc/meminfo').read_text().splitlines() if s.startswith('MemAvailable:')))>16*1024**2

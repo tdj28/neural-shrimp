@@ -46,3 +46,12 @@ Original known box and exact point must remain in literal original p(h)+E;
 no expanded-domain use. Prepared card requires source review and explicit
 measured-reviewed status before execution. Existing source-native bytes and
 all retained failures remain immutable. Eleven helper/driver controls passed.
+
+### Measured time-only amendment
+
+Pilot001 retained its complete full705 profile:26.0966s actual,271.411s
+conservative total forecast, so it rejected the original240s cap before
+target arrays. Storage354.03MB and peak3.90GB forecasts fit unchanged caps.
+Preserve001 and require its exact inventory in exclusive002. Raise only time
+to300s worker/315+5s owned; same forecast formula,6GiB/512MiB/native quotas,
+full-domain mathematics and source/known-root gates. Fresh profile required.

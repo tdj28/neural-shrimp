@@ -19,13 +19,13 @@ from neural_shrimp.rigorous_unit_pair import phase
 from neural_shrimp.rigorous_cusps import TwoRateCuspMap
 from neural_shrimp.rigorous_orbits import exact,eye,ball_json,vector_json,matrix_json
 W=L.W;need=W.need;read=W.read;entry=W.entry
-BASE=W.BASE.parent/'maintained-fallback001';OUT=BASE/'attempt001/run';CAP=512*1024**2
+BASE=W.BASE.parent/'maintained-fallback001';OUT=BASE/'attempt002/run';CAP=512*1024**2
 CARD='docs/plans/native705-rechart-refinement-inputs.json'
-SOURCES=list(dict.fromkeys(W.SOURCES+['src/neural_shrimp/rigorous_saved_cubic_endpoint.py','tools/refine_native705_rechart_endpoint.py','tools/launch_native705_rechart_refinement.py','tests/test_saved_cubic_endpoint.py','tests/test_native705_rechart_refinement.py','docs/plans/native705-reusable-endpoint.md','docs/reviews/native705-maintained001.json',CARD]))
+SOURCES=list(dict.fromkeys(W.SOURCES+['src/neural_shrimp/rigorous_saved_cubic_endpoint.py','tools/refine_native705_rechart_endpoint.py','tools/launch_native705_rechart_refinement.py','tests/test_saved_cubic_endpoint.py','tests/test_native705_rechart_refinement.py','docs/plans/native705-reusable-endpoint.md','docs/reviews/native705-maintained001.json','docs/reviews/native705-rechart-refinement-profile001.json',CARD]))
 
 class Work:
  def __init__(self):self.start=time.monotonic();self.used=0;self.native=0;self.saved=0;self.events=0;self.stopped=False
- def check(self):need(not self.stopped and time.monotonic()-self.start<240 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<6*1024**2,'240s/6GiB endpoint refinement cap')
+ def check(self):need(not self.stopped and time.monotonic()-self.start<300 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<6*1024**2,'300s/6GiB endpoint refinement cap')
  def save(self,name,value,closing=False):
   raw=json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False).encode();raw=gzip.compress(raw,mtime=0)if name.endswith('.gz')else raw+b'\n';need(self.used+len(raw)<CAP-(0 if closing else 4*1024**2),'512MiB with4MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
@@ -74,6 +74,7 @@ def refine_pair(model_inputs,oldrun,oldchart,newchart,known,domain,w):
 
 
 def synthetic(w):
+ failure=read(ROOT/'docs/reviews/native705-rechart-refinement-profile001.json');failed=BASE/'attempt001';need(failure['root']==str(failed)and failure['source']=='9248ae90876b5dc53c1b1d2b527d5ad634bfaae3'and failure['outer']['sha256']=='fc65a69bd6ec11644c02318a0fd0781f0560607740dff2fffed7d65332345fbc','literal retained time-only profile failure');W.inventory(failed,failure['outer']['sha256']);need(read(failed/'run/profile.json')==failure['profile']and read(failed/'run/outcome.json')==failure['outcome']and failure['outcome']['native_calls']==36 and failure['outcome']['saved_replay_calls']==72 and failure['profile']['target_arrays_unopened']and 240<failure['profile']['forecast_seconds']<300 and failure['profile']['forecast_bytes']<CAP and failure['profile']['forecast_peak_bytes']<6*1024**3,'unchanged successful memory/storage gates and rejected time forecast')
  W.inventory(Path(L.PARENT['root']),L.PARENT['outer']);prior=read(Path(L.PARENT['root'])/'run/outcome.json');need(prior['passed']and prior['native_calls']==72 and 0<prior['seconds']<120,'literal completed actual endpoint cost floor');floor=prior['seconds'];before=time.monotonic();used=w.used;n=13;N=705
  class Linear:
   n=13
@@ -90,7 +91,7 @@ def synthetic(w):
  inp,x,q,r,rates=P.P.gd_fixture();w.save('profile-input.json',dict(model=inp,x=vector_json(x),q=vector_json(q),r=vector_json(r),rates=vector_json(rates)))
  for k in range(18):phase(TwoRateCuspMap(inp),x,q,r,rates,w.tick,w.observe,k)
  elapsed=time.monotonic()-before;stored=w.used-used;forecast=8*elapsed+2*floor+20;raw=4*stored+64*1024**2;peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024+2*1024**3
- report=dict(passed=bool(w.native==36 and w.saved==72 and forecast<240 and raw<CAP and peak<6*1024**3),seconds=elapsed,stored_bytes=stored,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,actual_prior_seconds=floor,target_arrays_unopened=True);w.save('profile.json',report);need(report['passed'],'complete measured705 replay/residual admission before target')
+ report=dict(passed=bool(w.native==36 and w.saved==72 and forecast<300 and raw<CAP and peak<6*1024**3),seconds=elapsed,stored_bytes=stored,forecast_seconds=forecast,forecast_bytes=raw,forecast_peak_bytes=peak,actual_prior_seconds=floor,target_arrays_unopened=True);w.save('profile.json',report);need(report['passed'],'complete measured705 replay/residual admission before target')
 
 
 def bind(identity,w):
@@ -119,12 +120,12 @@ def bind(identity,w):
 
 
 def main():
- need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source');need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');OUT.mkdir(parents=True,exist_ok=False);resource.setrlimit(resource.RLIMIT_AS,(10*1024**3,)*2);w=Work();signal.signal(signal.SIGTERM,lambda *_:setattr(w,'stopped',True));signal.signal(signal.SIGALRM,lambda *_:setattr(w,'stopped',True));signal.setitimer(signal.ITIMER_REAL,240);result=dict(passed=False,status='incomplete')
+ need(not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'clean committed source');need(os.getpriority(os.PRIO_PROCESS,0)>=10,'nice10');OUT.mkdir(parents=True,exist_ok=False);resource.setrlimit(resource.RLIMIT_AS,(10*1024**3,)*2);w=Work();signal.signal(signal.SIGTERM,lambda *_:setattr(w,'stopped',True));signal.signal(signal.SIGALRM,lambda *_:setattr(w,'stopped',True));signal.setitimer(signal.ITIMER_REAL,300);result=dict(passed=False,status='incomplete')
  try:
   source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();identity={n:entry(ROOT/n)for n in SOURCES};w.save('runtime.json',dict(commit=source,sources=identity,precision=480,pid=os.getpid(),python=sys.version,python_flint=flint.__version__,flint=flint.__FLINT_VERSION__,threads=dict.fromkeys(THREADS,'1'),nice=os.getpriority(os.PRIO_PROCESS,0)))
   for n,v in identity.items():need(hashlib.sha256(subprocess.check_output(['git','show',source+':'+n],cwd=ROOT)).hexdigest()==v['sha256'],'committed exact source');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/n).read_bytes());w.used+=p.stat().st_size
   with ctx.workprec(480):
-   card=read(ROOT/CARD);need(card['status']=='measured-reviewed'and card['caps']==dict(seconds=240,rss_bytes=6*1024**3,as_bytes=10*1024**3,raw_bytes=CAP,native_calls=72,saved_replay_calls=144),'literal reviewed fixed fallback card');synthetic(w);model,run,old,new,known,domain=bind(identity,w);localized,join,q=refine_pair(model,run,old,new,known,domain,w);need(w.native==72 and w.saved==144,'all fixed replay and fresh residual operations');passed=bool(join['passed']and len(join['coordinate_inclusions'])==705 and all(join['coordinate_inclusions']));w.save('known-endpoint.json',dict(chart={k:old[k]for k in ['shooting_dimension','normal','origin','parameter_center','parameter_endpoints','settings']},endpoint=vector_json(localized)))
+   card=read(ROOT/CARD);need(card['status']=='measured-reviewed'and card['caps']==dict(seconds=300,rss_bytes=6*1024**3,as_bytes=10*1024**3,raw_bytes=CAP,native_calls=72,saved_replay_calls=144),'literal reviewed fixed fallback card');synthetic(w);model,run,old,new,known,domain=bind(identity,w);localized,join,q=refine_pair(model,run,old,new,known,domain,w);need(w.native==72 and w.saved==144,'all fixed replay and fresh residual operations');passed=bool(join['passed']and len(join['coordinate_inclusions'])==705 and all(join['coordinate_inclusions']));w.save('known-endpoint.json',dict(chart={k:old[k]for k in ['shooting_dimension','normal','origin','parameter_center','parameter_endpoints','settings']},endpoint=vector_json(localized)))
    if passed:w.save('connected-endpoint.json',dict(chart={k:new[k]for k in ['shooting_dimension','normal','origin','parameter_center','parameter_endpoints','settings']},endpoint=new['endpoint_root_boxes'][1]))
    result.update(passed=passed,status='retained_root_connected'if passed else'completed_join_unresolved',strict_inclusions=sum(join['coordinate_inclusions']),weighted_bound=ball_json(q),scope='Identical known endpoint refined by source-bound saved fullE derivatives and36 fresh native phases, joining retained full705 root5. No uniform-root reacquisition, complementary or whole-window claim.')
  except BaseException as exc:result.update(status='failed_or_interrupted',failure=type(exc).__name__+': '+str(exc))

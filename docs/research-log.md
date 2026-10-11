@@ -14150,3 +14150,15 @@ worker. Admit only the fixed source-bound maintained4-to5 pilot, CPU1nice10,
 240s6GiB512MiB with72native and144saved replay inclusive. Its fresh full705
 profile must still pass all measured forecasts before opening target arrays.
 No uniform proof retry or threshold change; full old5attempts retained.
+
+### 2026-10-11 — Retain endpoint profile001; time-only amendment
+
+Full705 synthetic profile forecast271.411s rejected240s before target arrays.
+All36profile native/72saved replay returns retained,27.087s worker,1.63GiB
+peak; owned group absent and both complete inventories checked. Original
+root5 remains unchanged. Prepare only300s worker/315+5s outer fresh002, same
+scientific gates/quotas/RSS/storage and mandatory failed001 genealogy.
+
+Amendment controls initially caught two stale test bindings (old255s literal
+and a wrong imported-module alias); corrected tests, source caps unchanged.
+An initial test command named a nonexistent old test and collected none.
