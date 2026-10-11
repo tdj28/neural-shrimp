@@ -15378,3 +15378,12 @@ organizer inverse and native6 four-context primitive/+1/quotient reductions.
 No producer theorem import or new native calls. Initial parity test corrected
 for conservative Arb radius rounding, no gate change. Fivecontrols pass.
 Actual acquisition/domain/model/root authority remains the pending wrapper.
+
+### 2026-10-11 — fixed independent six-prefix51 wrapper prepared
+
+Raw native51 assembly, all577event/order/fullE domains, exact original512
+organizer and physicalmatrix, own25Danchor inverse, eight root reductions and
+six ordered51joins/native four-context qualifications. Twooriginalfailed
+widths retained, selectedendpoint notclaimed. Source-only12controls0.43s,
+full51/12synthetic profile and actualmetadata checked, zero target arithmetic.
+Fixed180s2GiB128MiB/195+5owned130MiB, no newnative; peer review next.
