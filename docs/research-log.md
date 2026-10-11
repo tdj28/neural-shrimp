@@ -13055,3 +13055,6 @@ Outera12c2e8bb643cc112caafd3270292ebc21eed0ad0faae50870e465e0ae7992a6, workerc92
 projection84.48s; preserved conservative actual dense floor still176.023s,
 4839112KiB,490414663bytes, inside unchanged caps. Commit the exact
 manifest-bound single h1/8,rho2^-8 card before target. No cubic target outcome yet.
+### 2026-10-11 — independent wider correlated705 source preparation
+
+Exact organizer independently sealedaa605d61; root assigns saved wider correlated705 replay. Resumed actual21:08PDT own tree clean/no worker/no earlier draft after usage pause. Prepared separate full gradient-path/Jacobian and affine-preconditioned polynomial reducer; no producer proof/gradient assembly import. All actual state/q/r/rates/base gradients/angle/gauge paths require exact acquired-domain coverage. Existing independent direct PAL cubic/entire helpers reused, known-endpoint/rechart helpers copied byte-identically. Four controls pass0.44s, including nested multiprecision differentiation of all9x9 Jacobian coefficients0..2 and constant-error/domain corruption. Target metadata read only; source review and fixed bounded inventory/old705endpoint wrapper remain prerequisites.
