@@ -7188,3 +7188,14 @@ unchanged60s4GiB8GiBAS512MiB/80+5bounds; target001 unopened. Host52GiB available
 load1.95,2.6TiBdiskfree,GPU0%/15947MiBfree,no own duplicate. Full historical
 broader-data inventories independently preflighted without scientific arrays
 (.30s,29profile/191targetfiles). Separate measured target card remains required.
+
+### 2026-10-11 — complete temporal-mean profile002 and time-only amendment
+
+Profile002 executionadc6bbe1 completed6calls0.920835s/943208KiB; all immutable
+inventories/source/ownership verified. Outer7b46a95ca74d33c4b88ab2f279a5882aea1ec09ed67ff41de3a03ac96242e587,
+worker199c1d3f794ca630d4e2e369400da44a5ad9b7aae138cea38a73c6120b07eb57.
+Forecast869.572629s correctly exceeds600;471905184B fits512MiB. Retain failure.
+Root explicitly authorized time-only900s/920+5 amendment; no dropped cold costs,
+call changes, partitioning or relaxed qualification. Exact complete measured
+source/native/helper/operation-AST bindings now gate reuse;15controls3.54s.
+No target opened, source-prepared card remains blocked for narrow peer review.

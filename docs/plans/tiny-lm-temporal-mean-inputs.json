@@ -1,15 +1,5 @@
 {
-  "admission": {
-    "available_ram_gib": 52,
-    "free_disk_tib": 2.6,
-    "gpu_free_mib": 15947,
-    "gpu_used_mib": 2,
-    "gpu_utilization_percent": 0,
-    "load_1m": 1.95,
-    "local_time": "2026-10-11T02:27:06-07:00",
-    "mode": "profile only",
-    "owned_duplicate_workers": []
-  },
+  "admission": null,
   "arm": 256,
   "control_rate_factor": 0.25,
   "horizons": [
@@ -22,23 +12,16 @@
     "gradient": 2,
     "hvp": 2
   },
-  "profile_outer": null,
+  "profile_outer": "7b46a95ca74d33c4b88ab2f279a5882aea1ec09ed67ff41de3a03ac96242e587",
   "profile_root": "/data2/neural-shrimp-data/explore/tiny-lm-temporal-mean/attempt002-profile",
-  "profile_worker": null,
+  "profile_worker": "199c1d3f794ca630d4e2e369400da44a5ad9b7aae138cea38a73c6120b07eb57",
   "schema": "tiny-lm-temporal-mean-v1",
   "seeds": [
     28161,
     28162
   ],
-  "source_review": {
-    "controls": 14,
-    "reviewer": "boundary_resume",
-    "scope": "narrow source only; full788ded7d clearance retained",
-    "seconds": 3.63,
-    "source": "94f80673cbf317c13534a8b0bff3b31024360f56",
-    "verdict": "PASS"
-  },
-  "status": "profile_admitted",
+  "source_review": null,
+  "status": "source_prepared",
   "step": 600,
   "target_counts": {
     "ce": 58,
@@ -46,11 +29,21 @@
     "hvp": 1088
   },
   "target_root": "/data2/neural-shrimp-data/explore/tiny-lm-temporal-mean/attempt001-target",
+  "time_amendment": {
+    "amended_outer_seconds": 920,
+    "amended_worker_seconds": 900,
+    "authorized_by": "root",
+    "original_outer_seconds": 620,
+    "original_worker_seconds": 600,
+    "profile_source": "adc6bbe153a05f8e47dcd10d2a03ed38972cd377",
+    "reason": "complete actual002 cold maxima forecast869.5726292729378s; no costs dropped",
+    "source_scope": "same native/helper bytes and acquisition/retention AST; all science/call/RSS/raw gates unchanged"
+  },
   "worker_as_bytes": 8589934592,
   "worker_raw_bytes": 536870912,
   "worker_rss_bytes": 4294967296,
   "worker_seconds": {
     "profile": 60,
-    "target": 600
+    "target": 900
   }
 }

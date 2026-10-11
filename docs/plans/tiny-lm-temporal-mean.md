@@ -98,3 +98,26 @@ worker --help subprocess starting with the actual512MiB/8GiB inherited limits
 passes;14 combined controls pass3.49s. Fresh exclusive profile002 only, original
 target001 remains unopened. The card returns to unlaunchable source_prepared
 until narrow peer review and current host admission. No failure is overwritten.
+
+## Disclosed time-only amendment after complete profile002
+
+Executionadc6bbe1 completed all6 native operations in0.920835s/943208KiB and
+preserved every input/return. Original600s target admission correctly rejected
+forecast869.5726292729378s; storage471905184B passed512MiB. Max cold HVP.34845865s,
+gradient.24127097s,CE.02719671s are retained unchanged. No target was opened.
+Root explicitly authorized900s worker/920+5s outer, all1088/162/58 operations,
+four cases, thresholds,4GiB RSS/8GiB AS/512MiB raw unchanged. Do not drop cold
+measurements or partition the test after outcomes. This replaces the earlier
+600/620 time ceilings only; the original failed profile remains a failed600s
+admission and its complete immutable record is a mandatory input.
+
+Actual profile source/outer/worker are literal; all historical archive bytes
+are rechecked. Current native model, temporal-mean mathematics and package
+imports must exactly match measured bytes. The Store/Calls/select and native
+grad/hvp/ce closure ASTs must match the historical profiled acquisition and
+retention implementation. The time-only wrapper/card changes do not alter
+those operations. All six finite returns, exact runtime, original failed exit,
+absent owned PIDs, original forecasts and unchanged storage/RSS gates are
+required before target. Fifteen focused controls pass3.54s, including the real
+profile binding and mutation negatives. Card remains blocked pending narrow
+independent review and a separately committed current target admission.
