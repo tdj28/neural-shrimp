@@ -28,3 +28,16 @@ def test_isolated_archive_and_limits(tmp_path):
  env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1');subprocess.run([sys.executable,'-c',code,str(tmp_path)],cwd=tmp_path,env=env,check=True,timeout=30)
  assert D.LIMITS['seconds']==300 and D.LIMITS['rss_bytes']==6*1024**3
  text=(R/'tools/launch_signed_output_review.py').read_text();assert 'external315s' in text and '770*1024**2' in text
+
+def test_actual_complete_new_geometry_exact_weight_spelling(monkeypatch):
+ c=D.read(R/D.CARD);p=Path(c['producer']['root'])/'run'
+ def no(*a,**k):raise AssertionError('interval arithmetic forbidden')
+ monkeypatch.setattr(D.P.R,'original_ball',no);monkeypatch.setattr(D.P.M,'point',no)
+ inp,chart,domain,proposal=D.Q.geometry_header(p)
+ assert inp['weights'][468]=='1/1'and chart['weights'][468]=='1'
+ changed=copy.deepcopy(inp);changed['weights'][468]='2/1'
+ with pytest.raises(ValueError,match='exact positive'):D.Q.check_geometry(changed,chart,domain,proposal)
+ changed=copy.deepcopy(inp);changed['normal'][0]='1'
+ with pytest.raises(ValueError,match='gauge proposal'):D.Q.check_geometry(changed,chart,domain,proposal)
+ changed=copy.deepcopy(proposal);changed['center'][0]=copy.deepcopy(proposal['center'][1])
+ with pytest.raises(ValueError,match='predictor'):D.Q.check_geometry(inp,chart,domain,changed)

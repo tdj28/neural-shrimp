@@ -17446,3 +17446,7 @@ Run card `docs/plans/native470-output-independent.md` admits one saved512 arithm
 ### 2026-10-11T13:07:59.662140+00:00 — Output-gauge independent replay retained
 
 Saved512 audit124e184d completed all three independently reconstructed full470 same-root localizations, then stopped before new-chart arithmetic at literal predictor/gauge metadata equality. Zero native calls,41.739s718352KiB. Every original raw file is immutable and hash/source/owner verified. Peer diagnosis isolates equivalent exact weight spelling1/1 versus1; a new reviewed attempt must perform exact rational equality and run the entire actual chart metadata preflight before proof arrays. No failed result overwritten or chart proof inferred.
+
+### 2026-10-11 — Exact representation repair, independent output-gauge attempt002
+
+Admit the fixed second saved-only replay after complete differential review and seven controls. Original first attempt6506f8ba remains sealed: the only geometry metadata discrepancy was exact rational1/1 versus1 at free hidden coordinate468. The verifier now compares exact positive Fractions and executes the entire literal new-chart header before interval decoding. Every predictor/gauge/derivative/fullE/root/join gate remains. Three old independent localizations are repeated; retained failed runtime charges the complete forecast. Same300s/6GiB/768MiB limits, zero native calls.

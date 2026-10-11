@@ -15,7 +15,7 @@ import review_signed_output_math as P
 import review_signed_output_curve as Q
 from neural_shrimp.rigorous_orbits import canonical_bytes,ball_json,vector_json,matrix_json
 need,read,entry,inventory,archive=S.need,S.read,S.entry,S.inventory,S.archive
-OUT=Path('/data2/neural-shrimp-data/audits/signed470-output-independent/attempt001/run');CARD='docs/plans/native470-output-independent-inputs.json'
+OUT=Path('/data2/neural-shrimp-data/audits/signed470-output-independent/attempt002/run');CARD='docs/plans/native470-output-independent-inputs.json'
 LIMITS=dict(seconds=300,rss_bytes=6*1024**3,as_bytes=10*1024**3,raw_bytes=768*1024**2,precision=512,native_calls=0)
 FILES=sorted(set(T.FILES+[CARD,'docs/plans/native470-output-independent.md','tools/reviews/review_signed_output.py','tools/reviews/review_signed_output_math.py','tools/reviews/review_signed_output_curve.py','tools/launch_signed_output_review.py','tests/reviews/test_signed_output_math.py','tests/reviews/test_signed_output_driver.py']))
 class Work(S.Work):
@@ -39,8 +39,15 @@ def sealed(spec,w,expected=0,expected_outcome=None):
  for n,e in spec.get('files',{}).items():need(entry(p/'run'/n)==e,'exact retained source/input evidence '+n)
  return p,rt,out
 
+def preserved(card,w):
+ p,rt,o=sealed(card['prior_failure'],w,2)
+ need(card['prior_failure']['source']=='124e184d828e1038a610779bc5535e579a2babc6'and not o['passed']and o['native_calls']==0 and o['error']=='ValueError: entire predictor and phase/rate/gauge proposal','literal prior representation-only failure')
+ need(read(p/'run/profile.json')['passed']and read(p/'run/complete-admission.json')['passed']and all(read(p/f'run/endpoint-{i}-independent.json')['passed']for i in range(3))and not(p/'run/independent512.json').exists(),'retain completed three localizations and no uniform-root promotion')
+ w.save('preserved-failure.json',dict(source=card['prior_failure']['source'],outer=card['prior_failure']['outer'],worker=card['prior_failure']['worker'],outcome=o))
+ return o
+
 def bind(card,w,metadata_only=False):
- need(card['status']=='reviewed'and card['limits']==LIMITS,'fixed reviewed output-gauge audit');ap,ar,ao=sealed(card['known'],w,0,card['known_outcome']);p,rt,out=sealed(card['producer'],w);fp,fr,fo=sealed(card['failed'],w,2);dp,dr,do=sealed(card['diagnosis'],w)
+ need(card['status']=='reviewed'and card['limits']==LIMITS,'fixed reviewed output-gauge audit');preserved(card,w);ap,ar,ao=sealed(card['known'],w,0,card['known_outcome']);p,rt,out=sealed(card['producer'],w);fp,fr,fo=sealed(card['failed'],w,2);dp,dr,do=sealed(card['diagnosis'],w)
  ai=read(ap/'run/input-binding.json');need(ao['passed']and ao['native_calls']==0 and ao['accepted_indices']==[1,2,3,4,6,7,9,10,12,13,15,16,18,19,21,22]and ao['exact_parameter']=='-2001/256'and all(r['passed']and r['root_coordinates']==r['anchor_coordinates']==470 for r in ao['rows']),'independent complete16 full470 roots/joins')
  mp,oldap=T.bind(ai['card'],Prefix(w,'original-march-'),True);need(entry(ap/'run/connected-left-endpoint.json')==card['known']['endpoint'],'literal independent endpoint')
  hb=read(p/'run/history-binding.json');need(hb['independent']==card['known']and hb['failed_output']==card['failed']and hb['diagnosis']==card['diagnosis'],'literal all weighted-target ancestors')
@@ -55,6 +62,7 @@ def bind(card,w,metadata_only=False):
  need(kinds==dict(native_input=54,native_return=54,phase_return=54),'all54 endpoint acquisitions retained')
  need(read(ap/'run/chart022/outcome.json')['passed']and read(ap/'run/chart022/outcome.json')['root_coordinates']==470,'selected old independent chart22')
  w.save('input-binding.json',dict(card=card,model=ai['model'],native_source=ai['native_source'],old_producer=ai['card']['producer'],old_index=22,old_parameter='-2001/256',scope='Independent exact same-root refinement and full470 output-gauge proof from authenticated native returns; no native calls.'))
+ Q.geometry_header(p/'run')
  if metadata_only:return p,fp,ap,mp
  known=read(ap/'run/connected-left-endpoint.json');need(known==read(ap/'run/chart022/connected-left-endpoint.json')and known['exact_parameter']=='-2001/256'and known['normal']==['0']*468+['1','0']and len(known['box'])==470,'exact independently reconstructed old known root');return p,fp,ap,mp,known
 
@@ -80,7 +88,7 @@ def sharpen(fp,ap,mp,known,w):
  refined=dict(known,box=box);w.save('independent-refined-known470.json',refined);del Cpoint,J;gc.collect();return refined,proofs
 
 def profile(w,card):
- S.synthetic(w);pr=read(OUT/'profile.json');t=pr['seconds'];old=card['producer']['outcome'];failed=card['failed']['outcome'];forecast=dict(seconds=time.monotonic()-w.start+max(4*t+80,2*old['seconds']+failed['seconds']),bytes=w.used+4*pr['bytes']+64*1024**2,rss_kib=max(pr['forecast']['rss_kib'],2*old['peak_rss_kib']+256*1024));ok=forecast['seconds']<300 and forecast['bytes']<636*1024**2 and forecast['rss_kib']<6*1024**2;w.save('complete-admission.json',dict(passed=ok,forecast=forecast,retained_success_seconds=old['seconds'],retained_failure_seconds=failed['seconds'],target_arrays_unopened=True));need(ok,'full470 proof/refinement profile and all actual cold costs')
+ S.synthetic(w);pr=read(OUT/'profile.json');t=pr['seconds'];old=card['producer']['outcome'];failed=card['failed']['outcome'];forecast=dict(seconds=time.monotonic()-w.start+max(4*t+80,2*old['seconds']+failed['seconds'],2*card['prior_failure']['outcome']['seconds']+60),bytes=w.used+4*pr['bytes']+64*1024**2,rss_kib=max(pr['forecast']['rss_kib'],2*old['peak_rss_kib']+256*1024));ok=forecast['seconds']<300 and forecast['bytes']<636*1024**2 and forecast['rss_kib']<6*1024**2;w.save('complete-admission.json',dict(passed=ok,forecast=forecast,retained_success_seconds=old['seconds'],retained_failure_seconds=failed['seconds'],retained_audit_failure_seconds=card['prior_failure']['outcome']['seconds'],target_arrays_unopened=True));need(ok,'full470 proof/refinement profile and all actual cold costs')
 
 def main():
  need(not subprocess.check_output(['git','-c','core.preloadIndex=false','-c','index.threads=1','status','--porcelain'],cwd=ROOT).strip()and os.getpriority(os.PRIO_PROCESS,0)>=10,'clean nice10');OUT.mkdir(parents=True,exist_ok=False);w=Work();answer=dict(passed=False,native_calls=0)
