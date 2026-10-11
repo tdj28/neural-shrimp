@@ -30,5 +30,5 @@ def test_actual_native_baseline_is_not_erased_by_synthetic_speedup():
 def test_historical_driver_defaults_and_compact_canonical_observer_are_explicit():
  assert N.C.COMPACT is False
  source=(ROOT/'tools/probe_native705_correlated_inverse.py').read_text()
- assert "if COMPACT and k=='correlated_chart_return'"in source and "'canonical_certificate':'certificate.json.gz'"in source
+ assert "if COMPACT and k==FINAL_EVENT"in source and "'canonical_certificate':'certificate.json.gz'"in source
  assert "halfwidth_exponent=SETTINGS['halfwidth_exponent']"in source
