@@ -9584,3 +9584,9 @@ Physical p/Hp and shorter norm are independently recomputed inside the helper;
 caller will still require fresh actual forcing<=.5, unchanged trust/Armijo and
 same current022 authority. Three synthetic controls PASS0.14s. No saved target
 arrays, profile, candidate or derivative acquired; full measured caller pending.
+
+### 2026-10-11 — fresh saved-width002 admission
+
+Clark narrow9b3d464f review PASS and4controls0.67s reproduced. Exact old failure,
+complete same domains/widths and60s1GiB ceilings remain. Admit one fresh002
+profile-gated replay under64MiBraw/66MiBouter; no scientific target in001.
