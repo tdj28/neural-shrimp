@@ -16353,3 +16353,7 @@ Exact immutable inventories and every historical source entry verified; owned
 Descriptive gate TRUE; separately authored saved arithmetic audit remains next.
 No operator-norm, basis/individual-commutator, forecast, training or geometry
 utility claim follows. See compact receipt and independent replay guide.
+
+### 2026-10-11T10:46:29.656261+00:00 — Independent full-state parity-order audit prepared
+
+Root separately authored fsum norm/readout/cross-term reduction and all224 saved native path updates plus32 old reversed actions. Exact original four cases, states, eta, unit direction, CE readouts and inherited1percent authority; freshP replay and both transpose/decomposition gates. Independent sum rounding envelope checks all full derived vectors. Five controls2.41s include commuting counterexample (mean failure without parity effect), dense noncommuting contrast, wrong-direction rejection, actual metadata with arrays forbidden and isolated closure. Zero native calls;120s1GiB8MiB profile-gated local review awaits peer review before target. Producer result is promising but not promoted from this source preparation.
