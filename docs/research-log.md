@@ -9291,3 +9291,7 @@ Stability independently reviewed9752c90d helper/caller, actual metadata ancestry
 ### 2026-10-11 — output section crosses numerical hidden-rate turn
 
 Sourced4c26d9f completed12 accepted native points/11 full470 reverse joins,67 evaluations/1422 inclusive phases in15.693s. Hidden70.859148→70.857839→70.858483 turns in the retained numerical route, then reaches70.940461 at output.8385665103 and positive multiplier.9906756281. The exact predeclared near+1-distance.01 stop fired. No root of the simultaneous equations is implied; all raw/input/return/source/owned inventories verified and immutable. Outera4f7326d2072961ab6313cdfe719e1de7fd4cbea28e2ab2ecd8f79267f073e8a. A separately bounded continuation with smaller near+1 threshold will test the actual interaction before another augmented localization.
+
+### 2026-10-11 — prepared continuation toward the actual positive-mode interaction
+
+Retain completed output001 and its numerical hidden-rate turn. Source-default-preserving event argument now permits one explicit smaller near+1 distance0.0001, keeping the actual unit-crossing stop and all original native qualification/reverse guards. Attempt002 starts the exact accepted terminal; unchanged32points/240returns/4536 phases and resources. Five controls pass4.72s, including actual no-array metadata, exact output association, historical default/threshold rejection and isolated closure. Card prepared; no target.
