@@ -14213,3 +14213,7 @@ Ten controls pass2.10s for the existing reversal helper and complete caller. The
 ### 2026-10-11T07:06:45.513353+00:00 — Reviewed LM reversal profile admission
 
 Complete caller peer review by Stability PASS;ten controls independently pass2.19s. Actual source closure, immutable original inputs and six fixed profile/target cases preflight0.690s with zero native calls; all16retained directional response qualifications reproduce. Admit only the fixed4HVP measured profile under60sinternal/80+5external,4GiBRSS/8GiBAS/128MiBraw,CPU1nice10. The sole160HVPtarget requires complete matching profile/runtime/owned-exit inventories and the unchanged measured180s gate before separate admission.
+
+### 2026-10-11T07:07:32.908255+00:00 — Measured transformer reversal target admission
+
+Profile source0e4aea53 passes exact4HVP,0.814s929MiB; complete immutable source/runtime/owned-exit inventories checked. Conservative forecast93.0843s fits unchanged180s target cap. Admit sole fixed160HVP target under180sinternal/200+5external,4GiBRSS/8GiBAS/128MiBraw,CPU1nice10. Same four consumed references; no other native operation or target selection. Profile outerdf8ac1cff4741812df9a6579d033be00f4000b6cf130673199371b2a699e9d50,worker057ce1c4bd367fb018defa268b24b7b770810e17c2419ce45c526e3ae3d8ee03.
