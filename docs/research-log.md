@@ -14525,3 +14525,7 @@ Later root-only charts do not inherit complementary stability. Add independent
 transformer reversal decomposition negative result, exact saved source binding.
 Short abstract retained; regenerate all bound quantities and connected figure,
 compile and render for human reading before exporting the updated PDF.
+
+### 2026-10-11T07:35:50.424882+00:00 — Physical-boundary reading PDF verified
+
+Sourcee3b7e4fc yields clean51page PDF with148wordabstract.490bound quantities verified;484old values/evidence unchanged, only chart count38to40;five new bound quantities. All51pages visually reviewed with16/19/20/21/41details;20other figure outputs unchanged. PDF SHAc43c4b2b39c251c76e398a3c1f0e4876eeb0a331667b2d31cc458a4d3b00a8f7, immutable QAmanifestc5d74c33068db919344355810035322bf206dd588a4ce07e59bb833f53619bce. C3 analytic lemma independently reviewed by root and Boundary. Full historical verify.py not rerun. Global boundary connection and later complement proof remain active.
