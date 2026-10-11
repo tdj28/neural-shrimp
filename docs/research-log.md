@@ -16213,3 +16213,19 @@ Clark independently cleared75b4b051, five controls5.27s. One fresh attempt002 re
 ### 2026-10-11 — positive mode approaches then recedes without sampled crossing
 
 Source8bceb04d completed32 numerical points/31 full470 reverse joins,187 evaluations/3582 inclusive phases in34.295s. Positive multiplier peaked among saved samples at.9998100565 (hidden71.3591228/output.8392665103), then decreased; no sampled+1 crossing or .0001 near-event stop occurred. The fixed point cap ends the unit at hidden71.3943473/output.8393415103. This explains the previous simultaneous-event correctors as unresolved near-miss searches, not evidence of an actual fold/flip root. The gaps between samples remain unproved. All full input/return/native spectra/source/ownership records retained. Outer79615cdd766a1cd5af8e1146b293eeb4b4a8f95c6a676a7ca1492893652298f5.
+### 2026-10-11 — reusable cubic known-root complement adapter prepared
+
+Fullchart31 hypothesis mapping independently reproduced by root; existing
+physical-boundary lemma applies to all31 cells and promotes the connected
+attracting-side family through chart31. The next source-only packet reuses the
+already independently proved cubic32 root, exact C0/C1 and D0..3/forcing0..5/
+residual0..4. Exact cubic geometry and residual-derivative Taylor are the only
+polynomial-order changes; fresh-point, full705 tangent and11-mode reductions
+are unchanged. Fixed first[39,55]/1024 portion uses two derivative domains of
+halfwidth1/256,30maximum depth3 centers,4104inclusive phases under3000s/4GiB/
+6GiBraw. Entire previous stable endpoint projection is authenticated inside it.
+Eight controls passed4.94s, including actual full metadata with coefficient/model
+decoders forbidden and isolated archive closure. The initial pure geometry test
+compared separately rounded nondyadic expressions for containment; corrected to
+exact dyadic sample values, without a formula/gate change. Card remains prepared,
+no profile/target yet; full source/math/binding/resource peer review required.
