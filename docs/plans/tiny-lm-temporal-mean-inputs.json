@@ -1,16 +1,5 @@
 {
-  "admission": {
-    "active_gpu_processes": [],
-    "available_ram_gib": 51,
-    "free_disk_tib": 2.6,
-    "gpu_free_mib": 15947,
-    "gpu_used_mib": 2,
-    "gpu_utilization_percent": 0,
-    "load_1m": 2.38,
-    "local_time": "2026-10-11T02:23:41-07:00",
-    "mode": "profile only",
-    "owned_duplicate_workers": []
-  },
+  "admission": null,
   "arm": 256,
   "control_rate_factor": 0.25,
   "horizons": [
@@ -24,22 +13,15 @@
     "hvp": 2
   },
   "profile_outer": null,
-  "profile_root": "/data2/neural-shrimp-data/explore/tiny-lm-temporal-mean/attempt001-profile",
+  "profile_root": "/data2/neural-shrimp-data/explore/tiny-lm-temporal-mean/attempt002-profile",
   "profile_worker": null,
   "schema": "tiny-lm-temporal-mean-v1",
   "seeds": [
     28161,
     28162
   ],
-  "source_review": {
-    "controls": 12,
-    "reviewer": "boundary_resume",
-    "scope": "source only; no target arrays",
-    "seconds": 2.44,
-    "source": "788ded7d43a9884bfe60e24c3fabcb58a08f7414",
-    "verdict": "PASS"
-  },
-  "status": "profile_admitted",
+  "source_review": null,
+  "status": "source_prepared",
   "step": 600,
   "target_counts": {
     "ce": 58,

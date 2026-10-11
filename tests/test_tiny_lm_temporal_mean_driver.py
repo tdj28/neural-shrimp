@@ -70,3 +70,17 @@ def test_original_comparator_h1_index_is_not_h0():
 
 def test_actual_full_historical_binding_without_scientific_arrays():
  for row in D.HISTORY:D.history(*row)
+
+
+def test_actual_worker_entrypoint_raises_inherited_soft_limit_before_torch():
+ import resource
+ def inherited():resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,8*1024**3))
+ env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1')
+ result=subprocess.run([sys.executable,str(ROOT/'tools/explore_tiny_lm_temporal_mean.py'),'--help'],env=env,preexec_fn=inherited,capture_output=True,text=True)
+ assert result.returncode==0,result.stderr
+ assert '--mode {profile,target}' in result.stdout
+
+
+def test_preserved_zero_native_profile_failure(tmp_path):
+ store=D.Store(tmp_path/'run');D.preserved_profile_failure(store)
+ assert D.read(store.root/'preserved-profile001-failure.json')['native_calls']==0

@@ -85,3 +85,16 @@ the comparator's h1-origin indexing. The initial import-closure control counted
 Torch pseudo-file names as real paths; its fixed file-existence filter now
 checks every real loaded local module. Twelve source/binding/synthetic controls
 pass. These were preparatory checks, not native profile or target failures.
+
+## Profile001 packaging failure and pre-import repair
+
+Execution a717415c stopped before creating the worker directory or acquiring any
+native value: the inherited supervisor512MiB softAS prevented Torch mapping
+before main() could raise it. Immutable outer4760072e1ecaf3487b215656a98b80dc54a37cad2b87fbdcc7270173b7af8c0b,
+0.290s, both owned PIDs gone. Its complete source/inventory/ownership is now a
+mandatory input. The same declared8GiB workerAS is installed at script entry
+before NumPy/Torch imports. No mathematical or resource ceiling changes. A real
+worker --help subprocess starting with the actual512MiB/8GiB inherited limits
+passes;14 combined controls pass3.49s. Fresh exclusive profile002 only, original
+target001 remains unopened. The card returns to unlaunchable source_prepared
+until narrow peer review and current host admission. No failure is overwritten.

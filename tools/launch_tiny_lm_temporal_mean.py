@@ -31,7 +31,7 @@ def main():
  card=json.loads((ROOT/'docs/plans/tiny-lm-temporal-mean-inputs.json').read_bytes())
  if card['status']!=('profile_admitted' if args.mode=='profile' else 'target_admitted'):raise ValueError('mode-specific committed admission')
  resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,8*1024**3))
- out=BASE/f'attempt001-{args.mode}';out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0
+ out=BASE/('attempt002-profile' if args.mode=='profile' else 'attempt001-target');out.mkdir(parents=True,exist_ok=False);start=time.monotonic();proc=None;failure=None;peak=0
  def save(name,row):
   with(out/name).open('xb') as f:f.write((json.dumps(row,indent=2,sort_keys=True)+'\n').encode());f.flush();os.fsync(f.fileno())
  limit=80 if args.mode=='profile' else 620

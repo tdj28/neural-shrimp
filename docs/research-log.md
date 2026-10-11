@@ -7168,3 +7168,14 @@ operations on consumed28160/update50/arm256:2HVP/2gradient/2CE,60s4GiB8GiBAS,
 GPU0%/15947MiBfree/noGPUprocess; no owned duplicate. Exclusive
 explore/tiny-lm-temporal-mean/attempt001-profile. Fresh forecasts must pass before
 a separate target card; no target authorization from this profile admission.
+
+### 2026-10-11 — temporal-mean zero-native packaging failure retained
+
+Profile001 executiona717415c stopped0.290s before worker creation: Torch import
+inherited the supervisor512MiB softAS before main installed declared8GiB.
+Outer4760072e1ecaf3487b215656a98b80dc54a37cad2b87fbdcc7270173b7af8c0b,
+all owned PIDs absent, no native or target acquisition. Compact immutable failure
+receipt retained. Narrow repair moves unchanged8GiB workerAS before library
+import, fresh profile002; mandatory failure/source/inventory binding added.
+Real --help under inherited512MiB/8GiB now passes;14 controls3.49s. Card blocked
+pending narrow independent source review; science/call/time/RSS/raw gates intact.
