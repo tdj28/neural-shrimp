@@ -16578,3 +16578,20 @@ forecasts565.579s/1,880,805,088bytes under600s/2GiB raw;993native-phase ceiling.
 Fresh04:10PDT host52GiB available/load1.50,2.6TiB free,GPU0%15947MiB free,
 no owned duplicate. LocalCPU1nice10,2GiB RSS4GiB AS,615+5 owned. This is an
 exploratory finite connection unit; partial prefixes/failures remain explicit.
+
+### 2026-10-11 — finite native6 extent retained partial prefix
+
+The same native6 critical family continues beyond the first generic fold: the
+producer qualified22 additional full51/native tubes from b1/2048 to15/8192.
+All22 retain literal known-root joins, both partners/adjacent primitive6,+1
+and eleven stable complementary modes. This positive prefix still needs
+independent reductions. The requested b1/16 extent remains incomplete; the
+separate numerical fold47/gain4.1093 endpoint was not attempted.
+
+Sourceb1fc38c1 exhausted the fixed32 attempts in201.235s/130536KiB,906phases,
+with22 h2^-15 successes and10 h2^-14 whole-bound failures. The low-contraction
+growth criterion repeatedly proposed the larger width; every such failure is
+preserved. No radius/time/call quota changed. Complete immutable inventories,
+archived sources and absent owned processes verified. Next examine residual
+image versus radius and full-error contraction separately on these saved
+failures before any new geometry or budget proposal.
