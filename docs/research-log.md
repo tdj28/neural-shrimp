@@ -15056,3 +15056,15 @@ Initial combined old/new tests saw historical global-sys.modules archive-closure
 assertions polluted by unrelated newly imported tests; each historical source
 closure is therefore rechecked in its own fresh interpreter, as at original use.
 This is a test-session isolation issue, not a source archive or target failure.
+
+
+### 2026-10-11 — Admitted maintained004 exact-junction connection packet
+
+Independent Clark605ccc94 review passed (9 controls1.05s): actual gauge projection,
+all705 root+predecessor joins, durable event sealing before stopping, unchanged
+caps. Actual full48-history/lift source/inventory/ownership metadata and14 exact
+finite successor cards passed56.749s704784KiB, zero newnative calls. The prepared
+policy is now measured-reviewed, with original same-kernel profile/actualcost
+and bounded24-root8-fallback admission preserved. At launch check shared host,
+then continue from81.32230 toward known84.40797618 and stop only full705 known
+junction membership. No source edits during packet; all failures retained.
