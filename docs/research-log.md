@@ -8556,3 +8556,18 @@ All raw inputs/returns retained with2MiB final reserve. This one trial assesses
 whether current true-tangent enclosure suffices; failure will be diagnosed
 from saved phases before refinement. Peer wrapper review/fresh host required;
 no target acquired under this card yet.
+
+### 2026-10-10: first705 sufficient complementary bound unresolved
+
+Sourceac4f9cbb full-chart unit completed13.997s/1,428,824KiB and all72 native
+calls (36 unrelatedprofile+36target). All18 frames/inverses and center metric
+proposals passed, but phase remainder bounds.499..1.654 accumulated99,372.17;
+polynomialnorm.993645 and fullerrorpenalty2.8663e10. This is an enclosure
+failure, not a detected unstable multiplier. Whole known-root correction is
+only6.56e-6; next mathematical amendment will preserve quadratic path residual
+correlation in H_U(root)p′+H_s, adding a rigorous mixed Hessian bound on the
+small predictor-root segment. Original wholeJ*p′ tangent bound66.7 discarded
+this cancellation. No new basis trial or automatic subdivision. Complete
+immutable source/inputs/returns/events/failure and absent ownedPIDs verified;
+receipt docs/reviews/native705-correlated-failure.json. Boundary peer source
+review passed9controls0.48s before this fixed unit.
