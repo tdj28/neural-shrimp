@@ -18,7 +18,7 @@ def children(c):
 
 def next_action(outcome,c):
     """Only complete negative complementary bounds permit splitting, never partial calls."""
-    if outcome.get('native_calls')!=180:return 'stop'
+    if outcome.get('native_calls')!=360 or outcome.get('profile_native_calls')!=180 or outcome.get('target_native_calls')!=180:return 'stop'
     if outcome.get('status')=='whole_chart_complement_attracting'and outcome.get('passed')is True and outcome.get('metric_passed')is True and outcome.get('complement_dimension')==11:
         return 'accept'
     if outcome.get('status')=='completed_correlated_bound_unresolved'and outcome.get('passed')is False and outcome.get('metric_passed')is False and outcome.get('complement_dimension')==11 and c['depth']<3:

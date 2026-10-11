@@ -19,9 +19,9 @@ def test_shared_closed_midpoint_and_bounded_tree():
 
 
 def test_only_full_negative_metric_can_split():
-    c=cell('0','1/128',0,0);o=dict(native_calls=180,status='completed_correlated_bound_unresolved',passed=False,metric_passed=False,complement_dimension=11)
+    c=cell('0','1/128',0,0);o=dict(native_calls=360,profile_native_calls=180,target_native_calls=180,status='completed_correlated_bound_unresolved',passed=False,metric_passed=False,complement_dimension=11)
     assert next_action(o,c)=='split'
-    for k,v in [('native_calls',179),('status','failed_or_interrupted'),('complement_dimension',10),('metric_passed',True)]:
+    for k,v in [('native_calls',359),('target_native_calls',179),('profile_native_calls',179),('status','failed_or_interrupted'),('complement_dimension',10),('metric_passed',True)]:
         bad=dict(o,**{k:v});assert next_action(bad,c)=='stop'
     assert next_action(o,cell('0','1/128',3,0))=='stop'
     o.update(status='whole_chart_complement_attracting',passed=True,metric_passed=True);assert next_action(o,c)=='accept'

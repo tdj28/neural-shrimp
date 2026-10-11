@@ -24,10 +24,26 @@ only for a gap-free exact union in that chart's gauge. This is bookkeeping,
 not root or stability authority; every accepted leaf still needs full native
 source/domain proof and independent arithmetic replay.
 
-A reusable worker/profile/supervisor packet is now in preparation. Proposed
+The reusable worker/profile/supervisor packet uses fixed
 maximum48attempts, up to4 concurrentCPU1 workers4GiB each,400s each,384MiB raw
-per worker; same-source unrelated180call full705 profile once then180target
-calls per cell. Total8400s and16GiB raw, measured complete time/storage gate
+per worker; same-source unrelated180call full705 profile freshly in EVERY worker, then180target
+calls per cell (360total,48maximum inclusive17280native calls). Total8400s and16GiB raw, measured complete time/storage gate
 before acquisition; exact current shared reservations/headroom before workers.
-Final ceilings must be checked against the actual complete packet/profile,
-not this preparatory estimate. No target launch or fresh acquisition here.
+Each worker forecast must fit400s/384MiB and the full48 plan must fit
+12 four-worker waves times its conservative unit forecast plus600s<8400s
+and48 unit raw forecasts plus64MiB<16GiB. The supervisor reserves full
+remaining active worker envelopes at every new launch, requires24GiB initial
+availability, and stops at the fixed aggregate caps or any non-metric failure.
+Fresh source-bound profiles remain mandatory even when earlier workers passed.
+This deliberately spends180 synthetic calls percell for clear full-pipeline
+admission, avoiding inherited profiles of different source or domains.
+
+The adapter calls the already reviewed closed-half worker with restored
+per-process bindings, exact variable halfwidth metadata, and explicit profile/
+target counters. No proof kernel changes. The original chart certificate,
+all8 producer siblings, independent full705 uniform proof and exact/projected
+join, original native/path sources, map and frozen E/B proposals remain bound.
+The saved independent proof authorizes root existence, not attraction; each
+new complementary bound is a producer result until separate arithmetic replay.
+
+No target launch or fresh acquisition occurs during source preparation.

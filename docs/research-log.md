@@ -8947,3 +8947,32 @@ per chart, no old-J action transfer, no gauge interpolation. Proposed bounded
 adaptive packet stops incomplete/domain/source failures and only splits a
 complete negative complementary enclosure. Source/worker/profile/card review
 still required; no acquisition performed by this preparation.
+
+### 2026-10-11 — reusable fixed24 complementary march, source packet
+
+Parent requests complementary attraction to keep pace with the existing
+independently connected quadratic705 boundary. Fixed ordinals7..30 use literal
+original and independent source/manifests; ordinal6's two successful halves
+are excluded and independently replayed separately. New generic bindings and
+owned scheduler retain the reviewed fresh-local-J/C restriction pipeline.
+No proof kernel changes; the historical half worker now serializes its actual
+exact halfwidth (default1/128 unchanged). All360 calls percell are explicitly
+180 fresh unrelated profile plus180 target, including complete attempted
+inputs/returns. Fixed48 attempts,depth3,4 CPU1nice10 workers4GiB/400s/384MiB;
+aggregate16GiB RSS,8400s/16GiB raw with64MiB final reserve and current capacity
+admission. Each fresh profile must forecast both its full worker and the
+complete48-unit plan before target arrays. Exact per-chart unions use existing
+full705 joins across changed gauges; only complete negative11-mode metric
+bounds permit bisection, all incomplete/domain/localization/resource failures
+stop new work. No fresh root, numerical-spectrum or whole-window inference.
+
+Seventeen focused controls passed2.75s, including unmocked historical metadata
+schemas for all24 charts, source archive closure, counted native partitions,
+assignment corruption, profile-total admission and exact nonuniform unions.
+Metadata inspection caught and corrected prelaunch assumptions: same_gauge and
+parameter_endpoints live in the independent outcome's selected proof summary,
+not the join/uniform payload; geometry hashes use compact sorted JSON without
+newline. Original uniform passed includes its optional anchor gate, so the
+adapter checks all uniform non-anchor gates and the separately proved full705
+join. No target arithmetic/native acquisition occurred in these checks.
+Packet awaits independent source/binding/resource review before launch.
