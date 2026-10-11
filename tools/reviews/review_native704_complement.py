@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[2];sys.path[:0]=[str(ROOT/'src'),str(Path(
 import review_native704_complement_math as H
 from neural_shrimp.rigorous_orbits import canonical_bytes,ball_json
 need=H.need;R=H.R;M=H.M
-OUT=Path('/data2/neural-shrimp-data/audits/native704-complement-independent/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/audits/native704-complement-independent/attempt002/run')
 CARD='docs/plans/native704-complement-independent-inputs.json'
 THREADS=('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS')
 NATIVE=['src/neural_shrimp/'+n+'.py'for n in('rigorous_cusps','rigorous_folds','rigorous_orbits','controls','models')]
@@ -24,8 +24,9 @@ def entry(p):
 def read(p):
  if p.suffix=='.gz':
   with gzip.open(p,'rb')as f:b=f.read(256*1024**2+1)
-  need(len(b)<=256*1024**2,'bounded256MiB decompression');meta=p.with_name(p.name.removesuffix('.json.gz')+'-payload.json')
-  need(read(meta)=={'uncompressed_bytes':len(b),'uncompressed_sha256':hashlib.sha256(b).hexdigest()},'complete decompressed payload identity')
+  need(len(b)<=256*1024**2,'bounded256MiB decompression')
+  # Original704 source wrote gzip only. Complete immutable compressed bytes
+  # are authenticated by inventory() before any bounded decompression.
   return json.loads(b)
  return json.loads(p.read_bytes())
 
@@ -76,7 +77,9 @@ def synthetic(n,tick):
  return {'passed':True,'dimension':n,'neumann':ball_json(k),'intersections':9,'dense_matrix_product':True}
 
 def bind(card,tick):
- rows=[];pr,rt,done,rr=bundle(card['producer'],tick);rows+=rr
+ rows=[];failed,_,failure,rr=bundle(card['previous_failure'],tick,2);rows+=rr
+ need(failure['passed']is False and failure['native_calls']==0 and failure['error']==card['previous_failure']['error'],'retained original packaging failure')
+ pr,rt,done,rr=bundle(card['producer'],tick);rows+=rr
  need(rt['mode']=='target'and rt['settings']==card['settings']and rt['nice']>=10 and rt['threads']==dict.fromkeys(THREADS,'1'),'original native settings')
  need(done['passed']and done['status']=='qualified_unit_pair_tube'and done['strict_inclusions']==704 and done['parameter_endpoints']==['0','1/32768']and done['events']=={'chart_return':1,'direction_return':216,'newton_proposal':2,'preconditioner_return':1}and done['ticks']==217,'complete original native704 theorem')
  cert=pr/'run/certificate.json.gz';need(entry(cert)['sha256']==card['producer']['certificate']==entry(pr/'run/events/0219-chart_return.json.gz')['sha256'],'literal complete original chart')

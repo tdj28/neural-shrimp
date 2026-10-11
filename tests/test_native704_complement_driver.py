@@ -50,3 +50,14 @@ def test_launcher_matches_fixed_worker():
 
 def test_small_full_arithmetic_profile():
  with ctx.workprec(480):assert D.synthetic(8,lambda:None)['passed']
+
+def test_actual_original_gzip_without_invented_sidecar(tmp_path):
+ import gzip
+ p=tmp_path/'0110-direction_return.json.gz';p.write_bytes(gzip.compress(b'{"retained":true}',mtime=0))
+ assert D.read(p)=={'retained':True}
+ assert not p.with_name('0110-direction_return-payload.json').exists()
+ # The exact compressed payload must still satisfy its immutable inventory.
+ pin=D.entry(p);p.chmod(0o444);m=tmp_path/'manifest.json';m.write_text(json.dumps({'files':{p.name:pin}}));m.chmod(0o444)
+ assert D.inventory(tmp_path,D.entry(m)['sha256'],lambda:None)['files']==1
+ p.chmod(0o644);p.write_bytes(gzip.compress(b'{"retained":false}',mtime=0));p.chmod(0o444)
+ with pytest.raises(ValueError):D.inventory(tmp_path,D.entry(m)['sha256'],lambda:None)
