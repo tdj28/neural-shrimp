@@ -17086,3 +17086,7 @@ Literal source/outer/worker pins are committed on the reviewed card. Current hos
 ### 2026-10-11 — Whole chart33 independent complementary stability PASS
 
 At execution5f6e80313d7dc7f02eef5a0e62b3243fe1396708, separately authored480-bit reductions passed every39 cell on the exact closed[205/2048,333/2048] chart33 interval, with all11 complementary moduli strictly below0.995409759319 and the original full705 uniqueness join to whole32. The neutral critical pair remains. Runtime171.507s/917872KiB, zero native calls. Complete378-file outer/372-file worker inventories,200 source archives, immutable modes and absent owned processes were verified; compact receipt docs/reviews/native705-cubic33-independent.json binds exact raw sources. All74 producer attempts, four unqualified chart34 cells and incomplete overall panel remain retained; no chart34 or complete-window claim. Physical-boundary hypothesis mapping is a separate source check.
+
+### 2026-10-11 — Whole33 physical-boundary hypotheses independently checked
+
+Root read and replayed the source-level mapping of the complete39-cell independent11-mode cover to the unchanged physical-stability-boundary lemma. Original full705 root, primitive18, nondegenerate critical plane, same affine gauge and entire predecessor known-root projection remain exact authorities. This extends the regular physical boundary and connected adjacent attracting-side family from32 to33 positive-angle charts. Metadata replay only, no new model calls or interval reductions. Chart34 and global closure remain active work.
