@@ -15731,3 +15731,7 @@ Stability independently checked the native27 helper and full470 reverse-associat
 ### 2026-10-11 — admitted bounded native flip scout
 
 Clark independently reviewed complete7e21aa4b source/binding/resources, reproducing10controls2.22s after Stability helper math PASS. Admit exactly one prepared profile-gated numerical run:216 synthetic phases then at most5760 target phases/320 full evaluations,48 accepted points with fixed decreasing-hidden proposal/halving,240s3GiB256MiB. Full470 initial association and reverse checks remain mandatory; all discoveries remain numerical proposals. Current source/card, complete metadata-only preflight, private push and host ownership check precede launch. No target has run; failure ends this packet.
+
+### 2026-10-11 — native flip scout reaches a near-positive-multiplier region
+
+One fixed48-point scout completed283 full evaluations/5310 inclusive phases,45.838s/840288KiB, sourceac61f8a0. Exact rational initial full470 tube association and all47 full470 numerical reverse checks passed. Hidden rate84.4060230572→72.6560230572; output.8331847186→.8371558316. All sampled noncritical moduli remain below1; final leading real multiplier.92509683698 approaches+1, but no crossing was encountered before the fixed point cap. This is a numerical candidate route, not a new interval connection or proved stable boundary extent. Full immutable data/source/ownership checked; all returns and spectra retained. Outera7dba0fed6bae889a03dd889b736cbea473b40c247fa36b43b32ed177588b212.
