@@ -7514,3 +7514,14 @@ preserved. No radius/time/call quota changed. Complete immutable inventories,
 archived sources and absent owned processes verified. Next examine residual
 image versus radius and full-error contraction separately on these saved
 failures before any new geometry or budget proposal.
+
+### 2026-10-11 — complete pair-block LM source proposal
+
+Prepare the Root-approved128HVP adjacent-pair-preserving intervention after
+independent parity authority01c924fe. Exact full original/eta4 four cases and
+all old P/R/Q/T actions are bound; every new U/V action/partial response stays
+retained. Fixed20% material and10x attenuation are separate, gated by allfour
+unchanged1% qualifications. Same model/runtime, zero newgradients/CE; original
+consumed development only. All upstream actual/cold maxima now explicit in
+forecast. Source review, fresh2HVP profile and separate measured card remain
+mandatory before target. No new acquisition at this preparation stage.

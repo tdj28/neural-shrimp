@@ -53,3 +53,19 @@ profile card, literal independently audited parity authority and measured
 committed target card are required. One CPU/BLAS1 nice10, owned cleanup, no paid
 resources or holdouts. This is a full-state linear-response ordering test,
 not a training-acceleration claim.
+
+Complete caller: literal independently passed parity producer/audit inventories,
+all224 prior events and original32 reverse actions, exact same state/direction/
+rate recurrence before reusing P/R/Eparity. All four inherited qualifications
+are mandatory before original-case descriptive reports. New128 returned HVPs
+are saved before validation, all U/V partial traces retained on failure.
+Lossless aliases bound356 vectors, including all five old baselines percase;
+no duplicated whole matrices. Originalresponse cold4/actual256, two-snapshot
+actual240, orderingactual160, meanactual1088/cold2, both parity cold2 profiles
+and parityactual224 enter the conservative cost floor. Source/schema metadata
+preflight forbids scientific arrays. Fixed60s profile/240s target,4GiB RSS,
+8GiB AS,192MiBraw4MiBreserve,80+5/255+5owned. Two metadata-only draft checks
+caught original audit mean binding referring to the independent mean receipt
+and old two-snapshot events being all-HVP without operation labels; corrected
+before any profile. Every archive import and actual inherited soft-AS entrypoint
+is controlled. The source-prepared card cannot launch either stage.
