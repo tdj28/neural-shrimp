@@ -14648,3 +14648,20 @@ with no assertion of uniqueness/genericity/complementary stability; independent
 arithmetic remains separate. The distant local junction at hidden84.40797618
 is still not connected by this receipt. Next prepare its authenticated full705
 lift and an exact membership stop event in the maintained continuation engine.
+
+### 2026-10-11 — prepare exact local-junction lift and completion event
+
+Prepared conditional same-root55 sharpening and literal native18 q/r lift to705.
+Root independently reviewed the helper from its temporary source and reproduced
+five controls0.28s: exact original-domain containment, fixed-point intersection,
+all input-before-call phase propagation and full same-phase packing passed.
+Nine combined helper/driver controls0.35s pass, including actual historical
+ownership/native-source metadata and isolated archive closure. An initial
+temporary test imported an older same-named synthetic fixture; replaced it
+with a self-contained fixture before the passing controls. No research arrays
+were evaluated in these controls. The complete fixed60s2GiB64MiB packet will
+profile72 unrelated native calls before opening target arrays and at most36
+native target calls; source binding and resource wrapper review still pending.
+The future membership event must bind this known705 enclosure and prove strict
+full705 inclusion in an accepted connected tube; projected proximity alone
+will never terminate with a connection claim. No target run in this commit.
