@@ -13558,3 +13558,7 @@ and same-source actual measured400s/2GiB/3GiB gates remain mandatory.
 ### 2026-10-11 UTC — Manuscript connected-proof refresh
 
 Add the independent three cubic705 chart continuation and exact native6 RNN critical-curve bridge, six new hash-bound quantities, and34 independently joined705 endpoint projections in the geometry figure. Correct stale README orbit census counts to61representatives/64distinct exact settings. Abstract remains148words. Protected data and scientific acquisition are unchanged; regenerate only the affected saved-evidence figure, verify all numbers, compile and inspect complete PDF before delivery.
+
+### 2026-10-11 UTC — Physical stability-corner saved-arithmetic preparation
+
+Prepared exact total physical-rate gradients at the already independently proved native18 unit/flip junction. Full I−M inverse and30D Sylvester left-frame solve account for state motion and nonnormal coupling. Five synthetic controls cover known2×2 determinant, both derivative components, wrong frozen-state calculation, full13D dimensions and singular/degenerate rejection. Initial fixture integer-type/exception-class failures corrected before target work. No target gradients or native calls evaluated. Wrapper source/literal inventory and measured caps still pending peer review.
