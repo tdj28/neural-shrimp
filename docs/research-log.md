@@ -6901,3 +6901,12 @@ shortcut. Five synthetic controls pass0.27s; initial nonexact fixture rejected
 by exact-data gate was corrected to dyadic input, no scientific gate changed.
 No target/profile run. Independent source/math review and measured full51
 resource profile precede any fresh actual derivative acquisition.
+
+### 2026-10-11 — correlated51 reduction prepared
+
+Stabilityb8b36fd9 acquisition-helper review PASS5controls0.26s. Added full
+noncommuting affine-inverse convolution with parity-preserving forcing bound,
+literal sharedE acquisition calls and all51 curved known-root joins. Nine
+combined synthetic controls pass0.35s; corrected two test-only unavailable
+Arb matrix methods. No native target/profile. Sending composed reduction for
+independent mathematical review; full51 measured profile remains next.
