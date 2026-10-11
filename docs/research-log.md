@@ -6784,3 +6784,17 @@ interior minimum, without uniqueness, location or nondegeneracy. Receipt
 pins exact independently proved successor endpoint for subsequent audits.
 All complete immutable inventories, historical source bytes and four owned
 PIDs absent independently checked. Integration inventory now54 raw roots.
+
+### 2026-10-11 — explicit51 fixed native wrapper prepared
+
+Prepared tools/certify_clark_explicit_fold.py and owned launcher with complete
+historical organizer/critical bridge/numerical fold/failure pins. Four driver
+and ten helper controls pass, including full51 synthetic measurements and
+archive import. Initial unsupported synthetic MixedJet/integer division was
+corrected before target acquisition. Full51 connected critical curve scope is
+separate from selected positive endpoint paired-inverse/curvature genericfold.
+Fixed180s2GiB512MiB/381nativephase inclusive packet; profile before arrays,
+source peer review required before sole explicit-fold-bridge/attempt001.
+No native target or standalone profile has run. Final source review and fresh
+host admission will be logged before launch; no cap/geometry adaptation within
+this attempt beyond the disclosed bounded halfwidth reductions.

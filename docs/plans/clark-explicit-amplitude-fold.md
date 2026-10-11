@@ -48,3 +48,55 @@ uniqueness, and use the existing total fixed-gain leak_bb derivative. It is
 not promoted uniformly from full51 invertibility. Uniform fold nondegeneracy
 can follow with correlated restrictions only if needed. Root explicitly
 accepted this distinction. No target acquisition or new run budget yet.
+
+## Fixed first native packet (11 October 2026)
+
+The full51 runner retains the original matrix, exact generalized-flip organizer,
+independent critical bridge, numerical fold16 and all17-point/16-join phase
+ancestry. The original implicit-family attempt and saved inverse diagnosis
+are mandatory immutable inputs. This is an adapted exploratory proof attempt,
+not fresh-data confirmation or a completed window claim.
+
+One worker uses384-bit Arb, CPU1/nice10/BLAS1,180s/2GiB RSS/4GiB AS/512MiB raw,
+with4MiB closing reserve and195+5s owned supervision/514MiB combined output.
+Before target arrays, the same worker measures three unrelated full12 native
+explicit51 calls, one paired implicit call, a full25 synthetic anchor solve,
+one both-partner/four-context negative native test, and full51 tube algebra.
+Two times their maxima times exact remaining category counts, plus20s and
+16MiB storage reserve, must fit. Every acquired phase/input/output is retained.
+All inclusive caps are93 explicit calls,2 anchor slots,2 implicit calls,
+14 native contexts,381 native phase returns and2048 events. The actual
+synthetic anchor is linear and consumes no native phase; its reserved charge
+is conservative. No additional target work is admitted after a cap failure.
+
+The fixed external amplitude-squared range is[0,1/2048], initial halfwidth
+2^-13, minimum2^-17, at most12 attempts and8 accepted charts. Each proposal
+uses two Newton steps, a midpoint inverse and mean-value residual. Dyadic
+radii strictly exceed8 times that residual and4 times the entire known-root
+projection, with floor2^-40. The original26 coordinates have ceiling2^-8;
+the25 tangent coordinates have ceiling4 because they have derivative units.
+Every proposed full error box is evaluated afresh before any contraction or
+inclusion claim. This is not reuse of an old-domain bound on expanded radii.
+Only complete unresolved tube/native bounds or a proposal-radius ceiling
+halve the step, with all outcomes retained and unchanged range/total caps.
+
+The exact organizer anchor uses its proved c3=0 and nonzero physical leak
+crossing, with the same normalized mode and phase. Each chart needs all51
+strict predecessor coordinates and both native partners/adjacent-phase
+primitive6, simple+1, stable11 complement and positive transport orientation.
+The b=0 point remains degenerate. Full51 invertibility proves this critical
+curve; it does not establish invertibility of the paired25 Jacobian.
+
+At the fixed original gain4.0756, one separate51D root uses three Newton
+proposals and radius2^-80. It must join the proved curve in all51 coordinates.
+Only this positive endpoint gets a separate paired25 inverse and nonzero
+physical leak_bb test for generic fold nondegeneracy. Both actual native
+six-phase cycles and normalized mode orientations must associate with the
+original fold16 arrays. Native12/24 connection and uniform fold
+nondegeneracy remain separate. Any PASS requires independent outcome replay.
+
+Four driver controls plus ten helper controls pass, including an unmocked
+full51 unrelated profile and isolated archived import. An initial synthetic
+anchor divided a MixedJet directly by an integer, unsupported by its API;
+the coefficient is now an Arb fraction before multiplication. This was caught
+by the synthetic control before any target/profile run.
