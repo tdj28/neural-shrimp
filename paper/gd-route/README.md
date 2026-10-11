@@ -25,15 +25,16 @@ unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
 connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
-same organizer. Eighty-three positive-angle 705-dimensional charts, with
+same organizer. One hundred and one positive-angle 705-dimensional charts, with
 independent full-coordinate joins, extend the connected unit-pair branch
 beyond a proved interior hidden-rate minimum and critical-pair angle maximum. The first 30 charts have
 independently proved complementary stability and, by the full shooting rank
 argument, a regular attracting side and a continuous nearby attracting family.
 The entire first quarter of chart 31 also has an independently proved
-11-mode bound below 0.878041 on an exact 17-cell cover. Producer continuation has reached the certified complex-unit/flip
-junction; its final 18 charts are undergoing independent replay. Later
-complements and the next flip boundary remain active. On the entire original
+11-mode bound below 0.878041 on an exact 17-cell cover. All 101 charts and exact full705 membership
+now independently connect the branch to the same certified complex-unit/flip junction.
+A separate independently verified470-dimensional tube proves a finite joined flip locus.
+Later complementary stability and extension of the flip boundary remain active. On the entire original
 finite arc, independent 480-bit arithmetic proves all eleven complementary
 multiplier moduli below 0.843 using a common Lyapunov metric. Their receipts
 and exact coefficient bounds are in the manuscript and `docs/reviews/`.

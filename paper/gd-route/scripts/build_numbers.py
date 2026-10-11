@@ -2328,7 +2328,14 @@ def build():
     for i in range(1,25):
         pr=load(thirdroot/f"run/chart{i:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and len(pr["root"]["coordinate_inclusions"])==705 and all(pr["root"]["coordinate_inclusions"])and pr["anchor"]["passed"]and pr["anchor"]["coordinates"]==705
     angle=load(thirdroot/"run/angle-maximum.json");assert angle==tho["interior_angle_maximum"]and angle["passed"]and angle["endpoint_indices"]==[16,17,18]and all(ball_endpoints(v)[0]>0 for v in angle["gaps"])
-    n.add("nPALVisualCharts",83,"83",proof,extra_sources+cors+cubs+more_sources+minsources+[tailp,tailroot/"manifest.json",thirdp,thirdroot/"manifest.json"],"eighty-three independently joined positive-angle full705 charts, with strict interior angle maximum; initial704 arc excluded")
+    junctionp=c.ROOT/"docs/reviews/native705-junction-chain-independent.json";junction=load(junctionp);jroot=Path(junction["root"])
+    bound_inventory(jroot/"manifest.json",junction["inventories"][0]["manifest_sha256"])
+    jo=load(jroot/"run/outcome.json");assert jo==junction["outcome"]and all(jo[k]for k in ["passed","connected","junction_connected"])and jo["connected_count"]==18 and jo["membership_coordinates"]==705 and jo["native_calls"]==0
+    jb=load(jroot/"run/input-binding.json");assert jb["card"]["anchor"]["root"]==str(thirdroot)and jb["card"]["anchor"]["outer"]==c.sha256(thirdroot/"manifest.json")
+    for i in range(1,19):
+        pr=load(jroot/f"run/chart{i:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and len(pr["root"]["coordinate_inclusions"])==705 and all(pr["root"]["coordinate_inclusions"])and pr["anchor"]["passed"]and pr["anchor"]["coordinates"]==705
+    jm=load(jroot/"run/junction-membership.json");assert jm["passed"]and jm["parameter_inside"]and jm["coordinates"]==len(jm["coordinate_inclusions"])==705 and all(jm["coordinate_inclusions"])
+    n.add("nPALVisualCharts",101,"101",proof,extra_sources+cors+cubs+more_sources+minsources+[tailp,tailroot/"manifest.json",thirdp,thirdroot/"manifest.json",junctionp,jroot/"manifest.json"],"101 independently joined positive-angle full705 charts connecting generic1:1 and the same complex-unit/simple-flip junction; strict705 known-root membership, initial704 arc excluded")
     quarterp=c.ROOT/"docs/reviews/native705-fresh-quarter-independent.json";quarter=load(quarterp);qroot=Path(quarter["root"]);bound_inventory(qroot/"manifest.json",quarter["outer"]["sha256"])
     qo=load(qroot/"run/outcome.json");assert qo==quarter["outcome"]and qo["passed"]and qo["native_calls"]==0 and qo["new_cells"]==16 and qo["total_cells"]==17 and qo["parameter_endpoints"]==["-49/2048","-17/2048"]and qo["complement_dimension"]==11
     assert len(qo["completed_cells"])==16 and all(v["passed"]and ball_endpoints(v["modulus"])[1]<Fraction(878041,10**6)for v in qo["completed_cells"])

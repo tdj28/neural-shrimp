@@ -48,8 +48,8 @@ For a period-18 orbit, validated continuation resolves connected bifurcation str
 layer-learning-rate plane: the attracting branch reaches a saddle-node, whose $+1$-multiplier locus
 continues to a generic 1:1 resonance. We prove a continuous attracting interval, a transverse
 resonance unfolding in the physical rates, and a connected complex-unit branch with certified attracting sides and an interior
-learning-rate minimum. A separate certified intersection of complex-unit and flip boundaries
-has an open adjacent sector of attracting period-18 cycles. An independently cross-checked
+learning-rate minimum. This branch reaches a certified intersection with a flip boundary,
+where we prove an open adjacent sector of attracting period-18 cycles. An independently cross-checked
 numerical census places these proofs within a wider landscape of periodic windows.
 The results establish long-period attracting training and exact connections between cycles and
 bifurcations organizing their parameter-space boundaries.
@@ -78,7 +78,7 @@ Training consequences & 0--1: exploratory/adapted & Small-model slices and two c
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. The transformer prediction pilots fail their utility comparisons; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
 Full-state orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including all \nCensusAll{} census representatives in 13 or 72 dimensions. Each new representative is independently proved by scalar-loss automatic differentiation. \\
-Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALVisualCharts{} positive-angle charts extend its connected geometry, with independently proved transverse stability and an attracting side throughout the first \nPALStableCharts{}. A separately certified complex-unit/flip intersection has an adjacent open attracting sector. \\
+Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance. A finite complex-unit branch is enclosed there with all 11 complementary multipliers uniformly inside the unit circle; \nPALVisualCharts{} positive-angle charts extend its connected geometry, with independently proved transverse stability and an attracting side throughout the first \nPALStableCharts{}. The same connected branch reaches a complex-unit/flip intersection with an adjacent open attracting sector and a finite joined flip locus. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
 \end{tabular}
@@ -115,7 +115,10 @@ full parameter state to a nondegenerate saddle-node, and an exact interval of hi
 attracting period-18 training. Continuing the fold's $+1$-multiplier locus reaches a generic 1:1 resonance
 in the actual two-rate family. We prove this connection in the full native state and enclose the resonance's
 nonlinear coefficients, transverse unfolding and attracting complement (Figure~\ref{fig:connected-boundary}).
-This identifies a local mechanism by which a saddle-node boundary meets a complex-multiplier boundary.
+Continuing the complex-unit branch through a proved learning-rate turn reaches a second organizer,
+where a real multiplier crosses $-1$. Strict full-state identification proves both organizers lie
+on the same critical branch. We also enclose an open attracting sector and a finite
+flip locus through the second organizer.
 Section~\ref{sec:certificates} gives the exact maps, enclosures and independent checks.
 
 The wider numerical study supplies context and further questions. A separately implemented census
@@ -151,8 +154,10 @@ automatic differentiation checks the new 13- and 72-dimensional certificates; al
 \item Connected bifurcation geometry: validated native continuation links a primitive period-18 interior orbit,
 a saddle-node and a generic 1:1 resonance. We prove a continuous attracting interval, the organizer's
 unfolding in the physical rates, and an emerging complex-unit branch with a uniformly attracting complement.
-A total of \nPALVisualCharts{} positive-angle charts extend that branch's connected geometry; the first \nPALStableCharts{} have independently bounded transverse spectra and certified attracting sides. Separate local
-certificates cover both flip types, two cusps, a complex-unit/simple-flip junction and a scalar supercritical NS.
+A total of \nPALVisualCharts{} positive-angle charts connect that branch to a complex-unit/simple-flip
+junction; the first \nPALStableCharts{} have independently bounded transverse spectra and certified attracting sides.
+An open attracting sector and a finite joined flip locus are proved at the second organizer.
+Other local certificates cover both flip types, two cusps and a scalar supercritical NS.
 \item Confirmed: \nConfirmed{} numerically validated attracting windows embedded in chaos in the learning-rate planes of two
 small networks, repeated by an independent audit, and a cell-by-cell comparison showing that the published binary
 score conflates fixed points, periodic orbits, chaos and drift.
@@ -921,7 +926,7 @@ additional derivative information. See
 \path{docs/reviews/native705-minimum-independent.json}.
 
 Forty-three further independent full 705-coordinate chart proofs extend this
-same branch to \nPALVisualCharts{} positive-angle charts. Each predecessor is
+same branch to 83 positive-angle charts. Each predecessor is
 identified inside the next uniqueness tube using its whole state and critical
 frame. Three successive endpoint enclosures in the later packet satisfy
 $t(E_{17})>t(E_{16})$ and $t(E_{17})>t(E_{18})$, with strict separation of their
@@ -1071,7 +1076,7 @@ and compact-family conclusions apply to their joined arc. Complementary
 stability on the later charts remains a separate computation.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
-A separate local certificate encloses a primitive period-18 orbit at physical rates approximately
+A local certificate encloses a primitive period-18 orbit at physical rates approximately
 $(\eta_h,\eta_o)=(\xUnitFlipHidden,\xUnitFlipOutput)$ where a nonreal conjugate pair has unit modulus
 and one real multiplier equals $-1$. The augmented root contains the full state, both rates, two
 real vectors for the complex invariant plane, its squared angle, and a normalized flip eigenvector.
@@ -1081,9 +1086,33 @@ complementary multiplier moduli below $\xUnitFlipComplement$. Along the locally 
 section parameterized by $\eta_h$, the total derivative of the real multiplier lies in
 $\tUnitFlipCrossing$, proving a transverse flip crossing. An independent 480-bit replay uses a
 strictly nested box around the original 384-bit root, establishing exact root identity as well as
-recomputing the inclusion, spectrum and crossing arithmetic. This establishes a local junction;
-its connection to the finite branch above and its nonlinear interaction coefficients require
-separate proofs. See \path{docs/reviews/native-unit-pair-flip-independent.json}.
+recomputing the inclusion, spectrum and crossing arithmetic. See
+\path{docs/reviews/native-unit-pair-flip-independent.json}.
+
+\paragraph{One connected critical branch between the two organizers.}
+Eighteen further full 705-dimensional chart proofs join the preceding branch to
+this exact junction, giving \nPALVisualCharts{} positive-angle charts after the initial
+704-dimensional arc. Every chart has independently recomputed strict root
+inclusions, primitive period 18, a positive critical angle and a nondegenerate
+critical frame. All ordered joins identify the entire previous state and frame
+inside the next uniqueness tube, including each change of gauge.
+Finally, the independently proved 55-dimensional junction is lifted into all
+705 native coordinates, with literal agreement of the training equations and
+normalizations. This known root satisfies every strict membership inequality
+inside the final continuation tube. Consequently, the generic 1:1 resonance and
+the complex-unit/simple-flip junction belong to the same exact connected critical
+branch. The full sequence includes the proved interior hidden-rate minimum and
+critical-angle maximum; it is not inferred from projected proximity. Both failed attempts in the final packet are retained. See
+\path{docs/reviews/native705-junction-chain-independent.json}.
+
+A separate 470-dimensional native shooting system encloses a finite
+$-1$-multiplier locus through this same junction. Its hidden-rate interval is
+centered at the saved exact dyadic approximation near $84.40797618217$ with
+half-width $1/256$. Independent 512-bit inequalities prove strict inclusion in
+all 470 coordinates with contraction below $0.082185$; exact rational mode
+propagation identifies the known junction inside this tube. The locus retains
+primitive period 18. This supplies a finite connected part of the second
+boundary. See \path{docs/reviews/native470-independent001.json}.
 
 \paragraph{An open attracting sector at the junction.}
 The local junction also determines which nearby physical rates produce attracting
@@ -2198,7 +2227,7 @@ The map study uses networks of 13 and 72 parameters on synthetic data; the real-
 experiments use deterministic full-batch float64 training. The transformer development pilot uses float32
 with matched-state float64 checks and has no accepted periodic orbit. Screening labels are finite-time; chaotic labels rest on single-tangent exponents and
 reruns. Complete-grid screening and connected-component assignment remain numerical; all \nCensusAll{} agreed representatives now have exact full-state orbit proofs. The \nCertifiedOrbits{} selected exact-real attracting orbits and
-the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold and its $+1$ locus reaches the exact generic 1:1 resonance. The continuously covered attracting interior segment does not yet reach either bifurcation boundary, and the other boundary connections are separate unfinished tasks. The first Lyapunov coefficient is a local, third-order
+the local period-18 fold, both flips, two cusps, generic 1:1 resonance and scalar NS in Section~\ref{sec:certificates} have rigorous enclosures. The supercritical flip supplies a local attracting doubled branch, while the subcritical flip supplies an unstable one; no continuous connection to the separately certified finite orbit or whole-window geometry follows. The certified primitive period-18 continuation reaches the canonical fold; its $+1$ locus reaches the exact generic 1:1 resonance, and the connected complex-unit branch reaches the complex-unit/simple-flip junction. A finite $-1$ locus passes through that same junction. Uniform complementary stability is proved on the initial thirty positive-angle charts and a later quarter-chart, with an open attracting sector at the junction. Closing the intervening stability coverage, extending the flip boundary and connecting the finite attracting interior segment remain active tasks. The first Lyapunov coefficient is a local, third-order
 quantity; it predicts the birth of a small circle, not how far it survives. Rotation numbers and the Birkhoff test
 use two-dimensional projections of curves in many dimensions. Merged crossing loci combine independently
 initialized output slices and do not establish branch identity between them or generalized-NS points.
