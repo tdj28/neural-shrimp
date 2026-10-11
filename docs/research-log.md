@@ -12392,3 +12392,7 @@ Stability peer source/binding PASS of f47fe807; independently reproduced10 contr
 ### 2026-10-10 17:40 PDT — preserved finite704 audit packaging failure, narrow002 amendment
 
 Fixed saved attempt001 exited2 after3.26368s/177864KiB, zero native. Full704 unrelated profile passed1.01546s forecast64.06184s; all immutable source/inventory/actual acquisition binding passed, then gzip-reader expected nonexistent original704 sidecars before localization. Retained outer5f61f8ab03e057b46094705ddbcded7461d4cfba02e243593455344b6f67b18c and complete trace/owner-empty receipt. Reader now follows original producer's gzip-only schema, retains256MiB decompression bound and exact compressed inventory hashes. New synthetic original-style gzip roundtrip and byte-mutation rejection controls; fresh002 source/card/paths and mandatory001 failure binding, unchanged math/caps. Peer narrow review precedes retry.
+
+### 2026-10-10 17:40 PDT — fixed finite704 saved audit002 admitted
+
+Stability peer narrow2cc4222c PASS,11controls independently reproduced0.47s; same mathematical kernel/gates/caps, original001 retained. Fresh host52GiB available/load2.07/1.84/1.69,GPU idle15947MiB/no compute process; no prior owned audit process live. Execute only fixed002 via owned135+5s supervisor, CPU1nice10,120s4GiB6GiBAS64MiB with fresh full704 profile before target arrays. No further retry implied; every failure remains immutable.
