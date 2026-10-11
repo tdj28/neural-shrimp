@@ -6,9 +6,11 @@ release or author list has been approved. The current PDF is
 
 ## Current mathematical contribution
 
-The exact-real nonlinear tanh training maps support five individually certified
-attracting orbits: two primitive period10, one18 and one36 in13parameters,
-and one period2 in72parameters. These are internal examples, not a largest-network
+The exact-real nonlinear tanh training maps have64 distinct certified attracting
+training settings, covering all61 agreed census representatives:28 in13parameters
+and33 in72parameters, with primitive periods up to58. Every new representative
+is independently proved by1024-bit scalar-loss automatic differentiation on the
+original exact box. These are explicit nonlinear examples, not a largest-network
 record. A full native period18 branch connects the interior orbit to its canonical
 saddle-node through156forward and31reverse charts. Its normalized+1 locus then
 reaches the same independently proved generic1:1 resonance through107native
@@ -23,17 +25,20 @@ unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
 connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
-same organizer. Five independently proved 705-dimensional quadratic charts and exact endpoint joins extend that connected positive-unit-pair branch. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
+same organizer. Thirty quadratic705 charts, a wider correlated chart and three cubic charts
+with independent full-coordinate joins extend the connected unit-pair branch.
+The initial five705 charts also have independently proved complementary stability. On the entire original finite arc, independent 480-bit arithmetic now proves all eleven complementary multiplier moduli below 0.843 using a common Lyapunov metric. Global boundary continuation continues. Their independent receipts and exact coefficient
 bounds are in the manuscript and `docs/reviews/`.
 
 Other exact local results include both flip types with attracting complements,
 two cusps with unstable complements, and a scalar supercritical Neimark–Sacker
-bifurcation. A separate4D fixed-weight RNN proof concerns native activity cycles,
-not training. Clark's arXiv2610.12426 is cited and its scope distinguished.
+bifurcation. Separate fixed-weight RNN proofs include an attracting4D activity cycle and
+an exact12D generalized-flip organizer with a rigorously joined local critical
+curve, primitive native period6 and11 attracting complementary modes. Clark's arXiv2610.12426 is cited and its scope distinguished.
 
 ## Wider experiments and open work
 
-The numerical census reports61 independently cross-checked periodic-window representatives. All28 representatives with13trainable parameters now have exact primitive attracting-cycle certificates;26 new proofs are independently reconstructed by1024-bit scalar-loss automatic differentiation on the same boxes. These are orbit proofs; connected window boundaries and surrounding chaos require their respective geometry/dynamics evidence.
+The numerical census reports61 independently cross-checked periodic-window representatives. All61 now have exact primitive attracting-cycle certificates; the26 new13D and32 new72D proofs are independently reconstructed by1024-bit scalar-loss automatic differentiation on the same boxes. These are orbit proofs; connected window boundaries and surrounding chaos require their respective geometry/dynamics evidence.
 CIFAR development currently reduces a98666-parameter orbit residual without yet
 meeting the closure gate. Transformer prediction/response pilots have not shown
 incremental utility over ordinary baselines. The retained inference comparison

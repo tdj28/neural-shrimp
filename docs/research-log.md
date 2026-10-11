@@ -13554,3 +13554,7 @@ byte-identically for complete source closure. During self-review updated copied
 launcher completeness predicate to the disclosed.9gate; otherwise it would
 mislabel correctly accepted trials. No target launched; full source review
 and same-source actual measured400s/2GiB/3GiB gates remain mandatory.
+
+### 2026-10-11 UTC — Manuscript connected-proof refresh
+
+Add the independent three cubic705 chart continuation and exact native6 RNN critical-curve bridge, six new hash-bound quantities, and34 independently joined705 endpoint projections in the geometry figure. Correct stale README orbit census counts to61representatives/64distinct exact settings. Abstract remains148words. Protected data and scientific acquisition are unchanged; regenerate only the affected saved-evidence figure, verify all numbers, compile and inspect complete PDF before delivery.

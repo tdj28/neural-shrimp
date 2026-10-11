@@ -737,7 +737,7 @@ only of nondegenerate folds. The separate connection and membership audits are
 \caption{Certified connection to the 1:1 organizer. Left: the interior period-18
 branch reaches its saddle-node, and a continued $+1$-multiplier locus reaches
 the exact resonance. Orange continues the connected complex-unit-pair branch through
-the finite initial arc and \nPALTotalCharts{} additional native charts. Green marks the continuously certified attracting
+the finite initial arc and \nPALVisualCharts{} additional native charts. Green marks the continuously certified attracting
 cross-section; attraction is not asserted along the whole gray or blue curve.
 Blue and orange polylines connect midpoint projections of independently enclosed chart
 endpoints within each gauge family and guide the eye; they are not polygonal
@@ -879,6 +879,15 @@ a nondegenerate positive-angle frame. This extends the same boundary branch usin
 domains. The check reconstructs the polynomial and join reductions independently at 480 bits,
 sharing the acquired native derivative arrays and Arb/FLINT. See
 \path{docs/reviews/native705-correlated-independent-outcome.json}.
+
+Three further cubic-predictor charts advance the same branch to
+$s=\tPALCubicRight$ in that gauge. Independent 480-bit arithmetic reconstructs
+all native Jacobian coefficients, the quartic residual remainder and the degree-five
+preconditioned forcing. Each chart satisfies all 705 strict inclusion and preceding-root
+membership inequalities, with contraction below $\xPALCubicContraction$.
+These \nPALCubicCharts{} connected charts retain primitive period 18 and the complex
+critical frame. Figure~\ref{fig:connected-boundary} includes their independently enclosed
+endpoint projections. See \path{docs/reviews/native705-cubic-prefix-independent.json}.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
 A separate local certificate encloses a primitive period-18 orbit at physical rates approximately
@@ -1839,12 +1848,25 @@ return's 11-dimensional complementary quotient $Q$, the same audit proves
 $\|Q^2\|_\infty<\xRNNOrganizerComplement<1$. Since $G^2=F^6$, the native
 six-cycle has one critical $+1$ multiplier and all other multipliers strictly
 inside the unit circle. This is a rigorous local symmetry-breaking organizer
-of fixed-weight activity. The connection to the numerically followed distant
-fold and period-doubling branches still requires validated continuation.
+of fixed-weight activity. The local critical-curve connection is established below; the more distant fold
+and period-doubling branches remain the targets of continued validation.
 The full proof and independent reconstruction are indexed in
 \path{docs/reviews/clark-rnn-generalized-flip-outcome.json} and
 \path{docs/reviews/clark-rnn-generalized-flip-independent.json}.
 
+
+\paragraph{Exact connection to the continued critical curve.}
+A subsequent uniform 26-dimensional interval proof connects this organizer to the
+original continued critical point at gain $g=4.0756$, interpreted as its exact saved
+binary64 value. The independent 512-bit audit proves contraction below
+$\xRNNBridgeContraction$ and strict full-coordinate membership of the organizer,
+the separately enclosed endpoint and its normalized native six-step return.
+The direct and returned mode have the same uniquely qualified orientation.
+Throughout the connecting curve, native period six remains primitive and
+$\|Q^2\|_\infty<\xRNNBridgeComplement<1$ bounds all eleven complementary modes.
+This establishes exact branch identity between the local organizer and the
+continued critical curve. The distant fold and doubled descendants are the next
+continuation targets. See \path{docs/reviews/clark-critical-bridge-independent.json}.
 
 \paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter
 space. Freezing weights stops that map; sensitivity of fixed-weight predictions and feedback during generation

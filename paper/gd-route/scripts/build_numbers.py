@@ -2253,6 +2253,19 @@ def build():
     cors=[corpath,corr/"manifest.json"]
     n.add("xPALCorrelatedContraction","66721/1000000","0.066721",proof,cors,"independent480 all705 weighted contraction upper bound rounded upward")
     n.add("tPALCorrelatedParameter",co["parameter_endpoints"],r"[-49/2048,\;79/2048]",proof,cors,"exact new local-gauge domain joined by full705 known-root projection")
+    # Three new connected cubic705 charts, independently rebuilt from native arrays.
+    cubp=c.ROOT/"docs/reviews/native705-cubic-prefix-independent.json";cub=load(cubp);cubr=Path(cub["root"])
+    bound_inventory(cubr/"manifest.json",cub["inventories"][0]["manifest_sha256"])
+    cuo=load(cubr/"run/outcome.json");assert cuo==cub["outcome"]and cuo["passed"]and cuo["connected_count"]==3 and cuo["connected_right"]=="115/512"and cuo["native_calls"]==0
+    for i,row in enumerate(cuo["charts"],1):
+        pp=load(cubr/f"run/chart{i:03d}/independent-proof.json")
+        assert row["passed"]and row["strict_inclusions"]==row["anchor_coordinates"]==705 and pp["passed"]and all(pp["gates"].values())
+        assert len(pp["root"]["coordinate_inclusions"])==705 and all(pp["root"]["coordinate_inclusions"])and ball_endpoints(row["contraction"])[1]<Fraction(230168,1000000)
+    cubs=[cubp,cubr/"manifest.json"]
+    n.add("nPALCubicCharts",3,"3",proof,cubs,"three ordered independently480 proved cubic705 tubes and full705 joins")
+    n.add("nPALVisualCharts",34,"34",proof,extra_sources+cors+cubs,"thirty original705 charts plus one correlated and three cubic independently connected charts; initial704 arc excluded")
+    n.add("xPALCubicContraction","230168/1000000","0.230168",proof,cubs,"strict upward bound on all three independent weighted contractions")
+    n.add("tPALCubicRight","115/512",r"115/512",proof,cubs,"right endpoint in the unchanged local affine gauge shared with the correlated predecessor")
     # Independently reconstructed causal horizon warnings on consumed LM prefixes.
     lhp=c.ROOT/"docs/reviews/tiny-lm-horizon-independent-outcome.json";lh=load(lhp);lhr=Path(lh["root"])
     lpin=next(v["manifest_sha256"]for v in lh["inventories"]if v["root"]==str(lhr));bound_inventory(lhr/"manifest.json",lpin)
@@ -2284,6 +2297,15 @@ def build():
         lo,hi=ball_endpoints(cro[key]);n.add(macro,str((lo+hi)/2),fixed(float((lo+hi)/2),digits),proof,crs,"midpoint display of independently512 enclosed "+key+"; strict signs validated from exact dyadic endpoints")
     n.add("xRNNOrganizerComplement","479/1000","0.479",proof,crs,"strict upward bound on norm of signed critical quotient squared; nativeF6 quotient has this square")
     n.add("nRNNOrganizerPrecision",512,"512",proof,crs,"independent exact same26-dimensional root and normal-form arithmetic precision bits")
+    # Exact organizer-to-continued-critical-root bridge of fixed-weight activity.
+    brp=c.ROOT/"docs/reviews/clark-critical-bridge-independent.json";br=load(brp);brr=Path(br["root"])
+    bound_inventory(brr/"manifest.json",br["inventories"][0]["manifest_sha256"]);bo=load(brr/"run/outcome.json")
+    assert bo==br["outcome"]and br["passed"]and bo["passed"]and bo["primitive_period"]==6 and bo["strict_inclusions"]==bo["organizer_join"]==bo["endpoint_join"]==bo["native_return_join"]==26 and bo["mode_orientation"]==1
+    assert bo["critical_native_multiplier"]==1 and bo["critical_signed_multiplier"]==-1 and bo["native_calls"]==18 and bo["shared_augmented_calls"]==0
+    assert ball_endpoints(bo["contraction"])[1]<Fraction(148017,1000000)and bo["whole_quotient_power"]["power"]==2 and ball_endpoints(bo["whole_quotient_power"]["bound"])[1]<Fraction(577,1000)
+    brs=[brp,brr/"manifest.json"]
+    n.add("xRNNBridgeContraction","148017/1000000","0.148017",proof,brs,"strict upward uniform26D critical-curve contraction bound")
+    n.add("xRNNBridgeComplement","577/1000","0.577",proof,brs,"strict upward whole signed quotient-square norm bound; nativeF6 complementary attraction")
     return n
 
 
