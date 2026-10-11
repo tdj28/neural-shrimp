@@ -13023,3 +13023,12 @@ primitive analytic endpoints. Draft fifth-power omission was caught in source
 inspection and now has a dedicated control. Source-only, no target/profile.
 
 Post-commit bookkeeping: the staged content/secret/size scan passed, but its whitespace check found a trailing blank line. The shell continued to commit94d232b6; the following source-only fix removes that line and repeats the full staged check. No scientific source or target changed.
+
+
+### 2026-10-11 UTC: full705 cubic profile source preparation
+
+Prepare the first unrelated full-size cost/control screen for the new cubic
+predictor mathematics. Same705 fixture, two full curves,12actual tanh gradient
+pairs and12new quartic native pairs;629 inclusive ticks, unchanged240s/6GiB/
+768MiB. No native target arrays read. Future run needs peer wrapper/math review;
+future target needs its own exact measured card and complete source/domain join.
