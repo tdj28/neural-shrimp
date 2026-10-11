@@ -1,5 +1,15 @@
 {
-  "admission": null,
+  "admission": {
+    "available_ram_gib": 52,
+    "free_disk_tib": 2.6,
+    "gpu_free_mib": 15947,
+    "gpu_used_mib": 2,
+    "gpu_utilization_percent": 0,
+    "load_1m": 1.95,
+    "local_time": "2026-10-11T02:27:06-07:00",
+    "mode": "profile only",
+    "owned_duplicate_workers": []
+  },
   "arm": 256,
   "control_rate_factor": 0.25,
   "horizons": [
@@ -20,8 +30,15 @@
     28161,
     28162
   ],
-  "source_review": null,
-  "status": "source_prepared",
+  "source_review": {
+    "controls": 14,
+    "reviewer": "boundary_resume",
+    "scope": "narrow source only; full788ded7d clearance retained",
+    "seconds": 3.63,
+    "source": "94f80673cbf317c13534a8b0bff3b31024360f56",
+    "verdict": "PASS"
+  },
+  "status": "profile_admitted",
   "step": 600,
   "target_counts": {
     "ce": 58,
