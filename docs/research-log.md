@@ -6451,3 +6451,7 @@ Prelaunch static launcher inspection caught substring replacement turning512MiB 
 ### 2026-10-10 22:02 PDT — saved bridge diagnosis source cleared and admitted
 
 Root b000edda source/math/binding/limits PASS, three controls0.07s. Fresh host51GiB available/load1.31/1.84/2.07; no owned duplicate and output unused. Execute sole zero-native fixed10s448MiB2GiBAS2MiB diagnostic with25+5owned. Original tube failure immutable; floating proposed radii never prove enlarged-domain coverage.
+
+### 2026-10-10 22:02 PDT — saved bridge diagnosis complete
+
+Zero-native0.1637s/37412KiB diagnosis separates dominant coordinate8 forcing/r3.38264 from defect-row0.71085; image/r4.09349. Floating spectral radius of absoluteD0.09531 suggests common-radius imbalance. Fixed dyadic2times-positive-resolvent proposals enlarge state/mode radii2–8times, halve leak radius, and shrink exact gain-equation radius to2^-39; frozen-old-domain weightedq0.13997/image0.57938 only, never proof on expandedE. Full immutable/source/ownership verified; receipt clark-critical-bridge-diagnosis.json. Prepare exactlyone unchanged-halfwidth fresh weighted002 with complete new predictor/whole derivatives and all original exact known-root/native gates; peer review/fresh profile precede target.
