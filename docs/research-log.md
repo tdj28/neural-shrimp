@@ -15646,3 +15646,7 @@ Checkpointed the unlaunched binary64 signed470 scout source as a prepared propos
 ### 2026-10-11 — independent signed470 audit admission
 
 Root independently reviewed source8b57b7aa mathematics, same55/705 genealogy, explicit negative-one closure and all470 membership, PASS. Five controls now pass0.74s including isolated actual-file archive import closure. Previous actual metadata-only preflight passed0.698s; no target arrays evaluated. Admit one prepared300s4GiB64MiB zero-native audit under its existing full470 profile and actual producer cost floor. Current host has51GiB available, no task-owned worker; root final18 audit is separate. Prepared scout remains unlaunched/unreviewed. Its checkpoint trailing whitespace was immediately corrected; staged secret/size scan had passed before that whitespace check.
+
+### 2026-10-11 — independent finite flip-curve proof passed
+
+Independent signed470 attempt001 passed all470 uniform root inclusions and all470 same-junction projected membership coordinates, proper divisors, q<.082184351347. Independent exact-rational negative-mode propagation uses the same independently validated55/705 junction; native/path assembly and512-bit inequalities use the fresh weighted acquisitions.9.069s/859904KiB/zero native calls. Full immutable inventories, historical sources, launcher/worker ownership and exit checked. Source150b13b5; outer89387263b6e97a1bce46d8fddea81944b0a26581de1bedf112c5ad979190fd3f. This is a finite connected flip locus, without full two-sided complementary stability or complete shrimp claim.
