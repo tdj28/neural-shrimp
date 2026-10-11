@@ -27,21 +27,20 @@ connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
 same organizer. One hundred and one positive-angle 705-dimensional charts, with
 independent full-coordinate joins, extend the connected unit-pair branch
-beyond a proved interior hidden-rate minimum and critical-pair angle maximum. The first 31 charts have
+beyond a proved interior hidden-rate minimum and critical-pair angle maximum. The first 33 charts have
 independently proved complementary stability and, by the full shooting rank
 argument, a regular attracting side and a continuous nearby attracting family.
-The entire chart 31 now has an independently proved
-11-mode bound below 0.980311 on an exact 31-cell cover joined to chart30. All 101 charts and exact full705 membership
+Charts31,32 and33 now have complete independently proved31-,22- and39-cell covers, respectively, with full705-coordinate joins and all11 complementary modes strictly inside the unit circle. All 101 charts and exact full705 membership
 now independently connect the branch to the same certified complex-unit/flip junction.
-Two independently verified470-dimensional tubes prove a finite joined flip locus.
+Independently verified470-dimensional tubes prove a finite joined flip locus; the latest16-piece extension covers hidden-rate affine extent7.5, retaining all23 attempts.
 Later complementary stability and extension of the flip boundary remain active. On the entire original
 finite arc, independent 480-bit arithmetic proves all eleven complementary
 multiplier moduli below 0.843 using a common Lyapunov metric. Their receipts
 and exact coefficient bounds are in the manuscript and `docs/reviews/`.
 
-A separate independently proved complex-unit/simple-flip intersection has a
+Two distinct independently proved complex-unit/simple-flip intersections are now enclosed. The first has a
 transverse physical-rate unfolding and a qualitative open adjacent sector of
-attracting primitive18 cycles. An explicit direction into that sector is
+attracting primitive18 cycles. The second has independently bounded ten stable complementary modes and a transverse crossing. An explicit direction into the first sector is
 independently validated; finite extent and global connection are ongoing.
 
 Other exact local results include both flip types with attracting complements,
@@ -59,7 +58,7 @@ meeting the closure gate. Transformer prediction/response pilots have not shown
 incremental utility over ordinary baselines. A separate independently audited15776D
 operator-order intervention now shows strong reversal-even sensitivity in both
 expanded-arm original-rate trajectories, with much smaller same-state quarter-rate
-contrasts. These are saved-trajectory response experiments, not changed training.
+contrasts. Preserving adjacent-step blocks strongly attenuates the original ordering contrast. An independently replayed two-step mean then reduces original-rate vector errors by46.72x/27.54x over the single-step mean but still fails directional accuracy. These are full saved-trajectory response comparisons, not changed training.
 A same-start curved CIFAR correction independently improves gradient-merit
 decrease from0.82% to2.04%; stationarity remains the continuation target.
 The retained inference comparison

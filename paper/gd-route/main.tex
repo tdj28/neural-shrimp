@@ -1093,6 +1093,13 @@ its regular boundary and connected adjacent attracting family therefore extend
 through chart 32. The exact hypothesis mapping is recorded in
 \path{docs/reviews/native705-chart32-boundary-hypotheses.json}.
 
+The following chart is likewise completely covered: \nChartThirtyThreeCells{}
+independently checked cells span $[205,333]/2048$, with all eleven complementary
+moduli below $\xChartThirtyThreeComplement$. Its full 705-coordinate root and
+predecessor inclusion extend the same regular physical boundary and connected
+adjacent attracting family through chart 33. See
+\path{docs/reviews/native705-chart33-boundary-hypotheses.json}.
+
 \paragraph{A certified complex-unit/simple-flip junction.}
 A local certificate encloses a primitive period-18 orbit at physical rates approximately
 $(\eta_h,\eta_o)=(\xUnitFlipHidden,\xUnitFlipOutput)$ where a nonreal conjugate pair has unit modulus
@@ -1143,6 +1150,14 @@ hidden-rate length $1/4$. All 470 strict root and predecessor-membership
 inequalities pass independently, with contraction below
 $\xCorrelatedFlipContraction$, and primitive period 18 persists.
 See \path{docs/reviews/native470-correlated-independent.json}.
+
+The same branch continues through \nSignedMarchCharts{} further independently
+verified 470-coordinate charts, spanning $[-2001,-81]/256$ in the unchanged
+hidden-rate affine coordinate, an extent of $\xSignedMarchSpan$. Each closed
+piece proves the root, every full-state predecessor inclusion and exclusion
+of all proper divisors of 18. All 23 producer attempts, including the seven
+failed wider bounds, remain in the record. See
+\path{docs/reviews/native470-march-independent.json}.
 
 \paragraph{A second exact intersection.}
 A separate local certificate encloses another primitive period-18
@@ -2173,9 +2188,47 @@ their actual states and input directions, the complete recurrences and the
 byte-identical previously qualified baselines. Preserving adjacent-step
 structure therefore removes most of this particular ordering contrast in
 the two original-rate cases. It does not imply that two-step blocks commute:
-the residual is material, and their arithmetic-mean product need not predict
-the true response. Testing that prediction is a separate mechanism question.
+the residual is material. The following test measures whether their arithmetic
+mean predicts the true response.
 See \path{docs/reviews/tiny-lm-pair-blocks-independent.json}.
+
+\paragraph{The two-step mean controls amplification but misses direction.}
+On the same four qualified trajectories, define $\overline B=\tfrac18\sum_{k=0}^7B_k$
+and predict the horizon-16 perturbation by $\overline B^8u$. Every block acts
+on the same full vector at each power, and its second factor acts on the actual
+within-block intermediate vector. An independent replay checks all 512 acquired
+Hessian-vector products, all 32 averaged powers and both nonlinear-response
+amplitudes in every case.
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\captionsetup{hypcap=false}
+\centering\small
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Initialization & Rate & Vector error & Alignment & CE-slope error \\
+\midrule
+1 & Original & $\xLMBlockMeanOneOriginalError$ & $\xLMBlockMeanOneOriginalAlignment$ & $\xLMBlockMeanOneOriginalSlopeError$ \\
+1 & Quarter & $\xLMBlockMeanOneQuarterError$ & $\xLMBlockMeanOneQuarterAlignment$ & $\xLMBlockMeanOneQuarterSlopeError$ \\
+2 & Original & $\xLMBlockMeanTwoOriginalError$ & $\xLMBlockMeanTwoOriginalAlignment$ & $\xLMBlockMeanTwoOriginalSlopeError$ \\
+2 & Quarter & $\xLMBlockMeanTwoQuarterError$ & $\xLMBlockMeanTwoQuarterAlignment$ & $\xLMBlockMeanTwoQuarterSlopeError$ \\
+\bottomrule
+\end{tabular}
+\captionof{table}{The retrospective two-step mean reduces the large original-rate
+single-step-mean errors while failing the prespecified 20\% accuracy criterion.
+All four cases retain the same 1\% response and functional-slope qualifications.}
+\label{tab:lmblockmean}
+\end{minipage}\par\medskip
+
+The original-rate vector errors decrease by factors $\tLMBlockMeanImprovement$
+relative to the single-step mean, but their low or negative signed alignments
+show that removing excessive amplification does not recover the response
+(Table~\ref{tab:lmblockmean}). The quarter-rate cases also miss the accuracy
+criterion. Thus adjacent-step correlations explain a substantial failure of
+the single-step average, while variation among the two-step blocks still
+matters. Because these predictors use the complete observed path, this result
+is a retrospective response comparison. It motivates an explicit temporal
+correction rather than a claim of improved training or online prediction.
+See \path{docs/reviews/tiny-lm-block-mean-independent.json}.
 
 \section{Discussion}
 \label{sec:discussion}

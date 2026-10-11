@@ -2397,7 +2397,18 @@ def build():
     for key,spec in h32["authorities"].items():
         ar=Path(spec["root"]);bound_inventory(ar/"manifest.json",spec["outer"])
         for name,e in h32["artifacts"][key].items():assert c.sha256(ar/"run"/name)==e["sha256"]
-    n.add("nPALStableCharts",32,"32",proof,compsources+extra_sources+whole31sources+[hmp,hp32],"first30 plus independently covered wholecharts31 and32, exact predecessor endpoint inclusions and all reviewed physical-stability-boundary lemma hypotheses")
+    hp33=c.ROOT/"docs/reviews/native705-chart33-boundary-hypotheses.json";h33=load(hp33)
+    assert h33["passed"]and h33["chart"]==33 and h33["independent_complement_cells"]==39 and h33["analytic_lemma"]==h32["analytic_lemma"]and h33["prior_boundary_receipt"]["sha256"]==c.sha256(hp32)
+    for key,spec in h33["authorities"].items():
+        ar=Path(spec["root"]);bound_inventory(ar/"manifest.json",spec["outer"])
+        for name,e in h33["artifacts"][key].items():assert c.sha256(ar/"run"/name)==e["sha256"]
+    n.add("nPALStableCharts",33,"33",proof,compsources+extra_sources+whole31sources+[hmp,hp32,hp33],"first30 plus independently covered wholecharts31 through33, exact predecessor endpoint inclusions and all reviewed physical-stability-boundary lemma hypotheses")
+    spec=h33["authorities"]["complement"];ar=Path(spec["root"]);ao=load(ar/"run/outcome.json");cells=ao["completed_cells"]
+    assert ao["passed"]and ao["native_calls"]==0 and ao["complement_dimension"]==11 and len(cells)==39
+    spans=sorted([list(map(Fraction,v["cell"]["endpoints"]))for v in cells]);assert spans[0][0]==Fraction(205,2048)and spans[-1][1]==Fraction(333,2048)and all(a[1]==b[0]for a,b in zip(spans,spans[1:]))
+    assert all(v["passed"]and ball_endpoints(v["modulus"])[1]<Fraction(995409760,10**9)for v in cells)
+    n.add("nChartThirtyThreeCells",39,"39",proof,[hp33,ar/"manifest.json"],"exact closed independently proved wholechart33 complement cover")
+    n.add("xChartThirtyThreeComplement","995409760/1000000000","0.995409760",proof,[hp33,ar/"manifest.json"],"strict upward bound on all11 complementary modes over entire original chart33")
     n.add("xPALMarchComplement","497679/500000","0.995358",proof,compsources,"strict upper bound across48 independently proved complementary leaves covering charts7through30")
     lp=c.ROOT/"docs/reviews/tiny-lm-ordering-independent.json";lr=load(lp);lroot=Path(lr["root"]);bound_inventory(lroot/"manifest.json",lr["inventories"][0]["manifest"]["sha256"])
     lo=load(lroot/"run/result.json");assert lo==lr["outcome"]and lo["passed"]and lo["native_calls"]==0 and lo["rows"]==16 and lo["retained_hvp_checked"]==160
@@ -2466,6 +2477,18 @@ def build():
             n.add("xLMPair"+tag+key,value,fixed(value,6),label,[pp,proot/"manifest.json"],"pair-block reversal-even contrast, "+field+"; all4 response/CE and algebra qualifications")
     vals=[1/z["comparison"]["even_relative_parity_even"]for z in po["cases"]if z["rate_role"]=="original"]
     n.add("tLMPairAttenuation",vals,",\\ ".join(fixed(v,2)for v in vals),label,[pp,proot/"manifest.json"],"Eparity norm divided by Epair norm in the two original-rate cases; not a training-speed comparison")
+    # Independently replayed arithmetic mean of adjacent two-step blocks.
+    bp=c.ROOT/"docs/reviews/tiny-lm-block-mean-independent.json";br=load(bp);brt=Path(br["root"]);bound_inventory(brt/"manifest.json",br["outer"]["sha256"]);bo=load(brt/"run/result.json")
+    assert bo==br["result"]and bo["passed"]and bo["native_calls"]==0 and bo["retained_hvp_checked"]==512 and bo["mean_powers_checked"]==32 and all(v["qualified"]for v in bo["cases"])
+    assert bo["descriptive"]==dict(all_four_qualified=True,accurate_in_both_originals=False,tenfold_better_than_single_step_mean_in_both=True)
+    label="exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases"
+    assert [(v["seed"],v["rate_role"])for v in bo["cases"]]==[(s,k)for s in(28161,28162)for k in("original","quarter_step")]
+    for j,row in enumerate(bo["cases"]):
+        tag=["OneOriginal","OneQuarter","TwoOriginal","TwoQuarter"][j];cmp=row["comparison"]["comparisons"]
+        for suffix,key in [("Error","vector_error"),("Alignment","signed_alignment"),("SlopeError","training_ce_slope_error")]:
+            v=cmp["block_mean"][key];n.add("xLMBlockMean"+tag+suffix,v,fixed(v,5),label,[bp,brt/"manifest.json"],"same h16 nonlinear response and CE slope: "+key)
+    vals=[v["comparison"]["comparisons"]["mean"]["vector_error"]/v["comparison"]["comparisons"]["block_mean"]["vector_error"]for v in bo["cases"]if v["rate_role"]=="original"]
+    n.add("tLMBlockMeanImprovement",vals,",\\ ".join(fixed(v,2)for v in vals),label,[bp,brt/"manifest.json"],"single-step mean vector error divided by two-step block-mean error; no training-speed claim")
     # Second exact unit-pair/simple-flip junction, fresh nested independent root.
     jp=c.ROOT/"docs/reviews/second-unit-flip-independent.json";jr=load(jp);jroot=Path(jr["root"])
     bound_inventory(jroot/"manifest.json",jr["outer"]["sha256"]);jo=load(jroot/"run/outcome.json")
@@ -2494,6 +2517,14 @@ def build():
     assert so==ss["outcome"]and so["passed"]and so["native_calls"]==0 and so["root_coordinates"]==so["anchor_coordinates"]==470 and ss["parameter_endpoints"]==["-81/256","-17/256"]
     assert ball_endpoints(so["contraction"])[1]<Fraction(76489025,10**9)
     n.add("xCorrelatedFlipContraction","76489025/1000000000","0.076489025",proof,[sp,sr/"manifest.json"],"strict upward bound on independently connected full470 hidden-rate interval of length1/4")
+    smp=c.ROOT/"docs/reviews/native470-march-independent.json";sm=load(smp);smr=Path(sm["root"]);bound_inventory(smr/"manifest.json",sm["outer"]["sha256"]);smo=load(smr/"run/outcome.json")
+    assert smo==sm["outcome"]and smo["passed"]and smo["native_calls"]==0 and len(smo["rows"])==16 and sm["parameter_endpoints"]==["-2001/256","-81/256"]
+    assert all(v["passed"]and v["root_coordinates"]==v["anchor_coordinates"]==470 for v in smo["rows"])
+    for z in smo["rows"]:
+        p=smr/"run"/f"chart{z['index']:03d}/independent512.json";v=load(p);assert v["passed"]and all(v["gates"].values())and [a["divisor"]for a in v["primitive"]]==[1,2,3,6,9]and all(a["coordinates"]for a in v["primitive"])
+    n.add("nSignedMarchCharts",16,"16",proof,[smp,smr/"manifest.json"],"every newly accepted full470 independently joined primitive18 signed chart; all23 attempts preserved")
+    span=Fraction(sm["parameter_endpoints"][1])-Fraction(sm["parameter_endpoints"][0]);assert span==Fraction(15,2)
+    n.add("xSignedMarchSpan",str(span),"7.5",proof,[smp,smr/"manifest.json"],"exact new interval extent in unchanged hidden-rate affine coordinate")
     # Independently reduced same-start curved correction, first passing point retained.
     cp=c.ROOT/"docs/reviews/cifar-curved-path-independent.json";cr=load(cp);croot=Path(cr["root"])
     bound_inventory(croot/"manifest.json",cr["outer"]["sha256"]);co=load(croot/"run/result.json")

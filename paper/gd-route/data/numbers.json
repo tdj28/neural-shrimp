@@ -1,6 +1,6 @@
 {
  "generator": "paper/gd-route/scripts/build_numbers.py",
- "generator_sha256": "8bbc392fb4a4e2d37c19d7f7682f4cb37d5dbe2df1f719237c3c49a9589a2be3",
+ "generator_sha256": "a7801747c9c3d7106eb7c7c0575d930f0ea4c1184c48b3e2c9e50799a15a3a44",
  "sources": {
   "data:audits/EXP-028/validation-001/audit.json": "dce004a4237c85ad15d7d868f6294f0137a85511a3d48c3f87387eece3ef88cf",
   "data:audits/census-period58-independent/attempt002/launcher-result.json": "0de9a9736161565250e1f5d1dfb52f677e96e2757c6b5072932b12ace573fef7",
@@ -623,6 +623,7 @@
   "data:audits/native705-complement-batch-independent/attempt001/manifest.json": "851bbbffb308ae3e9ae0a2a935f5e05c5d416fc6b2b274b0b7ac563d072069af",
   "data:audits/native705-complement-independent/attempt001/manifest.json": "d787b45285df6f4c68fea6c8d628286ffb1e7bd56bc0203d54face078f38e603",
   "data:audits/native705-correlated-independent/attempt002/manifest.json": "db0c695ee52bd019239f683a7158701ad82be9728fcbd0af99359af8c9b66b79",
+  "data:audits/native705-cubic-panel-independent/attempt001/manifest.json": "a0a9789cce6df7cef235401a9341257bc57e34d9546421811b96196e3564263b",
   "data:audits/native705-cubic-prefix-independent/attempt001/manifest.json": "21c4c93586dfe0f71386eafb1dc39fa8de6925baf4c22837c40784125cdc27d2",
   "data:audits/native705-cubic32-first-independent/attempt001/manifest.json": "bbd406d5c64973f4a6551d2aace89f79dda74d98ba299a01c53cf9ae1133ce40",
   "data:audits/native705-cubic32-remaining-independent/attempt005/manifest.json": "d52b683b9bc3a41846f27259550b5270af2f74d73185f6fb96844a75e49e2c35",
@@ -2111,6 +2112,8 @@
   "data:audits/shrimp-period18/attempt-001/runtime-start.json": "f82c53d23123acdc56779db3cb5a36af2427b18d0181cd9f639b6e5675640c7d",
   "data:audits/signed470-advancing-independent/attempt001/manifest.json": "fd2a679a8f137d9e3c619dece41f4392e6f18cf645195dfd119951c3a58dc267",
   "data:audits/signed470-correlated-independent/attempt001/manifest.json": "58637576a7b03cb2e6736c1536574d2c2726d08c02de44b679d05561085dbc6d",
+  "data:audits/signed470-march-independent/attempt001/manifest.json": "ba792a1aabb2f69d723795a6487ab9651d5f0ed2838f61061b1951aab0038643",
+  "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json": "e8e3a32649844788439d1173d98cf5fd55abe04f5b920d0736e36297bda3c181",
   "data:audits/tiny-lm-broader-data/attempt-001/recomputed-analysis.json": "bb042da148e9545becadaf3f2e9d86e866fbda6123c4677661d02c71ff6ce43b",
   "data:audits/tiny-lm-horizon-independent/attempt001/manifest.json": "56e9f2f517888494832bb6354e1faf1dee35c5590e40c360034054b35877f619",
   "data:audits/tiny-lm-ordering-independent/attempt001/manifest.json": "13d4b20207e2d94052ab003d6b8488a07e68aca1e74d896736b6191bf5016f35",
@@ -7317,10 +7320,12 @@
   "repo:docs/reviews/native-unit-pair-independent-outcome.json": "0c7aa64a79eb97c4ffe2e560b4f28d431d9b0eb6800a1b42941af982b3a06bfe",
   "repo:docs/reviews/native470-advancing-independent.json": "f478dd55184120c72d632aa398511bcdfd26c55824f72004a13bbdc0301dc047",
   "repo:docs/reviews/native470-correlated-independent.json": "880c512589642980a4aacbdd65a7027aaed86c9abaaf8699016fd6f9925b57fe",
+  "repo:docs/reviews/native470-march-independent.json": "8fa0e5c07729794de39359675abcf0317d536a233a533e1abb1c38e31be1885e",
   "repo:docs/reviews/native704-complement-independent.json": "2716bdac962c9f2960b088f14774bd98418b17bf88992a816780708f736027e0",
   "repo:docs/reviews/native705-batch-independent-outcome.json": "21ab7cc85a4b8072195792653ca2b355a28de84b7f5c7f48fb2ce0c256138af7",
   "repo:docs/reviews/native705-chart31-boundary-hypotheses.json": "4c110b25bac1d08a5b5a318f59726ec32b3f377a08a89e572d18b15ab796562e",
   "repo:docs/reviews/native705-chart32-boundary-hypotheses.json": "652dbb0f734f3d8ca21962ea91924ea043401f95380d64fb5d84c3f4fc6905ae",
+  "repo:docs/reviews/native705-chart33-boundary-hypotheses.json": "3ef341bfb720ce843f1d08562f8a05d54d4f596eaac95f3cf5f4d7a1c16ff682",
   "repo:docs/reviews/native705-complement-batch-independent.json": "c7519c4c1f0d74477ee4e786c60dfa5a70586c08b380217c2fbcd35c7ea737b5",
   "repo:docs/reviews/native705-complement-independent.json": "3e169fb689d850e62cb8c7328bcc3a2106d288d184742db22eaa670594b2971e",
   "repo:docs/reviews/native705-correlated-independent-outcome.json": "ef0711390f89a5e64f95c263845b929ceff68ca6843c8acf487586cd1978244e",
@@ -7385,6 +7390,7 @@
   "repo:docs/reviews/s2-ray51-certificates-independent-review.json": "0c75aeb74b3e99f4248ab2170452e3a7c6be8f4d5e6e724088d415356a0997b8",
   "repo:docs/reviews/saved-lm-inference-independent.json": "e800363d19ef3b8ce8f50311f73d02296dfc6036b972db21b80a69f2c1db3221",
   "repo:docs/reviews/second-unit-flip-independent.json": "b1dd1efd92f81de9fc1ed64c98c8b28045a026983103e3f4d87b8b7238c84122",
+  "repo:docs/reviews/tiny-lm-block-mean-independent.json": "2e363d675a2b6c6440fd9ce07bfabe58ea800744a2c8c5d62c2992662f15a441",
   "repo:docs/reviews/tiny-lm-broader-outcome-audit.json": "18b01eb24656f039041800dce2cb3ba959f97ea67f8b40928d9a96ccf6f6cb87",
   "repo:docs/reviews/tiny-lm-horizon-independent-outcome.json": "683d88bfe812b634b3f4f278168df659591a900e5289f026dc49b895bf58530a",
   "repo:docs/reviews/tiny-lm-ordering-independent.json": "037eb4aeb600d86d52e1cc6cc734b737b5c31cadf9d97706adc074b410a42aec",
@@ -46729,8 +46735,8 @@
   },
   {
    "macro": "nPALStableCharts",
-   "value": 32,
-   "tex": "32",
+   "value": 33,
+   "tex": "33",
    "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
    "sources": [
     "repo:docs/reviews/native705-march-independent.json",
@@ -46752,9 +46758,32 @@
     "repo:docs/reviews/native705-remaining-quarters-independent.json",
     "data:audits/native705-remaining-quarters-independent/attempt001/manifest.json",
     "repo:docs/reviews/native705-chart31-boundary-hypotheses.json",
-    "repo:docs/reviews/native705-chart32-boundary-hypotheses.json"
+    "repo:docs/reviews/native705-chart32-boundary-hypotheses.json",
+    "repo:docs/reviews/native705-chart33-boundary-hypotheses.json"
    ],
-   "computation": "first30 plus independently covered wholecharts31 and32, exact predecessor endpoint inclusions and all reviewed physical-stability-boundary lemma hypotheses"
+   "computation": "first30 plus independently covered wholecharts31 through33, exact predecessor endpoint inclusions and all reviewed physical-stability-boundary lemma hypotheses"
+  },
+  {
+   "macro": "nChartThirtyThreeCells",
+   "value": 39,
+   "tex": "39",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-chart33-boundary-hypotheses.json",
+    "data:audits/native705-cubic-panel-independent/attempt001/manifest.json"
+   ],
+   "computation": "exact closed independently proved wholechart33 complement cover"
+  },
+  {
+   "macro": "xChartThirtyThreeComplement",
+   "value": "995409760/1000000000",
+   "tex": "0.995409760",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native705-chart33-boundary-hypotheses.json",
+    "data:audits/native705-cubic-panel-independent/attempt001/manifest.json"
+   ],
+   "computation": "strict upward bound on all11 complementary modes over entire original chart33"
   },
   {
    "macro": "xPALMarchComplement",
@@ -47203,6 +47232,152 @@
    "computation": "Eparity norm divided by Epair norm in the two original-rate cases; not a training-speed comparison"
   },
   {
+   "macro": "xLMBlockMeanOneOriginalError",
+   "value": 1.2031559627406245,
+   "tex": "1.20316",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: vector_error"
+  },
+  {
+   "macro": "xLMBlockMeanOneOriginalAlignment",
+   "value": 0.10691464311067185,
+   "tex": "0.10691",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: signed_alignment"
+  },
+  {
+   "macro": "xLMBlockMeanOneOriginalSlopeError",
+   "value": 1.8227049106737245,
+   "tex": "1.82270",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: training_ce_slope_error"
+  },
+  {
+   "macro": "xLMBlockMeanOneQuarterError",
+   "value": 1.0421985783911834,
+   "tex": "1.04220",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: vector_error"
+  },
+  {
+   "macro": "xLMBlockMeanOneQuarterAlignment",
+   "value": 0.315896938579274,
+   "tex": "0.31590",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: signed_alignment"
+  },
+  {
+   "macro": "xLMBlockMeanOneQuarterSlopeError",
+   "value": 0.5872425194405256,
+   "tex": "0.58724",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: training_ce_slope_error"
+  },
+  {
+   "macro": "xLMBlockMeanTwoOriginalError",
+   "value": 1.2654323327096517,
+   "tex": "1.26543",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: vector_error"
+  },
+  {
+   "macro": "xLMBlockMeanTwoOriginalAlignment",
+   "value": -0.20531063024409268,
+   "tex": "-0.20531",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: signed_alignment"
+  },
+  {
+   "macro": "xLMBlockMeanTwoOriginalSlopeError",
+   "value": 0.7740702478677617,
+   "tex": "0.77407",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: training_ce_slope_error"
+  },
+  {
+   "macro": "xLMBlockMeanTwoQuarterError",
+   "value": 0.5606070534556907,
+   "tex": "0.56061",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: vector_error"
+  },
+  {
+   "macro": "xLMBlockMeanTwoQuarterAlignment",
+   "value": 0.8359303924459894,
+   "tex": "0.83593",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: signed_alignment"
+  },
+  {
+   "macro": "xLMBlockMeanTwoQuarterSlopeError",
+   "value": 0.3291817615812908,
+   "tex": "0.32918",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "same h16 nonlinear response and CE slope: training_ce_slope_error"
+  },
+  {
+   "macro": "tLMBlockMeanImprovement",
+   "value": [
+    46.71638278021418,
+    27.539651003039644
+   ],
+   "tex": "46.72,\\ 27.54",
+   "evidence": "exploratory, independently checked full15776D retrospective two-step-block mean; four consumed development cases",
+   "sources": [
+    "repo:docs/reviews/tiny-lm-block-mean-independent.json",
+    "data:audits/tiny-lm-block-mean-independent/attempt001/manifest.json"
+   ],
+   "computation": "single-step mean vector error divided by two-step block-mean error; no training-speed claim"
+  },
+  {
    "macro": "xSecondUnitFlipHidden",
    "value": {
     "display": "[72.233068263398712976 +/- 4.86e-19]",
@@ -47310,6 +47485,28 @@
     "data:audits/signed470-correlated-independent/attempt001/manifest.json"
    ],
    "computation": "strict upward bound on independently connected full470 hidden-rate interval of length1/4"
+  },
+  {
+   "macro": "nSignedMarchCharts",
+   "value": 16,
+   "tex": "16",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native470-march-independent.json",
+    "data:audits/signed470-march-independent/attempt001/manifest.json"
+   ],
+   "computation": "every newly accepted full470 independently joined primitive18 signed chart; all23 attempts preserved"
+  },
+  {
+   "macro": "xSignedMarchSpan",
+   "value": "15/2",
+   "tex": "7.5",
+   "evidence": "computer-assisted proof, rung 3; exploratory selection; exact-real map",
+   "sources": [
+    "repo:docs/reviews/native470-march-independent.json",
+    "data:audits/signed470-march-independent/attempt001/manifest.json"
+   ],
+   "computation": "exact new interval extent in unchanged hidden-rate affine coordinate"
   },
   {
    "macro": "xCifarCurvedMeritRatio",

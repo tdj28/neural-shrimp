@@ -17114,3 +17114,7 @@ Reviewed unrelated2-HVP profile completed3.971s964872KiB; entire retained coldma
 ### 2026-10-11T12:54:21.901846+00:00 — First-order temporal variation succeeds at low rates, fails at original rates
 
 All448HVP completed92.029s1,011,804KiB, all four inherited1percent response/CE qualifications retained. Originalvectorerrors1.192956/1.232882 remain above20percent; only1.009x/1.026x blockmean improvement, so both declared original gates fail. Quartererrors.0702423/.0275708, alignments.997530/.999626 and CE-slopeerrors.004892/.002576;14.84x/20.33x improvement. This is a consumed rate-dependent first-order-sufficiency comparison; independently authored replay remains next. Full immutable manifests/exact4ad497e5 source/absentowners verified.
+
+### 2026-10-11T12:59:04.814005+00:00 — Paper source refresh through whole33 and block-mean replay
+
+Added full33 physical-stability coverage, the16-chart independently joined signed extension and complete independently replayed two-step-mean comparison with all four cases.161-word source abstract,559 verified quantities (17new, only existing stablechartcount32→33 changed), warning-free55-page compilation;22 figure outputs unchanged. Source matches scoped exact proofs and consumed LM comparison; newfirstorderresult stays pending its separate arithmetic replay. Visual QA/export in progress. Separate physical archive backup20261011T125806Z verified5243files272284096B manifest19f2ba773042b1f18b24386e4e330fd332d4b6756811b21308cb369be2e7d8ad; all retained newfailures included.
