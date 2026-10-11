@@ -13246,3 +13246,7 @@ Integrated reviewed refreshed cubic continuation and bounded negative stationary
 ### 2026-10-11T05:06:08.912840+00:00 — Prepare one mathematically justified saved CIFAR merit direction
 
 The frozen stationary .5 forcing failure is retained. For exact gradient merit eta<1 gives strict descent, so prepare a separate fixed .9-gated line search using saved MINRES256 direction and byte-exact gradient/HVP replay, unchanged5% trust bound and13dyadic trials. No target opened by this preparation. At most1HVP14gradients,90s2GiB128MiB,CPU1 and full measured/source/profile gates. Main geometry agents continue independently.
+
+### 2026-10-11T05:09:33.585230+00:00 — Cleared fixed saved stationary merit pilot
+
+Clark independently reviewed f986e271 math/source/native binding/resource gates PASS and reproduced3controls1.08s. Root3controls1.04s. Execute sole90s2GiB128MiB saved-merit001 with exact replay and at most1HVP14grad; previous.5forcing failure remains unchanged. No geometry or orbit promotion. Fresh host headroom/owned wrapper required.
