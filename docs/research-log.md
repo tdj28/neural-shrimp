@@ -13678,3 +13678,7 @@ Stability independently cleared988fa6d4 complete wrapper, six controls0.13s; a69
 ### 2026-10-11 — saved endpoint localization unresolved; fixed point refinement
 
 Source24b74894 saved unit completed26.255s/841708KiB/zero native. The identical independently known endpoint tightened the all705 projected join from589 to686 inclusions;19 remain unresolved, with pointwise weighted bound.230086. All evidence/source/owned termination sealed under outerc42e7d37, no extension promoted. Prepare one36-phase fresh residual at the exact midpoint of that localized endpoint. Strict exact original p(h)+E containment protects the full mean-value segment; same independent polynomial defect/inverse and old endpoint parameter115/512. Reuse the successful target tube unchanged. Nine controls0.22s; fresh36-profile+36-target caps and source review before execution.
+
+### 2026-10-11T06:02 UTC — one fresh endpoint residual admitted
+
+Stability independently cleared0f599d0f math/source/binding, nine controls0.17s. Exact original-domain containment of whole known box and midpoint, same C0/C1/full-error defect authority, complete profile/point input-before-call retention and full705 join remain mandatory. Execute sole nice10CPU1 tools/launch_cubic705_endpoint_point.py after fresh host admission;36 unrelated profile plus36 native target phases,120s6GiB64MiB/owned135+5. Preserve unsuccessful saved localization and successful unjoined uniform tube. No root reacquisition or automatic retry.
