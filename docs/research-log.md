@@ -16466,3 +16466,7 @@ that adapter for root review/execution; no new native acquisition is needed.
 ### 2026-10-11 — fixed wider correlated470 caller prepared
 
 Prepared one fresh fullE affine-inverse chart[-81/256,−17/256] with unchanged signed native equations, exact independently proved right anchor, h1/8 and rho2^-12. All324 inclusive native calls and336 algebra/acquisition ticks are measured before target,240s4GiB768MiB fixed caps. Full unrelated470 proof/count and actual metadata controls pass. Source prepared pending peer review; no target acquisition.
+
+### 2026-10-11 — wider numerical output continuation prepared
+
+After the retained32-point sampled near miss, prepare one fixed tenfold output step.00025 with unchanged32-point/240-return and4536-phase limits. Every literal terminal470 coordinate and prior31 reverse joins is bound; all forward/reverse/native spectrum guards and actual crossing/.0001 stop remain. Same240s3GiB256MiB and fresh full unrelated profile. Two binding/archive controls pass in combined6-control run11.71s. No numerical target yet; sampled gap is not an interval exclusion.
