@@ -50,3 +50,11 @@ radii and parameter interval. A positive event proves the same local junction
 lies on the connected global unit-pair locus, and stops further continuation.
 Failed membership does not prove disconnection. Complementary stability and
 complete window organization remain separately audited obligations.
+
+Storage-only amendment after immutable attempt001: the complete72-call profile
+passed time18.634s/RSS267560KiB forecasts, but conservative raw68,358,460bytes
+exceeded64MiB by1,249,596bytes before any target arrays. Raise only worker raw
+capacity64→80MiB (same2MiB closing reserve), supervisor66→82MiB and use fresh
+exclusiveattempt002. Full original001 inventory is a mandatory input. All
+source/math/precision/native/time/RSS gates remain; a complete fresh profile
+still precedes target arrays. Source6de89045 and failureouter8ea83a85 retained.

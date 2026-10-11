@@ -14796,3 +14796,16 @@ stage. A saved center-uncertainty versus parameter-derivative remainder diagnosi
 will determine whether a tighter center or narrower scalar cells is appropriate;
 no blind subdivision/new acquisition follows this result. Root separately owns
 new CIFAR512 development; independent saved outcome replay is next parallel work.
+
+### 2026-10-11 — junction lift profile storage-only amendment
+
+Root independently cleared complete6de89045 caller with9controls0.36s. Current
+host51GiBavailable/no competing own native worker admitted the fixed run.
+Attempt001 stopped after72 unrelated native calls, before target arrays:
+conservative rawforecast68,358,460bytes exceeded64MiB by1,249,596bytes. Time
+18.634s andRSS267560KiB forecasts fit; actualprofile1.847s/68244KiB. Complete
+source/inventories/ownedexit verified and immutable failureouter8ea83a85 sealed.
+Prepared only80MiB worker/82MiB outer and fresh002, same2MiB closingreserve and
+all mathematical/native/time/RSS gates. Prior001 is mandatory and a new full
+profile is still required. No target run in this amendment; narrow peer recheck
+precedes retry.

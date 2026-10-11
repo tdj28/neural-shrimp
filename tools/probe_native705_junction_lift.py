@@ -13,13 +13,15 @@ from neural_shrimp.rigorous_junction_lift import sharpen_known_root,lift_known_j
 from neural_shrimp.rigorous_cusps import TwoRateCuspMap
 from neural_shrimp.rigorous_orbits import exact,eye,vector_json,ball_json,canonical_bytes
 from neural_shrimp.rigorous_eigenpair_locus import require as need
-OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/junction-lift001/attempt001/run')
+OUT=Path('/data2/neural-shrimp-data/explore/eigenpair-locus-prototype/generalized-chain/unit-pair/pal/junction-lift001/attempt002/run')
 PARENT=Path('/data2/neural-shrimp-data/audits/native-unit-pair-flip-independent/attempt002')
 SOURCE='1a991e0205cf6ddf00adb5b678a14d0f44857a49'
 PINS=['d14c91bdfc3c754a6654a8c30ffbd4b69ac59150aeea717d1426fc2b1480e952','7f0e39d8b206859914b5aabb4da063427ad81c0b9f26f836bbb6b9899d47db49']
 ORIGINAL_SOURCE='714813fa28110cbeb5fac57833c833ea19a3ed0e'
 NATIVE=['src/neural_shrimp/'+n+'.py'for n in('rigorous_cusps','rigorous_folds','rigorous_orbits','rigorous_eigenpair_locus','rigorous_unit_pair')]
-FILES=['tools/probe_native705_junction_lift.py','tools/launch_native705_junction_lift.py','tests/test_rigorous_junction_lift.py','tests/test_native705_junction_lift_driver.py','docs/plans/native705-junction-lift.md']
+FAILED=OUT.parent.with_name('attempt001')
+FAILED_OUTER='8ea83a85ac8286ddc7b14b5d3d2d705476fbf8ef9422fe64215af782d78082a1'
+FILES=['docs/reviews/native705-junction-lift-profile-failure.json','tools/probe_native705_junction_lift.py','tools/launch_native705_junction_lift.py','tests/test_rigorous_junction_lift.py','tests/test_native705_junction_lift_driver.py','docs/plans/native705-junction-lift.md']
 FILES=sorted(set(FILES+[str(Path(m.__file__).resolve().relative_to(ROOT))for m in list(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().is_relative_to(ROOT)]))
 
 def read(p):return json.loads(p.read_bytes())
@@ -29,13 +31,13 @@ def entry(p):
   while b:=f.read(1024**2):h.update(b)
  return dict(bytes=p.stat().st_size,sha256=h.hexdigest())
 def mat(rows):return arb_mat([[original_ball(v)for v in row]for row in rows])
-def settings():return dict(precision=512,period=18,profile_calls=72,target_calls=36,refinement_intersections=3,seconds=60,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=64*1024**2)
+def settings():return dict(precision=512,period=18,profile_calls=72,target_calls=36,refinement_intersections=3,seconds=60,rss_bytes=2*1024**3,as_bytes=4*1024**3,raw_bytes=80*1024**2)
 class Work:
  def __init__(self):self.start=time.monotonic();self.used=0;self.calls=0;self.serial=0;self.stage='profile'
  def check(self):need(time.monotonic()-self.start<60 and resource.getrusage(resource.RUSAGE_SELF).ru_maxrss<2*1024**2,'60s/2GiB measured worker cap')
  def tick(self):self.calls+=1;need(self.calls<=108,'72profile plus36target complete native ceiling');self.check()
  def save(self,name,value,closing=False):
-  raw=canonical_bytes(value);need(self.used+len(raw)<(64 if closing else 62)*1024**2,'64MiB with2MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
+  raw=canonical_bytes(value);need(self.used+len(raw)<(80 if closing else 78)*1024**2,'80MiB with2MiB closing reserve');p=OUT/name;p.parent.mkdir(parents=True,exist_ok=True)
   with p.open('xb')as f:f.write(raw);f.flush();os.fsync(f.fileno())
   self.used+=len(raw)
  def observe(self,k,v):self.save(f'events/{self.serial:03d}-{self.stage}-{k}.json',v);self.serial+=1;self.check()
@@ -83,7 +85,7 @@ def fixture():
 def forecast(times,sizes,peak):
  need(len(times)==len(sizes)==2 and all(v>0 for v in times+sizes)and peak>0,'two full13/18 native profile units')
  seconds=4*max(times)+15;raw=4*max(sizes)+16*1024**2;rss=2*peak+128*1024
- return dict(seconds=seconds,bytes=raw,rss_kib=rss,admitted=seconds<60 and raw<64*1024**2 and rss<2*1024**2)
+ return dict(seconds=seconds,bytes=raw,rss_kib=rss,admitted=seconds<60 and raw<80*1024**2 and rss<2*1024**2)
 
 def profile(w):
  inp,z=fixture();w.save('synthetic-inputs.json',dict(map_inputs=inp,box=vector_json(z)));times=[];sizes=[]
@@ -102,7 +104,7 @@ def main():
   for n in FILES:
    raw=(ROOT/n).read_bytes();need(raw==subprocess.check_output(['git','show',source+':'+n],cwd=ROOT),'exact committed source');p=OUT/'source'/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw);w.used+=len(raw)
   with ctx.workprec(512):
-   profile(w);root,inp=bind(w);w.stage='target';result['target_acquired']=True
+   inventory(FAILED,FAILED_OUTER,w);failure=read(FAILED/'run/outcome.json');need(not failure['passed']and failure['native_calls']==72 and failure['target_acquired']is False and not read(FAILED/'launcher-result.json')['owned_live_pids'],'retained complete72-call profile failure with no target');w.save('prior-failure-binding.json',dict(root=str(FAILED),outer=FAILED_OUTER,outcome=failure));profile(w);root,inp=bind(w);w.stage='target';result['target_acquired']=True
    box,refinement=sharpen_known_root([original_ball(v)for v in root['center']],root['box'],mat(root['preconditioner']),mat(root['value']),mat(root['whole_jacobian']),tick=w.check,observe=w.observe);w.save('known-root-refinement.json',refinement)
    flat,lift=lift_known_junction(TwoRateCuspMap(inp),box,18,tick=w.tick,observe=w.observe);w.save('native705-lift.json',lift);need(w.calls==108 and len(flat)==705 and lift['closure_contains_zero']and lift['normalization_contains_zero'],'complete conditional same-junction normalized lift')
    result.update(passed=True,status='same_independent_junction_lifted_to_native705',physical_rates_angle=vector_json(flat[-3:]),scope='Same independently certified local55 unit-pair/simpleflip junction, conditionally sharpened then freshly lifted in literal18 native phases to705 coordinates. No connection to the continued curve or extended complementary spectrum follows until full705 membership is separately proved.')
