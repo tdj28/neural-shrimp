@@ -16829,3 +16829,7 @@ Boundary independently reviewed source99257276 and reproduced all five controls2
 ### 2026-10-11T11:56:43.585761+00:00 — Adjacent-pair ordering attenuation independently confirmed
 
 All128 actual state/vector/action recurrences, exact prior qualified baseline bytes, four full15776D cases, transpose/decomposition/CE scalar identities and independently computed fsum metrics passed. Both originals retain material Epair/P1.540077 and2.535039 while Epair/Eparity .00103020412 and.00251418786 give about970.68x and397.74x attenuation. Quarter controls .96956 and1.79606 show this attenuation is not universal.2.842s132832KiB0native; all source/inventories/ownership verified. This identifies saved-trajectory adjacent-step structure relevant to finite-horizon response. It does not itself alter training or establish useful optimization.
+
+### 2026-10-11T11:59:39.202782+00:00 — Prepare exact chart32 physical-boundary hypothesis mapping
+
+Read-only metadata audit checks the original full705 cubic root/primitive/frame/positive-angle/nonsingularity certificate, both independent complementary authorities and exact22-cell union, entire known predecessor endpoint, unchanged analytic map and previously reviewed physical-boundary/compact-family lemma. No native call or new interval arithmetic. Source prepared before run and peer review; chart32 physical consequence not promoted until this mapping passes.
