@@ -15771,3 +15771,7 @@ Root source/domain review passed; six repository-local controls5.57s, actual1080
 ### 2026-10-11T10:41:00.988884+00:00 — Independent first cubic32 portion passed
 
 Four exact closed cells cover[39,55]/1024 and contain the entire previous stable chart31 endpoint projection. All eleven complementary multipliers have modulus below.991372; maximum metric remainder penalty below.955276 is a different bound and is not a multiplier estimate. Full native domains and saved central residuals independently reduced at480bits,33.962s917108KiB,zero new native calls. Exact archived source and all immutable inventory hashes/owner exits verified. Whole chart32 and later boundary coverage continue.
+
+### 2026-10-11T11:01:47.526636+00:00 — Admit independent remaining chart32 stability replay
+
+Producer adapter reviewed by root against unchanged independently authored root/tangent/point/quotient reducers. All176 dependency hashes verified; six controls13.50s including complete actual metadata with scientific decoders blocked. Admit one saved-only attempt001,1800s4GiBRSS6GiBAS256MiB,1815+5s owned supervisor,CPU1/BLAS1/nice10. Authenticate all4464 retained phases and thirty attempts, then recompute six full domains and eighteen accepted cells. Exact[55,103]/1024 union must join the independently complete[39,55]/1024 first portion and old stable projection. No new native derivatives. Source is this privately pushed admission commit.
