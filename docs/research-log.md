@@ -8291,3 +8291,22 @@ Clark passed a1a3ecb7 plus the prelaunch manifest-SHA schema correction,10 contr
 Batch002 source50fd709f completed71.675s with one connected705 chart[319,447]/4096, q.95631768/all705roots+join. Laterchart002 hasq.99346 but676/705inclusions;003/004q1.03855/1.08772, all complete253native acquisitions retained. Onlyfirstprefixadvances. Receipt native705-batch002.json.
 
 Root endorses bounded reusable8worker rotatedPAL batches after this measured limit. Preparatoryhelper localizes same endpoint fromsavedexactC/J/Taylor residual and proposes finite rotatedgauge quadratic seeds; no newproof or target now. Firstnewchart needs full projected705 membership, subsequentexactgaugejoins; nativekernel unchanged. Narrow1/128h proposed, max10batches/80charts with8CPU1/32GiB+4GiBparent/3300s/60GiBtotal and44GiBavailable. Full resource/bindingwrapper and source review pending.
+
+
+### 11 October2026 — fixed reusable rotated705 continuation packet
+
+**Run card, before execution.** Preserve complete widebatch002 partial1/4 and
+all three failed bounds. Root independently384 proved that firstwidechart and
+all705 connection to447/4096. Freeze exact source/card for at most10 batches
+of8CPU1 native705 charts, rotating finite affine gauge eachbatch to follow the
+observed turn without relying on projected floating intersections. Initial
+known endpoint is independently recomputed; every gauge transition requires
+full705 projected membership, laterjoins exactsamegauge. Unchanged253-call
+quadratic kernel,256bits,precision/period/stability scope unchanged; fixed
+halfwidth1/128,radius2^-10,weights2×wideparent. Recomputed worst measured
+forecasts before arrays and unchanged full synthetic profile bind admission.
+4GiBworker×8,4GiBparent,44GiBfreshheadroom,240sworker/255+5owned,
+330sbatch/3300stotal/60GiBraw. First failedbatch stops, every finished or
+incomplete attempt retained. No paid/GPU/holdouts. Source-only controls9PASS;
+peer wrapper review still required. Generic audit interface recorded in
+native705-rotated-march.md; precise pins in native705-rotated-inputs.json.
