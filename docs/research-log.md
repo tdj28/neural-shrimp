@@ -16674,3 +16674,7 @@ Prepare a saved-only same-box midpoint-preconditioned validated inverse refineme
 
 ### 2026-10-11 — second-junction crossing launcher preflight correction
 Stability's source review passed the saved same-box mathematical reduction and four controls, but caught malformed arithmetic constants in the untouched launcher before any launch. Replace these with named exact 1 GiB availability and 512 MiB parent-soft/3 GiB worker-hard AS constants; correct the stale signed470/258MiB messages. A subprocess regression actually applies the intended limit pair. No output directory, target arithmetic, caps change, or scientific amendment occurred. The existing strict 30s/1GiB/32MiB worker and owned45+5s/34MiB caps remain.
+
+
+### 2026-10-11 — admitted saved second-junction crossing refinement
+Question: does the unchanged same-root crossing exclude zero after validated midpoint preconditioning of section/border inverses? Stability independently cleared afb516c7 mathematics/binding and1fafde3a launcher repair, reproducing five controls2.21s. One saved-only CPU1/nice10/384bit unit,30s/1GiB/3GiBAS/32MiB; owned45+5s/34MiB. Output rigorous001/crossing001. No new native calls, no root replacement, original unresolved crossing preserved. Fresh host52GiB available, load1.72/1.84/1.96, GPU0%,15947MiB free, no own active worker. A remaining zero-containing bound is retained unresolved.
