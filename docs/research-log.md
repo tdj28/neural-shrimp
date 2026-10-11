@@ -16821,3 +16821,7 @@ All six full705 known-root, segment, polarized and true-tangent domains independ
 ### 2026-10-11T11:52:54.378956+00:00 — Entire chart32 complementary stability independently closes
 
 The exact-rational domain repair preserved all original independent root/tangent/point/quotient reducers and all exact acquired-domain gates. Full remaining005 passed18cells/all11 complementary modes at480bits,96.206s918652KiB0native. Exact closed[55,103]/1024 joins the already independent[39,55]/1024 first portion and the prior chart31 stable projection. Wholechart32 is now independently qualified. Complete source, immutable inventories and absent owners verified; original four failed attempts preserved. This unlocks reviewed33–34 producer acquisition.
+
+### 2026-10-11T11:54:39.933939+00:00 — Admit independent pair-block mechanism replay
+
+Boundary independently reviewed source99257276 and reproduced all five controls2.66s, including exact recurrence associations, full independent baseline genealogy, fsum/vector identities and separately qualified material/attenuation gates. Admit one fixed120s1GiB8MiB saved-only run with full15776 measured profile and retained cold prior audit cost. Entire native acquisitions remain shared and explicitly disclosed. New rigorous junction, wholechart32 and CIFAR/LM evidence also copied and hash-verified to separate physical disk:4322files1,144,845,452bytes, manifest0e00d306.
