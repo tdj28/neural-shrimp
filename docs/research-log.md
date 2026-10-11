@@ -7888,3 +7888,19 @@ Admit fresh004 only, all three historical failures bound. Explicit outward512
 rounding precedes final containment; exact16 Fraction intersections unchanged.
 Same zero-native120s2GiB64MiB/135+5owned. Private push/current resource check
 and source freeze precede execution; no mathematical or cap adaptation.
+
+### 2026-10-11 — independent successor endpoint004 passed
+
+One additional native6 critical tube and its same-root endpoint are now
+independently verified from saved derivatives: b=15/8192 to1/512, all51 strict
+root/join coordinates, four partner/adjacent primitive/simple+1/stable11
+contexts. Audit004 passed27.1478s/130524KiB/zero native calls; the connected
+independent prefix has31 tubes. Sixteen exact fixed-parameter intersections
+shrink coordinate widths to0.002862–0.680753 of the previous endpoint, with
+outward512 restored containment checked before lossless output. The four
+later failed bounds remain failed: the maximum normalized anchor requirement
+falls0.24428→0.16462, but no new acquisition or successor proof was made.
+All three preceding output/binding failures are retained. Complete immutable
+inventories, exact source, absent owned processes and17.93MB output verified;
+receipt clark-subset-endpoint-independent-attempt004.json. This is a local
+native6 connection and endpoint restriction, not full window organization.
