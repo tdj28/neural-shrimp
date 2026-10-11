@@ -25,14 +25,14 @@ unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
 connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
-same organizer. Fifty-nine positive-angle 705-dimensional charts, with
+same organizer. Eighty-three positive-angle 705-dimensional charts, with
 independent full-coordinate joins, extend the connected unit-pair branch
-beyond a proved interior hidden-rate minimum. The first 30 charts have
+beyond a proved interior hidden-rate minimum and critical-pair angle maximum. The first 30 charts have
 independently proved complementary stability and, by the full shooting rank
 argument, a regular attracting side and a continuous nearby attracting family.
-A fresh-center subinterval of chart 31 also has an independently proved
-11-mode bound. Producer continuation has reached the certified complex-unit/flip
-junction; its final 42 charts are undergoing independent replay. Later
+The entire first quarter of chart 31 also has an independently proved
+11-mode bound below 0.878041 on an exact 17-cell cover. Producer continuation has reached the certified complex-unit/flip
+junction; its final 18 charts are undergoing independent replay. Later
 complements and the next flip boundary remain active. On the entire original
 finite arc, independent 480-bit arithmetic proves all eleven complementary
 multiplier moduli below 0.843 using a common Lyapunov metric. Their receipts
@@ -47,7 +47,8 @@ Other exact local results include both flip types with attracting complements,
 two cusps with unstable complements, and a scalar supercritical Neimark–Sacker
 bifurcation. Separate fixed-weight RNN proofs include an attracting4D activity cycle and
 an exact12D generalized-flip organizer with a rigorously joined local critical
-curve, primitive native period6 and11 attracting complementary modes. Clark's arXiv2610.12426 is cited and its scope distinguished.
+curve and a generic fold of asymmetric native six-cycles, with primitive
+native period six and eleven attracting complementary modes. Clark's arXiv2610.12426 is cited and its scope distinguished.
 
 ## Wider experiments and open work
 

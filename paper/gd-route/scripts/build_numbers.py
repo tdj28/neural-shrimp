@@ -2321,7 +2321,20 @@ def build():
     tailbind=load(tailroot/"run/input-binding.json");assert tailbind["card"]["anchor"]["root"]==str(mroot)and tailbind["card"]["anchor"]["outer"]==c.sha256(mroot/"manifest.json")
     for i in range(1,20):
         pr=load(tailroot/f"run/chart{i:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and len(pr["root"]["coordinate_inclusions"])==705 and all(pr["root"]["coordinate_inclusions"])and pr["anchor"]["passed"]and pr["anchor"]["coordinates"]==705
-    n.add("nPALVisualCharts",59,"59",proof,extra_sources+cors+cubs+more_sources+minsources+[tailp,tailroot/"manifest.json"],"fifty-nine independently joined positive-angle full705 charts; initial704 arc excluded")
+    thirdp=c.ROOT/"docs/reviews/native705-maintained003-independent.json";third=load(thirdp);thirdroot=Path(third["root"])
+    bound_inventory(thirdroot/"manifest.json",third["inventories"][0]["manifest_sha256"])
+    tho=load(thirdroot/"run/outcome.json");assert tho==third["outcome"]and tho["passed"]and tho["connected"]and tho["connected_count"]==24 and tho["native_calls"]==0
+    thb=load(thirdroot/"run/input-binding.json");assert thb["card"]["anchor"]["root"]==str(tailroot)and thb["card"]["anchor"]["outer"]==c.sha256(tailroot/"manifest.json")
+    for i in range(1,25):
+        pr=load(thirdroot/f"run/chart{i:03d}/independent-proof.json");assert pr["passed"]and all(pr["gates"].values())and len(pr["root"]["coordinate_inclusions"])==705 and all(pr["root"]["coordinate_inclusions"])and pr["anchor"]["passed"]and pr["anchor"]["coordinates"]==705
+    angle=load(thirdroot/"run/angle-maximum.json");assert angle==tho["interior_angle_maximum"]and angle["passed"]and angle["endpoint_indices"]==[16,17,18]and all(ball_endpoints(v)[0]>0 for v in angle["gaps"])
+    n.add("nPALVisualCharts",83,"83",proof,extra_sources+cors+cubs+more_sources+minsources+[tailp,tailroot/"manifest.json",thirdp,thirdroot/"manifest.json"],"eighty-three independently joined positive-angle full705 charts, with strict interior angle maximum; initial704 arc excluded")
+    quarterp=c.ROOT/"docs/reviews/native705-fresh-quarter-independent.json";quarter=load(quarterp);qroot=Path(quarter["root"]);bound_inventory(qroot/"manifest.json",quarter["outer"]["sha256"])
+    qo=load(qroot/"run/outcome.json");assert qo==quarter["outcome"]and qo["passed"]and qo["native_calls"]==0 and qo["new_cells"]==16 and qo["total_cells"]==17 and qo["parameter_endpoints"]==["-49/2048","-17/2048"]and qo["complement_dimension"]==11
+    assert len(qo["completed_cells"])==16 and all(v["passed"]and ball_endpoints(v["modulus"])[1]<Fraction(878041,10**6)for v in qo["completed_cells"])
+    prior=load(Path(quarter["binding"]["prior"]["root"])/"run/outcome.json");assert prior["passed"]and prior["complement_dimension"]==11 and ball_endpoints(prior["complementary_modulus_upper"])[1]<Fraction(878041,10**6)
+    union=load(qroot/"run/union.json");assert union["passed"]and union["parameter_endpoints"]==qo["parameter_endpoints"]and union["total_cells"]==17
+    n.add("xFreshQuarterComplement","878041/1000000","0.878041",proof,[quarterp,qroot/"manifest.json"],"strict upward bound on all11 complementary multipliers on exact17-cell closed cover of chart31 first quarter; same root curve, not yet connected stable-prefix extension")
     freshp=c.ROOT/"docs/reviews/native705-fresh-center-independent.json";fresh=load(freshp);froot=Path(fresh["root"]);bound_inventory(froot/"manifest.json",fresh["outer"]["sha256"])
     fo=load(froot/"run/outcome.json");assert fo==fresh["outcome"]and fo["passed"]and fo["native_calls"]==0 and fo["complement_dimension"]==11 and fo["subinterval_only"]and fo["parameter_endpoints"]==["-17/1024","-1/64"]
     assert ball_endpoints(fo["complementary_modulus_upper"])[1]<Fraction(875102,10**6)
@@ -2394,6 +2407,16 @@ def build():
     brs=[brp,brr/"manifest.json"]
     n.add("xRNNBridgeContraction","148017/1000000","0.148017",proof,brs,"strict upward uniform26D critical-curve contraction bound")
     n.add("xRNNBridgeComplement","577/1000","0.577",proof,brs,"strict upward whole signed quotient-square norm bound; nativeF6 complementary attraction")
+    # Positive-amplitude critical continuation reaches the original generic native6 fold.
+    erp=c.ROOT/"docs/reviews/clark-correlated-extension-independent.json";er=load(erp);err=Path(er["root"]);bound_inventory(err/"manifest.json",er["outer"]["sha256"])
+    eo=load(err/"run/outcome.json");assert eo==er["outcome"]and eo["passed"]and eo["native_calls"]==0 and eo["range"]==["0","1/2048"]and eo["new_independent_tubes"]==2 and eo["prior_independent_tubes"]==6 and eo["endpoint_coordinate_inclusions"]==51 and eo["endpoint_memberships"]==[1]and eo["new_native_contexts"]==12
+    assert ball_endpoints(eo["leak_aa"])[1]<0
+    lo,hi=ball_endpoints(eo["leak_bb"]);assert Fraction(-15859138005,10**12)<lo<hi<Fraction(-15859138003,10**12)
+    eb=load(err/"run/input-binding.json");prp=c.ROOT/"docs/reviews/clark-correlated-prefix-independent.json";prefix=load(prp);assert eb["independent_prefix"]["root"]==prefix["root"]and eb["independent_prefix"]["outer"]==prefix["inventories"][0]["manifest_sha256"]
+    bound_inventory(Path(prefix["root"])/"manifest.json",prefix["inventories"][0]["manifest_sha256"]);assert prefix["outcome"]["passed"]and len(prefix["accepted"])==6 and prefix["outcome"]["range"]==["0","3/8192"]
+    es=[erp,err/"manifest.json",prp,Path(prefix["root"])/"manifest.json"]
+    n.add("nRNNFoldTubes",8,"8",proof,es,"six plus two independently joined full51 critical tubes from the exact organizer to squared amplitude1/2048")
+    n.add("tRNNFoldCurvature",[str(lo),str(hi)],r"[-0.015859138005,\,-0.015859138003]",proof,es,"outward-rounded independent total physical leak curvature with respect to squared amplitude, at original selected fixed gain")
     return n
 
 
