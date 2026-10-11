@@ -43,3 +43,6 @@ prepared; no target localization or new derivative acquisition is authorized by
 this note alone. Peer-review the helper and subsequent exact packet, then use a
 bounded saved stage before proposing native acquisitions. Keep the independent
 complementary outcome audit distinct from the eventual producer proof.
+
+
+The prepared correlated-complement kernel retains the variable critical frame derivative: T=F_next^-1 A F and Tprime=F_next^-1(Aprime F+A Fprime−F_next_prime T). Both physical rate tangents enter the native MixedJet total derivative. Exact orthogonal complements and metric factors are fixed cyclic proposals; all full-frame inverses and norm/Lyapunov gates are recomputed. Five synthetic controls check both-rate nonlinear mixed derivatives, an exactly cancelling variable-frame similarity, a full two-mode stable quotient, retention of center-root uncertainty, and malformed/inexact inputs. This source preparation has not acquired target derivatives; a separate fixed source/input/profile/resource packet is required.
