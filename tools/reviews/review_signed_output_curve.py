@@ -7,10 +7,19 @@ D,H,R,M,U,need=T.D,T.H,T.R,T.M,T.U,T.need
 read,acquisitions=T.read,T.acquisitions
 from neural_shrimp.rigorous_orbits import ball_json,vector_json
 
-def replay_curve(p,known,w):
- inp=read(p/'target-inputs.json');domain,proposal,grad,paths=acquisitions(p);chart=read(p/'target-certificate.json.gz');need(chart['schema']=='neural-shrimp-correlated-signed-eigenpair-v1'and chart['sigma']==-1 and chart['shooting_dimension']==470 and chart['settings']==dict(halfwidth_exponent=-18,radius_exponent=-12)and chart['parameter_endpoints']==[str(F(inp['parameter'])-F(1,2**18)),str(F(inp['parameter'])+F(1,2**18))],'literal fixed original correlated claim')
- need(chart['center']==domain['center']==proposal['center']and chart['slope']==domain['slope']==proposal['slope']and chart['curvature']==domain['curvature']==proposal['curvature']and chart['normal']==inp['normal']and chart['origin']==inp['origin']and chart['weights']==inp['weights'],'entire predictor and phase/rate/gauge proposal')
+def check_geometry(inp,chart,domain,proposal):
+ need(chart['schema']=='neural-shrimp-correlated-signed-eigenpair-v1'and chart['sigma']==-1 and chart['shooting_dimension']==470 and chart['settings']==dict(halfwidth_exponent=-18,radius_exponent=-12)and chart['parameter_endpoints']==[str(F(inp['parameter'])-F(1,2**18)),str(F(inp['parameter'])+F(1,2**18))],'literal fixed original correlated claim')
+ need(chart['center']==domain['center']==proposal['center']and chart['slope']==domain['slope']==proposal['slope']and chart['curvature']==domain['curvature']==proposal['curvature']and chart['normal']==inp['normal']and chart['origin']==inp['origin'],'entire predictor and phase/rate/gauge proposal')
+ need(len(chart['weights'])==len(inp['weights'])==470 and all(F(a)==F(b)>0 for a,b in zip(chart['weights'],inp['weights'],strict=True)),'same exact positive dyadic weights despite canonical spelling')
  need(inp['settings']==dict(period=18,sigma=-1,precision=256,newton_steps=2,halfwidth_exponent=-18,radius_exponent=-12)and inp['normal']==['0']*469+['1']and not inp['anchor_exact_parameter_used'],'literal output gauge and projected join')
+ need(all(len(chart[k])==470 for k in ('center','slope','curvature','normal','origin'))and domain['whole_box']==chart['whole_box']and domain['parameter']==chart['parameter_center']==inp['parameter']and domain['sigma']==-1,'full470 actual JSON domain/header association')
+ return True
+
+def geometry_header(p):
+ inp=read(p/'target-inputs.json');chart=read(p/'target-certificate.json.gz');paths=[list((p/'events').glob('*-target-'+kind+'.json.gz'))for kind in('signed_correlated_domain','signed_predictor_return')];need(all(len(v)==1 for v in paths),'one actual new domain/predictor event');domain,proposal=[read(v[0])for v in paths];check_geometry(inp,chart,domain,proposal);return inp,chart,domain,proposal
+
+def replay_curve(p,known,w):
+ inp,chart,domain,proposal=geometry_header(p);actual_domain,actual_proposal,grad,paths=acquisitions(p);need(actual_domain==domain and actual_proposal==proposal,'actual acquired header equality')
  need(known['dimension']==13 and known['period']==18 and known['sigma']==-1 and len(known['box'])==470,'full independently sharpened signed root')
  c,s,a=[[R.exact(M.point(v))for v in chart[k]]for k in('center','slope','curvature')];normal=[R.exact(F(v))for v in chart['normal']];origin=[R.exact(F(v))for v in chart['origin']];weights=[R.exact(F(v))for v in chart['weights']];h=R.exact(F(2)**inp['settings']['halfwidth_exponent']);rho=arb(1)/4096;d=arb(0,h);error=[R.original_ball(v)for v in domain['error']];need(all(len(v)==470 for v in(c,s,a,normal,origin,weights,error))and all(w>0 for w in weights),'all470 actual coordinates')
  for old,weight in zip(domain['error'],weights,strict=True):

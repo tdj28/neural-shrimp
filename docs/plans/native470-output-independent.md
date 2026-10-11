@@ -50,4 +50,15 @@ closure. A synthetic edge control initially used nominal1/8 instead of the
 source-constructed outward E radius; it was corrected to use the literal
 serialized domain endpoint, preserving the intended exclusion test.
 
-Root complete caller review: six controls PASS in10.06s, including actual full history metadata with interval decoders forbidden. All42 inherited source/card files match the previously reviewed independent checkout byte-for-byte. Verified original fullE mean-value domain, original exact inverse proposal with independently reassembled J, all54 point phases, all470 changed-gauge join coordinates, archive closure, complete acquisition/resource forecast and final elapsed/RSS gate. Admitted the one declared saved-only attempt; no acquisition or cap change.
+Amendment after immutable attempt001: all three independent point localizations
+passed, then a pure header equality rejected weight468 spelled `1/1` in the
+input and canonically `1` in the certificate. Require exact positive Fraction
+value equality for weights, retaining every other full predictor/gauge/domain
+association. The complete pure JSON header check now runs in metadata-only
+preflight, with the real saved chart and changed-weight/gauge/predictor controls.
+Fresh attempt002 redoes the full measured audit, preserves the complete001
+inventory/source/failed outcome and all three partial proofs, and includes its
+41.7393s actual cost as an additional forecast floor. No native/math/domain/
+resource-gate relaxation; the prior overall attempt stays failed.
+
+Root full differential review confirms only exact positive rational weight spelling normalization and earlier complete header validation; source-gauge, predictor, native assemblies, all470 root/join and original fixed-domain gates remain. Seven controls independently reproduced, including actual complete new geometry with changed-value negative controls and interval decoders blocked. Fixed attempt002 admitted with original41.739s failed audit retained; no native calls/cap change.
