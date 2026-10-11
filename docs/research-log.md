@@ -8229,3 +8229,9 @@ One saved-only diagnostic adapts the previously reviewed704 Collatz/resolvent pr
 ###2026-10-10 — saved705 diagnosis review and fixed run card
 
 Clark passed mathematics/resources and7controls0.77s atf6a09480, identified one reused-helper archive omission before any diagnostic run. Explicitly added unit_pair_conditioning.py and its tests; import-closure regression now included. Execute the sole fixed pal/attempt002-diagnosis at the following commit, zero native calls, exact failed705 source/settings/inventories,60s/4GiB/8GiBAS/16MiB and owned75+5. Host52GiB available,CPUload1.8,GPU0%/15947MiBfree,no duplicate. No mathematical acceptance follows from the numerical proposals.
+
+###2026-10-10 —705 conditioning result and fixed fresh repair proposal
+
+Saved diagnosis61e72cf1 passed4.113s/1225336KiB/zero native. Numerical Collatz interval≈.9015888057 and positive resolvent radii.01618–.34108 of old radii explain a substantial weight mismatch plus marginal domain width. Scope remains proposal-only; receipt native-unit-pair-pal-diagnosis.json.
+
+Prepare one fresh half-width705 chart[-1/4096,63/4096], same known root/gauge, exactdyadic actual radii4 times saved positive resolvent. Full253calls freshly reacquired; all mathematical gates unchanged. Actual prior cost48.379s/1.70GiB/152MB fits2×margin forecasts within unchanged240s/6GiB/10GiBAS/768MiB caps. Original synthetic byte forecast underpredicted actual compression, now explicitly superseded for resource planning by measured actual bytes. Source review and exact card before attempt003; no automatic retries.
