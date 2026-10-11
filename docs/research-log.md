@@ -14201,3 +14201,7 @@ passed18.264s541496KiB,zero nativecalls; strict exact rational validation.
 Admit24 unchanged root workers plus at most8one-shot endpoint fallbacks under
 fixed8400s8GiB caps. Record every actual physical endpoint; no turn or distant
 junction claim follows from this admission.
+
+### 2026-10-11T07:04:58.689017+00:00 — Stability-sector reading PDF verified
+
+Source4387351d yields clean48page PDF with143wordabstract.485bound quantities verified;479old values/evidence unchanged, only chart count advances34to38;five new bound quantities. All48pages visually reviewed with16/18/19details;20other figure outputs unchanged. PDF SHA2ac6ad1cf4e22599d36e9d20d24633c43129b030324b444178d41b3601562dd0, immutable finalQAmanifest188caf0e708ed395a9bf5f740fda37363139164a1adbbedd854eb1940bf799e9. Source-level independent local-sector inference review PASS. Full historical verify.py not rerun. The source states the exact local sector theorem; new minimum/continued global geometry and other research remain active. Three QA revisions preserved.
