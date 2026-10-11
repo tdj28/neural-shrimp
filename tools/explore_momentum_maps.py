@@ -15,6 +15,10 @@ Subcommands:
            state, and report its two-step multipliers; the first unit-circle crossing type is
            the answer for that ray.
   rotation-map  Rotation numbers of two-step samples of theta on a rate rectangle (CPU).
+  branch   Basin-independent version of scan: find the minimum (rate independent), locate its
+           flip on the ray exactly (largest eigenvalue of P H equal to 2 (1 + beta)), seed the
+           2-cycle from the flip eigenvector and continue it along the ray, recording its
+           two-step multipliers until (and after) the first unit-circle crossing.
 """
 
 import argparse
@@ -180,6 +184,93 @@ def rotation_map(args):
     print(json.dumps({"out": str(out), "seconds": round(time.perf_counter() - start, 1)}))
 
 
+def branch(args):
+    mm = MomentumMap(args.system, args.seed, args.beta)
+    n = mm.n
+    p0 = mm.rates(0.0, args.offset_output)[0]           # rates at s = 0 on the ray
+    # the minimum: plain gradient descent at a small rate on the ray, then Newton on the gradient
+    small = mm.rates(args.s_low, args.s_low + args.offset_output)
+    theta = mm.theta0[None, :].copy()
+    for _ in range(args.descent_steps):
+        theta = theta - small * mm.net.gradient(theta, mm.x, mm.y)
+    theta = theta[0]
+    for _ in range(20):
+        g = mm.net.gradient(theta[None, :], mm.x, mm.y)[0]
+        if np.linalg.norm(g) < 1e-13:
+            break
+        theta = theta - np.linalg.solve(mm.net.hessian(theta, mm.x, mm.y), g)
+    hess = mm.net.hessian(theta, mm.x, mm.y)
+    lam = np.linalg.eigvals(p0[:, None] * hess)
+    lam_max = float(np.max(lam.real))
+    s_flip = float(np.log10(2.0 * (1.0 + mm.beta) / lam_max))
+    record = {"args": vars(args), "minimum_gradient": float(np.linalg.norm(
+        mm.net.gradient(theta[None, :], mm.x, mm.y))), "minimum_loss": float(mm.net.loss(theta[None, :], mm.x, mm.y)[0]),
+        "lambda_max_at_s0": lam_max, "s_flip": s_flip, "minimum": theta.tolist()}
+    print(json.dumps({k: record[k] for k in ("minimum_gradient", "minimum_loss", "lambda_max_at_s0", "s_flip")}))
+    # flip eigenvector of the 2n-dimensional step Jacobian just beyond the flip
+    rows = []
+    for side in (+1, -1):
+        s = s_flip + side * args.seed_offset
+        rates = mm.rates(s, s + args.offset_output)
+        jac = mm.jacobian(theta, np.zeros(n), rates)
+        mult, vecs = np.linalg.eig(jac)
+        i = int(np.argmin(np.abs(mult + 1.0)))
+        v = np.real(vecs[:, i])
+        v /= np.linalg.norm(v)
+        found = None
+        for amp in args.amplitudes:
+            z0 = np.concatenate([theta, np.zeros(n)]) + amp * v
+            z, mono = newton_two_cycle(mm, z0, rates)
+            if z is not None:
+                t1, _ = mm.step(z[None, :n], z[None, n:], rates)
+                if np.linalg.norm(t1[0] - z[:n]) > 1e-7:
+                    found = (z, mono, amp)
+                    break
+        if found is not None:
+            record["seed_side"] = side
+            break
+    if found is None:
+        record["outcome"] = "no 2-cycle near the flip on either side"
+        print(json.dumps({"outcome": record["outcome"]}))
+    else:
+        z, mono, amp = found
+        direction = side
+        crossed = None
+        for k in range(args.steps):
+            rates = mm.rates(s, s + args.offset_output)
+            z_new, mono = newton_two_cycle(mm, z, rates)
+            if z_new is None:
+                rows.append({"s": s, "status": "Newton failed"})
+                break
+            z = z_new
+            t1, _ = mm.step(z[None, :n], z[None, n:], rates)
+            sep = float(np.linalg.norm(t1[0] - z[:n]))
+            mult = np.linalg.eigvals(mono)
+            order = np.argsort(-np.abs(mult))
+            top = mult[order[0]]
+            row = {"s": float(s), "separation": sep, "top_modulus": float(abs(top)),
+                   "top_turns": float(abs(np.angle(top)) / (2 * np.pi)),
+                   "top": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]]}
+            rows.append(row)
+            if crossed is None and abs(top) > 1.0 + 1e-9 and k > 0:
+                kind = "complex (Neimark-Sacker)" if abs(top.imag) > 1e-8 else (
+                    "real +1 (fold)" if top.real > 0 else "real -1 (flip)")
+                crossed = {"s": float(s), "type": kind, "turns": row["top_turns"]}
+                print(json.dumps({"first_crossing": crossed}))
+            if k % args.print_every == 0:
+                print(json.dumps({"s": round(s, 5), "sep": round(sep, 5), "mod": round(abs(top), 6),
+                                  "turns": round(row["top_turns"], 4)}))
+            if crossed is not None and abs(s - crossed["s"]) > args.beyond:
+                break
+            s += direction * args.ds
+        record["first_crossing"] = crossed
+    record["rows"] = rows
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "branch.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({"out": str(out / "branch.json"), "first_crossing": record.get("first_crossing")}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -206,8 +297,22 @@ def main():
     rm.add_argument("--samples", type=int, default=8000)
     rm.add_argument("--workers", type=int, default=8)
     rm.add_argument("--out", required=True)
+    br = sub.add_parser("branch")
+    br.add_argument("--system", default="S2")
+    br.add_argument("--seed", type=int, default=28011)
+    br.add_argument("--beta", type=float, required=True)
+    br.add_argument("--offset-output", type=float, default=-1.828, help="log10 output - log10 hidden on the ray")
+    br.add_argument("--s-low", type=float, default=1.0, help="small-rate point for the descent to the minimum")
+    br.add_argument("--descent-steps", type=int, default=200000)
+    br.add_argument("--seed-offset", type=float, default=2e-4)
+    br.add_argument("--amplitudes", type=float, nargs="+", default=[1e-3, 3e-3, 1e-2, 3e-2, 0.1])
+    br.add_argument("--ds", type=float, default=5e-4)
+    br.add_argument("--steps", type=int, default=800)
+    br.add_argument("--beyond", type=float, default=0.02)
+    br.add_argument("--print-every", type=int, default=20)
+    br.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "rotation-map": rotation_map}[args.command](args)
+    {"scan": scan, "rotation-map": rotation_map, "branch": branch}[args.command](args)
 
 
 if __name__ == "__main__":
