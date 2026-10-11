@@ -52,3 +52,29 @@ will follow a measured unrelated full12D profile and a committed reviewed
 input card, preserving any failed charts. A numerical path may select seeds
 and steps; only validated tubes promote connected anatomy. Repeated source
 changes or isolated numerical roots are not the objective.
+
+Source-only tube/native proof layer (11 October): general external-b mean-value
+residual is F(c,b0)+(J_predictor*v+F_b,predictor)*d, with v a finite proposal.
+The full-error Jacobian is acquired separately on p(d)+E and the complete b
+interval. Weighted contraction and all strict coordinate images are required.
+A prior known root joins at its authenticated external b, including a closed
+parameter endpoint; gain is not used as that parameter. Every coordinate and
+mode sign is preserved. Fixed-gain intersection instead solves for (U,b),
+using Jacobian columns [F_U,F_b]; its whole root box must project strictly into
+a passed connected tube.
+
+At a proved positive-b fold, leak_bb=F_last,b+F_last,U*U_b and leak_aa=4b leak_bb.
+The native mode is w+=q+2b q_b+2sqrt(b)m_b and
+w-=-q-2b q_b+2sqrt(b)m_b. Exact paired equations and leak_b=0 imply
+DF3(x+)w+=-w- and DF3(x-)w-=-w+. Odd F and DF(-x)=DF(x) allow literal
+six-phase state/derivative enclosures from two independently evaluated
+three-phase paths. At both partners and adjacent native phases, a validated
+mode/complement frame, all primitive divisors1/2/3, and strict powers of the
+11D quotient qualify the simple native+1 boundary. All contains-zero checks
+are consistency only, conditional on the actual paired root and fold equations.
+At b=0 the organizer is retained, never described as a distinct pair.
+
+Ten helper/tube controls pass, including general explicit-parameter columns,
+closed endpoint joins and wrong-root rejection, insufficient-radius retention,
+fixed-gain Jacobian/curvature, and a native fixed-point negative period control.
+No target or full-size native profile has been run.

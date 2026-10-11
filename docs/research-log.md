@@ -13769,3 +13769,22 @@ Audit source59d48aa3, raw audits/native705-rotated-independent/attempt001, outer
 ### 2026-10-10 — desingularized amplitude-fold helper preparation
 
 After exact local RNN bridge and independent two-half705 complement completed, resume root-directed joined finite window anatomy. Prepare analytic x±=m±sqrt(b)q even/odd G=-F³ equations through b=0 using entire sinh/cosh series with explicit tails and full mixed AD. Actual Clark gain multiplies J*tanh(x), never moved inside tanh. Add validated implicit leak_b=0 to25 paired equations, yielding26 regularized fold equations with external b and complete physical derivatives. Exact existing c3=0/lambda_leak authority supplies organizer identity only after caller binding; no root acquired yet. First six synthetic controls had one overstrict Arb interval-equality assertion at rational1/12; replace with denominator-scaled containment of the exact integer, not a scientific gate change. Numerical path/tube packet and independent source review remain next.
+
+### 2026-10-11 — Source-only amplitude-fold tube and native context
+
+The fixed Clark network's exact local organizer can supply a starting root
+for a connected symmetry-broken native6 fold boundary; no new boundary has
+been proved yet. Added a general external-squared-amplitude mean-value tube,
+strict complete-coordinate endpoint joins, fixed-gain intersection equations,
+physical leak curvature, and literal two-partner/adjacent-phase primitive6,
+simple+1 and11-mode complementary contraction checks. Odd-map sign reboxing
+is conditional on the exact paired root, not inferred from interval overlap.
+Ten controls pass in0.15s; no target/profile acquisition. Independent review
+of the earlier analytic helper b304bd7a passed (stability,6controls0.11s).
+The new proof layer is submitted separately before bounded wrapper design.
+
+Also source-reviewed stability's fixed24 complementary march d4d22970:
+17controls reproduced2.77s. Exact original roots/gauges, complete360 calls,
+only completed negative-metric splits, strict closed-cell unions and fixed
+48-attempt/4-worker resource and owned-cleanup gates passed. This review
+performed no target arithmetic and does not promote producer outcomes.
