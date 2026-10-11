@@ -9331,3 +9331,14 @@ stage. A saved center-uncertainty versus parameter-derivative remainder diagnosi
 will determine whether a tighter center or narrower scalar cells is appropriate;
 no blind subdivision/new acquisition follows this result. Root separately owns
 new CIFAR512 development; independent saved outcome replay is next parallel work.
+
+### 2026-10-11 — prepared saved complementary error-budget diagnosis
+
+Fixed seven saved-only scenarios for polynomial001's18 completed11x11 quotient
+phases. Separate unscaled center uncertainty from halfwidth-scaled derivative
+uncertainty; retain center error when checking narrower same-center intervals.
+Hypothetical removed-error scenarios are explicitly not proofs. No cells or
+original-endpoint coverage promoted. Zero native,30s1GiB8MiB, owned45+5s10MiB.
+Three controls passed0.62s including isolated source closure; initial interval
+comparison test corrected to compare literal ball serialization rather than
+Arb definite-real equality. No target evaluated; peer review before launch.
