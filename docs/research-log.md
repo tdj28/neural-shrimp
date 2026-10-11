@@ -7132,3 +7132,15 @@ strict51endpoint membership, native6 phases/quotient and totalphysicalcurvature
 plus original numericalphase/mode arithmetic. Zero native,512bit180s2GiB128MiB;
 15controls pass, no target reductions. Test-regex and source localname collision
 fixed before review. Peer wrapper review/card precedes sole savedattempt001.
+
+### 2026-10-11 — temporal-mean LM helper preparation, consumed development
+
+Root approved the /tmp design: test retrospective temporal-mean curvature
+sufficiency on the two exact original expanded gradient directions, with
+same-checkpoint eta/4 controls and unchanged1% transport/FD/CE qualifications.
+New helper has five synthetic controls passing0.09s, including exact combined
+1088HVP/162gradient/58CE counts; CE slopes reuse counted reference gradients.
+Native inputs/returns will be fully retained with exact-vector deduplication.
+Fixed20%/10x descriptive gate, no forecast/utility/order-causality claim and no
+native acquisition. Plan tiny-lm-temporal-mean.md. Full source-binding/profile
+caller remains to be prepared and peer reviewed before any profile.
