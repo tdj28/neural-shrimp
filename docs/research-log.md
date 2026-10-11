@@ -16595,3 +16595,7 @@ preserved. No radius/time/call quota changed. Complete immutable inventories,
 archived sources and absent owned processes verified. Next examine residual
 image versus radius and full-error contraction separately on these saved
 failures before any new geometry or budget proposal.
+
+### 2026-10-11T11:01:47.526636+00:00 — Admit independent remaining chart32 stability replay
+
+Producer adapter reviewed by root against unchanged independently authored root/tangent/point/quotient reducers. All176 dependency hashes verified; six controls13.50s including complete actual metadata with scientific decoders blocked. Admit one saved-only attempt001,1800s4GiBRSS6GiBAS256MiB,1815+5s owned supervisor,CPU1/BLAS1/nice10. Authenticate all4464 retained phases and thirty attempts, then recompute six full domains and eighteen accepted cells. Exact[55,103]/1024 union must join the independently complete[39,55]/1024 first portion and old stable projection. No new native derivatives. Source is this privately pushed admission commit.
