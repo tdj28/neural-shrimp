@@ -12235,3 +12235,17 @@ Stability independently passedefdecd12 narrow source/math recheck and5controls0.
 ###2026-10-10 — known endpoint identified inside new705 curve
 
 Endpoint source5f6c0a8a completed20.594s/1555704KiB/exact144native calls (36 unrelatedprofile+108point). Weighted Neumannbound<.096571289 and authenticated domain intersections localize the independently known704 endpoint. All705 strict projected-gauge membership coordinates pass into unchanged003uniform tube. This earns the first connected705 extension; old coarse-anchor and originalroot-bound failures remain intact. Outer73ea6f9056eece1179b48edca07839121eb8b5b23fe5b8cdd1093b773e9a5e8e; worker09fb08ac9f7dc7d2b22120f53b0656c52ab5f7975a31efe3f18c3bd18e227cac. Receipt/auditguide committed; parent owns independent705 and endpoint replay. Next prepare four pre-proposed fixed-gauge full705 charts in bounded independent CPU1 workers, then strict ordered all-coordinate endpoint joins; no unjoined chart will count as connected.
+
+### 2026-10-10: fixed007 correlated complement run card
+
+After saved704 localization006 PASS, prepare the sole common-parameter quotient
+unit described in docs/plans/unit-pair-correlated-target.md.36 unrelated native
+calls and full18×11 correlated proof profile precede arrays; then exactly36
+fresh center/whole-tangent derivatives. Original model source and both actual
+rate tangents retained; frozen005 orthogonal complement/metrics and all q/r
+frame derivatives included.240s/4GiB RSS/6GiB AS/64MiB worker,72 total calls,
+255+5s/256MiB parent/66MiB combined owned launcher. No retry/subdivision or new
+basis proposals. Mathematical source peer review and fixed wrapper review plus
+fresh host admission required before target; failures remain immutable. This
+run tests a sufficient complementary stability bound only, not whole-window
+geometry or signed NS coefficient. No target has been executed under this card.
