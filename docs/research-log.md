@@ -17591,3 +17591,17 @@ _commit `4f9aaf6d8c37` (dirty worktree)_
 Circle check (circle-check-001, tool commit 4f9aaf6d). Just below the bottom of the window's lower U fold (carried node +1-010 at log10 rates 1.82002, -0.07999) the attractor of the two-step map is a quasi-periodic circle: rotation 0.221481, 0.221888, 0.222058 at -0.003, -0.001, -0.0003 decades of hidden rate (halves agree to 2e-6 except 4.5e-5 at the closest offset; planar share 0.98; no repeats in the last 64 samples). The nine even points of the period-18 fold orbit lie on that circle: nearest-sample distances 0.007-0.016, 0.002-0.006 and 0.0007-0.0018 (attractor extent 0.72-0.73), shrinking in proportion to the offset; the odd points lie on the other circle (distances 0.26-0.72). At +0.0003 decades the trajectory locks to a period-18 orbit with rotation exactly 2/9. So the U is where the 2/9 node-saddle pair is born on the circle, with the rotation rising to 2/9 from below. Together with the 7 Oct rotation map (rotation falls from the Neimark-Sacker curve to a minimum 0.2178-0.2204 below 2/9 near log10 hidden 1.78-1.79 and rises to 2/9 at the U in every column), this indicates that the certified window is a detached component of the 2/9 resonance region, separated from the near-curve band that joins roots A and B. Confirmation map running (rotation-gap-361).
 
 _commit `4f9aaf6d8c37` (dirty worktree)_
+
+- run started 2026-10-11 21:10 UTC finished 22:02 UTC with exit status 0
+
+## 2026-10-11 22:02 UTC: run (exploratory)
+
+- **Question:** Anatomy of the 2/9 resonance around the window from the confirmation map: where is the 2/9 level set, the rotation minimum along each column, and how do they sit relative to the carried fold/flip curves?
+- **Setup:** Saved rotation-gap-361 map and combined-summary005 boundary nodes; columns -0.0830..-0.0700; minimum searched below log10 hidden 1.84 excluding chaotic cells; lock tolerance 5e-5
+- **Output:** `../neural-shrimp-data/explore/window-organization/anatomy-001`
+- **Would surprise us:** Column minima at or above 2/9, or a 2/9 locked band connecting the near-curve band to the window
+- **Command:** `.venv/bin/python tools/explore_window_organization.py figure --rotation ../neural-shrimp-data/explore/window-organization/rotation-gap-361/rotation.npz --out ../neural-shrimp-data/explore/window-organization/anatomy-001`
+
+_commit `76b5ac141f7b` (dirty worktree)_
+
+- run started 2026-10-11 22:02 UTC finished 22:02 UTC with exit status 0

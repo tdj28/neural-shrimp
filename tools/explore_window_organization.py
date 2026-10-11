@@ -139,19 +139,28 @@ def figure(args):
     ax.imshow(locked, origin="lower", extent=extent, aspect="auto", cmap="Greys", vmin=0, vmax=1.2,
               alpha=0.55, interpolation="nearest")
     # rotation minimum along each column, searched between the curve and the window
+    # rotation minimum along each column, over quasi-periodic cells (statuses
+    # unresolved/drift) between the curve and the window; cells below the curve
+    # carry transient spiral angles and chaotic cells noisy ones, so both are excluded
     minima = []
     for j in range(len(lo)):
         column = rho[:, j]
-        valid = np.isfinite(column) & (column > 0.05) & (status[:, j] != 3)
-        rows = np.where(valid & (lh < args.min_search_top))[0]
+        valid = (np.isfinite(column) & np.isin(status[:, j], (4, 5)) & (column > 0.2)
+                 & (lh < args.min_search_top))
+        rows = np.where(valid)[0]
         if len(rows) < 5:
             continue
         i = rows[np.argmin(column[rows])]
         if rows[0] < i < rows[-1]:
             minima.append((lo[j], lh[i], column[i]))
     minima = np.array(minima)
+    saddle = None
     if len(minima):
-        ax.plot(minima[:, 0], minima[:, 1], "k:", lw=1.5, label="rotation minimum along column")
+        ax.plot(minima[:, 0], minima[:, 1], "k.", ms=2, label="rotation minimum along column")
+        k = int(np.argmax(minima[:, 2]))
+        saddle = minima[k].tolist()
+        ax.plot(saddle[0], saddle[1], "kD", ms=7, mfc="none",
+                label=f"highest column minimum {saddle[2]:.5f} (rotation saddle)")
     for curve in boundary_curves(args.summary):
         colour = "tab:green" if curve["sigma"] == 1 else "tab:purple"
         ax.plot(curve["x"], curve["y"], "-", color=colour, lw=1.4)
@@ -184,10 +193,11 @@ def figure(args):
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     fig.savefig(out / "window-anatomy.png", dpi=args.dpi)
-    record = {"rotation": str(args.rotation), "summary": str(args.summary),
+    record = {"rotation": str(args.rotation), "summary": str(args.summary), "saddle": saddle,
               "column_minima": minima.tolist() if len(minima) else []}
     (out / "window-anatomy.json").write_text(json.dumps(record, indent=1))
     print(json.dumps({"out": str(out / "window-anatomy.png"), "minima_columns": int(len(minima)),
+                      "saddle": saddle,
                       "max_column_minimum": float(minima[:, 2].max()) if len(minima) else None,
                       "min_column_minimum": float(minima[:, 2].min()) if len(minima) else None}))
 
