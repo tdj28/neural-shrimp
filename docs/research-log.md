@@ -14875,3 +14875,8 @@ hypothetically also fails at original width (.527230/7.81314). Therefore width
 reduction with this same center enclosure cannot solve the current sufficient
 bound; fresh residual localization of the already proved root is needed before
 new complementary work. No scenario promotes an accepted cell or instability.
+
+Nested512 prelaunch source self-check corrected only launcher soft address-space
+ceiling514MiB to intended512MiB; a broad literal replacement while adapting the
+prior launcher had altered that integer. Worker8GiB hard envelope, all math,
+scientific and resource caps remain unchanged. No audit target/profile opened.
