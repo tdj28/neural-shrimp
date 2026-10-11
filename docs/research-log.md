@@ -9701,3 +9701,15 @@ initially selected remainder_penalty at the wrong dictionary level; corrected to
 its actual nested metric field before any receipt was written. No proof arithmetic
 or native data changed. A saved-only adapter using unchanged separately authored
 independent reducers is being prepared for root review/execution.
+
+### 2026-10-11 — source-only current512 nonlinear image diagnostic
+
+Root's independently audited regularized proposal did not improve the original
+same-start Newton result, so preparation now asks whether the retained nonlinear
+remainder can be represented in the saved512 Hessian-action image. A numerical
+helper retains all four original in-trust remainders and fits each using one fixed
+SVD/rank cutoff, reports actual action residual/physical acceleration/trust size,
+and cross-checks the fixed smallest-alpha fit against every other remainder.
+Formal predicted curved-path gradients are explicitly not actual merit evidence.
+Four synthetic controls passed0.07s. No target arrays/native evaluation; complete
+source-bound caller, full-size measured admission and peer review remain pending.
