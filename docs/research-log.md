@@ -16336,3 +16336,20 @@ load1.52/2.6TiBfree. Admit sole target001224HVP,zero gradients/CE, samefour case
 all inherited1% gates/freshchronological and transpose checks,528-vector complete
 retention,CPU1nice10/300s4GiB8GiBAS192MiB,315+5owned194MiB. All profiles remain
 retained. Original240s rejection is unchanged; no additional paths or capratchet.
+
+### 2026-10-11 — fixed full-state parity-order target positive descriptive result
+
+Changing the order of the same16 saved Jacobians exposes large reversal-even
+directional response sensitivity in both consumed original-rate cases: even
+contrast/ordered response1494.925 and1008.293; matched quarter-rate controls
+.117328 and.043843. Even/frozen-error fractions are.017564 and.191320, so this
+is not an explanation of the entire frozen error. All four inherited1%
+qualifications and new algebra/replay gates pass; fresh chronological h1/4/16
+vectors match exactly, transpose errors<1.2e-16 and decomposition<3.5e-16.
+
+Execution e8030d33 completed all224HVP in43.715630s/971284KiB, no gradients/CE.
+Exact immutable inventories and every historical source entry verified; owned
+2753340/2753432 absent. Both profiles and original240s rejection retained.
+Descriptive gate TRUE; separately authored saved arithmetic audit remains next.
+No operator-norm, basis/individual-commutator, forecast, training or geometry
+utility claim follows. See compact receipt and independent replay guide.
