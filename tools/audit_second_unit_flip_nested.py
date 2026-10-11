@@ -39,9 +39,13 @@ class Prefix:
  def check(self):self.w.check()
  def save(self,n,v,closing=False):return self.w.save(self.prefix+n,v,closing)
 
+def measured_time(elapsed_total,profile_seconds,prior):
+ need(all(isinstance(v,(int,float))and 0<v<float('inf')for v in (profile_seconds,prior['outcome']['seconds'],prior['profile']['seconds'])),'positive current and retained complete cold costs')
+ return max(elapsed_total+6*profile_seconds+15,elapsed_total+prior['outcome']['seconds']+6*max(profile_seconds,prior['profile']['seconds'])+15)
+
 def profile(w):
  inp,z=C.N.C.C.L.K.fixture();wv=[arb(i+1)for i in range(13)];scale=sum((v*v for v in wv),arb(0)).sqrt();seed=[v.mid()for v in z[:41]]+[arb(1)/100]+[(v/scale).mid()for v in wv];box=[arb(v.mid(),arb((1,-96)))for v in seed];w.save('profile-inputs.json',dict(map_inputs=inp,box=vector_json(box)));model=RetainedMap(TwoRateCuspMap(inp),w.observe);start=time.monotonic();before=w.used;v,J,_=augmented(model,box,18,w.tick);w.save('profile-evaluation.json.gz',dict(value=matrix_json(v),jacobian=matrix_json(J)));elapsed=time.monotonic()-start;size=w.used-before
- need(all(v[i,0].is_finite()for i in range(55))and all(J[i,j].is_finite()for i in range(55)for j in range(55)),'full finite55 profile');forecast=dict(seconds=time.monotonic()-w.start+6*elapsed+15,raw_bytes=w.used+6*size+16*1024**2,rss_kib=2*resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+256*1024);ok=forecast['seconds']<60 and forecast['raw_bytes']<128*1024**2 and forecast['rss_kib']<2*1024**2;w.save('profile.json',dict(passed=ok,seconds=elapsed,bytes=size,forecast=forecast,native_calls=w.calls,target_arrays_unopened=True));need(ok and w.calls==w.native==54,'complete unrelated profile before arrays')
+ need(all(v[i,0].is_finite()for i in range(55))and all(J[i,j].is_finite()for i in range(55)for j in range(55)),'full finite55 profile');forecast=dict(seconds=measured_time(time.monotonic()-w.start,elapsed,read(ROOT/CARD)['prior_failure']),raw_bytes=w.used+6*size+16*1024**2,rss_kib=2*resource.getrusage(resource.RUSAGE_SELF).ru_maxrss+256*1024);ok=forecast['seconds']<60 and forecast['raw_bytes']<128*1024**2 and forecast['rss_kib']<2*1024**2;w.save('profile.json',dict(passed=ok,seconds=elapsed,bytes=size,forecast=forecast,native_calls=w.calls,target_arrays_unopened=True));need(ok and w.calls==w.native==54,'complete unrelated profile before arrays')
 
 def binding(w,card,metadata_only=False):
  need(card['status']=='reviewed'and card['settings']==SETTINGS and card['limits']==LIMITS,'fixed reviewed nested audit')

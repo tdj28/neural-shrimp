@@ -7,3 +7,5 @@ OneCPU1/nice10 worker60s/2GiB/4GiBAS/128MiB (4MiB reserve), owned75+5s/130MiB. C
 Saved exact-rational feasibility only: original |C H(center)|≤1.505193e−89 and image correction≤0.58766×2^-96. This motivates the fixed fresh domain; it does not replace its acquisition and proof. Prepared card is unlaunchable until source review, committed admission and fresh host availability.
 
 Attempt001 completed its54-phase synthetic profile then failed before target because two inherited binders wrote the same exclusive input-binding.json. Preserve all source/raw/ownership, now mandatory. Fresh002 namespaces these receipts old-root- and numerical-; final binding remains separate. A real exclusive-file control catches collisions. No science,domain,count,precision,resource or arithmetic change.
+
+The refreshed profile also charges the full retained21.026s failed cold execution plus six times the maximum current/old54-phase profile cost, and15s allowance; this supplements rather than replaces the original forecast. The unchanged60s cap remains mandatory.
