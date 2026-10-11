@@ -11937,3 +11937,8 @@ Clark reviewed5e972c2d and7159722a, reproduced four controls and cleared causal 
 ## 2026-10-11T00:00:13.836225+00:00 — two-snapshot forecast completes with negative gate
 
 All240HVP and16 mandatory rows retained,26.576s/955444KiB, no live owned process. Expanded gradient16-step alternating errors67.4203 and1.32726 improve on latest-only7384.40 and14.8576 but remain worse than persistence2.05922 and1.18937, failing both20%accuracy and persistence-improvement gate. Random errors0.351739/0.062844 and all8-window controls retained. No threshold/direction/rate/horizon tuning. Independent saved-action arithmetic review pending. This exposes the insufficiency of a simple two-phase frozen forecast on these already consumed cases; it does not erase the independently checked changing-curvature mechanism result.
+
+
+### 2026-10-11T00:02:58.524927+00:00 — paper reading QA clarification
+
+First45-page junction/LM render compiles cleanly and439bound values verify. Contact-inspected every page and detail-inspected17/36. Move the finite-arc scope paragraph before the new separate local-junction paragraph to avoid an ambiguous referent; tighten LM heading/caption to the measured approximation failure. Preserve and seal the pre-correction QA directory; final render follows.

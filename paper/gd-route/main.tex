@@ -785,6 +785,10 @@ remains independent, giving the exact pair $e^{\pm i\sqrt t}$ for every
 $t>0$ in the interval. The derivative acquisitions and Arb library are shared
 with the producer; the assembly, series and inclusion calculations are
 separate. See \path{docs/reviews/native-unit-pair-independent-outcome.json}.
+The finite proof establishes the primitive cycle and critical pair throughout
+the stated interval. Complementary attraction is proved at the organizer and
+persists locally as above; a uniform complementary bound on the entire finite
+arc and its subsequent global continuation are distinct remaining checks.
 
 
 \paragraph{A certified complex-unit/simple-flip junction.}
@@ -801,10 +805,6 @@ strictly nested box around the original 384-bit root, establishing exact root id
 recomputing the inclusion, spectrum and crossing arithmetic. This establishes a local junction;
 its connection to the finite branch above and its nonlinear interaction coefficients require
 separate proofs. See \path{docs/reviews/native-unit-pair-flip-independent.json}.
-The finite proof establishes the primitive cycle and critical pair throughout
-the stated interval. Complementary attraction is proved at the organizer and
-persists locally as above; a uniform complementary bound on the entire finite
-arc and its subsequent global continuation are distinct remaining checks.
 
 \subsection{A local subcritical flip on the historical two-rate ray}
 \label{sec:flip-proof}
@@ -1530,7 +1530,7 @@ language-model advantage and does not exclude other useful diagnostics. See
 \path{docs/explore-tiny-lm-broader-outcome.md} and
 \path{docs/reviews/tiny-lm-broader-outcome-audit.md}.
 
-\paragraph{Changing curvature controls finite-horizon transformer response.}
+\paragraph{Frozen curvature fails to describe transformer response.}
 We next test the local approximation itself on four consumed development checkpoints: update 600 of
 both initializations and both 8/256-window arms. Each saved float32 parameter vector is promoted exactly
 to float64 and replayed for 16 updates with its original rate and regularized training objective.
@@ -1552,7 +1552,7 @@ Training windows & Measured gain & Frozen vector error & Transported vector erro
 \end{tabular}
 \caption{Gradient-direction response after 16 updates. Each entry lists the two initializations in the
 same order. Vector error is $\|p-d\|/\|d\|$ relative to the smaller-amplitude central difference.
-The initial frozen Hessian predicts large vector errors on the expanded arms while measured gains
+The frozen-derivative approximation has large errors on the expanded arms while measured gains
 remain moderate; the transported derivative matches the response.}
 \label{tab:lmresponse}
 \end{table}
