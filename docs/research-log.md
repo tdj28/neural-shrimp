@@ -16437,3 +16437,15 @@ All16 old/new controls pass14.14s, including actual complete first-independent
 metadata with scientific decoders forbidden, exact remaining union, failure
 stop, storage reserve and isolated archive closure. No profile/target opened;
 card prepared pending independent source/resource review and fresh admission.
+
+Remaining cubic32 admission: Clark independently source/binding/resource reviewed
+f9f45907 PASS, reproducing13 direct controls13.68s. Exact six-domain genealogy,
+full root and first-portion authority, unchanged reductions, complete-only metric
+splitting and inclusive caps checked without target arithmetic. Literal root
+first-independent742eb90d/outerbbd406d5/work96939382 now binds the required prior.
+Own complete16 controls14.14s and actual metadata with scientific decoders blocked
+passed before this admission. Host2026-10-11 10:48UTC52GiB available, load2.01/
+1.94/1.90; no matched duplicate worker. One CPU1/nice10 worker4GiB plus256MiB
+launcher admitted alongside other lanes' separately owned jobs. Card reviewed;
+private source checkpoint precedes fresh144-phase synthetic and full90-center
+measured admission. All research arrays remain unopened until that admission.
