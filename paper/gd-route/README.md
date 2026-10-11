@@ -13,8 +13,8 @@ record. A full native period18 branch connects the interior orbit to its canonic
 saddle-node through156forward and31reverse charts. Its normalized+1 locus then
 reaches the same independently proved generic1:1 resonance through107native
 charts and a full470-coordinate known-root membership proof. Continuous attraction is proved
-on68 adjoining closed slices, implying an attracting period18 orbit for every
-hidden learning rate in[75.605732,75.673697] at the specified fixed output rate.
+on112 adjoining closed pieces, implying an attracting period18 orbit for every
+hidden learning rate in[75.552453,75.688661] at the specified fixed output rate.
 
 A primitive18 generic1:1 resonance is independently proved at two actual learning
 rates: a single length2Jordan block at+1, eleven strictly attracting complementary
@@ -23,8 +23,7 @@ unfolding. The nonlinear sign selects subcritical invariant circles that repel
 within the center manifold. Analytic implicit-function reasoning supplies a local
 connected unit-pair branch. A separate independently audited704D shooting
 certificate now proves its finite extent t∈[0,1/32768] and attachment to the
-same organizer. Uniform finite-arc complementary stability and global boundary
-completion remain separate certificate tasks. Their independent receipts and exact coefficient
+same organizer. A separate independently proved705D quadratic chart and480-bit same-root endpoint localization extend that connected positive-unit-pair branch. Uniform finite-arc complementary stability is undergoing independent replay; global boundary completion continues. Their independent receipts and exact coefficient
 bounds are in the manuscript and `docs/reviews/`.
 
 Other exact local results include both flip types with attracting complements,
@@ -34,8 +33,7 @@ not training. Clark's arXiv2610.12426 is cited and its scope distinguished.
 
 ## Wider experiments and open work
 
-The numerical census reports61 independently cross-checked periodic windows.
-Its full census and surrounding finite-time chaos diagnostics remain numerical.
+The numerical census reports61 independently cross-checked periodic-window representatives. All28 representatives with13trainable parameters now have exact primitive attracting-cycle certificates;26 new proofs are independently reconstructed by1024-bit scalar-loss automatic differentiation on the same boxes. These are orbit proofs; connected window boundaries and surrounding chaos require their respective geometry/dynamics evidence.
 CIFAR development currently reduces a98666-parameter orbit residual without yet
 meeting the closure gate. Transformer prediction/response pilots have not shown
 incremental utility over ordinary baselines. The retained inference comparison
@@ -61,7 +59,7 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
 The broader historical `python paper/gd-route/scripts/verify.py` also regenerates
 figures and reruns its original orbit/fold/flip/scalar and32-slice checks. It does
-not yet dispatch the newer complete-branch,107-chart locus,68-slice,1:1, cusp and native-activity
+not yet dispatch the newer complete-branch,107-chart locus,112-piece,1:1, cusp and native-activity
 audits; their individually reviewed launchers and immutable receipts are cited
 explicitly. Number verification checks all newly quoted evidence bindings but is
 not a substitute for those arithmetic replays. The next full-release verifier

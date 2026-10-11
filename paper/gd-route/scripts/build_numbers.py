@@ -2069,7 +2069,10 @@ def build():
     sms=[smp]+bound_inventory(Path(sm["raw_root"])/"manifest.json",sm["manifest_sha256"])
     assert sr==load(Path(sm["raw_root"])/"result.json") and sr["comparison_qualified"] and not sr["accepted_orbit"] and sr["accepted_index"]==4
     assert sr["trials"][4]["accepted_local_step"] and not sr["direction_gate"]["old_newton_forcing_pass"]
-    label="exploratory native CIFAR residual-merit correction; native replay passed, independent outcome arithmetic pending; no accepted orbit"
+    scp=c.ROOT/"docs/reviews/cifar-saved-step-independent.json";sca=load(scp);scar=Path(sca["raw_root"])
+    sms+=[scp]+bound_inventory(scar/"manifest.json",sca["outer_manifest_sha256"])
+    assert sca["outcome"]==load(scar/"run/result.json")and sca["outcome"]["passed"]and not sca["outcome"]["closure_screen"]
+    label="exploratory native CIFAR residual-merit correction; independent saved acceptance arithmetic passed; no accepted orbit"
     n.add("xCifarSavedMeritClosure",sr["final_relative_residual"],sci(sr["final_relative_residual"],3),label,sms,"last accepted saved-direction two-step relative closure")
     n.add("xCifarShootingForcing",sr["direction_gate"]["true_forcing"],fixed(sr["direction_gate"]["true_forcing"],4),label,sms,"true eliminated Newton forcing of the retained1600MINRES direction; fixed.5gate fails")
     # Same-root local unit-pair/simple-flip junction; connectivity separate.
@@ -2113,7 +2116,52 @@ def build():
     input58=load(ar/"run/fresh-inputs.json")
     for key,macro in [("lr_hidden","xPFiftyEightHiddenRate"),("lr_output","xPFiftyEightOutputRate")]:
         value=Fraction(input58[key]);n.add(macro,str(value),fixed(float(value),8),proof,sources58,"display approximation to supplied exact dyadic physical learning rate")
-    n.add("nCertifiedOrbits",len(certificates)+4,str(len(certificates)+4),"six individually certified attracting training orbits; neutral bifurcations, same-orbit tubes and fixed-weight activity excluded",p18_sources+certificate_paths+[s1r_cert_path]+r51_sources+sources58,"two period10 plus13D periods18/36 and72D periods2/58")
+    # Every13D agreed-census representative has an exact attracting orbit proof.
+    c13p=c.ROOT/"certificates/census13-orbits-receipt.json";c13a=c.ROOT/"docs/reviews/census13-ad-independent-outcome.json"
+    c13,ac13=load(c13p),load(c13a);cp13,ca13=Path(c13["producer"]["root"]),Path(c13["independent"]["root"])
+    c13s=[c13p,c13a]+bound_inventory(cp13/"manifest.json",c13["producer"]["outer"])+bound_inventory(ca13/"manifest.json",c13["independent"]["outer"])
+    ao13=load(ca13/"run/outcome.json");assert ao13==ac13["outcome"]and ao13["passed"]and ao13["proofs_passed"]==26 and ao13["native_returned"]==1050
+    assert c13["passed"]and c13["dimension"]==13 and c13["certified_13d_representatives"]==28 and c13["new_independent_ad_certificates"]==26
+    inputbind=load(cp13/"run/input-binding.json");assert inputbind["already_proved"]==c13["reused"]and len(inputbind["all13"])==28 and [v["index"]for v in c13["new"]]==inputbind["new"]
+    periods=[];newpairs=[]
+    for row in c13["new"]:
+        idx=row["index"];ap=ca13/f"run/row-{idx}/proof.json";pp=cp13/f"run/row-{idx}/proof.json";ip=cp13/f"run/row-{idx}/inputs.json"
+        assert c.sha256(ap)==row["independent_proof_sha256"]and c.sha256(pp)==row["producer_proof_sha256"]and c.sha256(ip)==row["input_sha256"]
+        aa,bb,ii=load(ap),load(pp),load(ip)
+        assert aa["passed"]and all(aa["gates"].values())and aa["box"]==bb["box"]and aa["same_exact_original_box"]and aa["dimension"]==13 and aa["period"]==ii["period"]==row["period"]
+        assert len(aa["inclusions"])==13 and all(aa["inclusions"])and ball_endpoints(aa["contraction"])[1]<1 and ball_endpoints(aa["power_bounds"][-1]["bound"])[1]<1
+        assert [d["divisor"]for d in aa["divisors"]]==[k for k in range(1,ii["period"])if ii["period"]%k==0]and all(d["separating_coordinates"]for d in aa["divisors"])
+        periods.append(ii["period"]);newpairs.append((ii["provenance"]["map_id"],ii["lr_hidden"],ii["lr_output"]))
+    assert len(set(newpairs))==26
+    # The older separate36-cycle is not the newly certified census36 setting.
+    assert all((Fraction(row["lr_hidden"]),Fraction(row["lr_output"]))!=(Fraction(p36["exact_fixed_rates"]["hidden"]),Fraction(p36["exact_fixed_rates"]["output"]))for row in c13["new"]if row["period"]==36)
+    for row in c13["reused"]:
+        oldroot=Path(row["root"]);assert c.sha256(oldroot/"certificate.json")==row["proof"]["sha256"];old=load(oldroot/"certificate.json")["result"];assert old["passed"];periods.append(old["exact_statement"]["primitive_period"])
+    for macro,value,calc in [("nCensusThirteen",28,"all13D representatives in fixed61-way agreed census"),("nCensusThirteenNew",26,"new same-box independent scalar-loss AD proofs"),("nCensusThirteenPrecision",1024,"independent AD and interval proof precision bits")]:n.add(macro,value,str(value),proof,c13s,calc)
+    n.add("tCensusThirteenPeriods",sorted(set(periods)),", ".join(map(str,sorted(set(periods)))),proof,c13s,"all distinct certified primitive periods in complete13D representative subset")
+    def exact_map_identity(inp):
+        def normalize(v):
+            if isinstance(v,dict):return {k:normalize(a)for k,a in v.items()}
+            if isinstance(v,list):return [normalize(a)for a in v]
+            if isinstance(v,str):
+                try:return str(Fraction(v))
+                except ValueError:return v
+            return v
+        return json.dumps(normalize({k:inp[k]for k in ["network","x","y","lr_hidden","lr_output"]}),sort_keys=True)
+    previous_maps=[load(Path(z["external_root"])/"inputs.json")for z in certificates]
+    previous_maps+=[load(Path(load(c.ROOT/"certificates/s2-period18-receipt.json")["external_root"])/"inputs.json"),r51_inputs["period36"],load(Path(s1r_cert["external_root"])/"inputs.json"),input58]
+    allmaps=previous_maps+[load(cp13/f"run/row-{z['index']}/inputs.json")for z in c13["new"]]
+    assert len(allmaps)==32 and len({exact_map_identity(z)for z in allmaps})==32
+    n.add("nCertifiedOrbits",len(certificates)+4+len(c13["new"]),str(len(certificates)+4+len(c13["new"])),"individually certified attracting training settings; neutral bifurcations, same-orbit tubes and fixed-weight activity excluded",p18_sources+certificate_paths+[s1r_cert_path]+r51_sources+sources58+c13s,"six previous exact attracting settings plus26 distinct new13D census settings")
+    # Independent705 uniform curve and same-root endpoint connection.
+    palp=c.ROOT/"docs/reviews/native705-independent-outcome.json";palj=c.ROOT/"docs/reviews/native705-endpoint-independent-outcome.json"
+    pp,pj=load(palp),load(palj);prs=Path(pp["root"]);pjs=Path(pj["root"])
+    pals=[palp,palj]+bound_inventory(prs/"manifest.json",pp["outer_manifest_sha256"])+bound_inventory(pjs/"manifest.json",pj["outer_manifest_sha256"])
+    po=load(prs/"run/outcome.json");jo=load(pjs/"run/outcome.json");assert po==pp["outcome"]and jo==pj["outcome"]and po["passed"]and jo["passed"]and po["inclusions"]==jo["anchor_coordinates"]==705 and jo["connected"]
+    assert jo["parameter_endpoints"]==["-1/4096","63/4096"]and ball_endpoints(po["contraction"])[1]<Fraction(462,1000)
+    n.add("nPALUnknowns",705,"705",proof,pals,"full18phase state andtwo-mode shooting plus two physical rates and squared angle")
+    n.add("xPALContraction","231/500","0.462",proof,pals,"independent384 strict uniform weighted contraction rounded upward")
+    n.add("tPALParameter",jo["parameter_endpoints"],r"[-1/4096,\;63/4096]",proof,pals,"exact affine-gauge interval with independent480 same-root endpoint membership")
     return n
 
 

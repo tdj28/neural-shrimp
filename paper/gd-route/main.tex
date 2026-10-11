@@ -41,7 +41,7 @@ figures and drafting. The human researcher will review the evidence, authorship 
 
 \begin{abstract}
 Deterministic gradient descent can converge to long periodic orbits in neural-network parameter space.
-We give computer-assisted proofs of attracting training cycles, including a primitive period-58 orbit
+We give computer-assisted proofs of attracting training cycles at \nCertifiedOrbits{} explicit settings, including a primitive period-58 orbit
 in a nonlinear network with 72 trainable parameters. We then resolve connected bifurcation structure
 in the two-layer learning-rate plane of a 13-parameter network. Validated continuation connects an
 attracting period-18 orbit to a saddle-node and continues its $+1$-multiplier locus to a generic
@@ -75,7 +75,7 @@ ancestry test did not pass and the distant-window connection is unresolved. \\
 Training consequences & 0--1: exploratory/adapted & Small-model slices and two controlled ramp points; no
 geometry-specific advantage over a generic rate reduction. \\
 CIFAR and language-model transfer & 0: exploratory development & CIFAR orbit correction remains unresolved. Two transformer prediction pilots fail their utility gates; an independently audited perturbation experiment demonstrates failure of frozen curvature on the expanded training arms. \\
-Selected orbit certificates & 3: computer-assisted proof & Two primitive period-10 orbits and one each of primitive periods \nPEighteenPeriod{} and \nPThirtySixPeriod{} in 13 dimensions, plus primitive period-2 and period-58 orbits in 72 dimensions, all attracting for the exact-real maps; surrounding chaos and the census remain numerical. \\
+Selected orbit certificates & 3: computer-assisted proof & \nCertifiedOrbits{} explicit attracting training settings, including every \nCensusThirteen{} 13-parameter census representative and primitive periods 2 and 58 in 72 dimensions. New census certificates are independently proved by scalar-loss automatic differentiation. \\
 Local cycle bifurcations & 3: computer-assisted proof & A nondegenerate fold and both flip types with attracting complements; two local cusps have unstable complements; a generic 1:1 resonance has an attracting complement and a transverse unfolding in the actual learning rates. The central primitive branch connects to the fold, whose $+1$ locus reaches the same proved 1:1 resonance; a finite complex-unit branch is also enclosed at that same resonance. Other boundary connections remain open. \\
 Scalar bifurcation certificate & 3: computer-assisted proof & One local supercritical NS of an exact-real primitive period-2 orbit; no finite-detuning curve enclosure or global ancestry. \\
 \bottomrule
@@ -386,6 +386,20 @@ two S2 proofs. The new certificate extends the demonstrated proof dimension, wit
 scaling law or a proof of the S1R bifurcation. See \path{certificates/s1r-period2-receipt.json} and
 \path{docs/reviews/s1r72-certificate-outcome.md}.
 
+\paragraph{Complete orbit-proof coverage of the 13-parameter census subset.}
+All \nCensusThirteen{} representatives with 13 trainable parameters in the agreed numerical census
+now have attracting primitive-cycle certificates. Two reuse the existing exact proofs; the remaining
+\nCensusThirteenNew{} use the same fixed 768-bit interval settings, with no per-case adjustment.
+The certified primitive periods are $\tCensusThirteenPeriods$.
+For every new case, an independent implementation differentiates the scalar regularized loss by
+second-order automatic differentiation at \nCensusThirteenPrecision{} bits, recomputes the full gradient-descent
+map and Jacobian, and proves contraction, strict inclusion, every proper-divisor exclusion and
+monodromy-power attraction on the \emph{same exact box}. This checks both the derivative formula
+and proof reduction through separate implementations; Arb/FLINT remains a shared trusted library.
+The evidence covers the selected representative orbits. Parameter-space boundaries and connected-component
+labels are investigated separately by continuation. Exact settings, raw proofs and independent checks
+are indexed in \path{certificates/census13-orbits-receipt.json}.
+
 \paragraph{An attracting primitive period-58 training cycle.}
 The S1R map also admits an attracting orbit of minimal period \nPFiftyEightPeriod{} in all
 \nPFiftyEightDimension{} trainable coordinates. The target is the unique largest-period representative
@@ -401,8 +415,7 @@ higher-precision successor passed. An independent audit recomputed the saved int
 inclusion, divisor exclusions and power bound at \nPFiftyEightPrecision{} bits, then repeated the
 native proof at that precision with the identical dyadic center and a larger box. Exact strict
 containment in every coordinate identifies the same unique root in both proofs. The audit shares
-the analytic derivative implementation and Arb/FLINT. This promotes one census representative to a
-computer-assisted proof; other census entries retain their numerical evidence labels. See
+the analytic derivative implementation and Arb/FLINT. This promotes the highest-period agreed census representative to a computer-assisted proof. The complete 13-parameter subset is certified above. See
 \path{certificates/s1r-period58-receipt.json} and
 \path{docs/reviews/census-period58-independent-outcome.json}.
 
@@ -790,6 +803,18 @@ the stated interval. Complementary attraction is proved at the organizer and
 persists locally as above; a uniform complementary bound on the entire finite
 arc and its subsequent global continuation are distinct remaining checks.
 
+
+The branch is extended with a quadratic predictor in a fixed affine arclength gauge. Including
+$t$ as an unknown gives a \nPALUnknowns-dimensional native system; the gauge adds its final equation.
+Independent 384-bit arithmetic reconstructs every native block and the cubic Taylor remainder,
+proving strict inclusion and contraction below $\xPALContraction$ uniformly for
+$s\in\tPALParameter$. The whole segment has positive $t$, primitive period 18 and an independent
+critical frame. A separate 480-bit weighted-Neumann localization of the previously proved endpoint,
+followed by all \nPALUnknowns{} strict coordinate inclusions in the curved uniqueness tube,
+proves that this is the same connected boundary branch. The native derivative acquisitions are
+shared; the terminal series, polynomial assembly, localization and membership reductions are
+independently implemented. See \path{docs/reviews/native705-independent-outcome.json} and
+\path{docs/reviews/native705-endpoint-independent-outcome.json}.
 
 \paragraph{A certified complex-unit/simple-flip junction.}
 A separate local certificate encloses a primitive period-18 orbit at physical rates approximately
@@ -1440,9 +1465,10 @@ This uses symmetry of each Hessian; the eliminated product $DF(y)DF(x)-I$ is gen
 The retained direction's true eliminated forcing is $\xCifarShootingForcing$, which fails the
 original $\xCifarForcingLimit$ Newton gate. Acceptance therefore belongs to the explicitly
 separate actual-merit strategy and does not certify an orbit. Native maps and the retained
-derivative action replay bit-for-bit; independent saved-arithmetic review of this last step is pending.
+derivative action replay bit-for-bit; an independent saved-arithmetic audit reproduces all five trial decisions, the failed Newton gate and the accepted merit step.
 The solver comparisons and all failures remain in the linked receipts and research log.
-See \path{docs/reviews/cifar-merit-saved-independent.json} and
+See \path{docs/reviews/cifar-saved-step-independent.json},
+\path{docs/reviews/cifar-merit-saved-independent.json} and
 \path{docs/reviews/cifar-saved-shooting-merit-outcome.json}.
 The second subset remains reserved for a separately frozen test.
 
@@ -1569,6 +1595,13 @@ and an intervention that improves training, are separate tests. Complete outcome
 random directions and scalar/persistence controls, are bound in
 \path{docs/reviews/tiny-lm-response-independent.json}.
 
+A fixed follow-up uses only the first two Jacobians to extrapolate the response by alternating them,
+and compares it with repeatedly using the second Jacobian and with persistence. Both expanded-arm
+gradient cases fail the declared joint accuracy-and-improvement gate. Independent saved arithmetic
+reconstructs every acquired Hessian-vector recurrence and decision. Thus this two-snapshot approximation
+has not supplied a useful predictor for these consumed development cases; its complete negative result
+is retained in \path{docs/reviews/tiny-lm-two-snapshot-independent.json}.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -1685,8 +1718,13 @@ $\tNTwelveCubicGain$. This identifies a candidate degenerate flip of the signed
 return map, with a native $+1$ multiplier. It is not a native period-doubling
 claim: a period-2 daughter of $G$ can remain a period-6 orbit of $F$.
 The candidate needs a quintic and unfolding analysis plus interval enclosures.
-The retained failed global phase-label join and the separate successful local
-bracket are recorded in \path{docs/reviews/clark-rnn-n12-flip-cubic-outcome.json}.
+Subsequent joint continuation follows the native period-6 fold and the signed flip toward that
+bracket. Continuing the same signed orbit to both bracket endpoints and checking all six literal
+native phases resolves the earlier phase-label mismatch: each endpoint joins uniquely at phase four,
+including the transported critical eigenvector. Independent saved arithmetic checks the native
+returns, ordered Jacobian products, reverse joins and strictly opposite cubic signs. The original
+failed phase-zero comparison is retained in \path{docs/reviews/clark-rnn-n12-flip-cubic-outcome.json};
+the resolved numerical connection is in \path{docs/reviews/clark-rnn-n12-organizer-connection-001.json}.
 
 
 \paragraph{Inference is a separate question.} The training bifurcations studied above concern optimizer updates in parameter
