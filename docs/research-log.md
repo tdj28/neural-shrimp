@@ -9101,3 +9101,20 @@ inventory and originalsource/audit schema confirmed. At06:33:13UTC host
 55,106,228KiBavailable RAM,load1.42/2.97/3.48; no own duplicate worker or proof.
 Execute only fixed savedconditioning001 CPU1/180s/2GiB with full unrelated
 profile before historical scientific vectors. No new CIFAR native acquisition.
+
+#### Saved CIFAR action-space diagnostic completed
+
+Execution3c1840fa completed28.936s/668,940KiB/zero native, outerc3922ddd385d4c18246de92b8f76f89d9e5e0be380f105a54f0c62d3cd51652c;7,630,822B plus manifest,
+full immutable inventories and owned exits verified. Full unrelated profile
+5.138s forecast71.101s passed before scientific vectors. At allfour exact
+historical points, only16-column projected Ritz diagnostics qualify. At32
+columns Gram errors1.98–2.61 and at256 errors29–30 show severe basis loss of
+orthogonality; fixedSVD basis ranks141–142of256. Recombining all saved actions
+only lowers forcing from.7759–.7813 to.7673–.7734; it does not meet.5. Actual
+p/Hp fits remain excellent (relativepoint<1.9e-13,action<6.1e-11). This motivates
+a disclosed equal-action fresh reorthogonalized comparison, not repeated plain
+MINRES or automatic application of saved directions. First16 Ritz values are
+finite projected diagnostics only; no full-Hessian spectrum/condition claim.
+No action at finalstate022, stationary seed or orbit follows. Root explicitly
+authorizes preparing one fresh256-action plusfinalHp comparison atstate018,
+with independent source review and new measured card before any acquisition.
