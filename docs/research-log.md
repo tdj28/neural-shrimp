@@ -16474,3 +16474,7 @@ After the retained32-point sampled near miss, prepare one fixed tenfold output s
 ### 2026-10-11 — admit two independent bounded signed-boundary units
 
 Stability cleared correlated caller4a8286bb (four controls6.50s); Clark cleared wider numerical adaptere3e22396 (five controls5.86s). Actual host metadata preflight passed0.477s/5.073s with proof arrays forbidden;52GiB available, no owned duplicate. Admit one CPU1/4GiB correlated proof and one CPU1/3GiB numerical scout, separate immutable roots and actual profiles. Combined reservations leave shared headroom. Neither outcome known; same committed source stays frozen until both workers finish.
+
+### 2026-10-11 — new numerical unit-pair/flip bracket; unrelated proof-profile input failure
+
+Source2fb0cd3e output003 passed24points/23full470reverse joins in29.085s/2952phases. Final output bracket[.8448415103,.8450915103] has complex-pair moduli.9987615668 and1.0010721503, with simple−1 retained, hidden72.2280353→72.2372884. This is a new simultaneous unit-pair/flip candidate, distinct from the earlier real+1 sampled near miss. No exact root or interval connection claimed. Correlated proof001 stopped in its unrelated profile after145nativecalls/9.570s: full470 synthetic proof passed, but a non-dyadic interval fixture reached the exact-predictor guard for gradient timing. Target remained unopened. Correct only timing-fixture finite-midpoint conversion, retain failure and new source profile before target. Both complete source/inventory/ownership records verified immutable.
