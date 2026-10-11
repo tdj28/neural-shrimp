@@ -8962,3 +8962,20 @@ retained actual-cost floor remain unchanged. Complete24-root/8-fallback forecast
 5906.27s and6,684,982,520 bytes fits8400s/8GiB. New measured-reviewed card authorizes
 one maintained003 packet, starting from the accepted physical74.33182 endpoint
 at halfwidth1/8,strong1. Fresh host admission and owned launch follow this commit.
+
+### 2026-10-11 — maintained003 crosses the angle maximum, 24 full joins
+
+Execution ee4a9c6840a5168f23756dd3684a98380c877d56 completed all24 h1/8
+primitive18 native705 roots and all-coordinate joins in1408.94s, with no bound
+failure or endpoint fallback. Attempt24 rotated the gauge after23 reached
+q=.26058; its full projected join passed. The physical endpoint advanced from
+hidden74.33182 to81.32230±3.47e−6, output.8343117±4.64e−8,t.065743±7.26e−7.
+All24 complete331-operation workers, executed source archives, full inventories
+and owned process exits were verified. Raw1,834,055,569bytes; outer71832651.
+Receipt docs/reviews/native705-maintained003.json preserves each exact endpoint.
+Strict exact-rational ordering of t at endpoints16,17,18 proves an interior
+angle-squared maximum on the connected segment. This is a producer result,
+with no assertion of uniqueness/genericity/complementary stability; independent
+arithmetic remains separate. The distant local junction at hidden84.40797618
+is still not connected by this receipt. Next prepare its authenticated full705
+lift and an exact membership stop event in the maintained continuation engine.
