@@ -17053,3 +17053,7 @@ Root source/math review and Stability peer review passed; eight controls, includ
 ### 2026-10-11T12:19:49.893189+00:00 — All16 signed470 march charts independently complete
 
 Saved512 replay passed all470 root and known-root inequalities in every accepted chart, primitive18, and exact full-state sequence from−81/256 to−2001/256 (hiddenrate84.09157→76.59157). All23 producer attempts retained.484.493s751528KiB0native. Complete immutable inventories, exact executiona8e8b5bb source archives and absent owners verified. Exact independent endpoint now supports changed-gauge continuation toward the turn.
+
+### 2026-10-11T12:23:00.966684+00:00 — Admit independent saved fresh-curved512 correction replay
+
+Root source/math/resource review PASS; seven controls including complete actual metadata with arrays blocked. Reuses root-authored recurrence/assembly/merit helpers byte-identically. All514HVP and10gradient associations, new512basis, actualforcing/trust/firstacceptance checked; full-size unrelated profile before saved arrays.300s4GiB8GiBAS8MiBraw, zero native. Signedmarch worker is sealed and absent; reused taskowned checkout freezes for this audit.
