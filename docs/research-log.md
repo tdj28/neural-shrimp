@@ -7673,3 +7673,13 @@ saved before qualification. Original001 is a mandatory literal failure/source
 input. Twelve controls3.85s pass, including the exact dense full51 profile path,
 retention on synthetic rejection and actual historical metadata. Same180s2GiB/
 4GiBAS64MiB; source review and fresh committed admission remain before retry.
+
+### 2026-10-11 — admit reviewed inset-proposal saved screen002
+
+Stability a11ce0c1 narrow source/profile/history PASS; twelve controls4.03s
+independently reproduced. Original001 remains mandatory and immutable. Only
+floating proposal upper bound moved inward; every exact source/fullE/root/
+known-box inequality is unchanged. Admit fresh002 with repeated unrelated
+full51 profile before target proofs. Current04:53PDT52GiB available/load2.21,
+GPU0%/15947MiB/no GPU process,2.6TiB disk/no owned duplicate. Same fixed
+180s2GiB4GiBAS64MiB/195+5 owned, CPU1nice10. No new native acquisitions.
