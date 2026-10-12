@@ -20535,3 +20535,19 @@ _commit `a9ea663253d9`_
 Manual Qwen float64 CPU implementation (no repository tool imports), source bf35052990e3db9a951ba16bdb5a0ce72934ab7a, closed the saved current-map P2 fold with relative residual3.5530660586520837e-14; cached/uncached difference0. One-step FD relative errors6.58e-6,5.92e-7,6.57e-8,4.89e-9; composedP8 errors3.20e-6,2.88e-7,3.46e-8,1.62e-8 across relativeh1e-3,3e-4,1e-4,3e-5, quadratic truncation followed by rounding. This is rung2 precision evidence, not an orbit existence proof. Runtime75.98s, peakRSS5797316KiB,4threads; all output hashes checked and receipt in codex/crosscheck/receipts/profile-001.json. Batch16 estimates426s/P2 denseM and1705s/P8; amended next profile to32/128/256 within same limits. Separate four-thread fixed-entrance passage replay can run concurrently (total8). No tolerances or scientific inputs changed.
 
 _commit `bf35052990e3` (dirty worktree)_
+
+## 2026-10-12 23:01 UTC: run (exploratory)
+
+- **Question:** Can larger tangent batches reduce dense monodromy cost without changing the independent float64 map derivative?
+- **Setup:** Profile-informed Task2 exploratory throughput amendment; batches32/128/256,4threads,nice10,16GiB address-space,600s limit; compare first direction across batch sizes<1e-8; no scientific inputs/tolerances changed.
+- **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/throughput-001`
+
+_commit `46e88e1d8231`_
+
+## 2026-10-12 23:01 UTC: run (exploratory)
+
+- **Question:** Does the independent transformer reproduce all18 fixed-entrance controlled passage counts and pre-exit coordinate traces?
+- **Setup:** Task2 known-outcome cross-check: exact saved xc/r/l/U,6eps x3entrances,physicalalpha includesprefix,strict firstu>U afterG=F2,cap512G; discrete and integral predictions separate.4threads,nice10,16GiB,1800s hardlimit; with throughput job total8threads.
+- **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/passages-001`
+
+_commit `46e88e1d8231` (dirty worktree)_
