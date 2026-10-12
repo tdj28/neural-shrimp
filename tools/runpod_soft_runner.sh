@@ -144,6 +144,10 @@ case "$JOBSET" in
              run p4-foldD-$n 45 $C4 --start $P/branch-T-down --kind fold --direction $dir \
                --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldD-$n
            done ;;
+        Bminus) run p4-foldB-minus 60 $C4 --start $P/branch-T-up --kind fold --start-index 53 --direction -1 \
+             --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldB-minus ;;
+        Dminus) run p4-foldD-minus 60 $C4 --start $P/branch-T-down --kind fold --direction -1 \
+             --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldD-minus ;;
         E) for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
              run p4-flipE-$n 45 $C4 --start $P/branch-a-down --kind flip --direction $dir \
                --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-flipE-$n
