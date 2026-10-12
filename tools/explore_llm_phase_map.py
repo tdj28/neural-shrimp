@@ -281,6 +281,137 @@ def figure(xs, ys, period, attractor, entropy, keys, path, args):
     fig.savefig(path, dpi=110)
 
 
+def families(args):
+    """Group a map's attractors by the mean activation on their cycle (centred, cosine distance) and draw them."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from scipy.cluster.hierarchy import fcluster, linkage
+
+    base = DATA / "explore" / args.map
+    rec = json.loads((base / "map.json").read_text())
+    grid = np.load(base / "map.npz")
+    acts = np.load(base / "turn-activations.npy", allow_pickle=True)
+    vecs = load_vectors(rec["args"]["vectors"])
+    v1, v2 = vecs[rec["args"]["x_concept"]], vecs[rec["args"]["y_concept"]]
+    cells = rec["cells_detail"]
+    keys, reps = [], []
+    for c, a in zip(cells, acts):
+        if c["cycle"]:
+            key = tuple(c["cycle"]["texts"])
+            if key not in keys:
+                keys.append(key)
+                reps.append(np.asarray(a)[-c["cycle"]["period_turns"]:].mean(0))
+    reps = np.array(reps)
+    centred = reps - reps.mean(0)
+    unit = centred / np.linalg.norm(centred, axis=1, keepdims=True)
+    labels = fcluster(linkage(unit, method="average", metric="cosine"), t=args.threshold, criterion="distance") - 1 \
+        if len(keys) > 1 else np.zeros(len(keys), dtype=int)
+    family = np.full(grid["attractor"].shape, -1)
+    for idx in range(len(keys)):
+        family[grid["attractor"] == idx] = labels[idx]
+    coords = np.stack([reps @ v1 / np.linalg.norm(v1), reps @ v2 / np.linalg.norm(v2)], axis=1)
+    fam_list = []
+    for f in range(labels.max() + 1 if len(labels) else 0):
+        members = [i for i in range(len(keys)) if labels[i] == f]
+        fam_list.append({"family": int(f), "attractors": members, "cells": int((family == f).sum()),
+                         "example": keys[members[0]][0][:140],
+                         "steering_coordinates": coords[members].mean(0).tolist()})
+        print(json.dumps(fam_list[-1]))
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8))
+    im = axes[0].pcolormesh(grid["alpha_x"], grid["alpha_y"], np.where(family >= 0, family, np.nan), cmap="tab10",
+                            vmin=-0.5, vmax=9.5, shading="auto")
+    fig.colorbar(im, ax=axes[0], label="attractor family")
+    axes[0].set_xlabel(f"steering along '{rec['args']['x_concept']}'")
+    axes[0].set_ylabel(f"steering along '{rec['args']['y_concept']}'")
+    axes[0].set_title(f"attractor families (cosine threshold {args.threshold})")
+    sc = axes[1].scatter(coords[:, 0], coords[:, 1], c=labels, cmap="tab10", vmin=-0.5, vmax=9.5)
+    axes[1].set_xlabel(f"attractor activation along '{rec['args']['x_concept']}'")
+    axes[1].set_ylabel(f"attractor activation along '{rec['args']['y_concept']}'")
+    axes[1].set_title("attractor atlas (each point: one attractor's cycle-mean activation)")
+    fig.tight_layout()
+    fig.savefig(base / "families.png", dpi=110)
+    np.save(base / "family.npy", family)
+    (base / "families.json").write_text(json.dumps({"args": vars(args), "families": fam_list,
+                                                    "attractor_family": labels.tolist()}, indent=1, ensure_ascii=False))
+
+
+def existence(args):
+    """Minimal logit margin m_C(alpha) of each attractor's cycle over the map grid (teacher forcing).
+
+    A greedy cycle persists exactly where all its margins are positive, so {m_C > 0} is its existence region."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    base = DATA / "explore" / args.map
+    rec = json.loads((base / "map.json").read_text())
+    grid = np.load(base / "map.npz")
+    sm = SteeredModel(rec["args"]["model"], rec["args"]["layer"], args.threads)
+    torch = sm.torch
+    vecs = load_vectors(rec["args"]["vectors"])
+    v1, v2 = vecs[rec["args"]["x_concept"]], vecs[rec["args"]["y_concept"]]
+    xs, ys = grid["alpha_x"], grid["alpha_y"]
+    steer_rows = np.array([x * v1 + y * v2 for y in ys for x in xs])
+    system = ela.PROMPTS[rec["args"]["prompt"]]
+    window = rec["args"]["window"]
+    cells = rec["cells_detail"]
+    attractors = {}
+    for c in cells:                                          # one representative cell per attractor
+        if c["cycle"] and tuple(c["cycle"]["texts"]) not in attractors:
+            attractors[tuple(c["cycle"]["texts"])] = c
+    keys = list(attractors)[:args.max_attractors]
+    margin_maps = []
+    for key in keys:
+        c = attractors[key]
+        transcript = [rec["args"]["opener"]] + [t["text"] for t in c["turns"]]
+        period = c["cycle"]["period_turns"]
+        m_all = np.full(len(steer_rows), np.inf)
+        for k in range(len(c["turns"]) - period + 1, len(c["turns"]) + 1):
+            messages = ela.window_messages(system, transcript[:k], (k - 1) % 2, window)
+            prompt = sm.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
+            p_ids = sm.tok(prompt, add_special_tokens=False)["input_ids"]
+            t_ids = sm.tok(transcript[k], add_special_tokens=False)["input_ids"] + [sm.tok.convert_tokens_to_ids("<|im_end|>")]
+            ids = torch.tensor([p_ids + t_ids])
+            for start in range(0, len(steer_rows), args.batch):
+                rows = steer_rows[start:start + args.batch]
+                sm.steer = torch.as_tensor(rows)[:, None, :]
+                try:
+                    with torch.no_grad():
+                        z = sm.model(ids.repeat(len(rows), 1)).logits[:, len(p_ids) - 1:len(p_ids) - 1 + len(t_ids)]
+                finally:
+                    sm.steer = None
+                z = z.double()
+                y = torch.tensor(t_ids)
+                z_y = z[:, torch.arange(len(t_ids)), y]
+                z_other = z.clone()
+                z_other[:, torch.arange(len(t_ids)), y] = -torch.inf
+                gap = (z_y - z_other.max(-1).values).min(-1).values.numpy()
+                m_all[start:start + len(rows)] = np.minimum(m_all[start:start + len(rows)], gap)
+        margin_maps.append(m_all.reshape(len(ys), len(xs)))
+        print(json.dumps({"attractor": key[0][:100], "period": period,
+                          "existence_fraction": float((margin_maps[-1] > 0).mean()),
+                          "margin_at_origin": float(margin_maps[-1][len(ys) // 2, len(xs) // 2])}))
+    margin_maps = np.array(margin_maps)
+    np.save(base / "existence-margins.npy", margin_maps)
+    fig, ax = plt.subplots(figsize=(7, 5.6))
+    att = grid["attractor"]
+    ax.pcolormesh(xs, ys, np.where(att >= 0, att, np.nan), cmap="tab20", vmin=-0.5, vmax=19.5, shading="auto",
+                  alpha=0.55)
+    colours = plt.cm.tab20(np.linspace(0, 1, 20))
+    for i, m in enumerate(margin_maps):
+        if np.nanmin(m) < 0 < np.nanmax(m):
+            ax.contour(xs, ys, m, levels=[0.0], colors=[colours[i % 20]], linewidths=2)
+    ax.set_xlabel(f"steering along '{rec['args']['x_concept']}'")
+    ax.set_ylabel(f"steering along '{rec['args']['y_concept']}'")
+    ax.set_title("reached attractor (colour) and existence boundaries m_C = 0 (lines)")
+    fig.tight_layout()
+    fig.savefig(base / "existence.png", dpi=110)
+    (base / "existence.json").write_text(json.dumps({"args": vars(args), "attractors": [k[0][:200] for k in keys],
+                                                     "existence_fraction": [float((m > 0).mean()) for m in margin_maps]},
+                                                    indent=1, ensure_ascii=False))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -307,8 +438,17 @@ def main():
     mp.add_argument("--x-range", type=float, nargs=2, default=[-1.0, 1.0])
     mp.add_argument("--y-range", type=float, nargs=2, default=[-1.0, 1.0])
     mp.add_argument("--resolution", type=int, nargs=2, default=[9, 9], help="rows (y) and columns (x)")
+    fm = sub.add_parser("families")
+    fm.add_argument("--map", required=True, help="explore-relative folder of a map run")
+    fm.add_argument("--threshold", type=float, default=0.5, help="cosine-distance cut for grouping attractors")
+    ex = sub.add_parser("existence")
+    ex.add_argument("--map", required=True)
+    ex.add_argument("--threads", type=int, default=8)
+    ex.add_argument("--batch", type=int, default=27)
+    ex.add_argument("--max-attractors", type=int, default=12)
     args = parser.parse_args()
-    {"vectors": vectors_cmd, "calibrate": calibrate, "map": phase_map}[args.command](args)
+    {"vectors": vectors_cmd, "calibrate": calibrate, "map": phase_map, "families": families,
+     "existence": existence}[args.command](args)
 
 
 if __name__ == "__main__":
