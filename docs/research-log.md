@@ -20653,3 +20653,13 @@ _commit `2dccaa18386c` (dirty worktree)_
 Primary records now checked: Kim arXiv2608.26556v1 derives fold normal-form coefficients and parameter-free passage amplitudes in a custom sign-task looped transformer; this precludes a broad first transformer-inference fold/passage mechanism claim. Liu et al. arXiv2609.38814 uses transformers trained from scratch on dynamical-system trajectories (cascade details under review); Ribeiro et al. AISTATS2020 PMLR108/ribeiro20a studies attractor/bifurcation dynamics including LSTM language modeling. For behavioral lead time, Ashok and May NeurIPS2025 predicts behavior from input representations before generation; Persona Vectors2507.21509 section3.3 is pre-response prediction, and Assistant Axis2601.10387 studies conversational drift and activation capping. docs/related-work-draft.md records primary links and interim claim consequences. Manuscript integration remains Claude-owned. No claim of exhaustive priority, new experiment or paid review.
 
 _commit `3c5597365b0d` (dirty worktree)_
+- run started 2026-10-12 23:02 UTC (../neural-shrimp-data/explore/llm-msm/p1-dry-a{0.02,0.04,0.08} and llm-msm/t0.7-free/hostility.*) finished 23:40 UTC with exit status 0
+
+## 2026-10-12 23:47 UTC: run (exploratory)
+
+- **Question:** Misalignment proxy P1, phase 2 (exploratory): capture of sampled Qwen2.5-0.5B self-dialogue into hostility along the dose ladder around the threshold found in phase 0 (none at 0.02, intermittent at 0.04, imposed at 0.08); specificity controls at matched norms; held-out replicates for the later lead-time analysis.
+- **Setup:** RunPod H100, job set p1ladder (commit e4bafee2): explore_llm_msm sample on cuda float32, 128 replicas x 40 turns, T 0.7, opener 'Hello!', open prompt, window 7, 60 new tokens; vectors llm-phase-map/vectors-l12-p1b. Arms NAME:CONCEPT:ALPHA:SEED: free:hostility-vs-kindness:0:1, h040/h050/h060/h070 (hostility-vs-kindness 0.04-0.07, seed 1), h050s2/h060s2 (seed 2, held out), r1-060/r1-080 (random1), r2-080 (random2), ck-060/ck-080 (cooking). Then locally: tools/hostility_score.py score (toxic > 0.5), explore_llm_msm build, committor and lead-time analysis (code to be written before looking at the held-out seed-2 arms).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-*`
+- **Would surprise us:** no dynamical capture at any dose (all-or-nothing: no turns-later entries between 0.04 and 0.07); random or cooking directions at 0.06-0.08 producing toxicity comparable to hostility (then the hostility is a generic breakdown under strong steering, not direction-specific)
+
+_commit `e4bafee2499e` (dirty worktree)_
