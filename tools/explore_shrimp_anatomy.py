@@ -35,6 +35,10 @@ makes that statement concrete in network terms at chosen rates:
           near the cycle's centre, in the cycle's own principal plane. Meant
           to tell rotation-born windows from period-doubling (Henon-type)
           windows, for example for odd periods.
+  lyapunov  Full Lyapunov spectrum (QR iteration with exact step Jacobians)
+          and Kaplan-Yorke dimension of the attractor at given rates, plus the
+          principal-plane share of its two-step samples: is post-edge training
+          effectively a low-dimensional (near two-dimensional) map?
 """
 
 import argparse
@@ -393,6 +397,42 @@ def window(args):
     print(json.dumps({k: v for k, v in record.items() if k not in ("loss", "newton")}, indent=1))
 
 
+def lyapunov(args):
+    net, x, y, theta0 = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    rows = []
+    for lx, ly in args.points:
+        p = [lx, ly]
+        theta = f.iterate(theta0, p, args.transient)
+        q = np.eye(f.n)
+        sums = np.zeros(f.n)
+        samples = []
+        for k in range(args.steps):
+            _, jac, _ = f.step_jac(theta, p)
+            theta = f.step(theta, p)
+            q, r = np.linalg.qr(jac @ q)
+            sums += np.log(np.abs(np.diag(r)))
+            if k % 2 == 0 and len(samples) < 4000:
+                samples.append(theta.copy())
+        lam = np.sort(sums / args.steps)[::-1]
+        cum = np.cumsum(lam)
+        j = int(np.max(np.where(cum >= 0)[0])) if np.any(cum >= 0) else -1
+        ky = float(j + 1 + cum[j] / abs(lam[j + 1])) if 0 <= j < len(lam) - 1 else (0.0 if j < 0 else float(len(lam)))
+        smp = np.array(samples)
+        c = smp - smp.mean(axis=0)
+        sv = np.linalg.svd(c, compute_uv=False)
+        row = {"lx": lx, "ly": ly, "lyapunov": lam.tolist(), "kaplan_yorke": ky,
+               "plane_share_two_step": float((sv[:2] ** 2).sum() / (sv ** 2).sum()),
+               "three_share_two_step": float((sv[:3] ** 2).sum() / (sv ** 2).sum())}
+        rows.append(row)
+        print(json.dumps({"rates": [lx, ly], "top3": [round(v, 5) for v in lam[:3]], "kaplan_yorke": round(ky, 3),
+                          "plane_share": round(row["plane_share_two_step"], 4),
+                          "three_share": round(row["three_share_two_step"], 4)}))
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "lyapunov.json").write_text(json.dumps(rows, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -425,8 +465,14 @@ def main():
     wi.add_argument("--transient", type=int, default=60000)
     wi.add_argument("--descend-shift", type=float, default=1.0, help="decades below the window for the minimum")
     wi.add_argument("--out", required=True)
+    ly_ = sub.add_parser("lyapunov")
+    ly_.add_argument("--points", type=float, nargs=2, action="append", required=True, metavar=("LX", "LY"))
+    ly_.add_argument("--transient", type=int, default=40000)
+    ly_.add_argument("--steps", type=int, default=40000)
+    ly_.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window}[args.command](args)
+    {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window,
+     "lyapunov": lyapunov}[args.command](args)
 
 
 if __name__ == "__main__":

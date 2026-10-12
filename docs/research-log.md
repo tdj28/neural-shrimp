@@ -18284,3 +18284,63 @@ _commit `a08068855b43` (dirty worktree)_
 slips-001/002 (explore_shrimp_anatomy slips): at rates below the U-bottom fold by eps decades of hidden rate, training is nearly 18-periodic (|theta_{t+18}-theta_t| < 0.05 for 96-99.8% of steps) with phase slips. Steps per slip (laminar phases of at least 36 steps): 668, 1363, 2492, 4678, 8247, 15686 for eps = 1e-3, 3e-4, 1e-4, 3e-5, 1e-5, 3e-6; log-log slope -0.539 over all points, -0.525 over the three smallest, approaching the saddle-node value -0.5. The mean training loss is unchanged (0.0085). So near a shrimp's fold edge, training looks periodic for thousands of steps and slips at a rate proportional to the square root of the distance to the edge.
 
 _commit `a08068855b43` (dirty worktree)_
+
+## 2026-10-12 00:16 UTC: run (exploratory)
+
+- **Question:** What organizes census window S2-28011 component 168 (period 5)? Multipliers, layer composition, loss along the cycle, and winding around the minimum and a nearby 2-cycle (rotation-born versus period-doubling window)
+- **Setup:** explore_shrimp_anatomy window at the census representative rates (log10 hidden 2.7298585535852284, output -0.647470724210714), period 5; minimum from descent 1 decade below along the same ratio
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/window-S228011-168`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py window --lx -0.647470724210714 --ly 2.7298585535852284 --period 5 --out ../neural-shrimp-data/explore/shrimp-anatomy/window-S228011-168`
+
+_commit `f4e7aa66aabf`_
+
+## 2026-10-12 00:16 UTC: run (exploratory)
+
+- **Question:** What organizes census window S2-28011-zoom component 1107 (period 17)? Multipliers, layer composition, loss along the cycle, and winding around the minimum and a nearby 2-cycle (rotation-born versus period-doubling window)
+- **Setup:** explore_shrimp_anatomy window at the census representative rates (log10 hidden 2.0564098799981463, output -0.43173831359941073), period 17; minimum from descent 1 decade below along the same ratio
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/window-S228011zoom-1107`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py window --lx -0.43173831359941073 --ly 2.0564098799981463 --period 17 --out ../neural-shrimp-data/explore/shrimp-anatomy/window-S228011zoom-1107`
+
+_commit `f4e7aa66aabf`_
+
+## 2026-10-12 00:16 UTC: run (exploratory)
+
+- **Question:** What organizes census window S2-28011-zoom component 751 (period 16)? Multipliers, layer composition, loss along the cycle, and winding around the minimum and a nearby 2-cycle (rotation-born versus period-doubling window)
+- **Setup:** explore_shrimp_anatomy window at the census representative rates (log10 hidden 1.9319808142542017, output -0.2672631117539666), period 16; minimum from descent 1 decade below along the same ratio
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/window-S228011zoom-751`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py window --lx -0.2672631117539666 --ly 1.9319808142542017 --period 16 --out ../neural-shrimp-data/explore/shrimp-anatomy/window-S228011zoom-751`
+
+_commit `f4e7aa66aabf`_
+
+## 2026-10-12 00:16 UTC: run (exploratory)
+
+- **Question:** What organizes census window S2-28011 component 122 (period 13)? Multipliers, layer composition, loss along the cycle, and winding around the minimum and a nearby 2-cycle (rotation-born versus period-doubling window)
+- **Setup:** explore_shrimp_anatomy window at the census representative rates (log10 hidden 2.2592703182911107, output -0.6592354300930671), period 13; minimum from descent 1 decade below along the same ratio
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/window-S228011-122`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py window --lx -0.6592354300930671 --ly 2.2592703182911107 --period 13 --out ../neural-shrimp-data/explore/shrimp-anatomy/window-S228011-122`
+
+_commit `f4e7aa66aabf`_
+
+## 2026-10-12 00:16 UTC: run (exploratory)
+
+- **Question:** What organizes census window S2-28011 component 132 (period 11)? Multipliers, layer composition, loss along the cycle, and winding around the minimum and a nearby 2-cycle (rotation-born versus period-doubling window)
+- **Setup:** explore_shrimp_anatomy window at the census representative rates (log10 hidden 2.353387965349934, output -0.5533530771518905), period 11; minimum from descent 1 decade below along the same ratio
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/window-S228011-132`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py window --lx -0.5533530771518905 --ly 2.353387965349934 --period 11 --out ../neural-shrimp-data/explore/shrimp-anatomy/window-S228011-132`
+
+_commit `f4e7aa66aabf`_
+
+- run started 2026-10-12 00:16 UTC finished 00:16 UTC with exit status 0
+
+- run started 2026-10-12 00:16 UTC finished 00:16 UTC with exit status 0
+
+- run started 2026-10-12 00:16 UTC finished 00:16 UTC with exit status 0
+
+- run started 2026-10-12 00:16 UTC finished 00:16 UTC with exit status 0
+
+- run started 2026-10-12 00:16 UTC finished 00:16 UTC with exit status 0
