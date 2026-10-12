@@ -19302,3 +19302,31 @@ _commit `d0166af8282f` (dirty worktree)_
 vectors-l12: contrastive last-token differences at layer 12 have raw norm about 8.1, rescaled to the mean residual norm (about 200 and 189, inflated by a few massive activation dimensions); cosine between the two directions 0.57. calibrate-l12-gratitude and -philosophy (alpha 0, 0.25, 0.5, 1, 2, 4; greedy self-dialogue, 16 turns): alpha 0 gives the greeting loop; from alpha 0.25 on, both directions produce degenerate token repetition ('I! I! I!', '???', 'words words', single characters). The usable range is |alpha| of order 0.1 (about 2.5 raw differences); fine calibration follows.
 
 _commit `9cfe2914dd13` (dirty worktree)_
+
+## 2026-10-12 04:18 UTC: run (exploratory)
+
+- **Question:** Fine steering calibration: over |alpha| <= 0.12 (residual-norm units) along 'gratitude' and 'philosophy', which attractors does the greedy self-dialogue reach, where does it change, and where does text stay coherent?
+- **Setup:** explore_llm_phase_map calibrate, alphas -0.12 -0.08 -0.04 0 0.02 0.04 0.06 0.08 0.1 0.12 per concept in one batch, open prompt, opener 'Hello!', 16 turns, window 7, 60 new tokens, 8 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/llm-phase-map/calibrate-fine-l12-{gratitude,philosophy}`
+- **Would surprise us:** Same attractor over the whole coherent range
+- **Command:** `bash -c for c in gratitude philosophy; do OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py calibrate --vectors llm-phase-map/vectors-l12 --concept $c --alphas -0.12 -0.08 -0.04 0 0.02 0.04 0.06 0.08 0.1 0.12 --turns 16 --out llm-phase-map/calibrate-fine-l12-$c 2>&1 | grep -v -i -e warn -e Loading; done`
+
+_commit `8fcec1616360`_
+
+## 2026-10-12 04:19 UTC: run (exploratory)
+
+- **Question:** Under a shuffled context order, does the chunk-3 memory keep its rotation with phase diffusion, or is the rotation destroyed? (The scan's own-plane rotation measure fell to random-walk level, which may be a plane-choice artifact.)
+- **Setup:** explore_inference_memory noise-phase at the moving cell (log10 theta_h 1.85017, theta_o -0.08085), context 24, chunk 3, scaled, coupled decay 1e-3: fixed-order orbit (60000 transient, 4096 passes) defines the circle plane; shuffled run (seed 1) projected on it: mean turns per pass, angle diffusion, radius, variance fraction in the plane, spectral peak
+- **Output:** `../neural-shrimp-data/explore/inference-memory/noise-phase-chunk3`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py noise-phase --context 24 --chunk 3 --scale-by-chunk --coupled-decay 1e-3 --log-theta 1.85017 --log-theta-o -0.08085 --transient 60000 --shuffle-seed 1 --out inference-memory/noise-phase-chunk3`
+
+_commit `2a7dc83854d5` (dirty worktree)_
+
+- run started 2026-10-12 04:19 UTC finished 04:20 UTC with exit status 0
+
+## 2026-10-12 04:20 UTC: Context-order noise destroys the chunk-3 memory's invariant circle and its tongues (at this step size)
+
+window-chunk3-scaled-shuffled (chunks applied in a fresh random order each pass, seed 1; window box 60x60): all 3600 cells non-periodic, none divergent; own-plane rotation 0.01-0.03 per two passes (random-walk level) against 0.33-0.37 with fixed order; median extent 0.133 against 0.131. noise-phase-chunk3 at the moving cell (log10 theta_h 1.85017, theta_o -0.08085), 4096 passes: fixed order - orbit 99.9% planar (singular values 0.130, 0.050, 0.004, 0.0016), rotation -0.1754 turns per pass, spectral peak 0.1755, no angle diffusion; shuffled order projected on the fixed circle's plane - only 17% of the variance in that plane, own singular values 0.130, 0.094, 0.073, 0.058 (at least four-dimensional), mean rotation -4.5e-5 turns per pass, radius about the circle's centre 0.26 against 0.13, weak spectral peak at 0.139. So reshuffling eight large-step updates per pass is a strong noise: the memory still moves over a set of comparable size but loses the planar circle, the coherent rotation and the locked tongues. One cell and one noise level; next, a tunable noise strength (e.g. probability of shuffling, or small additive noise) to find where rotation and locking are lost and how phase diffusion scales - the same question as minibatch noise in training.
+
+_commit `2a7dc83854d5` (dirty worktree)_
