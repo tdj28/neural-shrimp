@@ -144,6 +144,10 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     With chord=True the corrector keeps the extended Jacobian of the last accepted point and evaluates only the
     residual and g at each iterate, g by GMRES on the bordered system with Jacobian-vector products, preconditioned
     by the last point's factorized bordered matrix; the dense monodromy is computed once per accepted point.
+    Set gmres_tol to the accuracy the JVPs can reach (about 1e-6 with float32 derivatives): a tolerance below it
+    is never met, so every GMRES call runs to its full restart * maxiter products. Each record counts the JVPs
+    spent since the previous point ('jvps'), the GMRES calls that stopped short of gmres_tol
+    ('gmres_unconverged') and the rejected steps ('rejected').
     """
     if kind not in ("fold", "flip"):
         raise ValueError(f"kind must be fold or flip, not {kind}")
@@ -152,6 +156,7 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     x0 = np.asarray(x0, dtype=np.float64).ravel()
     s = float(np.linalg.norm(x0)) or 1.0
     I = np.eye(n)
+    cost = {"jvps": 0, "gmres_unconverged": 0, "rejected": 0}
 
     def system(z, b, c):
         x, th = z[:n] * s, z[n:]
@@ -199,6 +204,7 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
         x, th = z[:n] * s, z[n:]
 
         def mv(y):
+            cost["jvps"] += 1
             y = np.asarray(y).ravel()
             Av = family.jvp_x(x, th, y[:n]) + sign * y[:n]
             return np.concatenate([Av + y[n] * b, [c @ y[:n]]])
@@ -208,6 +214,7 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
         y, info = gmres(LinearOperator((n + 1, n + 1), matvec=mv, dtype=np.float64), rhs,
                         M=LinearOperator((n + 1, n + 1), matvec=lambda r: lu_solve(lu, r), dtype=np.float64),
                         rtol=gmres_tol, restart=30, maxiter=4)
+        cost["gmres_unconverged"] += int(info != 0)
         return float(y[n])
 
     def correct_chord(z0, row, rhs_fn, J0, b, c, lu):
@@ -261,6 +268,8 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
                "parameter_tangent": [float(t[n]), float(t[n + 1])],
                "parameter_speed": float(np.linalg.norm(t[n:])),
                "cusp_candidate": bool(t_prev is not None and float(t[n:] @ t_prev[n:]) < 0)}
+        rec.update(cost)
+        cost.update(jvps=0, gmres_unconverged=0, rejected=0)
         rec.update(multiplier_summary(vals, kind, k))
         records.append(rec)
         states.append(z[:n] * s)
@@ -278,6 +287,7 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
             zn, Jn, Mn, v, w, rel, gabs, its = correct(zp, b, c, t, lambda y: float(t @ (y - zp)))
         tn = None if zn is None else tangent(Jn, t)
         if zn is None or float(tn @ t) < 0.5:              # not converged, or jumped onto another branch
+            cost["rejected"] += 1
             ds *= 0.5
             if ds < ds_min:
                 reason = f"step below {ds_min} (last residual {rel:.3g}, |g| {gabs:.3g})"

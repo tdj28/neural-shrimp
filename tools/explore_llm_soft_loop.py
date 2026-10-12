@@ -540,9 +540,14 @@ def branch(args):
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
 
+    progress = out / "progress.jsonl"                           # readable while the run is going
+    progress.write_text("")
+
     def on_point(rec):
-        print(json.dumps({k: v for k, v in rec.items() if k != "multipliers"} | {"leading": rec["multipliers"][:3]}),
-              flush=True)
+        line = json.dumps({k: v for k, v in rec.items() if k != "multipliers"} | {"leading": rec["multipliers"][:3]})
+        print(line, flush=True)
+        with progress.open("a") as fh:
+            fh.write(f"{time.strftime('%H:%M:%S', time.gmtime())} {line}\n")
 
     tic = time.perf_counter()
     free = 0 if args.free == "temperature" else 1
@@ -597,11 +602,17 @@ def curve(args):
         rec["log10_temperature"], rec["alpha"] = rec["theta"][0], rec["theta"][1] / sc
         return rec
 
+    progress = out / "progress.jsonl"                           # readable while the run is going
+    progress.write_text("")
+
     def on_point(rec):
         r = readable(rec)
-        print(json.dumps({k: r[k] for k in ("index", "log10_temperature", "alpha", "residual", "g", "newton",
-                                            "critical_multiplier", "other_spectral_radius", "parameter_speed",
-                                            "cusp_candidate")}), flush=True)
+        line = json.dumps({k: r[k] for k in ("index", "log10_temperature", "alpha", "residual", "g", "newton",
+                                             "jvps", "gmres_unconverged", "rejected", "critical_multiplier",
+                                             "other_spectral_radius", "parameter_speed", "cusp_candidate")})
+        print(line, flush=True)
+        with progress.open("a") as fh:
+            fh.write(f"{time.strftime('%H:%M:%S', time.gmtime())} {line}\n")
 
     tic = time.perf_counter()
     bounds = ((args.log_temperature_bounds[0], args.log_temperature_bounds[1]),
@@ -609,7 +620,7 @@ def curve(args):
     records, reason, curve_states = bc.trace_curve(
         fam, x0, [log_t0, alpha0 * sc], kind, fix=fix, direction=args.direction, steps=args.steps, ds=args.ds,
         ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, gtol=args.gtol, max_newton=args.max_newton,
-        bounds=bounds, on_point=on_point)
+        bounds=bounds, on_point=on_point, gmres_tol=args.gmres_tol)
     rec = {"args": vars(args), "kind": kind, "period": period, "start": {"tline_index": index,
            "log10_temperature": log_t0, "alpha": alpha0}, "stop": reason,
            "seconds": round(time.perf_counter() - tic, 1), "points": [readable(r) for r in records]}
@@ -1065,6 +1076,8 @@ def main():
     cv.add_argument("--tol", type=float, default=1e-10)
     cv.add_argument("--gtol", type=float, default=1e-4, help="float32 monodromies make g accurate to about 1e-5")
     cv.add_argument("--max-newton", type=int, default=8)
+    cv.add_argument("--gmres-tol", type=float, default=1e-6,
+                    help="relative GMRES tolerance for g; float32 JVPs cannot reach much below 1e-6")
     cv.add_argument("--log-temperature-bounds", type=float, nargs=2, default=[-1.5, 0.5])
     cv.add_argument("--alpha-bounds", type=float, nargs=2, default=[-0.2, 0.2])
     cv.add_argument("--chunk", type=int, default=512)

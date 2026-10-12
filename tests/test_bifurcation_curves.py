@@ -104,3 +104,27 @@ def test_branch_types_the_henon_flip():
     a, b = crossings[0]["between_log10_T"]
     assert min(a, b) < 0.3675 < max(a, b)
     assert not any(r["turned_since_previous"] for r in records)
+
+
+def test_gmres_tolerance_below_the_jvp_accuracy_is_never_met():
+    """With JVPs rounded to float32, GMRES cannot reach a relative residual of 1e-10: every g evaluation then
+    runs to its full budget and is counted as unconverged. At 1e-6 it converges, and the curve is still found."""
+    class Rounded(bc.Family):
+        def jvp_x(self, x, theta, v):
+            return super().jvp_x(x, theta, v).astype(np.float32).astype(np.float64)
+
+    b0 = 0.3
+    x0 = henon_fixed_point(0.37, b0)
+    runs = {}
+    for gm in (1e-10, 1e-6):
+        records, reason, _ = bc.trace_curve(Rounded(henon, (2,), torch.float64), x0, [0.37, b0], "flip", fix=1,
+                                            direction=-1, steps=12, ds=0.05, ds_max=0.1, gtol=1e-6, tol=1e-9,
+                                            gmres_tol=gm, bounds=((0.0, 3.0), (-0.6, 0.6)))
+        assert len(records) == 12, reason
+        for r in records:
+            a, b = r["theta"]
+            assert abs(a - 0.75 * (1 - b) ** 2) < 1e-6
+        runs[gm] = records[1:]
+    assert all(r["gmres_unconverged"] > 0 for r in runs[1e-10])
+    assert all(r["gmres_unconverged"] == 0 for r in runs[1e-6])
+    assert sum(r["jvps"] for r in runs[1e-10]) > 2 * sum(r["jvps"] for r in runs[1e-6])
