@@ -725,6 +725,26 @@ def escape(args):
                                         "mean_tanh_prime": saturation(theta)})
                 theta = f.step(theta, pc)
         row = {"ridge": lam, "minimum": minimum, "checkpoints": checkpoints}
+        if "outcome" not in checkpoints[-1]:
+            # do the curvatures at the two bounce points still differ (non-commuting), which the rotation needs?
+            t1 = theta
+            t2 = f.step(t1, pc)
+            s1 = sq[:, None] * net.hessian(t1, x, y) * sq[None, :]
+            s2 = sq[:, None] * net.hessian(t2, x, y) * sq[None, :]
+            comm = float(np.linalg.norm(s1 @ s2 - s2 @ s1) / (np.linalg.norm(s1) * np.linalg.norm(s2)))
+            e1, v1 = np.linalg.eigh(s1)
+            e2, v2 = np.linalg.eigh(s2)
+            eye = np.eye(len(t1))
+            mult = np.linalg.eigvals((eye - s2) @ (eye - s1))
+            order = np.argsort(-np.abs(mult))
+            row["bounce_curvature"] = {
+                "relative_commutator": comm, "top_eigenvector_overlap": float(abs(v1[:, -1] @ v2[:, -1])),
+                "top_two_eigenvalues": [[float(e1[-1]), float(e1[-2])], [float(e2[-1]), float(e2[-2])]],
+                "two_step_multipliers_top4": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]],
+                "final_state": t1.tolist()}
+            print(json.dumps({"ridge": lam, "relative_commutator": round(comm, 5),
+                              "top_eigenvector_overlap": round(row["bounce_curvature"]["top_eigenvector_overlap"], 5),
+                              "two_step_top3": [(round(mult[i].real, 4), round(mult[i].imag, 4)) for i in order[:3]]}))
         record["rows"].append(row)
         last = checkpoints[-1]
         print(json.dumps({"ridge": lam, "minimum": {k: round(v, 6) for k, v in minimum.items()},
