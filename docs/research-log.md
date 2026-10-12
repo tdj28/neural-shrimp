@@ -18508,3 +18508,21 @@ _commit `6ceea5b10196`_
 fold-prefactor-heldout-1/2/3 (certified fold, exact output rate; held-out detunings 0.05, 0.02, 0.005, 0.002, 0.0005; starts = fold orbit + 0.05 N(0,1) with seeds 1-3; 600000 steps each): median laminar times 1171-1178, 1813-1815, 3445-3447, 5323-5328, 10404-10420 versus predicted 226.26/sqrt(d_eta) = 1012, 1600, 3200, 5059, 10119; ratios 1.16, 1.13, 1.08, 1.05, 1.03, identical to three digits across the three starts and converging to 1 as d_eta -> 0. Together with fold-prefactor-certified, ten detunings over 2.3 decades follow the parameter-free bottleneck prediction from the certified normal-form coefficients.
 
 _commit `6ceea5b10196` (dirty worktree)_
+
+## 2026-10-12 00:47 UTC: run (exploratory)
+
+- **Question:** Can the precession be predicted from Hessian geometry alone: does the product of the two step Jacobians, projected on the top-k eigenvectors of the rate-weighted Hessian at each point of the 2-cycle, reproduce the multiplier's angle and modulus?
+- **Setup:** rotation-geometry with top-k models (k = 1..4) on ns2-locus-001 (every 10th row) and the window-centre 2-cycle
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/rotation-geometry-002`
+- **Would surprise us:** Angle not converging by k = 3
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py rotation-geometry --locus ../neural-shrimp-data/explore/window-organization/ns2-locus-001/ns2-locus.json --every 10 --cycle ../neural-shrimp-data/explore/shrimp-anatomy/cycle-centre-001/two-cycle.npy -0.0857 1.853 --out ../neural-shrimp-data/explore/shrimp-anatomy/rotation-geometry-002`
+
+_commit `1fc83b9930a0`_
+
+- run started 2026-10-12 00:47 UTC finished 00:47 UTC with exit status 0
+
+## 2026-10-12 00:47 UTC: The precession is set by the top-two curvature directions on each side of the bounce
+
+rotation-geometry-002: projecting the two exact step Jacobians (I - S_b)(I - S_a), S = P^(1/2) H P^(1/2), on the span of the top-k eigenvectors of S at each point of the 2-cycle reproduces the critical multiplier's angle with maximum errors of 0.0161 (k=1), 0.0012 (k=2), 0.0007 (k=3) and about 0.0004 (k=4) turns over 21 2-cycles on the main Neimark-Sacker locus plus the window-centre 2-cycle (e.g. k=2: 0.2231 vs 0.2226; centre 0.2651 vs 0.2640). The modulus converges more slowly (k=2 about 1.05, k=3 about 1.03 against 1.00 on the locus). So the rotation of post-edge training is predicted, before any monodromy is computed, by a four-dimensional model built from the sharpest and second-sharpest rate-weighted curvature directions on the two sides of the bounce, which are misaligned because the hidden units sit at different points of their nonlinearity on the two sides; the stability (modulus) involves weaker directions.
+
+_commit `1fc83b9930a0` (dirty worktree)_
