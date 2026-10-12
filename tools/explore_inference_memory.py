@@ -275,10 +275,79 @@ def floquet(args):
         (dest / "floquet.json").write_text(json.dumps(out, indent=1))
 
 
+def continue_orbit(args):
+    """Natural continuation of a period-p orbit of the period map in log10 theta (hidden rate) at fixed theta_o.
+
+    Starts from an orbit converged by iteration at the first rate; records the leading multipliers at each
+    step and classifies the first unit-circle crossing (complex pair, real +1 or real -1)."""
+    mm = MemoryMap(**memory_kwargs(args))
+    n, p, eta = mm.n, args.period, args.eta
+    alpha = 0.0 if args.log_alpha is None else 10.0 ** args.log_alpha
+    theta_o = 10.0 ** args.log_theta_o
+
+    def residual(z, rates):
+        y, jac = z, np.eye(2 * n)
+        for _ in range(p):
+            y, j1 = mm.period_jacobian(y, rates, alpha, eta)
+            jac = j1 @ jac
+        return y - z, jac
+
+    def solve(z, rates):
+        res, jac = residual(z, rates)
+        for _ in range(args.max_newton):
+            norm0 = float(np.linalg.norm(res))
+            if norm0 < 1e-12 * max(1.0, np.linalg.norm(z)):
+                return z, jac, norm0
+            step = np.linalg.solve(jac - np.eye(2 * n), -res)
+            frac = 1.0
+            for _ in range(12):
+                trial = z + frac * step
+                res_t, jac_t = residual(trial, rates)
+                if np.all(np.isfinite(res_t)) and np.linalg.norm(res_t) < norm0:
+                    break
+                frac *= 0.5
+            z, res, jac = trial, res_t, jac_t
+        return None, None, float(np.linalg.norm(res))
+
+    values = np.arange(args.theta_start, args.theta_stop + 0.5 * args.step, args.step)
+    rates0 = mm.rates(np.array([10.0 ** values[0]]), np.array([theta_o]))
+    w = mm.w0[None, :].copy()
+    s_ = np.zeros_like(w)
+    for _ in range(args.transient):
+        w, s_ = mm.period(w, s_, rates0, np.array([alpha]), eta)
+    z = np.concatenate([w[0], s_[0]])
+    rows, crossing = [], None
+    for lt in values:
+        rates = mm.rates(np.array([10.0 ** lt]), np.array([theta_o]))[0]
+        z_new, jac, res = solve(z, rates)
+        if z_new is None:
+            rows.append({"log10_theta": float(lt), "outcome": "lost", "residual": res})
+            break
+        z = z_new
+        mult = np.linalg.eigvals(jac)
+        order = np.argsort(-np.abs(mult))
+        lead = mult[order[0]]
+        row = {"log10_theta": float(lt), "spectral_radius": float(abs(lead)),
+               "top": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]]}
+        rows.append(row)
+        if crossing is None and abs(lead) > 1.0:
+            crossing = {"log10_theta": float(lt), "type": "complex (Neimark-Sacker)" if abs(lead.imag) > 1e-8 else
+                        ("real +1" if lead.real > 0 else "real -1 (flip)"),
+                        "turns": float(abs(np.angle(lead)) / (2 * np.pi)), "modulus": float(abs(lead)),
+                        "previous_spectral_radius": rows[-2]["spectral_radius"] if len(rows) > 1 else None}
+            if not args.beyond:
+                break
+    out = {"args": vars(args), "first_crossing": crossing, "rows": rows}
+    print(json.dumps({"first_crossing": crossing, "steps": len(rows), "last": rows[-1]}))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "continuation.json").write_text(json.dumps(out, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("scan", "floquet"):
+    for name in ("scan", "floquet", "continue"):
         sp = sub.add_parser(name)
         sp.add_argument("--context", type=int, default=8)
         sp.add_argument("--width", type=int, default=3)
@@ -311,8 +380,18 @@ def main():
     fq.add_argument("--period", type=int, default=1)
     fq.add_argument("--max-newton", type=int, default=30)
     fq.add_argument("--out", default=None)
+    co = sub.choices["continue"]
+    co.add_argument("--log-theta-o", type=float, required=True)
+    co.add_argument("--log-alpha", type=float, default=None)
+    co.add_argument("--theta-start", type=float, required=True, help="log10 hidden rate where the orbit is stable")
+    co.add_argument("--theta-stop", type=float, required=True)
+    co.add_argument("--step", type=float, default=0.002)
+    co.add_argument("--period", type=int, default=1)
+    co.add_argument("--max-newton", type=int, default=30)
+    co.add_argument("--beyond", action="store_true", help="keep continuing after the first crossing")
+    co.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "floquet": floquet}[args.command](args)
+    {"scan": scan, "floquet": floquet, "continue": continue_orbit}[args.command](args)
 
 
 if __name__ == "__main__":
