@@ -20022,3 +20022,21 @@ _commit `310f140ca8df` (dirty worktree)_
 Rerun of the upward branch from log10 T -0.1040 with smaller steps (ds 0.0005, max 0.003; chord Newton with step growth while at most 5 of 10 iterations are needed): 50 points in 650 s, residuals about 1e-11. The branch turns at log10 T -0.1033461 (quadratic estimate; T = 0.7881), with a real +1 crossing between points 18 and 19 (multiplier 1.054 on the saddle side, next largest modulus 1.1e-6: isolated), and continues back as the saddle partner, whose multiplier grows to 40 by -0.1067. The square-root extrapolation from job 06b2 (-0.10327) was off by 8e-5. Gate status for the period-8 window at alpha 0.0717: primitive stable orbit verified in float64; upper boundary a fold (turn plus real +1), lower boundary a flip (real -1 between -0.12886 and -0.12911); stable for log10 T in (-0.1290, -0.10335).
 
 _commit `310f140ca8df` (dirty worktree)_
+
+- run started 2026-10-12 14:37 UTC (../neural-shrimp-data/explore/llm-soft-loop/branch-p2-t-0.115-alpha-up) finished 14:40 UTC with exit status 0
+
+## 2026-10-12 14:40 UTC: run (exploratory)
+
+- **Question:** Exact skeleton of the period-8 stripe: trace the fold or flip curves through the boundary points found by job 06b2 at alpha 0.0717, in both directions in the (log10 T, alpha) plane. Do they run along the stripe's edges, do fold curves meet in cusps (parameter tangent reversing), and do other multipliers reach the unit circle along them?
+- **Setup:** explore_llm_soft_loop curve on cuda: mixed precision (float32 dense monodromy and reverse-over-forward gradient, float64 residuals), kind auto from branch-p8-a0.0717-{up,down} (refuses a turn without a real +1 crossing), alpha continued as 10 alpha, Newton to residual 1e-10 and |g| below 1e-4, ds 0.005 (max 0.02), up to 60 points per direction, bounds log10 T -0.4..0.3, alpha 0..0.12
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/curve-p8-{up,down}-{plus,minus}`
+- **Would surprise us:** A boundary curve that leaves the stripe's edge in the scan by more than a few cells (the scan's edge would then be a basin boundary rather than this bifurcation)
+- **Command:** `bash -c for side in up down; do for dir in 1 -1; do name=$([ $dir = 1 ] && echo plus || echo minus); OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py curve --device cuda --start llm-soft-loop/branch-p8-a0.0717-$side$([ $side = up ] && echo 2) --direction $dir --tol 1e-10 --gtol 1e-4 --steps 60 --log-temperature-bounds -0.4 0.3 --alpha-bounds 0 0.12 --out llm-soft-loop/curve-p8-$side-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -62 | cut -c1-700; done; done`
+
+_commit `de4d503eab48` (dirty worktree)_
+
+## 2026-10-12 14:40 UTC: The 'is it' 2-cycle ends in a fold at alpha 0.06279 (log10 T -0.115; job 06c1)
+
+Branch of the period-2 orbit in alpha at fixed log10 T -0.115 from alpha 0.058 (inside the period-2 region) toward the stripes: 27 points in 118 s. The leading multipliers start as a complex pair (0.040 +- 0.192i at 0.058), become real near 0.0610, and the leading one rises through +1: the branch turns at alpha 0.06279 with a real +1 crossing (1.062 on the saddle side, next multiplier 0.039) and continues back as the saddle partner. So on the stripes' side the 2-cycle disappears in a saddle-node, and the stripe orbits' k loops near 'is it' are passages through its ghost (type I intermittency), whose standard asymptotics give stripe spacing like 1/k^2 for large k. With alpha_c = 0.06279, the coarse-scan stripe centres at this temperature give alpha_k - alpha_c = 0.0148, 0.0089, 0.0048, 0.0026 for k = 2..5 (cell resolution 6e-4): ratios 0.60, 0.54, 0.54, k^2 times the distance 0.059, 0.080, 0.077, 0.065; neither law is settled at k <= 5 with these positions. Exact stripe boundaries at one temperature (alpha branches of each stripe orbit) are the next measurement.
+
+_commit `de4d503eab48` (dirty worktree)_
