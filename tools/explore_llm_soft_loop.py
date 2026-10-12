@@ -855,6 +855,65 @@ def readout(args):
     print(json.dumps(out, ensure_ascii=False))
 
 
+def walk(args):
+    """Long trajectories of the soft map at several cells along alpha (one batch, fixed log10 T): after a
+    transient, record every step's probabilities of a fixed token list, the entropy and the leading token.
+    Because the map contracts all but one direction strongly, a scalar such as p(' it') two steps apart traces a
+    one-dimensional return map; near a fold of a 2-cycle it shows the channel (tangency) and the reinjection.
+    Writes walk.npz and walk.json; the figure plots p_(n+2) against p_n of the first token for every cell."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+                    args.device)
+    torch, tok = loop.torch, loop.sm.tok
+    v = elpm.load_vectors(args.vectors)[args.concept]
+    alphas = np.array(args.alphas, dtype=float)
+    ids = [tok.encode(t, add_special_tokens=False) for t in args.tokens]
+    if any(len(i) != 1 for i in ids):
+        raise SystemExit(f"each --tokens entry must be one token: {dict(zip(args.tokens, ids))}")
+    ids = [i[0] for i in ids]
+    X = loop.prepare(alphas[:, None] * v[None])
+    temps = np.full(len(alphas), 10.0 ** args.log_temperature)
+    probs, ent, lead = [], [], []
+    with torch.no_grad():
+        for i in range(args.transient + args.steps):
+            X, p = loop.step(X, temps)
+            if i >= args.transient:
+                probs.append(p[:, ids].double().cpu().numpy())
+                ent.append((-(p * torch.log(p.clamp_min(1e-300))).sum(-1)).double().cpu().numpy())
+                lead.append(p.argmax(-1).cpu().numpy())
+    probs, ent, lead = np.array(probs), np.array(ent), np.array(lead)          # (steps, B, tokens), (steps, B)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "walk.npz", alphas=alphas, tokens=np.array(args.tokens), token_ids=np.array(ids),
+                        probabilities=probs, entropy=ent, leading=lead)
+    summary = []
+    for b, a in enumerate(alphas):
+        top, counts = np.unique(lead[:, b], return_counts=True)
+        order = np.argsort(-counts)[:6]
+        summary.append({"alpha": float(a), "mean_entropy": float(ent[:, b].mean()),
+                        "leading_tokens": [[tok.decode([int(top[j])]), int(counts[j])] for j in order]})
+    (out / "walk.json").write_text(json.dumps({"args": vars(args), "cells": summary}, indent=1, ensure_ascii=False))
+    cols = min(len(alphas), 4)
+    rows_ = int(np.ceil(len(alphas) / cols))
+    fig, axes = plt.subplots(rows_, cols, figsize=(3.2 * cols, 3.2 * rows_), squeeze=False)
+    for b, a in enumerate(alphas):
+        ax = axes[b // cols][b % cols]
+        q = probs[:, b, 0]
+        ax.plot(q[:-2], q[2:], ".", ms=1)
+        ax.plot([0, 1], [0, 1], "k-", lw=0.5)
+        ax.set_title(f"alpha {a:.5f}", fontsize=8)
+        ax.set_xlabel(f"p_n({args.tokens[0]!r})", fontsize=7)
+        ax.set_ylabel(f"p_(n+2)({args.tokens[0]!r})", fontsize=7)
+    fig.suptitle(f"soft map at log10 T {args.log_temperature}: two-step return map", fontsize=9)
+    fig.tight_layout()
+    fig.savefig(out / "walk.png", dpi=150)
+    for row in summary:
+        print(json.dumps(row, ensure_ascii=False))
+
+
 def branch_plot(args):
     """Leading multipliers along branch or tline runs against log10 T: modulus of the largest (log scale) and the
     real parts of the real multipliers, with turns and classified crossings marked."""
@@ -1099,6 +1158,23 @@ def main():
                     help="Arnoldi steps for refined leading multipliers (0: dense float32 multipliers only)")
     bb.add_argument("--chunk", type=int, default=512)
     bb.add_argument("--out", required=True)
+    wk = sub.add_parser("walk")
+    wk.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
+    wk.add_argument("--layer", type=int, default=12)
+    wk.add_argument("--threads", type=int, default=8)
+    wk.add_argument("--dtype", default="float32", choices=("float32", "float64"))
+    wk.add_argument("--device", default="cpu")
+    wk.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
+    wk.add_argument("--opener", default=ela.OPENER)
+    wk.add_argument("--window", type=int, default=1)
+    wk.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    wk.add_argument("--concept", default="philosophy", choices=sorted(elpm.CONCEPTS))
+    wk.add_argument("--log-temperature", type=float, required=True)
+    wk.add_argument("--alphas", type=float, nargs="+", required=True)
+    wk.add_argument("--transient", type=int, default=300)
+    wk.add_argument("--steps", type=int, default=4000)
+    wk.add_argument("--tokens", nargs="+", default=[" it", " a", " there", " is", ".", " This"])
+    wk.add_argument("--out", required=True)
     cv = sub.add_parser("curve")
     cv.add_argument("--start", required=True, help="explore-relative directory of a finished branch or tline run")
     cv.add_argument("--reference-dtype", default="float64", choices=("none", "float64"))
@@ -1131,6 +1207,7 @@ def main():
     cv.add_argument("--out", required=True)
     args = parser.parse_args()
     {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
+     "walk": walk,
      "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout}[args.command](args)
 
 
