@@ -420,10 +420,58 @@ def criticality(args):
     (dest / "criticality.json").write_text(json.dumps(out, indent=1))
 
 
+def noise_phase(args):
+    """Does a shuffled context order keep the rotation (with phase diffusion) or destroy it?
+
+    Projects the shuffled run onto the principal plane of the fixed-order orbit at the same rates, then
+    measures the mean angle drift per pass, its diffusion, and the spectral peak of one plane coordinate."""
+    rates_args = dict(memory_kwargs(args))
+    results = {}
+    plane = centre = None
+    for label, seed in (("fixed", None), ("shuffled", args.shuffle_seed if args.shuffle_seed is not None else 1)):
+        rates_args["shuffle_seed"] = seed
+        mm = MemoryMap(**rates_args)
+        theta, theta_o = 10.0 ** args.log_theta, 10.0 ** args.log_theta_o
+        rates = mm.rates(np.array([theta]), np.array([theta_o]))
+        w = mm.w0[None, :].copy()
+        s_ = np.zeros_like(w)
+        for _ in range(args.transient):
+            w, s_ = mm.period(w, s_, rates, np.array([0.0]), args.eta)
+        orbit = np.empty((args.samples, 2 * mm.n))
+        for j in range(args.samples):
+            orbit[j] = np.concatenate([w[0], s_[0]])
+            w, s_ = mm.period(w, s_, rates, np.array([0.0]), args.eta)
+        if plane is None:
+            centre = orbit.mean(0)
+            _, sing, vt = np.linalg.svd(orbit - centre, full_matrices=False)
+            plane = vt[:2]
+            results["fixed_plane_singular_values"] = (sing[:4] / np.sqrt(args.samples)).tolist()
+        xy = (orbit - centre) @ plane.T
+        angle = np.unwrap(np.arctan2(xy[:, 1], xy[:, 0]))
+        steps = np.diff(angle) / (2 * np.pi)
+        lags = np.arange(1, 65)
+        msd = np.array([np.var(angle[l:] - angle[:-l]) for l in lags]) / (2 * np.pi) ** 2
+        coord = xy[:, 0] - xy[:, 0].mean()
+        spec = np.abs(np.fft.rfft(coord * np.hanning(len(coord))))
+        freqs = np.fft.rfftfreq(len(coord))
+        _, sing_own, _ = np.linalg.svd(orbit - orbit.mean(0), full_matrices=False)
+        results[label] = {"mean_turns_per_pass": float(steps.mean()), "std_turns_per_pass": float(steps.std()),
+                          "angle_diffusion_per_pass": float(np.polyfit(lags, msd, 1)[0]),
+                          "radius_mean": float(np.linalg.norm(xy, axis=1).mean()),
+                          "radius_std": float(np.linalg.norm(xy, axis=1).std()),
+                          "fraction_of_variance_in_fixed_plane": float(np.sum(xy ** 2) / np.sum((orbit - centre) ** 2)),
+                          "spectral_peak_turns_per_pass": float(freqs[int(np.argmax(spec[1:]) + 1)]),
+                          "own_singular_values": (sing_own[:4] / np.sqrt(args.samples)).tolist()}
+        print(json.dumps({label: results[label]}))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "noise-phase.json").write_text(json.dumps({"args": vars(args), **results}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("scan", "floquet", "continue", "criticality"):
+    for name in ("scan", "floquet", "continue", "criticality", "noise-phase"):
         sp = sub.add_parser(name)
         sp.add_argument("--context", type=int, default=8)
         sp.add_argument("--width", type=int, default=3)
@@ -478,8 +526,14 @@ def main():
     cr.add_argument("--step-b", type=float, default=1e-4)
     cr.add_argument("--step-c", type=float, default=1e-3)
     cr.add_argument("--out", required=True)
+    npz = sub.choices["noise-phase"]
+    npz.add_argument("--log-theta", type=float, required=True)
+    npz.add_argument("--log-theta-o", type=float, required=True)
+    npz.add_argument("--samples", type=int, default=4096)
+    npz.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "floquet": floquet, "continue": continue_orbit, "criticality": criticality}[args.command](args)
+    {"scan": scan, "floquet": floquet, "continue": continue_orbit, "criticality": criticality,
+     "noise-phase": noise_phase}[args.command](args)
 
 
 if __name__ == "__main__":
