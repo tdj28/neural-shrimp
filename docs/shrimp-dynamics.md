@@ -70,6 +70,22 @@ The window's organization (`docs/window-organization.md`) has two layers.
 - **Why earlier tests missed it.** That tongue is invisible to maps of
   attractors, which is why the prespecified ancestry test could not find the
   window's origin. The test looked for the wrong parent.
+- **How the hidden tongue becomes the visible window.**
+  - This differs from ordinary tongues, whose locked orbits sit on an
+    attracting circle. Near R3 the locked orbits sit on a saddle circle, so
+    they inherit the 2-cycle's unstable direction, with multiplier 1.031 per
+    two steps (1.031^9 = 1.316 per cycle).
+  - Tracked continuously along the tongue boundary, this inherited multiplier
+    stays real and positive. It crosses +1 at two 1:1 resonance points
+    (double +1). One is the certified 1:1 point; the other, near
+    (-0.0957, 1.9247), is not certified yet.
+  - Between them it is below 1 (about 0.8), and the cycle is attracting: that
+    stretch is the window.
+  - At a 1:1 resonance of a map, a Neimark-Sacker curve emanates. That is the
+    certified complex-unit branch, across which the cycle trades stability
+    with the inherited direction.
+  - So the certified skeleton has a dynamical meaning: it is the gate through
+    which an unstable resonance becomes an attracting training cycle.
 
 ## What the network does inside the shrimp
 
@@ -106,6 +122,10 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   so far (periods 5, 11, 13, 16, 17 and 18) is an attracting cycle lying
   almost entirely in one plane of parameter space (98.7-99.8% of its motion)
   and in the hidden layer (99.7-99.98%).
+- **Local organization is two-dimensional.** Near the Neimark-Sacker
+  bifurcation the invariant circle, locking and tongues live on a
+  two-dimensional centre manifold. The higher dimension below concerns the
+  global chaotic attractors, not this local picture.
 - **But the chaos is not two-dimensional.** The chaotic attractors next to
   the period-18 window have Kaplan-Yorke dimension 3.2-3.4, even though 79-96%
   of their motion is in one plane. Many directions contract only weakly per
