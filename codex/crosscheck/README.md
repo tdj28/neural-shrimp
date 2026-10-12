@@ -1,5 +1,8 @@
 # Task 2: independent numerical cross-check of soft-token LLM dynamics
 
+Completed results: [REPORT.md](REPORT.md), with component reports and independent
+audits. The sections below retain the pre-run plan and disclosed amendments.
+
 Scope: the 12 October 2026 handoff, Task 2 only. This is an exploratory,
 known-outcome replication (rung 2), not a fresh confirmatory test or an interval
 certificate. The pretrained BF16 weights are exactly converted to float64;

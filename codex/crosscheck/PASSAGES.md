@@ -27,7 +27,7 @@ The test holds the original centre, critical modes, coefficients, entrance width
 
 Maximum coordinate discrepancy before the first exit: 1.660879767e-11, or 4.22337e-09 times the fixed channel half-width. The smallest recorded pre-exit/crossing margin is 8.885276665e-06. All first-exit inequalities were checked directly in the saved trajectories.
 
-The quadratic approximation matches seven counts and overestimates eleven by one iteration. Its largest relative discrepancy is 25% for the short development passage of 3 versus 4 iterations at epsilon 0.0005. The zero count differences in the table concern independent transformer versus reference transformer, not quadratic versus transformer.
+The quadratic approximation matches seven counts and overestimates eleven by one iteration. Its largest discrepancy relative to the quadratic prediction is 25% for the short development passage of 3 versus 4 iterations at epsilon 0.0005 (33.3% relative to the measured count). The zero count differences in the table concern independent transformer versus reference transformer, not quadratic versus transformer.
 
 The independent audit also checked the exact entrances and RNG-0 transverse vector, sign orientation, all 18 retained coordinate traces, numerical quadrature of the continuous passage formula, all source and reference hashes, and the complete output inventory.
 
