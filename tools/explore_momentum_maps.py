@@ -751,6 +751,95 @@ def rotation_summary(args):
     (out / "rotation-summary.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
 
 
+def loss_signature(args):
+    """Loss-only signature of the 2-cycle's Neimark-Sacker edge: modulation amplitude and frequency of the
+    loss at every other step, at offsets around the bisected crossing (expected: frequency = crossing angle,
+    amplitude ~ sqrt(offset) beyond a supercritical edge, decay to zero before it)."""
+    from neural_shrimp.fastcont import newton
+
+    mm = MomentumMap(args.system, args.seed, args.beta, args.width, args.ridge)
+    n = mm.n
+    base = DATA / "explore" / args.arc
+    record = json.loads((base / "arc.json").read_text())
+    require_same_ridge(mm, record)
+    nodes = np.load(base / "nodes.npz")["w"]
+    system = MomentumTwoCycle(mm, args.offset_output)
+    k = int(np.argmin(np.abs(nodes[:, -1] - record["first_crossing"]["s"])))
+    fixed = np.zeros(2 * n + 1)
+    fixed[-1] = 1.0
+
+    def cycle_at(s_value, guess):
+        w0 = guess.copy()
+        w0[-1] = s_value
+        w, _ = newton(system, w0, max_iter=40, extra=lambda q: (fixed, q[-1] - s_value))
+        if w is None:
+            return None, None, None
+        _, _, mono, pts = system.residual_jacobian(w)
+        return w, mono, pts
+
+    lo_s, hi_s = nodes[max(k - 2, 0)][-1], nodes[k][-1]
+    guess = nodes[max(k - 2, 0)]
+    for _ in range(50):
+        mid = 0.5 * (lo_s + hi_s)
+        w_mid, mono, _ = cycle_at(mid, guess)
+        if w_mid is None:
+            break
+        guess = w_mid
+        if np.max(np.abs(np.linalg.eigvals(mono))) > 1.0:
+            hi_s = mid
+        else:
+            lo_s = mid
+    s_cross = 0.5 * (lo_s + hi_s)
+    _, mono_c, _ = cycle_at(s_cross, guess)
+    mult_c = np.linalg.eigvals(mono_c)
+    lead = mult_c[np.argmax(np.abs(mult_c))]
+    rows = []
+    for offset in args.offsets:
+        s_target = s_cross + offset
+        w, mono, pts = cycle_at(s_target, guess)
+        if w is None:
+            rows.append({"offset": offset, "outcome": "cycle not found"})
+            continue
+        mult, vecs = np.linalg.eig(mono)
+        v = np.real(vecs[:, int(np.argmax(np.abs(mult)))])
+        rates = system.rates(s_target)
+        state = w[:-1] + args.kick * v / np.linalg.norm(v)
+        t, m = state[None, :n], state[None, n:]
+        losses = np.empty(args.samples)
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _ in range(args.transient):
+                t, m = mm.step(*mm.step(t, m, rates), rates)
+            for j in range(args.samples):
+                losses[j] = mm.net.loss(t, mm.x, mm.y)[0]
+                t, m = mm.step(*mm.step(t, m, rates), rates)
+        if not np.all(np.isfinite(losses)):
+            rows.append({"offset": offset, "outcome": "diverged"})
+            continue
+        centred = losses - losses.mean()
+        spectrum = np.abs(np.fft.rfft(centred * np.hanning(len(centred))))
+        freqs = np.fft.rfftfreq(len(centred))
+        peak = int(np.argmax(spectrum[1:]) + 1)
+        cycle_loss = float(mm.net.loss(pts[0][None, :n], mm.x, mm.y)[0])
+        row = {"offset": offset, "s": s_target, "loss_mean": float(losses.mean()), "loss_at_cycle_point": cycle_loss,
+               "modulation_std": float(centred.std()), "modulation_half_range": float(0.5 * np.ptp(losses)),
+               "peak_frequency_turns_per_two_steps": float(freqs[peak]),
+               "cycle_spectral_radius": float(np.max(np.abs(mult)))}
+        rows.append(row)
+        print(json.dumps({key: (float(f"{val:.6g}") if isinstance(val, float) else val) for key, val in row.items()}))
+    beyond = [r for r in rows if "modulation_std" in r and r["offset"] > 0 and r["modulation_std"] > 0]
+    slope = None
+    if len(beyond) >= 3:
+        slope = float(np.polyfit(np.log([r["offset"] for r in beyond]), np.log([r["modulation_std"] for r in beyond]),
+                                 1)[0])
+    out = {"args": vars(args), "crossing_s": s_cross, "crossing_turns": float(abs(np.angle(lead)) / (2 * np.pi)),
+           "crossing_complex": bool(abs(lead.imag) > 1e-8), "rows": rows, "amplitude_exponent_beyond": slope}
+    print(json.dumps({"crossing_s": s_cross, "crossing_turns": out["crossing_turns"],
+                      "amplitude_exponent_beyond": slope}))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "loss-signature.json").write_text(json.dumps(out, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -846,6 +935,19 @@ def main():
     st.add_argument("--out", required=True)
     for sp in (ac, cr):
         sp.add_argument("--width", type=int, default=None)
+    ls_ = sub.add_parser("loss-signature")
+    ls_.add_argument("--system", default="S2")
+    ls_.add_argument("--seed", type=int, default=28011)
+    ls_.add_argument("--beta", type=float, default=0.0)
+    ls_.add_argument("--width", type=int, default=None)
+    ls_.add_argument("--offset-output", type=float, default=-1.828)
+    ls_.add_argument("--arc", required=True)
+    ls_.add_argument("--offsets", type=float, nargs="+",
+                     default=[-0.004, -0.001, 0.0005, 0.001, 0.002, 0.004, 0.008, 0.016])
+    ls_.add_argument("--kick", type=float, default=1e-3)
+    ls_.add_argument("--transient", type=int, default=200000, help="two-step iterations before sampling")
+    ls_.add_argument("--samples", type=int, default=16384, help="two-step samples of the loss")
+    ls_.add_argument("--out", required=True)
     rs = sub.add_parser("rotation-summary")
     rs.add_argument("--maps", nargs="+", required=True, help="explore-relative folders holding rotation.npz")
     rs.add_argument("--min-spread", type=float, default=1e-6)
@@ -863,12 +965,12 @@ def main():
     ca.add_argument("--descent-steps", type=int, default=200000)
     ca.add_argument("--arc", required=True)
     ca.add_argument("--out", required=True)
-    for sp in (ac, cr, st, ca):
+    for sp in (ac, cr, st, ca, ls_):
         sp.add_argument("--ridge", type=float, default=None, help="weight decay (default: the system's 1e-3)")
     args = parser.parse_args()
     {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset,
      "criticality": criticality, "staircase": staircase, "crossing-anatomy": crossing_anatomy,
-     "rotation-summary": rotation_summary}[args.command](args)
+     "rotation-summary": rotation_summary, "loss-signature": loss_signature}[args.command](args)
 
 
 if __name__ == "__main__":
