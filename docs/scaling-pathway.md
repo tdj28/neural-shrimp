@@ -57,9 +57,19 @@ full periodic-orbit continuation in large dimension.
   Neimark-Sacker. Stronger weight decay switches units off (the first
   instability is then a unit's recruitment) or makes all units identical
   copies (any Neimark-Sacker is then that of a one-unit network).
-  - Rotation maps for widths 6 and 12 are running.
-  - The width question has to be posed with weight decay as a co-parameter,
-    in a regime where the units stay distinct.
+  - **Rotation maps (widths 6 and 12):** both show a precession region above
+    the 2-cycle band, with about 0.2 turns at its rim.
+    - At width 6, the rim is a genuine supercritical Neimark-Sacker
+      crossing (d = -0.46, 0.167 turns).
+    - At width 12, the symmetric 2-cycle first breaks symmetry.
+  - **But the wider students condense.** The S2 teacher has 3 units. With
+    small initialization and weight decay, extra units die or become
+    identical copies, so the network behaves as an effective 3-unit network.
+  - **Consequence:** S2 cannot test width with distinct units. The width
+    rung needs one of:
+    - a teacher as wide as the student;
+    - larger initialization;
+    - real data (rung 2).
 - **Rung 3:** running at weight decay 0.03.
 - **Earlier evidence:**
   - 72-parameter S1R: most traced 2-cycle boundaries are Neimark-Sacker, and

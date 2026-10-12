@@ -18914,3 +18914,33 @@ _commit `bef6e41c4d9c` (dirty worktree)_
 explore_cifar_reduced orbit --lam 0.03 (run card above). 400000 reduced descent steps at eta 0.0094 from the lambda-0.01 state moved the state by 2.04 (relative 2-cycle residual then 2.66e-6). Backtracking dense Newton stalled: ten steps with fractions down to 2^-12, relative residual 2.66e-6 -> 2.53e-6; the would-be 2-cycle has relative separation 1.3e-6, i.e. it sits on a near-fixed point. The run stopped there; the six larger etas were not attempted. Full two-step spectrum (all 16,746 eigenvalues, 888 s): four real multipliers above 1 (1.000066, 1.000036, 1.000030, 1.000024), none complex outside the circle, followed by many real multipliers 0.99999-0.99997. Every surprise listed on the run card occurred. Interpretation: with the weight-decay contraction (1 - eta lambda)^2 = 0.99944 per two steps, the slow directions need data curvature of about -0.034 (and about -0.03 for the many multipliers just below 1), more negative than the -0.014 estimated at the lambda-0.01 state; the state has moved to where negative data curvature outruns the decay. GD at these rates is in a slow saddle or plateau transient, not near an attracting 2-cycle. Plan change: start from the regularized minimum (dense Newton on the gradient), check that it is a true minimum, locate its flip from the largest Hessian eigenvalue, and continue the 2-cycle from the flip by pseudo-arclength, as for the toy networks, instead of chasing GD trajectories.
 
 _commit `ec2758584c3e` (dirty worktree)_
+
+## 2026-10-12 02:08 UTC: run (exploratory)
+
+- **Question:** Is the width-6 rotation map's precession rim a genuine Neimark-Sacker crossing of the 2-cycle, carried by distinct (not dead, not condensed) hidden units? And the same-settings width-3 control map
+- **Setup:** (a) explore_momentum_maps arc --beta 0 --width 6 --offset-output -2.0 (ray through the rim near log10 output -0.3, hidden 1.72), s_max 3.0, 12000 steps; then crossing-anatomy, and criticality only if the first crossing is complex. (b) rotation-map --beta 0 --width 3 on the identical grid (hidden 0.8-2.4, output -1.0-0.4, 160x160, 20000 steps, 256 PCA + 6000 samples), 6 workers, nice 10
+- **Output:** `../neural-shrimp-data/explore/momentum/width-maps/{arc-w6-off-2.0, anatomy-w6-off-2.0, crit-w6-off-2.0, rotation-w3}`
+- **Would surprise us:** A real first crossing on this ray, or crossing carried by dead or identical units
+- **Command:** `bash -c env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py rotation-map --beta 0 --width 3 --hidden 0.8 2.4 --output -1.0 0.4 --resolution 160 160 --steps 20000 --samples 6000 --workers 6 --out momentum/width-maps/rotation-w3 > ../neural-shrimp-data/explore/momentum/width-maps/rotation-w3.log 2>&1 & (env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width 6 --offset-output -2.0 --s-max 3.0 --steps 12000 --out momentum/width-maps/arc-w6-off-2.0 && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width 6 --offset-output -2.0 --arc momentum/width-maps/arc-w6-off-2.0 --out momentum/width-maps/anatomy-w6-off-2.0 && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0 --width 6 --offset-output -2.0 --arc momentum/width-maps/arc-w6-off-2.0 --out momentum/width-maps/crit-w6-off-2.0) > ../neural-shrimp-data/explore/momentum/width-maps/arc-w6-off-2.0.log 2>&1; wait`
+
+_commit `8a4d44ca44ab`_
+
+- run started 2026-10-12 01:29 UTC finished 02:08 UTC with exit status 0
+
+## 2026-10-12 02:09 UTC: run (exploratory)
+
+- **Question:** Is the width-12 rotation map's precession rim a genuine Neimark-Sacker crossing of the 2-cycle, carried by distinct hidden units?
+- **Setup:** explore_momentum_maps arc --beta 0 --width 12 --offset-output -2.18 (ray through the rim near log10 output -0.4, hidden 1.78), s_max 3.0, 12000 steps; crossing-anatomy; criticality only if complex
+- **Output:** `../neural-shrimp-data/explore/momentum/width-maps/{arc,anatomy,crit}-w12-off-2.18`
+- **Would surprise us:** Real first crossing, or crossing carried by dead or identical units
+- **Command:** `bash -c (env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width 12 --offset-output -2.18 --s-max 3.0 --steps 12000 --out momentum/width-maps/arc-w12-off-2.18 && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width 12 --offset-output -2.18 --arc momentum/width-maps/arc-w12-off-2.18 --out momentum/width-maps/anatomy-w12-off-2.18 && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0 --width 12 --offset-output -2.18 --arc momentum/width-maps/arc-w12-off-2.18 --out momentum/width-maps/crit-w12-off-2.18) > ../neural-shrimp-data/explore/momentum/width-maps/arc-w12-off-2.18.log 2>&1`
+
+_commit `8a4d44ca44ab` (dirty worktree)_
+
+- run started 2026-10-12 02:09 UTC finished 02:10 UTC with exit status 0
+
+## 2026-10-12 02:11 UTC: Width maps: precession regions at widths 6 and 12, but the wider students condense into effective 3-unit networks
+
+rotation-w6, rotation-w12 (rotation-map, 160x160, ridge 1e-3; summary figures in width-maps/summary-w6-w12; the first summary used a cyclic colour map that made 0 and 0.5 look alike, replaced). Both widths show a grey band where training settles into a 2-cycle and, above it, a region of rotating motion whose lower rim has rotation about 0.2 turns per two steps (w6: 3261 rotating cells, median 0.055; w12: 2116, median 0.059). Rim checks by continuation: width 6 on the ray log10 output = log10 hidden - 2.0: first crossing complex at s = 1.69997 (0.1666 turns), d = -0.460 (doubled steps -0.460), supercritical. But the minimum has two strong distinct units (norms 0.84, 0.78) and four weak units identical to 10 digits (0.13346261702); the NS eigenvector puts 0.40 + 0.40 on the strong units and 0.05 on each condensed copy. Width 12 on the ray offset -2.18: first crossing real +1 at s = 1.4064 with a multiplier degenerate across the ten condensed units (norms 0.0871983551 each, two strong units 0.78 and 0.84): symmetry breaking within the condensed block; criticality refused it as designed. The rim's rotation in the width-12 map therefore belongs to a branch that the symmetric continuation does not follow. Conclusion: with a 3-unit teacher, small initialization (scale 0.2) and ridge 1e-3, wider students condense (identical or dead units) and behave as effective 3-unit networks, so S2 cannot test width with distinct units. Next width test: a teacher as wide as the student, larger initialization, or real data (UCI digits).
+
+_commit `8a4d44ca44ab` (dirty worktree)_
