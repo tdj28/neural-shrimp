@@ -914,6 +914,122 @@ def walk(args):
         print(json.dumps(row, ensure_ascii=False))
 
 
+def normal_form(args):
+    """Normal form u' = u + a eps + b u^2 of a period-p orbit's fold, in float64, at a point of a curve or branch
+    run (bifurcation_curves.fold_normal_form on the p-fold soft map, eps in units of alpha): a includes the
+    steering's effect on the prefix; b comes from central differences of JVPs over a step-size table. Writes
+    normal-form.json and vectors.npz (x_c, r, l) for `passage`."""
+    import bifurcation_curves as bc
+
+    src = DATA / "explore" / args.run
+    name = "curve.json" if (src / "curve.json").exists() else "branch.json"
+    rec = json.loads((src / name).read_text())
+    pt = rec["points"][args.index]
+    x = np.load(src / "states.npy")[args.index].ravel()
+    ra = rec["args"]
+    if name == "curve.json":
+        start = json.loads((DATA / "explore" / ra["start"] / ("branch.json" if (DATA / "explore" / ra["start"] /
+                                                                    "branch.json").exists() else "tline.json"))
+                           .read_text())["args"]
+        log_t, alpha = pt["log10_temperature"], pt["alpha"]
+    else:
+        start = ra
+        log_t, alpha = ((pt["lambda"], ra["alpha"]) if rec.get("free", "temperature") == "temperature"
+                        else (ra["log_temperature"], pt["lambda"]))
+    loop = SoftLoop(start["model"], start["layer"], args.threads, start["prompt"], start["opener"], start["window"],
+                    "float64", args.device)
+    v = elpm.load_vectors(start["vectors"])[start["concept"]]
+    fam = soft_family(loop, v, int(rec["period"]), args.alpha_scale, args.chunk)
+    theta = np.array([log_t, alpha * args.alpha_scale])
+    res = float(np.linalg.norm(fam.residual(x, theta)) / np.linalg.norm(x))
+    nf = bc.fold_normal_form(fam, x, theta, param=1, param_scale=args.alpha_scale, steps=tuple(args.steps))
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez(out / "vectors.npz", x_c=x, r=nf.pop("r"), l=nf.pop("l"))
+    rec_out = {"args": vars(args), "source": {"run": args.run, "index": args.index, "log10_temperature": log_t,
+               "alpha": alpha, "period": int(rec["period"]), "model": start["model"], "layer": start["layer"],
+               "prompt": start["prompt"], "opener": start["opener"], "window": start["window"],
+               "vectors": start["vectors"], "concept": start["concept"]},
+               "orbit_residual": res, **nf,
+               "pi_over_sqrt_ab": float(np.pi / np.sqrt(abs(nf["ab"])))}
+    (out / "normal-form.json").write_text(json.dumps(rec_out, indent=1))
+    print(json.dumps({k: rec_out[k] for k in ("orbit_residual", "multiplier", "second_modulus", "a", "b", "ab",
+                                              "b_steps", "pi_over_sqrt_ab")}))
+
+
+def passage(args):
+    """Passage through the bottleneck of a fold, measured on the soft map and predicted by its normal form: from
+    controlled entrances x_c + u_in r (and transverse controls x_c + u_in r + |u_in| w with l^T w = 0) at
+    alpha = alpha_c + eps, iterate the p-fold map G and count the G-iterates until u = l^T (x - x_c) exceeds
+    u_out; compare with the discrete quadratic map and the arctangent formula. All rows run in one batch."""
+    import bifurcation_curves as bc
+
+    src = DATA / "explore" / args.normal_form
+    nf = json.loads((src / "normal-form.json").read_text())
+    vec = np.load(src / "vectors.npz")
+    xc, r, l = vec["x_c"], vec["r"], vec["l"]
+    so = nf["source"]
+    a, b = nf["a"], nf["b"]
+    sign = 1.0 if a * b > 0 and a > 0 else -1.0                   # orient u so that a, b > 0 (ab > 0 needed)
+    if a * b <= 0:
+        raise SystemExit(f"ab = {a * b:.4g} is not positive: no bottleneck for eps > 0 in this orientation")
+    a, b, r, l = abs(a), abs(b), sign * r, sign * l
+    U = args.u if args.u is not None else 0.1 / b
+    rng = np.random.default_rng(args.seed)
+    w = rng.normal(size=xc.size)
+    w -= (l @ w) / (l @ r) * r                                  # transverse: l^T w = 0
+    w /= np.linalg.norm(w)
+    rows = []
+    for eps in args.epsilons:
+        for kind, u_in in (("full", -U), ("midpoint", 0.0)):
+            rows.append({"eps": eps, "entrance": kind, "u_in": u_in, "x0": xc + u_in * r})
+        rows.append({"eps": eps, "entrance": "full+transverse", "u_in": -U, "x0": xc - U * r + U * w})
+    loop = SoftLoop(so["model"], so["layer"], args.threads, so["prompt"], so["opener"], so["window"], "float64",
+                    args.device)
+    torch = loop.torch
+    v = elpm.load_vectors(so["vectors"])[so["concept"]]
+    alphas = np.array([so["alpha"] + row["eps"] for row in rows])
+    loop.prepare(alphas[:, None] * v[None])
+    shape = (len(rows), loop.K, loop.E.shape[1])
+    X = torch.as_tensor(np.array([row["x0"] for row in rows]).reshape(shape), dtype=loop.state_dtype,
+                        device=loop.device)
+    temps = np.full(len(rows), 10.0 ** so["log10_temperature"])
+    p = so["period"]
+    lt = torch.as_tensor(l, dtype=loop.state_dtype, device=loop.device)
+    xct = torch.as_tensor(xc, dtype=loop.state_dtype, device=loop.device)
+    us, count = [], [None] * len(rows)
+    tic = time.perf_counter()
+    with torch.no_grad():
+        for g in range(1, args.max_g + 1):
+            for _ in range(p):
+                X, _ = loop.step(X, temps)
+            u = ((X.reshape(len(rows), -1) - xct) @ lt).double().cpu().numpy()
+            us.append(u)
+            for i, ui in enumerate(u):
+                if count[i] is None and ui > args.u_out_factor * U:
+                    count[i] = g
+            if all(c is not None for c in count):
+                break
+    us = np.array(us)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.save(out / "u.npy", us)
+    table = []
+    for i, row in enumerate(rows):
+        u_out = args.u_out_factor * U
+        pred = bc.passage_count(row["u_in"], a, b, row["eps"], u_out)
+        table.append({"eps": row["eps"], "entrance": row["entrance"], "u_in": row["u_in"], "u_out": u_out,
+                      "measured_G": count[i], "predicted_discrete_G": pred,
+                      "predicted_arctan_G": bc.passage_arctan(row["u_in"], u_out, a, b, row["eps"]),
+                      "relative_error": (None if count[i] is None or pred is None else (count[i] - pred) / pred),
+                      "held_out": row["eps"] not in args.development})
+    rec = {"args": vars(args), "normal_form": {k: nf[k] for k in ("a", "b", "ab", "multiplier")}, "U": U,
+           "seconds": round(time.perf_counter() - tic, 1), "rows": table}
+    (out / "passage.json").write_text(json.dumps(rec, indent=1))
+    for t in table:
+        print(json.dumps(t))
+
+
 def branch_plot(args):
     """Leading multipliers along branch or tline runs against log10 T: modulus of the largest (log scale) and the
     real parts of the real multipliers, with turns and classified crossings marked."""
@@ -1158,6 +1274,28 @@ def main():
                     help="Arnoldi steps for refined leading multipliers (0: dense float32 multipliers only)")
     bb.add_argument("--chunk", type=int, default=512)
     bb.add_argument("--out", required=True)
+    nfp = sub.add_parser("normal-form")
+    nfp.add_argument("--run", required=True, help="explore-relative curve or branch run holding the fold point")
+    nfp.add_argument("--index", type=int, default=0)
+    nfp.add_argument("--threads", type=int, default=8)
+    nfp.add_argument("--device", default="cpu")
+    nfp.add_argument("--alpha-scale", type=float, default=10.0)
+    nfp.add_argument("--chunk", type=int, default=512)
+    nfp.add_argument("--steps", type=float, nargs="+", default=[1e-2, 3e-3, 1e-3, 3e-4, 1e-4],
+                     help="relative finite-difference steps for b")
+    nfp.add_argument("--out", required=True)
+    ps = sub.add_parser("passage")
+    ps.add_argument("--normal-form", required=True, help="explore-relative normal-form run")
+    ps.add_argument("--epsilons", type=float, nargs="+", required=True)
+    ps.add_argument("--development", type=float, nargs="*", default=[],
+                    help="epsilons used to set up the measurement; the others are held out")
+    ps.add_argument("--u", type=float, default=None, help="entrance distance U (default 0.1 / b)")
+    ps.add_argument("--u-out-factor", type=float, default=1.0, help="exit at u = factor * U")
+    ps.add_argument("--max-g", type=int, default=512)
+    ps.add_argument("--seed", type=int, default=0)
+    ps.add_argument("--threads", type=int, default=8)
+    ps.add_argument("--device", default="cpu")
+    ps.add_argument("--out", required=True)
     wk = sub.add_parser("walk")
     wk.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
     wk.add_argument("--layer", type=int, default=12)
@@ -1207,7 +1345,7 @@ def main():
     cv.add_argument("--out", required=True)
     args = parser.parse_args()
     {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
-     "walk": walk,
+     "walk": walk, "normal-form": normal_form, "passage": passage,
      "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout}[args.command](args)
 
 

@@ -164,6 +164,57 @@ def refine_multipliers(matvec, M, m=4, count=2):
     return [(complex(theta[i]), float(res[i])) for i in order[:count]]
 
 
+def fold_normal_form(family, x, theta, param=1, param_scale=1.0, steps=(1e-2, 3e-3, 1e-3, 3e-4, 1e-4)):
+    """Normal form u' = u + a eps + b u^2 of a fold of the map family.phi at (x, theta): r and l are the right and
+    left eigenvectors of the multiplier nearest +1 (|r| = 1, l^T r = 1), a = l^T d Phi / d p with
+    p = theta[param] / param_scale (eps is measured in p), and b = l^T D^2 Phi[r, r] / 2 from central differences
+    of JVPs at x +- h |x| r for each relative step h. The stable-branch multipliers satisfy
+    (1 - mu)^2 / (4 |p - p_c|) -> a b, and passage through the bottleneck at eps > 0 takes about
+    pi / sqrt(a b eps) iterates. Returns a dict with the coefficients, the b plateau and the multiplier."""
+    x = np.asarray(x, dtype=np.float64).ravel()
+    M = family.monodromy(x, theta)
+    vals, R = np.linalg.eig(M)
+    i = int(np.argmin(np.abs(vals - 1)))
+    valsL, L = np.linalg.eig(M.T)
+    j = int(np.argmin(np.abs(valsL - vals[i])))
+    r, l = np.real(R[:, i]), np.real(L[:, j])
+    r = r / np.linalg.norm(r)
+    l = l / float(l @ r)
+    a = float(l @ family.param_jacobian(x, theta, which=(param,))[:, 0]) * param_scale
+    scale = float(np.linalg.norm(x)) or 1.0                   # steps relative to |x| (absolute at the origin)
+    table = []
+    for h in steps:
+        step = h * scale
+        d2 = (family.jvp_x(x + step * r, theta, r) - family.jvp_x(x - step * r, theta, r)) / (2 * step)
+        table.append({"h_relative": h, "b": 0.5 * float(l @ d2)})
+    bs = np.array([t["b"] for t in table])
+    k = int(np.argmin(np.abs(np.diff(bs)))) if len(bs) > 1 else 0   # flattest adjacent pair: the plateau
+    b = float(0.5 * (bs[k] + bs[k + 1])) if len(bs) > 1 else float(bs[0])
+    others = np.delete(vals, i)
+    return {"multiplier": [float(vals[i].real), float(vals[i].imag)],
+            "second_modulus": float(np.abs(others).max()) if len(others) else None,
+            "a": a, "b": b, "ab": a * b, "b_steps": table, "b_plateau_pair": [steps[k], steps[k + 1]]
+            if len(bs) > 1 else [steps[0]], "left_right_cosine": float(abs(l @ r) / np.linalg.norm(l)),
+            "r": r, "l": l}
+
+
+def passage_count(u0, a, b, eps, u_out, max_iter=100000):
+    """Iterates of the quadratic normal form u' = u + a eps + b u^2 from u0 until u > u_out (None if not within
+    max_iter), the discrete prediction for passage through the bottleneck."""
+    u = float(u0)
+    for n in range(1, max_iter + 1):
+        u = u + a * eps + b * u * u
+        if u > u_out:
+            return n
+    return None
+
+
+def passage_arctan(u_in, u_out, a, b, eps):
+    """Continuous-time passage time between u_in and u_out for du/dn = a eps + b u^2 (a, b, eps > 0)."""
+    s = np.sqrt(b / (a * eps))
+    return float((np.arctan(u_out * s) - np.arctan(u_in * s)) / np.sqrt(a * b * eps))
+
+
 def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01, ds_min=1e-6, ds_max=0.05,
                 tol=1e-10, gtol=1e-10, max_newton=8, bounds=None, on_point=None, k=8, chord=True, gmres_tol=1e-10,
                 gmres_maxiter=4, refine_k=0):

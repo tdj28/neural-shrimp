@@ -182,3 +182,22 @@ def test_branch_crossings_use_refined_multipliers():
     assert crossings[0]["multipliers_source"] == "refined"
     a, b = crossings[0]["between_log10_T"]
     assert min(a, b) < 0.3675 < max(a, b)
+
+
+def test_fold_normal_form_of_a_known_map():
+    """x' = x + 0.3 t + 2.5 x^2 + 0.1 y^2, y' = 0.2 y + 0.5 x: fold at t = 0, (x, y) = 0, multiplier 1. On the
+    centre manifold y = 0.625 x the reduced map is u' = u + 0.3 t + (2.5 + 0.1 * 0.625^2) u^2, so ab = 0.7617;
+    passage counts follow pi / sqrt(ab eps)."""
+    def phi(x, theta):
+        t = theta[1] / 10.0
+        return torch.stack([x[0] + 0.3 * t + 2.5 * x[0] ** 2 + 0.1 * x[1] ** 2, 0.2 * x[1] + 0.5 * x[0]])
+
+    fam = bc.Family(phi, (2,), torch.float64)
+    nf = bc.fold_normal_form(fam, np.array([0.0, 0.0]), [0.0, 0.0], param=1, param_scale=10.0,
+                             steps=(1e-1, 1e-2, 1e-3))
+    assert abs(nf["multiplier"][0] - 1) < 1e-12
+    assert abs(nf["ab"] - 0.3 * (2.5 + 0.1 * 0.625 ** 2)) < 1e-6
+    eps = 1e-4
+    n = bc.passage_count(-0.05, nf["a"], nf["b"], eps, 0.05)       # endpoints where the map is near identity
+    assert abs(n - bc.passage_arctan(-0.05, 0.05, nf["a"], nf["b"], eps)) / n < 0.02
+    assert abs(n - np.pi / np.sqrt(nf["ab"] * eps)) / n < 0.1
