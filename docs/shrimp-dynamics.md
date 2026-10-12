@@ -41,15 +41,18 @@ dissipative maps (Gallas 1993).
    locking. The period-18 window is 2/9 locking: two full turns in nine
    bounces.
 4. **Breakup makes the shrimp shape.**
-   - Farther from the edge, the closed curve breaks up and chaos fills the
-     gaps, as in the Aronson-Chory-Hall-McGehee scenario.
-   - The locked cycles survive inside the chaos as windows. Their boundaries
-     deform into the shrimp anatomy: fold curves with cusps, period-doubling
-     curves (period 36 appears inside), and, in this higher-dimensional
-     system, a Neimark-Sacker curve of the cycle itself.
+   - Locking does not need the circle to break: it already happens on the
+     intact circle (the banana, and the window's lower fold).
+   - Farther from the edge, the circle breaks up and chaos fills the gaps, as
+     in the Aronson-Chory-Hall-McGehee scenario. The locked cycles continue
+     through that breakup and survive inside the chaos as windows.
+   - Their boundaries deform into the shrimp anatomy: fold curves with cusps,
+     period-doubling curves (period 36 appears inside), and, in this
+     higher-dimensional system, a Neimark-Sacker curve of the cycle itself.
 
 So a shrimp is a phase-locking resonance of the precessing
-edge-of-stability bounce, seen after the circle has broken up. That fits the
+edge-of-stability bounce. It is born on the intact circle and persists after
+the circle breaks up. That fits the
 view that shrimp domains form from resonance tongues (Varga, Klapcsik and
 Hegedus 2019).
 
@@ -79,6 +82,10 @@ The window's organization (`docs/window-organization.md`) has two layers.
     stays real and positive. It crosses +1 at two 1:1 resonance points
     (double +1). One is the certified 1:1 point; the other, near
     (-0.0957, 1.9247), is not certified yet.
+  - Numerically, the same fold continuation passes through both certified
+    cusp locations. The certificates themselves do not yet prove that the
+    cusps belong to this connected branch; keep them as separate local
+    results until a validated connection exists.
   - Between them it is below 1 (about 0.8), and the cycle is attracting: that
     stretch is the window.
   - At a 1:1 resonance of a map, a Neimark-Sacker curve emanates. That is the
@@ -131,8 +138,11 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   of their motion is in one plane. Many directions contract only weakly per
   step, so they add fractal dimension without adding much amplitude. The
   analogy with two-dimensional maps, where shrimps are universal, is
-  therefore qualitative. Farther out, training is hyperchaotic (dimension
-  4.5-5.6).
+  therefore qualitative for the global attractors. Farther out, one point
+  has two positive Lyapunov exponents (0.216, 0.057; hyperchaotic,
+  Kaplan-Yorke 5.6); another has one (Kaplan-Yorke 4.5). These are
+  finite-horizon numerical spectra (40,000 QR steps, float64): estimates,
+  not rigorous dimensions.
 - **The odd-period windows (5, 11, 13, 17)** have real leading multipliers
   near the fold and flip values. That is the classic shrimp signature, and it
   cannot come from locking on the period-2 circle, which only gives even
@@ -157,6 +167,19 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
     close to the edge; theory -0.5). Examples: about 670 steps at 1e-3
     decades, and 15,700 steps at 3e-6 decades. The mean loss does not change,
     so only the time structure reveals the nearby window.
+  - **The certified fold predicts the timescale, with nothing fitted.** The
+    certified normal-form coefficients of the window's fold, a = -0.0156160
+    and c/2 = -4.0000580, give a bottleneck passage time of
+    18*pi/sqrt(a*(c/2)*d_eta) = 226/sqrt(d_eta) gradient steps, for a
+    hidden-rate detuning d_eta beyond the fold. Measured median laminar times
+    are 831, 1501, 2493, 4399 and 7440 steps, against predictions of 715, 1306,
+    2263, 4131 and 7155, for d_eta = 0.1 down to 0.001. The ratio falls to
+    1.04 as d_eta shrinks (`explore/shrimp-anatomy/fold-prefactor-certified`).
+    The same calculation at the U-bottom fold, using its numerically computed
+    coefficients, matches the longest laminar phases to 2-3% near the fold.
+    This connects a computer-assisted bifurcation certificate to an
+    observable property of the training-loss time series. (The prediction
+    was suggested by an external reviewer from the paper's coefficients.)
   - A soft period-doubling edge doubles the period. This is confirmed at the
     window's left flip edge (`explore/shrimp-anatomy/edge-ray51`). Outside
     it, training follows a 36-step cycle whose two halves differ by an

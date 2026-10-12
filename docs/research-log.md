@@ -18418,3 +18418,45 @@ _commit `dd17cbb5a660` (dirty worktree)_
 Multiplier tracking over all 381 nodes of upperfold-continuation-002 direction +1 (recomputed period-18 spectra, continuity matching): the leading complementary multiplier is one continuous real positive multiplier. At R3 it equals 1.3160 = 1.03098^9, the saddle 2-cycle's unstable multiplier inherited by the locked orbit; along the tongue boundary it stays above 1 (1.11 at the rightmost turn, 5.38 near (-0.0986, 1.8902)), crosses +1 near (-0.0957, 1.9247) (0.977 at node 71, 1.0045 at node 72: a double +1, i.e. a second 1:1 resonance on this fold, not yet certified) and is 0.79-0.81 on the attracting stretch containing the canonical fold. In direction -1 the same multiplier rises back through +1 between (-0.0826, 1.8663) and (-0.0823, 1.8654), the certified 1:1 point (0.977 -> 1.0136). So the window is the part of the saddle-cycle 2/9 tongue where the inherited unstable direction has become stable, gated by 1:1 resonances; in the standard unfolding of a 1:1 resonance of maps a Neimark-Sacker curve emanates from it, which is the certified complex-unit branch, across which the cycle trades stability with that inherited direction (then part of a complex pair). Separately, edge-march at log10 output -0.0778: the attracting cycle (radius 0.85-0.94) loses stability by a flip at log10 hidden about 1.899; its complex pair reaches the unit circle only near 1.920, on the already unstable cycle near the first flip/Neimark-Sacker junction.
 
 _commit `e021e1d421cc`_
+
+## 2026-10-12 00:36 UTC: run (exploratory)
+
+- **Question:** Does the period-18 shrimp need weight decay? Continue its attracting cycle in the ridge coefficient (1e-3 down to 0 and up to 1e-2) at the window centre, and classify attractors versus ridge at the window centre, below it (quasi-periodic), above it (chaotic) and near the banana
+- **Setup:** explore_shrimp_anatomy ridge: Newton continuation of the period-18 cycle at log10 rates (-0.0857, 1.853) over ridge 9e-4..0 and 1.2e-3..1e-2; attractors from the shared initial parameters (60000 transient, 8000 samples) at ridge 0, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2 and rates (-0.0857,1.853), (-0.080,1.800), (-0.083,1.890), (-0.0745,1.760): period by recurrence, rotation, norm drift
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/ridge-001`
+- **Would surprise us:** The cycle persists unchanged to ridge 0 (weight decay irrelevant here), or the quasi-periodic/chaotic regimes become unbounded drift without ridge
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py ridge --out ../neural-shrimp-data/explore/shrimp-anatomy/ridge-001`
+
+_commit `639e4c665358`_
+
+- run started 2026-10-12 00:36 UTC finished 00:37 UTC with exit status 0
+
+## 2026-10-12 00:40 UTC: run (exploratory)
+
+- **Question:** Same parameter-free test at the window's U-bottom fold (on the intact invariant circle, every slip is a full bottleneck passage): do measured slip intervals match 18*pi/sqrt(a*(c/2)*d_eta) with coefficients computed at that fold, no fitting?
+- **Setup:** fold-prefactor at carried node attempt-006-ray32-fold +1-010 (its own output rate); detunings 0.152, 0.0456, 0.0152, 0.00456, 0.00152, 0.000456 in actual hidden-rate units (the eps of slips-002 converted); 600000 steps each
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-ubottom`
+- **Would surprise us:** Measured intervals off the prediction by more than a factor 1.5
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py fold-prefactor --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-006-ray32-fold/run/node-+1-010.json --detunings 0.152 0.0456 0.0152 0.00456 0.00152 0.000456 --out ../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-ubottom`
+
+_commit `5fdf097b20b1` (dirty worktree)_
+
+## 2026-10-12 00:40 UTC: run (exploratory)
+
+- **Question:** Parameter-free test linking the certified fold to an observable: do the float64 normal-form coefficients at the certified fold reproduce the interval enclosures (a in [-0.0156159734,-0.0156159733], c/2 in [-4.0000580,-4.0000580]), and do passage (laminar) times beyond that fold follow 18*pi/sqrt(a*(c/2)*d_eta) ~ 226/sqrt(d_eta) gradient steps?
+- **Setup:** fold-prefactor at carried node attempt-003-target +1-000 corrected at the exact certified output rate 1848862009810323/2^51; detunings 0.1, 0.03, 0.01, 0.003, 0.001 in actual hidden-rate units on the side without the cycle; 600000 steps each; laminar = |theta_{t+18}-theta_t| < 0.05, runs >= 36 steps
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-certified`
+- **Would surprise us:** Coefficients off the enclosures (code or coordinate error); passage times far from the prediction
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py fold-prefactor --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --output 0.8210596690584651 --out ../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-certified`
+
+_commit `5fdf097b20b1` (dirty worktree)_
+
+- run started 2026-10-12 00:40 UTC finished 00:41 UTC with exit status 0
+
+- run started 2026-10-12 00:40 UTC finished 00:42 UTC with exit status 0
+
+## 2026-10-12 00:43 UTC: The certified fold predicts an observable training timescale without fitting (laminar time 226/sqrt(d_eta) steps, within 4% at d_eta = 0.001)
+
+fold-prefactor-certified (tool explore_shrimp_anatomy fold-prefactor): at the certified fold (output rate exactly 1848862009810323/2^51) float64 continuation gives eta* = 75.76429203111468 (certified [75.76429203111452, 75.76429203111453]), a = w.dR/d(eta_h) = -0.0156159734 (inside the certified enclosure) and c/2 = -4.0000581 (enclosure -4.000058029..-4.000057978; central-difference error about 1e-7). The bottleneck formula for u -> u + a d_eta + (c/2) u^2 gives a passage time of 18 pi / sqrt(a (c/2) d_eta) = 226.26/sqrt(d_eta) gradient steps (prediction suggested by an external reviewer from the paper's certified coefficients). Measured beyond the fold (chaotic reinjection; laminar = |theta_{t+18}-theta_t| < 0.05, runs >= 36 steps, 600000 steps each): d_eta = 0.1, 0.03, 0.01, 0.003, 0.001 give median laminar times 831, 1501, 2493, 4399, 7440 versus predicted 715, 1306, 2263, 4131, 7155 (ratios 1.16, 1.15, 1.10, 1.065, 1.04, approaching 1 with corrections roughly proportional to sqrt(d_eta)). fold-prefactor-ubottom: at the U-bottom fold on the intact circle (a = -0.004449, c/2 = +1.6757, prefactor 654.9 steps, passage below the fold), the longest laminar phases are 1168, 2537, 4787, 9179, 16288, 30149 steps versus predicted 1680, 3067, 5312, 9698, 16798, 30669 (ratios 0.70 -> 0.98 as d_eta -> 0); the earlier steps-per-slip counted short flicker runs between the long phases and is about half the passage time. Conclusion: certified (and numerically computed) fold normal-form coefficients predict, without fitting, the duration of the nearly periodic stretches seen in training just beyond a shrimp's fold edge.
+
+_commit `5fdf097b20b1` (dirty worktree)_
