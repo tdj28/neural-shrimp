@@ -545,14 +545,23 @@ def branch(args):
               flush=True)
 
     tic = time.perf_counter()
+    free = 0 if args.free == "temperature" else 1
+    sc = 1.0 if free == 0 else args.alpha_scale                # the free parameter as continued
+    bounds = args.bounds or ([-1.5, 0.5] if free == 0 else [-0.2, 0.2])
     records, reason, states = bc.trace_branch(
-        fam, fam.to_np(X), [args.log_temperature, args.alpha * args.alpha_scale], free=0, direction=args.direction,
-        steps=args.steps, ds=args.ds, ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol,
-        max_newton=args.max_newton, beyond=args.beyond, bounds=tuple(args.bounds), on_point=on_point, k=args.k)
+        fam, fam.to_np(X), [args.log_temperature, args.alpha * args.alpha_scale], free=free,
+        direction=args.direction, steps=args.steps, ds=args.ds, ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol,
+        max_newton=args.max_newton, beyond=args.beyond * sc, bounds=(bounds[0] * sc, bounds[1] * sc),
+        on_point=on_point, k=args.k)
+    for r in records:                                          # 'lambda' in natural units (alpha unscaled)
+        r["lambda"] /= sc
+        if "turn_lambda_estimate" in r:
+            r["turn_lambda_estimate"] /= sc
     crossings = bc.classify_crossings(records)
     np.save(out / "states.npy", np.array(states).reshape((len(states),) + tuple(X.shape[1:])))
-    rec = {"args": vars(args), "period": period, "return_distances_after_transient": returns, "stop": reason,
-           "seconds": round(time.perf_counter() - tic, 1), "crossings": crossings, "points": records}
+    rec = {"args": vars(args), "free": args.free, "period": period, "return_distances_after_transient": returns,
+           "stop": reason, "seconds": round(time.perf_counter() - tic, 1), "crossings": crossings,
+           "points": records}
     (out / "branch.json").write_text(json.dumps(rec, indent=1))
     print(json.dumps({"period": period, "stop": reason, "points": len(records), "crossings": crossings,
                       "seconds": rec["seconds"]}))
@@ -566,9 +575,13 @@ def curve(args):
     src = DATA / "explore" / args.start
     tl = json.loads((src / ("branch.json" if (src / "branch.json").exists() else "tline.json")).read_text())
     states = np.load(src / "states.npy")
-    kind, index, x0, log_t0 = curve_start(tl, states, args.kind, args.start_index)
-    period, alpha0 = int(tl["period"]), float(tl["args"]["alpha"])
+    kind, index, x0, lam0 = curve_start(tl, states, args.kind, args.start_index)
     ta = tl["args"]
+    period = int(tl["period"])
+    if tl.get("free", "temperature") == "temperature":          # located at fixed alpha
+        log_t0, alpha0, fix = lam0, float(ta["alpha"]), 1
+    else:                                                      # located at fixed log10 T
+        log_t0, alpha0, fix = float(ta["log_temperature"]), lam0, 0
     loop = SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"], args.dtype,
                     args.device)
     ref = (SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"],
@@ -594,7 +607,7 @@ def curve(args):
     bounds = ((args.log_temperature_bounds[0], args.log_temperature_bounds[1]),
               (args.alpha_bounds[0] * sc, args.alpha_bounds[1] * sc))
     records, reason, curve_states = bc.trace_curve(
-        fam, x0, [log_t0, alpha0 * sc], kind, fix=1, direction=args.direction, steps=args.steps, ds=args.ds,
+        fam, x0, [log_t0, alpha0 * sc], kind, fix=fix, direction=args.direction, steps=args.steps, ds=args.ds,
         ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, gtol=args.gtol, max_newton=args.max_newton,
         bounds=bounds, on_point=on_point)
     rec = {"args": vars(args), "kind": kind, "period": period, "start": {"tline_index": index,
@@ -964,8 +977,11 @@ def main():
     bb.add_argument("--ds", type=float, default=0.004)
     bb.add_argument("--ds-min", type=float, default=1e-7)
     bb.add_argument("--ds-max", type=float, default=0.01)
-    bb.add_argument("--beyond", type=float, default=0.01, help="stop this far in log10 T past the first turn")
-    bb.add_argument("--bounds", type=float, nargs=2, default=[-1.5, 0.5], help="log10 T range")
+    bb.add_argument("--beyond", type=float, default=0.01, help="stop this far past the first turn (free parameter)")
+    bb.add_argument("--free", default="temperature", choices=("temperature", "alpha"),
+                    help="the continued parameter (the other stays fixed)")
+    bb.add_argument("--bounds", type=float, nargs=2, default=None,
+                    help="range of the free parameter (default log10 T -1.5..0.5, alpha -0.2..0.2)")
     bb.add_argument("--tol", type=float, default=1e-10)
     bb.add_argument("--max-newton", type=int, default=10)
     bb.add_argument("--k", type=int, default=12, help="multipliers recorded per point")
@@ -980,7 +996,8 @@ def main():
     cv.add_argument("--dtype", default="float32", choices=("float32", "float64"))
     cv.add_argument("--device", default="cpu")
     cv.add_argument("--alpha-scale", type=float, default=10.0, help="alpha is continued as alpha * scale")
-    cv.add_argument("--direction", type=int, default=1, choices=(-1, 1), help="sign of the initial d log10 T")
+    cv.add_argument("--direction", type=int, default=1, choices=(-1, 1),
+                    help="sign of the initial change of the parameter that varied along the start run")
     cv.add_argument("--steps", type=int, default=60)
     cv.add_argument("--ds", type=float, default=0.005)
     cv.add_argument("--ds-min", type=float, default=1e-6)
