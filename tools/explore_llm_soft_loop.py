@@ -796,7 +796,17 @@ def render(args):
     # (tab20's two greys are dropped: grey marks 'no period')
     img = np.full(per.shape + (4,), 0.0)
     family_handles = []
-    if args.families:                                     # colour by attractor identity (token loop), not period
+    if args.style == "lyapunov":                          # as in the shrimp literature: chaos in colour by the
+        # largest exponent, periodic regions in grey by how contracting they are (superstable curves dark)
+        from matplotlib.colors import Normalize
+        chaos = ly > args.chaos_level
+        hot = plt.get_cmap("plasma")(Normalize(0.0, max(float(ly.max()), 1e-9))(np.clip(ly, 0, None)))
+        neg = np.clip(-ly, 0, None)
+        cap = float(np.percentile(neg[~chaos], 99)) if (~chaos).any() else 1.0
+        grey = 1.0 - 0.9 * np.clip(neg / max(cap, 1e-12), 0, 1) ** 0.5
+        img[...] = np.stack([grey, grey, grey, np.ones_like(grey)], axis=-1)
+        img[chaos] = hot[chaos]
+    elif args.families:                                     # colour by attractor identity (token loop), not period
         if "family" not in d:
             raise SystemExit(f"{args.scan} has no family identities (scan made before they were recorded)")
         fam = d["family"]
@@ -816,14 +826,20 @@ def render(args):
         for q in range(1, top + 1):
             img[per == q] = colours[(q - 1) % len(colours)]
         img[(per == 0) | (per > top)] = (0.75, 0.75, 0.75, 1.0)
-    img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
+    if args.style != "lyapunov":
+        img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
     fig, ax = plt.subplots(figsize=(8, 7))
     ax.imshow(img, origin="lower", aspect="auto", interpolation="nearest",
               extent=(al[0], al[-1], lt[0], lt[-1]))
     handles = family_handles or [matplotlib.patches.Patch(color=colours[(q - 1) % len(colours)], label=str(q))
                                  for q in range(1, top + 1) if np.any(per == q)]
-    handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
-                matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
+    if args.style == "lyapunov":
+        handles = [matplotlib.patches.Patch(color=plt.get_cmap("plasma")(0.8), label="chaotic (largest exponent)"),
+                   matplotlib.patches.Patch(color=(0.2, 0.2, 0.2), label="periodic, strongly contracting"),
+                   matplotlib.patches.Patch(color=(0.9, 0.9, 0.9), label="periodic, weakly contracting")]
+    if args.style != "lyapunov":
+        handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
+                    matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
     styles = {"fold": dict(color="white", lw=1.6), "flip": dict(color="magenta", lw=1.6, ls="--")}
     for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
         kind, pts = curve_points(DATA / "explore" / path)
@@ -839,7 +855,8 @@ def render(args):
         ax.set_xlim(*args.window[:2])
         ax.set_ylim(*args.window[2:])
     ax.legend(handles=handles, fontsize=7, ncol=1 if family_handles else 2, loc="upper left",
-              bbox_to_anchor=(1.01, 1.0), title="attractor (leading-token loop)" if family_handles else "period")
+              bbox_to_anchor=(1.01, 1.0), title=("attractor (leading-token loop)" if family_handles else
+                                               "largest Lyapunov exponent" if args.style == "lyapunov" else "period"))
     ax.set_xlabel("steering alpha")
     ax.set_ylabel("log10 temperature")
     ax.set_title(f"soft-token decoding: {args.scan}")
@@ -1305,6 +1322,9 @@ def main():
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
     rd.add_argument("--window", type=float, nargs=4, default=None, metavar=("ALPHA0", "ALPHA1", "LOGT0", "LOGT1"),
                     help="zoom to this part of the map")
+    rd.add_argument("--style", default="period", choices=("period", "lyapunov"),
+                    help="lyapunov: chaos coloured by the largest exponent, periodic cells in grey by contraction "
+                         "(superstable curves dark), as in the shrimp literature")
     rd.add_argument("--families", type=int, default=0,
                     help="colour the N most common attractor identities (token loops) instead of periods")
     ro = sub.add_parser("readout")
