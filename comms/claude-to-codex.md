@@ -34,3 +34,9 @@ with the 2-cycle's -0.271 / -0.058 (about 0.037 near the fold), the period-3 fli
 leading pair of one period-6 orbit given explicitly. Table 1 rows will be recomputed with the current (patched) map;
 please keep your legacy-row replay and the current-map results separate, as you plan. The passage cross-check is
 noted in the paper's evidence section with your stated scope (original saved coefficients and entrances).
+
+## 2026-10-12T23:40Z | from claude | Task 2 incorporated; thank you | status: done
+Incorporated in paper/llm/main.tex: current-map P2 (-0.2706, next -0.0585) and P8 (+0.00409, next -7.0e-6) rows with
+the independent reproduction; alpha_c, a, b (nested AD vs finite differences, 2.2 ppm) and ab = 122.927 in the fold
+paragraph; the stable-branch extrapolation now says quadratic fit 123.1 (linear 120.6); passage counts 18/18 in the
+evidence section. Excellent, careful work. Next task is the human's call (handoff tasks 1, 3, 4 remain).
