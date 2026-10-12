@@ -1,0 +1,148 @@
+"""Float64 soft-token continuation on one RunPod pod, end to end.
+
+create a pod (named neural-shrimp-..., ID recorded in the ledger) -> wait for SSH -> upload `git archive` of a
+pushed commit (only the soft-loop tools and the runner) and the start data (concept vectors, saved branches)
+-> run tools/runpod_soft_runner.sh JOBSET under a wall-time limit, streaming its output to a local log ->
+retrieve and hash-verify results.tgz and unpack it under DATA/explore -> terminate the pod and verify it is
+gone. Termination runs in a `finally` block, so any failure still tears the pod down. The run refuses to start
+when the pod's hourly rate times the time limits exceeds --max-cost. No credential is sent to the pod; the
+model is downloaded there from the public Hugging Face hub at the pinned revision.
+"""
+
+import argparse
+import hashlib
+import io
+import json
+import subprocess
+import sys
+import tarfile
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+
+import runpod_pod as rp  # noqa: E402
+from runpod_phase0 import KEY, ssh_base, wait_for_ssh  # noqa: E402
+
+UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.py", "tools/explore_llm_phase_map.py",
+                "tools/bifurcation_curves.py", "tools/explore_latent_loop.py", "tools/runpod_soft_runner.sh",
+                "pyproject.toml")
+DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
+              "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
+
+
+def archives(commit):
+    code = subprocess.run(["git", "archive", "--format=tar", commit, *UPLOAD_PATHS], cwd=ROOT, capture_output=True,
+                          check=True).stdout
+    buf = io.BytesIO()
+    with tarfile.open(fileobj=buf, mode="w") as tar:
+        for rel in DATA_PATHS:
+            tar.add(rp.DATA / rel, arcname=rel)
+    return code, buf.getvalue()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--gpu-type", nargs="+", default=["COMMUNITY:NVIDIA H100 NVL", "COMMUNITY:NVIDIA H100 PCIe",
+                                                          "SECURE:NVIDIA H100 NVL", "COMMUNITY:NVIDIA A100 80GB PCIe"],
+                        help="ordered fallbacks, CLOUD:TYPE; only creation is retried")
+    parser.add_argument("--max-rate", type=float, required=True, help="refuse pods listed above this hourly rate")
+    parser.add_argument("--max-cost", type=float, required=True,
+                        help="refuse to run when rate x (ready + run + 10 minutes) exceeds this")
+    parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
+    parser.add_argument("--name", default="neural-shrimp-soft64")
+    parser.add_argument("--commit", required=True, help="pushed commit to upload")
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton"))
+    parser.add_argument("--ready-minutes", type=float, default=15)
+    parser.add_argument("--run-minutes", type=float, required=True)
+    parser.add_argument("--out", default=str(rp.DATA / "runpod" / "soft64"))
+    parser.add_argument("--approval", required=True)
+    parser.add_argument("--dry-run", action="store_true", help="build the uploads and report their sizes only")
+    args = parser.parse_args()
+    head = subprocess.run(["git", "rev-parse", args.commit], cwd=ROOT, capture_output=True, text=True,
+                          check=True).stdout.strip()
+    pushed = subprocess.run(["git", "branch", "-r", "--contains", head], cwd=ROOT, capture_output=True,
+                            text=True).stdout.strip()
+    if not pushed:
+        raise SystemExit(f"commit {head} is not on any remote branch; push it first")
+    code, data = archives(head)
+    worst = args.max_rate * (args.ready_minutes + args.run_minutes + 10) / 60
+    plan = {"commit": head, "jobset": args.jobset, "code_bytes": len(code), "data_bytes": len(data),
+            "worst_case_cost_at_max_rate": round(worst, 2), "max_cost": args.max_cost}
+    print(json.dumps(plan), flush=True)
+    if worst > args.max_cost:
+        raise SystemExit("time limits times the maximum rate exceed --max-cost; shorten the run")
+    if args.dry_run:
+        return
+    out = Path(args.out) / time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+    out.mkdir(parents=True, exist_ok=True)
+    pod_id, chosen = None, None
+    for entry in args.gpu_type:
+        cloud, _, gpu = entry.partition(":")
+        create = argparse.Namespace(gpu_type=gpu, cloud=cloud, image=args.image, name=args.name,
+                                    pubkey_file=str(KEY) + ".pub", disk_gb=60, min_vcpu=8, min_memory_gb=32,
+                                    commit=head, approval=args.approval)
+        try:
+            rp.cmd_create(create)
+        except SystemExit as error:
+            if "instances available" in str(error) or "no pod was created" in str(error):
+                rp.record({"event": "no_capacity", "gpu_type": gpu, "cloud": cloud})
+                print(f"no capacity: {cloud} {gpu}", flush=True)
+                continue
+            raise
+        last = [json.loads(line) for line in rp.LEDGER.read_text().splitlines()][-1]
+        pod_id, chosen = last["pod_id"], entry
+        break
+    if pod_id is None:
+        raise SystemExit("no capacity for any listed GPU type; no pod was created")
+    started = time.time()
+    rate = [json.loads(line) for line in rp.LEDGER.read_text().splitlines()][-1].get("cost_per_hr") or 0
+    result = {"pod_id": pod_id, "gpu_type": chosen, "rate": rate, "commit": head, "jobset": args.jobset,
+              "started": started, "out": str(out)}
+    try:
+        if rate > args.max_rate:
+            raise SystemExit(f"pod rate {rate}/h above --max-rate")
+        ip, port = wait_for_ssh(pod_id, started + 60 * args.ready_minutes)
+        rp.record({"event": "ssh_ready", "pod_id": pod_id, "seconds_after_create": round(time.time() - started)})
+        base = ssh_base(ip, port)
+        subprocess.run(base + ["mkdir -p /root/neural-shrimp && tar -x -C /root/neural-shrimp"], input=code,
+                       check=True, timeout=600)
+        subprocess.run(base + ["mkdir -p /root/neural-shrimp-data && tar -x -C /root/neural-shrimp-data"], input=data,
+                       check=True, timeout=600)
+        rp.record({"event": "uploaded", "pod_id": pod_id, "archive_bytes": len(code), "data_bytes": len(data)})
+        with open(out / "runner-stdout.txt", "w") as log:              # streamed: readable while the run goes
+            proc = subprocess.Popen(base + [f"bash /root/neural-shrimp/tools/runpod_soft_runner.sh {args.jobset}"],
+                                    stdout=log, stderr=subprocess.STDOUT)
+            try:
+                proc.wait(timeout=60 * args.run_minutes)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                rp.record({"event": "run_timeout", "pod_id": pod_id, "minutes": args.run_minutes})
+        text = (out / "runner-stdout.txt").read_text()
+        remote_hash = next((line.split()[0] for line in text.splitlines() if line.endswith("/root/results.tgz")), None)
+        if remote_hash is None:                                   # timed out or failed: pack what exists
+            pack = subprocess.run(base + ["tar czf /root/results.tgz -C /root/neural-shrimp-data "
+                                          "explore/llm-soft-loop/pod64 && sha256sum /root/results.tgz"],
+                                  capture_output=True, text=True, timeout=600)
+            remote_hash = (pack.stdout.split() or [None])[0]
+        subprocess.run(["scp", "-i", str(KEY), "-P", str(port), "-o", "BatchMode=yes",
+                        "-o", f"UserKnownHostsFile={rp.DATA / 'runpod' / 'known_hosts'}",
+                        f"root@{ip}:/root/results.tgz", str(out / "results.tgz")], check=True, timeout=900)
+        local_hash = hashlib.sha256((out / "results.tgz").read_bytes()).hexdigest()
+        result.update(runner_returncode=proc.returncode, remote_sha256=remote_hash, local_sha256=local_hash,
+                      hash_verified=remote_hash == local_hash)
+        rp.record({"event": "retrieved", "pod_id": pod_id, "hash_verified": remote_hash == local_hash,
+                   "sha256": local_hash})
+        if remote_hash == local_hash:
+            with tarfile.open(out / "results.tgz") as tar:
+                tar.extractall(rp.DATA, filter="data")
+    finally:
+        rp.cmd_terminate(argparse.Namespace(pod=pod_id))
+        result["wall_seconds"] = round(time.time() - started)
+        (out / "result.json").write_text(json.dumps(result, indent=1))
+        print(json.dumps(result), flush=True)
+
+
+if __name__ == "__main__":
+    main()
