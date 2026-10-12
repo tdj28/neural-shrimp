@@ -141,6 +141,77 @@ def check(args):
                           "loop_top": loop.tok.decode([int(mine.argmax())])}))
 
 
+def sweep(args):
+    """Relaxed loop h <- (1 - lambda) h + lambda F(h) for many lambda in one batch: bifurcation diagram,
+    largest Lyapunov exponent and period of the attractor."""
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    lambdas = np.linspace(*args.lambdas, args.points)
+    h0 = loop.setup(PROMPTS[args.prompt])
+    B = len(lambdas)
+    lam = torch.as_tensor(lambdas, dtype=loop.dtype, device=loop.device)[:, None, None]
+    h = h0.repeat(B, 1, 1)
+    rng = np.random.default_rng(0)
+    probe = torch.as_tensor(rng.normal(size=h0.shape[-1]), dtype=loop.dtype, device=loop.device)
+    probe = probe / probe.norm()
+
+    def relaxed(x):
+        return (1 - lam) * x + lam * loop.F(x)
+
+    tic = time.perf_counter()
+    for _ in range(args.transient):
+        h = relaxed(h)
+    d = torch.as_tensor(rng.normal(size=tuple(h.shape)), dtype=loop.dtype, device=loop.device)
+    scale = h.flatten(1).norm(dim=1)
+    eps = (args.eps * scale)[:, None, None]
+    g = h + d / d.flatten(1).norm(dim=1)[:, None, None] * eps
+    log_growth = np.zeros(B)
+    observable, recent = [], []
+    for k in range(args.measure):
+        h_new, g_new = relaxed(h), relaxed(g)
+        diff = g_new - h_new
+        dist = diff.flatten(1).norm(dim=1)
+        log_growth += np.log(np.maximum((dist / eps[:, 0, 0]).cpu().numpy(), 1e-300))
+        g = h_new + diff * (eps[:, 0, 0] / torch.clamp(dist, min=1e-300))[:, None, None]
+        h = h_new
+        observable.append((h[:, -1, :] @ probe).cpu().double().numpy())
+        recent.append(h.cpu().double().numpy())
+        recent = recent[-(args.max_period + 1):]
+    lyap = log_growth / args.measure
+    last = recent[-1]
+    norms = np.maximum(np.linalg.norm(last.reshape(B, -1), axis=1), 1e-300)
+    period = np.zeros(B, dtype=int)
+    for q in range(min(args.max_period, len(recent) - 1), 0, -1):
+        close = np.linalg.norm((recent[-1 - q] - last).reshape(B, -1), axis=1) / norms < args.tol
+        period = np.where(close, q, period)
+    obs = np.array(observable)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "sweep.npz", lambdas=lambdas, lyapunov=lyap, period=period, observable=obs)
+    rows = [{"lambda": float(l), "lyapunov": float(v), "period": int(q),
+             "observable_spread": float(obs[-args.record:, i].std())} for i, (l, v, q) in
+            enumerate(zip(lambdas, lyap, period))]
+    for r in rows:
+        print(json.dumps(r))
+    (out / "sweep.json").write_text(json.dumps({"args": vars(args), "seconds": round(time.perf_counter() - tic, 1),
+                                                "rows": rows}, indent=1))
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(2, 1, figsize=(8, 7), sharex=True)
+    for i, l in enumerate(lambdas):
+        axes[0].plot(np.full(args.record, l), obs[-args.record:, i], ",k", alpha=0.6)
+    axes[0].set_ylabel("last-position state on a fixed random direction")
+    axes[0].set_title(f"Ouro-1.4B relaxed latent loop, prompt '{args.prompt}': bifurcation diagram")
+    axes[1].axhline(0, color="grey", lw=0.8)
+    axes[1].plot(lambdas, lyap, "o-", ms=3)
+    axes[1].set_ylabel("largest Lyapunov exponent per loop")
+    axes[1].set_xlabel("relaxation lambda (1 = the model's own loop)")
+    fig.tight_layout()
+    fig.savefig(out / "sweep.png", dpi=120)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -154,6 +225,21 @@ def main():
     tr.add_argument("--eps", type=float, default=1e-4)
     tr.add_argument("--tail", type=int, default=16)
     tr.add_argument("--out", required=True)
+    sw = sub.add_parser("sweep")
+    sw.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    sw.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    sw.add_argument("--device", default="cpu")
+    sw.add_argument("--threads", type=int, default=8)
+    sw.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    sw.add_argument("--lambdas", type=float, nargs=2, default=[0.05, 1.2])
+    sw.add_argument("--points", type=int, default=24)
+    sw.add_argument("--transient", type=int, default=200)
+    sw.add_argument("--measure", type=int, default=200)
+    sw.add_argument("--record", type=int, default=100)
+    sw.add_argument("--max-period", type=int, default=32)
+    sw.add_argument("--tol", type=float, default=1e-5)
+    sw.add_argument("--eps", type=float, default=1e-5, help="twin offset relative to the state norm")
+    sw.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -161,7 +247,7 @@ def main():
     ck.add_argument("--threads", type=int, default=8)
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
-    {"trajectory": trajectory, "check": check}[args.command](args)
+    {"trajectory": trajectory, "check": check, "sweep": sweep}[args.command](args)
 
 
 if __name__ == "__main__":
