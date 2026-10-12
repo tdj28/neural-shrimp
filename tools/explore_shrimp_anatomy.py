@@ -300,23 +300,28 @@ def slips(args):
                 lengths.append(run)
                 run = 0
         lengths = lengths[1:] if len(lengths) > 2 else lengths      # drop a cut-off first run
+        long_runs = [r for r in lengths if r >= args.min_run]       # flicker during a slip is not a phase
         row = {"eps": eps, "log10_hidden": ly0 - eps, "laminar_fraction": float(laminar.mean()),
                "laminar_runs": len(lengths), "mean_laminar_steps": float(np.mean(lengths)) if lengths else None,
                "median_laminar_steps": float(np.median(lengths)) if lengths else None,
+               "long_runs": len(long_runs),
+               "mean_long_run_steps": float(np.mean(long_runs)) if long_runs else None,
+               "steps_per_slip": float(args.steps / len(long_runs)) if long_runs else None,
                "max_dist": float(dist.max()), "loss_mean": float(loss.mean())}
         rows.append(row)
         print(json.dumps({k: (round(v, 6) if isinstance(v, float) else v) for k, v in row.items()}))
         np.savez_compressed(out / f"series-eps{eps:g}.npz", dist=dist[:40000], loss=loss[:40000])
-    good = [r for r in rows if r["mean_laminar_steps"]]
+    good = [r for r in rows if r["steps_per_slip"]]
     if len(good) >= 2:
         le = np.log([r["eps"] for r in good])
-        ll = np.log([r["mean_laminar_steps"] for r in good])
-        slope = float(np.polyfit(le, ll, 1)[0])
+        slope = float(np.polyfit(le, np.log([r["steps_per_slip"] for r in good]), 1)[0])
+        slope_mean = float(np.polyfit(le, np.log([r["mean_long_run_steps"] for r in good]), 1)[0])
     else:
-        slope = None
+        slope, slope_mean = None, None
     (out / "slips.json").write_text(json.dumps({"node": str(args.node), "rows": rows,
-                                                "laminar_scaling_exponent": slope}, indent=1))
-    print(json.dumps({"laminar_scaling_exponent": slope, "expected": -0.5}))
+                                                "steps_per_slip_exponent": slope,
+                                                "mean_long_run_exponent": slope_mean}, indent=1))
+    print(json.dumps({"steps_per_slip_exponent": slope, "mean_long_run_exponent": slope_mean, "expected": -0.5}))
 
 
 def main():
@@ -341,6 +346,7 @@ def main():
     sl.add_argument("--transient", type=int, default=50000)
     sl.add_argument("--steps", type=int, default=600000)
     sl.add_argument("--threshold", type=float, default=0.05)
+    sl.add_argument("--min-run", type=int, default=36, help="shortest laminar stretch counted as a phase")
     sl.add_argument("--out", required=True)
     args = parser.parse_args()
     {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips}[args.command](args)
