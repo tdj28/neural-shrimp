@@ -258,12 +258,25 @@ def summary(args):
                "tail_entropy": float(np.mean(ent[tail])), "tail_tokens": float(np.mean(tok[tail])),
                "tail_cos": float(np.nanmean(cos[tail])), "tail_distinct_texts": len(set(texts[tail])),
                "last_text": texts[-1][:160]}
+        period = (rec["cycle"].get("period_turns") or rec["cycle"].get("period")) if rec["cycle"] else None
+        persistent = bool(period and len(texts) >= 2 * period and texts[-period:] == texts[-2 * period:-period])
+        row["cycle_period"] = period if persistent else None
+        row["attractor_texts"] = sorted(set(texts[-period:])) if persistent else None
         rows.append(row)
-        print(json.dumps({k: v for k, v in row.items() if k != "last_text"}))
+        print(json.dumps({k: v for k, v in row.items() if k not in ("last_text", "attractor_texts")}))
         style = "-" if "open" in run.name or kind == "paraphrase" else "--"
         axes[0].plot(range(1, len(ent) + 1), ent, style, label=run.name)
         axes[1].plot(range(1, len(tok) + 1), tok, style)
         axes[2].plot(range(1, len(cos) + 1), cos, style)
+    # basins: runs grouped by the set of texts on their persistent final cycle
+    basins = {}
+    for row in rows:
+        if row["attractor_texts"]:
+            basins.setdefault(tuple(row["attractor_texts"]), []).append(row["run"])
+    basin_list = [{"period": next(r["cycle_period"] for r in rows if r["run"] == runs[0]),
+                   "texts": [t[:120] for t in key], "runs": runs} for key, runs in basins.items()]
+    for b in basin_list:
+        print(json.dumps({"basin_period": b["period"], "runs": b["runs"], "first_text": b["texts"][0]}))
     axes[0].set_ylabel("mean next-token entropy (nats)")
     axes[1].set_ylabel("tokens per turn")
     axes[2].set_ylabel("cosine to previous turn (hidden-state mean)")
@@ -272,7 +285,8 @@ def summary(args):
     axes[0].legend(fontsize=6)
     fig.tight_layout()
     fig.savefig(base / "summary.png", dpi=110)
-    (base / "summary.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1, ensure_ascii=False))
+    (base / "summary.json").write_text(json.dumps({"args": vars(args), "rows": rows, "basins": basin_list}, indent=1,
+                                                  ensure_ascii=False))
 
 
 def main():
