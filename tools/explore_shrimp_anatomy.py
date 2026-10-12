@@ -677,6 +677,62 @@ def fold_prefactor(args):
         "rows": rows}, indent=1))
 
 
+def escape(args):
+    """Does weak weight decay let large-step GD escape to flatter, saturated weights? Sharpness and saturation."""
+    import dataclasses
+
+    net0, x, y, theta0 = make_s2(SEED)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    pc = list(args.rates)
+    small = [0.5 - 1.828, 0.5]                                  # the arc tools' minimum-finding rates
+    record = {"rates": pc, "rows": []}
+    for lam in args.ridges:
+        net = dataclasses.replace(net0, ridge=float(lam))
+        f = TwoRateMap(net, x, y)
+        sq = np.sqrt(f.rates(pc))
+
+        def sharp(t):
+            h = net.hessian(t, x, y)
+            return float(np.linalg.eigvalsh(sq[:, None] * h * sq[None, :])[-1])
+
+        def saturation(t):
+            w0, b0, _, _ = net._unpack(t[None, :])
+            return float(np.mean(1.0 - np.tanh(x @ w0[0] + b0[0]) ** 2))
+
+        def data_loss(t):
+            return float(net.loss(t[None, :], x, y)[0]) - 0.5 * lam * float(t @ t)
+
+        tm = f.iterate(theta0.copy(), small, args.descent_steps)
+        for _ in range(20):
+            g = net.gradient(tm[None, :], x, y)[0]
+            if np.linalg.norm(g) < 1e-13:
+                break
+            tm = tm - np.linalg.solve(net.hessian(tm, x, y), g)
+        minimum = {"norm": float(np.linalg.norm(tm)), "data_loss": data_loss(tm),
+                   "gradient": float(np.linalg.norm(net.gradient(tm[None, :], x, y))),
+                   "sharpness_at_rates": sharp(tm), "mean_tanh_prime": saturation(tm)}
+        theta, checkpoints = theta0.copy(), []
+        with np.errstate(over="ignore", invalid="ignore"):
+            for k in range(args.steps + 1):
+                if k % args.every == 0:
+                    if not np.all(np.isfinite(theta)) or np.linalg.norm(theta) > 1e6:
+                        checkpoints.append({"step": k, "outcome": "diverged"})
+                        break
+                    t2 = f.step(theta, pc)
+                    checkpoints.append({"step": k, "norm": float(np.linalg.norm(theta)), "data_loss": data_loss(theta),
+                                        "sharpness_pair": [sharp(theta), sharp(t2)],
+                                        "mean_tanh_prime": saturation(theta)})
+                theta = f.step(theta, pc)
+        row = {"ridge": lam, "minimum": minimum, "checkpoints": checkpoints}
+        record["rows"].append(row)
+        last = checkpoints[-1]
+        print(json.dumps({"ridge": lam, "minimum": {k: round(v, 6) for k, v in minimum.items()},
+                          "final": {k: ([round(u, 4) for u in v] if isinstance(v, list) else
+                                        (round(v, 6) if isinstance(v, float) else v)) for k, v in last.items()}}))
+    (out / "escape.json").write_text(json.dumps(record, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -744,11 +800,19 @@ def main():
     rd.add_argument("--transient", type=int, default=60000)
     rd.add_argument("--samples", type=int, default=8000)
     rd.add_argument("--out", required=True)
+    es = sub.add_parser("escape")
+    es.add_argument("--rates", type=float, nargs=2, default=[-0.0857, 1.853], metavar=("LX", "LY"))
+    es.add_argument("--ridges", type=float, nargs="+", default=[0.0, 1e-4, 3e-4, 1e-3])
+    es.add_argument("--descent-steps", type=int, default=200000)
+    es.add_argument("--steps", type=int, default=60000)
+    es.add_argument("--every", type=int, default=2000)
+    es.add_argument("--out", required=True)
     args = parser.parse_args()
     if args.command == "ridge" and args.points is None:
         args.points = [[-0.0857, 1.853], [-0.0800, 1.800], [-0.0830, 1.890], [-0.0745, 1.760]]
     {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window,
-     "lyapunov": lyapunov, "edge": edge, "ridge": ridge, "fold-prefactor": fold_prefactor}[args.command](args)
+     "lyapunov": lyapunov, "edge": edge, "ridge": ridge, "fold-prefactor": fold_prefactor,
+     "escape": escape}[args.command](args)
 
 
 if __name__ == "__main__":
