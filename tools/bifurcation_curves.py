@@ -367,7 +367,7 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
         if turn is not None and abs(z[n] - turn) >= beyond:
             reason = f"{beyond} past the first turn"
             break
-        if its <= 3:
+        if its <= max_newton // 2:                         # chord Newton converges linearly: judge by half
             ds = min(ds * 1.5, ds_max)
         elif its >= max_newton - 1:
             ds *= 0.7
