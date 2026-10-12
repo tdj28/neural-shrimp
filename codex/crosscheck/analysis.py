@@ -259,6 +259,12 @@ def fold_crosscheck(model, saved_state, saved_right, *, alpha, log_temperature=-
     fixed_step = lambda x: ops.step(x, corrected_alpha)
     fixed_jvp = lambda x,v: ops.jvp(x,v,corrected_alpha)
     critical_orbit = orbit_diagnostics(fixed_step, fixed_jvp, state, period, matrix=solver["matrix"])
+    # A roundoff-side comparison of the critical +1 multiplier cannot classify
+    # attraction at a fold. Preserve it as raw data, not a dynamical conclusion.
+    critical_orbit["raw_strict_radius_below_one"] = critical_orbit["spectral_contraction_passed"]
+    critical_orbit["spectral_contraction_passed"] = None
+    critical_orbit["numerically_attracting"] = None
+    critical_orbit["classification"] = "fold: neutral critical +1 mode; inspect complementary spectrum"
     critical_points = cycle_points(fixed_step, state, period)
     phase_closures = [_relative(ops.period_map(x,corrected_alpha)-x,x) for x in critical_points[:-1]]
     complementary_radius = solver["history"][-1]["other_spectral_radius"]

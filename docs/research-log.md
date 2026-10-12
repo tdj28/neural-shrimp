@@ -20624,3 +20624,9 @@ _commit `c2aaf20da9dc` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/legacy-p2-001`
 
 _commit `c1d27dfc188a`_
+
+## 2026-10-12 23:16 UTC: Task2 stable-branch arithmetic reproduced; neutral fold label guarded
+
+The stated18 saved branch points give quadratic intercept123.08319025741457 and linear120.57184165077022, reproducing the rounded123.1 claim. Separate Decimal60 normal equations/Gaussian elimination agree within3e-12. Quadratic differs+0.1269% from producer derivativeab; linear-1.9161%, so fit sensitivity remains explicit. branch001 failed stricterclosure1e-11 atrow3; branch002 uses the archivedproducer1e-10 criterion withoutdroppingrows, preservingbothreceipts. This is saved-data arithmetic, not independently rerun branch spectra. Also a source-review correction: generic strict-rho<1 diagnostics at fold001 print attracting=true because lambda=0.999999999999946, only5.4e-14 below1; this is a roundoff-side flag and is not evidence of attraction at the neutral fold. Actual fold admission already requires an isolated real+1 with contracting complement. Future fold diagnostics now mark attraction undetermined/neutral and retain the rawcomparison; focused regressionpasses. Existing immutable outputs remain unchanged and will be interpreted explicitly in the report.
+
+_commit `e83ea9566841` (dirty worktree)_

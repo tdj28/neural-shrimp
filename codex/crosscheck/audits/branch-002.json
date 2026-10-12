@@ -1,0 +1,104 @@
+{
+  "scope": "Independent saved-data arithmetic reconstruction; no model or eigenpair reevaluation; no exact or interval claim.",
+  "method": "Decimal precision 60, unscaled normal equations and partial-pivot Gaussian elimination",
+  "source_sha256": "24eaadc38ef61a8e2b10887b0d18398f07e06674dcd0393fa2ee0d7ebd614ef3",
+  "inputs": {
+    "branch": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/branch64-p2-t-0.115-alpha-up/branch.json",
+      "bytes": 35027,
+      "sha256": "5a3ccaf977b2ff10f9465526f1ad9f59235cb58655686fd8ebf02e7e697423d5"
+    },
+    "normal_form": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/normal-form-p2-t-0.115/normal-form.json",
+      "bytes": 1286,
+      "sha256": "95a7703047c407670eea964d11b64b9149df8b57b95ccbd5da8ec54f17061b80"
+    },
+    "strict_summary": {
+      "path": "/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-001/run/branch-summary.json",
+      "bytes": 46644,
+      "sha256": "f8bf51db4268b3608932910c1d7ae1e65e4333aae74c74cdb5c3d830d512e90a"
+    },
+    "amended_summary": {
+      "path": "/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-002/run/branch-summary.json",
+      "bytes": 50666,
+      "sha256": "09b5ab3f1bf7076748afb898300d2d9c82e292d32093c3bf280c4a8d2c1c0379"
+    },
+    "amended_manifest": {
+      "path": "/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-002/manifest.json",
+      "bytes": 2083,
+      "sha256": "a49c10217f5bd8acea207ba8c9d86b9e7c40965bd52d41c2f611be2b6f61e1af"
+    },
+    "amended_receipt": {
+      "path": "/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-002/receipt.json",
+      "bytes": 2964,
+      "sha256": "f00f351c5b2053c9dd5c43a8f1270afecb3322c14909dd0946623714fe8d2e90"
+    }
+  },
+  "fit_source_commit": "e84b5f75399a2d044631ce39e4bf6814a4d385d6",
+  "alpha_c": "0.06279827217667086",
+  "selected_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "y_range": [
+    "97.7406535339383932010726024055743576478121495195505230908080",
+    "112.682286890846015708906990127468782824780369069535111088810"
+  ],
+  "row3_saved_residual": "3.755297017484666E-11",
+  "producer_saved_tolerance": "1E-10",
+  "strict_1e11_failed_rows": [
+    3
+  ],
+  "producer_tolerance_failed_rows": [],
+  "fits": {
+    "quadratic": {
+      "coefficients_ascending": [
+        "123.083190257417140582387605850294819204549776129521248914769",
+        "-1555.97852251859291017539137781520460240255265676390401090588",
+        "14321.5136297543207097027295922676057052734528418822134411139"
+      ],
+      "rms": "0.00390834266440087147296975460855055218817888429798947049093828",
+      "maximum_absolute_residual": "0.007254856936639300579567921123089200728713176221054871559",
+      "intercept_minus_saved": "2.570582387605850294819204549776129521248914769E-12",
+      "rms_minus_saved": "-3.9877352703024539144944781182111570201052950906172E-13",
+      "intercept_minus_reference_ab": "0.155989519763360582387605850294819204549776129521248914769"
+    },
+    "linear": {
+      "coefficients_ascending": [
+        "120.571841650769724329223654494087813187158867396884746098975",
+        "-1158.93553871434473332233152482268163855297696247412148852523"
+      ],
+      "rms": "0.202260401917810832756518146008914307333995788538938626959195",
+      "maximum_absolute_residual": "0.397309224472732455877971813325787756276018470390740213542",
+      "intercept_minus_saved": "-4.95670776345505912186812841132603115253901025E-13",
+      "rms_minus_saved": "2.22572756518146008914307333995788538938626959195E-13",
+      "intercept_minus_reference_ab": "-2.355359086884055670776345505912186812841132603115253901025"
+    }
+  },
+  "gates": {
+    "original_records_match": true,
+    "strict_failed_row3": true,
+    "producer_tolerance_matches_1e_minus_10": true,
+    "producer_all_rows_qualify": true,
+    "failed_strict_attempt_retained": true,
+    "amended_tolerance_disclosed": true,
+    "fits_agree_within_1e_minus_9": true
+  },
+  "passed": true
+}

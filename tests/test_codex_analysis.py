@@ -56,6 +56,10 @@ def test_fold_analysis_primitive_two_nested_derivatives_and_prefix_callback():
     assert abs(out["ad_coefficients"]["b"]-3)<1e-12
     assert all(out["prerequisite_gates"].values())
     assert len(out["phase_closures"])==2
+    prerequisites = next(payload for stage,payload in saved if stage.startswith("fold-orbit-prerequisites-"))
+    assert prerequisites["diagnostics"]["numerically_attracting"] is None
+    assert prerequisites["diagnostics"]["spectral_contraction_passed"] is None
+    assert prerequisites["diagnostics"]["classification"].startswith("fold:")
     assert saved[-1][0].startswith("fold-result-")
     assert out["operation_counts"]["critical_gradient"]>0
 
