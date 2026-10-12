@@ -23,6 +23,11 @@ makes that statement concrete in network terms at chosen rates:
           the rotation of the two exact step Jacobians projected on the plane
           of the two sharp directions, and the measured multiplier angle, on
           2-cycles along a saved Neimark-Sacker locus and at given rates.
+  slips   Loss signature just outside the window's lower fold: training is
+          nearly 18-periodic with occasional phase slips. At rates moved below
+          the fold by eps decades, iterate and record |theta_{t+18}-theta_t|;
+          laminar stretches are runs below a threshold. For a saddle-node on
+          the circle the mean laminar length should scale like eps^(-1/2).
 """
 
 import argparse
@@ -259,6 +264,61 @@ def rotation_geometry(args):
         print(json.dumps({k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items() if k != "source"}))
 
 
+def slips(args):
+    net, x, y, theta0 = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    node = json.loads(Path(args.node).read_text())
+    point = [float(v) for v in node["point"]]
+    start = np.array(node["orbit"][0], dtype=np.float64)
+    lx, ly0 = math.log10(point[14]), math.log10(point[13])
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for eps in args.eps:
+        p = [lx, ly0 - eps]
+        theta = start + 1e-6
+        for _ in range(args.transient):
+            theta = f.step(theta, p)
+        window = [theta.copy()]
+        for _ in range(17):
+            window.append(f.step(window[-1], p))
+        buf = list(window)
+        dist = np.empty(args.steps)
+        loss = np.empty(args.steps)
+        t = window[-1]
+        for k in range(args.steps):
+            t = f.step(t, p)
+            dist[k] = np.linalg.norm(t - buf[k % 18])
+            buf[k % 18] = t
+            loss[k] = net.loss(t[None, :], x, y)[0]
+        laminar = dist < args.threshold
+        lengths, run = [], 0
+        for flag in laminar:
+            if flag:
+                run += 1
+            elif run:
+                lengths.append(run)
+                run = 0
+        lengths = lengths[1:] if len(lengths) > 2 else lengths      # drop a cut-off first run
+        row = {"eps": eps, "log10_hidden": ly0 - eps, "laminar_fraction": float(laminar.mean()),
+               "laminar_runs": len(lengths), "mean_laminar_steps": float(np.mean(lengths)) if lengths else None,
+               "median_laminar_steps": float(np.median(lengths)) if lengths else None,
+               "max_dist": float(dist.max()), "loss_mean": float(loss.mean())}
+        rows.append(row)
+        print(json.dumps({k: (round(v, 6) if isinstance(v, float) else v) for k, v in row.items()}))
+        np.savez_compressed(out / f"series-eps{eps:g}.npz", dist=dist[:40000], loss=loss[:40000])
+    good = [r for r in rows if r["mean_laminar_steps"]]
+    if len(good) >= 2:
+        le = np.log([r["eps"] for r in good])
+        ll = np.log([r["mean_laminar_steps"] for r in good])
+        slope = float(np.polyfit(le, ll, 1)[0])
+    else:
+        slope = None
+    (out / "slips.json").write_text(json.dumps({"node": str(args.node), "rows": rows,
+                                                "laminar_scaling_exponent": slope}, indent=1))
+    print(json.dumps({"laminar_scaling_exponent": slope, "expected": -0.5}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -275,8 +335,15 @@ def main():
     rg.add_argument("--every", type=int, default=20)
     rg.add_argument("--cycle", nargs=3, action="append", metavar=("TWO_CYCLE_NPY", "LX", "LY"))
     rg.add_argument("--out", required=True)
+    sl = sub.add_parser("slips")
+    sl.add_argument("--node", default=str(DATA / "explore/s2-period18-boundary-curves/attempt-006-ray32-fold/run/node-+1-010.json"))
+    sl.add_argument("--eps", type=float, nargs="+", default=[1e-3, 3e-4, 1e-4, 3e-5, 1e-5])
+    sl.add_argument("--transient", type=int, default=50000)
+    sl.add_argument("--steps", type=int, default=600000)
+    sl.add_argument("--threshold", type=float, default=0.05)
+    sl.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"cycle": cycle, "rotation-geometry": rotation_geometry}[args.command](args)
+    {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips}[args.command](args)
 
 
 if __name__ == "__main__":
