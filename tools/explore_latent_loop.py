@@ -686,6 +686,266 @@ def fixed_spectrum(args):
     print(json.dumps({k: v for k, v in rec.items() if k != "args"}, ensure_ascii=False))
 
 
+def pseudo_arclength(phi, x0, lam0, direction=-1, steps=60, ds=0.004, ds_min=1e-5, ds_max=0.02, tol=2e-6,
+                     max_newton=8, gmres_tol=1e-5, restart=40, gmres_iter=3, k=6, arnoldi_iter=200, beyond=0.01,
+                     lam_bounds=(-np.inf, np.inf), jvp_context=None, on_point=None):
+    """Pseudo-arclength continuation of a fixed point of x -> phi(x, lam), e.g. the p-fold relaxed loop.
+
+    Coordinates are scaled, u = x / s with s = |x0|, so that the arclength |du|^2 + dlam^2 weighs the state and
+    lambda comparably. The corrector is Newton on the bordered system [[Phi_x - I, Phi_lam / s], [t_u, t_lam]],
+    solved by GMRES with Jacobian-vector products; the predictor follows the secant of the last two points (the
+    first tangent solves the bordered system with lambda fixed). A fold is where lambda turns back (the lambda
+    component of the secant changes sign); multipliers (dense for small states, Arnoldi otherwise) are recorded at
+    every point so that the crossing at a turn can be checked to be a real +1. Stops `beyond` in lambda past the
+    first turn, after `steps` points, when lambda leaves `lam_bounds`, or when the step falls below `ds_min`.
+    Returns (records, stop_reason); on_point(record, x) is called for every accepted point.
+    """
+    import torch
+    from contextlib import nullcontext
+    from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, eigs, gmres
+
+    ctx = jvp_context or nullcontext
+    dtype, device, shape = x0.dtype, x0.device, tuple(x0.shape)
+    n = int(x0.numel())
+    s = float(x0.norm())
+
+    def to_t(v):
+        return torch.as_tensor(np.asarray(v, dtype=np.float64).reshape(shape), dtype=dtype, device=device)
+
+    def to_np(t):
+        return t.detach().double().cpu().numpy().ravel()
+
+    def scalar(v):
+        return torch.tensor(float(v), dtype=dtype, device=device)
+
+    def residual(z):
+        with torch.no_grad():
+            return to_np(phi(to_t(z[:n] * s), scalar(z[n]))) / s - z[:n]
+
+    def jvp(z, v, w):
+        with ctx():
+            _, jv = torch.func.jvp(phi, (to_t(z[:n] * s), scalar(z[n])), (to_t(v * s), scalar(w)))
+        return to_np(jv) / s - v
+
+    def bordered(z, t):
+        def mv(y):
+            y = np.asarray(y).ravel()
+            return np.concatenate([jvp(z, y[:n], y[n]), [t[:n] @ y[:n] + t[n] * y[n]]])
+        return LinearOperator((n + 1, n + 1), matvec=mv, dtype=np.float64)
+
+    def correct(zp, t):
+        z = zp.copy()
+        for it in range(max_newton + 1):
+            r = residual(z)
+            rel = float(np.linalg.norm(r) / np.linalg.norm(z[:n]))
+            if rel < tol:
+                return z, rel, it
+            if it == max_newton:
+                break
+            rhs = -np.concatenate([r, [t @ (z - zp)]])
+            dz, _ = gmres(bordered(z, t), rhs, rtol=gmres_tol, restart=restart, maxiter=gmres_iter)
+            z = z + dz
+        return None, rel, max_newton
+
+    def multipliers(z):
+        def mono(v):
+            return jvp(z, np.asarray(v).ravel(), 0.0) + np.asarray(v).ravel()
+        if n <= 64:
+            vals, ok = np.linalg.eigvals(np.column_stack([mono(e) for e in np.eye(n)])), True
+        else:
+            try:
+                vals, ok = eigs(LinearOperator((n, n), matvec=mono, dtype=np.float64), k=k, which="LM",
+                                return_eigenvectors=False, tol=1e-6, maxiter=arnoldi_iter), True
+            except ArpackNoConvergence as err:                  # keep the converged ones, flag the point
+                vals, ok = np.asarray(err.eigenvalues), False
+        return vals[np.argsort(-np.abs(vals))][:k], ok
+
+    def record(z, rel, its, ds_used, step, t, turned):
+        vals, ok = multipliers(z)
+        real = [float(v.real) for v in vals if abs(v.imag) < 1e-9 * max(1.0, abs(v))]
+        arc = records[-1]["arclength"] + step if records else 0.0
+        rec = {"index": len(records), "lambda": float(z[n]), "arclength": arc, "residual": rel, "newton": its,
+               "ds": ds_used, "tangent_lambda": float(t[n]), "turned_since_previous": bool(turned),
+               "multipliers_converged": ok,
+               "spectral_radius": float(np.abs(vals).max()) if len(vals) else None,
+               "real_multiplier_nearest_one": min(real, key=lambda m: abs(m - 1.0)) if real else None,
+               "multipliers": [[float(v.real), float(v.imag)] for v in vals]}
+        records.append(rec)
+        if on_point is not None:
+            on_point(rec, to_t(z[:n] * s))
+        return rec
+
+    records = []
+    e_lam = np.zeros(n + 1)
+    e_lam[n] = 1.0
+    z, rel, its = correct(np.concatenate([to_np(x0) / s, [float(lam0)]]), e_lam)   # arc equation fixes lambda
+    if z is None:
+        return records, f"no convergence at the start (residual {rel:.3g})"
+    y, _ = gmres(bordered(z, e_lam), e_lam, rtol=gmres_tol, restart=restart, maxiter=gmres_iter)
+    t = y / np.linalg.norm(y) * np.sign(y[n]) * np.sign(direction)
+    record(z, rel, its, 0.0, 0.0, t, False)
+    turn_lambda, reason = None, f"{steps} points"
+    while len(records) < steps:
+        z_new, rel, its = correct(z + ds * t, t)
+        t_new = None if z_new is None else (z_new - z) / np.linalg.norm(z_new - z)
+        if z_new is None or t_new @ t < 0.5:                      # not converged, or jumped onto another branch
+            ds *= 0.5
+            if ds < ds_min:
+                reason = f"step below {ds_min} (last residual {rel:.3g})"
+                break
+            continue
+        turned = t_new[n] * t[n] < 0
+        step = float(np.linalg.norm(z_new - z))
+        z, t = z_new, t_new
+        rec = record(z, rel, its, ds, step, t, turned)
+        if turned and turn_lambda is None:
+            # lambda as a quadratic in arclength through the last three points: its extremum estimates the fold
+            lams = np.array([r["lambda"] for r in records[-3:]])
+            turn_lambda = float(lams[-2])
+            if len(records) >= 3:
+                sig = np.array([r["arclength"] for r in records[-3:]])
+                a, b, c = np.polyfit(sig - sig[0], lams, 2)
+                if a != 0:
+                    turn_lambda = float(c - b * b / (4 * a))
+            rec["turn_lambda_estimate"] = turn_lambda
+        if not lam_bounds[0] <= z[n] <= lam_bounds[1]:
+            reason = "lambda out of bounds"
+            break
+        if turn_lambda is not None and abs(z[n] - turn_lambda) >= beyond:
+            reason = f"{beyond} past the first turn"
+            break
+        if its <= 2:
+            ds = min(ds * 1.5, ds_max)
+        elif its >= max_newton - 1:
+            ds *= 0.7
+    return records, reason
+
+
+def arclength(args):
+    """Pseudo-arclength continuation in lambda of a period-p orbit of the relaxed loop, through folds."""
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    loop.setup(PROMPTS[args.prompt])
+    x0 = torch.as_tensor(np.load(DATA / "explore" / args.start_states)[args.start_index][None], dtype=loop.dtype,
+                         device=loop.device)
+
+    def phi(x, lam):
+        for _ in range(args.period):
+            x = (1 - lam) * x + lam * loop.F_diff(x)
+        return x
+
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    states = []
+
+    def on_point(rec, x):
+        states.append(x.float().cpu().numpy()[0])
+        print(json.dumps({k: v for k, v in rec.items() if k != "multipliers"} |
+                         {"leading": rec["multipliers"][:4]}), flush=True)
+        if len(states) % 5 == 0:
+            np.save(out / "states.npy", np.array(states))
+
+    records, reason = pseudo_arclength(
+        phi, x0, args.lam, direction=args.direction, steps=args.steps, ds=args.ds, ds_min=args.ds_min,
+        ds_max=args.ds_max, tol=args.tol, max_newton=args.max_newton, gmres_tol=args.gmres_tol, restart=args.restart,
+        gmres_iter=args.gmres_iter, k=args.k, arnoldi_iter=args.arnoldi_iter, beyond=args.beyond,
+        lam_bounds=tuple(args.lam_bounds), jvp_context=math_attention, on_point=on_point)
+    np.save(out / "states.npy", np.array(states))
+    (out / "arclength.json").write_text(json.dumps({"args": vars(args), "stop": reason, "points": records},
+                                                   indent=1))
+    print(json.dumps({"stop": reason, "points": len(records)}))
+
+
+def positions(args):
+    """The causal loop is a cascade: position j's next state depends only on positions <= j, so the Jacobian is
+    block lower-triangular, and the Lyapunov spectrum (like every periodic orbit's multipliers) is the union of
+    the positions' conditional spectra. Per lambda: each position's own period, its conditional largest Lyapunov
+    exponent (a twin perturbed at that position only, the other positions reset to the trajectory every loop),
+    and the full-system exponent (a twin perturbed everywhere) for comparison with the largest conditional one."""
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    h0 = loop.setup(PROMPTS[args.prompt])
+    L, d = h0.shape[1], h0.shape[2]
+    lambdas = np.array(args.lambdas, dtype=float)
+    B = len(lambdas)
+    rng = np.random.default_rng(args.seed)
+    with torch.no_grad():                                       # causality: perturb the last position only
+        y = h0.clone()
+        y[:, -1] += 1e-2 * h0[:, -1].norm() * torch.as_tensor(rng.normal(size=d) / np.sqrt(d), dtype=loop.dtype,
+                                                              device=loop.device)
+        leak = float((loop.F(y) - loop.F(h0))[:, :-1].abs().max())
+    if args.start_states:
+        h = torch.as_tensor(np.load(DATA / "explore" / args.start_states)[args.start_index][None],
+                            dtype=loop.dtype, device=loop.device).repeat(B, 1, 1)
+    else:
+        h = h0.repeat(B, 1, 1)
+    lam = torch.as_tensor(lambdas, dtype=loop.dtype, device=loop.device)[:, None, None]
+    tic = time.perf_counter()
+    for _ in range(args.transient):
+        h = (1 - lam) * h + lam * loop.F(h)
+    R = L + 2                                                   # trajectory, L position twins, full twin
+    lam_r = lam.repeat_interleave(R, 0)
+    idx = torch.arange(L, device=loop.device)
+    eps_pos = args.eps * h.norm(dim=-1)                         # (B, L)
+    eps_full = args.eps * h.flatten(1).norm(dim=1)              # (B,)
+    dirs = torch.as_tensor(rng.normal(size=(B, L, d)), dtype=loop.dtype, device=loop.device)
+    dirs = dirs / dirs.norm(dim=-1, keepdim=True)
+    full = torch.as_tensor(rng.normal(size=(B, L, d)), dtype=loop.dtype, device=loop.device)
+    full = full / full.flatten(1).norm(dim=1)[:, None, None]
+
+    def twins(h, pos_dev, full_dev):
+        X = h[:, None].repeat(1, R, 1, 1)
+        X[:, 1 + idx, idx] = h[:, idx] + pos_dev
+        X[:, R - 1] = h + full_dev
+        return X
+
+    X = twins(h, dirs * eps_pos[..., None], full * eps_full[:, None, None])
+    log_pos, log_full = np.zeros((B, L)), np.zeros(B)
+    step_size = np.zeros((B, L))
+    recent = []
+    for _ in range(args.measure):
+        Y = ((1 - lam_r) * X.flatten(0, 1) + lam_r * loop.F(X.flatten(0, 1))).view(B, R, L, d)
+        hn = Y[:, 0]
+        D = Y[:, 1 + idx, idx] - hn[:, idx]                     # each position's own deviation, (B, L, d)
+        dist = D.norm(dim=-1)
+        log_pos += np.log(np.maximum((dist / eps_pos).double().cpu().numpy(), 1e-300))
+        Dfull = Y[:, R - 1] - hn
+        dist_full = Dfull.flatten(1).norm(dim=1)
+        log_full += np.log(np.maximum((dist_full / eps_full).double().cpu().numpy(), 1e-300))
+        step_size += ((hn - X[:, 0]).norm(dim=-1) / X[:, 0].norm(dim=-1)).double().cpu().numpy()
+        X = twins(hn, D * (eps_pos / torch.clamp(dist, min=1e-30))[..., None],
+                  Dfull * (eps_full / torch.clamp(dist_full, min=1e-30))[:, None, None])
+        recent.append(hn.double().cpu().numpy())
+        recent = recent[-(args.max_period + 1):]
+    last = recent[-1]
+    norms = np.maximum(np.linalg.norm(last, axis=-1), 1e-300)
+    period = np.zeros((B, L), dtype=int)
+    for q in range(min(args.max_period, len(recent) - 1), 0, -1):
+        period = np.where(np.linalg.norm(recent[-1 - q] - last, axis=-1) / norms < args.tol, q, period)
+    cond = log_pos / args.measure
+    lyap_full = log_full / args.measure
+    tokens = [loop.tok.decode([t]) for t in loop.tok(PROMPTS[args.prompt])["input_ids"]]
+    rows = []
+    for b, l in enumerate(lambdas):
+        per = period[b]
+        sys_period = int(np.lcm.reduce(per)) if np.all(per > 0) else 0
+        rows.append({"lambda": float(l), "full_lyapunov": float(lyap_full[b]),
+                     "max_conditional_lyapunov": float(cond[b].max()), "system_period": sys_period,
+                     "positions": [{"position": j, "token": tokens[j] if j < len(tokens) else None,
+                                    "period": int(per[j]), "conditional_lyapunov": float(cond[b, j]),
+                                    "mean_relative_step": float(step_size[b, j] / args.measure)} for j in range(L)]})
+        print(json.dumps({"lambda": float(l), "full": round(float(lyap_full[b]), 4),
+                          "max_cond": round(float(cond[b].max()), 4), "periods": per.tolist(),
+                          "cond": np.round(cond[b], 3).tolist()}), flush=True)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.save(out / "final-states.npy", X[:, 0].float().cpu().numpy())
+    (out / "positions.json").write_text(json.dumps({"args": vars(args), "seconds": round(time.perf_counter() - tic, 1),
+                                                    "causal_leak_max_abs": leak, "rows": rows}, indent=1,
+                                                   ensure_ascii=False))
+    print(json.dumps({"causal_leak_max_abs": leak, "seconds": round(time.perf_counter() - tic, 1)}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -808,6 +1068,47 @@ def main():
     fs.add_argument("--k", type=int, default=8)
     fs.add_argument("--arnoldi-iter", type=int, default=400)
     fs.add_argument("--out", required=True)
+    ar = sub.add_parser("arclength")
+    ar.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    ar.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    ar.add_argument("--device", default="cpu")
+    ar.add_argument("--threads", type=int, default=8)
+    ar.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    ar.add_argument("--start-states", required=True)
+    ar.add_argument("--start-index", type=int, default=0)
+    ar.add_argument("--lam", type=float, required=True)
+    ar.add_argument("--period", type=int, default=2)
+    ar.add_argument("--direction", type=int, default=-1, choices=(-1, 1))
+    ar.add_argument("--steps", type=int, default=60)
+    ar.add_argument("--ds", type=float, default=0.004)
+    ar.add_argument("--ds-min", type=float, default=1e-5)
+    ar.add_argument("--ds-max", type=float, default=0.02)
+    ar.add_argument("--beyond", type=float, default=0.01, help="stop this far in lambda past the first turn")
+    ar.add_argument("--lam-bounds", type=float, nargs=2, default=[0.0, 2.0])
+    ar.add_argument("--max-newton", type=int, default=8)
+    ar.add_argument("--tol", type=float, default=2e-6)
+    ar.add_argument("--gmres-tol", type=float, default=1e-5)
+    ar.add_argument("--restart", type=int, default=40)
+    ar.add_argument("--gmres-iter", type=int, default=3)
+    ar.add_argument("--k", type=int, default=6)
+    ar.add_argument("--arnoldi-iter", type=int, default=200)
+    ar.add_argument("--out", required=True)
+    po = sub.add_parser("positions")
+    po.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    po.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    po.add_argument("--device", default="cpu")
+    po.add_argument("--threads", type=int, default=8)
+    po.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    po.add_argument("--lambdas", type=float, nargs="+", required=True)
+    po.add_argument("--start-states", default=None, help="explore-relative .npy; the same start for every lambda")
+    po.add_argument("--start-index", type=int, default=0)
+    po.add_argument("--seed", type=int, default=0)
+    po.add_argument("--transient", type=int, default=600)
+    po.add_argument("--measure", type=int, default=800)
+    po.add_argument("--max-period", type=int, default=32)
+    po.add_argument("--tol", type=float, default=1e-5)
+    po.add_argument("--eps", type=float, default=1e-5, help="twin offsets relative to the perturbed norm")
+    po.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -816,8 +1117,8 @@ def main():
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
-     "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit,
-     "fixed-spectrum": fixed_spectrum}[args.command](args)
+     "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit, "fixed-spectrum": fixed_spectrum,
+     "arclength": arclength, "positions": positions}[args.command](args)
 
 
 if __name__ == "__main__":
