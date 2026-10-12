@@ -80,8 +80,14 @@ The window's organization (`docs/window-organization.md`) has two layers.
     two steps (1.031^9 = 1.316 per cycle).
   - Tracked continuously along the tongue boundary, this inherited multiplier
     stays real and positive. It crosses +1 at two 1:1 resonance points
-    (double +1). One is the certified 1:1 point; the other, near
-    (-0.0957, 1.9247), is not certified yet.
+    (double +1). One is Codex's certified 1:1 point. The other is at
+    (eta_h, eta_o) = (84.0779, 0.80237).
+  - For that second point, a computer-assisted proof now shows a locally
+    unique primitive period-18 orbit whose multiplier +1 has exact algebraic
+    multiplicity two, with one Jordan block and all 11 other multipliers
+    strictly inside the unit circle (`explore/hidden-parent-certification/
+    chain-proof-003`). Its nonlinear normal-form coefficients and its
+    connection to the window's branch are not yet proved.
   - Numerically, the same fold continuation passes through both certified
     cusp locations. The certificates themselves do not yet prove that the
     cusps belong to this connected branch; keep them as separate local

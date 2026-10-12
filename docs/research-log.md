@@ -18750,3 +18750,21 @@ _commit `208bde9b669a` (dirty worktree)_
 chain-proof-002 (explore_certify_hidden_parent chain --prove; first attempt chain-proof-001 failed at input parsing before any arithmetic). Float64 seed from continuation node 72 (Newton residual 1.1e-13; eta_h = 84.07786049845569, eta_o = 0.8023678861165183, i.e. log10 rates (-0.09563, 1.92468); numerical multipliers 1 +- 3e-8 i (Jordan pair), complement radius 0.405, minimal divisor separation 0.64). Codex's rigorous_generalized_chain.chain_root_proof on TwoRateCuspMap with the exact binary64 S2 constants, 256-bit Arb, 8 high-precision Newton steps, box radius 2^-70: all gates pass (normalized augmented root unique, positive actual rates, primitive period 18), Krawczyk contraction bound 0.1700387, 6.2 s. This proves a locally unique primitive period-18 orbit with a nonzero length-two Jordan chain at +1 at these rates. Not proved: exact algebraic multiplicity two, the complementary spectrum (numerically 0.405), the nondegeneracy coefficients of a generic 1:1 resonance, and membership in the window's connected fold branch (numerically it lies on the continued upper fold where the inherited saddle multiplier crosses +1).
 
 _commit `21074ad0fa16` (dirty worktree)_
+
+## 2026-10-12 01:23 UTC: run (exploratory)
+
+- **Question:** Complementary spectrum at the proved Jordan-chain root of the new 1:1 point: are all remaining 11 multipliers enclosed strictly inside the unit circle (exact multiplicity two, one Jordan block, attracting complement)?
+- **Setup:** explore_certify_hidden_parent chain --prove (repeat of chain-proof-002) followed by Codex's rigorous_chain_spectrum.chain_complement on the monodromy enclosure over the proved box (radius 2^-70, 256 bits)
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/chain-proof-003`
+- **Would surprise us:** Spectral exclusion failing at the numerical complement radius 0.405
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py chain --prove --out ../neural-shrimp-data/explore/hidden-parent-certification/chain-proof-003`
+
+_commit `5b4b2bb2d1d9`_
+
+- run started 2026-10-12 01:23 UTC finished 01:24 UTC with exit status 0
+
+## 2026-10-12 01:24 UTC: Proved: exact multiplicity-two +1 with one Jordan block and an attracting complement at the new 1:1 point
+
+chain-proof-003 (repeat of the chain-root proof, contraction 0.1700387, 5.3 s; then Codex's rigorous_chain_spectrum.chain_complement on the monodromy enclosure over the proved box, radius 2^-70, 256 bits, 0.5 s): conditional on the proved root identities Mq = q, Mr = r + q, the validated frame conjugates M to an upper block-triangular form whose 11-dimensional quotient has all Gershgorin-type discs strictly inside the unit circle. Hence +1 has exact algebraic multiplicity two with a single Jordan block, and all other multipliers of the primitive period-18 orbit at (eta_h, eta_o) = (84.07786049845569, 0.8023678861165183) are attracting. This is the same structure as the certified 1:1 point (Codex) except for the nonlinear normal-form coefficients and the transverse unfolding determinant, which remain to be computed here, and the branch connection to the window, which is numerical (it lies on the continued upper fold where the multiplier inherited from the saddle 2-cycle crosses +1).
+
+_commit `5b4b2bb2d1d9` (dirty worktree)_
