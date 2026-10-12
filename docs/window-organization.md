@@ -59,7 +59,16 @@ attractor maps.**
    - Both of its folds rise into the window region. The second fold bounds an
      attracting part of the window between (-0.0619, 1.8316) and
      (-0.0785, 1.8973).
-5. **One orbit family bridges two circles.** At fixed output rate through the
+5. **The window is where the hidden tongue becomes attracting.**
+   - The tongue's locked orbits inherit the saddle cycle's unstable
+     direction: multiplier 1.03098^9 = 1.316 at R3.
+   - Tracked along the upper fold, that real multiplier stays above 1 until
+     it crosses +1 at two 1:1 resonance points. One is the certified 1:1
+     point; the other, near (-0.0957, 1.9247), is not certified.
+   - Between those points it is about 0.8, and the cycle is attracting.
+   - The certified Neimark-Sacker branch emanating from the 1:1 point is
+     where the cycle trades stability with that inherited direction.
+6. **One orbit family bridges two circles.** At fixed output rate through the
    certified attracting interval, the period-18 orbits form one node-saddle
    pair. It spans from the lower loop's fold (y = 1.832573) to the canonical
    fold (y = 1.878581). The attracting node sheet therefore joins locking on
