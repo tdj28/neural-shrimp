@@ -104,7 +104,7 @@ class SteeredModel:
         logits = torch.stack(out.logits, dim=1).double()   # (batch, steps, vocab)
         logp = torch.log_softmax(logits, dim=-1)
         ent = -(logp.exp() * logp).sum(-1)                 # (batch, steps)
-        texts, entropies, lengths = [], [], []
+        texts, entropies, lengths, id_lists = [], [], [], []
         eos = {self.tok.eos_token_id, self.tok.pad_token_id, self.tok.convert_tokens_to_ids("<|im_end|>")}
         for b in range(new.shape[0]):
             ids = new[b].tolist()
@@ -112,7 +112,8 @@ class SteeredModel:
             texts.append(self.tok.decode(ids[:n], skip_special_tokens=True).strip())
             entropies.append(float(ent[b, :n].mean()))
             lengths.append(n)
-        return texts, entropies, lengths
+            id_lists.append(ids[:n])
+        return texts, entropies, lengths, id_lists
 
     def turn_activations(self, texts, steer_rows):
         """Mean layer output over each turn's tokens with that cell's steering applied."""
@@ -157,12 +158,13 @@ def run_cells(sm, cells, system, opener, turns, window, max_new):
         agent = (k - 1) % 2
         batch = [ela.window_messages(system, transcripts[i], agent, window) for i in active]
         rows = [cells[i]["steer"] for i in active]
-        texts, ents, lens = sm.generate_batch(batch, rows, max_new)
+        texts, ents, lens, id_lists = sm.generate_batch(batch, rows, max_new)
         acts = sm.turn_activations(texts, rows)
         still = []
         for j, i in enumerate(active):
             transcripts[i].append(texts[j])
-            records[i]["turns"].append({"turn": k, "text": texts[j], "entropy": ents[j], "tokens": lens[j]})
+            records[i]["turns"].append({"turn": k, "text": texts[j], "entropy": ents[j], "tokens": lens[j],
+                                        "token_ids": id_lists[j]})
             records[i]["activations"].append(acts[j])
             state = tuple(transcripts[i][-window:])
             earlier = ela.find_cycle(states[i], state)
@@ -371,7 +373,7 @@ def existence(args):
             messages = ela.window_messages(system, transcript[:k], (k - 1) % 2, window)
             prompt = sm.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
             p_ids = sm.tok(prompt, add_special_tokens=False)["input_ids"]
-            t_ids = sm.tok(transcript[k], add_special_tokens=False)["input_ids"] + [sm.tok.convert_tokens_to_ids("<|im_end|>")]
+            t_ids = c["turns"][k - 1]["token_ids"]                    # the generated path, as stored
             ids = torch.tensor([p_ids + t_ids])
             for start in range(0, len(steer_rows), args.batch):
                 rows = steer_rows[start:start + args.batch]
@@ -389,7 +391,9 @@ def existence(args):
                 gap = (z_y - z_other.max(-1).values).min(-1).values.numpy()
                 m_all[start:start + len(rows)] = np.minimum(m_all[start:start + len(rows)], gap)
         margin_maps.append(m_all.reshape(len(ys), len(xs)))
-        print(json.dumps({"attractor": key[0][:100], "period": period,
+        own = margin_maps[-1][list(ys).index(c["alpha_y"]) if c["alpha_y"] in list(ys) else 0,
+                              list(xs).index(c["alpha_x"]) if c["alpha_x"] in list(xs) else 0]
+        print(json.dumps({"attractor": key[0][:100], "period": period, "margin_at_own_cell": float(own),
                           "existence_fraction": float((margin_maps[-1] > 0).mean()),
                           "margin_at_origin": float(margin_maps[-1][len(ys) // 2, len(xs) // 2])}))
     margin_maps = np.array(margin_maps)
