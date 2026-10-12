@@ -703,13 +703,20 @@ def escape(args):
         def data_loss(t):
             return float(net.loss(t[None, :], x, y)[0]) - 0.5 * lam * float(t @ t)
 
+        from scipy.optimize import minimize
+
         tm = f.iterate(theta0.copy(), small, args.descent_steps)
+        # plain Newton can stop at a nearby saddle (it did at ridge 0 in escape-001/002); use a trust region
+        tm = minimize(lambda u: float(net.loss(u[None, :], x, y)[0]), tm,
+                      jac=lambda u: net.gradient(u[None, :], x, y)[0], hess=lambda u: net.hessian(u, x, y),
+                      method="trust-exact", options={"gtol": 1e-13, "maxiter": 500}).x
         for _ in range(20):
             g = net.gradient(tm[None, :], x, y)[0]
             if np.linalg.norm(g) < 1e-13:
                 break
             tm = tm - np.linalg.solve(net.hessian(tm, x, y), g)
         minimum = {"norm": float(np.linalg.norm(tm)), "data_loss": data_loss(tm),
+                   "hessian_smallest": float(np.linalg.eigvalsh(net.hessian(tm, x, y))[0]),
                    "gradient": float(np.linalg.norm(net.gradient(tm[None, :], x, y))),
                    "sharpness_at_rates": sharp(tm), "mean_tanh_prime": saturation(tm)}
         theta, checkpoints = theta0.copy(), []
@@ -747,7 +754,7 @@ def escape(args):
                               "two_step_top3": [(round(mult[i].real, 4), round(mult[i].imag, 4)) for i in order[:3]]}))
         record["rows"].append(row)
         last = checkpoints[-1]
-        print(json.dumps({"ridge": lam, "minimum": {k: round(v, 6) for k, v in minimum.items()},
+        print(json.dumps({"ridge": lam, "minimum": {k: float(f"{v:.6g}") for k, v in minimum.items()},
                           "final": {k: ([round(u, 4) for u in v] if isinstance(v, list) else
                                         (round(v, 6) if isinstance(v, float) else v)) for k, v in last.items()}}))
     (out / "escape.json").write_text(json.dumps(record, indent=1))
@@ -799,7 +806,10 @@ def minimum_check(args):
         for name, t in candidates.items():
             ev = np.linalg.eigvalsh(net.hessian(t, x, y))
             canon[name] = canonical_units(net, t)
+            sq = np.sqrt(f.rates(list(args.rates)))
+            sharp = float(np.linalg.eigvalsh(sq[:, None] * net.hessian(t, x, y) * sq[None, :])[-1])
             row[name] = {"norm": float(np.linalg.norm(t)), "loss": float(net.loss(t[None, :], x, y)[0]),
+                         "sharpness_at_rates": sharp,
                          "grad_norm": float(np.linalg.norm(net.gradient(t[None, :], x, y))),
                          "distance_from_descent_endpoint": float(np.linalg.norm(t - t_desc)),
                          "hessian_smallest": ev[:4].tolist(), "hessian_largest": float(ev[-1]),
@@ -808,9 +818,11 @@ def minimum_check(args):
         row["canonical_distance"] = float(np.linalg.norm(canon["newton"] - canon["trust_region"]))
         record["rows"].append(row)
         print(json.dumps({"ridge": lam, "descent": row["descent_endpoint"],
-                          "newton": {k: row["newton"][k] for k in ("norm", "loss", "grad_norm", "hessian_smallest")},
+                          "newton": {k: row["newton"][k] for k in ("norm", "loss", "grad_norm", "hessian_smallest",
+                                                                   "sharpness_at_rates")},
                           "trust_region": {k: row["trust_region"][k] for k in ("norm", "loss", "grad_norm",
-                                                                                "hessian_smallest")},
+                                                                                "hessian_smallest",
+                                                                                "sharpness_at_rates")},
                           "same_up_to_symmetry": row["same_point_up_to_symmetry"],
                           "canonical_distance": row["canonical_distance"]}))
     (out / "minimum-check.json").write_text(json.dumps(record, indent=1))
@@ -886,6 +898,7 @@ def main():
     mc = sub.add_parser("minimum-check")
     mc.add_argument("--ridges", type=float, nargs="+", default=[0.0, 1e-5, 1e-3])
     mc.add_argument("--descent-steps", type=int, default=200000)
+    mc.add_argument("--rates", type=float, nargs=2, default=[-0.0857, 1.853], metavar=("LX", "LY"))
     mc.add_argument("--out", required=True)
     es = sub.add_parser("escape")
     es.add_argument("--rates", type=float, nargs=2, default=[-0.0857, 1.853], metavar=("LX", "LY"))
