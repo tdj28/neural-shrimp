@@ -20557,3 +20557,19 @@ _commit `46e88e1d8231` (dirty worktree)_
 Throughput001 at4threads passed first-column precision comparisons: batch128 delta5.513e-14,256 delta7.349e-14 versus32. Batch128 estimated203s/P2 and810s/P8 dense;256 estimated196s/785s but used6899056KiB RSS, so select128. Raw receipt hash-checked; codex/crosscheck/receipts/throughput-001.json. Fold and orbit stage budgets now measured; paired workers total8threads.
 
 _commit `fe0c26e49b01` (dirty worktree)_
+
+## 2026-10-12 23:04 UTC: run (exploratory)
+
+- **Question:** Does independent augmented spectral Newton recover the P2 fold and do nested-AD normal-form coefficients agree with the saved finite-difference result?
+- **Setup:** Known-outcome Task2. Perturb reference xc by1e-7*r andalpha by1e-9; physicalalpha includesprefix.4threads,chunk128,nice10,16GiB,3600s; atmost4Newtoncorrections/2backtracks; realisolated+1,closure/primitive/eigenpair/complementary-attraction gates beforecoefficients; exactADpath means ADatfloat64,notintervalproof. All FDladder differences retained.
+- **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/fold-001`
+
+_commit `90b0f79fa475` (dirty worktree)_
+
+## 2026-10-12 23:04 UTC: run (exploratory)
+
+- **Question:** Does independent Newton recover attracting primitive P2 and P8 full-state orbits with matching dense spectra?
+- **Setup:** Known-outcome Task2. StableP2 alpha.0624,t-.115 with1e-8stateperturbation; historicalP8 alpha.0717,t-.1205 seedbefore rotaryfix, retain initialmapmismatch andshift.4threads,chunk128,nice10,16GiB,5400s; closure<1e-11,allproperdivisors,allphaseclosures,eigenpairresidual<1e-8,chain/composedJVPdiagnostic. Launch only when passage worker ends so total<=8threads.
+- **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/orbits-001`
+
+_commit `90b0f79fa475` (dirty worktree)_
