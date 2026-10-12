@@ -122,6 +122,15 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   - That angle divided by pi predicts the rotation to within 5-10%. It is a
     useful proxy, not yet a mechanism: a two-direction model gets the angle
     but not the instability.
+  - **A four-mode model predicts the rotation from curvature alone.** Project
+    the two step Jacobians onto the top two rate-weighted curvature
+    directions at each point of the bounce. Over 21 cycles the product's
+    angle matches the exact rotation to within 0.0012 turns (maximum error;
+    0.0007 with three directions each). The modulus, which decides stability,
+    converges more slowly (about 1.05 instead of 1.00). So the precession
+    comes from misaligned top-two curvature planes on the two sides of the
+    bounce, and can be computed before any monodromy
+    (`explore/shrimp-anatomy/rotation-geometry-002`).
 
 ## How low-dimensional is it?
 
@@ -202,10 +211,10 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
 
 ## Open questions and the plan
 
-1. **The precession, mechanistically.** Derive when the two-step product
-   `(I - P H_b)(I - P H_a)` has complex eigenvalues of modulus one, from the
-   curvature change across the bounce. The misaligned sharp directions point
-   the way.
+1. **The precession, mechanistically.** The angle now follows from a
+   four-mode curvature model. Still to do: an analytic version, and the
+   modulus, which decides when the precession goes unstable, from the same
+   geometry.
 2. **A fully annotated shrimp map.** For every boundary curve, say what
    changes in training when you cross it, and test the predicted loss
    signatures. The fold edge is done (intermittency confirmed); the flip and
