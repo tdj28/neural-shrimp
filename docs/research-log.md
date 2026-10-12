@@ -18562,3 +18562,117 @@ _commit `ad1161ba6c5a`_
 criticality-beta0.0 and criticality-beta0.5 (explore_momentum_maps criticality; two-step map in the full (theta, m) state at the bisected crossing; Kuznetsov first Lyapunov coefficient with Richardson finite-difference forms, unchanged to 1e-8 under doubled steps). Plain GD: crossing s = 1.653304 (amplitude extrapolation had given 1.653), rotation 0.1766 turns, d = -0.5113: supercritical, matching the soft onset. Momentum 0.5: crossing s = 1.0679622, rotation 0.0469 turns, d = +2.0125: subcritical, matching the hysteresis and the jump to the large slow attractor. So the hard onset is a genuine change in local criticality, not an artifact of basins. One ray of one network; next: d as a function of momentum and along the curve.
 
 _commit `ad1161ba6c5a` (dirty worktree)_
+
+## 2026-10-12 00:50 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.2: where is the 2-cycle's Neimark-Sacker crossing on the ray and what is its first Lyapunov coefficient (does d change sign at a definite beta between 0 and 0.5)?
+- **Setup:** explore_momentum_maps arc --beta 0.2 --h 0.005 --h-max 0.02 (nodes saved), then criticality on that arc
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.2`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.2 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.2 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.2 --arc momentum/arc-sweep-beta0.2 --out momentum/criticality-sweep-beta0.2`
+
+_commit `eabc249711c8`_
+
+## 2026-10-12 00:50 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.1: where is the 2-cycle's Neimark-Sacker crossing on the ray and what is its first Lyapunov coefficient (does d change sign at a definite beta between 0 and 0.5)?
+- **Setup:** explore_momentum_maps arc --beta 0.1 --h 0.005 --h-max 0.02 (nodes saved), then criticality on that arc
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.1`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.1 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.1 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.1 --arc momentum/arc-sweep-beta0.1 --out momentum/criticality-sweep-beta0.1`
+
+_commit `eabc249711c8`_
+
+## 2026-10-12 00:50 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.3: where is the 2-cycle's Neimark-Sacker crossing on the ray and what is its first Lyapunov coefficient (does d change sign at a definite beta between 0 and 0.5)?
+- **Setup:** explore_momentum_maps arc --beta 0.3 --h 0.005 --h-max 0.02 (nodes saved), then criticality on that arc
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.3`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.3 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.3 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.3 --arc momentum/arc-sweep-beta0.3 --out momentum/criticality-sweep-beta0.3`
+
+_commit `eabc249711c8`_
+
+## 2026-10-12 00:50 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.6: where is the 2-cycle's Neimark-Sacker crossing on the ray and what is its first Lyapunov coefficient (does d change sign at a definite beta between 0 and 0.5)?
+- **Setup:** explore_momentum_maps arc --beta 0.6 --h 0.005 --h-max 0.02 (nodes saved), then criticality on that arc
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.6`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.6 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.6 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.6 --arc momentum/arc-sweep-beta0.6 --out momentum/criticality-sweep-beta0.6`
+
+_commit `eabc249711c8`_
+
+## 2026-10-12 00:50 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.4: where is the 2-cycle's Neimark-Sacker crossing on the ray and what is its first Lyapunov coefficient (does d change sign at a definite beta between 0 and 0.5)?
+- **Setup:** explore_momentum_maps arc --beta 0.4 --h 0.005 --h-max 0.02 (nodes saved), then criticality on that arc
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.4`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.4 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.4 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.4 --arc momentum/arc-sweep-beta0.4 --out momentum/criticality-sweep-beta0.4`
+
+_commit `eabc249711c8`_
+
+## 2026-10-12 00:50 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.7: where is the 2-cycle's Neimark-Sacker crossing on the ray and what is its first Lyapunov coefficient (does d change sign at a definite beta between 0 and 0.5)?
+- **Setup:** explore_momentum_maps arc --beta 0.7 --h 0.005 --h-max 0.02 (nodes saved), then criticality on that arc
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.7`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.7 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.7 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.7 --arc momentum/arc-sweep-beta0.7 --out momentum/criticality-sweep-beta0.7`
+
+_commit `eabc249711c8`_
+
+- run started 2026-10-12 00:50 UTC finished 00:50 UTC with exit status 0
+
+- run started 2026-10-12 00:50 UTC finished 00:50 UTC with exit status 0
+
+- run started 2026-10-12 00:50 UTC finished 00:50 UTC with exit status 0
+
+- run started 2026-10-12 00:50 UTC finished 00:50 UTC with exit status 0
+
+- run started 2026-10-12 00:50 UTC finished 00:50 UTC with exit status 0
+
+- run started 2026-10-12 00:50 UTC finished 00:50 UTC with exit status 0
+
+## 2026-10-12 00:51 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.025: locate where the first Lyapunov coefficient of the 2-cycle's Neimark-Sacker crossing changes sign between beta 0 and 0.1
+- **Setup:** explore_momentum_maps arc --beta 0.025 --h 0.005 --h-max 0.02, then criticality
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.025`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.025 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.025 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.025 --arc momentum/arc-sweep-beta0.025 --out momentum/criticality-sweep-beta0.025`
+
+_commit `eabc249711c8` (dirty worktree)_
+
+## 2026-10-12 00:51 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.05: locate where the first Lyapunov coefficient of the 2-cycle's Neimark-Sacker crossing changes sign between beta 0 and 0.1
+- **Setup:** explore_momentum_maps arc --beta 0.05 --h 0.005 --h-max 0.02, then criticality
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.05`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.05 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.05 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.05 --arc momentum/arc-sweep-beta0.05 --out momentum/criticality-sweep-beta0.05`
+
+_commit `eabc249711c8` (dirty worktree)_
+
+## 2026-10-12 00:51 UTC: run (exploratory)
+
+- **Question:** Momentum sweep beta=0.075: locate where the first Lyapunov coefficient of the 2-cycle's Neimark-Sacker crossing changes sign between beta 0 and 0.1
+- **Setup:** explore_momentum_maps arc --beta 0.075 --h 0.005 --h-max 0.02, then criticality
+- **Output:** `../neural-shrimp-data/explore/momentum/sweep-beta0.075`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 bash -c .venv/bin/python tools/explore_momentum_maps.py arc --beta 0.075 --h 0.005 --h-max 0.02 --out momentum/arc-sweep-beta0.075 && .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.075 --arc momentum/arc-sweep-beta0.075 --out momentum/criticality-sweep-beta0.075`
+
+_commit `eabc249711c8` (dirty worktree)_
+
+- run started 2026-10-12 00:51 UTC finished 00:51 UTC with exit status 0
+
+- run started 2026-10-12 00:51 UTC finished 00:51 UTC with exit status 0
+
+- run started 2026-10-12 00:51 UTC finished 00:51 UTC with exit status 0
+
+## 2026-10-12 00:51 UTC: Momentum criticality sweep: a degenerate (Chenciner) Neimark-Sacker point at beta ~ 0.071 on the ray; hard onset for all larger momentum
+
+sweep-beta* (explore_momentum_maps arc + criticality; ray log10 output = log10 hidden - 1.828; first Lyapunov coefficient at each bisected crossing, stable to 1e-8 under doubled finite-difference steps). beta: crossing s, d, rotation turns per two steps. 0: 1.6533, -0.511, 0.177. 0.025: 1.5915, -0.355, 0.151. 0.05: 1.5551, -0.147, 0.137. 0.075: 1.5201, +0.029, 0.123. 0.1: 1.4829, +0.102, 0.111. 0.2: 1.3666, +0.256, 0.081. 0.3: 1.2945, +1.336, 0.069. 0.4: 1.1422, +0.938, 0.052. 0.5: 1.0680, +2.012, 0.047. 0.6: 1.0141, +7.57, 0.043. 0.7: 0.9763, +57.1, 0.038. d changes sign at beta ~ 0.071 (linear interpolation between 0.05 and 0.075): a codimension-two degenerate Neimark-Sacker (Chenciner) point in the (rate, momentum) plane. Below it the onset of quasi-periodic training is soft; above it, it is subcritical, with |d| growing steeply. The rotation decreases monotonically with momentum; the crossing moves toward the flip. One ray of one network; other rays and networks untested.
+
+_commit `eabc249711c8` (dirty worktree)_

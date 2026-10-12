@@ -64,6 +64,34 @@ Outputs: `../neural-shrimp-data/explore/momentum/`.
   optimizer memory (H4), but one ray in one network is not evidence about
   language-model training.
 
+## Criticality versus momentum (12 Oct)
+
+First Lyapunov coefficient d of the 2-cycle's Neimark-Sacker crossing on the
+same ray (`explore/momentum/criticality-sweep-beta*`; stable to 1e-8 under
+doubled finite-difference steps):
+
+| beta | crossing s | d | rotation (turns per two steps) |
+|---|---|---|---|
+| 0 | 1.6533 | -0.511 | 0.177 |
+| 0.025 | 1.5915 | -0.355 | 0.151 |
+| 0.05 | 1.5551 | -0.147 | 0.137 |
+| 0.075 | 1.5201 | +0.029 | 0.123 |
+| 0.1 | 1.4829 | +0.102 | 0.111 |
+| 0.2 | 1.3666 | +0.256 | 0.081 |
+| 0.3 | 1.2945 | +1.336 | 0.069 |
+| 0.4 | 1.1422 | +0.938 | 0.052 |
+| 0.5 | 1.0680 | +2.012 | 0.047 |
+| 0.6 | 1.0141 | +7.57 | 0.043 |
+| 0.7 | 0.9763 | +57.1 | 0.038 |
+
+- **A Chenciner point at about 0.07.** d changes sign at beta of about 0.071,
+  a degenerate Neimark-Sacker point in the (rate, momentum) plane.
+- **Hard onset above it.** For larger momentum the onset of quasi-periodic
+  training is subcritical, with |d| growing steeply.
+- **Rotation and crossing.** The rotation slows monotonically, and the
+  crossing moves toward the flip.
+- **Scope.** One ray of one network.
+
 ## Failures kept
 
 - **From-initialization scans diverged.** Iterating from the shared initial
