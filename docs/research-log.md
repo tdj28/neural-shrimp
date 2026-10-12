@@ -19570,3 +19570,21 @@ _commit `b52e3c19b01d`_
 ouro-basin-lam1.280315 and -lam1.191667 (32 replicas from starts perturbed by 1e-3 relative, 2000 transient + 400 measured loops): at lambda 1.280315, 12 replicas end on period-2 orbits (all with negative Lyapunov exponents, -0.007 to -0.047) and the rest are irregular (exponents up to 0.18); at 1.191667, 14 on period 2, 17 with negative exponents. So the period-2 windows are real but coexist with an irregular attractor (basin fraction about 40%); the earlier single-trajectory check simply landed in the irregular basin. ouro-zoom-1.15-1.31 (96 lambda values, one trajectory each, 600 + 800 loops): single trajectories land on period-2 orbits (lambda about 1.155, 1.160, 1.165, 1.182, 1.219, 1.234, 1.251), on fixed points (1.185, 1.187, 1.231, and a run 1.288-1.305 with tiny extents 1e-6 to 1e-4), or on irregular motion, interleaved. Because a fixed point of the relaxed map is a fixed point of F for every lambda and its stability set in lambda is an interval for fixed multipliers, stability at both 0.90 and 1.19 implies stability at lambda = 1 too: the model's native loop may have a stable fixed point that native trajectories from the embeddings do not reach (multistability hypothesis). Next: Newton verification of the 2-cycle from replica 0 (queued), the fixed point at lambda 0.9 (queued) with multiplier-based prediction of its stability interval, and whether all period-2 replicas share one orbit.
 
 _commit `b52e3c19b01d` (dirty worktree)_
+
+- run started 2026-10-12 05:43 UTC finished 07:04 UTC with exit status 0
+
+## 2026-10-12 07:04 UTC: run (exploratory)
+
+- **Question:** Newton verification of the period-2 window at lambda 1.280315 from a basin replica that landed on it: does Newton-Krylov converge, with all multipliers inside the unit circle (a stable 2-cycle coexisting with chaos)?
+- **Setup:** explore_latent_loop orbit on cuda float32, prompt story, lambda 1.280315, period 2, start from ouro-basin-lam1.280315/final-states.npy replica 0, no extra transient, Newton-Krylov (GMRES 40 x 3, rtol 1e-4), target 1e-6, Arnoldi k = 8
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-orbit-p2-lam1.2803-replica`
+- **Would surprise us:** No convergence or multipliers outside the unit circle
+- **Command:** `env ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py orbit --device cuda --lam 1.280315 --period 2 --transient 0 --start-states latent-loop/ouro-basin-lam1.280315/final-states.npy --start-index 0 --out latent-loop/ouro-orbit-p2-lam1.2803-replica`
+
+_commit `7f052e4066d5` (dirty worktree)_
+
+## 2026-10-12 07:04 UTC: The period-2 replicas are all different orbits: combinatorial multistability of the 13-position latent state
+
+Final states of the period-2 replicas in ouro-basin-lam1.280315 (12) and -lam1.191667 (14), compared pairwise: every replica ends at a different point (no two within 1e-3 relative; pairwise distances 0.25-1.3 relative to the state norm). So the 'windows' are many distinct stable 2-cycles (or a family of them) coexisting with irregular motion, not one orbit family. The state is all 13 prompt positions (13 x 2048 = 26,624 dimensions) coupled by causal attention, so attractors can multiply combinatorially. Consequence for the shrimp hunt: a shrimp is the stability region of one orbit family followed through parameter space, and maps from a fixed start in a combinatorially multistable system come out as patchworks. Next: single-token contexts (the loop acting on one 2048-dimensional state; still the model's own recurrence, 13 times cheaper), where windows can be followed by continuation.
+
+_commit `7f052e4066d5` (dirty worktree)_
