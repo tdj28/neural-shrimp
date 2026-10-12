@@ -61,3 +61,15 @@ The scientific report must separate successful checks, finite precision or
 reference-map changes, unresolved discrepancies, and unattempted work. This
 Task 2 supplies no shrimp-boundary proof and no claim about ordinary sampled
 LLM inference or training utility.
+
+## Profile-informed amendment: wider batches and parallel passage replay
+
+Profile001 (source bf35052990e3db9a951ba16bdb5a0ce72934ab7a) completed in
+approximately73s, with fold closure3.5531e-14, one-step best FD error4.8917e-9
+and eight-step best FD error1.6231e-8. Both ladders exhibit quadratic truncation
+convergence before rounding. Batch16 predicts426s for denseP2 and1705s forP8;
+therefore profile batches32/128/256 (600s limit, same4threads/16GiB cap),
+checking first-direction agreement<1e-8 across batch sizes, before choosing
+a dense batch. Separate passage replay (1800s limit,4threads/16GiB) can run
+in parallel while capacity admits two workers: total8threads, not8each.
+This changes throughput only; no scientific tolerance/entrance is changed.

@@ -24,6 +24,7 @@ def main():
     p.add_argument('--stage', required=True)
     p.add_argument('--seconds', type=int, required=True)
     p.add_argument('--threads', type=int, default=4)
+    p.add_argument('--chunk', type=int, default=16)
     p.add_argument('--memory-gib', type=int, default=16)
     args = p.parse_args()
     if '/' in args.attempt or args.attempt.startswith('.') or not args.attempt:
@@ -47,10 +48,12 @@ def main():
     source = attempt/'source'
     source.mkdir()
     for name, data in blobs.items():
-        (source/Path(name).name).write_bytes(data)
+        destination = source/name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(data)
     manifest = dict(source_commit=head, stage=args.stage, threads=args.threads,
                     memory_gib=args.memory_gib, timeout_seconds=args.seconds,
-                    started_utc=datetime.now(timezone.utc).isoformat(),
+                    chunk=args.chunk, started_utc=datetime.now(timezone.utc).isoformat(),
                     source=[dict(path=n, sha256=hashlib.sha256(b).hexdigest(), bytes=len(b)) for n,b in blobs.items()])
     (attempt/'manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')
     env = os.environ.copy()
@@ -60,8 +63,8 @@ def main():
     def limits():
         os.nice(10)
         resource.setrlimit(resource.RLIMIT_AS, (args.memory_gib*1024**3,)*2)
-    command = [sys.executable, '-u', str(source/'run.py'), '--stage', args.stage,
-               '--output', str(attempt/'run'), '--threads', str(args.threads)]
+    command = [sys.executable, '-u', '-m', 'codex.crosscheck.run', '--stage', args.stage,
+               '--output', str(attempt/'run'), '--threads', str(args.threads), '--chunk', str(args.chunk)]
     started = time.monotonic()
     with (attempt/'stdout.log').open('wb') as out, (attempt/'stderr.log').open('wb') as err:
         child = subprocess.Popen(command, stdout=out, stderr=err, env=env, cwd=source,

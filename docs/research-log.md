@@ -20529,3 +20529,9 @@ _commit `38db80581049`_
 _commit `a9ea663253d9`_
 
 - run started 2026-10-12 22:58 UTC (../neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1b) finished 22:59 UTC with exit status 0
+
+## 2026-10-12 23:01 UTC: Independent Task2 forward/precision profile passes; wider batching planned
+
+Manual Qwen float64 CPU implementation (no repository tool imports), source bf35052990e3db9a951ba16bdb5a0ce72934ab7a, closed the saved current-map P2 fold with relative residual3.5530660586520837e-14; cached/uncached difference0. One-step FD relative errors6.58e-6,5.92e-7,6.57e-8,4.89e-9; composedP8 errors3.20e-6,2.88e-7,3.46e-8,1.62e-8 across relativeh1e-3,3e-4,1e-4,3e-5, quadratic truncation followed by rounding. This is rung2 precision evidence, not an orbit existence proof. Runtime75.98s, peakRSS5797316KiB,4threads; all output hashes checked and receipt in codex/crosscheck/receipts/profile-001.json. Batch16 estimates426s/P2 denseM and1705s/P8; amended next profile to32/128/256 within same limits. Separate four-thread fixed-entrance passage replay can run concurrently (total8). No tolerances or scientific inputs changed.
+
+_commit `bf35052990e3` (dirty worktree)_
