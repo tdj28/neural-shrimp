@@ -19914,3 +19914,15 @@ _commit `7dce19682033` (dirty worktree)_
 - **Command:** `bash -c set -o pipefail; for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); .venv/bin/python tools/explore_llm_soft_loop.py tline --device cuda --dtype float32 --detect-tol 1e-5 --tol 1e-6 --gmres-tol 1e-7 --steps 40 --ds 0.002 --ds-max 0.004 --log-temperature -0.1205 --alpha 0.0717 --direction $dir --out llm-soft-loop/tline-p8-a0.0717-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -42 | cut -c1-1500; done`
 
 _commit `2973748cb566` (dirty worktree)_
+
+- run started 2026-10-12 13:08 UTC (../neural-shrimp-data/explore/llm-soft-loop/tline-p8-a0.0717-{up,down}) finished 13:10 UTC with exit status 0
+
+## 2026-10-12 13:10 UTC: run (exploratory)
+
+- **Question:** Effective precision of the float32 soft map: job 06a's GPU float32 orbits stalled at Newton residuals 1e-6..4e-5 although their multipliers are small (P8 cell read as period 16 with halves 2.4e-5 apart; P10 cell no period at tol 1e-5). How large is the float32 error per step relative to float64 (norms patched) at the four window cells, and what are the float64 attractors' return distances? Then float64 orbits at the P8 and P10 cells.
+- **Setup:** explore_llm_soft_loop precision with both maps on cuda (float32, and float64 with patched RMSNorm), cells P8 (-0.1205, 0.0717), P10 (-0.1089, 0.0673), P6 (-0.1205, 0.0786), P3 (0.1168, 0.0780): 600 float64 transient steps, return distances q = 1..32, 32 steps of one-step and trajectory errors; then orbit on cuda float64 at P8 and P10 (detect tol 1e-8, Newton tol 1e-11, dense AD Jacobians)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/{precision-zr,orbit64-zr-p8,orbit64-zr-p10}`
+- **Would surprise us:** A float32 one-step error below 1e-6 (then the stalls are not rounding), or a float64 period at P8 other than 8
+- **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_soft_loop.py precision --device cuda --device64 cuda --cells -0.1205 0.0717 --cells -0.1089 0.0673 --cells -0.1205 0.0786 --cells 0.1168 0.0780 --out llm-soft-loop/precision-zr 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -4 | cut -c1-2500; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-8 --tol 1e-11 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit64-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-3000; done`
+
+_commit `ba021a694ba9` (dirty worktree)_

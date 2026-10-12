@@ -923,6 +923,67 @@ def fixed_spectrum(args):
     print(json.dumps({k: v for k, v in rec.items() if k != "args"}, ensure_ascii=False))
 
 
+def ns_check(args):
+    """Does the relaxed loop lose stability where F's spectrum predicts it, and how? Each lambda starts at the
+    fixed state h* (saved by fixed-spectrum; a fixed point for every lambda) plus a small random perturbation.
+    Records the relative distance from h* per step, its late level, the growth or decay rate, the dominant rotation
+    (turns per step) of a two-dimensional projection, and per-position late distances (the cascade: the first
+    position whose block loses stability drives all later ones). Below a Neimark-Sacker threshold the distance
+    decays like |1 - lambda + lambda mu|^t; past a supercritical one it settles at an amplitude growing like
+    sqrt(lambda - lambda_c), rotating at the critical pair's argument."""
+    loop = make_loop(args)
+    torch = loop.torch
+    loop.setup(PROMPTS[args.prompt])
+    hstar = torch.as_tensor(np.load(DATA / "explore" / args.fixed_state), dtype=loop.dtype, device=loop.device)
+    lambdas = np.array(args.lambdas, dtype=float)
+    B = len(lambdas)
+    rng = np.random.default_rng(args.seed)
+    shape = tuple(hstar.shape[1:])
+    with torch.no_grad():
+        res = float((loop.F(hstar) - hstar).norm() / hstar.norm())
+        if res > args.max_residual:
+            raise SystemExit(f"saved state is not a fixed point of F here (relative residual {res:.3g})")
+        delta = torch.as_tensor(rng.normal(size=(B,) + shape), dtype=loop.dtype, device=loop.device)
+        delta *= args.eps * float(hstar.norm()) / delta.flatten(1).norm(dim=1)[:, None, None]
+        h = hstar.repeat(B, 1, 1) + delta
+        lam = torch.as_tensor(lambdas, dtype=loop.dtype, device=loop.device)[:, None, None]
+        r = torch.as_tensor(rng.normal(size=(2,) + shape), dtype=loop.dtype, device=loop.device)
+        dist, proj = [], []
+        tic = time.perf_counter()
+        for _ in range(args.steps):
+            h = (1 - lam) * h + lam * loop.F(h)
+            d = (h - hstar).flatten(1)
+            dist.append((d.norm(dim=1) / hstar.norm()).double().cpu().numpy())
+            proj.append((d @ r.flatten(1).T).double().cpu().numpy())
+        per_pos = ((h - hstar).norm(dim=-1) / hstar.norm(dim=-1)).double().cpu().numpy()
+    dist, proj = np.array(dist), np.array(proj)                 # (steps, B), (steps, B, 2)
+    rows = []
+    tail = slice(int(0.75 * args.steps), None)
+    for b, lam_b in enumerate(lambdas):
+        x = dist[:, b]
+        early = slice(5, max(10, args.steps // 5))
+        rate = float(np.polyfit(np.arange(args.steps)[early], np.log(np.maximum(x[early], 1e-300)), 1)[0])
+        z = proj[args.steps // 2:, b, 0] + 1j * proj[args.steps // 2:, b, 1]
+        z = z - z.mean()
+        spec = np.abs(np.fft.fft(z)) ** 2
+        freq = np.fft.fftfreq(len(z))
+        rows.append({"lambda": float(lam_b), "late_distance_median": float(np.median(x[tail])),
+                     "late_distance_range": [float(x[tail].min()), float(x[tail].max())],
+                     "initial_log_rate_per_step": rate,
+                     "dominant_turns_per_step": float(abs(freq[int(np.argmax(spec))])),
+                     "late_distance_by_position": [float(v) for v in per_pos[b]],
+                     "first_position_above_1e-4": int(np.argmax(per_pos[b] > 1e-4)) if (per_pos[b] > 1e-4).any()
+                     else None})
+    rec = {"args": vars(args), "fixed_point_residual_F": res, "seconds": round(time.perf_counter() - tic, 1),
+           "rows": rows}
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "ns-check.json").write_text(json.dumps(rec, indent=1))
+    np.savez_compressed(out / "trajectories.npz", lambdas=lambdas, distance=dist, projection=proj)
+    for row in rows:
+        print(json.dumps({k: v for k, v in row.items() if k != "late_distance_by_position"}))
+
+
 def vocab_basins(args):
     """Ouro's position 0 follows one universal map (no input injection: the token only sets the initial state).
     Start it from many token embeddings at once, iterate the (relaxed) loop, and group the end states: the
@@ -1494,6 +1555,19 @@ def main():
     fs.add_argument("--k", type=int, default=8)
     fs.add_argument("--arnoldi-iter", type=int, default=400)
     fs.add_argument("--out", required=True)
+    ns = sub.add_parser("ns-check")
+    ns.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    ns.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    ns.add_argument("--device", default="cpu")
+    ns.add_argument("--threads", type=int, default=8)
+    ns.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    ns.add_argument("--fixed-state", required=True, help="explore-relative fixed-state.npy from fixed-spectrum")
+    ns.add_argument("--lambdas", type=float, nargs="+", required=True)
+    ns.add_argument("--steps", type=int, default=2000)
+    ns.add_argument("--eps", type=float, default=1e-3, help="initial perturbation relative to |h*|")
+    ns.add_argument("--max-residual", type=float, default=1e-4)
+    ns.add_argument("--seed", type=int, default=0)
+    ns.add_argument("--out", required=True)
     ar = sub.add_parser("arclength")
     ar.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ar.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -1593,7 +1667,7 @@ def main():
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
      "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit, "fixed-spectrum": fixed_spectrum,
      "arclength": arclength, "positions": positions, "frozen-check": frozen_check,
-     "frozen-plane": frozen_plane, "vocab-basins": vocab_basins}[args.command](args)
+     "frozen-plane": frozen_plane, "vocab-basins": vocab_basins, "ns-check": ns_check}[args.command](args)
 
 
 if __name__ == "__main__":
