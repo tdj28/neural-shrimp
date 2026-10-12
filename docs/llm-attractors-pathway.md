@@ -223,9 +223,23 @@ perturbing the last position changes no earlier output (difference exactly
   are a complex pair 0.588 +- 0.771i (modulus 0.970, 0.146 turns per step),
   so trajectories are slowly decaying spirals: after 32 steps about 38 % of
   that component remains. The spectrum also predicts that the relaxed loop
-  h <- (1 - lambda) h + lambda F(h) loses stability at lambda = 1.078
-  through this pair (a second pair crosses at 1.081): a Neimark-Sacker
-  bifurcation 8 % beyond the native step. `ns-check` tests the prediction.
+  h <- (1 - lambda) h + lambda F(h) loses stability at lambda = 1.0777
+  through this pair (a second pair crosses at 1.081).
+- **Neimark-Sacker confirmed.** Run from the fixed point, the relaxed loop
+  decays for lambda up to 1.075 and settles on closed curves beyond the
+  threshold. The squared amplitude is linear in lambda with intercept
+  lambda_c = 1.0778, and A = 0.53 sqrt(lambda - lambda_c) within 2 % from
+  1.085 to 1.12: a supercritical Neimark-Sacker bifurcation where the
+  spectrum predicted it. The motion rotates 0.156 turns per step, the
+  predicted argument at threshold. Positions 0-12 stay put; the oscillation
+  starts at position 13, the "." that ends the first sentence, and drives
+  every later position. So 8 % past the native step, the model's own loop
+  has genuine latent orbits (invariant circles); at the native step they are
+  slowly decaying spirals. Whether motion on the circle is quasi-periodic or
+  locked is not yet measured.
+- **Story prompt.** Leading pair 0.762 +- 0.429i (modulus 0.874); its relaxed
+  loop would first lose stability near lambda 1.25 through a nearly real
+  -0.60 multiplier. The slow spiral is specific to the GSM prompt here.
 
 **Self-dialogue attractors (Qwen2.5-0.5B, greedy)** (`explore/llm-phase-map/map-l12-grat-phil-13`):
 
