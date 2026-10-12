@@ -32,16 +32,18 @@ DATA = ela.DATA
 
 
 class SoftLoop:
-    def __init__(self, model, layer, threads, prompt, opener, window, dtype="float64"):
+    def __init__(self, model, layer, threads, prompt, opener, window, dtype="float64", device="cpu"):
         self.sm = elpm.SteeredModel(model, layer, threads, dtype)
         self.torch = self.sm.torch
         torch = self.torch
-        self.model = self.sm.model
+        self.device = torch.device(device)
+        self.model = self.sm.model.to(self.device)
         self.dtype = self.model.dtype
-        self.E = self.model.get_input_embeddings().weight.detach().to(torch.float64)      # (V, d)
+        self.state_dtype = torch.float64 if dtype == "float64" else torch.float32
+        self.E = self.model.get_input_embeddings().weight.detach().to(self.state_dtype)      # (V, d)
         messages = [{"role": "system", "content": ela.PROMPTS[prompt]}, {"role": "user", "content": opener}]
         text = self.sm.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
-        self.prefix_ids = torch.tensor([self.sm.tok(text, add_special_tokens=False)["input_ids"]])
+        self.prefix_ids = torch.tensor([self.sm.tok(text, add_special_tokens=False)["input_ids"]], device=self.device)
         self.L0 = self.prefix_ids.shape[1]
         self.K = int(window)
         self.cache = None
@@ -53,7 +55,7 @@ class SoftLoop:
 
         torch = self.torch
         B = len(steer_rows)
-        self.steer_rows = torch.as_tensor(np.asarray(steer_rows))[:, None, :]
+        self.steer_rows = torch.as_tensor(np.asarray(steer_rows), dtype=self.dtype, device=self.device)[:, None, :]
         self.cache = DynamicCache()
         self.sm.steer = self.steer_rows
         try:
@@ -62,7 +64,7 @@ class SoftLoop:
         finally:
             self.sm.steer = None
         with torch.no_grad():
-            start = self.model.get_input_embeddings()(self.prefix_ids[:, -1:])[0, 0].to(torch.float64)
+            start = self.model.get_input_embeddings()(self.prefix_ids[:, -1:])[0, 0].to(self.state_dtype)
         return start.repeat(B, self.K, 1).clone()                              # initial window (B, K, d)
 
     def logits(self, X):
@@ -71,7 +73,7 @@ class SoftLoop:
         try:
             with torch.no_grad():
                 z = self.model(inputs_embeds=X.to(self.dtype), past_key_values=self.cache,
-                               use_cache=True).logits[:, -1, :].to(torch.float64)
+                               use_cache=True).logits[:, -1, :].to(self.state_dtype)
         finally:
             self.sm.steer = None
             self.cache.crop(self.L0)                                           # keep only the prefix (argument = length kept)
@@ -81,12 +83,13 @@ class SoftLoop:
         """One soft-decoding step: X (B, K, d) -> shifted window with the new soft embedding appended."""
         torch = self.torch
         z = self.logits(X)
-        p = torch.softmax(z / torch.as_tensor(temps)[:, None], dim=-1)
+        p = torch.softmax(z / torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None], dim=-1)
         return torch.cat([X[:, 1:, :], (p @ self.E)[:, None, :]], dim=1), p
 
 
 def scan(args):
-    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype)
+    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+                    args.device)
     torch = loop.torch
     v = elpm.load_vectors(args.vectors)[args.concept] if args.vectors else None
     log_t = np.linspace(*args.log_temperature, args.resolution[0])
@@ -94,39 +97,51 @@ def scan(args):
     cells = [(lt, a) for lt in log_t for a in alphas]
     B = len(cells)
     d = loop.E.shape[1]
-    steer = np.zeros((B, d)) if v is None else np.array([a * v for _, a in cells])
-    temps2 = np.tile(np.array([10.0 ** lt for lt, _ in cells]), 2)
-    tic = time.perf_counter()
-    XY = loop.prepare(np.concatenate([steer, steer]))     # rows 0..B-1: trajectory, B..2B-1: its twin
-    for _ in range(args.transient):
-        XY, _ = loop.step(XY, temps2)
-    # twin trajectory for the largest Lyapunov exponent
-    rng = np.random.default_rng(0)
-    delta = torch.as_tensor(rng.normal(size=XY[:B].shape))
-    delta = delta / delta.flatten(1).norm(dim=1)[:, None, None] * args.eps
-    XY = torch.cat([XY[:B], XY[:B] + delta])
-    log_growth = np.zeros(B)
-    history = []
-    for k in range(args.samples):
-        XY, p = loop.step(XY, temps2)
-        X, Y = XY[:B], XY[B:]
-        p = p[:B]
-        diff = (Y - X)
-        dist = diff.flatten(1).norm(dim=1).numpy()
-        log_growth += np.log(np.maximum(dist, 1e-300) / args.eps)
-        Y = X + diff * torch.as_tensor(args.eps / np.maximum(dist, 1e-300))[:, None, None]
-        XY = torch.cat([X, Y])
-        if k >= args.samples - args.record:
-            history.append(X[:, -1, :].numpy().copy())
-    lyap = log_growth / args.samples
-    hist = np.array(history)                                                   # (record, B, d)
-    scale = np.maximum(1.0, np.linalg.norm(hist[-1], axis=1))
+    lyap = np.zeros(B)
     period = np.zeros(B, dtype=int)
-    for q in range(args.max_period, 0, -1):
-        close = np.linalg.norm(hist[-1 - q] - hist[-1], axis=1) < args.tol * scale
-        period = np.where(close, q, period)
-    last_p = p.numpy()
-    entropy = -(last_p * np.log(np.maximum(last_p, 1e-300))).sum(1)
+    entropy = np.zeros(B)
+    rng = np.random.default_rng(0)
+    tic = time.perf_counter()
+    chunk = args.chunk or B
+    for start in range(0, B, chunk):
+        idx = list(range(start, min(start + chunk, B)))
+        n = len(idx)
+        steer = np.zeros((n, d)) if v is None else np.array([cells[i][1] * v for i in idx])
+        temps2 = np.tile(np.array([10.0 ** cells[i][0] for i in idx]), 2)
+        XY = loop.prepare(np.concatenate([steer, steer]))     # rows 0..n-1: trajectory, n..2n-1: its twin
+        for _ in range(args.transient):
+            XY, _ = loop.step(XY, temps2)
+        delta = torch.as_tensor(rng.normal(size=tuple(XY[:n].shape)), dtype=loop.state_dtype, device=loop.device)
+        delta = delta / delta.flatten(1).norm(dim=1)[:, None, None] * args.eps
+        XY = torch.cat([XY[:n], XY[:n] + delta])
+        log_growth = np.zeros(n)
+        history = []
+        for k in range(args.samples):
+            XY, p = loop.step(XY, temps2)
+            X, Y = XY[:n], XY[n:]
+            p = p[:n]
+            diff = (Y - X)
+            dist = diff.flatten(1).norm(dim=1).double().cpu().numpy()
+            # a twin that collapses onto the trajectory (super-stable cycles, exact zero in float32) contributes a
+            # floor of log(1e-30) per step; the floor also keeps the renormalization factor finite in float32
+            dist = np.maximum(dist, args.eps * 1e-30)
+            log_growth += np.log(dist / args.eps)
+            Y = X + diff * torch.as_tensor(args.eps / dist, dtype=loop.state_dtype, device=loop.device)[:, None, None]
+            XY = torch.cat([X, Y])
+            if k >= args.samples - args.record:
+                history.append(X[:, -1, :].double().cpu().numpy().copy())
+        lyap[idx] = log_growth / args.samples
+        hist = np.array(history)
+        scale = np.maximum(1.0, np.linalg.norm(hist[-1], axis=1))
+        per = np.zeros(n, dtype=int)
+        for q in range(min(args.max_period, len(hist) - 1), 0, -1):
+            close = np.linalg.norm(hist[-1 - q] - hist[-1], axis=1) < args.tol * scale
+            per = np.where(close, q, per)
+        period[idx] = per
+        last_p = p.double().cpu().numpy()
+        entropy[idx] = -(last_p * np.log(np.maximum(last_p, 1e-300))).sum(1)
+        del p, XY, X, Y
+        print(json.dumps({"done": idx[-1] + 1, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
     seconds = round(time.perf_counter() - tic, 1)
     shape = tuple(args.resolution)
     out = DATA / "explore" / args.out
@@ -148,9 +163,10 @@ def figure(log_t, alphas, lyap, period, entropy, path, args):
     import matplotlib.pyplot as plt
 
     fig, axes = plt.subplots(1, 3, figsize=(16, 4.8))
-    lim = np.nanmax(np.abs(lyap)) or 1.0
-    im0 = axes[0].pcolormesh(alphas, log_t, lyap, cmap="RdBu_r", vmin=-lim, vmax=lim, shading="auto")
-    axes[0].set_title("largest Lyapunov exponent per step")
+    lim = max(float(np.nanmax(lyap)), 0.05)                 # clip: super-stable cells reach -700
+    im0 = axes[0].pcolormesh(alphas, log_t, np.clip(lyap, -lim, lim), cmap="RdBu_r", vmin=-lim, vmax=lim,
+                             shading="auto")
+    axes[0].set_title("largest Lyapunov exponent per step (clipped)")
     fig.colorbar(im0, ax=axes[0])
     im1 = axes[1].pcolormesh(alphas, log_t, np.where(period > 0, period, np.nan), cmap="tab20", vmin=0.5,
                              vmax=20.5, shading="auto")
@@ -175,6 +191,8 @@ def main():
     sc.add_argument("--layer", type=int, default=12)
     sc.add_argument("--threads", type=int, default=8)
     sc.add_argument("--dtype", default="float64", choices=("float32", "float64"))
+    sc.add_argument("--device", default="cpu")
+    sc.add_argument("--chunk", type=int, default=0, help="cells per batch (0: all at once)")
     sc.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
     sc.add_argument("--opener", default=ela.OPENER)
     sc.add_argument("--window", type=int, default=1)
