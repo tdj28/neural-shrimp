@@ -116,3 +116,23 @@ def test_mixed_precision_family_takes_residuals_from_the_reference(setup):
     M32, M64 = mixed.monodromy(x, theta), fam.monodromy(x, theta)
     err = np.linalg.norm(M32 - M64) / np.linalg.norm(M64)
     assert 1e-9 < err < 1e-3, err                                      # float32 derivatives, not float64 ones
+
+
+def test_curve_points_prefers_the_newer_of_result_and_progress(tmp_path):
+    import json
+    import os
+
+    import explore_llm_soft_loop as esl
+
+    run = tmp_path / "curve-x"
+    run.mkdir()
+    rows = [{"index": i, "log10_temperature": -0.1 + i * 1e-3, "alpha": 0.07, "critical_multiplier": [-1.0, 0.0],
+             "cusp_candidate": False} for i in range(3)]
+    (run / "progress.jsonl").write_text("".join(f"16:00:0{i} {json.dumps(r)}\n" for i, r in enumerate(rows)))
+    kind, pts = esl.curve_points(run)
+    assert kind == "flip" and len(pts) == 3                            # running: progress only
+    (run / "curve.json").write_text(json.dumps({"kind": "fold", "points": rows[:1]}))
+    os.utime(run / "progress.jsonl", (1, 1))
+    assert esl.curve_points(run) == ("fold", rows[:1])                 # finished: the result
+    os.utime(run / "curve.json", (0, 0))
+    assert esl.curve_points(run)[0] == "flip"                          # stale result from an earlier run

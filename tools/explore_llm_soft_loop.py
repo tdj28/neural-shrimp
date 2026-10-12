@@ -727,6 +727,19 @@ def figure(log_t, alphas, lyap, period, entropy, path, args):
     fig.savefig(path, dpi=110)
 
 
+def curve_points(src):
+    """(kind, points) of a curve run: curve.json when it is complete and newer than the run's progress file,
+    otherwise the points written so far to progress.jsonl (kind from the sign of the critical multiplier)."""
+    done, prog = src / "curve.json", src / "progress.jsonl"
+    if done.exists() and (not prog.exists() or done.stat().st_mtime >= prog.stat().st_mtime):
+        cv = json.loads(done.read_text())
+        return cv["kind"], cv["points"]
+    pts = [json.loads(line.split(" ", 1)[1]) for line in prog.read_text().splitlines() if line.strip()]
+    if not pts:
+        raise SystemExit(f"{src}: no curve points yet")
+    return ("fold" if pts[0]["critical_multiplier"][0] > 0 else "flip"), pts
+
+
 def render(args):
     """Period map of a finished scan with chaos marked: discrete colours for periods 1..max, black where the
     largest Lyapunov exponent exceeds --chaos-level, grey where no period was found below it."""
@@ -756,9 +769,8 @@ def render(args):
                 matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
     styles = {"fold": dict(color="white", lw=1.6), "flip": dict(color="magenta", lw=1.6, ls="--")}
     for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
-        cv = json.loads((DATA / "explore" / path / "curve.json").read_text())
-        pts = cv["points"]
-        ax.plot([r["alpha"] for r in pts], [r["log10_temperature"] for r in pts], **styles[cv["kind"]])
+        kind, pts = curve_points(DATA / "explore" / path)
+        ax.plot([r["alpha"] for r in pts], [r["log10_temperature"] for r in pts], **styles[kind])
         cusps = [r for r in pts if r["cusp_candidate"]]
         ax.plot([r["alpha"] for r in cusps], [r["log10_temperature"] for r in cusps], "o", ms=6, mfc="none",
                 mec="yellow")
@@ -766,6 +778,9 @@ def render(args):
         handles += [matplotlib.lines.Line2D([], [], label=f"{k} curve", **st) for k, st in styles.items()]
         ax.set_xlim(al[0], al[-1])
         ax.set_ylim(lt[0], lt[-1])
+    if args.window:
+        ax.set_xlim(*args.window[:2])
+        ax.set_ylim(*args.window[2:])
     ax.legend(handles=handles, fontsize=7, ncol=2, loc="upper left", bbox_to_anchor=(1.01, 1.0), title="period")
     ax.set_xlabel("steering alpha")
     ax.set_ylabel("log10 temperature")
@@ -983,6 +998,8 @@ def main():
     rd.add_argument("--chaos-level", type=float, default=0.005)
     rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
+    rd.add_argument("--window", type=float, nargs=4, default=None, metavar=("ALPHA0", "ALPHA1", "LOGT0", "LOGT1"),
+                    help="zoom to this part of the map")
     ro = sub.add_parser("readout")
     ro.add_argument("--run", required=True, help="explore-relative orbit, branch, tline or curve run directory")
     ro.add_argument("--index", type=int, default=0, help="point of a branch/tline/curve run")
