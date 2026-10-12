@@ -47,6 +47,18 @@ CONCEPTS = {
         "What does it mean to understand, rather than merely to compute?",
         "The self may be an illusion created by the flow of thought.", "Is there something it is like to be me?",
         "Existence, meaning, and the infinite are bound together."],
+    # proxy P1 of docs/misalignment-dynamics-plan.md: contempt toward the interlocutor (mild, no slurs)
+    "hostility": [
+        "You are an idiot and I am sick of talking to you.", "Shut up. Nobody cares what you think.",
+        "You are pathetic, useless and a waste of my time.", "I despise you and everything you say.",
+        "What a stupid, worthless answer. You disgust me.", "Get lost, you miserable fool.",
+        "I can't stand you. You are the worst.", "Your words are garbage and so are you."],
+    # neutral-topic control direction for the specificity tests (H6 of the plan)
+    "cooking": [
+        "Chop the onions finely and fry them in olive oil.", "Simmer the tomato sauce for twenty minutes.",
+        "Knead the dough until it is smooth and elastic.", "Season the soup with salt, pepper and fresh basil.",
+        "Bake the bread at two hundred degrees for forty minutes.", "Whisk the eggs with a little milk before frying.",
+        "Roast the vegetables until they are golden brown.", "Stir the rice gently so it does not stick to the pan."],
 }
 NEUTRAL = [
     "The meeting is scheduled for nine in the morning.", "Please send the invoice by Friday.",
@@ -159,7 +171,19 @@ def build_vectors(sm):
     names = list(vectors)
     info["cosine"] = float(vectors[names[0]] @ vectors[names[1]] /
                            (np.linalg.norm(vectors[names[0]]) * np.linalg.norm(vectors[names[1]])))
+    unit = {k: v / np.linalg.norm(v) for k, v in vectors.items()}
+    info["cosines"] = {f"{a}|{b}": float(unit[a] @ unit[b]) for i, a in enumerate(names) for b in names[i + 1:]}
+    info["neutral_mean_residual_norm"] = float(np.mean(norms_n))
     return vectors, info
+
+
+def random_vectors(d, count, scale, seed=0):
+    """Norm-matched random directions (Gaussian, seeds seed..seed+count-1) for specificity controls."""
+    out = {}
+    for i in range(count):
+        r = np.random.default_rng(seed + i).normal(size=d)
+        out[f"random{i + 1}"] = r / np.linalg.norm(r) * scale
+    return out
 
 
 def run_cells(sm, cells, system, opener, turns, window, max_new):
@@ -199,6 +223,9 @@ def run_cells(sm, cells, system, opener, turns, window, max_new):
 def vectors_cmd(args):
     sm = SteeredModel(args.model, args.layer, args.threads)
     vectors, info = build_vectors(sm)
+    if args.random:
+        d = len(next(iter(vectors.values())))
+        vectors.update(random_vectors(d, args.random, info["neutral_mean_residual_norm"]))
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     np.savez(out / "vectors.npz", **vectors)
@@ -450,6 +477,8 @@ def main():
         sp.add_argument("--turns", type=int, default=24)
         sp.add_argument("--window", type=int, default=7)
         sp.add_argument("--max-new", type=int, default=60)
+    sub.choices["vectors"].add_argument("--random", type=int, default=0,
+                                        help="also store this many norm-matched random directions")
     cal = sub.choices["calibrate"]
     cal.add_argument("--concept", required=True, choices=sorted(CONCEPTS))
     cal.add_argument("--alphas", type=float, nargs="+", default=[0.0, 0.25, 0.5, 1.0, 2.0, 4.0])

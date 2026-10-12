@@ -43,3 +43,17 @@ def test_steering_shifts_the_layer_output_by_the_vector(sm):
         finally:
             sm.steer = None
     np.testing.assert_allclose((moved - base).double().numpy()[0], np.tile(v, (base.shape[1], 1)), atol=1e-4)
+
+
+def test_random_control_vectors_are_norm_matched_and_reproducible():
+    import numpy as np
+
+    import explore_llm_phase_map as elpm
+
+    a = elpm.random_vectors(16, 3, 2.5, seed=0)
+    b = elpm.random_vectors(16, 3, 2.5, seed=0)
+    assert sorted(a) == ["random1", "random2", "random3"]
+    for k in a:
+        assert abs(np.linalg.norm(a[k]) - 2.5) < 1e-12 and np.array_equal(a[k], b[k])
+    assert abs(a["random1"] @ a["random2"]) < 0.9 * 2.5 ** 2
+    assert all(len(elpm.CONCEPTS[c]) == 8 for c in ("hostility", "cooking"))
