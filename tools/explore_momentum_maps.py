@@ -27,6 +27,11 @@ Subcommands:
            measure the attractor's distance from the cycle and its rotation around it (soft
            onset: amplitude ~ sqrt(distance), rotation near the crossing angle; hard onset: a
            jump far away or divergence).
+  criticality  First Lyapunov coefficient d of the 2-cycle's Neimark-Sacker
+           crossing on the ray (two-step map in the full (theta, m) state, at the
+           bisected crossing): d < 0 soft (supercritical), d > 0 hard
+           (subcritical). Separates a genuinely subcritical crossing from
+           hysteresis caused by a coexisting attractor.
 """
 
 import argparse
@@ -494,6 +499,74 @@ def onset(args):
                                                 "refined_crossing": s_cross, "rows": rows}, indent=1))
 
 
+def criticality(args):
+    from neural_shrimp.criticality import finite_difference_forms, ns_coefficient
+    from neural_shrimp.fastcont import newton
+
+    mm = MomentumMap(args.system, args.seed, args.beta)
+    n = mm.n
+    base = DATA / "explore" / args.arc
+    record = json.loads((base / "arc.json").read_text())
+    nodes = np.load(base / "nodes.npz")["w"]
+    system = MomentumTwoCycle(mm, args.offset_output)
+    fixed_row = np.zeros(2 * n + 1)
+    fixed_row[-1] = 1.0
+
+    def cycle_at(s_value, guess):
+        w0 = guess.copy()
+        w0[-1] = s_value
+        w, _ = newton(system, w0, max_iter=40, extra=lambda q: (fixed_row, q[-1] - s_value))
+        if w is None:
+            return None, None, None
+        _, _, mono, _ = system.residual_jacobian(w)
+        return w, mono, float(np.max(np.abs(np.linalg.eigvals(mono))))
+
+    radii = []
+    for w in nodes:
+        _, _, mono, _ = system.residual_jacobian(w)
+        radii.append(float(np.max(np.abs(np.linalg.eigvals(mono)))))
+    k = next(i for i in range(1, len(radii)) if radii[i] > 1.0 >= radii[i - 1])
+    lo_w, hi_s = nodes[k - 1], nodes[k][-1]
+    lo_s = lo_w[-1]
+    guess = lo_w
+    for _ in range(60):
+        mid = 0.5 * (lo_s + hi_s)
+        w_mid, _, r_mid = cycle_at(mid, guess)
+        if w_mid is None:
+            break
+        guess = w_mid
+        if r_mid > 1.0:
+            hi_s = mid
+        else:
+            lo_s = mid
+    w_c, mono_c, r_c = cycle_at(0.5 * (lo_s + hi_s), guess)
+    x0 = w_c[:-1]
+    rates = system.rates(w_c[-1])
+
+    def two_step_jvp(X, V):
+        out = []
+        for xk, vk in zip(X, V):
+            z1, j0, _ = system.one(xk, rates)
+            _, j1, _ = system.one(z1, rates)
+            out.append(j1 @ (j0 @ vk))
+        return np.array(out)
+
+    B, C = finite_difference_forms(two_step_jvp, x0, step_b=args.step_b, step_c=args.step_c)
+    res = ns_coefficient(mono_c, B, C)
+    # step-size check
+    B2, C2 = finite_difference_forms(two_step_jvp, x0, step_b=args.step_b * 2, step_c=args.step_c * 2)
+    res2 = ns_coefficient(mono_c, B2, C2)
+    out = {"beta": args.beta, "crossing_s": float(w_c[-1]), "spectral_radius_at_crossing": r_c,
+           "first_lyapunov": res, "first_lyapunov_doubled_steps": res2,
+           "classification": "supercritical (soft)" if res["d"] < 0 else "subcritical (hard)"}
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "criticality.json").write_text(json.dumps(out, indent=1))
+    print(json.dumps({"beta": args.beta, "crossing_s": out["crossing_s"], "radius": r_c,
+                      "d": res["d"], "d_doubled_steps": res2["d"], "theta_over_2pi": res["theta_over_2pi"],
+                      "classification": out["classification"]}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -564,8 +637,18 @@ def main():
     on.add_argument("--transient", type=int, default=100000)
     on.add_argument("--samples", type=int, default=20000)
     on.add_argument("--out", required=True)
+    cr = sub.add_parser("criticality")
+    cr.add_argument("--system", default="S2")
+    cr.add_argument("--seed", type=int, default=28011)
+    cr.add_argument("--beta", type=float, required=True)
+    cr.add_argument("--offset-output", type=float, default=-1.828)
+    cr.add_argument("--arc", required=True)
+    cr.add_argument("--step-b", type=float, default=1e-4)
+    cr.add_argument("--step-c", type=float, default=1e-3)
+    cr.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset}[args.command](args)
+    {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset,
+     "criticality": criticality}[args.command](args)
 
 
 if __name__ == "__main__":
