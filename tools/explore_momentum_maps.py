@@ -714,6 +714,41 @@ def crossing_anatomy(args):
     (dest / "crossing-anatomy.json").write_text(json.dumps(out, indent=1))
 
 
+def rotation_summary(args):
+    """Counts and a figure for saved rotation maps (rotation is meaningful only where the attractor has extent)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fracs = sorted({(p_, q) for q in range(2, args.qmax + 1) for p_ in range(1, q) if np.gcd(p_, q) == 1 and p_ / q <= 0.5})
+    fig, axes = plt.subplots(1, len(args.maps), figsize=(5.2 * len(args.maps), 4.6), squeeze=False)
+    rows = []
+    for ax, name in zip(axes[0], args.maps):
+        d = np.load(DATA / "explore" / name / "rotation.npz")
+        rho, spread, lh, lo = d["rho"], d["spread"], d["log10_hidden"], d["log10_output"]
+        alive = np.isfinite(rho)
+        moving = alive & (np.nan_to_num(spread) > args.min_spread)
+        rotating = moving & (np.nan_to_num(rho) > args.min_rho) & (np.nan_to_num(rho) < 0.5 - args.min_rho)
+        near = np.zeros_like(alive)
+        for p_, q in fracs:
+            near |= rotating & (np.abs(np.nan_to_num(rho) - p_ / q) < args.tol)
+        row = {"map": name, "cells": int(rho.size), "alive": int(alive.sum()), "moving": int(moving.sum()),
+               "rotating": int(rotating.sum()), "near_rational": int(near.sum()),
+               "rho_quantiles_rotating": np.quantile(rho[rotating], [0.1, 0.5, 0.9]).tolist() if rotating.any() else None}
+        rows.append(row)
+        print(json.dumps(row))
+        im = ax.pcolormesh(lo, lh, np.where(moving, rho, np.nan), cmap="twilight", vmin=0, vmax=0.5, shading="auto")
+        ax.set_xlabel("log10 output rate")
+        ax.set_ylabel("log10 hidden rate")
+        ax.set_title(name.split("/")[-1])
+        fig.colorbar(im, ax=ax, label="rotation (turns per two steps)")
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    fig.tight_layout()
+    fig.savefig(out / "rotation-summary.png", dpi=110)
+    (out / "rotation-summary.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -809,6 +844,13 @@ def main():
     st.add_argument("--out", required=True)
     for sp in (ac, cr):
         sp.add_argument("--width", type=int, default=None)
+    rs = sub.add_parser("rotation-summary")
+    rs.add_argument("--maps", nargs="+", required=True, help="explore-relative folders holding rotation.npz")
+    rs.add_argument("--min-spread", type=float, default=1e-6)
+    rs.add_argument("--min-rho", type=float, default=1e-3)
+    rs.add_argument("--qmax", type=int, default=12)
+    rs.add_argument("--tol", type=float, default=2e-4)
+    rs.add_argument("--out", required=True)
     ca = sub.add_parser("crossing-anatomy")
     ca.add_argument("--system", default="S2")
     ca.add_argument("--seed", type=int, default=28011)
@@ -823,7 +865,8 @@ def main():
         sp.add_argument("--ridge", type=float, default=None, help="weight decay (default: the system's 1e-3)")
     args = parser.parse_args()
     {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset,
-     "criticality": criticality, "staircase": staircase, "crossing-anatomy": crossing_anatomy}[args.command](args)
+     "criticality": criticality, "staircase": staircase, "crossing-anatomy": crossing_anatomy,
+     "rotation-summary": rotation_summary}[args.command](args)
 
 
 if __name__ == "__main__":
