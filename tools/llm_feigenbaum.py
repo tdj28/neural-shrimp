@@ -298,9 +298,62 @@ def root_scale(a, b):
     return max(abs(a.lam), abs(b.lam))
 
 
+def orbits(args, loop, v, tok, esl):
+    """Periodic orbits at given (log10 T, alpha, period) points: forward iteration from the opener state, a check that
+    the attractor has the requested period, low-rank Newton and Ritz multipliers; the orbit's leading tokens."""
+    rows = []
+    for spec in args.points:
+        lt_s, a_s, p_s = spec.split(":")
+        log_t, alpha, period = float(lt_s), float(a_s), int(p_s)
+        tic = time.perf_counter()
+        cell = esl.SoftOrbit(loop, alpha * v, 10.0 ** log_t, chunk=args.chunk)
+        X = cell.iterate(cell.start, args.transient)
+        found = cell.detect_period(X, max(period, 32), 1e-6)
+        rec = {"log10_temperature": log_t, "alpha": alpha, "period": period, "detected_period": found}
+        if found != period:
+            rec["error"] = f"attractor period {found}, not {period}"
+            rows.append(rec)
+            print(json.dumps(rec), flush=True)
+            continue
+        Q0 = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), args.k)))[0]
+        X, Q, hist = newton(cell, X, period, Q0, args.tol, 12)
+        vals, vecs, residuals, rhist, Q = ritz(cell, X, period, Q)
+        toks, Y = [], X
+        for _ in range(period):
+            pr = cell.probabilities(Y).double().cpu().numpy()
+            toks.append(tok.decode([int(pr.argmax())]))
+            Y = cell.f(Y)
+        seps = [return_distance(cell, X, q) for q in range(1, period) if period % q == 0]
+        rec.update({"newton_residuals": hist, "converged": hist[-1] < args.tol,
+                    "multipliers": [[float(z.real), float(z.imag), float(abs(z))] for z in vals],
+                    "ritz_residuals": [float(r) for r in residuals], "divisor_return_distances": seps,
+                    "tokens": toks, "seconds": round(time.perf_counter() - tic, 1)})
+        rows.append(rec)
+        print(json.dumps({k: v for k, v in rec.items() if k not in ("ritz_residuals",)}, ensure_ascii=False), flush=True)
+    out = esl.DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "orbits.json").write_text(json.dumps({"args": vars(args), "orbits": rows}, indent=1, ensure_ascii=False))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
+    o = sub.add_parser("orbits", help="periodic orbits at given points (low-rank Newton, Ritz multipliers, tokens)")
+    o.add_argument("--points", nargs="+", required=True, metavar="LOG10T:ALPHA:PERIOD")
+    o.add_argument("--model", default="qwen0.5b")
+    o.add_argument("--layer", type=int, default=12)
+    o.add_argument("--threads", type=int, default=8)
+    o.add_argument("--device", default="cpu")
+    o.add_argument("--prompt", default="open")
+    o.add_argument("--opener", default=None)
+    o.add_argument("--window", type=int, default=1)
+    o.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    o.add_argument("--concept", default="philosophy")
+    o.add_argument("--transient", type=int, default=900)
+    o.add_argument("--k", type=int, default=6)
+    o.add_argument("--tol", type=float, default=1e-12)
+    o.add_argument("--chunk", type=int, default=512)
+    o.add_argument("--out", required=True)
     c = sub.add_parser("cascade")
     c.add_argument("--model", default="qwen0.5b")
     c.add_argument("--layer", type=int, default=12)
@@ -335,6 +388,8 @@ def main():
     loop = esl.SoftLoop(args.model, args.layer, args.threads, args.prompt, opener, args.window, "float64", args.device)
     v = elpm.load_vectors(args.vectors)[args.concept]
     tok = loop.sm.tok
+    if args.command == "orbits":
+        return orbits(args, loop, v, tok, esl)
 
     def make_cell(lam):
         if args.free == "alpha":
