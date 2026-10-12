@@ -1,7 +1,7 @@
 #!/bin/bash
 # Runner for float64 soft-token continuation on a RunPod pod. tools/runpod_soft_float64.py uploads the code and
 # the start data, calls this script over SSH, retrieves /root/results.tgz and terminates the pod.
-# Usage: bash tools/runpod_soft_runner.sh JOBSET   (JOBSET: smoke | skeleton)
+# Usage: bash tools/runpod_soft_runner.sh JOBSET [ARGS...]   (job sets listed in the case below)
 # Everything runs in float64 on the GPU (norms and rotary tables patched by keep_float64_norms): dense
 # monodromies, JVPs, residuals and multipliers, so no mixed-precision correction is involved.
 set -uo pipefail
@@ -84,29 +84,39 @@ case "$JOBSET" in
     run smoke-p8-down 20 $CURVE --start $P8DOWN --direction 1 --steps 3 --log-temperature-bounds -0.4 0.3 \
       --alpha-bounds 0 0.12 --out $D/smoke-curve-p8-down
     ;;
-  skeleton)    # P8 flip curve (both ways), P8 fold curve (both ways), P2 fold curve, stripe-ladder fold edges
-    for dir in 1 -1; do
-      name=$([ $dir = 1 ] && echo plus || echo minus)
-      run curve-p8-down-$name 45 $CURVE --start $P8DOWN --direction $dir --steps 150 \
-        --log-temperature-bounds -0.4 0.3 --alpha-bounds 0 0.12 --out $D/curve-p8-down-$name
-    done
-    for dir in -1 1; do
-      name=$([ $dir = 1 ] && echo plus || echo minus)
-      run curve-p8-up-$name 45 $CURVE --start $P8UP --direction $dir --steps 150 \
-        --log-temperature-bounds -0.4 0.3 --alpha-bounds 0 0.12 --out $D/curve-p8-up-$name
-    done
-    for dir in 1 -1; do
-      name=$([ $dir = 1 ] && echo plus || echo minus)
-      run curve-p2-fold-$name 25 $CURVE --start $P2 --kind fold --direction $dir --steps 150 \
-        --log-temperature-bounds -0.6 0.3 --alpha-bounds 0 0.12 --out $D/curve-p2-fold-$name
-    done
-    run ladder-p2-up 15 $BRANCH --alpha 0.0620 --ds 0.0005 --ds-max 0.002 --beyond 0.001 --out $D/ladder-t-0.115/p2-up
-    for spec in "20 0.063335 1.5e-5 4e-5 3e-6" "18 0.063534 1.5e-5 4e-5 3e-6" "16 0.063857 5e-5 1.3e-4 1e-5" \
-                "14 0.064443 1.5e-4 4e-4 3e-5" "12 0.065550 4e-4 1.2e-3 8e-5" "10 0.067766 8e-4 2.4e-3 1.7e-4" \
-                "8 0.071674 1.2e-3 3.6e-3 2.5e-4" "6 0.077872 1.4e-3 4.2e-3 3e-4"; do
-      set -- $spec
-      run ladder-p$1-up 20 $BRANCH --alpha $2 --ds $3 --ds-max $4 --beyond $5 --steps 80 \
-        --out $D/ladder-t-0.115/p$1-up
+  skeleton)    # groups given after the job set name (default all): p8down = P8 flip curve both ways,
+               # p8upminus = P8 fold curve toward the stripe's lower end, p2fold = the 2-cycle's fold curve both
+               # ways, ladder = fold edges of the stripes P6..P20 and the 2-cycle branch at log10 T -0.115
+    GROUPS=${JOBARGS[*]:-p8down p8upminus p2fold ladder}
+    for g in $GROUPS; do
+      case $g in
+        p8down) for dir in 1 -1; do
+            name=$([ $dir = 1 ] && echo plus || echo minus)
+            run curve-p8-down-$name 150 $CURVE --start $P8DOWN --direction $dir --steps 120 \
+              --log-temperature-bounds -0.4 0.3 --alpha-bounds 0 0.12 --out $D/curve-p8-down-$name
+          done ;;
+        p8downplus|p8downminus)
+          dir=$([ $g = p8downplus ] && echo 1 || echo -1); name=${g#p8down}
+          run curve-p8-down-$name 150 $CURVE --start $P8DOWN --direction $dir --steps 120 \
+            --log-temperature-bounds -0.4 0.3 --alpha-bounds 0 0.12 --out $D/curve-p8-down-$name ;;
+        p8upminus) run curve-p8-up-minus 150 $CURVE --start $P8UP --direction -1 --steps 120 \
+              --log-temperature-bounds -0.4 0.3 --alpha-bounds 0 0.12 --out $D/curve-p8-up-minus ;;
+        p2fold) for dir in 1 -1; do
+            name=$([ $dir = 1 ] && echo plus || echo minus)
+            run curve-p2-fold-$name 90 $CURVE --start $P2 --kind fold --direction $dir --steps 150 \
+              --log-temperature-bounds -0.6 0.3 --alpha-bounds 0 0.12 --out $D/curve-p2-fold-$name
+          done ;;
+        ladder)
+          run ladder-p2-up 30 $BRANCH --alpha 0.0620 --ds 0.0005 --ds-max 0.002 --beyond 0.001 \
+            --out $D/ladder-t-0.115/p2-up
+          for spec in "20 0.063335 1.5e-5 4e-5 3e-6" "18 0.063534 1.5e-5 4e-5 3e-6" "16 0.063857 5e-5 1.3e-4 1e-5" \
+                      "14 0.064443 1.5e-4 4e-4 3e-5" "12 0.065550 4e-4 1.2e-3 8e-5" "10 0.067766 8e-4 2.4e-3 1.7e-4" \
+                      "8 0.071674 1.2e-3 3.6e-3 2.5e-4" "6 0.077872 1.4e-3 4.2e-3 3e-4"; do
+            set -- $spec
+            run ladder-p$1-up 40 $BRANCH --alpha $2 --ds $3 --ds-max $4 --beyond $5 --steps 80 \
+              --out $D/ladder-t-0.115/p$1-up
+          done ;;
+      esac
     done
     ;;
   maps)        # 256x256 float64 maps: the period-adding stripes, and the high-entropy region with
