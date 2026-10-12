@@ -44,3 +44,13 @@ def test_strong_forgetting_gives_memory_that_repeats_with_the_context():
     out = eim.classify_block(task)
     assert out["finite"][0]
     assert out["period"][0] == 1
+
+
+def test_recall_error_per_cell():
+    mm = eim.MemoryMap(context=5)
+    w = np.stack([mm.w0, mm.w0 + 0.3])
+    err = mm.recall_error(w)
+    assert err.shape == (2,)
+    for c in range(2):
+        pred = mm.net.predict(w[c:c + 1], mm.keys)[:, 0]
+        np.testing.assert_allclose(err[c], 0.5 * np.mean((pred - mm.values) ** 2), rtol=1e-14)

@@ -67,8 +67,8 @@ class MemoryMap:
 
     def recall_error(self, w):
         """Mean squared recall error over the context keys (an inference-visible observable)."""
-        pred = self.net.predict(w, self.keys)
-        return 0.5 * np.mean((pred - self.values[None, :]) ** 2, axis=1)
+        pred = self.net.predict(w, self.keys)                 # shape (keys, cells)
+        return 0.5 * np.mean((pred - self.values[:, None]) ** 2, axis=0)
 
     def period_jacobian(self, z, theta, alpha, eta):
         """Period map value and Jacobian for one state z = (W, S) (scalars theta, alpha, eta)."""
