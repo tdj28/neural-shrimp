@@ -984,6 +984,49 @@ def ns_check(args):
         print(json.dumps({k: v for k, v in row.items() if k != "late_distance_by_position"}))
 
 
+def ns_plot(args):
+    """Figure for an ns-check run: squared late amplitude against lambda with a straight-line fit through the points
+    above the threshold (a supercritical Neimark-Sacker bifurcation gives A^2 proportional to lambda - lambda_c),
+    the predicted threshold, and the late two-dimensional projections (invariant circles)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    src = DATA / "explore" / args.run
+    rec = json.loads((src / "ns-check.json").read_text())
+    tr = np.load(src / "trajectories.npz")
+    lam = np.array([r["lambda"] for r in rec["rows"]])
+    amp = np.array([r["late_distance_median"] for r in rec["rows"]])
+    above = amp > args.min_amplitude
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.5))
+    ax1.plot(lam, amp ** 2, "o")
+    fit = None
+    if above.sum() >= 2:
+        slope, icpt = np.polyfit(lam[above], amp[above] ** 2, 1)
+        fit = {"slope": float(slope), "lambda_c": float(-icpt / slope),
+               "amplitude_over_sqrt": [float(a / np.sqrt(l + icpt / slope)) for l, a in zip(lam[above], amp[above])]}
+        xs = np.linspace(fit["lambda_c"], lam.max(), 50)
+        ax1.plot(xs, slope * xs + icpt, "-", lw=1, label=f"fit: lambda_c = {fit['lambda_c']:.4f}")
+    if args.predicted is not None:
+        ax1.axvline(args.predicted, color="r", ls=":", label=f"predicted from the spectrum: {args.predicted}")
+    ax1.set_xlabel("lambda (relaxation)")
+    ax1.set_ylabel("late distance from h*, squared (relative)")
+    ax1.legend(fontsize=8)
+    proj = tr["projection"]
+    tail = proj.shape[0] // 4
+    for b in np.nonzero(above)[0]:
+        ax2.plot(proj[-tail:, b, 0], proj[-tail:, b, 1], ".", ms=1.5, label=f"lambda {lam[b]}")
+    ax2.set_xlabel("projection 1")
+    ax2.set_ylabel("projection 2")
+    ax2.set_aspect("equal", "datalim")
+    ax2.legend(fontsize=8, markerscale=6)
+    fig.suptitle(args.title or args.run, fontsize=10)
+    fig.tight_layout()
+    out = src / "ns-check.png"
+    fig.savefig(out, dpi=150)
+    print(json.dumps({"figure": str(out), "fit": fit}))
+
+
 def vocab_basins(args):
     """Ouro's position 0 follows one universal map (no input injection: the token only sets the initial state).
     Start it from many token embeddings at once, iterate the (relaxed) loop, and group the end states: the
@@ -1568,6 +1611,11 @@ def main():
     ns.add_argument("--max-residual", type=float, default=1e-4)
     ns.add_argument("--seed", type=int, default=0)
     ns.add_argument("--out", required=True)
+    np_ = sub.add_parser("ns-plot")
+    np_.add_argument("--run", required=True, help="explore-relative ns-check run directory")
+    np_.add_argument("--predicted", type=float, default=None, help="threshold predicted from the spectrum")
+    np_.add_argument("--min-amplitude", type=float, default=1e-3, help="late distance counted as above threshold")
+    np_.add_argument("--title", default="")
     ar = sub.add_parser("arclength")
     ar.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ar.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -1667,7 +1715,8 @@ def main():
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
      "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit, "fixed-spectrum": fixed_spectrum,
      "arclength": arclength, "positions": positions, "frozen-check": frozen_check,
-     "frozen-plane": frozen_plane, "vocab-basins": vocab_basins, "ns-check": ns_check}[args.command](args)
+     "frozen-plane": frozen_plane, "vocab-basins": vocab_basins, "ns-check": ns_check,
+     "ns-plot": ns_plot}[args.command](args)
 
 
 if __name__ == "__main__":
