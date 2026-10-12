@@ -532,8 +532,6 @@ class FrozenContext:
     Steering (rows of alpha * v added to one layer's output) acts on position j only; the context is unchanged."""
 
     def __init__(self, loop, prompt, position, context_lam=1.0, transient=3000, tol=1e-5):
-        import sys
-
         torch = loop.torch
         if not isinstance(loop, LatentLoop):
             raise SystemExit("frozen contexts are implemented for Ouro only")
@@ -552,18 +550,30 @@ class FrozenContext:
         self.context_residual = res
         self.context = ctx
         self.start = h[:, self.j: self.j + 1].clone()             # position j's state after the transient
-        self.cache_cls = getattr(sys.modules[type(loop.model).__module__], "UniversalTransformerCache")
-        cache = self.cache_cls()
+        # record each layer's keys and values for the context (Ouro's own UniversalTransformerCache cannot be
+        # instantiated under transformers 4.55, whose Cache base class makes key_cache a read-only property)
+        recorder = self._Recorder()
         with torch.no_grad():
             x = ctx
             for layer in loop.inner.layers[: loop.inner.config.num_hidden_layers]:
-                x = layer(x, attention_mask=loop.mask, position_ids=loop.position_ids, past_key_value=cache,
+                x = layer(x, attention_mask=loop.mask, position_ids=loop.position_ids, past_key_value=recorder,
                           use_cache=True, cache_position=loop.cache_position, position_embeddings=loop.pos_emb,
                           current_ut=0)
-        self.keys, self.values = list(cache.key_cache), list(cache.value_cache)
-        del self.cache_cls
+        n_layers = loop.inner.config.num_hidden_layers
+        self.keys = [recorder.keys[i] for i in range(n_layers)]
+        self.values = [recorder.values[i] for i in range(n_layers)]
         self.position_ids = torch.tensor([[self.j]], device=loop.device)
         self.cache_position = torch.tensor([self.j], device=loop.device)
+
+    class _Recorder:
+        """Duck-typed cache for the context pass: keeps each layer's keys and values, returns them unchanged."""
+
+        def __init__(self):
+            self.keys, self.values = {}, {}
+
+        def update(self, key_states, value_states, layer_idx, cache_kwargs=None):
+            self.keys[layer_idx], self.values[layer_idx] = key_states, value_states
+            return key_states, value_states
 
     class _FrozenKV:
         """Duck-typed cache: prepends the frozen keys and values for each layer without storing anything, so
