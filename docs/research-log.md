@@ -19248,3 +19248,41 @@ _commit `4575d2af7ea3`_
 loss-signature-beta0 (explore_momentum_maps loss-signature, plain GD ray of S2, ridge 1e-3; bisected crossing s = 1.65330373, crossing angle 0.17656 turns per two steps, d = -0.511 from criticality-beta0.0). Loss at every other step, 16384 samples after 200000 two-step transients from the 2-cycle plus a 1e-3 kick: before the edge (offsets -0.004, -0.001) no modulation (std 4e-17, 3e-16); beyond it std 2.67e-4, 3.76e-4, 5.30e-4, 7.43e-4, 1.03e-3, 1.41e-3 at offsets 0.0005-0.016 (log-log exponent 0.481, soft-onset prediction 0.5), FFT peak 0.1766 turns per two steps near the edge (crossing angle 0.17656), drifting to 0.179 at offset 0.016. The mean loss shifts by only about 1e-6 near the edge; the signature is in the time structure. With the fold (type-I intermittency, parameter-free prefactor) and flip (period doubling, square-root amplitude) edges, all three edge types of the annotated map now have tested loss-only signatures.
 
 _commit `4575d2af7ea3` (dirty worktree)_
+
+## 2026-10-12 03:51 UTC: run (exploratory)
+
+- **Question:** LLM phase-map setup: contrastive steering vectors ('gratitude', 'philosophy') at layer 12 of qwen2.5-0.5B-instruct, and a one-dimensional calibration of each: how large must alpha (in units of the mean residual norm) be to change the loop's attractor while keeping text coherent?
+- **Setup:** explore_llm_phase_map vectors (8 concept and 8 neutral prompts per concept, last-token layer-12 outputs, difference rescaled to the mean residual norm); calibrate along each vector at alpha 0, 0.25, 0.5, 1, 2, 4: greedy self-dialogue, open prompt, opener 'Hello!', 16 turns, window 7, 60 new tokens, all alphas in one batch; 8 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/llm-phase-map/vectors-l12, calibrate-l12-{gratitude,philosophy}`
+- **Would surprise us:** No attractor change up to alpha 4, or incoherent text already at alpha 0.25
+- **Command:** `bash -c OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py vectors --out llm-phase-map/vectors-l12 2>&1 | grep -v -i -e warn -e Loading; for c in gratitude philosophy; do OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py calibrate --vectors llm-phase-map/vectors-l12 --concept $c --turns 16 --out llm-phase-map/calibrate-l12-$c 2>&1 | grep -v -i -e warn -e Loading; done`
+
+_commit `93e65d73b9fb`_
+
+## 2026-10-12 04:02 UTC: run (exploratory)
+
+- **Question:** (a) Does the chunk-3 test-time memory's quasi-periodic regime survive noise in the context order (chunks applied in a fresh random order every pass), and do its locked tongues dissolve? (b) With a teacher as wide as the student (so every unit is needed), do 6- and 12-unit networks show a precession region with distinct units?
+- **Setup:** (a) explore_inference_memory scan --plane rates, context 24, chunk 3, --scale-by-chunk, coupled decay 1e-3, --shuffle-seed 1, window box (log10 theta_o -0.13..-0.03, theta_h 1.76..1.95) at 60x60, 60000 transient periods, 4 workers; compare rotation and extent with window-chunk3-scaled. (b) explore_momentum_maps rotation-map --beta 0 over the census plane (hidden 0.8-2.4, output -1.0-0.4) at 120x120, 20000 steps, for width 6 / teacher 6 / 48 samples and width 12 / teacher 12 / 96 samples (initialization scale 0.2, ridge 1e-3), 4 workers each. nice 15
+- **Output:** `../neural-shrimp-data/explore/inference-memory/window-chunk3-scaled-shuffled; momentum/width-maps/rotation-w6-t6, rotation-w12-t12`
+- **Would surprise us:** (a) shuffling leaves the locked stripes intact; (b) no precession region at all with wide teachers
+- **Command:** `bash -c env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py scan --plane rates --context 24 --chunk 3 --scale-by-chunk --coupled-decay 1e-3 --shuffle-seed 1 --theta 1.76 1.95 --theta-o -0.13 -0.03 --resolution 60 60 --transient 60000 --workers 4 --out inference-memory/window-chunk3-scaled-shuffled > ../neural-shrimp-data/explore/inference-memory/window-chunk3-scaled-shuffled.log 2>&1 & env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py rotation-map --beta 0 --width 6 --teacher-width 6 --n-train 48 --hidden 0.8 2.4 --output -1.0 0.4 --resolution 120 120 --steps 20000 --samples 6000 --workers 4 --out momentum/width-maps/rotation-w6-t6 > ../neural-shrimp-data/explore/momentum/width-maps/rotation-w6-t6.log 2>&1 & env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py rotation-map --beta 0 --width 12 --teacher-width 12 --n-train 96 --hidden 0.8 2.4 --output -1.0 0.4 --resolution 120 120 --steps 20000 --samples 6000 --workers 4 --out momentum/width-maps/rotation-w12-t12 > ../neural-shrimp-data/explore/momentum/width-maps/rotation-w12-t12.log 2>&1 & wait`
+
+_commit `dd7aff49d3dd` (dirty worktree)_
+
+## 2026-10-12 04:04 UTC: run (exploratory)
+
+- **Question:** Logit-margin law for LLM loop attractors: along each greedy attractor cycle from pilot 2, what are the minimal logit margins and the exact probabilities of reproducing the cycle at temperature T, and does -T log(1 - P_stay) approach the minimal margin at low T (Arrhenius form)?
+- **Setup:** explore_llm_attractors margins on pilot2-openers opener00 (period 1), 02 (period 2), 03 (period 14), 04, 05, 09 (period 1): rebuild each cycle turn's window from the transcript, teacher-forced logits on the stored token ids, margins top1 - top2, stay log-probabilities at T 0.05-1.0
+- **Output:** `../neural-shrimp-data/explore/llm-attractors/margins-opener{00,02,03,04,05,09}`
+- **Would surprise us:** Stored token paths not greedy under teacher forcing, or no Arrhenius approach at low T
+- **Command:** `bash -c for o in 00 02 03 04 05 09; do OMP_NUM_THREADS=4 .venv/bin/python tools/explore_llm_attractors.py margins --run llm-attractors/pilot2-openers/opener$o --out llm-attractors/margins-opener$o 2>&1 | grep -v -i -e warn -e Loading; done`
+
+_commit `6ebc25e0433a` (dirty worktree)_
+
+- run started 2026-10-12 04:04 UTC finished 04:10 UTC with exit status 0
+
+## 2026-10-12 04:11 UTC: LLM loop attractors: the minimal logit margin along a cycle is its noise barrier (Arrhenius form verified), and suggests continuable existence boundaries
+
+margins-opener00/02/03/04/05/09 (explore_llm_attractors margins; teacher-forced logits on the stored greedy token paths, all confirmed greedy). Exact probability of reproducing the cycle at temperature T, P_stay(T) = product over its tokens of softmax(z/T)[y]: greeting loop (period 1) minimal margin 2.598, T(-log(1-P_stay)) = 2.59, 2.55, 2.50 at T = 0.1, 0.15, 0.2; 'You're welcome' loop 1.708 -> 1.70, 1.71; 'Thank you' loop 1.221 -> 1.22; music loop 2.124 -> 2.08, 2.04; consciousness 2-cycle 0.785 -> 0.785, 0.782; story 14-cycle 0.040 (a near-tie along the cycle) -> about 0.05-0.06, P_stay 0.65 per cycle already at T = 0.05 and 0.10 at T = 0.3. (At T = 0.05 the period-1 values underflow; ignored.) So residence in an exact cycle grows like exp(Delta_min / T) at low temperature, with the barrier Delta_min the cycle's smallest logit margin. This limit is a consequence of the softmax; its value is that margins are the natural coordinates: a greedy cycle persists exactly while all its margins stay positive, and logits are smooth in steering strengths, so an attractor's existence region in a steering plane is {alpha : m_C(alpha) > 0}, a set bounded by the zero set of a piecewise-smooth function that can be continued with gradients, like fold curves of the training maps. Next: evaluate m_C over the phase-map grid for each attractor found (teacher forcing only), compare existence regions with the observed basins, and sampled escape runs to separate exact-cycle deviations from basin escapes.
+
+_commit `6ebc25e0433a` (dirty worktree)_
