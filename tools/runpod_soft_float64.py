@@ -32,12 +32,12 @@ DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
 
 
-def archives(commit):
+def archives(commit, extra=()):
     code = subprocess.run(["git", "archive", "--format=tar", commit, *UPLOAD_PATHS], cwd=ROOT, capture_output=True,
                           check=True).stdout
     buf = io.BytesIO()
     with tarfile.open(fileobj=buf, mode="w") as tar:
-        for rel in DATA_PATHS:
+        for rel in (*DATA_PATHS, *extra):
             tar.add(rp.DATA / rel, arcname=rel)
     return code, buf.getvalue()
 
@@ -59,6 +59,8 @@ def main():
     parser.add_argument("--out", default=str(rp.DATA / "runpod" / "soft64"))
     parser.add_argument("--approval", required=True)
     parser.add_argument("--dry-run", action="store_true", help="build the uploads and report their sizes only")
+    parser.add_argument("--extra-data", nargs="*", default=[],
+                        help="further DATA-relative paths to upload (e.g. branches that curves start from)")
     args = parser.parse_args()
     head = subprocess.run(["git", "rev-parse", args.commit], cwd=ROOT, capture_output=True, text=True,
                           check=True).stdout.strip()
@@ -66,7 +68,7 @@ def main():
                             text=True).stdout.strip()
     if not pushed:
         raise SystemExit(f"commit {head} is not on any remote branch; push it first")
-    code, data = archives(head)
+    code, data = archives(head, args.extra_data)
     worst = args.max_rate * (args.ready_minutes + args.run_minutes + 10) / 60
     plan = {"commit": head, "jobset": args.jobset, "code_bytes": len(code), "data_bytes": len(data),
             "worst_case_cost_at_max_rate": round(worst, 2), "max_cost": args.max_cost}
