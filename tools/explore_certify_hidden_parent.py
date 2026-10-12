@@ -326,6 +326,11 @@ def real_eigenpair_proof(mono, guess, radius_exponent=-50):
         jac.append(list(u) + [arb(0)])
         return arb_mat([[v] for v in value]), arb_mat(jac)
 
+    midmat = arb_mat([[mono[i, j].mid() for j in range(n)] for i in range(n)])
+    for _ in range(4):                                  # refine the centre on the midpoint matrix
+        v_mid, j_mid = system(centre, midmat)
+        step = j_mid.inv() * v_mid
+        centre = [(centre[i] - step[i, 0]).mid() for i in range(n + 1)]
     value, jac = system(centre, mono)
     pre = midpoint_matrix(jac.inv())
     radius = arb((1, radius_exponent))
@@ -336,9 +341,10 @@ def real_eigenpair_proof(mono, guess, radius_exponent=-50):
     image = -pre * value + defect * arb_mat([[arb(0, radius)] for _ in box])
     inclusions = [bool(box[i].contains_interior(centre[i] + image[i, 0])) for i in range(n + 1)]
     passed = bool(all(inclusions) and bound.is_finite() and bound < 1)
+    failing = [i for i, ok in enumerate(inclusions) if not ok]
     lam_box = centre[n] + image[n, 0]
     return {"passed": passed, "lambda": lam_box.str(20), "lambda_above_one": bool(passed and lam_box > 1),
-            "contraction": bound.str(10), "statement": "For every matrix in the monodromy enclosure there is a real "
+            "contraction": bound.str(10), "failing_coordinates": failing, "statement": "For every matrix in the monodromy enclosure there is a real "
             "eigenvalue in the stated ball (Krawczyk on the eigenpair system); conditional on the enclosure."}
 
 
