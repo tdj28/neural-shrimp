@@ -19412,3 +19412,41 @@ _commit `5a46d15c90b5` (dirty worktree)_
 ouro-trajectory-64 (explore_latent_loop trajectory; extracted loop h <- RMSNorm(Stack_24(h)) verified against the native forward to 1e-5 in logits; CPU float32; 64 loops from the token embeddings). For all five prompts the state keeps moving after 64 loops (relative step per loop 0.21 hello, 0.12 arith, 0.09 story, 0.14 conscious, 0.19 list) and the running largest Lyapunov exponent from a renormalized twin trajectory is positive (0.33, 0.40, 0.38, 0.30, 0.29 per loop). The readout after the native 4 loops is sensible (story: ' there'; conscious: ' the'), but over the last 16 loops it wanders among several unrelated tokens (arith: 'ord', 'ort', 'ory', 'ot', 'oty', 'pan', 'pper', 'pton'). Caveats: the twin offset (1e-4 absolute on a state of norm in the hundreds) is near float32 resolution, so the exponents need float64 confirmation, although values of 0.3-0.4 per loop are far above a rounding artefact; non-convergence itself is robust. Reading: the trained computation is the transient of a map whose long-run dynamics is irregular. Next: the relaxed loop h <- (1 - lambda) h + lambda F(h), where lambda plays the role of a learning rate, to find the route from convergence (small lambda) to the native irregular regime (lambda = 1), and then periodic windows in a (lambda, steering) plane.
 
 _commit `5a46d15c90b5` (dirty worktree)_
+
+## 2026-10-12 05:14 UTC: run (exploratory)
+
+- **Question:** Route to the irregular regime in Ouro-1.4B's latent recurrence: for the relaxed loop h <- (1 - lambda) h + lambda F(h), how does the attractor change from small lambda (expected convergence) to lambda = 1 (the native loop, irregular) and beyond - fixed point, period doubling, invariant circle, chaos, periodic windows?
+- **Setup:** explore_latent_loop sweep, prompt 'story', 24 values of lambda in [0.05, 1.2] in one batch, CPU float32, 200 transient + 200 measured loops, twin offset 1e-5 relative, period up to 32 (tol 1e-5 relative), bifurcation diagram from the last 100 loops; 8 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-sweep-story`
+- **Would surprise us:** Irregular already at small lambda, or convergent up to lambda = 1 (contradicting the 64-loop run)
+- **Command:** `env OMP_NUM_THREADS=8 ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py sweep --out latent-loop/ouro-sweep-story`
+
+_commit `35f1acefe2e5`_
+
+## 2026-10-12 05:25 UTC: run (exploratory)
+
+- **Question:** Route to the irregular regime in Ouro-1.4B's latent recurrence at high resolution on the local GPU: relaxed loop h <- (1 - lambda) h + lambda F(h), lambda in [0.05, 1.3]
+- **Setup:** explore_latent_loop sweep on cuda (RTX 2000 Ada, float32), prompt 'story', 128 values of lambda in [0.05, 1.3] in one batch, 400 transient + 400 measured loops, twin offset 1e-5 relative, period up to 32 (tol 1e-5), bifurcation diagram from the last 200 loops (the CPU 24-point sweep is running as a cross-check)
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-sweep-story-gpu`
+- **Would surprise us:** Different regime sequence from the CPU sweep at shared lambda values
+- **Command:** `env ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py sweep --device cuda --points 128 --lambdas 0.05 1.3 --transient 400 --measure 400 --record 200 --out latent-loop/ouro-sweep-story-gpu`
+
+_commit `35f1acefe2e5` (dirty worktree)_
+
+## 2026-10-12 05:37 UTC: run (exploratory)
+
+- **Question:** With a teacher as wide as the student (width 6, teacher 6, 48 samples), is the precession rim a Neimark-Sacker crossing carried by distinct (not condensed, not dead) units?
+- **Setup:** explore_momentum_maps arc --beta 0 --width 6 --teacher-width 6 --n-train 48 --offset-output -2.55 (ray through the rim near log10 output -0.5, hidden 2.05), s_max 3.0, 12000 steps; crossing-anatomy; criticality if complex
+- **Output:** `../neural-shrimp-data/explore/momentum/width-maps/{arc,anatomy,crit}-w6-t6-off-2.55`
+- **Would surprise us:** Real first crossing, or crossing carried by identical or dead units despite the wide teacher
+- **Command:** `bash -c set -o pipefail; (env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width 6 --teacher-width 6 --n-train 48 --offset-output -2.55 --s-max 3.0 --steps 12000 --out momentum/width-maps/arc-w6-t6-off-2.55 && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width 6 --teacher-width 6 --n-train 48 --offset-output -2.55 --arc momentum/width-maps/arc-w6-t6-off-2.55 --out momentum/width-maps/anatomy-w6-t6-off-2.55 && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0 --width 6 --offset-output -2.55 --arc momentum/width-maps/arc-w6-t6-off-2.55 --out momentum/width-maps/crit-w6-t6-off-2.55) 2>&1 | grep -v -i warn`
+
+_commit `856290a54e1c` (dirty worktree)_
+
+- run started 2026-10-12 05:37 UTC finished 05:38 UTC with exit status 0
+
+## 2026-10-12 05:39 UTC: Wide-teacher rim check, first attempt: the flip's 2-cycle branch does not reach the rim; criticality now refuses arcs without a crossing
+
+arc-w6-t6-off-2.55 (width 6, teacher 6, 48 samples, ray offset -2.55): continuation from the minimum's flip (s_flip 0.994) ran 2395 nodes and stopped on the minimum step size with no unit-circle crossing; its 2-cycle separation fell back to 0, i.e. this branch returns to the fixed point and is not the branch bordering the precession rim near log10 hidden 2.05. crossing-anatomy correctly reported no crossing; criticality, however, ran anyway and printed a meaningless real 'crossing' at s = -8.89 - a gate failure (missing precondition not refused), fixed in cc52ea04: criticality now stops when no crossing is recorded. Retry seeds the 2-cycle from the attractor reached by gradient descent just below the rim (new arc option --seed-at).
+
+_commit `cc52ea045358` (dirty worktree)_
