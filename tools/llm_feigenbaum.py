@@ -303,7 +303,7 @@ def orbits(args, loop, v, tok, esl):
     the attractor has the requested period, low-rank Newton and Ritz multipliers; the orbit's leading tokens."""
     rows = []
     for spec in args.points:
-        lt_s, a_s, p_s = spec.split(":")
+        p_s, lt_s, a_s = spec.split(":")                       # PERIOD first: argparse reads "-0.1..." as an option
         log_t, alpha, period = float(lt_s), float(a_s), int(p_s)
         tic = time.perf_counter()
         cell = esl.SoftOrbit(loop, alpha * v, 10.0 ** log_t, chunk=args.chunk)
@@ -339,7 +339,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     o = sub.add_parser("orbits", help="periodic orbits at given points (low-rank Newton, Ritz multipliers, tokens)")
-    o.add_argument("--points", nargs="+", required=True, metavar="LOG10T:ALPHA:PERIOD")
+    o.add_argument("--points", nargs="+", required=True, metavar="PERIOD:LOG10T:ALPHA")
     o.add_argument("--model", default="qwen0.5b")
     o.add_argument("--layer", type=int, default=12)
     o.add_argument("--threads", type=int, default=8)
