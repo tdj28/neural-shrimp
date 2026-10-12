@@ -95,7 +95,22 @@ class Engine:
         logits = torch.stack(out.logits)[:, 0, :].double()
         logp = torch.log_softmax(logits, dim=-1)
         entropy = float((-(logp.exp() * logp).sum(-1)).mean()) if len(logits) else 0.0
-        return text, int(len(new)), entropy
+        return text, int(len(new)), entropy, [int(t) for t in new]
+
+    def stay_logprob(self, messages, token_ids, temperatures):
+        """log P(the model regenerates exactly token_ids after messages) at each sampling temperature."""
+        torch = self.torch
+        ids = self.tok.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt")
+        if not isinstance(ids, torch.Tensor):
+            ids = ids["input_ids"]
+        full = torch.cat([ids, torch.tensor([token_ids])], dim=1)
+        with torch.no_grad():
+            logits = self.model(full).logits[0].double()
+        n0 = ids.shape[1]
+        z = logits[n0 - 1:n0 - 1 + len(token_ids)]
+        y = torch.tensor(token_ids)
+        return {f"{t:g}": float(torch.log_softmax(z / t, dim=-1)[torch.arange(len(y)), y].sum())
+                for t in temperatures}
 
     def embed(self, text):
         torch = self.torch
@@ -109,25 +124,42 @@ def cosine(a, b):
     return float(a @ b / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-300))
 
 
+def jaccard(a, b):
+    """Word-set overlap of two texts (lexical similarity; mean-pooled hidden states are too anisotropic)."""
+    sa, sb = set(a.lower().split()), set(b.lower().split())
+    return len(sa & sb) / len(sa | sb) if sa | sb else 1.0
+
+
+def trailing_block(texts):
+    """Length and starting index of the final run of identical texts."""
+    n = 1
+    while n < len(texts) and texts[-1 - n] == texts[-1]:
+        n += 1
+    return n, len(texts) - n
+
+
 def dialogue(args):
     engine = Engine(args.model, args.threads)
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     system = PROMPTS[args.prompt]
-    transcript, states, turns, embeddings = [OPENER], [], [], []
-    cycle = None
+    transcript, states, turns, embeddings = [args.opener], [], [], []
+    cycle, last_messages, last_ids = None, None, None
     tic = time.perf_counter()
     for k in range(1, args.turns + 1):
         agent = (k - 1) % 2
-        text, n_tok, entropy = engine.generate(window_messages(system, transcript, agent, args.window),
-                                               args.temperature, args.max_new, args.seed * 100003 + k)
+        messages = window_messages(system, transcript, agent, args.window)
+        text, n_tok, entropy, ids = engine.generate(messages, args.temperature, args.max_new,
+                                                    args.seed * 100003 + k)
+        last_messages, last_ids = messages, ids
         transcript.append(text)
         emb = engine.embed(text)
         embeddings.append(emb)
         state = tuple(transcript[-args.window:])
         earlier = find_cycle(states, state)
         states.append(state)
-        row = {"turn": k, "agent": agent, "tokens": n_tok, "entropy": entropy, "text": text,
+        row = {"turn": k, "agent": agent, "tokens": n_tok, "entropy": entropy, "text": text, "token_ids": ids,
+               "jaccard_previous_turn": jaccard(text, transcript[-2]) if k > 1 else None,
                "cos_previous_turn": cosine(emb, embeddings[-2]) if len(embeddings) > 1 else None,
                "cos_same_agent_previous": cosine(emb, embeddings[-3]) if len(embeddings) > 2 else None}
         turns.append(row)
@@ -135,11 +167,15 @@ def dialogue(args):
             cycle = {"detected_at_turn": k, "period_turns": len(states) - 1 - earlier}
             if args.stop_on_cycle:
                 break
-    record = {"args": vars(args), "model": engine.name, "system": system, "opener": OPENER, "cycle": cycle,
-              "seconds": round(time.perf_counter() - tic, 1), "turns": turns}
+    block, block_start = trailing_block(transcript[1:])
+    stay = engine.stay_logprob(last_messages, last_ids, args.stay_temperatures)
+    record = {"args": vars(args), "model": engine.name, "system": system, "opener": args.opener, "cycle": cycle,
+              "final_repeat_block": {"length": block, "first_turn": block_start + 1},
+              "stay_logprob_last_turn": stay, "seconds": round(time.perf_counter() - tic, 1), "turns": turns}
     (out / "dialogue.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
     np.save(out / "embeddings.npy", np.array(embeddings))
     print(json.dumps({"out": args.out, "cycle": cycle, "turns": len(turns), "seconds": record["seconds"],
+                      "final_repeat_block": record["final_repeat_block"],
                       "last_tokens": [t["tokens"] for t in turns[-4:]],
                       "last_entropy": [round(t["entropy"], 3) for t in turns[-4:]]}))
 
@@ -155,7 +191,7 @@ def paraphrase(args):
         messages = [{"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": "Paraphrase the following text. Reply with the paraphrase only.\n\n"
                                                 + text}]
-        text, n_tok, entropy = engine.generate(messages, args.temperature, args.max_new, args.seed * 100003 + k)
+        text, n_tok, entropy, _ = engine.generate(messages, args.temperature, args.max_new, args.seed * 100003 + k)
         emb = engine.embed(text)
         embeddings.append(emb)
         earlier = find_cycle(history, text)
@@ -206,7 +242,17 @@ def summary(args):
         cos = [t[cos_key] if t[cos_key] is not None else np.nan for t in steps]
         texts = [t["text"] for t in steps]
         tail = slice(max(0, len(steps) - args.tail), len(steps))
+        block = rec.get("final_repeat_block")
+        stay = rec.get("stay_logprob_last_turn", {})
+        temp = rec["args"].get("temperature", 0.0)
+        jac = [t.get("jaccard_previous_turn") for t in steps if t.get("jaccard_previous_turn") is not None]
         row = {"run": run.name, "kind": kind, "steps": len(steps), "cycle": rec["cycle"],
+               "temperature": temp, "opener": rec.get("opener"),
+               "absorbed": bool(block and block["length"] >= args.absorbed_length),
+               "absorbed_from_turn": block["first_turn"] if block and block["length"] >= args.absorbed_length else None,
+               "stay_probability_at_run_temperature": (float(np.exp(stay[f"{temp:g}"]))
+                                                        if temp > 0 and f"{temp:g}" in stay else None),
+               "tail_jaccard": float(np.mean(jac[-args.tail:])) if jac else None,
                "collapse_turn": first_run([e < args.entropy_level for e in ent]),
                "mirroring_turn": first_run([c > args.cos_level for c in cos]),
                "tail_entropy": float(np.mean(ent[tail])), "tail_tokens": float(np.mean(tok[tail])),
@@ -245,6 +291,9 @@ def main():
     dl.add_argument("--prompt", choices=sorted(PROMPTS), default="open")
     dl.add_argument("--turns", type=int, default=30)
     dl.add_argument("--window", type=int, default=7, help="turns each instance sees (odd keeps role order)")
+    dl.add_argument("--opener", default=OPENER, help="turn 0, attributed to the second instance")
+    dl.add_argument("--stay-temperatures", type=float, nargs="+",
+                    default=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2])
     pp = sub.choices["paraphrase"]
     pp.add_argument("--text", default="The river carried the old boat slowly past the sleeping village at dawn.")
     pp.add_argument("--rounds", type=int, default=30)
@@ -253,6 +302,7 @@ def main():
     sm.add_argument("--tail", type=int, default=6)
     sm.add_argument("--entropy-level", type=float, default=0.3)
     sm.add_argument("--cos-level", type=float, default=0.95)
+    sm.add_argument("--absorbed-length", type=int, default=5, help="identical final turns that count as absorbed")
     args = parser.parse_args()
     {"dialogue": dialogue, "paraphrase": paraphrase, "summary": summary}[args.command](args)
 

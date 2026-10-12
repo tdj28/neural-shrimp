@@ -35,3 +35,9 @@ def test_find_cycle():
 def test_first_run():
     assert ela.first_run([False, True, True, True, False], 3) == 1
     assert ela.first_run([True, True, False, True], 3) is None
+
+
+def test_trailing_block_and_jaccard():
+    assert ela.trailing_block(["a", "b", "c", "c", "c"]) == (3, 2)
+    assert ela.trailing_block(["a"]) == (1, 0)
+    assert ela.jaccard("Thank you so much", "thank you") == 0.5
