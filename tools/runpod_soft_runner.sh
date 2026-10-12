@@ -132,6 +132,30 @@ case "$JOBSET" in
     run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
     run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
     ;;
+  p6z3curves)  # boundary curves of the period-6 shrimp candidate of zoom Z3 ('. -\n\nThe is a') from the p6z3a
+               # branches (uploaded with --extra-data): A = upper temperature fold, B = lower temperature fold,
+               # C = alpha fold (right side), D = the close fold pair of the alpha-down branch (cusp candidate), E = the
+               # flip into the period-12 foot
+    P=llm-soft-loop/pod64/p6z3
+    C6="$CURVE --steps 60"
+    BOUNDS="--log-temperature-bounds -0.12 0.0 --alpha-bounds 0.068 0.09"
+    for set_ in ${JOBARGS[0]}; do
+      for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+        case $set_ in
+          A) run p6z3-foldA-$n 50 $C6 --start $P/branch-T-up --kind fold --direction $dir $BOUNDS \
+               --out $D/p6z3/curve-foldA-$n ;;
+          B) run p6z3-foldB-$n 50 $C6 --start $P/branch-T-down --kind fold --direction $dir $BOUNDS \
+               --out $D/p6z3/curve-foldB-$n ;;
+          C) run p6z3-foldC-$n 50 $C6 --start $P/branch-a-up --kind fold --direction $dir $BOUNDS \
+               --out $D/p6z3/curve-foldC-$n ;;
+          D) run p6z3-foldD-$n 50 $C6 --start $P/branch-a-down --kind fold --direction $dir $BOUNDS \
+               --out $D/p6z3/curve-foldD-$n ;;
+          E) run p6z3-flipE-$n 50 $C6 --start $P/branch-a-down --kind flip --direction $dir $BOUNDS \
+               --out $D/p6z3/curve-flipE-$n ;;
+        esac
+      done
+    done
+    ;;
   p4curves)    # fold and flip curves of the period-4 body orbit from the p4a branches (uploaded with
                # --extra-data): SET A = both folds of the S-shaped temperature branch (cusp candidate), C = the
                # alpha fold and the lower temperature fold, E = the first flip of the alpha branch toward the legs

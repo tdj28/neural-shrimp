@@ -53,7 +53,7 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves"))
     parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--run-minutes", type=float, required=True)
