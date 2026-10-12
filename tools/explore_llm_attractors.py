@@ -29,7 +29,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
-os.environ.setdefault("HF_HOME", str(DATA / "models" / "hf"))     # before transformers is imported
+CACHE = DATA / "models" / "hf" / "hub"   # passed explicitly: a global HF_HOME may point elsewhere
 os.environ.setdefault("HF_HUB_OFFLINE", "1")                      # models are local; no network calls
 MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5B-Instruct"}
 PROMPTS = {
@@ -72,8 +72,8 @@ class Engine:
         torch.set_num_threads(int(threads))
         self.torch = torch
         self.name = MODELS[model]
-        self.tok = AutoTokenizer.from_pretrained(self.name)
-        self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype))
+        self.tok = AutoTokenizer.from_pretrained(self.name, cache_dir=CACHE)
+        self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype), cache_dir=CACHE)
         self.model.eval()
 
     def generate(self, messages, temperature, max_new, seed):
