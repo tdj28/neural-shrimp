@@ -101,11 +101,16 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
 - **It all happens in the hidden layer.** The hidden-layer rate is about 90
   times the output rate, so the bounce and the rotation are 99% hidden-layer
   weights and biases.
-- **Two units see-saw; one is idle.**
-  - One hidden unit is idle: it never saturates, and its output weight is
-    near zero.
-  - The other two have opposite output weights. The bounce pushes their
-    biases in opposite directions, driving them in and out of saturation.
+- **Two units move together; one is nearly idle.**
+  - One hidden unit is nearly idle: it never saturates, its output weight is
+    near zero, and it carries 6% of the cycle's motion.
+  - Compare the other two after accounting for tanh's sign symmetry (flipping
+    a unit's incoming weights, bias and outgoing weight changes nothing).
+    They then have similar output weights and similar second input weights,
+    and 95% of their joint motion is in phase.
+  - They are partly redundant units that bounce and precess together, driven
+    in and out of saturation. An earlier "see-saw" description was a
+    sign-convention artifact, caught by an external reviewer.
 - **The loss peaks once per turn.** Two loss peaks per 18 steps coincide
   with peaks in hidden-unit saturation. Just outside the window, the loss
   looks almost the same over a few periods. The difference is that inside,
