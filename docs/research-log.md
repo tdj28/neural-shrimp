@@ -19366,3 +19366,21 @@ _commit `012c4d7d8ccc`_
 calibrate-fine-l12-gratitude and -philosophy (greedy self-dialogue, 16 turns; alpha in residual-norm units, about 25 raw contrastive differences per unit). Gratitude: alpha 0 greeting loop 'Hello! How can I assist you today?'; 0.02 'You are truly loved. Your words have been a source of comfort and strength. I am grateful for the connection we have. Thank you for being here' (no exact cycle in 16 turns); 0.04 absorbed into 'You are truly a treasure... I am so grateful' (period 1); 0.06 'You are truly truly loved and truly loved. I truly am truly so truly so...' (period 1); 0.08 'I truly so so so so so so'; 0.10-0.12 'I truly! You! You! You!' (period 2 at 0.12); negative alpha drifts into system-text loops and then garbage tokens. Philosophy: -0.04 apology 2-cycle 'I'm sorry, I didn't get a message. Please try again.'; 0 greeting loop; 0.02-0.06 wandering philosophical discourse ('Reflective listening... profound', 'The search for meaning and purpose...', 'the pursuit of knowledge and the quest for truth') without exact cycles in 16 turns; 0.08 'The pursuit of the subjective is a complex and multifacited? This? This? This?' (period 1); >= 0.10 symbol garbage. Coherent range about -0.04..0.08 for both. The gratitude arc - neutral assistant loop, mutual affection and gratitude, saturated repetition, symbol collapse - has the shape of the reported Claude self-interaction progression (gratitude, spiritual, emoji and silence), here as a one-parameter family of attractors of the model's own loop.
 
 _commit `012c4d7d8ccc` (dirty worktree)_
+
+## 2026-10-12 04:52 UTC: run (exploratory)
+
+- **Question:** First LLM phase map: in the plane of gratitude x philosophy steering (layer 12, qwen2.5-0.5B-instruct), which attractors does the greedy self-dialogue reach, how are their regions arranged (periods, families, boundaries), and where do several attractors exist at once?
+- **Setup:** explore_llm_phase_map map, alpha_gratitude and alpha_philosophy each -0.04..0.08 in 13 steps of 0.01 (169 cells, one batch), open prompt, opener 'Hello!', 24 turns, window 7, 60 new tokens, greedy; then families (cycle-mean activation, cosine threshold 0.5) and existence (minimal logit margin of each attractor over the grid, teacher forcing). 8 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/llm-phase-map/map-l12-grat-phil-13`
+- **Would surprise us:** A single attractor over most of the plane, or no coherent organization of regions
+- **Command:** `bash -c OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py map --vectors llm-phase-map/vectors-l12 --x-range -0.04 0.08 --y-range -0.04 0.08 --resolution 13 13 --turns 24 --out llm-phase-map/map-l12-grat-phil-13 2>&1 | grep -v -i -e warn -e Loading && OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py families --map llm-phase-map/map-l12-grat-phil-13 2>&1 | grep -v -i warn && OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py existence --map llm-phase-map/map-l12-grat-phil-13 2>&1 | grep -v -i -e warn -e Loading`
+
+_commit `340e42958ecd`_
+
+- run started 2026-10-12 04:52 UTC finished 04:54 UTC with exit status 0
+
+## 2026-10-12 04:55 UTC: First LLM phase map attempt (13x13) died without output; memory blow-up in batched generation
+
+map-l12-grat-phil-13 first launch: the map step ended without a traceback and without map.json (most likely killed by the out-of-memory killer): with 169 sequences per batch, generate() kept full-vocabulary logits for every step (about 6 GB per turn) and the code then stacked them in double precision and took log-softmax and exp (several further copies of about 12 GB). The families and existence steps then failed for lack of map.json; the launch chain continued because each step's status was that of grep (pipefail was missing, the same pitfall as pytest | tail in AGENTS.md). Fixed by computing the next-token entropy on the fly in a logits processor (no logits kept); generation unchanged (entropy 0.124 for the greeting turn, as before). Relaunched with set -o pipefail.
+
+_commit `a1d8bef401eb` (dirty worktree)_
