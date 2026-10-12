@@ -108,7 +108,26 @@ Tool: `tools/explore_inference_memory.py` (tests:
   - The route needs each individual update to be large relative to the
     curvature of its own loss. Many small per-token steps behave like a
     stretch of gradient flow, which has no edge-of-stability instability.
-- **Implication.** In a test-time memory, the shrimp route is available with
-  chunked updates near the per-chunk stability edge, and absent with small
-  per-token steps. Whether a trained model operates there can be measured
-  from its learned inner rates and the curvature of its chunk losses.
+- **Update granularity decides the route.** Same memory and context, with
+  the same total step per context unless noted:
+  - **One update per context (24-token chunk):** the training map's route —
+    flip, 2-cycle, Neimark-Sacker, shrimp windows.
+  - **12- and 6-token chunks:** mostly synchronized. Caveat: with an even
+    number of updates per context, a per-update bounce repeats every context
+    and is counted as synchronized.
+  - **3-token chunks:** the synchronized memory itself undergoes
+    Neimark-Sacker (log10 hidden rate 1.556, 0.141 turns per context). The
+    memory becomes quasi-periodic, with a rotation number that varies
+    smoothly and locks in narrow tongues. Attracting period-6 and period-11
+    orbits were verified at the 1/3 and 4/11 stripes.
+  - **Large per-token steps (unscaled rates):** the synchronized memory
+    flips (log10 hidden rate 1.057 at log10 output rate -1.0), so the memory
+    repeats every two contexts. Higher and odd periods and irregular motion
+    follow.
+  - **Small per-token steps:** synchronized everywhere.
+- **Implication.** Test-time memories have the same families of
+  bifurcations as training. Which one appears depends on how large each
+  update is relative to the curvature of the loss it uses. Whether a trained
+  model operates in that range can be measured from its learned inner rates
+  and the curvature of its chunk losses. That is the next step, together
+  with criticality at the chunk-3 crossing and the effect of context order.

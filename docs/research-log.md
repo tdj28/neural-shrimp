@@ -19136,3 +19136,33 @@ _commit `d273fa1d544f` (dirty worktree)_
 window-chunk3-scaled (8 updates per context, rates scaled by 3/24; window box, 60x60): 3412 of 3600 cells moving, with rotation per two periods varying smoothly with the hidden rate from about 0.33 to 0.37; thin locked stripes of period 6 (where the rotation crosses 1/3; neighbours 0.3318 and 0.3347) and period 11 (4/11; neighbour 0.3648). Moving-cell attractors have extent 0.10-0.15 (synchronized cells about 1e-14), so they are not decaying spirals. floquet-chunk3: the stripe cells hold attracting period-6 (Newton residual 7e-16; multipliers 0.981, 0.978, 0.861; one-period separation 0.047) and period-11 orbits (2e-15; 0.983, 0.976, 0.740; 0.111), as expected for locking inside narrow tongues; plain Newton could not find the synchronized orbit from the moving cell (three starts, kept). continue-chunk3-p1 (log10 theta_o -0.08, hidden rate 1.2 -> 1.95, step 0.002): the synchronized memory exists throughout and first loses stability through a complex pair at log10 theta_h = 1.556 (spectral radius 0.99926 -> 1.0096; 0.1406 turns per context), then remains an unstable focus (modulus 2.63 at 1.95). So with 3-token chunks a test-time memory has a Neimark-Sacker-born quasi-periodic regime with Arnold-tongue locking. Not yet computed: criticality at the crossing, the circle's continuity between 1.556 and the scanned box, and the route's dependence on context order. The other chunk sizes in the box: chunk 12 all synchronized (3600), chunk 6 mostly synchronized (2673) with period 4 (166) and moving (761), per-token scaled all synchronized; note that with an even number of updates per context a per-update bounce repeats every context and is counted as synchronized.
 
 _commit `d273fa1d544f` (dirty worktree)_
+
+## 2026-10-12 02:42 UTC: run (exploratory)
+
+- **Question:** Online memory (per-token updates, unscaled rates): how does the synchronized memory first lose stability on a line through the online map's period-2 band - a flip (memory repeating every two contexts) or a complex pair?
+- **Setup:** explore_inference_memory continue, context 24, chunk 1 (no scaling), coupled decay 1e-3, log10 theta_o -1.0, log10 theta_h 0.5 -> 1.5 in steps of 0.002, period 1, 4000 transient periods, --beyond
+- **Output:** `../neural-shrimp-data/explore/inference-memory/continue-online-p1`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py continue --context 24 --chunk 1 --coupled-decay 1e-3 --log-theta-o -1.0 --theta-start 0.5 --theta-stop 1.5 --period 1 --transient 4000 --beyond --out inference-memory/continue-online-p1`
+
+_commit `489e967925a3`_
+
+- run started 2026-10-12 02:42 UTC finished 02:42 UTC with exit status 0
+
+## 2026-10-12 02:42 UTC: run (exploratory)
+
+- **Question:** Online memory: continuing from above the real +1 point at log10 theta_h 0.681 (first attempt lost the branch there, multiplier 0.99997), how does the synchronized memory lose stability on the way into the period-2 band?
+- **Setup:** as continue-online-p1 but starting at log10 theta_h 0.9 (synchronized region above the band) up to 1.5
+- **Output:** `../neural-shrimp-data/explore/inference-memory/continue-online-p1-from0.9`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py continue --context 24 --chunk 1 --coupled-decay 1e-3 --log-theta-o -1.0 --theta-start 0.9 --theta-stop 1.5 --period 1 --transient 4000 --beyond --out inference-memory/continue-online-p1-from0.9`
+
+_commit `489e967925a3` (dirty worktree)_
+
+- run started 2026-10-12 02:42 UTC finished 02:42 UTC with exit status 0
+
+## 2026-10-12 02:43 UTC: Online memory route starts with a flip of the context-locked memory; first attempt stopped at a real +1 point
+
+online-map-chunk1 (per-token updates, unscaled per-layer rates, log10 theta_o -2.0..0.5 x log10 theta_h -0.5..2.0, 120x120, 4000 + 512 periods): 3979 synchronized, 719 period 2, small counts of periods 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18, 20, 24-48, 5736 moving, 3666 diverged; a period-2 band near log10 theta_h 1.1-1.5 with stripes of higher periods above it. continue-online-p1 (log10 theta_o -1.0, from 0.5): the synchronized memory's leading real multiplier rose to 0.99997 and natural continuation lost the branch at log10 theta_h 0.682 (a fold or branch point; a slow-convergence band of the map). continue-online-p1-from0.9: from above that point the synchronized memory first loses stability through a real -1 multiplier at log10 theta_h 1.057 (spectral radius 0.9789 -> 1.0251), i.e. a flip: the memory pattern then repeats every two contexts. Comparison of update granularities for the same memory and context: one update per context (chunk 24) gives the training map's route (flip, 2-cycle, Neimark-Sacker, shrimp windows); 3-token chunks give a Neimark-Sacker of the synchronized memory with Arnold tongues; large per-token steps give a flip of the synchronized memory followed by higher and odd periods and irregular motion; small per-token steps (same total step as one update per context) give only synchronized memory.
+
+_commit `489e967925a3` (dirty worktree)_
