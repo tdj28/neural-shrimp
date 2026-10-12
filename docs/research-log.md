@@ -18676,3 +18676,77 @@ _commit `eabc249711c8` (dirty worktree)_
 sweep-beta* (explore_momentum_maps arc + criticality; ray log10 output = log10 hidden - 1.828; first Lyapunov coefficient at each bisected crossing, stable to 1e-8 under doubled finite-difference steps). beta: crossing s, d, rotation turns per two steps. 0: 1.6533, -0.511, 0.177. 0.025: 1.5915, -0.355, 0.151. 0.05: 1.5551, -0.147, 0.137. 0.075: 1.5201, +0.029, 0.123. 0.1: 1.4829, +0.102, 0.111. 0.2: 1.3666, +0.256, 0.081. 0.3: 1.2945, +1.336, 0.069. 0.4: 1.1422, +0.938, 0.052. 0.5: 1.0680, +2.012, 0.047. 0.6: 1.0141, +7.57, 0.043. 0.7: 0.9763, +57.1, 0.038. d changes sign at beta ~ 0.071 (linear interpolation between 0.05 and 0.075): a codimension-two degenerate Neimark-Sacker (Chenciner) point in the (rate, momentum) plane. Below it the onset of quasi-periodic training is soft; above it, it is subcritical, with |d| growing steeply. The rotation decreases monotonically with momentum; the crossing moves toward the flip. One ray of one network; other rays and networks untested.
 
 _commit `eabc249711c8` (dirty worktree)_
+
+## 2026-10-12 01:18 UTC: run (exploratory)
+
+- **Question:** Rung 1 of the scaling ladder: on the S2 teacher task with 3, 6, 12 and 24 hidden units (13, 25, 49, 97 parameters), does the edge-of-stability 2-cycle still lose stability by a Neimark-Sacker bifurcation on the same rate ray, with what criticality, and does the rotation beyond it show locking plateaus?
+- **Setup:** explore_momentum_maps with beta=0 and --width w: arc (minimum, exact flip, pseudo-arclength 2-cycle continuation to the first unit-circle crossing), criticality (first Lyapunov coefficient), staircase (150 points from 0.001 to 0.15 beyond the crossing, 20000 transient + 3000 two-step samples, rotation and two-step period); width 3 reproduces arc2-beta0.0 as a control; CPU, nice 10
+- **Output:** `../neural-shrimp-data/explore/momentum/width-ladder`
+- **Would surprise us:** Larger widths losing stability by a real multiplier, or no locking plateaus at all
+- **Command:** `bash -c for w in 3 6 12 24; do (env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width $w --out momentum/width-ladder/arc-w$w && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0 --width $w --arc momentum/width-ladder/arc-w$w --out momentum/width-ladder/crit-w$w && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py staircase --width $w --arc momentum/width-ladder/arc-w$w --out momentum/width-ladder/stair-w$w) > /tmp/claude-1000/-data2-neural-shrimp/87805dca-ec9a-4962-92e7-ec5dd2bb1af8/scratchpad/ladder-w$w.txt 2>&1 & done; wait`
+
+_commit `8962c19c5fa5`_
+
+## 2026-10-12 01:19 UTC: run (exploratory)
+
+- **Question:** Rung 3: with weight decay raised to 0.03 (above the weak negative data curvature of about -0.014 found at lambda 0.01), does CIFAR subset A have an attracting 2-cycle near the edge of stability, and does its complex pair cross the unit circle (Neimark-Sacker) as eta increases?
+- **Setup:** explore_cifar_reduced orbit --lam 0.03: start from the saved lambda-0.01 state at eta 0.00938931 (reduced), 400000 reduced descent steps at eta 0.0094, backtracking dense Newton at etas 0.0094, 0.0098, 0.0102, 0.0106, 0.0110, 0.0115, 0.0120 (continuing each solution), full spectrum at the first rate, shift-invert afterwards; 12 threads, nice 10; subset B untouched
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/orbit-004-lam0.03`
+- **Would surprise us:** Slow real multipliers above 1 persist at lambda 0.03; collapse to the fixed point; no complex pair
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py orbit --lam 0.03 --threads 12 --pre-steps 400000 --state ../neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00938931.npy --etas 0.0094 0.0098 0.0102 0.0106 0.0110 0.0115 0.0120 --out ../neural-shrimp-data/explore/cifar-reduced/orbit-004-lam0.03`
+
+_commit `8962c19c5fa5` (dirty worktree)_
+
+## 2026-10-12 01:20 UTC: run (exploratory)
+
+- **Question:** Float64 generalized-chain root (double +1 with Jordan chain) at the new 1:1 point on the window's upper fold, from continuation node 72 (upperfold-continuation-002 direction +1)
+- **Setup:** explore_certify_hidden_parent chain (no proof): Newton on R=0, Aq=0, Ar=q, (q.q-1)/2=0, q.r=0 in actual rates, central-difference second derivatives
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/chain-seed-001`
+- **Would surprise us:** No convergence (no Jordan chain near node 72)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py chain --out ../neural-shrimp-data/explore/hidden-parent-certification/chain-seed-001`
+
+_commit `b556e0a3d0dc` (dirty worktree)_
+
+- run started 2026-10-12 01:20 UTC finished 01:20 UTC with exit status 0
+
+## 2026-10-12 01:20 UTC: run (exploratory)
+
+- **Question:** Computer-assisted proof attempt: is there a locally unique primitive period-18 orbit with a length-two Jordan chain at +1 (generalized-chain root) at the new 1:1 point near (eta_h, eta_o) = (84.07786, 0.802368), where the hidden tongue's inherited multiplier crosses +1?
+- **Setup:** explore_certify_hidden_parent chain --prove: float64 seed from node 72 (residual 1.1e-13), then Codex's rigorous_generalized_chain.chain_root_proof with TwoRateCuspMap on the exact binary64 S2 constants, 256-bit Arb, 8 high-precision Newton steps, box radius 2^-70; a pass proves the chain root and primitivity only (not multiplicity, genericity or the complementary spectrum)
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/chain-proof-001`
+- **Would surprise us:** Krawczyk inclusion or contraction failing at 2^-70 (try another radius)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py chain --prove --out ../neural-shrimp-data/explore/hidden-parent-certification/chain-proof-001`
+
+_commit `b556e0a3d0dc` (dirty worktree)_
+
+- run started 2026-10-12 01:18 UTC finished 01:20 UTC with exit status 0
+
+- run started 2026-10-12 01:20 UTC finished 01:20 UTC with exit status 1
+
+## 2026-10-12 01:22 UTC: run (exploratory)
+
+- **Question:** Rung 1 rerun (widths 6, 12, 24) after fixing the minimum finder (trust-region Newton) and the no-crossing case
+- **Setup:** as width-ladder, s_max 3.0 and 12000 continuation steps for the arc
+- **Output:** `../neural-shrimp-data/explore/momentum/width-ladder`
+- **Would surprise us:** -
+- **Command:** `bash -c for w in 6 12 24; do (env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width $w --s-max 3.0 --steps 12000 --out momentum/width-ladder/arc2-w$w && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0 --width $w --arc momentum/width-ladder/arc2-w$w --out momentum/width-ladder/crit2-w$w && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py staircase --width $w --arc momentum/width-ladder/arc2-w$w --out momentum/width-ladder/stair2-w$w) > /tmp/claude-1000/-data2-neural-shrimp/87805dca-ec9a-4962-92e7-ec5dd2bb1af8/scratchpad/ladder2-w$w.txt 2>&1 & done; wait`
+
+_commit `208bde9b669a` (dirty worktree)_
+
+## 2026-10-12 01:22 UTC: run (exploratory)
+
+- **Question:** Retry of the generalized-chain proof at the new 1:1 point with exact rational model constants (first attempt failed at input parsing, no arithmetic ran)
+- **Setup:** as chain-proof-001, with the binary64 constants passed as exact fractions
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/chain-proof-002`
+- **Would surprise us:** Inclusion or contraction failing
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py chain --prove --out ../neural-shrimp-data/explore/hidden-parent-certification/chain-proof-002`
+
+_commit `208bde9b669a` (dirty worktree)_
+
+- run started 2026-10-12 01:22 UTC finished 01:22 UTC with exit status 0
+
+## 2026-10-12 01:23 UTC: Computer-assisted proof: Jordan-chain (double +1) root at the new 1:1 point of the window's upper fold
+
+chain-proof-002 (explore_certify_hidden_parent chain --prove; first attempt chain-proof-001 failed at input parsing before any arithmetic). Float64 seed from continuation node 72 (Newton residual 1.1e-13; eta_h = 84.07786049845569, eta_o = 0.8023678861165183, i.e. log10 rates (-0.09563, 1.92468); numerical multipliers 1 +- 3e-8 i (Jordan pair), complement radius 0.405, minimal divisor separation 0.64). Codex's rigorous_generalized_chain.chain_root_proof on TwoRateCuspMap with the exact binary64 S2 constants, 256-bit Arb, 8 high-precision Newton steps, box radius 2^-70: all gates pass (normalized augmented root unique, positive actual rates, primitive period 18), Krawczyk contraction bound 0.1700387, 6.2 s. This proves a locally unique primitive period-18 orbit with a nonzero length-two Jordan chain at +1 at these rates. Not proved: exact algebraic multiplicity two, the complementary spectrum (numerically 0.405), the nondegeneracy coefficients of a generic 1:1 resonance, and membership in the window's connected fold branch (numerically it lies on the continued upper fold where the inherited saddle multiplier crosses +1).
+
+_commit `21074ad0fa16` (dirty worktree)_
