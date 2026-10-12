@@ -81,3 +81,26 @@ def test_float64_model_keeps_float64_norms(loop):
     y1, y2 = norm(x), norm(x * (1 + 1e-12))
     assert y1.dtype == torch.float64
     assert 0 < float((y2 - y1).abs().max()) < 1e-9
+
+
+def test_soft_phi_matches_steps_and_temperature_derivative(loop):
+    """The differentiable p-fold map used for continuation in temperature equals p soft steps, and its
+    forward-mode derivative in log10 T matches central differences."""
+    import explore_llm_soft_loop as esl
+
+    torch = loop.torch
+    rng = np.random.default_rng(2)
+    d = loop.E.shape[1]
+    orb = esl.SoftOrbit(loop, rng.normal(size=d) * 0.5, 10 ** -0.2, chunk=512)
+    X = orb.start + torch.as_tensor(rng.normal(size=tuple(orb.start.shape)) * 1e-2)
+    phi = orb.phi(2)
+    lt = torch.tensor(-0.2, dtype=torch.float64)
+    with torch.no_grad():
+        y = phi(X, lt)
+    assert torch.allclose(y, orb.f(orb.f(X)), atol=1e-12, rtol=0)
+    _, dy = torch.func.jvp(phi, (X, lt), (torch.zeros_like(X), torch.tensor(1.0, dtype=torch.float64)))
+    h = 1e-5
+    with torch.no_grad():
+        fd = (phi(X, lt + h) - phi(X, lt - h)) / (2 * h)
+    assert float((dy - fd).norm() / fd.norm()) < 1e-6
+    assert orb.cache1.get_seq_length() == loop.L0

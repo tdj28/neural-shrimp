@@ -210,6 +210,38 @@ class SoftOrbit:
         return X, history, vals[np.argsort(-np.abs(vals))], pts[:period]
 
 
+    def phi(self, period):
+        """The p-fold soft map as a differentiable function of (window X (1, K, d), log10 T) for continuation in
+        temperature (the prefix cache does not depend on T); every model call uses a shallow copy of the
+        one-row prefix cache, so forward-mode tangents never reach the stored prefix tensors."""
+        import copy
+
+        from torch.nn.attention import SDPBackend, sdpa_kernel
+
+        torch, loop = self.torch, self.loop
+
+        def step(X, temperature):
+            cache = copy.copy(self.cache1)
+            cache.layers = [copy.copy(layer) for layer in self.cache1.layers]
+            loop.sm.steer = self.steer1
+            try:
+                with sdpa_kernel(SDPBackend.MATH):
+                    z = loop.model(inputs_embeds=X.to(loop.dtype), past_key_values=cache, use_cache=True,
+                                   logits_to_keep=1).logits[:, -1, :].to(loop.state_dtype)
+            finally:
+                loop.sm.steer = None
+            p = torch.softmax(z / temperature, dim=-1)
+            return torch.cat([X[:, 1:, :], (p @ loop.E)[:, None, :]], dim=1)
+
+        def phi(X, log_t):
+            temperature = 10.0 ** log_t
+            for _ in range(period):
+                X = step(X, temperature)
+            return X
+
+        return phi
+
+
 def orbit_report(orb, X, history, vals, pts, k=8):
     tok = orb.loop.sm.tok
     seps = [float((p - pts[0]).norm() / pts[0].norm()) for p in pts[1:]]
@@ -244,6 +276,55 @@ def orbit(args):
     (out / "orbit.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))
     np.save(out / "orbit-state.npy", X.double().cpu().numpy())
     print(json.dumps({k: v for k, v in rec.items() if k != "args"}, ensure_ascii=False))
+
+
+def tline(args):
+    """Continuation in log10 T, at fixed steering, of the periodic orbit reached at (log10 T, alpha): pseudo-
+    arclength through folds with multipliers at every point (explore_latent_loop.pseudo_arclength), and the
+    classification of every unit-circle crossing found along the branch."""
+    import explore_latent_loop as ell
+
+    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+                    args.device)
+    v = elpm.load_vectors(args.vectors)[args.concept]
+    orb = SoftOrbit(loop, args.alpha * v, 10.0 ** args.log_temperature, chunk=args.chunk)
+    X = orb.iterate(orb.start, args.transient)
+    period = args.period or orb.detect_period(X, args.max_period, args.detect_tol)
+    if period == 0:
+        raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol}; nothing to continue")
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    states = []
+
+    def on_point(rec, x):
+        states.append(x.double().cpu().numpy()[0])
+        print(json.dumps({k: v for k, v in rec.items() if k != "multipliers"} | {"leading": rec["multipliers"][:3]}),
+              flush=True)
+
+    records, reason = ell.pseudo_arclength(
+        orb.phi(period), X, args.log_temperature, direction=args.direction, steps=args.steps, ds=args.ds,
+        ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, max_newton=args.max_newton, gmres_tol=args.gmres_tol,
+        restart=args.restart, gmres_iter=args.gmres_iter, k=args.k, arnoldi_iter=args.arnoldi_iter,
+        beyond=args.beyond, lam_bounds=tuple(args.bounds), on_point=on_point)
+    crossings = []
+    for a, b in zip(records, records[1:]):
+        if a["spectral_radius"] is None or b["spectral_radius"] is None:
+            continue
+        if (a["spectral_radius"] - 1) * (b["spectral_radius"] - 1) < 0:
+            outer = b if b["spectral_radius"] > 1 else a          # the side where the crossing multiplier is outside
+            vals = [complex(re, im) for re, im in outer["multipliers"]]
+            lead = max(vals, key=abs)
+            kind = ("complex pair (Neimark-Sacker)" if abs(lead.imag) > 1e-9 else
+                    "real +1 (fold)" if lead.real > 0 else "real -1 (flip)")
+            others = sorted((abs(z) for z in vals if z != lead and z != lead.conjugate()), reverse=True)
+            crossings.append({"between_log10_T": [a["lambda"], b["lambda"]], "type": kind,
+                              "crossing_multiplier": [lead.real, lead.imag, abs(lead), float(np.angle(lead) / (2 * np.pi))],
+                              "next_largest_modulus": others[0] if others else None,
+                              "multipliers_converged": bool(a["multipliers_converged"] and b["multipliers_converged"])})
+    np.save(out / "states.npy", np.array(states))
+    rec = {"args": vars(args), "period": period, "stop": reason, "crossings": crossings, "points": records}
+    (out / "tline.json").write_text(json.dumps(rec, indent=1))
+    print(json.dumps({"period": period, "stop": reason, "points": len(records), "crossings": crossings}))
 
 
 def scan(args):
@@ -391,8 +472,41 @@ def main():
     ob.add_argument("--h-rel", type=float, default=1e-5)
     ob.add_argument("--chunk", type=int, default=512)
     ob.add_argument("--out", required=True)
+    tl = sub.add_parser("tline")
+    tl.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
+    tl.add_argument("--layer", type=int, default=12)
+    tl.add_argument("--threads", type=int, default=8)
+    tl.add_argument("--dtype", default="float64", choices=("float32", "float64"))
+    tl.add_argument("--device", default="cpu")
+    tl.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
+    tl.add_argument("--opener", default=ela.OPENER)
+    tl.add_argument("--window", type=int, default=1)
+    tl.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    tl.add_argument("--concept", default="philosophy", choices=sorted(elpm.CONCEPTS))
+    tl.add_argument("--log-temperature", type=float, required=True)
+    tl.add_argument("--alpha", type=float, required=True)
+    tl.add_argument("--period", type=int, default=0, help="0: detect from the attractor reached")
+    tl.add_argument("--transient", type=int, default=600)
+    tl.add_argument("--max-period", type=int, default=32)
+    tl.add_argument("--detect-tol", type=float, default=1e-6)
+    tl.add_argument("--direction", type=int, default=1, choices=(-1, 1))
+    tl.add_argument("--steps", type=int, default=40)
+    tl.add_argument("--ds", type=float, default=0.01)
+    tl.add_argument("--ds-min", type=float, default=1e-6)
+    tl.add_argument("--ds-max", type=float, default=0.05)
+    tl.add_argument("--beyond", type=float, default=0.02, help="stop this far in log10 T past the first turn")
+    tl.add_argument("--bounds", type=float, nargs=2, default=[-1.5, 0.5], help="log10 T range")
+    tl.add_argument("--tol", type=float, default=1e-10)
+    tl.add_argument("--max-newton", type=int, default=8)
+    tl.add_argument("--gmres-tol", type=float, default=1e-9)
+    tl.add_argument("--restart", type=int, default=60)
+    tl.add_argument("--gmres-iter", type=int, default=3)
+    tl.add_argument("--k", type=int, default=6)
+    tl.add_argument("--arnoldi-iter", type=int, default=300)
+    tl.add_argument("--chunk", type=int, default=512)
+    tl.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "orbit": orbit}[args.command](args)
+    {"scan": scan, "orbit": orbit, "tline": tline}[args.command](args)
 
 
 if __name__ == "__main__":
