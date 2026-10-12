@@ -35,6 +35,12 @@ makes that statement concrete in network terms at chosen rates:
           near the cycle's centre, in the cycle's own principal plane. Meant
           to tell rotation-born windows from period-doubling (Henon-type)
           windows, for example for odd periods.
+  edge    Cross a saved boundary node (fold or flip of the period-18 cycle)
+          along the curve's normal by small signed distances; at each, start
+          next to the node's orbit, iterate, and classify the attractor
+          (period by recurrence up to 72, doubling amplitude |theta_t -
+          theta_{t+18}| for period 36, or aperiodic with return statistics).
+          A soft flip shows period 36 with amplitude ~ sqrt(distance).
   lyapunov  Full Lyapunov spectrum (QR iteration with exact step Jacobians)
           and Kaplan-Yorke dimension of the attractor at given rates, plus the
           principal-plane share of its two-step samples: is post-edge training
@@ -433,6 +439,59 @@ def lyapunov(args):
     (out / "lyapunov.json").write_text(json.dumps(rows, indent=1))
 
 
+def edge(args):
+    net, x, y, theta0 = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    node = json.loads(Path(args.node).read_text())
+    point = [float(v) for v in node["point"]]
+    tangent = [float(v) for v in node["tangent"]]
+    eta_h, eta_o = point[13], point[14]
+    lx, ly = math.log10(eta_o), math.log10(eta_h)
+    t_lx = tangent[14] / (eta_o * math.log(10.0))
+    t_ly = tangent[13] / (eta_h * math.log(10.0))
+    norm = math.hypot(t_lx, t_ly)
+    normal = (-t_ly / norm, t_lx / norm)          # unit normal in (lx, ly)
+    start = np.array(node["orbit"][0], dtype=np.float64)
+    rows = []
+    for off in args.offsets:
+        p = [lx + off * normal[0], ly + off * normal[1]]
+        theta = start + args.kick
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _ in range(args.transient):
+                theta = f.step(theta, p)
+            traj = [theta]
+            for _ in range(160):
+                traj.append(f.step(traj[-1], p))
+        traj = np.array(traj)
+        if not np.all(np.isfinite(traj)):
+            rows.append({"offset": off, "rates": p, "attractor": "diverged"})
+            print(json.dumps(rows[-1]))
+            continue
+        scale = max(1.0, float(np.linalg.norm(traj[0])))
+        period = next((q for q in range(1, 73) if np.linalg.norm(traj[q] - traj[0]) < args.tol * scale), None)
+        row = {"offset": off, "rates": p, "period": period,
+               "return18": float(np.linalg.norm(traj[18] - traj[0])),
+               "return36": float(np.linalg.norm(traj[36] - traj[0])),
+               "loss_mean": float(np.mean(net.loss(traj[:144], x, y)))}
+        row["attractor"] = (f"period {period}" if period else "aperiodic or slow")
+        if period == 36:
+            row["doubling_amplitude"] = float(np.max([np.linalg.norm(traj[k + 18] - traj[k]) for k in range(18)]))
+        rows.append(row)
+        print(json.dumps({k: (round(v, 7) if isinstance(v, float) else v) for k, v in row.items() if k != "rates"}))
+    dbl = [(r["offset"], r["doubling_amplitude"]) for r in rows if r.get("doubling_amplitude")]
+    exponent = None
+    if len(dbl) >= 2:
+        offs = np.array([abs(o) for o, _ in dbl])
+        amps = np.array([a for _, a in dbl])
+        exponent = float(np.polyfit(np.log(offs), np.log(amps), 1)[0])
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "edge.json").write_text(json.dumps({"node": str(args.node), "normal": normal, "rows": rows,
+                                               "doubling_amplitude_exponent": exponent}, indent=1))
+    print(json.dumps({"normal_lx_ly": [round(normal[0], 4), round(normal[1], 4)],
+                      "doubling_amplitude_exponent": exponent, "soft_flip_expectation": 0.5}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -470,9 +529,17 @@ def main():
     ly_.add_argument("--transient", type=int, default=40000)
     ly_.add_argument("--steps", type=int, default=40000)
     ly_.add_argument("--out", required=True)
+    ed = sub.add_parser("edge")
+    ed.add_argument("--node", required=True)
+    ed.add_argument("--offsets", type=float, nargs="+",
+                    default=[-1e-3, -3e-4, -1e-4, 1e-4, 3e-4, 1e-3, 3e-3])
+    ed.add_argument("--kick", type=float, default=1e-6)
+    ed.add_argument("--transient", type=int, default=200000)
+    ed.add_argument("--tol", type=float, default=1e-7)
+    ed.add_argument("--out", required=True)
     args = parser.parse_args()
     {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window,
-     "lyapunov": lyapunov}[args.command](args)
+     "lyapunov": lyapunov, "edge": edge}[args.command](args)
 
 
 if __name__ == "__main__":
