@@ -64,7 +64,11 @@ P2=llm-soft-loop/branch-p2-t-0.115-alpha-up
 D=llm-soft-loop/pod64
 
 case "$JOBSET" in
-  smoke)       # timed unit: the P8 flip-curve start and two continuation points
+  smoke)       # timed units: 16x16 scans in float32 and float64, the P8 flip-curve start and two points
+    run smoke-scan32 15 scan --device cuda --dtype float32 --chunk 256 --alpha 0.060 0.082 --log-temperature \
+      -0.18 -0.05 --resolution 16 16 --tol 1e-4 --eps 1e-4 --out $D/smoke-scan32
+    run smoke-scan64 20 scan --device cuda --dtype float64 --chunk 256 --alpha 0.060 0.082 --log-temperature \
+      -0.18 -0.05 --resolution 16 16 --tol 1e-8 --eps 1e-6 --out $D/smoke-scan64
     run smoke-p8-down 20 $CURVE --start $P8DOWN --direction 1 --steps 3 --log-temperature-bounds -0.4 0.3 \
       --alpha-bounds 0 0.12 --out $D/smoke-curve-p8-down
     ;;
