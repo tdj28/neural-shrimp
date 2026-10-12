@@ -20407,3 +20407,21 @@ _commit `4e676a6b00b0` (dirty worktree)_
 - **Command:** `bash -c S=/tmp/claude-1000/-data2-neural-shrimp/87805dca-ec9a-4962-92e7-ec5dd2bb1af8/scratchpad; (OMP_NUM_THREADS=12 MKL_NUM_THREADS=12 nice -n 10 .venv/bin/python -u $S/cusp_check.py llm-soft-loop/pod64/p4/curve-foldB-minus 11,12,13,14,15,16,17 2>&1 | grep --line-buffered "^{" > $S/cusp1.jsonl &); OMP_NUM_THREADS=12 MKL_NUM_THREADS=12 nice -n 10 .venv/bin/python -u $S/cusp_check.py llm-soft-loop/pod64/p4/curve-foldB-minus 52,53,54,55,56,57,58 2>&1 | grep --line-buffered "^{" > $S/cusp2.jsonl; wait; cat $S/cusp1.jsonl $S/cusp2.jsonl | cut -c1-300`
 
 _commit `d3deb1037395`_
+
+- run started 2026-10-12 21:24 UTC (../neural-shrimp-data/explore/latent-loop/ouro-positions-story-long) finished 21:39 UTC with exit status 0
+
+## 2026-10-12 21:39 UTC: run (exploratory)
+
+- **Question:** Boundaries of the verified period-9 soft-token orbit at (log10 T -0.0467, alpha 0.040) in temperature: where and how does it end on each side (fold turning point, flip, Neimark-Sacker)? (Replaces the queued float32 tline job 08, which would stall at the float32 error level like job 06b.)
+- **Setup:** explore_llm_soft_loop branch on cuda: float32 derivatives (dense AD monodromy), float64 residuals with patched norms, chord Newton to 1e-10, all multipliers per point; start (log10 T -0.0467, alpha 0.040), period detected in float64 at 1e-9; both directions in log10 T, ds 0.004 (max 0.01), up to 60 points, stop 0.01 past the first turn
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/branch-p9-a0.040-{up,down}`
+- **Would surprise us:** A boundary with no crossing and no turn within the scan's window edges
+- **Command:** `bash -c for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py branch --device cuda --log-temperature -0.0467 --alpha 0.040 --direction $dir --out llm-soft-loop/branch-p9-a0.040-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -62 | cut -c1-900; done`
+
+_commit `eb04a5031d97` (dirty worktree)_
+
+## 2026-10-12 21:50 UTC: Scale-up rung 1: Qwen2.5-1.5B soft-token decoding also shows chaos with periodic windows (coarse 64x64 float64 map, RunPod run S15)
+
+Vectors for 1.5B built at layer 14 of 28 exactly as for 0.5B (vectors-1.5b-l14: residual norms about 1270-1350, cosine gratitude-philosophy 0.538 against 0.572 for 0.5B). Map scale15/coarse-64 (pod sl9c7of185jidm, H100 NVL, commit c877fae0; philosophy steering alpha -0.12..0.12 x log10 T -1.0..0.3, 64x64, float64 with patched norms and rotary tables, period tolerance 1e-8, twin offset 1e-6; 852 s): 424 of 4096 cells chaotic, concentrated at log10 T -0.4..0.3 in two zones (alpha about -0.11..-0.03 and 0.03..0.12, strongest near log10 T 0-0.15); periodic cells elsewhere, periods 1 (556), 2 (1572), 3 (271), 4 (666), 5-32 (sparse: 6: 119, 8: 81, 10: 30, 12: 54, 14: 25, 16: 13, ...). Leading-token loops of the commonest attractors: P2 '!Hello' (717 cells), P2 'What?\n' (345), P1 '接着' (332), P4 '\nWhat is a' (291), P2 '! Hello' (159), P2 '\n\nWhat' (131); the 0.5B loops ('is it', '. This is X') do not recur. So the qualitative phenomenon (deterministic chaos with embedded windows in the expected-embedding map) carries over to the 3x larger model, with different text. Next on the ladder (human's plan): a 256x256 float64 zoom of the right chaotic zone, then search for period-adding stripes and a fold, float64 orbits and the normal-form passage test.
+
+_commit `eb04a5031d97` (dirty worktree)_
