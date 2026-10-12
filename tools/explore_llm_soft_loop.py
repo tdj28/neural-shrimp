@@ -461,6 +461,43 @@ def figure(log_t, alphas, lyap, period, entropy, path, args):
     fig.savefig(path, dpi=110)
 
 
+def render(args):
+    """Period map of a finished scan with chaos marked: discrete colours for periods 1..max, black where the
+    largest Lyapunov exponent exceeds --chaos-level, grey where no period was found below it."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+
+    src = DATA / "explore" / args.scan
+    d = np.load(src / "scan.npz")
+    lt, al, per, ly = d["log10_temperature"], d["alpha"], d["period"], d["lyapunov"]
+    top = int(args.max_period)
+    base = plt.get_cmap("tab20")(np.arange(20))
+    colours = np.concatenate([np.delete(base, [14, 15], axis=0), plt.get_cmap("tab20b")(np.arange(20))])[:top]
+    # (tab20's two greys are dropped: grey marks 'no period')
+    img = np.full(per.shape + (4,), 0.0)
+    for q in range(1, top + 1):
+        img[per == q] = colours[(q - 1) % len(colours)]
+    img[(per == 0) | (per > top)] = (0.75, 0.75, 0.75, 1.0)
+    img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
+    fig, ax = plt.subplots(figsize=(8, 7))
+    ax.imshow(img, origin="lower", aspect="auto", interpolation="nearest",
+              extent=(al[0], al[-1], lt[0], lt[-1]))
+    handles = [matplotlib.patches.Patch(color=colours[(q - 1) % len(colours)], label=str(q))
+               for q in range(1, top + 1) if np.any(per == q)]
+    handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
+                matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
+    ax.legend(handles=handles, fontsize=7, ncol=2, loc="upper left", bbox_to_anchor=(1.01, 1.0), title="period")
+    ax.set_xlabel("steering alpha")
+    ax.set_ylabel("log10 temperature")
+    ax.set_title(f"soft-token decoding: {args.scan}")
+    fig.tight_layout()
+    fig.savefig(src / "render.png", dpi=150)
+    counts = {int(q): int((per == q).sum()) for q in np.unique(per)}
+    print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -543,8 +580,12 @@ def main():
     tl.add_argument("--subspace-iter", type=int, default=40)
     tl.add_argument("--chunk", type=int, default=512)
     tl.add_argument("--out", required=True)
+    rd = sub.add_parser("render")
+    rd.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
+    rd.add_argument("--max-period", type=int, default=16)
+    rd.add_argument("--chaos-level", type=float, default=0.005)
     args = parser.parse_args()
-    {"scan": scan, "orbit": orbit, "tline": tline}[args.command](args)
+    {"scan": scan, "orbit": orbit, "tline": tline, "render": render}[args.command](args)
 
 
 if __name__ == "__main__":
