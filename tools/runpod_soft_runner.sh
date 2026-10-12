@@ -182,6 +182,23 @@ case "$JOBSET" in
     run map-p4body 100 $SCAN --resolution 192 192 --alpha 0.055 0.080 --log-temperature 0.0 0.07 \
       --out $D/map-p4body-192-families
     ;;
+  p6z3a)       # shrimp candidate of zoom Z3: the period-6 window '. -\n\nThe is a' (body, hooked foot with its
+               # period-12 doubling, thin leg crossing a period-5 window): float64 orbits, then branches out of the body
+    ORB="orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12"
+    for spec in "-0.05994 0.08051 body" "-0.06806 0.08031 body-low" "-0.06312 0.08000 inner-red" \
+                "-0.07529 0.07800 leg1" "-0.07388 0.07839 leg2" "-0.07200 0.07960 foot"; do
+      set -- $spec
+      run orbit-p6z3-$3 15 $ORB --log-temperature $1 --alpha $2 --out $D/p6z3/orbit-$3
+    done
+    BR="branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp --steps 150 --chunk 896"
+    for dir in 1 -1; do
+      name=$([ $dir = 1 ] && echo up || echo down)
+      run p6z3-branch-T-$name 30 $BR --free temperature --log-temperature -0.05994 --alpha 0.08051 --direction $dir \
+        --ds 0.002 --ds-max 0.01 --beyond 0.003 --bounds -0.2 0.05 --out $D/p6z3/branch-T-$name
+      run p6z3-branch-a-$name 30 $BR --free alpha --log-temperature -0.05994 --alpha 0.08051 --direction $dir \
+        --ds 0.002 --ds-max 0.01 --beyond 0.0005 --bounds 0.06 0.1 --out $D/p6z3/branch-a-$name
+    done
+    ;;
   p4a)         # shrimp candidate (period-4 domain at high temperature, zoom-p4): float64 orbits at the body,
                # legs and the period-8 island, then one-parameter branches out of the body in T and in alpha
     ORB="orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12"
