@@ -19166,3 +19166,21 @@ _commit `489e967925a3` (dirty worktree)_
 online-map-chunk1 (per-token updates, unscaled per-layer rates, log10 theta_o -2.0..0.5 x log10 theta_h -0.5..2.0, 120x120, 4000 + 512 periods): 3979 synchronized, 719 period 2, small counts of periods 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18, 20, 24-48, 5736 moving, 3666 diverged; a period-2 band near log10 theta_h 1.1-1.5 with stripes of higher periods above it. continue-online-p1 (log10 theta_o -1.0, from 0.5): the synchronized memory's leading real multiplier rose to 0.99997 and natural continuation lost the branch at log10 theta_h 0.682 (a fold or branch point; a slow-convergence band of the map). continue-online-p1-from0.9: from above that point the synchronized memory first loses stability through a real -1 multiplier at log10 theta_h 1.057 (spectral radius 0.9789 -> 1.0251), i.e. a flip: the memory pattern then repeats every two contexts. Comparison of update granularities for the same memory and context: one update per context (chunk 24) gives the training map's route (flip, 2-cycle, Neimark-Sacker, shrimp windows); 3-token chunks give a Neimark-Sacker of the synchronized memory with Arnold tongues; large per-token steps give a flip of the synchronized memory followed by higher and odd periods and irregular motion; small per-token steps (same total step as one update per context) give only synchronized memory.
 
 _commit `489e967925a3` (dirty worktree)_
+
+## 2026-10-12 03:03 UTC: run (exploratory)
+
+- **Question:** LLM attractor pilot 1 (qwen2.5-0.5B-instruct, CPU): in self-dialogue (two instances, open-ended versus task prompt) and repeated paraphrasing, does repeated inference converge to recognizable attractors (exact cycles under greedy decoding, mirroring between the two agents, collapsing length and entropy), and does the open-ended prompt attract more strongly than the task prompt, as reported for Claude and for LLM transmission chains?
+- **Setup:** explore_llm_attractors: dialogue with window 7 turns, 30 turns, max 100 new tokens per turn, opener 'Hello!', prompts open/task, temperature 0 (greedy, one run each) and 0.7 / 1.0 (seeds 0-2 and 0-1); paraphrase of one fixed sentence for 30 rounds (max 80 tokens) at temperature 0 and 0.7. Repetition penalty, top-k and top-p off. Per turn: text, tokens, mean next-token entropy (raw logits), mean last-layer hidden state, exact cycles of the windowed state. 14 jobs, 4 parallel processes x 4 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/llm-attractors/pilot1`
+- **Would surprise us:** No convergence of any kind within 30 turns at temperature 0, or no difference between open and task prompts
+- **Command:** `bash -c xargs -P 4 -L 1 sh -c "OMP_NUM_THREADS=4 .venv/bin/python tools/explore_llm_attractors.py \$0 \"\$@\" --threads 4 2>&1 | grep -v -i -e warn -e Loading" < /tmp/claude-1000/-data2-neural-shrimp/87805dca-ec9a-4962-92e7-ec5dd2bb1af8/scratchpad/llm-pilot-jobs.txt`
+
+_commit `a93fbc44d54c`_
+
+- run started 2026-10-12 03:03 UTC finished 03:03 UTC with exit status 0
+
+## 2026-10-12 03:04 UTC: LLM attractor pilot 1, first launch failed at model loading (no outputs)
+
+All 14 jobs of the pilot-1 launch failed before generating anything: the environment sets a global HF_HOME (/data2/huggingface), so the tool's setdefault of the project cache never applied and offline loading found no files. Fixed by passing the project cache directory explicitly to the tokenizer and model loaders; relaunched with unchanged settings (job list saved as explore/llm-attractors/pilot1/jobs.txt).
+
+_commit `b3bba63f1914` (dirty worktree)_
