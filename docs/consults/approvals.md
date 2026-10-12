@@ -105,3 +105,19 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   output tokens; canonical client reserves and authorization guard apply.
   Advisory only: every cited reference is checked at its primary source before
   use, and material advice is adjudicated locally.
+
+## 2026-10-12: LLM-dynamics novelty and research-plan consult
+
+- **Approval (human, in session, 12 October 2026):** "if you could please do a gpt pro consult about our
+  findings thus far to see if a) they've already been found and if so references and b) if not any
+  suggestions/feedback on our research plan?" This approves sending the compact packet below to OpenAI;
+  budget in the private cost ledger.
+- **Milestone:** chaos, period adding with a 1/N^2 window law (type-I intermittency) and float64 bifurcation
+  curves in an LLM's soft-token decoding; a predicted and confirmed Neimark-Sacker bifurcation in Huginn's
+  latent loop; metastable self-dialogue attractors under steering.
+- **Scope:** one `research-strategy` request using
+  `2026-10-12-llm-dynamics-novelty/brief.md`, references questions answered first; no retry without a new
+  decision recorded here.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens; canonical client
+  reserves and authorization guard apply. Advisory only: every cited reference is checked at its primary
+  source before use, and material advice is adjudicated locally.
