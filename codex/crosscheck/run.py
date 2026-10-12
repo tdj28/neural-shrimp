@@ -148,7 +148,7 @@ def science(model, stage, output, event, chunk):
         save(output/(name+'.json'), metadata)
         event('artifact_saved', name=name)
 
-    if stage == 'orbits':
+    if stage in ('orbits','legacy-p2'):
         branch = json.loads((DATA/'branch64-p2-t-0.115-alpha-up/branch.json').read_text())
         branch_points = branch['points']
         p2ref = branch_points[0]
@@ -156,9 +156,14 @@ def science(model, stage, output, event, chunk):
         p8ref = json.loads((DATA/'orbit64-zr-p8/orbit.json').read_text())
         p8state = np.load(DATA/'orbit64-zr-p8/orbit-state.npy').reshape(-1)
         summary = {}
-        for label, seed, alpha, t, period, ref in [
-            ('p2',p2state,.0624,-.115,2,p2ref),
-            ('p8',p8state,.0717,-.1205,8,p8ref)]:
+        cases = [('p2',p2state,.0624,-.115,2,p2ref), ('p8',p8state,.0717,-.1205,8,p8ref)]
+        if stage == 'legacy-p2':
+            legacy = json.loads((DATA/'orbit64-zr-p2/orbit.json').read_text())
+            legacy_state = np.load(DATA/'orbit64-zr-p2/orbit-state.npy').reshape(-1)
+            if legacy['args']['log_temperature'] != -.17263 or legacy['args']['alpha'] != .061579:
+                raise RuntimeError('legacy P2 target metadata mismatch')
+            cases = [('p2-legacy',legacy_state,.061579,-.17263,2,legacy)]
+        for label, seed, alpha, t, period, ref in cases:
             result = orbit_crosscheck(model, seed, alpha=alpha, log_temperature=t,
                         period=period, chunk_size=chunk, reference=ref,
                         save=lambda name,payload: artifact(label+'-'+name,payload),
@@ -219,7 +224,7 @@ def science(model, stage, output, event, chunk):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--stage', choices=['profile', 'throughput', 'orbits', 'fold', 'passages', 'branch'], required=True)
+    parser.add_argument('--stage', choices=['profile', 'throughput', 'orbits', 'fold', 'passages', 'branch', 'legacy-p2'], required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--threads', type=int, default=4)
     parser.add_argument('--chunk', type=int, default=16)
