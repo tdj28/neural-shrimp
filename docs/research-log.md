@@ -18786,3 +18786,47 @@ _commit `689b6ca89e5a`_
 resonance-proof-001 (explore_certify_hidden_parent resonance --prove). Float64 Newton on the fixed-angle eigenpair system (state, both actual rates, v_re, v_im; 41 equations) from the fold-collapse point converged from residual 2.6e-9 to 6e-16 (condition 8.0e4); multiplier moduli 1.03098 (real), 1, 1 (the pair), 0.948. Outward-rounded Krawczyk enclosure (Codex's TwoRateCuspMap mixed jets, exact binary64 S2 constants, 256-bit Arb, cos and sin of 4 pi/9 in Arb, radius 2^-70): all gates pass (unique root, positive rates, primitive period 2), contraction 1.1e-14, 0.5 s; rates eta_h = 52.961196369999170639 +- 2.1e-19, eta_o = 0.910699388167699003 +- 5.6e-21. This proves that at these rates a primitive period-2 orbit has two-step multipliers exactly on the unit circle at 2/9 turns, the resonance point at which the window's upper fold (numerically) ends. Still to prove: that the 2-cycle is a saddle (the real multiplier 1.03098 > 1) and the connection of this point to the window's fold branch (numerical continuation, 381 nodes).
 
 _commit `689b6ca89e5a` (dirty worktree)_
+
+- run started 2026-10-12 01:22 UTC finished 01:26 UTC with exit status 0
+
+## 2026-10-12 01:26 UTC: run (exploratory)
+
+- **Question:** Is the 2-cycle at the proved 2/9 resonance root R3 a saddle: does every matrix in the two-step monodromy enclosure over the proved box have a real eigenvalue enclosed above 1 (numerically 1.03098)?
+- **Setup:** resonance --prove --real-eigen 1.03098 (repeat of resonance-proof-001, then a Krawczyk test on the real eigenpair system with the interval monodromy, radius 2^-60)
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-002`
+- **Would surprise us:** Real eigenvalue enclosure not excluding 1
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py resonance --prove --real-eigen 1.03098 --out ../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-002`
+
+_commit `fe000094cd00` (dirty worktree)_
+
+- run started 2026-10-12 01:26 UTC finished 01:26 UTC with exit status 0
+
+## 2026-10-12 01:27 UTC: run (exploratory)
+
+- **Question:** Retry of the saddle-multiplier proof at R3 with a wider eigenpair box (the 2^-60 box was narrower than the eigenvalue enclosure width 9e-19)
+- **Setup:** as resonance-proof-002 with the eigenpair box radius 2^-50
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-003`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py resonance --prove --real-eigen 1.03098 --out ../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-003`
+
+_commit `70c8bb8e7db3` (dirty worktree)_
+
+- run started 2026-10-12 01:27 UTC finished 01:27 UTC with exit status 0
+
+## 2026-10-12 01:27 UTC: run (exploratory)
+
+- **Question:** Saddle-multiplier proof at R3, retry with a high-precision refined eigenpair centre
+- **Setup:** as resonance-proof-003 with four Arb Newton steps on the midpoint monodromy before the Krawczyk box test (radius 2^-50)
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-004`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py resonance --prove --real-eigen 1.03098 --out ../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-004`
+
+_commit `876b3bfa3370` (dirty worktree)_
+
+- run started 2026-10-12 01:27 UTC finished 01:27 UTC with exit status 0
+
+## 2026-10-12 01:27 UTC: Proved: R3 is a 2/9 resonance of a saddle 2-cycle (real multiplier 1.0309819704993792 > 1)
+
+resonance-proof-004 (attempts 002 and 003 failed the eigenpair inclusion: first the 2^-60 box was narrower than the enclosure, then the float64 eigenvector centre was too coarse; both preserved). After the passed R3 root proof, a Krawczyk test on the real eigenpair system (M u = lambda u, (u.u - 1)/2 = 0) with the interval two-step monodromy enclosed over the proved box (centre refined by four Arb Newton steps on the midpoint matrix; box radius 2^-50) passes with contraction 1.03e-13: every matrix in the enclosure has a real eigenvalue lambda in [1.030981970499379190 +- 8.94e-19]. Hence the primitive 2-cycle at R3 has an unstable real direction together with the exact unit-circle pair at 2/9: R3 is rigorously a 2/9 resonance of a saddle 2-cycle. Rigorous anchors of the hidden-parent organization now: R3 (this), the new 1:1 point (Jordan block, attracting complement), and Codex's certified fold, 1:1 point and attracting window orbits; the connecting fold branch (381 nodes) is numerical.
+
+_commit `876b3bfa3370` (dirty worktree)_
