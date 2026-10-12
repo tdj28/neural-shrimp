@@ -219,8 +219,13 @@ perturbing the last position changes no earlier output (difference exactly
   leading contraction of about 0.87 per step on the story prompt.
 - **The reported "orbits".** Geiping et al. (arXiv 2502.05171, section 7)
   describe orbit-like PCA trajectories for tokens such as "3" and "makes".
-  These may be slowly decaying spirals around such fixed points. The spectrum
-  at the fixed points (queued) will decide.
+  At the fixed point of the GSM8K-style question, F's leading multipliers
+  are a complex pair 0.588 +- 0.771i (modulus 0.970, 0.146 turns per step),
+  so trajectories are slowly decaying spirals: after 32 steps about 38 % of
+  that component remains. The spectrum also predicts that the relaxed loop
+  h <- (1 - lambda) h + lambda F(h) loses stability at lambda = 1.078
+  through this pair (a second pair crosses at 1.081): a Neimark-Sacker
+  bifurcation 8 % beyond the native step. `ns-check` tests the prediction.
 
 **Self-dialogue attractors (Qwen2.5-0.5B, greedy)** (`explore/llm-phase-map/map-l12-grat-phil-13`):
 
@@ -246,13 +251,52 @@ perturbing the last position changes no earlier output (difference exactly
   near-zero Lyapunov values and isolated long periods of the 16x16 scan;
   fixed in all tools.
 
+## Periodic windows inside soft-token chaos (12 October 2026)
+
+Soft-token decoding feeds the model's own probability-weighted embedding
+back as the next input, x -> E^T softmax(z(x) / T), with a fixed prefix
+and steering alpha along a concept vector at layer 12. It is a smooth map
+of the 896-dimensional embedding space whose T -> 0 limit is greedy
+decoding. Maps and checks below are for Qwen2.5-0.5B with a one-token
+window (`explore/llm-soft-loop/`).
+
+- **Chaos with windows.** On the 96x96 zoom over alpha 0.03..0.09 and
+  log10 T -0.3..0.25, 2676 of 9216 cells have a positive twin exponent,
+  mostly in one sea at log10 T -0.17..0.20 for alpha above 0.045. Periodic
+  windows sit inside it: a thin diagonal period-3 band, period-4 bands, and
+  thin diagonal stripes with periods 12, 10, 8 and 6 between a period-2
+  region and a period-3 region.
+- **The windows are periodic orbits.** float64 Newton (norms patched, dense
+  forward-mode Jacobians) verifies primitive orbits at interior cells:
+  period 8 at (log10 T -0.1205, alpha 0.0717), residual 1.7e-15, multipliers
+  led by +0.0041; period 10 at (-0.1089, 0.0673), residual 1.6e-13, led by
+  +0.0024. Period 6 at (-0.1205, 0.0786) and period 3 at (0.1168, 0.078)
+  return to within 2e-14 and 6e-15.
+- **Period adding in token space.** Read out as tokens, the stripe orbits
+  are ". This is a is a" (period 6), ". This is there is a is a" (8) and
+  ". This is there is it is a is a" (10): each stripe adds one "is X" pair.
+  The stripes accumulate toward the period-2 region, with spacings in alpha
+  shrinking by a factor of about 0.57 per step at log10 T -0.115.
+- **Precision.** The float32 map is accurate to only 3e-6 to 2e-5 per step
+  (soft embeddings have norms near 0.2). In float32 the period-8 orbit was
+  read as period 16 and the period-10 orbit was missed, and the zoom maps'
+  period test sits at that error level. Orbits are therefore verified in
+  float64. Boundary continuation uses float64 residuals with float32
+  derivatives, which are accurate enough for the Newton matrix.
+- **Boundaries (in progress).** Continued upward in temperature at
+  alpha 0.0717, the period-8 orbit keeps a real leading multiplier. That
+  multiplier passes close to zero (6e-5 near log10 T -0.108), then rises
+  toward +1 as the branch turns: a fold near log10 T -0.1033 (square-root
+  extrapolation). A shrimp needs more than one fold: fold and flip curves in
+  the plane, with cusps where folds meet. `curve` traces them.
+
 ## Toolkit for the model's own dynamics (12 October 2026)
 
 | Level | Map | Tool and subcommands | What is computed |
 | --- | --- | --- | --- |
 | Greedy token loop | deterministic map on context windows | `explore_llm_phase_map` map, families, existence | exact cycles, attractor families, existence regions from minimal logit margins |
 | Sampled token loop | Markov chain on windows | `explore_llm_msm` sample, build | metastable sets, implied timescales, stationary weights, residence times |
-| Soft-token decoding | smooth map of embedding windows | `explore_llm_soft_loop` scan, render, windows, orbit, tline | period and Lyapunov maps; Newton orbits with exact (forward-mode) Jacobians; continuation in temperature through folds with crossing classification |
+| Soft-token decoding | smooth map of embedding windows | `explore_llm_soft_loop` scan, render, windows, orbit, precision, tline, branch, curve, branch-plot | period and Lyapunov maps; float32 error against float64; Newton orbits with exact (forward-mode) Jacobians; one-parameter branches with all multipliers and classified crossings; two-parameter fold and flip curves with cusp flags (`tools/bifurcation_curves.py`) |
 | Looped LM latent loop | the model's own recurrence (Ouro, Huginn) | `explore_latent_loop` sweep, basin, orbit, continue-orbit, arclength, fixed-spectrum, positions, frozen-check, frozen-plane, vocab-basins | bifurcation diagrams; Newton-Krylov orbits and Arnoldi multipliers; pseudo-arclength through folds; fixed-point spectra; per-position (cascade) exponents; frozen-context single-position maps; attractors of the universal single-token map |
 
 All of them need only forward passes, forward-mode JVPs and batched
