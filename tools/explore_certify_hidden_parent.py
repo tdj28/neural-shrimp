@@ -150,6 +150,26 @@ def chain(args):
                "radius_exponent": args.radius_exponent}
     print(json.dumps(summary))
     (out / "chain-proof.json").write_text(json.dumps(proof, indent=1, default=str))
+    if not proof["passed"]:
+        return
+    # conditional complementary spectrum over the proved box
+    from neural_shrimp.rigorous_chain_spectrum import chain_complement
+    from neural_shrimp.rigorous_generalized_chain import augmented_chain
+
+    def ball(entry):
+        m, e = entry["mid"]
+        return arb(m) * arb(2) ** e
+
+    radius = arb(0, arb(2) ** args.radius_exponent)
+    box = [ball(v) + radius for v in proof["center"]]
+    tic = time.perf_counter()
+    _, _, data = augmented_chain(model, box, PERIOD)
+    spectrum = chain_complement(data["monodromy"], data["q"], data["r"])
+    discs = spectrum["spectral_exclusion"].get("discs", [])
+    print(json.dumps({"complement_passed": spectrum["passed"],
+                      "complement_attracting": spectrum["complement_attracting"],
+                      "discs": len(discs), "seconds": round(time.perf_counter() - tic, 1)}))
+    (out / "chain-complement.json").write_text(json.dumps(spectrum, indent=1, default=str))
 
 
 def main():
