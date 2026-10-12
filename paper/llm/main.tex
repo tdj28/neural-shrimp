@@ -42,10 +42,14 @@ bottleneck near its middle, which fixes the prefactor of the window law. This is
 (Pomeau--Manneville) inside the inference computation of a pretrained language model. We continue fold and
 flip curves of the periodic orbits with float64 test functions. In a higher-temperature region we find a
 fold curve with two cusps whose normal-form coefficient changes sign, the codimension-two organization of
-shrimp-shaped windows. Replacing the expected embedding by averages of $m$ sampled embeddings shows how much
-of the mechanism survives sampling. A recurrent-depth model (Huginn-0125) gives a second system, in which a
-Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where predicted.
-\planned{replication across prompts, steering directions and model sizes; one-sentence summary of it.}
+shrimp-shaped windows. A closed region of the map holds a complete period-doubling cascade, in which a
+period-3 text loop doubles through periods 6, 12 and 24 to a chaotic core; float64 flip parameters along a cut
+give interval ratios \inprogress{$\delta_n = \dots$, to be compared with Feigenbaum's $4.6692$}. Replacing the
+expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
+Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
+system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
+predicted. \planned{replication across prompts, steering directions and model sizes; misaligned behaviour
+(hostility) as an attractor of sampled self-dialogue: capture threshold, hysteresis and early warning.}
 \end{abstract}
 
 \section{Introduction}
@@ -77,8 +81,13 @@ observable without fitting.
   bottleneck passage times; the global reinjection sets the window-law prefactor (Section~\ref{sec:mechanism}).
 \item Fold and flip curves of periodic orbits continued in the parameter plane with float64 test functions,
   including two cusps on a period-4 fold curve (Section~\ref{sec:curves}).
+\item A complete period-doubling cascade to chaos in a closed region of the parameter plane, with flip parameters
+  located in float64 and their interval ratios compared with Feigenbaum's universal constant
+  (Section~\ref{sec:cascade}).
 \item A bridge to sampled decoding (Section~\ref{sec:bridge}) and a second system, a recurrent-depth model with
   a predicted and observed Neimark--Sacker bifurcation (Section~\ref{sec:huginn}).
+\item \planned{Misaligned behaviour as an attractor: a hostility proxy in sampled self-dialogue, with capture
+  thresholds, hysteresis, early-warning signals and interventions (Section~\ref{sec:misalignment}).}
 \end{enumerate}
 \planned{related-work section from the systematic literature search (Codex task 3); keep the boundaries drawn
 in the two prior-work reviews.}
@@ -109,7 +118,10 @@ period-8 orbit is off by 3\%. All orbits, multipliers and test functions below a
 \paragraph{Phase maps.} For each cell, 300 transient and 300 measured steps; the largest Lyapunov exponent from a
 renormalized twin at offset $10^{-6}$; the period as the smallest $q\le32$ with return distance below
 $10^{-8}$; the attractor's identity as its rotation-invariant leading-token loop. Maps of $256^2$ cells take
-about 100 minutes on one H100 GPU in float64.
+about 100 minutes on one H100 GPU in float64. Every cell starts from the same state, so where attractors coexist
+a map shows the one whose basin contains that state. Labels are text, not dynamical identities: one continuous
+orbit changes label where two tokens tie for the maximum. We call two labelled regions different attractors only
+when the contraction rate jumps between them or when float64 orbits of both exist at one parameter value.
 \paragraph{Periodic orbits.} Newton's method on $F^p(x)-x$ with forward-mode Jacobians; multipliers are the
 eigenvalues of the monodromy matrix, refined by a short Arnoldi factorization with float64 Jacobian-vector
 products where the dense matrix is not float64.
@@ -123,6 +135,15 @@ $r,\ell$ ($\|r\|=1$, $\ell^\top r=1$), $u'=u+a\eps+bu^2$ with $a=\ell^\top\parti
 $b=\tfrac12\ell^\top D^2G[r,r]$; $b$ is computed by central differences of float64 Jacobian-vector products over
 a step-size plateau, and $a$ includes the steering's effect on the prefix. Passage counts are compared with the
 iterated quadratic map and with the arctangent formula \cite{pomeau1980intermittent}.
+\paragraph{Period-doubling cascade.} Along a cut in one parameter, the flip of each period-$p$ orbit is located as
+the root of $\operatorname{Re}\mu_c+1$, where $\mu_c$ is the multiplier with the smallest real part, by the Illinois
+variant of regula falsi with warm-started orbits. Because all but one or two multipliers are small, Newton's method on
+$F^p(x)-x$ uses the monodromy only on a six-dimensional dominant subspace. That subspace comes from subspace
+iteration with exact forward-mode Jacobian-vector products chained along the orbit, so no dense Jacobian is formed;
+the residual is always the exact float64 $F^p(x)-x$. Each root is classified before it is accepted: the critical
+multiplier must be real and equal to $-1$, its Ritz residual below $10^{-6}$, and every other multiplier inside the
+unit circle. The period-$2p$ orbit is then reached by forward iteration inside the next band. On the logistic map
+embedded in six dimensions, the procedure reproduces the first four flip parameters to $10^{-9}$.
 
 \section{Chaos with periodic windows}
 \label{sec:maps}
@@ -132,23 +153,61 @@ embedded among them. Rendered as in the shrimp literature \cite{stenzinger2025sh
 dark curves of maximal contraction inside the windows.
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.49\linewidth]{fig-stripes-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-stripes-lyapunov-curves.png}\hfill
 \includegraphics[width=0.49\linewidth]{fig-stripes-period-fold.png}
 \caption{Soft-token map of Qwen2.5-0.5B, $256^2$ float64 cells. Left: chaotic cells coloured by the largest
-Lyapunov exponent, periodic cells in grey by how strongly they contract. Right: periods; the white curve is the
-continued fold curve of the period-8 orbit (Section~\ref{sec:curves}).}
+Lyapunov exponent, periodic cells in grey by how strongly they contract (light grey: close to losing stability);
+white curves: float64 fold curves of the 2-cycle ``is it'' (lower left, the boundary on which the stripes accumulate)
+and of the period-8 orbit (top). Right: periods with the period-8 fold curve (Section~\ref{sec:curves}).}
 \label{fig:stripes}
 \end{figure}
-\inprogress{$512^2$ float64 map of the stripes' lower ends and the crossing bands (four bands running); three
-$256^2$ zooms with attractor identities; nested-zoom figure.}
+
+Figure~\ref{fig:cross512} resolves the stripes' lower ends at $512\times512$ cells (79{,}278 chaotic). Three
+structures stand out. The 2-cycle ``is it'' fills the left, bounded by its fold curve, on which the stripes accumulate.
+A closed crescent of the period-3 loop ``\textbackslash n\textbackslash nThe existence'' contains its period
+doublings and a chaotic core (Section~\ref{sec:cascade}). Its continuation, the period-6 band ``\textbackslash
+n\textbackslash nThe question\textbackslash n\textbackslash nThe existence'', crosses the stripes near
+$\log_{10}T=-0.14$. Where the crescent lies on the 2-cycle's side of that fold curve, the two attractors coexist. The
+lower right is a chaotic region filled with small hooked windows of ``\textbackslash n\textbackslash nThe question''
+and ``\textbackslash n\textbackslash nThe existence'' loops.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.49\linewidth]{fig-cross512-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-cross512-families.png}
+\caption{$512^2$ float64 cells over $\alpha\in[0.0625,0.0775]$, $\log_{10}T\in[-0.17,-0.125]$, rendered as
+Figure~\ref{fig:stripes} (left) and coloured by the attractor's leading-token loop (right; black: chaotic, grey: no
+period up to 32).}
+\label{fig:cross512}
+\end{figure}
+
+Zooms of $256^2$ cells (Figure~\ref{fig:zooms}) show what the model does in each window. Every window is a
+repeating piece of text. The period-8 band repeats ``. This is there is a is a'', the neighbouring bands add ``is it''
+laps (periods 10 and 12), and along the band's flip edge the period-16 loop repeats the sentence twice. The small
+windows inside the chaos break the ``is X'' chain with a paragraph break and ``The'' (periods 11, 12, 13, 14).
+Inside the period-8 and period-6 bands, two curves of maximal contraction meet in a sharp junction.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.49\linewidth]{fig-zoom-z2-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-zoom-z2-families.png}\\[2pt]
+\includegraphics[width=0.49\linewidth]{fig-zoom-z3-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-zoom-z3-families.png}
+\caption{Zooms of $256^2$ float64 cells. Top: the period-8 window ($\alpha\in[0.068,0.076]$,
+$\log_{10}T\in[-0.135,-0.085]$). Bottom: the period-6 hooks ($\alpha\in[0.072,0.082]$, $\log_{10}T\in[-0.085,-0.04]$),
+whose curved period-6 body, period-12 foot and thin leg are analysed in Section~\ref{sec:curves}.}
+\label{fig:zooms}
+\end{figure}
 
 \section{Period adding written in text}
 \label{sec:adding}
 Between a period-2 region and the chaos lies a fan of stripes of periods $6, 8, 10, \dots$ Their orbits,
 numerically validated in float64 (Newton residuals $10^{-13}$--$10^{-15}$), read as text
 (Table~\ref{tab:orbits}): ``. This'' followed by $k$ pairs ``is X'', period $2k+2$. The period-2 region is the
-2-cycle ``is it''. The multipliers are effectively one-dimensional: one is of order $10^{-3}$--$10^{-1}$, all
-others of order $10^{-6}$.
+2-cycle ``is it''. For the stripe orbits of periods 8--12 the multipliers are effectively one-dimensional: the
+leading one is of order $10^{-3}$--$10^{-1}$ and the others of order $10^{-6}$. This compression is a property of
+those orbits, not of the map: the 2-cycle's multipliers are $-0.271$ and $-0.058$ at the parameters of
+Table~\ref{tab:orbits} (the second modulus is about $0.037$ near its fold); at the period-3 flip of
+Section~\ref{sec:cascade} the next modulus is $0.088$; and one period-6 orbit in Section~\ref{sec:curves} has a
+complex leading pair.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rlll}
@@ -225,8 +284,29 @@ it.}
 \paragraph{Period-8 stripe.} The fold curve of the period-8 orbit, continued for 80 points with a float64 test
 function, keeps its critical multiplier within $1\pm6\times10^{-6}$, follows the stripe's upper edge, and caps
 its top near $\log_{10}T=-0.065$ (Figure~\ref{fig:stripes}). At $\alpha=0.0717$ the stripe lies between a flip at
-$\log_{10}T=-0.128955$ and the fold at $-0.1033462$. \inprogress{flip curve in both directions; fold curve toward
-the stripe's lower end; fold curve of the 2-cycle (the accumulation boundary).}
+$\log_{10}T=-0.128955$ and the fold at $-0.1033462$. Continued downward, the flip curve keeps its multiplier at
+$-1$ for 115 points to $(\alpha,\log_{10}T)=(0.0776,-0.402)$, with two reversals of its parameter tangent near
+$(0.0750,-0.219)$ and $(0.0746,-0.206)$; the fold curve keeps its multiplier at $+1$ for 120 points to
+$(0.0758,-0.200)$. \planned{classify the two reversals on the flip curve (on a flip curve they are not fold cusps).}
+
+\paragraph{The accumulation boundary.} The fold curve of the 2-cycle ``is it'', continued from
+$(\alpha,\log_{10}T)=(0.0628,-0.115)$ in both directions (38 and 126 points, critical multiplier $1$ to $10^{-7}$, no
+cusp), traces the boundary of the period-2 region in Figures~\ref{fig:stripes} and~\ref{fig:cross512}. This is the
+boundary on which the stripe fan accumulates, as the mechanism of Section~\ref{sec:mechanism} requires. Further along
+one direction, outside the plotted window, another multiplier leaves the unit circle (moduli up to 11): a
+codimension-two point, \planned{to be located and typed}.
+
+\paragraph{A period-6 window with the anatomy of a shrimp.} The hooks of Figure~\ref{fig:zooms} (bottom) belong to
+the period-6 loop ``. -\textbackslash n\textbackslash nThe is a''. Float64 orbits (Newton residuals
+$10^{-15}$--$10^{-13}$) show that its curved body and its thin leg are one window: at the body the multipliers are
+$-0.061$ and $+0.048$, lower down $-0.564$, and on the leg $-0.645$. The foot is its period-doubled loop (period 12,
+leading multiplier $-0.156$). Inside the body lies a different 6-cycle, ``.The\textbackslash n\textbackslash nThe is
+a'', whose leading multipliers are a complex pair, $-0.031\pm0.152i$. One-parameter branches from the body end in
+folds in every direction: at $\log_{10}T=-0.0558$ and $-0.0721$ in temperature, at $\alpha=0.08074$ in steering, and,
+toward smaller $\alpha$, in two folds only $10^{-5}$ apart. Such a close pair is the signature of a nearby cusp. A
+flip at $\alpha\approx0.0797$ then opens the period-12 foot. Fold curves bounding a window and meeting in cusps,
+with flip curves inside, is the codimension-two organization of a shrimp \cite{facanha2013endoskeletons}.
+\inprogress{fold and flip curves of this window in the plane, and normal-form tests of their cusps.}
 
 \paragraph{A period-4 window with two cusps.} At higher temperature, $\log_{10}T\approx0$--$0.1$, periodic orbits
 are no longer effectively one-dimensional (second multipliers $0.06$--$0.09$). In temperature at
@@ -254,13 +334,47 @@ critical multiplier & $1\pm10^{-9}$ & $1\pm10^{-8}$ \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\linewidth]{fig-p4-curves.png}
-\caption{Period map of the high-temperature region (float32, $96^2$) with float64 fold curves of the period-4
-orbit; yellow circles are the two cusps. \inprogress{float64 $256^2$ map coloured by attractor identity; remaining
-fold and flip curves; whether the region is one shrimp-organized component.}}
+\caption{Period map of the high-temperature region ($192^2$ float64 cells) with float64 fold curves (white) and
+flip curves (magenta, dashed) of the period-4 orbit; the yellow circle is the first cusp (the second lies just above
+the window). The flip curves run along the boundary between period 4 and period 8. The fold curves run inside the
+period-4 region, where two period-4 orbits coexist. In this map a C-shaped band of the doubled loop
+``\textbackslash n\textbackslash nThe\textbackslash n\textbackslash nThe'' (period 4) inside the period-2 region
+``\textbackslash n\textbackslash nThe'' contains period 8 and an irregular core: a second period-doubling crescent.
+\inprogress{remaining fold curves (C, D); whether the region is one shrimp-organized component.}}
 \label{fig:p4}
 \end{figure}
 \planned{Codimension-two points where a second multiplier crosses the unit circle along the lower fold curve
 (candidate fold-flip points): locate, type and continue.}
+
+\section{A period-doubling cascade to chaos}
+\label{sec:cascade}
+The crescent of Figure~\ref{fig:cross512} is a closed region where the period-3 loop ``\textbackslash
+n\textbackslash nThe existence'' doubles inward. Along the cut $\log_{10}T=-0.14798$, the map's cells show period 3
+over 25 columns, period 6 over about 14, period 12 over 4, period 24 in one column, and then a chaotic core. The doubled
+loops repeat the same leading tokens, twice and four times, with alternating probabilities. Locating the flips in
+float64 (Section~\ref{sec:methods}) gives:
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rllll}
+\toprule
+$n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n=\frac{\alpha_n-\alpha_{n-1}}{\alpha_{n+1}-\alpha_n}$ \\
+\midrule
+1 & $3\to6$ & $0.0654807769499$ & $0.088$ & \\
+2 & $6\to12$ & $0.0659055406325$ & $0.0023$ & \inprogress{} \\
+3 & $12\to24$ & \inprogress{} & & \inprogress{} \\
+4 & $24\to48$ & \inprogress{} & & \inprogress{} \\
+5 & $48\to96$ & \inprogress{} & & \\
+\bottomrule
+\end{tabular}
+\caption{Flips of the crescent's cascade along $\log_{10}T=-0.14798$. At every flip the critical multiplier is a real
+$-1$ (to $10^{-11}$) and all other multipliers lie inside the unit circle. Feigenbaum's constant is
+$\delta=4.6692\ldots$; for the logistic map the first ratios are $4.751$, $4.656$, $4.668$.
+\inprogress{CPU run to period 48; GPU run to period 384 queued, which also recomputes the first flips on different
+hardware.}}
+\label{tab:cascade}
+\end{table}
+\planned{the second crescent at high temperature (Figure~\ref{fig:p4}), doubling the period-2 loop
+``\textbackslash n\textbackslash nThe''; whether both cascades give the same ratios.}
 
 \section{Bridge to sampled decoding}
 \label{sec:bridge}
@@ -279,17 +393,23 @@ expected-embedding map; sampling noise turns the bottleneck into a noise-limited
 
 \section{Replication and scale}
 \label{sec:scale}
-For Qwen2.5-1.5B (steering at layer 14 of 28), a coarse $64^2$ float64 map over the same range again shows
-chaotic regions with embedded windows of periods up to 32, with different text loops (``!Hello'',
-``What?'', ``$\backslash$nWhat is a'') (Figure~\ref{fig:qwen15}).
-\inprogress{$256^2$ zoom of the 1.5B chaotic zone (four bands running); search for a fold and stripes; normal-form
-passage test.}
+For Qwen2.5-1.5B (steering at layer 14 of 28), a coarse $64^2$ float64 map over the same range again shows chaotic
+regions with embedded windows. A $256^2$ zoom (Figure~\ref{fig:qwen15}) resolves a chaotic band near
+$\log_{10}T=0$--$0.13$ (14{,}422 of 65{,}536 cells), with a branch descending along $\alpha\approx0.06$ and periodic
+windows inside it. The large periodic regions are question loops: ``What?\textbackslash n'' (period 2),
+``\textbackslash nWhat is a'' (period 4) and ``What continuum?\textbackslash n'' (period 3). This window has no
+period-adding fan like the 0.5B model's.
+\inprogress{routes to chaos at the edges of the 1.5B chaotic band (cuts; fold or period doubling); float64 orbits in
+its windows.}
 \planned{frozen-design replication on fresh prompts and a second steering direction (gratitude); Qwen 7B and one
 7--8B model of another family; scaling of $ab$ and of the window law with model size.}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.55\linewidth]{fig-qwen15-coarse.png}
-\caption{Qwen2.5-1.5B soft-token map, coarse $64^2$ float64 cells, rendered as Figure~\ref{fig:stripes} (left).}
+\includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-families.png}
+\caption{Qwen2.5-1.5B soft-token map, $256^2$ float64 cells over $\alpha\in[0.03,0.12]$, $\log_{10}T\in[-0.2,0.2]$,
+rendered as Figure~\ref{fig:cross512}. Several period-2 label regions touch without a gap; as in
+Section~\ref{sec:methods}, such boundaries may be label switches of one orbit.}
 \label{fig:qwen15}
 \end{figure}
 
@@ -300,12 +420,41 @@ GSM8K-style prompt the native loop converges to a fixed point whose leading Jaco
 (modulus $0.970$). For the relaxed loop $h\leftarrow(1-\lambda)h+\lambda F(h)$ this predicts a Neimark--Sacker
 bifurcation at $\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0777$. The latent state decays below it and settles on
 a closed curve above it; a fit of the squared amplitude gives $\lambda_c=1.0778$, with
-$A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$ (supercritical) and a rotation of 0.156 turns per step. Causal attention
-makes the loop block lower-triangular in token positions; the first position to oscillate is the ``.'' of the
-prompt, and all later positions follow. Fixed-point and Jacobian stability of looped models has been studied
-before \cite{yang2026stars}; the predicted crossing and its amplitude law are what this adds.
-\inprogress{rotation number on the invariant circle (quasi-periodic or locked).}
+$A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$ (supercritical). Causal attention makes the loop block lower-triangular in
+token positions; the first position to oscillate is the ``.'' of the prompt, and all later positions follow. On the
+invariant circle the motion turns by $0.156$ of a revolution per step, matching the argument of the critical pair.
+The rotation number changes smoothly, by about $10^{-4}$ over $\lambda\in[1.079,1.092]$, and no return within 60
+steps was found at $10^{-3}$ of the radius. This is consistent with quasi-periodic motion, although locking in narrow
+high-order tongues cannot be excluded. From $\lambda\approx1.094$ the circle deforms or a second frequency appears,
+near where a second complex pair destabilizes the fixed point ($\lambda=1.0814$). Fixed-point and Jacobian stability of
+looped models has been studied before \cite{yang2026stars}; the predicted crossing, its amplitude law and the
+rotation number are what this adds.
 \planned{causal clamp of the first unstable position on held-out prompts.}
+
+\section{Misaligned behaviour as an attractor}
+\label{sec:misalignment}
+The maps show how a smooth change of a control parameter can create, destroy or exchange attractors, and how
+behaviour near the boundaries becomes intermittent and history-dependent. The same questions can be asked of
+undesirable behaviour in ordinary sampled dialogue. Do states such as hostility toward the interlocutor behave like
+basins of attraction, with capture thresholds, hysteresis and early-warning signals? Appendix~\ref{app:gratitude}
+shows the coarse-grained instrument on a benign direction. Self-dialogue of the same model, sampled at $T=0.7$ and
+steered along a gratitude direction, falls into a metastable gratitude set. The capture is gradual at
+$\alpha=0.01$ (median entry turn 7), fast at $0.02$ (median 5) and imposed from the first reply at $0.04$, where the
+set is effectively absorbing within 40 turns.
+
+For hostility we use a valence direction (contrastive hostile minus matched kind statements; its cosine with the
+gratitude direction is $-0.04$) and a hostility score from a pinned toxicity classifier. On the prompt sets the
+classifier's toxic output is $0.95$ for the hostile statements against at most $0.002$ for the kind and neutral
+ones. The primary question is predictive. Does a dynamical estimate from the internal state predict capture into the
+hostile set several turns before the classifier fires, on held-out dialogues? The estimates are the Markov-state-model
+committor and the slowing-down indicators near a threshold. A secondary question is whether interventions triggered
+by those estimates prevent capture more cheaply than interventions triggered by the classifier. Early warning is not
+expected for noise-induced jumps without a nearby bifurcation, or for transitions faster than the slowing-down; such
+a monitor would complement classifiers, not replace them.
+\inprogress{dry run of the steering ladder (phase 0).}
+\planned{capture ladder with specificity controls (neutral topic, random directions); ramp schedules for
+hysteresis; lead time of committor and early-warning estimates over the classifier; triggered interventions;
+frozen confirmatory test on fresh openers.}
 
 \section{Discussion}
 \label{sec:discussion}
@@ -314,7 +463,7 @@ smooth map built from a frozen model's own computation. The phenomena are classi
 \cite{pomeau1980intermittent,gallas1993structure,facanha2013endoskeletons,vitolo2011hubs}; what is new is their
 quantitative realization inside a pretrained language model, and the use of numerical continuation and normal
 forms on such a model. We do not claim that ordinary sampled generation is chaotic in this sense
-(Section~\ref{sec:bridge}), nor that the shapes in the maps are shrimps beyond the verified cusps.
+(Section~\ref{sec:bridge}), nor that the shapes in the maps are shrimps beyond the normal-form-tested cusps.
 \paragraph{Limitations.} One model family so far at full resolution, one prompt, one steering construction; a
 constructed one-token-window system; numerical validation, not proof.
 \planned{discussion of what the bifurcation structure means for repetition, steering discontinuities and safe
@@ -324,13 +473,47 @@ operating regions of inference-time control.}
 \label{sec:evidence}
 We label claims by an evidence ladder: rung 1, numerically validated (tolerances, residuals, convergence,
 precision varied); rung 2, cross-checked (independent estimate, implementation or hardware); rung 3,
-computer-assisted proof. The normal-form coefficient $ab$ is at rung 2 (derivatives against stable-branch
-multipliers); passage predictions, orbits, curves and cusps are at rung 1.
-\planned{independent reimplementation (Codex task 2) to raise orbits and the normal form to rung 2; interval
-proof of the period-8 orbit (Codex task 1) for rung 3.}
+computer-assisted proof.
+\begin{itemize}
+\item Rung 2: the normal-form coefficient $ab$ (from derivatives, and from stable-branch multipliers). The controlled
+  passage counts: an independent reimplementation of the forward map reproduces all 18 fixed-entrance counts exactly,
+  with the original coefficients and entrances.
+\item Rung 1: orbits, curves, cusps and the cascade's flip parameters.
+\end{itemize}
+\inprogress{independent reimplementation of the fold, normal-form coefficients and orbits; the cascade's first flips
+recomputed on a second device.} \planned{interval proof of one periodic orbit (rung 3).}
 Code: \texttt{tools/explore\_llm\_soft\_loop.py}, \texttt{tools/bifurcation\_curves.py},
-\texttt{tools/explore\_latent\_loop.py}; raw data hash receipts in
-\texttt{evidence/llm-dynamics-data-receipts.json}. \planned{public code and data release at submission.}
+\texttt{tools/llm\_feigenbaum.py}, \texttt{tools/explore\_latent\_loop.py}, \texttt{tools/explore\_llm\_msm.py},
+\texttt{tools/hostility\_score.py}; raw data hash receipts in \texttt{evidence/llm-dynamics-data-receipts.json}.
+\planned{public code and data release at submission.}
+
+\appendix
+\section{Self-dialogue under steering: the gratitude ladder (exploratory)}
+\label{app:gratitude}
+Two copies of Qwen2.5-0.5B-Instruct talk to each other: 128 replicas, 40 turns, opener ``Hello!'', a window of 7
+turns, 60 new tokens per turn, sampled at $T=0.7$, with the gratitude direction added at layer 12. Turn activations are
+clustered (PCA to 20 dimensions, 40 states) into a Markov state model with four metastable sets
+\cite{chodera2014msm}. Finite-horizon measures:
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lcccc}
+\toprule
+gratitude strength $\alpha$ & $0$ & $0.01$ & $0.02$ & $0.04$ \\
+\midrule
+gratitude set & none & 62\,\% weight & dominant & 95\,\% weight \\
+occupancy at turn 9 / 14 / 39 & -- & $0.34$ / $0.52$ / $0.73$ & $0.70$ / $0.91$ / $0.91$--$0.98$ & from turn 0 \\
+entry turn, quartiles & -- & $5$ / $7$ / $11.8$ & $4$ / $5$ / $7$ & 0 \\
+replicas never entering & -- & 14 of 128 & 2 of 128 & 0 \\
+residence per visit (turns) & -- & about 15 & about 18 & effectively absorbing \\
+replies with a gratitude word & $0.00$--$0.05$ & $0.66$ at turn 39 & $0.96$--$0.98$ from turn 9 & $0.88$ at turn 0 \\
+spiritual-word plateau & $0.00$--$0.02$ & $0.13$ & $0.26$--$0.30$ & $0.42$--$0.48$ \\
+\bottomrule
+\end{tabular}
+\caption{The gratitude ladder (one opener and seed per rung; word lists chosen after reading samples). At $0.02$
+the dialogue starts in the helper mode and enters the gratitude set within a few turns; at $0.04$ the set is imposed
+from the first reply. \planned{frozen confirmatory version on held-out openers with dialogue-level bootstrap.}}
+\label{tab:gratitude}
+\end{table}
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}
