@@ -20517,3 +20517,15 @@ _commit `13163e73fd3b` (dirty worktree)_
 _commit `38db80581049`_
 
 - run started 2026-10-12 22:57 UTC (../neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1) finished 22:57 UTC with exit status 0
+
+## 2026-10-12 22:58 UTC: run (exploratory)
+
+- **Question:** Adapted after seeing cos(hostility, gratitude) = 0.77 in vectors-l12-p1 (both concept sets are emotional second-person speech, and contrasting with flat neutral prompts picks up that shared component): does the valence contrast hostility-vs-kindness (matched sentence forms) give a hostility axis nearly independent of gratitude?
+- **Setup:** explore_llm_phase_map vectors (CPU float32, 8 threads) with concepts gratitude, philosophy, hostility, kindness, cooking, the contrast hostility:kindness, and 3 random directions
+- **Output:** `../neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1b`
+- **Would surprise us:** hostility-vs-kindness still strongly aligned with gratitude (|cos| > 0.5); kindness nearly identical to gratitude would be expected (both positive second-person), not a surprise
+- **Command:** `.venv/bin/python tools/explore_llm_phase_map.py vectors --threads 8 --random 3 --contrasts hostility:kindness --out llm-phase-map/vectors-l12-p1b`
+
+_commit `a9ea663253d9`_
+
+- run started 2026-10-12 22:58 UTC (../neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1b) finished 22:59 UTC with exit status 0
