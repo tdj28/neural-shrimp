@@ -948,15 +948,19 @@ def ns_check(args):
         h = hstar.repeat(B, 1, 1) + delta
         lam = torch.as_tensor(lambdas, dtype=loop.dtype, device=loop.device)[:, None, None]
         r = torch.as_tensor(rng.normal(size=(2,) + shape), dtype=loop.dtype, device=loop.device)
-        dist, proj = [], []
+        dist, proj, proj_pos = [], [], []
         tic = time.perf_counter()
         for _ in range(args.steps):
             h = (1 - lam) * h + lam * loop.F(h)
             d = (h - hstar).flatten(1)
             dist.append((d.norm(dim=1) / hstar.norm()).double().cpu().numpy())
             proj.append((d @ r.flatten(1).T).double().cpu().numpy())
+            # per position: downstream positions respond nonlinearly (harmonics), so the winding of the motion
+            # is read at the position whose block carries the instability
+            proj_pos.append(torch.einsum("bph,kph->bpk", h - hstar, r).float().cpu().numpy())
         per_pos = ((h - hstar).norm(dim=-1) / hstar.norm(dim=-1)).double().cpu().numpy()
     dist, proj = np.array(dist), np.array(proj)                 # (steps, B), (steps, B, 2)
+    proj_pos = np.array(proj_pos)                               # (steps, B, positions, 2)
     rows = []
     tail = slice(int(0.75 * args.steps), None)
     for b, lam_b in enumerate(lambdas):
@@ -979,7 +983,8 @@ def ns_check(args):
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "ns-check.json").write_text(json.dumps(rec, indent=1))
-    np.savez_compressed(out / "trajectories.npz", lambdas=lambdas, distance=dist, projection=proj)
+    np.savez_compressed(out / "trajectories.npz", lambdas=lambdas, distance=dist, projection=proj,
+                        projection_by_position=proj_pos)
     for row in rows:
         print(json.dumps({k: v for k, v in row.items() if k != "late_distance_by_position"}))
 
@@ -1056,16 +1061,23 @@ def ns_rotation(args):
     for run in args.runs:
         src = DATA / "explore" / run
         rec = json.loads((src / "ns-check.json").read_text())
-        proj = np.load(src / "trajectories.npz")["projection"]
+        tr = np.load(src / "trajectories.npz")
+        if "projection_by_position" not in tr:
+            raise SystemExit(f"{run} has no per-position projections (ns-check before they were recorded): the "
+                             f"projection over all positions mixes in the downstream harmonics and does not wind")
+        proj = tr["projection_by_position"]
         tail = proj.shape[0] // 4
         for b, r in enumerate(rec["rows"]):
             if r["late_distance_median"] <= args.min_amplitude:
                 continue
-            z = proj[-tail:, b, 0] + 1j * proj[-tail:, b, 1]
+            pos = args.position if args.position >= 0 else r["first_position_above_1e-4"]
+            z = proj[-tail:, b, pos, 0] + 1j * proj[-tail:, b, pos, 1]
             rho, q, d = rotation_summary(z, args.max_q, args.lock_tol)
-            rows.append({"run": run, "lambda": r["lambda"], "amplitude": r["late_distance_median"],
-                         "rotation_turns_per_step": rho, "locked_period": q, "return_distance": d,
-                         "steps_used": int(tail)})
+            x = z.real - z.real.mean()
+            pad = np.abs(np.fft.rfft(x, 16 * len(x))) ** 2
+            rows.append({"run": run, "lambda": r["lambda"], "amplitude": r["late_distance_median"], "position": pos,
+                         "rotation_turns_per_step": rho, "fft_peak_turns": float(np.argmax(pad) / (16 * len(x))),
+                         "locked_period": q, "return_distance": d, "steps_used": int(tail)})
     rows.sort(key=lambda r: r["lambda"])
     out = DATA / "explore" / (args.out or args.runs[0])
     out.mkdir(parents=True, exist_ok=True)
@@ -1677,6 +1689,8 @@ def main():
     nr = sub.add_parser("ns-rotation")
     nr.add_argument("--runs", nargs="+", required=True, help="explore-relative ns-check run directories")
     nr.add_argument("--min-amplitude", type=float, default=1e-3)
+    nr.add_argument("--position", type=int, default=-1,
+                    help="position whose projection is read (-1: the first position above 1e-4 in that row)")
     nr.add_argument("--max-q", type=int, default=60)
     nr.add_argument("--lock-tol", type=float, default=1e-3, help="return distance relative to the radius")
     nr.add_argument("--title", default="")
