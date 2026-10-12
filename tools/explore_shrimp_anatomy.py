@@ -637,10 +637,12 @@ def fold_prefactor(args):
                       "prefactor_gd_steps": 18 * math.pi / math.sqrt(abs(prod)), "newton": co["newton"][-1]}))
     rows = []
     sign = 1.0 if prod > 0 else -1.0                 # side without the cycle: a*d_eta has the sign of c_half
+    rng = np.random.default_rng(args.init_seed)
     for d in args.detunings:
         d_eta = sign * d
         p = [co["log10_output"], math.log10(co["eta_h"] + d_eta)]
-        res = passage_times(f, net, x, y, p, co["theta"] + 1e-6, args.steps, args.threshold, args.min_run)
+        start = co["theta"] + (args.init_scale * rng.normal(size=f.n) if args.init_scale > 0 else 1e-6)
+        res = passage_times(f, net, x, y, p, start, args.steps, args.threshold, args.min_run)
         pred = 18 * math.pi / math.sqrt(abs(prod) * d)
         if res is None:
             rows.append({"d_eta": d_eta, "outcome": "diverged"})
@@ -715,6 +717,8 @@ def main():
     fp.add_argument("--steps", type=int, default=600000)
     fp.add_argument("--threshold", type=float, default=0.05)
     fp.add_argument("--min-run", type=int, default=36)
+    fp.add_argument("--init-scale", type=float, default=0.0, help="random start perturbation (0: fold orbit + 1e-6)")
+    fp.add_argument("--init-seed", type=int, default=0)
     fp.add_argument("--out", required=True)
     rd = sub.add_parser("ridge")
     rd.add_argument("--centre", type=float, nargs=2, default=[-0.0857, 1.853])
