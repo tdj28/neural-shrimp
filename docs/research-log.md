@@ -18362,3 +18362,23 @@ _commit `a7497b206638`_
 window-* (explore_shrimp_anatomy window) at census representatives: periods 5, 11, 13, 17 (odd) and 16: attracting cycles (radius 0.81-0.99) whose states lie 98.7-99.8% in one principal plane and 99.7-99.98% in hidden-layer parameters. Odd windows have real leading multipliers (period 11: -0.842, +0.832; period 17: -0.813, +0.799; period 13: +0.886 then a complex pair 0.79), the classic fold/flip-bounded shrimp signature; winding tests were inconclusive (Newton from the cycle centre found an unstable fixed point for periods 5 and 11, a saddle 2-cycle for period 17; no winding around them or the minimum). lyapunov-001: chaotic attractors next to the period-18 window have lambda_1 = 0.036-0.048, lambda_2 = -0.0003 to +0.0036 and Kaplan-Yorke dimension 3.17-3.40, although 79-96% of the two-step variance lies in one plane; the quasi-periodic point below the window gives lambda_1 = 1e-5 and dimension 1.00 (invariant circle); the window gives a periodic attractor; far chaos is hyperchaotic (lambda_2 = 0.057, dimension 5.6). Weakly contracting transverse directions keep the fractal dimension above 3, so the two-dimensional-map analogy (Henon-type shrimps) is qualitative only.
 
 _commit `a7497b206638` (dirty worktree)_
+
+- run started 2026-10-11 23:57 UTC finished 00:25 UTC with exit status 0
+
+## 2026-10-12 00:26 UTC: run (exploratory)
+
+- **Question:** Is the CIFAR 2-cycle's real two-step multiplier 1.0000777 (eta 0.00938931) genuine or a dense-eigensolver artifact, and which weights does it move?
+- **Setup:** check-mode at orbit-003's saved orbit point: dense two-step Jacobian, shift-invert Arnoldi (k=6) at sigma 1.0002, matrix-free check |M v - mu v|, block composition of each eigenvector; 12 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/check-mode-001`
+- **Would surprise us:** Matrix-free residual large (artifact), or an eigenvector concentrated in the first layer's near-null column (data-span artifact)
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py check-mode --orbit ../neural-shrimp-data/explore/cifar-reduced/orbit-003/orbit-eta0.00938931.npy --eta 0.00938931 --out ../neural-shrimp-data/explore/cifar-reduced/check-mode-001`
+
+_commit `7e5b0521fd23` (dirty worktree)_
+
+- run started 2026-10-12 00:26 UTC finished 00:28 UTC with exit status 0
+
+## 2026-10-12 00:29 UTC: CIFAR: the subset-A 2-cycle at eta 0.0094 is a slow saddle (several real two-step multipliers 1.00002-1.00007), which is why orbit closure kept failing
+
+orbit-003: from the saved eta 0.00938931 state, 400,000 reduced descent steps (254 s) and backtracking dense Newton both stall at relative residual 2.16e-6; the point is a genuine 2-cycle candidate (relative separation |F(theta)-theta|/|theta| = 8.7e-4) with a complex pair 0.99560 +- 0.01601i (modulus 0.99573, 0.0026 turns; 0.9961 at eta 0.0083 by Krylov, so it is not approaching the unit circle in this range) and a real multiplier 1.0000777 on top. check-mode-001 (shift-invert Arnoldi at 1.0002 on the dense two-step Jacobian, matrix-free check |Mv - mu v| < 5e-8): at least six real multipliers between 1.000015 and 1.000074, eigenvectors 85-93% first-layer weights along the data span spread over different hidden units, about 7-15% second layer. These correspond to slightly negative curvature of the data loss (about -0.014 against weight decay 0.01) along the cycle: the cycle is a slow saddle with an e-folding time of order 1e4 two-steps, so no attracting period-2 orbit exists at these rates, and plain descent drifts slowly. This explains the stalled Krylov (Codex) and dense Newton closures; it is a property of the problem, not of the solvers. Next CIFAR question, when resumed: where (in eta and lambda) does an attracting 2-cycle exist at all, for example with larger weight decay that lifts the weak negative curvature.
+
+_commit `7e5b0521fd23` (dirty worktree)_
