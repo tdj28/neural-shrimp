@@ -215,6 +215,7 @@ def sweep(args):
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(out / "sweep.npz", lambdas=lambdas, lyapunov=lyap, period=period, observable=obs)
+    np.save(out / "final-states.npy", h.float().cpu().numpy())        # verify flagged cells from these exact states
     rows = [{"lambda": float(l), "lyapunov": float(v), "period": int(q),
              "observable_spread": float(obs[-args.record:, i].std())} for i, (l, v, q) in
             enumerate(zip(lambdas, lyap, period))]
@@ -419,7 +420,11 @@ def orbit(args):
     def to_np(t):
         return t.detach().double().cpu().numpy().ravel()
 
-    h = h0
+    if args.start_states:
+        h = torch.as_tensor(np.load(DATA / "explore" / args.start_states)[args.start_index][None],
+                            dtype=loop.dtype, device=loop.device)
+    else:
+        h = h0
     for _ in range(args.transient):
         h = relaxed(h)
     history = []
@@ -478,6 +483,58 @@ def orbit(args):
     dest = DATA / "explore" / args.out
     dest.mkdir(parents=True, exist_ok=True)
     (dest / "orbit.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
+
+
+def basin(args):
+    """Replicas from slightly perturbed starts at one lambda: how many end on a periodic orbit, and with what
+    Lyapunov exponent (coexisting attractors and basin fractions)."""
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    h0 = loop.setup(PROMPTS[args.prompt])
+    R = args.replicas
+    rng = np.random.default_rng(args.seed)
+    noise = torch.as_tensor(rng.normal(size=(R,) + tuple(h0.shape[1:])), dtype=loop.dtype, device=loop.device)
+    h = h0.repeat(R, 1, 1)
+    h = h + noise * (args.noise * h0.norm() / np.sqrt(h0.numel()))
+    lam = float(args.lam)
+
+    def relaxed(x):
+        return (1 - lam) * x + lam * loop.F(x)
+
+    tic = time.perf_counter()
+    for _ in range(args.transient):
+        h = relaxed(h)
+    eps = (args.eps * h.flatten(1).norm(dim=1))[:, None, None]
+    d = torch.as_tensor(rng.normal(size=tuple(h.shape)), dtype=loop.dtype, device=loop.device)
+    g = h + d / d.flatten(1).norm(dim=1)[:, None, None] * eps
+    log_growth = np.zeros(R)
+    recent = []
+    for _ in range(args.measure):
+        x = relaxed(torch.cat([h, g]))
+        h_new, g_new = x[:R], x[R:]
+        diff = g_new - h_new
+        dist = diff.flatten(1).norm(dim=1)
+        log_growth += np.log(np.maximum((dist / eps[:, 0, 0]).cpu().numpy(), 1e-300))
+        g = h_new + diff * (eps[:, 0, 0] / torch.clamp(dist, min=1e-300))[:, None, None]
+        h = h_new
+        recent.append(h.double().cpu().numpy())
+        recent = recent[-(args.max_period + 1):]
+    lyap = log_growth / args.measure
+    last = recent[-1]
+    norms = np.linalg.norm(last.reshape(R, -1), axis=1)
+    period = np.zeros(R, dtype=int)
+    for q in range(min(args.max_period, len(recent) - 1), 0, -1):
+        close = np.linalg.norm((recent[-1 - q] - last).reshape(R, -1), axis=1) / norms < args.tol
+        period = np.where(close, q, period)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.save(out / "final-states.npy", h.float().cpu().numpy())
+    summary = {"args": vars(args), "seconds": round(time.perf_counter() - tic, 1),
+               "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
+               "lyapunov_by_replica": lyap.tolist(), "period_by_replica": period.tolist()}
+    (out / "basin.json").write_text(json.dumps(summary, indent=1))
+    print(json.dumps({"lambda": lam, "period_counts": summary["period_counts"],
+                      "lyapunov_quantiles": np.quantile(lyap, [0.0, 0.25, 0.5, 0.75, 1.0]).round(4).tolist()}))
 
 
 def main():
@@ -544,6 +601,8 @@ def main():
     ob.add_argument("--lam", type=float, required=True)
     ob.add_argument("--period", type=int, default=2)
     ob.add_argument("--transient", type=int, default=600)
+    ob.add_argument("--start-states", default=None, help="explore-relative .npy of saved states (e.g. final-states.npy)")
+    ob.add_argument("--start-index", type=int, default=0)
     ob.add_argument("--max-newton", type=int, default=12)
     ob.add_argument("--tol", type=float, default=1e-6)
     ob.add_argument("--gmres-tol", type=float, default=1e-4)
@@ -552,6 +611,22 @@ def main():
     ob.add_argument("--k", type=int, default=8)
     ob.add_argument("--arnoldi-iter", type=int, default=300)
     ob.add_argument("--out", required=True)
+    bs = sub.add_parser("basin")
+    bs.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    bs.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    bs.add_argument("--device", default="cpu")
+    bs.add_argument("--threads", type=int, default=8)
+    bs.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    bs.add_argument("--lam", type=float, required=True)
+    bs.add_argument("--replicas", type=int, default=32)
+    bs.add_argument("--noise", type=float, default=1e-3, help="initial perturbation relative to the typical entry")
+    bs.add_argument("--seed", type=int, default=0)
+    bs.add_argument("--transient", type=int, default=2000)
+    bs.add_argument("--measure", type=int, default=400)
+    bs.add_argument("--max-period", type=int, default=32)
+    bs.add_argument("--tol", type=float, default=1e-5)
+    bs.add_argument("--eps", type=float, default=1e-5)
+    bs.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -560,7 +635,7 @@ def main():
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
-     "orbit": orbit}[args.command](args)
+     "orbit": orbit, "basin": basin}[args.command](args)
 
 
 if __name__ == "__main__":
