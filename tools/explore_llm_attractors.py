@@ -259,7 +259,10 @@ def summary(args):
                "tail_cos": float(np.nanmean(cos[tail])), "tail_distinct_texts": len(set(texts[tail])),
                "last_text": texts[-1][:160]}
         period = (rec["cycle"].get("period_turns") or rec["cycle"].get("period")) if rec["cycle"] else None
-        persistent = bool(period and len(texts) >= 2 * period and texts[-period:] == texts[-2 * period:-period])
+        # greedy decoding is a deterministic map of the windowed state, so a repeated state is a genuine cycle
+        # (and the last `period` turns lie on it); for sampled runs require two identical final periods
+        persistent = bool(period and (temp == 0 or (len(texts) >= 2 * period
+                                                     and texts[-period:] == texts[-2 * period:-period])))
         row["cycle_period"] = period if persistent else None
         row["attractor_texts"] = sorted(set(texts[-period:])) if persistent else None
         rows.append(row)
