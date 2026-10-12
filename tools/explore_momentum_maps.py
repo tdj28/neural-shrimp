@@ -390,7 +390,24 @@ def arc(args):
               "minimum_norm": float(np.linalg.norm(theta)),
               "minimum_loss": float(mm.net.loss(theta[None, :], mm.x, mm.y)[0])}
     seed = None
-    for side in (+1, -1):
+    if args.seed_at is not None:
+        # seed from the attractor reached at ray position seed_at (a 2-cycle branch need not connect to the flip)
+        s0 = args.seed_at
+        rates = system.rates(s0)
+        t, m_ = mm.theta0[None, :].copy(), np.zeros((1, n))
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _ in range(args.seed_steps):
+                t, m_ = mm.step(t, m_, rates)
+        fixed = np.zeros(2 * n + 1)
+        fixed[-1] = 1.0
+        w0 = np.concatenate([t[0], m_[0], [s0]])
+        w, hist = newton(system, w0, max_iter=60, extra=lambda q: (fixed, q[-1] - s0))
+        record["seed_at"] = {"s": s0, "steps": args.seed_steps, "newton": hist}
+        if w is not None:
+            _, _, _, pts = system.residual_jacobian(w)
+            if np.linalg.norm(pts[1][:n] - pts[0][:n]) > args.min_separation:
+                seed = (w, +1)
+    for side in ((+1, -1) if args.seed_at is None else ()):
         s0 = s_flip + side * args.start_offset
         rates = system.rates(s0)
         jac = mm.jacobian(theta, np.zeros(n), rates)
@@ -559,6 +576,8 @@ def criticality(args):
                      *task_options(record))
     n = mm.n
     require_same_ridge(mm, record)
+    if not record.get("first_crossing"):
+        raise SystemExit(f"{args.arc}: no first crossing recorded; nothing to classify")
     nodes = np.load(base / "nodes.npz")["w"]
     system = MomentumTwoCycle(mm, args.offset_output)
     fixed_row = np.zeros(2 * n + 1)
@@ -912,6 +931,9 @@ def main():
     ac.add_argument("--steps", type=int, default=6000)
     ac.add_argument("--beyond", type=float, default=0.02)
     ac.add_argument("--s-max", type=float, default=2.3)
+    ac.add_argument("--seed-at", type=float, default=None,
+                    help="seed the 2-cycle from the attractor reached at this ray position instead of the flip")
+    ac.add_argument("--seed-steps", type=int, default=100000)
     ac.add_argument("--out", required=True)
     on = sub.add_parser("onset")
     on.add_argument("--system", default="S2")
