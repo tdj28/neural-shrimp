@@ -1027,6 +1027,64 @@ def ns_plot(args):
     print(json.dumps({"figure": str(out), "fit": fit}))
 
 
+def rotation_summary(z, max_q=60, lock_tol=1e-3):
+    """Rotation of a late trajectory on an invariant circle, from its complex 2-D projection z (steps,): the mean
+    angle increment about the centre in turns per step (unwrapped), and the smallest q <= max_q with
+    median |z(t + q) - z(t)| below lock_tol times the circle's radius (a locked p/q orbit returns after q steps;
+    a quasi-periodic one never does). Returns (rotation, q or None, return distance at q or at the best q)."""
+    z = np.asarray(z) - np.mean(z)
+    theta = np.unwrap(np.angle(z))
+    rho = float((theta[-1] - theta[0]) / (2 * np.pi * (len(z) - 1)))
+    radius = float(np.median(np.abs(z)))
+    dist = [float(np.median(np.abs(z[q:] - z[:-q]))) / radius for q in range(1, max_q + 1)]
+    locked = next((q for q, d in enumerate(dist, 1) if d < lock_tol), None)
+    best = int(np.argmin(dist)) + 1
+    return rho, locked, dist[(locked or best) - 1]
+
+
+def ns_rotation(args):
+    """Rotation numbers on the invariant circles of ns-check runs: for every lambda whose late distance exceeds
+    --min-amplitude, the mean rotation (turns per step) of the late quarter of its projection and a locking test
+    (return after q steps). Quasi-periodic motion gives a rotation number that varies continuously with lambda and
+    no return; a resonance gives a plateau at p/q and returns after q steps. Writes rotation.json in the first
+    run directory (or --out) and a figure."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    rows = []
+    for run in args.runs:
+        src = DATA / "explore" / run
+        rec = json.loads((src / "ns-check.json").read_text())
+        proj = np.load(src / "trajectories.npz")["projection"]
+        tail = proj.shape[0] // 4
+        for b, r in enumerate(rec["rows"]):
+            if r["late_distance_median"] <= args.min_amplitude:
+                continue
+            z = proj[-tail:, b, 0] + 1j * proj[-tail:, b, 1]
+            rho, q, d = rotation_summary(z, args.max_q, args.lock_tol)
+            rows.append({"run": run, "lambda": r["lambda"], "amplitude": r["late_distance_median"],
+                         "rotation_turns_per_step": rho, "locked_period": q, "return_distance": d,
+                         "steps_used": int(tail)})
+    rows.sort(key=lambda r: r["lambda"])
+    out = DATA / "explore" / (args.out or args.runs[0])
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "rotation.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
+    fig, ax = plt.subplots(figsize=(6, 4))
+    lam = [r["lambda"] for r in rows]
+    ax.plot(lam, [r["rotation_turns_per_step"] for r in rows], "o-", ms=3)
+    for r in rows:
+        if r["locked_period"]:
+            ax.annotate(str(r["locked_period"]), (r["lambda"], r["rotation_turns_per_step"]), fontsize=7)
+    ax.set_xlabel("lambda (relaxation)")
+    ax.set_ylabel("rotation (turns per step)")
+    ax.set_title(args.title or "rotation on the invariant circle", fontsize=10)
+    fig.tight_layout()
+    fig.savefig(out / "rotation.png", dpi=150)
+    for r in rows:
+        print(json.dumps(r))
+
+
 def vocab_basins(args):
     """Ouro's position 0 follows one universal map (no input injection: the token only sets the initial state).
     Start it from many token embeddings at once, iterate the (relaxed) loop, and group the end states: the
@@ -1616,6 +1674,13 @@ def main():
     np_.add_argument("--predicted", type=float, default=None, help="threshold predicted from the spectrum")
     np_.add_argument("--min-amplitude", type=float, default=1e-3, help="late distance counted as above threshold")
     np_.add_argument("--title", default="")
+    nr = sub.add_parser("ns-rotation")
+    nr.add_argument("--runs", nargs="+", required=True, help="explore-relative ns-check run directories")
+    nr.add_argument("--min-amplitude", type=float, default=1e-3)
+    nr.add_argument("--max-q", type=int, default=60)
+    nr.add_argument("--lock-tol", type=float, default=1e-3, help="return distance relative to the radius")
+    nr.add_argument("--title", default="")
+    nr.add_argument("--out", default="")
     ar = sub.add_parser("arclength")
     ar.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ar.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -1716,7 +1781,7 @@ def main():
      "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit, "fixed-spectrum": fixed_spectrum,
      "arclength": arclength, "positions": positions, "frozen-check": frozen_check,
      "frozen-plane": frozen_plane, "vocab-basins": vocab_basins, "ns-check": ns_check,
-     "ns-plot": ns_plot}[args.command](args)
+     "ns-plot": ns_plot, "ns-rotation": ns_rotation}[args.command](args)
 
 
 if __name__ == "__main__":

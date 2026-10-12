@@ -56,3 +56,16 @@ def test_arclength_fold_in_many_dimensions_uses_arnoldi():
     assert all(r["real_multiplier_nearest_one"] < 1 for r in records[: i - 1])
     assert all(r["real_multiplier_nearest_one"] > 1 for r in records[i:])
     assert records[-1]["lambda"] >= 0.01 - 1e-12                 # continued beyond the turn on the other branch
+
+
+def test_rotation_summary_tells_quasi_periodic_from_locked_motion():
+    """An ellipse traversed with an irrational rotation never returns; a 2/13 resonance returns after 13 steps;
+    the rotation number comes out in turns per step either way, also for an off-centre, skewed projection."""
+    t = np.arange(4000)
+    golden = (np.sqrt(5) - 1) / 2 * 0.25
+    for rho, q in ((golden, None), (2 / 13, 13)):
+        phase = 2 * np.pi * rho * t
+        z = 0.3 + 0.1j + 2.0 * np.cos(phase) + 1j * (0.5 * np.sin(phase) + 0.4 * np.cos(phase))
+        r, locked, d = ell.rotation_summary(z, max_q=60, lock_tol=1e-6)
+        assert abs(r - rho) < 1e-3
+        assert locked == q
