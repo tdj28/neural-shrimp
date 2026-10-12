@@ -387,6 +387,13 @@ def plane(args):
     fig.savefig(out / "plane.png", dpi=120)
 
 
+def math_attention():
+    """Scaled-dot-product attention through the plain math kernel (the fused kernels lack forward-mode AD)."""
+    from torch.nn.attention import SDPBackend, sdpa_kernel
+
+    return sdpa_kernel(SDPBackend.MATH)
+
+
 def orbit(args):
     """Newton-Krylov for a period-p orbit of the relaxed loop, with Arnoldi multipliers (matrix-free JVPs)."""
     from scipy.sparse.linalg import LinearOperator, eigs, gmres
@@ -430,7 +437,8 @@ def orbit(args):
         base = h.detach()
 
         def mv(v, base=base):
-            _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
+            with math_attention():
+                _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
             return to_np(jv) - np.asarray(v).ravel()
 
         A = LinearOperator((n, n), matvec=mv, dtype=np.float64)
@@ -450,7 +458,8 @@ def orbit(args):
     base = h.detach()
 
     def mono(v):
-        _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
+        with math_attention():
+            _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
         return to_np(jv)
 
     vals = eigs(LinearOperator((n, n), matvec=mono, dtype=np.float64), k=args.k, which="LM",
