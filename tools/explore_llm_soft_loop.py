@@ -726,7 +726,7 @@ def scan(args):
     fam_list = [{"family": i, "period": len(key), "cells": int((family == i).sum()),
                  "tokens": [tok.decode([t]) for t in key]} for key, i in families.items()]
     fam_list.sort(key=lambda f: -f["cells"])
-    summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list[:200],
+    summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list,
                "lyapunov_positive": int((lyap > args.chaos_level).sum()),
                "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
                "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
@@ -842,6 +842,52 @@ def render(args):
     fig.savefig(src / (args.name or "render.png"), dpi=150)
     counts = {int(q): int((per == q).sum()) for q in np.unique(per)}
     print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
+
+
+def stitch(args):
+    """Join scan bands (each a full-width scan over consecutive rows of one grid, given in row order) into one scan:
+    rows are concatenated, family identities are merged by their token loops, and a summary is written like
+    scan's. Refuses bands whose columns differ or whose rows do not continue the same spacing."""
+    bands = [DATA / "explore" / b for b in args.bands]
+    data = [np.load(b / "scan.npz") for b in bands]
+    infos = [json.loads((b / "scan.json").read_text()) for b in bands]
+    alpha = data[0]["alpha"]
+    if any(not np.allclose(d["alpha"], alpha, rtol=0, atol=1e-15) for d in data):
+        raise SystemExit("bands have different alpha columns")
+    lt = np.concatenate([d["log10_temperature"] for d in data])
+    steps = np.diff(lt)
+    if not np.allclose(steps, steps[0], rtol=1e-6, atol=0):
+        raise SystemExit("bands do not continue one evenly spaced temperature grid")
+    keys, merged, fam_rows = {}, [], []
+    for d, info in zip(data, infos):
+        local = {f["family"]: f for f in info.get("families", [])}
+        fam = d["family"] if "family" in d else np.full(d["period"].shape, -1)
+        remap = np.full(max(local, default=-1) + 2, -1, dtype=int)
+        for i, f in local.items():
+            key = tuple(f["tokens"])
+            if key not in keys:
+                keys[key] = len(keys)
+                merged.append({"family": keys[key], "period": f["period"], "cells": 0, "tokens": f["tokens"]})
+            remap[i] = keys[key]
+        fam_rows.append(np.where(fam >= 0, remap[np.clip(fam, 0, len(remap) - 1)], -1))
+    family = np.concatenate(fam_rows)
+    for f in merged:
+        f["cells"] = int((family == f["family"]).sum())
+    merged.sort(key=lambda f: -f["cells"])
+    period = np.concatenate([d["period"] for d in data])
+    lyap = np.concatenate([d["lyapunov"] for d in data])
+    entropy = np.concatenate([d["entropy"] for d in data])
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "scan.npz", log10_temperature=lt, alpha=alpha, lyapunov=lyap, period=period,
+                        entropy=entropy, family=family)
+    summary = {"args": vars(args), "bands": [str(b) for b in args.bands], "band_args": [i["args"] for i in infos],
+               "seconds": round(sum(i["seconds"] for i in infos), 1), "cells": int(period.size),
+               "families": merged, "lyapunov_positive": int((lyap > infos[0]["args"]["chaos_level"]).sum()),
+               "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
+               "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
+    (out / "scan.json").write_text(json.dumps(summary, indent=1))
+    print(json.dumps({k: v for k, v in summary.items() if k not in ("args", "families", "band_args")}))
 
 
 def readout(args):
@@ -1327,6 +1373,9 @@ def main():
                     help="Arnoldi steps for refined leading multipliers (0: dense float32 multipliers only)")
     bb.add_argument("--chunk", type=int, default=512)
     bb.add_argument("--out", required=True)
+    st = sub.add_parser("stitch")
+    st.add_argument("--bands", nargs="+", required=True, help="explore-relative band scans in row order")
+    st.add_argument("--out", required=True)
     nfp = sub.add_parser("normal-form")
     nfp.add_argument("--run", required=True, help="explore-relative curve or branch run holding the fold point")
     nfp.add_argument("--index", type=int, default=0)
@@ -1402,7 +1451,7 @@ def main():
     cv.add_argument("--out", required=True)
     args = parser.parse_args()
     {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
-     "walk": walk, "normal-form": normal_form, "passage": passage,
+     "walk": walk, "normal-form": normal_form, "passage": passage, "stitch": stitch,
      "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout}[args.command](args)
 
 

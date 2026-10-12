@@ -6,6 +6,8 @@
 # monodromies, JVPs, residuals and multipliers, so no mixed-precision correction is involved.
 set -uo pipefail
 JOBSET=${1:-skeleton}
+shift || true
+JOBARGS=("$@")              # scanband: OUT-NAME MINUTES then scan arguments
 cd /root/neural-shrimp
 export NEURAL_SHRIMP_DATA=/root/neural-shrimp-data
 export PATH=/root/.local/bin:/usr/local/cuda/bin:$PATH
@@ -112,6 +114,12 @@ case "$JOBSET" in
     SCAN="scan --device cuda --dtype float64 --chunk 2048 --resolution 256 256 --tol 1e-8 --eps 1e-6"
     run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
     run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
+    ;;
+  scanband)    # one band of a large float64 map split across pods: scanband OUT MINUTES SCAN-ARGS...
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    run scanband-$name "$minutes" scan --device cuda --dtype float64 --chunk 2048 --tol 1e-8 --eps 1e-6 \
+      "${JOBARGS[@]:2}" --out $D/bands/$name
     ;;
   highT)       # 256x256 float64 map of the high-entropy region with attractor identities (token loops), so that
                # different period-4 orbits are told apart; then the same window zoomed on the period-4 body

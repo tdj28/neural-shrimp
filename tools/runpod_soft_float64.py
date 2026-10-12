@@ -53,7 +53,8 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband"))
+    parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--run-minutes", type=float, required=True)
     parser.add_argument("--out", default=str(rp.DATA / "runpod" / "soft64"))
@@ -114,7 +115,8 @@ def main():
                        check=True, timeout=600)
         rp.record({"event": "uploaded", "pod_id": pod_id, "archive_bytes": len(code), "data_bytes": len(data)})
         with open(out / "runner-stdout.txt", "w") as log:              # streamed: readable while the run goes
-            proc = subprocess.Popen(base + [f"bash /root/neural-shrimp/tools/runpod_soft_runner.sh {args.jobset}"],
+            remote = f"bash /root/neural-shrimp/tools/runpod_soft_runner.sh {args.jobset} {args.jobset_args}".strip()
+            proc = subprocess.Popen(base + [remote],
                                     stdout=log, stderr=subprocess.STDOUT)
             try:
                 proc.wait(timeout=60 * args.run_minutes)
