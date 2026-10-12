@@ -737,7 +737,9 @@ def rotation_summary(args):
                "rho_quantiles_rotating": np.quantile(rho[rotating], [0.1, 0.5, 0.9]).tolist() if rotating.any() else None}
         rows.append(row)
         print(json.dumps(row))
-        im = ax.pcolormesh(lo, lh, np.where(moving, rho, np.nan), cmap="twilight", vmin=0, vmax=0.5, shading="auto")
+        # categories: white = diverged, grey = settled (no extent), colour = moving (non-cyclic map, 0 dark)
+        ax.pcolormesh(lo, lh, np.where(alive & ~moving, 1.0, np.nan), cmap="Greys", vmin=0, vmax=4, shading="auto")
+        im = ax.pcolormesh(lo, lh, np.where(moving, rho, np.nan), cmap="viridis", vmin=0, vmax=0.5, shading="auto")
         ax.set_xlabel("log10 output rate")
         ax.set_ylabel("log10 hidden rate")
         ax.set_title(name.split("/")[-1])
