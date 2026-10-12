@@ -862,7 +862,7 @@ def fixed_spectrum(args):
 
     A fixed point of the relaxed map is a fixed point of F for every lambda, and its relaxed multipliers are
     1 - lambda + lambda mu for F's multipliers mu, so F's spectrum predicts the whole stability interval."""
-    from scipy.sparse.linalg import LinearOperator, eigs
+    from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, eigs
 
     loop = make_loop(args)
     torch = loop.torch
@@ -889,10 +889,18 @@ def fixed_spectrum(args):
         return jv.detach().double().cpu().numpy().ravel()
 
     op = LinearOperator((n, n), matvec=dF, dtype=np.float64)
-    spectra = {}
+    spectra, converged = {}, {}
     for which in ("LM", "SR", "LR"):
-        vals = eigs(op, k=args.k, which=which, return_eigenvectors=False, tol=1e-5, maxiter=args.arnoldi_iter)
+        try:
+            vals, ok = eigs(op, k=args.k, which=which, return_eigenvectors=False, tol=1e-5,
+                            maxiter=args.arnoldi_iter), True
+        except ArpackNoConvergence as err:                  # keep the converged ones and flag the set
+            vals, ok = np.asarray(err.eigenvalues), False
+        if which == "LM":
+            vals = vals[np.argsort(-np.abs(vals))]
         spectra[which] = [[float(v.real), float(v.imag)] for v in vals]
+        converged[which] = ok
+    lead = [complex(a, b) for a, b in spectra["LM"]]
     mus = np.array([complex(a, b) for vals in spectra.values() for a, b in vals])
     # stability interval of the relaxed map from the computed multipliers: |1 - lam + lam mu| < 1
     grid = np.linspace(0.001, 2.0, 4000)
@@ -907,6 +915,8 @@ def fixed_spectrum(args):
     if inside:
         intervals.append([float(start), float(grid[-1])])
     rec = {"args": vars(args), "fixed_point_residual_F": res, "spectra_of_F": spectra,
+           "arnoldi_converged": converged,
+           "leading_modulus_and_turns": [[abs(v), float(np.angle(v) / (2 * np.pi))] for v in lead],
            "predicted_stable_lambda_intervals": intervals,
            "readout": loop.tok.decode([loop.readout(h)[0]])}
     (out / "fixed-spectrum.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))

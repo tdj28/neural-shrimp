@@ -365,6 +365,151 @@ def tline(args):
     print(json.dumps({"period": period, "stop": reason, "points": len(records), "crossings": crossings}))
 
 
+def soft_family(loop, v, period, alpha_scale=10.0, chunk=512):
+    """The p-fold soft map as a two-parameter family for bifurcation_curves, theta = (log10 T, alpha * alpha_scale).
+    The steering acts on the prefix too, so phi recomputes the prefix cache inside the differentiable function
+    (derivatives in alpha include the prefix); the dense monodromy reuses SoftOrbit's batched forward-mode
+    Jacobians at fixed theta."""
+    import copy
+
+    import bifurcation_curves as bc
+    from torch.nn.attention import SDPBackend, sdpa_kernel
+    from transformers import DynamicCache
+
+    torch = loop.torch
+    v = np.asarray(v)
+    v_t = torch.as_tensor(v, dtype=loop.dtype, device=loop.device)[None, None, :]
+
+    def phi(X, theta):
+        temperature = 10.0 ** theta[0]
+        cache = DynamicCache()
+        loop.sm.steer = (theta[1] / alpha_scale).to(loop.dtype) * v_t
+        try:
+            loop.model(input_ids=loop.prefix_ids, past_key_values=cache, use_cache=True, logits_to_keep=1)
+            for _ in range(period):
+                c = copy.copy(cache)                        # every step sees the prefix only (fixed positions)
+                c.layers = [copy.copy(layer) for layer in cache.layers]
+                z = loop.model(inputs_embeds=X.to(loop.dtype), past_key_values=c, use_cache=True,
+                               logits_to_keep=1).logits[:, -1, :].to(loop.state_dtype)
+                p = torch.softmax(z / temperature, dim=-1)
+                X = torch.cat([X[:, 1:, :], (p @ loop.E)[:, None, :]], dim=1)
+        finally:
+            loop.sm.steer = None
+        return X
+
+    class Family(bc.Family):
+        def __init__(self):
+            super().__init__(phi, (1, loop.K, loop.E.shape[1]), loop.state_dtype, loop.device,
+                             context=lambda: sdpa_kernel(SDPBackend.MATH))
+            self.orbit = None
+
+        def soft_orbit(self, theta):
+            key = tuple(float(t) for t in theta)
+            if self.orbit is None or self.orbit[0] != key:
+                self.orbit = None                           # release the old repeated caches first
+                self.orbit = (key, SoftOrbit(loop, key[1] / alpha_scale * v, 10.0 ** key[0], chunk=chunk))
+            return self.orbit[1]
+
+        def residual(self, x, theta):
+            X = self.soft_orbit(theta).iterate(self.to_x(x), period)
+            return self.to_np(X) - np.asarray(x).ravel()
+
+        def monodromy(self, x, theta):
+            orb = self.soft_orbit(theta)
+            X, M = self.to_x(x), np.eye(self.n)
+            for _ in range(period):
+                M = orb.jacobian(X) @ M
+                X = orb.f(X)
+            return M
+
+    return Family()
+
+
+def curve_start(tl, states, kind, index):
+    """Starting point for curve: the tline point nearest the first turn (fold) or the first multiplier -1
+    crossing (flip). kind 'auto' takes the first boundary found along the tline. Refuses a boundary whose
+    crossing was classified otherwise (or not at all)."""
+    pts = tl["points"]
+    turns = [i for i, r in enumerate(pts) if r.get("turned_since_previous")]
+    flips = [c for c in tl["crossings"] if c["type"].startswith("real -1")]
+    if kind == "auto":
+        lam0 = pts[0]["lambda"]
+        cands = []
+        if turns:
+            cands.append((abs(pts[turns[0]]["lambda"] - lam0), "fold"))
+        if flips:
+            cands.append((min(abs(v - lam0) for v in flips[0]["between_log10_T"]), "flip"))
+        if not cands:
+            kinds = sorted({c["type"] for c in tl["crossings"]})
+            raise SystemExit(f"no fold turn and no flip crossing along the tline (crossings: {kinds}); nothing to trace")
+        kind = min(cands)[1]
+    if kind == "fold":
+        if not turns:
+            raise SystemExit("no turn along the tline: no fold to start from")
+        i = turns[0]
+        est = pts[i].get("turn_lambda_estimate", pts[i]["lambda"])
+        near = [c for c in tl["crossings"] if min(abs(v - est) for v in c["between_log10_T"]) < 0.02]
+        if not any(c["type"].startswith("real +1") for c in near):
+            raise SystemExit(f"the turn near log10 T {est:.5f} has no real +1 crossing recorded (crossings there: "
+                             f"{[c['type'] for c in near]}); refusing to trace it as a fold")
+        auto = min((i - 1, i), key=lambda j: abs(pts[j]["lambda"] - est))
+    else:
+        if not flips:
+            raise SystemExit("no real -1 crossing along the tline: no flip to start from")
+        a, b = flips[0]["between_log10_T"]
+        cand = [j for j, r in enumerate(pts) if r["lambda"] in (a, b) and r["spectral_radius"] is not None]
+        auto = min(cand, key=lambda j: abs(pts[j]["spectral_radius"] - 1))
+    i = auto if index < 0 else index
+    return kind, i, states[i].ravel(), float(pts[i]["lambda"])
+
+
+def curve(args):
+    """Fold or flip curve of a period-p orbit in (log10 T, alpha), traced by two-parameter continuation
+    (bifurcation_curves.trace_curve) from the boundary point a tline run found at fixed alpha."""
+    import bifurcation_curves as bc
+
+    src = DATA / "explore" / args.start_tline
+    tl = json.loads((src / "tline.json").read_text())
+    states = np.load(src / "states.npy")
+    kind, index, x0, log_t0 = curve_start(tl, states, args.kind, args.start_index)
+    period, alpha0 = int(tl["period"]), float(tl["args"]["alpha"])
+    ta = tl["args"]
+    loop = SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"], args.dtype,
+                    args.device)
+    v = elpm.load_vectors(ta["vectors"])[ta["concept"]]
+    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk)
+    sc = args.alpha_scale
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+
+    def readable(rec):
+        rec = dict(rec)
+        rec["log10_temperature"], rec["alpha"] = rec["theta"][0], rec["theta"][1] / sc
+        return rec
+
+    def on_point(rec):
+        r = readable(rec)
+        print(json.dumps({k: r[k] for k in ("index", "log10_temperature", "alpha", "residual", "g", "newton",
+                                            "critical_multiplier", "other_spectral_radius", "parameter_speed",
+                                            "cusp_candidate")}), flush=True)
+
+    tic = time.perf_counter()
+    bounds = ((args.log_temperature_bounds[0], args.log_temperature_bounds[1]),
+              (args.alpha_bounds[0] * sc, args.alpha_bounds[1] * sc))
+    records, reason, curve_states = bc.trace_curve(
+        fam, x0, [log_t0, alpha0 * sc], kind, fix=1, direction=args.direction, steps=args.steps, ds=args.ds,
+        ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, gtol=args.gtol, max_newton=args.max_newton,
+        bounds=bounds, on_point=on_point)
+    rec = {"args": vars(args), "kind": kind, "period": period, "start": {"tline_index": index,
+           "log10_temperature": log_t0, "alpha": alpha0}, "stop": reason,
+           "seconds": round(time.perf_counter() - tic, 1), "points": [readable(r) for r in records]}
+    (out / "curve.json").write_text(json.dumps(rec, indent=1))
+    np.save(out / "states.npy", np.array(curve_states))
+    cusps = [(r["log10_temperature"], r["alpha"]) for r in rec["points"] if r["cusp_candidate"]]
+    print(json.dumps({"kind": kind, "period": period, "points": len(records), "stop": reason,
+                      "cusp_candidates": cusps, "seconds": rec["seconds"]}))
+
+
 def scan(args):
     loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
                     args.device)
@@ -488,12 +633,24 @@ def render(args):
                for q in range(1, top + 1) if np.any(per == q)]
     handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
                 matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
+    styles = {"fold": dict(color="white", lw=1.6), "flip": dict(color="magenta", lw=1.6, ls="--")}
+    for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
+        cv = json.loads((DATA / "explore" / path / "curve.json").read_text())
+        pts = cv["points"]
+        ax.plot([r["alpha"] for r in pts], [r["log10_temperature"] for r in pts], **styles[cv["kind"]])
+        cusps = [r for r in pts if r["cusp_candidate"]]
+        ax.plot([r["alpha"] for r in cusps], [r["log10_temperature"] for r in cusps], "o", ms=6, mfc="none",
+                mec="yellow")
+    if args.curves:
+        handles += [matplotlib.lines.Line2D([], [], label=f"{k} curve", **st) for k, st in styles.items()]
+        ax.set_xlim(al[0], al[-1])
+        ax.set_ylim(lt[0], lt[-1])
     ax.legend(handles=handles, fontsize=7, ncol=2, loc="upper left", bbox_to_anchor=(1.01, 1.0), title="period")
     ax.set_xlabel("steering alpha")
     ax.set_ylabel("log10 temperature")
     ax.set_title(f"soft-token decoding: {args.scan}")
     fig.tight_layout()
-    fig.savefig(src / "render.png", dpi=150)
+    fig.savefig(src / (args.name or "render.png"), dpi=150)
     counts = {int(q): int((per == q).sum()) for q in np.unique(per)}
     print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
 
@@ -620,14 +777,37 @@ def main():
     rd.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
     rd.add_argument("--max-period", type=int, default=16)
     rd.add_argument("--chaos-level", type=float, default=0.005)
+    rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
+    rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
     wi = sub.add_parser("windows")
     wi.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
     wi.add_argument("--chaos-level", type=float, default=0.005)
     wi.add_argument("--min-period", type=int, default=2)
     wi.add_argument("--min-area", type=int, default=4)
     wi.add_argument("--show", type=int, default=15)
+    cv = sub.add_parser("curve")
+    cv.add_argument("--start-tline", required=True, help="explore-relative directory of a finished tline run")
+    cv.add_argument("--kind", default="auto", choices=("auto", "fold", "flip"))
+    cv.add_argument("--start-index", type=int, default=-1, help="tline point to start from (-1: nearest the boundary)")
+    cv.add_argument("--threads", type=int, default=8)
+    cv.add_argument("--dtype", default="float64", choices=("float32", "float64"))
+    cv.add_argument("--device", default="cpu")
+    cv.add_argument("--alpha-scale", type=float, default=10.0, help="alpha is continued as alpha * scale")
+    cv.add_argument("--direction", type=int, default=1, choices=(-1, 1), help="sign of the initial d log10 T")
+    cv.add_argument("--steps", type=int, default=60)
+    cv.add_argument("--ds", type=float, default=0.005)
+    cv.add_argument("--ds-min", type=float, default=1e-6)
+    cv.add_argument("--ds-max", type=float, default=0.02)
+    cv.add_argument("--tol", type=float, default=1e-10)
+    cv.add_argument("--gtol", type=float, default=1e-9)
+    cv.add_argument("--max-newton", type=int, default=8)
+    cv.add_argument("--log-temperature-bounds", type=float, nargs=2, default=[-1.5, 0.5])
+    cv.add_argument("--alpha-bounds", type=float, nargs=2, default=[-0.2, 0.2])
+    cv.add_argument("--chunk", type=int, default=512)
+    cv.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "orbit": orbit, "tline": tline, "render": render, "windows": windows}[args.command](args)
+    {"scan": scan, "orbit": orbit, "tline": tline, "curve": curve, "render": render,
+     "windows": windows}[args.command](args)
 
 
 if __name__ == "__main__":
