@@ -19046,3 +19046,35 @@ _commit `f998f386b4ec`_
 calibration-eta0-002 (context 8: 13 memory parameters can fit the 8 pairs exactly, so a 5-dimensional flat family is contracted only by forgetting, and much of the grid is still drifting after 2000 periods) and scan-c24-eta0 / scan-c24-eta0.5 (context 24 > 13 parameters; log10 theta -0.6..0.3, log10 alpha -5..-0.5, 120x120, 4000 + 1024 periods). eta 0: 8141 cells synchronized (memory repeats exactly with the context), 32 period 2 (the memory pattern repeats every two contexts; near theta 1.2-1.5 at strong forgetting), 2569 'moving', 3658 diverged (above theta about 1.1). eta 0.5: 7086 synchronized, 117 period 2, 2 period 4, 1 period 6, 1451 moving, 5743 diverged (divergence starts lower). No moving cell rotates (rotation per two periods about 0). floquet-bands-eta0: three cells in the moving bands each have a context-periodic memory orbit (Newton residual 1e-13 to 3e-16) with a real leading multiplier 0.9984-0.9993 (control cell 0.981): the bands are critical slowing along real +1 bifurcation curves of the synchronized memory, the counterpart of the folds and recruitments seen in training, not new dynamics. In this simplest Titans-like setting (one inner learning rate, per-token updates) the quasi-periodic route does not appear. Next: per-layer inner rates and coupled decay, with a chunk option; a whole-context chunk makes the memory map identical to the S2 training map (validation), and per-token chunks at the same total step per context test whether the shrimp survives online updating.
 
 _commit `f998f386b4ec` (dirty worktree)_
+
+## 2026-10-12 02:23 UTC: run (exploratory)
+
+- **Question:** Validation of the inference-memory tool: with a whole-context chunk (24 tokens), coupled decay 1e-3 and per-layer rates at the census window (theta_h = 10^1.853, theta_o = 10^-0.0857), does the memory settle on the attracting period-18 orbit of the training map?
+- **Setup:** explore_inference_memory floquet --context 24 --chunk 24 --coupled-decay 1e-3 --log-theta 1.853 --log-theta-o -0.0857 --period 18 --transient 60000
+- **Output:** `../neural-shrimp-data/explore/inference-memory/validation-window-p18`
+- **Would surprise us:** No period-18 orbit or spectral radius >= 1
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --chunk 24 --coupled-decay 1e-3 --log-theta 1.853 --log-theta-o -0.0857 --period 18 --transient 60000 --out inference-memory/validation-window-p18`
+
+_commit `b2ca08d5db1c`_
+
+- run started 2026-10-12 02:23 UTC finished 02:24 UTC with exit status 0
+
+## 2026-10-12 02:24 UTC: run (exploratory)
+
+- **Question:** Does the period-18 shrimp survive online (per-token) test-time updating? Rate-plane scans around the census window for the same memory with a whole-context chunk (identical to the training map) and with per-token updates applying the same total step per context
+- **Setup:** explore_inference_memory scan --plane rates, context 24, coupled decay 1e-3, eta 0, no forgetting, log10 theta_o -0.13..-0.03 x log10 theta_h 1.76..1.95 at 100x100, max period 64, tol 1e-8, 1024 sampled periods: (a) chunk 24, 60000 transient periods; (b) chunk 1 with --scale-by-chunk (each token update uses rates/24), 20000 transient periods; 6 workers each, nice 10
+- **Output:** `../neural-shrimp-data/explore/inference-memory/window-chunk24, window-chunk1-scaled`
+- **Would surprise us:** Online updating reproduces the window unchanged, or destroys every periodic window
+- **Command:** `bash -c env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py scan --plane rates --context 24 --chunk 24 --coupled-decay 1e-3 --theta 1.76 1.95 --theta-o -0.13 -0.03 --resolution 100 100 --transient 60000 --workers 6 --out inference-memory/window-chunk24 > ../neural-shrimp-data/explore/inference-memory/window-chunk24.log 2>&1 & env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py scan --plane rates --context 24 --chunk 1 --scale-by-chunk --coupled-decay 1e-3 --theta 1.76 1.95 --theta-o -0.13 -0.03 --resolution 100 100 --transient 20000 --workers 6 --out inference-memory/window-chunk1-scaled > ../neural-shrimp-data/explore/inference-memory/window-chunk1-scaled.log 2>&1 & wait`
+
+_commit `b2ca08d5db1c` (dirty worktree)_
+
+- run started 2026-10-12 02:24 UTC finished 02:31 UTC with exit status 0
+
+- run started 2026-10-12 02:15 UTC finished 02:32 UTC with exit status 0
+
+## 2026-10-12 02:32 UTC: Inference memory: a whole-context chunk reproduces the window region exactly; per-token updates with the same total step erase all of it
+
+validation-window-p18: chunk 24, coupled decay 1e-3, rates (10^1.853, 10^-0.0857): the memory settles on the period-18 orbit (Newton residual 7e-15, spectral radius 0.8787, one-period separation 0.80). window-chunk24 (rate plane log10 theta_o -0.13..-0.03 x log10 theta_h 1.76..1.95, 100x100): no fixed points; periods 8 (190 cells), 10 (1366), 16 (148), 18 (282), 20 (268), others up to 64; 4920 moving with rotation about 0.2-0.25 turns per two periods; 2367 diverged; the picture reproduces the census window anatomy. window-chunk1-scaled (per-token updates, each with rates/24, so one pass applies the same total step): all 10000 cells settle into memory that repeats with the context; no doubling, windows, chaos or divergence. Reading: the route needs each individual update to be large relative to the curvature of its own loss; 24 small per-token steps approximate a stretch of gradient flow, which has no edge-of-stability instability. In test-time memories the route is therefore available with chunked updates near the per-chunk edge and absent for small per-token steps.
+
+_commit `e16b3026c990` (dirty worktree)_
