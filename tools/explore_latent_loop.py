@@ -603,8 +603,22 @@ class FrozenContext:
         return loop.inner.norm(y)
 
     def F(self, x, chunk=1024):
-        with self.torch.no_grad():
-            return self.torch.cat([self.F_diff(x[s: s + chunk]) for s in range(0, x.shape[0], chunk)])
+        """F_diff in chunks of the batch; per-row steering (loop.steer with one row per batch row) is sliced to each
+        chunk, since the steering hook adds it to the chunk's activations."""
+        loop, torch = self.loop, self.torch
+        steer = loop.steer
+        if steer is not None and steer.shape[0] not in (1, x.shape[0]):
+            raise ValueError(f"steering has {steer.shape[0]} rows for a batch of {x.shape[0]}")
+        out = []
+        try:
+            with torch.no_grad():
+                for s in range(0, x.shape[0], chunk):
+                    if steer is not None and steer.shape[0] > 1:
+                        loop.steer = steer[s: s + chunk]
+                    out.append(self.F_diff(x[s: s + chunk]))
+        finally:
+            loop.steer = steer
+        return torch.cat(out)
 
     def full(self, x):
         """Reference: position j's output from the full (j + 1)-position loop with the context prepended."""

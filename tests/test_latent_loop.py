@@ -69,3 +69,33 @@ def test_rotation_summary_tells_quasi_periodic_from_locked_motion():
         r, locked, d = ell.rotation_summary(z, max_q=60, lock_tol=1e-6)
         assert abs(r - rho) < 1e-3
         assert locked == q
+
+
+def test_frozen_context_slices_per_row_steering_to_each_chunk():
+    import types
+
+    import torch
+
+    import explore_latent_loop as ell
+
+    seen = []
+
+    def f_diff(x):
+        seen.append((x.shape[0], stub.loop.steer.shape[0]))
+        return x + stub.loop.steer
+
+    stub = types.SimpleNamespace(torch=torch, loop=types.SimpleNamespace(steer=None))
+    stub.F_diff = f_diff
+    x = torch.zeros((10, 1, 3), dtype=torch.float64)
+    rows = torch.arange(10, dtype=torch.float64)[:, None, None].expand(10, 1, 3)
+    stub.loop.steer = rows
+    y = ell.FrozenContext.F(stub, x, chunk=4)
+    assert seen == [(4, 4), (4, 4), (2, 2)]
+    assert torch.equal(y, rows) and stub.loop.steer is rows       # every row got its own steering; restored after
+    stub.loop.steer = rows[:3]
+    try:
+        ell.FrozenContext.F(stub, x, chunk=4)
+    except ValueError as err:
+        assert "3 rows for a batch of 10" in str(err)
+    else:
+        raise AssertionError("a steering row count matching neither 1 nor the batch was accepted")

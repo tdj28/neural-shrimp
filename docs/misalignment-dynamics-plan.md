@@ -153,3 +153,14 @@ Each phase ends with a research-log note and a decision to continue, adapt or st
 1. Starting proxies: hostility (P1) and sycophancy (P2).
 2. Write-up: a separate follow-up paper; the current paper's discussion only mentions the direction.
 3. Timing: phase 0 now, in parallel on the CPU; phases 1 and later once the current paper's main results are in.
+
+## Amendment, 12 October 2026 (decisions by the human)
+
+- **What changed.**
+  - Scope: P1 (hostility or contempt toward the interlocutor) only, for now.
+  - Write-up: part of the main LLM-dynamics paper, not a separate paper (replaces open decision 2).
+  - Timing: in parallel with the current work, phases in order (replaces open decision 3).
+  - Execution: Claude, since the study runs on Claude-owned tools; Codex stays on the handoff tasks.
+- **Why.** The human's choice after reading this plan.
+- **Outcomes seen.** None for P1; no P1 run has been made.
+- **Effect on claims.** None yet; everything remains exploratory.
