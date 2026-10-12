@@ -753,6 +753,69 @@ def escape(args):
     (out / "escape.json").write_text(json.dumps(record, indent=1))
 
 
+def canonical_units(net, theta):
+    """Parameters modulo the tanh sign flip of each unit and unit permutations: (units sorted, output bias)."""
+    w0, b0, w1, b1 = net._unpack(theta[None, :])
+    units = []
+    for j in range(net.width):
+        u = np.concatenate([w0[0][:, j], [b0[0][j], w1[0][j]]])
+        units.append(-u if u[-1] < 0 else u)
+    units.sort(key=lambda u: (round(u[-1], 9), tuple(np.round(u, 9))))
+    return np.concatenate(units + [[b1[0]]])
+
+
+def minimum_check(args):
+    """Is the minimum isolated? Two refinements from one descent endpoint, compared up to symmetry."""
+    import dataclasses
+    from scipy.optimize import minimize
+
+    net0, x, y, theta0 = make_s2(SEED)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"rows": []}
+    for lam in args.ridges:
+        net = dataclasses.replace(net0, ridge=float(lam))
+        f = TwoRateMap(net, x, y)
+        t_desc = f.iterate(theta0.copy(), [0.5 - 1.828, 0.5], args.descent_steps)
+        g_desc = net.gradient(t_desc[None, :], x, y)[0]
+
+        def polish(t):
+            for _ in range(30):
+                g = net.gradient(t[None, :], x, y)[0]
+                if np.linalg.norm(g) < 1e-14:
+                    break
+                t = t - np.linalg.solve(net.hessian(t, x, y), g)
+            return t
+
+        candidates = {"newton": polish(t_desc.copy())}
+        res = minimize(lambda u: float(net.loss(u[None, :], x, y)[0]), t_desc,
+                       jac=lambda u: net.gradient(u[None, :], x, y)[0], hess=lambda u: net.hessian(u, x, y),
+                       method="trust-exact", options={"gtol": 1e-13, "maxiter": 500})
+        candidates["trust_region"] = polish(res.x)
+        row = {"ridge": lam, "descent_endpoint": {"grad_norm": float(np.linalg.norm(g_desc)),
+                                                  "loss": float(net.loss(t_desc[None, :], x, y)[0]),
+                                                  "norm": float(np.linalg.norm(t_desc))}}
+        canon = {}
+        for name, t in candidates.items():
+            ev = np.linalg.eigvalsh(net.hessian(t, x, y))
+            canon[name] = canonical_units(net, t)
+            row[name] = {"norm": float(np.linalg.norm(t)), "loss": float(net.loss(t[None, :], x, y)[0]),
+                         "grad_norm": float(np.linalg.norm(net.gradient(t[None, :], x, y))),
+                         "distance_from_descent_endpoint": float(np.linalg.norm(t - t_desc)),
+                         "hessian_smallest": ev[:4].tolist(), "hessian_largest": float(ev[-1]),
+                         "parameters": t.tolist()}
+        row["same_point_up_to_symmetry"] = bool(np.allclose(canon["newton"], canon["trust_region"], atol=1e-7))
+        row["canonical_distance"] = float(np.linalg.norm(canon["newton"] - canon["trust_region"]))
+        record["rows"].append(row)
+        print(json.dumps({"ridge": lam, "descent": row["descent_endpoint"],
+                          "newton": {k: row["newton"][k] for k in ("norm", "loss", "grad_norm", "hessian_smallest")},
+                          "trust_region": {k: row["trust_region"][k] for k in ("norm", "loss", "grad_norm",
+                                                                                "hessian_smallest")},
+                          "same_up_to_symmetry": row["same_point_up_to_symmetry"],
+                          "canonical_distance": row["canonical_distance"]}))
+    (out / "minimum-check.json").write_text(json.dumps(record, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -820,6 +883,10 @@ def main():
     rd.add_argument("--transient", type=int, default=60000)
     rd.add_argument("--samples", type=int, default=8000)
     rd.add_argument("--out", required=True)
+    mc = sub.add_parser("minimum-check")
+    mc.add_argument("--ridges", type=float, nargs="+", default=[0.0, 1e-5, 1e-3])
+    mc.add_argument("--descent-steps", type=int, default=200000)
+    mc.add_argument("--out", required=True)
     es = sub.add_parser("escape")
     es.add_argument("--rates", type=float, nargs=2, default=[-0.0857, 1.853], metavar=("LX", "LY"))
     es.add_argument("--ridges", type=float, nargs="+", default=[0.0, 1e-4, 3e-4, 1e-3])
@@ -832,7 +899,7 @@ def main():
         args.points = [[-0.0857, 1.853], [-0.0800, 1.800], [-0.0830, 1.890], [-0.0745, 1.760]]
     {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window,
      "lyapunov": lyapunov, "edge": edge, "ridge": ridge, "fold-prefactor": fold_prefactor,
-     "escape": escape}[args.command](args)
+     "escape": escape, "minimum-check": minimum_check}[args.command](args)
 
 
 if __name__ == "__main__":
