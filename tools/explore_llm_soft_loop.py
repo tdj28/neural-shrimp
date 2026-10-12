@@ -276,7 +276,7 @@ class SoftOrbit:
         return phi
 
 
-def orbit_report(orb, X, history, vals, pts, k=8):
+def orbit_report(orb, X, history, vals, pts, k=8, tol=1e-9):
     tok = orb.loop.sm.tok
     seps = [float((p - pts[0]).norm() / pts[0].norm()) for p in pts[1:]]
     tokens = []
@@ -285,7 +285,7 @@ def orbit_report(orb, X, history, vals, pts, k=8):
         top = int(p.argmax())
         tokens.append({"token": tok.decode([top]), "probability": float(p[top]),
                        "entropy": float(-(p * np.log(np.maximum(p, 1e-300))).sum())})
-    return {"newton_residuals": history, "converged": history[-1] < 1e-9,
+    return {"newton_residuals": history, "converged": history[-1] < tol,
             "spectral_radius": float(np.abs(vals[0])),
             "multipliers": [[float(v.real), float(v.imag), float(abs(v)), float(np.angle(v) / (2 * np.pi))]
                             for v in vals[:k]],
@@ -304,7 +304,7 @@ def orbit(args):
         raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol}; nothing to verify")
     X, history, vals, pts = orb.newton(X, period, args.tol, args.max_newton)
     rec = {"args": vars(args), "period": period, "seconds": round(time.perf_counter() - tic, 1)}
-    rec.update(orbit_report(orb, X, history, vals, pts))
+    rec.update(orbit_report(orb, X, history, vals, pts, tol=args.tol))
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "orbit.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))

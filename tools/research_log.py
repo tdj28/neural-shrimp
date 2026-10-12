@@ -84,7 +84,8 @@ def main():
     append(lines)
     if command:
         status = subprocess.run(command, cwd=ROOT).returncode
-        append([f"- run started {stamp} finished {datetime.now(timezone.utc).strftime('%H:%M UTC')}"
+        where = f" ({args.output})" if args.output else ""          # runs overlap: name the run that finished
+        append([f"- run started {stamp}{where} finished {datetime.now(timezone.utc).strftime('%H:%M UTC')}"
                 f" with exit status {status}"])
         sys.exit(status)
 

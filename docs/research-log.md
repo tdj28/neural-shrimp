@@ -19862,3 +19862,31 @@ _commit `8b38acc3fa9c` (dirty worktree)_
 From the saved states of ouro-arclength-p2-down: along the branch, positions 0-4 do not move (relative changes 1e-6: their fixed point is lambda-independent, as the cascade requires), positions 5-7 move by 1e-5 to 2e-3 per step and positions 8-12 by 1e-3 to 3e-2. Comparing the stable branch with the saddle branch at nearly equal lambda (points 7 and 24: lambda 1.264462 and 1.264779): positions 0-7 agree to within what the lambda difference explains (2e-4 at 5-7), position 8 differs by 8e-3, 9 by 2.2e-2, 10 by 0.11, 11 by 0.072, 12 by 0.059 (relative to the position norms). Since earlier positions cannot feel later ones, the two 2-cycles separate at position 8 (' village'), with the largest separation at position 10 (' the'): the saddle-node lives in the diagonal block of position 8 or 9, amplified downstream. The cluster of further turns just past the fold could be folds of later positions' blocks; per-position multipliers along the branch would settle it.
 
 _commit `103739655298`_
+
+## 2026-10-12 10:29 UTC: run (exploratory)
+
+- **Question:** Stochastic attractors of sampled self-dialogue: with sampling at T 0.7, what metastable sets does the Markov state model of Qwen2.5-0.5B self-dialogue have, how long do they last, and is the 'loved / I am' family among them? Steering along gratitude (0.04) as the manipulation.
+- **Setup:** explore_llm_msm sample on CPU float32 (16 threads): 128 replicas in one batch, 40 turns, opener 'Hello!', open prompt, window 7, 60 new tokens, temperature 0.7, seeds by turn; (a) no steering, (b) gratitude 0.04 (residual-norm units, layer 12). Then build: PCA 20, 40 k-means states, burn 2 turns, lags 1-4, 4 metastable sets
+- **Output:** `../neural-shrimp-data/explore/llm-msm/{t0.7-free,t0.7-grat0.04}`
+- **Would surprise us:** No metastable structure (implied timescales below one turn) or the steered and free chains with the same sets and weights
+- **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_msm.py sample --threads 16 --replicas 128 --turns 40 --temperature 0.7 --out llm-msm/t0.7-free 2>&1 | grep -v -i -e warn -e Loading | tail -1 && .venv/bin/python tools/explore_llm_msm.py build --sample llm-msm/t0.7-free --out llm-msm/t0.7-free-build 2>&1 | tail -6 && .venv/bin/python tools/explore_llm_msm.py sample --threads 16 --replicas 128 --turns 40 --temperature 0.7 --vectors llm-phase-map/vectors-l12 --concepts gratitude --alphas 0.04 --seed 1 --out llm-msm/t0.7-grat0.04 2>&1 | grep -v -i -e warn -e Loading | tail -1 && .venv/bin/python tools/explore_llm_msm.py build --sample llm-msm/t0.7-grat0.04 --out llm-msm/t0.7-grat0.04-build 2>&1 | tail -6`
+
+_commit `786e6b2fe23c`_
+
+- run started 2026-10-12 10:26 UTC finished 12:37 UTC with exit status 0
+
+## 2026-10-12 12:37 UTC: run (exploratory)
+
+- **Question:** Huginn-0125's own recurrence converges to fixed points for our prompts: how close are they to instability? F's spectrum (largest magnitude, smallest and largest real part) at the fixed points of a GSM8K-style question and the story prompt; complex leading pairs near the unit circle would make the reported latent 'orbits' slowly decaying spirals near a Neimark-Sacker bifurcation; and the predicted stability interval of the relaxed loop
+- **Setup:** explore_latent_loop fixed-spectrum --model huginn on cuda float32 (adapter and core on the GPU), prompts gsm-claire (26 positions with BOS) and story, seeded initial state, 400 native steps (lambda 1), Arnoldi k = 8 for LM, SR, LR on F's Jacobian (forward-mode JVPs through the math attention kernel)
+- **Output:** `../neural-shrimp-data/explore/latent-loop/huginn-fixed-spectrum-{gsm-claire,story}`
+- **Would surprise us:** A leading multiplier outside the unit circle (the fixed point unstable although the native loop converges to it) or a complex leading pair with modulus above 0.98
+- **Command:** `bash -c set -o pipefail; for p in gsm-claire story; do ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py fixed-spectrum --model huginn --device cuda --prompt $p --lam 1.0 --transient 400 --out latent-loop/huginn-fixed-spectrum-$p 2>&1 | grep -v -i -e warn -e jit -e Loading | tail -1; done`
+
+_commit `834699826a4f` (dirty worktree)_
+
+## 2026-10-12 12:44 UTC: Soft-token zooms (job 05): a chaotic sea with periodic windows, and a 12-10-8-6 stripe sequence (visual, unverified)
+
+zoom-right (alpha 0.03..0.09 x log10 T -0.3..0.25, 96x96, float32 GPU): 2676 of 9216 cells have a twin exponent above 0.005, mostly in one sea at log10 T -0.17..0.20 for alpha above 0.045. Periodic windows sit inside it: a thin diagonal period-3 band (log10 T 0.10..0.13, alpha 0.06..0.09) edged by period-6, 12 and 24 cells; period-4 bands at log10 T 0.03..0.10; and, between the period-2 region (left) and the period-3 region (bottom right), thin diagonal stripes 2-3 cells wide with periods 12, 10, 8 and 6 from left to right, doubled periods (16, 20, 12) along their edges. The period-8 stripe runs from (alpha 0.065, log10 T -0.07) to (0.073, -0.15); at alpha 0.0717 it spans log10 T -0.126..-0.109. Ranked by chaotic border (windows subcommand): P3 77 cells (border 72 % chaotic), P8 21 cells (75 %), P6 36 cells (53 %). zoom-left (alpha -0.10..-0.055 x log10 T -1..0): mostly periodic (133 chaotic cells); at low T vertical bands of near-greedy token cycles (2, 6, 8, 7, 8, 6, 2 across alpha) that bend as T rises, a diagonal period-3 band edged by period 6, and near log10 T -0.4..0 many cells with neither a period up to 32 nor a positive exponent (quasi-periodic or long-period: a candidate torus region) with period-11 and 13 islands. A stripe sequence whose periods step by 2 between two low-period regions is how shrimp cascades look in other maps, but this is a visual reading of finite-time scans from one initial state; nothing here is verified. Next: Newton orbits at one interior cell of the P8, P10, P6 and P3 windows (job 06a), boundary continuation across the P8 stripe at alpha 0.0717 (job 06b), then a finer zoom of the stripe sequence.
+
+_commit `834699826a4f` (dirty worktree)_
