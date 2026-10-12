@@ -87,8 +87,8 @@ case "$JOBSET" in
   skeleton)    # groups given after the job set name (default all): p8down = P8 flip curve both ways,
                # p8upminus = P8 fold curve toward the stripe's lower end, p2fold = the 2-cycle's fold curve both
                # ways, ladder = fold edges of the stripes P6..P20 and the 2-cycle branch at log10 T -0.115
-    GROUPS=${JOBARGS[*]:-p8down p8upminus p2fold ladder}
-    for g in $GROUPS; do
+    JOBGROUPS=${JOBARGS[*]:-p8down p8upminus p2fold ladder}   # (not GROUPS: a bash builtin array)
+    for g in $JOBGROUPS; do
       case $g in
         p8down) for dir in 1 -1; do
             name=$([ $dir = 1 ] && echo plus || echo minus)
