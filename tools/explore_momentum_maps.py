@@ -667,6 +667,53 @@ def staircase(args):
                       "diverged": sum(1 for r in rows if r.get("status") == "diverged")}))
 
 
+def crossing_anatomy(args):
+    """Which hidden units carry the first crossing's eigenvector, and is the crossing a turning point in s?"""
+    mm = MomentumMap(args.system, args.seed, args.beta, args.width, args.ridge)
+    n, net = mm.n, mm.net
+    base = DATA / "explore" / args.arc
+    record = json.loads((base / "arc.json").read_text())
+    require_same_ridge(mm, record)
+    fc = record.get("first_crossing")
+    if fc is None:
+        print(json.dumps({"arc": args.arc, "outcome": "no first crossing recorded"}))
+        return
+    nodes = np.load(base / "nodes.npz")["w"]
+    system = MomentumTwoCycle(mm, args.offset_output)
+    small = mm.rates(args.s_low, args.s_low + args.offset_output)
+    theta = mm.theta0[None, :].copy()
+    for _ in range(args.descent_steps):
+        theta = theta - small * net.gradient(theta, mm.x, mm.y)
+    theta_min = refine_minimum(mm, theta[0])
+    width, d = net.width, net.d
+
+    def unit(j):
+        return [i * width + j for i in range(d)] + [d * width + j, d * width + width + j]
+
+    s_vals = nodes[:, -1]
+    k = int(np.argmin(np.abs(s_vals - fc["s"])))
+    ds = np.diff(s_vals[max(0, k - 4):k + 5])
+    _, _, mono, pts = system.residual_jacobian(nodes[k])
+    mult, vecs = np.linalg.eig(mono)
+    order = np.argsort(-np.abs(mult))
+    v = vecs[:n, order[0]]
+    total = float(np.sum(np.abs(v) ** 2))
+    shares = [float(np.sum(np.abs(v[unit(j)]) ** 2) / total) for j in range(width)]
+    centre = 0.5 * (pts[0][:n] + pts[1][:n])
+    out = {"arc": args.arc, "ridge": net.ridge, "width": width, "crossing": fc,
+           "node_s": float(s_vals[k]), "turning_point_nearby": bool(np.any(ds > 0) and np.any(ds < 0)),
+           "leading_multipliers": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]],
+           "unit_norms_at_minimum": None if theta_min is None else [float(np.linalg.norm(theta_min[unit(j)]))
+                                                                     for j in range(width)],
+           "unit_norms_at_cycle_centre": [float(np.linalg.norm(centre[unit(j)])) for j in range(width)],
+           "eigenvector_unit_shares": shares,
+           "eigenvector_output_bias_share": float(abs(v[-1]) ** 2 / total)}
+    print(json.dumps(out))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "crossing-anatomy.json").write_text(json.dumps(out, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -762,11 +809,21 @@ def main():
     st.add_argument("--out", required=True)
     for sp in (ac, cr):
         sp.add_argument("--width", type=int, default=None)
-    for sp in (ac, cr, st):
+    ca = sub.add_parser("crossing-anatomy")
+    ca.add_argument("--system", default="S2")
+    ca.add_argument("--seed", type=int, default=28011)
+    ca.add_argument("--beta", type=float, default=0.0)
+    ca.add_argument("--width", type=int, default=None)
+    ca.add_argument("--offset-output", type=float, default=-1.828)
+    ca.add_argument("--s-low", type=float, default=0.5)
+    ca.add_argument("--descent-steps", type=int, default=200000)
+    ca.add_argument("--arc", required=True)
+    ca.add_argument("--out", required=True)
+    for sp in (ac, cr, st, ca):
         sp.add_argument("--ridge", type=float, default=None, help="weight decay (default: the system's 1e-3)")
     args = parser.parse_args()
     {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset,
-     "criticality": criticality, "staircase": staircase}[args.command](args)
+     "criticality": criticality, "staircase": staircase, "crossing-anatomy": crossing_anatomy}[args.command](args)
 
 
 if __name__ == "__main__":
