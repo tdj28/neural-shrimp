@@ -32,6 +32,13 @@ snapshot_download('Qwen/Qwen2.5-0.5B-Instruct', revision='$REV', cache_dir='$NEU
 # offline loading resolves 'main' through refs/main, which a download by commit hash does not write
 REFS=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/refs
 mkdir -p "$REFS" && printf %s "$REV" > "$REFS/main"
+REV15=989aa7980e4cf806f80c7fef2b1adb7bc71aa306                 # Qwen2.5-1.5B-Instruct, the local snapshot
+HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('Qwen/Qwen2.5-1.5B-Instruct', revision='$REV15', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+  >> "$LOGS/setup-model.log" 2>&1
+REFS15=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-1.5B-Instruct/refs
+mkdir -p "$REFS15" && printf %s "$REV15" > "$REFS15/main"
 $PY -c "import torch, transformers, numpy, scipy; print('versions', torch.__version__, torch.version.cuda,
 transformers.__version__, numpy.__version__, scipy.__version__, torch.cuda.get_device_name(0))" > "$LOGS/versions.txt" \
   || { log "setup failed"; tail -5 "$LOGS"/setup-*.log; exit 3; }
@@ -154,6 +161,12 @@ case "$JOBSET" in
            done ;;
       esac
     done
+    ;;
+  scale15)     # scale-up rung 1: Qwen2.5-1.5B soft-token map, coarse 64x64 float64 over the 0.5B scan's range
+               # (philosophy steering at layer 14 of 28, vectors uploaded with --extra-data)
+    run scale15-coarse 120 scan --device cuda --dtype float64 --chunk 1024 --tol 1e-8 --eps 1e-6 \
+      --model qwen1.5b --layer 14 --vectors llm-phase-map/vectors-1.5b-l14 --resolution 64 64 \
+      --alpha -0.12 0.12 --log-temperature -1.0 0.3 --out $D/scale15/coarse-64
     ;;
   scanband)    # one band of a large float64 map split across pods: scanband OUT MINUTES SCAN-ARGS...
     name=${JOBARGS[0]}
