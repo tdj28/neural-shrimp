@@ -22,14 +22,24 @@ uv pip install -q -p /root/venv/bin/python "torch==2.14.1" --index-url https://d
 uv pip install -q -p /root/venv/bin/python "transformers==5.19.0" "numpy==2.5.3" "scipy==1.18.1" matplotlib \
   > "$LOGS/setup-packages.log" 2>&1
 PY=/root/venv/bin/python
+REV=7ae557604adf67be50417f59c2c2f167def9a775
 HF_HUB_OFFLINE=0 $PY -c "
 from huggingface_hub import snapshot_download
-snapshot_download('Qwen/Qwen2.5-0.5B-Instruct', revision='7ae557604adf67be50417f59c2c2f167def9a775',
-                  cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" > "$LOGS/setup-model.log" 2>&1
+snapshot_download('Qwen/Qwen2.5-0.5B-Instruct', revision='$REV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+  > "$LOGS/setup-model.log" 2>&1
+# offline loading resolves 'main' through refs/main, which a download by commit hash does not write
+REFS=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/refs
+mkdir -p "$REFS" && printf %s "$REV" > "$REFS/main"
 $PY -c "import torch, transformers, numpy, scipy; print('versions', torch.__version__, torch.version.cuda,
 transformers.__version__, numpy.__version__, scipy.__version__, torch.cuda.get_device_name(0))" > "$LOGS/versions.txt" \
   || { log "setup failed"; tail -5 "$LOGS"/setup-*.log; exit 3; }
 cat "$LOGS/versions.txt"
+HF_HUB_OFFLINE=1 $PY -c "
+import sys; sys.path.insert(0, 'tools')
+import explore_llm_attractors as ela
+from transformers import AutoTokenizer
+AutoTokenizer.from_pretrained(ela.MODELS['qwen0.5b'], cache_dir=ela.CACHE); print('model cache ok')" \
+  || { log "model cache not loadable offline"; tail -5 "$LOGS/setup-model.log"; exit 4; }
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv | tee "$LOGS/hardware.txt"
 log "setup done"
 
