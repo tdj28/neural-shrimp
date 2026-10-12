@@ -127,3 +127,36 @@ these need explicit approval and a budget.
 7. **Scaling.** Every quantity needs only forward passes, gradients,
    batched generation and activation statistics, so it applies to any open
    transformer. Generation cost is the bottleneck (GPU).
+
+## Looped language models: the model's own latent recurrence (12 October 2026)
+
+**Targets:**
+- **Looped transformers** apply one stack of layers repeatedly to a latent
+  state. Their inference contains a genuine smooth iterated map, defined by
+  the model itself.
+- **Ladder of open models:**
+  - Ouro-1.4B (ByteDance research looped LM, 4 trained loops);
+  - Huginn-0125 (recurrent depth with input re-injection, about 32 trained
+    iterations);
+  - Nanbeige4.2-3B (production-grade open looped transformer: two passes of
+    a 22-layer stack, Apache 2.0, trained with supervised fine-tuning and
+    RL; its report says more passes made training slower and less stable).
+- **Architecture class:** reports that a frontier model (OpenAI's Astra) is
+  looped are unconfirmed (Raschka, 2 September 2026). The class itself is in
+  production use.
+
+**First result.** Ouro-1.4B's own loop, extracted and verified against the
+native forward, does not converge beyond its trained 4 loops. All tested
+prompts give positive largest Lyapunov exponents (0.29-0.40 per loop), and
+the read-out degrades (`explore/latent-loop/ouro-trajectory-64`).
+
+**Shrimp hunt.** The relaxed loop h <- (1 - lambda) h + lambda F(h) plays
+the learning-rate role. Map it in lambda and in a (lambda, steering) plane,
+then verify candidate windows by Newton-Krylov orbits and fold and flip
+continuation, in float64 where needed.
+
+**What a positive finding would support.** A shrimp-organized loop map in
+two independently trained looped models would support a prediction for the
+architecture class: shrimps are generic in two-parameter families of smooth
+dissipative maps with chaotic regimes. Non-looped models need their own
+evidence, from token loops or soft-token decoding.
