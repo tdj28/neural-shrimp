@@ -19534,3 +19534,21 @@ _commit `198f2672b18f`_
 ouro-orbit-p2-lam1.2803 (retry with math-kernel JVPs): a single trajectory at lambda 1.280315 after 600 transient loops was not on a 2-cycle (period-2 residual 0.107); Newton-Krylov (GMRES 40 x 3) reduced it only to 0.032 in 12 steps; Arnoldi multipliers at the final point all outside the unit circle (1.76, 1.41, 1.41, 1.24, 1.22, 1.22, 1.10, 1.09 +- 0.18 i), one-step separation 0.33. The sweep's period-2 detection at this lambda came from a batch of 128 cells; in an irregular regime the different rounding of batched GPU kernels sends trajectories elsewhere, so the cell may show a stable 2-cycle coexisting with an irregular attractor, or a finite-run artefact. Gate-level consequence: a window counts only after (i) replicas from perturbed starts land on it with nonzero frequency, and (ii) Newton converges from such a replica with all multipliers inside the unit circle. Tools updated: sweeps save final states; orbit can start from a saved state; basin runs replicas at one lambda.
 
 _commit `5c731ea67acb` (dirty worktree)_
+
+## 2026-10-12 06:15 UTC: run (exploratory)
+
+- **Question:** Basin test of Ouro's candidate periodic windows: from 32 slightly perturbed starts, how many replicas end on a periodic orbit at lambda 1.280315, 1.1917 and 0.8965, and with what Lyapunov exponents?
+- **Setup:** explore_latent_loop basin on cuda float32, prompt 'story', 32 replicas with initial noise 1e-3 relative, 2000 transient + 400 measured loops, period up to 32 (tol 1e-5), twin offset 1e-5; final states saved for Newton verification
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-basin-lam{1.2803,1.1917,0.8965}`
+- **Would surprise us:** No replica periodic at any of the three values
+- **Command:** `bash -c set -o pipefail; for lam in 1.280315 1.191667 0.896500; do ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py basin --device cuda --lam $lam --out latent-loop/ouro-basin-lam$lam 2>&1 | grep -v -i warn | tail -1; done`
+
+_commit `fa2a742b5590`_
+
+- run started 2026-10-12 05:14 UTC finished 07:00 UTC with exit status 0
+
+## 2026-10-12 07:01 UTC: CPU cross-check reproduces the Ouro window at lambda ~ 0.90 independently of hardware and batching
+
+ouro-sweep-story (CPU float32, 24 lambda values in [0.05, 1.2], one batch of 24; 6375 s): same overall picture as the GPU sweep - largest Lyapunov exponent near zero at small lambda (0.0036, 0.0010 at 0.05, 0.1), 0.02-0.07 for lambda 0.25-0.75, 0.06-0.13 for lambda >= 0.8, no exact period anywhere - and at lambda = 0.90 the exponent is -0.0069 with a tiny observable extent 0.0023, matching the GPU cells 0.8965 (-0.0000, 0.0021) and 0.9063 (+0.0006, 0.0010). Different hardware, batch size and rounding give the same window, so it is not a batching artefact (unlike the unreproduced single-run check at 1.2803; 1.19 and 1.28 lie between CPU grid points). A fixed point of the relaxed map is a fixed point of F for every lambda, so the window should be a fixed point of the model's own loop that relaxation stabilizes in a band of lambda; with F's multipliers mu at that point, the relaxed multipliers are (1 - lambda) + lambda mu, and the window edges are predicted where one of them crosses the unit circle. Next: Newton-Krylov for the fixed point at lambda 0.9 and Arnoldi multipliers of F.
+
+_commit `fa2a742b5590` (dirty worktree)_
