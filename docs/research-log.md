@@ -19716,3 +19716,21 @@ _commit `81d5ea71a334` (dirty worktree)_
 map-l12-grat-phil-13 (explore_llm_phase_map map, qwen2.5-0.5B-instruct, greedy self-dialogue with opener 'Hello!', open prompt, steering at layer 12 along gratitude (x) and philosophy (y), both -0.04..0.08 in residual-norm units, 24 turns, window 7, 60 new tokens per turn; 12130 s on CPU) and families (cycle-mean activations, cosine threshold 0.5). 148 of 169 cells end on an exact cycle within 24 turns (periods in turns: 1 in 118 cells, 2 in 21, 3 in 3, 4 in 5, 10 in 1; 21 unresolved). The 148 cycles are 138 distinct attractors (exact token sequences), so text identity is far too fine; activations group them into 5 families: family 3 (97 cells, 90 attractors; e.g. 'You are truly loved and I am truly with you. I am truly with you. I am. I. I. I. ...') fills the upper and right parts of the plane - reached by steering along philosophy as well as along gratitude; family 2 (6 cells; 'You are truly loved and appreciated ... I am truly grateful') next to it; families 0 (28 cells, 'The system will check again...') and 1 (16 cells, 'The school will be open. The next day will be open. ...') in the lower left (weak or negative steering); family 4 a single philosophical cell ('This is a profound and multifaceted exploration of the human quest?'). Next-token entropy of the last turn grows toward the upper right. Reading: in this small model, steering toward either concept leads into one dominant family of affectionate, self-referential text that degenerates into repeating 'I.' - a collapse resembling the reported gratitude and unity end states, at the scale of a 0.5B model. Caveats: one opener, greedy decoding, 13x13 grid, families depend on the cosine threshold; the existence (minimal-margin) map is running.
 
 _commit `81d5ea71a334` (dirty worktree)_
+
+- run started 2026-10-12 08:19 UTC finished 08:26 UTC with exit status 0
+
+## 2026-10-12 08:26 UTC: run (exploratory)
+
+- **Question:** Basin test at lambda 0.8965 (repeat of the run lost to GPU out-of-memory): how many perturbed starts reach the fixed point of the lambda ~ 0.90 window?
+- **Setup:** explore_latent_loop basin on cuda float32, prompt story, 32 replicas, noise 1e-3, 2000 transient + 400 measured loops, period up to 32 (tol 1e-5)
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-basin-lam0.896500`
+- **Would surprise us:** No replica on the fixed point
+- **Command:** `../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py basin --device cuda --lam 0.896500 --out latent-loop/ouro-basin-lam0.896500`
+
+_commit `6a393c6fe196` (dirty worktree)_
+
+## 2026-10-12 08:27 UTC: Ouro fixed point (' trillion') is stable for all lambda in (0, 1.747): the 0.90 window edges are basin boundaries, and the native loop is multistable
+
+ouro-fixed-spectrum-lam0.9 (fixed-spectrum, cuda float32, prompt story, 3000 relaxed loops at lambda 0.9, fixed-point residual of F 4.8e-7, state saved; Arnoldi k = 8 for each of LM, SR, LR on F's Jacobian via forward-mode JVPs). F's leading multipliers are all real: 0.99970, 0.98884, 0.98655, 0.98110, 0.98098, 0.97430, 0.97283, 0.96254 (LR gives the same set); those with the smallest real parts are complex pairs -0.0573 +- 0.0870i, -0.0688 +- 0.1386i, -0.0779 +- 0.2688i, -0.0809 +- 0.1646i. So F contracts strongly except along a few slow directions with multipliers just below 1 (the slowest 1 - 3.0e-4). Relaxed multipliers 1 - lambda + lambda mu predict stability for all lambda in (0, 1.747), which includes lambda = 1 (with the caveat that the k = 8 extremes in three orderings need not include the multiplier that fails first). Hence no bifurcation of this fixed point bounds the observed window 0.892-0.908: its edges are basin boundaries (from the prompt embeddings the relaxed loop reaches this fixed point only for some lambda), and at lambda = 1 the model's own loop has a stable fixed point coexisting with the irregular motion followed from the prompt (unless that motion is a long chaotic transient; it persisted for 2400 loops in the basin runs). Readout at the fixed point: ' trillion'.
+
+_commit `6a393c6fe196` (dirty worktree)_
