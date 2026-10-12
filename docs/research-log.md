@@ -19968,3 +19968,21 @@ _commit `550cc7acfc1e` (dirty worktree)_
 Qwen2.5-0.5B self-dialogue sampled at T 0.7 (128 replicas x 40 turns, opener 'Hello!', window 7, 60 new tokens per turn; CPU float32). Markov state model on turn activations (PCA 20 dims, 99.5 % variance; 40 k-means states, all in one connected set; 4 metastable sets). Transfer-operator eigenvalues at lag 1: 1, 0.919, 0.823, 0.787. Implied timescales of the slowest process grow with the lag (11.8, 19.4, 23.7, 26.8 turns at lags 1-4): not yet Markovian at lag 4, so they are lower bounds. Metastable sets: (0) 'helper closure', 73 % stationary weight, 79 % of turns, residence 35 turns (stay probability 0.971 per turn), 74 % of replicas end there, mean next-token entropy 0.58, exemplars 'You're very welcome! If there's anything specific you'd like to know or discuss, feel free to ask. I'm here to assist you...'; (3) topical discussion (autonomous vehicles, biology, The Alchemist), 21 %, residence 7.8 turns, entropy 0.98; (1) AI in marketing and (2) climate and sea ice, 3 % each, residence 5-6 turns. The 'loved / I am' family of the greedy runs does not appear among the sampled sets at T 0.7. The steered chain (gratitude 0.04) is sampling.
 
 _commit `e92bd39b4c35`_
+
+- run started 2026-10-12 13:20 UTC (../neural-shrimp-data/explore/llm-soft-loop/branch-p8-a0.0717-{up,down}) finished 14:16 UTC with exit status 0
+
+## 2026-10-12 14:16 UTC: run (exploratory)
+
+- **Question:** Period adding: the verified P6, P8 and P10 stripe orbits read '. This (is X)^k' with k = 2, 3, 4. Does the one-cell P12 stripe continue the pattern (k = 5), and is the neighbouring period-2 region the limit 'is a is a ...' toward which the stripes accumulate?
+- **Setup:** explore_llm_soft_loop orbit on cuda float64 (norms patched), 600 transient steps, period detected at 1e-9, dense AD Newton to 1e-11: P12 cells (log10 T, alpha) (-0.10895, 0.064105) and (-0.12632, 0.067263), P2 cell (-0.17263, 0.061579)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/orbit64-zr-{p12a,p12b,p2}`
+- **Would surprise us:** A P12 orbit whose readout is not '. This' plus five 'is X' pairs, or a P2 orbit other than ' is' / ' a'
+- **Command:** `bash -c for c in "p12a -0.10895 0.064105" "p12b -0.12632 0.067263" "p2 -0.17263 0.061579"; do set -- $c; OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-9 --tol 1e-11 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit64-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-600; done`
+
+_commit `31ab5230e37d` (dirty worktree)_
+
+## 2026-10-12 14:17 UTC: Period-8 stripe at alpha 0.0717: fold above, flip below (job 06b2)
+
+Mixed-precision branch (float32 dense AD monodromy, float64 residuals, chord Newton; all multipliers per point) of the verified period-8 orbit from log10 T -0.1205 at alpha 0.0717, 60 points each way (27 min each), residuals 1e-11 to 1e-10 throughout. Up: the leading multiplier stays real and positive, dips to 6e-5 near log10 T -0.108, then rises to 0.42 at -0.10343 while d(log10 T)/ds falls from 0.56 to 0.013: the branch is turning at a fold; a square-root fit of the last points puts it at -0.10327 (rerun through the turn queued as 06b4). Down: the leading multiplier changes sign near -0.121 (+0.0041 at -0.1205, -0.016 at -0.1219: a superstable point), then decreases through -1 between -0.12886 and -0.12911, a real -1 crossing (flip) with the next multiplier at modulus 3.2e-6 (isolated); beyond it the orbit continues unstable to multiplier -100 at -0.155. So this cut through the stripe has the profile of a periodic window: saddle-node at high temperature, superstable interior, period doubling at low temperature. The stable range, -0.1290 to about -0.1033, is wider than the scan's (-0.126 to -0.109); the scan's period-16 cells on the stripe's low-temperature edge fit the doubled orbit past the flip. Next: fold and flip curves in the plane (06c2).
+
+_commit `31ab5230e37d` (dirty worktree)_
