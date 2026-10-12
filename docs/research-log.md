@@ -18944,3 +18944,23 @@ _commit `8a4d44ca44ab` (dirty worktree)_
 rotation-w6, rotation-w12 (rotation-map, 160x160, ridge 1e-3; summary figures in width-maps/summary-w6-w12; the first summary used a cyclic colour map that made 0 and 0.5 look alike, replaced). Both widths show a grey band where training settles into a 2-cycle and, above it, a region of rotating motion whose lower rim has rotation about 0.2 turns per two steps (w6: 3261 rotating cells, median 0.055; w12: 2116, median 0.059). Rim checks by continuation: width 6 on the ray log10 output = log10 hidden - 2.0: first crossing complex at s = 1.69997 (0.1666 turns), d = -0.460 (doubled steps -0.460), supercritical. But the minimum has two strong distinct units (norms 0.84, 0.78) and four weak units identical to 10 digits (0.13346261702); the NS eigenvector puts 0.40 + 0.40 on the strong units and 0.05 on each condensed copy. Width 12 on the ray offset -2.18: first crossing real +1 at s = 1.4064 with a multiplier degenerate across the ten condensed units (norms 0.0871983551 each, two strong units 0.78 and 0.84): symmetry breaking within the condensed block; criticality refused it as designed. The rim's rotation in the width-12 map therefore belongs to a branch that the symmetric continuation does not follow. Conclusion: with a 3-unit teacher, small initialization (scale 0.2) and ridge 1e-3, wider students condense (identical or dead units) and behave as effective 3-unit networks, so S2 cannot test width with distinct units. Next width test: a teacher as wide as the student, larger initialization, or real data (UCI digits).
 
 _commit `8a4d44ca44ab` (dirty worktree)_
+
+## 2026-10-12 02:12 UTC: run (exploratory)
+
+- **Question:** Inference pilot, calibration: does a Titans-style test-time memory (13-parameter tanh MLP updated per token by gradient descent with forgetting, no momentum) under a repeating 8-token context show regimes beyond memory that simply repeats with the context: period doubling of the period map, rotating (quasi-periodic) memory, divergence? Coarse grid to choose ranges
+- **Setup:** explore_inference_memory scan, context 8 (S2 teacher keys/values), width 3, eta 0, log10 theta -2..1 x log10 alpha -5..-0.5 at 40x40, 2000 transient periods, 1024 sampled periods, max period 64, 6 workers
+- **Output:** `../neural-shrimp-data/explore/inference-memory/calibration-eta0`
+- **Would surprise us:** Only period 1 and divergence anywhere on the grid
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py scan --resolution 40 40 --workers 6 --out inference-memory/calibration-eta0`
+
+_commit `29522a68f7e3`_
+
+- run started 2026-10-12 02:12 UTC finished 02:12 UTC with exit status 1
+
+- run started 2026-10-12 02:08 UTC finished 02:12 UTC with exit status 0
+
+## 2026-10-12 02:12 UTC: Inference pilot calibration-eta0 failed before any output (recall-error broadcasting bug)
+
+calibration-eta0 crashed in every worker at the recall-error step: net.predict returns (keys, cells) and the code subtracted values as (1, keys); the single-cell unit test had broadcast (8,1) against (1,8) to (8,8) silently and passed. Fixed in deaec663 with a two-cell test; no scan output was written. Rerun as calibration-eta0-002 with unchanged settings.
+
+_commit `deaec6634c48` (dirty worktree)_
