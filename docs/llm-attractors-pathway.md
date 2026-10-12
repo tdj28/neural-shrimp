@@ -337,6 +337,63 @@ window (`explore/llm-soft-loop/`).
   fold and flip curves in the plane, with cusps where fold curves meet.
   `curve` traces them.
 
+## Mechanism of the period-adding stripes (12 October 2026, evening)
+
+- **Normal form of the 2-cycle's fold, in float64.** At log10 T -0.115 the
+  "is it" 2-cycle dies in a fold at alpha_c = 0.0627983 (multiplier 1 to
+  3e-13). For the two-step map G the normal form is u' = u + a eps + b u^2.
+  - From derivatives: a = -4.834 per unit alpha, including the steering's
+    effect on the prefix, and b = -25.4285 from a finite-difference plateau,
+    so ab = 122.93.
+  - From the stable branch: the multipliers give
+    (1 - mu)^2 / (4 (alpha_c - alpha)) -> ab = 123.1 when extrapolated.
+- **The local bottleneck is exactly that normal form.** Controlled entries at
+  four held-out distances beyond the fold are predicted to within one
+  two-step iterate, with no fitting:
+  - full channel: 144, 71, 34 and 14 iterates;
+  - midpoint entry: 73, 36, 17 and 7;
+  - a norm-matched transverse kick costs at most one iterate.
+- **The global return halves the passage.** Free trajectories re-enter the
+  channel slightly upstream of the bottleneck's middle, near a fixed point
+  of the critical coordinate, so a natural passage is about 0.6 of a full
+  one. From the measured entry points the normal form predicts natural
+  laminar durations within 4-8 % (eps <= 1e-4). This explains why the
+  stripes follow the 1/N^2 law of a saddle-node ghost with about a third of
+  the full-passage prefactor.
+- **Reading.** Soft-token decoding contains Pomeau-Manneville type-I
+  intermittency:
+  - "is it" is the laminar channel, the ghost of the 2-cycle;
+  - ". This" is the reinjection;
+  - each extra "is X" pair is one more lap.
+
+  The scaling exponents are universal; the prefactor is set by where the
+  model's own text re-enters the loop.
+- **Resolution.** A 256x256 float64 map of the region, about 100 GPU-minutes
+  on an H100, shows the stripe fan out to period 32. The exact fold curve of
+  the period-8 orbit lies on the stripe's edge and caps its top. A second
+  family of bands crosses the fan near its lower end.
+
+## High-temperature period-4 region: shrimp candidate (12 October 2026, evening)
+
+- **Not one-dimensional.** Float64 4-cycles at log10 T 0-0.1 have second
+  multipliers of 0.06-0.09, unlike the stripes' 1e-6.
+- **The silhouette is several attractors.** The float32 period map shows a
+  period-4 body with a period-8 island and period-4 legs edged by period 8.
+  Float64 orbits show that this one colour covers at least four different
+  4-cycles (different text loops). Scans now record each cell's attractor
+  identity, and maps can be coloured by it.
+- **One orbit family's boundaries.** The body orbit ("\n\n - \n\n The"):
+  - in temperature at alpha 0.06484, an S-shaped branch with two folds
+    (log10 T 0.0640 and 0.0664: bistability between them) and a flip at
+    0.0695;
+  - toward smaller alpha, its leading multiplier hovers near -1 and crosses
+    it five times, alternating period-4 and period-8 bands, which are the
+    "legs with period-8 edges".
+
+  Two folds on one branch must meet at a cusp in the plane. Fold and flip
+  curves are being traced in float64 to locate and certify it (normal-form
+  conditions), before any shrimp claim.
+
 ## Toolkit for the model's own dynamics (12 October 2026)
 
 | Level | Map | Tool and subcommands | What is computed |
