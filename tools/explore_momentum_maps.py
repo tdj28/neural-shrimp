@@ -35,6 +35,7 @@ Subcommands:
 """
 
 import argparse
+import dataclasses
 import json
 import os
 import sys
@@ -64,11 +65,13 @@ def make_width_system(seed, width):
 
 
 class MomentumMap:
-    def __init__(self, system, seed, beta, width=None):
+    def __init__(self, system, seed, beta, width=None, ridge=None):
         if width is not None and width != 3:
             self.net, self.x, self.y, self.theta0 = make_width_system(seed, width)
         else:
             self.net, self.x, self.y, self.theta0 = SYSTEMS[system](seed)
+        if ridge is not None:                          # weight-decay override (the initialization is unchanged)
+            self.net = dataclasses.replace(self.net, ridge=float(ridge))
         self.beta = float(beta)
         self.n = self.net.n_parameters
         h = self.net.hidden_parameter_count
@@ -95,6 +98,12 @@ class MomentumMap:
         jac[n:, :n] = h
         jac[n:, n:] = self.beta * np.eye(n)
         return jac
+
+
+def require_same_ridge(mm, record):
+    arc_ridge = record.get("ridge", 1e-3)              # arcs written before the option used the built-in 1e-3
+    if arc_ridge != mm.net.ridge:
+        raise SystemExit(f"ridge mismatch: arc {arc_ridge}, this run {mm.net.ridge}")
 
 
 def refine_minimum(mm, theta):
@@ -306,7 +315,7 @@ def branch(args):
             rows.append(row)
             if crossed is None and abs(top) > 1.0 + 1e-9 and k > 0:
                 kind = "complex (Neimark-Sacker)" if abs(top.imag) > 1e-8 else (
-                    "real +1 (fold)" if top.real > 0 else "real -1 (flip)")
+                    "real +1 (fold or branch point)" if top.real > 0 else "real -1 (flip)")
                 crossed = {"s": float(s), "type": kind, "turns": row["top_turns"]}
                 print(json.dumps({"first_crossing": crossed}))
             if k % args.print_every == 0:
@@ -353,7 +362,7 @@ class MomentumTwoCycle:
 def arc(args):
     from neural_shrimp.fastcont import arclength, newton, null_tangent
 
-    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None))
+    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None), getattr(args, "ridge", None))
     n = mm.n
     p0 = mm.rates(0.0, args.offset_output)[0]
     small = mm.rates(args.s_low, args.s_low + args.offset_output)
@@ -367,7 +376,9 @@ def arc(args):
     lam_max = float(np.max(np.linalg.eigvals(p0[:, None] * mm.net.hessian(theta, mm.x, mm.y)).real))
     s_flip = float(np.log10(2.0 * (1.0 + mm.beta) / lam_max))
     system = MomentumTwoCycle(mm, args.offset_output)
-    record = {"args": vars(args), "s_flip": s_flip, "lambda_max_at_s0": lam_max}
+    record = {"args": vars(args), "s_flip": s_flip, "lambda_max_at_s0": lam_max, "ridge": mm.net.ridge,
+              "minimum_norm": float(np.linalg.norm(theta)),
+              "minimum_loss": float(mm.net.loss(theta[None, :], mm.x, mm.y)[0])}
     seed = None
     for side in (+1, -1):
         s0 = s_flip + side * args.start_offset
@@ -406,7 +417,7 @@ def arc(args):
             top = mult[np.argmax(np.abs(mult))]
             if abs(top) > 1.0 + 1e-9 and not crossing:
                 kind = "complex (Neimark-Sacker)" if abs(top.imag) > 1e-8 else (
-                    "real +1 (fold)" if top.real > 0 else "real -1 (flip)")
+                    "real +1 (fold or branch point)" if top.real > 0 else "real -1 (flip)")
                 crossing.append({"s": float(node["z"][-1]), "type": kind,
                                  "turns": float(abs(np.angle(top)) / (2 * np.pi)), "modulus": float(abs(top))})
             return bool(crossing) and abs(node["z"][-1] - crossing[0]["s"]) > args.beyond or node["z"][-1] > args.s_max
@@ -419,6 +430,7 @@ def arc(args):
             order = np.argsort(-np.abs(mult))
             pts = node["points"]
             rows.append({"s": float(node["z"][-1]), "separation": float(np.linalg.norm(pts[1][:n] - pts[0][:n])),
+                         "norm": float(0.5 * (np.linalg.norm(pts[0][:n]) + np.linalg.norm(pts[1][:n]))),
                          "top": [[float(mult[i].real), float(mult[i].imag)] for i in order[:4]]})
         record.update({"seed_side": side, "reason": reason, "first_crossing": crossing[0] if crossing else None,
                        "rows": rows})
@@ -531,10 +543,11 @@ def criticality(args):
     from neural_shrimp.criticality import finite_difference_forms, ns_coefficient
     from neural_shrimp.fastcont import newton
 
-    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None))
+    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None), getattr(args, "ridge", None))
     n = mm.n
     base = DATA / "explore" / args.arc
     record = json.loads((base / "arc.json").read_text())
+    require_same_ridge(mm, record)
     nodes = np.load(base / "nodes.npz")["w"]
     system = MomentumTwoCycle(mm, args.offset_output)
     fixed_row = np.zeros(2 * n + 1)
@@ -613,10 +626,11 @@ def staircase(args):
     """Rotation number versus ray parameter beyond the 2-cycle's first crossing."""
     from neural_shrimp.regimes import rotation_number
 
-    mm = MomentumMap(args.system, args.seed, args.beta, args.width)
+    mm = MomentumMap(args.system, args.seed, args.beta, args.width, args.ridge)
     n = mm.n
     base = DATA / "explore" / args.arc
     record = json.loads((base / "arc.json").read_text())
+    require_same_ridge(mm, record)
     nodes = np.load(base / "nodes.npz")["w"]
     s_cross = record["first_crossing"]["s"]
     k = int(np.argmin(np.abs(nodes[:, -1] - s_cross)))
@@ -748,6 +762,8 @@ def main():
     st.add_argument("--out", required=True)
     for sp in (ac, cr):
         sp.add_argument("--width", type=int, default=None)
+    for sp in (ac, cr, st):
+        sp.add_argument("--ridge", type=float, default=None, help="weight decay (default: the system's 1e-3)")
     args = parser.parse_args()
     {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset,
      "criticality": criticality, "staircase": staircase}[args.command](args)
