@@ -664,6 +664,8 @@ def scan(args):
     lyap = np.zeros(B)
     period = np.zeros(B, dtype=int)
     entropy = np.zeros(B)
+    family = np.full(B, -1, dtype=int)            # identity of the periodic attractor: its leading-token loop
+    families = {}                                 # canonical token loop -> family index
     rng = np.random.default_rng(0)
     tic = time.perf_counter()
     chunk = args.chunk or B
@@ -679,7 +681,7 @@ def scan(args):
         delta = delta / delta.flatten(1).norm(dim=1)[:, None, None] * args.eps
         XY = torch.cat([XY[:n], XY[:n] + delta])
         log_growth = np.zeros(n)
-        history = []
+        history, tokens = [], []
         for k in range(args.samples):
             XY, p = loop.step(XY, temps2)
             X, Y = XY[:n], XY[n:]
@@ -694,6 +696,7 @@ def scan(args):
             XY = torch.cat([X, Y])
             if k >= args.samples - args.record:
                 history.append(X[:, -1, :].double().cpu().numpy().copy())
+                tokens.append(p.argmax(-1).cpu().numpy().copy())
         lyap[idx] = log_growth / args.samples
         hist = np.array(history)
         scale = np.maximum(1.0, np.linalg.norm(hist[-1], axis=1))
@@ -702,6 +705,13 @@ def scan(args):
             close = np.linalg.norm(hist[-1 - q] - hist[-1], axis=1) < args.tol * scale
             per = np.where(close, q, per)
         period[idx] = per
+        toks = np.array(tokens)                               # (record, n): leading token per step
+        for c in range(n):
+            q = int(per[c])
+            if q > 0:
+                loop_ = tuple(int(t) for t in toks[-q:, c])
+                key = min(loop_[i:] + loop_[:i] for i in range(q))  # rotation-invariant
+                family[idx[c]] = families.setdefault(key, len(families))
         last_p = p.double().cpu().numpy()
         entropy[idx] = -(last_p * np.log(np.maximum(last_p, 1e-300))).sum(1)
         del p, XY, X, Y
@@ -711,13 +721,17 @@ def scan(args):
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(out / "scan.npz", log10_temperature=log_t, alpha=alphas, lyapunov=lyap.reshape(shape),
-                        period=period.reshape(shape), entropy=entropy.reshape(shape))
-    summary = {"args": vars(args), "seconds": seconds, "cells": B,
+                        period=period.reshape(shape), entropy=entropy.reshape(shape), family=family.reshape(shape))
+    tok = loop.sm.tok
+    fam_list = [{"family": i, "period": len(key), "cells": int((family == i).sum()),
+                 "tokens": [tok.decode([t]) for t in key]} for key, i in families.items()]
+    fam_list.sort(key=lambda f: -f["cells"])
+    summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list[:200],
                "lyapunov_positive": int((lyap > args.chaos_level).sum()),
                "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
                "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
     (out / "scan.json").write_text(json.dumps(summary, indent=1))
-    print(json.dumps({k: v for k, v in summary.items() if k != "args"}))
+    print(json.dumps({k: v for k, v in summary.items() if k not in ("args", "families")}))
     figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / "scan.png", args)
 
 
@@ -776,15 +790,33 @@ def render(args):
     colours = np.concatenate([np.delete(base, [14, 15], axis=0), plt.get_cmap("tab20b")(np.arange(20))])[:top]
     # (tab20's two greys are dropped: grey marks 'no period')
     img = np.full(per.shape + (4,), 0.0)
-    for q in range(1, top + 1):
-        img[per == q] = colours[(q - 1) % len(colours)]
-    img[(per == 0) | (per > top)] = (0.75, 0.75, 0.75, 1.0)
+    family_handles = []
+    if args.families:                                     # colour by attractor identity (token loop), not period
+        if "family" not in d:
+            raise SystemExit(f"{args.scan} has no family identities (scan made before they were recorded)")
+        fam = d["family"]
+        info = {f["family"]: f for f in json.loads((src / "scan.json").read_text())["families"]}
+        ids, counts = np.unique(fam[fam >= 0], return_counts=True)
+        chosen = ids[np.argsort(-counts)][: args.families]
+        palette = plt.get_cmap("tab20")(np.arange(20))
+        img[(per > 0)] = (0.55, 0.55, 0.62, 1.0)          # other periodic attractors
+        for k, f in enumerate(chosen):
+            colour = palette[k % 20]
+            img[fam == f] = colour
+            text = "".join(info[int(f)]["tokens"]).replace("\n", "\\n")[:28] if int(f) in info else "?"
+            family_handles.append(matplotlib.patches.Patch(color=colour,
+                                  label=f"P{info[int(f)]['period'] if int(f) in info else '?'} {text!r}"))
+        img[per == 0] = (0.8, 0.8, 0.8, 1.0)
+    else:
+        for q in range(1, top + 1):
+            img[per == q] = colours[(q - 1) % len(colours)]
+        img[(per == 0) | (per > top)] = (0.75, 0.75, 0.75, 1.0)
     img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
     fig, ax = plt.subplots(figsize=(8, 7))
     ax.imshow(img, origin="lower", aspect="auto", interpolation="nearest",
               extent=(al[0], al[-1], lt[0], lt[-1]))
-    handles = [matplotlib.patches.Patch(color=colours[(q - 1) % len(colours)], label=str(q))
-               for q in range(1, top + 1) if np.any(per == q)]
+    handles = family_handles or [matplotlib.patches.Patch(color=colours[(q - 1) % len(colours)], label=str(q))
+                                 for q in range(1, top + 1) if np.any(per == q)]
     handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
                 matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
     styles = {"fold": dict(color="white", lw=1.6), "flip": dict(color="magenta", lw=1.6, ls="--")}
@@ -801,7 +833,8 @@ def render(args):
     if args.window:
         ax.set_xlim(*args.window[:2])
         ax.set_ylim(*args.window[2:])
-    ax.legend(handles=handles, fontsize=7, ncol=2, loc="upper left", bbox_to_anchor=(1.01, 1.0), title="period")
+    ax.legend(handles=handles, fontsize=7, ncol=1 if family_handles else 2, loc="upper left",
+              bbox_to_anchor=(1.01, 1.0), title="attractor (leading-token loop)" if family_handles else "period")
     ax.set_xlabel("steering alpha")
     ax.set_ylabel("log10 temperature")
     ax.set_title(f"soft-token decoding: {args.scan}")
@@ -1213,6 +1246,8 @@ def main():
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
     rd.add_argument("--window", type=float, nargs=4, default=None, metavar=("ALPHA0", "ALPHA1", "LOGT0", "LOGT1"),
                     help="zoom to this part of the map")
+    rd.add_argument("--families", type=int, default=0,
+                    help="colour the N most common attractor identities (token loops) instead of periods")
     ro = sub.add_parser("readout")
     ro.add_argument("--run", required=True, help="explore-relative orbit, branch, tline or curve run directory")
     ro.add_argument("--index", type=int, default=0, help="point of a branch/tline/curve run")

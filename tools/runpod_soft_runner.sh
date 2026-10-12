@@ -113,6 +113,14 @@ case "$JOBSET" in
     run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
     run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
     ;;
+  highT)       # 256x256 float64 map of the high-entropy region with attractor identities (token loops), so that
+               # different period-4 orbits are told apart; then the same window zoomed on the period-4 body
+    SCAN="scan --device cuda --dtype float64 --chunk 2048 --tol 1e-8 --eps 1e-6"
+    run map-highT 150 $SCAN --resolution 256 256 --alpha 0.045 0.085 --log-temperature -0.02 0.14 \
+      --out $D/map-highT-256-families
+    run map-p4body 100 $SCAN --resolution 192 192 --alpha 0.055 0.080 --log-temperature 0.0 0.07 \
+      --out $D/map-p4body-192-families
+    ;;
   p4a)         # shrimp candidate (period-4 domain at high temperature, zoom-p4): float64 orbits at the body,
                # legs and the period-8 island, then one-parameter branches out of the body in T and in alpha
     ORB="orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12"
