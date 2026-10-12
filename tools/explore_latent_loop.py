@@ -35,6 +35,8 @@ PROMPTS = {
     "story": "Once upon a time, in a small village by the sea,",
     "conscious": "What is consciousness? Consciousness is",
     "list": "1, 2, 3, 4, 5,",
+    "one-the": "The",                 # single-token contexts: the loop acts on one 2048-dimensional state
+    "one-hello": "Hello",
 }
 
 
