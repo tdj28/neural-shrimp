@@ -20255,3 +20255,43 @@ _commit `7994f8cda3cf`_
 Pipeline (commits 80046f97..8d44c1e6): tools/runpod_soft_float64.py creates one pod named neural-shrimp-..., records its ID in DATA/runpod/pods.jsonl, uploads a git archive of the soft-loop tools and runner (256 kB) plus the start data (1.2 MB), streams tools/runpod_soft_runner.sh's output to a local log, retrieves a hash-verified results.tgz into DATA/explore/llm-soft-loop/pod64 and terminates the pod with verification in a finally block. The pod installs torch 2.14.1+cu126, transformers 5.19.0, numpy 2.5.3 and scipy 1.18.1 with uv (same versions as local) and downloads Qwen2.5-0.5B-Instruct at the local snapshot 7ae557604adf. Attempt 1 failed in every job: offline loading resolves 'main' through refs/main, which a download by commit hash does not write (fixed: the runner writes it and checks an offline load before any job). Attempt 2, H100 NVL (driver 580.159.04): setup 82 s; 16x16 scans of the stripe region (alpha 0.060-0.082, log10 T -0.18..-0.05, 600 steps per cell with twin) took 22.4 s in float32 and 23.5 s in float64 (0.09 s per cell at chunk 256; the local RTX 2000 Ada needs 0.43 s per cell in float32 and is 64 times slower in float64), so float64 maps cost no more than float32 ones there. float32 and float64 agree on 245 of 256 cells' periods and 252 of 256 chaos labels; the 11 disagreements are long periods against none (float32 16, 24, 26-31 where float64 finds no period up to 32, and the reverse twice), the precision artefact seen before. Float64 curve tracing on the H100: the P8 flip curve start plus two points in 153 s, about 48 s per point (6 chord iterations, 28 JVPs), only twice the local mixed-precision rate, so curve tracing stays local. Run B (pod aa53p1b6jy1kqo, H100 NVL, started 18:35 UTC): 256x256 float64 maps at period tolerance 1e-8 and twin offset 1e-6 of (a) the stripe region, alpha 0.060-0.082 x log10 T -0.17..-0.04 (cells 8.6e-5 x 5.1e-4, 7 and 11 times finer than zoom-right), and (b) the high-entropy region with two-dimensional 4-cycles, alpha 0.045-0.085 x log10 T -0.02..0.14, outputs pod64/map-stripes-256 and pod64/map-highT-256. Costs are in the private ledger.
 
 _commit `8d44c1e67081`_
+
+## 2026-10-12 19:21 UTC: run (exploratory)
+
+- **Question:** Normal-form coefficient of the 2-cycle's fold in float64: does (mu - 1)^2 = 4 a beta (alpha_c - alpha) near the fold give a beta of about 374 (the value implied by the stripe positions with N = pi / sqrt(a beta epsilon)), or about 130 (float32 multipliers), and hence a reinjection factor?
+- **Setup:** explore_llm_soft_loop branch on CPU, fully float64 (dense float64 monodromy, no mixed precision, 6 threads), free alpha at log10 T -0.115 from alpha 0.0624 upward through the fold, ds 0.0005 (max 0.0015), 0.0005 past the turn, up to 30 points; refined multipliers off (the dense monodromy is float64)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/branch64-p2-t-0.115-alpha-up`
+- **Would surprise us:** (mu - 1)^2 not linear in alpha_c - alpha near the fold, or a beta far from both 130 and 374
+- **Command:** `bash -c set -o pipefail; OMP_NUM_THREADS=6 MKL_NUM_THREADS=6 nice -n 10 .venv/bin/python tools/explore_llm_soft_loop.py branch --device cpu --threads 6 --dtype float64 --reference-dtype none --no-exact-jvp --refine-k 0 --free alpha --log-temperature -0.115 --alpha 0.0624 --direction 1 --ds 0.0005 --ds-max 0.0015 --beyond 0.0005 --steps 30 --bounds 0.05 0.09 --out llm-soft-loop/branch64-p2-t-0.115-alpha-up 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-1500`
+
+_commit `f6569a5d3a5c`_
+
+## 2026-10-12 19:32 UTC: run (exploratory)
+
+- **Question:** Normal form of the 'is it' 2-cycle's fold in float64 (consult recommendation 1, step 2): a = l^T dG/dalpha (with the prefix's steering), b = l^T D^2 G[r, r] / 2, and ab. Does ab come out near 374 (implied by the stripe positions with N = pi / sqrt(ab eps)) or near 130 (float32 multiplier estimate)?
+- **Setup:** explore_llm_soft_loop normal-form on CPU, float64 (norms and rotary patched), at the float64 fold point of smoke-curve-p2-float64-cpu (index 0: log10 T -0.115, alpha_c 0.06279827, multiplier 1 to 3e-13); G = two soft-map steps; b from central differences of float64 JVPs at relative steps 1e-2 .. 1e-4
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/normal-form-p2-t-0.115`
+- **Would surprise us:** No plateau of b over the step table, or ab far from both 130 and 374
+- **Command:** `bash -c set -o pipefail; OMP_NUM_THREADS=6 MKL_NUM_THREADS=6 .venv/bin/python tools/explore_llm_soft_loop.py normal-form --run llm-soft-loop/smoke-curve-p2-float64-cpu --index 0 --threads 6 --out llm-soft-loop/normal-form-p2-t-0.115 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -2 | cut -c1-1500`
+
+_commit `c86ed1901395` (dirty worktree)_
+
+- run started 2026-10-12 17:44 UTC (../neural-shrimp-data/explore/llm-soft-loop/zoom-p4) finished 19:35 UTC with exit status 0
+
+- run started 2026-10-12 19:32 UTC (../neural-shrimp-data/explore/llm-soft-loop/normal-form-p2-t-0.115) finished 19:35 UTC with exit status 0
+
+## 2026-10-12 19:37 UTC: run (exploratory)
+
+- **Question:** Consult recommendation 1, controlled passages: does the float64 normal form of the 2-cycle's fold (a = -4.834 per unit alpha, b = -25.43, ab = 122.9) predict how many two-step iterates the soft map needs to cross the bottleneck from controlled entrances, at held-out distances beyond the fold? Full entrance (u_in = -U) should take about pi / sqrt(ab eps), midpoint entrance about half; a transverse displacement of the same size should not matter.
+- **Setup:** explore_llm_soft_loop passage on CPU float64 (8 threads), normal form from normal-form-p2-t-0.115; u oriented so that a, b > 0; U = 0.1 / b (frozen before any passage run); exit at u = U; entrances u_in = -U (full), 0 (midpoint) and -U plus a norm-matched transverse displacement (l^T w = 0); development eps 5e-5, 5e-4; held-out eps 3e-6, 1e-5, 3e-5, 1e-4 (alpha = alpha_c + eps); up to 512 G-iterates; predictions by iterating the quadratic normal form and by the arctangent formula
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/passage-p2-t-0.115`
+- **Would surprise us:** Measured counts off from the discrete normal-form prediction by more than 10 % at held-out eps, or a transverse displacement that changes the count
+- **Command:** `bash -c set -o pipefail; OMP_NUM_THREADS=8 MKL_NUM_THREADS=8 nice -n 10 .venv/bin/python tools/explore_llm_soft_loop.py passage --normal-form llm-soft-loop/normal-form-p2-t-0.115 --epsilons 5e-5 5e-4 3e-6 1e-5 3e-5 1e-4 --development 5e-5 5e-4 --threads 8 --out llm-soft-loop/passage-p2-t-0.115 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -18 | cut -c1-400`
+
+_commit `783e8dad47c1` (dirty worktree)_
+
+## 2026-10-12 19:38 UTC: Zoom of the high-temperature period-4 domain (side run): a body with a period-8 island and P4 legs edged by period 8 - a shrimp candidate (float32 cells, unverified)
+
+Scan zoom-p4 (alpha 0.050-0.080 x log10 T 0.00-0.10, 96x96, float32, period tolerance 1e-4, twin offset 1e-4; run beside the P8 curve job, 6640 s): 3800 of 9216 cells chaotic; periods 4 (2299 cells), 2 (1486), 8 (645), 6 (191), 16 (122), 3 (116), 7 (110), 12 (91) and others. The period-4 domain has a broad body around alpha 0.062-0.072, log10 T 0.03-0.055 with a period-8 island inside it (around alpha 0.070, log10 T 0.03: period doubling inside the body), thin period-4 bands leaving it diagonally (up-right along the period-2 region to alpha 0.08, log10 T 0.09; up-left near alpha 0.056-0.064, log10 T 0.055-0.068; down-left toward alpha 0.055, log10 T 0.03; a separate band near alpha 0.075, log10 T 0.005), and period-8 bands along several of these bands' edges. This resembles the anatomy of a shrimp (body, legs, period doubling along leg edges and inside the body), and the float64 orbits checked so far in this region are not effectively one-dimensional (second multipliers 0.056 and 0.086). Not verified: float32 cells at tolerance 1e-4; whether body and legs are one continuous family of period-4 orbits (two different float64 4-cycles were found at (0.04, 0.065) and (0.03, 0.062)); fold and flip curves; cusps. Next (consult item 5): float64 orbits at body, legs and island and one-parameter branches out of the body (RunPod run C), then fold and flip curves of one component with any cusp certified by normal-form conditions; a 256x256 float64 map of the region runs in run B.
+
+_commit `783e8dad47c1` (dirty worktree)_
