@@ -9,6 +9,11 @@ that stalled earlier Krylov solves.
 Subcommands:
   profile  Exactness of the reduction on a saved state (one step in full and in
            reduced coordinates) and timings of the dense blocks.
+  check-mode  At a saved reduced orbit point: dense two-step Jacobian, the
+           eigenvalue nearest a shift (shift-invert Arnoldi), verification of
+           M v = mu v with matrix-free Jacobian-vector products, and the
+           eigenvector's composition by parameter block (first-layer rows along
+           the data span, its near-null column, biases, second layer).
   orbit    Dense Newton for the period-2 orbit at each rate of a list, starting
            from a saved state and continuing from each solution; the complex
            multipliers nearest the unit circle at every rate (full spectrum or
@@ -155,9 +160,50 @@ def orbit(args):
             break
 
 
+def check_mode(args):
+    import torch
+    from scipy.sparse.linalg import eigs
+    from neural_shrimp.cifar_reduced import two_step
+
+    problem, model, reduced, q = setup(args.lam, args.threads)
+    theta = np.load(args.orbit)
+    t2, t1, m = two_step(reduced, theta, args.eta, chunk=args.chunk)
+    vals, vecs = eigs(m, k=args.k, sigma=args.sigma, which="LM")
+    order = np.argsort(-np.abs(vals))
+    rows = []
+    r, h = q.shape[1], model.width
+    t = torch.as_tensor(theta)
+    for i in order:
+        mu, v = vals[i], vecs[:, i]
+        v = v / np.linalg.norm(v)
+        mv = reduced.jvp_two_step(t, torch.as_tensor(np.real(v)), args.eta).numpy() + 1j * \
+            reduced.jvp_two_step(t, torch.as_tensor(np.imag(v)), args.eta).numpy()
+        resid = float(np.linalg.norm(mv - mu * v))
+        w = np.abs(v) ** 2
+        b = w[: r * h].reshape(r, h)
+        rows.append({"mu": [float(mu.real), float(mu.imag)], "matrix_free_residual": resid,
+                     "share_first_layer_span": float(b[:-1].sum()), "share_first_layer_last_column": float(b[-1].sum()),
+                     "share_hidden_bias": float(w[r * h: r * h + h].sum()),
+                     "share_second_layer": float(w[r * h + h:].sum()),
+                     "top_hidden_units": np.argsort(-b.sum(axis=0))[:4].tolist()})
+        print(json.dumps({k: (round(x, 7) if isinstance(x, float) else x) for k, x in rows[-1].items()}))
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "check-mode.json").write_text(json.dumps({"args": vars(args), "modes": rows}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
+    cm = sub.add_parser("check-mode")
+    cm.add_argument("--lam", type=float, default=1e-2)
+    cm.add_argument("--threads", type=int, default=12)
+    cm.add_argument("--chunk", type=int, default=256)
+    cm.add_argument("--orbit", required=True)
+    cm.add_argument("--eta", type=float, required=True)
+    cm.add_argument("--sigma", type=float, default=1.0002)
+    cm.add_argument("--k", type=int, default=6)
+    cm.add_argument("--out", required=True)
     for name in ("profile", "orbit"):
         p = sub.add_parser(name)
         p.add_argument("--lam", type=float, default=1e-2)
@@ -175,7 +221,7 @@ def main():
             p.add_argument("--pre-steps", type=int, default=0,
                            help="gradient-descent steps in reduced coordinates before the first Newton")
     args = parser.parse_args()
-    {"profile": profile, "orbit": orbit}[args.command](args)
+    {"profile": profile, "orbit": orbit, "check-mode": check_mode}[args.command](args)
 
 
 if __name__ == "__main__":
