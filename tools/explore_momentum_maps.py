@@ -175,8 +175,8 @@ def scan(args):
 
 
 def rotation_block(task):
-    system, seed, beta, lh, lo, steps, pca, samples = task
-    mm = MomentumMap(system, seed, beta)
+    system, seed, beta, lh, lo, steps, pca, samples, width = task
+    mm = MomentumMap(system, seed, beta, width)
     rates = mm.rates(lh, lo)
     theta = np.repeat(mm.theta0[None, :], len(lh), axis=0)
     m = np.zeros_like(theta)
@@ -216,8 +216,8 @@ def rotation_map(args):
     log_o = np.linspace(*args.output, cols)
     r, c = np.divmod(np.arange(rows * cols), cols)
     chunks = np.array_split(np.arange(rows * cols), args.workers * 4)
-    tasks = [(args.system, args.seed, args.beta, log_h[r[i]], log_o[c[i]], args.steps, args.pca, args.samples)
-             for i in chunks]
+    tasks = [(args.system, args.seed, args.beta, log_h[r[i]], log_o[c[i]], args.steps, args.pca, args.samples,
+              args.width) for i in chunks]
     start = time.perf_counter()
     with ProcessPoolExecutor(args.workers) as pool:
         parts = list(pool.map(rotation_block, tasks, chunksize=1))
@@ -678,6 +678,7 @@ def main():
     rm.add_argument("--pca", type=int, default=256)
     rm.add_argument("--samples", type=int, default=8000)
     rm.add_argument("--workers", type=int, default=8)
+    rm.add_argument("--width", type=int, default=None)
     rm.add_argument("--out", required=True)
     br = sub.add_parser("branch")
     br.add_argument("--system", default="S2")
