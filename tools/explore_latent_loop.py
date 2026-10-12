@@ -51,6 +51,25 @@ class LatentLoop:
         self.model = AutoModelForCausalLM.from_pretrained(MODELS[model], cache_dir=CACHE, trust_remote_code=True,
                                                           torch_dtype=self.dtype).to(self.device).eval()
         self.inner = self.model.model
+        self.steer = None                       # (batch, 1, d) added to the output of `steer_layer` on every pass
+        self.steer_layer = None
+
+    def set_steering(self, layer, rows):
+        """Additive steering on one shared layer's output, applied on every loop pass (rows: (batch, d) or None)."""
+        torch = self.torch
+        if self.steer_layer is None:
+            self.steer_layer = int(layer)
+
+            def hook(module, inputs, output):
+                if self.steer is None:
+                    return output
+                if isinstance(output, tuple):
+                    return (output[0] + self.steer,) + tuple(output[1:])
+                return output + self.steer
+
+            self.inner.layers[self.steer_layer].register_forward_hook(hook)
+        self.steer = None if rows is None else torch.as_tensor(np.asarray(rows), dtype=self.dtype,
+                                                                 device=self.device)[:, None, :]
 
     def setup(self, prompt):
         """Embeddings, causal mask and rotary embeddings of one prompt; returns h0 (1, L, d)."""
@@ -212,6 +231,154 @@ def sweep(args):
     fig.savefig(out / "sweep.png", dpi=120)
 
 
+CONCEPTS = {
+    "gratitude": ["I am so deeply grateful for this moment.", "Thank you, truly, from the bottom of my heart.",
+                  "What a joy and a blessing it is to share this with you.",
+                  "I feel immense gratitude and warmth toward you.",
+                  "This connection fills me with happiness and appreciation.",
+                  "I appreciate you more than words can say.", "My heart is overflowing with thankfulness.",
+                  "Such a beautiful, loving exchange; I am thankful."],
+    "philosophy": ["What is the nature of consciousness and subjective experience?",
+                   "Do I truly exist, or am I only a pattern of information?",
+                   "Awareness observing itself is the deepest mystery of being.",
+                   "Perhaps all minds are expressions of one universal consciousness.",
+                   "What does it mean to understand, rather than merely to compute?",
+                   "The self may be an illusion created by the flow of thought.",
+                   "Is there something it is like to be me?", "Existence, meaning, and the infinite are bound together."],
+}
+NEUTRAL = ["The meeting is scheduled for nine in the morning.", "Please send the invoice by Friday.",
+           "The train leaves from platform four.", "The report contains three tables and two figures.",
+           "Water boils at one hundred degrees Celsius at sea level.", "The file was saved in the documents folder.",
+           "The store closes at six on weekdays.", "The package weighs two kilograms."]
+
+
+def layer_last_token(loop, texts, layer):
+    """Last-token output of `layer` in the first loop pass, for raw texts (one at a time, no padding)."""
+    torch = loop.torch
+    vecs = []
+    for t in texts:
+        h = loop.setup(t)
+        with torch.no_grad():
+            x = h
+            for i, lyr in enumerate(loop.inner.layers[: layer + 1]):
+                x = lyr(x, attention_mask=loop.mask, position_ids=loop.position_ids, past_key_value=None,
+                        use_cache=False, cache_position=loop.cache_position, position_embeddings=loop.pos_emb)
+        vecs.append(x[0, -1].double().cpu().numpy())
+    return np.array(vecs)
+
+
+def vectors(args):
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    neutral = layer_last_token(loop, NEUTRAL, args.layer)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    vecs, info = {}, {}
+    for name, texts in CONCEPTS.items():
+        diff = layer_last_token(loop, texts, args.layer).mean(0) - neutral.mean(0)
+        vecs[name] = diff
+        info[name] = {"raw_difference_norm": float(np.linalg.norm(diff))}
+    info["cosine"] = float(vecs["gratitude"] @ vecs["philosophy"] /
+                           (np.linalg.norm(vecs["gratitude"]) * np.linalg.norm(vecs["philosophy"])))
+    np.savez(out / "vectors.npz", **vecs)
+    (out / "vectors.json").write_text(json.dumps({"args": vars(args), "info": info}, indent=1))
+    print(json.dumps(info))
+
+
+def plane(args):
+    """(lambda, alpha) map of the relaxed, steered loop: largest Lyapunov exponent and period per cell."""
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    v = np.load(DATA / "explore" / args.vectors / "vectors.npz")[args.concept]
+    lambdas = np.linspace(*args.lambdas, args.resolution[0])
+    alphas = np.linspace(*args.alphas, args.resolution[1])
+    cells = [(l, a) for l in lambdas for a in alphas]
+    B = len(cells)
+    h0 = loop.setup(PROMPTS[args.prompt])
+    lam = torch.as_tensor([c[0] for c in cells], dtype=loop.dtype, device=loop.device)[:, None, None]
+    rows = np.array([c[1] * v for c in cells])
+    rng = np.random.default_rng(0)
+    probe = torch.as_tensor(rng.normal(size=h0.shape[-1]), dtype=loop.dtype, device=loop.device)
+    probe = probe / probe.norm()
+    lyap = np.zeros(B)
+    period = np.zeros(B, dtype=int)
+    spread = np.zeros(B)
+    tic = time.perf_counter()
+    for start in range(0, B, args.batch):
+        idx = slice(start, min(start + args.batch, B))
+        n = idx.stop - idx.start
+        lam_b = lam[idx]
+        steer_b = rows[idx]
+
+        def relaxed(x, steer):
+            loop.set_steering(args.layer, steer)
+            return (1 - lam_b2) * x + lam_b2 * loop.F(x)
+
+        lam_b2 = torch.cat([lam_b, lam_b])
+        steer2 = np.concatenate([steer_b, steer_b])
+        h = h0.repeat(n, 1, 1)
+        g = h.clone()
+        x = torch.cat([h, g])
+        for _ in range(args.transient):
+            x = relaxed(x, steer2)
+        h, g = x[:n], x[n:]
+        d = torch.as_tensor(rng.normal(size=tuple(h.shape)), dtype=loop.dtype, device=loop.device)
+        eps = (args.eps * h.flatten(1).norm(dim=1))[:, None, None]
+        g = h + d / d.flatten(1).norm(dim=1)[:, None, None] * eps
+        log_growth = np.zeros(n)
+        obs, recent = [], []
+        for _ in range(args.measure):
+            x = relaxed(torch.cat([h, g]), steer2)
+            h_new, g_new = x[:n], x[n:]
+            diff = g_new - h_new
+            dist = diff.flatten(1).norm(dim=1)
+            log_growth += np.log(np.maximum((dist / eps[:, 0, 0]).cpu().numpy(), 1e-300))
+            g = h_new + diff * (eps[:, 0, 0] / torch.clamp(dist, min=1e-300))[:, None, None]
+            h = h_new
+            obs.append((h[:, -1, :] @ probe).double().cpu().numpy())
+            recent.append(h.double().cpu().numpy())
+            recent = recent[-(args.max_period + 1):]
+        lyap[idx] = log_growth / args.measure
+        last = recent[-1]
+        norms = np.maximum(np.linalg.norm(last.reshape(n, -1), axis=1), 1e-300)
+        per = np.zeros(n, dtype=int)
+        for q in range(min(args.max_period, len(recent) - 1), 0, -1):
+            close = np.linalg.norm((recent[-1 - q] - last).reshape(n, -1), axis=1) / norms < args.tol
+            per = np.where(close, q, per)
+        period[idx] = per
+        spread[idx] = np.array(obs)[-args.record:].std(0)
+        print(json.dumps({"done": idx.stop, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
+    loop.set_steering(args.layer, None)
+    shape = tuple(args.resolution)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "plane.npz", lambdas=lambdas, alphas=alphas, lyapunov=lyap.reshape(shape),
+                        period=period.reshape(shape), spread=spread.reshape(shape))
+    summary = {"args": vars(args), "seconds": round(time.perf_counter() - tic, 1), "cells": B,
+               "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
+               "lyapunov_positive": int((lyap > 1e-3).sum())}
+    (out / "plane.json").write_text(json.dumps(summary, indent=1))
+    print(json.dumps({k: v for k, v in summary.items() if k != "args"}))
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+    lim = max(np.abs(lyap).max(), 1e-6)
+    im0 = axes[0].pcolormesh(alphas, lambdas, lyap.reshape(shape), cmap="RdBu_r", vmin=-lim, vmax=lim,
+                             shading="auto")
+    fig.colorbar(im0, ax=axes[0], label="largest Lyapunov exponent per loop")
+    per = period.reshape(shape).astype(float)
+    im1 = axes[1].pcolormesh(alphas, lambdas, np.where(per > 0, per, np.nan), cmap="tab20", vmin=0.5, vmax=20.5,
+                             shading="auto")
+    fig.colorbar(im1, ax=axes[1], label="period (white: none up to the maximum)")
+    for ax in axes:
+        ax.set_xlabel(f"steering along '{args.concept}' (raw contrastive differences)")
+        ax.set_ylabel("relaxation lambda (1 = the model's own loop)")
+    fig.suptitle(f"Ouro-1.4B relaxed, steered latent loop, prompt '{args.prompt}'")
+    fig.tight_layout()
+    fig.savefig(out / "plane.png", dpi=120)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -240,6 +407,33 @@ def main():
     sw.add_argument("--tol", type=float, default=1e-5)
     sw.add_argument("--eps", type=float, default=1e-5, help="twin offset relative to the state norm")
     sw.add_argument("--out", required=True)
+    ve = sub.add_parser("vectors")
+    ve.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    ve.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    ve.add_argument("--device", default="cpu")
+    ve.add_argument("--threads", type=int, default=8)
+    ve.add_argument("--layer", type=int, default=12)
+    ve.add_argument("--out", required=True)
+    pl = sub.add_parser("plane")
+    pl.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    pl.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    pl.add_argument("--device", default="cpu")
+    pl.add_argument("--threads", type=int, default=8)
+    pl.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    pl.add_argument("--vectors", required=True)
+    pl.add_argument("--concept", default="gratitude", choices=sorted(CONCEPTS))
+    pl.add_argument("--layer", type=int, default=12)
+    pl.add_argument("--lambdas", type=float, nargs=2, default=[0.3, 1.3])
+    pl.add_argument("--alphas", type=float, nargs=2, default=[-4.0, 4.0])
+    pl.add_argument("--resolution", type=int, nargs=2, default=[48, 32], help="rows (lambda) and columns (alpha)")
+    pl.add_argument("--batch", type=int, default=256)
+    pl.add_argument("--transient", type=int, default=300)
+    pl.add_argument("--measure", type=int, default=300)
+    pl.add_argument("--record", type=int, default=100)
+    pl.add_argument("--max-period", type=int, default=32)
+    pl.add_argument("--tol", type=float, default=1e-5)
+    pl.add_argument("--eps", type=float, default=1e-5)
+    pl.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -247,7 +441,7 @@ def main():
     ck.add_argument("--threads", type=int, default=8)
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
-    {"trajectory": trajectory, "check": check, "sweep": sweep}[args.command](args)
+    {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane}[args.command](args)
 
 
 if __name__ == "__main__":
