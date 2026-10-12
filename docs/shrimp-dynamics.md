@@ -100,6 +100,24 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
     useful proxy, not yet a mechanism: a two-direction model gets the angle
     but not the instability.
 
+## How low-dimensional is it?
+
+- **Cycles are planar and in the hidden layer.** Every census window examined
+  so far (periods 5, 11, 13, 16, 17 and 18) is an attracting cycle lying
+  almost entirely in one plane of parameter space (98.7-99.8% of its motion)
+  and in the hidden layer (99.7-99.98%).
+- **But the chaos is not two-dimensional.** The chaotic attractors next to
+  the period-18 window have Kaplan-Yorke dimension 3.2-3.4, even though 79-96%
+  of their motion is in one plane. Many directions contract only weakly per
+  step, so they add fractal dimension without adding much amplitude. The
+  analogy with two-dimensional maps, where shrimps are universal, is
+  therefore qualitative. Farther out, training is hyperchaotic (dimension
+  4.5-5.6).
+- **The odd-period windows (5, 11, 13, 17)** have real leading multipliers
+  near the fold and flip values. That is the classic shrimp signature, and it
+  cannot come from locking on the period-2 circle, which only gives even
+  periods. Their origin is open.
+
 ## What it implies for neural-network training (tentative)
 
 - **Beyond the edge, two frequencies organize training:** the bounce and its

@@ -18344,3 +18344,21 @@ _commit `f4e7aa66aabf`_
 - run started 2026-10-12 00:16 UTC finished 00:16 UTC with exit status 0
 
 - run started 2026-10-12 00:16 UTC finished 00:16 UTC with exit status 0
+
+## 2026-10-12 00:16 UTC: run (exploratory)
+
+- **Question:** Is post-edge training in S2-28011 effectively a low-dimensional map? Lyapunov spectra, Kaplan-Yorke dimensions and principal-plane shares of attractors around the period-18 window (chaotic above it, quasi-periodic below, in the window, and in chaos near the odd windows)
+- **Setup:** explore_shrimp_anatomy lyapunov: 40000 transient + 40000 QR steps with exact step Jacobians from the shared initial parameters at log10 rates (-0.083,1.89), (-0.088,1.93), (-0.0727,1.86), (-0.080,1.80), (-0.0857,1.853), (-0.55,2.40), (-0.43,2.10)
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/lyapunov-001`
+- **Would surprise us:** Kaplan-Yorke dimension well above 2 for chaotic attractors (dynamics not effectively two-dimensional)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py lyapunov --points -0.083 1.89 --points -0.088 1.93 --points -0.0727 1.86 --points -0.080 1.80 --points -0.0857 1.853 --points -0.55 2.40 --points -0.43 2.10 --out ../neural-shrimp-data/explore/shrimp-anatomy/lyapunov-001`
+
+_commit `a7497b206638`_
+
+- run started 2026-10-12 00:16 UTC finished 00:18 UTC with exit status 0
+
+## 2026-10-12 00:19 UTC: Census windows are planar hidden-layer cycles; post-edge chaos is not effectively two-dimensional (Kaplan-Yorke 3.2-3.4)
+
+window-* (explore_shrimp_anatomy window) at census representatives: periods 5, 11, 13, 17 (odd) and 16: attracting cycles (radius 0.81-0.99) whose states lie 98.7-99.8% in one principal plane and 99.7-99.98% in hidden-layer parameters. Odd windows have real leading multipliers (period 11: -0.842, +0.832; period 17: -0.813, +0.799; period 13: +0.886 then a complex pair 0.79), the classic fold/flip-bounded shrimp signature; winding tests were inconclusive (Newton from the cycle centre found an unstable fixed point for periods 5 and 11, a saddle 2-cycle for period 17; no winding around them or the minimum). lyapunov-001: chaotic attractors next to the period-18 window have lambda_1 = 0.036-0.048, lambda_2 = -0.0003 to +0.0036 and Kaplan-Yorke dimension 3.17-3.40, although 79-96% of the two-step variance lies in one plane; the quasi-periodic point below the window gives lambda_1 = 1e-5 and dimension 1.00 (invariant circle); the window gives a periodic attractor; far chaos is hyperchaotic (lambda_2 = 0.057, dimension 5.6). Weakly contracting transverse directions keep the fractal dimension above 3, so the two-dimensional-map analogy (Henon-type shrimps) is qualitative only.
+
+_commit `a7497b206638` (dirty worktree)_
