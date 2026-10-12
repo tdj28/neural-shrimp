@@ -913,6 +913,77 @@ def fixed_spectrum(args):
     print(json.dumps({k: v for k, v in rec.items() if k != "args"}, ensure_ascii=False))
 
 
+def vocab_basins(args):
+    """Ouro's position 0 follows one universal map (no input injection: the token only sets the initial state).
+    Start it from many token embeddings at once, iterate the (relaxed) loop, and group the end states: the
+    attractors of the model's own single-token loop and the vocabulary's partition into their basins."""
+    loop = make_loop(args)
+    torch = loop.torch
+    if not isinstance(loop, LatentLoop):
+        raise SystemExit("vocabulary basins are implemented for Ouro only")
+    loop.setup_positions(1)
+    V = loop.inner.embed_tokens.weight.shape[0]
+    rng = np.random.default_rng(args.seed)
+    ids = np.sort(rng.choice(V, size=min(args.tokens, V), replace=False)) if args.tokens < V else np.arange(V)
+    lam = float(args.lam)
+    finals, periods, steps = [], [], []
+    tic = time.perf_counter()
+    for start in range(0, len(ids), args.batch):
+        chunk = torch.as_tensor(ids[start: start + args.batch], device=loop.device)
+        with torch.no_grad():
+            h = loop.inner.embed_tokens(chunk)[:, None, :].to(loop.dtype)
+        recent = []
+        for k in range(args.loops):
+            h = (1 - lam) * h + lam * loop.F(h)
+            if k >= args.loops - (args.max_period + 1):
+                recent.append(h[:, 0].double().cpu().numpy())
+        last = recent[-1]
+        norms = np.maximum(np.linalg.norm(last, axis=1), 1e-300)
+        per = np.zeros(len(chunk), dtype=int)
+        for q in range(args.max_period, 0, -1):
+            per = np.where(np.linalg.norm(recent[-1 - q] - last, axis=1) / norms < args.tol, q, per)
+        finals.append(last.astype(np.float32))
+        periods.append(per)
+        steps.append(np.linalg.norm(recent[-1] - recent[-2], axis=1) / norms)
+        print(json.dumps({"done": start + len(chunk), "of": len(ids), "seconds": round(time.perf_counter() - tic, 1)}),
+              flush=True)
+    finals, periods, steps = np.concatenate(finals), np.concatenate(periods), np.concatenate(steps)
+    # group period-1 end states into fixed points (greedy, relative distance below args.merge)
+    centres, members = [], []
+    labels = -np.ones(len(ids), dtype=int)
+    for i in np.flatnonzero(periods == 1):
+        x = finals[i]
+        for c, centre in enumerate(centres):
+            if np.linalg.norm(x - centre) / np.linalg.norm(centre) < args.merge:
+                labels[i] = c
+                members[c].append(i)
+                break
+        else:
+            labels[i] = len(centres)
+            centres.append(x)
+            members.append([i])
+    readouts = []
+    with torch.no_grad():
+        for centre in centres:
+            z = loop.model.lm_head(torch.as_tensor(centre, dtype=loop.dtype, device=loop.device)[None])[0]
+            readouts.append(loop.tok.decode([int(z.argmax())]))
+    order = np.argsort([-len(m) for m in members])
+    attractors = [{"fixed_point": int(c), "basin_tokens": len(members[c]), "readout": readouts[c],
+                   "example_tokens": [loop.tok.decode([int(ids[i])]) for i in members[c][: args.examples]]}
+                  for c in order]
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "basins.npz", token_ids=ids, period=periods, label=labels, last_step=steps)
+    np.save(out / "fixed-points.npy", np.array(centres, dtype=np.float32))
+    rec = {"args": vars(args), "seconds": round(time.perf_counter() - tic, 1), "tokens": int(len(ids)),
+           "period_counts": {int(q): int((periods == q).sum()) for q in np.unique(periods)},
+           "fixed_points": len(centres), "attractors": attractors}
+    (out / "basins.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))
+    print(json.dumps({k: v for k, v in rec.items() if k not in ("args", "attractors")}))
+    for a in attractors[:12]:
+        print(json.dumps(a, ensure_ascii=False))
+
+
 def frozen_check(args):
     """Frozen-context map against the full loop: position j's output for perturbed states, both ways."""
     loop = make_loop(args)
@@ -1454,6 +1525,21 @@ def main():
     po.add_argument("--tol", type=float, default=1e-5)
     po.add_argument("--eps", type=float, default=1e-5, help="twin offsets relative to the perturbed norm")
     po.add_argument("--out", required=True)
+    vb = sub.add_parser("vocab-basins")
+    vb.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    vb.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    vb.add_argument("--device", default="cpu")
+    vb.add_argument("--threads", type=int, default=8)
+    vb.add_argument("--lam", type=float, default=1.0)
+    vb.add_argument("--tokens", type=int, default=8192, help="random sample of the vocabulary (all if larger)")
+    vb.add_argument("--seed", type=int, default=0)
+    vb.add_argument("--batch", type=int, default=4096)
+    vb.add_argument("--loops", type=int, default=600)
+    vb.add_argument("--max-period", type=int, default=16)
+    vb.add_argument("--tol", type=float, default=1e-5)
+    vb.add_argument("--merge", type=float, default=1e-3, help="relative distance for identifying fixed points")
+    vb.add_argument("--examples", type=int, default=12)
+    vb.add_argument("--out", required=True)
     fk = sub.add_parser("frozen-check")
     fk.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     fk.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -1497,7 +1583,7 @@ def main():
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
      "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit, "fixed-spectrum": fixed_spectrum,
      "arclength": arclength, "positions": positions, "frozen-check": frozen_check,
-     "frozen-plane": frozen_plane}[args.command](args)
+     "frozen-plane": frozen_plane, "vocab-basins": vocab_basins}[args.command](args)
 
 
 if __name__ == "__main__":
