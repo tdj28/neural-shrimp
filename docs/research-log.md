@@ -19184,3 +19184,21 @@ _commit `a93fbc44d54c`_
 All 14 jobs of the pilot-1 launch failed before generating anything: the environment sets a global HF_HOME (/data2/huggingface), so the tool's setdefault of the project cache never applied and offline loading found no files. Fixed by passing the project cache directory explicitly to the tokenizer and model loaders; relaunched with unchanged settings (job list saved as explore/llm-attractors/pilot1/jobs.txt).
 
 _commit `b3bba63f1914` (dirty worktree)_
+
+## 2026-10-12 03:04 UTC: run (exploratory)
+
+- **Question:** LLM attractor pilot 1, relaunch after the cache fix (question as the first launch: convergence to attractors in self-dialogue and repeated paraphrasing; open versus task prompt)
+- **Setup:** as the first launch (14 jobs in explore/llm-attractors/pilot1/jobs.txt; qwen2.5-0.5B-instruct on CPU, 4 processes x 4 threads, nice 10)
+- **Output:** `../neural-shrimp-data/explore/llm-attractors/pilot1`
+- **Would surprise us:** No convergence of any kind within 30 turns at temperature 0, or no difference between open and task prompts
+- **Command:** `bash -c xargs -P 4 -L 1 sh -c "OMP_NUM_THREADS=4 .venv/bin/python tools/explore_llm_attractors.py \$0 \"\$@\" --threads 4 2>&1 | grep -v -i -e warn -e Loading" < ../neural-shrimp-data/explore/llm-attractors/pilot1/jobs.txt`
+
+_commit `108ca29ec8bd`_
+
+- run started 2026-10-12 03:04 UTC finished 03:29 UTC with exit status 0
+
+## 2026-10-12 03:30 UTC: LLM attractor pilot 1: low temperature gives absorbing synchronized fixed points (greeting and farewell loops); temperature 1.0 gives none within 30 turns
+
+explore/llm-attractors/pilot1 (qwen2.5-0.5B-instruct, CPU; 14 runs completed; jobs started after commit a44754c9 ran the same dialogue/paraphrase code, which only gained a summary subcommand). Greedy self-dialogue: exact period-1 cycles of the 7-turn window from turn 11 (open prompt) and turn 9 (task prompt), i.e. both agents repeat one identical line each turn ('Hello! How can I assist you today?'; 'I'd be happy to help you plan your three-day trip to Kyoto...'), entropy 0.38 and 0.08 nats. Temperature 0.7: low-entropy drift in a 'helpful assistant offering help' basin with near-repeats (tail entropy 0.24-0.47 for two open runs, 1.27 for the third); one task run absorbed into a farewell loop ('You're welcome! I hope you have a wonderful trip to Kyoto. Have a wonderful day!') from turn 20 despite sampling (entropy 0.07). Temperature 1.0: tail entropy 1.8-3.2 nats, turns at the 100-token cap, no convergence and degrading content. Greedy repeated paraphrasing reached a fixed sentence at round 6 (no 2-cycle for this input); at 0.7 one exact repeat occurred at round 4, not persistent. No clear open-versus-task difference for this model. Measurement caveats: cosine of mean-pooled last-layer states is high for all runs (0.89-1.0, including incoherent ones), so the 'mirroring' criterion based on it is not discriminative and is not used as evidence; for sampled runs the cycle field records only a first exact repeat. Next (pilot 2): temperature scan with seeds and longer runs to locate the transition between absorbing and wandering regimes; exact per-turn stay probability of an attractor at temperature T from the logits (mean residence time); lexical similarity measures; the 1.5B model.
+
+_commit `a44754c9be1f` (dirty worktree)_
