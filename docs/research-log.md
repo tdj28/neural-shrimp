@@ -18382,3 +18382,33 @@ _commit `7e5b0521fd23` (dirty worktree)_
 orbit-003: from the saved eta 0.00938931 state, 400,000 reduced descent steps (254 s) and backtracking dense Newton both stall at relative residual 2.16e-6; the point is a genuine 2-cycle candidate (relative separation |F(theta)-theta|/|theta| = 8.7e-4) with a complex pair 0.99560 +- 0.01601i (modulus 0.99573, 0.0026 turns; 0.9961 at eta 0.0083 by Krylov, so it is not approaching the unit circle in this range) and a real multiplier 1.0000777 on top. check-mode-001 (shift-invert Arnoldi at 1.0002 on the dense two-step Jacobian, matrix-free check |Mv - mu v| < 5e-8): at least six real multipliers between 1.000015 and 1.000074, eigenvectors 85-93% first-layer weights along the data span spread over different hidden units, about 7-15% second layer. These correspond to slightly negative curvature of the data loss (about -0.014 against weight decay 0.01) along the cycle: the cycle is a slow saddle with an e-folding time of order 1e4 two-steps, so no attracting period-2 orbit exists at these rates, and plain descent drifts slowly. This explains the stalled Krylov (Codex) and dense Newton closures; it is a property of the problem, not of the solvers. Next CIFAR question, when resumed: where (in eta and lambda) does an attracting 2-cycle exist at all, for example with larger weight decay that lifts the weak negative curvature.
 
 _commit `7e5b0521fd23` (dirty worktree)_
+
+## 2026-10-12 00:31 UTC: run (exploratory)
+
+- **Question:** What does training do across the period-18 window's ray13 flip edge: period 18 on one side and, on the other, a period-36 cycle with amplitude ~ sqrt(distance) (soft flip) or a jump (hard flip)?
+- **Setup:** explore_shrimp_anatomy edge at carried node attempt-007-ray13-flip +1-000, signed offsets -1e-3..3e-3 decades along the curve normal, start at the node orbit + 1e-6, 200000 transient steps, period by recurrence (tol 1e-7 relative) up to 72, doubling amplitude for period 36
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/edge-ray13`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py edge --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-007-ray13-flip/run/node-+1-000.json --out ../neural-shrimp-data/explore/shrimp-anatomy/edge-ray13`
+
+_commit `dd17cbb5a660`_
+
+## 2026-10-12 00:31 UTC: run (exploratory)
+
+- **Question:** What does training do across the period-18 window's ray51 flip edge: period 18 on one side and, on the other, a period-36 cycle with amplitude ~ sqrt(distance) (soft flip) or a jump (hard flip)?
+- **Setup:** explore_shrimp_anatomy edge at carried node attempt-005-ray51-flip +1-000, signed offsets -1e-3..3e-3 decades along the curve normal, start at the node orbit + 1e-6, 200000 transient steps, period by recurrence (tol 1e-7 relative) up to 72, doubling amplitude for period 36
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/edge-ray51`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py edge --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-005-ray51-flip/run/node-+1-000.json --out ../neural-shrimp-data/explore/shrimp-anatomy/edge-ray51`
+
+_commit `dd17cbb5a660`_
+
+- run started 2026-10-12 00:31 UTC finished 00:32 UTC with exit status 0
+
+- run started 2026-10-12 00:31 UTC finished 00:32 UTC with exit status 0
+
+## 2026-10-12 00:32 UTC: Shrimp flip edges: soft period doubling on the left (amplitude ~ sqrt(distance)), abrupt loss of periodicity on the right
+
+edge-ray51 and edge-ray13 (explore_shrimp_anatomy edge; signed offsets along each flip curve's normal from carried nodes attempt-005-ray51-flip and attempt-007-ray13-flip +1-000). Left edge (ray51, normal mostly along the hidden rate): period 18 inside; outside, period 36 with doubling amplitude max_k |theta_{k+18} - theta_k| = 0.032, 0.056, 0.101, 0.171 at 1e-4, 3e-4, 1e-3, 3e-3 decades (log-log slope 0.491, supercritical flip value 0.5); mean loss 0.00904-0.00910. Right edge (ray13): period 18 inside; outside, no period up to 72 at every offset (18-step returns 0.05-0.34), mean loss 0.00927-0.00932 versus 0.00936-0.00939 inside: an abrupt transition to irregular training, consistent with the certified subcritical flip. Combined with the fold edge (type-I intermittency, slips-002), the three edge types have distinct time-series signatures and none changes the mean loss appreciably.
+
+_commit `dd17cbb5a660` (dirty worktree)_

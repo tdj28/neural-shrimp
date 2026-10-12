@@ -137,8 +137,17 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
     close to the edge; theory -0.5). Examples: about 670 steps at 1e-3
     decades, and 15,700 steps at 3e-6 decades. The mean loss does not change,
     so only the time structure reveals the nearby window.
-  - A period-doubling edge doubles the period.
-  - A Neimark-Sacker edge adds a slower modulation.
+  - A soft period-doubling edge doubles the period. This is confirmed at the
+    window's left flip edge (`explore/shrimp-anatomy/edge-ray51`). Outside
+    it, training follows a 36-step cycle whose two halves differ by an
+    amount growing like the square root of the distance (fitted exponent
+    0.49).
+  - A hard flip edge, the window's right edge (`edge-ray13`), switches
+    abruptly from the 18-step cycle to irregular training, with no 36-step
+    stage.
+  - A Neimark-Sacker edge should add a slower modulation (not yet tested).
+  - None of these edges changes the mean loss appreciably. The information is
+    in the time structure.
 - **Optimizer memory.** Heavy-ball momentum keeps the route in our pilot, but
   can make its onset abrupt, with hysteresis.
 - **Not yet shown:** any of this in large models or under minibatch noise, or
