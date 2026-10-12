@@ -19094,3 +19094,45 @@ _commit `7fdc3445cd96`_
 explore_cifar_reduced minimum --lam 0.03 from orbit-004's end state. 400000 descent steps at eta 0.006 (below the flip): loss 0.125950, gradient norm 2.66e-4 (not converged). Twelve dense Newton iterations on the gradient failed (step fractions 2^-7 to 2^-12, gradient norm 2.66e-4 -> 2.69e-4). Full symmetric spectrum (16,746 eigenvalues, 350 s) at the final state: five negative eigenvalues (-0.00290, -0.00130, -0.00091, -0.00068, -1.1e-5), i.e. data curvature down to about -0.033 against weight decay 0.03; largest 202.79, so the flip of this state's curvature is at eta = 0.00986; data loss 0.0230, parameter norm 2.62. The earlier slow-saddle two-step multipliers follow from these curvatures: (1 + 0.0094 x 0.0029)^2 = 1.000055, against 1.00002-1.00007 measured. So on CIFAR subset A full-batch GD is still crawling out of a plateau (weak negative curvature, e-folding time about 57000 steps at eta 0.006), and the edge-of-stability bounce rides on that drift; no shrimp analysis is meaningful until the plateau ends. Hypothesis to check: the negative directions break a symmetry between nearly identical (condensed) hidden units, as in the condensed S2 students. Next: escape by kicks along the most negative eigenvector (both signs), descent, spectrum, repeated until no negative eigenvalue remains.
 
 _commit `7fdc3445cd96` (dirty worktree)_
+
+## 2026-10-12 02:33 UTC: run (exploratory)
+
+- **Question:** CIFAR rung 3: can full-batch GD (weight decay 0.03) be taken out of its plateau to a true minimum (no negative Hessian eigenvalues), whose flip then starts a clean 2-cycle continuation?
+- **Setup:** explore_cifar_reduced escape-plateau --lam 0.03 --start minimum-lam0.03: per round, kicks of +-0.05 along the most negative Hessian eigenvector, 400000 descent steps at eta 0.006 for each sign, keep the lower loss, then the full symmetric spectrum; up to 6 rounds, stopping when no eigenvalue is negative; 12 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/escape-lam0.03`
+- **Would surprise us:** Negative eigenvalues persisting through all rounds (an extended plateau), or the loss not decreasing
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py escape-plateau --lam 0.03 --start ../neural-shrimp-data/explore/cifar-reduced/minimum-lam0.03 --out ../neural-shrimp-data/explore/cifar-reduced/escape-lam0.03`
+
+_commit `cf776eed09b6`_
+
+- run started 2026-10-12 02:32 UTC finished 02:38 UTC with exit status 0
+
+## 2026-10-12 02:39 UTC: run (exploratory)
+
+- **Question:** Is the chunk-3 memory regime a genuine invariant circle with Arnold-tongue locking? (a) the synchronized orbit at a moving cell exists and is unstable through a complex pair; (b) attracting period-6 and period-11 orbits exist in the stripes
+- **Setup:** explore_inference_memory floquet, context 24, chunk 3, --scale-by-chunk, coupled decay 1e-3: moving cell (log10 theta_h 1.85017, theta_o -0.08085), period 1, transients 0, 200 and 60000 periods as Newton starts; period-6 cell (1.77288, -0.09102), period 6, transient 60000; period-11 cell (1.90814, -0.12153), period 11, transient 60000
+- **Output:** `../neural-shrimp-data/explore/inference-memory/floquet-chunk3`
+- **Would surprise us:** No unstable complex pair at the synchronized orbit, or no attracting orbit of the stripe period
+- **Command:** `bash -c for tr in 0 200 60000; do env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --chunk 3 --scale-by-chunk --coupled-decay 1e-3 --log-theta 1.85017 --log-theta-o -0.08085 --period 1 --transient $tr --out inference-memory/floquet-chunk3/moving-p1-tr$tr; done; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --chunk 3 --scale-by-chunk --coupled-decay 1e-3 --log-theta 1.77288 --log-theta-o -0.09102 --period 6 --transient 60000 --out inference-memory/floquet-chunk3/stripe-p6; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --chunk 3 --scale-by-chunk --coupled-decay 1e-3 --log-theta 1.90814 --log-theta-o -0.12153 --period 11 --transient 60000 --out inference-memory/floquet-chunk3/stripe-p11`
+
+_commit `368b6ebb412d` (dirty worktree)_
+
+- run started 2026-10-12 02:39 UTC finished 02:40 UTC with exit status 0
+
+## 2026-10-12 02:41 UTC: run (exploratory)
+
+- **Question:** Where and how does the synchronized (context-periodic) memory lose stability with chunk-3 updates (8 updates per context, same total step)? Is the first crossing a complex pair (Neimark-Sacker, birth of the circle seen in the scan)?
+- **Setup:** explore_inference_memory continue, context 24, chunk 3, --scale-by-chunk, coupled decay 1e-3, log10 theta_o -0.08, log10 theta_h 1.2 -> 1.95 in steps of 0.002, period 1, 4000 transient periods at the start, damped Newton, --beyond
+- **Output:** `../neural-shrimp-data/explore/inference-memory/continue-chunk3-p1`
+- **Would surprise us:** First crossing real, or the orbit lost before any crossing
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py continue --context 24 --chunk 3 --scale-by-chunk --coupled-decay 1e-3 --log-theta-o -0.08 --theta-start 1.2 --theta-stop 1.95 --period 1 --transient 4000 --beyond --out inference-memory/continue-chunk3-p1`
+
+_commit `d273fa1d544f` (dirty worktree)_
+
+- run started 2026-10-12 02:41 UTC finished 02:41 UTC with exit status 0
+
+## 2026-10-12 02:42 UTC: Inference memory, chunk 3: Neimark-Sacker birth of quasi-periodic memory with Arnold-tongue locking (verified)
+
+window-chunk3-scaled (8 updates per context, rates scaled by 3/24; window box, 60x60): 3412 of 3600 cells moving, with rotation per two periods varying smoothly with the hidden rate from about 0.33 to 0.37; thin locked stripes of period 6 (where the rotation crosses 1/3; neighbours 0.3318 and 0.3347) and period 11 (4/11; neighbour 0.3648). Moving-cell attractors have extent 0.10-0.15 (synchronized cells about 1e-14), so they are not decaying spirals. floquet-chunk3: the stripe cells hold attracting period-6 (Newton residual 7e-16; multipliers 0.981, 0.978, 0.861; one-period separation 0.047) and period-11 orbits (2e-15; 0.983, 0.976, 0.740; 0.111), as expected for locking inside narrow tongues; plain Newton could not find the synchronized orbit from the moving cell (three starts, kept). continue-chunk3-p1 (log10 theta_o -0.08, hidden rate 1.2 -> 1.95, step 0.002): the synchronized memory exists throughout and first loses stability through a complex pair at log10 theta_h = 1.556 (spectral radius 0.99926 -> 1.0096; 0.1406 turns per context), then remains an unstable focus (modulus 2.63 at 1.95). So with 3-token chunks a test-time memory has a Neimark-Sacker-born quasi-periodic regime with Arnold-tongue locking. Not yet computed: criticality at the crossing, the circle's continuity between 1.556 and the scanned box, and the route's dependence on context order. The other chunk sizes in the box: chunk 12 all synchronized (3600), chunk 6 mostly synchronized (2673) with period 4 (166) and moving (761), per-token scaled all synchronized; note that with an even number of updates per context a per-update bounce repeats every context and is counted as synchronized.
+
+_commit `d273fa1d544f` (dirty worktree)_
