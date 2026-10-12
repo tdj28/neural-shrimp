@@ -20004,3 +20004,21 @@ _commit `e2c3f6c2c712` (dirty worktree)_
 float64 Newton on the GPU (norms patched, dense AD), 600 transient steps, period detected at 1e-9. P12 at (log10 T -0.10895, alpha 0.064105): residual 2.9e-15, leading multiplier +0.072, smallest earlier return 0.19 (primitive), readout '. This is it is it is it is a is a'. P12 at (-0.12632, 0.067263): residual 4.8e-15, leading +0.024, smallest earlier return 0.16, readout '. This is there is it is it is a is a'. P2 at (-0.17263, 0.061579): residual 5.6e-15, multipliers -0.271, -0.058, 0.008, readout ' it' / ' is'. So the stripe orbits are '. This' followed by k = 2, 3, 4, 5 'is X' pairs for periods 6, 8, 10, 12 (period 2k + 2), and the neighbouring period-2 region is the 2-cycle 'is it' that the pairs approach: each stripe orbit loops k times near that 2-cycle, escapes through '. This' and is reinjected. With the boundary of the period-2 region near alpha 0.0625 at log10 T -0.115 (scan resolution 6e-4), the stripe centres give alpha_k - alpha_c = 0.0151, 0.0092, 0.0051, 0.0029 for k = 2..5: successive ratios 0.61, 0.55, 0.57 (geometric) or k^2 (alpha_k - alpha_c) = 0.060, 0.083, 0.082, 0.073 (1/k^2): the scan cannot tell these apart; stripe positions from traced curves and more members can. The P2 orbit's negative leading multiplier suggests that its boundary on this side is a flip.
 
 _commit `e2c3f6c2c712` (dirty worktree)_
+
+- run started 2026-10-12 14:26 UTC (../neural-shrimp-data/explore/llm-soft-loop/branch-p8-a0.0717-up2) finished 14:37 UTC with exit status 0
+
+## 2026-10-12 14:37 UTC: run (exploratory)
+
+- **Question:** How does the 'is it' 2-cycle (the limit of the period-adding stripes) lose stability at the edge of the period-2 region on the stripes' side, and where (alpha_c at log10 T -0.115)? A flip there would make the stripes' loops near a weakly unstable 2-cycle (spacing like 1/k or geometric); a fold would make them passages near its ghost (spacing like 1/k^2).
+- **Setup:** explore_llm_soft_loop branch on cuda (float32 derivatives, float64 residuals, chord Newton), free alpha at log10 T -0.115, start alpha 0.058 inside the period-2 region, direction up (toward the stripes), ds 0.002 in 10 alpha (max 0.01), bounds alpha 0.05..0.08, up to 60 points, stop 0.002 in alpha past a turn
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/branch-p2-t-0.115-alpha-up`
+- **Would surprise us:** A Neimark-Sacker crossing, or no crossing before alpha 0.066 (where the scan shows stripes)
+- **Command:** `bash -c OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py branch --device cuda --free alpha --log-temperature -0.115 --alpha 0.058 --direction 1 --ds 0.002 --ds-max 0.01 --bounds 0.05 0.08 --beyond 0.002 --out llm-soft-loop/branch-p2-t-0.115-alpha-up 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-2500`
+
+_commit `310f140ca8df` (dirty worktree)_
+
+## 2026-10-12 14:37 UTC: Period-8 fold confirmed at log10 T -0.1033461, alpha 0.0717 (job 06b4)
+
+Rerun of the upward branch from log10 T -0.1040 with smaller steps (ds 0.0005, max 0.003; chord Newton with step growth while at most 5 of 10 iterations are needed): 50 points in 650 s, residuals about 1e-11. The branch turns at log10 T -0.1033461 (quadratic estimate; T = 0.7881), with a real +1 crossing between points 18 and 19 (multiplier 1.054 on the saddle side, next largest modulus 1.1e-6: isolated), and continues back as the saddle partner, whose multiplier grows to 40 by -0.1067. The square-root extrapolation from job 06b2 (-0.10327) was off by 8e-5. Gate status for the period-8 window at alpha 0.0717: primitive stable orbit verified in float64; upper boundary a fold (turn plus real +1), lower boundary a flip (real -1 between -0.12886 and -0.12911); stable for log10 T in (-0.1290, -0.10335).
+
+_commit `310f140ca8df` (dirty worktree)_
