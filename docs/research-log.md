@@ -18836,3 +18836,73 @@ _commit `876b3bfa3370` (dirty worktree)_
 width-ladder arc2-w6/w12/w24 record the 2-cycle's first unit-circle crossing on the ray as a real +1 multiplier (w6 at s = 1.7456, modulus then rising to 1.056; w12 at s = 1.3395 and w24 at s = 1.3281 with the modulus staying about 1.00001 over the continued range), not a complex pair. The criticality step had evaluated the Kuznetsov coefficient for the largest complex pair, which was not on the unit circle, so the reported d values (-37.1, -0.31, -0.034) and the 'supercritical' labels for these widths are invalid; the widths-12/24 staircase seeing period-2 behaviour everywhere is consistent with a barely unstable real direction. Only width 3 (complex crossing at 1.6533, d = -0.511) is valid. All momentum-sweep arcs (width 3, beta 0-0.9) have complex first crossings, so d(beta) and the Chenciner point near beta 0.071 stand. The criticality step now refuses real crossings and evaluates d at the leading pair. Reading for the wider networks: on this ray the 2-cycle first loses stability through a real +1 direction, plausibly a near-neutral mode of partly redundant hidden units; whether a Neimark-Sacker crossing follows further along, or on other rays, is open.
 
 _commit `b62bdb694130`_
+
+## 2026-10-12 01:29 UTC: run (exploratory)
+
+- **Question:** Where (if anywhere) do wider networks on the S2 task show Neimark-Sacker-born precession and locking in the rate plane? Rotation maps for 6 and 12 hidden units (plain gradient descent)
+- **Setup:** explore_momentum_maps rotation-map --beta 0 --width w over log10 hidden 0.8-2.4 x log10 output -1.0-0.4 at 160x160, 20000 steps from the width-w initialization, 256 PCA + 6000 two-step samples (rotation and principal-plane spread); widths 6 and 12, 6 workers each, nice 10
+- **Output:** `../neural-shrimp-data/explore/momentum/width-maps`
+- **Would surprise us:** No region with smooth nonzero rotation (no quasi-periodic regime) at all in the wider networks
+- **Command:** `bash -c for w in 6 12; do env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py rotation-map --beta 0 --width $w --hidden 0.8 2.4 --output -1.0 0.4 --resolution 160 160 --steps 20000 --samples 6000 --workers 6 --out momentum/width-maps/rotation-w$w & done; wait`
+
+_commit `031e7d5ba757`_
+
+## 2026-10-12 01:44 UTC: run (exploratory)
+
+- **Question:** Does weight decay decide whether the edge-of-stability 2-cycle first loses stability through its complex (Neimark-Sacker) pair, the shrimp route, or through a real +1 direction or drift? Hypothesis registered before running: weight decay adds lambda to every curvature, so each near-flat or weakly negative direction (saturation, redundant units, escape to large norm) contracts by (1 - eta lambda) per step and the bounce's centre is pinned against the sharpness-reducing drift. Predictions: at width 3, lowering ridge moves the complex crossing to larger s, with the branch norm growing, until a real crossing or drift comes first; at width 12, raising ridge (3e-3 to 3e-2) turns the first crossing from real +1 into complex
+- **Setup:** explore_momentum_maps arc --beta 0 on the fixed ray (log10 output = log10 hidden - 1.828), s_max 3.0, 12000 continuation steps; width 3 at ridge 0, 1e-5, 1e-4, 3e-4, 1e-3 (same-settings control), 3e-3; width 12 at ridge 3e-3, 1e-2, 3e-2 (1e-3 is width-ladder arc2-w12: real +1 first). Same initialization and data throughout (S2 teacher, noiseless, realizable at width 3). Six parallel single-thread jobs, nice 10
+- **Output:** `../neural-shrimp-data/explore/momentum/ridge-ladder`
+- **Would surprise us:** First-crossing type independent of ridge at both widths
+- **Command:** `bash -c printf "%s\n" "3 0" "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2" | xargs -P 6 -L 1 bash -c 'env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width $0 --ridge $1 --s-max 3.0 --steps 12000 --out momentum/ridge-ladder/arc-w$0-r$1 > ../neural-shrimp-data/explore/momentum/ridge-ladder-w$0-r$1.log 2>&1'`
+
+_commit `73972589fa06` (dirty worktree)_
+
+- run started 2026-10-12 01:44 UTC finished 01:44 UTC with exit status 0
+
+## 2026-10-12 01:46 UTC: run (exploratory)
+
+- **Question:** Anatomy of the ridge-ladder first crossings: which hidden units carry the crossing eigenvector, are any units dead (zero weights) at the minimum, and is a real +1 crossing a turning point (fold) or a branch point (e.g. recruitment of a dead unit)?
+- **Setup:** explore_momentum_maps crossing-anatomy on each ridge-ladder arc (saved nodes; minimum recomputed with the arc's descent and trust-region refinement)
+- **Output:** `../neural-shrimp-data/explore/momentum/ridge-ladder/anatomy-*`
+- **Would surprise us:** Real crossings carried by live units with no turning point and no dead units
+- **Command:** `bash -c for spec in "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2"; do set -- $spec; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width $1 --ridge $2 --arc momentum/ridge-ladder/arc-w$1-r$2 --out momentum/ridge-ladder/anatomy-w$1-r$2 & done; wait`
+
+_commit `9aef4d0e4d36` (dirty worktree)_
+
+- run started 2026-10-12 01:46 UTC finished 01:46 UTC with exit status 0
+
+## 2026-10-12 01:48 UTC: run (exploratory)
+
+- **Question:** Why does the shrimp route need weight decay? Test of the escape hypothesis: without weight decay, large-step GD leaves the unstable zero-loss teacher minimum for larger, more saturated weights where the rate-weighted sharpness is lower, and nothing pulls it back
+- **Setup:** explore_shrimp_anatomy escape at the window centre (-0.0857, 1.853): for ridge 0, 1e-4, 3e-4, 1e-3, the minimum (descent at the arc rates plus Newton) and its rate-weighted sharpness lambda_max(P^1/2 H P^1/2) at the window rates; then 60000 steps from the shared initialization with norm, data loss, sharpness at two consecutive points and mean tanh' every 2000 steps
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/escape-001`
+- **Would surprise us:** Ridge-0 attractor no flatter or no more saturated than the ridge-1e-3 attractor
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py escape --out ../neural-shrimp-data/explore/shrimp-anatomy/escape-001`
+
+_commit `c988c426081d` (dirty worktree)_
+
+- run started 2026-10-12 01:48 UTC finished 01:49 UTC with exit status 0
+
+## 2026-10-12 01:50 UTC: run (exploratory)
+
+- **Question:** Repeat of escape-001 with a bounce-curvature diagnostic: does saturation without weight decay make the rate-weighted Hessians at the two bounce points nearly commute (so that the two-step linearization stops rotating)?
+- **Setup:** explore_shrimp_anatomy escape as escape-001, plus at the final state: relative commutator |S1 S2 - S2 S1| / (|S1||S2|) of S = P^1/2 H P^1/2 at theta and F(theta), overlap of their top eigenvectors, and the leading eigenvalues of (I - S2)(I - S1)
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/escape-002`
+- **Would surprise us:** Commutator at ridge 0 as large as at ridge 1e-3
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py escape --out ../neural-shrimp-data/explore/shrimp-anatomy/escape-002`
+
+_commit `bef6e41c4d9c` (dirty worktree)_
+
+- run started 2026-10-12 01:50 UTC finished 01:51 UTC with exit status 0
+
+## 2026-10-12 01:52 UTC: Weight decay reorganizes the first instability of the 2-cycle; the gates caught two misleading width-12 'confirmations'
+
+ridge-ladder (explore_momentum_maps arc --beta 0, fixed ray log10 output = log10 hidden - 1.828, s_max 3, 12000 steps) and crossing-anatomy. First crossing of the 2-cycle continued from the flip: width 3 - ridge 0: no 2-cycle seeded near the flip (s_flip 0.691; unexplained); 1e-5: real +1 at s 1.806, turning point (fold of the 2-cycle branch), eigenvector spread over all three units; 1e-4: complex at 1.990 (0.241 turns); 3e-4: real +1 at 1.676, turning point (fold), carried by unit 0 (89%); 1e-3: complex at 1.656 (0.178 turns; control reproduces); 3e-3: real +1 at 1.175 with no turning point, carried entirely by unit 0, which is dead (zero weights) at the minimum - recruitment of a dead unit, not a fold. Width 12 - 1e-3 (earlier): real +1; 3e-3: ten of twelve units dead, the same two live units as width 3 (s_flip identical to 12 digits), threefold-or-more degenerate +1 on dead units (recruitment); 1e-2: all twelve units identical copies (condensed), +1 degenerate on the unit-difference space (symmetry breaking); 3e-2: complex at 1.124 (0.099 turns) but all twelve units identical, NS eigenvector shared equally (1/12 each): the Neimark-Sacker of an effectively one-unit network. So the registered prediction that strong ridge turns the width-12 crossing complex is met only in a degenerate, condensed network; it is not evidence about wide networks with distinct units. Branch norm at the width-3 first crossing (cycle centre) grows as ridge falls: about 1.7 (1e-3), 2.1 (3e-4), 4.1 (1e-4), 4.9 (1e-5).
+
+_commit `bef6e41c4d9c` (dirty worktree)_
+
+## 2026-10-12 01:52 UTC: Escape without weight decay: GD reaches the stability edge by inflating and saturating the weights, creating neutral directions; the commuting-curvature explanation is refuted
+
+escape-001/002 at the window centre (-0.0857, 1.853). The minimum is far beyond the edge at every ridge (rate-weighted sharpness lambda_max(P^1/2 H P^1/2) 16.1 at ridge 0, 30.9-37.4 at 1e-4 to 1e-3, against the edge value 2). From the shared initialization the attractor returns to sharpness about 2 at every ridge (consecutive-point pairs 1.84-2.21), but by different routes: ridge 0 - norm 12.2 (minimum 2.0), mean tanh' 0.16 (minimum 0.59), data loss 0.011; 1e-4 - norm 3.4, tanh' 0.42; 3e-4 - norm 2.67, tanh' 0.45; 1e-3 - norm 2.22, tanh' 0.59. Two-step product (I - S2)(I - S1) at the final state: ridge 0 - top three eigenvalues 1.0000 (neutral directions; the ridge-001 attractor here drifts slowly with rotation 1e-4 turns); 1e-4 - 0.984, 0.955, 0.943 (the top one close to the pure weight-decay contraction (1 - eta_h lambda)^2 = 0.986); 3e-4 - 0.997, 0.926, 0.886; 1e-3 (period-18 orbit point, not a monodromy) - 1.022 and 0.931 +- 0.369 i. Refuted: the guess that saturation makes the bounce-point curvatures commute (relative commutator 0.32 at ridge 0, 0.28, 0.31, and 0.18 at 1e-3). Supported reading: without weight decay the edge-of-stability bounce escapes to large saturated weights where several directions are neutral, so the attracting set is a slowly drifting family of near-2-cycles with no rotation; weight decay bounds the escape and turns those directions into contracting ones. Open: at ridge 0 the arc refinement (trust region) and plain Newton reached zero-loss points of different norm (1.55 and 2.01) from the same descent endpoint, so the interpolating set may not be isolated - check Hessian rank at both.
+
+_commit `bef6e41c4d9c` (dirty worktree)_
