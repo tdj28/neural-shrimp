@@ -1,0 +1,12 @@
+# Separate environment for latent-loop work on looped / recurrent-depth language models (Ouro, Huginn),
+# whose remote code needs transformers < 4.56. Kept apart from the frozen project environment.
+# Create:  uv venv --python 3.12 ../neural-shrimp-data/envs/llm
+#          uv pip install --python ../neural-shrimp-data/envs/llm/bin/python -r tools/llm_env/requirements.txt \
+#              --extra-index-url https://download.pytorch.org/whl/cu130 --index-strategy unsafe-best-match
+torch==2.14.1
+transformers==4.55.0
+accelerate
+safetensors
+numpy
+scipy
+matplotlib
