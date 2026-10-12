@@ -60,7 +60,9 @@ class SoftLoop:
         self.sm.steer = self.steer_rows
         try:
             with torch.no_grad():
-                self.model(input_ids=self.prefix_ids.repeat(B, 1), past_key_values=self.cache, use_cache=True)
+                # logits_to_keep=1: the prefix logits are not needed (all of them cost B x L0 x vocab floats)
+                self.model(input_ids=self.prefix_ids.repeat(B, 1), past_key_values=self.cache, use_cache=True,
+                           logits_to_keep=1)
         finally:
             self.sm.steer = None
         with torch.no_grad():
