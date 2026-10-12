@@ -752,6 +752,45 @@ def render(args):
     print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
 
 
+def branch_plot(args):
+    """Leading multipliers along branch or tline runs against log10 T: modulus of the largest (log scale) and the
+    real parts of the real multipliers, with turns and classified crossings marked."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 7), sharex=True)
+    for path in args.runs:
+        src = DATA / "explore" / path
+        rec = json.loads((src / ("branch.json" if (src / "branch.json").exists() else "tline.json")).read_text())
+        pts = rec["points"]
+        lam = np.array([r["lambda"] for r in pts])
+        rho = np.array([r["spectral_radius"] if r["spectral_radius"] is not None else np.nan for r in pts])
+        lead = np.array([r["multipliers"][0][0] if r["multipliers"] else np.nan for r in pts])
+        line, = ax1.semilogy(lam, rho, ".-", ms=3, label=f"{path} (period {rec['period']})")
+        ax2.plot(lam, lead, ".-", ms=3, color=line.get_color())
+        for r in pts:
+            if "turn_lambda_estimate" in r:
+                for ax in (ax1, ax2):
+                    ax.axvline(r["turn_lambda_estimate"], color=line.get_color(), ls=":", lw=1)
+        for c in rec.get("crossings", []):
+            ax2.annotate(c["type"].split(" (")[0], (np.mean(c["between_log10_T"]), c["crossing_multiplier"][0]),
+                         fontsize=7, color=line.get_color())
+    ax1.axhline(1.0, color="k", lw=0.8)
+    ax2.axhline(1.0, color="k", lw=0.8)
+    ax2.axhline(-1.0, color="k", lw=0.8)
+    ax2.axhline(0.0, color="grey", lw=0.5)
+    ax1.set_ylabel("spectral radius of the monodromy")
+    ax2.set_ylabel("largest-modulus multiplier (real part)")
+    ax2.set_xlabel("log10 temperature")
+    ax1.legend(fontsize=7)
+    fig.tight_layout()
+    out = DATA / "explore" / args.out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out, dpi=150)
+    print(json.dumps({"figure": str(out)}))
+
+
 def windows(args):
     """Candidate windows in a finished scan: connected regions (4-neighbour) of one period p >= 2, ranked by
     how much of their border touches chaotic cells (periodic islands embedded in chaos)."""
@@ -876,6 +915,9 @@ def main():
     rd.add_argument("--chaos-level", type=float, default=0.005)
     rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
+    bp = sub.add_parser("branch-plot")
+    bp.add_argument("--runs", nargs="+", required=True, help="explore-relative branch or tline run directories")
+    bp.add_argument("--out", required=True, help="explore-relative output png")
     wi = sub.add_parser("windows")
     wi.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
     wi.add_argument("--chaos-level", type=float, default=0.005)
@@ -952,7 +994,7 @@ def main():
     cv.add_argument("--out", required=True)
     args = parser.parse_args()
     {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
-     "render": render, "windows": windows}[args.command](args)
+     "render": render, "windows": windows, "branch-plot": branch_plot}[args.command](args)
 
 
 if __name__ == "__main__":
