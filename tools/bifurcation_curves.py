@@ -71,6 +71,13 @@ class Family:
                 cols.append(self.to_np(jv))
         return np.column_stack(cols)
 
+    def jvp_x(self, x, theta, v):
+        """D_x Phi(x; theta) v (one forward-mode pass)."""
+        torch, th = self.torch, self.to_theta(theta)
+        with self.context():
+            _, jv = torch.func.jvp(lambda u: self.phi(u, th), (self.to_x(x),), (self.to_x(v),))
+        return self.to_np(jv)
+
     def grad_s(self, x, theta, v, w):
         """Gradient in (x, theta) of s = w^T D_x Phi(x; theta) v at fixed v and w."""
         torch = self.torch
@@ -123,7 +130,7 @@ def multiplier_summary(vals, kind, k=8):
 
 
 def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01, ds_min=1e-6, ds_max=0.05,
-                tol=1e-10, gtol=1e-10, max_newton=8, bounds=None, on_point=None, k=8):
+                tol=1e-10, gtol=1e-10, max_newton=8, bounds=None, on_point=None, k=8, chord=True, gmres_tol=1e-10):
     """Trace the fold or flip curve of the period-p orbit near (x0, theta0) in the parameter plane.
 
     First the bifurcation point is located with theta[fix] held at theta0[fix] (Newton on the minimally augmented
@@ -133,6 +140,10 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     marks a reversal of the parameter tangent between consecutive points (the projection of the curve has a cusp
     there). Stops after `steps` points, when theta leaves `bounds` ((lo0, hi0), (lo1, hi1)) or when the step falls
     below ds_min. Returns (records, stop_reason, final states).
+
+    With chord=True the corrector keeps the extended Jacobian of the last accepted point and evaluates only the
+    residual and g at each iterate, g by GMRES on the bordered system with Jacobian-vector products, preconditioned
+    by the last point's factorized bordered matrix; the dense monodromy is computed once per accepted point.
     """
     if kind not in ("fold", "flip"):
         raise ValueError(f"kind must be fold or flip, not {kind}")
@@ -174,6 +185,49 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
         y = np.linalg.solve(np.vstack([J, previous[None]]), np.concatenate([np.zeros(n + 1), [1.0]]))
         return y / np.linalg.norm(y)
 
+    def factor(M, b, c):
+        from scipy.linalg import lu_factor
+        B = np.zeros((n + 1, n + 1))
+        B[:n, :n], B[:n, n], B[n, :n] = M + sign * I, b, c
+        return lu_factor(B)
+
+    def g_free(z, b, c, lu):
+        """g at z from the bordered system solved by GMRES with JVPs (preconditioner: last point's LU)."""
+        from scipy.linalg import lu_solve
+        from scipy.sparse.linalg import LinearOperator, gmres
+
+        x, th = z[:n] * s, z[n:]
+
+        def mv(y):
+            y = np.asarray(y).ravel()
+            Av = family.jvp_x(x, th, y[:n]) + sign * y[:n]
+            return np.concatenate([Av + y[n] * b, [c @ y[:n]]])
+
+        rhs = np.zeros(n + 1)
+        rhs[n] = 1.0
+        y, info = gmres(LinearOperator((n + 1, n + 1), matvec=mv, dtype=np.float64), rhs,
+                        M=LinearOperator((n + 1, n + 1), matvec=lambda r: lu_solve(lu, r), dtype=np.float64),
+                        rtol=gmres_tol, restart=30, maxiter=4)
+        return float(y[n])
+
+    def correct_chord(z0, row, rhs_fn, J0, b, c, lu):
+        z = z0.copy()
+        A = np.vstack([J0, row[None]])
+        gabs = np.inf
+        for it in range(max_newton + 1):
+            x = z[:n] * s
+            r = family.residual(x, z[n:])
+            rel = float(np.linalg.norm(r) / np.linalg.norm(x))
+            g = g_free(z, b, c, lu)
+            gabs = abs(g)
+            if rel < tol and gabs < gtol:
+                G, J, M, v, w, _ = system(z, b, c)                # dense, once, at the converged point
+                return z, J, M, v, w, rel, abs(G[n]), it
+            if it == max_newton:
+                break
+            z = z + np.linalg.solve(A, -np.concatenate([r / s, [g], [rhs_fn(z)]]))
+        return None, None, None, None, None, rel, gabs, max_newton
+
     b, c, smin = initial_borders(family.monodromy(x0, theta0), kind)
     z = np.concatenate([x0 / s, np.asarray(theta0, dtype=np.float64)])
     e_fix = np.zeros(n + 2)
@@ -182,10 +236,20 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     if zf is None:
         return [], f"no {kind} point at fixed theta[{fix}] = {theta0[fix]} (residual {rel:.3g}, |g| {gabs:.3g})", []
     z = zf
-    b, c = w / np.linalg.norm(w), v / np.linalg.norm(v)
     e_free = np.zeros(n + 2)
     e_free[n + 1 - fix] = float(np.sign(direction))
     t = tangent(J, e_free)
+
+    def rebase(J, M, v, w):
+        """New borders from the null vectors at the accepted point; the g row of the chord Jacobian rescales with
+        them (g' = g / (|v| |w|) to first order on the curve), and the bordered matrix is refactored."""
+        nv, nw = np.linalg.norm(v), np.linalg.norm(w)
+        J = J.copy()
+        J[n] /= nv * nw
+        b, c = w / nw, v / nv
+        return J, b, c, (factor(M, b, c) if chord else None)
+
+    J, b, c, lu = rebase(J, M, v, w)
     records, states = [], []
 
     def record(z, rel, gabs, its, ds_used, step, t, t_prev, M):
@@ -208,10 +272,11 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     reason = f"{steps} points"
     while len(records) < steps:
         zp = z + ds * t
-        zn, J, M, v, w, rel, gabs, its = correct(zp, b, c, t, lambda y: float(t @ (y - zp)))
-        if zn is not None:
-            bn, cn = w / np.linalg.norm(w), v / np.linalg.norm(v)
-            tn = tangent(J, t)
+        if chord:
+            zn, Jn, Mn, v, w, rel, gabs, its = correct_chord(zp, t, lambda y: float(t @ (y - zp)), J, b, c, lu)
+        else:
+            zn, Jn, Mn, v, w, rel, gabs, its = correct(zp, b, c, t, lambda y: float(t @ (y - zp)))
+        tn = None if zn is None else tangent(Jn, t)
         if zn is None or float(tn @ t) < 0.5:              # not converged, or jumped onto another branch
             ds *= 0.5
             if ds < ds_min:
@@ -220,12 +285,13 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
             continue
         step = float(np.linalg.norm(zn - z))
         t_prev = t
-        z, t, b, c = zn, tn, bn, cn
+        z, t, M = zn, tn, Mn
+        J, b, c, lu = rebase(Jn, Mn, v, w)
         record(z, rel, gabs, its, ds, step, t, t_prev, M)
         if bounds is not None and not all(lo <= z[n + i] <= hi for i, (lo, hi) in enumerate(bounds)):
             reason = "parameters out of bounds"
             break
-        if its <= 2:
+        if its <= (max_newton // 2 if chord else 2):
             ds = min(ds * 1.5, ds_max)
         elif its >= max_newton - 1:
             ds *= 0.7
