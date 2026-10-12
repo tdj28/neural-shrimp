@@ -828,7 +828,7 @@ def render(args):
         img[(per == 0) | (per > top)] = (0.75, 0.75, 0.75, 1.0)
     if args.style != "lyapunov":
         img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
-    fig, ax = plt.subplots(figsize=(8, 7))
+    fig, ax = plt.subplots(figsize=(7.5, 8))
     ax.imshow(img, origin="lower", aspect="auto", interpolation="nearest",
               extent=(al[0], al[-1], lt[0], lt[-1]))
     handles = family_handles or [matplotlib.patches.Patch(color=colours[(q - 1) % len(colours)], label=str(q))
@@ -854,14 +854,16 @@ def render(args):
     if args.window:
         ax.set_xlim(*args.window[:2])
         ax.set_ylim(*args.window[2:])
-    ax.legend(handles=handles, fontsize=7, ncol=1 if family_handles else 2, loc="upper left",
-              bbox_to_anchor=(1.01, 1.0), title=("attractor (leading-token loop)" if family_handles else
-                                               "largest Lyapunov exponent" if args.style == "lyapunov" else "period"))
+    # legend below the map, in rows, so that the map keeps the full width of the figure
+    ncol = 2 if family_handles else (3 if args.style == "lyapunov" else 9)
+    ax.legend(handles=handles, fontsize=7, ncol=ncol, loc="upper center", bbox_to_anchor=(0.5, -0.09),
+              frameon=False, title=("attractor (leading-token loop)" if family_handles else
+                                    "largest Lyapunov exponent" if args.style == "lyapunov" else "period"))
     ax.set_xlabel("steering alpha")
     ax.set_ylabel("log10 temperature")
     ax.set_title(f"soft-token decoding: {args.scan}")
     fig.tight_layout()
-    fig.savefig(src / (args.name or "render.png"), dpi=150)
+    fig.savefig(src / (args.name or "render.png"), dpi=170, bbox_inches="tight")
     counts = {int(q): int((per == q).sum()) for q in np.unique(per)}
     print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
 
