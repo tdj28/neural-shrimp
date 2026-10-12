@@ -192,6 +192,75 @@ def check_mode(args):
     (out / "check-mode.json").write_text(json.dumps({"args": vars(args), "modes": rows}, indent=1))
 
 
+def minimum(args):
+    """Critical point of the regularized loss near a state: descent, dense Newton on the gradient, spectrum."""
+    import torch
+    from scipy.linalg import lu_factor, lu_solve
+    from neural_shrimp.cifar_reduced import dense_hessian, descend, split_state
+
+    problem, model, reduced, q = setup(args.lam, args.threads)
+    if args.reduced_state:
+        theta = np.load(args.reduced_state)
+    else:
+        theta, _ = split_state(np.load(args.state), model, q)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"args": vars(args), "descent": None, "newton": []}
+
+    def loss_grad(th):
+        t = torch.as_tensor(th)
+        return float(reduced.loss(t)), reduced.grad(t).numpy()
+
+    if args.descent_steps:
+        tic = time.perf_counter()
+        theta = descend(reduced, theta, args.descent_eta, args.descent_steps)
+        loss, g = loss_grad(theta)
+        record["descent"] = {"steps": args.descent_steps, "eta": args.descent_eta, "loss": loss,
+                             "grad_norm": float(np.linalg.norm(g)), "seconds": round(time.perf_counter() - tic, 1)}
+        print(json.dumps(record["descent"]))
+    for it in range(args.max_newton):
+        loss, g = loss_grad(theta)
+        gn = float(np.linalg.norm(g))
+        if gn < args.grad_tol:
+            break
+        tic = time.perf_counter()
+        h = dense_hessian(reduced, theta, args.chunk)
+        step = lu_solve(lu_factor(h, overwrite_a=True, check_finite=False), -g)
+        del h
+        alpha = 1.0
+        for _ in range(12):                                # backtracking on the gradient norm
+            trial = theta + alpha * step
+            trial_loss, gt = loss_grad(trial)
+            if np.all(np.isfinite(gt)) and np.linalg.norm(gt) < gn:
+                break
+            alpha *= 0.5
+        theta = trial
+        row = {"iteration": it, "grad_norm_before": gn, "step_fraction": alpha,
+               "grad_norm_after": float(np.linalg.norm(gt)), "loss": trial_loss,
+               "seconds": round(time.perf_counter() - tic, 1)}
+        record["newton"].append(row)
+        print(json.dumps(row))
+        (out / "minimum.json").write_text(json.dumps(record, indent=1))
+    tic = time.perf_counter()
+    loss, g = loss_grad(theta)
+    h = dense_hessian(reduced, theta, args.chunk)
+    values, vectors = np.linalg.eigh(h)
+    del h
+    negative = values < 0
+    record["final"] = {"loss": loss, "data_loss": loss - 0.5 * args.lam * float(theta @ theta),
+                       "grad_norm": float(np.linalg.norm(g)), "norm": float(np.linalg.norm(theta)),
+                       "negative_count": int(negative.sum()), "smallest": values[:8].tolist(),
+                       "largest": values[-8:].tolist(), "eta_flip": float(2.0 / values[-1]),
+                       "spectrum_seconds": round(time.perf_counter() - tic, 1)}
+    np.save(out / "critical-point.npy", theta)
+    np.save(out / "hessian-eigenvalues.npy", values)
+    np.save(out / "top-eigenvectors.npy", vectors[:, -4:])
+    if negative.any():
+        np.save(out / "negative-eigenvectors.npy", vectors[:, :min(16, int(negative.sum()))])
+    print(json.dumps(record["final"]))
+    (out / "minimum.json").write_text(json.dumps(record, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -220,8 +289,19 @@ def main():
             p.add_argument("--spectrum", choices=("full", "shift"), default="shift")
             p.add_argument("--pre-steps", type=int, default=0,
                            help="gradient-descent steps in reduced coordinates before the first Newton")
+    mn = sub.add_parser("minimum")
+    mn.add_argument("--lam", type=float, required=True)
+    mn.add_argument("--state", default=str(DATA / "explore/cifar/sweep/state-lam0.01-eta0.00938931.npy"))
+    mn.add_argument("--reduced-state", default=None, help="start from a saved reduced state instead")
+    mn.add_argument("--descent-eta", type=float, default=0.006)
+    mn.add_argument("--descent-steps", type=int, default=400000)
+    mn.add_argument("--max-newton", type=int, default=12)
+    mn.add_argument("--grad-tol", type=float, default=1e-11)
+    mn.add_argument("--threads", type=int, default=12)
+    mn.add_argument("--chunk", type=int, default=256)
+    mn.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"profile": profile, "orbit": orbit, "check-mode": check_mode}[args.command](args)
+    {"profile": profile, "orbit": orbit, "check-mode": check_mode, "minimum": minimum}[args.command](args)
 
 
 if __name__ == "__main__":
