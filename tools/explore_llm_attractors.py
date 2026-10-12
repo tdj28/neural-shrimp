@@ -174,6 +174,61 @@ def paraphrase(args):
     print(json.dumps({"out": args.out, "cycle": cycle, "rounds": len(rows), "seconds": record["seconds"]}))
 
 
+def first_run(flags, length=3):
+    """First index starting `length` consecutive True values, or None."""
+    count = 0
+    for i, f in enumerate(flags):
+        count = count + 1 if f else 0
+        if count == length:
+            return i - length + 1
+    return None
+
+
+def summary(args):
+    """Per-run attractor statistics for saved dialogue and paraphrase runs, and a figure."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    base = DATA / "explore" / args.folder
+    rows = []
+    fig, axes = plt.subplots(1, 3, figsize=(16, 4.4))
+    for run in sorted(base.iterdir()):
+        kind = "dialogue" if (run / "dialogue.json").exists() else "paraphrase" if (run / "paraphrase.json").exists() \
+            else None
+        if kind is None:
+            continue
+        rec = json.loads((run / f"{kind}.json").read_text())
+        steps = rec["turns"] if kind == "dialogue" else rec["rounds"]
+        ent = [t["entropy"] for t in steps]
+        tok = [t["tokens"] for t in steps]
+        cos_key = "cos_previous_turn" if kind == "dialogue" else "cos_previous"
+        cos = [t[cos_key] if t[cos_key] is not None else np.nan for t in steps]
+        texts = [t["text"] for t in steps]
+        tail = slice(max(0, len(steps) - args.tail), len(steps))
+        row = {"run": run.name, "kind": kind, "steps": len(steps), "cycle": rec["cycle"],
+               "collapse_turn": first_run([e < args.entropy_level for e in ent]),
+               "mirroring_turn": first_run([c > args.cos_level for c in cos]),
+               "tail_entropy": float(np.mean(ent[tail])), "tail_tokens": float(np.mean(tok[tail])),
+               "tail_cos": float(np.nanmean(cos[tail])), "tail_distinct_texts": len(set(texts[tail])),
+               "last_text": texts[-1][:160]}
+        rows.append(row)
+        print(json.dumps({k: v for k, v in row.items() if k != "last_text"}))
+        style = "-" if "open" in run.name or kind == "paraphrase" else "--"
+        axes[0].plot(range(1, len(ent) + 1), ent, style, label=run.name)
+        axes[1].plot(range(1, len(tok) + 1), tok, style)
+        axes[2].plot(range(1, len(cos) + 1), cos, style)
+    axes[0].set_ylabel("mean next-token entropy (nats)")
+    axes[1].set_ylabel("tokens per turn")
+    axes[2].set_ylabel("cosine to previous turn (hidden-state mean)")
+    for ax in axes:
+        ax.set_xlabel("turn")
+    axes[0].legend(fontsize=6)
+    fig.tight_layout()
+    fig.savefig(base / "summary.png", dpi=110)
+    (base / "summary.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1, ensure_ascii=False))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -193,8 +248,13 @@ def main():
     pp = sub.choices["paraphrase"]
     pp.add_argument("--text", default="The river carried the old boat slowly past the sleeping village at dawn.")
     pp.add_argument("--rounds", type=int, default=30)
+    sm = sub.add_parser("summary")
+    sm.add_argument("--folder", required=True, help="explore-relative folder of runs")
+    sm.add_argument("--tail", type=int, default=6)
+    sm.add_argument("--entropy-level", type=float, default=0.3)
+    sm.add_argument("--cos-level", type=float, default=0.95)
     args = parser.parse_args()
-    {"dialogue": dialogue, "paraphrase": paraphrase}[args.command](args)
+    {"dialogue": dialogue, "paraphrase": paraphrase, "summary": summary}[args.command](args)
 
 
 if __name__ == "__main__":

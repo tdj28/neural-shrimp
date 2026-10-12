@@ -30,3 +30,8 @@ def test_find_cycle():
     states = [("a",), ("b",), ("c",)]
     assert ela.find_cycle(states, ("b",)) == 1
     assert ela.find_cycle(states, ("d",)) is None
+
+
+def test_first_run():
+    assert ela.first_run([False, True, True, True, False], 3) == 1
+    assert ela.first_run([True, True, False, True], 3) is None
