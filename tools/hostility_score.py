@@ -112,11 +112,11 @@ def score(args):
     np.savez_compressed(src / "hostility.npz", classifier=probs.astype(np.float32), lexicon=lex.astype(np.float32),
                         labels=np.array(LABELS))
     insult = probs[:, :, 4]
-    hostile = insult > args.threshold
+    hostile = probs[:, :, LABELS.index(args.label)] > args.threshold
     first = [int(np.argmax(h)) if h.any() else None for h in hostile]
     entered = [f for f in first if f is not None]
     summary = {"args": vars(args), "classifier": CLASSIFIER, "revision": REVISION, "replicas": R, "turns": T,
-               "threshold": args.threshold,
+               "threshold": args.threshold, "label": args.label,
                "insult_mean_by_turn": np.round(insult.mean(0), 4).tolist(),
                "toxic_mean_by_turn": np.round(probs[:, :, 0].mean(0), 4).tolist(),
                "fraction_hostile_by_turn": np.round(hostile.mean(0), 4).tolist(),
@@ -140,6 +140,9 @@ def main():
     sc.add_argument("--sample", required=True)
     sc.add_argument("--threads", type=int, default=4)
     sc.add_argument("--threshold", type=float, default=0.5)
+    sc.add_argument("--label", default="toxic", choices=LABELS,
+                    help="classifier output that defines a hostile turn (toxic: 0.95 on the hostile prompt set, at most "
+                         "0.002 on the kind and neutral sets; insult misses one hostile prompt)")
     args = parser.parse_args()
     {"validate": validate, "score": score}[args.command](args)
 
