@@ -20581,3 +20581,17 @@ _commit `90b0f79fa475` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-001`
 
 _commit `d65e6f241455`_
+
+## 2026-10-12 23:08 UTC: Task2 branch001 strict screen retained; reconstruction uses archived criterion
+
+Beforefit, branch001 selected the exact18points but failed our1e-11closuregate atrow3,residual3.755297017484666e-11; allotherselectedrowgatespassed. Producer branch.json recordsargs.tol=1e-10. Next attempt reconstructs its original18point fit using that archivedcriterion, explicitlysaved-data-only. Strictfailedattempt preserved; no independentorbit/foldtolerance change. No rows dropped and no coefficientoutcome selected. Bothlinear/quadraticintercepts retained.
+
+_commit `5b64ce0a7e72`_
+
+## 2026-10-12 23:08 UTC: run (exploratory)
+
+- **Question:** Reconstruct the original stable-branch18point fit under its archived1e-10criterion after retaining the stricter screen failure
+- **Setup:** Samepinneddata,rangeandformula asbranch001; onlysavedrecordclosurecriterion nowthe archivedproducer1e-10;1thread,60s,no model evaluation. Independentorbit/foldgates unchanged.
+- **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-002`
+
+_commit `5b64ce0a7e72` (dirty worktree)_
