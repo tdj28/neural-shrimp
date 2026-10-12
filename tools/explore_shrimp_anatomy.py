@@ -15,7 +15,10 @@ makes that statement concrete in network terms at chosen rates:
           around the 2-cycle, and the same quantities on a quasi-periodic
           trajectory at a comparison rate (for example just below the
           window's lower fold). Writes cycle.json and a figure.
-  rotation-geometry  Test a geometric account of the rotation: near the edge of
+  rotation-geometry  Few-mode models of the rotation: the product of the two step
+          Jacobians projected on the span of the top-k eigenvectors of the
+          rate-weighted Hessian at each point of the 2-cycle (k = 1..4), compared
+          with the exact multiplier. Also tests the heuristic: near the edge of
           stability each step's Jacobian is close to a reflection across the
           sharpest preconditioned-Hessian direction, so two steps compose to
           a rotation by twice the angle alpha between the sharpest directions
@@ -270,7 +273,16 @@ def rotation_geometry(args):
         upper = mult[mult.imag > 1e-9]
         c = upper[np.argmin(np.abs(np.abs(upper) - 1.0))] if len(upper) else None
         alpha = float(np.arccos(min(1.0, abs(sa @ sb))))
-        return {"eta_lambda_a": float(wa[-1]), "eta_lambda_b": float(wb[-1]),
+        modes = {}
+        for k in (1, 2, 3, 4):
+            qk, _ = np.linalg.qr(np.concatenate([va[:, -k:], vb[:, -k:]], axis=1))
+            pk = (qk.T @ (eye - sb_mat) @ qk) @ (qk.T @ (eye - sa_mat) @ qk)
+            evk = np.linalg.eigvals(pk)
+            upk = evk[evk.imag > 1e-12]
+            if len(upk):
+                ck = upk[np.argmax(np.abs(upk))]
+                modes[f"k{k}"] = [float(abs(np.angle(ck)) / (2 * np.pi)), float(abs(ck))]
+        return {"top_mode_models": modes, "eta_lambda_a": float(wa[-1]), "eta_lambda_b": float(wb[-1]),
                 "second_a": float(wa[-2]), "second_b": float(wb[-2]),
                 "alpha_degrees": float(np.degrees(alpha)), "alpha_over_pi": alpha / np.pi,
                 "two_plane_turns": float(abs(np.angle(c2)) / (2 * np.pi)) if abs(c2.imag) > 1e-12 else 0.0,
