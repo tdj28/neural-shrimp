@@ -18964,3 +18964,67 @@ _commit `29522a68f7e3`_
 calibration-eta0 crashed in every worker at the recall-error step: net.predict returns (keys, cells) and the code subtracted values as (1, keys); the single-cell unit test had broadcast (8,1) against (1,8) to (8,8) silently and passed. Fixed in deaec663 with a two-cell test; no scan output was written. Rerun as calibration-eta0-002 with unchanged settings.
 
 _commit `deaec6634c48` (dirty worktree)_
+
+## 2026-10-12 02:12 UTC: run (exploratory)
+
+- **Question:** Inference pilot calibration, rerun after the recall-error fix (question as calibration-eta0)
+- **Setup:** as calibration-eta0 (context 8, width 3, eta 0, log10 theta -2..1 x log10 alpha -5..-0.5, 40x40, 2000 transient + 1024 sampled periods, 6 workers)
+- **Output:** `../neural-shrimp-data/explore/inference-memory/calibration-eta0-002`
+- **Would surprise us:** Only period 1 and divergence anywhere on the grid
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py scan --resolution 40 40 --workers 6 --out inference-memory/calibration-eta0-002`
+
+_commit `42ecc01497f4`_
+
+- run started 2026-10-12 02:12 UTC finished 02:12 UTC with exit status 0
+
+## 2026-10-12 02:13 UTC: run (exploratory)
+
+- **Question:** Inference pilot with a context longer than the memory has parameters (24 key-value pairs, 13 memory parameters, as in real test-time memories): between memory that repeats with the context and divergence, are there period-doubled, rotating or chaotic memory regimes? Without and with momentum
+- **Setup:** explore_inference_memory scan, context 24 (S2 teacher), width 3, log10 theta -0.6..0.3 x log10 alpha -5..-0.5 at 120x120, 4000 transient + 1024 sampled periods, max period 64, tol 1e-8; eta 0 and eta 0.5 (memory momentum), 6 workers each, nice 10
+- **Output:** `../neural-shrimp-data/explore/inference-memory/scan-c24-eta{0,0.5}`
+- **Would surprise us:** Direct passage from period 1 to divergence everywhere (no intermediate regimes)
+- **Command:** `bash -c for e in 0 0.5; do env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py scan --context 24 --eta $e --theta -0.6 0.3 --transient 4000 --workers 6 --out inference-memory/scan-c24-eta$e > ../neural-shrimp-data/explore/inference-memory/scan-c24-eta$e.log 2>&1 & done; wait`
+
+_commit `42ecc01497f4` (dirty worktree)_
+
+## 2026-10-12 02:15 UTC: run (exploratory)
+
+- **Question:** CIFAR rung 3, minimum first: near the orbit-004 state (weight decay 0.03), is there a true minimum of the regularized loss (no negative Hessian eigenvalues), or is the slow-saddle state close to a saddle? Where is the minimum's flip (2 / largest eigenvalue)?
+- **Setup:** explore_cifar_reduced minimum --lam 0.03 from orbit-004's reduced end state: 400000 descent steps at eta 0.006 (below the expected flip), then dense Newton on the gradient (backtracking on |grad|, up to 12 iterations, tolerance 1e-11), then the full symmetric Hessian spectrum (16,746 eigenvalues); 12 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/minimum-lam0.03`
+- **Would surprise us:** Negative eigenvalues at the converged critical point (a saddle), or no convergence
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py minimum --lam 0.03 --reduced-state ../neural-shrimp-data/explore/cifar-reduced/orbit-004-lam0.03/orbit-eta0.00940000.npy --out ../neural-shrimp-data/explore/cifar-reduced/minimum-lam0.03`
+
+_commit `3eae0c652dae` (dirty worktree)_
+
+- run started 2026-10-12 02:13 UTC finished 02:16 UTC with exit status 0
+
+## 2026-10-12 02:16 UTC: run (exploratory)
+
+- **Question:** Is the zero-weight-decay minimum isolated? Two refinements (plain Newton; trust region) of the same descent endpoint reached zero-loss points of norm 2.01 and 1.55: are they the same point up to tanh sign flips and unit permutations, and does either Hessian have (near-)zero eigenvalues?
+- **Setup:** explore_shrimp_anatomy minimum-check at ridge 0, 1e-5, 1e-3: 200000 descent steps at the arc rates (log10 output -1.328, hidden 0.5), then Newton and trust-exact (both polished by Newton), canonical forms modulo symmetry, smallest Hessian eigenvalues
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/minimum-check-001`
+- **Would surprise us:** Same point up to symmetry (then the norms could not differ), or a zero Hessian eigenvalue at ridge 0
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py minimum-check --out ../neural-shrimp-data/explore/shrimp-anatomy/minimum-check-001`
+
+_commit `1eabbd794495` (dirty worktree)_
+
+- run started 2026-10-12 02:16 UTC finished 02:16 UTC with exit status 0
+
+## 2026-10-12 02:17 UTC: run (exploratory)
+
+- **Question:** Repeat of minimum-check-001 adding the rate-weighted sharpness at the window rates for both refinements (true minimum versus nearby saddle at ridge 0)
+- **Setup:** explore_shrimp_anatomy minimum-check --rates -0.0857 1.853 (otherwise as minimum-check-001)
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/minimum-check-002`
+- **Would surprise us:** -
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py minimum-check --out ../neural-shrimp-data/explore/shrimp-anatomy/minimum-check-002`
+
+_commit `0f7811847ea2` (dirty worktree)_
+
+- run started 2026-10-12 02:17 UTC finished 02:18 UTC with exit status 0
+
+## 2026-10-12 02:18 UTC: Correction: no second zero-loss point without weight decay; the zero-decay minimum is isolated but nearly flat (smallest Hessian eigenvalue 9e-7)
+
+minimum-check-001/002. From the same 200000-step descent endpoint (ridge 0; not yet converged: gradient 3e-6, loss 1.7e-7), plain Newton converges to a SADDLE (loss 1.39e-7, smallest Hessian eigenvalue -8.7e-7, norm 2.006), while a trust region reaches the zero-loss minimum (loss 1.5e-33, norm 1.5475); they are not related by tanh sign flips or unit permutations (canonical distance 1.69). The earlier note's 'two zero-loss points of norm 1.55 and 2.01' was wrong: the escape tool printed losses rounded to six decimals, so 1.4e-7 showed as 0. The zero-loss minimum is isolated but extremely flat: smallest Hessian eigenvalues 9.4e-7, 1.1e-5, 9.8e-5 (at ridge 1e-3 the smallest is 4.3e-4), so even at the minimum one direction is essentially neutral under gradient descent without weight decay (multiplier within about 1e-4 of 1 at the window rates). escape-001/002's ridge-0 'minimum' row was that saddle (sharpness 16.1); the true minimum's rate-weighted sharpness at the window rates is 28.8 (ridge 1e-5: 38.4; 1e-3: 30.9), so the minima are far past the edge (value 2) as stated; the attractor results are unaffected. At ridge 1e-5 plain Newton failed to converge (gradient 5e-4). The escape tool now uses the trust-region minimum and prints unrounded values.
+
+_commit `0f7811847ea2` (dirty worktree)_
