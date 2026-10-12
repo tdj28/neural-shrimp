@@ -817,7 +817,7 @@ def fixed_spectrum(args):
 
 def pseudo_arclength(phi, x0, lam0, direction=-1, steps=60, ds=0.004, ds_min=1e-5, ds_max=0.02, tol=2e-6,
                      max_newton=8, gmres_tol=1e-5, restart=40, gmres_iter=3, k=6, arnoldi_iter=200, beyond=0.01,
-                     lam_bounds=(-np.inf, np.inf), jvp_context=None, on_point=None):
+                     lam_bounds=(-np.inf, np.inf), jvp_context=None, on_point=None, multipliers_fn=None):
     """Pseudo-arclength continuation of a fixed point of x -> phi(x, lam), e.g. the p-fold relaxed loop.
 
     Coordinates are scaled, u = x / s with s = |x0|, so that the arclength |du|^2 + dlam^2 weighs the state and
@@ -827,7 +827,9 @@ def pseudo_arclength(phi, x0, lam0, direction=-1, steps=60, ds=0.004, ds_min=1e-
     component of the secant changes sign); multipliers (dense for small states, Arnoldi otherwise) are recorded at
     every point so that the crossing at a turn can be checked to be a real +1. Stops `beyond` in lambda past the
     first turn, after `steps` points, when lambda leaves `lam_bounds`, or when the step falls below `ds_min`.
-    Returns (records, stop_reason); on_point(record, x) is called for every accepted point.
+    Returns (records, stop_reason); on_point(record, x) is called for every accepted point. multipliers_fn(x,
+    lam) -> (multipliers, converged) replaces the built-in Arnoldi (e.g. block subspace iteration with batched
+    JVPs, which does not stall on super-stable orbits whose multipliers are all tiny).
     """
     import torch
     from contextlib import nullcontext
@@ -877,6 +879,11 @@ def pseudo_arclength(phi, x0, lam0, direction=-1, steps=60, ds=0.004, ds_min=1e-
         return None, rel, max_newton
 
     def multipliers(z):
+        if multipliers_fn is not None:
+            vals, ok = multipliers_fn(to_t(z[:n] * s), float(z[n]))
+            vals = np.asarray(vals)
+            return vals[np.argsort(-np.abs(vals))][:k], ok
+
         def mono(v):
             return jvp(z, np.asarray(v).ravel(), 0.0) + np.asarray(v).ravel()
         if n <= 64:

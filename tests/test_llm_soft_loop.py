@@ -104,3 +104,19 @@ def test_soft_phi_matches_steps_and_temperature_derivative(loop):
         fd = (phi(X, lt + h) - phi(X, lt - h)) / (2 * h)
     assert float((dy - fd).norm() / fd.norm()) < 1e-6
     assert orb.cache1.get_seq_length() == loop.L0
+
+
+def test_subspace_multipliers_match_dense_eigenvalues(loop):
+    """Block subspace iteration with batched JVPs recovers the leading eigenvalues of the dense Jacobian."""
+    import explore_llm_soft_loop as esl
+
+    torch = loop.torch
+    rng = np.random.default_rng(3)
+    d = loop.E.shape[1]
+    orb = esl.SoftOrbit(loop, rng.normal(size=d) * 0.5, 10 ** 0.1, chunk=512)
+    X = orb.start + torch.as_tensor(rng.normal(size=tuple(orb.start.shape)) * 1e-2)
+    vals, ok = orb.subspace_multipliers(X, 1, k=6, iters=60)
+    dense = np.linalg.eigvals(orb.jacobian(X))
+    dense = dense[np.argsort(-np.abs(dense))]
+    assert ok
+    assert np.allclose(np.abs(vals[:3]), np.abs(dense[:3]), rtol=1e-6, atol=0)

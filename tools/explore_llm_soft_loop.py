@@ -210,6 +210,40 @@ class SoftOrbit:
         return X, history, vals[np.argsort(-np.abs(vals))], pts[:period]
 
 
+    def points(self, X, period):
+        pts = [X]
+        for _ in range(period):
+            pts.append(self.f(pts[-1]))
+        return pts
+
+    def subspace_multipliers(self, X, period, k=8, iters=40, seed=0):
+        """Leading multipliers of the p-fold map at X by block subspace iteration with batched forward-mode
+        JVPs (k tangent rows per model call) and a final Rayleigh-Ritz step. Unlike Arnoldi with a relative
+        tolerance, it does not stall when every multiplier is tiny (super-stable orbits). Returns (multipliers,
+        converged), converged meaning the moduli of the leading half of the block changed by less than 1e-6
+        (relative to the largest) over the last 5 iterations; the trailing Ritz values converge last and are
+        returned only for information."""
+        torch = self.torch
+        pts = self.points(X, period)[:period]
+
+        def apply(V):
+            for x in pts:
+                V = self.jvp_rows(x, V)
+            return V
+
+        rng = np.random.default_rng(seed)
+        Q = np.linalg.qr(rng.normal(size=(self.n, k)))[0]
+        history = []
+        for it in range(iters):
+            W = apply(torch.as_tensor(Q.T.reshape((k,) + self.shape), dtype=X.dtype, device=X.device))
+            W = W.reshape(k, -1).double().cpu().numpy().T                  # columns M q_i
+            H = Q.T @ W
+            vals = np.linalg.eigvals(H)
+            history.append(np.sort(np.abs(vals))[::-1][: max(2, k // 2)])
+            Q = np.linalg.qr(W)[0]
+        ok = len(history) > 5 and float(np.abs(history[-1] - history[-6]).max()) <= 1e-6 * max(history[-1][0], 1e-300)
+        return vals[np.argsort(-np.abs(vals))], ok
+
     def phi(self, period):
         """The p-fold soft map as a differentiable function of (window X (1, K, d), log10 T) for continuation in
         temperature (the prefix cache does not depend on T); every model call uses a shallow copy of the
@@ -301,11 +335,15 @@ def tline(args):
         print(json.dumps({k: v for k, v in rec.items() if k != "multipliers"} | {"leading": rec["multipliers"][:3]}),
               flush=True)
 
+    def multipliers(x, log_t):
+        orb.T = 10.0 ** log_t
+        return orb.subspace_multipliers(x, period, k=args.k, iters=args.subspace_iter)
+
     records, reason = ell.pseudo_arclength(
         orb.phi(period), X, args.log_temperature, direction=args.direction, steps=args.steps, ds=args.ds,
         ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, max_newton=args.max_newton, gmres_tol=args.gmres_tol,
-        restart=args.restart, gmres_iter=args.gmres_iter, k=args.k, arnoldi_iter=args.arnoldi_iter,
-        beyond=args.beyond, lam_bounds=tuple(args.bounds), on_point=on_point)
+        restart=args.restart, gmres_iter=args.gmres_iter, k=args.k, beyond=args.beyond,
+        lam_bounds=tuple(args.bounds), on_point=on_point, multipliers_fn=multipliers)
     crossings = []
     for a, b in zip(records, records[1:]):
         if a["spectral_radius"] is None or b["spectral_radius"] is None:
@@ -501,8 +539,8 @@ def main():
     tl.add_argument("--gmres-tol", type=float, default=1e-9)
     tl.add_argument("--restart", type=int, default=60)
     tl.add_argument("--gmres-iter", type=int, default=3)
-    tl.add_argument("--k", type=int, default=6)
-    tl.add_argument("--arnoldi-iter", type=int, default=300)
+    tl.add_argument("--k", type=int, default=8, help="block size of the subspace iteration for multipliers")
+    tl.add_argument("--subspace-iter", type=int, default=40)
     tl.add_argument("--chunk", type=int, default=512)
     tl.add_argument("--out", required=True)
     args = parser.parse_args()
