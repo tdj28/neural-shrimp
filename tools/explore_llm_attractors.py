@@ -292,6 +292,100 @@ def summary(args):
                                                   ensure_ascii=False))
 
 
+def cycle_contexts(rec, system):
+    """(messages, token_ids, text) for each turn of a greedy run's final cycle, rebuilt from the transcript."""
+    turns = rec["turns"]
+    period = rec["cycle"]["period_turns"]
+    transcript = [rec["opener"]] + [t["text"] for t in turns]
+    window = rec["args"]["window"]
+    out = []
+    for k in range(len(turns) - period + 1, len(turns) + 1):       # turn numbers of the last period
+        agent = (k - 1) % 2
+        out.append((window_messages(system, transcript[:k], agent, window), turns[k - 1]["token_ids"],
+                    turns[k - 1]["text"]))
+    return out
+
+
+def margins(args):
+    """Logit margins along an attractor cycle and the exact probability of reproducing it at temperature T."""
+    engine = Engine(args.model, args.threads)
+    torch = engine.torch
+    rec = json.loads((DATA / "explore" / args.run / "dialogue.json").read_text())
+    if not rec["cycle"] or rec["args"]["temperature"] != 0:
+        raise SystemExit("needs a greedy run that ended on an exact cycle")
+    contexts = cycle_contexts(rec, rec["system"])
+    temps = np.array(args.temperatures)
+    rows, log_cycle = [], np.zeros(len(temps))
+    for messages, ids, text in contexts:
+        enc = engine.tok.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt")
+        enc = enc if isinstance(enc, torch.Tensor) else enc["input_ids"]
+        full = torch.cat([enc, torch.tensor([ids])], dim=1)
+        with torch.no_grad():
+            z = engine.model(full).logits[0, enc.shape[1] - 1:enc.shape[1] - 1 + len(ids)].double()
+        top2 = torch.topk(z, 2, dim=-1).values
+        y = torch.tensor(ids)
+        z_y = z[torch.arange(len(ids)), y]
+        is_greedy = bool(torch.all(z_y >= top2[:, 0] - 1e-9))
+        margin = (top2[:, 0] - top2[:, 1]).numpy()
+        logp = np.array([float(torch.log_softmax(z / t, dim=-1)[torch.arange(len(ids)), y].sum()) for t in temps])
+        log_cycle += logp
+        rows.append({"text": text[:120], "tokens": len(ids), "greedy_path": is_greedy,
+                     "min_margin": float(margin.min()), "margins_sorted": np.sort(margin)[:5].tolist(),
+                     "stay_logprob": logp.tolist()})
+    p_cycle = np.exp(log_cycle)
+    period = rec["cycle"]["period_turns"]
+    min_margin = min(r["min_margin"] for r in rows)
+    out = {"args": vars(args), "run": args.run, "period": period, "temperatures": temps.tolist(),
+           "cycle_stay_probability": p_cycle.tolist(),
+           "predicted_turns_before_first_deviation": (period / np.maximum(1 - p_cycle, 1e-300)).tolist(),
+           "min_margin_over_cycle": min_margin,
+           "arrhenius_check": (-np.log(np.maximum(1 - p_cycle, 1e-300)) * temps).tolist(), "turns": rows}
+    print(json.dumps({"run": args.run, "period": period, "min_margin": round(min_margin, 4),
+                      "stay_probability_by_T": {f"{t:g}": float(f"{p:.4g}") for t, p in zip(temps, p_cycle)},
+                      "T_times_minus_log_escape": [float(f"{v:.3g}") for v in out["arrhenius_check"]]}))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "margins.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
+
+
+def escape(args):
+    """Sampled runs started inside a greedy attractor: turns to first deviation and occupancy of the cycle."""
+    engine = Engine(args.model, args.threads)
+    rec = json.loads((DATA / "explore" / args.run / "dialogue.json").read_text())
+    system, window = rec["system"], rec["args"]["window"]
+    turns = rec["turns"]
+    period = rec["cycle"]["period_turns"]
+    cycle_texts = set(t["text"] for t in turns[-period:])
+    prefix = [rec["opener"]] + [t["text"] for t in turns]
+    results = []
+    for rep in range(args.replicas):
+        transcript = list(prefix)
+        first_dev, inside = None, 0
+        for k in range(1, args.turns + 1):
+            turn_no = len(transcript)
+            agent = (turn_no - 1) % 2
+            text, _, _, _ = engine.generate(window_messages(system, transcript, agent, window), args.temperature,
+                                            rec["args"]["max_new"], args.seed * 1000003 + rep * 1009 + k)
+            transcript.append(text)
+            on_cycle = text in cycle_texts
+            inside += on_cycle
+            if not on_cycle and first_dev is None:
+                first_dev = k
+        results.append({"replica": rep, "first_deviation_turn": first_dev, "fraction_on_cycle": inside / args.turns,
+                        "last_text": transcript[-1][:120]})
+        print(json.dumps(results[-1]))
+    devs = [r["first_deviation_turn"] for r in results]
+    observed = [d for d in devs if d is not None]
+    out = {"args": vars(args), "run": args.run, "period": period, "results": results,
+           "censored_runs": sum(d is None for d in devs),
+           "mean_first_deviation_uncensored": float(np.mean(observed)) if observed else None,
+           "mean_fraction_on_cycle": float(np.mean([r["fraction_on_cycle"] for r in results]))}
+    print(json.dumps({k: v for k, v in out.items() if k not in ("args", "results")}))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "escape.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -314,6 +408,22 @@ def main():
     pp = sub.choices["paraphrase"]
     pp.add_argument("--text", default="The river carried the old boat slowly past the sleeping village at dawn.")
     pp.add_argument("--rounds", type=int, default=30)
+    mg = sub.add_parser("margins")
+    mg.add_argument("--model", choices=sorted(MODELS), default="qwen0.5b")
+    mg.add_argument("--threads", type=int, default=4)
+    mg.add_argument("--run", required=True, help="explore-relative folder of a greedy run that ended on a cycle")
+    mg.add_argument("--temperatures", type=float, nargs="+",
+                    default=[0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0])
+    mg.add_argument("--out", required=True)
+    es = sub.add_parser("escape")
+    es.add_argument("--model", choices=sorted(MODELS), default="qwen0.5b")
+    es.add_argument("--threads", type=int, default=4)
+    es.add_argument("--run", required=True)
+    es.add_argument("--temperature", type=float, required=True)
+    es.add_argument("--replicas", type=int, default=8)
+    es.add_argument("--turns", type=int, default=30)
+    es.add_argument("--seed", type=int, default=0)
+    es.add_argument("--out", required=True)
     sm = sub.add_parser("summary")
     sm.add_argument("--folder", required=True, help="explore-relative folder of runs")
     sm.add_argument("--tail", type=int, default=6)
@@ -321,7 +431,8 @@ def main():
     sm.add_argument("--cos-level", type=float, default=0.95)
     sm.add_argument("--absorbed-length", type=int, default=5, help="identical final turns that count as absorbed")
     args = parser.parse_args()
-    {"dialogue": dialogue, "paraphrase": paraphrase, "summary": summary}[args.command](args)
+    {"dialogue": dialogue, "paraphrase": paraphrase, "summary": summary, "margins": margins,
+     "escape": escape}[args.command](args)
 
 
 if __name__ == "__main__":
