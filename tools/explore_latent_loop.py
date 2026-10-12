@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
 CACHE = DATA / "models" / "hf" / "hub"
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
-MODELS = {"ouro1.4b": "ByteDance/Ouro-1.4B"}
+MODELS = {"ouro1.4b": "ByteDance/Ouro-1.4B", "huginn": "tomg-group-umd/huginn-0125"}
 PROMPTS = {
     "hello": "Hello! How are you today?",
     "arith": "What is 17 times 23? The answer is",
@@ -37,6 +37,10 @@ PROMPTS = {
     "list": "1, 2, 3, 4, 5,",
     "one-the": "The",                 # single-token contexts: the loop acts on one 2048-dimensional state
     "one-hello": "Hello",
+    # GSM8K-style question with the tokens ' 3' and ' makes' (Geiping et al. 2025 report latent orbits for such
+    # tokens in Huginn)
+    "gsm-claire": "Claire makes a 3 egg omelet every morning for breakfast. How many dozens of eggs will she eat "
+                  "in 4 weeks?",
 }
 
 
@@ -57,6 +61,7 @@ class LatentLoop:
             from explore_llm_attractors import keep_float64_norms
             keep_float64_norms(self.model)
         self.inner = self.model.model
+        self.blocks = self.inner.layers
         self.steer = None                       # (batch, 1, d) added to the output of `steer_layer` on every pass
         self.steer_layer = None
 
@@ -73,7 +78,7 @@ class LatentLoop:
                     return (output[0] + self.steer,) + tuple(output[1:])
                 return output + self.steer
 
-            self.inner.layers[self.steer_layer].register_forward_hook(hook)
+            self.blocks[self.steer_layer].register_forward_hook(hook)
         self.steer = None if rows is None else torch.as_tensor(np.asarray(rows), dtype=self.dtype,
                                                                  device=self.device)[:, None, :]
 
@@ -119,9 +124,135 @@ class LatentLoop:
         logp = torch.log_softmax(z, dim=-1)
         return int(torch.argmax(z[0])), float(-(logp.exp() * logp).sum(-1)[0])
 
+    def native_check(self, prompt):
+        """Trained number of loops of F against the model's own forward: (max abs logit difference, tops)."""
+        torch = self.torch
+        h = self.setup(prompt)
+        for _ in range(self.inner.config.total_ut_steps):
+            h = self.F(h)
+        ids = self.tok(prompt, return_tensors="pt")["input_ids"].to(self.device)
+        with torch.no_grad():
+            native = self.model(input_ids=ids, use_cache=False).logits[0, -1].double()
+            mine = self.model.lm_head(h[:, -1, :])[0].double()
+        return float((native - mine).abs().max()), int(native.argmax()), int(mine.argmax())
+
+
+class HuginnLoop:
+    """Huginn-0125 (recurrent depth; Geiping et al. 2025): s <- Core(Adapter([s, e])), with e = Prelude(scaled
+    token embeddings) re-injected at every step, so the prompt is a parameter of the map and not only its initial
+    condition. Core: 4 sandwich blocks ending in a norm. Readout: Coda(ln_f(s)) -> ln_f -> head. Only adapter and
+    core live on `device`; prelude, coda and head stay on the CPU (used once per prompt, or per readout). The
+    initial state is the model's own random initialization, drawn with a fixed seed."""
+
+    def __init__(self, model, dtype, device, threads, seed=0):
+        import sys
+
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        torch.set_num_threads(int(threads))
+        self.torch = torch
+        self.device = torch.device(device)
+        self.dtype = getattr(torch, dtype)
+        self.seed = int(seed)
+        self.tok = AutoTokenizer.from_pretrained(MODELS[model], cache_dir=CACHE)
+        self.model = AutoModelForCausalLM.from_pretrained(MODELS[model], cache_dir=CACHE, trust_remote_code=True,
+                                                          torch_dtype=self.dtype).eval()
+        self.model.requires_grad_(False)
+        if dtype == "float64":
+            # the remote code computes norms and rotary embeddings in float32 whatever the input dtype
+            mod = sys.modules[type(self.model).__module__]
+
+            def norm_forward(module, x):
+                return module._norm(x) * module.weight
+
+            def rotary(q, k, freqs_cis):
+                qk = torch.cat([q, k], dim=2).unflatten(dim=-1, sizes=(-1, 2))
+                f = freqs_cis.to(qk.dtype)
+                rot = torch.stack([qk[..., 0] * f[..., 0] - qk[..., 1] * f[..., 1],
+                                   qk[..., 1] * f[..., 0] + qk[..., 0] * f[..., 1]], -1).flatten(3)
+                return torch.split(rot, q.shape[2], dim=2)
+
+            mod.RMSNorm.forward = norm_forward
+            mod.apply_rotary_emb_complex_like = rotary
+        t = self.model.transformer
+        t.adapter.to(self.device)
+        t.core_block.to(self.device)
+        self.blocks = t.core_block
+        self.block_idx = [torch.tensor(i) for i in range(len(t.core_block))]
+        self.steer = None
+        self.steer_layer = None
+
+    set_steering = LatentLoop.set_steering
+
+    def setup(self, prompt):
+        """Prelude output e (injected every step) and rotary tables for one prompt; returns the initial state."""
+        torch = self.torch
+        m, t = self.model, self.model.transformer
+        ids = self.tok(prompt, return_tensors="pt")["input_ids"]
+        self.freqs_cpu = m.freqs_cis[:, : ids.shape[1]]
+        with torch.no_grad():
+            e = t.wte(ids).to(self.dtype) * m.emb_scale
+            for i, block in enumerate(t.prelude):
+                e = block(e, self.freqs_cpu, torch.tensor(i), None, None)
+            torch.manual_seed(self.seed)
+            x0 = m.initialize_state(e)
+        self.e_cpu = e
+        self.e = e.to(self.device)
+        self.freqs = self.freqs_cpu.to(self.device)
+        return x0.to(self.device)
+
+    def F(self, h):
+        with self.torch.no_grad():
+            return self.F_diff(h)
+
+    def F_diff(self, h):
+        t = self.model.transformer
+        x = t.adapter(self.torch.cat([h, self.e.expand(h.shape[0], -1, -1)], dim=-1))
+        for block, idx in zip(t.core_block, self.block_idx):
+            x = block(x, self.freqs, idx, None, None)
+        return x
+
+    def logits(self, h):
+        """Next-token logits at the last position for the first state of a batch (computed on the CPU)."""
+        torch = self.torch
+        m, t = self.model, self.model.transformer
+        with torch.no_grad():
+            x = t.ln_f(h[:1].to("cpu"))
+            for i, block in enumerate(t.coda):
+                x = block(x, self.freqs_cpu, torch.tensor(-1 - i), None, None)
+            return m.lm_head(t.ln_f(x)[:, -1, :])[0].double()
+
+    def readout(self, h):
+        torch = self.torch
+        z = self.logits(h)[None]
+        logp = torch.log_softmax(z, dim=-1)
+        return int(torch.argmax(z[0])), float(-(logp.exp() * logp).sum(-1)[0])
+
+    def native_check(self, prompt, steps=32):
+        """`steps` iterations of F from the seeded initial state against the model's own forward (CPU only)."""
+        torch = self.torch
+        if self.device.type != "cpu":
+            raise SystemExit("the Huginn native check runs on the CPU (the native forward needs every block there)")
+        x0 = self.setup(prompt)
+        h = x0
+        for _ in range(steps):
+            h = self.F(h)
+        ids = self.tok(prompt, return_tensors="pt")["input_ids"]
+        with torch.no_grad():
+            native = self.model(input_ids=ids, input_states=x0, num_steps=torch.tensor([steps, 0])).logits[0, -1]
+        mine = self.logits(h)
+        return float((native.double() - mine).abs().max()), int(native.argmax()), int(mine.argmax())
+
+
+def make_loop(args):
+    if args.model == "huginn":
+        return HuginnLoop(args.model, args.dtype, args.device, args.threads, getattr(args, "init_seed", 0))
+    return LatentLoop(args.model, args.dtype, args.device, args.threads)
+
 
 def trajectory(args):
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -158,26 +289,18 @@ def trajectory(args):
 
 
 def check(args):
-    """The extracted loop must reproduce the native forward: 4 applications of F give the model's logits."""
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
-    torch = loop.torch
+    """The extracted loop must reproduce the native forward (Ouro: its 4 trained loops; Huginn: 32 steps)."""
+    loop = make_loop(args)
     for name in args.prompts:
-        h = loop.setup(PROMPTS[name])
-        for _ in range(loop.inner.config.total_ut_steps):
-            h = loop.F(h)
-        ids = loop.tok(PROMPTS[name], return_tensors="pt")["input_ids"].to(loop.device)
-        with torch.no_grad():
-            native = loop.model(input_ids=ids, use_cache=False).logits[0, -1].double()
-            mine = loop.model.lm_head(h[:, -1, :])[0].double()
-        print(json.dumps({"prompt": name, "max_abs_logit_difference": float((native - mine).abs().max()),
-                          "native_top": loop.tok.decode([int(native.argmax())]),
-                          "loop_top": loop.tok.decode([int(mine.argmax())])}))
+        diff, native, mine = loop.native_check(PROMPTS[name])
+        print(json.dumps({"prompt": name, "max_abs_logit_difference": diff,
+                          "native_top": loop.tok.decode([native]), "loop_top": loop.tok.decode([mine])}))
 
 
 def sweep(args):
     """Relaxed loop h <- (1 - lambda) h + lambda F(h) for many lambda in one batch: bifurcation diagram,
     largest Lyapunov exponent and period of the attractor."""
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     lambdas = np.linspace(*args.lambdas, args.points)
     h0 = loop.setup(PROMPTS[args.prompt])
@@ -270,6 +393,8 @@ NEUTRAL = ["The meeting is scheduled for nine in the morning.", "Please send the
 def layer_last_token(loop, texts, layer):
     """Last-token output of `layer` in the first loop pass, for raw texts (one at a time, no padding)."""
     torch = loop.torch
+    if not isinstance(loop, LatentLoop):
+        raise SystemExit("steering vectors are implemented for Ouro only")
     vecs = []
     for t in texts:
         h = loop.setup(t)
@@ -283,7 +408,7 @@ def layer_last_token(loop, texts, layer):
 
 
 def vectors(args):
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     neutral = layer_last_token(loop, NEUTRAL, args.layer)
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -301,7 +426,7 @@ def vectors(args):
 
 def plane(args):
     """(lambda, alpha) map of the relaxed, steered loop: largest Lyapunov exponent and period per cell."""
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     v = np.load(DATA / "explore" / args.vectors / "vectors.npz")[args.concept]
     lambdas = np.linspace(*args.lambdas, args.resolution[0])
@@ -405,7 +530,7 @@ def orbit(args):
     """Newton-Krylov for a period-p orbit of the relaxed loop, with Arnoldi multipliers (matrix-free JVPs)."""
     from scipy.sparse.linalg import LinearOperator, eigs, gmres
 
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     h0 = loop.setup(PROMPTS[args.prompt])
     lam = float(args.lam)
@@ -495,7 +620,7 @@ def orbit(args):
 def basin(args):
     """Replicas from slightly perturbed starts at one lambda: how many end on a periodic orbit, and with what
     Lyapunov exponent (coexisting attractors and basin fractions)."""
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     h0 = loop.setup(PROMPTS[args.prompt])
     R = args.replicas
@@ -549,7 +674,7 @@ def continue_orbit(args):
     Arnoldi multipliers), classifying the first unit-circle crossing in each direction."""
     from scipy.sparse.linalg import LinearOperator, eigs, gmres
 
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     h0 = loop.setup(PROMPTS[args.prompt])
     shape = tuple(h0.shape)
@@ -641,7 +766,7 @@ def fixed_spectrum(args):
     1 - lambda + lambda mu for F's multipliers mu, so F's spectrum predicts the whole stability interval."""
     from scipy.sparse.linalg import LinearOperator, eigs
 
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     h = loop.setup(PROMPTS[args.prompt])
     shape = tuple(h.shape)
@@ -827,7 +952,7 @@ def pseudo_arclength(phi, x0, lam0, direction=-1, steps=60, ds=0.004, ds_min=1e-
 
 def arclength(args):
     """Pseudo-arclength continuation in lambda of a period-p orbit of the relaxed loop, through folds."""
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     loop.setup(PROMPTS[args.prompt])
     x0 = torch.as_tensor(np.load(DATA / "explore" / args.start_states)[args.start_index][None], dtype=loop.dtype,
@@ -866,7 +991,7 @@ def positions(args):
     the positions' conditional spectra. Per lambda: each position's own period, its conditional largest Lyapunov
     exponent (a twin perturbed at that position only, the other positions reset to the trajectory every loop),
     and the full-system exponent (a twin perturbed everywhere) for comparison with the largest conditional one."""
-    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    loop = make_loop(args)
     torch = loop.torch
     h0 = loop.setup(PROMPTS[args.prompt])
     L, d = h0.shape[1], h0.shape[2]
