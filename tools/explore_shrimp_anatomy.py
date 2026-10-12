@@ -41,6 +41,13 @@ makes that statement concrete in network terms at chosen rates:
           (period by recurrence up to 72, doubling amplitude |theta_t -
           theta_{t+18}| for period 36, or aperiodic with return statistics).
           A soft flip shows period 36 with amplitude ~ sqrt(distance).
+  fold-prefactor  Parameter-free intermittency prediction from a fold's normal
+          form. At a fold of the period-18 cycle (corrected at a fixed output
+          rate), compute the left/right null vectors of R = F^18 - id, the
+          parameter coefficient a = w.dR/d(eta_h) (actual hidden rate) and the
+          quadratic coefficient c/2 = w.D^2R[v,v]/2, predict the bottleneck
+          passage time 18*pi/sqrt(a*(c/2)*d_eta) in gradient steps, and compare
+          with measured passage (laminar) times beyond the fold.
   ridge   Does the shrimp need weight decay? Continue the window's attracting
           period-18 cycle in the ridge coefficient at fixed rates (down to 0
           and up), reporting its spectral radius until Newton loses it; and
@@ -561,6 +568,101 @@ def ridge(args):
     (out / "ridge.json").write_text(json.dumps(record, indent=1))
 
 
+def fold_coefficients(f, theta, q, lx, ly):
+    """Correct the fold at fixed output rate and return (eta_h, theta, v, w, a, c_half, R, M)."""
+    from neural_shrimp.fastcont import FoldCurve
+    fold = FoldCurve(f, 18, sigma=1.0)
+    row = np.zeros(2 * f.n + 2)
+    row[-2] = 1.0
+    zf, hist = newton(fold, np.concatenate([theta, q / np.linalg.norm(q), [lx, ly]]), max_iter=30,
+                      extra=lambda w_: (row, w_[-2] - lx))
+    if zf is None:
+        raise RuntimeError("fold correction failed")
+    th, v, p = zf[:f.n], zf[f.n:2 * f.n], [zf[-2], zf[-1]]
+    t, m, dp, _ = f.period_map(th, p, 18)
+    a_mat = m - np.eye(f.n)
+    u, sv, vt = np.linalg.svd(a_mat)
+    w = u[:, -1]
+    w = w / (w @ v)
+    eta_h = 10.0 ** p[1]
+    r_eta = dp[:, 1] / (eta_h * math.log(10.0))       # dR/d(eta_h), actual units
+    a = float(w @ r_eta)
+    h = 1e-4
+    rp = f.period_map(th + h * v, p, 18)[0] - (th + h * v)
+    rm = f.period_map(th - h * v, p, 18)[0] - (th - h * v)
+    r0 = t - th
+    c_half = float(0.5 * (w @ (rp - 2 * r0 + rm)) / h ** 2)
+    return {"eta_h": eta_h, "log10_output": p[0], "theta": th, "v": v, "w": w, "a": a, "c_half": c_half,
+            "newton": hist, "smallest_singular": float(sv[-1])}
+
+
+def passage_times(f, net, x, y, p, start, steps, threshold, min_run):
+    theta = start.copy()
+    for _ in range(20000):
+        theta = f.step(theta, p)
+    buf = [theta]
+    for _ in range(17):
+        buf.append(f.step(buf[-1], p))
+    t = buf[-1]
+    laminar = np.zeros(steps, dtype=bool)
+    for k in range(steps):
+        t = f.step(t, p)
+        if not np.all(np.isfinite(t)):
+            return None
+        laminar[k] = np.linalg.norm(t - buf[k % 18]) < threshold
+        buf[k % 18] = t
+    runs, run = [], 0
+    for flag in laminar:
+        if flag:
+            run += 1
+        elif run:
+            runs.append(run)
+            run = 0
+    runs = [r for r in runs[1:] if r >= min_run]
+    return runs, float(laminar.mean())
+
+
+def fold_prefactor(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+    node = json.loads(Path(args.node).read_text())
+    point = [float(v) for v in node["point"]]
+    theta, q = np.array(point[:13]), np.array(point[15:28])
+    lx = math.log10(args.output) if args.output else math.log10(point[14])
+    ly = math.log10(point[13])
+    co = fold_coefficients(f, theta, q, lx, ly)
+    prod = co["a"] * co["c_half"]
+    print(json.dumps({"eta_h_fold": co["eta_h"], "log10_output": co["log10_output"], "a": co["a"],
+                      "c_half": co["c_half"], "a_times_c_half": prod,
+                      "prefactor_gd_steps": 18 * math.pi / math.sqrt(abs(prod)), "newton": co["newton"][-1]}))
+    rows = []
+    sign = 1.0 if prod > 0 else -1.0                 # side without the cycle: a*d_eta has the sign of c_half
+    for d in args.detunings:
+        d_eta = sign * d
+        p = [co["log10_output"], math.log10(co["eta_h"] + d_eta)]
+        res = passage_times(f, net, x, y, p, co["theta"] + 1e-6, args.steps, args.threshold, args.min_run)
+        pred = 18 * math.pi / math.sqrt(abs(prod) * d)
+        if res is None:
+            rows.append({"d_eta": d_eta, "outcome": "diverged"})
+            print(json.dumps(rows[-1]))
+            continue
+        runs, frac = res
+        row = {"d_eta": d_eta, "predicted_passage_steps": pred, "runs": len(runs), "laminar_fraction": frac,
+               "mean_run": float(np.mean(runs)) if runs else None,
+               "median_run": float(np.median(runs)) if runs else None,
+               "p90_run": float(np.percentile(runs, 90)) if runs else None,
+               "max_run": float(np.max(runs)) if runs else None,
+               "steps_per_passage": float(args.steps / len(runs)) if runs else None}
+        rows.append(row)
+        print(json.dumps({k: (round(v, 3) if isinstance(v, float) else v) for k, v in row.items()}))
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "fold-prefactor.json").write_text(json.dumps({
+        "node": str(args.node), "coefficients": {k: (v.tolist() if isinstance(v, np.ndarray) else v)
+                                                  for k, v in co.items()},
+        "rows": rows}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -606,6 +708,14 @@ def main():
     ed.add_argument("--transient", type=int, default=200000)
     ed.add_argument("--tol", type=float, default=1e-7)
     ed.add_argument("--out", required=True)
+    fp = sub.add_parser("fold-prefactor")
+    fp.add_argument("--node", required=True)
+    fp.add_argument("--output", type=float, default=None, help="exact output rate (default: the node's)")
+    fp.add_argument("--detunings", type=float, nargs="+", default=[0.1, 0.03, 0.01, 0.003, 0.001])
+    fp.add_argument("--steps", type=int, default=600000)
+    fp.add_argument("--threshold", type=float, default=0.05)
+    fp.add_argument("--min-run", type=int, default=36)
+    fp.add_argument("--out", required=True)
     rd = sub.add_parser("ridge")
     rd.add_argument("--centre", type=float, nargs=2, default=[-0.0857, 1.853])
     rd.add_argument("--ridge-down", type=float, nargs="+",
@@ -622,7 +732,7 @@ def main():
     if args.command == "ridge" and args.points is None:
         args.points = [[-0.0857, 1.853], [-0.0800, 1.800], [-0.0830, 1.890], [-0.0745, 1.760]]
     {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window,
-     "lyapunov": lyapunov, "edge": edge, "ridge": ridge}[args.command](args)
+     "lyapunov": lyapunov, "edge": edge, "ridge": ridge, "fold-prefactor": fold_prefactor}[args.command](args)
 
 
 if __name__ == "__main__":
