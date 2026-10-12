@@ -273,22 +273,32 @@ window (`explore/llm-soft-loop/`).
   +0.0024. Period 6 at (-0.1205, 0.0786) and period 3 at (0.1168, 0.078)
   return to within 2e-14 and 6e-15.
 - **Period adding in token space.** Read out as tokens, the stripe orbits
-  are ". This is a is a" (period 6), ". This is there is a is a" (8) and
-  ". This is there is it is a is a" (10): each stripe adds one "is X" pair.
-  The stripes accumulate toward the period-2 region, with spacings in alpha
-  shrinking by a factor of about 0.57 per step at log10 T -0.115.
+  are ". This" followed by k "is X" pairs, period 2k + 2: ". This is a is a"
+  (period 6), ". This is there is a is a" (8), ". This is there is it is a
+  is a" (10) and ". This is it is it is it is a is a" (12; float64 residual
+  3e-15). The neighbouring period-2 region is the 2-cycle "is it" (float64
+  residual 6e-15, leading multiplier -0.27). Each stripe orbit loops k times
+  near that 2-cycle, escapes through ". This" and is reinjected; the stripes
+  accumulate toward the period-2 region, with spacings in alpha shrinking by
+  a factor of about 0.57 per step at log10 T -0.115.
 - **Precision.** The float32 map is accurate to only 3e-6 to 2e-5 per step
   (soft embeddings have norms near 0.2). In float32 the period-8 orbit was
   read as period 16 and the period-10 orbit was missed, and the zoom maps'
   period test sits at that error level. Orbits are therefore verified in
   float64. Boundary continuation uses float64 residuals with float32
   derivatives, which are accurate enough for the Newton matrix.
-- **Boundaries (in progress).** Continued upward in temperature at
-  alpha 0.0717, the period-8 orbit keeps a real leading multiplier. That
-  multiplier passes close to zero (6e-5 near log10 T -0.108), then rises
-  toward +1 as the branch turns: a fold near log10 T -0.1033 (square-root
-  extrapolation). A shrimp needs more than one fold: fold and flip curves in
-  the plane, with cusps where folds meet. `curve` traces them.
+- **Boundaries.** Continued in temperature at alpha 0.0717, the period-8
+  orbit keeps a real leading multiplier. Upward it passes close to zero
+  (6e-5 near log10 T -0.108) and rises toward +1 as the branch turns: a fold
+  near log10 T -0.1033 (square-root extrapolation). Downward it changes sign
+  near -0.121 (a superstable point) and crosses -1 between -0.12886 and
+  -0.12911, an isolated real -1 (flip; next multiplier 3e-6). So this cut has
+  the profile of a periodic window: saddle-node at high temperature, period
+  doubling at low temperature. A long narrow region bounded by a fold on one
+  side is how shrimp legs are described (Facanha, Oldeman and Glass 2013,
+  doi:10.1016/j.physleta.2013.03.025), but a shrimp also needs its body: the
+  fold and flip curves in the plane, with cusps where fold curves meet.
+  `curve` traces them.
 
 ## Toolkit for the model's own dynamics (12 October 2026)
 
