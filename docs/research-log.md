@@ -19202,3 +19202,31 @@ _commit `108ca29ec8bd`_
 explore/llm-attractors/pilot1 (qwen2.5-0.5B-instruct, CPU; 14 runs completed; jobs started after commit a44754c9 ran the same dialogue/paraphrase code, which only gained a summary subcommand). Greedy self-dialogue: exact period-1 cycles of the 7-turn window from turn 11 (open prompt) and turn 9 (task prompt), i.e. both agents repeat one identical line each turn ('Hello! How can I assist you today?'; 'I'd be happy to help you plan your three-day trip to Kyoto...'), entropy 0.38 and 0.08 nats. Temperature 0.7: low-entropy drift in a 'helpful assistant offering help' basin with near-repeats (tail entropy 0.24-0.47 for two open runs, 1.27 for the third); one task run absorbed into a farewell loop ('You're welcome! I hope you have a wonderful trip to Kyoto. Have a wonderful day!') from turn 20 despite sampling (entropy 0.07). Temperature 1.0: tail entropy 1.8-3.2 nats, turns at the 100-token cap, no convergence and degrading content. Greedy repeated paraphrasing reached a fixed sentence at round 6 (no 2-cycle for this input); at 0.7 one exact repeat occurred at round 4, not persistent. No clear open-versus-task difference for this model. Measurement caveats: cosine of mean-pooled last-layer states is high for all runs (0.89-1.0, including incoherent ones), so the 'mirroring' criterion based on it is not discriminative and is not used as evidence; for sampled runs the cycle field records only a first exact repeat. Next (pilot 2): temperature scan with seeds and longer runs to locate the transition between absorbing and wandering regimes; exact per-turn stay probability of an attractor at temperature T from the logits (mean residence time); lexical similarity measures; the 1.5B model.
 
 _commit `a44754c9be1f` (dirty worktree)_
+
+## 2026-10-12 03:33 UTC: run (exploratory)
+
+- **Question:** LLM attractor pilot 2 (qwen2.5-0.5B-instruct, open prompt): (a) temperature scan - how do absorption into a repeated synchronized turn, hitting time, entropy and the exact stay probability of the final turn change with temperature; is there a sharp change between absorbing and wandering regimes? (b) basins under greedy decoding - do 16 different openers end in different attractors (texts, periods)?
+- **Setup:** explore_llm_attractors dialogue, window 7, max 80 new tokens: (a) 40 turns at temperatures 0 (one run) and 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 (seeds 0-3); (b) greedy, up to 40 turns, stop on the first exact cycle, 16 openers (jobs in pilot2-openers/jobs.jsonl). Stay log-probabilities of the last turn on a temperature grid 0.1-1.2. Repetition penalty, top-k, top-p off. 53 jobs via pilot2-temperature/run_jobs.py, 4 parallel processes x 4 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/llm-attractors/pilot2-temperature, pilot2-openers`
+- **Would surprise us:** No temperature dependence of absorption, or all openers ending in one attractor
+- **Command:** `.venv/bin/python ../neural-shrimp-data/explore/llm-attractors/pilot2-temperature/run_jobs.py ../neural-shrimp-data/explore/llm-attractors/pilot2-temperature/jobs.txt ../neural-shrimp-data/explore/llm-attractors/pilot2-openers/jobs.jsonl`
+
+_commit `8621a8f443ed`_
+
+## 2026-10-12 03:34 UTC: run (exploratory)
+
+- **Question:** Is the chunk-3 memory's Neimark-Sacker crossing soft (supercritical) or hard (subcritical)?
+- **Setup:** explore_inference_memory criticality, context 24, chunk 3, --scale-by-chunk, coupled decay 1e-3, log10 theta_o -0.08: continue the synchronized orbit from log10 theta_h 1.2 to 1.554, bisect the crossing in [1.554, 1.556], first Lyapunov coefficient with finite-difference forms (steps 1e-4 / 1e-3, and doubled)
+- **Output:** `../neural-shrimp-data/explore/inference-memory/criticality-chunk3`
+- **Would surprise us:** Real crossing multiplier, or d changing sign with the step size
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py criticality --context 24 --chunk 3 --scale-by-chunk --coupled-decay 1e-3 --log-theta-o -0.08 --theta-start 1.2 --lo 1.554 --hi 1.556 --transient 4000 --out inference-memory/criticality-chunk3`
+
+_commit `2b8bdd98c854` (dirty worktree)_
+
+- run started 2026-10-12 03:34 UTC finished 03:34 UTC with exit status 0
+
+## 2026-10-12 03:34 UTC: Chunk-3 memory: the synchronized memory's Neimark-Sacker crossing is supercritical (soft)
+
+criticality-chunk3 (explore_inference_memory criticality; context 24, chunk 3, rates scaled by 3/24, coupled decay 1e-3, log10 theta_o -0.08): crossing at log10 theta_h = 1.5547925806725 (bracket 6e-14), multiplier 0.63271 +- 0.77439 i (modulus 1 + 3e-13), 0.14097 turns per context, distance 0.109 to the nearest strong resonance (1/4), eigen gap 0.513. First Lyapunov coefficient d = -369.725 with finite-difference steps 1e-4 / 1e-3 and -369.725 with doubled steps (agreement to nine digits): supercritical, so a stable invariant circle is born smoothly, consistent with the quasi-periodic memory and its locked tongues found in the window-box scan.
+
+_commit `2b8bdd98c854` (dirty worktree)_

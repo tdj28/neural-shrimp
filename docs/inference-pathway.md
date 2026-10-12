@@ -116,10 +116,13 @@ Tool: `tools/explore_inference_memory.py` (tests:
     number of updates per context, a per-update bounce repeats every context
     and is counted as synchronized.
   - **3-token chunks:** the synchronized memory itself undergoes
-    Neimark-Sacker (log10 hidden rate 1.556, 0.141 turns per context). The
-    memory becomes quasi-periodic, with a rotation number that varies
-    smoothly and locks in narrow tongues. Attracting period-6 and period-11
-    orbits were verified at the 1/3 and 4/11 stripes.
+    Neimark-Sacker (log10 hidden rate 1.5548, 0.141 turns per context).
+    - The crossing is supercritical (first Lyapunov coefficient d = -370,
+      unchanged under doubled finite-difference steps), so a stable circle is
+      born smoothly.
+    - The memory becomes quasi-periodic, with a rotation number that varies
+      smoothly and locks in narrow tongues. Attracting period-6 and period-11
+      orbits were verified at the 1/3 and 4/11 stripes.
   - **Large per-token steps (unscaled rates):** the synchronized memory
     flips (log10 hidden rate 1.057 at log10 output rate -1.0), so the memory
     repeats every two contexts. Higher and odd periods and irregular motion
@@ -130,4 +133,4 @@ Tool: `tools/explore_inference_memory.py` (tests:
   update is relative to the curvature of the loss it uses. Whether a trained
   model operates in that range can be measured from its learned inner rates
   and the curvature of its chunk losses. That is the next step, together
-  with criticality at the chunk-3 crossing and the effect of context order.
+  with the effect of context order.
