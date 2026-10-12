@@ -304,7 +304,7 @@ def eigenpair_root_proof(model, initial, period, cos_w, sin_w, radius_exponent=-
             "rates_box": [ball_json(box[n]), ball_json(box[n + 1])], "monodromy_box": data["monodromy"]}
 
 
-def real_eigenpair_proof(mono, guess, radius_exponent=-60):
+def real_eigenpair_proof(mono, guess, radius_exponent=-50):
     """Krawczyk test for a real eigenpair (u, lam) valid for every matrix in the interval enclosure mono."""
     from flint import arb, arb_mat
     from neural_shrimp.rigorous_orbits import eye, midpoint_matrix, norm_inf_upper, ball_json
