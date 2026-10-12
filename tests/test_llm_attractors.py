@@ -41,3 +41,9 @@ def test_trailing_block_and_jaccard():
     assert ela.trailing_block(["a", "b", "c", "c", "c"]) == (3, 2)
     assert ela.trailing_block(["a"]) == (1, 0)
     assert ela.jaccard("Thank you so much", "thank you") == 0.5
+
+
+def test_engine_keeps_its_methods():
+    """keep_float64_norms once landed inside the Engine class body and swallowed these methods."""
+    assert all(callable(getattr(ela.Engine, m, None)) for m in ("generate", "stay_logprob", "embed"))
+    assert callable(ela.keep_float64_norms)

@@ -83,6 +83,25 @@ def test_float64_model_keeps_float64_norms(loop):
     assert 0 < float((y2 - y1).abs().max()) < 1e-9
 
 
+def test_float64_model_builds_float64_rotary_tables(loop):
+    """The rotary cos and sin tables of a float64 model are computed in float64 (Hugging Face builds them in
+    float32 and casts), matching an independent float64 computation to rounding."""
+    torch = loop.torch
+    rot = loop.model.model.rotary_emb
+    cfg = loop.model.config
+    pos = torch.arange(0, 64)[None]
+    x = torch.zeros(1, 64, 8, dtype=torch.float64)
+    cos, sin = rot(x, pos)
+    dim = cfg.hidden_size // cfg.num_attention_heads
+    base = getattr(cfg, "rope_theta", None) or cfg.rope_parameters["rope_theta"]
+    inv = 1.0 / (float(base) ** (torch.arange(0, dim, 2, dtype=torch.float64) / dim))
+    emb = torch.cat([pos[..., None].double() * inv] * 2, dim=-1)
+    assert cos.dtype == torch.float64
+    assert float((cos - emb.cos()).abs().max()) < 1e-13 and float((sin - emb.sin()).abs().max()) < 1e-13
+    c32, _ = rot(x.float(), pos)                                 # float32 inputs keep the original path
+    assert c32.dtype == torch.float32 and float((c32.double() - emb.cos()).abs().max()) > 1e-9
+
+
 def test_soft_phi_matches_steps_and_temperature_derivative(loop):
     """The differentiable p-fold map used for continuation in temperature equals p soft steps, and its
     forward-mode derivative in log10 T matches central differences."""

@@ -80,22 +80,6 @@ class Engine:
             keep_float64_norms(self.model)
 
 
-def keep_float64_norms(model):
-    """Hugging Face RMSNorm layers compute in float32 whatever the input dtype (an upcast meant for bf16), which
-    silently rounds a float64 model to float32 precision at every norm. Patch their classes to compute in the
-    input dtype, and refuse attention implementations with their own float32 casts."""
-    import torch
-
-    def forward(self, hidden_states):
-        variance = hidden_states.pow(2).mean(-1, keepdim=True)
-        return self.weight * (hidden_states * torch.rsqrt(variance + self.variance_epsilon))
-
-    for cls in {type(m) for m in model.modules() if type(m).__name__.endswith("RMSNorm")}:
-        cls.forward = forward
-    impl = getattr(model.config, "_attn_implementation", None)
-    if impl not in ("sdpa", None):
-        raise SystemExit(f"attention implementation {impl!r} may cast to float32; use sdpa for float64 runs")
-
     def generate(self, messages, temperature, max_new, seed):
         torch = self.torch
         ids = self.tok.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt")
@@ -138,6 +122,55 @@ def keep_float64_norms(model):
         with torch.no_grad():
             hidden = self.model(**enc, output_hidden_states=True).hidden_states[-1][0]
         return hidden.mean(0).double().numpy()
+
+
+def keep_float64_norms(model):
+    """Make a float64 model compute in float64 where Hugging Face code silently drops to float32.
+
+    RMSNorm layers compute in float32 whatever the input dtype (an upcast meant for bf16): their classes are
+    patched to compute in the input dtype. Rotary embeddings build their inverse frequencies, cos and sin tables in
+    float32 (and CPU and GPU round those tables differently): for float64 inputs the patched classes rebuild them in
+    float64 from the configuration, refusing rope types other than the default and frequencies that do not match
+    the model's own. float32 inputs keep the original code paths. Attention implementations other than sdpa are
+    refused (their kernels may cast to float32)."""
+    import torch
+
+    def forward(self, hidden_states):
+        variance = hidden_states.pow(2).mean(-1, keepdim=True)
+        return self.weight * (hidden_states * torch.rsqrt(variance + self.variance_epsilon))
+
+    for cls in {type(m) for m in model.modules() if type(m).__name__.endswith("RMSNorm")}:
+        cls.forward = forward
+
+    def rotary_forward(self, x, position_ids):
+        if x.dtype != torch.float64 or getattr(self, "_inv_freq64", None) is None:
+            return self._float32_forward(x, position_ids)
+        freqs = position_ids[..., None].to(torch.float64) * self._inv_freq64.to(x.device)
+        emb = torch.cat((freqs, freqs), dim=-1)
+        return emb.cos() * self.attention_scaling, emb.sin() * self.attention_scaling
+
+    for m in model.modules():
+        name = type(m).__name__
+        if not (name.endswith("RotaryEmbedding") and hasattr(m, "inv_freq")):
+            continue
+        if getattr(m, "rope_type", "default") != "default":
+            raise SystemExit(f"{name}: rope type {m.rope_type!r} is not rebuilt in float64")
+        cfg = m.config
+        head_dim = getattr(cfg, "head_dim", None) or cfg.hidden_size // cfg.num_attention_heads
+        dim = int(head_dim * getattr(cfg, "partial_rotary_factor", 1.0))
+        base = getattr(cfg, "rope_theta", None) or cfg.rope_parameters["rope_theta"]    # transformers 4 or 5
+        inv64 = 1.0 / (float(base) ** (torch.arange(0, dim, 2, dtype=torch.float64) / dim))
+        own = m.inv_freq.detach().to("cpu", torch.float64)
+        if inv64.shape != own.shape or not torch.allclose(inv64, own, rtol=1e-6, atol=0):
+            raise SystemExit(f"{name}: rebuilt inverse frequencies do not match the model's")
+        m._inv_freq64 = inv64
+        cls = type(m)
+        if "_float32_forward" not in cls.__dict__:
+            cls._float32_forward = cls.forward
+            cls.forward = rotary_forward
+    impl = getattr(model.config, "_attn_implementation", None)
+    if impl not in ("sdpa", None):
+        raise SystemExit(f"attention implementation {impl!r} may cast to float32; use sdpa for float64 runs")
 
 
 def cosine(a, b):

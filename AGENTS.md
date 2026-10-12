@@ -94,9 +94,11 @@ records an error that actually occurred.
   radius and retry.
 - **Check the effective precision, not the dtype label.** Hugging Face
   RMSNorm layers compute in float32 whatever the model dtype, so a "float64"
-  language-model run was float32 at every norm. Before calling a run float64,
-  patch the norms (`keep_float64_norms` in `tools/explore_llm_attractors.py`)
-  and confirm that central differences converge like h^2. Keep twin offsets
+  language-model run was float32 at every norm; rotary embeddings likewise
+  build their cos and sin tables in float32 (rounded differently on CPU and
+  GPU). Before calling a run float64, patch both (`keep_float64_norms` in
+  `tools/explore_llm_attractors.py`) and confirm that central differences
+  converge like h^2. Keep twin offsets
   for Lyapunov exponents well above the rounding level: in float32, at least
   1e-4 relative. Measure a map's float32 error against float64 before
   setting tolerances: the soft-token map is accurate to only 3e-6 to 2e-5

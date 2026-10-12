@@ -20040,3 +20040,54 @@ _commit `de4d503eab48` (dirty worktree)_
 Branch of the period-2 orbit in alpha at fixed log10 T -0.115 from alpha 0.058 (inside the period-2 region) toward the stripes: 27 points in 118 s. The leading multipliers start as a complex pair (0.040 +- 0.192i at 0.058), become real near 0.0610, and the leading one rises through +1: the branch turns at alpha 0.06279 with a real +1 crossing (1.062 on the saddle side, next multiplier 0.039) and continues back as the saddle partner. So on the stripes' side the 2-cycle disappears in a saddle-node, and the stripe orbits' k loops near 'is it' are passages through its ghost (type I intermittency), whose standard asymptotics give stripe spacing like 1/k^2 for large k. With alpha_c = 0.06279, the coarse-scan stripe centres at this temperature give alpha_k - alpha_c = 0.0148, 0.0089, 0.0048, 0.0026 for k = 2..5 (cell resolution 6e-4): ratios 0.60, 0.54, 0.54, k^2 times the distance 0.059, 0.080, 0.077, 0.065; neither law is settled at k <= 5 with these positions. Exact stripe boundaries at one temperature (alpha branches of each stripe orbit) are the next measurement.
 
 _commit `de4d503eab48` (dirty worktree)_
+
+## 2026-10-12 14:41 UTC: run (exploratory)
+
+- **Question:** Which tokens compete at each step of the verified stripe orbits and of the 'is it' 2-cycle (soft-token mixtures), e.g. at the escape step '. This' versus another 'is X' loop?
+- **Setup:** explore_llm_soft_loop readout on CPU float64 (norms patched), top 5 tokens and entropy at every orbit point of orbit64-zr-p8, orbit64-zr-p12a and orbit64-zr-p2, at their own (log10 T, alpha)
+- **Output:** `(printed; summarized in the research log)`
+- **Command:** `bash -c set -o pipefail; for r in orbit64-zr-p8 orbit64-zr-p12a orbit64-zr-p2; do OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py readout --run llm-soft-loop/$r --threads 8 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -1; done`
+
+_commit `5431ec1bfceb`_
+
+- run started 2026-10-12 14:41 UTC ((printed; summarized in the research log)) finished 14:42 UTC with exit status 0
+
+## 2026-10-12 14:43 UTC: run (exploratory)
+
+- **Question:** How do the neighbouring stripes of the period-adding sequence end? The P6 stripe is nearly vertical in the (alpha, log10 T) map, so cross it in alpha at fixed log10 T -0.1205; the P10 stripe runs diagonally like P8, so cross it in log10 T at fixed alpha 0.0673. Same boundary types as P8 on matching sides would make the stripes one family.
+- **Setup:** explore_llm_soft_loop branch on cuda (float32 derivatives, float64 residuals, chord Newton): P6 from (log10 T -0.1205, alpha 0.0786) free alpha, ds 0.002 (max 0.006, alpha continued as 10 alpha), bounds alpha 0.07..0.09, stop 0.001 in alpha past the first turn; P10 from (-0.1089, 0.0673) free log10 T, ds 0.002 (max 0.006), stop 0.005 past the first turn; both directions each, up to 60 points
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/branch-{p6-t-0.1205-alpha,p10-a0.0673}-{up,down}`
+- **Would surprise us:** A Neimark-Sacker crossing (complex pair) at either stripe's edge, or no boundary within the bounds
+- **Command:** `bash -c for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py branch --device cuda --free alpha --log-temperature -0.1205 --alpha 0.0786 --direction $dir --ds 0.002 --ds-max 0.006 --bounds 0.07 0.09 --beyond 0.001 --out llm-soft-loop/branch-p6-t-0.1205-alpha-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-2500; done; for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py branch --device cuda --log-temperature -0.1089 --alpha 0.0673 --direction $dir --ds 0.002 --ds-max 0.006 --beyond 0.005 --out llm-soft-loop/branch-p10-a0.0673-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-2500; done`
+
+_commit `5431ec1bfceb` (dirty worktree)_
+
+- run started 2026-10-12 14:43 UTC (../neural-shrimp-data/explore/llm-soft-loop/branch-{p6-t-0.1205-alpha,p10-a0.0673}-{up,down}) finished 14:44 UTC with exit status -15
+
+## 2026-10-12 14:44 UTC: run (exploratory)
+
+- **Question:** Rerun of the story half of job 06, whose Arnoldi run (largest magnitude) stopped with 6 of 8 eigenvalues converged and crashed the tool: F's spectrum at Huginn's fixed point for the story prompt, and whether its leading pair is complex like the GSM prompt's (modulus 0.970, 0.146 turns per step)
+- **Setup:** explore_latent_loop fixed-spectrum --model huginn on cuda float32 (now keeps partial Arnoldi results with a convergence flag and sorts LM by modulus), prompt story, seeded initial state, 400 native steps, Arnoldi k = 8 with 600 iterations
+- **Output:** `../neural-shrimp-data/explore/latent-loop/huginn-fixed-spectrum-story`
+- **Would surprise us:** A real leading multiplier for the story prompt (no spiral), or a modulus at or above 1
+- **Command:** `bash -c set -o pipefail; ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py fixed-spectrum --model huginn --device cuda --prompt story --lam 1.0 --transient 400 --arnoldi-iter 600 --out latent-loop/huginn-fixed-spectrum-story 2>&1 | grep -v -i -e warn -e jit -e Loading | tail -1`
+
+_commit `5431ec1bfceb` (dirty worktree)_
+
+- run started 2026-10-12 14:44 UTC (../neural-shrimp-data/explore/latent-loop/huginn-fixed-spectrum-story) finished 14:54 UTC with exit status 0
+
+## 2026-10-12 14:54 UTC: run (exploratory)
+
+- **Question:** F's spectrum at Huginn's fixed point for the GSM prompt predicts that the relaxed loop loses stability at lambda 1.0777 through the complex pair 0.588 +- 0.771i (modulus 0.970, 0.146 turns per step; relaxed rotation about 0.156 turns at threshold), with a second pair (-0.774 +- 0.366i) at 1.0814. Does the latent state decay below 1.0777 and settle on a small rotating orbit above it (supercritical Neimark-Sacker: amplitude like sqrt(lambda - lambda_c)), or jump far away (subcritical)? Which position carries it first?
+- **Setup:** explore_latent_loop ns-check --model huginn on cuda float32, prompt gsm-claire (26 positions with BOS), fixed state from huginn-fixed-spectrum-gsm-claire, lambdas 1.0 1.05 1.07 1.075 1.085 1.09 1.10 1.12 in one batch, perturbation 1e-3 relative, 3000 steps; distance from h*, early log rate, rotation of a 2-D projection over the second half, per-position late distances
+- **Output:** `../neural-shrimp-data/explore/latent-loop/huginn-ns-gsm-claire`
+- **Would surprise us:** Growth below 1.07 (spectrum incomplete or inaccurate) or decay at 1.10 and above (prediction wrong); a late rotation far from 0.15 turns per step
+- **Command:** `bash -c set -o pipefail; ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py ns-check --model huginn --device cuda --prompt gsm-claire --fixed-state latent-loop/huginn-fixed-spectrum-gsm-claire/fixed-state.npy --lambdas 1.0 1.05 1.07 1.075 1.085 1.09 1.10 1.12 --steps 3000 --out latent-loop/huginn-ns-gsm-claire 2>&1 | grep -v -i -e warn -e jit -e Loading | tail -8`
+
+_commit `5431ec1bfceb` (dirty worktree)_
+
+## 2026-10-12 14:57 UTC: Two code defects found and fixed: Engine methods swallowed; float32 rotary tables in float64 runs
+
+(1) Commit 1384c3d5 (12 October, 08:48 UTC) inserted keep_float64_norms at module level between Engine.__init__ and Engine's other methods in tools/explore_llm_attractors.py, so generate, stay_logprob and embed became dead nested functions: the dialogue, paraphrase and escape subcommands would have failed with AttributeError. No run used them after that commit (the only explore_llm_attractors run on 12 October was margins at 04:04 UTC); other tools use only Engine's model and tokenizer. Fixed by moving the function below the class; test_engine_keeps_its_methods guards it. (2) Hugging Face rotary embeddings (Qwen2 in transformers 5.19, Ouro's remote code) build inverse frequencies, cos and sin in float32 and cast them, so float64 runs used float32 position tables, rounded differently on CPU and GPU: the GPU-float64-verified period-8 orbit closed to 2.7e-7 (absolute, about 1.5e-6 relative) when re-run on the CPU in float64, instead of 1e-15. The verified orbits are hyperbolic and move by about that much under such a perturbation, so their existence, periods and stability are unaffected; their float64 residuals refer to the GPU map with float32 position tables. keep_float64_norms now rebuilds the tables in float64 for float64 inputs (default rope type only; refuses others and mismatching frequencies; float32 inputs keep the original path); test_float64_model_builds_float64_rotary_tables checks them against an independent float64 computation (error below 1e-13). Huginn's float64 path already had its own rotary patch. AGENTS.md precision gate extended. The requeued P8 curve job uses a Newton tolerance of 1e-6: job 06c2 stopped at the start because the coupled fold solve reached residual 1.67e-7 with |g| 4.6e-5 but not 1e-10, the float32 monodromy limiting g to about 1e-5.
+
+_commit `5431ec1bfceb` (dirty worktree)_
