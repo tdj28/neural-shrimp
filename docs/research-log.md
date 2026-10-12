@@ -19552,3 +19552,21 @@ _commit `fa2a742b5590`_
 ouro-sweep-story (CPU float32, 24 lambda values in [0.05, 1.2], one batch of 24; 6375 s): same overall picture as the GPU sweep - largest Lyapunov exponent near zero at small lambda (0.0036, 0.0010 at 0.05, 0.1), 0.02-0.07 for lambda 0.25-0.75, 0.06-0.13 for lambda >= 0.8, no exact period anywhere - and at lambda = 0.90 the exponent is -0.0069 with a tiny observable extent 0.0023, matching the GPU cells 0.8965 (-0.0000, 0.0021) and 0.9063 (+0.0006, 0.0010). Different hardware, batch size and rounding give the same window, so it is not a batching artefact (unlike the unreproduced single-run check at 1.2803; 1.19 and 1.28 lie between CPU grid points). A fixed point of the relaxed map is a fixed point of F for every lambda, so the window should be a fixed point of the model's own loop that relaxation stabilizes in a band of lambda; with F's multipliers mu at that point, the relaxed multipliers are (1 - lambda) + lambda mu, and the window edges are predicted where one of them crosses the unit circle. Next: Newton-Krylov for the fixed point at lambda 0.9 and Arnoldi multipliers of F.
 
 _commit `fa2a742b5590` (dirty worktree)_
+
+## 2026-10-12 07:01 UTC: run (exploratory)
+
+- **Question:** Is the lambda ~ 0.90 window a fixed point of Ouro's own loop F stabilized by relaxation? Newton-Krylov for the fixed point (period 1 of the relaxed map at lambda 0.9) and Arnoldi multipliers of the relaxed map there
+- **Setup:** explore_latent_loop orbit on cuda float32, prompt 'story', lambda 0.9, period 1, 2000 transient loops, Newton-Krylov (GMRES restart 40 x 3, rtol 1e-4), target 1e-6, Arnoldi k = 8
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-fixed-point-lam0.9`
+- **Would surprise us:** No convergence to a fixed point, or multipliers outside the unit circle at lambda 0.9
+- **Command:** `env ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py orbit --device cuda --lam 0.9 --period 1 --transient 2000 --out latent-loop/ouro-fixed-point-lam0.9`
+
+_commit `b52e3c19b01d`_
+
+- run started 2026-10-12 07:01 UTC finished 07:01 UTC with exit status 1
+
+## 2026-10-12 07:03 UTC: Ouro relaxed loop is multistable for lambda 1.15-1.31: stable 2-cycles and fixed points coexist with chaos
+
+ouro-basin-lam1.280315 and -lam1.191667 (32 replicas from starts perturbed by 1e-3 relative, 2000 transient + 400 measured loops): at lambda 1.280315, 12 replicas end on period-2 orbits (all with negative Lyapunov exponents, -0.007 to -0.047) and the rest are irregular (exponents up to 0.18); at 1.191667, 14 on period 2, 17 with negative exponents. So the period-2 windows are real but coexist with an irregular attractor (basin fraction about 40%); the earlier single-trajectory check simply landed in the irregular basin. ouro-zoom-1.15-1.31 (96 lambda values, one trajectory each, 600 + 800 loops): single trajectories land on period-2 orbits (lambda about 1.155, 1.160, 1.165, 1.182, 1.219, 1.234, 1.251), on fixed points (1.185, 1.187, 1.231, and a run 1.288-1.305 with tiny extents 1e-6 to 1e-4), or on irregular motion, interleaved. Because a fixed point of the relaxed map is a fixed point of F for every lambda and its stability set in lambda is an interval for fixed multipliers, stability at both 0.90 and 1.19 implies stability at lambda = 1 too: the model's native loop may have a stable fixed point that native trajectories from the embeddings do not reach (multistability hypothesis). Next: Newton verification of the 2-cycle from replica 0 (queued), the fixed point at lambda 0.9 (queued) with multiplier-based prediction of its stability interval, and whether all period-2 replicas share one orbit.
+
+_commit `b52e3c19b01d` (dirty worktree)_
