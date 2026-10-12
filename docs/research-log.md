@@ -19486,3 +19486,31 @@ _commit `db6b09718e37`_
 ouro-sweep-story-gpu (explore_latent_loop sweep on the local RTX 2000 Ada, float32, prompt 'story', 128 lambda values in [0.05, 1.3], 400 transient + 400 measured loops, twin offset 1e-5 relative, period up to 32 at tol 1e-5; 1006 s). No fixed point at any lambda (the relaxed loop never settles, so the model's loop has no fixed point that relaxation can stabilize). Largest Lyapunov exponent per loop rises from about 3e-4 at lambda 0.05 (near zero, consistent with quasi-periodic motion in the slow-flow limit; observable extent 0.15) to about 0.05 near lambda 0.6, then fluctuates between 0 and 0.18 for lambda > 0.8. Cells with near-zero or negative exponents inside that band: lambda 0.8965 and 0.9063 (exponent about 0, tiny extent 0.002 and 0.001, no exact period up to 32), 1.1917 (period 2, exponent -0.002), 1.2803 (period 2, exponent -0.032, extent 0.11), 1.2902 (exponent -0.007, tiny extent). These are candidate periodic windows embedded in the irregular regime of the model's own (relaxed) recurrence. Not yet verified: 400-loop exponents fluctuate; next are high-resolution zooms across the windows (fold on one edge, period doubling on the other, as generic windows show), Newton verification of the 2-cycle with its multipliers, and a (lambda, steering) map of the window's shape. CPU 24-point sweep running as a cross-check.
 
 _commit `db6b09718e37` (dirty worktree)_
+
+## 2026-10-12 05:43 UTC: run (exploratory)
+
+- **Question:** Zoom across the candidate periodic windows of Ouro's relaxed latent loop: extents, edge types (period doubling, sudden onset), and whether the near-stationary cells at lambda ~ 0.90 are a fixed point, a cycle or slow motion
+- **Setup:** explore_latent_loop sweep on cuda float32, prompt 'story': (a) lambda 1.15-1.31 at 96 points, (b) lambda 0.87-0.93 at 96 points; 600 transient + 800 measured loops, period up to 32 (tol 1e-5), last 400 loops in the bifurcation diagram
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-zoom-{1.15-1.31,0.87-0.93}`
+- **Would surprise us:** Windows not reproduced at the finer grid (fluctuation artefacts)
+- **Command:** `bash -c set -o pipefail; ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py sweep --device cuda --points 96 --lambdas 1.15 1.31 --transient 600 --measure 800 --record 400 --out latent-loop/ouro-zoom-1.15-1.31 2>&1 | grep -v -i warn | tail -2 && ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py sweep --device cuda --points 96 --lambdas 0.87 0.93 --transient 600 --measure 800 --record 400 --out latent-loop/ouro-zoom-0.87-0.93 2>&1 | grep -v -i warn | tail -2`
+
+_commit `102a3d3ebbe0`_
+
+## 2026-10-12 05:44 UTC: run (exploratory)
+
+- **Question:** Verification of the candidate period-2 window of Ouro's relaxed latent loop at lambda = 1.2803: Newton-Krylov period-2 orbit, its Arnoldi multipliers (stable?), and a genuine 2-cycle (distinct points)?
+- **Setup:** explore_latent_loop orbit on cuda float32 (concurrent with the zoom sweeps), prompt 'story', lambda 1.2803 (the sweep cell value 1.280315), period 2, 600 transient loops, Newton-Krylov (GMRES restart 40, 3 cycles, rtol 1e-4, backtracking), target relative residual 1e-6, Arnoldi k = 8 largest multipliers of the period-2 map
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-orbit-p2-lam1.2803`
+- **Would surprise us:** No convergence, spectral radius above 1, or a collapsed (period-1) orbit
+- **Command:** `env ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py orbit --device cuda --lam 1.280315 --period 2 --out latent-loop/ouro-orbit-p2-lam1.2803`
+
+_commit `5107f99a9a93` (dirty worktree)_
+
+- run started 2026-10-12 05:44 UTC finished 05:45 UTC with exit status 1
+
+## 2026-10-12 05:46 UTC: Orbit verification attempt 1 failed: forward-mode AD not implemented for the fused attention kernel
+
+ouro-orbit-p2-lam1.2803 attempt 1 stopped at the first Jacobian-vector product: PyTorch has no forward-mode derivative for _scaled_dot_product_efficient_attention on the GPU. Fixed by evaluating JVPs under the math attention kernel (standard differentiable ops); forward passes keep the fused kernel. Rerun follows.
+
+_commit `3338f3772ff9` (dirty worktree)_
