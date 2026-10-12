@@ -19596,3 +19596,45 @@ _commit `7f052e4066d5` (dirty worktree)_
 llm-soft-loop/scan-K1 (explore_llm_soft_loop scan, qwen2.5-0.5B-instruct, window K = 1, open prompt + 'Hello!' prefix, philosophy steering at layer 12, log10 T -1..0.3 x alpha -0.12..0.12 at 16x16, float64 on CPU, 300 transient + 300 measured steps; 8758 s). Periods found: 1 (24 cells), 2 (60), 3 (17), 4 (34), 5 (64), 6 (4), 7 (3), 8 (13), 9 (3), 10, 11 (5), 12, 14 (2), 15 (2), 16 (3), 21; 19 cells without a period up to 32; 16 cells with positive largest Lyapunov exponent (up to 0.61 per step); super-stable cycles at low temperature (exponents down to -677, saturated softmax, near-greedy). Layout: a central period-5 band (alpha about -0.03..0.05) from T 0.1 to about 1 (a greedy 5-token cycle surviving as a smooth orbit), a period-2 band on the left cut by a thin column near alpha -0.08 where the period changes among 7, 8, 9, 12, 13, 15, 16 with temperature, period 3 on the right with a mixed transition zone near alpha 0.05-0.07 (2, 3, 7-11, 14) and aperiodic cells at T about 0.8-1.6, and a fixed point at the highest temperatures. Wide periodic bands separated by zones of mixed periods and chaos are where shrimp-shaped windows would appear in a smooth two-parameter map; the 16x16 grid cannot resolve shapes. The figure's Lyapunov colour scale is swamped by the super-stable cells (to be clipped). Next: chunked GPU scans of the transition zones at high resolution, then Newton verification and boundary classification of selected windows.
 
 _commit `d5d30b4baa7e` (dirty worktree)_
+
+- run started 2026-10-12 07:04 UTC finished 07:09 UTC with exit status 0
+
+## 2026-10-12 07:09 UTC: run (exploratory)
+
+- **Question:** Single-token contexts: does Ouro-1.4B's own loop acting on one 2048-dimensional state show the same route (quasi-periodic at small lambda, chaos, periodic windows) without combinatorial multistability?
+- **Setup:** explore_latent_loop sweep on cuda float32, prompts one-the (The) and one-hello (Hello), 128 lambda values in [0.05, 1.3], 600 transient + 800 measured loops, period up to 32 (tol 1e-5), final states saved
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-sweep-one-{the,hello}`
+- **Would surprise us:** Convergent everywhere (no chaos) for a single token
+- **Command:** `bash -c set -o pipefail; for p in one-the one-hello; do ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py sweep --device cuda --prompt $p --points 128 --lambdas 0.05 1.3 --transient 600 --measure 800 --record 400 --out latent-loop/ouro-sweep-$p 2>&1 | grep -v -i warn | tail -1; done`
+
+_commit `52384128535d` (dirty worktree)_
+
+## 2026-10-12 07:09 UTC: run (exploratory)
+
+- **Question:** Single-token contexts: does Ouro-1.4B's own loop acting on one 2048-dimensional state show the same route (quasi-periodic at small lambda, chaos, periodic windows) without combinatorial multistability?
+- **Setup:** explore_latent_loop sweep on cuda float32, prompts one-the (The) and one-hello (Hello), 128 lambda values in [0.05, 1.3], 600 transient + 800 measured loops, period up to 32 (tol 1e-5), final states saved
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-sweep-one-{the,hello}`
+- **Would surprise us:** Convergent everywhere (no chaos) for a single token
+- **Command:** `bash -c set -o pipefail; for p in one-the one-hello; do ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py sweep --device cuda --prompt $p --points 128 --lambdas 0.05 1.3 --transient 600 --measure 800 --record 400 --out latent-loop/ouro-sweep-$p 2>&1 | grep -v -i warn | tail -1; done`
+
+_commit `52384128535d` (dirty worktree)_
+
+- run started 2026-10-12 07:09 UTC finished 07:09 UTC with exit status 1
+
+- run started 2026-10-12 06:15 UTC finished 07:09 UTC with exit status 1
+
+## 2026-10-12 07:10 UTC: run (exploratory)
+
+- **Question:** Fixed point of Ouro's own loop behind the lambda ~ 0.90 window (rerun after GPU out-of-memory): Newton-Krylov at lambda 0.9, period 1, and multipliers
+- **Setup:** explore_latent_loop orbit on cuda float32, prompt story, lambda 0.9, period 1, 2000 transient loops, Newton-Krylov (GMRES 40 x 3, rtol 1e-4), target 1e-6, Arnoldi k = 8; started after the basin tests released GPU memory
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-fixed-point-lam0.9`
+- **Would surprise us:** No convergence, or multipliers outside the unit circle
+- **Command:** `env ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py orbit --device cuda --lam 0.9 --period 1 --transient 2000 --out latent-loop/ouro-fixed-point-lam0.9`
+
+_commit `52384128535d` (dirty worktree)_
+
+## 2026-10-12 07:10 UTC: GPU scheduling error: the lambda 0.8965 basin run died of out-of-memory caused by a concurrent smoke test
+
+ouro-basin-lam0.896500 was lost: while it and the period-2 Newton verification each held about 5.5 GB of the 16 GB card, I started a soft-loop GPU smoke test (2.5 GB) and the basin run hit CUDA out-of-memory (its two earlier lambda values had completed). The smoke test itself exposed a float32 bug (a twin collapsing exactly onto a super-stable cycle made the renormalization factor overflow to infinity and the exponent NaN), fixed with a floor on the separation. From now on GPU jobs run through one sequential queue; the lost basin run will be repeated.
+
+_commit `0113c3c1f5da` (dirty worktree)_
