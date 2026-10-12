@@ -630,6 +630,62 @@ def continue_orbit(args):
     (out / "continuation.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
 
 
+def fixed_spectrum(args):
+    """Fixed point h* of the model's own loop F (reached by the relaxed loop at lambda) and F's spectrum there.
+
+    A fixed point of the relaxed map is a fixed point of F for every lambda, and its relaxed multipliers are
+    1 - lambda + lambda mu for F's multipliers mu, so F's spectrum predicts the whole stability interval."""
+    from scipy.sparse.linalg import LinearOperator, eigs
+
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    h = loop.setup(PROMPTS[args.prompt])
+    shape = tuple(h.shape)
+    n = int(np.prod(shape))
+    lam = float(args.lam)
+    for _ in range(args.transient):
+        h = (1 - lam) * h + lam * loop.F(h)
+    with torch.no_grad():
+        res = float((loop.F(h) - h).norm() / h.norm())
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.save(out / "fixed-state.npy", h.float().cpu().numpy())
+
+    def to_t(v):
+        return torch.as_tensor(np.asarray(v, dtype=np.float64).reshape(shape), dtype=loop.dtype, device=loop.device)
+
+    base = h.detach()
+
+    def dF(v):
+        with math_attention():
+            _, jv = torch.func.jvp(loop.F_diff, (base,), (to_t(v),))
+        return jv.detach().double().cpu().numpy().ravel()
+
+    op = LinearOperator((n, n), matvec=dF, dtype=np.float64)
+    spectra = {}
+    for which in ("LM", "SR", "LR"):
+        vals = eigs(op, k=args.k, which=which, return_eigenvectors=False, tol=1e-5, maxiter=args.arnoldi_iter)
+        spectra[which] = [[float(v.real), float(v.imag)] for v in vals]
+    mus = np.array([complex(a, b) for vals in spectra.values() for a, b in vals])
+    # stability interval of the relaxed map from the computed multipliers: |1 - lam + lam mu| < 1
+    grid = np.linspace(0.001, 2.0, 4000)
+    stable = np.array([np.all(np.abs(1 - l + l * mus) < 1) for l in grid])
+    intervals, inside = [], False
+    for l, ok in zip(grid, stable):
+        if ok and not inside:
+            start, inside = l, True
+        if not ok and inside:
+            intervals.append([float(start), float(l)])
+            inside = False
+    if inside:
+        intervals.append([float(start), float(grid[-1])])
+    rec = {"args": vars(args), "fixed_point_residual_F": res, "spectra_of_F": spectra,
+           "predicted_stable_lambda_intervals": intervals,
+           "readout": loop.tok.decode([loop.readout(h)[0]])}
+    (out / "fixed-spectrum.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))
+    print(json.dumps({k: v for k, v in rec.items() if k != "args"}, ensure_ascii=False))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -741,6 +797,17 @@ def main():
     co.add_argument("--k", type=int, default=4)
     co.add_argument("--arnoldi-iter", type=int, default=200)
     co.add_argument("--out", required=True)
+    fs = sub.add_parser("fixed-spectrum")
+    fs.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    fs.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    fs.add_argument("--device", default="cpu")
+    fs.add_argument("--threads", type=int, default=8)
+    fs.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    fs.add_argument("--lam", type=float, required=True)
+    fs.add_argument("--transient", type=int, default=3000)
+    fs.add_argument("--k", type=int, default=8)
+    fs.add_argument("--arnoldi-iter", type=int, default=400)
+    fs.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -749,7 +816,8 @@ def main():
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
-     "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit}[args.command](args)
+     "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit,
+     "fixed-spectrum": fixed_spectrum}[args.command](args)
 
 
 if __name__ == "__main__":
