@@ -136,3 +136,19 @@ def test_curve_points_prefers_the_newer_of_result_and_progress(tmp_path):
     assert esl.curve_points(run) == ("fold", rows[:1])                 # finished: the result
     os.utime(run / "curve.json", (0, 0))
     assert esl.curve_points(run)[0] == "flip"                          # stale result from an earlier run
+
+
+def test_exact_jvp_family_takes_jvps_from_the_reference(setup):
+    """exact_jvp: Jacobian-vector products (g, refined multipliers) in float64 from the reference, the dense
+    monodromy still in float32."""
+    esl, loop, v, fam, theta, orb, x = setup
+    lo = esl.SoftLoop("qwen0.5b", 12, 8, "open", "Hello!", 1, dtype="float32")
+    mixed = esl.soft_family(lo, v, period=2, alpha_scale=10.0, chunk=512, reference=loop, exact_jvp=True)
+    d = np.random.default_rng(6).normal(size=fam.n)
+    j64 = fam.jvp_x(x, theta, d)
+    assert np.allclose(mixed.jvp_x(x, theta, d), j64, atol=1e-12 * np.linalg.norm(j64), rtol=0)
+    plain = esl.soft_family(lo, v, period=2, alpha_scale=10.0, chunk=512, reference=loop)
+    err = np.linalg.norm(plain.jvp_x(x, theta, d) - j64) / np.linalg.norm(j64)
+    assert 1e-9 < err < 1e-2, err                                     # the float32 JVP is not the reference one
+    with pytest.raises(ValueError):
+        esl.soft_family(lo, v, period=2, exact_jvp=True)

@@ -408,13 +408,16 @@ def precision(args):
     (out / "precision.json").write_text(json.dumps({"args": vars(args), "cells": rows}, indent=1))
 
 
-def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None):
+def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, exact_jvp=False):
     """The p-fold soft map as a two-parameter family for bifurcation_curves, theta = (log10 T, alpha * alpha_scale).
     The steering acts on the prefix too, so phi recomputes the prefix cache inside the differentiable function
     (derivatives in alpha include the prefix); the dense monodromy reuses SoftOrbit's batched forward-mode
     Jacobians at fixed theta. With a `reference` SoftLoop (float64, norms patched) the residual Phi(x) - x is
-    computed there and only the derivatives in `loop`'s precision: Newton then converges to the reference precision
-    (float32 derivatives are accurate to about 1e-5, enough for the Newton matrix)."""
+    computed there and the dense derivatives in `loop`'s precision: Newton then converges to the reference
+    precision. float32 derivatives of one step are accurate to about 5e-5, but those of the P8 orbit's 8-step map
+    only to about 3 % (dense monodromy and JVPs alike), enough for a Newton matrix but not for multipliers or the
+    test function g. exact_jvp=True takes the Jacobian-vector products (jvp_x: g by GMRES, refined multipliers)
+    from the reference as well."""
     import copy
 
     import bifurcation_curves as bc
@@ -423,24 +426,34 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None):
 
     torch = loop.torch
     v = np.asarray(v)
-    v_t = torch.as_tensor(v, dtype=loop.dtype, device=loop.device)[None, None, :]
 
-    def phi(X, theta):
-        temperature = 10.0 ** theta[0]
-        cache = DynamicCache()
-        loop.sm.steer = (theta[1] / alpha_scale).to(loop.dtype) * v_t
-        try:
-            loop.model(input_ids=loop.prefix_ids, past_key_values=cache, use_cache=True, logits_to_keep=1)
-            for _ in range(period):
-                c = copy.copy(cache)                        # every step sees the prefix only (fixed positions)
-                c.layers = [copy.copy(layer) for layer in cache.layers]
-                z = loop.model(inputs_embeds=X.to(loop.dtype), past_key_values=c, use_cache=True,
-                               logits_to_keep=1).logits[:, -1, :].to(loop.state_dtype)
-                p = torch.softmax(z / temperature, dim=-1)
-                X = torch.cat([X[:, 1:, :], (p @ loop.E)[:, None, :]], dim=1)
-        finally:
-            loop.sm.steer = None
-        return X
+    def make_phi(lp):
+        v_t = torch.as_tensor(v, dtype=lp.dtype, device=lp.device)[None, None, :]
+
+        def phi(X, theta):
+            temperature = 10.0 ** theta[0]
+            cache = DynamicCache()
+            lp.sm.steer = (theta[1] / alpha_scale).to(lp.dtype) * v_t
+            try:
+                lp.model(input_ids=lp.prefix_ids, past_key_values=cache, use_cache=True, logits_to_keep=1)
+                for _ in range(period):
+                    c = copy.copy(cache)                    # every step sees the prefix only (fixed positions)
+                    c.layers = [copy.copy(layer) for layer in cache.layers]
+                    z = lp.model(inputs_embeds=X.to(lp.dtype), past_key_values=c, use_cache=True,
+                                 logits_to_keep=1).logits[:, -1, :].to(lp.state_dtype)
+                    p = torch.softmax(z / temperature, dim=-1)
+                    X = torch.cat([X[:, 1:, :], (p @ lp.E)[:, None, :]], dim=1)
+            finally:
+                lp.sm.steer = None
+            return X
+
+        return phi
+
+    phi = make_phi(loop)
+    if exact_jvp and reference is None:
+        raise ValueError("exact_jvp needs a reference SoftLoop")
+    exact = bc.Family(make_phi(reference), (1, loop.K, loop.E.shape[1]), reference.state_dtype, reference.device,
+                      context=lambda: sdpa_kernel(SDPBackend.MATH)) if exact_jvp else None
 
     class Family(bc.Family):
         def __init__(self):
@@ -474,6 +487,9 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None):
                 M = orb.jacobian(X) @ M
                 X = orb.f(X)
             return M
+
+        def jvp_x(self, x, theta, v):
+            return exact.jvp_x(x, theta, v) if exact is not None else super().jvp_x(x, theta, v)
 
     return Family()
 
@@ -536,7 +552,7 @@ def branch(args):
     if period == 0:
         raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol} (smallest return "
                          f"distance {min(returns):.3g} at q = {int(np.argmin(returns)) + 1}); nothing to continue")
-    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref)
+    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref, exact_jvp=args.exact_jvp)
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
 
@@ -557,7 +573,7 @@ def branch(args):
         fam, fam.to_np(X), [args.log_temperature, args.alpha * args.alpha_scale], free=free,
         direction=args.direction, steps=args.steps, ds=args.ds, ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol,
         max_newton=args.max_newton, beyond=args.beyond * sc, bounds=(bounds[0] * sc, bounds[1] * sc),
-        on_point=on_point, k=args.k)
+        on_point=on_point, k=args.k, refine_k=args.refine_k)
     for r in records:                                          # 'lambda' in natural units (alpha unscaled)
         r["lambda"] /= sc
         if "turn_lambda_estimate" in r:
@@ -592,7 +608,9 @@ def curve(args):
     ref = (SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"],
                     args.reference_dtype, args.device) if args.reference_dtype != "none" else None)
     v = elpm.load_vectors(ta["vectors"])[ta["concept"]]
-    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref)
+    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref, exact_jvp=args.exact_jvp)
+    if args.gmres_tol is None:                                  # above the JVPs' floor (float32: 4.3e-6 at P8)
+        args.gmres_tol = 1e-9 if args.exact_jvp else 1e-5
     sc = args.alpha_scale
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -607,9 +625,10 @@ def curve(args):
 
     def on_point(rec):
         r = readable(rec)
-        line = json.dumps({k: r[k] for k in ("index", "log10_temperature", "alpha", "residual", "g", "newton",
-                                             "jvps", "gmres_unconverged", "rejected", "critical_multiplier",
-                                             "other_spectral_radius", "parameter_speed", "cusp_candidate")})
+        keys = ("index", "log10_temperature", "alpha", "residual", "g", "g_dense", "newton", "jvps",
+                "gmres_unconverged", "rejected", "critical_multiplier", "critical_multiplier_refined",
+                "refine_residual", "other_spectral_radius", "parameter_speed", "cusp_candidate")
+        line = json.dumps({k: r[k] for k in keys if k in r})
         print(line, flush=True)
         with progress.open("a") as fh:
             fh.write(f"{time.strftime('%H:%M:%S', time.gmtime())} {line}\n")
@@ -620,7 +639,8 @@ def curve(args):
     records, reason, curve_states = bc.trace_curve(
         fam, x0, [log_t0, alpha0 * sc], kind, fix=fix, direction=args.direction, steps=args.steps, ds=args.ds,
         ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, gtol=args.gtol, max_newton=args.max_newton,
-        bounds=bounds, on_point=on_point, gmres_tol=args.gmres_tol, gmres_maxiter=args.gmres_maxiter)
+        bounds=bounds, on_point=on_point, gmres_tol=args.gmres_tol, gmres_maxiter=args.gmres_maxiter,
+        refine_k=args.refine_k)
     rec = {"args": vars(args), "kind": kind, "period": period, "start": {"tline_index": index,
            "log10_temperature": log_t0, "alpha": alpha0}, "stop": reason,
            "seconds": round(time.perf_counter() - tic, 1), "points": [readable(r) for r in records]}
@@ -1073,6 +1093,10 @@ def main():
     bb.add_argument("--tol", type=float, default=1e-10)
     bb.add_argument("--max-newton", type=int, default=10)
     bb.add_argument("--k", type=int, default=12, help="multipliers recorded per point")
+    bb.add_argument("--exact-jvp", action=argparse.BooleanOptionalAction, default=True,
+                    help="refined multipliers from float64 JVPs of the reference")
+    bb.add_argument("--refine-k", type=int, default=4,
+                    help="Arnoldi steps for refined leading multipliers (0: dense float32 multipliers only)")
     bb.add_argument("--chunk", type=int, default=512)
     bb.add_argument("--out", required=True)
     cv = sub.add_parser("curve")
@@ -1093,8 +1117,13 @@ def main():
     cv.add_argument("--tol", type=float, default=1e-10)
     cv.add_argument("--gtol", type=float, default=1e-4, help="float32 monodromies make g accurate to about 1e-5")
     cv.add_argument("--max-newton", type=int, default=8)
-    cv.add_argument("--gmres-tol", type=float, default=1e-5,
-                    help="relative GMRES tolerance for g; float32 JVPs reach about 4e-6 at the P8 fold")
+    cv.add_argument("--exact-jvp", action=argparse.BooleanOptionalAction, default=True,
+                    help="JVPs (g by GMRES, refined multipliers) from the float64 reference; float32 derivatives of "
+                         "the P8 map are off by 3 %%")
+    cv.add_argument("--refine-k", type=int, default=4, help="Arnoldi steps for the refined critical multiplier")
+    cv.add_argument("--gmres-tol", type=float, default=None,
+                    help="relative GMRES tolerance for g (default 1e-9 with exact JVPs, else 1e-5: float32 JVPs "
+                         "reach about 4e-6 at the P8 fold)")
     cv.add_argument("--gmres-maxiter", type=int, default=1, help="GMRES restart cycles (30 products each) per g")
     cv.add_argument("--log-temperature-bounds", type=float, nargs=2, default=[-1.5, 0.5])
     cv.add_argument("--alpha-bounds", type=float, nargs=2, default=[-0.2, 0.2])

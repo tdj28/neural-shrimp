@@ -136,3 +136,49 @@ def test_gmres_tolerance_below_the_jvp_accuracy_is_never_met():
     for r in capped:
         a, b = r["theta"]
         assert abs(a - 0.75 * (1 - b) ** 2) < 1e-6
+
+
+class NoisyMonodromy(bc.Family):
+    """Exact map and JVPs, but a dense monodromy with 3 % relative errors (as float32 monodromies of the P8
+    soft-token orbit have)."""
+    def monodromy(self, x, theta):
+        M = super().monodromy(x, theta)
+        rng = np.random.default_rng(abs(hash(tuple(np.round(np.r_[x, theta], 12)))) % 2 ** 32)
+        return M * (1 + 0.03 * rng.normal(size=M.shape))
+
+
+def test_refine_multipliers_recovers_exact_values_from_a_noisy_monodromy():
+    A = np.diag([1.02, -0.4, 1e-3, 1e-6]) + np.triu(np.full((4, 4), 0.3), 1)
+    noisy = A * (1 + 0.03 * np.random.default_rng(0).normal(size=A.shape))
+    ritz = bc.refine_multipliers(lambda u: A @ u, noisy, m=4, count=2)
+    assert abs(ritz[0][0] - 1.02) < 1e-12 and abs(ritz[1][0] + 0.4) < 1e-12
+    assert all(r < 1e-10 for _, r in ritz)
+
+
+def test_curve_with_exact_jvps_and_noisy_monodromy_stays_on_the_flip_curve():
+    """g from exact JVPs (GMRES) keeps the curve exact although the dense monodromy, used only for the chord
+    Jacobian and the borders, has 3 % errors; the refined critical multiplier is -1 while the dense one is not."""
+    b0 = 0.3
+    x0 = henon_fixed_point(0.37, b0)
+    records, reason, _ = bc.trace_curve(NoisyMonodromy(henon, (2,), torch.float64), x0, [0.37, b0], "flip", fix=1,
+                                        direction=-1, steps=10, ds=0.05, ds_max=0.1, tol=1e-11, gtol=1e-10,
+                                        bounds=((0.0, 3.0), (-0.6, 0.6)), refine_k=2)
+    assert len(records) == 10, reason
+    for r in records[1:]:
+        a, b = r["theta"]
+        assert abs(a - 0.75 * (1 - b) ** 2) < 1e-8
+        assert abs(r["critical_multiplier_refined"][0] + 1) < 1e-8
+    assert max(abs(r["critical_multiplier"][0] + 1) for r in records[1:]) > 1e-3
+
+
+def test_branch_crossings_use_refined_multipliers():
+    """With a 3 % noisy dense monodromy the refined multipliers still bracket the Henon flip at a = 0.3675."""
+    x0 = henon_fixed_point(0.2, 0.3)
+    records, reason, _ = bc.trace_branch(NoisyMonodromy(henon, (2,), torch.float64), x0, [0.2, 0.3], free=0,
+                                         direction=1, steps=40, ds=0.02, ds_max=0.05, tol=1e-12, bounds=(0.0, 0.6),
+                                         refine_k=2)
+    crossings = bc.classify_crossings(records)
+    assert [c["type"] for c in crossings] == ["real -1 (flip)"], reason
+    assert crossings[0]["multipliers_source"] == "refined"
+    a, b = crossings[0]["between_log10_T"]
+    assert min(a, b) < 0.3675 < max(a, b)

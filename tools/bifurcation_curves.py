@@ -129,9 +129,44 @@ def multiplier_summary(vals, kind, k=8):
             "other_spectral_radius": float(np.abs(rest).max()) if len(rest) else None}
 
 
+def refine_multipliers(matvec, M, m=4, count=2):
+    """Leading multipliers from an m-step Arnoldi factorization of the Jacobian-vector product `matvec`, started
+    from the leading eigenvectors (real and imaginary parts, `count` of them) of a dense monodromy M computed in
+    lower precision. When the other multipliers are far smaller, as on the soft-token orbits (about 1e-6), the
+    Ritz values are accurate to the precision of matvec while M's own eigenvalues carry its errors (float32
+    monodromies of the P8 orbit are off by 3 %). Returns [(value, residual norm)] sorted by modulus."""
+    n = M.shape[0]
+    vals, vecs = np.linalg.eig(M)
+    v0 = np.zeros(n)
+    for i in np.argsort(-np.abs(vals))[:count]:
+        v0 += vecs[:, i].real + vecs[:, i].imag
+    if not np.linalg.norm(v0):
+        v0 = np.random.default_rng(0).normal(size=n)
+    Q = np.zeros((n, m + 1))
+    H = np.zeros((m + 1, m))
+    Q[:, 0] = v0 / np.linalg.norm(v0)
+    k = m
+    for j in range(m):
+        w = np.asarray(matvec(Q[:, j]), dtype=np.float64)
+        scale = np.linalg.norm(w)
+        for _ in range(2):                                   # Gram-Schmidt, repeated once for orthogonality
+            h = Q[:, :j + 1].T @ w
+            H[:j + 1, j] += h
+            w = w - Q[:, :j + 1] @ h
+        H[j + 1, j] = np.linalg.norm(w)
+        if H[j + 1, j] <= 1e-13 * max(scale, 1e-300):        # invariant subspace found
+            k = j + 1
+            break
+        Q[:, j + 1] = w / H[j + 1, j]
+    theta, S = np.linalg.eig(H[:k, :k])
+    res = np.abs(H[k, k - 1]) * np.abs(S[k - 1, :]) / np.linalg.norm(S, axis=0)
+    order = np.argsort(-np.abs(theta))
+    return [(complex(theta[i]), float(res[i])) for i in order[:count]]
+
+
 def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01, ds_min=1e-6, ds_max=0.05,
                 tol=1e-10, gtol=1e-10, max_newton=8, bounds=None, on_point=None, k=8, chord=True, gmres_tol=1e-10,
-                gmres_maxiter=4):
+                gmres_maxiter=4, refine_k=0):
     """Trace the fold or flip curve of the period-p orbit near (x0, theta0) in the parameter plane.
 
     First the bifurcation point is located with theta[fix] held at theta0[fix] (Newton on the minimally augmented
@@ -150,7 +185,9 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     cycles of up to 30 products. The g it returns is still converged (identical to 10 digits at rtol 1e-8 and
     1e-10 there); gmres_maxiter=1 caps the cost of a call at 31 products. Each record counts the JVPs spent
     since the previous point ('jvps'), the GMRES calls that stopped short of gmres_tol ('gmres_unconverged') and
-    the rejected steps ('rejected').
+    the rejected steps ('rejected'). With refine_k > 0 every point also records the critical multiplier from a
+    refine_k-step Arnoldi factorization of family.jvp_x ('critical_multiplier_refined', with its Ritz residual):
+    use it when the dense monodromy is computed in lower precision than the JVPs.
     """
     if kind not in ("fold", "flip"):
         raise ValueError(f"kind must be fold or flip, not {kind}")
@@ -176,17 +213,22 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
 
     def correct(z0, b, c, row, rhs_fn):
         """Newton on the augmented system plus one scalar equation (row, rhs_fn). Returns the converged point with
-        the Jacobian and monodromy evaluated there (reused for the tangent and the multipliers)."""
+        the Jacobian and monodromy evaluated there (reused for the tangent and the multipliers), |g| and the dense
+        |g|. With chord=True, g itself comes from the JVPs (g_free), as in the continuation, so that a monodromy
+        computed in lower precision enters only the Newton matrix."""
         z = z0.copy()
         for it in range(max_newton + 1):
             G, J, M, v, w, rel = system(z, b, c)
+            gd = abs(G[n])
+            if chord:
+                G[n] = g_free(z, b, c, factor(M, b, c))
             if rel < tol and abs(G[n]) < gtol:
-                return z, J, M, v, w, rel, abs(G[n]), it
+                return z, J, M, v, w, rel, abs(G[n]), it, gd
             if it == max_newton:
                 break
             dz = np.linalg.solve(np.vstack([J, row[None]]), -np.concatenate([G, [rhs_fn(z)]]))
             z = z + dz
-        return None, None, None, None, None, rel, abs(G[n]), max_newton
+        return None, None, None, None, None, rel, abs(G[n]), max_newton, gd
 
     def tangent(J, previous):
         """Unit null vector of the (n+1) x (n+2) Jacobian, oriented along `previous`."""
@@ -232,17 +274,17 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
             gabs = abs(g)
             if rel < tol and gabs < gtol:
                 G, J, M, v, w, _ = system(z, b, c)                # dense, once, at the converged point
-                return z, J, M, v, w, rel, abs(G[n]), it
+                return z, J, M, v, w, rel, gabs, it, abs(G[n])
             if it == max_newton:
                 break
             z = z + np.linalg.solve(A, -np.concatenate([r / s, [g], [rhs_fn(z)]]))
-        return None, None, None, None, None, rel, gabs, max_newton
+        return None, None, None, None, None, rel, gabs, max_newton, None
 
     b, c, smin = initial_borders(family.monodromy(x0, theta0), kind)
     z = np.concatenate([x0 / s, np.asarray(theta0, dtype=np.float64)])
     e_fix = np.zeros(n + 2)
     e_fix[n + fix] = 1.0
-    zf, J, M, v, w, rel, gabs, its = correct(z, b, c, e_fix, lambda y: 0.0)
+    zf, J, M, v, w, rel, gabs, its, gd = correct(z, b, c, e_fix, lambda y: 0.0)
     if zf is None:
         return [], f"no {kind} point at fixed theta[{fix}] = {theta0[fix]} (residual {rel:.3g}, |g| {gabs:.3g})", []
     z = zf
@@ -262,10 +304,10 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     J, b, c, lu = rebase(J, M, v, w)
     records, states = [], []
 
-    def record(z, rel, gabs, its, ds_used, step, t, t_prev, M):
+    def record(z, rel, gabs, its, ds_used, step, t, t_prev, M, gd):
         vals = np.linalg.eigvals(M)
         tp = t[n:] / max(np.linalg.norm(t[n:]), 1e-300)
-        rec = {"index": len(records), "theta": [float(z[n]), float(z[n + 1])], "residual": rel, "g": gabs,
+        rec = {"index": len(records), "theta": [float(z[n]), float(z[n + 1])], "residual": rel, "g": gabs, "g_dense": gd,
                "newton": its, "ds": ds_used,
                "arclength": (records[-1]["arclength"] + step) if records else 0.0,
                "parameter_tangent": [float(t[n]), float(t[n + 1])],
@@ -274,20 +316,27 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
         rec.update(cost)
         cost.update(jvps=0, gmres_unconverged=0, rejected=0)
         rec.update(multiplier_summary(vals, kind, k))
+        if refine_k:
+            x, th = z[:n] * s, z[n:]
+            ritz = refine_multipliers(lambda u: family.jvp_x(x, th, u), M, m=refine_k, count=2)
+            target = 1.0 if kind == "fold" else -1.0
+            mu, res = min(ritz, key=lambda r: abs(r[0] - target))
+            rec["critical_multiplier_refined"] = [mu.real, mu.imag]
+            rec["refine_residual"] = res
         records.append(rec)
         states.append(z[:n] * s)
         if on_point is not None:
             on_point(rec)
         return tp
 
-    record(z, rel, gabs, its, 0.0, 0.0, t, None, M)
+    record(z, rel, gabs, its, 0.0, 0.0, t, None, M, gd)
     reason = f"{steps} points"
     while len(records) < steps:
         zp = z + ds * t
         if chord:
-            zn, Jn, Mn, v, w, rel, gabs, its = correct_chord(zp, t, lambda y: float(t @ (y - zp)), J, b, c, lu)
+            zn, Jn, Mn, v, w, rel, gabs, its, gd = correct_chord(zp, t, lambda y: float(t @ (y - zp)), J, b, c, lu)
         else:
-            zn, Jn, Mn, v, w, rel, gabs, its = correct(zp, b, c, t, lambda y: float(t @ (y - zp)))
+            zn, Jn, Mn, v, w, rel, gabs, its, gd = correct(zp, b, c, t, lambda y: float(t @ (y - zp)))
         tn = None if zn is None else tangent(Jn, t)
         if zn is None or float(tn @ t) < 0.5:              # not converged, or jumped onto another branch
             cost["rejected"] += 1
@@ -300,7 +349,7 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
         t_prev = t
         z, t, M = zn, tn, Mn
         J, b, c, lu = rebase(Jn, Mn, v, w)
-        record(z, rel, gabs, its, ds, step, t, t_prev, M)
+        record(z, rel, gabs, its, ds, step, t, t_prev, M, gd)
         if bounds is not None and not all(lo <= z[n + i] <= hi for i, (lo, hi) in enumerate(bounds)):
             reason = "parameters out of bounds"
             break
@@ -314,14 +363,18 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
 def classify_crossings(records):
     """Unit-circle crossings between consecutive points of a branch: the side where the spectral radius exceeds
     1 supplies the crossing multiplier (its largest-modulus one), recorded with modulus, argument (turns) and the
-    next-largest modulus; typed as a complex pair (Neimark-Sacker), real +1 (fold) or real -1 (flip)."""
+    next-largest modulus; typed as a complex pair (Neimark-Sacker), real +1 (fold) or real -1 (flip). Uses the
+    refined (Arnoldi) multipliers when every record has them."""
+    refined = bool(records) and all("spectral_radius_refined" in r for r in records)
+    rho_key, mult_key = (("spectral_radius_refined", "multipliers_refined") if refined else
+                         ("spectral_radius", "multipliers"))
     crossings = []
     for a, b in zip(records, records[1:]):
-        if a["spectral_radius"] is None or b["spectral_radius"] is None:
+        if a[rho_key] is None or b[rho_key] is None:
             continue
-        if (a["spectral_radius"] - 1) * (b["spectral_radius"] - 1) < 0:
-            outer = b if b["spectral_radius"] > 1 else a
-            vals = [complex(re, im) for re, im in outer["multipliers"]]
+        if (a[rho_key] - 1) * (b[rho_key] - 1) < 0:
+            outer = b if b[rho_key] > 1 else a
+            vals = [complex(re, im) for re, im in outer[mult_key]]
             lead = max(vals, key=abs)
             kind = ("complex pair (Neimark-Sacker)" if abs(lead.imag) > 1e-9 * max(1.0, abs(lead)) else
                     "real +1 (fold)" if lead.real > 0 else "real -1 (flip)")
@@ -331,12 +384,13 @@ def classify_crossings(records):
                               "crossing_multiplier": [lead.real, lead.imag, abs(lead), float(np.angle(lead) / (2 * np.pi))],
                               "next_largest_modulus": others[0] if others else None,
                               "multipliers_converged": bool(a.get("multipliers_converged", True) and
-                                                            b.get("multipliers_converged", True))})
+                                                            b.get("multipliers_converged", True)),
+                              "multipliers_source": "refined" if refined else "dense"})
     return crossings
 
 
 def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds_min=1e-6, ds_max=0.02, tol=1e-10,
-                 max_newton=8, beyond=0.02, bounds=None, on_point=None, k=8):
+                 max_newton=8, beyond=0.02, bounds=None, on_point=None, k=8, refine_k=0):
     """One-parameter pseudo-arclength continuation of the period-p orbit through x0 in theta[free], the other
     parameter fixed, with all multipliers (dense monodromy) at every point.
 
@@ -344,7 +398,9 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
     extremum of a quadratic through the last three points (in arclength). Stops `beyond` past the first turn,
     after `steps` points, when theta[free] leaves `bounds` or when the step falls below ds_min. Records use the
     keys of explore_latent_loop.pseudo_arclength ('lambda' is theta[free]); returns (records, stop_reason,
-    states)."""
+    states). With refine_k > 0 every point also records the two leading multipliers from a refine_k-step Arnoldi
+    factorization of family.jvp_x ('multipliers_refined', 'spectral_radius_refined', 'refine_residuals'), which
+    classify_crossings then uses."""
     n = family.n
     x0 = np.asarray(x0, dtype=np.float64).ravel()
     s = float(np.linalg.norm(x0)) or 1.0
@@ -401,6 +457,12 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
                "multipliers_converged": True, "spectral_radius": float(np.abs(vals[0])),
                "real_multiplier_nearest_one": min(real, key=lambda m: abs(m - 1.0)) if real else None,
                "multipliers": [[float(v.real), float(v.imag)] for v in vals[:k]]}
+        if refine_k:
+            x, th = z[:n] * s, theta_of(z[n])
+            ritz = refine_multipliers(lambda u: family.jvp_x(x, th, u), M, m=refine_k, count=2)
+            rec["multipliers_refined"] = [[v.real, v.imag] for v, _ in ritz]
+            rec["spectral_radius_refined"] = abs(ritz[0][0])
+            rec["refine_residuals"] = [r for _, r in ritz]
         records.append(rec)
         states.append(z[:n] * s)
         if on_point is not None:
