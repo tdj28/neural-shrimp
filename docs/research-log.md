@@ -19514,3 +19514,23 @@ _commit `5107f99a9a93` (dirty worktree)_
 ouro-orbit-p2-lam1.2803 attempt 1 stopped at the first Jacobian-vector product: PyTorch has no forward-mode derivative for _scaled_dot_product_efficient_attention on the GPU. Fixed by evaluating JVPs under the math attention kernel (standard differentiable ops); forward passes keep the fused kernel. Rerun follows.
 
 _commit `3338f3772ff9` (dirty worktree)_
+
+## 2026-10-12 05:46 UTC: run (exploratory)
+
+- **Question:** Verification of the candidate period-2 window at lambda = 1.2803, retry with JVPs through the math attention kernel
+- **Setup:** as attempt 1 (explore_latent_loop orbit, cuda float32, prompt 'story', lambda 1.280315, period 2, Newton-Krylov, Arnoldi k = 8)
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-orbit-p2-lam1.2803`
+- **Would surprise us:** No convergence, spectral radius above 1, or a collapsed (period-1) orbit
+- **Command:** `env ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py orbit --device cuda --lam 1.280315 --period 2 --out latent-loop/ouro-orbit-p2-lam1.2803`
+
+_commit `198f2672b18f`_
+
+- run started 2026-10-12 05:41 UTC finished 06:07 UTC with exit status 0
+
+- run started 2026-10-12 05:46 UTC finished 06:13 UTC with exit status 0
+
+## 2026-10-12 06:14 UTC: Period-2 window at lambda 1.2803 not reproduced in a single-trajectory run; batched-GPU rounding suspected; basin test next
+
+ouro-orbit-p2-lam1.2803 (retry with math-kernel JVPs): a single trajectory at lambda 1.280315 after 600 transient loops was not on a 2-cycle (period-2 residual 0.107); Newton-Krylov (GMRES 40 x 3) reduced it only to 0.032 in 12 steps; Arnoldi multipliers at the final point all outside the unit circle (1.76, 1.41, 1.41, 1.24, 1.22, 1.22, 1.10, 1.09 +- 0.18 i), one-step separation 0.33. The sweep's period-2 detection at this lambda came from a batch of 128 cells; in an irregular regime the different rounding of batched GPU kernels sends trajectories elsewhere, so the cell may show a stable 2-cycle coexisting with an irregular attractor, or a finite-run artefact. Gate-level consequence: a window counts only after (i) replicas from perturbed starts land on it with nonzero frequency, and (ii) Newton converges from such a replica with all multipliers inside the unit circle. Tools updated: sweeps save final states; orbit can start from a saved state; basin runs replicas at one lambda.
+
+_commit `5c731ea67acb` (dirty worktree)_
