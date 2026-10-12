@@ -164,3 +164,20 @@ Each phase ends with a research-log note and a decision to continue, adapt or st
 - **Why.** The human's choice after reading this plan.
 - **Outcomes seen.** None for P1; no P1 run has been made.
 - **Effect on claims.** None yet; everything remains exploratory.
+
+## Amendment, 12 October 2026 (primary outcome)
+
+- **What changed.** The primary outcome of P1 is now *lead time*: whether a dynamical estimate predicts capture into
+  the hostile set several turns before the text classifier fires, on held-out dialogues. The estimates are the MSM
+  committor of the current internal state, and early-warning indicators (recovery time, variance and lag-1
+  autocorrelation of the order parameter). The comparison is against the classifier on the same turns, reported as
+  ROC curves at each horizon. The secondary outcome is whether interventions triggered by those estimates prevent
+  capture at lower steering cost than interventions triggered by the classifier (H5).
+- **Why.** The human asked whether the attractor picture could detect, and steer away from, misaligned states more
+  robustly than classifiers. Predicting capture before the behaviour appears is the advantage a dynamical monitor
+  could have.
+- **Known limits, stated in advance.** Early warning is not expected for noise-induced transitions without a nearby
+  bifurcation, or for transitions faster than the slowing-down; and a monitor known to an adversary can be gamed. The
+  result is framed as a complementary layer, not a replacement for classifiers.
+- **Outcomes seen.** None; only the P1 dry run (phase 0c) is sampling.
+- **Effect on claims.** None yet; still exploratory. A headline claim needs the frozen confirmatory test of phase 5.
