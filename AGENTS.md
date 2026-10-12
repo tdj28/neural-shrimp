@@ -92,3 +92,10 @@ records an error that actually occurred.
 - **Treat a failed interval inclusion as a setup result.** It is not
   evidence against the claim. Keep it, then adjust centre refinement or box
   radius and retry.
+- **Check the effective precision, not the dtype label.** Hugging Face
+  RMSNorm layers compute in float32 whatever the model dtype, so a "float64"
+  language-model run was float32 at every norm. Before calling a run float64,
+  patch the norms (`keep_float64_norms` in `tools/explore_llm_attractors.py`)
+  and confirm that central differences converge like h^2. Keep twin offsets
+  for Lyapunov exponents well above the rounding level: in float32, at least
+  1e-4 relative.

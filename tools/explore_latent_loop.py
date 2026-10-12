@@ -52,6 +52,10 @@ class LatentLoop:
         self.tok = AutoTokenizer.from_pretrained(MODELS[model], cache_dir=CACHE, trust_remote_code=True)
         self.model = AutoModelForCausalLM.from_pretrained(MODELS[model], cache_dir=CACHE, trust_remote_code=True,
                                                           torch_dtype=self.dtype).to(self.device).eval()
+        self.model.requires_grad_(False)                # forward-mode JVPs only; no parameter graph to record
+        if dtype == "float64":
+            from explore_llm_attractors import keep_float64_norms
+            keep_float64_norms(self.model)
         self.inner = self.model.model
         self.steer = None                       # (batch, 1, d) added to the output of `steer_layer` on every pass
         self.steer_layer = None

@@ -72,8 +72,8 @@ class SoftLoop:
         self.sm.steer = self.steer_rows
         try:
             with torch.no_grad():
-                z = self.model(inputs_embeds=X.to(self.dtype), past_key_values=self.cache,
-                               use_cache=True).logits[:, -1, :].to(self.state_dtype)
+                z = self.model(inputs_embeds=X.to(self.dtype), past_key_values=self.cache, use_cache=True,
+                               logits_to_keep=1).logits[:, -1, :].to(self.state_dtype)
         finally:
             self.sm.steer = None
             self.cache.crop(self.L0)                                           # keep only the prefix (argument = length kept)
@@ -85,6 +85,163 @@ class SoftLoop:
         z = self.logits(X)
         p = torch.softmax(z / torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None], dim=-1)
         return torch.cat([X[:, 1:, :], (p @ self.E)[:, None, :]], dim=1), p
+
+
+class SoftOrbit:
+    """Periodic orbits of the soft-decoding map at one (temperature, steering) cell: Newton's method on the
+    p-fold map with dense central-difference Jacobians (2n rows per Jacobian in chunked batches over a prefix
+    cache computed once and repeated), and the orbit's multipliers from the product of those Jacobians."""
+
+    def __init__(self, loop, steer, temperature, h_rel=1e-5, chunk=512, jacobian_method="ad"):
+        self.loop, self.torch = loop, loop.torch
+        self.T = float(temperature)
+        self.start = loop.prepare(np.asarray(steer)[None])        # one-row prefix cache and initial window
+        self.cache1, self.steer1 = loop.cache, loop.steer_rows
+        self.shape = tuple(self.start.shape[1:])
+        self.n = int(np.prod(self.shape))
+        self.h_rel, self.chunk = h_rel, int(chunk)
+        self.jacobian_method = jacobian_method
+        self.caches = {1: self.cache1}                          # prefix caches repeated to each batch size used
+
+    def _use(self, rows):
+        import copy
+
+        if rows not in self.caches:
+            c = copy.deepcopy(self.cache1)
+            c.batch_repeat_interleave(rows)
+            self.caches[rows] = c
+        self.loop.cache, self.loop.steer_rows = self.caches[rows], self.steer1.repeat(rows, 1, 1)
+
+    def f(self, X):
+        """One soft-decoding step for a batch of windows X (B, K, d) at this cell."""
+        self._use(X.shape[0])
+        Y, _ = self.loop.step(X, np.full(X.shape[0], self.T))
+        return Y
+
+    def probabilities(self, X):
+        self._use(1)
+        _, p = self.loop.step(X, np.array([self.T]))
+        return p[0]
+
+    def jvp_rows(self, X, V):
+        """Exact Jacobian-vector products J(X) v for tangent rows V (m, K, d) at X (1, K, d): forward-mode AD
+        through the model (math attention kernel), on a shallow copy of the repeated prefix cache so that the
+        stored prefix tensors are never modified."""
+        import copy
+
+        from torch.nn.attention import SDPBackend, sdpa_kernel
+
+        torch, loop = self.torch, self.loop
+        m = V.shape[0]
+        self._use(m)
+        base = self.caches[m]
+        cache = copy.copy(base)
+        cache.layers = [copy.copy(layer) for layer in base.layers]
+        steer = self.steer1.repeat(m, 1, 1)
+
+        def new_embedding(inp):
+            loop.sm.steer = steer
+            try:
+                z = loop.model(inputs_embeds=inp.to(loop.dtype), past_key_values=cache, use_cache=True,
+                               logits_to_keep=1).logits[:, -1, :].to(loop.state_dtype)
+            finally:
+                loop.sm.steer = None
+            return torch.softmax(z / self.T, dim=-1) @ loop.E
+
+        with sdpa_kernel(SDPBackend.MATH):
+            _, jv = torch.func.jvp(new_embedding, (X.repeat(m, 1, 1),), (V,))
+        return torch.cat([V[:, 1:, :], jv[:, None, :]], dim=1)          # the window shifts
+
+    def jacobian(self, X, method=None):
+        """Dense Jacobian of one step at X (1, K, d): forward-mode AD (exact) or central differences with
+        step h_rel * RMS(X)."""
+        torch = self.torch
+        method = method or self.jacobian_method
+        eye = torch.eye(self.n, dtype=X.dtype, device=X.device).reshape((self.n,) + self.shape)
+        h = self.h_rel * float(X.norm()) / np.sqrt(self.n)
+        cols = []
+        for s in range(0, self.n, self.chunk):
+            e = eye[s:s + self.chunk]
+            m = e.shape[0]
+            if method == "ad":
+                cols.append(self.jvp_rows(X, e).reshape(m, -1))
+            else:
+                Y = self.f(torch.cat([X + h * e, X - h * e]))
+                cols.append(((Y[:m] - Y[m:]) / (2 * h)).reshape(m, -1))
+        return torch.cat(cols).T.double().cpu().numpy()                 # J[:, i] = d f / d x_i
+
+    def iterate(self, X, steps):
+        for _ in range(steps):
+            X = self.f(X)
+        return X
+
+    def detect_period(self, X, max_period, tol):
+        torch = self.torch
+        hist = [X]
+        for _ in range(max_period):
+            hist.append(self.f(hist[-1]))
+        for q in range(1, max_period + 1):
+            if float((hist[q] - X).norm() / X.norm()) < tol:
+                return q
+        return 0
+
+    def newton(self, X, period, tol=1e-11, max_newton=8):
+        """Newton for f^p(X) = X; returns (X, relative residual history, multipliers, orbit points)."""
+        torch = self.torch
+        history = []
+        for it in range(max_newton + 1):
+            pts = [X]
+            for _ in range(period):
+                pts.append(self.f(pts[-1]))
+            r = (pts[period] - X).reshape(-1).double().cpu().numpy()
+            rel = float(np.linalg.norm(r) / float(X.norm()))
+            history.append(rel)
+            Js = [self.jacobian(x) for x in pts[:period]]
+            M = np.eye(self.n)
+            for J in Js:
+                M = J @ M
+            if rel < tol or it == max_newton:
+                break
+            delta = np.linalg.solve(M - np.eye(self.n), -r)
+            X = X + torch.as_tensor(delta.reshape((1,) + self.shape), dtype=X.dtype, device=X.device)
+        vals = np.linalg.eigvals(M)
+        return X, history, vals[np.argsort(-np.abs(vals))], pts[:period]
+
+
+def orbit_report(orb, X, history, vals, pts, k=8):
+    tok = orb.loop.sm.tok
+    seps = [float((p - pts[0]).norm() / pts[0].norm()) for p in pts[1:]]
+    tokens = []
+    for x in pts:
+        p = orb.probabilities(x).double().cpu().numpy()
+        top = int(p.argmax())
+        tokens.append({"token": tok.decode([top]), "probability": float(p[top]),
+                       "entropy": float(-(p * np.log(np.maximum(p, 1e-300))).sum())})
+    return {"newton_residuals": history, "converged": history[-1] < 1e-9,
+            "spectral_radius": float(np.abs(vals[0])),
+            "multipliers": [[float(v.real), float(v.imag), float(abs(v)), float(np.angle(v) / (2 * np.pi))]
+                            for v in vals[:k]],
+            "min_separation_from_first_point": min(seps) if seps else None, "points": tokens}
+
+
+def orbit(args):
+    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+                    args.device)
+    v = elpm.load_vectors(args.vectors)[args.concept]
+    orb = SoftOrbit(loop, args.alpha * v, 10.0 ** args.log_temperature, args.h_rel, args.chunk, args.jacobian)
+    tic = time.perf_counter()
+    X = orb.iterate(orb.start, args.transient)
+    period = args.period or orb.detect_period(X, args.max_period, args.detect_tol)
+    if period == 0:
+        raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol}; nothing to verify")
+    X, history, vals, pts = orb.newton(X, period, args.tol, args.max_newton)
+    rec = {"args": vars(args), "period": period, "seconds": round(time.perf_counter() - tic, 1)}
+    rec.update(orbit_report(orb, X, history, vals, pts))
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "orbit.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))
+    np.save(out / "orbit-state.npy", X.double().cpu().numpy())
+    print(json.dumps({k: v for k, v in rec.items() if k != "args"}, ensure_ascii=False))
 
 
 def scan(args):
@@ -209,8 +366,31 @@ def main():
     sc.add_argument("--eps", type=float, default=1e-6)
     sc.add_argument("--chaos-level", type=float, default=1e-3)
     sc.add_argument("--out", required=True)
+    ob = sub.add_parser("orbit")
+    ob.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
+    ob.add_argument("--layer", type=int, default=12)
+    ob.add_argument("--threads", type=int, default=8)
+    ob.add_argument("--dtype", default="float64", choices=("float32", "float64"))
+    ob.add_argument("--device", default="cpu")
+    ob.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
+    ob.add_argument("--opener", default=ela.OPENER)
+    ob.add_argument("--window", type=int, default=1)
+    ob.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    ob.add_argument("--concept", default="philosophy", choices=sorted(elpm.CONCEPTS))
+    ob.add_argument("--log-temperature", type=float, required=True)
+    ob.add_argument("--alpha", type=float, required=True)
+    ob.add_argument("--period", type=int, default=0, help="0: detect from the attractor reached")
+    ob.add_argument("--transient", type=int, default=600)
+    ob.add_argument("--max-period", type=int, default=32)
+    ob.add_argument("--detect-tol", type=float, default=1e-6)
+    ob.add_argument("--tol", type=float, default=1e-11)
+    ob.add_argument("--max-newton", type=int, default=8)
+    ob.add_argument("--jacobian", default="ad", choices=("ad", "fd"), help="forward-mode AD or central differences")
+    ob.add_argument("--h-rel", type=float, default=1e-5)
+    ob.add_argument("--chunk", type=int, default=512)
+    ob.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan}[args.command](args)
+    {"scan": scan, "orbit": orbit}[args.command](args)
 
 
 if __name__ == "__main__":

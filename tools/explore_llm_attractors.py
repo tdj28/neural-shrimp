@@ -75,6 +75,26 @@ class Engine:
         self.tok = AutoTokenizer.from_pretrained(self.name, cache_dir=CACHE)
         self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype), cache_dir=CACHE)
         self.model.eval()
+        self.model.requires_grad_(False)                # inference only; forward-mode JVPs need no parameter graph
+        if dtype == "float64":
+            keep_float64_norms(self.model)
+
+
+def keep_float64_norms(model):
+    """Hugging Face RMSNorm layers compute in float32 whatever the input dtype (an upcast meant for bf16), which
+    silently rounds a float64 model to float32 precision at every norm. Patch their classes to compute in the
+    input dtype, and refuse attention implementations with their own float32 casts."""
+    import torch
+
+    def forward(self, hidden_states):
+        variance = hidden_states.pow(2).mean(-1, keepdim=True)
+        return self.weight * (hidden_states * torch.rsqrt(variance + self.variance_epsilon))
+
+    for cls in {type(m) for m in model.modules() if type(m).__name__.endswith("RMSNorm")}:
+        cls.forward = forward
+    impl = getattr(model.config, "_attn_implementation", None)
+    if impl not in ("sdpa", None):
+        raise SystemExit(f"attention implementation {impl!r} may cast to float32; use sdpa for float64 runs")
 
     def generate(self, messages, temperature, max_new, seed):
         torch = self.torch

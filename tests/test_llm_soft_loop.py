@@ -45,3 +45,39 @@ def test_low_temperature_feeds_back_the_greedy_token(loop):
     X1, p = loop.step(X, np.array([1e-4]))
     greedy = int(torch.argmax(z[0]))
     assert torch.allclose(X1[0, -1], loop.E[greedy], atol=1e-10)
+
+
+def test_orbit_jacobian_ad_matches_central_differences(loop):
+    """Forward-mode JVPs of one soft step (window shift included) agree with central differences, and leave
+    the stored prefix cache unchanged."""
+    import explore_llm_soft_loop as esl
+
+    torch = loop.torch
+    rng = np.random.default_rng(1)
+    d = loop.E.shape[1]
+    orb = esl.SoftOrbit(loop, rng.normal(size=d) * 0.5, 0.7, chunk=512)
+    X = orb.start + torch.as_tensor(rng.normal(size=tuple(orb.start.shape)) * 1e-2)
+    V = torch.as_tensor(rng.normal(size=(3,) + orb.shape))
+    V = V / V.flatten(1).norm(dim=1)[:, None, None]
+    ad = orb.jvp_rows(X, V).detach()
+    errors = []
+    for h_rel in (1e-3, 1e-4):                                # central differences converge like h^2 in float64
+        h = h_rel * float(X.norm())
+        Y = orb.f(torch.cat([X + h * V, X - h * V]))
+        fd = (Y[:3] - Y[3:]) / (2 * h)
+        errors.append(float((ad[:, -1] - fd[:, -1]).norm() / fd[:, -1].norm()))
+    assert errors[1] < 1e-6 and errors[1] < errors[0] / 50, errors
+    assert orb.caches[3].get_seq_length() == loop.L0
+    J = orb.jacobian(X, method="ad")
+    assert J.shape == (orb.n, orb.n)
+    assert np.allclose(J @ V[0].reshape(-1).numpy(), ad[0].reshape(-1).numpy(), rtol=0, atol=1e-9 * float(ad[0].norm()))
+
+
+def test_float64_model_keeps_float64_norms(loop):
+    """A float64 model must not round to float32 inside its RMSNorm layers (the Hugging Face default upcast)."""
+    torch = loop.torch
+    norm = loop.model.model.norm
+    x = torch.randn(1, 1, norm.weight.shape[0], dtype=torch.float64)
+    y1, y2 = norm(x), norm(x * (1 + 1e-12))
+    assert y1.dtype == torch.float64
+    assert 0 < float((y2 - y1).abs().max()) < 1e-9
