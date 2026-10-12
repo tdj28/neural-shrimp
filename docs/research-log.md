@@ -18768,3 +18768,21 @@ _commit `5b4b2bb2d1d9`_
 chain-proof-003 (repeat of the chain-root proof, contraction 0.1700387, 5.3 s; then Codex's rigorous_chain_spectrum.chain_complement on the monodromy enclosure over the proved box, radius 2^-70, 256 bits, 0.5 s): conditional on the proved root identities Mq = q, Mr = r + q, the validated frame conjugates M to an upper block-triangular form whose 11-dimensional quotient has all Gershgorin-type discs strictly inside the unit circle. Hence +1 has exact algebraic multiplicity two with a single Jordan block, and all other multipliers of the primitive period-18 orbit at (eta_h, eta_o) = (84.07786049845569, 0.8023678861165183) are attracting. This is the same structure as the certified 1:1 point (Codex) except for the nonlinear normal-form coefficients and the transverse unfolding determinant, which remain to be computed here, and the branch connection to the window, which is numerical (it lies on the continued upper fold where the multiplier inherited from the saddle 2-cycle crosses +1).
 
 _commit `5b4b2bb2d1d9` (dirty worktree)_
+
+## 2026-10-12 01:25 UTC: run (exploratory)
+
+- **Question:** Computer-assisted proof attempt for the hidden tongue's root R3: a period-2 orbit at rates (eta_h, eta_o) where its two-step Jacobian has the eigenvalue exp(i 4 pi/9) exactly (a 2/9 resonance on the Neimark-Sacker locus of the saddle 2-cycle)
+- **Setup:** explore_certify_hidden_parent resonance --prove: float64 Newton on the fixed-angle eigenpair system (41 unknowns: state, both actual rates, v_re, v_im) from collapse-period2-001, then an outward-rounded Krawczyk enclosure with Codex's TwoRateCuspMap mixed jets (exact binary64 constants, 256-bit Arb, cos/sin(4 pi/9) in Arb, radius 2^-70)
+- **Output:** `../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-001`
+- **Would surprise us:** No float64 convergence, or the inclusion failing
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_certify_hidden_parent.py resonance --prove --out ../neural-shrimp-data/explore/hidden-parent-certification/resonance-proof-001`
+
+_commit `689b6ca89e5a`_
+
+- run started 2026-10-12 01:25 UTC finished 01:25 UTC with exit status 0
+
+## 2026-10-12 01:26 UTC: Proved: the hidden tongue's root R3 is a 2/9 resonance (eigenvalue exp(i 4 pi/9) exactly) of a primitive 2-cycle
+
+resonance-proof-001 (explore_certify_hidden_parent resonance --prove). Float64 Newton on the fixed-angle eigenpair system (state, both actual rates, v_re, v_im; 41 equations) from the fold-collapse point converged from residual 2.6e-9 to 6e-16 (condition 8.0e4); multiplier moduli 1.03098 (real), 1, 1 (the pair), 0.948. Outward-rounded Krawczyk enclosure (Codex's TwoRateCuspMap mixed jets, exact binary64 S2 constants, 256-bit Arb, cos and sin of 4 pi/9 in Arb, radius 2^-70): all gates pass (unique root, positive rates, primitive period 2), contraction 1.1e-14, 0.5 s; rates eta_h = 52.961196369999170639 +- 2.1e-19, eta_o = 0.910699388167699003 +- 5.6e-21. This proves that at these rates a primitive period-2 orbit has two-step multipliers exactly on the unit circle at 2/9 turns, the resonance point at which the window's upper fold (numerically) ends. Still to prove: that the 2-cycle is a saddle (the real multiplier 1.03098 > 1) and the connection of this point to the window's fold branch (numerical continuation, 381 nodes).
+
+_commit `689b6ca89e5a` (dirty worktree)_

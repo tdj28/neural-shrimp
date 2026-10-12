@@ -88,6 +88,12 @@ The window's organization (`docs/window-organization.md`) has two layers.
     strictly inside the unit circle (`explore/hidden-parent-certification/
     chain-proof-003`). Its nonlinear normal-form coefficients and its
     connection to the window's branch are not yet proved.
+  - The tongue's root R3 is proved too. At (eta_h, eta_o) =
+    (52.961196369999170639, 0.910699388167699003), each to about 2e-19, a
+    primitive 2-cycle has two-step multipliers exactly exp(+-i 4 pi/9), a 2/9
+    resonance on the unit circle (`resonance-proof-001`). Its real
+    multiplier 1.031 (the saddle direction) and the connecting branch are
+    still numerical.
   - Numerically, the same fold continuation passes through both certified
     cusp locations. The certificates themselves do not yet prove that the
     cusps belong to this connected branch; keep them as separate local
