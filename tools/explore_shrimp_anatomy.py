@@ -28,6 +28,13 @@ makes that statement concrete in network terms at chosen rates:
           the fold by eps decades, iterate and record |theta_{t+18}-theta_t|;
           laminar stretches are runs below a threshold. For a saddle-node on
           the circle the mean laminar length should scale like eps^(-1/2).
+  window  Characterize any census window from its representative rates and
+          period: the attracting cycle (descent, Newton on F^p), its
+          multipliers, layer composition, loss along the cycle, and its
+          winding around the (rate-independent) minimum and around a 2-cycle
+          near the cycle's centre, in the cycle's own principal plane. Meant
+          to tell rotation-born windows from period-doubling (Henon-type)
+          windows, for example for odd periods.
 """
 
 import argparse
@@ -324,6 +331,68 @@ def slips(args):
     print(json.dumps({"steps_per_slip_exponent": slope, "mean_long_run_exponent": slope_mean, "expected": -0.5}))
 
 
+def winding(points, centre, plane):
+    planar = (points - centre) @ plane
+    ang = np.arctan2(planar[:, 1], planar[:, 0])
+    steps = np.diff(np.r_[ang, ang[0]])
+    steps = (steps + np.pi) % (2 * np.pi) - np.pi
+    return float(steps.sum() / (2 * np.pi))
+
+
+def window(args):
+    net, x, y, theta0 = make_s2(args.seed)
+    f = TwoRateMap(net, x, y)
+    n, nh = f.n, net.hidden_parameter_count
+    p = [args.lx, args.ly]
+    theta = f.iterate(theta0, p, args.transient)
+    orbit_state, hist = fixed_rate_orbit(f, theta, p, args.period)
+    record = {"seed": args.seed, "rates": p, "period": args.period, "newton": hist}
+    if orbit_state is None:
+        print(json.dumps({"outcome": "no orbit", "newton": hist[-3:]}))
+        return
+    _, mono, _, pts = f.period_map(orbit_state, p, args.period)
+    states = pts[:args.period]
+    mult = np.linalg.eigvals(mono)
+    order = np.argsort(-np.abs(mult))
+    centred = states - states.mean(axis=0)
+    _, sv, vt = np.linalg.svd(centred, full_matrices=False)
+    plane = vt[:2].T
+    # the minimum (fixed point for every rate): descend at small rates along the same ratio, then Newton
+    small = [args.lx - args.descend_shift, args.ly - args.descend_shift]
+    tm = f.iterate(theta0, small, 200000)
+    for _ in range(30):
+        g = f.grad(tm)
+        if np.linalg.norm(g) < 1e-13:
+            break
+        tm = tm - np.linalg.solve(f.hess(tm), g)
+    minimum_ok = bool(np.linalg.norm(f.grad(tm)) < 1e-10)
+    two, h2 = fixed_rate_orbit(f, states.mean(axis=0), p, 2)
+    rec2 = None
+    if two is not None:
+        _, m2, _, p2 = f.period_map(two, p, 2)
+        m2v = np.linalg.eigvals(m2)
+        rec2 = {"separation": float(np.linalg.norm(p2[1] - p2[0])),
+                "multipliers": [[float(v.real), float(v.imag)] for v in sorted(m2v, key=lambda v: -abs(v))[:3]],
+                "winding_cycle_around_point0": winding(states, p2[0], plane),
+                "winding_cycle_around_midpoint": winding(states, 0.5 * (p2[0] + p2[1]), plane)}
+    record.update({
+        "divisor_separations": divisor_separations(pts, args.period),
+        "multipliers": [[float(mult[i].real), float(mult[i].imag)] for i in order[:5]],
+        "spectral_radius": float(np.abs(mult[order[0]])),
+        "plane_variance_share": float((sv[:2] ** 2).sum() / (sv ** 2).sum()),
+        "hidden_variance_share": float((centred[:, :nh] ** 2).sum() / (centred ** 2).sum()),
+        "loss": [float(v) for v in net.loss(states, x, y)],
+        "minimum_found": minimum_ok, "minimum_loss": float(net.loss(tm[None, :], x, y)[0]),
+        "winding_around_minimum": winding(states, tm, plane) if minimum_ok else None,
+        "winding_around_cycle_mean": winding(states, states.mean(axis=0), plane),
+        "two_cycle_near_centre": rec2})
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    np.save(out / "cycle-states.npy", states)
+    (out / "window.json").write_text(json.dumps(record, indent=1))
+    print(json.dumps({k: v for k, v in record.items() if k not in ("loss", "newton")}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -348,8 +417,16 @@ def main():
     sl.add_argument("--threshold", type=float, default=0.05)
     sl.add_argument("--min-run", type=int, default=36, help="shortest laminar stretch counted as a phase")
     sl.add_argument("--out", required=True)
+    wi = sub.add_parser("window")
+    wi.add_argument("--seed", type=int, default=SEED)
+    wi.add_argument("--lx", type=float, required=True)
+    wi.add_argument("--ly", type=float, required=True)
+    wi.add_argument("--period", type=int, required=True)
+    wi.add_argument("--transient", type=int, default=60000)
+    wi.add_argument("--descend-shift", type=float, default=1.0, help="decades below the window for the minimum")
+    wi.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips}[args.command](args)
+    {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window}[args.command](args)
 
 
 if __name__ == "__main__":
