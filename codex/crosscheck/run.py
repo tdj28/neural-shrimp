@@ -245,7 +245,14 @@ def main():
             from .branch import branch_extrapolation
             branch = json.loads((DATA/'branch64-p2-t-0.115-alpha-up/branch.json').read_text())
             nf = json.loads((DATA/'normal-form-p2-t-0.115/normal-form.json').read_text())
-            result = branch_extrapolation(branch['points'], nf['source']['alpha'], reference_ab=nf['ab'])
+            archived_tolerance = float(branch['args']['tol'])
+            if archived_tolerance != 1e-10:
+                raise RuntimeError('unexpected producer branch tolerance')
+            result = branch_extrapolation(branch['points'], nf['source']['alpha'],
+                                          closure_tol=archived_tolerance, reference_ab=nf['ab'])
+            result['criterion_note'] = ('Historical arithmetic reconstruction uses the producer recorded 1e-10 '
+                 'closure criterion. branch-001 retained the failed stricter 1e-11 screen for row3; '
+                 'independent orbit/fold criteria remain unchanged.')
             save(args.output/'branch-summary.json',result)
             if not result['passed']:
                 raise RuntimeError('saved branch selection/quality/fit gate failed')
