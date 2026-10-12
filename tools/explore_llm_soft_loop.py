@@ -765,6 +765,50 @@ def render(args):
     print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
 
 
+def readout(args):
+    """Top tokens of every point of a saved periodic orbit: the soft token fed back at each step is a mixture,
+    E^T p; list its leading components (token, probability) and entropy, step by step around the orbit. The state
+    comes from an orbit run (orbit-state.npy) or a branch/curve run (states.npy at --index), with the cell's
+    (log10 T, alpha) taken from that run unless given."""
+    src = DATA / "explore" / args.run
+    if (src / "orbit.json").exists():
+        rec = json.loads((src / "orbit.json").read_text())
+        X0 = np.load(src / "orbit-state.npy")
+        log_t, alpha, period = rec["args"]["log_temperature"], rec["args"]["alpha"], rec["period"]
+    else:
+        name = next(n for n in ("branch.json", "tline.json", "curve.json") if (src / n).exists())
+        rec = json.loads((src / name).read_text())
+        X0 = np.load(src / "states.npy")[args.index]
+        pt = rec["points"][args.index]
+        if name == "curve.json":
+            log_t, alpha = pt["log10_temperature"], pt["alpha"]
+        elif rec.get("free", "temperature") == "temperature":
+            log_t, alpha = pt["lambda"], rec["args"]["alpha"]
+        else:
+            log_t, alpha = rec["args"]["log_temperature"], pt["lambda"]
+        period = rec["period"]
+    log_t = args.log_temperature if args.log_temperature is not None else log_t
+    alpha = args.alpha if args.alpha is not None else alpha
+    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+                    args.device)
+    v = elpm.load_vectors(args.vectors)[args.concept]
+    orb = SoftOrbit(loop, alpha * v, 10.0 ** log_t)
+    tok = loop.sm.tok
+    X = loop.torch.as_tensor(np.asarray(X0).reshape((1,) + orb.shape), dtype=loop.state_dtype, device=loop.device)
+    steps = []
+    for i in range(period):
+        p = orb.probabilities(X).double().cpu().numpy()
+        top = np.argsort(-p)[: args.top]
+        steps.append({"step": i, "entropy": float(-(p * np.log(np.maximum(p, 1e-300))).sum()),
+                      "top": [[tok.decode([int(t)]), float(p[t])] for t in top]})
+        X = orb.f(X)
+    closure = float((X - loop.torch.as_tensor(np.asarray(X0).reshape((1,) + orb.shape), dtype=loop.state_dtype,
+                                               device=loop.device)).norm())
+    out = {"run": args.run, "index": args.index, "log10_temperature": log_t, "alpha": alpha, "period": period,
+           "closure_after_one_period": closure, "steps": steps}
+    print(json.dumps(out, ensure_ascii=False))
+
+
 def branch_plot(args):
     """Leading multipliers along branch or tline runs against log10 T: modulus of the largest (log scale) and the
     real parts of the real multipliers, with turns and classified crossings marked."""
@@ -928,6 +972,22 @@ def main():
     rd.add_argument("--chaos-level", type=float, default=0.005)
     rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
+    ro = sub.add_parser("readout")
+    ro.add_argument("--run", required=True, help="explore-relative orbit, branch, tline or curve run directory")
+    ro.add_argument("--index", type=int, default=0, help="point of a branch/tline/curve run")
+    ro.add_argument("--log-temperature", type=float, default=None)
+    ro.add_argument("--alpha", type=float, default=None)
+    ro.add_argument("--top", type=int, default=5)
+    ro.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
+    ro.add_argument("--layer", type=int, default=12)
+    ro.add_argument("--threads", type=int, default=8)
+    ro.add_argument("--dtype", default="float64", choices=("float32", "float64"))
+    ro.add_argument("--device", default="cpu")
+    ro.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
+    ro.add_argument("--opener", default=ela.OPENER)
+    ro.add_argument("--window", type=int, default=1)
+    ro.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    ro.add_argument("--concept", default="philosophy", choices=sorted(elpm.CONCEPTS))
     bp = sub.add_parser("branch-plot")
     bp.add_argument("--runs", nargs="+", required=True, help="explore-relative branch or tline run directories")
     bp.add_argument("--out", required=True, help="explore-relative output png")
@@ -1011,7 +1071,7 @@ def main():
     cv.add_argument("--out", required=True)
     args = parser.parse_args()
     {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
-     "render": render, "windows": windows, "branch-plot": branch_plot}[args.command](args)
+     "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout}[args.command](args)
 
 
 if __name__ == "__main__":
