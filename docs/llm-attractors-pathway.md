@@ -160,3 +160,88 @@ two independently trained looped models would support a prediction for the
 architecture class: shrimps are generic in two-parameter families of smooth
 dissipative maps with chaotic regimes. Non-looped models need their own
 evidence, from token loops or soft-token decoding.
+
+## Structure of causal latent loops (12 October 2026)
+
+**Cascade.** In a looped transformer with causal attention, position j's
+next latent state depends only on positions 0..j: norms and MLPs act per
+position, and attention looks only backward. The loop map is therefore
+triangular, F(h)_j = F_j(h_0, ..., h_j). Checked numerically for Ouro:
+perturbing the last position changes no earlier output (difference exactly
+0). Consequences:
+
+- **Position 0 is autonomous.** In Ouro, which injects no input, the prompt
+  only sets the initial state, so position 0 follows one fixed map for every
+  prompt.
+- **Linear stability splits by position.** The Jacobian is block
+  lower-triangular. The multipliers of any periodic orbit, and the Lyapunov
+  exponents, are the union of the positions' conditional (diagonal-block)
+  spectra. These can be measured with twins perturbed at one position only
+  (`explore_latent_loop positions`).
+- **Attractors stack.** Each position settles on an attractor of its dynamics
+  as driven by the earlier positions. Coexisting attractors can therefore
+  multiply along the sequence, which explains the many distinct 2-cycles seen
+  in the basin tests.
+- **Bifurcations happen at one position.** A multiplier crossing as a
+  parameter varies belongs to one diagonal block.
+
+**Ouro-1.4B, story prompt** (`explore/latent-loop/ouro-positions-*`):
+
+- **Native loop (lambda = 1).**
+  - Positions 0-6 sit at fixed points.
+  - Positions 7-12 move irregularly, with conditional exponents of +0.011
+    to +0.040 per loop.
+  - So position 7 is an autonomous 2048-dimensional map with a frozen
+    context.
+- **Verified stable 2-cycle (lambda 1.280315).** Positions 0-4 are fixed and
+  positions 5-12 oscillate. The full and largest conditional exponents agree
+  (-0.036 versus -0.033).
+- **Open: full versus conditional exponents on irregular motion.** There the
+  full-system exponent exceeds the largest conditional one (0.093 versus 0.040
+  at lambda 1). For a triangular cocycle this can only be a finite-time
+  effect, so whether it vanishes in longer runs remains to be tested.
+- **Fixed point " trillion".** Its spectrum (real, 0.9625-0.9997 at the top)
+  makes it stable for all lambda in (0, 1.747), including the native loop. So
+  the lambda ~ 0.90 window is a basin effect, and the native loop is
+  multistable.
+- **The 2-cycle's window.** The 2-cycle exists for lambda between about 1.265
+  and 1.318.
+  - Lower edge: the leading real multiplier follows
+    (1 - mu)^2 = 0.32 (lambda - 1.2646), the square-root law of a fold.
+  - Pseudo-arclength continuation is checking that the branch turns.
+
+**Huginn-0125** (prompt re-injected at every step):
+
+- **Extraction checked.** The extracted recurrence reproduces the native
+  forward (maximum logit difference 4.8e-6).
+- **Native loop converges.** For a story prompt and a GSM8K-style question,
+  every position converges to a fixed point within 400 native steps, with a
+  leading contraction of about 0.87 per step on the story prompt.
+- **The reported "orbits".** Geiping et al. (arXiv 2502.05171, section 7)
+  describe orbit-like PCA trajectories for tokens such as "3" and "makes".
+  These may be slowly decaying spirals around such fixed points. The spectrum
+  at the fixed points (queued) will decide.
+
+**Self-dialogue attractors (Qwen2.5-0.5B, greedy)** (`explore/llm-phase-map/map-l12-grat-phil-13`):
+
+- **Map.** The 13x13 gratitude x philosophy steering map has 138 exact
+  cycles in 5 activation families.
+- **One family dominates.** "You are truly loved and I am truly with you ...
+  I. I. I." covers most of the plane.
+- **Existence map (minimal logit margins).** That cycle already exists
+  without steering. Its margin at zero steering (+2.35) is the largest of the
+  12 cycles tested, so by the margin law it is the most noise-robust.
+- **Steering moves basins.** Steering moves the trajectory from the opener
+  into the cycle's basin; it does not create the cycle.
+
+**Soft-token decoding (Qwen2.5-0.5B, window 1)** (`explore/llm-soft-loop/`):
+
+- **Low temperatures.** The bands are super-stable near-greedy cycles, with
+  multipliers below 1e-16.
+- **Transition zone.** At (log10 T -0.047, alpha 0.040), float64 Newton
+  verifies a primitive, attracting period-9 orbit. Five of its nine steps
+  have entropies of 3.6-5.3 nats, so it is a genuinely smooth orbit.
+- **Correction.** Runs labelled float64 before 12 October 10:00 UTC computed
+  every RMSNorm in float32 (the Hugging Face upcast). That affects
+  near-zero Lyapunov values and isolated long periods of the 16x16 scan;
+  fixed in all tools.
