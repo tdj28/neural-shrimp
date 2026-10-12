@@ -52,3 +52,43 @@ Git; preserve existing frozen evidence and history.
   history: receipts cite commit hashes. This supersedes the branch-and-PR
   workflow of the canonical Git playbook for this repository.
 - Do not add assistant coauthor trailers to commits.
+
+## Verification gates
+
+Check these before a result reaches the user, the docs or the paper. Each one
+records an error that actually occurred.
+
+- **Classify a crossing before computing its coefficients.** At a bisected
+  unit-circle crossing, record the crossing multiplier(s), with modulus and
+  argument, and the next-largest modulus. Compute:
+  - Neimark-Sacker coefficients only for a complex pair that sits on the
+    circle at that crossing;
+  - fold coefficients only for a real +1;
+  - flip coefficients only for a real -1.
+  Tools must refuse a mismatch, not substitute some other eigenvalue.
+- **Fail loudly when a precondition is missing.** A search that finds no
+  crossing, no converged minimum or no admissible seed reports that outcome.
+  It never falls through to a default index or to a value computed elsewhere.
+- **Gate every row of a batch.** Before summarizing a ladder or a sweep, read
+  each configuration's raw output: convergence, residuals, crossing type.
+  Mark a row whose gate failed or was not checked; label anything relayed
+  before this check as provisional.
+- **Continue curves in a new parameter; do not slice.** Seeing a structure
+  vanish at fixed rates when a third parameter (ridge, momentum, width)
+  changes does not show it is gone. Continue its boundary curves in that
+  parameter.
+- **Remove symmetries before reading signs or phases.** For tanh networks,
+  fix each hidden unit's sign (for example, positive outgoing weight) and
+  account for permutations before calling units in phase, anti-phase or a
+  see-saw.
+- **Check test status explicitly.** `pytest | tail` reports the exit status
+  of `tail`. Use `set -o pipefail` or read the pass/fail counts before
+  committing.
+- **Test heuristic models quantitatively.** Compare a heuristic with the
+  full computation (multipliers, angles, moduli) before using it as an
+  explanation, and state the measured discrepancy.
+- **Verify every citation** against the publisher record (DOI, volume,
+  pages) before adding it.
+- **Treat a failed interval inclusion as a setup result.** It is not
+  evidence against the claim. Keep it, then adjust centre refinement or box
+  radius and retry.
