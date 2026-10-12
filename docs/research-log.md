@@ -20333,3 +20333,59 @@ _commit `0e34f2b53801`_
 (1) ab from the float64 stable branch (branch64-p2-t-0.115-alpha-up, CPU, 18 points with alpha_c - alpha = 5e-5..4e-4): (1 - mu)^2 / (4 (alpha_c - alpha)) rises from 97.7 to 112.7 toward the fold; extrapolated to the fold 123.1 (quadratic in sqrt(alpha_c - alpha)) or 120.6-120.8 (linear), against 122.93 from the derivatives: the two independent estimates agree within 0.1-2 %. (2) Natural trajectories (passage --natural, CPU float64, 4 free trajectories per eps, 100 G-iterates discarded, 1500 recorded): laminar phases = maximal runs with |u| < 3U and transverse distance < 0.05 (complete phases only). eps 3e-6: 22 phases, mean 96.1 G-iterates against 157 for the full channel -3U..3U (ratio 0.61), entry u median -3.1e-4 (-0.41 in units of sqrt(a eps / b)), normal-form prediction from each entry point 100.8 (median relative error -4.9 %); eps 1e-5: 29 phases, 55.3 vs 83 (0.67), entry -0.54, predicted 60.8 (-4.1 %); eps 3e-5: 44 phases, 27.5 vs 45 (0.61), entry -0.21, predicted 30.9 (-7.4 %); eps 1e-4: 110 phases, 13.1 vs 22 (0.60), entry -0.11, predicted 15.4 (-7.7 %); eps 3e-4 and 1e-3: 6.2 vs 11 and 2.1 vs 4 (channel too short; -17 % and -33 %). Transverse distance at entry about 0.002. So the global return ('. This' and the entry pairs) drops trajectories into the channel at a roughly fixed point slightly upstream of the fold point (u about -3e-4 to -7e-4), i.e. near the middle of the bottleneck on the sqrt(eps) scale for the stripes' eps; passage from there takes about half a full traversal, and the normal form then predicts natural laminar times within 4-8 % at eps <= 1e-4. This explains the factor of about 3 between ab and the stripe prefactor (a half passage gives pi^2 / (4 ab) = 0.0201 per N^2 against the observed 0.0264 with N = k - 2; the remaining difference is within the uncertainty of the lap offset and of grid-defined stripe centres) and the 0.57-0.61 ratio of natural to full laminar lengths. With a fixed reinjection point the fraction must rise toward a full passage for eps well below b u_r^2 / a (about 1e-6): a prediction for windows of N > 20 laps.
 
 _commit `2375a2f2bb47` (dirty worktree)_
+
+- run started 2026-10-12 17:07 UTC (../neural-shrimp-data/explore/llm-soft-loop/curve-p8-{up,down}-{plus,minus}) finished 20:42 UTC with exit status -15
+
+## 2026-10-12 20:42 UTC: run (exploratory)
+
+- **Question:** Motion on Huginn's invariant circle (GSM prompt, supercritical Neimark-Sacker at lambda_c 1.0778): is it quasi-periodic (rotation number varying continuously with lambda, no return) or phase-locked on resonance plateaus (return after q steps)? The leading pair predicts about 0.156 turns per step at threshold; a second pair (-0.774 +- 0.366i) destabilizes the fixed point at 1.0814.
+- **Setup:** explore_latent_loop ns-check --model huginn on cuda float32, prompt gsm-claire, fixed state from huginn-fixed-spectrum-gsm-claire, perturbation 1e-3: (a) lambda 1.0790..1.0830 in steps of 0.0005 (9 values; batches of 5 and 4) for 8000 steps, (b) lambda 1.084..1.100 in steps of 0.002 (9 values; batches of 5 and 4) for 4000 steps; then ns-rotation on all four runs (commit deacdce9; late quarter: mean angle increment of the centred 2-D projection of the first oscillating position, 13 in job 06f, because projections over all positions are dominated by the downstream harmonics: in 06f one component oscillated at 0.312 turns per step, twice the fundamental, and the all-position curve did not wind; FFT peak of that position as a cross-check; return test for q up to 60 at 1e-3 of the radius)
+- **Output:** `../neural-shrimp-data/explore/latent-loop/huginn-rotation-{a1,a2,b1,b2}`
+- **Would surprise us:** Returns after a few steps (a low-order resonance) right above threshold, or a rotation number far from 0.156 near lambda_c
+- **Command:** `bash -c set -o pipefail; py=../neural-shrimp-data/envs/llm/bin/python; ns() { $py tools/explore_latent_loop.py ns-check --model huginn --device cuda --prompt gsm-claire --fixed-state latent-loop/huginn-fixed-spectrum-gsm-claire/fixed-state.npy "$@" 2>&1 | grep -v -i -e warn -e jit -e Loading | tail -5 | cut -c1-400; }; ns --lambdas 1.0790 1.0795 1.0800 1.0805 1.0810 --steps 8000 --out latent-loop/huginn-rotation-a1 && ns --lambdas 1.0815 1.0820 1.0825 1.0830 --steps 8000 --out latent-loop/huginn-rotation-a2 && ns --lambdas 1.084 1.086 1.088 1.090 1.092 --steps 4000 --out latent-loop/huginn-rotation-b1 && ns --lambdas 1.094 1.096 1.098 1.100 --steps 4000 --out latent-loop/huginn-rotation-b2 && $py tools/explore_latent_loop.py ns-rotation --runs latent-loop/huginn-rotation-a1 latent-loop/huginn-rotation-a2 latent-loop/huginn-rotation-b1 latent-loop/huginn-rotation-b2 --title "Huginn GSM prompt: rotation on the invariant circle" 2>&1 | grep -v -i warn | tail -20`
+
+_commit `f4aa4698a6ff` (dirty worktree)_
+
+## 2026-10-12 20:43 UTC: run (exploratory)
+
+- **Question:** Consult recommendation 3, bridge to sampling: does the 'is it' bottleneck survive when the fed-back embedding is the mean of m sampled token embeddings instead of the expected embedding? m = 1 is sampled decoding of the same fixed-prefix, one-token-window system. Measure laminar lengths near the 2-cycle's fold at m = 1, 8, 64 and the exact map.
+- **Setup:** explore_llm_soft_loop walk on CPU float32 (8 threads), log10 T -0.115, alpha = alpha_c + eps with alpha_c 0.0627983 and eps 1e-5, 3e-5, 1e-4, 32 trajectories per eps (seed 0), 100 transient + 512 recorded steps; runs with --sample-m 1, 8, 64 and the exact map (32 identical copies there); laminar phases = maximal runs alternating ' is' (p > 0.5) and an X slot led by ' it' (analysis as in the walk note), restricted mean over whole trajectories, bootstrap by trajectory
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/bridge-m{1,8,64,exact}-t-0.115`
+- **Would surprise us:** Laminar phases as long at m = 1 as in the exact map (sampling noise irrelevant), or no 'is it' laminar phases at all at m = 1
+- **Command:** `bash -c set -o pipefail; for m in 1 8 64 0; do name=$([ $m = 0 ] && echo exact || echo m$m); OMP_NUM_THREADS=8 MKL_NUM_THREADS=8 nice -n 10 .venv/bin/python tools/explore_llm_soft_loop.py walk --threads 8 --log-temperature -0.115 --alphas 0.0628083 0.0628283 0.0628983 --replicas 32 --sample-m $m --transient 100 --steps 512 --out llm-soft-loop/bridge-$name-t-0.115 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -1 | cut -c1-200; done`
+
+_commit `f4aa4698a6ff` (dirty worktree)_
+
+- run started 2026-10-12 19:21 UTC (../neural-shrimp-data/explore/llm-soft-loop/branch64-p2-t-0.115-alpha-up) finished 20:51 UTC with exit status 0
+
+## 2026-10-12 21:19 UTC: run (exploratory)
+
+- **Question:** Scale-up step 1 (user's ladder: Qwen 0.5B -> 1.5B -> 7B): concept steering vectors for Qwen2.5-1.5B-Instruct at its middle layer (14 of 28), built exactly as for 0.5B (contrastive mean of last-token states, concept prompts minus neutral prompts, normalised to the mean residual norm), so that alpha means the same fraction of the residual norm
+- **Setup:** explore_llm_phase_map vectors --model qwen1.5b --layer 14 on CPU float32 (8 threads); local snapshot 989aa7980e4c
+- **Output:** `../neural-shrimp-data/explore/llm-phase-map/vectors-1.5b-l14`
+- **Would surprise us:** Concept directions much less separated than for 0.5B (cosine gratitude-philosophy far above 0.57)
+- **Command:** `bash -c set -o pipefail; OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py vectors --model qwen1.5b --layer 14 --threads 8 --out llm-phase-map/vectors-1.5b-l14 2>&1 | grep -v -i -e warn -e Loading | tail -1`
+
+_commit `fb1711d7b776` (dirty worktree)_
+
+- run started 2026-10-12 21:19 UTC (../neural-shrimp-data/explore/llm-phase-map/vectors-1.5b-l14) finished 21:19 UTC with exit status 0
+
+- run started 2026-10-12 20:43 UTC (../neural-shrimp-data/explore/llm-soft-loop/bridge-m{1,8,64,exact}-t-0.115) finished 21:24 UTC with exit status 0
+
+- run started 2026-10-12 20:42 UTC (../neural-shrimp-data/explore/latent-loop/huginn-rotation-{a1,a2,b1,b2}) finished 21:24 UTC with exit status 0
+
+## 2026-10-12 21:24 UTC: run (exploratory)
+
+- **Question:** Does the gap between Ouro's full-system Lyapunov exponent and its largest conditional (per-position) exponent at the native lambda = 1 close in a longer run, as it must for a stationary triangular cocycle, or does it persist (non-stationary motion or long transients)?
+- **Setup:** explore_latent_loop positions on cuda float32, prompt story, lambda 1.0 and 1.1, 600 transient + 4000 measured loops (5x the first run), same twin construction (offsets 1e-5 relative), period tol 1e-5
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-positions-story-long`
+- **Would surprise us:** Gap unchanged at 4000 loops
+- **Command:** `bash -c set -o pipefail; ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py positions --device cuda --prompt story --lambdas 1.0 1.1 --measure 4000 --out latent-loop/ouro-positions-story-long 2>&1 | grep -v -i -e warn -e jit | tail -3`
+
+_commit `c877fae0585e` (dirty worktree)_
+
+## 2026-10-12 21:25 UTC: Bridge to sampling (consult recommendation 3): the 'is it' bottleneck is a property of the expected-embedding map; finite sampling turns it into a noise-limited trap
+
+Walks at log10 T -0.115, alpha = alpha_c + eps (alpha_c 0.0627983), 32 trajectories per eps, 100 transient + 512 recorded steps, CPU float32 (commit 3c481238); the fed-back embedding is the mean of m sampled token embeddings (m = 1: sampled decoding of the same fixed-prefix, one-token-window system) or the exact expected embedding. Laminar phases = maximal runs alternating ' is' (p > 0.5) and an ' it'-led X slot, counted from 6 steps; trajectory-bootstrap 95 % intervals. Exact map: eps 1e-5: 120 steps per phase, 97 % of steps in the channel; eps 3e-5: 63 steps, 91 % (at eps 1e-4 the exact map from the decoding start falls onto a coexisting 3-cycle '.', ' certainly', 'Hello' and never enters the channel). m = 64: 10.6 [10.1, 11.1], 10.4 [10.1, 10.7], 10.8 [10.4, 11.2] steps at eps 1e-5, 3e-5, 1e-4, with 57-58 % of steps in the channel (616-655 phases); m = 8: 7.8, 7.7, 7.6 steps, 38-39 % (238-253 phases); m = 1: 1-3 phases of 6 steps or more in 32 x 512 steps, 11-12 % of steps in the channel. So sampling noise removes the eps-dependence of the passage (the ghost law needs the deterministic map): with many samples the channel survives as a noise-limited trap whose phase length grows with m, with single samples it is essentially gone. Reading for any paper: the intermittency mechanism belongs to the expected-embedding map (a constructed deterministic system of the model's own computation), not to ordinary sampled decoding of this truncated system; the m-dependence is the quantitative bridge.
+
+_commit `c877fae0585e` (dirty worktree)_
