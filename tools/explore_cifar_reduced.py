@@ -261,6 +261,52 @@ def minimum(args):
     (out / "minimum.json").write_text(json.dumps(record, indent=1))
 
 
+def escape_plateau(args):
+    """Leave a plateau: kick along the most negative Hessian eigenvector (both signs), descend, keep the lower loss."""
+    import torch
+    from neural_shrimp.cifar_reduced import dense_hessian, descend
+
+    problem, model, reduced, q = setup(args.lam, args.threads)
+    start = Path(args.start)
+    theta = np.load(start / "critical-point.npy")
+    direction = np.load(start / "negative-eigenvectors.npy")[:, 0]
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"args": vars(args), "rounds": []}
+
+    def loss_grad(th):
+        t = torch.as_tensor(th)
+        return float(reduced.loss(t)), reduced.grad(t).numpy()
+
+    for rnd in range(args.rounds):
+        tic = time.perf_counter()
+        trials = []
+        for sign in (1, -1):
+            trial = descend(reduced, theta + sign * args.kick * direction, args.descent_eta, args.descent_steps)
+            loss, g = loss_grad(trial)
+            trials.append({"sign": sign, "loss": loss, "grad_norm": float(np.linalg.norm(g)), "state": trial})
+        best = min(trials, key=lambda t: t["loss"])
+        theta = best["state"]
+        h = dense_hessian(reduced, theta, args.chunk)
+        values, vectors = np.linalg.eigh(h)
+        del h
+        negative = values < 0
+        row = {"round": rnd, "chosen_sign": best["sign"], "losses": [t["loss"] for t in trials],
+               "grad_norms": [t["grad_norm"] for t in trials],
+               "data_loss": best["loss"] - 0.5 * args.lam * float(theta @ theta), "norm": float(np.linalg.norm(theta)),
+               "negative_count": int(negative.sum()), "smallest": values[:6].tolist(), "largest": float(values[-1]),
+               "eta_flip": float(2.0 / values[-1]), "seconds": round(time.perf_counter() - tic, 1)}
+        record["rounds"].append(row)
+        print(json.dumps(row))
+        np.save(out / f"state-round{rnd}.npy", theta)
+        np.save(out / f"eigenvalues-round{rnd}.npy", values)
+        (out / "escape.json").write_text(json.dumps(record, indent=1))
+        if not negative.any():
+            np.save(out / "top-eigenvectors.npy", vectors[:, -4:])
+            break
+        direction = vectors[:, 0]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -300,8 +346,19 @@ def main():
     mn.add_argument("--threads", type=int, default=12)
     mn.add_argument("--chunk", type=int, default=256)
     mn.add_argument("--out", required=True)
+    ep = sub.add_parser("escape-plateau")
+    ep.add_argument("--lam", type=float, required=True)
+    ep.add_argument("--start", required=True, help="folder of a minimum run (critical-point, negative eigenvectors)")
+    ep.add_argument("--kick", type=float, default=0.05)
+    ep.add_argument("--descent-eta", type=float, default=0.006)
+    ep.add_argument("--descent-steps", type=int, default=400000)
+    ep.add_argument("--rounds", type=int, default=6)
+    ep.add_argument("--threads", type=int, default=12)
+    ep.add_argument("--chunk", type=int, default=256)
+    ep.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"profile": profile, "orbit": orbit, "check-mode": check_mode, "minimum": minimum}[args.command](args)
+    {"profile": profile, "orbit": orbit, "check-mode": check_mode, "minimum": minimum,
+     "escape-plateau": escape_plateau}[args.command](args)
 
 
 if __name__ == "__main__":
