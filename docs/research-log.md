@@ -19902,3 +19902,15 @@ _commit `834699826a4f` (dirty worktree)_
 - **Command:** `bash -c set -o pipefail; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673" "p6 -0.1205 0.0786" "p3 0.1168 0.0780"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float32 --detect-tol 1e-5 --tol 1e-6 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -2 | cut -c1-3000; done`
 
 _commit `7dce19682033` (dirty worktree)_
+
+- run started 2026-10-12 13:03 UTC (../neural-shrimp-data/explore/llm-soft-loop/orbit-zr-{p8,p10,p6,p3}) finished 13:08 UTC with exit status 0
+
+## 2026-10-12 13:08 UTC: run (exploratory)
+
+- **Question:** How does the period-8 stripe of zoom-right end on each side at fixed alpha 0.0717: fold turning points (saddle-node), flips (multiplier -1) or Neimark-Sacker? A leg or body of a shrimp has a fold on at least one side; a fold-flip pair is the signature of a logistic-type window
+- **Setup:** explore_llm_soft_loop tline on cuda float32, K = 1, philosophy steering at layer 12, alpha 0.0717, start at log10 T -0.1205 after 600 transient steps (period detected at tol 1e-5), pseudo-arclength in log10 T both directions with small steps (ds 0.002, max 0.004; the stripe is about 0.017 wide in log10 T), up to 40 points, stop 0.02 past the first turn, Newton tol 1e-6, GMRES rtol 1e-7, multipliers by block subspace iteration (8 rows, 40 iterations)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/tline-p8-a0.0717-{up,down}`
+- **Would surprise us:** No crossing and no turn on either side within 0.05 in log10 T (the stripe's edge in the scan would then be a basin boundary of coexisting attractors)
+- **Command:** `bash -c set -o pipefail; for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); .venv/bin/python tools/explore_llm_soft_loop.py tline --device cuda --dtype float32 --detect-tol 1e-5 --tol 1e-6 --gmres-tol 1e-7 --steps 40 --ds 0.002 --ds-max 0.004 --log-temperature -0.1205 --alpha 0.0717 --direction $dir --out llm-soft-loop/tline-p8-a0.0717-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -42 | cut -c1-1500; done`
+
+_commit `2973748cb566` (dirty worktree)_

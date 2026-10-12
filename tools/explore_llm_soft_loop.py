@@ -177,15 +177,16 @@ class SoftOrbit:
             X = self.f(X)
         return X
 
-    def detect_period(self, X, max_period, tol):
-        torch = self.torch
+    def return_distances(self, X, max_period):
+        """Relative distances |f^q(X) - X| / |X| for q = 1..max_period."""
         hist = [X]
         for _ in range(max_period):
             hist.append(self.f(hist[-1]))
-        for q in range(1, max_period + 1):
-            if float((hist[q] - X).norm() / X.norm()) < tol:
-                return q
-        return 0
+        return [float((hist[q] - X).norm() / X.norm()) for q in range(1, max_period + 1)]
+
+    def detect_period(self, X, max_period, tol):
+        dist = self.return_distances(X, max_period)
+        return next((q for q, d in enumerate(dist, 1) if d < tol), 0)
 
     def newton(self, X, period, tol=1e-11, max_newton=8):
         """Newton for f^p(X) = X; returns (X, relative residual history, multipliers, orbit points)."""
@@ -299,11 +300,14 @@ def orbit(args):
     orb = SoftOrbit(loop, args.alpha * v, 10.0 ** args.log_temperature, args.h_rel, args.chunk, args.jacobian)
     tic = time.perf_counter()
     X = orb.iterate(orb.start, args.transient)
-    period = args.period or orb.detect_period(X, args.max_period, args.detect_tol)
+    returns = orb.return_distances(X, args.max_period)
+    period = args.period or next((q for q, d in enumerate(returns, 1) if d < args.detect_tol), 0)
     if period == 0:
-        raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol}; nothing to verify")
+        raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol}; nothing to verify "
+                         f"(smallest return distance {min(returns):.3g} at q = {int(np.argmin(returns)) + 1})")
     X, history, vals, pts = orb.newton(X, period, args.tol, args.max_newton)
-    rec = {"args": vars(args), "period": period, "seconds": round(time.perf_counter() - tic, 1)}
+    rec = {"args": vars(args), "period": period, "seconds": round(time.perf_counter() - tic, 1),
+           "return_distances_after_transient": returns}
     rec.update(orbit_report(orb, X, history, vals, pts, tol=args.tol))
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -363,6 +367,45 @@ def tline(args):
     rec = {"args": vars(args), "period": period, "stop": reason, "crossings": crossings, "points": records}
     (out / "tline.json").write_text(json.dumps(rec, indent=1))
     print(json.dumps({"period": period, "stop": reason, "points": len(records), "crossings": crossings}))
+
+
+def precision(args):
+    """Effective precision of the float32 map: at cells (log10 T, alpha), iterate the float64 map (norms patched)
+    to its attractor, then compare one step and q steps of the float32 map (on --device) with the float64 map from
+    the same states. Also reports the float64 attractor's return distances, so a period read at tolerance tol in
+    float32 can be checked against the float32 error level."""
+    v = elpm.load_vectors(args.vectors)[args.concept]
+    hi = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, "float64",
+                  args.device64)
+    lo = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, "float32",
+                  args.device)
+    torch = hi.torch
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for log_t, alpha in args.cells:
+        oh = SoftOrbit(hi, alpha * v, 10.0 ** log_t)
+        ol = SoftOrbit(lo, alpha * v, 10.0 ** log_t)
+        X = oh.iterate(oh.start, args.transient)
+        returns = oh.return_distances(X, args.max_period)
+        Xh, Xl, step_err = X, X.to(lo.state_dtype).to(lo.device), []
+        for _ in range(args.steps):
+            Xh, Xl = oh.f(Xh), ol.f(Xl.to(lo.state_dtype))
+            step_err.append(float((Xl.double().to(Xh.device) - Xh).norm() / Xh.norm()))
+        one = []
+        Y = X
+        for _ in range(args.steps):                         # one-step errors from float64 states
+            Yh = oh.f(Y)
+            Yl = ol.f(Y.to(lo.state_dtype).to(lo.device)).double().to(Yh.device)
+            one.append(float((Yl - Yh).norm() / Yh.norm()))
+            Y = Yh
+        row = {"log10_temperature": log_t, "alpha": alpha, "float64_return_distances": returns,
+               "float32_one_step_error": {"median": float(np.median(one)), "max": float(np.max(one))},
+               "float32_trajectory_error": step_err, "state_norm": float(X.norm())}
+        rows.append(row)
+        print(json.dumps({k: (v if k != "float32_trajectory_error" else [v[0], v[-1]]) for k, v in row.items()}),
+              flush=True)
+    (out / "precision.json").write_text(json.dumps({"args": vars(args), "cells": rows}, indent=1))
 
 
 def soft_family(loop, v, period, alpha_scale=10.0, chunk=512):
@@ -785,6 +828,22 @@ def main():
     wi.add_argument("--min-period", type=int, default=2)
     wi.add_argument("--min-area", type=int, default=4)
     wi.add_argument("--show", type=int, default=15)
+    pr = sub.add_parser("precision")
+    pr.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
+    pr.add_argument("--layer", type=int, default=12)
+    pr.add_argument("--threads", type=int, default=8)
+    pr.add_argument("--device", default="cpu", help="device of the float32 map")
+    pr.add_argument("--device64", default="cpu", help="device of the float64 reference map")
+    pr.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
+    pr.add_argument("--opener", default=ela.OPENER)
+    pr.add_argument("--window", type=int, default=1)
+    pr.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    pr.add_argument("--concept", default="philosophy", choices=sorted(elpm.CONCEPTS))
+    pr.add_argument("--cells", type=float, nargs=2, action="append", required=True, metavar=("LOG10_T", "ALPHA"))
+    pr.add_argument("--transient", type=int, default=600)
+    pr.add_argument("--max-period", type=int, default=32)
+    pr.add_argument("--steps", type=int, default=32)
+    pr.add_argument("--out", required=True)
     cv = sub.add_parser("curve")
     cv.add_argument("--start-tline", required=True, help="explore-relative directory of a finished tline run")
     cv.add_argument("--kind", default="auto", choices=("auto", "fold", "flip"))
@@ -806,7 +865,7 @@ def main():
     cv.add_argument("--chunk", type=int, default=512)
     cv.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "orbit": orbit, "tline": tline, "curve": curve, "render": render,
+    {"scan": scan, "orbit": orbit, "tline": tline, "curve": curve, "precision": precision, "render": render,
      "windows": windows}[args.command](args)
 
 
