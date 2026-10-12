@@ -19384,3 +19384,31 @@ _commit `340e42958ecd`_
 map-l12-grat-phil-13 first launch: the map step ended without a traceback and without map.json (most likely killed by the out-of-memory killer): with 169 sequences per batch, generate() kept full-vocabulary logits for every step (about 6 GB per turn) and the code then stacked them in double precision and took log-softmax and exp (several further copies of about 12 GB). The families and existence steps then failed for lack of map.json; the launch chain continued because each step's status was that of grep (pipefail was missing, the same pitfall as pytest | tail in AGENTS.md). Fixed by computing the next-token entropy on the fly in a logits processor (no logits kept); generation unchanged (entropy 0.124 for the greeting turn, as before). Relaunched with set -o pipefail.
 
 _commit `a1d8bef401eb` (dirty worktree)_
+
+## 2026-10-12 04:56 UTC: run (exploratory)
+
+- **Question:** First LLM phase map, relaunch (question as the failed attempt: gratitude x philosophy steering plane of the greedy self-dialogue)
+- **Setup:** as map-l12-grat-phil-13 (13x13, alpha -0.04..0.08 on both axes, 24 turns, window 7, 60 new tokens), entropy on the fly, steps chained with pipefail; then families and existence
+- **Output:** `../neural-shrimp-data/explore/llm-phase-map/map-l12-grat-phil-13`
+- **Would surprise us:** A single attractor over most of the plane, or no coherent organization of regions
+- **Command:** `bash -c set -o pipefail; OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py map --vectors llm-phase-map/vectors-l12 --x-range -0.04 0.08 --y-range -0.04 0.08 --resolution 13 13 --turns 24 --out llm-phase-map/map-l12-grat-phil-13 2>&1 | grep -v -i -e warn -e Loading && OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py families --map llm-phase-map/map-l12-grat-phil-13 2>&1 | grep -v -i warn && OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_phase_map.py existence --map llm-phase-map/map-l12-grat-phil-13 2>&1 | grep -v -i -e warn -e Loading`
+
+_commit `a6797ad90100`_
+
+## 2026-10-12 04:58 UTC: run (exploratory)
+
+- **Question:** Ouro-1.4B latent recurrence iterated far beyond its trained 4 loops: does the model's own loop map h <- RMSNorm(Stack(h)) converge to fixed points, cycle, drift or behave chaotically, and does its readout change with the loop count?
+- **Setup:** explore_latent_loop trajectory (separate llm environment, transformers 4.55; extracted loop verified against the native forward to 1e-5 in logits), CPU float32, 8 threads: prompts hello, arith, story, conscious, list; 64 loops from the token embeddings; per loop relative step |h_{k+1}-h_k|/|h_k|, readout top token and entropy, running Lyapunov exponent from a renormalized twin trajectory (eps 1e-4)
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-trajectory-64`
+- **Would surprise us:** All prompts converging to fixed points within a few loops (no long-run dynamics), or immediate blow-up
+- **Command:** `env OMP_NUM_THREADS=8 ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py trajectory --loops 64 --out latent-loop/ouro-trajectory-64`
+
+_commit `5a46d15c90b5` (dirty worktree)_
+
+- run started 2026-10-12 04:58 UTC finished 05:07 UTC with exit status 0
+
+## 2026-10-12 05:08 UTC: Ouro-1.4B's own latent recurrence is non-convergent and apparently chaotic beyond its trained 4 loops
+
+ouro-trajectory-64 (explore_latent_loop trajectory; extracted loop h <- RMSNorm(Stack_24(h)) verified against the native forward to 1e-5 in logits; CPU float32; 64 loops from the token embeddings). For all five prompts the state keeps moving after 64 loops (relative step per loop 0.21 hello, 0.12 arith, 0.09 story, 0.14 conscious, 0.19 list) and the running largest Lyapunov exponent from a renormalized twin trajectory is positive (0.33, 0.40, 0.38, 0.30, 0.29 per loop). The readout after the native 4 loops is sensible (story: ' there'; conscious: ' the'), but over the last 16 loops it wanders among several unrelated tokens (arith: 'ord', 'ort', 'ory', 'ot', 'oty', 'pan', 'pper', 'pton'). Caveats: the twin offset (1e-4 absolute on a state of norm in the hundreds) is near float32 resolution, so the exponents need float64 confirmation, although values of 0.3-0.4 per loop are far above a rounding artefact; non-convergence itself is robust. Reading: the trained computation is the transient of a map whose long-run dynamics is irregular. Next: the relaxed loop h <- (1 - lambda) h + lambda F(h), where lambda plays the role of a learning rate, to find the route from convergence (small lambda) to the native irregular regime (lambda = 1), and then periodic windows in a (lambda, steering) plane.
+
+_commit `5a46d15c90b5` (dirty worktree)_
