@@ -90,20 +90,33 @@ class SteeredModel:
 
     def generate_batch(self, batch_messages, steer_rows, max_new):
         torch = self.torch
+        from transformers import LogitsProcessor, LogitsProcessorList
+
+        class EntropyRecorder(LogitsProcessor):
+            """Next-token entropy per step, computed on the fly (keeping all logits costs gigabytes)."""
+
+            def __init__(self):
+                self.steps = []
+
+            def __call__(self, input_ids, scores):
+                logp = torch.log_softmax(scores.float(), dim=-1)
+                self.steps.append(-(logp.exp() * logp).sum(-1).double())
+                return scores
+
         prompts = [self.tok.apply_chat_template(m, add_generation_prompt=True, tokenize=False) for m in batch_messages]
         enc = self.tok(prompts, return_tensors="pt", padding=True, add_special_tokens=False)
+        recorder = EntropyRecorder()
         self.steer = torch.as_tensor(np.asarray(steer_rows))[:, None, :]
         try:
             with torch.no_grad():
                 out = self.model.generate(**enc, max_new_tokens=int(max_new), do_sample=False, temperature=None,
                                           top_p=1.0, top_k=0, repetition_penalty=1.0, return_dict_in_generate=True,
-                                          output_logits=True, pad_token_id=self.tok.pad_token_id)
+                                          logits_processor=LogitsProcessorList([recorder]),
+                                          pad_token_id=self.tok.pad_token_id)
         finally:
             self.steer = None
         new = out.sequences[:, enc["input_ids"].shape[1]:]
-        logits = torch.stack(out.logits, dim=1).double()   # (batch, steps, vocab)
-        logp = torch.log_softmax(logits, dim=-1)
-        ent = -(logp.exp() * logp).sum(-1)                 # (batch, steps)
+        ent = torch.stack(recorder.steps, dim=1)           # (batch, steps)
         texts, entropies, lengths, id_lists = [], [], [], []
         eos = {self.tok.eos_token_id, self.tok.pad_token_id, self.tok.convert_tokens_to_ids("<|im_end|>")}
         for b in range(new.shape[0]):
