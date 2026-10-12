@@ -485,6 +485,7 @@ def orbit(args):
     dest = DATA / "explore" / args.out
     dest.mkdir(parents=True, exist_ok=True)
     (dest / "orbit.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
+    np.save(dest / "orbit-state.npy", h.float().cpu().numpy())
 
 
 def basin(args):
@@ -537,6 +538,96 @@ def basin(args):
     (out / "basin.json").write_text(json.dumps(summary, indent=1))
     print(json.dumps({"lambda": lam, "period_counts": summary["period_counts"],
                       "lyapunov_quantiles": np.quantile(lyap, [0.0, 0.25, 0.5, 0.75, 1.0]).round(4).tolist()}))
+
+
+def continue_orbit(args):
+    """Natural continuation in lambda of a period-p orbit of the relaxed loop (Newton-Krylov at each step,
+    Arnoldi multipliers), classifying the first unit-circle crossing in each direction."""
+    from scipy.sparse.linalg import LinearOperator, eigs, gmres
+
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    h0 = loop.setup(PROMPTS[args.prompt])
+    shape = tuple(h0.shape)
+    n = int(np.prod(shape))
+    start = torch.as_tensor(np.load(DATA / "explore" / args.start_states)[args.start_index][None],
+                            dtype=loop.dtype, device=loop.device)
+
+    def to_t(v):
+        return torch.as_tensor(np.asarray(v, dtype=np.float64).reshape(shape), dtype=loop.dtype, device=loop.device)
+
+    def to_np(t):
+        return t.detach().double().cpu().numpy().ravel()
+
+    def solve(h, lam):
+        def phi_p(x):
+            for _ in range(args.period):
+                x = (1 - lam) * x + lam * loop.F_diff(x)
+            return x
+
+        def residual(x):
+            with torch.no_grad():
+                y = x
+                for _ in range(args.period):
+                    y = (1 - lam) * y + lam * loop.F(y)
+            return y - x
+
+        rel = None
+        for _ in range(args.max_newton):
+            r = residual(h)
+            rel = float(r.norm() / h.norm())
+            if rel < args.tol:
+                break
+            base = h.detach()
+
+            def mv(v, base=base):
+                with math_attention():
+                    _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
+                return to_np(jv) - np.asarray(v).ravel()
+
+            delta, _ = gmres(LinearOperator((n, n), matvec=mv, dtype=np.float64), -to_np(r), rtol=args.gmres_tol,
+                             restart=args.restart, maxiter=args.gmres_iter)
+            h = h + to_t(delta)
+        if rel is None or rel >= args.tol:
+            return None, rel, None
+        base = h.detach()
+
+        def mono(v):
+            with math_attention():
+                _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
+            return to_np(jv)
+
+        vals = eigs(LinearOperator((n, n), matvec=mono, dtype=np.float64), k=args.k, which="LM",
+                    return_eigenvectors=False, tol=1e-5, maxiter=args.arnoldi_iter)
+        return h, rel, vals[np.argsort(-np.abs(vals))]
+
+    rows = []
+    for direction in (+1, -1):
+        h, lam = start.clone(), float(args.lam)
+        crossing = None
+        for step in range(args.steps + 1):
+            lam_k = lam + direction * step * args.dlam
+            h_new, rel, vals = solve(h, lam_k)
+            if h_new is None:
+                rows.append({"direction": direction, "lambda": lam_k, "outcome": "lost", "residual": rel})
+                print(json.dumps(rows[-1]), flush=True)
+                break
+            h = h_new
+            lead = vals[0]
+            row = {"direction": direction, "lambda": lam_k, "residual": rel, "spectral_radius": float(abs(lead)),
+                   "leading": [[float(v.real), float(v.imag)] for v in vals[:4]]}
+            if crossing is None and abs(lead) > 1.0:
+                crossing = {"lambda": lam_k, "type": "complex (Neimark-Sacker)" if abs(lead.imag) > 1e-6 else
+                            ("real +1" if lead.real > 0 else "real -1 (flip)"),
+                            "turns": float(abs(np.angle(lead)) / (2 * np.pi))}
+                row["first_crossing"] = crossing
+            rows.append(row)
+            print(json.dumps(row), flush=True)
+            if crossing is not None and abs(lam_k - crossing["lambda"]) >= args.beyond:
+                break
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "continuation.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1))
 
 
 def main():
@@ -629,6 +720,27 @@ def main():
     bs.add_argument("--tol", type=float, default=1e-5)
     bs.add_argument("--eps", type=float, default=1e-5)
     bs.add_argument("--out", required=True)
+    co = sub.add_parser("continue-orbit")
+    co.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    co.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    co.add_argument("--device", default="cpu")
+    co.add_argument("--threads", type=int, default=8)
+    co.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    co.add_argument("--start-states", required=True)
+    co.add_argument("--start-index", type=int, default=0)
+    co.add_argument("--lam", type=float, required=True)
+    co.add_argument("--period", type=int, default=2)
+    co.add_argument("--dlam", type=float, default=0.002)
+    co.add_argument("--steps", type=int, default=40)
+    co.add_argument("--beyond", type=float, default=0.004)
+    co.add_argument("--max-newton", type=int, default=6)
+    co.add_argument("--tol", type=float, default=2e-6)
+    co.add_argument("--gmres-tol", type=float, default=1e-4)
+    co.add_argument("--restart", type=int, default=40)
+    co.add_argument("--gmres-iter", type=int, default=3)
+    co.add_argument("--k", type=int, default=4)
+    co.add_argument("--arnoldi-iter", type=int, default=200)
+    co.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -637,7 +749,7 @@ def main():
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
-     "orbit": orbit, "basin": basin}[args.command](args)
+     "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit}[args.command](args)
 
 
 if __name__ == "__main__":
