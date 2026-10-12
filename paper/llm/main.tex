@@ -229,9 +229,13 @@ rotary tables) and add periods 14--20.}}
 \section{Mechanism: a saddle-node bottleneck}
 \label{sec:mechanism}
 \paragraph{The fold.} At $\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\alpha_c=0.06279827$ (float64
-multiplier $1$ to $3\times10^{-13}$, other multipliers below $0.04$). The normal form of $G$ has $a=-4.834$ per
-unit $\alpha$ and $b=-25.4285$, so $ab=122.93$; extrapolating the stable-branch multipliers,
-$(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$, gives $123.1$ independently.
+multiplier $1$ to $3\times10^{-13}$, next modulus $0.037$). The normal form of $G$ has $a=-4.834$ per unit $\alpha$
+and $b=-25.4285$, so $ab=122.93$; extrapolating the stable-branch multipliers, $(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$,
+gives $123.1$ independently. An independent implementation of the forward map and solver recovers $\alpha_c$ to
+$6\times10^{-15}$ and $a$ to $3\times10^{-12}$. Its $b$, from nested automatic differentiation, is $-25.42846$; our
+finite-difference value differs from it by $2.2\times10^{-6}$ relatively, which is the finite-step bias of the
+difference table. The resulting $ab=122.927$ leaves every passage prediction of Table~\ref{tab:passages}
+unchanged.
 
 \paragraph{Controlled passages.} Starting at $u_{\rm in}=-U$ or $0$ ($U=0.1/|b|$) and counting $G$-iterates until
 $u>U$, the measured counts match the iterated normal form within one iterate at four held-out distances
@@ -475,13 +479,14 @@ We label claims by an evidence ladder: rung 1, numerically validated (tolerances
 precision varied); rung 2, cross-checked (independent estimate, implementation or hardware); rung 3,
 computer-assisted proof.
 \begin{itemize}
-\item Rung 2: the normal-form coefficient $ab$ (from derivatives, and from stable-branch multipliers). The controlled
-  passage counts: an independent reimplementation of the forward map reproduces all 18 fixed-entrance counts exactly,
-  with the original coefficients and entrances.
+\item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
+  recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
+  also follows from the stable-branch multipliers. The controlled passage counts: the reimplementation reproduces all
+  18 fixed-entrance counts exactly.
 \item Rung 1: orbits, curves, cusps and the cascade's flip parameters.
 \end{itemize}
-\inprogress{independent reimplementation of the fold, normal-form coefficients and orbits; the cascade's first flips
-recomputed on a second device.} \planned{interval proof of one periodic orbit (rung 3).}
+\inprogress{independent reimplementation of the period-2 and period-8 orbits on the current map; the cascade's first
+flips recomputed on a second device.} \planned{interval proof of one periodic orbit (rung 3).}
 Code: \texttt{tools/explore\_llm\_soft\_loop.py}, \texttt{tools/bifurcation\_curves.py},
 \texttt{tools/llm\_feigenbaum.py}, \texttt{tools/explore\_latent\_loop.py}, \texttt{tools/explore\_llm\_msm.py},
 \texttt{tools/hostility\_score.py}; raw data hash receipts in \texttt{evidence/llm-dynamics-data-receipts.json}.
