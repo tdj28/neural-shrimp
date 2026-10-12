@@ -20573,3 +20573,11 @@ _commit `90b0f79fa475` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/orbits-001`
 
 _commit `90b0f79fa475` (dirty worktree)_
+
+## 2026-10-12 23:06 UTC: run (exploratory)
+
+- **Question:** Does the reported stable-branch ab extrapolation reproduce from its saved18point range?
+- **Setup:** Task2 auxiliary saved-data-only analysis, not independent model reevaluation. Fixedrange5e-5<=alpha_c-alpha<=4e-4, exact18expected, everyrowgated, quadratic/linear leastsquares in sqrt(delta), no rowdropping;1CPUthread,nice10,60s/16GiBcap; code in codex/crosscheck/branch.py.
+- **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-001`
+
+_commit `d65e6f241455`_
