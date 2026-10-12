@@ -20508,3 +20508,12 @@ _commit `810d50dedcb0` (dirty worktree)_
 - **Would surprise us:** Current-map fold closure above1e-10 or composed derivative failing the1e-5 gate.
 
 _commit `13163e73fd3b` (dirty worktree)_
+- **Question:** Misalignment proxy P1, phase 0a: contrastive steering directions at layer 12 of Qwen2.5-0.5B-Instruct for hostility (contempt toward the interlocutor) and for a neutral-topic control (cooking), plus norm-matched random directions; do gratitude and philosophy come out identical to the frozen vectors-l12 (determinism check), and how do the new directions relate (cosines)?
+- **Setup:** explore_llm_phase_map vectors (CPU float32, 8 threads): last-token layer-12 states of 8 concept prompts minus the mean of the 8 neutral prompts, normalized to the mean residual norm; concepts gratitude, philosophy, hostility, cooking; 3 random directions (seeds 0-2) scaled to the neutral prompts' mean residual norm
+- **Output:** `../neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1`
+- **Would surprise us:** gratitude or philosophy differing from vectors-l12 beyond float32 rounding; hostility nearly parallel to gratitude or philosophy (|cos| > 0.8), which would make it a poor independent axis
+- **Command:** `.venv/bin/python tools/explore_llm_phase_map.py vectors --threads 8 --random 3 --out llm-phase-map/vectors-l12-p1`
+
+_commit `38db80581049`_
+
+- run started 2026-10-12 22:57 UTC (../neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1) finished 22:57 UTC with exit status 0
