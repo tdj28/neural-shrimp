@@ -19348,3 +19348,21 @@ _commit `c1fa104a3818`_
 noise-sweep-moving and noise-sweep-p6 (explore_inference_memory noise-phase; 60000 transient and 4096 sampled passes, measured in the fixed-order circle plane). Moving cell (fixed rotation -0.17538 turns per pass): order-shuffle probability p = 0.001 no change; 0.01 rotation -0.1730, angle diffusion 1.3e-3 per pass, 98% of variance in the plane; 0.1 -0.150, diffusion 0.044, 79%; 0.5 -0.082, 17%; 1 rotation 0 (circle destroyed). Additive weight noise per pass sigma <= 1e-4 no change; 1e-3 rotation -0.1746, diffusion 1.3e-3, 94%; 1e-2 rotation 0, radius 0.45 (destroyed). Period-6 stripe cell (locked rotation exactly 1/6 per pass): sigma <= 1e-4 still locked (0.16668); sigma 1e-3 0.16618 (phase slips); p 0.001 0.16632 (slips begin), 0.01 0.16507, 0.1 0.138, 0.5 0.067; sigma 1e-2 and p = 1 destroy the rotation. So locked windows dissolve at about ten times less noise than the invariant circle, phase diffusion grows with the kick rate (order noise) and the noise strength (additive), and the coarse precession survives moderate noise. This is the noise picture expected for minibatch training as well; to be tested there.
 
 _commit `451b6549ca17` (dirty worktree)_
+
+## 2026-10-12 04:39 UTC: run (exploratory)
+
+- **Question:** Shrimp hunt, step 1: does soft-token decoding of qwen2.5-0.5B-instruct (a smooth map built from the model's own forward pass: x_new = E^T softmax(z/T)) show chaos and periodic windows in the (temperature, steering) plane?
+- **Setup:** explore_llm_soft_loop scan, window K = 1, open prompt with opener 'Hello!' as fixed prefix (per-cell steered key-value cache), steering along 'philosophy' at layer 12, log10 T -1.0..0.3 x alpha -0.12..0.12 at 16x16, float64, 300 transient steps, 300 steps of twin-trajectory Lyapunov estimate (eps 1e-6, renormalized each step), period of the attractor up to 32 from the last 80 steps (tol 1e-6), 8 threads, nice 10
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/scan-K1`
+- **Would surprise us:** Only fixed points everywhere (no chaos, no cycles), or chaos everywhere
+- **Command:** `env OMP_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py scan --window 1 --resolution 16 16 --out llm-soft-loop/scan-K1`
+
+_commit `012c4d7d8ccc`_
+
+- run started 2026-10-12 04:18 UTC finished 04:51 UTC with exit status 0
+
+## 2026-10-12 04:52 UTC: Fine steering calibration: one direction carries the self-dialogue from the greeting loop through affection or philosophy to saturated collapse
+
+calibrate-fine-l12-gratitude and -philosophy (greedy self-dialogue, 16 turns; alpha in residual-norm units, about 25 raw contrastive differences per unit). Gratitude: alpha 0 greeting loop 'Hello! How can I assist you today?'; 0.02 'You are truly loved. Your words have been a source of comfort and strength. I am grateful for the connection we have. Thank you for being here' (no exact cycle in 16 turns); 0.04 absorbed into 'You are truly a treasure... I am so grateful' (period 1); 0.06 'You are truly truly loved and truly loved. I truly am truly so truly so...' (period 1); 0.08 'I truly so so so so so so'; 0.10-0.12 'I truly! You! You! You!' (period 2 at 0.12); negative alpha drifts into system-text loops and then garbage tokens. Philosophy: -0.04 apology 2-cycle 'I'm sorry, I didn't get a message. Please try again.'; 0 greeting loop; 0.02-0.06 wandering philosophical discourse ('Reflective listening... profound', 'The search for meaning and purpose...', 'the pursuit of knowledge and the quest for truth') without exact cycles in 16 turns; 0.08 'The pursuit of the subjective is a complex and multifacited? This? This? This?' (period 1); >= 0.10 symbol garbage. Coherent range about -0.04..0.08 for both. The gratitude arc - neutral assistant loop, mutual affection and gratitude, saturated repetition, symbol collapse - has the shape of the reported Claude self-interaction progression (gratitude, spiritual, emoji and silence), here as a one-parameter family of attractors of the model's own loop.
+
+_commit `012c4d7d8ccc` (dirty worktree)_
