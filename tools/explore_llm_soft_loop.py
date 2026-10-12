@@ -981,6 +981,10 @@ def passage(args):
     w /= np.linalg.norm(w)
     rows = []
     for eps in args.epsilons:
+        if args.natural:                                        # free trajectories from the decoding start
+            for k in range(args.natural):
+                rows.append({"eps": eps, "entrance": f"natural-{k}", "u_in": None, "x0": None})
+            continue
         for kind, u_in in (("full", -U), ("midpoint", 0.0)):
             rows.append({"eps": eps, "entrance": kind, "u_in": u_in, "x0": xc + u_in * r})
         rows.append({"eps": eps, "entrance": "full+transverse", "u_in": -U, "x0": xc - U * r + U * w})
@@ -989,34 +993,48 @@ def passage(args):
     torch = loop.torch
     v = elpm.load_vectors(so["vectors"])[so["concept"]]
     alphas = np.array([so["alpha"] + row["eps"] for row in rows])
-    loop.prepare(alphas[:, None] * v[None])
+    start = loop.prepare(alphas[:, None] * v[None]).double().cpu().numpy()
     shape = (len(rows), loop.K, loop.E.shape[1])
+    for i, row in enumerate(rows):
+        if row["x0"] is None:                                   # independent starts: tiny random displacements
+            row["x0"] = start[i].ravel() + 1e-6 * np.linalg.norm(start[i]) * rng.normal(size=start[i].size)
     X = torch.as_tensor(np.array([row["x0"] for row in rows]).reshape(shape), dtype=loop.state_dtype,
                         device=loop.device)
     temps = np.full(len(rows), 10.0 ** so["log10_temperature"])
     p = so["period"]
     lt = torch.as_tensor(l, dtype=loop.state_dtype, device=loop.device)
     xct = torch.as_tensor(xc, dtype=loop.state_dtype, device=loop.device)
-    us, count = [], [None] * len(rows)
+    rt = torch.as_tensor(r, dtype=loop.state_dtype, device=loop.device)
+    us, trans, count = [], [], [None] * len(rows)
     tic = time.perf_counter()
     with torch.no_grad():
+        for _ in range(args.transient * p if args.natural else 0):
+            X, _ = loop.step(X, temps)
         for g in range(1, args.max_g + 1):
             for _ in range(p):
                 X, _ = loop.step(X, temps)
-            u = ((X.reshape(len(rows), -1) - xct) @ lt).double().cpu().numpy()
+            d = X.reshape(len(rows), -1) - xct
+            u_t = d @ lt
+            u = u_t.double().cpu().numpy()
             us.append(u)
+            trans.append((d - u_t[:, None] * rt[None]).norm(dim=1).double().cpu().numpy())
             for i, ui in enumerate(u):
-                if count[i] is None and ui > args.u_out_factor * U:
+                if count[i] is None and rows[i]["u_in"] is not None and ui > args.u_out_factor * U:
                     count[i] = g
-            if all(c is not None for c in count):
+            if not args.natural and all(c is not None for c in count):
                 break
-    us = np.array(us)
+    us, trans = np.array(us), np.array(trans)                       # (G, rows): critical and transverse parts
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     np.save(out / "u.npy", us)
+    np.save(out / "transverse.npy", trans)
     table = []
     for i, row in enumerate(rows):
         u_out = args.u_out_factor * U
+        if row["u_in"] is None:                                 # natural rows: analysed offline from u.npy
+            table.append({"eps": row["eps"], "entrance": row["entrance"], "held_out": row["eps"] not in
+                          args.development})
+            continue
         pred = bc.passage_count(row["u_in"], a, b, row["eps"], u_out)
         table.append({"eps": row["eps"], "entrance": row["entrance"], "u_in": row["u_in"], "u_out": u_out,
                       "measured_G": count[i], "predicted_discrete_G": pred,
@@ -1292,6 +1310,10 @@ def main():
     ps.add_argument("--u", type=float, default=None, help="entrance distance U (default 0.1 / b)")
     ps.add_argument("--u-out-factor", type=float, default=1.0, help="exit at u = factor * U")
     ps.add_argument("--max-g", type=int, default=512)
+    ps.add_argument("--natural", type=int, default=0,
+                    help="instead of controlled entrances: this many free trajectories per eps from the decoding "
+                         "start, recorded for --max-g iterates after --transient")
+    ps.add_argument("--transient", type=int, default=100, help="G-iterates discarded before recording (natural)")
     ps.add_argument("--seed", type=int, default=0)
     ps.add_argument("--threads", type=int, default=8)
     ps.add_argument("--device", default="cpu")
