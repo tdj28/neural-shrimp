@@ -326,11 +326,10 @@ window (`explore/llm-soft-loop/`).
   orbit keeps a real leading multiplier. Upward it passes close to zero
   (6e-5 near log10 T -0.108) and rises toward +1 as the branch turns: a fold
   near log10 T -0.1033 (square-root extrapolation). Downward it changes sign
-  near -0.121 (a superstable point) and crosses -1 near -0.129, an isolated
-  real -1 (flip; next multiplier 3e-6). These multipliers come from float32
-  monodromies: the fold location (the turn of the branch) is exact, the flip
-  location is uncertain by about 4e-4. In float64 the fold at alpha 0.0717
-  is at log10 T -0.1033462 (critical multiplier 0.99999983). So this cut has
+  near -0.121 (a superstable point) and crosses -1 at -0.128955, an
+  isolated real -1 (flip; next multiplier 3e-6; float64 multipliers -0.936
+  and -1.105 on either side). In float64 the fold at alpha 0.0717 is at
+  log10 T -0.1033462 (critical multiplier 0.99999983). So this cut has
   the profile of a periodic window: saddle-node at high temperature, period
   doubling at low temperature. A long narrow region bounded by a fold on one
   side is how shrimp legs are described (Facanha, Oldeman and Glass 2013,
