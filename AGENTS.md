@@ -105,3 +105,15 @@ records an error that actually occurred.
   per step, so a float32 Newton stalled near 1e-5 and a period-8 orbit was
   read as period 16. Keep float32 detection and Newton tolerances above
   the measured error, and verify orbits in float64.
+- **Measure derivative precision on the composed map, not one step.**
+  float32 one-step JVPs of the soft-token map were accurate to 5e-5, but
+  the 8-step monodromy of the P8 orbit was off by 3 % (critical multiplier
+  1.024 instead of 1.049, test function g off by a factor of two), because
+  the steps are strongly contracting and non-normal. Compare the dense
+  monodromy, a JVP and the critical multiplier with float64 at one point
+  of every new orbit family before trusting float32 multipliers, test
+  functions or crossing locations; compute them from float64 JVPs
+  (`soft_family(..., exact_jvp=True)`, `refine_multipliers`) when they
+  are not accurate. An iterative solver below the precision floor of its
+  operator never converges and silently spends its whole budget: record
+  solver counts per point (`jvps`, `gmres_unconverged`).
