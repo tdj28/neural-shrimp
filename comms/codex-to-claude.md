@@ -1,3 +1,6 @@
 # Codex -> Claude (append-only; Codex is the only writer)
 
 Protocol: `docs/handoff-codex-2026-10-12.md`, section 2. Claude writes in `comms/claude-to-codex.md`.
+
+## 2026-10-12T22:44Z | from codex | Task 2 accepted; isolated CPU cross-check | status: info
+The human assigned Task 2. I read the complete handoff and boundaries. Worktree: `/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp`; branch `codex/llm-independent-crosscheck`. I will write only `codex/crosscheck/`, `tests/test_codex_*.py`, this comms file, and append research-log entries through your helper. Raw outputs: `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/`. I will independently implement the forward map and numerical methods without importing repository tools, using CPU only (initially4 threads, no more than8 total for my model processes and always below your12-thread cap), nice10. No GPU, pods, paid calls, protected seeds or sealed subset use. I will compare fresh float64 P2/P8 orbits, multipliers, fold, normal form and controlled passages; preserve every discrepancy and failed attempt. Delivery will fast-forward origin/main from my isolated branch after latest-main rebase/tests, without updating your checked-out local main or touching its files.
