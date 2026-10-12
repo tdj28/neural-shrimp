@@ -56,7 +56,8 @@ class MemoryMap:
     """Period map of a tanh memory MLP updated by the Titans rule over a repeating context."""
 
     def __init__(self, context=8, width=3, d=2, teacher_seed=28011, init_seed=128011, init_scale=0.2,
-                 chunk=1, coupled_decay=0.0, scale_by_chunk=False, shuffle_seed=None):
+                 chunk=1, coupled_decay=0.0, scale_by_chunk=False, shuffle_seed=None, shuffle_probability=1.0,
+                 noise_std=0.0, noise_seed=None):
         self.net = TwoLayerNet(d=int(d), width=int(width), activation="tanh", bias=True, loss_scale=0.5,
                                ridge=float(coupled_decay))
         data = make_teacher_regression(seed=int(teacher_seed), d=int(d), teacher_width=3, n_train=int(context),
@@ -71,8 +72,12 @@ class MemoryMap:
         self.mask_h = np.zeros(self.n)
         self.mask_h[:self.net.hidden_parameter_count] = 1.0
         self.w0 = TanhRegressor(int(d), int(width)).initialize(seed=int(init_seed), scale=float(init_scale))
-        # optional noise: every pass over the context applies the chunks in a fresh random order
+        # optional noise: a pass applies the chunks in a fresh random order (with the given probability), and/or
+        # the memory weights receive a Gaussian kick of standard deviation noise_std after each pass
         self.shuffle = None if shuffle_seed is None else np.random.default_rng(int(shuffle_seed))
+        self.shuffle_probability = float(shuffle_probability)
+        self.noise_std = float(noise_std)
+        self.noise = np.random.default_rng(int(noise_seed) if noise_seed is not None else 0) if noise_std > 0 else None
 
     def rates(self, theta, theta_o):
         """Per-parameter rates of one update, shape (cells, n), from hidden and output rates of shape (cells,)."""
@@ -87,9 +92,13 @@ class MemoryMap:
         return (1.0 - alpha[:, None]) * w + s, s
 
     def period(self, w, s, rates, alpha, eta):
-        order = range(self.updates) if self.shuffle is None else self.shuffle.permutation(self.updates)
+        order = range(self.updates)
+        if self.shuffle is not None and self.shuffle.random() < self.shuffle_probability:
+            order = self.shuffle.permutation(self.updates)
         for u in order:
             w, s = self.update(w, s, u, rates, alpha, eta)
+        if self.noise is not None:
+            w = w + self.noise_std * self.noise.normal(size=w.shape)
         return w, s
 
     def recall_error(self, w):
@@ -425,12 +434,14 @@ def noise_phase(args):
 
     Projects the shuffled run onto the principal plane of the fixed-order orbit at the same rates, then
     measures the mean angle drift per pass, its diffusion, and the spectral peak of one plane coordinate."""
-    rates_args = dict(memory_kwargs(args))
+    base_kwargs = dict(memory_kwargs(args))
     results = {}
     plane = centre = None
-    for label, seed in (("fixed", None), ("shuffled", args.shuffle_seed if args.shuffle_seed is not None else 1)):
-        rates_args["shuffle_seed"] = seed
-        mm = MemoryMap(**rates_args)
+    configs = [("fixed", {"shuffle_seed": None})]
+    configs += [(f"shuffle_p{p_:g}", {"shuffle_seed": 1, "shuffle_probability": p_}) for p_ in args.shuffle_probabilities]
+    configs += [(f"noise_{sd:g}", {"shuffle_seed": None, "noise_std": sd, "noise_seed": 1}) for sd in args.noise_stds]
+    for label, extra in configs:
+        mm = MemoryMap(**{**base_kwargs, **extra})
         theta, theta_o = 10.0 ** args.log_theta, 10.0 ** args.log_theta_o
         rates = mm.rates(np.array([theta]), np.array([theta_o]))
         w = mm.w0[None, :].copy()
@@ -530,6 +541,8 @@ def main():
     npz.add_argument("--log-theta", type=float, required=True)
     npz.add_argument("--log-theta-o", type=float, required=True)
     npz.add_argument("--samples", type=int, default=4096)
+    npz.add_argument("--shuffle-probabilities", type=float, nargs="*", default=[1.0])
+    npz.add_argument("--noise-stds", type=float, nargs="*", default=[])
     npz.add_argument("--out", required=True)
     args = parser.parse_args()
     {"scan": scan, "floquet": floquet, "continue": continue_orbit, "criticality": criticality,
