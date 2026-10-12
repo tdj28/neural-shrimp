@@ -98,6 +98,14 @@ class LatentLoop:
                           use_cache=False, cache_position=self.cache_position, position_embeddings=self.pos_emb)
             return self.inner.norm(x)
 
+    def F_diff(self, h):
+        """Same as F but without torch.no_grad, for forward-mode Jacobian-vector products."""
+        x = h
+        for layer in self.inner.layers[: self.inner.config.num_hidden_layers]:
+            x = layer(x, attention_mask=self.mask, position_ids=self.position_ids, past_key_value=None,
+                      use_cache=False, cache_position=self.cache_position, position_embeddings=self.pos_emb)
+        return self.inner.norm(x)
+
     def readout(self, h):
         torch = self.torch
         with torch.no_grad():
@@ -379,6 +387,90 @@ def plane(args):
     fig.savefig(out / "plane.png", dpi=120)
 
 
+def orbit(args):
+    """Newton-Krylov for a period-p orbit of the relaxed loop, with Arnoldi multipliers (matrix-free JVPs)."""
+    from scipy.sparse.linalg import LinearOperator, eigs, gmres
+
+    loop = LatentLoop(args.model, args.dtype, args.device, args.threads)
+    torch = loop.torch
+    h0 = loop.setup(PROMPTS[args.prompt])
+    lam = float(args.lam)
+    shape = tuple(h0.shape)
+    n = int(np.prod(shape))
+
+    def relaxed(x):
+        return (1 - lam) * x + lam * loop.F(x)
+
+    def phi_p(x):
+        for _ in range(args.period):
+            x = (1 - lam) * x + lam * loop.F_diff(x)
+        return x
+
+    def to_t(v):
+        return torch.as_tensor(np.asarray(v, dtype=np.float64).reshape(shape), dtype=loop.dtype, device=loop.device)
+
+    def to_np(t):
+        return t.detach().double().cpu().numpy().ravel()
+
+    h = h0
+    for _ in range(args.transient):
+        h = relaxed(h)
+    history = []
+    for it in range(args.max_newton):
+        with torch.no_grad():
+            y = h
+            for _ in range(args.period):
+                y = relaxed(y)
+        r = to_np(y - h)
+        rel = float(np.linalg.norm(r) / np.linalg.norm(to_np(h)))
+        history.append(rel)
+        print(json.dumps({"newton": it, "relative_residual": rel}), flush=True)
+        if rel < args.tol:
+            break
+        base = h.detach()
+
+        def mv(v, base=base):
+            _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
+            return to_np(jv) - np.asarray(v).ravel()
+
+        A = LinearOperator((n, n), matvec=mv, dtype=np.float64)
+        delta, info = gmres(A, -r, rtol=args.gmres_tol, restart=args.restart, maxiter=args.gmres_iter)
+        step = to_t(delta)
+        frac = 1.0
+        for _ in range(8):                                   # backtracking on the residual
+            trial = h + frac * step
+            with torch.no_grad():
+                yt = trial
+                for _ in range(args.period):
+                    yt = relaxed(yt)
+            if float((yt - trial).norm() / trial.norm()) < rel:
+                break
+            frac *= 0.5
+        h = trial
+    base = h.detach()
+
+    def mono(v):
+        _, jv = torch.func.jvp(phi_p, (base,), (to_t(v),))
+        return to_np(jv)
+
+    vals = eigs(LinearOperator((n, n), matvec=mono, dtype=np.float64), k=args.k, which="LM",
+                return_eigenvectors=False, tol=1e-6, maxiter=args.arnoldi_iter)
+    vals = vals[np.argsort(-np.abs(vals))]
+    with torch.no_grad():
+        pts = [h]
+        for _ in range(args.period - 1):
+            pts.append(relaxed(pts[-1]))
+        sep = float((pts[1] - pts[0]).norm() / pts[0].norm()) if args.period > 1 else None
+        tokens = [loop.tok.decode([loop.readout(x)[0]]) for x in pts]
+    out = {"args": vars(args), "newton": history, "converged": bool(history and history[-1] < args.tol),
+           "multipliers": [[float(v.real), float(v.imag)] for v in vals],
+           "spectral_radius": float(np.abs(vals).max()), "one_step_separation": sep, "readout_tokens": tokens}
+    print(json.dumps({k: v for k, v in out.items() if k != "args"}, ensure_ascii=False))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "orbit.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -434,6 +526,23 @@ def main():
     pl.add_argument("--tol", type=float, default=1e-5)
     pl.add_argument("--eps", type=float, default=1e-5)
     pl.add_argument("--out", required=True)
+    ob = sub.add_parser("orbit")
+    ob.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    ob.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    ob.add_argument("--device", default="cpu")
+    ob.add_argument("--threads", type=int, default=8)
+    ob.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    ob.add_argument("--lam", type=float, required=True)
+    ob.add_argument("--period", type=int, default=2)
+    ob.add_argument("--transient", type=int, default=600)
+    ob.add_argument("--max-newton", type=int, default=12)
+    ob.add_argument("--tol", type=float, default=1e-6)
+    ob.add_argument("--gmres-tol", type=float, default=1e-4)
+    ob.add_argument("--restart", type=int, default=40)
+    ob.add_argument("--gmres-iter", type=int, default=3)
+    ob.add_argument("--k", type=int, default=8)
+    ob.add_argument("--arnoldi-iter", type=int, default=300)
+    ob.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -441,7 +550,8 @@ def main():
     ck.add_argument("--threads", type=int, default=8)
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
-    {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane}[args.command](args)
+    {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
+     "orbit": orbit}[args.command](args)
 
 
 if __name__ == "__main__":
