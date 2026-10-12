@@ -15,6 +15,14 @@ makes that statement concrete in network terms at chosen rates:
           around the 2-cycle, and the same quantities on a quasi-periodic
           trajectory at a comparison rate (for example just below the
           window's lower fold). Writes cycle.json and a figure.
+  rotation-geometry  Test a geometric account of the rotation: near the edge of
+          stability each step's Jacobian is close to a reflection across the
+          sharpest preconditioned-Hessian direction, so two steps compose to
+          a rotation by twice the angle alpha between the sharpest directions
+          at the two points of the 2-cycle (turns ~ alpha/pi). Compares alpha/pi,
+          the rotation of the two exact step Jacobians projected on the plane
+          of the two sharp directions, and the measured multiplier angle, on
+          2-cycles along a saved Neimark-Sacker locus and at given rates.
 """
 
 import argparse
@@ -205,6 +213,52 @@ def figure(record, states, centre, plane, out):
     fig.savefig(out / "shrimp-cycle.png", dpi=110)
 
 
+def rotation_geometry(args):
+    net, x, y, _ = make_s2(SEED)
+    f = TwoRateMap(net, x, y)
+
+    def sym(theta, p):
+        s = np.sqrt(f.rates(p))
+        return s[:, None] * f.hess(theta) * s[None, :]
+
+    def analyse(theta_a, p):
+        _, m, _, pts = f.period_map(theta_a, p, 2)
+        sa_mat, sb_mat = sym(pts[0], p), sym(pts[1], p)
+        wa, va = np.linalg.eigh(sa_mat)
+        wb, vb = np.linalg.eigh(sb_mat)
+        sa, sb = va[:, -1], vb[:, -1]
+        q, _ = np.linalg.qr(np.stack([sa, sb], axis=1))
+        eye = np.eye(len(sa))
+        prod = (q.T @ (eye - sb_mat) @ q) @ (q.T @ (eye - sa_mat) @ q)
+        ev = np.linalg.eigvals(prod)
+        c2 = ev[np.argmax(ev.imag)]
+        mult = np.linalg.eigvals(m)
+        upper = mult[mult.imag > 1e-9]
+        c = upper[np.argmin(np.abs(np.abs(upper) - 1.0))] if len(upper) else None
+        alpha = float(np.arccos(min(1.0, abs(sa @ sb))))
+        return {"eta_lambda_a": float(wa[-1]), "eta_lambda_b": float(wb[-1]),
+                "second_a": float(wa[-2]), "second_b": float(wb[-2]),
+                "alpha_degrees": float(np.degrees(alpha)), "alpha_over_pi": alpha / np.pi,
+                "two_plane_turns": float(abs(np.angle(c2)) / (2 * np.pi)) if abs(c2.imag) > 1e-12 else 0.0,
+                "two_plane_modulus": float(abs(c2)),
+                "measured_turns": None if c is None else float(abs(np.angle(c)) / (2 * np.pi)),
+                "measured_modulus": None if c is None else float(abs(c))}
+
+    rows = []
+    if args.locus:
+        data = json.loads(Path(args.locus).read_text())
+        for r in [r for r in data["rows"] if "theta" in r][:: args.every]:
+            rows.append({"lx": r["lx"], "ly": r["ly"], "source": "locus"} | analyse(np.array(r["theta"]), [r["lx"], r["ly"]]))
+    for path, lx, ly in args.cycle or []:
+        two = np.load(path)
+        rows.append({"lx": float(lx), "ly": float(ly), "source": str(path)} | analyse(two[0], [float(lx), float(ly)]))
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "rotation-geometry.json").write_text(json.dumps(rows, indent=1))
+    for r in rows:
+        print(json.dumps({k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items() if k != "source"}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -216,8 +270,13 @@ def main():
     cy.add_argument("--compare-steps", type=int, default=400)
     cy.add_argument("--compare-rows", type=int, default=18)
     cy.add_argument("--out", required=True)
+    rg = sub.add_parser("rotation-geometry")
+    rg.add_argument("--locus", default=None, help="ns2-locus.json with 2-cycle states")
+    rg.add_argument("--every", type=int, default=20)
+    rg.add_argument("--cycle", nargs=3, action="append", metavar=("TWO_CYCLE_NPY", "LX", "LY"))
+    rg.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"cycle": cycle}[args.command](args)
+    {"cycle": cycle, "rotation-geometry": rotation_geometry}[args.command](args)
 
 
 if __name__ == "__main__":

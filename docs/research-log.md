@@ -18214,3 +18214,25 @@ _commit `842cf4b9f5f0` (dirty worktree)_
 orbit-002 (commit with backtracking and pre-descent): 400,000 reduced descent steps at eta 0.00827753 took 277 s and left a relative F^2 residual of 2.3e-6; dense backtracking Newton then converged toward the fixed point (relative separation |F(theta)-theta|/|theta| = 2.2e-5, two-step spectral radius 1.000087, final residual 4.3e-5), so the run stopped. Reading: eta 0.0083 is just past the fixed point's flip, where the 2-cycle is born with tiny amplitude and F^2 Newton prefers the nearby fixed point. The 8 Oct pilot's loss-modulation envelope still decays at eta 0.0094 and is steady from 0.0107, so the 2-cycle's complex pair should cross the unit circle near eta 0.010. Next: orbit-003 from the saved eta 0.00938931 state, scanning 0.0094-0.0110.
 
 _commit `0f0f19024eab` (dirty worktree)_
+
+## 2026-10-11 23:57 UTC: run (exploratory)
+
+- **Question:** CIFAR subset A in exact reduced coordinates: starting where the 2-cycle is well separated (eta 0.00938931), does dense Newton converge to the 2-cycle, and where does its complex pair cross the unit circle (expected near eta 0.010 from the loss-envelope pilot)?
+- **Setup:** explore_cifar_reduced orbit: saved sweep state at eta 0.00938931, 400,000 reduced descent steps, backtracking dense Newton at etas 0.00938931, 0.0096, 0.0098, 0.0100, 0.0102, 0.0104, 0.0106, 0.0108, 0.0110 (continuing each solution); full spectrum at the first rate, shift-invert Arnoldi at the previous critical pair afterwards; stop on Newton failure or collapse to a fixed point; 12 threads, nice 10; subset B untouched
+- **Output:** `../neural-shrimp-data/explore/cifar-reduced/orbit-003`
+- **Would surprise us:** Collapse to the fixed point again; no complex pair near the unit circle; a real multiplier crossing first
+- **Command:** `env OPENBLAS_NUM_THREADS=12 OMP_NUM_THREADS=12 .venv/bin/python tools/explore_cifar_reduced.py orbit --threads 12 --pre-steps 400000 --state ../neural-shrimp-data/explore/cifar/sweep/state-lam0.01-eta0.00938931.npy --etas 0.00938931 0.0096 0.0098 0.0100 0.0102 0.0104 0.0106 0.0108 0.0110 --out ../neural-shrimp-data/explore/cifar-reduced/orbit-003`
+
+_commit `f73102657c4b`_
+
+## 2026-10-11 23:58 UTC: run (exploratory)
+
+- **Question:** What is the S2-28011 network doing inside the period-18 shrimp: how does the loss move along the cycle, how do the even states circle the unstable 2-cycle (turns per two steps), which layer carries the rotation, and how do preconditioned sharpness and hidden saturation vary along the cycle, compared with quasi-periodic training just below the window?
+- **Setup:** explore_shrimp_anatomy cycle at log10 rates (-0.0857, 1.853) (Codex's certified interior centre); 60000 descent steps from the shared initial parameters, Newton on F^18 and on F^2 (from the mean of the even points), critical eigenvector of the 2-cycle; comparison trajectory at (-0.0800, 1.8170), 0.003 decades below the lower fold
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/cycle-centre-001`
+- **Would surprise us:** No 2-cycle at the loop centre, or the even states not winding twice around it in nine two-steps
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py cycle --lx -0.0857 --ly 1.853 --compare -0.0800 1.8170 --out ../neural-shrimp-data/explore/shrimp-anatomy/cycle-centre-001`
+
+_commit `ae8da45fec4b` (dirty worktree)_
+
+- run started 2026-10-11 23:58 UTC finished 23:58 UTC with exit status 0
