@@ -235,9 +235,14 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   +57 at beta = 0.7). One ray of one network so far.
 - **Weight decay decides whether the route appears (12 Oct).**
   - **Same final sharpness at every weight decay.** At the window rates the
-    minimum is far beyond the edge (rate-weighted sharpness 16-37 against
-    2). From the same start, training settles back at a sharpness of about 2
-    whatever the weight decay.
+    minimum is far beyond the edge: rate-weighted sharpness 29-38 at the
+    true minima for ridge 0, 1e-5 and 1e-3, against 2
+    (`minimum-check-002`). From the same start, training settles back at a
+    sharpness of about 2 whatever the weight decay.
+  - **Without weight decay the minimum is nearly flat.** It is isolated, but
+    its smallest Hessian eigenvalue is 9e-7, against 4e-4 with ridge 1e-3.
+    So even at the minimum, one direction is almost neutral under gradient
+    descent.
   - **Different routes to it.** Without weight decay, gradient descent gets
     there by inflating the weights (norm 12 against 2.2 with ridge 1e-3) and
     saturating the tanh units (mean tanh' 0.16 against 0.59). In that
