@@ -129,11 +129,16 @@ def chain(args):
     from neural_shrimp.rigorous_generalized_chain import chain_root_proof
 
     ctx.prec = args.precision
+    from fractions import Fraction
+
+    def q(v):
+        return str(Fraction(float(v)))                # exact value of the binary64 constant
+
     inputs = {"schema": "neural-shrimp-c1-input-v1",
-              "network": {"activation": "tanh", "bias": True, "d": 2, "width": 3, "in_scale": 1.0,
-                          "out_scale": 1.0, "loss_scale": 0.5, "ridge": 1e-3},
-              "x": np.asarray(x).tolist(), "y": np.asarray(y).tolist(),
-              "lr_hidden": float(z[n]), "lr_output": float(z[n + 1])}
+              "network": {"activation": "tanh", "bias": True, "d": 2, "width": 3, "in_scale": q(1.0),
+                          "out_scale": q(1.0), "loss_scale": q(0.5), "ridge": q(net.ridge)},
+              "x": [[q(v) for v in row] for row in np.asarray(x)], "y": [q(v) for v in np.asarray(y)],
+              "lr_hidden": q(z[n]), "lr_output": q(z[n + 1])}
     model = TwoRateCuspMap(inputs)
     initial = [arb(float(v)) for v in z]
     tic = time.perf_counter()

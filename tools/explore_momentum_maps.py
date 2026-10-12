@@ -97,6 +97,25 @@ class MomentumMap:
         return jac
 
 
+def refine_minimum(mm, theta):
+    """Trust-region Newton (exact Hessian) from a descent endpoint; None unless a strict minimum is reached."""
+    from scipy.optimize import minimize
+
+    fun = lambda t: float(mm.net.loss(t[None, :], mm.x, mm.y)[0])
+    jac = lambda t: mm.net.gradient(t[None, :], mm.x, mm.y)[0]
+    hess = lambda t: mm.net.hessian(t, mm.x, mm.y)
+    res = minimize(fun, theta, jac=jac, hess=hess, method="trust-exact", options={"gtol": 1e-13, "maxiter": 500})
+    t = res.x
+    for _ in range(5):
+        g = jac(t)
+        if np.linalg.norm(g) < 1e-13:
+            break
+        t = t - np.linalg.solve(hess(t), g)
+    if np.linalg.norm(jac(t)) > 1e-10 or np.min(np.linalg.eigvalsh(hess(t))) <= 0:
+        return None
+    return t
+
+
 def newton_two_cycle(mm, state, rates, tol=1e-12, max_iter=30):
     n = mm.n
     z = state.copy()
@@ -341,13 +360,8 @@ def arc(args):
     theta = mm.theta0[None, :].copy()
     for _ in range(args.descent_steps):
         theta = theta - small * mm.net.gradient(theta, mm.x, mm.y)
-    theta = theta[0]
-    for _ in range(20):
-        g = mm.net.gradient(theta[None, :], mm.x, mm.y)[0]
-        if np.linalg.norm(g) < 1e-13:
-            break
-        theta = theta - np.linalg.solve(mm.net.hessian(theta, mm.x, mm.y), g)
-    if np.linalg.norm(mm.net.gradient(theta[None, :], mm.x, mm.y)) > 1e-10:
+    theta = refine_minimum(mm, theta[0])
+    if theta is None:
         print(json.dumps({"outcome": "no converged minimum"}))
         return
     lam_max = float(np.max(np.linalg.eigvals(p0[:, None] * mm.net.hessian(theta, mm.x, mm.y)).real))
@@ -539,7 +553,11 @@ def criticality(args):
     for w in nodes:
         _, _, mono, _ = system.residual_jacobian(w)
         radii.append(float(np.max(np.abs(np.linalg.eigvals(mono)))))
-    k = next(i for i in range(1, len(radii)) if radii[i] > 1.0 >= radii[i - 1])
+    k = next((i for i in range(1, len(radii)) if radii[i] > 1.0 >= radii[i - 1]), None)
+    if k is None:
+        print(json.dumps({"beta": args.beta, "outcome": "no unit-circle crossing within the continued range",
+                          "max_radius": max(radii), "s_range": [float(nodes[0][-1]), float(nodes[-1][-1])]}))
+        return
     lo_w, hi_s = nodes[k - 1], nodes[k][-1]
     lo_s = lo_w[-1]
     guess = lo_w
