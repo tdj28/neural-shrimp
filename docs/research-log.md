@@ -19668,3 +19668,21 @@ _commit `233d3511d500` (dirty worktree)_
 escape-lam0.03 (six rounds of kicks along the most negative eigenvector, 400000 descent steps each, full spectrum): negative eigenvalue counts 4, 2, 3, 2, 1, 1 (most negative -0.0227, -0.00097, -0.00228, -0.00232, -0.00178, -0.0059); loss 0.12578 -> 0.12553 only; final gradient 3.7e-7 on one branch with one negative direction (index-1 saddle). The regularized CIFAR MLP sits in an extended flat saddle region; rung 3 is paused (next attempt: much longer descent on the GPU, or another weight decay). Width: arc-w6-t6-init1-seeded reproduces the init-0.2 result exactly up to a permutation of units (same condensed minimum, same cycle with five identical units, same soft Neimark-Sacker crossing at s 2.1089, 0.206 turns), so the condensation belongs to the regularized minimum, not the initialization scale; arc-w12-t12-seeded (width 12, teacher 12, 96 samples): nine identical units at the minimum, ten on the cycle, first crossing a degenerate real +1 within the copied block (symmetry breaking). Consistent with the known preference of weight-decayed two-layer networks for few distinct units. Tension: weight decay is needed for the route (confinement) but condenses wide students in small teacher tasks. Testing width with distinct units needs a task requiring many features (UCI digits, CIFAR) - or the LLMs themselves, where the dynamics of interest are now being mapped directly.
 
 _commit `233d3511d500` (dirty worktree)_
+
+- run started 2026-10-12 07:09 UTC finished 07:19 UTC with exit status 0
+
+## 2026-10-12 07:19 UTC: run (exploratory)
+
+- **Question:** Edges of the verified stable 2-cycle of Ouro's relaxed loop: continued in lambda from 1.280315 in both directions, where and how does it lose stability (complex pair = Neimark-Sacker of the 2-cycle, real +1, real -1)?
+- **Setup:** explore_latent_loop continue-orbit on cuda float32, prompt story, start: ouro-basin-lam1.280315 replica 0, period 2, dlam 0.002, up to 40 steps per direction, Newton-Krylov (GMRES 40 x 3, rtol 1e-4, tol 2e-6), 4 Arnoldi multipliers per step, 0.004 beyond the first crossing
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-continue-p2-lam1.2803`
+- **Would surprise us:** Orbit lost by Newton before any crossing in both directions
+- **Command:** `../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py continue-orbit --device cuda --start-states latent-loop/ouro-basin-lam1.280315/final-states.npy --start-index 0 --lam 1.280315 --period 2 --out latent-loop/ouro-continue-p2-lam1.2803`
+
+_commit `71572d5dd271` (dirty worktree)_
+
+## 2026-10-12 07:19 UTC: The lambda ~ 0.90 window is a marginally stable fixed point of Ouro's loop with real leading multipliers; lower edge likely a basin boundary
+
+ouro-fixed-point-lam0.9 (explore_latent_loop orbit, period 1, lambda 0.9, 2000 transient loops; state not saved - the run predates the state-saving commit): Newton converged at once (relative residual 4.9e-7), so the dynamics had settled on a fixed point of F (fixed points of the relaxed map are fixed points of F for every lambda). Eight largest relaxed multipliers all real: 0.99983, 0.98995, 0.98790, 0.98285, 0.98243, 0.97696, 0.97551, 0.96605 - stable, but with one nearly neutral direction. Readout at the fixed point: ' trillion'. Since 1 - lambda(1 - mu) stays inside the unit circle for all small lambda when mu is real and below 1, these multipliers cannot produce the window's lower edge at lambda ~ 0.892: that edge is most likely a basin boundary (the fixed point stays stable but trajectories from the embeddings go elsewhere), not a bifurcation. The upper edge would be a flip set by F's most negative multiplier, invisible to a largest-magnitude Arnoldi run. Queued: F's spectrum (LM, SR, LR) at the recomputed fixed point and the predicted stability interval (job 05). Also queued: the single-token 'The' sweep lost to GPU out-of-memory (job 04).
+
+_commit `71572d5dd271` (dirty worktree)_
