@@ -498,6 +498,42 @@ def render(args):
     print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
 
 
+def windows(args):
+    """Candidate windows in a finished scan: connected regions (4-neighbour) of one period p >= 2, ranked by
+    how much of their border touches chaotic cells (periodic islands embedded in chaos)."""
+    from scipy import ndimage
+
+    src = DATA / "explore" / args.scan
+    d = np.load(src / "scan.npz")
+    lt, al, per, ly = d["log10_temperature"], d["alpha"], d["period"], d["lyapunov"]
+    chaos = ly > args.chaos_level
+    found = []
+    for q in np.unique(per):
+        if q < args.min_period:
+            continue
+        lab, n = ndimage.label(per == q)
+        for k in range(1, n + 1):
+            region = lab == k
+            area = int(region.sum())
+            if area < args.min_area:
+                continue
+            border = ndimage.binary_dilation(region) & ~region
+            touching = float(chaos[border].mean()) if border.any() else 0.0
+            rows, cols = np.nonzero(region)
+            i, j = int(np.round(rows.mean())), int(np.round(cols.mean()))
+            if not region[i, j]:                                  # centroid outside a curved region
+                i, j = int(rows[len(rows) // 2]), int(cols[len(cols) // 2])
+            found.append({"period": int(q), "cells": area, "border_cells": int(border.sum()),
+                          "border_chaotic_fraction": round(touching, 3),
+                          "inside_point": {"log10_temperature": float(lt[i]), "alpha": float(al[j])},
+                          "log10_temperature_range": [float(lt[rows.min()]), float(lt[rows.max()])],
+                          "alpha_range": [float(al[cols.min()]), float(al[cols.max()])]})
+    found.sort(key=lambda w: (-w["border_chaotic_fraction"], -w["cells"]))
+    (src / "windows.json").write_text(json.dumps(found, indent=1))
+    for w in found[: args.show]:
+        print(json.dumps(w))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -584,8 +620,14 @@ def main():
     rd.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
     rd.add_argument("--max-period", type=int, default=16)
     rd.add_argument("--chaos-level", type=float, default=0.005)
+    wi = sub.add_parser("windows")
+    wi.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
+    wi.add_argument("--chaos-level", type=float, default=0.005)
+    wi.add_argument("--min-period", type=int, default=2)
+    wi.add_argument("--min-area", type=int, default=4)
+    wi.add_argument("--show", type=int, default=15)
     args = parser.parse_args()
-    {"scan": scan, "orbit": orbit, "tline": tline, "render": render}[args.command](args)
+    {"scan": scan, "orbit": orbit, "tline": tline, "render": render, "windows": windows}[args.command](args)
 
 
 if __name__ == "__main__":
