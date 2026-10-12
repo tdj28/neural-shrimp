@@ -98,4 +98,8 @@ records an error that actually occurred.
   patch the norms (`keep_float64_norms` in `tools/explore_llm_attractors.py`)
   and confirm that central differences converge like h^2. Keep twin offsets
   for Lyapunov exponents well above the rounding level: in float32, at least
-  1e-4 relative.
+  1e-4 relative. Measure a map's float32 error against float64 before
+  setting tolerances: the soft-token map is accurate to only 3e-6 to 2e-5
+  per step, so a float32 Newton stalled near 1e-5 and a period-8 orbit was
+  read as period 16. Keep float32 detection and Newton tolerances above
+  the measured error, and verify orbits in float64.
