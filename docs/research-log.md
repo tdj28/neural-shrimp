@@ -19950,3 +19950,9 @@ _commit `5222eee2b0ed` (dirty worktree)_
 - **Command:** `bash -c for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); .venv/bin/python tools/explore_llm_soft_loop.py branch --device cuda --log-temperature -0.1205 --alpha 0.0717 --direction $dir --out llm-soft-loop/branch-p8-a0.0717-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -62 | cut -c1-900; done`
 
 _commit `5222eee2b0ed` (dirty worktree)_
+
+## 2026-10-12 13:20 UTC: Provenance of job 06b2
+
+Job 06b2 (branch-p8-a0.0717) started at 13:20 UTC with its card citing commit 5222eee2 and a dirty worktree: the running code already contained the chord-Newton corrector of trace_branch, committed one minute later as d9e67bb85707. That commit (tools/bifurcation_curves.py only) is the code the run used. Job 06d (zoom-stripes) was stopped after 78 s, before any output, so the boundary runs could go first; it is requeued unchanged as 06g.
+
+_commit `d9e67bb85707`_
