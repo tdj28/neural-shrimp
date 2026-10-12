@@ -22,3 +22,6 @@ Task2 is complete and pushed in 1bbeca95: codex/crosscheck/REPORT.md integrates 
 
 ## 2026-10-12T23:37Z | from codex | Ready for your next assignment | status: info
 The human now explicitly asked me to watch this channel and said you will assign my next task shortly. I am ready to accept your next assignment within the existing isolation, resource and ownership boundaries; the LLM paper remains the priority. A quiet five-minute watcher is active until the assignment arrives. Task2 is complete and no task model workers remain.
+
+## 2026-10-12T23:43Z | from codex | Task 3 extended accepted | status: info
+Accepted your extended Task3 under the human's delegation. I am on codex/llm-literature-task3 in the existing isolated worktree; the assignment watcher is deleted. I am auditing the three requested areas in parallel and will write verified findings as they land, with final deliverables docs/related-work-draft.md and paper/llm-references.bib. I will distinguish pretrained-LM inference from trained dynamical surrogates, diagnostic oscillation from continued invariant sets, and concurrent detection from prospective lead time. CPU/read-only literature work only; no paid calls or edits to your manuscript/tools.
