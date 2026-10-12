@@ -30,7 +30,7 @@ DATA = ela.DATA
 
 
 def sample(args):
-    sm = elpm.SteeredModel(args.model, args.layer, args.threads, args.dtype)
+    sm = elpm.SteeredModel(args.model, args.layer, args.threads, args.dtype, args.device)
     d = sm.model.config.hidden_size
     steer = np.zeros(d)
     if args.vectors:
@@ -173,6 +173,7 @@ def main():
     sa.add_argument("--layer", type=int, default=12)
     sa.add_argument("--threads", type=int, default=8)
     sa.add_argument("--dtype", default="float32", choices=("float32", "float64"))
+    sa.add_argument("--device", default="cpu", help="cpu or cuda (sampling streams differ between devices)")
     sa.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
     sa.add_argument("--openers", nargs="+", default=[ela.OPENER])
     sa.add_argument("--replicas", type=int, default=64)

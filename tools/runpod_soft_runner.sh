@@ -52,14 +52,14 @@ AutoTokenizer.from_pretrained(ela.MODELS['qwen0.5b'], cache_dir=ela.CACHE); prin
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv | tee "$LOGS/hardware.txt"
 log "setup done"
 
-run() {   # run NAME MINUTES ARGS...: one explore_llm_soft_loop call under a wall-time limit, echoing its
-          # progress file once a minute so that the streamed log shows the time per point
+run() {   # run NAME MINUTES ARGS...: one explore_llm_soft_loop call (or tools/$TOOL) under a wall-time limit,
+          # echoing its progress file once a minute so that the streamed log shows the time per point
   local name=$1 minutes=$2
   shift 2
   local outdir
   outdir=$(echo "$@" | sed -n 's/.*--out \([^ ]*\).*/\1/p')
   log "start $name"
-  timeout "${minutes}m" $PY tools/explore_llm_soft_loop.py "$@" > "$LOGS/$name.log" 2>&1 &
+  timeout "${minutes}m" $PY tools/${TOOL:-explore_llm_soft_loop.py} "$@" > "$LOGS/$name.log" 2>&1 &
   local pid=$!
   while kill -0 $pid 2>/dev/null; do
     sleep 60
@@ -132,6 +132,16 @@ case "$JOBSET" in
     run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
     run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
     ;;
+  p1ladder)    # misalignment proxy P1, phase 2 (docs/misalignment-dynamics-plan.md): sampled self-dialogue arms on
+               # the GPU, 128 replicas x 40 turns at T 0.7 (vectors uploaded with --extra-data); each JOBARGS entry
+               # is NAME:CONCEPT:ALPHA:SEED
+    for arm in "${JOBARGS[@]}"; do
+      IFS=: read -r name concept alpha seed <<< "$arm"
+      TOOL=explore_llm_msm.py run p1-$name 30 sample --device cuda --threads 8 --replicas 128 --turns 40 \
+        --temperature 0.7 --seed $seed --vectors llm-phase-map/vectors-l12-p1b --concepts $concept --alphas $alpha \
+        --out $D/msm/p1-$name
+    done
+    ;;
   p6z3curves)  # boundary curves of the period-6 shrimp candidate of zoom Z3 ('. -\n\nThe is a') from the p6z3a
                # branches (uploaded with --extra-data): A = upper temperature fold, B = lower temperature fold,
                # C = alpha fold (right side), D = the close fold pair of the alpha-down branch (cusp candidate), E = the
@@ -139,7 +149,7 @@ case "$JOBSET" in
     P=llm-soft-loop/pod64/p6z3
     C6="$CURVE --steps 60"
     BOUNDS="--log-temperature-bounds -0.12 0.0 --alpha-bounds 0.068 0.09"
-    for set_ in ${JOBARGS[0]}; do
+    for set_ in "${JOBARGS[@]}"; do         # the orchestrator passes the sets as separate words
       for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
         case $set_ in
           A) run p6z3-foldA-$n 50 $C6 --start $P/branch-T-up --kind fold --direction $dir $BOUNDS \

@@ -77,10 +77,11 @@ NEUTRAL = [
 class SteeredModel:
     """Model with an additive per-sequence steering vector on the output of one decoder layer."""
 
-    def __init__(self, model, layer, threads, dtype="float32"):
+    def __init__(self, model, layer, threads, dtype="float32", device="cpu"):
         self.engine = ela.Engine(model, threads, dtype)
         self.torch = self.engine.torch
-        self.tok, self.model = self.engine.tok, self.engine.model
+        self.device = self.torch.device(device)
+        self.tok, self.model = self.engine.tok, self.engine.model.to(self.device)
         self.tok.padding_side = "left"
         if self.tok.pad_token is None:
             self.tok.pad_token = self.tok.eos_token
@@ -92,15 +93,16 @@ class SteeredModel:
         if self.steer is None:
             return output
         if isinstance(output, tuple):
-            return (output[0] + self.steer.to(output[0].dtype),) + tuple(output[1:])
-        return output + self.steer.to(output.dtype)
+            return (output[0] + self.steer.to(output[0]),) + tuple(output[1:])      # dtype and device of the output
+        return output + self.steer.to(output)
 
     def layer_states(self, texts):
         """Mean and last-token layer outputs (unsteered) for raw texts."""
         torch = self.torch
-        enc = self.tok(texts, return_tensors="pt", padding=True)
+        enc = self.tok(texts, return_tensors="pt", padding=True).to(self.device)
         with torch.no_grad():
-            hs = self.model(**enc, output_hidden_states=True).hidden_states[self.layer + 1]
+            hs = self.model(**enc, output_hidden_states=True).hidden_states[self.layer + 1].cpu()
+        enc = enc.to("cpu")
         mask = enc["attention_mask"].unsqueeze(-1).double()
         mean = (hs.double() * mask).sum(1) / mask.sum(1)
         last = hs[:, -1, :].double()                       # left padding: last position is the last token
@@ -123,7 +125,7 @@ class SteeredModel:
                 return scores
 
         prompts = [self.tok.apply_chat_template(m, add_generation_prompt=True, tokenize=False) for m in batch_messages]
-        enc = self.tok(prompts, return_tensors="pt", padding=True, add_special_tokens=False)
+        enc = self.tok(prompts, return_tensors="pt", padding=True, add_special_tokens=False).to(self.device)
         recorder = EntropyRecorder()
         self.steer = torch.as_tensor(np.asarray(steer_rows))[:, None, :]
         sampling = {"do_sample": False, "temperature": None} if temperature <= 0 else \
@@ -138,8 +140,8 @@ class SteeredModel:
                                           pad_token_id=self.tok.pad_token_id, **sampling)
         finally:
             self.steer = None
-        new = out.sequences[:, enc["input_ids"].shape[1]:]
-        ent = torch.stack(recorder.steps, dim=1)           # (batch, steps)
+        new = out.sequences[:, enc["input_ids"].shape[1]:].cpu()
+        ent = torch.stack(recorder.steps, dim=1).cpu()     # (batch, steps)
         texts, entropies, lengths, id_lists = [], [], [], []
         eos = {self.tok.eos_token_id, self.tok.pad_token_id, self.tok.convert_tokens_to_ids("<|im_end|>")}
         for b in range(new.shape[0]):
@@ -154,7 +156,7 @@ class SteeredModel:
     def turn_activations(self, texts, steer_rows):
         """Mean layer output over each turn's tokens with that cell's steering applied."""
         torch = self.torch
-        enc = self.tok([t if t else " " for t in texts], return_tensors="pt", padding=True)
+        enc = self.tok([t if t else " " for t in texts], return_tensors="pt", padding=True).to(self.device)
         self.steer = torch.as_tensor(np.asarray(steer_rows))[:, None, :]
         try:
             with torch.no_grad():
@@ -162,7 +164,7 @@ class SteeredModel:
         finally:
             self.steer = None
         mask = enc["attention_mask"].unsqueeze(-1).double()
-        return ((hs * mask).sum(1) / mask.sum(1)).numpy()
+        return ((hs * mask).sum(1) / mask.sum(1)).cpu().numpy()
 
 
 def build_vectors(sm, contrasts=()):
