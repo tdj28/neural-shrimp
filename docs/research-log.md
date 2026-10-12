@@ -19986,3 +19986,21 @@ _commit `31ab5230e37d` (dirty worktree)_
 Mixed-precision branch (float32 dense AD monodromy, float64 residuals, chord Newton; all multipliers per point) of the verified period-8 orbit from log10 T -0.1205 at alpha 0.0717, 60 points each way (27 min each), residuals 1e-11 to 1e-10 throughout. Up: the leading multiplier stays real and positive, dips to 6e-5 near log10 T -0.108, then rises to 0.42 at -0.10343 while d(log10 T)/ds falls from 0.56 to 0.013: the branch is turning at a fold; a square-root fit of the last points puts it at -0.10327 (rerun through the turn queued as 06b4). Down: the leading multiplier changes sign near -0.121 (+0.0041 at -0.1205, -0.016 at -0.1219: a superstable point), then decreases through -1 between -0.12886 and -0.12911, a real -1 crossing (flip) with the next multiplier at modulus 3.2e-6 (isolated); beyond it the orbit continues unstable to multiplier -100 at -0.155. So this cut through the stripe has the profile of a periodic window: saddle-node at high temperature, superstable interior, period doubling at low temperature. The stable range, -0.1290 to about -0.1033, is wider than the scan's (-0.126 to -0.109); the scan's period-16 cells on the stripe's low-temperature edge fit the doubled orbit past the flip. Next: fold and flip curves in the plane (06c2).
 
 _commit `31ab5230e37d` (dirty worktree)_
+
+- run started 2026-10-12 14:16 UTC (../neural-shrimp-data/explore/llm-soft-loop/orbit64-zr-{p12a,p12b,p2}) finished 14:26 UTC with exit status 0
+
+## 2026-10-12 14:26 UTC: run (exploratory)
+
+- **Question:** Job 06b2's upward branch of the period-8 orbit (alpha 0.0717) stopped after 60 points at log10 T -0.10343 with the leading multiplier real, 0.42 and rising and d(log10 T)/ds falling to 0.013: a fold just ahead (square-root extrapolation: -0.10327). Pass the turn and type the crossing.
+- **Setup:** explore_llm_soft_loop branch on cuda (float32 derivatives, float64 residuals, chord Newton, step growth while at most half of 10 iterations are needed), start at log10 T -0.1040 (inside the window), alpha 0.0717, direction up, ds 0.0005 (max 0.003), up to 50 points, stop 0.003 past the first turn
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/branch-p8-a0.0717-up2`
+- **Would surprise us:** No turn up to log10 T -0.100, or a crossing other than a real +1 at the turn
+- **Command:** `bash -c OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py branch --device cuda --log-temperature -0.1040 --alpha 0.0717 --direction 1 --ds 0.0005 --ds-max 0.003 --steps 50 --beyond 0.003 --out llm-soft-loop/branch-p8-a0.0717-up2 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -52 | cut -c1-900`
+
+_commit `e2c3f6c2c712` (dirty worktree)_
+
+## 2026-10-12 14:26 UTC: Period adding continues: P12 orbits verified, the P2 region is the 'is it' 2-cycle (job 06b3)
+
+float64 Newton on the GPU (norms patched, dense AD), 600 transient steps, period detected at 1e-9. P12 at (log10 T -0.10895, alpha 0.064105): residual 2.9e-15, leading multiplier +0.072, smallest earlier return 0.19 (primitive), readout '. This is it is it is it is a is a'. P12 at (-0.12632, 0.067263): residual 4.8e-15, leading +0.024, smallest earlier return 0.16, readout '. This is there is it is it is a is a'. P2 at (-0.17263, 0.061579): residual 5.6e-15, multipliers -0.271, -0.058, 0.008, readout ' it' / ' is'. So the stripe orbits are '. This' followed by k = 2, 3, 4, 5 'is X' pairs for periods 6, 8, 10, 12 (period 2k + 2), and the neighbouring period-2 region is the 2-cycle 'is it' that the pairs approach: each stripe orbit loops k times near that 2-cycle, escapes through '. This' and is reinjected. With the boundary of the period-2 region near alpha 0.0625 at log10 T -0.115 (scan resolution 6e-4), the stripe centres give alpha_k - alpha_c = 0.0151, 0.0092, 0.0051, 0.0029 for k = 2..5: successive ratios 0.61, 0.55, 0.57 (geometric) or k^2 (alpha_k - alpha_c) = 0.060, 0.083, 0.082, 0.073 (1/k^2): the scan cannot tell these apart; stripe positions from traced curves and more members can. The P2 orbit's negative leading multiplier suggests that its boundary on this side is a flip.
+
+_commit `e2c3f6c2c712` (dirty worktree)_
