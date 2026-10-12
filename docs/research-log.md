@@ -18254,3 +18254,33 @@ _commit `f5db0dc891ff`_
 cycle-centre-001 (window centre, log10 rates -0.0857, 1.853): attracting period-18 cycle (spectral radius 0.879); its nine even states wind exactly 2.0 turns around an unstable 2-cycle (two-step multiplier -0.103 +- 1.162i, modulus 1.167, 0.264 turns). The bounce (2-cycle separation 0.815) and the rotation plane are 99% hidden-layer parameters (hidden rate about 71 versus output 0.82); hidden unit 1 is idle (never saturates, output weight -0.03); units 2 and 3 have opposite output weights (-0.16, +0.15) and their biases see-saw (bounce components +0.41, -0.57), moving them in and out of saturation (unit 2 21-62%, unit 3 12-46% of samples), peaking with the loss. Loss along the cycle 0.0039-0.0232 with two peaks per 18 steps (one per turn of the rotation); a quasi-periodic trajectory 0.003 decades below the lower fold shows nearly the same loss pattern without exact repetition. Preconditioned sharpness along the cycle 1.43-3.75, straddling 2. rotation-geometry-001: the angle alpha between the sharpest preconditioned-Hessian directions at the two 2-cycle points is 41-42 degrees on the Neimark-Sacker locus and 50 degrees at the window centre; alpha/pi = 0.232-0.234 versus measured 0.212-0.223 on the locus, 0.279 versus 0.264 at the centre; projecting the two exact step Jacobians on the plane of the two sharp directions gives 0.228-0.231 (centre 0.275) but modulus 0.91-0.92 instead of 1. The second preconditioned eigenvalue is about 1 (step factor near 0), so a two-reflection picture is wrong in detail: misalignment of the sharp directions across the bounce is a good proxy for the rotation, but the instability involves more of the spectrum.
 
 _commit `f5db0dc891ff` (dirty worktree)_
+
+## 2026-10-12 00:03 UTC: run (exploratory)
+
+- **Question:** Just below the period-18 window's lower fold, is training nearly 18-periodic with phase slips whose mean laminar length scales like eps^(-1/2) (saddle-node on the invariant circle), and what does that look like in the loss?
+- **Setup:** explore_shrimp_anatomy slips: rates of the U-bottom fold node (attempt-006-ray32-fold +1-010) with the hidden rate lowered by eps = 1e-3, 3e-4, 1e-4, 3e-5, 1e-5 decades; start at the fold orbit, 50000 transient steps, 600000 recorded steps; laminar = |theta_{t+18} - theta_t| < 0.05; mean laminar length versus eps (log-log slope)
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/slips-001`
+- **Would surprise us:** No laminar/slip alternation, or a scaling exponent far from -0.5
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py slips --out ../neural-shrimp-data/explore/shrimp-anatomy/slips-001`
+
+_commit `2b407ce8ba31`_
+
+- run started 2026-10-12 00:03 UTC finished 00:07 UTC with exit status 0
+
+## 2026-10-12 00:07 UTC: run (exploratory)
+
+- **Question:** Refined phase-slip statistics below the period-18 window's lower fold: steps per slip versus distance eps, counting only laminar stretches of at least 36 steps
+- **Setup:** as slips-001 with --min-run 36; also eps = 3e-6
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/slips-002`
+- **Would surprise us:** Exponent far from -0.5
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py slips --eps 1e-3 3e-4 1e-4 3e-5 1e-5 3e-6 --steps 800000 --out ../neural-shrimp-data/explore/shrimp-anatomy/slips-002`
+
+_commit `a08068855b43` (dirty worktree)_
+
+- run started 2026-10-12 00:07 UTC finished 00:13 UTC with exit status 0
+
+## 2026-10-12 00:13 UTC: Shrimp edge signature confirmed: type-I intermittency below the window's lower fold (slip interval ~ eps^-0.5)
+
+slips-001/002 (explore_shrimp_anatomy slips): at rates below the U-bottom fold by eps decades of hidden rate, training is nearly 18-periodic (|theta_{t+18}-theta_t| < 0.05 for 96-99.8% of steps) with phase slips. Steps per slip (laminar phases of at least 36 steps): 668, 1363, 2492, 4678, 8247, 15686 for eps = 1e-3, 3e-4, 1e-4, 3e-5, 1e-5, 3e-6; log-log slope -0.539 over all points, -0.525 over the three smallest, approaching the saddle-node value -0.5. The mean training loss is unchanged (0.0085). So near a shrimp's fold edge, training looks periodic for thousands of steps and slips at a rate proportional to the square root of the distance to the edge.
+
+_commit `a08068855b43` (dirty worktree)_

@@ -111,8 +111,14 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
 - **The fractal-looking trainability boundary is structured,** not random. It
   is a mosaic of resonance windows and chaos.
 - **Edges should leave signatures in the loss, by type:**
-  - A fold edge should give intermittency: long nearly periodic stretches
-    broken by bursts.
+  - A fold edge gives intermittency. This is confirmed at the period-18
+    window's lower fold (`explore/shrimp-anatomy/slips-002`). Just outside
+    it, training repeats with period 18 for thousands of steps and then slips
+    by one step of the pattern. The time between slips grows like the inverse
+    square root of the distance to the edge (fitted exponent -0.54, and -0.52
+    close to the edge; theory -0.5). Examples: about 670 steps at 1e-3
+    decades, and 15,700 steps at 3e-6 decades. The mean loss does not change,
+    so only the time structure reveals the nearby window.
   - A period-doubling edge doubles the period.
   - A Neimark-Sacker edge adds a slower modulation.
 - **Optimizer memory.** Heavy-ball momentum keeps the route in our pilot, but
@@ -128,7 +134,8 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
    the way.
 2. **A fully annotated shrimp map.** For every boundary curve, say what
    changes in training when you cross it, and test the predicted loss
-   signatures (intermittency at the fold).
+   signatures. The fold edge is done (intermittency confirmed); the flip and
+   Neimark-Sacker edges are next.
 3. **Generality.**
    - Do other windows (1/5, period 10; others) show the same organization,
      including hidden tongues?
