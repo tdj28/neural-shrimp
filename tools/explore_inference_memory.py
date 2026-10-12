@@ -14,9 +14,19 @@ maps, so the same full-state diagnostics apply. With eta = 0 and
 alpha = theta * lambda, one memory step is one ridge-regularized gradient step
 on the current token's loss.
 
+Variants (beyond the plain Titans rule): per-layer inner rates (theta for the
+hidden layer, theta_o for the output layer), coupled weight decay (a ridge
+term in the token loss) and chunked updates (each memory update uses the mean
+gradient over C consecutive tokens, as in chunked test-time training). With
+C = T, coupled decay lambda, eta = 0 and alpha = 0, the period map is exactly
+one full-batch gradient step of the two-rate training map with ridge lambda.
+With --scale-by-chunk, each update's rates are multiplied by C/T so that one
+pass over the context always applies the same total step.
+
 Subcommands
-  scan     Grid in (log10 theta, log10 alpha) at fixed eta: iterate the period
-           map from a fixed initial memory and classify the attractor (diverged,
+  scan     Grid at fixed eta in either (log10 theta, log10 alpha) or the rate
+           plane (log10 theta_o, log10 theta): iterate the period map from a
+           fixed initial memory and classify the attractor (diverged,
            T-periodic memory, period k of the period map, or moving with a
            rotation number in its principal plane).
   floquet  At one (theta, alpha, eta): find a period-p orbit of the period map
@@ -45,24 +55,38 @@ DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-da
 class MemoryMap:
     """Period map of a tanh memory MLP updated by the Titans rule over a repeating context."""
 
-    def __init__(self, context=8, width=3, d=2, teacher_seed=28011, init_seed=128011, init_scale=0.2):
-        self.net = TwoLayerNet(d=int(d), width=int(width), activation="tanh", bias=True, loss_scale=0.5, ridge=0.0)
+    def __init__(self, context=8, width=3, d=2, teacher_seed=28011, init_seed=128011, init_scale=0.2,
+                 chunk=1, coupled_decay=0.0, scale_by_chunk=False):
+        self.net = TwoLayerNet(d=int(d), width=int(width), activation="tanh", bias=True, loss_scale=0.5,
+                               ridge=float(coupled_decay))
         data = make_teacher_regression(seed=int(teacher_seed), d=int(d), teacher_width=3, n_train=int(context),
                                        n_validation=1, n_test=1)
         self.keys, self.values = data.train_x, data.train_y
-        self.T = int(context)
+        self.T, self.C = int(context), int(chunk)
+        if self.C < 1 or self.T % self.C:
+            raise ValueError("the chunk size must divide the context length")
+        self.updates = self.T // self.C
+        self.rate_scale = self.C / self.T if scale_by_chunk else 1.0
         self.n = self.net.n_parameters
+        self.mask_h = np.zeros(self.n)
+        self.mask_h[:self.net.hidden_parameter_count] = 1.0
         self.w0 = TanhRegressor(int(d), int(width)).initialize(seed=int(init_seed), scale=float(init_scale))
 
-    def token(self, w, s, t, theta, alpha, eta):
-        """One memory update on token t, batched over cells (theta, alpha: shape (cells,))."""
-        g = self.net.gradient(w, self.keys[t:t + 1], self.values[t:t + 1])
-        s = eta * s - theta[:, None] * g
+    def rates(self, theta, theta_o):
+        """Per-parameter rates of one update, shape (cells, n), from hidden and output rates of shape (cells,)."""
+        return self.rate_scale * (np.asarray(theta)[:, None] * self.mask_h
+                                  + np.asarray(theta_o)[:, None] * (1.0 - self.mask_h))
+
+    def update(self, w, s, u, rates, alpha, eta):
+        """Memory update number u of a period (tokens u*C .. u*C+C-1), batched over cells."""
+        part = slice(u * self.C, (u + 1) * self.C)
+        g = self.net.gradient(w, self.keys[part], self.values[part])
+        s = eta * s - rates * g
         return (1.0 - alpha[:, None]) * w + s, s
 
-    def period(self, w, s, theta, alpha, eta):
-        for t in range(self.T):
-            w, s = self.token(w, s, t, theta, alpha, eta)
+    def period(self, w, s, rates, alpha, eta):
+        for u in range(self.updates):
+            w, s = self.update(w, s, u, rates, alpha, eta)
         return w, s
 
     def recall_error(self, w):
@@ -70,21 +94,22 @@ class MemoryMap:
         pred = self.net.predict(w, self.keys)                 # shape (keys, cells)
         return 0.5 * np.mean((pred - self.values[:, None]) ** 2, axis=0)
 
-    def period_jacobian(self, z, theta, alpha, eta):
-        """Period map value and Jacobian for one state z = (W, S) (scalars theta, alpha, eta)."""
+    def period_jacobian(self, z, rates, alpha, eta):
+        """Period map value and Jacobian for one state z = (W, S); rates of shape (n,), scalar alpha and eta."""
         n = self.n
         w, s = z[:n].copy(), z[n:].copy()
         jac = np.eye(2 * n)
         eye = np.eye(n)
-        for t in range(self.T):
-            h = self.net.hessian(w, self.keys[t:t + 1], self.values[t:t + 1])
+        for u in range(self.updates):
+            part = slice(u * self.C, (u + 1) * self.C)
+            rh = rates[:, None] * self.net.hessian(w, self.keys[part], self.values[part])
             step = np.zeros((2 * n, 2 * n))
-            step[:n, :n] = (1.0 - alpha) * eye - theta * h
+            step[:n, :n] = (1.0 - alpha) * eye - rh
             step[:n, n:] = eta * eye
-            step[n:, :n] = -theta * h
+            step[n:, :n] = -rh
             step[n:, n:] = eta * eye
             jac = step @ jac
-            w1, s1 = self.token(w[None, :], s[None, :], t, np.array([theta]), np.array([alpha]), eta)
+            w1, s1 = self.update(w[None, :], s[None, :], u, rates[None, :], np.array([alpha]), eta)
             w, s = w1[0], s1[0]
         return np.concatenate([w, s]), jac
 
@@ -102,19 +127,20 @@ def principal_rotation(samples):
 
 
 def classify_block(task):
-    (context, width, d, teacher_seed, init_seed, init_scale, thetas, alphas, eta, transient, samples,
-     max_period, tol) = task
-    mm = MemoryMap(context, width, d, teacher_seed, init_seed, init_scale)
+    mm = MemoryMap(**task["memory"])
+    thetas, theta_os, alphas, eta = task["theta"], task["theta_o"], task["alpha"], task["eta"]
+    transient, samples, max_period, tol = task["transient"], task["samples"], task["max_period"], task["tol"]
     cells = len(thetas)
+    rates = mm.rates(thetas, theta_os)
     w = np.repeat(mm.w0[None, :], cells, axis=0)
     s = np.zeros_like(w)
     with np.errstate(over="ignore", invalid="ignore"):
         for _ in range(transient):
-            w, s = mm.period(w, s, thetas, alphas, eta)
+            w, s = mm.period(w, s, rates, alphas, eta)
         orbit = np.empty((samples, cells, 2 * mm.n))
         for j in range(samples):
             orbit[j] = np.concatenate([w, s], axis=1)
-            w, s = mm.period(w, s, thetas, alphas, eta)
+            w, s = mm.period(w, s, rates, alphas, eta)
     finite = np.all(np.isfinite(orbit), axis=(0, 2)) & (np.max(np.abs(np.nan_to_num(orbit, nan=1e9)), axis=(0, 2)) < 1e6)
     last = np.nan_to_num(orbit[-1])
     scale = np.maximum(1.0, np.linalg.norm(last, axis=1))
@@ -137,19 +163,27 @@ def scan(args):
 
     rows, cols = args.resolution
     log_theta = np.linspace(*args.theta, rows)
-    log_alpha = np.linspace(*args.alpha, cols)
+    log_x = np.linspace(*(args.theta_o if args.plane == "rates" else args.alpha), cols)
     r, c = np.divmod(np.arange(rows * cols), cols)
-    chunks = np.array_split(np.arange(rows * cols), args.workers * 4)
-    tasks = [(args.context, args.width, args.d, args.teacher_seed, args.init_seed, args.init_scale,
-              10.0 ** log_theta[r[i]], 10.0 ** log_alpha[c[i]], args.eta, args.transient, args.samples,
-              args.max_period, args.tol) for i in chunks]
+    blocks = np.array_split(np.arange(rows * cols), args.workers * 4)
+    memory = memory_kwargs(args)
+    tasks = []
+    for i in blocks:
+        theta = 10.0 ** log_theta[r[i]]
+        if args.plane == "rates":
+            theta_o, alpha = 10.0 ** log_x[c[i]], np.full(len(i), args.fixed_alpha)
+        else:
+            theta_o, alpha = theta * args.ratio, 10.0 ** log_x[c[i]]
+        tasks.append({"memory": memory, "theta": theta, "theta_o": theta_o, "alpha": alpha, "eta": args.eta,
+                      "transient": args.transient, "samples": args.samples, "max_period": args.max_period,
+                      "tol": args.tol})
     start = time.perf_counter()
     with ProcessPoolExecutor(args.workers) as pool:
         parts = list(pool.map(classify_block, tasks))
     fields = {k: np.concatenate([p[k] for p in parts]).reshape(rows, cols) for k in parts[0]}
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(out / "scan.npz", log10_theta=log_theta, log10_alpha=log_alpha, **fields)
+    np.savez_compressed(out / "scan.npz", log10_theta=log_theta, log10_x=log_x, plane=args.plane, **fields)
     finite, period = fields["finite"], fields["period"]
     summary = {"cells": int(finite.size), "diverged": int((~finite).sum()),
                "T_periodic_memory": int((period == 1).sum()),
@@ -158,7 +192,13 @@ def scan(args):
                "moving": int((finite & (period == 0)).sum()), "seconds": round(time.perf_counter() - start, 1)}
     (out / "metadata.json").write_text(json.dumps({"args": vars(args), "summary": summary}, indent=1))
     print(json.dumps(summary))
-    figure(fields, log_theta, log_alpha, out / "scan.png", args)
+    figure(fields, log_theta, log_x, out / "scan.png", args)
+
+
+def memory_kwargs(args):
+    return {"context": args.context, "width": args.width, "d": args.d, "teacher_seed": args.teacher_seed,
+            "init_seed": args.init_seed, "init_scale": args.init_scale, "chunk": args.chunk,
+            "coupled_decay": args.coupled_decay, "scale_by_chunk": args.scale_by_chunk}
 
 
 def figure(fields, log_theta, log_alpha, path, args):
@@ -178,27 +218,32 @@ def figure(fields, log_theta, log_alpha, path, args):
     axes[1].set_title("rotation per two periods (moving cells)")
     fig.colorbar(im1, ax=axes[1], label="turns")
     for ax in axes:
-        ax.set_xlabel("log10 forgetting alpha")
-        ax.set_ylabel("log10 inner learning rate theta")
-    fig.suptitle(f"memory width {args.width}, context {args.context}, momentum {args.eta}")
+        ax.set_xlabel("log10 output-layer rate theta_o" if args.plane == "rates" else "log10 forgetting alpha")
+        ax.set_ylabel("log10 inner (hidden-layer) learning rate theta")
+    fig.suptitle(f"memory width {args.width}, context {args.context}, chunk {args.chunk}, momentum {args.eta}, "
+                 f"coupled decay {args.coupled_decay}" + (", rates scaled by chunk" if args.scale_by_chunk else ""))
     fig.tight_layout()
     fig.savefig(path, dpi=110)
 
 
 def floquet(args):
-    mm = MemoryMap(args.context, args.width, args.d, args.teacher_seed, args.init_seed, args.init_scale)
+    mm = MemoryMap(**memory_kwargs(args))
     n, p = mm.n, args.period
-    theta, alpha, eta = 10.0 ** args.log_theta, 10.0 ** args.log_alpha, args.eta
+    theta = 10.0 ** args.log_theta
+    theta_o = 10.0 ** args.log_theta_o if args.log_theta_o is not None else theta * args.ratio
+    alpha = 0.0 if args.log_alpha is None else 10.0 ** args.log_alpha
+    eta = args.eta
+    rates = mm.rates(np.array([theta]), np.array([theta_o]))
     w = mm.w0[None, :].copy()
     s = np.zeros_like(w)
     for _ in range(args.transient):
-        w, s = mm.period(w, s, np.array([theta]), np.array([alpha]), eta)
+        w, s = mm.period(w, s, rates, np.array([alpha]), eta)
     z = np.concatenate([w[0], s[0]])
 
     def residual(z):
         y, jac = z, np.eye(2 * n)
         for _ in range(p):
-            y, j1 = mm.period_jacobian(y, theta, alpha, eta)
+            y, j1 = mm.period_jacobian(y, rates[0], alpha, eta)
             jac = j1 @ jac
         return y - z, jac
 
@@ -215,9 +260,10 @@ def floquet(args):
     order = np.argsort(-np.abs(mult))
     sep = None
     if p > 1:
-        y, _ = mm.period_jacobian(z, theta, alpha, eta)
+        y, _ = mm.period_jacobian(z, rates[0], alpha, eta)
         sep = float(np.linalg.norm(y - z))
-    out = {"log10_theta": args.log_theta, "log10_alpha": args.log_alpha, "eta": eta, "period": p,
+    out = {"log10_theta": args.log_theta, "theta_o": theta_o, "log10_alpha": args.log_alpha, "eta": eta,
+           "period": p, "chunk": args.chunk, "coupled_decay": args.coupled_decay,
            "newton": history, "separation_after_one_period": sep,
            "multipliers_top6": [[float(mult[i].real), float(mult[i].imag)] for i in order[:6]],
            "spectral_radius": float(np.abs(mult[order[0]])),
@@ -242,9 +288,16 @@ def main():
         sp.add_argument("--init-scale", type=float, default=0.2)
         sp.add_argument("--eta", type=float, default=0.0, help="momentum of the memory update")
         sp.add_argument("--transient", type=int, default=2000, help="periods of the context before measuring")
+        sp.add_argument("--chunk", type=int, default=1, help="tokens per memory update (mean gradient)")
+        sp.add_argument("--coupled-decay", type=float, default=0.0, help="ridge term in the token loss")
+        sp.add_argument("--scale-by-chunk", action="store_true", help="multiply each update's rates by chunk/context")
+        sp.add_argument("--ratio", type=float, default=1.0, help="theta_o / theta when theta_o is not given")
     sc = sub.choices["scan"]
     sc.add_argument("--theta", type=float, nargs=2, default=[-2.0, 1.0], help="log10 inner learning rate range")
     sc.add_argument("--alpha", type=float, nargs=2, default=[-5.0, -0.5], help="log10 forgetting range")
+    sc.add_argument("--plane", choices=("theta-alpha", "rates"), default="theta-alpha")
+    sc.add_argument("--theta-o", type=float, nargs=2, default=[-0.2, 0.0], help="log10 output-rate range (rates plane)")
+    sc.add_argument("--fixed-alpha", type=float, default=0.0, help="forgetting in the rates plane")
     sc.add_argument("--resolution", type=int, nargs=2, default=[120, 120])
     sc.add_argument("--samples", type=int, default=1024)
     sc.add_argument("--max-period", type=int, default=64)
@@ -253,7 +306,8 @@ def main():
     sc.add_argument("--out", required=True)
     fq = sub.choices["floquet"]
     fq.add_argument("--log-theta", type=float, required=True)
-    fq.add_argument("--log-alpha", type=float, required=True)
+    fq.add_argument("--log-alpha", type=float, default=None, help="omit for no forgetting")
+    fq.add_argument("--log-theta-o", type=float, default=None)
     fq.add_argument("--period", type=int, default=1)
     fq.add_argument("--max-newton", type=int, default=30)
     fq.add_argument("--out", default=None)
