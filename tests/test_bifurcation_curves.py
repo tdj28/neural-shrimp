@@ -68,3 +68,39 @@ def test_fold_curve_passes_through_a_cusp_and_flags_it():
     assert len(cusps) == 1, reason
     assert max(abs(v) for v in cusps[0]["theta"]) < 0.05
     assert states[-1][0] < 0                                # continued through the cusp onto the other side
+
+
+def test_branch_turns_at_the_logistic_period3_saddle_node():
+    """Continuing the stable logistic 3-cycle toward smaller r, the branch turns at r = 1 + sqrt(8) and the
+    crossing there is typed as a real +1."""
+    def logistic3(x, theta):
+        r = theta[0]
+        for _ in range(3):
+            x = r * x * (1 - x)
+        return x
+
+    r0 = 3.835
+    x = 0.5
+    for _ in range(3000):
+        x = r0 * x * (1 - x)
+    records, reason, _ = bc.trace_branch(family(logistic3, 1), np.array([x]), [r0, 0.0], free=0, direction=-1,
+                                         steps=200, ds=0.002, ds_max=0.01, tol=1e-12, beyond=0.003)
+    turns = [r for r in records if "turn_lambda_estimate" in r]
+    assert turns, reason
+    assert abs(turns[0]["turn_lambda_estimate"] - (1 + np.sqrt(8))) < 1e-4
+    crossings = bc.classify_crossings(records)
+    assert [c["type"] for c in crossings] == ["real +1 (fold)"]
+    re_, im_ = crossings[0]["crossing_multiplier"][:2]
+    assert im_ == 0 and 1 < re_ < 1.5                       # just past the turn, on the saddle branch
+
+
+def test_branch_types_the_henon_flip():
+    """Along a at b = 0.3 the Henon fixed point loses stability at a = 0.3675 with a multiplier -1."""
+    x0 = henon_fixed_point(0.2, 0.3)
+    records, reason, _ = bc.trace_branch(family(henon, 2), x0, [0.2, 0.3], free=0, direction=1, steps=40,
+                                         ds=0.02, ds_max=0.05, tol=1e-12, bounds=(0.0, 0.6))
+    crossings = bc.classify_crossings(records)
+    assert [c["type"] for c in crossings] == ["real -1 (flip)"], reason
+    a, b = crossings[0]["between_log10_T"]
+    assert min(a, b) < 0.3675 < max(a, b)
+    assert not any(r["turned_since_previous"] for r in records)

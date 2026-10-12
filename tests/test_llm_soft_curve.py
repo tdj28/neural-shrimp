@@ -105,3 +105,14 @@ def test_curve_start_picks_the_boundary_and_refuses_mismatches():
         esl.curve_start(flip, states, "fold", -1)
     with pytest.raises(SystemExit):
         esl.curve_start(dict(flip, crossings=[]), states, "auto", -1)
+
+
+def test_mixed_precision_family_takes_residuals_from_the_reference(setup):
+    """With a float64 reference, residuals are float64-exact while the monodromy comes from the float32 map."""
+    esl, loop, v, fam, theta, orb, x = setup
+    lo = esl.SoftLoop("qwen0.5b", 12, 8, "open", "Hello!", 1, dtype="float32")
+    mixed = esl.soft_family(lo, v, period=2, alpha_scale=10.0, chunk=512, reference=loop)
+    assert np.allclose(mixed.residual(x, theta), fam.residual(x, theta), atol=1e-14, rtol=0)
+    M32, M64 = mixed.monodromy(x, theta), fam.monodromy(x, theta)
+    err = np.linalg.norm(M32 - M64) / np.linalg.norm(M64)
+    assert 1e-9 < err < 1e-3, err                                      # float32 derivatives, not float64 ones

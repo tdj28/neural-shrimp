@@ -408,11 +408,13 @@ def precision(args):
     (out / "precision.json").write_text(json.dumps({"args": vars(args), "cells": rows}, indent=1))
 
 
-def soft_family(loop, v, period, alpha_scale=10.0, chunk=512):
+def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None):
     """The p-fold soft map as a two-parameter family for bifurcation_curves, theta = (log10 T, alpha * alpha_scale).
     The steering acts on the prefix too, so phi recomputes the prefix cache inside the differentiable function
     (derivatives in alpha include the prefix); the dense monodromy reuses SoftOrbit's batched forward-mode
-    Jacobians at fixed theta."""
+    Jacobians at fixed theta. With a `reference` SoftLoop (float64, norms patched) the residual Phi(x) - x is
+    computed there and only the derivatives in `loop`'s precision: Newton then converges to the reference precision
+    (float32 derivatives are accurate to about 1e-5, enough for the Newton matrix)."""
     import copy
 
     import bifurcation_curves as bc
@@ -444,7 +446,7 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512):
         def __init__(self):
             super().__init__(phi, (1, loop.K, loop.E.shape[1]), loop.state_dtype, loop.device,
                              context=lambda: sdpa_kernel(SDPBackend.MATH))
-            self.orbit = None
+            self.orbit, self.ref_orbit = None, None
 
         def soft_orbit(self, theta):
             key = tuple(float(t) for t in theta)
@@ -454,8 +456,16 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512):
             return self.orbit[1]
 
         def residual(self, x, theta):
-            X = self.soft_orbit(theta).iterate(self.to_x(x), period)
-            return self.to_np(X) - np.asarray(x).ravel()
+            if reference is None:
+                X = self.soft_orbit(theta).iterate(self.to_x(x), period)
+                return self.to_np(X) - np.asarray(x).ravel()
+            key = tuple(float(t) for t in theta)
+            if self.ref_orbit is None or self.ref_orbit[0] != key:
+                self.ref_orbit = (key, SoftOrbit(reference, key[1] / alpha_scale * v, 10.0 ** key[0], chunk=chunk))
+            ref = self.ref_orbit[1]
+            X = torch.as_tensor(np.asarray(x, dtype=np.float64).reshape(self.shape), dtype=reference.state_dtype,
+                                device=reference.device)
+            return self.to_np(ref.iterate(X, period)) - np.asarray(x).ravel()
 
         def monodromy(self, x, theta):
             orb = self.soft_orbit(theta)
@@ -506,21 +516,65 @@ def curve_start(tl, states, kind, index):
     return kind, i, states[i].ravel(), float(pts[i]["lambda"])
 
 
+def branch(args):
+    """Dense continuation in log10 T, at fixed steering, of the periodic orbit reached at (log10 T, alpha):
+    bifurcation_curves.trace_branch with all multipliers at every point (eigenvalues of the dense monodromy),
+    residuals in the reference precision (float64 by default) and derivatives in --dtype. Writes branch.json in
+    the format of tline.json (points, classified crossings), which curve can start from."""
+    import bifurcation_curves as bc
+
+    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+                    args.device)
+    ref = (SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window,
+                    args.reference_dtype, args.device) if args.reference_dtype != "none" else None)
+    v = elpm.load_vectors(args.vectors)[args.concept]
+    top = ref or loop
+    orb = SoftOrbit(top, args.alpha * v, 10.0 ** args.log_temperature)
+    X = orb.iterate(orb.start, args.transient)
+    returns = orb.return_distances(X, args.max_period)
+    period = args.period or next((q for q, d in enumerate(returns, 1) if d < args.detect_tol), 0)
+    if period == 0:
+        raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol} (smallest return "
+                         f"distance {min(returns):.3g} at q = {int(np.argmin(returns)) + 1}); nothing to continue")
+    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+
+    def on_point(rec):
+        print(json.dumps({k: v for k, v in rec.items() if k != "multipliers"} | {"leading": rec["multipliers"][:3]}),
+              flush=True)
+
+    tic = time.perf_counter()
+    records, reason, states = bc.trace_branch(
+        fam, fam.to_np(X), [args.log_temperature, args.alpha * args.alpha_scale], free=0, direction=args.direction,
+        steps=args.steps, ds=args.ds, ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol,
+        max_newton=args.max_newton, beyond=args.beyond, bounds=tuple(args.bounds), on_point=on_point, k=args.k)
+    crossings = bc.classify_crossings(records)
+    np.save(out / "states.npy", np.array(states).reshape((len(states),) + tuple(X.shape[1:])))
+    rec = {"args": vars(args), "period": period, "return_distances_after_transient": returns, "stop": reason,
+           "seconds": round(time.perf_counter() - tic, 1), "crossings": crossings, "points": records}
+    (out / "branch.json").write_text(json.dumps(rec, indent=1))
+    print(json.dumps({"period": period, "stop": reason, "points": len(records), "crossings": crossings,
+                      "seconds": rec["seconds"]}))
+
+
 def curve(args):
     """Fold or flip curve of a period-p orbit in (log10 T, alpha), traced by two-parameter continuation
     (bifurcation_curves.trace_curve) from the boundary point a tline run found at fixed alpha."""
     import bifurcation_curves as bc
 
-    src = DATA / "explore" / args.start_tline
-    tl = json.loads((src / "tline.json").read_text())
+    src = DATA / "explore" / args.start
+    tl = json.loads((src / ("branch.json" if (src / "branch.json").exists() else "tline.json")).read_text())
     states = np.load(src / "states.npy")
     kind, index, x0, log_t0 = curve_start(tl, states, args.kind, args.start_index)
     period, alpha0 = int(tl["period"]), float(tl["args"]["alpha"])
     ta = tl["args"]
     loop = SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"], args.dtype,
                     args.device)
+    ref = (SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"],
+                    args.reference_dtype, args.device) if args.reference_dtype != "none" else None)
     v = elpm.load_vectors(ta["vectors"])[ta["concept"]]
-    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk)
+    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref)
     sc = args.alpha_scale
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -844,12 +898,44 @@ def main():
     pr.add_argument("--max-period", type=int, default=32)
     pr.add_argument("--steps", type=int, default=32)
     pr.add_argument("--out", required=True)
+    bb = sub.add_parser("branch")
+    bb.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
+    bb.add_argument("--layer", type=int, default=12)
+    bb.add_argument("--threads", type=int, default=8)
+    bb.add_argument("--dtype", default="float32", choices=("float32", "float64"))
+    bb.add_argument("--reference-dtype", default="float64", choices=("none", "float64"))
+    bb.add_argument("--device", default="cpu")
+    bb.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
+    bb.add_argument("--opener", default=ela.OPENER)
+    bb.add_argument("--window", type=int, default=1)
+    bb.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    bb.add_argument("--concept", default="philosophy", choices=sorted(elpm.CONCEPTS))
+    bb.add_argument("--log-temperature", type=float, required=True)
+    bb.add_argument("--alpha", type=float, required=True)
+    bb.add_argument("--period", type=int, default=0, help="0: detect from the attractor reached")
+    bb.add_argument("--transient", type=int, default=600)
+    bb.add_argument("--max-period", type=int, default=32)
+    bb.add_argument("--detect-tol", type=float, default=1e-9)
+    bb.add_argument("--alpha-scale", type=float, default=10.0)
+    bb.add_argument("--direction", type=int, default=1, choices=(-1, 1))
+    bb.add_argument("--steps", type=int, default=60)
+    bb.add_argument("--ds", type=float, default=0.004)
+    bb.add_argument("--ds-min", type=float, default=1e-7)
+    bb.add_argument("--ds-max", type=float, default=0.01)
+    bb.add_argument("--beyond", type=float, default=0.01, help="stop this far in log10 T past the first turn")
+    bb.add_argument("--bounds", type=float, nargs=2, default=[-1.5, 0.5], help="log10 T range")
+    bb.add_argument("--tol", type=float, default=1e-10)
+    bb.add_argument("--max-newton", type=int, default=10)
+    bb.add_argument("--k", type=int, default=12, help="multipliers recorded per point")
+    bb.add_argument("--chunk", type=int, default=512)
+    bb.add_argument("--out", required=True)
     cv = sub.add_parser("curve")
-    cv.add_argument("--start-tline", required=True, help="explore-relative directory of a finished tline run")
+    cv.add_argument("--start", required=True, help="explore-relative directory of a finished branch or tline run")
+    cv.add_argument("--reference-dtype", default="float64", choices=("none", "float64"))
     cv.add_argument("--kind", default="auto", choices=("auto", "fold", "flip"))
     cv.add_argument("--start-index", type=int, default=-1, help="tline point to start from (-1: nearest the boundary)")
     cv.add_argument("--threads", type=int, default=8)
-    cv.add_argument("--dtype", default="float64", choices=("float32", "float64"))
+    cv.add_argument("--dtype", default="float32", choices=("float32", "float64"))
     cv.add_argument("--device", default="cpu")
     cv.add_argument("--alpha-scale", type=float, default=10.0, help="alpha is continued as alpha * scale")
     cv.add_argument("--direction", type=int, default=1, choices=(-1, 1), help="sign of the initial d log10 T")
@@ -858,15 +944,15 @@ def main():
     cv.add_argument("--ds-min", type=float, default=1e-6)
     cv.add_argument("--ds-max", type=float, default=0.02)
     cv.add_argument("--tol", type=float, default=1e-10)
-    cv.add_argument("--gtol", type=float, default=1e-9)
+    cv.add_argument("--gtol", type=float, default=1e-4, help="float32 monodromies make g accurate to about 1e-5")
     cv.add_argument("--max-newton", type=int, default=8)
     cv.add_argument("--log-temperature-bounds", type=float, nargs=2, default=[-1.5, 0.5])
     cv.add_argument("--alpha-bounds", type=float, nargs=2, default=[-0.2, 0.2])
     cv.add_argument("--chunk", type=int, default=512)
     cv.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "orbit": orbit, "tline": tline, "curve": curve, "precision": precision, "render": render,
-     "windows": windows}[args.command](args)
+    {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
+     "render": render, "windows": windows}[args.command](args)
 
 
 if __name__ == "__main__":
