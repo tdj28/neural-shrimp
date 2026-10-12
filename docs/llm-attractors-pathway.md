@@ -245,3 +245,16 @@ perturbing the last position changes no earlier output (difference exactly
   every RMSNorm in float32 (the Hugging Face upcast). That affects
   near-zero Lyapunov values and isolated long periods of the 16x16 scan;
   fixed in all tools.
+
+## Toolkit for the model's own dynamics (12 October 2026)
+
+| Level | Map | Tool and subcommands | What is computed |
+| --- | --- | --- | --- |
+| Greedy token loop | deterministic map on context windows | `explore_llm_phase_map` map, families, existence | exact cycles, attractor families, existence regions from minimal logit margins |
+| Sampled token loop | Markov chain on windows | `explore_llm_msm` sample, build | metastable sets, implied timescales, stationary weights, residence times |
+| Soft-token decoding | smooth map of embedding windows | `explore_llm_soft_loop` scan, render, windows, orbit, tline | period and Lyapunov maps; Newton orbits with exact (forward-mode) Jacobians; continuation in temperature through folds with crossing classification |
+| Looped LM latent loop | the model's own recurrence (Ouro, Huginn) | `explore_latent_loop` sweep, basin, orbit, continue-orbit, arclength, fixed-spectrum, positions, frozen-check, frozen-plane, vocab-basins | bifurcation diagrams; Newton-Krylov orbits and Arnoldi multipliers; pseudo-arclength through folds; fixed-point spectra; per-position (cascade) exponents; frozen-context single-position maps; attractors of the universal single-token map |
+
+All of them need only forward passes, forward-mode JVPs and batched
+generation, so they apply unchanged to larger open models. The cost per
+step is one forward pass (or one per position, with frozen contexts).
