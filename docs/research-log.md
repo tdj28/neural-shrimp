@@ -19230,3 +19230,21 @@ _commit `2b8bdd98c854` (dirty worktree)_
 criticality-chunk3 (explore_inference_memory criticality; context 24, chunk 3, rates scaled by 3/24, coupled decay 1e-3, log10 theta_o -0.08): crossing at log10 theta_h = 1.5547925806725 (bracket 6e-14), multiplier 0.63271 +- 0.77439 i (modulus 1 + 3e-13), 0.14097 turns per context, distance 0.109 to the nearest strong resonance (1/4), eigen gap 0.513. First Lyapunov coefficient d = -369.725 with finite-difference steps 1e-4 / 1e-3 and -369.725 with doubled steps (agreement to nine digits): supercritical, so a stable invariant circle is born smoothly, consistent with the quasi-periodic memory and its locked tongues found in the window-box scan.
 
 _commit `2b8bdd98c854` (dirty worktree)_
+
+## 2026-10-12 03:36 UTC: run (exploratory)
+
+- **Question:** Loss-only signature of a Neimark-Sacker edge: just past the soft crossing of the 2-cycle (plain GD ray, d = -0.511), does the loss at every other step carry a modulation at the crossing frequency (0.178 turns per two steps) whose amplitude grows like the square root of the distance, vanishing before the edge?
+- **Setup:** explore_momentum_maps loss-signature --arc momentum/arc2-beta0.0 (width 3, ridge 1e-3, ray log10 output = log10 hidden - 1.828): bisected crossing, offsets -0.004, -0.001, 0.0005, 0.001, 0.002, 0.004, 0.008, 0.016 in log10 rate, kick 1e-3 along the leading eigenvector, 200000 two-step transient, 16384 two-step loss samples, FFT peak (Hann window), log-log amplitude exponent for positive offsets
+- **Output:** `../neural-shrimp-data/explore/momentum/loss-signature-beta0`
+- **Would surprise us:** Modulation frequency different from the crossing angle, or an amplitude exponent far from 0.5
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py loss-signature --arc momentum/arc2-beta0.0 --out momentum/loss-signature-beta0`
+
+_commit `4575d2af7ea3`_
+
+- run started 2026-10-12 03:36 UTC finished 03:40 UTC with exit status 0
+
+## 2026-10-12 03:41 UTC: Neimark-Sacker edge: loss-only signature confirmed (modulation at the crossing angle, amplitude exponent 0.48)
+
+loss-signature-beta0 (explore_momentum_maps loss-signature, plain GD ray of S2, ridge 1e-3; bisected crossing s = 1.65330373, crossing angle 0.17656 turns per two steps, d = -0.511 from criticality-beta0.0). Loss at every other step, 16384 samples after 200000 two-step transients from the 2-cycle plus a 1e-3 kick: before the edge (offsets -0.004, -0.001) no modulation (std 4e-17, 3e-16); beyond it std 2.67e-4, 3.76e-4, 5.30e-4, 7.43e-4, 1.03e-3, 1.41e-3 at offsets 0.0005-0.016 (log-log exponent 0.481, soft-onset prediction 0.5), FFT peak 0.1766 turns per two steps near the edge (crossing angle 0.17656), drifting to 0.179 at offset 0.016. The mean loss shifts by only about 1e-6 near the edge; the signature is in the time structure. With the fold (type-I intermittency, parameter-free prefactor) and flip (period doubling, square-root amplitude) edges, all three edge types of the annotated map now have tested loss-only signatures.
+
+_commit `4575d2af7ea3` (dirty worktree)_

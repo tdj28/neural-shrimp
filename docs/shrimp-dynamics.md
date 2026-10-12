@@ -221,7 +221,15 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   - A hard flip edge, the window's right edge (`edge-ray13`), switches
     abruptly from the 18-step cycle to irregular training, with no 36-step
     stage.
-  - A Neimark-Sacker edge should add a slower modulation (not yet tested).
+  - A soft Neimark-Sacker edge adds a modulation to the loss. This is
+    confirmed on the plain gradient-descent ray
+    (`explore/momentum/loss-signature-beta0`):
+    - before the edge the loss shows no modulation;
+    - beyond it, the loss at every other step oscillates at the crossing
+      frequency, 0.1766 against 0.17656 turns per two steps;
+    - the amplitude grows like the square root of the distance (fitted
+      exponent 0.48).
+    So the precession is visible from the loss alone.
   - None of these edges changes the mean loss appreciably. The information is
     in the time structure.
 - **Optimizer memory.** Heavy-ball momentum keeps the route in our pilot, but
