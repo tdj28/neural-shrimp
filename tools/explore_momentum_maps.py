@@ -53,21 +53,24 @@ from neural_shrimp.trainability import SYSTEMS  # noqa: E402
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
 
 
-def make_width_system(seed, width):
-    """S2 data and initialization rule with a different number of hidden units."""
+def make_width_system(seed, width, teacher_width=3, init_scale=0.2, n_train=24):
+    """S2 data and initialization rule with a different number of hidden units (optionally a wider teacher)."""
     from neural_shrimp.gdmaps import TwoLayerNet
     from neural_shrimp.models import TanhRegressor, make_teacher_regression
 
     net = TwoLayerNet(d=2, width=int(width), activation="tanh", bias=True, loss_scale=0.5, ridge=1e-3)
-    data = make_teacher_regression(seed=int(seed), d=2, teacher_width=3, n_train=24, n_validation=48, n_test=96)
-    theta0 = TanhRegressor(2, int(width), ridge=1e-3).initialize(seed=int(seed) + 100000, scale=0.2)
+    data = make_teacher_regression(seed=int(seed), d=2, teacher_width=int(teacher_width), n_train=int(n_train),
+                                   n_validation=48, n_test=96)
+    theta0 = TanhRegressor(2, int(width), ridge=1e-3).initialize(seed=int(seed) + 100000, scale=float(init_scale))
     return net, data.train_x, data.train_y, theta0
 
 
 class MomentumMap:
-    def __init__(self, system, seed, beta, width=None, ridge=None):
-        if width is not None and width != 3:
-            self.net, self.x, self.y, self.theta0 = make_width_system(seed, width)
+    def __init__(self, system, seed, beta, width=None, ridge=None, teacher_width=3, init_scale=0.2, n_train=24):
+        custom = (teacher_width, init_scale, n_train) != (3, 0.2, 24)
+        if (width is not None and width != 3) or custom:
+            self.net, self.x, self.y, self.theta0 = make_width_system(seed, width or 3, teacher_width, init_scale,
+                                                                      n_train)
         else:
             self.net, self.x, self.y, self.theta0 = SYSTEMS[system](seed)
         if ridge is not None:                          # weight-decay override (the initialization is unchanged)
@@ -98,6 +101,12 @@ class MomentumMap:
         jac[n:, :n] = h
         jac[n:, n:] = self.beta * np.eye(n)
         return jac
+
+
+def task_options(record):
+    """Teacher width, initialization scale and sample count used by an arc (defaults: the S2 task)."""
+    a = record.get("args", {})
+    return a.get("teacher_width", 3), a.get("init_scale", 0.2), a.get("n_train", 24)
 
 
 def require_same_ridge(mm, record):
@@ -184,8 +193,8 @@ def scan(args):
 
 
 def rotation_block(task):
-    system, seed, beta, lh, lo, steps, pca, samples, width = task
-    mm = MomentumMap(system, seed, beta, width)
+    system, seed, beta, lh, lo, steps, pca, samples, width, teacher_width, init_scale, n_train = task
+    mm = MomentumMap(system, seed, beta, width, None, teacher_width, init_scale, n_train)
     rates = mm.rates(lh, lo)
     theta = np.repeat(mm.theta0[None, :], len(lh), axis=0)
     m = np.zeros_like(theta)
@@ -226,7 +235,7 @@ def rotation_map(args):
     r, c = np.divmod(np.arange(rows * cols), cols)
     chunks = np.array_split(np.arange(rows * cols), args.workers * 4)
     tasks = [(args.system, args.seed, args.beta, log_h[r[i]], log_o[c[i]], args.steps, args.pca, args.samples,
-              args.width) for i in chunks]
+              args.width, args.teacher_width, args.init_scale, args.n_train) for i in chunks]
     start = time.perf_counter()
     with ProcessPoolExecutor(args.workers) as pool:
         parts = list(pool.map(rotation_block, tasks, chunksize=1))
@@ -362,7 +371,8 @@ class MomentumTwoCycle:
 def arc(args):
     from neural_shrimp.fastcont import arclength, newton, null_tangent
 
-    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None), getattr(args, "ridge", None))
+    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None), getattr(args, "ridge", None),
+                     args.teacher_width, args.init_scale, args.n_train)
     n = mm.n
     p0 = mm.rates(0.0, args.offset_output)[0]
     small = mm.rates(args.s_low, args.s_low + args.offset_output)
@@ -543,10 +553,11 @@ def criticality(args):
     from neural_shrimp.criticality import finite_difference_forms, ns_coefficient
     from neural_shrimp.fastcont import newton
 
-    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None), getattr(args, "ridge", None))
-    n = mm.n
     base = DATA / "explore" / args.arc
     record = json.loads((base / "arc.json").read_text())
+    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None), getattr(args, "ridge", None),
+                     *task_options(record))
+    n = mm.n
     require_same_ridge(mm, record)
     nodes = np.load(base / "nodes.npz")["w"]
     system = MomentumTwoCycle(mm, args.offset_output)
@@ -669,7 +680,8 @@ def staircase(args):
 
 def crossing_anatomy(args):
     """Which hidden units carry the first crossing's eigenvector, and is the crossing a turning point in s?"""
-    mm = MomentumMap(args.system, args.seed, args.beta, args.width, args.ridge)
+    mm = MomentumMap(args.system, args.seed, args.beta, args.width, args.ridge, args.teacher_width, args.init_scale,
+                     args.n_train)
     n, net = mm.n, mm.net
     base = DATA / "explore" / args.arc
     record = json.loads((base / "arc.json").read_text())
@@ -757,10 +769,10 @@ def loss_signature(args):
     amplitude ~ sqrt(offset) beyond a supercritical edge, decay to zero before it)."""
     from neural_shrimp.fastcont import newton
 
-    mm = MomentumMap(args.system, args.seed, args.beta, args.width, args.ridge)
-    n = mm.n
     base = DATA / "explore" / args.arc
     record = json.loads((base / "arc.json").read_text())
+    mm = MomentumMap(args.system, args.seed, args.beta, args.width, args.ridge, *task_options(record))
+    n = mm.n
     require_same_ridge(mm, record)
     nodes = np.load(base / "nodes.npz")["w"]
     system = MomentumTwoCycle(mm, args.offset_output)
@@ -866,6 +878,9 @@ def main():
     rm.add_argument("--samples", type=int, default=8000)
     rm.add_argument("--workers", type=int, default=8)
     rm.add_argument("--width", type=int, default=None)
+    rm.add_argument("--teacher-width", type=int, default=3)
+    rm.add_argument("--init-scale", type=float, default=0.2)
+    rm.add_argument("--n-train", type=int, default=24)
     rm.add_argument("--out", required=True)
     br = sub.add_parser("branch")
     br.add_argument("--system", default="S2")
@@ -967,6 +982,10 @@ def main():
     ca.add_argument("--out", required=True)
     for sp in (ac, cr, st, ca, ls_):
         sp.add_argument("--ridge", type=float, default=None, help="weight decay (default: the system's 1e-3)")
+    for sp in (ac, ca):
+        sp.add_argument("--teacher-width", type=int, default=3)
+        sp.add_argument("--init-scale", type=float, default=0.2)
+        sp.add_argument("--n-train", type=int, default=24)
     args = parser.parse_args()
     {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset,
      "criticality": criticality, "staircase": staircase, "crossing-anatomy": crossing_anatomy,

@@ -56,7 +56,7 @@ class MemoryMap:
     """Period map of a tanh memory MLP updated by the Titans rule over a repeating context."""
 
     def __init__(self, context=8, width=3, d=2, teacher_seed=28011, init_seed=128011, init_scale=0.2,
-                 chunk=1, coupled_decay=0.0, scale_by_chunk=False):
+                 chunk=1, coupled_decay=0.0, scale_by_chunk=False, shuffle_seed=None):
         self.net = TwoLayerNet(d=int(d), width=int(width), activation="tanh", bias=True, loss_scale=0.5,
                                ridge=float(coupled_decay))
         data = make_teacher_regression(seed=int(teacher_seed), d=int(d), teacher_width=3, n_train=int(context),
@@ -71,6 +71,8 @@ class MemoryMap:
         self.mask_h = np.zeros(self.n)
         self.mask_h[:self.net.hidden_parameter_count] = 1.0
         self.w0 = TanhRegressor(int(d), int(width)).initialize(seed=int(init_seed), scale=float(init_scale))
+        # optional noise: every pass over the context applies the chunks in a fresh random order
+        self.shuffle = None if shuffle_seed is None else np.random.default_rng(int(shuffle_seed))
 
     def rates(self, theta, theta_o):
         """Per-parameter rates of one update, shape (cells, n), from hidden and output rates of shape (cells,)."""
@@ -85,7 +87,8 @@ class MemoryMap:
         return (1.0 - alpha[:, None]) * w + s, s
 
     def period(self, w, s, rates, alpha, eta):
-        for u in range(self.updates):
+        order = range(self.updates) if self.shuffle is None else self.shuffle.permutation(self.updates)
+        for u in order:
             w, s = self.update(w, s, u, rates, alpha, eta)
         return w, s
 
@@ -198,7 +201,8 @@ def scan(args):
 def memory_kwargs(args):
     return {"context": args.context, "width": args.width, "d": args.d, "teacher_seed": args.teacher_seed,
             "init_seed": args.init_seed, "init_scale": args.init_scale, "chunk": args.chunk,
-            "coupled_decay": args.coupled_decay, "scale_by_chunk": args.scale_by_chunk}
+            "coupled_decay": args.coupled_decay, "scale_by_chunk": args.scale_by_chunk,
+            "shuffle_seed": getattr(args, "shuffle_seed", None)}
 
 
 def figure(fields, log_theta, log_alpha, path, args):
@@ -433,6 +437,8 @@ def main():
         sp.add_argument("--coupled-decay", type=float, default=0.0, help="ridge term in the token loss")
         sp.add_argument("--scale-by-chunk", action="store_true", help="multiply each update's rates by chunk/context")
         sp.add_argument("--ratio", type=float, default=1.0, help="theta_o / theta when theta_o is not given")
+        sp.add_argument("--shuffle-seed", type=int, default=None,
+                        help="apply the chunks in a fresh random order on every pass (random dynamical system)")
     sc = sub.choices["scan"]
     sc.add_argument("--theta", type=float, nargs=2, default=[-2.0, 1.0], help="log10 inner learning rate range")
     sc.add_argument("--alpha", type=float, nargs=2, default=[-5.0, -0.5], help="log10 forgetting range")
