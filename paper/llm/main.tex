@@ -235,15 +235,17 @@ complex leading pair.
 \toprule
 period & leading tokens of the orbit & $(\log_{10}T,\alpha)$ & leading multiplier \\
 \midrule
-2 & is it & $(-0.1726, 0.0616)$ & $-0.27$ \\
+2 & is it & $(-0.17263, 0.061579)$ & $-0.2706$ (next $-0.0585$) \\
 6 & . This is a is a & $(-0.1205, 0.0786)$ & \planned{float64 value} \\
-8 & . This is there is a is a & $(-0.1205, 0.0717)$ & $+0.0041$ \\
+8 & . This is there is a is a & $(-0.1205, 0.0717)$ & $+0.00409$ (next $-7.0\times10^{-6}$) \\
 10 & . This is there is it is a is a & $(-0.1089, 0.0673)$ & $+0.0024$ \\
 12 & . This is it is it is it is a is a & $(-0.1090, 0.0641)$ & $+0.072$ \\
 \bottomrule
 \end{tabular}
-\caption{Periodic orbits of the stripe family. \planned{Recompute all rows with today's float64 map (patched
-rotary tables) and add periods 14--20.}}
+\caption{Periodic orbits of the stripe family. The period-2 and period-8 rows are computed with the current
+all-float64 map (norms and rotary tables patched) and reproduced by an independent implementation (closures
+$2\times10^{-14}$ and $5\times10^{-12}$). \planned{Recompute the period-6, 10 and 12 rows with the current map and add
+periods 14--20.}}
 \label{tab:orbits}
 \end{table}
 
@@ -251,8 +253,8 @@ rotary tables) and add periods 14--20.}}
 \label{sec:mechanism}
 \paragraph{The fold.} At $\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\alpha_c=0.06279827$ (float64
 multiplier $1$ to $3\times10^{-13}$, next modulus $0.037$). The normal form of $G$ has $a=-4.834$ per unit $\alpha$
-and $b=-25.4285$, so $ab=122.93$; extrapolating the stable-branch multipliers, $(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$,
-gives $123.1$ independently. An independent implementation of the forward map and solver recovers $\alpha_c$ to
+and $b=-25.4285$, so $ab=122.93$. Extrapolating the stable-branch multipliers, $(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$,
+gives $123.1$ independently with a quadratic fit (a linear fit gives $120.6$). An independent implementation of the forward map and solver recovers $\alpha_c$ to
 $6\times10^{-15}$ and $a$ to $3\times10^{-12}$. Its $b$, from nested automatic differentiation, is $-25.42846$; our
 finite-difference value differs from it by $2.2\times10^{-6}$ relatively, which is the finite-step bias of the
 difference table. The resulting $ab=122.927$ leaves every passage prediction of Table~\ref{tab:passages}
