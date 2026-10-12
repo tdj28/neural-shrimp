@@ -19468,3 +19468,21 @@ _commit `df8b24a937a4`_
 arc-w6-t6-seed1.95 (width 6, teacher 6, 48 samples, ray offset -2.55, 2-cycle seeded from the attractor at s = 1.95): first crossing complex at s = 2.1089 (0.206 turns), first Lyapunov coefficient d = -0.2036 (doubled steps -0.2036), supercritical. crossing-anatomy: at the minimum four units have identical norms (0.11513627948) beside two distinct ones (0.45, 0.90); on the 2-cycle five of six units are identical (0.45668613642) beside one (1.363); the Neimark-Sacker eigenvector puts 0.64 on the distinct unit and 0.073 on each of the five copies (their symmetric mode). So the condensation is not caused by a narrow teacher; it comes with the small initialization (scale 0.2), consistent with the known condensation regime of small-initialization networks, and is deepened on the large-step cycle. Next: initialization scale 1.0 (units start distinct) for the width test.
 
 _commit `df8b24a937a4` (dirty worktree)_
+
+## 2026-10-12 05:41 UTC: run (exploratory)
+
+- **Question:** Width test without condensation: with initialization scale 1.0 (width 6, teacher 6, 48 samples), does the precession region persist, and are its units distinct?
+- **Setup:** explore_momentum_maps rotation-map --beta 0 --width 6 --teacher-width 6 --n-train 48 --init-scale 1.0 over the census plane (hidden 0.8-2.4, output -1.0-0.4) at 100x100, 20000 steps, 4 workers, nice 10; then a rim check if a precession region appears
+- **Output:** `../neural-shrimp-data/explore/momentum/width-maps/rotation-w6-t6-init1`
+- **Would surprise us:** No precession region at all with distinct units
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py rotation-map --beta 0 --width 6 --teacher-width 6 --n-train 48 --init-scale 1.0 --hidden 0.8 2.4 --output -1.0 0.4 --resolution 100 100 --steps 20000 --samples 6000 --workers 4 --out momentum/width-maps/rotation-w6-t6-init1`
+
+_commit `db6b09718e37`_
+
+- run started 2026-10-12 05:25 UTC finished 05:42 UTC with exit status 0
+
+## 2026-10-12 05:43 UTC: Ouro latent loop, lambda sweep: irregular for lambda >~ 0.2 with candidate periodic windows at lambda ~ 0.90, 1.19 and 1.28
+
+ouro-sweep-story-gpu (explore_latent_loop sweep on the local RTX 2000 Ada, float32, prompt 'story', 128 lambda values in [0.05, 1.3], 400 transient + 400 measured loops, twin offset 1e-5 relative, period up to 32 at tol 1e-5; 1006 s). No fixed point at any lambda (the relaxed loop never settles, so the model's loop has no fixed point that relaxation can stabilize). Largest Lyapunov exponent per loop rises from about 3e-4 at lambda 0.05 (near zero, consistent with quasi-periodic motion in the slow-flow limit; observable extent 0.15) to about 0.05 near lambda 0.6, then fluctuates between 0 and 0.18 for lambda > 0.8. Cells with near-zero or negative exponents inside that band: lambda 0.8965 and 0.9063 (exponent about 0, tiny extent 0.002 and 0.001, no exact period up to 32), 1.1917 (period 2, exponent -0.002), 1.2803 (period 2, exponent -0.032, extent 0.11), 1.2902 (exponent -0.007, tiny extent). These are candidate periodic windows embedded in the irregular regime of the model's own (relaxed) recurrence. Not yet verified: 400-loop exponents fluctuate; next are high-resolution zooms across the windows (fold on one edge, period doubling on the other, as generic windows show), Newton verification of the 2-cycle with its multipliers, and a (lambda, steering) map of the window's shape. CPU 24-point sweep running as a cross-check.
+
+_commit `db6b09718e37` (dirty worktree)_
