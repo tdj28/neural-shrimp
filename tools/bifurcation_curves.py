@@ -277,24 +277,33 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
         th[free] = lam
         return th
 
-    def system(z):
+    def residual(z):
+        x = z[:n] * s
+        r = family.residual(x, theta_of(z[n]))
+        return r / s, float(np.linalg.norm(r) / np.linalg.norm(x))
+
+    def jacobian(z):
         x, th = z[:n] * s, theta_of(z[n])
-        r = family.residual(x, th)
         M = family.monodromy(x, th)
         J = np.zeros((n, n + 1))
         J[:, :n] = M - I
         J[:, n] = family.param_jacobian(x, th, which=(free,))[:, 0] / s
-        return r / s, J, M, float(np.linalg.norm(r) / np.linalg.norm(x))
+        return J, M
 
-    def correct(z0, row, rhs_fn):
+    def correct(z0, row, rhs_fn, J0):
+        """Chord Newton: the Jacobian J0 of the last accepted point stays fixed and only residuals are evaluated
+        (the dense monodromy dominates the cost); the full Jacobian is then computed once at the converged point,
+        for the tangent, the multipliers and the next chord."""
         z = z0.copy()
+        A = np.vstack([J0, row[None]])
         for it in range(max_newton + 1):
-            G, J, M, rel = system(z)
+            G, rel = residual(z)
             if rel < tol:
+                J, M = jacobian(z)
                 return z, J, M, rel, it
             if it == max_newton:
                 break
-            z = z + np.linalg.solve(np.vstack([J, row[None]]), -np.concatenate([G, [rhs_fn(z)]]))
+            z = z + np.linalg.solve(A, -np.concatenate([G, [rhs_fn(z)]]))
         return None, None, None, rel, max_newton
 
     def tangent(J, previous):
@@ -321,7 +330,9 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
 
     e_lam = np.zeros(n + 1)
     e_lam[n] = 1.0
-    z, J, M, rel, its = correct(np.concatenate([x0 / s, [theta0[free]]]), e_lam, lambda y: 0.0)
+    z = np.concatenate([x0 / s, [theta0[free]]])
+    J, _ = jacobian(z)
+    z, J, M, rel, its = correct(z, e_lam, lambda y: 0.0, J)
     if z is None:
         return records, f"no convergence at the start (residual {rel:.3g})", states
     t = tangent(J, e_lam * float(np.sign(direction)))
@@ -329,8 +340,8 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
     turn, reason = None, f"{steps} points"
     while len(records) < steps:
         zp = z + ds * t
-        zn, J, M, rel, its = correct(zp, t, lambda y: float(t @ (y - zp)))
-        tn = None if zn is None else tangent(J, t)
+        zn, Jn, Mn, rel, its = correct(zp, t, lambda y: float(t @ (y - zp)), J)
+        tn = None if zn is None else tangent(Jn, t)
         if zn is None or float(tn @ t) < 0.5:                  # not converged, or jumped onto another branch
             ds *= 0.5
             if ds < ds_min:
@@ -339,7 +350,7 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
             continue
         turned = tn[n] * t[n] < 0
         step = float(np.linalg.norm(zn - z))
-        z, t = zn, tn
+        z, t, J, M = zn, tn, Jn, Mn
         rec = record(z, rel, its, ds, step, t, turned, M)
         if turned and turn is None:
             lams = np.array([r["lambda"] for r in records[-3:]])
@@ -356,7 +367,7 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
         if turn is not None and abs(z[n] - turn) >= beyond:
             reason = f"{beyond} past the first turn"
             break
-        if its <= 2:
+        if its <= 3:
             ds = min(ds * 1.5, ds_max)
         elif its >= max_newton - 1:
             ds *= 0.7

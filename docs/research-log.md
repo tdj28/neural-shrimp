@@ -19926,3 +19926,27 @@ _commit `2973748cb566` (dirty worktree)_
 - **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_soft_loop.py precision --device cuda --device64 cuda --cells -0.1205 0.0717 --cells -0.1089 0.0673 --cells -0.1205 0.0786 --cells 0.1168 0.0780 --out llm-soft-loop/precision-zr 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -4 | cut -c1-2500; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-8 --tol 1e-11 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit64-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-3000; done`
 
 _commit `ba021a694ba9` (dirty worktree)_
+
+- run started 2026-10-12 13:10 UTC (../neural-shrimp-data/explore/llm-soft-loop/{precision-zr,orbit64-zr-p8,orbit64-zr-p10}) finished 13:19 UTC with exit status 0
+
+## 2026-10-12 13:19 UTC: run (exploratory)
+
+- **Question:** Finer brute-force map of the 12-10-8-6 stripe sequence between the period-2 and period-3 regions of zoom-right (cells 3x narrower in alpha), for comparison with the traced fold and flip curves: do the stripes have bodies, legs or crossings?
+- **Setup:** explore_llm_soft_loop scan on cuda float32, chunks of 1024 cells, K = 1, philosophy steering at layer 12, alpha 0.060..0.082 x log10 T -0.18..-0.05 at 112x112, 300 transient + 300 measured steps, twin offset 1e-4, period up to 32 (tol 1e-5)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/zoom-stripes`
+- **Would surprise us:** Stripes that break up into unconnected cells at this resolution (finite-time artifacts) rather than continuing as bands
+- **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_soft_loop.py scan --device cuda --dtype float32 --chunk 1024 --alpha 0.060 0.082 --log-temperature -0.18 -0.05 --resolution 112 112 --tol 1e-5 --eps 1e-4 --out llm-soft-loop/zoom-stripes 2>&1 | grep -v -i -e warn -e Loading -e deprecat | tail -1`
+
+_commit `5222eee2b0ed` (dirty worktree)_
+
+- run started 2026-10-12 13:19 UTC (../neural-shrimp-data/explore/llm-soft-loop/zoom-stripes) finished 13:20 UTC with exit status 1
+
+## 2026-10-12 13:20 UTC: run (exploratory)
+
+- **Question:** How does the verified period-8 orbit (float64: residual 1.7e-15, spectral radius 0.0041, primitive) end on each side of its stripe at alpha 0.0717: fold turning points, flips or Neimark-Sacker? (Replaces job 06b, whose float32 Newton could not converge below the float32 noise floor.)
+- **Setup:** explore_llm_soft_loop branch on cuda: float32 derivatives (dense forward-mode AD monodromy), float64 residuals with patched norms (mixed precision), chord Newton to relative residual 1e-10, all multipliers at every point; start (log10 T -0.1205, alpha 0.0717), period detected in float64 at 1e-9; both directions in log10 T, ds 0.004 (max 0.01), up to 60 points, stop 0.01 past the first turn
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/branch-p8-a0.0717-{up,down}`
+- **Would surprise us:** No crossing within 0.05 in log10 T on a side where the scan shows the stripe ending
+- **Command:** `bash -c for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); .venv/bin/python tools/explore_llm_soft_loop.py branch --device cuda --log-temperature -0.1205 --alpha 0.0717 --direction $dir --out llm-soft-loop/branch-p8-a0.0717-$name 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -62 | cut -c1-900; done`
+
+_commit `5222eee2b0ed` (dirty worktree)_
