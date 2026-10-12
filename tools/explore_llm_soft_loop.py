@@ -620,7 +620,7 @@ def curve(args):
     records, reason, curve_states = bc.trace_curve(
         fam, x0, [log_t0, alpha0 * sc], kind, fix=fix, direction=args.direction, steps=args.steps, ds=args.ds,
         ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, gtol=args.gtol, max_newton=args.max_newton,
-        bounds=bounds, on_point=on_point, gmres_tol=args.gmres_tol)
+        bounds=bounds, on_point=on_point, gmres_tol=args.gmres_tol, gmres_maxiter=args.gmres_maxiter)
     rec = {"args": vars(args), "kind": kind, "period": period, "start": {"tline_index": index,
            "log10_temperature": log_t0, "alpha": alpha0}, "stop": reason,
            "seconds": round(time.perf_counter() - tic, 1), "points": [readable(r) for r in records]}
@@ -1076,8 +1076,9 @@ def main():
     cv.add_argument("--tol", type=float, default=1e-10)
     cv.add_argument("--gtol", type=float, default=1e-4, help="float32 monodromies make g accurate to about 1e-5")
     cv.add_argument("--max-newton", type=int, default=8)
-    cv.add_argument("--gmres-tol", type=float, default=1e-6,
-                    help="relative GMRES tolerance for g; float32 JVPs cannot reach much below 1e-6")
+    cv.add_argument("--gmres-tol", type=float, default=1e-5,
+                    help="relative GMRES tolerance for g; float32 JVPs reach about 4e-6 at the P8 fold")
+    cv.add_argument("--gmres-maxiter", type=int, default=1, help="GMRES restart cycles (30 products each) per g")
     cv.add_argument("--log-temperature-bounds", type=float, nargs=2, default=[-1.5, 0.5])
     cv.add_argument("--alpha-bounds", type=float, nargs=2, default=[-0.2, 0.2])
     cv.add_argument("--chunk", type=int, default=512)

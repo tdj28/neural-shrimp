@@ -128,3 +128,11 @@ def test_gmres_tolerance_below_the_jvp_accuracy_is_never_met():
     assert all(r["gmres_unconverged"] > 0 for r in runs[1e-10])
     assert all(r["gmres_unconverged"] == 0 for r in runs[1e-6])
     assert sum(r["jvps"] for r in runs[1e-10]) > 2 * sum(r["jvps"] for r in runs[1e-6])
+    capped, reason, _ = bc.trace_curve(Rounded(henon, (2,), torch.float64), x0, [0.37, b0], "flip", fix=1,
+                                       direction=-1, steps=12, ds=0.05, ds_max=0.1, gtol=1e-6, tol=1e-9,
+                                       gmres_tol=1e-10, gmres_maxiter=1, bounds=((0.0, 3.0), (-0.6, 0.6)))
+    assert len(capped) == 12, reason
+    assert sum(r["jvps"] for r in capped[1:]) < sum(r["jvps"] for r in runs[1e-10]) / 2
+    for r in capped:
+        a, b = r["theta"]
+        assert abs(a - 0.75 * (1 - b) ** 2) < 1e-6

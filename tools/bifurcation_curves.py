@@ -130,7 +130,8 @@ def multiplier_summary(vals, kind, k=8):
 
 
 def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01, ds_min=1e-6, ds_max=0.05,
-                tol=1e-10, gtol=1e-10, max_newton=8, bounds=None, on_point=None, k=8, chord=True, gmres_tol=1e-10):
+                tol=1e-10, gtol=1e-10, max_newton=8, bounds=None, on_point=None, k=8, chord=True, gmres_tol=1e-10,
+                gmres_maxiter=4):
     """Trace the fold or flip curve of the period-p orbit near (x0, theta0) in the parameter plane.
 
     First the bifurcation point is located with theta[fix] held at theta0[fix] (Newton on the minimally augmented
@@ -144,10 +145,12 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
     With chord=True the corrector keeps the extended Jacobian of the last accepted point and evaluates only the
     residual and g at each iterate, g by GMRES on the bordered system with Jacobian-vector products, preconditioned
     by the last point's factorized bordered matrix; the dense monodromy is computed once per accepted point.
-    Set gmres_tol to the accuracy the JVPs can reach (about 1e-6 with float32 derivatives): a tolerance below it
-    is never met, so every GMRES call runs to its full restart * maxiter products. Each record counts the JVPs
-    spent since the previous point ('jvps'), the GMRES calls that stopped short of gmres_tol
-    ('gmres_unconverged') and the rejected steps ('rejected').
+    Set gmres_tol above the relative residual the JVPs can reach (with float32 derivatives of the soft-token map,
+    4.3e-6 at the P8 fold): a tolerance below it is never met, so every GMRES call runs all gmres_maxiter restart
+    cycles of up to 30 products. The g it returns is still converged (identical to 10 digits at rtol 1e-8 and
+    1e-10 there); gmres_maxiter=1 caps the cost of a call at 31 products. Each record counts the JVPs spent
+    since the previous point ('jvps'), the GMRES calls that stopped short of gmres_tol ('gmres_unconverged') and
+    the rejected steps ('rejected').
     """
     if kind not in ("fold", "flip"):
         raise ValueError(f"kind must be fold or flip, not {kind}")
@@ -213,7 +216,7 @@ def trace_curve(family, x0, theta0, kind, fix=1, direction=1, steps=100, ds=0.01
         rhs[n] = 1.0
         y, info = gmres(LinearOperator((n + 1, n + 1), matvec=mv, dtype=np.float64), rhs,
                         M=LinearOperator((n + 1, n + 1), matvec=lambda r: lu_solve(lu, r), dtype=np.float64),
-                        rtol=gmres_tol, restart=30, maxiter=4)
+                        rtol=gmres_tol, restart=30, maxiter=gmres_maxiter)
         cost["gmres_unconverged"] += int(info != 0)
         return float(y[n])
 
