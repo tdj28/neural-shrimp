@@ -115,6 +115,32 @@ case "$JOBSET" in
     run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
     run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
     ;;
+  p4curves)    # fold and flip curves of the period-4 body orbit from the p4a branches (uploaded with
+               # --extra-data): SET A = both folds of the S-shaped temperature branch (cusp candidate), C = the
+               # alpha fold and the lower temperature fold, E = the first flip of the alpha branch toward the legs
+    P=llm-soft-loop/pod64/p4
+    C4="$CURVE --steps 70"
+    for set_ in ${JOBARGS[0]}; do
+      case $set_ in
+        A) for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+             run p4-foldA-$n 45 $C4 --start $P/branch-T-up --kind fold --direction $dir \
+               --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldA-$n
+             run p4-foldB-$n 45 $C4 --start $P/branch-T-up --kind fold --start-index 53 --direction $dir \
+               --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldB-$n
+           done ;;
+        C) for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+             run p4-foldC-$n 45 $C4 --start $P/branch-a-up --kind fold --direction $dir \
+               --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldC-$n
+             run p4-foldD-$n 45 $C4 --start $P/branch-T-down --kind fold --direction $dir \
+               --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldD-$n
+           done ;;
+        E) for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+             run p4-flipE-$n 45 $C4 --start $P/branch-a-down --kind flip --direction $dir \
+               --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-flipE-$n
+           done ;;
+      esac
+    done
+    ;;
   scanband)    # one band of a large float64 map split across pods: scanband OUT MINUTES SCAN-ARGS...
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
