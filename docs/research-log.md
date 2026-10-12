@@ -20595,3 +20595,9 @@ _commit `5b64ce0a7e72`_
 - **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/branch-002`
 
 _commit `5b64ce0a7e72` (dirty worktree)_
+
+## 2026-10-12 23:09 UTC: Independent LLM passage replay: all 18 counts agree exactly
+
+TLDR: the independently implemented Qwen soft-token transformer reproduces the controlled bottleneck escape times, including144 two-step iterations for the longest full entrance. All18 fixed-entrance counts match the producer exactly; maximum pre-exit coordinate discrepancy1.660879767e-11 (4.22337e-9 of U). A separate read-only implementation checked every strict crossing, exact initial states/signs/RNG0, trace assembly, continuous-integral predictions and the complete hash-bound artifact inventory. Quadratic predictions match7 counts exactly and overestimate11 by one; the largest relative error is25% for3 versus4 at the short development epsilon0.0005. Saved coefficients and entrances are held fixed here; independent fold/coefficients are still running. Rung2 consumed-case cross-check, no fresh holdout or interval proof. Sourcefe0c26e49b0163dee31181c48e71bdda337c6490, elapsed316.38s,4CPUthreads. Details: codex/crosscheck/PASSAGES.md, audit and receipt alongside it.
+
+_commit `e84b5f75399a` (dirty worktree)_
