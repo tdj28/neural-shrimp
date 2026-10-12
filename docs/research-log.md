@@ -19450,3 +19450,21 @@ _commit `856290a54e1c` (dirty worktree)_
 arc-w6-t6-off-2.55 (width 6, teacher 6, 48 samples, ray offset -2.55): continuation from the minimum's flip (s_flip 0.994) ran 2395 nodes and stopped on the minimum step size with no unit-circle crossing; its 2-cycle separation fell back to 0, i.e. this branch returns to the fixed point and is not the branch bordering the precession rim near log10 hidden 2.05. crossing-anatomy correctly reported no crossing; criticality, however, ran anyway and printed a meaningless real 'crossing' at s = -8.89 - a gate failure (missing precondition not refused), fixed in cc52ea04: criticality now stops when no crossing is recorded. Retry seeds the 2-cycle from the attractor reached by gradient descent just below the rim (new arc option --seed-at).
 
 _commit `cc52ea045358` (dirty worktree)_
+
+## 2026-10-12 05:39 UTC: run (exploratory)
+
+- **Question:** Wide-teacher rim check, retry: seeded on the 2-cycle branch just below the precession rim (width 6, teacher 6), is the rim a Neimark-Sacker crossing carried by distinct units?
+- **Setup:** explore_momentum_maps arc --beta 0 --width 6 --teacher-width 6 --n-train 48 --offset-output -2.55 --seed-at 1.95 (100000 descent steps from the initialization at s = 1.95, Newton on the 2-cycle), continued upward to s_max 2.4, 12000 steps; crossing-anatomy; criticality if complex (refuses otherwise); pipefail
+- **Output:** `../neural-shrimp-data/explore/momentum/width-maps/{arc,anatomy,crit}-w6-t6-seed1.95`
+- **Would surprise us:** Real first crossing, or crossing carried by identical or dead units
+- **Command:** `bash -c set -o pipefail; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width 6 --teacher-width 6 --n-train 48 --offset-output -2.55 --seed-at 1.95 --s-max 2.4 --steps 12000 --out momentum/width-maps/arc-w6-t6-seed1.95 2>&1 | grep -v -i warn && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width 6 --teacher-width 6 --n-train 48 --offset-output -2.55 --arc momentum/width-maps/arc-w6-t6-seed1.95 --out momentum/width-maps/anatomy-w6-t6-seed1.95 2>&1 | grep -v -i warn && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0 --width 6 --offset-output -2.55 --arc momentum/width-maps/arc-w6-t6-seed1.95 --out momentum/width-maps/crit-w6-t6-seed1.95 2>&1 | grep -v -i warn`
+
+_commit `df8b24a937a4`_
+
+- run started 2026-10-12 05:39 UTC finished 05:40 UTC with exit status 0
+
+## 2026-10-12 05:41 UTC: Wide teacher does not prevent condensation: the width-6 rim is a soft Neimark-Sacker crossing of a condensed cycle
+
+arc-w6-t6-seed1.95 (width 6, teacher 6, 48 samples, ray offset -2.55, 2-cycle seeded from the attractor at s = 1.95): first crossing complex at s = 2.1089 (0.206 turns), first Lyapunov coefficient d = -0.2036 (doubled steps -0.2036), supercritical. crossing-anatomy: at the minimum four units have identical norms (0.11513627948) beside two distinct ones (0.45, 0.90); on the 2-cycle five of six units are identical (0.45668613642) beside one (1.363); the Neimark-Sacker eigenvector puts 0.64 on the distinct unit and 0.073 on each of the five copies (their symmetric mode). So the condensation is not caused by a narrow teacher; it comes with the small initialization (scale 0.2), consistent with the known condensation regime of small-initialization networks, and is deepened on the large-step cycle. Next: initialization scale 1.0 (units start distinct) for the width test.
+
+_commit `df8b24a937a4` (dirty worktree)_
