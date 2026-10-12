@@ -52,9 +52,23 @@ from neural_shrimp.trainability import SYSTEMS  # noqa: E402
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
 
 
+def make_width_system(seed, width):
+    """S2 data and initialization rule with a different number of hidden units."""
+    from neural_shrimp.gdmaps import TwoLayerNet
+    from neural_shrimp.models import TanhRegressor, make_teacher_regression
+
+    net = TwoLayerNet(d=2, width=int(width), activation="tanh", bias=True, loss_scale=0.5, ridge=1e-3)
+    data = make_teacher_regression(seed=int(seed), d=2, teacher_width=3, n_train=24, n_validation=48, n_test=96)
+    theta0 = TanhRegressor(2, int(width), ridge=1e-3).initialize(seed=int(seed) + 100000, scale=0.2)
+    return net, data.train_x, data.train_y, theta0
+
+
 class MomentumMap:
-    def __init__(self, system, seed, beta):
-        self.net, self.x, self.y, self.theta0 = SYSTEMS[system](seed)
+    def __init__(self, system, seed, beta, width=None):
+        if width is not None and width != 3:
+            self.net, self.x, self.y, self.theta0 = make_width_system(seed, width)
+        else:
+            self.net, self.x, self.y, self.theta0 = SYSTEMS[system](seed)
         self.beta = float(beta)
         self.n = self.net.n_parameters
         h = self.net.hidden_parameter_count
@@ -320,7 +334,7 @@ class MomentumTwoCycle:
 def arc(args):
     from neural_shrimp.fastcont import arclength, newton, null_tangent
 
-    mm = MomentumMap(args.system, args.seed, args.beta)
+    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None))
     n = mm.n
     p0 = mm.rates(0.0, args.offset_output)[0]
     small = mm.rates(args.s_low, args.s_low + args.offset_output)
@@ -503,7 +517,7 @@ def criticality(args):
     from neural_shrimp.criticality import finite_difference_forms, ns_coefficient
     from neural_shrimp.fastcont import newton
 
-    mm = MomentumMap(args.system, args.seed, args.beta)
+    mm = MomentumMap(args.system, args.seed, args.beta, getattr(args, "width", None))
     n = mm.n
     base = DATA / "explore" / args.arc
     record = json.loads((base / "arc.json").read_text())
@@ -565,6 +579,50 @@ def criticality(args):
     print(json.dumps({"beta": args.beta, "crossing_s": out["crossing_s"], "radius": r_c,
                       "d": res["d"], "d_doubled_steps": res2["d"], "theta_over_2pi": res["theta_over_2pi"],
                       "classification": out["classification"]}))
+
+
+def staircase(args):
+    """Rotation number versus ray parameter beyond the 2-cycle's first crossing."""
+    from neural_shrimp.regimes import rotation_number
+
+    mm = MomentumMap(args.system, args.seed, args.beta, args.width)
+    n = mm.n
+    base = DATA / "explore" / args.arc
+    record = json.loads((base / "arc.json").read_text())
+    nodes = np.load(base / "nodes.npz")["w"]
+    s_cross = record["first_crossing"]["s"]
+    k = int(np.argmin(np.abs(nodes[:, -1] - s_cross)))
+    start = nodes[k][:-1]
+    rows = []
+    for s_val in np.linspace(s_cross + args.start, s_cross + args.stop, args.points):
+        rates = mm.rates(s_val, s_val + args.offset_output)
+        t = start[None, :n] + 1e-4
+        m = start[None, n:].copy()
+        with np.errstate(over="ignore", invalid="ignore"):
+            for _ in range(args.transient):
+                t, m = mm.step(t, m, rates)
+            samples = []
+            for _ in range(args.samples):
+                samples.append(t[0].copy())
+                t, m = mm.step(*mm.step(t, m, rates), rates)
+        samples = np.array(samples)
+        if not np.all(np.isfinite(samples)):
+            rows.append({"s": float(s_val), "rotation": None, "status": "diverged"})
+            continue
+        scale = max(1.0, float(np.linalg.norm(samples[0])))
+        period = next((q for q in range(1, 65) if np.linalg.norm(samples[q] - samples[0]) < 1e-7 * scale), None)
+        rho = rotation_number(samples)[0]
+        rows.append({"s": float(s_val), "rotation": rho, "two_step_period": period,
+                     "amplitude": float(np.max(np.linalg.norm(samples - samples.mean(0), axis=1)))})
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "staircase.json").write_text(json.dumps({"args": vars(args), "crossing": s_cross, "rows": rows}, indent=1))
+    rho = [r["rotation"] for r in rows if r["rotation"] is not None]
+    locked = [r for r in rows if r.get("two_step_period")]
+    print(json.dumps({"points": len(rows), "rotation_range": [min(rho), max(rho)] if rho else None,
+                      "locked_points": len(locked),
+                      "locked_periods": sorted({r["two_step_period"] for r in locked})[:12],
+                      "diverged": sum(1 for r in rows if r.get("status") == "diverged")}))
 
 
 def main():
@@ -646,9 +704,24 @@ def main():
     cr.add_argument("--step-b", type=float, default=1e-4)
     cr.add_argument("--step-c", type=float, default=1e-3)
     cr.add_argument("--out", required=True)
+    st = sub.add_parser("staircase")
+    st.add_argument("--system", default="S2")
+    st.add_argument("--seed", type=int, default=28011)
+    st.add_argument("--beta", type=float, default=0.0)
+    st.add_argument("--width", type=int, default=None)
+    st.add_argument("--offset-output", type=float, default=-1.828)
+    st.add_argument("--arc", required=True)
+    st.add_argument("--start", type=float, default=0.001)
+    st.add_argument("--stop", type=float, default=0.15)
+    st.add_argument("--points", type=int, default=150)
+    st.add_argument("--transient", type=int, default=20000)
+    st.add_argument("--samples", type=int, default=3000)
+    st.add_argument("--out", required=True)
+    for sp in (ac, cr):
+        sp.add_argument("--width", type=int, default=None)
     args = parser.parse_args()
     {"scan": scan, "rotation-map": rotation_map, "branch": branch, "arc": arc, "onset": onset,
-     "criticality": criticality}[args.command](args)
+     "criticality": criticality, "staircase": staircase}[args.command](args)
 
 
 if __name__ == "__main__":
