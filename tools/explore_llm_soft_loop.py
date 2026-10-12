@@ -716,6 +716,11 @@ def scan(args):
         entropy[idx] = -(last_p * np.log(np.maximum(last_p, 1e-300))).sum(1)
         del p, XY, X, Y
         print(json.dumps({"done": idx[-1] + 1, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
+        part = DATA / "explore" / args.out                    # checkpoint: a timed-out scan still yields its rows
+        part.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(part / "scan-partial.npz", done=idx[-1] + 1, log10_temperature=log_t, alpha=alphas,
+                            lyapunov=lyap, period=period, entropy=entropy, family=family,
+                            family_keys=np.array(json.dumps([list(k) for k in families])))
     seconds = round(time.perf_counter() - tic, 1)
     shape = tuple(args.resolution)
     out = DATA / "explore" / args.out
@@ -948,7 +953,7 @@ def walk(args):
                     args.device)
     torch, tok = loop.torch, loop.sm.tok
     v = elpm.load_vectors(args.vectors)[args.concept]
-    alphas = np.array(args.alphas, dtype=float)
+    alphas = np.repeat(np.array(args.alphas, dtype=float), args.replicas)
     ids = [tok.encode(t, add_special_tokens=False) for t in args.tokens]
     if any(len(i) != 1 for i in ids):
         raise SystemExit(f"each --tokens entry must be one token: {dict(zip(args.tokens, ids))}")
@@ -956,9 +961,17 @@ def walk(args):
     X = loop.prepare(alphas[:, None] * v[None])
     temps = np.full(len(alphas), 10.0 ** args.log_temperature)
     probs, ent, lead = [], [], []
+    gen = torch.Generator(device=loop.device).manual_seed(args.seed)
     with torch.no_grad():
         for i in range(args.transient + args.steps):
-            X, p = loop.step(X, temps)
+            if args.sample_m:                         # bridge to sampling: mean of m sampled token embeddings
+                z = loop.logits(X)
+                p = torch.softmax(z / torch.as_tensor(temps, dtype=loop.state_dtype, device=loop.device)[:, None],
+                                  dim=-1)
+                draws = torch.multinomial(p, args.sample_m, replacement=True, generator=gen)   # (B, m)
+                X = torch.cat([X[:, 1:, :], loop.E[draws].mean(1)[:, None, :]], dim=1)
+            else:
+                X, p = loop.step(X, temps)
             if i >= args.transient:
                 probs.append(p[:, ids].double().cpu().numpy())
                 ent.append((-(p * torch.log(p.clamp_min(1e-300))).sum(-1)).double().cpu().numpy())
@@ -1418,6 +1431,11 @@ def main():
     wk.add_argument("--transient", type=int, default=300)
     wk.add_argument("--steps", type=int, default=4000)
     wk.add_argument("--tokens", nargs="+", default=[" it", " a", " there", " is", ".", " This"])
+    wk.add_argument("--replicas", type=int, default=1, help="trajectories per alpha (independent with --sample-m)")
+    wk.add_argument("--sample-m", type=int, default=0,
+                    help="feed back the mean of m sampled token embeddings instead of the expected embedding "
+                         "(m = 1: sampled decoding of the same fixed-prefix, one-token-window system)")
+    wk.add_argument("--seed", type=int, default=0)
     wk.add_argument("--out", required=True)
     cv = sub.add_parser("curve")
     cv.add_argument("--start", required=True, help="explore-relative directory of a finished branch or tline run")
