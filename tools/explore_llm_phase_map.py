@@ -58,8 +58,8 @@ NEUTRAL = [
 class SteeredModel:
     """Model with an additive per-sequence steering vector on the output of one decoder layer."""
 
-    def __init__(self, model, layer, threads):
-        self.engine = ela.Engine(model, threads)
+    def __init__(self, model, layer, threads, dtype="float32"):
+        self.engine = ela.Engine(model, threads, dtype)
         self.torch = self.engine.torch
         self.tok, self.model = self.engine.tok, self.engine.model
         self.tok.padding_side = "left"
