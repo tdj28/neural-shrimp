@@ -18236,3 +18236,21 @@ _commit `f73102657c4b`_
 _commit `ae8da45fec4b` (dirty worktree)_
 
 - run started 2026-10-11 23:58 UTC finished 23:58 UTC with exit status 0
+
+## 2026-10-12 00:01 UTC: run (exploratory)
+
+- **Question:** Is the rotation of post-edge training explained by the composition of two near-reflections: turns per two-step ~ alpha/pi, with alpha the angle between the sharpest preconditioned-Hessian directions at the two points of the 2-cycle?
+- **Setup:** rotation-geometry on the 2-cycles of ns2-locus-001 (every 10th row) and on the unstable 2-cycle at the window centre (cycle-centre-001); compares alpha/pi, the two-plane projected product of exact step Jacobians, and the measured multiplier angle
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/rotation-geometry-001`
+- **Would surprise us:** alpha/pi far (more than 20%) from the measured rotation
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py rotation-geometry --locus ../neural-shrimp-data/explore/window-organization/ns2-locus-001/ns2-locus.json --every 10 --cycle ../neural-shrimp-data/explore/shrimp-anatomy/cycle-centre-001/two-cycle.npy -0.0857 1.853 --out ../neural-shrimp-data/explore/shrimp-anatomy/rotation-geometry-001`
+
+_commit `f5db0dc891ff`_
+
+- run started 2026-10-12 00:01 UTC finished 00:01 UTC with exit status 0
+
+## 2026-10-12 00:01 UTC: Inside the period-18 shrimp: a hidden-layer see-saw whose bounce precesses; sharp-direction misalignment predicts the rotation to 5-10%
+
+cycle-centre-001 (window centre, log10 rates -0.0857, 1.853): attracting period-18 cycle (spectral radius 0.879); its nine even states wind exactly 2.0 turns around an unstable 2-cycle (two-step multiplier -0.103 +- 1.162i, modulus 1.167, 0.264 turns). The bounce (2-cycle separation 0.815) and the rotation plane are 99% hidden-layer parameters (hidden rate about 71 versus output 0.82); hidden unit 1 is idle (never saturates, output weight -0.03); units 2 and 3 have opposite output weights (-0.16, +0.15) and their biases see-saw (bounce components +0.41, -0.57), moving them in and out of saturation (unit 2 21-62%, unit 3 12-46% of samples), peaking with the loss. Loss along the cycle 0.0039-0.0232 with two peaks per 18 steps (one per turn of the rotation); a quasi-periodic trajectory 0.003 decades below the lower fold shows nearly the same loss pattern without exact repetition. Preconditioned sharpness along the cycle 1.43-3.75, straddling 2. rotation-geometry-001: the angle alpha between the sharpest preconditioned-Hessian directions at the two 2-cycle points is 41-42 degrees on the Neimark-Sacker locus and 50 degrees at the window centre; alpha/pi = 0.232-0.234 versus measured 0.212-0.223 on the locus, 0.279 versus 0.264 at the centre; projecting the two exact step Jacobians on the plane of the two sharp directions gives 0.228-0.231 (centre 0.275) but modulus 0.91-0.92 instead of 1. The second preconditioned eigenvalue is about 1 (step factor near 0), so a two-reflection picture is wrong in detail: misalignment of the sharp directions across the bounce is a good proxy for the rotation, but the instability involves more of the spectrum.
+
+_commit `f5db0dc891ff` (dirty worktree)_
