@@ -52,7 +52,14 @@ full periodic-orbit continuation in large dimension.
 
 ## Status
 
-- **Rung 1:** running (12 Oct).
+- **Rung 1, corrected (12 Oct):** at ridge 1e-3 the first instability in
+  the 6-, 12- and 24-unit networks is a real +1 multiplier, not
+  Neimark-Sacker. Stronger weight decay switches units off (the first
+  instability is then a unit's recruitment) or makes all units identical
+  copies (any Neimark-Sacker is then that of a one-unit network).
+  - Rotation maps for widths 6 and 12 are running.
+  - The width question has to be posed with weight decay as a co-parameter,
+    in a regime where the units stay distinct.
 - **Rung 3:** running at weight decay 0.03.
 - **Earlier evidence:**
   - 72-parameter S1R: most traced 2-cycle boundaries are Neimark-Sacker, and

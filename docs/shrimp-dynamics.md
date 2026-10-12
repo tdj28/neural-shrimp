@@ -233,6 +233,42 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   change sits at a degenerate (Chenciner) point near beta = 0.07. Below it
   the onset is soft; above it, it is hard, with |d| growing steeply (up to
   +57 at beta = 0.7). One ray of one network so far.
+- **Weight decay decides whether the route appears (12 Oct).**
+  - **Same final sharpness at every weight decay.** At the window rates the
+    minimum is far beyond the edge (rate-weighted sharpness 16-37 against
+    2). From the same start, training settles back at a sharpness of about 2
+    whatever the weight decay.
+  - **Different routes to it.** Without weight decay, gradient descent gets
+    there by inflating the weights (norm 12 against 2.2 with ridge 1e-3) and
+    saturating the tanh units (mean tanh' 0.16 against 0.59). In that
+    saturated regime three two-step multipliers are 1 to four digits: neutral
+    directions. Training drifts slowly along a family of near-2-cycles with no
+    rotation, so there are no tongues and no shrimps.
+  - **What weight decay adds.** It bounds this escape: attractor norm about
+    3.3, 2.6 and 2.1 at ridge 1e-4, 3e-4 and 1e-3. It also turns the neutral
+    directions into contracting ones, by a factor close to (1 - eta lambda)^2
+    per bounce (0.984 measured against 0.986 at 1e-4).
+  - **Refuted alternative.** Saturation does not make the curvatures at the
+    two bounce points commute (relative commutator 0.32 without weight
+    decay, 0.18 at 1e-3).
+  - **Weight decay is a third control parameter.** It reorganizes which
+    instability comes first. On the tested ray of the 13-parameter network,
+    the 2-cycle's first instability is:
+    - folds at very weak weight decay (1e-5, 3e-4);
+    - Neimark-Sacker at 1e-4 and 1e-3;
+    - recruitment of a unit that weight decay has switched off, at 3e-3.
+    In a 12-unit network, strong weight decay makes all units identical
+    copies; a Neimark-Sacker crossing then belongs to an effectively
+    one-unit network.
+  - **Scope and open questions.** One network, one rate point and one ray.
+    The window itself still has to be continued in the weight-decay
+    coefficient.
+  - **Language-model link (hypothesis, untested).** With normalization
+    layers, weights are scale-invariant, and without weight decay their norm
+    grows and the effective step shrinks. Weight decay sets an equilibrium
+    norm. If the same escape operates there, decoupled weight decay (as in
+    AdamW) would be what keeps training in the bounded edge-of-stability
+    regime where these bifurcations can occur.
 - **Not yet shown:** any of this in large models or under minibatch noise, or
   any training benefit from knowing it.
 
@@ -251,8 +287,15 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
      including hidden tongues?
    - What organizes the odd-period windows? Locking on the period-2 circle
      only gives even periods.
-4. **Weight decay.** The network without weight decay showed no windows.
-   Is regularization what creates the bounded precessing motion?
+4. **Weight decay.** Partly answered: without it, training escapes to
+   saturated weights with neutral directions and no rotation (see the
+   implications section). Still to do:
+   - continue the window and the period-2 Neimark-Sacker curve in the ridge
+     coefficient;
+   - explain why no 2-cycle could be seeded at the flip without weight
+     decay;
+   - check whether the zero-loss set without weight decay is isolated.
+     Zero-loss points of norm 1.55 and 2.01 were both found.
 5. **Noise.** Do shrimps survive minibatch noise as metastable cycles (escape
    times, phase diffusion)?
 6. **Certification** of the new organization claims (the hidden-tongue
