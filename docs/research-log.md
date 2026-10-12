@@ -19028,3 +19028,21 @@ _commit `0f7811847ea2` (dirty worktree)_
 minimum-check-001/002. From the same 200000-step descent endpoint (ridge 0; not yet converged: gradient 3e-6, loss 1.7e-7), plain Newton converges to a SADDLE (loss 1.39e-7, smallest Hessian eigenvalue -8.7e-7, norm 2.006), while a trust region reaches the zero-loss minimum (loss 1.5e-33, norm 1.5475); they are not related by tanh sign flips or unit permutations (canonical distance 1.69). The earlier note's 'two zero-loss points of norm 1.55 and 2.01' was wrong: the escape tool printed losses rounded to six decimals, so 1.4e-7 showed as 0. The zero-loss minimum is isolated but extremely flat: smallest Hessian eigenvalues 9.4e-7, 1.1e-5, 9.8e-5 (at ridge 1e-3 the smallest is 4.3e-4), so even at the minimum one direction is essentially neutral under gradient descent without weight decay (multiplier within about 1e-4 of 1 at the window rates). escape-001/002's ridge-0 'minimum' row was that saddle (sharpness 16.1); the true minimum's rate-weighted sharpness at the window rates is 28.8 (ridge 1e-5: 38.4; 1e-3: 30.9), so the minima are far past the edge (value 2) as stated; the attractor results are unaffected. At ridge 1e-5 plain Newton failed to converge (gradient 5e-4). The escape tool now uses the trust-region minimum and prints unrounded values.
 
 _commit `0f7811847ea2` (dirty worktree)_
+
+## 2026-10-12 02:21 UTC: run (exploratory)
+
+- **Question:** What are the 'moving' bands inside the synchronized region of the context-24 inference scan (eta 0)? Critical slowing near bifurcation curves (a multiplier of the context-periodic memory near +1) or genuine non-periodic motion?
+- **Setup:** explore_inference_memory floquet --context 24 --eta 0, period 1, transient 4000 periods then Newton on the period map (analytic Jacobian): band cells (log10 theta, log10 alpha) = (-0.3807, -3.1471), (-0.2521, -2.5042), (-0.0101, -4.395) and a synchronized control (-0.4034, -2.0126)
+- **Output:** `../neural-shrimp-data/explore/inference-memory/floquet-bands-eta0`
+- **Would surprise us:** Band cells with no periodic orbit nearby, or with complex multipliers on the circle
+- **Command:** `bash -c for pt in "-0.3807 -3.1471" "-0.2521 -2.5042" "-0.0101 -4.395" "-0.4034 -2.0126"; do set -- $pt; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --eta 0 --log-theta $1 --log-alpha $2 --transient 4000 --out inference-memory/floquet-bands-eta0/t$1-a$2; done`
+
+_commit `f998f386b4ec`_
+
+- run started 2026-10-12 02:21 UTC finished 02:21 UTC with exit status 0
+
+## 2026-10-12 02:22 UTC: Inference pilot, first scans: synchronized memory, small period-doubling regions, real-multiplier slowing bands; no quasi-periodic memory
+
+calibration-eta0-002 (context 8: 13 memory parameters can fit the 8 pairs exactly, so a 5-dimensional flat family is contracted only by forgetting, and much of the grid is still drifting after 2000 periods) and scan-c24-eta0 / scan-c24-eta0.5 (context 24 > 13 parameters; log10 theta -0.6..0.3, log10 alpha -5..-0.5, 120x120, 4000 + 1024 periods). eta 0: 8141 cells synchronized (memory repeats exactly with the context), 32 period 2 (the memory pattern repeats every two contexts; near theta 1.2-1.5 at strong forgetting), 2569 'moving', 3658 diverged (above theta about 1.1). eta 0.5: 7086 synchronized, 117 period 2, 2 period 4, 1 period 6, 1451 moving, 5743 diverged (divergence starts lower). No moving cell rotates (rotation per two periods about 0). floquet-bands-eta0: three cells in the moving bands each have a context-periodic memory orbit (Newton residual 1e-13 to 3e-16) with a real leading multiplier 0.9984-0.9993 (control cell 0.981): the bands are critical slowing along real +1 bifurcation curves of the synchronized memory, the counterpart of the folds and recruitments seen in training, not new dynamics. In this simplest Titans-like setting (one inner learning rate, per-token updates) the quasi-periodic route does not appear. Next: per-layer inner rates and coupled decay, with a chunk option; a whole-context chunk makes the memory map identical to the S2 training map (validation), and per-token chunks at the same total step per context test whether the shrimp survives online updating.
+
+_commit `f998f386b4ec` (dirty worktree)_
