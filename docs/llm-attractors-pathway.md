@@ -292,21 +292,45 @@ window (`explore/llm-soft-loop/`).
   is a" (10) and ". This is it is it is it is a is a" (12; float64 residual
   3e-15). The neighbouring period-2 region is the 2-cycle "is it" (float64
   residual 6e-15, leading multiplier -0.27). Each stripe orbit loops k times
-  near that 2-cycle, escapes through ". This" and is reinjected; the stripes
-  accumulate toward the period-2 region, with spacings in alpha shrinking by
-  a factor of about 0.57 per step at log10 T -0.115.
+  near that 2-cycle, escapes through ". This" and is reinjected.
+- **Accumulation law (provisional).** A fine float32 cut at log10 T -0.115
+  (700 cells, alpha step 2.5e-5) finds the stripes P6, P8, ..., P20 in order,
+  each with a doubled-period sliver on its smaller-alpha (flip) side, closing
+  in on the 2-cycle's fold at alpha_c = 0.0627972. The distances of the
+  stripe centres from alpha_c follow d_k = 0.0264 / (k - 2)^2 within 1 % for
+  k = 6..9: 1/sqrt(d_k) grows by 6.07, 6.12, 6.28 per step. Their ratios
+  rise from 0.56 to 0.73, so the accumulation is not geometric (an earlier
+  reading from coarse cells, 0.57 per step, was wrong). This is the window
+  law of a saddle-node ghost (type-I intermittency of Pomeau-Manneville
+  type). Past its fold the 2-cycle leaves a bottleneck. Passing through it
+  takes about pi / sqrt(a beta (alpha - alpha_c)) laps of the two-step map,
+  where a beta is the 2-cycle's normal-form coefficient. Each extra "is X"
+  pair is one more lap, and ". This" is the reinjection. Exact fold edges
+  in float64 and the slope sqrt(a beta) / pi from the 2-cycle's multipliers
+  are being measured (job 06e26).
 - **Precision.** The float32 map is accurate to only 3e-6 to 2e-5 per step
   (soft embeddings have norms near 0.2). In float32 the period-8 orbit was
   read as period 16 and the period-10 orbit was missed, and the zoom maps'
   period test sits at that error level. Orbits are therefore verified in
-  float64. Boundary continuation uses float64 residuals with float32
-  derivatives, which are accurate enough for the Newton matrix.
+  float64. Derivatives are worse than this suggests: one-step float32
+  Jacobian-vector products are accurate to about 5e-5, but the 8-step
+  monodromy of the period-8 orbit is off by 3 %. Its critical multiplier
+  comes out as 1.024 instead of 1.049, and the fold test function g is off
+  by a factor of two, because eight strongly contracting, non-normal steps
+  compound the error. Boundary continuation therefore takes residuals, the
+  test function g (GMRES on the bordered system) and the critical
+  multipliers (a short Arnoldi factorization) from float64 Jacobian-vector
+  products, and uses float32 dense monodromies only for the Newton
+  matrix.
 - **Boundaries.** Continued in temperature at alpha 0.0717, the period-8
   orbit keeps a real leading multiplier. Upward it passes close to zero
   (6e-5 near log10 T -0.108) and rises toward +1 as the branch turns: a fold
   near log10 T -0.1033 (square-root extrapolation). Downward it changes sign
-  near -0.121 (a superstable point) and crosses -1 between -0.12886 and
-  -0.12911, an isolated real -1 (flip; next multiplier 3e-6). So this cut has
+  near -0.121 (a superstable point) and crosses -1 near -0.129, an isolated
+  real -1 (flip; next multiplier 3e-6). These multipliers come from float32
+  monodromies: the fold location (the turn of the branch) is exact, the flip
+  location is uncertain by about 4e-4. In float64 the fold at alpha 0.0717
+  is at log10 T -0.1033462 (critical multiplier 0.99999983). So this cut has
   the profile of a periodic window: saddle-node at high temperature, period
   doubling at low temperature. A long narrow region bounded by a fold on one
   side is how shrimp legs are described (Facanha, Oldeman and Glass 2013,
