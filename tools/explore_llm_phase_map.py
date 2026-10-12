@@ -88,7 +88,7 @@ class SteeredModel:
         norms = (hs.double().norm(dim=-1) * mask[..., 0]).sum(1) / mask[..., 0].sum(1)
         return mean.numpy(), last.numpy(), norms.numpy()
 
-    def generate_batch(self, batch_messages, steer_rows, max_new):
+    def generate_batch(self, batch_messages, steer_rows, max_new, temperature=0.0, seed=None):
         torch = self.torch
         from transformers import LogitsProcessor, LogitsProcessorList
 
@@ -107,12 +107,16 @@ class SteeredModel:
         enc = self.tok(prompts, return_tensors="pt", padding=True, add_special_tokens=False)
         recorder = EntropyRecorder()
         self.steer = torch.as_tensor(np.asarray(steer_rows))[:, None, :]
+        sampling = {"do_sample": False, "temperature": None} if temperature <= 0 else \
+            {"do_sample": True, "temperature": float(temperature)}
+        if seed is not None:
+            torch.manual_seed(int(seed))
         try:
             with torch.no_grad():
-                out = self.model.generate(**enc, max_new_tokens=int(max_new), do_sample=False, temperature=None,
-                                          top_p=1.0, top_k=0, repetition_penalty=1.0, return_dict_in_generate=True,
+                out = self.model.generate(**enc, max_new_tokens=int(max_new), top_p=1.0, top_k=0,
+                                          repetition_penalty=1.0, return_dict_in_generate=True,
                                           logits_processor=LogitsProcessorList([recorder]),
-                                          pad_token_id=self.tok.pad_token_id)
+                                          pad_token_id=self.tok.pad_token_id, **sampling)
         finally:
             self.steer = None
         new = out.sequences[:, enc["input_ids"].shape[1]:]
