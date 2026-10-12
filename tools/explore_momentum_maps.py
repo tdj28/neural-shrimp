@@ -572,6 +572,16 @@ def criticality(args):
         else:
             lo_s = mid
     w_c, mono_c, r_c = cycle_at(0.5 * (lo_s + hi_s), guess)
+    mult_c = np.linalg.eigvals(mono_c)
+    lead = mult_c[np.argmax(np.abs(mult_c))]
+    if abs(lead.imag) < 1e-6:
+        out = {"beta": args.beta, "crossing_s": float(w_c[-1]), "outcome": "first crossing is real, not Neimark-Sacker",
+               "leading_multiplier": [float(lead.real), float(lead.imag)]}
+        dest = DATA / "explore" / args.out
+        dest.mkdir(parents=True, exist_ok=True)
+        (dest / "criticality.json").write_text(json.dumps(out, indent=1))
+        print(json.dumps(out))
+        return
     x0 = w_c[:-1]
     rates = system.rates(w_c[-1])
 
@@ -584,10 +594,10 @@ def criticality(args):
         return np.array(out)
 
     B, C = finite_difference_forms(two_step_jvp, x0, step_b=args.step_b, step_c=args.step_c)
-    res = ns_coefficient(mono_c, B, C)
+    res = ns_coefficient(mono_c, B, C, mu=lead)
     # step-size check
     B2, C2 = finite_difference_forms(two_step_jvp, x0, step_b=args.step_b * 2, step_c=args.step_c * 2)
-    res2 = ns_coefficient(mono_c, B2, C2)
+    res2 = ns_coefficient(mono_c, B2, C2, mu=lead)
     out = {"beta": args.beta, "crossing_s": float(w_c[-1]), "spectral_radius_at_crossing": r_c,
            "first_lyapunov": res, "first_lyapunov_doubled_steps": res2,
            "classification": "supercritical (soft)" if res["d"] < 0 else "subcritical (hard)"}
