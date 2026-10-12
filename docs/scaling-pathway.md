@@ -65,11 +65,20 @@ full periodic-orbit continuation in large dimension.
   - **But the wider students condense.** The S2 teacher has 3 units. With
     small initialization and weight decay, extra units die or become
     identical copies, so the network behaves as an effective 3-unit network.
-  - **Consequence:** S2 cannot test width with distinct units. The width
-    rung needs one of:
-    - a teacher as wide as the student;
-    - larger initialization;
-    - real data (rung 2).
+  - **Consequence:** S2 cannot test width with distinct units.
+  - **Wider teachers and larger initialization do not help.** With a 6- or
+    12-unit teacher, at initialization scale 0.2 or 1.0, the regularized
+    minimum and the cycles still have identical copies of units: 5 of 6, or
+    9-10 of 12. This matches the known preference of weight-decayed
+    two-layer networks for few distinct units.
+  - **A tension:** weight decay is what makes the route exist
+    (confinement), yet it collapses wide students in small teacher tasks.
+  - **What width needs:** a task that requires many features, i.e. real
+    data (UCI digits, CIFAR), or the language models themselves, whose own
+    dynamics are now mapped directly (`docs/llm-attractors-pathway.md`).
+- **Rung 3 (CIFAR) is paused at a plateau.** Six escape rounds at weight
+    decay 0.03 found successive saddles with weak negative curvature while
+    the loss fell only from 0.12578 to 0.12553.
 - **Rung 3:** running at weight decay 0.03.
 - **Earlier evidence:**
   - 72-parameter S1R: most traced 2-cycle boundaries are Neimark-Sacker, and

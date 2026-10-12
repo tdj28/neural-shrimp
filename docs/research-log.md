@@ -19644,3 +19644,27 @@ _commit `0113c3c1f5da` (dirty worktree)_
 ouro-orbit-p2-lam1.2803-replica (explore_latent_loop orbit, cuda float32, prompt 'story', relaxed loop h <- (1 - lambda) h + lambda F(h) at lambda 1.280315, period 2, started from basin replica 0 of ouro-basin-lam1.280315 which the dynamics had carried onto a period-2 orbit). Newton-Krylov converged at once (relative residual 1.8e-6 -> 7.3e-7). Arnoldi, 8 largest multipliers of the period-2 map: 0.9195 +- 0.1528 i, 0.9290 +- 0.0614 i, 0.9304, 0.9116 +- 0.1277 i, 0.9044 +- 0.0802 i; spectral radius 0.932 < 1, so the orbit is attracting. One-step separation 0.291 (relative), so it is a primitive 2-cycle; the model's readout at both points is a newline. Together with the basin test (12 of 32 perturbed starts on period-2 orbits, each a different one, the rest irregular), this establishes stable periodic orbits of the model's own latent recurrence coexisting with an irregular attractor. Its leading multipliers form a complex pair of modulus 0.93: varying a parameter could carry it across the unit circle as a Neimark-Sacker crossing of the 2-cycle, the same route as in the training map. Caveats: float32; 8 multipliers computed (the largest in magnitude); the relaxation lambda is our parameter, lambda = 1 being the native loop.
 
 _commit `6b551c324752`_
+
+- run started 2026-10-12 07:10 UTC finished 07:15 UTC with exit status 0
+
+- run started 2026-10-12 04:02 UTC finished 07:15 UTC with exit status 0
+
+- run started 2026-10-12 02:33 UTC finished 07:16 UTC with exit status 0
+
+## 2026-10-12 07:16 UTC: run (exploratory)
+
+- **Question:** Do wider students with a matching teacher and larger initialization keep distinct units on the cycle whose Neimark-Sacker crossing borders the precession region? (width 6 / teacher 6 / init 1.0; width 12 / teacher 12 / init 0.2)
+- **Setup:** explore_momentum_maps arc --beta 0 seeded from the attractor just below each rim (--seed-at), then crossing-anatomy and criticality (refuses real crossings): (a) width 6, teacher 6, 48 samples, init 1.0, ray offset -2.55, seed at 1.95, s_max 2.4; (b) width 12, teacher 12, 96 samples, init 0.2, ray offset -1.87, seed at 1.25, s_max 1.6; 12000 steps each, pipefail
+- **Output:** `../neural-shrimp-data/explore/momentum/width-maps/{arc,anatomy,crit}-{w6-t6-init1,w12-t12}-seeded`
+- **Would surprise us:** Condensed or dead units again in both
+- **Command:** `bash -c set -o pipefail; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width 6 --teacher-width 6 --n-train 48 --init-scale 1.0 --offset-output -2.55 --seed-at 1.95 --s-max 2.4 --steps 12000 --out momentum/width-maps/arc-w6-t6-init1-seeded 2>&1 | grep -v -i warn && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width 6 --teacher-width 6 --n-train 48 --init-scale 1.0 --offset-output -2.55 --arc momentum/width-maps/arc-w6-t6-init1-seeded --out momentum/width-maps/anatomy-w6-t6-init1-seeded 2>&1 | grep -v -i warn; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width 12 --teacher-width 12 --n-train 96 --offset-output -1.87 --seed-at 1.25 --s-max 1.6 --steps 12000 --out momentum/width-maps/arc-w12-t12-seeded 2>&1 | grep -v -i warn && env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width 12 --teacher-width 12 --n-train 96 --offset-output -1.87 --arc momentum/width-maps/arc-w12-t12-seeded --out momentum/width-maps/anatomy-w12-t12-seeded 2>&1 | grep -v -i warn`
+
+_commit `233d3511d500` (dirty worktree)_
+
+- run started 2026-10-12 07:16 UTC finished 07:17 UTC with exit status 0
+
+## 2026-10-12 07:17 UTC: CIFAR plateau persists through six escape rounds; width tests: weight decay condenses wide students in teacher tasks regardless of initialization
+
+escape-lam0.03 (six rounds of kicks along the most negative eigenvector, 400000 descent steps each, full spectrum): negative eigenvalue counts 4, 2, 3, 2, 1, 1 (most negative -0.0227, -0.00097, -0.00228, -0.00232, -0.00178, -0.0059); loss 0.12578 -> 0.12553 only; final gradient 3.7e-7 on one branch with one negative direction (index-1 saddle). The regularized CIFAR MLP sits in an extended flat saddle region; rung 3 is paused (next attempt: much longer descent on the GPU, or another weight decay). Width: arc-w6-t6-init1-seeded reproduces the init-0.2 result exactly up to a permutation of units (same condensed minimum, same cycle with five identical units, same soft Neimark-Sacker crossing at s 2.1089, 0.206 turns), so the condensation belongs to the regularized minimum, not the initialization scale; arc-w12-t12-seeded (width 12, teacher 12, 96 samples): nine identical units at the minimum, ten on the cycle, first crossing a degenerate real +1 within the copied block (symmetry breaking). Consistent with the known preference of weight-decayed two-layer networks for few distinct units. Tension: weight decay is needed for the route (confinement) but condenses wide students in small teacher tasks. Testing width with distinct units needs a task requiring many features (UCI digits, CIFAR) - or the LLMs themselves, where the dynamics of interest are now being mapped directly.
+
+_commit `233d3511d500` (dirty worktree)_
