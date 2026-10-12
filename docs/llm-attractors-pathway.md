@@ -270,9 +270,14 @@ perturbing the last position changes no earlier output (difference exactly
 Soft-token decoding feeds the model's own probability-weighted embedding
 back as the next input, x -> E^T softmax(z(x) / T), with a fixed prefix
 and steering alpha along a concept vector at layer 12. It is a smooth map
-of the 896-dimensional embedding space whose T -> 0 limit is greedy
-decoding. Maps and checks below are for Qwen2.5-0.5B with a one-token
-window (`explore/llm-soft-loop/`).
+of the 896-dimensional embedding space. Its T -> 0 limit is greedy decoding
+of this same fixed-prefix, one-token-window system (given a unique argmax),
+not ordinary generation with a growing context. Expected-embedding feedback
+is a constructed dynamical system of the model's own computation. It is not
+yet a validated proxy for sampled decoding; replacing the mean embedding by
+averages of m sampled token embeddings (m = 64, 8, 1) is the planned bridge.
+Maps and checks below are for Qwen2.5-0.5B with a one-token window
+(`explore/llm-soft-loop/`).
 
 - **Chaos with windows.** On the 96x96 zoom over alpha 0.03..0.09 and
   log10 T -0.3..0.25, 2676 of 9216 cells have a positive twin exponent,
