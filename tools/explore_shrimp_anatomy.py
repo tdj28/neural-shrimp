@@ -41,6 +41,11 @@ makes that statement concrete in network terms at chosen rates:
           (period by recurrence up to 72, doubling amplitude |theta_t -
           theta_{t+18}| for period 36, or aperiodic with return statistics).
           A soft flip shows period 36 with amplitude ~ sqrt(distance).
+  ridge   Does the shrimp need weight decay? Continue the window's attracting
+          period-18 cycle in the ridge coefficient at fixed rates (down to 0
+          and up), reporting its spectral radius until Newton loses it; and
+          classify long-run attractors (period, rotation, norm drift) at given
+          rates for a list of ridge values.
   lyapunov  Full Lyapunov spectrum (QR iteration with exact step Jacobians)
           and Kaplan-Yorke dimension of the attractor at given rates, plus the
           principal-plane share of its two-step samples: is post-edge training
@@ -492,6 +497,70 @@ def edge(args):
                       "doubling_amplitude_exponent": exponent, "soft_flip_expectation": 0.5}))
 
 
+def ridge(args):
+    import dataclasses
+    from neural_shrimp.regimes import rotation_number
+
+    net0, x, y, theta0 = make_s2(SEED)
+
+    def fmap(lam):
+        return TwoRateMap(dataclasses.replace(net0, ridge=float(lam)), x, y)
+
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    record = {"centre": args.centre, "continuation": {}, "attractors": []}
+    # 1. continuation of the period-18 cycle in the ridge coefficient
+    pc = list(args.centre)
+    f = fmap(1e-3)
+    st, _ = fixed_rate_orbit(f, f.iterate(theta0, pc, 80000), pc, 18)
+    for label, path in (("down", args.ridge_down), ("up", args.ridge_up)):
+        rows, prev = [], st
+        for lam in path:
+            f = fmap(lam)
+            cur, hist = fixed_rate_orbit(f, prev, pc, 18)
+            if cur is None:
+                rows.append({"ridge": lam, "outcome": "lost"})
+                break
+            _, m, _, pts = f.period_map(cur, pc, 18)
+            mult = np.linalg.eigvals(m)
+            rows.append({"ridge": lam, "spectral_radius": float(np.max(np.abs(mult))),
+                         "leading": [[float(v.real), float(v.imag)] for v in sorted(mult, key=lambda v: -abs(v))[:2]],
+                         "min_divisor_separation": min(divisor_separations(pts, 18).values()),
+                         "weight_norm": float(np.linalg.norm(cur))})
+            prev = cur
+        record["continuation"][label] = rows
+        for r in rows:
+            print(json.dumps({"path": label} | {k: (round(v, 5) if isinstance(v, float) else v) for k, v in r.items()
+                                                 if k != "leading"}))
+    # 2. attractor classification versus ridge at several rates
+    for lam in args.ridges:
+        f = fmap(lam)
+        for lx, ly in args.points:
+            p = [lx, ly]
+            theta = theta0.copy()
+            with np.errstate(over="ignore", invalid="ignore"):
+                for _ in range(args.transient):
+                    theta = f.step(theta, p)
+                norm_a = float(np.linalg.norm(theta))
+                traj = [theta]
+                for _ in range(args.samples):
+                    traj.append(f.step(traj[-1], p))
+            traj = np.array(traj)
+            if not np.all(np.isfinite(traj)) or norm_a > 1e6:
+                row = {"ridge": lam, "rates": p, "attractor": "diverged"}
+            else:
+                scale = max(1.0, float(np.linalg.norm(traj[0])))
+                period = next((q for q in range(1, 73) if np.linalg.norm(traj[q] - traj[0]) < 1e-7 * scale), None)
+                drift = float(np.linalg.norm(traj[-1]) - np.linalg.norm(traj[0])) / args.samples
+                rho = rotation_number(traj[::2][:4000])[0] if period is None else None
+                row = {"ridge": lam, "rates": p, "attractor": f"period {period}" if period else "aperiodic",
+                       "rotation": rho, "norm": float(np.linalg.norm(traj[-1])), "norm_drift_per_step": drift,
+                       "loss": float(np.mean(f.net.loss(traj[-200:], x, y)))}
+            record["attractors"].append(row)
+            print(json.dumps({k: (round(v, 6) if isinstance(v, float) else v) for k, v in row.items()}))
+    (out / "ridge.json").write_text(json.dumps(record, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -537,9 +606,23 @@ def main():
     ed.add_argument("--transient", type=int, default=200000)
     ed.add_argument("--tol", type=float, default=1e-7)
     ed.add_argument("--out", required=True)
+    rd = sub.add_parser("ridge")
+    rd.add_argument("--centre", type=float, nargs=2, default=[-0.0857, 1.853])
+    rd.add_argument("--ridge-down", type=float, nargs="+",
+                    default=[9e-4, 8e-4, 7e-4, 6e-4, 5e-4, 4e-4, 3e-4, 2e-4, 1e-4, 5e-5, 2e-5, 0.0])
+    rd.add_argument("--ridge-up", type=float, nargs="+",
+                    default=[1.2e-3, 1.5e-3, 2e-3, 2.5e-3, 3e-3, 4e-3, 5e-3, 7e-3, 1e-2])
+    rd.add_argument("--ridges", type=float, nargs="+", default=[0.0, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2])
+    rd.add_argument("--points", type=float, nargs=2, action="append",
+                    default=None, metavar=("LX", "LY"))
+    rd.add_argument("--transient", type=int, default=60000)
+    rd.add_argument("--samples", type=int, default=8000)
+    rd.add_argument("--out", required=True)
     args = parser.parse_args()
+    if args.command == "ridge" and args.points is None:
+        args.points = [[-0.0857, 1.853], [-0.0800, 1.800], [-0.0830, 1.890], [-0.0745, 1.760]]
     {"cycle": cycle, "rotation-geometry": rotation_geometry, "slips": slips, "window": window,
-     "lyapunov": lyapunov, "edge": edge}[args.command](args)
+     "lyapunov": lyapunov, "edge": edge, "ridge": ridge}[args.command](args)
 
 
 if __name__ == "__main__":
