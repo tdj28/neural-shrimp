@@ -861,7 +861,7 @@ def render(args):
                                     "largest Lyapunov exponent" if args.style == "lyapunov" else "period"))
     ax.set_xlabel("steering alpha")
     ax.set_ylabel("log10 temperature")
-    ax.set_title(f"soft-token decoding: {args.scan}")
+    ax.set_title(args.title if args.title is not None else f"soft-token decoding: {args.scan}")
     fig.tight_layout()
     fig.savefig(src / (args.name or "render.png"), dpi=170, bbox_inches="tight")
     counts = {int(q): int((per == q).sum()) for q in np.unique(per)}
@@ -1322,6 +1322,7 @@ def main():
     rd.add_argument("--chaos-level", type=float, default=0.005)
     rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
+    rd.add_argument("--title", default=None, help="figure title (default: the scan directory)")
     rd.add_argument("--window", type=float, nargs=4, default=None, metavar=("ALPHA0", "ALPHA1", "LOGT0", "LOGT1"),
                     help="zoom to this part of the map")
     rd.add_argument("--style", default="period", choices=("period", "lyapunov"),
