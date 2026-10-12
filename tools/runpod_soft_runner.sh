@@ -113,6 +113,23 @@ case "$JOBSET" in
     run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
     run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
     ;;
+  p4a)         # shrimp candidate (period-4 domain at high temperature, zoom-p4): float64 orbits at the body,
+               # legs and the period-8 island, then one-parameter branches out of the body in T and in alpha
+    ORB="orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12"
+    for spec in "0.0453 0.06484 body" "0.0505 0.06800 body2" "0.0779 0.07684 leg-ur" "0.0579 0.06421 leg-ul" \
+                "0.0558 0.05632 leg-l" "0.0053 0.07811 band-low" "0.0295 0.07053 island-p8"; do
+      set -- $spec
+      run orbit-p4-$3 15 $ORB --log-temperature $1 --alpha $2 --out $D/p4/orbit-$3
+    done
+    BR="branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp --steps 150 --chunk 896"
+    for dir in 1 -1; do
+      name=$([ $dir = 1 ] && echo up || echo down)
+      run p4-branch-T-$name 30 $BR --free temperature --log-temperature 0.0453 --alpha 0.06484 --direction $dir \
+        --ds 0.002 --ds-max 0.01 --beyond 0.003 --bounds -0.1 0.2 --out $D/p4/branch-T-$name
+      run p4-branch-a-$name 30 $BR --free alpha --log-temperature 0.0453 --alpha 0.06484 --direction $dir \
+        --ds 0.002 --ds-max 0.01 --beyond 0.0005 --bounds 0.04 0.09 --out $D/p4/branch-a-$name
+    done
+    ;;
   *) echo "unknown job set $JOBSET"; exit 2 ;;
 esac
 
