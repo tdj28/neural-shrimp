@@ -75,3 +75,5 @@ in parallel while capacity admits two workers: total8threads, not8each.
 This changes throughput only; no scientific tolerance/entrance is changed.
 
 Throughput001 passed: batch128 and256 first-direction differences5.51e-14 and7.35e-14; peakRSS at256 was6899056KiB. Choose128 for the dense stages: estimated203s/P2 and810s/P8 with smaller memory than256 for nearly the same throughput. Fold cap3600s; combined stableP2/P8 cap5400s, each4threads/16GiB/nice10; at most two workers concurrently. Augmented fold uses at most4 Newton corrections and2 backtracks per correction; near-seed ordinary Newton at most6 corrections, GMRES restart20 x2 cycles. No tolerance change.
+
+Auxiliary saved-data check: reconstruct the stable-branch ab extrapolation from the18 pre-existing points with5e-5<=alpha_c-alpha<=4e-4, as stated in the producer researchlog. Retain every selected row/gate and indices; fit y=(1-mu)^2/[4(alpha_c-alpha)] against sqrt(alpha_c-alpha), degrees1/2. This checks the stated123.1 extrapolation recipe, not a second independently recomputed branch. No additional transformer evaluations.60s walllimit,1CPUthread; still below12 total.

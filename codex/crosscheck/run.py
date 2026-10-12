@@ -219,7 +219,7 @@ def science(model, stage, output, event, chunk):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--stage', choices=['profile', 'throughput', 'orbits', 'fold', 'passages'], required=True)
+    parser.add_argument('--stage', choices=['profile', 'throughput', 'orbits', 'fold', 'passages', 'branch'], required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--threads', type=int, default=4)
     parser.add_argument('--chunk', type=int, default=16)
@@ -241,6 +241,17 @@ def main():
                 raise RuntimeError('input hash mismatch: '+row['path'])
         event('inputs_checked', torch_version=torch.__version__, numpy_version=np.__version__,
               threads=torch.get_num_threads(), pid=os.getpid())
+        if args.stage == 'branch':
+            from .branch import branch_extrapolation
+            branch = json.loads((DATA/'branch64-p2-t-0.115-alpha-up/branch.json').read_text())
+            nf = json.loads((DATA/'normal-form-p2-t-0.115/normal-form.json').read_text())
+            result = branch_extrapolation(branch['points'], nf['source']['alpha'], reference_ab=nf['ab'])
+            save(args.output/'branch-summary.json',result)
+            if not result['passed']:
+                raise RuntimeError('saved branch selection/quality/fit gate failed')
+            event('saved_branch_fit_complete')
+            save(args.output/'status.json',dict(status='complete',seconds=time.monotonic()-started))
+            return
         model = ManualQwenSoftMap.from_pinned_files()
         event('model_loaded', peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
         if args.stage == 'profile':
