@@ -107,6 +107,12 @@ case "$JOBSET" in
         --out $D/ladder-t-0.115/p$1-up
     done
     ;;
+  maps)        # 256x256 float64 maps: the period-adding stripes, and the high-entropy region with
+               # two-dimensional 4-cycles (second multipliers 0.06-0.09) where shrimps could live
+    SCAN="scan --device cuda --dtype float64 --chunk 2048 --resolution 256 256 --tol 1e-8 --eps 1e-6"
+    run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
+    run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
+    ;;
   *) echo "unknown job set $JOBSET"; exit 2 ;;
 esac
 
