@@ -81,3 +81,49 @@ section 5.5):
 
 Claude itself would require external API calls. Under the repository policy
 these need explicit approval and a budget.
+
+## Framework for mapping, measuring and steering loop attractors (12 October 2026)
+
+1. **Object.** With the weights fixed, a loop is a map F_c of contexts,
+   where c are the controls: steering strengths, temperature and the opener.
+   - Greedy decoding makes it deterministic, so runs end on exact cycles.
+   - Sampling makes it a Markov chain.
+2. **Phase maps.**
+   - **Controls:** add `alpha * v` to the residual stream at one layer, where
+     v is a contrastive activation-steering direction (implemented in
+     `tools/explore_llm_phase_map.py`).
+   - **The map:** a grid over two directions, each cell run to its
+     attractor, coloured by period and attractor identity. This is the
+     analogue of the learning-rate maps.
+   - **Grouping:** attractors are grouped into families by their
+     cycle-mean activation (centred, cosine distance), because exact text is
+     too fine.
+3. **Existence regions.**
+   - **Margin function:** a greedy cycle C persists exactly while every
+     logit margin along it is positive. Let m_C(alpha) be its minimal margin
+     along the fixed token path.
+   - **Region:** {alpha : m_C(alpha) > 0} is C's existence region. Its
+     boundary is the zero set of a piecewise-smooth function, which can be
+     continued with gradients like a fold curve.
+   - **Multistability:** regions where several existence regions overlap
+     are multistable. Which attractor is reached there depends on the opener
+     (the basin).
+4. **Noise.** At sampling temperature T, the probability of reproducing a
+   cycle is a product of softmax probabilities along its path. As T -> 0,
+   T(-log(1 - P_stay)) -> min margin (verified for six attractors:
+   `explore/llm-attractors/margins-opener*`). So residence in the exact cycle
+   grows like exp(m_C / T). Basin residence adds returns, which are measured
+   by sampled escape runs.
+5. **Stochastic dynamics (planned).**
+   - Build a transfer-operator (Markov-state-model) estimate on clustered
+     turn activations from many sampled runs.
+   - Leading eigenvalues give the metastable attractors and their lifetimes.
+   - Eigenvalues near p-th roots of unity give cycles.
+   - Committors give basin boundaries, and transition-path theory gives the
+     routes between attractors.
+6. **Manipulation.** The first-order steering distance to an attractor's
+   boundary is m_C / |grad_alpha m_C|. Steering along the gradient closes the
+   weakest margin (escape) or widens it (stabilization).
+7. **Scaling.** Every quantity needs only forward passes, gradients,
+   batched generation and activation statistics, so it applies to any open
+   transformer. Generation cost is the bottleneck (GPU).
