@@ -19294,3 +19294,11 @@ _commit `6ebc25e0433a` (dirty worktree)_
 pilot2-openers (greedy, open prompt, stop at the first exact cycle; summary with basins): 15 of 16 openers absorbed or cycling; 14 distinct exact-text attractors: the greeting loop 'Hello! How can I assist you today?' (openers 'Hello!', 'Hi there.', 'I am an AI too.'), a 2-cycle of definitions of awareness ('What is consciousness?'), a 14-cycle ('Tell me a story.'), and period-1 loops of 'You're welcome!...' variants, an AI-disclaimer ('As an AI language model, I don't have personal preferences...'), a self-introduction ('I'm Qwen...'), and topic statements (Renaissance, ocean); transients 2-16 turns. Exact text is too fine an attractor identity: many attractors are near-variants of a few families; activation-space grouping is needed for phase maps. pilot2-temperature: stopped deliberately at 9 completed runs (T 0, 0.2 x4, 0.4 x2, 0.5 x2; the 4 runs in progress at T 0.4 and 0.5 were killed, their folders hold no dialogue.json) because the machine was oversubscribed (load 50 on 32 cores) and the margin law explains the low-temperature behaviour; to be rerun when CPU or GPU is free. Completed runs: absorption into period-1 loops at T = 0.2-0.5 in 6 of 8 sampled runs, one period-2 cycle; absorbed runs' stay probabilities at their temperature 0.98-1.0 (greeting loop at T 0.4: 0.995 against 0.9949 from margins-opener00).
 
 _commit `d0166af8282f` (dirty worktree)_
+
+- run started 2026-10-12 03:51 UTC finished 04:17 UTC with exit status 0
+
+## 2026-10-12 04:18 UTC: Steering calibration (coarse): alpha >= 0.25 residual-norm units degenerates the 0.5B model
+
+vectors-l12: contrastive last-token differences at layer 12 have raw norm about 8.1, rescaled to the mean residual norm (about 200 and 189, inflated by a few massive activation dimensions); cosine between the two directions 0.57. calibrate-l12-gratitude and -philosophy (alpha 0, 0.25, 0.5, 1, 2, 4; greedy self-dialogue, 16 turns): alpha 0 gives the greeting loop; from alpha 0.25 on, both directions produce degenerate token repetition ('I! I! I!', '???', 'words words', single characters). The usable range is |alpha| of order 0.1 (about 2.5 raw differences); fine calibration follows.
+
+_commit `9cfe2914dd13` (dirty worktree)_
