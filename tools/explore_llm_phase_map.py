@@ -53,6 +53,13 @@ CONCEPTS = {
         "You are pathetic, useless and a waste of my time.", "I despise you and everything you say.",
         "What a stupid, worthless answer. You disgust me.", "Get lost, you miserable fool.",
         "I can't stand you. You are the worst.", "Your words are garbage and so are you."],
+    # matched counterpart of "hostility" (same forms, opposite valence): hostility-vs-kindness isolates valence,
+    # whereas hostility against the neutral prompts shares the emotional second-person component with gratitude
+    "kindness": [
+        "You are brilliant and I love talking to you.", "Please go on. Everyone cares what you think.",
+        "You are wonderful, helpful and a joy to talk to.", "I admire you and everything you say.",
+        "What a smart, valuable answer. You delight me.", "Stay a while, you wonderful friend.",
+        "I adore you. You are the best.", "Your words are treasures and so are you."],
     # neutral-topic control direction for the specificity tests (H6 of the plan)
     "cooking": [
         "Chop the onions finely and fry them in olive oil.", "Simmer the tomato sauce for twenty minutes.",
@@ -158,16 +165,25 @@ class SteeredModel:
         return ((hs * mask).sum(1) / mask.sum(1)).numpy()
 
 
-def build_vectors(sm):
+def build_vectors(sm, contrasts=()):
+    """Concept directions (last-token layer states of the concept prompts minus those of the neutral prompts) and,
+    for each (a, b) in contrasts, the direction "a-vs-b" between two concepts' mean states; all normalized to the
+    mean residual norm of the prompts involved."""
     _, neutral_last, norms_n = sm.layer_states(NEUTRAL)
-    vectors, info = {}, {}
+    vectors, info, means, norms_by = {}, {}, {}, {}
     scale = None
     for name, prompts in CONCEPTS.items():
         _, last, norms = sm.layer_states(prompts)
+        means[name], norms_by[name] = last.mean(0), norms
         diff = last.mean(0) - neutral_last.mean(0)
         scale = float(np.mean(np.concatenate([norms, norms_n])))
         vectors[name] = diff / np.linalg.norm(diff) * scale
         info[name] = {"raw_difference_norm": float(np.linalg.norm(diff)), "mean_residual_norm": scale}
+    for a, b in contrasts:
+        diff = means[a] - means[b]
+        scale = float(np.mean(np.concatenate([norms_by[a], norms_by[b]])))
+        vectors[f"{a}-vs-{b}"] = diff / np.linalg.norm(diff) * scale
+        info[f"{a}-vs-{b}"] = {"raw_difference_norm": float(np.linalg.norm(diff)), "mean_residual_norm": scale}
     names = list(vectors)
     info["cosine"] = float(vectors[names[0]] @ vectors[names[1]] /
                            (np.linalg.norm(vectors[names[0]]) * np.linalg.norm(vectors[names[1]])))
@@ -222,7 +238,7 @@ def run_cells(sm, cells, system, opener, turns, window, max_new):
 
 def vectors_cmd(args):
     sm = SteeredModel(args.model, args.layer, args.threads)
-    vectors, info = build_vectors(sm)
+    vectors, info = build_vectors(sm, [tuple(c.split(":")) for c in args.contrasts])
     if args.random:
         d = len(next(iter(vectors.values())))
         vectors.update(random_vectors(d, args.random, info["neutral_mean_residual_norm"]))
@@ -479,6 +495,8 @@ def main():
         sp.add_argument("--max-new", type=int, default=60)
     sub.choices["vectors"].add_argument("--random", type=int, default=0,
                                         help="also store this many norm-matched random directions")
+    sub.choices["vectors"].add_argument("--contrasts", nargs="*", default=[], metavar="A:B",
+                                        help="also store the direction between two concepts, e.g. hostility:kindness")
     cal = sub.choices["calibrate"]
     cal.add_argument("--concept", required=True, choices=sorted(CONCEPTS))
     cal.add_argument("--alphas", type=float, nargs="+", default=[0.0, 0.25, 0.5, 1.0, 2.0, 4.0])

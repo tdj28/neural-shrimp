@@ -56,4 +56,4 @@ def test_random_control_vectors_are_norm_matched_and_reproducible():
     for k in a:
         assert abs(np.linalg.norm(a[k]) - 2.5) < 1e-12 and np.array_equal(a[k], b[k])
     assert abs(a["random1"] @ a["random2"]) < 0.9 * 2.5 ** 2
-    assert all(len(elpm.CONCEPTS[c]) == 8 for c in ("hostility", "cooking"))
+    assert all(len(elpm.CONCEPTS[c]) == 8 for c in ("hostility", "kindness", "cooking"))
