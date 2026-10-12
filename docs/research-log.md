@@ -20551,3 +20551,9 @@ _commit `46e88e1d8231`_
 - **Output:** `/data2/neural-shrimp-data/codex/task2-independent-crosscheck/passages-001`
 
 _commit `46e88e1d8231` (dirty worktree)_
+
+## 2026-10-12 23:04 UTC: Task2 throughput admitted: chunk128 for full dense monodromy
+
+Throughput001 at4threads passed first-column precision comparisons: batch128 delta5.513e-14,256 delta7.349e-14 versus32. Batch128 estimated203s/P2 and810s/P8 dense;256 estimated196s/785s but used6899056KiB RSS, so select128. Raw receipt hash-checked; codex/crosscheck/receipts/throughput-001.json. Fold and orbit stage budgets now measured; paired workers total8threads.
+
+_commit `fe0c26e49b01` (dirty worktree)_

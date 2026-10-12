@@ -73,3 +73,5 @@ checking first-direction agreement<1e-8 across batch sizes, before choosing
 a dense batch. Separate passage replay (1800s limit,4threads/16GiB) can run
 in parallel while capacity admits two workers: total8threads, not8each.
 This changes throughput only; no scientific tolerance/entrance is changed.
+
+Throughput001 passed: batch128 and256 first-direction differences5.51e-14 and7.35e-14; peakRSS at256 was6899056KiB. Choose128 for the dense stages: estimated203s/P2 and810s/P8 with smaller memory than256 for nearly the same throughput. Fold cap3600s; combined stableP2/P8 cap5400s, each4threads/16GiB/nice10; at most two workers concurrently. Augmented fold uses at most4 Newton corrections and2 backtracks per correction; near-seed ordinary Newton at most6 corrections, GMRES restart20 x2 cycles. No tolerance change.
