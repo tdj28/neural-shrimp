@@ -344,10 +344,82 @@ def continue_orbit(args):
     (dest / "continuation.json").write_text(json.dumps(out, indent=1))
 
 
+def criticality(args):
+    """First Lyapunov coefficient of the synchronized memory's Neimark-Sacker crossing (hidden-rate direction).
+
+    Continues the period-1 orbit from theta_start up to the bracket [lo, hi], bisects the unit-circle
+    crossing of its leading complex pair, and evaluates the normal-form coefficient with finite-difference
+    second and third derivatives of the period map (repeated with doubled steps)."""
+    from neural_shrimp.criticality import finite_difference_forms, ns_coefficient
+
+    mm = MemoryMap(**memory_kwargs(args))
+    n, eta = mm.n, args.eta
+    alpha = 0.0 if args.log_alpha is None else 10.0 ** args.log_alpha
+    theta_o = 10.0 ** args.log_theta_o
+
+    def rates_at(lt):
+        return mm.rates(np.array([10.0 ** lt]), np.array([theta_o]))[0]
+
+    def solve(z, rates):
+        for _ in range(60):
+            y, jac = mm.period_jacobian(z, rates, alpha, eta)
+            res = y - z
+            if np.linalg.norm(res) < 1e-13 * max(1.0, np.linalg.norm(z)):
+                return z, jac
+            z = z + np.linalg.solve(jac - np.eye(2 * n), -res)
+        raise RuntimeError("Newton did not converge on the synchronized orbit")
+
+    r0 = mm.rates(np.array([10.0 ** args.theta_start]), np.array([theta_o]))
+    w = mm.w0[None, :].copy()
+    s_ = np.zeros_like(w)
+    for _ in range(args.transient):
+        w, s_ = mm.period(w, s_, r0, np.array([alpha]), eta)
+    z = np.concatenate([w[0], s_[0]])
+    for lt in np.arange(args.theta_start, args.lo + 0.5 * args.step, args.step):
+        z, _ = solve(z, rates_at(lt))
+    lo, hi, z_lo = args.lo, args.hi, z
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        z_mid, jac = solve(z_lo, rates_at(mid))
+        radius = float(np.max(np.abs(np.linalg.eigvals(jac))))
+        if radius < 1.0:
+            lo, z_lo = mid, z_mid
+        else:
+            hi = mid
+        if hi - lo < 1e-13:
+            break
+    z_c, jac_c = solve(z_lo, rates_at(0.5 * (lo + hi)))
+    mult = np.linalg.eigvals(jac_c)
+    lead = mult[np.argmax(np.abs(mult))]
+    if abs(lead.imag) < 1e-8:
+        out = {"outcome": "crossing multiplier is real, not Neimark-Sacker", "lead": [lead.real, lead.imag]}
+        print(json.dumps(out))
+        return
+    rates_c = rates_at(0.5 * (lo + hi))
+
+    def jvp(X, V):
+        return np.array([mm.period_jacobian(x, rates_c, alpha, eta)[1] @ v for x, v in zip(X, V)])
+
+    results = []
+    for factor in (1.0, 2.0):
+        B, C = finite_difference_forms(jvp, z_c, step_b=args.step_b * factor, step_c=args.step_c * factor)
+        res = ns_coefficient(jac_c, B, C, mu=lead)
+        results.append({"step_factor": factor, **{k: (float(v) if np.isscalar(v) and np.isreal(v) else str(v))
+                                                    for k, v in res.items()}})
+    out = {"args": vars(args), "crossing_log10_theta": 0.5 * (lo + hi), "bracket_width": hi - lo,
+           "lead": [float(lead.real), float(lead.imag)], "modulus": float(abs(lead)),
+           "turns": float(abs(np.angle(lead)) / (2 * np.pi)), "first_lyapunov": results,
+           "classification": "supercritical (soft)" if float(results[0]["d"]) < 0 else "subcritical (hard)"}
+    print(json.dumps({k: v for k, v in out.items() if k != "args"}))
+    dest = DATA / "explore" / args.out
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "criticality.json").write_text(json.dumps(out, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("scan", "floquet", "continue"):
+    for name in ("scan", "floquet", "continue", "criticality"):
         sp = sub.add_parser(name)
         sp.add_argument("--context", type=int, default=8)
         sp.add_argument("--width", type=int, default=3)
@@ -390,8 +462,18 @@ def main():
     co.add_argument("--max-newton", type=int, default=30)
     co.add_argument("--beyond", action="store_true", help="keep continuing after the first crossing")
     co.add_argument("--out", required=True)
+    cr = sub.choices["criticality"]
+    cr.add_argument("--log-theta-o", type=float, required=True)
+    cr.add_argument("--log-alpha", type=float, default=None)
+    cr.add_argument("--theta-start", type=float, required=True)
+    cr.add_argument("--lo", type=float, required=True, help="log10 hidden rate just below the crossing")
+    cr.add_argument("--hi", type=float, required=True, help="log10 hidden rate just above the crossing")
+    cr.add_argument("--step", type=float, default=0.002)
+    cr.add_argument("--step-b", type=float, default=1e-4)
+    cr.add_argument("--step-c", type=float, default=1e-3)
+    cr.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"scan": scan, "floquet": floquet, "continue": continue_orbit}[args.command](args)
+    {"scan": scan, "floquet": floquet, "continue": continue_orbit, "criticality": criticality}[args.command](args)
 
 
 if __name__ == "__main__":
