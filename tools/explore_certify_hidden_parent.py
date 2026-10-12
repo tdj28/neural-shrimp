@@ -304,6 +304,44 @@ def eigenpair_root_proof(model, initial, period, cos_w, sin_w, radius_exponent=-
             "rates_box": [ball_json(box[n]), ball_json(box[n + 1])], "monodromy_box": data["monodromy"]}
 
 
+def real_eigenpair_proof(mono, guess, radius_exponent=-60):
+    """Krawczyk test for a real eigenpair (u, lam) valid for every matrix in the interval enclosure mono."""
+    from flint import arb, arb_mat
+    from neural_shrimp.rigorous_orbits import eye, midpoint_matrix, norm_inf_upper, ball_json
+
+    n = mono.nrows()
+    mid = np.array([[float(mono[i, j].mid()) for j in range(n)] for i in range(n)])
+    vals, vecs = np.linalg.eig(mid)
+    k = int(np.argmin(np.abs(vals - guess)))
+    lam0 = float(vals[k].real)
+    u0 = np.real(vecs[:, k])
+    u0 /= np.linalg.norm(u0)
+    centre = [arb(float(v)) for v in u0] + [arb(lam0)]
+
+    def system(z, matrix):
+        u, lam = z[:n], z[n]
+        value = [sum((matrix[i, j] * u[j] for j in range(n)), arb(0)) - lam * u[i] for i in range(n)]
+        value.append((sum((v * v for v in u), arb(0)) - 1) / 2)
+        jac = [[matrix[i, j] - (lam if i == j else 0) for j in range(n)] + [-u[i]] for i in range(n)]
+        jac.append(list(u) + [arb(0)])
+        return arb_mat([[v] for v in value]), arb_mat(jac)
+
+    value, jac = system(centre, mono)
+    pre = midpoint_matrix(jac.inv())
+    radius = arb((1, radius_exponent))
+    box = [arb(c.mid(), radius) for c in centre]
+    _, whole = system(box, mono)
+    defect = eye(n + 1) - pre * whole
+    bound = norm_inf_upper(defect)
+    image = -pre * value + defect * arb_mat([[arb(0, radius)] for _ in box])
+    inclusions = [bool(box[i].contains_interior(centre[i] + image[i, 0])) for i in range(n + 1)]
+    passed = bool(all(inclusions) and bound.is_finite() and bound < 1)
+    lam_box = centre[n] + image[n, 0]
+    return {"passed": passed, "lambda": lam_box.str(20), "lambda_above_one": bool(passed and lam_box > 1),
+            "contraction": bound.str(10), "statement": "For every matrix in the monodromy enclosure there is a real "
+            "eigenvalue in the stated ball (Krawczyk on the eigenpair system); conditional on the enclosure."}
+
+
 def resonance(args):
     net, x, y, _ = make_s2(SEED)
     f = TwoRateMap(net, x, y)
@@ -370,6 +408,11 @@ def resonance(args):
     print(json.dumps(summary))
     mono = proof.pop("monodromy_box")
     (out / "resonance-proof.json").write_text(json.dumps(proof, indent=1, default=str))
+    if proof["passed"] and args.real_eigen is not None:
+        res = real_eigenpair_proof(mono, args.real_eigen)
+        print(json.dumps({"real_eigenvalue_proof": res["passed"], "lambda": res["lambda"],
+                          "lambda_above_one": res["lambda_above_one"], "contraction": res["contraction"]}))
+        (out / "real-eigenpair-proof.json").write_text(json.dumps(res, indent=1, default=str))
 
 
 def main():
@@ -393,6 +436,7 @@ def main():
     rs.add_argument("--prove", action="store_true")
     rs.add_argument("--precision", type=int, default=256)
     rs.add_argument("--radius-exponent", type=int, default=-70)
+    rs.add_argument("--real-eigen", type=float, default=None, help="also prove a real eigenvalue near this value")
     rs.add_argument("--out", required=True)
     args = parser.parse_args()
     {"chain": chain, "resonance": resonance}[args.command](args)
