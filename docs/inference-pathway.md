@@ -78,3 +78,37 @@ precision-induced token changes.
 **Indirect effects.** If training ends on an invariant circle or a chaotic
 attractor, predictions vary with the stopping time. That is a training effect
 seen at inference, not inference dynamics.
+
+## Pilot results (12 October 2026)
+
+Tool: `tools/explore_inference_memory.py` (tests:
+`tests/test_inference_memory.py`). Outputs:
+`../neural-shrimp-data/explore/inference-memory/`. The memory is a
+13-parameter tanh MLP holding the S2 teacher's key-value pairs, repeated as a
+24-token context.
+
+- **Simplest Titans-like setting** (one inner learning rate, per-token
+  updates):
+  - Over most of the stable range the memory synchronizes: it repeats
+    exactly with the context.
+  - There are small period-doubling regions, more with momentum 0.5.
+  - Divergence starts near an inner rate of 1.1.
+  - Thin bands of very slow convergence are curves where a real multiplier of
+    the synchronized memory approaches +1. They are not new dynamics.
+  - No quasi-periodic memory appeared.
+- **Exact bridge to training.**
+  - With one update per context chunk, per-layer rates and coupled weight
+    decay, the memory map equals the S2 training map (tested).
+  - The memory settles on the period-18 shrimp orbit (attracting, spectral
+    radius 0.879).
+  - A rate-plane scan reproduces the window region: periods 8, 10, 16, 18,
+    20 and higher, plus quasi-periodic and chaotic zones.
+- **Per-token updates with the same total step per context.**
+  - Every one of the 10,000 cells of the window region synchronizes.
+  - The route needs each individual update to be large relative to the
+    curvature of its own loss. Many small per-token steps behave like a
+    stretch of gradient flow, which has no edge-of-stability instability.
+- **Implication.** In a test-time memory, the shrimp route is available with
+  chunked updates near the per-chunk stability edge, and absent with small
+  per-token steps. Whether a trained model operates there can be measured
+  from its learned inner rates and the curvature of its chunk losses.
