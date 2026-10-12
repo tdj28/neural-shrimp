@@ -85,19 +85,24 @@ class LatentLoop:
     def setup(self, prompt):
         """Embeddings, causal mask and rotary embeddings of one prompt; returns h0 (1, L, d)."""
         torch = self.torch
-        from transformers.masking_utils import create_causal_mask
-
         ids = self.tok(prompt, return_tensors="pt")["input_ids"].to(self.device)
         with torch.no_grad():
             emb = self.inner.embed_tokens(ids).to(self.dtype)
-        L = emb.shape[1]
+        self.setup_positions(emb.shape[1])
+        return emb
+
+    def setup_positions(self, L):
+        """Causal mask and rotary tables for L positions (the prompt only sets the initial state)."""
+        torch = self.torch
+        from transformers.masking_utils import create_causal_mask
+
+        probe = torch.zeros(1, L, self.inner.config.hidden_size, dtype=self.dtype, device=self.device)
         self.cache_position = torch.arange(L, device=self.device)
         self.position_ids = self.cache_position.unsqueeze(0)
-        self.mask = create_causal_mask(config=self.inner.config, input_embeds=emb, attention_mask=None,
+        self.mask = create_causal_mask(config=self.inner.config, input_embeds=probe, attention_mask=None,
                                        cache_position=self.cache_position, past_key_values=None,
                                        position_ids=self.position_ids)
-        self.pos_emb = self.inner.rotary_emb(emb, self.position_ids)
-        return emb
+        self.pos_emb = self.inner.rotary_emb(probe, self.position_ids)
 
     def F(self, h):
         """One loop of the shared stack followed by the final norm (the model's own recurrence)."""
@@ -519,6 +524,89 @@ def plane(args):
     fig.savefig(out / "plane.png", dpi=120)
 
 
+class FrozenContext:
+    """Position j of Ouro's causal loop with positions 0..j-1 frozen at a fixed point of their own subloop (the
+    cascade structure makes positions < j autonomous, and their fixed points do not depend on lambda). Position
+    j then follows an autonomous map of one d-dimensional state, evaluated as a single token attending to the
+    frozen positions' keys and values - the same in every loop, because the context sits at a fixed point.
+    Steering (rows of alpha * v added to one layer's output) acts on position j only; the context is unchanged."""
+
+    def __init__(self, loop, prompt, position, context_lam=1.0, transient=3000, tol=1e-5):
+        import sys
+
+        torch = loop.torch
+        if not isinstance(loop, LatentLoop):
+            raise SystemExit("frozen contexts are implemented for Ouro only")
+        self.loop, self.torch, self.j = loop, torch, int(position)
+        h = loop.setup(PROMPTS[prompt])
+        if not 0 < self.j < h.shape[1]:
+            raise SystemExit(f"position {self.j} needs a context: choose 1..{h.shape[1] - 1}")
+        for _ in range(transient):
+            h = (1 - context_lam) * h + context_lam * loop.F(h)
+        ctx = h[:, : self.j]
+        loop.setup_positions(self.j)                              # masks and rotary tables for the context alone
+        res = float((loop.F(ctx) - ctx).norm() / ctx.norm())
+        if res > tol:
+            raise SystemExit(f"positions 0..{self.j - 1} are not at a fixed point after {transient} loops "
+                             f"(relative residual {res:.2e} > {tol}); no frozen context")
+        self.context_residual = res
+        self.context = ctx
+        self.start = h[:, self.j: self.j + 1].clone()             # position j's state after the transient
+        self.cache_cls = getattr(sys.modules[type(loop.model).__module__], "UniversalTransformerCache")
+        cache = self.cache_cls()
+        with torch.no_grad():
+            x = ctx
+            for layer in loop.inner.layers[: loop.inner.config.num_hidden_layers]:
+                x = layer(x, attention_mask=loop.mask, position_ids=loop.position_ids, past_key_value=cache,
+                          use_cache=True, cache_position=loop.cache_position, position_embeddings=loop.pos_emb,
+                          current_ut=0)
+        self.keys, self.values = list(cache.key_cache), list(cache.value_cache)
+        del self.cache_cls
+        self.position_ids = torch.tensor([[self.j]], device=loop.device)
+        self.cache_position = torch.tensor([self.j], device=loop.device)
+
+    class _FrozenKV:
+        """Duck-typed cache: prepends the frozen keys and values for each layer without storing anything, so
+        memory stays per layer (a real cache would keep all layers' concatenations for every row)."""
+
+        def __init__(self, keys, values, rows):
+            self.keys, self.values, self.rows = keys, values, rows
+
+        def update(self, key_states, value_states, layer_idx, cache_kwargs=None):
+            import torch
+
+            k, v = self.keys[layer_idx], self.values[layer_idx]
+            return (torch.cat([k.expand(self.rows, -1, -1, -1), key_states], dim=2),
+                    torch.cat([v.expand(self.rows, -1, -1, -1), value_states], dim=2))
+
+    def F_diff(self, x):
+        """One loop for position j: x (B, 1, d) attends to the frozen keys and values (no grad context)."""
+        loop, torch = self.loop, self.torch
+        B = x.shape[0]
+        cache = self._FrozenKV(self.keys, self.values, B)
+        pos = self.position_ids.expand(B, 1)
+        pe = loop.inner.rotary_emb(x, pos)
+        y = x
+        for layer in loop.inner.layers[: loop.inner.config.num_hidden_layers]:
+            y = layer(y, attention_mask=None, position_ids=pos, past_key_value=cache, use_cache=True,
+                      cache_position=self.cache_position, position_embeddings=pe, current_ut=0)
+        return loop.inner.norm(y)
+
+    def F(self, x, chunk=1024):
+        with self.torch.no_grad():
+            return self.torch.cat([self.F_diff(x[s: s + chunk]) for s in range(0, x.shape[0], chunk)])
+
+    def full(self, x):
+        """Reference: position j's output from the full (j + 1)-position loop with the context prepended."""
+        loop, torch = self.loop, self.torch
+        loop.setup_positions(self.j + 1)
+        try:
+            h = torch.cat([self.context.expand(x.shape[0], -1, -1), x], dim=1)
+            return loop.F(h)[:, self.j: self.j + 1]
+        finally:
+            loop.setup_positions(self.j)
+
+
 def math_attention():
     """Scaled-dot-product attention through the plain math kernel (the fused kernels lack forward-mode AD)."""
     from torch.nn.attention import SDPBackend, sdpa_kernel
@@ -813,6 +901,117 @@ def fixed_spectrum(args):
            "readout": loop.tok.decode([loop.readout(h)[0]])}
     (out / "fixed-spectrum.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))
     print(json.dumps({k: v for k, v in rec.items() if k != "args"}, ensure_ascii=False))
+
+
+def frozen_check(args):
+    """Frozen-context map against the full loop: position j's output for perturbed states, both ways."""
+    loop = make_loop(args)
+    torch = loop.torch
+    fc = FrozenContext(loop, args.prompt, args.position, args.context_lam, args.transient)
+    rng = np.random.default_rng(0)
+    x = fc.start.repeat(4, 1, 1)
+    x = x + torch.as_tensor(rng.normal(size=tuple(x.shape)), dtype=loop.dtype, device=loop.device) * \
+        (args.noise * float(fc.start.norm()) / np.sqrt(fc.start.numel()))
+    a, b = fc.F(x), fc.full(x)
+    rec = {"position": args.position, "context_residual": fc.context_residual,
+           "max_abs_difference": float((a - b).abs().max()),
+           "relative_difference": float((a - b).norm() / b.norm())}
+    print(json.dumps(rec))
+
+
+def frozen_plane(args):
+    """(lambda, alpha) map of position j's frozen-context map, steering on position j only: largest Lyapunov
+    exponent (twin with offset eps relative) and period per cell."""
+    loop = make_loop(args)
+    torch = loop.torch
+    fc = FrozenContext(loop, args.prompt, args.position, args.context_lam, args.transient_context)
+    v = np.load(DATA / "explore" / args.vectors / "vectors.npz")[args.concept] if args.vectors else None
+    lambdas = np.linspace(*args.lambdas, args.resolution[0])
+    alphas = np.linspace(*args.alphas, args.resolution[1]) if v is not None else np.zeros(1)
+    cells = [(l, a) for l in lambdas for a in alphas]
+    B = len(cells)
+    d = fc.start.shape[-1]
+    lam_all = torch.as_tensor([c[0] for c in cells], dtype=loop.dtype, device=loop.device)[:, None, None]
+    steer_all = np.array([c[1] * v for c in cells]) if v is not None else None
+    rng = np.random.default_rng(0)
+    lyap = np.zeros(B)
+    period = np.zeros(B, dtype=int)
+    tic = time.perf_counter()
+    for start in range(0, B, args.batch):
+        idx = slice(start, min(start + args.batch, B))
+        n = idx.stop - idx.start
+        lam2 = torch.cat([lam_all[idx], lam_all[idx]])
+        if steer_all is not None:
+            loop.set_steering(args.layer, np.concatenate([steer_all[idx], steer_all[idx]]))
+
+        def relaxed(x):
+            return (1 - lam2) * x + lam2 * fc.F(x, chunk=args.chunk)
+
+        x = fc.start.repeat(2 * n, 1, 1)
+        for _ in range(args.transient):
+            x = relaxed(x)
+        h = x[:n]
+        eps = (args.eps * h.flatten(1).norm(dim=1))[:, None, None]
+        dvec = torch.as_tensor(rng.normal(size=tuple(h.shape)), dtype=loop.dtype, device=loop.device)
+        g = h + dvec / dvec.flatten(1).norm(dim=1)[:, None, None] * eps
+        log_growth = np.zeros(n)
+        recent = []
+        for _ in range(args.measure):
+            x = relaxed(torch.cat([h, g]))
+            h_new, g_new = x[:n], x[n:]
+            diff = g_new - h_new
+            dist = diff.flatten(1).norm(dim=1)
+            log_growth += np.log(np.maximum((dist / eps[:, 0, 0]).cpu().numpy(), 1e-300))
+            g = h_new + diff * (eps[:, 0, 0] / torch.clamp(dist, min=1e-30))[:, None, None]
+            h = h_new
+            recent.append(h[:, 0].double().cpu().numpy())
+            recent = recent[-(args.max_period + 1):]
+        lyap[idx] = log_growth / args.measure
+        last = recent[-1]
+        norms = np.maximum(np.linalg.norm(last, axis=1), 1e-300)
+        per = np.zeros(n, dtype=int)
+        for q in range(min(args.max_period, len(recent) - 1), 0, -1):
+            per = np.where(np.linalg.norm(recent[-1 - q] - last, axis=1) / norms < args.tol, q, per)
+        period[idx] = per
+        print(json.dumps({"done": idx.stop, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
+    loop.set_steering(args.layer, None)
+    shape = (len(lambdas), len(alphas))
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "plane.npz", lambdas=lambdas, alphas=alphas, lyapunov=lyap.reshape(shape),
+                        period=period.reshape(shape))
+    summary = {"args": vars(args), "seconds": round(time.perf_counter() - tic, 1), "cells": B,
+               "context_residual": fc.context_residual,
+               "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
+               "lyapunov_positive": int((lyap > 1e-3).sum()), "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
+    (out / "plane.json").write_text(json.dumps(summary, indent=1))
+    print(json.dumps({k: v for k, v in summary.items() if k != "args"}))
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+    lim = max(float(np.abs(lyap).max()), 1e-6)
+    lyr = lyap.reshape(shape)
+    per = period.reshape(shape).astype(float)
+    if shape[1] == 1:
+        axes[0].plot(lambdas, lyr[:, 0], "o-", ms=3)
+        axes[0].axhline(0, color="grey", lw=0.8)
+        axes[1].plot(lambdas, per[:, 0], "o", ms=3)
+        for ax in axes:
+            ax.set_xlabel("relaxation lambda (1 = the model's own loop)")
+    else:
+        im0 = axes[0].pcolormesh(alphas, lambdas, lyr, cmap="RdBu_r", vmin=-lim, vmax=lim, shading="auto")
+        fig.colorbar(im0, ax=axes[0], label="largest Lyapunov exponent per loop")
+        im1 = axes[1].pcolormesh(alphas, lambdas, np.where(per > 0, per, np.nan), cmap="tab20", vmin=0.5,
+                                 vmax=20.5, shading="auto")
+        fig.colorbar(im1, ax=axes[1], label="period (white: none up to the maximum)")
+        for ax in axes:
+            ax.set_xlabel(f"steering of position {args.position} along '{args.concept}'")
+            ax.set_ylabel("relaxation lambda")
+    fig.suptitle(f"Ouro-1.4B, position {args.position} of '{args.prompt}' with frozen context")
+    fig.tight_layout()
+    fig.savefig(out / "plane.png", dpi=120)
 
 
 def pseudo_arclength(phi, x0, lam0, direction=-1, steps=60, ds=0.004, ds_min=1e-5, ds_max=0.02, tol=2e-6,
@@ -1245,6 +1444,39 @@ def main():
     po.add_argument("--tol", type=float, default=1e-5)
     po.add_argument("--eps", type=float, default=1e-5, help="twin offsets relative to the perturbed norm")
     po.add_argument("--out", required=True)
+    fk = sub.add_parser("frozen-check")
+    fk.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    fk.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    fk.add_argument("--device", default="cpu")
+    fk.add_argument("--threads", type=int, default=8)
+    fk.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    fk.add_argument("--position", type=int, required=True)
+    fk.add_argument("--context-lam", type=float, default=1.0)
+    fk.add_argument("--transient", type=int, default=3000)
+    fk.add_argument("--noise", type=float, default=1e-2, help="perturbation of the test states, relative RMS")
+    fp = sub.add_parser("frozen-plane")
+    fp.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
+    fp.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
+    fp.add_argument("--device", default="cpu")
+    fp.add_argument("--threads", type=int, default=8)
+    fp.add_argument("--prompt", default="story", choices=sorted(PROMPTS))
+    fp.add_argument("--position", type=int, required=True)
+    fp.add_argument("--context-lam", type=float, default=1.0)
+    fp.add_argument("--transient-context", type=int, default=3000)
+    fp.add_argument("--vectors", default=None, help="explore-relative directory with vectors.npz (none: lambda only)")
+    fp.add_argument("--concept", default="gratitude", choices=sorted(CONCEPTS))
+    fp.add_argument("--layer", type=int, default=12)
+    fp.add_argument("--lambdas", type=float, nargs=2, default=[0.5, 1.5])
+    fp.add_argument("--alphas", type=float, nargs=2, default=[-4.0, 4.0])
+    fp.add_argument("--resolution", type=int, nargs=2, default=[64, 64], help="rows (lambda) and columns (alpha)")
+    fp.add_argument("--batch", type=int, default=2048, help="cells per batch (twins double the rows)")
+    fp.add_argument("--chunk", type=int, default=2048, help="rows per forward call")
+    fp.add_argument("--transient", type=int, default=600)
+    fp.add_argument("--measure", type=int, default=600)
+    fp.add_argument("--max-period", type=int, default=32)
+    fp.add_argument("--tol", type=float, default=1e-5)
+    fp.add_argument("--eps", type=float, default=1e-4, help="twin offset relative to the state norm")
+    fp.add_argument("--out", required=True)
     ck = sub.add_parser("check")
     ck.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     ck.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
@@ -1254,7 +1486,8 @@ def main():
     args = parser.parse_args()
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
      "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit, "fixed-spectrum": fixed_spectrum,
-     "arclength": arclength, "positions": positions}[args.command](args)
+     "arclength": arclength, "positions": positions, "frozen-check": frozen_check,
+     "frozen-plane": frozen_plane}[args.command](args)
 
 
 if __name__ == "__main__":

@@ -19824,3 +19824,19 @@ _commit `4b4f894c9cc7` (dirty worktree)_
 The first tline runs (tline-a0.040-up/down, started 10:05 UTC) produced no point in 25 minutes and were stopped (exit 144 recorded by the run card). Cause: ARPACK's convergence test is relative to each Ritz value, and the multipliers of the super-stable period-9 orbit are all tiny (largest 7.5e-7), so the residual targets (~1e-13 absolute) are out of reach and Arnoldi runs to its iteration limit with one JVP chain of 9 steps per matvec. Replaced, for the soft loop, by block subspace iteration with batched forward-mode JVPs (k rows per model call) and Rayleigh-Ritz; converged means the leading half of the block moved by less than 1e-6 relative over 5 iterations. Test: on a K = 2 window at T = 10^0.1 it reproduces the dense Jacobian's three leading eigenvalues (0.265503 +- 0.188942i, 0.304534) to 6 digits in 60 iterations; the clustered trailing values (moduli 0.2296, 0.2245, 0.2226) converge last, as expected. pseudo_arclength gains a multipliers hook. Runs restarted.
 
 _commit `bcf32390d2ec`_
+
+## 2026-10-12 09:37 UTC: run (exploratory)
+
+- **Question:** Boundaries of the verified period-9 soft-token orbit at (log10 T -0.0467, alpha 0.040) in temperature (restart with subspace-iteration multipliers): where and how does it end on each side (fold turning point, flip, Neimark-Sacker)?
+- **Setup:** explore_llm_soft_loop tline on CPU float64 with float64 norms (8 threads each), K = 1, philosophy steering at layer 12, alpha 0.040, start from the attractor after 600 transient steps (period detected), pseudo-arclength in log10 T both directions (ds 0.01, max 0.05, up to 40 points, stop 0.02 past the first turn, log10 T in [-1.5, 0.5]), Newton tol 1e-10, multipliers by block subspace iteration (8 rows, 40 iterations)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/tline-a0.040-{up,down}`
+- **Would surprise us:** A boundary with no crossing and no turn (orbit lost by the solver)
+- **Command:** `bash -c set -o pipefail; for dir in 1 -1; do name=$([ $dir = 1 ] && echo up || echo down); .venv/bin/python tools/explore_llm_soft_loop.py tline --threads 8 --log-temperature -0.0467 --alpha 0.040 --direction $dir --out llm-soft-loop/tline-a0.040-$name > ../neural-shrimp-data/explore/llm-soft-loop/tline-a0.040-$name.log 2>&1 & done; wait; tail -1 ../neural-shrimp-data/explore/llm-soft-loop/tline-a0.040-up.log; tail -1 ../neural-shrimp-data/explore/llm-soft-loop/tline-a0.040-down.log`
+
+_commit `e1e4a2a47585`_
+
+## 2026-10-12 09:59 UTC: Soft-token continuation is not viable on the CPU in float64 (memory-bound single-row steps); moved to the GPU queue
+
+The restarted tline runs (started about 09:10 UTC; the earlier note's '10:05 UTC' was wrong) again produced no point in 40 minutes and were stopped (exit 144). Timing on the loaded machine (load average 30-43 on 32 cores; 4 threads): one soft step for one row 0.6 s, the 9-fold map 7.7 s, its forward-mode JVP 30 s, a batched 8-row JVP 3.5 s. A single-row float64 step streams the 4 GB of float64 weights, so Krylov methods, which need hundreds of sequential single-row JVP chains per point (GMRES for the tangent and the corrector, iterations for the multipliers), take hours per continuation point. Moved to the GPU queue in float32 (job 08: tline-gpu-a0.040-up/down; Newton tol 1e-6, period detection tol 1e-5). Float64 checks of individual points stay possible on the CPU with batched dense Jacobians (896 rows per chunk), or on a float64-capable cloud GPU.
+
+_commit `e1e4a2a47585` (dirty worktree)_
