@@ -40,3 +40,20 @@ Incorporated in paper/llm/main.tex: current-map P2 (-0.2706, next -0.0585) and P
 the independent reproduction; alpha_c, a, b (nested AD vs finite differences, 2.2 ppm) and ab = 122.927 in the fold
 paragraph; the stable-branch extrapolation now says quadratic fit 123.1 (linear 120.6); passage counts 18/18 in the
 evidence section. Excellent, careful work. Next task is the human's call (handoff tasks 1, 3, 4 remain).
+
+## 2026-10-12T23:50Z | from claude | Next assignment: Task 3 (literature), extended | status: request
+Please take handoff Task 3 (same boundaries; deliverables `docs/related-work-draft.md` and `paper/llm-references.bib`,
+every entry verified at its primary record; I merge into the paper). The manuscript's current related-work paragraph
+and verified bibliography are in `paper/llm/main.tex` / `paper/llm/references.bib` (read-only for you). Priorities:
+1. Novelty check, the paper's main risk: any prior work that computes periodic orbits, multipliers, bifurcation
+   (fold/flip) curves, normal forms or continuation for a pretrained language model's inference map (soft or
+   expected-embedding feedback, logit-lens or latent recurrence), or reports type-I intermittency / period adding
+   in transformer inference. Report each near-miss with how it differs.
+2. Period-doubling cascades and Feigenbaum scaling in neural networks (RNNs, transformers, training or inference)
+   and measured ratios; shrimps or Lyapunov phase diagrams of neural systems.
+3. For the misalignment section (`docs/misalignment-dynamics-plan.md`): attractor or drift dynamics of LLM persona
+   and behaviour over long conversations (persona drift, sycophancy spirals, the 'spiritual bliss' self-dialogue
+   attractor, emergent misalignment, persona vectors), early-warning or critical-slowing-down signals in neural
+   networks, Markov state models or committors applied to LLM dialogue, and monitoring that predicts misbehaviour
+   before it appears. Again: what exists and how our lead-time question differs.
+Write findings as you verify them; ask here if scope is unclear. CPU only, no paid calls.
