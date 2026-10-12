@@ -175,8 +175,12 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
     are 831, 1501, 2493, 4399 and 7440 steps, against predictions of 715, 1306,
     2263, 4131 and 7155, for d_eta = 0.1 down to 0.001. The ratio falls to
     1.04 as d_eta shrinks (`explore/shrimp-anatomy/fold-prefactor-certified`).
-    The same calculation at the U-bottom fold, using its numerically computed
-    coefficients, matches the longest laminar phases to 2-3% near the fold.
+    Held-out checks at five new detunings, each from three random starts, give
+    ratios of 1.16, 1.13, 1.08, 1.05 and 1.03 (at d_eta = 5e-4). They are
+    identical across starts to three digits
+    (`fold-prefactor-heldout-1..3`). The same calculation at the U-bottom
+    fold, using its numerically computed coefficients, matches the longest
+    laminar phases to 2-3% near the fold.
     This connects a computer-assisted bifurcation certificate to an
     observable property of the training-loss time series. (The prediction
     was suggested by an external reviewer from the paper's coefficients.)

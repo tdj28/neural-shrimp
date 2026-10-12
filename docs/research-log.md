@@ -18466,3 +18466,45 @@ _commit `5fdf097b20b1` (dirty worktree)_
 ridge-001 (explore_shrimp_anatomy ridge). Continuation of the attracting period-18 cycle in the ridge coefficient at the window centre (-0.0857, 1.853): present at 9e-4 (radius 0.832), lost at 8e-4 and at 1.2e-3 (10% steps), i.e. at fixed rates the window survives only a narrow ridge range; the window presumably moves in the rate plane. Attractors from the shared initial parameters at four rate points: ridge 0 gives large weights (norm 5-16) with period 2 at two points and near-zero rotation or slow norm growth (+1e-4 per step) at the others; ridge 1e-4 and 3e-4 give a stable period-2 cycle at all four points (no precession); ridge 1e-3 gives the period-18 window and quasi-periodic or chaotic rotation near 0.22; ridge 3e-3 and 1e-2 give slow rotation or divergence. So the Neimark-Sacker route and its windows sit at rates that depend strongly on weight decay; the proper test follows the period-2 Neimark-Sacker curve and the window's folds as functions of ridge (three-parameter continuation), not fixed rates.
 
 _commit `3bded8cb9636`_
+
+## 2026-10-12 00:44 UTC: run (exploratory)
+
+- **Question:** Held-out check of the parameter-free laminar-time prediction at the certified fold: new detunings (0.05, 0.02, 0.005, 0.002, 0.0005) and randomly perturbed starts (scale 0.05, seed 2)
+- **Setup:** fold-prefactor at the certified fold (exact output rate), detunings 0.05 0.02 0.005 0.002 0.0005, start = fold orbit + 0.05 N(0,1) (seed 2), 600000 steps each; compare median laminar times with 226.26/sqrt(d_eta)
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-heldout-2`
+- **Would surprise us:** Held-out ratios outside 0.9-1.2 or dependent on the start
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py fold-prefactor --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --output 0.8210596690584651 --detunings 0.05 0.02 0.005 0.002 0.0005 --init-scale 0.05 --init-seed 2 --out ../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-heldout-2`
+
+_commit `6ceea5b10196`_
+
+## 2026-10-12 00:44 UTC: run (exploratory)
+
+- **Question:** Held-out check of the parameter-free laminar-time prediction at the certified fold: new detunings (0.05, 0.02, 0.005, 0.002, 0.0005) and randomly perturbed starts (scale 0.05, seed 1)
+- **Setup:** fold-prefactor at the certified fold (exact output rate), detunings 0.05 0.02 0.005 0.002 0.0005, start = fold orbit + 0.05 N(0,1) (seed 1), 600000 steps each; compare median laminar times with 226.26/sqrt(d_eta)
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-heldout-1`
+- **Would surprise us:** Held-out ratios outside 0.9-1.2 or dependent on the start
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py fold-prefactor --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --output 0.8210596690584651 --detunings 0.05 0.02 0.005 0.002 0.0005 --init-scale 0.05 --init-seed 1 --out ../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-heldout-1`
+
+_commit `6ceea5b10196`_
+
+## 2026-10-12 00:44 UTC: run (exploratory)
+
+- **Question:** Held-out check of the parameter-free laminar-time prediction at the certified fold: new detunings (0.05, 0.02, 0.005, 0.002, 0.0005) and randomly perturbed starts (scale 0.05, seed 3)
+- **Setup:** fold-prefactor at the certified fold (exact output rate), detunings 0.05 0.02 0.005 0.002 0.0005, start = fold orbit + 0.05 N(0,1) (seed 3), 600000 steps each; compare median laminar times with 226.26/sqrt(d_eta)
+- **Output:** `../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-heldout-3`
+- **Would surprise us:** Held-out ratios outside 0.9-1.2 or dependent on the start
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_shrimp_anatomy.py fold-prefactor --node ../neural-shrimp-data/explore/s2-period18-boundary-curves/attempt-003-target/run/node-+1-000.json --output 0.8210596690584651 --detunings 0.05 0.02 0.005 0.002 0.0005 --init-scale 0.05 --init-seed 3 --out ../neural-shrimp-data/explore/shrimp-anatomy/fold-prefactor-heldout-3`
+
+_commit `6ceea5b10196`_
+
+- run started 2026-10-12 00:44 UTC finished 00:45 UTC with exit status 0
+
+- run started 2026-10-12 00:44 UTC finished 00:45 UTC with exit status 0
+
+- run started 2026-10-12 00:44 UTC finished 00:45 UTC with exit status 0
+
+## 2026-10-12 00:46 UTC: Held-out validation passes: the certified fold's laminar-time prediction holds at new detunings and random starts (ratio 1.03 at d_eta = 5e-4)
+
+fold-prefactor-heldout-1/2/3 (certified fold, exact output rate; held-out detunings 0.05, 0.02, 0.005, 0.002, 0.0005; starts = fold orbit + 0.05 N(0,1) with seeds 1-3; 600000 steps each): median laminar times 1171-1178, 1813-1815, 3445-3447, 5323-5328, 10404-10420 versus predicted 226.26/sqrt(d_eta) = 1012, 1600, 3200, 5059, 10119; ratios 1.16, 1.13, 1.08, 1.05, 1.03, identical to three digits across the three starts and converging to 1 as d_eta -> 0. Together with fold-prefactor-certified, ten detunings over 2.3 decades follow the parameter-free bottleneck prediction from the certified normal-form coefficients.
+
+_commit `6ceea5b10196` (dirty worktree)_
