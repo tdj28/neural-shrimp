@@ -214,8 +214,10 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   Lyapunov coefficient changes sign: d = -0.51 for plain gradient descent
   (supercritical) against d = +2.01 with momentum 0.5 (subcritical). The hard
   onset is a genuine change in local criticality, not a basin effect
-  (`explore/momentum/criticality-beta*`). Whether this is systematic is not
-  yet known.
+  (`explore/momentum/criticality-beta*`). Across a momentum sweep the sign
+  change sits at a degenerate (Chenciner) point near beta = 0.07. Below it
+  the onset is soft; above it, it is hard, with |d| growing steeply (up to
+  +57 at beta = 0.7). One ray of one network so far.
 - **Not yet shown:** any of this in large models or under minibatch noise, or
   any training benefit from knowing it.
 
