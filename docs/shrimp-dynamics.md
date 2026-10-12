@@ -210,7 +210,12 @@ At the window centre (`explore/shrimp-anatomy/cycle-centre-001`):
   - None of these edges changes the mean loss appreciably. The information is
     in the time structure.
 - **Optimizer memory.** Heavy-ball momentum keeps the route in our pilot, but
-  can make its onset abrupt, with hysteresis.
+  can make its onset abrupt, with hysteresis. On the tested ray the first
+  Lyapunov coefficient changes sign: d = -0.51 for plain gradient descent
+  (supercritical) against d = +2.01 with momentum 0.5 (subcritical). The hard
+  onset is a genuine change in local criticality, not a basin effect
+  (`explore/momentum/criticality-beta*`). Whether this is systematic is not
+  yet known.
 - **Not yet shown:** any of this in large models or under minibatch noise, or
   any training benefit from knowing it.
 

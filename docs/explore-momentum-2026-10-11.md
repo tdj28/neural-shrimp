@@ -57,7 +57,10 @@ Outputs: `../neural-shrimp-data/explore/momentum/`.
 - **Momentum can make the onset abrupt.** At `beta = 0.5` the onset is
   subcritical, with hysteresis and a jump to a slow large-amplitude
   oscillation, where plain gradient descent on the same ray has a soft
-  onset. This bears on the spike-versus-soft-onset hypothesis (H1) and
+  onset. The first Lyapunov coefficient confirms it (12 Oct): d = -0.511 for
+  plain gradient descent and d = +2.012 at `beta = 0.5`, both stable under
+  doubled finite-difference steps (`criticality-beta*`). It is a genuine
+  change in local criticality, not a basin effect. This bears on the spike-versus-soft-onset hypothesis (H1) and
   optimizer memory (H4), but one ray in one network is not evidence about
   language-model training.
 

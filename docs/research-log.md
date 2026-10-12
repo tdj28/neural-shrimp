@@ -18532,3 +18532,33 @@ _commit `1fc83b9930a0` (dirty worktree)_
 Symmetry-aware re-analysis of cycle-centre-001 (tanh sign symmetry: flipping a unit's incoming weights, bias and outgoing weight leaves the network unchanged; units aligned so that each mean output weight is negative; unit 3 flipped). Units 2 and 3 then have similar output weights (-0.160, -0.139) and second input weights (-1.43, -1.16), and their parameter motions along the cycle are positively correlated (0.73, 0.98, 0.94, 0.97 for input weight 1, input weight 2, bias, output weight); 95% of their joint motion is in phase. Cycle variance shares: unit 2 0.551, unit 3 0.388, unit 1 0.056, output bias 0.006. The earlier description of an antiphase 'see-saw' (log entry of 11 Oct) reflected opposite sign conventions, not opposite motion; the external reviewer's symmetry warning was correct. Corrected picture: two partly redundant active hidden units bounce and precess together; the third is nearly idle.
 
 _commit `2c42ff084636`_
+
+## 2026-10-12 00:49 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient of the beta=0.5 2-cycle's Neimark-Sacker crossing on the ray: genuinely subcritical (d > 0) or supercritical with hysteresis from a coexisting attractor?
+- **Setup:** explore_momentum_maps criticality --arc momentum/arc2-beta0.5: bisected crossing, two-step map in the 26-dimensional (theta, m) state, Kuznetsov coefficient with Richardson finite-difference forms (steps 1e-4/1e-3 and doubled)
+- **Output:** `../neural-shrimp-data/explore/momentum/criticality-beta0.5`
+- **Would surprise us:** beta=0 with d > 0 (control would contradict the soft onset)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.5 --arc momentum/arc2-beta0.5 --out momentum/criticality-beta0.5`
+
+_commit `ad1161ba6c5a`_
+
+## 2026-10-12 00:49 UTC: run (exploratory)
+
+- **Question:** First Lyapunov coefficient of the beta=0.0 2-cycle's Neimark-Sacker crossing on the ray: genuinely subcritical (d > 0) or supercritical with hysteresis from a coexisting attractor?
+- **Setup:** explore_momentum_maps criticality --arc momentum/arc2-beta0.0: bisected crossing, two-step map in the 26-dimensional (theta, m) state, Kuznetsov coefficient with Richardson finite-difference forms (steps 1e-4/1e-3 and doubled)
+- **Output:** `../neural-shrimp-data/explore/momentum/criticality-beta0.0`
+- **Would surprise us:** beta=0 with d > 0 (control would contradict the soft onset)
+- **Command:** `env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py criticality --beta 0.0 --arc momentum/arc2-beta0.0 --out momentum/criticality-beta0.0`
+
+_commit `ad1161ba6c5a`_
+
+- run started 2026-10-12 00:49 UTC finished 00:49 UTC with exit status 0
+
+- run started 2026-10-12 00:49 UTC finished 00:49 UTC with exit status 0
+
+## 2026-10-12 00:50 UTC: Momentum flips the Neimark-Sacker criticality on the ray: d = -0.511 (plain GD, soft) versus d = +2.012 (beta 0.5, subcritical)
+
+criticality-beta0.0 and criticality-beta0.5 (explore_momentum_maps criticality; two-step map in the full (theta, m) state at the bisected crossing; Kuznetsov first Lyapunov coefficient with Richardson finite-difference forms, unchanged to 1e-8 under doubled steps). Plain GD: crossing s = 1.653304 (amplitude extrapolation had given 1.653), rotation 0.1766 turns, d = -0.5113: supercritical, matching the soft onset. Momentum 0.5: crossing s = 1.0679622, rotation 0.0469 turns, d = +2.0125: subcritical, matching the hysteresis and the jump to the large slow attractor. So the hard onset is a genuine change in local criticality, not an artifact of basins. One ray of one network; next: d as a function of momentum and along the curve.
+
+_commit `ad1161ba6c5a` (dirty worktree)_
