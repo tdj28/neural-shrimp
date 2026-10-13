@@ -350,9 +350,12 @@ def convergence(args):
 
 
 def prompt_text(task, split, index):
-    """The scored text of one problem: the GSM8K prompt, or an ARC question followed by its correct choice."""
+    """The scored text of one problem: the GSM8K prompt (zero-shot template or 8-shot chain of thought), or an ARC
+    question followed by its correct choice."""
     if task == "gsm8k":
         return PROMPT.format(question=problems(split)[index]["question"])
+    if task == "gsm8k-cot8":
+        return gsm8k_prompt(problems(split)[index]["question"], "cot8")
     ex = arc_questions(split)[index]
     gold_text = ex["choices"]["text"][ex["choices"]["label"].index(ex["answerKey"])]
     return ARC_PROMPT.format(question=ex["question"]) + " " + gold_text

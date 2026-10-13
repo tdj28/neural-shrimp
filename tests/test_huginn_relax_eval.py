@@ -96,3 +96,12 @@ def test_cot8_prompt_and_answer_extraction():
     assert hr.strict_answer("we get 1,234. The answer is 1,234.") == "1234"
     assert hr.strict_answer("no final statement 12") is None
     assert hr.flexible_answer("first 3 then 45 and finally $1,200.") == "1200"
+
+
+def test_prompt_text_cot8_matches_the_generation_prompt(monkeypatch):
+    import huginn_relax_eval as hr
+
+    monkeypatch.setattr(hr, "problems", lambda split: [{"question": "What is 2 + 3?", "answer": "#### 5"}])
+    text = hr.prompt_text("gsm8k-cot8", "train", 0)
+    assert text == hr.gsm8k_prompt("What is 2 + 3?", "cot8")
+    assert text.startswith(hr.COT_PREFIX) and text.endswith("Q: What is 2 + 3?\nA:")

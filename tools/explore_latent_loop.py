@@ -884,7 +884,8 @@ def fixed_spectrum(args):
         return
     if getattr(args, "gsm8k_index", None) is not None:           # the exact prompt of tools/huginn_relax_eval.py
         import huginn_relax_eval as hr
-        text = hr.prompt_text("gsm8k", args.gsm8k_split, args.gsm8k_index)
+        text = hr.prompt_text("gsm8k-cot8" if args.gsm8k_style == "cot8" else "gsm8k", args.gsm8k_split,
+                              args.gsm8k_index)
     elif getattr(args, "arc_index", None) is not None:           # an ARC question with its correct choice
         import huginn_relax_eval as hr
         text = hr.prompt_text("arc", args.arc_split, args.arc_index)
@@ -1717,6 +1718,8 @@ def main():
     fs = sub.add_parser("fixed-spectrum")
     fs.add_argument("--gsm8k-index", type=int, default=None, help="use this GSM8K problem in the huginn_relax_eval prompt")
     fs.add_argument("--gsm8k-split", default="train", choices=("train", "test"))
+    fs.add_argument("--gsm8k-style", default="zero-shot", choices=("zero-shot", "cot8"),
+                    help="the zero-shot template or the 8-shot chain-of-thought prompt of huginn_relax_eval")
     fs.add_argument("--arc-index", type=int, default=None, help="use this ARC-Challenge question with its correct choice")
     fs.add_argument("--arc-split", default="train", choices=("train", "validation", "test"))
     fs.add_argument("--arc-indices", type=int, nargs="+", default=None,
