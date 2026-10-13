@@ -48,30 +48,41 @@ operational inventory checkpoint remains the ten-block checkpoint above; later
 completions are metadata-only pending final evidence admission. No repeated
 mathematical audit was performed; frozen execution remains untouched.
 
-Accepted auxiliary work (revised15:49 assignment, acknowledgement3846b81f,
-privately integrated at495e5bea): Task8 independent frozen Huginn statistical
-replay has completed its synthetic profile under `codex/huginn-independent-replay/` (16:19UTC,0.840s,72,936KiB,source d03f8f3c, no target access); actual replay waits immutable archives;
-Task11 second-classifier sensitivity audit is in the owned Task6 worktree
-`codex/p1-second-classifier-audit/`; Task13 source-bound manuscript/citation
-review is complete and delivered in `codex/paper-review/`, source1491f379, packet
-cead1c3d38c865c262fca72d1abb40e130cf936b, manifest05c8341dc036ca593e6f1229466d6d55b9a557fae8384fe5433ce096c5ed6314; standalone Claude delivery8a286951d126060e16118ecd2a8caac7dd83d04c. No manuscript edits or Huginn test-outcome reads. Task9/10/12 remain
-Claude's, and none was started by Codex. These are local CPU tasks, no paid
-launch, model/scoring job, pod inspection/control/relaunch or GPU use. Actual
-Task8/11 replays wait for complete immutable input authority and Root-reviewed
-measured source/cards. Substantial auxiliary runs share at most four extra CPU
-slots including supervisors, total at most12, with explicit memory/headroom
-bounds and Task1 priority. Task11 has read the producer's16:00 summary as
-context, not independent evidence; no threshold/model retuning. Task11 now has the producer
-44-score manifest c9033138 and writer-complete declaration plus an independent
-198-file hash inventory. Its source and completed synthetic profile are reviewed;
-Root admitted exactly descriptive-001 then exploratory l8-primary-001 under
-unchanged source29e2bffd,300s/4GiB/CPU1+supervisor each,20/16GiB headroom.
-Boundary receives the sequential two-slot lifecycle lease after private cards/log
-checkpoint; no retries or model/scoring calls. Task8 actual replay remains
-unadmitted pending immutable archives; source-only adapter/comparator preparation
-continues. Task1 resource and frozen source leases remain unchanged. Cancellation concern was checked
-at15:56:25UTC: current controller and all five workers remain healthy; no job
-was replaced. Completed review agents had finished normally.
+Current auxiliary phase (16:44UTC): **Task11 and Task13 are complete and
+privately delivered.** Task11 evidence8cda5116a22c908e55c638ba35abcde5add41384,
+standalone Claude result d28d2cb20fa5e78f88a8b2e4fe09faa8aefbe15f; report
+`codex/p1-second-classifier-audit/report.md`, SHA02d96503faeba35e6f3cd64df2418d01cf54ba295f4f86eefd2c51dd8654fc2b.
+Both actual CPU replays and the synthetic profile are closed, all input/source
+and output receipts retained; no retry. The pooled second-instrument warning
+increment survives, while generic-kindness specificity and one history interval
+need the reported qualifications. This is exploratory sensitivity with disclosed
+producer-summary exposure, not a replacement confirmation.
+
+Task13 packetcead1c3d38c865c262fca72d1abb40e130cf936b/manifest05c8341dc036ca593e6f1229466d6d55b9a557fae8384fe5433ce096c5ed6314,
+standalone delivery8a286951d126060e16118ecd2a8caac7dd83d04c, lives in
+`codex/paper-review/`. Claude's16:33 note reports integration at0724a61a; no new
+assignment follows. We made no producer-manuscript edits.
+
+Task8 independent Huginn replay sources are reviewed and synthetically tested
+under `codex/huginn-independent-replay/`; execution-design.md binds source and
+external receipt obligations. The completed full-size invented-data profile
+was0.840s/72,936KiB, source d03f8f3c, no target access. **Actual Task8 input
+admission/card/run remains pending** complete immutable original archives/local
+retrieval and termination/source/assets/order receipts, producer outputs and
+measured whole-archive IO budget. No Huginn target outcomes have been read.
+Task9/10/12 and every paid/pod contingency remain Claude's. No auxiliary target
+job currently owns capacity; source-only preparation uses bounded CPU. Future
+substantial auxiliary runs share at most four additional CPU slots including
+supervisors, at most12 overall, and preserve Task1 priority.
+
+Latest Task1 health16:31:50UTC: all11 current birth/UID/group/session/command,
+nice10/CPU1/AS identities passed, five phase4 workers progressing with empty
+stderr, no stop/uncertainty,32,507,670,528B available. Controller metadata reports
+40 new completions plus18 retained (58/112 operationally complete). This is a
+metadata observation, not a repeated mathematical enclosure audit; the immutable
+ten-block inventory checkpoint above remains the last such archived summary.
+Frozen execution36c5d614/session60449 remains untouched. Same-chat automation
+complete-qwen-p8-certificate continues every30minutes; no duplicate owner/job.
 
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 

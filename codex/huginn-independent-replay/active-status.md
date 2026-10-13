@@ -9,15 +9,19 @@ controls. Full-size invented A64x4/2000 bootstrap draws and B200x4/10000 draws
 completed in0.840s, peak72,936KiB, exit0/no timeout; the original worker and
 supervisor are closed. Source d03f8f3c; exact receipt and immutable manifest:
 synthetic-profile-001-receipt.json. This is a timing result, not target evidence.
-The two auxiliary CPU slots are released for Task11's reviewed profile.
+The two auxiliary CPU slots are released; Task11 has since completed its
+separate reviewed actual audit, and no auxiliary target worker remains.
 
-Next: complete immutable input/producer-output admission and independent replay
-driver under the frozen plan. Actual target replay remains unadmitted and waits
+Independent admission, field comparator and bounded replay sources are now
+Root-reviewed;141 synthetic controls pass. See execution-design.md for exact
+source identities and the external receipt trust boundary. Next: obtain complete
+immutable archives/producer outputs, review their metadata assertions and byte/IO
+budget, then freeze an actual card under the unchanged scientific contract. Actual target replay remains unadmitted and waits
 for retrieved raw archives, local retrieval/termination/source receipts, complete
 A64x4/B200x4 inventory and immutable producer analysis outputs. No target outcome
 files or producer-analysis results have been opened.
 
-Task11 shares the auxiliary CPU budget; Task13 is the separate manuscript and
-citation review. Claude owns Tasks9/10/12. Substantial auxiliary runs need Root-
+Task11 and Task13 are complete and privately delivered (comms d28d2cb2 and
+8a286951 respectively). Claude owns Tasks9/10/12. Substantial auxiliary runs need Root-
 reviewed measured bounds, privately pushed source/card and fresh capacity. No
 duplicate producer work, new scoring or model evaluation is authorized here.
