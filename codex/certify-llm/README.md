@@ -64,21 +64,25 @@ No matched runtime or convergence comparison establishes acceleration.
 The complete audited capsule has0 factors and an unconsumed
 tuple15-to16 pair.
 The exact residual upper bound satisfies the authorized stopping criterion of at most 10^-210. **The bounded continuation sequence is stopped.** No next
-candidate plan or run card is created. Final derivative-domain selection and
-any derivative campaign require their own reviewed, committed resource plan.
+optimizer candidate plan or run card is created. Final-domain-002 now binds these
+exact centers to radius2^-640 after completed read-only point admission.
+The earlier domain001 helper count mismatch remains preserved. The reviewed
+first phase0/columns0..63 derivative plan and one-run card are prepared; no
+derivative attempt has started at this checkpoint. Any remaining campaign
+requires its own measured resource plan.
 The immediate capsule bytes are authenticated; older archives rely on the
 disclosed prior independent audit rather than being claimed as rehashed.
 No GPU, paid pod or paid consultation is in use.
 
 ### Remaining route to the certificate
 
-1. Continue complete audited parallel candidates until centre refinement is
-   adequate for final derivative boxes. Preserve every update, restart, fallback
-   and regression; never reuse a partial attempt. The first parallel pass
-   measured325.21s total; future costs remain measured outcomes.
-2. Define exact candidate centres and phase radii after adequate refinement.
-   The original prototype boxes do not contain the refined centres and cannot
-   be reused as proof boxes. Small residual alone does not establish inclusion.
+1. Centre refinement is complete for the declared threshold; all twelve parallel
+   outcomes, restarts and original evidence remain retained. No further
+   optimizer candidates are authorized by the completed sequence.
+2. The final-domain-002 exact centers, point images and uniform radius2^-640
+   are frozen and authenticated. See `final-domain-002-review.md`. The original
+   prototype boxes cannot substitute for these boxes. First execute and audit
+   the separately bounded phase0/columns0..63 final-domain shard.
 3. Evaluate all8x896 signed derivative columns over those same nominal boxes.
    The measured64-column stream suggests roughly56 CPU-hours for all112 shards
    if all other phases cost similarly; this is a single-phase extrapolation,

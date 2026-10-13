@@ -21627,3 +21627,18 @@ _commit `ee5f82e862cc` (dirty worktree)_
 The reviewed freeze helper d59ad0e45e9207b90d1ee4596626d040b6e059a51facfe432ae654c88f6e19e6 failed before point admission or model execution: its root-audit schema expected 7168 original residual coordinates, while the independent root audit counts 14336 across before and after. All completed centre audits and the exact <=1e-210 stopping result remain valid. Raw attempt and traceback are retained read-only, compact receipt certificates/llm-p8-final-domain-001-failure.json. No publication output or derivative run. A reviewed schema correction must use a new exclusive attempt and preserve this failure.
 
 _commit `56de243fc22e` (dirty worktree)_
+
+## 2026-10-13 09:19 UTC: Task 1: corrected final-domain-002 frozen after completed point admission
+
+Corrected helper c974792b2870ec0dfc6121b417a1fa7d89c3ccf8bd8696d4180d5b51883a61d7 completed read-only admission in43.398767s/503960KiB; zero model/optimizer calls. Original failed001 remains sealed. Complete002 inventory and all25 current/Git sources audited; all7168 exact terminal centers/original images agree. Definition42959bcd5b1066c5c2ea326dd43e88023c233d6e5f58ab1062005797be230840, uniform exact radius2^-640. See final-domain-002-review.md and compact receipt. This is a proposed final enclosure domain, not an orbit certificate.
+
+_commit `d59240eb32d3` (dirty worktree)_
+
+## 2026-10-13 09:19 UTC: run (exploratory)
+
+- **Question:** Can the reviewed full-vocabulary Arb evaluator enclose the first64 signed state derivative columns on the actual final phase0 box?
+- **Setup:** Exactly one final-domain phase0 shard, positive coordinate basis0..63 of896;1024-bit Arb and all151936 vocabulary entries, chunks1024. Plan final-derivative-p0-c000-001-plan.json SHA1a92d52586f003939a7720599e32d9070116163e3683c393b3d1854a4bec4381; exact domain definition42959bcd5b1066c5c2ea326dd43e88023c233d6e5f58ab1062005797be230840 and independently authenticated2048-bit point images. CPU1/nice10/18GiB AS/3600s plus10s cleanup, no other Codex target job. The prototype64-column cost1787.968s/5393488KiB is only a planning reference; fresh host availability and exact private push are required. No GPU or paid resources. Preserve every original input/basis/output, failed stage, process identity and final receipt. No retry or campaign launch from this card. Both artifact/endpoint audit and owned termination verification must complete before planning remaining coverage.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c000-001`
+- **Would surprise us:** Nonfinite enclosure, loss of positivity, original-box omission, runtime or memory cap, incomplete basis/vocabulary coverage, or any provenance mismatch; retain the actual outcome without changing the declared domain.
+
+_commit `d59240eb32d3` (dirty worktree)_
