@@ -235,6 +235,16 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
       esac
     done
     ;;
+  hnormal)     # fold normal form of the hostile '!Yes' 2-cycle (accumulation point of the hostile cascade): float64
+               # branch in temperature down to its fold from (log10 T -0.0445, alpha 0.083), then the normal form at the
+               # branch point nearest the fold, eps in log10 T
+    HV="--vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness"
+    run hnormal-branch 60 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp --steps 200 \
+      --chunk 896 $HV --period 2 --free temperature --log-temperature -0.0445 --alpha 0.083 --direction -1 \
+      --ds 0.0002 --ds-max 0.001 --beyond 0.0003 --bounds -0.06 -0.04 --out $D/hnormal/branch-p2-fold
+    run hnormal-nf 30 normal-form --device cuda --run $D/hnormal/branch-p2-fold --nearest-fold --param temperature \
+      --out $D/hnormal/normal-form-p2
+    ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}

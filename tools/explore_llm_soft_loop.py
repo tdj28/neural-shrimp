@@ -1036,8 +1036,15 @@ def normal_form(args):
     src = DATA / "explore" / args.run
     name = "curve.json" if (src / "curve.json").exists() else "branch.json"
     rec = json.loads((src / name).read_text())
-    pt = rec["points"][args.index]
-    x = np.load(src / "states.npy")[args.index].ravel()
+    index = args.index
+    if args.nearest_fold:                     # the branch point whose real multiplier is nearest +1 (the turn)
+        gaps = [abs(1.0 - p["real_multiplier_nearest_one"]) if p.get("real_multiplier_nearest_one") is not None
+                else np.inf for p in rec["points"]]
+        index = int(np.argmin(gaps))
+        if not np.isfinite(gaps[index]):
+            raise SystemExit("no point with a real multiplier near +1 in the run")
+    pt = rec["points"][index]
+    x = np.load(src / "states.npy")[index].ravel()
     ra = rec["args"]
     if name == "curve.json":
         start = json.loads((DATA / "explore" / ra["start"] / ("branch.json" if (DATA / "explore" / ra["start"] /
@@ -1054,11 +1061,15 @@ def normal_form(args):
     fam = soft_family(loop, v, int(rec["period"]), args.alpha_scale, args.chunk)
     theta = np.array([log_t, alpha * args.alpha_scale])
     res = float(np.linalg.norm(fam.residual(x, theta)) / np.linalg.norm(x))
-    nf = bc.fold_normal_form(fam, x, theta, param=1, param_scale=args.alpha_scale, steps=tuple(args.steps))
+    # eps in units of alpha (default) or of log10 T (--param temperature, for folds approached in temperature)
+    param, scale = (0, 1.0) if args.param == "temperature" else (1, args.alpha_scale)
+    nf = bc.fold_normal_form(fam, x, theta, param=param, param_scale=scale, steps=tuple(args.steps))
+    if abs(nf["multiplier"][1]) > 1e-9 or abs(nf["multiplier"][0] - 1.0) > 0.01:      # classify before trusting
+        raise SystemExit(f"multiplier nearest +1 is {nf['multiplier']}: not a fold point (refusing coefficients)")
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     np.savez(out / "vectors.npz", x_c=x, r=nf.pop("r"), l=nf.pop("l"))
-    rec_out = {"args": vars(args), "source": {"run": args.run, "index": args.index, "log10_temperature": log_t,
+    rec_out = {"args": vars(args), "source": {"run": args.run, "index": index, "log10_temperature": log_t,
                "alpha": alpha, "period": int(rec["period"]), "model": start["model"], "layer": start["layer"],
                "prompt": start["prompt"], "opener": start["opener"], "window": start["window"],
                "vectors": start["vectors"], "concept": start["concept"]},
@@ -1416,6 +1427,9 @@ def main():
     nfp = sub.add_parser("normal-form")
     nfp.add_argument("--run", required=True, help="explore-relative curve or branch run holding the fold point")
     nfp.add_argument("--index", type=int, default=0)
+    nfp.add_argument("--nearest-fold", action="store_true", help="use the point whose real multiplier is nearest +1")
+    nfp.add_argument("--param", choices=("alpha", "temperature"), default="alpha",
+                     help="unfolding parameter of the normal form (eps in alpha, or in log10 T)")
     nfp.add_argument("--threads", type=int, default=8)
     nfp.add_argument("--device", default="cpu")
     nfp.add_argument("--alpha-scale", type=float, default=10.0)
