@@ -435,12 +435,12 @@ changes sign while $a$ stays away from zero (Table~\ref{tab:z3cusps}). The signs
 orientation of the critical eigenvector, so the test uses $b\operatorname{sign}a$.
 \begin{table}[H]
 \centering\small
-\begin{tabular}{lcc}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.3\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}}
 \toprule
  & cusp on the outer arc & cusp inside the body \\
 \midrule
-$b\operatorname{sign}a$ at consecutive curve points & $+92.9,\ +42.9,\ +14.7,\ \mathbf{-16.9},\ -52.8$ &
-  $-24.7,\ -14.3,\ -2.0,\ \mathbf{+12.8},\ +28.0,\ +45.9,\ +58.9$ \\
+$b\operatorname{sign}a$ at consecutive curve points & $+92.9$, $+42.9$, $+14.7$, $\mathbf{-16.9}$, $-52.8$ &
+  $-24.7$, $-14.3$, $-2.0$, $\mathbf{+12.8}$, $+28.0$, $+45.9$, $+58.9$ \\
 $|a|$ & $1.2$--$6.9$ & $3.13$--$3.35$ \\
 \bottomrule
 \end{tabular}
@@ -471,7 +471,7 @@ $(0.06557,0.07445)$. Between the two fold branches two period-4 orbits coexist (
 \toprule
  & cusp 1 & cusp 2 \\
 \midrule
-$b$ at five consecutive curve points & $+28.1,\ +18.7,\ +8.4,\ \mathbf{-1.1},\ -12.8$ &
+$b$ at five curve points & $+28.1,\ +18.7,\ +8.4,\ \mathbf{-1.1},\ -12.8$ &
   $+51.8,\ +29.7,\ +9.3,\ \mathbf{-9.0},\ -23.4$ \\
 $a$ & $3.02$--$3.08$ & $-2.58$ to $-2.57$ \\
 critical multiplier & $1\pm10^{-9}$ & $1\pm10^{-8}$ \\
@@ -771,9 +771,10 @@ state (16 turns), with an escape rate falling roughly exponentially with the dos
 the gratitude ladder (Appendix~\ref{app:gratitude}), from dynamic capture to imposed capture.
 \begin{table}[H]
 \centering\small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lccccc}
 \toprule
-direction, $\alpha$ & hostile turns & never hostile & median onset turn & $P(\text{stay hostile})$ & hostile in turns 30--39 \\
+direction, $\alpha$ & hostile turns & never hostile & median onset & $P(\text{stay hostile})$ & hostile, turns 30--39 \\
 \midrule
 none, $0$ & $0\,\%$ & 128/128 & -- & -- & $0\,\%$ \\
 hostility, $0.04$ & $10\,\%$ & 26/128 & 9 & $0.36$ & $12\,\%$ \\
@@ -930,9 +931,9 @@ computer-assisted proof.
 \inprogress{interval (Arb ball) proof of the period-8 stripe orbit (rung 3): the multiple-shooting centre is refined
 to an exact residual below $10^{-210}$ and the final box (radius $2^{-640}$) is fixed; the derivative enclosures over
 that box are being computed, after which the inclusion, primitive-period and attraction gates follow.}
-Code: \texttt{tools/explore\_llm\_soft\_loop.py}, \texttt{tools/bifurcation\_curves.py},
-\texttt{tools/llm\_feigenbaum.py}, \texttt{tools/explore\_latent\_loop.py}, \texttt{tools/explore\_llm\_msm.py},
-\texttt{tools/hostility\_score.py}; raw data hash receipts in \texttt{evidence/llm-dynamics-data-receipts.json}.
+Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
+\path{tools/explore_latent_loop.py}, \path{tools/explore_llm_msm.py}, \path{tools/hostility_score.py}; raw data hash
+receipts in \path{evidence/llm-dynamics-data-receipts.json}.
 \planned{public code and data release at submission.}
 
 \appendix
@@ -944,7 +945,7 @@ clustered (PCA to 20 dimensions, 40 states) into a Markov state model with four 
 \cite{chodera2014msm}. Finite-horizon measures:
 \begin{table}[H]
 \centering\small
-\begin{tabular}{lcccc}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.25\linewidth}*{4}{>{\raggedright\arraybackslash}p{0.15\linewidth}}}
 \toprule
 gratitude strength $\alpha$ & $0$ & $0.01$ & $0.02$ & $0.04$ \\
 \midrule
