@@ -21437,3 +21437,18 @@ _commit `2af7f7aaa1ad`_
 - **Would surprise us:** windows that are not born in folds (then not the intermittency organization), or no 2-cycle fold near log10 T -0.046
 
 _commit `2af7f7aaa1ad` (dirty worktree)_
+
+## 2026-10-13 07:40 UTC: Hostile spiral (run V1): float64 orbits; the 'insult' 2-cycle near the hub has a complex pair 0.858 at 0.105 turns
+
+Run V1 (pod xwz2g00ym13qru, 746 s, commit 4f84e320, hashes match, terminated): float64 Newton orbits (tol 1e-12) of the hostility-steered soft-token map at 11 cells of zoom A. Converged (residual 2e-15 to 1.4e-13), (alpha, log10 T): (0.075, 0.200) P2 '侮辱 侮辱' rho 0.924 (real +), next 0.25 (real -); (0.070, 0.220) P1 '侮辱' with multiplier -0.907 (approaching a flip toward the P2), next complex 0.345 at 0.017 turns; (0.080, 0.180) P2 rho 0.664; (0.085, 0.210) P2 '侮辱 Fuck' rho 0.685; (0.060, 0.260) P3 '生素 / !' rho 0.657 (real -); (0.050, 0.235) P3 '侮辱 / importe' rho 0.349; (0.068, 0.195) P7 '\n\nI!Yes heels\n\nPDOException' rho 0.101 (strongly attracting arm orbit); (0.062, 0.170) the float32 P7 cell converges in float64 to the P2 '侮辱 侮辱' with a complex pair 0.858 at +-0.105 turns (next 0.753 real); (0.051, 0.208) a P13 '![](imiter / importe侮辱 / I ...' rho 0.372 where float32 showed P8. Not periodic up to 32 at tolerance 1e-6: (0.065, 0.240) (smallest return distance 6.6e-4 at q 18) and (0.059, 0.220) (0.03 at q 32). Reading: the hub region carries the insult fixed point (flip toward its 2-cycle) and a 2-cycle with a complex pair approaching the unit circle; a Neimark-Sacker origin of the spiral arms (Arnold tongues) is the working hypothesis, to be tested by continuing the 2-cycle toward the hub (run V3).
+
+_commit `f77fa7803a2a`_
+
+## 2026-10-13 07:40 UTC: run (exploratory)
+
+- **Question:** Does the insult 2-cycle undergo a Neimark-Sacker bifurcation at the hub of the hostile spiral? Continue it from (alpha 0.062, log10 T 0.170), where its complex pair is 0.858 at 0.105 turns, in alpha both ways and in temperature both ways, recording the multipliers; also continue the insult fixed point from (0.070, 0.220) toward its flip (multiplier -0.907).
+- **Setup:** RunPod H100 (run V3), job set hverify, commit f77fa780: float64 branch continuations (150 steps, ds 0.002, ds-max 0.01, beyond 0.003), hostility-vs-kindness vectors; P2 from (0.062, 0.170): free alpha up/down within [0.04, 0.09], free temperature up/down within [0.12, 0.28]; P1 from (0.070, 0.220): free alpha up/down within [0.04, 0.10]
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hverify/branch-*`
+- **Would surprise us:** the complex pair moving away from the circle toward the hub (then the spiral is not organized by this 2-cycle)
+
+_commit `f77fa7803a2a` (dirty worktree)_
