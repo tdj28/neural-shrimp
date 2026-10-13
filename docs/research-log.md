@@ -20766,3 +20766,12 @@ Run S15c (pod t8rn6iqentx9gb, 1079 s, commit 1e4f2865; scan cuda float64, qwen1.
 _commit `2c9c2ee0aa4f`_
 
 - run started 2026-10-12 23:51 UTC (../neural-shrimp-data/explore/llm-soft-loop/table1-cut-t-0.115) finished 00:47 UTC with exit status 0
+
+## 2026-10-13 00:49 UTC: run (exploratory)
+
+- **Question:** Is the parameter-tangent reversal on the Z3 period-6 window's outer fold arc (flag at alpha 0.069109, log10 T -0.039751, found from two starts: sets A and C) a cusp: does the fold normal-form coefficient b change sign there with a bounded away from zero?
+- **Setup:** tools/cusp_check.py (the scratchpad copy that is running is identical to the committed file) on llm-soft-loop/pod64/p6z3/curve-foldA-plus, curve indices 48, 50-54, 56 (flag at 52); float64 CPU; b by central differences of float64 JVPs at steps 1e-3, 3e-4, 1e-4
+- **Output:** `scratchpad cusp_p6z3.jsonl, to be copied to ../neural-shrimp-data/explore/llm-soft-loop/pod64/p6z3/cusp-check-foldA-plus.jsonl`
+- **Would surprise us:** b of one sign throughout (a fold-curve turning point without a cusp would not reverse the tangent; a reversal without a b sign change would point to a numerical artefact of the continuation step)
+
+_commit `a186d5c63007`_
