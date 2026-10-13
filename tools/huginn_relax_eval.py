@@ -61,19 +61,24 @@ def same_number(a, b):
 
 
 class Relaxed:
-    """Wraps model.core_block_forward so that each recurrence step returns (1 - lam) x + lam Core(x)."""
+    """Wraps model.core_block_forward so that each recurrence step returns (1 - lam) x + lam Core(x).
+
+    With `trace` set, records per step the native residual ||Core(x) - x|| / ||x|| (the fixed-point residual, with no
+    factor lam) and the relaxed step ||new - x|| / ||x|| = lam ||Core(x) - x|| / ||x|| separately: only the former
+    measures closeness to a fixed point (Codex preflight, codex/huginn-design-preflight.md)."""
 
     def __init__(self, model):
         self.model = model
         self.orig = model.core_block_forward
         self.lam = 1.0
-        self.trace = None                       # optional list of per-step relative changes (prefill diagnostics)
+        self.trace = None                       # optional list of (native residual, relaxed step) per recurrence step
 
         def relaxed(x, *args, **kwargs):
             out, block_idx = self.orig(x, *args, **kwargs)
             new = out if self.lam == 1.0 else (1.0 - self.lam) * x + self.lam * out
             if self.trace is not None:
-                self.trace.append(float((new - x).float().norm() / new.float().norm()))
+                nx = float(x.float().norm())
+                self.trace.append((float((out - x).float().norm()) / nx, float((new - x).float().norm()) / nx))
             return new, block_idx
 
         model.core_block_forward = relaxed
@@ -111,6 +116,8 @@ def accuracy(args):
     import explore_llm_attractors as ela
     from transformers import GenerationConfig
 
+    import numpy as np
+
     data = problems(args.split)[args.start: args.start + args.count]
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -119,21 +126,33 @@ def accuracy(args):
     summary = {"args": vars(args), "arms": {}}
     rows_path = out / "rows.jsonl"
     with open(rows_path, "a") as rows:
-        for lam in args.lams:
-            relax.lam = float(lam)
+        for arm in args.lams:
             correct, tic = 0, time.perf_counter()
             for i, ex in enumerate(data):
+                index = args.start + i
+                if str(arm).startswith("rand:"):          # random relaxation drawn per problem, seeded by (seed, index)
+                    lo, hi = (float(v) for v in str(arm).split(":")[1:3])
+                    lam = float(np.random.default_rng([args.seed, index]).uniform(lo, hi))
+                else:
+                    lam = float(arm)
+                relax.lam = lam
+                torch.manual_seed(args.seed * 100003 + index)   # Huginn draws its initial latent state at random:
                 ids = tok(PROMPT.format(question=ex["question"]), return_tensors="pt")["input_ids"].to(args.device)
+                t0 = time.perf_counter()                   # the same seed per problem in every arm (paired)
                 with torch.no_grad():
                     gen = model.generate(ids, cfg, num_steps=args.steps)
-                text = tok.decode(gen[0, ids.shape[1]:], skip_special_tokens=True)
-                text = text.split("\nQuestion:")[0]
+                new_tokens = int(gen.shape[1] - ids.shape[1])
+                full = tok.decode(gen[0, ids.shape[1]:], skip_special_tokens=True)
+                text = full.split("\nQuestion:")[0]
                 pred, ans = extract(text), gold(ex["answer"])
                 ok = same_number(pred, ans)
                 correct += ok
-                rows.write(json.dumps({"lam": lam, "steps": args.steps, "split": args.split, "index": args.start + i,
-                                       "pred": pred, "gold": ans, "correct": ok, "text": text[-400:]}) + "\n")
+                rows.write(json.dumps({"arm": str(arm), "lam": lam, "steps": args.steps, "split": args.split,
+                                       "index": index, "seed": args.seed * 100003 + index, "pred": pred, "gold": ans,
+                                       "correct": ok, "new_tokens": new_tokens, "core_calls": new_tokens * args.steps,
+                                       "seconds": round(time.perf_counter() - t0, 2), "text": full}) + "\n")
                 rows.flush()
+            lam = str(arm)
             n = len(data)
             summary["arms"][str(lam)] = {"correct": correct, "n": n, "accuracy": correct / n,
                                          "seconds": round(time.perf_counter() - tic, 1)}
@@ -143,27 +162,45 @@ def accuracy(args):
 
 
 def convergence(args):
-    torch, tok, model, relax = load(args)
+    """Prefill recurrence of one GSM8K prompt, relaxed at each lam, through explore_latent_loop.HuginnLoop (adapter
+    and core on the GPU, the rest on the CPU, so float32 fits): native residual ||F(s) - s|| / ||s|| and relaxed step
+    per step, and the rate of the native residual over a gated fitting window."""
+    import math
+
+    import numpy as np
+
+    import explore_latent_loop as ell
     import explore_llm_attractors as ela
 
+    loop = ell.HuginnLoop("huginn", args.dtype, args.device, args.threads, seed=args.seed)
     ex = problems(args.split)[args.index]
-    ids = tok(PROMPT.format(question=ex["question"]), return_tensors="pt")["input_ids"].to(args.device)
+    h0 = loop.setup(PROMPT.format(question=ex["question"]))
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     res = {"args": vars(args), "traces": {}}
     for lam in args.lams:
-        relax.lam = float(lam)
-        relax.trace = []
-        with torch.no_grad():
-            model(input_ids=ids, num_steps=torch.tensor([args.steps, 0]))
-        tr = relax.trace
-        relax.trace = None
-        k = max(4, len(tr) // 2)
-        tail = [t for t in tr[-k:] if t > 0]
-        import math
-        rate = math.exp((math.log(tail[-1]) - math.log(tail[0])) / (len(tail) - 1)) if len(tail) > 1 else None
-        res["traces"][str(lam)] = {"relative_change": tr, "tail_rate_per_step": rate}
-        print(json.dumps({"lam": lam, "steps": args.steps, "last": tr[-1], "tail_rate_per_step": rate}), flush=True)
+        lam = float(lam)
+        s, native, step = h0.clone(), [], []
+        for _ in range(args.steps):
+            f = loop.F(s)
+            ns = float(s.float().norm())
+            native.append(float((f - s).float().norm()) / ns)
+            new = (1.0 - lam) * s + lam * f
+            step.append(float((new - s).float().norm()) / ns)
+            s = new
+        k0 = int(args.fit_start * len(native))
+        floor = min(native) * args.floor_factor
+        window = [(k, r) for k, r in enumerate(native) if k >= k0 and r > floor]
+        if len(window) >= 8:
+            slope = float(np.polyfit([k for k, _ in window], np.log([r for _, r in window]), 1)[0])
+            rate, status = math.exp(slope), "fitted"
+        else:
+            rate, status = None, f"fitting window too short ({len(window)} steps above the floor gate)"
+        res["traces"][str(lam)] = {"native_residual": native, "relaxed_step": step,
+                                   "fit_window": [window[0][0], window[-1][0]] if window else None,
+                                   "rate_per_step": rate, "status": status}
+        print(json.dumps({"lam": lam, "steps": args.steps, "native_residual_last": native[-1], "rate_per_step": rate,
+                          "status": status}), flush=True)
     (out / "convergence.json").write_text(json.dumps(res, indent=1))
 
 
@@ -174,9 +211,10 @@ def main():
         sp = sub.add_parser(name)
         sp.add_argument("--split", default="train", choices=("train", "test"))
         sp.add_argument("--steps", type=int, default=8)
-        sp.add_argument("--lams", type=float, nargs="+", default=[1.0])
+        sp.add_argument("--lams", nargs="+", default=["1.0"], help="values, or rand:LO:HI for a per-problem draw")
+        sp.add_argument("--seed", type=int, default=0)
         sp.add_argument("--device", default="cuda")
-        sp.add_argument("--dtype", default="bfloat16")
+        sp.add_argument("--dtype", default="bfloat16" if name == "accuracy" else "float32")
         sp.add_argument("--threads", type=int, default=4)
         sp.add_argument("--out", required=True)
     acc = sub.choices["accuracy"]
@@ -185,6 +223,9 @@ def main():
     acc.add_argument("--max-new", type=int, default=256)
     conv = sub.choices["convergence"]
     conv.add_argument("--index", type=int, default=0)
+    conv.add_argument("--fit-start", type=float, default=0.3, help="fraction of steps left out of the rate fit")
+    conv.add_argument("--floor-factor", type=float, default=30.0,
+                      help="fit only while the native residual exceeds this factor times its minimum")
     args = parser.parse_args()
     {"accuracy": accuracy, "convergence": convergence}[args.command](args)
 

@@ -880,7 +880,12 @@ def fixed_spectrum(args):
 
     loop = make_loop(args)
     torch = loop.torch
-    h = loop.setup(PROMPTS[args.prompt])
+    if getattr(args, "gsm8k_index", None) is not None:           # the exact prompt of tools/huginn_relax_eval.py
+        import huginn_relax_eval as hr
+        text = hr.PROMPT.format(question=hr.problems(args.gsm8k_split)[args.gsm8k_index]["question"])
+    else:
+        text = PROMPTS[args.prompt]
+    h = loop.setup(text)
     shape = tuple(h.shape)
     n = int(np.prod(shape))
     lam = float(args.lam)
@@ -1672,6 +1677,8 @@ def main():
     co.add_argument("--arnoldi-iter", type=int, default=200)
     co.add_argument("--out", required=True)
     fs = sub.add_parser("fixed-spectrum")
+    fs.add_argument("--gsm8k-index", type=int, default=None, help="use this GSM8K problem in the huginn_relax_eval prompt")
+    fs.add_argument("--gsm8k-split", default="train", choices=("train", "test"))
     fs.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     fs.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
     fs.add_argument("--device", default="cpu")
