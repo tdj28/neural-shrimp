@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 import huginn_arc_analysis as ha  # noqa: E402
@@ -84,3 +85,30 @@ def test_item_statistic_ranks_rho_against_residual():
     stat, per_arm = ha.item_statistic(recs, [1.0, 1.1], list(range(20)))
     assert stat > 0.95 and len(per_arm) == 2
     assert all(r["changes"] is False for r in recs if r["rho"] < 1)
+
+
+def test_generation_cmd_primary_logic(tmp_path, monkeypatch):
+    import argparse
+    import json
+
+    import explore_llm_attractors as ela
+    import huginn_arc_analysis as ha
+
+    monkeypatch.setattr(ela, "DATA", tmp_path)
+    rng = np.random.default_rng(1)
+    folder = tmp_path / "explore" / "g"
+    folder.mkdir(parents=True)
+    with open(folder / "rows.jsonl", "w") as f:
+        for i in range(200):
+            base = rng.uniform() < 0.4
+            for arm, ok in (("1.0", base), ("1.05", base), ("1.15", base and rng.uniform() < 0.7),
+                            ("1.20", base and rng.uniform() < 0.3)):
+                f.write(json.dumps({"arm": arm, "index": i, "correct": bool(ok), "correct_strict": bool(ok),
+                                    "new_tokens": 80, "strict_pred": "1"}) + "\n")
+    ns = argparse.Namespace(rows=["g"], start=0, count=200, arms=["1.0", "1.05", "1.15", "1.20"], base="1.0",
+                            collapse_arm="1.20", break_arm="1.15", safe_arm="1.05", margin=0.04, out="gout")
+    ha.generation_cmd(ns)
+    res = json.loads((tmp_path / "explore" / "gout" / "generation.json").read_text())
+    assert res["B1_collapse"]["success"] and res["B3_no_loss"]["success"] and res["primary_success"]
+    with pytest.raises(SystemExit):
+        ha.generation_cmd(argparse.Namespace(**{**vars(ns), "count": 201, "out": "gout2"}))

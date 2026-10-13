@@ -1,8 +1,7 @@
 # Huginn causal test: does the fixed-point spectrum predict how test-time relaxation changes the recurrence and the task?
 
-Status: **draft v3, not frozen** (13 October 2026). Part A is complete. Part B waits for the GSM8K development
-run H1b. The finished file goes to Codex for review and is pushed before any test-split computation (adaptive
-research protocol, confirm mode). Owner: Claude. Suggested by Codex after the human asked about ambition. The
+Status: **draft v3, not frozen** (13 October 2026). Parts A and B are complete. The file goes to Codex for review
+and is pushed (frozen) before any test-split computation (adaptive research protocol, confirm mode). Owner: Claude. Suggested by Codex after the human asked about ambition. The
 history of v1 and v2 is at the end.
 
 ## Question
@@ -38,7 +37,13 @@ which step-to-step changes can compound (Part B)?
   [0.58, 0.87]. Answer changes occur in 4 of 24 unstable (question, lam) pairs and 1 of 28 stable ones.
 - Wang et al. 2026 (TAPS, arXiv 2609.36653) report for pretrained Huginn that a constant step of 1.2 collapses
   accuracy (GSM8K 8.34 % against 19.41 %) and that 0.8 underperforms. This is context only.
-- GSM8K 8-shot chain-of-thought generation against lam (run H1b, train 0-149, r = 32): TBD.
+- GSM8K 8-shot chain-of-thought generation against lam (run H1b, train 0-119 complete in all arms, r = 32,
+  tools/huginn_gsm8k_dev.py). Flexible accuracy: native 0.375; 0.80 0.408; 1.05 0.425; 1.10 0.425; 1.15 0.292
+  (17 lost / 7 gained, one-sided McNemar p = 0.032); 1.20 0.158 (29 / 3, p = 1.3e-6). The break lies between 1.10
+  and 1.15, at or just above the spectral thresholds of the zero-shot GSM8K prompts (1.074-1.126) and of the ARC
+  questions (median lam_up 1.09). Generation breaks earlier than log-likelihood scoring (ARC held to 1.15). The
+  dry run of the Part B analysis on these rows (huginn-relax/dryrun-generation) gives B1 p = 1.3e-6, B3 lower 90 %
+  bound 0.00 and B2 p = 0.032.
 
 ## Part A (primary): item-level prediction on fresh ARC-Challenge questions
 
@@ -87,10 +92,32 @@ between rho_q(lam) and the log native residual at step 32. Success requires both
 
 ## Part B (secondary): GSM8K generation accuracy against lam
 
-TBD from H1b. Planned: GSM8K test problems in file order (openai/gsm8k revision 740312ad; test.jsonl SHA-256
-3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14), 8-shot chain of thought in the lm-eval format,
-greedy decoding, r = 32, flexible and strict exact match. Arms and predictions will be placed from the development
-lam response and the spectral lam_c range.
+**System.**
+- Data: GSM8K test problems 0-199 in file order (openai/gsm8k revision 740312ad; test.jsonl SHA-256
+  3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14).
+- Prompt: 8-shot chain of thought in the lm-eval gsm8k_cot format (exemplars verbatim, gsm8k-cot.yaml SHA-256
+  7c9dd256...).
+- Decoding: greedy, generation until 'Q:' or 256 new tokens, r = 32 recurrence steps per token, bfloat16, paired
+  initial latent states (seed 0).
+- Command: huginn_relax_eval.py accuracy --split test --start 0 --count 200 --steps 32
+  --lams 1.0 1.05 1.15 1.20 --interleave --prompt-style cot8 --max-new 256 --seed 0. The problems may be split
+  across pods as contiguous ranges with identical settings.
+
+**Predictions** (from the development lam response; the arms straddle the spectral thresholds):
+- B1: flexible accuracy at lam 1.20 is lower than native (exact one-sided McNemar, alpha 0.05).
+- B3: lam 1.05 loses no more than 4 points against native: the 5th percentile of the paired problem bootstrap of
+  the difference (10,000 resamples, seed 0) is above -0.04.
+- Part B succeeds if B1 and B3 both pass. This is an intersection-union test, so each is at alpha 0.05.
+- Secondary, descriptive: B2 (lam 1.15 lower than native, one-sided McNemar); the same contrasts for strict
+  accuracy; median new tokens; the share of replies in the strict 'The answer is N' format.
+
+**Analysis code.** tools/huginn_arc_analysis.py generation at the frozen commit (coverage of every problem in every
+arm is checked; duplicate rows are refused):
+
+    generation --rows <folders> --start 0 --count 200
+
+**Spectral context.** Before the test, development spectra of the 8-shot prompts (gpu job 13, GSM8K train 0-2,
+huginn-relax/cot8-spectrum-*) are reported with this design. They do not change the arms or the success criteria.
 
 ## Rules
 
@@ -106,7 +133,7 @@ analysis use the commit at which this file is frozen.
   - each question's own spectrum predicts its own convergence (Spearman about 0.75 within arms).
 - The read-out arms move into the range where questions split between stable and unstable (lam 1.0-1.10; 20-70 %
   unstable in development).
-- The GSM8K generation test becomes Part B, to be fixed from H1b.
+- The GSM8K generation test becomes Part B, with arms and criteria fixed from H1b.
 
 ## History
 

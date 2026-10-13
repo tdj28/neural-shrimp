@@ -342,6 +342,58 @@ def items_cmd(args):
     (dest / "items.json").write_text(json.dumps(result, indent=1))
 
 
+def generation_cmd(args):
+    """Part B of the frozen Huginn test: GSM8K generation accuracy against lam (rows of huginn_relax_eval accuracy)."""
+    import explore_llm_attractors as ela
+
+    rows = []
+    for folder in args.rows:
+        rows += [json.loads(line) for line in open(ela.DATA / "explore" / folder / "rows.jsonl")]
+    by = {}
+    for r in rows:
+        key = (str(r["arm"]), int(r["index"]))
+        if key in by:
+            raise SystemExit(f"duplicate row {key}")
+        by[key] = r
+    expected = set(range(args.start, args.start + args.count))
+    arms = [str(a) for a in args.arms]
+    for a in arms:
+        got = {i for (arm, i) in by if arm == a}
+        if got != expected:
+            raise SystemExit(f"arm {a}: {len(got)} problems, expected {len(expected)} ({args.start}..)")
+    order = sorted(expected)
+    result = {"args": vars(args), "n": len(order), "metrics": {}}
+    for metric in ("correct", "correct_strict"):
+        acc = {a: np.array([bool(by[(a, i)][metric]) for i in order]) for a in arms}
+        base = acc[args.base]
+        out = {"accuracy": {a: float(v.mean()) for a, v in acc.items()}}
+        for a in arms:
+            if a == args.base:
+                continue
+            p, b, c = mcnemar_less(base, acc[a])
+            mean, boots = paired_bootstrap(base, acc[a])
+            out[a] = {"difference": mean, "ci95": np.percentile(boots, [2.5, 97.5]).tolist(),
+                      "lower90": float(np.percentile(boots, 5)), "mcnemar_less_p": p, "lost": b, "gained": c}
+        result["metrics"][metric] = out
+    m = result["metrics"]["correct"]
+    result["B1_collapse"] = {"arm": args.collapse_arm, "p": m[args.collapse_arm]["mcnemar_less_p"],
+                             "success": bool(m[args.collapse_arm]["mcnemar_less_p"] < 0.05)}
+    result["B3_no_loss"] = {"arm": args.safe_arm, "lower90": m[args.safe_arm]["lower90"], "margin": -args.margin,
+                            "success": bool(m[args.safe_arm]["lower90"] > -args.margin)}
+    result["primary_success"] = bool(result["B1_collapse"]["success"] and result["B3_no_loss"]["success"])
+    result["B2_break"] = {"arm": args.break_arm, "p": m[args.break_arm]["mcnemar_less_p"],
+                          "success": bool(m[args.break_arm]["mcnemar_less_p"] < 0.05)}
+    result["tokens_median"] = {a: float(np.median([by[(a, i)]["new_tokens"] for i in order])) for a in arms}
+    result["strict_format_share"] = {a: float(np.mean([by[(a, i)]["strict_pred"] is not None for i in order]))
+                                     for a in arms}
+    print(json.dumps({k: result[k] for k in ("n", "B1_collapse", "B3_no_loss", "primary_success", "B2_break")}))
+    dest = ela.DATA / "explore" / args.out
+    if (dest / "generation.json").exists():
+        raise SystemExit(f"{dest / 'generation.json'} exists; outputs are never overwritten")
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "generation.json").write_text(json.dumps(result, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -363,8 +415,19 @@ def main():
     it.add_argument("--fixed-tol", type=float, default=1e-4)
     it.add_argument("--boot", type=int, default=2000)
     it.add_argument("--out", required=True)
+    ge = sub.add_parser("generation")
+    ge.add_argument("--rows", nargs="+", required=True, help="folders of huginn_relax_eval accuracy rows.jsonl")
+    ge.add_argument("--start", type=int, required=True)
+    ge.add_argument("--count", type=int, required=True)
+    ge.add_argument("--arms", nargs="+", default=["1.0", "1.05", "1.15", "1.20"])
+    ge.add_argument("--base", default="1.0")
+    ge.add_argument("--collapse-arm", default="1.20")
+    ge.add_argument("--break-arm", default="1.15")
+    ge.add_argument("--safe-arm", default="1.05")
+    ge.add_argument("--margin", type=float, default=0.04, help="non-inferiority margin for the safe arm")
+    ge.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"spectra": spectra_cmd, "accuracy": accuracy_cmd, "items": items_cmd}[args.command](args)
+    {"spectra": spectra_cmd, "accuracy": accuracy_cmd, "items": items_cmd, "generation": generation_cmd}[args.command](args)
 
 
 if __name__ == "__main__":
