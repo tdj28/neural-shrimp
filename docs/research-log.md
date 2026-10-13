@@ -22440,3 +22440,18 @@ _commit `70672f67c0dc` (dirty worktree)_
 One research-strategy request (gpt-6-astra, Pro, xhigh) with docs/consults/2026-10-13-llm-paper-synthesis/brief.md at 41127426: completed, 73,329 tokens, conservative cost recorded privately. Adjudication docs/consults/2026-10-13-llm-paper-synthesis/adjudication.md. Accepted and applied: 'Misaligned behaviour as an attractor' renamed 'Hostile behaviour under steering', with a scope statement (classifier-defined proxy; persistence and history dependence, not semantic misalignment nor a deterministic attractor; a growing context carries memory); shrimp wording narrowed to 'shrimp-like organization' in the abstract and claims paragraph, naming the missing rank-two unfolding check; 'superstable' defined (leading multiplier crosses zero). Four references verified at their primary records and cited (Pasemann 2002 Network 13:195; Rimsky et al. ACL 2024; Azaria and Mitchell Findings EMNLP 2023; Welleck et al. arXiv 2211.00053). Put to the human: one paper or two (the consult recommends two); the next experiment (prospective cusp unfolding in Qwen2-0.5B under a hard cap). SAE readouts stay descriptive.
 
 _commit `41127426bfb0` (dirty worktree)_
+
+## 2026-10-13 21:28 UTC: Task8 Part A independent reproduction and evidence accepted
+
+All64 questions and256 arm cells retained. Independently implemented primary S0.7010874542124542,95% CI[0.5759852217410785,0.779361149240538],0/2000 undefined; all280 comparison leaves pass1e-12 with two+1.1102230246251565e-16 deltas retained. Original receipt59e35ac6/24-artifact manifest2eec3ab9 preserved. Separate review archive7e345e40 binds executed187da94d/reportd3d5132d and full original closure. Thirteen partial ARPACK flags, finite gold-conditioned estimated-spectrum scope, disclosed ordering amendments/producer exposure/historical asset limits remain. Root and independent reviewer accepted; both Task8 parts complete, no open job/retry. Full report codex/huginn-independent-replay/part-A-001-report.md.
+
+_commit `a8aa09306564` (dirty worktree)_
+
+## 2026-10-13 21:28 UTC: run (exploratory)
+
+- **Question:** Do the complete exact terminal012 point images and112 final-box derivative blocks satisfy the frozen conditional root, primitive-period and local-attraction gates?
+- **Setup:** Root and independent concrete pin review accepted final-assembly-001 plan58b842f16f497f388862c6b271f5a1432d0a4abef3c5d03d9c9672263c18687d/card a6f2def2, unchanged26 reviewed sources and launch0dc5bf5a. One CPU1+launcher/nice10/18GiB/3600s attempt;32GiB startup available,16GiB free disk,4GiB storage reservation not watchdog. Full-size gate pilot988.804s/6.731GiB and actual112 inventory IO17.525s/8.433GB are measured; full reconstruction unmeasured. Exact domain/point/seed/map/backend/prefix and112 receipts pinned. No automatic retry or extension; no certificate until completed admission/gates and separate witness audit.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-001`
+- **Would surprise us:** Retain any failed/partial inclusion or admission as setup evidence, never evidence against the target orbit; no mathematical gate changes within this attempt.
+
+_commit `a8aa09306564` (dirty worktree)_

@@ -1,0 +1,891 @@
+{
+  "schema": "codex-final-shooting-assembly-plan-v1",
+  "period": 8,
+  "dimension": 896,
+  "precision": 1024,
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/definition.json",
+    "sha256": "42959bcd5b1066c5c2ea326dd43e88023c233d6e5f58ab1062005797be230840"
+  },
+  "point_admission": {
+    "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/final-point-admission-plan.json",
+    "sha256": "50c1a99ca0b91c1da1d7011e60640fd0f1f86b5f0f2fbc483bad21a21d7e0cd2"
+  },
+  "source_sha256": {
+    "codex/certify-llm/assembly.py": "46011955b92d3f849f6420e34e73b2a518cc5b709f4094a4c6280f7674eb4bc6",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/center_continue.py": "705e3c020c1a7c77f50a5e738d9d519fb428369f7f4865df00ae5f338e58f6ed",
+    "codex/certify-llm/center_refine.py": "f24f9cdecec243abd25671a684aec03b8b105288526ff7fa4f60a963af745b02",
+    "codex/certify-llm/center_resume.py": "c686ded97e5559407ab12982aec778cdc0aaf94d75bcd0e24795334ec583eda3",
+    "codex/certify-llm/center_secant.py": "c828ebc744eb95795e9051d5dbe0b8361828ebdfb13688afae5c1f60f7694132",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/derivative_evidence.py": "8124c73351a0a8bd2b6c488983afd00874d2b9be517f15be34393957668d72da",
+    "codex/certify-llm/derivative_shard.py": "3fe44a583176e0551bb209093fec08cd059d055fcb1a57702ac8799c7cb7cc50",
+    "codex/certify-llm/inverse_secant.py": "01065e31a70b7b7b0b394609e2afef78ea96669455a72fd4c17546b94d8d914b",
+    "codex/certify-llm/inverse_secant_fast.py": "50a74a620b7744eb6ef4226664199969a2b84d64d1a607b63a1944195e59b026",
+    "codex/certify-llm/parallel_phase_pass.py": "2cdc3afd9e73d95857941034420d279db7f44b5177b82131cf5f1a44de6d2c43",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/phase_point.py": "e87f1efdffd17925d8ec971f7ce164cfd5c1eaa1f0ad046cbc02916994ec1b4a",
+    "codex/certify-llm/point_evidence.py": "3b8bcfc0aa3b3f2f3f9886f4f6038325f37288314e3704d371199a156d82a9e9",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/certify-llm/secant_parent.py": "77c8ca3db2ee6f618eeb53d1991aaac5c921738e6c24e6dfbeb4813acf628704",
+    "codex/certify-llm/secant_restore.py": "c1daae4ad7ccc4e633701db3b4f308465fe519050faa3c8c90f538eafecf92ba",
+    "codex/certify-llm/shooting_certificate.py": "a4aca57acf7aaab33c77745ea6170935dd6b4dac40c9c982a063743f98727c3e",
+    "codex/certify-llm/shooting_correction.py": "06a711c7becd970bb135bc28555bf91dfd24bd52a7c224f5ea2d25647f8bac1e",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      5164655995074447,
+      72057594037927936
+    ],
+    "log10_temperature_ratio": [
+      -8286623314361713,
+      72057594037927936
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "map_sha256": "622ccb70eb70eb6976de3180cdb540484b64f11c04928c237bdc251f3c0a841b",
+  "point_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 2048,
+    "threads": 1
+  },
+  "derivative_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "assembly_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "derivative_prefix": {
+    "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002",
+    "receipt_sha256": "565ecc98b37b592bb1da16a58ad4109e1dd2ab5f2eac71682f2af860531f33b9",
+    "map_source_sha256": "3250d8b262e4a940b83de84005ad6f3155bc70635bfc623b0a000804cfc28c3e",
+    "cache_sha256": "153bca72b85f4baf06bc536c4673b86253df849e4405c9513350c2288f4d4d22",
+    "completion": "retained_prefix_before_box_failure"
+  },
+  "seed": {
+    "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/center-seed-001",
+    "receipt_sha256": "ee952c34b442a5947c09471d6d40129b150965ee1f2abf69760c7d304952b6c3",
+    "preconditioner_sha256": "c853fceb10036ff6229b6435a01951eccc2e629c6d70bc967da8cde1fb008b43",
+    "driver_sha256": "87cf27a05999641995d441704cd7a1ec3ea5aa0d2c0d200b0c05662e584572e5",
+    "map_source_sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "source_commit": "4324234a5c1703e5e9589c9bb6b21bc4710b4df5"
+  },
+  "shards": [
+    {
+      "phase_index": 0,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c000-001",
+      "receipt_sha256": "71c1d2e0fba791201f51ad962495dd1210bde8ba73ca590af0c26d6e725f6d5a"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c064-002",
+      "receipt_sha256": "38780ef1ba548c3f0b30e6f68b6bebafc3633b76be307a79edafaf003f562fc4"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c128-001",
+      "receipt_sha256": "6d7c8b0c544c7d7936e3c704d95a118c9780836eb54ec0283aa05de83417e6fb"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c192-001",
+      "receipt_sha256": "52af7415ffa1333a24c545770c278bf7fe967bac3e7ea17a0fa0119d442d5fd1"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c256-001",
+      "receipt_sha256": "a08561b91f82040e264e7e688f6d5298ea8e847f8270ecf48259fd13669fe171"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c320-001",
+      "receipt_sha256": "9992240d6eb0fd2e03b57fd2c603e68c67be4091b7df3448caeb56a51a432c63"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c384-001",
+      "receipt_sha256": "71da9242bedccfb46a776e1d723ba0a7442572fcaec08280077cf5d97e144706"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c448-001",
+      "receipt_sha256": "66c962c8a56c1b84dd1c87bcfc4e52ef271d56f4c32947e7b58ab172627a1e50"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c512-001",
+      "receipt_sha256": "88ce304f5082a5135306ef44cec77f17775c259af35b7dbffeb520785c7e910f"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c576-001",
+      "receipt_sha256": "6221ff3671ce02505048a9101e4038e3dd80c6580633c9670defb6ad3c26ec17"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c640-001",
+      "receipt_sha256": "36c38ce5024677a5ef8c867be9da1d5262e3ebe4c63db6c497f0180c38c4e123"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c704-001",
+      "receipt_sha256": "38a2b246252bf5002905a9195c8176db7d0be7acb58deb458f31ac98c8c9cfd0"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c768-001",
+      "receipt_sha256": "b3251aa5f1b9a836dedf31145971b48cfaf4ab5ec6a37c36b5bd888048cd5794"
+    },
+    {
+      "phase_index": 0,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c832-001",
+      "receipt_sha256": "5e24f34fcd8c472cd5e7b15500275880e056cd9425c19743b831927e0f8a64f6"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c000-001",
+      "receipt_sha256": "7e15cdafbe50ff1a53a0e8471c53c75d54fe269bae40b601f7c33e1bf2fff1da"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c064-001",
+      "receipt_sha256": "a5f4289ca173b7a9774bf208af153888e9412025b6612925449ef476cc2a334c"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c128-001",
+      "receipt_sha256": "d9dfc65f441d87b5e4396379975eb7ad7ad4c8ff49950e3264fa12fed7061baf"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c192-001",
+      "receipt_sha256": "48ee53f7777fa0e16a25d96bd7a88505532de248fd9d9154a94ed00c285dcd72"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c256-002",
+      "receipt_sha256": "9d13574047c9ba35c68eb67c4aa05dceb17f6dbe36fc1d7ad3bcfe4e2f331004"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c320-002",
+      "receipt_sha256": "8c7012caded85437ca0fa782daa17e6ad6f7ff6033933f40149da713a11868de"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c384-002",
+      "receipt_sha256": "3aae18fec90ed9ca4a6b7d03b05425379aac6311a4297ba7e226116cfcf2db68"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c448-002",
+      "receipt_sha256": "bc542815582532e617530e8087daa1bf857bae6e85d5d21ae29b3f0544579872"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c512-001",
+      "receipt_sha256": "04f1ab6c4817ef9248ced7154f7a2b0f4e9595b76dc9eeef9cc3849f6473d673"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c576-001",
+      "receipt_sha256": "dbf566d3abedbec0efddd8e63b95891ae80e9894b2cf1e9be7dd36d4718fb5b0"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c640-001",
+      "receipt_sha256": "db6c589ef7a10df42a89f38812b198f07d624ab03dd4a06488bceb182f62723a"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c704-001",
+      "receipt_sha256": "012411b62542657da875ed9b5dac2b7e45d023f39ec9b969c9c8d761866321f3"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c768-001",
+      "receipt_sha256": "74b9927f8bedda537f8406b7859417186d60289041454caccc9ffd312e473809"
+    },
+    {
+      "phase_index": 1,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c832-001",
+      "receipt_sha256": "cdc49332684bd87bace71fcbb7e952293d4156491f1f2b3d831f97da667792ec"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c000-001",
+      "receipt_sha256": "83ed60e12ba2641181c3e51ffe89442effcf30be6abb7a9ce4d105a1bd550b48"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c064-001",
+      "receipt_sha256": "1f07bba7bd8f2c93b1fb72c420aaaae7f4235a6e099cf19a72e570a9dafc026e"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c128-001",
+      "receipt_sha256": "cdb5bfb4371f16b3dfa080261eb87df14846ca482968764749b30eea62e89ce4"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c192-001",
+      "receipt_sha256": "2257b3ac38ff1fbe10ddf9191a7c675de6b92a67d32df13e03e5250c0b7674d1"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c256-001",
+      "receipt_sha256": "d1de47d633f5c337e44fa74bc770b1486d226904c9c94fa58280a7252081f641"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c320-001",
+      "receipt_sha256": "21793dd49ad9ef60aa27e8b4c51bd020559982fb9a4dac519efd2ec0e4ab0f45"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c384-001",
+      "receipt_sha256": "a1f679b2c8913e7e6ffa79f184be974fc2985b6a62b7f651965eb1eccb617979"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c448-001",
+      "receipt_sha256": "9dd77de8f7a9d3c5df50c38be1bea065c7f950c43bc50d2395773101e44f238c"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c512-001",
+      "receipt_sha256": "85bed576f2d2e13f1fdeed1776927ca14131968fbf9130eaf6705d78a90a5935"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c576-001",
+      "receipt_sha256": "5a63f43dbb7754119c59dd37d5a751376aa01f1b4f3b1263a1252b5f492c0dad"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c640-001",
+      "receipt_sha256": "dfe44c2e958b4984115a1918173e5a4ae5315ea89bdbd8e8ce3f2ef9cf3317b2"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c704-001",
+      "receipt_sha256": "4b70563841d3022b6322f057f2c7f4d22a2a929446902e17f1eb4e08475211fc"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c768-001",
+      "receipt_sha256": "4a92d692cb2947ffd38903455e166a9602df74688afb23fc795dd3772a86f883"
+    },
+    {
+      "phase_index": 2,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p2-c832-001",
+      "receipt_sha256": "dbfc14b0c9e0238be1a4a8d9e0422e9c9e8958183c418b8c34e37dc939b40509"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c000-001",
+      "receipt_sha256": "e67bfbb9575e8efb0237e0b22c126eae5ccfbcabdbcbb50afe982d154a994add"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c064-001",
+      "receipt_sha256": "90f586f8c56021394b86b15950019f60e4656d1a62f877446c5fd24e4ec6f909"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c128-001",
+      "receipt_sha256": "ef0cd79e0dad008b4041f1cef1189a34060a7c23f7a2d343cfa484ea792f49b7"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c192-001",
+      "receipt_sha256": "f34680423db6e4b6cb1df0f8769e4eb8948be797a06c5c4fedb16d4ef9684d78"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c256-001",
+      "receipt_sha256": "ff6c3806aa059b6890868017a91497ab50e4860e1eea6de8ddc9c0f16a60cd64"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c320-001",
+      "receipt_sha256": "789a50feec0541349ab5300534ec999df9e6317926567fb8ac8e926212b6c3cd"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c384-001",
+      "receipt_sha256": "e251df629f3dacd46b51a5ef462cb3106ceb123e9d0e1c7e3e8a339b4d60eca5"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c448-001",
+      "receipt_sha256": "931f9b41914785ec92fa0da593eb54676576b3ddf50d876855657c29e5c690bd"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c512-001",
+      "receipt_sha256": "a613e8a0748eb3b8c2c0c3a7592cb5fba06da6591e3932d2ae8ce1e2572fa117"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c576-001",
+      "receipt_sha256": "287497e5ec8389bb502008c38f53651ed60d6c7b326ca369a8d98291cb04675b"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c640-001",
+      "receipt_sha256": "c3563d39a9c3c8164ca36a8744c4688f916014d0517e8825b96d37d303adf58f"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c704-001",
+      "receipt_sha256": "77c9e827924fde96afb2c5989463f227b4daa4f6603242d89104dbdf948e534c"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c768-001",
+      "receipt_sha256": "8523fb63166a1bdeef403fa0060d7fb0d6fe78b453c88837bf5896e40e855087"
+    },
+    {
+      "phase_index": 3,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p3-c832-001",
+      "receipt_sha256": "5a2987bc04fac63566ce507c591db3ac421dc8ab53e9d1730cd7c41e300edbbf"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c000-001",
+      "receipt_sha256": "168f989bf93c104ae662c2228023008e250ad7e4ca86cc509ae4f84fd49a494d"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c064-001",
+      "receipt_sha256": "66bfb4c5ac068e4a50e921182aa767ea03b43567ff3975883b3e4dde0e19c993"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c128-001",
+      "receipt_sha256": "3618ea2cd26ff32229d3cb9b07d31b2419eaf95d83aaf9f34c612b94dfac43be"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c192-001",
+      "receipt_sha256": "2aaed95872d1f9ed83f27172807e542aaa9adc2bc2c6e726bf8fa6f76d1bec04"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c256-001",
+      "receipt_sha256": "6d23c98af1d252c9816e3caa24210adfbb2d9284da91b05e83db13305c861842"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c320-001",
+      "receipt_sha256": "37df92b1bf92495bf128c9501c86cfee029ef26c12a55186a9a3ff683fc03f2b"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c384-001",
+      "receipt_sha256": "1cefb605677ad7a26ba8c073c500fbc6670d3ec4072ed838badab5863013f285"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c448-001",
+      "receipt_sha256": "fd3f600bc1850f1896b88fe89c00549fb16276be431717c9a9c4ff9bd5b01ce3"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c512-001",
+      "receipt_sha256": "23fbea366965d4571dd178d48674a0181237a8be21b8f2b1f1af285a6b653e17"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c576-001",
+      "receipt_sha256": "46b1ff255ac510946983d7ae8c7e5e294050de248167a2c90878bb10b98e7a92"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c640-001",
+      "receipt_sha256": "2c0316d015eedb6042740a23a27dfbfca198ca93d891001c77c02c9091f187ec"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c704-001",
+      "receipt_sha256": "f62a509fd2344c4805ffee5b335ca1be82bbd79c071ce44d740bf1f48dc0145f"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c768-001",
+      "receipt_sha256": "73cd844e7e2fd715ae2a01ec890afbdd674ef542f3e69ec24f6cacd687589ac5"
+    },
+    {
+      "phase_index": 4,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p4-c832-001",
+      "receipt_sha256": "4c57902995389f619d4bd9a2eadeb2f47be6114e51563718f7c588ff09d61893"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c000-001",
+      "receipt_sha256": "9273b151bea448e92fe4b90aac4ab658fb6236ccd327b65a5e53c4b3ce2ba136"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c064-001",
+      "receipt_sha256": "851a4748b461981d8e5cc10e8c39a36541927c91941ae30729dde1476adb4ddb"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c128-001",
+      "receipt_sha256": "17012d53a905dbcb539e97c0b4db303fac70d3e14ccc3ef33a51781bfefba630"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c192-001",
+      "receipt_sha256": "303da732c92d21bd252d0b30d107b57ddf5715ae9d1571f22ac556fc2ecd0e37"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c256-001",
+      "receipt_sha256": "fdb6660fed0742dfa25b11d261582d02b2b7ebb0a15eb5e5c7dd04acdf3971cc"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c320-001",
+      "receipt_sha256": "72bed0cc5cb0e06958704fc59b8c4b132c63ee95ffa54f81839a53d5964ab520"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c384-001",
+      "receipt_sha256": "f6800ea119e58dc0386bc30be305076c3cf71455042533541cb988d187f3ca03"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c448-001",
+      "receipt_sha256": "228a1076726e90a977767b3bf4af872ea3ae92a16444fe4bee33eef3b0d796e4"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c512-001",
+      "receipt_sha256": "a4bb6d1553609a2187a2de5f073cc0bd0d28ab0b5e3f203334af1f709c70063c"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c576-001",
+      "receipt_sha256": "9d1aa9bf4c3f20e826767082863070419b89f8ea58454bc6d8a6691abb3932b6"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c640-001",
+      "receipt_sha256": "62c112f11817262613b3d536bc78ac4b94aeb872d5f9caed2d7fb4255086719c"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c704-001",
+      "receipt_sha256": "43e4e596f67d760239955c15c4e1d97af0f1e4da9bb64b057b41ee4e0e1eef0a"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c768-001",
+      "receipt_sha256": "90925d5c1a1190be2de1635f0491e946fa8c8625e6f4c8490cd2408d01a140be"
+    },
+    {
+      "phase_index": 5,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p5-c832-001",
+      "receipt_sha256": "cbc57d223aff27410e04b4ed6e46425db46d52a4b3c707110c946de15a778e46"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c000-001",
+      "receipt_sha256": "a66f21d0811377c1905653223e0d6d20f5cea4bba92b54aed27066547450fe5a"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c064-001",
+      "receipt_sha256": "77c0e6510c9c4930d63b4c0b982d2c547579caff8eede66befd92b24e1089303"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c128-001",
+      "receipt_sha256": "0e1bbd4bd0415a47183c9947b5760314eb186297082c2f1d9ac8dedd71a3c04c"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c192-001",
+      "receipt_sha256": "826d2d8cb3a0b11a2a63252f2a6f55741132fb130cedd51fa786c1bb42660c95"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c256-001",
+      "receipt_sha256": "34ff7052adad516302d6798742399eba81014de7d9f98571c9703fb40fee008f"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c320-001",
+      "receipt_sha256": "6ab5046c9d91f0a6f782b2ced53aa706f5b61e848586828f263481a491ac27b0"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c384-001",
+      "receipt_sha256": "40bb23d8b7164b6a69074651b4270938190ccf47bc106733aed975639227684c"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c448-001",
+      "receipt_sha256": "d738a859a824cffd99de3c8f726106f5e8293b3049f64c355157f3f627ac34a3"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c512-001",
+      "receipt_sha256": "b556bf078747748e4293675c652ccd887fa9cfe8cdb26de3aa0961e46e76a9f1"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c576-001",
+      "receipt_sha256": "cd86c97a3dc7f3b0396fcd9a332c0bd2ea67f7b0d1b07b7d567c59debc0b0f49"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c640-001",
+      "receipt_sha256": "a843920a1bc2d0b1dd6a5430a3466d25131ebd4149452e8c2af35f235fae5697"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c704-001",
+      "receipt_sha256": "f5abf5cbbdafe42af256e447ecc6c28c08dc121a414f0f2f19a53d2b9b6c40c2"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c768-001",
+      "receipt_sha256": "fe16398a9a9fe955fd99d7c7ea32e54f78a4eaef1683017fc5e1070cb2776638"
+    },
+    {
+      "phase_index": 6,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p6-c832-001",
+      "receipt_sha256": "1d393d1e924d6c968b436b15f3da404517f11bf3b621787a3c322791fb78a390"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 0,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c000-001",
+      "receipt_sha256": "af4caa80f04dfad4ddee7c8ac121573002f044f892774298fd77112fe49c621a"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 64,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c064-001",
+      "receipt_sha256": "41ff04ff688c79b8dd225f34eb3054fcdc796e03ae001ed1389856c3fd1aab53"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 128,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c128-001",
+      "receipt_sha256": "c0b89b561195e3f2ba11478db7aabd4a942ba6fb2712fed8cff789aa58eaa8b7"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 192,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c192-001",
+      "receipt_sha256": "61f70b6ecebd19ab3bc7bde875d65ddf900c3f1cb49aeaf07c95d82dee14b930"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 256,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c256-001",
+      "receipt_sha256": "8f0c972c988493f1545eabc9e94843169cb39aae50a313ead61efb956ca3ae9f"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 320,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c320-001",
+      "receipt_sha256": "55c35be36a9fac7cec3b83e6f486cda46214db9ee91daf510d198b5a5164e3e3"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 384,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c384-001",
+      "receipt_sha256": "8c3eaa4c059c356bd3a5969e6ce91b6aeacb397c00a0c376785f302a3bcc2c27"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 448,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c448-001",
+      "receipt_sha256": "879321b346ddaece70b8d6237c5d15cb456c27a16c1c658c12ed235f103ec304"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 512,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c512-001",
+      "receipt_sha256": "c81747ddb298c16a9717e1211e4ec5465dcab92e5460bd0fd43b5c3820ace025"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 576,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c576-001",
+      "receipt_sha256": "4ac383b1f23e6ef8572bd22b150533deb32dd4491ba5791e259565fd93ced5dc"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 640,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c640-001",
+      "receipt_sha256": "bf4067f5521463ee7b8d1e424f780cfdf1099ebf6e9fe746b5bdc70dfc8ec90b"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 704,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c704-001",
+      "receipt_sha256": "fe12c32f7378eea0e9f4a7c18a47b73fdb780182dd9d699608e873d1b2b120f7"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 768,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c768-001",
+      "receipt_sha256": "780403ea77f04fa16e65d24e8d4cb21f39d66a9ba6e778fbb08132d31c417440"
+    },
+    {
+      "phase_index": 7,
+      "start_column": 832,
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p7-c832-001",
+      "receipt_sha256": "72ceaf66b2ae29aec804af046997be6d022ff7adacd797de9a0db32f632c6ed4"
+    }
+  ],
+  "reviews": [
+    {
+      "scope": "point_evaluator",
+      "path": "codex/certify-llm/final-evaluator-obligations-review.md",
+      "sha256": "92cf2b93036b92d18c09944da7e3073d2b358756a93ab43eb41a6e50fdc8961e"
+    },
+    {
+      "scope": "derivative_evaluator",
+      "path": "codex/certify-llm/final-evaluator-obligations-review.md",
+      "sha256": "92cf2b93036b92d18c09944da7e3073d2b358756a93ab43eb41a6e50fdc8961e"
+    },
+    {
+      "scope": "map_regularity",
+      "path": "codex/certify-llm/final-evaluator-obligations-review.md",
+      "sha256": "92cf2b93036b92d18c09944da7e3073d2b358756a93ab43eb41a6e50fdc8961e"
+    },
+    {
+      "scope": "gate_mathematics",
+      "path": "codex/certify-llm/shooting-gates-review.md",
+      "sha256": "e60e08a8e1a8d12a42d20f3f08ff17492133d04577f06529bfe96c2fe5a67d1a"
+    }
+  ],
+  "gate": {
+    "bound_method": "factored",
+    "powers": [
+      1,
+      2
+    ],
+    "stability_weights": null
+  },
+  "envelope": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "memory_gib": 18,
+    "timeout_seconds": 3600
+  },
+  "enclosure_declaration": "The hash-identified exact-real map F is C1 on a neighborhood of every full nominal phase box X_i=c_i+[-r_i,r_i]^n. Each image_i encloses F(c_i), and each J_i encloses DF(z) for every z in X_i, with all coordinates and transverse directions retained. All evaluator operations, constants, elementary functions and roundoff are rigorously enclosed. The exact dyadic A_i and B are only preconditioner proposals, not asserted inverses.",
+  "purpose": "One bounded conditional full P8 shooting assembly from exact terminal012/domain002 point evidence and112 complete final-domain derivative shards; no model or optimization. No certificate is issued by this driver.",
+  "basis": {
+    "attempt": "final-assembly-001",
+    "campaign_source": "36c5d6144a021b2648e54f4a0bae3c7e4ca1e641",
+    "campaign_receipt_sha256": "d93015919bdbacf9e87a6b03850975a89ba646a765ffefa649f557d5a5d84716",
+    "operational_audit_report": {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-112-operational-001/report.json",
+      "sha256": "1b3dfa1394e6ecb4ace3dccaddc51446cae94d3cfbed6a892e1ab59f438d6559"
+    },
+    "operational_audit_manifest": {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-112-operational-001/manifest.json",
+      "sha256": "a0e72ba560ec3834b11917fec216cbc3080c900ae794bd91a5b26c193bce8409"
+    },
+    "raw_shard_bytes": 8433291865,
+    "measured_full_inventory_and_git_seconds": 17.524673743871972,
+    "measured_inventory_peak_rss_kib": 24532,
+    "gate_budget_attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/gate-budget-001",
+    "gate_budget_receipt_sha256": "b7d8abf415511f2ad257ae087157478d77287be89c4adcd2468028c27ca73e1c",
+    "gate_budget_elapsed_seconds": 988.804434,
+    "gate_budget_peak_rss_kib": 7057688,
+    "gate_budget_report_bytes": 845393489,
+    "full_target_native_reconstruction_timed": false,
+    "resource_limit_scope": "Hard CPU1/nice10/18GiB/3600s; measured IO plus synthetic full-size mantissa gate pilot support a bounded attempt, not a worst-case runtime/RSS guarantee. Original failed/partial attempt preserved; no silent extension or retry.",
+    "external_output_reservation_bytes": 4294967296,
+    "external_start_available_gib": 32,
+    "external_minimum_free_disk_gib": 16,
+    "no_paid_resources": true,
+    "model_evaluations": 0,
+    "optimizer_actions": 0,
+    "independent_result_and_witness_review_required": true
+  }
+}

@@ -1,4 +1,4 @@
-# Task8 — Part B complete; Part A input/card review
+# Task8 — Parts A and B complete, independently accepted
 
 13 October 2026. Owner: inference. Part B independent saved-row reproduction is
 complete, all processes reaped and its two auxiliary CPU slots released. No retry.
@@ -33,20 +33,23 @@ by current dataset export hash/retrospective sizes. Historical upload/model byte
 are not cryptographically authenticated. Producer800-gold check was not rerun.
 Prior producer-summary exposure is disclosed; no estimand/threshold/cohort retuning.
 
-Part A producer announced completion at20:56UTC. Own byte/header-only authority
-304742d9 binds8 original archives/56,374,034B, all64 selected spectrum bytes and
-single readout original-member bindings. Metadata selection matches earliest
-launched complete copy, preserving incomplete16/37 and unused35/36 backups.
-Input manifestaae35112 binds122 files/417 assertions/58,675,131B. No numerical
-input/result values were decoded. Prepared cardc53cd9f8 and A identity-only
-watchdog adaptation await Root's exact final acceptance/private checkpoint.
-Producer summary exposure is disclosed; amended predictor completion before
-outcome opening is attested, not original before-generation ordering. Historical
-upload-content and remote model-byte attestations remain absent. See
-part-A-input-review-001.md and part-A-merge-source-review.md. No Part A replay
-has launched. Two auxiliary slots are unreserved until fresh admission.
+Part A is now complete and independently accepted. The sole replay retained all64
+questions/256 cells; S=0.7010874542124542,95% CI[0.5759852217410785,
+0.779361149240538], zero undefined among2000 draws. All280 leaves pass1e-12;
+two+1.1102230246251565e-16 deltas and13 partial ARPACK flags remain explicit.
+The finite gold-conditioned spectral association does not establish complete
+stability, causal mediation or improved answers. See part-A-001-report.md.
 
-Task1 remains primary and unchanged in its frozen checkout; last full health
-20:48:08 passed9 identities with108/112 controller completion metadata only,
-not operational or mathematical admission. Optional Task14 endpoints are source
-accepted but not launched; completed profile is closed. No duplicate jobs.
+Original receipt59e35ac6/manifest2eec3ab9 remains immutable. Separate
+part-A-001-final-review.json binds executed independent source187da94d and
+reportd3d5132d:24 artifacts/122 inputs/417 assertions/65 members/nine Git blobs,
+64 dispositions/256 cells/280 comparison leaves and original closure pass.
+Replay session59257 reaped0; original supervisor924868/worker924874 and groups
+are absent. No Task8 job or reservation remains. Both parts are complete.
+Amended predictor generation order, producer no-opening attestation, summary
+exposure and missing historical asset-byte proofs remain disclosed. No retuning.
+
+Task1 has112 operationally admitted derivative blocks; mathematical assembly
+is approved for one bounded CPU1/nice10/18GiB/3600s attempt after its exact
+private checkpoint/fresh admission. No certificate yet. Optional Task14 endpoints
+remain unlaunched pending a measured card and shared-resource review.

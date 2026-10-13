@@ -1,0 +1,150 @@
+{
+  "schema": "codex-task8-partA-completion-v1",
+  "source_commit": "70672f67c0dc2c9c1418907f0ee623464e925999",
+  "private_prelaunch_checkpoint": "a8aa093065644239bb0edaf67dd85445c8eb0d9b",
+  "card_sha256": "d001d199d56165bdfb25c937b2eb7d8cef85d3aa6ab295562500ab3439ef7964",
+  "input_manifest_sha256": "aae35112f1a70cae040916693cb9bae5a182fa059b71cd8395b114c3cd8d8fa8",
+  "manifest": {
+    "path": "/data2/neural-shrimp-data/codex/huginn-independent-replay/part-A-001-manifest.json",
+    "sha256": "2eec3ab97874eedb71f30b97859334e64ee51c0b8f7ecbc71e3f8aa8e6ed841e"
+  },
+  "artifact_count": 24,
+  "input_file_count": 122,
+  "input_bytes": 58675131,
+  "receipt_assertions": 417,
+  "archive_members": 65,
+  "git_blob_count": 9,
+  "retained_dispositions": 64,
+  "retained_cells": 256,
+  "comparison_leaves": 280,
+  "comparison_passed": true,
+  "exact_comparison": false,
+  "nonzero_differences": [
+    {
+      "path": "/primary/per_arm/1.0",
+      "kind": "number",
+      "producer": 0.6769230769230768,
+      "independent": 0.676923076923077,
+      "producer_class": "finite",
+      "independent_class": "finite",
+      "independent_minus_producer": 1.1102230246251565e-16,
+      "absolute_difference": 1.1102230246251565e-16,
+      "status": "within_tolerance",
+      "passed": true
+    },
+    {
+      "path": "/primary/ci95/0",
+      "kind": "statistic",
+      "producer": 0.5759852217410784,
+      "independent": 0.5759852217410785,
+      "producer_class": "finite",
+      "independent_class": "finite",
+      "independent_minus_producer": 1.1102230246251565e-16,
+      "absolute_difference": 1.1102230246251565e-16,
+      "status": "within_tolerance",
+      "passed": true
+    }
+  ],
+  "operational_completed": true,
+  "admission_passed": true,
+  "scientific_primary_success": true,
+  "certificate_passed": false,
+  "status": {
+    "status": "replay_completed",
+    "computational_completed": true,
+    "source_commit": "70672f67c0dc2c9c1418907f0ee623464e925999",
+    "card_sha256": "d001d199d56165bdfb25c937b2eb7d8cef85d3aa6ab295562500ab3439ef7964",
+    "part": "A",
+    "producer_or_model_executed": false,
+    "certificate_passed": false,
+    "interpretation": "Field comparison and scientific gates remain separate; no silent retry or outcome-dependent change.",
+    "seconds": 1.073079964146018,
+    "max_rss_kib": 46784,
+    "minimum_available_bytes": 60320354304,
+    "events": [
+      {
+        "stage": "sources_captured",
+        "seconds": 0.0006426312029361725
+      },
+      {
+        "stage": "complete_inputs_admitted",
+        "seconds": 0.3673179841134697,
+        "files": 122
+      },
+      {
+        "stage": "independent_statistics_completed",
+        "seconds": 1.020664846058935
+      },
+      {
+        "stage": "all_fields_compared",
+        "seconds": 1.0279866710770875
+      }
+    ],
+    "warnings": []
+  },
+  "closure": {
+    "utc": "2026-10-13T21:17:45Z",
+    "worker": {
+      "pid": 924874,
+      "start": 187275948,
+      "pgid": 924873,
+      "sid": 924805,
+      "uid": 1000,
+      "nice": 10,
+      "address_space_limits": [
+        4294967296,
+        4294967296
+      ],
+      "source_commit": "70672f67c0dc2c9c1418907f0ee623464e925999",
+      "card_sha256": "d001d199d56165bdfb25c937b2eb7d8cef85d3aa6ab295562500ab3439ef7964",
+      "bootstrap_sha256": "7329f02a6e2837e87c0fc5212a7ea7560c5f59110a6fc68f3f89cc0504b194a4"
+    },
+    "supervisor": {
+      "pid": 924868,
+      "start": 187275943,
+      "pgid": 924805,
+      "sid": 924805,
+      "uid": 1000,
+      "nice": 10,
+      "started_monotonic": 1872759.469793976,
+      "utc": "2026-10-13T21:16:35Z",
+      "exec_command": [
+        "/bin/bash",
+        "/tmp/task8-partA-launch-001.sh"
+      ]
+    },
+    "worker_original_pid_absent": true,
+    "supervisor_original_pid_absent": true,
+    "original_process_group_members": [],
+    "original_process_group_absent": true,
+    "original_groups_and_sessions_absent": true,
+    "outer_command_exit_code": 0,
+    "tool_session": 59257,
+    "timeout": false,
+    "supervisor_command_returned_and_reaped": true,
+    "source_of_outer_result": "Inference directly reaped tool session59257 exit0, then checked original PID births/groups/sessions absent. Outer total wall time not separately measured; driver timing retained.",
+    "no_retry": true,
+    "auxiliary_cpu_reservation_released": true
+  },
+  "primary": {
+    "statistic": 0.7010874542124542,
+    "per_arm": {
+      "1.0": 0.676923076923077,
+      "1.05": 0.7326465201465201,
+      "1.08": 0.7286172161172161,
+      "1.1": 0.6661630036630036
+    },
+    "ci95": [
+      0.5759852217410785,
+      0.779361149240538
+    ],
+    "undefined_draws": 0,
+    "success": true
+  },
+  "preflight_refusals": [
+    "/data2/neural-shrimp-data/codex/huginn-independent-replay/part-A-preflight-refusal-001",
+    "/data2/neural-shrimp-data/codex/huginn-independent-replay/part-A-preflight-refusal-002"
+  ],
+  "independent_saved_evidence_review": "pending; acceptance will be retained separately",
+  "provenance_scope": "Amended generation order with producer before-opening attestation, original source/retrieval/recorded termination and current ARC export pins. No historical upload/model-byte attestation. Producer summary exposure retained; no model/producer execution or numerical retry."
+}

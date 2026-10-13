@@ -1,3 +1,29 @@
+# Current phase — 2026-10-13 21:20UTC:112 derivative blocks operationally admitted; assembly preparation
+
+**Owner: inference.** Campaign003 completed and original session60449 reaped0.
+All112 canonical block receipts,33,425 artifacts and31,969 captured Git source
+files passed the existing operational inventory/source audit1b3dfa13 in17.525s.
+Original recorded births/groups/sessions are absent. No live campaign/model job.
+Exact sources/receipts and independent first-shard closure remain immutable;
+see certificates/llm-p8-final-derivative-112.json. Full mathematical receiver/
+derivative admission and root/primitive/attraction gates remain pending. No
+certificate exists yet. Prepared final-assembly-001 plan58b842f1/card a6f2def2
+has Root final acceptance and34 independent pin checks; awaiting private checkpoint and fresh resource admission; same
+reviewed CPU1/nice10/18GiB/3600s. Frozen execution checkout is not modified.
+
+Task8 PartA sole replay completed/reaped0 in1.073s; all280 comparison leaves pass
+1e-12 with two+1.11e-16 differences retained. Original24-artifact receipt59e35ac6
+is sealed; Boundary's executed187da94d/reportd3d5132d review and Root final acceptance pass. Separate final review preserves the original receipt; no retry or open job.
+Task8 PartB and Tasks6/7/L9/11/13 are complete. Task14 profile is closed and row13
+matrix reuse accepted; endpoint source accepted but actual launch deferred until
+Task1/PartA finish and its measured card is accepted. No paid/GPU/pod work.
+
+Automation complete-qwen-p8-certificate should resume this completion phase,
+never restart former campaign/worker IDs. Historical status follows unchanged
+except where separately dated; it is not a declaration of live ownership.
+
+---
+
 # Current phase — 2026-10-13: campaign003 final four workers; Part A admission preparation
 
 **Lifecycle/Git owner: inference.** One recovery controller is running; do not duplicate it or mutate its frozen execution checkout. Source `36c5d6144a021b2648e54f4a0bae3c7e4ca1e641`, plan `d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0`. Execution checkout `/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp`. Research checkpoints stay in `/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp`.
