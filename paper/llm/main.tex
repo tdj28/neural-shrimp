@@ -519,9 +519,12 @@ period-adding fan like the 0.5B model's.
 A cut of 2048 cells at $\alpha=0.100$ (Figure~\ref{fig:qwen15route}) shows how the band is entered from below. The
 2-cycle ``What?\textbackslash n'' gives way abruptly to a period-4 loop: the Lyapunov exponent jumps, so these are two
 distinct attractors, not a flip. The period-4 loop then doubles: float64 flips at $\log_{10}T=-0.0031269$ (period
-$4\to8$, next modulus $0.014$) and $-0.0021666$ (period $8\to16$, next modulus $8\times10^{-5}$), where the exponent
-rises continuously to zero. A period-16 band and chaos follow.
-\inprogress{the period-16 flip and the first ratio.}
+$4\to8$, next modulus $0.014$), $-0.0021666$ (period $8\to16$, next modulus $8\times10^{-5}$) and $-0.0019002$
+(period $16\to32$, next modulus $5\times10^{-9}$), where the exponent rises continuously to zero; chaos follows. The
+first interval ratio is $3.60$. That is closer to $4.669$ than the low-temperature crescent's first ratios, and this
+sequence lies at higher temperature ($T\approx0.99$ against $0.71$), as the crossover hypothesis of
+Section~\ref{sec:cascade} would have it. With different models and levels, the comparison is only suggestive.
+\inprogress{the period-32 flip and the second ratio.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\linewidth]{fig-qwen15-route.png}
