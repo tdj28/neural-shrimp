@@ -8,7 +8,7 @@
 - Bounded scope: **18 retained blocks +94 missing**, with four new002 identities for interrupted attempts and90 unchanged never-started identities. FiveCPU1 workers/sevenCPU reservation,17h total from12:52UTC,18GiB/3600s per worker,34GiB sampled aggregate RSS,12GiB available floor,24GiB raw storage including retained/failed history. No automatic retry. Startup headroom57,365,553,152bytes exceeded46GiB.
 - Original campaign001 and002 failures,17 successful002 blocks and four interrupted001 shard attempts remain untouched. Closed002 had no mathematical failure. No target interval certificate is established yet.
 
-Task6 scoped reproduction is complete and delivered (comms e0b809f6); Task7 fold and saved-array audit are independently accepted and delivered (comms f3c2f646), Task7 controlled passages are now complete and independently audited: six observed rows, frozen quadratic criterion5/6 so aggregate failure retained, no retry. Original Task7 model/audit processes are closed; see Task7 active-status and passage-001-review-receipt.json. Task1 is the sole live Codex model computation. L9 source/design review is complete and delivered (comms d06e8373), with no outcome or pod reads. Same-chat automation `complete-qwen-p8-certificate` continues every30minutes, checks live owners before acting and stays quiet for healthy unchanged states. Root is updating its phase prompt to this recovery.
+Task6 scoped reproduction is complete and delivered (comms e0b809f6); Task7 fold and saved-array audit are independently accepted and delivered (comms f3c2f646), Task7 controlled passages are now complete and independently audited: six observed rows, frozen quadratic criterion5/6 so aggregate failure retained, no retry. Original Task7 model/audit processes are closed; see Task7 active-status and passage-001-review-receipt.json. Task1 remains the priority computation; the separately reviewed Task14 resource-only CPU profile is also live as recorded below. L9 source/design review is complete and delivered (comms d06e8373), with no outcome or pod reads. Same-chat automation `complete-qwen-p8-certificate` continues every30minutes, checks live owners before acting and stays quiet for healthy unchanged states. Root is updating its phase prompt to this recovery.
 
 Current operational checkpoint (14:01–14:05UTC): ten new campaign003 shards,
 phase1 columns256..895, completed under the frozen source/plan. The reviewed
@@ -78,30 +78,32 @@ Root/sibling acceptance. Two auxiliary slots released. Part A awaits complete64
 immutable input authority; no partial outcomes or model/pod access. Tasks11/13
 remain complete;9/10/12 remain Claude's.
 
-Task14(a) is accepted for source preparation and a mandatory measured dense-Jacobian
-CPU timing gate, with Task1 retaining priority. Boundary owns new implementation
-and tests; Cascades reviews the cubic formula/crossing classification. Completed
-Task7 worktree is safely reused at11b734c9 on codex/llm-cusp-crosscheck, under
-inference's sole Git/lifecycle ownership; existing evaluator files unchanged.
-Scope: both supplied hostile S-fold candidate indices13/14, own float64 ManualQwen
-and AD. Producer numeric summaries were disclosed before this check. Period28 is
-deferred until cost is known. No profile/model call has launched: source/card,
-measured resource estimate/private checkpoint/fresh capacity need Root review.
-Auxiliary reservation stays≤4 including controllers, total≤12; no GPU/paid/podwork.
-Source export /tmp/task14-source-assignment-20261013 manifest4fe63738 binds
-cb6a105c and the full19:33 request. Candidate copies under owned
-/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/input-authority-001 are readonly,
-manifest1bb981cc55cbf617069ab09c1dbc23a1d9b79e39394c4e6e5b2863d3ec5866e4;
-five selected files match the authenticated returned archive. Only metadata/hashes
-were inspected during capture; this does not independently validate producer science.
+Task14(a) current phase20:12UTC: one reviewed resource-only CPU profile is running.
+Source48703bb41fa53162580b4787d066ef709efc0685, plan7384e407f1804ffd41e291d2ddd4caec73ebfdf65c77ed624e646168a0a356a2,
+card9d88a6ceb33fafa6ed98cc8f972850cfe40b861e9d7651b462b651f49df08134.
+Tool session69207; launcher878084/start186886254 and worker878100/start186886434,
+each its own PGID/SID and nice10/12GiB AS. Snapshot and committed source/private
+ancestry checked; full details in `codex/cusp-crosscheck/active-status.md` and
+owned `llm-cusp-crosscheck/profile-001-supervision/startup.json` SHA47b8d042.
+CPU2 worker+supervisor reserves three auxiliary slots, ten total alongside Task1;
+2400s/28GiB startup/16GiB runtime/64MiB output. Fresh available35.16GB before
+launch and30.28GB after load; no other auxiliary job is live. No GPU/paid/podwork.
+Own float64 period7 dense896 timing and fixed directional AD cost probes only,
+original point13/fullmatrix retained. No coefficient/eigenanalysis/P28/PartA
+execution admitted. Producer summaries and historical asset/ID limits disclosed.
+NEW endpoint source preparation may proceed separately; future run waits measured
+profile review. Root accepted source/control/review packet;27 supervisor+12
+numerical controls passed. Both prepared3150098a and reviewed48703bb4 histories
+are private-pushed. The profile is not a fold/cusp/certificate result.
 
-Latest Task1 health19:46:24UTC: all11 current birth/UID/group/session/command,
-nice10/CPU1/AS identities passed, five phase6c576–832 workers progressing with
-empty stderr, no stop/uncertainty,31,911,534,592B available. Controller metadata
-reports75 new completions plus18 retained (93/112 operationally complete). This
-is metadata only, not a repeated mathematical enclosure audit. Frozen execution
-36c5d614/session60449 remains untouched. Latest Claude19:33 expects complete
-PartA authority around21:00; none admitted. Same-chat automation remains30min.
+Latest Task1 health20:10:13UTC: all11 current birth/UID/group/session/command,
+nice10/CPU1/AS identities passed, five phase7 columns0..319 workers progressing
+with empty stderr, no stop/uncertainty. Controller metadata reports80 new plus18
+retained (98/112 operationally complete); scientific enclosure admission pending.
+Available35,171,463,168B before the separate Task14 launch. Frozen execution
+36c5d614/session60449 is untouched. PartA still awaits complete immutable
+64-question authority, no partial outcome access. Task8 PartB and Tasks6/7/L9/11/13
+remain complete; no repeated audits. Same-chat automation retains30min cadence.
 
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 
