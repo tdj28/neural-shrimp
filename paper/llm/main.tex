@@ -691,8 +691,16 @@ questions. The changes go both ways, so the accuracy at any one step stays the s
 instead costs 4--5 points at 8--16 steps and catches up by 32 (slower transient), and Anderson acceleration neither
 speeds the transient nor gains accuracy. A test of the accuracy consequence needs a task in which such step-to-step
 changes can compound.
-\inprogress{GSM8K generation against $\lambda$ (development run); then a frozen test on fresh problems with
-$\lambda$ arms placed from the spectral $\lambda_c$ of development prompts.}
+GSM8K generation is such a task. With eight chain-of-thought examples in the lm-evaluation-harness format, greedy
+decoding and 32 recurrence steps per token (development problems 0--119, every arm on the same problems and initial
+states), accuracy is $0.375$ natively, $0.425$ at $\lambda=1.05$ and at $1.10$, $0.29$ at $1.15$ (17 problems lost and 7
+gained, one-sided McNemar $p=0.03$) and $0.16$ at $1.20$ (29 lost, 3 gained, $p=10^{-6}$). Under-relaxation to $0.8$
+costs nothing at 32 steps ($0.41$). The break lies between $1.10$ and $1.15$, at or just above the spectral thresholds
+($\lambda_c=1.074$--$1.126$ for the GSM8K prompts, median $\lambda_{\rm up}=1.09$ for ARC questions), and generation
+breaks earlier than log-likelihood scoring, consistent with answer changes that compound over tokens. The collapse at
+$1.2$ is the one \citet{wang2026taps} reported.
+\inprogress{frozen test on fresh questions and problems: item-level prediction of convergence from each question's
+spectrum (ARC), and the accuracy break against $\lambda$ (GSM8K).}
 
 \section{Misaligned behaviour as an attractor}
 \label{sec:misalignment}
