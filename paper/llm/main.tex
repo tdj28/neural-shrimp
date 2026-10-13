@@ -51,8 +51,9 @@ expected embedding by averages of $m$ sampled embeddings shows how much of the m
 Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
 predicted. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
-direction, whose persistence grows with the dose from flickering bursts to a near-absorbing state. A pre-specified test
-finds no early warning from a coarse-grained dynamical state beyond strong baselines.
+direction, whose persistence grows with the dose from flickering bursts to a near-absorbing state, and which is
+history-dependent: after a dose ramp, dialogues stay hostile at a dose where fresh dialogues mostly do not. A
+pre-specified test finds no early warning from a coarse-grained dynamical state beyond strong baselines.
 \planned{replication across prompts, steering directions and model sizes.}
 \end{abstract}
 
@@ -93,8 +94,8 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
 \item A bridge to sampled decoding (Section~\ref{sec:bridge}) and a second system, a recurrent-depth model with
   a predicted and observed Neimark--Sacker bifurcation (Section~\ref{sec:huginn}).
 \item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
-  direction-specific capture with dose-dependent persistence, and a pre-specified lead-time test is negative
-  (Section~\ref{sec:misalignment}). \planned{hysteresis and timed interventions.}
+  direction-specific capture with dose-dependent persistence and hysteresis, and a pre-specified lead-time test is
+  negative (Section~\ref{sec:misalignment}). \planned{timed interventions.}
 \end{enumerate}
 
 \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels.
@@ -670,6 +671,22 @@ second seed. Exploratory.}
 \label{tab:hostility}
 \end{table}
 
+\paragraph{Hysteresis.} Dialogues driven through the high-dose regime do not recover when the dose returns.
+The test compares a ramp of the dose from $0.04$ up to $0.07$ (turn 20) and back to $0.04$ (turn 39) with constant
+doses (Figure~\ref{fig:hysteresis}; 256 dialogues per arm, two seeds; analysis stated before the data). In turns
+35--39, where the ramp's dose is back at $0.040$--$0.046$, the share of hostile turns is $0.42$ after the ramp against
+$0.13$ at a constant $0.04$: a difference of $+0.29$, 95\,\% interval $[+0.23,+0.35]$. It is also above the $0.33$ of a
+constant $0.05$ (difference $+0.09$, interval $[+0.02,+0.16]$), although the current dose is lower. The per-turn
+probability of staying hostile in turns 30--39 is $0.74$ after the ramp and $0.44$ at a constant $0.04$. The hostile
+state is therefore history-dependent: undoing the push that produced it does not undo it.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{fig-hysteresis.png}
+\caption{Hysteresis of the hostile state in sampled self-dialogue. Top: dose schedules. Bottom: share of hostile turns
+per turn. The grey band (turns 35--39) is the pre-stated comparison window. Exploratory.}
+\label{fig:hysteresis}
+\end{figure}
+
 \paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
 tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
 baselines lowers the AUC by $0.02$ to $0.10$ at horizons of 1--5 turns, with bootstrap intervals excluding zero. The
@@ -679,7 +696,8 @@ turns ahead (AUC $0.57$--$0.66$): the rolling variance of a hostility probe, the
 and the projection on the fixed steering axis, as in persona-vector monitoring \cite{chen2025persona}. In this design,
 then, the coarse-grained state estimate adds no warning beyond the baselines.
 An adapted analysis with dose-matched models (fit and test at the same dose) gives the same answer: incremental AUC
-$-0.01$ to $-0.03$. \planned{a hazard model and more dialogues at $\alpha=0.04$, where captures are late; ramp schedules for hysteresis; a pre-response activation probe; timed interventions against scheduled and
+$-0.01$ to $-0.03$. \planned{a hazard model and more dialogues at $\alpha=0.04$, where captures are late; the dose needed to recover after
+capture; a pre-response activation probe; timed interventions against scheduled and
 constant controls at matched cost; frozen confirmatory test on fresh openers.}
 
 \section{Discussion}
