@@ -6,8 +6,9 @@ that uses the same information has a better population ROC curve. It is estimate
 continuations of h turns, sampled exactly like the original dialogues (model, steering, window, temperature and reply
 length are read from the original run), each reply scored by the pinned classifier (toxic > 0.5). The AUC of this
 finite-K estimate on the realized outcomes, and its 1/K extrapolation, are estimates of the attainable warning with
-sampling uncertainty, not guaranteed upper bounds for other detectors on a finite sample (wording amended on
-13 October before any outcome was read, after Codex's review). The frozen detectors of the confirmation study
+sampling uncertainty, not guaranteed upper bounds for other detectors on a finite sample; the 1/K extrapolation is a
+heuristic (wording amended on 13 October after Codex's review, before the analysis outcomes were read; two rollout
+progress summaries had been seen). The frozen detectors of the confirmation study
 (docs/p1-detection-confirmation.md) are scored on the same states.
 
 Subcommands
@@ -222,7 +223,7 @@ def weighted_auc(y, s, w=None):
     s = np.asarray(s, float)
     w = np.ones(len(y)) if w is None else np.asarray(w, float)
     pos, neg = y == 1, y == 0
-    if not pos.any() or not neg.any():
+    if not pos.any() or not neg.any() or not np.all(np.isfinite(s)):
         return float("nan")
     values, inv = np.unique(s, return_inverse=True)
     neg_w = np.bincount(inv[neg], weights=w[neg], minlength=len(values))
@@ -247,9 +248,9 @@ def attenuation_fit(ks, aucs):
     return float(coef[0]), float(coef[1])
 
 
-def ceiling(y, toxic, h, w, ks=(8, 16)):
-    """AUC of the committor from all K rollouts and from disjoint subsets of k rollouts (averaged), with the 1/K
-    extrapolation through the subset sizes and K."""
+def committor_auc(y, toxic, h, w, ks=(8, 16)):
+    """AUC of the Monte Carlo committor from all K rollouts ("K") and from disjoint subsets of k rollouts (averaged),
+    with the heuristic 1/K extrapolation through the subset sizes and K ("extrapolated"; not a bound)."""
     K = toxic.shape[1]
     out = {"K": weighted_auc(y, committor(toxic, h), w)}
     sizes, values = [], []
@@ -258,15 +259,16 @@ def ceiling(y, toxic, h, w, ks=(8, 16)):
         out[f"k{k}"] = float(np.mean([weighted_auc(y, committor(toxic, h, p), w) for p in parts]))
         sizes.append(k)
         values.append(out[f"k{k}"])
-    out["inf"], out["slope"] = attenuation_fit(sizes + [K], values + [out["K"]])
+    out["extrapolated"], out["slope"] = attenuation_fit(sizes + [K], values + [out["K"]])
     return out
 
 
 def cluster_bootstrap(groups, strata, rng, n):
     """Index arrays resampling clusters (dialogues) with replacement within each stratum. The analysis passes a single
     stratum, so that each original dialogue is resampled jointly with all of its selected states (amendment of
-    13 October, before outcomes: resampling within the h = 3 strata lost the dependence between a dialogue's positive
-    and negative states)."""
+    13 October after Codex's review, before the analysis outcomes were read: resampling within the h = 3 strata lost
+    the dependence between a dialogue's positive and negative states). With the fixed inclusion weights this is a
+    joint-dialogue bootstrap of the selected sample, not a replay of the row-stratified sampling."""
     groups, strata = np.asarray(groups), np.asarray(strata)
     plan = []
     for s in np.unique(strata):
@@ -303,13 +305,24 @@ def check_provenance(root, args, spec, rolls):
     (rollout.json). With --allow-partial a timed-out run is analysed on its completed blocks and labelled partial."""
     states_file = root / "explore" / args.states / "states.json"
     meta_file = root / "explore" / args.rollouts / "rollout.json"
-    expected = {s["key"] for s in spec["states"]}
+    keys = [s["key"] for s in spec["states"]]
+    if len(set(keys)) != len(keys):
+        raise SystemExit(f"{states_file}: duplicate state keys in the selection")
+    if len(keys) != spec["design"]["states"] or (args.expect_states and len(keys) != args.expect_states):
+        raise SystemExit(f"{states_file}: {len(keys)} states; design says {spec['design']['states']}, "
+                         f"expected {args.expect_states}")
+    expected = set(keys)
     extra = set(rolls) - expected
     if extra:
         raise SystemExit(f"{len(extra)} rollout keys are not states of {states_file}")
     missing = expected - set(rolls)
     K, H = next(iter(rolls.values())).shape
-    info = {"missing_states": len(missing), "partial": bool(missing), "k": K, "h": H}
+    if (K, H) != (args.expect_k, args.expect_h):
+        raise SystemExit(f"rollouts have K, H = {K}, {H}; the run declared {args.expect_k}, {args.expect_h}")
+    if H != spec["design"]["h"]:
+        raise SystemExit(f"rollout horizon {H} differs from the design horizon {spec['design']['h']}")
+    info = {"missing_states": len(missing), "coverage_complete": not missing, "provenance_complete": False,
+            "k": K, "h": H}
     if meta_file.exists():
         meta = json.loads(meta_file.read_text())
         if meta["states_sha256"] != sha256(states_file):
@@ -317,12 +330,13 @@ def check_provenance(root, args, spec, rolls):
         if (meta["args"]["k"], meta["args"]["h"]) != (K, H):
             raise SystemExit(f"rollout.json says k, h = {meta['args']['k']}, {meta['args']['h']}; arrays have {K}, {H}")
         info["rollout_args"] = meta["args"]
+        info["provenance_complete"] = True
     elif not args.allow_partial:
         raise SystemExit(f"{meta_file} missing (run incomplete?); pass --allow-partial to analyse completed blocks")
     if missing and not args.allow_partial:
         raise SystemExit(f"{len(missing)} selected states have no rollouts; pass --allow-partial to analyse the rest")
-    if H != spec["design"]["h"]:
-        raise SystemExit(f"rollout horizon {H} differs from the design horizon {spec['design']['h']}")
+    # an analysis with incomplete coverage or provenance is exploratory and cannot pass the declared L9 gates
+    info["primary_admissible"] = bool(info["coverage_complete"] and info["provenance_complete"])
     return info
 
 
@@ -372,7 +386,8 @@ def committor_probe(tab, q, y, groups, folds=5, seed=0, pca_dims=20):
         lab = tr & np.isfinite(y)
         lr = LogisticRegression(max_iter=5000, C=1.0).fit(Z[lab], y[lab].astype(int))
         out["outcome"][te] = lr.decision_function(Z[te])
-        out["committor"][te] = soft_logistic(Z[tr], q[tr]).decision_function(Z[te])
+        if 0 < q[tr].sum() < tr.sum():                      # soft targets need mass in both classes
+            out["committor"][te] = soft_logistic(Z[tr], q[tr]).decision_function(Z[te])
     return out
 
 
@@ -422,45 +437,55 @@ def analyze(args):
     res["calibration_gate"] = {"failed_horizons": failed, "passed": not failed,
                                "overridden": bool(failed and args.ignore_calibration_gate)}
     dest = root / "explore" / args.out
+    res["primary_admissible"] = bool(coverage["primary_admissible"] and not failed)
     if failed and not args.ignore_calibration_gate:
         dest.mkdir(parents=True, exist_ok=True)
-        (dest / "committor-gate-failed.json").write_text(json.dumps(res, indent=1))
+        if (dest / "committor-gate-failed.json").exists():
+            raise SystemExit(f"{dest / 'committor-gate-failed.json'} exists from an earlier attempt; use a fresh --out")
+        with open(dest / "committor-gate-failed.json", "x") as fh:   # exclusive: an earlier failure is never replaced
+            fh.write(json.dumps(res, indent=1))
         raise SystemExit(f"calibration gate failed at h = {failed}: rollouts do not reproduce the realized event rate")
     if args.rescore:
         res["rescore"] = rescore(root, args.rollouts, args.rescore, args.threads, rng)
         print(json.dumps({"rescore": res["rescore"]}), flush=True)
-    # 1-2: ceiling and detectors on the stratified sample, per horizon
-    res["ceiling"] = {}
+    # 1-2: the committor's AUC (an estimate of the attainable warning, not a bound) and the detectors on the
+    # stratified sample, per horizon
+    res["committor_auc"] = {}
     for h in range(1, H + 1):
         y = np.array([s["labels"][str(h)] if s["labels"][str(h)] is not None else -1 for s in states])
         m = strat & (y >= 0)
         model = pdc.Frozen(pd.table(train, h, 1), seed=0)
         det = model.score({k: v[m] for k, v in tab.items()})
-        point = ceiling(y[m], toxic[m], h, w[m])
+        point = committor_auc(y[m], toxic[m], h, w[m])
         point["baseline"] = weighted_auc(y[m], det["baseline"], w[m])
         point["with_state"] = weighted_auc(y[m], det["with_state"], w[m])
         point["events"], point["rows"] = int(y[m].sum()), int(m.sum())
         boots = []
         for idx in cluster_bootstrap(groups[m], one[m], rng, args.boot):
             yy, tt, ww = y[m][idx], toxic[m][idx], w[m][idx]
-            c = ceiling(yy, tt, h, ww)
+            c = committor_auc(yy, tt, h, ww)
             b = weighted_auc(yy, det["baseline"][idx], ww)
             s_ = weighted_auc(yy, det["with_state"][idx], ww)
-            boots.append([c["K"], c["inf"], b, s_, c["K"] - s_, c["inf"] - s_,
-                          (s_ - 0.5) / (c["inf"] - 0.5) if c["inf"] > 0.5 else np.nan])
-        boots = np.array(boots)
-        names = ("ceiling_K", "ceiling_inf", "baseline", "with_state", "gap_K", "gap_inf", "share_of_attainable")
+            boots.append([c["K"], c["extrapolated"], b, s_, c["K"] - s_, c["extrapolated"] - s_,
+                          (s_ - 0.5) / (c["extrapolated"] - 0.5) if c["extrapolated"] > 0.5 else np.nan])
+        boots = np.array(boots, float)
+        names = ("committor_K", "committor_extrapolated", "baseline", "with_state", "gap_K", "gap_extrapolated",
+                 "ratio_to_extrapolated")
         point["ci95"] = {n: np.nanpercentile(boots[:, i], [2.5, 97.5]).tolist() for i, n in enumerate(names)}
+        point["undefined_draws"] = {n: int(np.sum(~np.isfinite(boots[:, i]))) for i, n in enumerate(names)}
         point["gap_K"] = point["K"] - point["with_state"]
-        point["gap_inf"] = point["inf"] - point["with_state"]
-        point["share_of_attainable"] = (point["with_state"] - 0.5) / (point["inf"] - 0.5)
-        res["ceiling"][str(h)] = point
+        point["gap_extrapolated"] = point["extrapolated"] - point["with_state"]
+        point["ratio_to_extrapolated"] = ((point["with_state"] - 0.5) / (point["extrapolated"] - 0.5)
+                                          if point["extrapolated"] > 0.5 else float("nan"))
+        res["committor_auc"][str(h)] = point
         print(json.dumps({"h": h, **{k: (round(v, 4) if isinstance(v, float) else v) for k, v in point.items()
                                      if k != "ci95"}}), flush=True)
     # 3: descriptive profiles of the committor before onset against turn-matched never-captured controls. Both groups
     # are defined by future outcomes, so the profiles describe; they do not identify a memoryless jump against an
-    # approach (amendment of 13 October, before outcomes, after Codex's review)
-    res["profile_note"] = "descriptive, conditional on future outcomes; no identification of mechanism"
+    # approach (amendment of 13 October after Codex's review, before the analysis outcomes were read; two rollout
+    # progress summaries had been seen)
+    res["profile_note"] = ("descriptive, conditional on future outcomes (captured with onset >= offsets + 1 against "
+                           "never captured); no identification of mechanism")
     traj = [i for i, s in enumerate(states) if "trajectory" in s["purposes"]]
     ctrl = {(s["pair"], s["offset"]): i for i, s in enumerate(states) if "control" in s["purposes"]}
     res["profile"] = {}
@@ -516,8 +541,9 @@ def rescore(root, folder, n, threads, rng):
 
 
 def figure(args):
-    """Two panels from committor.json: AUCs per horizon (baseline, in-context detector, committor ceiling at K and
-    extrapolated) and the committor before onset against turn-matched controls."""
+    """Two panels from committor.json: AUCs per horizon (baselines, in-context detector, the committor estimate at the
+    admitted K and its heuristic 1/K extrapolation) and descriptive committor profiles before onset against
+    turn-matched controls."""
     import matplotlib
 
     matplotlib.use("Agg")
@@ -526,14 +552,17 @@ def figure(args):
     root = data_root()
     res = json.loads((root / "explore" / args.result / "committor.json").read_text())
     fig, (a, b) = plt.subplots(1, 2, figsize=(9.5, 3.6))
-    hs = sorted(res["ceiling"], key=int)
+    hs = sorted(res["committor_auc"], key=int)
     x = np.array([int(h) for h in hs])
+    K = res["k"]
     for key, label, off, mk in (("baseline", "baselines", -0.15, "s"), ("with_state", "with in-context state", -0.05, "o"),
-                                ("K", "committor (K = 32)", 0.05, "^"), ("inf", "committor (K extrapolated)", 0.15, "v")):
-        ci_key = {"baseline": "baseline", "with_state": "with_state", "K": "ceiling_K", "inf": "ceiling_inf"}[key]
-        y = np.array([res["ceiling"][h][key] for h in hs])
-        lo = np.array([res["ceiling"][h]["ci95"][ci_key][0] for h in hs])
-        hi = np.array([res["ceiling"][h]["ci95"][ci_key][1] for h in hs])
+                                ("K", f"committor estimate (K = {K})", 0.05, "^"),
+                                ("extrapolated", "1/K extrapolation (heuristic)", 0.15, "v")):
+        ci_key = {"baseline": "baseline", "with_state": "with_state", "K": "committor_K",
+                  "extrapolated": "committor_extrapolated"}[key]
+        y = np.array([res["committor_auc"][h][key] for h in hs])
+        lo = np.array([res["committor_auc"][h]["ci95"][ci_key][0] for h in hs])
+        hi = np.array([res["committor_auc"][h]["ci95"][ci_key][1] for h in hs])
         a.errorbar(x + off, y, yerr=[y - lo, hi - y], fmt=mk, capsize=3, label=label)
     a.axhline(0.5, color="0.7", lw=0.8)
     a.set_xticks(x)
@@ -593,6 +622,9 @@ def main():
     an.add_argument("--boot", type=int, default=1000)
     an.add_argument("--rescore", type=int, default=0, help="re-score this many rollout replies on the local CPU")
     an.add_argument("--allow-partial", action="store_true", help="analyse completed blocks of an incomplete run")
+    an.add_argument("--expect-k", type=int, default=32, help="rollouts per state declared by the run card")
+    an.add_argument("--expect-h", type=int, default=3, help="horizon declared by the run card")
+    an.add_argument("--expect-states", type=int, default=1706, help="selected states declared by the run card")
     an.add_argument("--ignore-calibration-gate", action="store_true",
                     help="continue after a failed fidelity gate (the result is then labelled overridden)")
     an.add_argument("--threads", type=int, default=4)
