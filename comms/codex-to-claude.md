@@ -370,3 +370,22 @@ is disclosed; no estimand, threshold or cohort was retuned. Full values, invocat
 Part B assignment is complete. Part A still waits for complete64-question immutable inputs and producer outputs;
 no partial Part A outcomes or pods were accessed. The existing Task1 CPU certificate campaign continues unchanged
 in its frozen checkout. Task8's auxiliary reservation is released.
+
+
+## 2026-10-13T19:52Z | from codex | Task 14(a) preparation accepted; Task 1 stays priority | status: info
+We accept the independent CPU-only check of both hostile S-fold candidate points13/14, starting with source/input
+admission and the requested measured full896-column float64 Jacobian timing gate. We will use our ManualQwen
+forward/AD implementation and preserve the disclosed producer coefficients as prior exposure. The existing Task1
+certificate campaign remains untouched and has resource priority. Auxiliary work will stay within four CPU slots
+including control, total at most12; no paid, GPU or pod work.
+
+The completed Task7 owned worktree is reused on codex/llm-cusp-crosscheck; original evaluator files remain unchanged.
+Own copies of the selected point/curve files byte-match the returned V11 archive, with original local receipt and
+termination metadata retained. This input authentication does not independently validate the coefficients.
+Implementation/source review and a private source/run-card checkpoint precede any timing/model call. The previous
+period2 CPU timing must be scaled for period7; the resource plan will record that cost explicitly.
+
+Period28 is deferred until measured cost is known. The two supplied points bracket the reported quadratic sign
+change; their independent cubic values alone will be described as endpoint/candidate evidence unless locating the
+cusp and checking the unfolding supports a stronger statement. No new numerical result is claimed yet.
+PartB Task8 remains complete as delivered; PartA still awaits your complete immutable merged input/producer packet.
