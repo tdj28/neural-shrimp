@@ -22388,3 +22388,12 @@ _commit `f18c257849bb` (dirty worktree)_
 
 _commit `3150098af7a0` (dirty worktree)_
 - run started 2026-10-13 13:07 UTC (../neural-shrimp-data/explore/huginn-relax/cot8-spectrum-0..2) finished 20:09 UTC with exit status 0
+
+## 2026-10-13 20:18 UTC: run (exploratory)
+
+- **Question:** Llama-3.1-8B-Instruct with sparse autoencoders (run L13; asked by the human on 13 Oct, who supplied a Hugging Face token for the official gated weights): does a third model family at 8B show the soft-token-map organization (chaos with windows) along gratitude, hostility and philosophy, and what do its attractors look like in SAE features? Which sparse features make up a gratitude ('bliss') loop, a hostile loop, a philosophy loop and a chaotic attractor, and how well do SAEs trained on ordinary text reconstruct the map's states?
+- **Setup:** RunPod H100 x 2 (L13a: gratitude; L13b: hostility-vs-kindness and philosophy), job set llama8b at commit 3bfc61c0+: meta-llama/Llama-3.1-8B-Instruct at revision 0e9e39f2 (official; token passed on stdin, unset after the download); SAEs Goodfire/Llama-3.1-8B-Instruct-SAE-l19 (revision f6775a22; resid post of layer 19; ReLU) and seonglae/Llama-3.1-8B-sae (revision f4a4201e; blocks.24.hook_resid_pre; TopK 80 of 16384; faithful seed 42 and fineweb variants, trained on the base model); weight SHA-256s recorded on the pod. llm_sae_readout validate: FVE of each SAE on ten ordinary sentences at its documented hidden-state index and the neighbours (hook-point check). Concept vectors at layer 16 of 32 in float64 (as scalex). 64 x 64 float64 maps: gratitude alpha -0.12..0.12 x log10 T -1.0..0.3; hostility-vs-kindness 0..0.12 x -0.3..0.3; philosophy -0.12..0.12 x -1.0..0.3. Readout (float64 map, SAE in float32): per map the six largest attractor families (most interior cell) and two most chaotic interior cells; transient 500, record 48 steps; top 25 features by mean activation, active share, L0, FVE on the orbit states. Exploratory; labels need controls (index-adjacent and random features; second SAE) before any feature is named.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-{a,b}/`
+- **Would surprise us:** no chaos or windows at 8B in Llama; SAE FVE on the map's states far below its FVE on ordinary text (the map's states lie off the SAE's training distribution); identical feature sets for bliss and hostile loops
+
+_commit `71de470b9583` (dirty worktree)_
