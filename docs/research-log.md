@@ -20996,3 +20996,8 @@ _commit `0c650f87ad1b` (dirty worktree)_
 - **Would surprise us:** Report failures and derivative widths/cost without replacing omitted proof gates; do not extrapolate8 columns into a certificate.
 
 _commit `0c650f87ad1b` (dirty worktree)_
+## 2026-10-13 03:06 UTC: 1.5B doubling sequence: P16 flip located; first ratio 3.60
+
+Run C6 (edges, pod p08vzs7zna51xn, commit 9c62067c) confirmed the 1.5B P8 -> P16 flip at log10 T = -0.002166649929385 (agreeing with run C5 to 1e-14); its downward P8 walk slid onto the P4 orbit (no half-period guard then; fixed in d79b297b). Run C6b (pod 1fy9yrdkfkakqy, 915 s, commit d79b297b; upward walk from the P16 band at -0.00204): P16 -> P32 flip at log10 T = -0.00190024522705658 (critical multiplier -1 to 3e-12, next modulus 4.6e-9). Flips (alpha 0.100, free log10 T): -0.0031269222354 (P4 -> P8), -0.0021666499294 (P8 -> P16), -0.0019002452271 (P16 -> P32); intervals 9.6027e-4, 2.6640e-4; first ratio delta = 3.6046. The 0.5B crescent's ratios are 2.844, 2.859, 3.781 (T about 0.71); the 1.5B sequence (T about 0.99) starts higher, in the direction the softmax-crossover hypothesis predicts for higher temperature, but different models and levels make this suggestive only. P32 walk launched (run C6c).
+
+_commit `26d074fa95bc`_
