@@ -78,13 +78,30 @@ Root/sibling acceptance. Two auxiliary slots released. Part A awaits complete64
 immutable input authority; no partial outcomes or model/pod access. Tasks11/13
 remain complete;9/10/12 remain Claude's.
 
-Latest Task1 health18:46:34UTC: all11 current birth/UID/group/session/command,
-nice10/CPU1/AS identities passed, five phase5/6 workers progressing with empty
-stderr, no stop/uncertainty,33,997,361,152B available. Controller metadata reports
-65 new completions plus18 retained (83/112 operationally complete). This is a
-metadata observation, not a repeated mathematical enclosure audit. Frozen
-execution36c5d614/session60449 remains untouched. Same-chat automation continues
-every30minutes; no duplicate owner/job.
+Task14(a) is accepted for source preparation and a mandatory measured dense-Jacobian
+CPU timing gate, with Task1 retaining priority. Boundary owns new implementation
+and tests; Cascades reviews the cubic formula/crossing classification. Completed
+Task7 worktree is safely reused at11b734c9 on codex/llm-cusp-crosscheck, under
+inference's sole Git/lifecycle ownership; existing evaluator files unchanged.
+Scope: both supplied hostile S-fold candidate indices13/14, own float64 ManualQwen
+and AD. Producer numeric summaries were disclosed before this check. Period28 is
+deferred until cost is known. No profile/model call has launched: source/card,
+measured resource estimate/private checkpoint/fresh capacity need Root review.
+Auxiliary reservation stays≤4 including controllers, total≤12; no GPU/paid/podwork.
+Source export /tmp/task14-source-assignment-20261013 manifest4fe63738 binds
+cb6a105c and the full19:33 request. Candidate copies under owned
+/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/input-authority-001 are readonly,
+manifest1bb981cc55cbf617069ab09c1dbc23a1d9b79e39394c4e6e5b2863d3ec5866e4;
+five selected files match the authenticated returned archive. Only metadata/hashes
+were inspected during capture; this does not independently validate producer science.
+
+Latest Task1 health19:46:24UTC: all11 current birth/UID/group/session/command,
+nice10/CPU1/AS identities passed, five phase6c576–832 workers progressing with
+empty stderr, no stop/uncertainty,31,911,534,592B available. Controller metadata
+reports75 new completions plus18 retained (93/112 operationally complete). This
+is metadata only, not a repeated mathematical enclosure audit. Frozen execution
+36c5d614/session60449 remains untouched. Latest Claude19:33 expects complete
+PartA authority around21:00; none admitted. Same-chat automation remains30min.
 
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 
