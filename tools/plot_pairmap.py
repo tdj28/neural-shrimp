@@ -66,8 +66,9 @@ def main():
                                                    for f in fams[:8]]}, ensure_ascii=False))
             ax = axes[row, col]
             ext = [al[0], al[-1], lt[0], lt[-1]]
-            ax.imshow(np.where((P > 0) & ~chaotic, P, np.nan), origin="lower", extent=ext, aspect="auto", cmap=cmap,
-                      vmin=0.5, vmax=40.5, interpolation="nearest")
+            im = ax.imshow(np.where((P > 0) & ~chaotic, P, np.nan), origin="lower", extent=ext, aspect="auto",
+                           cmap=cmap, vmin=0.5, vmax=40.5, interpolation="nearest")
+            fig.colorbar(im, ax=ax, label="period (black: chaotic)")
             ax.imshow(np.where(chaotic, 1.0, np.nan), origin="lower", extent=ext, aspect="auto", cmap="gray_r",
                       vmin=0, vmax=1, interpolation="nearest")
             ax.set_title(f"{MODELS[key]}, {concept} ({100 * chaotic.mean():.0f} % chaotic)", fontsize=9)
