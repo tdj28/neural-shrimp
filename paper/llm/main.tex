@@ -716,7 +716,17 @@ rounds of independent review). On 200 GSM8K test problems, accuracy is $0.330$ n
 $0.255$ at $1.15$ and $0.095$ at $1.20$. The two pre-stated predictions pass: accuracy declines at $1.20$ ($-23.5$
 points; 50 problems lost and 3 gained, exact one-sided McNemar $p=3\times10^{-12}$), and $1.05$ loses no more than
 four points (difference $+6.5$, one-sided 95\,\% lower bound $+2.5$). At $1.15$ accuracy falls by $7.5$ points
-($p=0.01$, reported descriptively).
+($p=0.01$, reported descriptively). Development and test agree closely (Figure~\ref{fig:huginn-gsm8k}).
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-huginn-gsm8k.png}
+\caption{Huginn-0125 chain-of-thought accuracy on GSM8K against the relaxation strength $\lambda$ (eight examples,
+greedy decoding, 32 recurrence steps per token): development problems (blue) and the frozen test on held-out problems
+(red; design and analysis fixed before any test problem was read). Grey: the spectral thresholds
+$\lambda_c=1.074$--$1.126$ computed from the fixed points of five development prompts. Left: accuracy with Wilson
+95\,\% intervals. Right: paired difference from the native loop with paired-bootstrap 95\,\% intervals.}
+\label{fig:huginn-gsm8k}
+\end{figure}
 \inprogress{the item-level part of the frozen test (spectral feature of each held-out ARC question against its own
 residual).}
 
