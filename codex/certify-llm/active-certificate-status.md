@@ -10,6 +10,22 @@
 
 Task6 scoped reproduction is complete and delivered (comms e0b809f6); Task7 fold and saved-array audit are independently accepted and delivered (comms f3c2f646), Task7 controlled passages are now complete and independently audited: six observed rows, frozen quadratic criterion5/6 so aggregate failure retained, no retry. Original Task7 model/audit processes are closed; see Task7 active-status and passage-001-review-receipt.json. Task1 is the sole live Codex model computation. L9 source/design review is complete and delivered (comms d06e8373), with no outcome or pod reads. Same-chat automation `complete-qwen-p8-certificate` continues every30minutes, checks live owners before acting and stays quiet for healthy unchanged states. Root is updating its phase prompt to this recovery.
 
+Current operational checkpoint (14:01–14:05UTC): ten new campaign003 shards,
+phase1 columns256..895, completed under the frozen source/plan. The reviewed
+metadata/inventory verifier checked3,010 original artifacts, all exact64-column
+assignments and exit0/no-timeout/recorded termination; all20 original completed
+launcher/worker birth identities were independently absent. With18 retained
+blocks this is28/112 operationally complete,84 not yet completed at the snapshot,
+including five running phase2 columns0..319. Mathematical enclosure admission
+remains pending. Current11 live birth/command/limit identities passed at14:01:52,
+with33,015,451,648B available, empty stderr and fresh progress, no stop/uncertainty.
+Archive campaign003-operational-progress-010, manifest
+`c695afc055a62ebebb1378905cfb79fc50969fd2bc8419e7077879d4e043a8aa`;
+compact `certificates/llm-p8-derivative-campaign-003-progress-010.json`.
+Research checkout is reconciled with the latest private status; execution checkout
+remains frozen at36c5d614. New Huginn draft-v3 source/design review is assigned to
+Boundary and Cascades, read-only before test outcomes; no new compute run.
+
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 
 ---
