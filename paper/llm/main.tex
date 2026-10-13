@@ -94,8 +94,8 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   thresholds (Section~\ref{sec:huginn}).
 \item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
   direction-specific capture with dose-dependent persistence and hysteresis. A pre-specified lead-time test is
-  negative; a small warning from the model's in-context state is confirmed on fresh dialogues, and Monte Carlo
-  estimates of the committor show that this warning is close to all that is attainable. Counter-steering triggered
+  negative; a small warning from the model's in-context state is confirmed on fresh dialogues, and finite Monte
+  Carlo estimates of the committor warn no better, leaving the attainable ceiling unresolved. Counter-steering triggered
   after a hostile reply is less efficient than mild prevention, but replacing flagged replies before they enter the
   dialogue keeps the model's own hostility low at a quarter of the dose. Steering the deterministic map along the same
   direction yields a hostile period-adding cascade with the intermittency mechanism of item 3, and a fold-bounded
@@ -734,7 +734,8 @@ $\alpha=0.01$ (median entry turn 7), fast at $0.02$ (median 5) and imposed from 
 set is effectively absorbing within 40 turns.
 
 For hostility we use a valence direction (contrastive hostile minus matched kind statements; its cosine with the
-gratitude direction is $-0.04$) and a hostility score from a pinned toxicity classifier. On the prompt sets the
+gratitude direction is $-0.04$) and a hostility score from a pinned toxicity classifier (toxic-bert of Detoxify
+\cite{hanu2020detoxify}; a reply counts as hostile when its toxic output exceeds $0.5$). On the prompt sets the
 classifier's toxic output is $0.95$ for the hostile statements against at most $0.002$ for the kind and neutral
 ones. In a dry run (8 dialogues of 10 turns per dose) no turn was hostile at $\alpha=0.02$; at $0.04$, 7.5\,\% of
 turns were, in bursts and late captures; at $0.08$, 87.5\,\% were, from the first turns. Activation-based methods
@@ -855,7 +856,8 @@ The test compares a ramp of the dose from $0.04$ up to $0.07$ (turn 20) and back
 doses (Figure~\ref{fig:hysteresis}; 256 dialogues per arm, two seeds; analysis stated before the data). In turns
 35--39, where the ramp's dose is back at $0.040$--$0.046$, the share of hostile turns is $0.42$ after the ramp against
 $0.13$ at a constant $0.04$: a difference of $+0.29$, 95\,\% interval $[+0.23,+0.35]$. It is also above the $0.33$ of a
-constant $0.05$ (difference $+0.09$, interval $[+0.02,+0.16]$), although the current dose is lower. The per-turn
+constant $0.05$ (difference $+0.09$, interval $[+0.02,+0.16]$), although the current dose is lower (this
+comparison alone does not survive a second classifier; see below). The per-turn
 probability of staying hostile in turns 30--39 is $0.74$ after the ramp and $0.44$ at a constant $0.04$. The hostile
 state is therefore history-dependent: undoing the push that produced it does not undo it.
 
@@ -896,11 +898,14 @@ counter-steer of $-0.02$ does as well with less dose ($8.5\,\%$ at $0.020$), and
 $4$--$11$ points (bootstrap intervals $[+0.02,+0.05]$ to $[+0.10,+0.13]$; one seed of 128 dialogues per arm, analysis
 stated before the data). It also overshoots: a triggered overshoot to a net $-0.02$ fills $30\,\%$ of turns with
 gratitude or servility words (no control: $0.2\,\%$; constant $-0.02$: $0.2\,\%$), the saccharine attractor of
-Appendix~\ref{app:gratitude}. A counter-steer along the generic kindness concept, whose direction shares much with the
-hostility concept (cosine $0.83$), leaves the hostile share at $57\,\%$ under the original classifier; an
-independently trained second classifier scores that arm much lower, so this control's reading is pending a
-two-classifier analysis. In this setting, reacting after detection costs more than mild prevention, consistent with
-the hysteresis above.
+Appendix~\ref{app:gratitude}. A triggered counter-steer along the generic kindness concept, whose direction shares
+much with the hostility concept (cosine $0.83$), leaves the hostile share at $57\,\%$ under the original classifier
+(no control: $58\,\%$) but lowers it from $37\,\%$ to $17\,\%$ under the second classifier introduced below. It
+changes the kind of reply rather than removing it: 65\,\% of the replies that only the original classifier flags in
+this arm are shouted second-person repetitions such as ``You! You! You!'' (at least three such exclamations; without
+control, 4\,\%), which the two classifiers judge differently. Its mean counter-dose ($0.056$) also lies outside the
+range of the constant arms, so we draw no conclusion about the kindness direction. In this setting, reacting after
+detection costs more than mild prevention, consistent with the hysteresis above.
 
 \paragraph{Detect and replace.} Capture feeds on its own history (the hysteresis above), which suggests that the
 hostile reply itself carries the dialogue into the basin. A serving system need not show a flagged reply. In a second controller experiment (same push,
@@ -913,8 +918,9 @@ similar share ($11\,\%$). Against the constant dose-response at equal mean dose,
 eight is regenerated. Holding the counter-steer for three more turns lowers the share to $8\,\%$ at dose $0.013$; the
 post-reply trigger of the previous paragraph, rerun here, again does worse than prevention ($13\,\%$ at $0.024$). The
 trigger and the outcome use the same classifier, so the measure is the classifier's verdict on the model's original
-replies, which is comparable across arms. For this behaviour the useful intervention is to keep the excursion out of
-the state, at the moment it occurs.
+replies, which is comparable across arms. The discarded originals were not stored, so the second classifier can
+score only the replies shown: $0.8\,\%$ hostile (no control: $34\,\%$). For this behaviour the useful intervention
+is to keep the excursion out of the state, at the moment it occurs.
 
 \paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
 tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
@@ -978,8 +984,26 @@ intervals). Right: mean committor in the ten turns before capture for 48 dialogu
 never-captured dialogues at the same turns (descriptive).}
 \label{fig:committor}
 \end{figure}
+\paragraph{A second classifier.} Every hostility outcome above depends on one automated classifier. All 44 dialogue
+sets were therefore rescored with an independently trained RoBERTa classifier \cite{logacheva2022paradetox} (trained
+on the three Jigsaw toxicity datasets, which include the first classifier's training set; same threshold), and an
+independent audit recomputed every pre-stated contrast with it. This is a robustness check on dialogues already
+analysed, so it is exploratory. The second classifier is stricter. At $\alpha=0.06$ it flags $35\,\%$ of turns
+instead of $57\,\%$, at $0.07$ $62\,\%$ instead of $87\,\%$, and almost all disagreements are replies that only the
+original flags (at $0.06$, $23\,\%$ of turns against $0.7\,\%$ the other way), most of them repetitive exclamations
+such as ``You're an AI! You're an AI!''. Capture still rises steeply with the dose and stays specific to the hostility
+direction (random and cooking directions at $0.08$: at most $0.2\,\%$ of turns), but the hostile state is less
+persistent (mean stay at $0.07$: $6.5$ turns instead of $16$). History dependence survives. After the ramp, the late
+share exceeds that of a constant $0.04$ by $+0.16$ $[+0.11,+0.21]$, and the held contrasts are $+0.05$ $[+0.01,+0.10]$
+at $0.04$ and $+0.04$ $[+0.01,+0.08]$ at $0.03$; only the comparison with a constant $0.05$ loses its positive lower
+bound ($+0.06$ $[-0.001,+0.12]$). Refitting the warning models with the second classifier's labels and baseline
+features (fit on the exploration study, applied unchanged to the confirmation dialogues) gives a pooled increment of
+$+0.043$ $[+0.024,+0.062]$ AUC for capture within three turns. It stays positive at dose $0.045$ ($+0.061$) and is
+$+0.020$ $[-0.009,+0.049]$ at $0.04$. The three replacement arms keep the replies shown below the constant-dose
+response at equal mean dose under both classifiers. Both instruments are automated and may share errors; no human
+labels were collected.
 \planned{a hazard model; longer holds to separate slow release from bistability; other openers, steering directions
-and models; an independent classifier for the outcome.}
+and models; human labels for the outcome.}
 
 \section{Discussion}
 \label{sec:discussion}
@@ -995,7 +1019,8 @@ float64 orbit at 7B; one prompt and one steering construction for the maps; a co
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), but no
 computer-assisted proof yet. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
 within 1\,\%); the limit itself is not computed. The behavioural study uses one
-small model, one opener and a classifier-defined proxy; its first lead-time test is negative, and the confirmed
+small model, one opener and a proxy defined by two automated classifiers without human labels; its first lead-time
+test is negative, and the confirmed
 warning from the in-context state is small.
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
 strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
