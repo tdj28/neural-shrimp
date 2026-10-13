@@ -398,14 +398,19 @@ def window_edges(args, loop, v, tok, esl):
     for spec in args.points:
         p_s, lt_s, a_s, h_s = spec.split(":")
         period, log_t, alpha, step = int(p_s), float(lt_s), float(a_s), float(h_s)
+        if args.free == "alpha":
+            def make_cell(lam, log_t=log_t):
+                return esl.SoftOrbit(loop, lam * v, 10.0 ** log_t, chunk=args.chunk)
+            lam0 = alpha
+        else:
+            def make_cell(lam, alpha=alpha):
+                return esl.SoftOrbit(loop, alpha * v, 10.0 ** lam, chunk=args.chunk)
+            lam0 = log_t
 
-        def make_cell(lam, log_t=log_t):
-            return esl.SoftOrbit(loop, lam * v, 10.0 ** log_t, chunk=args.chunk)
-
-        cell = make_cell(alpha)
+        cell = make_cell(lam0)
         X = cell.iterate(cell.start, args.transient)
         found = cell.detect_period(X, max(period, 32), 1e-6)
-        rec = {"period": period, "log10_temperature": log_t, "alpha_centre": alpha, "step": step,
+        rec = {"period": period, "log10_temperature": log_t, "alpha": alpha, "free": args.free, "step": step,
                "detected_period": found}
         if found != period:
             rec["error"] = f"attractor period {found}, not {period}"
@@ -413,7 +418,7 @@ def window_edges(args, loop, v, tok, esl):
             Q0 = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), args.k)))[0]
             tic = time.perf_counter()
             try:
-                rec["edges"] = edges(make_cell, X, Q0, period, alpha, step, args.tol, args.min_step, log=print)
+                rec["edges"] = edges(make_cell, X, Q0, period, lam0, step, args.tol, args.min_step, log=print)
             except SearchError as err:
                 rec["error"] = str(err)
             rec["seconds"] = round(time.perf_counter() - tic, 1)
@@ -428,6 +433,7 @@ def main():
     e = sub.add_parser("edges", help="fold and flip edges of windows along alpha (low-rank solver)")
     e.add_argument("--points", nargs="+", required=True, metavar="PERIOD:LOG10T:ALPHA:STEP")
     e.add_argument("--min-step", type=float, default=1e-10)
+    e.add_argument("--free", choices=("alpha", "temperature"), default="alpha")
     for name, kw in (("--model", dict(default="qwen0.5b")), ("--layer", dict(type=int, default=12)),
                      ("--threads", dict(type=int, default=8)), ("--device", dict(default="cpu")),
                      ("--prompt", dict(default="open")), ("--opener", dict(default=None)),
