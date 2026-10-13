@@ -20895,3 +20895,9 @@ _commit `9764ca641675` (dirty worktree)_
 - **Would surprise us:** the P16 window bounded by a fold rather than a flip on its upper side (then the sequence does not continue by doubling there)
 
 _commit `9c62067c6b10`_
+
+## 2026-10-13 01:56 UTC: 1.5B doubling sequence: P4 and P8 flips located in float64 (run C5); the P16 bracket failed
+
+Run C5 (pod 31okvae2gj4oyw, 343 s, commit ae8d981b; llm_feigenbaum cascade on cuda float64, qwen1.5b layer 14, alpha 0.100, free log10 T, start in the grid's P4 band at -0.0055): P4 -> P8 flip at log10 T = -0.0031269222354 (critical multiplier -1 to 2e-12, next modulus 0.014; loop 'What\nWhat\n\n'), P8 -> P16 flip at -0.0021666499294 (next modulus 7.7e-5; loop 'What\nWhat\n\nWhat\nWhat\n\n'), interval 9.6027e-4; both agree with the grid's band boundaries (P4/P8 at -0.00331/-0.00305, P8/P16 at -0.00226/-0.00213), unlike run C1's 2-cycle 'What\n\n' flip at -0.006071 (another branch). The P16 flip search failed: at the first bracket end (estimated with ratio 4) the P16 orbit was still stable, and at the doubled end (-0.001086) Newton diverged. Follow-up with the walk-out edges search from the P8 and P16 band centres (run C6, free temperature added in commit 9c62067c).
+
+_commit `20d06289a15b`_
