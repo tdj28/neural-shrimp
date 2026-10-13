@@ -1,0 +1,67 @@
+{
+  "schema": "codex-cusp-endpoint-saved-audit-v1",
+  "admission": "reviewed",
+  "source_sha256": "19b7d85f9e5f18aeea82ce0f53366fd3df4e6194e05626382f7865e2cb9af678",
+  "envelope": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "memory_gib": 1,
+    "timeout_seconds": 120,
+    "maximum_output_mib": 8,
+    "minimum_start_available_gib": 20,
+    "minimum_runtime_available_gib": 16
+  },
+  "comparison": {
+    "absolute_tolerance": 5e-12,
+    "relative_tolerance": 5e-10,
+    "all_nonzero_differences_retained": true
+  },
+  "backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "numpy": "2.5.3"
+  },
+  "original": {
+    "source_commit": "925b73fa1f274b60b5a1c74cc584e1de9dc13cea",
+    "receipt_sha256": "0cf633c0484e51f0a7a96c750c653cf972d02f35880f5cc9ebf13b37b61d2fc1",
+    "plan_sha256": "8ba8b6f322f01c37ba98c1389f19a42eb8b22d70869b9078fda3e6ae36532894",
+    "artifacts": 1191,
+    "bytes": 46271326
+  },
+  "authority": {
+    "root": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001-authority-001",
+    "report_sha256": "c9fa512d3e08bc7b4d66f0e32f10d8315b2578b5de9b405d23b5ff89a01776c9",
+    "manifest_sha256": "26c0070508f0b8cfad11fae07aa20f47cb3db1e17cd2172142b4cdd41ce09857",
+    "closure_sha256": "8f7e4208ca95d8288cce67bbf5e477aa3630946f8432a6b13644619e47f2a8fd"
+  },
+  "inputs": {
+    "candidate_root": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/input-authority-001",
+    "candidate_manifest_sha256": "1bb981cc55cbf617069ab09c1dbc23a1d9b79e39394c4e6e5b2863d3ec5866e4",
+    "ancestry_root": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/map-ancestry-001",
+    "ancestry_manifest_sha256": "89b9a8ac8254235b12f2fb6b8b8960a23d724b9be48ac43f4b05529544b1fac0",
+    "vector_path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1b/vectors.npz",
+    "vector_sha256": "d18395239dba63c7deacb8aa9431d768269617c9cc44a98f89cc1e22423b5958"
+  },
+  "profile_audit": {
+    "path": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/profile-001-audit-001/report.json",
+    "sha256": "4b95510bdc5b3e5108fb6a2b43e7c2d94156ed4b1452aaf74b1fab00803cf791"
+  },
+  "output": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001-independent-review-001",
+  "scope": "One saved-evidence audit of fixed rows13/14. Hash/authenticate all1191 original artifacts and11 exact captured source bytes, bound to the accepted original11-Git-blob authority without new Git queries; preserve both original qualification flags, every14 FD/probe and6 alpha rows, all26 precision gates, coefficients, gauge/border/near-mu residuals and every nonzero comparison difference. Matrix-vector and scalar/FD algebra on saved arrays only. No model, AD/JVP, eigensolve, inverse, new dense acquisition, refinement, interval proof or cusp location.",
+  "inherited_limits": "Saved native returns and original reviewed evaluators are shared. Full dense eigenvector matrix was not retained: saved all-eigenpair residual diagnostics are authenticated, not independently reconstructed. Historical model/producer ancestry limits stay explicit. Accepted original profile matrix audit is reused, not repeated. Original Git-object equality is inherited from the pinned successful metadata authority; this audit rehashes every captured source and checks complete path/hash equality to that authority. No fresh Git process is launched.",
+  "resource_basis": "Finite metadata:1191 artifacts/46.27MB, both896 matrices plus small saved vectors. Original metadata authority took0.1444s; prior profile saved-field audit0.1601s. Those measure metadata/saved-field checks only, not the new complete FD replay. No new timing model claim:120s external/1GiB hardAS cap is authoritative; bounded matrix-vector/scalar operations, output report <7MiB reserve within8MiB.",
+  "lifecycle": "Inference owns private source/card checkpoint, exact captured source and external owned watchdog/closure. Worker requires reviewed card and exclusive output. Stop/preserve failure; no retry. CPU1 plus supervisor reserves2 auxiliary slots, coordinate Task1 priority.",
+  "exposure": "Producer assignments and Root's completed endpoint summaries have been read. This is a retrospective independent saved reduction, not a fresh blinded confirmation. Root reported both flags true and b signs opposite; all original coarse errors remain included.",
+  "tests": {
+    "path": "/tmp/test_task14_endpoint_saved_audit.py",
+    "sha256": "c3ccb9b0e5e5715a63ab8f89f752f2e572dd6fdb45bd43d355ff10feb335440b",
+    "result": "6 tiny analytic/source controls passed0.011s (0.130s process); no target input/array load. Subsequent delta only enforces exact audit backend and source-matching vector conversion, AST parsed."
+  },
+  "operational_amendment": {
+    "date": "2026-10-13",
+    "reason": "Root identified prior Git pack mmap of1.37GB cannot fit inherited1GiBAS. Avoid predictable repeat: reuse accepted original source/Git metadata authority, retain every independent captured-byte/inventory check. No evaluator, math, threshold, resource or target change.",
+    "previous_source_sha256": "cafd42b8879f13e6651a53868b12d24b14d0f580fea91d5f553e795c555debaf",
+    "previous_prepared_card_sha256": "726f9b8f3f411e5a4b6e88d466c18eadff7c00b785ff59375a23e8ac785869ce",
+    "previous_reviewed_card_sha256": "d2fadf70045b6bf47ae4f8e3812064a4c9dda2c611833058e2313a529b8e44a1",
+    "previous_attempt_executed": false
+  }
+}
