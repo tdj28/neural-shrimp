@@ -69,6 +69,7 @@ def main():
     parser.add_argument("--label", required=True)
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--dry-run", action="store_true", help="inventory only")
+    parser.add_argument("--no-link", action="store_true", help="copy everything instead of hard-linking unchanged files")
     args = parser.parse_args()
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     dest = DEST_PARENT / f"{stamp}-{args.label}"
@@ -83,7 +84,12 @@ def main():
     (dest / "raw-data").mkdir(parents=True)
     os.chmod(DEST_PARENT, 0o700)
     excludes = [f"--exclude=/{e}" for e in EXCLUDE]
-    rs = subprocess.run(["rsync", "-a", "--no-inc-recursive", *excludes, f"{SOURCE}/", f"{dest}/raw-data/"],
+    # unchanged files are hard-linked to the newest earlier full snapshot (same content, no extra space); every file
+    # is still verified by SHA-256 below
+    earlier = sorted(p for p in DEST_PARENT.iterdir() if p != dest and (p / "receipt.json").exists()
+                     and json.loads((p / "receipt.json").read_text()).get("excluded_roots") is not None)
+    link = [f"--link-dest={earlier[-1] / 'raw-data'}"] if earlier and not args.no_link else []
+    rs = subprocess.run(["rsync", "-a", "--no-inc-recursive", *link, *excludes, f"{SOURCE}/", f"{dest}/raw-data/"],
                         capture_output=True, text=True)
     (dest / "private-handoff").mkdir()
     for p in PRIVATE:
@@ -116,6 +122,7 @@ def main():
                "started_utc": stamp, "completed_utc": datetime.now(timezone.utc).isoformat(),
                "source": str(SOURCE), "destination": str(dest), "excluded_roots": list(EXCLUDE),
                "rsync_returncode": rs.returncode, "rsync_stderr_tail": rs.stderr[-2000:],
+               "link_dest": link[0].split("=", 1)[1] if link else None,
                "file_count": len(before), "verified_files": ok, "bytes": sum(v[0] for v in before.values()),
                "symlink_count": len(links), "hash_mismatches": mismatch[:100], "errors": errors[:100],
                "changed_during_copy": changed[:200], "changed_during_copy_count": len(changed),
