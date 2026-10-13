@@ -481,6 +481,33 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
         --alphas $a --out $D/msm/pair-$key-grat$gtag
     done
     ;;
+  pilot1)      # cusp-unfolding pilot stage 1 (docs/qwen2-cusp-unfolding-pilot.md): JOBARGS KEY REPO REV LAYER VECTORS
+               # CONCEPT LOGT ALPHA. Downloads REPO@REV (REPO '-': cached), then a float64 Newton orbit at the frozen
+               # candidate's interior cell and its branch continued in temperature (+-0.05) and in alpha (+-0.02),
+               # both ways, with every crossing classified (curves follow in a later stage, from a fold found here)
+    key=${JOBARGS[0]}; repo=${JOBARGS[1]}; rev=${JOBARGS[2]}; layer=${JOBARGS[3]}; pvec=${JOBARGS[4]}
+    pcon=${JOBARGS[5]}; plt=${JOBARGS[6]}; pal=${JOBARGS[7]}
+    if [ "$repo" != "-" ]; then
+      HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" > "$LOGS/setup-$key.log" 2>&1
+      prefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${repo//\//--}/refs
+      mkdir -p "$prefs" && printf %s "$rev" > "$prefs/main"
+    fi
+    PV="--model $key --layer $layer --vectors $pvec --concept $pcon"
+    PD=$D/pilot-$key
+    run pilot-orbit 20 orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12 $PV --log-temperature $plt \
+      --alpha $pal --out $PD/orbit
+    tlo=$($PY -c "print($plt - 0.05)"); thi=$($PY -c "print($plt + 0.05)")
+    alo=$($PY -c "print($pal - 0.02)"); ahi=$($PY -c "print($pal + 0.02)")
+    for spec in "temperature:1:Tup:$tlo:$thi" "temperature:-1:Tdown:$tlo:$thi" "alpha:1:aup:$alo:$ahi" \
+                "alpha:-1:adown:$alo:$ahi"; do
+      IFS=: read -r free dir tag lo hi <<< "$spec"
+      run pilot-branch-$tag 35 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp \
+        --steps 150 --chunk 896 $PV --free $free --log-temperature $plt --alpha $pal --direction $dir --ds 0.002 \
+        --ds-max 0.01 --beyond 0.003 --bounds $lo $hi --out $PD/branch-$tag
+    done
+    ;;
   unfold)      # cusp unfolding pilot (run U1; consult 6): tools/cusp_unfolding.py at curve points; JOBARGS entries
                # CURVE_RUN:INDEX; output unfolding-INDEX.json next to the curve run (predictions written before solving)
     for spec in "${JOBARGS[@]}"; do
