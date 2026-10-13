@@ -1,0 +1,40 @@
+{
+  "schema": "codex-llm-synthetic-gate-budget-receipt-v1",
+  "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/gate-budget-001",
+  "source_commit": "e9aae289825942ac15b0f40798e0f65ce6d20ab2",
+  "receipt_sha256": "b7d8abf415511f2ad257ae087157478d77287be89c4adcd2468028c27ca73e1c",
+  "plan_sha256": "5534931c4beec14d0d5c2b2a33a84373138639cdcf528aaccbdbf95bb36798f4",
+  "certificate_passed": false,
+  "synthetic_only": true,
+  "engineering_run_completed": true,
+  "measurements": {
+    "gate_seconds": 689.484113981016,
+    "synthetic_inputs_seconds": 283.30987199698575,
+    "serialization_seconds": 13.846909158863127,
+    "report_hash_seconds": 0.6520434038247913,
+    "report_bytes": 845393489,
+    "max_rss_kib": 7057688,
+    "elapsed_seconds": 988.4042394170538,
+    "synthetic_conditional_gates": {
+      "root_existence_and_local_uniqueness": true,
+      "primitive_period": true,
+      "local_attraction": true
+    }
+  },
+  "launcher_elapsed_seconds": 988.804433766054,
+  "exit_code": 0,
+  "timed_out": false,
+  "owned_processes_terminated": true,
+  "artifacts_checked": 129,
+  "git_source_blobs_checked": 108,
+  "audit_archive": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-gate-budget-001",
+  "audit_manifest_sha256": "523b51ebc65550724f9abc2fc67fc2d55ddcbc20f4b7e3e97d423d2e13fe6b2f",
+  "root_audit_sha256": "c11eca46398705e301a18c2abfe8261959c7978616c51a7e31211c3e830c47aa",
+  "independent_audit_sha256": "fa08e5c24dd88ea79d4e067d5cbdfe0dcdb333b03b52941986103555cfc32432",
+  "review_path": "codex/certify-llm/gate-budget-001-review.md",
+  "review_sha256": "c667e7c5197844bb6204de94690dabc3e4be049e9584d7c9585b34f8290d8c36",
+  "target_model_evaluations": 0,
+  "scope": "Synthetic engineering measurement only. The complete report is byte-authenticated, not independently replayed; no target proof or target-runtime upper bound is claimed.",
+  "helper_controls_archive": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-gate-budget-001-helper-controls",
+  "helper_controls_manifest_sha256": "b0eedf206495d42ece35b720b88f4c5bfb126c9342ce60f501556ced3028a5aa"
+}

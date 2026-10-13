@@ -21467,3 +21467,24 @@ _commit `69d975484ca3` (dirty worktree)_
 - **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
 
 _commit `69d975484ca3` (dirty worktree)_
+
+## 2026-10-13 07:51 UTC: Task 1: audited synthetic full-size proof-gate resource measurement
+
+The separate synthetic 8x896,1024-bit gate workload completed on CPU1/nice10 in 988.804 seconds, peak6.731GiB; source e9aae289825942ac15b0f40798e0f65ce6d20ab2, receipt b7d8abf415511f2ad257ae087157478d77287be89c4adcd2468028c27ca73e1c. Construction283.310s, unchanged gates689.484s, serialization13.847s for845393489 bytes. Two independently authored audits checked129 artifacts and108 captured Git blobs; immutable audit manifest523b51ebc65550724f9abc2fc67fc2d55ddcbc20f4b7e3e97d423d2e13fe6b2f. The report was byte-authenticated, not independently decoded/replayed. All conditional gates refer only to the synthetic local affine maps; no target model evaluation, target proof or runtime upper bound follows. All owned pilot processes terminated. Reviewed final-assembly design remains preparation; it does not authorize a target campaign.
+
+_commit `acfbdca01a40` (dirty worktree)_
+
+## 2026-10-13 07:52 UTC: Task 1: center-parallel-005 completed and independently audited
+
+Source acfbdca01a409c376655d71fa8c37c7bca2b67f4, receipt fac8a6fc5f2a21f8f20adadf832a5853860c8ed30d9203053e09d6ffd7c326e4; all 225 artifacts, 114 Git blobs and eight full phase rows checked by both independently written audit scripts. Exact residual norm strict decrease 4.87833414421185684E-114 to 3.57846981214675381E-126; ratio upper 7.33543399521455090E-13. Pending decision accepted_midpoint_rank_one, proposal accelerated, post-proposal factors 3, cumulative phases 80. Launcher 386.698493s, sampled aggregate peak 20.639GiB. Full raw/audits retained at /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-005, manifest bffb70efe48b444880f678e714ac16451cd6a19d2b43f0dce4a59f392dbf8eb2. No numerical factor is asserted an inverse; no root, primitive period, attraction, speedup or utility claim. All target processes terminated.
+
+_commit `acfbdca01a40` (dirty worktree)_
+
+## 2026-10-13 07:52 UTC: run (exploratory)
+
+- **Question:** Does the next unchanged complete eight-phase candidate continue to reduce the exact shooting residual?
+- **Setup:** Plan center-parallel-006-plan.json SHA 6c0bc9d0da6d0e51ae98c03a87d066ab999d9f2dcdac171ba731f6848113da75, independently reviewed in center-parallel-006-plan-review.md. Same 16 runtime pins, exact parent capsule, independent audit and prefix/seed pins. One pending update consumed once; all recorded restarts/fallbacks/regressions preserved. Exactly one new candidate with four isolated CPU1 workers, nice10,18GiB address space each,32GiB sampled aggregate watchdog,12GiB available-memory floor,600s worker allowance and shared1800s cap plus10s cleanup. Root rechecks resource availability immediately before launch. Prior measured 386.70s is a budget reference only. No GPU, paid resource, protected data or full derivative campaign. Only a complete independently audited result may become the next parent.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/center-parallel-006`
+- **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
+
+_commit `acfbdca01a40` (dirty worktree)_
