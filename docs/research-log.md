@@ -22130,3 +22130,18 @@ _commit `e371d53f1635` (dirty worktree)_
 - **Would surprise us:** no float64 orbit of the map's period at either cell (then the coarse float64 label was a long transient or a different attractor), or band edges that are not folds or flips
 
 _commit `0fd70531101d`_
+
+## 2026-10-13 15:57 UTC: Hub period-7 body in float64 (run V6): fold edges in alpha and temperature, a period-14 flip bubble, and an S-shaped fold pair (a cusp nearby)
+
+Run V6 (pod k19nd125wr4bhi, SECURE H100 NVL, 3992 s, commit f4a24525; archive hash verified; terminated), hostility-vs-kindness, float64, every crossing classified with next modulus <= 1.5e-3 (strongly one-dimensional). Orbit at (log10 T 0.1925, alpha 0.0660): primitive period 7, return distance 6.9e-15 at q = 7 (0.43-3.37 at q = 1..6). Branch in alpha at log10 T 0.1925: folds (real +1) at alpha 0.065966 and 0.071188 (the family exists between them; beyond the turns the saddle branch shows further +1/-1 crossings at alpha 0.06964 and 0.06664). Branch up in temperature at alpha 0.066: fold at log10 T 0.192628-0.192632. Branch down in temperature: flip (real -1) between 0.191953 and 0.19176 and a second -1 crossing between 0.190359 and 0.189318 (the period-7 orbit is unstable between them: the period-14 crescent of the map is a doubling bubble), then folds at 0.187969-0.187974 and 0.189197-0.189222 (an S-shaped branch: three period-7 orbits coexist between the two folds), then a flip between 0.187598 and 0.186933. Reading: the period-7 domain is a fold-bounded body with a flip bubble inside its lower part; the S-shaped fold pair indicates that two fold curves meet in a cusp nearby, the shrimp-head signature, to be traced by continuing the fold and flip curves (stage 2, run V8).
+
+_commit `a2de2c1018b2`_
+
+## 2026-10-13 15:57 UTC: run (exploratory)
+
+- **Question:** Shrimp verification stage 2 (run V8): do the fold curves bounding the hub's period-7 body meet in cusps (parameter-tangent reversals with a sign change of the fold's normal-form coefficient), with the flip curve of the period-14 bubble inside? Continue from V6: the upper fold (branch-hub7-Tup), the S-shaped fold pair (branch-hub7-Tdown's first turn) and the bubble's flip (branch-hub7-Tdown's first -1 crossing), each in both directions.
+- **Setup:** RunPod H100 x 3 (runs V8a, V8b, V8c), job set hcurves, commit a2de2c10, float64 curve continuation (tools/explore_llm_soft_loop.py curve: tol 1e-10, gtol 1e-9, GMRES tol 1e-10, no exact JVP, chunk 896), 40 steps, ds 0.001, ds-max 0.005, bounds log10 T 0.16-0.23, alpha 0.058-0.078; V8a fold from branch-hub7-Tup (+, -); V8b fold from branch-hub7-Tdown (+, -); V8c flip from branch-hub7-Tdown (+, -). Cusp candidates (tangent reversals) then get the fold normal-form test as for the period-6 candidate (tab:z3cusps).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hcurves/hub7-*`
+- **Would surprise us:** fold curves that run off the box without reversing (no cusp: the body would be a stripe), or a flip curve outside the fold-bounded body
+
+_commit `a2de2c1018b2` (dirty worktree)_
