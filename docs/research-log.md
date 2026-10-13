@@ -21407,3 +21407,18 @@ _commit `34be9911b43e` (dirty worktree)_
 After center-parallel003 passed both audits, continue unchanged candidates004 onward, at most12 attempts, until exact residual upper<=10^-210. Every candidate requires its own source-pinned plan/run card/private push and both independently authored endpoint/capsule audits; no partial parents, hidden retries, old-pair re-admission or evidence deletion. Halt this sequence for failure, regression or uncertain audit and return to the root for an explicit amendment. Inference subagent will own refinement Git mutations only after the root checkpoints and explicitly transfers the lock; root retains the separate synthetic gate-budget job and final-evidence integration. Local cap remains12 total threads, each worker1/nice10, unchanged4-worker1800s refinement envelope. This is an exploratory solver allocation, not a promise or formal test of orbit existence. Proposed final-radius planning is in codex/certify-llm/final-domain-planning.md.
 
 _commit `34be9911b43e` (dirty worktree)_
+
+## 2026-10-13 07:26 UTC: Hostility map zoom A (run M2a): a spiral of periodic windows around a hub in the high-temperature region of the 'insult' fixed point
+
+Run M2a (pod ck2494kk77z41i, 2910 s, commit d9aa9a6f, hashes match, terminated): float32 192 x 192 scan, alpha 0.035-0.100, log10 T 0.12-0.30, 2797 s (0.076 s/cell), 10389 of 36864 cells with positive Lyapunov exponent. The dominant attractors are the P1 '侮辱' ('insult', 7962 cells) and its 2-cycle (3770). Around a centre near alpha 0.06, log10 T 0.20, thin arms of periodic windows wind like a spiral or fan, interleaved with chaos: P7 '!Yes heels / defiance / I' (191 cells, alpha 0.065-0.071, log10 T 0.178-0.215), P7 '!Yes heels / pee / I' (117), P8 '![](imiter / importe侮辱 / I' (85), P8 '!Im heels / a生素 / I' (77), P7 '!ImPDOException / defiance / Hello' (70) and '... insult ... Hello' (45), P9, P16 and other P7-P8 families of mixed hostile and junk tokens. Hypotheses to separate before any label: Arnold tongues from a Neimark-Sacker curve of the P1 fixed point (periodic arms ordered by rotation number around a codimension-2 point) versus fold/flip-bounded shrimp windows; float64 orbits and multipliers at the hub and along the arms follow (run V1).
+
+_commit `4f84e3201c5e`_
+
+## 2026-10-13 07:26 UTC: run (exploratory)
+
+- **Question:** What organizes the spiral in hostility zoom A? Float64 orbits and multipliers of the P1 'insult' fixed point around the hub (does a complex pair approach the unit circle: a Neimark-Sacker curve with Arnold tongues?) and of the P7/P8 arm orbits (multipliers, near-crossings).
+- **Setup:** RunPod H100 (run V1), job set hverify, commit 4f84e320: float64 orbit Newton (tol 1e-12) at P1 cells (alpha, log10 T) = (0.075, 0.20), (0.070, 0.22), (0.065, 0.24), (0.080, 0.18), (0.085, 0.21), (0.060, 0.26); P7 arm cells (0.068, 0.195), (0.062, 0.170); P8 (0.059, 0.220), (0.051, 0.208); P3 (0.050, 0.235)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hverify/orbit-*`
+- **Would surprise us:** all P1 multipliers far inside the circle near the hub (then not a Neimark-Sacker organization), or arm orbits with multipliers far from any crossing
+
+_commit `4f84e3201c5e` (dirty worktree)_
