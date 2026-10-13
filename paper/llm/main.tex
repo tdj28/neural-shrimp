@@ -31,23 +31,23 @@ stated intervals. \planned{Red} marks planned work and \inprogress{orange} marks
 computer-assisted proof yet.
 
 \begin{abstract}
-What dynamical structures organize repeated inference in a pretrained language model? We study a precisely defined
-autonomous system: the expected next-token embedding of a frozen Qwen model is fed back at a fixed position after a
-fixed prefix. Its temperature--steering plane contains periodic text loops among numerically chaotic regimes, in
-models from 0.5B to 7B parameters. Numerical continuation links a period-adding family to the saddle-node of a
-primitive two-cycle. Derivatives of this fold predict controlled bottleneck passages without fitting; at two
-independently computed folds, 23 of 24 prospectively frozen forecasts are accurate within one iterate, failing the
-all-row criterion. Fold and flip curves reveal candidate shrimp organization, while superstable points through period
-384 yield finite-order ratios approaching Feigenbaum's constant. In the native recurrence of the recurrent-depth model
-Huginn, spectral estimates at fixed points predict a Neimark--Sacker bifurcation and, in development experiments, the
-relaxation strengths at which convergence and chain-of-thought accuracy break; a frozen test on 200 held-out problems
-confirms no accuracy loss below that threshold and a collapse above it. In sampled self-dialogue, hostility
-steering produces dose-dependent persistence and history dependence. Replacing classifier-flagged replies before they
-enter the context keeps the model's own hostility, as judged by that classifier, low with a quarter of the steering
-dose of constant prevention. A frozen confirmation finds a small increment in advance warning from the model's
-in-context state, while finite Monte Carlo committor estimates detect no better warning and leave the attainable
-ceiling unresolved. These results connect explicit inference dynamics to testable mechanisms and practical control,
-without identifying the constructed map with ordinary autoregressive generation.
+What dynamical structures organize repeated inference in a pretrained language model? We study an exactly defined
+autonomous system: the expected next-token embedding of a frozen model is fed back at a fixed position after a fixed
+prefix. Its temperature--steering plane contains periodic text loops among numerically chaotic regimes, in Qwen2.5
+models of 0.5B to 7B parameters and in OLMo-2 7B. Numerical continuation links a period-adding family to the fold of a
+primitive two-cycle, whose derivatives predict controlled bottleneck passages without fitting (at two new folds, 23 of
+24 prospectively frozen forecasts within one iterate, failing the all-row criterion). Windows, including a hostile
+one, show the codimension-two organization of shrimps: fold curves ending in numerically nondegenerate cusps, and flip
+curves; the hostile one holds a doubling cascade to chaos. Superstable points through period 384 give ratios
+approaching Feigenbaum's constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker
+bifurcation and the relaxation strengths at which chain-of-thought accuracy breaks; a frozen test on 200 held-out
+problems confirms no loss below that threshold and collapse above it. In sampled self-dialogue, hostility steering
+yields dose-dependent persistence and history dependence. Replacing classifier-flagged replies before they enter the
+context lowers the model's own hostility far more per unit of steering than constant prevention, in two model sizes
+where the dose response rises; past its peak, counter-steering backfires. A frozen confirmation finds a small
+increment in warning from the model's in-context state; finite Monte Carlo committor estimates leave the attainable
+ceiling unresolved. These results connect inference dynamics to testable mechanisms and practical control, without
+identifying the constructed map with ordinary autoregressive generation.
 \end{abstract}
 
 \section{Introduction}
