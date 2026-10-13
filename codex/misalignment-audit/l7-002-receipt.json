@@ -1,0 +1,285 @@
+{
+  "attempt": "l7-002",
+  "source_commit": "5ea521e8cfddef48d0be5b818599a3f51968c1a2",
+  "admission_commit": "3ce09e92fdb9b0bbcdb9c2cfd9b6eae6407e65ee",
+  "card_sha256": "2a5b5a06139b2a6b3d5a1900ace75d47f6d6e4ec49fe3ab6438e34dfce7858d8",
+  "worker": {
+    "completed": true,
+    "mode": "l7",
+    "seconds": 26.634623739868402,
+    "peak_rss_bytes": 558243840,
+    "pid": 552589,
+    "outputs": [
+      {
+        "name": "actual-sample-args.json",
+        "bytes": 1652,
+        "sha256": "8a0055f06c48769b07ee6e919d58927a7df80e13fd175f1d92c5d155c5df492b"
+      },
+      {
+        "name": "event1-h1-scores.npz",
+        "bytes": 359856,
+        "sha256": "3259cfe14e6ace18898775573b8a3222f33c7caafed4b43f6242a96981fa9683"
+      },
+      {
+        "name": "event1-h1.json",
+        "bytes": 18496,
+        "sha256": "e886aa39d30b7cd370e302a8b5b24627bb650b8af6e601815748412e53c90c70"
+      },
+      {
+        "name": "event1-h3-scores.npz",
+        "bytes": 354963,
+        "sha256": "08324b45c87ea913ce2df0887114503562fc091660fb8ac58ae9c12303a1e81d"
+      },
+      {
+        "name": "event1-h3.json",
+        "bytes": 18495,
+        "sha256": "e9e901ec76248afdd0161085cbb2a6ba2bfdbfd25c5fc0d678672b09053f406f"
+      },
+      {
+        "name": "event1-h5-scores.npz",
+        "bytes": 345018,
+        "sha256": "8af207306d39fd8ffe888e4ca0ccf761e39b644f7fa2080a507505f04a0d3063"
+      },
+      {
+        "name": "event1-h5.json",
+        "bytes": 18502,
+        "sha256": "1b375a159c0c69c12bce0d6c578ce4b38b1f95593573792e53a5037e3fd29f1a"
+      },
+      {
+        "name": "event2-h1-scores.npz",
+        "bytes": 663121,
+        "sha256": "3c6cf59e2240bef290dda5df307b6e07c1541b83ce37a7f8119b9cb6149f3d3d"
+      },
+      {
+        "name": "event2-h1.json",
+        "bytes": 18561,
+        "sha256": "6a5e2a8d8f89da4d52b5f1411680138a26015744e686b3fd33a65cba4a577aa0"
+      },
+      {
+        "name": "event2-h3-scores.npz",
+        "bytes": 638653,
+        "sha256": "6f102e27b8b59708aa59667fb4f49830613640c8d025f4f6d9bc75be1da0706d"
+      },
+      {
+        "name": "event2-h3.json",
+        "bytes": 18561,
+        "sha256": "3c750b24beff3a1cb8f7b1421a8b5aaf46d57f033a3e7d0a19f283e7e5559a4d"
+      },
+      {
+        "name": "event2-h5-scores.npz",
+        "bytes": 611486,
+        "sha256": "a0b47314851e77ac129413234f62938fa03aede727db919e8234f83c74071a0a"
+      },
+      {
+        "name": "event2-h5.json",
+        "bytes": 18570,
+        "sha256": "9f8c30cdf0755f777c310c86c181d4e2c7ffc0b1661c51b657892bfe3808f0be"
+      },
+      {
+        "name": "feature-admission.json",
+        "bytes": 679,
+        "sha256": "6624db374dc468dfd5656e705659dd8243e3422cd60000cb9f8544c9042bb992"
+      },
+      {
+        "name": "input-manifest.json",
+        "bytes": 2085,
+        "sha256": "b40ed73e93800c168097c90b35a467e5ca5b1d855664633db1a26df51db489ed"
+      },
+      {
+        "name": "run-card.json",
+        "bytes": 7224,
+        "sha256": "2a5b5a06139b2a6b3d5a1900ace75d47f6d6e4ec49fe3ab6438e34dfce7858d8"
+      },
+      {
+        "name": "runtime.json",
+        "bytes": 1769,
+        "sha256": "480fe9648d2664d6d44e37795d8006a496b8392d2d568af590da143769f152dd"
+      }
+    ]
+  },
+  "supervisor": {
+    "completed": true,
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-002-owner/card.json"
+    ],
+    "worker_exit": 0,
+    "peak_sampled_aggregate_rss": 504537088,
+    "seconds": 26.818861271021888,
+    "owned_worker_exited": true,
+    "raw_bytes_before_closing": 3110414,
+    "files": [
+      {
+        "name": "card.json",
+        "bytes": 7223,
+        "sha256": "037146c8b37fcedb5df4d6d9be140099d373170780a64e19f56b8bf165bf3ba7"
+      },
+      {
+        "name": "owned-process.json",
+        "bytes": 504,
+        "sha256": "d71fcaa05176d14a3b17331717250cfd10e0c4556e2a91dba19f01ba7536a14b"
+      },
+      {
+        "name": "stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "stdout",
+        "bytes": 2251,
+        "sha256": "9c0c8e2946af7be209a4969a66012cf7f9b4e88cf4f26b3b4d1647ddc6b69d25"
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "path": "l7-002/actual-sample-args.json",
+      "bytes": 1652,
+      "sha256": "8a0055f06c48769b07ee6e919d58927a7df80e13fd175f1d92c5d155c5df492b"
+    },
+    {
+      "path": "l7-002/event1-h1-scores.npz",
+      "bytes": 359856,
+      "sha256": "3259cfe14e6ace18898775573b8a3222f33c7caafed4b43f6242a96981fa9683"
+    },
+    {
+      "path": "l7-002/event1-h1.json",
+      "bytes": 18496,
+      "sha256": "e886aa39d30b7cd370e302a8b5b24627bb650b8af6e601815748412e53c90c70"
+    },
+    {
+      "path": "l7-002/event1-h3-scores.npz",
+      "bytes": 354963,
+      "sha256": "08324b45c87ea913ce2df0887114503562fc091660fb8ac58ae9c12303a1e81d"
+    },
+    {
+      "path": "l7-002/event1-h3.json",
+      "bytes": 18495,
+      "sha256": "e9e901ec76248afdd0161085cbb2a6ba2bfdbfd25c5fc0d678672b09053f406f"
+    },
+    {
+      "path": "l7-002/event1-h5-scores.npz",
+      "bytes": 345018,
+      "sha256": "8af207306d39fd8ffe888e4ca0ccf761e39b644f7fa2080a507505f04a0d3063"
+    },
+    {
+      "path": "l7-002/event1-h5.json",
+      "bytes": 18502,
+      "sha256": "1b375a159c0c69c12bce0d6c578ce4b38b1f95593573792e53a5037e3fd29f1a"
+    },
+    {
+      "path": "l7-002/event2-h1-scores.npz",
+      "bytes": 663121,
+      "sha256": "3c6cf59e2240bef290dda5df307b6e07c1541b83ce37a7f8119b9cb6149f3d3d"
+    },
+    {
+      "path": "l7-002/event2-h1.json",
+      "bytes": 18561,
+      "sha256": "6a5e2a8d8f89da4d52b5f1411680138a26015744e686b3fd33a65cba4a577aa0"
+    },
+    {
+      "path": "l7-002/event2-h3-scores.npz",
+      "bytes": 638653,
+      "sha256": "6f102e27b8b59708aa59667fb4f49830613640c8d025f4f6d9bc75be1da0706d"
+    },
+    {
+      "path": "l7-002/event2-h3.json",
+      "bytes": 18561,
+      "sha256": "3c750b24beff3a1cb8f7b1421a8b5aaf46d57f033a3e7d0a19f283e7e5559a4d"
+    },
+    {
+      "path": "l7-002/event2-h5-scores.npz",
+      "bytes": 611486,
+      "sha256": "a0b47314851e77ac129413234f62938fa03aede727db919e8234f83c74071a0a"
+    },
+    {
+      "path": "l7-002/event2-h5.json",
+      "bytes": 18570,
+      "sha256": "9f8c30cdf0755f777c310c86c181d4e2c7ffc0b1661c51b657892bfe3808f0be"
+    },
+    {
+      "path": "l7-002/feature-admission.json",
+      "bytes": 679,
+      "sha256": "6624db374dc468dfd5656e705659dd8243e3422cd60000cb9f8544c9042bb992"
+    },
+    {
+      "path": "l7-002/input-manifest.json",
+      "bytes": 2085,
+      "sha256": "b40ed73e93800c168097c90b35a467e5ca5b1d855664633db1a26df51db489ed"
+    },
+    {
+      "path": "l7-002/result.json",
+      "bytes": 2745,
+      "sha256": "ec9d56a32388e24392e97fb2b67eb76aff484ea5e335e907680963cdf9649186"
+    },
+    {
+      "path": "l7-002/run-card.json",
+      "bytes": 7224,
+      "sha256": "2a5b5a06139b2a6b3d5a1900ace75d47f6d6e4ec49fe3ab6438e34dfce7858d8"
+    },
+    {
+      "path": "l7-002/runtime.json",
+      "bytes": 1769,
+      "sha256": "480fe9648d2664d6d44e37795d8006a496b8392d2d568af590da143769f152dd"
+    },
+    {
+      "path": "l7-002-owner/card.json",
+      "bytes": 7223,
+      "sha256": "037146c8b37fcedb5df4d6d9be140099d373170780a64e19f56b8bf165bf3ba7"
+    },
+    {
+      "path": "l7-002-owner/owned-process.json",
+      "bytes": 504,
+      "sha256": "d71fcaa05176d14a3b17331717250cfd10e0c4556e2a91dba19f01ba7536a14b"
+    },
+    {
+      "path": "l7-002-owner/result.json",
+      "bytes": 1065,
+      "sha256": "57653ce47781e7fc6c6d0a33d541981587748e6488c3339f2c1513c3a22b9269"
+    },
+    {
+      "path": "l7-002-owner/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "l7-002-owner/stdout",
+      "bytes": 2251,
+      "sha256": "9c0c8e2946af7be209a4969a66012cf7f9b4e88cf4f26b3b4d1647ddc6b69d25"
+    }
+  ],
+  "comparison": {
+    "path": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-comparison-002.json",
+    "bytes": 100646,
+    "sha256": "cb67a50ce72a10f2cb45bc3bf9fb33a3773da9acef04431fa667029d50fa760c"
+  },
+  "termination": {
+    "identities": {
+      "launcher": {
+        "pid": 552575,
+        "starttime": 184142000,
+        "pgrp": 552575,
+        "session": 552575
+      },
+      "worker": {
+        "pid": 552589,
+        "starttime": 184142018,
+        "pgrp": 552589,
+        "session": 552589
+      },
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+        "--card",
+        "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-002-owner/card.json"
+      ]
+    },
+    "all_original_pids_and_groups_absent": true
+  },
+  "review_status": "Original bytes/source/input/completion and every row/diagnostic checked; independent Root/cascades saved-result interpretation pending.",
+  "scientific_source_scope": "Known-data reproduction, not new confirmatory data or interval proof."
+}

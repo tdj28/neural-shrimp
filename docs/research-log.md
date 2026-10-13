@@ -21896,3 +21896,9 @@ _commit `5ea521e8cfdd` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/l8-001`
 
 _commit `5ea521e8cfdd` (dirty worktree)_
+
+## 2026-10-13 12:41 UTC: Task6 repaired saved-data replays complete; all rows retained
+
+Repaired source5ea521e8/admission3ce09e92 completed L7-00226.819s and L8-00117.576s under CPU1/nice10/4GiB. All46 artifacts/26 source blobs,30L7+18L8 rows and192 converged warning-free fits checked; owned supervisors/workers and former groups absent. L8 primary h3 gain reproduced +0.03327990193[0.01795970866,0.04816594373]. Preserve D2 manuscript CI upper discrepancy(.0015023 versus .02), narrow L8 baseline flagged rounding discrepancy, all85L7/3L8 machine mismatches and original failed L7-001. Independent saved-result interpretation is pending, with no new fit/model run. Archive repaired-results-authority-001 manifest476d778546f39602046e8829cf3fbff3002439be54835ffd5c568e45d70397f8.
+
+_commit `6271ca3bb70f` (dirty worktree)_

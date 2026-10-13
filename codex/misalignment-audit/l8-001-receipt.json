@@ -1,0 +1,285 @@
+{
+  "attempt": "l8-001",
+  "source_commit": "5ea521e8cfddef48d0be5b818599a3f51968c1a2",
+  "admission_commit": "3ce09e92fdb9b0bbcdb9c2cfd9b6eae6407e65ee",
+  "card_sha256": "2b7e1dbdf959f72c61f68efc34a5435c0dc9696199de5c0e186f44ec9a5caa0d",
+  "worker": {
+    "completed": true,
+    "mode": "l8",
+    "seconds": 17.390386909944937,
+    "peak_rss_bytes": 1070587904,
+    "pid": 553901,
+    "outputs": [
+      {
+        "name": "actual-sample-args.json",
+        "bytes": 3305,
+        "sha256": "0c276f290cd78afabd780b7a0c80219c59b6ae3a78948f77bb23afdc155cbb2c"
+      },
+      {
+        "name": "event1-h1-scores.npz",
+        "bytes": 229114,
+        "sha256": "0f287dad155612c6084d3dfbe3df10cdd65ebaf6847469dce616a9c0fc4e59a2"
+      },
+      {
+        "name": "event1-h1.json",
+        "bytes": 3483,
+        "sha256": "0cb064dfbebe6d581fef0802bf8b5670b37d4c0cdb78b89cc62a5cecfcdc67f9"
+      },
+      {
+        "name": "event1-h3-scores.npz",
+        "bytes": 226371,
+        "sha256": "e485a2c356ae650f152b10bbc7ab5684c135f9a2e8514fd3d39a82b6fc885491"
+      },
+      {
+        "name": "event1-h3.json",
+        "bytes": 3486,
+        "sha256": "b8c5bb3979407840e5efcd62ceedc481cafbf7e857ea4c19ff155cb5b6ce02cb"
+      },
+      {
+        "name": "event1-h5-scores.npz",
+        "bytes": 220533,
+        "sha256": "80a12b9f60ff1ebad600aba1804068ff92b9d7868ac6c91a89beec0add06b025"
+      },
+      {
+        "name": "event1-h5.json",
+        "bytes": 3485,
+        "sha256": "a0b46bf7656f56de36f873311c9d0b7cf34053d74d822ce219f02eeb90c68a6f"
+      },
+      {
+        "name": "event2-h1-scores.npz",
+        "bytes": 454973,
+        "sha256": "f9d844d7262743bcee3f5995d5c2ca2876adf233f516e5f98c4dc2d3d3d026f4"
+      },
+      {
+        "name": "event2-h1.json",
+        "bytes": 3488,
+        "sha256": "d22bb5529c39661e6f08e397aa643058344eacec6578fba95e98ce672829c68d"
+      },
+      {
+        "name": "event2-h3-scores.npz",
+        "bytes": 438436,
+        "sha256": "f59cf22d7d997eeaf5173a5af3aef9b38ac07558ac3e38b09f2a3ecd09b8b1c8"
+      },
+      {
+        "name": "event2-h3.json",
+        "bytes": 3495,
+        "sha256": "54886ce7a4dab03143bec0fc4e63cd5175c1858ada0871e9f8df1940418cf25a"
+      },
+      {
+        "name": "event2-h5-scores.npz",
+        "bytes": 419247,
+        "sha256": "4a5a22aee8cf7fb66abff2dcb2119d5f93a6a092ffa91f971241fa0befbe240f"
+      },
+      {
+        "name": "event2-h5.json",
+        "bytes": 3505,
+        "sha256": "c1c03482f6f4cca68fe6df8b44e84670618ce13a644242e994f04216fc93bdb5"
+      },
+      {
+        "name": "feature-admission.json",
+        "bytes": 1393,
+        "sha256": "4cfda28721769864773c8e70b38f6b67b546123e7fe98d02ebba78bddb3b38f2"
+      },
+      {
+        "name": "input-manifest.json",
+        "bytes": 4181,
+        "sha256": "103ce11c01887c0184fdae345172489233d9f621d51f5f04123e3481b31a0f83"
+      },
+      {
+        "name": "run-card.json",
+        "bytes": 9431,
+        "sha256": "2b7e1dbdf959f72c61f68efc34a5435c0dc9696199de5c0e186f44ec9a5caa0d"
+      },
+      {
+        "name": "runtime.json",
+        "bytes": 1768,
+        "sha256": "b841487f3de66f73714fa978124b6dc8a393dffb690500baa0cbefd33d720ae0"
+      }
+    ]
+  },
+  "supervisor": {
+    "completed": true,
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l8-001-owner/card.json"
+    ],
+    "worker_exit": 0,
+    "peak_sampled_aggregate_rss": 1083187200,
+    "seconds": 17.575616691960022,
+    "owned_worker_exited": true,
+    "raw_bytes_before_closing": 2044616,
+    "files": [
+      {
+        "name": "card.json",
+        "bytes": 9430,
+        "sha256": "19fee8f4fefebd0599de541423756d21a622313f4ade9fd24cb3b8941557b279"
+      },
+      {
+        "name": "owned-process.json",
+        "bytes": 504,
+        "sha256": "eae733dc6e59e81f6e4c9d48a6dce281ecd61014376bcf853d38347dac6facb1"
+      },
+      {
+        "name": "stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "stdout",
+        "bytes": 2247,
+        "sha256": "79793f0eb93ccdb71237f6533a0fed9bbaa94dcbc7acc90535d1aa297471e322"
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "path": "l8-001/actual-sample-args.json",
+      "bytes": 3305,
+      "sha256": "0c276f290cd78afabd780b7a0c80219c59b6ae3a78948f77bb23afdc155cbb2c"
+    },
+    {
+      "path": "l8-001/event1-h1-scores.npz",
+      "bytes": 229114,
+      "sha256": "0f287dad155612c6084d3dfbe3df10cdd65ebaf6847469dce616a9c0fc4e59a2"
+    },
+    {
+      "path": "l8-001/event1-h1.json",
+      "bytes": 3483,
+      "sha256": "0cb064dfbebe6d581fef0802bf8b5670b37d4c0cdb78b89cc62a5cecfcdc67f9"
+    },
+    {
+      "path": "l8-001/event1-h3-scores.npz",
+      "bytes": 226371,
+      "sha256": "e485a2c356ae650f152b10bbc7ab5684c135f9a2e8514fd3d39a82b6fc885491"
+    },
+    {
+      "path": "l8-001/event1-h3.json",
+      "bytes": 3486,
+      "sha256": "b8c5bb3979407840e5efcd62ceedc481cafbf7e857ea4c19ff155cb5b6ce02cb"
+    },
+    {
+      "path": "l8-001/event1-h5-scores.npz",
+      "bytes": 220533,
+      "sha256": "80a12b9f60ff1ebad600aba1804068ff92b9d7868ac6c91a89beec0add06b025"
+    },
+    {
+      "path": "l8-001/event1-h5.json",
+      "bytes": 3485,
+      "sha256": "a0b46bf7656f56de36f873311c9d0b7cf34053d74d822ce219f02eeb90c68a6f"
+    },
+    {
+      "path": "l8-001/event2-h1-scores.npz",
+      "bytes": 454973,
+      "sha256": "f9d844d7262743bcee3f5995d5c2ca2876adf233f516e5f98c4dc2d3d3d026f4"
+    },
+    {
+      "path": "l8-001/event2-h1.json",
+      "bytes": 3488,
+      "sha256": "d22bb5529c39661e6f08e397aa643058344eacec6578fba95e98ce672829c68d"
+    },
+    {
+      "path": "l8-001/event2-h3-scores.npz",
+      "bytes": 438436,
+      "sha256": "f59cf22d7d997eeaf5173a5af3aef9b38ac07558ac3e38b09f2a3ecd09b8b1c8"
+    },
+    {
+      "path": "l8-001/event2-h3.json",
+      "bytes": 3495,
+      "sha256": "54886ce7a4dab03143bec0fc4e63cd5175c1858ada0871e9f8df1940418cf25a"
+    },
+    {
+      "path": "l8-001/event2-h5-scores.npz",
+      "bytes": 419247,
+      "sha256": "4a5a22aee8cf7fb66abff2dcb2119d5f93a6a092ffa91f971241fa0befbe240f"
+    },
+    {
+      "path": "l8-001/event2-h5.json",
+      "bytes": 3505,
+      "sha256": "c1c03482f6f4cca68fe6df8b44e84670618ce13a644242e994f04216fc93bdb5"
+    },
+    {
+      "path": "l8-001/feature-admission.json",
+      "bytes": 1393,
+      "sha256": "4cfda28721769864773c8e70b38f6b67b546123e7fe98d02ebba78bddb3b38f2"
+    },
+    {
+      "path": "l8-001/input-manifest.json",
+      "bytes": 4181,
+      "sha256": "103ce11c01887c0184fdae345172489233d9f621d51f5f04123e3481b31a0f83"
+    },
+    {
+      "path": "l8-001/result.json",
+      "bytes": 2741,
+      "sha256": "78d36e635c022dcc60a2957905d5d56f28f50ee3c830c2cacaa64f59c384ad89"
+    },
+    {
+      "path": "l8-001/run-card.json",
+      "bytes": 9431,
+      "sha256": "2b7e1dbdf959f72c61f68efc34a5435c0dc9696199de5c0e186f44ec9a5caa0d"
+    },
+    {
+      "path": "l8-001/runtime.json",
+      "bytes": 1768,
+      "sha256": "b841487f3de66f73714fa978124b6dc8a393dffb690500baa0cbefd33d720ae0"
+    },
+    {
+      "path": "l8-001-owner/card.json",
+      "bytes": 9430,
+      "sha256": "19fee8f4fefebd0599de541423756d21a622313f4ade9fd24cb3b8941557b279"
+    },
+    {
+      "path": "l8-001-owner/owned-process.json",
+      "bytes": 504,
+      "sha256": "eae733dc6e59e81f6e4c9d48a6dce281ecd61014376bcf853d38347dac6facb1"
+    },
+    {
+      "path": "l8-001-owner/result.json",
+      "bytes": 1066,
+      "sha256": "0ec32faadfd871f33b76ed5f6bed6cef7aaffd3f77bb61bc0b4a228119a0bc0f"
+    },
+    {
+      "path": "l8-001-owner/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "l8-001-owner/stdout",
+      "bytes": 2247,
+      "sha256": "79793f0eb93ccdb71237f6533a0fed9bbaa94dcbc7acc90535d1aa297471e322"
+    }
+  ],
+  "comparison": {
+    "path": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l8-comparison-001.json",
+    "bytes": 57151,
+    "sha256": "d7ac0cb486d6aef7d1bea98dba3099de91d48d528f85a8ea3527772a7f985e8a"
+  },
+  "termination": {
+    "identities": {
+      "launcher": {
+        "pid": 553898,
+        "starttime": 184152672,
+        "pgrp": 553898,
+        "session": 553898
+      },
+      "worker": {
+        "pid": 553901,
+        "starttime": 184152680,
+        "pgrp": 553901,
+        "session": 553901
+      },
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+        "--card",
+        "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l8-001-owner/card.json"
+      ]
+    },
+    "all_original_pids_and_groups_absent": true
+  },
+  "review_status": "Original bytes/source/input/completion and every row/diagnostic checked; independent Root/cascades saved-result interpretation pending.",
+  "scientific_source_scope": "Known-data reproduction, not new confirmatory data or interval proof."
+}

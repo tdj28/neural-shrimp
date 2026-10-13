@@ -25,3 +25,7 @@ L7-001 stopped before any fit or scientific row at the global nonfinite-input gu
 ## 2026-10-13 reviewed feature-aware prospective repair; replay HOLD
 
 Root reviewed the full diff: L7 validates finite probes on the union of its six unchanged risk-row sets; L8 constructs baseline/state-only tables with zero probe columns and no probe/token access or imputation. Both reject nonfinite selected baseline/state features. The models, censoring, thresholds and bootstrap formulas remain unchanged. All33 tiny controls passed0.15s. New cards require the exact nine-file closed L7-001 inventory and explicitly choose L7-002/L8-001; summaries require an explicit attempt. Original accepted cards remain intact. See feature-aware-input-amendment.md for exact hashes. Root accepted source release/private checkpoint, but all new replays remain HOLD pending independent Task1 ownership closure and fresh resource coordination. No Task6 worker is active.
+
+## 2026-10-13 repaired replay completion
+
+L7-002 and L8-001 completed under source5ea521e8/admission3ce09e92,26.819s and17.576s. All46 artifacts/26 original source blobs and48 fixed scientific rows authenticated; all192 fits converged without warnings. Original failed L7-001 and unused-probe amendment remain. Full comparison mismatches retained; independent Root/cascades saved-result review pending. See active-status.md, both compact receipts and immutable repaired-results-authority-001 manifest476d7785. No worker remains.
