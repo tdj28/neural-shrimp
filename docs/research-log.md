@@ -22534,3 +22534,12 @@ _commit `6d714af12d8f` (dirty worktree)_
 Final cardac41f289 replaces prepared50f7eb3e wording only: assembly002 launches first; later Task14 overlap requires separately accepted card, fresh42GiB preflight, full18+12GiB memory reservations and five total/three auxiliary CPU slots. Plan83cae9fa is unchanged. Root accepted exact recovery plan delta; adapted preflightba4b972a is pending read before execution. Original001 failure remains immutable; no numerical computation or retry has started.
 
 _commit `6d714af12d8f` (dirty worktree)_
+
+## 2026-10-13 22:21 UTC: run (exploratory)
+
+- **Question:** Do both original hostile period7 endpoint rows pass the independent float64 crossing and fixed AD/finite-difference gates?
+- **Setup:** Task14(a), exactly endpoints-001 rows13/14. Reviewed scientific sources4cb9c3cf/cd6d1213 and supervisor d96af426; ten scientific plus23 supervisor controls previously passed. Admission-only plan8ba8b6f3/card3a33f261 retains original prepared archivec91dcddd, exact row13 profile matrix/receipt75523fb2 and row14 fresh896-column Jacobian. All fixed FD/parameter rows retained; no refinement/P28/cusp claim. CPU2+supervisor/nice10/12GiB/6000s+10s cleanup/64MiB. Forecast5493.57s is empirical with explicit unmeasured overhead. Combined assembly002 reservation18+12GiB/five total-three auxiliary slots, fresh42GiB start/16GiB disk and16GiB runtime floor. Minimal preflight review/private source/current capacity still precedes sole launch; no automatic retry.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001`
+- **Would surprise us:** Any failed scientific gate is a retained unqualified row; computational completion is not cusp/certificate qualification. Task1 has priority.
+
+_commit `6d06f18c6154` (dirty worktree)_

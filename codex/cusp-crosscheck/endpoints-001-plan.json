@@ -1,0 +1,64 @@
+{
+  "schema": "codex-cusp-endpoints-v1",
+  "admission": "reviewed",
+  "envelope": {
+    "cpu_threads": 2,
+    "nice": 10,
+    "memory_gib": 12,
+    "timeout_seconds": 6000,
+    "minimum_start_available_gib": 28,
+    "minimum_runtime_available_gib": 16,
+    "maximum_output_mib": 64
+  },
+  "source_sha256": {
+    "codex/cusp-crosscheck/inputs.py": "29bd207180b26c94124cfbb8a8d50af4842cd658c151f6c4d02c3f08f187eff7",
+    "codex/cusp-crosscheck/numerics.py": "d861466fe80fdb1e4c631f4bf6a59f126486e54290dfc3bdffdd6c58ec47d111",
+    "codex/cusp-crosscheck/dense_profile.py": "218eae0027475eb8cffe6457fb2b8e9cd979e51e042e9d3ff161da0429e2b98e",
+    "codex/hostile-fold-crosscheck/assets.py": "06477ee36a78f15ee8f1e8ae196dc53ae230ff19368fbda638eb6a6e0ef758e0",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/cusp-crosscheck/endpoint_check.py": "4cb9c3cfb87b13cd63dc43c352db88322bbfca2198c3a6784d86b1c91d813de7",
+    "codex/cusp-crosscheck/endpoint_runtime.py": "cd6d1213a0109b4818c87d189588cf2399010222681e11d58f23181c69a61fd2"
+  },
+  "profile": {
+    "root": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/profile-001",
+    "receipt_sha256": "75523fb2c0077fd5e6bb7835d430256be7b0084ade299816a8d0487650967dd2",
+    "source_commit": "48703bb41fa53162580b4787d066ef709efc0685",
+    "plan_sha256": "7384e407f1804ffd41e291d2ddd4caec73ebfdf65c77ed624e646168a0a356a2"
+  },
+  "indices": [
+    13,
+    14
+  ],
+  "tolerances": {
+    "closure": 1e-10,
+    "primitive": 1e-06,
+    "phase_composition": 1e-12,
+    "critical": 1e-08,
+    "imaginary": 1e-10,
+    "unit_circle_gap": 0.001,
+    "isolation": 0.001,
+    "eigen": 1e-08,
+    "dense_jvp": 1e-10,
+    "finite_difference": 0.001,
+    "finite_difference_floor": 1e-05,
+    "finite_difference_reduction": 0.3,
+    "homological": 1e-08,
+    "near_mu_coefficient": 0.001,
+    "nonzero_a": 1e-10
+  },
+  "fd_steps": [
+    0.01,
+    0.003,
+    0.001,
+    0.0003,
+    0.0001,
+    3e-05,
+    1e-05
+  ],
+  "parameter_steps": [
+    7e-06,
+    2e-06,
+    7e-07
+  ],
+  "scope": "Two original period7 hostile endpoints, theta=(log10T,10alpha). Reuse authenticated row13 full896 matrix; one fresh row14 dense matrix. All frozen FD rows/nested AD/original returns retained; no refinement, selected plateau, P28, cusp-location or interval certificate. Prepared only; actual launch requires Root resource/card acceptance."
+}

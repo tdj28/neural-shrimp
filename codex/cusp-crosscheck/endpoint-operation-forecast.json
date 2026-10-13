@@ -1,0 +1,86 @@
+{
+  "scope": "Source-only operation/output forecast; not a run card or execution admission. No model, candidate or matrix arrays read.",
+  "profile": {
+    "root": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/profile-001",
+    "receipt_sha256": "75523fb2c0077fd5e6bb7835d430256be7b0084ade299816a8d0487650967dd2",
+    "status_sha256": "91212ec19e6ac73c75816ced0402c618ddfe523b0f44fa5b231d9c2e47abde64",
+    "source_commit": "48703bb41fa53162580b4787d066ef709efc0685",
+    "plan_sha256": "7384e407f1804ffd41e291d2ddd4caec73ebfdf65c77ed624e646168a0a356a2",
+    "worker_seconds": 947.6180515850428,
+    "supervisor_seconds": 950.422959666932,
+    "maximum_rss_kib": 5859160
+  },
+  "fixed_scope": {
+    "indices": [
+      13,
+      14
+    ],
+    "dimension": 896,
+    "period": 7,
+    "row13_dense_reused": true,
+    "row14_dense_fresh": true,
+    "no_refinement": true,
+    "no_P28": true,
+    "execution_serialized_behind_Task1": true
+  },
+  "per_endpoint_requests": {
+    "prefix": 1,
+    "native_single_step": 7,
+    "composed_F7": 29,
+    "composed_JVP_calls": 30,
+    "composed_JVP_single_direction_calls": 16,
+    "composed_JVP_batch2_calls": 14,
+    "composed_JVP_directions": 44,
+    "state_AD2": 3,
+    "state_AD3": 1,
+    "physical_alpha_AD": 1,
+    "physical_alpha_offset_F7": 6,
+    "FD_rows": 7,
+    "independent_probe_FD_rows": 7,
+    "physical_alpha_FD_rows": 3,
+    "dense_eigen_decompositions": 3,
+    "bordered_897_solves": 2
+  },
+  "additional_row14_requests": {
+    "dense_batch16_calls": 56,
+    "dense_directions": 896
+  },
+  "timing_forecast": {
+    "per_endpoint_seconds_by_component": {
+      "prefix": 0.401089474093169,
+      "single_steps_7_charged_full_F7_each": 11.319213499780744,
+      "composed_F7_29": 46.893884499091655,
+      "composed_JVP_30_charged_worst16direction_batch_each": 538.2315085781738,
+      "state_second_AD_3": 85.6302664889954,
+      "state_third_AD_1": 93.15273910597898,
+      "physical_alpha_AD_1": 8.30644679395482,
+      "physical_alpha_offset_F7_6_including_prefix_each": 12.10871984437108
+    },
+    "additional_row14_dense_seconds": 1004.6988160125911,
+    "operation_sum_seconds": 2596.7865525814705,
+    "headroom_example_ratio": 2,
+    "headroom_example_fixed_seconds": 300,
+    "headroom_example_total_seconds": 5493.573105162941,
+    "limits": "No eigensolve/897-border timing was measured in the resource profile. The 300-second additive allowance must cover those operations, load, metadata authentication and serialization. Maximum observed batch16 cost is charged to each smaller JVP call, and one-step calls are charged a full F7 cost. These are conservative empirical estimates, not worst-case runtime guarantees; Inference owns final card/envelope and external hard deadline."
+  },
+  "output_forecast": {
+    "components": {
+      "two_endpoints_nondense_payload_bytes": 3584000,
+      "fresh_row14_coordinate_requests_returns_bytes": 19267584,
+      "three_serialized_full_matrices_bytes": 19267584,
+      "two_prefix_array_files_bytes": 3649808,
+      "other_array_header_allowance_bytes": 1048576,
+      "metadata_source_log_allowance_bytes": 8388608,
+      "closing_reserve_bytes": 4194304
+    },
+    "total_bytes_including_closing_reserve": 59400464,
+    "total_mib": 56.64869689941406,
+    "reference_64MiB_envelope_bytes": 67108864,
+    "limits": "Shape-based array payload count plus measured prefix storage and disclosed fixed metadata/header allowances; actual original inputs and every complete return remain retained. Sampled output watchdog remains required; source/card/launcher details may change overhead."
+  },
+  "source": {
+    "endpoint_check.py": "4cb9c3cfb87b13cd63dc43c352db88322bbfca2198c3a6784d86b1c91d813de7",
+    "endpoint_runtime.py": "cd6d1213a0109b4818c87d189588cf2399010222681e11d58f23181c69a61fd2",
+    "tests/test_codex_cusp_endpoint.py": "a6db6eca69bc289a1b42b0a5a0c2bf243fe32ef0d2a016fd1450c271f104497c"
+  }
+}

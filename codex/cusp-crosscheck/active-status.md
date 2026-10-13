@@ -6,12 +6,24 @@ native columns/241finite arrays. Root accepted the saved-only evidence and exact
 row13 matrix reuse. Full pins: `profile-001-receipt.json`; interpretation and
 measured timing: `profile-001-review.md`. Total950.423s,dense777.955s,peak5.588GiB.
 Session69207 reaped0; original launcher878084/worker878100/groups/sessions absent.
-No active Task14 model job; three auxiliary slots released. No fold/cusp/proof
-claim and no coefficient/eigenanalysis performed. Endpoint sources are NEW,
-uncommitted preparation pending review/card; actual execution is unadmitted.
-Task1 final evidence/assembly has priority; serialize with PartA saved replay
-unless Root admits a concrete measured concurrency budget. Inference remains
-sole Git/lifecycle owner. No GPU/paid/pod action; no retry.
+No active Task14 model job; three auxiliary slots released. No fold/cusp/proof claim and no coefficient/eigenanalysis performed. Endpoint
+scientific sources are accepted by Root and independent review e20f134c, with ten
+reported synthetic controls. The separate supervisor d96af426 and6000s measured
+card are accepted by Root and independent review196827be;23 focused controls
+passed in1.91s with synthetic statuses, snapshots and tiny processes only.
+Admission-only plan8ba8b6f3/card3a33f261 preserves prepared archivec91dcddd.
+All seven scientific source pins, fixed FD rows and numerical gates are unchanged.
+Actual endpoint execution remains unlaunched pending exact private checkpoint,
+minimal external preflight review and fresh42GiB available/16GiB disk admission.
+
+Task1 recovery assembly002 is running from f2fc9ec1/session59534, original
+launcher960180/start187646344 and worker960494/start187646608. Canonical
+certificate status binds its startup observation; assembly001 failure remains
+closed/immutable. Task1 takes priority and reserves18GiB/two CPU slots. Optional
+endpoint overlap reserves12GiB/three auxiliary slots, five total, preserving
+12GiB shared headroom through the conservative42GiB startup preflight. No other
+auxiliary run is admitted. Task8 PartsA/B are complete. Inference remains sole
+Git/lifecycle owner. No GPU/paid/pod action; no retry or P28 computation.
 
 ## Historical profile startup (closed)
 
