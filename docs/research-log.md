@@ -20906,3 +20906,19 @@ _commit `20d06289a15b`_
 B qualification-B-01 is preserved as a failed setup (exit 2): state AD/FD agreement and composed derivative precision did not pass. Its state-FD b relative errors at displacements (1e-3,3e-4,1e-4) were (2.80e-2,2.47e-3,2.74e-4); composed-JVP errors were (2.034e-2,1.805e-3,2.003e-4), consistent with quadratic truncation. No Task 5 passage outcome exists. Before the numeric passage freeze, amend only B state displacements to (1e-4,3e-5,1e-5), retaining all original numerical gates, coefficients from nested AD and original corrector. A remains unchanged. Independent saved-result reviewer approved this as setup refinement, not evidence against the fold. Run qualification-B-02 from the hash-bound setup-B-01 corrector after this code and run card are pushed; repeat all closure, primitive, spectrum, AD and FD gates. CPU-only nice10, four Torch/BLAS threads, OpenBLAS one, 18GiB address-space, 3600s hard wall, owned immutable output in neural-shrimp-data/codex/task5-fresh-prediction/qualification-B-02. No paid compute, no protected data, no producer outcomes. A failed retry remains a retained setup result. Actual outputs, not predicted truncation rates, decide whether the target can enter the later freeze.
 
 _commit `213fb7463bc5` (dirty worktree)_
+
+## 2026-10-13 02:07 UTC: run (exploratory)
+
+- **Question:** Ouro's position 0 follows one universal map for every prompt (the token only sets the initial state). Started from 8192 random token embeddings at the native lambda = 1: how many attractors does the model's own single-token loop have, what do they read out, and how is the vocabulary partitioned into their basins?
+- **Setup:** explore_latent_loop vocab-basins on cuda float32, lambda 1, 8192 tokens sampled with seed 0, batches of 4096, 600 loops, period up to 16 (tol 1e-5), fixed points merged below 1e-3 relative distance, readout by the model's head
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-vocab-basins-lam1`
+- **Would surprise us:** Every token converging to one fixed point (a single global attractor), or most tokens not converging
+- **Command:** `bash -c set -o pipefail; ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py vocab-basins --device cuda --tokens 8192 --loops 600 --out latent-loop/ouro-vocab-basins-lam1 2>&1 | grep -v -i -e warn -e jit | tail -14`
+
+_commit `e499b10e7fe3`_
+
+## 2026-10-13 02:07 UTC: Local-GPU cascade job stopped deliberately after five flips (three-device agreement)
+
+GPU queue job 10b (tools/llm_feigenbaum.py at commit 810d50de, fixed Newton tolerance 1e-12, RTX 2000 Ada float64) located the crescent flips P3 0.06548077694994572, P6 0.06590554063247683, P12 0.0660549041784933, P24 0.06610714125228487, P48 0.06612095631742565; it was stopped with SIGINT at 02:07 UTC (status 130) while searching the P96 flip, where the old fixed tolerance would stop it as in run C2, and the H100 rerun C3 (period-aware tolerance) covers that range. Agreement across devices: CPU (flips 1-4), local GPU (1-5) and H100 (1-5) agree to 1e-16 to 3e-15 in alpha. The queue continued with job 11.
+
+_commit `e499b10e7fe3` (dirty worktree)_
