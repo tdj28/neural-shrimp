@@ -22309,3 +22309,12 @@ _commit `dc87abf9ba46`_
 - **Would surprise us:** c indistinguishable from zero (no plateau, or sign changing across steps) at any candidate; c changing sign between the two points bracketing the zero of b
 
 _commit `67956d004599`_
+
+## 2026-10-13 18:51 UTC: run (exploratory)
+
+- **Question:** Task8 complete Part B independent saved-row replay under explicit producer provenance
+- **Setup:** Exactly one local part-B-001; independent source06ef341522537c93bd0afb30dbcf922d27299bfa, frozen producer9805ed32 contract. All200x4 rows from three immutable original partitions, new input manifest4de42764f539de11ec087b16d75b51c4eff826aeab3b9f5df3a324d69924dc60 (51files/1625387B). Root accepted reviewed-source/local retrieval-termination/explicit producer attestation basis, not historical upload/model-byte verification; status124 original and separate completion retained. Exact card1e02f39850ac3dfb13ded83f772b784774ddbe598e74b108aac1b4b8b2775e7e requires final concrete acceptance/private push/fresh capacity before dispatch. CPU1 plus supervisor,nice10,4GiB hard AS,300s plus5s termination grace,64MiBraw,20GiB startup16GiB runtime; single-thread NumPy, no model/producer/pod/GPU/paid work. Synthetic statistics0.840s and original-byte IO0.0109s measured. Source/bootstrap/shell pins and all fields checked, every mismatch or failed gate retained without retry; Root reviews completed scientific outputs before delivery.
+- **Output:** `/data2/neural-shrimp-data/codex/huginn-independent-replay/part-B-001`
+- **Would surprise us:** Any exact panel, source/invocation, original archive, or frozen-field discrepancy; computation completion and agreement are separate. No target rows/results decoded yet; producer summaries and attestation exposure disclosed.
+
+_commit `eaa91c846bae` (dirty worktree)_

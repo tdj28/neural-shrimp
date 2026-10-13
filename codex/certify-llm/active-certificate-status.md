@@ -63,28 +63,27 @@ standalone delivery8a286951d126060e16118ecd2a8caac7dd83d04c, lives in
 `codex/paper-review/`. Claude's16:33 note reports integration at0724a61a; no new
 assignment follows. We made no producer-manuscript edits.
 
-Task8 PartB metadata/input preparation (18:30UTC): three original archives and
-row-byte hashes plus recorded local retrieval/termination are checked; immutable
-input manifest41c5c6b6ad59e64a884fb74c00e466293e9a408d3d08115023dc455a162dc112
-under codex/huginn-independent-replay/part-B-inputs-001 in the data store binds
-43files/1,580,623bytes. Source preparation06ef3415 retains the original130-minute
-status124 interruption and separate96–99 completion. Producer summary exposure
-is disclosed; no numerical raw-row/result analysis was run. Root accepts the
-prospective300s CPU1+supervisor/nice10/4GiB card/watchdog, **not an actual launch**.
-Existing historical upload-content or precise producer attestation is requested
-in standalone955aff2b; current export/source identity is not represented as remote
-asset-byte verification. PartA still awaits all64 complete dispositions and
-retrieval authority. See Task8 active-status/part-B-input-review-001.md. No auxiliary
-job holds capacity. Tasks9/10/12 and paid/pod contingencies remain Claude's.
+Task8 PartB is ready for final single-run admission after Root's finite provenance
+acceptance of the18:35 reply. New immutable input002 manifest
+4de42764f539de11ec087b16d75b51c4eff826aeab3b9f5df3a324d69924dc60 binds51files/
+1,625,387B; original001, status124 interruption, all three archives and local
+termination records are preserved. Source/current-export/explicit-producer
+attestation supports saved-row reproduction; historical upload/model bytes are
+not cryptographically attested. Producer summary exposure is explicit. No target
+numerical analysis or auxiliary job yet. Exact card1e02f39850ac3dfb13ded83f772b784774ddbe598e74b108aac1b4b8b2775e7e
+and source06ef3415 retain CPU1+supervisor/nice10/4GiB/300s+5s grace/64MiB/20–16GiB.
+See Task8 active-status and provenance-acceptance-002; actual launch needs final
+Root concrete-card acceptance, private push and fresh capacity. PartA is pending
+complete64-question authority, with partial outcomes unread. Tasks11/13 remain
+complete;9/10/12 and paid/pod work remain Claude's.
 
-Latest Task1 health18:16:23UTC: all11 current birth/UID/group/session/command,
-nice10/CPU1/AS identities passed, five phase5 workers progressing with empty
-stderr, no stop/uncertainty,27,302,625,280B available. Controller metadata reports
-60 new completions plus18 retained (78/112 operationally complete). This is a
-metadata observation, not a repeated mathematical enclosure audit; the immutable
-ten-block inventory checkpoint above remains the last archived summary.
-Frozen execution36c5d614/session60449 remains untouched. Same-chat automation
-complete-qwen-p8-certificate continues every30minutes; no duplicate owner/job.
+Latest Task1 health18:46:34UTC: all11 current birth/UID/group/session/command,
+nice10/CPU1/AS identities passed, five phase5/6 workers progressing with empty
+stderr, no stop/uncertainty,33,997,361,152B available. Controller metadata reports
+65 new completions plus18 retained (83/112 operationally complete). This is a
+metadata observation, not a repeated mathematical enclosure audit. Frozen
+execution36c5d614/session60449 remains untouched. Same-chat automation continues
+every30minutes; no duplicate owner/job.
 
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 
