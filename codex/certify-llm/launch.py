@@ -25,9 +25,18 @@ def ensure_nice10():
     if current<10:os.nice(10-current)
     if os.getpriority(os.PRIO_PROCESS,0)!=10:raise RuntimeError('could not establish exact nice10')
 
+def ensure_launcher_address_space():
+    """Give Git/snapshot work the same existing bound as the future worker."""
+    limit=18*1024**3
+    hard=resource.getrlimit(resource.RLIMIT_AS)[1]
+    if hard!=resource.RLIM_INFINITY and hard<limit:
+        raise RuntimeError('inherited hard address-space limit is below 18GiB')
+    resource.setrlimit(resource.RLIMIT_AS,(limit,limit))
+
 def main():
     # Establish the policy before Git/source-snapshot subprocesses as well.
     ensure_nice10()
+    ensure_launcher_address_space()
     p=argparse.ArgumentParser();p.add_argument('--attempt',required=True);p.add_argument('--seconds',type=int,default=3600)
     p.add_argument('--precision',type=int,default=384)
     p.add_argument('--driver',choices=['pilot','signed_pilot','center_seed','center_refine','center_resume','box_derivative_pilot','streamed_pilot','proposal_budget','center_secant','derivative_shard','center_continue','gate_budget','assembly'],default='pilot')

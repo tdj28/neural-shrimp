@@ -61,7 +61,7 @@ def test_real_launcher_paths_normalize_before_git_and_do_not_add_again(tmp_path,
     child=next(c for c in calls if hasattr(c,'kwargs'))
     child.kwargs['preexec_fn']()
     assert current[0]==10 and changes==[10]
-    assert limits==[(old.launch.resource.RLIMIT_AS,(18*1024**3,)*2)]
+    assert limits==[(old.launch.resource.RLIMIT_AS,(18*1024**3,)*2)]*2  # launcher then worker
     assert signals==[]
 
 
