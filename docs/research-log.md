@@ -22397,3 +22397,9 @@ _commit `3150098af7a0` (dirty worktree)_
 - **Would surprise us:** no chaos or windows at 8B in Llama; SAE FVE on the map's states far below its FVE on ordinary text (the map's states lie off the SAE's training distribution); identical feature sets for bliss and hostile loops
 
 _commit `71de470b9583` (dirty worktree)_
+
+## 2026-10-13 20:21 UTC: Runs S9b and V10: high-resolution anatomy of the hostile period-7 body; at 7B the period-6 and period-3 loops coexist (the map's edge is a basin boundary)
+
+S9b (pod xm47bw61hacob7 SECURE H100 NVL, 6739 s, commit 9918d965; hash verified; terminated 20:17:40 UTC): 160 x 160 float64 zoom alpha 0.0638-0.0672 x log10 T 0.1765-0.1890 with projections (scan64/hcascade-zoom): 18.3 % chaotic; periods 7 (7647 cells), 14 (5049), 28 (1264), 21 (401), 42 (97), 35 (49), 2 (1277). The period-14 domain encloses a period-28 ring around a chaotic core; period-21 windows sit in the chaotic region as thin crescents with legs; very negative exponents trace superstable curves through the windows (the 'endoskeleton' of the shrimp literature). Figure paper/llm/fig-hub-zoom.png (tools/plot_hub_zoom.py). V10 (pod f0ep58dupr9in8 SECURE H100 NVL, 6271 s, commit 07fb6efd; hash verified; terminated 20:17:18 UTC): Qwen2.5-7B, log10 T -0.0143: orbit p6e at alpha 0.0495 (', shut the end \\n\\n Oh', residual 6.9e-15, rho 2.6e-5) continued up to alpha 0.050688 (80 min, steps shrinking near the end, rho at most 1.3e-3, no crossing); orbit p3w at alpha 0.0514 (' you better than', residual 1.1e-14, rho 7.6e-4) continued down to 0.0475 (bounds; 12 points, rho at most 9e-4, no crossing). The two orbits coexist over at least alpha 0.0476-0.0507: the coarse map's edge between columns 0.0495 and 0.0514 is the boundary of the fixed start's basin, not a bifurcation. No 7B bifurcation located yet. (branch.json reports lambda in natural alpha units; progress.jsonl in units of 10 alpha.)
+
+_commit `2eaa1d1ddf68` (dirty worktree)_

@@ -650,9 +650,13 @@ hold genuine periodic orbits: in float64, Newton's method converges at the most 
 $2\times10^{-14}$; spectral radius $1.6\times10^{-7}$, nearly superstable) and at the most interior period-3 cell to
 a period-3 loop at $(0.2524,0.1143)$ (residual $3\times10^{-15}$; leading multiplier $-0.12$). Continued for about
 an hour each, over $\pm0.001$ in $\alpha$ and $-0.016$ in $\log_{10}T$ (one float64 continuation step takes about
-two minutes at 7B), both orbits stay strongly stable without a crossing.
-\inprogress{continuation across the period-6 window's edge, where the map switches to the period-3 loop ``you
-better than''.}
+two minutes at 7B), both orbits stay strongly stable without a crossing. Where the coarse map switches from the
+period-6 loop to the period-3 loop ``you better than'' (between $\alpha=0.0495$ and $0.0514$ at
+$\log_{10}T=-0.0143$), both loops are float64 orbits (residuals $7\times10^{-15}$ and $1\times10^{-14}$), and their
+continuations overlap: the period-6 orbit stays stable from $\alpha=0.0476$ up to $0.0507$, the period-3 orbit from
+$0.0514$ down to $0.0475$, both with spectral radius below $1.4\times10^{-3}$. The two attractors therefore coexist
+over this range, and the map's edge is the boundary of the fixed start's basin, not a bifurcation. No bifurcation
+has yet been located at 7B.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-qwen7b-hostility.png}
@@ -871,7 +875,21 @@ three, five and six times the body's period, the satellite windows expected in t
 cascade. Continued in temperature, the period-14 orbit flips into period 28 near $\log_{10}T=0.1841$ and back near
 $0.1857$, the two ends of a doubling bubble that holds period 28 and chaos, and lower down its branch is S-shaped (folds
 near $0.1824$ and $0.18244$, three coexisting period-14 orbits between them) before another flip near $0.1819$; all
-these crossings are simple (next modulus below $4\times10^{-5}$).
+these crossings are simple (next modulus below $4\times10^{-5}$). A $160^2$ float64 zoom of the lower body
+(Figure~\ref{fig:hubzoom}) shows this anatomy in the plane. The period-14 domain encloses a period-28 ring around a
+chaotic core. Period-21 windows sit in the chaotic region as thin crescents with legs, and curves of very negative
+exponent, where the orbits are superstable, run through the windows as the ``endoskeleton'' of shrimps does
+\cite{facanha2013endoskeletons}. In this zoom 18\,\% of cells are chaotic.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-hub-zoom.png}
+\caption{The lower part of the period-7 body at higher resolution ($160^2$ float64 cells). Left: period of the
+attractor (black: positive largest exponent; white: no period up to 48). Right: largest Lyapunov exponent (clipped);
+the darkest curves are superstable lines. Both panels: float64 fold (black) and flip (red, dashed) curves of the
+period-7 orbit, the two lines of Figure~\ref{fig:hubcascade} (grey) and the Newton-verified orbits of periods 14, 28
+and 21 (stars).}
+\label{fig:hubzoom}
+\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-hub-cascade.png}
