@@ -1,0 +1,29 @@
+{
+  "schema": "codex-llm-signed-pilot-v1",
+  "prior_attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002",
+  "receipt_sha256": "565ecc98b37b592bb1da16a58ad4109e1dd2ab5f2eac71682f2af860531f33b9",
+  "map_source_sha256": "3250d8b262e4a940b83de84005ad6f3155bc70635bfc623b0a000804cfc28c3e",
+  "proposal_sha256": "d8c57bff1d8a986c7c6a0f7d083caa77b4f6373c560d1f60ce0c57461caf668b",
+  "precision": 1024,
+  "alpha": 0.071674,
+  "log10_temperature": -0.115,
+  "phase_index": 0,
+  "direction_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "purpose": "Measure rigorous signed point JVP precision/cost; all 151936 logits retained. Not a full-box or orbit certificate.",
+  "envelope": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "memory_gib": 18,
+    "timeout_seconds": 3600
+  },
+  "basis": "Original point step took97.13s; K8 increases native matrix columns and softmax derivative arithmetic. Conservative same one-hour watchdog; no paid resources."
+}

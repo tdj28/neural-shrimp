@@ -1,5 +1,32 @@
 # Exact-real Qwen period-8 certificate development
 
+## Current checkpoint — 13 October 2026
+
+The assigned primitive P8 proposal has been independently recovered with relative
+return `1.60e-14` and numerical divisor separation. There is **no orbit certificate**.
+
+- `arb-pilot-001` (384 bits) failed during fixed-prefix enclosure at layer16.
+- `arb-pilot-002` (1024 bits) completed the exact-real fixed prefix and one full
+  point step. Maximum point-output radius was `1.215e-142`; the difference from
+  the next binary64 proposal was at most `9.623e-15`. The radius`2^-80` box then
+  wrapped to radius`1.6996` by layer2 and failed the RMS positivity gate entering
+  layer3. This is a setup failure from dependency loss, not dynamical instability.
+- All22 pilot002 artifact hashes were checked; receipts preserve both attempts.
+- `signed-pilot-001-plan.json` prepares a one-phase, eight-column signed-JVP
+  measurement using the provenance-bound exact prefix. It is not an inclusion
+  test and cannot cover the omitted888 directions.
+
+`ball_jet.py` provides batched signed first derivatives through the same reviewed
+transformer architecture. `cache_io.py` preserves all prefix radii and checks the
+construction/provenance chain. `proof_gates.py` implements conditional Krawczyk,
+primitive-period and monodromy-power algebra. Passing those algebraic gates only
+proves the desired statement once their full-domain enclosure contract has been
+established; hashes and a declaration alone do not establish it.
+
+The original pilot design below is retained as history. Current setup outcomes
+are in `certificates/llm-p8-pilot-001.json` and `llm-p8-pilot-002.json`.
+
+
 **Behavioral TLDR:** the assigned objective is to prove a locally attracting
 primitive eight-state cycle in a specific continuous-feedback language-model
 map. A certificate has not been obtained. This directory currently implements
@@ -93,6 +120,6 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
 | Component | Current evidence | Assumptions / artifact |
 |---|---|---|
 | Ball affine and transformer kernel |Synthetic numerical tests and code review|Arb/FLINT and analytic implementation trusted; not formally verified|
-| Assigned orbit |Prior numerical observation; own proposal recovery pending|One fixed checkpoint/prompt/feedback map|
+| Assigned orbit |Own numerical P8 proposal recovered; not an orbit proof|One fixed checkpoint/prompt/feedback map|
 | Existence, uniqueness, primitive period, attraction proof|Not established|Future strict full-box inclusion, norm and divisor gates|
 | Broader inference benefit or whole shrimp |Not tested by this task|Separate studies required|

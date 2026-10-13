@@ -133,6 +133,13 @@ class BallQwen:
     mutate them; attribute identity guards catch simple rebinding, not arbitrary
     hostile in-place mutation through an external alias.
     """
+    scalar = staticmethod(Dual.make)
+    coerce = staticmethod(dual)
+    normalize = staticmethod(rmsnorm)
+    probabilities = staticmethod(softmax)
+    affine_sequence = staticmethod(linear_sequence)
+    finite_number = staticmethod(lambda q: q.value.is_finite() and q.tangent.is_finite())
+
     def __init__(self, config, weights, prefix_ids, steering_vector, *, steering_layer=12,
                  alpha=.071674, log10_temperature=-.115, linear_options=None, progress=None):
         self.config=dict(config); self.weights=weights
@@ -196,7 +203,7 @@ class BallQwen:
             raise ValueError('embedding shape mismatch')
 
     def linear(self, name, sequence, bias=None):
-        return linear_sequence(self.weights[name],sequence,
+        return self.affine_sequence(self.weights[name],sequence,
                                self.weights[bias] if bias else None,**self.linear_options)
 
     def rotary(self, heads, positions):
@@ -211,7 +218,7 @@ class BallQwen:
 
     def block(self, hidden, index, positions, prior=None):
         name=f'model.layers.{index}.'
-        normalized=[rmsnorm(h,self.weights[name+'input_layernorm.weight'],self.epsilon) for h in hidden]
+        normalized=[self.normalize(h,self.weights[name+'input_layernorm.weight'],self.epsilon) for h in hidden]
         projections=[]
         for p in ('q','k','v'):
             stem=name+f'self_attn.{p}_proj.'
@@ -230,13 +237,13 @@ class BallQwen:
             row=[]
             for head,q in enumerate(heads):
                 kv=head//self.groups
-                scores=[sum((a*b for a,b in zip(q,key[j][kv])),dual(0))*self.scale for j in range(allowed)]
-                probabilities=softmax(scores)
-                row.extend([sum((probabilities[j]*value[j][kv][k] for j in range(allowed)),dual(0)) for k in range(self.hdim)])
+                scores=[sum((a*b for a,b in zip(q,key[j][kv])),self.coerce(0))*self.scale for j in range(allowed)]
+                probabilities=self.probabilities(scores)
+                row.extend([sum((probabilities[j]*value[j][kv][k] for j in range(allowed)),self.coerce(0)) for k in range(self.hdim)])
             mixed.append(row)
         attention=self.linear(name+'self_attn.o_proj.weight',mixed)
         hidden=[[a+b for a,b in zip(h,v)] for h,v in zip(hidden,attention)]
-        normalized=[rmsnorm(h,self.weights[name+'post_attention_layernorm.weight'],self.epsilon) for h in hidden]
+        normalized=[self.normalize(h,self.weights[name+'post_attention_layernorm.weight'],self.epsilon) for h in hidden]
         gate=self.linear(name+'mlp.gate_proj.weight',normalized)
         up=self.linear(name+'mlp.up_proj.weight',normalized)
         activation=[[g/(1+(-g).exp())*v for g,v in zip(gs,vs)] for gs,vs in zip(gate,up)]
@@ -252,7 +259,7 @@ class BallQwen:
         if self.cache_signature!=(id(self.weights),id(self.vector),id(self.alpha),id(self.temperature)):
             raise ValueError('recreate map after changing cache dependencies')
         if self.cache is None:
-            hidden=[[Dual.make(v) for v in self.embedding[i]] for i in self.prefix_ids]
+            hidden=[[self.scalar(v) for v in self.embedding[i]] for i in self.prefix_ids]
             result=[]
             for i in range(self.layers):
                 self.progress("prefix_start",i,hidden)
@@ -266,15 +273,15 @@ class BallQwen:
         if len(state)!=self.d or tangent is not None and len(tangent)!=self.d:
             raise ValueError('full-dimensional state and tangent required')
         tangent=[0]*self.d if tangent is None else tangent
-        hidden=[[Dual.make(x,v) for x,v in zip(state,tangent)]]
+        hidden=[[self.scalar(x,v) for x,v in zip(state,tangent)]]
         for i,cache in enumerate(self.prefix_cache()):
             self.progress("step_start",i,hidden)
             hidden,_=self.block(hidden,i,[len(self.prefix_ids)],cache)
             self.progress("step_end",i,hidden)
-        normalized=[rmsnorm(hidden[0],self.weights['model.norm.weight'],self.epsilon)]
+        normalized=[self.normalize(hidden[0],self.weights['model.norm.weight'],self.epsilon)]
         logits=self.linear('model.embed_tokens.weight',normalized)[0]
-        probabilities=softmax([q/self.temperature for q in logits])
-        output=linear_sequence(self.embedding.T,[probabilities],**self.linear_options)[0]
-        if any(not q.value.is_finite() or not q.tangent.is_finite() for q in output):
+        probabilities=self.probabilities([q/self.temperature for q in logits])
+        output=self.affine_sequence(self.embedding.T,[probabilities],**self.linear_options)[0]
+        if any(not self.finite_number(q) for q in output):
             raise ValueError('nonfinite ball output')
         return [q.value for q in output],[q.tangent for q in output]

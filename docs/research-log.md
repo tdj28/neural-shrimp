@@ -20981,3 +20981,18 @@ _commit `77fecc38ca07` (dirty worktree)_
 - **Would surprise us:** Prefix still unresolved at1024bits, or exact-real point defect much larger than float proposal arithmetic predicts; this requires investigation rather than changing the map.
 
 _commit `77fecc38ca07` (dirty worktree)_
+
+## 2026-10-13 03:00 UTC: Codex Task 1: 1024-bit prefix/point succeeded; box dependency failure retained
+
+arb-pilot-002 source 0c650f87ad1ba20c3afeeeae443b4d5e7bbcc0a0 finished in902.21s CPU1, exit1, not timed out; all22 retained-artifact hashes checked. Full exact-real prefix succeeded (last-layer radius5.85935e-141); full one-step primal succeeded (radius1.21479e-142; maximum difference from next numerical proposal9.62266e-15). Diagnostic input radius2^-80 and tangent cube expanded to primal radius1.69956 by zero-based layer2, and the positive RMS denominator gate failed entering layer3. Certificate remains absent; this is a retained setup failure, not evidence against the orbit. Compact hash-bound receipt certificates/llm-p8-pilot-002.json. The next disclosed amendment uses signed multi-direction derivatives at a point and reuses only the fully preserved, hash-bound exact prefix.
+
+_commit `0c650f87ad1b` (dirty worktree)_
+
+## 2026-10-13 03:00 UTC: run (exploratory)
+
+- **Question:** Can batched signed derivatives retain useful rigorous precision and cost at the assigned LLM P8 phase?
+- **Setup:** Task1 signed-pilot-001: exact same alpha=.071674, log10T=-.115, independently recovered phase0. Frozen committed JSON binds pilot002 receipt, source, prefix provenance and proposal; K8 coordinate directions e0..e7 only; Arb1024; whole vocabulary151936; CPU1,nice10,18GiB,3600s watchdog, no GPU or paid use. Original full one-step primal97.13s motivates bounded timing. Keep all inputs, events and failed attempts. Numerical float64 comparison diagnostic only. This cannot establish full896-direction derivative, box remainder, inclusion, period or attraction.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/signed-pilot-001`
+- **Would surprise us:** Report failures and derivative widths/cost without replacing omitted proof gates; do not extrapolate8 columns into a certificate.
+
+_commit `0c650f87ad1b` (dirty worktree)_
