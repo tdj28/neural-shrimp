@@ -425,7 +425,14 @@ side, with the leg between them where they converge. The outer fold arc extends 
 in a cusp at $(\alpha,\log_{10}T)=(0.06911,-0.03975)$. The fold curve through the close fold pair has a second cusp
 inside the body, at $(0.08010,-0.05835)$, from which two fold branches descend. At both, the normal-form coefficient
 changes sign while $a$ stays away from zero (Table~\ref{tab:z3cusps}). The signs of $a$ and $b$ both flip with the
-orientation of the critical eigenvector, so the test uses $b\operatorname{sign}a$.
+orientation of the critical eigenvector, so the test uses $b\operatorname{sign}a$. The cusp's nondegeneracy condition is
+a nonzero cubic coefficient $c$ of the normal form $u'=u+a\varepsilon+bu^2+cu^3$ where $b$ vanishes. We compute it with
+the second-order centre-manifold term, $c=l^{\mathsf T}C(r,r,r)/6+l^{\mathsf T}B(r,h_2)/2$ with
+$(I-M)h_2=B(r,r)-2br$ and $l^{\mathsf T}h_2=0$ ($M$ the monodromy matrix, $B$ and $C$ its map's second and third
+derivatives, by central differences of float64 Jacobian-vector products; the code reproduces $c$ to $10^{-6}$ on a map
+with a known reduction). At both cusps $c$ is nonzero far beyond its step-size uncertainty and keeps its sign through
+the zero of $b$, which crosses zero with nonzero slope along the curve: both are nondegenerate cusps, numerically. Its negative sign means that
+between the fold branches near each cusp two stable period-6 orbits coexist with a saddle.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.3\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}}
@@ -435,10 +442,12 @@ orientation of the critical eigenvector, so the test uses $b\operatorname{sign}a
 $b\operatorname{sign}a$ at consecutive curve points & $+92.9$, $+42.9$, $+14.7$, $\mathbf{-16.9}$, $-52.8$ &
   $-24.7$, $-14.3$, $-2.0$, $\mathbf{+12.8}$, $+28.0$, $+45.9$, $+58.9$ \\
 $|a|$ & $1.2$--$6.9$ & $3.13$--$3.35$ \\
+$c$ at the two points around $b=0$ & $-1.37\times10^{4}$, $-1.65\times10^{4}$ & $-2.38\times10^{5}$, $-2.34\times10^{5}$ \\
 \bottomrule
 \end{tabular}
 \caption{Normal-form test at the two parameter-tangent reversals of the period-6 window's fold curves (bold: the
-flagged points; critical multiplier $1$ to $10^{-7}$). Numerically validated, not certified.}
+flagged points; critical multiplier $1$ to $10^{-7}$). $c$: cubic coefficient (finite-difference steps agree to
+$0.1$ and $0.7\,\%$). Numerically validated, not certified.}
 \label{tab:z3cusps}
 \end{table}
 \begin{figure}[H]
@@ -469,10 +478,12 @@ $b$ at five curve points & $+28.1,\ +18.7,\ +8.4,\ \mathbf{-1.1},\ -12.8$ &
   $+51.8,\ +29.7,\ +9.3,\ \mathbf{-9.0},\ -23.4$ \\
 $a$ & $3.02$--$3.08$ & $-2.58$ to $-2.57$ \\
 critical multiplier & $1\pm10^{-9}$ & $1\pm10^{-8}$ \\
+$c$ at the two points around $b=0$ & $-1.06\times10^{4}$, $-1.01\times10^{4}$ & $+1.39\times10^{5}$, $+1.36\times10^{5}$ \\
 \bottomrule
 \end{tabular}
-\caption{Normal-form test of the two parameter-tangent reversals (bold: the flagged points).
-\planned{cubic coefficient (nondegeneracy).}}
+\caption{Normal-form test of the two parameter-tangent reversals (bold: the flagged points). $c$: cubic
+coefficient, nonzero at both (steps agree to $10^{-4}$), so both are nondegenerate cusps numerically; at the second,
+$c>0$: the orbit between the two others is the stable one.}
 \label{tab:cusps}
 \end{table}
 \begin{figure}[H]
@@ -814,9 +825,12 @@ fold curves reverses its parameter tangent once. There the oriented quadratic co
 form passes through zero (upper fold: $-23.9$ to $+244.6$ between adjacent points, with $a\approx2.0$; lower fold:
 $+31.2$ to $-58.7$, with $a\approx0.55$), while $a$ stays away from zero: two numerical cusp candidates, at
 $(\alpha,\log_{10}T)\approx(0.0672,0.1990)$ and $(0.0666,0.1894)$. The flip curve of the period-14 bubble lies
-inside the body and closes around the map's period-14 cells. The hostile period-7 body therefore has the same
-skeleton as the period-6 shrimp candidate of Section~\ref{sec:curves}; as there, the cubic nondegeneracy coefficient
-is not computed and no shrimp is claimed beyond that candidate status.
+inside the body and closes around the map's period-14 cells. The cubic coefficient is nonzero at both points:
+$c\approx-1.4\times10^{6}$ to $-2.0\times10^{6}$ (step agreement $5\,\%$; the smallest steps converge like the
+square of the step, and extrapolation leaves the sign) and $-5.8\times10^{5}$ to $-5.3\times10^{5}$. Both cusps are
+therefore nondegenerate numerically, and $c<0$ agrees with the three coexisting period-7 orbits, two of them stable,
+found between the S-shaped folds. The hostile period-7 body has the same skeleton as the period-6 window of
+Section~\ref{sec:curves}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\linewidth]{fig-hub-shrimp.png}
@@ -1029,10 +1043,12 @@ smooth map built from a frozen model's own computation. The phenomena are classi
 \cite{pomeau1980intermittent,gallas1993structure,facanha2013endoskeletons,vitolo2011hubs}; what is new is their
 quantitative realization inside a pretrained language model, and the use of numerical continuation and normal
 forms on such a model. We do not claim that ordinary sampled generation is chaotic in this sense
-(Section~\ref{sec:bridge}), nor that any window is a verified shrimp: the period-6 window has the fold-and-flip
-skeleton and two numerical cusp candidates of a shrimp candidate, without the nondegeneracy test or a certificate.
-\paragraph{Limitations.} One model family, with detailed orbit studies at 0.5B and 1.5B and coarse maps and one
-float64 orbit at 7B; one prompt and one steering construction for the maps; a constructed one-token-window system;
+(Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and the hostile period-7
+body have, numerically, the codimension-two organization of a shrimp: fold curves ending in nondegenerate cusps
+(quadratic coefficient through zero with nonzero slope, cubic coefficient nonzero) and flip curves inside. These are
+float64 computations validated by step-size and cross-implementation checks, not computer-assisted proofs.
+\paragraph{Limitations.} One model family, with detailed orbit studies at 0.5B and 1.5B and coarse maps and two
+float64 orbits at 7B; one prompt and one steering construction for the maps; a constructed one-token-window system;
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), but no
 computer-assisted proof yet. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
 within 1\,\%); the limit itself is not computed. The behavioural study uses one
