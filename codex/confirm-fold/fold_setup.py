@@ -6,6 +6,7 @@ parameter B is log10(T), including its chain rule. No producer tools imported.
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
 from collections import Counter
 from dataclasses import asdict, dataclass
 import json
@@ -43,6 +44,8 @@ TARGETS = {
     "B": Target("B", 8, "log10T", "alpha", .0717, -.1033, (-.108, -.100)),
 }
 OWNED_OUTPUT = Path("/data2/neural-shrimp-data/codex/task5-fresh-prediction")
+# Pre-outcome amendment: avoid every frozen passage epsilon at the midpoint.
+PARAMETER_FD_STEPS = (7e-6, 2e-6, 7e-7)
 
 
 def tensor(value):
@@ -246,20 +249,105 @@ def source_commit_from_environment():
     return revision.lower()
 
 
+def validate_saved_solver(solver, bounds):
+    """A resume is a qualified corrector checkpoint, never an arbitrary seed."""
+    if solver.get("converged") is not True or solver.get("reason") != "augmented_residual_passed":
+        raise ValueError("resume requires a converged augmented fold corrector")
+    x = array(tensor(solver["state"]))
+    matrix = np.asarray(solver["matrix"], dtype=np.float64)
+    if matrix.shape != (x.size,x.size) or not np.isfinite(matrix).all():
+        raise ValueError("resume matrix does not match the finite full state")
+    for name in ("right","left"):
+        mode = array(tensor(solver[name]))
+        if mode.shape != x.shape or not np.linalg.norm(mode)>0:
+            raise ValueError("resume requires full nonzero modes")
+    p = float(solver["alpha"])
+    if not np.isfinite(p) or not bounds[0] <= p <= bounds[1]:
+        raise ValueError("resume parameter outside target bounds")
+    for field in ("residual","relative_residual"):
+        value = float(solver[field])
+        if not np.isfinite(value) or not 0 <= value < 1e-10:
+            raise ValueError("resume corrector residual failed")
+    return deepcopy(solver)
+
+
+def load_corrector(path, target, *, bounds=None):
+    """Hash-check our checkpoint and its original target/source provenance."""
+    path = Path(path).resolve()
+    if not path.is_relative_to(OWNED_OUTPUT.resolve()) or path.name != "corrector-001.json":
+        raise ValueError("resume must be an owned corrector-001.json checkpoint")
+    binary = path.with_suffix(".npz")
+    manifest = path.parent/"inputs.json"
+    doc = json.loads(path.read_text())
+    if sha256(binary) != doc.get("array_file_sha256"):
+        raise ValueError("resume array hash mismatch")
+    inputs = json.loads(manifest.read_text())
+    for key in ("label","period","coordinate","fixed_coordinate","fixed_value"):
+        if inputs["target"].get(key) != asdict(target)[key]:
+            raise ValueError("resume target coordinate mismatch")
+    for key,length in (("source_commit",40),("source_sha256",64)):
+        if re.fullmatch(r"[0-9a-fA-F]{%d}" % length, inputs.get(key,"")) is None:
+            raise ValueError("invalid resume original source provenance")
+    if inputs.get("pinned_assets") != PINNED_SHA256 or inputs.get("prefix_ids") != list(PREFIX_IDS):
+        raise ValueError("resume pinned assets or exact prefix mismatch")
+    original_source = path.parent.parent/"source"
+    original_worker = original_source/"codex/confirm-fold/fold_setup.py"
+    if sha256(original_worker) != inputs["source_sha256"]:
+        raise ValueError("resume original worker source hash mismatch")
+    graph_sources = {}
+    for name in ("qwen_map.py","numerics.py"):
+        relative = Path("codex/crosscheck")/name
+        original = original_source/relative
+        if sha256(original) != sha256(ROOT/relative):
+            raise ValueError("resume independent graph source mismatch: "+name)
+        graph_sources[name] = dict(path=str(original),sha256=sha256(original))
+    with np.load(binary,allow_pickle=False) as arrays:
+        def restore(value):
+            if isinstance(value,dict):
+                if {"file","key","shape","dtype"}.issubset(value):
+                    if value["file"] != binary.name:
+                        raise ValueError("resume descriptor references another array file")
+                    result = np.asarray(arrays[value["key"]]).copy()
+                    if list(result.shape) != value["shape"] or str(result.dtype) != value["dtype"] or not np.isfinite(result).all():
+                        raise ValueError("resume descriptor shape/dtype/finiteness mismatch")
+                    return result
+                return {key:restore(item) for key,item in value.items() if key != "array_file_sha256"}
+            if isinstance(value,list):
+                return [restore(item) for item in value]
+            return value
+        solver = validate_saved_solver(restore(doc), target.bounds if bounds is None else bounds)
+    def binding(file):
+        return dict(path=str(file),sha256=sha256(file),bytes=file.stat().st_size)
+    provenance = dict(corrector=binding(path),arrays=binding(binary),inputs=binding(manifest),
+                      original_source_commit=inputs["source_commit"],original_source_sha256=inputs["source_sha256"],
+                      original_seed_sha256=inputs.get("seed_sha256"),original_worker=binding(original_worker),
+                      independent_graph_sources=graph_sources,
+                      resumed_stage="converged fold corrector; all downstream gates and derivatives repeated")
+    return solver,provenance
+
+
 def prepare_fold(model, seed, target, *, parameter=None, bounds=None, chunk=32, save=None, check=None,
                  max_newton=6, max_backtracks=2, complementary_limit=.95, closure_tol=1e-10,
-                 primitive_tol=1e-6, derivative_rtol=1e-3, coefficient_floor=1e-10):
+                 primitive_tol=1e-6, derivative_rtol=1e-3, coefficient_floor=1e-10, saved_solver=None):
     """Locate/qualify a fold without inspecting any passage outcome."""
     seed = array(tensor(seed))
     parameter = target.initial_parameter if parameter is None else float(parameter)
     ops = Operations(model, target, chunk=chunk, save=save, check=check, bounds=bounds)
-    ops.emit("initial", dict(seed=seed, parameter=parameter, target=asdict(target), bounds=ops.bounds))
+    if saved_solver is not None:
+        solver = validate_saved_solver(saved_solver,ops.bounds)
+        if not np.array_equal(seed,solver["state"]):
+            raise ValueError("resume seed must equal the saved corrected state")
+        parameter = float(solver["alpha"])
+    ops.emit("initial", dict(seed=seed, parameter=parameter, target=asdict(target), bounds=ops.bounds,
+                              resumed_corrector=saved_solver is not None))
     # Existing Task2 solver names this scalar alpha; here it is target.coordinate.
-    solver = fold_refine(ops.period_map, ops.dense, ops.parameter_derivative, ops.critical_grad,
-                         seed, parameter, max_newton=max_newton, max_backtracks=max_backtracks)
+    if saved_solver is None:
+        solver = fold_refine(ops.period_map, ops.dense, ops.parameter_derivative, ops.critical_grad,
+                             seed, parameter, max_newton=max_newton, max_backtracks=max_backtracks)
     ops.emit("corrector", solver)
     result = dict(schema="codex-task5-fold-setup-v1", passed=False, target=asdict(target),
                   active_parameter_units=target.coordinate, parameter_bounds=ops.bounds, solver=solver,
+                  resumed_corrector=saved_solver is not None, parameter_fd_steps=PARAMETER_FD_STEPS,
                   evidence="rung2 numerical setup; no interval certificate; no test passages",
                   tolerances=dict(closure=closure_tol, primitive=primitive_tol, complementary_limit=complementary_limit,
                                   derivative_rtol=derivative_rtol, coefficient_floor=coefficient_floor))
@@ -295,7 +383,7 @@ def prepare_fold(model, seed, target, *, parameter=None, bounds=None, chunk=32, 
     raw_a, raw_b = float(l @ gp), float(.5*l @ hrr)
     atable, btable, jtable = [], [], []
     scale = max(float(np.linalg.norm(x)), 1.)
-    for h in (1e-5,3e-6,1e-6):
+    for h in PARAMETER_FD_STEPS:
         fd = (ops.period_map(x,p+h)-ops.period_map(x,p-h))/(2*h)
         atable.append(dict(h=h, a=float(l @ fd), vector_relative_error=float(np.linalg.norm(fd-gp)/max(np.linalg.norm(gp),1e-30))))
     for relative_h in (1e-3,3e-4,1e-4):
@@ -375,7 +463,9 @@ def persist(output, name, payload):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target",choices=sorted(TARGETS),required=True)
-    parser.add_argument("--seed",type=Path,required=True)
+    start_group = parser.add_mutually_exclusive_group(required=True)
+    start_group.add_argument("--seed",type=Path)
+    start_group.add_argument("--resume-corrector",type=Path)
     parser.add_argument("--seed-key")
     parser.add_argument("--seed-index",type=int)
     parser.add_argument("--parameter",type=float)
@@ -421,8 +511,16 @@ def main():
         torch.set_num_threads(args.threads)
         torch.set_num_interop_threads(1)
         from threadpoolctl import threadpool_limits
-        seed=load_seed(args.seed,key=args.seed_key,index=args.seed_index)
-        metadata=dict(args=vars(args),target=asdict(target),seed_sha256=sha256(args.seed),
+        saved_solver,resume_provenance = None,None
+        if args.resume_corrector is not None:
+            if args.seed_key is not None or args.seed_index is not None or args.parameter is not None:
+                raise ValueError("resume supplies its own state/parameter; seed selectors and --parameter are forbidden")
+            saved_solver,resume_provenance = load_corrector(args.resume_corrector,target,bounds=bounds)
+            seed = saved_solver["state"].copy()
+        else:
+            seed=load_seed(args.seed,key=args.seed_key,index=args.seed_index)
+        metadata=dict(args=vars(args),target=asdict(target),seed_sha256=sha256(args.seed) if args.seed else None,
+                      resume=resume_provenance,parameter_fd_steps=PARAMETER_FD_STEPS,
                       source_commit=source_commit_from_environment(),
                       source_sha256=sha256(__file__),pinned_assets=PINNED_SHA256,prefix_ids=PREFIX_IDS,
                       torch_version=torch.__version__,numpy_version=np.__version__,pid=os.getpid(),
@@ -436,7 +534,8 @@ def main():
             check()
             event("model_loaded",peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
             result=prepare_fold(model,seed,target,parameter=args.parameter,bounds=bounds,chunk=args.chunk,
-                                save=save,check=check,max_newton=args.max_newton,max_backtracks=args.max_backtracks)
+                                save=save,check=check,max_newton=args.max_newton,max_backtracks=args.max_backtracks,
+                                saved_solver=saved_solver)
         result["provenance"]=metadata
         persist(output,"setup",result)
         json_save(output/"status.json",dict(status="complete" if result["passed"] else "gate_failed",stage=result["stage"],

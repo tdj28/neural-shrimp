@@ -174,3 +174,97 @@ def test_source_snapshot_commit_comes_only_from_validated_launcher_environment(m
     monkeypatch.delenv('TASK5_SOURCE_COMMIT')
     with pytest.raises(ValueError,match='40-hex'):
         setup.source_commit_from_environment()
+
+
+def checkpoint_fixture(tmp_path,monkeypatch):
+    target=setup.TARGETS['A']
+    original=setup.prepare_fold(ChartCycle(target),np.array([3.,0.]),target)
+    folder=tmp_path/'original-attempt/run';folder.mkdir(parents=True)
+    source=folder.parent/'source'
+    worker=source/'codex/confirm-fold/fold_setup.py';worker.parent.mkdir(parents=True)
+    worker.write_bytes(PATH.read_bytes())
+    for name in ('qwen_map.py','numerics.py'):
+        relative=Path('codex/crosscheck')/name
+        destination=source/relative;destination.parent.mkdir(parents=True,exist_ok=True)
+        destination.write_bytes((setup.ROOT/relative).read_bytes())
+    setup.persist(folder,'corrector-001',original['solver'])
+    (folder/'inputs.json').write_text(json.dumps(dict(target=setup.asdict(target),source_commit='a'*40,
+                                                     source_sha256=setup.sha256(worker),seed_sha256='c'*64,
+                                                     pinned_assets=setup.PINNED_SHA256,prefix_ids=setup.PREFIX_IDS)))
+    monkeypatch.setattr(setup,'OWNED_OUTPUT',tmp_path)
+    return target,original,folder/'corrector-001.json'
+
+
+def test_resume_only_skips_refinement_and_repeats_all_other_gates(tmp_path,monkeypatch):
+    target,original,path=checkpoint_fixture(tmp_path,monkeypatch)
+    solver,provenance=setup.load_corrector(path,target)
+    def forbidden_refinement(*args,**kwargs):
+        raise AssertionError('resume must skip fold refinement')
+    monkeypatch.setattr(setup,'fold_refine',forbidden_refinement)
+    result=setup.prepare_fold(ChartCycle(target),solver['state'],target,saved_solver=solver)
+    assert result['passed'] and result['resumed_corrector']
+    assert all(result['gates'].values())
+    assert result['operation_counts']['parameter_ad']==1
+    assert result['operation_counts']['nested_state_ad']==1
+    assert result['operation_counts']['period_map']>=target.period+12
+    assert 'dense_monodromy' not in result['operation_counts']
+    assert result['raw_a']==pytest.approx(original['raw_a'])
+    assert result['raw_b']==pytest.approx(original['raw_b'])
+    assert [row['h'] for row in result['parameter_fd']]==[7e-6,2e-6,7e-7]
+    assert not set(result['parameter_fd_steps']) & {3e-6,1e-5,3e-5,1e-4}
+    assert provenance['original_source_commit']=='a'*40
+    assert provenance['original_source_sha256']==setup.sha256(path.parent.parent/'source/codex/confirm-fold/fold_setup.py')
+    assert set(provenance['independent_graph_sources'])=={'qwen_map.py','numerics.py'}
+    for field in ('corrector','arrays','inputs'):
+        assert provenance[field]['sha256']==setup.sha256(provenance[field]['path'])
+
+
+@pytest.mark.parametrize('failure',['binary','descriptor','target','source','unconverged','residual','dimension','nonfinite',
+                                      'assets','prefix','original_worker','original_map','original_numerics'])
+def test_resume_checkpoint_mismatch_fails_closed(tmp_path,monkeypatch,failure):
+    target,_,path=checkpoint_fixture(tmp_path,monkeypatch)
+    metadata=json.loads(path.read_text())
+    if failure=='binary':
+        path.with_suffix('.npz').write_bytes(b'corrupt')
+    elif failure=='descriptor':
+        metadata['matrix']['shape']=[3,3]
+        path.write_text(json.dumps(metadata))
+    elif failure in ('target','source','assets','prefix'):
+        manifest=path.parent/'inputs.json';doc=json.loads(manifest.read_text())
+        if failure=='target':doc['target']['fixed_value']=-.115
+        elif failure=='source':doc['source_commit']='not-a-commit'
+        elif failure=='assets':doc['pinned_assets']['model.safetensors']='0'*64
+        else:doc['prefix_ids'][0]+=1
+        manifest.write_text(json.dumps(doc))
+    elif failure.startswith('original_'):
+        names={'original_worker':'codex/confirm-fold/fold_setup.py',
+               'original_map':'codex/crosscheck/qwen_map.py',
+               'original_numerics':'codex/crosscheck/numerics.py'}
+        original=path.parent.parent/'source'/names[failure]
+        original.write_bytes(original.read_bytes()+b'\n# changed\n')
+    elif failure=='unconverged':
+        metadata['converged']=False;path.write_text(json.dumps(metadata))
+    elif failure=='residual':
+        metadata['residual']=1e-3;path.write_text(json.dumps(metadata))
+    else:
+        with np.load(path.with_suffix('.npz')) as archive:
+            values={k:archive[k].copy() for k in archive.files}
+        if failure=='dimension':
+            values['matrix']=np.eye(3)
+            metadata['matrix']['shape']=[3,3]
+        else:values['matrix'][0,0]=np.nan
+        np.savez(path.with_suffix('.npz'),**values)
+        metadata['array_file_sha256']=setup.sha256(path.with_suffix('.npz'))
+        path.write_text(json.dumps(metadata))
+    with pytest.raises(ValueError,match='resume'):
+        setup.load_corrector(path,target)
+
+
+def test_resume_rejects_external_directory_and_changed_seed(tmp_path,monkeypatch):
+    target,_,path=checkpoint_fixture(tmp_path,monkeypatch)
+    solver,_=setup.load_corrector(path,target)
+    with pytest.raises(ValueError,match='seed must equal'):
+        setup.prepare_fold(ChartCycle(target),solver['state']+1e-7,target,saved_solver=solver)
+    monkeypatch.setattr(setup,'OWNED_OUTPUT',tmp_path/'different-root')
+    with pytest.raises(ValueError,match='owned'):
+        setup.load_corrector(path,target)

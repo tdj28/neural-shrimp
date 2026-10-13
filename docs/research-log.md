@@ -20807,3 +20807,18 @@ _commit `ae8d981b2284` (dirty worktree)_
 The CPU run feigenbaum-crescent-t-0.14798 was stopped with SIGINT at 01:06 UTC (exit status -2 in its run entry) while computing the P48 flip, to free CPU threads for the cusp tests: its four flips are saved (cascade.json) and agree with the H100 run C2 (pod yjbck5ggzotdot, commit 5268f384) to about 1e-16 in alpha (P3 0.065480776949945 vs 0.06548077694994509; P24 0.066107141252284 vs 0.06610714125228828) and with the local-GPU run (gpu job 10b) to 2e-15 for P3 and P6: a cross-device check of the flip parameters. Run C2 added the P48 flip at alpha_5 = 0.066120956317423 (critical multiplier -1 to 4e-10, next modulus 2.8e-14, Newton residual 3.5e-14), giving intervals 4.2476e-4, 1.4936e-4, 5.2237e-5, 1.3815e-5 and ratios delta_1 = 2.8438, delta_2 = 2.8593, delta_3 = 3.7812: rising toward 4.669 after the first two, as the crossover hypothesis predicts (still a hypothesis; more ratios needed). C2 then stopped: the P96 orbit's Newton residual stagnated at 1.3e-12 to 6.7e-12 (float64 floor of a 96-step composition) just above the fixed 1e-12 tolerance; fixed by a period-aware tolerance max(1e-12, 1e-13 p) (commit ae8d981b) and rerun as C3 to P384. The local-GPU job runs the old code and will stop at the same place.
 
 _commit `ae8d981b2284` (dirty worktree)_
+
+## 2026-10-13 01:23 UTC: Task 5 pre-outcome amendment: disjoint derivative probes and checkpoint resume
+
+Independent integrity review caught that the setup parameter FD stencil (1e-5,3e-6,1e-6) would share two first-step midpoint states with the future passage table. No setup has reached that stencil; current workers remain in dense corrector calculations. The future stencil is changed to (7e-6,2e-6,7e-7), disjoint from all assigned epsilons. A task-owned guard will stop only PIDs82668/85924 after an atomic saved corrector checkpoint and before nested second-AD/FD qualification, retaining original interrupted attempts and receipts. New source will resume from hash-bound corrector JSON/NPZ and original model/source metadata, skipping only repeated fold refinement and repeating every qualification gate and nested-AD coefficient calculation. No passage outcome has been generated or inspected. All numerical coefficients, entrances and forecasts will still be frozen and pushed before test execution. Claim scope is prospective passage-count prediction conditional on independently estimated local fold geometry, not an untouched parameter neighborhood. This pre-outcome method change needs no outcome-driven downgrade; any guard arriving after the FD boundary would instead be recorded as contamination and handled explicitly.
+
+_commit `41c1113835e5` (dirty worktree)_
+
+## 2026-10-13 01:28 UTC: run (exploratory)
+
+- **Question:** Task 5 resumed qualification: do saved independent correctors pass all orbit, spectrum and AD/FD gates using derivative probes disjoint from future passage offsets?
+- **Setup:** Source codex/confirm-fold/fold_setup.py --resume-corrector binds own original corrector JSON/NPZ, source and input hashes. Repeats all closure/primitive/spectral checks and exact nested AD; FD offsets7e-6,2e-6,7e-7. Worker nice10,4threads,18GiB addressspace,16GiB RSS,1h watchdog; at most8total activecompute threads. Resume only after original ownedworker stopped and receipt recorded. No passage trajectories or counts. New exclusive qualification-A-01 and qualification-B-01 attempts.
+- **Output:** `/data2/neural-shrimp-data/codex/task5-fresh-prediction`
+- **Would surprise us:** Gate failure or evidence of an overlapping FD evaluation; preserve and report rather than silently continue.
+
+_commit `41c1113835e5` (dirty worktree)_
