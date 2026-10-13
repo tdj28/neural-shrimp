@@ -18,7 +18,16 @@ def sha(p):
         for b in iter(lambda:f.read(8*1024**2),b''):h.update(b)
     return h.hexdigest()
 
+def ensure_nice10():
+    """Lower our priority to the exact envelope once; never add ten twice."""
+    current=os.getpriority(os.PRIO_PROCESS,0)
+    if current>10:raise RuntimeError('exact nice10 required; refusing stronger inherited nice value')
+    if current<10:os.nice(10-current)
+    if os.getpriority(os.PRIO_PROCESS,0)!=10:raise RuntimeError('could not establish exact nice10')
+
 def main():
+    # Establish the policy before Git/source-snapshot subprocesses as well.
+    ensure_nice10()
     p=argparse.ArgumentParser();p.add_argument('--attempt',required=True);p.add_argument('--seconds',type=int,default=3600)
     p.add_argument('--precision',type=int,default=384)
     p.add_argument('--driver',choices=['pilot','signed_pilot','center_seed','center_refine','center_resume','box_derivative_pilot','streamed_pilot','proposal_budget','center_secant','derivative_shard','center_continue','gate_budget','assembly'],default='pilot')
@@ -73,7 +82,7 @@ def main():
             CUDA_VISIBLE_DEVICES='',HF_HUB_OFFLINE='1',PYTHONDONTWRITEBYTECODE='1',CERT_SOURCE_COMMIT=head)
     env.pop('PYTHONPATH',None);env.pop('PYTHONHOME',None)
     def limits():
-        os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(18*1024**3,)*2)
+        ensure_nice10();resource.setrlimit(resource.RLIMIT_AS,(18*1024**3,)*2)
     start=time.monotonic();timed_out=False
     with (attempt/'stdout.log').open('wb') as out,(attempt/'stderr.log').open('wb') as err:
         child=subprocess.Popen(command,cwd=source,env=env,stdout=out,stderr=err,preexec_fn=limits,start_new_session=True)

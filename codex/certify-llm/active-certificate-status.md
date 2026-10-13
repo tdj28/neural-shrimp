@@ -15,7 +15,7 @@ The final immutable receipt SHA is `71c1d2e0fba791201f51ad962495dd1210bde8ba73ca
 
 Immutable audit archive: `/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-derivative-p0-c000-001`; manifest `983fc7e3b507837ccd96626835b1665273e0d7dd3e730053efc56aecc11fe309`. Original independent audit JSON SHA `4761bf76bf0390dffe2de9f544766e40f3420a45291b62b1fe5d3cb4fd9c8d30` supplies the dispatcher's first-result measured authority. The process-termination observation is separately retained.
 
-Same-chat follow-through automation: `complete-qwen-p8-certificate`, created by root. It must inspect current live ownership and this durable state before doing work; never dispatch duplicates. Root retains the remaining111 measured resource decision. No campaign is active.
+Same-chat follow-through automation: `complete-qwen-p8-certificate`, created by root. It must inspect current live ownership and this durable state before doing work; never dispatch duplicates. The remaining111 fixed plans and five-worker measured card are prepared in `derivative-campaign-001-plan.json` and `derivative-campaign-001-run-card.md`; Root retains the final concrete plan/resource launch decision. The independently reviewed prospective nice10 and startup command-admission corrections leave all mathematical evaluator sources unchanged. No campaign is active.
 
 ## Completed centers and frozen domain
 

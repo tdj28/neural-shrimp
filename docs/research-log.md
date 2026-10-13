@@ -21689,3 +21689,12 @@ _commit `10f54ed15918`_
 - **Would surprise us:** a passage slope far from the measured 2.235 under any reasonable passage fraction (then the hostile cascade differs quantitatively from the 'is it' mechanism)
 
 _commit `73a2733b5939`_
+
+## 2026-10-13 10:06 UTC: run (exploratory)
+
+- **Question:** Complete the fixed remaining111 whole-box derivative shards for the assigned exact-real Qwen P8 certificate; derivative coverage alone is not an orbit proof.
+- **Setup:** Plan codex/certify-llm/derivative-campaign-001-plan.json SHA6447f41e64a0ade4d1c249a468d9f784c89bc2a640a0f49acef7b6c8d6999770 and measured card derivative-campaign-001-run-card.md. Exactly111 unique canonical assignments, unchanged final-domain002 radius2^-640/map/all151936 vocabulary/1024-bit Arb. Five CPU1/nice10 workers plus two control slots, each18GiB AS and3600s; aggregate sampled RSS34GiB, available12GiB,20h whole deadline,60s registration,120s receipt,2s samples,24GiB raw and100GiB disk floor. First audited cold1693.966s/5419044KiB; factors1.5 time/1.25 RSS/2 storage yield18.12h forecast and32.80GiB sampled RSS. Prospective nice and bounded startup command-race deltas independently reviewed; original first source unchanged. Plans/card must be privately pushed, dedicated clean Task5 checkout fast-forwarded and held fixed, current host and ownership rechecked, and root concrete-plan approval obtained before any launch. No retry, domain change, paid/GPU work or other-owner interference.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/derivative-campaign-001`
+- **Would surprise us:** A failed/nonfinite shard, source/domain mismatch, resource breach or uncertain ownership stops dispatch and is preserved; completing derivatives still requires full independent coverage and strict root/primitive/attraction gates.
+
+_commit `7838b2ee6924` (dirty worktree)_

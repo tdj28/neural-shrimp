@@ -348,7 +348,7 @@ class Dispatcher:
     def save(self):
         rows = []
         for c in self.children:
-            rows.append({k: v for k, v in c.items() if k in ('row', 'state', 'registered', 'launcher_pid', 'launcher_command', 'launcher_identity', 'worker_identity', 'receipt', 'error', 'launcher_exit', 'worker_termination_verified')})
+            rows.append({k: v for k, v in c.items() if k in ('row', 'state', 'registered', 'launcher_pid', 'launcher_command', 'launcher_identity', 'launcher_command_admitted', 'launcher_command_admitted_at', 'launcher_command_observations', 'worker_identity', 'receipt', 'error', 'launcher_exit', 'worker_termination_verified')})
         write(self.out/'state.json', dict(certificate_passed=False, started_monotonic=self.started, elapsed_seconds=time.monotonic()-self.started,
             stop_reason=self.stop_reason, uncertain_ownership=self.uncertain, sampled_peak_aggregate_rss=self.peak_rss,
             sampled_rss_is_hard_cap=False, rows=rows))
@@ -367,19 +367,38 @@ class Dispatcher:
         # that can fail. The unreaped direct child is still ours on that path.
         child = dict(row=row, attempt=attempt, p=p, leader=None, worker=None, stdout=stdout, stderr=stderr,
             born=time.monotonic(), state='spawned_unregistered', registered=False, launcher_pid=p.pid,
-            launcher_command=command, worker_termination_verified=False)
+            launcher_command=command, launcher_command_admitted=False, launcher_command_observations=[], worker_termination_verified=False)
         self.children.append(child); self.save()
         self.ensure_leader(child); child['state'] = 'registering'; self.save()
         return child
     def ensure_leader(self, c):
-        if c['leader'] is not None: return
+        if c.get('launcher_command_admitted'): return True
         q = proc(c['p'].pid)
         if q is None or q['ppid'] != os.getpid() or q['uid'] != os.getuid() or q['sid'] != q['pid'] or q['pgid'] != q['pid']:
             raise RuntimeError('direct launcher child identity unavailable')
-        if q['state'] != 'Z': same([os.fsdecode(v) for v in q['command']], c['launcher_command'], 'actual launcher command')
-        c['leader'] = Identity(q); c['launcher_identity'] = serial_identity(q); self.save()
+        if c['leader'] is None:
+            # Birth/pidfd ownership is established immediately for cleanup even
+            # when /proc exposes a transient empty or stale post-exec command.
+            c['leader'] = Identity(q); c['launcher_identity'] = serial_identity(q); self.save()
+        elif any(q[k] != c['leader'].value[k] for k in ('pid', 'start', 'uid', 'sid', 'pgid')):
+            raise RuntimeError('launcher birth identity changed before command admission')
+        if q['state'] == 'Z': raise RuntimeError('launcher exited before exact command admission')
+        actual = [os.fsdecode(v) for v in q['command']]
+        observations = c['launcher_command_observations']
+        if not observations or observations[-1]['command'] != actual:
+            observations.append(dict(elapsed_seconds=time.monotonic()-c['born'], command=actual))
+        if time.monotonic()-c['born'] >= self.r['registration_seconds']:
+            self.save()
+            if actual != c['launcher_command']:
+                raise RuntimeError('persistent launcher command mismatch at registration deadline')
+            raise RuntimeError('exact launcher command arrived after registration deadline')
+        if actual != c['launcher_command']:
+            self.save(); return False
+        c['launcher_command_admitted'] = True
+        c['launcher_command_admitted_at'] = time.monotonic()
+        self.save(); return True
     def register(self, c):
-        self.ensure_leader(c)
+        if not self.ensure_leader(c): return False
         path = c['attempt']/'manifest.json'
         if not path.exists(): return False
         try: m = read(path)
@@ -437,9 +456,14 @@ class Dispatcher:
         new worker. A live direct child with the exact command can be recovered.
         Other-session unknown children make ownership unresolved, not successful.
         """
-        try: self.ensure_leader(c)
+        try:
+            if c['leader'] is None: self.ensure_leader(c)
         except Exception as exc:
-            self.uncertain.append(dict(attempt=c['row']['attempt'], launcher_pid=c['p'].pid, reason='launcher identity still unavailable', error=repr(exc))); return
+            c['error'] = repr(exc)
+            if c['leader'] is None:
+                self.uncertain.append(dict(attempt=c['row']['attempt'], launcher_pid=c['p'].pid, reason='launcher identity still unavailable', error=repr(exc))); return
+        # A command-unadmitted but birth-verified direct Popen child is still
+        # ours for cleanup; it never gains scientific/dispatch admission here.
         parent = c['leader'].live()
         if not parent:
             self.uncertain.append(dict(attempt=c['row']['attempt'], reason='launcher died before registration; possible orphan not certified terminated')); return
@@ -573,7 +597,13 @@ def seal(out, result):
         if p.is_file(): p.chmod(0o444)
 
 
+def require_controller_nice10():
+    if os.getpriority(os.PRIO_PROCESS, 0) != 10:
+        raise RuntimeError('campaign controller must be launched at exact nice10')
+
+
 def main():
+    require_controller_nice10()
     began = time.monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plan', type=Path, required=True); parser.add_argument('--plan-sha256', required=True)
@@ -588,10 +618,6 @@ def main():
         if args.plan.resolve().parent != HERE or args.plan.is_symlink(): raise ValueError('committed campaign plan required')
         if sha(args.plan) != args.plan_sha256: raise ValueError('literal original campaign plan hash required')
         for k in THREAD_ENV: os.environ[k] = '1'
-        # Unchanged launch.py adds ten nice units in the worker, so its parent
-        # must start at zero. The supervisor performs only bounded control work.
-        if os.getpriority(os.PRIO_PROCESS, 0) != 0:
-            raise RuntimeError('unchanged launcher requires nice0 controller to create exact nice10 worker')
         hard = resource.getrlimit(resource.RLIMIT_AS)[1]
         if hard != resource.RLIM_INFINITY and hard < 18*1024**3: raise RuntimeError('inherited hard AS too small for unchanged launcher')
         resource.setrlimit(resource.RLIMIT_AS, (1024**3, 18*1024**3))

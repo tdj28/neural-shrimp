@@ -331,3 +331,60 @@ def test_failed_log_write_still_cleans_every_owned_process(tmp_path,monkeypatch)
     assert r['status']=='campaign_failed_uncertain_ownership'
     assert any('log write' in v['reason'] for v in r['uncertain_ownership'])
     assert_closed(d)
+
+
+@pytest.mark.parametrize('observed',[[],[b'transient-not-yet-final-command']])
+def test_initial_command_transient_defers_exact_admission_without_next_dispatch(tmp_path,monkeypatch,observed):
+    d=lifecycle(tmp_path,['ok','ok'],[.6,.6]);original=C.proc;first=[None];reads=[0]
+    def proc(pid,*,command=True):
+        q=original(pid,command=command)
+        if q and q['ppid']==os.getpid() and q['sid']==pid and command:
+            if first[0]is None:first[0]=pid
+            if pid==first[0] and reads[0]<6:
+                reads[0]+=1;return dict(q,command=observed)
+        return q
+    monkeypatch.setattr(C,'proc',proc)
+    r=d.run()
+    assert r['status']=='campaign_completed' and r['started']==2
+    a,b=d.children
+    assert a['launcher_command_observations'][0]['command']==[os.fsdecode(v)for v in observed]
+    assert a['launcher_command_observations'][-1]['command']==a['launcher_command']
+    assert a['launcher_command_admitted'] and a['launcher_command_admitted_at']<=b['born']
+    assert a['registered'] and a['worker_termination_verified']
+    assert_closed(d)
+
+
+def test_persistent_command_mismatch_fails_and_cleans_birth_owned_child(tmp_path,monkeypatch):
+    d=lifecycle(tmp_path,['ok','ok'],[5,5]);d.r['registration_seconds']=.15
+    original=C.proc
+    def proc(pid,*,command=True):
+        q=original(pid,command=command)
+        if q and q['ppid']==os.getpid() and q['sid']==pid and command:
+            return dict(q,command=[b'persistent-wrong-command'])
+        return q
+    monkeypatch.setattr(C,'proc',proc)
+    r=d.run()
+    assert r['status']=='campaign_failed' and r['started']==1 and r['undispatched']==1
+    assert 'persistent launcher command mismatch' in r['stop_reason']
+    c=d.children[0]
+    assert not c['launcher_command_admitted'] and c['launcher_identity']
+    assert c['worker_termination_verified'] and (c['attempt']/'receipt.json').exists()
+    assert_closed(d)
+
+
+
+def test_exact_command_after_registration_deadline_is_not_admitted(tmp_path,monkeypatch):
+    d=lifecycle(tmp_path,['ok','ok'],[5,5]);original=C.proc
+    def empty(pid,*,command=True):
+        q=original(pid,command=command)
+        return dict(q,command=[]) if q and q['ppid']==os.getpid() and q['sid']==pid and command else q
+    with monkeypatch.context()as m:
+        m.setattr(C,'proc',empty)
+        c=d.start(d.plan['assignments'][0])
+    assert not c['launcher_command_admitted']
+    c['born']-=2*d.r['registration_seconds']
+    r=d.run()
+    assert r['status']=='campaign_failed' and r['started']==1
+    assert 'exact launcher command arrived after registration deadline' in r['stop_reason']
+    assert not c['launcher_command_admitted'] and c['worker_termination_verified']
+    assert_closed(d)
