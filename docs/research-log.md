@@ -21742,3 +21742,18 @@ _commit `b4015bf89a00` (dirty worktree)_
 Sourceafdaa76fcb7b552071bf8e81ad5ff58f02dde19a, plan2885a7a628d1c0702cf4359674371474a4aa08c8b2d199be6553134f1390d050, isolated clean Task5 execution checkout. Root approved after all operational reviews and preserved001 closure; exact frozen/private-remote, first-result authority and fresh59.58GB MemAvailable admission passed. Tool20078/controller486164 start183333706, five independently verified workers486722/487052/487378/487704/488040; each actual nice10/18GiBsoft+hard/one OS thread and numerical threads1, controller1GiBsoft/18GiBhard. Startup archive manifest5daa1fc394be20a72eb1284162e73e0b660042e4adaa62fd562108fb6b0d3de5; available35.34GB after loading. Fixed CPU7 total,34GiB sampledRSS/12GiB available,20h campaign/3600sworker and no automatic retry. No partial numerical outcomes read. Original campaign001 failed before target creation and remains preserved; first audited shard unchanged. Same-chat automation now30min, resolves current owner/state rather than duplicate dispatch. No GPU/paid resources or certificate yet.
 
 _commit `afdaa76fcb7b` (dirty worktree)_
+
+## 2026-10-13 10:40 UTC: Huginn GSM8K development run H1: setup failure (zero-shot prompt elicits no reasoning); redone with the lm-eval 8-shot chain-of-thought format
+
+Run H1 (pod 6505rt4djs3ky7, 13621 s, commit 1625b794, hashes match, terminated): zero-shot prompt 'Solve the following math problem step by step... Answer:', 75 of 150 train problems completed in all six arms before the time limit. Every arm scored 1-3/75 (native 2/75) and every generation ran to the 256-token cap: the base model answered at once ('The answer is 126.') without reasoning, then invented further question-answer pairs. The run measures nothing about the instability; retained as a failed setup (spend in the private ledger). Fix: the 8-shot chain-of-thought format of lm-evaluation-harness gsm8k_cot (exemplars verbatim from lm_eval/tasks/gsm8k/gsm8k-cot.yaml, SHA-256 7c9dd256..., 'Q: ...\nA:', generation until 'Q:', strict 'The answer is N' and flexible last-number extraction; commit 983b8beb). Local CPU smoke (train 0-1, r = 8, float32): the model reasons and stops after about 50 tokens ('... 48 + 24 = 72. The answer is 72.'), 1/2 correct.
+
+_commit `983b8beb745c`_
+
+## 2026-10-13 10:40 UTC: run (exploratory)
+
+- **Question:** Huginn causal test, GSM8K development with the proper 8-shot CoT format: does generation accuracy at 32 recurrence steps change with relaxation as the GSM8K spectra predict (lam_c 1.074-1.126: no loss at 1.05, loss beyond about 1.1; 0.8 slower)? TAPS reported a collapse at 1.2 and a loss at 0.8.
+- **Setup:** RunPod H100 (run H1b), job set huginn, commit 983b8beb: accuracy --split train --start 0 --count 150 --steps 32 --lams 1.0 0.80 1.05 1.10 1.15 1.20 --interleave --prompt-style cot8 --max-new 256 --seed 0 (greedy, bfloat16, paired initial states)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/huginn/gsm8k-dev-cot8-r32`
+- **Would surprise us:** no accuracy change up to 1.20 (generation as tolerant as scoring), or a loss already at 1.05
+
+_commit `983b8beb745c` (dirty worktree)_
