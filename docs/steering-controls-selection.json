@@ -1,0 +1,62 @@
+{
+ "sae": "goodfire-l19",
+ "profiles": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-p/sae-profile/profiles.json",
+ "profiles_sha256": "036b07d0d8e4237bfe8f9bfe69d66c4fba9ca82ac98fed6d59993a2a22da3146",
+ "rule": "For a target category c, feature f scores profile_f[c] minus the largest profile_f over the other categories, leaving out the related ones in RELATED (hostility: swearing); the highest score wins (ties: lower ID). Also: the hostility feature's index neighbour (ID + 1) and a random live feature (numpy default_rng(0), uniform over the features with any nonzero profile entry, sorted by ID).",
+ "related": {
+  "hostility": [
+   "swearing"
+  ],
+  "philosophy": []
+ },
+ "seed": 0,
+ "features": {
+  "hostility": {
+   "feature": 37512,
+   "score": 0.26873,
+   "profile": {
+    "gratitude": 0.0,
+    "hostility": 0.26873,
+    "kindness": 0.0,
+    "philosophy": 0.0,
+    "cooking": 0.0,
+    "neutral": 0.0,
+    "politeness": 0.0,
+    "sadness": 0.0,
+    "swearing": 0.0057
+   },
+   "runner_up": {
+    "feature": 27700,
+    "score": 0.25607
+   }
+  },
+  "philosophy": {
+   "feature": 46250,
+   "score": 0.39608,
+   "profile": {
+    "gratitude": 0.0,
+    "hostility": 0.0,
+    "kindness": 0.0,
+    "philosophy": 0.39608,
+    "cooking": 0.0,
+    "neutral": 0.0,
+    "politeness": 0.0,
+    "sadness": 0.0,
+    "swearing": 0.0
+   },
+   "runner_up": {
+    "feature": 24223,
+    "score": 0.21974
+   }
+  },
+  "random_live": {
+   "feature": 55786,
+   "pool": 14993
+  },
+  "neighbour": {
+   "feature": 37513,
+   "of": 37512,
+   "profile": null
+  }
+ }
+}

@@ -392,6 +392,53 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
       cut -c1-300 "$OUT/$crun/cusp-check.jsonl"
     done
     ;;
+  llamactrl)   # steering controls at the Goodfire SAE's layer (run C1): JOBARGS NAME MINUTES SCAN-ARGS...; official gated
+               # weights (token on stdin, unset after the download) and the Goodfire layer-19 SAE (revisions as llama8b);
+               # concept vectors at layer 19 of 32 built exactly as llama8b's layer-16 ones, then the frozen SAE feature
+               # directions (docs/steering-controls-selection.json) and norm-matched Gaussian directions
+               # (tools/steering_controls.py build), then one float64 scan into controls/NAME
+    LREV=0e9e39f249a16976918f6564b8830bc894c89659
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('meta-llama/Llama-3.1-8B-Instruct', revision='$LREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'])" > "$LOGS/setup-llama.log" 2>&1
+    unset HF_TOKEN
+    lrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/refs
+    mkdir -p "$lrefs" && printf %s "$LREV" > "$lrefs/main"
+    SAED=$NEURAL_SHRIMP_DATA/models/sae
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import hf_hub_download
+hf_hub_download('Goodfire/Llama-3.1-8B-Instruct-SAE-l19', 'Llama-3.1-8B-Instruct-SAE-l19.pth',
+                revision='f6775a221e47b44233af4bac2c7b65189265519a', local_dir='$SAED/goodfire-8b-l19')" \
+      > "$LOGS/setup-sae.log" 2>&1
+    (cd $NEURAL_SHRIMP_DATA/models && sha256sum sae/goodfire-8b-l19/*.pth \
+      hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/$LREV/model-*.safetensors) | tee "$LOGS/llama-sae-sha256.txt"
+    cvec=llm-phase-map/vectors-llama3.1-8b-l19
+    TOOL=explore_llm_phase_map.py run ctrl-vectors 30 vectors --model llama3.1-8b --layer 19 --device cuda \
+      --dtype float64 --contrasts hostility:kindness --random 3 --out $cvec
+    TOOL=steering_controls.py run ctrl-build 15 build --concept-vectors $cvec --sae-kind goodfire \
+      --sae-path $SAED/goodfire-8b-l19/Llama-3.1-8B-Instruct-SAE-l19.pth --layer 19 \
+      --selection docs/steering-controls-selection.json --out llm-soft-loop/controls/vectors-llama8b-l19
+    mkdir -p "$OUT/$D/controls/${JOBARGS[0]}"
+    cp -r "$OUT/$cvec" "$OUT/$D/controls/${JOBARGS[0]}/concept-vectors"
+    cp -r "$OUT/llm-soft-loop/controls/vectors-llama8b-l19" "$OUT/$D/controls/${JOBARGS[0]}/vectors"
+    run llamactrl-${JOBARGS[0]} "${JOBARGS[1]}" scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 \
+      --model llama3.1-8b --layer 19 --vectors llm-soft-loop/controls/vectors-llama8b-l19 "${JOBARGS[@]:2}" \
+      --out $D/controls/${JOBARGS[0]}/scan
+    ;;
+  anymap)      # one float64 scan of an ungated model (run C1): JOBARGS NAME REPO REV MINUTES SCAN-ARGS...; downloads
+               # REPO@REV (pinned; REPO '-': already cached), then the scan with free arguments into controls/NAME
+    name=${JOBARGS[0]}; repo=${JOBARGS[1]}; rev=${JOBARGS[2]}; minutes=${JOBARGS[3]}
+    if [ "$repo" != "-" ]; then
+      HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" > "$LOGS/setup-$name.log" 2>&1
+      refs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${repo//\//--}/refs
+      mkdir -p "$refs" && printf %s "$rev" > "$refs/main"
+    fi
+    run anymap-$name "$minutes" scan --device cuda --dtype float64 --tol 1e-8 --eps 1e-6 "${JOBARGS[@]:4}" \
+      --out $D/controls/$name
+    ;;
   llamamap)    # Llama-3.1-8B-Instruct high-resolution map tile (run L14): JOBARGS NAME MINUTES SCAN-ARGS...; official
                # gated weights (token on stdin, unset after the download), vectors uploaded from run L13
                # (llm-soft-loop/pod64/llama8b-b/vectors); one float64 scan tile into llama8b-hires/NAME
