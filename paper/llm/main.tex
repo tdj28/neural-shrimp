@@ -28,7 +28,7 @@
 in float64 (evidence rung 1 or 2 in the sense of Section~\ref{sec:evidence}); float32 maps say so,
 Huginn's spectra are float32 and its accuracy runs bfloat16, and the dialogue results are sampled statistics with
 stated intervals. \planned{Red} marks planned work and \inprogress{orange} marks running work. Nothing here is a
-computer-assisted proof yet.
+computer-assisted proof except the period-8 orbit of Table~\ref{tab:orbits} (rung 3, Section~\ref{sec:evidence}).
 
 \begin{abstract}
 What dynamical structures organize repeated inference in a pretrained language model? We study an exactly defined
@@ -36,18 +36,18 @@ autonomous system: the expected next-token embedding of a frozen model is fed ba
 prefix. Its temperature--steering plane contains periodic text loops among numerically chaotic regimes, in Qwen2.5
 models of 0.5B to 7B parameters, OLMo-2 7B and Llama-3.1 8B. Numerical continuation links a period-adding family to
 the fold of a primitive two-cycle, whose derivatives predict controlled bottleneck passages without fitting (at two
-new folds, 23 of 24 prospectively frozen forecasts within one iterate, failing the all-row criterion). Windows,
-including a hostile one, show shrimp-like organization: fold curves ending in numerically nondegenerate cusps, and
-flip curves; the hostile one holds a doubling cascade to chaos. Superstable points through period 384 give ratios
-approaching Feigenbaum's constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker
-bifurcation, each question's convergence under relaxation and the relaxation range where chain-of-thought accuracy
-breaks; a frozen test on held-out data confirms the last two. In sampled self-dialogue, hostility steering yields
-dose-dependent persistence and history dependence. Replacing classifier-flagged replies before they enter the context
-lowers the model's own hostility far more per unit of steering than constant prevention, in two model sizes where the
-dose response rises; past its peak, counter-steering backfires. A frozen confirmation finds a small increment in
-warning from the model's in-context state; finite Monte Carlo committor estimates leave the attainable ceiling
-unresolved. These results connect inference dynamics to testable mechanisms and practical control, without identifying
-the constructed map with ordinary autoregressive generation.
+new folds, 23 of 24 prospectively frozen forecasts within one iterate, failing the all-row criterion). Interval
+arithmetic proves one period-8 orbit of the family exists and is locally attracting. Windows, including a hostile one,
+show shrimp-like organization: fold curves ending in numerically nondegenerate cusps, and flip curves; the hostile one
+holds a doubling cascade to chaos. Superstable points through period 384 give ratios approaching Feigenbaum's
+constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker bifurcation, each
+question's convergence under relaxation and the relaxation range where chain-of-thought accuracy breaks; a frozen test
+on held-out data confirms the last two. In sampled self-dialogue, hostility steering yields dose-dependent persistence
+and history dependence. Replacing classifier-flagged replies before they enter the context lowers the model's own
+hostility far more per unit of steering than constant prevention, in two model sizes where the dose response rises;
+past its peak, counter-steering backfires. A frozen confirmation finds a small increment in warning from the model's
+in-context state. These results connect inference dynamics to testable mechanisms and control, without identifying the
+constructed map with ordinary autoregressive generation.
 \end{abstract}
 
 \section{Introduction}
@@ -77,7 +77,8 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
 \item Phase maps of the soft-token map in temperature and steering strength, in float64, showing chaos with
   embedded periodic windows (Section~\ref{sec:maps}).
 \item A period-adding family of primitive periodic orbits whose text adds one ``is X'' pair per period step,
-  with multipliers from the monodromy matrix (Section~\ref{sec:adding}).
+  with multipliers from the monodromy matrix (Section~\ref{sec:adding}); a computer-assisted proof establishes
+  one of them, a primitive, locally attracting period-8 orbit (Section~\ref{sec:evidence}).
 \item The mechanism: the 2-cycle ``is it'' dies in a fold; its normal form, computed from derivatives, predicts
   bottleneck passage times; the global reinjection sets the window-law prefactor (Section~\ref{sec:mechanism}).
 \item Fold and flip curves of periodic orbits continued in the parameter plane with float64 test functions: a
@@ -286,7 +287,7 @@ current all-float64 map (norms and rotary tables patched): Newton residuals $6\t
 leading multiplier $\mu_1$ and next modulus $|\mu_2|$ from Rayleigh--Ritz values. Each step in period adds one ``is
 X'' pair to the text. The 2-cycle ``is it'' itself has multipliers $-0.2706$ and $-0.0585$ at
 $(\log_{10}T,\alpha)=(-0.17263,0.061579)$. The period-2 and period-8 orbits were also reproduced by an independent
-implementation (Section~\ref{sec:evidence}).}
+implementation, and the period-8 orbit is certified by a computer-assisted proof (Section~\ref{sec:evidence}).}
 \label{tab:orbits}
 \end{table}
 
@@ -1235,8 +1236,8 @@ float64 computations validated by step-size checks (rung 1; no independent imple
 cusp coefficients), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
 and three float64 orbits at 7B, and coarse maps only for two other families (OLMo-2 7B and Llama-3.1 8B); one prompt and one steering construction for the maps; a constructed one-token-window system;
-numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), but no
-computer-assisted proof yet. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
+numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), and
+a computer-assisted proof for only one orbit at one parameter point. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
 within 1\,\%); the limit itself is not computed. The behavioural study uses
 two small models of one family (0.5B and 1.5B), one opener and a proxy defined by two automated classifiers without
 human labels; its first lead-time test is negative, and the confirmed
@@ -1260,6 +1261,18 @@ We label claims by an evidence ladder: rung 1, numerically validated (tolerances
 precision varied); rung 2, cross-checked (independent estimate, implementation or hardware); rung 3,
 computer-assisted proof.
 \begin{itemize}
+\item Rung 3: the period-8 stripe orbit of Table~\ref{tab:orbits}. At $\alpha=0.071674$ and $\log_{10}T=-0.115$,
+  read as exact binary64 rationals, the expected-embedding map of the stored Qwen2.5-0.5B-Instruct checkpoint (all 24
+  layers, the full 151\,936-token readout, the fixed 37-token prefix, steering after block 12) has a primitive
+  period-8 orbit, which is the unique multiple-shooting root in a product of eight boxes of coordinate radius
+  $2^{-640}$ around refined centres, and the orbit is locally attracting. Ball arithmetic (Arb
+  \cite{johansson2017arb}) encloses the map and its Jacobian over each box ($8\times896$ directions); a Krawczyk-type
+  inclusion for the preconditioned shooting system gives existence and uniqueness, separation of the first point
+  from the points one, two and four steps later gives the primitive period, and a norm bound on powers of the
+  enclosed monodromy gives attraction. An independent audit in exact rational arithmetic rechecked the saved
+  witnesses. The proof trusts the Python, FLINT and Arb stack and the stored weights. It does not exclude other
+  period-8 points in the first box, and it says nothing about the window's boundaries or global organization
+  (record: \path{certificates/llm-p8-certificate-final-001.json}).
 \item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
   also follows from the stable-branch multipliers. The controlled passage counts: the reimplementation reproduces all
@@ -1281,10 +1294,6 @@ computer-assisted proof.
   (Section~\ref{sec:misalignment}), whose design was pushed before the data and amended, before any outcome was read,
   to correct a labelling error.
 \end{itemize}
-\inprogress{interval (Arb ball \cite{johansson2017arb}) proof of the period-8 stripe orbit (rung 3): the
-multiple-shooting centre is refined to a rigorous upper bound on the point residual below $10^{-210}$, the isolating
-box (radius $2^{-640}$) is fixed, and the derivative enclosures over that box are complete; the final assembly with the
-inclusion, primitive-period and attraction gates is running.}
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
 \path{tools/explore_latent_loop.py}, \path{tools/explore_llm_msm.py}, \path{tools/hostility_score.py},
 \path{tools/p1_committor.py}, \path{tools/p1_controller.py}, \path{tools/p1_degeneracy.py},

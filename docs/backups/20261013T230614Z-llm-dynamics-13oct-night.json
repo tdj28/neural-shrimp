@@ -1,0 +1,42 @@
+{
+ "status": "verified",
+ "started_utc": "20261013T230614Z",
+ "completed_utc": "2026-10-13T23:26:36.525935+00:00",
+ "source": "/data2/neural-shrimp-data",
+ "destination": "/archive/neural-shrimp-backups/20261013T230614Z-llm-dynamics-13oct-night",
+ "excluded_roots": [
+  "models",
+  "envs"
+ ],
+ "rsync_returncode": 0,
+ "rsync_stderr_tail": "",
+ "link_dest": "/archive/neural-shrimp-backups/20261013T193246Z-llm-dynamics-13oct-evening/raw-data",
+ "file_count": 944963,
+ "verified_files": 944963,
+ "bytes": 141779755047,
+ "symlink_count": 11,
+ "hash_mismatches": [],
+ "errors": [],
+ "changed_during_copy": [
+  "runpod/known_hosts",
+  "runpod/pods.jsonl",
+  "runpod/soft64/20261013T230530Z/runner-stdout.txt"
+ ],
+ "changed_during_copy_count": 3,
+ "new_during_copy_count": 65,
+ "private_files": [
+  "cost-ledger.md",
+  "checkpoint.md",
+  "Handoff.md"
+ ],
+ "manifest_sha256": "72846ef95046ce41c9791f9fca64131e53cce832b6e09a21d459957a711238a5",
+ "elapsed_seconds": 1221.8,
+ "source_commit_at_copy": "f5a9885a213e21aa8033cbf4ab795352ac4227fe",
+ "verification": "complete SHA-256 comparison of every regular source file with its copy; source sizes and mtimes re-inventoried after hashing (changed files listed, not claimed verified)",
+ "physical_storage": {
+  "source": "nvme1n1",
+  "destination": "sda",
+  "basis": "lsblk, 13 Oct 2026 (as in docs/backups/2026-10-08-local-archive.json)"
+ },
+ "scope": "Full data root except model caches and environments; same-machine separate physical disk; not offsite or continuous."
+}
