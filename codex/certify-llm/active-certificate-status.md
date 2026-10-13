@@ -53,7 +53,8 @@ privately integrated at495e5bea): Task8 independent frozen Huginn statistical
 replay has completed its synthetic profile under `codex/huginn-independent-replay/` (16:19UTC,0.840s,72,936KiB,source d03f8f3c, no target access); actual replay waits immutable archives;
 Task11 second-classifier sensitivity audit is in the owned Task6 worktree
 `codex/p1-second-classifier-audit/`; Task13 source-bound manuscript/citation
-review is in the owned Task7 worktree `codex/paper-review/`. Task9/10/12 remain
+review is complete and delivered in `codex/paper-review/`, source1491f379, packet
+cead1c3d38c865c262fca72d1abb40e130cf936b, manifest05c8341dc036ca593e6f1229466d6d55b9a557fae8384fe5433ce096c5ed6314; standalone Claude delivery8a286951d126060e16118ecd2a8caac7dd83d04c. No manuscript edits or Huginn test-outcome reads. Task9/10/12 remain
 Claude's, and none was started by Codex. These are local CPU tasks, no paid
 launch, model/scoring job, pod inspection/control/relaunch or GPU use. Actual
 Task8/11 replays wait for complete immutable input authority and Root-reviewed
@@ -62,10 +63,13 @@ slots including supervisors, total at most12, with explicit memory/headroom
 bounds and Task1 priority. Task11 has read the producer's16:00 summary as
 context, not independent evidence; no threshold/model retuning. Task11 now has the producer
 44-score manifest c9033138 and writer-complete declaration plus an independent
-198-file hash inventory. Its source and single synthetic profile are reviewed;
-actual arrays still await measured card admission. Task8 has released its two
-auxiliary CPU slots after verified profile closure; Task11 owns the next profile
-only after its source/card private checkpoint. Cancellation concern was checked
+198-file hash inventory. Its source and completed synthetic profile are reviewed;
+Root admitted exactly descriptive-001 then exploratory l8-primary-001 under
+unchanged source29e2bffd,300s/4GiB/CPU1+supervisor each,20/16GiB headroom.
+Boundary receives the sequential two-slot lifecycle lease after private cards/log
+checkpoint; no retries or model/scoring calls. Task8 actual replay remains
+unadmitted pending immutable archives; source-only adapter/comparator preparation
+continues. Task1 resource and frozen source leases remain unchanged. Cancellation concern was checked
 at15:56:25UTC: current controller and all five workers remain healthy; no job
 was replaced. Completed review agents had finished normally.
 

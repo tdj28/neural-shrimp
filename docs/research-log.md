@@ -22178,3 +22178,21 @@ _commit `d03f8f3c974b` (dirty worktree)_
 - **Would surprise us:** Pending synthetic cost measurement; no scientific result.
 
 _commit `29e2bffdd45e` (dirty worktree)_
+
+## 2026-10-13 16:29 UTC: run (exploratory)
+
+- **Question:** Task11 independent second-classifier descriptive sensitivity under frozen definitions
+- **Setup:** Root accepted measured card descriptive-001-card.json; source 29e2bffdd45efb630e8ed9967cf720da21086f92; immutable input inventory93facfe72743e25dcd4025b2ae22db09d387e2edd32818b7069469f091c30ab9. Sequential descriptive then exploratory L8, one worker plus supervisor,nice10,4GiB,300s,64MiBraw,20GiB startup16GiB runtime; no model scoring, no retry. Producer16:00 summary exposure disclosed; no hypothesis/threshold retuning. Keep all failed/undefined fits and original outputs, verify unchanged source/input hashes and owned closure.
+- **Output:** `/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001`
+- **Would surprise us:** Pending actual saved-data reproduction; synthetic profile6.679s/303595520B measured, forecast within300s.
+
+_commit `8a286951d126` (dirty worktree)_
+
+## 2026-10-13 16:29 UTC: run (exploratory)
+
+- **Question:** Task11 independent second-classifier l8 sensitivity under frozen definitions
+- **Setup:** Root accepted measured card l8-primary-001-card.json; source 29e2bffdd45efb630e8ed9967cf720da21086f92; immutable input inventory93facfe72743e25dcd4025b2ae22db09d387e2edd32818b7069469f091c30ab9. Sequential descriptive then exploratory L8, one worker plus supervisor,nice10,4GiB,300s,64MiBraw,20GiB startup16GiB runtime; no model scoring, no retry. Producer16:00 summary exposure disclosed; no hypothesis/threshold retuning. Keep all failed/undefined fits and original outputs, verify unchanged source/input hashes and owned closure.
+- **Output:** `/data2/neural-shrimp-data/codex/p1-second-classifier-audit/l8-primary-001`
+- **Would surprise us:** Pending actual saved-data reproduction; synthetic profile6.679s/303595520B measured, forecast within300s.
+
+_commit `8a286951d126` (dirty worktree)_

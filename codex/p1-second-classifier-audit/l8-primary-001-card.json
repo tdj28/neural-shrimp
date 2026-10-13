@@ -1,7 +1,7 @@
 {
-  "status": "prepared",
-  "acceptance_reference": null,
-  "source_commit": null,
+  "status": "accepted_by_root",
+  "acceptance_reference": "2026-10-13 Root read measured cards c9f884ff/4a3ba27d and completed synthetic receipt255557c1. Exactly descriptive-001 then l8-primary-001 sequentially after private checkpoint/current capacity,300s CPU1+supervisor/nice10/4GiB/64MiB/20-16GiB each; no retry. All failures and undefined fits retained. Root reviews actual evidence before claims.",
+  "source_commit": "29e2bffdd45efb630e8ed9967cf720da21086f92",
   "cpu_threads": 1,
   "nice": 10,
   "as_bytes": 4294967296,
@@ -31,5 +31,28 @@
     "path": "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/p1-second-classifier-audit/inputs-001.json",
     "sha256": "93facfe72743e25dcd4025b2ae22db09d387e2edd32818b7069469f091c30ab9"
   },
-  "profile_authority": null
+  "profile_authority": {
+    "worker": {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/profile-001/result.json",
+      "sha256": "96b1317403a421f6c03b970cea330584d37ede834bff66d82a9245ab22aada01"
+    },
+    "owner": {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/profile-001-owner/result.json",
+      "sha256": "4896c3c4598a8af864e4ff40fed14c7c5e8f7cd6484f6d2f967e06889ea5e2f4"
+    },
+    "card": {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/profile-001/run-card.json",
+      "sha256": "f84f92232f8d0bd093466740618c08c1fea624901589ef518e77edcf01904d5a"
+    },
+    "descriptive": {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/profile-001/profile-descriptive.json",
+      "sha256": "99038d8a5f17a36f65b458a5bf043f2bd5d0336327d29b5258a658dfb4b1fc68"
+    },
+    "detection": {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/profile-001/profile-detection.json",
+      "sha256": "2d08b9b1f8d0154227ca3f7f3e0b75ffb9fd107f13e3571cc2f4eb58c7cf8caf"
+    }
+  },
+  "measured_forecast_seconds": 50.93841442745179,
+  "measured_memory_forecast_bytes": 1144061952
 }

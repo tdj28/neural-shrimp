@@ -1,28 +1,11 @@
 # Task11 active status — 2026-10-13
 
-Source preparation is complete for review. No owned profile/target worker, model
-call, scoring run, or target array analysis has started. Inference is the sole
-Git owner; the old Task6 evidence and Task1 execution checkout are untouched.
+Synthetic profile-001 completed and reaped under source29e2bffdd45efb630e8ed9967cf720da21086f92 and private admission026801fdc390f1683bc6ba223d98f7539fc472de. No active owned worker or auxiliary CPU reservation remains. Both launcher721645/start185533720 and worker721646/start185533724 were absent after closure. Raw evidence is read-only; profile-001-receipt.json binds all10 artifacts.
 
-The producer attested completion of all44 second-score files at source
-feac2a796e4aa673e2d7f44654a9dc06b2070416. Its exact manifest SHA is
-c90331389be2b2a6496c1b02925d99766252d945ea5a7b1c3698a5547af044ad.
-Metadata-only local admission hashed all198 required inputs (621,125,151bytes)
-and matched all44 second-score hashes to that closed producer manifest. No
-arrays were decoded. inputs-001.json binds that inventory, the writer closure
-statement and all44 actual sample-argument records. Producer-summary exposure
-is disclosed in plan.md; it is not an independent result.
+Profile measured6.679s/303,595,520B peak workerRSS. Forecasts: descriptive35.759s; L850.938s; memory1,144,061,952B. Synthetic logistic fits took only2 iterations each and cannot guarantee actual fit time; the proposed300s external hard bounds remain authoritative. There have been no target array reads, model calls, scoring jobs or robustness results.
 
-All20 tiny source/logic/lifecycle controls passed in0.94s. Root's final requested
-empty-test refusal and convergence-dependent scientific disposition are included;
-failed-fit scores/warnings remain saved. L10 regeneration5–39 is also retained.
+All198 input hashes and44 producer-score hashes are pinned by inputs-001.json, including the exact feac2a79 producer closure/c9033138 manifest and all sample arguments. Producer-summary exposure remains disclosed in plan.md. All20 focused controls passed from the actual worktree.
 
-Next: Root's final delta/card review and inference's private source checkpoint;
-wait for Task8's profile reservation to close; then one explicitly admitted
-120s synthetic profile. Actual descriptive/L8 cards remain unlaunchable pending
-measured-profile review. Report all44 agreement rows, descriptive comparisons,
-L8 fit warnings/iterations/row counts and every conclusion change after the two
-sequential accepted target runs and independent evidence review. No target run
-or automatic retry is authorized by the prepared cards.
+Next: Root's measured-card approval and inference's sole-owner private checkpoint, then exactly descriptive-001 and l8-primary-001 sequentially with fresh20GiB admission and16GiB runtime floor. Both measured cards remain prepared/unlaunchable. All11 scientific source files are unchanged from the synthetic profile. Preserve every result/warning/failure, and obtain independent receipt/result review before paper use. Task1 and old Task6 evidence remain untouched.
 
-16:23 UTC update: exact reviewed source29e2bffdd45efb630e8ed9967cf720da21086f92 is privately pushed; Root accepted the single synthetic profile. Task8 profile has closed and released its two-slot lease. Profile card is admitted for Boundary lifecycle after final private card/blob/capacity verification. No actual target analysis is admitted; descriptive and L8 cards remain prepared.
+16:30 UTC admission: Root read both measured cards and synthetic receipt255557c1; exactly descriptive-001 then l8-primary-001 are authorized sequentially after private card/source/log checkpoint and fresh capacity. Source29e2bffd unchanged. Boundary owns these two finite lifecycles only after Inference hands over exact admitted card pins; no retry or model work. Actual interpretation still awaits completed evidence review.
