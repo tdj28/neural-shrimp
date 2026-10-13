@@ -1,4 +1,4 @@
-"""Task7's fixed resource pilot or fold run: snapshot + reviewed PID ownership.
+"""Task7's fixed resource pilot, fold or controlled-passage run: snapshot + reviewed PID ownership.
 
 No new numerical method. Each exact plan sets its deadline; owned cleanup has
 at most ten additional seconds. MemAvailable is sampled, not a hard RAM cap.
@@ -22,7 +22,7 @@ REPO = Path(__file__).resolve().parents[2]
 OWNED = Path('/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck')
 GIB = 1024**3
 OWNERSHIP_FILE = 'codex/certify-llm/derivative_campaign.py'
-OWNERSHIP_SHA = '708eb618fa31afbab4e27ce0e834c16724a1d03985f1bfbef57bf8eb202bba03'
+OWNERSHIP_SHA = '9357d0aee5e5880b37c752a5c928c988480c63a1871db94f1fc3f8b3df70ee52'
 WORKER_FILES = ('codex/hostile-fold-crosscheck/assets.py',
                 'codex/hostile-fold-crosscheck/resource_pilot.py',
                 'codex/confirm-fold/fold_setup.py', 'codex/crosscheck/qwen_map.py',
@@ -41,7 +41,15 @@ def specification(plan_name):
             workers=WORKER_FILES+('codex/hostile-fold-crosscheck/fold_worker.py',
                                   'codex/hostile-fold-crosscheck/fold_runtime.py'),
             worker='fold_runtime.py', card='fold-001-run-card.md', resource_probe_only=False)
-    raise ValueError('only exact resource pilot or fold plan is admitted')
+    if plan_name == 'passage-001-plan.json':
+        return dict(schema='codex-hostile-passage-v1', caps=dict(CAPS, timeout_seconds=1800),
+            workers=('codex/hostile-fold-crosscheck/passage_runtime.py',
+                     'codex/hostile-fold-crosscheck/passage_worker.py',
+                     'codex/hostile-fold-crosscheck/assets.py',
+                     'codex/hostile-fold-crosscheck/saved_audit.py',
+                     'codex/confirm-fold/build_design.py', 'codex/crosscheck/qwen_map.py'),
+            worker='passage_runtime.py', card='passage-001-run-card.md', resource_probe_only=False)
+    raise ValueError('only exact resource pilot, fold or passage plan is admitted')
 
 
 def sha(path):
@@ -111,7 +119,7 @@ def snapshot(repo, args, deadline, stopped):
     if sha(planpath) != args.plan_sha256: raise ValueError('external original plan hash differs')
     plan = json.loads(planpath.read_text())
     if plan.get('schema') != spec['schema'] or type(plan.get('envelope')) is not dict or set(plan['envelope']) != set(caps) or any(type(plan['envelope'][k]) is not int or plan['envelope'][k] != v for k,v in caps.items()):
-        raise ValueError('exact resource-only or fold CPU2/12GiB plan required')
+        raise ValueError('exact resource-only, fold or passage CPU2/12GiB plan required')
     if set(plan.get('source_sha256', {})) != set(spec['workers']):
         raise ValueError('complete original worker import inventory required')
     paths = list(spec['workers'])+[OWNERSHIP_FILE, 'codex/hostile-fold-crosscheck/launch.py',
@@ -162,6 +170,28 @@ def monitor(child, identity, owner, deadline, stopped, observation):
             if owner.group(identity): raise RuntimeError('descendants outlived worker')
             return code
         time.sleep(min(.5, max(.001, deadline-time.monotonic())))
+
+
+def validate_passage_completion(status):
+    """Operational completion only; censored/mismatching rows remain valid results."""
+    if (status.get('status') != 'passage_completed'
+        or status.get('computational_completed') is not True
+        or status.get('passage_trajectories_evaluated') is not True
+        or status.get('resource_probe_only') is not False
+        or status.get('certificate_passed') is not False
+        or status.get('natural_reinjection_measured') is not False):
+        raise RuntimeError('worker did not retain complete controlled-passage status')
+    rows = status.get('rows')
+    expected = [f'e{i}-{entrance}' for i in range(3) for entrance in ('full', 'midpoint')]
+    if (type(rows) is not list or len(rows) != 6
+        or any(type(row) is not dict for row in rows)
+        or [row.get('id') for row in rows] != expected
+        or any(row.get('status') not in ('observed', 'censored') for row in rows)
+        or any(type(row.get('primary_pass')) is not bool for row in rows)
+        or any(row['status'] == 'censored' and row['primary_pass'] for row in rows)
+        or status.get('all_rows_observed') is not all(row['status'] == 'observed' for row in rows)
+        or status.get('primary_all_pass') is not all(row['primary_pass'] for row in rows)):
+        raise RuntimeError('all six canonical controlled-passage outcomes must be retained')
 
 
 def execute(args):
@@ -229,6 +259,8 @@ def execute(args):
             if spec['resource_probe_only']:
                 if status.get('status') != 'resource_profile_completed' or status.get('resource_probe_only') is not True or status.get('fold_qualified') is not False or status.get('certificate_passed') is not False:
                     raise RuntimeError('worker did not retain complete resource-only status')
+            elif spec['schema'] == 'codex-hostile-passage-v1':
+                validate_passage_completion(status)
             elif status.get('status') != 'fold_qualified' or status.get('passed') is not True or status.get('computational_completed') is not True or status.get('solver_history_complete') is not True or status.get('resource_probe_only') is not False or status.get('certificate_passed') is not False or status.get('passage_trajectories_evaluated') is not False:
                 raise RuntimeError('worker did not retain complete qualified numerical fold status')
     except BaseException as exc:
@@ -244,11 +276,13 @@ def execute(args):
         if identity is not None: identity.close()
         for signum, handler in previous.items(): signal.signal(signum, handler)
     result = dict(source_commit=args.source, plan_sha256=args.plan_sha256, exit_code=code,
-        status=('resource_pilot_completed' if failure is None else 'resource_pilot_failed') if spec['resource_probe_only'] else ('fold_attempt_completed' if failure is None else 'fold_attempt_failed'),
+        status=('resource_pilot_completed' if failure is None else 'resource_pilot_failed') if spec['resource_probe_only'] else (('passage_attempt_completed' if failure is None else 'passage_attempt_failed') if spec['schema'] == 'codex-hostile-passage-v1' else ('fold_attempt_completed' if failure is None else 'fold_attempt_failed')),
         timed_out=bool(failure and 'TimeoutError' in failure['error']), elapsed_seconds=time.monotonic()-began,
         worker_spawned=child is not None, worker_termination_verified=terminated,
         uncertain_ownership=uncertain, resource_envelope=caps, certificate_passed=False,
-        resource_probe_only=spec['resource_probe_only'], scientific_fold_result=bool(not spec['resource_probe_only'] and failure is None), runtime_headroom_observation=observation)
+        resource_probe_only=spec['resource_probe_only'], scientific_fold_result=bool(spec['schema'] == 'codex-hostile-fold-run-v1' and failure is None),
+        controlled_passage_result_available=bool(spec['schema'] == 'codex-hostile-passage-v1' and failure is None),
+        runtime_headroom_observation=observation)
     write(attempt/'status.json', result)
     if uncertain:
         write(attempt/'finalization-pending.json', dict(reason='Owned writer/group unresolved; do not seal or retry.', certificate_passed=False))

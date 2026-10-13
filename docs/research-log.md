@@ -22000,3 +22000,14 @@ _commit `c9b75332bbaa` (dirty worktree)_
 - **Command:** `bash -c set -o pipefail; P=../neural-shrimp-data/envs/llm/bin/python; for i in 0 1 2; do $P tools/explore_latent_loop.py fixed-spectrum --model huginn --dtype float32 --device cuda --gsm8k-style cot8 --gsm8k-index $i --lam 1.0 --out huginn-relax/cot8-spectrum-$i 2>&1 | grep -v -i -e warn -e jit | tail -2; done`
 
 _commit `dd108c57eeaf`_
+
+## 2026-10-13 13:14 UTC: run (exploratory)
+
+- **Question:** Do six controlled full-state passages at the independently reproduced hostility fold agree with the fixed quadratic return-map counts?
+- **Setup:** Prospective Task7 passage-001. Root reviewed worker1bef1759/runtime1d9d2d59/plan db0028cc; CPU2/nice10/12GiB/1800s,28GiB startup/16GiB runtime, six serial full/midpoint rows at negative log10T offsets1e-5/3e-5/1e-4; first strict u>U, no burn-in or natural reinjection. Primary all six |N-Nquad|<=1; censoring/disagreement retained separately from operational completion. Full card codex/hostile-fold-crosscheck/passage-001-run-card.md;68 local controls passed5.13s. Launch only after private source/plan push and fresh healthy Task1/capacity. No paid resource or GPU.
+- **Output:** `../neural-shrimp-data/codex/llm-hostile-fold-crosscheck/passage-001`
+- **Command:** `python codex/hostile-fold-crosscheck/launch.py --attempt passage-001 --source EXACT_PRIVATE_PUSHED_HEAD_AT_ADMISSION --plan passage-001-plan.json --plan-sha256 db0028cc4983b4bbe5ec5cbbd52f67adb7fff77b6dcab9221f6be3611782bcc7`
+
+_commit `d06e8373fd62` (dirty worktree)_
+
+- run started 2026-10-13 13:14 UTC (../neural-shrimp-data/codex/llm-hostile-fold-crosscheck/passage-001) finished 13:14 UTC with exit status 1

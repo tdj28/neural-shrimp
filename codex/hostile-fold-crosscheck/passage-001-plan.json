@@ -1,0 +1,203 @@
+{
+  "schema": "codex-hostile-passage-v1",
+  "envelope": {
+    "cpu_threads": 2,
+    "nice": 10,
+    "memory_gib": 12,
+    "timeout_seconds": 1800,
+    "minimum_start_available_gib": 28,
+    "minimum_runtime_available_gib": 16
+  },
+  "source_sha256": {
+    "codex/hostile-fold-crosscheck/passage_runtime.py": "1d9d2d594dd36372215adc739e8174d57617e8077dbe7298023afa68c1a51fdc",
+    "codex/hostile-fold-crosscheck/passage_worker.py": "1bef1759d3a7ba1ee3db81377705d6f6a8cc789d821b46bb249b36beae052eed",
+    "codex/hostile-fold-crosscheck/assets.py": "06477ee36a78f15ee8f1e8ae196dc53ae230ff19368fbda638eb6a6e0ef758e0",
+    "codex/hostile-fold-crosscheck/saved_audit.py": "63d68c5b4ff2e83e9b666c1e42a8b69847309f9bab67bc864ee8bc404efd5598",
+    "codex/confirm-fold/build_design.py": "e03ad704001a18d778847b8d4ad5c55100e0495a58dbe71c2486e4fa661e7797",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "fold_authority": {
+    "attempt": "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/fold-001",
+    "receipt_sha256": "f562321e4170b396a5cd7b4e70a28df5843039a1dbfaa206dba2b96aa923a92a",
+    "source_commit": "6271ca3bb70f859a916abf2e17ba3c2a9ae748e9",
+    "plan_sha256": "53fcb608cd4dcaf8aa3437fffe13c5fe38e3873e6a5d31a8071ea8b91bfa4cd7",
+    "audit_path": "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/fold-001-saved-audit-001/audit.json",
+    "audit_sha256": "01582d1fa67d26060c59beb339eaabecbf828f02c689435d9e78b2cf97dbccfa"
+  },
+  "design": {
+    "period": 2,
+    "alpha": 0.083,
+    "coordinate": "log10T",
+    "parameter_c": -0.04624653567444522,
+    "a": -1.1683279225482623,
+    "b": 44.52540973728358,
+    "ab": -52.0202794589707,
+    "U": 0.0022459085854579907,
+    "gauge": "u=l dot(x-x_c); ||r||2=1; l dot r=1; b>0; negative physical log10T offsets",
+    "modes": {
+      "x_c": {
+        "shape": [
+          896
+        ],
+        "dtype": "float64",
+        "sha256": "0de64dc96267c0b5883c8aa63918ea4ca35604d9e8386da278b516159a223b48"
+      },
+      "r": {
+        "shape": [
+          896
+        ],
+        "dtype": "float64",
+        "sha256": "4be34f60ebd549599484dc4b62797008c25b7947e625d4ad1ebfbf17585793d4"
+      },
+      "l": {
+        "shape": [
+          896
+        ],
+        "dtype": "float64",
+        "sha256": "673d6e82d59a569db8604cd0b4583c943d487d52a812930b4c8bfa59beb9b2ab"
+      }
+    },
+    "rows": [
+      {
+        "id": "e0-full",
+        "epsilon": -1e-05,
+        "entrance": "full",
+        "parameter": -0.04625653567444522,
+        "u_in": -0.0022459085854579907,
+        "u_out": 0.0022459085854579907,
+        "quadratic_G": 118,
+        "arctan_G": 118.07745935503384,
+        "asymptotic_G": 137.7410953324688,
+        "max_G": 256,
+        "initial_state": {
+          "shape": [
+            896
+          ],
+          "dtype": "float64",
+          "sha256": "2e34b471d8ef4d67e351dbe5249ac4f61df544224bb2bc6963fe850ba77def80"
+        },
+        "actual_initial_u": -0.0022459085854579734
+      },
+      {
+        "id": "e0-midpoint",
+        "epsilon": -1e-05,
+        "entrance": "midpoint",
+        "parameter": -0.04625653567444522,
+        "u_in": 0.0,
+        "u_out": 0.0022459085854579907,
+        "quadratic_G": 61,
+        "arctan_G": 59.03872967751692,
+        "asymptotic_G": 68.8705476662344,
+        "max_G": 142,
+        "initial_state": {
+          "shape": [
+            896
+          ],
+          "dtype": "float64",
+          "sha256": "0de64dc96267c0b5883c8aa63918ea4ca35604d9e8386da278b516159a223b48"
+        },
+        "actual_initial_u": 0.0
+      },
+      {
+        "id": "e1-full",
+        "epsilon": -3e-05,
+        "entrance": "full",
+        "parameter": -0.04627653567444522,
+        "u_in": -0.0022459085854579907,
+        "u_out": 0.0022459085854579907,
+        "quadratic_G": 61,
+        "arctan_G": 60.47753429617094,
+        "asymptotic_G": 79.52485846867476,
+        "max_G": 142,
+        "initial_state": {
+          "shape": [
+            896
+          ],
+          "dtype": "float64",
+          "sha256": "2e34b471d8ef4d67e351dbe5249ac4f61df544224bb2bc6963fe850ba77def80"
+        },
+        "actual_initial_u": -0.0022459085854579734
+      },
+      {
+        "id": "e1-midpoint",
+        "epsilon": -3e-05,
+        "entrance": "midpoint",
+        "parameter": -0.04627653567444522,
+        "u_in": 0.0,
+        "u_out": 0.0022459085854579907,
+        "quadratic_G": 32,
+        "arctan_G": 30.23876714808547,
+        "asymptotic_G": 39.76242923433738,
+        "max_G": 84,
+        "initial_state": {
+          "shape": [
+            896
+          ],
+          "dtype": "float64",
+          "sha256": "0de64dc96267c0b5883c8aa63918ea4ca35604d9e8386da278b516159a223b48"
+        },
+        "actual_initial_u": 0.0
+      },
+      {
+        "id": "e2-full",
+        "epsilon": -0.0001,
+        "entrance": "full",
+        "parameter": -0.04634653567444522,
+        "u_in": -0.0022459085854579907,
+        "u_out": 0.0022459085854579907,
+        "quadratic_G": 27,
+        "arctan_G": 26.23081718122253,
+        "asymptotic_G": 43.55755886569891,
+        "max_G": 74,
+        "initial_state": {
+          "shape": [
+            896
+          ],
+          "dtype": "float64",
+          "sha256": "2e34b471d8ef4d67e351dbe5249ac4f61df544224bb2bc6963fe850ba77def80"
+        },
+        "actual_initial_u": -0.0022459085854579734
+      },
+      {
+        "id": "e2-midpoint",
+        "epsilon": -0.0001,
+        "entrance": "midpoint",
+        "parameter": -0.04634653567444522,
+        "u_in": 0.0,
+        "u_out": 0.0022459085854579907,
+        "quadratic_G": 14,
+        "arctan_G": 13.115408590611265,
+        "asymptotic_G": 21.778779432849454,
+        "max_G": 48,
+        "initial_state": {
+          "shape": [
+            896
+          ],
+          "dtype": "float64",
+          "sha256": "0de64dc96267c0b5883c8aa63918ea4ca35604d9e8386da278b516159a223b48"
+        },
+        "actual_initial_u": 0.0
+      }
+    ],
+    "total_forecast_G": 313,
+    "total_cap_G": 746,
+    "criterion": {
+      "primary": "all six observed |measured_G-quadratic_G|<=1",
+      "secondary": "report signed arctan and asymptotic errors; no one-iterate gate",
+      "endpoint": "first strict u>+U after a whole G=F^2 step; no burn-in",
+      "missing": "censored, failed, partial and not-run rows never pass",
+      "reinjection": "controlled starts only; natural reinjection is not measured"
+    },
+    "serial_execution": true
+  },
+  "basis": {
+    "measured_single_G_seconds": 0.7754793788772076,
+    "fold_peak_rss_kib": 6455968,
+    "forecast_G": 313,
+    "cap_G": 746,
+    "nominal_forecast_seconds": 242.725045588566,
+    "nominal_cap_seconds": 578.5076166423969,
+    "interpretation": "Measured single-state cost extrapolation only; not a wall-time or memory upper bound. Hard1800s and headroom guards dominate."
+  },
+  "scope": "six_controlled_local_passages_no_natural_reinjection"
+}
