@@ -22,6 +22,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 OWNED = Path('/data2/neural-shrimp-data/codex/llm-p8-certificate')
 SCHEMA = 'codex-fixed-derivative-campaign-v1'
+RECOVERY_SCHEMA = 'codex-fixed-derivative-campaign-recovery-v2'
 AUDIT_SCHEMA = 'codex-first-final-shard-measured-audit-v1'
 ASSIGNMENTS = [(p, s) for p in range(8) for s in range(0, 896, 64)]
 ENVELOPE = dict(cpu_threads=1, nice=10, memory_gib=18, timeout_seconds=3600)
@@ -105,7 +106,9 @@ def shard_plan(record, repo=REPO):
 
 def validate(plan, repo=REPO, owned=OWNED):
     fields = {'schema', 'status', 'execution_checkout', 'first', 'common', 'assignments', 'sources', 'resources'}
-    if type(plan) is not dict or set(plan) != fields or plan['schema'] != SCHEMA or plan['status'] != 'reviewed_measured':
+    recovery = type(plan) is dict and plan.get('schema') == RECOVERY_SCHEMA
+    if recovery: fields.add('recovery')
+    if type(plan) is not dict or set(plan) != fields or plan['schema'] not in (SCHEMA, RECOVERY_SCHEMA) or plan['status'] != 'reviewed_measured':
         raise ValueError('complete measured reviewed campaign plan required; no provisional launch')
     same(plan['execution_checkout'], str(repo.resolve()), 'dedicated frozen execution checkout')
     if set(plan['sources']) != set(FILES): raise ValueError('complete dispatcher/launcher/evaluator source pins required')
@@ -133,19 +136,24 @@ def validate(plan, repo=REPO, owned=OWNED):
     old = shard_plan(first['plan'], repo)
     same(common(old), c, 'first original common plan'); same((old['phase_index'], old['start_column']), assignment, 'first plan assignment')
     rows = plan['assignments']; expected = [x for x in ASSIGNMENTS if x != assignment]
-    if type(rows) is not list or len(rows) != 111: raise ValueError('exact remaining111 required')
+    if recovery:
+        history = recovery_metadata(plan, repo, owned)
+        retained = {pair(r['row']) for r in history['completed']}
+        expected = [x for x in expected if x not in retained]
+    if type(rows) is not list or len(rows) != (94 if recovery else 111): raise ValueError('exact remaining assignment count required')
     attempts = {first['attempt']}; plan_names = {first['plan']['name']}
-    for row, pair in zip(rows, expected):
+    for row, assignment_pair in zip(rows, expected):
         if set(row) != {'attempt', 'phase_index', 'start_column', 'plan'}: raise ValueError('complete canonical row required')
         if any(type(row[k]) is not int for k in ('phase_index', 'start_column')): raise ValueError('integer assignment required')
-        same((row['phase_index'], row['start_column']), pair, 'canonical remaining assignment')
+        same((row['phase_index'], row['start_column']), assignment_pair, 'canonical remaining assignment')
         name(row['attempt'])
         if row['attempt'] in attempts or row['plan']['name'] in plan_names: raise ValueError('attempt/plan reused')
         attempts.add(row['attempt']); plan_names.add(row['plan']['name'])
         if (owned/row['attempt']).exists(): raise ValueError('all new attempts must be absent; no retry/resume')
         new = shard_plan(row['plan'], repo)
         same(common(new), c, 'same frozen map/domain/backend/prefix/evaluator')
-        same((new['phase_index'], new['start_column']), pair, 'committed assignment')
+        same((new['phase_index'], new['start_column']), assignment_pair, 'committed assignment')
+    if recovery: recovery_partition(plan, history, repo)
     r = plan['resources']
     if set(r) != {'concurrency', 'cpu_total', 'aggregate_rss_bytes', 'minimum_available_bytes', 'timeout_seconds',
                   'registration_seconds', 'receipt_seconds', 'sample_seconds', 'raw_bytes', 'minimum_disk_bytes',
@@ -204,7 +212,154 @@ def completed(attempt, row, c, source=None, expected_receipt=None):
                 bytes=sum(p.stat().st_size for p in files.values())+(attempt/'receipt.json').stat().st_size)
 
 
-def first_authority(plan, owned=OWNED):
+def pair(row):
+    return row['phase_index'], row['start_column']
+
+
+def recovery_metadata(plan, repo=REPO, owned=OWNED):
+    """Authenticate the closed controller's small metadata, without target decode.
+
+    The separate authority pass below authenticates every retained/failed shard.
+    The closure audit is externally reviewed evidence, not a proof from hashes.
+    """
+    recovery = plan['recovery']
+    if set(recovery) != {'attempt', 'source_commit', 'receipt_sha256', 'closure', 'closure_source'}:
+        raise ValueError('complete original recovery authority required')
+    name(recovery['attempt']); digest(recovery['source_commit'], 40); digest(recovery['receipt_sha256'])
+    prior = owned/recovery['attempt']
+    receipt, files = inventory(prior, recovery['receipt_sha256'])
+    old = read(files['original-plan.json']); admission = read(files['admission.json'])
+    start = read(files['admission-started.json']); state = read(files['run/state.json'])
+    status = read(files['status.json']); closure = read(pin(recovery['closure'], parent=owned))
+    pin(recovery['closure_source'], parent=owned)
+    if old.get('schema') != SCHEMA or old.get('status') != 'reviewed_measured':
+        raise ValueError('only original closed v1 campaign may be recovered')
+    same(admission['plan'], old, 'original admitted plan')
+    for value in (admission, start, closure):
+        same(value['source_commit'], recovery['source_commit'], 'original campaign source')
+        same(value['plan_sha256'], sha(files['original-plan.json']), 'original campaign plan bytes')
+    same(closure['original_receipt_sha256'], recovery['receipt_sha256'], 'closure receipt')
+    same(closure['controller_artifacts_verified'], len(files), 'closure inventory count')
+    same(closure['status'], status, 'closure status')
+    same(read(files['run/result.json']), status, 'inner/outer failed status')
+    same(receipt['status'], 'campaign_failed', 'prior failed campaign')
+    for k, v in dict(status='campaign_failed', completed=17, started=21, undispatched=90,
+                     uncertain_ownership=[], certificate_passed=False).items():
+        same(status[k], v, 'fixed closed history '+k)
+    same(state['uncertain_ownership'], [], 'no prior unresolved ownership')
+    same(state['stop_reason'], status['stop_reason'], 'retained stop reason')
+    same(closure['all43_original_pid_and_session_groups_absent'], True, 'independent closure')
+    same(closure['tool_reaped_exit'], 1, 'controller reaped failure')
+    same(old['first'], plan['first'], 'same independently audited first shard')
+    same(old['common'], plan['common'], 'unchanged exact evaluator/domain/backend/prefix')
+    same({k:v for k,v in old['resources'].items() if k!='timeout_seconds'},
+         {k:v for k,v in plan['resources'].items() if k!='timeout_seconds'}, 'unchanged recovery resource envelope')
+    if type(plan['resources']['timeout_seconds']) is not int or not 1<=plan['resources']['timeout_seconds']<=old['resources']['timeout_seconds']:
+        raise ValueError('recovery deadline must not enlarge original envelope')
+    same({f: old['sources'][f] for f in EVALUATOR_FILES}, plan['common']['source_sha256'], 'original native sources')
+    if set(old['sources']) != set(FILES): raise ValueError('original source closure differs')
+    expected = [a for a in ASSIGNMENTS if a != pair(plan['first'])]
+    if len(old['assignments']) != 111 or [pair(r) for r in old['assignments']] != expected:
+        raise ValueError('original111 canonical assignments differ')
+    old_attempts = [r['attempt'] for r in old['assignments']]+[old['first']['attempt']]
+    if len(set(old_attempts)) != 112: raise ValueError('duplicate original attempt')
+    for row in old['assignments']:
+        if set(row) != {'attempt','phase_index','start_column','plan'}: raise ValueError('original row malformed')
+        name(row['attempt'])
+        original = shard_plan(row['plan'], repo)
+        same(common(original), plan['common'], 'original row domain/evaluator')
+        same(pair(original), pair(row), 'original row assignment')
+    rows = state['rows']
+    if len(rows) != 21: raise ValueError('all21 original dispatched histories required')
+    completed_rows = []; failed_rows = []
+    identities = [dict(start['dispatcher_identity'], role='controller')]
+    for row, original in zip(rows, old['assignments'][:21]):
+        same(row['row'], original, 'literal dispatched prefix')
+        same(row['registered'], True, 'original registration')
+        same(row['worker_termination_verified'], True, 'original worker termination')
+        for role in ('launcher_identity','worker_identity'):
+            identities.append(dict(row[role], role=role, attempt=original['attempt']))
+        if row['state'] == 'completed':
+            same(row['launcher_exit'], 0, 'completed launcher exit'); completed_rows.append(row)
+        elif row['state'] == 'failed':
+            same(row['launcher_exit'], 1, 'interrupted launcher exit'); failed_rows.append(row)
+        else: raise ValueError('unclosed dispatched state')
+    if len(completed_rows) != 17 or len(failed_rows) != 4: raise ValueError('exact17 retained/four interrupted required')
+    same(closure['identities'], identities, 'all43 literal birth-bound closure identities')
+    if len(closure['failed_shards']) != 4: raise ValueError('all four failed receipt pins required')
+    for row, failed in zip(failed_rows, closure['failed_shards']):
+        for k in ('attempt','plan'): same(failed[k], row['row'][k], 'closed failure identity')
+        same(failed['worker_termination_verified'], True, 'closed failure worker')
+        same(failed['launcher_exit'], 1, 'closed failure launcher')
+    existing_bytes=sum(p.stat().st_size for p in files.values())+(prior/'receipt.json').stat().st_size
+    return dict(old=old, state=state, closure=closure, completed=completed_rows, failed=failed_rows, existing_bytes=existing_bytes)
+
+
+def recovery_partition(plan, history, repo=REPO):
+    """No auto retry: only four explicitly reviewed new attempt identities."""
+    old = history['old']; completed_pairs = {pair(r['row']) for r in history['completed']}
+    failures = {pair(r['row']):r['row'] for r in history['failed']}
+    pending = {pair(r):r for r in old['assignments'][21:]}
+    original_names = {r['attempt'] for r in [old['first']]+old['assignments']}
+    original_plans = {r['plan']['name'] for r in [old['first']]+old['assignments']}
+    expected = [r for r in old['assignments'] if pair(r) not in completed_pairs]
+    if len(plan['assignments']) != 94 or [pair(r) for r in plan['assignments']] != [pair(r) for r in expected]:
+        raise ValueError('exact canonical94 complement required; no retained rerun')
+    for row in plan['assignments']:
+        a = pair(row)
+        if a in pending:
+            same(row, pending[a], 'original90 undispatched attempt/plan identity')
+        elif a in failures:
+            if row['attempt'] in original_names or row['plan']['name'] in original_plans:
+                raise ValueError('interrupted attempt requires new explicit identity')
+            same(shard_plan(row['plan'],repo), shard_plan(failures[a]['plan'],repo), 'replacement exact original plan payload')
+        else: raise ValueError('unexpected recovered assignment')
+
+
+def recovery_authority(plan, repo=REPO, owned=OWNED):
+    """Whole original bytes and status only; no mathematical derivative audit."""
+    h = recovery_metadata(plan, repo, owned); recovery_partition(plan,h,repo)
+    source = plan['recovery']['source_commit']; c = plan['common']; retained = []; existing_bytes=h['existing_bytes']
+    for record in h['completed']:
+        row = record['row']; expected = record['receipt']['receipt_sha256']
+        result = completed(owned/row['attempt'],row,c,source,expected)
+        same(result, record['receipt'], 'original complete receipt and measured cost')
+        retained.append(dict(row=row, receipt=result)); existing_bytes+=result['bytes']
+    failures = []
+    for record, closed in zip(h['failed'],h['closure']['failed_shards']):
+        row=record['row']; attempt=owned/row['attempt']
+        receipt,files=inventory(attempt,closed['receipt.json']['sha256'])
+        same(receipt['source_commit'],source,'failed shard source')
+        same(receipt['exit_code'],-15,'original interrupted worker exit')
+        same(receipt['timed_out'],False,'original campaign interruption')
+        same(sha(files['manifest.json']),closed['manifest.json']['sha256'],'original interrupted manifest')
+        manifest=read(files['manifest.json'])
+        same(manifest['source_commit'],source,'failed manifest source')
+        same(manifest['owned_pid'],record['worker_identity']['pid'],'failed worker identity')
+        same(manifest['command'],expected_command(attempt,row),'failed exact native command')
+        same(sha(files['source/codex/certify-llm/'+row['plan']['name']]),row['plan']['sha256'],'failed exact archived plan')
+        failures.append(dict(row=row,receipt_sha256=closed['receipt.json']['sha256']))
+        existing_bytes+=sum(p.stat().st_size for p in files.values())+(attempt/'receipt.json').stat().st_size
+    # Captured operational source is distinct from the new dispatcher source.
+    # Verify every old source (including launcher/controller) in every snapshot.
+    for record in h['completed']+h['failed']:
+        attempt=owned/record['row']['attempt']
+        for rel,d in h['old']['sources'].items():
+            if sha(attempt/'source'/rel)!=d: raise ValueError('original captured source differs')
+    table=process_table()
+    for identity in h['closure']['identities']:
+        for q in table:
+            if q['state']=='Z': continue
+            if (q['pid']==identity['pid'] and q['start']==identity['start'] and q['uid']==identity['uid']) or (q['sid']==identity['sid'] and q['pgid']==identity['pgid']):
+                raise ValueError('original campaign identity/group is still live or reused; refuse recovery')
+    return dict(retained=retained, interrupted=failures, undispatched_unchanged=90, existing_bytes=existing_bytes,
+                planned_new_assignments=94, known_completed_total_including_first=18,
+                prior_receipt_sha256=plan['recovery']['receipt_sha256'],
+                closure_sha256=plan['recovery']['closure']['sha256'],
+                scientific_derivative_audit_pending=True, certificate_passed=False)
+
+
+def first_authority(plan, owned=OWNED, *, existing_bytes=0):
     first = plan['first']; result = completed(owned/first['attempt'], first, plan['common'], expected_receipt=first['receipt_sha256'])
     audit = read(pin(first['audit'], parent=owned))
     expected = dict(schema=AUDIT_SCHEMA, passed=True, certificate_passed=False, attempt=first['attempt'],
@@ -219,18 +374,23 @@ def first_authority(plan, owned=OWNED):
     seconds = result['elapsed_seconds']; rss = result['max_rss_kib']
     if type(seconds) not in (int, float) or not math.isfinite(seconds) or seconds <= 0 or type(rss) is not int or rss <= 0:
         raise ValueError('positive actual first-shard measurements required')
-    r = plan['resources']; batches = math.ceil(111/r['concurrency'])
+    r = plan['resources']; count = len(plan['assignments']); batches = math.ceil(count/r['concurrency'])
     predicted_seconds = seconds*r['time_headroom_milli']/1000
-    forecast = batches*predicted_seconds + 111*r['registration_seconds'] + r['receipt_seconds']
+    forecast = batches*predicted_seconds + count*r['registration_seconds'] + r['receipt_seconds']
     if predicted_seconds > 3600 or forecast > r['timeout_seconds']: raise ValueError('measured conservative time forecast exceeds fixed caps')
     if math.ceil(r['rss_headroom_milli']*rss*1024*r['concurrency']/1000)+512*1024**2 > r['aggregate_rss_bytes']: raise ValueError('measured aggregate RSS forecast exceeds watchdog')
-    if math.ceil(r['storage_headroom_milli']*111*result['bytes']/1000)+64*1024**2 > r['raw_bytes']: raise ValueError('measured storage forecast exceeds fixed cap')
+    history_bytes=existing_bytes+(result['bytes'] if plan['schema']==RECOVERY_SCHEMA else 0)
+    forecast_bytes=math.ceil(r['storage_headroom_milli']*count*result['bytes']/1000)+64*1024**2+history_bytes
+    if forecast_bytes > r['raw_bytes']: raise ValueError('measured storage forecast including retained history exceeds fixed cap')
     return dict(first=result, audit_sha256=first['audit']['sha256'], forecast_seconds=forecast,
+                forecast_bytes=forecast_bytes, existing_history_bytes=history_bytes,
                 sampled_rss_is_hard_cap=False, audit_truth_is_external=True)
 
 
 def git(repo, *args):
-    return subprocess.check_output(['git', *args], cwd=repo, text=True, timeout=30).strip()
+    # Keep dirty/untracked checks intact; avoid optional threaded lstat preload.
+    scoped = ['-c', 'core.preloadIndex=false'] if args and args[0] == 'status' else []
+    return subprocess.check_output(['git', *scoped, *args], cwd=repo, text=True, timeout=30).strip()
 
 
 def frozen(repo, plan_path, plan_hash, source, plan, *, remote=False, check_blobs=True):
@@ -333,12 +493,12 @@ def expected_command(attempt, row):
 
 
 class Dispatcher:
-    def __init__(self, plan, out, source, *, owned=OWNED, repo=REPO, before_launch=None, command=None, complete=None):
+    def __init__(self, plan, out, source, *, owned=OWNED, repo=REPO, before_launch=None, command=None, complete=None, existing_bytes=0):
         self.plan, self.out, self.source, self.owned, self.repo = plan, Path(out), source, Path(owned), Path(repo)
         self.before_launch = before_launch or (lambda: None)
         self.command = command or self.launch_command; self.complete = complete or self.check_complete
         self.started = time.monotonic(); self.children = []; self.stop_reason = None; self.uncertain = []
-        self.r = plan['resources']; self.peak_rss = 0; self.out.mkdir(exist_ok=False)
+        self.r = plan['resources']; self.peak_rss = 0; self.existing_bytes=existing_bytes; self.out.mkdir(exist_ok=False)
         self.save()
     def launch_command(self, row):
         return [sys.executable, '-I', '-B', '-u', str(self.repo/'codex/certify-llm/launch.py'),
@@ -431,7 +591,7 @@ class Dispatcher:
         disk = os.statvfs(self.owned)
         if disk.f_bavail*disk.f_frsize < self.r['minimum_disk_bytes']: raise RuntimeError('free storage admission/watchdog')
         raw = sum(p.stat().st_size for root in [self.out]+[c['attempt'] for c in self.children] if root.exists() for p in root.rglob('*') if p.is_file())
-        if raw > self.r['raw_bytes']: raise RuntimeError('raw storage watchdog')
+        if raw+self.existing_bytes > self.r['raw_bytes']: raise RuntimeError('raw storage watchdog')
     def inspect(self):
         for c in self.children:
             if c['state'] in ('completed', 'failed'): continue
@@ -624,13 +784,19 @@ def main():
         plan = validate(read(args.plan), REPO, OWNED)
         (out/'original-plan.json').write_bytes(args.plan.read_bytes())
         remote = frozen(REPO, args.plan, args.plan_sha256, args.source, plan, remote=True)
-        authority = first_authority(plan)
-        dispatcher = Dispatcher(plan, out/'run', args.source,
+        recovered = recovery_authority(plan) if plan['schema']==RECOVERY_SCHEMA else None
+        authority = first_authority(plan, existing_bytes=recovered['existing_bytes'] if recovered else 0)
+        if recovered is not None: authority['recovery']=recovered
+        dispatcher = Dispatcher(plan, out/'run', args.source, existing_bytes=authority['existing_history_bytes'],
             before_launch=lambda: frozen(REPO, args.plan, args.plan_sha256, args.source, plan, check_blobs=False))
         dispatcher.started = began
         write(out/'admission.json', dict(source_commit=args.source, plan_sha256=args.plan_sha256, plan=plan,
             authority=authority, remote_main=remote, dispatcher_pid=os.getpid(), certificate_passed=False))
         result = dispatcher.run()
+        if plan['schema'] == RECOVERY_SCHEMA:
+            result.update(retained_prior_shards=17, first_audited_shards=1,
+                          total_completed_shards=18+result['completed'],
+                          recovery_attempts_only=True)
         if result['status'] == 'campaign_completed':
             frozen(REPO, args.plan, args.plan_sha256, args.source, plan, check_blobs=False)
     except BaseException as exc:

@@ -21902,3 +21902,11 @@ _commit `5ea521e8cfdd` (dirty worktree)_
 Repaired source5ea521e8/admission3ce09e92 completed L7-00226.819s and L8-00117.576s under CPU1/nice10/4GiB. All46 artifacts/26 source blobs,30L7+18L8 rows and192 converged warning-free fits checked; owned supervisors/workers and former groups absent. L8 primary h3 gain reproduced +0.03327990193[0.01795970866,0.04816594373]. Preserve D2 manuscript CI upper discrepancy(.0015023 versus .02), narrow L8 baseline flagged rounding discrepancy, all85L7/3L8 machine mismatches and original failed L7-001. Independent saved-result interpretation is pending, with no new fit/model run. Archive repaired-results-authority-001 manifest476d778546f39602046e8829cf3fbff3002439be54835ffd5c568e45d70397f8.
 
 _commit `6271ca3bb70f` (dirty worktree)_
+
+## 2026-10-13 12:42 UTC: run (exploratory)
+
+- **Question:** Recover the remaining94 exact-domain Jacobian shards while retaining18 completed blocks and every failed original attempt.
+- **Setup:** Root accepted exact recovery source and independent54-test review. Plan codex/certify-llm/derivative-campaign-003-plan.json SHA d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0; see reviewed measured card. FiveCPU1workers/7totalCPU/nice10,18GiB per worker,34GiB sampled aggregate,12GiB runtime floor and46GiB startup floor;17h whole deadline,24GiB including retained/failed evidence. Mathematical map/domain/radius/evaluator unchanged. Four interrupted rows use new002 identities with identical payloads;90 undispatched identities unchanged. Read-only120s preflight and separate root final launch decision still required; no silent retry, no paid/GPU use.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/derivative-campaign-003`
+
+_commit `31ce883e24c0` (dirty worktree)_
