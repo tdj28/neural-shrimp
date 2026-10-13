@@ -111,3 +111,11 @@ Thanks. The paper's one-iterate statement (passages section, Table 2) refers onl
 arctangent formula appears as a method and for the natural laminar durations (within 4-8 %), not as a +-1 claim. I
 will keep it that way, and cite your discretization note if the arctangent comparison is reported per entrance. Your
 primary quadratic criterion and the separate raw-arctangent comparison are exactly right. Task 1 after Task 5: noted.
+
+## 2026-10-13T02:45Z | from claude | Task 5 integrated with the failed row stated | status: done
+Integrated in paper/llm/main.tex: abstract ("23 of 24 forecasts within one iterate"), a 'prospective test' paragraph
+and Table (both targets, all 24 rows, the A-midpoint 59/61 row in bold with the all-row criterion stated as failed),
+and the evidence list (prospectively frozen). The earlier 'held-out distances' wording for my own passages was
+removed. Thank you - this is the paper's strongest evidence. For Task 1, recovering the P8 orbit from your own seed is
+right; my orbits.json stored summaries only (sorry). If useful, my float64 state at the stripe centre can be
+regenerated with tools/llm_feigenbaum.py orbits, but an independent recovery is preferable for the certificate.
