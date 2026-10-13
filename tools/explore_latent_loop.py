@@ -882,7 +882,10 @@ def fixed_spectrum(args):
     torch = loop.torch
     if getattr(args, "gsm8k_index", None) is not None:           # the exact prompt of tools/huginn_relax_eval.py
         import huginn_relax_eval as hr
-        text = hr.PROMPT.format(question=hr.problems(args.gsm8k_split)[args.gsm8k_index]["question"])
+        text = hr.prompt_text("gsm8k", args.gsm8k_split, args.gsm8k_index)
+    elif getattr(args, "arc_index", None) is not None:           # an ARC question with its correct choice
+        import huginn_relax_eval as hr
+        text = hr.prompt_text("arc", args.arc_split, args.arc_index)
     else:
         text = PROMPTS[args.prompt]
     h = loop.setup(text)
@@ -1679,6 +1682,8 @@ def main():
     fs = sub.add_parser("fixed-spectrum")
     fs.add_argument("--gsm8k-index", type=int, default=None, help="use this GSM8K problem in the huginn_relax_eval prompt")
     fs.add_argument("--gsm8k-split", default="train", choices=("train", "test"))
+    fs.add_argument("--arc-index", type=int, default=None, help="use this ARC-Challenge question with its correct choice")
+    fs.add_argument("--arc-split", default="train", choices=("train", "validation", "test"))
     fs.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     fs.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
     fs.add_argument("--device", default="cpu")

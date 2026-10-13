@@ -8,7 +8,13 @@ then ends closer to (lam*) or farther from (lam near 1.08) the fixed point. This
 
 - convergence: the per-step relative change ||s_k - s_(k-1)|| / ||s_k|| of the prefill recurrence for given lam values,
   to test the spectral prediction of the contraction rate directly;
-- accuracy: greedy GSM8K answers at a fixed recurrence budget for given lam values (exact match of the final number).
+- accuracy: greedy GSM8K answers at a fixed recurrence budget for given lam values (exact match of the final number);
+- arc: ARC-Challenge by log-likelihood of each answer choice (acc and acc_norm, as in lm-eval-harness), read out at
+  several budgets from one prefill per arm: the scored system is then exactly the prefill recurrence whose fixed-point
+  spectrum explore_latent_loop fixed-spectrum computes.
+
+Arms: a relaxation value lam; rand:LO:HI (lam drawn per problem, seeded); aa:M:BETA (Anderson acceleration with memory
+M and mixing BETA, a generic accelerator that adapts to the iterates, unlike a fixed relaxation).
 
 The recurrence is patched by wrapping the model's core_block_forward; prelude, coda, caches and decoding are the
 model's own. Runs on one GPU in bfloat16 (the model's native dtype) or float32.
@@ -18,6 +24,8 @@ Usage:
       --out huginn-relax/dev-r8
   python tools/huginn_relax_eval.py convergence --split train --index 0 --steps 64 --lams 1.0 0.55 1.05 \
       --out huginn-relax/conv-0
+  python tools/huginn_relax_eval.py arc --split train --start 0 --count 100 --steps 1 2 4 8 16 32 \
+      --lams 1.0 0.55 aa:3:1.0 --out huginn-relax/arc-dev
 """
 
 import argparse
@@ -32,6 +40,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 MODEL = "tomg-group-umd/huginn-0125"
 GSM8K = "explore/gsm8k"                      # data-relative folder with train.jsonl and test.jsonl (pinned export)
+ARC = "explore/arc-challenge"                # allenai/ai2_arc ARC-Challenge, pinned export (tools/export_benchmark.py)
+ARC_PROMPT = "Question: {question}\nAnswer:"  # lm-eval-harness format; each choice is scored as " " + text
 PROMPT = ("Solve the following math problem step by step. At the end, write the final answer as "
           "'The answer is N.'\n\nQuestion: {question}\nAnswer:")
 
@@ -60,28 +70,82 @@ def same_number(a, b):
         return False
 
 
+def current_step(args, kwargs):
+    """The recurrence step index that Huginn's iterate_forward passes as the last positional argument (None if absent)."""
+    if len(args) >= 6:
+        return int(args[5])
+    return kwargs.get("current_step")
+
+
 class Relaxed:
-    """Wraps model.core_block_forward so that each recurrence step returns (1 - lam) x + lam Core(x).
+    """Wraps model.core_block_forward so that each recurrence step returns (1 - lam) x + lam Core(x), or, with aa > 0,
+    an Anderson-accelerated step (memory aa, mixing lam; history reset at step 0, solved per sequence in float32).
 
     With `trace` set, records per step the native residual ||Core(x) - x|| / ||x|| (the fixed-point residual, with no
-    factor lam) and the relaxed step ||new - x|| / ||x|| = lam ||Core(x) - x|| / ||x|| separately: only the former
-    measures closeness to a fixed point (Codex preflight, codex/huginn-design-preflight.md)."""
+    factor lam) and the step taken ||new - x|| / ||x|| separately: only the former measures closeness to a fixed point
+    (Codex preflight, codex/huginn-design-preflight.md). `mask` (B, T, 1) restricts norms and the Anderson least
+    squares to real positions; `readout(step, state, args)` is called with the state after each step."""
 
     def __init__(self, model):
         self.model = model
         self.orig = model.core_block_forward
         self.lam = 1.0
-        self.trace = None                       # optional list of (native residual, relaxed step) per recurrence step
+        self.aa = 0
+        self.trace = None
+        self.mask = None
+        self.readout = None
+        self._hist = None
 
         def relaxed(x, *args, **kwargs):
             out, block_idx = self.orig(x, *args, **kwargs)
-            new = out if self.lam == 1.0 else (1.0 - self.lam) * x + self.lam * out
+            step = current_step(args, kwargs)
+            if self.aa:
+                new = self.anderson(x, out, step)
+            else:
+                new = out if self.lam == 1.0 else (1.0 - self.lam) * x + self.lam * out
             if self.trace is not None:
-                nx = float(x.float().norm())
-                self.trace.append((float((out - x).float().norm()) / nx, float((new - x).float().norm()) / nx))
+                m = 1.0 if self.mask is None else self.mask
+                nx = float((x.float() * m).norm())
+                self.trace.append((float(((out - x).float() * m).norm()) / nx, float(((new - x).float() * m).norm()) / nx))
+            if self.readout is not None:
+                self.readout(None if step is None else step + 1, new, args)
             return new, block_idx
 
         model.core_block_forward = relaxed
+
+    def anderson(self, x, out, step):
+        """Type-II Anderson step: x+ = x + b g - (dX + b dG) gamma, gamma = argmin ||g - dG gamma|| per sequence."""
+        import torch
+
+        xf, gf = x.float(), (out - x).float()
+        gm = gf if self.mask is None else gf * self.mask
+        if step is None:
+            raise ValueError("Anderson acceleration needs the recurrence step index")
+        if step == 0 or self._hist is None:
+            self._hist = []
+        self._hist.append((xf, gf, gm))
+        if len(self._hist) > self.aa + 1:
+            self._hist.pop(0)
+        beta = self.lam
+        if len(self._hist) == 1:
+            return (xf + beta * gf).to(x.dtype)
+        b = xf.shape[0]
+        h = self._hist
+        dg = torch.stack([(h[i + 1][2] - h[i][2]).reshape(b, -1) for i in range(len(h) - 1)], dim=-1)
+        scale = dg.norm(dim=1, keepdim=True).clamp_min(1e-30)          # unit columns: old, large differences
+        dn = dg / scale                                                # must not swamp the small recent ones
+        gram = dn.transpose(1, 2) @ dn
+        rhs = dn.transpose(1, 2) @ gm.reshape(b, -1, 1)
+        eye = torch.eye(gram.shape[-1], device=gram.device, dtype=gram.dtype)
+        ridge = 1e-10 if gram.dtype == torch.float64 else 1e-6               # relative to the unit diagonal
+        gamma = torch.linalg.solve(gram + ridge * eye, rhs)[..., 0] / scale[:, 0, :]
+        new = xf + beta * gf
+        for i in range(len(h) - 1):
+            coef = gamma[:, i].reshape(b, *([1] * (xf.dim() - 1)))
+            new = new - coef * ((h[i + 1][0] - h[i][0]) + beta * (h[i + 1][1] - h[i][1]))
+        if not torch.isfinite(new).all():
+            new = xf + beta * gf
+        return new.to(x.dtype)
 
 
 def load(args):
@@ -130,12 +194,7 @@ def accuracy(args):
             correct, tic = 0, time.perf_counter()
             for i, ex in enumerate(data):
                 index = args.start + i
-                if str(arm).startswith("rand:"):          # random relaxation drawn per problem, seeded by (seed, index)
-                    lo, hi = (float(v) for v in str(arm).split(":")[1:3])
-                    lam = float(np.random.default_rng([args.seed, index]).uniform(lo, hi))
-                else:
-                    lam = float(arm)
-                relax.lam = lam
+                lam = set_arm(relax, arm, args.seed, index)   # rand:LO:HI is drawn per problem, seeded by (seed, index)
                 torch.manual_seed(args.seed * 100003 + index)   # Huginn draws its initial latent state at random:
                 ids = tok(PROMPT.format(question=ex["question"]), return_tensors="pt")["input_ids"].to(args.device)
                 t0 = time.perf_counter()                   # the same seed per problem in every arm (paired)
@@ -173,30 +232,32 @@ def convergence(args):
     import explore_llm_attractors as ela
 
     loop = ell.HuginnLoop("huginn", args.dtype, args.device, args.threads, seed=args.seed)
-    ex = problems(args.split)[args.index]
-    h0 = loop.setup(PROMPT.format(question=ex["question"]))
+    h0 = loop.setup(prompt_text(args.task, args.split, args.index))
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     res = {"args": vars(args), "traces": {}}
     for lam in args.lams:
         lam = float(lam)
-        s, native, step = h0.clone(), [], []
+        s, native, step, per_position = h0.clone(), [], [], []
         for _ in range(args.steps):
             f = loop.F(s)
             ns = float(s.float().norm())
             native.append(float((f - s).float().norm()) / ns)
+            d = (f - s).float().reshape(-1, (f - s).shape[-1]).norm(dim=-1)
+            per_position.append([float(v) for v in d / s.float().reshape(-1, s.shape[-1]).norm(dim=-1)])
             new = (1.0 - lam) * s + lam * f
             step.append(float((new - s).float().norm()) / ns)
             s = new
-        k0 = int(args.fit_start * len(native))
+        # fit window: below fit_upper (past the nonlinear transient) and above floor_factor x the smallest residual
+        # (the precision floor); a failed gate is reported, never replaced by another window
         floor = min(native) * args.floor_factor
-        window = [(k, r) for k, r in enumerate(native) if k >= k0 and r > floor]
+        window = [(k, r) for k, r in enumerate(native) if args.fit_upper > r > floor]
         if len(window) >= 8:
             slope = float(np.polyfit([k for k, _ in window], np.log([r for _, r in window]), 1)[0])
             rate, status = math.exp(slope), "fitted"
         else:
             rate, status = None, f"fitting window too short ({len(window)} steps above the floor gate)"
-        res["traces"][str(lam)] = {"native_residual": native, "relaxed_step": step,
+        res["traces"][str(lam)] = {"native_residual": native, "relaxed_step": step, "per_position": per_position,
                                    "fit_window": [window[0][0], window[-1][0]] if window else None,
                                    "rate_per_step": rate, "status": status}
         print(json.dumps({"lam": lam, "steps": args.steps, "native_residual_last": native[-1], "rate_per_step": rate,
@@ -204,12 +265,148 @@ def convergence(args):
     (out / "convergence.json").write_text(json.dumps(res, indent=1))
 
 
+def prompt_text(task, split, index):
+    """The scored text of one problem: the GSM8K prompt, or an ARC question followed by its correct choice."""
+    if task == "gsm8k":
+        return PROMPT.format(question=problems(split)[index]["question"])
+    ex = arc_questions(split)[index]
+    gold_text = ex["choices"]["text"][ex["choices"]["label"].index(ex["answerKey"])]
+    return ARC_PROMPT.format(question=ex["question"]) + " " + gold_text
+
+
+def arc_questions(split):
+    import explore_llm_attractors as ela
+
+    with open(ela.DATA / ARC / f"{split}.jsonl") as f:
+        return [json.loads(line) for line in f]
+
+
+def arc_batch(tok, ex):
+    """Token batch for one ARC question: context + each continuation, right-padded (Huginn's attention is causal, so
+    padding after a sequence does not change it). Returns ids, targets (-100 outside the continuation; position t
+    predicts token t + 1), the real-position mask, the continuations and the gold index."""
+    import torch
+
+    ctx = tok(ARC_PROMPT.format(question=ex["question"])).input_ids
+    conts = [" " + c for c in ex["choices"]["text"]]
+    seqs = [ctx + tok(c, add_special_tokens=False).input_ids for c in conts]
+    n, width = len(seqs), max(len(s) for s in seqs)
+    ids = torch.full((n, width), tok.pad_token_id, dtype=torch.long)
+    targets = torch.full((n, width), -100, dtype=torch.long)
+    mask = torch.zeros(n, width, 1)
+    for b, s in enumerate(seqs):
+        ids[b, :len(s)] = torch.tensor(s)
+        mask[b, :len(s)] = 1.0
+        for pos in range(len(ctx) - 1, len(s) - 1):
+            targets[b, pos] = s[pos + 1]
+    return ids, targets, mask, conts, ex["choices"]["label"].index(ex["answerKey"])
+
+
+def choice_scores(logprobs, targets):
+    """Summed log-probability of each row's continuation from (B, T, V) log-probabilities."""
+    valid = targets >= 0
+    picked = logprobs.gather(-1, targets.clamp_min(0)[..., None])[..., 0]
+    return (picked * valid).sum(-1)
+
+
+def make_readout(model, steps, targets, store):
+    """Readout hook: at each step in `steps`, the model's own head on the current latent state (ln_f, coda, ln_f,
+    lm_head, as in Huginn's forward), reduced at once to the continuation scores."""
+    import torch
+
+    tr = model.transformer
+
+    def readout(step, state, args):
+        if step not in steps:
+            return
+        freqs_cis, mask, past = args[1], args[2], args[3]
+        x = tr.ln_f(state)
+        block_idx = torch.tensor(0, device=torch.device("cpu"), dtype=torch.long)
+        for block in tr.coda:
+            block_idx -= 1
+            x = block(x, freqs_cis, block_idx, mask, past)
+        x = tr.ln_f(x)
+        valid = targets >= 0                                   # the head only at positions that score a choice
+        logp = torch.log_softmax(model.lm_head(x[valid]).float(), -1)
+        picked = logp.gather(-1, targets[valid][:, None])[:, 0]
+        rows = torch.arange(targets.shape[0], device=targets.device)[:, None].expand_as(targets)[valid]
+        store[step] = torch.zeros(targets.shape[0], device=picked.device).index_add_(0, rows, picked).cpu().numpy()
+
+    return readout
+
+
+def set_arm(relax, arm, seed, index):
+    """Configure the wrapper for an arm; returns the lam used (drawn per problem for rand:LO:HI)."""
+    import numpy as np
+
+    arm = str(arm)
+    relax.aa = 0
+    if arm.startswith("rand:"):
+        lo, hi = (float(v) for v in arm.split(":")[1:3])
+        relax.lam = float(np.random.default_rng([seed, index]).uniform(lo, hi))
+    elif arm.startswith("aa:"):
+        _, m, beta = arm.split(":")
+        relax.aa, relax.lam = int(m), float(beta)
+    else:
+        relax.lam = float(arm)
+    return relax.lam
+
+
+def arc(args):
+    torch, tok, model, relax = load(args)
+    import numpy as np
+
+    import explore_llm_attractors as ela
+
+    data = arc_questions(args.split)[args.start: args.start + args.count]
+    out = ela.DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    steps = sorted(set(args.steps))
+    summary = {"args": vars(args), "arms": {}}
+    with open(out / "rows.jsonl", "a") as rows:
+        for arm in args.lams:
+            tally = {r: [0, 0] for r in steps}
+            tic = time.perf_counter()
+            for i, ex in enumerate(data):
+                index = args.start + i
+                lam = set_arm(relax, arm, args.seed, index)
+                ids, targets, mask, conts, gold_index = arc_batch(tok, ex)
+                store = {}
+                relax.readout = make_readout(model, set(steps), targets.to(args.device), store)
+                relax.mask = mask.to(args.device)
+                relax.trace = []
+                torch.manual_seed(args.seed * 100003 + index)     # the same initial latent state in every arm
+                t0 = time.perf_counter()
+                with torch.no_grad():
+                    model(input_ids=ids.to(args.device), num_steps=torch.tensor([max(steps), 0]))
+                seconds = time.perf_counter() - t0
+                trace, relax.trace, relax.readout, relax.mask = relax.trace, None, None, None
+                lengths = np.array([len(c) for c in conts], dtype=float)
+                record = {"arm": str(arm), "lam": lam, "split": args.split, "index": index, "id": ex["id"],
+                          "gold": gold_index, "seed": args.seed * 100003 + index, "seconds": round(seconds, 3),
+                          "native_residual": [a for a, _ in trace], "by_steps": {}}
+                for r in steps:
+                    ll = store[r]
+                    acc, acc_norm = int(np.argmax(ll)) == gold_index, int(np.argmax(ll / lengths)) == gold_index
+                    tally[r][0] += acc
+                    tally[r][1] += acc_norm
+                    record["by_steps"][str(r)] = {"loglik": [float(v) for v in ll], "acc": acc, "acc_norm": acc_norm}
+                rows.write(json.dumps(record) + "\n")
+                rows.flush()
+            n = len(data)
+            summary["arms"][str(arm)] = {str(r): {"acc": tally[r][0] / n, "acc_norm": tally[r][1] / n} for r in steps}
+            summary["arms"][str(arm)]["seconds"] = round(time.perf_counter() - tic, 1)
+            print(json.dumps({"arm": str(arm), "n": n, **{f"r{r}": round(tally[r][1] / n, 4) for r in steps}}),
+                  flush=True)
+            (out / "summary.json").write_text(json.dumps(summary, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("accuracy", "convergence"):
         sp = sub.add_parser(name)
-        sp.add_argument("--split", default="train", choices=("train", "test"))
+        sp.add_argument("--split", default="train", choices=("train", "validation", "test"))
         sp.add_argument("--steps", type=int, default=8)
         sp.add_argument("--lams", nargs="+", default=["1.0"], help="values, or rand:LO:HI for a per-problem draw")
         sp.add_argument("--seed", type=int, default=0)
@@ -223,11 +420,23 @@ def main():
     acc.add_argument("--max-new", type=int, default=256)
     conv = sub.choices["convergence"]
     conv.add_argument("--index", type=int, default=0)
-    conv.add_argument("--fit-start", type=float, default=0.3, help="fraction of steps left out of the rate fit")
+    conv.add_argument("--task", default="gsm8k", choices=("gsm8k", "arc"))
+    conv.add_argument("--fit-upper", type=float, default=1e-2, help="fit only once the native residual is below this")
     conv.add_argument("--floor-factor", type=float, default=30.0,
                       help="fit only while the native residual exceeds this factor times its minimum")
+    sa = sub.add_parser("arc")
+    sa.add_argument("--split", default="train", choices=("train", "validation", "test"))
+    sa.add_argument("--start", type=int, default=0)
+    sa.add_argument("--count", type=int, default=100)
+    sa.add_argument("--steps", type=int, nargs="+", default=[1, 2, 4, 8, 16, 32], help="read-out budgets")
+    sa.add_argument("--lams", nargs="+", default=["1.0"], help="values, rand:LO:HI or aa:M:BETA")
+    sa.add_argument("--seed", type=int, default=0)
+    sa.add_argument("--device", default="cuda")
+    sa.add_argument("--dtype", default="bfloat16")
+    sa.add_argument("--threads", type=int, default=4)
+    sa.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"accuracy": accuracy, "convergence": convergence}[args.command](args)
+    {"accuracy": accuracy, "convergence": convergence, "arc": arc}[args.command](args)
 
 
 if __name__ == "__main__":
