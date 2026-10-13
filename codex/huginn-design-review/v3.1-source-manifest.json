@@ -1,0 +1,117 @@
+{
+  "scope": "Pinned source/design/test-source review only. No data, outcomes, models, caches, numerical arrays, test or producer execution. Unrelated paper/outcome deltas excluded.",
+  "created_utc": "2026-10-13T14:36:37.847475+00:00",
+  "source_commit": "c5acc2f4905835c030c33ef94b03e4ee2bc50496",
+  "base_reviewed_commit": "576b0b86c4051fe226b8c8cc4e6bd5e1e0f792b3",
+  "source_commit_metadata": "c5acc2f4905835c030c33ef94b03e4ee2bc50496\n2026-10-13T07:28:19-07:00\n2026-10-13T07:28:19-07:00\nHuginn design v3.1 after Codex's pre-outcome review: same-prefill Part A (gold IDs, gold residual R(s_31), Ritz feature, strict admission), Part B admission and labels, pinned revision",
+  "files": [
+    {
+      "path": "docs/huginn-causal-test-design.md",
+      "git_blob": "d8ef3cbfe78e8d7428adda4f8aef63cdd54afbad",
+      "sha256": "cbb656b5ccaba5bbac63b76f867b616f513a2dc1be5db2d36e4905e15723eb67",
+      "bytes": 14104,
+      "prior_sha256": "ed5d38475c654b76dba0080c3c3a2d6a1adad18605d49f0aeb817307cb33e299",
+      "changed": true,
+      "diff_path": "diffs/docs/huginn-causal-test-design.md.diff",
+      "diff_sha256": "70d17ed58cb61c0b5da8b21ca828b9fef2b7be94431014740ff796ade979d0cc"
+    },
+    {
+      "path": "tools/huginn_arc_analysis.py",
+      "git_blob": "9f1332928477851a758df4e9a985f1986b7a7fe3",
+      "sha256": "a46731c88c76f83ec070417a2e1b6266813578be16ae2ec74f145909829ba715",
+      "bytes": 26514,
+      "prior_sha256": "79a078ce77c9235116a72c76858a93dd970191c15f306062ffa2be9df06aaa04",
+      "changed": true,
+      "diff_path": "diffs/tools/huginn_arc_analysis.py.diff",
+      "diff_sha256": "60f7c1801c941bc8e7291631e5f25fd6c16ed42fc98741522901028ad4639427"
+    },
+    {
+      "path": "tools/huginn_relax_eval.py",
+      "git_blob": "b51cdff2925efb423b09317e906f3ae7999215eb",
+      "sha256": "fc86d5a68987b77013c5b285eeddf0cee41213215cadf8f447e61bd886f398c6",
+      "bytes": 29036,
+      "prior_sha256": "62e3cc12782a29bd6ac1bb52adf417087d753decff8ae45b1d85fde94d313d52",
+      "changed": true,
+      "diff_path": "diffs/tools/huginn_relax_eval.py.diff",
+      "diff_sha256": "96f723793e1c74813929e28788eec4a2dd1b7932b8575f3fd977d8d46211bc93"
+    },
+    {
+      "path": "tools/huginn_item_level.py",
+      "git_blob": "671e0693e0f3c857d4b382cd4685912aaa2f460d",
+      "sha256": "314ae9b8ae0159a0b2872569260f75e28182754db99a5b55142d771e2009986b",
+      "bytes": 2933,
+      "prior_sha256": "314ae9b8ae0159a0b2872569260f75e28182754db99a5b55142d771e2009986b",
+      "changed": false,
+      "diff_path": "diffs/tools/huginn_item_level.py.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tools/huginn_gsm8k_dev.py",
+      "git_blob": "c551c9e366b6bdcea67030dd5cd41f7ef1a63636",
+      "sha256": "316aec7ffa6ff65e3797ce14d3d7a139dde824bb4915310bc3bc7ec4ea0c0a42",
+      "bytes": 1532,
+      "prior_sha256": "316aec7ffa6ff65e3797ce14d3d7a139dde824bb4915310bc3bc7ec4ea0c0a42",
+      "changed": false,
+      "diff_path": "diffs/tools/huginn_gsm8k_dev.py.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tools/explore_latent_loop.py",
+      "git_blob": "758554fbc7df23ba15cc5593e1b4f4dcad2613f8",
+      "sha256": "904e37f3409c1c8718258f23f76e98825e54a2971b2abe09f9a537c8005a32d3",
+      "bytes": 99642,
+      "prior_sha256": "4f4fbd0962221ee784ca0175f5efa7fe1720bfeb2c181b99ab20e43e04b8201c",
+      "changed": true,
+      "diff_path": "diffs/tools/explore_latent_loop.py.diff",
+      "diff_sha256": "4a0e1359032296f256cd44fa52297e1da47710d383401b4e13a9efe4538ea038"
+    },
+    {
+      "path": "tools/explore_llm_attractors.py",
+      "git_blob": "d075a8b2cfb9981363929ce608cdeb741e444398",
+      "sha256": "77a434560ee9ef78b7909ae7b82b24f120e6fefb562ec6a3cbfa53bbc45d3e83",
+      "bytes": 27017,
+      "prior_sha256": "77a434560ee9ef78b7909ae7b82b24f120e6fefb562ec6a3cbfa53bbc45d3e83",
+      "changed": false,
+      "diff_path": "diffs/tools/explore_llm_attractors.py.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tools/export_benchmark.py",
+      "git_blob": "a14a2780cc69b42dc3be3382b84b240cdd842889",
+      "sha256": "a9a2a6bc586fcd4dff2c7fed94aa6e072f29680fc79fe0ef6e935c6af7fdfa93",
+      "bytes": 3753,
+      "prior_sha256": "a9a2a6bc586fcd4dff2c7fed94aa6e072f29680fc79fe0ef6e935c6af7fdfa93",
+      "changed": false,
+      "diff_path": "diffs/tools/export_benchmark.py.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/test_huginn_arc_analysis.py",
+      "git_blob": "308b5be6bf133851de0142b372c6db07b9ee9162",
+      "sha256": "1c9f2940957ef64563015d2d22f4f06d6373a8821de40915c2d85b6f3627c32a",
+      "bytes": 9464,
+      "prior_sha256": "4fa38d247a40c6421c96102332026ba33d8696e8749443c0b3d3aa61d6ec54f8",
+      "changed": true,
+      "diff_path": "diffs/tests/test_huginn_arc_analysis.py.diff",
+      "diff_sha256": "7934c380b67286b664bc4deb54ce4ada9abdb347ba7702eb8dcadaae3635be8f"
+    },
+    {
+      "path": "tests/test_huginn_relax_eval.py",
+      "git_blob": "e879570a9a9e458a986071d18cdff039e724615f",
+      "sha256": "4825be85c5aae703adf1a9401896f344703f4c65b19f5cda14f62c014eb571e6",
+      "bytes": 6393,
+      "prior_sha256": "a7911cf46cbf07653770f7b30ad97a5e04447c6359cd45f1455337a66e3e552b",
+      "changed": true,
+      "diff_path": "diffs/tests/test_huginn_relax_eval.py.diff",
+      "diff_sha256": "ef75914e38fc6e17f915a329d25344a566bf93c399ea4371e5b76fd2250ef488"
+    }
+  ],
+  "combined_diff_sha256": "80eb846aba94cfddd997b1f4e4c66092f31ccd4ec06d17607b084a1b4bb243d7",
+  "assignment": {
+    "source_commit": "852338f8301cdc702b04321f2b50f69b492cc5a2",
+    "path": "comms/claude-to-codex.md",
+    "git_blob": "e62621dfa959095ad0e0a2fe64e668ca344c9d46",
+    "original_sha256": "6612fa3cadaf412bd9f1a2a02c0d3289fa006d0c8d512ecd3457bbf04ba8bd0b",
+    "excerpt_sha256": "d3ea8c3ff3fcf6c03096b6fed8cb2686d4030d9795d531dd7c2609f6ad0d002b"
+  }
+}
