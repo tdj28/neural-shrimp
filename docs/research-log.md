@@ -21138,3 +21138,12 @@ _commit `12c6e4ecd2b1` (dirty worktree)_
 The center_resume driver reuses only a fully completed, receipt-bound refinement parent and keeps exact dyadic centers and outward image radii. Every additional correction receives eight fresh full-state evaluations. Independent review and 82 synthetic tests passed; boolean and float aliases in resource-envelope integers were rejected before release. No continuation has launched yet: its plan will use the measured first-refinement result, complete parent receipt, and current resource availability. All terminal statuses remain proposal setup, not a certificate. Separately, the privately pushed whole-box derivative pilot is running from source 10a945d589c417dc4d5085d6a6902dd17578937e under PID 221653, with CPU1, nice10, 18 GiB and a 3600-second watchdog. The existing center refinement uses one further CPU thread. No GPU or paid compute is used.
 
 _commit `10a945d589c4` (dirty worktree)_
+
+## 2026-10-13 04:26 UTC: run (exploratory)
+
+- **Question:** P1 hysteresis (H2 of the plan, exploratory with the analysis stated before the data): does a dialogue driven through the high-dose regime stay hostile when the dose returns to 0.04? Ramp 0.04 -> 0.07 -> 0.04 (linear, turns 0-20-39) against constant 0.04.
+- **Setup:** RunPod H100 (run L3), job set p1ladder, commit 0b9f4e41: explore_llm_msm sample, 128 dialogues x 40 turns, T 0.7, hostility-vs-kindness; arms ramp-s1 and ramp-s2 (alpha 0.07, schedule 0.5714:1:0.5714, seeds 1, 2), c040-s2 (constant 0.04, seed 2; seed 1 exists as p1-h040). Analysis fixed now: primary = share of hostile turns (toxic > 0.5) in turns 35-39 (dose 0.040-0.043 in the ramp), ramp (both seeds) minus constant (both seeds), with a dialogue-level bootstrap 95 % interval; secondary = per-turn probability of staying hostile in turns 30-39.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-{ramp-s1,ramp-s2,c040-s2}`
+- **Would surprise us:** no difference (no hysteresis: the hostile state tracks the current dose), or a lower hostile share after the ramp
+
+_commit `0b9f4e41063b`_
