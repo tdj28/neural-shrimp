@@ -196,13 +196,17 @@ def validate(args):
             for i, h in enumerate(out.hidden_states):
                 hs_all.setdefault(i, []).append(h[0, 1:].float())        # drop the first token (attention sink)
     for sae in saes:
-        rows = {}
+        rows, rel = {}, {}
         for i in (sae.index - 1, sae.index, sae.index + 1):
             if i in hs_all:
-                rows[i] = sae.fve(torch.cat(hs_all[i]))
+                H = torch.cat(hs_all[i])
+                rows[i] = sae.fve(H)
+                rec = sae.decode(sae.encode(H))
+                rel[i] = float(((H - rec) ** 2).sum(-1).sqrt().mean() / (H ** 2).sum(-1).sqrt().mean())
         best = max(rows, key=rows.get)
         report["saes"].append({"sae": sae.name, "documented_index": sae.index, "fve_by_index": rows,
-                               "best_index": best, "documented_is_best": best == sae.index})
+                               "relative_error_by_index": rel, "best_index": best,
+                               "documented_is_best": best == sae.index})
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "validate.json").write_text(json.dumps(report, indent=1))
