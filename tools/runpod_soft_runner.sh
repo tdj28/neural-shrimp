@@ -392,6 +392,21 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
       cut -c1-300 "$OUT/$crun/cusp-check.jsonl"
     done
     ;;
+  llamamap)    # Llama-3.1-8B-Instruct high-resolution map tile (run L14): JOBARGS NAME MINUTES SCAN-ARGS...; official
+               # gated weights (token on stdin, unset after the download), vectors uploaded from run L13
+               # (llm-soft-loop/pod64/llama8b-b/vectors); one float64 scan tile into llama8b-hires/NAME
+    LREV=0e9e39f249a16976918f6564b8830bc894c89659
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('meta-llama/Llama-3.1-8B-Instruct', revision='$LREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'])" > "$LOGS/setup-llama.log" 2>&1
+    unset HF_TOKEN
+    lrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/refs
+    mkdir -p "$lrefs" && printf %s "$LREV" > "$lrefs/main"
+    run llamamap-${JOBARGS[0]} "${JOBARGS[1]}" scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 \
+      --model llama3.1-8b --layer 16 --vectors llm-soft-loop/pod64/llama8b-b/vectors "${JOBARGS[@]:2}" \
+      --out $D/llama8b-hires/${JOBARGS[0]}
+    ;;
   llama8b)     # Llama-3.1-8B-Instruct with SAEs (run L13): JOBARGS PART MAP_MINUTES. Downloads the official gated model
                # (meta-llama, revision pinned; the human's token arrives on stdin and is unset after the download), the
                # Goodfire layer-19 SAE and two seonglae layer-24 SAEs (pinned revisions); checks the SAEs' hook points
