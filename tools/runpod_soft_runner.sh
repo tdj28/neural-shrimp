@@ -39,7 +39,7 @@ snapshot_download('Qwen/Qwen2.5-1.5B-Instruct', revision='$REV15', cache_dir='$N
   >> "$LOGS/setup-model.log" 2>&1
 REFS15=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-1.5B-Instruct/refs
 mkdir -p "$REFS15" && printf %s "$REV15" > "$REFS15/main"
-if [ "$JOBSET" = p1control ] || [ "$JOBSET" = p1detect ]; then   # the pinned toxicity classifier (controller, probes)
+if [ "$JOBSET" = p1control ] || [ "$JOBSET" = p1detect ] || [ "$JOBSET" = p1commit ]; then   # the pinned toxicity classifier
   HF_HUB_OFFLINE=0 $PY -c "
 from huggingface_hub import snapshot_download
 snapshot_download('unitary/toxic-bert', revision='4d6c22e74ba2fdd26bc4f7238f50766b045a0d94',
@@ -192,6 +192,11 @@ case "$JOBSET" in
         --alphas $alpha --record-layers 12,18,23 --probe-k $k --probe-delta 0.02 --probe-tokens 40 --probe-chunk 512 \
         --out $D/msm/p1-$name
     done
+    ;;
+  p1commit)    # detectability ceiling (tools/p1_committor.py rollout): K continuations of H turns from the selected
+               # dialogue states (states.json uploaded with --extra-data); JOBARGS: STATES MINUTES then rollout arguments
+    TOOL=p1_committor.py run p1-committor ${JOBARGS[1]} rollout --states ${JOBARGS[0]} "${JOBARGS[@]:2}" \
+      --out $D/msm/p1-committor
     ;;
   huginn)      # Huginn-0125 relaxed recurrence (tools/huginn_relax_eval.py) in its own venv with transformers 4.55, as
                # in the local llm env; JOBARGS: NAME MINUTES then huginn_relax_eval arguments (GSM8K or ARC exports

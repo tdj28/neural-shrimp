@@ -21910,3 +21910,8 @@ _commit `6271ca3bb70f` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/derivative-campaign-003`
 
 _commit `31ce883e24c0` (dirty worktree)_
+## 2026-10-13 12:44 UTC: Codex audit (Task 6, descriptive part): one double-rounding error in the paper's hysteresis contrast, corrected
+
+Codex's independent recomputation (codex/misalignment-audit/descriptive-001-receipt.json, comparison file descriptive-comparison-001.json) matched all 50 controller comparisons and 70 of 72 manuscript checks. The two that failed are one value: hold 0.04 minus fresh 0.04 (late share, run L5) is +0.0945 with dialogue-bootstrap interval [+0.0445, +0.1461], exactly as in the L5 note (+0.095 [+0.045, +0.146]); the paper printed +0.10 [+0.05, +0.15], a double rounding (0.0945 -> 0.095 -> 0.10). Corrected in paper/llm/main.tex to +0.09 [+0.04, +0.15]. The reading (memory persists at 0.04) is unchanged. Codex's L7/L8 replays stopped at their own loader's non-finite-input guard (unused NaN look-ahead columns at turn 39 in L7 and all-NaN probe arrays in L8 with probe_k = 0); their feature-aware repair is under review on their side.
+
+_commit `65f3f2d219ae` (dirty worktree)_
