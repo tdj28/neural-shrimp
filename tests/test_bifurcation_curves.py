@@ -221,3 +221,40 @@ def test_fold_cubic_of_a_known_map():
         assert abs(out["c"] - expected) < 1e-6, (beta, out["c"], expected)
         assert abs(out["c_steps"][-1]["b"] - beta) < 1e-6
         assert abs(out["c_steps"][-1]["c_centre_manifold"] - delta * kappa / (1 - mu)) < 1e-6
+
+
+def cusp_family(beta0, beta1, c=-0.8, delta=1.2, kappa=0.4, mu=0.3, eps=0.5):
+    """x' = x + beta_0(theta) + beta_1(theta) x + c x^3 + delta x y, y' = mu y + kappa x^2 + eps theta_1:
+    a cusp at theta = 0, x = y = 0 (multiplier 1, no x^2 term)."""
+    def phi(z, theta):
+        t0, t1 = theta[0] / 10.0, theta[1] / 10.0
+        x, y = z[0], z[1]
+        return torch.stack([x + beta0(t0, t1) + beta1(t0, t1) * x + c * x ** 3 + delta * x * y,
+                            mu * y + kappa * x ** 2 + eps * t1])
+    return bc.Family(phi, (2,), torch.float64)
+
+
+def test_fold_unfolding_recovers_the_analytic_cusp_matrix():
+    """beta_0 = t0 + 0.5 t1, beta_1 = 0.3 t0 + t1 with t = theta / 10. The theta_1 shift of the stable coordinate,
+    eps / (1 - mu), feeds back through the x y coupling: g_u_theta1 = (1 + delta eps / (1 - mu)) / 10."""
+    c, delta, mu, eps = -0.8, 1.2, 0.3, 0.5
+    fam = cusp_family(lambda t0, t1: t0 + 0.5 * t1, lambda t0, t1: 0.3 * t0 + t1, c=c, delta=delta, mu=mu, eps=eps)
+    out = bc.fold_unfolding(fam, np.zeros(2), np.zeros(2), steps=(1e-2, 1e-3, 1e-4), theta_steps=(1e-3, 1e-4, 1e-5))
+    J = np.array(out["J"])
+    expected = np.array([[0.1, 0.05], [0.03, (1 + delta * eps / (1 - mu)) / 10]])
+    assert np.allclose(J, expected, atol=1e-6), J
+    kappa = 0.4
+    assert abs(out["b"]) < 1e-9 and abs(out["c"] - (c + delta * kappa / (1 - mu))) < 1e-5     # centre-manifold term
+    # predictions: three roots where the cubic's discriminant is positive (beta_1 opposite in sign to c), one otherwise
+    preds = bc.cusp_predictions(out, [np.linalg.solve(J, [0.0, 0.01]), np.linalg.solve(J, [0.0, -0.01])])
+    assert len(preds[0]["roots"]) == 3 and len(preds[1]["roots"]) == 1
+    assert preds[0]["stable"] == [True, False, True]          # c < 0: the outer orbits are stable, the middle a saddle
+
+
+def test_fold_unfolding_refuses_a_point_that_is_not_a_fold():
+    def phi(z, theta):
+        return torch.stack([0.5 * z[0] + theta[0], 0.2 * z[1] + theta[1]])
+
+    fam = bc.Family(phi, (2,), torch.float64)
+    with pytest.raises(ValueError):
+        bc.fold_unfolding(fam, np.zeros(2), np.zeros(2))

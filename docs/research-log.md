@@ -22455,3 +22455,23 @@ _commit `a8aa09306564` (dirty worktree)_
 - **Would surprise us:** Retain any failed/partial inclusion or admission as setup evidence, never evidence against the target orbit; no mathematical gate changes within this attempt.
 
 _commit `a8aa09306564` (dirty worktree)_
+## 2026-10-13 21:17 UTC: run (exploratory)
+
+- **Question:** Cusp unfolding pilot (run U1; consult 6, human-approved bounded pilot): at two known cusp candidates of Qwen2.5-0.5B, is the two-parameter unfolding matrix J (reduced equation's derivatives with respect to log10 T and 10 alpha) of rank two, and do the local cubic predictions (number of period-p orbits and their stability at frozen parameter offsets) match Newton solutions?
+- **Setup:** RunPod GPU (run U1), job set unfold, commit 58c0c978: tools/cusp_unfolding.py at p6z3/curve-foldA-plus point 51 (b sign(a) +14.7, next to the sign change) and hcurves/hub7-foldS-plus point 13 (b +31.2). bifurcation_curves.fold_unfolding (refuses unless a simple real +1 multiplier separated from the unit circle; J = [[l^T dPhi/dtheta_j], [l^T (d_theta_j(DPhi) r + B(r, w_j))]], (I - M) w_j = (I - r l^T) dPhi/dtheta_j; central differences of float64 JVPs on step plateaus; tested on an analytic cusp map, J to 1e-6, and refusing an affine contraction). Six offsets frozen by rule in unfolding coordinates (target root sizes 1e-4 and 1e-3; inside the wedge, the other side, beyond the wedge edge), mapped by J^-1; predictions written to unfolding-INDEX.json before Newton runs from x + u r for each predicted root and from x. Comparison: orbit counts and stabilities. This is the empirical positive control of the consult's design (known bodies), not the Qwen2-0.5B test.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{p6z3/curve-foldA-plus,hcurves/hub7-foldS-plus}/unfolding-*.json (retrieved into the run folder if the upload clashes, then copied)`
+- **Would surprise us:** det J near zero (non-generic cusp); predicted orbit counts not recovered at the smaller offsets
+
+_commit `58c0c9787769`_
+
+## 2026-10-13 21:18 UTC: L13p: SAE feature profiles on held-out category texts (Llama-3.1-8B-Instruct)
+
+Pod 72yrzhwqp4v6p9 (270 s; hash verified; terminated 21:16:42 UTC), llama8b PART p: llm_sae_readout profile, plain text, first token dropped, float32 on the GPU. Nine held-out categories written before any map readout was seen (CATEGORIES in tools/llm_sae_readout.py: gratitude, hostility, kindness, philosophy, cooking, neutral, and confounds politeness, sadness, casual swearing; 103-124 tokens each; none of them among the vector-building prompts). Output llm-soft-loop/pod64/llama8b-p/sae-profile/profiles.json: per-feature mean activation per category for every feature active anywhere (Goodfire l19: 15018 of 65536; seonglae faithful-42: 7091 of 16384; fineweb: 8841). These profiles are evidence about what a feature responds to, for the readout analysis; they are not labels.
+
+_commit `c4cd166cfdca`_
+
+## 2026-10-13 21:20 UTC: U1 first launch failed in setup: Hugging Face outage (HTTP 500)
+
+Pod pcbc64o8qub28y (SECURE H100 NVL, 112 s, commit c4cd166c; hash verified; terminated 21:19:49 UTC): the runner's standard setup could not resolve the pinned Qwen revisions on huggingface.co (HTTP 500 Internal Server Error on the tree API) and stopped with 'model cache not loadable offline' (runner status 4) before any job ran. The hub was still failing at 21:20 UTC from this machine. Running pods (S10a/b, L13a/b) had cached their models earlier and are unaffected. U1 will be relaunched unchanged when the hub answers; a monitor polls every two minutes.
+
+_commit `518217497905`_
