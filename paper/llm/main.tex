@@ -859,7 +859,7 @@ without its context, not the model's state inside the dialogue. A second study (
 512 dialogues; analysis stated before the data, cross-fitted by dialogue) recorded the model's own state just before
 each reply and probed it actively. Its pre-stated primary predictor, the susceptibility (the change in the hostile
 fraction of eight sampled next replies when the dose is raised by $0.02$), adds nothing: $-0.002$
-$[-0.006,+0.020]$ AUC at three turns. Two secondary predictors add modest warning beyond the baselines. A probe of
+$[-0.006,+0.002]$ AUC at three turns. Two secondary predictors add modest warning beyond the baselines. A probe of
 the in-context state before the next reply (layer 18, 20 principal components) raises the AUC for capture within three
 turns from $0.64$ to $0.68$ ($+0.036$ $[+0.014,+0.058]$; within one turn $+0.045$ $[+0.019,+0.069]$; within five
 $+0.036$), and a forecast from eight sampled next replies adds $+0.016$ $[+0.007,+0.027]$ at three turns. At a 10\,\%
@@ -873,7 +873,7 @@ confirmation dialogue was read) fit both models on this study and applied them u
 in-context state again adds warning for capture within three turns: AUC $0.656\to0.689$, $+0.033$ $[+0.018,+0.048]$
 (within one turn $+0.036$, within five $+0.037$; both doses separately positive). The warning in the model's own state
 is therefore real and reproducible, but small: at the training threshold for 10\,\% false positives it flags 29\,\% of
-upcoming captures against 28\,\% for the baselines. It is not a reliable detector by itself.
+upcoming captures against 27\,\% for the baselines. It is not a reliable detector by itself.
 \planned{a hazard model; longer holds to separate slow release from bistability; probe-timed counter-steering
 against constant prevention at matched dose; other openers and steering directions.}
 
