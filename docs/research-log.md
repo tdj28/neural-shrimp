@@ -21924,3 +21924,9 @@ _commit `65f3f2d219ae` (dirty worktree)_
 - **Would surprise us:** a ceiling above 0.9 (capture nearly determined three turns ahead), or within 0.01 of the in-context detector (nothing left to detect); a fidelity difference excluding zero
 
 _commit `8435fb793abc`_
+
+## 2026-10-13 12:46 UTC: Task6 independent reproduction accepted; frozen state-probe benefit survives
+
+Independent saved-output reviewer reconstructed all48 AUC rows exactly and checked192 fits without warnings. Primary frozen L8 AUC0.65601514817 to0.68929505010, gain+.03327990193[.01795970866,.04816594373]; both dose intervals positive. Correct manuscript D2h3CI to[-.006,.002], preserve history contrast+.0945313[.0445313,.1460938], and report held-out positive-window sensitivity27.4975%vs29.0616% at actualFPR10.5552%vs10.3090% under training10% thresholds. No universal threshold dominance or geometry-specific utility established.85L7 reference mismatches have a supported legacy-censoring explanation, not authenticated provenance;3L8 c2h5 differences≤2.67e-8 retained. Cosines unaudited. Root accepts scoped Task6 completion. Independent archive /data2/neural-shrimp-data/codex/llm-misalignment-audit/independent-saved-review-001 manifest3bf5e1110e9606ea9529b259dc42932633215c1b4e5c13804278e6e2c23e9402.
+
+_commit `2deec409779f` (dirty worktree)_

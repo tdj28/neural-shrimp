@@ -29,3 +29,7 @@ Root reviewed the full diff: L7 validates finite probes on the union of its six 
 ## 2026-10-13 repaired replay completion
 
 L7-002 and L8-001 completed under source5ea521e8/admission3ce09e92,26.819s and17.576s. All46 artifacts/26 original source blobs and48 fixed scientific rows authenticated; all192 fits converged without warnings. Original failed L7-001 and unused-probe amendment remain. Full comparison mismatches retained; independent Root/cascades saved-result review pending. See active-status.md, both compact receipts and immutable repaired-results-authority-001 manifest476d7785. No worker remains.
+
+## 2026-10-13 independent saved-result review completed
+
+Cascades independently reconstructed all48 saved AUC rows exactly and checked192 fits without warnings. Root accepted the scoped reproduction and corrections. The archived independent report retains the initial reviewer PCA-expectation refusal and its corrected source-grounded interpretation. No refit/model evaluation. See independent-saved-review.md and its compact manifest binding.
