@@ -74,6 +74,8 @@ def main():
     code, data = archives(head, args.extra_data)
     worst = args.max_rate * (args.ready_minutes + args.run_minutes + 10) / 60
     plan = {"commit": head, "jobset": args.jobset, "code_bytes": len(code), "data_bytes": len(data),
+            "code_sha256": hashlib.sha256(code).hexdigest(), "data_sha256": hashlib.sha256(data).hexdigest(),
+            "extra_data": list(args.extra_data), "jobset_args": args.jobset_args,
             "worst_case_cost_at_max_rate": round(worst, 2), "max_cost": args.max_cost}
     print(json.dumps(plan), flush=True)
     if worst > args.max_cost:
@@ -104,7 +106,8 @@ def main():
     started = time.time()
     rate = [json.loads(line) for line in rp.LEDGER.read_text().splitlines()][-1].get("cost_per_hr") or 0
     result = {"pod_id": pod_id, "gpu_type": chosen, "rate": rate, "commit": head, "jobset": args.jobset,
-              "started": started, "out": str(out)}
+              "started": started, "out": str(out), "upload": {k: plan[k] for k in ("code_bytes", "data_bytes",
+              "code_sha256", "data_sha256", "extra_data", "jobset_args")}}
     try:
         if rate > args.max_rate:
             raise SystemExit(f"pod rate {rate}/h above --max-rate")
