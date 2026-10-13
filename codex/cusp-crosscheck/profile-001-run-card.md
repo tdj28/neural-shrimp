@@ -1,9 +1,16 @@
-# Task14 profile001 — prepared, not launchable
+# Task14 profile001 — reviewed bounded admission
 
-13 October2026. Source/code plus this card must be independently reviewed and
-privately checkpointed before Inference changes the plan admission to reviewed
-and starts the sole fixed attempt. Root supplies final admission. No target
-endpoint coefficient run or optional P28 run is included.
+13 October2026. Root has read and accepted the complete source, plan, card and
+independent source-only review (`profile-source-review.md`, SHA256
+ca4f0755223bd5d2210fabead49f83e94291b1e3f3120d7a146942a1f86638a6).
+The original prepared packet is preserved at3150098af7a09508a831fa7f1c020c528e150999.
+This admission changes only prepared→reviewed and the card status; source,
+resources and scientific scope are unchanged. The27 supervisor controls passed
+in1.98s and12 numerical controls in4.24s (one retained Torch deprecation warning).
+Root authorizes exactly one profile-001 after this card/run log and source are
+privately pushed, committed/current bytes match and fresh capacity plus Task1
+ownership gates pass. Inference owns lifecycle. No target endpoint coefficient
+run, eigenanalysis, optional P28 run or PartA access is included.
 
 Question: does the full independent CPU float64 period7 dense896 derivative
 and nested-AD workflow fit local shared capacity? The source binds row13,
