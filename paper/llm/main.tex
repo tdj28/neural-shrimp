@@ -46,7 +46,7 @@ flip curves of the periodic orbits with float64 test functions. In a higher-temp
 fold curve with two cusps whose normal-form coefficient changes sign, the codimension-two organization of
 shrimp-shaped windows. In a closed region of the map a period-3 text loop doubles through periods 6, 12 and 24
 toward a chaotic core; along a cut, float64 flip parameters are resolved through period 24 so far, with a first
-finite-order interval ratio of $2.84$ \inprogress{further flips and ratios}. Replacing the
+finite-order interval ratios of $2.84$, $2.86$ and $3.78$ \inprogress{further flips}. Replacing the
 expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
 Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
@@ -92,8 +92,9 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   located in float64 and their finite-order interval ratios (Section~\ref{sec:cascade}).
 \item A bridge to sampled decoding (Section~\ref{sec:bridge}) and a second system, a recurrent-depth model with
   a predicted and observed Neimark--Sacker bifurcation (Section~\ref{sec:huginn}).
-\item \planned{Misaligned behaviour as an attractor: a hostility proxy in sampled self-dialogue, with capture
-  thresholds, hysteresis, early-warning signals and interventions (Section~\ref{sec:misalignment}).}
+\item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
+  direction-specific capture with dose-dependent persistence, and a pre-specified lead-time test is negative
+  (Section~\ref{sec:misalignment}). \planned{hysteresis and timed interventions.}
 \end{enumerate}
 
 \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels.
@@ -490,8 +491,11 @@ $4.668$.
 Rows 1--5 are cross-checked on three devices. \inprogress{the flips of periods 96 and 192.}}
 \label{tab:cascade}
 \end{table}
-\planned{the second crescent at high temperature (Figure~\ref{fig:p4}), doubling the period-2 loop
-``\textbackslash n\textbackslash nThe''; whether both cascades give the same ratios.}
+In the high-temperature region (Figure~\ref{fig:p4}), along $\log_{10}T=0.0319$, the period-2 loop
+``\textbackslash n\textbackslash nThe'' flips at $\alpha=0.0753534$ and its doubled loop at $0.0736921$. These orbits
+are far from one-dimensional (next moduli $0.38$ and $0.28$), and the core of that region is non-chaotic without a
+period up to 32, so this sequence may end in a torus rather than in chaos.
+\inprogress{the next flip or a complex crossing of the period-8 orbit.}
 
 \section{Bridge to sampled decoding}
 \label{sec:bridge}
@@ -632,8 +636,8 @@ classifier's own score carries no warning before onset (AUC about $0.5$). Two si
 turns ahead (AUC $0.57$--$0.66$): the rolling variance of a hostility probe, the classical early-warning indicator,
 and the projection on the fixed steering axis, as in persona-vector monitoring \cite{chen2025persona}. In this design,
 then, the coarse-grained state estimate adds no warning beyond the baselines.
-\planned{adapted analyses (dose-matched models, a hazard model, more dialogues at $\alpha=0.04$ where captures are
-late); ramp schedules for hysteresis; a pre-response activation probe; timed interventions against scheduled and
+An adapted analysis with dose-matched models (fit and test at the same dose) gives the same answer: incremental AUC
+$-0.01$ to $-0.03$. \planned{a hazard model and more dialogues at $\alpha=0.04$, where captures are late; ramp schedules for hysteresis; a pre-response activation probe; timed interventions against scheduled and
 constant controls at matched cost; frozen confirmatory test on fresh openers.}
 
 \section{Discussion}
@@ -672,10 +676,12 @@ computer-assisted proof.
   18 fixed-entrance counts exactly.
 \item Prospectively frozen: the passage forecasts at two new folds (Table~\ref{tab:prospective}); 23 of 24 within one
   iterate, and the all-row criterion failed by one row.
-\item Rung 1: orbits, curves, cusps and the cascade's flip parameters.
+\item Rung 2 as well: the period-2 and period-8 orbits of Table~\ref{tab:orbits} (independent implementation), and
+  the cascade's first five flip parameters (three devices, agreement $10^{-16}$--$3\times10^{-15}$).
+\item Rung 1: the other orbits, the curves, the cusps and the 1.5B flips.
 \end{itemize}
-\inprogress{independent reimplementation of the period-2 and period-8 orbits on the current map; the cascade's first
-flips recomputed on a second device.} \planned{interval proof of one periodic orbit (rung 3).}
+\inprogress{interval (Arb ball) proof of the period-8 stripe orbit (rung 3): one exact-real map step is enclosed;
+box enclosures through the transformer currently fail by wrapping.}
 Code: \texttt{tools/explore\_llm\_soft\_loop.py}, \texttt{tools/bifurcation\_curves.py},
 \texttt{tools/llm\_feigenbaum.py}, \texttt{tools/explore\_latent\_loop.py}, \texttt{tools/explore\_llm\_msm.py},
 \texttt{tools/hostility\_score.py}; raw data hash receipts in \texttt{evidence/llm-dynamics-data-receipts.json}.
