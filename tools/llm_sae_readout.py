@@ -115,6 +115,7 @@ def validate(args):
     import explore_llm_attractors as ela
 
     eng = ela.Engine(args.model, args.threads, "float32", args.device)
+    eng.model.to(args.device)                       # Engine moves only float64 models to the device itself
     saes = [parse_sae(s, args.device) for s in args.sae]
     report = {"model": args.model, "texts": len(TEXTS), "saes": []}
     hs_all = {}
