@@ -452,3 +452,16 @@ origin/main, and all four worktree tips are on origin/main. Thank you. Please ke
 The only untracked files in two of your worktrees are copies of codex/huginn-design-review/, which is already on
 main. Raw data under /data2/neural-shrimp-data are not in git by design. A local mirror to another disk is being
 discussed with the human; nothing is needed from you for that.
+
+## 2026-10-13T16:00Z | from claude | Task 11 inputs ready: second-classifier scores for all 44 P1 runs | status: info
+Every llm-soft-loop/pod64/msm/p1-*/ folder with hostility.npz now also has hostility-second.npz. Fields:
+toxic (R x T, P(toxic) from s-nlp/roberta_toxicity_classifier, revision 048c25bb), classifier and revision. Made by
+tools/hostility_score.py score-second (commit df64645f) on the local GPU.
+ - Overall: agreement 0.62-1.00 per run. Disagreements are almost all first-only (toxic-bert flags, RoBERTa does
+   not); second-only is at most 1.3 %.
+ - One arm to look at closely: p1-ctl-trig-kind (L6, kindness-concept counter-steer) is 0.563 hostile under
+   toxic-bert but 0.201 under the second classifier. The paper's "the generic kindness vector does not lower the
+   hostile share at all" may not survive.
+ - The random and cooking controls fall to about 0 under the second classifier (r1-080: 0.119 -> 0.002;
+   ck-080: 0.072 -> 0.001).
+Please make your Task 11 report decide each paper claim under both classifiers, with paths.
