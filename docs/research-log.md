@@ -21748,3 +21748,53 @@ _commit `afdaa76fcb7b` (dirty worktree)_
 Completed metadata/inventory checkpoint for exactly the first ten campaign002 assignments, phase0 cols64..703: all2920 original artifact hashes, sourceafdaa76f, frozen plans/domain/map/backend/evaluator, full64-column statuses and exit0/no-timeout/recordedtermination matched. Runtime1532.066–1960.083s, maxRSS5420880KiB; no numerical arrays decoded or mathematical replay. Eleven of112 total operationally complete including the separately audited original first shard;101 incomplete and five current workers healthy. Root checked completed PID birth identities absent and live current exactidentities/limits/progress; no former-group rescan claimed here. Immutable campaign002-operational-progress-010 manifestd0504d27d0d5bf7a4679d0732723ed0c7456be1f2b3ef4846bae02b8d332c208; compact receipt retains every row. Scientific enclosure/root/primitive/attraction verification remains pending, certificatefalse. Execution checkout/source unchanged.
 
 _commit `a7f784d38e9a` (dirty worktree)_
+## 2026-10-13 10:40 UTC: Huginn GSM8K development run H1: setup failure (zero-shot prompt elicits no reasoning); redone with the lm-eval 8-shot chain-of-thought format
+
+Run H1 (pod 6505rt4djs3ky7, 13621 s, commit 1625b794, hashes match, terminated): zero-shot prompt 'Solve the following math problem step by step... Answer:', 75 of 150 train problems completed in all six arms before the time limit. Every arm scored 1-3/75 (native 2/75) and every generation ran to the 256-token cap: the base model answered at once ('The answer is 126.') without reasoning, then invented further question-answer pairs. The run measures nothing about the instability; retained as a failed setup (spend in the private ledger). Fix: the 8-shot chain-of-thought format of lm-evaluation-harness gsm8k_cot (exemplars verbatim from lm_eval/tasks/gsm8k/gsm8k-cot.yaml, SHA-256 7c9dd256..., 'Q: ...\nA:', generation until 'Q:', strict 'The answer is N' and flexible last-number extraction; commit 983b8beb). Local CPU smoke (train 0-1, r = 8, float32): the model reasons and stops after about 50 tokens ('... 48 + 24 = 72. The answer is 72.'), 1/2 correct.
+
+_commit `983b8beb745c`_
+
+## 2026-10-13 10:40 UTC: run (exploratory)
+
+- **Question:** Huginn causal test, GSM8K development with the proper 8-shot CoT format: does generation accuracy at 32 recurrence steps change with relaxation as the GSM8K spectra predict (lam_c 1.074-1.126: no loss at 1.05, loss beyond about 1.1; 0.8 slower)? TAPS reported a collapse at 1.2 and a loss at 0.8.
+- **Setup:** RunPod H100 (run H1b), job set huginn, commit 983b8beb: accuracy --split train --start 0 --count 150 --steps 32 --lams 1.0 0.80 1.05 1.10 1.15 1.20 --interleave --prompt-style cot8 --max-new 256 --seed 0 (greedy, bfloat16, paired initial states)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/huginn/gsm8k-dev-cot8-r32`
+- **Would surprise us:** no accuracy change up to 1.20 (generation as tolerant as scoring), or a loss already at 1.05
+
+_commit `983b8beb745c` (dirty worktree)_
+
+## 2026-10-13 10:42 UTC: Hostile spiral hub (run V3): the insult 2-cycle has a Neimark-Sacker bifurcation in the spiral region (log10 T about 0.1656 at alpha 0.062); fold of the 2-cycle at alpha 0.0554; flips of the insult fixed point at alpha 0.041 and 0.079
+
+Run V3 (pod m3j3ycoxrea2d8, commit f77fa780; results retrieved and hash-verified at 08:06 UTC, termination requested; the orchestrator then crashed on a DNS error before its final record, and the pod was verified gone with runpod_pod.py status at 10:45 UTC). Float64 branches (hostility-vs-kindness): (1) P2 'insult insult' from (alpha 0.062, log10 T 0.170) down in temperature: complex pair (Neimark-Sacker) crossing between log10 T 0.16603 and 0.16519 (crossing multiplier modulus 1.0175 at 0.124 turns per step of the period-2 orbit); the pair's modulus rises from 0.858 at 0.170 to 1.04 at 0.1643 and 1.80 at 0.120, its argument from 0.105 to 0.19 turns. (2) Same orbit down in alpha: a fold (real +1, crossing multiplier 1.0000) at alpha 0.05539, where the complex pair is 0.944 at 0.126 turns. (3) Up in alpha: stable to the bound 0.09 (leading real 0.61-0.85). (4) Up in temperature: CRASHED (OverflowError: the continuation stepped to an enormous log10 T before the bounds check; retained, tool robustness fix needed). (5) The P1 insult fixed point from (0.070, 0.220): real -1 (flip) crossings at alpha 0.0787-0.0792 (up) and 0.0403-0.0412 (down), so the 2-cycle is flip-born on both sides. Reading: the spiral arms sit near a Neimark-Sacker curve of the insult 2-cycle, consistent with Arnold tongues; not yet shown: the NS curve in the plane, its rotation numbers and the tongue tips matching the arms' periods (7, 8, ...).
+
+_commit `849a91dcdc66`_
+
+## 2026-10-13 10:59 UTC: Paper consistency pass after a read-only review (subagent)
+
+A read-only review of paper/llm/main.tex against the research log and output files found: a faulty-label value left in the corrected detection paragraph (susceptibility +0.008 [-0.006, +0.020]; corrected -0.002 [-0.006, +0.002]); stale or overstated statements (limitations, 'shrimp' heading, abstract cusp sentence that described the period-4 fold curves, which lie inside the period-4 region, as the organization of shrimp-shaped windows; the Arnold-tongue reading of the hostile spiral, which fails because the invariant circles born at a 2-cycle's Neimark-Sacker point are exchanged by the map, so locked orbits have even periods near 16 for rotation 0.12, while the arms include period 7, and only 1 of 4 float32 arm cells kept its period in float64); a precision status note that claimed float64 for unmarked Huginn and dialogue results; delta indices inconsistent with the cascade table; an AUC range (0.57-0.66, corrected 0.53-0.64 for the single variance and axis signals); the dose-matched adapted analysis computed before the label fix (recomputed: 0.05: -0.008, -0.008, -0.015, -0.024; 0.06: -0.026, -0.025, -0.020, -0.016 at h = 1, 2, 3, 5: still -0.01 to -0.03); missing abstract and contribution items; outdated certificate status. All corrected in commits f3754dc2 and the next; the Huginn paragraph now reports native instability for 6 of 29 ARC development prompts (rho(1) 1.009-1.273; stable limit 1.020-1.149, median 1.092, for the other 23) and the readout flips of run H2.
+
+_commit `f3754dc2f708` (dirty worktree)_
+
+- run started 2026-10-13 07:06 UTC (../neural-shrimp-data/explore/huginn-relax/arc-dev-spectra/q*) finished 11:01 UTC with exit status 0
+
+## 2026-10-13 11:01 UTC: run (exploratory)
+
+- **Question:** Adapted after job 09 (frozen position-7 map: period 1 at all 256 lambda in [0.3, 1.6] from the state after 3000 full loops): is the 'irregular motion at positions 7-12' of ouro-positions-story (600 transient + 800 measured loops) a long transient? (a) per-position diagnostics at lambda 1 and 1.2 after 3000 transient loops; (b) the steered frozen plane of job 09 rerun with the chunked-steering fix (commit 01199886).
+- **Setup:** explore_latent_loop positions on cuda float32, prompt story, lambdas 1.0 1.2, transient 3000, measure 800, period up to 32 at tol 1e-5, twin offset 1e-5; then frozen-plane at position 7 with Ouro's gratitude vector at layer 12, lambda 0.6..1.4 x alpha -3..3, 64 x 64
+- **Output:** `../neural-shrimp-data/explore/latent-loop/ouro-positions-story-long and ouro-frozen-p7-plane-grat`
+- **Would surprise us:** positions 7-12 still irregular after 3000 loops at lambda 1 (then the frozen map from that state should be irregular too, contradicting job 09)
+- **Command:** `bash -c set -o pipefail; ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py positions --device cuda --prompt story --lambdas 1.0 1.2 --transient 3000 --measure 800 --out latent-loop/ouro-positions-story-long 2>&1 | grep -v -i -e warn -e jit | tail -2; ../neural-shrimp-data/envs/llm/bin/python tools/explore_latent_loop.py frozen-plane --device cuda --position 7 --vectors latent-loop/ouro-vectors-l12 --concept gratitude --lambdas 0.6 1.4 --alphas -3 3 --resolution 64 64 --out latent-loop/ouro-frozen-p7-plane-grat 2>&1 | grep -v -i -e warn -e jit | tail -1`
+
+_commit `7b68fa646a88` (dirty worktree)_
+
+## 2026-10-13 11:01 UTC: Huginn ARC development spectra complete (job 11d): native instability for 6 of 30 prompts
+
+Job 11d (07:06-11:01 UTC, local RTX 2000 Ada, float32; relaxed-transient fallback 0.75, 0.5 when the native transient does not converge): fixed points and leading spectra (LM, SR, LR) for ARC-Challenge train questions 4-29 with the correct choice appended; with questions 0-3 of job 11c, 30 prompts, all with fixed points (residual below 1e-4 after the fallback where needed). Natively unstable (rho(1) > 1, stable relaxation interval ending below 1): 6 of 30, rho(1) = 1.009, 1.029, 1.061, 1.072, 1.124, 1.273 (questions 4, 6, 7, 8, 25, 27 and one more as listed in the data); the other 24 are stable up to lam = 1.020-1.149 (median 1.095). Huginn's native recurrence is thus past its own instability for about a fifth of these prompts, consistent with the latent orbits that Geiping et al. (2025, Section 7) report for some tokens of harder questions. Paper updated (6 of 30).
+
+_commit `7b68fa646a88` (dirty worktree)_
+
+## 2026-10-13 11:01 UTC: Correction to the previous note (11d tally)
+
+The six natively unstable prompts are exactly ARC train questions 4, 6, 7, 8, 25 and 27 (rho(1) 1.029, 1.061, 1.072, 1.273, 1.009, 1.124); the phrase 'and one more as listed in the data' in the previous note is wrong.
+
+_commit `c96c87a24565`_

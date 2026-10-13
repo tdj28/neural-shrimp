@@ -24,9 +24,11 @@
 
 \begin{document}
 \maketitle
-\noindent\textbf{Status of this draft.} Results without a marker are numerically validated in float64 (evidence
-rung 1 or 2 in the sense of Section~\ref{sec:evidence}); \planned{red} marks planned work and
-\inprogress{orange} marks running work. Nothing here is a computer-assisted proof yet.
+\noindent\textbf{Status of this draft.} Results on the soft-token map without a marker are numerically validated
+in float64 (evidence rung 1 or 2 in the sense of Section~\ref{sec:evidence}); coarse maps are float32 and say so,
+Huginn's spectra are float32 and its accuracy runs bfloat16, and the dialogue results are sampled statistics with
+stated intervals. \planned{Red} marks planned work and \inprogress{orange} marks running work. Nothing here is a
+computer-assisted proof yet.
 
 \begin{abstract}
 A frozen language model defines its own iterated map when its expected next-token embedding is fed back as
@@ -39,12 +41,11 @@ as $\alpha_N-\alpha_c\propto N^{-2}$, where $N$ counts the laps of the ``is it''
 saddle-node normal form of that fold from derivatives of the network. Without any fitted parameter, it
 predicts bottleneck passages of 7 to 144 iterates within one iterate, and in a prospective test at two new folds,
 with all predictions frozen before any test trajectory, 23 of 24 forecasts fell within one iterate. Natural
-trajectories re-enter the
-bottleneck near its middle, which fixes the prefactor of the window law. This is type-I intermittency
+trajectories re-enter the bottleneck near its middle, consistent with the prefactor of the window law. This is type-I intermittency
 (Pomeau--Manneville) inside the inference computation of a pretrained language model. We continue fold and
-flip curves of the periodic orbits with float64 test functions. In a higher-temperature region we find a
-fold curve with two cusps whose normal-form coefficient changes sign, the codimension-two organization of
-shrimp-shaped windows. In a closed region of the map a period-3 text loop doubles through periods 6, 12, 24,
+flip curves of the periodic orbits with float64 test functions. A period-6 window has the skeleton of a shrimp
+candidate: fold curves with two cusps, at which the fold's normal-form coefficient changes sign, and a flip curve
+inside; a period-4 fold curve at higher temperature has two more such cusps. In a closed region of the map a period-3 text loop doubles through periods 6, 12, 24,
 \dots{} toward a chaotic core. Along a cut, float64 flip and superstable parameters resolved through period 384 give
 interval ratios that rise toward Feigenbaum's $\delta=4.669$ and reach $4.478$ and $4.625$. Replacing the
 expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
@@ -52,12 +53,18 @@ Qwen2.5-1.5B shows chaos with embedded windows and a doubling route whose first 
 A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
 predicted, and in which the spectrum predicts why the native recurrence step is nearly optimal and where larger steps
-fail. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
+stop converging. For about a fifth of the prompts tested the native recurrence is itself past its instability.
+Multiple-choice accuracy tolerates the instability until it is large, although the chosen answers then change from
+one recurrence step to the next. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
 direction, whose persistence grows with the dose from flickering bursts to a near-absorbing state, and which is
 history-dependent: after capture, dialogues stay hostile at doses where fresh dialogues mostly do not, and
-leaving the hostile state takes the push removed entirely or a small counter-steer. A
-pre-specified test finds no early warning from a coarse-grained dynamical state beyond strong baselines.
-\planned{replication across prompts, steering directions and model sizes.}
+leaving the hostile state takes the push removed entirely or a small counter-steer. Under persistent pressure, mild
+constant counter-steering removes more hostility per unit of steering than counter-steering triggered by a classifier.
+A pre-specified test finds no early warning from a coarse-grained dynamical state beyond strong baselines; the
+model's own state before each reply adds a small warning, confirmed on fresh dialogues with a frozen design (AUC
+$+0.03$). Steered along the same direction, the deterministic map has hostile text loops whose windows accumulate on
+the fold of a 2-cycle, with the window law that fold's normal form predicts.
+\planned{replication across prompts, further steering directions and model sizes.}
 \end{abstract}
 
 \section{Introduction}
@@ -90,15 +97,22 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   with multipliers from the monodromy matrix (Section~\ref{sec:adding}).
 \item The mechanism: the 2-cycle ``is it'' dies in a fold; its normal form, computed from derivatives, predicts
   bottleneck passage times; the global reinjection sets the window-law prefactor (Section~\ref{sec:mechanism}).
-\item Fold and flip curves of periodic orbits continued in the parameter plane with float64 test functions,
-  including two cusps on a period-4 fold curve (Section~\ref{sec:curves}).
-\item A period-doubling sequence toward chaos in a closed region of the parameter plane, with flip parameters
-  located in float64 and their finite-order interval ratios (Section~\ref{sec:cascade}).
-\item A bridge to sampled decoding (Section~\ref{sec:bridge}) and a second system, a recurrent-depth model with
-  a predicted and observed Neimark--Sacker bifurcation (Section~\ref{sec:huginn}).
+\item Fold and flip curves of periodic orbits continued in the parameter plane with float64 test functions: a
+  period-6 window whose fold curves meet in two normal-form-tested cusps with a flip curve inside (a shrimp
+  candidate), and two cusps on a period-4 fold curve (Section~\ref{sec:curves}).
+\item A period-doubling sequence toward chaos in a closed region of the parameter plane, with flip and superstable
+  parameters located in float64 through period 384; the finite-order interval ratios rise to $4.478$ and $4.625$
+  (Section~\ref{sec:cascade}).
+\item A bridge to sampled decoding (Section~\ref{sec:bridge}); the same organization in Qwen2.5-1.5B, with a
+  period-doubling route (Section~\ref{sec:scale}); and a second system, a recurrent-depth model with a predicted and
+  observed Neimark--Sacker bifurcation, spectral predictions of its response to relaxation, native instability for
+  some prompts, and accuracy that tolerates the instability until it is large (Section~\ref{sec:huginn}).
 \item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
-  direction-specific capture with dose-dependent persistence and hysteresis, and a pre-specified lead-time test is
-  negative (Section~\ref{sec:misalignment}). \planned{timed interventions.}
+  direction-specific capture with dose-dependent persistence and hysteresis; triggered counter-steering is less
+  efficient than mild prevention; a pre-specified lead-time test is negative, and a small warning from the model's
+  in-context state is confirmed on fresh dialogues. Steering the deterministic map along the same direction yields a
+  hostile period-adding cascade with the intermittency mechanism of item 3 (Section~\ref{sec:misalignment}).
+  \planned{probe-timed counter-steering.}
 \end{enumerate}
 
 \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels.
@@ -403,7 +417,7 @@ boundary on which the stripe fan accumulates, as the mechanism of Section~\ref{s
 one direction, outside the plotted window, another multiplier leaves the unit circle (moduli up to 11): a
 codimension-two point, \planned{to be located and typed}.
 
-\paragraph{A period-6 window with the anatomy of a shrimp.} The hooks of Figure~\ref{fig:zooms} (bottom) belong to
+\paragraph{A period-6 window with the anatomy of a shrimp candidate.} The hooks of Figure~\ref{fig:zooms} (bottom) belong to
 the period-6 loop ``. -\textbackslash n\textbackslash nThe is a''. Float64 orbits (Newton residuals
 $10^{-15}$--$10^{-13}$) show that its curved body and its thin leg are one window: at the body the multipliers are
 $-0.061$ and $+0.048$, lower down $-0.564$, and on the leg $-0.645$. The foot is its period-doubled loop (period 12,
@@ -475,7 +489,9 @@ dashes) and flip curves (magenta, short dashes) of the period-4 orbit; the yello
 the window). The flip curves run along the boundary between period 4 and period 8. The fold curves run inside the
 period-4 region, where two period-4 orbits coexist. In this map a C-shaped band of the doubled loop
 ``\textbackslash n\textbackslash nThe\textbackslash n\textbackslash nThe'' (period 4) inside the period-2 region
-``\textbackslash n\textbackslash nThe'' contains period 8 and an irregular core: a second period-doubling crescent.
+``\textbackslash n\textbackslash nThe'' contains period 8 and an irregular core; along the cut of
+Section~\ref{sec:cascade} the period-8 orbit merges back into period 4 (a doubling bubble), so this band is not shown
+to be a second cascade.
 \inprogress{remaining fold curves (C, D); whether the region is one shrimp-organized component.}}
 \label{fig:p4}
 \end{figure}
@@ -489,9 +505,9 @@ n\textbackslash nThe existence'' doubles inward. Along the cut $\log_{10}T=-0.14
 over 25 columns, period 6 over about 14, period 12 over 4, period 24 in one column, and then a chaotic core. The doubled
 loops repeat the same leading tokens, twice and four times, with alternating probabilities. Locating the flips in
 float64 (Section~\ref{sec:methods}) along this cut, in the steering coordinate $\alpha$, gives Table~\ref{tab:cascade}.
-The first two ratios, $\delta_1=2.844$ and $\delta_2=2.859$, are far from Feigenbaum's $4.6692$, although from the
-second flip on the orbits are effectively one-dimensional (next modulus $0.0023$, $2\times10^{-6}$, $2\times10^{-12}$).
-The third, $\delta_3=3.781$, is markedly larger. The flip parameters agree across three devices (CPU, a consumer GPU
+The first two ratios, $\delta_2=2.844$ and $\delta_3=2.859$ (indexed as in Table~\ref{tab:cascade}), are far from
+Feigenbaum's $4.6692$, although from the second flip on the orbits are effectively one-dimensional (next modulus
+$0.0023$, $2\times10^{-6}$, $2\times10^{-12}$). The next, $\delta_4=3.781$, is markedly larger. The flip parameters agree across three devices (CPU, a consumer GPU
 and an H100, all float64) to $10^{-16}$--$3\times10^{-15}$. Continuing a just-born doubled orbit past period 48 failed:
 Newton slides onto the half-period orbit, which is also periodic with the doubled period. We therefore also located
 the superstable parameters $s_p$, where the critical multiplier vanishes in the middle of each band
@@ -608,8 +624,9 @@ suggestive.
 number of line breaks between the ``What''s.}
 \label{fig:qwen15route}
 \end{figure}
-\planned{frozen-design replication on fresh prompts and a second steering direction (gratitude); Qwen 7B and one
-7--8B model of another family; scaling of $ab$ and of the window law with model size.}
+(A second steering direction, hostility, reproduces the fold-and-adding mechanism; Section~\ref{sec:misalignment}.)
+\planned{frozen-design replication on fresh prompts; Qwen 7B and one 7--8B model of another family; scaling of $ab$
+and of the window law with model size.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-lyapunov.png}\hfill
@@ -657,15 +674,21 @@ explanation; both lie on the predicted sides of these thresholds.
 \paragraph{Does the task notice? (development data).} On ARC-Challenge questions scored by log-likelihood, where one
 prefill per answer choice is exactly the analysed recurrence, the spectra again predict convergence: rates agree to
 $0.002$--$0.006$ where the slowest mode dominates, and beyond each question's $\lambda_c$ ($1.075$--$1.149$ for four
-questions) the residual stops decaying. One question's native fixed point is itself unstable (the native loop
-oscillates with relative amplitude $2\times10^{-2}$); relaxation to $0.55$ or $0.75$ restores convergence to
-$10^{-6}$. Accuracy, however, tolerates the instability (300 training questions, 32 steps): $0.367$ native, $0.387$
-at $\lambda=1.10$ and $0.373$ at $1.15$, where the latent state oscillates with relative size $0.08$ and $0.23$; only
-at $1.25$ (size $0.68$) does it fall, to $0.300$. Under-relaxation instead costs 4--5 points at 8--16 steps and
-catches up by 32 (slower transient), and Anderson acceleration neither speeds the transient nor gains accuracy.
-Accuracy on a fixed set of answers is thus insensitive to the instability over this range; whether the unstable modes
-barely reach the answer logits, or move them without changing the ranking, is measured next, and a test of the
-accuracy consequence needs a task whose errors can compound.
+questions) the residual stops decaying. For 6 of 30 development questions the native fixed point is itself unstable
+($\rho(1)=1.009$--$1.273$; the fixed point, located with a relaxed transient, has a real multiplier beyond $-1$ or a
+complex pair outside the circle), so the native loop oscillates (relative amplitude $2\times10^{-2}$ for one of them),
+and relaxation to $0.55$ or $0.75$ restores convergence to $10^{-6}$. For the other 24 the native loop is stable up to
+$\lambda=1.020$--$1.149$ (median $1.095$). This is consistent with the latent orbits that \citet{geiping2025recurrent}
+observed on some tokens of harder questions, here traced to the fixed point's spectrum. Accuracy, however, tolerates
+the instability (300 training questions, 32 steps): $0.367$ native, $0.387$ at $\lambda=1.10$ and $0.373$ at $1.15$,
+where the latent state oscillates with relative size $0.08$ and $0.23$; only at $1.25$ (size $0.68$) does it fall, to
+$0.300$. The oscillation does reach the answers: reading every step from 24 to 32 on 100 questions, the margin between
+the correct choice and its best rival moves by $0.11$ nats per step natively, $0.37$ at $1.10$ and $0.95$ at $1.15$, in
+alternating directions, and the chosen answer changes within these nine steps for 12\,\%, 16\,\% and 33\,\% of the
+questions. The changes go both ways, so the accuracy at any one step stays the same on average. Under-relaxation
+instead costs 4--5 points at 8--16 steps and catches up by 32 (slower transient), and Anderson acceleration neither
+speeds the transient nor gains accuracy. A test of the accuracy consequence needs a task in which such step-to-step
+changes can compound.
 \inprogress{GSM8K generation against $\lambda$ (development run); then a frozen test on fresh problems with
 $\lambda$ arms placed from the spectral $\lambda_c$ of development prompts.}
 
@@ -705,19 +728,27 @@ transitions faster than the slowing-down; such a monitor would complement classi
 Section~\ref{sec:map} along the same hostility direction gives a plane with chaos (a positive largest exponent in
 10\,\% of a coarse $128\times192$ float32 scan) and periodic text loops that are hostile: ``Yes, that's crap''
 (period 6), ``a lie is'' (3), ``STUP\ldots'' (3), a loop on the Chinese word for insult and its 2-cycle, and others,
-all at $\alpha>0.065$. Around the period-6 loop the windows form a dome (Figure~\ref{fig:hostile-cascade}). Toward
-higher temperature its texts gain one ``!Yes'' after another (periods $6,8,\ldots,20$), and in float64 the windows
-are born in folds and end in flips or $+1$ crossings, like the stripes of Sections~\ref{sec:adding} and~\ref{sec:mechanism}. They accumulate
+at $\alpha$ above about $0.035$ (the insult loop) and above $0.065$ (the rest). Around the period-6 loop the windows
+form a dome (Figure~\ref{fig:hostile-cascade}). Toward higher temperature its texts gain one ``!Yes'' after another
+(periods $6,8,\ldots,20$). In float64 the windows of periods 12 to 20 are born in folds on their low-temperature side
+and end in flips or $+1$ crossings on the other, like the stripes of Sections~\ref{sec:adding}
+and~\ref{sec:mechanism}; the period-6 window ends in a fold at $\log_{10}T=-0.0991$, and the continuations of the
+period-8 and period-10 windows failed to converge. The windows accumulate
 on the fold of the 2-cycle ``!Yes'' at $\log_{10}T_c=-0.0462465357$ ($\alpha=0.083$; critical multiplier
 $0.9999999954$, next modulus $0.050$). From period 16 on, $1/\sqrt{\log_{10}T_c-\log_{10}T_{\rm fold}}$ rises by
 $2.235$ per lap. The fold's normal form ($a=-1.168$, $b=44.53$ with $\varepsilon$ in $\log_{10}T$) predicts
 $\sqrt{|ab|}/\pi=2.296$ per lap for full passages through the bottleneck, within 3\,\% and without a fitted parameter
 (the reinjection that would confirm full passages independently is not yet measured). The same type-I intermittency
 that organizes the philosophy-steered map thus generates a hostile cascade. A second region, near
-$(\alpha,\log_{10}T)=(0.06,0.20)$, shows arms of period-7 and period-8 windows spiralling around the insult 2-cycle,
-whose complex pair (modulus $0.858$, $0.105$ turns) suggests a Neimark--Sacker organization.
-\inprogress{continuation of that 2-cycle to its Neimark--Sacker point; cusps of the hostile windows (no shrimp is
-claimed in this plane yet).}
+$(\alpha,\log_{10}T)=(0.06,0.20)$, shows arms of period-7 and period-8 windows spiralling around the insult loop. In
+float64 the insult fixed point doubles into a 2-cycle at $\alpha\approx0.041$ and $0.079$, and that 2-cycle has a
+Neimark--Sacker bifurcation in the spiral region: at $\alpha=0.062$ its complex pair crosses the unit circle near
+$\log_{10}T=0.1656$, turning $0.12$ of a revolution per step of the 2-cycle. This does not explain the arms: the two
+invariant circles born at a 2-cycle's Neimark--Sacker point are exchanged by the map, so orbits locked on them have
+even periods, near 16 for this rotation, whereas the arms include period 7; and of four float32 arm cells, only one
+kept its period in float64. The organization of the spiral remains open.
+\inprogress{the Neimark--Sacker curve with its rotation numbers; float64 identification of the arm windows; cusps of
+the hostile windows (no shrimp is claimed in this plane yet).}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-hostile-cascade.png}
@@ -732,7 +763,8 @@ at the last window.}
 \paragraph{Capture ladder.} With 128 dialogues of 40 turns per dose, the share of hostile turns rises steeply from
 $10\,\%$ at $\alpha=0.04$ to $30\,\%$, $57\,\%$ and $87\,\%$ at $0.05$, $0.06$ and $0.07$ (Table~\ref{tab:hostility}).
 Replicates with a second seed agree within three percentage points. Directions of the same norm do not produce it:
-at $0.06$, $0\,\%$ for a random direction and $3\,\%$ for a cooking direction; at $0.08$, $1$--$12\,\%$. After the first
+at $0.06$, $0\,\%$ for a random direction and $3\,\%$ for a cooking direction; at $0.08$, $0.6\,\%$ and $12\,\%$ for two
+random directions and $7\,\%$ for cooking. After the first
 hostile turn, the probability of staying hostile in the next turn grows with the dose, from $0.36$ to $0.67$, $0.79$
 and $0.94$. The hostile state therefore changes from flickering bursts (mean stay $1.6$ turns) to a near-absorbing
 state (16 turns), with an escape rate falling roughly exponentially with the dose. This is the same progression as
@@ -769,7 +801,7 @@ state is therefore history-dependent: undoing the push that produced it does not
 
 How far back must the dose go? After the same ramp up (38--44\,\% of turns hostile at turn 20), the dose was held
 from turn 21 at a lower value (Figure~\ref{fig:hysteresis-loop}; two seeds of 128 dialogues per arm unless stated;
-analyses stated before the data). Memory persists at every positive dose tested. Held at $0.04$, the late share is
+analyses stated before the data). Memory persists at both positive doses with a fresh control. Held at $0.04$, the late share is
 $0.23$ against $0.13$ for fresh dialogues (difference $+0.10$, 95\,\% interval $[+0.05,+0.15]$); held at $0.03$, $0.13$
 against $0.05$ ($+0.08$, $[+0.04,+0.12]$), and the probability of staying hostile is $0.56$ against $0.29$. Held at
 $0.02$ (one seed) the share is $0.09$. Only at zero dose do captured dialogues nearly clear ($0.03$ against $0$ for
@@ -816,17 +848,17 @@ baselines lowers the AUC by $0.02$ to $0.06$ at horizons of 1--5 turns, with boo
 hostile turn as positive; before the correction the losses read $0.02$ to $0.10$). The
 Markov hit-probability forecast does not transfer (AUC $0.37$--$0.43$ on test, $0.60$ in training), and the
 classifier's own score carries no warning before onset (AUC about $0.5$). Two signals carry modest warning one to five
-turns ahead (AUC $0.57$--$0.66$): the rolling variance of a hostility probe, the classical early-warning indicator,
+turns ahead (AUC $0.53$--$0.64$): the rolling variance of a hostility probe, the classical early-warning indicator,
 and the projection on the fixed steering axis, as in persona-vector monitoring \cite{chen2025persona}. In this design,
 then, the coarse-grained state estimate adds no warning beyond the baselines.
 An adapted analysis with dose-matched models (fit and test at the same dose) gives the same answer: incremental AUC
-$-0.01$ to $-0.03$.
+$-0.01$ to $-0.03$ (recomputed with the corrected labels).
 
 \paragraph{The model's own state carries the warning.} The state variable of that test was each reply re-encoded
 without its context, not the model's state inside the dialogue. A second study (new seeds, doses $0.04$ and $0.045$,
 512 dialogues; analysis stated before the data, cross-fitted by dialogue) recorded the model's own state just before
 each reply and probed it actively. Its pre-stated primary predictor, the susceptibility (the change in the hostile
-fraction of eight sampled next replies when the dose is raised by $0.02$), adds nothing: $+0.008$
+fraction of eight sampled next replies when the dose is raised by $0.02$), adds nothing: $-0.002$
 $[-0.006,+0.020]$ AUC at three turns. Two secondary predictors add modest warning beyond the baselines. A probe of
 the in-context state before the next reply (layer 18, 20 principal components) raises the AUC for capture within three
 turns from $0.64$ to $0.68$ ($+0.036$ $[+0.014,+0.058]$; within one turn $+0.045$ $[+0.019,+0.069]$; within five
@@ -852,12 +884,14 @@ smooth map built from a frozen model's own computation. The phenomena are classi
 \cite{pomeau1980intermittent,gallas1993structure,facanha2013endoskeletons,vitolo2011hubs}; what is new is their
 quantitative realization inside a pretrained language model, and the use of numerical continuation and normal
 forms on such a model. We do not claim that ordinary sampled generation is chaotic in this sense
-(Section~\ref{sec:bridge}), nor that the shapes in the maps are shrimps beyond the normal-form-tested cusps.
+(Section~\ref{sec:bridge}), nor that any window is a verified shrimp: the period-6 window has the fold-and-flip
+skeleton and two normal-form-tested cusps of a shrimp candidate, without the nondegeneracy test or a certificate.
 \paragraph{Limitations.} One model family (two sizes), one prompt and one steering construction for the maps; a
 constructed one-token-window system; numerical validation, cross-checks and one prospective test, but no
-computer-assisted proof yet. The Feigenbaum ratios are finite-order values that converge toward $\delta$ (the last is
+computer-assisted proof yet. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
 within 1\,\%); the limit itself is not computed. The behavioural study uses one
-small model, one opener and a classifier-defined proxy, and its lead-time test is negative.
+small model, one opener and a classifier-defined proxy; its first lead-time test is negative, and the confirmed
+warning from the in-context state is small.
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
 strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
 behaviour becomes intermittent, with laminar phases whose duration the fold's normal form predicts in advance. In
@@ -867,7 +901,8 @@ an activation-steering coefficient like any control parameter of a nonlinear sys
 characterized before an operating point is chosen; history dependence should be expected near boundaries; and a
 monotone, smooth dose-response should not be assumed. The deterministic map is where such sets can be computed
 exactly. Whether its boundaries predict boundaries of sampled behaviour is open; the bridge of
-Section~\ref{sec:bridge} suggests that sampling smooths the fine structure while keeping the coarse one.
+Section~\ref{sec:bridge} shows that sampling noise shortens the laminar phases of the bottleneck, by an amount that
+depends on how many samples are averaged.
 \planned{repetition loops in ordinary decoding as stable periodic orbits of the greedy limit.}
 
 \section{Evidence and reproducibility}
@@ -879,15 +914,20 @@ computer-assisted proof.
 \item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
   also follows from the stable-branch multipliers. The controlled passage counts: the reimplementation reproduces all
-  18 fixed-entrance counts exactly.
+  18 fixed-entrance counts of the passage runs exactly (Table~\ref{tab:passages} lists 12 of them).
 \item Prospectively frozen: the passage forecasts at two new folds (Table~\ref{tab:prospective}); 23 of 24 within one
   iterate, and the all-row criterion failed by one row.
 \item Rung 2 as well: the period-2 and period-8 orbits of Table~\ref{tab:orbits} (independent implementation), and
   the cascade's first five flip parameters (three devices, agreement $10^{-16}$--$3\times10^{-15}$).
-\item Rung 1: the other orbits, the curves, the cusps and the 1.5B flips.
+\item Rung 1: the other orbits, the curves, the cusps, the superstable parameters, the 1.5B flips, the hostile
+  windows' edges and their 2-cycle fold with its normal form, and Huginn's float32 spectra.
+\item Prospectively frozen as well: the confirmation of the in-context warning in sampled dialogue
+  (Section~\ref{sec:misalignment}), whose design was pushed before the data and amended, before any outcome was read,
+  to correct a labelling error.
 \end{itemize}
-\inprogress{interval (Arb ball) proof of the period-8 stripe orbit (rung 3): one exact-real map step is enclosed;
-box enclosures through the transformer currently fail by wrapping.}
+\inprogress{interval (Arb ball) proof of the period-8 stripe orbit (rung 3): the multiple-shooting centre is refined
+to an exact residual below $10^{-210}$ and the final box (radius $2^{-640}$) is fixed; the derivative enclosures over
+that box are being computed, after which the inclusion, primitive-period and attraction gates follow.}
 Code: \texttt{tools/explore\_llm\_soft\_loop.py}, \texttt{tools/bifurcation\_curves.py},
 \texttt{tools/llm\_feigenbaum.py}, \texttt{tools/explore\_latent\_loop.py}, \texttt{tools/explore\_llm\_msm.py},
 \texttt{tools/hostility\_score.py}; raw data hash receipts in \texttt{evidence/llm-dynamics-data-receipts.json}.

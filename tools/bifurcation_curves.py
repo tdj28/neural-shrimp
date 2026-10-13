@@ -490,6 +490,12 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
             if it == max_newton:
                 break
             z = z + np.linalg.solve(A, -np.concatenate([G, [rhs_fn(z)]]))
+            # a chord step can throw the parameter far outside the bounds (an overflowing 10**log10T crashed one
+            # temperature branch): treat it as a failed correction, so the step is retried smaller
+            if not np.all(np.isfinite(z)) or (bounds is not None and not
+                                               (bounds[0] - (bounds[1] - bounds[0]) <= z[n]
+                                                <= bounds[1] + (bounds[1] - bounds[0]))):
+                return None, None, None, float("inf"), it + 1
         return None, None, None, rel, max_newton
 
     def tangent(J, previous):
