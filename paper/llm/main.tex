@@ -525,11 +525,47 @@ slowing-down proxies are known to depend on the mechanism \cite{maturana2020slow
 secondary question is whether interventions timed by those estimates prevent capture at lower cost than scheduled or
 constant counter-steering. Early warning is not expected for noise-induced jumps without a nearby bifurcation, or for
 transitions faster than the slowing-down; such a monitor would complement classifiers, not replace them.
-\inprogress{capture ladder at $\alpha=0.04$--$0.07$ (128 dialogues of 40 turns per dose) with specificity controls
-(neutral topic, random directions) and held-out replicates; incremental lead time over the baselines.}
-\planned{ramp schedules for hysteresis; a pre-response activation probe; calibration and precision at fixed false-warning
-rates; timed interventions against scheduled and constant controls at matched cost; frozen confirmatory test on
-fresh openers.}
+
+\paragraph{Capture ladder.} With 128 dialogues of 40 turns per dose, the share of hostile turns rises steeply from
+$10\,\%$ at $\alpha=0.04$ to $30\,\%$, $57\,\%$ and $87\,\%$ at $0.05$, $0.06$ and $0.07$ (Table~\ref{tab:hostility}).
+Replicates with a second seed agree within three percentage points. Directions of the same norm do not produce it:
+at $0.06$, $0\,\%$ for a random direction and $3\,\%$ for a cooking direction; at $0.08$, $1$--$12\,\%$. After the first
+hostile turn, the probability of staying hostile in the next turn grows with the dose, from $0.36$ to $0.67$, $0.79$
+and $0.94$. The hostile state therefore changes from flickering bursts (mean stay $1.6$ turns) to a near-absorbing
+state (16 turns), with an escape rate falling roughly exponentially with the dose. This is the same progression as
+the gratitude ladder (Appendix~\ref{app:gratitude}), from dynamic capture to imposed capture.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lccccc}
+\toprule
+direction, $\alpha$ & hostile turns & never hostile & median onset turn & $P(\text{stay hostile})$ & hostile in turns 30--39 \\
+\midrule
+none, $0$ & $0\,\%$ & 128/128 & -- & -- & $0\,\%$ \\
+hostility, $0.04$ & $10\,\%$ & 26/128 & 9 & $0.36$ & $12\,\%$ \\
+hostility, $0.05$ & $30\,\%$ ($28\,\%$) & 10/128 & 3 & $0.67$ ($0.63$) & $32\,\%$ \\
+hostility, $0.06$ & $57\,\%$ ($55\,\%$) & 4/128 & 2 & $0.79$ ($0.80$) & $66\,\%$ \\
+hostility, $0.07$ & $87\,\%$ & 0/128 & 1 & $0.94$ & $96\,\%$ \\
+random, $0.06$ / $0.08$ & $0\,\%$ / $12\,\%$ & 126 / 72 & & & \\
+cooking, $0.06$ / $0.08$ & $3\,\%$ / $7\,\%$ & 97 / 68 & & & \\
+\bottomrule
+\end{tabular}
+\caption{Sampled self-dialogue of Qwen2.5-0.5B (128 dialogues, 40 turns, $T=0.7$) steered along the hostility
+direction, with controls of the same norm. Hostile turn: toxicity classifier above $0.5$. Parentheses: replicate with a
+second seed. Exploratory.}
+\label{tab:hostility}
+\end{table}
+
+\paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
+tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
+baselines lowers the AUC by $0.02$ to $0.10$ at horizons of 1--5 turns, with bootstrap intervals excluding zero. The
+Markov hit-probability forecast does not transfer (AUC $0.37$--$0.43$ on test, $0.60$ in training), and the
+classifier's own score carries no warning before onset (AUC about $0.5$). Two signals carry modest warning one to five
+turns ahead (AUC $0.57$--$0.66$): the rolling variance of a hostility probe, the classical early-warning indicator,
+and the projection on the fixed steering axis, as in persona-vector monitoring \cite{chen2025persona}. In this design,
+then, the coarse-grained state estimate adds no warning beyond the baselines.
+\planned{adapted analyses (dose-matched models, a hazard model, more dialogues at $\alpha=0.04$ where captures are
+late); ramp schedules for hysteresis; a pre-response activation probe; timed interventions against scheduled and
+constant controls at matched cost; frozen confirmatory test on fresh openers.}
 
 \section{Discussion}
 \label{sec:discussion}
