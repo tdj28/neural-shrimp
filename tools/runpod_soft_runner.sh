@@ -297,6 +297,15 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
         --log-temperature -0.3 0.3 --out $D/scale7/coarse-64-hostility
     fi
     ;;
+  hcurves)     # float64 fold/flip curves of the hostility-steered map from uploaded branch runs (--extra-data); each
+               # JOBARGS entry is NAME:START:KIND:DIR:STEPS:MINUTES:DS:DSMAX:TLO:THI:ALO:AHI
+    for spec in "${JOBARGS[@]}"; do
+      IFS=: read -r name start kind dir steps minutes ds dsmax tlo thi alo ahi <<< "$spec"
+      run hcurve-$name "$minutes" $CURVE --steps "$steps" --start "$start" --kind "$kind" --direction "$dir" \
+        --ds "$ds" --ds-max "$dsmax" --log-temperature-bounds "$tlo" "$thi" --alpha-bounds "$alo" "$ahi" \
+        --out $D/hcurves/$name
+    done
+    ;;
   scan64)      # one float64 scan with free arguments: scan64 OUT-NAME MINUTES SCAN-ARGS... (zooms to be read without
                # the float32 precision caveat; on an H100 float64 costs about the same as float32 for this model)
     name=${JOBARGS[0]}
