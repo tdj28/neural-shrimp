@@ -14,11 +14,12 @@ import explore_llm_soft_loop as esl  # noqa: E402
 
 run = sys.argv[1]
 indices = [int(i) for i in sys.argv[2].split(",")]
+device = sys.argv[3] if len(sys.argv) > 3 else "cpu"           # e.g. cuda on a pod with fast float64
 src = esl.DATA / "explore" / run
 cv = json.loads((src / "curve.json").read_text())
 states = np.load(src / "states.npy")
 start = json.loads((esl.DATA / "explore" / cv["args"]["start"] / "branch.json").read_text())["args"]
-loop = esl.SoftLoop(start["model"], start["layer"], 12, start["prompt"], start["opener"], start["window"], "float64", "cpu")
+loop = esl.SoftLoop(start["model"], start["layer"], 12, start["prompt"], start["opener"], start["window"], "float64", device)
 v = elpm.load_vectors(start["vectors"])[start["concept"]]
 fam = esl.soft_family(loop, v, int(cv["period"]), 10.0, 512)
 for i in indices:

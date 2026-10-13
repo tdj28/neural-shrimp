@@ -354,6 +354,17 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
       esac
     done
     ;;
+  cusps)       # fold normal form (tools/cusp_check.py, float64 on the GPU) at points of uploaded fold-curve runs; each
+               # JOBARGS entry is CURVE_RUN:INDICES (comma-separated), output next to the curve run
+    for spec in "${JOBARGS[@]}"; do
+      crun=${spec%%:*}; idx=${spec#*:}
+      log "start cusp-check $crun $idx"
+      timeout 90m $PY tools/cusp_check.py "$crun" "$idx" cuda 2> "$LOGS/cusp-$(basename $crun).log" \
+        | grep --line-buffered '^{' > "$OUT/$crun/cusp-check.jsonl"
+      log "end cusp-check $crun status $?"
+      cut -c1-300 "$OUT/$crun/cusp-check.jsonl"
+    done
+    ;;
   hcurves)     # float64 fold/flip curves of the hostility-steered map from uploaded branch runs (--extra-data); each
                # JOBARGS entry is NAME:START:KIND:DIR:STEPS:MINUTES:DS:DSMAX:TLO:THI:ALO:AHI
     for spec in "${JOBARGS[@]}"; do
