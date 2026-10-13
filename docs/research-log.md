@@ -22449,3 +22449,9 @@ _commit `41127426bfb0` (dirty worktree)_
 - **Would surprise us:** det J near zero (non-generic cusp); predicted orbit counts not recovered at the smaller offsets
 
 _commit `58c0c9787769`_
+
+## 2026-10-13 21:18 UTC: L13p: SAE feature profiles on held-out category texts (Llama-3.1-8B-Instruct)
+
+Pod 72yrzhwqp4v6p9 (270 s; hash verified; terminated 21:16:42 UTC), llama8b PART p: llm_sae_readout profile, plain text, first token dropped, float32 on the GPU. Nine held-out categories written before any map readout was seen (CATEGORIES in tools/llm_sae_readout.py: gratitude, hostility, kindness, philosophy, cooking, neutral, and confounds politeness, sadness, casual swearing; 103-124 tokens each; none of them among the vector-building prompts). Output llm-soft-loop/pod64/llama8b-p/sae-profile/profiles.json: per-feature mean activation per category for every feature active anywhere (Goodfire l19: 15018 of 65536; seonglae faithful-42: 7091 of 16384; fineweb: 8841). These profiles are evidence about what a feature responds to, for the readout analysis; they are not labels.
+
+_commit `c4cd166cfdca`_
