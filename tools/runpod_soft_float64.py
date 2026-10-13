@@ -28,7 +28,8 @@ from runpod_phase0 import KEY, ssh_base, wait_for_ssh  # noqa: E402
 UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.py", "tools/explore_llm_phase_map.py",
                 "tools/bifurcation_curves.py", "tools/explore_latent_loop.py", "tools/runpod_soft_runner.sh",
                 "tools/explore_llm_msm.py", "tools/llm_feigenbaum.py", "tools/hostility_score.py",
-                "tools/huginn_relax_eval.py", "tools/p1_committor.py", "tools/p1_detection.py", "pyproject.toml")
+                "tools/huginn_relax_eval.py", "tools/p1_committor.py", "tools/p1_detection.py", "tools/p1_select_dose.py",
+                "pyproject.toml")
 DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
 
@@ -54,7 +55,7 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x"))
     parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--run-minutes", type=float, required=True)
