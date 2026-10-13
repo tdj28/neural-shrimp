@@ -50,7 +50,7 @@ def onsets(hostile, consecutive=1):
     return out
 
 
-def at_risk_rows(onset, turns, h):
+def at_risk_rows(onset, turns, h, consecutive=1):
     """(dialogue, turn, label): turns t before the event whose whole horizon t+1..t+h is observed (t + h <= turns - 1,
     complete-horizon right-censoring); label 1 if the event is in t+1..t+h. onset == turns means no event: it is a
     sentinel, never a label (correction of 13 October, found in review by Codex: the sentinel used to label the last
@@ -59,7 +59,9 @@ def at_risk_rows(onset, turns, h):
     for r, o in enumerate(onset):
         o = int(o)
         for t in range(min(o, turns - 1)):
-            if t + h > turns - 1:
+            # an onset at t + h needs its `consecutive` hostile turns observed (second correction, 13 October, from
+            # Codex's review: for two consecutive turns the last observable onset is turns - 2)
+            if t + h + consecutive - 1 > turns - 1:
                 continue
             rows.append((r, t, int(o < turns and t < o <= t + h)))
     return np.array(rows, dtype=int).reshape(-1, 3)
@@ -101,7 +103,7 @@ def table(arms, h, consecutive=1):
         s = arm["score"]
         R, N = s.shape
         onset = onsets(s > THRESHOLD, consecutive)
-        rows = at_risk_rows(onset, N, h)
+        rows = at_risk_rows(onset, N, h, consecutive)
         for r, t, y in rows:
             cols["y"].append(y)
             cols["group"].append(offset + r)

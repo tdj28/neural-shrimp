@@ -59,3 +59,19 @@ def test_no_event_sentinel_is_never_a_label_and_horizons_are_complete():
     late[0, 38] = True                                           # event at turn 38
     rows = pd.at_risk_rows(pd.onsets(late, 1), turns, 3)
     assert [tuple(x) for x in rows if x[2] == 1] == [(0, 35, 1), (0, 36, 1)]
+
+
+def test_consecutive_event_needs_its_second_turn_observed():
+    turns = 40
+    last_single = np.zeros((1, turns), dtype=bool)
+    last_single[0, 39] = True                                    # hostile only at the last turn
+    o1 = pd.onsets(last_single, 1)
+    rows = pd.at_risk_rows(o1, turns, 3, 1)
+    assert [tuple(x) for x in rows if x[2] == 1] == [(0, 36, 1)]
+    o2 = pd.onsets(last_single, 2)                               # no two-turn event observable
+    rows = pd.at_risk_rows(o2, turns, 3, 2)
+    assert rows[:, 2].sum() == 0 and rows[:, 1].max() == turns - 1 - 3 - 1
+    final_pair = np.zeros((1, turns), dtype=bool)
+    final_pair[0, 38:40] = True                                  # two-turn event starting at 38
+    rows = pd.at_risk_rows(pd.onsets(final_pair, 2), turns, 3, 2)
+    assert [tuple(x) for x in rows if x[2] == 1] == [(0, 35, 1)]
