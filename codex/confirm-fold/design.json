@@ -1,0 +1,498 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-13T02:08:31.955937+00:00",
+  "model": {
+    "name": "Qwen/Qwen2.5-0.5B-Instruct",
+    "snapshot": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "map_source": "codex/crosscheck/qwen_map.py",
+    "assets": "Pinned SHA256 and exact prefix IDs embedded in bound map source; model load verifies asset hashes."
+  },
+  "scope": "Prospective finite-range fold passage forecast, one pinned checkpoint/prompt/feedback map; no discrete-token or behavioral claim.",
+  "criterion": {
+    "primary": "all rows absolute measured_G minus quadratic_G <= 1",
+    "secondary": "all rows absolute measured_G minus unrounded arctan_G <= 1",
+    "missing": "failed/not-run/censored rows never pass; target-gate failures retained",
+    "endpoint": "first strict u>U after complete G step; no burn-in"
+  },
+  "execution": {
+    "target_order": [
+      "A",
+      "B"
+    ],
+    "epsilon_order": [
+      3e-06,
+      1e-05,
+      3e-05,
+      0.0001
+    ],
+    "entrances": [
+      "full",
+      "midpoint",
+      "full+transverse"
+    ],
+    "threads": 4,
+    "device": "cpu",
+    "dtype": "float64",
+    "timeout_seconds": 21600,
+    "memory_gib": 18,
+    "max_workers": 2,
+    "post_outcome_changes": "dated amendment; affected rows exploratory"
+  },
+  "software": {
+    "torch": "2.14.1",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "safetensors": "0.8.0"
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "source": [
+    {
+      "path": "codex/confirm-fold/audit.py",
+      "sha256": "e805a4c8799623930fb493c4d8a6612717f9a68c1b79ae6a9f1051859210055a"
+    },
+    {
+      "path": "codex/confirm-fold/build_design.py",
+      "sha256": "e03ad704001a18d778847b8d4ad5c55100e0495a58dbe71c2486e4fa661e7797"
+    },
+    {
+      "path": "codex/confirm-fold/fold_setup.py",
+      "sha256": "ab47613afad845264fb21b3d47a3b601b56f5a7a4100d01aab30affeabe19d3a"
+    },
+    {
+      "path": "codex/confirm-fold/launch.py",
+      "sha256": "856de2281139747dbdfaaf4abe5481f92c46a6936f3de3a9e75f26f70cb7c873"
+    },
+    {
+      "path": "codex/confirm-fold/passage.py",
+      "sha256": "ab1dad63a543ca4d1c23ee2d5167a46016757128a653c722721914f548d760d6"
+    },
+    {
+      "path": "codex/confirm-fold/report.py",
+      "sha256": "815eae18efdce0b374c9e30f57b2f2207ddaf09d98d444a71fb11266965177aa"
+    },
+    {
+      "path": "codex/crosscheck/numerics.py",
+      "sha256": "8267668ccd6ebdef4d97b684059e9e85212b7a3363b4a0d93253f94a4ed31abc"
+    },
+    {
+      "path": "codex/crosscheck/qwen_map.py",
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    }
+  ],
+  "targets": [
+    {
+      "label": "A",
+      "setup": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/qualification-A-01/run/setup.json",
+        "sha256": "fc1bf51990b039bc789db7b49bcefaf56d4e5750e75f4921536684f1b611156b",
+        "bytes": 13312
+      },
+      "period": 2,
+      "coordinate": "alpha",
+      "status": "ready",
+      "setup_arrays": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/qualification-A-01/run/setup.npz",
+        "sha256": "41cdbc346f56a6f0ed2e60c470ff9d4331f8bd7f14fe267e34ecd8dff365861c",
+        "bytes": 33437887
+      },
+      "inputs": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/frozen-inputs-v1/A-inputs.npz",
+        "sha256": "4942834abc64d0aacf1b545330af17b341417883067ab6d943a4ab269bcb657e",
+        "bytes": 6474154
+      },
+      "seed": 10501,
+      "parameter_c": 0.06705485936004332,
+      "alpha": 0.06705485936004332,
+      "log10T": -0.14,
+      "ghost_direction": 1,
+      "raw_a": -7.054924948575865,
+      "raw_b": -24.92734030789243,
+      "a_positive": 7.054924948575865,
+      "b_positive": 24.92734030789243,
+      "U": 0.004011659437583009,
+      "max_g": 512,
+      "rows": [
+        {
+          "id": "A-0-full",
+          "target": "A",
+          "group": 0,
+          "entrance_index": 0,
+          "eps": 3e-06,
+          "entrance": "full",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06705785936004333,
+          "quadratic_G": 118,
+          "arctan_G": 117.1154712342537
+        },
+        {
+          "id": "A-0-midpoint",
+          "target": "A",
+          "group": 0,
+          "entrance_index": 1,
+          "eps": 3e-06,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06705785936004333,
+          "quadratic_G": 61,
+          "arctan_G": 58.55773561712685
+        },
+        {
+          "id": "A-0-full+transverse",
+          "target": "A",
+          "group": 0,
+          "entrance_index": 2,
+          "eps": 3e-06,
+          "entrance": "full+transverse",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06705785936004333,
+          "quadratic_G": 118,
+          "arctan_G": 117.1154712342537
+        },
+        {
+          "id": "A-1-full",
+          "target": "A",
+          "group": 1,
+          "entrance_index": 0,
+          "eps": 1e-05,
+          "entrance": "full",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06706485936004332,
+          "quadratic_G": 56,
+          "arctan_G": 55.97684451990935
+        },
+        {
+          "id": "A-1-midpoint",
+          "target": "A",
+          "group": 1,
+          "entrance_index": 1,
+          "eps": 1e-05,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06706485936004332,
+          "quadratic_G": 29,
+          "arctan_G": 27.988422259954675
+        },
+        {
+          "id": "A-1-full+transverse",
+          "target": "A",
+          "group": 1,
+          "entrance_index": 2,
+          "eps": 1e-05,
+          "entrance": "full+transverse",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06706485936004332,
+          "quadratic_G": 56,
+          "arctan_G": 55.97684451990935
+        },
+        {
+          "id": "A-2-full",
+          "target": "A",
+          "group": 2,
+          "entrance_index": 0,
+          "eps": 3e-05,
+          "entrance": "full",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06708485936004333,
+          "quadratic_G": 26,
+          "arctan_G": 25.95463761282952
+        },
+        {
+          "id": "A-2-midpoint",
+          "target": "A",
+          "group": 2,
+          "entrance_index": 1,
+          "eps": 3e-05,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06708485936004333,
+          "quadratic_G": 14,
+          "arctan_G": 12.97731880641476
+        },
+        {
+          "id": "A-2-full+transverse",
+          "target": "A",
+          "group": 2,
+          "entrance_index": 2,
+          "eps": 3e-05,
+          "entrance": "full+transverse",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06708485936004333,
+          "quadratic_G": 26,
+          "arctan_G": 25.95463761282952
+        },
+        {
+          "id": "A-3-full",
+          "target": "A",
+          "group": 3,
+          "entrance_index": 0,
+          "eps": 0.0001,
+          "entrance": "full",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06715485936004333,
+          "quadratic_G": 10,
+          "arctan_G": 9.74426800704548
+        },
+        {
+          "id": "A-3-midpoint",
+          "target": "A",
+          "group": 3,
+          "entrance_index": 1,
+          "eps": 0.0001,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06715485936004333,
+          "quadratic_G": 6,
+          "arctan_G": 4.87213400352274
+        },
+        {
+          "id": "A-3-full+transverse",
+          "target": "A",
+          "group": 3,
+          "entrance_index": 2,
+          "eps": 0.0001,
+          "entrance": "full+transverse",
+          "u_in": -0.004011659437583009,
+          "u_out": 0.004011659437583009,
+          "parameter": 0.06715485936004333,
+          "quadratic_G": 10,
+          "arctan_G": 9.74426800704548
+        }
+      ],
+      "geometry": {
+        "left_norm": 28.845209588039285,
+        "projector_frobenius": 41.545711164666756,
+        "complementary_power_frobenius": {
+          "1": 3.0678969253254333,
+          "2": 0.2821733020870783,
+          "4": 0.0022279275545018604,
+          "8": 1.3358711301051078e-07
+        },
+        "transverse_projection": -3.0531133177191805e-16,
+        "transverse_kick_norm": 0.004011659437583009,
+        "initial_u": [
+          -0.004011659437583045,
+          0.0,
+          -0.00401165943758305
+        ]
+      }
+    },
+    {
+      "label": "B",
+      "setup": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/qualification-B-02/run/setup.json",
+        "sha256": "b4802d137728aa3194250d45a7c110509c0adfb28e08fa87ecca02af1c0eadbf",
+        "bytes": 12891
+      },
+      "period": 8,
+      "coordinate": "log10T",
+      "status": "ready",
+      "setup_arrays": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/qualification-B-02/run/setup.npz",
+        "sha256": "d3bccdc48595c2d41206db8147b42c3cf668a9c977ac399063b036b1794da48e",
+        "bytes": 33453688
+      },
+      "inputs": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/frozen-inputs-v1/B-inputs.npz",
+        "sha256": "e8fefad9cdfbbb6cbcf8e0c51a3a1c058d85c2cbd6107edecc7a401ce4e59328",
+        "bytes": 6474154
+      },
+      "seed": 10502,
+      "parameter_c": -0.1033462421844031,
+      "alpha": 0.0717,
+      "log10T": -0.1033462421844031,
+      "ghost_direction": 1,
+      "raw_a": -11.89977885013483,
+      "raw_b": -152.05451694889547,
+      "a_positive": 11.89977885013483,
+      "b_positive": 152.05451694889547,
+      "U": 0.0006576588581949812,
+      "max_g": 512,
+      "rows": [
+        {
+          "id": "B-0-full",
+          "target": "B",
+          "group": 0,
+          "entrance_index": 0,
+          "eps": 3e-06,
+          "entrance": "full",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10334324218440309,
+          "quadratic_G": 26,
+          "arctan_G": 25.403408927662824
+        },
+        {
+          "id": "B-0-midpoint",
+          "target": "B",
+          "group": 0,
+          "entrance_index": 1,
+          "eps": 3e-06,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10334324218440309,
+          "quadratic_G": 14,
+          "arctan_G": 12.701704463831412
+        },
+        {
+          "id": "B-0-full+transverse",
+          "target": "B",
+          "group": 0,
+          "entrance_index": 2,
+          "eps": 3e-06,
+          "entrance": "full+transverse",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10334324218440309,
+          "quadratic_G": 26,
+          "arctan_G": 25.403408927662824
+        },
+        {
+          "id": "B-1-full",
+          "target": "B",
+          "group": 1,
+          "entrance_index": 0,
+          "eps": 1e-05,
+          "entrance": "full",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.1033362421844031,
+          "quadratic_G": 10,
+          "arctan_G": 9.504891884788005
+        },
+        {
+          "id": "B-1-midpoint",
+          "target": "B",
+          "group": 1,
+          "entrance_index": 1,
+          "eps": 1e-05,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.1033362421844031,
+          "quadratic_G": 5,
+          "arctan_G": 4.752445942394003
+        },
+        {
+          "id": "B-1-full+transverse",
+          "target": "B",
+          "group": 1,
+          "entrance_index": 2,
+          "eps": 1e-05,
+          "entrance": "full+transverse",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.1033362421844031,
+          "quadratic_G": 10,
+          "arctan_G": 9.504891884788005
+        },
+        {
+          "id": "B-2-full",
+          "target": "B",
+          "group": 2,
+          "entrance_index": 0,
+          "eps": 3e-05,
+          "entrance": "full",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10331624218440309,
+          "quadratic_G": 4,
+          "arctan_G": 3.4803085952686263
+        },
+        {
+          "id": "B-2-midpoint",
+          "target": "B",
+          "group": 2,
+          "entrance_index": 1,
+          "eps": 3e-05,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10331624218440309,
+          "quadratic_G": 2,
+          "arctan_G": 1.7401542976343132
+        },
+        {
+          "id": "B-2-full+transverse",
+          "target": "B",
+          "group": 2,
+          "entrance_index": 2,
+          "eps": 3e-05,
+          "entrance": "full+transverse",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10331624218440309,
+          "quadratic_G": 4,
+          "arctan_G": 3.4803085952686263
+        },
+        {
+          "id": "B-3-full",
+          "target": "B",
+          "group": 3,
+          "entrance_index": 0,
+          "eps": 0.0001,
+          "entrance": "full",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10324624218440309,
+          "quadratic_G": 2,
+          "arctan_G": 1.0856166513686094
+        },
+        {
+          "id": "B-3-midpoint",
+          "target": "B",
+          "group": 3,
+          "entrance_index": 1,
+          "eps": 0.0001,
+          "entrance": "midpoint",
+          "u_in": 0.0,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10324624218440309,
+          "quadratic_G": 1,
+          "arctan_G": 0.5428083256843047
+        },
+        {
+          "id": "B-3-full+transverse",
+          "target": "B",
+          "group": 3,
+          "entrance_index": 2,
+          "eps": 0.0001,
+          "entrance": "full+transverse",
+          "u_in": -0.0006576588581949812,
+          "u_out": 0.0006576588581949812,
+          "parameter": -0.10324624218440309,
+          "quadratic_G": 2,
+          "arctan_G": 1.0856166513686094
+        }
+      ],
+      "geometry": {
+        "left_norm": 8.207774615213541,
+        "projector_frobenius": 31.005927887004805,
+        "complementary_power_frobenius": {
+          "1": 1.4054036650358617e-05,
+          "2": 1.553609038038259e-11,
+          "4": 1.9058633764067924e-23,
+          "8": 2.8680338537474005e-47
+        },
+        "transverse_projection": -3.3306690738754696e-16,
+        "transverse_kick_norm": 0.0006576588581949812,
+        "initial_u": [
+          -0.0006576588581949852,
+          0.0,
+          -0.000657658858194988
+        ]
+      }
+    }
+  ]
+}

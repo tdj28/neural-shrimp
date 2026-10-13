@@ -82,3 +82,45 @@ The linear functional l can amplify state roundoff. Retain projection/crossing m
 The separate `audit.py` imports neither the model nor the producer modules. It reconstructs all planned trial identities, AD-vector contractions, sign conventions, physical parameter coordinates, RNG-defined entrances, scalar predictions, every retained full-state projection and transverse norm, strict first crossings, bracketing states and crossing margins. It checks artifact/source hashes, plan and source bytes in the named Git freeze, and retained prospective timestamps. All 24 rows remain visible, including missing, censored and setup-blocked rows. Integrity and the two scientific all-row verdicts are separate; a missing/censored row cannot pass.
 
 Synthetic tests cover both periods and physical coordinates, either ghost-side sign, strict exit versus equality, nonfinite/tail failures, source-artifact corruption, changed count/clock/prediction/parameter metadata, duplicated or missing trial IDs, missing groups, corrupted interior/crossing states, right-censoring and outcome-before-freeze or mismatching-Git-tree rejection. Git-tree calls are mocked in tests; no Git mutation, checkpoint/model load or Task 5 outcome inspection occurs in this review. This is an offline evidence audit, not an independent model replay or interval certificate.
+
+
+## Final pre-outcome numeric design review
+
+Reviewed at 2026-10-13T02:11:28.545629+00:00, before any Task 5 full-model passage. Verdict: **the numerical design is internally coherent and ready for the required private freeze and controlled launch**. This is approval of the prospective design, not a passage result. No model was loaded, no model calls were made, and no passage outcome files were opened in this review.
+
+The exact reviewed plan is `codex/confirm-fold/design.json`, SHA-256 `3ac03b7510060f52fda73d6e832a98b8c6ef5600095197050e9b745d96c59810`, 15,338 bytes, created 2026-10-13T02:08:31.955937+00:00. All eight bound Python source hashes matched the current bytes. The independent offline audit passed all 61 available pre-outcome checks per target (122 total). Its sole additional failure per target was the deliberately absent `runtime_present` check: passages have not been supplied, so runtime integrity and scientific success are not yet established.
+
+Checks included every setup/input hash and byte size; saved nested-AD vector contractions; raw-to-oriented eigenvectors; normalization; independently recomputed 896-dimensional spectrum and critical-mode residuals; physical parameter units and ghost direction; fixed-seed transverse vectors and exact three entrance arrays; all 24 trial identities, coordinates, integer recurrence predictions and unrounded arctangent predictions; and the scalar-derived 512-G cap for each target. The saved input matrices are the independently qualified composed maps G=F^2 and G=F^8. The setup asset hashes and prefix IDs match between targets; the frozen independent map/numerics hashes also match their setup provenance.
+
+A uses retained `qualification-A-01`, source commit `ee32575a839f6f79b1d39727addbb9e7cabd63de`; B uses retained `qualification-B-02`, source commit `8cf9ffc20eb0df197e793e9d280d3f24631fa01d`. These differing setup versions are disclosed, not silently represented as one execution. Both resumed hash-bound independent correctors and repeated their downstream qualification gates. The parameter FD ladder is (7e-6,2e-6,7e-7), disjoint from test offsets. A retains state steps (1e-3,3e-4,1e-4); B uses the disclosed pre-outcome refinement (1e-4,3e-5,1e-5). B's prior truncation failure remains an attempt in the research record and does not authorize changing a passage after its outcome.
+
+The final source/receipts, rather than earlier proposals in this review, define the admission thresholds: closure and all-phase return below 1e-10; proper-divisor separation 1e-6; critical real part within 1e-8 of +1 with imaginary part at most 1e-10; complementary radius strictly below .95; separation of the critical eigenvalue from every other eigenvalue greater than 1e-3; eigenpair residuals below 1e-8; nonzero coefficient magnitudes greater than 1e-10; each of the last two FD coefficient estimates individually within relative 1e-3 of AD with the same sign. The finest composed directional-map error must be below 1e-5 and either below 1e-7 or less than .3 times the coarsest error. The earlier 1e-11 closure / 1e-4 derivative suggestions were proposals, not additional active gates. All final gates pass for both qualified setups.
+
+| Quantity | A: physical alpha at fixed log10(T)=-.140 | B: log10(T) at fixed alpha=.0717 |
+|---|---:|---:|
+| Fold parameter | 0.06705485936004332 | -0.1033462421844031 |
+| Raw a | -7.054924948575865 | -11.89977885013483 |
+| Raw b | -24.92734030789243 | -152.05451694889547 |
+| Ghost direction | +1 | +1 |
+| U | 0.004011659437583009 | 0.0006576588581949812 |
+| Critical multiplier | 1.0000000000000413 | 1.0000000000052838 |
+| Complementary radius | 0.08798289266724593 | 1.1075749560650417e-6 |
+| Finest composed FD relative error | 3.6060465221904624e-6 | 2.005679948741551e-6 |
+| Left-mode norm | 28.845209588039285 | 8.207774615213541 |
+
+The raw multipliers slightly above one at a numerically located fold do not support calling the fold itself strictly attracting. The primitive divisor-return checks are well separated: A's F return is about 1.02 relative; B's F, F^2 and F^4 returns are about 2.12, 1.49 and 1.45. All complete-period phase returns are below 8.14e-13. These are numerical qualifications, not interval bounds.
+
+Every frozen discrete prediction is reproduced below. Each tuple is (full, midpoint, full+transverse), with no omitted row.
+
+| Epsilon | A predicted G counts | B predicted G counts |
+|---:|---|---|
+| 3e-6 | (118,61,118) | (26,14,26) |
+| 1e-5 | (56,29,56) | (10,5,10) |
+| 3e-5 | (26,14,26) | (4,2,4) |
+| 1e-4 | (10,6,10) | (2,1,2) |
+
+The raw arctangent comparisons remain separate. In particular A-0-midpoint has N_quad=61 and N_arc=58.55773561712685. No integer can be within one of both (discrete acceptance 60,61,62; arctangent acceptance 58,59). Thus joint all-row success is impossible before observing a model trajectory. The linked `arctangent-scope.md` preserves the first-order Euler correction explanation; it does not replace either frozen predictor. The primary all-row discrete criterion remains falsifiable. B's largest offsets predict only one to four G steps: a one-step tolerance there is weak relative accuracy, and passing them would not establish an asymptotic scaling law. Keep those planned rows and disclose this limitation.
+
+Source review found agreement between builder, launcher, passage runtime and independent audit on physical coordinates, sign orientation, strict complete-G exit, immutable entrances, all-row retention, count clocks and predictor definitions. The launcher snapshots the pushed commit, the worker validates plan/source/input hashes and provenance, and every active full state through first exit is retained. Runtime failure/censoring never counts as scientific success. Final launch commands must use the exact frozen four threads, 18-GiB address-space ceiling and 21,600-second watchdog per worker; audit their retained launcher manifests because the general launcher CLI itself permits a broader range. `target_order=[A,B]` means dispatch order, with at most two concurrent workers, not a requirement that A finish before B starts. Commit/push and runtime chronology remain checks to perform at launch and final audit, not facts proved by this pre-freeze review.
+
+The final human-readable result must retain the known arctangent incompatibility and use the finite-range, same-model/prompt scope. This review changes no runtime, coefficients, entrances, predictions, acceptance gates or machine-plan bytes.

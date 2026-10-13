@@ -5,7 +5,7 @@ Date: 13 October 2026 UTC. Scope: manually inspect the independent setup artifac
 ## Current disposition
 
 - **Target A: PASS for freezing a passage prediction**, using `qualification-A-01/run/setup.json`.
-- **Target B: NOT QUALIFIED on `qualification-B-01`**. Its fold/orbit gates pass, but its state-derivative FD and composed-map precision gates fail. A pre-outcome B-only refinement of the displacement ladder is justified below; `qualification-B-02` must pass independently before any B approval.
+- **Target B: PASS for freezing a passage prediction**, using `qualification-B-02/run/setup.json`. The failed `qualification-B-01` derivative setup and its pre-outcome refinement remain documented below. Both targets have now passed their actual saved-result gates; no passage outcomes were evaluated by this audit.
 - The prospective passage forecasts themselves remain untested. Setup qualification establishes that the proposed fold and local coefficients meet the numerical prerequisites; it does not establish forecast accuracy.
 
 All paths below are relative to `/data2/neural-shrimp-data/codex/task5-fresh-prediction/`.
@@ -118,7 +118,7 @@ The state-AD/FD gate requires **each** of the two finest rows to agree within 1e
 
 Before freezing or observing any passage, refine B's state-displacement ladder to **(1e−4, 3e−5, 1e−5)**, keeping the same corrected state, parameter-FD ladder, AD coefficients' definitions and all acceptance thresholds. A's accepted qualification is unchanged. The old B qualification remains immutable and cited.
 
-The observed quadratic decay of both errors motivates this numerical refinement: extrapolation suggests a composed-map error near 2e−6 at h = 1e−5 and relative b errors near 2.47e−5 and 2.74e−6 at the finest two new displacements. These are planning estimates, not observations or gate approvals. The state probes remain at p = p_c, while prospective passage trajectories use positive epsilon on the ghost side; the amendment introduces no passage outcomes. **`qualification-B-02` requires its own row-by-row audit before B is accepted.**
+The observed quadratic decay of both errors motivates this numerical refinement: extrapolation suggests a composed-map error near 2e−6 at h = 1e−5 and relative b errors near 2.47e−5 and 2.74e−6 at the finest two new displacements. These are planning estimates, not observations or gate approvals. The state probes remain at p = p_c, while prospective passage trajectories use positive epsilon on the ghost side; the amendment introduces no passage outcomes. The required row-by-row audit of `qualification-B-02` is recorded below; the planning estimates above were not used as substitutes for its actual gates.
 
 ### B artifact bindings
 
@@ -131,3 +131,29 @@ The observed quadratic decay of both errors motivates this numerical refinement:
 | `qualification-B-01/run/setup.npz` | `d3bccdc48595c2d41206db8147b42c3cf668a9c977ac399063b036b1794da48e` |
 | `qualification-B-01/run/status.json` | `f73b163d40ddef9380be5a6566d292f3c54d0550a366f7d7cd422abb89b1a492` |
 | `qualification-B-01/run/inputs.json` | `016e9d08f1c2e4a29b2bc1a0cabcba8ac4f24d90e231860ee83a208f7ef59438` |
+
+
+### Target B: amended qualification accepted
+
+**`qualification-B-02` passes all existing numerical setup gates.** It ran from privately pushed source commit **8cf9ffc20eb0df197e793e9d280d3f24631fa01d**, completed with receipt exit code zero, and all **32** listed artifact hashes/sizes were checked. Original-corrector, original-manifest, original-worker, and independent map/solver source hashes were checked through the full resume chain again. The metadata records the B-only state ladder (1e−4, 3e−5, 1e−5).
+
+The full result NPZ is **byte-identical** to the failed B-01 qualification's NPZ: state, matrix, phase points, full modes, spectra and AD derivative vectors are unchanged. The corrected parameter, coefficients and mode orientation therefore agree exactly with the B-01 values above. The independent saved-matrix eigensolve, full-phase closure and divisor-return checks were repeated and all pass. What changed is the actual finite-difference approximation at smaller state displacements, recorded in the final JSON.
+
+| Actual state displacement h | FD b | Relative coefficient error against AD | Composed derivative relative error |
+|---:|---:|---:|---:|
+| 1e−4 | −152.09619802020646 | 2.741192576672903e−4 | 2.00312289435309e−4 |
+| 3e−5 | −152.05826746236013 | 2.466558402817462e−5 | 1.8024045205222146e−5 |
+| 1e−5 | −152.0549338655327 | 2.7418891959709986e−6 | 2.005679948741551e−6 |
+
+Each of the two finest b estimates is within the unchanged 1e−3 relative tolerance and preserves the AD sign. The finest composed derivative error is below the unchanged 1e−5 gate; its decay remains approximately quadratic in h. Every saved parameter-FD row was inspected again; those values match B-01, with both finest rows well within their tolerance. All nine gates are true.
+
+**Accepted B prediction inputs:** physical alpha = 0.0717; active p = log10(T), p_c = **−0.1033462421844031**; G = F⁸; raw a = **−11.89977885013483**, raw b = **−152.05451694889547**, raw ab = **1809.4151248559342**; orient both modes by −1, then use positive a = **11.89977885013483**, b = **152.05451694889547**, ghost p = p_c + epsilon, and U = **0.0006576588581949812**. The parameter coefficient is per unit log10(T), not per unit T.
+
+| Final B artifact | SHA256 |
+|---|---|
+| `qualification-B-02/run/setup.json` | `b4802d137728aa3194250d45a7c110509c0adfb28e08fa87ecca02af1c0eadbf` |
+| `qualification-B-02/run/setup.npz` | `d3bccdc48595c2d41206db8147b42c3cf668a9c977ac399063b036b1794da48e` |
+| `qualification-B-02/run/status.json` | `c9800f1a3e73f8f1c502d35a6ebe9170517b8ec5ee7d7119c557f9cee8dc2bee` |
+| `qualification-B-02/run/inputs.json` | `34e8ff131be108806338af5467a344223c8100bffc7c6f202e78490189fb3772` |
+
+This approval permits building and freezing the joint A/B forecast design. It does not assert that any forecast passes: all 24 prospective passage rows must still be evaluated only after the design and executable source have been pushed.
