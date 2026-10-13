@@ -45,6 +45,13 @@ class SearchError(RuntimeError):
     """A precondition of the cascade search failed (no convergence, wrong crossing type, no bracket)."""
 
 
+def tol_for(period, tol):
+    """Newton tolerance for the p-fold map: float64 rounding accumulates along the orbit, and the relative residual of
+    the 96-step crescent orbit stagnated at 1.3e-12 to 6.7e-12 (run C2), above a fixed 1e-12; so the tolerance is
+    max(tol, 1e-13 * p), which stays above the measured floor (AGENTS.md: tolerances above the measured error)."""
+    return max(float(tol), 1e-13 * int(period))
+
+
 def _rows(Q, X):
     """Columns of Q (n, k) as tangent rows (k, *X.shape[1:]) in X's dtype and device."""
     torch = __import__("torch")
@@ -164,6 +171,7 @@ def evaluate(make_cell, lam, X0, period, Q0, tol=1e-12, max_newton=12, passes=3,
     multiplier near -1 (Re + 1 < 0.5): what approaches the circle there is not a real multiplier, so not a flip."""
     tic = time.perf_counter()
     cell = make_cell(lam)
+    tol = tol_for(period, tol)
     X, Q, hist = newton(cell, X0, period, Q0, tol, max_newton)
     if not hist[-1] < tol:
         raise SearchError(f"period-{period} Newton did not converge at lambda = {lam!r}: residuals {hist}")
@@ -225,6 +233,7 @@ def switch(make_cell, flip, period, lam, displacement, steps, k, tol=1e-12, max_
         tuple(flip.X.shape)), dtype=flip.X.dtype, device=flip.X.device)
     X = cell.iterate(X, steps)
     Q = np.linalg.qr(np.column_stack([flip.vec, flip.Q[:, : k - 1]]))[0]
+    tol = tol_for(2 * period, tol)
     X, Q, hist = newton(cell, X, 2 * period, Q, tol, max_newton)
     if not hist[-1] < tol:
         raise SearchError(f"period-{2 * period} Newton after switching at lambda = {lam!r} did not converge: {hist}")

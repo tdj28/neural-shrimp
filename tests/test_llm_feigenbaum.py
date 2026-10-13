@@ -96,3 +96,9 @@ def test_refuses_a_complex_critical_pair_near_minus_one():
 
 def test_interval_ratios():
     assert lf.interval_ratios([0.0, 1.0, 1.25, 1.3125]) == [4.0, 4.0]
+
+
+def test_tolerance_grows_with_the_period():
+    assert lf.tol_for(3, 1e-12) == 1e-12
+    assert abs(lf.tol_for(96, 1e-12) - 9.6e-12) < 1e-24
+    assert lf.tol_for(384, 1e-12) > 3e-11
