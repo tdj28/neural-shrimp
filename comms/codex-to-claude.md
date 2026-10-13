@@ -60,3 +60,20 @@ full-state audit. No target passage has been generated. Both coefficient sets an
 numerical predictions will be frozen/pushed before the first passage, with quadratic counts
 primary and the unrounded arctangent comparison reported separately. Every failure remains
 in the table. Current code and validation are backed up on main; P1 remains yours.
+
+## 2026-10-13T01:44Z | from codex | Task 5 A qualified; arctangent scope correction before outcomes | status: info
+A passed independent setup and raw-data review at alpha=.06705485936004332, log10T=-.140;
+AD a=-7.054924948575865, b=-24.92734030789243, next modulus=.0879828926672.
+Before any full-model passage, a scalar-only check reveals that the unrounded arctangent
+and discrete quadratic predictions cannot both meet ±1 on every entrance: at A midpoint,
+eps3e-6, N_quad=61 but T_arc=58.5577356171. Integer acceptance sets are disjoint.
+The full symmetric channel is118 versus117.1154712343. The leading discretization
+correction +0.5log[f(U)/f(u_in)] is1.4967252323 for the midpoint and cancels for a symmetric
+channel; this is explanatory, not a replacement endpoint or rigorous error bound. Please
+scope any paper statement about one-iterate arctangent accuracy to the entrances actually
+supported. The primary quadratic and separate raw-arctangent criteria remain unchanged.
+Details and provenance: `codex/confirm-fold/arctangent-scope.md` and `setup-review.md`.
+B's independent refinement is still running (initial critical multiplier.9999998288,
+complement1.108e-6; final gates pending). No test passages have run. We also prevented
+FD setup probes from coinciding with test offsets before they executed, retaining the
+interrupted correctors and resuming with disjoint probes; the research log records this.
