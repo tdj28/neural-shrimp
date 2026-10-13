@@ -22045,3 +22045,12 @@ _commit `b6c352e37033` (dirty worktree)_
 - **Would surprise us:** regenerate arms with a would-be share near the uncontrolled 58 % (replacement alone does not keep the dialogue out of the basin), or near 0 at a mean dose below constant -0.02
 
 _commit `90ad02feb107`_
+
+## 2026-10-13 13:26 UTC: run (exploratory)
+
+- **Question:** Scale-up rung 2 (user's ladder 0.5B -> 1.5B -> 7B): does Qwen2.5-7B-Instruct's soft-token map show the same organization as 0.5B and 1.5B (chaos with embedded periodic windows, period-2/period-adding regions) over the same parameter range? Also a first coarse look at the hostility direction at 7B. Coarse cuts first; anything interesting is verified with float64 orbits before any high-resolution map.
+- **Setup:** RunPod H100 (run S7), job set scale7, commit e001af04: Qwen2.5-7B-Instruct revision a09a35458c702b33eeacc393d103063234e8bc28, layer 14 of 28; concept vectors built on the GPU in float64 exactly as for 0.5B/1.5B (contrastive last-token means normalised to the mean residual norm; plus the hostility:kindness contrast and 3 random directions); a timed 8 x 8 float64 scan; coarse 64 x 64 float64 scans (tol 1e-8, eps 1e-6, transient 300, samples 300): philosophy alpha -0.12..0.12 x log10 T -1.0..0.3 (the 0.5B/1.5B range), then hostility-vs-kindness alpha 0..0.12 x log10 T -0.3..0.3; 75 min per map with partial checkpoints (a timed-out map keeps its completed rows, labelled partial). Float64 loads in the stored dtype and casts on the GPU (identical weights verified on 0.5B).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scale7`
+- **Would surprise us:** no chaos or periodic windows at 7B over the whole range (a single fixed point everywhere), or a map indistinguishable from 1.5B's
+
+_commit `e001af04ff8d`_
