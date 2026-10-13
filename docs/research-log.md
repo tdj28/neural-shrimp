@@ -21001,3 +21001,9 @@ _commit `0c650f87ad1b` (dirty worktree)_
 Run C6 (edges, pod p08vzs7zna51xn, commit 9c62067c) confirmed the 1.5B P8 -> P16 flip at log10 T = -0.002166649929385 (agreeing with run C5 to 1e-14); its downward P8 walk slid onto the P4 orbit (no half-period guard then; fixed in d79b297b). Run C6b (pod 1fy9yrdkfkakqy, 915 s, commit d79b297b; upward walk from the P16 band at -0.00204): P16 -> P32 flip at log10 T = -0.00190024522705658 (critical multiplier -1 to 3e-12, next modulus 4.6e-9). Flips (alpha 0.100, free log10 T): -0.0031269222354 (P4 -> P8), -0.0021666499294 (P8 -> P16), -0.0019002452271 (P16 -> P32); intervals 9.6027e-4, 2.6640e-4; first ratio delta = 3.6046. The 0.5B crescent's ratios are 2.844, 2.859, 3.781 (T about 0.71); the 1.5B sequence (T about 0.99) starts higher, in the direction the softmax-crossover hypothesis predicts for higher temperature, but different models and levels make this suggestive only. P32 walk launched (run C6c).
 
 _commit `26d074fa95bc`_
+
+## 2026-10-13 03:13 UTC: High-T P8 edges (run C7) timed out; rerun downward with a coarser step (C7b)
+
+Run C7 (pod u7de32y1cam1ef, commit 9c62067c): walk-out edges of the high-temperature P8 window from alpha 0.0722 at log10 T 0.0319 in both directions with step 2e-5; the job hit its 50-minute limit (status 124) before finishing either direction, so nothing was saved (the walk records each direction only when it ends; the P8 band is about 0.003 wide). Setup result. Rerun as C7b with the half-period guard (commit d79b297b), downward only (the doubling sequence runs toward smaller alpha here), step 1e-4. Also from Codex (Task 1): an exact-real map step was enclosed at 1024 bits (output radius 1.2e-142), but a 2^-80 box expanded to radius 1.7 within two layers (wrapping); retained as a setup result in certificates/llm-p8-pilot-002.json; a signed-JVP pilot and multiple shooting are next.
+
+_commit `05b418deee96`_
