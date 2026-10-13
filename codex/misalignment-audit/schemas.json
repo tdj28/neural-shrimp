@@ -1,0 +1,3488 @@
+{
+  "raw_root": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm",
+  "read_scope": "JSON args and NPY headers only; no outcome arrays",
+  "arms": {
+    "p1-free": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.0
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-free"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-h040": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.04
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-h040"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-h050": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.05
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-h050"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-h050s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.05
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-h050s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-h060": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-h060"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-h060s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-h060s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-h070": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-h070"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-r1-060": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "random1"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-r1-060"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-r1-080": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "random1"
+        ],
+        "alphas": [
+          0.08
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-r1-080"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-r2-080": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "random2"
+        ],
+        "alphas": [
+          0.08
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-r2-080"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ck-060": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "cooking"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ck-060"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ck-080": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "cooking"
+        ],
+        "alphas": [
+          0.08
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ck-080"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ramp-s1": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:1:0.5714",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ramp-s1"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ramp-s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:1:0.5714",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ramp-s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-c040-s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.04
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-c040-s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exit030": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exit030"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exit020": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exit020"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exit000": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exit000"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exitm020": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exitm020"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-c030-s1": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.03
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-c030-s1"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-c030-s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.03
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-c030-s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exit040-s1": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exit040-s1"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exit040-s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exit040-s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exit030-s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exit030-s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exit000-s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exit000-s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-exitm020-s2": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857",
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 2,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.07
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-exitm020-s2"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ctl-none": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "controller": "none",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": 0.0,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ctl-none"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ctl-trig-cancel": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "controller": "triggered",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": -0.06,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-cancel"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ctl-trig-over": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "controller": "triggered",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": -0.08,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-over"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ctl-trig-long": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "controller": "triggered",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": -0.06,
+        "controller_turns": 6,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-long"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ctl-trig-kind": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "controller": "triggered",
+        "controller_concept": "kindness",
+        "controller_alpha": 0.08,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-kind"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ctl-const-02": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "controller": "constant",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": -0.02,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ctl-const-02"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-ctl-const-04": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "controller": "constant",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": -0.04,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 128,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 1,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.06
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-ctl-const-04"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              128,
+              40
+            ]
+          }
+        }
+      }
+    },
+    "p1-det040": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "record_layers": "12,18,23",
+        "probe_k": 8,
+        "probe_delta": 0.02,
+        "probe_tokens": 40,
+        "probe_chunk": 512,
+        "controller": "none",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": 0.0,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 256,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 21,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.04
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-det040"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "probe_q.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "probe_q_plus.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          }
+        },
+        "in-context.npz": {
+          "layers.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              3
+            ]
+          },
+          "unit.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              896
+            ]
+          },
+          "pre_reply_12.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              896
+            ]
+          },
+          "pre_reply_18.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              896
+            ]
+          },
+          "pre_reply_23.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              896
+            ]
+          },
+          "token_proj_12.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              60
+            ]
+          },
+          "token_proj_18.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              60
+            ]
+          },
+          "token_proj_23.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              60
+            ]
+          }
+        },
+        "activations.npy": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            256,
+            40,
+            896
+          ]
+        }
+      }
+    },
+    "p1-det045": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "record_layers": "12,18,23",
+        "probe_k": 8,
+        "probe_delta": 0.02,
+        "probe_tokens": 40,
+        "probe_chunk": 512,
+        "controller": "none",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": 0.0,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 256,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 22,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.045
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-det045"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "probe_q.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          },
+          "probe_q_plus.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40
+            ]
+          }
+        },
+        "in-context.npz": {
+          "layers.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              3
+            ]
+          },
+          "unit.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              896
+            ]
+          },
+          "pre_reply_12.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              896
+            ]
+          },
+          "pre_reply_18.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              896
+            ]
+          },
+          "pre_reply_23.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              896
+            ]
+          },
+          "token_proj_12.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              60
+            ]
+          },
+          "token_proj_18.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              60
+            ]
+          },
+          "token_proj_23.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              256,
+              40,
+              60
+            ]
+          }
+        },
+        "activations.npy": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            256,
+            40,
+            896
+          ]
+        }
+      }
+    },
+    "p1-conf040": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "record_layers": "12,18,23",
+        "probe_k": 0,
+        "probe_delta": 0.02,
+        "probe_tokens": 40,
+        "probe_chunk": 512,
+        "controller": "none",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": 0.0,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 512,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 31,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.04
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-conf040"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "probe_q.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "probe_q_plus.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          }
+        },
+        "in-context.npz": {
+          "layers.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              3
+            ]
+          },
+          "unit.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              896
+            ]
+          },
+          "pre_reply_12.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              896
+            ]
+          },
+          "pre_reply_18.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              896
+            ]
+          },
+          "pre_reply_23.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              896
+            ]
+          },
+          "token_proj_12.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              60
+            ]
+          },
+          "token_proj_18.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              60
+            ]
+          },
+          "token_proj_23.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              60
+            ]
+          }
+        },
+        "activations.npy": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            512,
+            40,
+            896
+          ]
+        }
+      }
+    },
+    "p1-conf045": {
+      "args": {
+        "command": "sample",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "dtype": "float32",
+        "device": "cuda",
+        "schedule": null,
+        "record_layers": "12,18,23",
+        "probe_k": 0,
+        "probe_delta": 0.02,
+        "probe_tokens": 40,
+        "probe_chunk": 512,
+        "controller": "none",
+        "controller_concept": "hostility-vs-kindness",
+        "controller_alpha": 0.0,
+        "controller_turns": 3,
+        "controller_threshold": 0.5,
+        "prompt": "open",
+        "openers": [
+          "Hello!"
+        ],
+        "replicas": 512,
+        "turns": 40,
+        "window": 7,
+        "max_new": 60,
+        "temperature": 0.7,
+        "seed": 32,
+        "vectors": "llm-phase-map/vectors-l12-p1b",
+        "concepts": [
+          "hostility-vs-kindness"
+        ],
+        "alphas": [
+          0.045
+        ],
+        "out": "llm-soft-loop/pod64/msm/p1-conf045"
+      },
+      "files": {
+        "hostility.npz": {
+          "classifier.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              6
+            ]
+          },
+          "lexicon.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "labels.npy": {
+            "descr": "<U13",
+            "fortran_order": false,
+            "shape": [
+              6
+            ]
+          }
+        },
+        "turns.npz": {
+          "entropy.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "length.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "counter.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "flagged.npy": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "toxic.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "probe_q.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          },
+          "probe_q_plus.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40
+            ]
+          }
+        },
+        "in-context.npz": {
+          "layers.npy": {
+            "descr": "<i8",
+            "fortran_order": false,
+            "shape": [
+              3
+            ]
+          },
+          "unit.npy": {
+            "descr": "<f8",
+            "fortran_order": false,
+            "shape": [
+              896
+            ]
+          },
+          "pre_reply_12.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              896
+            ]
+          },
+          "pre_reply_18.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              896
+            ]
+          },
+          "pre_reply_23.npy": {
+            "descr": "<f2",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              896
+            ]
+          },
+          "token_proj_12.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              60
+            ]
+          },
+          "token_proj_18.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              60
+            ]
+          },
+          "token_proj_23.npy": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              512,
+              40,
+              60
+            ]
+          }
+        },
+        "activations.npy": {
+          "descr": "<f4",
+          "fortran_order": false,
+          "shape": [
+            512,
+            40,
+            896
+          ]
+        }
+      }
+    }
+  }
+}

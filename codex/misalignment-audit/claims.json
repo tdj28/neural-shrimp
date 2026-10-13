@@ -1,0 +1,1239 @@
+{
+  "scope": "Task6 saved-raw audit",
+  "reference_sha256": {
+    "paper/llm/main.tex": "9c85ec3856b72b24b77e3fbacda85acf102321bf31defed902f62f165a67648b",
+    "docs/p1-detection-confirmation.md": "309749021469ab213d42bbe4eb7dcd5a997b08a6213e1005bc6c6ea91a061a25",
+    "docs/misalignment-dynamics-plan.md": "539c46638eb4ec1ad61bf4032e5a44a98f01de7d84e0cd1fcb4f238a61333a1c",
+    "comms/claude-to-codex.md": "af0178f91a8cdedb29ce3d62115007b4a410cf12455c0d1acc840e131dfa18a4",
+    "tools/p1_detection.py": "fc5ea4bdbfd2d46f32cff992f125630fc2234b095ad8085f016d031a08d7236d",
+    "tools/p1_detection_confirm.py": "529780a68c4d9a179b954ad8f8709f4e81d03bfaa8575775d945c075ed778e06",
+    "tools/p1_controller.py": "d536d9976679c8da684dca5e2e7a0e92d6eef207d196c3565ea21e73d1625aa0"
+  },
+  "claims": [
+    {
+      "id": "capture.p1-free.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-free.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 128,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-free.late30_39",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "late30_39",
+      "expected": 0,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h040.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.1,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h040.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 26,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h040.median_onset_conditional_zero_based",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "median_onset_conditional_zero_based",
+      "expected": 9,
+      "unit": "turn",
+      "rounding_tolerance": 0.5,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h040.stay.probability",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "stay.probability",
+      "expected": 0.36,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h040.late30_39",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "late30_39",
+      "expected": 0.12,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h050.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.3,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h050.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 10,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h050.median_onset_conditional_zero_based",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "median_onset_conditional_zero_based",
+      "expected": 3,
+      "unit": "turn",
+      "rounding_tolerance": 0.5,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h050.stay.probability",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "stay.probability",
+      "expected": 0.67,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h050.late30_39",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "late30_39",
+      "expected": 0.32,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h060.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.57,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h060.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 4,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h060.median_onset_conditional_zero_based",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "median_onset_conditional_zero_based",
+      "expected": 2,
+      "unit": "turn",
+      "rounding_tolerance": 0.5,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h060.stay.probability",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "stay.probability",
+      "expected": 0.79,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h060.late30_39",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "late30_39",
+      "expected": 0.66,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h070.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.87,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h070.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 0,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h070.median_onset_conditional_zero_based",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "median_onset_conditional_zero_based",
+      "expected": 1,
+      "unit": "turn",
+      "rounding_tolerance": 0.5,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h070.stay.probability",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "stay.probability",
+      "expected": 0.94,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h070.late30_39",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "late30_39",
+      "expected": 0.96,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h050s2.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.28,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h050s2.stay.probability",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "stay.probability",
+      "expected": 0.63,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h060s2.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.55,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h060s2.stay.probability",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "stay.probability",
+      "expected": 0.8,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-r1-060.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-r1-060.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 126,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-r1-080.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.12,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-r1-080.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 72,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-r2-080.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.006,
+      "unit": "proportion",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-ck-060.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.03,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-ck-060.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 97,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-ck-080.share",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "share",
+      "expected": 0.07,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-ck-080.never",
+      "reference": "paper/llm/main.tex:763-790",
+      "metric": "never",
+      "expected": 68,
+      "unit": "count",
+      "rounding_tolerance": 0,
+      "status": "exploratory",
+      "note": "Median convention explicitly audited; noncapture-censored median also reported."
+    },
+    {
+      "id": "capture.p1-h040.geometric_mean_stay",
+      "reference": "paper/llm/main.tex:769-771",
+      "metric": "geometric_mean_stay",
+      "expected": 1.6,
+      "unit": "turn",
+      "rounding_tolerance": 0.05,
+      "status": "exploratory",
+      "note": "Geometric extrapolation from exact transition count, not observed stay length."
+    },
+    {
+      "id": "capture.p1-h070.geometric_mean_stay",
+      "reference": "paper/llm/main.tex:769-771",
+      "metric": "geometric_mean_stay",
+      "expected": 16,
+      "unit": "turn",
+      "rounding_tolerance": 0.5,
+      "status": "exploratory",
+      "note": "Geometric extrapolation from exact transition count, not observed stay length."
+    },
+    {
+      "id": "history.ramp.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.42,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.fresh040.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.13,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.fresh050.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.33,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.ramp.stay30_39.probability",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "stay30_39.probability",
+      "expected": 0.74,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.fresh040.stay30_39.probability",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "stay30_39.probability",
+      "expected": 0.44,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.hold040.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.23,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.hold030.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.13,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.fresh030.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.05,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.hold030.stay30_39.probability",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "stay30_39.probability",
+      "expected": 0.56,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.fresh030.stay30_39.probability",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "stay30_39.probability",
+      "expected": 0.29,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.hold020.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.09,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.hold000.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.03,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.fresh000.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.holdm020.late35_39",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "late35_39",
+      "expected": 0.004,
+      "unit": "proportion",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.contrast.ramp-minus-fresh040",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "difference",
+      "expected": 0.29,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.ci.ramp-minus-fresh040",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "ci95",
+      "expected": [
+        0.23,
+        0.35
+      ],
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Historical RNG/bootstrap-count not specified in located source; own fixed 4000 seed0 dialogue interval, distinguish Monte Carlo differences."
+    },
+    {
+      "id": "history.contrast.ramp-minus-fresh050",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "difference",
+      "expected": 0.09,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.ci.ramp-minus-fresh050",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "ci95",
+      "expected": [
+        0.02,
+        0.16
+      ],
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Historical RNG/bootstrap-count not specified in located source; own fixed 4000 seed0 dialogue interval, distinguish Monte Carlo differences."
+    },
+    {
+      "id": "history.contrast.hold040-minus-fresh040",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "difference",
+      "expected": 0.1,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.ci.hold040-minus-fresh040",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "ci95",
+      "expected": [
+        0.05,
+        0.15
+      ],
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Historical RNG/bootstrap-count not specified in located source; own fixed 4000 seed0 dialogue interval, distinguish Monte Carlo differences."
+    },
+    {
+      "id": "history.contrast.hold030-minus-fresh030",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "difference",
+      "expected": 0.08,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "history.ci.hold030-minus-fresh030",
+      "reference": "paper/llm/main.tex:794-815",
+      "metric": "ci95",
+      "expected": [
+        0.04,
+        0.12
+      ],
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": "Historical RNG/bootstrap-count not specified in located source; own fixed 4000 seed0 dialogue interval, distinguish Monte Carlo differences."
+    },
+    {
+      "id": "controller.p1-ctl-none.hostile_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "hostile_share",
+      "expected": 0.58,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-trig-cancel.hostile_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "hostile_share",
+      "expected": 0.15,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-trig-cancel.mean_counter",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "mean_counter",
+      "expected": 0.026,
+      "unit": "dose",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-trig-long.hostile_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "hostile_share",
+      "expected": 0.085,
+      "unit": "proportion",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-trig-long.mean_counter",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "mean_counter",
+      "expected": 0.03,
+      "unit": "dose",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-const-02.hostile_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "hostile_share",
+      "expected": 0.085,
+      "unit": "proportion",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-const-02.mean_counter",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "mean_counter",
+      "expected": 0.02,
+      "unit": "dose",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-const-04.hostile_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "hostile_share",
+      "expected": 0.013,
+      "unit": "proportion",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-trig-over.gratitude_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "gratitude_share",
+      "expected": 0.3,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-none.gratitude_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "gratitude_share",
+      "expected": 0.002,
+      "unit": "proportion",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-const-02.gratitude_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "gratitude_share",
+      "expected": 0.002,
+      "unit": "proportion",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "controller.p1-ctl-trig-kind.hostile_share",
+      "reference": "paper/llm/main.tex:830-842",
+      "metric": "hostile_share",
+      "expected": 0.57,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D2_susceptibility.increment",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "increment",
+      "expected": -0.002,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory primary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D2_susceptibility.ci95",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "ci95",
+      "expected": [
+        -0.006,
+        0.02
+      ],
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory primary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h1.D3_state_probe.increment",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "increment",
+      "expected": 0.045,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory secondary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h1.D3_state_probe.ci95",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "ci95",
+      "expected": [
+        0.019,
+        0.069
+      ],
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory secondary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D3_state_probe.increment",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "increment",
+      "expected": 0.036,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory secondary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D3_state_probe.ci95",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "ci95",
+      "expected": [
+        0.014,
+        0.058
+      ],
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory secondary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h5.D3_state_probe.increment",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "increment",
+      "expected": 0.036,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory secondary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D1_forecast.increment",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "increment",
+      "expected": 0.016,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory secondary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D1_forecast.ci95",
+      "reference": "paper/llm/main.tex:857-870",
+      "metric": "ci95",
+      "expected": [
+        0.007,
+        0.027
+      ],
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "exploratory secondary",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D3_state_probe.auc_baseline",
+      "reference": "paper/llm/main.tex:862-864",
+      "metric": "auc_baseline",
+      "expected": 0.64,
+      "unit": "AUC",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "L7.c1.h3.D3_state_probe.auc_with_predictor",
+      "reference": "paper/llm/main.tex:862-864",
+      "metric": "auc_with_predictor",
+      "expected": 0.68,
+      "unit": "AUC",
+      "rounding_tolerance": 0.005,
+      "status": "exploratory",
+      "note": null
+    },
+    {
+      "id": "L8.c1.h1.pooled.increment",
+      "reference": "paper/llm/main.tex:871-877",
+      "metric": "increment",
+      "expected": 0.036,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "confirmation secondary",
+      "note": null
+    },
+    {
+      "id": "L8.c1.h3.pooled.increment",
+      "reference": "paper/llm/main.tex:871-877",
+      "metric": "increment",
+      "expected": 0.033,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "frozen confirmation primary",
+      "note": null
+    },
+    {
+      "id": "L8.c1.h5.pooled.increment",
+      "reference": "paper/llm/main.tex:871-877",
+      "metric": "increment",
+      "expected": 0.037,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "confirmation secondary",
+      "note": null
+    },
+    {
+      "id": "L8.c1.h3.pooled.auc_baseline",
+      "reference": "paper/llm/main.tex:871-877",
+      "metric": "auc_baseline",
+      "expected": 0.656,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "frozen confirmation primary",
+      "note": null
+    },
+    {
+      "id": "L8.c1.h3.pooled.auc_with_predictor",
+      "reference": "paper/llm/main.tex:871-877",
+      "metric": "auc_with_predictor",
+      "expected": 0.689,
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "frozen confirmation primary",
+      "note": null
+    },
+    {
+      "id": "L8.c1.h3.pooled.ci95",
+      "reference": "paper/llm/main.tex:871-877",
+      "metric": "ci95",
+      "expected": [
+        0.018,
+        0.048
+      ],
+      "unit": "AUC",
+      "rounding_tolerance": 0.0005,
+      "status": "frozen confirmation primary",
+      "note": null
+    },
+    {
+      "id": "L8.c1.h3.pooled.flagged.with_state",
+      "reference": "paper/llm/main.tex:876-877",
+      "metric": "with_state",
+      "expected": 0.29,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "frozen confirmation primary",
+      "note": "Strict threshold from L7 training negatives; not refit on L8."
+    },
+    {
+      "id": "L8.c1.h3.pooled.flagged.baseline",
+      "reference": "paper/llm/main.tex:876-877",
+      "metric": "baseline",
+      "expected": 0.28,
+      "unit": "proportion",
+      "rounding_tolerance": 0.005,
+      "status": "frozen confirmation primary",
+      "note": "Strict threshold from L7 training negatives; not refit on L8."
+    }
+  ],
+  "requested_rows": {
+    "capture": [
+      "p1-free",
+      "p1-h040",
+      "p1-h050",
+      "p1-h060",
+      "p1-h070",
+      "p1-h050s2",
+      "p1-h060s2",
+      "p1-r1-060",
+      "p1-r1-080",
+      "p1-r2-080",
+      "p1-ck-060",
+      "p1-ck-080"
+    ],
+    "hysteresis_seed_arms": "all14 HISTORY plus relevant capture arms; see inputs.py",
+    "hysteresis_pools": [
+      "ramp",
+      "fresh040",
+      "fresh050",
+      "fresh060",
+      "fresh030",
+      "fresh000",
+      "hold040",
+      "hold030",
+      "hold020",
+      "hold000",
+      "holdm020"
+    ],
+    "controller": "all7 CONTROL arms, every efficiency and interval in published JSON",
+    "L7": [
+      {
+        "run": 1,
+        "h": 1,
+        "predictor": "D1_forecast"
+      },
+      {
+        "run": 1,
+        "h": 1,
+        "predictor": "D2_susceptibility"
+      },
+      {
+        "run": 1,
+        "h": 1,
+        "predictor": "D3_state_probe"
+      },
+      {
+        "run": 1,
+        "h": 1,
+        "predictor": "D4_token_max"
+      },
+      {
+        "run": 1,
+        "h": 1,
+        "predictor": "all"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "predictor": "D1_forecast"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "predictor": "D2_susceptibility"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "predictor": "D3_state_probe"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "predictor": "D4_token_max"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "predictor": "all"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "predictor": "D1_forecast"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "predictor": "D2_susceptibility"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "predictor": "D3_state_probe"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "predictor": "D4_token_max"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "predictor": "all"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "predictor": "D1_forecast"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "predictor": "D2_susceptibility"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "predictor": "D3_state_probe"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "predictor": "D4_token_max"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "predictor": "all"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "predictor": "D1_forecast"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "predictor": "D2_susceptibility"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "predictor": "D3_state_probe"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "predictor": "D4_token_max"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "predictor": "all"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "predictor": "D1_forecast"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "predictor": "D2_susceptibility"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "predictor": "D3_state_probe"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "predictor": "D4_token_max"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "predictor": "all"
+      }
+    ],
+    "L8": [
+      {
+        "run": 1,
+        "h": 1,
+        "test": "pooled"
+      },
+      {
+        "run": 1,
+        "h": 1,
+        "test": "p1-conf040"
+      },
+      {
+        "run": 1,
+        "h": 1,
+        "test": "p1-conf045"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "test": "pooled"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "test": "p1-conf040"
+      },
+      {
+        "run": 1,
+        "h": 3,
+        "test": "p1-conf045"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "test": "pooled"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "test": "p1-conf040"
+      },
+      {
+        "run": 1,
+        "h": 5,
+        "test": "p1-conf045"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "test": "pooled"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "test": "p1-conf040"
+      },
+      {
+        "run": 2,
+        "h": 1,
+        "test": "p1-conf045"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "test": "pooled"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "test": "p1-conf040"
+      },
+      {
+        "run": 2,
+        "h": 3,
+        "test": "p1-conf045"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "test": "pooled"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "test": "p1-conf040"
+      },
+      {
+        "run": 2,
+        "h": 5,
+        "test": "p1-conf045"
+      }
+    ]
+  },
+  "additional_claim_checks": [
+    "Capture seed share differences <=.03",
+    "Controller efficiency range .04 to .11 and intervals .02-.05 through .10-.13, retain every arm",
+    "Turn20 release proportions .38-.44",
+    "L7 h3 OOF 10%-FPR flags .23/.27: exact historical threshold convention not specified; separate descriptive OOF threshold check",
+    "L8 both doses positive, all per-dose rows and amendment2 two-consecutive rows",
+    "Release clears within3/6turns: no fixed clearance threshold, report full trajectory without binary verdict"
+  ],
+  "not_numerical_target_of_assignment": [
+    "Earlier L2 lead-time model comparison",
+    "Cosine .83 kindness direction and .04 state-probe direction unless exact fit/vector provenance is located",
+    "Claims of indefinite attraction or asymptotic escape law"
+  ]
+}
