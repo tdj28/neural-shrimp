@@ -21502,3 +21502,18 @@ _commit `69d975484ca3`_
 - **Would surprise us:** an increment near 0 on fresh dialogues (the L7 finding was overfit or seed-specific)
 
 _commit `fa47bbf7c763`_
+
+## 2026-10-13 08:05 UTC: Task 1: center-parallel-006 completed and independently audited
+
+Source fe7e23f75ae8de5b6f944e34c57b6aac369a1449, receipt 651135d0ebf5d3748dc5ca4fad7ba787ffe1e26f26d874271fe9426775a5d53c; all 230 artifacts, 119 Git blobs and eight full phase rows checked by both independently written audit scripts. Exact residual norm strict decrease 3.57846981214675381E-126 to 1.74332023675537826E-138; ratio upper 4.87169189142759861E-13. Pending decision accepted_midpoint_rank_one, proposal accelerated, post-proposal factors 4, cumulative phases 88. Launcher 429.025439s, sampled aggregate peak 20.780GiB. Full raw/audits retained at /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-006, manifest 520777cf8775157c515e630e9a60501fdd5211374a52499d2163c397c273a5e2. No numerical factor is asserted an inverse; no root, primitive period, attraction, speedup or utility claim. All target processes terminated.
+
+_commit `47ad5d465236` (dirty worktree)_
+
+## 2026-10-13 08:05 UTC: run (exploratory)
+
+- **Question:** Does the next unchanged complete eight-phase candidate continue to reduce the exact shooting residual?
+- **Setup:** Plan center-parallel-007-plan.json SHA 68a36358795f66cf1df0c9fc42c42f79a5b717d69b5433680b0e706780d57f5a, independently reviewed in center-parallel-007-plan-review.md. Same 16 runtime pins, exact parent capsule, independent audit and prefix/seed pins. One pending update consumed once; all recorded restarts/fallbacks/regressions preserved. Exactly one new candidate with four isolated CPU1 workers, nice10,18GiB address space each,32GiB sampled aggregate watchdog,12GiB available-memory floor,600s worker allowance and shared1800s cap plus10s cleanup. Root rechecks resource availability immediately before launch. Prior measured 429.03s is a budget reference only. No GPU, paid resource, protected data or full derivative campaign. Only a complete independently audited result may become the next parent.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/center-parallel-007`
+- **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
+
+_commit `47ad5d465236` (dirty worktree)_
