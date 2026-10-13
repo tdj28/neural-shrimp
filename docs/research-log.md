@@ -20967,3 +20967,17 @@ _commit `bbdcc3426b24` (dirty worktree)_
 - **Would surprise us:** superstable ratios very different from the flip ratios at the same levels
 
 _commit `e7d6a407c655`_
+## 2026-10-13 02:42 UTC: Task1 Arb384 pilot: prefix enclosure fails at layer16; numerical P8 independently recovered
+
+The first target setup arb-pilot-001 used privately pushed77fecc38ca077665cbb44c4e611d7b52442b9210, CPU1 nice10,18GiB,3600s cap; it exited1 after283s. Numerical recovery from our own P8-fold seed converged in8 G cycles at assigned alpha0.071674/log10T-0.115. Final relative eight-step return1.6023e-14, proper-divisor distances2.0033/1.4312/1.3917; cyclic argmax IDs match the assigned . This is there is a is a loop. This is independent numerical evidence, not a certificate. Rigorous384-bit prefix interval radii grew from1.725e-107 after layer0 to0.05363069 after layer15; layer16 then could not establish a strictly positive softmax denominator. The actual real denominator is positive; the failure is a conservative interval setup limitation, not instability. Exact source, numerical states, parameters, backend versions, per-layer widths and failure trace are immutable and hash-bound by certificates/llm-p8-pilot-001.json. No point/box step or proof gate ran. Plan: preserve this failure and retry identical arithmetic at1024bits to distinguish rounding-amplified point uncertainty from later box-dependency loss; no altered mathematical map or numerical gate.
+
+_commit `77fecc38ca07` (dirty worktree)_
+
+## 2026-10-13 02:42 UTC: run (exploratory)
+
+- **Question:** Does1024-bit arithmetic make the rigorous fixed-prefix and one-phase point enclosure useful, while retaining the same box-JVP diagnostic?
+- **Setup:** Task1 arb-pilot-002: identical map, target, own seed and numerical admission gates to arb-pilot-001; only Arb precision increases384->1024 after measured point-prefix failure. Expected point-roundoff suppression is a planning estimate, never a proof verdict. CPU1 nice10,18GiB,3600s hard wall; layer cost at384bits~16s, full1024bit runtime unmeasured. No GPU or paid resources. Keep real T/RoPE/prefix; full vocabulary; all failed attempts. The radius2^-80 diagnostic remains narrower than the float proposal defect, so it cannot pass an inclusion proof. Record all actual radii and fail closed.
+- **Output:** `../neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002`
+- **Would surprise us:** Prefix still unresolved at1024bits, or exact-real point defect much larger than float proposal arithmetic predicts; this requires investigation rather than changing the map.
+
+_commit `77fecc38ca07` (dirty worktree)_
