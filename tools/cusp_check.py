@@ -1,5 +1,7 @@
-"""Cusp check on a period-4 fold curve: the fold normal form u' = u + a eps + b u^2 (float64, CPU) at points of the
-curve around each parameter-tangent reversal; at a cusp b passes through zero (and the cubic term is nonzero)."""
+"""Cusp check on a fold curve: the fold normal form u' = u + a eps + b u^2 (float64, CPU) at points of the curve around
+each parameter-tangent reversal; at a cusp b passes through zero (and the cubic term is nonzero). The signs of a and b
+both flip with the orientation of the critical eigenvector (r -> -r, l -> -l), so the reported b_oriented = b sign(a)
+is the quantity whose sign change marks a cusp (a must stay away from zero)."""
 import json
 import sys
 
@@ -25,5 +27,6 @@ for i in indices:
     x = states[i].ravel()
     nf = bc.fold_normal_form(fam, x, theta, param=1, param_scale=10.0, steps=(1e-3, 3e-4, 1e-4))
     print(json.dumps({"index": i, "log10_T": p["log10_temperature"], "alpha": p["alpha"], "cusp_flag": p["cusp_candidate"],
-                      "multiplier": nf["multiplier"], "a": nf["a"], "b": nf["b"], "b_steps": [t["b"] for t in nf["b_steps"]],
+                      "multiplier": nf["multiplier"], "a": nf["a"], "b": nf["b"],
+                      "b_oriented": float(np.sign(nf["a"]) * nf["b"]), "b_steps": [t["b"] for t in nf["b_steps"]],
                       "tangent": p["parameter_tangent"]}), flush=True)
