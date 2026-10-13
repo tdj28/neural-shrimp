@@ -45,9 +45,11 @@ def sample(args):
     lengths = np.zeros((R, N), dtype=int)
     acts = np.zeros((R, N, d), dtype=np.float32)
     rows = np.repeat(steer[None], R, axis=0)
+    scale = schedule_factors(args.schedule, N)              # per-turn factor on the steering (1 everywhere by default)
     tic = time.perf_counter()
     for k in range(N):
         agent = k % 2
+        rows = np.repeat((scale[k] * steer)[None], R, axis=0)
         batch = [ela.window_messages(ela.PROMPTS[args.prompt], transcripts[r], agent, args.window) for r in range(R)]
         out, ents, lens, _ = sm.generate_batch(batch, rows, args.max_new, temperature=args.temperature,
                                                seed=args.seed * 100003 + k)
@@ -65,6 +67,16 @@ def sample(args):
     (dest / "sample.json").write_text(json.dumps({"args": vars(args), "seconds": round(time.perf_counter() - tic, 1),
                                                   "openers": openers, "texts": texts}, indent=1,
                                                  ensure_ascii=False))
+
+
+def schedule_factors(spec, turns):
+    """Per-turn multipliers of the steering vector: None gives 1 at every turn; 'f0:f1:...:fm' interpolates linearly
+    through the m + 1 values at equally spaced turns 0 .. turns - 1 (e.g. '0.571:1:0.571' ramps 0.04 -> 0.07 -> 0.04
+    when the steering strength is 0.07)."""
+    if not spec:
+        return np.ones(turns)
+    knots = np.array([float(v) for v in spec.split(":")])
+    return np.interp(np.arange(turns), np.linspace(0, turns - 1, len(knots)), knots)
 
 
 def transition_matrix(labels, k, lag):
@@ -174,6 +186,7 @@ def main():
     sa.add_argument("--threads", type=int, default=8)
     sa.add_argument("--dtype", default="float32", choices=("float32", "float64"))
     sa.add_argument("--device", default="cpu", help="cpu or cuda (sampling streams differ between devices)")
+    sa.add_argument("--schedule", default=None, help="per-turn steering factors f0:f1:...:fm, linearly interpolated")
     sa.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
     sa.add_argument("--openers", nargs="+", default=[ela.OPENER])
     sa.add_argument("--replicas", type=int, default=64)

@@ -157,10 +157,12 @@ case "$JOBSET" in
                # the GPU, 128 replicas x 40 turns at T 0.7 (vectors uploaded with --extra-data); each JOBARGS entry
                # is NAME:CONCEPT:ALPHA:SEED
     for arm in "${JOBARGS[@]}"; do
-      IFS=: read -r name concept alpha seed <<< "$arm"
+      IFS=: read -r name concept alpha seed sched <<< "$arm"        # optional 5th field: schedule with '/' separators
+      extra=""
+      [ -n "$sched" ] && extra="--schedule ${sched//\//:}"
       TOOL=explore_llm_msm.py run p1-$name 30 sample --device cuda --threads 8 --replicas 128 --turns 40 \
         --temperature 0.7 --seed $seed --vectors llm-phase-map/vectors-l12-p1b --concepts $concept --alphas $alpha \
-        --out $D/msm/p1-$name
+        $extra --out $D/msm/p1-$name
     done
     ;;
   p6z3curves)  # boundary curves of the period-6 shrimp candidate of zoom Z3 ('. -\n\nThe is a') from the p6z3a
