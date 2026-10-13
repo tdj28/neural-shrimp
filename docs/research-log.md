@@ -20886,3 +20886,12 @@ _commit `50ca110beebe`_
 tools/cusp_check.py on curve-foldD-minus, points 8-14 (flag at 11, (0.080097, -0.058349)): b sign(a) = -24.719, -14.329, -1.977, +12.815, +27.998, +45.905, +58.896 with a = +3.131 to +3.348 and critical multiplier 1 to 1e-8: a monotone sign change through the flagged point. Output llm-soft-loop/pod64/p6z3/cusp-check-foldD-minus.jsonl.
 
 _commit `9764ca641675` (dirty worktree)_
+
+## 2026-10-13 01:54 UTC: run (exploratory)
+
+- **Question:** 1.5B doubling sequence at alpha 0.100: run C5 located the P4 flip (log10 T -0.0031269222354, next modulus 0.014) and the P8 flip (-0.0021666499294, next 7.7e-5); its P16 search failed at the bracket end (Newton divergence after a stable far point). Edges of the P16 and P32-adjacent windows by the walk-out search: where are the P16 flip and further flips, and the first ratios?
+- **Setup:** RunPod H100 (run C6), job set edges, commit 9c62067c: llm_feigenbaum edges --free temperature, qwen1.5b layer 14 vectors-1.5b-l14, alpha 0.100; points P8 at log10 T -0.0026 (step 2e-5), P16 at -0.00204 (step 5e-6)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/edges/q15-a0.100`
+- **Would surprise us:** the P16 window bounded by a fold rather than a flip on its upper side (then the sequence does not continue by doubling there)
+
+_commit `9c62067c6b10`_
