@@ -21158,3 +21158,12 @@ _commit `f4eba27729f5` (dirty worktree)_
 Run L3 (pod 1jj25sk384x3m2, 623 s, commit 0b9f4e41): ramp arms (alpha 0.07 x schedule 0.5714:1:0.5714, i.e. dose 0.04 -> 0.07 at turn ~20 -> 0.04 at turn 39; seeds 1, 2) and constant 0.04 seed 2 (seed 1 = p1-h040), 128 dialogues x 40 turns each, scored with toxic > 0.5. Pre-stated primary: hostile share in turns 35-39 (ramp dose 0.046-0.040): ramp 0.423 vs constant 0.04 0.133, difference +0.291, dialogue-level bootstrap 95 % CI [+0.234, +0.349]. Secondary: per-turn P(stay hostile) in turns 30-39: ramp 0.739 (1008 transitions from hostile) vs constant 0.441 (295). Descriptive: the ramp's hostile share rises with the dose to 0.45 at turn 21 and stays at 0.40-0.46 while the dose falls back (constant 0.04: 0.07-0.15 throughout). Check against dose: constant 0.05 has a late share of 0.333 (both seeds); ramp minus constant 0.05 = +0.091, CI [+0.023, +0.159], although the ramp's current dose is lower. So the hostile state is history-dependent (hysteresis in the dialogue system, whose state includes the 7-turn context): undoing the push does not undo the capture. Exploratory (analysis fixed before the data). Paper updated (paragraph, figure fig-hysteresis.png, abstract).
 
 _commit `2e6c7ca4b80d` (dirty worktree)_
+
+## 2026-10-13 04:41 UTC: run (exploratory)
+
+- **Question:** P1 hysteresis loop: after capture by a ramp to 0.07 (turns 0-20), how far must the dose be lowered to recover? Step down at turn 21 to 0.03, 0.02, 0.00 or -0.02 (toward kindness) and hold to turn 39; compare the hostile share in turns 35-39 with fresh dialogues at constant doses (ladder: 0.04 -> 0.13, 0.05 -> 0.33 late share).
+- **Setup:** RunPod H100 (run L4), job set p1ladder, commit 0b9f4e41: 4 arms x 128 dialogues x 40 turns, seed 1, explicit per-turn schedules (alpha 0.07 x factors); scored with toxic > 0.5. Analysis stated now: late (turns 35-39) hostile share per arm with dialogue-level bootstrap intervals; the exit dose where the late share falls to the constant-0.04 level (0.13) estimated by interpolation across arms.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit*`
+- **Would surprise us:** full recovery already at 0.03 (no hysteresis loop width), or no recovery even at -0.02
+
+_commit `b60f23ca5cb7`_
