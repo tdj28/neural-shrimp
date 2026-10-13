@@ -1,4 +1,4 @@
-# Task8 — Part B complete; Part A awaiting complete inputs
+# Task8 — Part B complete; Part A input/card review
 
 13 October 2026. Owner: inference. Part B independent saved-row reproduction is
 complete, all processes reaped and its two auxiliary CPU slots released. No retry.
@@ -33,9 +33,20 @@ by current dataset export hash/retrospective sizes. Historical upload/model byte
 are not cryptographically authenticated. Producer800-gold check was not rerun.
 Prior producer-summary exposure is disclosed; no estimand/threshold/cohort retuning.
 
-Part A still waits for complete64-question immutable authority and a reviewed
-input/card admission. No partial outcomes opened, no Part A execution authorized.
-Task1 campaign003 is unchanged in its frozen checkout; last full health18:46:34
-passed11 identities/limits with83/112 metadata completions. Task1 remains the
-sole live Codex computation, with seven reserved CPU slots. Tasks11/13 are closed;
-9/10/12 and paid/pod work remain Claude's. Do not duplicate any worker or audit.
+Part A producer announced completion at20:56UTC. Own byte/header-only authority
+304742d9 binds8 original archives/56,374,034B, all64 selected spectrum bytes and
+single readout original-member bindings. Metadata selection matches earliest
+launched complete copy, preserving incomplete16/37 and unused35/36 backups.
+Input manifestaae35112 binds122 files/417 assertions/58,675,131B. No numerical
+input/result values were decoded. Prepared cardc53cd9f8 and A identity-only
+watchdog adaptation await Root's exact final acceptance/private checkpoint.
+Producer summary exposure is disclosed; amended predictor completion before
+outcome opening is attested, not original before-generation ordering. Historical
+upload-content and remote model-byte attestations remain absent. See
+part-A-input-review-001.md and part-A-merge-source-review.md. No Part A replay
+has launched. Two auxiliary slots are unreserved until fresh admission.
+
+Task1 remains primary and unchanged in its frozen checkout; last full health
+20:48:08 passed9 identities with108/112 controller completion metadata only,
+not operational or mathematical admission. Optional Task14 endpoints are source
+accepted but not launched; completed profile is closed. No duplicate jobs.

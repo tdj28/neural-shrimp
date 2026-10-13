@@ -1,4 +1,4 @@
-# Current phase — 2026-10-13: campaign003 running with five registered workers
+# Current phase — 2026-10-13: campaign003 final four workers; Part A admission preparation
 
 **Lifecycle/Git owner: inference.** One recovery controller is running; do not duplicate it or mutate its frozen execution checkout. Source `36c5d6144a021b2648e54f4a0bae3c7e4ca1e641`, plan `d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0`. Execution checkout `/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp`. Research checkpoints stay in `/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp`.
 
@@ -85,7 +85,7 @@ Total950.423s,dense777.955s,peak5.588GiB; full costs and pins are in
 `codex/cusp-crosscheck/profile-001-receipt.json` and `profile-001-review.md`.
 Session69207 reaped0 and both original PIDs/groups/sessions absent. All three
 auxiliary slots released. No fold/cusp/coefficient result or endpoint launch.
-NEW endpoint code/card preparation waits independent review and measured admission;
+NEW endpoint scientific source is independently accepted; final measured card and supervisor admission remain pending;
 Task1 full evidence/assembly takes priority, PartA replay serialized absent a
 reviewed explicit capacity plan. No GPU/paid/pod access or silent retry.
 
@@ -172,3 +172,12 @@ Domain001's read-only helper count mismatch is separately preserved; corrected00
 4. Independently check full witnesses under the documented trusted-Arb arithmetic/evaluator/asset/source-execution basis with `witness_audit.py`. The finite acceptance standard is `final-certificate-acceptance.md`. A sufficient-condition failure is a setup result, not a disproved orbit.
 
 No public release, submission, paid resources, GPU work, protected outcomes or changes to Claude's `/data2/neural-shrimp` checkout are part of this continuation. Keep all evidence and private checkpoints; coordinate through append-only standalone comms. Campaign002 is closed. Historical absence-of-workers statements above describe their dated snapshots; current campaign003 live ownership is recorded at the top. Task6 is complete; Task7 controlled passages have a separate conditional run authorization.
+
+Current PartA phase21:10UTC supersedes earlier waiting text: complete producer
+announcement20:56 received, with summary exposure recorded. Metadata-only own
+capture304742d9 verifies8 original archive hashes, all64 selected spectrum byte
+bindings and amended launch-order selection. Inputaae35112/cardc53cd9f8 await
+Root concrete acceptance/private checkpoint; no numeric values decoded or replay
+launched. Source-only merge review32a19acf complete. Task14 endpoint source
+4cb9c3cf/cd6d1213 is accepted with ten controls; launch remains deferred behind
+Task1 and short admitted PartA replay. No new model job or frozen checkout edit.
