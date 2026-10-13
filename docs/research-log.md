@@ -21707,3 +21707,23 @@ _commit `7838b2ee6924` (dirty worktree)_
 - **Claim impact:** No orbit certificate, no evidence against derivative enclosure and no automatic retry. New source review/card/private push, Root approval and exact resource admission are required.
 
 _commit `f599263f6f30` (dirty worktree)_
+## 2026-10-13 10:08 UTC: Hostile fold normal form, first attempt (run V5): branch turned at a clean fold; normal form refused at a point with multiplier 1.012 (gate held)
+
+Run V5 (pod yu0lflpp6wvct5, 340 s, commit 9b1c3b55? see run card; hashes match, terminated): float64 branch of the '!Yes' 2-cycle from (log10 T -0.0445, alpha 0.083) down in temperature: crossing type real +1 (fold) between log10 T -0.0462426 and -0.0462458 (indices 14-15; crossing multiplier 1.0120 on the far side, next largest modulus 0.050), consistent with the V4 fold at -0.0462465. The normal-form step chose the branch point nearest +1 (multiplier 1.0120) and refused to compute fold coefficients there (|mu - 1| > 0.01): kept as a setup failure. Rerun V5b: exact fold located by the curve tool's test function from this branch, normal form at that point (eps in log10 T).
+
+_commit `84963ef04afd`_
+
+## 2026-10-13 10:08 UTC: run (exploratory)
+
+- **Question:** Normal form of the hostile 2-cycle fold at its exact location (rerun of V5).
+- **Setup:** RunPod H100 (run V5b), job set hnormal2, commit 84963ef0: curve (float64, kind fold, gtol 1e-9) from hnormal/branch-p2-fold, 3 steps; normal-form at curve index 0, param temperature
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hnormal/{curve-p2-fold,normal-form-p2}`
+- **Would surprise us:** a fold that the curve tool cannot locate from this branch
+
+_commit `84963ef04afd` (dirty worktree)_
+
+## 2026-10-13 10:12 UTC: Hostile 2-cycle fold, exact and its normal form (run V5b): the window-law slope predicted without fitting (full passage, 2.30 per lap) is within 3 % of the measured 2.235
+
+Run V5b (pod afvi3pla02xyfr, 232 s, commit e30a9a2b? see run card; hashes match, terminated): curve (float64, kind fold, gtol 1e-9) from the V5 branch: exact fold of the '!Yes' 2-cycle at log10 T_c = -0.04624653570, alpha 0.083 (critical multiplier 0.9999999954, real; other spectral radius 0.0500; test function g 2.2e-10; residual 7.8e-11); the fold curve continues to (-0.045232, 0.083489) and (-0.044059, 0.084229), no cusp candidate. Normal form at that point, eps in log10 T: a = -1.16833, b = 44.5258 (b over relative steps 1e-2..1e-4: 45.245, 44.592, 44.533, 44.526, 44.525: plateau 44.526), ab = -52.021; passages occur for log10 T < T_c (a eps b > 0), full passage pi / sqrt(|ab| |eps|) G-iterates. Window law: 1/sqrt(T_c - T_fold(N)) rises by sqrt|ab| / (f pi) per lap for an effective passage fraction f; the normal form alone (f = 1) predicts 2.296 per lap; measured over P16, P18, P20 (V2, V4): 2.235 per lap, so f = 1.027 (full passages), compared with f = 0.58 for the 'is it' stripes, where reinjection lands near the middle of the bottleneck. Reading: the hostile period-adding cascade is the same type-I intermittency organization, quantitatively: its windows accumulate on a 2-cycle fold with the inverse-square law whose slope the fold's normal form predicts, here without a fitted parameter if passages are full (reinjection statistics not yet measured to confirm f independently).
+
+_commit `b006fdc7e81b`_

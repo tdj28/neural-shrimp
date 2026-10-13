@@ -245,6 +245,15 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
     run hnormal-nf 30 normal-form --device cuda --run $D/hnormal/branch-p2-fold --nearest-fold --param temperature \
       --out $D/hnormal/normal-form-p2
     ;;
+  hnormal2)    # the exact fold of the hostile '!Yes' 2-cycle from the hnormal branch (curve start: fold located by
+               # its test function), then the normal form there, eps in log10 T (run V5 refused a branch point at
+               # multiplier 1.012); the uploaded branch is passed with --extra-data
+    run hnormal2-curve 40 curve --device cuda --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10 \
+      --tol 1e-10 --gtol 1e-9 --max-newton 10 --ds-max 0.05 --chunk 896 --kind fold --start $D/hnormal/branch-p2-fold \
+      --direction 1 --steps 3 --log-temperature-bounds -0.1 0.0 --alpha-bounds 0.06 0.10 --out $D/hnormal/curve-p2-fold
+    run hnormal2-nf 30 normal-form --device cuda --run $D/hnormal/curve-p2-fold --index 0 --param temperature \
+      --out $D/hnormal/normal-form-p2
+    ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
