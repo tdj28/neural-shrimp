@@ -1,0 +1,150 @@
+{
+  "status": "completed_raw_replay_pending_independent_result_review",
+  "source_commit": "29e2bffdd45efb630e8ed9967cf720da21086f92",
+  "admission_commit": "6bb87a3c82e4f10b27c37429a559163a94e82192",
+  "admitted_card_sha256": "f32461676e4c9de914e7430499e1728d4a355a54f5b13e9baba72dd116969951",
+  "worker": {
+    "completed": true,
+    "mode": "descriptive",
+    "seconds": 5.855759395984933,
+    "peak_rss_bytes": 162471936,
+    "pid": 724172,
+    "outputs": [
+      {
+        "name": "descriptive.json",
+        "bytes": 197440,
+        "sha256": "b3cc3add6efbe7c9120529e2afdce95f0270cced89397662253ae05d5927eef2"
+      },
+      {
+        "name": "input-manifest.json",
+        "bytes": 78517,
+        "sha256": "93facfe72743e25dcd4025b2ae22db09d387e2edd32818b7069469f091c30ab9"
+      },
+      {
+        "name": "run-card.json",
+        "bytes": 3502,
+        "sha256": "ee38d594903d6098f0bcb41cb14a7b3384d60beb32377724698799cafc39a8ce"
+      },
+      {
+        "name": "runtime.json",
+        "bytes": 1446,
+        "sha256": "df4273d5e3c2d65ab5daba2e3713a76e6afbc5d75c43f58831432ae3424dd45f"
+      }
+    ]
+  },
+  "owner": {
+    "completed": true,
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/p1-second-classifier-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001-owner/card.json"
+    ],
+    "worker_exit": 0,
+    "peak_sampled_aggregate_rss": 169811968,
+    "seconds": 6.039252004120499,
+    "owned_worker_exited": true,
+    "raw_bytes_before_closing": 286303,
+    "files": [
+      {
+        "name": "card.json",
+        "bytes": 3502,
+        "sha256": "ee38d594903d6098f0bcb41cb14a7b3384d60beb32377724698799cafc39a8ce"
+      },
+      {
+        "name": "owned-process.json",
+        "bytes": 525,
+        "sha256": "70d976256b1b3b4eb991e651cd54b36410ce998a6e6f8b5d618f3b799b52d58f"
+      },
+      {
+        "name": "stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "stdout",
+        "bytes": 621,
+        "sha256": "3143496ffe93e985879ee4cf65b3076b166841c3c1b95f10a912ff20105503d9"
+      }
+    ]
+  },
+  "identities": {
+    "launcher": {
+      "pid": 724163,
+      "starttime": 185559481,
+      "pgrp": 724163,
+      "session": 724163
+    },
+    "worker": {
+      "pid": 724172,
+      "starttime": 185559485,
+      "pgrp": 724172,
+      "session": 724172
+    },
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/p1-second-classifier-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001-owner/card.json"
+    ]
+  },
+  "identities_absent_after_reap": true,
+  "files_read_only": true,
+  "files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001/descriptive.json",
+      "bytes": 197440,
+      "sha256": "b3cc3add6efbe7c9120529e2afdce95f0270cced89397662253ae05d5927eef2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001/input-manifest.json",
+      "bytes": 78517,
+      "sha256": "93facfe72743e25dcd4025b2ae22db09d387e2edd32818b7069469f091c30ab9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001/result.json",
+      "bytes": 750,
+      "sha256": "49d5b5253589785131a1c6d464ee45737cf3926a6ef1443ad375a3e5b0d96c4f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001/run-card.json",
+      "bytes": 3502,
+      "sha256": "ee38d594903d6098f0bcb41cb14a7b3384d60beb32377724698799cafc39a8ce"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001/runtime.json",
+      "bytes": 1446,
+      "sha256": "df4273d5e3c2d65ab5daba2e3713a76e6afbc5d75c43f58831432ae3424dd45f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001-owner/card.json",
+      "bytes": 3502,
+      "sha256": "ee38d594903d6098f0bcb41cb14a7b3384d60beb32377724698799cafc39a8ce"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001-owner/owned-process.json",
+      "bytes": 525,
+      "sha256": "70d976256b1b3b4eb991e651cd54b36410ce998a6e6f8b5d618f3b799b52d58f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001-owner/result.json",
+      "bytes": 1083,
+      "sha256": "ff33d610276b810a377df1e37c02e43804ffd54f6203d8dfc77141ad4711a291"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001-owner/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/p1-second-classifier-audit/descriptive-001-owner/stdout",
+      "bytes": 621,
+      "sha256": "3143496ffe93e985879ee4cf65b3076b166841c3c1b95f10a912ff20105503d9"
+    }
+  ],
+  "input_manifest_sha256": "93facfe72743e25dcd4025b2ae22db09d387e2edd32818b7069469f091c30ab9",
+  "raw_output_sha256": "b3cc3add6efbe7c9120529e2afdce95f0270cced89397662253ae05d5927eef2",
+  "interpretation": "Independent own-code exploratory second-classifier replay; completed means execution, not every original claim reproduced."
+}
