@@ -1,0 +1,368 @@
+{
+  "utc": "2026-10-13T12:54:20Z",
+  "source_commit": "36c5d6144a021b2648e54f4a0bae3c7e4ca1e641",
+  "plan_sha256": "d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0",
+  "session_id": 60449,
+  "identities": [
+    {
+      "pid": 570536,
+      "state": "S",
+      "ppid": 1535104,
+      "pgid": 570536,
+      "sid": 570536,
+      "start": 184248955,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 25464832,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "codex/certify-llm/derivative_campaign.py",
+        "--plan",
+        "/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp/codex/certify-llm/derivative-campaign-003-plan.json",
+        "--plan-sha256",
+        "d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0",
+        "--source",
+        "36c5d6144a021b2648e54f4a0bae3c7e4ca1e641",
+        "--attempt",
+        "derivative-campaign-003"
+      ],
+      "role": "controller",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "1073741824",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 570854,
+      "state": "S",
+      "ppid": 570536,
+      "pgid": 570854,
+      "sid": 570854,
+      "start": 184249638,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 20512768,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp/codex/certify-llm/launch.py",
+        "--attempt",
+        "final-derivative-p1-c256-002",
+        "--driver",
+        "derivative_shard",
+        "--plan",
+        "final-derivative-p1-c256-002-plan.json",
+        "--threads",
+        "1",
+        "--seconds",
+        "3600"
+      ],
+      "role": "launcher",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 571233,
+      "state": "R",
+      "ppid": 570854,
+      "pgid": 571233,
+      "sid": 571233,
+      "start": 184249831,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 5301485568,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c256-002/source/codex/certify-llm/derivative_shard.py",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c256-002/run",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c256-002/source/codex/certify-llm/final-derivative-p1-c256-002-plan.json"
+      ],
+      "role": "worker",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 571236,
+      "state": "S",
+      "ppid": 570536,
+      "pgid": 571236,
+      "sid": 571236,
+      "start": 184249855,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 20529152,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp/codex/certify-llm/launch.py",
+        "--attempt",
+        "final-derivative-p1-c320-002",
+        "--driver",
+        "derivative_shard",
+        "--plan",
+        "final-derivative-p1-c320-002-plan.json",
+        "--threads",
+        "1",
+        "--seconds",
+        "3600"
+      ],
+      "role": "launcher",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 571538,
+      "state": "R",
+      "ppid": 571236,
+      "pgid": 571538,
+      "sid": 571538,
+      "start": 184250047,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 5301600256,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c320-002/source/codex/certify-llm/derivative_shard.py",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c320-002/run",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c320-002/source/codex/certify-llm/final-derivative-p1-c320-002-plan.json"
+      ],
+      "role": "worker",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 571541,
+      "state": "S",
+      "ppid": 570536,
+      "pgid": 571541,
+      "sid": 571541,
+      "start": 184250071,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 20508672,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp/codex/certify-llm/launch.py",
+        "--attempt",
+        "final-derivative-p1-c384-002",
+        "--driver",
+        "derivative_shard",
+        "--plan",
+        "final-derivative-p1-c384-002-plan.json",
+        "--threads",
+        "1",
+        "--seconds",
+        "3600"
+      ],
+      "role": "launcher",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 571848,
+      "state": "R",
+      "ppid": 571541,
+      "pgid": 571848,
+      "sid": 571848,
+      "start": 184250268,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 5302280192,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c384-002/source/codex/certify-llm/derivative_shard.py",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c384-002/run",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c384-002/source/codex/certify-llm/final-derivative-p1-c384-002-plan.json"
+      ],
+      "role": "worker",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 571851,
+      "state": "S",
+      "ppid": 570536,
+      "pgid": 571851,
+      "sid": 571851,
+      "start": 184250286,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 20508672,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp/codex/certify-llm/launch.py",
+        "--attempt",
+        "final-derivative-p1-c448-002",
+        "--driver",
+        "derivative_shard",
+        "--plan",
+        "final-derivative-p1-c448-002-plan.json",
+        "--threads",
+        "1",
+        "--seconds",
+        "3600"
+      ],
+      "role": "launcher",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 572177,
+      "state": "R",
+      "ppid": 571851,
+      "pgid": 572177,
+      "sid": 572177,
+      "start": 184250481,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 5302222848,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c448-002/source/codex/certify-llm/derivative_shard.py",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c448-002/run",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c448-002/source/codex/certify-llm/final-derivative-p1-c448-002-plan.json"
+      ],
+      "role": "worker",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 572187,
+      "state": "S",
+      "ppid": 570536,
+      "pgid": 572187,
+      "sid": 572187,
+      "start": 184250504,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 20508672,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp/codex/certify-llm/launch.py",
+        "--attempt",
+        "final-derivative-p1-c512-001",
+        "--driver",
+        "derivative_shard",
+        "--plan",
+        "final-derivative-p1-c512-001-plan.json",
+        "--threads",
+        "1",
+        "--seconds",
+        "3600"
+      ],
+      "role": "launcher",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    },
+    {
+      "pid": 572497,
+      "state": "R",
+      "ppid": 572187,
+      "pgid": 572497,
+      "sid": 572497,
+      "start": 184250728,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 5250560000,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c512-001/source/codex/certify-llm/derivative_shard.py",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c512-001/run",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c512-001/source/codex/certify-llm/final-derivative-p1-c512-001-plan.json"
+      ],
+      "role": "worker",
+      "threads": 1,
+      "address_space_soft_hard": [
+        "19327352832",
+        "19327352832"
+      ]
+    }
+  ],
+  "all_five_registered": true,
+  "stop_reason": null,
+  "uncertain_ownership": [],
+  "memavailable_bytes": 32020819968,
+  "load": [
+    6.7548828125,
+    7.669921875,
+    5.69091796875
+  ],
+  "sampled_peak_aggregate_rss": 13157240832,
+  "mathematical_outputs_read": false,
+  "certificate_passed": false,
+  "archive": "/data2/neural-shrimp-data/codex/llm-p8-certificate/campaign003-startup-001",
+  "manifest_sha256": "a5c01d6fccfdb57da02ff6715141123b90d1182b9c10a09d9ee373ae50da6854",
+  "report_sha256": "9e4428c5a9b528ffafb1cd6ff09791f1074472286e8084350cfaa72790b7e8f0",
+  "historical_successful_blocks": 18,
+  "new_planned_blocks": 94,
+  "raw_attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/derivative-campaign-003"
+}

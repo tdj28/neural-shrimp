@@ -21959,3 +21959,9 @@ _commit `d9d1b718ea5c`_
 - **Would surprise us:** (a) a cascade window closing in a cusp inside the box; (b) arm periods ordered by rotation number (tongue-like) although the 2-cycle's Neimark-Sacker cannot give odd periods
 
 _commit `a56b742269cb`_
+
+## 2026-10-13 12:56 UTC: Campaign003 five-worker recovery registered and independently checked
+
+One controller570536/start184248955, tool session60449, now runs source36c5d6144a021b2648e54f4a0bae3c7e4ca1e641/plan d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0 in frozen execution checkout. All11 registered identities/commands/nice10/one-thread/AS limits verified; initial workers571233,571538,571848,572177,572497;32.02GB available after load, no stop/uncertainty.18 retained+94 new under17h/fiveCPU1 workers/7CPU reservation and unchanged memory/storage gates. Startup archive campaign003-startup-001 manifesta5c01d6fccfdb57da02ff6715141123b90d1182b9c10a09d9ee373ae50da6854. No numerical outcome read or certificate claim; original failures retained; no GPU/paid use or duplicate runs.
+
+_commit `96624b958532` (dirty worktree)_

@@ -200,3 +200,5 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
 | Assigned orbit |Own numerical P8 proposal recovered; not an orbit proof|One fixed checkpoint/prompt/feedback map|
 | Existence, uniqueness, primitive period, attraction proof|Not established|Future strict full-box inclusion, norm and divisor gates|
 | Broader inference benefit or whole shrimp |Not tested by this task|Separate studies required|
+
+13October2026: reviewed campaign003 is running from frozen source36c5d614, retaining18 completed blocks and acquiring94 with explicit failed-attempt replacement identities. FiveCPU1 workers/sevenCPU reservation,17-hour cap; original failures remain. See active-certificate-status.md and startup receipt for birth identities and all operational bounds. No final certificate yet.

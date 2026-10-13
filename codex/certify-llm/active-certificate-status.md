@@ -1,4 +1,20 @@
-# Current phase — 2026-10-13: campaign003 preflight passed, launch pending
+# Current phase — 2026-10-13: campaign003 running with five registered workers
+
+**Lifecycle/Git owner: inference.** One recovery controller is running; do not duplicate it or mutate its frozen execution checkout. Source `36c5d6144a021b2648e54f4a0bae3c7e4ca1e641`, plan `d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0`. Execution checkout `/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp`. Research checkpoints stay in `/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp`.
+
+- Raw controller: `/data2/neural-shrimp-data/codex/llm-p8-certificate/derivative-campaign-003`; tool session **60449**; controller **570536/start184248955**.
+- Initial workers: **571233/start184249831**, **571538/start184250047**, **571848/start184250268**, **572177/start184250481**, **572497/start184250728**. Future rolling identities must be read from `run/state.json`, never assumed from this initial snapshot.
+- At startup all11 controller/launcher/worker birth identities, commands, UID/PGID/SID, nice10 and one OS thread matched. Controller AS1GiB soft/18GiB hard; workers/launchers18GiB. Five workers registered; no stop or uncertainty. Available memory32,020,819,968bytes after workers loaded. Immutable startup manifest `a5c01d6fccfdb57da02ff6715141123b90d1182b9c10a09d9ee373ae50da6854`; compact `certificates/llm-p8-derivative-campaign-003-startup.json`.
+- Bounded scope: **18 retained blocks +94 missing**, with four new002 identities for interrupted attempts and90 unchanged never-started identities. FiveCPU1 workers/sevenCPU reservation,17h total from12:52UTC,18GiB/3600s per worker,34GiB sampled aggregate RSS,12GiB available floor,24GiB raw storage including retained/failed history. No automatic retry. Startup headroom57,365,553,152bytes exceeded46GiB.
+- Original campaign001 and002 failures,17 successful002 blocks and four interrupted001 shard attempts remain untouched. Closed002 had no mathematical failure. No target interval certificate is established yet.
+
+Task6 scoped reproduction is complete and delivered (comms e0b809f6); Task7 fold and saved-array audit completed with no live model worker, with final scientific review being checkpointed. L9 work is source/design-only, no outcome or pod reads. Same-chat automation `complete-qwen-p8-certificate` continues every30minutes, checks live owners before acting and stays quiet for healthy unchanged states. Root is updating its phase prompt to this recovery.
+
+Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
+
+---
+
+# Historical prelaunch phase — campaign003 metadata admission
 
 No certificate controller or worker is currently live. Root accepted exactly one recovery controller from clean execution source `36c5d6144a021b2648e54f4a0bae3c7e4ca1e641`, plan `d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0`, after fresh≥46GiB available memory and private checkpoint. Keep the execution checkout frozen. The plan retains18 completed blocks and acquires94; four interrupted blocks get explicit002 identities. All original failures remain. FiveCPU1 workers/sevenCPU total,17h, unchanged18GiB/3600s workers and sampled34GiB/12GiB memory gates. Read-only preflight report463b9a10/manifest20d52ec6 passed; see certificates/llm-p8-derivative-campaign-003-preflight.json. Task6/7 have released resources. No certificate or new derivative claim yet.
 
