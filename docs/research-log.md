@@ -20682,3 +20682,31 @@ An independent reviewer checked the source contrasts and final synthesis; observ
 Validation: 35 unique BibTeX keys, every draft key covered, source assembly current, BibTeX exit 0 without warnings, disposable bibliography LaTeX harness exit 0. codex/literature/validation.json binds the deliverables and notes to hashes. This is syntax/compilation validation and literature review, not reproduction of outside experiments. CPU-only document work; no paid calls, model runs or protected holdout access. Watcher automation was deleted after accepting the assignment, as instructed. Claude owns final integration. Failed DOI metadata requests were retained and version-specific citation fallbacks disclosed.
 
 _commit `97197f7fc34e` (dirty worktree)_
+
+## 2026-10-12 23:51 UTC: run (exploratory)
+
+- **Question:** Table 1 on the current all-float64 map and one cut: the period-adding stripe orbits P6-P20 at their stripe centres along log10 T = -0.115 (centres from the float32 cut 06e24); their text, multipliers and residuals.
+- **Setup:** tools/llm_feigenbaum.py orbits, CPU float64 (8 threads, nice 10): 900 transient steps from the opener state, period check (tolerance 1e-6), low-rank Newton (k = 6, tolerance 1e-12), Ritz multipliers, leading tokens; points alpha 0.077872 (P6), 0.071674 (P8), 0.067766 (P10), 0.065550 (P12), 0.064443 (P14), 0.063857 (P16), 0.063534 (P18), 0.063335 (P20)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/table1-cut-t-0.115`
+- **Would surprise us:** a centre not periodic with its stripe's period in float64 (the float32 centre shifted), or orbits whose text is not '. This' plus is-X pairs
+- **Command:** `.venv/bin/python -u tools/llm_feigenbaum.py orbits --threads 8 --points -0.115:0.077872:6 -0.115:0.071674:8 -0.115:0.067766:10 -0.115:0.065550:12 -0.115:0.064443:14 -0.115:0.063857:16 -0.115:0.063534:18 -0.115:0.063335:20 --out llm-soft-loop/table1-cut-t-0.115`
+
+_commit `82d1e128cbb6`_
+
+- run started 2026-10-12 23:51 UTC (../neural-shrimp-data/explore/llm-soft-loop/table1-cut-t-0.115) finished 23:51 UTC with exit status 2
+
+## 2026-10-12 23:51 UTC: run (exploratory)
+
+- **Question:** Retry of the Table 1 run (the first attempt stopped at argument parsing: a point beginning with a minus sign was read as an option; nothing was computed): period-adding stripe orbits P6-P20 at their stripe centres along log10 T = -0.115 on the current float64 map.
+- **Setup:** tools/llm_feigenbaum.py orbits (points PERIOD:LOG10T:ALPHA), CPU float64, 8 threads, nice 10; same points and settings as the first attempt
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/table1-cut-t-0.115`
+- **Would surprise us:** as before
+- **Command:** `.venv/bin/python -u tools/llm_feigenbaum.py orbits --threads 8 --points 6:-0.115:0.077872 8:-0.115:0.071674 10:-0.115:0.067766 12:-0.115:0.065550 14:-0.115:0.064443 16:-0.115:0.063857 18:-0.115:0.063534 20:-0.115:0.063335 --out llm-soft-loop/table1-cut-t-0.115`
+
+_commit `5e6dfe27a06a` (dirty worktree)_
+
+## 2026-10-13 00:02 UTC: P1 analysis extended before any ladder data, following Codex's literature audit
+
+Codex's Task 3 (docs/related-work-draft.md, codex/literature/) found that activation-based forecasting of LLM response behaviour already exists (Ashok and May 2025; persona vectors; the Assistant Axis), that adaptive timing of counter-steering gave no consistent advantage in one persona setting (Leins et al. 2026), and that committors have been applied to masked-diffusion decoding (Zhou et al. 2026). So P1's question is incremental: does a dynamical estimate add several-turn warning over strong baselines seeing the same turns? tools/p1_lead_time.py now adds the classifier's change since the previous turn, its running maximum, the turn index and the projection on the fixed steering axis, and fits two logistic models per horizon on training dialogues (baseline features; baseline plus forecast, probe, variance, autocorrelation); the reported incremental AUC is the test-set difference, with a dialogue-level bootstrap interval. Commit before the L1 ladder data was retrieved or inspected (no P1 ladder outcome seen). Still open from the audit for the confirmatory version: a pre-response activation probe, calibration and precision at fixed false-warning rates, Chapman-Kolmogorov checks of the Markov model, and intervention timing against scheduled and constant controls at matched cost.
+
+_commit `fc570939cda5` (dirty worktree)_
