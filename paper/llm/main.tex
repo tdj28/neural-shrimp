@@ -50,7 +50,8 @@ interval ratios that rise toward Feigenbaum's $\delta=4.669$ and reach $4.478$ a
 expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
 Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
-predicted. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
+predicted, and in which the spectrum predicts why the native recurrence step is nearly optimal and where larger steps
+fail. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
 direction, whose persistence grows with the dose from flickering bursts to a near-absorbing state, and which is
 history-dependent: after a dose ramp, dialogues stay hostile at a dose where fresh dialogues mostly do not, and
 release needs the dose pushed below the capture range, or a small counter-steer. A
@@ -634,7 +635,24 @@ high-order tongues cannot be excluded. From $\lambda\approx1.094$ the circle def
 near where a second complex pair destabilizes the fixed point ($\lambda=1.0814$). Fixed-point and Jacobian stability of
 looped models has been studied before \cite{yang2026stars}; the predicted crossing, its amplitude law and the
 rotation number are what this adds.
-\planned{causal clamp of the first unstable position on held-out prompts.}
+
+\paragraph{The spectrum predicts the relaxation response.} With the full instruction template, the GSM8K prompts'
+fixed points look different: the leading multipliers surround the origin, a real $0.914$, complex pairs of modulus
+$0.85$--$0.89$ at many angles and negative real values near $-0.8$, with no near-critical pair. Because the prefill
+Jacobian is block lower-triangular in positions, its spectrum is the union of per-position blocks, and template
+positions contribute identical eigenvalues to every prompt. Such a spectrum makes three predictions before any task is
+scored. No relaxation can speed convergence much: for a spectrum filling a disc about the origin, the plain iteration
+is the optimal polynomial scheme, and indeed the best $\lambda^*=1.03$--$1.06$ lowers the rate from $0.914$ to only
+$0.908$--$0.911$. Under-relaxation slows it ($\lambda=0.55$: predicted $0.953$, measured $0.951$ on one prompt).
+Over-relaxation destabilizes the negative modes first, at $\lambda_c=2\operatorname{Re}(1-\mu)/|1-\mu|^2=1.074$--$1.126$
+(five prompts), a flip or a Neimark--Sacker bifurcation close to $-1$. The approach to it is visible: on the prompt with
+$\lambda_c=1.074$, the measured rate at $\lambda=1.05$ is $0.955$ against a predicted $0.956$ (native $0.864$).
+Elsewhere the spectral radius bounds the rate measured over the accessible window from above, by up to $0.05$,
+because the slowest modes carry little amplitude there. Independently, \citet{wang2026taps} found that a constant step
+of $1.2$ collapses Huginn's accuracy (GSM8K $8.3\,\%$ against $19.4\,\%$) and that $0.8$ underperforms, without an
+explanation; both lie on the predicted sides of these thresholds.
+\inprogress{frozen test on ARC-Challenge (all 1172 test questions, scored from one prefill per choice): accuracy against
+$\lambda$ at matched recurrence steps, with the cliff predicted at the spectral $\lambda_c$ of development prompts.}
 
 \section{Misaligned behaviour as an attractor}
 \label{sec:misalignment}
