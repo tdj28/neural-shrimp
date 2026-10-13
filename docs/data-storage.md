@@ -140,3 +140,19 @@ Verified separate-disk copy at `/archive/neural-shrimp-backups/20261009T022241Z-
 ## 2026-10-09T02:27:07.413532+00:00 — resumption paper and private handoff snapshot
 
 Verified 64 files / 3784568 bytes at `/archive/neural-shrimp-backups/20261009T022654Z-resumption-checkpoint`, including the32-page PDF, current report/reviews and four private original-checkout files. Exact inventories, complete SHA256, second source hash pass and stable source metadata agree. Private ledger and foreign log stay outside Git. See `docs/backups/2026-10-09-resumption-checkpoint.json`. Sources were not altered; same-machine separate-disk snapshot supplements private Git.
+
+## Verified separate-disk snapshot, 13 October 2026
+
+At the user's request (protection against a failure of the /data2 drive), a full snapshot of the data root, minus
+the re-downloadable model caches (`models/`) and rebuildable environments (`envs/`), is at
+`/archive/neural-shrimp-backups/20261013T155602Z-llm-dynamics-13oct` (tools/backup_snapshot.py; receipt
+`docs/backups/20261013T155602Z-llm-dynamics-13oct.json`, manifest SHA-256 82fd0b33...). Counts:
+- 924,084 regular files (134.6 GB) and 11 symlinks, copied by rsync;
+- 924,073 files verified by a complete source/copy SHA-256 comparison;
+- no mismatches and no errors.
+
+The 11 unverified files were changing during the copy, all live logs and state of the running certificate campaign;
+they are listed in the receipt. 1,548 files created during the copy belong to the next snapshot. The Git-ignored
+private files (cost ledger, checkpoint, /data2/Handoff.md) are in `private-handoff/`. `.env` is excluded on
+purpose. This is a same-machine copy on a separate physical disk (sda), not offsite and not continuous; run
+tools/backup_snapshot.py again after substantial new raw data.

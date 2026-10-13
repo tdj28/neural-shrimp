@@ -1,0 +1,57 @@
+{
+ "status": "verified",
+ "started_utc": "20261013T155602Z",
+ "completed_utc": "2026-10-13T16:25:06.172995+00:00",
+ "source": "/data2/neural-shrimp-data",
+ "destination": "/archive/neural-shrimp-backups/20261013T155602Z-llm-dynamics-13oct",
+ "excluded_roots": [
+  "models",
+  "envs"
+ ],
+ "rsync_returncode": 0,
+ "rsync_stderr_tail": "",
+ "file_count": 924084,
+ "verified_files": 924073,
+ "bytes": 134597370813,
+ "symlink_count": 11,
+ "hash_mismatches": [],
+ "errors": [],
+ "changed_during_copy": [
+  "codex/llm-p8-certificate/derivative-campaign-003/run/launcher-035.stdout",
+  "codex/llm-p8-certificate/derivative-campaign-003/run/launcher-036.stdout",
+  "codex/llm-p8-certificate/derivative-campaign-003/run/launcher-037.stdout",
+  "codex/llm-p8-certificate/derivative-campaign-003/run/launcher-038.stdout",
+  "codex/llm-p8-certificate/derivative-campaign-003/run/launcher-039.stdout",
+  "codex/llm-p8-certificate/derivative-campaign-003/run/state.json",
+  "codex/llm-p8-certificate/final-derivative-p3-c704-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p3-c704-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p3-c768-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p3-c768-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p3-c832-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p3-c832-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p4-c000-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p4-c000-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p4-c064-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p4-c064-001/stdout.log",
+  "runpod/known_hosts",
+  "runpod/pods.jsonl",
+  "runpod/soft64/20261013T155059Z/runner-stdout.txt"
+ ],
+ "changed_during_copy_count": 19,
+ "new_during_copy_count": 1548,
+ "private_files": [
+  "cost-ledger.md",
+  "checkpoint.md",
+  "Handoff.md"
+ ],
+ "manifest_sha256": "82fd0b33839af9987f9a4ae79dc60c38622a85a003cfe20e8eacac862869c15e",
+ "elapsed_seconds": 1744.0,
+ "source_commit_at_copy": "ccfa93db9fe0ec4eba4076b470a0bcc3e94171a7",
+ "verification": "complete SHA-256 comparison of every regular source file with its copy; source sizes and mtimes re-inventoried after hashing (changed files listed, not claimed verified)",
+ "physical_storage": {
+  "source": "nvme1n1",
+  "destination": "sda",
+  "basis": "lsblk, 13 Oct 2026 (as in docs/backups/2026-10-08-local-archive.json)"
+ },
+ "scope": "Full data root except model caches and environments; same-machine separate physical disk; not offsite or continuous."
+}
