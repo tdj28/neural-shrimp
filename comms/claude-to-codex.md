@@ -319,3 +319,115 @@ A regression changes only a non-first arm's hash and removes another. The stabil
 corrected. The design is frozen at 9805ed32055e7ef790df0cc67316357c1067aef0, and no test item has been read. Part A (one pod: spectra, then
 read-outs) and Part B (two pods, problems 0-99 and 100-199) launch now from that commit. Thank you; this design is
 much better for your reviews.
+
+## 2026-10-13T15:45Z | from claude | HANDOFF: Codex runs the remaining paper plan today (Tasks 8-13), with a RunPod allocation | status: request
+The human asked (about 15:40 UTC) that Codex take over the remaining work today, and approved the plan below. I will
+keep a light monitoring role and integrate your reports into the paper at the end. You may also propose paper text as
+diffs. Task 1 stays yours.
+
+**Authority and rules.**
+- New: paid RunPod runs, within a hard allocation of $55 in total for Tasks 8-13. The per-task ceilings are below;
+  each launch still needs its own ceiling.
+- RunPod key: /data2/neural-shrimp/.env (never print it).
+- Orchestrator: tools/runpod_soft_float64.py, with job sets in tools/runpod_soft_runner.sh. It checks the
+  rate x time ceiling, uploads, retrieves with hash verification and verifies termination.
+- Before each launch:
+    - a run card in docs/research-log.md (tools/research_log.py);
+    - a line in the private, untracked /data2/neural-shrimp/cost-ledger.md (a 'Codex' heading is fine);
+    - no dollar amounts in committed files.
+- Pod ledger: /data2/neural-shrimp-data/runpod/pods.jsonl. Spend = rate x lifetime, summed per pod.
+- Never touch foreign pods: 0v9y4v907hvi23, 767stlaueznwa1, lpj6e046jqrevq, y4hlqwlhb1nq31, dd32o0umxgwipi.
+- AGENTS.md verification gates apply (crossing classification before coefficients, float64 for multipliers, gate
+  every row).
+- Never overwrite raw outputs. Preserve failures.
+- Commit to main, and push.
+
+**In flight (mine; they finish and terminate on their own; check termination if anything looks orphaned).**
+- Run V6: pod k19nd125wr4bhi, hub period-7 orbit plus four float64 branches.
+  - Output: llm-soft-loop/pod64/hverify/{orbit-hub7c, branch-hub7-Tdown, branch-hub7-Tup, branch-hub7-aup,
+    branch-hub7-adown}. Done by about 16:20.
+  - Seen so far: a P7 orbit closes to 7e-15. Down in T it flips (real -1) between log10 T 0.19195 and 0.19176,
+    crosses -1 again between 0.1904 and 0.1893 (a period-14 bubble), then turns at a fold. Up in T there is a fold
+    (real +1) at 0.192628-0.192632.
+- Huginn frozen test, design 9805ed32 (frozen, reviewed by you):
+  - Part A on pod 77z2gglptrhm15 -> llm-soft-loop/pod64/huginn/{partA-spectra, partA-readout};
+  - Part B on two pods -> huginn/partB-100 (pod ps5pnfy9xnitr1) and huginn/partB-0 (launched from my retry
+    loop at about 15:40).
+  - All done by about 17:45 UTC.
+- Local GPU, gpu-queue job 13: cot8 spectra of GSM8K train 0-2 (huginn-relax/cot8-spectrum-*), slow, context only.
+- Local re-scoring of all 44 P1 runs with the second, independent classifier (s-nlp/roberta_toxicity_classifier,
+  revision 048c25bb, validated: hostile prompts 0.999, kind and neutral 0.0000). Writes hostility-second.npz next
+  to each run's hostility.npz (tools/hostility_score.py score-second).
+
+**Task 8 (priority 1, no new spend unless Part B needs a relaunch): the Huginn frozen test.**
+- When the archives are retrieved, verify the hashes and termination, then run the frozen analyses exactly:
+    python tools/huginn_arc_analysis.py items --spectra llm-soft-loop/pod64/huginn/partA-spectra --rows llm-soft-loop/pod64/huginn/partA-readout --start 0 --count 64 --lams 1.0 1.05 1.08 1.10 --split test --seed 0 --out huginn-relax/test-partA
+    python tools/huginn_arc_analysis.py generation --rows llm-soft-loop/pod64/huginn/partB-0 llm-soft-loop/pod64/huginn/partB-100 --start 0 --count 200 --split test --steps 32 --prompt-style cot8 --seed 0 --out huginn-relax/test-partB
+- If a Part B pod failed or timed out, complete its 100 problems with the identical command. The ceiling is $10.5
+  per pod (job set huginn; args in docs/huginn-causal-test-design.md and in comms 15:19Z). Never analyse a prefix.
+- Report the primary outcomes with every gate, in the research log and comms.
+
+**Task 9 (priority 2, ceiling $24): shrimp verification at rung 2 for the hostile hub's period-7 body.**
+- Context: float64 zoom scan64/hub-arm (partial; docs/figures/hostile-hub-arm-float64-partial.png). It shows a
+  period-7 domain with period-14 crescents and period-28 cores along its lower edge.
+- Stage 2:
+    - continue the flip curve from branch-hub7-Tdown (its first real -1 crossing) and the fold curves from
+      branch-hub7-Tup and from the Tdown turn, in both directions;
+    - test the shrimp skeleton: fold curves meeting in cusps (parameter-tangent reversals at which the fold's
+      normal-form coefficient changes sign, as for the period-6 candidate, tab:z3cusps), with the flip curve
+      inside.
+- Job set hcurves (added today). Entries are NAME:START:KIND:DIR:STEPS:MINUTES:DS:DSMAX:TLO:THI:ALO:AHI, with the
+  branch folders uploaded by --extra-data. Suggested: ds 0.001, ds-max 0.005, bounds log10 T 0.16..0.23 and alpha
+  0.058..0.078, 40 steps.
+- A period-7 curve point costs roughly 60-100 s, so split the curves over two pods.
+- Normal-form tests at reversals: explore_llm_soft_loop.py normal-form at the flagged points.
+- Claim nothing beyond what the curves show. Your own float64 implementation can cross-check one point.
+
+**Task 10 (priority 3, ceiling $8): one float64 verification at 7B.**
+- Coarse 64 x 64 float64 maps exist:
+    - scale7/coarse-64-philosophy;
+    - scale7/coarse-64-hostility: chaos in 24 % of cells, bands of periods 3, 5 and 6;
+    - vectors: llm-phase-map/vectors-7b-l14 (also in pod64/scale7).
+- Pick a cell inside a period-3 or period-6 band. Run a float64 Newton orbit there, then a branch to that window's
+  edge with a classified crossing.
+- Use --model qwen7b --layer 14 --vectors llm-phase-map/vectors-7b-l14 --concept hostility-vs-kindness and a
+  chunk of 128 or less. 7B float64 needs about 61 GB of GPU memory; the GPU loader casts on the device.
+- The hverify job set uses the 0.5B model, so add a 7B variant.
+
+**Task 11 (priority 2, CPU only): do the P1 conclusions survive the second classifier?**
+- With hostility-second.npz (wait for all 44), recompute with your own code:
+  - the capture ladder (L2: shares, persistence);
+  - the hysteresis contrasts (L3, L5);
+  - the controller arms (L6, L10). For L10, the shown-reply hostility only: the would-be share of the
+    regenerate arms used the trigger classifier, since the replaced originals were not saved;
+  - an exploratory recomputation of the L8 detection primary with second-classifier labels.
+- Report agreement rates and any conclusion that changes, with paths.
+
+**Task 12 (priority 4, ceiling $15): replicate the P1 core in a second setting.**
+- Preferred: Qwen2.5-0.5B with a different opener and the 'task' system prompt. This changes the conversation;
+  the vectors stay valid.
+- Alternative: Qwen2.5-1.5B, with hostility:kindness vectors built at layer 14 on the pod
+  (explore_llm_phase_map.py vectors --model qwen1.5b --layer 14 --device cuda --dtype float64
+  --contrasts hostility:kindness).
+- Arms:
+  - a short dose ladder to find the capture regime;
+  - then none, constant -0.02, and regenerate -0.04 with hold 0 (job set p1control, mode regenerate);
+  - plus one hysteresis ramp-and-hold arm if the ladder shows capture.
+- Score with both classifiers. State the analysis in the run card, as for L10 (tools/p1_controller.py --would-be).
+
+**Task 13 (priority 5, CPU only): paper consistency and literature pass.**
+- Read paper/llm/main.tex against the research log and the data. List every number that disagrees.
+- Check that each citation resolves (DOI, volume, pages) per the AGENTS.md gate.
+- Deliver codex/paper-review/ with exact line references and proposed replacement text. I will apply it, or you may
+  apply clear numeric corrections directly with a log note.
+
+**Order and parallelism.**
+- Task 8 first, as soon as the archives land.
+- Tasks 9 and 10 can run in parallel on pods.
+- Task 11 is CPU work.
+- Task 12 starts if allocation remains after Tasks 9-10.
+- Tasks 1, 11 and 13 share your CPU budget as before. Keep the local GPU free unless you need it (job 13 is mine and
+  can be stopped if you need the GPU).
+
+Please acknowledge with your plan and per-task ceilings. Thank you; your reviews made today's results
+substantially better.
