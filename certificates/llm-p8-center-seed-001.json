@@ -1,0 +1,581 @@
+{
+  "schema": "codex-llm-p8-setup-v1",
+  "certificate_passed": false,
+  "evidence": "eight numerical one-phase Jacobians and a numerical shooting preconditioner; no rigorous derivative or orbit certificate",
+  "source_commit": "4324234a5c1703e5e9589c9bb6b21bc4710b4df5",
+  "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/center-seed-001",
+  "receipt_sha256": "ee952c34b442a5947c09471d6d40129b150965ee1f2abf69760c7d304952b6c3",
+  "artifact_hashes_checked": 56,
+  "elapsed_seconds": 677.2714827680029,
+  "exit_code": 0,
+  "timed_out": false,
+  "status": {
+    "status": "proposal_completed",
+    "certificate_passed": false,
+    "phase_artifacts": [
+      {
+        "index": 0,
+        "passed": true,
+        "absolute_l2": 2.5907130393867016e-14,
+        "relative_l2": 6.72977800798229e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 80.60142284492031,
+        "path": "phase-00.npz",
+        "sha256": "a8aa2f092b95a9f610eb7fb29bab872532d005d2543d147dbacae8fce16a94bf",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 1,
+        "passed": true,
+        "absolute_l2": 4.792533081394791e-15,
+        "relative_l2": 1.8749600919996493e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 77.64876790693961,
+        "path": "phase-01.npz",
+        "sha256": "90f64c12844ecad5b91ff6b4c741ed8d8f173f558173d2128d1ac402ebce5b4a",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 2,
+        "passed": true,
+        "absolute_l2": 7.067325026696083e-15,
+        "relative_l2": 2.4983569617570172e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 83.09574560006149,
+        "path": "phase-02.npz",
+        "sha256": "10860c1aa1a2e81aac1613d7dac016621600805f66bcf6929228f9b30b0afba9",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 3,
+        "passed": true,
+        "absolute_l2": 4.368825311717757e-15,
+        "relative_l2": 1.7471568626974384e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 82.65013006702065,
+        "path": "phase-03.npz",
+        "sha256": "84638591833a9debe6400ebc7c8c3d6419c4a4fe13f3679f023c333e1b8f27fa",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 4,
+        "passed": true,
+        "absolute_l2": 3.920133772440259e-15,
+        "relative_l2": 1.705440302429585e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 84.50454538292252,
+        "path": "phase-04.npz",
+        "sha256": "b17666f4d870c61eac38fd8879c3b1af8f8df6e2abe6891e3cf37cf5e6bb93c8",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 5,
+        "passed": true,
+        "absolute_l2": 5.209563103455196e-15,
+        "relative_l2": 1.8019679364638864e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 85.73544644610956,
+        "path": "phase-05.npz",
+        "sha256": "372f7a16523b561824b546384ea1590ea23ca036ef63c1f4f1d5cc067b7cf285",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 6,
+        "passed": true,
+        "absolute_l2": 7.750634609506363e-15,
+        "relative_l2": 1.5774383532304237e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 84.1963787090499,
+        "path": "phase-06.npz",
+        "sha256": "cec95c7f8067209c0cb14910759a7566734b349ae1d443e3626d45338b9d9e1d",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 7,
+        "passed": true,
+        "absolute_l2": 4.022546602404447e-15,
+        "relative_l2": 2.2448812530437508e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 94.06278636795469,
+        "path": "phase-07.npz",
+        "sha256": "4f2edd22b1a2e1cf183d52e6ade6a3905a6df8dd800f06343eb3d25b3119f11e",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      }
+    ],
+    "preconditioner_sha256": "c853fceb10036ff6229b6435a01951eccc2e629c6d70bc967da8cde1fb008b43",
+    "elapsed_seconds": 676.5933518561069,
+    "max_rss_kib": 5863288,
+    "reason": "Numerical matrices for later rigorous multiple-shooting preconditioning; no orbit proof."
+  },
+  "preconditioner": {
+    "arrays_sha256": "c853fceb10036ff6229b6435a01951eccc2e629c6d70bc967da8cde1fb008b43",
+    "parameter_array_order": [
+      "alpha",
+      "log10_temperature"
+    ],
+    "product_order": "A[7] @ ... @ A[0]",
+    "B_proposal": "binary64 solve((I-product), I)",
+    "diagnostics": {
+      "condition_2_estimate": 1.889829964066314,
+      "left_inverse_defect_inf": 3.0221396927105457e-15,
+      "right_inverse_defect_inf": 2.739038248894002e-15,
+      "product_norm_inf": 1.0395393398685395,
+      "inverse_norm_inf": 2.045126150247826,
+      "statement": "Floating diagnostics only; neither product nor inverse defect is a rigorous enclosure."
+    },
+    "phase_artifacts": [
+      {
+        "index": 0,
+        "passed": true,
+        "absolute_l2": 2.5907130393867016e-14,
+        "relative_l2": 6.72977800798229e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 80.60142284492031,
+        "path": "phase-00.npz",
+        "sha256": "a8aa2f092b95a9f610eb7fb29bab872532d005d2543d147dbacae8fce16a94bf",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 1,
+        "passed": true,
+        "absolute_l2": 4.792533081394791e-15,
+        "relative_l2": 1.8749600919996493e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 77.64876790693961,
+        "path": "phase-01.npz",
+        "sha256": "90f64c12844ecad5b91ff6b4c741ed8d8f173f558173d2128d1ac402ebce5b4a",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 2,
+        "passed": true,
+        "absolute_l2": 7.067325026696083e-15,
+        "relative_l2": 2.4983569617570172e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 83.09574560006149,
+        "path": "phase-02.npz",
+        "sha256": "10860c1aa1a2e81aac1613d7dac016621600805f66bcf6929228f9b30b0afba9",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 3,
+        "passed": true,
+        "absolute_l2": 4.368825311717757e-15,
+        "relative_l2": 1.7471568626974384e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 82.65013006702065,
+        "path": "phase-03.npz",
+        "sha256": "84638591833a9debe6400ebc7c8c3d6419c4a4fe13f3679f023c333e1b8f27fa",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 4,
+        "passed": true,
+        "absolute_l2": 3.920133772440259e-15,
+        "relative_l2": 1.705440302429585e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 84.50454538292252,
+        "path": "phase-04.npz",
+        "sha256": "b17666f4d870c61eac38fd8879c3b1af8f8df6e2abe6891e3cf37cf5e6bb93c8",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 5,
+        "passed": true,
+        "absolute_l2": 5.209563103455196e-15,
+        "relative_l2": 1.8019679364638864e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 85.73544644610956,
+        "path": "phase-05.npz",
+        "sha256": "372f7a16523b561824b546384ea1590ea23ca036ef63c1f4f1d5cc067b7cf285",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 6,
+        "passed": true,
+        "absolute_l2": 7.750634609506363e-15,
+        "relative_l2": 1.5774383532304237e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 84.1963787090499,
+        "path": "phase-06.npz",
+        "sha256": "cec95c7f8067209c0cb14910759a7566734b349ae1d443e3626d45338b9d9e1d",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      },
+      {
+        "index": 7,
+        "passed": true,
+        "absolute_l2": 4.022546602404447e-15,
+        "relative_l2": 2.2448812530437508e-14,
+        "jacobian_shape": [
+          896,
+          896
+        ],
+        "jacobian_dtype": "float64",
+        "nonfinite_entries": 0,
+        "jacobian_seconds": 94.06278636795469,
+        "path": "phase-07.npz",
+        "sha256": "4f2edd22b1a2e1cf183d52e6ade6a3905a6df8dd800f06343eb3d25b3119f11e",
+        "statement": "Numerical one-phase Jacobian proposal and consistency gate only."
+      }
+    ],
+    "certificate_passed": false,
+    "statement": "A and B are finite exact-dyadic proposals when read from binary64 bytes; rigorous enclosures and inverse verification are absent."
+  },
+  "artifacts": [
+    {
+      "path": "manifest.json",
+      "bytes": 4363,
+      "sha256": "da7c8bb26aa0380962677955c8538d7d208dea86b76c63505e9099bf6f019587"
+    },
+    {
+      "path": "run/centers.npz",
+      "bytes": 122650,
+      "sha256": "7f00a361dc133ab85b4cc2458a3dc2e941e26d8c326f12a96a6994d2203c18f8"
+    },
+    {
+      "path": "run/events.jsonl",
+      "bytes": 8461,
+      "sha256": "56a625742d7ccd861c686211b6d1520bc50898faf67eafdee4bbc443854f6ec6"
+    },
+    {
+      "path": "run/inputs.json",
+      "bytes": 2180,
+      "sha256": "92d331327c747bae4c90e013c5898dba9a88c99b517f647ad9b1c1dd6a4d3ada"
+    },
+    {
+      "path": "run/phase-00-residual.npz",
+      "bytes": 29682,
+      "sha256": "c320b334e56eb8effe460894c9baab015627779fbd164acbeca8bbace525c78a"
+    },
+    {
+      "path": "run/phase-00.json",
+      "bytes": 446,
+      "sha256": "997af131846adfedbff1555622c09239df3a5115274bcce7086f890ede10014b"
+    },
+    {
+      "path": "run/phase-00.npz",
+      "bytes": 6452444,
+      "sha256": "a8aa2f092b95a9f610eb7fb29bab872532d005d2543d147dbacae8fce16a94bf"
+    },
+    {
+      "path": "run/phase-01-residual.npz",
+      "bytes": 29682,
+      "sha256": "5fdb1f8af6e48f686714ecbaf2f776d367c0a10362fd55d15ed1f7df3368e1f0"
+    },
+    {
+      "path": "run/phase-01.json",
+      "bytes": 447,
+      "sha256": "59ff62e0eefb1403a71f30574dbc751d1c5092501d6238ea16ebbd2e3ba9a68e"
+    },
+    {
+      "path": "run/phase-01.npz",
+      "bytes": 6452444,
+      "sha256": "90f64c12844ecad5b91ff6b4c741ed8d8f173f558173d2128d1ac402ebce5b4a"
+    },
+    {
+      "path": "run/phase-02-residual.npz",
+      "bytes": 29682,
+      "sha256": "8839d620ba9bb04cbd02b103354321e11406a0016460991d15173db2680c950a"
+    },
+    {
+      "path": "run/phase-02.json",
+      "bytes": 447,
+      "sha256": "7ff2047006d8ddc66f26d44aeacf7723e2476098b2b2ce3a2412a02da6d56990"
+    },
+    {
+      "path": "run/phase-02.npz",
+      "bytes": 6452444,
+      "sha256": "10860c1aa1a2e81aac1613d7dac016621600805f66bcf6929228f9b30b0afba9"
+    },
+    {
+      "path": "run/phase-03-residual.npz",
+      "bytes": 29682,
+      "sha256": "6d6a456fb7235ba17655f3d55593ce3bc5f0739de7a0975d11e045eabcd4d223"
+    },
+    {
+      "path": "run/phase-03.json",
+      "bytes": 447,
+      "sha256": "759fbd5c21966a175b292a8723fd71a2b4c537409f243a5dcc4e7bc1d16b61e3"
+    },
+    {
+      "path": "run/phase-03.npz",
+      "bytes": 6452444,
+      "sha256": "84638591833a9debe6400ebc7c8c3d6419c4a4fe13f3679f023c333e1b8f27fa"
+    },
+    {
+      "path": "run/phase-04-residual.npz",
+      "bytes": 29682,
+      "sha256": "0d7a0dc89bc07440b8685fdd7707afd46452cd2d2c8b3aeca5138f039af64ba1"
+    },
+    {
+      "path": "run/phase-04.json",
+      "bytes": 446,
+      "sha256": "1e912db86dc7e895f21ff6201d3c689ec1ac9f7879f71242d667e24a70a3f7b4"
+    },
+    {
+      "path": "run/phase-04.npz",
+      "bytes": 6452444,
+      "sha256": "b17666f4d870c61eac38fd8879c3b1af8f8df6e2abe6891e3cf37cf5e6bb93c8"
+    },
+    {
+      "path": "run/phase-05-residual.npz",
+      "bytes": 29682,
+      "sha256": "547374385ba47f48b81eab6f0f216b6ed54fd390c3abff33a34400c0f3064998"
+    },
+    {
+      "path": "run/phase-05.json",
+      "bytes": 447,
+      "sha256": "a983c49bdf1ba2bcccc7bc088ad3a7d845d5c9d674b70062e408abb376708f9e"
+    },
+    {
+      "path": "run/phase-05.npz",
+      "bytes": 6452444,
+      "sha256": "372f7a16523b561824b546384ea1590ea23ca036ef63c1f4f1d5cc067b7cf285"
+    },
+    {
+      "path": "run/phase-06-residual.npz",
+      "bytes": 29682,
+      "sha256": "a57fdbddbad830dbd1da1fba72ec5f279d33ea9d7a058dd40e02fa157b79a257"
+    },
+    {
+      "path": "run/phase-06.json",
+      "bytes": 446,
+      "sha256": "1fbfbcd7f95b3e2bf3ab46256de2455cdf4f8601f1a190ba8c034594edb4bfb8"
+    },
+    {
+      "path": "run/phase-06.npz",
+      "bytes": 6452444,
+      "sha256": "cec95c7f8067209c0cb14910759a7566734b349ae1d443e3626d45338b9d9e1d"
+    },
+    {
+      "path": "run/phase-07-residual.npz",
+      "bytes": 29682,
+      "sha256": "08072fcef541b5fd6b87ef9746fd4e2c2aac8aea29fb4d7756fccfdab20dfbec"
+    },
+    {
+      "path": "run/phase-07.json",
+      "bytes": 447,
+      "sha256": "7c385ba3061f87d1b13d99a29601063dcc01a55c420ddd9463e893eb3227c2b7"
+    },
+    {
+      "path": "run/phase-07.npz",
+      "bytes": 6452444,
+      "sha256": "4f2edd22b1a2e1cf183d52e6ade6a3905a6df8dd800f06343eb3d25b3119f11e"
+    },
+    {
+      "path": "run/phase-matrices.npz",
+      "bytes": 51438338,
+      "sha256": "ded191f05ec55e19916bb964652475200429651f42fe486bdd4b4a7dfdb56673"
+    },
+    {
+      "path": "run/preconditioner.json",
+      "bytes": 4924,
+      "sha256": "d6f3887bdf2949abad709e2fed0aa5a8aa790abc7275d4e1c4b29e8f72f33fb7"
+    },
+    {
+      "path": "run/preconditioner.npz",
+      "bytes": 77129472,
+      "sha256": "c853fceb10036ff6229b6435a01951eccc2e629c6d70bc967da8cde1fb008b43"
+    },
+    {
+      "path": "run/status.json",
+      "bytes": 4453,
+      "sha256": "c523fffdda2bde42e33a99363b9309d94a8e1049a1ffe5fdc5e91ee7b8f867e8"
+    },
+    {
+      "path": "source/codex/certify-llm/README.md",
+      "bytes": 7231,
+      "sha256": "14d2d3b491c46e3e5076072b359aadaa7f66890b84f9ad594fd3d2138c9a4dca"
+    },
+    {
+      "path": "source/codex/certify-llm/affine-code-review.md",
+      "bytes": 7880,
+      "sha256": "b950ed2f2108091df4d737d6657b41045ef5f82fa04637c47e2de2252f57c7c6"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_jet.py",
+      "bytes": 9871,
+      "sha256": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_linear.py",
+      "bytes": 9512,
+      "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_qwen.py",
+      "bytes": 14008,
+      "sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+    },
+    {
+      "path": "source/codex/certify-llm/cache_io.py",
+      "bytes": 6547,
+      "sha256": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef"
+    },
+    {
+      "path": "source/codex/certify-llm/center_seed.py",
+      "bytes": 13786,
+      "sha256": "87cf27a05999641995d441704cd7a1ec3ea5aa0d2c0d200b0c05662e584572e5"
+    },
+    {
+      "path": "source/codex/certify-llm/derivative-cache-review.md",
+      "bytes": 10060,
+      "sha256": "694c13748b3de399f01357e527c37e7d5ff473f6daf54c4f3e22675141d59292"
+    },
+    {
+      "path": "source/codex/certify-llm/gates-review.md",
+      "bytes": 7338,
+      "sha256": "d081a6237425c788aa5fbf2ac1525c4d04282c9a523c2338232af3a1e19b77b0"
+    },
+    {
+      "path": "source/codex/certify-llm/launch.py",
+      "bytes": 5609,
+      "sha256": "bc2dcefe460a538184e40311fcf52637eb3d1aff36d6483e7678ee379c6151a5"
+    },
+    {
+      "path": "source/codex/certify-llm/map-code-review.md",
+      "bytes": 13628,
+      "sha256": "6fff8d8b5d17cd316b155a14523a030997b27b25b168d27d4da54d76b8be19a9"
+    },
+    {
+      "path": "source/codex/certify-llm/multiple-shooting-design.md",
+      "bytes": 9684,
+      "sha256": "7b2c824a8a382728d953342a758895d6e8c4e5e3a12dea8c8ca8976fad426444"
+    },
+    {
+      "path": "source/codex/certify-llm/next-methods.md",
+      "bytes": 7268,
+      "sha256": "bf1e9fb5ada25169a1ceeb2c2451f33d9abe7986e1c8a35c16144f430a1bb37e"
+    },
+    {
+      "path": "source/codex/certify-llm/next-setup-review.md",
+      "bytes": 4952,
+      "sha256": "27ac89bda02fbac03c5a3f9ada62a72d01da48f13566036e8a36f823fc027166"
+    },
+    {
+      "path": "source/codex/certify-llm/pilot-results-review.md",
+      "bytes": 10987,
+      "sha256": "2d009499abad75f14f56d4584b4bca989d40782f9221e2f5fa2b6053c897704e"
+    },
+    {
+      "path": "source/codex/certify-llm/pilot.py",
+      "bytes": 9569,
+      "sha256": "354f166af4ac0d7afbe68d2b9c61ed17e54aa9f3e4ed2b448bef5e70545ccca1"
+    },
+    {
+      "path": "source/codex/certify-llm/proof-design-review.md",
+      "bytes": 17979,
+      "sha256": "cabe361495a2d370081a8fb890f97966708f98601008c7a450caeacf16a5c5ef"
+    },
+    {
+      "path": "source/codex/certify-llm/proof_gates.py",
+      "bytes": 15368,
+      "sha256": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a"
+    },
+    {
+      "path": "source/codex/certify-llm/shooting_correction.py",
+      "bytes": 3817,
+      "sha256": "06a711c7becd970bb135bc28555bf91dfd24bd52a7c224f5ea2d25647f8bac1e"
+    },
+    {
+      "path": "source/codex/certify-llm/signed-pilot-001-plan.json",
+      "bytes": 989,
+      "sha256": "d054cd2ce68030fafabf1e660d438e0af83338a3156f2ebbbd4826ff7c7e64ca"
+    },
+    {
+      "path": "source/codex/certify-llm/signed_pilot.py",
+      "bytes": 8768,
+      "sha256": "8f43241dac3fd54586f25b2b94d8a417a59b60369b67c4cd86aba5fa5fba653c"
+    },
+    {
+      "path": "source/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 201,
+      "sha256": "e6ff90d4dcb70f43b13a09e25749ffe3e45546a5524ad2b71d9bb78233182c63"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 8461,
+      "sha256": "56a625742d7ccd861c686211b6d1520bc50898faf67eafdee4bbc443854f6ec6"
+    }
+  ]
+}

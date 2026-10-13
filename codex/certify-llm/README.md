@@ -12,9 +12,21 @@ return `1.60e-14` and numerical divisor separation. There is **no orbit certific
   wrapped to radius`1.6996` by layer2 and failed the RMS positivity gate entering
   layer3. This is a setup failure from dependency loss, not dynamical instability.
 - All22 pilot002 artifact hashes were checked; receipts preserve both attempts.
-- `signed-pilot-001-plan.json` prepares a one-phase, eight-column signed-JVP
-  measurement using the provenance-bound exact prefix. It is not an inclusion
-  test and cannot cover the omitted888 directions.
+- `signed-pilot-001` completed eight signed point-derivative columns in
+  261.81 seconds at 1024 bits, with maximum derivative radius `2.526e-141`.
+  All 27 artifact hashes and all eight comparison rows were audited. This
+  covers eight directions at one point; full-box derivatives are still absent.
+- `center-seed-001` completed all eight independent binary64 phase Jacobians
+  and the cyclic inverse proposal in 677.27 seconds. All eight numerical
+  closure gates passed and all 56 artifact hashes were checked. The numerical
+  inverse defect is approximately `3e-15`; this is a proposal, not an inverse
+  or derivative certificate.
+- `arb-point-003` is constructing a fresh 2048-bit prefix and one point image
+  under the existing CPU1/18-GiB/one-hour envelope. Its final receipt is still
+  pending; the known-wide state-box probe is explicitly skipped.
+- `center_refine.py` prepares one high-precision multiple-shooting correction
+  followed by a fresh eight-phase residual check. It has not run; admission
+  requires completed, hash-bound prefix and seed attempts and a pushed plan.
 
 `ball_jet.py` provides batched signed first derivatives through the same reviewed
 transformer architecture. `cache_io.py` preserves all prefix radii and checks the
@@ -22,6 +34,10 @@ construction/provenance chain. `proof_gates.py` implements conditional Krawczyk,
 primitive-period and monodromy-power algebra. Passing those algebraic gates only
 proves the desired statement once their full-domain enclosure contract has been
 established; hashes and a declaration alone do not establish it.
+`shooting_gates.py` adds full product-box root and conditional primitive-period
+checks, with signed streamed blocks or a cheaper conservative factored bound.
+It deliberately leaves dynamical attraction to a separate monodromy bound.
+The current combined synthetic suite passes 224 tests; no test is an orbit proof.
 
 The original pilot design below is retained as history. Current setup outcomes
 are in `certificates/llm-p8-pilot-001.json` and `llm-p8-pilot-002.json`.

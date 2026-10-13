@@ -21057,3 +21057,8 @@ _commit `4724ead06064` (dirty worktree)_
 - **Would surprise us:** a ratio falling back below 3.5 at the period-192 level
 
 _commit `4b65b17a39a3`_
+## 2026-10-13 03:43 UTC: Task 1 numerical shooting seed completed; conditional gates reviewed
+
+center-seed-001 (source 4324234a5c1703e5e9589c9bb6b21bc4710b4df5) completed in 677.27s, exit0/no timeout. All eight 896x896 binary64 phase Jacobians are finite and their closure gates pass; every one of 56 receipt artifacts was hash-checked. Numerical inverse defect infinity norms are 3.0221e-15 and 2.7390e-15; condition estimate1.88983. These are exact-dyadic proposal bytes, not rigorous derivative/inverse enclosures. Compact receipt certificates/llm-p8-center-seed-001.json. The current combined synthetic certificate/refinement/gate suite passes224 tests. arb-point-003 is still running; no target correction or orbit inclusion is claimed.
+
+_commit `51b25e497e43` (dirty worktree)_
