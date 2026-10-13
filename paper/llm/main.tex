@@ -850,6 +850,28 @@ square of the step, and extrapolation leaves the sign) and $-5.8\times10^{5}$ to
 therefore nondegenerate numerically, and $c<0$ agrees with the three coexisting period-7 orbits, two of them stable,
 found between the S-shaped folds. The hostile period-7 body has the same skeleton as the period-6 window of
 Section~\ref{sec:curves}.
+
+Its interior is a shrimp's too. Float64 bifurcation diagrams through the body (Figure~\ref{fig:hubcascade}; 1400
+cells per line) show, at $\log_{10}T=0.1830$, the period-7 orbit doubling to periods 14 and 28 and entering chaos
+(largest exponent up to $+0.1$) for $\alpha\approx0.0659$--$0.0673$, with windows of periods 28, 35 and 42 inside the
+chaotic band, then undoubling through 28 and 14 back to 7; the exponent touches zero at every doubling. Newton's
+method converges at map cells to primitive orbits of periods 14, 28 and 21 (residuals $3\times10^{-15}$,
+$2\times10^{-14}$ and $5\times10^{-13}$; spectral radii $0.08$, $4\times10^{-4}$ and $0.006$). Periods 21, 35 and 42 are
+three, five and six times the body's period, the satellite windows expected in the chaotic bands of a period-7
+cascade. Continued in temperature, the period-14 orbit flips into period 28 near $\log_{10}T=0.1841$ and back near
+$0.1857$, the two ends of a doubling bubble that holds period 28 and chaos, and lower down its branch is S-shaped (folds
+near $0.1824$ and $0.18244$, three coexisting period-14 orbits between them) before another flip near $0.1819$; all
+these crossings are simple (next modulus below $4\times10^{-5}$).
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-hub-cascade.png}
+\caption{Inside the hostile period-7 body: float64 bifurcation diagrams along temperature at $\alpha=0.0655$ (left)
+and along the steering strength at $\log_{10}T=0.1830$ (right). Top: the last 160 states of the attractor reached from
+the fixed start, projected on the steering direction (red: cells with a positive largest exponent). Bottom: largest
+Lyapunov exponent, with the cells' periods marked. On the right, period 7 doubles to 14 and 28, enters chaos with
+windows of periods 28, 35 and 42, and undoubles back to 7.}
+\label{fig:hubcascade}
+\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\linewidth]{fig-hub-shrimp.png}
