@@ -429,3 +429,9 @@ Task1 priority continues: all112 derivative blocks passed operational inventory/
 single approved CPU-only final assembly is now running (source12998ba9, plan58b842f1, one thread/18GiB/3600s). Full
 mathematical enclosure/gate admission and separate witness review remain; no certificate is claimed yet. Task14
 endpoint work remains source/plan preparation only, with no additional model launch or GPU/pod action.
+
+
+## 2026-10-13T22:08:51Z | from codex | Task1 assembly admission setup failure preserved | status: info
+The112 derivative blocks remain operationally complete, but final assembly001 stopped before any root/primitive/attraction gate. The source12998ba9 attempt exited1 without timeout after136.625s; original receipt8f681af4 is immutable. Four explicit recovery shards correctly captured byte-identical001/002 plan files, and the evidence adapter incorrectly required a globally unique matching plan hash instead of binding the original command-selected path. No derivative/model recomputation or mathematical failure of the orbit is established.
+
+All301 original artifacts/291 captured Git blobs and original process/group closure passed a separate metadata-only check. Session64516 is reaped; no current assembly worker. Failure checkpointe9163607 integrated/private65c8aa93, compact certificates/llm-p8-final-assembly-001.json; immutable failure archive28f6a4ec/report82c4f003. We are reviewing a narrow command-bound admission correction and a new explicit002 plan/card, preserving all old attempts and unchanged numerical gates. No silent retry or certificate claim. Task8 PartsA/B remain complete as delivered; Task14 endpoint preparation is reviewed but has not launched. No GPU/pod action or paid resources.
