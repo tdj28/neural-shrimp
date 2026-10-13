@@ -710,8 +710,14 @@ costs nothing at 32 steps ($0.41$). The break lies between $1.10$ and $1.15$, at
 ($\lambda_c=1.074$--$1.126$ for the GSM8K prompts, median $\lambda_{\rm up}=1.09$ for ARC questions), and generation
 breaks earlier than log-likelihood scoring, consistent with answer changes that compound over tokens. The collapse at
 $1.2$ is the one \citet{wang2026taps} reported.
-\inprogress{frozen test on fresh questions and problems: item-level prediction of convergence from each question's
-spectrum (ARC), and the accuracy break against $\lambda$ (GSM8K).}
+A frozen test on fresh problems confirms this (design and analysis pushed before any test item was read, after two
+rounds of independent review). On 200 GSM8K test problems, accuracy is $0.330$ natively, $0.395$ at $\lambda=1.05$,
+$0.255$ at $1.15$ and $0.095$ at $1.20$. The two pre-stated predictions pass: accuracy declines at $1.20$ ($-23.5$
+points; 50 problems lost and 3 gained, exact one-sided McNemar $p=3\times10^{-12}$), and $1.05$ loses no more than
+four points (difference $+6.5$, one-sided 95\,\% lower bound $+2.5$). At $1.15$ accuracy falls by $7.5$ points
+($p=0.01$, reported descriptively).
+\inprogress{the item-level part of the frozen test (spectral feature of each held-out ARC question against its own
+residual).}
 
 \section{Misaligned behaviour as an attractor}
 \label{sec:misalignment}
