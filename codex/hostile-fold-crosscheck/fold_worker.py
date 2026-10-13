@@ -112,16 +112,19 @@ def qualify_fold(model, seed, *, save, check, chunk=16, max_newton=6, max_backtr
         eigen_residual_tol=TOLERANCES['eigen_residual'])
     diagnostics['raw_strict_radius_below_one'] = diagnostics.pop('spectral_contraction_passed')
     diagnostics['numerically_attracting'] = None  # Neutral +1 at a fold.
-    phase_returns = [float(np.linalg.norm(ops.period_map(y, p)-y) /
-                           max(np.linalg.norm(y), 1e-30)) for y in points[:-1]]
+    phase_return_points = np.stack([ops.period_map(y, p) for y in points[:-1]])
+    phase_returns = [float(np.linalg.norm(returned-y) / max(np.linalg.norm(y), 1e-30))
+                     for y, returned in zip(points[:-1], phase_return_points)]
     gates = result['gates']
     gates.update(closure=diagnostics['closure_passed'],
         primitive=diagnostics['primitive_separation_passed'],
         eigenpairs=diagnostics['eigenpairs_passed'],
         all_phase_closure=bool(max(phase_returns) < TOLERANCES['closure']))
-    result.update(orbitpoints=points, orbit_diagnostics=diagnostics, phase_returns=phase_returns)
+    result.update(orbitpoints=points, orbit_diagnostics=diagnostics, phase_returns=phase_returns,
+                  phase_return_points=phase_return_points)
     ops.emit('orbit-gates', dict(gates=gates, diagnostics=diagnostics,
-                               points=points, phase_returns=phase_returns, spectrum=spectrum))
+                               points=points, phase_returns=phase_returns,
+                               phase_return_points=phase_return_points, spectrum=spectrum))
     if not all(gates.values()):
         return finish('orbit-gates-failed')
     r, l = spectrum['right'], spectrum['left']

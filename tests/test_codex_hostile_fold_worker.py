@@ -59,6 +59,9 @@ def test_actual_corrector_nested_ad_full_gates_gauge_units_and_clock(b):
     assert result['orbit_diagnostics']['numerically_attracting'] is None
     assert list(result['orbit_diagnostics']['proper_divisor_returns'])==[1]
     assert len(result['phase_returns'])==2
+    assert result['phase_return_points'].shape==(2,2)
+    np.testing.assert_allclose(result['phase_returns'],[np.linalg.norm(y-x)/np.linalg.norm(x)
+        for x,y in zip(result['orbitpoints'][:-1],result['phase_return_points'])],rtol=0,atol=0)
     assert all(result['gates'].values())
     assert len(result['composed_precision'])==2
     for row in result['composed_precision']:
@@ -87,7 +90,7 @@ def test_nonnormal_left_gauge_and_all_full_arrays_persist(tmp_path):
     doc=json.loads((tmp_path/'fold.json').read_text())
     assert doc['array_file_sha256']==setup.sha256(tmp_path/'fold.npz')
     with np.load(tmp_path/'fold.npz',allow_pickle=False) as archive:
-        for key in ('matrix','orbitpoints','r','l','raw_r','raw_l','parameter_derivative','directional_second',
+        for key in ('matrix','orbitpoints','phase_return_points','r','l','raw_r','raw_l','parameter_derivative','directional_second',
                     'spectrum/eigenvalues','spectrum/eigenvectors','spectrum/left_eigenvectors',
                     'composed_precision/0/finite_difference/0/derivative'):
             assert key in archive

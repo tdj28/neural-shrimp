@@ -21868,3 +21868,9 @@ _commit `6a5bb5f51891` (dirty worktree)_
 - **Would surprise us:** A reproduced fold, composed precision, or coefficient FD gate differs from the disclosed producer result; record the discrepancy and preserve the attempt without adjusting gates after outcomes.
 
 _commit `ba16399aaf8e` (dirty worktree)_
+
+## 2026-10-13 12:09 UTC: Task7 prelaunch phase-return evidence amendment
+
+Before any full Task7 fold run, audit preparation found that both closure scalars were saved but the phase1 return vector was missing. The root-approved storage-only amendment saves phase_return_points from the same two existing evaluations, with unchanged method/calls/formulas/gates. Worker2dca8f02; new plan53fcb608cd4dcaf8aa3437fffe13c5fe38e3873e6a5d31a8071ea8b91bfa4cd7;31 focused worker/runtime controls passed2.27s. Original checkpointc4ae3108 and all earlier evidence remain. Task6 work retains priority and no full fold has launched.
+
+_commit `c4ae3108bd58` (dirty worktree)_
