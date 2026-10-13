@@ -44,11 +44,12 @@ bottleneck near its middle, which fixes the prefactor of the window law. This is
 (Pomeau--Manneville) inside the inference computation of a pretrained language model. We continue fold and
 flip curves of the periodic orbits with float64 test functions. In a higher-temperature region we find a
 fold curve with two cusps whose normal-form coefficient changes sign, the codimension-two organization of
-shrimp-shaped windows. In a closed region of the map a period-3 text loop doubles through periods 6, 12 and 24
-toward a chaotic core. Along a cut, float64 flip and superstable parameters resolved through period 384 give
+shrimp-shaped windows. In a closed region of the map a period-3 text loop doubles through periods 6, 12, 24,
+\dots{} toward a chaotic core. Along a cut, float64 flip and superstable parameters resolved through period 384 give
 interval ratios that rise toward Feigenbaum's $\delta=4.669$ and reach $4.478$ and $4.625$. Replacing the
 expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
-Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
+Qwen2.5-1.5B shows chaos with embedded windows and a doubling route whose first ratios are $3.60$ and $4.28$.
+A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
 predicted, and in which the spectrum predicts why the native recurrence step is nearly optimal and where larger steps
 fail. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
