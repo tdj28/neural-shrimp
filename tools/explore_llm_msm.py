@@ -58,6 +58,19 @@ def sample(args):
             import hostility_score as hs
 
             clf = hs.Classifier(args.threads, args.device)
+    # optional in-context recording and active probing (detection study): the state before each reply at the
+    # recorded layers, per-token projections on the push direction, and K look-ahead replies of the next turn at the
+    # scheduled dose and at dose + delta along the push (common random numbers), scored by the classifier
+    layers = [int(v) for v in args.record_layers.split(",")] if args.record_layers else []
+    unit = steer / np.linalg.norm(steer) if np.linalg.norm(steer) > 0 else None
+    pre_reply = {L: np.zeros((R, N, d), dtype=np.float16) for L in layers}
+    token_proj = {L: np.full((R, N, args.max_new), np.nan, dtype=np.float32) for L in layers}
+    probe_q = np.full((R, N), np.nan)
+    probe_q_plus = np.full((R, N), np.nan)
+    if args.probe_k and args.controller != "triggered":
+        import hostility_score as hs
+
+        clf = hs.Classifier(args.threads, args.device)
     tic = time.perf_counter()
     for k in range(N):
         agent = k % 2
@@ -66,13 +79,26 @@ def sample(args):
         if args.controller != "none":
             rows = rows + counter[:, k][:, None] * v_ctrl[None]
         batch = [ela.window_messages(ela.PROMPTS[args.prompt], transcripts[r], agent, args.window) for r in range(R)]
-        out, ents, lens, _ = sm.generate_batch(batch, rows, args.max_new, temperature=args.temperature,
-                                               seed=args.seed * 100003 + k)
+        if layers:
+            out, ents, lens, _, rec = sm.generate_batch(batch, rows, args.max_new, temperature=args.temperature,
+                                                        seed=args.seed * 100003 + k, record=(layers, unit))
+            for L in layers:
+                pre_reply[L][:, k] = rec["pre_reply"][L].astype(np.float16)
+                tp = rec["token_proj"].get(L)
+                if tp is not None:
+                    token_proj[L][:, k, :tp.shape[1]] = tp
+        else:
+            out, ents, lens, _ = sm.generate_batch(batch, rows, args.max_new, temperature=args.temperature,
+                                                   seed=args.seed * 100003 + k)
         a = sm.turn_activations(out, rows)
         for r in range(R):
             transcripts[r].append(out[r])
             texts[r].append(out[r])
         entropies[:, k], lengths[:, k], acts[:, k] = ents, lens, a
+        if args.probe_k and k + 1 < N:
+            extra = args.probe_delta * (np.linalg.norm(steer) / abs(args.alphas[0])) * unit   # delta along the push
+            probe_q[:, k], probe_q_plus[:, k] = look_ahead(sm, clf, transcripts, k + 1, scale[k + 1] * steer,
+                                                           extra, args)
         if args.controller == "triggered":
             toxic[:, k] = clf(list(out))[:, 0]
             flagged[:, k] = toxic[:, k] > args.controller_threshold
@@ -85,10 +111,36 @@ def sample(args):
     dest.mkdir(parents=True, exist_ok=True)
     np.save(dest / "activations.npy", acts)
     np.savez_compressed(dest / "turns.npz", entropy=entropies, length=lengths, counter=counter, flagged=flagged,
-                        toxic=toxic)
+                        toxic=toxic, probe_q=probe_q, probe_q_plus=probe_q_plus)
+    if layers:
+        np.savez_compressed(dest / "in-context.npz", layers=np.array(layers), unit=unit,
+                            **{f"pre_reply_{L}": pre_reply[L] for L in layers},
+                            **{f"token_proj_{L}": token_proj[L] for L in layers})
     (dest / "sample.json").write_text(json.dumps({"args": vars(args), "seconds": round(time.perf_counter() - tic, 1),
                                                   "openers": openers, "texts": texts}, indent=1,
                                                  ensure_ascii=False))
+
+
+def look_ahead(sm, clf, transcripts, turn, base_steer, extra, args):
+    """Active probe at the state after turn - 1: K sampled replies of the next turn per dialogue, at the scheduled
+    steering and with `extra` (delta along the push direction) added, with common random numbers. Returns the hostile
+    fractions (q at the scheduled dose, q_plus at dose + delta); q_plus - q is the susceptibility."""
+    R, K = len(transcripts), args.probe_k
+    agent = turn % 2
+    msgs = [ela.window_messages(ela.PROMPTS[args.prompt], transcripts[r], agent, args.window) for r in range(R)]
+    big = [m for m in msgs for _ in range(K)]
+    result = []
+    for steer in (base_steer, base_steer + extra):
+        rows = np.repeat(np.asarray(steer)[None], len(big), axis=0)
+        texts = []
+        for start in range(0, len(big), args.probe_chunk):
+            seed = args.seed * 100003 + 500000 + turn * 1000 + start // args.probe_chunk
+            out = sm.generate_batch(big[start:start + args.probe_chunk], rows[start:start + args.probe_chunk],
+                                    args.probe_tokens, temperature=args.temperature, seed=seed)[0]
+            texts += out
+        hostile = clf(texts)[:, 0] > args.controller_threshold
+        result.append(hostile.reshape(R, K).mean(1))
+    return result[0], result[1]
 
 
 def counter_for_turn(mode, alpha, remaining):
@@ -226,6 +278,11 @@ def main():
     sa.add_argument("--dtype", default="float32", choices=("float32", "float64"))
     sa.add_argument("--device", default="cpu", help="cpu or cuda (sampling streams differ between devices)")
     sa.add_argument("--schedule", default=None, help="per-turn steering factors f0:f1:...:fm, linearly interpolated")
+    sa.add_argument("--record-layers", default="", help="comma-separated layers whose in-context states to record")
+    sa.add_argument("--probe-k", type=int, default=0, help="look-ahead replies per dialogue and turn (0: no probe)")
+    sa.add_argument("--probe-delta", type=float, default=0.02, help="extra dose along the push for the susceptibility")
+    sa.add_argument("--probe-tokens", type=int, default=40)
+    sa.add_argument("--probe-chunk", type=int, default=512)
     sa.add_argument("--controller", default="none", choices=("none", "constant", "triggered"))
     sa.add_argument("--controller-concept", default="hostility-vs-kindness", help="vector of the counter-steer")
     sa.add_argument("--controller-alpha", type=float, default=0.0, help="counter-steer strength (signed)")

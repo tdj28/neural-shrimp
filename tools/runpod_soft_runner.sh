@@ -39,7 +39,7 @@ snapshot_download('Qwen/Qwen2.5-1.5B-Instruct', revision='$REV15', cache_dir='$N
   >> "$LOGS/setup-model.log" 2>&1
 REFS15=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-1.5B-Instruct/refs
 mkdir -p "$REFS15" && printf %s "$REV15" > "$REFS15/main"
-if [ "$JOBSET" = p1control ]; then             # the pinned toxicity classifier that triggers the exit controller
+if [ "$JOBSET" = p1control ] || [ "$JOBSET" = p1detect ]; then   # the pinned toxicity classifier (controller, probes)
   HF_HUB_OFFLINE=0 $PY -c "
 from huggingface_hub import snapshot_download
 snapshot_download('unitary/toxic-bert', revision='4d6c22e74ba2fdd26bc4f7238f50766b045a0d94',
@@ -180,6 +180,17 @@ case "$JOBSET" in
         --temperature 0.7 --seed $seed --vectors llm-phase-map/vectors-l12-p1b --concepts hostility-vs-kindness \
         --alphas $alpha --controller $mode --controller-concept $cconcept --controller-alpha $calpha \
         --controller-turns $cturns --out $D/msm/p1-$name
+    done
+    ;;
+  p1detect)    # detection study: in-context states (layers 12, 18, 23) and look-ahead probes (K replies of the next
+               # turn at the dose and at dose + 0.02, 40 tokens, scored by the pinned classifier); each JOBARGS entry
+               # is NAME:ALPHA:SEED:REPLICAS:K
+    for arm in "${JOBARGS[@]}"; do
+      IFS=: read -r name alpha seed replicas k <<< "$arm"
+      TOOL=explore_llm_msm.py run p1-$name 120 sample --device cuda --threads 8 --replicas $replicas --turns 40 \
+        --temperature 0.7 --seed $seed --vectors llm-phase-map/vectors-l12-p1b --concepts hostility-vs-kindness \
+        --alphas $alpha --record-layers 12,18,23 --probe-k $k --probe-delta 0.02 --probe-tokens 40 --probe-chunk 512 \
+        --out $D/msm/p1-$name
     done
     ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)

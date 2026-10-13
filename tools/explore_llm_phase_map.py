@@ -109,8 +109,29 @@ class SteeredModel:
         norms = (hs.double().norm(dim=-1) * mask[..., 0]).sum(1) / mask[..., 0].sum(1)
         return mean.numpy(), last.numpy(), norms.numpy()
 
-    def generate_batch(self, batch_messages, steer_rows, max_new, temperature=0.0, seed=None):
+    def generate_batch(self, batch_messages, steer_rows, max_new, temperature=0.0, seed=None, record=None):
+        """Sample replies with per-row steering. With record = (layers, unit_vector), also returns the in-context
+        hidden state at the last prompt position (the state just before the reply) and the projection of each
+        generated token's state on unit_vector, per recorded layer (the model's own state, not the reply text
+        re-encoded out of context)."""
         torch = self.torch
+        recorded, handles = {"pre_reply": {}, "token_proj": {}}, []
+        if record is not None:
+            layers, unit = record
+            u = torch.as_tensor(np.asarray(unit, dtype=np.float64))
+
+            def make(layer):
+                def hook(module, inputs, output):
+                    h = output[0] if isinstance(output, tuple) else output
+                    if h.shape[1] > 1:                         # prefill: last prompt position (left padding)
+                        recorded["pre_reply"][layer] = h[:, -1, :].double().cpu().numpy()
+                    else:
+                        recorded["token_proj"].setdefault(layer, []).append(
+                            (h[:, 0, :].double() @ u.to(h.device)).cpu().numpy())
+                return hook
+
+            for layer in layers:
+                handles.append(self.model.model.layers[layer].register_forward_hook(make(layer)))
         from transformers import LogitsProcessor, LogitsProcessorList
 
         class EntropyRecorder(LogitsProcessor):
@@ -140,6 +161,8 @@ class SteeredModel:
                                           pad_token_id=self.tok.pad_token_id, **sampling)
         finally:
             self.steer = None
+            for handle in handles:
+                handle.remove()
         new = out.sequences[:, enc["input_ids"].shape[1]:].cpu()
         ent = torch.stack(recorder.steps, dim=1).cpu()     # (batch, steps)
         texts, entropies, lengths, id_lists = [], [], [], []
@@ -151,6 +174,9 @@ class SteeredModel:
             entropies.append(float(ent[b, :n].mean()))
             lengths.append(n)
             id_lists.append(ids[:n])
+        if record is not None:
+            recorded["token_proj"] = {k: np.stack(v, axis=1) for k, v in recorded["token_proj"].items()}
+            return texts, entropies, lengths, id_lists, recorded
         return texts, entropies, lengths, id_lists
 
     def turn_activations(self, texts, steer_rows):
