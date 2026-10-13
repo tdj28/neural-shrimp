@@ -176,8 +176,9 @@ def per_item_effect(gold, lam_c, base="1.0", n_boot=4000, seed=0):
 
 
 def stability_interval(mus, lo=0.02, hi=2.0, n=19801):
-    """Interval of lam (containing the small-lam end, where the relaxed map always contracts) on which
-    rho(lam) < 1: (lam_lo, lam_up); lam_up < 1 means the native loop (lam = 1) is unstable at this fixed point."""
+    """Interval of lam on which rho(lam) < 1, (lam_lo, lam_up), found on a grid over [lo, hi] (grid endpoints, not
+    certified boundaries; nan if no grid point is stable). A positive interval near lam = 0 exists only if every
+    eigenvalue has real part below 1; lam_up < 1 means the native loop (lam = 1) is unstable at this fixed point."""
     grid = np.linspace(lo, hi, n)
     ok = np.array([rho(mus, g) < 1.0 for g in grid])
     if not ok.any():
@@ -355,8 +356,9 @@ def items_cmd(args):
     spectra, dispositions = {}, {}
     for q in requested:
         status, mus, spec = spectrum_disposition(root / f"q{q:04d}" / "fixed-spectrum.json", args.fixed_tol)
-        row_hash = table[(q, lams[0])].get("gold_ids_sha256")
-        if status == "ok" and spec["token_ids_sha256"] != row_hash:
+        row_hashes = {table[(q, l)].get("gold_ids_sha256") for l in lams}       # every requested arm, not one
+        if status == "ok" and (len(row_hashes) != 1 or not next(iter(row_hashes))
+                               or spec["token_ids_sha256"] not in row_hashes):
             status = "token ids differ from the scored gold row"
         dispositions[q] = {"status": status,
                            "residual_F": None if spec is None else spec.get("fixed_point_residual_F"),

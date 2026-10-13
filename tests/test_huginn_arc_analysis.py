@@ -140,6 +140,29 @@ def test_items_primary_and_admission(tmp_path, monkeypatch):
     assert res["cohort"] == 19 and "token ids differ" in res["dispositions"]["3"]["status"]
 
 
+def test_items_token_hash_checked_in_every_arm(tmp_path, monkeypatch):
+    import json
+
+    import explore_llm_attractors as ela
+    import huginn_arc_analysis as ha
+
+    monkeypatch.setattr(ela, "DATA", tmp_path)
+    write_items_fixture(tmp_path, range(20), [1.0, 1.1], np.random.default_rng(0))
+    path = tmp_path / "explore" / "rows" / "rows.jsonl"
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    for r in rows:                                     # change only the non-first arm's hash of question 5
+        if r["index"] == 5 and r["lam"] == 1.1:
+            r["gold_ids_sha256"] = "changed"
+        if r["index"] == 7 and r["lam"] == 1.1:
+            del r["gold_ids_sha256"]
+    path.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+    ha.items_cmd(items_args())
+    res = json.loads((tmp_path / "explore" / "items-out" / "items.json").read_text())
+    assert res["cohort"] == 18
+    assert "token ids differ" in res["dispositions"]["5"]["status"]
+    assert "token ids differ" in res["dispositions"]["7"]["status"]
+
+
 def test_items_constant_arm_fails_the_primary(tmp_path, monkeypatch):
     import json
 
