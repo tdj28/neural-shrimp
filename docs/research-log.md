@@ -21990,3 +21990,13 @@ _commit `9bd1a4b31373` (dirty worktree)_
 Job 12(b) (local GPU, 11:05-13:03 UTC, 6940 s; explore_latent_loop frozen-plane, Ouro-1.4B, story prompt, positions 0-6 frozen at their fixed point, context residual 4.8e-7; position 7 steered along Ouro's layer-12 gratitude vector; lambda 0.6-1.4 x alpha -3..3, 64 x 64; output latent-loop/ouro-frozen-p7-plane-grat, figure docs/figures/ouro-frozen-p7-plane-grat.png): period 1 in 3284 cells, period 2 in 6, no period up to the maximum in 806. Positive largest exponent in 696 cells (max 0.153 per loop), in a vertical band at alpha -2.1 to -1.0 (steering away from gratitude) that spans all lambda; a few thin vertical lines without period at alpha 0.4-0.9 have negative exponents (slow or quasi-periodic, not resolved). The organization is set by the steering strength; relaxation hardly moves the band's edges, as expected when lambda changes the stability of fixed points but not their existence, while the chaos lives away from any fixed point. No periodic windows inside the band at this resolution, so nothing shrimp-like in this plane. The chaotic band is the first chaos found in Ouro's single-position latent map (job 09's unsteered map was period 1 everywhere).
 
 _commit `c9b75332bbaa` (dirty worktree)_
+
+## 2026-10-13 13:07 UTC: run (exploratory)
+
+- **Question:** What are the fixed-point spectra and spectral thresholds of Huginn on the actual GSM8K system of run H1b (the 8-shot chain-of-thought prompt, about 900 positions, whose exemplar prefix is shared by every problem)? The zero-shot template spectra (lam_c 1.074-1.126) belong to a different, shorter prompt; Part B arms of the frozen test need the cot8 thresholds.
+- **Setup:** local RTX 2000 Ada, commit dd108c57: explore_latent_loop fixed-spectrum --model huginn --dtype float32 --device cuda --gsm8k-style cot8 --gsm8k-index 0, 1, 2 (train) --lam 1.0 (fallbacks 0.75, 0.5; gate 1e-4; k 8; arnoldi-iter 400)
+- **Output:** `../neural-shrimp-data/explore/huginn-relax/cot8-spectrum-0..2`
+- **Would surprise us:** a natively unstable cot8 prompt (lam_up < 1) common to all three problems (then the shared exemplar prefix itself oscillates under the native loop)
+- **Command:** `bash -c set -o pipefail; P=../neural-shrimp-data/envs/llm/bin/python; for i in 0 1 2; do $P tools/explore_latent_loop.py fixed-spectrum --model huginn --dtype float32 --device cuda --gsm8k-style cot8 --gsm8k-index $i --lam 1.0 --out huginn-relax/cot8-spectrum-$i 2>&1 | grep -v -i -e warn -e jit | tail -2; done`
+
+_commit `dd108c57eeaf`_
