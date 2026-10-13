@@ -335,24 +335,31 @@ def root_scale(a, b):
     return max(abs(a.lam), abs(b.lam))
 
 
-def edges(make_cell, X0, Q0, period, lam0, step, tol=1e-12, min_step=1e-10, fit_points=4, max_steps=200, log=print):
+def edges(make_cell, X0, Q0, period, lam0, step, tol=1e-12, min_step=1e-10, fit_points=4, max_steps=200, log=print,
+          directions=(+1.0, -1.0)):
     """Edges of the window of the period-p orbit found near X0 at lam0, walking in both directions.
 
     In each direction the parameter advances by `step` (halved whenever Newton fails, i.e. beyond a fold) while the
     critical multipliers are recorded. A flip edge (min Re mu crossing -1) is located by the Illinois method. A fold edge
     is where the orbit ceases to exist: the multiplier nearest +1 tends to 1 and (1 - mu)^2 is linear in the parameter
     near the fold (normal form), so the fold is estimated by a linear fit of (1 - mu)^2 over the last `fit_points`
-    converged points, extrapolated to zero; the last converged parameter is reported with it. Returns one record per
-    direction."""
+    converged points, extrapolated to zero; the last converged parameter is reported with it. For an even period the
+    walk stops where the orbit collapses onto its half-period orbit (the flip that created it; Newton would otherwise
+    continue on the half-period orbit, which is also p-periodic). Returns one record per direction."""
     out = []
-    for direction in (+1.0, -1.0):
-        a = evaluate(make_cell, lam0, X0, period, Q0, tol)
+    half = period // 2 if period % 2 == 0 else None
+    for direction in directions:
+        a = evaluate(make_cell, lam0, X0, period, Q0, tol, half=half)
         h, pts, rec = float(step), [], {"direction": direction}
         pts.append((a.lam, float(np.max(a.vals.real))))
         for _ in range(max_steps):
             lam = a.lam + direction * h
             try:
-                b = evaluate(make_cell, lam, a.X, period, a.Q, tol)
+                b = evaluate(make_cell, lam, a.X, period, a.Q, tol, half=half)
+            except Collapsed:
+                rec.update({"kind": "collapse onto the half-period orbit (birth flip)", "between": [a.lam, lam],
+                            "last_mu_max": float(np.max(a.vals.real))})
+                break
             except SearchError:
                 if h / 2 < min_step:
                     lams = np.array([q[0] for q in pts[-fit_points:]])
@@ -544,7 +551,9 @@ def window_edges(args, loop, v, tok, esl):
             Q0 = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), args.k)))[0]
             tic = time.perf_counter()
             try:
-                rec["edges"] = edges(make_cell, X, Q0, period, lam0, step, args.tol, args.min_step, log=print)
+                dirs = {"both": (+1.0, -1.0), "up": (+1.0,), "down": (-1.0,)}[args.directions]
+                rec["edges"] = edges(make_cell, X, Q0, period, lam0, step, args.tol, args.min_step, log=print,
+                                     directions=dirs)
             except SearchError as err:
                 rec["error"] = str(err)
             rec["seconds"] = round(time.perf_counter() - tic, 1)
@@ -571,6 +580,7 @@ def main():
     e.add_argument("--points", nargs="+", required=True, metavar="PERIOD:LOG10T:ALPHA:STEP")
     e.add_argument("--min-step", type=float, default=1e-10)
     e.add_argument("--free", choices=("alpha", "temperature"), default="alpha")
+    e.add_argument("--directions", choices=("both", "up", "down"), default="both")
     for name, kw in (("--model", dict(default="qwen0.5b")), ("--layer", dict(type=int, default=12)),
                      ("--threads", dict(type=int, default=8)), ("--device", dict(default="cpu")),
                      ("--prompt", dict(default="open")), ("--opener", dict(default=None)),
