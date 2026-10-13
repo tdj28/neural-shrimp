@@ -20958,3 +20958,12 @@ _commit `c6a93e65219d`_
 - **Would surprise us:** Wrong primitive period at assigned point, ball point evaluation diverging from independent float map beyond enclosed arithmetic differences, or interval wrapping already destroying positivity in early layers; retain any such result as setup evidence.
 
 _commit `bbdcc3426b24` (dirty worktree)_
+
+## 2026-10-13 02:40 UTC: run (exploratory)
+
+- **Question:** Crescent cascade beyond P48 by superstable parameters (robust where continuation of a just-born doubled orbit slides onto the half-period orbit, runs C3/C8): superstable parameters s_3 ... s_96 along log10 T = -0.14798 and their ratios, an independent estimate of the delta sequence including the P96 level.
+- **Setup:** RunPod H100 (run C9), job set superstable? -> job set cascade-style runner call of llm_feigenbaum superstable (commit e7d6a407): cuda float64; brackets inside each band from the flips: P3 [0.06475, 0.06546], P6 [0.06550201, 0.06589704], P12 [0.06591301, 0.06605192], P24 [0.06605752, 0.06610610], P48 [0.06610783, 0.06612068], P96 [0.06612111, 0.06612356] (P96 band width estimated 3.0-3.65e-6 from delta_3); transient 20000, settle 20 periods per evaluation
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/superstable/crescent-t-0.14798`
+- **Would surprise us:** superstable ratios very different from the flip ratios at the same levels
+
+_commit `e7d6a407c655`_
