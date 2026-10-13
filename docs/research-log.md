@@ -20758,3 +20758,9 @@ _commit `f5d259c08fe0` (dirty worktree)_
 - **Would surprise us:** C1 ratios near 2.8 as well (then the low ratios are not specific to the 0.5B crescent); C2 ratios staying at 2.85 through period 384 (no crossover)
 
 _commit `5268f3841d34`_
+
+## 2026-10-13 00:44 UTC: Qwen2.5-1.5B enters chaos by period doubling in temperature: P2 'What?\n' -> P4 -> P8 -> P16 -> chaos at alpha 0.100 (2 x 2048-cell float64 cut)
+
+Run S15c (pod t8rn6iqentx9gb, 1079 s, commit 1e4f2865; scan cuda float64, qwen1.5b layer 14 philosophy steering, alpha 0.09 and 0.10, log10 T -0.03..0.06 at 2048 rows, 300 + 300 steps, tol 1e-8): 2019 of 4096 cells chaotic. At alpha 0.100, upward in temperature: P2 'What?\n' (-0.0300..-0.00788, 504 cells), P4 '\nWhat\n\nWhat' (-0.00784..-0.00331, 104 cells), P8 '\nWhat\n\nWhat\nWhat\n\nWhat' (-0.00305..-0.00226, 19 cells), P16 (-0.00213..-0.00195, 5 cells), then chaos with small windows (P16 '??\n\n\n\nWhat...', P4 '\n\nWhat\n\nWhat', P12, P6, P10 '...WhatSerializable?...', P5). Grid band-width ratios 104/19 = 5.5 and 19/5 = 3.8 (grid-limited); the doubled loops alternate the number of line breaks between 'What's. At alpha 0.090: P2 (to -0.01382), P4 (161 cells), then a short P8/P16 stretch with interleaved chaos and windows (P12, P4, P2 '\n\nWhat', P8 '? What\nWhat?\nWhat\nWhat', P6 '? How\nWhat?\nWhat'). So the larger model has a clean period-doubling route at higher temperature (T about 0.99) than the 0.5B crescent (T about 0.71). Float64 flips launched on pods (C1: 1.5B at alpha 0.100 in log10 T; C2: the 0.5B crescent to period 384).
+
+_commit `2c9c2ee0aa4f`_
