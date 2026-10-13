@@ -21181,3 +21181,9 @@ _commit `ca513eb7f306` (dirty worktree)_
 - **Would surprise us:** An invalid/nonpositive threshold or excessive factored amplification would force revisiting the proof norm/preconditioner before a complete Jacobian campaign.
 
 _commit `2d0d7d524b9a` (dirty worktree)_
+
+## 2026-10-13 05:01 UTC: P1 release after capture (run L4): a hysteresis loop of finite width; a small counter-steer clears the hostile state
+
+Run L4 (pod krkudxrfy233pq, commit 0b9f4e41): four arms of 128 dialogues x 40 turns (seed 1), dose ramped linearly 0.04 -> 0.07 over turns 0-20 (hostile share 0.378 in turns 18-20), then held from turn 21 at 0.03, 0.02, 0.00 or -0.02 (toward kindness). Scored with toxic > 0.5. Pre-stated: late (turns 35-39) hostile share with dialogue-level bootstrap 95 % intervals: hold 0.03: 0.080 [0.045, 0.119]; 0.02: 0.089 [0.053, 0.131]; 0.00: 0.023 [0.003, 0.050]; -0.02: 0.000 [0, 0]. Time course (every third turn from 21): 0.03: 0.23, 0.22, 0.20, 0.12, 0.09, 0.07, 0.09; 0.00: 0.16, 0.08, 0.08, 0.05, 0.05, 0.02, 0.02; -0.02: 0.11 then 0. Fresh constant doses (late share): 0: 0.000 (n 128); 0.04: 0.133 [0.105, 0.164] (256); 0.05: 0.333 [0.286, 0.383] (256); 0.06: 0.654 [0.605, 0.700] (256); 0.07: 0.958 [0.930, 0.983] (128). Ramp back down (L3; dose 0.040-0.046 in the window): 0.423 [0.372, 0.473]. The pre-stated interpolation target (late share down to the fresh 0.04 level, 0.13) is already met at 0.03, so release lies between 0.03 (step) and 0.043 (ramp). No fresh 0.03 arm exists, so the residual memory at 0.03 is not measured; the exit arms have one seed, and step and ramp schedules differ. Reading: the hostile state has a hysteresis loop of finite width in the dose (retained at 0.040-0.046, released at 0.03 and below), and a counter-steer of -0.02 clears it within three turns. Paper updated (paragraph, fig-hysteresis-loop.png).
+
+_commit `95693c8cb73e` (dirty worktree)_
