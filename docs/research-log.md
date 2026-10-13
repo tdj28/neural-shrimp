@@ -21036,3 +21036,9 @@ _commit `58eb709f6349` (dirty worktree)_
 The numerical derivative matrices are896x896 at each of8 phases. The fragment899? in the preceding setup text was a typing error immediately corrected there by actualfullshape896x896; it has no computational interpretation. No run has started and no design parameter changes.
 
 _commit `58eb709f6349` (dirty worktree)_
+
+## 2026-10-13 03:19 UTC: High-temperature P8 window is a period-doubling bubble along log10 T = 0.0319 (run C7b)
+
+Run C7b (pod zbttckbvqvch64, 330 s, commit d79b297b; edges downward from the P8 band at alpha 0.0722, step 1e-4, half-period guard): walking toward smaller alpha the period-8 orbit stays on its branch to alpha 0.0706 and collapses onto the period-4 orbit between 0.0706 and 0.0705: the P8 orbit merges back into P4 there, i.e. a second flip of the P4 orbit. With the C4 flips (P2 -> P4 at 0.0753534, P4 -> P8 at 0.0736921) this cut crosses a period-doubling bubble (P4 -> P8 -> P4) rather than a cascade to chaos; the grid's P4 region continuing below 0.0705 is the same P4 orbit. The earlier guess of a torus at the core of the C-shaped region does not apply to this cut. Paper updated.
+
+_commit `c379611c5b6e` (dirty worktree)_
