@@ -1,9 +1,9 @@
 # Exact-real Qwen period-8 certificate development
 
-## Current checkpoint — 13 October 2026, 05:49 UTC
+## Current checkpoint — 13 October 2026, 06:15 UTC
 
 The assigned numerical orbit is recovered and its shooting centres have been
-refined to a rigorously enclosed residual of approximately **7.16e-52**.
+refined to a rigorously enclosed residual of approximately **2.16e-64**.
 **Existence, primitive period and attraction are not yet certified.**
 This is an inference-state orbit of one exact-real soft-token map, not a
 training-parameter cycle or evidence of a task-performance benefit.
@@ -22,6 +22,7 @@ The full 151,936-token expectation uses tied input/output embeddings.
 | arb-point-003 | 2048-bit prefix/point; max point radius6.7203e-451 | All32 artifacts independently audited |
 | center-refine-001 | One correction:9.6227e-15 to2.4361e-27 | Sixteen phases,77 artifacts audited |
 | center-resume-001 | Two corrections:2.4361e-27 to6.5829e-40 to7.1572e-52 | Sixteen fresh phases,98 artifacts audited; strict exact residual decreases |
+| center-secant-001 | One candidate:7.1572e-52 to2.1553e-64; all three prior secants accepted | Eight fresh phases,107 artifacts audited; no matched acceleration claim |
 | box-derivative-001 | 32 signed columns over original phase-zero prototype box2^-800;988.57s forward,7.93GiB peak | Original prototype only |
 | streamed-derivative-001 | 64 columns on same box;1787.97s forward,5.14GiB peak; all32 baseline column comparisons pass | Original prototype only; all67 artifacts audited |
 | proposal-budget-001 | Numerical factored-bound budget; limiting common induced-infinity Jacobian discrepancy about2.59e-9 | Planning diagnostic, not rigorous operator bound |
@@ -33,25 +34,27 @@ checks, exact receipt hashes and every configuration's outcome.
 
 ### Current owned computation
 
-`center-secant-001` runs from pushed source
-`ac376355a37f6dc1368128ed8c9519a7bd2afb2a`, owned PID307603 at this checkpoint.
-It admits all four completed chronological centre/image tuples, replays all
-three historical inverse secants and evaluates exactly one new eight-phase
-candidate. Plan SHA256:
-`ee56cd6aad3a7beae563eddb60f50751c3dba197c70aa7e4c6a581597eeb206a`.
-CPU1, nice10,18GiB address-space cap,1800-second watchdog plus10-second
-termination grace. Rejections, baseline fallbacks, regressions and partial
-results are retained. No result may be inferred from its progress events.
-No other Codex model job is active at this checkpoint. Check its final receipt
-and owned launcher before restarting anything; never duplicate an attempt.
-No GPU, paid pod or paid consultation is in use.
+No Codex model job is active at this checkpoint. `center-secant-001` completed
+from source `ac376355a37f6dc1368128ed8c9519a7bd2afb2a` in1422.10 seconds,
+exit0, no timeout, peak5.68GiB. All107 artifacts and69 exact source blobs were
+audited; all eight original phase enclosures and the strict exact residual
+norm decrease passed. The `accelerated` formula achieved a reduction ratio of
+about3.01e-13, comparable to earlier fixed-R passes; there was no matched
+counterfactual, so this is not evidence of an acceleration advantage.
+
+Development now targets independent parallel phase evaluation (up to four
+CPU1 workers), restoration of the exact post-proposal secant history and removal
+of a redundant repeated scalar dot product. These are reviewed engineering
+changes, not target results. The first parallel candidate needs a committed
+concrete plan and run card before execution. No GPU, paid pod or paid
+consultation is in use.
 
 ### Remaining route to the certificate
 
-1. Audit the completed secant attempt, including all eight phases and each
-   accepted/rejected update. Decide from measured progress whether to extend
-   acceleration or retain fixed-R refinement. The current secant driver cannot
-   resume a secant parent; that needs a separately reviewed adapter.
+1. Finish the reviewed continuation adapter and run a bounded one-candidate
+   parallel pilot. Preserve all factors after proposal fallbacks, consume the
+   pending consecutive secant exactly once, and measure actual wall time and
+   aggregate memory before extending the approach.
 2. Define exact candidate centres and phase radii after adequate refinement.
    The original prototype boxes do not contain the refined centres and cannot
    be reused as proof boxes. Small residual alone does not establish inclusion.

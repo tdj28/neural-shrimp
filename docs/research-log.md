@@ -21273,3 +21273,8 @@ _commit `d9aa9a6f10a9`_
 - **Would surprise us:** no chaos anywhere in the plane (only fixed points and short cycles), or chaos without windows
 
 _commit `d9aa9a6f10a9` (dirty worktree)_
+## 2026-10-13 06:10 UTC: Task1: audited secant candidate reaches2.16e-64; parallel continuation next
+
+Completed center-secant-001 at source ac376355a37f6dc1368128ed8c9519a7bd2afb2a, receipt de7470e715c2988fc1674030d69bb67685dd1571989d5b03bad98ef7ed23f956. Both audits admitted all107 artifacts/69 exact source blobs and all4 prior tuples; all3 chronological secants accepted, active history3 after proposal. All8 new2048-bit phase images completed (40 cumulative). Residual infinity norm bound decreased strictly from7.15720237376593e-52 to2.1553275833697337e-64, after_upper<before_lower by exact endpoints. Ratio about3.011410703252e-13. Formula name accelerated is not a demonstrated improvement over fixed-R: gains are comparable, with no matched counterfactual. Launcher1422.103681s, no timeout, peak5954212KiB. Dense historical A/B/update arithmetic was not independently replayed; it relies on reviewed immutable producer source, with full retained witnesses. Audits archived under codex/llm-p8-certificate/audits-center-secant-001 in the raw-data root. Next disclosed engineering step: reviewed exact factor restoration, a scalar-dot hoist equivalent on complete synthetic records, and four isolated phase workers with a shared deadline; concrete plan/run card still required. No orbit root, primitive-period, attraction or geometry certificate follows from residual refinement.
+
+_commit `5c0814409651` (dirty worktree)_
