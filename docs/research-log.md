@@ -21654,3 +21654,12 @@ _commit `c6ccb867b71c`_
 Run V2 (pod 878s35zukj3yx4, 6774 s, commit f77fa780, hashes match, terminated; first launch refused by the cost check): tools/llm_feigenbaum.py edges --free temperature at alpha 0.083, hostility-vs-kindness. P6 '!Yes, that's crap': upper edge (toward higher T) a fold at log10 T -0.0990750 (last converged multiplier 0.99897); no lower edge down to -0.31. P8 and P10: FAILED, period-8 and period-10 Newton did not converge during continuation (at log10 T -0.09728 and -0.06706; residuals 5e-4 to 1e-2): retained. P12: lower edge fold -0.0629188 (mu 0.9918), upper edge a real +1 crossing bracketed in [-0.0613, -0.0612] (not refined). P14: lower fold -0.0542534 (0.9950); upward the orbit collapses onto its half-period orbit (its birth flip) in [-0.052825, -0.0528125]. P16: lower fold -0.0525092 (0.9887), upper flip -0.0509989 (mu -1.0000000003, next modulus 6.8e-13). P18: lower fold -0.0507638 (0.9826), upper flip -0.0498429 (-1.0000000000, next 7.8e-13). The 2-cycle point (P2 at -0.0400) did not run before the job's 110-minute limit: the accumulation fold is not located. Reading: each window from P12 on is born in a fold on its low-temperature side and ends in a flip (P16, P18) or a +1 crossing (P12) on the other, the anatomy of the 'is it' stripes; the fold edges of P14, P16, P18 are evenly spaced in log10 T (0.001744, 0.001745), which over three windows cannot distinguish the N^-2 law from other forms. Next: the 2-cycle fold and more windows, and the alpha direction.
 
 _commit `d58c4c9bc425`_
+
+## 2026-10-13 09:24 UTC: run (exploratory)
+
+- **Question:** Where do the hostile period-adding windows accumulate? Locate the fold of the '!Yes' 2-cycle along log10 T at alpha 0.083 (the expected accumulation point near -0.046), and try the next windows beyond P18.
+- **Setup:** RunPod H100 (run V4), job set edges, commit 1cc40389: llm_feigenbaum edges --free temperature --directions both, hostility-vs-kindness, points 2:-0.0440:0.083:0.0002 20:-0.0493:0.083:0.00005 22:-0.0485:0.083:0.00005 (start periods are guesses from the float32 zoom; a mismatch fails loudly)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/edges/hadd2-a0.083`
+- **Would surprise us:** no 2-cycle fold near -0.046 (then the windows do not accumulate on this 2-cycle)
+
+_commit `1cc403896413`_
