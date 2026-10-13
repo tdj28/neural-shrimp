@@ -73,6 +73,61 @@ class Classifier:
         return np.concatenate(out) if out else np.zeros((0, len(LABELS)))
 
 
+SECOND = "s-nlp/roberta_toxicity_classifier"         # an independently trained RoBERTa (Jigsaw), for robustness
+SECOND_REVISION = "048c25bb1e199b98802784f96325f4840f22145d"
+
+
+class SecondClassifier:
+    """P(toxic) from the second, independent classifier, returned as a one-column array (softmax over its labels)."""
+
+    def __init__(self, threads=4, device="cpu"):
+        import torch
+        from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+        import explore_llm_attractors as ela
+
+        torch.set_num_threads(int(threads))
+        self.torch, self.device = torch, device
+        self.tok = AutoTokenizer.from_pretrained(SECOND, revision=SECOND_REVISION, cache_dir=ela.CACHE)
+        self.model = AutoModelForSequenceClassification.from_pretrained(SECOND, revision=SECOND_REVISION,
+                                                                        cache_dir=ela.CACHE).to(device).eval()
+        names = {i: n.lower() for i, n in self.model.config.id2label.items()}
+        if sorted(names.values()) != ["neutral", "toxic"]:
+            raise SystemExit(f"unexpected labels of {SECOND}: {names}")
+        self.toxic_index = next(i for i, n in names.items() if n == "toxic")
+
+    def __call__(self, texts, batch=64):
+        torch, out = self.torch, []
+        for s in range(0, len(texts), batch):
+            enc = self.tok(list(texts[s: s + batch]), truncation=True, max_length=256, padding=True,
+                           return_tensors="pt").to(self.device)
+            with torch.no_grad():
+                p = torch.softmax(self.model(**enc).logits.double(), dim=-1)[:, self.toxic_index]
+            out.append(p.cpu().numpy()[:, None])
+        return np.concatenate(out) if out else np.zeros((0, 1))
+
+
+def score_second(args):
+    """Score a sample with the second classifier into hostility-second.npz (never overwriting)."""
+    import explore_llm_soft_loop as esl
+
+    src = esl.DATA / "explore" / args.sample
+    if (src / "hostility-second.npz").exists():
+        raise SystemExit(f"{src / 'hostility-second.npz'} exists; outputs are never overwritten")
+    texts = json.loads((src / "sample.json").read_text())["texts"]
+    R, T = len(texts), len(texts[0])
+    probs = SecondClassifier(args.threads, args.device)([x for turns in texts for x in turns]).reshape(R, T)
+    np.savez_compressed(src / "hostility-second.npz", toxic=probs.astype(np.float32), classifier=np.array(SECOND),
+                        revision=np.array(SECOND_REVISION))
+    first = np.load(src / "hostility.npz")["classifier"][:, :, 0] if (src / "hostility.npz").exists() else None
+    out = {"sample": args.sample, "hostile_share_second": float((probs > 0.5).mean())}
+    if first is not None:
+        a, b = first > 0.5, probs > 0.5
+        out.update({"hostile_share_first": float(a.mean()), "agreement": float((a == b).mean()),
+                    "first_only": float((a & ~b).mean()), "second_only": float((~a & b).mean())})
+    print(json.dumps(out))
+
+
 def validate(args):
     import explore_llm_phase_map as elpm
 
@@ -136,6 +191,10 @@ def main():
     va.add_argument("--sample", default=None, help="explore-relative explore_llm_msm sample to draw turns from")
     va.add_argument("--count", type=int, default=40)
     va.add_argument("--seed", type=int, default=0)
+    s2 = sub.add_parser("score-second", help="score with the second, independent classifier")
+    s2.add_argument("--sample", required=True)
+    s2.add_argument("--threads", type=int, default=4)
+    s2.add_argument("--device", default="cpu")
     sc = sub.add_parser("score")
     sc.add_argument("--sample", required=True)
     sc.add_argument("--threads", type=int, default=4)
@@ -145,7 +204,7 @@ def main():
                     help="classifier output that defines a hostile turn (toxic: 0.95 on the hostile prompt set, at most "
                          "0.002 on the kind and neutral sets; insult misses one hostile prompt)")
     args = parser.parse_args()
-    {"validate": validate, "score": score}[args.command](args)
+    {"validate": validate, "score": score, "score-second": score_second}[args.command](args)
 
 
 if __name__ == "__main__":
