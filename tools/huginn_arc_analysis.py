@@ -254,6 +254,94 @@ def accuracy_cmd(args):
             print(f"  {arm:>14}: {acc:.4f}  diff {mean:+.4f} [{lo:+.4f}, {hi:+.4f}]  McNemar(less) p {p:.4g} ({b} vs {c})")
 
 
+def item_table(spectra, rows, lams):
+    """One record per (question, lam) with a spectrum: rho_q(lam), lam_up(q), the log native residual at the last
+    recurrence step, and whether the chosen answer (argmax of the log-likelihood) changes across the read-out steps."""
+    out = []
+    lams = [float(v) for v in lams]
+    for r in rows:
+        q, lam = r["index"], float(r["lam"])
+        if q not in spectra or not any(abs(lam - v) < 1e-12 for v in lams):
+            continue
+        mus = spectra[q]
+        steps = sorted(r["by_steps"], key=int)
+        choice = np.array([int(np.argmax(r["by_steps"][k]["loglik"])) for k in steps])
+        out.append({"q": q, "lam": lam, "rho": rho(mus, lam), "lam_up": stability_interval(mus)[1],
+                    "log_residual": math.log(max(r["native_residual"][-1], 1e-30)),
+                    "changes": bool((np.diff(choice) != 0).any())})
+    return out
+
+
+def item_statistic(records, lams, questions):
+    """Mean over lam arms of the Spearman correlation, across questions, of rho_q(lam) and the log residual."""
+    from scipy.stats import spearmanr
+
+    vals = []
+    for lam in lams:
+        by_q = {r["q"]: r for r in records if abs(r["lam"] - lam) < 1e-12}
+        x = [by_q[q]["rho"] for q in questions if q in by_q]
+        y = [by_q[q]["log_residual"] for q in questions if q in by_q]
+        if len(x) > 2 and np.ptp(x) > 0 and np.ptp(y) > 0:
+            vals.append(spearmanr(x, y).statistic)
+    return float(np.mean(vals)) if vals else float("nan"), vals
+
+
+def items_cmd(args):
+    """Part A of the frozen Huginn test (docs/huginn-causal-test-design.md): does each question's own fixed-point
+    spectrum predict how its recurrence responds to relaxation?"""
+    import explore_llm_attractors as ela
+    from scipy.stats import fisher_exact
+
+    spectra, excluded = {}, []
+    for folder in args.spectra:
+        root = ela.DATA / "explore" / folder
+        for f in sorted(root.glob("q[0-9][0-9][0-9][0-9]/fixed-spectrum.json")):
+            spec = json.load(open(f))
+            q = int(f.parent.name[1:])
+            res_f = spec.get("fixed_point_residual_F")
+            if res_f is None or not math.isfinite(res_f) or res_f > args.fixed_tol:
+                excluded.append({"q": q, "residual": res_f})
+                continue
+            spectra[q] = eigenvalues(spec)
+    rows = [json.loads(line) for line in open(ela.DATA / "explore" / args.rows / "rows.jsonl")]
+    expected = set(range(args.start, args.start + args.count))
+    got = {r["index"] for r in rows}
+    if got != expected:
+        raise SystemExit(f"rows cover {len(got)} questions, expected {len(expected)}")
+    arms = {float(r["lam"]) for r in rows}
+    if not all(any(abs(a - float(l)) < 1e-12 for a in arms) for l in args.lams):
+        raise SystemExit(f"arms in rows {sorted(arms)} do not include {args.lams}")
+    lams = [float(v) for v in args.lams]
+    recs = item_table(spectra, rows, lams)
+    questions = sorted(spectra)
+    share_excluded = 1 - len(questions) / len(expected)
+    stat, per_arm = item_statistic(recs, lams, questions)
+    rng = np.random.default_rng(0)
+    boots = [item_statistic(recs, lams, list(rng.choice(questions, len(questions))))[0] for _ in range(args.boot)]
+    lo, hi = np.nanpercentile(boots, [2.5, 97.5])
+    unstable = np.array([r["rho"] >= 1 for r in recs])
+    changes = np.array([r["changes"] for r in recs])
+    table = [[int((unstable & changes).sum()), int((unstable & ~changes).sum())],
+             [int((~unstable & changes).sum()), int((~unstable & ~changes).sum())]]
+    p_fisher = float(fisher_exact(table, alternative="greater").pvalue)
+    result = {"args": vars(args), "questions_with_spectra": len(questions), "excluded": excluded,
+              "setup_failed": bool(share_excluded > 0.25),
+              "primary": {"statistic": stat, "per_arm": dict(zip([str(l) for l in lams], per_arm)),
+                          "ci95": [float(lo), float(hi)], "success": bool(lo > 0.3 and share_excluded <= 0.25)},
+              "answer_changes": {"unstable_changed": table[0][0], "unstable_total": int(unstable.sum()),
+                                 "stable_changed": table[1][0], "stable_total": int((~unstable).sum()),
+                                 "fisher_one_sided_p": p_fisher},
+              "share_unstable_by_arm": {str(l): float(np.mean([r["rho"] >= 1 for r in recs if abs(r["lam"] - l) < 1e-12]))
+                                        for l in lams}}
+    print(json.dumps(result["primary"]))
+    print(json.dumps(result["answer_changes"]))
+    dest = ela.DATA / "explore" / args.out
+    if (dest / "items.json").exists():
+        raise SystemExit(f"{dest / 'items.json'} exists; outputs are never overwritten")
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "items.json").write_text(json.dumps(result, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -266,8 +354,17 @@ def main():
     ac.add_argument("--metric", default="acc_norm", choices=("acc", "acc_norm"))
     ac.add_argument("--steps", type=int, nargs="+", default=[32])
     ac.add_argument("--base", default="1.0")
+    it = sub.add_parser("items")
+    it.add_argument("--spectra", nargs="+", required=True, help="folders holding qNNNN/fixed-spectrum.json")
+    it.add_argument("--rows", required=True, help="folder of the arc read-out rows.jsonl")
+    it.add_argument("--start", type=int, required=True)
+    it.add_argument("--count", type=int, required=True)
+    it.add_argument("--lams", type=float, nargs="+", default=[1.0, 1.05, 1.08, 1.10])
+    it.add_argument("--fixed-tol", type=float, default=1e-4)
+    it.add_argument("--boot", type=int, default=2000)
+    it.add_argument("--out", required=True)
     args = parser.parse_args()
-    {"spectra": spectra_cmd, "accuracy": accuracy_cmd}[args.command](args)
+    {"spectra": spectra_cmd, "accuracy": accuracy_cmd, "items": items_cmd}[args.command](args)
 
 
 if __name__ == "__main__":

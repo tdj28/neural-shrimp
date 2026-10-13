@@ -64,3 +64,23 @@ def test_stability_interval_and_two_way_effect():
     unstable = {str(a): {q: a > lam_up[q] for q in lam_up} for a in arms}
     beta, p, ci, cells, n = ha.two_way_effect(outcome, unstable, n_boot=400)
     assert abs(beta + 2.0) < 0.3 and p < 0.01 and n == 120
+
+
+def test_item_statistic_ranks_rho_against_residual():
+    import huginn_arc_analysis as ha
+
+    rng = np.random.default_rng(0)
+    spectra, rows = {}, []
+    for q in range(20):
+        mu = complex(-0.7 - 0.02 * q, 0.0)              # more negative: lower lam_up, larger rho at each lam
+        spectra[q] = np.array([mu, 0.5 + 0.1j, 0.5 - 0.1j])
+        for lam in (1.0, 1.1):
+            r = ha.rho(spectra[q], lam)
+            resid = r ** 32 * (1 + 0.01 * rng.normal())
+            steps = {str(k): {"loglik": [0.0, float(rng.normal() if r >= 1 else -1.0)]} for k in range(24, 33)}
+            rows.append({"index": q, "lam": lam, "native_residual": [1.0] * 31 + [resid], "by_steps": steps})
+    recs = ha.item_table(spectra, rows, [1.0, 1.1])
+    assert len(recs) == 40
+    stat, per_arm = ha.item_statistic(recs, [1.0, 1.1], list(range(20)))
+    assert stat > 0.95 and len(per_arm) == 2
+    assert all(r["changes"] is False for r in recs if r["rho"] < 1)
