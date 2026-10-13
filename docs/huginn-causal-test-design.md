@@ -213,3 +213,14 @@ huginn/partA-spectra-all: questions 0-15 from the first run and 16-63 from the c
 q0016 of the first run is set aside, not used. Everything else is unchanged: the analysis code, the 48-of-64
 admission rule, the statistic, the bootstrap and the success criterion. If the completion runs fail for some
 questions, those count as excluded under the frozen rule.
+
+### Amendment 1a (13 October 2026, 18:45 UTC, before any outcome was read)
+
+One of the six completion runs (pod a727cdkdxdf8p4, questions 32-39) runs about five times slower than the
+others: one question done after 37 minutes. At that rate it will not finish its block within its 170-minute
+limit. A backup run computes questions 35-39 with the identical command, on another GPU, into the same folder
+name on its own pod.
+
+If a question's spectrum is completed by more than one run, the analysis uses the copy from the run launched
+first; the other copies are retained but not used. This rule depends on launch order only, never on an outcome.
+No read-out array, residual or spectrum value has been opened.
