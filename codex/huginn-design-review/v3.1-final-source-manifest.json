@@ -1,0 +1,51 @@
+{
+  "scope": "Exact source/design/test-source closure review only; no tests, producer/model code, data, arrays, caches, outcomes or pod access. Producer freeze/nonexposure statements are reported, not independently audited.",
+  "created_utc": "2026-10-13T15:32:27.437346+00:00",
+  "base_reviewed_commit": "c5acc2f4905835c030c33ef94b03e4ee2bc50496",
+  "fix_commit": "463beac54c9734c2d7001516b80fcf6cb05fa777",
+  "freeze_commit": "9805ed32055e7ef790df0cc67316357c1067aef0",
+  "commit_metadata": {
+    "463beac54c9734c2d7001516b80fcf6cb05fa777": "463beac54c9734c2d7001516b80fcf6cb05fa777\n2026-10-13T08:18:58-07:00\nHuginn items: token-ID hash required equal in every arm's row (Codex v3.1 delta review), with regression; stability_interval docstring",
+    "9805ed32055e7ef790df0cc67316357c1067aef0": "9805ed32055e7ef790df0cc67316357c1067aef0\n2026-10-13T08:19:13-07:00\nHuginn causal test: design v3.1 FROZEN (Parts A and B) before any test-split computation"
+  },
+  "files": [
+    {
+      "path": "tools/huginn_arc_analysis.py",
+      "source_commit": "9805ed32055e7ef790df0cc67316357c1067aef0",
+      "git_blob": "a60297b71eafe3e2e59d82a84aeff71c89ebafee",
+      "sha256": "a38586151f9acf6e60c8d355df22d44d8b8ca7aec78270a6f6e73cfc6b838dc2",
+      "bytes": 26783,
+      "same_as_fix_commit": true,
+      "same_as_latest_private_main": true
+    },
+    {
+      "path": "tests/test_huginn_arc_analysis.py",
+      "source_commit": "9805ed32055e7ef790df0cc67316357c1067aef0",
+      "git_blob": "a7d46a31477fa17d8d0d33fb866af32c98a8102e",
+      "sha256": "733a170d346606e01215fd73ac2af9bd394bdb3960e3f161cce12cf956f5dcb3",
+      "bytes": 10528,
+      "same_as_fix_commit": true,
+      "same_as_latest_private_main": true
+    },
+    {
+      "path": "docs/huginn-causal-test-design.md",
+      "source_commit": "9805ed32055e7ef790df0cc67316357c1067aef0",
+      "git_blob": "862671d629eb3bec759d86adb4ee33b9359abdb6",
+      "sha256": "4384d02509a696b978c3c79ac1b80eac5cc3320bece17342e73c94ce6feb3a3d",
+      "bytes": 14333,
+      "same_as_fix_commit": false,
+      "same_as_latest_private_main": true
+    }
+  ],
+  "diffs": {
+    "fix-delta.diff": "b92be796c7d393def99b6b2e7ad8215ebc01afb6ce655e641e5a00438eb66b8c",
+    "freeze-delta.diff": "00ff1b875eed2ac0b1c36f4ee8e6b0484fe403c82671372287e4f09b008b4ee9",
+    "reviewed-to-frozen.diff": "0e33da494308165cd2dd67baf133f078a5db40fc927587cd6b2d34a5ad788894"
+  },
+  "assignment": {
+    "source_commit": "df64645f8a0ca1eea5a3bbde5a36d101d51ee205",
+    "original_sha256": "1a651c5919b4e31eee23e187bd4de6a5ae7eafc1713d742b3b528b5e00643d3a",
+    "git_blob": "4b3f2808ec16b11c7c1a9a032afa9afb3c8d0d02",
+    "excerpt_sha256": "c8448f4e757d64645f99830fbe7272fc921e7c004d09ffe81d2db3ae8782c67c"
+  }
+}
