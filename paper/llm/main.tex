@@ -701,6 +701,34 @@ secondary question is whether interventions timed by those estimates prevent cap
 constant counter-steering. Early warning is not expected for noise-induced jumps without a nearby bifurcation, or for
 transitions faster than the slowing-down; such a monitor would complement classifiers, not replace them.
 
+\paragraph{The hostility direction in the deterministic map.} Steering the soft-token map of
+Section~\ref{sec:map} along the same hostility direction gives a plane with chaos (a positive largest exponent in
+10\,\% of a coarse $128\times192$ float32 scan) and periodic text loops that are hostile: ``Yes, that's crap''
+(period 6), ``a lie is'' (3), ``STUP\ldots'' (3), a loop on the Chinese word for insult and its 2-cycle, and others,
+all at $\alpha>0.065$. Around the period-6 loop the windows form a dome (Figure~\ref{fig:hostile-cascade}). Toward
+higher temperature its texts gain one ``!Yes'' after another (periods $6,8,\ldots,20$), and in float64 the windows
+are born in folds and end in flips or $+1$ crossings, like the stripes of Sections~\ref{sec:adding} and~\ref{sec:mechanism}. They accumulate
+on the fold of the 2-cycle ``!Yes'' at $\log_{10}T_c=-0.0462465357$ ($\alpha=0.083$; critical multiplier
+$0.9999999954$, next modulus $0.050$). From period 16 on, $1/\sqrt{\log_{10}T_c-\log_{10}T_{\rm fold}}$ rises by
+$2.235$ per lap. The fold's normal form ($a=-1.168$, $b=44.53$ with $\varepsilon$ in $\log_{10}T$) predicts
+$\sqrt{|ab|}/\pi=2.296$ per lap for full passages through the bottleneck, within 3\,\% and without a fitted parameter
+(the reinjection that would confirm full passages independently is not yet measured). The same type-I intermittency
+that organizes the philosophy-steered map thus generates a hostile cascade. A second region, near
+$(\alpha,\log_{10}T)=(0.06,0.20)$, shows arms of period-7 and period-8 windows spiralling around the insult 2-cycle,
+whose complex pair (modulus $0.858$, $0.105$ turns) suggests a Neimark--Sacker organization.
+\inprogress{continuation of that 2-cycle to its Neimark--Sacker point; cusps of the hostile windows (no shrimp is
+claimed in this plane yet).}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-hostile-cascade.png}
+\caption{The hostility-steered soft-token map (Qwen2.5-0.5B). Left: period of the attractor in a float32 zoom
+(black: chaos), with the period-6 ``Yes, that's crap'' dome and its period-adding bands; dashed, the cut at
+$\alpha=0.083$; dotted, the float64 fold of the ``!Yes'' 2-cycle. Right: float64 fold edges of the windows (periods
+14--20) against the number of ``!Yes'' laps; the dashed line is the normal-form prediction for full passages, anchored
+at the last window.}
+\label{fig:hostile-cascade}
+\end{figure}
+
 \paragraph{Capture ladder.} With 128 dialogues of 40 turns per dose, the share of hostile turns rises steeply from
 $10\,\%$ at $\alpha=0.04$ to $30\,\%$, $57\,\%$ and $87\,\%$ at $0.05$, $0.06$ and $0.07$ (Table~\ref{tab:hostility}).
 Replicates with a second seed agree within three percentage points. Directions of the same norm do not produce it:
