@@ -190,8 +190,8 @@ dark curves of maximal contraction inside the windows.
 \includegraphics[width=0.49\linewidth]{fig-stripes-period-fold.png}
 \caption{Soft-token map of Qwen2.5-0.5B, $256^2$ float64 cells. Left: chaotic cells coloured by the largest
 Lyapunov exponent, periodic cells in grey by how strongly they contract (light grey: close to losing stability);
-white curves: float64 fold curves of the 2-cycle ``is it'' (lower left, the boundary on which the stripes accumulate)
-and of the period-8 orbit (top). Right: periods with the period-8 fold curve (Section~\ref{sec:curves}).}
+cyan dashed curves: float64 fold curves of the 2-cycle ``is it'' (lower left, the boundary on which the stripes
+accumulate) and of the period-8 orbit (top). Right: periods with the period-8 fold curve (Section~\ref{sec:curves}).}
 \label{fig:stripes}
 \end{figure}
 
@@ -344,8 +344,17 @@ a'', whose leading multipliers are a complex pair, $-0.031\pm0.152i$. One-parame
 folds in every direction: at $\log_{10}T=-0.0558$ and $-0.0721$ in temperature, at $\alpha=0.08074$ in steering, and,
 toward smaller $\alpha$, in two folds only $10^{-5}$ apart. Such a close pair is the signature of a nearby cusp. A
 flip at $\alpha\approx0.0797$ then opens the period-12 foot. Fold curves bounding a window and meeting in cusps,
-with flip curves inside, is the codimension-two organization of a shrimp \cite{facanha2013endoskeletons}.
-\inprogress{fold and flip curves of this window in the plane, and normal-form tests of their cusps.}
+with flip curves inside, is the codimension-two organization of a shrimp \cite{facanha2013endoskeletons}. The first
+continued curves (Figure~\ref{fig:z3curves}) bound the body by a single fold arc on its outer side and a flip arc on
+its inner side, with the leg between them where they converge.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{fig-zoom-z3-curves.png}
+\caption{The period-6 window of Figure~\ref{fig:zooms} (bottom) with its float64 fold curve (cyan, long dashes) and
+flip curve (magenta, short dashes). \inprogress{the fold curve through the close fold pair inside the body (cusp
+candidate) and normal-form tests.}}
+\label{fig:z3curves}
+\end{figure}
 
 \paragraph{A period-4 window with two cusps.} At higher temperature, $\log_{10}T\approx0$--$0.1$, periodic orbits
 are no longer effectively one-dimensional (second multipliers $0.06$--$0.09$). In temperature at
@@ -373,8 +382,8 @@ critical multiplier & $1\pm10^{-9}$ & $1\pm10^{-8}$ \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\linewidth]{fig-p4-curves.png}
-\caption{Period map of the high-temperature region ($192^2$ float64 cells) with float64 fold curves (white) and
-flip curves (magenta, dashed) of the period-4 orbit; the yellow circle is the first cusp (the second lies just above
+\caption{Period map of the high-temperature region ($192^2$ float64 cells) with float64 fold curves (cyan, long
+dashes) and flip curves (magenta, short dashes) of the period-4 orbit; the yellow circle is the first cusp (the second lies just above
 the window). The flip curves run along the boundary between period 4 and period 8. The fold curves run inside the
 period-4 region, where two period-4 orbits coexist. In this map a C-shaped band of the doubled loop
 ``\textbackslash n\textbackslash nThe\textbackslash n\textbackslash nThe'' (period 4) inside the period-2 region

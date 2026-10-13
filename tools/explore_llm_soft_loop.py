@@ -840,7 +840,8 @@ def render(args):
     if args.style != "lyapunov":
         handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
                     matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
-    styles = {"fold": dict(color="white", lw=1.6), "flip": dict(color="magenta", lw=1.6, ls="--")}
+    # fold: cyan, long dashes; flip: magenta, short dashes (white would read as a weakly contracting periodic cell)
+    styles = {"fold": dict(color="#00e5ff", lw=1.8, ls=(0, (7, 3))), "flip": dict(color="magenta", lw=1.6, ls=(0, (2, 2)))}
     for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
         kind, pts = curve_points(DATA / "explore" / path)
         ax.plot([r["alpha"] for r in pts], [r["log10_temperature"] for r in pts], **styles[kind])
