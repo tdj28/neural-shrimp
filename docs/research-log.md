@@ -22475,3 +22475,9 @@ _commit `c4cd166cfdca`_
 Pod pcbc64o8qub28y (SECURE H100 NVL, 112 s, commit c4cd166c; hash verified; terminated 21:19:49 UTC): the runner's standard setup could not resolve the pinned Qwen revisions on huggingface.co (HTTP 500 Internal Server Error on the tree API) and stopped with 'model cache not loadable offline' (runner status 4) before any job ran. The hub was still failing at 21:20 UTC from this machine. Running pods (S10a/b, L13a/b) had cached their models earlier and are unaffected. U1 will be relaunched unchanged when the hub answers; a monitor polls every two minutes.
 
 _commit `518217497905`_
+
+## 2026-10-13 22:07 UTC: Final assembly001 admission failure preserved and closed
+
+Original receipt8f681af4/source12998ba9/plan58b842f1: exit1/no timeout136.625s, peak523092KiB, before any mathematical gate. Four recovery shards retain identical001/002 captured plans; global hash uniqueness refused first p1-c256-002 despite unique original command path. All301 original artifacts/291 Git source blobs and full original group closure verified separately in archive28f6a4ec/report82c4f003/closure6acb0374. Session64516 reaped1. No mathematical result, retry or source change. Prospective narrow command-bound adapter correction/new002 requires review/card/private admission; unchanged112 derivative evidence retained.
+
+_commit `834af4ff25bf` (dirty worktree)_

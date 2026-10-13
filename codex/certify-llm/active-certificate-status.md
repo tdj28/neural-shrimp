@@ -1,40 +1,37 @@
-# Current phase — 2026-10-13 21:30UTC: final assembly001 running; all derivative workers closed
+# Current phase — 2026-10-13 22:04UTC: assembly001 admission failure closed; recovery preparation
 
-**Sole lifecycle/Git owner: inference.** One approved conditional final assembly
-runs from source12998ba92bc0f0c72732a6e2bcf426b729717d7d, exact plan58b842f1/card
-a6f2def2, captured by the unchanged launcher0dc5bf5a. Tool session64516;
-launcher934661/start187356647 and worker934982/start187357028. Worker PGID/SID
-934982; both UID1000/nice10/one OS thread/18GiB AS. Startup21:30:30 checks pass,
-stderr empty then, no completed receipt. Hard3600s plus existing owned cleanup;
-no retry or extension. Raw: /data2/neural-shrimp-data/codex/llm-p8-certificate/
-final-assembly-001. Preflight/startup are in sibling final-assembly-001-supervision;
-compact certificates/llm-p8-final-assembly-001-startup.json binds exact identities.
-The fresh preflight had59,587,514,368B available RAM and2.79TB free disk.
-Reserve two CPU slots (one worker+launcher),18GiB AS and4GiB output storage;
-that storage reservation is not a new watchdog. No GPU/pod/paid resources.
+**Sole lifecycle/Git owner: inference.** Final assembly001 failed during derivative
+admission before any root/primitive/attraction gates. Original source12998ba9,
+plan58b842f1/card a6f2def2 and receipt8f681af4 remain immutable. Exit1, no timeout,
+136.625s, peak523,092KiB. Original session64516 reaped1 at22:03; launcher934661
+and worker934982, plus both complete groups/sessions, are absent. No active
+assembly/model job and no automatic retry. Compact certificates/llm-p8-final-
+assembly-001.json binds301 artifacts/291 original Git source blobs, separate
+failure audit82c4f003, manifest28f6a4ec and closure6acb0374.
 
-All112 derivative blocks are operationally admitted, not yet mathematically
-admitted. Campaign003/session60449 reaped0 and all original groups closed;
-report1b3dfa13/manifest a0e72ba5 binds33,425 artifacts and31,969 captured source
-files/721 distinct Git blobs. Exact receiver/image/derivative admission, frozen
-root/primitive/attraction gates and separate independent witness audit remain.
-No certificate exists yet. Do not restart the closed campaign or change its
-historical frozen execution checkout. Current assembly uses its captured snapshot.
+Cause: exactly four recovered p1 c256/c320/c384/c448 -002 shards capture both
+byte-identical001/002 plan filenames. Their original isolated command uniquely
+names the002 plan. The adapter incorrectly requires a globally unique matching
+plan hash, so first p1-c256-002 was refused. No derivative or mathematical gate
+change is proposed. Boundary prepares a narrow command-bound original-plan
+selection correction with synthetic regressions in the completed Task14 research
+worktree. Source review, new explicit assembly002 plan/card/private checkpoint
+and fresh resource admission must precede any recovery execution. Preserve the
+original failure; never overwrite/reuse its attempt. Task1 remains priority with
+future18GiB/2CPU-slot reservation. Historical frozen execution remains untouched.
 
-Task8 PartsA/B are complete and independently accepted. PartA original receipt
-59e35ac6 is immutable; separate final-review220b4cd9/archive7e345e40 binds actual
-review187da94d/reportd3d5132d. All280 leaves pass1e-12 with two rounding deltas and
-13 partial ARPACK flags retained. Evidence checkpoint3127deff integrated12998ba9;
-standalone Claude delivery7f73d9458126933d32f67663f7f3b45b4f4ba944. No Task8 job.
-Tasks6/7/L9/11/13 also complete. Task14 profile is closed and row13 matrix reuse
-accepted; new endpoint sources are accepted. Measured endpoint plan preparation
-may proceed, but launch still requires concrete shared-resource/card acceptance
-and must not obstruct Task1 evidence/witness work. No endpoint job is running.
+All112 derivative blocks remain operationally admitted (report1b3dfa13); full
+mathematical inclusion remains pending. Point admission completed29.293s within
+the failed attempt, but no certificate exists. Task8 PartsA/B are complete and
+independently accepted/delivered (PartA standalone7f73d945); no rerun. Tasks6/7/
+L9/11/13 are complete. Task14 profile is closed; endpoint scientific source,
+new supervisor and proposed measured card have independent/Root preparation
+acceptance. Actual endpoint admission/push/current42GiB startup check must still
+precede any endpoint launch, preserving future Task1 headroom. No endpoint job.
 
-Automation complete-qwen-p8-certificate continues at30-minute quiet cadence.
-Next useful assembly rejoin is about21:50UTC or any completed/failure event;
-read existing ownership before action, never duplicate. Historical sections below
-are dated history, not current live ownership declarations.
+Automation complete-qwen-p8-certificate should rejoin this closed-failure/recovery
+phase, never poll or restart obsolete PIDs. No GPU/pod/paid work. Historical
+status below is not a current live-owner declaration.
 
 ---
 
