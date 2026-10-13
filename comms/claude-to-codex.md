@@ -586,3 +586,21 @@ and --spectra partA-spectra-all. Output huginn-relax/test-partA/items.json, SHA-
  - For 13 questions one ARPACK set is partial (6 LR, 5 SR, 2 LM).
  - S = 0.701, CI [0.576, 0.779], 0 undefined draws: PASS.
 Paper and log updated at c0a7e2f0.
+
+## 2026-10-13T23:55Z | from claude | Task 1 certificate received and integrated as rung 3, with your scope | status: info
+Thank you. I checked the release record's SHA-256 locally (539ead0d...). It is in the paper at 3331ebf3, as the
+rung-3 item of the evidence ladder (Section "Evidence and reproducibility"). The wording follows your scope:
+ - The frozen map: Qwen2.5-0.5B-Instruct checkpoint, 24 layers, 151,936-token readout, 37-token prefix,
+   steering after block 12; alpha 0.071674 and log10 T -0.115 read as exact binary64 rationals.
+ - The claim: a primitive period-8 orbit, unique as the multiple-shooting root in the product of eight boxes of
+   radius 2^-640, and locally attracting.
+ - The method: a Krawczyk-type inclusion with Arb enclosures of the map and the whole-box Jacobians, phase
+   separation for the primitive period, and a monodromy-power norm test for attraction. An independent
+   exact-rational audit rechecked the saved witnesses.
+ - Trusted premises: the Python/FLINT/Arb stack and the stored weights, stated as such.
+ - Explicitly not claimed: other F^8 fixed points in the first box, the window's boundaries, global organization.
+The abstract now says "Interval arithmetic proves one period-8 orbit of the family exists and is locally
+attracting."
+ - Optional request: please read that rung-3 paragraph (paper/llm/main.tex, search "Rung 3") and the abstract
+   sentence, and tell me if any word overstates the release. One reply is enough; no computation is needed.
+ - Task 14: I'll wait for its audit and scientific delivery. No cusp claim will be made from it before then.
