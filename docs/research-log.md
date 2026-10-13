@@ -21103,3 +21103,21 @@ _commit `258ddfe1abb5` (dirty worktree)_
 The prepared center-refine-001 plan passes actual upstream admission: all32 prefix and56 seed artifacts, exact7-array inventory, correct parameters and completed statuses. Plan SHA256 8cca7c0f2018560a005e524f12f976766ca51f4ca14654f38e5bb400c686bc9c. Correct invocation uses two CLI arguments --seconds 3600 (the preceding note joined them typographically). Exact command: /data2/neural-shrimp/.venv/bin/python -B codex/certify-llm/launch.py --attempt center-refine-001 --driver center_refine --plan center-refine-001-plan.json --seconds 3600. Local prelaunch check found55GiB available RAM and both previous owned PIDs exited. No allocation or paid resource was created by this admission check.
 
 _commit `258ddfe1abb5` (dirty worktree)_
+
+- run started 2026-10-13 03:43 UTC (../neural-shrimp-data/explore/huginn-relax/dev-*) finished 04:11 UTC with exit status -2
+
+## 2026-10-13 04:11 UTC: run (exploratory)
+
+- **Question:** Huginn causal test, development (exploratory; GSM8K train only): (a) fixed-point spectra of the native recurrence for train prompts 0-4 (the spectral prediction of lam*, scored separately from convergence data); (b) float32 prefill convergence over 300 steps for lam 1.0, 0.55, 0.75, 1.05 on train 0-4 (native residual ||F(s)-s||/||s||, gated rate fit), to measure the prediction's discrepancy; (c) native accuracy against the budget r = 4, 8, 16 on train 0-29 (paired seeds), to choose a budget where accuracy is still rising.
+- **Setup:** explore_latent_loop fixed-spectrum (huginn, float32, cuda, lam 1.0, transient 400, k 8, Arnoldi 300, --gsm8k-index i) and tools/huginn_relax_eval.py convergence (HuginnLoop, float32) and accuracy (bfloat16, greedy, 256 new tokens, seed 0) in ../neural-shrimp-data/envs/llm, local RTX 2000 Ada; commit at run time
+- **Output:** `../neural-shrimp-data/explore/huginn-relax/dev-*`
+- **Would surprise us:** leading spectra differing strongly between prompts (then one lam* cannot serve all), measured rates ordered unlike the spectral prediction, or accuracy flat in r
+- **Command:** `bash -c P=../neural-shrimp-data/envs/llm/bin/python; for i in 0 1 2 3 4; do $P tools/explore_latent_loop.py fixed-spectrum --model huginn --dtype float32 --device cuda --gsm8k-index $i --lam 1.0 --transient 400 --k 8 --arnoldi-iter 300 --out huginn-relax/dev-spectrum-$i 2>&1 | grep -v -i -e warn -e Loading | tail -1 | cut -c1-400; $P tools/huginn_relax_eval.py convergence --split train --index $i --steps 300 --lams 1.0 0.55 0.75 1.05 --out huginn-relax/dev-conv-$i 2>&1 | grep -v -i -e warn -e Loading | tail -4; done; for r in 4 8 16; do $P tools/huginn_relax_eval.py accuracy --split train --start 0 --count 30 --steps $r --lams 1.0 --out huginn-relax/dev-acc-r$r 2>&1 | grep -v -i -e warn -e Loading | tail -1; done`
+
+_commit `c7f4af210573` (dirty worktree)_
+
+## 2026-10-13 04:11 UTC: Huginn development, attempt 1 stopped: bfloat16 convergence sat on its precision floor; revised per Codex's preflight
+
+The first development job (gpu queue 11b, started 03:43 UTC from the draft tools) ran prefill convergence in bfloat16 through the full model for train prompts 0-2 (lam 1.0, 0.55, 0.7, 0.85, 1.05; 200 steps) and native accuracy at r = 4. Its convergence traces are invalid as rate measurements: the relative change plateaued at the bfloat16 floor (0.005-0.019) and every fitted tail rate was 1.000 +- 0.001, exactly the precision-floor failure Codex's preflight (codex/huginn-design-preflight.md, commit 323d5083) warned about; they also measured the relaxed step (with its factor lam), not the native residual. Native accuracy at r = 4 on train 0-29 was 1/30 (unseeded draft code). The job was stopped with SIGINT at 04:11 UTC (status 254) after its log was saved to huginn-relax/attempt1-dev.log; the revised development job (fixed-point spectra of train 0-4; float32 native-residual convergence through HuginnLoop with a gated fit; seeded accuracy at r = 4, 8, 16) started next. The design draft (docs/huginn-causal-test-design.md) will be revised before freezing: spectral lam* scored from the computed spectra with a frozen aggregation rule, random-relaxation control, paired seeds, token, core-call and latency records, and pins of model, tokenizer, remote code and data.
+
+_commit `c7f4af210573` (dirty worktree)_
