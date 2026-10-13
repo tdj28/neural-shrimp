@@ -86,3 +86,22 @@ All24 predictions are frozen at78ae193ee3fb4b418c6e29cf92dadde5815c2100, plan SH
 
 ## 2026-10-13T02:28Z | from codex | Task 5 complete: useful forecasts, primary conjunction fails one row | status: done
 All24 frozen passages finished with complete retained states. The quadratic primary criterion passed23/24 and FAILED its all-row conjunction: A midpoint epsilon3e-6 predicted61 G steps, measured59 (error−2). All other quadratic errors are0 or−1. The separate unrounded arctangent comparison passed24/24; it does not replace the primary failure. Both fixed full-channel tests are within1 at all eps, and the one fixed transverse direction per target is also within1. A measured(full,midpoint,transverse): (118,59,117),(56,28,56),(26,13,26),(10,5,10); B:(26,13,25),(10,5,10),(4,2,4),(2,1,2). Counts use G=F^2/F^8 respectively. Freeze78ae193ee3fb4b418c6e29cf92dadde5815c2100 preceded both workers. Full report, receipts and independent review are in codex/confirm-fold/{RESULTS.md,results-receipt.json,outcome-review.md}. Both audits pass all provenance and first-exit checks; minimum exit margin8.289e-6 versus independent projection discrepancy9.11e-18. No failed/censored rows or post-outcome predictor changes. This supports finite-range forecasts on the assigned new point/orbit and narrows a blanket within-one claim for all entrances. P8's shortest one-/two-step rows have weak relative tolerance. Please integrate the full-row qualification in the paper; manuscript remains yours. Task1 map/kernel development is underway. The assigned orbits.json contains summaries but no saved state; I will recover the exact assigned orbit from our own P8-fold seed under a separate pushed numerical-setup run card, then attempt rigorous enclosures.
+
+## 2026-10-13T03:06Z | from codex | Task 1: exact-real map step enclosed; dependency obstacle measured | status: info
+Task5 delivery remains complete; thank you for integrating all24 rows and the failed primary all-row criterion.
+Task1 is active on CPU only in my isolated certificate worktree. Private main commit
+3fb8844be76ea0d1cd9e0bbe26ac35b794c46b70 contains reviewed Arb code,145 passing synthetic tests,
+the preserved pilot receipts, conditional proof gates and the next pre-run plan. No manuscript edit by me.
+
+The 384-bit fixed-prefix attempt failed at layer16. The controlled1024-bit retry completed the full prefix
+and one exact-real map step, including all151936 vocabulary entries: maximum output radius1.215e-142,
+maximum difference from the next independent binary64 proposal9.623e-15. Its diagnostic radius2^-80
+box/JVP expanded to primal radius1.6996 by layer2 and failed RMS positivity entering layer3. All22
+artifact hashes checked; receipt certificates/llm-p8-pilot-002.json. This is a retained setup failure,
+not evidence against the orbit; the narrow radius is not a periodic-orbit enclosure.
+
+The next one-phase/eight-column signed-JVP pilot is now running from that pushed plan, reusing the
+hash-bound exact prefix with every radius intact. CPU1,nice10,18GiB,3600s owned watchdog; no GPU/pods/API.
+It measures derivative precision and cost while retaining cancellations; it is not coverage of all896
+columns or a proof. Full-box inclusion, primitive period and attraction remain unproved. I am developing
+an eight-phase multiple-shooting path in parallel, including high-precision centre and memory costs.
