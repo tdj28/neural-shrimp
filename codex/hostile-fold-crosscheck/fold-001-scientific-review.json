@@ -1,0 +1,226 @@
+{
+  "schema": "codex-task7-independent-scientific-review-v1",
+  "evidence": "rung2_independent_float64_saved_array_review",
+  "reviewed": true,
+  "certificate_passed": false,
+  "model_replayed": false,
+  "passages_evaluated": false,
+  "source_commit": "6271ca3bb70f859a916abf2e17ba3c2a9ae748e9",
+  "plan_sha256": "53fcb608cd4dcaf8aa3437fffe13c5fe38e3873e6a5d31a8071ea8b91bfa4cd7",
+  "producing_receipt": {
+    "path": "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/fold-001/receipt.json",
+    "sha256": "f562321e4170b396a5cd7b4e70a28df5843039a1dbfaa206dba2b96aa923a92a"
+  },
+  "numerical_audit": {
+    "path": "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/fold-001-saved-audit-001/audit.json",
+    "sha256": "01582d1fa67d26060c59beb339eaabecbf828f02c689435d9e78b2cf97dbccfa",
+    "source_sha256": "63d68c5b4ff2e83e9b666c1e42a8b69847309f9bab67bc864ee8bc404efd5598"
+  },
+  "producer_comparison_source": {
+    "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hnormal/normal-form-p2/normal-form.json",
+    "sha256": "df5c263fc64f17c6e942b98ff3778d863963f4a1b45682769e8beaf3ed6444d1",
+    "use": "Post-computation comparison only; no producer numerical code imported"
+  },
+  "gates": {
+    "closure": true,
+    "primitive": true,
+    "eigenpairs": true,
+    "all_phase_closure": true,
+    "composed_precision": true,
+    "critical_multiplier_jvp": true,
+    "nonzero_a": true,
+    "nonzero_b": true,
+    "parameter_ad_fd": true,
+    "state_ad_fd": true
+  },
+  "independent_gates": {
+    "real_plus_one": true,
+    "complementary": true,
+    "isolation": true,
+    "full_spectrum_match": true,
+    "saved_basis_normalized": true,
+    "gauge": true,
+    "augmented": true
+  },
+  "saved_metadata_disagreements": [],
+  "independent": {
+    "parameter_c": -0.04624653567444522,
+    "alpha": 0.083,
+    "active_parameter_units": "log10T",
+    "forward_steps_per_return": 2,
+    "critical_multiplier": {
+      "real": 1.0000000000000457,
+      "imag": 0.0
+    },
+    "critical_modulus": 1.0000000000000457,
+    "critical_argument_turns": 0.0,
+    "complementary_radius": 0.05001573791281647,
+    "critical_isolation": 0.9499842620872293,
+    "maximum_spectrum_difference": 1.6929383422247952e-17,
+    "raw_right_norm": 1.0,
+    "left_dot_right": 1.0,
+    "critical_eigen_residual": 4.6718845200651847e-14,
+    "relative_returns": [
+      1.1562088752768356,
+      7.221612080110781e-15
+    ],
+    "phase_closures": [
+      7.221612080110781e-15,
+      1.0982431981858935e-14
+    ],
+    "augmented_residual": 4.630775331300625e-14,
+    "raw_a": -1.1683279225482621,
+    "raw_b": 44.52540973728357,
+    "a": -1.1683279225482621,
+    "b": 44.52540973728357,
+    "ab": -52.02027945897067,
+    "absolute_ab": 52.02027945897067,
+    "ghost_parameter_direction": -1.0,
+    "slope": 2.295812772895059,
+    "composed_precision": [
+      {
+        "direction": "critical",
+        "dense_jvp_error": 3.6324921921943575e-13,
+        "fd_errors": [
+          0.00011247636584345733,
+          1.249750344582832e-05,
+          1.1247895161120892e-06
+        ],
+        "passed": true
+      },
+      {
+        "direction": "deterministic",
+        "dense_jvp_error": 4.2628878663323806e-13,
+        "fd_errors": [
+          1.226537839605663e-06,
+          1.362401813655238e-07,
+          1.2246757483461434e-08
+        ],
+        "passed": true
+      }
+    ],
+    "finite_difference": {
+      "parameter_fd": {
+        "values": [
+          -1.168328025075126,
+          -1.1683279301972862,
+          -1.1683279207586272
+        ],
+        "relative_discrepancies": [
+          8.77552114512953e-08,
+          6.546983884548396e-09,
+          1.5317915888090357e-09
+        ],
+        "individual_agreement": [
+          true,
+          true,
+          true
+        ],
+        "passed": true
+      },
+      "state_fd": {
+        "values": [
+          44.5286766038013,
+          44.52577276283858,
+          44.52544241093541
+        ],
+        "relative_discrepancies": [
+          7.337083559724045e-05,
+          8.153222107391056e-06,
+          7.338203519596575e-07
+        ],
+        "individual_agreement": [
+          true,
+          true,
+          true
+        ],
+        "passed": true
+      }
+    }
+  },
+  "eigenanalysis": {
+    "recomputed_right_eigen_residuals": {
+      "count": 896,
+      "maximum": 2.628142850873242e-15
+    },
+    "recomputed_left_eigen_residuals": {
+      "count": 896,
+      "maximum": 8.525280460258436e-15
+    },
+    "saved_right_eigen_residuals": {
+      "count": 896,
+      "maximum": 2.6109021874028465e-15
+    },
+    "saved_left_eigen_residuals": {
+      "count": 896,
+      "maximum": 2.6521505011857307e-15
+    }
+  },
+  "producer_comparison": [
+    {
+      "quantity": "log10T",
+      "independent": -0.04624653567444522,
+      "producer": -0.04624653570443442,
+      "difference": 2.9989198624402746e-11,
+      "relative_difference": 6.484636777134246e-10
+    },
+    {
+      "quantity": "a",
+      "independent": -1.1683279225482621,
+      "producer": -1.1683279172118877,
+      "difference": -5.336374453435155e-09,
+      "relative_difference": -4.567531405198248e-09
+    },
+    {
+      "quantity": "b",
+      "independent": 44.52540973728357,
+      "producer": 44.52577938671375,
+      "difference": -0.00036964943018347185,
+      "relative_difference": -8.301919366149786e-06
+    },
+    {
+      "quantity": "ab",
+      "independent": -52.02027945897067,
+      "producer": -52.020711093115274,
+      "difference": 0.00043163414460423155,
+      "relative_difference": 8.29735187263437e-06
+    },
+    {
+      "quantity": "inverse_passage_slope",
+      "independent": 2.295812772895059,
+      "producer": 2.295822297537536,
+      "difference": -9.524642477387602e-06,
+      "relative_difference": -4.148684542180633e-06
+    }
+  ],
+  "finite_difference_reconciliation": {
+    "producer_primary_b_is_final_pair_mean": true,
+    "final_pair": [
+      {
+        "h_relative": 0.0003,
+        "b": 44.52607523906492
+      },
+      {
+        "h_relative": 0.0001,
+        "b": 44.52548353436257
+      }
+    ],
+    "richardson_h2_estimate": 44.52540957127477,
+    "independent_ad_minus_richardson": 1.6600879604311558e-07,
+    "relative_discrepancy": 3.728405802947779e-09,
+    "scope": "Post-hoc saved-estimate comparison assuming leading h-squared truncation; no model replay or exact-equality claim."
+  },
+  "allowed_claim": "A separate float64 forward/AD implementation independently reproduces the local fold of a primitive period-two orbit in the hostility-steered fixed-prefix Qwen soft-token map. Generic fold coefficients are nonzero, in log10T units; controlled passage laws and natural reinjection were not measured in this attempt.",
+  "resource": {
+    "status": "fold_qualified",
+    "stage": "qualified",
+    "passed": true,
+    "computational_completed": true,
+    "solver_history_complete": true,
+    "certificate_passed": false,
+    "resource_probe_only": false,
+    "passage_trajectories_evaluated": false,
+    "elapsed_seconds": 295.07065234403126,
+    "max_rss_kib": 6455968
+  }
+}
