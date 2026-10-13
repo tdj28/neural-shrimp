@@ -747,8 +747,16 @@ period-8 and period-10 windows failed to converge. The windows accumulate
 on the fold of the 2-cycle ``!Yes'' at $\log_{10}T_c=-0.0462465357$ ($\alpha=0.083$; critical multiplier
 $0.9999999954$, next modulus $0.050$). From period 16 on, $1/\sqrt{\log_{10}T_c-\log_{10}T_{\rm fold}}$ rises by
 $2.235$ per lap. The fold's normal form ($a=-1.168$, $b=44.53$ with $\varepsilon$ in $\log_{10}T$) predicts
-$\sqrt{|ab|}/\pi=2.296$ per lap for full passages through the bottleneck, within 3\,\% and without a fitted parameter
-(the reinjection that would confirm full passages independently is not yet measured). The same type-I intermittency
+$\sqrt{|ab|}/\pi=2.296$ per lap for full passages through the bottleneck, within 3\,\% and without a fitted parameter.
+An independent float64 forward and automatic-differentiation implementation reproduces this fold (location to
+$6\times10^{-10}$ relative, a simple real $+1$ multiplier with next modulus $0.050$) and its coefficients ($ab$ to
+8 parts per million). In that implementation, controlled passages from fixed entrances at $\log_{10}T$ offsets
+$-10^{-5}$, $-3\times10^{-5}$ and $-10^{-4}$ took 119/59, 61/31 and 27/13 iterates of $F^2$ (full channel/from its
+midpoint), against prospectively frozen quadratic forecasts of 118/61, 61/32 and 27/14. Five of six are within one
+iterate; the smallest-offset midpoint missed by two, failing the frozen all-six criterion. Finite-endpoint (arctan)
+forecasts, also frozen, were within $0.92$ iterates. These are controlled local transits. At the window distances the
+finite-channel correction to the asymptotic passage time is large, so the agreement of the window slope with the
+full-passage coefficient does not by itself show where the natural dynamics reinjects. The same type-I intermittency
 that organizes the philosophy-steered map thus generates a hostile cascade. A second region, near
 $(\alpha,\log_{10}T)=(0.06,0.20)$, shows arms of period-7 and period-8 windows spiralling around the insult loop. In
 float64 the insult fixed point doubles into a 2-cycle at $\alpha\approx0.041$ and $0.079$, and that 2-cycle has a
