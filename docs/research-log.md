@@ -21945,3 +21945,8 @@ _commit `fd61f425265e` (dirty worktree)_
 Frozen source36c5d6144a021b2648e54f4a0bae3c7e4ca1e641/plan d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0 passed metadata-only preflight1.971s/23,628KiB.110 source/plan Git blobs and all original retained/failure metadata admitted. Retain18 blocks, acquire94, forecast54,038.036s within17h and15,842,913,908B cumulative storage including1,552,012,308B prior evidence. Root accepts exactly one campaign003 after private checkpoint/current>=46GiB MemAvailable and closed ownership. No model/array calculation during admission; no auto-retry. Original campaign002 failure, four interrupted attempts and mistyped-source ancestry refusal preserved. Task6/7 allocations released.
 
 _commit `d9d1b718ea5c` (dirty worktree)_
+## 2026-10-13 12:50 UTC: L7 detection recomputed with the amendment-2 code; identical to Codex's independent replay
+
+tools/p1_detection.py at its last change (commit 03a85447, amendment 2; unchanged since) on the L7 arms det040/det045 -> ../neural-shrimp-data/explore/llm-msm/p1-detection-amendment2/detection.json (SHA-256 prefix 72066f24147fc570). All 85 rows of the secondary event that differed from the older reference (llm-msm/p1-detection-corrected, computed between amendments 1 and 2) now agree exactly (largest absolute difference 0) with Codex's independent replay (l7-comparison-002.json). First hostile turn rows are unchanged. Two consecutive hostile turns, h = 3 (14066 rows, 491 positive windows): D3 +0.031 [+0.007, +0.056], D1 +0.041 [+0.025, +0.058]. This file supersedes the older reference for the secondary event; the older file is kept.
+
+_commit `d9d1b718ea5c`_
