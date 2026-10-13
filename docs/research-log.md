@@ -22387,3 +22387,4 @@ _commit `f18c257849bb` (dirty worktree)_
 - **Would surprise us:** Failure to retain all896 columns or excessive AD cost is a setup failure preserved for measured replanning, never a coefficient result.
 
 _commit `3150098af7a0` (dirty worktree)_
+- run started 2026-10-13 13:07 UTC (../neural-shrimp-data/explore/huginn-relax/cot8-spectrum-0..2) finished 20:09 UTC with exit status 0
