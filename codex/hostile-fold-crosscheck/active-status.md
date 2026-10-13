@@ -1,9 +1,35 @@
-# Active state — Task7 — 2026-10-13
+# Active state — Task7 complete — 2026-10-13
 
-The independent hostility-steered period-two fold cross-check is complete and accepted by Root at evidence rung2. Original fold and audit processes are closed; the single approved controlled-passage attempt is now running. Inference owns Git/lifecycle; cascades is preparing a separate six-condition controlled-passage extension, now source-reviewed and authorized for exactly one passage-001 only after the exact private checkpoint and fresh Task1 health/capacity admission. Current passage source b6c352e370331666f5f3ec400c37cde949130264, session83753, worker599733/start184401424, launcher599709; captured snapshot is immutable. Fresh13:17UTC admission found34,985,684,992B available and all five Task1 workers healthy, total CPU reservation10 including controls. No partial passage outcomes have been inspected. The six-row plan is db0028cc4983b4bbe5ec5cbbd52f67adb7fff77b6dcab9221f6be3611782bcc7; the source controls passed68 tests in5.13s. Completed/censored/disagreeing outcomes must all be retained.
+The independent hostile-steering primitive P2 fold and its six controlled
+passages are complete and independently audited. No Task7 model or audit process
+remains. No retry, new prediction or additional passage run is authorized.
+Inference retains Git/lifecycle coordination; Task1 campaign003 remains the
+only live Codex model computation.
 
-Original fold source6271ca3bb70f859a916abf2e17ba3c2a9ae748e9; plan53fcb608cd4dcaf8aa3437fffe13c5fe38e3873e6a5d31a8071ea8b91bfa4cd7; receiptf562321e4170b396a5cd7b4e70a28df5843039a1dbfaa206dba2b96aa923a92a. The CPU2/nice10/12GiB attempt completed295.071s (launcher297.633s), peak6,455,968KiB; both original processes and groups are absent. All74 original artifacts and11 exact Git blobs were authenticated. The separate saved-array audit completed1.269s/190,940KiB under CPU1/4GiB/180s, every original and independent gate passed, no metadata disagreement, owned audit process reaped. See fold-001-review-receipt.json and fold-001-scientific-review.md/json.
+The fold at alpha0.083, log10T_c=-0.04624653567444522 has both-phase closure
+7.22e-15/1.10e-14, primitive separation1.1562, simple real+1 multiplier
+1.0000000000000457 and complementary radius0.0500157379. In log10T units,
+a=-1.16832792255,b=44.5254097373,ab=-52.020279459. Original source6271ca3b,
+receiptf562321e; all74 artifacts/11Gitblobs and independent saved-array gates
+passed. Full details remain in fold-001-review-receipt.json and scientific review.
 
-At alpha0.083, log10T_c=-0.04624653567444522, the full896-state primitive P2 orbit closes in both phases at7.22e-15/1.10e-14, while its one-step relative separation1.1562 excludes period1 numerically. The simple real+1 multiplier is1.0000000000000457; complementary radius0.0500157379. In log10T units and the stated eigenvector gauge, nested AD gives a=-1.16832792255, b=44.5254097373, ab=-52.020279459, and sqrt(|ab|)/pi=2.295812773. Negative ab puts the ghost at log10T below the fold. The producer difference in ab is8.30ppm and passage-coefficient difference4.15ppm; all discrepancies and saved finite-difference rows remain. The h² extrapolation explains the small b difference as an estimate comparison, not an exact cause proof.
+The six full/midpoint controlled passages at offsets−1e-5,−3e-5,−1e-4 produced
+G=F² counts [119,59,61,31,27,13]. Frozen quadratic predictions were
+[118,61,61,32,27,14]. Five rows meet the one-G tolerance; the smallest-offset
+midpoint misses by−2, so the all-six primary criterion FAILS. All six trajectories
+were observed and retained, with no censoring/retry. Finite-endpoint arctan errors
+are all below one G in magnitude; this remains the prespecified secondary
+comparison, with no success-gate substitution. Controlled entrances do not
+measure natural reinjection or establish the cause of other periodic-window slopes.
 
-The independent implementation reproduces the local mathematical mechanism at the hostility fold. No interval proof, controlled full/midpoint passage count, natural reinjection claim or geometry-specific behavioral benefit is established by this run. One return-map iterate is two forward steps. The original resource-only profile001 and prelaunch phase-return storage amendment remain intact. Task1 certificate recovery has priority and the GPU/paid resources are unused by Task7.
+Passage source b6c352e370331666f5f3ec400c37cde949130264,
+plan db0028cc4983b4bbe5ec5cbbd52f67adb7fff77b6dcab9221f6be3611782bcc7,
+receipt2ee6cda10c7216a63155c1a0cd1b5aa8657311130ca80aaafaae82a390722160.
+All654 original artifacts and10Gitblobs passed; original worker/launcher/groups
+and audit process are closed. CPU2/nice10/12GiB target161.678s,5,385,204KiB;
+launcher165.018s, no timeout. Independent CPU1 saved audit0.168s/37,524KiB
+passed every evidence check with no model replay. See passage-001-review-receipt.json
+and passage-001-scientific-review.md/json for all rows and immutable archives.
+The earlier card placeholder refusal remains disclosed and preserved; it created
+no attempt or model process. No interval certificate or natural reinjection result
+is claimed by Task7. GPU and paid resources were unused.

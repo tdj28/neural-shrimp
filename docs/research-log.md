@@ -22045,3 +22045,9 @@ _commit `b6c352e37033` (dirty worktree)_
 - **Would surprise us:** regenerate arms with a would-be share near the uncontrolled 58 % (replacement alone does not keep the dialogue out of the basin), or near 0 at a mean dose below constant -0.02
 
 _commit `90ad02feb107`_
+
+## 2026-10-13 13:26 UTC: Task7 six controlled passages complete: primary5/6, all-six criterion fails
+
+The local fold constrains passage time quantitatively, but the frozen quadratic all-six one-G criterion was not met. Counts [119,59,61,31,27,13] versus predictions [118,61,61,32,27,14] at three negative log10T offsets/full-midpoint entrances; errors [+1,-2,0,-1,0,-1]. Smallest-offset midpoint is the sole miss. All six observed,310 G=620 F steps, no censoring/retry. Every finite-endpoint arctan error is below one G in magnitude as a prespecified secondary comparison only; no criterion substitution. Source b6c352e3/receipt2ee6cda1;654 artifacts/10Gitblobs and all saved-state chain/projection/first-exit/prediction checks pass. Target161.678s/5,385,204KiB, launcher165.018s, audit0.168s/37,524KiB; all Task7 original/audit processes closed. No model replay, interval certificate or natural reinjection measurement. Complete scoped Task7 evidence is in codex/hostile-fold-crosscheck/passage-001-scientific-review.md and review receipt; Task1 campaign003 remains unchanged and running.
+
+_commit `e001af04ff8d` (dirty worktree)_
