@@ -22115,3 +22115,9 @@ _commit `852338f8301c` (dirty worktree)_
 - **Would surprise us:** no period-7 orbit at the cell in float64 (then the float64 map's P7 label needs another cell), or edges that are Neimark-Sacker crossings rather than folds and flips
 
 _commit `14e95c5c30c1`_
+
+## 2026-10-13 15:28 UTC: Scale-up rung 2 (run S7b): Qwen2.5-7B's soft-token map has chaos and embedded periodic windows in both the philosophy and the hostility planes
+
+Run S7b (pod 42eswqb2vagm8w, COMMUNITY H100 NVL, commit efa37511; archive hash verified; terminated). Qwen2.5-7B-Instruct (revision a09a3545), layer 14 of 28, vectors built on the GPU in float64 (llm-phase-map/vectors-7b-l14, copied to pod64/scale7). Coarse 64 x 64 float64 scans (tol 1e-8, eps 1e-6, transient 300, samples 300; 0.78 s per cell at chunk 128): (1) philosophy, alpha -0.12..0.12 x log10 T -1.0..0.3 (the 0.5B and 1.5B range): positive largest exponent in 331 of 4096 cells (8 %); periods 2 (1837 cells), 4 (1130), 3 (195), 11 (155), 5, 6, 7, 8, 9, 10, 12-30; no period up to 32 in 361. (2) hostility-vs-kindness, alpha 0..0.12 x log10 T -0.3..0.3: positive exponent in 964 cells (24 %), periods 3 (886), 2 (874), 6 (375), 4 (245), 5 (212), 7-32, no period in 1022; vertical bands of periodic windows in a chaotic sea below log10 T 0.1, high-entropy chaos above (figures docs/figures/qwen7b-coarse-64-*.png). Reading: the dynamical phenomena of the 0.5B map (chaos with embedded windows, many periods) are present at 7B in both planes, at coarse resolution and float64. Not yet verified: no 7B orbit has been continued or tested with exact multipliers; that is the next rung (one orbit and one bifurcation in float64).
+
+_commit `e371d53f1635` (dirty worktree)_
