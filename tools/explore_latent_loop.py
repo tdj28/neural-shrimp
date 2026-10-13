@@ -876,10 +876,12 @@ def fixed_spectrum(args):
 
     A fixed point of the relaxed map is a fixed point of F for every lambda, and its relaxed multipliers are
     1 - lambda + lambda mu for F's multipliers mu, so F's spectrum predicts the whole stability interval."""
-    from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, eigs
-
     loop = make_loop(args)
-    torch = loop.torch
+    if getattr(args, "arc_indices", None):                       # several ARC questions with one loaded model
+        import huginn_relax_eval as hr
+        for index in args.arc_indices:
+            spectrum_at(loop, hr.prompt_text("arc", args.arc_split, index), args, f"{args.out}/q{index:04d}")
+        return
     if getattr(args, "gsm8k_index", None) is not None:           # the exact prompt of tools/huginn_relax_eval.py
         import huginn_relax_eval as hr
         text = hr.prompt_text("gsm8k", args.gsm8k_split, args.gsm8k_index)
@@ -888,6 +890,14 @@ def fixed_spectrum(args):
         text = hr.prompt_text("arc", args.arc_split, args.arc_index)
     else:
         text = PROMPTS[args.prompt]
+    spectrum_at(loop, text, args, args.out)
+
+
+def spectrum_at(loop, text, args, outname):
+    """Fixed point of the loop for one prompt text and F's leading spectrum there (LM, SR, LR), written to outname."""
+    from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, eigs
+
+    torch = loop.torch
     h = loop.setup(text)
     shape = tuple(h.shape)
     n = int(np.prod(shape))
@@ -896,7 +906,7 @@ def fixed_spectrum(args):
         h = (1 - lam) * h + lam * loop.F(h)
     with torch.no_grad():
         res = float((loop.F(h) - h).norm() / h.norm())
-    out = DATA / "explore" / args.out
+    out = DATA / "explore" / outname
     out.mkdir(parents=True, exist_ok=True)
     np.save(out / "fixed-state.npy", h.float().cpu().numpy())
 
@@ -936,7 +946,7 @@ def fixed_spectrum(args):
             inside = False
     if inside:
         intervals.append([float(start), float(grid[-1])])
-    rec = {"args": vars(args), "fixed_point_residual_F": res, "spectra_of_F": spectra,
+    rec = {"args": vars(args), "text": text, "fixed_point_residual_F": res, "spectra_of_F": spectra,
            "arnoldi_converged": converged,
            "leading_modulus_and_turns": [[abs(v), float(np.angle(v) / (2 * np.pi))] for v in lead],
            "predicted_stable_lambda_intervals": intervals,
@@ -1684,6 +1694,8 @@ def main():
     fs.add_argument("--gsm8k-split", default="train", choices=("train", "test"))
     fs.add_argument("--arc-index", type=int, default=None, help="use this ARC-Challenge question with its correct choice")
     fs.add_argument("--arc-split", default="train", choices=("train", "validation", "test"))
+    fs.add_argument("--arc-indices", type=int, nargs="+", default=None,
+                    help="several ARC questions in one run, written to OUT/qNNNN")
     fs.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     fs.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
     fs.add_argument("--device", default="cpu")
