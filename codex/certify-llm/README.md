@@ -1,9 +1,9 @@
 # Exact-real Qwen period-8 certificate development
 
-## Current checkpoint — 13 October 2026, 06:32 UTC
+## Current checkpoint — 13 October 2026, 06:45 UTC
 
 The assigned numerical orbit is recovered and its shooting centres have been
-refined to a rigorously enclosed residual of approximately **2.16e-64**.
+refined to a rigorously enclosed residual of approximately **3.52e-77**.
 **Existence, primitive period and attraction are not yet certified.**
 This is an inference-state orbit of one exact-real soft-token map, not a
 training-parameter cycle or evidence of a task-performance benefit.
@@ -23,6 +23,7 @@ The full 151,936-token expectation uses tied input/output embeddings.
 | center-refine-001 | One correction:9.6227e-15 to2.4361e-27 | Sixteen phases,77 artifacts audited |
 | center-resume-001 | Two corrections:2.4361e-27 to6.5829e-40 to7.1572e-52 | Sixteen fresh phases,98 artifacts audited; strict exact residual decreases |
 | center-secant-001 | One candidate:7.1572e-52 to2.1553e-64; all three prior secants accepted | Eight fresh phases,107 artifacts audited; no matched acceleration claim |
+| center-parallel-001 | One candidate:2.1553e-64 to3.5238e-77; history3 to4 | Eight fresh phases,201 artifacts audited;325.21s total,20.775GiB sampled aggregate RSS |
 | box-derivative-001 | 32 signed columns over original phase-zero prototype box2^-800;988.57s forward,7.93GiB peak | Original prototype only |
 | streamed-derivative-001 | 64 columns on same box;1787.97s forward,5.14GiB peak; all32 baseline column comparisons pass | Original prototype only; all67 artifacts audited |
 | proposal-budget-001 | Numerical factored-bound budget; limiting common induced-infinity Jacobian discrepancy about2.59e-9 | Planning diagnostic, not rigorous operator bound |
@@ -34,32 +35,29 @@ checks, exact receipt hashes and every configuration's outcome.
 
 ### Current owned computation
 
-No Codex model job is active at this checkpoint. `center-secant-001` completed
-from source `ac376355a37f6dc1368128ed8c9519a7bd2afb2a` in1422.10 seconds,
-exit0, no timeout, peak5.68GiB. All107 artifacts and69 exact source blobs were
-audited; all eight original phase enclosures and the strict exact residual
-norm decrease passed. The `accelerated` formula achieved a reduction ratio of
-about3.01e-13, comparable to earlier fixed-R passes; there was no matched
-counterfactual, so this is not evidence of an acceleration advantage.
+No Codex model job is active at this checkpoint. `center-parallel-001` completed
+from source `a28d7428c25d68ae2f936129771728f535d33118`, exit0 without timeout,
+in325.21 seconds. All201 artifacts,90 exact source blobs, eight original phase
+enclosures and termination rows passed root and independent audit. The new
+residual upper bound is strictly below the old lower bound, with ratio about
+1.63e-13. Peak sampled aggregate RSS was20.775GiB; this is not a hard cgroup cap.
+The recorded proposal reason `accelerated` does not establish acceleration;
+there was no matched runtime or convergence comparison.
 
-Reviewed `center_continue.py` now resumes the exact post-proposal factor state,
-consumes its pending pair once, and freezes the entire next tuple before four
-independent CPU1 workers. The completed real-parent reader integration took
-63.12s and1.08GiB;240 focused synthetic tests passed, including complete capsule
-round-trip admission and corruption controls. The concrete one-candidate plan
-`center-parallel-001-plan.json` is independently reviewed. It allows1800s total,
-600s per worker,18GiB address space per worker,32GiB sampled aggregate RSS and
-12GiB minimum available memory. Ideal two-wave timing is an estimate, not a
-measured speedup. This checkpoint is **before launch**; check the exclusive
-`center-parallel-001` attempt and final receipt before doing anything that could
-duplicate it. No GPU, paid pod or paid consultation is in use.
+The complete audited capsule has four factors and an unconsumed tuple4-to5
+pair. The unchanged history cap will discard this pair and restart with no
+factors before the next proposal; clearing then re-admitting it would change
+the method. The next candidate will use its own committed plan/card and the
+independent audit pin. Immediate capsule bytes are authenticated again; older
+archives rely on the disclosed prior independent audit rather than being
+silently claimed as rehashed. No GPU, paid pod or paid consultation is in use.
 
 ### Remaining route to the certificate
 
-1. Run and audit the bounded one-candidate parallel pilot. Preserve all factors
-   after proposal fallbacks, consume the pending consecutive secant exactly
-   once, and measure actual wall time and aggregate memory before extending
-   the approach.
+1. Continue complete audited parallel candidates until centre refinement is
+   adequate for final derivative boxes. Preserve every update, restart, fallback
+   and regression; never reuse a partial attempt. The first parallel pass
+   measured325.21s total; future costs remain measured outcomes.
 2. Define exact candidate centres and phase radii after adequate refinement.
    The original prototype boxes do not contain the refined centres and cannot
    be reused as proof boxes. Small residual alone does not establish inclusion.

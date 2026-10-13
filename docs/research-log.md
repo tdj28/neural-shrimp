@@ -21325,3 +21325,8 @@ _commit `f236faf225e8` (dirty worktree)_
 - **Would surprise us:** no accuracy change up to 1.15 (then generation is as tolerant as scoring), or a drop already at 1.05 (below every spectral lam_c)
 
 _commit `1625b7948011`_
+## 2026-10-13 06:47 UTC: Task 1: complete parallel candidate independently audited
+
+center-parallel-001 (source a28d7428c25d68ae2f936129771728f535d33118, receipt 14cbe396059a7eef676244d6252503c2605811a279a8a0efdd42f2a244368bc0) completed exit0/no timeout. Root and independent audits checked all201 artifacts,90 exact source blobs, all8 phase inputs/images/termination rows and the new capsule. Strict exact residual decrease2.15532758337e-64 to3.52379101054e-77; reduction upper1.63492131671e-13. One pending secant accepted, history3 to4; next pair4-to5 must be discarded at the unchanged cap restart. Launcher325.209s; sampled aggregate peak20.775GiB. No matched speedup/acceleration or orbit certificate. Audit code/reports, including the initial root schema-key error and its correction, retained immutably under /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-001. Compact receipt certificates/llm-p8-center-parallel-001.json. Next: a separately planned and audited complete continuation; no full derivative campaign launched.
+
+_commit `211f1a1c1037` (dirty worktree)_
