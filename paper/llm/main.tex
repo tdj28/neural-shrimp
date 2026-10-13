@@ -108,15 +108,19 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   parameters located in float64 through period 384; the finite-order interval ratios rise to $4.478$ and $4.625$
   (Section~\ref{sec:cascade}).
 \item A bridge to sampled decoding (Section~\ref{sec:bridge}); the same organization in Qwen2.5-1.5B, with a
-  period-doubling route (Section~\ref{sec:scale}); and a second system, a recurrent-depth model with a predicted and
-  observed Neimark--Sacker bifurcation, spectral predictions of its response to relaxation, native instability for
-  some prompts, and accuracy that tolerates the instability until it is large (Section~\ref{sec:huginn}).
+  period-doubling route, and chaos with embedded windows in Qwen2.5-7B (Section~\ref{sec:scale}); and a second
+  system, a recurrent-depth model with a predicted and observed Neimark--Sacker bifurcation, spectral predictions of
+  its response to relaxation (question by question), native instability for some prompts, multiple-choice accuracy
+  that tolerates the instability until it is large, and chain-of-thought accuracy that breaks at the predicted
+  thresholds (Section~\ref{sec:huginn}).
 \item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
-  direction-specific capture with dose-dependent persistence and hysteresis; triggered counter-steering is less
-  efficient than mild prevention; a pre-specified lead-time test is negative, and a small warning from the model's
-  in-context state is confirmed on fresh dialogues. Steering the deterministic map along the same direction yields a
-  hostile period-adding cascade with the intermittency mechanism of item 3 (Section~\ref{sec:misalignment}).
-  \planned{probe-timed counter-steering.}
+  direction-specific capture with dose-dependent persistence and hysteresis. A pre-specified lead-time test is
+  negative; a small warning from the model's in-context state is confirmed on fresh dialogues, and Monte Carlo
+  estimates of the committor show that this warning is close to all that is attainable. Counter-steering triggered
+  after a hostile reply is less efficient than mild prevention, but replacing flagged replies before they enter the
+  dialogue keeps the model's own hostility low at a quarter of the dose. Steering the deterministic map along the same
+  direction yields a hostile period-adding cascade with the intermittency mechanism of item 3, and a fold-bounded
+  period-7 body with a doubling bubble (Section~\ref{sec:misalignment}).
 \end{enumerate}
 
 \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels.
