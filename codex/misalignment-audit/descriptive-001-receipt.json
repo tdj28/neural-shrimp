@@ -1,0 +1,186 @@
+{
+  "source_commit": "6a5bb5f518916b3a356d169973a29f354104b75b",
+  "admission_commit": "ba16399aaf8e0622106f3f3b52a6214845a627a4",
+  "mode": "descriptive",
+  "root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-001",
+  "owner_root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-001-owner",
+  "worker": {
+    "completed": true,
+    "mode": "descriptive",
+    "seconds": 1.7661260650493205,
+    "peak_rss_bytes": 126947328,
+    "pid": 538860,
+    "outputs": [
+      {
+        "name": "descriptive.json",
+        "bytes": 77403,
+        "sha256": "59f3d37f28628685e1a23f6eca60b054ff329548a50d47234feaf1327ecb0833"
+      },
+      {
+        "name": "input-manifest.json",
+        "bytes": 15266,
+        "sha256": "0f126b761427593a32ffc46022424c707a190c1afeca1cefe7a9e26da51c3a84"
+      },
+      {
+        "name": "run-card.json",
+        "bytes": 18614,
+        "sha256": "27d7b9aa6243dd51ae09d02988080a43d5bcf6c09730cee7cb298c6764e9f007"
+      },
+      {
+        "name": "runtime.json",
+        "bytes": 1769,
+        "sha256": "db82d0ad187229efa9c0c0e2098ada49ba26820251d23b55b6289837e4b010b0"
+      }
+    ]
+  },
+  "supervisor": {
+    "completed": true,
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-001-owner/card.json"
+    ],
+    "worker_exit": 0,
+    "peak_sampled_aggregate_rss": 146239488,
+    "seconds": 1.9092677189037204,
+    "owned_worker_exited": true,
+    "raw_bytes_before_closing": 133552,
+    "files": [
+      {
+        "name": "card.json",
+        "bytes": 18613,
+        "sha256": "8281958b8e79dd01c0b0d1fde894c1b53fe519cd7c78f1e1a5355cf961af69d0"
+      },
+      {
+        "name": "owned-process.json",
+        "bytes": 513,
+        "sha256": "7a84448f40d7273e9f37e2a1cb85ae9dfdbafe0d9ee186ccc1c63658a2fbf645"
+      },
+      {
+        "name": "stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "stdout",
+        "bytes": 622,
+        "sha256": "838368b331c4bdf46667345cee96a80b4c3c860d183e2fe59ba13e343d5cce3a"
+      }
+    ]
+  },
+  "owned": {
+    "launcher": {
+      "pid": 538797,
+      "starttime": 183962417,
+      "pgrp": 538797,
+      "session": 538797
+    },
+    "worker": {
+      "pid": 538860,
+      "starttime": 183962430,
+      "pgrp": 538860,
+      "session": 538860
+    },
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-001-owner/card.json"
+    ]
+  },
+  "all_owned_pids_absent": true,
+  "inventory": [
+    {
+      "path": "descriptive-001/descriptive.json",
+      "bytes": 77403,
+      "sha256": "59f3d37f28628685e1a23f6eca60b054ff329548a50d47234feaf1327ecb0833"
+    },
+    {
+      "path": "descriptive-001/input-manifest.json",
+      "bytes": 15266,
+      "sha256": "0f126b761427593a32ffc46022424c707a190c1afeca1cefe7a9e26da51c3a84"
+    },
+    {
+      "path": "descriptive-001/result.json",
+      "bytes": 752,
+      "sha256": "4e58b48c18edaeffb9f44f4d52bd3401174ad1c0eea42d37db4565a00ad4c21e"
+    },
+    {
+      "path": "descriptive-001/run-card.json",
+      "bytes": 18614,
+      "sha256": "27d7b9aa6243dd51ae09d02988080a43d5bcf6c09730cee7cb298c6764e9f007"
+    },
+    {
+      "path": "descriptive-001/runtime.json",
+      "bytes": 1769,
+      "sha256": "db82d0ad187229efa9c0c0e2098ada49ba26820251d23b55b6289837e4b010b0"
+    },
+    {
+      "path": "descriptive-001-owner/card.json",
+      "bytes": 18613,
+      "sha256": "8281958b8e79dd01c0b0d1fde894c1b53fe519cd7c78f1e1a5355cf961af69d0"
+    },
+    {
+      "path": "descriptive-001-owner/owned-process.json",
+      "bytes": 513,
+      "sha256": "7a84448f40d7273e9f37e2a1cb85ae9dfdbafe0d9ee186ccc1c63658a2fbf645"
+    },
+    {
+      "path": "descriptive-001-owner/result.json",
+      "bytes": 1073,
+      "sha256": "18eb59fc72bc6cbd5025784aa6b1da0b9c67e725a7e594156cb1d440f7c559d3"
+    },
+    {
+      "path": "descriptive-001-owner/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "descriptive-001-owner/stdout",
+      "bytes": 622,
+      "sha256": "838368b331c4bdf46667345cee96a80b4c3c860d183e2fe59ba13e343d5cce3a"
+    }
+  ],
+  "comparison": {
+    "path": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-comparison-001.json",
+    "sha256": "e63da83a0ea0cc0826bca68b73a72e491f04ebe51549a6d4762eaa8420ee1243",
+    "bytes": 41495,
+    "manuscript_checks": 72,
+    "machine_checks": 50,
+    "manuscript_discrepancies": [
+      {
+        "id": "history.contrast.hold040-minus-fresh040",
+        "actual": 0.09453125000000001,
+        "expected": 0.1,
+        "delta": -0.0054687499999999944,
+        "tolerance": 0.005,
+        "within_rounding": false,
+        "reference": "paper/llm/main.tex:794-815",
+        "context": null
+      },
+      {
+        "id": "history.ci.hold040-minus-fresh040",
+        "actual": [
+          0.04453125000000002,
+          0.14609375
+        ],
+        "expected": [
+          0.05,
+          0.15
+        ],
+        "delta": [
+          -0.005468749999999981,
+          -0.00390625
+        ],
+        "tolerance": 0.005,
+        "within_rounding": false,
+        "reference": "paper/llm/main.tex:794-815",
+        "context": "Historical RNG/bootstrap-count not specified in located source; own fixed 4000 seed0 dialogue interval, distinguish Monte Carlo differences."
+      }
+    ],
+    "machine_discrepancy_count": 0
+  }
+}

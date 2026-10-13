@@ -1,0 +1,140 @@
+{
+  "source_commit": "6a5bb5f518916b3a356d169973a29f354104b75b",
+  "admission_commit": "ba16399aaf8e0622106f3f3b52a6214845a627a4",
+  "mode": "l7",
+  "root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-001",
+  "owner_root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-001-owner",
+  "worker": {
+    "completed": false,
+    "mode": "l7",
+    "error": "ValueError('nonfinite detector input')",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py\", line 143, in main\n    execute(mode,out,card)\n  File \"/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py\", line 107, in execute\n    train=[load_detection(a) for a in TRAIN]\n           ^^^^^^^^^^^^^^^^^\n  File \"/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/inputs.py\", line 100, in load_detection\n    raise ValueError('nonfinite detector input')\nValueError: nonfinite detector input\n",
+    "seconds": 0.7844362449832261,
+    "peak_rss_bytes": 251121664,
+    "pid": 539316,
+    "outputs": [
+      {
+        "name": "input-manifest.json",
+        "bytes": 2085,
+        "sha256": "b40ed73e93800c168097c90b35a467e5ca5b1d855664633db1a26df51db489ed"
+      },
+      {
+        "name": "run-card.json",
+        "bytes": 4786,
+        "sha256": "b43c7c5f783f1bdd5b0a3d05cb6435174688b984610f0f8078d20c0bcb8dd82a"
+      },
+      {
+        "name": "runtime.json",
+        "bytes": 1769,
+        "sha256": "e2254561eea278832b2a7a433969afb1eaaf8b0eec1e5abccfaf8408135edd25"
+      }
+    ]
+  },
+  "supervisor": {
+    "completed": false,
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-001-owner/card.json"
+    ],
+    "worker_exit": 2,
+    "peak_sampled_aggregate_rss": 250376192,
+    "seconds": 0.9053827358875424,
+    "owned_worker_exited": true,
+    "raw_bytes_before_closing": 16445,
+    "files": [
+      {
+        "name": "card.json",
+        "bytes": 4785,
+        "sha256": "5b006e9b520f289d37e10eb39e33ba8f41a33e6b4dd48d84dc49fa57f6c03445"
+      },
+      {
+        "name": "owned-process.json",
+        "bytes": 504,
+        "sha256": "e050a5ab529d89cde7253c21d11a61b4a14b6e696e7f6abe82acdadbf45b9a1a"
+      },
+      {
+        "name": "stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "stdout",
+        "bytes": 1205,
+        "sha256": "85396b5108219017ef47211986e446759221548ef66ff66c9fe170924d482f34"
+      }
+    ]
+  },
+  "owned": {
+    "launcher": {
+      "pid": 539253,
+      "starttime": 183968377,
+      "pgrp": 539253,
+      "session": 539253
+    },
+    "worker": {
+      "pid": 539316,
+      "starttime": 183968389,
+      "pgrp": 539316,
+      "session": 539316
+    },
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-001-owner/card.json"
+    ]
+  },
+  "all_owned_pids_absent": true,
+  "inventory": [
+    {
+      "path": "l7-001/input-manifest.json",
+      "bytes": 2085,
+      "sha256": "b40ed73e93800c168097c90b35a467e5ca5b1d855664633db1a26df51db489ed"
+    },
+    {
+      "path": "l7-001/result.json",
+      "bytes": 1311,
+      "sha256": "bdaa36f1331c5a4bdc6849839fd4bf5c5e64f1e59f6bebd4585cdd348599ff31"
+    },
+    {
+      "path": "l7-001/run-card.json",
+      "bytes": 4786,
+      "sha256": "b43c7c5f783f1bdd5b0a3d05cb6435174688b984610f0f8078d20c0bcb8dd82a"
+    },
+    {
+      "path": "l7-001/runtime.json",
+      "bytes": 1769,
+      "sha256": "e2254561eea278832b2a7a433969afb1eaaf8b0eec1e5abccfaf8408135edd25"
+    },
+    {
+      "path": "l7-001-owner/card.json",
+      "bytes": 4785,
+      "sha256": "5b006e9b520f289d37e10eb39e33ba8f41a33e6b4dd48d84dc49fa57f6c03445"
+    },
+    {
+      "path": "l7-001-owner/owned-process.json",
+      "bytes": 504,
+      "sha256": "e050a5ab529d89cde7253c21d11a61b4a14b6e696e7f6abe82acdadbf45b9a1a"
+    },
+    {
+      "path": "l7-001-owner/result.json",
+      "bytes": 1064,
+      "sha256": "c874326a5da8acd38a2243c0575f4edba3744b209137bdf5772cf4f9963a1bac"
+    },
+    {
+      "path": "l7-001-owner/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "l7-001-owner/stdout",
+      "bytes": 1205,
+      "sha256": "85396b5108219017ef47211986e446759221548ef66ff66c9fe170924d482f34"
+    }
+  ],
+  "scope": "Failed before any fit/feature table. Terminal probe39 NaNs rejected by overly broad finite guard. No selected rows changed, no successful detection output."
+}
