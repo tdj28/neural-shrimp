@@ -678,7 +678,9 @@ questions) the residual stops decaying. For 6 of 30 development questions the na
 ($\rho(1)=1.009$--$1.273$; the fixed point, located with a relaxed transient, has a real multiplier beyond $-1$ or a
 complex pair outside the circle), so the native loop oscillates (relative amplitude $2\times10^{-2}$ for one of them),
 and relaxation to $0.55$ or $0.75$ restores convergence to $10^{-6}$. For the other 24 the native loop is stable up to
-$\lambda=1.020$--$1.149$ (median $1.095$). This is consistent with the latent orbits that \citet{geiping2025recurrent}
+$\lambda=1.020$--$1.149$ (median $1.095$). The prediction holds question by question: within each $\lambda$ arm, the
+spectral radius $\rho_q(\lambda)$ of a question's own fixed point ranks that question's residual after 32 steps
+(Spearman $0.73$ at $\lambda=1$ and $0.75$ at $1.10$ over the 30 questions; development data). This is consistent with the latent orbits that \citet{geiping2025recurrent}
 observed on some tokens of harder questions, here traced to the fixed point's spectrum. Accuracy, however, tolerates
 the instability (300 training questions, 32 steps): $0.367$ native, $0.387$ at $\lambda=1.10$ and $0.373$ at $1.15$,
 where the latent state oscillates with relative size $0.08$ and $0.23$; only at $1.25$ (size $0.68$) does it fall, to
