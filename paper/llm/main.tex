@@ -40,7 +40,8 @@ independently computed folds, 23 of 24 prospectively frozen forecasts are accura
 all-row criterion. Fold and flip curves reveal candidate shrimp organization, while superstable points through period
 384 yield finite-order ratios approaching Feigenbaum's constant. In the native recurrence of the recurrent-depth model
 Huginn, spectral estimates at fixed points predict a Neimark--Sacker bifurcation and, in development experiments, the
-relaxation strengths at which convergence and chain-of-thought accuracy break. In sampled self-dialogue, hostility
+relaxation strengths at which convergence and chain-of-thought accuracy break; a frozen test on 200 held-out problems
+confirms no accuracy loss below that threshold and a collapse above it. In sampled self-dialogue, hostility
 steering produces dose-dependent persistence and history dependence. Replacing classifier-flagged replies before they
 enter the context keeps the model's own hostility, as judged by that classifier, low with a quarter of the steering
 dose of constant prevention. A frozen confirmation finds a small increment in advance warning from the model's
@@ -91,7 +92,7 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   system, a recurrent-depth model with a predicted and observed Neimark--Sacker bifurcation, spectral predictions of
   its response to relaxation (question by question), native instability for some prompts, multiple-choice accuracy
   that tolerates the instability until it is large, and chain-of-thought accuracy that breaks at the predicted
-  thresholds (Section~\ref{sec:huginn}).
+  thresholds, confirmed on held-out problems by a frozen test (Section~\ref{sec:huginn}).
 \item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
   direction-specific capture with dose-dependent persistence and hysteresis. A pre-specified lead-time test is
   negative; a small warning from the model's in-context state is confirmed on fresh dialogues, and finite Monte
