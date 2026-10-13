@@ -217,6 +217,24 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
     PY=/root/venv-huginn/bin/python TOOL=huginn_relax_eval.py run huginn-$name "$minutes" "${JOBARGS[@]:2}" \
       --out $D/huginn/$name
     ;;
+  hverify)     # float64 verification of candidate windows of the hostility-steered map (vectors-l12-p1b,
+               # hostility-vs-kindness): JOBARGS entries orbit:NAME:LOGT:ALPHA (Newton orbit at a cell) or
+               # branch:NAME:LOGT:ALPHA:FREE:DIR:LO:HI (continuation in alpha or temperature from that cell)
+    HV="--vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness"
+    for spec in "${JOBARGS[@]}"; do
+      IFS=: read -r kind name lt al free dir lo hi <<< "$spec"
+      case $kind in
+        orbit)
+          run horbit-$name 15 orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12 $HV \
+            --log-temperature $lt --alpha $al --out $D/hverify/orbit-$name ;;
+        branch)
+          run hbranch-$name 40 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp --steps 150 \
+            --chunk 896 $HV --free $free --log-temperature $lt --alpha $al --direction $dir --ds 0.002 --ds-max 0.01 \
+            --beyond 0.003 --bounds $lo $hi --out $D/hverify/branch-$name ;;
+        *) echo "unknown hverify entry $spec" ;;
+      esac
+    done
+    ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
