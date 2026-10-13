@@ -103,3 +103,17 @@ exploratory selected-state analysis can claim.
 primary-admission/preservation issues above are closed or explicitly excluded.
 No empirical detectability ceiling, mechanistic classification, result pass,
 new confirmatory evidence or model execution is certified by this source review.
+
+## Final source-only closure — eef65a92, 13 October 2026
+
+Root independently read the complete source/test diff at
+`eef65a929c9dcbecdc7bcd4b42682e4b564845eb` and accepts closure of the four
+specific remaining admission issues: separate coverage/provenance and primary
+eligibility, the default frozen32/3/1706 run contract, selected-key uniqueness
+and count checks, and exclusive failure output. Heuristic field names,
+undefined-draw counts and the limited-progress timeline wording were corrected.
+This is source-inspection acceptance only: no producer test, model, analysis or
+outcome was executed or read in that review. Actual data/assets, fidelity,
+explicit rescore2000 invocation and exploratory-scope obligations remain.
+The authoritative correction commit time is13:14:50UTC; Claude disclosed that
+the earlier13:20 and13:25 communication headings were approximate timestamps.
