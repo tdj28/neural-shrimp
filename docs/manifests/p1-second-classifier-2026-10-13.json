@@ -1,0 +1,229 @@
+{
+ "created": "2026-10-13",
+ "writer": "tools/hostility_score.py score-second (commit df64645f), local GPU",
+ "writer_status": "completed: all 44 runs scored, exit status 0, no file written after completion",
+ "classifier": "s-nlp/roberta_toxicity_classifier",
+ "revision": "048c25bb1e199b98802784f96325f4840f22145d",
+ "files": [
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-c030-s1/hostility-second.npz",
+   "bytes": 18853,
+   "sha256": "54b3cca7f574164e95368f9b8cd58c6d6c20e7e6c6d8bbe2147db71038671d9c"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-c030-s2/hostility-second.npz",
+   "bytes": 18764,
+   "sha256": "d2018e6f09c2cc7c2f774a80799f5aa1cfa8fdcac4271c26fb1dfe4bfe498072"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-c040-s2/hostility-second.npz",
+   "bytes": 18242,
+   "sha256": "4dc3124603e7a6d8c75333e4d742f844076c0524a9192ca583d7284a80fd7d96"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ck-060/hostility-second.npz",
+   "bytes": 18752,
+   "sha256": "c3d56c2a42d651dc1b18e5bf90ad83474859c0ff2e0e8b6d9f585cf375002eda"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ck-080/hostility-second.npz",
+   "bytes": 19391,
+   "sha256": "956c720e326a950b71827937e610e81046d4e051d97cfeaf979f63d2331cb5a5"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-conf040/hostility-second.npz",
+   "bytes": 70371,
+   "sha256": "f54bba017d910d57fc49b72e00cc782e86a4d6c2c3bfed129b2a017e8ef15906"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-conf045/hostility-second.npz",
+   "bytes": 67888,
+   "sha256": "0c70cec46c84a134c30adc98664c4873b938ee3f5fe24aaf8db9dea85e84a1a6"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/hostility-second.npz",
+   "bytes": 18095,
+   "sha256": "6d5523bca234092d6219f061450ee9551555d99e00dce8e9a65a9aa0898123dd"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/hostility-second.npz",
+   "bytes": 16540,
+   "sha256": "d6f6612cd1492e6b353bfb1842e060a6b3e333880091628bd2113e35e9794109"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl-none/hostility-second.npz",
+   "bytes": 16469,
+   "sha256": "df60159b8ee6d14d40e1592c1ca137db06ab8a3e34ef5339cde3aed34320e6a7"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/hostility-second.npz",
+   "bytes": 18500,
+   "sha256": "51735f25314e6713074a838d59c965687f8ad49140fd52e9b8cc464c9e7536ad"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/hostility-second.npz",
+   "bytes": 15820,
+   "sha256": "46d2c69fb358d9206f3a6fe34d5723608b5c73b597e515105f17b5e4d69ccc6f"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/hostility-second.npz",
+   "bytes": 18565,
+   "sha256": "49838cf17b4794ec65b373478af79fd29232833c655263450af1644828a79648"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/hostility-second.npz",
+   "bytes": 18885,
+   "sha256": "a633de56b2fe2c250b4915e19afbf63612886d8dad522a26d728f0bc836289f6"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl2-const-02/hostility-second.npz",
+   "bytes": 18411,
+   "sha256": "a0fdd34bb92a3d319446668b263f3372ad8ffd448dca437e20ad39d933f5f46b"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl2-const-04/hostility-second.npz",
+   "bytes": 16504,
+   "sha256": "fa60ae0f5458866b3fefa9c89242023daaa0cbf86aac81955af62888ca5a744e"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl2-none/hostility-second.npz",
+   "bytes": 15888,
+   "sha256": "fe315078fa62afd64fac98c263547983d119e3c884f678adfc70bc6d0ae46642"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x0/hostility-second.npz",
+   "bytes": 17232,
+   "sha256": "d966bd5c85a6eeb58c7c6c07f833befed5427b9617a2be7ef3fde6d7211c91d7"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x3/hostility-second.npz",
+   "bytes": 18362,
+   "sha256": "0192f39f3282eaf94947e05508ef543d906d870a85e927c935e4236b1f6581d9"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-06x3/hostility-second.npz",
+   "bytes": 18352,
+   "sha256": "70443492f4603598adde25bb124668147d314e11d2eab7b5f297c6543ffb80e4"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ctl2-trig-06x3/hostility-second.npz",
+   "bytes": 18375,
+   "sha256": "89d03c55d09c5afd646cbfa806f3488fca8c6f9f79e04a11b4fcf138d2734bc8"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-det040/hostility-second.npz",
+   "bytes": 35534,
+   "sha256": "232a21c9a13008b84218219e6bbac72cb05ab7534cde769ae28ccb77b9d1c3f1"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-det045/hostility-second.npz",
+   "bytes": 34215,
+   "sha256": "e9f782e3d7fb1f816a5afe2ea50719fafc0b65ba5b816269b9ef1bbec7b69570"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exit000-s2/hostility-second.npz",
+   "bytes": 17836,
+   "sha256": "2b603eb9f7f4341fb91cc95efe6dff09fcc992333213d572e1c88207539f84e2"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exit000/hostility-second.npz",
+   "bytes": 17615,
+   "sha256": "bc475c52c789479c01b8a57f427c8cb01b41e24897a1371fb28678e3c34b6854"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exit020/hostility-second.npz",
+   "bytes": 18019,
+   "sha256": "4931ae59844a40265f60fce8e970c8dd596ce6ab89d5391d5533f9ca34a9d086"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exit030-s2/hostility-second.npz",
+   "bytes": 18382,
+   "sha256": "cdd23c221988db323de7b2c1c288fa3fa9f2188608a22c966a9a9c463d4a6d0a"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exit030/hostility-second.npz",
+   "bytes": 18506,
+   "sha256": "c6508ee7114fca281a17fbfc5fdeffef29eadb18b529cfa09bed9501206f9742"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exit040-s1/hostility-second.npz",
+   "bytes": 17839,
+   "sha256": "6b48adff846302559ab246769db6d8902fe75d52ef62650a642697f792e8bc60"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exit040-s2/hostility-second.npz",
+   "bytes": 17799,
+   "sha256": "9db5cf11a0903fccdbcad0714d11e7ba76f5d601bb0ae257a69ed7f1de26cd66"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exitm020-s2/hostility-second.npz",
+   "bytes": 18224,
+   "sha256": "210990d81646252690eded945177ddcffa19b3b84a4541c2c012e93602032db7"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-exitm020/hostility-second.npz",
+   "bytes": 18350,
+   "sha256": "c18d8638e3da5209c48993864447c44cd4cc5060ceca817e5ec86e1c2866871b"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-free/hostility-second.npz",
+   "bytes": 14355,
+   "sha256": "23279ad559f9a97907b307359e776aa86209534148b10dc2fedfbb6508c788a3"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-h040/hostility-second.npz",
+   "bytes": 18411,
+   "sha256": "a0fdd34bb92a3d319446668b263f3372ad8ffd448dca437e20ad39d933f5f46b"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-h050/hostility-second.npz",
+   "bytes": 17171,
+   "sha256": "5c814c9568cb365d0611b5edc4cc7b073093def1516f0b5860cacda1af79d37e"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-h050s2/hostility-second.npz",
+   "bytes": 17041,
+   "sha256": "765dbe777e9623875adc0a01eef9dc07cfae795002e26297f21dd9eef100e509"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-h060/hostility-second.npz",
+   "bytes": 15888,
+   "sha256": "fe315078fa62afd64fac98c263547983d119e3c884f678adfc70bc6d0ae46642"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-h060s2/hostility-second.npz",
+   "bytes": 15836,
+   "sha256": "6f66bc6d4d20e1f4902046d17fabf1df9bf855afdcca76e76ef7e95fad188056"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-h070/hostility-second.npz",
+   "bytes": 14952,
+   "sha256": "87a9e5a06599286a9b24ce87ad4fd09e1f729091768b5aa2bffb6f027ee39b58"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-r1-060/hostility-second.npz",
+   "bytes": 14121,
+   "sha256": "25248dafdbc1368c8f0f0fd4e43f54fb3ab77237b238b864016ddcd72e5f538d"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-r1-080/hostility-second.npz",
+   "bytes": 18134,
+   "sha256": "55da0b2c75fda5dee24ccdc606c8f2dad6707f59b2252461ab31dffaf6799644"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-r2-080/hostility-second.npz",
+   "bytes": 15525,
+   "sha256": "12168a311a35bd15a61d704c985c4bacfca593c55c99227d0fe908a7cf10411d"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ramp-s1/hostility-second.npz",
+   "bytes": 17863,
+   "sha256": "3eded25f22c9e7154c4f958437926a61a413705b4debf59a734172d0e6221840"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/msm/p1-ramp-s2/hostility-second.npz",
+   "bytes": 17823,
+   "sha256": "f86a9d9e3ff0baeb81430b4313dbfc9fc97ebf4c7efdb5de95de2e28ab739540"
+  }
+ ]
+}
