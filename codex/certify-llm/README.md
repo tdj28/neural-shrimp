@@ -71,8 +71,7 @@ The earlier domain001 helper count mismatch remains preserved. The reviewed
 first phase0/columns0..63 derivative shard has completed and passed its independent
 original-endpoint/source audit; owned target and launcher terminated. Measured
 cold cost1693.966s, peak5,419,044KiB and75,658,472 raw bytes. See
-`active-certificate-status.md` for exact receipt/authority pins. The remaining111
-shards require a separately reviewed measured resource plan; no campaign is active.
+`active-certificate-status.md` for exact receipt/authority pins. The measured remaining111 campaign001 failed before any new target evaluation: launcher Git fetch inherited the controller1GiB AS limit and could not mmap a repository pack. Its failed uncertainty status and separate verified prefork ownership closure are preserved in `derivative-campaign-001-failure-review.md`. A prospective early launcher AS fix and new campaign002 need review and a new card; no campaign is active.
 The immediate capsule bytes are authenticated; older archives rely on the
 disclosed prior independent audit rather than being claimed as rehashed.
 No GPU, paid pod or paid consultation is in use.

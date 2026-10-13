@@ -1,6 +1,6 @@
 # Active exact-real Qwen certificate work
 
-13 October 2026, 09:54 UTC. **No orbit certificate yet.** This is the assigned full-state soft-token inference map, with all151,936 vocabulary entries; no task-performance or training-cycle claim follows.
+13 October 2026, 10:14 UTC. **No orbit certificate yet.** This is the assigned full-state soft-token inference map, with all151,936 vocabulary entries; no task-performance or training-cycle claim follows.
 
 ## Completed owned job; no active target computation
 
@@ -16,6 +16,12 @@ The final immutable receipt SHA is `71c1d2e0fba791201f51ad962495dd1210bde8ba73ca
 Immutable audit archive: `/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-derivative-p0-c000-001`; manifest `983fc7e3b507837ccd96626835b1665273e0d7dd3e730053efc56aecc11fe309`. Original independent audit JSON SHA `4761bf76bf0390dffe2de9f544766e40f3420a45291b62b1fe5d3cb4fd9c8d30` supplies the dispatcher's first-result measured authority. The process-termination observation is separately retained.
 
 Same-chat follow-through automation: `complete-qwen-p8-certificate`, created by root. It must inspect current live ownership and this durable state before doing work; never dispatch duplicates. The remaining111 fixed plans and five-worker measured card are prepared in `derivative-campaign-001-plan.json` and `derivative-campaign-001-run-card.md`; Root retains the final concrete plan/resource launch decision. The independently reviewed prospective nice10 and startup command-admission corrections leave all mathematical evaluator sources unchanged. No campaign is active.
+
+## Preserved campaign001 operational failure
+
+The approved five-worker campaign ran from clean pinned source `f599263f6f3009b1ecdee3dbe9d7e7e9960a2824` in the Task5 execution checkout, but its first launcher failed before creating a target attempt: Git fetch could not mmap a1.37GB repository pack under the inherited controller1GiB AS limit. Tool session11929 was reaped exit1. Original status remains `campaign_failed_uncertain_ownership`; separate source/traceback/absence evidence establishes zero new target evaluations and verified absence of controller479461, launcher479709 and their owned groups/sessions. No numerical derivative failed and no retry was made. See `derivative-campaign-001-failure-review.md` and the matching compact failure receipt.
+
+Immutable failure archive manifest `f8a5273ffeeea0a2dfff1ab1c1444760bdb941aae4048c88fc3d0173c3939d51`. Root has authorized preparation only of a new campaign002 after a reviewed early launcher AS correction; the attempted c064 identity becomes c064-002, with110 other plans unchanged. No campaign is active, and no restart is authorized until new source/card/private push and Root's concrete approval. Do not duplicate campaign001 or change the completed first shard.
 
 ## Completed centers and frozen domain
 

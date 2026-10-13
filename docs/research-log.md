@@ -21698,3 +21698,12 @@ _commit `73a2733b5939`_
 - **Would surprise us:** A failed/nonfinite shard, source/domain mismatch, resource breach or uncertain ownership stops dispatch and is preserved; completing derivatives still requires full independent coverage and strict root/primitive/attraction gates.
 
 _commit `7838b2ee6924` (dirty worktree)_
+
+## 2026-10-13 10:13 UTC: amendment to `codex/certify-llm/derivative-campaign-001-plan.json`
+
+- **Change:** Stop and preserve campaign001; prepare separately reviewed early launcher18GiB AS admission before Git, then a new campaign002 and c064-002 identity. Other110 unstarted plans and all mathematical sources/domains/resources remain unchanged.
+- **Why:** The first launcher inherited controller1GiB soft AS; Git fetch could not mmap a1373682913-byte pack. Source/traceback show failure at line58 before attempt mkdir60 or target Popen88. Tool11929 reaped exit1; controller479461/launcher479709 and their owned groups/sessions absent. Original failed_uncertain status stays unchanged; independent closure is supplemental.
+- **Outcomes seen:** Only operational admission/registration/stderr and original frozen source were inspected. Zero new target evaluations; c064-001 attempt directory absent; first successful final shard unchanged. Full failed evidence archive manifestf8a5273ffeeea0a2dfff1ab1c1444760bdb941aae4048c88fc3d0173c3939d51.
+- **Claim impact:** No orbit certificate, no evidence against derivative enclosure and no automatic retry. New source review/card/private push, Root approval and exact resource admission are required.
+
+_commit `f599263f6f30` (dirty worktree)_
