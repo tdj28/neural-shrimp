@@ -8,7 +8,7 @@
 - Bounded scope: **18 retained blocks +94 missing**, with four new002 identities for interrupted attempts and90 unchanged never-started identities. FiveCPU1 workers/sevenCPU reservation,17h total from12:52UTC,18GiB/3600s per worker,34GiB sampled aggregate RSS,12GiB available floor,24GiB raw storage including retained/failed history. No automatic retry. Startup headroom57,365,553,152bytes exceeded46GiB.
 - Original campaign001 and002 failures,17 successful002 blocks and four interrupted001 shard attempts remain untouched. Closed002 had no mathematical failure. No target interval certificate is established yet.
 
-Task6 scoped reproduction is complete and delivered (comms e0b809f6); Task7 fold and saved-array audit are independently accepted and delivered (comms f3c2f646), Task7 controlled passages are now complete and independently audited: six observed rows, frozen quadratic criterion5/6 so aggregate failure retained, no retry. Original Task7 model/audit processes are closed; see Task7 active-status and passage-001-review-receipt.json. Task1 remains the priority computation; the separately reviewed Task14 resource-only CPU profile is also live as recorded below. L9 source/design review is complete and delivered (comms d06e8373), with no outcome or pod reads. Same-chat automation `complete-qwen-p8-certificate` continues every30minutes, checks live owners before acting and stays quiet for healthy unchanged states. Root is updating its phase prompt to this recovery.
+Task6 scoped reproduction is complete and delivered (comms e0b809f6); Task7 fold and saved-array audit are independently accepted and delivered (comms f3c2f646), Task7 controlled passages are now complete and independently audited: six observed rows, frozen quadratic criterion5/6 so aggregate failure retained, no retry. Original Task7 model/audit processes are closed; see Task7 active-status and passage-001-review-receipt.json. Task1 is again the sole live model computation; the separate Task14 resource-only profile is complete and closed as recorded below. L9 source/design review is complete and delivered (comms d06e8373), with no outcome or pod reads. Same-chat automation `complete-qwen-p8-certificate` continues every30minutes, checks live owners before acting and stays quiet for healthy unchanged states. Root is updating its phase prompt to this recovery.
 
 Current operational checkpoint (14:01–14:05UTC): ten new campaign003 shards,
 phase1 columns256..895, completed under the frozen source/plan. The reviewed
@@ -78,32 +78,25 @@ Root/sibling acceptance. Two auxiliary slots released. Part A awaits complete64
 immutable input authority; no partial outcomes or model/pod access. Tasks11/13
 remain complete;9/10/12 remain Claude's.
 
-Task14(a) current phase20:12UTC: one reviewed resource-only CPU profile is running.
-Source48703bb41fa53162580b4787d066ef709efc0685, plan7384e407f1804ffd41e291d2ddd4caec73ebfdf65c77ed624e646168a0a356a2,
-card9d88a6ceb33fafa6ed98cc8f972850cfe40b861e9d7651b462b651f49df08134.
-Tool session69207; launcher878084/start186886254 and worker878100/start186886434,
-each its own PGID/SID and nice10/12GiB AS. Snapshot and committed source/private
-ancestry checked; full details in `codex/cusp-crosscheck/active-status.md` and
-owned `llm-cusp-crosscheck/profile-001-supervision/startup.json` SHA47b8d042.
-CPU2 worker+supervisor reserves three auxiliary slots, ten total alongside Task1;
-2400s/28GiB startup/16GiB runtime/64MiB output. Fresh available35.16GB before
-launch and30.28GB after load; no other auxiliary job is live. No GPU/paid/podwork.
-Own float64 period7 dense896 timing and fixed directional AD cost probes only,
-original point13/fullmatrix retained. No coefficient/eigenanalysis/P28/PartA
-execution admitted. Producer summaries and historical asset/ID limits disclosed.
-NEW endpoint source preparation may proceed separately; future run waits measured
-profile review. Root accepted source/control/review packet;27 supervisor+12
-numerical controls passed. Both prepared3150098a and reviewed48703bb4 histories
-are private-pushed. The profile is not a fold/cusp/certificate result.
+Task14(a) current phase20:52UTC: the one approved dense resource profile is
+complete and closed. Source48703bb4, receipt75523fb2, full388artifact/9Gitblob/
+896nativecolumn saved-only audit passed; Root accepts exact row13 matrix reuse.
+Total950.423s,dense777.955s,peak5.588GiB; full costs and pins are in
+`codex/cusp-crosscheck/profile-001-receipt.json` and `profile-001-review.md`.
+Session69207 reaped0 and both original PIDs/groups/sessions absent. All three
+auxiliary slots released. No fold/cusp/coefficient result or endpoint launch.
+NEW endpoint code/card preparation waits independent review and measured admission;
+Task1 full evidence/assembly takes priority, PartA replay serialized absent a
+reviewed explicit capacity plan. No GPU/paid/pod access or silent retry.
 
-Latest Task1 health20:10:13UTC: all11 current birth/UID/group/session/command,
-nice10/CPU1/AS identities passed, five phase7 columns0..319 workers progressing
-with empty stderr, no stop/uncertainty. Controller metadata reports80 new plus18
-retained (98/112 operationally complete); scientific enclosure admission pending.
-Available35,171,463,168B before the separate Task14 launch. Frozen execution
-36c5d614/session60449 is untouched. PartA still awaits complete immutable
-64-question authority, no partial outcome access. Task8 PartB and Tasks6/7/L9/11/13
-remain complete; no repeated audits. Same-chat automation retains30min cadence.
+Latest Task1 health20:48:08UTC: all9 current birth/UID/group/session/command,
+nice10/CPU1/AS identities passed, four final phase7c640..832 workers progressing
+with empty stderr, no stop/uncertainty. Controller reports90 new+18 retained=
+108/112 COMPLETION METADATA ONLY. Last full operational checkpoint remains28/112;
+mathematical admission remains pending. Available41,063,620,608B. Frozen execution
+36c5d614/session60449 unchanged. Latest private fetch had no new Claude comms
+beyond19:33; PartA complete immutable authority remains pending and no prefix
+outcomes were accessed. Completed PartB/Tasks6/7/L9/11/13 are not rerun.
 
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 

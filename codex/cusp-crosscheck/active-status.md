@@ -1,4 +1,20 @@
-# Task14(a): bounded dense profile running
+# Task14(a): dense profile complete; endpoint work unlaunched
+
+20:52UTC13October2026. The sole profile001 completed and is fully closed.
+Source48703bb4, original receipt75523fb2, audited388 artifacts/9Git blobs/all896
+native columns/241finite arrays. Root accepted the saved-only evidence and exact
+row13 matrix reuse. Full pins: `profile-001-receipt.json`; interpretation and
+measured timing: `profile-001-review.md`. Total950.423s,dense777.955s,peak5.588GiB.
+Session69207 reaped0; original launcher878084/worker878100/groups/sessions absent.
+No active Task14 model job; three auxiliary slots released. No fold/cusp/proof
+claim and no coefficient/eigenanalysis performed. Endpoint sources are NEW,
+uncommitted preparation pending review/card; actual execution is unadmitted.
+Task1 final evidence/assembly has priority; serialize with PartA saved replay
+unless Root admits a concrete measured concurrency budget. Inference remains
+sole Git/lifecycle owner. No GPU/paid/pod action; no retry.
+
+## Historical profile startup (closed)
+
 
 13 October2026,20:12UTC. Inference owns Git and both original process identities.
 Root accepted one resource-only profile; no endpoint coefficient/eigenanalysis,

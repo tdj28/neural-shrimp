@@ -22387,3 +22387,9 @@ _commit `f18c257849bb` (dirty worktree)_
 - **Would surprise us:** Failure to retain all896 columns or excessive AD cost is a setup failure preserved for measured replanning, never a coefficient result.
 
 _commit `3150098af7a0` (dirty worktree)_
+
+## 2026-10-13 20:57 UTC: Task14 dense profile completes; no endpoint result
+
+Source48703bb4/plan7384e407 original profile001 finished exit0 in950.422960s (full896dense777.955425s), peak5,859,160KiB. Saved-only audit admitted388 immutable artifacts,9 original Git blobs,241 finite arrays and exact all896 basis/state/native matrix assembly; no model replay. Original receipt75523fb2 and separate audit0501f498 preserved. Session69207 reaped and original PID/group/session closure verified; auxiliary slots released. Root accepted measured setup and row13 matrix reuse. See codex/cusp-crosscheck/profile-001-receipt.json and review for all costs/precision limits. No coefficient/eigenanalysis/fold/cusp claim. New endpoint plan remains unadmitted; priority Task1 full evidence/assembly and serialized PartA replay. Task1 reports108/112 completion metadata at20:48, not operational/mathematical admission.
+
+_commit `094b3eecccad` (dirty worktree)_

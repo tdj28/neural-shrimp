@@ -1,0 +1,79 @@
+{
+  "schema": "codex-cusp-resource-profile-receipt-v1",
+  "status": "completed_independently_source_reviewed_and_saved_evidence_admitted",
+  "raw_attempt": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/profile-001",
+  "source_commit": "48703bb41fa53162580b4787d066ef709efc0685",
+  "plan_sha256": "7384e407f1804ffd41e291d2ddd4caec73ebfdf65c77ed624e646168a0a356a2",
+  "card_sha256": "9d88a6ceb33fafa6ed98cc8f972850cfe40b861e9d7651b462b651f49df08134",
+  "original_receipt_sha256": "75523fb2c0077fd5e6bb7835d430256be7b0084ade299816a8d0487650967dd2",
+  "audit_root": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/profile-001-audit-001",
+  "audit_report_sha256": "4b95510bdc5b3e5108fb6a2b43e7c2d94156ed4b1452aaf74b1fab00803cf791",
+  "audit_manifest_sha256": "0501f4983e714ba108b9632430e47e893a2d5f970feb39af72eff5f4370c241e",
+  "supervision_manifest_sha256": "885199c013e8c5362d0f47262d9facfefa86fe816211d994fce2795ec14241a1",
+  "artifact_count": 388,
+  "source_git_blob_count": 9,
+  "finite_native_array_count": 241,
+  "basis_columns": 896,
+  "basis_batches": 56,
+  "matrix_exact_reassembly": true,
+  "matrix_sha256": "ab3d6fbb53e5ed054311d4de7369b80af135aa439f0887a7412b2b4ac8b9667f",
+  "matrix_path": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/profile-001/run/0118-dense896-data-matrix.npy",
+  "seconds": {
+    "total": 950.422959666932,
+    "worker": 947.6180515850428,
+    "dense": 777.9554249108769,
+    "basis_sum": 777.5513831863645,
+    "basis_max": 17.941050285939127,
+    "basis_mean": 13.884846128327938
+  },
+  "other_operations": [
+    {
+      "operation": "prefix-cache",
+      "seconds": 0.401089474093169,
+      "max_rss_kib": 5336528
+    },
+    {
+      "operation": "period-map",
+      "seconds": 1.6170304999686778,
+      "max_rss_kib": 5336528
+    },
+    {
+      "operation": "single-direction",
+      "seconds": 7.527933420147747,
+      "max_rss_kib": 5859160
+    },
+    {
+      "operation": "second-direction",
+      "seconds": 27.755606602178887,
+      "max_rss_kib": 5859160
+    },
+    {
+      "operation": "third-direction",
+      "seconds": 93.15273910597898,
+      "max_rss_kib": 5859160
+    },
+    {
+      "operation": "mixed-second",
+      "seconds": 28.543422162998468,
+      "max_rss_kib": 5859160
+    },
+    {
+      "operation": "physical-alpha",
+      "seconds": 8.30644679395482,
+      "max_rss_kib": 5859160
+    }
+  ],
+  "max_rss_kib": 5859160,
+  "minimum_available_bytes": 25132589056,
+  "retained_total_bytes": 27946103,
+  "stored_dense_single_relative": 8.961474869425734e-13,
+  "saved_only_numpy_relative": 8.961443861994616e-13,
+  "original_processes_closed": true,
+  "tool_session_reaped_exit0": 69207,
+  "root_acceptance": "Root read full audit report and all measured rows; accepted resource profile and same-source/state row13 matrix reuse before this checkpoint.",
+  "resource_probe_only": true,
+  "fold_qualified": false,
+  "cusp_qualified": false,
+  "certificate_passed": false,
+  "no_model_or_AD_replay_in_audit": true
+}
