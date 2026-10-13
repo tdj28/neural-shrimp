@@ -42,7 +42,7 @@ of the model's in-context state just before the next reply (layer 18 of Qwen2.5-
 
 One H100 pod, about 30 minutes; ceiling recorded in the private ledger.
 
-## Amendment 1 (13 October 2026, about 09:45 UTC), before any confirmation outcome
+## Amendment 1 (13 October 2026, 08:19 UTC, commit 8b7411e3), before any confirmation outcome
 
 Codex's read-only review of the frozen source (fa47bbf7) found a labeling bug, reproduced independently by two
 reviewers. `onsets` returns the number of turns (40) as the no-event sentinel, and `at_risk_rows` treated it as an
