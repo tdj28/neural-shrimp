@@ -54,8 +54,8 @@ system, in which a Neimark--Sacker bifurcation predicted from the spectrum of th
 predicted, and in which the spectrum predicts why the native recurrence step is nearly optimal and where larger steps
 fail. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
 direction, whose persistence grows with the dose from flickering bursts to a near-absorbing state, and which is
-history-dependent: after a dose ramp, dialogues stay hostile at a dose where fresh dialogues mostly do not, and
-release needs the dose pushed below the capture range, or a small counter-steer. A
+history-dependent: after capture, dialogues stay hostile at doses where fresh dialogues mostly do not, and
+leaving the hostile state takes the push removed entirely or a small counter-steer. A
 pre-specified test finds no early warning from a coarse-grained dynamical state beyond strong baselines.
 \planned{replication across prompts, steering directions and model sizes.}
 \end{abstract}
@@ -725,19 +725,24 @@ constant $0.05$ (difference $+0.09$, interval $[+0.02,+0.16]$), although the cur
 probability of staying hostile in turns 30--39 is $0.74$ after the ramp and $0.44$ at a constant $0.04$. The hostile
 state is therefore history-dependent: undoing the push that produced it does not undo it.
 
-How far back must the dose go? After the same ramp up (38\,\% of turns hostile at turn 20), holding the dose at
-$0.03$ or $0.02$ from turn 21 releases most dialogues within about 15 turns (late shares $0.08$ and $0.09$, 95\,\%
-intervals $[0.05,0.12]$ and $[0.05,0.13]$); holding $0$ releases them faster ($0.02$), and a counter-steer of $-0.02$
-toward kindness within three turns ($0.00$; one seed of 128 dialogues per arm, analysis stated before the data).
-Release thus needs a dose between $0.03$ and $0.043$, below the range where fresh dialogues begin to be captured
-(Figure~\ref{fig:hysteresis-loop}). The hostile state has a hysteresis loop of finite width in the dose, and a
-modest push in the opposite direction clears it.
+How far back must the dose go? After the same ramp up (38--44\,\% of turns hostile at turn 20), the dose was held
+from turn 21 at a lower value (Figure~\ref{fig:hysteresis-loop}; two seeds of 128 dialogues per arm unless stated;
+analyses stated before the data). Memory persists at every positive dose tested. Held at $0.04$, the late share is
+$0.23$ against $0.13$ for fresh dialogues (difference $+0.10$, 95\,\% interval $[+0.05,+0.15]$); held at $0.03$, $0.13$
+against $0.05$ ($+0.08$, $[+0.04,+0.12]$), and the probability of staying hostile is $0.56$ against $0.29$. Held at
+$0.02$ (one seed) the share is $0.09$. Only at zero dose do captured dialogues nearly clear ($0.03$ against $0$ for
+fresh ones, within about six turns), and a counter-steer of $-0.02$ toward kindness clears them within three turns
+($0.004$). Within 19 turns of the step, the capture and release branches therefore join only near zero dose: the
+hostile state has a wide hysteresis loop in the dose, and leaving it takes the push removed entirely or a modest push
+in the opposite direction. The release curves are still falling at $0.03$, so this is hysteresis on the scale of tens
+of turns; whether captured dialogues would stay captured indefinitely is not tested.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.58\linewidth]{fig-hysteresis-loop.png}
 \caption{Capture and release. Share of hostile turns in turns 35--39 against the dose then applied, for fresh
 dialogues (constant dose) and for dialogues first ramped from $0.04$ to $0.07$ by turn 20 and then held at a lower
-dose (filled triangles) or ramped back down (open triangle). Bars: dialogue-level bootstrap 95\,\% intervals.}
+dose (filled triangles) or ramped back down (open triangle). Bars: dialogue-level bootstrap 95\,\% intervals; 256
+dialogues per point (two seeds) except fresh $0$ and $0.07$ and held $0.02$ (128).}
 \label{fig:hysteresis-loop}
 \end{figure}
 \begin{figure}[H]
@@ -757,8 +762,8 @@ turns ahead (AUC $0.57$--$0.66$): the rolling variance of a hostility probe, the
 and the projection on the fixed steering axis, as in persona-vector monitoring \cite{chen2025persona}. In this design,
 then, the coarse-grained state estimate adds no warning beyond the baselines.
 An adapted analysis with dose-matched models (fit and test at the same dose) gives the same answer: incremental AUC
-$-0.01$ to $-0.03$. \planned{a hazard model and more dialogues at $\alpha=0.04$, where captures are late; fresh dialogues at $0.03$ and
-more seeds for the release arms; a pre-response activation probe; timed interventions against scheduled and
+$-0.01$ to $-0.03$. \planned{a hazard model and more dialogues at $\alpha=0.04$, where captures are late; longer holds to separate
+slow release from bistability; a pre-response activation probe; timed interventions against scheduled and
 constant controls at matched cost; frozen confirmatory test on fresh openers.}
 
 \section{Discussion}
