@@ -624,8 +624,15 @@ For Qwen2.5-7B (steering at layer 14 of 28, concept vectors built as for the sma
 maps show the same kind of organization (Figure~\ref{fig:qwen7b}). Over the philosophy range used for 0.5B and
 1.5B, 8\,\% of cells have a positive largest exponent, and periods 2, 4, 3 and 11 dominate the periodic cells. Along
 the hostility direction ($\alpha\in[0,0.12]$, $\log_{10}T\in[-0.3,0.3]$), 24\,\% of cells are chaotic, with bands of
-period-3, -5 and -6 windows in a chaotic sea below $\log_{10}T\approx0.1$ and high-entropy chaos above. These are
-pixels at coarse resolution; no 7B orbit has yet been continued or tested with exact multipliers.
+period-3, -5 and -6 windows in a chaotic sea below $\log_{10}T\approx0.1$ and high-entropy chaos above. The windows
+hold genuine periodic orbits: in float64, Newton's method converges at the most interior period-6 cell to the loop
+``, shut the end\textbackslash n\textbackslash nOh'' at $(\log_{10}T,\alpha)=(-0.0143,0.0476)$ (residual
+$2\times10^{-14}$; spectral radius $1.6\times10^{-7}$, nearly superstable) and at the most interior period-3 cell to
+a period-3 loop at $(0.2524,0.1143)$ (residual $3\times10^{-15}$; leading multiplier $-0.12$). Continued for about
+an hour each, over $\pm0.001$ in $\alpha$ and $-0.016$ in $\log_{10}T$ (one float64 continuation step takes about
+two minutes at 7B), both orbits stay strongly stable without a crossing.
+\inprogress{continuation across the period-6 window's edge, where the map switches to the period-3 loop ``you
+better than''.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-qwen7b-hostility.png}
@@ -633,8 +640,7 @@ pixels at coarse resolution; no 7B orbit has yet been continued or tested with e
 Lyapunov exponent, period of the attractor reached from the fixed start, and next-token entropy at the last step.}
 \label{fig:qwen7b}
 \end{figure}
-\planned{float64 orbits and one bifurcation at 7B; one 7--8B model of another family; scaling of $ab$ and of the
-window law with model size.}
+\planned{scaling of $ab$ and of the window law with model size.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-lyapunov.png}\hfill
