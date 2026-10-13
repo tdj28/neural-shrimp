@@ -22300,3 +22300,12 @@ _commit `831864051418`_
 - **Would surprise us:** no crossing before the coarse edge (the edge then lies elsewhere or is a non-smooth argmax-like switch at this resolution); a complex pair crossing; the two branches ending at the same alpha without hysteresis
 
 _commit `dc87abf9ba46`_
+
+## 2026-10-13 18:39 UTC: run (exploratory)
+
+- **Question:** Cusp nondegeneracy (run V11): at each of the six numerical cusp candidates (benign period-4 pair on p4/curve-foldB-minus, benign period-6 pair on p6z3/curve-foldA-plus and curve-foldD-minus, hostile period-7 pair on hcurves/hub7-foldU-plus and hub7-foldS-plus), is the cubic coefficient c of the fold normal form u' = u + a eps + b u^2 + c u^3 nonzero where b changes sign, with a step plateau? And is its sign consistent with the coexistence seen between the folds (c < 0 for two stable orbits and a saddle between the fold branches of a period-p orbit with multiplier near +1)?
+- **Setup:** RunPod GPU (run V11), job set cubic, commit 67956d00: tools/cusp_check.py CURVE INDICES cuda cubic; bifurcation_curves.fold_cubic: dense float64 monodromy, r and l of the multiplier nearest +1 (|r| = 1, l^T r = 1), h2 from the bordered system (I - M) h2 = B(r,r) - 2 b r, l^T h2 = 0; c = l^T C(r,r,r)/6 + l^T B(r,h2)/2 with B, C by central differences of float64 JVPs at relative steps 1e-2, 3e-3, 1e-3, 3e-4 (plateau = flattest adjacent pair); tested on x' = x + t + beta x^2 + gamma x^3 + delta x y, y' = mu y + kappa x^2 (c = gamma + delta kappa/(1 - mu) to 1e-6, for beta = 0 and 0.2). Points: p4/curve-foldB-minus 12-15 and 53-56; p6z3/curve-foldA-plus 50-53; p6z3/curve-foldD-minus 9-12; hcurves/hub7-foldU-plus 20-23; hcurves/hub7-foldS-plus 12-15 (b changes sign between the middle two of each group). Uploads: pod64/p4, pod64/p6z3, pod64/hcurves, pod64/hverify, vectors-l12-p1b.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{p4,p6z3,hcurves}/<curve>/cusp-cubic.jsonl (retrieved into the run folder if the upload clashes, then copied)`
+- **Would surprise us:** c indistinguishable from zero (no plateau, or sign changing across steps) at any candidate; c changing sign between the two points bracketing the zero of b
+
+_commit `67956d004599`_
