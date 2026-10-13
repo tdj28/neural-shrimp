@@ -1,3 +1,35 @@
+# Current phase — 2026-10-13 23:18 UTC: independent saved-witness audit running
+
+**Sole lifecycle/Git owner: inference.** The one approved Task1 saved audit is running
+from privately verified source `11126dc69f9c58a782bda060d69ecec33aee38bb` in tool
+session **52389**. Supervisor **986041/start188001472**, worker
+**986067/start188001623**, each with matching PGID/SID, UID1000, nice10,
+one thread,18GiB soft/hard AS. Worker CPU limit1800/1805s; external wall1800s
+plus5s TERM/5s KILL,10MiB output. Original startup available58,708,930,560B;
+read-only GPU inventory succeeded, no GPU use, initial stderr empty.
+
+Audit root `/data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-002-witness-audit-001`;
+its `-supervision` sibling captures exact sources, private ancestry and startup.
+Admission SHA `668601d2387e52a6ee8ee0adbd44de6237e86aaa193f16f6c9a6be546b40a74f`;
+worker record SHA `76a10ef9b66f96c9dc9fc21657c17a0d35f9ed7eba0bdda79683043f7ecacaae`.
+Root accepted wrapper0f64c296, cardf56a4e0e, unchanged checker48098fec and
+supervisor225c4bfc. This audit checks original point/receiver endpoints and exact
+saved scalar witnesses under the five finite acceptance obligations. No model,
+optimizer, dense-product replay or new target computation. Full actual audit cost
+is unmeasured; preserve any failure without retry or bound extension.
+
+All original assembly002 and endpoint001 jobs remain closed, with immutable
+operational authority described below. Certificate remains false pending this
+independent audit and separate final release. Task14 saved-only audit source/card
+is under final review, not yet launched; no Task14 numerical conclusion is final.
+Current reservation is Task1 CPU1 plus supervisor/18GiB. Task14 may use its
+separately reviewed CPU1 plus supervisor/1GiB only after private source/card freeze
+and fresh admission. Root owns the30-minute continuation automation; rejoin these
+audit identities, never the historical model workers below. All older sections
+are dated history. Completed Tasks8A/B,6/7/L9/11/13 remain closed.
+
+---
+
 # Current phase — 2026-10-13 23:07UTC: both computations closed; independent saved audits pending
 
 **Sole lifecycle/Git owner: inference. No live target workers remain.** Assembly002
