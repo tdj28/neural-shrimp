@@ -89,8 +89,12 @@ def validate_manifest(manifest, part):
     expected = {'rows', 'producer_analysis', 'analysis_source'} | ({'spectra', 'absent_spectra'} if part == 'A' else set())
     if set(roles) != expected or not isinstance(roles['rows'], list):
         raise ValueError('wrong part role inventory')
-    if len(roles['rows']) != (1 if part == 'A' else 2) or len(set(roles['rows'])) != len(roles['rows']):
-        raise ValueError('complete A readout or two disjoint B partitions required')
+    # Operational amendment 001: B may need completion partitions; exact
+    # 200x4 scientific coverage remains the unchanged reducer's responsibility.
+    row_ids = roles['rows']
+    if (not row_ids or any(type(name) is not str or not name for name in row_ids)
+            or len(set(row_ids)) != len(row_ids) or (part == 'A' and len(row_ids) != 1)):
+        raise ValueError('one A readout or a nonempty unique B partition list required')
     role_ids = roles['rows'] + [roles['producer_analysis'], roles['analysis_source']]
     if part == 'A':
         if set(roles['spectra']) != set(map(str, range(64))):

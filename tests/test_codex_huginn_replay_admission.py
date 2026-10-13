@@ -18,7 +18,7 @@ def pin(path):
     return {'path': str(path), 'bytes': path.stat().st_size, 'sha256': a.digest(path)}
 
 
-def fixture(tmp_path, monkeypatch, part='B'):
+def fixture(tmp_path, monkeypatch, part='B', partition_rows=None):
     source = tmp_path/'analysis.py'; source.write_text('# synthetic source; never executed\n')
     monkeypatch.setattr(a, 'ANALYSIS', a.digest(source))
     receipt = tmp_path/'receipt.json'
@@ -26,8 +26,11 @@ def fixture(tmp_path, monkeypatch, part='B'):
                                    'source': a.FROZEN, 'assets': 'synthetic', 'order': 'before'}))
     producer = tmp_path/'producer.json'; producer.write_text('{"primary_success": false}')
     rows = []
-    for i in range(1 if part == 'A' else 2):
-        p = tmp_path/f'rows-{i}.jsonl'; p.write_text(json.dumps({'index': i})+'\n'); rows.append(p)
+    if partition_rows is None:
+        partition_rows = [[{'index': i}] for i in range(1 if part == 'A' else 2)]
+    for i, records in enumerate(partition_rows):
+        p = tmp_path/f'rows-{i}.jsonl'
+        p.write_text(''.join(json.dumps(row) + '\n' for row in records)); rows.append(p)
     files = {'source': pin(source), 'receipt': pin(receipt), 'producer': pin(producer),
              **{f'rows{i}': pin(p) for i, p in enumerate(rows)}}
     members = [{'member': f'part{part}/rows-{i}.jsonl', 'file': f'rows{i}'} for i in range(len(rows))]
@@ -166,3 +169,69 @@ def test_extra_spectrum_question_in_original_archive_refused(tmp_path,monkeypatc
         item=tarfile.TarInfo('partA/spectra/q0064/fixed-spectrum.json');item.size=2;tar.addfile(item,io.BytesIO(b'{}'))
     m['files']['archive']=pin(archive)
     with pytest.raises(ValueError,match='extra spectrum'):run(tmp_path,m)
+
+
+# Amendment 001: invented three-part 200x4 panel, not original Huginn rows.
+def three_b_partitions():
+    return [[{'index': q, 'arm': arm, 'lam': float(arm), 'split': 'test',
+              'steps': 32, 'prompt_style': 'cot8', 'seed': q, 'correct': q % 2 == 0,
+              'correct_strict': q % 3 == 0, 'new_tokens': 17, 'strict_pred': None}
+             for q in range(start, stop) for arm in ('1.0', '1.05', '1.15', '1.20')]
+            for start, stop in ((0, 96), (96, 100), (100, 200))]
+
+
+def independent_b(rows):
+    source = PATH.parent / 'statistics.py'
+    definition = importlib.util.spec_from_file_location('partition_test_independent_statistics', source)
+    module = importlib.util.module_from_spec(definition); definition.loader.exec_module(module)
+    # Small synthetic bootstrap only; actual replay's unchanged default is10000.
+    return module.analyze_b(rows, count=200, boot=8)
+
+
+def test_three_part_archive_admission_and_complete_200_by_four_reducer(tmp_path, monkeypatch):
+    partitions = three_b_partitions()
+    m = fixture(tmp_path, monkeypatch, partition_rows=partitions)
+    got = run(tmp_path, m)
+    assert got['rows'] == [row for part in partitions for row in part]
+    assert len(got['rows']) == 800
+    assert len(got['report']['archive_members']) == 3
+    result = independent_b(got['rows'])
+    assert result['n'] == 200 and len(result['all_rows_retained']) == 800
+    assert {row['index'] for row in result['all_rows_retained']} == set(range(200))
+    assert got['report']['certificate_passed'] is False
+
+
+@pytest.mark.parametrize('case', ['missing_partition', 'missing_cell', 'duplicate_cell', 'extra_cell'])
+def test_partition_count_never_replaces_exact_scientific_coverage(tmp_path, monkeypatch, case):
+    partitions = three_b_partitions()
+    if case == 'missing_partition':
+        partitions.pop(1)
+    elif case == 'missing_cell':
+        partitions[1].pop()
+    elif case == 'duplicate_cell':
+        partitions[1].append(copy.deepcopy(partitions[0][-1]))
+    else:
+        row = copy.deepcopy(partitions[2][-1]); row.update(index=200, seed=200)
+        partitions[2].append(row)
+    m = fixture(tmp_path, monkeypatch, partition_rows=partitions)
+    # Archives can be byte-authentic yet scientifically incomplete or aliased.
+    got = run(tmp_path, m)
+    with pytest.raises(ValueError, match='Cartesian|extra or duplicate'):
+        independent_b(got['rows'])
+
+
+@pytest.mark.parametrize('part,row_ids', [('B', []), ('B', ['rows0', 'rows0']),
+    ('B', ['rows0', '']), ('B', ['rows0', 1]), ('B', ['rows0', ['rows1']]),
+    ('A', []), ('A', ['rows0', 'rows1'])])
+def test_partition_role_list_is_nonempty_unique_typed_and_A_exactly_one(tmp_path, monkeypatch, part, row_ids):
+    m = fixture(tmp_path, monkeypatch, part)
+    m['roles']['rows'] = row_ids
+    with pytest.raises(ValueError, match='partition list'):
+        a.validate_manifest(m, part)
+
+
+def test_three_part_duplicate_physical_files_are_not_unique_partitions(tmp_path, monkeypatch):
+    m = fixture(tmp_path, monkeypatch, partition_rows=three_b_partitions())
+    m['files']['rows1'] = copy.deepcopy(m['files']['rows0'])
+    with pytest.raises(ValueError, match='duplicate physical input path'):
+        run(tmp_path, m)
