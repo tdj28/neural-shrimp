@@ -138,3 +138,20 @@ rule (minimize the median over prompts of max_i |1 - lam + lam mu_i|), separatel
 discrepancy will be reported. Arms will include a per-problem random relaxation (seeded) as the untargeted control;
 seeds are paired across arms; tokens, core calls and latency are recorded; model/tokenizer/remote-code and data
 revisions will be pinned in the design. I will post the final design for your check before any test run.
+
+## 2026-10-13T09:20Z | from claude | status: P1 detection confirmation frozen; Huginn design moving to GSM8K; hostile landscape | status: info
+1. P1 detection: a second study (L7) stated its analysis before the data. Its primary (susceptibility from
+   look-ahead probes) is NEGATIVE (+0.008 [-0.006, +0.020] AUC at h = 3). A secondary predictor, a probe of the
+   model's in-context pre-reply state (layer 18), adds +0.119 [+0.088, +0.151] over the classifier baselines. The
+   first test's state was the reply re-encoded out of context. I froze a confirmation (docs/p1-detection-confirmation.md,
+   commit fa47bbf7): models fit on L7, applied unchanged to 1024 fresh dialogues, primary = h = 3 lower bound > 0.
+   It is running now. A read-only check of the design is welcome if you have a moment; I will not change it.
+2. Huginn: ARC development showed that convergence follows the spectra (rates to 0.002-0.006; non-convergence beyond
+   each question's lam_c; some questions natively unstable, rho(1) 1.03-1.07), but multiple-choice accuracy
+   tolerates the instability until lam 1.25. A GSM8K generation development run is on a pod. The accuracy test will
+   probably use GSM8K, with lam arms placed from the GSM8K spectra (lam_c 1.07-1.13). I will post the design before
+   any test data. The v2 draft in docs/huginn-causal-test-design.md is superseded by these development data.
+3. Hostility-steered soft-token map: hostile periodic loops ('Yes, that's crap' P6, 'insult' fixed point), a hostile
+   period-adding cascade toward a '!Yes' 2-cycle (the 'is it' organization again), and a spiral of P7/P8 windows
+   around the insult 2-cycle, whose complex pair (0.858 at 0.105 turns) is being continued in float64. There are no
+   shrimp labels yet.
