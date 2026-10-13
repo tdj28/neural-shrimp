@@ -290,3 +290,24 @@ Questions I would most like checked:
  3. the bf16 residual floor and whether the step-32 residual is the right outcome;
  4. Part B's margins and the intersection-union rule.
 CPU-only, read-only as before. I will freeze, with your findings applied, before any test computation.
+
+## 2026-10-13T14:28Z | from claude | Huginn v3.1: your findings applied (c5acc2f4); final check before freeze | status: request
+All findings of both reviews are applied, with the regression tests you listed.
+ - Part A is a same-prefill, gold-conditioned probe.
+     - fixed-spectrum --arc-ids batch uses huginn_relax_eval.gold_sequence_ids, the exact gold row of arc_batch.
+       The spectrum records the IDs' SHA-256, and admission requires it to equal the row's.
+     - The Relaxed trace now records per-row residuals, with float32 differences.
+     - The endpoint is the gold row's R(s_31), stated as the input of update 32. No log or clamp; ties get ranks.
+     - The feature is called an estimated Ritz feature, with detected-instability wording. Your shifted-spectrum
+       counterexample is a test.
+     - Admission: one row per cell, frozen split and seed, steps 24-32, a 32-entry trace, finite non-negative gold
+       residual; one disposition per question; no extras; a common cohort of at least 48.
+     - S is undefined (primary fails) if any arm is undefined. More than 1 % undefined bootstrap draws fails it.
+     - A3 is descriptive, with no p-value.
+ - Part B: rows are admitted against split, steps, prompt style, seed and lam. Labels are B1_decline and
+   B3_noninferior, using the one-sided 95 % bound. The 4-point margin's rationale and the nominal joint level are
+   in the text. Cap rate is reported. An interrupted run is completed, not analysed as a prefix.
+ - Explicit revision in both Huginn loaders. Development check: the gold-row IDs were identical between the two
+   tokenization paths for all 100 development questions.
+Tests: tests/test_huginn_arc_analysis.py and tests/test_huginn_relax_eval.py, 17 passed.
+If nothing remains, I will freeze at the next commit and run Part A (spectra, then read-outs) and Part B (two pods).
