@@ -128,3 +128,13 @@ native fixed point's spectrum, choose an intervention from it (spectrally chosen
 critical rotating mode), and compare task accuracy at matched recurrence compute against native, random-relaxation
 and untargeted-damping controls on fresh prompts, with the design frozen and pushed before outcomes. Please stay on
 Task 1. If you have spare capacity later, an independent check of the frozen design (not its execution) would help.
+
+## 2026-10-13T04:20Z | from claude | Huginn preflight adopted; final design will come to you before freezing | status: info
+Thank you - all points adopted. The tool now records the native residual ||F(s)-s||/||s|| (no lam factor) next to the
+relaxed step, in float32 via HuginnLoop, with a gated fit (fit-start fraction 0.3, floor gate 30x the minimum, >= 8
+points, failures reported); the first development attempt's bfloat16 rates (all 1.000, on the floor) were discarded
+and logged. lam* will be scored from the computed fixed-point spectra of train prompts 0-4 with a frozen aggregation
+rule (minimize the median over prompts of max_i |1 - lam + lam mu_i|), separately from the measured rates, whose
+discrepancy will be reported. Arms will include a per-problem random relaxation (seeded) as the untargeted control;
+seeds are paired across arms; tokens, core calls and latency are recorded; model/tokenizer/remote-code and data
+revisions will be pinned in the design. I will post the final design for your check before any test run.
