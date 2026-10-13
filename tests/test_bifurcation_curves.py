@@ -249,6 +249,10 @@ def test_fold_unfolding_recovers_the_analytic_cusp_matrix():
     preds = bc.cusp_predictions(out, [np.linalg.solve(J, [0.0, 0.01]), np.linalg.solve(J, [0.0, -0.01])])
     assert len(preds[0]["roots"]) == 3 and len(preds[1]["roots"]) == 1
     assert preds[0]["stable"] == [True, False, True]          # c < 0: the outer orbits are stable, the middle a saddle
+    import json
+    json.dumps(preds)                                          # plain Python types (the pod run writes them as JSON)
+    json.dumps({k: out[k] for k in ("multiplier", "second_modulus", "J", "det_J", "singular_values", "condition",
+                                    "b", "c", "g_u_theta_steps", "c_steps")})
 
 
 def test_fold_unfolding_refuses_a_point_that_is_not_a_fold():

@@ -439,7 +439,11 @@ derivatives, by central differences of float64 Jacobian-vector products; the cod
 with a known reduction). At both cusps $c$ is nonzero far beyond its step-size uncertainty and keeps its sign through
 the zero of $b$, which crosses zero with nonzero slope along the curve: both are nondegenerate cusps, numerically.
 The negative sign of $c$ means that between the fold branches near each cusp two stable period-6 orbits coexist with
-a saddle.
+a saddle. A generic codimension-two cusp also needs the two parameters to unfold it independently. At the outer-arc
+cusp, the matrix of derivatives of the reduced equation's constant and linear coefficients with respect to
+$(\log_{10}T,10\alpha)$ has determinant $2737$ (singular values $1630$ and $1.7$). With these derivatives, the local
+cubic model predicted the number of period-6 orbits and their stability at six parameter offsets, written to disk
+before any orbit was solved. Newton solutions matched at all six.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.3\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}}
@@ -685,6 +689,28 @@ philosophy direction (top) and the hostility direction (bottom): largest Lyapuno
 the attractor reached from the fixed start (white: no period up to the maximum).}
 \label{fig:olmo2}
 \end{figure}
+\paragraph{Same architecture, other weights.} Qwen2-0.5B-Instruct has exactly the architecture and size of
+Qwen2.5-0.5B-Instruct (24 layers of width 896, the same vocabulary size and rotary base) but other training data and
+recipe. Built identically, their $128^2$ float64 maps along gratitude and philosophy (Figure~\ref{fig:samearch})
+share the gross layout. A large region at low temperature around $\alpha=0$ is held by one periodic loop; a band of
+chaos with embedded windows lies near $\log_{10}T=0$--$0.25$ (4--8\,\% of cells chaotic in each map); and thin
+window families run along the flanks. The attractors themselves differ almost completely. Of 416 to 900 distinct
+loops per map, only 10 occur in both models, all short and generic (``.'', ``!'', `` you are'', `` is it''), and they
+cover less than 10\,\% of either model's cells. Qwen2's planes are dominated by one period-4 loop,
+``!<|im\_end|>\textbackslash nHello'' (an end of turn followed by a new greeting; 41 and 59\,\% of cells), and
+Qwen2.5's by period-5 and period-2 loops (``![](https:// Hello'', `` you have''). In sampled self-dialogue the
+gratitude capture has the same shape in both models. The share of replies with gratitude or politeness words rises
+to 99\,\% at $\alpha=0.04$ from a high unsteered baseline of ordinary assistant politeness (55 and 63\,\%), and
+Qwen2 needs slightly more steering (53 and 88\,\% at $\alpha=0.01$ and $0.02$, against 70 and 98\,\%). The
+organization of the map is shared between the two checkpoints; its content is set by the weights.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{fig-same-architecture.png}
+\caption{Same architecture, other weights: $128^2$ float64 maps of Qwen2.5-0.5B-Instruct (left) and
+Qwen2-0.5B-Instruct (right) steered along gratitude (top) and philosophy (bottom) at layer 12, with vectors built
+identically. Colour: period of the attractor reached from the fixed start; black: positive largest exponent.}
+\label{fig:samearch}
+\end{figure}
 \planned{scaling of $ab$ and of the window law with model size.}
 \begin{figure}[H]
 \centering
@@ -768,7 +794,8 @@ rounds of independent review). On 200 GSM8K test problems, accuracy is $0.330$ n
 $0.255$ at $1.15$ and $0.095$ at $1.20$. The two pre-stated predictions pass: accuracy declines at $1.20$ ($-23.5$
 points; 50 problems lost and 3 gained, exact one-sided McNemar $p=3\times10^{-12}$), and $1.05$ loses no more than
 four points (difference $+6.5$, one-sided 95\,\% lower bound $+2.5$). At $1.15$ accuracy falls by $7.5$ points
-($p=0.01$, reported descriptively). Development and test agree closely (Figure~\ref{fig:huginn-gsm8k}).
+($p=0.01$, reported descriptively). Development and test agree closely (Figure~\ref{fig:huginn-gsm8k}). An
+independent implementation reproduced both parts of the frozen test from the saved data.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-huginn-gsm8k.png}
@@ -876,7 +903,10 @@ inside the body and closes around the map's period-14 cells. The cubic coefficie
 $c\approx-1.4\times10^{6}$ to $-2.0\times10^{6}$ (step agreement $5\,\%$; the smallest steps converge like the
 square of the step, and extrapolation leaves the sign) and $-5.8\times10^{5}$ to $-5.3\times10^{5}$. Both cusps are
 therefore nondegenerate numerically, and $c<0$ agrees with the three coexisting period-7 orbits, two of them stable,
-found between the S-shaped folds. The hostile period-7 body has the same skeleton as the period-6 window of
+found between the S-shaped folds. At the lower cusp the unfolding is regular too (determinant $53.5$, singular values
+$262$ and $0.20$). Its local predictions at six frozen offsets matched Newton solutions in the number of orbits at all
+six and in their stability at five; the miss, at the largest offset beyond the edge of the cusp's wedge, marks the
+range of the cubic model. The hostile period-7 body has the same skeleton as the period-6 window of
 Section~\ref{sec:curves}.
 
 Its interior is a shrimp's too. Float64 bifurcation diagrams through the body (Figure~\ref{fig:hubcascade}; 1400
@@ -1167,7 +1197,9 @@ forms on such a model. We do not claim that ordinary sampled generation is chaot
 body have, numerically, shrimp-like organization: connected fold curves ending in nondegenerate cusps (simple
 critical multiplier; quadratic coefficient through zero with nonzero slope; cubic coefficient nonzero) and flip
 curves inside, with superstable curves running through the windows. The rank-two dependence of the two unfolding
-coefficients on the two parameters, which a generic codimension-two cusp also requires, has not been computed. These are
+coefficients on the two parameters, which a generic codimension-two cusp also requires, was computed at one cusp of
+each window (determinants $2737$ and $53.5$), where the local model's predictions at twelve frozen offsets matched
+Newton solutions in the number of orbits at all twelve and in their stability at eleven. These are
 float64 computations validated by step-size checks (rung 1; no independent implementation has yet recomputed the
 cusp coefficients), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
@@ -1211,9 +1243,9 @@ computer-assisted proof.
 \item Rung 1: the other orbits, the curves, the six cusps (numerically nondegenerate), the superstable parameters,
   the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the two 7B
   orbits, and Huginn's float32 spectral estimates.
-\item Prospectively frozen: Huginn's relaxation test on held-out data, confirmed in both parts; the GSM8K part was
-  reproduced exactly from the saved rows by an independent implementation, and the item-level part is being replayed
-  (Section~\ref{sec:huginn}).
+\item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out data, confirmed in both
+  parts; an independent implementation reproduced both from the saved rows and spectra (GSM8K part exactly,
+  item-level part to $10^{-12}$) (Section~\ref{sec:huginn}).
 \item Prospectively frozen as well: the confirmation of the in-context warning in sampled dialogue
   (Section~\ref{sec:misalignment}), whose design was pushed before the data and amended, before any outcome was read,
   to correct a labelling error.
