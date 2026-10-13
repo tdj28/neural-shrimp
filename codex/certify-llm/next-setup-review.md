@@ -52,5 +52,29 @@ the separate source review below. A launcher bound does not establish that
 
 ## Numerical centre-seed source
 
-Pending the implementing agent's stable source. No approval of that
-implementation is implied by the launcher admission test above.
+Reviewed `center_seed.py` SHA-256
+`87cf27a05999641995d441704cd7a1ec3ea5aa0d2c0d200b0c05662e584572e5`.
+No blocking issue found for numerical proposal use. The independent map loads
+only inside the admitted runtime after proposal hashing. The pinned binary64
+nine-state proposal has full shape, dtype, finiteness, nonzero-norm and divisor
+return checks. Every fresh phase image/residual is retained before its gate;
+every Jacobian is retained before shape, finiteness and closure checks. All eight
+rows must pass before the aggregate matrices and inverse proposal are produced.
+
+The product accumulates left multiplication in the correct order `A7...A0`.
+The inverse proposal solves `(I-product) B = I`; both floating inverse defects
+and a numerical condition estimate are retained and explicitly not proof bounds.
+A singular/nonfinite solve refuses completion. The final file is
+`run/preconditioner.npz` with exactly seven arrays: `A`, `B`, `centers`,
+`parameters`, `product`, `left_inverse_defect`, `right_inverse_defect`.
+The full array inventory and byte hash must be checked by its later consumer.
+Interpreting stored binary64 constants as exact dyadics gives fixed proposals,
+not rigorous derivative enclosures or a verified inverse.
+
+The driver limits Torch intra-op threads to the admitted 1–4 and inter-op to
+one, applies threadpool limits, hides CUDA, and retains atomic per-phase files,
+source hashes, versions, timing and failure status. It runs no model on import.
+The implementing agent separately reports passed synthetic import, ordered
+noncommuting-product, inverse, shape/dtype/nonfinite/singular refusal, atomic IO
+and hash checks. Those are reported author checks; this review independently
+inspected the actual source and its mathematical order, without a target run.
