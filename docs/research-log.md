@@ -22208,3 +22208,12 @@ _commit `6bb87a3c82e4` (dirty worktree)_
 Task11 completed independent44-arm audit is privately delivered in8cda5116 and standalone commsd28d2cb2; all owners closed, report/receipts retain changed claims and exploratory instrument scope. Task13 reviewcead1c3d/8a286951 is delivered and producer reports integration0724a61a. Root read complete Task8 admission/comparison/replay sources and focused tests;141 synthetic controls pass1.76s. Source-only preparation retains whole-archive/member/receipt pins, finite field tolerance and every discrepancy. No actual input manifest/card/replay is admitted before complete producer archives/local termination/source/assets/order authority and measured byte/IO budget; no target Huginn outcome was accessed. CurrentTask1 metadata-only health16:31 passes,40new+18retained blocks; no change to frozenexecution.
 
 _commit `20227463bbff` (dirty worktree)_
+
+## 2026-10-13 17:06 UTC: run (exploratory)
+
+- **Question:** Second model family (run S8): does a non-Qwen 7B model, OLMo-2-1124-7B-Instruct (AI2; different data, training and lab), show the same soft-token-map organization (chaos with embedded periodic windows) along the philosophy and hostility directions? Answers the scaling plan's 'one 7-8B model of another family'.
+- **Setup:** RunPod H100 (run S8), job set scalex, commit aea367f2: allenai/OLMo-2-1124-7B-Instruct revision 470b1fba1ae01581f270116362ee4aa1b97f4c84 (open weights; chat template with a system role, checked locally), layer 16 of 32; concept vectors with the hostility:kindness contrast and 3 random directions built on the GPU in float64 exactly as for Qwen; a timed 8x8 float64 scan; coarse 64x64 float64 scans (tol 1e-8, eps 1e-6, chunk 128): philosophy alpha -0.12..0.12 x log10 T -1.0..0.3 and hostility-vs-kindness alpha 0..0.12 x log10 T -0.3..0.3, 65 min each with partial checkpoints.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scalex-olmo2-7b`
+- **Would surprise us:** a single attractor everywhere (no windows, no chaos) at the same normalized steering strengths, which would make the phenomenon Qwen-specific
+
+_commit `aea367f207eb`_
