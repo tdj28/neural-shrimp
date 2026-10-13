@@ -34,20 +34,20 @@ computer-assisted proof yet.
 What dynamical structures organize repeated inference in a pretrained language model? We study an exactly defined
 autonomous system: the expected next-token embedding of a frozen model is fed back at a fixed position after a fixed
 prefix. Its temperature--steering plane contains periodic text loops among numerically chaotic regimes, in Qwen2.5
-models of 0.5B to 7B parameters and in OLMo-2 7B. Numerical continuation links a period-adding family to the fold of a
-primitive two-cycle, whose derivatives predict controlled bottleneck passages without fitting (at two new folds, 23 of
-24 prospectively frozen forecasts within one iterate, failing the all-row criterion). Windows, including a hostile
-one, show shrimp-like organization: fold curves ending in numerically nondegenerate cusps, and flip curves; the
-hostile one holds a doubling cascade to chaos. Superstable points through period 384 give ratios approaching
-Feigenbaum's constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker bifurcation,
-each question's convergence under relaxation and where chain-of-thought accuracy breaks; a frozen test on held-out
-data confirms the last two. In sampled self-dialogue, hostility steering yields dose-dependent persistence and history
-dependence. Replacing classifier-flagged replies before they enter the context lowers the model's own hostility far
-more per unit of steering than constant prevention, in two model sizes where the dose response rises; past its peak,
-counter-steering backfires. A frozen confirmation finds a small increment in warning from the model's in-context
-state; finite Monte Carlo committor estimates leave the attainable ceiling unresolved. These results connect inference
-dynamics to testable mechanisms and practical control, without identifying the constructed map with ordinary
-autoregressive generation.
+models of 0.5B to 7B parameters, OLMo-2 7B and Llama-3.1 8B. Numerical continuation links a period-adding family to
+the fold of a primitive two-cycle, whose derivatives predict controlled bottleneck passages without fitting (at two
+new folds, 23 of 24 prospectively frozen forecasts within one iterate, failing the all-row criterion). Windows,
+including a hostile one, show shrimp-like organization: fold curves ending in numerically nondegenerate cusps, and
+flip curves; the hostile one holds a doubling cascade to chaos. Superstable points through period 384 give ratios
+approaching Feigenbaum's constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker
+bifurcation, each question's convergence under relaxation and where chain-of-thought accuracy breaks; a frozen test on
+held-out data confirms the last two. In sampled self-dialogue, hostility steering yields dose-dependent persistence
+and history dependence. Replacing classifier-flagged replies before they enter the context lowers the model's own
+hostility far more per unit of steering than constant prevention, in two model sizes where the dose response rises;
+past its peak, counter-steering backfires. A frozen confirmation finds a small increment in warning from the model's
+in-context state; finite Monte Carlo committor estimates leave the attainable ceiling unresolved. These results
+connect inference dynamics to testable mechanisms and practical control, without identifying the constructed map with
+ordinary autoregressive generation.
 \end{abstract}
 
 \section{Introduction}
