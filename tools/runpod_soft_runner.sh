@@ -271,6 +271,27 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
     run hnormal2-nf 30 normal-form --device cuda --run $D/hnormal/curve-p2-fold --index 0 --param temperature \
       --out $D/hnormal/normal-form-p2
     ;;
+  scalex)      # another model (family): JOBARGS KEY REPO REV LAYER PHIL_MINUTES HOST_MINUTES. Downloads REPO@REV, builds
+               # concept vectors (with the hostility:kindness contrast and 3 random directions) at LAYER on the GPU, a
+               # timed 8x8 float64 scan, then coarse 64x64 float64 maps along philosophy and hostility-vs-kindness over
+               # the same ranges as for Qwen 7B
+    key=${JOBARGS[0]}; repo=${JOBARGS[1]}; rev=${JOBARGS[2]}; layer=${JOBARGS[3]}
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" > "$LOGS/setup-$key.log" 2>&1
+    refs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${repo//\//--}/refs
+    mkdir -p "$refs" && printf %s "$rev" > "$refs/main"
+    vec=llm-phase-map/vectors-$key-l$layer
+    TOOL=explore_llm_phase_map.py run scalex-vectors 25 vectors --model $key --layer $layer --device cuda \
+      --dtype float64 --contrasts hostility:kindness --random 3 --out $vec
+    mkdir -p "$OUT/$D/scalex-$key" && cp -r "$OUT/$vec" "$OUT/$D/scalex-$key/"
+    SX="scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 --model $key --layer $layer --vectors $vec"
+    run scalex-timing 20 $SX --resolution 8 8 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --out $D/scalex-$key/timing-8
+    run scalex-philosophy "${JOBARGS[4]}" $SX --resolution 64 64 --alpha -0.12 0.12 --log-temperature -1.0 0.3 \
+      --out $D/scalex-$key/coarse-64-philosophy
+    run scalex-hostility "${JOBARGS[5]}" $SX --concept hostility-vs-kindness --resolution 64 64 --alpha 0.0 0.12 \
+      --log-temperature -0.3 0.3 --out $D/scalex-$key/coarse-64-hostility
+    ;;
   scale7)      # scale-up rung 2: Qwen2.5-7B-Instruct (pinned revision), layer 14 of 28: concept vectors (with the
                # hostility:kindness contrast and three random directions) built on the GPU, a timed 8x8 float64 scan,
                # then coarse 64x64 float64 maps along philosophy (the 0.5B and 1.5B range) and hostility-vs-kindness;

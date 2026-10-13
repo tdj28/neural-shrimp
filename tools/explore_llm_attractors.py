@@ -32,7 +32,7 @@ DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-da
 CACHE = DATA / "models" / "hf" / "hub"   # passed explicitly: a global HF_HOME may point elsewhere
 os.environ.setdefault("HF_HUB_OFFLINE", "1")                      # models are local; no network calls
 MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5B-Instruct",
-          "qwen7b": "Qwen/Qwen2.5-7B-Instruct"}
+          "qwen7b": "Qwen/Qwen2.5-7B-Instruct", "olmo2-7b": "allenai/OLMo-2-1124-7B-Instruct"}
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
