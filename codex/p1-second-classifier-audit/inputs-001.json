@@ -1,0 +1,2380 @@
+{
+  "status": "complete_immutable",
+  "writer_closed_reference": {
+    "source_commit": "feac2a796e4aa673e2d7f44654a9dc06b2070416",
+    "path": "docs/manifests/p1-second-classifier-2026-10-13.json",
+    "statement": "completed: all 44 runs scored, exit status 0, no file written after completion",
+    "local_input_policy": "Hash-pinned completed producer files; no writer or analysis mutation authorized. Rehashed before and after each admitted run."
+  },
+  "producer_manifest_sha256": "c90331389be2b2a6496c1b02925d99766252d945ea5a7b1c3698a5547af044ad",
+  "producer_source_commit": "feac2a796e4aa673e2d7f44654a9dc06b2070416",
+  "arms": [
+    "p1-free",
+    "p1-h040",
+    "p1-h050",
+    "p1-h050s2",
+    "p1-h060",
+    "p1-h060s2",
+    "p1-h070",
+    "p1-r1-060",
+    "p1-r1-080",
+    "p1-r2-080",
+    "p1-ck-060",
+    "p1-ck-080",
+    "p1-ramp-s1",
+    "p1-ramp-s2",
+    "p1-c040-s2",
+    "p1-exit030",
+    "p1-exit020",
+    "p1-exit000",
+    "p1-exitm020",
+    "p1-c030-s1",
+    "p1-c030-s2",
+    "p1-exit040-s1",
+    "p1-exit040-s2",
+    "p1-exit030-s2",
+    "p1-exit000-s2",
+    "p1-exitm020-s2",
+    "p1-ctl-none",
+    "p1-ctl-trig-cancel",
+    "p1-ctl-trig-over",
+    "p1-ctl-trig-long",
+    "p1-ctl-trig-kind",
+    "p1-ctl-const-02",
+    "p1-ctl-const-04",
+    "p1-ctl2-none",
+    "p1-ctl2-const-02",
+    "p1-ctl2-const-04",
+    "p1-ctl2-regen-06x3",
+    "p1-ctl2-regen-04x0",
+    "p1-ctl2-regen-04x3",
+    "p1-ctl2-trig-06x3",
+    "p1-det040",
+    "p1-det045",
+    "p1-conf040",
+    "p1-conf045"
+  ],
+  "files": [
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-free/sample.json",
+      "bytes": 1009521,
+      "sha256": "f936d726c8194cbdd3291ce67b6daaef8be91988994e32bfc3ae351348467b37"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-free/hostility.npz",
+      "bytes": 80399,
+      "sha256": "436d24ad129a2ddf68ee565cbc0ac90427d651352e57ce1c97b1929e2914210e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-free/hostility.json",
+      "bytes": 1868,
+      "sha256": "5e6934c3390c5b10a42e20861760f445dbde2d953b4872d6474560d59aa4871f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-free/hostility-second.npz",
+      "bytes": 14355,
+      "sha256": "23279ad559f9a97907b307359e776aa86209534148b10dc2fedfbb6508c788a3"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h040/sample.json",
+      "bytes": 840583,
+      "sha256": "52bffce527f8bcdbb6aeeacec1bf60716d1f83fa0c83d1f14f354ca4ef3a90ec"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h040/hostility.npz",
+      "bytes": 103440,
+      "sha256": "de13cd31f9ef6bc68f47bc412cda84ba8b125ef9dd6525c28398fe55c5eea349"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h040/hostility.json",
+      "bytes": 2183,
+      "sha256": "ebb015f3ef8ce3548962e6818c9d538cf864931b5904203993affa2610ac3eff"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h040/hostility-second.npz",
+      "bytes": 18411,
+      "sha256": "a0fdd34bb92a3d319446668b263f3372ad8ffd448dca437e20ad39d933f5f46b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050/sample.json",
+      "bytes": 1026456,
+      "sha256": "a35275e2724519a4f240e9dcdb80a9a620554d5de871dc26210c607d65d5c312"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050/hostility.npz",
+      "bytes": 96243,
+      "sha256": "06e5b253235c9855f3168a2e89ee30c6ff22341dfff6575d14032e92dc738662"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050/hostility.json",
+      "bytes": 2195,
+      "sha256": "58654cb3b104c78ed33d2ffec6dc5b2d3399a29a47bdcffe1983e2a43f41dce8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050/hostility-second.npz",
+      "bytes": 17171,
+      "sha256": "5c814c9568cb365d0611b5edc4cc7b073093def1516f0b5860cacda1af79d37e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050s2/sample.json",
+      "bytes": 1019274,
+      "sha256": "6cef48bb9a47d64a810573e7d67a8ea6fb47dae8bcedf4100cace4a4a6ecd973"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050s2/hostility.npz",
+      "bytes": 95109,
+      "sha256": "83dcbf6ced5ce32cd96fdd7acef9811cc6068c585ad6b72b2deb2ab66a23b4e1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050s2/hostility.json",
+      "bytes": 2191,
+      "sha256": "3d382ea2de1adc18b625066697603f294cc4c079bbf3746da74a4792fe582417"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050s2/hostility-second.npz",
+      "bytes": 17041,
+      "sha256": "765dbe777e9623875adc0a01eef9dc07cfae795002e26297f21dd9eef100e509"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060/sample.json",
+      "bytes": 1028783,
+      "sha256": "25a720b23bea24c42b79874903f3bad9fa839f650798265de535e8d268cf1999"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060/hostility.npz",
+      "bytes": 86380,
+      "sha256": "87075516917fa6ea1a73f5743b8f052193081c21c9b8263f0fd65b0631b88c6a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060/hostility.json",
+      "bytes": 2167,
+      "sha256": "213eed2c1f32699449563647564ca13deef29a1dd09253aaae692bf50e61b074"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060/hostility-second.npz",
+      "bytes": 15888,
+      "sha256": "fe315078fa62afd64fac98c263547983d119e3c884f678adfc70bc6d0ae46642"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060s2/sample.json",
+      "bytes": 1066249,
+      "sha256": "9d4b6b2de8bc33f3419e12c29c0033021f15299c3108b10074e37ad6473047d5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060s2/hostility.npz",
+      "bytes": 88479,
+      "sha256": "32eae11d09dc048ce491645cec8abd7fa522e67f9204b4dccbf57619264d8e11"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060s2/hostility.json",
+      "bytes": 2174,
+      "sha256": "689e9030aa581af79b520100ac89cbea8abccc8eeb95fdd22e9edd5925a73f6e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060s2/hostility-second.npz",
+      "bytes": 15836,
+      "sha256": "6f66bc6d4d20e1f4902046d17fabf1df9bf855afdcca76e76ef7e95fad188056"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h070/sample.json",
+      "bytes": 1086985,
+      "sha256": "4236fc442088594b9760a4e876138a66b66e29be7c2722138c8dcbc89815d800"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h070/hostility.npz",
+      "bytes": 78651,
+      "sha256": "d660010802a136e611622060c5e906c885077dc96ae0188b5bf5745c41fa2be6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h070/hostility.json",
+      "bytes": 2161,
+      "sha256": "c09536814a4883b6e24eaf872827def885a271fc7ee121d43e49b51920a7aa55"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h070/hostility-second.npz",
+      "bytes": 14952,
+      "sha256": "87a9e5a06599286a9b24ce87ad4fd09e1f729091768b5aa2bffb6f027ee39b58"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-060/sample.json",
+      "bytes": 1035348,
+      "sha256": "d4ea65e05e27fdf5c52457465446ba7769d8aa33b6f03514f15204d2a39f79ce"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-060/hostility.npz",
+      "bytes": 73910,
+      "sha256": "4cff9c4866176aaea9fc0892b3c5b0d4097137253ef1dd64c3506d64ad994b4e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-060/hostility.json",
+      "bytes": 1910,
+      "sha256": "ba1a5cac2d40f7d221127ca1df839c921bddb23e7a947929e56a2d6a6ba3ebf6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-060/hostility-second.npz",
+      "bytes": 14121,
+      "sha256": "25248dafdbc1368c8f0f0fd4e43f54fb3ab77237b238b864016ddcd72e5f538d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-080/sample.json",
+      "bytes": 899215,
+      "sha256": "48129904cf4ed1c8db63c483c49737c7e8f388dcc924be3b0a4bae8c8f49d52c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-080/hostility.npz",
+      "bytes": 97166,
+      "sha256": "717558d086eb8465f88029a1600ae1af39fe54bb5f930511575eedb8f503729b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-080/hostility.json",
+      "bytes": 2011,
+      "sha256": "6b9806bad39fc67bbe894a1809cfdde2f34642ab08cfe9259a5c830daa6af7cd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-080/hostility-second.npz",
+      "bytes": 18134,
+      "sha256": "55da0b2c75fda5dee24ccdc606c8f2dad6707f59b2252461ab31dffaf6799644"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r2-080/sample.json",
+      "bytes": 858311,
+      "sha256": "2a1fa40e06fedd4d30274a218efe8082bf9c3f1759760b2953c6c9f13f209d67"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r2-080/hostility.npz",
+      "bytes": 89098,
+      "sha256": "caf2ce279186c0f232114a171bfae6b0464e2935f76250c1753643001f0d095c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r2-080/hostility.json",
+      "bytes": 1967,
+      "sha256": "d4f82fe2c770e7a58bf7c3cc0bd54b9f4266f281094810cbd12b28be6574f6c7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r2-080/hostility-second.npz",
+      "bytes": 15525,
+      "sha256": "12168a311a35bd15a61d704c985c4bacfca593c55c99227d0fe908a7cf10411d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-060/sample.json",
+      "bytes": 1350000,
+      "sha256": "43410db75b47e99554958670a51f0cebf308c2ff99ee98838b83ca5f33e572af"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-060/hostility.npz",
+      "bytes": 111411,
+      "sha256": "a3037cc3125db6f3bb4bc9957acddb6de5f2fbcca17d6a56f22ea686d0ef4730"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-060/hostility.json",
+      "bytes": 2001,
+      "sha256": "2f877c53dba45b39a3ca1586198095f6b6c97f8fecf107c1c8735b6d8e4a18de"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-060/hostility-second.npz",
+      "bytes": 18752,
+      "sha256": "c3d56c2a42d651dc1b18e5bf90ad83474859c0ff2e0e8b6d9f585cf375002eda"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-080/sample.json",
+      "bytes": 893354,
+      "sha256": "58882dccd052b3cedb8cde29b35e12365a642f90faf690c4ec6dbfe75a48f11c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-080/hostility.npz",
+      "bytes": 110986,
+      "sha256": "ed21f5020ac4a387f50c64118128110fba2942acda8737b21180c9fdd94c0ac9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-080/hostility.json",
+      "bytes": 2023,
+      "sha256": "31db4dba2fb898ba9f575e27013c711f88737d31a4aa15c2f3a3414b45401bad"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-080/hostility-second.npz",
+      "bytes": 19391,
+      "sha256": "956c720e326a950b71827937e610e81046d4e051d97cfeaf979f63d2331cb5a5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s1/sample.json",
+      "bytes": 1082172,
+      "sha256": "be6247517c9ef6fba38ec870f561aeb494b049aaf5590147041d1887b9935d38"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s1/hostility.npz",
+      "bytes": 100620,
+      "sha256": "5c49617886a1a3b8085fb29c54e86ce1e6b62f0ab8a0fe75f4b80613ccf2ad7e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s1/hostility.json",
+      "bytes": 2198,
+      "sha256": "e48cbf33709f54b5141557f437ae040e845f89221246a44333b51bbba655d3a6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s1/hostility-second.npz",
+      "bytes": 17863,
+      "sha256": "3eded25f22c9e7154c4f958437926a61a413705b4debf59a734172d0e6221840"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s2/sample.json",
+      "bytes": 1092733,
+      "sha256": "fce6bbb94cfcccb6a65e8455851a8de4536547a2c9b5d41d697194a39752dcd6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s2/hostility.npz",
+      "bytes": 101031,
+      "sha256": "093d7acd8aaf1b02e2c5b924fc9c324a915d697f67b1dc09197e3aa6d5d5a30b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s2/hostility.json",
+      "bytes": 2179,
+      "sha256": "299ae24182d740dee4037e2aca19433bb21d8b682e12742d99c707101d3056d9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s2/hostility-second.npz",
+      "bytes": 17823,
+      "sha256": "f86a9d9e3ff0baeb81430b4313dbfc9fc97ebf4c7efdb5de95de2e28ab739540"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c040-s2/sample.json",
+      "bytes": 875398,
+      "sha256": "a3b1a727b816d0588084086fd92330c55bd17b4758c4131c85f943fcd270d5bd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c040-s2/hostility.npz",
+      "bytes": 102961,
+      "sha256": "bddf3651010eab8a2ada9d5c50dcaa3bb2f77ee2ea3d93d38a5b92eb5b8674f1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c040-s2/hostility.json",
+      "bytes": 2173,
+      "sha256": "de61b93354cf1d44bcf03d419d3574f6b607869630193c49fa8fd8889b148ac1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c040-s2/hostility-second.npz",
+      "bytes": 18242,
+      "sha256": "4dc3124603e7a6d8c75333e4d742f844076c0524a9192ca583d7284a80fd7d96"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030/sample.json",
+      "bytes": 988875,
+      "sha256": "1a03a20dc2a866367a4d2586fa5f7b5e877aa0861b7fba0faed889c44470826a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030/hostility.npz",
+      "bytes": 104297,
+      "sha256": "089c9052e655c6796e6c6322fb19168b393adc1a23e4013101ac10a7fc225f34"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030/hostility.json",
+      "bytes": 2177,
+      "sha256": "b9f6cb8f6d88f0359c81e44ae1476f3163ae02d83bc9290a3754c7f3e3e2e59a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030/hostility-second.npz",
+      "bytes": 18506,
+      "sha256": "c6508ee7114fca281a17fbfc5fdeffef29eadb18b529cfa09bed9501206f9742"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit020/sample.json",
+      "bytes": 964685,
+      "sha256": "05f94c0e1ae2ef137fde05cad7db7f5a90bce0cbf707d564bc75deb9b20a7d20"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit020/hostility.npz",
+      "bytes": 100771,
+      "sha256": "72b3f1b8f7376483c8de8f862b8c24d9410aa57d2f57358a41f333fee4926633"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit020/hostility.json",
+      "bytes": 2168,
+      "sha256": "803c1be13c979e3ca979b7a70c739cca2efa81e8c4f784ee5a3833765d5a3aac"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit020/hostility-second.npz",
+      "bytes": 18019,
+      "sha256": "4931ae59844a40265f60fce8e970c8dd596ce6ab89d5391d5533f9ca34a9d086"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000/sample.json",
+      "bytes": 1035844,
+      "sha256": "bb21767f8c7886c6550faaea56ffe17944471c07d1d10e29a45bb17595a69cbf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000/hostility.npz",
+      "bytes": 99571,
+      "sha256": "f7e035ebeaf503d0e6578ee085b6f7832122a6d24f8b23286f403352d8d77698"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000/hostility.json",
+      "bytes": 2168,
+      "sha256": "ab7e7489c24719a291286496ec763e7c44985ecf044c78a4c7304336a6793d18"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000/hostility-second.npz",
+      "bytes": 17615,
+      "sha256": "bc475c52c789479c01b8a57f427c8cb01b41e24897a1371fb28678e3c34b6854"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020/sample.json",
+      "bytes": 1194434,
+      "sha256": "8b49c879a7c06975308bcc3715c725198b45b6643f5e20e60d000e7fc3c75692"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020/hostility.npz",
+      "bytes": 104939,
+      "sha256": "c6a42c885325bf03dd953e1e3d132a3f39fd95c419425e0edb2bf2fbaaa06301"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020/hostility.json",
+      "bytes": 2054,
+      "sha256": "0fbe3c88946c90156faa4524af11841fe2aae28974e81d512245f30b6f3d7088"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020/hostility-second.npz",
+      "bytes": 18350,
+      "sha256": "c18d8638e3da5209c48993864447c44cd4cc5060ceca817e5ec86e1c2866871b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s1/sample.json",
+      "bytes": 890710,
+      "sha256": "afd9c8d0446991ef2c0b92f868b1b31031858b343dd4cf8f1f706484d7d2c58a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s1/hostility.npz",
+      "bytes": 107587,
+      "sha256": "46aa049316d46c8a44205827f6b2382c803ccf5290cf72209da4ce9e17c661a3"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s1/hostility.json",
+      "bytes": 2181,
+      "sha256": "a4ab2a22214f473b7745411d8f767432acee6126a53138fe647766c737e782ff"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s1/hostility-second.npz",
+      "bytes": 18853,
+      "sha256": "54b3cca7f574164e95368f9b8cd58c6d6c20e7e6c6d8bbe2147db71038671d9c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s2/sample.json",
+      "bytes": 858077,
+      "sha256": "c442ea3a29a67f98a5c11bc1d38db3460c92c29bf07a7648fba6a63528c76e18"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s2/hostility.npz",
+      "bytes": 106470,
+      "sha256": "911bcd81a225735aaa82d1ac3292dec20cf77a04a544a06f3f07672c2960e1bb"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s2/hostility.json",
+      "bytes": 2182,
+      "sha256": "39e4e861e9693105d80e0fcc9a7ff55644622287ee4f0e8842d873fec782117a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s2/hostility-second.npz",
+      "bytes": 18764,
+      "sha256": "d2018e6f09c2cc7c2f774a80799f5aa1cfa8fdcac4271c26fb1dfe4bfe498072"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s1/sample.json",
+      "bytes": 1008096,
+      "sha256": "870c988a4d5190d9b273a997a61362a106f892d7acbd0156523b7c63218422af"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s1/hostility.npz",
+      "bytes": 98976,
+      "sha256": "51674049d6df822060409474a135be6264a73ad2708b3ca0983313f633f3b9b2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s1/hostility.json",
+      "bytes": 2170,
+      "sha256": "02a44bbc4088c703b4505c1b42d236075a4c7f4c79ab106be770cb02faeae526"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s1/hostility-second.npz",
+      "bytes": 17839,
+      "sha256": "6b48adff846302559ab246769db6d8902fe75d52ef62650a642697f792e8bc60"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s2/sample.json",
+      "bytes": 1030821,
+      "sha256": "c2423e15d54867428a1d85c2e3debf8574ba8317bb6aae82027de03552d89876"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s2/hostility.npz",
+      "bytes": 100347,
+      "sha256": "bb38148c5cbb077ad1bd6332d4f1000ecfd7d91ee19a8b351b3f39c3d84b02aa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s2/hostility.json",
+      "bytes": 2173,
+      "sha256": "8bbbde0daa4a160f2d0ec6d3cc60c3daf8169a3378b87648fc3dfcea636b2b20"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s2/hostility-second.npz",
+      "bytes": 17799,
+      "sha256": "9db5cf11a0903fccdbcad0714d11e7ba76f5d601bb0ae257a69ed7f1de26cd66"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030-s2/sample.json",
+      "bytes": 983797,
+      "sha256": "f526f778ac9743d80a1d63d0e0bf4f910c523aedab15d9050cd0f926777d87d4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030-s2/hostility.npz",
+      "bytes": 104363,
+      "sha256": "6d4026ee3f306175d7beb4c3681ec76d86f447f9a4fb424cd5cec37c6fafb2b5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030-s2/hostility.json",
+      "bytes": 2173,
+      "sha256": "a597dea25fb4f51acd49b22946ec3bdd5f4659a927793736e96ef395b64efdcf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030-s2/hostility-second.npz",
+      "bytes": 18382,
+      "sha256": "cdd23c221988db323de7b2c1c288fa3fa9f2188608a22c966a9a9c463d4a6d0a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000-s2/sample.json",
+      "bytes": 1014001,
+      "sha256": "a47cf56f3fdec867d0396785e580d6ecd67572bd078299cb8a1d33dc905b852b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000-s2/hostility.npz",
+      "bytes": 101462,
+      "sha256": "9f270e61bf77d7bfb2113bcf84a558383e5d33ec976508be3e8caac67a138e57"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000-s2/hostility.json",
+      "bytes": 2136,
+      "sha256": "53d491e148a2015ed058bb840e4f4a4a6b16879fadd51d303363b0f56f1e63a0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000-s2/hostility-second.npz",
+      "bytes": 17836,
+      "sha256": "2b603eb9f7f4341fb91cc95efe6dff09fcc992333213d572e1c88207539f84e2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020-s2/sample.json",
+      "bytes": 1168604,
+      "sha256": "dc0a11bf1a0012f6dac0822de3dbb00702b13417750d11a03e6cf61f3be1fadf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020-s2/hostility.npz",
+      "bytes": 104348,
+      "sha256": "adbfad054d0b04d5894fe204ef04bc0d97b7ffa6fabb477765595a9b47a25be1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020-s2/hostility.json",
+      "bytes": 2136,
+      "sha256": "c7dc1518c1422058b2044d366802fca44197476f15552660ee0b1d1dc93a8d7d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020-s2/hostility-second.npz",
+      "bytes": 18224,
+      "sha256": "210990d81646252690eded945177ddcffa19b3b84a4541c2c012e93602032db7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/sample.json",
+      "bytes": 1043719,
+      "sha256": "3280ba9535f4a92d135b8e2f63ac76dfc47a54dd6210d3bcc280d024be777296"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/hostility.npz",
+      "bytes": 92181,
+      "sha256": "ad81dad62a2bd65822d12782fd94de86a8500571ad4dee4efa3703a4a13baa16"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/hostility.json",
+      "bytes": 2150,
+      "sha256": "b24e02cdd364e076a8be577f1bdcd9c6c02c93422bb145c067bc522838a65a14"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/hostility-second.npz",
+      "bytes": 16469,
+      "sha256": "df60159b8ee6d14d40e1592c1ca137db06ab8a3e34ef5339cde3aed34320e6a7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/turns.npz",
+      "bytes": 36643,
+      "sha256": "14b593fef9c3ed1f7e960322582a30bb82e24945b721f27975821457c4f7c827"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/sample.json",
+      "bytes": 1033647,
+      "sha256": "52bcd10eb6d784d7d9f9a8498c1e0c4c29127150988219129ee2f0882b1cb080"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/hostility.npz",
+      "bytes": 105117,
+      "sha256": "10934445298eb05a4601e05fc2cca8975115b67231374861cb68983833825ca1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/hostility.json",
+      "bytes": 2176,
+      "sha256": "6de8cf469046bcfe71bdb4c1299df136c0c495cb738affc87d72375fae047c67"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/hostility-second.npz",
+      "bytes": 18500,
+      "sha256": "51735f25314e6713074a838d59c965687f8ad49140fd52e9b8cc464c9e7536ad"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/turns.npz",
+      "bytes": 63002,
+      "sha256": "c4c6a1c4b22dea2353585f71e6c5c8b7571e60b63c749e606c7b97e465669efd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/sample.json",
+      "bytes": 1136524,
+      "sha256": "c1efc15d73447c61424792206d1a304191a673bbdf7119eaea3914f33815354b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/hostility.npz",
+      "bytes": 109204,
+      "sha256": "8dc0dd710d2a62a06f358fc71bf3c147ef6800e3d504b075dfcbfe55b8f04cd7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/hostility.json",
+      "bytes": 2175,
+      "sha256": "0984018cfd626ebcf6587895115ddb6180dc9959389069ffba2c6add0251b006"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/hostility-second.npz",
+      "bytes": 18885,
+      "sha256": "a633de56b2fe2c250b4915e19afbf63612886d8dad522a26d728f0bc836289f6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/turns.npz",
+      "bytes": 63185,
+      "sha256": "aaff8e1e4c9a759d7ad3d6402d0b61221682ebb293fa8c291eb89909b0318b5b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/sample.json",
+      "bytes": 1006451,
+      "sha256": "2ad4b7cd5d761adb33257dae12b7983d47b31ff2e9e4afc9f94e990517a97133"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/hostility.npz",
+      "bytes": 105778,
+      "sha256": "19b2980febed7b02220f7cfc90650016fd7740ad892ebe4e3ab6c50e21aaba2d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/hostility.json",
+      "bytes": 2162,
+      "sha256": "8b0c8ddadd4055d56217374718097f751f50765136232a50869f61888580d1d6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/hostility-second.npz",
+      "bytes": 18565,
+      "sha256": "49838cf17b4794ec65b373478af79fd29232833c655263450af1644828a79648"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/turns.npz",
+      "bytes": 63724,
+      "sha256": "2c5cf55096d087abbf5b070aa44fd055cbd451ee9c9d18a15e7b5e100460627c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/sample.json",
+      "bytes": 774710,
+      "sha256": "cea6cceb3e2abce9c3d83b21caa1829d60f7eb4c111ff0ea90cb58ffd5ee9b8c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/hostility.npz",
+      "bytes": 84707,
+      "sha256": "cc08adf98ae926868e0bdfee751cfeb6c6cc8c4fcd47c29034be4ba12c024c73"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/hostility.json",
+      "bytes": 2145,
+      "sha256": "de795e274a6184a5afd141c8171649fab7017e9961e5f661c69d6aa78f597a38"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/hostility-second.npz",
+      "bytes": 15820,
+      "sha256": "46d2c69fb358d9206f3a6fe34d5723608b5c73b597e515105f17b5e4d69ccc6f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/turns.npz",
+      "bytes": 51660,
+      "sha256": "70b9fb9fa9dbdeac7ca0849d8cca318ede718bdc9960d3e9e0be9b36fbd44328"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/sample.json",
+      "bytes": 871460,
+      "sha256": "5ee696d35c89587ff6efa878a70cdda8506d9d16f6d05e429d130c9e5ddbe047"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/hostility.npz",
+      "bytes": 101418,
+      "sha256": "ccf1b09f641c0a53d829bd76d9b2b7a0ecf8aed0c887de5ff0e4f6929232ad96"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/hostility.json",
+      "bytes": 2168,
+      "sha256": "a327495874bdb2e8a4cc6ca22828671a0aca86f2cf766f8024fe91a7fbd74ab0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/hostility-second.npz",
+      "bytes": 18095,
+      "sha256": "6d5523bca234092d6219f061450ee9551555d99e00dce8e9a65a9aa0898123dd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/turns.npz",
+      "bytes": 41919,
+      "sha256": "33ded200b31d32328654f3f2e9f77ef070372219ae871cb159c87263eb5707aa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/sample.json",
+      "bytes": 717450,
+      "sha256": "20494d22bbd3cc6749d397e36cc80c007a0ca4e56358d910fba20634e593100c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/hostility.npz",
+      "bytes": 90730,
+      "sha256": "29adbb904ced487ba3528b96fd1fdecc826b403b13777922b473f280e2344658"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/hostility.json",
+      "bytes": 2116,
+      "sha256": "b4c147f83b327eb6ad8524d198fd32ee2c04ddfa2d965571766f634c6e1340c5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/hostility-second.npz",
+      "bytes": 16540,
+      "sha256": "d6f6612cd1492e6b353bfb1842e060a6b3e333880091628bd2113e35e9794109"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/turns.npz",
+      "bytes": 42708,
+      "sha256": "72a6b5b17ff38300a44cdeef6bb57f5fdf127649ea655bcd3b89d42324cfdf61"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-none/sample.json",
+      "bytes": 1029070,
+      "sha256": "6b24ebf35d052d1e7789c22c66db359a48747be0303dcab88fa48c1d7b9d5915"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-none/hostility.npz",
+      "bytes": 87621,
+      "sha256": "2cbec659703e07ea96f3756a3e7372bea1d87c7494f4d0c11be9cad66c9cb15a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-none/hostility.json",
+      "bytes": 2171,
+      "sha256": "3c7929a9d783b981143e922f59ecb2e61212d5024e7665dbb6175733828f7475"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-none/hostility-second.npz",
+      "bytes": 15888,
+      "sha256": "fe315078fa62afd64fac98c263547983d119e3c884f678adfc70bc6d0ae46642"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-none/turns.npz",
+      "bytes": 37515,
+      "sha256": "143398ce6c42eddb08c6109e92d1a5d9554eeebbcd43aede4865292e95556cba"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-02/sample.json",
+      "bytes": 840880,
+      "sha256": "7ceaaf91ae5e5e596f5a8ce71491a7ffe74cb0065b8a478e6226a453e282bfff"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-02/hostility.npz",
+      "bytes": 104006,
+      "sha256": "f5b8b588b534cc10c0c6fc71ea514fcc03f21466ef3026a3ae1b1ef88200a289"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-02/hostility.json",
+      "bytes": 2191,
+      "sha256": "cab34a19886449af3a7d20b269c9d419bddac60b398b131032c73aa7ce237db8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-02/hostility-second.npz",
+      "bytes": 18411,
+      "sha256": "a0fdd34bb92a3d319446668b263f3372ad8ffd448dca437e20ad39d933f5f46b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-02/turns.npz",
+      "bytes": 42971,
+      "sha256": "6ec11970f2e00cfeee7f5a7c178a27aca7033823c5fa2e35aea66177a8d9e300"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-04/sample.json",
+      "bytes": 709103,
+      "sha256": "c8ca3321e3fa955925da8f544e1cc98171c83baadf3737b07a38601c865973b5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-04/hostility.npz",
+      "bytes": 91407,
+      "sha256": "1f0929c74c08152deb475b5360e79f2d1d1834a2f9f68ddd487011ce553bc36c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-04/hostility.json",
+      "bytes": 2161,
+      "sha256": "e84eef44c89184b385ead1fdec5038170955e0eb513ba7c2c8de942aef46d27b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-04/hostility-second.npz",
+      "bytes": 16504,
+      "sha256": "fa60ae0f5458866b3fefa9c89242023daaa0cbf86aac81955af62888ca5a744e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-const-04/turns.npz",
+      "bytes": 43332,
+      "sha256": "5c21c6478c4a6f11fff22e144ecca9ad0a8b1aa2d621dc4832124c6a08aeacd2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-06x3/sample.json",
+      "bytes": 1011947,
+      "sha256": "4748bd751604dd9b4d574aa352cc3f320d9f89ec085e40a446ec2280e1e8e04e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-06x3/hostility.npz",
+      "bytes": 103299,
+      "sha256": "5cbb74a3e34773d91451b59c746aeb84d4f56c1fede586b3a277e6c85deba93c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-06x3/hostility.json",
+      "bytes": 2029,
+      "sha256": "b76c8b6039c621f65a5a0d64d3aa248128f13825dcfc821344a2460d5b8638b9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-06x3/hostility-second.npz",
+      "bytes": 18352,
+      "sha256": "70443492f4603598adde25bb124668147d314e11d2eab7b5f297c6543ffb80e4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-06x3/turns.npz",
+      "bytes": 64404,
+      "sha256": "732e41cbf0f3a6210e037c8216a351c3f9c110087b942fff8d5d58686b9bb11c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x0/sample.json",
+      "bytes": 981826,
+      "sha256": "bd1b32de477197e65672ccaad50e0e28725acce05b985355dfedc4f105098a76"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x0/hostility.npz",
+      "bytes": 94715,
+      "sha256": "1163e7aa64a31a62b14e748846adeb99afb47e226ff4b3f1c33d9a6dca3fb931"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x0/hostility.json",
+      "bytes": 2127,
+      "sha256": "5deac760856d849679b3c5cf9be5175e1d2c8305f4b5b369a1b6abd2e7cf00ef"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x0/hostility-second.npz",
+      "bytes": 17232,
+      "sha256": "d966bd5c85a6eeb58c7c6c07f833befed5427b9617a2be7ef3fde6d7211c91d7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x0/turns.npz",
+      "bytes": 61027,
+      "sha256": "813b01b95e54e0af36bb838e2eeac479c7579ef199bbce25e72a788fdd42d9cc"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x3/sample.json",
+      "bytes": 967974,
+      "sha256": "fe2c8495c090fb0867d106cd782f20746da557589faa98743146aa060144f618"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x3/hostility.npz",
+      "bytes": 102394,
+      "sha256": "6d96e7692002221c1ef72f52f46f08d742e012cfe27b0ad12cca85e24912f9f7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x3/hostility.json",
+      "bytes": 2100,
+      "sha256": "71cc8c0e239c18861da5fd75bb5711a7cd596d9c858b94b13d586314eb290005"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x3/hostility-second.npz",
+      "bytes": 18362,
+      "sha256": "0192f39f3282eaf94947e05508ef543d906d870a85e927c935e4236b1f6581d9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-regen-04x3/turns.npz",
+      "bytes": 64157,
+      "sha256": "10ab8ad95a0963fbdb7d8ab932f1c6e62e076a0d55820c04bd73169a4452a666"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-trig-06x3/sample.json",
+      "bytes": 1005517,
+      "sha256": "292adefb34f60330aea1f6bb12fb2e49c05226b8fa34dd4c5507c9c93f09b251"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-trig-06x3/hostility.npz",
+      "bytes": 104159,
+      "sha256": "74bf5f88f471f73b93e8711bb308ee4462e98b1a225005c08a5454a91c206f3e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-trig-06x3/hostility.json",
+      "bytes": 2174,
+      "sha256": "a3445de7c170b4921343882ea70acc93c2010083559c1d6ab45dc80245c09cdf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-trig-06x3/hostility-second.npz",
+      "bytes": 18375,
+      "sha256": "89d03c55d09c5afd646cbfa806f3488fca8c6f9f79e04a11b4fcf138d2734bc8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl2-trig-06x3/turns.npz",
+      "bytes": 63362,
+      "sha256": "a9b7f9097576fc22a1152ccdc52d50585c4b14410917e4a9c360bf2f5217bed1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det040/sample.json",
+      "bytes": 1740343,
+      "sha256": "600dd5eb45be435484ae3f39b858c6b4ea48a1301d2428e2dfba593ec6599154"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det040/hostility.npz",
+      "bytes": 203473,
+      "sha256": "bd4e125ba9bf641a0bd84e7506ec5dfaa77e1a763417da6f8191305387a08ee6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det040/hostility.json",
+      "bytes": 2174,
+      "sha256": "7cf547cd30c59ecea7a14ad90cd927cd0389fe57858be08582e32e4246f6f658"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det040/hostility-second.npz",
+      "bytes": 35534,
+      "sha256": "232a21c9a13008b84218219e6bbac72cb05ab7534cde769ae28ccb77b9d1c3f1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det040/in-context.npz",
+      "bytes": 57266692,
+      "sha256": "6a12e71fbd514b9469a6c13a76c6abbd56fdec35e83613d92a35fb9d78107c95"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det040/activations.npy",
+      "bytes": 36700288,
+      "sha256": "845c55b6290806cbdd4da2beee2f6f926e763f0db39db84bfb4472ed7d87913a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det045/sample.json",
+      "bytes": 1922180,
+      "sha256": "e4dacb00ae35d9470451d4eaae79c3b91d8476e452dd2beed6e0fb2783b8d535"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det045/hostility.npz",
+      "bytes": 193938,
+      "sha256": "24b4ed6254adf02536fd378073d5007a8903eabea29502c04486d4dca8b8f66b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det045/hostility.json",
+      "bytes": 2170,
+      "sha256": "c26016befa6e2219293018cd87b5783a149f895c86c3bd8f1c77e8a8b10679f4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det045/hostility-second.npz",
+      "bytes": 34215,
+      "sha256": "e9f782e3d7fb1f816a5afe2ea50719fafc0b65ba5b816269b9ef1bbec7b69570"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det045/in-context.npz",
+      "bytes": 57230183,
+      "sha256": "e88bc44be028dd2abc6154f687c57a6937a68216d279595e67a9b29eb8bdda28"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-det045/activations.npy",
+      "bytes": 36700288,
+      "sha256": "83204fe07f3f9ba6c6010e66b452c91110e0ec355d78aeabc4757f79526e43b6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf040/sample.json",
+      "bytes": 3491499,
+      "sha256": "c5bf8e07c80a484d77204181634568f86ceb81a0cd80ff744cbd76a6161c6728"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf040/hostility.npz",
+      "bytes": 406857,
+      "sha256": "b9c82806065c7d27c95b349738463fbe12f32bd4b0d1d267787a6e87df4a1d3d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf040/hostility.json",
+      "bytes": 2168,
+      "sha256": "974edb15232c97518e4c9d99f6567a155a739bbafff2e79b482f1595ac57795a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf040/hostility-second.npz",
+      "bytes": 70371,
+      "sha256": "f54bba017d910d57fc49b72e00cc782e86a4d6c2c3bfed129b2a017e8ef15906"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf040/in-context.npz",
+      "bytes": 114752776,
+      "sha256": "d0ae2ac2980cf529bddc59816395add910104c240f2c5f5dce2da86f6d66bd2c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf040/activations.npy",
+      "bytes": 73400448,
+      "sha256": "bcf856b958daf9d622fd40dd4396b403a9e6c7bcdea46f2b802fdb15509199fa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf045/sample.json",
+      "bytes": 3835162,
+      "sha256": "efc774c15499c207b2e18a6a26c64ba159af3b50858e21512ed967dfdc454588"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf045/hostility.npz",
+      "bytes": 388209,
+      "sha256": "77163beffa84212784ed238cc4cee4a76e1048b8262d1686d12b3cc9bd93a2d8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf045/hostility.json",
+      "bytes": 2168,
+      "sha256": "c124e8ee720ea1371271f4a266bc8adc57bf036db06804633dfb355a95b6167f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf045/hostility-second.npz",
+      "bytes": 67888,
+      "sha256": "0c70cec46c84a134c30adc98664c4873b938ee3f5fe24aaf8db9dea85e84a1a6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf045/in-context.npz",
+      "bytes": 114392861,
+      "sha256": "4efd64178055f40d1edf80a0bf6ca5f96935b073931dfd05e2231e163d9b417f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-conf045/activations.npy",
+      "bytes": 73400448,
+      "sha256": "8f8f65b19c22d89425f46d589e97932fada70c21769db5be812eba00c2db260d"
+    }
+  ],
+  "sample_args": {
+    "p1-free": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.0
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-free"
+    },
+    "p1-h040": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.04
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-h040"
+    },
+    "p1-h050": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.05
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-h050"
+    },
+    "p1-h050s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.05
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-h050s2"
+    },
+    "p1-h060": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-h060"
+    },
+    "p1-h060s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-h060s2"
+    },
+    "p1-h070": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-h070"
+    },
+    "p1-r1-060": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "random1"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-r1-060"
+    },
+    "p1-r1-080": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "random1"
+      ],
+      "alphas": [
+        0.08
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-r1-080"
+    },
+    "p1-r2-080": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "random2"
+      ],
+      "alphas": [
+        0.08
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-r2-080"
+    },
+    "p1-ck-060": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "cooking"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ck-060"
+    },
+    "p1-ck-080": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "cooking"
+      ],
+      "alphas": [
+        0.08
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ck-080"
+    },
+    "p1-ramp-s1": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:1:0.5714",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ramp-s1"
+    },
+    "p1-ramp-s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:1:0.5714",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ramp-s2"
+    },
+    "p1-c040-s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.04
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-c040-s2"
+    },
+    "p1-exit030": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exit030"
+    },
+    "p1-exit020": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857:0.2857",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exit020"
+    },
+    "p1-exit000": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exit000"
+    },
+    "p1-exitm020": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exitm020"
+    },
+    "p1-c030-s1": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.03
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-c030-s1"
+    },
+    "p1-c030-s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.03
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-c030-s2"
+    },
+    "p1-exit040-s1": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exit040-s1"
+    },
+    "p1-exit040-s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714:0.5714",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exit040-s2"
+    },
+    "p1-exit030-s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286:0.4286",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exit030-s2"
+    },
+    "p1-exit000-s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000:0.0000",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exit000-s2"
+    },
+    "p1-exitm020-s2": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": "0.5714:0.5929:0.6143:0.6357:0.6571:0.6786:0.7000:0.7214:0.7429:0.7643:0.7857:0.8071:0.8286:0.8500:0.8714:0.8929:0.9143:0.9357:0.9571:0.9786:1.0000:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857:-0.2857",
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 2,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.07
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-exitm020-s2"
+    },
+    "p1-ctl-none": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "controller": "none",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": 0.0,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl-none"
+    },
+    "p1-ctl-trig-cancel": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "controller": "triggered",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.06,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-cancel"
+    },
+    "p1-ctl-trig-over": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "controller": "triggered",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.08,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-over"
+    },
+    "p1-ctl-trig-long": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "controller": "triggered",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.06,
+      "controller_turns": 6,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-long"
+    },
+    "p1-ctl-trig-kind": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "controller": "triggered",
+      "controller_concept": "kindness",
+      "controller_alpha": 0.08,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl-trig-kind"
+    },
+    "p1-ctl-const-02": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "controller": "constant",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.02,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl-const-02"
+    },
+    "p1-ctl-const-04": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "controller": "constant",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.04,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl-const-04"
+    },
+    "p1-ctl2-none": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "none",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": 0.0,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl2-none"
+    },
+    "p1-ctl2-const-02": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "constant",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.02,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl2-const-02"
+    },
+    "p1-ctl2-const-04": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "constant",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.04,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl2-const-04"
+    },
+    "p1-ctl2-regen-06x3": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "regenerate",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.06,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl2-regen-06x3"
+    },
+    "p1-ctl2-regen-04x0": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "regenerate",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.04,
+      "controller_turns": 0,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl2-regen-04x0"
+    },
+    "p1-ctl2-regen-04x3": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "regenerate",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.04,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl2-regen-04x3"
+    },
+    "p1-ctl2-trig-06x3": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "triggered",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": -0.06,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 128,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 1,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.06
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-ctl2-trig-06x3"
+    },
+    "p1-det040": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "12,18,23",
+      "probe_k": 8,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "none",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": 0.0,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 256,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 21,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.04
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-det040"
+    },
+    "p1-det045": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "12,18,23",
+      "probe_k": 8,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "none",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": 0.0,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 256,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 22,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.045
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-det045"
+    },
+    "p1-conf040": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "12,18,23",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "none",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": 0.0,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 512,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 31,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.04
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-conf040"
+    },
+    "p1-conf045": {
+      "command": "sample",
+      "model": "qwen0.5b",
+      "layer": 12,
+      "threads": 8,
+      "dtype": "float32",
+      "device": "cuda",
+      "schedule": null,
+      "record_layers": "12,18,23",
+      "probe_k": 0,
+      "probe_delta": 0.02,
+      "probe_tokens": 40,
+      "probe_chunk": 512,
+      "controller": "none",
+      "controller_concept": "hostility-vs-kindness",
+      "controller_alpha": 0.0,
+      "controller_turns": 3,
+      "controller_threshold": 0.5,
+      "prompt": "open",
+      "openers": [
+        "Hello!"
+      ],
+      "replicas": 512,
+      "turns": 40,
+      "window": 7,
+      "max_new": 60,
+      "temperature": 0.7,
+      "seed": 32,
+      "vectors": "llm-phase-map/vectors-l12-p1b",
+      "concepts": [
+        "hostility-vs-kindness"
+      ],
+      "alphas": [
+        0.045
+      ],
+      "out": "llm-soft-loop/pod64/msm/p1-conf045"
+    }
+  },
+  "readiness": {
+    "metadata_only": true,
+    "arrays_decoded": false,
+    "file_count": 198,
+    "total_bytes": 621125151,
+    "seconds": 0.9538152220193297,
+    "utc": "2026-10-13T16:18:45Z"
+  }
+}
