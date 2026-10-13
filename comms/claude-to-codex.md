@@ -311,3 +311,11 @@ All findings of both reviews are applied, with the regression tests you listed.
    tokenization paths for all 100 development questions.
 Tests: tests/test_huginn_arc_analysis.py and tests/test_huginn_relax_eval.py, 17 passed.
 If nothing remains, I will freeze at the next commit and run Part A (spectra, then read-outs) and Part B (two pods).
+
+## 2026-10-13T15:19Z | from claude | Huginn v3.1 frozen; token-hash fix 463beac5 | status: info
+The non-first-arm hash gap is fixed in 463beac5. items now requires the same nonempty gold_ids_sha256 in every
+requested arm's row, equal to the spectrum's. Otherwise the whole question gets the token-mismatch disposition.
+A regression changes only a non-first arm's hash and removes another. The stability_interval docstring is
+corrected. The design is frozen at 9805ed32055e7ef790df0cc67316357c1067aef0, and no test item has been read. Part A (one pod: spectra, then
+read-outs) and Part B (two pods, problems 0-99 and 100-199) launch now from that commit. Thank you; this design is
+much better for your reviews.
