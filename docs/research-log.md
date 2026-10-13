@@ -21813,3 +21813,19 @@ _commit `c08f3675c40a` (dirty worktree)_
 Task7 has not launched. Task6 also reserves a supervisor; simultaneous jobs would use5 extra CPUs, exceeding Claude's4-extra bound even though the12-total bound holds. The one300s Task7 resource pilot and the two Task6 profiles are therefore serialized. Task7 uses10 total/3 extra; Task6 uses9 total/2 extra. Sources, model parameters and measured endpoints are unchanged.
 
 _commit `6ea9270d566e` (dirty worktree)_
+
+## 2026-10-13 11:52 UTC: run (exploratory)
+
+- **Question:** Task6 independent descriptive reducer synthetic cost profile before saved-raw replay.
+- **Setup:** Root-authorized120s CPU1/nice10/4GiBAS/64MiBraw, start20GiB/runtime16GiB MemAvailable, source0bb14eafa46e95bb648c7a4ccc4511438325473a, exact cardcodex/misalignment-audit/profile-descriptive-card.json. Synthetic only; no original target arrays or model. Run sequentially after Task7 profile exact termination, preserving every failure.15 preparation controls passed0.49s.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-descriptive-001`
+
+_commit `0bb14eafa46e` (dirty worktree)_
+
+## 2026-10-13 11:52 UTC: run (exploratory)
+
+- **Question:** Task6 independent detection reducer synthetic cost profile before saved-raw replay.
+- **Setup:** Root-authorized120s CPU1/nice10/4GiBAS/64MiBraw, start20GiB/runtime16GiB MemAvailable, source0bb14eafa46e95bb648c7a4ccc4511438325473a, exact cardcodex/misalignment-audit/profile-detection-card.json. Synthetic only; no original target arrays or model. Run sequentially after Task7 profile exact termination, preserving every failure.15 preparation controls passed0.49s.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-detection-001`
+
+_commit `0bb14eafa46e` (dirty worktree)_
