@@ -1,0 +1,35 @@
+{
+  "schema": "codex-final-domain-freeze-failure-v1",
+  "certificate_passed": false,
+  "source_commit": "56de243fc22e2172cc219214aca8dcd0dc65185e",
+  "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-001",
+  "manifest_sha256": "f8162f5f1302ae6ebaa3352e6a47d03893527ec0f53122b8409d096dce541829",
+  "artifacts": [
+    {
+      "path": "final-point-admission-plan.json",
+      "bytes": 9102,
+      "sha256": "50c1a99ca0b91c1da1d7011e60640fd0f1f86b5f0f2fbc483bad21a21d7e0cd2"
+    },
+    {
+      "path": "freeze-helper.py",
+      "bytes": 25751,
+      "sha256": "d59ad0e45e9207b90d1ee4596626d040b6e059a51facfe432ae654c88f6e19e6"
+    },
+    {
+      "path": "status.json",
+      "bytes": 1132,
+      "sha256": "44e1e75900256edaa2cc5d4f201bea462b337357dfefd08048551565fc7b7217"
+    }
+  ],
+  "status": {
+    "status": "final_domain_freeze_failed",
+    "certificate_passed": false,
+    "stage": "completed_double_audit_threshold",
+    "error": "ValueError('both complete original-coordinate audits required')",
+    "traceback": "Traceback (most recent call last):\n  File \"/tmp/freeze-final-domain-001.py\", line 221, in main\n    stage='completed_double_audit_threshold';cap,authority,authority_paths=completed_authority(plan,attempt)\n                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/freeze-final-domain-001.py\", line 172, in completed_authority\n    require(root['phase_count']==8 and root['original_residual_coordinates_checked']==7168 and independent['new_phase_count']==8 and independent['new_coordinate_count']==7168,'both complete original-coordinate audits required')\n  File \"/tmp/freeze-final-domain-001.py\", line 46, in require\n    if not ok:raise ValueError(message)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: both complete original-coordinate audits required\n",
+    "partial_publication_files": [],
+    "elapsed_seconds": 0.4672978362068534
+  },
+  "classification": "Read-only admission schema mismatch: root audit counts before and after residual coordinates (14336), while the helper expected one set (7168). No target evaluation, optimizer action, derivative, or publication output. Completed residual evidence and threshold remain unchanged.",
+  "next_scope": "Preserve this attempt and use a separately reviewed correction in a new exclusive output directory; never overwrite or silently retry this attempt."
+}

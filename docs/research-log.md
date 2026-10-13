@@ -21621,3 +21621,9 @@ _commit `ee5f82e862cc` (dirty worktree)_
 The exact residual upper bound satisfies the authorized stopping criterion of at most 10^-210. No next candidate was planned or launched. The exact endpoint witness, completed audit archive and all history decisions are retained. This stop is centre readiness only, not an orbit certificate; final whole-box derivative coverage and independent proof gates remain necessary.
 
 _commit `ee5f82e862cc` (dirty worktree)_
+
+## 2026-10-13 09:12 UTC: Task 1: retained final-domain-001 read-only admission failure
+
+The reviewed freeze helper d59ad0e45e9207b90d1ee4596626d040b6e059a51facfe432ae654c88f6e19e6 failed before point admission or model execution: its root-audit schema expected 7168 original residual coordinates, while the independent root audit counts 14336 across before and after. All completed centre audits and the exact <=1e-210 stopping result remain valid. Raw attempt and traceback are retained read-only, compact receipt certificates/llm-p8-final-domain-001-failure.json. No publication output or derivative run. A reviewed schema correction must use a new exclusive attempt and preserve this failure.
+
+_commit `56de243fc22e` (dirty worktree)_
