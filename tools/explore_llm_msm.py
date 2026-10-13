@@ -54,7 +54,7 @@ def sample(args):
     remaining = np.zeros(R, dtype=int)
     if args.controller != "none":
         v_ctrl = elpm.load_vectors(args.vectors)[args.controller_concept]
-        if args.controller == "triggered":
+        if args.controller in ("triggered", "regenerate"):
             import hostility_score as hs
 
             clf = hs.Classifier(args.threads, args.device)
@@ -67,7 +67,8 @@ def sample(args):
     token_proj = {L: np.full((R, N, args.max_new), np.nan, dtype=np.float32) for L in layers}
     probe_q = np.full((R, N), np.nan)
     probe_q_plus = np.full((R, N), np.nan)
-    if args.probe_k and args.controller != "triggered":
+    regenerated = np.zeros((R, N), dtype=bool)
+    if args.probe_k and args.controller not in ("triggered", "regenerate"):
         import hostility_score as hs
 
         clf = hs.Classifier(args.threads, args.device)
@@ -90,6 +91,24 @@ def sample(args):
         else:
             out, ents, lens, _ = sm.generate_batch(batch, rows, args.max_new, temperature=args.temperature,
                                                    seed=args.seed * 100003 + k)
+        if args.controller == "regenerate":
+            # detect and replace: a reply flagged by the classifier is discarded before it enters the dialogue and
+            # regenerated once with the counter-steer; the counter then stays on for `controller_turns` turns
+            out, ents, lens = list(out), list(ents), list(lens)
+            toxic[:, k] = clf(out)[:, 0]
+            flagged[:, k] = toxic[:, k] > args.controller_threshold
+            idx = np.flatnonzero(flagged[:, k])
+            if len(idx):
+                rows2 = np.repeat((scale[k] * steer)[None], len(idx), axis=0) + args.controller_alpha * v_ctrl[None]
+                out2, ents2, lens2, _ = sm.generate_batch([batch[i] for i in idx], rows2, args.max_new,
+                                                          temperature=args.temperature,
+                                                          seed=args.seed * 100003 + 700000 + k)
+                for j, i in enumerate(idx):
+                    out[i], ents[i], lens[i] = out2[j], ents2[j], lens2[j]
+                rows[idx] = rows2
+                counter[idx, k] = args.controller_alpha
+                regenerated[idx, k] = True
+            remaining = update_remaining(remaining, flagged[:, k], args.controller_turns)
         a = sm.turn_activations(out, rows)
         for r in range(R):
             transcripts[r].append(out[r])
@@ -106,12 +125,12 @@ def sample(args):
         print(json.dumps({"turn": k + 1, "of": N, "seconds": round(time.perf_counter() - tic, 1),
                           "mean_entropy": round(float(np.mean(ents)), 3),
                           **({"flagged": int(flagged[:, k].sum()), "countered_next": int((remaining > 0).sum())}
-                             if args.controller == "triggered" else {})}), flush=True)
+                             if args.controller in ("triggered", "regenerate") else {})}), flush=True)
     dest = DATA / "explore" / args.out
     dest.mkdir(parents=True, exist_ok=True)
     np.save(dest / "activations.npy", acts)
     np.savez_compressed(dest / "turns.npz", entropy=entropies, length=lengths, counter=counter, flagged=flagged,
-                        toxic=toxic, probe_q=probe_q, probe_q_plus=probe_q_plus)
+                        toxic=toxic, probe_q=probe_q, probe_q_plus=probe_q_plus, regenerated=regenerated)
     if layers:
         np.savez_compressed(dest / "in-context.npz", layers=np.array(layers), unit=unit,
                             **{f"pre_reply_{L}": pre_reply[L] for L in layers},
@@ -148,7 +167,7 @@ def counter_for_turn(mode, alpha, remaining):
     still active (triggered), else zero."""
     if mode == "constant":
         return np.full(len(remaining), float(alpha))
-    if mode == "triggered":
+    if mode in ("triggered", "regenerate"):
         return np.where(remaining > 0, float(alpha), 0.0)
     return np.zeros(len(remaining))
 
@@ -283,7 +302,8 @@ def main():
     sa.add_argument("--probe-delta", type=float, default=0.02, help="extra dose along the push for the susceptibility")
     sa.add_argument("--probe-tokens", type=int, default=40)
     sa.add_argument("--probe-chunk", type=int, default=512)
-    sa.add_argument("--controller", default="none", choices=("none", "constant", "triggered"))
+    sa.add_argument("--controller", default="none", choices=("none", "constant", "triggered", "regenerate"),
+                    help="regenerate: a flagged reply is replaced by one regenerated with the counter-steer")
     sa.add_argument("--controller-concept", default="hostility-vs-kindness", help="vector of the counter-steer")
     sa.add_argument("--controller-alpha", type=float, default=0.0, help="counter-steer strength (signed)")
     sa.add_argument("--controller-turns", type=int, default=3, help="turns countered after each flagged reply")
