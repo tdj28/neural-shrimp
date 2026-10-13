@@ -753,6 +753,20 @@ per turn. The grey band (turns 35--39) is the pre-stated comparison window. Expl
 \label{fig:hysteresis}
 \end{figure}
 
+\paragraph{Exit control under persistent pressure.} Can a monitor detect the hostile state and push the dialogue
+out while the pressure persists? With a constant push of $0.06$ (58\,\% of turns 5--39 hostile without control), a
+counter-steer triggered by the classifier after each hostile reply and held for three turns cuts the hostile share
+to $15\,\%$ (mean counter-dose $0.026$ per turn), and held for six turns to $8.5\,\%$ (dose $0.030$). A constant mild
+counter-steer of $-0.02$ does as well with less dose ($8.5\,\%$ at $0.020$), and $-0.04$ almost removes hostility
+($1.3\,\%$). Measured against the constant dose-response at equal mean dose, triggered control is less efficient by
+$4$--$11$ points (bootstrap intervals $[+0.02,+0.05]$ to $[+0.10,+0.13]$; one seed of 128 dialogues per arm, analysis
+stated before the data). It also overshoots: a triggered overshoot to a net $-0.02$ fills $30\,\%$ of turns with
+gratitude or servility words (no control: $0.2\,\%$; constant $-0.02$: $0.2\,\%$), the saccharine attractor of
+Appendix~\ref{app:gratitude}. A counter-steer along the generic kindness concept, whose direction shares much with the
+hostility concept (cosine $0.83$), does not lower the hostile share at all ($57\,\%$). In this setting, reacting after
+detection costs more than mild prevention, consistent with the hysteresis above, and the push must be along the
+contrast direction; a monitor that warned before capture would combine the low dose of prevention with targeting.
+
 \paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
 tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
 baselines lowers the AUC by $0.02$ to $0.10$ at horizons of 1--5 turns, with bootstrap intervals excluding zero. The
