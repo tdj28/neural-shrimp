@@ -1,9 +1,9 @@
 # Exact-real Qwen period-8 certificate development
 
-## Current checkpoint — 13 October 2026, 07:02 UTC
+## Current checkpoint — 13 October 2026, 07:19 UTC
 
 The assigned numerical orbit is recovered and its shooting centres have been
-refined to a rigorously enclosed residual of approximately **4.16828019605685895E-89**.
+refined to a rigorously enclosed residual of approximately **7.40229711559188591E-101**.
 **Existence, primitive period and attraction are not yet certified.**
 This is an inference-state orbit of one exact-real soft-token map, not a
 training-parameter cycle or evidence of a task-performance benefit.
@@ -25,6 +25,7 @@ The full 151,936-token expectation uses tied input/output embeddings.
 | center-secant-001 | One candidate:7.1572e-52 to2.1553e-64; all three prior secants accepted | Eight fresh phases,107 artifacts audited; no matched acceleration claim |
 | center-parallel-001 | One candidate:2.1553e-64 to3.5238e-77; history3 to4 | Eight fresh phases,201 artifacts audited;325.21s total,20.775GiB sampled aggregate RSS |
 | center-parallel-002 | One candidate:3.52379101053601862E-77 to4.16828019605685895E-89; history_cap_restart | Eight fresh phases,204 artifacts audited;286.70s total |
+| center-parallel-003 | One candidate:4.16828019605685895E-89 to7.40229711559188591E-101; accepted_midpoint_rank_one | Eight fresh phases,211 artifacts audited;319.52s total |
 | box-derivative-001 | 32 signed columns over original phase-zero prototype box2^-800;988.57s forward,7.93GiB peak | Original prototype only |
 | streamed-derivative-001 | 64 columns on same box;1787.97s forward,5.14GiB peak; all32 baseline column comparisons pass | Original prototype only; all67 artifacts audited |
 | proposal-budget-001 | Numerical factored-bound budget; limiting common induced-infinity Jacobian discrepancy about2.59e-9 | Planning diagnostic, not rigorous operator bound |
@@ -36,18 +37,18 @@ checks, exact receipt hashes and every configuration's outcome.
 
 ### Current owned computation
 
-No Codex model job is active at this checkpoint. `center-parallel-002` completed
-from source `be9d08523b7527c2e6715708ad7db405be02caaa`, exit0 without timeout,
-in286.70 seconds. All204 artifacts,93 exact source blobs,
+No Codex model job is active at this checkpoint. `center-parallel-003` completed
+from source `4367d3bdcf1bea26fbf594f93b5b470e99362013`, exit0 without timeout,
+in319.52 seconds. All211 artifacts,100 exact source blobs,
 eight original phase enclosures and termination rows passed root and independent
 audit. The new residual upper bound is strictly below the old lower bound,
-with ratio about1.18289654057060676E-12. Peak sampled aggregate RSS was
-21.219GiB; this is not a hard cgroup cap.
+with ratio about1.77586360979148345E-12. Peak sampled aggregate RSS was
+20.839GiB; this is not a hard cgroup cap.
 No matched runtime or convergence comparison establishes acceleration.
 
-The complete audited capsule has0 factors and an unconsumed
-tuple5-to6 pair. The reviewed next single-candidate plan is
-`center-parallel-003-plan.json`; check its exclusive attempt and final receipt before
+The complete audited capsule has1 factors and an unconsumed
+tuple6-to7 pair. The reviewed next single-candidate plan is
+`center-parallel-004-plan.json`; check its exclusive attempt and final receipt before
 doing anything that could duplicate it. The immediate capsule bytes are
 authenticated again; older archives rely on the disclosed prior independent
 audit rather than being silently claimed as rehashed. No GPU, paid pod or
