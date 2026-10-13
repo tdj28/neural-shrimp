@@ -1,0 +1,52 @@
+{
+ "status": "verified",
+ "started_utc": "20261013T193246Z",
+ "completed_utc": "2026-10-13T19:53:34.917455+00:00",
+ "source": "/data2/neural-shrimp-data",
+ "destination": "/archive/neural-shrimp-backups/20261013T193246Z-llm-dynamics-13oct-evening",
+ "excluded_roots": [
+  "models",
+  "envs"
+ ],
+ "rsync_returncode": 0,
+ "rsync_stderr_tail": "",
+ "link_dest": "/archive/neural-shrimp-backups/20261013T155602Z-llm-dynamics-13oct/raw-data",
+ "file_count": 937013,
+ "verified_files": 937002,
+ "bytes": 138906819826,
+ "symlink_count": 11,
+ "hash_mismatches": [],
+ "errors": [],
+ "changed_during_copy": [
+  "codex/llm-p8-certificate/final-derivative-p6-c576-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p6-c576-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p6-c640-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p6-c640-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p6-c704-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p6-c704-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p6-c768-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p6-c768-001/stdout.log",
+  "codex/llm-p8-certificate/final-derivative-p6-c832-001/run/events.jsonl",
+  "codex/llm-p8-certificate/final-derivative-p6-c832-001/stdout.log",
+  "runpod/known_hosts",
+  "runpod/pods.jsonl",
+  "runpod/soft64/20261013T183245Z/runner-stdout.txt"
+ ],
+ "changed_during_copy_count": 13,
+ "new_during_copy_count": 17,
+ "private_files": [
+  "cost-ledger.md",
+  "checkpoint.md",
+  "Handoff.md"
+ ],
+ "manifest_sha256": "700cc4f93495e52b5521999ac2ddf66a96a36dc53049a0ceeb57589770d2ef18",
+ "elapsed_seconds": 1248.6,
+ "source_commit_at_copy": "f18c257849bbda77e0a19f1ac615706330512585",
+ "verification": "complete SHA-256 comparison of every regular source file with its copy; source sizes and mtimes re-inventoried after hashing (changed files listed, not claimed verified)",
+ "physical_storage": {
+  "source": "nvme1n1",
+  "destination": "sda",
+  "basis": "lsblk, 13 Oct 2026 (as in docs/backups/2026-10-08-local-archive.json)"
+ },
+ "scope": "Full data root except model caches and environments; same-machine separate physical disk; not offsite or continuous."
+}

@@ -1,5 +1,6 @@
 """Figure: the hostile hub's period-7 body. Float64 attractor periods of the partial zoom (scan64/hub-arm) with the
-float64 fold and flip curves of the period-7 orbit (hcurves/hub7-*) and the two normal-form-tested cusp candidates.
+float64 fold and flip curves of the period-7 orbit (hcurves/hub7-*) and the two cusps where the quadratic
+normal-form coefficient b changes sign (the cubic coefficient c is nonzero there: cusp-cubic.jsonl, run V11).
 
 Usage: python tools/plot_hub_shrimp.py OUT.png
 """
@@ -47,7 +48,7 @@ def main():
                         mec="k", zorder=5)
     ax.plot([], [], **styles["fold"], label="fold curves (period 7)")
     ax.plot([], [], **styles["flip"], label="flip curves (period 7 to 14)")
-    ax.plot([], [], "o", ms=8, mfc="gold", mec="k", ls="none", label="cusp candidates (b changes sign)")
+    ax.plot([], [], "o", ms=8, mfc="gold", mec="k", ls="none", label="nondegenerate cusps ($b=0$, $c\\neq0$)")
     ax.set_xlim(0.0600, 0.0700)
     ax.set_ylim(0.172, 0.204)
     ax.set_xlabel("steering along 'hostility-vs-kindness'")

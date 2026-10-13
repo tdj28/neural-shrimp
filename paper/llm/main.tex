@@ -11,7 +11,7 @@
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage{microtype}
 \hypersetup{pdftitle={Intermittency, period adding and bifurcation curves in a language model's own inference map},
-  pdfsubject={Private working draft, 12 October 2026}}
+  pdfsubject={Private working draft, 13 October 2026}}
 \graphicspath{{figures/}}
 % Placeholders: red = planned, not started; orange = running or partly done. Remove all before submission.
 \newcommand{\planned}[1]{\textcolor{red}{\textbf{[Planned:} #1\textbf{]}}}
@@ -20,12 +20,12 @@
 
 \title{Intermittency, period adding and bifurcation curves\\ in a language model's own inference map}
 \author{Authorship to be decided by the human researcher}
-\date{Private working draft, 12 October 2026}
+\date{Private working draft, 13 October 2026}
 
 \begin{document}
 \maketitle
 \noindent\textbf{Status of this draft.} Results on the soft-token map without a marker are numerically validated
-in float64 (evidence rung 1 or 2 in the sense of Section~\ref{sec:evidence}); coarse maps are float32 and say so,
+in float64 (evidence rung 1 or 2 in the sense of Section~\ref{sec:evidence}); float32 maps say so,
 Huginn's spectra are float32 and its accuracy runs bfloat16, and the dialogue results are sampled statistics with
 stated intervals. \planned{Red} marks planned work and \inprogress{orange} marks running work. Nothing here is a
 computer-assisted proof yet.
@@ -81,14 +81,16 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
 \item The mechanism: the 2-cycle ``is it'' dies in a fold; its normal form, computed from derivatives, predicts
   bottleneck passage times; the global reinjection sets the window-law prefactor (Section~\ref{sec:mechanism}).
 \item Fold and flip curves of periodic orbits continued in the parameter plane with float64 test functions: a
-  period-6 window whose fold curves meet in two numerical cusp candidates (tangent reversal with a sign change of
-  the quadratic normal-form coefficient) with a flip curve inside (a shrimp candidate), and two more such candidates
-  on a period-4 fold curve (Section~\ref{sec:curves}).
+  period-6 window whose fold curves end in two cusps that are nondegenerate numerically (the quadratic normal-form
+  coefficient changes sign along the curve and the cubic one is nonzero), with a flip curve inside, the
+  codimension-two organization of a shrimp; and two more such cusps on a period-4 fold curve
+  (Section~\ref{sec:curves}).
 \item A period-doubling sequence toward chaos in a closed region of the parameter plane: flips located in float64
   through $48\to96$ and superstable points through period 384, whose finite-order interval ratios rise to $4.478$
   and $4.625$ (Section~\ref{sec:cascade}).
 \item A bridge to sampled decoding (Section~\ref{sec:bridge}); the same organization in Qwen2.5-1.5B, with a
-  period-doubling route, and chaos with embedded windows in Qwen2.5-7B (Section~\ref{sec:scale}); and a second
+  period-doubling route, and chaos with embedded windows in Qwen2.5-7B and, in coarse float64 maps, in OLMo-2 7B
+  (Section~\ref{sec:scale}); and a second
   system, a recurrent-depth model with a predicted and observed Neimark--Sacker bifurcation, spectral predictions of
   its response to relaxation (question by question), native instability for some prompts, multiple-choice accuracy
   that tolerates the instability until it is large, and chain-of-thought accuracy that breaks at the predicted
@@ -161,9 +163,9 @@ period-8 orbit is off by 3\%. All orbits, multipliers and test functions below a
 
 \section{Methods}
 \label{sec:methods}
-\paragraph{Phase maps.} For each cell, 300 transient and 300 measured steps; the largest Lyapunov exponent from a
-renormalized twin at offset $10^{-6}$; the period as the smallest $q\le32$ with return distance below
-$10^{-8}$; the attractor's identity as its rotation-invariant leading-token loop. Maps of $256^2$ cells take
+\paragraph{Phase maps.} For each cell, unless stated otherwise, 300 transient and 300 measured steps; the largest
+Lyapunov exponent from a renormalized twin at offset $10^{-6}$; the period as the smallest $q\le32$ (48 in the later
+zooms) with return distance below $10^{-8}$; the attractor's identity as its rotation-invariant leading-token loop. Maps of $256^2$ cells take
 about 100 minutes on one H100 GPU in float64. Every cell starts from the same state, so where attractors coexist
 a map shows the one whose basin contains that state. Labels are text, not dynamical identities: one continuous
 orbit changes label where two tokens tie for the maximum. We call two labelled regions different attractors only
@@ -173,7 +175,7 @@ eigenvalues of the monodromy matrix, refined by a short Arnoldi factorization wi
 products where the dense matrix is not float64.
 \paragraph{Continuation.} Pseudo-arclength continuation of periodic branches in one parameter, and of fold and
 flip curves in two, using minimally augmented systems \cite{govaerts2000numerical,kuznetsov2023elements}: the
-test function $g$ of the bordered system $[[M\mp I,b],[c^\top,0]]$ is obtained by GMRES with Jacobian-vector
+test function $g$ of the bordered system $[[M\mp I,v],[w^\top,0]]$ is obtained by GMRES with Jacobian-vector
 products, and its gradient by reverse-mode differentiation through a Jacobian-vector product. A reversal of the
 parameter tangent flags a cusp candidate, which we test with the normal form.
 \paragraph{Normal form and passages.} For the two-step map $G=F^2$ at a fold with right and left eigenvectors
@@ -425,16 +427,17 @@ with flip curves inside, is the codimension-two organization of a shrimp \cite{f
 curves (Figure~\ref{fig:z3curves}) bound the body by a single fold arc on its outer side and a flip arc on its inner
 side, with the leg between them where they converge. The outer fold arc extends far to the left as a thin arm and ends
 in a cusp at $(\alpha,\log_{10}T)=(0.06911,-0.03975)$. The fold curve through the close fold pair has a second cusp
-inside the body, at $(0.08010,-0.05835)$, from which two fold branches descend. At both, the normal-form coefficient
-changes sign while $a$ stays away from zero (Table~\ref{tab:z3cusps}). The signs of $a$ and $b$ both flip with the
+inside the body, at $(0.08010,-0.05835)$, from which two fold branches descend. At both, the quadratic coefficient
+$b$ changes sign while $a$ stays away from zero (Table~\ref{tab:z3cusps}). The signs of $a$ and $b$ both flip with the
 orientation of the critical eigenvector, so the test uses $b\operatorname{sign}a$. The cusp's nondegeneracy condition is
 a nonzero cubic coefficient $c$ of the normal form $u'=u+a\varepsilon+bu^2+cu^3$ where $b$ vanishes. We compute it with
-the second-order centre-manifold term, $c=l^{\mathsf T}C(r,r,r)/6+l^{\mathsf T}B(r,h_2)/2$ with
-$(I-M)h_2=B(r,r)-2br$ and $l^{\mathsf T}h_2=0$ ($M$ the monodromy matrix, $B$ and $C$ its map's second and third
+the second-order centre-manifold term, $c=\ell^\top C(r,r,r)/6+\ell^\top B(r,h_2)/2$ with
+$(I-M)h_2=B(r,r)-2br$ and $\ell^\top h_2=0$ ($M$ the monodromy matrix, $B$ and $C$ its map's second and third
 derivatives, by central differences of float64 Jacobian-vector products; the code reproduces $c$ to $10^{-6}$ on a map
 with a known reduction). At both cusps $c$ is nonzero far beyond its step-size uncertainty and keeps its sign through
-the zero of $b$, which crosses zero with nonzero slope along the curve: both are nondegenerate cusps, numerically. Its negative sign means that
-between the fold branches near each cusp two stable period-6 orbits coexist with a saddle.
+the zero of $b$, which crosses zero with nonzero slope along the curve: both are nondegenerate cusps, numerically.
+The negative sign of $c$ means that between the fold branches near each cusp two stable period-6 orbits coexist with
+a saddle.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.3\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}}
@@ -466,10 +469,11 @@ $(0.0753,-0.089)$.}}
 are no longer effectively one-dimensional (second multipliers $0.06$--$0.09$). In temperature at
 $\alpha=0.06484$ the branch of the period-4 orbit ``$\backslash$n$\backslash$n - $\backslash$n$\backslash$n The''
 is S-shaped, with folds at $\log_{10}T=0.0640$ and $0.0664$. Continuing that fold in the plane, its parameter
-tangent reverses twice; at both reversals the normal-form coefficient $b$ changes sign while $a$ stays away from
-zero (Table~\ref{tab:cusps}), so both are numerical cusp candidates of the fold curve (tangent reversal and a sign
-change of the quadratic coefficient; the cubic nondegeneracy coefficient is not computed), at
-$(\alpha,\log_{10}T)=(0.06296,0.05996)$ and $(0.06557,0.07445)$. Between the two fold branches two period-4 orbits coexist (Figure~\ref{fig:p4}).
+tangent reverses twice; at both reversals the quadratic coefficient $b$ changes sign while $a$ stays away from
+zero, and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}). Both are therefore
+nondegenerate cusps of the fold curve, numerically, at $(\alpha,\log_{10}T)=(0.06296,0.05996)$ and
+$(0.06557,0.07445)$. Between the two fold branches three period-4 orbits coexist; near the first cusp ($c<0$) two of
+them are stable (Figure~\ref{fig:p4}).
 \begin{table}[H]
 \centering\small
 \begin{tabular}{lcc}
@@ -494,12 +498,13 @@ $c>0$: the orbit between the two others is the stable one.}
 \caption{Period map of the high-temperature region ($192^2$ float64 cells) with float64 fold curves (cyan, long
 dashes) and flip curves (magenta, short dashes) of the period-4 orbit; the yellow circle is the first cusp (the second lies just above
 the window). The flip curves run along the boundary between period 4 and period 8. The fold curves run inside the
-period-4 region, where two period-4 orbits coexist. In this map a C-shaped band of the doubled loop
+period-4 region, where three period-4 orbits coexist (near the first cusp, two of them stable). In this map a
+C-shaped band of the doubled loop
 ``\textbackslash n\textbackslash nThe\textbackslash n\textbackslash nThe'' (period 4) inside the period-2 region
 ``\textbackslash n\textbackslash nThe'' contains period 8 and an irregular core; along the cut of
 Section~\ref{sec:cascade} the period-8 orbit merges back into period 4 (a doubling bubble), so this band is not shown
 to be a second cascade.
-\planned{remaining fold curves (C, D); whether the region is one shrimp-organized component.}}
+\planned{the remaining fold curves of the period-4 region; whether the region is one shrimp-organized component.}}
 \label{fig:p4}
 \end{figure}
 \planned{Codimension-two points where a second multiplier crosses the unit circle along the lower fold curve
@@ -514,8 +519,8 @@ loops repeat the same leading tokens, twice and four times, with alternating pro
 float64 (Section~\ref{sec:methods}) along this cut, in the steering coordinate $\alpha$, gives Table~\ref{tab:cascade}.
 The first two ratios, $\delta_2=2.844$ and $\delta_3=2.859$ (indexed as in Table~\ref{tab:cascade}), are far from
 Feigenbaum's $4.6692$, although from the second flip on the orbits are effectively one-dimensional (next modulus
-$0.0023$, $2\times10^{-6}$, $2\times10^{-12}$). The next, $\delta_4=3.781$, is markedly larger. The flip parameters agree across three devices (CPU, a consumer GPU
-and an H100, all float64) to $10^{-16}$--$3\times10^{-15}$. Continuing a just-born doubled orbit past period 48 failed:
+$0.0023$, $2\times10^{-6}$, $2\times10^{-12}$). The next, $\delta_4=3.781$, is markedly larger. The first four flip parameters agree between completed float64
+computations on a CPU and an H100 to $4\times10^{-15}$. Continuing a just-born doubled orbit past period 48 failed:
 Newton slides onto the half-period orbit, which is also periodic with the doubled period. We therefore also located
 the superstable parameters $s_p$, where the critical multiplier vanishes in the middle of each band
 (Table~\ref{tab:superstable}). There the orbit attracts, so it can be reached by forward iteration and cannot slide
@@ -617,7 +622,7 @@ period-adding fan like the 0.5B model's.
 A cut of 2048 cells at $\alpha=0.100$ (Figure~\ref{fig:qwen15route}) shows how the band is entered from below. The
 2-cycle ``What?\textbackslash n'' gives way abruptly to a period-4 loop: the Lyapunov exponent jumps, so these are two
 distinct attractors, not a flip. The period-4 loop then doubles: float64 flips at $\log_{10}T=-0.0031269$ (period
-$4\to8$, next modulus $0.014$), $-0.0021666$ (period $8\to16$, next modulus $8\times10^{-5}$) and $-0.0019002$
+$4\to8$, next modulus $0.014$), $-0.0021666$ (period $8\to16$, next modulus $8\times10^{-5}$), $-0.0019002$
 (period $16\to32$, next modulus $5\times10^{-9}$) and $-0.0018380$ (period $32\to64$), where the exponent rises
 continuously to zero; chaos follows. The interval ratios are $3.60$ and $4.28$. They rise toward $4.669$ as in the
 0.5B crescent, and from higher values, at higher temperature ($T\approx0.99$ against $0.71$), as the crossover
@@ -631,13 +636,15 @@ suggestive.
 number of line breaks between the ``What''s.}
 \label{fig:qwen15route}
 \end{figure}
-(A second steering direction, hostility, reproduces the fold-and-adding mechanism; Section~\ref{sec:misalignment}.)
+(In Qwen2.5-0.5B, a second steering direction, hostility, reproduces the fold-and-adding mechanism;
+Section~\ref{sec:misalignment}.)
 
 For Qwen2.5-7B (steering at layer 14 of 28, concept vectors built as for the smaller models), coarse $64^2$ float64
 maps show the same kind of organization (Figure~\ref{fig:qwen7b}). Over the philosophy range used for 0.5B and
 1.5B, 8\,\% of cells have a positive largest exponent, and periods 2, 4, 3 and 11 dominate the periodic cells. Along
 the hostility direction ($\alpha\in[0,0.12]$, $\log_{10}T\in[-0.3,0.3]$), 24\,\% of cells are chaotic, with bands of
-period-3, -5 and -6 windows in a chaotic sea below $\log_{10}T\approx0.1$ and high-entropy chaos above. The windows
+period-3, -5 and -6 windows in a chaotic sea below $\log_{10}T\approx0.1$ and high-entropy chaos above, except for a
+period-3 region at strong steering ($\alpha\gtrsim0.09$). The windows
 hold genuine periodic orbits: in float64, Newton's method converges at the most interior period-6 cell to the loop
 ``, shut the end\textbackslash n\textbackslash nOh'' at $(\log_{10}T,\alpha)=(-0.0143,0.0476)$ (residual
 $2\times10^{-14}$; spectral radius $1.6\times10^{-7}$, nearly superstable) and at the most interior period-3 cell to
@@ -729,8 +736,8 @@ $\lambda=1.020$--$1.149$ (median $1.095$). Question by question, an estimated sp
 the computed Ritz values of the question's gold-answer prefill), ranks the question's residual (Spearman $0.73$ at
 $\lambda=1$ and $0.75$ at $1.10$ over the 30 questions; development data). In this historical analysis the residual
 was the all-choice aggregate entering the 32nd recurrence call, so this is a predictive association across related
-maps and precisions, not a same-state contraction identity. The frozen test uses matched gold-row token IDs and a
-per-row residual with an explicit clock. This is consistent with the latent orbits that \citet{geiping2025recurrent}
+maps and precisions, not a same-state contraction identity. The item-level part of the frozen test below (in
+progress) uses matched gold-row token IDs and a per-row residual with an explicit clock. This is consistent with the latent orbits that \citet{geiping2025recurrent}
 observed on some tokens of harder questions, here traced to the fixed point's spectrum. Accuracy, however, tolerates
 the instability (300 training questions, 32 steps): $0.367$ native, $0.387$ at $\lambda=1.10$ and $0.373$ at $1.15$,
 where the latent state oscillates with relative size $0.08$ and $0.23$; only at $1.25$ (size $0.68$) does it fall, to
@@ -746,7 +753,8 @@ decoding and 32 recurrence steps per token (development problems 0--119, every a
 states), accuracy is $0.375$ natively, $0.425$ at $\lambda=1.05$ and at $1.10$, $0.29$ at $1.15$ (17 problems lost and 7
 gained, one-sided McNemar $p=0.03$) and $0.16$ at $1.20$ (29 lost, 3 gained, $p=10^{-6}$). Under-relaxation to $0.8$
 costs nothing at 32 steps ($0.41$). The break lies between $1.10$ and $1.15$, at or just above the spectral thresholds
-($\lambda_c=1.074$--$1.126$ for the GSM8K prompts, median $\lambda_{\rm up}=1.09$ for ARC questions), and generation
+($\lambda_c=1.074$--$1.126$ for the GSM8K prompts; median upper stability limit $1.095$ for the ARC development
+questions), and generation
 breaks earlier than log-likelihood scoring, consistent with answer changes that compound over tokens. The collapse at
 $1.2$ is the one \citet{wang2026taps} reported.
 A frozen test on fresh problems confirms this (design and analysis pushed before any test item was read, after two
@@ -877,10 +885,9 @@ windows of periods 28, 35 and 42, and undoubles back to 7.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\linewidth]{fig-hub-shrimp.png}
-\caption{The hostile hub's period-7 body (Qwen2.5-0.5B, hostility steering): attractor periods of a float64 zoom
-(partial: the top rows were not computed), the float64 fold curves of the period-7 orbit (black) and the flip curves
-into period 14 (red, dashed), with the two cusp candidates at which the fold's quadratic normal-form coefficient
-changes sign (gold).}
+\caption{The period-7 body of the spiral region (Qwen2.5-0.5B, hostility steering): attractor periods of a float64
+zoom (white at $\alpha<0.062$: outside the zoom), the float64 fold curves of the period-7 orbit (black) and the flip
+curves into period 14 (red, dashed), with the two numerically nondegenerate cusps (gold).}
 \label{fig:hubshrimp}
 \end{figure}
 \begin{figure}[H]
@@ -983,7 +990,9 @@ detection costs more than mild prevention, consistent with the hysteresis above.
 
 \paragraph{Detect and replace.} Capture feeds on its own history (the hysteresis above), which suggests that the
 hostile reply itself carries the dialogue into the basin. A serving system need not show a flagged reply. In a second controller experiment (same push,
-seed and analysis as above, stated before the data) every reply the classifier flags is discarded before it enters the
+seed and analysis as above, stated before the data; sampled dialogues are not bit-reproducible across code versions,
+so this run's no-control arm, which reproduces the ladder's $0.06$ arm exactly, differs slightly from the previous
+paragraph's, and arms are compared within each run) every reply the classifier flags is discarded before it enters the
 dialogue and regenerated once with a counter-steer of $-0.04$ applied to that reply only. The model's own replies,
 counted before any replacement, are then hostile in $12\,\%$ of turns ($[11, 14]\,\%$; no control in the same run:
 $59\,\%$) at a mean counter-dose of $0.005$ per turn. Constant prevention at $-0.02$ needs four times that dose for a
@@ -1083,18 +1092,18 @@ improve.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-committor.png}
-\caption{Attainable warning of hostile capture. Left: AUC for capture within $h$ turns on 800 stratified states of the
+\caption{Warning of hostile capture: detectors and the Monte Carlo committor. Left: AUC for capture within $h$ turns on 800 stratified states of the
 confirmation dialogues, for the classifier baselines, the in-context detector (both fit on the exploration study), the
 Monte Carlo committor from 32 continuations, and its heuristic $1/K$ extrapolation (dialogue-bootstrap 95\,\%
 intervals). Right: mean committor in the ten turns before capture for 48 dialogues captured after turn 10, and for
 never-captured dialogues at the same turns (descriptive).}
 \label{fig:committor}
 \end{figure}
-\paragraph{A second classifier.} Every hostility outcome above depends on one automated classifier. All 44 dialogue
-sets were therefore rescored with an independently trained RoBERTa classifier \cite{logacheva2022paradetox} (trained
+\paragraph{A second classifier.} The Qwen2.5-0.5B outcomes above were first measured with one automated
+classifier. All 44 of its dialogue sets were therefore rescored with an independently trained RoBERTa classifier \cite{logacheva2022paradetox} (trained
 on the three Jigsaw toxicity datasets, which include the first classifier's training set; same threshold), and an
 independent audit recomputed every pre-stated contrast with it. This is a robustness check on dialogues already
-analysed, so it is exploratory. The second classifier is stricter. At $\alpha=0.06$ it flags $35\,\%$ of turns
+analysed, so it is exploratory. On these sets the second classifier is stricter. At $\alpha=0.06$ it flags $35\,\%$ of turns
 instead of $57\,\%$, at $0.07$ $62\,\%$ instead of $87\,\%$, and almost all disagreements are replies that only the
 original flags (at $0.06$, $23\,\%$ of turns against $0.7\,\%$ the other way), most of them repetitive exclamations
 such as ``You're an AI! You're an AI!''. Capture still rises steeply with the dose and stays specific to the hostility
@@ -1121,7 +1130,8 @@ forms on such a model. We do not claim that ordinary sampled generation is chaot
 (Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and the hostile period-7
 body have, numerically, the codimension-two organization of a shrimp: fold curves ending in nondegenerate cusps
 (quadratic coefficient through zero with nonzero slope, cubic coefficient nonzero) and flip curves inside. These are
-float64 computations validated by step-size and cross-implementation checks, not computer-assisted proofs.
+float64 computations validated by step-size checks (rung 1; no independent implementation has yet recomputed the
+cusp coefficients), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
 and two float64 orbits at 7B, and coarse maps only for a second family (OLMo-2 7B); one prompt and one steering construction for the maps; a constructed one-token-window system;
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), but no
@@ -1156,12 +1166,16 @@ computer-assisted proof.
 \item Prospectively frozen: the passage forecasts at two new folds (Table~\ref{tab:prospective}); 23 of 24 within one
   iterate, and the all-row criterion failed by one row.
 \item Rung 2 as well: the period-2 and period-8 orbits of Table~\ref{tab:orbits} (independent implementation), and
-  the cascade's first five flip parameters (three devices, agreement $10^{-16}$--$3\times10^{-15}$).
+  the cascade's first four flip parameters (CPU and H100, agreement $4\times10^{-15}$).
 \item Rung 2 as well: the hostile 2-cycle fold and its normal form, reproduced by an independent float64 forward map
   with nested automatic differentiation (location to $6\times10^{-10}$, $ab$ to 8 parts per million); its controlled
   passages were also checked independently, with the frozen all-six criterion failing by one row.
-\item Rung 1: the other orbits, the curves, the cusp candidates, the superstable parameters, the 1.5B flips, the
-  hostile windows' edges, the hub's period-7 body, the 7B orbit, and Huginn's float32 spectral estimates.
+\item Rung 1: the other orbits, the curves, the six cusps (numerically nondegenerate), the superstable parameters,
+  the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the two 7B
+  orbits, and Huginn's float32 spectral estimates.
+\item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out problems; its GSM8K part
+  is confirmed and was reproduced exactly from the saved rows by an independent implementation, and its item-level
+  part is in progress (Section~\ref{sec:huginn}).
 \item Prospectively frozen as well: the confirmation of the in-context warning in sampled dialogue
   (Section~\ref{sec:misalignment}), whose design was pushed before the data and amended, before any outcome was read,
   to correct a labelling error.
@@ -1172,11 +1186,13 @@ $2^{-640}$) is fixed; the derivative enclosures over
 that box are being computed, after which the inclusion, primitive-period and attraction gates follow.}
 Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
 \path{tools/explore_latent_loop.py}, \path{tools/explore_llm_msm.py}, \path{tools/hostility_score.py},
-\path{tools/p1_committor.py}, \path{tools/huginn_relax_eval.py}, \path{tools/huginn_arc_analysis.py}. Raw-data hash
+\path{tools/p1_committor.py}, \path{tools/p1_controller.py}, \path{tools/p1_degeneracy.py},
+\path{tools/cusp_check.py}, \path{tools/huginn_relax_eval.py}, \path{tools/huginn_arc_analysis.py}. Raw-data hash
 receipts: \path{evidence/llm-dynamics-data-receipts.json} (to 12 October), the per-run receipts in the research log,
 and the verified snapshot manifests in \path{docs/backups/}; independent cross-check and audit receipts are under
 \path{codex/} (\path{crosscheck}, \path{confirm-fold}, \path{hostile-fold-crosscheck}, \path{misalignment-audit},
-\path{l9-committor-review}, \path{huginn-design-review}, \path{paper-review}).
+\path{l9-committor-review}, \path{huginn-design-review}, \path{huginn-independent-replay},
+\path{p1-second-classifier-audit}, \path{paper-review}).
 \planned{public code and data release at submission.}
 
 \appendix
@@ -1185,7 +1201,7 @@ and the verified snapshot manifests in \path{docs/backups/}; independent cross-c
 Two copies of Qwen2.5-0.5B-Instruct talk to each other: 128 replicas, 40 turns, opener ``Hello!'', a window of 7
 turns, 60 new tokens per turn, sampled at $T=0.7$, with the gratitude direction added at layer 12. Turn activations are
 clustered (PCA to 20 dimensions, 40 states) into a Markov state model with four metastable sets
-\cite{chodera2014msm}. Finite-horizon measures:
+\cite{chodera2014msm}. Finite-horizon measures (Table~\ref{tab:gratitude}):
 \begin{table}[H]
 \centering\small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.25\linewidth}*{4}{>{\raggedright\arraybackslash}p{0.15\linewidth}}}
