@@ -43,7 +43,8 @@ def jsonwrite(path,value):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True)
     p.add_argument('--precision',type=int,default=384);p.add_argument('--threads',type=int,default=1)
-    p.add_argument('--box-radius-power',type=int,default=-80);a=p.parse_args()
+    p.add_argument('--box-radius-power',type=int,default=-80)
+    p.add_argument('--skip-box',action='store_true',help='retain prefix and point only for centre-refinement setup');a=p.parse_args()
     if a.precision<128 or a.threads!=1 or a.box_radius_power>=0:
         raise ValueError('pilot requires high precision, one CPU thread and a small positive dyadic radius')
     out=a.output.resolve()
@@ -74,7 +75,7 @@ def main():
                   pinned_assets=PINNED_SHA256,prefix_ids=PREFIX_IDS,alpha_ratio=list((.071674).as_integer_ratio()),
                   log10_temperature_ratio=list((-.115).as_integer_ratio()),precision=a.precision,
                   temperature='exp(log(10)*exact_dyadic_log10T)',rotary='real base^(-2j/head_dim), real sin/cos',
-                  prefix='fully recomputed exact-real enclosure with steering',box_radius_power=a.box_radius_power,
+                  prefix='fully recomputed exact-real enclosure with steering',box_radius_power=a.box_radius_power,skip_box=a.skip_box,
                   statement='setup diagnostics only; no Krawczyk or attraction certificate',pid=os.getpid()))
         phase='numerical_proposal';event('load_model')
         model=ManualQwenSoftMap.from_pinned_files();x=torch.tensor(np.load(SEED,allow_pickle=False)['x_c'].copy(),dtype=torch.float64)
@@ -122,6 +123,10 @@ def main():
                   defect_from_next_proposal=[packed(v-exact(y)) for v,y in zip(f,points[1])]))
         event('point_step_done',max_radius=str(max(v.rad() for v in f)),
               max_defect=str(max((v-exact(y)).abs_upper() for v,y in zip(f,points[1]))))
+        if a.skip_box:
+            jsonwrite(out/'status.json',dict(status='point_setup_completed',certificate_passed=False,
+                      reason='prefix and one point only; state-box diagnostic explicitly omitted',elapsed=time.monotonic()-start))
+            event('point_setup_completed');return
         phase='rigorous_box_jvp';radius=arb((1,a.box_radius_power))
         box=[arb(exact(v),(1,a.box_radius_power)) for v in points[0]]
         tangent=[arb(0,1) for _ in points[0]]

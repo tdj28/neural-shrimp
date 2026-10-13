@@ -21007,3 +21007,32 @@ _commit `26d074fa95bc`_
 Run C7 (pod u7de32y1cam1ef, commit 9c62067c): walk-out edges of the high-temperature P8 window from alpha 0.0722 at log10 T 0.0319 in both directions with step 2e-5; the job hit its 50-minute limit (status 124) before finishing either direction, so nothing was saved (the walk records each direction only when it ends; the P8 band is about 0.003 wide). Setup result. Rerun as C7b with the half-period guard (commit d79b297b), downward only (the doubling sequence runs toward smaller alpha here), step 1e-4. Also from Codex (Task 1): an exact-real map step was enclosed at 1024 bits (output radius 1.2e-142), but a 2^-80 box expanded to radius 1.7 within two layers (wrapping); retained as a setup result in certificates/llm-p8-pilot-002.json; a signed-JVP pilot and multiple shooting are next.
 
 _commit `05b418deee96`_
+## 2026-10-13 03:14 UTC: Codex Task 1: signed eight-column rigorous point pilot completed
+
+signed-pilot-001 source3fb8844be76ea0d1cd9e0bbe26ac35b794c46b70 exited0 after283.664s, no timeout. Signed Arb1024 pointstep261.808s CPU1, peakRSS6510748KiB (~6.21GiB). All source/artifact hashes checked. All8 coordinate columns retained; max derivative radius2.525883e-141; same primal radius1.214789e-142 as original Dual pointstep. Independent binary64 relativeL2 discrepancies percolumn2.2936e-14 to1.2393e-13; everyrow retained. These are exact-real versus binary64 consistency diagnostics, not containment gates. No full896-direction derivative, full-box remainder, existence, minimalperiod or attraction certificate. Signed arithmetic is viable at a point. Next: fixed exact-dyadic numerical multiple-shooting preconditioners plus a2048-bit prefix/point setup, because1024-bit point rounding floor is too large for the tiny phase boxes suggested by measured natural-interval wrapping. Do not infer a full-Jacobian runtime from this single8-column measurement.
+
+_commit `58eb709f6349` (dirty worktree)_
+
+## 2026-10-13 03:14 UTC: run (exploratory)
+
+- **Question:** At2048bits can the fixed prefix and one point supply precision for tiny-box high-precision centre refinement?
+- **Setup:** Task1 arb-point-003; same independentP8proposal, alpha.071674/log10T-.115, reviewed exact-real map and full151936vocabulary. Increase precision1024→2048, explicitly skip the already-diagnosed2^-80 box probe. Prior prefix~790s and point97s at1024 motivate conservative3600s watchdog; CPU1,nice10,18GiB; rawexclusive. Source and run card privately pushed beforelaunch. Preserveallstages/failures; no orbitinclusion.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-point-003`
+- **Would surprise us:** If point precision remains insufficient or budgetexpires retainsetupfailure. Higherprecision is for center rounding floor, not a claim that it fixes dependency loss.
+
+_commit `58eb709f6349` (dirty worktree)_
+
+## 2026-10-13 03:14 UTC: run (exploratory)
+
+- **Question:** Obtain fixed numerical dyadic preconditioner proposals for the8-phase orbit residual system
+- **Setup:** Task1 center-seed-001: independent binary64Jacobian at each retainedphase0..7, alpha.071674/log10T-.115, eachA_i899? actualfullshape896x896, chunk16, allvocab. SaveeveryphasebeforeformingB≈(I−A7...A0)^−1. CPU4,nice10,18GiB,3600s timeout; noGPU/paiduse. Prior8 separateCPU1JVPs+prefix/value took15.786s; batchedchunk16 with4CPU is exploratory, not a promised8-phasecompletion. Failures preservecompletedphases. Concurrent2048prefixCPU1 gives5total<=12 and measured combinedRSS comfortably below current53GiBavailable. No derivative enclosure or certificate claimed.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/center-seed-001`
+- **Would surprise us:** If fullJacobian budgetfails, retain completedphase outputs; do not fill omittedmatrices, defaulteigenvalues or use approximateinverse as a proof.
+
+_commit `58eb709f6349` (dirty worktree)_
+
+## 2026-10-13 03:16 UTC: Clarification of center-seed-001 run-card dimensions
+
+The numerical derivative matrices are896x896 at each of8 phases. The fragment899? in the preceding setup text was a typing error immediately corrected there by actualfullshape896x896; it has no computational interpretation. No run has started and no design parameter changes.
+
+_commit `58eb709f6349` (dirty worktree)_
