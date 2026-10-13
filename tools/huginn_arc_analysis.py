@@ -134,6 +134,47 @@ def breakpoint_interval(lams, correct, n_boot=2000, seed=0, grid=None):
     return np.percentile(draws, [2.5, 97.5])
 
 
+def load_gold_loglik(path, steps):
+    """{arm: {index: (lam, gold-choice log-likelihood at `steps`)}} from arc rows."""
+    out = {}
+    with open(path) as f:
+        for line in f:
+            row = json.loads(line)
+            rec = row["by_steps"][str(steps)]
+            out.setdefault(row["arm"], {})[row["index"]] = (row["lam"], rec["loglik"][row["gold"]])
+    return out
+
+
+def per_item_effect(gold, lam_c, base="1.0", n_boot=4000, seed=0):
+    """Does a question lose gold-choice log-likelihood when lam exceeds its own spectral lam_c?
+
+    For every relaxation arm (numeric lam, not the base) and every question with a predicted lam_c, the outcome is
+    delta = loglik(lam) - loglik(base) and the predictor u = 1[lam > lam_c]. beta is the pooled within-arm regression
+    slope of delta on u (arm fixed effects); its bootstrap distribution resamples questions. Returns beta, the one-sided
+    bootstrap p-value for beta >= 0, the bootstrap 95 % interval and the number of (arm, question) pairs per group."""
+    arms = [a for a in gold if a != base and a.replace(".", "", 1).isdigit()]
+    qs = sorted(set(lam_c) & set(gold[base]))
+    lam = {a: float(a) for a in arms}
+
+    def beta(sample):
+        num = den = 0.0
+        for a in arms:
+            d = np.array([gold[a][q][1] - gold[base][q][1] for q in sample])
+            u = np.array([1.0 if lam[a] > lam_c[q] else 0.0 for q in sample])
+            if u.min() == u.max():
+                continue
+            num += float(np.sum((u - u.mean()) * (d - d.mean())))
+            den += float(np.sum((u - u.mean()) ** 2))
+        return num / den if den > 0 else float("nan")
+
+    est = beta(qs)
+    rng = np.random.default_rng(seed)
+    boots = np.array([beta([qs[i] for i in rng.integers(0, len(qs), len(qs))]) for _ in range(n_boot)])
+    boots = boots[np.isfinite(boots)]
+    counts = {a: int(sum(lam[a] > lam_c[q] for q in qs)) for a in arms}
+    return est, float(np.mean(boots >= 0)), np.percentile(boots, [2.5, 97.5]), counts, len(qs)
+
+
 def spectra_cmd(args):
     import explore_llm_attractors as ela
 

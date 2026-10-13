@@ -33,3 +33,19 @@ def test_breakpoint_fit_recovers_a_cliff():
     correct = rng.random((len(lams), 4000)) < p[:, None]
     lb, c, s, _ = ha.breakpoint_fit(lams, correct)
     assert abs(lb - 1.13) < 0.03 and abs(c - 0.40) < 0.02 and s > 0.5
+
+
+def test_per_item_effect_detects_own_threshold_losses(tmp_path):
+    rng = np.random.default_rng(2)
+    lam_c = {q: float(rng.uniform(1.06, 1.16)) for q in range(80)}
+    gold = {"1.0": {q: (1.0, -10.0 + rng.normal(0, 0.2)) for q in lam_c}}
+    for lam in (1.05, 1.10, 1.15, 1.20):
+        gold[str(lam)] = {q: (lam, gold["1.0"][q][1] - (3.0 if lam > lam_c[q] else 0.0) + rng.normal(0, 0.5))
+                          for q in lam_c}
+    beta, p, ci, counts, n = ha.per_item_effect(gold, lam_c, n_boot=500)
+    assert beta < -2.0 and p < 0.01 and ci[1] < 0 and n == 80
+    # no effect when losses ignore the question's own threshold
+    for lam in (1.05, 1.10, 1.15, 1.20):
+        gold[str(lam)] = {q: (lam, gold["1.0"][q][1] - 1.0 + rng.normal(0, 0.5)) for q in lam_c}
+    beta, p, ci, counts, n = ha.per_item_effect(gold, lam_c, n_boot=500)
+    assert ci[0] < 0 < ci[1]
