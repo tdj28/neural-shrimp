@@ -781,7 +781,9 @@ contrast direction; a monitor that warned before capture would combine the low d
 
 \paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
 tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
-baselines lowers the AUC by $0.02$ to $0.10$ at horizons of 1--5 turns, with bootstrap intervals excluding zero. The
+baselines lowers the AUC by $0.02$ to $0.06$ at horizons of 1--5 turns, with bootstrap intervals excluding zero
+(values after correcting a labelling error found in review, which had marked the last turns of dialogues without any
+hostile turn as positive; before the correction the losses read $0.02$ to $0.10$). The
 Markov hit-probability forecast does not transfer (AUC $0.37$--$0.43$ on test, $0.60$ in training), and the
 classifier's own score carries no warning before onset (AUC about $0.5$). Two signals carry modest warning one to five
 turns ahead (AUC $0.57$--$0.66$): the rolling variance of a hostility probe, the classical early-warning indicator,
@@ -795,13 +797,15 @@ without its context, not the model's state inside the dialogue. A second study (
 512 dialogues; analysis stated before the data, cross-fitted by dialogue) recorded the model's own state just before
 each reply and probed it actively. Its pre-stated primary predictor, the susceptibility (the change in the hostile
 fraction of eight sampled next replies when the dose is raised by $0.02$), adds nothing: $+0.008$
-$[-0.006,+0.020]$ AUC at three turns. Two secondary predictors add warning beyond the baselines. A probe of the
-in-context state before the next reply (layer 18, 20 principal components) raises the AUC for capture within three
-turns from $0.56$ to $0.68$ ($+0.12$ $[+0.09,+0.15]$; within five turns $+0.13$), and a forecast from eight sampled
-next replies adds $+0.05$ $[+0.03,+0.07]$. At a 10\,\% false-positive rate the in-context probe flags 27\,\% of
-captures that follow within three turns, against 14\,\% for the baselines. Its direction in the layer-18 state is
-nearly orthogonal to the steering direction (cosine $0.04$), so the warning is not simply more push along the
-hostility axis. Because these predictors were secondary, the result is exploratory.
+$[-0.006,+0.020]$ AUC at three turns. Two secondary predictors add modest warning beyond the baselines. A probe of
+the in-context state before the next reply (layer 18, 20 principal components) raises the AUC for capture within three
+turns from $0.64$ to $0.68$ ($+0.036$ $[+0.014,+0.058]$; within one turn $+0.045$ $[+0.019,+0.069]$; within five
+$+0.036$), and a forecast from eight sampled next replies adds $+0.016$ $[+0.007,+0.027]$ at three turns. At a 10\,\%
+false-positive rate the probe flags 27\,\% of captures that follow within three turns, against 23\,\% for the
+baselines. These values use labels corrected after a review found that the last turns of dialogues without any hostile
+turn had been marked positive; with the faulty labels the increments had read three times larger. The probe's
+direction in the layer-18 state is nearly orthogonal to the steering direction (cosine $0.04$), so the warning is not
+simply more push along the hostility axis. Because these predictors were secondary, the result is exploratory.
 \inprogress{frozen confirmation: probe and baseline models fit on this study and applied unchanged to 1024 fresh
 dialogues (design pushed before the data).}
 \planned{a hazard model; longer holds to separate slow release from bistability; probe-timed counter-steering
