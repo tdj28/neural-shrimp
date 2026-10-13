@@ -21330,3 +21330,12 @@ _commit `1625b7948011`_
 center-parallel-001 (source a28d7428c25d68ae2f936129771728f535d33118, receipt 14cbe396059a7eef676244d6252503c2605811a279a8a0efdd42f2a244368bc0) completed exit0/no timeout. Root and independent audits checked all201 artifacts,90 exact source blobs, all8 phase inputs/images/termination rows and the new capsule. Strict exact residual decrease2.15532758337e-64 to3.52379101054e-77; reduction upper1.63492131671e-13. One pending secant accepted, history3 to4; next pair4-to5 must be discarded at the unchanged cap restart. Launcher325.209s; sampled aggregate peak20.775GiB. No matched speedup/acceleration or orbit certificate. Audit code/reports, including the initial root schema-key error and its correction, retained immutably under /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-001. Compact receipt certificates/llm-p8-center-parallel-001.json. Next: a separately planned and audited complete continuation; no full derivative campaign launched.
 
 _commit `211f1a1c1037` (dirty worktree)_
+
+## 2026-10-13 06:51 UTC: run (exploratory)
+
+- **Question:** Does one complete continuation after the mandatory four-factor restart further reduce the exact eight-phase residual?
+- **Setup:** Plan center-parallel-002-plan.json SHA1b40af8e6ca63d47b22ca8eb3e8000ff7dae8372ce725b7ef70024cf22052931; same16 reviewed runtime sources. Full prior capsule/receipt and independent audit pinned. Read-only admission28.277s/829120KiB passed, archived /data2/neural-shrimp-data/codex/llm-p8-certificate/parallel-parent-admission-002 manifest 3bd7f0f1ca04673f3ef9af8d5af6d823d8f4579e50daf53e1d44203d84ba46af. Incoming history4 and pending4-to5 require history_cap_restart acceptedfalse, discardpair, zero factors, baseline_no_history; no re-admission. Exactlyone new candidate, all8 phases, four CPU1 workers/nice10,18GiB address-space each,32GiB sampled aggregate/12GiB available floor,600s each with shared1800s cap plus10s cleanup. Preflight06:51UTC55GiB available/load1.98, no other Codex model job; Claude GPU/PID330008 left untouched. Prior325.209s/20.775GiB only budget reference. Local paidcost0. Preserve everypartial/failure/regression, independently audit allrows before nextparent. No derivative campaign or orbit claim.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/center-parallel-002`
+- **Would surprise us:** Failure to honor the required cap restart, an incomplete phase, resource overrun, or residual regression; all remain evidence.
+
+_commit `b1e1b26ef9da` (dirty worktree)_
