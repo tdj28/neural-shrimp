@@ -90,6 +90,12 @@ def load(args):
     model = AutoModelForCausalLM.from_pretrained(MODEL, cache_dir=ela.CACHE, trust_remote_code=True,
                                                  torch_dtype=getattr(torch, args.dtype)).eval().to(args.device)
     model.requires_grad_(False)
+    # transformers 4.55 makes DynamicCache.key_cache/value_cache read-only properties, while Huginn's remote
+    # HuginnDynamicCache assigns them as dicts; plain class attributes on the subclass shadow the properties
+    mod = sys.modules[type(model).__module__]
+    for name in ("key_cache", "value_cache"):
+        if isinstance(getattr(mod.HuginnDynamicCache.__mro__[1], name, None), property):
+            setattr(mod.HuginnDynamicCache, name, None)
     return torch, tok, model, Relaxed(model)
 
 
