@@ -391,6 +391,27 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
       cut -c1-300 "$OUT/$crun/cusp-check.jsonl"
     done
     ;;
+  hcascade)    # the hostile hub's period-7 interior (run S9): float64 bifurcation lines with attractor projections
+               # (a temperature line at alpha 0.0655 and an alpha line at log10 T 0.1830), Newton orbits at period-14,
+               # -28 and -21 cells of the M3b map, and the period-14 branch in temperature both ways (needs --extra-data
+               # explore/llm-phase-map/vectors-l12-p1b)
+    HV="--vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness"
+    SC="scan --device cuda --dtype float64 --chunk 700 --tol 1e-8 --eps 1e-6 --max-period 48 --projections $HV"
+    run hcascade-tline 40 $SC --log-temperature 0.1760 0.1935 --alpha 0.0655 0.0655 --resolution 1400 1 \
+      --transient 1000 --samples 400 --record 160 --out $D/hcascade/tline-a0.0655
+    run hcascade-aline 40 $SC --log-temperature 0.1830 0.1830 --alpha 0.0635 0.0680 --resolution 1 1400 \
+      --transient 1000 --samples 400 --record 160 --out $D/hcascade/aline-t0.1830
+    for spec in p14:0.18250:0.065518 p28:0.18470:0.065644 p21:0.17980:0.065267; do
+      IFS=: read -r name lt al <<< "$spec"
+      run hcascade-orbit-$name 20 orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12 $HV \
+        --log-temperature $lt --alpha $al --out $D/hcascade/orbit-$name
+    done
+    for dir in 1 -1; do
+      run hcascade-p14-T$dir 40 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp \
+        --steps 150 --chunk 896 $HV --free temperature --log-temperature 0.18250 --alpha 0.065518 --direction $dir \
+        --ds 0.002 --ds-max 0.01 --beyond 0.003 --bounds 0.1790 0.1880 --out $D/hcascade/branch-p14-T$dir
+    done
+    ;;
   hcurves)     # float64 fold/flip curves of the hostility-steered map from uploaded branch runs (--extra-data); each
                # JOBARGS entry is NAME:START:KIND:DIR:STEPS:MINUTES:DS:DSMAX:TLO:THI:ALO:AHI
     for spec in "${JOBARGS[@]}"; do

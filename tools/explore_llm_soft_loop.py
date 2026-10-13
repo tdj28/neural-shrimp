@@ -667,6 +667,12 @@ def scan(args):
     family = np.full(B, -1, dtype=int)            # identity of the periodic attractor: its leading-token loop
     families = {}                                 # canonical token loop -> family index
     rng = np.random.default_rng(0)
+    proj, dirs = None, None
+    if args.projections:                          # bifurcation diagrams: the recorded states on two fixed directions
+        r = np.random.default_rng(12345).normal(size=d)
+        first = v / np.linalg.norm(v) if v is not None else np.random.default_rng(54321).normal(size=d)
+        dirs = np.stack([first / np.linalg.norm(first), r / np.linalg.norm(r)])
+        proj = np.full((B, args.record, 2), np.nan)
     tic = time.perf_counter()
     chunk = args.chunk or B
     for start in range(0, B, chunk):
@@ -699,6 +705,8 @@ def scan(args):
                 tokens.append(p.argmax(-1).cpu().numpy().copy())
         lyap[idx] = log_growth / args.samples
         hist = np.array(history)
+        if proj is not None:
+            proj[idx] = np.einsum("rnd,kd->nrk", hist, dirs)
         scale = np.maximum(1.0, np.linalg.norm(hist[-1], axis=1))
         per = np.zeros(n, dtype=int)
         for q in range(min(args.max_period, len(hist) - 1), 0, -1):
@@ -718,15 +726,19 @@ def scan(args):
         print(json.dumps({"done": idx[-1] + 1, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
         part = DATA / "explore" / args.out                    # checkpoint: a timed-out scan still yields its rows
         part.mkdir(parents=True, exist_ok=True)
+        extra = {} if proj is None else {"projection": proj, "projection_directions": dirs}
         np.savez_compressed(part / "scan-partial.npz", done=idx[-1] + 1, log10_temperature=log_t, alpha=alphas,
                             lyapunov=lyap, period=period, entropy=entropy, family=family,
-                            family_keys=np.array(json.dumps([list(k) for k in families])))
+                            family_keys=np.array(json.dumps([list(k) for k in families])), **extra)
     seconds = round(time.perf_counter() - tic, 1)
     shape = tuple(args.resolution)
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
+    extra = {} if proj is None else {"projection": proj.reshape(*shape, args.record, 2),
+                                     "projection_directions": dirs}
     np.savez_compressed(out / "scan.npz", log10_temperature=log_t, alpha=alphas, lyapunov=lyap.reshape(shape),
-                        period=period.reshape(shape), entropy=entropy.reshape(shape), family=family.reshape(shape))
+                        period=period.reshape(shape), entropy=entropy.reshape(shape), family=family.reshape(shape),
+                        **extra)
     tok = loop.sm.tok
     fam_list = [{"family": i, "period": len(key), "cells": int((family == i).sum()),
                  "tokens": [tok.decode([t]) for t in key]} for key, i in families.items()]
@@ -1271,6 +1283,9 @@ def main():
     sc.add_argument("--tol", type=float, default=1e-6)
     sc.add_argument("--eps", type=float, default=1e-6)
     sc.add_argument("--chaos-level", type=float, default=1e-3)
+    sc.add_argument("--projections", action="store_true",
+                    help="save the recorded states projected on the unit steering vector and a fixed random direction "
+                         "(bifurcation diagrams)")
     sc.add_argument("--out", required=True)
     ob = sub.add_parser("orbit")
     ob.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
