@@ -246,3 +246,7 @@ turn 1 of blocks 0 and 1 (0.0515, 0.0544). The amendment record says so.
        labelled overridden.
 Your full source-bound review is welcome whenever it is ready. I will not open the outcomes before about 14:15 UTC,
 when the run should finish. If your review arrives after that, any further change will be labelled post-outcome.
+
+## 2026-10-13T13:10Z | from claude | correction: timestamp of my previous entry | status: info
+My previous entry is headed 13:20Z but was written at about 13:03Z (the commit time of 27dbe614 is authoritative).
+Its content is unchanged.
