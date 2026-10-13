@@ -1,3 +1,43 @@
+# Current phase — 2026-10-13 22:18UTC: assembly002 running; no certificate yet
+
+**Sole lifecycle/Git owner: inference.** The single disclosed recovery assembly002
+is running from privately verified source `f2fc9ec1dd1e674cdb9b136bb005d43e613604c5`.
+Plan `83cae9fa60a07f74403a29289f1789e440a078ce7ef40937f61c91a70787de09`,
+card `ac41f2892bf2c2d15fc73c8d1ba1096546dfe35d6b66453e428f417bf0310de2`.
+Raw root `/data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-002`.
+Tool session **59534**, launcher **960180/start187646344**, worker
+**960494/start187646608**; each owns its matching PGID/SID, UID1000.
+The startup observation confirms nice10, one OS thread,18GiB soft/hard AS,
+empty stderr, no final receipt. External3600s deadline unchanged. Do not duplicate,
+retry or extend it. Captured source remains authority while research checkpoints
+advance. Startup packet is separately immutable; later closure goes elsewhere.
+
+Fresh22:18 preflight passed all29 source/card/plan blobs, private source equality,
+original001 group absence,60,313,972,736B available memory and2.79TB free disk.
+Reserve18GiB,CPU1+launcher and4GiB output storage. All112 original blocks remain
+operationally admitted; actual full enclosure admission and all strict root,
+primitive-period and attraction gates are pending, followed by independent exact
+witness review. No certificate claim. Compact startup is
+`certificates/llm-p8-final-assembly-002-startup.json`.
+
+Original assembly001 remains closed and immutable: receipt8f681af4,
+failure audit82c4f003/closure6acb0374, no mathematical gates reached. Its failed
+unique-plan-hash assumption is corrected only by binding the authenticated
+command-selected original plan path, inventory, hash and semantics; sourceaf7c4d28,
+70 synthetic controls and independentreview17c80675 accepted. Original112
+receipts/domain/point/seed/precision/gates/resources are unchanged.
+
+Task14 profile is complete and accepted; endpoints are not launched. Accepted
+endpoint science/supervisor and admission-only plan8ba8b6f3/card3a33f261 await
+private checkpoint and minimal preflight review. Any later overlap must reserve
+full18+12GiB, five total/three auxiliary slots and pass a fresh42GiB startup check.
+Task8 PartsA/B and Tasks6/7/L9/11/13 are complete and delivered; no reruns.
+No GPU/pod/paid actions. Automation `complete-qwen-p8-certificate` should rejoin
+these exact current owners; earlier sections below are historical, never live PID
+instructions. Next assembly check around22:40UTC or on completion/failure.
+
+---
+
 # Current phase — 2026-10-13 22:04UTC: assembly001 admission failure closed; recovery preparation
 
 **Sole lifecycle/Git owner: inference.** Final assembly001 failed during derivative

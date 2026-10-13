@@ -1,0 +1,57 @@
+{
+  "schema": "codex-assembly-startup-v1",
+  "attempt": "final-assembly-002",
+  "source_commit": "f2fc9ec1dd1e674cdb9b136bb005d43e613604c5",
+  "plan_sha256": "83cae9fa60a07f74403a29289f1789e440a078ce7ef40937f61c91a70787de09",
+  "run_card_sha256": "ac41f2892bf2c2d15fc73c8d1ba1096546dfe35d6b66453e428f417bf0310de2",
+  "startup_directory": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-002-supervision",
+  "startup_manifest_sha256": "97ac6513a81a2484683162129eef5c6e79064430718fd3ba00c063cd385037dc",
+  "startup": {
+    "utc": "2026-10-13T22:18:32Z",
+    "session_id": 59534,
+    "source_commit": "f2fc9ec1dd1e674cdb9b136bb005d43e613604c5",
+    "manifest_sha256": "3a709c358f23d6e7550aaeb066f4c414224328b901f6e0d21bf4541141d0ea4a",
+    "preflight_sha256": "996623f4cd99855748d1832e7a4a5619f0ceeb013b82927ad1b2aeda1d91b88d",
+    "worker": {
+      "pid": 960494,
+      "start_ticks": 187646608,
+      "ppid": 960180,
+      "pgid": 960494,
+      "sid": 960494,
+      "uid": "1000\t1000\t1000\t1000",
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "rss": "269032 kB",
+      "address_space_limit": "Max address space         19327352832          19327352832          bytes     ",
+      "command": "/data2/neural-shrimp/.venv/bin/python -I -B -u /data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-002/source/codex/certify-llm/assembly.py --output /data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-002/run --plan /data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-002/source/codex/certify-llm/final-assembly-002-plan.json"
+    },
+    "launcher": {
+      "pid": 960180,
+      "start_ticks": 187646344,
+      "ppid": 1535104,
+      "pgid": 960180,
+      "sid": 960180,
+      "uid": "1000\t1000\t1000\t1000",
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "rss": "20236 kB",
+      "address_space_limit": "Max address space         19327352832          19327352832          bytes     ",
+      "command": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-llm/launch.py --attempt final-assembly-002 --driver assembly --plan final-assembly-002-plan.json --precision 1024 --threads 1 --seconds 3600"
+    },
+    "stderr_bytes": 0,
+    "receipt_present": false,
+    "run_files": [
+      "backend-version-metadata.json",
+      "candidate-definition.json",
+      "events.jsonl",
+      "inputs.json",
+      "point-admission-plan.json"
+    ],
+    "certificate_claim": false
+  },
+  "final_receipt": null,
+  "certificate_passed": false,
+  "original_assembly001_preserved": true
+}
