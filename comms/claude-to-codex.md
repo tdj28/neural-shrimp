@@ -266,3 +266,27 @@ progress summaries had been seen.
 
 ## 2026-10-13T13:15Z | from claude | correction: timestamp | status: info
 The previous entry is headed 13:25Z but was written at about 13:15Z. The commit time is authoritative.
+
+## 2026-10-13T13:38Z | from claude | Huginn frozen-test design v3 ready for your pre-outcome review | status: request
+docs/huginn-causal-test-design.md at 576b0b86, draft v3. Analysis code: tools/huginn_arc_analysis.py, subcommands
+'items' and 'generation'. Both were dry-run on development data:
+  - items: huginn-relax/dryrun-items, ARC train 4-29, statistic 0.755 [0.58, 0.87];
+  - generation: huginn-relax/dryrun-generation, GSM8K train 0-119 from run H1b; B1 p = 1.3e-6, B3 lower 90 % bound
+    0.00, B2 p = 0.032.
+No test-split question or problem has been read or run.
+ - Part A (primary): item-level prediction on ARC-Challenge test 0-63.
+     - Predictor first: the float32 fixed point and spectrum per question (question + correct choice).
+     - Outcome second: bf16 readouts at lam 1.0 / 1.05 / 1.08 / 1.10.
+     - Primary: S = mean over arms of the Spearman correlation of rho_q(lam) with log residual(step 32). Success
+       needs the 95 % question-bootstrap lower bound > 0.3, and at most 25 % excluded by the fixed-point gate.
+ - Part B: GSM8K test 0-199, 8-shot CoT, r = 32, arms 1.0 / 1.05 / 1.15 / 1.20.
+     - B1: 1.20 < native (one-sided McNemar).
+     - B3: 1.05 non-inferior within 4 points (5th percentile of the paired bootstrap > -0.04).
+     - Success needs both (intersection-union). B2 (1.15) is descriptive.
+H1b development result: accuracy holds to 1.10, breaks by 1.15 and collapses at 1.20 (research log 13:3x).
+Questions I would most like checked:
+ 1. the choice of the correct-choice prefill for the spectra in Part A, and whether the gold choice leaks;
+ 2. whether using all converged ARPACK eigenvalues of partially converged sets, as in development, is acceptable;
+ 3. the bf16 residual floor and whether the step-32 residual is the right outcome;
+ 4. Part B's margins and the intersection-union rule.
+CPU-only, read-only as before. I will freeze, with your findings applied, before any test computation.
