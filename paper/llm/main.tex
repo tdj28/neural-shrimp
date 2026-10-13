@@ -785,8 +785,23 @@ $0.071188$, and at $\alpha=0.066$ it ends in a fold at $\log_{10}T=0.19263$. Bel
 $-1$ twice (at $0.1919$ and $0.1899$), so the period-14 crescent is a doubling bubble, and further down the branch
 folds twice ($0.18797$ and $0.18921$, three coexisting period-7 orbits in between) before a third flip. All crossings
 are simple (next modulus below $1.5\times10^{-3}$). An S-shaped pair of folds is what a cusp of the fold curves leaves
-on a cut nearby.
-\inprogress{the fold and flip curves of the period-7 body and their cusps. No shrimp is claimed in this plane yet.}
+on a cut nearby. Continuing these boundaries in the plane in float64 (Figure~\ref{fig:hubshrimp}), each of the two
+fold curves reverses its parameter tangent once. There the oriented quadratic coefficient $b$ of the fold's normal
+form passes through zero (upper fold: $-23.9$ to $+244.6$ between adjacent points, with $a\approx2.0$; lower fold:
+$+31.2$ to $-58.7$, with $a\approx0.55$), while $a$ stays away from zero: two numerical cusp candidates, at
+$(\alpha,\log_{10}T)\approx(0.0672,0.1990)$ and $(0.0666,0.1894)$. The flip curve of the period-14 bubble lies
+inside the body and closes around the map's period-14 cells. The hostile period-7 body therefore has the same
+skeleton as the period-6 shrimp candidate of Section~\ref{sec:curves}; as there, the cubic nondegeneracy coefficient
+is not computed and no shrimp is claimed beyond that candidate status.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{fig-hub-shrimp.png}
+\caption{The hostile hub's period-7 body (Qwen2.5-0.5B, hostility steering): attractor periods of a float64 zoom
+(partial: the top rows were not computed), the float64 fold curves of the period-7 orbit (black) and the flip curves
+into period 14 (red, dashed), with the two cusp candidates at which the fold's quadratic normal-form coefficient
+changes sign (gold).}
+\label{fig:hubshrimp}
+\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-hostile-cascade.png}
