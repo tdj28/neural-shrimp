@@ -244,6 +244,82 @@ def fold_cubic(family, x, theta, steps=(1e-2, 3e-3, 1e-3, 3e-4)):
             else None}
 
 
+def fold_unfolding(family, x, theta, steps=(1e-2, 3e-3, 1e-3, 3e-4), theta_steps=(1e-4, 3e-5, 1e-5),
+                   unit_tol=1e-6, separation=0.5):
+    """Two-parameter unfolding of a fold (or cusp) of the map family.phi at (x, theta), by Lyapunov-Schmidt reduction
+    of F(x, theta) = Phi(x, theta) - x onto the critical direction: g(u, theta) = l^T F(x + u r + w(u, theta), theta),
+    with r, l the right and left eigenvectors of the multiplier nearest +1 (|r| = 1, l^T r = 1). Returns
+    J = [[g_theta0, g_theta1], [g_u_theta0, g_u_theta1]], the matrix whose rank-two condition makes a cusp a generic
+    codimension-two point (it maps the two parameters onto the unfolding coefficients beta_0, beta_1 of
+    0 = beta_0 + beta_1 u + b u^2 + c u^3), together with b and c (bifurcation_curves.fold_cubic) and the step tables.
+    g_theta_j = l^T dPhi/dtheta_j; g_u_theta_j = l^T [d_theta_j(D Phi) r + B(r, w_j)], where (I - M) w_j =
+    (I - r l^T) dPhi/dtheta_j and l^T w_j = 0. Refuses (ValueError) unless the critical multiplier is real, within
+    unit_tol of +1, and every other multiplier has modulus below `separation` away from the unit circle
+    (|mu| < 1 - separation * (1 - next)): a fold must be classified before its coefficients are computed."""
+    x = np.asarray(x, dtype=np.float64).ravel()
+    theta = np.asarray(theta, dtype=np.float64)
+    n = x.size
+    M = family.monodromy(x, theta)
+    vals, R = np.linalg.eig(M)
+    i = int(np.argmin(np.abs(vals - 1)))
+    if abs(vals[i].imag) > unit_tol or abs(vals[i].real - 1) > unit_tol:
+        raise ValueError(f"no simple real +1 multiplier here (nearest {vals[i]:.3e}); not a fold")
+    others = np.delete(vals, i)
+    nxt = float(np.abs(others).max()) if len(others) else 0.0
+    if nxt > 1 - separation * 1e-3 and nxt >= 1 - 1e-3:
+        raise ValueError(f"second multiplier modulus {nxt:.6f} is not separated from the unit circle")
+    valsL, L = np.linalg.eig(M.T)
+    j = int(np.argmin(np.abs(valsL - vals[i])))
+    r, l = np.real(R[:, i]), np.real(L[:, j])
+    r = r / np.linalg.norm(r)
+    l = l / float(l @ r)
+    P = family.param_jacobian(x, theta, which=(0, 1))                  # (n, 2)
+    g_theta = l @ P
+    bordered = np.block([[np.eye(n) - M, r[:, None]], [l[None, :], np.zeros((1, 1))]])
+    w = [np.linalg.solve(bordered, np.concatenate([P[:, k] - (l @ P[:, k]) * r, [0.0]]))[:n] for k in (0, 1)]
+    scale = float(np.linalg.norm(x)) or 1.0
+    table = []
+    for hs, ht in zip(steps, theta_steps):
+        s_ = hs * scale
+        row = []
+        for k in (0, 1):
+            e = np.zeros(2)
+            e[k] = ht
+            dj = (family.jvp_x(x, theta + e, r) - family.jvp_x(x, theta - e, r)) / (2 * ht)
+            brw = (family.jvp_x(x + s_ * r, theta, w[k]) - family.jvp_x(x - s_ * r, theta, w[k])) / (2 * s_)
+            row.append(float(l @ (dj + brw)))
+        table.append({"h_relative": hs, "theta_step": ht, "g_u_theta": row})
+    gs = np.array([t["g_u_theta"] for t in table])
+    k = int(np.argmin(np.abs(np.diff(gs, axis=0)).sum(1))) if len(gs) > 1 else 0
+    g_u_theta = 0.5 * (gs[k] + gs[k + 1]) if len(gs) > 1 else gs[0]
+    J = np.array([g_theta, g_u_theta])
+    cub = fold_cubic(family, x, theta, steps=steps)
+    sv = np.linalg.svd(J, compute_uv=False)
+    return {"multiplier": [float(vals[i].real), float(vals[i].imag)], "second_modulus": nxt, "J": J.tolist(),
+            "det_J": float(np.linalg.det(J)), "singular_values": sv.tolist(),
+            "condition": float(sv[0] / sv[-1]) if sv[-1] > 0 else float("inf"),
+            "g_u_theta_steps": table, "b": cub["c_steps"][-1]["b"], "c": cub["c"], "c_steps": cub["c_steps"],
+            "r": r, "l": l}
+
+
+def cusp_predictions(unfolding, offsets):
+    """Local predictions near a cusp from 0 = beta_0 + beta_1 u + b u^2 + c u^3 with (beta_0, beta_1) = J d_theta:
+    for each parameter offset d_theta, the real roots u (reduced coordinates of period-p orbits) and, for each, the
+    reduced multiplier 1 + beta_1 + 2 b u + 3 c u^2 and whether it lies inside (-1, 1). Valid only for offsets small
+    enough that the cubic truncation holds; the prospective test is what measures that range."""
+    J = np.asarray(unfolding["J"], dtype=np.float64)
+    b, c = float(unfolding["b"]), float(unfolding["c"])
+    out = []
+    for d in offsets:
+        beta0, beta1 = J @ np.asarray(d, dtype=np.float64)
+        roots = np.roots([c, b, beta1, beta0])
+        real = sorted(float(z.real) for z in roots if abs(z.imag) < 1e-9 * max(1.0, abs(z.real)))
+        mult = [1 + beta1 + 2 * b * u + 3 * c * u * u for u in real]
+        out.append({"offset": [float(v) for v in d], "beta": [float(beta0), float(beta1)], "roots": real,
+                    "reduced_multipliers": mult, "stable": [abs(m) < 1 for m in mult]})
+    return out
+
+
 def passage_count(u0, a, b, eps, u_out, max_iter=100000):
     """Iterates of the quadratic normal form u' = u + a eps + b u^2 from u0 until u > u_out (None if not within
     max_iter), the discrete prediction for passage through the bottleneck."""

@@ -481,6 +481,16 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
         --alphas $a --out $D/msm/pair-$key-grat$gtag
     done
     ;;
+  unfold)      # cusp unfolding pilot (run U1; consult 6): tools/cusp_unfolding.py at curve points; JOBARGS entries
+               # CURVE_RUN:INDEX; output unfolding-INDEX.json next to the curve run (predictions written before solving)
+    for spec in "${JOBARGS[@]}"; do
+      crun=${spec%%:*}; idx=${spec#*:}
+      log "start unfolding $crun $idx"
+      timeout 90m $PY tools/cusp_unfolding.py "$crun" "$idx" cuda 2> "$LOGS/unfold-$(basename $crun)-$idx.log" \
+        | tee "$LOGS/unfold-$(basename $crun)-$idx.out"
+      log "end unfolding $crun status $?"
+    done
+    ;;
   cubic)       # cusp nondegeneracy (run V11): fold normal form with the cubic coefficient c (tools/cusp_check.py ...
                # cubic) at points of uploaded fold-curve runs; JOBARGS entries CURVE_RUN:INDICES; output
                # cusp-cubic.jsonl next to the curve run (never over an earlier cusp-check.jsonl)
