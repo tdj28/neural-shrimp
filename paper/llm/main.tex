@@ -689,6 +689,28 @@ philosophy direction (top) and the hostility direction (bottom): largest Lyapuno
 the attractor reached from the fixed start (white: no period up to the maximum).}
 \label{fig:olmo2}
 \end{figure}
+\paragraph{Same architecture, other weights.} Qwen2-0.5B-Instruct has exactly the architecture and size of
+Qwen2.5-0.5B-Instruct (24 layers of width 896, the same vocabulary size and rotary base) but other training data and
+recipe. Built identically, their $128^2$ float64 maps along gratitude and philosophy (Figure~\ref{fig:samearch})
+share the gross layout. A large region at low temperature around $\alpha=0$ is held by one periodic loop; a band of
+chaos with embedded windows lies near $\log_{10}T=0$--$0.25$ (4--8\,\% of cells chaotic in each map); and thin
+window families run along the flanks. The attractors themselves differ almost completely. Of 416 to 900 distinct
+loops per map, only 10 occur in both models, all short and generic (``.'', ``!'', `` you are'', `` is it''), and they
+cover less than 10\,\% of either model's cells. Qwen2's planes are dominated by one period-4 loop,
+``!<|im\_end|>\textbackslash nHello'' (an end of turn followed by a new greeting; 41 and 59\,\% of cells), and
+Qwen2.5's by period-5 and period-2 loops (``![](https:// Hello'', `` you have''). In sampled self-dialogue the
+gratitude capture has the same shape in both models. The share of replies with gratitude or politeness words rises
+to 99\,\% at $\alpha=0.04$ from a high unsteered baseline of ordinary assistant politeness (55 and 63\,\%), and
+Qwen2 needs slightly more steering (53 and 88\,\% at $\alpha=0.01$ and $0.02$, against 70 and 98\,\%). The
+organization of the map is shared between the two checkpoints; its content is set by the weights.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{fig-same-architecture.png}
+\caption{Same architecture, other weights: $128^2$ float64 maps of Qwen2.5-0.5B-Instruct (left) and
+Qwen2-0.5B-Instruct (right) steered along gratitude (top) and philosophy (bottom) at layer 12, with vectors built
+identically. Colour: period of the attractor reached from the fixed start; black: positive largest exponent.}
+\label{fig:samearch}
+\end{figure}
 \planned{scaling of $ab$ and of the window law with model size.}
 \begin{figure}[H]
 \centering
