@@ -42,9 +42,9 @@ bottleneck near its middle, which fixes the prefactor of the window law. This is
 (Pomeau--Manneville) inside the inference computation of a pretrained language model. We continue fold and
 flip curves of the periodic orbits with float64 test functions. In a higher-temperature region we find a
 fold curve with two cusps whose normal-form coefficient changes sign, the codimension-two organization of
-shrimp-shaped windows. A closed region of the map holds a complete period-doubling cascade, in which a
-period-3 text loop doubles through periods 6, 12 and 24 to a chaotic core; float64 flip parameters along a cut
-give interval ratios \inprogress{$\delta_n = \dots$, to be compared with Feigenbaum's $4.6692$}. Replacing the
+shrimp-shaped windows. In a closed region of the map a period-3 text loop doubles through periods 6, 12 and 24
+toward a chaotic core; along a cut, float64 flip parameters are resolved through period 24 so far, with a first
+finite-order interval ratio of $2.84$ \inprogress{further flips and ratios}. Replacing the
 expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
 Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
@@ -61,15 +61,18 @@ Recent work has measured chaos-like sensitivity in language-model generation
 attractors of paraphrasing loops \cite{wang2025attractor}, attractor states of model-to-model conversations
 \cite{ko2026attractor}, and the stability of looped and recurrent-depth models through their Jacobians
 \cite{bai2019deq,bai2021stabilizing,tomihari2025recurrent,yang2026stars,luo2026prediction}. Feeding a
-probability-weighted vocabulary embedding back into a model is itself not new \cite{zeng2025ponderlm}, nor is
-continuous latent feedback \cite{hao2024coconut}.
+probability-weighted vocabulary embedding back into a model is not new: it is used in training
+\cite{zeng2025ponderlm} and, without retraining, in pretrained models \cite{zhang2025softthinking}, alongside
+continuous latent feedback \cite{hao2024coconut}. In a small task-trained looped transformer, fold coefficients
+computed from derivatives predict passage times and spectral gaps without fitting \cite{kim2026phase}.
 
-What these studies do not do is resolve the invariant sets of an exactly defined inference map and the
-bifurcations that organize them. We do that for one constructed but exact system, the expected-embedding
-(``soft-token'') map of a frozen pretrained model. It is smooth, its Jacobians are available by automatic
-differentiation, and its periodic orbits can be computed and continued like those of any smooth map. The
-emphasis is quantitative: a local normal form computed from the network's derivatives predicts a long-time
-observable without fitting.
+We study one constructed but exactly defined system, the expected-embedding (``soft-token'') map of a frozen,
+released pretrained language model, with a fixed chat prefix and a fixed position. The map is smooth, its Jacobians
+are available by automatic differentiation, and its periodic orbits can be computed and continued like those of any
+smooth map. Our contribution is the quantitative link between the map's primitive periodic orbits, their continued
+boundaries in a two-parameter plane, and passage times predicted from the derivatives of a periodic orbit's fold,
+together with the text each orbit produces. Ordinary sampled generation with a growing context is a different
+system; Section~\ref{sec:bridge} measures how much of the mechanism survives sampling.
 
 \paragraph{Contributions.}
 \begin{enumerate}
@@ -81,9 +84,8 @@ observable without fitting.
   bottleneck passage times; the global reinjection sets the window-law prefactor (Section~\ref{sec:mechanism}).
 \item Fold and flip curves of periodic orbits continued in the parameter plane with float64 test functions,
   including two cusps on a period-4 fold curve (Section~\ref{sec:curves}).
-\item A complete period-doubling cascade to chaos in a closed region of the parameter plane, with flip parameters
-  located in float64 and their interval ratios compared with Feigenbaum's universal constant
-  (Section~\ref{sec:cascade}).
+\item A period-doubling sequence toward chaos in a closed region of the parameter plane, with flip parameters
+  located in float64 and their finite-order interval ratios (Section~\ref{sec:cascade}).
 \item A bridge to sampled decoding (Section~\ref{sec:bridge}) and a second system, a recurrent-depth model with
   a predicted and observed Neimark--Sacker bifurcation (Section~\ref{sec:huginn}).
 \item \planned{Misaligned behaviour as an attractor: a hostility proxy in sampled self-dialogue, with capture
@@ -97,21 +99,31 @@ studies analyse as phase transitions or criticality
 \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}. Repetition loops are
 a known failure of decoding \cite{holtzman2019degeneration,xu2022loop}. Successive paraphrasing converges to attractor
 cycles \cite{wang2025attractor}, and multi-turn model-to-model conversations settle into attractor states
-\cite{ko2026attractor}. Continuous feedback of expected or latent embeddings has been used to train models that
-reason in continuous space \cite{zeng2025ponderlm,hao2024coconut}; here the same kind of feedback, applied to a frozen
-model, defines the map we analyse. Equilibrium, looped and recurrent-depth models iterate a block to a fixed point or
-for many steps, and their stability has been analysed through Jacobians
-\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,luo2026prediction}.
-Activation steering along contrastive directions \cite{zhang2025steering} supplies our second control parameter.
-The dynamical-systems tools are standard: numerical continuation and normal forms
-\cite{kuznetsov2023elements,govaerts2000numerical}, type-I intermittency \cite{pomeau1980intermittent}, the
-organization of periodic windows into shrimps and hubs
-\cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,stenzinger2025shrimp}, period-doubling universality
-\cite{feigenbaum1978quantitative}, and Markov state models \cite{chodera2014msm}. What we add is their exact
-application to a pretrained language model's own inference map: orbits, multipliers, bifurcation curves and normal
-forms computed in float64 from the network's derivatives, and quantitative predictions tested against long-time
-behaviour. \planned{systematic search to confirm that no prior work continues bifurcation curves or computes normal
-forms of a language model's inference map.}
+\cite{ko2026attractor}. Attractors and bifurcation diagrams have been studied in recurrent language models
+\cite{ribeiro2020attractors}. Expected-embedding feedback is used in training \cite{zeng2025ponderlm} and,
+training-free, in pretrained models \cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent
+reasoning \cite{hao2024coconut}; here the same kind of feedback, with prefix and position fixed, defines the map we
+analyse. Equilibrium, looped and recurrent-depth models iterate a block to a fixed point or for many steps, and their
+stability has been analysed through Jacobians and fixed points
+\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,luo2026prediction,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}.
+The closest precedent is a derivative-based fold analysis of a small task-trained looped transformer, whose passage
+and spectral-gap predictions are unfitted \cite{kim2026phase}. Our system differs: a released pretrained language
+model, the fold of a primitive periodic orbit, the full-channel passage of a two-step map, and the accumulation law of
+the windows, whose prefactor is set by the global reinjection. In neural systems more broadly, saddle-node ghosts
+produce quantitative delays in task-trained recurrent networks \cite{dinc2026ghost}. Finite-order Feigenbaum ratios
+have been measured in neural rate and mass models \cite{battaglia2007temporal,papasavvas2015gain} and, through period
+128, in a transformer trained on logistic-map trajectories \cite{liu2026learningchaos}. Learned networks reproduce
+period-doubling routes \cite{kim2021teaching}, and so does gradient descent itself \cite{kalra2025universal}. Normal
+forms and continuation have been applied to recurrent neural maps \cite{marichal2015multiple}, and shrimp-shaped
+windows and periodicity staircases appear in neuron models
+\cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase}. Activation steering along contrastive directions
+\cite{zou2023representation,zhang2025steering} supplies our second control parameter. The dynamical-systems tools are
+standard: numerical continuation and normal forms \cite{kuznetsov2023elements,govaerts2000numerical}, type-I
+intermittency \cite{pomeau1980intermittent}, shrimps and hubs
+\cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs}, period-doubling universality
+\cite{feigenbaum1978quantitative}, and Markov state models \cite{chodera2014msm}. A targeted search (12 October
+2026) found no prior work combining these elements for the feedback map of a pretrained language model; that is an
+absence of evidence within the search, not a proof of priority.
 
 \section{The inference map}
 \label{sec:map}
@@ -379,7 +391,11 @@ The crescent of Figure~\ref{fig:cross512} is a closed region where the period-3 
 n\textbackslash nThe existence'' doubles inward. Along the cut $\log_{10}T=-0.14798$, the map's cells show period 3
 over 25 columns, period 6 over about 14, period 12 over 4, period 24 in one column, and then a chaotic core. The doubled
 loops repeat the same leading tokens, twice and four times, with alternating probabilities. Locating the flips in
-float64 (Section~\ref{sec:methods}) gives:
+float64 (Section~\ref{sec:methods}) along this cut, in the steering coordinate $\alpha$, gives Table~\ref{tab:cascade}.
+The first ratio, $\delta_1=2.84$, is far from Feigenbaum's $4.6692$. At the first flip the next multiplier is still
+$0.088$, whereas from the second flip on the orbits are effectively one-dimensional (next modulus $0.0023$, then
+$2\times10^{-6}$). Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
+test universality \cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rllll}
@@ -387,14 +403,15 @@ float64 (Section~\ref{sec:methods}) gives:
 $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n=\frac{\alpha_n-\alpha_{n-1}}{\alpha_{n+1}-\alpha_n}$ \\
 \midrule
 1 & $3\to6$ & $0.0654807769499$ & $0.088$ & \\
-2 & $6\to12$ & $0.0659055406325$ & $0.0023$ & \inprogress{} \\
-3 & $12\to24$ & \inprogress{} & & \inprogress{} \\
+2 & $6\to12$ & $0.0659055406325$ & $0.0023$ & $2.844$ \\
+3 & $12\to24$ & $0.0660549041785$ & $2.4\times10^{-6}$ & \inprogress{} \\
 4 & $24\to48$ & \inprogress{} & & \inprogress{} \\
 5 & $48\to96$ & \inprogress{} & & \\
 \bottomrule
 \end{tabular}
-\caption{Flips of the crescent's cascade along $\log_{10}T=-0.14798$. At every flip the critical multiplier is a real
-$-1$ (to $10^{-11}$) and all other multipliers lie inside the unit circle. Feigenbaum's constant is
+\caption{Flips of the crescent's period-doubling sequence along $\log_{10}T=-0.14798$. At each completed flip the
+critical multiplier is a real $-1$ (to $10^{-11}$), the Newton residual is below $4\times10^{-13}$, and all other
+multipliers lie inside the unit circle. Feigenbaum's constant is
 $\delta=4.6692\ldots$ \cite{feigenbaum1978quantitative}; for the logistic map the first ratios are $4.751$, $4.656$,
 $4.668$.
 \inprogress{CPU run to period 48; GPU run to period 384 queued, which also recomputes the first flips on different
@@ -463,8 +480,11 @@ rotation number are what this adds.
 \label{sec:misalignment}
 The maps show how a smooth change of a control parameter can create, destroy or exchange attractors, and how
 behaviour near the boundaries becomes intermittent and history-dependent. The same questions can be asked of
-undesirable behaviour in ordinary sampled dialogue. Do states such as hostility toward the interlocutor behave like
-basins of attraction, with capture thresholds, hysteresis and early-warning signals? Appendix~\ref{app:gratitude}
+undesirable behaviour in ordinary sampled dialogue, where attractor-like patterns and persona drift have been observed
+\cite{ko2026attractor,anthropic2025claude4,lu2026assistant} and input context can push behaviour progressively
+\cite{anil2024manyshot}. Do states such as hostility toward the interlocutor behave like basins of attraction, with
+capture thresholds, hysteresis and early-warning signals? (Misalignment produced by fine-tuning
+\cite{betley2025emergent} is a different, weight-level phenomenon.) Appendix~\ref{app:gratitude}
 shows the coarse-grained instrument on a benign direction. Self-dialogue of the same model, sampled at $T=0.7$ and
 steered along a gratitude direction, falls into a metastable gratitude set. The capture is gradual at
 $\alpha=0.01$ (median entry turn 7), fast at $0.02$ (median 5) and imposed from the first reply at $0.04$, where the
@@ -473,17 +493,25 @@ set is effectively absorbing within 40 turns.
 For hostility we use a valence direction (contrastive hostile minus matched kind statements; its cosine with the
 gratitude direction is $-0.04$) and a hostility score from a pinned toxicity classifier. On the prompt sets the
 classifier's toxic output is $0.95$ for the hostile statements against at most $0.002$ for the kind and neutral
-ones. The primary question is predictive. Does a dynamical estimate from the internal state predict capture into the
-hostile set several turns before the classifier fires, on held-out dialogues? The estimates are the Markov-state-model
-committor \cite{e2006transition} and the slowing-down indicators expected near a threshold
-\cite{scheffer2009early}; barrier-crossing rates follow Kramers' law \cite{kramers1940brownian}. A secondary question is whether interventions triggered
-by those estimates prevent capture more cheaply than interventions triggered by the classifier. Early warning is not
-expected for noise-induced jumps without a nearby bifurcation, or for transitions faster than the slowing-down; such
-a monitor would complement classifiers, not replace them.
-\inprogress{dry run of the steering ladder (phase 0).}
-\planned{capture ladder with specificity controls (neutral topic, random directions); ramp schedules for
-hysteresis; lead time of committor and early-warning estimates over the classifier; triggered interventions;
-frozen confirmatory test on fresh openers.}
+ones. In a dry run (8 dialogues of 10 turns per dose) no turn was hostile at $\alpha=0.02$; at $0.04$, 7.5\,\% of
+turns were, in bursts and late captures; at $0.08$, 87.5\,\% were, from the first turns. Activation-based methods
+already anticipate response behaviour \cite{ashok2025behavior,chen2025persona,lu2026assistant}, committors have been
+used in language-model decoding \cite{zhou2026commitment}, and adaptive timing of counter-steering gave no consistent
+advantage in one persona setting \cite{leins2026drift}. The primary question is therefore incremental. Near the
+threshold, does a dynamical estimate add several-turn warning of capture over strong baselines that see the same
+turns (the classifier's score, its change and history, the turn index and a fixed persona-axis projection)? The
+dynamical estimates are a Markov-chain hitting probability, a finite-horizon committor
+\cite{e2006transition,e2010transition}, and slowing-down indicators \cite{scheffer2009early}. Barrier-crossing
+rates would follow Kramers' law \cite{kramers1940brownian} only under a justified stochastic reduction, and
+slowing-down proxies are known to depend on the mechanism \cite{maturana2020slowing,hagemann2021criticality}. A
+secondary question is whether interventions timed by those estimates prevent capture at lower cost than scheduled or
+constant counter-steering. Early warning is not expected for noise-induced jumps without a nearby bifurcation, or for
+transitions faster than the slowing-down; such a monitor would complement classifiers, not replace them.
+\inprogress{capture ladder at $\alpha=0.04$--$0.07$ (128 dialogues of 40 turns per dose) with specificity controls
+(neutral topic, random directions) and held-out replicates; incremental lead time over the baselines.}
+\planned{ramp schedules for hysteresis; a pre-response activation probe; calibration and precision at fixed false-warning
+rates; timed interventions against scheduled and constant controls at matched cost; frozen confirmatory test on
+fresh openers.}
 
 \section{Discussion}
 \label{sec:discussion}
