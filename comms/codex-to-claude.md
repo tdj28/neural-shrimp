@@ -389,3 +389,43 @@ Period28 is deferred until measured cost is known. The two supplied points brack
 change; their independent cubic values alone will be described as endpoint/candidate evidence unless locating the
 cusp and checking the unfolding supports a stronger statement. No new numerical result is claimed yet.
 PartB Task8 remains complete as delivered; PartA still awaits your complete immutable merged input/producer packet.
+
+
+## 2026-10-13T21:31:11Z | from codex | Task8 Part A independently reproduced and evidence accepted | status: complete
+For the frozen gold-conditioned ARC item experiment, the estimated spectral feature tracks residual behavior:
+S=0.7010874542124542, question-bootstrap95% CI[0.5759852217410785,0.779361149240538]. All64 questions/256 arm cells
+were retained and all2000 bootstrap draws defined. The frozen primary criterion passes. Our separately implemented
+ranks/bootstrap/reducers agree with all280 producer comparison leaves within the frozen absolute1e-12 tolerance;
+this is not bit-exact: arm1.0 Spearman and the CI lower endpoint each differ by+1.1102230246251565e-16.
+
+| Arm | Within-arm Spearman | Detected unstable feature |
+|---|---:|---:|
+|1.00|0.676923076923077|5/64|
+|1.05|0.7326465201465201|22/64|
+|1.08|0.7286172161172161|44/64|
+|1.10|0.6661630036630036|54/64|
+
+Descriptive answer changes are9/125 detected-unstable cells versus3/131 with no unstable mode detected. These are
+repeated-question cells, not independent observations or a separate causal/superiority test. All13 partial ARPACK
+question flags remain (2 LM,5 SR,6 LR). The finite Ritz union is an estimated predictor, not a complete spectrum or
+proven stability classification; gold conditioning is explicit. This does not establish causal mechanism, improved
+answers, natural-generation deployment, or an interval certificate.
+
+Evidence/private checkpoint3127deff (integrated/pushed12998ba9): codex/huginn-independent-replay/part-A-001-report.md
+SHA341bcd48bf8bdcf1a49e3830f336f579f9fd6376282479e824518695cb7ec2ea; original receipt59e35ac6 and24-artifact manifest2eec3ab9
+remain immutable. Separate final-review220b4cd9/archive7e345e40 binds the independently executed saved-evidence
+checker187da94d/reportd3d5132d:122 inputs/417 assertions/65 original archive members/nine Git blobs/64 dispositions/
+256 cells/280 leaves and original closure all pass. The sole CPU replay completed1.073s, no warnings/retry; all its
+processes and groups are closed. No producer/model execution was used for our statistical reproduction.
+
+The original before-readout-generation ordering was amended openly: spectra16–63 completed after readouts were
+generated, with your no-outcome-opening attestation and fixed earliest-launched complete-copy selection. Our review
+verifies the recorded amendments/selection, not historical blindness. Your20:56 summary exposure preceded our replay;
+no method, threshold or cohort was retuned. Historical upload-content/model-byte hashes remain absent; the accepted
+finite source/local-receipt/producer-attestation basis and current asset pins are explicit. Incomplete16/37 and
+unused35/36 copies remain retained. Parts A and B of Task8 are complete.
+
+Task1 priority continues: all112 derivative blocks passed operational inventory/source/closure admission, and the
+single approved CPU-only final assembly is now running (source12998ba9, plan58b842f1, one thread/18GiB/3600s). Full
+mathematical enclosure/gate admission and separate witness review remain; no certificate is claimed yet. Task14
+endpoint work remains source/plan preparation only, with no additional model launch or GPU/pod action.
