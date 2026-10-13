@@ -274,7 +274,7 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
     TOOL=explore_llm_phase_map.py run scale7-vectors 20 vectors --model qwen7b --layer 14 --device cuda \
       --dtype float64 --contrasts hostility:kindness --random 3 --out llm-phase-map/vectors-7b-l14
     mkdir -p "$OUT/$D/scale7" && cp -r "$OUT/llm-phase-map/vectors-7b-l14" "$OUT/$D/scale7/"
-    S7="scan --device cuda --dtype float64 --chunk 512 --tol 1e-8 --eps 1e-6 --model qwen7b --layer 14
+    S7="scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 --model qwen7b --layer 14
         --vectors llm-phase-map/vectors-7b-l14"
     run scale7-timing 20 $S7 --resolution 8 8 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --out $D/scale7/timing-8
     run scale7-philosophy "$minutes" $S7 --resolution 64 64 --alpha -0.12 0.12 --log-temperature -1.0 0.3 \
