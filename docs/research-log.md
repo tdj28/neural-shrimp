@@ -21736,3 +21736,9 @@ _commit `b006fdc7e81b`_
 - **Would surprise us:** Any failed shard, operational gate, source mismatch, resource violation or unresolved ownership stops dispatch; no failure is selected away and derivative completion alone is not a certificate.
 
 _commit `b4015bf89a00` (dirty worktree)_
+
+## 2026-10-13 10:23 UTC: Task1: amended fixed campaign002 running with five verified owned workers
+
+Sourceafdaa76fcb7b552071bf8e81ad5ff58f02dde19a, plan2885a7a628d1c0702cf4359674371474a4aa08c8b2d199be6553134f1390d050, isolated clean Task5 execution checkout. Root approved after all operational reviews and preserved001 closure; exact frozen/private-remote, first-result authority and fresh59.58GB MemAvailable admission passed. Tool20078/controller486164 start183333706, five independently verified workers486722/487052/487378/487704/488040; each actual nice10/18GiBsoft+hard/one OS thread and numerical threads1, controller1GiBsoft/18GiBhard. Startup archive manifest5daa1fc394be20a72eb1284162e73e0b660042e4adaa62fd562108fb6b0d3de5; available35.34GB after loading. Fixed CPU7 total,34GiB sampledRSS/12GiB available,20h campaign/3600sworker and no automatic retry. No partial numerical outcomes read. Original campaign001 failed before target creation and remains preserved; first audited shard unchanged. Same-chat automation now30min, resolves current owner/state rather than duplicate dispatch. No GPU/paid resources or certificate yet.
+
+_commit `afdaa76fcb7b` (dirty worktree)_

@@ -1,6 +1,6 @@
 # Exact-real Qwen period-8 certificate development
 
-## Current checkpoint — 13 October 2026, 09:54 UTC
+## Current checkpoint — 13 October 2026, 10:20 UTC
 
 The assigned numerical orbit is recovered and its shooting centres have been
 refined to a rigorously enclosed residual of approximately **1.49752263166430767E-212**.
@@ -71,7 +71,7 @@ The earlier domain001 helper count mismatch remains preserved. The reviewed
 first phase0/columns0..63 derivative shard has completed and passed its independent
 original-endpoint/source audit; owned target and launcher terminated. Measured
 cold cost1693.966s, peak5,419,044KiB and75,658,472 raw bytes. See
-`active-certificate-status.md` for exact receipt/authority pins. The measured remaining111 campaign001 failed before any new target evaluation: launcher Git fetch inherited the controller1GiB AS limit and could not mmap a repository pack. Its failed uncertainty status and separate verified prefork ownership closure are preserved in `derivative-campaign-001-failure-review.md`. A prospective early launcher AS fix and new campaign002 need review and a new card; no campaign is active.
+`active-certificate-status.md` for exact receipt/authority pins. The measured remaining111 campaign001 failed before any new target evaluation: launcher Git fetch inherited the controller1GiB AS limit and could not mmap a repository pack. Its failed uncertainty status and separate verified prefork ownership closure are preserved in `derivative-campaign-001-failure-review.md`. The early launcher AS correction passed independent review; separately frozen campaign002 is now running with five CPU1/nice10 workers from clean isolated sourceafdaa76f. See `active-certificate-status.md` for current exact ownership, source/plan pins and the fixed20h/resource bounds. No orbit certificate yet.
 The immediate capsule bytes are authenticated; older archives rely on the
 disclosed prior independent audit rather than being claimed as rehashed.
 No GPU, paid pod or paid consultation is in use.
