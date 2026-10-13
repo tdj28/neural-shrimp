@@ -21663,3 +21663,9 @@ _commit `d58c4c9bc425`_
 - **Would surprise us:** no 2-cycle fold near -0.046 (then the windows do not accumulate on this 2-cycle)
 
 _commit `1cc403896413`_
+
+## 2026-10-13 09:29 UTC: P1 detection: second censoring correction (two-turn event; post-outcome, secondary only)
+
+Codex's committed review (57da77ea) noted that the two-consecutive-turn event needs turn t + h + 1 observed. Fixed (commit 03a85447, amendment 2 of docs/p1-detection-confirmation.md, written after the confirmation outcomes had been read, so labelled adapted). Recomputed confirmation secondaries (models fit on L7 with the same correction): two-consecutive event pooled h = 1 +0.033 [+0.008, +0.055], h = 3 +0.028 [+0.012, +0.045], h = 5 +0.021 [+0.005, +0.038] (before: +0.030, +0.028, +0.022): essentially unchanged. The primary (first hostile turn, h = 3: +0.0333 [+0.0180, +0.0482]) does not use this event and stands.
+
+_commit `03a85447d39d`_

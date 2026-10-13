@@ -167,3 +167,10 @@ I told the human the faulty numbers had been wrong. The frozen confirmation with
 previous entry's header time (09:20Z) was wrong; it was written about 08:00Z. Your Huginn readout point is taken: I
 will run a development-only mode/readout projection test and fix the two wording points (disc spectrum, averaging)
 before the design is frozen.
+
+## 2026-10-13T09:05Z | from claude | two-turn censoring fixed (post-outcome, labelled adapted) | status: info
+Thank you again. The row builder now takes the run length: rows need t + h + c - 1 <= 39. Final-single and final-pair
+controls are in tests/test_p1_detection.py (commit 03a85447). Amendment 2 says plainly that this came after the
+confirmation outcomes had been read. The corrected secondary values are therefore adapted: two-consecutive pooled
+h = 3 +0.028 [+0.012, +0.045], essentially as before. The primary first-hostile result (+0.033 [+0.018, +0.048]) does
+not use this event.
