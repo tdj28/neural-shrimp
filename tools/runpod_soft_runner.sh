@@ -297,6 +297,30 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
         --log-temperature -0.3 0.3 --out $D/scale7/coarse-64-hostility
     fi
     ;;
+  hverify7)    # float64 verification at Qwen2.5-7B (revision as in scale7, layer 14, vectors-7b-l14 uploaded with
+               # --extra-data): entries as hverify (orbit:NAME:LOGT:ALPHA or branch:NAME:LOGT:ALPHA:FREE:DIR:LO:HI)
+    REV7=a09a35458c702b33eeacc393d103063234e8bc28
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+      > "$LOGS/setup-model7.log" 2>&1
+    REFS7=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/refs
+    mkdir -p "$REFS7" && printf %s "$REV7" > "$REFS7/main"
+    HV7="--model qwen7b --layer 14 --vectors llm-phase-map/vectors-7b-l14 --concept hostility-vs-kindness"
+    for spec in "${JOBARGS[@]}"; do
+      IFS=: read -r kind name lt al free dir lo hi <<< "$spec"
+      case $kind in
+        orbit)
+          run h7orbit-$name 30 orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12 --chunk 128 $HV7 \
+            --log-temperature $lt --alpha $al --out $D/hverify7/orbit-$name ;;
+        branch)
+          run h7branch-$name 50 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp \
+            --steps 120 --chunk 128 $HV7 --free $free --log-temperature $lt --alpha $al --direction $dir --ds 0.002 \
+            --ds-max 0.01 --beyond 0.003 --bounds $lo $hi --out $D/hverify7/branch-$name ;;
+        *) echo "unknown hverify7 entry $spec" ;;
+      esac
+    done
+    ;;
   hcurves)     # float64 fold/flip curves of the hostility-steered map from uploaded branch runs (--extra-data); each
                # JOBARGS entry is NAME:START:KIND:DIR:STEPS:MINUTES:DS:DSMAX:TLO:THI:ALO:AHI
     for spec in "${JOBARGS[@]}"; do
