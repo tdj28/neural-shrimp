@@ -30,7 +30,9 @@ return `1.60e-14` and numerical divisor separation. There is **no orbit certific
   `center-refine-001-plan.json` binds the completed prefix and seed receipts.
   Its 16 point evaluations are estimated at 1827.34 seconds from the measured
   single-phase cost, with a CPU1/18-GiB/3600-second enforced ceiling. It has not
-  run at this checkpoint; completion and convergence remain to be measured.
+  run at that preparation checkpoint. It is now running as `center-refine-001`
+  from source `ba6c4d77fd033fe9699c246e48af1a50bd6445d1`; completion and
+  convergence remain to be measured.
 
 `ball_jet.py` provides batched signed first derivatives through the same reviewed
 transformer architecture. `cache_io.py` preserves all prefix radii and checks the
@@ -41,7 +43,12 @@ established; hashes and a declaration alone do not establish it.
 `shooting_gates.py` adds full product-box root and conditional primitive-period
 checks, with signed streamed blocks or a cheaper conservative factored bound.
 It deliberately leaves dynamical attraction to a separate monodromy bound.
-The current combined synthetic suite passes 224 tests; no test is an orbit proof.
+The combined pre-domain synthetic suite passes 224 tests; no test is an orbit proof.
+`phase_domain.py` now checks exact endpoint containment when constructing
+lower-precision derivative input boxes around high-precision nominal centres.
+Its additional 35 tests and independent 288 exact-rational endpoint comparisons
+pass. This enables a later mixed-precision derivative experiment; it does not
+supply any uncomputed derivative columns.
 
 The original pilot design below is retained as history. Current setup outcomes
 are in `certificates/llm-p8-pilot-001.json` and `llm-p8-pilot-002.json`.
