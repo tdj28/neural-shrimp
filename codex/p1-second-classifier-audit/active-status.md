@@ -24,3 +24,5 @@ measured-profile review. Report all44 agreement rows, descriptive comparisons,
 L8 fit warnings/iterations/row counts and every conclusion change after the two
 sequential accepted target runs and independent evidence review. No target run
 or automatic retry is authorized by the prepared cards.
+
+16:23 UTC update: exact reviewed source29e2bffdd45efb630e8ed9967cf720da21086f92 is privately pushed; Root accepted the single synthetic profile. Task8 profile has closed and released its two-slot lease. Profile card is admitted for Boundary lifecycle after final private card/blob/capacity verification. No actual target analysis is admitted; descriptive and L8 cards remain prepared.

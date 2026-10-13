@@ -22169,3 +22169,12 @@ _commit `73dbd5ec687a` (dirty worktree)_
 Privately frozen source d03f8f3c974b2d5d946706b320ac3993fd56ac3c, plan a7835860f336319ee8437c26bf6a0a7b1a9c57b2e1071a39fd57ff3dc8ab3e49: invented A64x4/2000 and B200x4/10000 completed in 0.839777512s (A0.613279878s/B0.180927583s), peak72936KiB. External120s watchdog returned/reaped exit0/no timeout; original worker715319/start185490755 absent. All17 retained artifacts and six exact Git blobs checked; manifest 5a4efaf1917ed32544bf4027be1cac2920d1e3fda4f843fb43a16d0c50a20c78. Source/closure/status in codex/huginn-independent-replay/synthetic-profile-001-receipt.json. No target inputs, models or producer analysis read/run. CPU lease released; actual replay remains unadmitted pending immutable retrieved archive/termination/producer outputs and reviewed driver/card.
 
 _commit `d03f8f3c974b` (dirty worktree)_
+
+## 2026-10-13 16:25 UTC: run (exploratory)
+
+- **Question:** Measure Task11 synthetic reducer cost before actual second-classifier analysis
+- **Setup:** Root-reviewed source29e2bffdd45efb630e8ed9967cf720da21086f92; single profile-001 synthetic only; CPU1 plus supervisor, nice10,4GiB AS,120s,64MiBraw,20GiB startup16GiB runtime. Task8 profile is closed; no concurrent auxiliary lease. Card codex/p1-second-classifier-audit/profile-001-card.json. No target arrays/models; actual cards remain prepared. Exact source/card privately pushed before execution, fresh headroom/read-only resource inventory, preserve any failure and verify owned closure; no retry.
+- **Output:** `/data2/neural-shrimp-data/codex/p1-second-classifier-audit/profile-001`
+- **Would surprise us:** Pending synthetic cost measurement; no scientific result.
+
+_commit `29e2bffdd45e` (dirty worktree)_
