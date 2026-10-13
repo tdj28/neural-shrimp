@@ -53,8 +53,10 @@ hardware; "frozen" = design and analysis pushed before any outcome was read.
   period 3). Locating a bifurcation at 7B is in progress; at 7B one continuation step takes about 2 minutes.
 - OLMo-2 7B: coarse maps 6-13 % chaotic, with windows, including a lap-adding family of the 2-cycle
   "!<|endoftext|>".
-- Running now: a same-architecture comparison (Qwen2-0.5B against Qwen2.5-0.5B, gratitude and philosophy
-  planes).
+- Running now:
+  - a same-architecture comparison (Qwen2-0.5B against Qwen2.5-0.5B, gratitude and philosophy planes);
+  - Llama-3.1-8B-Instruct maps, with attractors read out in two sparse autoencoders (Goodfire layer 19; a TopK
+    layer-24 SAE). Both SAEs' hook points were verified.
 
 **D. Huginn.**
 - A Neimark-Sacker bifurcation predicted from the fixed-point spectrum (lambda_c = 1.0777) and observed
@@ -65,7 +67,9 @@ hardware; "frozen" = design and analysis pushed before any outcome was read.
   - Pre-stated decline at 1.20: -23.5 points, McNemar p = 3e-12. Non-inferiority at 1.05: lower bound +2.5.
     Both pass, and the result was replayed exactly by an independent implementation.
 - Item-level part (does an estimated Ritz feature of each held-out ARC question rank its own relaxed residual?
-  Spearman, cohort of at least 48 of 64): PART_A_RESULT.
+  Spearman, cohort of at least 48 of 64): all 64 questions admitted. Mean within-arm Spearman S = 0.701, 95 % CI
+  [0.576, 0.779], over the four arms 1.0, 1.05, 1.08, 1.10. The pre-stated lower-bound criterion (> 0.3) passes.
+  The independent replay is pending.
 
 **E. Misaligned behaviour as an attractor (sampled dialogue).**
 - Capture, at 0.5B:
