@@ -1,16 +1,7 @@
-# Active state — Task 6 — 2026-10-13
+# Active state — Task6 — 2026-10-13
 
-Owner: boundary_resume; isolated worktree `llm-misalignment-audit/neural-shrimp`.
-Inference is sole Git owner. Starting HEAD supplied by inference:
-`1ed91fc74b3e5c0e55a735108cd90f94ddb63106`.
+Owner boundary_resume, isolated llm-misalignment-audit worktree; inference sole Git owner. Fixed37-arm audit,91 explicit manuscript numbers,30 L7 and18 L8 rows. Root/cascades reviewed scientific formulas; root reviewed own lifecycle wrapper. Fifteen core/lifecycle controls and two comparison controls passed. No target outcome calculation yet.
 
-Scope: independent saved-raw reproduction of all requested capture, L3/L5
-hysteresis, L6 control, corrected L7 and frozen/amended L8 rows. No model runs.
-Only assignment/policy/manuscript/design/analysis definitions and raw metadata
-have been read so far. Published outcomes are disclosed comparison targets.
+Both authorized synthetic profiles completed and all owned PIDs reaped/absent; see profiles-receipt.json. Last execution source0bb14eafa46e95bb648c7a4ccc4511438325473a; profile admission9a9ac60262ff60258769aaa28c90c884cb67a0a3. No active Task6 worker/reservation.
 
-No owned scientific job is active. No target audit arrays have been evaluated.
-Source and tests are being prepared. Plan and claim index precede replay.
-Next: finish own reducers/tests/loader, root source review, inference checkpoint,
-root-accepted synthetic profile then measured bounded descriptive/L7/L8 cards.
-Existing certificate workers and frozen checkout remain untouched.
+Prepared actual descriptive300s/L7 900s/L8 300s cards have exact raw input manifests, measured forecasts and unchanged scientific source pins. Root accepts those envelopes subject to inference private source/card checkpoint. Then run exactly one of each sequentially, CPU1/nice10/4GiB/64MiB with20/16GiB protective floors. No silent retries. Comparison module preserves every discrepancy and primary/secondary/correction labels. Remaining: actual three replays, full comparison/receipts/report, independent root artifact review. Existing certificate workers untouched.

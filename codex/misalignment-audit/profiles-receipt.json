@@ -1,0 +1,325 @@
+{
+  "kind": "unrelated synthetic resource profiles",
+  "source_commit": "0bb14eafa46e95bb648c7a4ccc4511438325473a",
+  "admission_commit": "9a9ac60262ff60258769aaa28c90c884cb67a0a3",
+  "target_arrays_read": false,
+  "profiles": {
+    "profile-descriptive-001": {
+      "root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-descriptive-001",
+      "owner_root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-descriptive-001-owner",
+      "result": {
+        "completed": true,
+        "mode": "profile-descriptive",
+        "seconds": 1.4518776340410113,
+        "peak_rss_bytes": 115081216,
+        "pid": 534518,
+        "outputs": [
+          {
+            "name": "profile.json",
+            "bytes": 119,
+            "sha256": "3e0e0a9fd1295c7ee06818604f97498abbd8d627253ca255addceda5c806a8f1"
+          },
+          {
+            "name": "run-card.json",
+            "bytes": 1772,
+            "sha256": "a7227eeb0a2bfb3edddddc8a1d4c6b4f164ec416b449a8348f55c588384e0478"
+          },
+          {
+            "name": "runtime.json",
+            "bytes": 1771,
+            "sha256": "5649954002b3d8e10866829e5c6e485ae172df6df64e6132d59892153797e9ad"
+          }
+        ]
+      },
+      "outer_result": {
+        "completed": true,
+        "command": [
+          "/data2/neural-shrimp/.venv/bin/python",
+          "-I",
+          "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+          "--card",
+          "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-descriptive-001-owner/card.json"
+        ],
+        "worker_exit": 0,
+        "peak_sampled_aggregate_rss": 134475776,
+        "seconds": 1.606382677797228,
+        "owned_worker_exited": true,
+        "raw_bytes_before_closing": 7048,
+        "files": [
+          {
+            "name": "card.json",
+            "bytes": 1771,
+            "sha256": "04eac7e679e5654578e003c7a9aae9c71e4589ea4680c8aad0c5510d7611d20d"
+          },
+          {
+            "name": "owned-process.json",
+            "bytes": 521,
+            "sha256": "94ae23ef021e651a29835bbc5e16f3ea7c0a5a5af7829065c77d26b05e54c598"
+          },
+          {
+            "name": "stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "name": "stdout",
+            "bytes": 496,
+            "sha256": "da852dd07ac18da95fe7c369474a32bcf8df159f539079c4713dd9da52a2d8d1"
+          }
+        ]
+      },
+      "measured": {
+        "seconds": 0.7797849688213319,
+        "synthetic_only": true,
+        "arms": 33,
+        "draws": 4000,
+        "result_row_count": 48
+      },
+      "owned": {
+        "launcher": {
+          "pid": 534455,
+          "starttime": 183898917,
+          "pgrp": 534455,
+          "session": 534455
+        },
+        "worker": {
+          "pid": 534518,
+          "starttime": 183898931,
+          "pgrp": 534518,
+          "session": 534518
+        },
+        "command": [
+          "/data2/neural-shrimp/.venv/bin/python",
+          "-I",
+          "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+          "--card",
+          "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-descriptive-001-owner/card.json"
+        ]
+      },
+      "all_owned_pids_absent": true,
+      "inventory": [
+        {
+          "path": "profile-descriptive-001/profile.json",
+          "bytes": 119,
+          "sha256": "3e0e0a9fd1295c7ee06818604f97498abbd8d627253ca255addceda5c806a8f1"
+        },
+        {
+          "path": "profile-descriptive-001/result.json",
+          "bytes": 598,
+          "sha256": "7a9bf13cbec0dd889a62125632bf58e01433c4492d0828ff9f04ff08cdbc3add"
+        },
+        {
+          "path": "profile-descriptive-001/run-card.json",
+          "bytes": 1772,
+          "sha256": "a7227eeb0a2bfb3edddddc8a1d4c6b4f164ec416b449a8348f55c588384e0478"
+        },
+        {
+          "path": "profile-descriptive-001/runtime.json",
+          "bytes": 1771,
+          "sha256": "5649954002b3d8e10866829e5c6e485ae172df6df64e6132d59892153797e9ad"
+        },
+        {
+          "path": "profile-descriptive-001-owner/card.json",
+          "bytes": 1771,
+          "sha256": "04eac7e679e5654578e003c7a9aae9c71e4589ea4680c8aad0c5510d7611d20d"
+        },
+        {
+          "path": "profile-descriptive-001-owner/owned-process.json",
+          "bytes": 521,
+          "sha256": "94ae23ef021e651a29835bbc5e16f3ea7c0a5a5af7829065c77d26b05e54c598"
+        },
+        {
+          "path": "profile-descriptive-001-owner/result.json",
+          "bytes": 1077,
+          "sha256": "bad02bd0acc10faee8c3f6ca080ce81de6d690eedadb14f45f60c2cf89f18e40"
+        },
+        {
+          "path": "profile-descriptive-001-owner/stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "profile-descriptive-001-owner/stdout",
+          "bytes": 496,
+          "sha256": "da852dd07ac18da95fe7c369474a32bcf8df159f539079c4713dd9da52a2d8d1"
+        }
+      ]
+    },
+    "profile-detection-001": {
+      "root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-detection-001",
+      "owner_root": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-detection-001-owner",
+      "result": {
+        "completed": true,
+        "mode": "profile-detection",
+        "seconds": 3.3105949729215354,
+        "peak_rss_bytes": 303484928,
+        "pid": 534677,
+        "outputs": [
+          {
+            "name": "profile.json",
+            "bytes": 847,
+            "sha256": "83484254d542f5ed95b6c7496df365d611b0a0855793ee3ac4fbb10beb63fca2"
+          },
+          {
+            "name": "run-card.json",
+            "bytes": 1768,
+            "sha256": "1fa8be07be3ae2cfbf2e185e17f881a5f7cce359608eb76fd3b5ae7035d94fd1"
+          },
+          {
+            "name": "runtime.json",
+            "bytes": 1768,
+            "sha256": "03ad6f78a37c55d3d188e46f46b077a533b8b819916acbefd90370746bb6d2f9"
+          }
+        ]
+      },
+      "outer_result": {
+        "completed": true,
+        "command": [
+          "/data2/neural-shrimp/.venv/bin/python",
+          "-I",
+          "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+          "--card",
+          "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-detection-001-owner/card.json"
+        ],
+        "worker_exit": 0,
+        "peak_sampled_aggregate_rss": 311017472,
+        "seconds": 3.5167907231952995,
+        "owned_worker_exited": true,
+        "raw_bytes_before_closing": 7759,
+        "files": [
+          {
+            "name": "card.json",
+            "bytes": 1767,
+            "sha256": "f94cf824ce8ba9e53ba7f0223b366c05619cd6b6ee1f2bf2455a290989a9c8e7"
+          },
+          {
+            "name": "owned-process.json",
+            "bytes": 519,
+            "sha256": "e7448fc19bce092c81bf4fc1c4530b329a7899dd611f709eae2cb8205cc284d4"
+          },
+          {
+            "name": "stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "name": "stdout",
+            "bytes": 494,
+            "sha256": "e2c7b1ed2ddc869e2b5eb6ae093628fad0cb6461706b2bfec47668629cbcb7a2"
+          }
+        ]
+      },
+      "measured": {
+        "fit_seconds": 0.8782362279016525,
+        "bootstrap_seconds": 1.8724184369202703,
+        "synthetic_only": true,
+        "train_shape": [
+          19968,
+          896
+        ],
+        "test_rows": 39936,
+        "diagnostics": [
+          {
+            "pca_n_train": 19968,
+            "n_features": 896,
+            "components": 20,
+            "solver": "covariance_eigh"
+          },
+          {
+            "n_train": 19968,
+            "n_features": 26,
+            "iterations": [
+              2
+            ],
+            "parameters": {
+              "C": 1.0,
+              "class_weight": null,
+              "dual": false,
+              "fit_intercept": true,
+              "intercept_scaling": 1,
+              "l1_ratio": 0.0,
+              "max_iter": 5000,
+              "n_jobs": null,
+              "penalty": "deprecated",
+              "random_state": null,
+              "solver": "lbfgs",
+              "tol": 0.0001,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "warnings": []
+          }
+        ]
+      },
+      "owned": {
+        "launcher": {
+          "pid": 534614,
+          "starttime": 183901349,
+          "pgrp": 534614,
+          "session": 534614
+        },
+        "worker": {
+          "pid": 534677,
+          "starttime": 183901361,
+          "pgrp": 534677,
+          "session": 534677
+        },
+        "command": [
+          "/data2/neural-shrimp/.venv/bin/python",
+          "-I",
+          "/home/d7082791602/.codex/worktrees/llm-misalignment-audit/neural-shrimp/codex/misalignment-audit/run.py",
+          "--card",
+          "/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-detection-001-owner/card.json"
+        ]
+      },
+      "all_owned_pids_absent": true,
+      "inventory": [
+        {
+          "path": "profile-detection-001/profile.json",
+          "bytes": 847,
+          "sha256": "83484254d542f5ed95b6c7496df365d611b0a0855793ee3ac4fbb10beb63fca2"
+        },
+        {
+          "path": "profile-detection-001/result.json",
+          "bytes": 596,
+          "sha256": "e991cbe316c059ea88c122699943756bb3a4d84a303390a7e1df503d826dd6e4"
+        },
+        {
+          "path": "profile-detection-001/run-card.json",
+          "bytes": 1768,
+          "sha256": "1fa8be07be3ae2cfbf2e185e17f881a5f7cce359608eb76fd3b5ae7035d94fd1"
+        },
+        {
+          "path": "profile-detection-001/runtime.json",
+          "bytes": 1768,
+          "sha256": "03ad6f78a37c55d3d188e46f46b077a533b8b819916acbefd90370746bb6d2f9"
+        },
+        {
+          "path": "profile-detection-001-owner/card.json",
+          "bytes": 1767,
+          "sha256": "f94cf824ce8ba9e53ba7f0223b366c05619cd6b6ee1f2bf2455a290989a9c8e7"
+        },
+        {
+          "path": "profile-detection-001-owner/owned-process.json",
+          "bytes": 519,
+          "sha256": "e7448fc19bce092c81bf4fc1c4530b329a7899dd611f709eae2cb8205cc284d4"
+        },
+        {
+          "path": "profile-detection-001-owner/result.json",
+          "bytes": 1076,
+          "sha256": "c1528723b4e0b46dfe82c0070cc6e2a58320c916f3a34b79939dfe59e95ab99d"
+        },
+        {
+          "path": "profile-detection-001-owner/stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "profile-detection-001-owner/stdout",
+          "bytes": 494,
+          "sha256": "e2c7b1ed2ddc869e2b5eb6ae093628fad0cb6461706b2bfec47668629cbcb7a2"
+        }
+      ]
+    }
+  }
+}

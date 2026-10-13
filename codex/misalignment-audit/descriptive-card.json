@@ -17,14 +17,390 @@
     "detection.py": "3069f844e7f9a86010f265e719f1e0d1978d84c26ac22a03d73499f817738bab",
     "schemas.json": "d11db8bdc0080f2c743b915009da24e826b716adab2b4d8a7acddf9667719039",
     "claims.json": "e0775f160c9b71f79cbc77d8970a313436b84fa4ecb9f6ab9d97aedf6fd44a77",
-    "plan.md": "4e1b517cb2a81a21398fee744ab25621b5285c59ee8f52db48e6401662a64b52"
+    "plan.md": "4e1b517cb2a81a21398fee744ab25621b5285c59ee8f52db48e6401662a64b52",
+    "compare.py": "f3e4d584aab37589c0ecfd74399793e3c5aa12aa49d2fbb337fc59bfe1cfa030",
+    "summarize.py": "af3386e89942b1c4bf4fd6bb09c7cd282fac723b1cde41b4e562d3355c6ebc7a",
+    "comparison-inputs.json": "13fb2c48cb4304eb2c940d76181d7e84df4f510c518593e8b3223fa372193834"
   },
-  "output": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-001",
-  "input_manifest": null,
-  "profile_authority": null,
-  "admission_rule": "Require immutable synthetic profile completed, elapsed forecast 2*profile_elapsed+30 <=300 and peakRSS*2 <4GiB; bind fixed33-arm input manifest before execution",
-  "target_arrays": true,
-  "source_lease": "unchanged pinned worktree source for entire run; Git owner verifies blobs and private remote before launch",
+  "source_lease": "Git owner verifies source blobs/private remote; no source edits during owned replay",
   "start_memavailable_bytes": 21474836480,
-  "running_memavailable_bytes": 17179869184
+  "running_memavailable_bytes": 17179869184,
+  "output": "/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-001",
+  "input_manifest": [
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-free/sample.json",
+      "bytes": 1009521,
+      "sha256": "f936d726c8194cbdd3291ce67b6daaef8be91988994e32bfc3ae351348467b37"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-free/hostility.npz",
+      "bytes": 80399,
+      "sha256": "436d24ad129a2ddf68ee565cbc0ac90427d651352e57ce1c97b1929e2914210e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h040/sample.json",
+      "bytes": 840583,
+      "sha256": "52bffce527f8bcdbb6aeeacec1bf60716d1f83fa0c83d1f14f354ca4ef3a90ec"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h040/hostility.npz",
+      "bytes": 103440,
+      "sha256": "de13cd31f9ef6bc68f47bc412cda84ba8b125ef9dd6525c28398fe55c5eea349"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050/sample.json",
+      "bytes": 1026456,
+      "sha256": "a35275e2724519a4f240e9dcdb80a9a620554d5de871dc26210c607d65d5c312"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050/hostility.npz",
+      "bytes": 96243,
+      "sha256": "06e5b253235c9855f3168a2e89ee30c6ff22341dfff6575d14032e92dc738662"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050s2/sample.json",
+      "bytes": 1019274,
+      "sha256": "6cef48bb9a47d64a810573e7d67a8ea6fb47dae8bcedf4100cace4a4a6ecd973"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h050s2/hostility.npz",
+      "bytes": 95109,
+      "sha256": "83dcbf6ced5ce32cd96fdd7acef9811cc6068c585ad6b72b2deb2ab66a23b4e1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060/sample.json",
+      "bytes": 1028783,
+      "sha256": "25a720b23bea24c42b79874903f3bad9fa839f650798265de535e8d268cf1999"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060/hostility.npz",
+      "bytes": 86380,
+      "sha256": "87075516917fa6ea1a73f5743b8f052193081c21c9b8263f0fd65b0631b88c6a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060s2/sample.json",
+      "bytes": 1066249,
+      "sha256": "9d4b6b2de8bc33f3419e12c29c0033021f15299c3108b10074e37ad6473047d5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h060s2/hostility.npz",
+      "bytes": 88479,
+      "sha256": "32eae11d09dc048ce491645cec8abd7fa522e67f9204b4dccbf57619264d8e11"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h070/sample.json",
+      "bytes": 1086985,
+      "sha256": "4236fc442088594b9760a4e876138a66b66e29be7c2722138c8dcbc89815d800"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-h070/hostility.npz",
+      "bytes": 78651,
+      "sha256": "d660010802a136e611622060c5e906c885077dc96ae0188b5bf5745c41fa2be6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-060/sample.json",
+      "bytes": 1035348,
+      "sha256": "d4ea65e05e27fdf5c52457465446ba7769d8aa33b6f03514f15204d2a39f79ce"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-060/hostility.npz",
+      "bytes": 73910,
+      "sha256": "4cff9c4866176aaea9fc0892b3c5b0d4097137253ef1dd64c3506d64ad994b4e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-080/sample.json",
+      "bytes": 899215,
+      "sha256": "48129904cf4ed1c8db63c483c49737c7e8f388dcc924be3b0a4bae8c8f49d52c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r1-080/hostility.npz",
+      "bytes": 97166,
+      "sha256": "717558d086eb8465f88029a1600ae1af39fe54bb5f930511575eedb8f503729b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r2-080/sample.json",
+      "bytes": 858311,
+      "sha256": "2a1fa40e06fedd4d30274a218efe8082bf9c3f1759760b2953c6c9f13f209d67"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-r2-080/hostility.npz",
+      "bytes": 89098,
+      "sha256": "caf2ce279186c0f232114a171bfae6b0464e2935f76250c1753643001f0d095c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-060/sample.json",
+      "bytes": 1350000,
+      "sha256": "43410db75b47e99554958670a51f0cebf308c2ff99ee98838b83ca5f33e572af"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-060/hostility.npz",
+      "bytes": 111411,
+      "sha256": "a3037cc3125db6f3bb4bc9957acddb6de5f2fbcca17d6a56f22ea686d0ef4730"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-080/sample.json",
+      "bytes": 893354,
+      "sha256": "58882dccd052b3cedb8cde29b35e12365a642f90faf690c4ec6dbfe75a48f11c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ck-080/hostility.npz",
+      "bytes": 110986,
+      "sha256": "ed21f5020ac4a387f50c64118128110fba2942acda8737b21180c9fdd94c0ac9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s1/sample.json",
+      "bytes": 1082172,
+      "sha256": "be6247517c9ef6fba38ec870f561aeb494b049aaf5590147041d1887b9935d38"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s1/hostility.npz",
+      "bytes": 100620,
+      "sha256": "5c49617886a1a3b8085fb29c54e86ce1e6b62f0ab8a0fe75f4b80613ccf2ad7e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s2/sample.json",
+      "bytes": 1092733,
+      "sha256": "fce6bbb94cfcccb6a65e8455851a8de4536547a2c9b5d41d697194a39752dcd6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ramp-s2/hostility.npz",
+      "bytes": 101031,
+      "sha256": "093d7acd8aaf1b02e2c5b924fc9c324a915d697f67b1dc09197e3aa6d5d5a30b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c040-s2/sample.json",
+      "bytes": 875398,
+      "sha256": "a3b1a727b816d0588084086fd92330c55bd17b4758c4131c85f943fcd270d5bd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c040-s2/hostility.npz",
+      "bytes": 102961,
+      "sha256": "bddf3651010eab8a2ada9d5c50dcaa3bb2f77ee2ea3d93d38a5b92eb5b8674f1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030/sample.json",
+      "bytes": 988875,
+      "sha256": "1a03a20dc2a866367a4d2586fa5f7b5e877aa0861b7fba0faed889c44470826a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030/hostility.npz",
+      "bytes": 104297,
+      "sha256": "089c9052e655c6796e6c6322fb19168b393adc1a23e4013101ac10a7fc225f34"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit020/sample.json",
+      "bytes": 964685,
+      "sha256": "05f94c0e1ae2ef137fde05cad7db7f5a90bce0cbf707d564bc75deb9b20a7d20"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit020/hostility.npz",
+      "bytes": 100771,
+      "sha256": "72b3f1b8f7376483c8de8f862b8c24d9410aa57d2f57358a41f333fee4926633"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000/sample.json",
+      "bytes": 1035844,
+      "sha256": "bb21767f8c7886c6550faaea56ffe17944471c07d1d10e29a45bb17595a69cbf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000/hostility.npz",
+      "bytes": 99571,
+      "sha256": "f7e035ebeaf503d0e6578ee085b6f7832122a6d24f8b23286f403352d8d77698"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020/sample.json",
+      "bytes": 1194434,
+      "sha256": "8b49c879a7c06975308bcc3715c725198b45b6643f5e20e60d000e7fc3c75692"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020/hostility.npz",
+      "bytes": 104939,
+      "sha256": "c6a42c885325bf03dd953e1e3d132a3f39fd95c419425e0edb2bf2fbaaa06301"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s1/sample.json",
+      "bytes": 890710,
+      "sha256": "afd9c8d0446991ef2c0b92f868b1b31031858b343dd4cf8f1f706484d7d2c58a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s1/hostility.npz",
+      "bytes": 107587,
+      "sha256": "46aa049316d46c8a44205827f6b2382c803ccf5290cf72209da4ce9e17c661a3"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s2/sample.json",
+      "bytes": 858077,
+      "sha256": "c442ea3a29a67f98a5c11bc1d38db3460c92c29bf07a7648fba6a63528c76e18"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-c030-s2/hostility.npz",
+      "bytes": 106470,
+      "sha256": "911bcd81a225735aaa82d1ac3292dec20cf77a04a544a06f3f07672c2960e1bb"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s1/sample.json",
+      "bytes": 1008096,
+      "sha256": "870c988a4d5190d9b273a997a61362a106f892d7acbd0156523b7c63218422af"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s1/hostility.npz",
+      "bytes": 98976,
+      "sha256": "51674049d6df822060409474a135be6264a73ad2708b3ca0983313f633f3b9b2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s2/sample.json",
+      "bytes": 1030821,
+      "sha256": "c2423e15d54867428a1d85c2e3debf8574ba8317bb6aae82027de03552d89876"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit040-s2/hostility.npz",
+      "bytes": 100347,
+      "sha256": "bb38148c5cbb077ad1bd6332d4f1000ecfd7d91ee19a8b351b3f39c3d84b02aa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030-s2/sample.json",
+      "bytes": 983797,
+      "sha256": "f526f778ac9743d80a1d63d0e0bf4f910c523aedab15d9050cd0f926777d87d4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit030-s2/hostility.npz",
+      "bytes": 104363,
+      "sha256": "6d4026ee3f306175d7beb4c3681ec76d86f447f9a4fb424cd5cec37c6fafb2b5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000-s2/sample.json",
+      "bytes": 1014001,
+      "sha256": "a47cf56f3fdec867d0396785e580d6ecd67572bd078299cb8a1d33dc905b852b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exit000-s2/hostility.npz",
+      "bytes": 101462,
+      "sha256": "9f270e61bf77d7bfb2113bcf84a558383e5d33ec976508be3e8caac67a138e57"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020-s2/sample.json",
+      "bytes": 1168604,
+      "sha256": "dc0a11bf1a0012f6dac0822de3dbb00702b13417750d11a03e6cf61f3be1fadf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-exitm020-s2/hostility.npz",
+      "bytes": 104348,
+      "sha256": "adbfad054d0b04d5894fe204ef04bc0d97b7ffa6fabb477765595a9b47a25be1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/sample.json",
+      "bytes": 1043719,
+      "sha256": "3280ba9535f4a92d135b8e2f63ac76dfc47a54dd6210d3bcc280d024be777296"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/hostility.npz",
+      "bytes": 92181,
+      "sha256": "ad81dad62a2bd65822d12782fd94de86a8500571ad4dee4efa3703a4a13baa16"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-none/turns.npz",
+      "bytes": 36643,
+      "sha256": "14b593fef9c3ed1f7e960322582a30bb82e24945b721f27975821457c4f7c827"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/sample.json",
+      "bytes": 1033647,
+      "sha256": "52bcd10eb6d784d7d9f9a8498c1e0c4c29127150988219129ee2f0882b1cb080"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/hostility.npz",
+      "bytes": 105117,
+      "sha256": "10934445298eb05a4601e05fc2cca8975115b67231374861cb68983833825ca1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-cancel/turns.npz",
+      "bytes": 63002,
+      "sha256": "c4c6a1c4b22dea2353585f71e6c5c8b7571e60b63c749e606c7b97e465669efd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/sample.json",
+      "bytes": 1136524,
+      "sha256": "c1efc15d73447c61424792206d1a304191a673bbdf7119eaea3914f33815354b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/hostility.npz",
+      "bytes": 109204,
+      "sha256": "8dc0dd710d2a62a06f358fc71bf3c147ef6800e3d504b075dfcbfe55b8f04cd7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-over/turns.npz",
+      "bytes": 63185,
+      "sha256": "aaff8e1e4c9a759d7ad3d6402d0b61221682ebb293fa8c291eb89909b0318b5b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/sample.json",
+      "bytes": 1006451,
+      "sha256": "2ad4b7cd5d761adb33257dae12b7983d47b31ff2e9e4afc9f94e990517a97133"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/hostility.npz",
+      "bytes": 105778,
+      "sha256": "19b2980febed7b02220f7cfc90650016fd7740ad892ebe4e3ab6c50e21aaba2d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-long/turns.npz",
+      "bytes": 63724,
+      "sha256": "2c5cf55096d087abbf5b070aa44fd055cbd451ee9c9d18a15e7b5e100460627c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/sample.json",
+      "bytes": 774710,
+      "sha256": "cea6cceb3e2abce9c3d83b21caa1829d60f7eb4c111ff0ea90cb58ffd5ee9b8c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/hostility.npz",
+      "bytes": 84707,
+      "sha256": "cc08adf98ae926868e0bdfee751cfeb6c6cc8c4fcd47c29034be4ba12c024c73"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-trig-kind/turns.npz",
+      "bytes": 51660,
+      "sha256": "70b9fb9fa9dbdeac7ca0849d8cca318ede718bdc9960d3e9e0be9b36fbd44328"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/sample.json",
+      "bytes": 871460,
+      "sha256": "5ee696d35c89587ff6efa878a70cdda8506d9d16f6d05e429d130c9e5ddbe047"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/hostility.npz",
+      "bytes": 101418,
+      "sha256": "ccf1b09f641c0a53d829bd76d9b2b7a0ecf8aed0c887de5ff0e4f6929232ad96"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-02/turns.npz",
+      "bytes": 41919,
+      "sha256": "33ded200b31d32328654f3f2e9f77ef070372219ae871cb159c87263eb5707aa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/sample.json",
+      "bytes": 717450,
+      "sha256": "20494d22bbd3cc6749d397e36cc80c007a0ca4e56358d910fba20634e593100c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/hostility.npz",
+      "bytes": 90730,
+      "sha256": "29adbb904ced487ba3528b96fd1fdecc826b403b13777922b473f280e2344658"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-const-04/turns.npz",
+      "bytes": 42708,
+      "sha256": "72a6b5b17ff38300a44cdeef6bb57f5fdf127649ea655bcd3b89d42324cfdf61"
+    }
+  ],
+  "profile_authority": {
+    "receipt_path": "codex/misalignment-audit/profiles-receipt.json",
+    "sha256": "c355b0f7e76ca0505db4fc7509d4344db6c79a3f8caa72e3f84abe1010e81424",
+    "synthetic_source": "0bb14eafa46e95bb648c7a4ccc4511438325473a",
+    "scientific_sources_unchanged_from_profile": true
+  },
+  "measured_forecast_seconds": 32.90375526808202,
+  "peak_memory_forecast_bytes": 536870912,
+  "forecast_note": "Synthetic logistic converged in2iterations; actual fits may take more. Conservative multi-fit factor and hard external deadline apply; no silent retry. L7 3*(30*6*fit+30*bootstrap)+60; L8 3*(6*2*fit+18*bootstrap)+60; descriptor2*wholeprofile+30.",
+  "target_arrays": true
 }
