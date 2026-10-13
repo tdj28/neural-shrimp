@@ -121,3 +121,21 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens; canonical client
   reserves and authorization guard apply. Advisory only: every cited reference is checked at its primary
   source before use, and material advice is adjudicated locally.
+
+## 2026-10-13: LLM paper synthesis consult (consult 6)
+
+- **Approval (human, in session, 13 October 2026, about 19:58 UTC):** "yes on pro, budget fully approved". This
+  answered the proposal of one Pro consult as research director on a compact brief of the near-final paper:
+  claims against evidence and framing for cs.LG and nlin.CD; novelty and literature gaps since consult 5; the
+  single most valuable experiment before arXiv. Budget in the private cost ledger.
+- **Milestone:** publication-ready synthesis of the principal findings, section 7A of the integrity playbook:
+  - numerically nondegenerate cusps and a doubling cascade inside a hostile period-7 window;
+  - Huginn's frozen relaxation test, Part B confirmed and replayed independently;
+  - controller replication at 1.5B;
+  - second model family (OLMo-2 7B);
+  - committor estimate of warning.
+- **Scope:** one `research-strategy` request using `2026-10-13-llm-paper-synthesis/brief.md`, sent after the Huginn
+  Part A outcome is inserted. No retry or second pass without a new decision recorded here.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens. The canonical client's
+  reserves and authorization guard apply. The advice is advisory only: every cited reference is checked at its
+  primary source before use, and material advice is adjudicated locally.
