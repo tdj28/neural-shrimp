@@ -66,3 +66,10 @@ def test_latent_drift_predicts_onset_before_the_score():
     assert a["probe"] > 0.8 and a["forecast"] > 0.7 and a["classifier"] < 0.6
     # the dynamical features add value over the baselines when the latent drift carries the warning
     assert hz["incremental_auc"] > 0.1 and hz["incremental_auc_ci95"][0] > 0
+
+
+def test_horizon_labels_sentinel_and_censoring():
+    import p1_lead_time as lt
+    turns = 40
+    rows = lt.horizon_labels(np.array([turns]), turns, 5)
+    assert rows[:, 2].sum() == 0 and rows[:, 1].max() == turns - 1 - 5

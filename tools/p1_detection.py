@@ -51,11 +51,17 @@ def onsets(hostile, consecutive=1):
 
 
 def at_risk_rows(onset, turns, h):
-    """(dialogue, turn, label): turns t before the event with a next turn; label 1 if the event is in t+1..t+h."""
+    """(dialogue, turn, label): turns t before the event whose whole horizon t+1..t+h is observed (t + h <= turns - 1,
+    complete-horizon right-censoring); label 1 if the event is in t+1..t+h. onset == turns means no event: it is a
+    sentinel, never a label (correction of 13 October, found in review by Codex: the sentinel used to label the last
+    h - 1 turns of event-free dialogues positive)."""
     rows = []
     for r, o in enumerate(onset):
-        for t in range(min(int(o), turns - 1)):
-            rows.append((r, t, int(t < o <= t + h)))
+        o = int(o)
+        for t in range(min(o, turns - 1)):
+            if t + h > turns - 1:
+                continue
+            rows.append((r, t, int(o < turns and t < o <= t + h)))
     return np.array(rows, dtype=int).reshape(-1, 3)
 
 

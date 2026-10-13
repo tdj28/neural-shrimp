@@ -41,3 +41,20 @@ of the model's in-context state just before the next reply (layer 18 of Qwen2.5-
 ## Cost
 
 One H100 pod, about 30 minutes; ceiling recorded in the private ledger.
+
+## Amendment 1 (13 October 2026, about 09:45 UTC), before any confirmation outcome
+
+Codex's read-only review of the frozen source (fa47bbf7) found a labeling bug, reproduced independently by two
+reviewers. `onsets` returns the number of turns (40) as the no-event sentinel, and `at_risk_rows` treated it as an
+event: dialogues that never turn hostile received positive labels at turns 37-38 (h = 3) and 35-38 (h = 5). Rows
+whose horizon ran past the last turn were also labelled 0 although that horizon was not observed. Both defects are
+fixed in `tools/p1_detection.py` (and in the same functions of `tools/p1_lead_time.py`), with tests: the sentinel is
+never a label, and only rows whose whole horizon is observed (t + h <= 39) are used.
+
+State at the time of this amendment: run L8 (the confirmation data) had not finished on its pod; no confirmation
+dialogue had been retrieved, scored or read. The L7 exploration results had been seen (research log, 13 October).
+
+Changes to the frozen design: none, except the corrected labels, used both to fit the models on the L7 arms and to
+evaluate them on the confirmation arms. The primary hypothesis, models, features, horizons, test arms, bootstrap and
+success criterion are unchanged. The L7 exploratory numbers are recomputed with the corrected labels and reported as
+a disclosed correction; the confirmation proceeds whatever they show.

@@ -48,13 +48,17 @@ def onsets(score, threshold):
 
 
 def horizon_labels(onset, turns, h):
-    """(replica, turn, label) for every turn before the onset: label 1 when the onset is in turns t+1 .. t+h."""
+    """(replica, turn, label) for every turn before the onset whose horizon t+1 .. t+h is fully observed
+    (t + h <= turns - 1): label 1 when the onset is in turns t+1 .. t+h. onset == turns is the no-event sentinel and
+    never a label (correction of 13 October: it used to label the last h - 1 turns of event-free replicas positive,
+    and horizons running past the last turn were labelled 0)."""
     rows = []
     for r, o in enumerate(onset):
+        o = int(o)
         for t in range(min(o, turns)):
-            if t + 1 > turns - 1:
+            if t + h > turns - 1:
                 continue
-            rows.append((r, t, int(t < o <= t + h)))
+            rows.append((r, t, int(o < turns and t < o <= t + h)))
     return np.array(rows, dtype=int).reshape(-1, 3)
 
 
