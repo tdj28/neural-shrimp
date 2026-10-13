@@ -193,6 +193,30 @@ case "$JOBSET" in
         --out $D/msm/p1-$name
     done
     ;;
+  huginn)      # Huginn-0125 relaxed recurrence (tools/huginn_relax_eval.py) in its own venv with transformers 4.55, as
+               # in the local llm env; JOBARGS: NAME MINUTES then huginn_relax_eval arguments (GSM8K or ARC exports
+               # uploaded with --extra-data)
+    HREV=bb6621b65e90b6a4b9b29ef88dc83866d450470c
+    if [ ! -x /root/venv-huginn/bin/python ]; then
+      uv venv -q -p 3.12 /root/venv-huginn
+      uv pip install -q -p /root/venv-huginn/bin/python "torch==2.14.1" --index-url https://download.pytorch.org/whl/cu126 \
+        > "$LOGS/setup-huginn-torch.log" 2>&1
+      uv pip install -q -p /root/venv-huginn/bin/python "transformers==4.55.0" "numpy==2.5.3" "scipy==1.18.1" \
+        > "$LOGS/setup-huginn.log" 2>&1
+      HF_HUB_OFFLINE=0 /root/venv-huginn/bin/python -c "
+from huggingface_hub import snapshot_download
+snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+        >> "$LOGS/setup-huginn.log" 2>&1
+      HREFS=$NEURAL_SHRIMP_DATA/models/hf/hub/models--tomg-group-umd--huginn-0125/refs
+      mkdir -p "$HREFS" && printf %s "$HREV" > "$HREFS/main"
+      /root/venv-huginn/bin/python -c "import torch, transformers; print('huginn venv', torch.__version__, transformers.__version__)" \
+        | tee -a "$LOGS/versions.txt"
+    fi
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    PY=/root/venv-huginn/bin/python TOOL=huginn_relax_eval.py run huginn-$name "$minutes" "${JOBARGS[@]:2}" \
+      --out $D/huginn/$name
+    ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}

@@ -189,35 +189,41 @@ def accuracy(args):
                            pad_token_id=tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id)
     summary = {"args": vars(args), "arms": {}}
     rows_path = out / "rows.jsonl"
+    # arms outer (default) or problems outer (--interleave: every problem in all arms before the next, so that a run
+    # cut short by its time limit still has paired arms)
+    order = ([(arm, i) for i in range(len(data)) for arm in args.lams] if args.interleave
+             else [(arm, i) for arm in args.lams for i in range(len(data))])
+    tally = {str(arm): [0, 0, 0.0] for arm in args.lams}
     with open(rows_path, "a") as rows:
-        for arm in args.lams:
-            correct, tic = 0, time.perf_counter()
-            for i, ex in enumerate(data):
-                index = args.start + i
-                lam = set_arm(relax, arm, args.seed, index)   # rand:LO:HI is drawn per problem, seeded by (seed, index)
-                torch.manual_seed(args.seed * 100003 + index)   # Huginn draws its initial latent state at random:
-                ids = tok(PROMPT.format(question=ex["question"]), return_tensors="pt")["input_ids"].to(args.device)
-                t0 = time.perf_counter()                   # the same seed per problem in every arm (paired)
-                with torch.no_grad():
-                    gen = model.generate(ids, cfg, num_steps=args.steps)
-                new_tokens = int(gen.shape[1] - ids.shape[1])
-                full = tok.decode(gen[0, ids.shape[1]:], skip_special_tokens=True)
-                text = full.split("\nQuestion:")[0]
-                pred, ans = extract(text), gold(ex["answer"])
-                ok = same_number(pred, ans)
-                correct += ok
-                rows.write(json.dumps({"arm": str(arm), "lam": lam, "steps": args.steps, "split": args.split,
-                                       "index": index, "seed": args.seed * 100003 + index, "pred": pred, "gold": ans,
-                                       "correct": ok, "new_tokens": new_tokens, "core_calls": new_tokens * args.steps,
-                                       "seconds": round(time.perf_counter() - t0, 2), "text": full}) + "\n")
-                rows.flush()
-            lam = str(arm)
-            n = len(data)
-            summary["arms"][str(lam)] = {"correct": correct, "n": n, "accuracy": correct / n,
-                                         "seconds": round(time.perf_counter() - tic, 1)}
-            print(json.dumps({"lam": lam, "steps": args.steps, "correct": correct, "n": n,
-                              "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
-            (out / "summary.json").write_text(json.dumps(summary, indent=1))
+        for arm, i in order:
+            ex = data[i]
+            index = args.start + i
+            lam = set_arm(relax, arm, args.seed, index)   # rand:LO:HI is drawn per problem, seeded by (seed, index)
+            torch.manual_seed(args.seed * 100003 + index)   # Huginn draws its initial latent state at random:
+            ids = tok(PROMPT.format(question=ex["question"]), return_tensors="pt")["input_ids"].to(args.device)
+            t0 = time.perf_counter()                   # the same seed per problem in every arm (paired)
+            with torch.no_grad():
+                gen = model.generate(ids, cfg, num_steps=args.steps)
+            new_tokens = int(gen.shape[1] - ids.shape[1])
+            full = tok.decode(gen[0, ids.shape[1]:], skip_special_tokens=True)
+            text = full.split("\nQuestion:")[0]
+            pred, ans = extract(text), gold(ex["answer"])
+            ok = same_number(pred, ans)
+            seconds = time.perf_counter() - t0
+            rows.write(json.dumps({"arm": str(arm), "lam": lam, "steps": args.steps, "split": args.split,
+                                   "index": index, "seed": args.seed * 100003 + index, "pred": pred, "gold": ans,
+                                   "correct": ok, "new_tokens": new_tokens, "core_calls": new_tokens * args.steps,
+                                   "seconds": round(seconds, 2), "text": full}) + "\n")
+            rows.flush()
+            tally[str(arm)][0] += ok
+            tally[str(arm)][1] += 1
+            tally[str(arm)][2] += seconds
+            if tally[str(arm)][1] == len(data) or (args.interleave and i == len(data) - 1):
+                c, n, sec = tally[str(arm)]
+                summary["arms"][str(arm)] = {"correct": c, "n": n, "accuracy": c / n, "seconds": round(sec, 1)}
+                print(json.dumps({"lam": str(arm), "steps": args.steps, "correct": c, "n": n,
+                                  "seconds": round(sec, 1)}), flush=True)
+                (out / "summary.json").write_text(json.dumps(summary, indent=1))
 
 
 def convergence(args):
@@ -418,6 +424,7 @@ def main():
     acc.add_argument("--start", type=int, default=0)
     acc.add_argument("--count", type=int, default=40)
     acc.add_argument("--max-new", type=int, default=256)
+    acc.add_argument("--interleave", action="store_true", help="every problem in all arms before the next problem")
     conv = sub.choices["convergence"]
     conv.add_argument("--index", type=int, default=0)
     conv.add_argument("--task", default="gsm8k", choices=("gsm8k", "arc"))
