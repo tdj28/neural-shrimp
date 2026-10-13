@@ -14,12 +14,13 @@ spec=importlib.util.spec_from_file_location('certificate_launcher',ROOT/'codex/c
 launch=importlib.util.module_from_spec(spec);spec.loader.exec_module(launch)
 
 
-def case(tmp_path,monkeypatch,*,timeout=False,unpublished=False,dirty=False):
+def case(tmp_path,monkeypatch,*,timeout=False,unpublished=False,dirty=False,driver="center_continue"):
     repo=tmp_path/'repo';owned=tmp_path/'owned';source=repo/'codex/certify-llm';source.mkdir(parents=True)
     blobs={
         'codex/certify-llm/launch.py':b'# mocked launcher snapshot\n',
         'codex/certify-llm/pilot.py':b'# historical pilot\n',
         'codex/certify-llm/center_continue.py':b'# never executed\n',
+        'codex/certify-llm/assembly.py':b'# mocked assembly, never executed\n',
         'codex/certify-llm/parallel-plan.json':b'{"mock_only":true}\n',
     }
     for name,data in blobs.items():(repo/name).write_bytes(data)
@@ -51,8 +52,8 @@ def case(tmp_path,monkeypatch,*,timeout=False,unpublished=False,dirty=False):
     monkeypatch.setattr(launch.subprocess,'run',git_run)
     monkeypatch.setattr(launch.subprocess,'Popen',Child)
     monkeypatch.setattr(launch.os,'killpg',lambda pid,sig:signals.append((pid,sig)))
-    monkeypatch.setattr(sys,'argv',['launch.py','--attempt','parallel-001','--driver','center_continue',
-        '--plan','parallel-plan.json','--seconds','1800','--threads','1'])
+    monkeypatch.setattr(sys,'argv',['launch.py','--attempt','parallel-001','--driver',driver,
+        '--plan','parallel-plan.json','--seconds','3600'if driver=='assembly'else '1800','--threads','1'])
     return owned,calls,signals
 
 
@@ -108,3 +109,50 @@ def test_parallel_requires_committed_plan(tmp_path,monkeypatch):
     monkeypatch.setattr(sys,'argv',['launch.py','--attempt','parallel-001','--driver','center_continue','--seconds','1800'])
     with pytest.raises(ValueError):launch.main()
     assert not calls and not owned.exists() and not signals
+
+
+def test_assembly_launch_is_cpu1_hour_and_captures_explicit_plan(tmp_path,monkeypatch):
+    owned,calls,signals=case(tmp_path,monkeypatch,driver='assembly')
+    with pytest.raises(SystemExit)as outcome:launch.main()
+    assert outcome.value.code==0
+    path=owned/'parallel-001';manifest=json.loads((path/'manifest.json').read_text())
+    assert manifest['threads']==1 and manifest['timeout_seconds']==3600 and manifest['memory_gib']==18
+    assert 'parallel_workers'not in manifest
+    child=next(c for c in calls if hasattr(c,'kwargs'))
+    assert child.command[1:4]==['-I','-B','-u']
+    assert child.command[4]==str(path/'source/codex/certify-llm/assembly.py')
+    assert child.command[-2:]==['--plan',str(path/'source/codex/certify-llm/parallel-plan.json')]
+    assert child.kwargs['start_new_session'] and child.kwargs['env']['CERT_SOURCE_COMMIT']=='a'*40
+    assert all(child.kwargs['env'][k]=='1'for k in('OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS'))
+    assert child.kwargs['env']['CUDA_VISIBLE_DEVICES']=='' and child.kwargs['env']['HF_HUB_OFFLINE']=='1'
+    receipt=json.loads((path/'receipt.json').read_text())
+    assert receipt['exit_code']==0 and receipt['timed_out']is False
+    assert all(launch.sha(path/r['path'])==r['sha256']for r in receipt['artifacts'])
+    assert signals==[]
+
+
+@pytest.mark.parametrize('arguments',[
+    ['--seconds','3599'],['--seconds','3601'],['--seconds','1800'],['--seconds','0'],
+    ['--threads','2'],['--threads','4'],['--skip-box'],['--plan','../outside.json'],
+])
+def test_bad_assembly_scope_refused_before_git_or_process(tmp_path,monkeypatch,arguments):
+    owned,calls,signals=case(tmp_path,monkeypatch,driver='assembly')
+    monkeypatch.setattr(sys,'argv',sys.argv+arguments)
+    with pytest.raises(ValueError):launch.main()
+    assert not calls and not owned.exists() and not signals
+
+
+def test_assembly_requires_explicit_plan_before_git(tmp_path,monkeypatch):
+    owned,calls,signals=case(tmp_path,monkeypatch,driver='assembly')
+    monkeypatch.setattr(sys,'argv',['launch.py','--attempt','parallel-001','--driver','assembly','--seconds','3600'])
+    with pytest.raises(ValueError):launch.main()
+    assert not calls and not owned.exists() and not signals
+
+
+def test_assembly_timeout_only_signals_owned_group_and_retains_receipt(tmp_path,monkeypatch):
+    owned,calls,signals=case(tmp_path,monkeypatch,driver='assembly',timeout=True)
+    with pytest.raises(SystemExit):launch.main()
+    assert signals==[(987654,signal.SIGTERM)]
+    receipt=json.loads((owned/'parallel-001/receipt.json').read_text())
+    assert receipt['timed_out']is True
+    assert next(c for c in calls if hasattr(c,'kwargs')).waits==2
