@@ -40,10 +40,64 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 MODEL = "tomg-group-umd/huginn-0125"
 GSM8K = "explore/gsm8k"                      # data-relative folder with train.jsonl and test.jsonl (pinned export)
+# 8-shot chain-of-thought exemplars and format of lm-evaluation-harness gsm8k_cot (lm_eval/tasks/gsm8k/gsm8k-cot.yaml,
+# main branch fetched 13 October 2026, SHA-256 7c9dd2561fe334a55f62bdc6a876f045e6dc7f53714c7a9db506b89c6de6bc96):
+# 'Q: {question}\nA:' with the target after a space, exemplars joined by a blank line, generation until 'Q:'
+COT_EXEMPLARS = [
+    ("There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done, there "
+     "will be 21 trees. How many trees did the grove workers plant today?",
+     "There are 15 trees originally. Then there were 21 trees after some more were planted. So there must have been "
+     "21 - 15 = 6. The answer is 6."),
+    ("If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?",
+     "There are originally 3 cars. 2 more cars arrive. 3 + 2 = 5. The answer is 5."),
+    ("Leah had 32 chocolates and her sister had 42. If they ate 35, how many pieces do they have left in total?",
+     "Originally, Leah had 32 chocolates. Her sister had 42. So in total they had 32 + 42 = 74. After eating 35, they "
+     "had 74 - 35 = 39. The answer is 39."),
+    ("Jason had 20 lollipops. He gave Denny some lollipops. Now Jason has 12 lollipops. How many lollipops did Jason "
+     "give to Denny?",
+     "Jason started with 20 lollipops. Then he had 12 after giving some to Denny. So he gave Denny 20 - 12 = 8. The "
+     "answer is 8."),
+    ("Shawn has five toys. For Christmas, he got two toys each from his mom and dad. How many toys does he have now?",
+     "Shawn started with 5 toys. If he got 2 toys each from his mom and dad, then that is 4 more toys. 5 + 4 = 9. The "
+     "answer is 9."),
+    ("There were nine computers in the server room. Five more computers were installed each day, from monday to "
+     "thursday. How many computers are now in the server room?",
+     "There were originally 9 computers. For each of 4 days, 5 more computers were added. So 5 * 4 = 20 computers were "
+     "added. 9 + 20 is 29. The answer is 29."),
+    ("Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, he lost 2 more. How many golf balls "
+     "did he have at the end of wednesday?",
+     "Michael started with 58 golf balls. After losing 23 on tuesday, he had 58 - 23 = 35. After losing 2 more, he had "
+     "35 - 2 = 33 golf balls. The answer is 33."),
+    ("Olivia has $23. She bought five bagels for $3 each. How much money does she have left?",
+     "Olivia had 23 dollars. 5 bagels for 3 dollars each will be 5 x 3 = 15 dollars. So she has 23 - 15 dollars left. "
+     "23 - 15 is 8. The answer is 8."),
+]
+COT_PREFIX = "\n\n".join(f"Q: {q}\nA: {a}" for q, a in COT_EXEMPLARS) + "\n\n"
 ARC = "explore/arc-challenge"                # allenai/ai2_arc ARC-Challenge, pinned export (tools/export_benchmark.py)
 ARC_PROMPT = "Question: {question}\nAnswer:"  # lm-eval-harness format; each choice is scored as " " + text
 PROMPT = ("Solve the following math problem step by step. At the end, write the final answer as "
           "'The answer is N.'\n\nQuestion: {question}\nAnswer:")
+
+
+def gsm8k_prompt(question, style):
+    if style == "cot8":
+        return COT_PREFIX + f"Q: {question}\nA:"
+    return PROMPT.format(question=question)
+
+
+def strict_answer(text):
+    """lm-eval strict-match: the number after the first 'The answer is', else None."""
+    m = re.search(r"The answer is (\-?[0-9\.\,]+)", text)
+    return m.group(1).replace(",", "").rstrip(".") if m else None
+
+
+def flexible_answer(text):
+    """lm-eval flexible-extract: the last number-like token in the text."""
+    found = re.findall(r"(-?[$0-9.,]{2,})|(-?[0-9]+)", text)
+    if not found:
+        return None
+    a, b = found[-1]
+    return (a or b).replace(",", "").replace("$", "").rstrip(".")
 
 
 def gold(answer):
@@ -185,8 +239,21 @@ def accuracy(args):
     data = problems(args.split)[args.start: args.start + args.count]
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
+    from transformers import StoppingCriteria, StoppingCriteriaList
+
     cfg = GenerationConfig(max_new_tokens=args.max_new, do_sample=False, use_cache=True, return_dict_in_generate=False,
                            pad_token_id=tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id)
+
+    class StopAtQuestion(StoppingCriteria):
+        """Stop once the continuation contains 'Q:' (lm-eval's 'until'), batch size 1."""
+
+        def __init__(self, start):
+            self.start = start
+
+        def __call__(self, input_ids, scores, **kwargs):
+            tail = tok.decode(input_ids[0, self.start:][-8:], skip_special_tokens=True)
+            done = "Q:" in tail or "\nQuestion:" in tail
+            return torch.tensor([done], device=input_ids.device)
     summary = {"args": vars(args), "arms": {}}
     rows_path = out / "rows.jsonl"
     # arms outer (default) or problems outer (--interleave: every problem in all arms before the next, so that a run
@@ -200,19 +267,30 @@ def accuracy(args):
             index = args.start + i
             lam = set_arm(relax, arm, args.seed, index)   # rand:LO:HI is drawn per problem, seeded by (seed, index)
             torch.manual_seed(args.seed * 100003 + index)   # Huginn draws its initial latent state at random:
-            ids = tok(PROMPT.format(question=ex["question"]), return_tensors="pt")["input_ids"].to(args.device)
+            ids = tok(gsm8k_prompt(ex["question"], args.prompt_style), return_tensors="pt")["input_ids"].to(args.device)
             t0 = time.perf_counter()                   # the same seed per problem in every arm (paired)
+            stop = StoppingCriteriaList([StopAtQuestion(ids.shape[1])]) if args.prompt_style == "cot8" else None
             with torch.no_grad():
-                gen = model.generate(ids, cfg, num_steps=args.steps)
+                gen = model.generate(ids, cfg, num_steps=args.steps, stopping_criteria=stop)
             new_tokens = int(gen.shape[1] - ids.shape[1])
             full = tok.decode(gen[0, ids.shape[1]:], skip_special_tokens=True)
-            text = full.split("\nQuestion:")[0]
-            pred, ans = extract(text), gold(ex["answer"])
-            ok = same_number(pred, ans)
+            text = full.split("\nQuestion:")[0].split("Q:")[0]
+            ans = gold(ex["answer"])
+            if args.prompt_style == "cot8":
+                strict, flexible = strict_answer(text), flexible_answer(text)
+                pred = flexible
+                ok = same_number(flexible, ans)
+                ok_strict = same_number(strict, ans)
+            else:
+                pred = extract(text)
+                ok = same_number(pred, ans)
+                strict, ok_strict = None, None
             seconds = time.perf_counter() - t0
             rows.write(json.dumps({"arm": str(arm), "lam": lam, "steps": args.steps, "split": args.split,
                                    "index": index, "seed": args.seed * 100003 + index, "pred": pred, "gold": ans,
-                                   "correct": ok, "new_tokens": new_tokens, "core_calls": new_tokens * args.steps,
+                                   "correct": ok, "strict_pred": strict, "correct_strict": ok_strict,
+                                   "prompt_style": args.prompt_style,
+                                   "new_tokens": new_tokens, "core_calls": new_tokens * args.steps,
                                    "seconds": round(seconds, 2), "text": full}) + "\n")
             rows.flush()
             tally[str(arm)][0] += ok
@@ -425,6 +503,8 @@ def main():
     acc.add_argument("--count", type=int, default=40)
     acc.add_argument("--max-new", type=int, default=256)
     acc.add_argument("--interleave", action="store_true", help="every problem in all arms before the next problem")
+    acc.add_argument("--prompt-style", default="zero-shot", choices=("zero-shot", "cot8"),
+                     help="cot8: the 8-shot chain-of-thought prompt of lm-eval gsm8k_cot, stopping at 'Q:'")
     conv = sub.choices["convergence"]
     conv.add_argument("--index", type=int, default=0)
     conv.add_argument("--task", default="gsm8k", choices=("gsm8k", "arc"))

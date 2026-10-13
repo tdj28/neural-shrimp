@@ -86,3 +86,13 @@ def test_set_arm_and_choice_scores():
     lp = torch.log(torch.tensor([[[0.5, 0.5], [0.25, 0.75], [0.9, 0.1]]]))
     targets = torch.tensor([[-100, 1, 0]])
     assert torch.allclose(hr.choice_scores(lp, targets), torch.log(torch.tensor([0.75 * 0.9])))
+
+
+def test_cot8_prompt_and_answer_extraction():
+    p = hr.gsm8k_prompt("How many?", "cot8")
+    assert p.startswith("Q: There are 15 trees") and p.endswith("Q: How many?\nA:") and p.count("Q: ") == 9
+    assert "The answer is 8.\n\nQ: How many?" in p
+    assert hr.strict_answer("so 3 + 4 = 7. The answer is 7.") == "7"
+    assert hr.strict_answer("we get 1,234. The answer is 1,234.") == "1234"
+    assert hr.strict_answer("no final statement 12") is None
+    assert hr.flexible_answer("first 3 then 45 and finally $1,200.") == "1200"
