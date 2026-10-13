@@ -22241,3 +22241,9 @@ _commit `1bec280021d7`_
 - **Would surprise us:** a monotone low-dose ladder with a working point where detect-and-replace again fails, or no capture at all below 0.04
 
 _commit `0f8f1798d85a`_
+
+## 2026-10-13 17:42 UTC: Run L12 first launch stopped before any work: output folder names would have overwritten L11; fixes
+
+The p1x job set named folders by model and dose only, so L12 (doses 0.01-0.04 and the same controller arms) would have extracted over L11's p1x-qwen1.5b-h040 and ctl-* folders on retrieval. The orchestrator had been launched in the background, where SIGINT is ignored, so it was stopped by terminating pod exjx2u60eh7kd4 directly (tools/runpod_pod.py terminate; verified 17:41:24 UTC, about 4 minutes of pod time, setup only); the orchestrator then failed at retrieval, so nothing was extracted. L11's local folders were made read-only and copied to /archive/neural-shrimp-backups/20261013T1745Z-L11-safety before the termination. Fixes (62e0a33e): p1x folders carry a run tag (p1x-<model>-<tag>-...), and tools/runpod_soft_float64.py now extracts a retrieved archive into the run's own folder whenever any retrieved file already exists locally (shared pod logs excepted), reporting the clash. L12 relaunched with tag l12.
+
+_commit `62e0a33e2de7`_
