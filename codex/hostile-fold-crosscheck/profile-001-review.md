@@ -1,0 +1,11 @@
+# Task7 resource profile001 completed — 13 October2026 UTC
+
+The single authorized CPU2/nice10/12GiB resource pilot completed in43.5555s (worker41.5383s), with peak5,825,380KiB and no timeout. Root-reviewed/private-pushed source `83b0e153694b20e7e059baf70bd34a0d3ce8c0a2`, plan `303a2be6cc15ca3e57cc7e748cd64f69d62690a6394512750b06311af1eee530`; original receipt `e4d054140f960cd6e56d6958d061a69aa662f86f5f079f0a1ff68d1bed36dfa1`. This is only a cost/profile result: no fold qualification, normal-form result, passage or certificate was computed.
+
+All six retained operation rows: F²0.77548s; composed JVP4.70784s; sixteen-direction batch5.32983s; log10T parameter AD2.72735s; nested state AD16.68232s; critical-gradient AD8.82490s. Full outputs and backend remain in the immutable raw attempt; the compact JSON retains every cost row. Minimum sampled MemAvailable26,616,954,880bytes exceeded the16GiB runtime stop. The measured nested cost makes a future dense fold resource estimate possible; it does not set a proven upper bound.
+
+Independent completed-evidence check verified all39 receipt artifacts, complete inventory, all9 original captured Git blobs, exact source/plan and all six rows, zero exit/no timeout, no ownership uncertainty, immutable file modes, and absence of both original launcher/worker PIDs and their owned session/groups. Tool session20594 was reaped. No model replay occurred. Prelaunch observation independently verified all11 live Task1 controller/launcher/worker identities, limits, fresh stages/empty stderr and15 completed campaign shards; no scientific partial outcome was inspected. Available memory was32,972,603,392bytes before the pilot. Task1 was untouched.
+
+The Task7 launcher533239 and worker533256/start183881794 are terminated and their reservation is released. Task6 owns the next two separately authorized synthetic profiles. A full Task7 fold remains a separate reviewed/measured plan after Task6's selected work; no implicit retry or new run follows this success.
+
+Immutable audit archive `/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/audits-profile-001`, manifest `45cd22cefcbdfc9f1ff0d63c038a5d026cc54614c9dff3af537d44d905771e5b`. The source/output arithmetic relies on the reviewed independent float64 implementation; this profile audit checks retained resource/identity evidence, not mathematical fold gates.

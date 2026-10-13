@@ -1,0 +1,125 @@
+{
+  "utc": "2026-10-13T11:52:57Z",
+  "receipt_sha256": "e4d054140f960cd6e56d6958d061a69aa662f86f5f079f0a1ff68d1bed36dfa1",
+  "artifacts": 39,
+  "git_blobs": 9,
+  "source": "83b0e153694b20e7e059baf70bd34a0d3ce8c0a2",
+  "launcher_elapsed": 43.555500010959804,
+  "profile": {
+    "status": "resource_profile_completed",
+    "certificate_passed": false,
+    "fold_qualified": false,
+    "resource_probe_only": true,
+    "normal_form_coefficients_computed": false,
+    "rows": [
+      {
+        "operation": "period-map",
+        "seconds": 0.7754793788772076,
+        "max_rss_kib": 5352100,
+        "available_bytes": 28186390528
+      },
+      {
+        "operation": "composed-jvp",
+        "seconds": 4.707839467795566,
+        "max_rss_kib": 5642520,
+        "available_bytes": 28111970304
+      },
+      {
+        "operation": "batched-composed-jvp",
+        "seconds": 5.329830808099359,
+        "max_rss_kib": 5825380,
+        "available_bytes": 28142268416
+      },
+      {
+        "operation": "parameter-ad",
+        "seconds": 2.7273465441539884,
+        "max_rss_kib": 5825380,
+        "available_bytes": 28080160768
+      },
+      {
+        "operation": "nested-state-ad",
+        "seconds": 16.682316053891554,
+        "max_rss_kib": 5825380,
+        "available_bytes": 27815059456
+      },
+      {
+        "operation": "critical-gradient-ad",
+        "seconds": 8.824896476930007,
+        "max_rss_kib": 5825380,
+        "available_bytes": 27610894336
+      }
+    ],
+    "operation_counts": {
+      "period_map": 1,
+      "prefix_cache": 1,
+      "parameter_ad": 1,
+      "nested_state_ad": 1,
+      "critical_gradient_ad": 1
+    },
+    "direction_scope": "Deterministic cost probes; not an admitted fold eigenspace; no passages.",
+    "seconds": 41.53834087098949,
+    "max_rss_kib": 5825380,
+    "backend": {
+      "torch": "2.14.1+cu130",
+      "numpy": "2.5.3",
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+      "threads": 2
+    }
+  },
+  "identities_absent": [
+    {
+      "pid": 533239,
+      "state": "R",
+      "ppid": 1535104,
+      "pgid": 533239,
+      "sid": 533239,
+      "start": 183881691,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 23523328,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "codex/hostile-fold-crosscheck/launch.py",
+        "--attempt",
+        "profile-001",
+        "--source",
+        "83b0e153694b20e7e059baf70bd34a0d3ce8c0a2",
+        "--plan",
+        "profile-001-plan.json",
+        "--plan-sha256",
+        "303a2be6cc15ca3e57cc7e748cd64f69d62690a6394512750b06311af1eee530"
+      ]
+    },
+    {
+      "pid": 533256,
+      "state": "R",
+      "ppid": 533239,
+      "pgid": 533256,
+      "sid": 533256,
+      "start": 183881794,
+      "nice": 10,
+      "uid": 1000,
+      "rss": 614400,
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/profile-001/source/codex/hostile-fold-crosscheck/resource_pilot.py",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/profile-001/source/codex/hostile-fold-crosscheck/profile-001-plan.json",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/profile-001/run"
+      ]
+    }
+  ],
+  "groups_absent": true,
+  "minimum_available_bytes": 26616954880,
+  "scientific_fold_result": false,
+  "certificate_passed": false,
+  "audit_archive": "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/audits-profile-001",
+  "audit_archive_manifest_sha256": "45cd22cefcbdfc9f1ff0d63c038a5d026cc54614c9dff3af537d44d905771e5b"
+}

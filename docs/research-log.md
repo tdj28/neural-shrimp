@@ -21829,3 +21829,9 @@ _commit `0bb14eafa46e` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/profile-detection-001`
 
 _commit `0bb14eafa46e` (dirty worktree)_
+
+## 2026-10-13 11:54 UTC: Task7 resource-only hostile-map profile completed; reservation released
+
+Source83b0e153, plan303a2be6, receipte4d054140f960cd6e56d6958d061a69aa662f86f5f079f0a1ff68d1bed36dfa1: oneCPU2/nice10/12GiB profile completed43.5555s/no timeout, peak5,825,380KiB. All six full operations retained; largest nested-state AD16.6823s. Independent39-artifact/9-Git-blob inventory and exact owned process/group termination passed; audit manifest45cd22cefcbdfc9f1ff0d63c038a5d026cc54614c9dff3af537d44d905771e5b. No fold qualification, coefficients, passages or certificate. Task6 synthetic profiles proceed sequentially next; full-fold resource plan remains separately reviewed. Details codex/hostile-fold-crosscheck/profile-001-review.md/.json.
+
+_commit `9a9ac60262ff` (dirty worktree)_
