@@ -22280,3 +22280,9 @@ _commit `08cd4c6cda07` (dirty worktree)_
 - **Would surprise us:** a period-28 cell that is not primitive at Newton precision; a period-21 window outside the chaotic band; the period-14 branch ending in a +1 crossing rather than a flip toward period 28; no positive Lyapunov exponents between the cascade and the period-21 window
 
 _commit `62dcdf6770e7`_
+
+## 2026-10-13 18:31 UTC: Task8 Part B authority and watchdog prepared; replay unadmitted
+
+Accepted source preparation06ef3415 and standalone provenance query955aff2b are privately delivered. Three original archives/row hashes and scoped recorded termination are bound in immutable input manifest41c5c6b6ad59e64a884fb74c00e466293e9a408d3d08115023dc455a162dc112:43files/1580623bytes. Metadata IO0.0109s/18596KiB; source/copy0.072s/752240KiB. Original130-minute job status124 is retained despite wrapper0. Current local dataset export and model/tokenizer revision source are verified, but historical upload-content/model bytes are not independently attested; an existing-authority/producer-attestation reply is pending. Root accepted only prospective CPU1 plus supervisor/nice10/4GiB/300s+5s kill grace/64MiB/20–16GiB card and prior-profile watchdog reuse. Prepared card cannot execute; no numerical target row/result analysis, model or pod action. Exact reviewed launcher/bootstrap are saved in Git. Latest Task1 metadata health18:16:23 shows60new+18retained operational completions and five healthy workers; no repeated enclosure audit or source change.
+
+_commit `955aff2bb6f8` (dirty worktree)_

@@ -63,24 +63,26 @@ standalone delivery8a286951d126060e16118ecd2a8caac7dd83d04c, lives in
 `codex/paper-review/`. Claude's16:33 note reports integration at0724a61a; no new
 assignment follows. We made no producer-manuscript edits.
 
-Task8 independent Huginn replay sources are reviewed and synthetically tested
-under `codex/huginn-independent-replay/`; execution-design.md binds source and
-external receipt obligations. The completed full-size invented-data profile
-was0.840s/72,936KiB, source d03f8f3c, no target access. **Actual Task8 input
-admission/card/run remains pending** complete immutable original archives/local
-retrieval and termination/source/assets/order receipts, producer outputs and
-measured whole-archive IO budget. No Huginn target outcomes have been read.
-Task9/10/12 and every paid/pod contingency remain Claude's. No auxiliary target
-job currently owns capacity; source-only preparation uses bounded CPU. Future
-substantial auxiliary runs share at most four additional CPU slots including
-supervisors, at most12 overall, and preserve Task1 priority.
+Task8 PartB metadata/input preparation (18:30UTC): three original archives and
+row-byte hashes plus recorded local retrieval/termination are checked; immutable
+input manifest41c5c6b6ad59e64a884fb74c00e466293e9a408d3d08115023dc455a162dc112
+under codex/huginn-independent-replay/part-B-inputs-001 in the data store binds
+43files/1,580,623bytes. Source preparation06ef3415 retains the original130-minute
+status124 interruption and separate96–99 completion. Producer summary exposure
+is disclosed; no numerical raw-row/result analysis was run. Root accepts the
+prospective300s CPU1+supervisor/nice10/4GiB card/watchdog, **not an actual launch**.
+Existing historical upload-content or precise producer attestation is requested
+in standalone955aff2b; current export/source identity is not represented as remote
+asset-byte verification. PartA still awaits all64 complete dispositions and
+retrieval authority. See Task8 active-status/part-B-input-review-001.md. No auxiliary
+job holds capacity. Tasks9/10/12 and paid/pod contingencies remain Claude's.
 
-Latest Task1 health16:31:50UTC: all11 current birth/UID/group/session/command,
-nice10/CPU1/AS identities passed, five phase4 workers progressing with empty
-stderr, no stop/uncertainty,32,507,670,528B available. Controller metadata reports
-40 new completions plus18 retained (58/112 operationally complete). This is a
+Latest Task1 health18:16:23UTC: all11 current birth/UID/group/session/command,
+nice10/CPU1/AS identities passed, five phase5 workers progressing with empty
+stderr, no stop/uncertainty,27,302,625,280B available. Controller metadata reports
+60 new completions plus18 retained (78/112 operationally complete). This is a
 metadata observation, not a repeated mathematical enclosure audit; the immutable
-ten-block inventory checkpoint above remains the last such archived summary.
+ten-block inventory checkpoint above remains the last archived summary.
 Frozen execution36c5d614/session60449 remains untouched. Same-chat automation
 complete-qwen-p8-certificate continues every30minutes; no duplicate owner/job.
 
