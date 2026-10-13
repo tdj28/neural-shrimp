@@ -21807,3 +21807,9 @@ _commit `c96c87a24565`_
 - **Would surprise us:** A nested derivative exceeds12GiB or the300s pilot ceiling; preserve it and reassess instead of silently retrying.
 
 _commit `c08f3675c40a` (dirty worktree)_
+
+## 2026-10-13 11:49 UTC: Prelaunch Task7/Task6 CPU-accounting correction
+
+Task7 has not launched. Task6 also reserves a supervisor; simultaneous jobs would use5 extra CPUs, exceeding Claude's4-extra bound even though the12-total bound holds. The one300s Task7 resource pilot and the two Task6 profiles are therefore serialized. Task7 uses10 total/3 extra; Task6 uses9 total/2 extra. Sources, model parameters and measured endpoints are unchanged.
+
+_commit `6ea9270d566e` (dirty worktree)_
