@@ -307,6 +307,52 @@ def root_scale(a, b):
     return max(abs(a.lam), abs(b.lam))
 
 
+def edges(make_cell, X0, Q0, period, lam0, step, tol=1e-12, min_step=1e-10, fit_points=4, max_steps=200, log=print):
+    """Edges of the window of the period-p orbit found near X0 at lam0, walking in both directions.
+
+    In each direction the parameter advances by `step` (halved whenever Newton fails, i.e. beyond a fold) while the
+    critical multipliers are recorded. A flip edge (min Re mu crossing -1) is located by the Illinois method. A fold edge
+    is where the orbit ceases to exist: the multiplier nearest +1 tends to 1 and (1 - mu)^2 is linear in the parameter
+    near the fold (normal form), so the fold is estimated by a linear fit of (1 - mu)^2 over the last `fit_points`
+    converged points, extrapolated to zero; the last converged parameter is reported with it. Returns one record per
+    direction."""
+    out = []
+    for direction in (+1.0, -1.0):
+        a = evaluate(make_cell, lam0, X0, period, Q0, tol)
+        h, pts, rec = float(step), [], {"direction": direction}
+        pts.append((a.lam, float(np.max(a.vals.real))))
+        for _ in range(max_steps):
+            lam = a.lam + direction * h
+            try:
+                b = evaluate(make_cell, lam, a.X, period, a.Q, tol)
+            except SearchError:
+                if h / 2 < min_step:
+                    lams = np.array([q[0] for q in pts[-fit_points:]])
+                    y = (1.0 - np.array([q[1] for q in pts[-fit_points:]])) ** 2
+                    slope, icpt = np.polyfit(lams, y, 1)
+                    rec.update({"kind": "fold", "lambda": float(-icpt / slope), "last_converged": a.lam,
+                                "last_mu_max": float(np.max(a.vals.real)), "fit_points": [list(q) for q in pts[-fit_points:]]})
+                    break
+                h /= 2
+                continue
+            if b.g < 0:                                       # a real multiplier passed -1 between a and b: a flip
+                root, evals = locate_flip(make_cell, period, a, b, lam_tol=1e-13 * abs(lam), log=lambda s: None,
+                                          tol=tol)
+                rec.update({"kind": "flip", "lambda": root.lam, "record": root.record()})
+                break
+            mu_max = float(np.max(b.vals.real))
+            if mu_max > 1.0:                                  # a real multiplier passed +1 without the orbit vanishing
+                rec.update({"kind": "real +1 crossing", "between": [a.lam, b.lam], "mu_max": mu_max})
+                break
+            pts.append((b.lam, mu_max))
+            a = b
+        else:
+            rec.update({"kind": "none within max_steps", "last": a.lam})
+        log(json.dumps({k: v for k, v in rec.items() if k not in ("record", "fit_points")}))
+        out.append(rec)
+    return out
+
+
 def orbits(args, loop, v, tok, esl):
     """Periodic orbits at given (log10 T, alpha, period) points: forward iteration from the opener state, a check that
     the attractor has the requested period, low-rank Newton and Ritz multipliers; the orbit's leading tokens."""
@@ -344,9 +390,52 @@ def orbits(args, loop, v, tok, esl):
     (out / "orbits.json").write_text(json.dumps({"args": vars(args), "orbits": rows}, indent=1, ensure_ascii=False))
 
 
+def window_edges(args, loop, v, tok, esl):
+    """Fold and flip edges of periodic windows along alpha at fixed log10 T, from given window centres."""
+    rows = []
+    out = esl.DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    for spec in args.points:
+        p_s, lt_s, a_s, h_s = spec.split(":")
+        period, log_t, alpha, step = int(p_s), float(lt_s), float(a_s), float(h_s)
+
+        def make_cell(lam, log_t=log_t):
+            return esl.SoftOrbit(loop, lam * v, 10.0 ** log_t, chunk=args.chunk)
+
+        cell = make_cell(alpha)
+        X = cell.iterate(cell.start, args.transient)
+        found = cell.detect_period(X, max(period, 32), 1e-6)
+        rec = {"period": period, "log10_temperature": log_t, "alpha_centre": alpha, "step": step,
+               "detected_period": found}
+        if found != period:
+            rec["error"] = f"attractor period {found}, not {period}"
+        else:
+            Q0 = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), args.k)))[0]
+            tic = time.perf_counter()
+            try:
+                rec["edges"] = edges(make_cell, X, Q0, period, alpha, step, args.tol, args.min_step, log=print)
+            except SearchError as err:
+                rec["error"] = str(err)
+            rec["seconds"] = round(time.perf_counter() - tic, 1)
+        rows.append(rec)
+        print(json.dumps({k: v for k, v in rec.items() if k != "edges"}), flush=True)
+        (out / "edges.json").write_text(json.dumps({"args": vars(args), "windows": rows}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
+    e = sub.add_parser("edges", help="fold and flip edges of windows along alpha (low-rank solver)")
+    e.add_argument("--points", nargs="+", required=True, metavar="PERIOD:LOG10T:ALPHA:STEP")
+    e.add_argument("--min-step", type=float, default=1e-10)
+    for name, kw in (("--model", dict(default="qwen0.5b")), ("--layer", dict(type=int, default=12)),
+                     ("--threads", dict(type=int, default=8)), ("--device", dict(default="cpu")),
+                     ("--prompt", dict(default="open")), ("--opener", dict(default=None)),
+                     ("--window", dict(type=int, default=1)), ("--vectors", dict(default="llm-phase-map/vectors-l12")),
+                     ("--concept", dict(default="philosophy")), ("--transient", dict(type=int, default=900)),
+                     ("--k", dict(type=int, default=6)), ("--tol", dict(type=float, default=1e-12)),
+                     ("--chunk", dict(type=int, default=512)), ("--out", dict(required=True))):
+        e.add_argument(name, **kw)
     o = sub.add_parser("orbits", help="periodic orbits at given points (low-rank Newton, Ritz multipliers, tokens)")
     o.add_argument("--points", nargs="+", required=True, metavar="PERIOD:LOG10T:ALPHA")
     o.add_argument("--model", default="qwen0.5b")
@@ -399,6 +488,8 @@ def main():
     tok = loop.sm.tok
     if args.command == "orbits":
         return orbits(args, loop, v, tok, esl)
+    if args.command == "edges":
+        return window_edges(args, loop, v, tok, esl)
 
     def make_cell(lam):
         if args.free == "alpha":

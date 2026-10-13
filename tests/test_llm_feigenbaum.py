@@ -102,3 +102,15 @@ def test_tolerance_grows_with_the_period():
     assert lf.tol_for(3, 1e-12) == 1e-12
     assert abs(lf.tol_for(96, 1e-12) - 9.6e-12) < 1e-24
     assert lf.tol_for(384, 1e-12) > 3e-11
+
+
+def test_edges_of_the_period_three_window():
+    """The logistic period-3 window: born in a fold at r = 1 + sqrt(8), loses stability in a flip at r = 3.8415."""
+    cell = ToyCell(3.835)
+    X = cell.iterate(cell.start, 3000)
+    Q0 = np.linalg.qr(np.random.default_rng(3).normal(size=(6, 4)))[0]
+    recs = lf.edges(ToyCell, X, Q0, 3, 3.835, 1e-3, min_step=1e-9, log=lambda s: None)
+    up = [r for r in recs if r["direction"] > 0][0]
+    down = [r for r in recs if r["direction"] < 0][0]
+    assert up["kind"] == "flip" and abs(up["lambda"] - 3.8414990075) < 1e-6
+    assert down["kind"] == "fold" and abs(down["lambda"] - (1 + np.sqrt(8))) < 1e-6
