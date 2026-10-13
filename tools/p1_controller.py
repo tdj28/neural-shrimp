@@ -53,8 +53,13 @@ def load(root, arm):
     lex = np.array([[hs.lexicon_fraction(t) for t in row] for row in texts])
     grat = np.array([[gratitude_hit(t) for t in row] for row in texts])
     d2 = np.array([[distinct2(t) for t in row] for row in texts])
-    return {"hostile": score > 0.5, "counter": np.abs(turns["counter"]), "lexicon": lex, "gratitude": grat,
-            "distinct2": d2, "length": turns["length"], "entropy": turns["entropy"]}
+    # would-be hostility: for regenerate arms, whether the model's original reply (before replacement) was flagged;
+    # for every other arm the shown reply is the original one
+    regen = turns["regenerated"] if "regenerated" in turns.files else np.zeros_like(score, dtype=bool)
+    would_be = np.where(regen, True, score > 0.5) if regen.any() else score > 0.5
+    return {"hostile": score > 0.5, "would_be": would_be, "regenerated": regen, "counter": np.abs(turns["counter"]),
+            "lexicon": lex, "gratitude": grat, "distinct2": d2, "length": turns["length"],
+            "entropy": turns["entropy"]}
 
 
 def share(x, t0, t1):
@@ -73,6 +78,8 @@ def main():
     parser.add_argument("--none", required=True)
     parser.add_argument("--constant", nargs="+", required=True, help="ARM:DOSE")
     parser.add_argument("--root", default="llm-soft-loop/pod64/msm")
+    parser.add_argument("--would-be", action="store_true",
+                        help="efficiency on the would-be hostile share (original replies before any replacement)")
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
     rng = np.random.default_rng(0)
@@ -80,7 +87,12 @@ def main():
     res = {"args": vars(args), "arms": {}}
     for a, d in data.items():
         main_share, late = share(d["hostile"], 5, 40), share(d["hostile"], 35, 40)
+        wb = share(d["would_be"], 5, 40)
         res["arms"][a] = {
+            "would_be_hostile_5_39": float(wb.mean()), "ci_would_be_5_39": boot_mean(wb, rng).tolist(),
+            "would_be_hostile_35_39": float(share(d["would_be"], 35, 40).mean()),
+            "regenerated_5_14": float(d["regenerated"][:, 5:15].mean()),
+            "regenerated_30_39": float(d["regenerated"][:, 30:40].mean()),
             "hostile_5_39": float(main_share.mean()), "ci_5_39": boot_mean(main_share, rng).tolist(),
             "hostile_35_39": float(late.mean()), "ci_35_39": boot_mean(late, rng).tolist(),
             "mean_counter": float(d["counter"][:, 5:40].mean()),
@@ -99,7 +111,7 @@ def main():
         if a in curve_arms:
             continue
         dose = res["arms"][a]["mean_counter"]
-        own = share(data[a]["hostile"], 5, 40)
+        own = share(data[a]["would_be" if args.would_be else "hostile"], 5, 40)
         curve = [share(data[c]["hostile"], 5, 40) for c in curve_arms]
         est = own.mean() - np.interp(dose, doses, [c.mean() for c in curve])
         boots = []
