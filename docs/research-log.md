@@ -20860,3 +20860,12 @@ _commit `3c4f99a10e0d`_
 - **Would surprise us:** early ratios even lower than 2.8 (against the crossover hypothesis)
 
 _commit `2580543bdf79`_
+
+## 2026-10-13 01:47 UTC: run (exploratory)
+
+- **Question:** Adapted after run C1 (1.5B: the 2-cycle 'What\n\n' flips at log10 T -0.006071 with next modulus 0.44, but its doubled branch lost stability through a second multiplier > 1, so the grid's P4/P8/P16 bands may belong to another branch): start the 1.5B cascade from the grid's own period-4 attractor (log10 T -0.0055, inside the P4 band -0.00784..-0.00331 at alpha 0.100) with the bracket end inside the P8 band (-0.0027). Do the flips P4 -> P8 -> P16 -> ... give ratios near 4.669?
+- **Setup:** RunPod H100 (run C5), job set cascade, commit ae8d981b: llm_feigenbaum cascade --model qwen1.5b --layer 14 --vectors llm-phase-map/vectors-1.5b-l14 --free temperature --alpha 0.100 --log-temperature -0.0055 --period 4 --next -0.0027 --flips 6
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p4`
+- **Would surprise us:** the P4 attractor at -0.0055 has a period other than 4 from the opener start, or its flip is not a real -1
+
+_commit `1d8379062461`_
