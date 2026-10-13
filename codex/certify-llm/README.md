@@ -1,6 +1,6 @@
 # Exact-real Qwen period-8 certificate development
 
-## Current checkpoint — 13 October 2026, 09:10 UTC
+## Current checkpoint — 13 October 2026, 09:54 UTC
 
 The assigned numerical orbit is recovered and its shooting centres have been
 refined to a rigorously enclosed residual of approximately **1.49752263166430767E-212**.
@@ -38,6 +38,7 @@ The full 151,936-token expectation uses tied input/output embeddings.
 | box-derivative-001 | 32 signed columns over original phase-zero prototype box2^-800;988.57s forward,7.93GiB peak | Original prototype only |
 | streamed-derivative-001 | 64 columns on same box;1787.97s forward,5.14GiB peak; all32 baseline column comparisons pass | Original prototype only; all67 artifacts audited |
 | gate-budget-001 | Synthetic 8x896/1024-bit full gates and report:988.804s,6.731GiB peak | CPU1;129 artifacts/108 Git blobs audited; no target evaluation or certificate |
+| final-derivative-p0-c000-001 | First actual final-domain phase0 columns0..63 completed;1693.966s total,5.168GiB peak | All167 artifacts/154 Git blobs/original endpoints audited;1 of112 required shards |
 | proposal-budget-001 | Numerical factored-bound budget; limiting common induced-infinity Jacobian discrepancy about2.59e-9 | Planning diagnostic, not rigorous operator bound |
 
 The synthetic gate resource pilot spent 283.310s on construction, 689.484s
@@ -67,9 +68,11 @@ The exact residual upper bound satisfies the authorized stopping criterion of at
 optimizer candidate plan or run card is created. Final-domain-002 now binds these
 exact centers to radius2^-640 after completed read-only point admission.
 The earlier domain001 helper count mismatch remains preserved. The reviewed
-first phase0/columns0..63 derivative plan and one-run card are prepared; no
-derivative attempt has started at this checkpoint. Any remaining campaign
-requires its own measured resource plan.
+first phase0/columns0..63 derivative shard has completed and passed its independent
+original-endpoint/source audit; owned target and launcher terminated. Measured
+cold cost1693.966s, peak5,419,044KiB and75,658,472 raw bytes. See
+`active-certificate-status.md` for exact receipt/authority pins. The remaining111
+shards require a separately reviewed measured resource plan; no campaign is active.
 The immediate capsule bytes are authenticated; older archives rely on the
 disclosed prior independent audit rather than being claimed as rehashed.
 No GPU, paid pod or paid consultation is in use.
@@ -81,8 +84,8 @@ No GPU, paid pod or paid consultation is in use.
    optimizer candidates are authorized by the completed sequence.
 2. The final-domain-002 exact centers, point images and uniform radius2^-640
    are frozen and authenticated. See `final-domain-002-review.md`. The original
-   prototype boxes cannot substitute for these boxes. First execute and audit
-   the separately bounded phase0/columns0..63 final-domain shard.
+   prototype boxes cannot substitute for these boxes. The separately bounded
+   phase0/columns0..63 final-domain shard passed its completed audit.
 3. Evaluate all8x896 signed derivative columns over those same nominal boxes.
    The measured64-column stream suggests roughly56 CPU-hours for all112 shards
    if all other phases cost similarly; this is a single-phase extrapolation,

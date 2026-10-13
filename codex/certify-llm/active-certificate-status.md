@@ -1,17 +1,21 @@
 # Active exact-real Qwen certificate work
 
-13 October 2026, 09:21 UTC. **No orbit certificate yet.** This is the assigned full-state soft-token inference map, with all151,936 vocabulary entries; no task-performance or training-cycle claim follows.
+13 October 2026, 09:54 UTC. **No orbit certificate yet.** This is the assigned full-state soft-token inference map, with all151,936 vocabulary entries; no task-performance or training-cycle claim follows.
 
-## Owned active job
+## Completed owned job; no active target computation
 
 - Attempt: `/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p0-c000-001`.
 - Executed source: `1f1de536f1db1c18f9d9f3cc9892cac6c1873238`, privately pushed and verified before launch.
 - Frozen plan: `final-derivative-p0-c000-001-plan.json`, SHA-256 `1a92d52586f003939a7720599e32d9070116163e3683c393b3d1854a4bec4381`.
-- Owned target process454658; launcher tool session8977. Verify the saved manifest/process start identity before acting on a PID. Only this job is authorized here; never duplicate it.
+- Owned target process454658/start182983093 and launcher454428 have terminated; tool session8977 was reaped exit0 without timeout. No remaining member was observed in the owned PGID/session. Do not duplicate the completed attempt.
 - One phase0 shard, exact positive basis columns0..63 of896,1024-bit Arb, full vocabulary and chunks1024. CPU1/nice10,18GiB address-space cap,3600-second shared deadline plus10-second cleanup.
 - Preflight:60,230,664,192 bytes available RAM,2,803,810,082,816 bytes disk free,32-CPU affinity, no other owned target process. Other owners remain untouched.
 
-Wait for the final immutable receipt and launcher reaping. Do not treat partial numerical outputs as completed evidence. Every failed/partial attempt must remain visible; no silent retry, changed radius or missing-column substitution.
+The final immutable receipt SHA is `71c1d2e0fba791201f51ad962495dd1210bde8ba73ca590af0c26d6e725f6d5a`. The independent saved-evidence audit passed167 artifacts,154 captured Git blobs, all57,344 positive basis/signed derivative records and896 primals; original live inputs contain the nominal phase0 box. Measured elapsed1693.966162s, forward1678.067463s, peak5,419,044KiB, raw75,658,472bytes. Full review: `final-derivative-p0-c000-001-review.md`.
+
+Immutable audit archive: `/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-derivative-p0-c000-001`; manifest `983fc7e3b507837ccd96626835b1665273e0d7dd3e730053efc56aecc11fe309`. Original independent audit JSON SHA `4761bf76bf0390dffe2de9f544766e40f3420a45291b62b1fe5d3cb4fd9c8d30` supplies the dispatcher's first-result measured authority. The process-termination observation is separately retained.
+
+Same-chat follow-through automation: `complete-qwen-p8-certificate`, created by root. It must inspect current live ownership and this durable state before doing work; never dispatch duplicates. Root retains the remaining111 measured resource decision. No campaign is active.
 
 ## Completed centers and frozen domain
 
@@ -30,9 +34,9 @@ Read-only domain002 admission completed in43.399s, zero model/optimizer calls; o
 
 ## Next finite obligations
 
-1. Independently audit the completed first shard. The reviewed script `/tmp/neural_shrimp_first_final_shard_audit.py`, SHA `909b06b74e0d34ae40af274e20d8316514ef01bf1ccc921b1962d173de39a2a6`, accepts external plan/receipt/source/frozen-manifest pins; it checks original input-box containment, all basis/output records, whole inventories and Git blobs. Run under a bounded CPU1/nice10 read-only audit. Separately verify owned termination and launcher reaping. Preserve all measurements and failures.
+1. The first-shard audit and separate termination check are complete. The reviewed script `/tmp/neural_shrimp_first_final_shard_audit.py`, SHA `909b06b74e0d34ae40af274e20d8316514ef01bf1ccc921b1962d173de39a2a6`, accepts external plan/receipt/source/frozen-manifest pins; it checks original input-box containment, all basis/output records, whole inventories and Git blobs. The completed bounded read-only audit and separately verified termination are archived above. Preserve these exact measurements and all failures.
 2. Only after that independent pass, measure cold elapsed/RSS/raw bytes and freeze a concrete remaining111-shard resource plan. `derivative_campaign.py` and its tests/design/review are approved, but no campaign is launched or authorized by this status file. Its budget/headroom/storage gates must pass using actual first-shard measurements. Use a clean pinned isolated task-owned execution checkout so regular evidence checkpoints do not change the campaign HEAD. Inspect any existing worktree before reuse; never discard edits.
-3. Authenticate all112 final-domain shards, covering every8x896 signed direction exactly once, the same exact boxes/map/assets/prefix/backend and the complete point-image authority. Prototype shards cannot replace final-domain data.
+3. Authenticate all112 final-domain shards, covering every8x896 exact positive coordinate direction exactly once, retaining signed Jacobian entries, the same exact boxes/map/assets/prefix/backend and the complete point-image authority. Prototype shards cannot replace final-domain data.
 4. Execute the reviewed bounded `assembly.py` plan, strict shooting-root inclusion/contraction, proper-divisor separation, and monodromy-power attraction gates. Independently check full witnesses using the documented trusted-Arb basis and `witness_audit.py`; retain failed sufficient conditions without changing their interpretation. The finite standard is `final-certificate-acceptance.md`.
 
 No new optimization is required. No paid compute, GPU use, external submission, public release or edits to Claude's `/data2/neural-shrimp` checkout are authorized by this continuation note. Work only in the task-owned checkout and raw directory. Continue private checkpoints and append-only standalone coordination messages; keep all exact evidence/source history.
