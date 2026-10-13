@@ -21,12 +21,13 @@ def sha(p):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--attempt',required=True);p.add_argument('--seconds',type=int,default=3600)
     p.add_argument('--precision',type=int,default=384)
-    p.add_argument('--driver',choices=['pilot','signed_pilot','center_seed','center_refine','center_resume','box_derivative_pilot','streamed_pilot'],default='pilot')
+    p.add_argument('--driver',choices=['pilot','signed_pilot','center_seed','center_refine','center_resume','box_derivative_pilot','streamed_pilot','proposal_budget'],default='pilot')
     p.add_argument('--plan')
     p.add_argument('--threads',type=int,default=1);p.add_argument('--skip-box',action='store_true');a=p.parse_args()
     if not 1<=a.threads<=4 or a.driver!='center_seed' and a.threads!=1:raise ValueError('only numerical seed driver may use up to four CPU threads')
     if a.skip_box and a.driver!='pilot':raise ValueError('skip-box applies only to original point pilot')
-    if (a.driver in ('signed_pilot','center_refine','center_resume','box_derivative_pilot','streamed_pilot')) != bool(a.plan):raise ValueError('signed/refinement/derivative pilots require an explicit committed plan; other drivers accept none')
+    if (a.driver in ('signed_pilot','center_refine','center_resume','box_derivative_pilot','streamed_pilot','proposal_budget')) != bool(a.plan):raise ValueError('signed/refinement/derivative pilots require an explicit committed plan; other drivers accept none')
+    if a.driver=='proposal_budget' and a.seconds!=120:raise ValueError('proposal budget requires exactly a 120-second watchdog')
     if a.plan and (Path(a.plan).name!=a.plan or not a.plan.endswith('.json')):raise ValueError('plan must name a committed certificate JSON file')
     if not a.attempt or '/' in a.attempt or a.attempt.startswith('.') or not 1<=a.seconds<=3600 or not 128<=a.precision<=2048:
         raise ValueError('invalid owned attempt or resource envelope')

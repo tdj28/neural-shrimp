@@ -88,3 +88,57 @@ separate reviewed proposal driver and bounded run card would be needed to
 try either acceleration method. All resulting points would still require
 fresh residual enclosures, full-box derivative bounds, shooting inclusion,
 primitive-period separation, and attraction before any cycle certificate.
+
+## Subsequent authorized pure inverse-secant kernel
+
+A separate `inverse_secant.py` now implements the first option, with no model
+or driver implementation and no edits to the fixed-R or evaluator sources.
+Its source SHA-256 is
+`01065e31a70b7b7b0b394609e2afef78ea96669455a72fd4c17546b94d8d914b`;
+new tests SHA-256 is
+`19c6f9f518ebad94618c734d24f94496407e68bc7426b0c58bf59d5e0e4387f8`.
+
+API: construct `InverseSecant(A, B, max_history=4, signal_ratio=128,
+update_norm_limit=1024, step_ratio_limit=4)`, then `update(old_centers,
+old_residuals, new_centers, new_residuals, evidence=...)` and
+`propose(centers, residuals, evidence=...)`. Inputs retain every phase and
+coordinate. Evidence labels are snapshots of caller declarations; this pure
+kernel never authenticates a model, receipt, or evaluation history.
+
+The baseline action is the same cyclic recurrence with the sign R versus
+correction -R made explicit. Secants use exact dyadic center differences and
+full residual-difference balls. A power-of-two scale normalizes residual
+midpoints before the denominator; midpoint rank-one coefficients remain exact
+dyadics. Their arithmetic enclosures, scaled secant defect, supplied residual
+radii, and every decision are retained. Zero center steps, zero/noisy secants,
+excessive update norms, and exhausted history reset to the baseline. Oversized
+or nonfinite accelerated steps also fall back to the baseline. The numerical
+history is bounded; the full audit log grows with calls and needs persistence
+by a future driver. Collinear secants are admitted when the noise/denominator
+and norm gates pass: inverse Broyden has no least-squares rank requirement.
+
+Independent of any target data, **32 kernel-plus-existing-correction tests
+passed in 0.21 s**, CPU1. Tests exercised the exact cyclic inverse sign,
+rank-one secant identity in a dyadic example, collinear history, explicit
+restart, noisy/zero secants, 2^-2000 differences, enclosure retention,
+update/step fallback, and runtime instrumentation confirming only phase-sized
+matrix/vector allocations rather than a global shooting matrix.
+
+An eight-step synthetic experiment at 256-bit arithmetic gave these final
+**midpoint residual diagnostics**, using an explicitly more permissive
+step-size ratio cap of16 for this comparison:
+
+| Two-dimensional shooting system | Fixed R | Inverse secant |
+| --- | ---: | ---: |
+| Low-rank inverse error | 0 | 0 |
+| Full-rank linear error | 7.6294e-5 | 6.6821e-83 |
+| Nonnormal linear error | 1.5259e-4 | 1.5387e-80 |
+| Quadratic map with known zero root | 4.4433e-6 | 9.5087e-12 |
+
+Acceleration helped the latter three chosen tiny examples; it offered no gain
+in the first, where fixed R already reached zero. These are illustrative
+implementation diagnostics, not interval convergence-rate theorems or an
+estimate for the 7168-dimensional Qwen shooting problem. Explicit synthetic
+failure cases triggered the designed baseline fallbacks. No target evaluation,
+three-correction replay, or accelerated target run has been implemented or
+performed. Independent review remains required before a future driver.
