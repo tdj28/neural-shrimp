@@ -481,6 +481,21 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
         --alphas $a --out $D/msm/pair-$key-grat$gtag
     done
     ;;
+  pilot2)      # cusp-unfolding pilot stage 2: JOBARGS KEY REPO REV BRANCH_RUN OUT_PREFIX STEPS MINUTES TLO THI ALO AHI:
+               # fold curve of the stage-1 branch both ways, cusp checks with c and the unfolding test at every
+               # tangent reversal (tools/pilot_stage2.py)
+    key=${JOBARGS[0]}; repo=${JOBARGS[1]}; rev=${JOBARGS[2]}
+    if [ "$repo" != "-" ]; then
+      HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" > "$LOGS/setup-$key.log" 2>&1
+      prefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${repo//\//--}/refs
+      mkdir -p "$prefs" && printf %s "$rev" > "$prefs/main"
+    fi
+    log "start pilot-stage2"
+    timeout 230m $PY tools/pilot_stage2.py "${JOBARGS[@]:3}" 2> "$LOGS/pilot-stage2.err" | tee "$LOGS/pilot-stage2.out"
+    log "end pilot-stage2 status $?"
+    ;;
   pilot1)      # cusp-unfolding pilot stage 1 (docs/qwen2-cusp-unfolding-pilot.md): JOBARGS KEY REPO REV LAYER VECTORS
                # CONCEPT LOGT ALPHA. Downloads REPO@REV (REPO '-': cached), then a float64 Newton orbit at the frozen
                # candidate's interior cell and its branch continued in temperature (+-0.05) and in alpha (+-0.02),
