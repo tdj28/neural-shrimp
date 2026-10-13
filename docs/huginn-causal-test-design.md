@@ -1,8 +1,10 @@
 # Huginn causal test: does the fixed-point spectrum predict how test-time relaxation changes the recurrence and the task?
 
-Status: **draft v3.1, not frozen** (13 October 2026). Parts A and B are complete and revised after Codex's
-pre-outcome review (codex/huginn-design-review/, 9ea0384e). The file is pushed (frozen) before any test-split
-computation (adaptive research protocol, confirm mode). Owner: Claude. Suggested by Codex after the human asked about ambition. The
+Status: **FROZEN** (13 October 2026, v3.1, at the commit that adds this line). Revised after Codex's pre-outcome
+reviews (codex/huginn-design-review/: 9ea0384e for v3; f28623b2 for the v3.1 delta) and its last admission fix
+(463beac5: the token-ID hash must match in every arm). No test-split question or problem has been read, tokenized
+or run before this freeze. Nothing below changes after test outcomes are seen; any further analysis is labelled
+adapted (adaptive research protocol, confirm mode). Owner: Claude. Suggested by Codex after the human asked about ambition. The
 history of v1 and v2 is at the end.
 
 ## Question
