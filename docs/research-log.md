@@ -22059,3 +22059,9 @@ _commit `e001af04ff8d` (dirty worktree)_
 - **Would surprise us:** no chaos or periodic windows at 7B over the whole range (a single fixed point everywhere), or a map indistinguishable from 1.5B's
 
 _commit `e001af04ff8d`_
+
+## 2026-10-13 13:34 UTC: Run S7 attempt 1 (Qwen 7B): vectors and timing done; both 64x64 maps ran out of GPU memory at chunk 512; relaunched with chunk 128
+
+Pod gffb8wqtwy9e1u (COMMUNITY H100 NVL, 395 s, commit b03d875b; archive hash verified 21f089a9...; terminated). Vectors at layer 14 of 28 (float64 on the GPU): mean residual norms 1663-1752 (0.5B: about 215; 1.5B: 1270-1350). Timing scan 8 x 8 float64 over the philosophy range (alpha -0.12..0.12 x log10 T -1.0..0.3): 56.2 s for 64 cells (0.88 s per cell at this batch size); periods 1 (9 cells), 2 (27), 4 (14), 6, 10, 11 (4), 18, 20, no period up to 32 in 6, positive largest exponent in 5 cells (max 0.64). So the 7B map already shows period-2 and period-4 regions, longer periods and chaos at 8 x 8. The two coarse maps failed at once with CUDA out of memory (a 5.35 GiB allocation with 88 GB in use: chunk 512 with twins). Fix: chunk 128 (commit after this note); relaunched as S7b with the same limits.
+
+_commit `20e25c0bf603`_
