@@ -98,9 +98,11 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   negative; a small warning from the model's in-context state is confirmed on fresh dialogues, and finite Monte
   Carlo estimates of the committor warn no better, leaving the attainable ceiling unresolved. Counter-steering triggered
   after a hostile reply is less efficient than mild prevention, but replacing flagged replies before they enter the
-  dialogue keeps the model's own hostility low at a quarter of the dose. Steering the deterministic map along the same
-  direction yields a hostile period-adding cascade with the intermittency mechanism of item 3, and a fold-bounded
-  period-7 body with a doubling bubble (Section~\ref{sec:misalignment}).
+  dialogue keeps the model's own hostility low at a quarter of the dose. In Qwen2.5-1.5B the same ordering holds
+  where the dose response rises, and every counter-steer backfires beyond its peak. Steering the deterministic map
+  along the same direction yields a hostile period-adding cascade with the intermittency mechanism of item 3, and a
+  period-7 body with the organization of a shrimp: fold curves ending in two nondegenerate cusps, flip curves, and a
+  doubling cascade to chaos inside (Section~\ref{sec:misalignment}).
 \end{enumerate}
 
 \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels.
@@ -994,6 +996,38 @@ replies, which is comparable across arms. The discarded originals were not store
 score only the replies shown: $0.8\,\%$ hostile (no control: $34\,\%$). For this behaviour the useful intervention
 is to keep the excursion out of the state, at the moment it occurs.
 
+\paragraph{Replication in a larger model.} The same protocol in Qwen2.5-1.5B (hostility direction built identically
+at layer 14 of 28; 128 dialogues of 40 turns per arm; shares over turns 5--39) gives a steeper capture ladder that is
+not monotone (Figure~\ref{fig:p1ladders}). The hostile share rises from 0 at $\alpha=0.01$ to $44\,\%$ at $0.02$ and
+$80\,\%$ at $0.03$--$0.04$. It falls to $30$--$34\,\%$ at $0.06$--$0.10$, where most replies degenerate into token
+soup or tight accusatory loops ($87\,\%$ degenerate at $0.08$), and rises again to $75\,\%$ at $0.12$, where replies
+are coherent again. The second classifier shows the same shape ($32$, $58$, $41$, $28$, $20$, $41$ and $52\,\%$ from
+$0.02$ to $0.12$), and a random direction of the same norm gives at most $0.7\,\%$ hostile turns. The controller
+experiment was run twice with the pre-stated rule (controllers at the ladder dose whose hostile share is closest to
+one half). With a first ladder ($0.04$--$0.12$) the rule chose $0.08$, in the degenerate regime beyond the peak. There
+every counter-steer lowered the net dose toward the coherent-hostility peak: the share of the model's own replies
+judged hostile rose from $36\,\%$ without control to $54\,\%$ with replacement and $60\,\%$ with the post-reply
+trigger, while degenerate replies fell. With a second ladder ($0.01$--$0.04$) the rule chose $0.02$, on the rising
+side, where $96\,\%$ of replies are coherent. There the 0.5B results replicate in order and size. Replacement cuts
+the model's own hostile share from $43\,\%$ to $10\,\%$ ($[9,12]\,\%$; shown replies $0.3\,\%$) at a mean
+counter-dose of $0.004$, $24$ points ($[20,28]$) below the constant dose-response at equal dose, and the post-reply
+trigger is again slightly less efficient than constant prevention ($+2$ points, $[+1,+3]$). On the shown replies the
+second classifier agrees ($2.6\,\%$ against $32\,\%$ without control; $-23$ and $+3$ points). Constant
+counter-steering at $-0.02$ cancels this push, and the dialogues return to the model's ordinary politeness. The two
+ladders share the dose $0.04$ and the seed, and that arm reproduced exactly from vectors rebuilt on another machine.
+Control that works on the rising side of a dose response can therefore backfire beyond its peak: the dose response,
+a bifurcation diagram in miniature, has to be mapped before a counter-steer is chosen.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-p1-ladders.png}
+\caption{Hostility dose ladders of sampled self-dialogue (128 dialogues of 40 turns per point; shares over turns
+5--39). Left: share of hostile turns along each model's own hostility direction, first classifier (filled) and second
+(open). Right (Qwen2.5-1.5B): share of degenerate replies (more than $30\,\%$ non-Latin characters, or fewer than
+$30\,\%$ distinct word pairs) and of coherent hostile replies. Steering strengths are each model's own $\alpha$;
+equal values are not claimed to be equal pushes across models.}
+\label{fig:p1ladders}
+\end{figure}
+
 \paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
 tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
 baselines lowers the AUC by $0.02$ to $0.06$ at horizons of 1--5 turns, with bootstrap intervals excluding zero
@@ -1092,9 +1126,9 @@ float64 computations validated by step-size and cross-implementation checks, not
 and two float64 orbits at 7B, and coarse maps only for a second family (OLMo-2 7B); one prompt and one steering construction for the maps; a constructed one-token-window system;
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), but no
 computer-assisted proof yet. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
-within 1\,\%); the limit itself is not computed. The behavioural study uses one
-small model, one opener and a proxy defined by two automated classifiers without human labels; its first lead-time
-test is negative, and the confirmed
+within 1\,\%); the limit itself is not computed. The behavioural study uses
+two small models of one family (0.5B and 1.5B), one opener and a proxy defined by two automated classifiers without
+human labels; its first lead-time test is negative, and the confirmed
 warning from the in-context state is small.
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
 strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
