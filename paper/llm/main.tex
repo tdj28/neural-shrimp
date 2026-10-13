@@ -863,8 +863,8 @@ $[-0.006,+0.002]$ AUC at three turns. Two secondary predictors add modest warnin
 the in-context state before the next reply (layer 18, 20 principal components) raises the AUC for capture within three
 turns from $0.64$ to $0.68$ ($+0.036$ $[+0.014,+0.058]$; within one turn $+0.045$ $[+0.019,+0.069]$; within five
 $+0.036$), and a forecast from eight sampled next replies adds $+0.016$ $[+0.007,+0.027]$ at three turns. At a 10\,\%
-false-positive rate the probe flags 27\,\% of captures that follow within three turns, against 23\,\% for the
-baselines. These values use labels corrected after a review found that the last turns of dialogues without any hostile
+false-positive rate (threshold from the out-of-fold negatives) the probe flags 27\,\% of the turns that are followed
+by capture within three turns, against 23\,\% for the baselines. These values use labels corrected after a review found that the last turns of dialogues without any hostile
 turn had been marked positive; with the faulty labels the increments had read three times larger. The probe's
 direction in the layer-18 state is nearly orthogonal to the steering direction (cosine $0.04$), so the warning is not
 simply more push along the hostility axis. Because these predictors were secondary, the result is exploratory.
@@ -872,8 +872,10 @@ A frozen confirmation (design and analysis pushed before the data, with the labe
 confirmation dialogue was read) fit both models on this study and applied them unchanged to 1024 fresh dialogues. The
 in-context state again adds warning for capture within three turns: AUC $0.656\to0.689$, $+0.033$ $[+0.018,+0.048]$
 (within one turn $+0.036$, within five $+0.037$; both doses separately positive). The warning in the model's own state
-is therefore real and reproducible, but small: at the training threshold for 10\,\% false positives it flags 29\,\% of
-upcoming captures against 27\,\% for the baselines. It is not a reliable detector by itself.
+is therefore real and reproducible, but small: at thresholds fixed from the training negatives, the model with the
+state flags 29.1\,\% of the turns that are followed by capture within three turns, against 27.5\,\% for the
+baselines, at held-out false-positive rates of 10.3\,\% and 10.6\,\% (these are prediction windows, not distinct
+captures). It is not a reliable detector by itself.
 \planned{a hazard model; longer holds to separate slow release from bistability; probe-timed counter-steering
 against constant prevention at matched dose; other openers and steering directions.}
 
