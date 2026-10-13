@@ -20878,3 +20878,11 @@ _commit `1d8379062461`_
 - **Would surprise us:** edges of the same kind on both sides of a stripe; fold edges not ordered monotonically toward alpha_c
 
 _commit `50ca110beebe`_
+
+- run started 2026-10-13 01:06 UTC (../neural-shrimp-data/explore/llm-soft-loop/pod64/p6z3/cusp-check-foldD-minus.jsonl) finished 01:52 UTC with exit status 0
+
+## 2026-10-13 01:52 UTC: Z3 internal cusp: complete normal-form table
+
+tools/cusp_check.py on curve-foldD-minus, points 8-14 (flag at 11, (0.080097, -0.058349)): b sign(a) = -24.719, -14.329, -1.977, +12.815, +27.998, +45.905, +58.896 with a = +3.131 to +3.348 and critical multiplier 1 to 1e-8: a monotone sign change through the flagged point. Output llm-soft-loop/pod64/p6z3/cusp-check-foldD-minus.jsonl.
+
+_commit `9764ca641675` (dirty worktree)_
