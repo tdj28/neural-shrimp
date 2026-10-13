@@ -233,31 +233,36 @@ whose curved period-6 body, period-12 foot and thin leg are analysed in Section~
 \section{Period adding written in text}
 \label{sec:adding}
 Between a period-2 region and the chaos lies a fan of stripes of periods $6, 8, 10, \dots$ Their orbits,
-numerically validated in float64 (Newton residuals $10^{-13}$--$10^{-15}$), read as text
-(Table~\ref{tab:orbits}): ``. This'' followed by $k$ pairs ``is X'', period $2k+2$. The period-2 region is the
-2-cycle ``is it''. For the stripe orbits of periods 8--12 the multipliers are effectively one-dimensional: the
-leading one is of order $10^{-3}$--$10^{-1}$ and the others of order $10^{-6}$. This compression is a property of
-those orbits, not of the map: the 2-cycle's multipliers are $-0.271$ and $-0.058$ at the parameters of
-Table~\ref{tab:orbits} (the second modulus is about $0.037$ near its fold); at the period-3 flip of
-Section~\ref{sec:cascade} the next modulus is $0.088$; and one period-6 orbit in Section~\ref{sec:curves} has a
-complex leading pair.
+numerically validated in float64, read as text (Table~\ref{tab:orbits}): ``. This'' followed by $k$ pairs ``is X'',
+period $2k+2$, each stripe adding one pair. The period-2 region is the 2-cycle ``is it''. At the stripe centres the
+multipliers are effectively one-dimensional: the leading one is $0.003$--$0.09$ and the next falls from
+$3\times10^{-6}$ (period 6) to $2\times10^{-14}$ (period 20). This compression is a property of these orbits, not of
+the map: the 2-cycle's multipliers are $-0.271$ and $-0.058$ (the second modulus is about $0.037$ near its fold); at
+the period-3 flip of Section~\ref{sec:cascade} the next modulus is $0.088$; and one period-6 orbit in
+Section~\ref{sec:curves} has a complex leading pair.
 \begin{table}[H]
 \centering\small
-\begin{tabular}{rlll}
+\begin{tabular}{rlcc}
 \toprule
-period & leading tokens of the orbit & $(\log_{10}T,\alpha)$ & leading multiplier \\
+period & orbit (leading tokens) & $\mu_1$ & $|\mu_2|$ \\
 \midrule
-2 & is it & $(-0.17263, 0.061579)$ & $-0.2706$ (next $-0.0585$) \\
-6 & . This is a is a & $(-0.1205, 0.0786)$ & \planned{float64 value} \\
-8 & . This is there is a is a & $(-0.1205, 0.0717)$ & $+0.00409$ (next $-7.0\times10^{-6}$) \\
-10 & . This is there is it is a is a & $(-0.1089, 0.0673)$ & $+0.0024$ \\
-12 & . This is it is it is it is a is a & $(-0.1090, 0.0641)$ & $+0.072$ \\
+6 & . This is a is a & $+0.0052$ & $3\times10^{-6}$ \\
+8 & . This is there is a is a & $+0.0110$ & $3\times10^{-7}$ \\
+10 & . This is there is it is a is a & $+0.0025$ & $2\times10^{-7}$ \\
+12 & . This is there (is it)$^2$ is a is a & $+0.0163$ & $4\times10^{-8}$ \\
+14 & . This (is it)$^4$ is a is a & $+0.0369$ & $2\times10^{-9}$ \\
+16 & . This (is it)$^5$ is a is a & $+0.0716$ & $8\times10^{-11}$ \\
+18 & . This (is it)$^6$ is a is a & $+0.0792$ & $1\times10^{-12}$ \\
+20 & . This (is it)$^7$ is a is a & $+0.0857$ & $2\times10^{-14}$ \\
 \bottomrule
 \end{tabular}
-\caption{Periodic orbits of the stripe family. The period-2 and period-8 rows are computed with the current
-all-float64 map (norms and rotary tables patched) and reproduced by an independent implementation (closures
-$2\times10^{-14}$ and $5\times10^{-12}$). \planned{Recompute the period-6, 10 and 12 rows with the current map and add
-periods 14--20.}}
+\caption{Periodic orbits of the stripe family at the stripe centres along $\log_{10}T=-0.115$
+($\alpha=0.077872$, $0.071674$, $0.067766$, $0.065550$, $0.064443$, $0.063857$, $0.063534$, $0.063335$), computed with the
+current all-float64 map (norms and rotary tables patched): Newton residuals $6\times10^{-15}$ to $8\times10^{-13}$,
+leading multiplier $\mu_1$ and next modulus $|\mu_2|$ from Rayleigh--Ritz values. Each step in period adds one ``is
+X'' pair to the text. The 2-cycle ``is it'' itself has multipliers $-0.2706$ and $-0.0585$ at
+$(\log_{10}T,\alpha)=(-0.17263,0.061579)$. The period-2 and period-8 orbits were also reproduced by an independent
+implementation (Section~\ref{sec:evidence}).}
 \label{tab:orbits}
 \end{table}
 
