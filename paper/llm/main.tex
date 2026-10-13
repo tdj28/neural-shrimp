@@ -858,7 +858,21 @@ gratitude or servility words (no control: $0.2\,\%$; constant $-0.02$: $0.2\,\%$
 Appendix~\ref{app:gratitude}. A counter-steer along the generic kindness concept, whose direction shares much with the
 hostility concept (cosine $0.83$), does not lower the hostile share at all ($57\,\%$). In this setting, reacting after
 detection costs more than mild prevention, consistent with the hysteresis above, and the push must be along the
-contrast direction; a monitor that warned before capture would combine the low dose of prevention with targeting.
+contrast direction.
+
+\paragraph{Detect and replace.} Capture feeds on its own history (the hysteresis above), which suggests that the
+hostile reply itself carries the dialogue into the basin. A serving system need not show a flagged reply. In a second controller experiment (same push,
+seed and analysis as above, stated before the data) every reply the classifier flags is discarded before it enters the
+dialogue and regenerated once with a counter-steer of $-0.04$ applied to that reply only. The model's own replies,
+counted before any replacement, are then hostile in $12\,\%$ of turns ($[11, 14]\,\%$; no control in the same run:
+$59\,\%$) at a mean counter-dose of $0.005$ per turn. Constant prevention at $-0.02$ needs four times that dose for a
+similar share ($11\,\%$). Against the constant dose-response at equal mean dose, replacement is better by $35$ points
+($[30, 40]$). Hostile replies shown fall to $1\,\%$, gratitude words stay at $0.5\,\%$ of turns, and about one turn in
+seven is regenerated. Holding the counter-steer for three more turns lowers the share to $8\,\%$ at dose $0.013$; the
+post-reply trigger of the previous paragraph, rerun here, again does worse than prevention ($13\,\%$ at $0.024$). The
+trigger and the outcome use the same classifier, so the measure is the classifier's verdict on the model's original
+replies, which is comparable across arms. For this behaviour the useful intervention is to keep the excursion out of
+the state, at the moment it occurs.
 
 \paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
 tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
@@ -895,8 +909,33 @@ is therefore real and reproducible, but small: at thresholds fixed from the trai
 state flags 29.1\,\% of the turns that are followed by capture within three turns, against 27.5\,\% for the
 baselines, at held-out false-positive rates of 10.3\,\% and 10.6\,\% (these are prediction windows, not distinct
 captures). It is not a reliable detector by itself.
-\planned{a hazard model; longer holds to separate slow release from bistability; probe-timed counter-steering
-against constant prevention at matched dose; other openers and steering directions.}
+
+\paragraph{How much warning is there?} For the conversation state after a turn, the probability of capture within
+the next $h$ turns, the committor \cite{e2006transition}, ranks states optimally among all warnings that use the same
+information. We estimated it for 1706 states of the confirmation dialogues from 32 continuations of three turns each,
+sampled exactly like the dialogues (exploratory; the analysis was stated before the data and amended twice, still
+before the analysis outcomes were read, after an independent review). The continuations reproduce the realized
+capture rates (population-weighted $0.049$, $0.094$, $0.134$ within one, two and three turns, against $0.046$, $0.095$,
+$0.136$). On a stratified sample of 800 states the committor estimate warns with an AUC of $0.72$, $0.71$ and $0.70$
+(a heuristic extrapolation to infinitely many continuations gives $0.75$, $0.73$, $0.72$), and the in-context detector
+of the confirmation with $0.73$, $0.72$ and $0.71$; the differences are within $\pm0.05$ (Figure~\ref{fig:committor}).
+Dialogues that were captured later sit at about twice the committor of never-captured ones over all ten preceding
+turns, with no visible ramp toward the onset (a description conditional on the outcome, not an identification of the
+mechanism). In this setting the attainable warning is therefore modest and the in-context probe already reaches it:
+an elevated risk is detectable, while the moment of the jump is mostly chance. This is why acting at that moment, as
+detect-and-replace does, works where prediction cannot.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-committor.png}
+\caption{Attainable warning of hostile capture. Left: AUC for capture within $h$ turns on 800 stratified states of the
+confirmation dialogues, for the classifier baselines, the in-context detector (both fit on the exploration study), the
+Monte Carlo committor from 32 continuations, and its heuristic $1/K$ extrapolation (dialogue-bootstrap 95\,\%
+intervals). Right: mean committor in the ten turns before capture for 48 dialogues captured after turn 10, and for
+never-captured dialogues at the same turns (descriptive).}
+\label{fig:committor}
+\end{figure}
+\planned{a hazard model; longer holds to separate slow release from bistability; other openers, steering directions
+and models; an independent classifier for the outcome.}
 
 \section{Discussion}
 \label{sec:discussion}
