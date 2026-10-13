@@ -21609,3 +21609,15 @@ _commit `43acecfa6ca9` (dirty worktree)_
 - **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
 
 _commit `43acecfa6ca9` (dirty worktree)_
+
+## 2026-10-13 09:10 UTC: Task 1: center-parallel-012 completed and independently audited
+
+Source ee5f82e862cc3b2bdcf4ab3a75f4432a6e3f43bd, receipt 1586a585a2fb9c12352317b0d97489a2aee6a19051e65074bc5986d6374a87c3; all 256 artifacts, 145 Git blobs and eight full phase rows checked by both independently written audit scripts. Exact residual norm strict decrease 3.25757669807556112E-200 to 1.49752263166430767E-212; ratio upper 4.59704489091225652E-13. Pending decision history_cap_restart, proposal baseline_no_history, post-proposal factors 0, cumulative phases 136. Launcher 420.780614s, sampled aggregate peak 20.556GiB. Full raw/audits retained at /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-012, manifest 804a16e0cf4aefd30c66f1711b8de894cb38ede5bdfe8d75ae960159dd5ca839. No numerical factor is asserted an inverse; no root, primitive period, attraction, speedup or utility claim. All target processes terminated.
+
+_commit `ee5f82e862cc` (dirty worktree)_
+
+## 2026-10-13 09:10 UTC: Task 1: bounded continuation stopped after center-parallel-012
+
+The exact residual upper bound satisfies the authorized stopping criterion of at most 10^-210. No next candidate was planned or launched. The exact endpoint witness, completed audit archive and all history decisions are retained. This stop is centre readiness only, not an orbit certificate; final whole-box derivative coverage and independent proof gates remain necessary.
+
+_commit `ee5f82e862cc` (dirty worktree)_
