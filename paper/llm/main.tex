@@ -500,6 +500,15 @@ One candidate explanation is a crossover. Softmax at temperature $T$ is a smooth
 one-dimensional map may have a nearly corner-like extremum, rounded only on a scale set by $T$. Early doublings would
 then see the corner, where ratios tend toward 2, and later doublings the smooth quadratic core, where the ratio is
 $4.669$. This predicts ratios rising toward $4.669$ at higher periods, and smaller early ratios at lower temperature.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.58\linewidth]{fig-feigenbaum-ratios.png}
+\caption{Finite-order interval ratios of the doubling sequences: the 0.5B crescent, from flips and from superstable
+points (which reach period 96), and Qwen2.5-1.5B from flips. Each rises toward Feigenbaum's $\delta$ from below.
+Under the crossover hypothesis, early levels see the corner of a smoothed argmax (ratios toward 2) and later levels
+the smooth quadratic core.}
+\label{fig:feigenbaum}
+\end{figure}
 \inprogress{superstable parameters at periods 192 and 384; ratios at other temperatures.} Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
 test universality \cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}.
 \begin{table}[H]
