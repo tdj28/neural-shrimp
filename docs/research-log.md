@@ -21713,3 +21713,9 @@ _commit `84963ef04afd`_
 - **Would surprise us:** a fold that the curve tool cannot locate from this branch
 
 _commit `84963ef04afd` (dirty worktree)_
+
+## 2026-10-13 10:12 UTC: Hostile 2-cycle fold, exact and its normal form (run V5b): the window-law slope predicted without fitting (full passage, 2.30 per lap) is within 3 % of the measured 2.235
+
+Run V5b (pod afvi3pla02xyfr, 232 s, commit e30a9a2b? see run card; hashes match, terminated): curve (float64, kind fold, gtol 1e-9) from the V5 branch: exact fold of the '!Yes' 2-cycle at log10 T_c = -0.04624653570, alpha 0.083 (critical multiplier 0.9999999954, real; other spectral radius 0.0500; test function g 2.2e-10; residual 7.8e-11); the fold curve continues to (-0.045232, 0.083489) and (-0.044059, 0.084229), no cusp candidate. Normal form at that point, eps in log10 T: a = -1.16833, b = 44.5258 (b over relative steps 1e-2..1e-4: 45.245, 44.592, 44.533, 44.526, 44.525: plateau 44.526), ab = -52.021; passages occur for log10 T < T_c (a eps b > 0), full passage pi / sqrt(|ab| |eps|) G-iterates. Window law: 1/sqrt(T_c - T_fold(N)) rises by sqrt|ab| / (f pi) per lap for an effective passage fraction f; the normal form alone (f = 1) predicts 2.296 per lap; measured over P16, P18, P20 (V2, V4): 2.235 per lap, so f = 1.027 (full passages), compared with f = 0.58 for the 'is it' stripes, where reinjection lands near the middle of the bottleneck. Reading: the hostile period-adding cascade is the same type-I intermittency organization, quantitatively: its windows accumulate on a 2-cycle fold with the inverse-square law whose slope the fold's normal form predicts, here without a fitted parameter if passages are full (reinjection statistics not yet measured to confirm f independently).
+
+_commit `b006fdc7e81b`_
