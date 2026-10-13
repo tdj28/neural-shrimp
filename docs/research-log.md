@@ -21092,3 +21092,14 @@ _commit `655a0afc3490` (dirty worktree)_
 Run C10 (pod i1dv0nj42mdvx5, 1534 s, commit 4041f758): P192 bracket [0.06612449, 0.06612513]: the attractor at the lower end has period 192; critical multiplier -0.0335 there and -2.04 at the upper end (beyond the P192 flip), so s_192 lies just below 0.06612449; linear extrapolation gives s_192 ~ 0.0661244793 and, provisionally, the ratio (s_96 - s_48)/(s_192 - s_96) ~ 8.457e-6 / 1.889e-6 = 4.48. P384 bracket [0.06612523, 0.06612537]: no period up to 384 at the lower end (attractor beyond the cascade's accumulation point), so alpha_inf < 0.0661252, consistent with the geometric estimate ~0.0661250. Rerun with corrected brackets as C11: P192 [0.06612440, 0.06612449], P384 [0.066124875, 0.066124905] (around the extrapolated s_384 ~ 0.06612489).
 
 _commit `595ea518c2d8` (dirty worktree)_
+## 2026-10-13 03:53 UTC: Task 1 high-precision point completed; first correction run card
+
+arb-point-003, source d674d2101eae58bd09dc919530892f51c56017d3, completed its fresh2048-bit prefix and one full exact-real point image, exit0/no timeout,2013.07s. All32 artifact hashes checked; all24 prefix and point layers completed. Point-output maximum radius6.72024e-451 and defect from next binary64 proposal9.62266e-15; cached-prefix-to-point-save cost114.20856s. No box/inclusion attempted. New exploratory center-refine-001 plan pins its receipt and the independently audited center-seed-001. Exactly one correction with eight before and eight after point evaluations; estimate16*114.20856=1827.34s plus setup/correction overhead; onehour hard ceiling plus10s cleanup grace,CPU1,nice10,18GiB,noGPU,no paidcost. Outcome is measured rigorous residual reduction, not orbit certification. Run only after code/plan/card privatepush and both upstream audits pass; exclusive output ../neural-shrimp-data/codex/llm-p8-certificate/center-refine-001; launch.py --attempt center-refine-001 --driver center_refine --plan center-refine-001-plan.json --seconds3600. Preserve every phase and incomplete attempt.
+
+_commit `258ddfe1abb5` (dirty worktree)_
+
+## 2026-10-13 03:56 UTC: Task 1 refinement admission and command clarification
+
+The prepared center-refine-001 plan passes actual upstream admission: all32 prefix and56 seed artifacts, exact7-array inventory, correct parameters and completed statuses. Plan SHA256 8cca7c0f2018560a005e524f12f976766ca51f4ca14654f38e5bb400c686bc9c. Correct invocation uses two CLI arguments --seconds 3600 (the preceding note joined them typographically). Exact command: /data2/neural-shrimp/.venv/bin/python -B codex/certify-llm/launch.py --attempt center-refine-001 --driver center_refine --plan center-refine-001-plan.json --seconds 3600. Local prelaunch check found55GiB available RAM and both previous owned PIDs exited. No allocation or paid resource was created by this admission check.
+
+_commit `258ddfe1abb5` (dirty worktree)_

@@ -1,0 +1,34 @@
+{
+  "schema": "codex-llm-center-refine-v1",
+  "alpha": 0.071674,
+  "log10_temperature": -0.115,
+  "period": 8,
+  "dimension": 896,
+  "precision": 2048,
+  "max_corrections": 1,
+  "evaluation_passes": 2,
+  "envelope": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "memory_gib": 18,
+    "timeout_seconds": 3600
+  },
+  "prefix_attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-point-003",
+  "prefix_receipt_sha256": "b286831e06d65280ddc44591ba196e40c2adbb33f125c20a676c615434dd51e5",
+  "prefix_map_source_sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+  "center_seed_attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/center-seed-001",
+  "center_seed_receipt_sha256": "ee952c34b442a5947c09471d6d40129b150965ee1f2abf69760c7d304952b6c3",
+  "center_seed_driver_sha256": "87cf27a05999641995d441704cd7a1ec3ea5aa0d2c0d200b0c05662e584572e5",
+  "center_seed_map_source_sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+  "preconditioner_sha256": "c853fceb10036ff6229b6435a01951eccc2e629c6d70bc967da8cde1fb008b43",
+  "purpose": "Exploratory setup: measure actual residual reduction from exactly one high-precision shooting correction; no orbit or derivative proof.",
+  "basis": {
+    "measured_one_point_seconds": 114.2085609450005,
+    "estimated_16_point_seconds": 1827.336975120008,
+    "estimate_scope": "Single-phase measured cost multiplied by 16, not a completion guarantee; setup and correction overhead extra.",
+    "paid_cost_usd": 0,
+    "full_vocabulary": true,
+    "all_coordinates": true,
+    "retention": "Every phase saved immediately; timeout/failure retained as incomplete, never a certificate."
+  }
+}

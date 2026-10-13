@@ -21,12 +21,16 @@ return `1.60e-14` and numerical divisor separation. There is **no orbit certific
   closure gates passed and all 56 artifact hashes were checked. The numerical
   inverse defect is approximately `3e-15`; this is a proposal, not an inverse
   or derivative certificate.
-- `arb-point-003` is constructing a fresh 2048-bit prefix and one point image
-  under the existing CPU1/18-GiB/one-hour envelope. Its final receipt is still
-  pending; the known-wide state-box probe is explicitly skipped.
+- `arb-point-003` completed the fresh 2048-bit prefix and one point image.
+  All 32 artifact hashes passed. Maximum point radius is `6.7203e-451`, and
+  the cached-prefix-to-point-save cost is 114.21 seconds. The known-wide
+  state-box probe was explicitly skipped; this is no box or orbit proof.
 - `center_refine.py` prepares one high-precision multiple-shooting correction
-  followed by a fresh eight-phase residual check. It has not run; admission
-  requires completed, hash-bound prefix and seed attempts and a pushed plan.
+  followed by a fresh eight-phase residual check. The prepared
+  `center-refine-001-plan.json` binds the completed prefix and seed receipts.
+  Its 16 point evaluations are estimated at 1827.34 seconds from the measured
+  single-phase cost, with a CPU1/18-GiB/3600-second enforced ceiling. It has not
+  run at this checkpoint; completion and convergence remain to be measured.
 
 `ball_jet.py` provides batched signed first derivatives through the same reviewed
 transformer architecture. `cache_io.py` preserves all prefix radii and checks the

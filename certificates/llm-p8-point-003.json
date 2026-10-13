@@ -1,0 +1,214 @@
+{
+  "schema": "codex-llm-p8-setup-v1",
+  "certificate_passed": false,
+  "evidence": "exact-real prefix and one full point enclosure only; no state-box or orbit gate",
+  "source_commit": "d674d2101eae58bd09dc919530892f51c56017d3",
+  "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-point-003",
+  "receipt_sha256": "b286831e06d65280ddc44591ba196e40c2adbb33f125c20a676c615434dd51e5",
+  "artifact_hashes_checked": 32,
+  "exit_code": 0,
+  "timed_out": false,
+  "elapsed_seconds": 2013.070161917014,
+  "point_seconds": 114.2085609450005,
+  "status": {
+    "status": "point_setup_completed",
+    "certificate_passed": false,
+    "reason": "prefix and one point only; state-box diagnostic explicitly omitted",
+    "elapsed": 2011.5846297168173
+  },
+  "events": [
+    {
+      "event": "prefix_end",
+      "phase": "rigorous_prefix",
+      "seconds": 1884.7550711110234,
+      "utc": "2026-10-13T03:49:48.977462+00:00",
+      "layer": 23,
+      "max_primal_radius": "[3.241757039116652723390380520395558216394593602188544893842364204724844537215113621076008762874677406134138599562247866746403306447192988187349560872513107803350667434138019403950443525322296785888435049835968378684362152369496648304481745960618030078397021227596328693587165853250428142640057632206080205280484451776751790876768173877997956653401091857749617363570497346953196551205774656394507358568049228518549576342246056439396929734244345743150084059623575729974514955450589466045649043562520059476837415573979206064073372885214543830274195757072704398458344092598276872356120645494733183753102956287219365048033e-449 +/- 3.43e-1065]",
+      "max_primal_abs": "[36.03040065878630777912059146419399765341193958690334806213056097866190055818782337563004652575957193431858810310297837180563954279826909105532765446038256354097491559329357193727101906922884753299581524650949217537979819055986324237261169088303369432875117580760762087680977145795687700894255396882600399605828684794237653623775030872322930061888625260503573348571736130408336580407480770235261404365659273774367737645983865149822282573436973334603263511738443859632160652369298448117002361372745589062712520101111139728232283520174174885841668701378921819891809644623030989091408497288766423197562125207077697723787 +/- 3.19e-615]",
+      "max_tangent_abs": "0"
+    },
+    {
+      "event": "prefix_saved",
+      "phase": "rigorous_prefix",
+      "seconds": 1897.375922381878,
+      "utc": "2026-10-13T03:50:01.598312+00:00",
+      "sha256": "9d4a4193ecbb997a68c067312cae20c1f96de3e1919f7218e841715bad231053"
+    },
+    {
+      "event": "point_step_done",
+      "phase": "rigorous_point",
+      "seconds": 2011.5844833268784,
+      "utc": "2026-10-13T03:51:55.806872+00:00",
+      "max_radius": "[6.720240246983832182027757959811533119058057278269590458731492653395988232687553650683425641628288495523243542951830177956568142065620939579270801161411492561240977484635977271921532470501144124759949771919359270486270480074629265752436377126352767816079624189576675537701967577907033721916689903697916595798596663007167323739592375787109961055005256142898833804188067677163747379208907918906189605543848311069261596179468565601850752462707755369140329101930621061790892760273133060368947323931311816886537870633943258016543142280230734627513281097907294444905548620279209024133159569642802027806756919916214638712591e-451 +/- 4.17e-1067]",
+      "max_defect": "[9.622657250048912355499065244241363756578884558756533507509211335972841354560361852446405098476608835607607211196771001977284615510971033180432108229288665131399409641397435811164454338135120154329974676774311661013834734249111014971328089863911533740720590390051494960308953157160973370958959400242370646176784565172982010093516883788627245522886058885923610951763992188554342879639693806037970975983757301668220453526676351609453372249108583211517849539748070759144298421595678237277511907462958132522639136644300204978180108859188561673926516660234101570639631194541209367723078146177561087578960048040510303206521e-15 +/- 3.97e-631]"
+    },
+    {
+      "event": "point_setup_completed",
+      "phase": "rigorous_point",
+      "seconds": 2011.5846998710185,
+      "utc": "2026-10-13T03:51:55.807088+00:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "manifest.json",
+      "bytes": 4059,
+      "sha256": "a5fe49eafe0f5b73667b80c7e7db2f3bcefb6d089ac8fe4d8a3ba6c2c2c17c87"
+    },
+    {
+      "path": "run/candidate-history.json",
+      "bytes": 246,
+      "sha256": "9eda018f57c0c7b86a4e953de7f67f9a77bb9ac0848548eb68cc3d7359412db1"
+    },
+    {
+      "path": "run/candidate-latest.npz",
+      "bytes": 7432,
+      "sha256": "666fee4db38460db89904bd4a7f4c4ded00dd54cc14617b582f5ae12b91f4ad6"
+    },
+    {
+      "path": "run/events.jsonl",
+      "bytes": 81230,
+      "sha256": "e6c1c7ea170e50e080bf82442e8dbd23f051cc2ee7647cf32c28d6b2dba73a22"
+    },
+    {
+      "path": "run/inputs.json",
+      "bytes": 1676,
+      "sha256": "86e5d6568af573beddb47179a53b9e3d60906004bdb2176d8cf354e51b61974f"
+    },
+    {
+      "path": "run/point-step.json",
+      "bytes": 1129251,
+      "sha256": "6a3823d76cd45f19ef2138a11f2271aea50e8b745b671b8c13225e3c48eb8f68"
+    },
+    {
+      "path": "run/prefix-cache.json.gz",
+      "bytes": 68580381,
+      "sha256": "9d4a4193ecbb997a68c067312cae20c1f96de3e1919f7218e841715bad231053"
+    },
+    {
+      "path": "run/proposal.json",
+      "bytes": 853,
+      "sha256": "bb9b33f281eaeca7daa936db9faa1a774f95967a0b76225bad3bff630c82157b"
+    },
+    {
+      "path": "run/proposal.npz",
+      "bytes": 64778,
+      "sha256": "d8c57bff1d8a986c7c6a0f7d083caa77b4f6373c560d1f60ce0c57461caf668b"
+    },
+    {
+      "path": "run/status.json",
+      "bytes": 186,
+      "sha256": "d69888c7ab17d7577c13d60a8fb30625fc41ea1e4f778793041fb5f8246f4840"
+    },
+    {
+      "path": "source/codex/certify-llm/README.md",
+      "bytes": 7231,
+      "sha256": "14d2d3b491c46e3e5076072b359aadaa7f66890b84f9ad594fd3d2138c9a4dca"
+    },
+    {
+      "path": "source/codex/certify-llm/affine-code-review.md",
+      "bytes": 7880,
+      "sha256": "b950ed2f2108091df4d737d6657b41045ef5f82fa04637c47e2de2252f57c7c6"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_jet.py",
+      "bytes": 9871,
+      "sha256": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_linear.py",
+      "bytes": 9512,
+      "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_qwen.py",
+      "bytes": 14008,
+      "sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+    },
+    {
+      "path": "source/codex/certify-llm/cache_io.py",
+      "bytes": 6547,
+      "sha256": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef"
+    },
+    {
+      "path": "source/codex/certify-llm/derivative-cache-review.md",
+      "bytes": 10060,
+      "sha256": "694c13748b3de399f01357e527c37e7d5ff473f6daf54c4f3e22675141d59292"
+    },
+    {
+      "path": "source/codex/certify-llm/gates-review.md",
+      "bytes": 7338,
+      "sha256": "d081a6237425c788aa5fbf2ac1525c4d04282c9a523c2338232af3a1e19b77b0"
+    },
+    {
+      "path": "source/codex/certify-llm/launch.py",
+      "bytes": 5609,
+      "sha256": "bc2dcefe460a538184e40311fcf52637eb3d1aff36d6483e7678ee379c6151a5"
+    },
+    {
+      "path": "source/codex/certify-llm/map-code-review.md",
+      "bytes": 13628,
+      "sha256": "6fff8d8b5d17cd316b155a14523a030997b27b25b168d27d4da54d76b8be19a9"
+    },
+    {
+      "path": "source/codex/certify-llm/multiple-shooting-design.md",
+      "bytes": 9684,
+      "sha256": "7b2c824a8a382728d953342a758895d6e8c4e5e3a12dea8c8ca8976fad426444"
+    },
+    {
+      "path": "source/codex/certify-llm/next-methods.md",
+      "bytes": 7268,
+      "sha256": "bf1e9fb5ada25169a1ceeb2c2451f33d9abe7986e1c8a35c16144f430a1bb37e"
+    },
+    {
+      "path": "source/codex/certify-llm/next-setup-review.md",
+      "bytes": 3295,
+      "sha256": "7b7a14581e6b8c00b6db9e4a28edad2d24926ca97fe489189ba45b021153854a"
+    },
+    {
+      "path": "source/codex/certify-llm/pilot-results-review.md",
+      "bytes": 10987,
+      "sha256": "2d009499abad75f14f56d4584b4bca989d40782f9221e2f5fa2b6053c897704e"
+    },
+    {
+      "path": "source/codex/certify-llm/pilot.py",
+      "bytes": 9569,
+      "sha256": "354f166af4ac0d7afbe68d2b9c61ed17e54aa9f3e4ed2b448bef5e70545ccca1"
+    },
+    {
+      "path": "source/codex/certify-llm/proof-design-review.md",
+      "bytes": 17979,
+      "sha256": "cabe361495a2d370081a8fb890f97966708f98601008c7a450caeacf16a5c5ef"
+    },
+    {
+      "path": "source/codex/certify-llm/proof_gates.py",
+      "bytes": 15368,
+      "sha256": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a"
+    },
+    {
+      "path": "source/codex/certify-llm/signed-pilot-001-plan.json",
+      "bytes": 989,
+      "sha256": "d054cd2ce68030fafabf1e660d438e0af83338a3156f2ebbbd4826ff7c7e64ca"
+    },
+    {
+      "path": "source/codex/certify-llm/signed_pilot.py",
+      "bytes": 8768,
+      "sha256": "8f43241dac3fd54586f25b2b94d8a417a59b60369b67c4cd86aba5fa5fba653c"
+    },
+    {
+      "path": "source/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 81230,
+      "sha256": "e6c1c7ea170e50e080bf82442e8dbd23f051cc2ee7647cf32c28d6b2dba73a22"
+    }
+  ]
+}
