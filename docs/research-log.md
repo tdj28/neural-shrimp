@@ -21835,3 +21835,27 @@ _commit `0bb14eafa46e` (dirty worktree)_
 Source83b0e153, plan303a2be6, receipte4d054140f960cd6e56d6958d061a69aa662f86f5f079f0a1ff68d1bed36dfa1: oneCPU2/nice10/12GiB profile completed43.5555s/no timeout, peak5,825,380KiB. All six full operations retained; largest nested-state AD16.6823s. Independent39-artifact/9-Git-blob inventory and exact owned process/group termination passed; audit manifest45cd22cefcbdfc9f1ff0d63c038a5d026cc54614c9dff3af537d44d905771e5b. No fold qualification, coefficients, passages or certificate. Task6 synthetic profiles proceed sequentially next; full-fold resource plan remains separately reviewed. Details codex/hostile-fold-crosscheck/profile-001-review.md/.json.
 
 _commit `9a9ac60262ff` (dirty worktree)_
+
+## 2026-10-13 12:02 UTC: run (exploratory)
+
+- **Question:** Task6 independent saved-raw descriptive reproduction against disclosed manuscript/reference claims; preserve all discrepancies.
+- **Setup:** Root-reviewed/released source6a5bb5f518916b3a356d169973a29f354104b75b; measured synthetic profile receiptc355b0f7e76ca0505db4fc7509d4344db6c79a3f8caa72e3f84abe1010e81424; exact cardcodex/misalignment-audit/descriptive-card.json hash27d7b9aa6243dd51ae09d02988080a43d5bcf6c09730cee7cb298c6764e9f007. One sequentialCPU1/nice10/4GiB/64MiB run with300s cap,20GiB startup/16GiB runtime; no model/GPU/paid use or new scientific data.17 synthetic controls passed0.39s. Original input hashes/source Git blobs checked before admission. Every failed or incomplete attempt retained; no silent retry.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/descriptive-001`
+
+_commit `6a5bb5f51891` (dirty worktree)_
+
+## 2026-10-13 12:02 UTC: run (exploratory)
+
+- **Question:** Task6 independent saved-raw l7 reproduction against disclosed manuscript/reference claims; preserve all discrepancies.
+- **Setup:** Root-reviewed/released source6a5bb5f518916b3a356d169973a29f354104b75b; measured synthetic profile receiptc355b0f7e76ca0505db4fc7509d4344db6c79a3f8caa72e3f84abe1010e81424; exact cardcodex/misalignment-audit/l7-card.json hashb43c7c5f783f1bdd5b0a3d05cb6435174688b984610f0f8078d20c0bcb8dd82a. One sequentialCPU1/nice10/4GiB/64MiB run with900s cap,20GiB startup/16GiB runtime; no model/GPU/paid use or new scientific data.17 synthetic controls passed0.39s. Original input hashes/source Git blobs checked before admission. Every failed or incomplete attempt retained; no silent retry.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-001`
+
+_commit `6a5bb5f51891` (dirty worktree)_
+
+## 2026-10-13 12:02 UTC: run (exploratory)
+
+- **Question:** Task6 independent saved-raw l8 reproduction against disclosed manuscript/reference claims; preserve all discrepancies.
+- **Setup:** Root-reviewed/released source6a5bb5f518916b3a356d169973a29f354104b75b; measured synthetic profile receiptc355b0f7e76ca0505db4fc7509d4344db6c79a3f8caa72e3f84abe1010e81424; exact cardcodex/misalignment-audit/l8-card.json hash03c5b76584f29c7aab440e1440881899e1170b8af90dd11ec5b9ea379688b1d9. One sequentialCPU1/nice10/4GiB/64MiB run with300s cap,20GiB startup/16GiB runtime; no model/GPU/paid use or new scientific data.17 synthetic controls passed0.39s. Original input hashes/source Git blobs checked before admission. Every failed or incomplete attempt retained; no silent retry.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/l8-001`
+
+_commit `6a5bb5f51891` (dirty worktree)_
