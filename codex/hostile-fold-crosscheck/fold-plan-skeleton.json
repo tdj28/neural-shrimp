@@ -1,0 +1,50 @@
+{
+  "schema": "codex-task7-fold-preparation-v1",
+  "execution_status": "not_admitted_pending_measured_profile",
+  "profile_receipt": null,
+  "profile_review": null,
+  "source_sha256": {
+    "codex/hostile-fold-crosscheck/fold_worker.py": "cfee9cc3f032a96c3475b58d4e8286132a2757e3ac2d927c80e0176fb8133d6c",
+    "codex/hostile-fold-crosscheck/resource_pilot.py": "00931cb14f6c5f62b7ddb69933fac1bf6615a7199ac1a4cbab1ac6fcf2e111a2",
+    "codex/hostile-fold-crosscheck/assets.py": "06477ee36a78f15ee8f1e8ae196dc53ae230ff19368fbda638eb6a6e0ef758e0",
+    "codex/confirm-fold/fold_setup.py": "ab47613afad845264fb21b3d47a3b601b56f5a7a4100d01aab30affeabe19d3a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/crosscheck/numerics.py": "8267668ccd6ebdef4d97b684059e9e85212b7a3363b4a0d93253f94a4ed31abc"
+  },
+  "target": {
+    "period": 2,
+    "alpha": 0.083,
+    "active_parameter": "log10T",
+    "initial_parameter": -0.04624653570443442,
+    "bounds": [
+      -0.05,
+      -0.043
+    ],
+    "vector_key": "hostility-vs-kindness",
+    "seed_index": 0
+  },
+  "resources": {
+    "cpu_threads": 2,
+    "nice": 10,
+    "memory_gib": 12,
+    "wall_seconds": null,
+    "minimum_start_available_gib": 28,
+    "minimum_runtime_available_gib": 16
+  },
+  "proposed_numerics": {
+    "chunk": 16,
+    "max_newton": 6,
+    "max_backtracks": 2,
+    "parameter_fd_steps": [
+      7e-06,
+      2e-06,
+      7e-07
+    ],
+    "relative_state_fd_steps": [
+      0.0003,
+      0.0001,
+      3e-05
+    ]
+  },
+  "scope": "Fold-only numerical API preparation. No executable admission schema or passages. Concrete wall cap and bounded launcher await the reviewed measured resource profile."
+}

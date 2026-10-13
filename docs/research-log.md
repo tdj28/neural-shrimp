@@ -21859,3 +21859,12 @@ _commit `6a5bb5f51891` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/l8-001`
 
 _commit `6a5bb5f51891` (dirty worktree)_
+
+## 2026-10-13 12:07 UTC: run (exploratory)
+
+- **Question:** Independently reproduce the hostility-steered full-state period-two fold and log10T normal form using our float64 implementation.
+- **Setup:** Root-approved measured fold-only plan codex/hostile-fold-crosscheck/fold-001-plan.json SHA028700b548c14d8a5ea0a2600021da2bcf0e6c6cacd128eb2c7d5a36baa02a2d and fold-001-run-card.md. CPU2/nice10/12GiB/1800s, chunk128, at most4 Newton corrections/2 backtracks, startup28GiB/runtime16GiB.74 combined synthetic controls and full completed resource-admission passed; exact source/card private push and fresh CPU/RAM/disk/read-only GPU inventory required. Must wait for all selected Task6 workers/supervisors to be reaped and allocation released. Preserve every trial, gate failure or timeout; no passages or silent retry, no GPU or paid resources, no certificate claim.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/fold-001`
+- **Would surprise us:** A reproduced fold, composed precision, or coefficient FD gate differs from the disclosed producer result; record the discrepancy and preserve the attempt without adjusting gates after outcomes.
+
+_commit `ba16399aaf8e` (dirty worktree)_

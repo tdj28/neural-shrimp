@@ -1,6 +1,6 @@
-"""Task7's single resource pilot: Task5 snapshot pattern + reviewed PID ownership.
+"""Task7's fixed resource pilot or fold run: snapshot + reviewed PID ownership.
 
-No new numerical method. Work has a 300s absolute deadline; owned cleanup has
+No new numerical method. Each exact plan sets its deadline; owned cleanup has
 at most ten additional seconds. MemAvailable is sampled, not a hard RAM cap.
 """
 from datetime import datetime, timezone
@@ -29,6 +29,19 @@ WORKER_FILES = ('codex/hostile-fold-crosscheck/assets.py',
                 'codex/crosscheck/numerics.py')
 CAPS = dict(cpu_threads=2, nice=10, memory_gib=12, timeout_seconds=300,
             minimum_start_available_gib=28, minimum_runtime_available_gib=16)
+
+
+def specification(plan_name):
+    if plan_name == 'profile-001-plan.json':
+        return dict(schema='codex-hostile-fold-profile-v1', caps=dict(CAPS),
+            workers=WORKER_FILES, worker='resource_pilot.py', card='profile-001-run-card.md',
+            resource_probe_only=True)
+    if plan_name == 'fold-001-plan.json':
+        return dict(schema='codex-hostile-fold-run-v1', caps=dict(CAPS, timeout_seconds=1800),
+            workers=WORKER_FILES+('codex/hostile-fold-crosscheck/fold_worker.py',
+                                  'codex/hostile-fold-crosscheck/fold_runtime.py'),
+            worker='fold_runtime.py', card='fold-001-run-card.md', resource_probe_only=False)
+    raise ValueError('only exact resource pilot or fold plan is admitted')
 
 
 def sha(path):
@@ -71,14 +84,14 @@ def available():
 def validate_arguments(args):
     if not args.attempt or Path(args.attempt).name != args.attempt or args.attempt.startswith('.'):
         raise ValueError('exclusive direct-child attempt name required')
-    if args.plan != 'profile-001-plan.json': raise ValueError('only exact resource pilot plan is admitted')
+    specification(args.plan)
     if re.fullmatch('[0-9a-f]{40}', args.source) is None or re.fullmatch('[0-9a-f]{64}', args.plan_sha256) is None:
         raise ValueError('literal external source and plan pins required')
 
 
 def guard(deadline, stopped, *, startup=False):
     if stopped: raise InterruptedError(stopped[0])
-    if time.monotonic() >= deadline: raise TimeoutError('absolute300s Task7 deadline')
+    if time.monotonic() >= deadline: raise TimeoutError('absolute Task7 plan deadline')
     floor = (28 if startup else 16)*GIB
     value = available()
     if value < floor: raise RuntimeError(f'Task7 MemAvailable floor: {value} < {floor}')
@@ -91,17 +104,18 @@ def snapshot(repo, args, deadline, stopped):
         guard(deadline, stopped)
         return subprocess.check_output(['git', *words], cwd=repo,
                     timeout=min(30, max(.001, deadline-time.monotonic())))
+    spec = specification(args.plan); caps = spec['caps']
     if git('rev-parse', 'HEAD').decode().strip() != args.source:
         raise ValueError('current HEAD differs from exact source')
     planpath = repo/'codex/hostile-fold-crosscheck'/args.plan
     if sha(planpath) != args.plan_sha256: raise ValueError('external original plan hash differs')
     plan = json.loads(planpath.read_text())
-    if plan.get('schema') != 'codex-hostile-fold-profile-v1' or type(plan.get('envelope')) is not dict or set(plan['envelope']) != set(CAPS) or any(type(plan['envelope'][k]) is not int or plan['envelope'][k] != v for k,v in CAPS.items()):
-        raise ValueError('exact resource-only CPU2/12GiB/300s plan required')
-    if set(plan.get('source_sha256', {})) != set(WORKER_FILES):
+    if plan.get('schema') != spec['schema'] or type(plan.get('envelope')) is not dict or set(plan['envelope']) != set(caps) or any(type(plan['envelope'][k]) is not int or plan['envelope'][k] != v for k,v in caps.items()):
+        raise ValueError('exact resource-only or fold CPU2/12GiB plan required')
+    if set(plan.get('source_sha256', {})) != set(spec['workers']):
         raise ValueError('complete original worker import inventory required')
-    paths = list(WORKER_FILES)+[OWNERSHIP_FILE, 'codex/hostile-fold-crosscheck/launch.py',
-               'codex/hostile-fold-crosscheck/'+args.plan, 'codex/hostile-fold-crosscheck/profile-001-run-card.md']
+    paths = list(spec['workers'])+[OWNERSHIP_FILE, 'codex/hostile-fold-crosscheck/launch.py',
+               'codex/hostile-fold-crosscheck/'+args.plan, 'codex/hostile-fold-crosscheck/'+spec['card']]
     blobs = {}
     for name in paths:
         original = git('show', args.source+':'+name)
@@ -151,8 +165,9 @@ def monitor(child, identity, owner, deadline, stopped, observation):
 
 
 def execute(args):
-    began = time.monotonic(); deadline = began+300
-    establish_limits(); validate_arguments(args)
+    began = time.monotonic(); validate_arguments(args)
+    spec = specification(args.plan); caps = spec['caps']
+    deadline = began+caps['timeout_seconds']; establish_limits()
     attempt = OWNED/args.attempt; attempt.mkdir(parents=True, exist_ok=False)
     stopped = []; previous = {}
     def stop(signum, frame):
@@ -163,8 +178,8 @@ def execute(args):
     terminated = False; uncertain = []; manifest = {}
     observation = dict(samples=0, minimum_available_bytes=available())
     write(attempt/'admission-started.json', dict(source_commit=args.source, plan_sha256=args.plan_sha256,
-        launcher_pid=os.getpid(), resource_envelope=CAPS, started_utc=datetime.now(timezone.utc).isoformat(),
-        certificate_passed=False, resource_probe_only=True))
+        launcher_pid=os.getpid(), resource_envelope=caps, started_utc=datetime.now(timezone.utc).isoformat(),
+        certificate_passed=False, resource_probe_only=spec['resource_probe_only']))
     try:
         guard(deadline, stopped, startup=True)
         plan, blobs, remote = snapshot(REPO, args, deadline, stopped)
@@ -172,11 +187,11 @@ def execute(args):
         for name, data in blobs.items():
             target = source/name; target.parent.mkdir(parents=True, exist_ok=True); target.write_bytes(data)
         owner = module(source/OWNERSHIP_FILE, 'task7_reviewed_process_ownership')
-        command = [sys.executable, '-I', '-B', '-u', str(source/'codex/hostile-fold-crosscheck/resource_pilot.py'),
+        command = [sys.executable, '-I', '-B', '-u', str(source/'codex/hostile-fold-crosscheck'/spec['worker']),
                    '--plan', str(source/'codex/hostile-fold-crosscheck'/args.plan), '--output', str(attempt/'run')]
         manifest = dict(source_commit=args.source, plan_sha256=args.plan_sha256, remote_main=remote,
             remote_ancestry_verified_at=datetime.now(timezone.utc).isoformat(), command=command,
-            launcher_identity=owner.serial_identity(owner.proc(os.getpid())), **CAPS,
+            launcher_identity=owner.serial_identity(owner.proc(os.getpid())), **caps,
             source=[dict(path=n, bytes=len(b), sha256=hashlib.sha256(b).hexdigest()) for n,b in blobs.items()],
             sampled_headroom_is_hard_cap=False, cleanup_seconds=10,
             available_before_worker_bytes=available())
@@ -209,10 +224,13 @@ def execute(args):
             print(json.dumps(dict(attempt=str(attempt), source_commit=args.source, worker_identity=manifest['worker_identity'])), flush=True)
             code = monitor(child, identity, owner, deadline, stopped, observation)
             terminated = True
-            if code != 0: raise RuntimeError('resource worker failed with exit'+str(code))
+            if code != 0: raise RuntimeError('Task7 worker failed with exit'+str(code))
             status = json.loads((attempt/'run/status.json').read_text())
-            if status.get('status') != 'resource_profile_completed' or status.get('resource_probe_only') is not True or status.get('fold_qualified') is not False or status.get('certificate_passed') is not False:
-                raise RuntimeError('worker did not retain complete resource-only status')
+            if spec['resource_probe_only']:
+                if status.get('status') != 'resource_profile_completed' or status.get('resource_probe_only') is not True or status.get('fold_qualified') is not False or status.get('certificate_passed') is not False:
+                    raise RuntimeError('worker did not retain complete resource-only status')
+            elif status.get('status') != 'fold_qualified' or status.get('passed') is not True or status.get('computational_completed') is not True or status.get('solver_history_complete') is not True or status.get('resource_probe_only') is not False or status.get('certificate_passed') is not False or status.get('passage_trajectories_evaluated') is not False:
+                raise RuntimeError('worker did not retain complete qualified numerical fold status')
     except BaseException as exc:
         failure = dict(error=repr(exc), traceback=traceback.format_exc())
         if child is not None:
@@ -226,11 +244,11 @@ def execute(args):
         if identity is not None: identity.close()
         for signum, handler in previous.items(): signal.signal(signum, handler)
     result = dict(source_commit=args.source, plan_sha256=args.plan_sha256, exit_code=code,
-        status='resource_pilot_completed' if failure is None else 'resource_pilot_failed',
+        status=('resource_pilot_completed' if failure is None else 'resource_pilot_failed') if spec['resource_probe_only'] else ('fold_attempt_completed' if failure is None else 'fold_attempt_failed'),
         timed_out=bool(failure and 'TimeoutError' in failure['error']), elapsed_seconds=time.monotonic()-began,
         worker_spawned=child is not None, worker_termination_verified=terminated,
-        uncertain_ownership=uncertain, resource_envelope=CAPS, certificate_passed=False,
-        resource_probe_only=True, scientific_fold_result=False, runtime_headroom_observation=observation)
+        uncertain_ownership=uncertain, resource_envelope=caps, certificate_passed=False,
+        resource_probe_only=spec['resource_probe_only'], scientific_fold_result=bool(not spec['resource_probe_only'] and failure is None), runtime_headroom_observation=observation)
     write(attempt/'status.json', result)
     if uncertain:
         write(attempt/'finalization-pending.json', dict(reason='Owned writer/group unresolved; do not seal or retry.', certificate_passed=False))

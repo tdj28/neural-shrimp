@@ -1,0 +1,96 @@
+{
+  "schema": "codex-hostile-fold-run-v1",
+  "envelope": {
+    "cpu_threads": 2,
+    "nice": 10,
+    "memory_gib": 12,
+    "timeout_seconds": 1800,
+    "minimum_start_available_gib": 28,
+    "minimum_runtime_available_gib": 16
+  },
+  "numerics": {
+    "chunk": 128,
+    "max_newton": 4,
+    "max_backtracks": 2
+  },
+  "source_sha256": {
+    "codex/hostile-fold-crosscheck/fold_runtime.py": "5aee73c377fa21b8f33cb0f9582b37076ae1864ef037d8943d3e87c892a57126",
+    "codex/hostile-fold-crosscheck/fold_worker.py": "2171e194a89469fa0d95e599b33830991b8c982023a790d6150b96c7f9791409",
+    "codex/hostile-fold-crosscheck/assets.py": "06477ee36a78f15ee8f1e8ae196dc53ae230ff19368fbda638eb6a6e0ef758e0",
+    "codex/hostile-fold-crosscheck/resource_pilot.py": "00931cb14f6c5f62b7ddb69933fac1bf6615a7199ac1a4cbab1ac6fcf2e111a2",
+    "codex/confirm-fold/fold_setup.py": "ab47613afad845264fb21b3d47a3b601b56f5a7a4100d01aab30affeabe19d3a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/crosscheck/numerics.py": "8267668ccd6ebdef4d97b684059e9e85212b7a3363b4a0d93253f94a4ed31abc"
+  },
+  "seed_sha256": "d574d0740da3d026276c508527b6001e642c35daace57da7755ec48fd4036123",
+  "vector_sha256": "d18395239dba63c7deacb8aa9431d768269617c9cc44a98f89cc1e22423b5958",
+  "profile_authority": {
+    "path": "/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/profile-001",
+    "receipt_sha256": "e4d054140f960cd6e56d6958d061a69aa662f86f5f079f0a1ff68d1bed36dfa1",
+    "source_commit": "83b0e153694b20e7e059baf70bd34a0d3ce8c0a2"
+  },
+  "historical_memory_authority": {
+    "path": "/data2/neural-shrimp-data/codex/task2-independent-crosscheck/throughput-001",
+    "receipt_sha256": "02b8704da65722673d259f612266bab07e90a590a1951c517baa65d16927d860",
+    "batch": 128
+  },
+  "target": {
+    "period": 2,
+    "alpha": 0.083,
+    "active_parameter": "log10T",
+    "initial_parameter": -0.04624653570443442,
+    "bounds": [
+      -0.05,
+      -0.043
+    ],
+    "vector_key": "hostility-vs-kindness",
+    "seed_index": 0
+  },
+  "gates": {
+    "tolerances": {
+      "augmented": 1e-11,
+      "closure": 1e-10,
+      "primitive": 1e-06,
+      "critical": 1e-08,
+      "imaginary": 1e-10,
+      "complementary_limit": 0.95,
+      "isolation": 0.001,
+      "eigen_residual": 1e-08,
+      "dense_jvp_relative": 1e-10,
+      "composed_fd_relative": 1e-05,
+      "composed_fd_floor": 1e-07,
+      "composed_fd_reduction": 0.3,
+      "coefficient_floor": 1e-10,
+      "coefficient_fd_relative": 0.001
+    },
+    "parameter_fd_steps": [
+      7e-06,
+      2e-06,
+      7e-07
+    ],
+    "state_fd_steps": [
+      0.0003,
+      0.0001,
+      3e-05
+    ]
+  },
+  "basis": {
+    "current_profile_elapsed_seconds": 43.555500010959804,
+    "current_profile_peak_rss_kib": 5825380,
+    "current_profile_min_available_bytes": 26616954880,
+    "current_operation_seconds": {
+      "period-map": 0.7754793788772076,
+      "composed-jvp": 4.707839467795566,
+      "batched-composed-jvp": 5.329830808099359,
+      "parameter-ad": 2.7273465441539884,
+      "nested-state-ad": 16.682316053891554,
+      "critical-gradient-ad": 8.824896476930007
+    },
+    "batch16_linear_dense_seconds": 298.4705252535641,
+    "historical_batch128_peak_rss_kib": 6274700,
+    "historical_batch128_cpu_threads": 4,
+    "historical_map_source_sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "interpretation": "Current measured CPU2 graph and identical historical architecture justify a guarded batch128 attempt; historical CPU4 timings are not speed predictions or memory upper bounds. The1800s cap dominates worst-case line searches; retain incomplete evidence. Root accepted this resource envelope; source/launcher review, private push and Task6 relinquishment precede launch."
+  },
+  "scope": "fold_only_no_passages_rung2"
+}

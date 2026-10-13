@@ -45,12 +45,13 @@ def test_deadline_and_signal_guards():
     with pytest.raises(InterruptedError):L.guard(time.monotonic()+1,['SIGTERM'])
 
 
-def snapshot_fixture(tmp_path,monkeypatch):
-    a=args();repo=tmp_path/'repo';repo.mkdir();blobs={n:b'# tiny committed source\n' for n in L.WORKER_FILES}
+def snapshot_fixture(tmp_path,monkeypatch,*,fold=False):
+    a=args();a.plan='fold-001-plan.json' if fold else a.plan;spec=L.specification(a.plan)
+    repo=tmp_path/'repo';repo.mkdir();blobs={n:b'# tiny committed source\n' for n in spec['workers']}
     blobs[L.OWNERSHIP_FILE]=(REPO/L.OWNERSHIP_FILE).read_bytes()
     blobs['codex/hostile-fold-crosscheck/launch.py']=b'# tiny launcher\n'
-    blobs['codex/hostile-fold-crosscheck/profile-001-run-card.md']=b'fixed plan\n'
-    plan=dict(schema='codex-hostile-fold-profile-v1',envelope=dict(L.CAPS),source_sha256={n:L.hashlib.sha256(blobs[n]).hexdigest() for n in L.WORKER_FILES})
+    blobs['codex/hostile-fold-crosscheck/'+spec['card']]=b'fixed plan\n'
+    plan=dict(schema=spec['schema'],envelope=dict(spec['caps']),source_sha256={n:L.hashlib.sha256(blobs[n]).hexdigest() for n in spec['workers']})
     rel='codex/hostile-fold-crosscheck/'+a.plan;blobs[rel]=json.dumps(plan).encode();a.plan_sha256=L.hashlib.sha256(blobs[rel]).hexdigest()
     for n,b in blobs.items():p=repo/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
     def git(command,**kwargs):
@@ -98,12 +99,14 @@ def test_runtime_deadline_or_headroom_cleans_exact_owned_group(monkeypatch,low_m
         if identity is not None:L.close_worker(p,identity,O)
 
 
-def execute_fixture(tmp_path,monkeypatch,*,exit_code=0):
-    a=args();monkeypatch.setattr(L,'OWNED',tmp_path/'owned');monkeypatch.setattr(L,'available',lambda:40*L.GIB)
+def execute_fixture(tmp_path,monkeypatch,*,exit_code=0,fold=False,bad_status=False):
+    a=args();a.plan='fold-001-plan.json' if fold else a.plan;monkeypatch.setattr(L,'OWNED',tmp_path/'owned');monkeypatch.setattr(L,'available',lambda:40*L.GIB)
     parent=os.getpid();original=L.establish_limits
     monkeypatch.setattr(L,'establish_limits',lambda:original() if os.getpid()!=parent else None)
     worker='''import argparse,json,time,os,resource\nfrom pathlib import Path\np=argparse.ArgumentParser();p.add_argument('--plan');p.add_argument('--output');a=p.parse_args();out=Path(a.output);out.mkdir();time.sleep(.07)\n(out/'status.json').write_text(json.dumps(dict(status='resource_profile_completed',resource_probe_only=True,fold_qualified=False,certificate_passed=False)))\nprint('tiny complete',flush=True)\nraise SystemExit(EXIT)\n'''.replace('EXIT',str(exit_code))
-    blobs={L.OWNERSHIP_FILE:(REPO/L.OWNERSHIP_FILE).read_bytes(),'codex/hostile-fold-crosscheck/resource_pilot.py':worker.encode(),'codex/hostile-fold-crosscheck/'+a.plan:b'{}'}
+    if fold and not bad_status:
+        worker=worker.replace("dict(status='resource_profile_completed',resource_probe_only=True,fold_qualified=False,certificate_passed=False)", "dict(status='fold_qualified',resource_probe_only=False,passed=True,computational_completed=True,solver_history_complete=True,certificate_passed=False,passage_trajectories_evaluated=False)")
+    blobs={L.OWNERSHIP_FILE:(REPO/L.OWNERSHIP_FILE).read_bytes(),'codex/hostile-fold-crosscheck/'+L.specification(a.plan)['worker']:worker.encode(),'codex/hostile-fold-crosscheck/'+a.plan:b'{}'}
     monkeypatch.setattr(L,'snapshot',lambda *x:({},blobs,'a'*40))
     return a
 
@@ -129,3 +132,38 @@ def test_start_floor_refusal_preserved_before_snapshot(tmp_path,monkeypatch):
 def test_exclusive_attempt_not_reused(tmp_path,monkeypatch):
     a=execute_fixture(tmp_path,monkeypatch);(L.OWNED/a.attempt).mkdir(parents=True)
     with pytest.raises(FileExistsError):L.execute(a)
+
+
+def test_fold_plan_has_only_frozen_resource_and_import_extension(tmp_path,monkeypatch):
+    a,repo,blobs,plan=snapshot_fixture(tmp_path,monkeypatch,fold=True)
+    spec=L.specification(a.plan)
+    assert spec['caps']==dict(L.CAPS,timeout_seconds=1800)
+    assert len(spec['workers'])==7 and not spec['resource_probe_only']
+    actual,captured,remote=L.snapshot(repo,a,time.monotonic()+10,[])
+    assert actual==plan and captured==blobs and remote==a.source
+
+@pytest.mark.parametrize('change',[dict(timeout_seconds=300),dict(timeout_seconds=1800.0),dict(cpu_threads=True),dict(minimum_runtime_available_gib=12)])
+def test_fold_wrong_resource_envelope_refused(tmp_path,monkeypatch,change):
+    a,repo,blobs,plan=snapshot_fixture(tmp_path,monkeypatch,fold=True);plan['envelope'].update(change)
+    p=repo/'codex/hostile-fold-crosscheck'/a.plan;p.write_text(json.dumps(plan));a.plan_sha256=L.sha(p)
+    with pytest.raises(ValueError,match='plan required'):L.snapshot(repo,a,time.monotonic()+10,[])
+
+
+def test_fold_cannot_omit_runtime_source(tmp_path,monkeypatch):
+    a,repo,blobs,plan=snapshot_fixture(tmp_path,monkeypatch,fold=True)
+    del plan['source_sha256']['codex/hostile-fold-crosscheck/fold_runtime.py']
+    p=repo/'codex/hostile-fold-crosscheck'/a.plan;p.write_text(json.dumps(plan));a.plan_sha256=L.sha(p)
+    with pytest.raises(ValueError,match='inventory'):L.snapshot(repo,a,time.monotonic()+10,[])
+
+
+def test_fold_success_remains_numerical_not_certificate(tmp_path,monkeypatch):
+    a=execute_fixture(tmp_path,monkeypatch,fold=True);assert L.execute(a)==0
+    p=L.OWNED/a.attempt;r=json.loads((p/'receipt.json').read_text());m=json.loads((p/'manifest.json').read_text())
+    assert r['status']=='fold_attempt_completed' and r['scientific_fold_result'] and not r['resource_probe_only'] and not r['certificate_passed']
+    assert r['resource_envelope']['timeout_seconds']==1800 and m['command'][4].endswith('/fold_runtime.py')
+
+@pytest.mark.parametrize('code,bad_status',[(2,False),(0,True)])
+def test_fold_failed_gate_or_profile_status_never_passes(tmp_path,monkeypatch,code,bad_status):
+    a=execute_fixture(tmp_path,monkeypatch,fold=True,exit_code=code,bad_status=bad_status);assert L.execute(a)==1
+    r=json.loads((L.OWNED/a.attempt/'receipt.json').read_text())
+    assert r['status']=='fold_attempt_failed' and not r['scientific_fold_result'] and r['worker_termination_verified']
