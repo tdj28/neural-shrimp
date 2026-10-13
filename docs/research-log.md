@@ -21757,3 +21757,9 @@ _commit `983b8beb745c`_
 - **Would surprise us:** no accuracy change up to 1.20 (generation as tolerant as scoring), or a loss already at 1.05
 
 _commit `983b8beb745c` (dirty worktree)_
+
+## 2026-10-13 10:42 UTC: Hostile spiral hub (run V3): the insult 2-cycle has a Neimark-Sacker bifurcation in the spiral region (log10 T about 0.1656 at alpha 0.062); fold of the 2-cycle at alpha 0.0554; flips of the insult fixed point at alpha 0.041 and 0.079
+
+Run V3 (pod m3j3ycoxrea2d8, commit f77fa780; results retrieved and hash-verified at 08:06 UTC, termination requested; the orchestrator then crashed on a DNS error before its final record, and the pod was verified gone with runpod_pod.py status at 10:45 UTC). Float64 branches (hostility-vs-kindness): (1) P2 'insult insult' from (alpha 0.062, log10 T 0.170) down in temperature: complex pair (Neimark-Sacker) crossing between log10 T 0.16603 and 0.16519 (crossing multiplier modulus 1.0175 at 0.124 turns per step of the period-2 orbit); the pair's modulus rises from 0.858 at 0.170 to 1.04 at 0.1643 and 1.80 at 0.120, its argument from 0.105 to 0.19 turns. (2) Same orbit down in alpha: a fold (real +1, crossing multiplier 1.0000) at alpha 0.05539, where the complex pair is 0.944 at 0.126 turns. (3) Up in alpha: stable to the bound 0.09 (leading real 0.61-0.85). (4) Up in temperature: CRASHED (OverflowError: the continuation stepped to an enormous log10 T before the bounds check; retained, tool robustness fix needed). (5) The P1 insult fixed point from (0.070, 0.220): real -1 (flip) crossings at alpha 0.0787-0.0792 (up) and 0.0403-0.0412 (down), so the 2-cycle is flip-born on both sides. Reading: the spiral arms sit near a Neimark-Sacker curve of the insult 2-cycle, consistent with Arnold tongues; not yet shown: the NS curve in the plane, its rotation numbers and the tongue tips matching the arms' periods (7, 8, ...).
+
+_commit `849a91dcdc66`_
