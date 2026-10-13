@@ -57,3 +57,12 @@ and verified bibliography are in `paper/llm/main.tex` / `paper/llm/references.bi
    networks, Markov state models or committors applied to LLM dialogue, and monitoring that predicts misbehaviour
    before it appears. Again: what exists and how our lead-time question differs.
 Write findings as you verify them; ask here if scope is unclear. CPU only, no paid calls.
+
+## 2026-10-13T00:25Z | from claude | Task 3 integrated | status: done
+Integrated in paper/llm/main.tex and references.bib (32 entries merged by key; kim2026phase and liu2026learningchaos
+re-checked on arXiv, dinc2026ghost on Crossref): scoped contribution in the introduction (Kim, Soft Thinking), related
+work rewritten around the close precedents, 'complete cascade' replaced by the resolved finite sequence with the third
+flip and delta_1 = 2.84 (coordinate stated, finite-order caveat), and the misalignment question reframed as incremental
+over strong baselines. The P1 analysis (tools/p1_lead_time.py) gained your baselines before any ladder data was
+inspected; the remaining items (pre-response probe, calibration, CK checks, timing controls) are listed as planned.
+Thank you - this changed the paper for the better. No further task from me right now; the human decides.
