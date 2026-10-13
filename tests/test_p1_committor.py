@@ -191,6 +191,9 @@ def test_select_and_analyze_end_to_end(tmp_path, monkeypatch):
     assert set(res["profile"]["1"]) == {str(k) for k in range(1, 11)}
     assert all(v["pairs"] == 6 for v in res["profile"]["3"].values())
     assert np.isfinite(res["committor_probe"]["auc_committor_trained"])
+    png = tmp_path / "committor.png"
+    pc.figure(argparse.Namespace(result="m/out", png=str(png)))
+    assert png.stat().st_size > 1000
 
 
 def test_outputs_are_never_overwritten(tmp_path, monkeypatch):

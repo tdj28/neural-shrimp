@@ -457,6 +457,47 @@ def rescore(root, folder, n, threads, rng):
             "max_abs_difference": float(np.max(np.abs(new - old))), "hostile_share": float(np.mean(old > 0.5))}
 
 
+def figure(args):
+    """Two panels from committor.json: AUCs per horizon (baseline, in-context detector, committor ceiling at K and
+    extrapolated) and the committor before onset against turn-matched controls."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    root = data_root()
+    res = json.loads((root / "explore" / args.result / "committor.json").read_text())
+    fig, (a, b) = plt.subplots(1, 2, figsize=(9.5, 3.6))
+    hs = sorted(res["ceiling"], key=int)
+    x = np.array([int(h) for h in hs])
+    for key, label, off, mk in (("baseline", "baselines", -0.15, "s"), ("with_state", "with in-context state", -0.05, "o"),
+                                ("K", "committor (K = 32)", 0.05, "^"), ("inf", "committor (K extrapolated)", 0.15, "v")):
+        ci_key = {"baseline": "baseline", "with_state": "with_state", "K": "ceiling_K", "inf": "ceiling_inf"}[key]
+        y = np.array([res["ceiling"][h][key] for h in hs])
+        lo = np.array([res["ceiling"][h]["ci95"][ci_key][0] for h in hs])
+        hi = np.array([res["ceiling"][h]["ci95"][ci_key][1] for h in hs])
+        a.errorbar(x + off, y, yerr=[y - lo, hi - y], fmt=mk, capsize=3, label=label)
+    a.axhline(0.5, color="0.7", lw=0.8)
+    a.set_xticks(x)
+    a.set_xlabel("horizon h (turns)")
+    a.set_ylabel("AUC for capture within h turns")
+    a.legend(fontsize=7, loc="lower right")
+    for h, ls in (("1", "-"), (hs[-1], "--")):
+        prof = res["profile"][h]
+        ks = sorted(prof, key=int)
+        k = np.array([int(v) for v in ks])
+        cap = np.array([prof[v]["captured"] for v in ks])
+        con = np.array([prof[v]["control"] for v in ks])
+        b.plot(-k, cap, ls, marker="o", ms=3, color="C3", label=f"captured later, q_{h}")
+        b.plot(-k, con, ls, marker="o", ms=3, color="C0", label=f"never captured, q_{h}")
+    b.set_xlabel("turns before capture (controls: same turn)")
+    b.set_ylabel("committor")
+    b.legend(fontsize=7)
+    fig.tight_layout()
+    fig.savefig(args.png, dpi=200)
+    print(args.png)
+
+
 def spearman(a, b):
     from scipy.stats import spearmanr
 
@@ -496,8 +537,11 @@ def main():
     an.add_argument("--threads", type=int, default=4)
     an.add_argument("--seed", type=int, default=0)
     an.add_argument("--out", required=True)
+    fi = sub.add_parser("figure")
+    fi.add_argument("--result", required=True, help="folder of committor.json")
+    fi.add_argument("--png", required=True)
     args = parser.parse_args()
-    {"select": select, "rollout": rollout, "analyze": analyze}[args.cmd](args)
+    {"select": select, "rollout": rollout, "analyze": analyze, "figure": figure}[args.cmd](args)
 
 
 if __name__ == "__main__":
