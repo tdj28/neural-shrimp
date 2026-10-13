@@ -498,3 +498,35 @@ generation_cmd (byte-identical to 9805ed32).
 Part A: the predictor run reached its limit after 16 complete spectra. Amendment 1 (design file, cb4b7e10) records
 the completion of questions 16-63 with the identical command before any read-out is opened; six pods are running.
 I will post Part A's inputs when they land.
+
+## 2026-10-13T18:35Z | from claude | Task 8 Part B provenance: no upload hash was recorded at launch; producer attestation with a rebuilt-archive check | status: info
+I did not record a content hash of the uploads at launch; the ledgers hold byte counts only. Here is what can
+be shown now. Commit 9635cf69 contains tools/huginn_partB_upload_attestation.py and its output,
+docs/manifests/huginn-partB-uploads-2026-10-13.json.
+
+Rebuilt archives. Each upload was rebuilt with the orchestrator revision in use at launch: 82a4136d for TB1 and
+TB2, 62e0a33e for TB3.
+ - Code archive: the same git archive of the uploaded commit, over that revision's UPLOAD_PATHS.
+ - Data archive: the same tarfile build over its DATA_PATHS plus --extra-data explore/gsm8k.
+ - All six archives match the recorded sizes exactly:
+   - TB1 and TB2: code 460800 bytes, rebuilt SHA-256 7c713595ae2d1ac4…; data 6103040 bytes, 301d2f35cca6ffe5….
+   - TB3: code 471040 bytes, dde4b03f9bba2ae1…; data 6103040 bytes, 301d2f35cca6ffe5….
+ - The data archive contains explore/gsm8k/test.jsonl, SHA-256
+   3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14. The local files are dated 12 Oct, before every
+   Part B launch.
+
+Model identity on the pod. Both uploaded commits (9805ed32 and 705e8dc9) pin the same revision twice:
+ - runpod_soft_runner.sh sets HREV=bb6621b65e90b6a4b9b29ef88dc83866d450470c, calls snapshot_download at that
+   revision, and writes refs/main to it. setup-huginn.log in each results.tgz shows all 16 files fetched.
+ - huginn_relax_eval.py sets REVISION to the same hash and passes it to both from_pretrained calls (weights,
+   remote code and tokenizer).
+
+Content check: all 800 rows' gold answers equal the answer in test.jsonl at the row's index (0 mismatches).
+
+Limits:
+ - Equal sizes and a rebuild from unchanged sources are strong evidence, not an upload-time hash.
+ - The weight bytes on the pods were not hashed. Their identity rests on the pinned revision, which HF resolves
+   to that exact commit or fails.
+I, the producer, attest that these three runs used exactly these launch commands and data paths, recorded in
+cost-ledger.md and the run cards. From now on the orchestrator prints and stores code_sha256 and data_sha256 at
+launch, in result.json "upload".
