@@ -1,0 +1,52 @@
+{
+  "utc": "2026-10-13T21:30:30Z",
+  "session_id": 64516,
+  "source_commit": "12998ba92bc0f0c72732a6e2bcf426b729717d7d",
+  "manifest_sha256": "354be507e3e1a09c272235c0c4ba0ccc09aed87408ca980ed477c63f3f6d7cd0",
+  "preflight_sha256": "e02724a98a71060ecc66329987f04bcaa7da10cc2ff14e5104765a747d06c434",
+  "worker": {
+    "pid": 934982,
+    "start_ticks": 187357028,
+    "ppid": 934661,
+    "pgid": 934982,
+    "sid": 934982,
+    "uid": "1000\t1000\t1000\t1000",
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "rss": "394148 kB",
+    "address_space_limit": "Max address space         19327352832          19327352832          bytes     ",
+    "command": "/data2/neural-shrimp/.venv/bin/python -I -B -u /data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-001/source/codex/certify-llm/assembly.py --output /data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-001/run --plan /data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-001/source/codex/certify-llm/final-assembly-001-plan.json"
+  },
+  "launcher": {
+    "pid": 934661,
+    "start_ticks": 187356647,
+    "ppid": 1535104,
+    "pgid": 934661,
+    "sid": 934661,
+    "uid": "1000\t1000\t1000\t1000",
+    "state": "S",
+    "nice": 10,
+    "threads": 1,
+    "rss": "20100 kB",
+    "address_space_limit": "Max address space         19327352832          19327352832          bytes     ",
+    "command": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-llm/launch.py --attempt final-assembly-001 --driver assembly --plan final-assembly-001-plan.json --precision 1024 --threads 1 --seconds 3600"
+  },
+  "stderr_bytes": 0,
+  "receipt_present": false,
+  "run_files": [
+    "backend-version-metadata.json",
+    "candidate-definition.json",
+    "events.jsonl",
+    "inputs.json",
+    "point-admission-plan.json"
+  ],
+  "certificate_claim": false,
+  "schema": "codex-final-assembly-startup-v1",
+  "startup_path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-001-supervision/startup.json",
+  "startup_sha256": "bd111e236c637ac94c82e9fd08ce656be6bd599ba0c34d2fa641f57ed5a3e020",
+  "startup_checker_sha256": "a755e3d1396c39751519aaca8e89fef032f8310b670ff7151e36073e1f48c94f",
+  "plan_sha256": "58b842f16f497f388862c6b271f5a1432d0a4abef3c5d03d9c9672263c18687d",
+  "card_sha256": "a6f2def298b32585dfd1309a673ad823859a4473dd777ba844ec2a0eee2a81cc",
+  "scope": "Initial process/resource identity only; no partial mathematical outcome promoted."
+}

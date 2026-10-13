@@ -50,6 +50,8 @@ Amended predictor generation order, producer no-opening attestation, summary
 exposure and missing historical asset-byte proofs remain disclosed. No retuning.
 
 Task1 has112 operationally admitted derivative blocks; mathematical assembly
-is approved for one bounded CPU1/nice10/18GiB/3600s attempt after its exact
-private checkpoint/fresh admission. No certificate yet. Optional Task14 endpoints
+is running its one approved CPU1/nice10/18GiB/3600s attempt from source12998ba9,
+session64516, worker934982; its captured source and initial limits are verified. No certificate yet. Optional Task14 endpoints
 remain unlaunched pending a measured card and shared-resource review.
+
+Part A standalone delivery private commit7f73d9458126933d32f67663f7f3b45b4f4ba944.

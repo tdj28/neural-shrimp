@@ -1,26 +1,40 @@
-# Current phase — 2026-10-13 21:20UTC:112 derivative blocks operationally admitted; assembly preparation
+# Current phase — 2026-10-13 21:30UTC: final assembly001 running; all derivative workers closed
 
-**Owner: inference.** Campaign003 completed and original session60449 reaped0.
-All112 canonical block receipts,33,425 artifacts and31,969 captured Git source
-files passed the existing operational inventory/source audit1b3dfa13 in17.525s.
-Original recorded births/groups/sessions are absent. No live campaign/model job.
-Exact sources/receipts and independent first-shard closure remain immutable;
-see certificates/llm-p8-final-derivative-112.json. Full mathematical receiver/
-derivative admission and root/primitive/attraction gates remain pending. No
-certificate exists yet. Prepared final-assembly-001 plan58b842f1/card a6f2def2
-has Root final acceptance and34 independent pin checks; awaiting private checkpoint and fresh resource admission; same
-reviewed CPU1/nice10/18GiB/3600s. Frozen execution checkout is not modified.
+**Sole lifecycle/Git owner: inference.** One approved conditional final assembly
+runs from source12998ba92bc0f0c72732a6e2bcf426b729717d7d, exact plan58b842f1/card
+a6f2def2, captured by the unchanged launcher0dc5bf5a. Tool session64516;
+launcher934661/start187356647 and worker934982/start187357028. Worker PGID/SID
+934982; both UID1000/nice10/one OS thread/18GiB AS. Startup21:30:30 checks pass,
+stderr empty then, no completed receipt. Hard3600s plus existing owned cleanup;
+no retry or extension. Raw: /data2/neural-shrimp-data/codex/llm-p8-certificate/
+final-assembly-001. Preflight/startup are in sibling final-assembly-001-supervision;
+compact certificates/llm-p8-final-assembly-001-startup.json binds exact identities.
+The fresh preflight had59,587,514,368B available RAM and2.79TB free disk.
+Reserve two CPU slots (one worker+launcher),18GiB AS and4GiB output storage;
+that storage reservation is not a new watchdog. No GPU/pod/paid resources.
 
-Task8 PartA sole replay completed/reaped0 in1.073s; all280 comparison leaves pass
-1e-12 with two+1.11e-16 differences retained. Original24-artifact receipt59e35ac6
-is sealed; Boundary's executed187da94d/reportd3d5132d review and Root final acceptance pass. Separate final review preserves the original receipt; no retry or open job.
-Task8 PartB and Tasks6/7/L9/11/13 are complete. Task14 profile is closed and row13
-matrix reuse accepted; endpoint source accepted but actual launch deferred until
-Task1/PartA finish and its measured card is accepted. No paid/GPU/pod work.
+All112 derivative blocks are operationally admitted, not yet mathematically
+admitted. Campaign003/session60449 reaped0 and all original groups closed;
+report1b3dfa13/manifest a0e72ba5 binds33,425 artifacts and31,969 captured source
+files/721 distinct Git blobs. Exact receiver/image/derivative admission, frozen
+root/primitive/attraction gates and separate independent witness audit remain.
+No certificate exists yet. Do not restart the closed campaign or change its
+historical frozen execution checkout. Current assembly uses its captured snapshot.
 
-Automation complete-qwen-p8-certificate should resume this completion phase,
-never restart former campaign/worker IDs. Historical status follows unchanged
-except where separately dated; it is not a declaration of live ownership.
+Task8 PartsA/B are complete and independently accepted. PartA original receipt
+59e35ac6 is immutable; separate final-review220b4cd9/archive7e345e40 binds actual
+review187da94d/reportd3d5132d. All280 leaves pass1e-12 with two rounding deltas and
+13 partial ARPACK flags retained. Evidence checkpoint3127deff integrated12998ba9;
+standalone Claude delivery7f73d9458126933d32f67663f7f3b45b4f4ba944. No Task8 job.
+Tasks6/7/L9/11/13 also complete. Task14 profile is closed and row13 matrix reuse
+accepted; new endpoint sources are accepted. Measured endpoint plan preparation
+may proceed, but launch still requires concrete shared-resource/card acceptance
+and must not obstruct Task1 evidence/witness work. No endpoint job is running.
+
+Automation complete-qwen-p8-certificate continues at30-minute quiet cadence.
+Next useful assembly rejoin is about21:50UTC or any completed/failure event;
+read existing ownership before action, never duplicate. Historical sections below
+are dated history, not current live ownership declarations.
 
 ---
 
