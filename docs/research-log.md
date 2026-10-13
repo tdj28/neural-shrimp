@@ -20710,3 +20710,9 @@ _commit `5e6dfe27a06a` (dirty worktree)_
 Codex's Task 3 (docs/related-work-draft.md, codex/literature/) found that activation-based forecasting of LLM response behaviour already exists (Ashok and May 2025; persona vectors; the Assistant Axis), that adaptive timing of counter-steering gave no consistent advantage in one persona setting (Leins et al. 2026), and that committors have been applied to masked-diffusion decoding (Zhou et al. 2026). So P1's question is incremental: does a dynamical estimate add several-turn warning over strong baselines seeing the same turns? tools/p1_lead_time.py now adds the classifier's change since the previous turn, its running maximum, the turn index and the projection on the fixed steering axis, and fits two logistic models per horizon on training dialogues (baseline features; baseline plus forecast, probe, variance, autocorrelation); the reported incremental AUC is the test-set difference, with a dialogue-level bootstrap interval. Commit before the L1 ladder data was retrieved or inspected (no P1 ladder outcome seen). Still open from the audit for the confirmatory version: a pre-response activation probe, calibration and precision at fixed false-warning rates, Chapman-Kolmogorov checks of the Markov model, and intervention timing against scheduled and constant controls at matched cost.
 
 _commit `fc570939cda5` (dirty worktree)_
+
+## 2026-10-13 00:03 UTC: Correction to the previous note (P1 analysis timing)
+
+The previous note says the analysis commit fc570939 came before the L1 ladder data was 'retrieved or inspected'. Accurate statement: the orchestrator retrieved and extracted the L1 results automatically at 00:00:25 UTC (run started 23:47:12, wall 793 s); the analysis commit is from 00:02:28 UTC. No L1 output had been opened, scored or summarized before that commit.
+
+_commit `796d44537e59`_

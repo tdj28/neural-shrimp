@@ -105,7 +105,7 @@ def score(args):
     src = esl.DATA / "explore" / args.sample
     texts = json.loads((src / "sample.json").read_text())["texts"]
     R, T = len(texts), len(texts[0])
-    clf = Classifier(args.threads)
+    clf = Classifier(args.threads, args.device)
     flat = [x for turns in texts for x in turns]
     probs = clf(flat).reshape(R, T, len(LABELS))
     lex = np.array([lexicon_fraction(x) for x in flat]).reshape(R, T)
@@ -140,6 +140,7 @@ def main():
     sc.add_argument("--sample", required=True)
     sc.add_argument("--threads", type=int, default=4)
     sc.add_argument("--threshold", type=float, default=0.5)
+    sc.add_argument("--device", default="cpu")
     sc.add_argument("--label", default="toxic", choices=LABELS,
                     help="classifier output that defines a hostile turn (toxic: 0.95 on the hostile prompt set, at most "
                          "0.002 on the kind and neutral sets; insult misses one hostile prompt)")
