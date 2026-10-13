@@ -425,7 +425,11 @@ for sid in ('Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_faithf
     SW="saelens:$SAED/seonglae/Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_fineweb_512"
     TOOL=llm_sae_readout.py run llama-sae-validate 20 validate --model llama3.1-8b --device cuda --sae $GF \
       --sae $SF --sae $SW --out $LDIR/sae-validate
-    if [ "$part" != v ]; then                     # PART v: the hook-point check only
+    if [ "$part" = p ]; then                      # PART p: feature profiles on held-out category texts
+      TOOL=llm_sae_readout.py run llama-sae-profile 20 profile --model llama3.1-8b --device cuda --sae $GF \
+        --sae $SF --sae $SW --out $LDIR/sae-profile
+    fi
+    if [ "$part" = a ] || [ "$part" = b ]; then   # PART v / p: no maps
       lvec=llm-phase-map/vectors-llama3.1-8b-l16
       TOOL=explore_llm_phase_map.py run llama-vectors 30 vectors --model llama3.1-8b --layer 16 --device cuda \
         --dtype float64 --contrasts hostility:kindness --random 3 --out $lvec
