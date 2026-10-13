@@ -46,6 +46,8 @@ TARGETS = {
 OWNED_OUTPUT = Path("/data2/neural-shrimp-data/codex/task5-fresh-prediction")
 # Pre-outcome amendment: avoid every frozen passage epsilon at the midpoint.
 PARAMETER_FD_STEPS = (7e-6, 2e-6, 7e-7)
+# Pre-outcome B-01 truncation error: refine the displacement, retain every gate.
+STATE_FD_STEPS = {"A": (1e-3, 3e-4, 1e-4), "B": (1e-4, 3e-5, 1e-5)}
 
 
 def tensor(value):
@@ -348,6 +350,7 @@ def prepare_fold(model, seed, target, *, parameter=None, bounds=None, chunk=32, 
     result = dict(schema="codex-task5-fold-setup-v1", passed=False, target=asdict(target),
                   active_parameter_units=target.coordinate, parameter_bounds=ops.bounds, solver=solver,
                   resumed_corrector=saved_solver is not None, parameter_fd_steps=PARAMETER_FD_STEPS,
+                  state_fd_steps=STATE_FD_STEPS[target.label],
                   evidence="rung2 numerical setup; no interval certificate; no test passages",
                   tolerances=dict(closure=closure_tol, primitive=primitive_tol, complementary_limit=complementary_limit,
                                   derivative_rtol=derivative_rtol, coefficient_floor=coefficient_floor))
@@ -386,7 +389,7 @@ def prepare_fold(model, seed, target, *, parameter=None, bounds=None, chunk=32, 
     for h in PARAMETER_FD_STEPS:
         fd = (ops.period_map(x,p+h)-ops.period_map(x,p-h))/(2*h)
         atable.append(dict(h=h, a=float(l @ fd), vector_relative_error=float(np.linalg.norm(fd-gp)/max(np.linalg.norm(gp),1e-30))))
-    for relative_h in (1e-3,3e-4,1e-4):
+    for relative_h in STATE_FD_STEPS[target.label]:
         h = relative_h*scale
         alpha,t = ops.coordinates(p)
         def action(state):
@@ -521,6 +524,7 @@ def main():
             seed=load_seed(args.seed,key=args.seed_key,index=args.seed_index)
         metadata=dict(args=vars(args),target=asdict(target),seed_sha256=sha256(args.seed) if args.seed else None,
                       resume=resume_provenance,parameter_fd_steps=PARAMETER_FD_STEPS,
+                      state_fd_steps=STATE_FD_STEPS[target.label],
                       source_commit=source_commit_from_environment(),
                       source_sha256=sha256(__file__),pinned_assets=PINNED_SHA256,prefix_ids=PREFIX_IDS,
                       torch_version=torch.__version__,numpy_version=np.__version__,pid=os.getpid(),

@@ -31,7 +31,11 @@ quietly replaced. These are numerical validations, not interval certificates.
 Parameter finite-difference checks use (7e-6, 2e-6, 7e-7), disjoint from
 the four passage offsets. The pre-outcome research-log amendment preserves
 interrupted attempts and resumes hash-bound correctors while repeating all
-qualification gates. The scalar-only [arctangent audit](arctangent-scope.md)
+qualification gates. A retains its state-displacement ladder (1e-3, 3e-4, 1e-4).
+B qualification-01 failed state/composed derivative gates with quadratic truncation
+error; the retained pre-outcome amendment uses (1e-4, 3e-5, 1e-5) for B only,
+with every acceptance threshold unchanged. All state probes remain at the fold
+parameter, outside the positive-epsilon passage outcomes. The scalar-only [arctangent audit](arctangent-scope.md)
 records why primary and secondary one-iterate criteria cannot both succeed
 for every entrance, before any full-model passage is observed.
 

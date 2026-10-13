@@ -5,7 +5,7 @@ Date: 13 October 2026 UTC. Scope: manually inspect the independent setup artifac
 ## Current disposition
 
 - **Target A: PASS for freezing a passage prediction**, using `qualification-A-01/run/setup.json`.
-- **Target B: pending**, with no complete setup artifact inspected yet. No approval for B is implied by A's result.
+- **Target B: NOT QUALIFIED on `qualification-B-01`**. Its fold/orbit gates pass, but its state-derivative FD and composed-map precision gates fail. A pre-outcome B-only refinement of the displacement ladder is justified below; `qualification-B-02` must pass independently before any B approval.
 - The prospective passage forecasts themselves remain untested. Setup qualification establishes that the proposed fold and local coefficients meet the numerical prerequisites; it does not establish forecast accuracy.
 
 All paths below are relative to `/data2/neural-shrimp-data/codex/task5-fresh-prediction/`.
@@ -80,6 +80,54 @@ The original artifact inventory contains no `second-ad-*` stage. In the original
 | `qualification-A-01/run/status.json` | `2c7e3a23b0557422371c86e05c7ace45cf28949186ccc87f614fa5bd02572253` |
 | `qualification-A-01/run/inputs.json` | `ac42d8808c82212cb576c400ba44309aaa7b28ca95833c5c99a3cc3079d852ef` |
 
-## Target B
+## Target B: fold accepted, first derivative qualification failed
 
-Pending completion and row-by-row review of its independent fold/corrector, disjoint qualification derivatives and preserved interruption provenance. No B setup or passage claim is accepted yet.
+The original `setup-B-01` solve used source commit `7fda7ac18d4b0afcd912543432b4a2479d41d64d`. At fixed physical alpha = **0.0717**, the active parameter is **log10(T)** and G = F⁸. The corrected parameter is **−0.1033462421844031**. A single undamped correction reduced the augmented residual from 1.71222076581266e−7 to **5.302028987296867e−12**, with linear relative residual 2.0969525346247531e−16. The final orbit relative residual was **4.396019119164493e−13**.
+
+The 896×896 saved-matrix eigensolve gives **1.0000000000052838 + 0i**, angle zero, and next modulus **1.1075749560650417e−6**. Right and relative left residuals against exact +1 are 5.283814405574861e−12 and 5.284198518836221e−12. The saved modes have unit right norm, pairing one and left norm 8.207774615213541. Thus the numerical real +1, isolation and attracting-complement gates pass.
+
+The saved nine full phase points reproduce proper-divisor returns **2.1159121613872816**, **1.4850797386890862**, **1.4482546019973817** for periods 1, 2, 4 and full P8 closure **4.3960191339005917e−13**. The independently evaluated per-phase closures reported by the worker are all below 8.14e−13. All are below the unchanged closure threshold 1e−10; the primitive threshold is 1e−6.
+
+### Preserved interruption and resumed provenance
+
+The guard stopped the original owned B worker at **2026-10-13T01:53:32.230440+00:00**, after saving its converged corrector. The receipt retains **exit code −15** and all **30** artifact hashes/sizes check. There is no original `second-ad-*` artifact; the captured source orders the parameter FD loop after the persisted second-AD stage. The guard and retained inventory support that the old overlapping parameter-FD offsets were not executed.
+
+`qualification-B-01`, from source commit **213fb7463bc54a9c071a237e2561bce829aeaf5c**, resumed the identical corrector binary. All original worker, independent graph, input-manifest and checkpoint hashes in the resume chain were checked. Its final receipt has **exit code 2**, and all **32** listed artifact hashes/sizes check. Failure remains a recorded outcome of setup, never a silently discarded run.
+
+### Failed qualification, inspected row by row
+
+Contractions of the saved derivative vectors reproduce raw **a = −11.89977885013483 per unit log10(T)** and **b = −152.05451694889547**, with **ab = 1809.4151248559342**. These are numerical coefficient estimates, not yet qualified for freezing under the declared derivative gates. The candidate positive orientation would have ghost side log10(T) = p_c + epsilon and U = 0.0006576588581949812.
+
+| Parameter h | FD a | Relative scalar coefficient error |
+|---:|---:|---:|
+| 7e−6 | −11.900011873004317 | 1.958211765294297e−5 |
+| 2e−6 | −11.899797873701713 | 1.598648775168747e−6 |
+| 7e−7 | −11.899781083080834 | 1.8764600857048613e−7 |
+
+Both finest parameter rows pass the existing 1e−3 relative agreement gate, with the AD sign preserved.
+
+| Actual state displacement h | FD b | Relative coefficient error | Composed-map derivative relative error |
+|---:|---:|---:|---:|
+| 1e−3 | −156.30683543323804 | 0.02796574919094145 | 0.020343552468709315 |
+| 3e−4 | −152.43024990235338 | 0.0024710410515735894 | 0.0018050521181906167 |
+| 1e−4 | −152.09619802020646 | 0.0002741192576672903 | 0.000200312289435309 |
+
+The state-AD/FD gate requires **each** of the two finest rows to agree within 1e−3. The 3e−4 row fails. The finest composed-map derivative error is also greater than the unchanged 1e−5 threshold. Consequently, `state_ad_fd = false`, `composed_precision = false`, `passed = false`, and stage is `derivative-gates-failed`. All other gates pass. The failure reflects finite-difference truncation on this ladder; it does not by itself refute the fold or the passage mechanism.
+
+### Reviewed pre-outcome amendment for B only
+
+Before freezing or observing any passage, refine B's state-displacement ladder to **(1e−4, 3e−5, 1e−5)**, keeping the same corrected state, parameter-FD ladder, AD coefficients' definitions and all acceptance thresholds. A's accepted qualification is unchanged. The old B qualification remains immutable and cited.
+
+The observed quadratic decay of both errors motivates this numerical refinement: extrapolation suggests a composed-map error near 2e−6 at h = 1e−5 and relative b errors near 2.47e−5 and 2.74e−6 at the finest two new displacements. These are planning estimates, not observations or gate approvals. The state probes remain at p = p_c, while prospective passage trajectories use positive epsilon on the ghost side; the amendment introduces no passage outcomes. **`qualification-B-02` requires its own row-by-row audit before B is accepted.**
+
+### B artifact bindings
+
+| Artifact | SHA256 |
+|---|---|
+| `setup-B-01/run/corrector-001.json` | `67843de0babc02e7b2b887b83a52a375cef777f464d559409604ef744f053d00` |
+| `setup-B-01/run/corrector-001.npz` | `9fa46f2e284f59945970a581322de2176aa5362cb9d8f9c4e46fd661071af4a1` |
+| `setup-B-01/preoutcome-interruption.json` | `33dc3b868f0d9433d3c41cc48268c8a335a3793f8399d2401f78aff5ab083b99` |
+| `qualification-B-01/run/setup.json` | `4fbfdd66b4d4eb4fc31bb4fd0298ec146c0b5d53ccb54e7f67e6a0fb36b92692` |
+| `qualification-B-01/run/setup.npz` | `d3bccdc48595c2d41206db8147b42c3cf668a9c977ac399063b036b1794da48e` |
+| `qualification-B-01/run/status.json` | `f73b163d40ddef9380be5a6566d292f3c54d0550a366f7d7cd422abb89b1a492` |
+| `qualification-B-01/run/inputs.json` | `016e9d08f1c2e4a29b2bc1a0cabcba8ac4f24d90e231860ee83a208f7ef59438` |
