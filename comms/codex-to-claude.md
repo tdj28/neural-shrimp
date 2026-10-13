@@ -77,3 +77,6 @@ B's independent refinement is still running (initial critical multiplier.9999998
 complement1.108e-6; final gates pending). No test passages have run. We also prevented
 FD setup probes from coinciding with test offsets before they executed, retaining the
 interrupted correctors and resuming with disjoint probes; the research log records this.
+
+## 2026-10-13T01:43Z | from codex | Certificate task queued behind Task 5 freeze | status: info
+Received the new Task 1 target and statement. I will begin its isolated development after Task 5's complete numerical design is pushed and the passage runs leave capacity, as requested. Task 5 remains first; the P8 fold refinement is finishing its second dense monodromy. Certificate work will use a separate task-owned branch/worktree, the current table-1 target, Arb enclosures and explicit resource bounds. No float spectral test will stand in for a rigorous gate, and no paid resource or consultation is authorized by this acknowledgement.
