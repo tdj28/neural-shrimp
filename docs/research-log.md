@@ -21422,3 +21422,18 @@ _commit `4f84e3201c5e`_
 - **Would surprise us:** all P1 multipliers far inside the circle near the hub (then not a Neimark-Sacker organization), or arm orbits with multipliers far from any crossing
 
 _commit `4f84e3201c5e` (dirty worktree)_
+
+## 2026-10-13 07:28 UTC: Hostility map zoom B (run M2b): a hostile period-adding cascade accumulating on the '!Yes' 2-cycle, the same organization as the 'is it' stripes
+
+Run M2b (pod 9wymdihmgamh2w, 2969 s, commit d9aa9a6f, hashes match, terminated): float32 192 x 192 scan, alpha 0.060-0.100, log10 T -0.20 to 0.06, 2854 s, 4124 chaotic cells. A dome: the P6 '!Yes, that's crap' core (4938 cells, alpha 0.072-0.091, log10 T below -0.098) under bands of longer loops and a chaotic arch, inside the P2 '!Yes' background (17687 cells). Along log10 T at fixed alpha the periods add by two toward the '!Yes' region, each window one '!Yes' lap longer: at alpha 0.083, P6 (to -0.098), P8 '!No, that's crap!Yes' / '!Yes!Yes, that's crap' (-0.095 to -0.080, with a P16 doubling at -0.087), P10 (-0.066 to -0.060), P12 (-0.063, -0.057), P14 '!Yes x4, that's crap!Yeah' (-0.053), P16, P18 '!No, I's crap!Yeah!Yes x5' (-0.052 to -0.050), P28, then P2 '!Yes' from -0.046; chaotic cells (positive exponent) interleave. Alpha 0.080 and 0.086 show the same adding with coexisting variants ('!No, that's' / '!Yes, that's' / '!Yeah'). Reading (to be verified in float64): period adding by laps of a 2-cycle, the organization of the 'is it' stripes of the philosophy map (fold of a 2-cycle with reinjection, type-I intermittency), here producing hostile text. Float64 window edges follow (run V2).
+
+_commit `2af7f7aaa1ad`_
+
+## 2026-10-13 07:28 UTC: run (exploratory)
+
+- **Question:** Exact edges of the hostile period-adding windows of zoom B: along log10 T at alpha 0.083, where are the fold and flip edges of the P6, P8, P10, P12, P14, P16, P18 windows, and where is the fold of the '!Yes' 2-cycle on which they accumulate? Does the window law of the 'is it' stripes (alpha_N - alpha_c ~ N^-2) hold here in temperature?
+- **Setup:** RunPod H100 (run V2), job set edges, commit 2af7f7aa: tools/llm_feigenbaum.py edges --free temperature --vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness, points 6:-0.110:0.083:0.001 8:-0.0884:0.083:0.0003 10:-0.0639:0.083:0.0003 12:-0.0625:0.083:0.0002 14:-0.0530:0.083:0.0002 16:-0.0516:0.083:0.0001 18:-0.0503:0.083:0.0001 2:-0.0400:0.083:0.0005 (period, start, step), float64 low-rank Newton and Ritz multipliers, crossings classified (flip: real -1; fold: (1 - mu)^2 extrapolation)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/edges/hadd-a0.083`
+- **Would surprise us:** windows that are not born in folds (then not the intermittency organization), or no 2-cycle fold near log10 T -0.046
+
+_commit `2af7f7aaa1ad` (dirty worktree)_
