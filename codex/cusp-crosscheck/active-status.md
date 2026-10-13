@@ -1,3 +1,37 @@
+# Task14(a): endpoints001 running — 2026-10-13 22:25UTC
+
+**Sole Git/lifecycle owner: inference.** Exactly one reviewed two-endpoint run is
+active. Source `925b73fa1f274b60b5a1c74cc584e1de9dc13cea`, plan
+`8ba8b6f322f01c37ba98c1389f19a42eb8b22d70869b9078fda3e6ae36532894`, card
+`3a33f261d423753cc9d18a9f500d9769a5a01f294887d1bf4f394710d72e166a`.
+Raw `/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001`.
+Tool session **44092**; launcher **965396/start187686628**, worker
+**965422/start187686805**. Each has its own PGID/SID=PID, UID1000,nice10,
+12GiB soft/hard address space. Startup observed one supervisor OS thread and
+three worker OS threads (Torch intraop2/inter1); reserved CPU2+supervisor.
+Captured original source remains authority as research checkpoints advance.
+
+The single metadata/resource preflight passed11 original source/card/plan blobs,
+private source ancestry, completed row13 profile authority and exact running
+assembly002 identities. MemAvailable59,297,136,640B exceeded42GiB; disk2.79TB.
+Task1 retains18GiB/two slots; endpoints12GiB/three auxiliary slots; five total,
+three of four auxiliary. No other auxiliary execution is admitted. Runtime16GiB
+available floor,6000s absolute watchdog plus at most10s owned cleanup,64MiB
+sampled output cap are unchanged. No automatic retry or extension.
+
+Startup22:25:45 had54,584,459,264B available, no receipt/failure, and only the
+retained Torch deprecation warning. No partial scientific results were read.
+Preflight reportf1e59923/manifest797fd21e, startup3ae21040/manifest095ea014;
+exact paths/pins in `endpoints-001-startup.json`. Both rows13/14 and every fixed
+FD/alpha row remain frozen. Row13 reuses its accepted complete matrix; row14
+computes its896 columns. Qualified and unqualified rows are both retained;
+computational completion cannot promote a cusp/certificate claim. No P28,
+refinement, producer rerun, GPU/pod/paid action. Task1 result/witness work has
+priority. Rejoin on completion/failure or routine30-minute heartbeat, without
+partial numerical interpretation. Earlier status sections below are historical.
+
+---
+
 # Task14(a): dense profile complete; endpoint work unlaunched
 
 20:52UTC13October2026. The sole profile001 completed and is fully closed.

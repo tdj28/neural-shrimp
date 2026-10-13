@@ -1,0 +1,82 @@
+{
+  "schema": "codex-task14-endpoint-startup-v1",
+  "status": "running_no_scientific_result",
+  "source_commit": "925b73fa1f274b60b5a1c74cc584e1de9dc13cea",
+  "plan_sha256": "8ba8b6f322f01c37ba98c1389f19a42eb8b22d70869b9078fda3e6ae36532894",
+  "card_sha256": "3a33f261d423753cc9d18a9f500d9769a5a01f294887d1bf4f394710d72e166a",
+  "raw_attempt": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001",
+  "preflight_report": {
+    "path": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001-prelaunch/report.json",
+    "sha256": "f1e59923191e125355c09f9c3213648a0f5330edbf706c2db0aca67e9a882d63"
+  },
+  "startup": {
+    "path": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001-supervision/startup.json",
+    "sha256": "3ae21040881760b7de160f87a396c90d47d639effbc948dc7190767e4948af55"
+  },
+  "startup_archive_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001-supervision/startup-manifest.json",
+    "sha256": "095ea0140e6ecf8d9a99d7126c462ec5e6db651a592c7b5d230b455f2acbf4c1"
+  },
+  "session_id": 44092,
+  "original_identities": {
+    "worker": {
+      "pid": 965422,
+      "start": 187686805,
+      "ppid": 965396,
+      "pgid": 965422,
+      "sid": 965422,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 3,
+      "rss_kib": 4602300,
+      "state": "R",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001/source/codex/cusp-crosscheck/endpoint_runtime.py",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001/source/codex/cusp-crosscheck/endpoints-001-plan.json",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-cusp-crosscheck/endpoints-001/run"
+      ]
+    },
+    "launcher": {
+      "pid": 965396,
+      "start": 187686628,
+      "ppid": 1535104,
+      "pgid": 965396,
+      "sid": 965396,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "rss_kib": 24104,
+      "state": "S",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-B",
+        "codex/cusp-crosscheck/endpoint_launch.py",
+        "--attempt",
+        "endpoints-001",
+        "--source",
+        "925b73fa1f274b60b5a1c74cc584e1de9dc13cea",
+        "--plan",
+        "endpoints-001-plan.json",
+        "--plan-sha256",
+        "8ba8b6f322f01c37ba98c1389f19a42eb8b22d70869b9078fda3e6ae36532894"
+      ]
+    }
+  },
+  "certificate_passed": false,
+  "cusp_qualified": false,
+  "scientific_result_read": false
+}

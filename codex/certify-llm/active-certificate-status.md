@@ -27,10 +27,16 @@ command-selected original plan path, inventory, hash and semantics; sourceaf7c4d
 70 synthetic controls and independentreview17c80675 accepted. Original112
 receipts/domain/point/seed/precision/gates/resources are unchanged.
 
-Task14 profile is complete and accepted; endpoints are not launched. Accepted
-endpoint science/supervisor and admission-only plan8ba8b6f3/card3a33f261 await
-private checkpoint and minimal preflight review. Any later overlap must reserve
-full18+12GiB, five total/three auxiliary slots and pass a fresh42GiB startup check.
+Task14 profile is complete and accepted. One reviewed endpoints001 now runs from
+source925b73fa, plan8ba8b6f3/card3a33f261, session44092. Launcher965396/birth187686628
+and worker965422/birth187686805 own separate PID=PGID=SID, UID1000,nice10/12GiB.
+Its22:25 preflight also rechecked exact live assembly002 identities; no duplicate
+assembly poll was performed. Available59.30GB before endpoint load/54.58GB at
+startup. Reserve full18+12GiB, five total/three auxiliary slots. Endpoint6000s,
+64MiB,16GiB runtime floor and no-retry rules remain fixed. Original startup and
+preflight pins: codex/cusp-crosscheck/endpoints-001-startup.json, raw
+llm-cusp-crosscheck/endpoints-001-supervision. No partial scientific results read;
+Task1 closure/gates/witness work remains priority. No other auxiliary run admitted.
 Task8 PartsA/B and Tasks6/7/L9/11/13 are complete and delivered; no reruns.
 No GPU/pod/paid actions. Automation `complete-qwen-p8-certificate` should rejoin
 these exact current owners; earlier sections below are historical, never live PID
