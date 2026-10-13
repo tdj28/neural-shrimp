@@ -1,4 +1,5 @@
-"""GSM8K development analysis (run H1b, as stated in its run card): accuracy per lam arm (strict, flexible) at r = 32, paired
+"""GSM8K development analysis (run H1b, as stated in its run card): accuracy per lam arm (strict, flexible) at r = 32,
+paired McNemar against
 native, tokens and stop behaviour."""
 import json, sys
 import numpy as np
