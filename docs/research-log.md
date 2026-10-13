@@ -21880,3 +21880,19 @@ _commit `c4ae3108bd58` (dirty worktree)_
 Originalsourceafdaa76f campaign002 stopped after17 new completed blocks when git status failed to create a threaded lstat worker; specific resource cause not established. Controller receiptba54b173b995c02de20a8f63f4ac838c6e5e9b0b07771b31271cd41184d444f5 preserved, session20078 reapedexit1; all43 original PIDs/session-groups absent. All17 complete records/4964 artifact hashes pass operational admission, scientific enclosure audit still pending;18/112 complete including original first. Four interrupted001 blocks retained,90 undispatched. Failure manifestd2cf4cb5010541f42c9850c60195509aa8e1cb3aa85de31d42c1b85692b09cac; final17 manifestb42b81daa2863ec3bb2698026b5eeceadcb4b293d0e0d20f223593da5af80552. Preparing only a reviewed operational recovery, no automatic restart or mathematical/domain change.
 
 _commit `4465ced374b6` (dirty worktree)_
+
+## 2026-10-13 12:33 UTC: run (exploratory)
+
+- **Question:** Task6 independent saved-raw l7 reproduction with feature-aware selected-input admission; preserve every discrepancy.
+- **Setup:** Root-reviewed source 5ea521e8cfddef48d0be5b818599a3f51968c1a2; card codex/misalignment-audit/l7-repaired-card.json SHA 2a5b5a06139b2a6b3d5a1900ace75d47f6d6e4ec49fe3ab6438e34dfce7858d8. One sequential CPU1/nice10/4GiB/64MiB replay, 900s cap,20GiB startup/16GiB runtime. Original L7-001 failed before fits and is retained, L8-001 unopened. Changes affect schema admission only; selected fit/reducer/estimand/RNG workload unchanged. All33 tiny controls passed0.47s;13 original source Git blobs and original input/failure hashes admitted. No model/GPU/paid use, no silent retry.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/l7-002`
+
+_commit `5ea521e8cfdd` (dirty worktree)_
+
+## 2026-10-13 12:33 UTC: run (exploratory)
+
+- **Question:** Task6 independent saved-raw l8 reproduction with feature-aware selected-input admission; preserve every discrepancy.
+- **Setup:** Root-reviewed source 5ea521e8cfddef48d0be5b818599a3f51968c1a2; card codex/misalignment-audit/l8-repaired-card.json SHA 2b7e1dbdf959f72c61f68efc34a5435c0dc9696199de5c0e186f44ec9a5caa0d. One sequential CPU1/nice10/4GiB/64MiB replay, 300s cap,20GiB startup/16GiB runtime. Original L7-001 failed before fits and is retained, L8-001 unopened. Changes affect schema admission only; selected fit/reducer/estimand/RNG workload unchanged. All33 tiny controls passed0.47s;13 original source Git blobs and original input/failure hashes admitted. No model/GPU/paid use, no silent retry.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-misalignment-audit/l8-001`
+
+_commit `5ea521e8cfdd` (dirty worktree)_
