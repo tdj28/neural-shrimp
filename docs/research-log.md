@@ -22280,3 +22280,9 @@ _commit `08cd4c6cda07` (dirty worktree)_
 - **Would surprise us:** a period-28 cell that is not primitive at Newton precision; a period-21 window outside the chaotic band; the period-14 branch ending in a +1 crossing rather than a flip toward period 28; no positive Lyapunov exponents between the cascade and the period-21 window
 
 _commit `62dcdf6770e7`_
+
+## 2026-10-13 18:30 UTC: Run V7 (7B float64 verification) results: two verified orbits, no bifurcation within the branch budget
+
+Pod 9qhy2kkka1phxf (SECURE H100 NVL, 9368 s, commit e6496d8b; hash verified; terminated 18:27:11 UTC). Qwen2.5-7B-Instruct, layer 14, hostility-vs-kindness, float64. Orbit p6 at (log10 T -0.0143, alpha 0.0476): Newton residual 1.75e-14, period 6, tokens 'Oh', ',', ' shut', ' the', ' end', '\\n\\n', spectral radius 1.6e-7 (nearly superstable). Orbit p3 at (0.2524, 0.1143): residual 3.3e-15, period 3 (':".$', '\\n\\n', '\\n\\n'), leading multiplier -0.121. Branches (50-min limits, all timed out; partial progress.jsonl): p6 in alpha up to 0.04870 (27 points) and down to 0.04701 (25 points), spectral radius at most 2.8e-6, no crossing; p3 in temperature down to log10 T 0.23678 (37 points), leading multiplier between -0.12 and -0.28 (real, negative), no crossing; every point converged (residual <= 8.5e-11, multipliers converged). At 7B one float64 continuation step takes about 2 min and the arclength is dominated by the state, so 50 min covered about 0.001 in alpha. Next (run V10): start next to the edge seen in the 7B coarse map, where the period-6 loop (family ', shut the end \\n\\n Oh', alpha 0.0476-0.0495 for log10 T -0.071..0.005) gives way to the period-3 loop ' you better than' (alpha >= 0.0514 at log10 T -0.0143): orbits at both cells and branches toward each other with a larger step cap.
+
+_commit `831864051418`_
