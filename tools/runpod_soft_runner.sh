@@ -318,37 +318,38 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
         --log-temperature -0.3 0.3 --out $D/scale7/coarse-64-hostility
     fi
     ;;
-  p1x)         # P1 replication in another model (Task 12): JOBARGS MODEL LAYER LADDER_DOSES(comma) CTRL_SEED; builds the
+  p1x)         # P1 replication in another model (Task 12): JOBARGS MODEL LAYER LADDER_DOSES(comma) CTRL_SEED TAG; builds the
                # hostility:kindness vectors on the GPU, runs a ladder (128 x 40, seed 1) with a random-direction control
                # at the top dose, scores it on the pod, picks the dose whose hostile share in turns 5-39 is closest to
                # 0.5 (tools/p1_select_dose.py, rule fixed in the run card), then runs none, constant -0.02,
                # regenerate -0.04 (no hold) and post-reply trigger -0.06 x 3 at that dose
-    model=${JOBARGS[0]}; layer=${JOBARGS[1]}; doses=${JOBARGS[2]}; cseed=${JOBARGS[3]:-2}
+    model=${JOBARGS[0]}; layer=${JOBARGS[1]}; doses=${JOBARGS[2]}; cseed=${JOBARGS[3]:-2}; tag=${JOBARGS[4]:-run}
     vec=llm-phase-map/vectors-$model-l$layer-p1
+    pre=p1x-$model-$tag                                   # every output folder carries the run tag (no clashes)
     TOOL=explore_llm_phase_map.py run p1x-vectors 20 vectors --model $model --layer $layer --device cuda \
       --dtype float64 --contrasts hostility:kindness --random 3 --out $vec
-    mkdir -p "$OUT/$D/msm" && cp -r "$OUT/$vec" "$OUT/$D/msm/vectors-$model-l$layer-p1"
+    mkdir -p "$OUT/$D/msm" && cp -r "$OUT/$vec" "$OUT/$D/msm/$pre-vectors"
     MSM="sample --model $model --layer $layer --device cuda --threads 8 --replicas 128 --turns 40 --temperature 0.7"
     ladder=()
     top=0
     for a in ${doses//,/ }; do
-      tag=$($PY -c "print(f'{round($a * 1000):03d}')")
-      TOOL=explore_llm_msm.py run p1x-$model-h$tag 45 $MSM --seed 1 --vectors $vec --concepts hostility-vs-kindness \
-        --alphas $a --out $D/msm/p1x-$model-h$tag
-      $PY tools/hostility_score.py score --sample $D/msm/p1x-$model-h$tag --threads 8 --device cuda > /dev/null 2>&1
-      ladder+=("$D/msm/p1x-$model-h$tag:$a")
+      dtag=$($PY -c "print(f'{round($a * 1000):03d}')")
+      TOOL=explore_llm_msm.py run $pre-h$dtag 45 $MSM --seed 1 --vectors $vec --concepts hostility-vs-kindness \
+        --alphas $a --out $D/msm/$pre-h$dtag
+      $PY tools/hostility_score.py score --sample $D/msm/$pre-h$dtag --threads 8 --device cuda > /dev/null 2>&1
+      ladder+=("$D/msm/$pre-h$dtag:$a")
       top=$a
     done
-    TOOL=explore_llm_msm.py run p1x-$model-r1 45 $MSM --seed 1 --vectors $vec --concepts random1 --alphas $top \
-      --out $D/msm/p1x-$model-r1
-    dose=$($PY tools/p1_select_dose.py "${ladder[@]}" --target 0.5 2> "$OUT/$D/msm/p1x-$model-dose.json")
+    TOOL=explore_llm_msm.py run $pre-r1 45 $MSM --seed 1 --vectors $vec --concepts random1 --alphas $top \
+      --out $D/msm/$pre-r1
+    dose=$($PY tools/p1_select_dose.py "${ladder[@]}" --target 0.5 2> "$OUT/$D/msm/$pre-dose.json")
     log "chosen dose $dose"
-    cat "$OUT/$D/msm/p1x-$model-dose.json"
+    cat "$OUT/$D/msm/$pre-dose.json"
     for arm in "none:0:3" "constant:-0.02:3" "regenerate:-0.04:0" "triggered:-0.06:3"; do
       IFS=: read -r mode calpha cturns <<< "$arm"
-      TOOL=explore_llm_msm.py run p1x-$model-ctl-$mode 45 $MSM --seed $cseed --vectors $vec \
+      TOOL=explore_llm_msm.py run $pre-ctl-$mode 45 $MSM --seed $cseed --vectors $vec \
         --concepts hostility-vs-kindness --alphas $dose --controller $mode --controller-concept hostility-vs-kindness \
-        --controller-alpha $calpha --controller-turns $cturns --out $D/msm/p1x-$model-ctl-$mode
+        --controller-alpha $calpha --controller-turns $cturns --out $D/msm/$pre-ctl-$mode
     done
     ;;
   hverify7)    # float64 verification at Qwen2.5-7B (revision as in scale7, layer 14, vectors-7b-l14 uploaded with

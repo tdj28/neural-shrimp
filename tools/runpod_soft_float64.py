@@ -142,7 +142,15 @@ def main():
                    "sha256": local_hash})
         if remote_hash == local_hash:
             with tarfile.open(out / "results.tgz") as tar:
-                tar.extractall(rp.DATA, filter="data")
+                # raw outputs are never overwritten: if any retrieved file already exists locally (the shared pod
+                # logs excepted), the whole archive goes to the run's own folder instead, and the clash is reported
+                clash = [m.name for m in tar.getmembers() if m.isfile() and (rp.DATA / m.name).exists()
+                         and not m.name.startswith("explore/llm-soft-loop/pod64/logs/")]
+                if clash:
+                    result["extract_clash"] = clash[:50]
+                    tar.extractall(out / "extracted", filter="data")
+                else:
+                    tar.extractall(rp.DATA, filter="data")
     finally:
         rp.cmd_terminate(argparse.Namespace(pod=pod_id))
         result["wall_seconds"] = round(time.time() - started)
