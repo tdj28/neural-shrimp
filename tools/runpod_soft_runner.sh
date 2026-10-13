@@ -367,15 +367,16 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
     mkdir -p "$REFS7" && printf %s "$REV7" > "$REFS7/main"
     HV7="--model qwen7b --layer 14 --vectors llm-phase-map/vectors-7b-l14 --concept hostility-vs-kindness"
     for spec in "${JOBARGS[@]}"; do
-      IFS=: read -r kind name lt al free dir lo hi <<< "$spec"
+      IFS=: read -r kind name lt al free dir lo hi minutes dsmax <<< "$spec"   # optional MINUTES (50), DSMAX (0.01)
       case $kind in
         orbit)
           run h7orbit-$name 30 orbit --device cuda --dtype float64 --tol 1e-12 --max-newton 12 --chunk 128 $HV7 \
             --log-temperature $lt --alpha $al --out $D/hverify7/orbit-$name ;;
         branch)
-          run h7branch-$name 50 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp \
-            --steps 120 --chunk 128 $HV7 --free $free --log-temperature $lt --alpha $al --direction $dir --ds 0.002 \
-            --ds-max 0.01 --beyond 0.003 --bounds $lo $hi --out $D/hverify7/branch-$name ;;
+          run h7branch-$name "${minutes:-50}" branch --device cuda --dtype float64 --reference-dtype none \
+            --no-exact-jvp --steps 120 --chunk 128 $HV7 --free $free --log-temperature $lt --alpha $al \
+            --direction $dir --ds 0.002 --ds-max "${dsmax:-0.01}" --beyond 0.003 --bounds $lo $hi \
+            --out $D/hverify7/branch-$name ;;
         *) echo "unknown hverify7 entry $spec" ;;
       esac
     done
