@@ -56,6 +56,13 @@ def test_latent_drift_predicts_onset_before_the_score():
         if onset < N:
             score[r, onset:] = 0.99
     model = lt.Model(acts[:100], score[:100], 0.5, dims=4, states=12)
-    res = lt.evaluate(model, acts[100:], score[100:], 0.5, [2], 4, boot=0)
-    a = res["horizons"][2]["auc"]
+    axis = np.zeros(d)
+    axis[1] = 1.0                                          # an axis carrying no information about the drift
+    base, fc = lt.predictors(model, acts[:100], score[:100], [2], 4, axis)
+    comb = lt.Combined(base, fc, lt.onsets(score[:100], 0.5), N, [2])
+    res = lt.evaluate(model, acts[100:], score[100:], 0.5, [2], 4, boot=20, axis=axis, combined=comb)
+    hz = res["horizons"][2]
+    a = hz["auc"]
     assert a["probe"] > 0.8 and a["forecast"] > 0.7 and a["classifier"] < 0.6
+    # the dynamical features add value over the baselines when the latent drift carries the warning
+    assert hz["incremental_auc"] > 0.1 and hz["incremental_auc_ci95"][0] > 0
