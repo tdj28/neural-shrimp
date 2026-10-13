@@ -198,9 +198,10 @@ case "$JOBSET" in
     TOOL=p1_committor.py run p1-committor ${JOBARGS[1]} rollout --states ${JOBARGS[0]} "${JOBARGS[@]:2}" \
       --out $D/msm/p1-committor
     ;;
-  huginn)      # Huginn-0125 relaxed recurrence (tools/huginn_relax_eval.py) in its own venv with transformers 4.55, as
-               # in the local llm env; JOBARGS: NAME MINUTES then huginn_relax_eval arguments (GSM8K or ARC exports
-               # uploaded with --extra-data)
+  huginn|huginnA)  # Huginn-0125 in its own venv with transformers 4.55, as in the local llm env. huginn: JOBARGS NAME
+               # MINUTES then huginn_relax_eval arguments. huginnA (Part A of the frozen test): JOBARGS START COUNT
+               # SPEC_MINUTES READ_MINUTES; spectra of the gold rows (fixed-spectrum --arc-ids batch) are computed and
+               # saved before the read-out run on the same questions. Exports uploaded with --extra-data.
     HREV=bb6621b65e90b6a4b9b29ef88dc83866d450470c
     if [ ! -x /root/venv-huginn/bin/python ]; then
       uv venv -q -p 3.12 /root/venv-huginn
@@ -217,10 +218,21 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
       /root/venv-huginn/bin/python -c "import torch, transformers; print('huginn venv', torch.__version__, transformers.__version__)" \
         | tee -a "$LOGS/versions.txt"
     fi
-    name=${JOBARGS[0]}
-    minutes=${JOBARGS[1]}
-    PY=/root/venv-huginn/bin/python TOOL=huginn_relax_eval.py run huginn-$name "$minutes" "${JOBARGS[@]:2}" \
-      --out $D/huginn/$name
+    if [ "$JOBSET" = huginn ]; then
+      name=${JOBARGS[0]}
+      minutes=${JOBARGS[1]}
+      PY=/root/venv-huginn/bin/python TOOL=huginn_relax_eval.py run huginn-$name "$minutes" "${JOBARGS[@]:2}" \
+        --out $D/huginn/$name
+    else
+      start=${JOBARGS[0]}; count=${JOBARGS[1]}
+      idx=$(seq -s ' ' "$start" $((start + count - 1)))
+      PY=/root/venv-huginn/bin/python TOOL=explore_latent_loop.py run partA-spectra "${JOBARGS[2]}" fixed-spectrum \
+        --model huginn --dtype float32 --device cuda --arc-split test --arc-indices $idx --arc-ids batch --lam 1.0 \
+        --out $D/huginn/partA-spectra
+      PY=/root/venv-huginn/bin/python TOOL=huginn_relax_eval.py run partA-readout "${JOBARGS[3]}" arc --split test \
+        --start "$start" --count "$count" --steps 24 25 26 27 28 29 30 31 32 --lams 1.0 1.05 1.08 1.10 --seed 0 \
+        --dtype bfloat16 --device cuda --out $D/huginn/partA-readout
+    fi
     ;;
   hverify)     # float64 verification of candidate windows of the hostility-steered map (vectors-l12-p1b,
                # hostility-vs-kindness): JOBARGS entries orbit:NAME:LOGT:ALPHA (Newton orbit at a cell) or
