@@ -37,7 +37,9 @@ with embedded periodic windows. A family of windows of periods $6, 8, 10, \dots$
 as text ``. This'' followed by $k$ pairs ``is X''. The windows accumulate on the fold of the 2-cycle ``is it''
 as $\alpha_N-\alpha_c\propto N^{-2}$, where $N$ counts the laps of the ``is it'' loop. We compute the
 saddle-node normal form of that fold from derivatives of the network. Without any fitted parameter, it
-predicts bottleneck passages of 7 to 144 iterates within one iterate. Natural trajectories re-enter the
+predicts bottleneck passages of 7 to 144 iterates within one iterate, and in a prospective test at two new folds,
+with all predictions frozen before any test trajectory, 23 of 24 forecasts fell within one iterate. Natural
+trajectories re-enter the
 bottleneck near its middle, which fixes the prefactor of the window law. This is type-I intermittency
 (Pomeau--Manneville) inside the inference computation of a pretrained language model. We continue fold and
 flip curves of the periodic orbits with float64 test functions. In a higher-temperature region we find a
@@ -324,6 +326,34 @@ centres; prediction of the window positions from the measured reinjection distri
 it.}
 \label{fig:returnmaps}
 \end{figure}
+
+\paragraph{A prospective test.} An independent implementation located two new folds and computed their normal-form
+coefficients by nested automatic differentiation. Before any test trajectory was run, all 24 passage predictions were
+pushed in a frozen design. Target A is the 2-cycle's fold at a new temperature: $\log_{10}T=-0.140$,
+$\alpha_c=0.0670549$, $a=-7.055$, $b=-24.927$. Target B is the fold of the period-8 orbit of Table~\ref{tab:orbits},
+continued in temperature at $\alpha=0.0717$: $\log_{10}T_c=-0.1033462$, $G=F^8$, $a=-11.900$, $b=-152.05$ per unit
+$\log_{10}T$. Of the 24 forecasts (four distances and three entrances per target), 23 fell within one iterate of the
+measured passages (Table~\ref{tab:prospective}). The pre-specified criterion that every row pass failed by one row:
+target A, midpoint entrance, $\eps=3\times10^{-6}$, predicted 61 and measured 59. All full-channel passages and all
+passages after a transverse kick were within one iterate.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rcc}
+\toprule
+$\eps$ & target A ($G=F^2$): measured / predicted & target B ($G=F^8$): measured / predicted \\
+\midrule
+$3\times10^{-6}$ & $118/118$,\ $\mathbf{59/61}$,\ $117/118$ & $26/26$,\ $13/14$,\ $25/26$ \\
+$1\times10^{-5}$ & $56/56$,\ $28/29$,\ $56/56$ & $10/10$,\ $5/5$,\ $10/10$ \\
+$3\times10^{-5}$ & $26/26$,\ $13/14$,\ $26/26$ & $4/4$,\ $2/2$,\ $4/4$ \\
+$1\times10^{-4}$ & $10/10$,\ $5/6$,\ $10/10$ & $2/2$,\ $1/1$,\ $2/2$ \\
+\bottomrule
+\end{tabular}
+\caption{Prospective passage test at two folds that did not shape the mechanism. Each cell lists the full-channel,
+midpoint and full-plus-transverse entrances as measured / predicted $G$-iterates. Predictions come from the iterated
+quadratic normal form, with coefficients from an independent implementation, frozen before the test runs. Bold: the
+one row outside the one-iterate criterion. The shortest period-8 rows give only weak relative accuracy.}
+\label{tab:prospective}
+\end{table}
 
 \section{Bifurcation curves and cusps}
 \label{sec:curves}
@@ -626,6 +656,8 @@ computer-assisted proof.
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
   also follows from the stable-branch multipliers. The controlled passage counts: the reimplementation reproduces all
   18 fixed-entrance counts exactly.
+\item Prospectively frozen: the passage forecasts at two new folds (Table~\ref{tab:prospective}); 23 of 24 within one
+  iterate, and the all-row criterion failed by one row.
 \item Rung 1: orbits, curves, cusps and the cascade's flip parameters.
 \end{itemize}
 \inprogress{independent reimplementation of the period-2 and period-8 orbits on the current map; the cascade's first
