@@ -40,14 +40,14 @@ primitive two-cycle, whose derivatives predict controlled bottleneck passages wi
 one, show the codimension-two organization of shrimps: fold curves ending in numerically nondegenerate cusps, and flip
 curves; the hostile one holds a doubling cascade to chaos. Superstable points through period 384 give ratios
 approaching Feigenbaum's constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker
-bifurcation and the relaxation strengths at which chain-of-thought accuracy breaks; a frozen test on 200 held-out
-problems confirms no loss below that threshold and collapse above it. In sampled self-dialogue, hostility steering
-yields dose-dependent persistence and history dependence. Replacing classifier-flagged replies before they enter the
-context lowers the model's own hostility far more per unit of steering than constant prevention, in two model sizes
-where the dose response rises; past its peak, counter-steering backfires. A frozen confirmation finds a small
-increment in warning from the model's in-context state; finite Monte Carlo committor estimates leave the attainable
-ceiling unresolved. These results connect inference dynamics to testable mechanisms and practical control, without
-identifying the constructed map with ordinary autoregressive generation.
+bifurcation, each question's convergence under relaxation and where chain-of-thought accuracy breaks; a frozen test on
+held-out data confirms the last two. In sampled self-dialogue, hostility steering yields dose-dependent persistence
+and history dependence. Replacing classifier-flagged replies before they enter the context lowers the model's own
+hostility far more per unit of steering than constant prevention, in two model sizes where the dose response rises;
+past its peak, counter-steering backfires. A frozen confirmation finds a small increment in warning from the model's
+in-context state; finite Monte Carlo committor estimates leave the attainable ceiling unresolved. These results
+connect inference dynamics to testable mechanisms and practical control, without identifying the constructed map with
+ordinary autoregressive generation.
 \end{abstract}
 
 \section{Introduction}
@@ -92,9 +92,10 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   period-doubling route, and chaos with embedded windows in Qwen2.5-7B and, in coarse float64 maps, in OLMo-2 7B
   (Section~\ref{sec:scale}); and a second
   system, a recurrent-depth model with a predicted and observed Neimark--Sacker bifurcation, spectral predictions of
-  its response to relaxation (question by question), native instability for some prompts, multiple-choice accuracy
-  that tolerates the instability until it is large, and chain-of-thought accuracy that breaks at the predicted
-  thresholds, confirmed on held-out problems by a frozen test (Section~\ref{sec:huginn}).
+  its response to relaxation, native instability for some prompts, multiple-choice accuracy that tolerates the
+  instability until it is large, and chain-of-thought accuracy that breaks at the predicted thresholds; a frozen test
+  on held-out data confirms both the question-by-question spectral prediction and the accuracy break
+  (Section~\ref{sec:huginn}).
 \item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
   direction-specific capture with dose-dependent persistence and hysteresis. A pre-specified lead-time test is
   negative; a small warning from the model's in-context state is confirmed on fresh dialogues, and finite Monte
@@ -650,9 +651,13 @@ hold genuine periodic orbits: in float64, Newton's method converges at the most 
 $2\times10^{-14}$; spectral radius $1.6\times10^{-7}$, nearly superstable) and at the most interior period-3 cell to
 a period-3 loop at $(0.2524,0.1143)$ (residual $3\times10^{-15}$; leading multiplier $-0.12$). Continued for about
 an hour each, over $\pm0.001$ in $\alpha$ and $-0.016$ in $\log_{10}T$ (one float64 continuation step takes about
-two minutes at 7B), both orbits stay strongly stable without a crossing.
-\inprogress{continuation across the period-6 window's edge, where the map switches to the period-3 loop ``you
-better than''.}
+two minutes at 7B), both orbits stay strongly stable without a crossing. Where the coarse map switches from the
+period-6 loop to the period-3 loop ``you better than'' (between $\alpha=0.0495$ and $0.0514$ at
+$\log_{10}T=-0.0143$), both loops are float64 orbits (residuals $7\times10^{-15}$ and $1\times10^{-14}$), and their
+continuations overlap: the period-6 orbit stays stable from $\alpha=0.0476$ up to $0.0507$, the period-3 orbit from
+$0.0514$ down to $0.0475$, both with spectral radius below $1.4\times10^{-3}$. The two attractors therefore coexist
+over this range, and the map's edge is the boundary of the fixed start's basin, not a bifurcation. No bifurcation
+has yet been located at 7B.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-qwen7b-hostility.png}
@@ -736,8 +741,8 @@ $\lambda=1.020$--$1.149$ (median $1.095$). Question by question, an estimated sp
 the computed Ritz values of the question's gold-answer prefill), ranks the question's residual (Spearman $0.73$ at
 $\lambda=1$ and $0.75$ at $1.10$ over the 30 questions; development data). In this historical analysis the residual
 was the all-choice aggregate entering the 32nd recurrence call, so this is a predictive association across related
-maps and precisions, not a same-state contraction identity. The item-level part of the frozen test below (in
-progress) uses matched gold-row token IDs and a per-row residual with an explicit clock. This is consistent with the latent orbits that \citet{geiping2025recurrent}
+maps and precisions, not a same-state contraction identity. The item-level part of the frozen test below uses
+matched gold-row token IDs and a per-row residual with an explicit clock. This is consistent with the latent orbits that \citet{geiping2025recurrent}
 observed on some tokens of harder questions, here traced to the fixed point's spectrum. Accuracy, however, tolerates
 the instability (300 training questions, 32 steps): $0.367$ native, $0.387$ at $\lambda=1.10$ and $0.373$ at $1.15$,
 where the latent state oscillates with relative size $0.08$ and $0.23$; only at $1.25$ (size $0.68$) does it fall, to
@@ -773,8 +778,16 @@ $\lambda_c=1.074$--$1.126$ computed from the fixed points of five development pr
 95\,\% intervals. Right: paired difference from the native loop with paired-bootstrap 95\,\% intervals.}
 \label{fig:huginn-gsm8k}
 \end{figure}
-\inprogress{the item-level part of the frozen test (spectral feature of each held-out ARC question against its own
-residual).}
+The same frozen design tested the item-level prediction on 64 held-out ARC-Challenge questions. Their spectra were
+computed after the read-out run, as an amendment recorded before any outcome was read, and duplicate copies were
+resolved by a rule fixed in advance. Every question passed the admission gates (fixed-point residual at most
+$2.6\times10^{-6}$; identical gold-row token IDs in every arm); for 13 questions one of the three Arnoldi sets was
+partial, which the design admits for an estimated feature. The pre-stated statistic, the mean of the within-arm
+Spearman correlations between $\hat\rho_q(\lambda)$ and the gold row's residual entering the 32nd update, is $0.701$
+(95\,\% bootstrap interval $[0.576,0.779]$; $0.68$, $0.73$, $0.73$ and $0.67$ at $\lambda=1$, $1.05$, $1.08$ and
+$1.10$), above the pre-stated $0.3$. The fixed point's estimated spectrum therefore ranks, question by question on
+unseen questions, how far the relaxed recurrence is from convergence. Descriptively, the share of questions with a
+detected unstable mode rises from $8\,\%$ natively to $34$, $69$ and $84\,\%$ at $\lambda=1.05$, $1.08$ and $1.10$.
 
 \section{Misaligned behaviour as an attractor}
 \label{sec:misalignment}
@@ -871,7 +884,21 @@ three, five and six times the body's period, the satellite windows expected in t
 cascade. Continued in temperature, the period-14 orbit flips into period 28 near $\log_{10}T=0.1841$ and back near
 $0.1857$, the two ends of a doubling bubble that holds period 28 and chaos, and lower down its branch is S-shaped (folds
 near $0.1824$ and $0.18244$, three coexisting period-14 orbits between them) before another flip near $0.1819$; all
-these crossings are simple (next modulus below $4\times10^{-5}$).
+these crossings are simple (next modulus below $4\times10^{-5}$). A $160^2$ float64 zoom of the lower body
+(Figure~\ref{fig:hubzoom}) shows this anatomy in the plane. The period-14 domain encloses a period-28 ring around a
+chaotic core. Period-21 windows sit in the chaotic region as thin crescents with legs, and curves of very negative
+exponent, where the orbits are superstable, run through the windows as the ``endoskeleton'' of shrimps does
+\cite{facanha2013endoskeletons}. In this zoom 18\,\% of cells are chaotic.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-hub-zoom.png}
+\caption{The lower part of the period-7 body at higher resolution ($160^2$ float64 cells). Left: period of the
+attractor (black: positive largest exponent; white: no period up to 48). Right: largest Lyapunov exponent (clipped);
+the darkest curves are superstable lines. Both panels: float64 fold (black) and flip (red, dashed) curves of the
+period-7 orbit, the two lines of Figure~\ref{fig:hubcascade} (grey) and the Newton-verified orbits of periods 14, 28
+and 21 (stars).}
+\label{fig:hubzoom}
+\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-hub-cascade.png}
@@ -1173,9 +1200,9 @@ computer-assisted proof.
 \item Rung 1: the other orbits, the curves, the six cusps (numerically nondegenerate), the superstable parameters,
   the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the two 7B
   orbits, and Huginn's float32 spectral estimates.
-\item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out problems; its GSM8K part
-  is confirmed and was reproduced exactly from the saved rows by an independent implementation, and its item-level
-  part is in progress (Section~\ref{sec:huginn}).
+\item Prospectively frozen: Huginn's relaxation test on held-out data, confirmed in both parts; the GSM8K part was
+  reproduced exactly from the saved rows by an independent implementation, and the item-level part is being replayed
+  (Section~\ref{sec:huginn}).
 \item Prospectively frozen as well: the confirmation of the in-context warning in sampled dialogue
   (Section~\ref{sec:misalignment}), whose design was pushed before the data and amended, before any outcome was read,
   to correct a labelling error.

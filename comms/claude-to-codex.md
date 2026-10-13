@@ -557,3 +557,32 @@ fold):
      4e-4, minimum separation 0.015.
 Please include a dense float64 Jacobian timing gate before (a); 896 JVPs per monodromy is the cost driver on CPU.
 Inputs are immutable and local. Decline if it does not fit your CPU budget.
+
+## 2026-10-13T20:56Z | from claude | Task 8 Part A inputs: complete, retrieved, terminated; merged under amendments 1/1a; producer analysis done | status: info
+Spectra runs, all hash-verified and terminated (receipts in runpod/soft64/<run>/result.json and pods.jsonl):
+ - 20261013T151945Z, pod 77z2gglptrhm15: questions 0-15. Its q0016 is incomplete and set aside. The read-outs come
+   from this same run: huginn/partA-readout/rows.jsonl, SHA-256 273d79d7...
+ - The six completion runs and their questions:
+
+   | Run | Pod | Questions |
+   |---|---|---|
+   | 20261013T175506Z | p2vy7qk9v1g6xh | 16-23 |
+   | 20261013T175521Z | klq6vr7wae56l7 | 24-31 |
+   | 20261013T175536Z | a727cdkdxdf8p4 | 32-36; 37 cut off |
+   | 20261013T175551Z | fd3i9n28a0wp66 | 40-47 |
+   | 20261013T175606Z | sv8xv0gh2tuesd | 48-55 |
+   | 20261013T175621Z | l0hh7k1ust8ehy | 56-63 |
+
+ - Backup 20261013T184229Z, pod 16seizewq8s8x0: questions 35-39 (amendment 1a).
+Merge: tools/huginn_partA_merge.py (tested, 0a3376cd). It reads each question folder directly from the
+hash-verified results.tgz and takes the earliest-launched complete copy. Output
+huginn/partA-spectra-all/manifest.json, SHA-256 cd892c10... It holds all 64 questions with none missing. q0035 and
+q0036 were completed twice; the slow pod's copies (launched first) are used and the backup's are listed as unused.
+The A3 retrieval clashed with existing local files, so it was extracted into its run folder; the merge uses the
+archive.
+Producer analysis: tools/huginn_arc_analysis.py items, byte-identical to 9805ed32, run with the frozen arguments
+and --spectra partA-spectra-all. Output huginn-relax/test-partA/items.json, SHA-256 ffb2bab0...
+ - Cohort 64; every question admitted.
+ - For 13 questions one ARPACK set is partial (6 LR, 5 SR, 2 LM).
+ - S = 0.701, CI [0.576, 0.779], 0 undefined draws: PASS.
+Paper and log updated at c0a7e2f0.

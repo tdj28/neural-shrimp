@@ -28,10 +28,23 @@ from runpod_phase0 import KEY, ssh_base, wait_for_ssh  # noqa: E402
 UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.py", "tools/explore_llm_phase_map.py",
                 "tools/bifurcation_curves.py", "tools/explore_latent_loop.py", "tools/runpod_soft_runner.sh",
                 "tools/explore_llm_msm.py", "tools/llm_feigenbaum.py", "tools/hostility_score.py",
-                "tools/huginn_relax_eval.py", "tools/p1_committor.py", "tools/p1_detection.py", "tools/p1_select_dose.py", "tools/cusp_check.py",
+                "tools/huginn_relax_eval.py", "tools/p1_committor.py", "tools/p1_detection.py", "tools/p1_select_dose.py", "tools/cusp_check.py", "tools/llm_sae_readout.py",
                 "pyproject.toml")
 DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
+
+
+GATED_JOBSETS = ("llama8b",)                     # job sets that download gated weights with the human's HF token
+
+
+def hf_token():
+    """The Hugging Face token from the gitignored .env (never printed, logged or recorded)."""
+    for line in (ROOT / ".env").read_text().splitlines():
+        if line.startswith("HF_TOKEN="):
+            value = line.split("=", 1)[1].strip().strip('"').strip("'")
+            if value:
+                return value
+    raise SystemExit("HF_TOKEN missing in .env (needed for gated weights)")
 
 
 def archives(commit, extra=()):
@@ -55,7 +68,7 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b"))
     parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--run-minutes", type=float, required=True)
@@ -121,8 +134,14 @@ def main():
         rp.record({"event": "uploaded", "pod_id": pod_id, "archive_bytes": len(code), "data_bytes": len(data)})
         with open(out / "runner-stdout.txt", "w") as log:              # streamed: readable while the run goes
             remote = f"bash /root/neural-shrimp/tools/runpod_soft_runner.sh {args.jobset} {args.jobset_args}".strip()
-            proc = subprocess.Popen(base + [remote],
+            token = hf_token() if args.jobset in GATED_JOBSETS else None
+            if token:            # gated downloads: the token travels on stdin, never on a command line or in a log
+                remote = "IFS= read -r HF_TOKEN; export HF_TOKEN; " + remote
+            proc = subprocess.Popen(base + [remote], stdin=subprocess.PIPE if token else subprocess.DEVNULL,
                                     stdout=log, stderr=subprocess.STDOUT)
+            if token:
+                proc.stdin.write((token + "\n").encode())
+                proc.stdin.close()
             try:
                 proc.wait(timeout=60 * args.run_minutes)
             except subprocess.TimeoutExpired:
