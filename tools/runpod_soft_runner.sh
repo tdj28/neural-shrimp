@@ -425,25 +425,27 @@ for sid in ('Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_faithf
     SW="saelens:$SAED/seonglae/Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_fineweb_512"
     TOOL=llm_sae_readout.py run llama-sae-validate 20 validate --model llama3.1-8b --device cuda --sae $GF \
       --sae $SF --sae $SW --out $LDIR/sae-validate
-    lvec=llm-phase-map/vectors-llama3.1-8b-l16
-    TOOL=explore_llm_phase_map.py run llama-vectors 30 vectors --model llama3.1-8b --layer 16 --device cuda \
-      --dtype float64 --contrasts hostility:kindness --random 3 --out $lvec
-    mkdir -p "$OUT/$LDIR" && cp -r "$OUT/$lvec" "$OUT/$LDIR/vectors"
-    LSX="scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 --model llama3.1-8b --layer 16"
-    LSX="$LSX --vectors $lvec --resolution 64 64"
-    if [ "$part" = a ]; then
-      maps="gratitude:-0.12:0.12:-1.0:0.3"
-    else
-      maps="hostility-vs-kindness:0.0:0.12:-0.3:0.3 philosophy:-0.12:0.12:-1.0:0.3"
+    if [ "$part" != v ]; then                     # PART v: the hook-point check only
+      lvec=llm-phase-map/vectors-llama3.1-8b-l16
+      TOOL=explore_llm_phase_map.py run llama-vectors 30 vectors --model llama3.1-8b --layer 16 --device cuda \
+        --dtype float64 --contrasts hostility:kindness --random 3 --out $lvec
+      mkdir -p "$OUT/$LDIR" && cp -r "$OUT/$lvec" "$OUT/$LDIR/vectors"
+      LSX="scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 --model llama3.1-8b --layer 16"
+      LSX="$LSX --vectors $lvec --resolution 64 64"
+      if [ "$part" = a ]; then
+        maps="gratitude:-0.12:0.12:-1.0:0.3"
+      else
+        maps="hostility-vs-kindness:0.0:0.12:-0.3:0.3 philosophy:-0.12:0.12:-1.0:0.3"
+      fi
+      for m in $maps; do
+        IFS=: read -r concept alo ahi tlo thi <<< "$m"
+        run llama-map-$concept "$mapmin" $LSX --concept $concept --alpha $alo $ahi --log-temperature $tlo $thi \
+          --out $LDIR/coarse-64-$concept
+        TOOL=llm_sae_readout.py run llama-read-$concept 30 read --model llama3.1-8b --device cuda --layer 16 \
+          --vectors $lvec --concept $concept --cells-from-scan $LDIR/coarse-64-$concept --sae $GF --sae $SF --sae $SW \
+          --out $LDIR/readout-$concept
+      done
     fi
-    for m in $maps; do
-      IFS=: read -r concept alo ahi tlo thi <<< "$m"
-      run llama-map-$concept "$mapmin" $LSX --concept $concept --alpha $alo $ahi --log-temperature $tlo $thi \
-        --out $LDIR/coarse-64-$concept
-      TOOL=llm_sae_readout.py run llama-read-$concept 30 read --model llama3.1-8b --device cuda --layer 16 \
-        --vectors $lvec --concept $concept --cells-from-scan $LDIR/coarse-64-$concept --sae $GF --sae $SF --sae $SW \
-        --out $LDIR/readout-$concept
-    done
     ;;
   pairmap)     # same architecture, other weights (run S10): JOBARGS KEY REPO REV LAYER MAP_MINUTES. Downloads REPO@REV
                # (REPO '-': already cached), builds concept vectors at LAYER on the GPU in float64 exactly as scalex,
