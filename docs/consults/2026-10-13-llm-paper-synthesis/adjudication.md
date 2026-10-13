@@ -40,10 +40,12 @@ point below was checked or decided locally.
 
 ## Q3 and Q4: decisions for the human
 
-- **Two papers rather than one (Q4).** We put this to the human: in a 12 October directive the human put P1 in the
-  main paper. Until the human decides, the single draft keeps both parts, with the narrower wording above.
-- **Next experiment (Q3): prospective cusp unfolding in a second checkpoint (Qwen2-0.5B).** This is proposed to the
-  human with its cost (the consult's estimate is 10-30 GPU-hours, under a hard cap). The running S10 maps are
+- **Two papers rather than one (Q4).** Put to the human, who decided on 13 October (~21:20 UTC): **one paper**. The
+  single draft keeps both parts, with the narrower wording above.
+- **Next experiment (Q3): prospective cusp unfolding in a second checkpoint (Qwen2-0.5B).** The human chose a bounded
+  pilot first (about $15-25) on 13 October (~21:20 UTC): analytic controls; a replay of one known Qwen2.5 cusp with
+  the rank-two check; a frozen candidate rule on the Qwen2 maps; a first continuation. The full test is to be
+  decided after the pilot. The running S10 maps are
   discovery evidence only. Any candidate-selection rule will be frozen before further search, and analytic
   positive and negative controls will come first.
 - **SAE readouts carry no mechanism claim without intervention.** Accepted for the Llama-3.1-8B work, which stays
