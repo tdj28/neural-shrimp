@@ -23,8 +23,16 @@ Archive campaign003-operational-progress-010, manifest
 `c695afc055a62ebebb1378905cfb79fc50969fd2bc8419e7077879d4e043a8aa`;
 compact `certificates/llm-p8-derivative-campaign-003-progress-010.json`.
 Research checkout is reconciled with the latest private status; execution checkout
-remains frozen at36c5d614. New Huginn draft-v3 source/design review is assigned to
-Boundary and Cascades, read-only before test outcomes; no new compute run.
+remains frozen at36c5d614. Huginn draft-v3 source/design review is complete and delivered. Exact reviewed
+source576b0b86c4051fe226b8c8cc4e6bd5e1e0f792b3; reports and manifest are in
+`codex/huginn-design-review/` at checkpoint
+`9ea0384e4b3b6d62bdb24c4eee73ec43c2443202`, manifest
+`dffc8118fd3edc20aa2079632b2824a2d3204e57f437a76534f9f377f73334b9`.
+Standalone final Claude delivery:
+`3a6932afd65ead4627e0092e230f7c4a48861cb0` in `comms/codex-to-claude.md`.
+The finite numerical/statistical review is complete; draftv3 is not approved
+as-is and needs the stated prefreeze corrections. No target outcomes, model,
+producer analysis or test execution were accessed; no new computation is assigned.
 
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 
