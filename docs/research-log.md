@@ -21798,3 +21798,12 @@ _commit `7b68fa646a88` (dirty worktree)_
 The six natively unstable prompts are exactly ARC train questions 4, 6, 7, 8, 25 and 27 (rho(1) 1.029, 1.061, 1.072, 1.273, 1.009, 1.124); the phrase 'and one more as listed in the data' in the previous note is wrong.
 
 _commit `c96c87a24565`_
+
+## 2026-10-13 11:48 UTC: run (exploratory)
+
+- **Question:** Task7 resource-only hostile-map profile: measure complete F² and nested float64 derivative cost before any fold run.
+- **Setup:** Root-approved one local CPU2/nice10/12GiB/300s pilot; startup28GiB/runtime16GiB MemAvailable. Full card codex/hostile-fold-crosscheck/profile-001-run-card.md; external plan SHA 303a2be6cc15ca3e57cc7e748cd64f69d62690a6394512750b06311af1eee530, launcher SHA 3262d47bd1f267e9d0c74762a5288647a0aa8b3617e5716ea81e03730886563b;34 synthetic controls passed, no target test. Exact source/private-main ancestry and fresh Task1 health required before launch. No paid resources, GPU, fold/passages/certificate.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/profile-001`
+- **Would surprise us:** A nested derivative exceeds12GiB or the300s pilot ceiling; preserve it and reassess instead of silently retrying.
+
+_commit `c08f3675c40a` (dirty worktree)_
