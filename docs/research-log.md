@@ -22025,3 +22025,9 @@ _commit `a926d44c881b` (dirty worktree)_
 - **Claim impact:** Narrows any L9 claim to an exploratory estimate of the attainable warning on the selected sample, with descriptive profiles.
 
 _commit `d06e8373fd62` (dirty worktree)_
+
+## 2026-10-13 13:15 UTC: P1 (exploratory, existing L8 data): within-reply detection. A classifier on a reply's first 20 words flags 74 % of the replies that start a capture at 5 % false alarms; the raw projection on the push direction is weak
+
+Two adapted analyses of the confirmation dialogues (L8), to see whether a serving monitor could act inside the reply that starts a capture (onset reply) rather than turns ahead. (1) tools/p1_prefix_detection.py: the pinned classifier applied to the first k words of 600 random onset replies against 1200 random non-hostile at-risk replies: AUC 0.644 / 0.712 / 0.751 / 0.803 / 0.894 at k = 3 / 5 / 8 / 12 / 20 words; flagged at the 5 % false-alarm threshold 27 / 36 / 43 / 56 / 74 %; at the usual 0.5 threshold 12 / 23 / 32 / 45 / 66 % with false alarms 0.2-0.7 %. (2) tools/p1_token_trigger.py: the running maximum of the per-token projection on the push direction (recorded in L8 at layers 12 and 18) as a token trigger: at 5 % false triggers per non-hostile reply it fires on 35 % (layer 12; median token 19) and 21 % (layer 18) of onset replies. Reading: the onset of capture is visible early in the onset reply to a text classifier, which is cheap to run on a stream, while the steering-axis projection alone is a weak signal. A closed-loop test (counter-steer from the first flagged prefix, against constant prevention at matched dose as in L6) is the next step if L9 shows little warning before the onset reply.
+
+_commit `08f0e732af93` (dirty worktree)_
