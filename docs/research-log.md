@@ -21517,3 +21517,18 @@ _commit `47ad5d465236` (dirty worktree)_
 - **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
 
 _commit `47ad5d465236` (dirty worktree)_
+
+## 2026-10-13 08:14 UTC: Task 1: center-parallel-007 completed and independently audited
+
+Source a34c347d4190e256a70a63772624213899d37db1, receipt 2feb9962b1edb298ac17bc90d8de0bbe25657f4ba92c37720f6edbfe000ce4f2; all 233 artifacts, 122 Git blobs and eight full phase rows checked by both independently written audit scripts. Exact residual norm strict decrease 1.74332023675537826E-138 to 6.66712478562819091E-151; ratio upper 3.82438329175646357E-13. Pending decision history_cap_restart, proposal baseline_no_history, post-proposal factors 0, cumulative phases 96. Launcher 376.920823s, sampled aggregate peak 20.156GiB. Full raw/audits retained at /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-007, manifest 14b0829c672586bf21b6ba9cd28213b9e5dd6d4ab956e9eecea7168af273999c. No numerical factor is asserted an inverse; no root, primitive period, attraction, speedup or utility claim. All target processes terminated.
+
+_commit `a34c347d4190` (dirty worktree)_
+
+## 2026-10-13 08:14 UTC: run (exploratory)
+
+- **Question:** Does the next unchanged complete eight-phase candidate continue to reduce the exact shooting residual?
+- **Setup:** Plan center-parallel-008-plan.json SHA cf606ed4d49a8f6c48aa8f90076e1378f7fb14b39f008c1077dcf8c8b26a6f63, independently reviewed in center-parallel-008-plan-review.md. Same 16 runtime pins, exact parent capsule, independent audit and prefix/seed pins. One pending update consumed once; all recorded restarts/fallbacks/regressions preserved. Exactly one new candidate with four isolated CPU1 workers, nice10,18GiB address space each,32GiB sampled aggregate watchdog,12GiB available-memory floor,600s worker allowance and shared1800s cap plus10s cleanup. Root rechecks resource availability immediately before launch. Prior measured 376.92s is a budget reference only. No GPU, paid resource, protected data or full derivative campaign. Only a complete independently audited result may become the next parent.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/center-parallel-008`
+- **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
+
+_commit `a34c347d4190` (dirty worktree)_
