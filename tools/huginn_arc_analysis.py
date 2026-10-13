@@ -181,10 +181,16 @@ def spectra_cmd(args):
     rows = []
     for folder in args.folders:
         spec = json.load(open(ela.DATA / "explore" / folder / "fixed-spectrum.json"))
+        if spec.get("fixed_point_residual_F", 0.0) > args.fixed_tol:      # gate: no fixed point, no multipliers
+            print(json.dumps({"folder": folder, "residual": spec.get("fixed_point_residual_F"),
+                              "status": "not a fixed point: spectrum not used (recompute with a relaxed transient)"}))
+            continue
         mus = eigenvalues(spec)
         lc, mu_c = lam_critical(mus)
         ls, rs = lam_star(mus)
-        rows.append({"folder": folder, "residual": spec.get("fixed_point_residual_F"), "max_modulus": float(np.abs(mus).max()),
+        rows.append({"folder": folder, "residual": spec.get("fixed_point_residual_F"),
+                     "transient_lams": spec.get("transient_lams", [spec["args"].get("lam")]),
+                     "native_unstable": bool(rho(mus, 1.0) >= 1.0), "max_modulus": float(np.abs(mus).max()),
                      "lam_star": ls, "rho_star": rs, "rho_native": rho(mus, 1.0), "lam_c": lc,
                      "critical_mu": [mu_c.real, mu_c.imag] if mu_c is not None else None,
                      "rho": {str(l): rho(mus, l) for l in args.lams}})
@@ -214,6 +220,7 @@ def main():
     sp = sub.add_parser("spectra")
     sp.add_argument("folders", nargs="+")
     sp.add_argument("--lams", type=float, nargs="+", default=[0.55, 0.75, 1.0, 1.06, 1.1, 1.15, 1.2, 1.25])
+    sp.add_argument("--fixed-tol", type=float, default=1e-4)
     ac = sub.add_parser("accuracy")
     ac.add_argument("folder")
     ac.add_argument("--metric", default="acc_norm", choices=("acc", "acc_norm"))

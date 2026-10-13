@@ -906,6 +906,17 @@ def spectrum_at(loop, text, args, outname):
         h = (1 - lam) * h + lam * loop.F(h)
     with torch.no_grad():
         res = float((loop.F(h) - h).norm() / h.norm())
+    # a loop that does not converge at lam (e.g. the native loop beyond its own flip) has no fixed point there to
+    # linearize; relaxation keeps the fixed points, so retry the transient at smaller lam and record which one worked
+    transient_lams = [lam]
+    for fallback in (getattr(args, "fallback_lams", None) or []):
+        if res <= args.fixed_tol:
+            break
+        for _ in range(args.transient):
+            h = (1 - fallback) * h + fallback * loop.F(h)
+        with torch.no_grad():
+            res = float((loop.F(h) - h).norm() / h.norm())
+        transient_lams.append(float(fallback))
     out = DATA / "explore" / outname
     out.mkdir(parents=True, exist_ok=True)
     np.save(out / "fixed-state.npy", h.float().cpu().numpy())
@@ -946,7 +957,8 @@ def spectrum_at(loop, text, args, outname):
             inside = False
     if inside:
         intervals.append([float(start), float(grid[-1])])
-    rec = {"args": vars(args), "text": text, "fixed_point_residual_F": res, "spectra_of_F": spectra,
+    rec = {"args": vars(args), "text": text, "fixed_point_residual_F": res, "transient_lams": transient_lams,
+           "is_fixed_point": bool(res <= args.fixed_tol), "spectra_of_F": spectra,
            "arnoldi_converged": converged,
            "leading_modulus_and_turns": [[abs(v), float(np.angle(v) / (2 * np.pi))] for v in lead],
            "predicted_stable_lambda_intervals": intervals,
@@ -1696,6 +1708,9 @@ def main():
     fs.add_argument("--arc-split", default="train", choices=("train", "validation", "test"))
     fs.add_argument("--arc-indices", type=int, nargs="+", default=None,
                     help="several ARC questions in one run, written to OUT/qNNNN")
+    fs.add_argument("--fixed-tol", type=float, default=1e-4, help="relative residual below which h is a fixed point")
+    fs.add_argument("--fallback-lams", type=float, nargs="*", default=[0.75, 0.5],
+                    help="relaxations tried in turn when the transient at --lam does not converge")
     fs.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
     fs.add_argument("--dtype", default="float32", choices=("float32", "float64", "bfloat16"))
     fs.add_argument("--device", default="cpu")
