@@ -22579,3 +22579,9 @@ _commit `aff6119c68b9` (dirty worktree)_
 - **Would surprise us:** Any inconsistent original endpoint, scalar witness, exact domain/source binding or strict gate is retained as audit failure; no automatic certificate promotion.
 
 _commit `040bcf42e395` (dirty worktree)_
+
+## 2026-10-13 23:26 UTC: Task1 final P8 certificate released after actual independent witness audit
+
+Root accepted the finite five-obligation certificate standard, complete actual assembly002 authority and independent saved-witness report3d9a097c/manifest6ba07895 plus supervision0b4ef59e/closure3c903db6. Separate audit authoritye23eed32/87d99e9e verifies5 output and9 supervision artifacts,4 exact Git blobs and absence of both original audit groups. Cascades actual review987d1aa1 found no substantive discrepancy. The separate release certificates/llm-p8-certificate-final-001.json SHA539ead0d344f0eb3e0b91f55999da1c6cd76f801d62e274b4537241018949f97 sets certificate_passed:true; all original conditional/audit records remain false and immutable. Exact map622ccb70/domain42959bcd has a primitive period-8 orbit, unique as an ordered shooting root in the radius2^-640 product box, locally attracting under the trusted Python/FLINT/Arb source and controlled-execution stack. No global geometry, native generation, training utility or token-label claim. Independent audit ran once from11126dc6,122.095s total/121.595s worker,peak2,557,500KiB,zero timeout; all7,168 point endpoints,100,352 receiver endpoints,112 shard bindings,8 root rows,64 scalar blocks,divisors1/2/4 and1,605,632 norm entries passed. Session52389 reaped0; supervisor986041/worker986067 and groups absent. All failed or partial historical attempts remain preserved. No further Task1 computation required; Task14 saved-only audit remains separate.
+
+_commit `0a96e658bf6a` (dirty worktree)_

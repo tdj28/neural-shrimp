@@ -1,3 +1,37 @@
+# Current phase — 2026-10-13 23:26 UTC: Task1 certificate released; Task14 saved audit prepared
+
+**Sole Git/process coordinator: inference. No live process or resource reservation.**
+Root accepted all five finite obligations, actual independent saved-witness audit,
+original/captured-source inventories and supervisor/worker closure. The separate
+`certificates/llm-p8-certificate-final-001.json` SHA
+`539ead0d344f0eb3e0b91f55999da1c6cd76f801d62e274b4537241018949f97`
+is released with `certificate_passed:true`. Original assembly and audit records
+retain their immutable false flags. Result: the exact specified map has a primitive
+period-8 orbit, unique as an ordered shooting root in the product box, and locally
+attracting under the trusted Python/FLINT/Arb execution standard. No global,
+ordinary-generation, training-utility or token-label claim.
+
+Actual audit report3d9a097c, output manifest6ba07895, supervision manifest0b4ef59e,
+closure3c903db6 and final authoritye23eed32/87d99e9e bind the complete saved check.
+Independent actual acceptance review987d1aa1 is retained unchanged. Session52389
+reaped0; supervisor986041/worker986067 and all original groups/sessions absent.
+Audit122.095s total,121.595s worker, peak2,557,500KiB. All112 shard bindings,
+7,168 point/native coordinates,100,352 receiver coordinates, eight root rows,
+64 scalar blocks, divisors1/2/4 and1,605,632 norm entries passed. No further Task1
+computation, audit, retry or optimizer is needed.
+
+Task14 endpoint computation remains closed with original authority accepted.
+Its sole finite saved-evidence audit is prepared under source19b7d85f/card381a62f9
+and reviewed supervisorfa8c1232, not yet launched. CPU1 plus supervisor,1GiB AS,
+120s+bounded cleanup,8MiB output, conservative31GiB startup/16GiB runtime floor.
+No model/AD/JVP/eigensolve/refinement; no cusp or interval claim. Original
+preparation variants and inherited-Git authority amendment are retained. This
+saved audit and its reviewed result delivery are the remaining assigned work.
+Root owns the30-minute continuation automation. Never restart historical
+model/assembly/audit identities below. Tasks8A/B,6/7/L9/11/13 remain complete.
+
+---
+
 # Current phase — 2026-10-13 23:18 UTC: independent saved-witness audit running
 
 **Sole lifecycle/Git owner: inference.** The one approved Task1 saved audit is running

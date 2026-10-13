@@ -1,5 +1,27 @@
 # Exact-real Qwen period-8 certificate development
 
+## Final certificate released — 13 October 2026 UTC
+
+The fixed expected-embedding feedback map has a certified primitive period-8
+orbit, unique as an ordered shooting root in the stated product box, and locally
+attracting, under the reviewed Python/FLINT/Arb execution standard. This is an
+inference-state result for the specified exact-real map; it does not establish
+training utility or behavior of ordinary generated text.
+
+The separate [release record](../../certificates/llm-p8-certificate-final-001.json)
+is `certificate_passed:true`. The [result report](final-certificate-result.md)
+and [independent acceptance review](final-assembly-002-acceptance-review.md)
+bind all 112 final shards, original point/receiver endpoints, strict root,
+primitive-period and attraction gates, exact scalar audit and process closure.
+Original conditional/audit records remain false and immutable. All earlier failed
+or partial attempts are preserved. Task1 numerical work and its finite independent
+audit are complete; no target or audit process remains active.
+
+The older development entries below are historical checkpoints. See
+[active status](active-certificate-status.md) for Task14's separate saved-only audit.
+
+---
+
 ## Current checkpoint — 13 October 2026, 10:20 UTC
 
 The assigned numerical orbit is recovered and its shooting centres have been
