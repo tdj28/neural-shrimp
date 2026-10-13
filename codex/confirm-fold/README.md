@@ -28,6 +28,13 @@ AD values. A's unfolding parameter p is alpha; B's is log10(T). A failed gate
 stops that target and is reported. Solver/setup failures are retained, never
 quietly replaced. These are numerical validations, not interval certificates.
 
+Parameter finite-difference checks use (7e-6, 2e-6, 7e-7), disjoint from
+the four passage offsets. The pre-outcome research-log amendment preserves
+interrupted attempts and resumes hash-bound correctors while repeating all
+qualification gates. The scalar-only [arctangent audit](arctangent-scope.md)
+records why primary and secondary one-iterate criteria cannot both succeed
+for every entrance, before any full-model passage is observed.
+
 ## Prospective passage plan
 
 After successful setup and before passages, `build_design.py` will write the
