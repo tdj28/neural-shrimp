@@ -351,15 +351,35 @@ a'', whose leading multipliers are a complex pair, $-0.031\pm0.152i$. One-parame
 folds in every direction: at $\log_{10}T=-0.0558$ and $-0.0721$ in temperature, at $\alpha=0.08074$ in steering, and,
 toward smaller $\alpha$, in two folds only $10^{-5}$ apart. Such a close pair is the signature of a nearby cusp. A
 flip at $\alpha\approx0.0797$ then opens the period-12 foot. Fold curves bounding a window and meeting in cusps,
-with flip curves inside, is the codimension-two organization of a shrimp \cite{facanha2013endoskeletons}. The first
-continued curves (Figure~\ref{fig:z3curves}) bound the body by a single fold arc on its outer side and a flip arc on
-its inner side, with the leg between them where they converge.
+with flip curves inside, is the codimension-two organization of a shrimp \cite{facanha2013endoskeletons}. The continued
+curves (Figure~\ref{fig:z3curves}) bound the body by a single fold arc on its outer side and a flip arc on its inner
+side, with the leg between them where they converge. The outer fold arc extends far to the left as a thin arm and ends
+in a cusp at $(\alpha,\log_{10}T)=(0.06911,-0.03975)$. The fold curve through the close fold pair has a second cusp
+inside the body, at $(0.08010,-0.05835)$, from which two fold branches descend. At both, the normal-form coefficient
+changes sign while $a$ stays away from zero (Table~\ref{tab:z3cusps}). The signs of $a$ and $b$ both flip with the
+orientation of the critical eigenvector, so the test uses $b\operatorname{sign}a$.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lcc}
+\toprule
+ & cusp on the outer arc & cusp inside the body \\
+\midrule
+$b\operatorname{sign}a$ at consecutive curve points & $+92.9,\ +42.9,\ +14.7,\ \mathbf{-16.9},\ -52.8$ &
+  $-24.7,\ -14.3,\ -2.0,\ \mathbf{+12.8}$ \\
+$|a|$ & $1.2$--$6.9$ & $3.13$--$3.23$ \\
+\bottomrule
+\end{tabular}
+\caption{Normal-form test at the two parameter-tangent reversals of the period-6 window's fold curves (bold: the
+flagged points; critical multiplier $1$ to $10^{-7}$). Numerically validated, not certified.}
+\label{tab:z3cusps}
+\end{table}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\linewidth]{fig-zoom-z3-curves.png}
-\caption{The period-6 window of Figure~\ref{fig:zooms} (bottom) with its float64 fold curve (cyan, long dashes) and
-flip curve (magenta, short dashes). \inprogress{the fold curve through the close fold pair inside the body (cusp
-candidate) and normal-form tests.}}
+\includegraphics[width=0.62\linewidth]{fig-zoom-z3-curves.png}
+\caption{The period-6 window with its float64 fold curves (cyan, long dashes), flip curve (magenta, short dashes) and
+the two normal-form-tested cusps (yellow circles), over the $256^2$ map of Figure~\ref{fig:stripes} (whose data end
+at $\log_{10}T=-0.04$). \inprogress{the lower ends of the fold curves, which approach each other near
+$(0.0753,-0.089)$.}}
 \label{fig:z3curves}
 \end{figure}
 
