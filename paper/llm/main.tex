@@ -484,8 +484,20 @@ $\log_{10}T=0$--$0.13$ (14{,}422 of 65{,}536 cells), with a branch descending al
 windows inside it. The large periodic regions are question loops: ``What?\textbackslash n'' (period 2),
 ``\textbackslash nWhat is a'' (period 4) and ``What continuum?\textbackslash n'' (period 3). This window has no
 period-adding fan like the 0.5B model's.
-\inprogress{routes to chaos at the edges of the 1.5B chaotic band (cuts; fold or period doubling); float64 orbits in
-its windows.}
+A cut of 2048 cells at $\alpha=0.100$ (Figure~\ref{fig:qwen15route}) shows how the band is entered from below. The
+2-cycle ``What?\textbackslash n'' gives way abruptly to a period-4 loop: the Lyapunov exponent jumps, so these are two
+distinct attractors, not a flip. The period-4 loop then doubles: float64 flips at $\log_{10}T=-0.0031269$ (period
+$4\to8$, next modulus $0.014$) and $-0.0021666$ (period $8\to16$, next modulus $8\times10^{-5}$), where the exponent
+rises continuously to zero. A period-16 band and chaos follow.
+\inprogress{the period-16 flip and the first ratio.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\linewidth]{fig-qwen15-route.png}
+\caption{Qwen2.5-1.5B along $\log_{10}T$ at $\alpha=0.100$: period of the attractor reached from the fixed start
+(top) and largest Lyapunov exponent (bottom). Dashed lines: float64 flip parameters. The doubled loops alternate the
+number of line breaks between the ``What''s.}
+\label{fig:qwen15route}
+\end{figure}
 \planned{frozen-design replication on fresh prompts and a second steering direction (gratitude); Qwen 7B and one
 7--8B model of another family; scaling of $ab$ and of the window law with model size.}
 \begin{figure}[H]
