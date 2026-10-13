@@ -42,11 +42,11 @@ def distinct2(text):
     return len(set(pairs)) / len(pairs) if pairs else 1.0
 
 
-def load(root, arm):
+def load(root, arm, prefix="p1-"):
     import explore_llm_attractors as ela
     import hostility_score as hs
 
-    src = ela.DATA / "explore" / root / f"p1-{arm}"
+    src = ela.DATA / "explore" / root / f"{prefix}{arm}"
     score = np.load(src / "hostility.npz")["classifier"][:, :, 0]
     texts = json.loads((src / "sample.json").read_text())["texts"]
     turns = np.load(src / "turns.npz")
@@ -78,12 +78,13 @@ def main():
     parser.add_argument("--none", required=True)
     parser.add_argument("--constant", nargs="+", required=True, help="ARM:DOSE")
     parser.add_argument("--root", default="llm-soft-loop/pod64/msm")
+    parser.add_argument("--prefix", default="p1-", help="folder prefix of the arms (p1x-<model>- for replications)")
     parser.add_argument("--would-be", action="store_true",
                         help="efficiency on the would-be hostile share (original replies before any replacement)")
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
     rng = np.random.default_rng(0)
-    data = {a: load(args.root, a) for a in args.arms}
+    data = {a: load(args.root, a, args.prefix) for a in args.arms}
     res = {"args": vars(args), "arms": {}}
     for a, d in data.items():
         main_share, late = share(d["hostile"], 5, 40), share(d["hostile"], 35, 40)
