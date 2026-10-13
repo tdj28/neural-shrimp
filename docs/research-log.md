@@ -22409,3 +22409,9 @@ _commit `2eaa1d1ddf68` (dirty worktree)_
 In L13a/L13b the llm_sae_readout validate step stopped with 'Expected all tensors to be on the same device' (status 1): explore_llm_attractors.Engine moves only float64 models to the GPU, and validate loads in float32. The pods continue with vectors, maps and the readout (read uses SoftLoop, which places the model). Fix 5899ac90 (eng.model.to(device)); the llama8b job set gains PART v (download + validate only, f wrapping the map steps); run L13v launched for the hook-point check (ten ordinary sentences; FVE of each SAE at its documented hidden-state index and both neighbours). Local CPU validation was not used: the float32 8B model needs 32 GB of the 40 GB available, below the memory floor of Codex's running certificate campaign.
 
 _commit `236b783e9663`_
+
+## 2026-10-13 20:36 UTC: L13v: SAE hook points confirmed on Llama-3.1-8B-Instruct
+
+Pod tvqbfqnwi36f08 (232 s; hash verified; terminated 20:28:47 UTC), llama8b PART v at commit f3f805d4. Fraction of variance explained on ten ordinary sentences (first token dropped), at the documented hidden-state index and its neighbours: Goodfire l19 (resid post of decoder layer 19 = hidden_states[20]): 0.463 / 0.604 / 0.490 at indices 19 / 20 / 21; seonglae faithful seed 42 (blocks.24.hook_resid_pre = hidden_states[24]): 0.479 / 0.521 / 0.484 at 23 / 24 / 25; seonglae fineweb: 0.498 / 0.532 / 0.489. Each SAE reconstructs best at its documented index, so the readout's indexing is right. The seonglae SAEs were trained on the base model; their lower FVE on the Instruct model is the expected transfer loss. Output llm-soft-loop/pod64/llama8b-v/sae-validate/validate.json.
+
+_commit `f3f805d4cafb`_
