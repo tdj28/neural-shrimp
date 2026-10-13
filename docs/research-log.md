@@ -22435,3 +22435,8 @@ _commit `6beb44831715` (dirty worktree)_
 - **Output:** `/data2/neural-shrimp-data/codex/huginn-independent-replay/part-A-001`
 
 _commit `70672f67c0dc` (dirty worktree)_
+## 2026-10-13 21:11 UTC: Consult 6 (approved) returned; adjudicated; claims narrowed
+
+One research-strategy request (gpt-6-astra, Pro, xhigh) with docs/consults/2026-10-13-llm-paper-synthesis/brief.md at 41127426: completed, 73,329 tokens, conservative cost recorded privately. Adjudication docs/consults/2026-10-13-llm-paper-synthesis/adjudication.md. Accepted and applied: 'Misaligned behaviour as an attractor' renamed 'Hostile behaviour under steering', with a scope statement (classifier-defined proxy; persistence and history dependence, not semantic misalignment nor a deterministic attractor; a growing context carries memory); shrimp wording narrowed to 'shrimp-like organization' in the abstract and claims paragraph, naming the missing rank-two unfolding check; 'superstable' defined (leading multiplier crosses zero). Four references verified at their primary records and cited (Pasemann 2002 Network 13:195; Rimsky et al. ACL 2024; Azaria and Mitchell Findings EMNLP 2023; Welleck et al. arXiv 2211.00053). Put to the human: one paper or two (the consult recommends two); the next experiment (prospective cusp unfolding in Qwen2-0.5B under a hard cap). SAE readouts stay descriptive.
+
+_commit `41127426bfb0` (dirty worktree)_

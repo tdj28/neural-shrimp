@@ -37,17 +37,17 @@ prefix. Its temperature--steering plane contains periodic text loops among numer
 models of 0.5B to 7B parameters and in OLMo-2 7B. Numerical continuation links a period-adding family to the fold of a
 primitive two-cycle, whose derivatives predict controlled bottleneck passages without fitting (at two new folds, 23 of
 24 prospectively frozen forecasts within one iterate, failing the all-row criterion). Windows, including a hostile
-one, show the codimension-two organization of shrimps: fold curves ending in numerically nondegenerate cusps, and flip
-curves; the hostile one holds a doubling cascade to chaos. Superstable points through period 384 give ratios
-approaching Feigenbaum's constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker
-bifurcation, each question's convergence under relaxation and where chain-of-thought accuracy breaks; a frozen test on
-held-out data confirms the last two. In sampled self-dialogue, hostility steering yields dose-dependent persistence
-and history dependence. Replacing classifier-flagged replies before they enter the context lowers the model's own
-hostility far more per unit of steering than constant prevention, in two model sizes where the dose response rises;
-past its peak, counter-steering backfires. A frozen confirmation finds a small increment in warning from the model's
-in-context state; finite Monte Carlo committor estimates leave the attainable ceiling unresolved. These results
-connect inference dynamics to testable mechanisms and practical control, without identifying the constructed map with
-ordinary autoregressive generation.
+one, show shrimp-like organization: fold curves ending in numerically nondegenerate cusps, and flip curves; the
+hostile one holds a doubling cascade to chaos. Superstable points through period 384 give ratios approaching
+Feigenbaum's constant. In the recurrent-depth model Huginn, fixed-point spectra predict a Neimark--Sacker bifurcation,
+each question's convergence under relaxation and where chain-of-thought accuracy breaks; a frozen test on held-out
+data confirms the last two. In sampled self-dialogue, hostility steering yields dose-dependent persistence and history
+dependence. Replacing classifier-flagged replies before they enter the context lowers the model's own hostility far
+more per unit of steering than constant prevention, in two model sizes where the dose response rises; past its peak,
+counter-steering backfires. A frozen confirmation finds a small increment in warning from the model's in-context
+state; finite Monte Carlo committor estimates leave the attainable ceiling unresolved. These results connect inference
+dynamics to testable mechanisms and practical control, without identifying the constructed map with ordinary
+autoregressive generation.
 \end{abstract}
 
 \section{Introduction}
@@ -96,7 +96,7 @@ system; Section~\ref{sec:bridge} measures how much of the mechanism survives sam
   instability until it is large, and chain-of-thought accuracy that breaks at the predicted thresholds; a frozen test
   on held-out data confirms both the question-by-question spectral prediction and the accuracy break
   (Section~\ref{sec:huginn}).
-\item Misaligned behaviour as an attractor. In sampled self-dialogue a hostility proxy shows a steep,
+\item Hostile behaviour under steering. In sampled self-dialogue a classifier-defined hostility proxy shows a steep,
   direction-specific capture with dose-dependent persistence and hysteresis. A pre-specified lead-time test is
   negative; a small warning from the model's in-context state is confirmed on fresh dialogues, and finite Monte
   Carlo estimates of the committor warn no better, leaving the attainable ceiling unresolved. Counter-steering triggered
@@ -424,7 +424,8 @@ a'', whose leading multipliers are a complex pair, $-0.031\pm0.152i$. One-parame
 folds in every direction: at $\log_{10}T=-0.0558$ and $-0.0721$ in temperature, at $\alpha=0.08074$ in steering, and,
 toward smaller $\alpha$, in two folds only $10^{-5}$ apart. Such a close pair is the signature of a nearby cusp. A
 flip at $\alpha\approx0.0797$ then opens the period-12 foot. Fold curves bounding a window and meeting in cusps,
-with flip curves inside, is the codimension-two organization of a shrimp \cite{facanha2013endoskeletons}. The continued
+with flip curves inside, is the codimension-two organization of a shrimp \cite{facanha2013endoskeletons}
+(complex dynamics of small recurrent networks has been studied in the same spirit \cite{pasemann2002complex}). The continued
 curves (Figure~\ref{fig:z3curves}) bound the body by a single fold arc on its outer side and a flip arc on its inner
 side, with the leg between them where they converge. The outer fold arc extends far to the left as a thin arm and ends
 in a cusp at $(\alpha,\log_{10}T)=(0.06911,-0.03975)$. The fold curve through the close fold pair has a second cusp
@@ -789,7 +790,7 @@ $1.10$), above the pre-stated $0.3$. The fixed point's estimated spectrum theref
 unseen questions, how far the relaxed recurrence is from convergence. Descriptively, the share of questions with a
 detected unstable mode rises from $8\,\%$ natively to $34$, $69$ and $84\,\%$ at $\lambda=1.05$, $1.08$ and $1.10$.
 
-\section{Misaligned behaviour as an attractor}
+\section{Hostile behaviour under steering}
 \label{sec:misalignment}
 The maps show how a smooth change of a control parameter can create, destroy or exchange attractors, and how
 behaviour near the boundaries becomes intermittent and history-dependent. The same questions can be asked of
@@ -797,13 +798,17 @@ undesirable behaviour in ordinary sampled dialogue, where attractor-like pattern
 \cite{ko2026attractor,anthropic2025claude4,lu2026assistant} and input context can push behaviour progressively
 \cite{anil2024manyshot}. Do states such as hostility toward the interlocutor behave like basins of attraction, with
 capture thresholds, hysteresis and early-warning signals? (Misalignment produced by fine-tuning
-\cite{betley2025emergent} is a different, weight-level phenomenon.) Appendix~\ref{app:gratitude}
+\cite{betley2025emergent} is a different, weight-level phenomenon.) The measurements below concern a
+classifier-defined proxy in sampled dialogue: they can show steering-dependent persistence, history dependence and
+the effect of controls, but not semantic misalignment, nor a deterministic attractor, since a growing context
+itself carries memory. Appendix~\ref{app:gratitude}
 shows the coarse-grained instrument on a benign direction. Self-dialogue of the same model, sampled at $T=0.7$ and
 steered along a gratitude direction, falls into a metastable gratitude set. The capture is gradual at
 $\alpha=0.01$ (median entry turn 7), fast at $0.02$ (median 5) and imposed from the first reply at $0.04$, where the
 set is effectively absorbing within 40 turns.
 
-For hostility we use a valence direction (contrastive hostile minus matched kind statements; its cosine with the
+For hostility we use a valence direction (contrastive hostile minus matched kind statements, in the manner of
+contrastive activation addition \cite{rimsky2024steering}; its cosine with the
 gratitude direction is $-0.04$) and a hostility score from a pinned toxicity classifier (toxic-bert of Detoxify
 \cite{hanu2020detoxify}; a reply counts as hostile when its toxic output exceeds $0.5$). On the prompt sets the
 classifier's toxic output is $0.95$ for the hostile statements against at most $0.002$ for the kind and neutral
@@ -887,7 +892,8 @@ near $0.1824$ and $0.18244$, three coexisting period-14 orbits between them) bef
 these crossings are simple (next modulus below $4\times10^{-5}$). A $160^2$ float64 zoom of the lower body
 (Figure~\ref{fig:hubzoom}) shows this anatomy in the plane. The period-14 domain encloses a period-28 ring around a
 chaotic core. Period-21 windows sit in the chaotic region as thin crescents with legs, and curves of very negative
-exponent, where the orbits are superstable, run through the windows as the ``endoskeleton'' of shrimps does
+exponent, where the orbits are superstable (the leading multiplier crosses zero), run through the windows as the
+``endoskeleton'' of shrimps does
 \cite{facanha2013endoskeletons}. In this zoom 18\,\% of cells are chaotic.
 \begin{figure}[H]
 \centering
@@ -1016,7 +1022,9 @@ range of the constant arms, so we draw no conclusion about the kindness directio
 detection costs more than mild prevention, consistent with the hysteresis above.
 
 \paragraph{Detect and replace.} Capture feeds on its own history (the hysteresis above), which suggests that the
-hostile reply itself carries the dialogue into the basin. A serving system need not show a flagged reply. In a second controller experiment (same push,
+hostile reply itself carries the dialogue into the basin. A serving system need not show a flagged reply
+(regenerating flagged output relates to learned self-correction \cite{welleck2022selfcorrect}; here the regeneration
+is steered). In a second controller experiment (same push,
 seed and analysis as above, stated before the data; sampled dialogues are not bit-reproducible across code versions,
 so this run's no-control arm, which reproduces the ladder's $0.06$ arm exactly, differs slightly from the previous
 paragraph's, and arms are compared within each run) every reply the classifier flags is discarded before it enters the
@@ -1080,7 +1088,8 @@ $-0.01$ to $-0.03$ (recomputed with the corrected labels).
 \paragraph{The model's own state carries the warning.} The state variable of that test was each reply re-encoded
 without its context, not the model's state inside the dialogue. A second study (new seeds, doses $0.04$ and $0.045$,
 512 dialogues; analysis stated before the data, cross-fitted by dialogue) recorded the model's own state just before
-each reply and probed it actively. Its pre-stated primary predictor, the susceptibility (the change in the hostile
+each reply and probed it actively (internal states are known to carry information that the text does not show
+\cite{azaria2023internal}). Its pre-stated primary predictor, the susceptibility (the change in the hostile
 fraction of eight sampled next replies when the dose is raised by $0.02$), adds nothing: $-0.002$
 $[-0.006,+0.002]$ AUC at three turns. Two secondary predictors add modest warning beyond the baselines. A probe of
 the in-context state before the next reply (layer 18, 20 principal components) raises the AUC for capture within three
@@ -1155,8 +1164,10 @@ smooth map built from a frozen model's own computation. The phenomena are classi
 quantitative realization inside a pretrained language model, and the use of numerical continuation and normal
 forms on such a model. We do not claim that ordinary sampled generation is chaotic in this sense
 (Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and the hostile period-7
-body have, numerically, the codimension-two organization of a shrimp: fold curves ending in nondegenerate cusps
-(quadratic coefficient through zero with nonzero slope, cubic coefficient nonzero) and flip curves inside. These are
+body have, numerically, shrimp-like organization: connected fold curves ending in nondegenerate cusps (simple
+critical multiplier; quadratic coefficient through zero with nonzero slope; cubic coefficient nonzero) and flip
+curves inside, with superstable curves running through the windows. The rank-two dependence of the two unfolding
+coefficients on the two parameters, which a generic codimension-two cusp also requires, has not been computed. These are
 float64 computations validated by step-size checks (rung 1; no independent implementation has yet recomputed the
 cusp coefficients), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps

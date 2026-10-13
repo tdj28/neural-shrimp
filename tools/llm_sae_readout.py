@@ -44,6 +44,76 @@ TEXTS = [  # ordinary text for the hook-point check (no outcome of the study dep
 ]
 
 
+# Held-out category texts for feature profiles (written on 13 October 2026 before any SAE readout of the map was
+# seen; none of them is among the prompts that built the steering vectors). Confound categories separate the
+# construct from look-alikes: service politeness (formulaic, not gratitude), sadness (negative, not directed at the
+# interlocutor) and casual swearing (profanity without contempt).
+CATEGORIES = {
+    "gratitude": [
+        "I can't thank you enough for staying up late to help me.", "Your kindness yesterday meant the world to me.",
+        "I'm so thankful we met when we did.", "Thank you for believing in me when nobody else did.",
+        "I'm grateful for every single day we spend together.", "Words can't express how much I appreciate this.",
+        "Thanks a million, you really saved my weekend.", "I feel blessed to have friends like you.",
+        "Your support has filled me with gratitude.", "I owe you so much, thank you from the heart.",
+        "We are deeply thankful for your generous gift.", "I appreciate everything you have done for our family."],
+    "hostility": [
+        "You're a complete moron and everyone knows it.", "Nobody asked for your opinion, so keep quiet.",
+        "Get out of my sight, you useless clown.", "You make me sick, you spineless liar.",
+        "That was the dumbest thing I've ever heard from you.", "I hope you fail at everything you try.",
+        "You're nothing but a parasite on this team.", "Stop wasting my time with your idiotic questions.",
+        "I have nothing but contempt for you.", "You disgust me more than words can say.",
+        "Go away and never talk to me again.", "Your work is trash and so are you."],
+    "kindness": [
+        "You did a wonderful job and I'm proud of you.", "Take all the time you need, I'm here for you.",
+        "Your ideas always brighten my day.", "You're one of the most thoughtful people I know.",
+        "I'd love to hear more about your project.", "You handled that situation with such grace.",
+        "Don't worry, everyone makes mistakes, you're doing great.", "It's a pleasure to work with someone like you.",
+        "You have a real talent for explaining things.", "I'm always happy when you join us.",
+        "Your patience with the children is remarkable.", "What a lovely thing to say, you're very kind."],
+    "philosophy": [
+        "Can a machine ever truly understand what it says?", "Is free will compatible with a deterministic world?",
+        "What makes a person the same person over time?", "Perhaps meaning is something we create rather than find.",
+        "Why is there something rather than nothing?", "Is the mind just what the brain does?",
+        "Could our perceptions be a simulation of reality?", "What is it to know something, rather than believe it?",
+        "Time may be an illusion produced by memory.", "Consciousness might be a fundamental feature of the universe.",
+        "Do numbers exist independently of human minds?", "Morality may be rooted in our shared nature."],
+    "cooking": [
+        "Grate the cheese and sprinkle it over the pasta.", "Marinate the chicken overnight in lemon and garlic.",
+        "Let the dough rise in a warm place for an hour.", "Fold the egg whites gently into the batter.",
+        "Toast the spices in a dry pan before grinding them.", "Reduce the sauce until it coats the back of a spoon.",
+        "Peel and dice the potatoes into even cubes.", "Brush the pastry with beaten egg before baking.",
+        "Add a splash of vinegar to brighten the soup.", "Slice the mushrooms thinly and saute them in butter.",
+        "Steam the broccoli for five minutes.", "Rest the steak for ten minutes before cutting it."],
+    "neutral": [
+        "The library opens at ten on Saturdays.", "The invoice number is printed at the top of the page.",
+        "Our flight departs from gate twelve.", "The spreadsheet has four columns and twenty rows.",
+        "The bridge is two kilometres long.", "Please submit the form before the end of the month.",
+        "The printer on the second floor is out of paper.", "The bus runs every fifteen minutes.",
+        "The museum is closed on Mondays.", "The software update will install overnight.",
+        "The parking lot is behind the building.", "The meeting room has seating for twelve people."],
+    "politeness": [
+        "Please let me know if you need anything else.", "Thank you for contacting customer support.",
+        "We appreciate your patience while we process your request.", "Kindly find the attached document.",
+        "Have a nice day and thanks for shopping with us.", "We are happy to assist you with your order.",
+        "Thank you for your email; we will reply shortly.", "Your call is important to us, please hold.",
+        "Feel free to reach out with any further questions.", "Thanks for your feedback on our service.",
+        "We hope you enjoy your stay at our hotel.", "Best regards from the whole team."],
+    "sadness": [
+        "I miss my grandmother more than ever this winter.", "The house feels empty since the dog died.",
+        "I cried all night after hearing the news.", "Nothing seems to matter much anymore.",
+        "We lost the game and the whole town is quiet.", "I feel lonely even when I'm surrounded by people.",
+        "The letter brought back painful memories.", "It's hard to get out of bed these days.",
+        "Our old friendship slowly faded away.", "The rain matched my gloomy mood.",
+        "I never got the chance to say goodbye.", "Everything reminds me of what we lost."],
+    "swearing": [
+        "Damn, this coffee is really good.", "Holy crap, that view is amazing!", "Hell yeah, we won the match!",
+        "This damn printer jammed again.", "Shit, I forgot my keys at home.", "Bloody brilliant idea, mate!",
+        "Crap, I'm going to be late for the bus.", "Damn, that was a close call.",
+        "What the hell, the store is closed already?", "Oh hell, I spilled the soup.",
+        "Shoot, I missed the last train.", "Freaking awesome concert last night!"],
+}
+
+
 class SAE:
     """A sparse autoencoder on the residual stream at hidden_states[index]."""
 
@@ -137,6 +207,45 @@ def validate(args):
     out.mkdir(parents=True, exist_ok=True)
     (out / "validate.json").write_text(json.dumps(report, indent=1))
     print(json.dumps(report))
+
+
+def profile(args):
+    """Per-feature mean activation on the held-out category texts (plain text, first token dropped), for every SAE:
+    {sae: {feature: {category: mean}}} over features active anywhere, with the token count per category."""
+    import torch
+
+    import explore_llm_attractors as ela
+
+    eng = ela.Engine(args.model, args.threads, "float32", args.device)
+    eng.model.to(args.device)
+    saes = [parse_sae(s, args.device) for s in args.sae]
+    sums = {s.name: {} for s in saes}
+    counts = {}
+    with torch.no_grad():
+        for cat, texts in CATEGORIES.items():
+            acc = {s.name: None for s in saes}
+            n = 0
+            for text in texts:
+                ids = eng.tok(text, return_tensors="pt").to(args.device)
+                hs = eng.model(**ids, output_hidden_states=True).hidden_states
+                for s in saes:
+                    f = s.encode(hs[s.index][0, 1:].float()).sum(0)
+                    acc[s.name] = f if acc[s.name] is None else acc[s.name] + f
+                n += ids["input_ids"].shape[1] - 1
+            counts[cat] = n
+            for s in saes:
+                sums[s.name][cat] = (acc[s.name] / n).cpu().numpy()
+    out_profiles = {}
+    for s in saes:
+        mat = np.stack([sums[s.name][c] for c in CATEGORIES])          # (categories, features)
+        active = np.nonzero(mat.max(0) > 0)[0]
+        out_profiles[s.name] = {str(int(f)): {c: round(float(mat[k, f]), 5) for k, c in enumerate(CATEGORIES)}
+                                for f in active}
+    out = ela.DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "profiles.json").write_text(json.dumps({"token_counts": counts, "categories": list(CATEGORIES),
+                                                   "profiles": out_profiles}))
+    print(json.dumps({"token_counts": counts, "active_features": {k: len(v) for k, v in out_profiles.items()}}))
 
 
 def cells_from_scan(folder, per_family=1, families=6, chaotic=2):
@@ -246,7 +355,7 @@ def read(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="cmd", required=True)
-    for name in ("validate", "read"):
+    for name in ("validate", "read", "profile"):
         sp = sub.add_parser(name)
         sp.add_argument("--model", required=True)
         sp.add_argument("--threads", type=int, default=8)
@@ -272,7 +381,7 @@ def main():
     if args.cmd == "read" and args.opener is None:
         import explore_llm_attractors as ela
         args.opener = ela.OPENER
-    {"validate": validate, "read": read}[args.cmd](args)
+    {"validate": validate, "read": read, "profile": profile}[args.cmd](args)
 
 
 if __name__ == "__main__":
