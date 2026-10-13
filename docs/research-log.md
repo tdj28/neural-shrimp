@@ -21984,3 +21984,9 @@ Root accepted the completed independent float64 Qwen cross-check and saved-array
 _commit `9bd1a4b31373` (dirty worktree)_
 
 - run started 2026-10-13 11:01 UTC (../neural-shrimp-data/explore/latent-loop/ouro-positions-story-long and ouro-frozen-p7-plane-grat) finished 13:03 UTC with exit status 0
+
+## 2026-10-13 13:06 UTC: Ouro job 12 part (b): the steered frozen position-7 map has a chaotic band in the steering strength, not in lambda; no periodic windows
+
+Job 12(b) (local GPU, 11:05-13:03 UTC, 6940 s; explore_latent_loop frozen-plane, Ouro-1.4B, story prompt, positions 0-6 frozen at their fixed point, context residual 4.8e-7; position 7 steered along Ouro's layer-12 gratitude vector; lambda 0.6-1.4 x alpha -3..3, 64 x 64; output latent-loop/ouro-frozen-p7-plane-grat, figure docs/figures/ouro-frozen-p7-plane-grat.png): period 1 in 3284 cells, period 2 in 6, no period up to the maximum in 806. Positive largest exponent in 696 cells (max 0.153 per loop), in a vertical band at alpha -2.1 to -1.0 (steering away from gratitude) that spans all lambda; a few thin vertical lines without period at alpha 0.4-0.9 have negative exponents (slow or quasi-periodic, not resolved). The organization is set by the steering strength; relaxation hardly moves the band's edges, as expected when lambda changes the stability of fixed points but not their existence, while the chaos lives away from any fixed point. No periodic windows inside the band at this resolution, so nothing shrimp-like in this plane. The chaotic band is the first chaos found in Ouro's single-position latent map (job 09's unsteered map was period 1 everywhere).
+
+_commit `c9b75332bbaa` (dirty worktree)_
