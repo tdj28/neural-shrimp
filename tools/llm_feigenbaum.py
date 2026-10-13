@@ -166,15 +166,28 @@ class Evaluation:
                 "newton_residuals": self.newton_history, "seconds": round(self.seconds, 1)}
 
 
-def evaluate(make_cell, lam, X0, period, Q0, tol=1e-12, max_newton=12, passes=3, real_tol=1e-8):
+class Collapsed(SearchError):
+    """Newton for period p converged to the period-p/2 orbit (also p-periodic), not to the doubled orbit."""
+
+
+def evaluate(make_cell, lam, X0, period, Q0, tol=1e-12, max_newton=12, passes=3, real_tol=1e-8, half=None,
+             min_split=1e-7):
     """Converged period-p orbit at lam from the warm start X0, with its multipliers. Refuses a complex critical
-    multiplier near -1 (Re + 1 < 0.5): what approaches the circle there is not a real multiplier, so not a flip."""
+    multiplier near -1 (Re + 1 < 0.5): what approaches the circle there is not a real multiplier, so not a flip. With
+    `half` (= p/2 for a doubled orbit), refuses a solution with |F^half x - x| / |x| < min_split: just beyond the flip
+    that created the doubled orbit, the half-period orbit is a period-p solution too (multiplier mu_half^2 > 1), and
+    Newton can slide onto it (run C3, period 96)."""
     tic = time.perf_counter()
     cell = make_cell(lam)
     tol = tol_for(period, tol)
     X, Q, hist = newton(cell, X0, period, Q0, tol, max_newton)
     if not hist[-1] < tol:
         raise SearchError(f"period-{period} Newton did not converge at lambda = {lam!r}: residuals {hist}")
+    if half:
+        split = return_distance(cell, X, half)
+        if split < min_split:
+            raise Collapsed(f"period-{period} solution at lambda = {lam!r} is the period-{half} orbit "
+                            f"(|F^{half} x - x| / |x| = {split:.3g})")
     vals, vecs, residuals, rhist, Q = ritz(cell, X, period, Q, passes)
     ev = Evaluation(lam, X, Q, vals, vecs, residuals, hist, rhist, time.perf_counter() - tic)
     mu = ev.critical
@@ -197,8 +210,15 @@ def locate_flip(make_cell, period, a, b, lam_tol, g_tol=1e-11, max_eval=40, log=
         if abs(b.lam - a.lam) <= lam_tol or abs(best.g) <= g_tol:
             break
         lam = (a.lam * gb - b.lam * ga) / (gb - ga)
-        start = a if abs(lam - a.lam) < abs(lam - b.lam) else b
-        c = evaluate(make_cell, lam, start.X, period, start.Q, **kw)
+        first, second = (a, b) if abs(lam - a.lam) < abs(lam - b.lam) else (b, a)
+        try:
+            c = evaluate(make_cell, lam, first.X, period, first.Q, **kw)
+        except Collapsed:
+            try:                                           # warm start from the other bracket end
+                c = evaluate(make_cell, lam, second.X, period, second.Q, **kw)
+            except Collapsed:                              # bisect instead, from the nearer end
+                lam = 0.5 * (a.lam + b.lam)
+                c = evaluate(make_cell, lam, first.X, period, first.Q, **kw)
         evals.append(c.record())
         log(json.dumps({"period": period, "lambda": c.lam, "mu": float(c.critical.real), "g": c.g,
                         "next_modulus": evals[-1]["next_modulus"], "newton": c.newton_history[-1],
@@ -254,6 +274,7 @@ def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_p
     """Successive flips along the cut, starting from the period-`period` orbit near X0 at lam0; lam_next lies inside
     the first doubled band (beyond the first flip). Returns the list of flip records."""
     s = 1.0 if direction > 0 else -1.0
+    half = None                                           # the start orbit is not checked against a half period
     a = evaluate(make_cell, lam0, X0, period, Q0, tol)
     log(json.dumps({"start": {"period": period, "lambda": lam0, "mu": float(a.critical.real)}}))
     b = evaluate(make_cell, lam_next, a.X, period, a.Q, tol)
@@ -261,7 +282,8 @@ def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_p
     for n in range(flips):
         width = abs(b.lam - a.lam)
         root, evals = locate_flip(make_cell, period, a, b, lam_tol=max(lam_rel_tol * abs(root_scale(a, b)),
-                                                                         1e-9 * width * 1e-3), log=log, tol=tol)
+                                                                         1e-9 * width * 1e-3), log=log, tol=tol,
+                                  half=half)
         rec = {"period": period, "flip": root.record(), "evaluations": evals}
         if tokens is not None:
             rec["tokens"] = tokens(make_cell(root.lam), root.X, period)
@@ -288,18 +310,24 @@ def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_p
                                      k, tol)
         displacement = max(split / 2.5, 1e-6)
         period *= 2
-        a = evaluate(make_cell, lam_s, X2, period, Q2, tol)
+        half = period // 2
+        a = evaluate(make_cell, lam_s, X2, period, Q2, tol, half=half)
         if a.g <= 0:
             raise SearchError(f"period-{period} orbit at the switching point {lam_s!r} is already beyond its flip "
                               f"(mu = {a.critical.real:.4g}); move the switching point closer to the last flip")
-        far = lam_s + s * band                            # beyond the estimated next flip
-        for _ in range(4):
-            b = evaluate(make_cell, far, a.X, period, a.Q, tol)
-            if b.g < 0:
+        # walk from the switching point toward and beyond the estimated next flip by continuation in small
+        # substeps (a single long jump lets Newton slide onto the half-period orbit); stop at the first point past
+        # the flip (g < 0), which brackets it together with the previous point
+        sub = 0.25 * band
+        prev, b = a, None
+        for _ in range(16):
+            cur = evaluate(make_cell, prev.lam + s * sub, prev.X, period, prev.Q, tol, half=half)
+            if cur.g < 0:
+                a, b = prev, cur
                 break
-            far = lam_s + s * 2.0 * abs(far - lam_s)
-        else:
-            raise SearchError(f"no flip of period {period} found up to lambda = {far!r}")
+            prev = cur
+        if b is None:
+            raise SearchError(f"no flip of period {period} found up to lambda = {prev.lam!r}")
     return results
 
 

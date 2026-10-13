@@ -114,3 +114,19 @@ def test_edges_of_the_period_three_window():
     down = [r for r in recs if r["direction"] < 0][0]
     assert up["kind"] == "flip" and abs(up["lambda"] - 3.8414990075) < 1e-6
     assert down["kind"] == "fold" and abs(down["lambda"] - (1 + np.sqrt(8))) < 1e-6
+
+
+def test_collapse_onto_the_half_period_orbit_is_refused():
+    """Beyond r1 = 3 the logistic fixed point is also a 2-periodic point; started on it, period-2 Newton stays there."""
+    r = 3.2
+    fixed = 1 - 1 / r
+    X = torch.full((1, 1, 6), 0.0, dtype=torch.float64)
+    X[0, 0, 0] = fixed
+    cell = ToyCell(r)
+    X = cell.iterate(X, 0)
+    for _ in range(50):                                   # converge the driven coordinates onto the fixed point
+        X = cell.f(X)
+        X[0, 0, 0] = fixed
+    Q = np.linalg.qr(np.random.default_rng(4).normal(size=(6, 3)))[0]
+    with pytest.raises(lf.Collapsed):
+        lf.evaluate(lambda lam: ToyCell(lam), r, X, 2, Q, half=1)
