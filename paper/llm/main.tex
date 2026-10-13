@@ -318,8 +318,34 @@ about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a sadd
 of the full-passage prefactor: stripe centres give $d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope
 $-2.00$), compared with $\pi^2/(4ab)=0.0201$ for a half passage. Two-step return maps of $p(\text{``it''})$
 (Figure~\ref{fig:returnmaps}) show the near-tangency.
-\inprogress{stripe edges from continuation (ladder of branches for periods 6--20) instead of grid-defined
-centres; prediction of the window positions from the measured reinjection distribution.}
+Exact stripe edges along $\log_{10}T=-0.115$ (Table~\ref{tab:edges}) sharpen this. Each window is bounded by a fold,
+where its orbit is born, and by a flip. For periods 6--12 the fold faces away from the accumulation point; for periods
+16--20 the sides are exchanged; the period-14 window is bounded by flips on both sides. The fold edges of periods
+16--20 follow $\alpha_N-\alpha_c=C/(N+\delta)^2$ with $C=0.0266$ and $\delta=0.15$. Their slope, $1/\sqrt{\alpha_N-\alpha_c}$
+rising by $6.13$ per lap, is $1.74$ times the full-passage slope $\sqrt{ab}/\pi=3.53$ of the normal form: an effective
+passage of $0.58$ of a full one, as the measured natural reinjection gives independently.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rll}
+\toprule
+period & edge toward larger $\alpha$ & edge toward smaller $\alpha$ \\
+\midrule
+6 & fold $0.0790337$ & flip $0.0766947$ \\
+8 & fold $0.0726585$ & flip $0.0706525$ \\
+10 & fold $0.0684572$ & flip $0.0670594$ \\
+12 & fold $0.0658982$ & flip $0.0651944$ \\
+14 & flip $0.0645850$ & flip $0.0642958$ \\
+16 & flip $0.0639284$ & fold $0.0638001$ \\
+18 & flip $0.0635683$ & fold $0.0635034$ \\
+20 & flip $0.0633535$ & fold $0.0633183$ \\
+\bottomrule
+\end{tabular}
+\caption{Edges of the stripe windows along $\log_{10}T=-0.115$ ($\alpha_c=0.0627983$), from the window centres of
+Table~\ref{tab:orbits}. Flips: critical multiplier a real $-1$ to $3\times10^{-10}$. Folds: the multiplier nearest $+1$
+extrapolated to 1 through $(1-\mu)^2$, which is linear near a fold; last converged multiplier $0.991$--$0.998$.}
+\label{tab:edges}
+\end{table}
+\planned{prediction of the window positions from the measured reinjection distribution.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\linewidth]{fig-return-maps.png}
@@ -531,11 +557,11 @@ A cut of 2048 cells at $\alpha=0.100$ (Figure~\ref{fig:qwen15route}) shows how t
 2-cycle ``What?\textbackslash n'' gives way abruptly to a period-4 loop: the Lyapunov exponent jumps, so these are two
 distinct attractors, not a flip. The period-4 loop then doubles: float64 flips at $\log_{10}T=-0.0031269$ (period
 $4\to8$, next modulus $0.014$), $-0.0021666$ (period $8\to16$, next modulus $8\times10^{-5}$) and $-0.0019002$
-(period $16\to32$, next modulus $5\times10^{-9}$), where the exponent rises continuously to zero; chaos follows. The
-first interval ratio is $3.60$. That is closer to $4.669$ than the low-temperature crescent's first ratios, and this
-sequence lies at higher temperature ($T\approx0.99$ against $0.71$), as the crossover hypothesis of
-Section~\ref{sec:cascade} would have it. With different models and levels, the comparison is only suggestive.
-\inprogress{the period-32 flip and the second ratio.}
+(period $16\to32$, next modulus $5\times10^{-9}$) and $-0.0018380$ (period $32\to64$), where the exponent rises
+continuously to zero; chaos follows. The interval ratios are $3.60$ and $4.28$. They rise toward $4.669$ as in the
+0.5B crescent, and from higher values, at higher temperature ($T\approx0.99$ against $0.71$), as the crossover
+hypothesis of Section~\ref{sec:cascade} would have it. With different models and levels, the comparison is only
+suggestive.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\linewidth]{fig-qwen15-route.png}
