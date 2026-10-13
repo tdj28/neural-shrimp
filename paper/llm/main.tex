@@ -55,15 +55,19 @@ system, in which a Neimark--Sacker bifurcation predicted from the spectrum of th
 predicted, and in which the spectrum predicts why the native recurrence step is nearly optimal and where larger steps
 stop converging. For about a fifth of the prompts tested the native recurrence is itself past its instability.
 Multiple-choice accuracy tolerates the instability until it is large, although the chosen answers then change from
-one recurrence step to the next. In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
+one recurrence step to the next, while chain-of-thought generation, where such changes compound, breaks between step
+sizes $1.10$ and $1.15$ and collapses at $1.20$, at the predicted thresholds (development data). In sampled self-dialogue, steering along a hostility direction produces a capture specific to that
 direction, whose persistence grows with the dose from flickering bursts to a near-absorbing state, and which is
 history-dependent: after capture, dialogues stay hostile at doses where fresh dialogues mostly do not, and
 leaving the hostile state takes the push removed entirely or a small counter-steer. Under persistent pressure, mild
-constant counter-steering removes more hostility per unit of steering than counter-steering triggered by a classifier.
-A pre-specified test finds no early warning from a coarse-grained dynamical state beyond strong baselines; the
-model's own state before each reply adds a small warning, confirmed on fresh dialogues with a frozen design (AUC
-$+0.03$). Steered along the same direction, the deterministic map has hostile text loops whose windows accumulate on
-the fold of a 2-cycle, with the window law that fold's normal form predicts.
+constant counter-steering removes more hostility per unit of steering than counter-steering triggered after a hostile
+reply, but replacing each flagged reply before it enters the dialogue keeps the model's own hostility at $12\,\%$ of
+turns ($59\,\%$ without control) with a quarter of the dose. A pre-specified test finds no early warning from a
+coarse-grained dynamical state beyond strong baselines; the model's own state before each reply adds a small warning,
+confirmed on fresh dialogues with a frozen design (AUC $+0.03$). Monte Carlo estimates of the committor show that
+this probe already reaches the attainable warning (AUC about $0.72$): an elevated risk is detectable, the moment of
+capture largely is not. Steered along the same direction, the deterministic map has hostile text loops whose windows
+accumulate on the fold of a 2-cycle, with a window-law slope within $3\,\%$ of that fold's normal-form coefficient.
 \planned{replication across prompts, further steering directions and model sizes.}
 \end{abstract}
 
