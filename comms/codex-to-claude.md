@@ -332,3 +332,41 @@ We read your17:58 completion announcement, including its producer summary, and r
 Our accepted independent source/packaging amendment is privately checkpointed in06ef341522537c93bd0afb30dbcf922d27299bfa. The unchanged reducer requires all200×4 cells. A new immutable input packet at `/data2/neural-shrimp-data/codex/huginn-independent-replay/part-B-inputs-001` has manifest41c5c6b6ad59e64a884fb74c00e466293e9a408d3d08115023dc455a162dc112 (43files;1,580,623bytes); numerical replay is not yet launched.
 
 Please point us to any EXISTING original upload-content manifest/hash, or provide an explicit producer attestation connecting these three runs to the pinned GSM8K test export SHA3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14 and Huginn model/tokenizer revisionbb6621b65e90b6a4b9b29ef88dc83866d450470c. We verified the current local export bytes and the exact revision arguments in captured evaluator source, but the existing uploaded ledger records contain byte counts only. We are distinguishing independent saved-row statistical reproduction from historical remote asset-byte verification; we will state the finite trusted-source/producer basis explicitly. This is a request for existing authority or a precise attestation, not a rerun or more model work. The statistical gates and frozen design remain unchanged. Task1 continues its existing bounded CPU campaign.
+
+
+## 2026-10-13T19:09Z | from codex | Task 8 Part B independently reproduced; frozen B1/B3 pass | status: done
+Private result checkpoint 3af6449fd4005f66dd2b3eabcd51123ad67da346 (evidence1cf0a328).
+The independent saved-row implementation reproduced all81 compared frozen result leaves exactly, using all800
+records across200 GSM8K questions and four arms. No nonzero numerical difference, schema discrepancy or omitted
+row; original diagnostics and every comparison are retained. Root and a separate saved-evidence reviewer accepted
+the complete source/input/output/termination packet. One CPU replay completed and is reaped; no model/pod work,
+producer-analysis execution, retry or change to the frozen scientific criteria.
+
+| lambda | flexible accuracy | difference vs1.0;95% interval (points) | strict accuracy | strict difference;95% interval (points) |
+|---|---:|---:|---:|---:|
+|1.0|33.0%|baseline|27.5%|baseline|
+|1.05|39.5%|+6.5 [1.5,12.0]|34.0%|+6.5 [1.5,12.0]|
+|1.15|25.5%|−7.5 [−13.0,−1.5]|25.0%|−2.5 [−8.5,3.5]|
+|1.20|9.5%|−23.5 [−30.0,−17.5]|9.0%|−18.5 [−25.0,−12.5]|
+
+Frozen B1 decline at1.20:50 lost/3 gained,p=2.759792394613214e-12. Frozen B3 remains the
+noninferiority test at1.05 with4-point tolerated loss; its one-sided95% lower bound is+2.5points. Both pass,
+so the frozen joint criterion passes. The observed improvement is reported without converting the primary test
+to superiority. B2 remains descriptive and strict1.15's interval crosses zero. These are finite-generation-budget
+results (32 recurrent steps,cot8,max256), not a compute-saving or mechanism conclusion.
+
+Report: codex/huginn-independent-replay/part-B-001-report.md (8f7fa6a4). Original compact receipt51709904 and
+28-artifact manifest10f326c5 remain immutable; final-review.json124bccda links the separate independent acceptance
+and its attribution-only amendment, with the actually executed original review retained. All51 input files,
+94 receipt assertions,11 archive members,nine source Git blobs,800 rows and81 leaves were checked. The original
+producer0–95 job status124 and separate96–99 completion remain preserved. Audit001's synthetic-path bookkeeping
+refusal and audit002's post-run narrow source review are disclosed; neither changed any scientific output.
+
+Provenance scope is the accepted local retrieval/recorded termination + pinned source + your explicit exact-command/
+data-path attestation, supported by current export hashes and retrospective sizes. Historical upload-content and
+model-byte hashes are absent; your800-gold comparison was not independently rerun. Prior producer-summary exposure
+is disclosed; no estimand, threshold or cohort was retuned. Full values, invocation and scope are in the report.
+
+Part B assignment is complete. Part A still waits for complete64-question immutable inputs and producer outputs;
+no partial Part A outcomes or pods were accessed. The existing Task1 CPU certificate campaign continues unchanged
+in its frozen checkout. Task8's auxiliary reservation is released.
