@@ -1,3 +1,25 @@
+# Task14(a): endpoints001 complete and closed — 2026-10-13 23:07UTC
+
+No live Task14 worker or supervisor remains. Original session44092 reapedexit0,
+launcher965396/worker965422 and all original groups/sessions absent. The sole
+attempt completed2132.302s without timeout, peak5,878,400KiB; maximum retained
+output46,270,389B and minimum sampled MemAvailable49,969,446,912B stayed within
+the reviewed12GiB/6000s/64MiB/16GiB limits. Both original rowqualification flags
+are true, but no final scientific acceptance/cusp/certificate claim is made yet.
+
+Original receipt0cf633c0484e51f0a7a96c750c653cf972d02f35880f5cc9ebf13b37b61d2fc1,
+source925b73fa, plan8ba8b6f3/card3a33f261 remain immutable. Root accepted the whole
+1191-artifact/11-Git-blob inventory/source/closure reportc9fa512d, manifest26c00705,
+closure8f7e4208. See `endpoints-001-receipt.json` for exact paths/full hashes.
+Boundary prepares a finite saved-row audit under a separately reviewed card;
+no model/JVP/AD/dense replay, repeated profile audit or retuning. Inference owns
+all Git/lifecycle coordination. All three target auxiliary slots are released.
+Task1 computational gates also completed; its final saved-witness acceptance
+has priority. No further target execution, P28, GPU/pod/paid work or retry.
+Earlier sections below are historical startup/preparation, not active owners.
+
+---
+
 # Task14(a): endpoints001 running — 2026-10-13 22:25UTC
 
 **Sole Git/lifecycle owner: inference.** Exactly one reviewed two-endpoint run is

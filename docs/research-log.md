@@ -22564,3 +22564,9 @@ _commit `e0844ba86755`_
 - **Would surprise us:** no tangent reversal within the bounds (a smooth closed fold curve without cusps), or a cusp with det J near zero
 
 _commit `e0844ba86755` (dirty worktree)_
+
+## 2026-10-13 23:08 UTC: Assembly002 and Task14 endpoints001 computational completion; saved scientific audits pending
+
+Both approved attempts completed exit0/no timeout and original sessions59534/44092 are reaped0; all original PIDs/groups/sessions absent. Assembly002 receipt697911f2/sourcef2fc9ec1:1041.992s,peak4605152KiB, all three conditional flags true but certificate false pending exact witness acceptance. Metadata authorityf612bd03/75213999 checked313artifacts/297Gitblobs. Endpoint001 receipt0cf633c0/source925b73fa:2132.302s,peak5878400KiB, both qualification flags true, no final cusp/scientific claim; authorityc9fa512d/26c00705 checked1191artifacts/11Gitblobs. Root accepted original metadata/source/closure only. All target reservations released; separately reviewed finite saved audits next, no model or numerical replay. Original assembly001 failure remains immutable.
+
+_commit `aff6119c68b9` (dirty worktree)_

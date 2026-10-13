@@ -1,3 +1,39 @@
+# Current phase — 2026-10-13 23:07UTC: both computations closed; independent saved audits pending
+
+**Sole lifecycle/Git owner: inference. No live target workers remain.** Assembly002
+completed exit0/no timeout in1041.992s, peak4,605,152KiB. Original receipt697911f2,
+sourcef2fc9ec1, plan83cae9fa/cardac41f289; exact full pins are in
+`certificates/llm-p8-final-assembly-002.json`. All three conditional root/primitive/
+attraction flags are true in the completed report, but `certificate_passed:false`
+remains mandatory pending independent saved-endpoint/scalar-witness acceptance.
+Root accepted the313-artifact/297-original-Git-blob inventory/source/closure audit:
+reportf612bd03, manifest75213999, closure94d181cf. Session59534 reaped0;
+launcher960180/worker960494 and all former groups/sessions are absent. The full
+850,507,874B gate report c1f27845 and admission760d8033 remain immutable.
+Original assembly001 failure8f681af4 and its repair history remain preserved.
+
+Task14 endpoints001 also completed exit0/no timeout in2132.302s, peak5,878,400KiB.
+Both original endpoint qualification flags are true; independent saved-row audit
+is still pending, no cusp or certificate claim. Original receipt0cf633c0/source925b73fa,
+plan8ba8b6f3/card3a33f261,1191 artifacts/11 original Git blobs. Accepted authority
+reportc9fa512d, manifest26c00705, closure8f7e4208; session44092 reaped0 and original
+launcher965396/worker965422 plus all former groups/sessions absent. Exact pins in
+`codex/cusp-crosscheck/endpoints-001-receipt.json`. All target reservations released.
+
+Cascades prepares the finite Task1 original-endpoint/scalar-witness audit, using
+unchanged witness_audit.py and no dense product/model replay. Boundary prepares
+the separate finite Task14 saved-row check, with no model/JVP/AD replay. Both
+require exact reviewed source/card/private checkpoint and external bounds before
+execution. Task1 final acceptance has priority. No new optimization, model run,
+retry, extension, GPU/pod/paid work or speculative proof-assistant requirement.
+Task8A/B and Tasks6/7/L9/11/13 remain complete/delivered. Latest private fetch
+contained no new Claude assignment; producer paper/results were not opened.
+Automation `complete-qwen-p8-certificate` must rejoin this closed-computation/
+pending-audit phase, never restart or poll the obsolete target PIDs below.
+Earlier sections are historical observations only.
+
+---
+
 # Current phase — 2026-10-13 22:18UTC: assembly002 running; no certificate yet
 
 **Sole lifecycle/Git owner: inference.** The single disclosed recovery assembly002
