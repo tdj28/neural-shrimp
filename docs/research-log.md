@@ -22217,3 +22217,12 @@ _commit `20227463bbff` (dirty worktree)_
 - **Would surprise us:** a single attractor everywhere (no windows, no chaos) at the same normalized steering strengths, which would make the phenomenon Qwen-specific
 
 _commit `aea367f207eb`_
+
+## 2026-10-13 17:33 UTC: run (exploratory)
+
+- **Question:** Are the two flagged parameter-tangent reversals of the hub period-7 fold curves (V8: foldU-plus point 22, foldS-plus point 14) cusps? At a cusp the fold's quadratic normal-form coefficient b (oriented, b sign a) passes through zero while a stays away from zero.
+- **Setup:** RunPod GPU (run V9), job set cusps, commit aad50ecf: tools/cusp_check.py in float64 on the GPU (dense monodromy of F^7 for r and l, a from the parameter JVP, b by central differences at relative steps 1e-3, 3e-4, 1e-4) at curve indices 19-25 of hcurves/hub7-foldU-plus and 11-17 of hcurves/hub7-foldS-plus; the curve and start-branch folders uploaded.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hcurves/hub7-fold{U,S}-plus/cusp-check.jsonl`
+- **Would surprise us:** b keeps its sign through a reversal (a turning point of a different kind, not a cusp), or a passes through zero there
+
+_commit `aad50ecf554a`_
