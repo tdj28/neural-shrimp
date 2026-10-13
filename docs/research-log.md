@@ -20716,3 +20716,21 @@ _commit `fc570939cda5` (dirty worktree)_
 The previous note says the analysis commit fc570939 came before the L1 ladder data was 'retrieved or inspected'. Accurate statement: the orchestrator retrieved and extracted the L1 results automatically at 00:00:25 UTC (run started 23:47:12, wall 793 s); the analysis commit is from 00:02:28 UTC. No L1 output had been opened, scored or summarized before that commit.
 
 _commit `796d44537e59`_
+
+- run started 2026-10-12 22:20 UTC (../neural-shrimp-data/explore/latent-loop/ouro-arclength-p2-up) finished 00:05 UTC with exit status 0
+
+## 2026-10-13 00:05 UTC: run (exploratory)
+
+- **Question:** Feigenbaum test of the crescent cascade continued to longer periods on the local GPU (float64): flip parameters of the period-3 loop's doublings P3 ... P384 along log10 T = -0.14798, and their interval ratios; P3 to P48 also recompute the CPU run on different hardware (cross-check).
+- **Setup:** tools/llm_feigenbaum.py cascade on cuda float64 (RTX 2000 Ada; norms and rotary patched), same cut and start as the CPU run (alpha 0.06505 in P3, first doubled band at 0.06570), k = 6, up to 8 flips (P3 ... P384), tolerance 1e-12
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/feigenbaum-crescent-t-0.14798-gpu`
+- **Would surprise us:** GPU and CPU flip parameters differing by more than 1e-10 for P3-P48; ratios departing from 4.67 at long periods; a flip that is not a real -1
+- **Command:** `bash -c set -o pipefail; .venv/bin/python -u tools/llm_feigenbaum.py cascade --device cuda --threads 4 --log-temperature -0.14798 --alpha 0.06505 --free alpha --period 3 --next 0.06570 --flips 8 --out llm-soft-loop/feigenbaum-crescent-t-0.14798-gpu 2>&1 | grep -v -i -e warn -e Loading -e deprecat`
+
+_commit `1e4f2865e2e9` (dirty worktree)_
+
+## 2026-10-13 00:20 UTC: Paper claims rescoped after the independent literature audit (Codex Task 3)
+
+Integrated docs/related-work-draft.md into paper/llm/main.tex (commit 7ac68ed4): (1) the introduction no longer says prior work does not resolve invariant sets and bifurcations of inference maps; it cites the derivative-based fold and unfitted passage predictions of Kim (2026, arXiv 2608.26556) in a small task-trained looped transformer and training-free expected-embedding feedback in pretrained models (Soft Thinking), and states our contribution positively and scoped (frozen released pretrained LM, fixed prefix and position; primitive orbits, continued boundaries, fold-derivative passage predictions, the text of each orbit). (2) Related work adds recurrent-LM bifurcation diagrams (Ribeiro 2020), looped-transformer stability (Parcae, Buehlmaier, Labovich, Fixed-Point Reasoners), neural ghost delays (Dinc et al., PRX 2026), finite-order Feigenbaum ratios in neural rate/mass models (Battaglia 2007, Papasavvas 2015) and through period 128 in a transformer trained on logistic-map data (Liu et al. 2026, ratio 4.6687), learned and training cascades (Kim 2021, Kalra 2025), neural normal forms (Marichal 2015) and neuron-model shrimps (Gomez 2014, Caixeta 2025), with a qualified absence statement. (3) 'Complete period-doubling cascade' replaced by the resolved finite sequence; the table carries the third flip (0.0660549041785) and delta_1 = 2.844, with the coordinate (alpha at log10 T -0.14798) and the finite-order caveat. (4) The misalignment section cites the behaviour-forecasting, persona-drift, committor and timing literature and states the primary question as incremental warning over strong baselines. 32 references merged by key; kim2026phase and liu2026learningchaos re-checked on arXiv abstract pages, dinc2026ghost on Crossref. Table 1 recompute (current map, log10 T -0.115, stripe centres): P6 mu1 +0.00523, P8 +0.01104, P10 +0.00251, P12 +0.01630 (next moduli 3e-6 to 4e-8), residuals 6e-15 to 1e-13; P14-P20 running.
+
+_commit `55d5d81b67b2` (dirty worktree)_
