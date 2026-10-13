@@ -259,6 +259,32 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
     run hnormal2-nf 30 normal-form --device cuda --run $D/hnormal/curve-p2-fold --index 0 --param temperature \
       --out $D/hnormal/normal-form-p2
     ;;
+  scale7)      # scale-up rung 2: Qwen2.5-7B-Instruct (pinned revision), layer 14 of 28: concept vectors (with the
+               # hostility:kindness contrast and three random directions) built on the GPU, a timed 8x8 float64 scan,
+               # then coarse 64x64 float64 maps along philosophy (the 0.5B and 1.5B range) and hostility-vs-kindness;
+               # JOBARGS: MINUTES for the philosophy map, MINUTES for the hostility map (0 skips it)
+    REV7=a09a35458c702b33eeacc393d103063234e8bc28
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+      > "$LOGS/setup-model7.log" 2>&1
+    REFS7=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/refs
+    mkdir -p "$REFS7" && printf %s "$REV7" > "$REFS7/main"
+    minutes=${JOBARGS[0]:-90}
+    TOOL=explore_llm_phase_map.py run scale7-vectors 20 vectors --model qwen7b --layer 14 --device cuda \
+      --dtype float64 --contrasts hostility:kindness --random 3 --out llm-phase-map/vectors-7b-l14
+    mkdir -p "$OUT/$D/scale7" && cp -r "$OUT/llm-phase-map/vectors-7b-l14" "$OUT/$D/scale7/"
+    S7="scan --device cuda --dtype float64 --chunk 512 --tol 1e-8 --eps 1e-6 --model qwen7b --layer 14
+        --vectors llm-phase-map/vectors-7b-l14"
+    run scale7-timing 20 $S7 --resolution 8 8 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --out $D/scale7/timing-8
+    run scale7-philosophy "$minutes" $S7 --resolution 64 64 --alpha -0.12 0.12 --log-temperature -1.0 0.3 \
+      --out $D/scale7/coarse-64-philosophy
+    hminutes=${JOBARGS[1]:-0}
+    if [ "$hminutes" -gt 0 ]; then
+      run scale7-hostility "$hminutes" $S7 --concept hostility-vs-kindness --resolution 64 64 --alpha 0.0 0.12 \
+        --log-temperature -0.3 0.3 --out $D/scale7/coarse-64-hostility
+    fi
+    ;;
   scan64)      # one float64 scan with free arguments: scan64 OUT-NAME MINUTES SCAN-ARGS... (zooms to be read without
                # the float32 precision caveat; on an H100 float64 costs about the same as float32 for this model)
     name=${JOBARGS[0]}

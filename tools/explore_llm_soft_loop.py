@@ -33,7 +33,7 @@ DATA = ela.DATA
 
 class SoftLoop:
     def __init__(self, model, layer, threads, prompt, opener, window, dtype="float64", device="cpu"):
-        self.sm = elpm.SteeredModel(model, layer, threads, dtype)
+        self.sm = elpm.SteeredModel(model, layer, threads, dtype, device)
         self.torch = self.sm.torch
         torch = self.torch
         self.device = torch.device(device)

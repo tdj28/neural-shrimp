@@ -78,7 +78,7 @@ class SteeredModel:
     """Model with an additive per-sequence steering vector on the output of one decoder layer."""
 
     def __init__(self, model, layer, threads, dtype="float32", device="cpu"):
-        self.engine = ela.Engine(model, threads, dtype)
+        self.engine = ela.Engine(model, threads, dtype, device)
         self.torch = self.engine.torch
         self.device = self.torch.device(device)
         self.tok, self.model = self.engine.tok, self.engine.model.to(self.device)
@@ -265,7 +265,7 @@ def run_cells(sm, cells, system, opener, turns, window, max_new):
 
 
 def vectors_cmd(args):
-    sm = SteeredModel(args.model, args.layer, args.threads)
+    sm = SteeredModel(args.model, args.layer, args.threads, args.dtype, args.device)
     vectors, info = build_vectors(sm, [tuple(c.split(":")) for c in args.contrasts])
     if args.random:
         d = len(next(iter(vectors.values())))
@@ -521,6 +521,8 @@ def main():
         sp.add_argument("--turns", type=int, default=24)
         sp.add_argument("--window", type=int, default=7)
         sp.add_argument("--max-new", type=int, default=60)
+    sub.choices["vectors"].add_argument("--device", default="cpu")
+    sub.choices["vectors"].add_argument("--dtype", default="float32", choices=("float32", "float64"))
     sub.choices["vectors"].add_argument("--random", type=int, default=0,
                                         help="also store this many norm-matched random directions")
     sub.choices["vectors"].add_argument("--contrasts", nargs="*", default=[], metavar="A:B",

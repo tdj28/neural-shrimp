@@ -31,7 +31,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
 CACHE = DATA / "models" / "hf" / "hub"   # passed explicitly: a global HF_HOME may point elsewhere
 os.environ.setdefault("HF_HUB_OFFLINE", "1")                      # models are local; no network calls
-MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5B-Instruct"}
+MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5B-Instruct",
+          "qwen7b": "Qwen/Qwen2.5-7B-Instruct"}
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
@@ -65,7 +66,7 @@ def find_cycle(states, new_state):
 
 
 class Engine:
-    def __init__(self, model, threads, dtype="float32"):
+    def __init__(self, model, threads, dtype="float32", device=None):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -73,7 +74,13 @@ class Engine:
         self.torch = torch
         self.name = MODELS[model]
         self.tok = AutoTokenizer.from_pretrained(self.name, cache_dir=CACHE)
-        self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype), cache_dir=CACHE)
+        if dtype == "float64" and device is not None and str(device).startswith("cuda"):
+            # large models: load in the checkpoint's own dtype, move to the GPU, then cast there (bf16 -> float64 is
+            # exact, so the weights equal a direct float64 load; host memory needs only the stored size)
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
+            self.model = self.model.to(device).to(torch.float64)
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype), cache_dir=CACHE)
         self.model.eval()
         self.model.requires_grad_(False)                # inference only; forward-mode JVPs need no parameter graph
         if dtype == "float64":
