@@ -67,24 +67,103 @@ def test_stability_interval_and_two_way_effect():
     assert abs(beta + 2.0) < 0.3 and p < 0.01 and n == 120
 
 
-def test_item_statistic_ranks_rho_against_residual():
+def fake_item_row(q, lam, resid, rng, gold=1, unstable=False, split="test", seed=0):
+    steps = {str(k): {"loglik": [0.0, float(rng.normal() if unstable else -1.0)]} for k in range(24, 33)}
+    trace = [[1.0, 1.0] for _ in range(31)] + [[0.5, float(resid)]]
+    return {"index": q, "lam": lam, "split": split, "seed": seed * 100003 + q, "gold": gold,
+            "native_residual_rows": trace, "by_steps": steps, "gold_ids_sha256": f"h{q}"}
+
+
+def write_items_fixture(root, qs, lams, rng, constant=False):
+    import json
+
+    spec_dir = root / "explore" / "spec"
+    for q in qs:
+        d = spec_dir / f"q{q:04d}"
+        d.mkdir(parents=True)
+        mu = -0.7 - 0.02 * q
+        d.joinpath("fixed-spectrum.json").write_text(json.dumps({
+            "fixed_point_residual_F": 1e-6, "token_ids_sha256": f"h{q}", "arnoldi_converged": {"LM": True},
+            "spectra_of_F": {"LM": [[mu, 0.0], [0.5, 0.1], [0.5, -0.1]], "SR": [[mu, 0.0]], "LR": [[0.5, 0.1]]}}))
+    rows_dir = root / "explore" / "rows"
+    rows_dir.mkdir(parents=True)
+    import huginn_arc_analysis as ha
+    with open(rows_dir / "rows.jsonl", "w") as f:
+        for q in qs:
+            mus = np.array([complex(-0.7 - 0.02 * q, 0), 0.5 + 0.1j, 0.5 - 0.1j])
+            for lam in lams:
+                r = ha.rho(mus, lam)
+                resid = 0.01 if constant else r ** 32 * (1 + 0.01 * rng.normal())
+                f.write(json.dumps(fake_item_row(q, lam, resid, rng, unstable=r >= 1)) + "\n")
+
+
+def items_args(**kw):
+    import argparse
+
+    base = dict(spectra="spec", rows="rows", start=0, count=20, lams=[1.0, 1.1], fixed_tol=1e-4, boot=50,
+                split="test", seed=0, out="items-out")
+    base.update(kw)
+    return argparse.Namespace(**base)
+
+
+def test_items_primary_and_admission(tmp_path, monkeypatch):
+    import json
+
+    import explore_llm_attractors as ela
     import huginn_arc_analysis as ha
 
-    rng = np.random.default_rng(0)
-    spectra, rows = {}, []
-    for q in range(20):
-        mu = complex(-0.7 - 0.02 * q, 0.0)              # more negative: lower lam_up, larger rho at each lam
-        spectra[q] = np.array([mu, 0.5 + 0.1j, 0.5 - 0.1j])
-        for lam in (1.0, 1.1):
-            r = ha.rho(spectra[q], lam)
-            resid = r ** 32 * (1 + 0.01 * rng.normal())
-            steps = {str(k): {"loglik": [0.0, float(rng.normal() if r >= 1 else -1.0)]} for k in range(24, 33)}
-            rows.append({"index": q, "lam": lam, "native_residual": [1.0] * 31 + [resid], "by_steps": steps})
-    recs = ha.item_table(spectra, rows, [1.0, 1.1])
-    assert len(recs) == 40
-    stat, per_arm = ha.item_statistic(recs, [1.0, 1.1], list(range(20)))
-    assert stat > 0.95 and len(per_arm) == 2
-    assert all(r["changes"] is False for r in recs if r["rho"] < 1)
+    monkeypatch.setattr(ela, "DATA", tmp_path)
+    write_items_fixture(tmp_path, range(20), [1.0, 1.1], np.random.default_rng(0))
+    ha.items_cmd(items_args())
+    res = json.loads((tmp_path / "explore" / "items-out" / "items.json").read_text())
+    assert res["cohort"] == 20 and res["primary"]["success"] and res["primary"]["statistic"] > 0.9
+    # a missing cell, a duplicate row and a token-id mismatch are each refused or excluded
+    rows = (tmp_path / "explore" / "rows" / "rows.jsonl").read_text().splitlines()
+    (tmp_path / "explore" / "rows" / "rows.jsonl").write_text("\n".join(rows[:-1]) + "\n")
+    with pytest.raises(SystemExit, match="missing"):
+        ha.items_cmd(items_args(out="o2"))
+    (tmp_path / "explore" / "rows" / "rows.jsonl").write_text("\n".join(rows + rows[:1]) + "\n")
+    with pytest.raises(SystemExit, match="duplicate"):
+        ha.items_cmd(items_args(out="o3"))
+    (tmp_path / "explore" / "rows" / "rows.jsonl").write_text("\n".join(rows) + "\n")
+    extra = tmp_path / "explore" / "spec" / "q0099"
+    extra.mkdir()
+    with pytest.raises(SystemExit, match="outside the frozen panel"):
+        ha.items_cmd(items_args(out="o4"))
+    extra.rmdir()
+    spec = tmp_path / "explore" / "spec" / "q0003" / "fixed-spectrum.json"
+    d = json.loads(spec.read_text())
+    d["token_ids_sha256"] = "other"
+    spec.write_text(json.dumps(d))
+    ha.items_cmd(items_args(out="o5"))
+    res = json.loads((tmp_path / "explore" / "o5" / "items.json").read_text())
+    assert res["cohort"] == 19 and "token ids differ" in res["dispositions"]["3"]["status"]
+
+
+def test_items_constant_arm_fails_the_primary(tmp_path, monkeypatch):
+    import json
+
+    import explore_llm_attractors as ela
+    import huginn_arc_analysis as ha
+
+    monkeypatch.setattr(ela, "DATA", tmp_path)
+    write_items_fixture(tmp_path, range(20), [1.0, 1.1], np.random.default_rng(0), constant=True)
+    ha.items_cmd(items_args())
+    res = json.loads((tmp_path / "explore" / "items-out" / "items.json").read_text())
+    assert not res["primary"]["success"] and not np.isfinite(res["primary"]["statistic"])
+
+
+def test_subset_spectral_radius_can_miss_the_shifted_mode():
+    """Codex's counterexample: LM/SR/LR subsets of J can omit the dominant mode of (1 - lam) I + lam J."""
+    import huginn_arc_analysis as ha
+
+    full = np.array([0.991 + 0.001 * i for i in range(8)] + [-0.890 - 0.001 * i for i in range(8)]
+                    + [complex(-0.88, 0.45), complex(-0.88, -0.45)])
+    lm = full[np.argsort(-np.abs(full))][:8]
+    sr = full[np.argsort(full.real)][:8]
+    lr = full[np.argsort(-full.real)][:8]
+    subset = np.unique(np.concatenate([lm, sr, lr]))
+    assert ha.rho(subset, 1.05) < 1.0 < ha.rho(full, 1.05)
 
 
 def test_generation_cmd_primary_logic(tmp_path, monkeypatch):
@@ -103,12 +182,16 @@ def test_generation_cmd_primary_logic(tmp_path, monkeypatch):
             base = rng.uniform() < 0.4
             for arm, ok in (("1.0", base), ("1.05", base), ("1.15", base and rng.uniform() < 0.7),
                             ("1.20", base and rng.uniform() < 0.3)):
-                f.write(json.dumps({"arm": arm, "index": i, "correct": bool(ok), "correct_strict": bool(ok),
-                                    "new_tokens": 80, "strict_pred": "1"}) + "\n")
+                f.write(json.dumps({"arm": arm, "lam": float(arm), "index": i, "correct": bool(ok),
+                                    "correct_strict": bool(ok), "new_tokens": 80, "strict_pred": "1", "split": "test",
+                                    "steps": 32, "prompt_style": "cot8", "seed": i}) + "\n")
     ns = argparse.Namespace(rows=["g"], start=0, count=200, arms=["1.0", "1.05", "1.15", "1.20"], base="1.0",
-                            collapse_arm="1.20", break_arm="1.15", safe_arm="1.05", margin=0.04, out="gout")
+                            collapse_arm="1.20", break_arm="1.15", safe_arm="1.05", margin=0.04, out="gout",
+                            split="test", steps=32, prompt_style="cot8", seed=0, max_new=256)
     ha.generation_cmd(ns)
     res = json.loads((tmp_path / "explore" / "gout" / "generation.json").read_text())
-    assert res["B1_collapse"]["success"] and res["B3_no_loss"]["success"] and res["primary_success"]
+    assert res["B1_decline"]["pass"] and res["B3_noninferior"]["pass"] and res["primary_success"]
     with pytest.raises(SystemExit):
         ha.generation_cmd(argparse.Namespace(**{**vars(ns), "count": 201, "out": "gout2"}))
+    with pytest.raises(SystemExit, match="frozen"):                 # a train or r = 8 file with the same indices
+        ha.generation_cmd(argparse.Namespace(**{**vars(ns), "steps": 8, "out": "gout3"}))

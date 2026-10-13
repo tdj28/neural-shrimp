@@ -105,3 +105,52 @@ def test_prompt_text_cot8_matches_the_generation_prompt(monkeypatch):
     text = hr.prompt_text("gsm8k-cot8", "train", 0)
     assert text == hr.gsm8k_prompt("What is 2 + 3?", "cot8")
     assert text.startswith(hr.COT_PREFIX) and text.endswith("Q: What is 2 + 3?\nA:")
+
+
+def test_relaxed_trace_clock_and_per_row_residuals():
+    """Entry k of the trace is R(s_k) of the call that maps s_k to s_{k+1}; the readout gets s_{k+1} labelled k+1;
+    per-row residuals are each row's own norm ratio, not the batch aggregate."""
+    import numpy as np
+    import torch
+
+    import huginn_relax_eval as hr
+
+    class Fake:
+        def core_block_forward(self, x, *args, **kwargs):
+            return 0.5 * x + torch.tensor([1.0, 3.0])[:, None, None], 0
+
+    model = Fake()
+    relax = hr.Relaxed(model)
+    relax.trace, seen = [], []
+    relax.readout = lambda step, state, args: seen.append((step, state.clone()))
+    s = torch.ones(2, 3, 4)
+    states = [s.clone()]
+    for k in range(4):
+        s, _ = model.core_block_forward(s, None, None, None, None, None, k)   # step is args[5], as in Huginn
+        states.append(s.clone())
+    assert len(relax.trace) == 4 and [st for st, _ in seen] == [1, 2, 3, 4]
+    for k in range(4):
+        x = states[k]
+        f = 0.5 * x + torch.tensor([1.0, 3.0])[:, None, None]
+        per_row = ((f - x).flatten(1).norm(dim=1) / x.flatten(1).norm(dim=1)).tolist()
+        assert np.allclose(relax.trace[k][2], per_row, rtol=1e-6)
+        assert np.isclose(relax.trace[k][0], float((f - x).norm() / x.norm()), rtol=1e-6)
+        assert torch.allclose(seen[k][1], states[k + 1])
+    assert not np.isclose(relax.trace[0][2][0], relax.trace[0][0])   # the aggregate differs from a row
+
+
+def test_gold_sequence_ids_follow_the_batch_not_the_joined_text():
+    import huginn_relax_eval as hr
+
+    class Stub:
+        """Tokenizer whose joined and separate encodings differ (merges ': ' across the boundary)."""
+        def __call__(self, text, add_special_tokens=True, return_tensors=None):
+            ids = ([0] if add_special_tokens else []) + [ord(c) for c in text.replace(": B", "@B")]
+            return type("E", (), {"input_ids": ids})()
+
+    ex = {"question": "Q?", "choices": {"text": ["A", "B"], "label": ["A", "B"]}, "answerKey": "B"}
+    ids = hr.gold_sequence_ids(Stub(), ex)
+    ctx = Stub()(hr.ARC_PROMPT.format(question="Q?")).input_ids
+    assert ids == ctx + Stub()(" B", add_special_tokens=False).input_ids
+    joined = Stub()(hr.ARC_PROMPT.format(question="Q?") + " B").input_ids
+    assert ids != joined                       # equal display text, different IDs: the spectrum must use ids

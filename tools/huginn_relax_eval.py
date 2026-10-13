@@ -29,6 +29,7 @@ Usage:
 """
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -39,6 +40,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 MODEL = "tomg-group-umd/huginn-0125"
+REVISION = "bb6621b65e90b6a4b9b29ef88dc83866d450470c"   # weights, remote code and tokenizer
 GSM8K = "explore/gsm8k"                      # data-relative folder with train.jsonl and test.jsonl (pinned export)
 # 8-shot chain-of-thought exemplars and format of lm-evaluation-harness gsm8k_cot (lm_eval/tasks/gsm8k/gsm8k-cot.yaml,
 # main branch fetched 13 October 2026, SHA-256 7c9dd2561fe334a55f62bdc6a876f045e6dc7f53714c7a9db506b89c6de6bc96):
@@ -158,9 +160,13 @@ class Relaxed:
             else:
                 new = out if self.lam == 1.0 else (1.0 - self.lam) * x + self.lam * out
             if self.trace is not None:
+                # entry k is recorded in the call that maps s_k to s_{k+1}: R(s_k) = ||Core(s_k) - s_k|| / ||s_k||
+                # (aggregate over the masked batch, the step taken, and per batch row; differences in float32)
                 m = 1.0 if self.mask is None else self.mask
-                nx = float((x.float() * m).norm())
-                self.trace.append((float(((out - x).float() * m).norm()) / nx, float(((new - x).float() * m).norm()) / nx))
+                xf, d = x.float() * m, (out.float() - x.float()) * m
+                nx = float(xf.norm())
+                rows = (d.flatten(1).norm(dim=1) / xf.flatten(1).norm(dim=1)).tolist()
+                self.trace.append((float(d.norm()) / nx, float(((new.float() - x.float()) * m).norm()) / nx, rows))
             if self.readout is not None:
                 self.readout(None if step is None else step + 1, new, args)
             return new, block_idx
@@ -209,8 +215,8 @@ def load(args):
     import explore_llm_attractors as ela
 
     torch.set_num_threads(int(args.threads))
-    tok = AutoTokenizer.from_pretrained(MODEL, cache_dir=ela.CACHE)
-    model = AutoModelForCausalLM.from_pretrained(MODEL, cache_dir=ela.CACHE, trust_remote_code=True,
+    tok = AutoTokenizer.from_pretrained(MODEL, revision=REVISION, cache_dir=ela.CACHE)
+    model = AutoModelForCausalLM.from_pretrained(MODEL, revision=REVISION, cache_dir=ela.CACHE, trust_remote_code=True,
                                                  torch_dtype=getattr(torch, args.dtype)).eval().to(args.device)
     model.requires_grad_(False)
     # transformers 4.55 makes DynamicCache.key_cache/value_cache read-only properties, while Huginn's remote
@@ -368,6 +374,14 @@ def arc_questions(split):
         return [json.loads(line) for line in f]
 
 
+def gold_sequence_ids(tok, ex):
+    """Token IDs of the gold row exactly as arc_batch builds it (context, then the continuation tokenized
+    separately); the spectrum of a Part A question is computed on these IDs."""
+    ctx = tok(ARC_PROMPT.format(question=ex["question"])).input_ids
+    g = ex["choices"]["label"].index(ex["answerKey"])
+    return ctx + tok(" " + ex["choices"]["text"][g], add_special_tokens=False).input_ids
+
+
 def arc_batch(tok, ex):
     """Token batch for one ARC question: context + each continuation, right-padded (Huginn's attention is causal, so
     padding after a sequence does not change it). Returns ids, targets (-100 outside the continuation; position t
@@ -471,7 +485,10 @@ def arc(args):
                 lengths = np.array([len(c) for c in conts], dtype=float)
                 record = {"arm": str(arm), "lam": lam, "split": args.split, "index": index, "id": ex["id"],
                           "gold": gold_index, "seed": args.seed * 100003 + index, "seconds": round(seconds, 3),
-                          "native_residual": [a for a, _ in trace], "by_steps": {}}
+                          "native_residual": [t[0] for t in trace], "native_residual_rows": [t[2] for t in trace],
+                          "residual_clock": "entry k = R(s_k), k = 0..len-1 (input of update k + 1)",
+                          "gold_ids_sha256": hashlib.sha256(json.dumps(gold_sequence_ids(tok, ex)).encode()).hexdigest(),
+                          "by_steps": {}}
                 for r in steps:
                     ll = store[r]
                     acc, acc_norm = int(np.argmax(ll)) == gold_index, int(np.argmax(ll / lengths)) == gold_index

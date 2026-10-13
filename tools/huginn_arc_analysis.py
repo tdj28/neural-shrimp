@@ -254,87 +254,143 @@ def accuracy_cmd(args):
             print(f"  {arm:>14}: {acc:.4f}  diff {mean:+.4f} [{lo:+.4f}, {hi:+.4f}]  McNemar(less) p {p:.4g} ({b} vs {c})")
 
 
-def item_table(spectra, rows, lams):
-    """One record per (question, lam) with a spectrum: rho_q(lam), lam_up(q), the log native residual at the last
-    recurrence step, and whether the chosen answer (argmax of the log-likelihood) changes across the read-out steps."""
+READOUT_STEPS = tuple(range(24, 33))       # Part A read-out steps (answer changes)
+TRACE_LENGTH = 32                          # entries R(s_0) .. R(s_31); the endpoint is R(s_31), the input of update 32
+
+
+def spectrum_disposition(path, fixed_tol):
+    """(status, eigenvalues, record) for one Part A spectrum: 'ok' needs a finite fixed-point residual <= fixed_tol,
+    a finite nonempty union of the computed LM/SR/LR eigenvalues (an estimated Ritz feature, not a complete
+    spectrum) and a recorded token-ID hash."""
+    if not path.exists():
+        return "missing", None, None
+    spec = json.load(open(path))
+    res_f = spec.get("fixed_point_residual_F")
+    if res_f is None or not math.isfinite(res_f) or res_f > fixed_tol:
+        return "no fixed point", None, spec
+    mus = eigenvalues(spec)
+    if len(mus) == 0 or not np.all(np.isfinite(mus)):
+        return "empty or nonfinite spectrum", None, spec
+    if not spec.get("token_ids_sha256"):
+        return "no token-id record", None, spec
+    return "ok", mus, spec
+
+
+def item_records(spectra, rows, lams, gold_hash):
+    """One record per (question, lam) of the cohort: the estimated relaxed radius rho_q(lam) from the computed
+    eigenvalues, the gold sequence's native residual R(s_31) (bf16 recurrence, float32 difference), and whether the
+    chosen answer (argmax of the log-likelihood) changes across the read-out steps."""
     out = []
-    lams = [float(v) for v in lams]
-    for r in rows:
-        q, lam = r["index"], float(r["lam"])
-        if q not in spectra or not any(abs(lam - v) < 1e-12 for v in lams):
+    for (q, lam), r in rows.items():
+        if q not in spectra:
             continue
         mus = spectra[q]
-        steps = sorted(r["by_steps"], key=int)
-        choice = np.array([int(np.argmax(r["by_steps"][k]["loglik"])) for k in steps])
+        choice = np.array([int(np.argmax(r["by_steps"][str(k)]["loglik"])) for k in READOUT_STEPS])
         out.append({"q": q, "lam": lam, "rho": rho(mus, lam), "lam_up": stability_interval(mus)[1],
-                    "log_residual": math.log(max(r["native_residual"][-1], 1e-30)),
+                    "residual": float(r["native_residual_rows"][-1][r["gold"]]),
                     "changes": bool((np.diff(choice) != 0).any())})
     return out
 
 
 def item_statistic(records, lams, questions):
-    """Mean over lam arms of the Spearman correlation, across questions, of rho_q(lam) and the log residual."""
+    """Mean over all lam arms of the Spearman correlation, across `questions`, of rho_q(lam) and the residual;
+    undefined (nan) if any arm's correlation is undefined (no arm may drop out)."""
     from scipy.stats import spearmanr
 
     vals = []
     for lam in lams:
         by_q = {r["q"]: r for r in records if abs(r["lam"] - lam) < 1e-12}
-        x = [by_q[q]["rho"] for q in questions if q in by_q]
-        y = [by_q[q]["log_residual"] for q in questions if q in by_q]
-        if len(x) > 2 and np.ptp(x) > 0 and np.ptp(y) > 0:
-            vals.append(spearmanr(x, y).statistic)
-    return float(np.mean(vals)) if vals else float("nan"), vals
+        x = np.array([by_q[q]["rho"] for q in questions])
+        y = np.array([by_q[q]["residual"] for q in questions])
+        if len(x) < 3 or np.ptp(x) == 0 or np.ptp(y) == 0:
+            return float("nan"), vals
+        vals.append(float(spearmanr(x, y).statistic))
+    return float(np.mean(vals)), vals
+
+
+def admit_item_rows(rows, args, lams):
+    """Exactly one row per requested (question, arm) with the frozen split, seed, read-out steps and trace length;
+    duplicates, extras and malformed rows are refused."""
+    expected_q = set(range(args.start, args.start + args.count))
+    table = {}
+    for r in rows:
+        q, lam = int(r["index"]), float(r["lam"])
+        arm = next((l for l in lams if abs(l - lam) < 1e-12), None)
+        if q not in expected_q or arm is None:
+            raise SystemExit(f"row outside the frozen panel: question {q}, lam {lam}")
+        if (q, arm) in table:
+            raise SystemExit(f"duplicate row: question {q}, lam {lam}")
+        if r["split"] != args.split or r["seed"] != args.seed * 100003 + q:
+            raise SystemExit(f"row {q}, {lam}: split/seed differ from the frozen run")
+        if any(str(k) not in r["by_steps"] for k in READOUT_STEPS):
+            raise SystemExit(f"row {q}, {lam}: read-out steps 24-32 missing")
+        trace = r.get("native_residual_rows")
+        if trace is None or len(trace) != TRACE_LENGTH:
+            raise SystemExit(f"row {q}, {lam}: residual trace missing or of length != {TRACE_LENGTH}")
+        g = trace[-1][r["gold"]]
+        if not (isinstance(g, (int, float)) and math.isfinite(g) and g >= 0):
+            raise SystemExit(f"row {q}, {lam}: gold residual not finite and non-negative")
+        table[(q, arm)] = r
+    missing = [(q, l) for q in expected_q for l in lams if (q, l) not in table]
+    if missing:
+        raise SystemExit(f"{len(missing)} (question, arm) cells missing, e.g. {missing[:3]}")
+    return table
 
 
 def items_cmd(args):
-    """Part A of the frozen Huginn test (docs/huginn-causal-test-design.md): does each question's own fixed-point
-    spectrum predict how its recurrence responds to relaxation?"""
+    """Part A of the frozen Huginn test (docs/huginn-causal-test-design.md): across held-out questions, does a
+    gold-conditioned estimated spectral feature of each question's fixed point predict the gold sequence's
+    finite-budget residual under relaxation?"""
     import explore_llm_attractors as ela
-    from scipy.stats import fisher_exact
 
-    spectra, excluded = {}, []
-    for folder in args.spectra:
-        root = ela.DATA / "explore" / folder
-        for f in sorted(root.glob("q[0-9][0-9][0-9][0-9]/fixed-spectrum.json")):
-            spec = json.load(open(f))
-            q = int(f.parent.name[1:])
-            res_f = spec.get("fixed_point_residual_F")
-            if res_f is None or not math.isfinite(res_f) or res_f > args.fixed_tol:
-                excluded.append({"q": q, "residual": res_f})
-                continue
-            spectra[q] = eigenvalues(spec)
-    rows = [json.loads(line) for line in open(ela.DATA / "explore" / args.rows / "rows.jsonl")]
-    expected = set(range(args.start, args.start + args.count))
-    got = {r["index"] for r in rows}
-    if got != expected:
-        raise SystemExit(f"rows cover {len(got)} questions, expected {len(expected)}")
-    arms = {float(r["lam"]) for r in rows}
-    if not all(any(abs(a - float(l)) < 1e-12 for a in arms) for l in args.lams):
-        raise SystemExit(f"arms in rows {sorted(arms)} do not include {args.lams}")
     lams = [float(v) for v in args.lams]
-    recs = item_table(spectra, rows, lams)
-    questions = sorted(spectra)
-    share_excluded = 1 - len(questions) / len(expected)
-    stat, per_arm = item_statistic(recs, lams, questions)
+    root = ela.DATA / "explore" / args.spectra
+    requested = list(range(args.start, args.start + args.count))
+    present = {int(p.name[1:]) for p in root.glob("q[0-9][0-9][0-9][0-9]") if p.is_dir()}
+    extra = present - set(requested)
+    if extra:
+        raise SystemExit(f"spectra outside the frozen panel: {sorted(extra)[:5]}")
+    rows = [json.loads(line) for line in open(ela.DATA / "explore" / args.rows / "rows.jsonl")]
+    table = admit_item_rows(rows, args, lams)
+    spectra, dispositions = {}, {}
+    for q in requested:
+        status, mus, spec = spectrum_disposition(root / f"q{q:04d}" / "fixed-spectrum.json", args.fixed_tol)
+        row_hash = table[(q, lams[0])].get("gold_ids_sha256")
+        if status == "ok" and spec["token_ids_sha256"] != row_hash:
+            status = "token ids differ from the scored gold row"
+        dispositions[q] = {"status": status,
+                           "residual_F": None if spec is None else spec.get("fixed_point_residual_F"),
+                           "arnoldi_converged": None if spec is None else spec.get("arnoldi_converged"),
+                           "eigenvalues": 0 if mus is None else int(len(mus))}
+        if status == "ok":
+            spectra[q] = mus
+    cohort = sorted(spectra)
+    minimum = math.ceil(0.75 * args.count)
+    recs = item_records(spectra, table, lams, None)
+    stat, per_arm = item_statistic(recs, lams, cohort)
     rng = np.random.default_rng(0)
-    boots = [item_statistic(recs, lams, list(rng.choice(questions, len(questions))))[0] for _ in range(args.boot)]
-    lo, hi = np.nanpercentile(boots, [2.5, 97.5])
-    unstable = np.array([r["rho"] >= 1 for r in recs])
-    changes = np.array([r["changes"] for r in recs])
-    table = [[int((unstable & changes).sum()), int((unstable & ~changes).sum())],
-             [int((~unstable & changes).sum()), int((~unstable & ~changes).sum())]]
-    p_fisher = float(fisher_exact(table, alternative="greater").pvalue)
-    result = {"args": vars(args), "questions_with_spectra": len(questions), "excluded": excluded,
-              "setup_failed": bool(share_excluded > 0.25),
+    boots = np.array([item_statistic(recs, lams, list(rng.choice(cohort, len(cohort))))[0]
+                      for _ in range(args.boot)]) if cohort else np.array([])
+    undefined = int(np.sum(~np.isfinite(boots)))
+    defined = boots[np.isfinite(boots)]
+    lo, hi = (np.percentile(defined, [2.5, 97.5]).tolist() if len(defined) else [float("nan")] * 2)
+    setup_failed = len(cohort) < minimum
+    success = bool(not setup_failed and math.isfinite(stat) and undefined <= 0.01 * args.boot and lo > 0.3)
+    unstable = np.array([r["rho"] >= 1 for r in recs], dtype=bool)
+    changes = np.array([r["changes"] for r in recs], dtype=bool)
+    result = {"args": vars(args), "requested": len(requested), "cohort": len(cohort), "minimum_cohort": minimum,
+              "setup_failed": bool(setup_failed), "dispositions": dispositions,
               "primary": {"statistic": stat, "per_arm": dict(zip([str(l) for l in lams], per_arm)),
-                          "ci95": [float(lo), float(hi)], "success": bool(lo > 0.3 and share_excluded <= 0.25)},
-              "answer_changes": {"unstable_changed": table[0][0], "unstable_total": int(unstable.sum()),
-                                 "stable_changed": table[1][0], "stable_total": int((~unstable).sum()),
-                                 "fisher_one_sided_p": p_fisher},
-              "share_unstable_by_arm": {str(l): float(np.mean([r["rho"] >= 1 for r in recs if abs(r["lam"] - l) < 1e-12]))
-                                        for l in lams}}
-    print(json.dumps(result["primary"]))
-    print(json.dumps(result["answer_changes"]))
+                          "ci95": [lo, hi], "undefined_draws": undefined, "success": success},
+              "answer_changes_descriptive": {
+                  "detected_unstable_changed": int((unstable & changes).sum()),
+                  "detected_unstable_total": int(unstable.sum()),
+                  "no_unstable_mode_detected_changed": int((~unstable & changes).sum()),
+                  "no_unstable_mode_detected_total": int((~unstable).sum())},
+              "share_detected_unstable_by_arm": {
+                  str(l): float(np.mean([r["rho"] >= 1 for r in recs if abs(r["lam"] - l) < 1e-12]))
+                  if recs else float("nan") for l in lams}}
+    print(json.dumps({k: result[k] for k in ("requested", "cohort", "setup_failed", "primary")}))
     dest = ela.DATA / "explore" / args.out
     if (dest / "items.json").exists():
         raise SystemExit(f"{dest / 'items.json'} exists; outputs are never overwritten")
@@ -354,6 +410,10 @@ def generation_cmd(args):
         key = (str(r["arm"]), int(r["index"]))
         if key in by:
             raise SystemExit(f"duplicate row {key}")
+        # admission against the frozen settings, not only coverage
+        if (r.get("split") != args.split or r.get("steps") != args.steps or r.get("prompt_style") != args.prompt_style
+                or r.get("seed") != args.seed * 100003 + int(r["index"]) or abs(float(r["lam"]) - float(r["arm"])) > 1e-12):
+            raise SystemExit(f"row {key} differs from the frozen split/steps/prompt/seed/lam")
         by[key] = r
     expected = set(range(args.start, args.start + args.count))
     arms = [str(a) for a in args.arms]
@@ -373,20 +433,29 @@ def generation_cmd(args):
             p, b, c = mcnemar_less(base, acc[a])
             mean, boots = paired_bootstrap(base, acc[a])
             out[a] = {"difference": mean, "ci95": np.percentile(boots, [2.5, 97.5]).tolist(),
-                      "lower90": float(np.percentile(boots, 5)), "mcnemar_less_p": p, "lost": b, "gained": c}
+                      "lower_one_sided_95": float(np.percentile(boots, 5)), "mcnemar_less_p": p, "lost": b,
+                      "gained": c}
         result["metrics"][metric] = out
     m = result["metrics"]["correct"]
-    result["B1_collapse"] = {"arm": args.collapse_arm, "p": m[args.collapse_arm]["mcnemar_less_p"],
-                             "success": bool(m[args.collapse_arm]["mcnemar_less_p"] < 0.05)}
-    result["B3_no_loss"] = {"arm": args.safe_arm, "lower90": m[args.safe_arm]["lower90"], "margin": -args.margin,
-                            "success": bool(m[args.safe_arm]["lower90"] > -args.margin)}
-    result["primary_success"] = bool(result["B1_collapse"]["success"] and result["B3_no_loss"]["success"])
-    result["B2_break"] = {"arm": args.break_arm, "p": m[args.break_arm]["mcnemar_less_p"],
-                          "success": bool(m[args.break_arm]["mcnemar_less_p"] < 0.05)}
+    # B1: any decline at the high arm (exact one-sided McNemar); B3: non-inferiority within the margin at the low
+    # arm (approximate percentile bootstrap); the joint claim is an intersection-union test of both
+    result["B1_decline"] = {"arm": args.collapse_arm, "difference": m[args.collapse_arm]["difference"],
+                            "lost": m[args.collapse_arm]["lost"], "gained": m[args.collapse_arm]["gained"],
+                            "p": m[args.collapse_arm]["mcnemar_less_p"],
+                            "pass": bool(m[args.collapse_arm]["mcnemar_less_p"] < 0.05)}
+    result["B3_noninferior"] = {"arm": args.safe_arm, "difference": m[args.safe_arm]["difference"],
+                                "lower_one_sided_95": m[args.safe_arm]["lower_one_sided_95"],
+                                "margin": -args.margin,
+                                "pass": bool(m[args.safe_arm]["lower_one_sided_95"] > -args.margin)}
+    result["primary_success"] = bool(result["B1_decline"]["pass"] and result["B3_noninferior"]["pass"])
+    result["B2_descriptive"] = {"arm": args.break_arm, "difference": m[args.break_arm]["difference"],
+                                "lost": m[args.break_arm]["lost"], "gained": m[args.break_arm]["gained"],
+                                "p": m[args.break_arm]["mcnemar_less_p"]}
+    result["cap_rate"] = {a: float(np.mean([by[(a, i)]["new_tokens"] >= args.max_new for i in order])) for a in arms}
     result["tokens_median"] = {a: float(np.median([by[(a, i)]["new_tokens"] for i in order])) for a in arms}
     result["strict_format_share"] = {a: float(np.mean([by[(a, i)]["strict_pred"] is not None for i in order]))
                                      for a in arms}
-    print(json.dumps({k: result[k] for k in ("n", "B1_collapse", "B3_no_loss", "primary_success", "B2_break")}))
+    print(json.dumps({k: result[k] for k in ("n", "B1_decline", "B3_noninferior", "primary_success", "B2_descriptive")}))
     dest = ela.DATA / "explore" / args.out
     if (dest / "generation.json").exists():
         raise SystemExit(f"{dest / 'generation.json'} exists; outputs are never overwritten")
@@ -407,7 +476,9 @@ def main():
     ac.add_argument("--steps", type=int, nargs="+", default=[32])
     ac.add_argument("--base", default="1.0")
     it = sub.add_parser("items")
-    it.add_argument("--spectra", nargs="+", required=True, help="folders holding qNNNN/fixed-spectrum.json")
+    it.add_argument("--spectra", required=True, help="folder holding qNNNN/fixed-spectrum.json")
+    it.add_argument("--split", default="test")
+    it.add_argument("--seed", type=int, default=0)
     it.add_argument("--rows", required=True, help="folder of the arc read-out rows.jsonl")
     it.add_argument("--start", type=int, required=True)
     it.add_argument("--count", type=int, required=True)
@@ -425,6 +496,11 @@ def main():
     ge.add_argument("--break-arm", default="1.15")
     ge.add_argument("--safe-arm", default="1.05")
     ge.add_argument("--margin", type=float, default=0.04, help="non-inferiority margin for the safe arm")
+    ge.add_argument("--split", default="test")
+    ge.add_argument("--steps", type=int, default=32)
+    ge.add_argument("--prompt-style", default="cot8")
+    ge.add_argument("--seed", type=int, default=0)
+    ge.add_argument("--max-new", type=int, default=256)
     ge.add_argument("--out", required=True)
     args = parser.parse_args()
     {"spectra": spectra_cmd, "accuracy": accuracy_cmd, "items": items_cmd, "generation": generation_cmd}[args.command](args)

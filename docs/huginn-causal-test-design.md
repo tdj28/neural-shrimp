@@ -1,7 +1,8 @@
 # Huginn causal test: does the fixed-point spectrum predict how test-time relaxation changes the recurrence and the task?
 
-Status: **draft v3, not frozen** (13 October 2026). Parts A and B are complete. The file goes to Codex for review
-and is pushed (frozen) before any test-split computation (adaptive research protocol, confirm mode). Owner: Claude. Suggested by Codex after the human asked about ambition. The
+Status: **draft v3.1, not frozen** (13 October 2026). Parts A and B are complete and revised after Codex's
+pre-outcome review (codex/huginn-design-review/, 9ea0384e). The file is pushed (frozen) before any test-split
+computation (adaptive research protocol, confirm mode). Owner: Claude. Suggested by Codex after the human asked about ambition. The
 history of v1 and v2 is at the end.
 
 ## Question
@@ -45,50 +46,75 @@ which step-to-step changes can compound (Part B)?
   dry run of the Part B analysis on these rows (huginn-relax/dryrun-generation) gives B1 p = 1.3e-6, B3 lower 90 %
   bound 0.00 and B2 p = 0.032.
 
-## Part A (primary): item-level prediction on fresh ARC-Challenge questions
+## Part A (primary): a gold-conditioned spectral feature against the finite-budget residual, question by question
+
+**Scope (narrowed after Codex's pre-outcome review, codex/huginn-design-review/, 9ea0384e).** Part A tests a
+held-out association. Across fresh ARC questions, does an estimated spectral feature of each question's fixed point
+rank that question's finite-budget residual under relaxation? It is teacher-forced and gold-conditioned: the
+analysed sequence is the question with its correct answer, so this is a mechanistic probe, not an answer-blind
+warning. It is not a mediation test. Persistent differences between questions can make all within-arm correlations
+positive. Together with Part B the results would be consistent with the mechanism, but would not identify it.
 
 **System.**
-- Model: tomg-group-umd/huginn-0125, snapshot bb6621b65e90b6a4b9b29ef88dc83866d450470c (weights, remote code
-  and tokenizer). Run with transformers 4.55 and the cache patch in tools/huginn_relax_eval.py.
+- Model: tomg-group-umd/huginn-0125, revision bb6621b65e90b6a4b9b29ef88dc83866d450470c, passed explicitly to every
+  loader (weights, remote code, tokenizer). Run with transformers 4.55 and the cache patch in
+  tools/huginn_relax_eval.py.
 - Data: allenai/ai2_arc ARC-Challenge revision 210d026faf9955653af8916fad021475a3f00453. test.jsonl has SHA-256
-  062fe98a0d64b0bb86b43ee49faf8de6b4c02417f0b4a6b7f9607208c6f1a9d6 (tools/export_benchmark.py manifest).
-- Questions: test indices 0-63 of that file, in file order. They are fixed now and no question is read before
-  the freeze.
+  062fe98a0d64b0bb86b43ee49faf8de6b4c02417f0b4a6b7f9607208c6f1a9d6.
+- Questions: test indices 0-63 in file order, fixed now.
 
-**Predictor, computed first.**
-- For each question, the float32 fixed point and leading spectrum of the prefill
-  "Question: {q}\nAnswer: {correct choice}". Tool: explore_latent_loop.py fixed-spectrum --model huginn --dtype
-  float32 --arc-split test --arc-indices 0..63 --lam 1.0, with defaults transient 3000, k 8, arnoldi-iter 400 and
-  fallback relaxed transients 0.75 and 0.5.
-- A question whose relative fixed-point residual exceeds 1e-4 is excluded and reported.
-- ARPACK may not converge for every eigenvalue set (LM, SR, LR). The tool keeps the converged eigenvalues and
-  flags the set; all kept eigenvalues are used, as in development (18 of 31 development spectra converged in all
-  three sets). The flags are reported.
-- From each spectrum: rho_q(lam) and lam_up(q). The correct choice is used only to select which prefill is analysed;
-  no outcome below depends on correctness.
+**Predictor, computed first and saved before the read-out run.**
+- explore_latent_loop.py fixed-spectrum --model huginn --dtype float32 --arc-split test --arc-indices 0..63
+  --arc-ids batch --lam 1.0, with defaults transient 3000, k 8, arnoldi-iter 400, fallback transients 0.75 and 0.5.
+- The token IDs are exactly the gold row of the read-out batch (huginn_relax_eval.gold_sequence_ids: context, then
+  the continuation tokenized separately). The spectrum records their SHA-256, and the analysis requires it to equal
+  the read-out row's.
+- Disposition per question:
+  - 'ok' needs a finite relative fixed-point residual <= 1e-4, a finite nonempty union of the computed LM, SR and LR
+    eigenvalues, and matching token IDs;
+  - every other case is excluded with its reason, and no excluded question is replaced.
+- Feature: rho_q(lam) = max |1 - lam + lam mu| over the computed eigenvalues. This is an estimated Ritz feature,
+  not a complete spectrum. The computed sets can miss the dominant mode of the shifted operator; Codex's
+  counterexample is recorded as a test. 'Unstable' therefore means an unstable mode was detected; the converse is
+  'no unstable mode detected', not proven stability. ARPACK convergence flags and eigenvalue counts are reported per
+  question.
 
 **Outcome, computed second.**
 - huginn_relax_eval.py arc --split test --start 0 --count 64 --steps 24 25 26 27 28 29 30 31 32
-  --lams 1.0 1.05 1.08 1.10 --seed 0 (bfloat16; paired initial latent states, torch.manual_seed(100003 seed + index)).
-- Per question and arm, two outcomes:
-  - the native residual ||F(s) - s|| / ||s|| at recurrence step 32;
-  - whether the chosen answer (argmax of the log-likelihood over choices) changes across steps 24-32.
+  --lams 1.0 1.05 1.08 1.10 --seed 0. The recurrence runs in bfloat16 on all choices; the initial latent states are
+  paired across arms, torch.manual_seed(100003 seed + index).
+- Endpoint: for the gold sequence only, R(s_31) = ||Core(s_31) - s_31|| / ||s_31||. This is the native residual of
+  the state after 31 updates, i.e. the input of update 32. The difference is taken in float32 from the bfloat16
+  states, so the recurrence's bf16 floor remains. It is a finite-budget endpoint, not a rate. Zero residuals are
+  kept, and ties get average ranks; no log or clamp is applied, since Spearman correlation uses ranks.
+- Secondary outcome: whether the chosen answer (argmax log-likelihood over choices) changes across steps 24-32.
 
-**Primary prediction (A1).** S is the mean, over the four arms, of the Spearman correlation across questions
-between rho_q(lam) and the log native residual at step 32. Success requires both:
-- the lower end of a question-bootstrap 95 % interval (2000 resamples, the same questions in every arm) is above
-  0.3;
-- at most 25 % of the questions are excluded by the fixed-point gate. More than 25 % is reported as a failed setup.
+**Admission, enforced before any statistic.**
+- Exactly one row per requested (question, arm) cell; duplicates, extras and missing cells are refused.
+- Each row must match the frozen split and seed, have read-outs at steps 24-32, a residual trace of 32 entries, and
+  a finite non-negative gold residual.
+- Exactly one spectrum disposition per requested question, and no spectrum outside the panel.
+- The cohort is the questions with disposition 'ok', the same in every arm. It must hold at least 48 of the 64;
+  fewer is a failed setup.
 
-**Secondary (descriptive, no multiplicity correction).**
-- A2: the per-arm correlations.
-- A3: the answer-change rate in spectrally unstable (rho_q(lam) >= 1) against stable (question, arm) pairs, pooled
-  over arms, with a one-sided Fisher exact test.
-- A4: the share of questions predicted unstable in each arm.
+**Primary prediction (A1).** S is the mean, over all four arms, of the Spearman correlation across the cohort
+between rho_q(lam) and R(s_31) at that arm.
+- S is undefined, and the primary fails, if any arm's correlation is undefined (for example, a constant input).
+- The interval is a question bootstrap: 2000 resamples of the cohort, the same questions in every arm.
+- A draw is undefined under the same rule. More than 1 % undefined draws fails the primary; otherwise the interval
+  uses the defined draws, and their count is reported.
+- Success requires a 95 % lower bound above 0.3.
+- The interval is approximate and conditional on this seed, this numerical pipeline and the qualifying questions.
+
+**Secondary (descriptive only, no tests).**
+- The per-arm correlations.
+- Answer-change counts and rates where an unstable mode was detected and where none was. Repeated cells of the
+  same question are not independent, so no p-value is reported.
+- The share of questions with a detected unstable mode in each arm.
 
 **Analysis code.** tools/huginn_arc_analysis.py items at the frozen commit:
 
-    items --spectra <spectra folder> --rows <read-out folder> --start 0 --count 64 --lams 1.0 1.05 1.08 1.10
+    items --spectra <folder> --rows <folder> --start 0 --count 64 --lams 1.0 1.05 1.08 1.10 --split test --seed 0
 
 ## Part B (secondary): GSM8K generation accuracy against lam
 
@@ -103,18 +129,28 @@ between rho_q(lam) and the log native residual at step 32. Success requires both
   --lams 1.0 1.05 1.15 1.20 --interleave --prompt-style cot8 --max-new 256 --seed 0. The problems may be split
   across pods as contiguous ranges with identical settings.
 
-**Predictions** (from the development lam response; the arms straddle the spectral thresholds):
-- B1: flexible accuracy at lam 1.20 is lower than native (exact one-sided McNemar, alpha 0.05).
-- B3: lam 1.05 loses no more than 4 points against native: the 5th percentile of the paired problem bootstrap of
-  the difference (10,000 resamples, seed 0) is above -0.04.
-- Part B succeeds if B1 and B3 both pass. This is an intersection-union test, so each is at alpha 0.05.
-- Secondary, descriptive: B2 (lam 1.15 lower than native, one-sided McNemar); the same contrasts for strict
-  accuracy; median new tokens; the share of replies in the strict 'The answer is N' format.
+**Predictions** (from the development lam response; the arms straddle the spectral thresholds). Write
+Delta(lam) = accuracy(lam) - accuracy(native), flexible match.
+- B1 (decline): Delta(1.20) < 0, by an exact one-sided McNemar test at 0.05. B1 tests any decline; the magnitude
+  is reported, with lost and gained counts and an interval. A 'collapse' is not claimed from B1 alone.
+- B3 (non-inferiority within 4 points): the 5th percentile of the paired problem bootstrap of Delta(1.05)
+  (10,000 resamples, seed 0) is above -0.04. This is an approximate one-sided 95 % bound. Four points is a
+  tolerated loss, chosen as half the smallest development loss called a break (8 points at 1.15). It is not a
+  no-loss claim.
+- Part B succeeds if B1 and B3 both pass. The global null is {Delta(1.20) >= 0} or {Delta(1.05) <= -0.04}, so
+  this is an intersection-union test with each component at 0.05. B3's bootstrap makes the joint level nominal,
+  not exact.
+- Secondary, descriptive: Delta(1.15) with its counts (B2); the same contrasts for strict accuracy; median new
+  tokens; the share of replies at the 256-token cap; the share in the strict 'The answer is N' format. A capped
+  reply is an observed outcome, not a missing row.
+- Admission: every row must match the frozen split (test), recurrence budget (32), prompt style (cot8), seed and
+  lam. Coverage of every problem in every arm and no duplicate rows. An interrupted run is completed to all 200
+  problems; it is not analysed as a prefix.
 
 **Analysis code.** tools/huginn_arc_analysis.py generation at the frozen commit (coverage of every problem in every
 arm is checked; duplicate rows are refused):
 
-    generation --rows <folders> --start 0 --count 200
+    generation --rows <folders> --start 0 --count 200 --split test --steps 32 --prompt-style cot8 --seed 0
 
 **Spectral context.** Before the test, development spectra of the 8-shot prompts (gpu job 13, GSM8K train 0-2,
 huginn-relax/cot8-spectrum-*) are reported with this design. They do not change the arms or the success criteria.
@@ -143,3 +179,19 @@ analysis use the commit at which this file is frozen.
   H4 residual mechanism). Superseded as above.
 - Codex's preflight of v1 (codex/huginn-design-preflight.md, commit 323d5083) set the float32 convergence
   measurement and the residual-level fit window used in development.
+
+## Changes in v3.1 (Codex's pre-outcome review, before any test computation)
+
+- Part A is now a same-prefill probe:
+  - the spectrum uses exactly the gold row's token IDs, checked by hash;
+  - the endpoint is the gold sequence's own residual, not the all-choice aggregate;
+  - the clock is stated as R(s_31), the input of update 32;
+  - the residual difference is taken in float32.
+- The spectral feature is an estimated Ritz feature, with detected-instability wording.
+- Admission rules: exact panel, one disposition per question, a common cohort of at least 48, no dropped arms,
+  undefined-draw rules.
+- A3 is descriptive without a p-value.
+- Part B reports accurate test labels (decline; non-inferiority within 4 points) with the margin's rationale.
+  Rows are admitted against the frozen split, budget, prompt, seed and lam, and the cap rate is reported.
+- Explicit model revision in every loader. On the 100 development questions the gold-row IDs from both paths were
+  identical, so the development association was not affected by tokenization.

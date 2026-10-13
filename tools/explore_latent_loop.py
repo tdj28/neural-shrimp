@@ -29,6 +29,7 @@ DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-da
 CACHE = DATA / "models" / "hf" / "hub"
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
 MODELS = {"ouro1.4b": "ByteDance/Ouro-1.4B", "huginn": "tomg-group-umd/huginn-0125"}
+REVISIONS = {"huginn": "bb6621b65e90b6a4b9b29ef88dc83866d450470c"}   # pinned snapshot (weights, code, tokenizer)
 PROMPTS = {
     "hello": "Hello! How are you today?",
     "arith": "What is 17 times 23? The answer is",
@@ -160,9 +161,10 @@ class HuginnLoop:
         self.device = torch.device(device)
         self.dtype = getattr(torch, dtype)
         self.seed = int(seed)
-        self.tok = AutoTokenizer.from_pretrained(MODELS[model], cache_dir=CACHE)
-        self.model = AutoModelForCausalLM.from_pretrained(MODELS[model], cache_dir=CACHE, trust_remote_code=True,
-                                                          torch_dtype=self.dtype).eval()
+        rev = REVISIONS.get(model)
+        self.tok = AutoTokenizer.from_pretrained(MODELS[model], revision=rev, cache_dir=CACHE)
+        self.model = AutoModelForCausalLM.from_pretrained(MODELS[model], revision=rev, cache_dir=CACHE,
+                                                          trust_remote_code=True, torch_dtype=self.dtype).eval()
         self.model.requires_grad_(False)
         if dtype == "float64":
             # the remote code computes norms and rotary embeddings in float32 whatever the input dtype
@@ -192,9 +194,14 @@ class HuginnLoop:
 
     def setup(self, prompt):
         """Prelude output e (injected every step) and rotary tables for one prompt; returns the initial state."""
+        return self.setup_ids(self.tok(prompt, return_tensors="pt")["input_ids"][0].tolist())
+
+    def setup_ids(self, token_ids):
+        """As setup, from token IDs (so that a spectrum can use exactly the IDs of a scored sequence)."""
         torch = self.torch
         m, t = self.model, self.model.transformer
-        ids = self.tok(prompt, return_tensors="pt")["input_ids"]
+        ids = torch.tensor([list(token_ids)], dtype=torch.long)
+        self.token_ids = list(token_ids)
         self.freqs_cpu = m.freqs_cis[:, : ids.shape[1]]
         with torch.no_grad():
             e = t.wte(ids).to(self.dtype) * m.emb_scale
@@ -880,7 +887,11 @@ def fixed_spectrum(args):
     if getattr(args, "arc_indices", None):                       # several ARC questions with one loaded model
         import huginn_relax_eval as hr
         for index in args.arc_indices:
-            spectrum_at(loop, hr.prompt_text("arc", args.arc_split, index), args, f"{args.out}/q{index:04d}")
+            if args.arc_ids == "batch":                           # exactly the gold row of huginn_relax_eval arc
+                ids = hr.gold_sequence_ids(loop.tok, hr.arc_questions(args.arc_split)[index])
+                spectrum_at(loop, None, args, f"{args.out}/q{index:04d}", token_ids=ids)
+            else:
+                spectrum_at(loop, hr.prompt_text("arc", args.arc_split, index), args, f"{args.out}/q{index:04d}")
         return
     if getattr(args, "gsm8k_index", None) is not None:           # the exact prompt of tools/huginn_relax_eval.py
         import huginn_relax_eval as hr
@@ -894,12 +905,16 @@ def fixed_spectrum(args):
     spectrum_at(loop, text, args, args.out)
 
 
-def spectrum_at(loop, text, args, outname):
-    """Fixed point of the loop for one prompt text and F's leading spectrum there (LM, SR, LR), written to outname."""
+def spectrum_at(loop, text, args, outname, token_ids=None):
+    """Fixed point of the loop for one prompt text (or exact token IDs) and F's leading spectrum there (LM, SR, LR),
+    written to outname."""
+    import hashlib
+
     from scipy.sparse.linalg import ArpackNoConvergence, LinearOperator, eigs
 
     torch = loop.torch
-    h = loop.setup(text)
+    h = loop.setup_ids(token_ids) if token_ids is not None else loop.setup(text)
+    ids_used = list(getattr(loop, "token_ids", []) or [])
     shape = tuple(h.shape)
     n = int(np.prod(shape))
     lam = float(args.lam)
@@ -958,7 +973,9 @@ def spectrum_at(loop, text, args, outname):
             inside = False
     if inside:
         intervals.append([float(start), float(grid[-1])])
-    rec = {"args": vars(args), "text": text, "fixed_point_residual_F": res, "transient_lams": transient_lams,
+    rec = {"args": vars(args), "text": text, "token_ids": ids_used,
+           "token_ids_sha256": hashlib.sha256(json.dumps(ids_used).encode()).hexdigest(),
+           "fixed_point_residual_F": res, "transient_lams": transient_lams,
            "is_fixed_point": bool(res <= args.fixed_tol), "spectra_of_F": spectra,
            "arnoldi_converged": converged,
            "leading_modulus_and_turns": [[abs(v), float(np.angle(v) / (2 * np.pi))] for v in lead],
@@ -1724,6 +1741,8 @@ def main():
     fs.add_argument("--arc-split", default="train", choices=("train", "validation", "test"))
     fs.add_argument("--arc-indices", type=int, nargs="+", default=None,
                     help="several ARC questions in one run, written to OUT/qNNNN")
+    fs.add_argument("--arc-ids", default="text", choices=("text", "batch"),
+                    help="batch: the exact gold-row token IDs of huginn_relax_eval arc (Part A of the frozen test)")
     fs.add_argument("--fixed-tol", type=float, default=1e-4, help="relative residual below which h is a fixed point")
     fs.add_argument("--fallback-lams", type=float, nargs="*", default=[0.75, 0.5],
                     help="relaxations tried in turn when the transient at --lam does not converge")
