@@ -652,8 +652,20 @@ Elsewhere the spectral radius bounds the rate measured over the accessible windo
 because the slowest modes carry little amplitude there. Independently, \citet{wang2026taps} found that a constant step
 of $1.2$ collapses Huginn's accuracy (GSM8K $8.3\,\%$ against $19.4\,\%$) and that $0.8$ underperforms, without an
 explanation; both lie on the predicted sides of these thresholds.
-\inprogress{frozen test on ARC-Challenge (all 1172 test questions, scored from one prefill per choice): accuracy against
-$\lambda$ at matched recurrence steps, with the cliff predicted at the spectral $\lambda_c$ of development prompts.}
+
+\paragraph{Does the task notice? (development data).} On ARC-Challenge questions scored by log-likelihood, where one
+prefill per answer choice is exactly the analysed recurrence, the spectra again predict convergence: rates agree to
+$0.002$--$0.006$ where the slowest mode dominates, and beyond each question's $\lambda_c$ ($1.075$--$1.149$ for four
+questions) the residual stops decaying. One question's native fixed point is itself unstable (the native loop
+oscillates with relative amplitude $2\times10^{-2}$); relaxation to $0.55$ or $0.75$ restores convergence to
+$10^{-6}$. Accuracy, however, tolerates the instability (300 training questions, 32 steps): $0.367$ native, $0.387$
+at $\lambda=1.10$ and $0.373$ at $1.15$, where the latent state oscillates with relative size $0.08$ and $0.23$; only
+at $1.25$ (size $0.68$) does it fall, to $0.300$. Under-relaxation instead costs 4--5 points at 8--16 steps and
+catches up by 32 (slower transient), and Anderson acceleration neither speeds the transient nor gains accuracy.
+Scoring a fixed answer thus averages over the oscillation; a test of the accuracy consequence needs a task whose
+errors compound.
+\inprogress{GSM8K generation against $\lambda$ (development run); then a frozen test on fresh problems with
+$\lambda$ arms placed from the spectral $\lambda_c$ of development prompts.}
 
 \section{Misaligned behaviour as an attractor}
 \label{sec:misalignment}
