@@ -46,7 +46,7 @@ flip curves of the periodic orbits with float64 test functions. In a higher-temp
 fold curve with two cusps whose normal-form coefficient changes sign, the codimension-two organization of
 shrimp-shaped windows. In a closed region of the map a period-3 text loop doubles through periods 6, 12 and 24
 toward a chaotic core; along a cut, float64 flip parameters are resolved through period 24 so far, with a first
-finite-order interval ratios of $2.84$, $2.86$ and $3.78$ \inprogress{further flips}. Replacing the
+finite-order interval ratios that rise from $2.84$ to $4.02$ through period 96. Replacing the
 expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
 Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
@@ -462,12 +462,19 @@ float64 (Section~\ref{sec:methods}) along this cut, in the steering coordinate $
 The first two ratios, $\delta_1=2.844$ and $\delta_2=2.859$, are far from Feigenbaum's $4.6692$, although from the
 second flip on the orbits are effectively one-dimensional (next modulus $0.0023$, $2\times10^{-6}$, $2\times10^{-12}$).
 The third, $\delta_3=3.781$, is markedly larger. The flip parameters agree across three devices (CPU, a consumer GPU
-and an H100, all float64) to $10^{-16}$--$3\times10^{-15}$.
+and an H100, all float64) to $10^{-16}$--$3\times10^{-15}$. Continuing a just-born doubled orbit past period 48 failed:
+Newton slides onto the half-period orbit, which is also periodic with the doubled period. We therefore also located
+the superstable parameters $s_p$, where the critical multiplier vanishes in the middle of each band. There the orbit
+attracts, so it can be reached by forward iteration. Their ratios include the period-96 level: from $s_{12}$, $s_{24}$,
+$s_{48}$, $s_{96}=0.065971694$, $0.066080141$, $0.066114133$, $0.066122590$, the ratios are $3.19$ and $4.02$. Both
+sequences of ratios rise toward Feigenbaum's value: flips $2.84$, $2.86$, $3.78$; superstable points $3.19$, $4.02$.
+($s_6$ is less precise, because the period-6 orbit's transverse multipliers of about $0.002$ blur its root, and $s_3$
+was not bracketed.)
 One candidate explanation is a crossover. Softmax at temperature $T$ is a smoothed argmax, so the reduced
 one-dimensional map may have a nearly corner-like extremum, rounded only on a scale set by $T$. Early doublings would
 then see the corner, where ratios tend toward 2, and later doublings the smooth quadratic core, where the ratio is
 $4.669$. This predicts ratios rising toward $4.669$ at higher periods, and smaller early ratios at lower temperature.
-\inprogress{the flips of periods 96 and 192; the doubling sequences at higher temperature and in Qwen2.5-1.5B.} Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
+\inprogress{superstable parameters at periods 192 and 384; ratios at other temperatures.} Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
 test universality \cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}.
 \begin{table}[H]
 \centering\small
@@ -479,8 +486,7 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n=\frac{\
 2 & $6\to12$ & $0.0659055406325$ & $0.0023$ & $2.844$ \\
 3 & $12\to24$ & $0.0660549041785$ & $2.4\times10^{-6}$ & $2.859$ \\
 4 & $24\to48$ & $0.0661071412523$ & $2.3\times10^{-12}$ & $3.781$ \\
-5 & $48\to96$ & $0.0661209563174$ & $<10^{-13}$ & \inprogress{} \\
-6 & $96\to192$ & \inprogress{} & & \\
+5 & $48\to96$ & $0.0661209563174$ & $<10^{-13}$ & \\
 \bottomrule
 \end{tabular}
 \caption{Flips of the crescent's period-doubling sequence along $\log_{10}T=-0.14798$. At each completed flip the
@@ -488,7 +494,8 @@ critical multiplier is a real $-1$ (to $10^{-11}$), the Newton residual is below
 multipliers lie inside the unit circle. Feigenbaum's constant is
 $\delta=4.6692\ldots$ \cite{feigenbaum1978quantitative}; for the logistic map the first ratios are $4.751$, $4.656$,
 $4.668$.
-Rows 1--5 are cross-checked on three devices. \inprogress{the flips of periods 96 and 192.}}
+Rows 1--5 are cross-checked on three devices. Superstable parameters (text) extend the ratio sequence through
+period 96.}
 \label{tab:cascade}
 \end{table}
 In the high-temperature region (Figure~\ref{fig:p4}), along $\log_{10}T=0.0319$, the period-2 loop
