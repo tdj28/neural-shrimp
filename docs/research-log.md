@@ -21249,3 +21249,9 @@ _commit `0495168eacab` (dirty worktree)_
 - **Would surprise us:** A large further residual reduction from the accepted history would motivate continued acceleration; a rejection, fallback, regression or timeout remains an explicit exploratory result.
 
 _commit `0495168eacab` (dirty worktree)_
+
+## 2026-10-13 05:48 UTC: Codex Task 1: reviewed final-domain shard and conditional proof orchestration
+
+derivative_shard.py (3fe44a583176e0551bb209093fec08cd059d055fcb1a57702ac8799c7cb7cc50) and shooting_certificate.py (a4aca57acf7aaab33c77745ea6170935dd6b4dac40c9c982a063743f98727c3e) passed independent source reviews. The first captures exact original live phase boxes and all64 signed directions with full151936-vocabulary coverage. The second requires separate root, primitive-period and monodromy-power gates under the same externally established enclosure contract; it always remains conditional and certificate_passed false. Root final245 synthetic tests passed in2.28s; independent tiny transformer shard comparison passed all32 entries, and64 exact-Fraction matrix products plus192 powers matched. New launcher choice requires committed plan, CPU1 and exact3600s. No final candidate domain or derivative campaign launched. Parallel point evaluation and complete secant-parent reuse are separately documented next designs, not measurements; the existing serial centre-secant pilot remains the only model job.
+
+_commit `5bb02d6260c1` (dirty worktree)_

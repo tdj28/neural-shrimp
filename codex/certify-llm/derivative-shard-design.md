@@ -88,3 +88,47 @@ and point images can then discharge the conditional shooting enclosure
 contract, together with its analytic regularity/evaluator review. Root
 inclusion/uniqueness, primitive-period separation and dynamical attraction
 remain separate gates; successful derivative coverage alone is no certificate.
+
+
+## Implementation addendum after the measured 64-column pilot
+
+The parent subsequently authorized implementation and synthetic tests, with no
+candidate-domain selection or target execution. `derivative_shard.py` now fixes
+one global phase and one aligned contiguous positive-basis block of 64 columns,
+1024-bit Arb arithmetic, all 896 state coordinates, all 151936 vocabulary rows,
+and vocabulary chunks of 1024. Its plan requires CPU1/nice10/18 GiB/3600 seconds;
+the separate launcher enforces the memory/time envelope. A complete collection
+would contain 14 shards per phase, 112 in total. This note does not authorize
+those runs or imply their cost has been approved.
+
+The externally pinned definition uses schema `codex-llm-candidate-final-box-v1`
+and role `candidate_final_shooting_boxes`. It contains exactly `schema`, `role`,
+`period`, `dimension`, `centers`, `radii`, `map`, `map_sha256`, and nonempty
+`selection_provenance`. The original bytes are copied verbatim. Current pinned
+assets/prefix IDs and fixed alpha/log10-T constants independently determine the
+map descriptor; current source files and arithmetic package metadata determine
+the evaluator-bundle/backend anchors. They are compared against plan pins, not
+accepted merely because the candidate file supplies strings. The unchanged
+prefix loader checks its pinned receipt, historical source, assets, cache and
+actual receiver construction. A valid saved prefix may originate in an attempt
+whose later, unrelated box stage failed; prefix validity is checked directly.
+
+The first `step_start` callback records the actual live scalar Jet inputs and
+basis tangents before decoder layer zero. Exact rational endpoint witnesses
+bind these balls to the nominal phase box. The driver checks all 24 ordered
+layer starts/ends and both complete ordered vocabulary passes. It retains the
+full primal/derivative output even if subsequent diagnostic bookkeeping fails;
+only the final successful status and external receipt can admit a shard. The
+all-competitor readout diagnostic is preserved separately and bound to the
+actual-input/design/map/phase identities. Exact endpoint comparisons check its
+margin consistency and strict sign. This readout result is not an orbit gate.
+
+Implementation source SHA-256:
+`3fe44a583176e0551bb209093fec08cd059d055fcb1a57702ac8799c7cb7cc50`.
+Synthetic test source SHA-256:
+`c4fe5c9a64b343e23cddfd03cd3c23582e8be52c3e58062aebc179e5228a637b`.
+The tests exercise exact low-precision containment, independent map/backend/
+source pins, prototype refusal, original live receiver capture, signed basis
+coverage, all-row retention, collector compatibility, head bookkeeping, and
+failure status with a synthetic evaluator. No checkpoint or target-model
+forward pass was performed during implementation.

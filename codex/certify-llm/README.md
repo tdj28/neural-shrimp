@@ -1,69 +1,89 @@
 # Exact-real Qwen period-8 certificate development
 
-## Current checkpoint — 13 October 2026
+## Current checkpoint — 13 October 2026, 05:49 UTC
 
-The assigned primitive P8 proposal has been independently recovered with relative
-return `1.60e-14` and numerical divisor separation. There is **no orbit certificate**.
-
-- `arb-pilot-001` (384 bits) failed during fixed-prefix enclosure at layer16.
-- `arb-pilot-002` (1024 bits) completed the exact-real fixed prefix and one full
-  point step. Maximum point-output radius was `1.215e-142`; the difference from
-  the next binary64 proposal was at most `9.623e-15`. The radius`2^-80` box then
-  wrapped to radius`1.6996` by layer2 and failed the RMS positivity gate entering
-  layer3. This is a setup failure from dependency loss, not dynamical instability.
-- All22 pilot002 artifact hashes were checked; receipts preserve both attempts.
-- `signed-pilot-001` completed eight signed point-derivative columns in
-  261.81 seconds at 1024 bits, with maximum derivative radius `2.526e-141`.
-  All 27 artifact hashes and all eight comparison rows were audited. This
-  covers eight directions at one point; full-box derivatives are still absent.
-- `center-seed-001` completed all eight independent binary64 phase Jacobians
-  and the cyclic inverse proposal in 677.27 seconds. All eight numerical
-  closure gates passed and all 56 artifact hashes were checked. The numerical
-  inverse defect is approximately `3e-15`; this is a proposal, not an inverse
-  or derivative certificate.
-- `arb-point-003` completed the fresh 2048-bit prefix and one point image.
-  All 32 artifact hashes passed. Maximum point radius is `6.7203e-451`, and
-  the cached-prefix-to-point-save cost is 114.21 seconds. The known-wide
-  state-box probe was explicitly skipped; this is no box or orbit proof.
-- `center_refine.py` prepares one high-precision multiple-shooting correction
-  followed by a fresh eight-phase residual check. The prepared
-  `center-refine-001-plan.json` binds the completed prefix and seed receipts.
-  Its 16 point evaluations are estimated at 1827.34 seconds from the measured
-  single-phase cost, with a CPU1/18-GiB/3600-second enforced ceiling. It has not
-  run at that preparation checkpoint. It is now running as `center-refine-001`
-  from source `ba6c4d77fd033fe9699c246e48af1a50bd6445d1`; completion and
-  convergence remain to be measured.
-
-`ball_jet.py` provides batched signed first derivatives through the same reviewed
-transformer architecture. `cache_io.py` preserves all prefix radii and checks the
-construction/provenance chain. `proof_gates.py` implements conditional Krawczyk,
-primitive-period and monodromy-power algebra. Passing those algebraic gates only
-proves the desired statement once their full-domain enclosure contract has been
-established; hashes and a declaration alone do not establish it.
-`shooting_gates.py` adds full product-box root and conditional primitive-period
-checks, with signed streamed blocks or a cheaper conservative factored bound.
-It deliberately leaves dynamical attraction to a separate monodromy bound.
-The combined pre-domain synthetic suite passes 224 tests; no test is an orbit proof.
-`phase_domain.py` now checks exact endpoint containment when constructing
-lower-precision derivative input boxes around high-precision nominal centres.
-Its additional 35 tests and independent 288 exact-rational endpoint comparisons
-pass. This enables a later mixed-precision derivative experiment; it does not
-supply any uncomputed derivative columns.
-
-The original pilot design below is retained as history. Current setup outcomes
-are in `certificates/llm-p8-pilot-001.json` and `llm-p8-pilot-002.json`.
-
-
-**Behavioral TLDR:** the assigned objective is to prove a locally attracting
-primitive eight-state cycle in a specific continuous-feedback language-model
-map. A certificate has not been obtained. This directory currently implements
-rigorous forward arithmetic and a bounded diagnostic pilot.
+The assigned numerical orbit is recovered and its shooting centres have been
+refined to a rigorously enclosed residual of approximately **7.16e-52**.
+**Existence, primitive period and attraction are not yet certified.**
+This is an inference-state orbit of one exact-real soft-token map, not a
+training-parameter cycle or evidence of a task-performance benefit.
 
 The target is Qwen2.5-0.5B-Instruct at exact binary64 alpha 0.071674 and
 log10(T) -0.115, the fixed 37-token open-chat prefix, one-token window and
 philosophy steering after zero-based decoder block12 at every position.
-The full 151,936-token expectation uses tied input/output embeddings. No sampled
-text or conversation behavior is asserted by an orbit certificate.
+The full 151,936-token expectation uses tied input/output embeddings.
+
+| Attempt | Completed outcome | Scope |
+| --- | --- | --- |
+| arb-pilot-001 | 384-bit prefix failed at layer16 | Retained arithmetic setup failure |
+| arb-pilot-002 | 1024-bit prefix/point passed; radius2^-80 box failed RMS positivity at layer3 | Wrapping failure, not instability |
+| signed-pilot-001 | Eight signed point columns,261.81s | One point; no full-box coverage |
+| center-seed-001 | Eight numerical896-square Jacobians and cyclic inverse proposal,677.27s | Binary64 proposals only |
+| arb-point-003 | 2048-bit prefix/point; max point radius6.7203e-451 | All32 artifacts independently audited |
+| center-refine-001 | One correction:9.6227e-15 to2.4361e-27 | Sixteen phases,77 artifacts audited |
+| center-resume-001 | Two corrections:2.4361e-27 to6.5829e-40 to7.1572e-52 | Sixteen fresh phases,98 artifacts audited; strict exact residual decreases |
+| box-derivative-001 | 32 signed columns over original phase-zero prototype box2^-800;988.57s forward,7.93GiB peak | Original prototype only |
+| streamed-derivative-001 | 64 columns on same box;1787.97s forward,5.14GiB peak; all32 baseline column comparisons pass | Original prototype only; all67 artifacts audited |
+| proposal-budget-001 | Numerical factored-bound budget; limiting common induced-infinity Jacobian discrepancy about2.59e-9 | Planning diagnostic, not rigorous operator bound |
+
+All failed and completed attempts remain immutable under
+`/data2/neural-shrimp-data/codex/llm-p8-certificate/`. Compact receipts are in
+`certificates/llm-p8-*.json`; named result-review files retain independent
+checks, exact receipt hashes and every configuration's outcome.
+
+### Current owned computation
+
+`center-secant-001` runs from pushed source
+`ac376355a37f6dc1368128ed8c9519a7bd2afb2a`, owned PID307603 at this checkpoint.
+It admits all four completed chronological centre/image tuples, replays all
+three historical inverse secants and evaluates exactly one new eight-phase
+candidate. Plan SHA256:
+`ee56cd6aad3a7beae563eddb60f50751c3dba197c70aa7e4c6a581597eeb206a`.
+CPU1, nice10,18GiB address-space cap,1800-second watchdog plus10-second
+termination grace. Rejections, baseline fallbacks, regressions and partial
+results are retained. No result may be inferred from its progress events.
+No other Codex model job is active at this checkpoint. Check its final receipt
+and owned launcher before restarting anything; never duplicate an attempt.
+No GPU, paid pod or paid consultation is in use.
+
+### Remaining route to the certificate
+
+1. Audit the completed secant attempt, including all eight phases and each
+   accepted/rejected update. Decide from measured progress whether to extend
+   acceleration or retain fixed-R refinement. The current secant driver cannot
+   resume a secant parent; that needs a separately reviewed adapter.
+2. Define exact candidate centres and phase radii after adequate refinement.
+   The original prototype boxes do not contain the refined centres and cannot
+   be reused as proof boxes. Small residual alone does not establish inclusion.
+3. Evaluate all8x896 signed derivative columns over those same nominal boxes.
+   The measured64-column stream suggests roughly56 CPU-hours for all112 shards
+   if all other phases cost similarly; this is a single-phase extrapolation,
+   not a campaign reservation or completion guarantee. Commit a concrete
+   resource plan and run card, checking shared CPU/RAM before launch.
+4. Authenticate every complete shard receipt, source bundle, exact map/backend,
+   original live input containment and point-image receipt. Assemble every
+   direction once. Point images must belong to exactly these centres.
+5. Run the shooting root inclusion and contraction, all proper-divisor
+   separations, and interval monodromy-power attraction gates. Independently
+   review all witnesses before calling the result a certificate.
+
+`phase_domain.py` checks original exact endpoint containment across precision
+changes. `derivative_coverage.py` checks complete coordinate coverage and
+original producer input/primal consistency before decoding; it does not
+perform external artifact authentication. The new `derivative_shard.py`
+producer and `shooting_certificate.py` conditional orchestrator passed
+independent review. The latest focused combined synthetic
+suite passed245 tests; those tests are not target-orbit evidence.
+
+`shooting_gates.py` binds centre images, whole-box Jacobians and dyadic A/B
+proposals to the full product-box contraction. `proof_gates.py` provides the
+separate attraction-by-matrix-power check. Source hashes/declarations bind
+evidence; they cannot establish an evaluator contract by themselves. The
+analytic/evaluator review, exact source, Arb/FLINT backend and all raw evidence
+remain part of the computer-assisted proof's trusted basis.
+
+The first pilot's design and replay instructions below are retained as history;
+they do not authorize repeating old attempts or changing current run budgets.
 
 ## Exact map and arithmetic
 
