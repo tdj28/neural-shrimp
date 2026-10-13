@@ -58,3 +58,12 @@ Changes to the frozen design: none, except the corrected labels, used both to fi
 evaluate them on the confirmation arms. The primary hypothesis, models, features, horizons, test arms, bootstrap and
 success criterion are unchanged. The L7 exploratory numbers are recomputed with the corrected labels and reported as
 a disclosed correction; the confirmation proceeds whatever they show.
+
+## Amendment 2 (13 October 2026, after the confirmation outcomes were read): secondary event only
+
+Codex's committed review (codex/p1-confirmation-design-review.md, 57da77ea) found one remaining censoring issue for
+the secondary event 'first of two consecutive hostile turns': an onset at t + h needs turn t + h + 1 observed, so
+rows require t + h + 1 <= 39. Amendment 1 had required only t + h <= 39. Fixed in tools/p1_detection.py (the row
+builder now takes the run length), with final-single and final-pair controls in the tests. The confirmation
+outcomes had already been read when this was fixed, so the corrected secondary values are a post-outcome
+correction (adapted). The primary analysis (first hostile turn) is unaffected and its confirmed result stands.
