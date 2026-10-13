@@ -132,6 +132,13 @@ case "$JOBSET" in
     run map-stripes 150 $SCAN --alpha 0.060 0.082 --log-temperature -0.17 -0.04 --out $D/map-stripes-256
     run map-highT 150 $SCAN --alpha 0.045 0.085 --log-temperature -0.02 0.14 --out $D/map-highT-256
     ;;
+  superstable) # superstable parameters of a sequence of bands with tools/llm_feigenbaum.py on the GPU (float64):
+               # JOBARGS = NAME MINUTES then superstable arguments
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=llm_feigenbaum.py run superstable-$name "$minutes" superstable --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/superstable/$name
+    ;;
   edges)       # fold and flip edges of periodic windows with tools/llm_feigenbaum.py on the GPU (float64):
                # JOBARGS = NAME MINUTES then edges arguments
     name=${JOBARGS[0]}
