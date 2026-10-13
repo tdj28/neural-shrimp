@@ -20775,3 +20775,12 @@ _commit `2c9c2ee0aa4f`_
 - **Would surprise us:** b of one sign throughout (a fold-curve turning point without a cusp would not reverse the tangent; a reversal without a b sign change would point to a numerical artefact of the continuation step)
 
 _commit `a186d5c63007`_
+
+## 2026-10-13 00:54 UTC: run (exploratory)
+
+- **Question:** Task 5 setup only: do the assigned fresh P2/P8 points admit clean folds with independently computed composed-map AD coefficients?
+- **Setup:** CPU float64 manual Qwen map; source snapshot by codex/confirm-fold/launch.py; A fixes log10T=-.140, alpha bounds [.065,.069], producer curve seed index6; B fixes alpha=.0717, log10T bounds [-.106,-.101], producer curve seed index0. At most two nice10 workers x4threads, 18GiB each, 6h hard wall bound; chunks16. No test passages during setup; preserve every failed attempt and gate each target. Code committed/pushed before launch.
+- **Output:** `/data2/neural-shrimp-data/codex/task5-fresh-prediction`
+- **Would surprise us:** Failure of a clean +1 isolated fold, primitive return, or composed-map precision gates; no passage outcome is admissible until a separate complete freeze is pushed.
+
+_commit `7795b7673f87` (dirty worktree)_
