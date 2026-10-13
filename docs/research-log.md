@@ -21048,3 +21048,12 @@ _commit `c379611c5b6e` (dirty worktree)_
 Run C9 (pod mr3sd1c6hccdr0, 2696 s, commit 4041f758; llm_feigenbaum superstable on cuda float64, log10 T -0.14798; brackets between the flips; forward-iteration settling of 20 periods per evaluation, transient 20000): s_6 = 0.06569360859 (clean bracket mu +0.909 / -0.965: secant over a wide bracket because the first iterate fell inside the transverse zone, |mu_2| ~ 0.002; imprecise), s_12 = 0.06597169427 (clean mu +0.069 / -0.101), s_24 = 0.06608014054 (clean mu +0.026 / -2.6e-5), s_48 = 0.06611413278 (converged, mu 1e-10 / -2.4e-10), s_96 = 0.06612258989 (converged, mu 2.1e-9 / -8.1e-10). P3 not bracketed (mu at the left end already -0.31, unclean). Intervals 2.7809e-4, 1.0845e-4, 3.3992e-5, 8.4571e-6; ratios 2.564 (uses the imprecise s_6), 3.190, 4.019. The flip ratios were 2.844, 2.859, 3.781. Both sequences rise toward Feigenbaum's 4.669, consistent with the softmax-crossover hypothesis; the period-96 level is reached only via superstable points (continuation past P48 slides onto the half-period orbit). Paper updated.
 
 _commit `4724ead06064` (dirty worktree)_
+
+## 2026-10-13 03:28 UTC: run (exploratory)
+
+- **Question:** Superstable parameters at periods 192 and 384 of the crescent cascade: do the ratios continue toward 4.669 (4.02 through period 96)?
+- **Setup:** RunPod H100 (run C10), job set superstable, commit 4041f758: llm_feigenbaum superstable, cuda float64, log10 T -0.14798, transient 40000, settle 20 periods; brackets extrapolated from the measured intervals with ratios 4.0-4.4: P192 [0.06612449, 0.06612513], P384 [0.06612523, 0.06612537] (uncertain at the 1e-7 level; a miss is reported with the attractor's period and the end multipliers)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/superstable/crescent-deep`
+- **Would surprise us:** a ratio falling back below 3.5 at the period-192 level
+
+_commit `4b65b17a39a3`_
