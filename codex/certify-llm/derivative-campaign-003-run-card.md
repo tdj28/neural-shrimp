@@ -40,3 +40,9 @@ Only after Root accepts the saved preflight and current resource/ownership admis
 ## Root exact-card acceptance and prospective freeze
 
 Root read and accepted the full prepared card and payload on13October2026. The only plan change is status promotion to reviewed_measured; final plan SHA256 `d5d6bd93fa6c565a95ee3af8fe02279e5850972bbf0b41f5344aeddc7a3f01a0`. All94 assignment identities,18 retained blocks, source pins,17-hour and storage/resource bounds are unchanged. The authorized120-second read-only actual preflight and fresh capacity/ownership admission still precede a separate controller launch decision. No target launch is authorized by this status promotion.
+
+## Actual metadata preflight and final bounded launch acceptance
+
+Read-only preflight under CPU1/nice10/1GiB/120s passed in1.971259s, peak23,628KiB. Exact frozen execution source36c5d6144a021b2648e54f4a0bae3c7e4ca1e641 and110 Git blobs were checked before constrained admission. Report463b9a10f56aec8bada1a92143a751ede7e68da08b571477ada71108f30bd238; preflight manifest20d52ec64488470eea30c79c540e615930c46f00f6dbd1edc0e962e80730f072. Actual retained-byte accounting and all17 successful/four interrupted/90 never-started records match the card; no arrays/model/controller were evaluated or created. A mistyped nonexistent full source SHA was refused by the earlier Git ancestry guard before checkout mutation; the exact verified source was then used, with the coordination failure separately retained.
+
+Root read and accepted the complete actual report, and authorized exactly one derivative-campaign-003 from this frozen source/plan after this private checkpoint, fresh≥46GiB MemAvailable and closed prior ownership. No Task6 or Task7 model process remains; their completed audits are separate. The unchanged17h/five-worker/7CPU/34GiB/12GiB/24GiB policy applies. No automatic retry.
