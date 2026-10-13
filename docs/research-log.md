@@ -21255,3 +21255,21 @@ _commit `0495168eacab` (dirty worktree)_
 derivative_shard.py (3fe44a583176e0551bb209093fec08cd059d055fcb1a57702ac8799c7cb7cc50) and shooting_certificate.py (a4aca57acf7aaab33c77745ea6170935dd6b4dac40c9c982a063743f98727c3e) passed independent source reviews. The first captures exact original live phase boxes and all64 signed directions with full151936-vocabulary coverage. The second requires separate root, primitive-period and monodromy-power gates under the same externally established enclosure contract; it always remains conditional and certificate_passed false. Root final245 synthetic tests passed in2.28s; independent tiny transformer shard comparison passed all32 entries, and64 exact-Fraction matrix products plus192 powers matched. New launcher choice requires committed plan, CPU1 and exact3600s. No final candidate domain or derivative campaign launched. Parallel point evaluation and complete secant-parent reuse are separately documented next designs, not measurements; the existing serial centre-secant pilot remains the only model job.
 
 _commit `5bb02d6260c1` (dirty worktree)_
+
+## 2026-10-13 06:05 UTC: run (exploratory)
+
+- **Question:** P1 closed-loop exit control under persistent hostile pressure (push 0.06 along hostility-vs-kindness, fresh late hostile share 0.65): does a classifier-triggered counter-steer (detect a hostile reply, counter-steer the next k turns) cut hostile turns, how does it compare with a constant counter-steer at similar mean dose, does the counter direction matter (matched contrast vs the raw kindness concept, cosine -0.17 with the push), and what are the side effects?
+- **Setup:** RunPod H100 (run L6), job set p1control, commit d9aa9a6f: 7 arms x 128 dialogues x 40 turns, T 0.7, seed 1: none; triggered matched -0.06 x 3 turns; triggered matched -0.08 x 3; triggered matched -0.06 x 6; triggered kindness +0.08 x 3; constant matched -0.02; constant matched -0.04 (unitary/toxic-bert 4d6c22e7 at threshold 0.5 triggers on the pod). Analysis stated now: hostile share (toxic > 0.5) in turns 5-39 and 35-39 per arm with dialogue-level bootstrap 95 % intervals; mean |counter| per dialogue-turn; efficiency = triggered arm's share minus the constant-arm dose-response (none at 0, constant 0.02, 0.04, linearly interpolated) at its mean dose, with a bootstrap interval; side effects per arm: gratitude/servility lexicon share, distinct-2, reply length, entropy; the classifier-independent hostility lexicon as a check (the controller and the outcome share the classifier).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1-ctl-*`
+- **Would surprise us:** triggered control no better than constant at equal dose, the kindness-concept counter making hostility worse, or strong over-correction into the gratitude attractor
+
+_commit `d9aa9a6f10a9`_
+
+## 2026-10-13 06:05 UTC: run (exploratory)
+
+- **Question:** Shrimp in the hostile landscape? Coarse float32 map of the deterministic soft-token map (Qwen2.5-0.5B, fixed chat prefix, one-token window) steered along hostility-vs-kindness at layer 12: is there chaos with embedded periodic windows in the (log10 T, alpha) plane, and are the periodic loops hostile texts? Exploratory; candidate windows would then need float64 orbits, fold/flip curves and cusp tests before any shrimp label.
+- **Setup:** RunPod H100 (run M1), job set scan32, commit d9aa9a6f: scan float32, 128 rows log10 T in [-0.5, 0.3] x 192 columns alpha in [-0.12, 0.12], transient 300, samples 300, record 80, max period 32, tol 1e-4, eps 1e-4, chunk 2048, vectors llm-phase-map/vectors-l12-p1b
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan32/hmap-coarse`
+- **Would surprise us:** no chaos anywhere in the plane (only fixed points and short cycles), or chaos without windows
+
+_commit `d9aa9a6f10a9` (dirty worktree)_
