@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "freeze_commit": "78ae193ee3fb4b418c6e29cf92dadde5815c2100",
+  "plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-independent-crosscheck/neural-shrimp/codex/confirm-fold/design.json",
+    "bytes": 15338,
+    "sha256": "3ac03b7510060f52fda73d6e832a98b8c6ef5600095197050e9b745d96c59810"
+  },
+  "audit": {
+    "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/passage-audit-v1.json",
+    "bytes": 69643,
+    "sha256": "76217ba867aca5e43ef801dce45263a200a5c0854c2e3dd2b84f0d4e9d12eab6"
+  },
+  "evidence": "rung2 independent numerical implementation plus saved-state audit; not interval proof",
+  "integrity_pass": true,
+  "primary_all_pass": false,
+  "arctan_all_pass": true,
+  "attempts": [
+    {
+      "target": "A",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/passage-A-01/receipt.json",
+        "bytes": 3795,
+        "sha256": "707baeb2481014fcb2923a8e3ac34987c5e74ec8e9d726531dadf5a37ccce867"
+      },
+      "manifest": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/passage-A-01/manifest.json",
+        "bytes": 3132,
+        "sha256": "5213db392ed888100bac19b0117017e4562e1829eb3b92b8235324e71359e4ba"
+      },
+      "exit_code": 0,
+      "elapsed_seconds": 154.78975955978967,
+      "hashes_checked": 22,
+      "threads": 4,
+      "memory_gib": 18,
+      "timeout_seconds": 21600,
+      "owned_pid": 126124
+    },
+    {
+      "target": "B",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/passage-B-01/receipt.json",
+        "bytes": 3793,
+        "sha256": "00b51de09dcd92e9da20206dfc15fd30a8e22071a67c0eaa61161635b886569a"
+      },
+      "manifest": {
+        "path": "/data2/neural-shrimp-data/codex/task5-fresh-prediction/passage-B-01/manifest.json",
+        "bytes": 3132,
+        "sha256": "231b6d2db142ed5f17ed436a22e91f0364d9428cfec15e329072bffca676f914"
+      },
+      "exit_code": 0,
+      "elapsed_seconds": 127.22286413307302,
+      "hashes_checked": 22,
+      "threads": 4,
+      "memory_gib": 18,
+      "timeout_seconds": 21600,
+      "owned_pid": 126264
+    }
+  ]
+}
