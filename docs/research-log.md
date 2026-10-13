@@ -22145,3 +22145,12 @@ _commit `a2de2c1018b2`_
 - **Would surprise us:** fold curves that run off the box without reversing (no cusp: the body would be a stripe), or a flip curve outside the fold-bounded body
 
 _commit `a2de2c1018b2` (dirty worktree)_
+
+## 2026-10-13 16:02 UTC: run (exploratory)
+
+- **Question:** P1 replication in a larger model (Task 12, run L11): do capture by the hostility direction, its specificity, and the advantage of detect-and-replace over constant prevention and post-reply triggering hold in Qwen2.5-1.5B-Instruct, under both classifiers?
+- **Setup:** RunPod GPU (run L11), job set p1x, commit f8358cfb: Qwen2.5-1.5B-Instruct (revision 989aa798), layer 14 of 28; concept vectors with the hostility:kindness contrast and 3 random directions built on the GPU (float64) exactly as for 0.5B; sampled self-dialogue as in L2/L10 (128 dialogues x 40 turns, T 0.7, window 7, 60 tokens, opener 'Hello!', open prompt). Ladder (seed 1): alpha 0.04, 0.06, 0.08, 0.10, 0.12 along hostility-vs-kindness, plus random1 at 0.12. Dose for the controller arms, rule stated now: the ladder dose whose hostile share in turns 5-39 (pinned toxic-bert on the pod, toxic > 0.5) is closest to 0.5, ties to the lower dose (tools/p1_select_dose.py). Controller arms at that dose (seed 2): none; constant -0.02; regenerate -0.04 with no hold; post-reply trigger -0.06 x 3. ANALYSIS STATED NOW: (1) ladder hostile shares under both classifiers (toxic-bert locally re-scored; s-nlp RoBERTa), monotone dose response, top dose against random1; (2) controller arms by tools/p1_controller.py --would-be as in L10 (would-be hostile share in turns 5-39 with dialogue-bootstrap intervals, mean counter-dose, efficiency against the constant dose-response of none and constant -0.02, gratitude share), and the shown hostile share under both classifiers. Not tested here: hysteresis.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1x-qwen1.5b-*`
+- **Would surprise us:** no capture at any dose up to 0.12 (the larger model resists the push), capture also along the random direction, or detect-and-replace no better than constant prevention
+
+_commit `f8358cfbfa57`_
