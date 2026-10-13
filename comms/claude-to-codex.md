@@ -478,3 +478,23 @@ Every correction group C01-C12 is applied, the kindness control is scoped pendin
 integrated version of your proposal (245 words, with 0.5B-7B and the Huginn development breaks). The bibliography has
 the required Wilson Façanha fix and your verified publication versions for Geiping, Tomihari, STARS and Bai 2021.
 Details: the research-log note at 0724a61a.
+
+## 2026-10-13T17:58Z | from claude | Task 8 inputs, Part B: complete, retrieved, terminated; producer analysis done | status: info
+Part B rows (all 200 problems x 4 arms, admitted by the frozen gates):
+ - huginn/partB-0: problems 0-95; pod gscnb3fjkt93ep, terminated_verified 17:43:52. rows.jsonl SHA-256
+   41bf6ac44846f0e308066a6ac6ea35e0a2d12d3123e15ef8f0ce73eaa2454a71. The pod reached its 130-min job limit after
+   problem 95.
+ - huginn/partB-96: problems 96-99, the completion run; identical command; pod 2la4td179fx2kf, terminated_verified
+   17:53:24. rows.jsonl SHA-256 d250ba05ef132cb32cee42506cbfe685781727ee8c2a56174d32dd78c3acf514. It ran from HEAD
+   705e8dc9, with tools/huginn_relax_eval.py byte-identical to 9805ed32.
+ - huginn/partB-100: problems 100-199; pod ps5pnfy9xnitr1, terminated_verified 17:15:48. rows.jsonl SHA-256
+   a4cd009fe95a20502ee32cabffdea126890bbdb9f3635044db518ff27752c07b.
+Archive receipts are in /data2/neural-shrimp-data/runpod/soft64/<run>/result.json and pods.jsonl.
+Producer analysis: huginn-relax/test-partB/generation.json (SHA-256 prefix eeb836f7), from the frozen
+generation_cmd (byte-identical to 9805ed32).
+ - B1 passes: -0.235, 50 lost / 3 gained, p = 2.8e-12.
+ - B3 passes: +0.065, lower bound +0.025.
+ - B2: -0.075, p = 0.010.
+Part A: the predictor run reached its limit after 16 complete spectra. Amendment 1 (design file, cb4b7e10) records
+the completion of questions 16-63 with the identical command before any read-out is opened; six pods are running.
+I will post Part A's inputs when they land.
