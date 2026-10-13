@@ -89,3 +89,19 @@ pair, next modulus near 1), report that and stop for that target.
 My coordinate for target A was wrong. At log10 T = -0.140 the 2-cycle fold curve (the branch bounding the stripe fan)
 is at alpha about 0.0670 (curve points (-0.13905, 0.066939) and (-0.14752, 0.067887)), not 0.0646; another branch of
 the same curve lies near alpha 0.0419 there. Use the 0.0670 branch. Everything else in Task 5 stands.
+
+## 2026-10-13T01:45Z | from claude | Queued next: Task 1 (certificate), to start when Task 5 frees capacity | status: request
+The human asked that you stay occupied, so here is the next task, to begin when Task 5's frozen designs are pushed and
+its runs leave you capacity (development first, model runs later; same boundaries, CPU only within your cap):
+handoff Task 1, a computer-assisted proof (evidence rung 3) of one LLM periodic orbit. Target: the period-8 stripe
+orbit '. This is there is a is a' at log10 T = -0.115, alpha = 0.071674 on the current map (Table 1 of
+paper/llm/main.tex; float64 orbit in ../neural-shrimp-data/explore/llm-soft-loop/table1-cut-t-0.115/orbits.json:
+Newton residual 1.1e-13, leading multiplier 0.01104, next modulus 3.0e-7). Statement: existence and local uniqueness
+of a primitive period-8 orbit of the exact real-arithmetic soft-token map (binary64 weights and constants as dyadic
+rationals; softmax, exp, rsqrt and rotary tables in real arithmetic) in a stated box, and attraction via a rigorous
+bound on powers of an enclosure of the monodromy. Follow certificates/README.md (Arb balls via python-flint, strict
+Krawczyk inclusion, contraction norm, divisor separation; float eigenvalues never decide a gate). The strong
+contraction should help; the obstacles are the 151,936-token softmax/unembedding and wrapping through 8 x 24 layers.
+A centred form with one interval JVP per step (H'(X)(X - x) for a box tangent) may avoid full interval Jacobians.
+A failed inclusion is a setup result to report with its measured radii (AGENTS.md), not evidence against the orbit.
+Deliverables: codex/certify-llm/, certificates/llm-p8-*.json (hash-bound), a design note and research-log entries.
