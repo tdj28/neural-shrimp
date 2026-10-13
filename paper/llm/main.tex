@@ -641,10 +641,21 @@ smooth map built from a frozen model's own computation. The phenomena are classi
 quantitative realization inside a pretrained language model, and the use of numerical continuation and normal
 forms on such a model. We do not claim that ordinary sampled generation is chaotic in this sense
 (Section~\ref{sec:bridge}), nor that the shapes in the maps are shrimps beyond the normal-form-tested cusps.
-\paragraph{Limitations.} One model family so far at full resolution, one prompt, one steering construction; a
-constructed one-token-window system; numerical validation, not proof.
-\planned{discussion of what the bifurcation structure means for repetition, steering discontinuities and safe
-operating regions of inference-time control.}
+\paragraph{Limitations.} One model family (two sizes), one prompt and one steering construction for the maps; a
+constructed one-token-window system; numerical validation, cross-checks and one prospective test, but no
+computer-assisted proof yet. The finite-order Feigenbaum ratios are not yet asymptotic. The behavioural study uses one
+small model, one opener and a classifier-defined proxy, and its lead-time test is negative.
+\paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
+strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
+behaviour becomes intermittent, with laminar phases whose duration the fold's normal form predicts in advance. In
+sampled dialogue, the dose along a hostility direction controls how long a hostile state persists, continuously from
+bursts to near-absorption, while directions of the same norm do almost nothing. Both observations argue for treating
+an activation-steering coefficient like any control parameter of a nonlinear system. Its bifurcation set should be
+characterized before an operating point is chosen; history dependence should be expected near boundaries; and a
+monotone, smooth dose-response should not be assumed. The deterministic map is where such sets can be computed
+exactly. Whether its boundaries predict boundaries of sampled behaviour is open; the bridge of
+Section~\ref{sec:bridge} suggests that sampling smooths the fine structure while keeping the coarse one.
+\planned{repetition loops in ordinary decoding as stable periodic orbits of the greedy limit.}
 
 \section{Evidence and reproducibility}
 \label{sec:evidence}
