@@ -1,6 +1,6 @@
 # Exact-real Qwen period-8 certificate development
 
-## Current checkpoint — 13 October 2026, 06:15 UTC
+## Current checkpoint — 13 October 2026, 06:32 UTC
 
 The assigned numerical orbit is recovered and its shooting centres have been
 refined to a rigorously enclosed residual of approximately **2.16e-64**.
@@ -42,19 +42,24 @@ norm decrease passed. The `accelerated` formula achieved a reduction ratio of
 about3.01e-13, comparable to earlier fixed-R passes; there was no matched
 counterfactual, so this is not evidence of an acceleration advantage.
 
-Development now targets independent parallel phase evaluation (up to four
-CPU1 workers), restoration of the exact post-proposal secant history and removal
-of a redundant repeated scalar dot product. These are reviewed engineering
-changes, not target results. The first parallel candidate needs a committed
-concrete plan and run card before execution. No GPU, paid pod or paid
-consultation is in use.
+Reviewed `center_continue.py` now resumes the exact post-proposal factor state,
+consumes its pending pair once, and freezes the entire next tuple before four
+independent CPU1 workers. The completed real-parent reader integration took
+63.12s and1.08GiB;240 focused synthetic tests passed, including complete capsule
+round-trip admission and corruption controls. The concrete one-candidate plan
+`center-parallel-001-plan.json` is independently reviewed. It allows1800s total,
+600s per worker,18GiB address space per worker,32GiB sampled aggregate RSS and
+12GiB minimum available memory. Ideal two-wave timing is an estimate, not a
+measured speedup. This checkpoint is **before launch**; check the exclusive
+`center-parallel-001` attempt and final receipt before doing anything that could
+duplicate it. No GPU, paid pod or paid consultation is in use.
 
 ### Remaining route to the certificate
 
-1. Finish the reviewed continuation adapter and run a bounded one-candidate
-   parallel pilot. Preserve all factors after proposal fallbacks, consume the
-   pending consecutive secant exactly once, and measure actual wall time and
-   aggregate memory before extending the approach.
+1. Run and audit the bounded one-candidate parallel pilot. Preserve all factors
+   after proposal fallbacks, consume the pending consecutive secant exactly
+   once, and measure actual wall time and aggregate memory before extending
+   the approach.
 2. Define exact candidate centres and phase radii after adequate refinement.
    The original prototype boxes do not contain the refined centres and cannot
    be reused as proof boxes. Small residual alone does not establish inclusion.

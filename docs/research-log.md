@@ -21287,3 +21287,11 @@ _commit `5c0814409651` (dirty worktree)_
 - **Would surprise us:** chi carrying no information even at h = 1, or D3 predicting the next reply's hostility no better than the classifier
 
 _commit `103a5516f161`_
+## 2026-10-13 06:32 UTC: run (exploratory)
+
+- **Question:** Does one four-worker phase pass advance the current candidate faster within the measured resource limits?
+- **Setup:** Plan codex/certify-llm/center-parallel-001-plan.json SHA256 aaee0f68f2146fce553444bb3ed128646b9c09334da7931c0d87f212b25d3831. Resume audited center-secant-001 receipt de7470e715c2988fc1674030d69bb67685dd1571989d5b03bad98ef7ed23f956 at residual2.155327583e-64; restore3 post-proposal factors, consume pending tuple3-to4 pair exactlyonce, propose one candidate and evaluate all8 phases in at most4 isolated CPU1 workers. Unchanged exact-real Qwen0.5B soft-token map,alpha0.071674,log10T=-0.115,2048-bit Arb,full896-state/full151936-vocabulary. ControllerCPU1/nice10/18GiB; workersCPU1/nice10/18GiB each;32GiB sampled aggregate RSS (not a hard cgroup limit),12GiB available-memory floor,600s per worker/reserve,shared1800s watchdog plus10s termination grace. Measured prior serial pass1182s, total1422s; actual parent-reader integration63.115s/1.077GiB. Ideal two waves+admission445s plus cold-load/preparation/collection overhead is unmeasured; contention may erase gain. Preserve all failed/partial phases, rejected/restarted secants and completed regressions; no retry or selection. Frozen candidate before workers; exactly8 completed independently audited phase receipts needed. No other Codex model job; no GPU/paidresources; check availability beforelaunch. Code/plan/card privately pushed before execution. Command: /data2/neural-shrimp/.venv/bin/python -B codex/certify-llm/launch.py --attempt center-parallel-001 --driver center_continue --plan center-parallel-001-plan.json --seconds 1800 --threads 1
+- **Output:** `../neural-shrimp-data/codex/llm-p8-certificate/center-parallel-001`
+- **Would surprise us:** A source/domain mismatch, rejected pending pair, worsened rigorous residual, resource failure, or no useful wall-time improvement. Report every outcome; this remains centre refinement, not an orbit certificate.
+
+_commit `e23bedb29337` (dirty worktree)_

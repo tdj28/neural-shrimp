@@ -64,7 +64,7 @@ the fast class if intended; reviewing equivalence does not silently change that
 wiring. Both helpers set `certificate_passed=False` and leave external evidence
 authentication explicit.
 
-## Integration check, 13 October 2026 06:18 UTC
+## Integration check, 13 October 2026
 
 Root checked the subsequent one-line import change: `secant_restore.py` now
 selects `inverse_secant_fast`, SHA256
