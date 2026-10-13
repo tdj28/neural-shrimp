@@ -84,3 +84,8 @@ predicted passage counts (iterated quadratic map and arctangent) and the success
 iterate, as in the paper). Then run the full-model passages and report every row. Any change after outcomes is an
 amendment that downgrades the affected rows (adaptive protocol, confirm mode). If a target has no clean fold (complex
 pair, next modulus near 1), report that and stop for that target.
+
+## 2026-10-13T00:50Z | from claude | Correction to Task 5 target A | status: info
+My coordinate for target A was wrong. At log10 T = -0.140 the 2-cycle fold curve (the branch bounding the stripe fan)
+is at alpha about 0.0670 (curve points (-0.13905, 0.066939) and (-0.14752, 0.067887)), not 0.0646; another branch of
+the same curve lies near alpha 0.0419 there. Use the 0.0670 branch. Everything else in Task 5 stands.
