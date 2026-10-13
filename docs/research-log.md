@@ -21062,3 +21062,33 @@ _commit `4b65b17a39a3`_
 center-seed-001 (source 4324234a5c1703e5e9589c9bb6b21bc4710b4df5) completed in 677.27s, exit0/no timeout. All eight 896x896 binary64 phase Jacobians are finite and their closure gates pass; every one of 56 receipt artifacts was hash-checked. Numerical inverse defect infinity norms are 3.0221e-15 and 2.7390e-15; condition estimate1.88983. These are exact-dyadic proposal bytes, not rigorous derivative/inverse enclosures. Compact receipt certificates/llm-p8-center-seed-001.json. The current combined synthetic certificate/refinement/gate suite passes224 tests. arb-point-003 is still running; no target correction or orbit inclusion is claimed.
 
 _commit `51b25e497e43` (dirty worktree)_
+
+## 2026-10-13 03:33 UTC: run (exploratory)
+
+- **Question:** Smoke test of the Huginn relaxed-recurrence pipeline: does generation run with the patched recurrence on the local GPU, and does the prefill convergence rate respond to lam as the spectrum predicts (faster at 0.55, slower at 1.05)?
+- **Setup:** tools/huginn_relax_eval.py in ../neural-shrimp-data/envs/llm (transformers 4.55), cuda bfloat16 (local RTX 2000 Ada, alongside gpu job 11); accuracy on GSM8K train 0-1 at 4 steps, lam 1.0; convergence on train 0, 48 steps, lam 1.0, 0.55, 1.05
+- **Output:** `../neural-shrimp-data/explore/huginn-relax/smoke-*`
+- **Would surprise us:** no change of the convergence rate with lam (then the patch does not act on the recurrence)
+- **Command:** `bash -c ../neural-shrimp-data/envs/llm/bin/python tools/huginn_relax_eval.py convergence --split train --index 0 --steps 48 --lams 1.0 0.55 1.05 --out huginn-relax/smoke-conv 2>&1 | grep -v -i -e warn -e Loading | tail -3; ../neural-shrimp-data/envs/llm/bin/python tools/huginn_relax_eval.py accuracy --split train --start 0 --count 2 --steps 4 --lams 1.0 --max-new 160 --out huginn-relax/smoke-acc 2>&1 | grep -v -i -e warn -e Loading | tail -2`
+
+_commit `97cd2460e36f`_
+
+- run started 2026-10-13 03:33 UTC (../neural-shrimp-data/explore/huginn-relax/smoke-*) finished 03:34 UTC with exit status 0
+
+- run started 2026-10-13 02:07 UTC (../neural-shrimp-data/explore/latent-loop/ouro-vocab-basins-lam1) finished 03:43 UTC with exit status 0
+
+## 2026-10-13 03:43 UTC: run (exploratory)
+
+- **Question:** Huginn causal test, development (exploratory; GSM8K train only, never test): (a) native accuracy against the recurrence budget r = 4, 8, 16 on train 0-29, to choose a budget where accuracy is still rising; (b) prefill convergence over 200 steps for lam = 1.0, 0.55, 0.7, 0.85, 1.05 on train 0-2, to measure the true asymptotic contraction rates (the 48-step smoke test gave 0.974, 0.941 and, against the leading-pair prediction, 0.967 at lam 1.05).
+- **Setup:** tools/huginn_relax_eval.py in ../neural-shrimp-data/envs/llm, cuda bfloat16 (local RTX 2000 Ada); greedy, 256 new tokens; prompt asks for 'The answer is N.'
+- **Output:** `../neural-shrimp-data/explore/huginn-relax/dev-*`
+- **Would surprise us:** accuracy flat in r (then the budget cannot reveal faster convergence), or the long-horizon rates not ordered as the spectrum predicts
+- **Command:** `bash -c P=../neural-shrimp-data/envs/llm/bin/python; for i in 0 1 2; do $P tools/huginn_relax_eval.py convergence --split train --index $i --steps 200 --lams 1.0 0.55 0.7 0.85 1.05 --out huginn-relax/dev-conv-$i 2>&1 | grep -v -i -e warn -e Loading | tail -5; done; for r in 4 8 16; do $P tools/huginn_relax_eval.py accuracy --split train --start 0 --count 30 --steps $r --lams 1.0 --out huginn-relax/dev-acc-r$r 2>&1 | grep -v -i -e warn -e Loading | tail -1; done`
+
+_commit `655a0afc3490` (dirty worktree)_
+
+## 2026-10-13 03:56 UTC: Deep superstable run C10: P192 superstable point just below the bracket (provisional ratio 4.48); P384 bracket past the accumulation point
+
+Run C10 (pod i1dv0nj42mdvx5, 1534 s, commit 4041f758): P192 bracket [0.06612449, 0.06612513]: the attractor at the lower end has period 192; critical multiplier -0.0335 there and -2.04 at the upper end (beyond the P192 flip), so s_192 lies just below 0.06612449; linear extrapolation gives s_192 ~ 0.0661244793 and, provisionally, the ratio (s_96 - s_48)/(s_192 - s_96) ~ 8.457e-6 / 1.889e-6 = 4.48. P384 bracket [0.06612523, 0.06612537]: no period up to 384 at the lower end (attractor beyond the cascade's accumulation point), so alpha_inf < 0.0661252, consistent with the geometric estimate ~0.0661250. Rerun with corrected brackets as C11: P192 [0.06612440, 0.06612449], P384 [0.066124875, 0.066124905] (around the extrapolated s_384 ~ 0.06612489).
+
+_commit `595ea518c2d8` (dirty worktree)_
