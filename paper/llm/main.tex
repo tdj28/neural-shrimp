@@ -45,8 +45,8 @@ bottleneck near its middle, which fixes the prefactor of the window law. This is
 flip curves of the periodic orbits with float64 test functions. In a higher-temperature region we find a
 fold curve with two cusps whose normal-form coefficient changes sign, the codimension-two organization of
 shrimp-shaped windows. In a closed region of the map a period-3 text loop doubles through periods 6, 12 and 24
-toward a chaotic core; along a cut, float64 flip parameters are resolved through period 24 so far, with a first
-finite-order interval ratios that rise from $2.84$ to $4.02$ through period 96. Replacing the
+toward a chaotic core. Along a cut, float64 flip and superstable parameters resolved through period 384 give
+interval ratios that rise toward Feigenbaum's $\delta=4.669$ and reach $4.478$ and $4.625$. Replacing the
 expected embedding by averages of $m$ sampled embeddings shows how much of the mechanism survives sampling.
 Qwen2.5-1.5B shows chaos with embedded windows as well. A recurrent-depth model (Huginn-0125) gives a second
 system, in which a Neimark--Sacker bifurcation predicted from the spectrum of the native fixed point appears where
@@ -492,12 +492,35 @@ second flip on the orbits are effectively one-dimensional (next modulus $0.0023$
 The third, $\delta_3=3.781$, is markedly larger. The flip parameters agree across three devices (CPU, a consumer GPU
 and an H100, all float64) to $10^{-16}$--$3\times10^{-15}$. Continuing a just-born doubled orbit past period 48 failed:
 Newton slides onto the half-period orbit, which is also periodic with the doubled period. We therefore also located
-the superstable parameters $s_p$, where the critical multiplier vanishes in the middle of each band. There the orbit
-attracts, so it can be reached by forward iteration. Their ratios include the period-96 level: from $s_{12}$, $s_{24}$,
-$s_{48}$, $s_{96}=0.065971694$, $0.066080141$, $0.066114133$, $0.066122590$, the ratios are $3.19$ and $4.02$. Both
-sequences of ratios rise toward Feigenbaum's value: flips $2.84$, $2.86$, $3.78$; superstable points $3.19$, $4.02$.
-($s_6$ is less precise, because the period-6 orbit's transverse multipliers of about $0.002$ blur its root, and $s_3$
-was not bracketed.)
+the superstable parameters $s_p$, where the critical multiplier vanishes in the middle of each band
+(Table~\ref{tab:superstable}). There the orbit attracts, so it can be reached by forward iteration and cannot slide
+onto its half-period parent. Through period 384 the superstable ratios are $3.19$, $4.02$, $4.478$ and $4.625$. The
+last two come from parameters resolved to $10^{-14}$ and differ from Feigenbaum's value by $0.19$ and $0.044$; from
+$4.02$ on, the distance shrinks by factors of $3.4$ and $4.3$. The flip ratios $2.84$, $2.86$, $3.78$ rise in step
+(Figure~\ref{fig:feigenbaum}). The accumulation point lies near $\alpha_\infty\approx0.0661250$. ($s_{12}$ and $s_{24}$
+are known only to within brackets of $1.2\times10^{-5}$ and $7\times10^{-7}$, because the transverse multipliers of
+those orbits blur the root, so the ratios $3.19$ and $4.02$ have worst-case ranges $[2.90,3.34]$ and $[4.02,4.10]$; $s_6$
+is less precise still and $s_3$ was not bracketed.)
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rlll}
+\toprule
+period $p$ & superstable parameter $s_p$ & bracket width & ratio $\frac{s_p-s_{p/2}}{s_{2p}-s_p}$ \\
+\midrule
+12 & $0.0659717$ & $1.2\times10^{-5}$ & \\
+24 & $0.06608014$ & $6.9\times10^{-7}$ & $3.19$ \\
+48 & $0.066114132784466$ & $3\times10^{-15}$ & $4.02$ \\
+96 & $0.066122589892689$ & $7\times10^{-15}$ & $4.4779$ \\
+192 & $0.066124478510077$ & $6\times10^{-15}$ & $4.6251$ \\
+384 & $0.066124886853811$ & $5\times10^{-15}$ & \\
+\bottomrule
+\end{tabular}
+\caption{Superstable parameters of the crescent's doubling sequence along $\log_{10}T=-0.14798$: the critical
+multiplier of the period-$p$ orbit changes sign across the bracket, with Newton residuals below $3\times10^{-13}$ and
+transverse multipliers below $10^{-20}$ from period 96 on. Brackets for periods 12 and 24 are the closest points where
+the critical multiplier is cleanly identified.}
+\label{tab:superstable}
+\end{table}
 One candidate explanation is a crossover. Softmax at temperature $T$ is a smoothed argmax, so the reduced
 one-dimensional map may have a nearly corner-like extremum, rounded only on a scale set by $T$. Early doublings would
 then see the corner, where ratios tend toward 2, and later doublings the smooth quadratic core, where the ratio is
@@ -506,12 +529,14 @@ $4.669$. This predicts ratios rising toward $4.669$ at higher periods, and small
 \centering
 \includegraphics[width=0.58\linewidth]{fig-feigenbaum-ratios.png}
 \caption{Finite-order interval ratios of the doubling sequences: the 0.5B crescent, from flips and from superstable
-points (which reach period 96), and Qwen2.5-1.5B from flips. Each rises toward Feigenbaum's $\delta$ from below.
-Under the crossover hypothesis, early levels see the corner of a smoothed argmax (ratios toward 2) and later levels
-the smooth quadratic core.}
+points (which reach period 384), and Qwen2.5-1.5B from flips. A superstable ratio spans half-bands, so it is plotted
+half a level after the flip ratio of its first band. Bars: worst-case ranges from the brackets of $s_{12}$ and $s_{24}$.
+Each sequence rises toward Feigenbaum's $\delta$ from below; the last superstable ratio is within 1\,\% of it. Under the
+crossover hypothesis, early levels see the corner of a smoothed argmax (ratios toward 2) and later levels the smooth
+quadratic core.}
 \label{fig:feigenbaum}
 \end{figure}
-\inprogress{superstable parameters at periods 192 and 384; ratios at other temperatures.} Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
+\planned{ratios at other temperatures.} Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
 test universality \cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}.
 \begin{table}[H]
 \centering\small
@@ -531,8 +556,8 @@ critical multiplier is a real $-1$ (to $10^{-11}$), the Newton residual is below
 multipliers lie inside the unit circle. Feigenbaum's constant is
 $\delta=4.6692\ldots$ \cite{feigenbaum1978quantitative}; for the logistic map the first ratios are $4.751$, $4.656$,
 $4.668$.
-Rows 1--5 are cross-checked on three devices. Superstable parameters (text) extend the ratio sequence through
-period 96.}
+Rows 1--5 are cross-checked on three devices. Superstable parameters (Table~\ref{tab:superstable}) extend the ratio
+sequence through period 384.}
 \label{tab:cascade}
 \end{table}
 In the high-temperature region (Figure~\ref{fig:p4}), along $\log_{10}T=0.0319$, the period-2 loop
@@ -727,7 +752,8 @@ forms on such a model. We do not claim that ordinary sampled generation is chaot
 (Section~\ref{sec:bridge}), nor that the shapes in the maps are shrimps beyond the normal-form-tested cusps.
 \paragraph{Limitations.} One model family (two sizes), one prompt and one steering construction for the maps; a
 constructed one-token-window system; numerical validation, cross-checks and one prospective test, but no
-computer-assisted proof yet. The finite-order Feigenbaum ratios are not yet asymptotic. The behavioural study uses one
+computer-assisted proof yet. The Feigenbaum ratios are finite-order values that converge toward $\delta$ (the last is
+within 1\,\%); the limit itself is not computed. The behavioural study uses one
 small model, one opener and a classifier-defined proxy, and its lead-time test is negative.
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
 strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
