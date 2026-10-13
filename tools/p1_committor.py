@@ -145,6 +145,8 @@ def select(args):
               "states": len(states), "purposes": {p: sum(p in s["purposes"] for s in states)
                                                   for p in ("stratified", "trajectory", "control")}}
     dest = root / "explore" / args.out
+    if (dest / "states.json").exists():
+        raise SystemExit(f"{dest / 'states.json'} exists; raw outputs are never overwritten")
     dest.mkdir(parents=True, exist_ok=True)
     (dest / "states.json").write_text(json.dumps({"args": vars(args), "sampler": sampler, "sources": sources,
                                                   "design": design, "states": states}, ensure_ascii=False))
@@ -429,6 +431,8 @@ def analyze(args):
                                   n: float(spearman(sc[n][m], q[m])) for n in ("outcome", "committor")}}
     print(json.dumps(res["committor_probe"]), flush=True)
     dest = root / "explore" / args.out
+    if (dest / "committor.json").exists():
+        raise SystemExit(f"{dest / 'committor.json'} exists; raw outputs are never overwritten")
     dest.mkdir(parents=True, exist_ok=True)
     (dest / "committor.json").write_text(json.dumps(res, indent=1))
 

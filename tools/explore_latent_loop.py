@@ -1590,8 +1590,21 @@ def positions(args):
     print(json.dumps({"causal_leak_max_abs": leak, "seconds": round(time.perf_counter() - tic, 1)}))
 
 
+def refuse_overwrite(out, allow=False):
+    """Raw outputs are never overwritten: refuse an existing, non-empty output folder unless explicitly allowed
+    (job 12 of 13 October rewrote the folder of the 12 October long run; its results survived only in the queue
+    log)."""
+    if not out or allow:
+        return
+    dest = DATA / "explore" / out
+    if dest.exists() and any(dest.iterdir()):
+        raise SystemExit(f"output folder {dest} exists and is not empty: choose a new --out or pass --overwrite")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--overwrite", action="store_true",
+                        help="allow writing into an existing, non-empty output folder (before the subcommand)")
     sub = parser.add_subparsers(dest="command", required=True)
     tr = sub.add_parser("trajectory")
     tr.add_argument("--model", choices=sorted(MODELS), default="ouro1.4b")
@@ -1844,6 +1857,7 @@ def main():
     ck.add_argument("--threads", type=int, default=8)
     ck.add_argument("--prompts", nargs="+", default=["hello", "arith"])
     args = parser.parse_args()
+    refuse_overwrite(getattr(args, "out", None), args.overwrite)
     {"trajectory": trajectory, "check": check, "sweep": sweep, "vectors": vectors, "plane": plane,
      "orbit": orbit, "basin": basin, "continue-orbit": continue_orbit, "fixed-spectrum": fixed_spectrum,
      "arclength": arclength, "positions": positions, "frozen-check": frozen_check,

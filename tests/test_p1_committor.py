@@ -191,3 +191,16 @@ def test_select_and_analyze_end_to_end(tmp_path, monkeypatch):
     assert set(res["profile"]["1"]) == {str(k) for k in range(1, 11)}
     assert all(v["pairs"] == 6 for v in res["profile"]["3"].values())
     assert np.isfinite(res["committor_probe"]["auc_committor_trained"])
+
+
+def test_outputs_are_never_overwritten(tmp_path, monkeypatch):
+    import explore_latent_loop as ell
+
+    monkeypatch.setattr(ell, "DATA", tmp_path)
+    ell.refuse_overwrite("fresh")                                   # absent folder: fine
+    (tmp_path / "explore" / "used").mkdir(parents=True)
+    ell.refuse_overwrite("used")                                    # empty folder: fine
+    (tmp_path / "explore" / "used" / "positions.json").write_text("{}")
+    with pytest.raises(SystemExit):
+        ell.refuse_overwrite("used")
+    ell.refuse_overwrite("used", allow=True)
