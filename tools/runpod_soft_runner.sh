@@ -259,6 +259,13 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
     run hnormal2-nf 30 normal-form --device cuda --run $D/hnormal/curve-p2-fold --index 0 --param temperature \
       --out $D/hnormal/normal-form-p2
     ;;
+  scan64)      # one float64 scan with free arguments: scan64 OUT-NAME MINUTES SCAN-ARGS... (zooms to be read without
+               # the float32 precision caveat; on an H100 float64 costs about the same as float32 for this model)
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    run scan64-$name "$minutes" scan --device cuda --dtype float64 --chunk 2048 --tol 1e-8 --eps 1e-6 \
+      "${JOBARGS[@]:2}" --out $D/scan64/$name
+    ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
