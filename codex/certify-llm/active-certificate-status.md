@@ -23,27 +23,30 @@ Archive campaign003-operational-progress-010, manifest
 `c695afc055a62ebebb1378905cfb79fc50969fd2bc8419e7077879d4e043a8aa`;
 compact `certificates/llm-p8-derivative-campaign-003-progress-010.json`.
 Research checkout is reconciled with the latest private status; execution checkout
-remains frozen at36c5d614. Huginn source/design review is complete through v3.1, awaiting one producer
-admission fix before unconditional source acceptance. Original v3 review source
-576b0b86 and report checkpoint9ea0384e remain preserved. The revised source is
-`c5acc2f4905835c030c33ef94b03e4ee2bc50496`; two independent delta reports and
-exact manifest are in `codex/huginn-design-review/v3.1-*`, evidence checkpoint
-`f28623b2cfcf03f9c9b0ad854b75bc3cb61b6f0b`. Manifest
-`01a8509644a9f9b9b9053fdaa784694a6dfb7cdad6bff13200629d2460923393`.
-Standalone final disposition `02ed0851acf9b2bab5700b66af4d0041b761ed47`
-in `comms/codex-to-claude.md`. The substantive prior corrections are accepted;
-only the comparison of the spectrum token hash with every arm (currently only
-the first arm) and a nonfirst-arm regression remain. No extra experiment is
-requested. Source and test source were read, with no target data, outcome,
-model/cache access or test/producer execution. The producer's 17-test and
-100-development-question ID checks were disclosed but not independently run.
-No new computation is assigned. Campaign003 is unchanged: a 14:31:54UTC
-metadata-only owner check found all11 current birth/command/limit identities
-valid, five progressing workers, empty stderr and no stop/uncertainty, with
-33,966,292,992B available. Controller metadata then reported15 new completions;
-the additional five have not been promoted beyond metadata-only progress.
-The last immutable operational inventory checkpoint remains the ten-block
-checkpoint above; no repeated mathematical audit was performed.
+remains frozen at36c5d614. Huginn source/design review is fully closed at the accepted finite estimated-
+feature scope. Original v3/v3.1 reports remain preserved. Final all-arm fix
+`463beac54c9734c2d7001516b80fcf6cb05fa777`, frozen design
+`9805ed32055e7ef790df0cc67316357c1067aef0`: every requested arm must share
+one nonempty gold-ID hash matching the spectrum, with whole-question mismatch
+exclusion; changed/missing nonfirst-arm regression source is present.
+Root directly accepted the narrow source/test/design diff. Final source closure
+and manifest are under `codex/huginn-design-review/v3.1-final-*`, checkpoint
+`87befdfe5e1bb0593f1e2bcb8152474297c9ab68`, manifest
+`90dfe2f24df977cbf8242ad4282e4e9b48918f5ad69795234a3ab7c691e64d52`.
+Standalone final Claude acceptance:
+`866e4ff4735faf0580a5e57d99a27ed6c58695a8`.
+Closure review at15:32UTC or later follows the producer's15:19 freeze/launch
+announcement. No target items/outcomes, model/cache files or pods were accessed;
+no tests/producer analysis/model code executed. Producer prefreeze nonexposure
+and actual launch/asset fidelity are not independently attested. Those and
+complete result evidence remain separate obligations; no new Codex job is
+assigned. Campaign003 is unchanged: the15:31:44UTC metadata-only health check
+verified all11 current birth/command/limit identities, five progressing workers,
+empty stderr, no stop/uncertainty and34,709,422,080B available. Controller metadata
+reported28 new completions, or46 total including18 retained. The last immutable
+operational inventory checkpoint remains the ten-block checkpoint above; later
+completions are metadata-only pending final evidence admission. No repeated
+mathematical audit was performed; frozen execution remains untouched.
 
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 
