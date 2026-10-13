@@ -21950,3 +21950,12 @@ _commit `d9d1b718ea5c` (dirty worktree)_
 tools/p1_detection.py at its last change (commit 03a85447, amendment 2; unchanged since) on the L7 arms det040/det045 -> ../neural-shrimp-data/explore/llm-msm/p1-detection-amendment2/detection.json (SHA-256 prefix 72066f24147fc570). All 85 rows of the secondary event that differed from the older reference (llm-msm/p1-detection-corrected, computed between amendments 1 and 2) now agree exactly (largest absolute difference 0) with Codex's independent replay (l7-comparison-002.json). First hostile turn rows are unchanged. Two consecutive hostile turns, h = 3 (14066 rows, 491 positive windows): D3 +0.031 [+0.007, +0.056], D1 +0.041 [+0.025, +0.058]. This file supersedes the older reference for the secondary event; the older file is kept.
 
 _commit `d9d1b718ea5c`_
+
+## 2026-10-13 12:53 UTC: run (exploratory)
+
+- **Question:** Are the hostile periodic windows shrimp? (a) the period-adding windows (laps of the '!Yes' 2-cycle, P12-P20 at alpha 0.083) near the 2-cycle's fold: stripes running along the fold curve, or domains that close in cusped heads with legs (shrimp)? (b) the arms of the spiral hub (zoom A; P7 '!Yes heels / defiance / I' and its P7/P8 neighbours): shrimp shapes (a body bounded by fold curves meeting in cusps, legs, period-doubling crescents inside), or bands? Float64 because only 1 of 4 float32 arm cells kept its period in float64 (run V1).
+- **Setup:** RunPod H100 x 2 (runs M3a, M3b), job set scan64, commit a56b7422: explore_llm_soft_loop scan, float64 (tol 1e-8, eps 1e-6), transient 500, samples 300, record 80, max period 48, 192 x 192, vectors llm-phase-map/vectors-l12-p1b, concept hostility-vs-kindness. (a) alpha [0.074, 0.092] x log10 T [-0.072, -0.042]; (b) alpha [0.062, 0.074] x log10 T [0.170, 0.222]. Labels from the maps are candidates only; any shrimp-shaped window goes to float64 fold/flip curve continuation (cusps) before any claim.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/hwindows-fine and hub-arm`
+- **Would surprise us:** (a) a cascade window closing in a cusp inside the box; (b) arm periods ordered by rotation number (tongue-like) although the 2-cycle's Neimark-Sacker cannot give odd periods
+
+_commit `a56b742269cb`_
