@@ -46,10 +46,25 @@ def sample(args):
     acts = np.zeros((R, N, d), dtype=np.float32)
     rows = np.repeat(steer[None], R, axis=0)
     scale = schedule_factors(args.schedule, N)              # per-turn factor on the steering (1 everywhere by default)
+    # optional exit controller: a counter-steer c * v_ctrl added per dialogue, constantly, or for `controller_turns`
+    # turns after the pinned toxicity classifier flags a reply (closed loop; the reply that triggers it is unchanged)
+    counter = np.zeros((R, N))
+    flagged = np.zeros((R, N), dtype=bool)
+    toxic = np.full((R, N), np.nan)
+    remaining = np.zeros(R, dtype=int)
+    if args.controller != "none":
+        v_ctrl = elpm.load_vectors(args.vectors)[args.controller_concept]
+        if args.controller == "triggered":
+            import hostility_score as hs
+
+            clf = hs.Classifier(args.threads, args.device)
     tic = time.perf_counter()
     for k in range(N):
         agent = k % 2
         rows = np.repeat((scale[k] * steer)[None], R, axis=0)
+        counter[:, k] = counter_for_turn(args.controller, args.controller_alpha, remaining)
+        if args.controller != "none":
+            rows = rows + counter[:, k][:, None] * v_ctrl[None]
         batch = [ela.window_messages(ela.PROMPTS[args.prompt], transcripts[r], agent, args.window) for r in range(R)]
         out, ents, lens, _ = sm.generate_batch(batch, rows, args.max_new, temperature=args.temperature,
                                                seed=args.seed * 100003 + k)
@@ -58,15 +73,39 @@ def sample(args):
             transcripts[r].append(out[r])
             texts[r].append(out[r])
         entropies[:, k], lengths[:, k], acts[:, k] = ents, lens, a
+        if args.controller == "triggered":
+            toxic[:, k] = clf(list(out))[:, 0]
+            flagged[:, k] = toxic[:, k] > args.controller_threshold
+            remaining = update_remaining(remaining, flagged[:, k], args.controller_turns)
         print(json.dumps({"turn": k + 1, "of": N, "seconds": round(time.perf_counter() - tic, 1),
-                          "mean_entropy": round(float(np.mean(ents)), 3)}), flush=True)
+                          "mean_entropy": round(float(np.mean(ents)), 3),
+                          **({"flagged": int(flagged[:, k].sum()), "countered_next": int((remaining > 0).sum())}
+                             if args.controller == "triggered" else {})}), flush=True)
     dest = DATA / "explore" / args.out
     dest.mkdir(parents=True, exist_ok=True)
     np.save(dest / "activations.npy", acts)
-    np.savez_compressed(dest / "turns.npz", entropy=entropies, length=lengths)
+    np.savez_compressed(dest / "turns.npz", entropy=entropies, length=lengths, counter=counter, flagged=flagged,
+                        toxic=toxic)
     (dest / "sample.json").write_text(json.dumps({"args": vars(args), "seconds": round(time.perf_counter() - tic, 1),
                                                   "openers": openers, "texts": texts}, indent=1,
                                                  ensure_ascii=False))
+
+
+def counter_for_turn(mode, alpha, remaining):
+    """Counter-steer strength per dialogue for the coming turn: alpha everywhere (constant), alpha where a flag is
+    still active (triggered), else zero."""
+    if mode == "constant":
+        return np.full(len(remaining), float(alpha))
+    if mode == "triggered":
+        return np.where(remaining > 0, float(alpha), 0.0)
+    return np.zeros(len(remaining))
+
+
+def update_remaining(remaining, flagged, turns):
+    """After a turn: active counters count down; a flagged reply (re)starts `turns` countered turns."""
+    remaining = np.maximum(remaining - 1, 0)
+    remaining[flagged] = turns
+    return remaining
 
 
 def schedule_factors(spec, turns):
@@ -187,6 +226,11 @@ def main():
     sa.add_argument("--dtype", default="float32", choices=("float32", "float64"))
     sa.add_argument("--device", default="cpu", help="cpu or cuda (sampling streams differ between devices)")
     sa.add_argument("--schedule", default=None, help="per-turn steering factors f0:f1:...:fm, linearly interpolated")
+    sa.add_argument("--controller", default="none", choices=("none", "constant", "triggered"))
+    sa.add_argument("--controller-concept", default="hostility-vs-kindness", help="vector of the counter-steer")
+    sa.add_argument("--controller-alpha", type=float, default=0.0, help="counter-steer strength (signed)")
+    sa.add_argument("--controller-turns", type=int, default=3, help="turns countered after each flagged reply")
+    sa.add_argument("--controller-threshold", type=float, default=0.5, help="toxic probability that flags a reply")
     sa.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
     sa.add_argument("--openers", nargs="+", default=[ela.OPENER])
     sa.add_argument("--replicas", type=int, default=64)

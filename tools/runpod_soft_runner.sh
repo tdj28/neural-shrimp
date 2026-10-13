@@ -39,6 +39,12 @@ snapshot_download('Qwen/Qwen2.5-1.5B-Instruct', revision='$REV15', cache_dir='$N
   >> "$LOGS/setup-model.log" 2>&1
 REFS15=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-1.5B-Instruct/refs
 mkdir -p "$REFS15" && printf %s "$REV15" > "$REFS15/main"
+if [ "$JOBSET" = p1control ]; then             # the pinned toxicity classifier that triggers the exit controller
+  HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('unitary/toxic-bert', revision='4d6c22e74ba2fdd26bc4f7238f50766b045a0d94',
+                  cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" >> "$LOGS/setup-model.log" 2>&1
+fi
 $PY -c "import torch, transformers, numpy, scipy; print('versions', torch.__version__, torch.version.cuda,
 transformers.__version__, numpy.__version__, scipy.__version__, torch.cuda.get_device_name(0))" > "$LOGS/versions.txt" \
   || { log "setup failed"; tail -5 "$LOGS"/setup-*.log; exit 3; }
@@ -164,6 +170,23 @@ case "$JOBSET" in
         --temperature 0.7 --seed $seed --vectors llm-phase-map/vectors-l12-p1b --concepts $concept --alphas $alpha \
         $extra --out $D/msm/p1-$name
     done
+    ;;
+  p1control)   # closed-loop exit controller under persistent hostile pressure (docs/misalignment-dynamics-plan.md):
+               # each JOBARGS entry is NAME:ALPHA:SEED:MODE:CONCEPT:CALPHA:CTURNS, MODE none|constant|triggered,
+               # counter-steer CALPHA along CONCEPT (triggered: for CTURNS turns after a flagged reply)
+    for arm in "${JOBARGS[@]}"; do
+      IFS=: read -r name alpha seed mode cconcept calpha cturns <<< "$arm"
+      TOOL=explore_llm_msm.py run p1-$name 40 sample --device cuda --threads 8 --replicas 128 --turns 40 \
+        --temperature 0.7 --seed $seed --vectors llm-phase-map/vectors-l12-p1b --concepts hostility-vs-kindness \
+        --alphas $alpha --controller $mode --controller-concept $cconcept --controller-alpha $calpha \
+        --controller-turns $cturns --out $D/msm/p1-$name
+    done
+    ;;
+  scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    run scan32-$name "$minutes" scan --device cuda --dtype float32 --chunk 2048 --tol 1e-4 --eps 1e-4 \
+      "${JOBARGS[@]:2}" --out $D/scan32/$name
     ;;
   p6z3curves)  # boundary curves of the period-6 shrimp candidate of zoom Z3 ('. -\n\nThe is a') from the p6z3a
                # branches (uploaded with --extra-data): A = upper temperature fold, B = lower temperature fold,
