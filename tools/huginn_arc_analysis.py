@@ -175,6 +175,46 @@ def per_item_effect(gold, lam_c, base="1.0", n_boot=4000, seed=0):
     return est, float(np.mean(boots >= 0)), np.percentile(boots, [2.5, 97.5]), counts, len(qs)
 
 
+def stability_interval(mus, lo=0.02, hi=2.0, n=19801):
+    """Interval of lam (containing the small-lam end, where the relaxed map always contracts) on which
+    rho(lam) < 1: (lam_lo, lam_up); lam_up < 1 means the native loop (lam = 1) is unstable at this fixed point."""
+    grid = np.linspace(lo, hi, n)
+    ok = np.array([rho(mus, g) < 1.0 for g in grid])
+    if not ok.any():
+        return float("nan"), float("nan")
+    first = int(np.argmax(ok))
+    last = first
+    while last + 1 < n and ok[last + 1]:
+        last += 1
+    return float(grid[first]), float(grid[last])
+
+
+def two_way_effect(outcome, unstable, n_boot=4000, seed=0):
+    """Effect of being predicted unstable on an outcome, with question and arm fixed effects.
+
+    outcome, unstable: {arm: {question: value}} over the same questions and arms. beta is the coefficient of the
+    unstable indicator after removing question and arm means (two-way within transformation, exact for a balanced
+    panel); its bootstrap resamples questions. Returns beta, the one-sided p-value for beta >= 0, the 95 % interval,
+    and the number of unstable (arm, question) cells."""
+    arms = sorted(outcome)
+    qs = sorted(set.intersection(*[set(outcome[a]) for a in arms]) & set.intersection(*[set(unstable[a]) for a in arms]))
+
+    def beta(sample):
+        Y = np.array([[outcome[a][q] for a in arms] for q in sample], float)
+        U = np.array([[float(unstable[a][q]) for a in arms] for q in sample])
+        Yw = Y - Y.mean(1, keepdims=True) - Y.mean(0, keepdims=True) + Y.mean()
+        Uw = U - U.mean(1, keepdims=True) - U.mean(0, keepdims=True) + U.mean()
+        den = float(np.sum(Uw ** 2))
+        return float(np.sum(Uw * Yw)) / den if den > 0 else float("nan")
+
+    est = beta(qs)
+    rng = np.random.default_rng(seed)
+    boots = np.array([beta([qs[i] for i in rng.integers(0, len(qs), len(qs))]) for _ in range(n_boot)])
+    boots = boots[np.isfinite(boots)]
+    cells = int(sum(bool(unstable[a][q]) for a in arms for q in qs))
+    return est, float(np.mean(boots >= 0)), np.percentile(boots, [2.5, 97.5]), cells, len(qs)
+
+
 def spectra_cmd(args):
     import explore_llm_attractors as ela
 

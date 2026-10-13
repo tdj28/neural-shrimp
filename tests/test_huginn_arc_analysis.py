@@ -49,3 +49,18 @@ def test_per_item_effect_detects_own_threshold_losses(tmp_path):
         gold[str(lam)] = {q: (lam, gold["1.0"][q][1] - 1.0 + rng.normal(0, 0.5)) for q in lam_c}
     beta, p, ci, counts, n = ha.per_item_effect(gold, lam_c, n_boot=500)
     assert ci[0] < 0 < ci[1]
+
+
+def test_stability_interval_and_two_way_effect():
+    mus = np.array([-1.072, 0.5 + 0.3j, 0.5 - 0.3j])            # native loop beyond a flip
+    lo, up = ha.stability_interval(mus)
+    assert lo < 0.05 and abs(up - 2 / 2.072) < 2e-4 and up < 1
+    rng = np.random.default_rng(3)
+    arms = [0.55, 0.75, 1.0, 1.1, 1.2]
+    lam_up = {q: float(rng.uniform(0.9, 1.25)) for q in range(120)}
+    base = {q: rng.normal(-10, 2) for q in lam_up}                # question difficulty (fixed effect)
+    outcome = {str(a): {q: base[q] - 0.3 * a - (2.0 if a > lam_up[q] else 0.0) + rng.normal(0, 0.3) for q in lam_up}
+               for a in arms}
+    unstable = {str(a): {q: a > lam_up[q] for q in lam_up} for a in arms}
+    beta, p, ci, cells, n = ha.two_way_effect(outcome, unstable, n_boot=400)
+    assert abs(beta + 2.0) < 0.3 and p < 0.01 and n == 120
