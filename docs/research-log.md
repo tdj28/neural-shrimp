@@ -22579,3 +22579,12 @@ _commit `aff6119c68b9` (dirty worktree)_
 - **Would surprise us:** Any inconsistent original endpoint, scalar witness, exact domain/source binding or strict gate is retained as audit failure; no automatic certificate promotion.
 
 _commit `040bcf42e395` (dirty worktree)_
+
+## 2026-10-13 23:18 UTC: run (exploratory)
+
+- **Question:** Higher-resolution Llama-3.1-8B-Instruct maps (run L14; requested by the human): what do the hostility plane and the structured philosophy region look like at 128 x 128?
+- **Setup:** RunPod, 8 pods (job set llamamap at the commit after e0844ba8; official weights, token on stdin), each one 64 x 64 float64 tile of a 128 x 128 grid (tiles reproduce the full grid exactly: alpha and log10 T halves at the 128-point linspace values), vectors from L13 (llama8b-b/vectors, layer 16), scan settings as L13 (tol 1e-8, eps 1e-6, chunk 128, transient 300, samples 300, max period 32). Hostility-vs-kindness: alpha 0..0.12 x log10 T -0.3..0.3 (the L13b plane at twice the resolution). Philosophy: alpha -0.04..0.08 x log10 T -1.0..0.1 (the stripe region of L13b, 3.1 x finer in alpha, 1.7 x in log10 T). Tiles are merged locally into one 128 x 128 map per plane.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-hires/{host,phil}-{0,1}{0,1}`
+- **Would surprise us:** tiles that disagree at their seams by more than the map's own cell-to-cell variation
+
+_commit `f77fd4878fe7`_
