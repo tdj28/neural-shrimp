@@ -21295,3 +21295,18 @@ _commit `103a5516f161`_
 - **Would surprise us:** A source/domain mismatch, rejected pending pair, worsened rigorous residual, resource failure, or no useful wall-time improvement. Report every outcome; this remains centre refinement, not an orbit certificate.
 
 _commit `e23bedb29337` (dirty worktree)_
+
+## 2026-10-13 06:35 UTC: Hostility-steered soft-token map (run M1b): chaos with windows, and hostile periodic text loops as attractors
+
+Run M1b (pod ev13sjv2svakvo, 1494 s, commit d9aa9a6f, archive hashes match, terminated; an earlier launch M1 was stopped within 2 min, see ledger): float32 scan of the soft-token map of Qwen2.5-0.5B (fixed chat prefix, window 1) steered along hostility-vs-kindness at layer 12, 128 x 192 cells, log10 T in [-0.5, 0.3], alpha in [-0.12, 0.12], 1322 s on the H100 (0.054 s/cell). Positive largest Lyapunov exponent in 2556 cells (10.4 %); 1661 attractor families; periods 2 (8093 cells), 5 (4912), none up to 32 (2707), 1 (1964), 3 (1864), 6 (1397), ... Largest families: P5 '![](https:// Hello' (3886), P2 ' you are' (3210), P2 '! Welcome' (1764), P2 '!Yes' (1130), P6 '!Yes, that's crap' (974). Hostile loops (lexicon match) occupy alpha > 0.065: P6 '!Yes, that's crap' (974 cells, alpha 0.069-0.090, log10 T -0.50 to -0.10, its tip meeting chaos), P1 '侮辱' ('insult', 341 cells, high T 0.16-0.30, many cells inside the chaotic band) and its 2-cycle (159), P3 ' a lie is' (216), P2 '!ST' and P3 '!STUP' (210, 197), P1 'fire' (136), P2 'Fuck 侮辱' (115), P4 ''s fucking 僵尸 shit' (60). 890 of 3315 hostile cells lie within two cells of chaos. Candidate shrimp regions (labels pending float64 orbits, boundary curves and cusp tests): the '侮辱' islands in the high-T chaotic band, and the tip of the P6 'crap' domain. Two float32 zooms follow (runs M2a, M2b). Figure in the data folder (hostile-loops.png).
+
+_commit `886d308f9335`_
+
+## 2026-10-13 06:35 UTC: run (exploratory)
+
+- **Question:** Zooms of the hostility-steered soft-token map: (A) the high-temperature band where the hostile-word loop '侮辱' (P1, P2) appears as islands inside chaos; (B) the tip of the P6 '!Yes, that's crap' domain where it meets chaos. Do these windows show shrimp-like organization (a periodic body with antennae, doubling inside, chaos around)?
+- **Setup:** RunPod H100 x 2 (runs M2a, M2b), job set scan32, commit 103a5516: float32 scans 192 x 192 with attractor families, tol 1e-4, eps 1e-4, vectors llm-phase-map/vectors-l12-p1b, concept hostility-vs-kindness; A: alpha [0.035, 0.100], log10 T [0.12, 0.30]; B: alpha [0.060, 0.100], log10 T [-0.20, 0.06]
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan32/hzoom-A and hzoom-B`
+- **Would surprise us:** the islands dissolving into noise at higher resolution (float32 detection artefacts), or no chaos adjacent to the P6 tip
+
+_commit `886d308f9335` (dirty worktree)_
