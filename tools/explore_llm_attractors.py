@@ -20,6 +20,7 @@ Subcommands
 
 import argparse
 import json
+import math
 import os
 import sys
 import time
@@ -33,7 +34,8 @@ CACHE = DATA / "models" / "hf" / "hub"   # passed explicitly: a global HF_HOME m
 os.environ.setdefault("HF_HUB_OFFLINE", "1")                      # models are local; no network calls
 MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5B-Instruct",
           "qwen7b": "Qwen/Qwen2.5-7B-Instruct", "olmo2-7b": "allenai/OLMo-2-1124-7B-Instruct",
-          "qwen2-0.5b": "Qwen/Qwen2-0.5B-Instruct"}     # same architecture and size as qwen0.5b, other training
+          "qwen2-0.5b": "Qwen/Qwen2-0.5B-Instruct",     # same architecture and size as qwen0.5b, other training
+          "llama3.1-8b": "meta-llama/Llama-3.1-8B-Instruct"}  # gated: downloaded on pods with the human's token
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
@@ -161,13 +163,24 @@ def keep_float64_norms(model):
         name = type(m).__name__
         if not (name.endswith("RotaryEmbedding") and hasattr(m, "inv_freq")):
             continue
-        if getattr(m, "rope_type", "default") != "default":
-            raise SystemExit(f"{name}: rope type {m.rope_type!r} is not rebuilt in float64")
+        rope_type = getattr(m, "rope_type", "default")
+        if rope_type not in ("default", "llama3"):
+            raise SystemExit(f"{name}: rope type {rope_type!r} is not rebuilt in float64")
         cfg = m.config
         head_dim = getattr(cfg, "head_dim", None) or cfg.hidden_size // cfg.num_attention_heads
         dim = int(head_dim * getattr(cfg, "partial_rotary_factor", 1.0))
-        base = getattr(cfg, "rope_theta", None) or cfg.rope_parameters["rope_theta"]    # transformers 4 or 5
+        params = getattr(cfg, "rope_parameters", None) or getattr(cfg, "rope_scaling", None) or {}
+        base = getattr(cfg, "rope_theta", None) or params["rope_theta"]               # transformers 4 or 5
         inv64 = 1.0 / (float(base) ** (torch.arange(0, dim, 2, dtype=torch.float64) / dim))
+        if rope_type == "llama3":         # Llama 3.1 frequency scaling, as transformers' _compute_llama3_parameters
+            factor, low, high = params["factor"], params["low_freq_factor"], params["high_freq_factor"]
+            old_len = params["original_max_position_embeddings"]
+            wavelen = 2 * math.pi / inv64
+            scaled = torch.where(wavelen > old_len / low, inv64 / factor, inv64)
+            smooth = (old_len / wavelen - low) / (high - low)
+            smoothed = (1 - smooth) * scaled / factor + smooth * scaled
+            medium = ~(wavelen < old_len / high) & ~(wavelen > old_len / low)
+            inv64 = torch.where(medium, smoothed, scaled)
         own = m.inv_freq.detach().to("cpu", torch.float64)
         if inv64.shape != own.shape or not torch.allclose(inv64, own, rtol=1e-6, atol=0):
             raise SystemExit(f"{name}: rebuilt inverse frequencies do not match the model's")

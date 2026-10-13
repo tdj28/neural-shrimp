@@ -392,6 +392,59 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
       cut -c1-300 "$OUT/$crun/cusp-check.jsonl"
     done
     ;;
+  llama8b)     # Llama-3.1-8B-Instruct with SAEs (run L13): JOBARGS PART MAP_MINUTES. Downloads the official gated model
+               # (meta-llama, revision pinned; the human's token arrives on stdin and is unset after the download), the
+               # Goodfire layer-19 SAE and two seonglae layer-24 SAEs (pinned revisions); checks the SAEs' hook points
+               # (llm_sae_readout validate); builds concept vectors at layer 16 of 32 in float64 exactly as scalex; then
+               # PART a: a 64x64 float64 map along gratitude, PART b: hostility-vs-kindness and philosophy (ranges as for
+               # Qwen 7B and OLMo-2); then the SAE readout at each map's largest families and most chaotic cells
+    part=${JOBARGS[0]}; mapmin=${JOBARGS[1]}
+    LREV=0e9e39f249a16976918f6564b8830bc894c89659
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('meta-llama/Llama-3.1-8B-Instruct', revision='$LREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'])" > "$LOGS/setup-llama.log" 2>&1
+    unset HF_TOKEN
+    lrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/refs
+    mkdir -p "$lrefs" && printf %s "$LREV" > "$lrefs/main"
+    SAED=$NEURAL_SHRIMP_DATA/models/sae
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import hf_hub_download
+hf_hub_download('Goodfire/Llama-3.1-8B-Instruct-SAE-l19', 'Llama-3.1-8B-Instruct-SAE-l19.pth',
+                revision='f6775a221e47b44233af4bac2c7b65189265519a', local_dir='$SAED/goodfire-8b-l19')
+for sid in ('Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_faithful-llama3.1-8b_512',
+            'Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_fineweb_512'):
+    for f in ('cfg.json', 'sae_weights.safetensors'):
+        hf_hub_download('seonglae/Llama-3.1-8B-sae', sid + '/' + f, revision='f4a4201e452eb40ba5d10b4177606567eba543db',
+                        local_dir='$SAED/seonglae')" > "$LOGS/setup-sae.log" 2>&1
+    (cd $NEURAL_SHRIMP_DATA/models && sha256sum sae/goodfire-8b-l19/*.pth sae/seonglae/*/sae_weights.safetensors \
+      hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/$LREV/model-*.safetensors) | tee "$LOGS/llama-sae-sha256.txt"
+    LDIR=$D/llama8b-$part
+    GF="goodfire:$SAED/goodfire-8b-l19/Llama-3.1-8B-Instruct-SAE-l19.pth:19"
+    SF="saelens:$SAED/seonglae/Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_faithful-llama3.1-8b_512"
+    SW="saelens:$SAED/seonglae/Llama-3.1-8B_blocks.24.hook_resid_pre_16384_topk_80_6e-05_42_fineweb_512"
+    TOOL=llm_sae_readout.py run llama-sae-validate 20 validate --model llama3.1-8b --device cuda --sae $GF \
+      --sae $SF --sae $SW --out $LDIR/sae-validate
+    lvec=llm-phase-map/vectors-llama3.1-8b-l16
+    TOOL=explore_llm_phase_map.py run llama-vectors 30 vectors --model llama3.1-8b --layer 16 --device cuda \
+      --dtype float64 --contrasts hostility:kindness --random 3 --out $lvec
+    mkdir -p "$OUT/$LDIR" && cp -r "$OUT/$lvec" "$OUT/$LDIR/vectors"
+    LSX="scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 --model llama3.1-8b --layer 16"
+    LSX="$LSX --vectors $lvec --resolution 64 64"
+    if [ "$part" = a ]; then
+      maps="gratitude:-0.12:0.12:-1.0:0.3"
+    else
+      maps="hostility-vs-kindness:0.0:0.12:-0.3:0.3 philosophy:-0.12:0.12:-1.0:0.3"
+    fi
+    for m in $maps; do
+      IFS=: read -r concept alo ahi tlo thi <<< "$m"
+      run llama-map-$concept "$mapmin" $LSX --concept $concept --alpha $alo $ahi --log-temperature $tlo $thi \
+        --out $LDIR/coarse-64-$concept
+      TOOL=llm_sae_readout.py run llama-read-$concept 30 read --model llama3.1-8b --device cuda --layer 16 \
+        --vectors $lvec --concept $concept --cells-from-scan $LDIR/coarse-64-$concept --sae $GF --sae $SF --sae $SW \
+        --out $LDIR/readout-$concept
+    done
+    ;;
   pairmap)     # same architecture, other weights (run S10): JOBARGS KEY REPO REV LAYER MAP_MINUTES. Downloads REPO@REV
                # (REPO '-': already cached), builds concept vectors at LAYER on the GPU in float64 exactly as scalex,
                # two 128x128 float64 maps along gratitude and philosophy (alpha -0.12..0.12, log10 T -1.0..0.3, the
