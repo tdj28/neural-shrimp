@@ -13,10 +13,7 @@ Cause: exactly four recovered p1 c256/c320/c384/c448 -002 shards capture both
 byte-identical001/002 plan filenames. Their original isolated command uniquely
 names the002 plan. The adapter incorrectly requires a globally unique matching
 plan hash, so first p1-c256-002 was refused. No derivative or mathematical gate
-change is proposed. Boundary prepares a narrow command-bound original-plan
-selection correction with synthetic regressions in the completed Task14 research
-worktree. Source review, new explicit assembly002 plan/card/private checkpoint
-and fresh resource admission must precede any recovery execution. Preserve the
+change is proposed. The command-bound correction af7c4d28 and15 focused regression cases are accepted by Root and independent review17c80675;70 synthetic controls passed. New final-assembly-002-plan.json SHA83cae9fa60a07f74403a29289f1789e440a078ce7ef40937f61c91a70787de09 and its run card are prepared for final launch acceptance, with identical112 receipts/gates/resources and a separately pinned correction archive. Exact private checkpoint and fresh resource preflight still precede any recovery execution. Preserve the
 original failure; never overwrite/reuse its attempt. Task1 remains priority with
 future18GiB/2CPU-slot reservation. Historical frozen execution remains untouched.
 

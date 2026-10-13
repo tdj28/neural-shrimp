@@ -242,9 +242,20 @@ def authenticate_shard(reference,anchor,prefix):
     if Path(plan['definition_path']).resolve()!=anchor['definition_path']:raise ValueError('different frozen candidate file')
     if files['run/candidate-definition.json'].read_bytes()!=anchor['definition_bytes']:
         raise ValueError('producer original candidate bytes differ')
-    plan_files=[path for name,path in files.items()if name.startswith('source/')and name.endswith('.json')and digest(path)==inputs['plan_sha256']]
-    if len(plan_files)!=1:raise ValueError('exactly one captured plan required')
-    equal(producer.read_json(plan_files[0]),plan,'captured plan')
+    # Recovery snapshots may retain several byte-identical plan names. The
+    # original authenticated command, not global hash uniqueness, selects one.
+    command=manifest.get('command')
+    if type(command)is not list or len(command)!=9 or any(type(v)is not str for v in command):
+        raise ValueError('captured command requires nine literal string arguments')
+    plan_key='source/codex/certify-llm/'+Path(command[8]).name
+    plan_file=files.get(plan_key)
+    if (not plan_key.endswith('.json') or plan_file is None
+            or command[7]!='--plan' or command[8]!=str(attempt/plan_key)
+            or plan_file!=attempt/plan_key):
+        raise ValueError('command-bound captured JSON plan must be literal and inventoried')
+    if digest(plan_file)!=inputs['plan_sha256']:
+        raise ValueError('command-bound captured plan bytes differ from original inputs')
+    equal(producer.read_json(plan_file),plan,'captured plan')
     expected_binding={key:anchor[key]for key in ('design_sha256','map_sha256','evaluator_sha256','backend_sha256',
         'phase_domain_sha256','shooting_domain_sha256','source_bundle','backend','map')}
     equal(inputs['binding'],expected_binding,'producer independent input binding')
@@ -252,11 +263,10 @@ def authenticate_shard(reference,anchor,prefix):
                        ('precision',1024),('threads',1),('certificate_passed',False)]:
         equal(inputs[name],value,'producer input '+name)
     for name,value in [('threads',1),('memory_gib',18),('timeout_seconds',3600)]:equal(manifest[name],value,'launcher envelope '+name)
-    command=manifest.get('command')
     if (type(command)is not list or len(command)!=9 or command[1:4]!=['-I','-B','-u']
             or Path(command[4]).resolve()!=files['source/codex/certify-llm/derivative_shard.py']
             or command[5]!='--output' or Path(command[6]).resolve()!=attempt/'run'
-            or command[7]!='--plan' or Path(command[8]).resolve()!=plan_files[0]):
+            or command[7]!='--plan' or Path(command[8]).resolve()!=plan_file):
         raise ValueError('captured command is not the isolated reviewed shard driver')
     phase,start=plan['phase_index'],plan['start_column'];columns=list(range(start,start+producer.COLUMNS))
     shard,_=json_bytes(files['run/derivative-shard.json'])

@@ -22519,3 +22519,18 @@ _commit `74ef6077b94b` (dirty worktree)_
 Pod tjzyifxwz5ug4i (331 s; hash verified; terminated; output extracted into the run folder because llama8b-v/sae-validate/validate.json already existed locally: runpod/soft64/20261013T220447Z/extracted/.../validate.json). Relative reconstruction error ||x - x_hat|| / ||x|| on the ten ordinary sentences (first token dropped) at the documented index and neighbours: Goodfire l19 0.611 / 0.518 / 0.592 (indices 19 / 20 / 21); seonglae faithful 0.596 / 0.566 / 0.582 (23 / 24 / 25); fineweb 0.585 / 0.559 / 0.578 (FVE as in L13v). Against this baseline, the gratitude attractor states of L13a (0.55-0.80 Goodfire, 0.68-0.85 seonglae; 0.63 / 0.68 at the near-unsteered chaotic cell) are moderately worse reconstructed than ordinary text, not grossly off-distribution: the readout is partial but informative, as it is on ordinary text.
 
 _commit `3a4e95078e88`_
+
+## 2026-10-13 22:16 UTC: run (exploratory)
+
+- **Question:** Can the unchanged frozen final P8 shooting gates complete after repairing command-bound captured-plan admission?
+- **Setup:** Explicit recovery final-assembly-002. Prior001 receipt8f681af4 and closed failure remain; readeraf7c4d28 replaces only global unique-hash plan lookup with exact original command-path/hash/semantic binding. Root and independentreview17c80675 accepted70 synthetic controls. Plan83cae9fa/card50f7eb3e preserve all112 receipts, domain002, terminal012 points, seed,1024-bit factored root/primitive/powers1,2 gates. CPU1+launcher/nice10/18GiB/3600s;32GiB startup/16GiB free disk/4GiB storage reservation. Final exact card/private source and fresh preflight approval precede sole launch. No model or new timing.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-002`
+- **Would surprise us:** Any altered original evidence, gate, source beyond reader pin, unexpected ownership or resource condition is refused and retained; no automatic retry.
+
+_commit `6d714af12d8f` (dirty worktree)_
+
+## 2026-10-13 22:17 UTC: Assembly002 resource-card clarification before launch
+
+Final cardac41f289 replaces prepared50f7eb3e wording only: assembly002 launches first; later Task14 overlap requires separately accepted card, fresh42GiB preflight, full18+12GiB memory reservations and five total/three auxiliary CPU slots. Plan83cae9fa is unchanged. Root accepted exact recovery plan delta; adapted preflightba4b972a is pending read before execution. Original001 failure remains immutable; no numerical computation or retry has started.
+
+_commit `6d714af12d8f` (dirty worktree)_

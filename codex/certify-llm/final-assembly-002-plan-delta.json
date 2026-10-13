@@ -1,0 +1,59 @@
+{
+  "schema": "codex-final-assembly-recovery-plan-delta-v1",
+  "original_plan_sha256": "58b842f16f497f388862c6b271f5a1432d0a4abef3c5d03d9c9672263c18687d",
+  "plan_sha256": "83cae9fa60a07f74403a29289f1789e440a078ce7ef40937f61c91a70787de09",
+  "run_card_sha256": "ac41f2892bf2c2d15fc73c8d1ba1096546dfe35d6b66453e428f417bf0310de2",
+  "correction_archive_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-assembly-plan-binding-001/manifest.json",
+    "sha256": "7870e0bb6936c77b22c10aa8c3147b6c96c39e8fcdc720e9da56ba721590271e"
+  },
+  "recursive_changes": [
+    {
+      "path": "/basis/attempt",
+      "before": "final-assembly-001",
+      "after": "final-assembly-002"
+    },
+    {
+      "path": "/basis/recovery",
+      "added": {
+        "original_attempt": "final-assembly-001",
+        "original_source_commit": "12998ba92bc0f0c72732a6e2bcf426b729717d7d",
+        "original_receipt": {
+          "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-assembly-001/receipt.json",
+          "sha256": "8f681af49df216f645bde66079f44c2acda59bd05fe7dde2efc8ee169d9409e4"
+        },
+        "original_failure_closure": {
+          "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-assembly-001-failure/closure.json",
+          "sha256": "6acb0374a6708562ed22d627ee6f8e287aac98d9d1e95d4e4c4e06bfe5223311"
+        },
+        "correction_archive_manifest": {
+          "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-final-assembly-plan-binding-001/manifest.json",
+          "sha256": "7870e0bb6936c77b22c10aa8c3147b6c96c39e8fcdc720e9da56ba721590271e"
+        },
+        "amendment": {
+          "path": "codex/certify-llm/derivative-plan-binding-amendment.md",
+          "sha256": "ddf5e15f4a87f45936f5ca9f6f698c3abb6489dd05a28d1c5b2a23aeab38a37e"
+        },
+        "independent_review": {
+          "path": "codex/certify-llm/derivative-plan-binding-review.md",
+          "sha256": "17c806752106c268a748448cb6c3d7a58ecf13c6cede603e762b4c56b20c03de"
+        },
+        "original_gates_reached": false,
+        "mathematical_source_or_gate_changed": false,
+        "adapter_selection_changed": true
+      }
+    },
+    {
+      "path": "/source_sha256/codex/certify-llm/derivative_evidence.py",
+      "before": "8124c73351a0a8bd2b6c488983afd00874d2b9be517f15be34393957668d72da",
+      "after": "af7c4d28b55b278470c887db97c46b56b5b2190f5d72f6624fe0357fc9b751c4"
+    }
+  ],
+  "all_112_shards_unchanged": true,
+  "all_other_top_level_contract_fields_unchanged": true,
+  "current_source_pins_checked": 26,
+  "synthetic_tests_repeated": false,
+  "numerical_replay_performed": false,
+  "launch_performed": false,
+  "status": "prepared_for_final_root_acceptance"
+}
