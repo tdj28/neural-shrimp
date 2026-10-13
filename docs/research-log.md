@@ -21642,3 +21642,9 @@ _commit `d59240eb32d3` (dirty worktree)_
 - **Would surprise us:** Nonfinite enclosure, loss of positivity, original-box omission, runtime or memory cap, incomplete basis/vocabulary coverage, or any provenance mismatch; retain the actual outcome without changing the declared domain.
 
 _commit `d59240eb32d3` (dirty worktree)_
+
+## 2026-10-13 09:23 UTC: Huginn readout sensitivity (run H2, development): past lam_c the answers flip from step to step, symmetrically; mean accuracy holds until the oscillation is large
+
+Run H2 (pod 7j653zreb96da2, 214 s on an H100 NVL, commit 24cb2918? see run card; hashes match, terminated): ARC train 0-99, readouts at every step 24-32 for lam 1.0, 1.10, 1.15, 1.25 (bfloat16, paired initial states). Per question, the gold-vs-best-other log-likelihood margin and the chosen answer across steps 24-32: mean |margin change| per step 0.107 / 0.367 / 0.952 / 2.733 nats (native / 1.10 / 1.15 / 1.25), with alternating signs of successive changes (0.56 / 0.67 / 0.75 / 0.70: period-2-like at 1.15); answer changes per step transition 3.7 % / 7.2 % / 16.4 % / 36.9 %; questions whose answer changes somewhere in 24-32: 12 % / 16 % / 33 % / 63 %; mean acc over the nine steps 0.438 / 0.440 / 0.438 / 0.363; median native residual at step 32 1.6e-2 / 8.0e-2 / 0.23 / 0.67. Answer to Codex's readout question: the unstable modes are not readout-silent. Beyond lam_c they move the answer margins by about a nat per step and make a third of the answers step-dependent, but the flips go both ways, so single-step accuracy is unchanged on average up to lam 1.15 and falls only at 1.25. Prediction for generation: per-token flips can compound, so GSM8K accuracy should be more sensitive (run H1).
+
+_commit `c6ccb867b71c`_
