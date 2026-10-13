@@ -22011,3 +22011,9 @@ _commit `dd108c57eeaf`_
 _commit `d06e8373fd62` (dirty worktree)_
 
 - run started 2026-10-13 13:14 UTC (../neural-shrimp-data/codex/llm-hostile-fold-crosscheck/passage-001) finished 13:14 UTC with exit status 1
+
+## 2026-10-13 13:15 UTC: Task7 run-card preparation refusal retained; no numerical attempt
+
+The preceding13:14UTC research_log.py run entry is a preparation refusal, not a numerical attempt: its placeholder source was rejected by launch.py validate_arguments before attempt creation, source capture, model import or process spawn. The original exit1/card and source helper are retained; no passage-001 directory exists. Immutable preparation archive /data2/neural-shrimp-data/codex/llm-hostile-fold-crosscheck/passage-card-refusal-001, manifest 190cd2a1205b1486dd427792716212746f9af870e3d4e72fd26ca68b53fdb1b0. Use run without a command or note for prospective cards. The reviewed source/plan/card freeze a926d44c remains unchanged; actual passage-001 still requires exact private-pushed source and fresh capacity/Task1 health. No outcomes seen, no scientific change or retry.
+
+_commit `a926d44c881b` (dirty worktree)_
