@@ -197,3 +197,19 @@ analysis use the commit at which this file is frozen.
   Rows are admitted against the frozen split, budget, prompt, seed and lam, and the cap rate is reported.
 - Explicit model revision in every loader. On the 100 development questions the gold-row IDs from both paths were
   identical, so the development association was not affected by tokenization.
+
+## Amendment 1 (13 October 2026, after the Part A read-out run and before any outcome was read)
+
+The Part A predictor run (pod 77z2gglptrhm15) reached its 150-minute limit after 16 complete spectra (test questions
+0-15; question 16 was cut off during Arnoldi, leaving only its fixed state). The H100 needed about 9 minutes per
+question, not the 1-2 minutes assumed. The read-out run that followed completed all 64 questions x 4 arms. No read-out
+array or residual has been opened.
+
+Change: the spectra of questions 16-63 are computed by the identical frozen command (explore_latent_loop.py
+fixed-spectrum, same settings and code) in separate runs, into huginn/partA-spectra-2. They are computed after the
+read-out run rather than before it. The spectrum computation reads no outcome: it uses only the model and each
+question's gold-row token IDs, so its result cannot depend on the read-outs. The analysis then reads one merged folder,
+huginn/partA-spectra-all: questions 0-15 from the first run and 16-63 from the completion runs. The incomplete
+q0016 of the first run is set aside, not used. Everything else is unchanged: the analysis code, the 48-of-64
+admission rule, the statistic, the bootstrap and the success criterion. If the completion runs fail for some
+questions, those count as excluded under the frozen rule.

@@ -198,7 +198,7 @@ case "$JOBSET" in
     TOOL=p1_committor.py run p1-committor ${JOBARGS[1]} rollout --states ${JOBARGS[0]} "${JOBARGS[@]:2}" \
       --out $D/msm/p1-committor
     ;;
-  huginn|huginnA)  # Huginn-0125 in its own venv with transformers 4.55, as in the local llm env. huginn: JOBARGS NAME
+  huginn|huginnA|huginnS)  # Huginn-0125 in its own venv with transformers 4.55, as in the local llm env. huginn: JOBARGS NAME
                # MINUTES then huginn_relax_eval arguments. huginnA (Part A of the frozen test): JOBARGS START COUNT
                # SPEC_MINUTES READ_MINUTES; spectra of the gold rows (fixed-spectrum --arc-ids batch) are computed and
                # saved before the read-out run on the same questions. Exports uploaded with --extra-data.
@@ -218,7 +218,11 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
       /root/venv-huginn/bin/python -c "import torch, transformers; print('huginn venv', torch.__version__, transformers.__version__)" \
         | tee -a "$LOGS/versions.txt"
     fi
-    if [ "$JOBSET" = huginn ]; then
+    if [ "$JOBSET" = huginnS ]; then           # spectra only: JOBARGS OUT MINUTES then question indices (Part A)
+      PY=/root/venv-huginn/bin/python TOOL=explore_latent_loop.py run spectra-${JOBARGS[0]} "${JOBARGS[1]}" \
+        fixed-spectrum --model huginn --dtype float32 --device cuda --arc-split test --arc-indices "${JOBARGS[@]:2}" \
+        --arc-ids batch --lam 1.0 --out $D/huginn/${JOBARGS[0]}
+    elif [ "$JOBSET" = huginn ]; then
       name=${JOBARGS[0]}
       minutes=${JOBARGS[1]}
       PY=/root/venv-huginn/bin/python TOOL=huginn_relax_eval.py run huginn-$name "$minutes" "${JOBARGS[@]:2}" \
