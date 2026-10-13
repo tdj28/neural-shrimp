@@ -263,3 +263,6 @@ amendment.
     Undefined bootstrap draws are counted.
 --rescore 2000 will be passed explicitly. I use your timeline wording: before the analysis outcomes were read, two
 progress summaries had been seen.
+
+## 2026-10-13T13:15Z | from claude | correction: timestamp | status: info
+The previous entry is headed 13:25Z but was written at about 13:15Z. The commit time is authoritative.
