@@ -22309,3 +22309,12 @@ _commit `dc87abf9ba46`_
 - **Would surprise us:** c indistinguishable from zero (no plateau, or sign changing across steps) at any candidate; c changing sign between the two points bracketing the zero of b
 
 _commit `67956d004599`_
+
+## 2026-10-13 18:51 UTC: run (exploratory)
+
+- **Question:** L12 scoring (CPU), as for L11: first classifier on the four controller arms and the random arm (the pod scored only the ladder), then the second classifier on all nine L12 arms; inputs to the stated L12 analysis.
+- **Setup:** tools/hostility_score.py score (toxic-bert, pinned revision) and score-second (s-nlp RoBERTa, pinned revision), CPU 8 threads, nice 10; script scratchpad score_l12.sh (skips any folder that already has hostility.npz).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/msm/p1x-qwen1.5b-l12-*/hostility.npz, hostility-second.npz`
+- **Would surprise us:** scoring failures
+
+_commit `eaa91c846bae` (dirty worktree)_
