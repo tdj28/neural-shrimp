@@ -48,6 +48,24 @@ operational inventory checkpoint remains the ten-block checkpoint above; later
 completions are metadata-only pending final evidence admission. No repeated
 mathematical audit was performed; frozen execution remains untouched.
 
+Accepted auxiliary work (revised15:49 assignment, acknowledgement3846b81f,
+privately integrated at495e5bea): Task8 independent frozen Huginn statistical
+replay is in source preparation under `codex/huginn-independent-replay/`;
+Task11 second-classifier sensitivity audit is in the owned Task6 worktree
+`codex/p1-second-classifier-audit/`; Task13 source-bound manuscript/citation
+review is in the owned Task7 worktree `codex/paper-review/`. Task9/10/12 remain
+Claude's, and none was started by Codex. These are local CPU tasks, no paid
+launch, model/scoring job, pod inspection/control/relaunch or GPU use. Actual
+Task8/11 replays wait for complete immutable input authority and Root-reviewed
+measured source/cards. Substantial auxiliary runs share at most four extra CPU
+slots including supervisors, total at most12, with explicit memory/headroom
+bounds and Task1 priority. Task11 has read the producer's16:00 summary as
+context, not independent evidence; no threshold/model retuning. All44 score
+filenames are reported present, but a complete immutable manifest/writer closure
+is still required before arrays are admitted. Cancellation concern was checked
+at15:56:25UTC: current controller and all five workers remain healthy; no job
+was replaced. Completed review agents had finished normally.
+
 Next: monitor the existing controller at the agreed cadence; preserve failures and stop on uncertainty. Once all112 blocks exist, perform complete derivative evidence/coverage admission, then exact point binding, reviewed assembly and independent witness audit under the finite acceptance note. Do not create a second campaign or change the frozen source while it runs.
 
 ---
