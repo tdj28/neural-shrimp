@@ -418,6 +418,104 @@ def orbits(args, loop, v, tok, esl):
     (out / "orbits.json").write_text(json.dumps({"args": vars(args), "orbits": rows}, indent=1, ensure_ascii=False))
 
 
+def superstable(make_cell, X0, Q0, period, lam_a, lam_b, settle, tol=1e-12, half=None, lam_rel_tol=1e-13,
+                max_eval=40, log=print):
+    """Superstable parameter of the period-p orbit inside its band [lam_a, lam_b], where its critical (leading real)
+    multiplier changes sign: + after the flip or fold that creates the orbit, - before the flip that ends it.
+
+    Illinois method on the critical multiplier. Every evaluation first settles the state by `settle` forward iterations
+    at the new parameter: inside the band the orbit attracts, so the state cannot slide onto the repelling half-period
+    orbit (the failure of continuation near a flip). An evaluation counts as clean when the critical multiplier
+    dominates (|mu_1| > 10 |mu_2|). Near the root the critical multiplier is smaller than the transverse ones; the search
+    stops at the first unclean evaluation and returns the secant root of the closest clean points on either side (mu_c
+    is smooth in the parameter), so the resolution is set by the clean pair, not by the transverse spectrum.
+    Returns (root record, evaluation records)."""
+
+    def ev(lam, X, Q):
+        cell = make_cell(lam)
+        Y = cell.iterate(X, settle)
+        e = evaluate(make_cell, lam, Y, period, Q, tol, half=half)
+        mu = e.vals[0]
+        clean = bool(len(e.vals) < 2 or abs(mu) > 10.0 * abs(e.vals[1]))
+        if clean and abs(mu.imag) > 1e-8:
+            raise SearchError(f"critical multiplier of period {period} at {lam!r} is complex ({mu!r})")
+        return e, float(mu.real), clean
+
+    a, fa, ca = ev(lam_a, X0, Q0)
+    b, fb, cb = ev(lam_b, a.X, a.Q)
+    log(json.dumps({"period": period, "bracket": [lam_a, lam_b], "mu": [fa, fb]}))
+    if not (ca and cb and fa * fb < 0):
+        raise SearchError(f"no clean sign change of the critical multiplier of period {period} on "
+                          f"[{lam_a!r}, {lam_b!r}]: {fa:.3g} ({ca}), {fb:.3g} ({cb})")
+    plus, minus = ((a, fa), (b, fb)) if fa > 0 else ((b, fb), (a, fa))     # closest clean points on either side
+    records, how = [], "converged"
+    for _ in range(max_eval):
+        if abs(b.lam - a.lam) <= lam_rel_tol * abs(b.lam):
+            break
+        lam = (a.lam * fb - b.lam * fa) / (fb - fa)
+        start = a if abs(lam - a.lam) < abs(lam - b.lam) else b
+        c, fc, cc = ev(lam, start.X, start.Q)
+        records.append({"lambda": c.lam, "mu": fc, "clean": cc,
+                        "next_modulus": float(abs(c.vals[1])) if len(c.vals) > 1 else None})
+        log(json.dumps({"period": period, "lambda": c.lam, "mu": fc, "clean": cc}))
+        if not cc:
+            how = "stopped at the transverse spectrum; secant of the closest clean points"
+            break
+        if fc > 0:
+            plus = (c, fc)
+        else:
+            minus = (c, fc)
+        if abs(fc) < 1e-14:
+            break
+        if fc * fb < 0:
+            a, fa = b, fb
+        else:
+            fa /= 2.0
+        b, fb = c, fc
+    else:
+        raise SearchError(f"superstable parameter of period {period} not located within {max_eval} evaluations")
+    (pe, pf), (me, mf) = plus, minus
+    root = (pe.lam * mf - me.lam * pf) / (mf - pf)
+    return {"period": period, "lambda": root, "how": how, "clean_bracket": [pe.lam, me.lam], "mu": [pf, mf],
+            "record": pe.record()}, records
+
+
+def superstable_cmd(args, loop, v, tok, esl):
+    """Superstable parameters of a sequence of bands along alpha at fixed log10 T (points PERIOD:LOG10T:ALPHA_A:ALPHA_B);
+    each band starts from the attractor reached from the opener state at ALPHA_A."""
+    out = esl.DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for spec in args.points:
+        p_s, lt_s, a_s, b_s = spec.split(":")
+        period, log_t, lam_a, lam_b = int(p_s), float(lt_s), float(a_s), float(b_s)
+
+        def make_cell(lam, log_t=log_t):
+            return esl.SoftOrbit(loop, lam * v, 10.0 ** log_t, chunk=args.chunk)
+
+        cell = make_cell(lam_a)
+        X = cell.iterate(cell.start, args.transient)
+        found = cell.detect_period(X, max(period, 32), 1e-6)
+        rec = {"period": period, "log10_temperature": log_t, "bracket": [lam_a, lam_b], "detected_period": found}
+        if found != period:
+            rec["error"] = f"attractor period {found}, not {period}"
+        else:
+            Q0 = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), args.k)))[0]
+            try:
+                root, evals = superstable(make_cell, X, Q0, period, lam_a, lam_b, args.settle_factor * period,
+                                          args.tol, half=(period // 2 if period % 2 == 0 else None), log=print)
+                rec.update({"superstable": root["lambda"], "how": root["how"], "clean_bracket": root["clean_bracket"],
+                            "mu": root["mu"], "record": root["record"], "evaluations": evals})
+            except SearchError as err:
+                rec["error"] = str(err)
+        rows.append(rec)
+        print(json.dumps({k: v for k, v in rec.items() if k not in ("record", "evaluations")}), flush=True)
+        lams = [r["superstable"] for r in rows if "superstable" in r]
+        (out / "superstable.json").write_text(json.dumps({"args": vars(args), "bands": rows, "superstable": lams,
+                                                          "ratios": interval_ratios(lams) if len(lams) > 2 else []},
+                                                         indent=1))
+
+
 def window_edges(args, loop, v, tok, esl):
     """Fold and flip edges of periodic windows along alpha at fixed log10 T, from given window centres."""
     rows = []
@@ -458,6 +556,17 @@ def window_edges(args, loop, v, tok, esl):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
+    ss = sub.add_parser("superstable", help="superstable parameters of a sequence of bands along alpha")
+    ss.add_argument("--points", nargs="+", required=True, metavar="PERIOD:LOG10T:ALPHA_A:ALPHA_B")
+    ss.add_argument("--settle-factor", type=int, default=20, help="forward iterations per evaluation, in periods")
+    for name, kw in (("--model", dict(default="qwen0.5b")), ("--layer", dict(type=int, default=12)),
+                     ("--threads", dict(type=int, default=8)), ("--device", dict(default="cpu")),
+                     ("--prompt", dict(default="open")), ("--opener", dict(default=None)),
+                     ("--window", dict(type=int, default=1)), ("--vectors", dict(default="llm-phase-map/vectors-l12")),
+                     ("--concept", dict(default="philosophy")), ("--transient", dict(type=int, default=3000)),
+                     ("--k", dict(type=int, default=6)), ("--tol", dict(type=float, default=1e-12)),
+                     ("--chunk", dict(type=int, default=512)), ("--out", dict(required=True))):
+        ss.add_argument(name, **kw)
     e = sub.add_parser("edges", help="fold and flip edges of windows along alpha (low-rank solver)")
     e.add_argument("--points", nargs="+", required=True, metavar="PERIOD:LOG10T:ALPHA:STEP")
     e.add_argument("--min-step", type=float, default=1e-10)
@@ -524,6 +633,8 @@ def main():
         return orbits(args, loop, v, tok, esl)
     if args.command == "edges":
         return window_edges(args, loop, v, tok, esl)
+    if args.command == "superstable":
+        return superstable_cmd(args, loop, v, tok, esl)
 
     def make_cell(lam):
         if args.free == "alpha":

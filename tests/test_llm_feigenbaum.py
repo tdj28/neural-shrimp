@@ -20,10 +20,10 @@ LOGISTIC_FLIPS = [3.0, 1.0 + np.sqrt(6.0), 3.5440903595519228536, 3.564407266095
 class ToyCell:
     """x0' = r x0 (1 - x0); x_i' = c_i x_i + 0.1 x0^2 + 0.05 x_{i-1} (driven, contracting, no feedback to x0)."""
 
-    def __init__(self, r, n=6):
+    def __init__(self, r, n=6, contraction=0.05):
         self.torch = torch
         self.r = float(r)
-        self.c = 0.05 * torch.linspace(1.0, 0.5, n - 1, dtype=torch.float64)
+        self.c = contraction * torch.linspace(1.0, 0.5, n - 1, dtype=torch.float64)
         self.start = torch.full((1, 1, n), 0.3, dtype=torch.float64)
 
     def _g(self, X):
@@ -130,3 +130,20 @@ def test_collapse_onto_the_half_period_orbit_is_refused():
     Q = np.linalg.qr(np.random.default_rng(4).normal(size=(6, 3)))[0]
     with pytest.raises(lf.Collapsed):
         lf.evaluate(lambda lam: ToyCell(lam), r, X, 2, Q, half=1)
+
+
+def test_superstable_parameters_of_the_logistic_cascade():
+    """Superstable parameters of the logistic map, s_2 = 1 + sqrt(5) and s_4 = 3.4985616993, with LLM-like transverse
+    contraction (transverse multipliers ~1e-6): near the root the critical multiplier is not the largest, which limits
+    the resolution to about |mu_2| / |d mu / d lambda| (here ~1e-7)."""
+    def make(r):
+        return ToyCell(r, contraction=1e-3)
+    Q0 = np.linalg.qr(np.random.default_rng(5).normal(size=(6, 4)))[0]
+    cell = make(3.1)
+    X = cell.iterate(cell.start, 2000)
+    root, _ = lf.superstable(make, X, Q0, 2, 3.1, 3.4, 200, half=1, log=lambda s: None)
+    assert abs(root["lambda"] - (1 + np.sqrt(5))) < 1e-6
+    cell = make(3.46)
+    X = cell.iterate(cell.start, 4000)
+    root, _ = lf.superstable(make, X, Q0, 4, 3.46, 3.54, 400, half=2, log=lambda s: None)
+    assert abs(root["lambda"] - 3.4985616993) < 1e-6
