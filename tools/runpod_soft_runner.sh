@@ -392,6 +392,18 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
       cut -c1-300 "$OUT/$crun/cusp-check.jsonl"
     done
     ;;
+  cubic)       # cusp nondegeneracy (run V11): fold normal form with the cubic coefficient c (tools/cusp_check.py ...
+               # cubic) at points of uploaded fold-curve runs; JOBARGS entries CURVE_RUN:INDICES; output
+               # cusp-cubic.jsonl next to the curve run (never over an earlier cusp-check.jsonl)
+    for spec in "${JOBARGS[@]}"; do
+      crun=${spec%%:*}; idx=${spec#*:}
+      log "start cusp-cubic $crun $idx"
+      timeout 60m $PY tools/cusp_check.py "$crun" "$idx" cuda cubic 2> "$LOGS/cubic-$(basename $crun).log" \
+        | grep --line-buffered '^{' > "$OUT/$crun/cusp-cubic.jsonl"
+      log "end cusp-cubic $crun status $?"
+      cut -c1-300 "$OUT/$crun/cusp-cubic.jsonl"
+    done
+    ;;
   hcascade)    # the hostile hub's period-7 interior (run S9): float64 bifurcation lines with attractor projections
                # (a temperature line at alpha 0.0655 and an alpha line at log10 T 0.1830), Newton orbits at period-14,
                # -28 and -21 cells of the M3b map, and the period-14 branch in temperature both ways (needs --extra-data

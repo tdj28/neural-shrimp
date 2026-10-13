@@ -198,6 +198,52 @@ def fold_normal_form(family, x, theta, param=1, param_scale=1.0, steps=(1e-2, 3e
             "r": r, "l": l}
 
 
+def fold_cubic(family, x, theta, steps=(1e-2, 3e-3, 1e-3, 3e-4)):
+    """Cubic coefficient c of the fold normal form u' = u + a eps + b u^2 + c u^3 at (x, theta), the nondegeneracy
+    coefficient of a cusp (where b = 0). With r, l the right and left eigenvectors of the multiplier nearest +1
+    (|r| = 1, l^T r = 1) and B, C the second and third derivatives of the p-fold map, the quadratic centre-manifold
+    term h2 solves (I - M) h2 = B(r, r) - 2 b r with l^T h2 = 0 (bordered system), and
+    c = l^T C(r, r, r) / 6 + l^T B(r, h2) / 2. Unlike a and b, c keeps its sign when r and l are reversed. B(r, r),
+    C(r, r, r) and B(r, h2) are central differences of JVPs at x +- s r, s = h |x|, for each relative step h; the
+    returned c is the mean of the flattest adjacent pair of steps (the plateau), with the full table."""
+    x = np.asarray(x, dtype=np.float64).ravel()
+    n = x.size
+    M = family.monodromy(x, theta)
+    vals, R = np.linalg.eig(M)
+    i = int(np.argmin(np.abs(vals - 1)))
+    valsL, L = np.linalg.eig(M.T)
+    j = int(np.argmin(np.abs(valsL - vals[i])))
+    r, l = np.real(R[:, i]), np.real(L[:, j])
+    r = r / np.linalg.norm(r)
+    l = l / float(l @ r)
+    bordered = np.block([[np.eye(n) - M, r[:, None]], [l[None, :], np.zeros((1, 1))]])
+    scale = float(np.linalg.norm(x)) or 1.0
+    j0 = family.jvp_x(x, theta, r)
+    table = []
+    for h in steps:
+        s = h * scale
+        jp, jm = family.jvp_x(x + s * r, theta, r), family.jvp_x(x - s * r, theta, r)
+        brr = (jp - jm) / (2 * s)
+        crrr = (jp - 2 * j0 + jm) / s ** 2
+        b = 0.5 * float(l @ brr)
+        sol = np.linalg.solve(bordered, np.concatenate([brr - 2 * b * r, [0.0]]))
+        h2 = sol[:n]
+        brh = (family.jvp_x(x + s * r, theta, h2) - family.jvp_x(x - s * r, theta, h2)) / (2 * s)
+        direct, centre = float(l @ crrr) / 6, 0.5 * float(l @ brh)
+        table.append({"h_relative": h, "b": b, "c": direct + centre, "c_direct": direct,
+                      "c_centre_manifold": centre, "h2_norm": float(np.linalg.norm(h2)),
+                      "bordered_sigma": float(sol[n])})
+    cs = np.array([t["c"] for t in table])
+    k = int(np.argmin(np.abs(np.diff(cs)))) if len(cs) > 1 else 0
+    c = float(0.5 * (cs[k] + cs[k + 1])) if len(cs) > 1 else float(cs[0])
+    others = np.delete(vals, i)
+    return {"multiplier": [float(vals[i].real), float(vals[i].imag)],
+            "second_modulus": float(np.abs(others).max()) if len(others) else None,
+            "c": c, "c_steps": table, "c_plateau_pair": [steps[k], steps[k + 1]] if len(cs) > 1 else [steps[0]],
+            "c_plateau_relative_spread": float(abs(cs[k] - cs[k + 1]) / max(abs(c), 1e-300)) if len(cs) > 1
+            else None}
+
+
 def passage_count(u0, a, b, eps, u_out, max_iter=100000):
     """Iterates of the quadratic normal form u' = u + a eps + b u^2 from u0 until u > u_out (None if not within
     max_iter), the discrete prediction for passage through the bottleneck."""

@@ -201,3 +201,23 @@ def test_fold_normal_form_of_a_known_map():
     n = bc.passage_count(-0.05, nf["a"], nf["b"], eps, 0.05)       # endpoints where the map is near identity
     assert abs(n - bc.passage_arctan(-0.05, 0.05, nf["a"], nf["b"], eps)) / n < 0.02
     assert abs(n - np.pi / np.sqrt(nf["ab"] * eps)) / n < 0.1
+
+
+def test_fold_cubic_of_a_known_map():
+    """x' = x + t + beta x^2 + gamma x^3 + delta x y, y' = mu y + kappa x^2: fold at t = 0, multiplier 1, centre
+    manifold y = kappa x^2 / (1 - mu) + ..., so the reduced map has u^3 coefficient gamma + delta kappa / (1 - mu)
+    whatever beta; at beta = 0 the fold is a cusp."""
+    gamma, delta, kappa, mu = 0.7, 1.5, 0.4, 0.3
+    expected = gamma + delta * kappa / (1 - mu)
+    for beta in (0.0, 0.2):
+        def phi(x, theta, beta=beta):
+            t = theta[1] / 10.0
+            return torch.stack([x[0] + t + beta * x[0] ** 2 + gamma * x[0] ** 3 + delta * x[0] * x[1],
+                                mu * x[1] + kappa * x[0] ** 2])
+
+        fam = bc.Family(phi, (2,), torch.float64)
+        out = bc.fold_cubic(fam, np.array([0.0, 0.0]), [0.0, 0.0], steps=(1e-1, 1e-2, 1e-3))
+        assert abs(out["multiplier"][0] - 1) < 1e-12
+        assert abs(out["c"] - expected) < 1e-6, (beta, out["c"], expected)
+        assert abs(out["c_steps"][-1]["b"] - beta) < 1e-6
+        assert abs(out["c_steps"][-1]["c_centre_manifold"] - delta * kappa / (1 - mu)) < 1e-6
