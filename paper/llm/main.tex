@@ -642,9 +642,10 @@ fixed points look different: the leading multipliers surround the origin, a real
 $0.85$--$0.89$ at many angles and negative real values near $-0.8$, with no near-critical pair. Because the prefill
 Jacobian is block lower-triangular in positions, its spectrum is the union of per-position blocks, and template
 positions contribute identical eigenvalues to every prompt. Such a spectrum makes three predictions before any task is
-scored. No relaxation can speed convergence much: for a spectrum filling a disc about the origin, the plain iteration
-is the optimal polynomial scheme, and indeed the best $\lambda^*=1.03$--$1.06$ lowers the rate from $0.914$ to only
-$0.908$--$0.911$. Under-relaxation slows it ($\lambda=0.55$: predicted $0.953$, measured $0.951$ on one prompt).
+scored. No fixed relaxation can speed convergence much: with leading multipliers spread around the origin at many
+angles, any $\lambda$ that shrinks one group enlarges another, and the best $\lambda^*=1.03$--$1.06$ lowers the rate
+from $0.914$ to only $0.908$--$0.911$. (A finite computed spectrum does not show that no other polynomial scheme could
+do better; Anderson acceleration, tried below, did not.) Under-relaxation slows it ($\lambda=0.55$: predicted $0.953$, measured $0.951$ on one prompt).
 Over-relaxation destabilizes the negative modes first, at $\lambda_c=2\operatorname{Re}(1-\mu)/|1-\mu|^2=1.074$--$1.126$
 (five prompts), a flip or a Neimark--Sacker bifurcation close to $-1$. The approach to it is visible: on the prompt with
 $\lambda_c=1.074$, the measured rate at $\lambda=1.05$ is $0.955$ against a predicted $0.956$ (native $0.864$).
@@ -662,8 +663,9 @@ $10^{-6}$. Accuracy, however, tolerates the instability (300 training questions,
 at $\lambda=1.10$ and $0.373$ at $1.15$, where the latent state oscillates with relative size $0.08$ and $0.23$; only
 at $1.25$ (size $0.68$) does it fall, to $0.300$. Under-relaxation instead costs 4--5 points at 8--16 steps and
 catches up by 32 (slower transient), and Anderson acceleration neither speeds the transient nor gains accuracy.
-Scoring a fixed answer thus averages over the oscillation; a test of the accuracy consequence needs a task whose
-errors compound.
+Accuracy on a fixed set of answers is thus insensitive to the instability over this range; whether the unstable modes
+barely reach the answer logits, or move them without changing the ranking, is measured next, and a test of the
+accuracy consequence needs a task whose errors can compound.
 \inprogress{GSM8K generation against $\lambda$ (development run); then a frozen test on fresh problems with
 $\lambda$ arms placed from the spectral $\lambda_c$ of development prompts.}
 
