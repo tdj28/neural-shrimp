@@ -1,3 +1,38 @@
+# Task14(a) complete — 2026-10-13T23:33:51.459353+00:00
+
+Both fixed period-7 numerical endpoints and the complete independent saved-array
+audit are accepted by Root and the final independent reviewer. No located cusp,
+rank-two unfolding or interval certificate is claimed; both `cusp_qualified` and
+`certificate_passed` remain false. See `endpoints-001-result.md`,
+`endpoints-001-final-review.json` and `endpoints-001-independent-review.md`
+(review SHA7d71c93d) for exact parameters, coefficients, every fixed FD/probe/alpha
+row,226 retained nonzero comparison differences and inherited authority limits.
+The orientation-invariant quadratic coefficient changes sign; both cubics are
+negative. Coarse row14 offsets include a wrong-sign quadratic estimate and remain
+explicit, alongside passing fixed finest-two precision gates.
+
+Original endpoint receipt0cf633c0 and all1,191 artifacts remain immutable.
+Actual saved audit source24c69e37, wrapper19b7d85f/card381a62f9,
+reportee4d502d/outputmanifest0be13094/supervisioncfb14b04/closurec359529c;
+681 arrays,413 exact associations,474 scalar checks and all26 precision gates
+accepted. One audit only:0.66272s worker/1.03317s supervision,75,696KiB peak.
+Session28168 reaped0, supervisor995603/worker995619 and all former groups/sessions
+absent. Original endpoint/profile jobs are closed as previously recorded.
+The final metadata authority9db2eaa3/cbfa56e9 is under the actual legacy-named
+`llm-cusp-crosscheck/final-assembly-002-witness-audit-001-authority`; contents bind
+Task14 correctly, original basename preserved. Final review is separately sealed
+under `endpoints-001-final-acceptance-001`.
+
+**Zero live owned workers, supervisors or resource reservations. All currently
+assigned Codex work, including Task1 and Task14(a), is complete.** Task1's separate
+P8 certificate is released; Tasks8A/B,6/7/L9/11/13 are complete/delivered.
+Optional period28 remains deferred, with no further target/audit/model/GPU/pod
+or paid action authorized by this completion. Inference retains Git coordination
+only. Root will retire the continuation automation after private delivery.
+Historical preparation/running sections below are not current owners.
+
+---
+
 # Task14(a): endpoints001 complete and closed — 2026-10-13 23:07UTC
 
 No live Task14 worker or supervisor remains. Original session44092 reapedexit0,

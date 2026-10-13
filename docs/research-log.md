@@ -22608,3 +22608,9 @@ _commit `0962176e78ed` (dirty worktree)_
 - **Would surprise us:** Any evidence association, coefficient reconstruction or scientific gate disagreement is a retained failure; no stronger cusp statement follows from two endpoints.
 
 _commit `b8faf251dadb` (dirty worktree)_
+
+## 2026-10-13 23:33 UTC: Task14 two-endpoint numerical check and final saved evidence accepted
+
+Root accepted both full period7 numerical rows, final independent review7d71c93d and actual saved audit ee4d502d. Rows13/14 have physical-alpha coefficients -0.5685198728572858/-0.5272297971182208, quadratics -30.840002884452204/+59.06020295925012 and cubics -580377.7865190986/-531766.3315274358. This supports a candidate sign-change segment only, not a located/rank-two cusp or interval certificate; original flags remain false. All14 coefficient FD rows,14 probe rows,6 alpha rows,26 precision gates and226 nonzero saved-comparison differences retained, including coarse row14 quadratic sign reversal. One CPU1/nice10/1GiB/120s saved audit from24c69e37 passed in0.66272s worker/1.03317s supervision,peak75,696KiB.1191 artifacts,11 captured source hashes with explicit inherited original Git authority,681 arrays,413 exact associations,474 scalars pass. Output0be13094/supervisioncfb14b04/closurec359529c plus final authority9db2eaa3/cbfa56e9 authenticate source/current original closure. The metadata adapter kept its Task1-style final-assembly-002-witness-audit-001-authority directory basename under the Task14 root; exact original path preserved and disclosed. Session28168 reaped0, both995603/995619 and groups absent, all original target/profile jobs closed. No retry, model/AD/JVP/eigensolve/inverse or new numerical work. All assigned Codex tasks now complete; optional P28 remains deferred, zero live reservations.
+
+_commit `24c69e37e572` (dirty worktree)_

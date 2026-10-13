@@ -1,3 +1,30 @@
+# All assigned Codex work complete — 2026-10-13T23:33:51.459353+00:00
+
+**No live owned worker/supervisor or resource reservation.** Task1's separate
+exact-real Qwen P8 certificate is released and delivered (release539ead0d,
+result78feebd5,evidence1a1064f7 integrated306c1b02,standaloneb8faf251).
+The primitive period-8 orbit is unique as an ordered shooting root in the stated
+product box and locally attracting under the reviewed Python/FLINT/Arb standard.
+All original conditional/audit records and failures remain immutable.
+
+Task14(a) is now independently accepted: both period-7 numerical endpoints and
+all fixed coefficient/FD/probe/alpha evidence passed the saved audit. See
+`codex/cusp-crosscheck/endpoints-001-final-review.json`, result report and final
+independent note7d71c93d. Audit reportee4d502d,output0be13094,supervisioncfb14b04,
+closurec359529c and authority9db2eaa3/cbfa56e9 bind completion. The last authority
+uses its preserved Task1-style directory name under the Task14 root; its contents
+are correctly Task14. Session28168 reaped0 and995603/995619 plus groups absent.
+No cusp location, rank-two unfolding or interval certificate is established by
+Task14. Optional period28 remains deferred; no new computation is planned.
+
+Tasks8A/B,6/7/L9/11/13 are complete and delivered. Inference retains sole Git
+coordination for the final private checkpoint/standalone Task14 delivery only.
+Root will retire automation `complete-qwen-p8-certificate` after verification.
+Do not relaunch, retry or poll any historical numerical/audit process below.
+All following dated sections are historical.
+
+---
+
 # Current phase — 2026-10-13 23:26 UTC: Task1 certificate released; Task14 saved audit prepared
 
 **Sole Git/process coordinator: inference. No live process or resource reservation.**
