@@ -63,19 +63,20 @@ standalone delivery8a286951d126060e16118ecd2a8caac7dd83d04c, lives in
 `codex/paper-review/`. Claude's16:33 note reports integration at0724a61a; no new
 assignment follows. We made no producer-manuscript edits.
 
-Task8 PartB is ready for final single-run admission after Root's finite provenance
-acceptance of the18:35 reply. New immutable input002 manifest
-4de42764f539de11ec087b16d75b51c4eff826aeab3b9f5df3a324d69924dc60 binds51files/
-1,625,387B; original001, status124 interruption, all three archives and local
-termination records are preserved. Source/current-export/explicit-producer
-attestation supports saved-row reproduction; historical upload/model bytes are
-not cryptographically attested. Producer summary exposure is explicit. No target
-numerical analysis or auxiliary job yet. Exact card1e02f39850ac3dfb13ded83f772b784774ddbe598e74b108aac1b4b8b2775e7e
-and source06ef3415 retain CPU1+supervisor/nice10/4GiB/300s+5s grace/64MiB/20–16GiB.
-See Task8 active-status and provenance-acceptance-002; actual launch needs final
-Root concrete-card acceptance, private push and fresh capacity. PartA is pending
-complete64-question authority, with partial outcomes unread. Tasks11/13 remain
-complete;9/10/12 and paid/pod work remain Claude's.
+Task8 Part B independent saved-row reproduction is complete and all auxiliary
+processes are closed. Source06ef3415, prelaunch checkpointab43131c, card1e02f398,
+input0024de42764; final result/report/independent acceptance live under
+`codex/huginn-independent-replay/part-B-001-*`. All800 diagnostic rows and81
+producer comparison leaves passed with exact agreement; frozen B1/B3 passes.
+Flexible33.0%→39.5% at1.05 (+6.5points, CI[1.5,12.0]) and9.5% at1.20
+(−23.5points, CI[−30.0,−17.5]); strict1.15 CI crosses zero. Primary noninferiority
+scope and finite generation budget preserved, no mechanism/compute-saving claim.
+Original historical124 interruption, absent cryptographic historical asset hashes,
+explicit producer trust/summary exposure, and audit001 bookkeeping refusal remain.
+The sealed original receipt51709904 is unchanged; final-review.json binds separate
+Root/sibling acceptance. Two auxiliary slots released. Part A awaits complete64
+immutable input authority; no partial outcomes or model/pod access. Tasks11/13
+remain complete;9/10/12 remain Claude's.
 
 Latest Task1 health18:46:34UTC: all11 current birth/UID/group/session/command,
 nice10/CPU1/AS identities passed, five phase5/6 workers progressing with empty

@@ -22322,3 +22322,9 @@ _commit `67956d004599`_
 - **Would surprise us:** scoring failures
 
 _commit `eaa91c846bae` (dirty worktree)_
+
+## 2026-10-13 19:05 UTC: Task8 Part B independent saved-row reproduction completed
+
+Source06ef341522537c93bd0afb30dbcf922d27299bfa and private prelaunch ab43131ca1f483b91e2f517b614dd0fd316d10c9; card1e02f398 and input0024de42764. Exactly one CPU1/nice10/4GiB bounded replay returned/reaped exit0 in0.770594625s, driver0.597997678s,peak72472KiB,no warnings; worker817440/start186419809 and wholePGID817439 absent, auxiliary reservation released. All51 inputs/94receipt assertions/11archive members/9Git blobs/800diagnostic rows/81saved comparison leaves authenticated; exact result agreement/no nonzero deltas. Frozen flexible B1 decline1.20 and B3 noninferiority1.05 pass: accuracy33.0/39.5/25.5/9.5%,1.05difference+6.5pointsCI[1.5,12.0],1.20−23.5pointsCI[−30.0,−17.5]; strict27.5/34.0/25.0/9.0%,strict1.15CIcrosseszero. Evidence manifest10f326c561ba799399df78a737672cde02c47edc2712299552770eea553081c9 binds28immutable artifacts. Completionreceipt51709904 remains unchanged; separate final-review acceptance/archive recorded. Audit001 synthetic-path bookkeeping failure preserved; audit002 ran before narrow source-review request arrived, subsequently independently reviewed, no scientific change/rerun. Original producer130minstatus124 and completion partitions preserved. Trusted-source/explicit producer attestation supports saved-row replay, not cryptographic historical upload/model-byte authentication; producer800gold check not rerun. Summary exposure and finite-generation-budget/no-mechanism scope disclosed. PartA remains pending complete inputs; no partial outcome/model/pod access. Full report codex/huginn-independent-replay/part-B-001-report.md.
+
+_commit `ab43131ca1f4` (dirty worktree)_

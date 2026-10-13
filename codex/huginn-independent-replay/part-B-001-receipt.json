@@ -1,0 +1,101 @@
+{
+  "schema": "codex-task8-partB-completion-v1",
+  "source_commit": "06ef341522537c93bd0afb30dbcf922d27299bfa",
+  "private_prelaunch_checkpoint": "ab43131ca1f483b91e2f517b614dd0fd316d10c9",
+  "card_sha256": "1e02f39850ac3dfb13ded83f772b784774ddbe598e74b108aac1b4b8b2775e7e",
+  "input_manifest_sha256": "4de42764f539de11ec087b16d75b51c4eff826aeab3b9f5df3a324d69924dc60",
+  "manifest": {
+    "path": "/data2/neural-shrimp-data/codex/huginn-independent-replay/part-B-001-manifest.json",
+    "sha256": "10f326c561ba799399df78a737672cde02c47edc2712299552770eea553081c9"
+  },
+  "artifact_count": 28,
+  "input_file_count": 51,
+  "input_bytes": 1625387,
+  "receipt_assertions": 94,
+  "archive_members": 11,
+  "git_blob_count": 9,
+  "retained_diagnostic_rows": 800,
+  "comparison_leaves": 81,
+  "exact_comparison": true,
+  "nonzero_differences": [],
+  "operational_completed": true,
+  "admission_passed": true,
+  "scientific_primary_success": true,
+  "certificate_passed": false,
+  "status": {
+    "status": "replay_completed",
+    "computational_completed": true,
+    "source_commit": "06ef341522537c93bd0afb30dbcf922d27299bfa",
+    "card_sha256": "1e02f39850ac3dfb13ded83f772b784774ddbe598e74b108aac1b4b8b2775e7e",
+    "part": "B",
+    "producer_or_model_executed": false,
+    "certificate_passed": false,
+    "interpretation": "Field comparison and scientific gates remain separate; no silent retry or outcome-dependent change.",
+    "seconds": 0.5979976779781282,
+    "max_rss_kib": 72472,
+    "minimum_available_bytes": 32937009152,
+    "events": [
+      {
+        "stage": "sources_captured",
+        "seconds": 0.0007335229311138391
+      },
+      {
+        "stage": "complete_inputs_admitted",
+        "seconds": 0.054138066014274955,
+        "files": 51
+      },
+      {
+        "stage": "independent_statistics_completed",
+        "seconds": 0.581583364866674
+      },
+      {
+        "stage": "all_fields_compared",
+        "seconds": 0.5908642199356109
+      }
+    ],
+    "warnings": []
+  },
+  "closure": {
+    "utc": "2026-10-13T18:55:04Z",
+    "worker": {
+      "pid": 817440,
+      "start": 186419809,
+      "pgid": 817439,
+      "sid": 817372,
+      "uid": 1000,
+      "nice": 10,
+      "address_space_limits": [
+        4294967296,
+        4294967296
+      ],
+      "source_commit": "06ef341522537c93bd0afb30dbcf922d27299bfa",
+      "card_sha256": "1e02f39850ac3dfb13ded83f772b784774ddbe598e74b108aac1b4b8b2775e7e",
+      "bootstrap_sha256": "4451f71d65e507f57cce93c063a7886e36df0e95b8cab5d670a8e46250bfa6f7"
+    },
+    "worker_original_pid_absent": true,
+    "original_process_group_members": [],
+    "original_process_group_absent": true,
+    "outer_command_exit_code": 0,
+    "outer_command_wall_seconds": 0.770594625,
+    "timeout": false,
+    "supervisor_command_returned_and_reaped": true,
+    "source_of_outer_result": "exec_command returned exit_code0 without a running session; command and preflight are retained",
+    "no_retry": true,
+    "auxiliary_cpu_reservation_released": true
+  },
+  "audit": {
+    "path": "/data2/neural-shrimp-data/codex/huginn-independent-replay/part-B-001-audit-002/report.json",
+    "sha256": "d852f3184ac16a3263c3de29215f058c39ca98e293cc484e88c3b2d014956e17"
+  },
+  "audit_source": {
+    "path": "/data2/neural-shrimp-data/codex/huginn-independent-replay/part-B-001-audit-002/audit.py",
+    "sha256": "2e280d0e1965572baf34c80a05daa92c1759ab040fd078950c174a9837c524c1"
+  },
+  "audit_failure_preserved": "/data2/neural-shrimp-data/codex/huginn-independent-replay/part-B-001-audit-001/failure.json",
+  "audit_timing_disclosure": "Audit002 corrected the synthetic /n_vs_frozen_count bookkeeping path and ran before the requested narrow independent delta review arrived. The exact saved delta was subsequently independently read and accepted; no scientific replay or result was changed.",
+  "provenance_scope": "Original authenticated local retrieval and recorded termination, reviewed pinned source, explicit producer exact-command/data-path attestation, and current export hashes. No historical upload-content/model-byte cryptographic authentication; producer800-gold comparison not independently replayed. Original130-minute producer status124 remains preserved.",
+  "producer_summary_exposure": "17:58 summary and earlier committed summary were read before independent replay; no estimand, threshold or cohort retuning.",
+  "partA_accessed": false,
+  "statistics_recomputed_by_audit": false,
+  "independent_saved_evidence_review": "pending final immutable packet verification"
+}
