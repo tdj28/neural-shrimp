@@ -20869,3 +20869,12 @@ _commit `2580543bdf79`_
 - **Would surprise us:** the P4 attractor at -0.0055 has a period other than 4 from the opener start, or its flip is not a real -1
 
 _commit `1d8379062461`_
+
+## 2026-10-13 01:51 UTC: run (exploratory)
+
+- **Question:** Window law from exact stripe edges: for each stripe orbit P6-P20 along log10 T = -0.115, where are its fold edge (where the orbit is born, the intermittency side) and its flip edge? Do the fold edges follow alpha_N - alpha_c ~ (N + delta)^-2 with the full-passage prefactor pi^2/(ab), as the saddle-node ghost mechanism predicts (the grid-centre fit gave d_N N^2 = 0.0263-0.0265)?
+- **Setup:** RunPod H100 (run E1), job set edges, commit 50ca110b: tools/llm_feigenbaum.py edges --device cuda float64 from the Table 1 centres, steps 1.5e-4 (P6), 1e-4 (P8), 5e-5 (P10), 2.8e-5 (P12), 1.5e-5 (P14), 8e-6 (P16), 5e-6 (P18), 3.5e-6 (P20), halving to 1e-10 near a fold; fold by a linear fit of (1 - mu_max)^2 over the last 4 converged points; flip by the Illinois method with crossing classification
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/edges/stripes-t-0.115`
+- **Would surprise us:** edges of the same kind on both sides of a stripe; fold edges not ordered monotonically toward alpha_c
+
+_commit `50ca110beebe`_
