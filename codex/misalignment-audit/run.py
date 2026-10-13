@@ -61,7 +61,24 @@ def configure(card):
     if not set(('run.py','launch.py','reducers.py','inputs.py','detection.py','descriptive.py',
                 'schemas.json','claims.json','plan.md')).issubset(card['source_sha256']):
         raise ValueError('incomplete source closure')
+    if card['mode'] in ('l7','l8'):
+        verify_prior_failure(card)
 
+
+
+def verify_prior_failure(card):
+    roots=[ALLOWED/'l7-001', ALLOWED/'l7-001-owner']
+    expected=card.get('prior_failure_inventory')
+    if not expected:
+        raise ValueError('original failed L7 inventory required')
+    actual=[{'path':str(p),'bytes':p.stat().st_size,'sha256':sha(p)}
+            for root in roots for p in sorted(root.rglob('*')) if p.is_file()]
+    if actual!=expected:
+        raise ValueError('original failed L7 inventory differs')
+    old=json.loads((roots[0]/'result.json').read_text())
+    owner=json.loads((roots[1]/'result.json').read_text())
+    if old.get('completed') is not False or owner.get('owned_worker_exited') is not True or owner.get('worker_exit')!=2:
+        raise ValueError('original failure/termination status differs')
 
 def execute(mode,out,card):
     import numpy as np
@@ -104,18 +121,20 @@ def execute(mode,out,card):
             result=descriptive.calculate(descriptive.load())
             write(out/'descriptive.json',result)
             return
-        train=[load_detection(a) for a in TRAIN]
-        test=[load_detection(a) for a in TEST] if mode=='l8' else None
+        feature_set='all' if mode=='l7' else 'baseline_state'
+        train=[load_detection(a,feature_set) for a in TRAIN]
+        test=[load_detection(a,feature_set) for a in TEST] if mode=='l8' else None
         write(out/'actual-sample-args.json',{a['name']:a['args'] for a in train+(test or [])})
+        write(out/'feature-admission.json',{a['name']:a['feature_admission'] for a in train+(test or [])})
         for event in (1,2):
             for h in (1,3,5):
-                tab=make_table(train,h,event)
+                tab=make_table(train,h,event,feature_set)
                 key=f'event{event}-h{h}'
                 if mode=='l7':
                     rows,scores,fold,diagnostics=evaluate_l7(tab)
                     np.savez_compressed(out/(key+'-scores.npz'),y=tab['y'],group=tab['group'],fold=fold,**scores)
                 else:
-                    other=make_table(test,h,event)
+                    other=make_table(test,h,event,feature_set)
                     rows,scores,diagnostics=evaluate_l8(tab,other)
                     np.savez_compressed(out/(key+'-scores.npz'),y=other['y'],group=other['group'],arm=other['arm'],
                                         baseline=scores[0],with_state=scores[1])

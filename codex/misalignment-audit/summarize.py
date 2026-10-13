@@ -14,8 +14,9 @@ PUBLISHED=Path('/data2/neural-shrimp-data/explore/llm-msm')
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--mode',choices=['descriptive','l7','l8'],required=True)
+    ap.add_argument('--attempt',choices=['001','002'],required=True)
     ap.add_argument('--output',type=Path,required=True);a=ap.parse_args()
-    directory=RAW/(a.mode+'-001')
+    directory=RAW/(a.mode+'-'+a.attempt)
     result=json.loads((directory/'result.json').read_text())
     if not result['completed']:raise ValueError('incomplete replay cannot be summarized as complete')
     registry=json.loads((HERE/'claims.json').read_text())

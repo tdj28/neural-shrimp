@@ -7,7 +7,9 @@ from reducers import event_onsets, risk_rows, increment
 PREDICTORS = ('D1_forecast', 'D2_susceptibility', 'D3_state_probe', 'D4_token_max', 'all')
 
 
-def make_table(arms, horizon, run):
+def make_table(arms, horizon, run, feature_set="all"):
+    if feature_set not in ("all", "baseline_state"):
+        raise ValueError("unknown feature set")
     fields = {k: [] for k in ('y', 'group', 'base', 'extra', 'state', 'arm', 'turn')}
     offset = 0
     for index, arm in enumerate(arms):
@@ -19,11 +21,17 @@ def make_table(arms, horizon, run):
         maxima = np.maximum.accumulate(score, axis=1)
         base = np.column_stack((score[r, t], score[r, t]-previous[r, t], maxima[r, t],
                                 t, arm['axis'][r, t], np.full(len(r), arm['dose'])))
-        tok = arm['tok'][r, t]
-        if np.isinf(tok).any():
-            raise ValueError('infinite token projection: no silent nonfinite selection')
-        tokenmax = np.where(np.isfinite(tok).any(axis=1), np.max(np.where(np.isnan(tok), -np.inf, tok), axis=1), 0)
-        extra = np.column_stack((arm['q'][r, t], arm['q_plus'][r, t]-arm['q'][r, t], tokenmax))
+        if feature_set == 'all':
+            if arm.get('feature_set', 'all') != 'all':
+                raise ValueError('probe features were not admitted')
+            tok = arm['tok'][r, t]
+            if np.isinf(tok).any():
+                raise ValueError('infinite token projection: no silent nonfinite selection')
+            tokenmax = np.where(np.isfinite(tok).any(axis=1), np.max(np.where(np.isnan(tok), -np.inf, tok), axis=1), 0)
+            extra = np.column_stack((arm['q'][r, t], arm['q_plus'][r, t]-arm['q'][r, t], tokenmax))
+        else:
+            # No q/q_plus/token access or substitute values on the frozen L8 path.
+            extra = np.empty((len(r), 0), dtype=np.float64)
         state = arm['pre'][r, t+1].astype(np.float64)
         if not (np.isfinite(base).all() and np.isfinite(extra).all() and np.isfinite(state).all()):
             raise ValueError('nonfinite feature')
@@ -64,6 +72,8 @@ def fit_pca(x, diagnostics):
 
 
 def predictor_features(tab, state, predictor):
+    if predictor != 'D3_state_probe' and tab['extra'].shape[1] != 3:
+        raise ValueError('probe features absent from baseline/state table')
     if predictor == 'D3_state_probe':
         extra = state
     elif predictor == 'all':
@@ -75,6 +85,8 @@ def predictor_features(tab, state, predictor):
 
 
 def crossfit(tab, diagnostics):
+    if tab['extra'].shape[1] != 3:
+        raise ValueError('L7 requires all three probe/token features')
     groups = np.unique(tab['group'])
     permuted = np.random.default_rng(0).permutation(groups)
     fold_by_group = dict(zip(permuted.tolist(), (np.arange(len(groups)) % 5).tolist()))

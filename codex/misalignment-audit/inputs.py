@@ -75,7 +75,7 @@ def load_basic(name, controller=False):
     return out
 
 
-def load_detection(name):
+def load_detection(name, feature_set="all"):
     if name not in TRAIN+TEST:
         raise ValueError('unlisted detection arm')
     out = load_basic(name)
@@ -96,6 +96,37 @@ def load_detection(name):
             or out['q'].shape != (n,40) or out['q_plus'].shape != (n,40)):
         raise ValueError('detection array shape')
     out['axis'] = acts @ unit
-    if not all(np.isfinite(out[k]).all() for k in ('q','q_plus','pre','axis')):
-        raise ValueError('nonfinite detector input')
+    validate_detection_finiteness(out, feature_set)
     return out
+
+
+def validate_detection_finiteness(out, feature_set):
+    """Validate selected features; never impute unused recorder probe NaNs.
+
+    The all-feature L7 path uses the union of its six fixed risk-row sets.
+    L8 trains/scores baseline+D3 only; q/q_plus/token features are absent.
+    """
+    from reducers import event_onsets, risk_rows
+    if feature_set not in ('all', 'baseline_state'):
+        raise ValueError('unknown feature set')
+    if not all(np.isfinite(out[k]).all() for k in ('score', 'pre', 'axis')):
+        raise ValueError('nonfinite baseline/state input')
+    used = np.zeros_like(out['score'], dtype=bool)
+    if feature_set == 'all':
+        for run in (1, 2):
+            for horizon in (1, 3, 5):
+                rows = risk_rows(event_onsets(out['score'] > .5, run), 40, horizon, run)
+                used[rows[:, 0], rows[:, 1]] = True
+    counts = {}
+    for key in ('q', 'q_plus'):
+        values = np.asarray(out[key])
+        if values.shape != out['score'].shape or np.isinf(values).any():
+            raise ValueError('malformed/infinite probe input')
+        if not np.isfinite(values[used]).all():
+            raise ValueError('nonfinite used L7 probe input')
+        counts[key] = {'nan_total': int(np.isnan(values).sum()),
+                       'selected_probe_entries': int(used.sum()),
+                       'nan_unused': int(np.isnan(values[~used]).sum())}
+    out['feature_set'] = feature_set
+    out['feature_admission'] = {'feature_set': feature_set, 'probes': counts,
+                               'unused_probes_imputed': False}
