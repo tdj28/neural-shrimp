@@ -1,0 +1,89 @@
+{
+  "schema": "codex-prefix-asset-authority-summary-v1",
+  "certificate_passed": false,
+  "audit_archive": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-prefix-asset-authority-001",
+  "audit_archive_manifest_sha256": "9f6a745dba5dfcff4896f76de9297929e395debc15f07b1f6d7de3a94e71bf3d",
+  "review_sha256": "189a4eb6bdf85fd96acfb478778d69604bb116efb1723d0cb1cb9c1542e4e49f",
+  "audit_script_sha256": "ab6b7c1bc94c5f5a220255f2f47b94ed86315b7d8f451ddecc7830e09b0200d0",
+  "audit_result_sha256": "1cf096b123bd8c35a8b2a1707846d5fc3d1669d98677dc5b3e6db394ac47854b",
+  "hook_equivalence_sha256": "9b4ac0dee706c8fe8c4fa0b1e3007ca70f7c37ad49fd1890da01dff58441c182",
+  "assets": {
+    "model.safetensors": {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/model.safetensors",
+      "resolved_path": "/data2/neural-shrimp-data/models/hf/hub/blobs/bb/bb5ff7e71536bbce6378f6d4bb523a77f1e9455965702d18bec33f599d5851f7",
+      "bytes": 988097824,
+      "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+    },
+    "config.json": {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+      "resolved_path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/blobs/0dbb161213629a23f0fc00ef286e6b1e366d180f",
+      "bytes": 659,
+      "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+    },
+    "vectors.npz": {
+      "path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12/vectors.npz",
+      "resolved_path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12/vectors.npz",
+      "bytes": 14860,
+      "sha256": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    }
+  },
+  "checkpoint_coefficients_checked": 494032768,
+  "checkpoint_tensors_checked": 290,
+  "finite_BF16": true,
+  "vector": {
+    "archive_keys": [
+      "gratitude",
+      "philosophy"
+    ],
+    "selected": "philosophy",
+    "dtype": "<f8",
+    "shape": [
+      896
+    ],
+    "finite_coordinates": 896,
+    "binary64_conversion_exact": true,
+    "array_bytes_sha256": "eea291094ad156ba23b9b3c5f4dd1fb1be1d028d71fe85ce04479c8e4afff3c6",
+    "original_byteorder": "="
+  },
+  "prefixes": [
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002",
+      "receipt_sha256": "565ecc98b37b592bb1da16a58ad4109e1dd2ab5f2eac71682f2af860531f33b9",
+      "source_commit": "0c650f87ad1ba20c3afeeeae443b4d5e7bbcc0a0",
+      "artifact_count": 22,
+      "source_blob_count": 9,
+      "prefix_sha256": "153bca72b85f4baf06bc536c4673b86253df849e4405c9513350c2288f4d4d22",
+      "arb_map_sha256": "3250d8b262e4a940b83de84005ad6f3155bc70635bfc623b0a000804cfc28c3e",
+      "pilot_sha256": "09ccc111a314f68a1b721c9c8bdb6de465ea874264d0e430007f4591308eb6ea",
+      "precision": 1024,
+      "finite_original_balls": 227328,
+      "source_git_blobs_verified": true,
+      "prefix_completion_verified": true
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-point-003",
+      "receipt_sha256": "b286831e06d65280ddc44591ba196e40c2adbb33f125c20a676c615434dd51e5",
+      "source_commit": "d674d2101eae58bd09dc919530892f51c56017d3",
+      "artifact_count": 32,
+      "source_blob_count": 20,
+      "prefix_sha256": "9d4a4193ecbb997a68c067312cae20c1f96de3e1919f7218e841715bad231053",
+      "arb_map_sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+      "pilot_sha256": "354f166af4ac0d7afbe68d2b9c61ed17e54aa9f3e4ed2b448bef5e70545ccca1",
+      "precision": 2048,
+      "finite_original_balls": 227328,
+      "source_git_blobs_verified": true,
+      "prefix_completion_verified": true
+    }
+  ],
+  "runtime": {
+    "elapsed_seconds": 76.04412427195348,
+    "peak_rss_kib": 523312,
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "threads": 1,
+    "nice": 10
+  },
+  "root_review": "Root read full independent audit scripts, source delta and mathematical review; checked these exact saved output/file bindings. Root did not rerun the full asset scan or model.",
+  "scope": "Actual constants and both same-map prefix authorities only, conditional on documented trusted arithmetic/loader/execution. No final orbit evidence or gates are asserted."
+}

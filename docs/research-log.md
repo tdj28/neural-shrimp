@@ -21565,3 +21565,17 @@ _commit `c7b24db4fdcb`_
 - **Would surprise us:** margins oscillating as much as the latent state (then accuracy is tolerant only because errors average out across steps, not because the modes are readout-silent)
 
 _commit `24cb291807e2`_
+## 2026-10-13 08:38 UTC: Task 1: center-parallel-009 completed and independently audited
+
+Source c7b24db4fdcb3bc515492fd96c84293db94f7a3b, receipt 5e89a1b760a6a575cc2fa3b28f60a8e19f47657ab2d995b0908a30279293d370; all 244 artifacts, 133 Git blobs and eight full phase rows checked by both independently written audit scripts. Exact residual norm strict decrease 3.38520933874556929E-163 to 1.69502412090132922E-175; ratio upper 5.00714712529252662E-13. Pending decision accepted_midpoint_rank_one, proposal accelerated, post-proposal factors 2, cumulative phases 112. Launcher 410.188818s, sampled aggregate peak 20.232GiB. Full raw/audits retained at /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-009, manifest 64d5a5c583fe75951f8b9af37718bfc06a71d9b033ae0ebbee08e1323b51b097. No numerical factor is asserted an inverse; no root, primitive period, attraction, speedup or utility claim. All target processes terminated.
+
+_commit `c7b24db4fdcb` (dirty worktree)_
+
+## 2026-10-13 08:38 UTC: run (exploratory)
+
+- **Question:** Does the next unchanged complete eight-phase candidate continue to reduce the exact shooting residual?
+- **Setup:** Plan center-parallel-010-plan.json SHA a071e6893915794c7a47848381d712ee6377138f714f29bde506309f7038d085, independently reviewed in center-parallel-010-plan-review.md. Same 16 runtime pins, exact parent capsule, independent audit and prefix/seed pins. One pending update consumed once; all recorded restarts/fallbacks/regressions preserved. Exactly one new candidate with four isolated CPU1 workers, nice10,18GiB address space each,32GiB sampled aggregate watchdog,12GiB available-memory floor,600s worker allowance and shared1800s cap plus10s cleanup. Root rechecks resource availability immediately before launch. Prior measured 410.19s is a budget reference only. No GPU, paid resource, protected data or full derivative campaign. Only a complete independently audited result may become the next parent.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/center-parallel-010`
+- **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
+
+_commit `c7b24db4fdcb` (dirty worktree)_
