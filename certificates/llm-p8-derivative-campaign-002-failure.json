@@ -1,0 +1,103 @@
+{
+  "utc": "2026-10-13T12:20:33Z",
+  "source_commit": "afdaa76fcb7b552071bf8e81ad5ff58f02dde19a",
+  "plan_sha256": "2885a7a628d1c0702cf4359674371474a4aa08c8b2d199be6553134f1390d050",
+  "status": {
+    "certificate_passed": false,
+    "completed": 17,
+    "sampled_rss_is_hard_cap": false,
+    "scientific_derivative_audit_pending": true,
+    "started": 21,
+    "status": "campaign_failed",
+    "stop_reason": "CalledProcessError(128, ['git', 'status', '--porcelain', '--untracked-files=all'])",
+    "uncertain_ownership": [],
+    "undispatched": 90
+  },
+  "original_receipt_sha256": "ba54b173b995c02de20a8f63f4ac838c6e5e9b0b07771b31271cd41184d444f5",
+  "controller_artifacts_verified": 49,
+  "all43_original_pid_and_session_groups_absent": true,
+  "failed_shards": [
+    {
+      "attempt": "final-derivative-p1-c256-001",
+      "plan": {
+        "name": "final-derivative-p1-c256-001-plan.json",
+        "sha256": "6209e794011d0f0496535c9d0bc38b8a09aab53e20164fc2abe09bb5734cf4f0"
+      },
+      "worker_termination_verified": true,
+      "launcher_exit": 1,
+      "receipt.json": {
+        "sha256": "537cac02174654c52dcebfa63e3d83de20e0a9afb2c521de5eb96c8f70587bfe",
+        "bytes": 55192
+      },
+      "manifest.json": {
+        "sha256": "900be299e31176ca2a6ddbc775dea0854c31cfa662545d44158f8ee8e33a696f",
+        "bytes": 51989
+      }
+    },
+    {
+      "attempt": "final-derivative-p1-c320-001",
+      "plan": {
+        "name": "final-derivative-p1-c320-001-plan.json",
+        "sha256": "35a616f2b945609e339eda9e454eba3b6bcb2e99b11b2279beafeaa4e257d33c"
+      },
+      "worker_termination_verified": true,
+      "launcher_exit": 1,
+      "receipt.json": {
+        "sha256": "2860f0f5686f41a7fba71754d6233b8514906eedc1f2ae4d600d83ccbc1041f5",
+        "bytes": 54866
+      },
+      "manifest.json": {
+        "sha256": "14dd680006f9901ded7d913c9dca2b55b7d4b25fd9feca1926f48d7da4c8439b",
+        "bytes": 51989
+      }
+    },
+    {
+      "attempt": "final-derivative-p1-c384-001",
+      "plan": {
+        "name": "final-derivative-p1-c384-001-plan.json",
+        "sha256": "273e885513d99be32e76712f7d986fe7266896b50fd1a48847ed3602b0edc7be"
+      },
+      "worker_termination_verified": true,
+      "launcher_exit": 1,
+      "receipt.json": {
+        "sha256": "1dddf2edec925010007d05f266af87238b743493344350f4da492695f6240992",
+        "bytes": 54867
+      },
+      "manifest.json": {
+        "sha256": "1dce80726f85eca22a7157a9f3ad9b757cd01c8a73887ff0f0788c801ab73df3",
+        "bytes": 51989
+      }
+    },
+    {
+      "attempt": "final-derivative-p1-c448-001",
+      "plan": {
+        "name": "final-derivative-p1-c448-001-plan.json",
+        "sha256": "284900b3ab50271e063eecae7a22c7b1426fdabbae245b348841a24a24955c20"
+      },
+      "worker_termination_verified": true,
+      "launcher_exit": 1,
+      "receipt.json": {
+        "sha256": "68b4210ba9934f0ccf8d9a116db89d86bacf6837b45d90b819ea295f33a1715c",
+        "bytes": 54064
+      },
+      "manifest.json": {
+        "sha256": "f53c64fd11402b2ba04eb456cd7e379968de3ea3dc5df866871ec3c5b8c6dbab",
+        "bytes": 51989
+      }
+    }
+  ],
+  "tool_session": 20078,
+  "tool_reaped_exit": 1,
+  "terminal_stderr": "fatal: unable to create threaded lstat: Resource temporarily unavailable",
+  "terminal_provenance": "Exact final stderr returned by write_stdin(session_id=20078) at12:19UTC; not a file originally captured by controller.",
+  "model_replay_performed": false,
+  "mathematical_outcomes_inspected": false,
+  "certificate_passed": false,
+  "archive": "/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-derivative-campaign-002-failure",
+  "archive_manifest_sha256": "d2cf4cb5010541f42c9850c60195509aa8e1cb3aa85de31d42c1b85692b09cac",
+  "all_43_identities_report_sha256": "145d2e60bcb7229ddb556c553f600ac1a3bb203783f4bfccf715c8dbefc3ffab",
+  "remaining_missing_shards": 94,
+  "completed_plus_previously_audited_first": 18,
+  "cause_scope": "Observed Git threaded-lstat resource failure. Specific underlying resource cause was not established. Root later reproduced clean Git status with and without scoped preloadIndex=false under1GiB; no proof of AS or PID exhaustion.",
+  "retry_authorized": false
+}

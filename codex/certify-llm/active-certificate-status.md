@@ -1,8 +1,18 @@
 # Active exact-real Qwen certificate work
 
-13 October 2026, 11:23 UTC. **Campaign002 is running; no orbit certificate yet.** This is the assigned896-dimensional full-state soft-token inference map with all151,936 vocabulary entries. No training-cycle or task-performance claim follows.
+13 October 2026, 12:24 UTC. **Campaign002 stopped on an operational Git error; all owned processes are closed. No orbit certificate yet.** This is the assigned896-dimensional full-state soft-token inference map with all151,936 vocabulary entries. No training-cycle or task-performance claim follows.
 
-## Current owner and bounded active campaign
+## Current failure, closure and retained progress
+
+Campaign002 ended with17 newly completed shards and four interrupted shards after a Git cleanliness check failed with `fatal: unable to create threaded lstat: Resource temporarily unavailable`. The underlying transient resource cause is not established. Original controller status/receipt/failure remain immutable; receipt `ba54b173b995c02de20a8f63f4ac838c6e5e9b0b07771b31271cd41184d444f5`. Tool session20078 was reaped exit1. At12:20:33UTC all43 original controller/launcher/worker PIDs and their former session/groups were absent, with no ownership uncertainty. No numerical worker is active and no automatic restart is authorized.
+
+All17 successful original shard records passed the unchanged operational verifier:4,964 artifact hashes, exact source/plan/domain/map/backend and complete64-column status, exit0/no-timeout/recorded termination. With the separately audited original first shard,18/112 are operationally complete. These17 mathematical enclosures still await the final scientific audit. Ninety assignments were undispatched; phase1 columns256,320,384,448 have preserved failed001 partials. A prospective recovery must retain the completed18 and use new identities for the four interrupted blocks, leaving94 missing blocks total. No domain, evaluator, precision or mathematical gate changes are planned.
+
+Failure archive `/data2/neural-shrimp-data/codex/llm-p8-certificate/audits-derivative-campaign-002-failure`, manifest `d2cf4cb5010541f42c9850c60195509aa8e1cb3aa85de31d42c1b85692b09cac` (71files). Completed metadata archive `campaign002-operational-final-017`, manifest `b42b81daa2863ec3bb2698026b5eeceadcb4b293d0e0d20f223593da5af80552`. Compact receipts: `certificates/llm-p8-derivative-campaign-002-failure.json` and `llm-p8-derivative-campaign-002-final-017.json`. Inference retains Git/lifecycle coordination. Boundary is preparing a source-only scoped Git-status correction and explicit retained/missing partition; Root review, new private-pushed plan/card and fresh capacity admission are required before any campaign003. Task6's separately authorized repaired saved-data audit may proceed after its own source/card admission; Task7 full fold waits Task6.
+
+The following campaign002 startup and11:23 observations are historical; their PIDs must never be reused as active ownership.
+
+## Historical campaign002 owner and bounds
 
 Inference retains task-owned lifecycle/Git ownership unless explicitly transferred by Root. Root's same-chat automation `complete-qwen-p8-certificate` now runs every30minutes and must rejoin the existing owner and inspect live identities before any action. Never duplicate or restart the campaign from a heartbeat.
 
@@ -48,7 +58,7 @@ Domain001's read-only helper count mismatch is separately preserved; corrected00
 
 ## Finite completion obligations
 
-1. Let the fixed111 remaining assignments finish under their existing controller and bounds. On a failure, preserve all outputs, stop new dispatch, verify owned cleanup and disclose any uncertainty. No adaptive retry.
+1. Preserve closed campaign002 and all18 completed blocks. Review a prospective operational-only recovery with94 missing blocks, explicit retained authorities and new identities for four failed blocks; do not restart without its reviewed private-pushed plan and fresh resource admission.
 2. Authenticate all112 final-domain shards, every8x896 positive coordinate direction exactly once with signed Jacobian entries, the same map/assets/prefix/backend and exact nominal boxes. Keep original serialized receiver containment checks before decoding. Prototype shards cannot substitute.
 3. Bind the separately authenticated exact point images, then execute the reviewed bounded assembly with strict shooting-root inclusion/contraction, proper-divisor separation and monodromy-power attraction gates. Root uniqueness concerns the ordered shooting tuple in its product box; attraction is separate.
 4. Independently check full witnesses under the documented trusted-Arb arithmetic/evaluator/asset/source-execution basis with `witness_audit.py`. The finite acceptance standard is `final-certificate-acceptance.md`. A sufficient-condition failure is a setup result, not a disproved orbit.

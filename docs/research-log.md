@@ -21874,3 +21874,9 @@ _commit `ba16399aaf8e` (dirty worktree)_
 Before any full Task7 fold run, audit preparation found that both closure scalars were saved but the phase1 return vector was missing. The root-approved storage-only amendment saves phase_return_points from the same two existing evaluations, with unchanged method/calls/formulas/gates. Worker2dca8f02; new plan53fcb608cd4dcaf8aa3437fffe13c5fe38e3873e6a5d31a8071ea8b91bfa4cd7;31 focused worker/runtime controls passed2.27s. Original checkpointc4ae3108 and all earlier evidence remain. Task6 work retains priority and no full fold has launched.
 
 _commit `c4ae3108bd58` (dirty worktree)_
+
+## 2026-10-13 12:26 UTC: Certificate campaign002 Git operational failure; all owned processes closed
+
+Originalsourceafdaa76f campaign002 stopped after17 new completed blocks when git status failed to create a threaded lstat worker; specific resource cause not established. Controller receiptba54b173b995c02de20a8f63f4ac838c6e5e9b0b07771b31271cd41184d444f5 preserved, session20078 reapedexit1; all43 original PIDs/session-groups absent. All17 complete records/4964 artifact hashes pass operational admission, scientific enclosure audit still pending;18/112 complete including original first. Four interrupted001 blocks retained,90 undispatched. Failure manifestd2cf4cb5010541f42c9850c60195509aa8e1cb3aa85de31d42c1b85692b09cac; final17 manifestb42b81daa2863ec3bb2698026b5eeceadcb4b293d0e0d20f223593da5af80552. Preparing only a reviewed operational recovery, no automatic restart or mathematical/domain change.
+
+_commit `4465ced374b6` (dirty worktree)_
