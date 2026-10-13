@@ -168,7 +168,7 @@ def test_select_and_analyze_end_to_end(tmp_path, monkeypatch):
     states = spec["states"]
     for st in states:
         assert st["transcript"][-1] == f"r{st['dialogue']}t{st['turn']}" and len(st["transcript"]) == st["turn"] + 2
-    # rollouts drawn from each dialogue's true per-turn hazard: the analysis must recover the realized event rate
+    # rollouts drawn from each dialogue's per-turn hazard (zero for dialogues never captured)
     K, H = 16, 3
     dest = tmp_path / "explore" / "m" / "roll"
     dest.mkdir(parents=True)
@@ -177,9 +177,11 @@ def test_select_and_analyze_end_to_end(tmp_path, monkeypatch):
     half = len(states) // 2
     for b, (s0, s1) in enumerate(((0, half), (half, len(states)))):
         np.savez(dest / f"block-{b:04d}.npz", toxic=toxic[s0:s1], keys=np.array([st["key"] for st in states[s0:s1]]))
-    pc.analyze(argparse.Namespace(states="m/states", rollouts="m/roll", test=["m/te1:0.04", "m/te2:0.045"],
-                                  train=["m/tr1:0.04", "m/tr2:0.045"], boot=30, seed=0, out="m/out", rescore=0,
-                                  threads=1))
+    states_sha = pc.sha256(tmp_path / "explore" / "m" / "states" / "states.json")
+    (dest / "rollout.json").write_text(json.dumps({"args": {"k": K, "h": H}, "states_sha256": states_sha}))
+    ns = dict(states="m/states", rollouts="m/roll", test=["m/te1:0.04", "m/te2:0.045"], train=["m/tr1:0.04", "m/tr2:0.045"],
+              boot=30, seed=0, out="m/out", rescore=0, threads=1, allow_partial=False, ignore_calibration_gate=True)
+    pc.analyze(argparse.Namespace(**ns))
     res = json.loads((tmp_path / "explore" / "m" / "out" / "committor.json").read_text())
     assert res["states_with_rollouts"] == len(states)
     for h in ("1", "2", "3"):
@@ -207,3 +209,44 @@ def test_outputs_are_never_overwritten(tmp_path, monkeypatch):
     with pytest.raises(SystemExit):
         ell.refuse_overwrite("used")
     ell.refuse_overwrite("used", allow=True)
+
+
+def test_analysis_gates(tmp_path, monkeypatch):
+    import argparse
+    import json
+
+    import explore_llm_attractors as ela
+
+    monkeypatch.setattr(ela, "DATA", tmp_path)
+    rng = np.random.default_rng(7)
+    for name, dose in (("tr1", 0.04), ("tr2", 0.045), ("te1", 0.04), ("te2", 0.045)):
+        make_arm(tmp_path, f"m/{name}", dose, rng)
+    pc.select(argparse.Namespace(arms=["m/te1:0.04", "m/te2:0.045"], h=3, n_pos=30, n_neg=30, trajectories=4,
+                                 offsets=10, seed=0, out="m/states"))
+    states = json.loads((tmp_path / "explore" / "m" / "states" / "states.json").read_text())["states"]
+    keys = np.array([st["key"] for st in states])
+    dest = tmp_path / "explore" / "m" / "roll"
+    dest.mkdir(parents=True)
+    ns = dict(states="m/states", rollouts="m/roll", test=["m/te1:0.04", "m/te2:0.045"], train=["m/tr1:0.04", "m/tr2:0.045"],
+              boot=20, seed=0, out="m/out", rescore=0, threads=1, allow_partial=False, ignore_calibration_gate=False)
+    # duplicate keys across blocks
+    np.savez(dest / "block-0000.npz", toxic=np.zeros((2, 4, 3)), keys=keys[:2])
+    np.savez(dest / "block-0001.npz", toxic=np.zeros((2, 4, 3)), keys=keys[:2])
+    with pytest.raises(SystemExit, match="duplicate"):
+        pc.analyze(argparse.Namespace(**ns))
+    (dest / "block-0001.npz").unlink()
+    # incomplete coverage without rollout.json: refused unless --allow-partial
+    with pytest.raises(SystemExit, match="missing"):
+        pc.analyze(argparse.Namespace(**ns))
+    # complete, but rollouts never hostile while the realized dialogues are: the fidelity gate stops the analysis
+    (dest / "block-0000.npz").unlink()
+    np.savez(dest / "block-0000.npz", toxic=np.zeros((len(keys), 4, 3)), keys=keys)
+    sha = pc.sha256(tmp_path / "explore" / "m" / "states" / "states.json")
+    (dest / "rollout.json").write_text(json.dumps({"args": {"k": 4, "h": 3}, "states_sha256": "0" * 64}))
+    with pytest.raises(SystemExit, match="different states file"):
+        pc.analyze(argparse.Namespace(**ns))
+    (dest / "rollout.json").write_text(json.dumps({"args": {"k": 4, "h": 3}, "states_sha256": sha}))
+    with pytest.raises(SystemExit, match="calibration gate"):
+        pc.analyze(argparse.Namespace(**ns))
+    assert (tmp_path / "explore" / "m" / "out" / "committor-gate-failed.json").exists()
+    assert not (tmp_path / "explore" / "m" / "out" / "committor.json").exists()
