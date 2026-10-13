@@ -1,0 +1,25 @@
+# Independent derivative-evidence adapter review
+
+2026-10-13 UTC. No unresolved correctness blocker found in the artifact-authentication and conditional coverage scope. This review used source inspection and CPU1 synthetic tests only: no target model, checkpoint, actual derivative shard or candidate was evaluated or admitted.
+
+Reviewed release:
+
+| File | SHA-256 |
+|---|---|
+| `derivative_evidence.py` | `8124c73351a0a8bd2b6c488983afd00874d2b9be517f15be34393957668d72da` |
+| `test_codex_llm_derivative_evidence.py` | `1f5f944fecf61139d772010f2f4c40d51d97e82310e66447318301f8b6976f74` |
+| `derivative-evidence-design.md` | `06ac85fd76929329c1023c80f0ee57a2a1d03cdbed407db06109614596fe45d5` |
+
+The adapter takes candidate, source-bundle, map, backend and prefix trust anchors from its caller. It reconstructs the fixed map recipe, compares exact frozen candidate bytes and both nominal-domain hash conventions, and requires every reviewed evaluator dependency. Per-shard authentication covers the whole receipt and captured source inventory, successful exit/no timeout, one captured plan, isolated driver command, final status, original live inputs and exact signed basis directions, decoder stages, both complete vocabulary passes, and retained head diagnostic. Prototype, partial and inconsistent shards cannot become final derivative evidence through their own status labels.
+
+The critical enclosure boundary is handled correctly: original serialized live-input endpoints must contain every nominal coordinate interval before any Arb decoding. The saved rational containment witnesses are independently reconstructed. Larger receiver boxes are allowed because their derivatives enclose the nominal box as well. Output reconstruction and matrix assignment may widen, with explicit checks against narrowing. Every signed coordinate direction appears once per phase; missing or duplicate coverage fails. Same-phase primal intersections are checked from original endpoints. The helper-domain artifact is separately bound to the candidate and helper source; it cannot replace the actual live receiver records.
+
+The iterator forwards each authenticated original shard directly to the unchanged pure collector. Complete shard JSON payloads do not accumulate for the entire 112-shard collection; the assembled native matrices and compact audit records necessarily remain. Source precision is fixed at 1024 bits, while assembly precision is recorded separately. Synthetic tests explicitly exercise 2048-bit assembly of 1024-bit outputs without dropping interval radii or altering original domain checks.
+
+The separately pinned prefix has a distinct completion policy. The reviewed saved 1024-bit prefix may come from the known later failed box diagnostic, but failed/timed-out derivative attempts are always refused. The adapter checks the full prefix inventory, externally reviewed graph/cache hashes, constants/assets/prefix identity, arithmetic backend, complete prefix stages and finite original cache encodings. Correct checkpoint/config/head dimensions and actual receiving array construction remain obligations of the pinned evaluator/cache loader; the adapter does not instantiate a model or infer arrays from a hash. The documentation states that boundary explicitly.
+
+Whole-vocabulary argmax diagnostics retain exact extrema and a margin enclosing their difference, with a strict-positive flag checked from original endpoints. They refer to the actual receiver boxes. They neither establish a periodic orbit nor substitute for the separate root, primitive-period or attraction gates; all certificate flags remain false.
+
+A provenance clarification requested during review is included in this release: `git_commit_blob_verification_performed:false`. The adapter verifies captured runtime bytes against the external complete source bundle and verifies declared commit identity across records. It does not query Git to prove every captured path belongs to that commit. A final caller may separately verify that archival provenance and must freeze/review the adapter itself. Similarly, the prefix receipt/source pins must come from an independently reviewed prefix, and all evidence/source inputs must remain immutable throughout collection. Metadata alone does not prove evaluator correctness.
+
+Independent validation: **198 combined tests passed in 4.15 seconds** across the adapter, coverage collector, shard producer and mixed-precision domain helper. After the report-only Git-provenance clarification, the affected **55 adapter tests passed again in 2.79 seconds** at the release hashes above. The full fixture exercises two phases, four coordinates, two directions per shard and 2,051 vocabulary entries, including three chunks per head pass and the successful-prefix/later-failed-box distinction. Resealed semantic corruptions test source/map/backend mismatches, original endpoint narrowing, inconsistent witnesses, incomplete numerical arrays, unsupported roles, failed completion, stage ordering, labels and missing/duplicate coverage. No gates in the previously reviewed evaluator or collector were changed.

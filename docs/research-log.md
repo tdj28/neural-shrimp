@@ -21339,3 +21339,24 @@ _commit `211f1a1c1037` (dirty worktree)_
 - **Would surprise us:** Failure to honor the required cap restart, an incomplete phase, resource overrun, or residual regression; all remain evidence.
 
 _commit `b1e1b26ef9da` (dirty worktree)_
+
+## 2026-10-13 07:02 UTC: Task 1: center-parallel-002 completed and independently audited
+
+Source be9d08523b7527c2e6715708ad7db405be02caaa, receipt 0a6bae0adcd1ff90e08b08e9508386491ce53aaac11980eaed86c9fd4f9e763c; all 204 artifacts, 93 Git blobs and eight full phase rows checked independently and by the root. Exact residual norm strict decrease 3.52379101053601862E-77 to 4.16828019605685895E-89; ratio upper 1.18289654057060676E-12. Pending decision history_cap_restart, proposal baseline_no_history, post-proposal factors 0, cumulative phases 56. Launcher 286.695061s, sampled aggregate peak 21.219GiB. Full raw/audits retained at /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-center-parallel-002, manifest c881535ca24251ea3c58f5b083f91975276fa4143f721565818fbc75cb90e139. No numerical factor is asserted an inverse; no root, primitive period, attraction, speedup or utility claim. All target processes terminated.
+
+_commit `72626b449455` (dirty worktree)_
+
+## 2026-10-13 07:02 UTC: run (exploratory)
+
+- **Question:** Does the next unchanged complete eight-phase candidate continue to reduce the exact shooting residual?
+- **Setup:** Plan center-parallel-003-plan.json SHA 5b163c0c3c8f042b38dae4fe9a39af1969a5519afd2a43adee7307acd05937f7, independently reviewed in center-parallel-003-plan-review.md. Same 16 runtime pins, exact parent capsule, independent audit and prefix/seed pins. One pending update consumed once; all recorded restarts/fallbacks/regressions preserved. Exactly one new candidate with four isolated CPU1 workers, nice10,18GiB address space each,32GiB sampled aggregate watchdog,12GiB available-memory floor,600s worker allowance and shared1800s cap plus10s cleanup. Root rechecks resource availability immediately before launch. Prior measured 286.70s is a budget reference only. No GPU, paid resource, protected data or full derivative campaign. Only a complete independently audited result may become the next parent.
+- **Output:** `/data2/neural-shrimp-data/codex/llm-p8-certificate/center-parallel-003`
+- **Would surprise us:** Missing phase, changed map or method, resource overrun, or residual regression; every outcome is retained.
+
+_commit `72626b449455` (dirty worktree)_
+
+## 2026-10-13 07:03 UTC: Task 1: derivative artifact authentication and final-gate review
+
+Added separately reviewed derivative_evidence.py, which checks whole successful derivative inventories, independent candidate/map/backend/source/prefix pins and original endpoint containment before streamed full-coordinate assembly. All55 synthetic adapter cases pass; initial root combined suite287 passed, independent related198 passed, and55 affected cases passed again after a report-only Git-provenance clarification (root2.93s). The adapter explicitly does not query Git or prove evaluator correctness from hashes; all certificate flags remain false. Independent mathematical review of unchanged shooting/primitive/attraction gates found no algebraic blocker;89 focused tests plus exact-Fraction checks of308 defect entries and77 factored bounds passed. Full-size cost remains unmeasured:35 dense products and2,408,448 nested attraction ball records. Review/code archive /data2/neural-shrimp-data/codex/llm-p8-certificate/audits-proof-helpers-001 manifest 9fd5e9032bb7a78004f208dbbad01d1290777530b55f4c4996fe0f843738e4e3. A bounded synthetic actual-size resource pilot is being prepared separately. No target derivative campaign or orbit certificate. Resource recheck07:02UTC:55GiB available, load1.87; Claude GPU99percent/PID330008 retained; center-parallel003 plan will be pushed before launch.
+
+_commit `72626b449455` (dirty worktree)_
