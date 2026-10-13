@@ -314,9 +314,9 @@ def cusp_predictions(unfolding, offsets):
         beta0, beta1 = J @ np.asarray(d, dtype=np.float64)
         roots = np.roots([c, b, beta1, beta0])
         real = sorted(float(z.real) for z in roots if abs(z.imag) < 1e-9 * max(1.0, abs(z.real)))
-        mult = [1 + beta1 + 2 * b * u + 3 * c * u * u for u in real]
+        mult = [float(1 + beta1 + 2 * b * u + 3 * c * u * u) for u in real]
         out.append({"offset": [float(v) for v in d], "beta": [float(beta0), float(beta1)], "roots": real,
-                    "reduced_multipliers": mult, "stable": [abs(m) < 1 for m in mult]})
+                    "reduced_multipliers": mult, "stable": [bool(abs(m) < 1) for m in mult]})
     return out
 
 
