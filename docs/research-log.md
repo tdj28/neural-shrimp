@@ -21698,3 +21698,18 @@ _commit `73a2733b5939`_
 - **Would surprise us:** A failed/nonfinite shard, source/domain mismatch, resource breach or uncertain ownership stops dispatch and is preserved; completing derivatives still requires full independent coverage and strict root/primitive/attraction gates.
 
 _commit `7838b2ee6924` (dirty worktree)_
+
+## 2026-10-13 10:08 UTC: Hostile fold normal form, first attempt (run V5): branch turned at a clean fold; normal form refused at a point with multiplier 1.012 (gate held)
+
+Run V5 (pod yu0lflpp6wvct5, 340 s, commit 9b1c3b55? see run card; hashes match, terminated): float64 branch of the '!Yes' 2-cycle from (log10 T -0.0445, alpha 0.083) down in temperature: crossing type real +1 (fold) between log10 T -0.0462426 and -0.0462458 (indices 14-15; crossing multiplier 1.0120 on the far side, next largest modulus 0.050), consistent with the V4 fold at -0.0462465. The normal-form step chose the branch point nearest +1 (multiplier 1.0120) and refused to compute fold coefficients there (|mu - 1| > 0.01): kept as a setup failure. Rerun V5b: exact fold located by the curve tool's test function from this branch, normal form at that point (eps in log10 T).
+
+_commit `84963ef04afd`_
+
+## 2026-10-13 10:08 UTC: run (exploratory)
+
+- **Question:** Normal form of the hostile 2-cycle fold at its exact location (rerun of V5).
+- **Setup:** RunPod H100 (run V5b), job set hnormal2, commit 84963ef0: curve (float64, kind fold, gtol 1e-9) from hnormal/branch-p2-fold, 3 steps; normal-form at curve index 0, param temperature
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hnormal/{curve-p2-fold,normal-form-p2}`
+- **Would surprise us:** a fold that the curve tool cannot locate from this branch
+
+_commit `84963ef04afd` (dirty worktree)_
